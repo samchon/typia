@@ -5,9 +5,7 @@ import { DynamicSimple } from "../../../structures/DynamicSimple";
 export const test_misc_clone_DynamicSimple = _test_misc_clone<DynamicSimple>(
     DynamicSimple,
 )((input) =>
-    ((
-        input: IPointer<{ [key: string]: number }>,
-    ): typia.Primitive<IPointer<{ [key: string]: number }>> => {
+    ((input: DynamicSimple): typia.Primitive<DynamicSimple> => {
         const $io1 = (input: any): boolean =>
             Object.keys(input).every((key: any) => {
                 const value = input[key];

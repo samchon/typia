@@ -5,9 +5,9 @@ import { ClassMethod } from "../../../structures/ClassMethod";
 export const test_validate_ClassMethod = _test_validate<ClassMethod>(
     ClassMethod,
 )((input) =>
-    ((input: any): typia.IValidation<ClassMethod.Animal> => {
+    ((input: any): typia.IValidation<ClassMethod> => {
         const errors = [] as any[];
-        const __is = (input: any): input is ClassMethod.Animal => {
+        const __is = (input: any): input is ClassMethod => {
             return (
                 "object" === typeof input &&
                 null !== input &&
@@ -22,7 +22,7 @@ export const test_validate_ClassMethod = _test_validate<ClassMethod>(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is ClassMethod.Animal => {
+            ): input is ClassMethod => {
                 const $vo0 = (
                     input: any,
                     _path: string,

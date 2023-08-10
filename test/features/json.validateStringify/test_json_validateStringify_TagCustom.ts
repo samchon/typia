@@ -4,5 +4,5 @@ import { TagCustom } from "../../structures/TagCustom";
 
 export const test_json_validateStringify_TagCustom =
     _test_json_validateStringify<TagCustom>(TagCustom)((input) =>
-        typia.json.validateStringify(input),
+        typia.json.validateStringify<TagCustom>(input),
     );

@@ -5,11 +5,11 @@ import { TagRange } from "../../../structures/TagRange";
 export const test_assertEquals_TagRange = _test_assertEquals<TagRange>(
     TagRange,
 )((input) =>
-    ((input: any): IPointer<Array<TagRange.Type>> => {
+    ((input: any): TagRange => {
         const __is = (
             input: any,
             _exceptionable: boolean = true,
-        ): input is IPointer<Array<TagRange.Type>> => {
+        ): input is TagRange => {
             const $io0 = (
                 input: any,
                 _exceptionable: boolean = true,
@@ -85,7 +85,7 @@ export const test_assertEquals_TagRange = _test_assertEquals<TagRange>(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is IPointer<Array<TagRange.Type>> => {
+            ): input is TagRange => {
                 const $guard = (typia.assertEquals as any).guard;
                 const $join = (typia.assertEquals as any).join;
                 const $ao0 = (

@@ -4,14 +4,12 @@ import { ObjectHierarchical } from "../../../structures/ObjectHierarchical";
 
 export const test_misc_validatePrune_ObjectHierarchical =
     _test_misc_validatePrune<ObjectHierarchical>(ObjectHierarchical)((input) =>
-        ((input: any): typia.IValidation<ObjectHierarchical.ICustomer> => {
+        ((input: any): typia.IValidation<ObjectHierarchical> => {
             const validate = (
                 input: any,
-            ): typia.IValidation<ObjectHierarchical.ICustomer> => {
+            ): typia.IValidation<ObjectHierarchical> => {
                 const errors = [] as any[];
-                const __is = (
-                    input: any,
-                ): input is ObjectHierarchical.ICustomer => {
+                const __is = (input: any): input is ObjectHierarchical => {
                     const $is_url = (typia.misc.validatePrune as any).is_url;
                     const $is_ipv4 = (typia.misc.validatePrune as any).is_ipv4;
                     const $io0 = (input: any): boolean =>
@@ -116,7 +114,7 @@ export const test_misc_validatePrune_ObjectHierarchical =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is ObjectHierarchical.ICustomer => {
+                    ): input is ObjectHierarchical => {
                         const $is_url = (typia.misc.validatePrune as any)
                             .is_url;
                         const $is_ipv4 = (typia.misc.validatePrune as any)
@@ -560,7 +558,7 @@ export const test_misc_validatePrune_ObjectHierarchical =
                     data: success ? input : undefined,
                 } as any;
             };
-            const prune = (input: ObjectHierarchical.ICustomer): void => {
+            const prune = (input: ObjectHierarchical): void => {
                 const $io1 = (input: any): boolean =>
                     "number" === typeof input.id &&
                     "string" === typeof input.code &&

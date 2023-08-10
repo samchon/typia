@@ -4,4 +4,4 @@ import { DynamicComposite } from "../../structures/DynamicComposite";
 
 export const test_is_DynamicComposite = _test_is<DynamicComposite>(
     DynamicComposite,
-)((input) => typia.is(input));
+)((input) => typia.is<DynamicComposite>(input));

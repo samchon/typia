@@ -4,4 +4,4 @@ import { ToJsonAtomicUnion } from "../../structures/ToJsonAtomicUnion";
 
 export const test_is_ToJsonAtomicUnion = _test_is<ToJsonAtomicUnion>(
     ToJsonAtomicUnion,
-)((input) => typia.is(input));
+)((input) => typia.is<ToJsonAtomicUnion>(input));

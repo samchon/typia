@@ -4,4 +4,4 @@ import { MapAlias } from "../../structures/MapAlias";
 
 export const test_json_isStringify_MapAlias = _test_json_isStringify<MapAlias>(
     MapAlias,
-)((input) => typia.json.isStringify(input));
+)((input) => typia.json.isStringify<MapAlias>(input));

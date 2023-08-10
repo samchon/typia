@@ -5,11 +5,9 @@ import { TagRange } from "../../../structures/TagRange";
 export const test_misc_assertPrune_TagRange = _test_misc_assertPrune<TagRange>(
     TagRange,
 )((input) =>
-    ((input: any): IPointer<Array<TagRange.Type>> => {
-        const assert = (input: any): IPointer<Array<TagRange.Type>> => {
-            const __is = (
-                input: any,
-            ): input is IPointer<Array<TagRange.Type>> => {
+    ((input: any): TagRange => {
+        const assert = (input: any): TagRange => {
+            const __is = (input: any): input is TagRange => {
                 const $io0 = (input: any): boolean =>
                     Array.isArray(input.value) &&
                     input.value.every(
@@ -52,7 +50,7 @@ export const test_misc_assertPrune_TagRange = _test_misc_assertPrune<TagRange>(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is IPointer<Array<TagRange.Type>> => {
+                ): input is TagRange => {
                     const $guard = (typia.misc.assertPrune as any).guard;
                     const $ao0 = (
                         input: any,
@@ -240,7 +238,7 @@ export const test_misc_assertPrune_TagRange = _test_misc_assertPrune<TagRange>(
                 })(input, "$input", true);
             return input;
         };
-        const prune = (input: IPointer<Array<TagRange.Type>>): void => {
+        const prune = (input: TagRange): void => {
             const $io1 = (input: any): boolean =>
                 "number" === typeof input.greater &&
                 3 < input.greater &&

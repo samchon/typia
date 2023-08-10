@@ -4,10 +4,8 @@ import { TagAtomicUnion } from "../../../structures/TagAtomicUnion";
 
 export const test_json_isStringify_TagAtomicUnion =
     _test_json_isStringify<TagAtomicUnion>(TagAtomicUnion)((input) =>
-        ((input: IPointer<Array<TagAtomicUnion.Type>>): string | null => {
-            const is = (
-                input: any,
-            ): input is IPointer<Array<TagAtomicUnion.Type>> => {
+        ((input: TagAtomicUnion): string | null => {
+            const is = (input: any): input is TagAtomicUnion => {
                 const $io0 = (input: any): boolean =>
                     Array.isArray(input.value) &&
                     input.value.every(
@@ -27,9 +25,7 @@ export const test_json_isStringify_TagAtomicUnion =
                     "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            const stringify = (
-                input: IPointer<Array<TagAtomicUnion.Type>>,
-            ): string => {
+            const stringify = (input: TagAtomicUnion): string => {
                 const $io1 = (input: any): boolean =>
                     ("string" === typeof input.value &&
                         3 <= input.value.length &&

@@ -4,5 +4,5 @@ import { AtomicSimple } from "../../structures/AtomicSimple";
 
 export const test_misc_assertClone_AtomicSimple =
     _test_misc_assertClone<AtomicSimple>(AtomicSimple)((input) =>
-        typia.misc.assertClone(input),
+        typia.misc.assertClone<AtomicSimple>(input),
     );

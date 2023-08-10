@@ -4,4 +4,4 @@ import { SetAlias } from "../../structures/SetAlias";
 
 export const test_json_stringify_SetAlias = _test_json_stringify<SetAlias>(
     SetAlias,
-)((input) => typia.json.stringify(input));
+)((input) => typia.json.stringify<SetAlias>(input));

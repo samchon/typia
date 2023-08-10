@@ -4,12 +4,8 @@ import { DynamicSimple } from "../../../structures/DynamicSimple";
 
 export const test_misc_isClone_DynamicSimple =
     _test_misc_isClone<DynamicSimple>(DynamicSimple)((input) =>
-        ((
-            input: any,
-        ): typia.Primitive<IPointer<{ [key: string]: number }>> | null => {
-            const is = (
-                input: any,
-            ): input is IPointer<{ [key: string]: number }> => {
+        ((input: any): typia.Primitive<DynamicSimple> | null => {
+            const is = (input: any): input is DynamicSimple => {
                 const $join = (typia.misc.isClone as any).join;
                 const $io0 = (input: any): boolean =>
                     "object" === typeof input.value &&
@@ -32,8 +28,8 @@ export const test_misc_isClone_DynamicSimple =
                 );
             };
             const clone = (
-                input: IPointer<{ [key: string]: number }>,
-            ): typia.Primitive<IPointer<{ [key: string]: number }>> => {
+                input: DynamicSimple,
+            ): typia.Primitive<DynamicSimple> => {
                 const $io1 = (input: any): boolean =>
                     Object.keys(input).every((key: any) => {
                         const value = input[key];

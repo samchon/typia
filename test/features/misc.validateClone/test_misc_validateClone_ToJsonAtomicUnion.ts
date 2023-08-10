@@ -4,5 +4,5 @@ import { ToJsonAtomicUnion } from "../../structures/ToJsonAtomicUnion";
 
 export const test_misc_validateClone_ToJsonAtomicUnion =
     _test_misc_validateClone<ToJsonAtomicUnion>(ToJsonAtomicUnion)((input) =>
-        typia.misc.validateClone(input),
+        typia.misc.validateClone<ToJsonAtomicUnion>(input),
     );

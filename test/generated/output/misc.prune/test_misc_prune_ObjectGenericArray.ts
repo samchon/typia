@@ -4,9 +4,7 @@ import { ObjectGenericArray } from "../../../structures/ObjectGenericArray";
 
 export const test_misc_prune_ObjectGenericArray =
     _test_misc_prune<ObjectGenericArray>(ObjectGenericArray)((input) =>
-        ((
-            input: ObjectGenericArray.IPage<ObjectGenericArray.IPerson>,
-        ): void => {
+        ((input: ObjectGenericArray): void => {
             const $io1 = (input: any): boolean =>
                 "number" === typeof input.page &&
                 "number" === typeof input.limit &&

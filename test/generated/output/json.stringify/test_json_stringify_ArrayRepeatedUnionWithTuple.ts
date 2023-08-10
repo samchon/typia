@@ -6,19 +6,7 @@ export const test_json_stringify_ArrayRepeatedUnionWithTuple =
     _test_json_stringify<ArrayRepeatedUnionWithTuple>(
         ArrayRepeatedUnionWithTuple,
     )((input) =>
-        ((
-            input:
-                | number
-                | boolean
-                | Array<string>
-                | Array<ArrayRepeatedUnionWithTuple>
-                | Array<ArrayRepeatedUnionWithTuple.IBox3D>
-                | [string, number, boolean]
-                | [
-                      ArrayRepeatedUnionWithTuple.IBox3D,
-                      ArrayRepeatedUnionWithTuple.IPoint3D,
-                  ],
-        ): string => {
+        ((input: ArrayRepeatedUnionWithTuple): string => {
             const $io0 = (input: any): boolean =>
                 "object" === typeof input.scale &&
                 null !== input.scale &&

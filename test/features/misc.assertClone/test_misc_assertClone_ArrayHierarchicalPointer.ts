@@ -4,5 +4,5 @@ import { ArrayHierarchicalPointer } from "../../structures/ArrayHierarchicalPoin
 
 export const test_misc_assertClone_ArrayHierarchicalPointer =
     _test_misc_assertClone<ArrayHierarchicalPointer>(ArrayHierarchicalPointer)(
-        (input) => typia.misc.assertClone(input),
+        (input) => typia.misc.assertClone<ArrayHierarchicalPointer>(input),
     );

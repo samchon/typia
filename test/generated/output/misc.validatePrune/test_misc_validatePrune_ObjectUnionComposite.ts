@@ -5,47 +5,14 @@ import { ObjectUnionComposite } from "../../../structures/ObjectUnionComposite";
 export const test_misc_validatePrune_ObjectUnionComposite =
     _test_misc_validatePrune<ObjectUnionComposite>(ObjectUnionComposite)(
         (input) =>
-            ((
-                input: any,
-            ): typia.IValidation<
-                Array<
-                    | ObjectUnionComposite.IPoint
-                    | ObjectUnionComposite.ILine
-                    | ObjectUnionComposite.ITriangle
-                    | ObjectUnionComposite.IRectangle
-                    | ObjectUnionComposite.IPolyline
-                    | ObjectUnionComposite.IPolygon
-                    | ObjectUnionComposite.IPointedShape
-                    | ObjectUnionComposite.ICircle
-                >
-            > => {
+            ((input: any): typia.IValidation<ObjectUnionComposite> => {
                 const validate = (
                     input: any,
-                ): typia.IValidation<
-                    Array<
-                        | ObjectUnionComposite.IPoint
-                        | ObjectUnionComposite.ILine
-                        | ObjectUnionComposite.ITriangle
-                        | ObjectUnionComposite.IRectangle
-                        | ObjectUnionComposite.IPolyline
-                        | ObjectUnionComposite.IPolygon
-                        | ObjectUnionComposite.IPointedShape
-                        | ObjectUnionComposite.ICircle
-                    >
-                > => {
+                ): typia.IValidation<ObjectUnionComposite> => {
                     const errors = [] as any[];
                     const __is = (
                         input: any,
-                    ): input is Array<
-                        | ObjectUnionComposite.IPoint
-                        | ObjectUnionComposite.ILine
-                        | ObjectUnionComposite.ITriangle
-                        | ObjectUnionComposite.IRectangle
-                        | ObjectUnionComposite.IPolyline
-                        | ObjectUnionComposite.IPolygon
-                        | ObjectUnionComposite.IPointedShape
-                        | ObjectUnionComposite.ICircle
-                    > => {
+                    ): input is ObjectUnionComposite => {
                         const $io0 = (input: any): boolean =>
                             "number" === typeof input.x &&
                             Number.isFinite(input.x) &&
@@ -198,16 +165,7 @@ export const test_misc_validatePrune_ObjectUnionComposite =
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
-                        ): input is Array<
-                            | ObjectUnionComposite.IPoint
-                            | ObjectUnionComposite.ILine
-                            | ObjectUnionComposite.ITriangle
-                            | ObjectUnionComposite.IRectangle
-                            | ObjectUnionComposite.IPolyline
-                            | ObjectUnionComposite.IPolygon
-                            | ObjectUnionComposite.IPointedShape
-                            | ObjectUnionComposite.ICircle
-                        > => {
+                        ): input is ObjectUnionComposite => {
                             const $vo0 = (
                                 input: any,
                                 _path: string,
@@ -810,18 +768,7 @@ export const test_misc_validatePrune_ObjectUnionComposite =
                         data: success ? input : undefined,
                     } as any;
                 };
-                const prune = (
-                    input: Array<
-                        | ObjectUnionComposite.IPoint
-                        | ObjectUnionComposite.ILine
-                        | ObjectUnionComposite.ITriangle
-                        | ObjectUnionComposite.IRectangle
-                        | ObjectUnionComposite.IPolyline
-                        | ObjectUnionComposite.IPolygon
-                        | ObjectUnionComposite.IPointedShape
-                        | ObjectUnionComposite.ICircle
-                    >,
-                ): void => {
+                const prune = (input: ObjectUnionComposite): void => {
                     const $io0 = (input: any): boolean =>
                         "number" === typeof input.x &&
                         "number" === typeof input.y;

@@ -4,5 +4,5 @@ import { ClassMethod } from "../../structures/ClassMethod";
 
 export const test_misc_assertClone_ClassMethod =
     _test_misc_assertClone<ClassMethod>(ClassMethod)((input) =>
-        typia.misc.assertClone(input),
+        typia.misc.assertClone<ClassMethod>(input),
     );

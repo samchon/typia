@@ -5,10 +5,8 @@ import { ObjectTuple } from "../../../structures/ObjectTuple";
 export const test_misc_isPrune_ObjectTuple = _test_misc_isPrune<ObjectTuple>(
     ObjectTuple,
 )((input) =>
-    ((input: any): input is [ObjectTuple.ISection, ObjectTuple.ICitizen] => {
-        const is = (
-            input: any,
-        ): input is [ObjectTuple.ISection, ObjectTuple.ICitizen] => {
+    ((input: any): input is ObjectTuple => {
+        const is = (input: any): input is ObjectTuple => {
             const $io0 = (input: any): boolean =>
                 "string" === typeof input.id &&
                 "string" === typeof input.code &&
@@ -28,9 +26,7 @@ export const test_misc_isPrune_ObjectTuple = _test_misc_isPrune<ObjectTuple>(
                 $io1(input[1])
             );
         };
-        const prune = (
-            input: [ObjectTuple.ISection, ObjectTuple.ICitizen],
-        ): void => {
+        const prune = (input: ObjectTuple): void => {
             const $io0 = (input: any): boolean =>
                 "string" === typeof input.id &&
                 "string" === typeof input.code &&

@@ -4,5 +4,5 @@ import { TagMatrix } from "../../structures/TagMatrix";
 
 export const test_misc_assertClone_TagMatrix =
     _test_misc_assertClone<TagMatrix>(TagMatrix)((input) =>
-        typia.misc.assertClone(input),
+        typia.misc.assertClone<TagMatrix>(input),
     );

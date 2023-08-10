@@ -2,15 +2,15 @@ syntax = "proto3";
 
 message ObjectSimple {
     message IBox3D {
-        ObjectSimple.IPoint3D scale = 1;
-        ObjectSimple.IPoint3D position = 2;
-        ObjectSimple.IPoint3D rotate = 3;
-        ObjectSimple.IPoint3D pivot = 4;
+        requiredObjectSimple.IPoint3D scale = 1;
+        requiredObjectSimple.IPoint3D position = 2;
+        requiredObjectSimple.IPoint3D rotate = 3;
+        requiredObjectSimple.IPoint3D pivot = 4;
     }
 
     message IPoint3D {
-        double x = 1;
-        double y = 2;
-        double z = 3;
+        requireddouble x = 1;
+        requireddouble y = 2;
+        requireddouble z = 3;
     }
 }

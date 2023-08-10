@@ -4,5 +4,5 @@ import { MapSimple } from "../../structures/MapSimple";
 
 export const test_misc_validateClone_MapSimple =
     _test_misc_validateClone<MapSimple>(MapSimple)((input) =>
-        typia.misc.validateClone(input),
+        typia.misc.validateClone<MapSimple>(input),
     );

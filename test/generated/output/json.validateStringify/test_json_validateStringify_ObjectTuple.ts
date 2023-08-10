@@ -4,18 +4,10 @@ import { ObjectTuple } from "../../../structures/ObjectTuple";
 
 export const test_json_validateStringify_ObjectTuple =
     _test_json_validateStringify<ObjectTuple>(ObjectTuple)((input) =>
-        ((
-            input: [ObjectTuple.ISection, ObjectTuple.ICitizen],
-        ): typia.IValidation<string> => {
-            const validate = (
-                input: any,
-            ): typia.IValidation<
-                [ObjectTuple.ISection, ObjectTuple.ICitizen]
-            > => {
+        ((input: ObjectTuple): typia.IValidation<string> => {
+            const validate = (input: any): typia.IValidation<ObjectTuple> => {
                 const errors = [] as any[];
-                const __is = (
-                    input: any,
-                ): input is [ObjectTuple.ISection, ObjectTuple.ICitizen] => {
+                const __is = (input: any): input is ObjectTuple => {
                     const $io0 = (input: any): boolean =>
                         "string" === typeof input.id &&
                         "string" === typeof input.code &&
@@ -43,10 +35,7 @@ export const test_json_validateStringify_ObjectTuple =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is [
-                        ObjectTuple.ISection,
-                        ObjectTuple.ICitizen,
-                    ] => {
+                    ): input is ObjectTuple => {
                         const $vo0 = (
                             input: any,
                             _path: string,
@@ -154,9 +143,7 @@ export const test_json_validateStringify_ObjectTuple =
                     data: success ? input : undefined,
                 } as any;
             };
-            const stringify = (
-                input: [ObjectTuple.ISection, ObjectTuple.ICitizen],
-            ): string => {
+            const stringify = (input: ObjectTuple): string => {
                 const $string = (typia.json.validateStringify as any).string;
                 return `[${`{"id":${$string(
                     (input[0] as any).id,

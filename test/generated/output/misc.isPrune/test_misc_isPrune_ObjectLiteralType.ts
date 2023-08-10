@@ -4,10 +4,8 @@ import { ObjectLiteralType } from "../../../structures/ObjectLiteralType";
 
 export const test_misc_isPrune_ObjectLiteralType =
     _test_misc_isPrune<ObjectLiteralType>(ObjectLiteralType)((input) =>
-        ((input: any): input is { id: string; name: string; age: number } => {
-            const is = (
-                input: any,
-            ): input is { id: string; name: string; age: number } => {
+        ((input: any): input is ObjectLiteralType => {
+            const is = (input: any): input is ObjectLiteralType => {
                 return (
                     "object" === typeof input &&
                     null !== input &&
@@ -17,11 +15,7 @@ export const test_misc_isPrune_ObjectLiteralType =
                     Number.isFinite((input as any).age)
                 );
             };
-            const prune = (input: {
-                id: string;
-                name: string;
-                age: number;
-            }): void => {
+            const prune = (input: ObjectLiteralType): void => {
                 const $po0 = (input: any): any => {
                     for (const key of Object.keys(input)) {
                         if ("id" === key || "name" === key || "age" === key)

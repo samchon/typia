@@ -4,5 +4,5 @@ import { TagType } from "../../structures/TagType";
 
 export const test_misc_validatePrune_TagType =
     _test_misc_validatePrune<TagType>(TagType)((input) =>
-        typia.misc.validatePrune(input),
+        typia.misc.validatePrune<TagType>(input),
     );

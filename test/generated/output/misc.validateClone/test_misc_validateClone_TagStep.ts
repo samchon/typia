@@ -4,18 +4,10 @@ import { TagStep } from "../../../structures/TagStep";
 
 export const test_misc_validateClone_TagStep =
     _test_misc_validateClone<TagStep>(TagStep)((input) =>
-        ((
-            input: any,
-        ): typia.IValidation<
-            typia.Primitive<IPointer<Array<TagStep.Type>>>
-        > => {
-            const validate = (
-                input: any,
-            ): typia.IValidation<IPointer<Array<TagStep.Type>>> => {
+        ((input: any): typia.IValidation<typia.Primitive<TagStep>> => {
+            const validate = (input: any): typia.IValidation<TagStep> => {
                 const errors = [] as any[];
-                const __is = (
-                    input: any,
-                ): input is IPointer<Array<TagStep.Type>> => {
+                const __is = (input: any): input is TagStep => {
                     const $io0 = (input: any): boolean =>
                         Array.isArray(input.value) &&
                         input.value.every(
@@ -53,7 +45,7 @@ export const test_misc_validateClone_TagStep =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is IPointer<Array<TagStep.Type>> => {
+                    ): input is TagStep => {
                         const $vo0 = (
                             input: any,
                             _path: string,
@@ -223,9 +215,7 @@ export const test_misc_validateClone_TagStep =
                     data: success ? input : undefined,
                 } as any;
             };
-            const clone = (
-                input: IPointer<Array<TagStep.Type>>,
-            ): typia.Primitive<IPointer<Array<TagStep.Type>>> => {
+            const clone = (input: TagStep): typia.Primitive<TagStep> => {
                 const $io1 = (input: any): boolean =>
                     "number" === typeof input.exclusiveMinimum &&
                     0 === (input.exclusiveMinimum % 5) - 3 &&

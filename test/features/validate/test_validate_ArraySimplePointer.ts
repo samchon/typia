@@ -4,5 +4,5 @@ import { ArraySimplePointer } from "../../structures/ArraySimplePointer";
 
 export const test_validate_ArraySimplePointer =
     _test_validate<ArraySimplePointer>(ArraySimplePointer)((input) =>
-        typia.validate(input),
+        typia.validate<ArraySimplePointer>(input),
     );

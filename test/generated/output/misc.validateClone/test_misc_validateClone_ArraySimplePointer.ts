@@ -6,18 +6,12 @@ export const test_misc_validateClone_ArraySimplePointer =
     _test_misc_validateClone<ArraySimplePointer>(ArraySimplePointer)((input) =>
         ((
             input: any,
-        ): typia.IValidation<
-            typia.Primitive<IPointer<Array<ArraySimplePointer.IPerson>>>
-        > => {
+        ): typia.IValidation<typia.Primitive<ArraySimplePointer>> => {
             const validate = (
                 input: any,
-            ): typia.IValidation<
-                IPointer<Array<ArraySimplePointer.IPerson>>
-            > => {
+            ): typia.IValidation<ArraySimplePointer> => {
                 const errors = [] as any[];
-                const __is = (
-                    input: any,
-                ): input is IPointer<Array<ArraySimplePointer.IPerson>> => {
+                const __is = (input: any): input is ArraySimplePointer => {
                     const $io0 = (input: any): boolean =>
                         Array.isArray(input.value) &&
                         input.value.every(
@@ -55,7 +49,7 @@ export const test_misc_validateClone_ArraySimplePointer =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is IPointer<Array<ArraySimplePointer.IPerson>> => {
+                    ): input is ArraySimplePointer => {
                         const $vo0 = (
                             input: any,
                             _path: string,
@@ -228,8 +222,8 @@ export const test_misc_validateClone_ArraySimplePointer =
                 } as any;
             };
             const clone = (
-                input: IPointer<Array<ArraySimplePointer.IPerson>>,
-            ): typia.Primitive<IPointer<Array<ArraySimplePointer.IPerson>>> => {
+                input: ArraySimplePointer,
+            ): typia.Primitive<ArraySimplePointer> => {
                 const $io1 = (input: any): boolean =>
                     "string" === typeof input.name &&
                     "string" === typeof input.email &&

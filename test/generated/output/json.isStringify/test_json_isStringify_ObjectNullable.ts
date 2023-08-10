@@ -4,10 +4,8 @@ import { ObjectNullable } from "../../../structures/ObjectNullable";
 
 export const test_json_isStringify_ObjectNullable =
     _test_json_isStringify<ObjectNullable>(ObjectNullable)((input) =>
-        ((input: IPointer<Array<ObjectNullable.IProduct>>): string | null => {
-            const is = (
-                input: any,
-            ): input is IPointer<Array<ObjectNullable.IProduct>> => {
+        ((input: ObjectNullable): string | null => {
+            const is = (input: any): input is ObjectNullable => {
                 const $io0 = (input: any): boolean =>
                     Array.isArray(input.value) &&
                     input.value.every(
@@ -44,9 +42,7 @@ export const test_json_isStringify_ObjectNullable =
                     "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            const stringify = (
-                input: IPointer<Array<ObjectNullable.IProduct>>,
-            ): string => {
+            const stringify = (input: ObjectNullable): string => {
                 const $io1 = (input: any): boolean =>
                     "string" === typeof input.name &&
                     "object" === typeof input.manufacturer &&

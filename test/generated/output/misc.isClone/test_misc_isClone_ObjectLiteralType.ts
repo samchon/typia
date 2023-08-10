@@ -4,16 +4,8 @@ import { ObjectLiteralType } from "../../../structures/ObjectLiteralType";
 
 export const test_misc_isClone_ObjectLiteralType =
     _test_misc_isClone<ObjectLiteralType>(ObjectLiteralType)((input) =>
-        ((
-            input: any,
-        ): typia.Primitive<{
-            id: string;
-            name: string;
-            age: number;
-        }> | null => {
-            const is = (
-                input: any,
-            ): input is { id: string; name: string; age: number } => {
+        ((input: any): typia.Primitive<ObjectLiteralType> | null => {
+            const is = (input: any): input is ObjectLiteralType => {
                 return (
                     "object" === typeof input &&
                     null !== input &&
@@ -23,11 +15,9 @@ export const test_misc_isClone_ObjectLiteralType =
                     Number.isFinite((input as any).age)
                 );
             };
-            const clone = (input: {
-                id: string;
-                name: string;
-                age: number;
-            }): typia.Primitive<{ id: string; name: string; age: number }> => {
+            const clone = (
+                input: ObjectLiteralType,
+            ): typia.Primitive<ObjectLiteralType> => {
                 const $co0 = (input: any): any => ({
                     id: input.id as any,
                     name: input.name as any,

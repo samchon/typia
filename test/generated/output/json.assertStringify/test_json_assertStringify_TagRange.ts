@@ -5,10 +5,8 @@ import { TagRange } from "../../../structures/TagRange";
 export const test_json_assertStringify_TagRange =
     _test_json_assertStringify<TagRange>(TagRange)((input) =>
         ((input: any): string => {
-            const assert = (input: any): IPointer<Array<TagRange.Type>> => {
-                const __is = (
-                    input: any,
-                ): input is IPointer<Array<TagRange.Type>> => {
+            const assert = (input: any): TagRange => {
+                const __is = (input: any): input is TagRange => {
                     const $io0 = (input: any): boolean =>
                         Array.isArray(input.value) &&
                         input.value.every(
@@ -53,7 +51,7 @@ export const test_json_assertStringify_TagRange =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is IPointer<Array<TagRange.Type>> => {
+                    ): input is TagRange => {
                         const $guard = (typia.json.assertStringify as any)
                             .guard;
                         const $ao0 = (
@@ -258,9 +256,7 @@ export const test_json_assertStringify_TagRange =
                     })(input, "$input", true);
                 return input;
             };
-            const stringify = (
-                input: IPointer<Array<TagRange.Type>>,
-            ): string => {
+            const stringify = (input: TagRange): string => {
                 const $io1 = (input: any): boolean =>
                     "number" === typeof input.greater &&
                     3 < input.greater &&

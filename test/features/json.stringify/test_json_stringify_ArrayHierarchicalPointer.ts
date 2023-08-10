@@ -4,5 +4,5 @@ import { ArrayHierarchicalPointer } from "../../structures/ArrayHierarchicalPoin
 
 export const test_json_stringify_ArrayHierarchicalPointer =
     _test_json_stringify<ArrayHierarchicalPointer>(ArrayHierarchicalPointer)(
-        (input) => typia.json.stringify(input),
+        (input) => typia.json.stringify<ArrayHierarchicalPointer>(input),
     );

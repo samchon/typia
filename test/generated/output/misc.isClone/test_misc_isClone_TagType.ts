@@ -4,10 +4,8 @@ import { TagType } from "../../../structures/TagType";
 
 export const test_misc_isClone_TagType = _test_misc_isClone<TagType>(TagType)(
     (input) =>
-        ((
-            input: any,
-        ): typia.Primitive<IPointer<Array<TagType.Type>>> | null => {
-            const is = (input: any): input is IPointer<Array<TagType.Type>> => {
+        ((input: any): typia.Primitive<TagType> | null => {
+            const is = (input: any): input is TagType => {
                 const $io0 = (input: any): boolean =>
                     Array.isArray(input.value) &&
                     input.value.every(
@@ -28,9 +26,7 @@ export const test_misc_isClone_TagType = _test_misc_isClone<TagType>(TagType)(
                     "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            const clone = (
-                input: IPointer<Array<TagType.Type>>,
-            ): typia.Primitive<IPointer<Array<TagType.Type>>> => {
+            const clone = (input: TagType): typia.Primitive<TagType> => {
                 const $io1 = (input: any): boolean =>
                     "number" === typeof input.int &&
                     parseInt(input.int) === input.int &&

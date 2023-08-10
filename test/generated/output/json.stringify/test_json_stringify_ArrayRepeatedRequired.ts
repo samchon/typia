@@ -5,9 +5,7 @@ import { ArrayRepeatedRequired } from "../../../structures/ArrayRepeatedRequired
 export const test_json_stringify_ArrayRepeatedRequired =
     _test_json_stringify<ArrayRepeatedRequired>(ArrayRepeatedRequired)(
         (input) =>
-            ((
-                input: string | number | Array<ArrayRepeatedRequired>,
-            ): string => {
+            ((input: ArrayRepeatedRequired): string => {
                 const $ia0 = (input: any): any =>
                     input.every(
                         (elem: any) =>

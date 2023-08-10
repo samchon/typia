@@ -4,11 +4,9 @@ import { TagArrayUnion } from "../../../structures/TagArrayUnion";
 
 export const test_misc_assertClone_TagArrayUnion =
     _test_misc_assertClone<TagArrayUnion>(TagArrayUnion)((input) =>
-        ((input: any): typia.Primitive<Array<TagArrayUnion.Type>> => {
-            const assert = (input: any): Array<TagArrayUnion.Type> => {
-                const __is = (
-                    input: any,
-                ): input is Array<TagArrayUnion.Type> => {
+        ((input: any): typia.Primitive<TagArrayUnion> => {
+            const assert = (input: any): TagArrayUnion => {
+                const __is = (input: any): input is TagArrayUnion => {
                     const $is_uuid = (typia.misc.assertClone as any).is_uuid;
                     const $io0 = (input: any): boolean =>
                         Array.isArray(input.items) &&
@@ -57,7 +55,7 @@ export const test_misc_assertClone_TagArrayUnion =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is Array<TagArrayUnion.Type> => {
+                    ): input is TagArrayUnion => {
                         const $guard = (typia.misc.assertClone as any).guard;
                         const $is_uuid = (typia.misc.assertClone as any)
                             .is_uuid;
@@ -288,8 +286,8 @@ export const test_misc_assertClone_TagArrayUnion =
                 return input;
             };
             const clone = (
-                input: Array<TagArrayUnion.Type>,
-            ): typia.Primitive<Array<TagArrayUnion.Type>> => {
+                input: TagArrayUnion,
+            ): typia.Primitive<TagArrayUnion> => {
                 const $is_uuid = (typia.misc.assertClone as any).is_uuid;
                 const $cp0 = (input: any) =>
                     input.map((elem: any) =>

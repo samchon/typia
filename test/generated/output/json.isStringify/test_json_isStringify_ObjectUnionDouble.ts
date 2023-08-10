@@ -4,10 +4,8 @@ import { ObjectUnionDouble } from "../../../structures/ObjectUnionDouble";
 
 export const test_json_isStringify_ObjectUnionDouble =
     _test_json_isStringify<ObjectUnionDouble>(ObjectUnionDouble)((input) =>
-        ((input: Array<ObjectUnionDouble.Union>): string | null => {
-            const is = (
-                input: any,
-            ): input is Array<ObjectUnionDouble.Union> => {
+        ((input: ObjectUnionDouble): string | null => {
+            const is = (input: any): input is ObjectUnionDouble => {
                 const $io0 = (input: any): boolean =>
                     "object" === typeof input.value &&
                     null !== input.value &&
@@ -74,9 +72,7 @@ export const test_json_isStringify_ObjectUnionDouble =
                     )
                 );
             };
-            const stringify = (
-                input: Array<ObjectUnionDouble.Union>,
-            ): string => {
+            const stringify = (input: ObjectUnionDouble): string => {
                 const $io0 = (input: any): boolean =>
                     "object" === typeof input.value &&
                     null !== input.value &&

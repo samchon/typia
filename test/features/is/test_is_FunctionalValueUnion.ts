@@ -4,4 +4,4 @@ import { FunctionalValueUnion } from "../../structures/FunctionalValueUnion";
 
 export const test_is_FunctionalValueUnion = _test_is<FunctionalValueUnion>(
     FunctionalValueUnion,
-)((input) => typia.is(input));
+)((input) => typia.is<FunctionalValueUnion>(input));

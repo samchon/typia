@@ -4,11 +4,11 @@ import { TupleRestObject } from "../../../structures/TupleRestObject";
 
 export const test_assertEquals_TupleRestObject =
     _test_assertEquals<TupleRestObject>(TupleRestObject)((input) =>
-        ((input: any): [boolean, number, ...TupleRestObject.IObject[]] => {
+        ((input: any): TupleRestObject => {
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
-            ): input is [boolean, number, ...TupleRestObject.IObject[]] => {
+            ): input is TupleRestObject => {
                 const $io0 = (
                     input: any,
                     _exceptionable: boolean = true,
@@ -43,7 +43,7 @@ export const test_assertEquals_TupleRestObject =
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is [boolean, number, ...TupleRestObject.IObject[]] => {
+                ): input is TupleRestObject => {
                     const $guard = (typia.assertEquals as any).guard;
                     const $join = (typia.assertEquals as any).join;
                     const $ao0 = (

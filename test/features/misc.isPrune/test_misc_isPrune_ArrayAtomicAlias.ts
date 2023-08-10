@@ -4,5 +4,5 @@ import { ArrayAtomicAlias } from "../../structures/ArrayAtomicAlias";
 
 export const test_misc_isPrune_ArrayAtomicAlias =
     _test_misc_isPrune<ArrayAtomicAlias>(ArrayAtomicAlias)((input) =>
-        typia.misc.isPrune(input),
+        typia.misc.isPrune<ArrayAtomicAlias>(input),
     );

@@ -4,5 +4,5 @@ import { ToJsonDouble } from "../../structures/ToJsonDouble";
 
 export const test_json_isStringify_ToJsonDouble =
     _test_json_isStringify<ToJsonDouble>(ToJsonDouble)((input) =>
-        typia.json.isStringify(input),
+        typia.json.isStringify<ToJsonDouble>(input),
     );

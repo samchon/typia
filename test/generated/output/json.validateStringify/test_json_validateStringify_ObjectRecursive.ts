@@ -4,14 +4,12 @@ import { ObjectRecursive } from "../../../structures/ObjectRecursive";
 
 export const test_json_validateStringify_ObjectRecursive =
     _test_json_validateStringify<ObjectRecursive>(ObjectRecursive)((input) =>
-        ((input: ObjectRecursive.IDepartment): typia.IValidation<string> => {
+        ((input: ObjectRecursive): typia.IValidation<string> => {
             const validate = (
                 input: any,
-            ): typia.IValidation<ObjectRecursive.IDepartment> => {
+            ): typia.IValidation<ObjectRecursive> => {
                 const errors = [] as any[];
-                const __is = (
-                    input: any,
-                ): input is ObjectRecursive.IDepartment => {
+                const __is = (input: any): input is ObjectRecursive => {
                     const $io0 = (input: any): boolean =>
                         (null === input.parent ||
                             ("object" === typeof input.parent &&
@@ -43,7 +41,7 @@ export const test_json_validateStringify_ObjectRecursive =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is ObjectRecursive.IDepartment => {
+                    ): input is ObjectRecursive => {
                         const $vo0 = (
                             input: any,
                             _path: string,
@@ -158,7 +156,7 @@ export const test_json_validateStringify_ObjectRecursive =
                     data: success ? input : undefined,
                 } as any;
             };
-            const stringify = (input: ObjectRecursive.IDepartment): string => {
+            const stringify = (input: ObjectRecursive): string => {
                 const $io0 = (input: any): boolean =>
                     (null === input.parent ||
                         ("object" === typeof input.parent &&

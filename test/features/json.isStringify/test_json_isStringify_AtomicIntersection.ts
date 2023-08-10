@@ -4,5 +4,5 @@ import { AtomicIntersection } from "../../structures/AtomicIntersection";
 
 export const test_json_isStringify_AtomicIntersection =
     _test_json_isStringify<AtomicIntersection>(AtomicIntersection)((input) =>
-        typia.json.isStringify(input),
+        typia.json.isStringify<AtomicIntersection>(input),
     );

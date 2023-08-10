@@ -7,18 +7,12 @@ export const test_misc_validateClone_ConstantEnumeration =
         (input) =>
             ((
                 input: any,
-            ): typia.IValidation<
-                typia.Primitive<Array<ConstantEnumeration.Enumeration>>
-            > => {
+            ): typia.IValidation<typia.Primitive<ConstantEnumeration>> => {
                 const validate = (
                     input: any,
-                ): typia.IValidation<
-                    Array<ConstantEnumeration.Enumeration>
-                > => {
+                ): typia.IValidation<ConstantEnumeration> => {
                     const errors = [] as any[];
-                    const __is = (
-                        input: any,
-                    ): input is Array<ConstantEnumeration.Enumeration> => {
+                    const __is = (input: any): input is ConstantEnumeration => {
                         return (
                             Array.isArray(input) &&
                             input.every(
@@ -39,7 +33,7 @@ export const test_misc_validateClone_ConstantEnumeration =
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
-                        ): input is Array<ConstantEnumeration.Enumeration> => {
+                        ): input is ConstantEnumeration => {
                             return (
                                 ((Array.isArray(input) ||
                                     $report(true, {
@@ -83,8 +77,8 @@ export const test_misc_validateClone_ConstantEnumeration =
                     } as any;
                 };
                 const clone = (
-                    input: Array<ConstantEnumeration.Enumeration>,
-                ): typia.Primitive<Array<ConstantEnumeration.Enumeration>> => {
+                    input: ConstantEnumeration,
+                ): typia.Primitive<ConstantEnumeration> => {
                     const $cp0 = (input: any) =>
                         input.map((elem: any) => elem as any);
                     return Array.isArray(input) ? $cp0(input) : (input as any);

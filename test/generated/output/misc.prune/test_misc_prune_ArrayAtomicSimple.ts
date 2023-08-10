@@ -4,7 +4,5 @@ import { ArrayAtomicSimple } from "../../../structures/ArrayAtomicSimple";
 
 export const test_misc_prune_ArrayAtomicSimple =
     _test_misc_prune<ArrayAtomicSimple>(ArrayAtomicSimple)((input) =>
-        ((input: [Array<boolean>, Array<number>, Array<string>]): void => {})(
-            input,
-        ),
+        ((input: ArrayAtomicSimple): void => {})(input),
     );

@@ -4,5 +4,5 @@ import { ClassGetter } from "../../structures/ClassGetter";
 
 export const test_validateEquals_ClassGetter =
     _test_validateEquals<ClassGetter>(ClassGetter)((input) =>
-        typia.validateEquals(input),
+        typia.validateEquals<ClassGetter>(input),
     );

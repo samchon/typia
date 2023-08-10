@@ -4,4 +4,4 @@ import { TagInfinite } from "../../structures/TagInfinite";
 
 export const test_misc_prune_TagInfinite = _test_misc_prune<TagInfinite>(
     TagInfinite,
-)((input) => typia.misc.prune(input));
+)((input) => typia.misc.prune<TagInfinite>(input));

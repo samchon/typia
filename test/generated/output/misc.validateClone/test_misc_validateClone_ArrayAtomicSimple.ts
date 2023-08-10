@@ -6,18 +6,12 @@ export const test_misc_validateClone_ArrayAtomicSimple =
     _test_misc_validateClone<ArrayAtomicSimple>(ArrayAtomicSimple)((input) =>
         ((
             input: any,
-        ): typia.IValidation<
-            typia.Primitive<[Array<boolean>, Array<number>, Array<string>]>
-        > => {
+        ): typia.IValidation<typia.Primitive<ArrayAtomicSimple>> => {
             const validate = (
                 input: any,
-            ): typia.IValidation<
-                [Array<boolean>, Array<number>, Array<string>]
-            > => {
+            ): typia.IValidation<ArrayAtomicSimple> => {
                 const errors = [] as any[];
-                const __is = (
-                    input: any,
-                ): input is [Array<boolean>, Array<number>, Array<string>] => {
+                const __is = (input: any): input is ArrayAtomicSimple => {
                     return (
                         Array.isArray(input) &&
                         input.length === 3 &&
@@ -43,11 +37,7 @@ export const test_misc_validateClone_ArrayAtomicSimple =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is [
-                        Array<boolean>,
-                        Array<number>,
-                        Array<string>,
-                    ] => {
+                    ): input is ArrayAtomicSimple => {
                         return (
                             ((Array.isArray(input) ||
                                 $report(true, {
@@ -161,10 +151,8 @@ export const test_misc_validateClone_ArrayAtomicSimple =
                 } as any;
             };
             const clone = (
-                input: [Array<boolean>, Array<number>, Array<string>],
-            ): typia.Primitive<
-                [Array<boolean>, Array<number>, Array<string>]
-            > => {
+                input: ArrayAtomicSimple,
+            ): typia.Primitive<ArrayAtomicSimple> => {
                 const $cp0 = (input: any) =>
                     input.map((elem: any) => elem as any);
                 const $cp1 = (input: any) =>

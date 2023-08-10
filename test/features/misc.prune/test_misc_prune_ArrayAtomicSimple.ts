@@ -4,5 +4,5 @@ import { ArrayAtomicSimple } from "../../structures/ArrayAtomicSimple";
 
 export const test_misc_prune_ArrayAtomicSimple =
     _test_misc_prune<ArrayAtomicSimple>(ArrayAtomicSimple)((input) =>
-        typia.misc.prune(input),
+        typia.misc.prune<ArrayAtomicSimple>(input),
     );

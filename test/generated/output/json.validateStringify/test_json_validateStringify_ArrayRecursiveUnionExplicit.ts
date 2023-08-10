@@ -6,18 +6,14 @@ export const test_json_validateStringify_ArrayRecursiveUnionExplicit =
     _test_json_validateStringify<ArrayRecursiveUnionExplicit>(
         ArrayRecursiveUnionExplicit,
     )((input) =>
-        ((
-            input: Array<ArrayRecursiveUnionExplicit.IBucket>,
-        ): typia.IValidation<string> => {
+        ((input: ArrayRecursiveUnionExplicit): typia.IValidation<string> => {
             const validate = (
                 input: any,
-            ): typia.IValidation<
-                Array<ArrayRecursiveUnionExplicit.IBucket>
-            > => {
+            ): typia.IValidation<ArrayRecursiveUnionExplicit> => {
                 const errors = [] as any[];
                 const __is = (
                     input: any,
-                ): input is Array<ArrayRecursiveUnionExplicit.IBucket> => {
+                ): input is ArrayRecursiveUnionExplicit => {
                     const $io0 = (input: any): boolean =>
                         "number" === typeof input.id &&
                         Number.isFinite(input.id) &&
@@ -103,7 +99,7 @@ export const test_json_validateStringify_ArrayRecursiveUnionExplicit =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is Array<ArrayRecursiveUnionExplicit.IBucket> => {
+                    ): input is ArrayRecursiveUnionExplicit => {
                         const $vo0 = (
                             input: any,
                             _path: string,
@@ -503,9 +499,7 @@ export const test_json_validateStringify_ArrayRecursiveUnionExplicit =
                     data: success ? input : undefined,
                 } as any;
             };
-            const stringify = (
-                input: Array<ArrayRecursiveUnionExplicit.IBucket>,
-            ): string => {
+            const stringify = (input: ArrayRecursiveUnionExplicit): string => {
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.id &&
                     "string" === typeof input.name &&

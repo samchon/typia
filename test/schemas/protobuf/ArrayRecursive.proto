@@ -3,14 +3,14 @@ syntax = "proto3";
 message ArrayRecursive {
     message ICategory {
         repeated ArrayRecursive.ICategory children = 1;
-        double id = 2;
-        string code = 3;
-        double sequence = 4;
-        ArrayRecursive.ITimestamp created_at = 5;
+        requireddouble id = 2;
+        requiredstring code = 3;
+        requireddouble sequence = 4;
+        requiredArrayRecursive.ITimestamp created_at = 5;
     }
 
     message ITimestamp {
-        double time = 1;
-        double zone = 2;
+        requireddouble time = 1;
+        requireddouble zone = 2;
     }
 }

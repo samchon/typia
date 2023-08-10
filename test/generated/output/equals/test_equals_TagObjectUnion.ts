@@ -5,10 +5,7 @@ import { TagObjectUnion } from "../../../structures/TagObjectUnion";
 export const test_equals_TagObjectUnion = _test_equals<TagObjectUnion>(
     TagObjectUnion,
 )((input) =>
-    ((
-        input: any,
-        _exceptionable: boolean = true,
-    ): input is Array<TagObjectUnion.Type> => {
+    ((input: any, _exceptionable: boolean = true): input is TagObjectUnion => {
         const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
             "number" === typeof input.value &&
             Number.isFinite(input.value) &&

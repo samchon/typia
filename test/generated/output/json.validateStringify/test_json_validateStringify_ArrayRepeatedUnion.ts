@@ -5,32 +5,12 @@ import { ArrayRepeatedUnion } from "../../../structures/ArrayRepeatedUnion";
 export const test_json_validateStringify_ArrayRepeatedUnion =
     _test_json_validateStringify<ArrayRepeatedUnion>(ArrayRepeatedUnion)(
         (input) =>
-            ((
-                input:
-                    | number
-                    | boolean
-                    | Array<string>
-                    | Array<ArrayRepeatedUnion>
-                    | Array<ArrayRepeatedUnion.IBox3D>,
-            ): typia.IValidation<string> => {
+            ((input: ArrayRepeatedUnion): typia.IValidation<string> => {
                 const validate = (
                     input: any,
-                ): typia.IValidation<
-                    | number
-                    | boolean
-                    | Array<string>
-                    | Array<ArrayRepeatedUnion>
-                    | Array<ArrayRepeatedUnion.IBox3D>
-                > => {
+                ): typia.IValidation<ArrayRepeatedUnion> => {
                     const errors = [] as any[];
-                    const __is = (
-                        input: any,
-                    ): input is
-                        | number
-                        | boolean
-                        | Array<string>
-                        | Array<ArrayRepeatedUnion>
-                        | Array<ArrayRepeatedUnion.IBox3D> => {
+                    const __is = (input: any): input is ArrayRepeatedUnion => {
                         const $ip0 = (input: any) => {
                             const array = input;
                             const top = input[0];
@@ -147,12 +127,7 @@ export const test_json_validateStringify_ArrayRepeatedUnion =
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
-                        ): input is
-                            | number
-                            | boolean
-                            | Array<string>
-                            | Array<ArrayRepeatedUnion>
-                            | Array<ArrayRepeatedUnion.IBox3D> => {
+                        ): input is ArrayRepeatedUnion => {
                             const $vp0 = (
                                 input: any,
                                 _path: string,
@@ -546,14 +521,7 @@ export const test_json_validateStringify_ArrayRepeatedUnion =
                         data: success ? input : undefined,
                     } as any;
                 };
-                const stringify = (
-                    input:
-                        | number
-                        | boolean
-                        | Array<string>
-                        | Array<ArrayRepeatedUnion>
-                        | Array<ArrayRepeatedUnion.IBox3D>,
-                ): string => {
+                const stringify = (input: ArrayRepeatedUnion): string => {
                     const $io0 = (input: any): boolean =>
                         "object" === typeof input.scale &&
                         null !== input.scale &&

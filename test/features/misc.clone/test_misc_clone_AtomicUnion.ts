@@ -4,4 +4,4 @@ import { AtomicUnion } from "../../structures/AtomicUnion";
 
 export const test_misc_clone_AtomicUnion = _test_misc_clone<AtomicUnion>(
     AtomicUnion,
-)((input) => typia.misc.clone(input));
+)((input) => typia.misc.clone<AtomicUnion>(input));

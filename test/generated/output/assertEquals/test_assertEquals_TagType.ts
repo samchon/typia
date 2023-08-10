@@ -4,11 +4,11 @@ import { TagType } from "../../../structures/TagType";
 
 export const test_assertEquals_TagType = _test_assertEquals<TagType>(TagType)(
     (input) =>
-        ((input: any): IPointer<Array<TagType.Type>> => {
+        ((input: any): TagType => {
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
-            ): input is IPointer<Array<TagType.Type>> => {
+            ): input is TagType => {
                 const $io0 = (
                     input: any,
                     _exceptionable: boolean = true,
@@ -62,7 +62,7 @@ export const test_assertEquals_TagType = _test_assertEquals<TagType>(TagType)(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is IPointer<Array<TagType.Type>> => {
+                ): input is TagType => {
                     const $guard = (typia.assertEquals as any).guard;
                     const $join = (typia.assertEquals as any).join;
                     const $ao0 = (

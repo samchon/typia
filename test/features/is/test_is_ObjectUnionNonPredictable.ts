@@ -4,5 +4,5 @@ import { ObjectUnionNonPredictable } from "../../structures/ObjectUnionNonPredic
 
 export const test_is_ObjectUnionNonPredictable =
     _test_is<ObjectUnionNonPredictable>(ObjectUnionNonPredictable)((input) =>
-        typia.is(input),
+        typia.is<ObjectUnionNonPredictable>(input),
     );

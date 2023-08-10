@@ -4,5 +4,5 @@ import { DynamicNever } from "../../structures/DynamicNever";
 
 export const test_misc_assertClone_DynamicNever =
     _test_misc_assertClone<DynamicNever>(DynamicNever)((input) =>
-        typia.misc.assertClone(input),
+        typia.misc.assertClone<DynamicNever>(input),
     );

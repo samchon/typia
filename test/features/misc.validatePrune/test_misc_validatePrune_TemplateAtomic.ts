@@ -4,5 +4,5 @@ import { TemplateAtomic } from "../../structures/TemplateAtomic";
 
 export const test_misc_validatePrune_TemplateAtomic =
     _test_misc_validatePrune<TemplateAtomic>(TemplateAtomic)((input) =>
-        typia.misc.validatePrune(input),
+        typia.misc.validatePrune<TemplateAtomic>(input),
     );

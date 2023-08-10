@@ -4,5 +4,5 @@ import { ObjectUnionNonPredictable } from "../../structures/ObjectUnionNonPredic
 
 export const test_misc_clone_ObjectUnionNonPredictable =
     _test_misc_clone<ObjectUnionNonPredictable>(ObjectUnionNonPredictable)(
-        (input) => typia.misc.clone(input),
+        (input) => typia.misc.clone<ObjectUnionNonPredictable>(input),
     );

@@ -5,8 +5,8 @@ import { TagArray } from "../../../structures/TagArray";
 export const test_misc_isPrune_TagArray = _test_misc_isPrune<TagArray>(
     TagArray,
 )((input) =>
-    ((input: any): input is IPointer<Array<TagArray.Type>> => {
-        const is = (input: any): input is IPointer<Array<TagArray.Type>> => {
+    ((input: any): input is TagArray => {
+        const is = (input: any): input is TagArray => {
             const $is_uuid = (typia.misc.isPrune as any).is_uuid;
             const $io0 = (input: any): boolean =>
                 Array.isArray(input.value) &&
@@ -36,7 +36,7 @@ export const test_misc_isPrune_TagArray = _test_misc_isPrune<TagArray>(
                 );
             return "object" === typeof input && null !== input && $io0(input);
         };
-        const prune = (input: IPointer<Array<TagArray.Type>>): void => {
+        const prune = (input: TagArray): void => {
             const $io1 = (input: any): boolean =>
                 Array.isArray(input.items) &&
                 3 === input.items.length &&

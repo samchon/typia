@@ -4,5 +4,5 @@ import { TupleHierarchical } from "../../structures/TupleHierarchical";
 
 export const test_json_isStringify_TupleHierarchical =
     _test_json_isStringify<TupleHierarchical>(TupleHierarchical)((input) =>
-        typia.json.isStringify(input),
+        typia.json.isStringify<TupleHierarchical>(input),
     );

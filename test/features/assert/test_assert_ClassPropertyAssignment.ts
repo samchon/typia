@@ -4,5 +4,5 @@ import { ClassPropertyAssignment } from "../../structures/ClassPropertyAssignmen
 
 export const test_assert_ClassPropertyAssignment =
     _test_assert<ClassPropertyAssignment>(ClassPropertyAssignment)((input) =>
-        typia.assert(input),
+        typia.assert<ClassPropertyAssignment>(input),
     );

@@ -6,10 +6,10 @@ export const test_json_assertStringify_ConstantAtomicSimple =
     _test_json_assertStringify<ConstantAtomicSimple>(ConstantAtomicSimple)(
         (input) =>
             ((input: any): string => {
-                const assert = (input: any): [false, true, 2, "three"] => {
+                const assert = (input: any): ConstantAtomicSimple => {
                     const __is = (
                         input: any,
-                    ): input is [false, true, 2, "three"] => {
+                    ): input is ConstantAtomicSimple => {
                         return (
                             Array.isArray(input) &&
                             input.length === 4 &&
@@ -24,7 +24,7 @@ export const test_json_assertStringify_ConstantAtomicSimple =
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
-                        ): input is [false, true, 2, "three"] => {
+                        ): input is ConstantAtomicSimple => {
                             const $guard = (typia.json.assertStringify as any)
                                 .guard;
                             return (
@@ -74,9 +74,7 @@ export const test_json_assertStringify_ConstantAtomicSimple =
                         })(input, "$input", true);
                     return input;
                 };
-                const stringify = (
-                    input: [false, true, 2, "three"],
-                ): string => {
+                const stringify = (input: ConstantAtomicSimple): string => {
                     const $number = (typia.json.assertStringify as any).number;
                     const $string = (typia.json.assertStringify as any).string;
                     const $throws = (typia.json.assertStringify as any).throws;

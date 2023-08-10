@@ -4,20 +4,8 @@ import { ArrayAtomicAlias } from "../../../structures/ArrayAtomicAlias";
 
 export const test_json_isStringify_ArrayAtomicAlias =
     _test_json_isStringify<ArrayAtomicAlias>(ArrayAtomicAlias)((input) =>
-        ((
-            input: [
-                ArrayAtomicAlias.Alias<boolean>,
-                ArrayAtomicAlias.Alias<number>,
-                ArrayAtomicAlias.Alias<string>,
-            ],
-        ): string | null => {
-            const is = (
-                input: any,
-            ): input is [
-                ArrayAtomicAlias.Alias<boolean>,
-                ArrayAtomicAlias.Alias<number>,
-                ArrayAtomicAlias.Alias<string>,
-            ] => {
+        ((input: ArrayAtomicAlias): string | null => {
+            const is = (input: any): input is ArrayAtomicAlias => {
                 return (
                     Array.isArray(input) &&
                     input.length === 3 &&
@@ -32,13 +20,7 @@ export const test_json_isStringify_ArrayAtomicAlias =
                     input[2].every((elem: any) => "string" === typeof elem)
                 );
             };
-            const stringify = (
-                input: [
-                    ArrayAtomicAlias.Alias<boolean>,
-                    ArrayAtomicAlias.Alias<number>,
-                    ArrayAtomicAlias.Alias<string>,
-                ],
-            ): string => {
+            const stringify = (input: ArrayAtomicAlias): string => {
                 const $number = (typia.json.isStringify as any).number;
                 const $string = (typia.json.isStringify as any).string;
                 return `[${`[${input[0]

@@ -4,11 +4,11 @@ import { ObjectGenericArray } from "../../../structures/ObjectGenericArray";
 
 export const test_assertEquals_ObjectGenericArray =
     _test_assertEquals<ObjectGenericArray>(ObjectGenericArray)((input) =>
-        ((input: any): ObjectGenericArray.IPage<ObjectGenericArray.IPerson> => {
+        ((input: any): ObjectGenericArray => {
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
-            ): input is ObjectGenericArray.IPage<ObjectGenericArray.IPerson> => {
+            ): input is ObjectGenericArray => {
                 const $io0 = (
                     input: any,
                     _exceptionable: boolean = true,
@@ -92,7 +92,7 @@ export const test_assertEquals_ObjectGenericArray =
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ObjectGenericArray.IPage<ObjectGenericArray.IPerson> => {
+                ): input is ObjectGenericArray => {
                     const $guard = (typia.assertEquals as any).guard;
                     const $join = (typia.assertEquals as any).join;
                     const $ao0 = (

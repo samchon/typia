@@ -5,10 +5,8 @@ import { ArrayRecursive } from "../../../structures/ArrayRecursive";
 export const test_json_assertStringify_ArrayRecursive =
     _test_json_assertStringify<ArrayRecursive>(ArrayRecursive)((input) =>
         ((input: any): string => {
-            const assert = (input: any): ArrayRecursive.ICategory => {
-                const __is = (
-                    input: any,
-                ): input is ArrayRecursive.ICategory => {
+            const assert = (input: any): ArrayRecursive => {
+                const __is = (input: any): input is ArrayRecursive => {
                     const $io0 = (input: any): boolean =>
                         Array.isArray(input.children) &&
                         input.children.every(
@@ -39,7 +37,7 @@ export const test_json_assertStringify_ArrayRecursive =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is ArrayRecursive.ICategory => {
+                    ): input is ArrayRecursive => {
                         const $guard = (typia.json.assertStringify as any)
                             .guard;
                         const $ao0 = (
@@ -164,7 +162,7 @@ export const test_json_assertStringify_ArrayRecursive =
                     })(input, "$input", true);
                 return input;
             };
-            const stringify = (input: ArrayRecursive.ICategory): string => {
+            const stringify = (input: ArrayRecursive): string => {
                 const $io0 = (input: any): boolean =>
                     Array.isArray(input.children) &&
                     input.children.every(

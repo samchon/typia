@@ -4,8 +4,8 @@ import { ObjectPrimitive } from "../../../structures/ObjectPrimitive";
 
 export const test_json_isStringify_ObjectPrimitive =
     _test_json_isStringify<ObjectPrimitive>(ObjectPrimitive)((input) =>
-        ((input: ObjectPrimitive.IArticle): string | null => {
-            const is = (input: any): input is ObjectPrimitive.IArticle => {
+        ((input: ObjectPrimitive): string | null => {
+            const is = (input: any): input is ObjectPrimitive => {
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     ("txt" === input.extension ||
@@ -32,7 +32,7 @@ export const test_json_isStringify_ObjectPrimitive =
                     "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            const stringify = (input: ObjectPrimitive.IArticle): string => {
+            const stringify = (input: ObjectPrimitive): string => {
                 const $io1 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     "string" === typeof input.name &&

@@ -4,8 +4,8 @@ import { ArrayUnion } from "../../../structures/ArrayUnion";
 
 export const test_json_isStringify_ArrayUnion =
     _test_json_isStringify<ArrayUnion>(ArrayUnion)((input) =>
-        ((input: Array<ArrayUnion.IUnion>): string | null => {
-            const is = (input: any): input is Array<ArrayUnion.IUnion> => {
+        ((input: ArrayUnion): string | null => {
+            const is = (input: any): input is ArrayUnion => {
                 const $ip0 = (input: any) => {
                     const array = input;
                     const top = input[0];
@@ -58,7 +58,7 @@ export const test_json_isStringify_ArrayUnion =
                     )
                 );
             };
-            const stringify = (input: Array<ArrayUnion.IUnion>): string => {
+            const stringify = (input: ArrayUnion): string => {
                 const $number = (typia.json.isStringify as any).number;
                 const $string = (typia.json.isStringify as any).string;
                 const $throws = (typia.json.isStringify as any).throws;

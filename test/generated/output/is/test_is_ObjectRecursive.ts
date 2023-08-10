@@ -5,7 +5,7 @@ import { ObjectRecursive } from "../../../structures/ObjectRecursive";
 export const test_is_ObjectRecursive = _test_is<ObjectRecursive>(
     ObjectRecursive,
 )((input) =>
-    ((input: any): input is ObjectRecursive.IDepartment => {
+    ((input: any): input is ObjectRecursive => {
         const $io0 = (input: any): boolean =>
             (null === input.parent ||
                 ("object" === typeof input.parent &&

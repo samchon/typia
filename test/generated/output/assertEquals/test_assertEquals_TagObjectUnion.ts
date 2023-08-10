@@ -4,11 +4,11 @@ import { TagObjectUnion } from "../../../structures/TagObjectUnion";
 
 export const test_assertEquals_TagObjectUnion =
     _test_assertEquals<TagObjectUnion>(TagObjectUnion)((input) =>
-        ((input: any): Array<TagObjectUnion.Type> => {
+        ((input: any): TagObjectUnion => {
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
-            ): input is Array<TagObjectUnion.Type> => {
+            ): input is TagObjectUnion => {
                 const $io0 = (
                     input: any,
                     _exceptionable: boolean = true,
@@ -68,7 +68,7 @@ export const test_assertEquals_TagObjectUnion =
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is Array<TagObjectUnion.Type> => {
+                ): input is TagObjectUnion => {
                     const $guard = (typia.assertEquals as any).guard;
                     const $join = (typia.assertEquals as any).join;
                     const $ao0 = (

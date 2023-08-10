@@ -4,14 +4,12 @@ import { TagAtomicUnion } from "../../../structures/TagAtomicUnion";
 
 export const test_validateEquals_TagAtomicUnion =
     _test_validateEquals<TagAtomicUnion>(TagAtomicUnion)((input) =>
-        ((
-            input: any,
-        ): typia.IValidation<IPointer<Array<TagAtomicUnion.Type>>> => {
+        ((input: any): typia.IValidation<TagAtomicUnion> => {
             const errors = [] as any[];
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
-            ): input is IPointer<Array<TagAtomicUnion.Type>> => {
+            ): input is TagAtomicUnion => {
                 const $io0 = (
                     input: any,
                     _exceptionable: boolean = true,
@@ -61,7 +59,7 @@ export const test_validateEquals_TagAtomicUnion =
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is IPointer<Array<TagAtomicUnion.Type>> => {
+                ): input is TagAtomicUnion => {
                     const $join = (typia.validateEquals as any).join;
                     const $vo0 = (
                         input: any,

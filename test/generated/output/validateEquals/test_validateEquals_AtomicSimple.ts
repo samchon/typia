@@ -4,12 +4,12 @@ import { AtomicSimple } from "../../../structures/AtomicSimple";
 
 export const test_validateEquals_AtomicSimple =
     _test_validateEquals<AtomicSimple>(AtomicSimple)((input) =>
-        ((input: any): typia.IValidation<[boolean, number, string]> => {
+        ((input: any): typia.IValidation<AtomicSimple> => {
             const errors = [] as any[];
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
-            ): input is [boolean, number, string] => {
+            ): input is AtomicSimple => {
                 return (
                     Array.isArray(input) &&
                     input.length === 3 &&
@@ -25,7 +25,7 @@ export const test_validateEquals_AtomicSimple =
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is [boolean, number, string] => {
+                ): input is AtomicSimple => {
                     return (
                         ((Array.isArray(input) ||
                             $report(true, {

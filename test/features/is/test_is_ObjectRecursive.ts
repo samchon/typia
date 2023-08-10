@@ -4,4 +4,4 @@ import { ObjectRecursive } from "../../structures/ObjectRecursive";
 
 export const test_is_ObjectRecursive = _test_is<ObjectRecursive>(
     ObjectRecursive,
-)((input) => typia.is(input));
+)((input) => typia.is<ObjectRecursive>(input));

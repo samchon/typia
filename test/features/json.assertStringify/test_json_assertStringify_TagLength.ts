@@ -4,5 +4,5 @@ import { TagLength } from "../../structures/TagLength";
 
 export const test_json_assertStringify_TagLength =
     _test_json_assertStringify<TagLength>(TagLength)((input) =>
-        typia.json.assertStringify(input),
+        typia.json.assertStringify<TagLength>(input),
     );

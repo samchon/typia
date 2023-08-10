@@ -4,4 +4,4 @@ import { TagArray } from "../../structures/TagArray";
 
 export const test_misc_assertClone_TagArray = _test_misc_assertClone<TagArray>(
     TagArray,
-)((input) => typia.misc.assertClone(input));
+)((input) => typia.misc.assertClone<TagArray>(input));

@@ -4,4 +4,4 @@ import { ArrayAtomicAlias } from "../../structures/ArrayAtomicAlias";
 
 export const test_is_ArrayAtomicAlias = _test_is<ArrayAtomicAlias>(
     ArrayAtomicAlias,
-)((input) => typia.is(input));
+)((input) => typia.is<ArrayAtomicAlias>(input));

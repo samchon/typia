@@ -4,4 +4,4 @@ import { ArraySimple } from "../../structures/ArraySimple";
 
 export const test_misc_isClone_ArraySimple = _test_misc_isClone<ArraySimple>(
     ArraySimple,
-)((input) => typia.misc.isClone(input));
+)((input) => typia.misc.isClone<ArraySimple>(input));

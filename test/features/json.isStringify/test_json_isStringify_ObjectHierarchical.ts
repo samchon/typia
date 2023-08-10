@@ -4,5 +4,5 @@ import { ObjectHierarchical } from "../../structures/ObjectHierarchical";
 
 export const test_json_isStringify_ObjectHierarchical =
     _test_json_isStringify<ObjectHierarchical>(ObjectHierarchical)((input) =>
-        typia.json.isStringify(input),
+        typia.json.isStringify<ObjectHierarchical>(input),
     );

@@ -4,5 +4,5 @@ import { ObjectOptional } from "../../structures/ObjectOptional";
 
 export const test_misc_validatePrune_ObjectOptional =
     _test_misc_validatePrune<ObjectOptional>(ObjectOptional)((input) =>
-        typia.misc.validatePrune(input),
+        typia.misc.validatePrune<ObjectOptional>(input),
     );

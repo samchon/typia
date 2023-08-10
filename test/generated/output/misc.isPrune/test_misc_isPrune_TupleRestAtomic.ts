@@ -4,10 +4,8 @@ import { TupleRestAtomic } from "../../../structures/TupleRestAtomic";
 
 export const test_misc_isPrune_TupleRestAtomic =
     _test_misc_isPrune<TupleRestAtomic>(TupleRestAtomic)((input) =>
-        ((input: any): input is [boolean, number, ...string[]] => {
-            const is = (
-                input: any,
-            ): input is [boolean, number, ...string[]] => {
+        ((input: any): input is TupleRestAtomic => {
+            const is = (input: any): input is TupleRestAtomic => {
                 return (
                     Array.isArray(input) &&
                     "boolean" === typeof input[0] &&
@@ -19,7 +17,7 @@ export const test_misc_isPrune_TupleRestAtomic =
                         .every((elem: any) => "string" === typeof elem)
                 );
             };
-            const prune = (input: [boolean, number, ...string[]]): void => {};
+            const prune = (input: TupleRestAtomic): void => {};
             if (!is(input)) return false;
             prune(input);
             return true;

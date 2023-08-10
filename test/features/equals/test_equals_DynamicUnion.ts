@@ -4,4 +4,4 @@ import { DynamicUnion } from "../../structures/DynamicUnion";
 
 export const test_equals_DynamicUnion = _test_equals<DynamicUnion>(
     DynamicUnion,
-)((input) => typia.equals(input));
+)((input) => typia.equals<DynamicUnion>(input));

@@ -4,5 +4,5 @@ import { NativeUnion } from "../../structures/NativeUnion";
 
 export const test_misc_validateClone_NativeUnion =
     _test_misc_validateClone<NativeUnion>(NativeUnion)((input) =>
-        typia.misc.validateClone(input),
+        typia.misc.validateClone<NativeUnion>(input),
     );

@@ -18,9 +18,8 @@ export namespace DynamicArray {
         (input) => {
             input.value["something"] = [0] as any;
             input.value["another"] = [false] as any;
-            return [`$input.something[0]`, `$input.another[0]`];
+            return [`$input.value.something[0]`, `$input.value.another[0]`];
         },
     ];
     export const ADDABLE = false;
-    export const BINARABLE = false;
 }

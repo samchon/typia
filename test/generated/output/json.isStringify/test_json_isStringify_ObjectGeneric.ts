@@ -4,20 +4,8 @@ import { ObjectGeneric } from "../../../structures/ObjectGeneric";
 
 export const test_json_isStringify_ObjectGeneric =
     _test_json_isStringify<ObjectGeneric>(ObjectGeneric)((input) =>
-        ((
-            input: [
-                ObjectGeneric.ISomething<boolean>,
-                ObjectGeneric.ISomething<number>,
-                ObjectGeneric.ISomething<string>,
-            ],
-        ): string | null => {
-            const is = (
-                input: any,
-            ): input is [
-                ObjectGeneric.ISomething<boolean>,
-                ObjectGeneric.ISomething<number>,
-                ObjectGeneric.ISomething<string>,
-            ] => {
+        ((input: ObjectGeneric): string | null => {
+            const is = (input: any): input is ObjectGeneric => {
                 const $io0 = (input: any): boolean =>
                     "boolean" === typeof input.value &&
                     "object" === typeof input.child &&
@@ -85,13 +73,7 @@ export const test_json_isStringify_ObjectGeneric =
                     $io4(input[2])
                 );
             };
-            const stringify = (
-                input: [
-                    ObjectGeneric.ISomething<boolean>,
-                    ObjectGeneric.ISomething<number>,
-                    ObjectGeneric.ISomething<string>,
-                ],
-            ): string => {
+            const stringify = (input: ObjectGeneric): string => {
                 const $io1 = (input: any): boolean =>
                     "boolean" === typeof input.child_value &&
                     "boolean" === typeof input.child_next;

@@ -3,8 +3,8 @@ import { _test_assert } from "../../../internal/_test_assert";
 import { TagStep } from "../../../structures/TagStep";
 
 export const test_assert_TagStep = _test_assert<TagStep>(TagStep)((input) =>
-    ((input: any): IPointer<Array<TagStep.Type>> => {
-        const __is = (input: any): input is IPointer<Array<TagStep.Type>> => {
+    ((input: any): TagStep => {
+        const __is = (input: any): input is TagStep => {
             const $io0 = (input: any): boolean =>
                 Array.isArray(input.value) &&
                 input.value.every(
@@ -33,7 +33,7 @@ export const test_assert_TagStep = _test_assert<TagStep>(TagStep)((input) =>
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is IPointer<Array<TagStep.Type>> => {
+            ): input is TagStep => {
                 const $guard = (typia.assert as any).guard;
                 const $ao0 = (
                     input: any,

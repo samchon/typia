@@ -4,5 +4,5 @@ import { ArrayHierarchicalPointer } from "../../structures/ArrayHierarchicalPoin
 
 export const test_misc_assertPrune_ArrayHierarchicalPointer =
     _test_misc_assertPrune<ArrayHierarchicalPointer>(ArrayHierarchicalPointer)(
-        (input) => typia.misc.assertPrune(input),
+        (input) => typia.misc.assertPrune<ArrayHierarchicalPointer>(input),
     );

@@ -4,5 +4,5 @@ import { ToJsonAtomicSimple } from "../../structures/ToJsonAtomicSimple";
 
 export const test_assertEquals_ToJsonAtomicSimple =
     _test_assertEquals<ToJsonAtomicSimple>(ToJsonAtomicSimple)((input) =>
-        typia.assertEquals(input),
+        typia.assertEquals<ToJsonAtomicSimple>(input),
     );

@@ -5,10 +5,7 @@ import { TupleRestArray } from "../../../structures/TupleRestArray";
 export const test_equals_TupleRestArray = _test_equals<TupleRestArray>(
     TupleRestArray,
 )((input) =>
-    ((
-        input: any,
-        _exceptionable: boolean = true,
-    ): input is [boolean, number, ...Array<string>[]] => {
+    ((input: any, _exceptionable: boolean = true): input is TupleRestArray => {
         return (
             Array.isArray(input) &&
             "boolean" === typeof input[0] &&

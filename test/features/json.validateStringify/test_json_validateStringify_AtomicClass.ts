@@ -4,5 +4,5 @@ import { AtomicClass } from "../../structures/AtomicClass";
 
 export const test_json_validateStringify_AtomicClass =
     _test_json_validateStringify<AtomicClass>(AtomicClass)((input) =>
-        typia.json.validateStringify(input),
+        typia.json.validateStringify<AtomicClass>(input),
     );

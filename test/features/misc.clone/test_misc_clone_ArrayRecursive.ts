@@ -4,4 +4,4 @@ import { ArrayRecursive } from "../../structures/ArrayRecursive";
 
 export const test_misc_clone_ArrayRecursive = _test_misc_clone<ArrayRecursive>(
     ArrayRecursive,
-)((input) => typia.misc.clone(input));
+)((input) => typia.misc.clone<ArrayRecursive>(input));

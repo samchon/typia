@@ -4,16 +4,12 @@ import { TagAtomicUnion } from "../../../structures/TagAtomicUnion";
 
 export const test_json_validateStringify_TagAtomicUnion =
     _test_json_validateStringify<TagAtomicUnion>(TagAtomicUnion)((input) =>
-        ((
-            input: IPointer<Array<TagAtomicUnion.Type>>,
-        ): typia.IValidation<string> => {
+        ((input: TagAtomicUnion): typia.IValidation<string> => {
             const validate = (
                 input: any,
-            ): typia.IValidation<IPointer<Array<TagAtomicUnion.Type>>> => {
+            ): typia.IValidation<TagAtomicUnion> => {
                 const errors = [] as any[];
-                const __is = (
-                    input: any,
-                ): input is IPointer<Array<TagAtomicUnion.Type>> => {
+                const __is = (input: any): input is TagAtomicUnion => {
                     const $io0 = (input: any): boolean =>
                         Array.isArray(input.value) &&
                         input.value.every(
@@ -43,7 +39,7 @@ export const test_json_validateStringify_TagAtomicUnion =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is IPointer<Array<TagAtomicUnion.Type>> => {
+                    ): input is TagAtomicUnion => {
                         const $vo0 = (
                             input: any,
                             _path: string,
@@ -153,9 +149,7 @@ export const test_json_validateStringify_TagAtomicUnion =
                     data: success ? input : undefined,
                 } as any;
             };
-            const stringify = (
-                input: IPointer<Array<TagAtomicUnion.Type>>,
-            ): string => {
+            const stringify = (input: TagAtomicUnion): string => {
                 const $io1 = (input: any): boolean =>
                     ("string" === typeof input.value &&
                         3 <= input.value.length &&

@@ -4,7 +4,7 @@ import { ObjectAlias } from "../../../structures/ObjectAlias";
 
 export const test_json_stringify_ObjectAlias =
     _test_json_stringify<ObjectAlias>(ObjectAlias)((input) =>
-        ((input: Array<ObjectAlias.IMember>): string => {
+        ((input: ObjectAlias): string => {
             const $string = (typia.json.stringify as any).string;
             const $number = (typia.json.stringify as any).number;
             const $throws = (typia.json.stringify as any).throws;

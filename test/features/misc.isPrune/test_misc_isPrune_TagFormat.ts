@@ -4,4 +4,4 @@ import { TagFormat } from "../../structures/TagFormat";
 
 export const test_misc_isPrune_TagFormat = _test_misc_isPrune<TagFormat>(
     TagFormat,
-)((input) => typia.misc.isPrune(input));
+)((input) => typia.misc.isPrune<TagFormat>(input));

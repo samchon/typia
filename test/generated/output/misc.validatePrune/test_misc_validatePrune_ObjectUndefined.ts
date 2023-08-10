@@ -4,14 +4,12 @@ import { ObjectUndefined } from "../../../structures/ObjectUndefined";
 
 export const test_misc_validatePrune_ObjectUndefined =
     _test_misc_validatePrune<ObjectUndefined>(ObjectUndefined)((input) =>
-        ((input: any): typia.IValidation<Array<ObjectUndefined.ILecture>> => {
+        ((input: any): typia.IValidation<ObjectUndefined> => {
             const validate = (
                 input: any,
-            ): typia.IValidation<Array<ObjectUndefined.ILecture>> => {
+            ): typia.IValidation<ObjectUndefined> => {
                 const errors = [] as any[];
-                const __is = (
-                    input: any,
-                ): input is Array<ObjectUndefined.ILecture> => {
+                const __is = (input: any): input is ObjectUndefined => {
                     const $io0 = (input: any): boolean =>
                         "string" === typeof input.name &&
                         (undefined === input.professor ||
@@ -51,7 +49,7 @@ export const test_misc_validatePrune_ObjectUndefined =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is Array<ObjectUndefined.ILecture> => {
+                    ): input is ObjectUndefined => {
                         const $vo0 = (
                             input: any,
                             _path: string,
@@ -198,7 +196,7 @@ export const test_misc_validatePrune_ObjectUndefined =
                     data: success ? input : undefined,
                 } as any;
             };
-            const prune = (input: Array<ObjectUndefined.ILecture>): void => {
+            const prune = (input: ObjectUndefined): void => {
                 const $io1 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     "string" === typeof input.name;

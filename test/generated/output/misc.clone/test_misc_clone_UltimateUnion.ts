@@ -5,9 +5,7 @@ import { UltimateUnion } from "../../../structures/UltimateUnion";
 export const test_misc_clone_UltimateUnion = _test_misc_clone<UltimateUnion>(
     UltimateUnion,
 )((input) =>
-    ((
-        input: Array<typia.IJsonApplication>,
-    ): typia.Primitive<Array<typia.IJsonApplication>> => {
+    ((input: UltimateUnion): typia.Primitive<UltimateUnion> => {
         const $io1 = (input: any): boolean =>
             Array.isArray(input["enum"]) &&
             input["enum"].every((elem: any) => "boolean" === typeof elem) &&

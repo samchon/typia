@@ -4,5 +4,5 @@ import { ArrayAtomicSimple } from "../../structures/ArrayAtomicSimple";
 
 export const test_misc_assertPrune_ArrayAtomicSimple =
     _test_misc_assertPrune<ArrayAtomicSimple>(ArrayAtomicSimple)((input) =>
-        typia.misc.assertPrune(input),
+        typia.misc.assertPrune<ArrayAtomicSimple>(input),
     );

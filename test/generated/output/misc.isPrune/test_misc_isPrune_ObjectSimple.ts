@@ -5,8 +5,8 @@ import { ObjectSimple } from "../../../structures/ObjectSimple";
 export const test_misc_isPrune_ObjectSimple = _test_misc_isPrune<ObjectSimple>(
     ObjectSimple,
 )((input) =>
-    ((input: any): input is ObjectSimple.IBox3D => {
-        const is = (input: any): input is ObjectSimple.IBox3D => {
+    ((input: any): input is ObjectSimple => {
+        const is = (input: any): input is ObjectSimple => {
             return (
                 "object" === typeof input &&
                 null !== input &&
@@ -44,7 +44,7 @@ export const test_misc_isPrune_ObjectSimple = _test_misc_isPrune<ObjectSimple>(
                 Number.isFinite(((input as any).pivot as any).z)
             );
         };
-        const prune = (input: ObjectSimple.IBox3D): void => {
+        const prune = (input: ObjectSimple): void => {
             const $io1 = (input: any): boolean =>
                 "number" === typeof input.x &&
                 "number" === typeof input.y &&

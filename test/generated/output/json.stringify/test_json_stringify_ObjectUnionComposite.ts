@@ -4,18 +4,7 @@ import { ObjectUnionComposite } from "../../../structures/ObjectUnionComposite";
 
 export const test_json_stringify_ObjectUnionComposite =
     _test_json_stringify<ObjectUnionComposite>(ObjectUnionComposite)((input) =>
-        ((
-            input: Array<
-                | ObjectUnionComposite.IPoint
-                | ObjectUnionComposite.ILine
-                | ObjectUnionComposite.ITriangle
-                | ObjectUnionComposite.IRectangle
-                | ObjectUnionComposite.IPolyline
-                | ObjectUnionComposite.IPolygon
-                | ObjectUnionComposite.IPointedShape
-                | ObjectUnionComposite.ICircle
-            >,
-        ): string => {
+        ((input: ObjectUnionComposite): string => {
             const $io0 = (input: any): boolean =>
                 "number" === typeof input.x && "number" === typeof input.y;
             const $io1 = (input: any): boolean =>

@@ -5,10 +5,7 @@ import { AtomicSimple } from "../../../structures/AtomicSimple";
 export const test_equals_AtomicSimple = _test_equals<AtomicSimple>(
     AtomicSimple,
 )((input) =>
-    ((
-        input: any,
-        _exceptionable: boolean = true,
-    ): input is [boolean, number, string] => {
+    ((input: any, _exceptionable: boolean = true): input is AtomicSimple => {
         return (
             Array.isArray(input) &&
             input.length === 3 &&

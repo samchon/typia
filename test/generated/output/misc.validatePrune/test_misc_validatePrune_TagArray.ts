@@ -4,14 +4,10 @@ import { TagArray } from "../../../structures/TagArray";
 
 export const test_misc_validatePrune_TagArray =
     _test_misc_validatePrune<TagArray>(TagArray)((input) =>
-        ((input: any): typia.IValidation<IPointer<Array<TagArray.Type>>> => {
-            const validate = (
-                input: any,
-            ): typia.IValidation<IPointer<Array<TagArray.Type>>> => {
+        ((input: any): typia.IValidation<TagArray> => {
+            const validate = (input: any): typia.IValidation<TagArray> => {
                 const errors = [] as any[];
-                const __is = (
-                    input: any,
-                ): input is IPointer<Array<TagArray.Type>> => {
+                const __is = (input: any): input is TagArray => {
                     const $is_uuid = (typia.misc.validatePrune as any).is_uuid;
                     const $io0 = (input: any): boolean =>
                         Array.isArray(input.value) &&
@@ -57,7 +53,7 @@ export const test_misc_validatePrune_TagArray =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is IPointer<Array<TagArray.Type>> => {
+                    ): input is TagArray => {
                         const $is_uuid = (typia.misc.validatePrune as any)
                             .is_uuid;
                         const $vo0 = (
@@ -290,7 +286,7 @@ export const test_misc_validatePrune_TagArray =
                     data: success ? input : undefined,
                 } as any;
             };
-            const prune = (input: IPointer<Array<TagArray.Type>>): void => {
+            const prune = (input: TagArray): void => {
                 const $io1 = (input: any): boolean =>
                     Array.isArray(input.items) &&
                     3 === input.items.length &&

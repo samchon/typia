@@ -4,4 +4,4 @@ import { DynamicUnion } from "../../structures/DynamicUnion";
 
 export const test_misc_isClone_DynamicUnion = _test_misc_isClone<DynamicUnion>(
     DynamicUnion,
-)((input) => typia.misc.isClone(input));
+)((input) => typia.misc.isClone<DynamicUnion>(input));

@@ -4,11 +4,9 @@ import { ObjectHierarchical } from "../../../structures/ObjectHierarchical";
 
 export const test_validate_ObjectHierarchical =
     _test_validate<ObjectHierarchical>(ObjectHierarchical)((input) =>
-        ((input: any): typia.IValidation<ObjectHierarchical.ICustomer> => {
+        ((input: any): typia.IValidation<ObjectHierarchical> => {
             const errors = [] as any[];
-            const __is = (
-                input: any,
-            ): input is ObjectHierarchical.ICustomer => {
+            const __is = (input: any): input is ObjectHierarchical => {
                 const $is_url = (typia.validate as any).is_url;
                 const $is_ipv4 = (typia.validate as any).is_ipv4;
                 const $io0 = (input: any): boolean =>
@@ -109,7 +107,7 @@ export const test_validate_ObjectHierarchical =
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ObjectHierarchical.ICustomer => {
+                ): input is ObjectHierarchical => {
                     const $is_url = (typia.validate as any).is_url;
                     const $is_ipv4 = (typia.validate as any).is_ipv4;
                     const $vo0 = (

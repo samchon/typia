@@ -5,7 +5,7 @@ import { TagStep } from "../../../structures/TagStep";
 export const test_json_stringify_TagStep = _test_json_stringify<TagStep>(
     TagStep,
 )((input) =>
-    ((input: IPointer<Array<TagStep.Type>>): string => {
+    ((input: TagStep): string => {
         const $io1 = (input: any): boolean =>
             "number" === typeof input.exclusiveMinimum &&
             0 === (input.exclusiveMinimum % 5) - 3 &&

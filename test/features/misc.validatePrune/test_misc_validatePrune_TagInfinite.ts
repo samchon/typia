@@ -4,5 +4,5 @@ import { TagInfinite } from "../../structures/TagInfinite";
 
 export const test_misc_validatePrune_TagInfinite =
     _test_misc_validatePrune<TagInfinite>(TagInfinite)((input) =>
-        typia.misc.validatePrune(input),
+        typia.misc.validatePrune<TagInfinite>(input),
     );

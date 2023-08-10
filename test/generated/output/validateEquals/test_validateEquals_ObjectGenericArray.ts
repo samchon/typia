@@ -4,16 +4,12 @@ import { ObjectGenericArray } from "../../../structures/ObjectGenericArray";
 
 export const test_validateEquals_ObjectGenericArray =
     _test_validateEquals<ObjectGenericArray>(ObjectGenericArray)((input) =>
-        ((
-            input: any,
-        ): typia.IValidation<
-            ObjectGenericArray.IPage<ObjectGenericArray.IPerson>
-        > => {
+        ((input: any): typia.IValidation<ObjectGenericArray> => {
             const errors = [] as any[];
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
-            ): input is ObjectGenericArray.IPage<ObjectGenericArray.IPerson> => {
+            ): input is ObjectGenericArray => {
                 const $io0 = (
                     input: any,
                     _exceptionable: boolean = true,
@@ -98,7 +94,7 @@ export const test_validateEquals_ObjectGenericArray =
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ObjectGenericArray.IPage<ObjectGenericArray.IPerson> => {
+                ): input is ObjectGenericArray => {
                     const $join = (typia.validateEquals as any).join;
                     const $vo0 = (
                         input: any,

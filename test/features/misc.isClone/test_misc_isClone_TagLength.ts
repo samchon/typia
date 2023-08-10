@@ -4,4 +4,4 @@ import { TagLength } from "../../structures/TagLength";
 
 export const test_misc_isClone_TagLength = _test_misc_isClone<TagLength>(
     TagLength,
-)((input) => typia.misc.isClone(input));
+)((input) => typia.misc.isClone<TagLength>(input));

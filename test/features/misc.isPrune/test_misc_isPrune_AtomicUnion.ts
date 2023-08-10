@@ -4,4 +4,4 @@ import { AtomicUnion } from "../../structures/AtomicUnion";
 
 export const test_misc_isPrune_AtomicUnion = _test_misc_isPrune<AtomicUnion>(
     AtomicUnion,
-)((input) => typia.misc.isPrune(input));
+)((input) => typia.misc.isPrune<AtomicUnion>(input));

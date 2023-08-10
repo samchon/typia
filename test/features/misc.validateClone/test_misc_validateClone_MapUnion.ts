@@ -4,5 +4,5 @@ import { MapUnion } from "../../structures/MapUnion";
 
 export const test_misc_validateClone_MapUnion =
     _test_misc_validateClone<MapUnion>(MapUnion)((input) =>
-        typia.misc.validateClone(input),
+        typia.misc.validateClone<MapUnion>(input),
     );

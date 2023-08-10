@@ -5,9 +5,7 @@ import { ArrayRepeatedOptional } from "../../../structures/ArrayRepeatedOptional
 export const test_is_ArrayRepeatedOptional = _test_is<ArrayRepeatedOptional>(
     ArrayRepeatedOptional,
 )((input) =>
-    ((
-        input: any,
-    ): input is string | number | Array<ArrayRepeatedOptional> | undefined => {
+    ((input: any): input is ArrayRepeatedOptional => {
         const $ia0 = (input: any): any =>
             input.every(
                 (elem: any) =>

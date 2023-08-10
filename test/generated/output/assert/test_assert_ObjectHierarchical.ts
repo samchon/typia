@@ -5,8 +5,8 @@ import { ObjectHierarchical } from "../../../structures/ObjectHierarchical";
 export const test_assert_ObjectHierarchical = _test_assert<ObjectHierarchical>(
     ObjectHierarchical,
 )((input) =>
-    ((input: any): ObjectHierarchical.ICustomer => {
-        const __is = (input: any): input is ObjectHierarchical.ICustomer => {
+    ((input: any): ObjectHierarchical => {
+        const __is = (input: any): input is ObjectHierarchical => {
             const $is_url = (typia.assert as any).is_url;
             const $is_ipv4 = (typia.assert as any).is_ipv4;
             const $io0 = (input: any): boolean =>
@@ -102,7 +102,7 @@ export const test_assert_ObjectHierarchical = _test_assert<ObjectHierarchical>(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is ObjectHierarchical.ICustomer => {
+            ): input is ObjectHierarchical => {
                 const $guard = (typia.assert as any).guard;
                 const $is_url = (typia.assert as any).is_url;
                 const $is_ipv4 = (typia.assert as any).is_ipv4;

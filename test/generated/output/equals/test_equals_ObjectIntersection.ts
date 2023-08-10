@@ -8,7 +8,7 @@ export const test_equals_ObjectIntersection = _test_equals<ObjectIntersection>(
     ((
         input: any,
         _exceptionable: boolean = true,
-    ): input is ObjectIntersection.IEmail & ObjectIntersection.IName => {
+    ): input is ObjectIntersection => {
         const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
             "string" === typeof input.email &&
             "string" === typeof input.name &&

@@ -4,5 +4,5 @@ import { ObjectUnionDouble } from "../../structures/ObjectUnionDouble";
 
 export const test_misc_validatePrune_ObjectUnionDouble =
     _test_misc_validatePrune<ObjectUnionDouble>(ObjectUnionDouble)((input) =>
-        typia.misc.validatePrune(input),
+        typia.misc.validatePrune<ObjectUnionDouble>(input),
     );

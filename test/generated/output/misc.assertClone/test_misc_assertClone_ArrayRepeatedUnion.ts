@@ -4,31 +4,9 @@ import { ArrayRepeatedUnion } from "../../../structures/ArrayRepeatedUnion";
 
 export const test_misc_assertClone_ArrayRepeatedUnion =
     _test_misc_assertClone<ArrayRepeatedUnion>(ArrayRepeatedUnion)((input) =>
-        ((
-            input: any,
-        ): typia.Primitive<
-            | number
-            | boolean
-            | Array<string>
-            | Array<ArrayRepeatedUnion>
-            | Array<ArrayRepeatedUnion.IBox3D>
-        > => {
-            const assert = (
-                input: any,
-            ):
-                | number
-                | boolean
-                | Array<string>
-                | Array<ArrayRepeatedUnion>
-                | Array<ArrayRepeatedUnion.IBox3D> => {
-                const __is = (
-                    input: any,
-                ): input is
-                    | number
-                    | boolean
-                    | Array<string>
-                    | Array<ArrayRepeatedUnion>
-                    | Array<ArrayRepeatedUnion.IBox3D> => {
+        ((input: any): typia.Primitive<ArrayRepeatedUnion> => {
+            const assert = (input: any): ArrayRepeatedUnion => {
+                const __is = (input: any): input is ArrayRepeatedUnion => {
                     const $ip0 = (input: any) => {
                         const array = input;
                         const top = input[0];
@@ -138,12 +116,7 @@ export const test_misc_assertClone_ArrayRepeatedUnion =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is
-                        | number
-                        | boolean
-                        | Array<string>
-                        | Array<ArrayRepeatedUnion>
-                        | Array<ArrayRepeatedUnion.IBox3D> => {
+                    ): input is ArrayRepeatedUnion => {
                         const $guard = (typia.misc.assertClone as any).guard;
                         const $ap0 = (
                             input: any,
@@ -468,19 +441,8 @@ export const test_misc_assertClone_ArrayRepeatedUnion =
                 return input;
             };
             const clone = (
-                input:
-                    | number
-                    | boolean
-                    | Array<string>
-                    | Array<ArrayRepeatedUnion>
-                    | Array<ArrayRepeatedUnion.IBox3D>,
-            ): typia.Primitive<
-                | number
-                | boolean
-                | Array<string>
-                | Array<ArrayRepeatedUnion>
-                | Array<ArrayRepeatedUnion.IBox3D>
-            > => {
+                input: ArrayRepeatedUnion,
+            ): typia.Primitive<ArrayRepeatedUnion> => {
                 const $io0 = (input: any): boolean =>
                     "object" === typeof input.scale &&
                     null !== input.scale &&

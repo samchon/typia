@@ -4,20 +4,12 @@ import { ObjectGenericArray } from "../../../structures/ObjectGenericArray";
 
 export const test_misc_validatePrune_ObjectGenericArray =
     _test_misc_validatePrune<ObjectGenericArray>(ObjectGenericArray)((input) =>
-        ((
-            input: any,
-        ): typia.IValidation<
-            ObjectGenericArray.IPage<ObjectGenericArray.IPerson>
-        > => {
+        ((input: any): typia.IValidation<ObjectGenericArray> => {
             const validate = (
                 input: any,
-            ): typia.IValidation<
-                ObjectGenericArray.IPage<ObjectGenericArray.IPerson>
-            > => {
+            ): typia.IValidation<ObjectGenericArray> => {
                 const errors = [] as any[];
-                const __is = (
-                    input: any,
-                ): input is ObjectGenericArray.IPage<ObjectGenericArray.IPerson> => {
+                const __is = (input: any): input is ObjectGenericArray => {
                     const $io0 = (input: any): boolean =>
                         "object" === typeof input.pagination &&
                         null !== input.pagination &&
@@ -60,7 +52,7 @@ export const test_misc_validatePrune_ObjectGenericArray =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is ObjectGenericArray.IPage<ObjectGenericArray.IPerson> => {
+                    ): input is ObjectGenericArray => {
                         const $vo0 = (
                             input: any,
                             _path: string,
@@ -213,9 +205,7 @@ export const test_misc_validatePrune_ObjectGenericArray =
                     data: success ? input : undefined,
                 } as any;
             };
-            const prune = (
-                input: ObjectGenericArray.IPage<ObjectGenericArray.IPerson>,
-            ): void => {
+            const prune = (input: ObjectGenericArray): void => {
                 const $io1 = (input: any): boolean =>
                     "number" === typeof input.page &&
                     "number" === typeof input.limit &&

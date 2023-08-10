@@ -5,7 +5,7 @@ import { ObjectAlias } from "../../../structures/ObjectAlias";
 export const test_misc_prune_ObjectAlias = _test_misc_prune<ObjectAlias>(
     ObjectAlias,
 )((input) =>
-    ((input: Array<ObjectAlias.IMember>): void => {
+    ((input: ObjectAlias): void => {
         const $pp0 = (input: any) =>
             input.forEach((elem: any) => {
                 if ("object" === typeof elem && null !== elem) $po0(elem);

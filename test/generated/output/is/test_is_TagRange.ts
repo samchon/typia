@@ -3,7 +3,7 @@ import { _test_is } from "../../../internal/_test_is";
 import { TagRange } from "../../../structures/TagRange";
 
 export const test_is_TagRange = _test_is<TagRange>(TagRange)((input) =>
-    ((input: any): input is IPointer<Array<TagRange.Type>> => {
+    ((input: any): input is TagRange => {
         const $io0 = (input: any): boolean =>
             Array.isArray(input.value) &&
             input.value.every(

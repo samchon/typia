@@ -5,18 +5,12 @@ import { ArrayHierarchicalPointer } from "../../../structures/ArrayHierarchicalP
 export const test_validateEquals_ArrayHierarchicalPointer =
     _test_validateEquals<ArrayHierarchicalPointer>(ArrayHierarchicalPointer)(
         (input) =>
-            ((
-                input: any,
-            ): typia.IValidation<
-                IPointer<Array<ArrayHierarchicalPointer.ICompany>>
-            > => {
+            ((input: any): typia.IValidation<ArrayHierarchicalPointer> => {
                 const errors = [] as any[];
                 const __is = (
                     input: any,
                     _exceptionable: boolean = true,
-                ): input is IPointer<
-                    Array<ArrayHierarchicalPointer.ICompany>
-                > => {
+                ): input is ArrayHierarchicalPointer => {
                     const $io0 = (
                         input: any,
                         _exceptionable: boolean = true,
@@ -170,9 +164,7 @@ export const test_validateEquals_ArrayHierarchicalPointer =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is IPointer<
-                        Array<ArrayHierarchicalPointer.ICompany>
-                    > => {
+                    ): input is ArrayHierarchicalPointer => {
                         const $join = (typia.validateEquals as any).join;
                         const $vo0 = (
                             input: any,

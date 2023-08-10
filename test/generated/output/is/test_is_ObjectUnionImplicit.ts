@@ -5,17 +5,7 @@ import { ObjectUnionImplicit } from "../../../structures/ObjectUnionImplicit";
 export const test_is_ObjectUnionImplicit = _test_is<ObjectUnionImplicit>(
     ObjectUnionImplicit,
 )((input) =>
-    ((
-        input: any,
-    ): input is Array<
-        | ObjectUnionImplicit.IPoint
-        | ObjectUnionImplicit.ILine
-        | ObjectUnionImplicit.ITriangle
-        | ObjectUnionImplicit.IRectangle
-        | ObjectUnionImplicit.IPolyline
-        | ObjectUnionImplicit.IPolygon
-        | ObjectUnionImplicit.ICircle
-    > => {
+    ((input: any): input is ObjectUnionImplicit => {
         const $io0 = (input: any): boolean =>
             "number" === typeof input.x &&
             Number.isFinite(input.x) &&

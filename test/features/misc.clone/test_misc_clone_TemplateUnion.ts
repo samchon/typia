@@ -4,4 +4,4 @@ import { TemplateUnion } from "../../structures/TemplateUnion";
 
 export const test_misc_clone_TemplateUnion = _test_misc_clone<TemplateUnion>(
     TemplateUnion,
-)((input) => typia.misc.clone(input));
+)((input) => typia.misc.clone<TemplateUnion>(input));

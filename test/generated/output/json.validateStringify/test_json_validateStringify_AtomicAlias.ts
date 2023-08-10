@@ -4,14 +4,10 @@ import { AtomicAlias } from "../../../structures/AtomicAlias";
 
 export const test_json_validateStringify_AtomicAlias =
     _test_json_validateStringify<AtomicAlias>(AtomicAlias)((input) =>
-        ((input: [boolean, number, string]): typia.IValidation<string> => {
-            const validate = (
-                input: any,
-            ): typia.IValidation<[boolean, number, string]> => {
+        ((input: AtomicAlias): typia.IValidation<string> => {
+            const validate = (input: any): typia.IValidation<AtomicAlias> => {
                 const errors = [] as any[];
-                const __is = (
-                    input: any,
-                ): input is [boolean, number, string] => {
+                const __is = (input: any): input is AtomicAlias => {
                     return (
                         Array.isArray(input) &&
                         input.length === 3 &&
@@ -29,7 +25,7 @@ export const test_json_validateStringify_AtomicAlias =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is [boolean, number, string] => {
+                    ): input is AtomicAlias => {
                         return (
                             ((Array.isArray(input) ||
                                 $report(true, {
@@ -79,7 +75,7 @@ export const test_json_validateStringify_AtomicAlias =
                     data: success ? input : undefined,
                 } as any;
             };
-            const stringify = (input: [boolean, number, string]): string => {
+            const stringify = (input: AtomicAlias): string => {
                 const $number = (typia.json.validateStringify as any).number;
                 const $string = (typia.json.validateStringify as any).string;
                 return `[${input[0]},${$number(input[1])},${$string(

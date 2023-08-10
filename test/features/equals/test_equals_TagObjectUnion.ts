@@ -4,4 +4,4 @@ import { TagObjectUnion } from "../../structures/TagObjectUnion";
 
 export const test_equals_TagObjectUnion = _test_equals<TagObjectUnion>(
     TagObjectUnion,
-)((input) => typia.equals(input));
+)((input) => typia.equals<TagObjectUnion>(input));

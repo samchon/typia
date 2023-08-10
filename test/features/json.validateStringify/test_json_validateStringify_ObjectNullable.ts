@@ -4,5 +4,5 @@ import { ObjectNullable } from "../../structures/ObjectNullable";
 
 export const test_json_validateStringify_ObjectNullable =
     _test_json_validateStringify<ObjectNullable>(ObjectNullable)((input) =>
-        typia.json.validateStringify(input),
+        typia.json.validateStringify<ObjectNullable>(input),
     );

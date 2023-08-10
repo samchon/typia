@@ -8,7 +8,7 @@ export const test_equals_ArraySimplePointer = _test_equals<ArraySimplePointer>(
     ((
         input: any,
         _exceptionable: boolean = true,
-    ): input is IPointer<Array<ArraySimplePointer.IPerson>> => {
+    ): input is ArraySimplePointer => {
         const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
             Array.isArray(input.value) &&
             input.value.every(

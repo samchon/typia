@@ -5,8 +5,8 @@ import { SetUnion } from "../../../structures/SetUnion";
 export const test_misc_isClone_SetUnion = _test_misc_isClone<SetUnion>(
     SetUnion,
 )((input) =>
-    ((input: any): typia.Primitive<Array<SetUnion.Union>> | null => {
-        const is = (input: any): input is Array<SetUnion.Union> => {
+    ((input: any): typia.Primitive<SetUnion> | null => {
+        const is = (input: any): input is SetUnion => {
             const $io0 = (input: any): boolean =>
                 "string" === typeof input.id &&
                 "string" === typeof input.name &&
@@ -101,9 +101,7 @@ export const test_misc_isClone_SetUnion = _test_misc_isClone<SetUnion>(
                 )
             );
         };
-        const clone = (
-            input: Array<SetUnion.Union>,
-        ): typia.Primitive<Array<SetUnion.Union>> => {
+        const clone = (input: SetUnion): typia.Primitive<SetUnion> => {
             const $cp0 = (input: any) =>
                 input.map((elem: any) =>
                     elem instanceof Set ? {} : (elem as any),

@@ -4,5 +4,5 @@ import { ObjectUnionDouble } from "../../structures/ObjectUnionDouble";
 
 export const test_misc_prune_ObjectUnionDouble =
     _test_misc_prune<ObjectUnionDouble>(ObjectUnionDouble)((input) =>
-        typia.misc.prune(input),
+        typia.misc.prune<ObjectUnionDouble>(input),
     );

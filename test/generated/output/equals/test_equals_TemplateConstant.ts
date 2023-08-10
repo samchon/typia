@@ -8,7 +8,7 @@ export const test_equals_TemplateConstant = _test_equals<TemplateConstant>(
     ((
         input: any,
         _exceptionable: boolean = true,
-    ): input is IPointer<Array<TemplateConstant.Type>> => {
+    ): input is TemplateConstant => {
         const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
             Array.isArray(input.value) &&
             input.value.every(

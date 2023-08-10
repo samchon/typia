@@ -4,5 +4,5 @@ import { NativeSimple } from "../../structures/NativeSimple";
 
 export const test_json_stringify_NativeSimple =
     _test_json_stringify<NativeSimple>(NativeSimple)((input) =>
-        typia.json.stringify(input),
+        typia.json.stringify<NativeSimple>(input),
     );

@@ -4,4 +4,4 @@ import { TupleRestObject } from "../../structures/TupleRestObject";
 
 export const test_validate_TupleRestObject = _test_validate<TupleRestObject>(
     TupleRestObject,
-)((input) => typia.validate(input));
+)((input) => typia.validate<TupleRestObject>(input));

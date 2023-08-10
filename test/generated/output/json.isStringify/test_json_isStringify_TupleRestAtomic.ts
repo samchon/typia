@@ -4,10 +4,8 @@ import { TupleRestAtomic } from "../../../structures/TupleRestAtomic";
 
 export const test_json_isStringify_TupleRestAtomic =
     _test_json_isStringify<TupleRestAtomic>(TupleRestAtomic)((input) =>
-        ((input: [boolean, number, ...string[]]): string | null => {
-            const is = (
-                input: any,
-            ): input is [boolean, number, ...string[]] => {
+        ((input: TupleRestAtomic): string | null => {
+            const is = (input: any): input is TupleRestAtomic => {
                 return (
                     Array.isArray(input) &&
                     "boolean" === typeof input[0] &&
@@ -19,9 +17,7 @@ export const test_json_isStringify_TupleRestAtomic =
                         .every((elem: any) => "string" === typeof elem)
                 );
             };
-            const stringify = (
-                input: [boolean, number, ...string[]],
-            ): string => {
+            const stringify = (input: TupleRestAtomic): string => {
                 const $number = (typia.json.isStringify as any).number;
                 const $string = (typia.json.isStringify as any).string;
                 const $rest = (typia.json.isStringify as any).rest;

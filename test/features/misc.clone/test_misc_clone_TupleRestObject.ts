@@ -4,5 +4,5 @@ import { TupleRestObject } from "../../structures/TupleRestObject";
 
 export const test_misc_clone_TupleRestObject =
     _test_misc_clone<TupleRestObject>(TupleRestObject)((input) =>
-        typia.misc.clone(input),
+        typia.misc.clone<TupleRestObject>(input),
     );

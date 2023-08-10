@@ -4,4 +4,4 @@ import { TagPattern } from "../../structures/TagPattern";
 
 export const test_misc_isPrune_TagPattern = _test_misc_isPrune<TagPattern>(
     TagPattern,
-)((input) => typia.misc.isPrune(input));
+)((input) => typia.misc.isPrune<TagPattern>(input));

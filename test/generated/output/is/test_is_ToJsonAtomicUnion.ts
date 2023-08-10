@@ -5,7 +5,7 @@ import { ToJsonAtomicUnion } from "../../../structures/ToJsonAtomicUnion";
 export const test_is_ToJsonAtomicUnion = _test_is<ToJsonAtomicUnion>(
     ToJsonAtomicUnion,
 )((input) =>
-    ((input: any): input is Array<ToJsonAtomicUnion.IToJson> => {
+    ((input: any): input is ToJsonAtomicUnion => {
         const $io0 = (input: any): boolean =>
             "function" === typeof input.toJSON;
         return (

@@ -5,13 +5,7 @@ import { ConstantAtomicWrapper } from "../../../structures/ConstantAtomicWrapper
 export const test_is_ConstantAtomicWrapper = _test_is<ConstantAtomicWrapper>(
     ConstantAtomicWrapper,
 )((input) =>
-    ((
-        input: any,
-    ): input is [
-        ConstantAtomicWrapper.IPointer<boolean>,
-        ConstantAtomicWrapper.IPointer<number>,
-        ConstantAtomicWrapper.IPointer<string>,
-    ] => {
+    ((input: any): input is ConstantAtomicWrapper => {
         const $io0 = (input: any): boolean => "boolean" === typeof input.value;
         const $io1 = (input: any): boolean =>
             "number" === typeof input.value && Number.isFinite(input.value);

@@ -4,4 +4,4 @@ import { ToJsonUndefined } from "../../structures/ToJsonUndefined";
 
 export const test_assert_ToJsonUndefined = _test_assert<ToJsonUndefined>(
     ToJsonUndefined,
-)((input) => typia.assert(input));
+)((input) => typia.assert<ToJsonUndefined>(input));

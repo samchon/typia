@@ -1,0 +1,5 @@
+syntax = "proto3";
+
+message DynamicArray {
+    requiredmap<string, repeated string> value = 1;
+}

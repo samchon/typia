@@ -4,5 +4,5 @@ import { DynamicSimple } from "../../structures/DynamicSimple";
 
 export const test_json_isStringify_DynamicSimple =
     _test_json_isStringify<DynamicSimple>(DynamicSimple)((input) =>
-        typia.json.isStringify(input),
+        typia.json.isStringify<DynamicSimple>(input),
     );

@@ -4,4 +4,4 @@ import { TagCustom } from "../../structures/TagCustom";
 
 export const test_misc_isPrune_TagCustom = _test_misc_isPrune<TagCustom>(
     TagCustom,
-)((input) => typia.misc.isPrune(input));
+)((input) => typia.misc.isPrune<TagCustom>(input));

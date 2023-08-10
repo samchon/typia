@@ -4,4 +4,4 @@ import { ObjectInternal } from "../../structures/ObjectInternal";
 
 export const test_misc_prune_ObjectInternal = _test_misc_prune<ObjectInternal>(
     ObjectInternal,
-)((input) => typia.misc.prune(input));
+)((input) => typia.misc.prune<ObjectInternal>(input));

@@ -4,9 +4,7 @@ import { MapUnion } from "../../../structures/MapUnion";
 
 export const test_misc_clone_MapUnion = _test_misc_clone<MapUnion>(MapUnion)(
     (input) =>
-        ((
-            input: Array<MapUnion.Union>,
-        ): typia.Primitive<Array<MapUnion.Union>> => {
+        ((input: MapUnion): typia.Primitive<MapUnion> => {
             const $cp0 = (input: any) =>
                 input.map((elem: any) =>
                     elem instanceof Map ? {} : (elem as any),

@@ -4,4 +4,4 @@ import { ToJsonArray } from "../../structures/ToJsonArray";
 
 export const test_misc_clone_ToJsonArray = _test_misc_clone<ToJsonArray>(
     ToJsonArray,
-)((input) => typia.misc.clone(input));
+)((input) => typia.misc.clone<ToJsonArray>(input));

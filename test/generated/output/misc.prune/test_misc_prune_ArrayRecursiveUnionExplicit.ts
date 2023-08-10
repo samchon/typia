@@ -5,7 +5,7 @@ import { ArrayRecursiveUnionExplicit } from "../../../structures/ArrayRecursiveU
 export const test_misc_prune_ArrayRecursiveUnionExplicit =
     _test_misc_prune<ArrayRecursiveUnionExplicit>(ArrayRecursiveUnionExplicit)(
         (input) =>
-            ((input: Array<ArrayRecursiveUnionExplicit.IBucket>): void => {
+            ((input: ArrayRecursiveUnionExplicit): void => {
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.id &&
                     "string" === typeof input.name &&

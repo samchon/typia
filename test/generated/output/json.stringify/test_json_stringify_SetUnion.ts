@@ -5,7 +5,7 @@ import { SetUnion } from "../../../structures/SetUnion";
 export const test_json_stringify_SetUnion = _test_json_stringify<SetUnion>(
     SetUnion,
 )((input) =>
-    ((input: Array<SetUnion.Union>): string => {
+    ((input: SetUnion): string => {
         const $string = (typia.json.stringify as any).string;
         const $number = (typia.json.stringify as any).number;
         return `[${input.map((elem: any) => "{}").join(",")}]`;

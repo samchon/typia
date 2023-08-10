@@ -5,7 +5,7 @@ import { ObjectUndefined } from "../../../structures/ObjectUndefined";
 export const test_is_ObjectUndefined = _test_is<ObjectUndefined>(
     ObjectUndefined,
 )((input) =>
-    ((input: any): input is Array<ObjectUndefined.ILecture> => {
+    ((input: any): input is ObjectUndefined => {
         const $io0 = (input: any): boolean =>
             "string" === typeof input.name &&
             (undefined === input.professor ||

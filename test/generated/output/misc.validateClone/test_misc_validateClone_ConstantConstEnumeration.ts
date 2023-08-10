@@ -8,18 +8,14 @@ export const test_misc_validateClone_ConstantConstEnumeration =
     )((input) =>
         ((
             input: any,
-        ): typia.IValidation<
-            typia.Primitive<Array<ConstantConstEnumeration.Enumeration>>
-        > => {
+        ): typia.IValidation<typia.Primitive<ConstantConstEnumeration>> => {
             const validate = (
                 input: any,
-            ): typia.IValidation<
-                Array<ConstantConstEnumeration.Enumeration>
-            > => {
+            ): typia.IValidation<ConstantConstEnumeration> => {
                 const errors = [] as any[];
                 const __is = (
                     input: any,
-                ): input is Array<ConstantConstEnumeration.Enumeration> => {
+                ): input is ConstantConstEnumeration => {
                     return (
                         Array.isArray(input) &&
                         input.every(
@@ -40,7 +36,7 @@ export const test_misc_validateClone_ConstantConstEnumeration =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is Array<ConstantConstEnumeration.Enumeration> => {
+                    ): input is ConstantConstEnumeration => {
                         return (
                             ((Array.isArray(input) ||
                                 $report(true, {
@@ -81,8 +77,8 @@ export const test_misc_validateClone_ConstantConstEnumeration =
                 } as any;
             };
             const clone = (
-                input: Array<ConstantConstEnumeration.Enumeration>,
-            ): typia.Primitive<Array<ConstantConstEnumeration.Enumeration>> => {
+                input: ConstantConstEnumeration,
+            ): typia.Primitive<ConstantConstEnumeration> => {
                 const $cp0 = (input: any) =>
                     input.map((elem: any) => elem as any);
                 return Array.isArray(input) ? $cp0(input) : (input as any);

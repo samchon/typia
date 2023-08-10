@@ -4,4 +4,4 @@ import { TagInfinite } from "../../structures/TagInfinite";
 
 export const test_assertEquals_TagInfinite = _test_assertEquals<TagInfinite>(
     TagInfinite,
-)((input) => typia.assertEquals(input));
+)((input) => typia.assertEquals<TagInfinite>(input));

@@ -5,13 +5,11 @@ import { ObjectLiteralProperty } from "../../../structures/ObjectLiteralProperty
 export const test_misc_assertPrune_ObjectLiteralProperty =
     _test_misc_assertPrune<ObjectLiteralProperty>(ObjectLiteralProperty)(
         (input) =>
-            ((input: any): ObjectLiteralProperty.ISomething => {
-                const assert = (
-                    input: any,
-                ): ObjectLiteralProperty.ISomething => {
+            ((input: any): ObjectLiteralProperty => {
+                const assert = (input: any): ObjectLiteralProperty => {
                     const __is = (
                         input: any,
-                    ): input is ObjectLiteralProperty.ISomething => {
+                    ): input is ObjectLiteralProperty => {
                         return (
                             "object" === typeof input &&
                             null !== input &&
@@ -30,7 +28,7 @@ export const test_misc_assertPrune_ObjectLiteralProperty =
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
-                        ): input is ObjectLiteralProperty.ISomething => {
+                        ): input is ObjectLiteralProperty => {
                             const $guard = (typia.misc.assertPrune as any)
                                 .guard;
                             const $ao0 = (
@@ -84,9 +82,7 @@ export const test_misc_assertPrune_ObjectLiteralProperty =
                         })(input, "$input", true);
                     return input;
                 };
-                const prune = (
-                    input: ObjectLiteralProperty.ISomething,
-                ): void => {
+                const prune = (input: ObjectLiteralProperty): void => {
                     const $po0 = (input: any): any => {
                         for (const key of Object.keys(input)) {
                             if (

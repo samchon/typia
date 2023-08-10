@@ -4,5 +4,5 @@ import { ObjectUnionImplicit } from "../../structures/ObjectUnionImplicit";
 
 export const test_validateEquals_ObjectUnionImplicit =
     _test_validateEquals<ObjectUnionImplicit>(ObjectUnionImplicit)((input) =>
-        typia.validateEquals(input),
+        typia.validateEquals<ObjectUnionImplicit>(input),
     );

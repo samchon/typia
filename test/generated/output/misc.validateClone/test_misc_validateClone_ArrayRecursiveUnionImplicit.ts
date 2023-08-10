@@ -8,18 +8,14 @@ export const test_misc_validateClone_ArrayRecursiveUnionImplicit =
     )((input) =>
         ((
             input: any,
-        ): typia.IValidation<
-            typia.Primitive<Array<ArrayRecursiveUnionImplicit.IBucket>>
-        > => {
+        ): typia.IValidation<typia.Primitive<ArrayRecursiveUnionImplicit>> => {
             const validate = (
                 input: any,
-            ): typia.IValidation<
-                Array<ArrayRecursiveUnionImplicit.IBucket>
-            > => {
+            ): typia.IValidation<ArrayRecursiveUnionImplicit> => {
                 const errors = [] as any[];
                 const __is = (
                     input: any,
-                ): input is Array<ArrayRecursiveUnionImplicit.IBucket> => {
+                ): input is ArrayRecursiveUnionImplicit => {
                     const $io0 = (input: any): boolean =>
                         "number" === typeof input.id &&
                         Number.isFinite(input.id) &&
@@ -109,7 +105,7 @@ export const test_misc_validateClone_ArrayRecursiveUnionImplicit =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is Array<ArrayRecursiveUnionImplicit.IBucket> => {
+                    ): input is ArrayRecursiveUnionImplicit => {
                         const $vo0 = (
                             input: any,
                             _path: string,
@@ -536,8 +532,8 @@ export const test_misc_validateClone_ArrayRecursiveUnionImplicit =
                 } as any;
             };
             const clone = (
-                input: Array<ArrayRecursiveUnionImplicit.IBucket>,
-            ): typia.Primitive<Array<ArrayRecursiveUnionImplicit.IBucket>> => {
+                input: ArrayRecursiveUnionImplicit,
+            ): typia.Primitive<ArrayRecursiveUnionImplicit> => {
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.id &&
                     "string" === typeof input.name &&

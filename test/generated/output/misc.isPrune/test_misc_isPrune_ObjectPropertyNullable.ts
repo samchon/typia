@@ -5,26 +5,8 @@ import { ObjectPropertyNullable } from "../../../structures/ObjectPropertyNullab
 export const test_misc_isPrune_ObjectPropertyNullable =
     _test_misc_isPrune<ObjectPropertyNullable>(ObjectPropertyNullable)(
         (input) =>
-            ((
-                input: any,
-            ): input is [
-                Array<ObjectPropertyNullable.IPointer<boolean>>,
-                Array<ObjectPropertyNullable.IPointer<number>>,
-                Array<ObjectPropertyNullable.IPointer<string>>,
-                Array<
-                    ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>
-                >,
-            ] => {
-                const is = (
-                    input: any,
-                ): input is [
-                    Array<ObjectPropertyNullable.IPointer<boolean>>,
-                    Array<ObjectPropertyNullable.IPointer<number>>,
-                    Array<ObjectPropertyNullable.IPointer<string>>,
-                    Array<
-                        ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>
-                    >,
-                ] => {
+            ((input: any): input is ObjectPropertyNullable => {
+                const is = (input: any): input is ObjectPropertyNullable => {
                     const $io0 = (input: any): boolean =>
                         null === input.value ||
                         "boolean" === typeof input.value;
@@ -85,16 +67,7 @@ export const test_misc_isPrune_ObjectPropertyNullable =
                         )
                     );
                 };
-                const prune = (
-                    input: [
-                        Array<ObjectPropertyNullable.IPointer<boolean>>,
-                        Array<ObjectPropertyNullable.IPointer<number>>,
-                        Array<ObjectPropertyNullable.IPointer<string>>,
-                        Array<
-                            ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>
-                        >,
-                    ],
-                ): void => {
+                const prune = (input: ObjectPropertyNullable): void => {
                     const $io0 = (input: any): boolean =>
                         null === input.value ||
                         "boolean" === typeof input.value;

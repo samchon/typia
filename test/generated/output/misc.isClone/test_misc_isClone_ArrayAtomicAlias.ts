@@ -4,22 +4,8 @@ import { ArrayAtomicAlias } from "../../../structures/ArrayAtomicAlias";
 
 export const test_misc_isClone_ArrayAtomicAlias =
     _test_misc_isClone<ArrayAtomicAlias>(ArrayAtomicAlias)((input) =>
-        ((
-            input: any,
-        ): typia.Primitive<
-            [
-                ArrayAtomicAlias.Alias<boolean>,
-                ArrayAtomicAlias.Alias<number>,
-                ArrayAtomicAlias.Alias<string>,
-            ]
-        > | null => {
-            const is = (
-                input: any,
-            ): input is [
-                ArrayAtomicAlias.Alias<boolean>,
-                ArrayAtomicAlias.Alias<number>,
-                ArrayAtomicAlias.Alias<string>,
-            ] => {
+        ((input: any): typia.Primitive<ArrayAtomicAlias> | null => {
+            const is = (input: any): input is ArrayAtomicAlias => {
                 return (
                     Array.isArray(input) &&
                     input.length === 3 &&
@@ -35,18 +21,8 @@ export const test_misc_isClone_ArrayAtomicAlias =
                 );
             };
             const clone = (
-                input: [
-                    ArrayAtomicAlias.Alias<boolean>,
-                    ArrayAtomicAlias.Alias<number>,
-                    ArrayAtomicAlias.Alias<string>,
-                ],
-            ): typia.Primitive<
-                [
-                    ArrayAtomicAlias.Alias<boolean>,
-                    ArrayAtomicAlias.Alias<number>,
-                    ArrayAtomicAlias.Alias<string>,
-                ]
-            > => {
+                input: ArrayAtomicAlias,
+            ): typia.Primitive<ArrayAtomicAlias> => {
                 const $cp0 = (input: any) =>
                     input.map((elem: any) => elem as any);
                 const $cp1 = (input: any) =>

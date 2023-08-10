@@ -4,5 +4,5 @@ import { TagAtomicUnion } from "../../structures/TagAtomicUnion";
 
 export const test_misc_validatePrune_TagAtomicUnion =
     _test_misc_validatePrune<TagAtomicUnion>(TagAtomicUnion)((input) =>
-        typia.misc.validatePrune(input),
+        typia.misc.validatePrune<TagAtomicUnion>(input),
     );

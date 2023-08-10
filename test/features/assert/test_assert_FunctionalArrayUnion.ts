@@ -4,5 +4,5 @@ import { FunctionalArrayUnion } from "../../structures/FunctionalArrayUnion";
 
 export const test_assert_FunctionalArrayUnion =
     _test_assert<FunctionalArrayUnion>(FunctionalArrayUnion)((input) =>
-        typia.assert(input),
+        typia.assert<FunctionalArrayUnion>(input),
     );

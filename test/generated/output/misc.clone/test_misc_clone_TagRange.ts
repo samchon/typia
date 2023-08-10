@@ -4,9 +4,7 @@ import { TagRange } from "../../../structures/TagRange";
 
 export const test_misc_clone_TagRange = _test_misc_clone<TagRange>(TagRange)(
     (input) =>
-        ((
-            input: IPointer<Array<TagRange.Type>>,
-        ): typia.Primitive<IPointer<Array<TagRange.Type>>> => {
+        ((input: TagRange): typia.Primitive<TagRange> => {
             const $io1 = (input: any): boolean =>
                 "number" === typeof input.greater &&
                 3 < input.greater &&

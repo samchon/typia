@@ -3,5 +3,5 @@ import { _test_assert } from "../../internal/_test_assert";
 import { TagRange } from "../../structures/TagRange";
 
 export const test_assert_TagRange = _test_assert<TagRange>(TagRange)((input) =>
-    typia.assert(input),
+    typia.assert<TagRange>(input),
 );

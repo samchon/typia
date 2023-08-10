@@ -5,32 +5,8 @@ import { AtomicClass } from "../../../structures/AtomicClass";
 export const test_misc_isPrune_AtomicClass = _test_misc_isPrune<AtomicClass>(
     AtomicClass,
 )((input) =>
-    ((
-        input: any,
-    ): input is [
-        Boolean,
-        false | Boolean,
-        boolean | Boolean,
-        Number,
-        Number | 1,
-        number | Number,
-        String,
-        String | "characters",
-        string | String,
-    ] => {
-        const is = (
-            input: any,
-        ): input is [
-            Boolean,
-            false | Boolean,
-            boolean | Boolean,
-            Number,
-            Number | 1,
-            number | Number,
-            String,
-            String | "characters",
-            string | String,
-        ] => {
+    ((input: any): input is AtomicClass => {
+        const is = (input: any): input is AtomicClass => {
             return (
                 Array.isArray(input) &&
                 input.length === 9 &&
@@ -60,19 +36,7 @@ export const test_misc_isPrune_AtomicClass = _test_misc_isPrune<AtomicClass>(
                 ("string" === typeof input[8] || input[8] instanceof String)
             );
         };
-        const prune = (
-            input: [
-                Boolean,
-                false | Boolean,
-                boolean | Boolean,
-                Number,
-                Number | 1,
-                number | Number,
-                String,
-                String | "characters",
-                string | String,
-            ],
-        ): void => {};
+        const prune = (input: AtomicClass): void => {};
         if (!is(input)) return false;
         prune(input);
         return true;

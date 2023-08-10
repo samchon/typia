@@ -4,14 +4,10 @@ import { ArrayMatrix } from "../../../structures/ArrayMatrix";
 
 export const test_json_validateStringify_ArrayMatrix =
     _test_json_validateStringify<ArrayMatrix>(ArrayMatrix)((input) =>
-        ((input: Array<Array<Array<number>>>): typia.IValidation<string> => {
-            const validate = (
-                input: any,
-            ): typia.IValidation<Array<Array<Array<number>>>> => {
+        ((input: ArrayMatrix): typia.IValidation<string> => {
+            const validate = (input: any): typia.IValidation<ArrayMatrix> => {
                 const errors = [] as any[];
-                const __is = (
-                    input: any,
-                ): input is Array<Array<Array<number>>> => {
+                const __is = (input: any): input is ArrayMatrix => {
                     return (
                         Array.isArray(input) &&
                         input.every(
@@ -37,7 +33,7 @@ export const test_json_validateStringify_ArrayMatrix =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is Array<Array<Array<number>>> => {
+                    ): input is ArrayMatrix => {
                         return (
                             ((Array.isArray(input) ||
                                 $report(true, {
@@ -155,7 +151,7 @@ export const test_json_validateStringify_ArrayMatrix =
                     data: success ? input : undefined,
                 } as any;
             };
-            const stringify = (input: Array<Array<Array<number>>>): string => {
+            const stringify = (input: ArrayMatrix): string => {
                 const $number = (typia.json.validateStringify as any).number;
                 return `[${input
                     .map(

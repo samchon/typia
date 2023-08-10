@@ -7,7 +7,7 @@ export const test_equals_ObjectLiteralProperty =
         ((
             input: any,
             _exceptionable: boolean = true,
-        ): input is ObjectLiteralProperty.ISomething => {
+        ): input is ObjectLiteralProperty => {
             const $io0 = (
                 input: any,
                 _exceptionable: boolean = true,

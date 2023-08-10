@@ -5,9 +5,9 @@ import { UltimateUnion } from "../../../structures/UltimateUnion";
 export const test_validate_UltimateUnion = _test_validate<UltimateUnion>(
     UltimateUnion,
 )((input) =>
-    ((input: any): typia.IValidation<Array<typia.IJsonApplication>> => {
+    ((input: any): typia.IValidation<UltimateUnion> => {
         const errors = [] as any[];
-        const __is = (input: any): input is Array<typia.IJsonApplication> => {
+        const __is = (input: any): input is UltimateUnion => {
             const $join = (typia.validate as any).join;
             const $io0 = (input: any): boolean =>
                 Array.isArray(input.schemas) &&
@@ -1369,7 +1369,7 @@ export const test_validate_UltimateUnion = _test_validate<UltimateUnion>(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is Array<typia.IJsonApplication> => {
+            ): input is UltimateUnion => {
                 const $join = (typia.validate as any).join;
                 const $vo0 = (
                     input: any,

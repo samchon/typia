@@ -4,11 +4,9 @@ import { ObjectLiteralProperty } from "../../../structures/ObjectLiteralProperty
 
 export const test_validate_ObjectLiteralProperty =
     _test_validate<ObjectLiteralProperty>(ObjectLiteralProperty)((input) =>
-        ((input: any): typia.IValidation<ObjectLiteralProperty.ISomething> => {
+        ((input: any): typia.IValidation<ObjectLiteralProperty> => {
             const errors = [] as any[];
-            const __is = (
-                input: any,
-            ): input is ObjectLiteralProperty.ISomething => {
+            const __is = (input: any): input is ObjectLiteralProperty => {
                 return (
                     "object" === typeof input &&
                     null !== input &&
@@ -26,7 +24,7 @@ export const test_validate_ObjectLiteralProperty =
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ObjectLiteralProperty.ISomething => {
+                ): input is ObjectLiteralProperty => {
                     const $vo0 = (
                         input: any,
                         _path: string,

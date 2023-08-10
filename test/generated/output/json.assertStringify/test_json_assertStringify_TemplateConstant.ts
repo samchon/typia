@@ -5,12 +5,8 @@ import { TemplateConstant } from "../../../structures/TemplateConstant";
 export const test_json_assertStringify_TemplateConstant =
     _test_json_assertStringify<TemplateConstant>(TemplateConstant)((input) =>
         ((input: any): string => {
-            const assert = (
-                input: any,
-            ): IPointer<Array<TemplateConstant.Type>> => {
-                const __is = (
-                    input: any,
-                ): input is IPointer<Array<TemplateConstant.Type>> => {
+            const assert = (input: any): TemplateConstant => {
+                const __is = (input: any): input is TemplateConstant => {
                     const $io0 = (input: any): boolean =>
                         Array.isArray(input.value) &&
                         input.value.every(
@@ -46,7 +42,7 @@ export const test_json_assertStringify_TemplateConstant =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is IPointer<Array<TemplateConstant.Type>> => {
+                    ): input is TemplateConstant => {
                         const $guard = (typia.json.assertStringify as any)
                             .guard;
                         const $ao0 = (
@@ -152,9 +148,7 @@ export const test_json_assertStringify_TemplateConstant =
                     })(input, "$input", true);
                 return input;
             };
-            const stringify = (
-                input: IPointer<Array<TemplateConstant.Type>>,
-            ): string => {
+            const stringify = (input: TemplateConstant): string => {
                 const $io1 = (input: any): boolean =>
                     ("prefix_A" === input.prefix ||
                         "prefix_B" === input.prefix ||

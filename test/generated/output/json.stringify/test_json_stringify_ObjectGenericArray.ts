@@ -4,9 +4,7 @@ import { ObjectGenericArray } from "../../../structures/ObjectGenericArray";
 
 export const test_json_stringify_ObjectGenericArray =
     _test_json_stringify<ObjectGenericArray>(ObjectGenericArray)((input) =>
-        ((
-            input: ObjectGenericArray.IPage<ObjectGenericArray.IPerson>,
-        ): string => {
+        ((input: ObjectGenericArray): string => {
             const $io1 = (input: any): boolean =>
                 "number" === typeof input.page &&
                 "number" === typeof input.limit &&

@@ -4,4 +4,4 @@ import { DynamicComposite } from "../../structures/DynamicComposite";
 
 export const test_validate_DynamicComposite = _test_validate<DynamicComposite>(
     DynamicComposite,
-)((input) => typia.validate(input));
+)((input) => typia.validate<DynamicComposite>(input));

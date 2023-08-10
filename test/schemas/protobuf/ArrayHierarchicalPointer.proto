@@ -3,31 +3,31 @@ syntax = "proto3";
 message ArrayHierarchicalPointer {
     repeated ArrayHierarchicalPointer.ICompany value = 1;
     message ICompany {
-        double id = 1;
-        double serial = 2;
-        string name = 3;
-        ArrayHierarchicalPointer.ITimestamp established_at = 4;
+        requireddouble id = 1;
+        requireddouble serial = 2;
+        requiredstring name = 3;
+        requiredArrayHierarchicalPointer.ITimestamp established_at = 4;
         repeated ArrayHierarchicalPointer.IDepartment departments = 5;
     }
 
     message ITimestamp {
-        double time = 1;
-        double zone = 2;
+        requireddouble time = 1;
+        requireddouble zone = 2;
     }
 
     message IDepartment {
-        double id = 1;
-        string code = 2;
-        double sales = 3;
-        ArrayHierarchicalPointer.ITimestamp created_at = 4;
+        requireddouble id = 1;
+        requiredstring code = 2;
+        requireddouble sales = 3;
+        requiredArrayHierarchicalPointer.ITimestamp created_at = 4;
         repeated ArrayHierarchicalPointer.IEmployee employees = 5;
     }
 
     message IEmployee {
-        double id = 1;
-        string name = 2;
-        double age = 3;
-        double grade = 4;
-        ArrayHierarchicalPointer.ITimestamp employeed_at = 5;
+        requireddouble id = 1;
+        requiredstring name = 2;
+        requireddouble age = 3;
+        requireddouble grade = 4;
+        requiredArrayHierarchicalPointer.ITimestamp employeed_at = 5;
     }
 }

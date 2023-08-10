@@ -5,24 +5,8 @@ import { ObjectPropertyNullable } from "../../../structures/ObjectPropertyNullab
 export const test_misc_clone_ObjectPropertyNullable =
     _test_misc_clone<ObjectPropertyNullable>(ObjectPropertyNullable)((input) =>
         ((
-            input: [
-                Array<ObjectPropertyNullable.IPointer<boolean>>,
-                Array<ObjectPropertyNullable.IPointer<number>>,
-                Array<ObjectPropertyNullable.IPointer<string>>,
-                Array<
-                    ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>
-                >,
-            ],
-        ): typia.Primitive<
-            [
-                Array<ObjectPropertyNullable.IPointer<boolean>>,
-                Array<ObjectPropertyNullable.IPointer<number>>,
-                Array<ObjectPropertyNullable.IPointer<string>>,
-                Array<
-                    ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>
-                >,
-            ]
-        > => {
+            input: ObjectPropertyNullable,
+        ): typia.Primitive<ObjectPropertyNullable> => {
             const $io0 = (input: any): boolean =>
                 null === input.value || "boolean" === typeof input.value;
             const $io1 = (input: any): boolean =>

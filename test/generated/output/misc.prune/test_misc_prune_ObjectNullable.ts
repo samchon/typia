@@ -5,7 +5,7 @@ import { ObjectNullable } from "../../../structures/ObjectNullable";
 export const test_misc_prune_ObjectNullable = _test_misc_prune<ObjectNullable>(
     ObjectNullable,
 )((input) =>
-    ((input: IPointer<Array<ObjectNullable.IProduct>>): void => {
+    ((input: ObjectNullable): void => {
         const $io1 = (input: any): boolean =>
             "string" === typeof input.name &&
             "object" === typeof input.manufacturer &&

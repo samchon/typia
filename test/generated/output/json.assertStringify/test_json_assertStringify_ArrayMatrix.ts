@@ -5,10 +5,8 @@ import { ArrayMatrix } from "../../../structures/ArrayMatrix";
 export const test_json_assertStringify_ArrayMatrix =
     _test_json_assertStringify<ArrayMatrix>(ArrayMatrix)((input) =>
         ((input: any): string => {
-            const assert = (input: any): Array<Array<Array<number>>> => {
-                const __is = (
-                    input: any,
-                ): input is Array<Array<Array<number>>> => {
+            const assert = (input: any): ArrayMatrix => {
+                const __is = (input: any): input is ArrayMatrix => {
                     return (
                         Array.isArray(input) &&
                         input.every(
@@ -31,7 +29,7 @@ export const test_json_assertStringify_ArrayMatrix =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is Array<Array<Array<number>>> => {
+                    ): input is ArrayMatrix => {
                         const $guard = (typia.json.assertStringify as any)
                             .guard;
                         return (
@@ -119,7 +117,7 @@ export const test_json_assertStringify_ArrayMatrix =
                     })(input, "$input", true);
                 return input;
             };
-            const stringify = (input: Array<Array<Array<number>>>): string => {
+            const stringify = (input: ArrayMatrix): string => {
                 const $number = (typia.json.assertStringify as any).number;
                 return `[${input
                     .map(

@@ -4,5 +4,5 @@ import { ConstantIntersection } from "../../structures/ConstantIntersection";
 
 export const test_json_stringify_ConstantIntersection =
     _test_json_stringify<ConstantIntersection>(ConstantIntersection)((input) =>
-        typia.json.stringify(input),
+        typia.json.stringify<ConstantIntersection>(input),
     );

@@ -6,10 +6,8 @@ export const test_json_assertStringify_ObjectHierarchical =
     _test_json_assertStringify<ObjectHierarchical>(ObjectHierarchical)(
         (input) =>
             ((input: any): string => {
-                const assert = (input: any): ObjectHierarchical.ICustomer => {
-                    const __is = (
-                        input: any,
-                    ): input is ObjectHierarchical.ICustomer => {
+                const assert = (input: any): ObjectHierarchical => {
+                    const __is = (input: any): input is ObjectHierarchical => {
                         const $is_url = (typia.json.assertStringify as any)
                             .is_url;
                         const $is_ipv4 = (typia.json.assertStringify as any)
@@ -123,7 +121,7 @@ export const test_json_assertStringify_ObjectHierarchical =
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
-                        ): input is ObjectHierarchical.ICustomer => {
+                        ): input is ObjectHierarchical => {
                             const $guard = (typia.json.assertStringify as any)
                                 .guard;
                             const $is_url = (typia.json.assertStringify as any)
@@ -551,9 +549,7 @@ export const test_json_assertStringify_ObjectHierarchical =
                         })(input, "$input", true);
                     return input;
                 };
-                const stringify = (
-                    input: ObjectHierarchical.ICustomer,
-                ): string => {
+                const stringify = (input: ObjectHierarchical): string => {
                     const $io1 = (input: any): boolean =>
                         "number" === typeof input.id &&
                         "string" === typeof input.code &&

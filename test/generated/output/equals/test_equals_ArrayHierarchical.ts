@@ -8,7 +8,7 @@ export const test_equals_ArrayHierarchical = _test_equals<ArrayHierarchical>(
     ((
         input: any,
         _exceptionable: boolean = true,
-    ): input is Array<ArrayHierarchical.ICompany> => {
+    ): input is ArrayHierarchical => {
         const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
             "number" === typeof input.id &&
             Number.isFinite(input.id) &&

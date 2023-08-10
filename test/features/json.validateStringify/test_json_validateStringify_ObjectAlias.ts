@@ -4,5 +4,5 @@ import { ObjectAlias } from "../../structures/ObjectAlias";
 
 export const test_json_validateStringify_ObjectAlias =
     _test_json_validateStringify<ObjectAlias>(ObjectAlias)((input) =>
-        typia.json.validateStringify(input),
+        typia.json.validateStringify<ObjectAlias>(input),
     );

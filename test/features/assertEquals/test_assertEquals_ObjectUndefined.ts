@@ -4,5 +4,5 @@ import { ObjectUndefined } from "../../structures/ObjectUndefined";
 
 export const test_assertEquals_ObjectUndefined =
     _test_assertEquals<ObjectUndefined>(ObjectUndefined)((input) =>
-        typia.assertEquals(input),
+        typia.assertEquals<ObjectUndefined>(input),
     );

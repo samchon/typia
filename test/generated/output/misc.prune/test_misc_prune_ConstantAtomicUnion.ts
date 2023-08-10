@@ -4,7 +4,7 @@ import { ConstantAtomicUnion } from "../../../structures/ConstantAtomicUnion";
 
 export const test_misc_prune_ConstantAtomicUnion =
     _test_misc_prune<ConstantAtomicUnion>(ConstantAtomicUnion)((input) =>
-        ((input: Array<ConstantAtomicUnion.Union>): void => {
+        ((input: ConstantAtomicUnion): void => {
             const $pp0 = (input: any) =>
                 input.forEach((elem: any) => {
                     if ("object" === typeof elem && null !== elem) $po0(elem);

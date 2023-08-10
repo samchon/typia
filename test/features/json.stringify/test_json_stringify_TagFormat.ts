@@ -4,4 +4,4 @@ import { TagFormat } from "../../structures/TagFormat";
 
 export const test_json_stringify_TagFormat = _test_json_stringify<TagFormat>(
     TagFormat,
-)((input) => typia.json.stringify(input));
+)((input) => typia.json.stringify<TagFormat>(input));

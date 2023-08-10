@@ -4,65 +4,12 @@ import { TupleHierarchical } from "../../../structures/TupleHierarchical";
 
 export const test_misc_validatePrune_TupleHierarchical =
     _test_misc_validatePrune<TupleHierarchical>(TupleHierarchical)((input) =>
-        ((
-            input: any,
-        ): typia.IValidation<
-            [
-                boolean,
-                null,
-                number,
-                [boolean, null, [number, [boolean, string]]],
-                [
-                    number,
-                    Array<
-                        [
-                            string,
-                            boolean,
-                            Array<[number, number, [boolean, string]]>,
-                        ]
-                    >,
-                ],
-            ]
-        > => {
+        ((input: any): typia.IValidation<TupleHierarchical> => {
             const validate = (
                 input: any,
-            ): typia.IValidation<
-                [
-                    boolean,
-                    null,
-                    number,
-                    [boolean, null, [number, [boolean, string]]],
-                    [
-                        number,
-                        Array<
-                            [
-                                string,
-                                boolean,
-                                Array<[number, number, [boolean, string]]>,
-                            ]
-                        >,
-                    ],
-                ]
-            > => {
+            ): typia.IValidation<TupleHierarchical> => {
                 const errors = [] as any[];
-                const __is = (
-                    input: any,
-                ): input is [
-                    boolean,
-                    null,
-                    number,
-                    [boolean, null, [number, [boolean, string]]],
-                    [
-                        number,
-                        Array<
-                            [
-                                string,
-                                boolean,
-                                Array<[number, number, [boolean, string]]>,
-                            ]
-                        >,
-                    ],
-                ] => {
+                const __is = (input: any): input is TupleHierarchical => {
                     return (
                         Array.isArray(input) &&
                         input.length === 5 &&
@@ -120,22 +67,7 @@ export const test_misc_validatePrune_TupleHierarchical =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is [
-                        boolean,
-                        null,
-                        number,
-                        [boolean, null, [number, [boolean, string]]],
-                        [
-                            number,
-                            Array<
-                                [
-                                    string,
-                                    boolean,
-                                    Array<[number, number, [boolean, string]]>,
-                                ]
-                            >,
-                        ],
-                    ] => {
+                    ): input is TupleHierarchical => {
                         return (
                             ((Array.isArray(input) ||
                                 $report(true, {
@@ -679,24 +611,7 @@ export const test_misc_validatePrune_TupleHierarchical =
                     data: success ? input : undefined,
                 } as any;
             };
-            const prune = (
-                input: [
-                    boolean,
-                    null,
-                    number,
-                    [boolean, null, [number, [boolean, string]]],
-                    [
-                        number,
-                        Array<
-                            [
-                                string,
-                                boolean,
-                                Array<[number, number, [boolean, string]]>,
-                            ]
-                        >,
-                    ],
-                ],
-            ): void => {};
+            const prune = (input: TupleHierarchical): void => {};
             const output = validate(input);
             if (output.success) prune(input);
             return output;

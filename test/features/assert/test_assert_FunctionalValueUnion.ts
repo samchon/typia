@@ -4,5 +4,5 @@ import { FunctionalValueUnion } from "../../structures/FunctionalValueUnion";
 
 export const test_assert_FunctionalValueUnion =
     _test_assert<FunctionalValueUnion>(FunctionalValueUnion)((input) =>
-        typia.assert(input),
+        typia.assert<FunctionalValueUnion>(input),
     );

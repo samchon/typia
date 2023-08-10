@@ -4,5 +4,5 @@ import { ArrayAtomicAlias } from "../../structures/ArrayAtomicAlias";
 
 export const test_validateEquals_ArrayAtomicAlias =
     _test_validateEquals<ArrayAtomicAlias>(ArrayAtomicAlias)((input) =>
-        typia.validateEquals(input),
+        typia.validateEquals<ArrayAtomicAlias>(input),
     );

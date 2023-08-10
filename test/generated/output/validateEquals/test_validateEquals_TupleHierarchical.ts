@@ -4,46 +4,12 @@ import { TupleHierarchical } from "../../../structures/TupleHierarchical";
 
 export const test_validateEquals_TupleHierarchical =
     _test_validateEquals<TupleHierarchical>(TupleHierarchical)((input) =>
-        ((
-            input: any,
-        ): typia.IValidation<
-            [
-                boolean,
-                null,
-                number,
-                [boolean, null, [number, [boolean, string]]],
-                [
-                    number,
-                    Array<
-                        [
-                            string,
-                            boolean,
-                            Array<[number, number, [boolean, string]]>,
-                        ]
-                    >,
-                ],
-            ]
-        > => {
+        ((input: any): typia.IValidation<TupleHierarchical> => {
             const errors = [] as any[];
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
-            ): input is [
-                boolean,
-                null,
-                number,
-                [boolean, null, [number, [boolean, string]]],
-                [
-                    number,
-                    Array<
-                        [
-                            string,
-                            boolean,
-                            Array<[number, number, [boolean, string]]>,
-                        ]
-                    >,
-                ],
-            ] => {
+            ): input is TupleHierarchical => {
                 return (
                     Array.isArray(input) &&
                     input.length === 5 &&
@@ -99,22 +65,7 @@ export const test_validateEquals_TupleHierarchical =
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is [
-                    boolean,
-                    null,
-                    number,
-                    [boolean, null, [number, [boolean, string]]],
-                    [
-                        number,
-                        Array<
-                            [
-                                string,
-                                boolean,
-                                Array<[number, number, [boolean, string]]>,
-                            ]
-                        >,
-                    ],
-                ] => {
+                ): input is TupleHierarchical => {
                     return (
                         ((Array.isArray(input) ||
                             $report(true, {

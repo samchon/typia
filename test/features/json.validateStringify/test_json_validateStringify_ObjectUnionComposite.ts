@@ -4,5 +4,5 @@ import { ObjectUnionComposite } from "../../structures/ObjectUnionComposite";
 
 export const test_json_validateStringify_ObjectUnionComposite =
     _test_json_validateStringify<ObjectUnionComposite>(ObjectUnionComposite)(
-        (input) => typia.json.validateStringify(input),
+        (input) => typia.json.validateStringify<ObjectUnionComposite>(input),
     );

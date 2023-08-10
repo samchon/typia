@@ -4,7 +4,7 @@ import { TupleRestArray } from "../../../structures/TupleRestArray";
 
 export const test_json_stringify_TupleRestArray =
     _test_json_stringify<TupleRestArray>(TupleRestArray)((input) =>
-        ((input: [boolean, number, ...Array<string>[]]): string => {
+        ((input: TupleRestArray): string => {
             const $number = (typia.json.stringify as any).number;
             const $string = (typia.json.stringify as any).string;
             const $rest = (typia.json.stringify as any).rest;

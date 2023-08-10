@@ -4,5 +4,5 @@ import { ObjectPrimitive } from "../../structures/ObjectPrimitive";
 
 export const test_misc_clone_ObjectPrimitive =
     _test_misc_clone<ObjectPrimitive>(ObjectPrimitive)((input) =>
-        typia.misc.clone(input),
+        typia.misc.clone<ObjectPrimitive>(input),
     );

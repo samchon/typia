@@ -6,7 +6,7 @@ export const test_json_stringify_ArrayRecursiveUnionImplicit =
     _test_json_stringify<ArrayRecursiveUnionImplicit>(
         ArrayRecursiveUnionImplicit,
     )((input) =>
-        ((input: Array<ArrayRecursiveUnionImplicit.IBucket>): string => {
+        ((input: ArrayRecursiveUnionImplicit): string => {
             const $io0 = (input: any): boolean =>
                 "number" === typeof input.id &&
                 "string" === typeof input.name &&

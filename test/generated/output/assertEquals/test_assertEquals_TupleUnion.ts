@@ -5,11 +5,11 @@ import { TupleUnion } from "../../../structures/TupleUnion";
 export const test_assertEquals_TupleUnion = _test_assertEquals<TupleUnion>(
     TupleUnion,
 )((input) =>
-    ((input: any): Array<TupleUnion.Union> => {
+    ((input: any): TupleUnion => {
         const __is = (
             input: any,
             _exceptionable: boolean = true,
-        ): input is Array<TupleUnion.Union> => {
+        ): input is TupleUnion => {
             const $ip0 = (input: any, _exceptionable: boolean = true) => {
                 const array = input;
                 const tuplePredicators = [
@@ -62,7 +62,7 @@ export const test_assertEquals_TupleUnion = _test_assertEquals<TupleUnion>(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is Array<TupleUnion.Union> => {
+            ): input is TupleUnion => {
                 const $guard = (typia.assertEquals as any).guard;
                 const $ap0 = (
                     input: any,

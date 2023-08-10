@@ -4,5 +4,5 @@ import { ObjectOptional } from "../../structures/ObjectOptional";
 
 export const test_misc_validateClone_ObjectOptional =
     _test_misc_validateClone<ObjectOptional>(ObjectOptional)((input) =>
-        typia.misc.validateClone(input),
+        typia.misc.validateClone<ObjectOptional>(input),
     );

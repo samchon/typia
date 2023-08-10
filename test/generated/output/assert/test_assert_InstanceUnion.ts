@@ -5,8 +5,8 @@ import { InstanceUnion } from "../../../structures/InstanceUnion";
 export const test_assert_InstanceUnion = _test_assert<InstanceUnion>(
     InstanceUnion,
 )((input) =>
-    ((input: any): Array<InstanceUnion.Union> => {
-        const __is = (input: any): input is Array<InstanceUnion.Union> => {
+    ((input: any): InstanceUnion => {
+        const __is = (input: any): input is InstanceUnion => {
             const $ip0 = (input: any) => {
                 const array = input;
                 const tuplePredicators = [
@@ -264,7 +264,7 @@ export const test_assert_InstanceUnion = _test_assert<InstanceUnion>(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is Array<InstanceUnion.Union> => {
+            ): input is InstanceUnion => {
                 const $guard = (typia.assert as any).guard;
                 const $ap0 = (
                     input: any,

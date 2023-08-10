@@ -19,11 +19,11 @@ export namespace DynamicSimple {
     export const SPOILERS: Spoiler<DynamicSimple>[] = [
         (input) => {
             input.value["something"] = "one" as any;
-            return [`$input.something`];
+            return [`$input.value.something`];
         },
         (input) => {
             input.value["wrong"] = null!;
-            return [`$input.wrong`];
+            return [`$input.value.wrong`];
         },
     ];
 

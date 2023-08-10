@@ -4,7 +4,7 @@ import { AtomicUnion } from "../../../structures/AtomicUnion";
 
 export const test_json_stringify_AtomicUnion =
     _test_json_stringify<AtomicUnion>(AtomicUnion)((input) =>
-        ((input: Array<AtomicUnion.Union>): string => {
+        ((input: AtomicUnion): string => {
             const $string = (typia.json.stringify as any).string;
             const $number = (typia.json.stringify as any).number;
             const $throws = (typia.json.stringify as any).throws;

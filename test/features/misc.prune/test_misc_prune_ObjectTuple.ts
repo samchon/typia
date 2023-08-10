@@ -4,4 +4,4 @@ import { ObjectTuple } from "../../structures/ObjectTuple";
 
 export const test_misc_prune_ObjectTuple = _test_misc_prune<ObjectTuple>(
     ObjectTuple,
-)((input) => typia.misc.prune(input));
+)((input) => typia.misc.prune<ObjectTuple>(input));

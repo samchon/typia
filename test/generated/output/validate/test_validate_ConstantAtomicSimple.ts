@@ -4,9 +4,9 @@ import { ConstantAtomicSimple } from "../../../structures/ConstantAtomicSimple";
 
 export const test_validate_ConstantAtomicSimple =
     _test_validate<ConstantAtomicSimple>(ConstantAtomicSimple)((input) =>
-        ((input: any): typia.IValidation<[false, true, 2, "three"]> => {
+        ((input: any): typia.IValidation<ConstantAtomicSimple> => {
             const errors = [] as any[];
-            const __is = (input: any): input is [false, true, 2, "three"] => {
+            const __is = (input: any): input is ConstantAtomicSimple => {
                 return (
                     Array.isArray(input) &&
                     input.length === 4 &&
@@ -22,7 +22,7 @@ export const test_validate_ConstantAtomicSimple =
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is [false, true, 2, "three"] => {
+                ): input is ConstantAtomicSimple => {
                     return (
                         ((Array.isArray(input) ||
                             $report(true, {

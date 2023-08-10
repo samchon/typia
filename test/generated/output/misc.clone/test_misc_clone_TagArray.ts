@@ -4,9 +4,7 @@ import { TagArray } from "../../../structures/TagArray";
 
 export const test_misc_clone_TagArray = _test_misc_clone<TagArray>(TagArray)(
     (input) =>
-        ((
-            input: IPointer<Array<TagArray.Type>>,
-        ): typia.Primitive<IPointer<Array<TagArray.Type>>> => {
+        ((input: TagArray): typia.Primitive<TagArray> => {
             const $io1 = (input: any): boolean =>
                 Array.isArray(input.items) &&
                 3 === input.items.length &&

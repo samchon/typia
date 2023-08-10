@@ -4,5 +4,5 @@ import { ObjectGenericArray } from "../../structures/ObjectGenericArray";
 
 export const test_misc_validatePrune_ObjectGenericArray =
     _test_misc_validatePrune<ObjectGenericArray>(ObjectGenericArray)((input) =>
-        typia.misc.validatePrune(input),
+        typia.misc.validatePrune<ObjectGenericArray>(input),
     );

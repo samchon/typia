@@ -18,11 +18,11 @@ export namespace DynamicConstant {
     export const SPOILERS: Spoiler<DynamicConstant>[] = [
         (input) => {
             input.value["a"] = "zero" as any;
-            return ["$input.a"];
+            return ["$input.value.a"];
         },
         (input) => {
             input.value["b"] = null!;
-            return ["$input.b"];
+            return ["$input.value.b"];
         },
     ];
 }

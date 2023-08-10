@@ -5,20 +5,8 @@ import { ObjectGeneric } from "../../../structures/ObjectGeneric";
 export const test_json_assertStringify_ObjectGeneric =
     _test_json_assertStringify<ObjectGeneric>(ObjectGeneric)((input) =>
         ((input: any): string => {
-            const assert = (
-                input: any,
-            ): [
-                ObjectGeneric.ISomething<boolean>,
-                ObjectGeneric.ISomething<number>,
-                ObjectGeneric.ISomething<string>,
-            ] => {
-                const __is = (
-                    input: any,
-                ): input is [
-                    ObjectGeneric.ISomething<boolean>,
-                    ObjectGeneric.ISomething<number>,
-                    ObjectGeneric.ISomething<string>,
-                ] => {
+            const assert = (input: any): ObjectGeneric => {
+                const __is = (input: any): input is ObjectGeneric => {
                     const $io0 = (input: any): boolean =>
                         "boolean" === typeof input.value &&
                         "object" === typeof input.child &&
@@ -91,11 +79,7 @@ export const test_json_assertStringify_ObjectGeneric =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is [
-                        ObjectGeneric.ISomething<boolean>,
-                        ObjectGeneric.ISomething<number>,
-                        ObjectGeneric.ISomething<string>,
-                    ] => {
+                    ): input is ObjectGeneric => {
                         const $guard = (typia.json.assertStringify as any)
                             .guard;
                         const $ao0 = (
@@ -448,13 +432,7 @@ export const test_json_assertStringify_ObjectGeneric =
                     })(input, "$input", true);
                 return input;
             };
-            const stringify = (
-                input: [
-                    ObjectGeneric.ISomething<boolean>,
-                    ObjectGeneric.ISomething<number>,
-                    ObjectGeneric.ISomething<string>,
-                ],
-            ): string => {
+            const stringify = (input: ObjectGeneric): string => {
                 const $io1 = (input: any): boolean =>
                     "boolean" === typeof input.child_value &&
                     "boolean" === typeof input.child_next;

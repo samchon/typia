@@ -4,4 +4,4 @@ import { ObjectHierarchical } from "../../structures/ObjectHierarchical";
 
 export const test_assert_ObjectHierarchical = _test_assert<ObjectHierarchical>(
     ObjectHierarchical,
-)((input) => typia.assert(input));
+)((input) => typia.assert<ObjectHierarchical>(input));

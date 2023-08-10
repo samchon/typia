@@ -5,12 +5,8 @@ import { ArrayRepeatedRequired } from "../../../structures/ArrayRepeatedRequired
 export const test_json_isStringify_ArrayRepeatedRequired =
     _test_json_isStringify<ArrayRepeatedRequired>(ArrayRepeatedRequired)(
         (input) =>
-            ((
-                input: string | number | Array<ArrayRepeatedRequired>,
-            ): string | null => {
-                const is = (
-                    input: any,
-                ): input is string | number | Array<ArrayRepeatedRequired> => {
+            ((input: ArrayRepeatedRequired): string | null => {
+                const is = (input: any): input is ArrayRepeatedRequired => {
                     const $ia0 = (input: any): any =>
                         input.every(
                             (elem: any) =>
@@ -31,9 +27,7 @@ export const test_json_isStringify_ArrayRepeatedRequired =
                             (Array.isArray(input) && ($ia0(input) || false)))
                     );
                 };
-                const stringify = (
-                    input: string | number | Array<ArrayRepeatedRequired>,
-                ): string => {
+                const stringify = (input: ArrayRepeatedRequired): string => {
                     const $ia0 = (input: any): any =>
                         input.every(
                             (elem: any) =>

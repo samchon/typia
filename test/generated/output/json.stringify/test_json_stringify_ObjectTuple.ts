@@ -4,7 +4,7 @@ import { ObjectTuple } from "../../../structures/ObjectTuple";
 
 export const test_json_stringify_ObjectTuple =
     _test_json_stringify<ObjectTuple>(ObjectTuple)((input) =>
-        ((input: [ObjectTuple.ISection, ObjectTuple.ICitizen]): string => {
+        ((input: ObjectTuple): string => {
             const $string = (typia.json.stringify as any).string;
             return `[${`{"id":${$string((input[0] as any).id)},"code":${$string(
                 (input[0] as any).code,

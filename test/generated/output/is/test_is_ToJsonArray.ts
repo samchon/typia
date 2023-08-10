@@ -3,14 +3,7 @@ import { _test_is } from "../../../internal/_test_is";
 import { ToJsonArray } from "../../../structures/ToJsonArray";
 
 export const test_is_ToJsonArray = _test_is<ToJsonArray>(ToJsonArray)((input) =>
-    ((
-        input: any,
-    ): input is [
-        ToJsonArray.IArray<boolean>,
-        ToJsonArray.IArray<number>,
-        ToJsonArray.IArray<string>,
-        ToJsonArray.IArray<ToJsonArray.IObject>,
-    ] => {
+    ((input: any): input is ToJsonArray => {
         const $io0 = (input: any): boolean =>
             "function" === typeof input.toJSON;
         const $io1 = (input: any): boolean =>

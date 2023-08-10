@@ -4,5 +4,5 @@ import { DynamicTree } from "../../structures/DynamicTree";
 
 export const test_misc_validateClone_DynamicTree =
     _test_misc_validateClone<DynamicTree>(DynamicTree)((input) =>
-        typia.misc.validateClone(input),
+        typia.misc.validateClone<DynamicTree>(input),
     );

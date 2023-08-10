@@ -4,5 +4,5 @@ import { ObjectGenericArray } from "../../structures/ObjectGenericArray";
 
 export const test_misc_assertClone_ObjectGenericArray =
     _test_misc_assertClone<ObjectGenericArray>(ObjectGenericArray)((input) =>
-        typia.misc.assertClone(input),
+        typia.misc.assertClone<ObjectGenericArray>(input),
     );

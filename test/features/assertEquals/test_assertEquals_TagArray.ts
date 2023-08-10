@@ -4,4 +4,4 @@ import { TagArray } from "../../structures/TagArray";
 
 export const test_assertEquals_TagArray = _test_assertEquals<TagArray>(
     TagArray,
-)((input) => typia.assertEquals(input));
+)((input) => typia.assertEquals<TagArray>(input));

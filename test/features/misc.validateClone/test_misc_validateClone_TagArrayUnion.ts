@@ -4,5 +4,5 @@ import { TagArrayUnion } from "../../structures/TagArrayUnion";
 
 export const test_misc_validateClone_TagArrayUnion =
     _test_misc_validateClone<TagArrayUnion>(TagArrayUnion)((input) =>
-        typia.misc.validateClone(input),
+        typia.misc.validateClone<TagArrayUnion>(input),
     );

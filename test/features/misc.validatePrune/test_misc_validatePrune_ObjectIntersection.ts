@@ -4,5 +4,5 @@ import { ObjectIntersection } from "../../structures/ObjectIntersection";
 
 export const test_misc_validatePrune_ObjectIntersection =
     _test_misc_validatePrune<ObjectIntersection>(ObjectIntersection)((input) =>
-        typia.misc.validatePrune(input),
+        typia.misc.validatePrune<ObjectIntersection>(input),
     );

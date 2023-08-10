@@ -4,5 +4,5 @@ import { ObjectInternal } from "../../structures/ObjectInternal";
 
 export const test_misc_assertClone_ObjectInternal =
     _test_misc_assertClone<ObjectInternal>(ObjectInternal)((input) =>
-        typia.misc.assertClone(input),
+        typia.misc.assertClone<ObjectInternal>(input),
     );

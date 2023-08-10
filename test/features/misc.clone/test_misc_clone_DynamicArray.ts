@@ -4,4 +4,4 @@ import { DynamicArray } from "../../structures/DynamicArray";
 
 export const test_misc_clone_DynamicArray = _test_misc_clone<DynamicArray>(
     DynamicArray,
-)((input) => typia.misc.clone(input));
+)((input) => typia.misc.clone<DynamicArray>(input));

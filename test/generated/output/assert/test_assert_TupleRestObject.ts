@@ -5,10 +5,8 @@ import { TupleRestObject } from "../../../structures/TupleRestObject";
 export const test_assert_TupleRestObject = _test_assert<TupleRestObject>(
     TupleRestObject,
 )((input) =>
-    ((input: any): [boolean, number, ...TupleRestObject.IObject[]] => {
-        const __is = (
-            input: any,
-        ): input is [boolean, number, ...TupleRestObject.IObject[]] => {
+    ((input: any): TupleRestObject => {
+        const __is = (input: any): input is TupleRestObject => {
             const $io0 = (input: any): boolean =>
                 "string" === typeof input.value;
             return (
@@ -32,7 +30,7 @@ export const test_assert_TupleRestObject = _test_assert<TupleRestObject>(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is [boolean, number, ...TupleRestObject.IObject[]] => {
+            ): input is TupleRestObject => {
                 const $guard = (typia.assert as any).guard;
                 const $ao0 = (
                     input: any,

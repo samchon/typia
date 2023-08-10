@@ -5,13 +5,11 @@ import { ToJsonDouble } from "../../../structures/ToJsonDouble";
 export const test_misc_isClone_ToJsonDouble = _test_misc_isClone<ToJsonDouble>(
     ToJsonDouble,
 )((input) =>
-    ((input: any): typia.Primitive<ToJsonDouble.Parent> | null => {
-        const is = (input: any): input is ToJsonDouble.Parent => {
+    ((input: any): typia.Primitive<ToJsonDouble> | null => {
+        const is = (input: any): input is ToJsonDouble => {
             return "object" === typeof input && null !== input && true;
         };
-        const clone = (
-            input: ToJsonDouble.Parent,
-        ): typia.Primitive<ToJsonDouble.Parent> => {
+        const clone = (input: ToJsonDouble): typia.Primitive<ToJsonDouble> => {
             const $co1 = (input: any): any => ({
                 id: input.id as any,
                 flag: input.flag as any,

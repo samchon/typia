@@ -4,32 +4,8 @@ import { AtomicClass } from "../../../structures/AtomicClass";
 
 export const test_json_isStringify_AtomicClass =
     _test_json_isStringify<AtomicClass>(AtomicClass)((input) =>
-        ((
-            input: [
-                Boolean,
-                false | Boolean,
-                boolean | Boolean,
-                Number,
-                Number | 1,
-                number | Number,
-                String,
-                String | "characters",
-                string | String,
-            ],
-        ): string | null => {
-            const is = (
-                input: any,
-            ): input is [
-                Boolean,
-                false | Boolean,
-                boolean | Boolean,
-                Number,
-                Number | 1,
-                number | Number,
-                String,
-                String | "characters",
-                string | String,
-            ] => {
+        ((input: AtomicClass): string | null => {
+            const is = (input: any): input is AtomicClass => {
                 return (
                     Array.isArray(input) &&
                     input.length === 9 &&
@@ -64,19 +40,7 @@ export const test_json_isStringify_AtomicClass =
                     ("string" === typeof input[8] || input[8] instanceof String)
                 );
             };
-            const stringify = (
-                input: [
-                    Boolean,
-                    false | Boolean,
-                    boolean | Boolean,
-                    Number,
-                    Number | 1,
-                    number | Number,
-                    String,
-                    String | "characters",
-                    string | String,
-                ],
-            ): string => {
+            const stringify = (input: AtomicClass): string => {
                 const $number = (typia.json.isStringify as any).number;
                 const $string = (typia.json.isStringify as any).string;
                 const $throws = (typia.json.isStringify as any).throws;

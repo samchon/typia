@@ -4,5 +4,5 @@ import { ObjectGenericAlias } from "../../structures/ObjectGenericAlias";
 
 export const test_json_validateStringify_ObjectGenericAlias =
     _test_json_validateStringify<ObjectGenericAlias>(ObjectGenericAlias)(
-        (input) => typia.json.validateStringify(input),
+        (input) => typia.json.validateStringify<ObjectGenericAlias>(input),
     );

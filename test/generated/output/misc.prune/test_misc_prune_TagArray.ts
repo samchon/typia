@@ -4,7 +4,7 @@ import { TagArray } from "../../../structures/TagArray";
 
 export const test_misc_prune_TagArray = _test_misc_prune<TagArray>(TagArray)(
     (input) =>
-        ((input: IPointer<Array<TagArray.Type>>): void => {
+        ((input: TagArray): void => {
             const $io1 = (input: any): boolean =>
                 Array.isArray(input.items) &&
                 3 === input.items.length &&

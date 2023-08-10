@@ -4,5 +4,5 @@ import { DynamicComposite } from "../../structures/DynamicComposite";
 
 export const test_json_assertStringify_DynamicComposite =
     _test_json_assertStringify<DynamicComposite>(DynamicComposite)((input) =>
-        typia.json.assertStringify(input),
+        typia.json.assertStringify<DynamicComposite>(input),
     );

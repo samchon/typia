@@ -5,9 +5,7 @@ import { ArrayMatrix } from "../../../structures/ArrayMatrix";
 export const test_misc_clone_ArrayMatrix = _test_misc_clone<ArrayMatrix>(
     ArrayMatrix,
 )((input) =>
-    ((
-        input: Array<Array<Array<number>>>,
-    ): typia.Primitive<Array<Array<Array<number>>>> => {
+    ((input: ArrayMatrix): typia.Primitive<ArrayMatrix> => {
         const $cp0 = (input: any) => input.map((elem: any) => elem as any);
         const $cp1 = (input: any) =>
             input.map((elem: any) =>

@@ -4,5 +4,5 @@ import { DynamicUndefined } from "../../structures/DynamicUndefined";
 
 export const test_json_validateStringify_DynamicUndefined =
     _test_json_validateStringify<DynamicUndefined>(DynamicUndefined)((input) =>
-        typia.json.validateStringify(input),
+        typia.json.validateStringify<DynamicUndefined>(input),
     );

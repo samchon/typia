@@ -4,5 +4,5 @@ import { FunctionalProperty } from "../../structures/FunctionalProperty";
 
 export const test_assertEquals_FunctionalProperty =
     _test_assertEquals<FunctionalProperty>(FunctionalProperty)((input) =>
-        typia.assertEquals(input),
+        typia.assertEquals<FunctionalProperty>(input),
     );

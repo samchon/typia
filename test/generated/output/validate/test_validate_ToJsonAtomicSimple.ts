@@ -4,23 +4,9 @@ import { ToJsonAtomicSimple } from "../../../structures/ToJsonAtomicSimple";
 
 export const test_validate_ToJsonAtomicSimple =
     _test_validate<ToJsonAtomicSimple>(ToJsonAtomicSimple)((input) =>
-        ((
-            input: any,
-        ): typia.IValidation<
-            [
-                ToJsonAtomicSimple.IToJson<boolean>,
-                ToJsonAtomicSimple.IToJson<number>,
-                ToJsonAtomicSimple.IToJson<string>,
-            ]
-        > => {
+        ((input: any): typia.IValidation<ToJsonAtomicSimple> => {
             const errors = [] as any[];
-            const __is = (
-                input: any,
-            ): input is [
-                ToJsonAtomicSimple.IToJson<boolean>,
-                ToJsonAtomicSimple.IToJson<number>,
-                ToJsonAtomicSimple.IToJson<string>,
-            ] => {
+            const __is = (input: any): input is ToJsonAtomicSimple => {
                 const $io0 = (input: any): boolean =>
                     "function" === typeof input.toJSON;
                 const $io1 = (input: any): boolean =>
@@ -47,11 +33,7 @@ export const test_validate_ToJsonAtomicSimple =
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is [
-                    ToJsonAtomicSimple.IToJson<boolean>,
-                    ToJsonAtomicSimple.IToJson<number>,
-                    ToJsonAtomicSimple.IToJson<string>,
-                ] => {
+                ): input is ToJsonAtomicSimple => {
                     const $vo0 = (
                         input: any,
                         _path: string,

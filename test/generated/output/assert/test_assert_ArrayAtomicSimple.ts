@@ -5,10 +5,8 @@ import { ArrayAtomicSimple } from "../../../structures/ArrayAtomicSimple";
 export const test_assert_ArrayAtomicSimple = _test_assert<ArrayAtomicSimple>(
     ArrayAtomicSimple,
 )((input) =>
-    ((input: any): [Array<boolean>, Array<number>, Array<string>] => {
-        const __is = (
-            input: any,
-        ): input is [Array<boolean>, Array<number>, Array<string>] => {
+    ((input: any): ArrayAtomicSimple => {
+        const __is = (input: any): input is ArrayAtomicSimple => {
             return (
                 Array.isArray(input) &&
                 input.length === 3 &&
@@ -28,7 +26,7 @@ export const test_assert_ArrayAtomicSimple = _test_assert<ArrayAtomicSimple>(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is [Array<boolean>, Array<number>, Array<string>] => {
+            ): input is ArrayAtomicSimple => {
                 const $guard = (typia.assert as any).guard;
                 return (
                     ((Array.isArray(input) ||

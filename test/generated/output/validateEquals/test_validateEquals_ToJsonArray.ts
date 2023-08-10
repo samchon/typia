@@ -4,26 +4,12 @@ import { ToJsonArray } from "../../../structures/ToJsonArray";
 
 export const test_validateEquals_ToJsonArray =
     _test_validateEquals<ToJsonArray>(ToJsonArray)((input) =>
-        ((
-            input: any,
-        ): typia.IValidation<
-            [
-                ToJsonArray.IArray<boolean>,
-                ToJsonArray.IArray<number>,
-                ToJsonArray.IArray<string>,
-                ToJsonArray.IArray<ToJsonArray.IObject>,
-            ]
-        > => {
+        ((input: any): typia.IValidation<ToJsonArray> => {
             const errors = [] as any[];
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
-            ): input is [
-                ToJsonArray.IArray<boolean>,
-                ToJsonArray.IArray<number>,
-                ToJsonArray.IArray<string>,
-                ToJsonArray.IArray<ToJsonArray.IObject>,
-            ] => {
+            ): input is ToJsonArray => {
                 const $io0 = (
                     input: any,
                     _exceptionable: boolean = true,
@@ -99,12 +85,7 @@ export const test_validateEquals_ToJsonArray =
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is [
-                    ToJsonArray.IArray<boolean>,
-                    ToJsonArray.IArray<number>,
-                    ToJsonArray.IArray<string>,
-                    ToJsonArray.IArray<ToJsonArray.IObject>,
-                ] => {
+                ): input is ToJsonArray => {
                     const $join = (typia.validateEquals as any).join;
                     const $vo0 = (
                         input: any,

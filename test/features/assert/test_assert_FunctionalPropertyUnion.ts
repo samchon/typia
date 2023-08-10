@@ -4,5 +4,5 @@ import { FunctionalPropertyUnion } from "../../structures/FunctionalPropertyUnio
 
 export const test_assert_FunctionalPropertyUnion =
     _test_assert<FunctionalPropertyUnion>(FunctionalPropertyUnion)((input) =>
-        typia.assert(input),
+        typia.assert<FunctionalPropertyUnion>(input),
     );

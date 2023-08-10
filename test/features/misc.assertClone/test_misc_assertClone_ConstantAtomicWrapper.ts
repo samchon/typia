@@ -4,5 +4,5 @@ import { ConstantAtomicWrapper } from "../../structures/ConstantAtomicWrapper";
 
 export const test_misc_assertClone_ConstantAtomicWrapper =
     _test_misc_assertClone<ConstantAtomicWrapper>(ConstantAtomicWrapper)(
-        (input) => typia.misc.assertClone(input),
+        (input) => typia.misc.assertClone<ConstantAtomicWrapper>(input),
     );

@@ -4,5 +4,5 @@ import { TagCustom } from "../../structures/TagCustom";
 
 export const test_misc_assertPrune_TagCustom =
     _test_misc_assertPrune<TagCustom>(TagCustom)((input) =>
-        typia.misc.assertPrune(input),
+        typia.misc.assertPrune<TagCustom>(input),
     );

@@ -4,5 +4,5 @@ import { ObjectTuple } from "../../structures/ObjectTuple";
 
 export const test_json_assertStringify_ObjectTuple =
     _test_json_assertStringify<ObjectTuple>(ObjectTuple)((input) =>
-        typia.json.assertStringify(input),
+        typia.json.assertStringify<ObjectTuple>(input),
     );

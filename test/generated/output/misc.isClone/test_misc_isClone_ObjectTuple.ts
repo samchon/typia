@@ -5,12 +5,8 @@ import { ObjectTuple } from "../../../structures/ObjectTuple";
 export const test_misc_isClone_ObjectTuple = _test_misc_isClone<ObjectTuple>(
     ObjectTuple,
 )((input) =>
-    ((
-        input: any,
-    ): typia.Primitive<[ObjectTuple.ISection, ObjectTuple.ICitizen]> | null => {
-        const is = (
-            input: any,
-        ): input is [ObjectTuple.ISection, ObjectTuple.ICitizen] => {
+    ((input: any): typia.Primitive<ObjectTuple> | null => {
+        const is = (input: any): input is ObjectTuple => {
             const $io0 = (input: any): boolean =>
                 "string" === typeof input.id &&
                 "string" === typeof input.code &&
@@ -30,9 +26,7 @@ export const test_misc_isClone_ObjectTuple = _test_misc_isClone<ObjectTuple>(
                 $io1(input[1])
             );
         };
-        const clone = (
-            input: [ObjectTuple.ISection, ObjectTuple.ICitizen],
-        ): typia.Primitive<[ObjectTuple.ISection, ObjectTuple.ICitizen]> => {
+        const clone = (input: ObjectTuple): typia.Primitive<ObjectTuple> => {
             const $io0 = (input: any): boolean =>
                 "string" === typeof input.id &&
                 "string" === typeof input.code &&

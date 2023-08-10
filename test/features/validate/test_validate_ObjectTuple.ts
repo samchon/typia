@@ -4,4 +4,4 @@ import { ObjectTuple } from "../../structures/ObjectTuple";
 
 export const test_validate_ObjectTuple = _test_validate<ObjectTuple>(
     ObjectTuple,
-)((input) => typia.validate(input));
+)((input) => typia.validate<ObjectTuple>(input));

@@ -5,25 +5,9 @@ import { ToJsonArray } from "../../../structures/ToJsonArray";
 export const test_validate_ToJsonArray = _test_validate<ToJsonArray>(
     ToJsonArray,
 )((input) =>
-    ((
-        input: any,
-    ): typia.IValidation<
-        [
-            ToJsonArray.IArray<boolean>,
-            ToJsonArray.IArray<number>,
-            ToJsonArray.IArray<string>,
-            ToJsonArray.IArray<ToJsonArray.IObject>,
-        ]
-    > => {
+    ((input: any): typia.IValidation<ToJsonArray> => {
         const errors = [] as any[];
-        const __is = (
-            input: any,
-        ): input is [
-            ToJsonArray.IArray<boolean>,
-            ToJsonArray.IArray<number>,
-            ToJsonArray.IArray<string>,
-            ToJsonArray.IArray<ToJsonArray.IObject>,
-        ] => {
+        const __is = (input: any): input is ToJsonArray => {
             const $io0 = (input: any): boolean =>
                 "function" === typeof input.toJSON;
             const $io1 = (input: any): boolean =>
@@ -55,12 +39,7 @@ export const test_validate_ToJsonArray = _test_validate<ToJsonArray>(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is [
-                ToJsonArray.IArray<boolean>,
-                ToJsonArray.IArray<number>,
-                ToJsonArray.IArray<string>,
-                ToJsonArray.IArray<ToJsonArray.IObject>,
-            ] => {
+            ): input is ToJsonArray => {
                 const $vo0 = (
                     input: any,
                     _path: string,

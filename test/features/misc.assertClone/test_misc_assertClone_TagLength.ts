@@ -4,5 +4,5 @@ import { TagLength } from "../../structures/TagLength";
 
 export const test_misc_assertClone_TagLength =
     _test_misc_assertClone<TagLength>(TagLength)((input) =>
-        typia.misc.assertClone(input),
+        typia.misc.assertClone<TagLength>(input),
     );

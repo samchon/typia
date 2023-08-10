@@ -4,5 +4,5 @@ import { ObjectPropertyNullable } from "../../structures/ObjectPropertyNullable"
 
 export const test_misc_assertPrune_ObjectPropertyNullable =
     _test_misc_assertPrune<ObjectPropertyNullable>(ObjectPropertyNullable)(
-        (input) => typia.misc.assertPrune(input),
+        (input) => typia.misc.assertPrune<ObjectPropertyNullable>(input),
     );

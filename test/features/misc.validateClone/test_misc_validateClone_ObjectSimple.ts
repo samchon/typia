@@ -4,5 +4,5 @@ import { ObjectSimple } from "../../structures/ObjectSimple";
 
 export const test_misc_validateClone_ObjectSimple =
     _test_misc_validateClone<ObjectSimple>(ObjectSimple)((input) =>
-        typia.misc.validateClone(input),
+        typia.misc.validateClone<ObjectSimple>(input),
     );

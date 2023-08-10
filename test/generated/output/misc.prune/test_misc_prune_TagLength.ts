@@ -4,7 +4,7 @@ import { TagLength } from "../../../structures/TagLength";
 
 export const test_misc_prune_TagLength = _test_misc_prune<TagLength>(TagLength)(
     (input) =>
-        ((input: IPointer<Array<TagLength.Type>>): void => {
+        ((input: TagLength): void => {
             const $io1 = (input: any): boolean =>
                 "string" === typeof input.fixed &&
                 5 === input.fixed.length &&

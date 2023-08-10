@@ -4,8 +4,8 @@ import { ConstantAtomicSimple } from "../../../structures/ConstantAtomicSimple";
 
 export const test_assert_ConstantAtomicSimple =
     _test_assert<ConstantAtomicSimple>(ConstantAtomicSimple)((input) =>
-        ((input: any): [false, true, 2, "three"] => {
-            const __is = (input: any): input is [false, true, 2, "three"] => {
+        ((input: any): ConstantAtomicSimple => {
+            const __is = (input: any): input is ConstantAtomicSimple => {
                 return (
                     Array.isArray(input) &&
                     input.length === 4 &&
@@ -20,7 +20,7 @@ export const test_assert_ConstantAtomicSimple =
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is [false, true, 2, "three"] => {
+                ): input is ConstantAtomicSimple => {
                     const $guard = (typia.assert as any).guard;
                     return (
                         ((Array.isArray(input) ||

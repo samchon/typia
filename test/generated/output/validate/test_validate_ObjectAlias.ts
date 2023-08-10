@@ -5,9 +5,9 @@ import { ObjectAlias } from "../../../structures/ObjectAlias";
 export const test_validate_ObjectAlias = _test_validate<ObjectAlias>(
     ObjectAlias,
 )((input) =>
-    ((input: any): typia.IValidation<Array<ObjectAlias.IMember>> => {
+    ((input: any): typia.IValidation<ObjectAlias> => {
         const errors = [] as any[];
-        const __is = (input: any): input is Array<ObjectAlias.IMember> => {
+        const __is = (input: any): input is ObjectAlias => {
             const $io0 = (input: any): boolean =>
                 (null === input.id || "string" === typeof input.id) &&
                 "string" === typeof input.email &&
@@ -35,7 +35,7 @@ export const test_validate_ObjectAlias = _test_validate<ObjectAlias>(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is Array<ObjectAlias.IMember> => {
+            ): input is ObjectAlias => {
                 const $vo0 = (
                     input: any,
                     _path: string,

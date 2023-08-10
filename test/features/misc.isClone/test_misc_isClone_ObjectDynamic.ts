@@ -4,5 +4,5 @@ import { ObjectDynamic } from "../../structures/ObjectDynamic";
 
 export const test_misc_isClone_ObjectDynamic =
     _test_misc_isClone<ObjectDynamic>(ObjectDynamic)((input) =>
-        typia.misc.isClone(input),
+        typia.misc.isClone<ObjectDynamic>(input),
     );

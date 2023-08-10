@@ -8,11 +8,7 @@ export const test_equals_ToJsonAtomicSimple = _test_equals<ToJsonAtomicSimple>(
     ((
         input: any,
         _exceptionable: boolean = true,
-    ): input is [
-        ToJsonAtomicSimple.IToJson<boolean>,
-        ToJsonAtomicSimple.IToJson<number>,
-        ToJsonAtomicSimple.IToJson<string>,
-    ] => {
+    ): input is ToJsonAtomicSimple => {
         const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
             "function" === typeof input.toJSON &&
             (1 === Object.keys(input).length ||

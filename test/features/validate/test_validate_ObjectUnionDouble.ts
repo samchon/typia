@@ -4,5 +4,5 @@ import { ObjectUnionDouble } from "../../structures/ObjectUnionDouble";
 
 export const test_validate_ObjectUnionDouble =
     _test_validate<ObjectUnionDouble>(ObjectUnionDouble)((input) =>
-        typia.validate(input),
+        typia.validate<ObjectUnionDouble>(input),
     );

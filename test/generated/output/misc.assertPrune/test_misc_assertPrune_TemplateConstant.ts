@@ -4,13 +4,9 @@ import { TemplateConstant } from "../../../structures/TemplateConstant";
 
 export const test_misc_assertPrune_TemplateConstant =
     _test_misc_assertPrune<TemplateConstant>(TemplateConstant)((input) =>
-        ((input: any): IPointer<Array<TemplateConstant.Type>> => {
-            const assert = (
-                input: any,
-            ): IPointer<Array<TemplateConstant.Type>> => {
-                const __is = (
-                    input: any,
-                ): input is IPointer<Array<TemplateConstant.Type>> => {
+        ((input: any): TemplateConstant => {
+            const assert = (input: any): TemplateConstant => {
+                const __is = (input: any): input is TemplateConstant => {
                     const $io0 = (input: any): boolean =>
                         Array.isArray(input.value) &&
                         input.value.every(
@@ -46,7 +42,7 @@ export const test_misc_assertPrune_TemplateConstant =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is IPointer<Array<TemplateConstant.Type>> => {
+                    ): input is TemplateConstant => {
                         const $guard = (typia.misc.assertPrune as any).guard;
                         const $ao0 = (
                             input: any,
@@ -151,9 +147,7 @@ export const test_misc_assertPrune_TemplateConstant =
                     })(input, "$input", true);
                 return input;
             };
-            const prune = (
-                input: IPointer<Array<TemplateConstant.Type>>,
-            ): void => {
+            const prune = (input: TemplateConstant): void => {
                 const $io1 = (input: any): boolean =>
                     ("prefix_A" === input.prefix ||
                         "prefix_B" === input.prefix ||

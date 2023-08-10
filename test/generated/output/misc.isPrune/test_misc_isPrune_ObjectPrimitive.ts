@@ -4,8 +4,8 @@ import { ObjectPrimitive } from "../../../structures/ObjectPrimitive";
 
 export const test_misc_isPrune_ObjectPrimitive =
     _test_misc_isPrune<ObjectPrimitive>(ObjectPrimitive)((input) =>
-        ((input: any): input is ObjectPrimitive.IArticle => {
-            const is = (input: any): input is ObjectPrimitive.IArticle => {
+        ((input: any): input is ObjectPrimitive => {
+            const is = (input: any): input is ObjectPrimitive => {
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     ("txt" === input.extension ||
@@ -32,7 +32,7 @@ export const test_misc_isPrune_ObjectPrimitive =
                     "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            const prune = (input: ObjectPrimitive.IArticle): void => {
+            const prune = (input: ObjectPrimitive): void => {
                 const $io1 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     "string" === typeof input.name &&

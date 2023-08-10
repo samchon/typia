@@ -4,5 +4,5 @@ import { ObjectUnionExplicit } from "../../structures/ObjectUnionExplicit";
 
 export const test_validate_ObjectUnionExplicit =
     _test_validate<ObjectUnionExplicit>(ObjectUnionExplicit)((input) =>
-        typia.validate(input),
+        typia.validate<ObjectUnionExplicit>(input),
     );

@@ -5,8 +5,8 @@ import { TagObjectUnion } from "../../../structures/TagObjectUnion";
 export const test_assert_TagObjectUnion = _test_assert<TagObjectUnion>(
     TagObjectUnion,
 )((input) =>
-    ((input: any): Array<TagObjectUnion.Type> => {
-        const __is = (input: any): input is Array<TagObjectUnion.Type> => {
+    ((input: any): TagObjectUnion => {
+        const __is = (input: any): input is TagObjectUnion => {
             const $io0 = (input: any): boolean =>
                 "number" === typeof input.value &&
                 Number.isFinite(input.value) &&
@@ -38,7 +38,7 @@ export const test_assert_TagObjectUnion = _test_assert<TagObjectUnion>(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is Array<TagObjectUnion.Type> => {
+            ): input is TagObjectUnion => {
                 const $guard = (typia.assert as any).guard;
                 const $ao0 = (
                     input: any,

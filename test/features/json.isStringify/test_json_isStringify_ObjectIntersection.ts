@@ -4,5 +4,5 @@ import { ObjectIntersection } from "../../structures/ObjectIntersection";
 
 export const test_json_isStringify_ObjectIntersection =
     _test_json_isStringify<ObjectIntersection>(ObjectIntersection)((input) =>
-        typia.json.isStringify(input),
+        typia.json.isStringify<ObjectIntersection>(input),
     );

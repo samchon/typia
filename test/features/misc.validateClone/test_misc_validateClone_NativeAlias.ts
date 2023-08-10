@@ -4,5 +4,5 @@ import { NativeAlias } from "../../structures/NativeAlias";
 
 export const test_misc_validateClone_NativeAlias =
     _test_misc_validateClone<NativeAlias>(NativeAlias)((input) =>
-        typia.misc.validateClone(input),
+        typia.misc.validateClone<NativeAlias>(input),
     );

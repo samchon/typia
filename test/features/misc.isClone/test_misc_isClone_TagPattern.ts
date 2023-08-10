@@ -4,4 +4,4 @@ import { TagPattern } from "../../structures/TagPattern";
 
 export const test_misc_isClone_TagPattern = _test_misc_isClone<TagPattern>(
     TagPattern,
-)((input) => typia.misc.isClone(input));
+)((input) => typia.misc.isClone<TagPattern>(input));

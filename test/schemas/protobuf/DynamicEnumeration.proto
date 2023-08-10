@@ -1,7 +1,7 @@
 syntax = "proto3";
 
 message DynamicEnumeration {
-    __type value = 1;
+    required__type value = 1;
 }
 
 message __type {

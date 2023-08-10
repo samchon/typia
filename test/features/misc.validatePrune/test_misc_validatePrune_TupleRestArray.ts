@@ -4,5 +4,5 @@ import { TupleRestArray } from "../../structures/TupleRestArray";
 
 export const test_misc_validatePrune_TupleRestArray =
     _test_misc_validatePrune<TupleRestArray>(TupleRestArray)((input) =>
-        typia.misc.validatePrune(input),
+        typia.misc.validatePrune<TupleRestArray>(input),
     );

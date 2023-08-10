@@ -5,23 +5,9 @@ import { ObjectGeneric } from "../../../structures/ObjectGeneric";
 export const test_validate_ObjectGeneric = _test_validate<ObjectGeneric>(
     ObjectGeneric,
 )((input) =>
-    ((
-        input: any,
-    ): typia.IValidation<
-        [
-            ObjectGeneric.ISomething<boolean>,
-            ObjectGeneric.ISomething<number>,
-            ObjectGeneric.ISomething<string>,
-        ]
-    > => {
+    ((input: any): typia.IValidation<ObjectGeneric> => {
         const errors = [] as any[];
-        const __is = (
-            input: any,
-        ): input is [
-            ObjectGeneric.ISomething<boolean>,
-            ObjectGeneric.ISomething<number>,
-            ObjectGeneric.ISomething<string>,
-        ] => {
+        const __is = (input: any): input is ObjectGeneric => {
             const $io0 = (input: any): boolean =>
                 "boolean" === typeof input.value &&
                 "object" === typeof input.child &&
@@ -89,11 +75,7 @@ export const test_validate_ObjectGeneric = _test_validate<ObjectGeneric>(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is [
-                ObjectGeneric.ISomething<boolean>,
-                ObjectGeneric.ISomething<number>,
-                ObjectGeneric.ISomething<string>,
-            ] => {
+            ): input is ObjectGeneric => {
                 const $vo0 = (
                     input: any,
                     _path: string,

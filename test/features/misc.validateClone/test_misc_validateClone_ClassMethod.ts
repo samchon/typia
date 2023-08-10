@@ -4,5 +4,5 @@ import { ClassMethod } from "../../structures/ClassMethod";
 
 export const test_misc_validateClone_ClassMethod =
     _test_misc_validateClone<ClassMethod>(ClassMethod)((input) =>
-        typia.misc.validateClone(input),
+        typia.misc.validateClone<ClassMethod>(input),
     );

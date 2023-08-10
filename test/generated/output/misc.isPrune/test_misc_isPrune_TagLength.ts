@@ -5,8 +5,8 @@ import { TagLength } from "../../../structures/TagLength";
 export const test_misc_isPrune_TagLength = _test_misc_isPrune<TagLength>(
     TagLength,
 )((input) =>
-    ((input: any): input is IPointer<Array<TagLength.Type>> => {
-        const is = (input: any): input is IPointer<Array<TagLength.Type>> => {
+    ((input: any): input is TagLength => {
+        const is = (input: any): input is TagLength => {
             const $io0 = (input: any): boolean =>
                 Array.isArray(input.value) &&
                 input.value.every(
@@ -25,7 +25,7 @@ export const test_misc_isPrune_TagLength = _test_misc_isPrune<TagLength>(
                 7 >= input.minimum_and_maximum.length;
             return "object" === typeof input && null !== input && $io0(input);
         };
-        const prune = (input: IPointer<Array<TagLength.Type>>): void => {
+        const prune = (input: TagLength): void => {
             const $io1 = (input: any): boolean =>
                 "string" === typeof input.fixed &&
                 5 === input.fixed.length &&

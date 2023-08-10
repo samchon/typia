@@ -4,12 +4,8 @@ import { ArrayAtomicSimple } from "../../../structures/ArrayAtomicSimple";
 
 export const test_misc_isPrune_ArrayAtomicSimple =
     _test_misc_isPrune<ArrayAtomicSimple>(ArrayAtomicSimple)((input) =>
-        ((
-            input: any,
-        ): input is [Array<boolean>, Array<number>, Array<string>] => {
-            const is = (
-                input: any,
-            ): input is [Array<boolean>, Array<number>, Array<string>] => {
+        ((input: any): input is ArrayAtomicSimple => {
+            const is = (input: any): input is ArrayAtomicSimple => {
                 return (
                     Array.isArray(input) &&
                     input.length === 3 &&
@@ -24,9 +20,7 @@ export const test_misc_isPrune_ArrayAtomicSimple =
                     input[2].every((elem: any) => "string" === typeof elem)
                 );
             };
-            const prune = (
-                input: [Array<boolean>, Array<number>, Array<string>],
-            ): void => {};
+            const prune = (input: ArrayAtomicSimple): void => {};
             if (!is(input)) return false;
             prune(input);
             return true;

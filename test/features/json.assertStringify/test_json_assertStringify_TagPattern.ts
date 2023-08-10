@@ -4,5 +4,5 @@ import { TagPattern } from "../../structures/TagPattern";
 
 export const test_json_assertStringify_TagPattern =
     _test_json_assertStringify<TagPattern>(TagPattern)((input) =>
-        typia.json.assertStringify(input),
+        typia.json.assertStringify<TagPattern>(input),
     );

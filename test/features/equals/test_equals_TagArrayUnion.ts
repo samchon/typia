@@ -4,4 +4,4 @@ import { TagArrayUnion } from "../../structures/TagArrayUnion";
 
 export const test_equals_TagArrayUnion = _test_equals<TagArrayUnion>(
     TagArrayUnion,
-)((input) => typia.equals(input));
+)((input) => typia.equals<TagArrayUnion>(input));

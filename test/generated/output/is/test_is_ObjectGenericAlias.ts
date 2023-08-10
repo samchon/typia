@@ -5,7 +5,7 @@ import { ObjectGenericAlias } from "../../../structures/ObjectGenericAlias";
 export const test_is_ObjectGenericAlias = _test_is<ObjectGenericAlias>(
     ObjectGenericAlias,
 )((input) =>
-    ((input: any): input is ObjectGenericAlias.ISomething<string> => {
+    ((input: any): input is ObjectGenericAlias => {
         return (
             "object" === typeof input &&
             null !== input &&

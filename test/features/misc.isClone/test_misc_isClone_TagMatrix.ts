@@ -4,4 +4,4 @@ import { TagMatrix } from "../../structures/TagMatrix";
 
 export const test_misc_isClone_TagMatrix = _test_misc_isClone<TagMatrix>(
     TagMatrix,
-)((input) => typia.misc.isClone(input));
+)((input) => typia.misc.isClone<TagMatrix>(input));

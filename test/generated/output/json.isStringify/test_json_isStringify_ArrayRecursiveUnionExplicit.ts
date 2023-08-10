@@ -6,10 +6,8 @@ export const test_json_isStringify_ArrayRecursiveUnionExplicit =
     _test_json_isStringify<ArrayRecursiveUnionExplicit>(
         ArrayRecursiveUnionExplicit,
     )((input) =>
-        ((input: Array<ArrayRecursiveUnionExplicit.IBucket>): string | null => {
-            const is = (
-                input: any,
-            ): input is Array<ArrayRecursiveUnionExplicit.IBucket> => {
+        ((input: ArrayRecursiveUnionExplicit): string | null => {
+            const is = (input: any): input is ArrayRecursiveUnionExplicit => {
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.id &&
                     Number.isFinite(input.id) &&
@@ -87,9 +85,7 @@ export const test_json_isStringify_ArrayRecursiveUnionExplicit =
                     )
                 );
             };
-            const stringify = (
-                input: Array<ArrayRecursiveUnionExplicit.IBucket>,
-            ): string => {
+            const stringify = (input: ArrayRecursiveUnionExplicit): string => {
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.id &&
                     "string" === typeof input.name &&

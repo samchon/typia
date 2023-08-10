@@ -4,5 +4,5 @@ import { DynamicTemplate } from "../../structures/DynamicTemplate";
 
 export const test_assertEquals_DynamicTemplate =
     _test_assertEquals<DynamicTemplate>(DynamicTemplate)((input) =>
-        typia.assertEquals(input),
+        typia.assertEquals<DynamicTemplate>(input),
     );

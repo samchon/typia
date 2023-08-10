@@ -4,5 +4,5 @@ import { TemplateConstant } from "../../structures/TemplateConstant";
 
 export const test_misc_validatePrune_TemplateConstant =
     _test_misc_validatePrune<TemplateConstant>(TemplateConstant)((input) =>
-        typia.misc.validatePrune(input),
+        typia.misc.validatePrune<TemplateConstant>(input),
     );

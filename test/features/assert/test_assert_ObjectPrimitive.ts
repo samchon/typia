@@ -4,4 +4,4 @@ import { ObjectPrimitive } from "../../structures/ObjectPrimitive";
 
 export const test_assert_ObjectPrimitive = _test_assert<ObjectPrimitive>(
     ObjectPrimitive,
-)((input) => typia.assert(input));
+)((input) => typia.assert<ObjectPrimitive>(input));

@@ -4,5 +4,5 @@ import { TemplateAtomic } from "../../structures/TemplateAtomic";
 
 export const test_misc_assertPrune_TemplateAtomic =
     _test_misc_assertPrune<TemplateAtomic>(TemplateAtomic)((input) =>
-        typia.misc.assertPrune(input),
+        typia.misc.assertPrune<TemplateAtomic>(input),
     );

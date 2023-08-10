@@ -4,4 +4,4 @@ import { ArrayUnion } from "../../structures/ArrayUnion";
 
 export const test_misc_isPrune_ArrayUnion = _test_misc_isPrune<ArrayUnion>(
     ArrayUnion,
-)((input) => typia.misc.isPrune(input));
+)((input) => typia.misc.isPrune<ArrayUnion>(input));

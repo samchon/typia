@@ -4,4 +4,4 @@ import { ObjectPrimitive } from "../../structures/ObjectPrimitive";
 
 export const test_is_ObjectPrimitive = _test_is<ObjectPrimitive>(
     ObjectPrimitive,
-)((input) => typia.is(input));
+)((input) => typia.is<ObjectPrimitive>(input));

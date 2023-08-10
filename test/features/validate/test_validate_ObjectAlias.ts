@@ -4,4 +4,4 @@ import { ObjectAlias } from "../../structures/ObjectAlias";
 
 export const test_validate_ObjectAlias = _test_validate<ObjectAlias>(
     ObjectAlias,
-)((input) => typia.validate(input));
+)((input) => typia.validate<ObjectAlias>(input));

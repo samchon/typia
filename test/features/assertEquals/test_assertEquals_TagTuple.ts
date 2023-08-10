@@ -4,4 +4,4 @@ import { TagTuple } from "../../structures/TagTuple";
 
 export const test_assertEquals_TagTuple = _test_assertEquals<TagTuple>(
     TagTuple,
-)((input) => typia.assertEquals(input));
+)((input) => typia.assertEquals<TagTuple>(input));

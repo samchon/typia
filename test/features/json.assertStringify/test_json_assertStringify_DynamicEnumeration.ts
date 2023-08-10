@@ -4,5 +4,5 @@ import { DynamicEnumeration } from "../../structures/DynamicEnumeration";
 
 export const test_json_assertStringify_DynamicEnumeration =
     _test_json_assertStringify<DynamicEnumeration>(DynamicEnumeration)(
-        (input) => typia.json.assertStringify(input),
+        (input) => typia.json.assertStringify<DynamicEnumeration>(input),
     );

@@ -4,4 +4,4 @@ import { AtomicAlias } from "../../structures/AtomicAlias";
 
 export const test_misc_clone_AtomicAlias = _test_misc_clone<AtomicAlias>(
     AtomicAlias,
-)((input) => typia.misc.clone(input));
+)((input) => typia.misc.clone<AtomicAlias>(input));

@@ -4,5 +4,5 @@ import { ObjectUnionImplicit } from "../../structures/ObjectUnionImplicit";
 
 export const test_misc_validatePrune_ObjectUnionImplicit =
     _test_misc_validatePrune<ObjectUnionImplicit>(ObjectUnionImplicit)(
-        (input) => typia.misc.validatePrune(input),
+        (input) => typia.misc.validatePrune<ObjectUnionImplicit>(input),
     );

@@ -4,16 +4,10 @@ import { TagLength } from "../../../structures/TagLength";
 
 export const test_json_validateStringify_TagLength =
     _test_json_validateStringify<TagLength>(TagLength)((input) =>
-        ((
-            input: IPointer<Array<TagLength.Type>>,
-        ): typia.IValidation<string> => {
-            const validate = (
-                input: any,
-            ): typia.IValidation<IPointer<Array<TagLength.Type>>> => {
+        ((input: TagLength): typia.IValidation<string> => {
+            const validate = (input: any): typia.IValidation<TagLength> => {
                 const errors = [] as any[];
-                const __is = (
-                    input: any,
-                ): input is IPointer<Array<TagLength.Type>> => {
+                const __is = (input: any): input is TagLength => {
                     const $io0 = (input: any): boolean =>
                         Array.isArray(input.value) &&
                         input.value.every(
@@ -46,7 +40,7 @@ export const test_json_validateStringify_TagLength =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is IPointer<Array<TagLength.Type>> => {
+                    ): input is TagLength => {
                         const $vo0 = (
                             input: any,
                             _path: string,
@@ -186,9 +180,7 @@ export const test_json_validateStringify_TagLength =
                     data: success ? input : undefined,
                 } as any;
             };
-            const stringify = (
-                input: IPointer<Array<TagLength.Type>>,
-            ): string => {
+            const stringify = (input: TagLength): string => {
                 const $io1 = (input: any): boolean =>
                     "string" === typeof input.fixed &&
                     5 === input.fixed.length &&

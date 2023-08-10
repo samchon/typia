@@ -4,5 +4,5 @@ import { ArrayAtomicAlias } from "../../structures/ArrayAtomicAlias";
 
 export const test_misc_assertPrune_ArrayAtomicAlias =
     _test_misc_assertPrune<ArrayAtomicAlias>(ArrayAtomicAlias)((input) =>
-        typia.misc.assertPrune(input),
+        typia.misc.assertPrune<ArrayAtomicAlias>(input),
     );

@@ -4,5 +4,5 @@ import { AtomicIntersection } from "../../structures/AtomicIntersection";
 
 export const test_misc_isClone_AtomicIntersection =
     _test_misc_isClone<AtomicIntersection>(AtomicIntersection)((input) =>
-        typia.misc.isClone(input),
+        typia.misc.isClone<AtomicIntersection>(input),
     );

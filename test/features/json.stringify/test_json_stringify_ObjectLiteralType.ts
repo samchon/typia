@@ -4,5 +4,5 @@ import { ObjectLiteralType } from "../../structures/ObjectLiteralType";
 
 export const test_json_stringify_ObjectLiteralType =
     _test_json_stringify<ObjectLiteralType>(ObjectLiteralType)((input) =>
-        typia.json.stringify(input),
+        typia.json.stringify<ObjectLiteralType>(input),
     );

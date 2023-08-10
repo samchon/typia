@@ -4,4 +4,4 @@ import { TagType } from "../../structures/TagType";
 
 export const test_misc_assertClone_TagType = _test_misc_assertClone<TagType>(
     TagType,
-)((input) => typia.misc.assertClone(input));
+)((input) => typia.misc.assertClone<TagType>(input));

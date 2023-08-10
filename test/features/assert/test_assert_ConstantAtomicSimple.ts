@@ -4,5 +4,5 @@ import { ConstantAtomicSimple } from "../../structures/ConstantAtomicSimple";
 
 export const test_assert_ConstantAtomicSimple =
     _test_assert<ConstantAtomicSimple>(ConstantAtomicSimple)((input) =>
-        typia.assert(input),
+        typia.assert<ConstantAtomicSimple>(input),
     );

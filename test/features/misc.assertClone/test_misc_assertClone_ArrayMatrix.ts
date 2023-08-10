@@ -4,5 +4,5 @@ import { ArrayMatrix } from "../../structures/ArrayMatrix";
 
 export const test_misc_assertClone_ArrayMatrix =
     _test_misc_assertClone<ArrayMatrix>(ArrayMatrix)((input) =>
-        typia.misc.assertClone(input),
+        typia.misc.assertClone<ArrayMatrix>(input),
     );

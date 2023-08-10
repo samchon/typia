@@ -4,5 +4,5 @@ import { ArrayRecursiveUnionExplicit } from "../../structures/ArrayRecursiveUnio
 
 export const test_misc_prune_ArrayRecursiveUnionExplicit =
     _test_misc_prune<ArrayRecursiveUnionExplicit>(ArrayRecursiveUnionExplicit)(
-        (input) => typia.misc.prune(input),
+        (input) => typia.misc.prune<ArrayRecursiveUnionExplicit>(input),
     );

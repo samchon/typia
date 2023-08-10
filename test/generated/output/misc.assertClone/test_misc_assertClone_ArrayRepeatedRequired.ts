@@ -5,20 +5,11 @@ import { ArrayRepeatedRequired } from "../../../structures/ArrayRepeatedRequired
 export const test_misc_assertClone_ArrayRepeatedRequired =
     _test_misc_assertClone<ArrayRepeatedRequired>(ArrayRepeatedRequired)(
         (input) =>
-            ((
-                input: any,
-            ): typia.Primitive<
-                string | number | Array<ArrayRepeatedRequired>
-            > => {
-                const assert = (
-                    input: any,
-                ): string | number | Array<ArrayRepeatedRequired> => {
+            ((input: any): typia.Primitive<ArrayRepeatedRequired> => {
+                const assert = (input: any): ArrayRepeatedRequired => {
                     const __is = (
                         input: any,
-                    ): input is
-                        | string
-                        | number
-                        | Array<ArrayRepeatedRequired> => {
+                    ): input is ArrayRepeatedRequired => {
                         const $ia0 = (input: any): any =>
                             input.every(
                                 (elem: any) =>
@@ -45,10 +36,7 @@ export const test_misc_assertClone_ArrayRepeatedRequired =
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
-                        ): input is
-                            | string
-                            | number
-                            | Array<ArrayRepeatedRequired> => {
+                        ): input is ArrayRepeatedRequired => {
                             const $guard = (typia.misc.assertClone as any)
                                 .guard;
                             const $aa0 = (
@@ -158,10 +146,8 @@ export const test_misc_assertClone_ArrayRepeatedRequired =
                     return input;
                 };
                 const clone = (
-                    input: string | number | Array<ArrayRepeatedRequired>,
-                ): typia.Primitive<
-                    string | number | Array<ArrayRepeatedRequired>
-                > => {
+                    input: ArrayRepeatedRequired,
+                ): typia.Primitive<ArrayRepeatedRequired> => {
                     const $ia0 = (input: any): any =>
                         input.every(
                             (elem: any) =>

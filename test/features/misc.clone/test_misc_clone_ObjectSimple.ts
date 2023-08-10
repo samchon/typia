@@ -4,4 +4,4 @@ import { ObjectSimple } from "../../structures/ObjectSimple";
 
 export const test_misc_clone_ObjectSimple = _test_misc_clone<ObjectSimple>(
     ObjectSimple,
-)((input) => typia.misc.clone(input));
+)((input) => typia.misc.clone<ObjectSimple>(input));

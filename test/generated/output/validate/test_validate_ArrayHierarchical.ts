@@ -4,11 +4,9 @@ import { ArrayHierarchical } from "../../../structures/ArrayHierarchical";
 
 export const test_validate_ArrayHierarchical =
     _test_validate<ArrayHierarchical>(ArrayHierarchical)((input) =>
-        ((input: any): typia.IValidation<Array<ArrayHierarchical.ICompany>> => {
+        ((input: any): typia.IValidation<ArrayHierarchical> => {
             const errors = [] as any[];
-            const __is = (
-                input: any,
-            ): input is Array<ArrayHierarchical.ICompany> => {
+            const __is = (input: any): input is ArrayHierarchical => {
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.id &&
                     Number.isFinite(input.id) &&
@@ -77,7 +75,7 @@ export const test_validate_ArrayHierarchical =
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is Array<ArrayHierarchical.ICompany> => {
+                ): input is ArrayHierarchical => {
                     const $vo0 = (
                         input: any,
                         _path: string,

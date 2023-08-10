@@ -4,14 +4,10 @@ import { AtomicSimple } from "../../../structures/AtomicSimple";
 
 export const test_misc_validatePrune_AtomicSimple =
     _test_misc_validatePrune<AtomicSimple>(AtomicSimple)((input) =>
-        ((input: any): typia.IValidation<[boolean, number, string]> => {
-            const validate = (
-                input: any,
-            ): typia.IValidation<[boolean, number, string]> => {
+        ((input: any): typia.IValidation<AtomicSimple> => {
+            const validate = (input: any): typia.IValidation<AtomicSimple> => {
                 const errors = [] as any[];
-                const __is = (
-                    input: any,
-                ): input is [boolean, number, string] => {
+                const __is = (input: any): input is AtomicSimple => {
                     return (
                         Array.isArray(input) &&
                         input.length === 3 &&
@@ -29,7 +25,7 @@ export const test_misc_validatePrune_AtomicSimple =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is [boolean, number, string] => {
+                    ): input is AtomicSimple => {
                         return (
                             ((Array.isArray(input) ||
                                 $report(true, {
@@ -79,7 +75,7 @@ export const test_misc_validatePrune_AtomicSimple =
                     data: success ? input : undefined,
                 } as any;
             };
-            const prune = (input: [boolean, number, string]): void => {};
+            const prune = (input: AtomicSimple): void => {};
             const output = validate(input);
             if (output.success) prune(input);
             return output;

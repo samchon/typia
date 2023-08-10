@@ -4,5 +4,5 @@ import { ConstantAtomicSimple } from "../../structures/ConstantAtomicSimple";
 
 export const test_validateEquals_ConstantAtomicSimple =
     _test_validateEquals<ConstantAtomicSimple>(ConstantAtomicSimple)((input) =>
-        typia.validateEquals(input),
+        typia.validateEquals<ConstantAtomicSimple>(input),
     );

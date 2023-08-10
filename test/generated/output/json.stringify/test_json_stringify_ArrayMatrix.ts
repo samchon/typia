@@ -4,7 +4,7 @@ import { ArrayMatrix } from "../../../structures/ArrayMatrix";
 
 export const test_json_stringify_ArrayMatrix =
     _test_json_stringify<ArrayMatrix>(ArrayMatrix)((input) =>
-        ((input: Array<Array<Array<number>>>): string => {
+        ((input: ArrayMatrix): string => {
             const $number = (typia.json.stringify as any).number;
             return `[${input
                 .map(

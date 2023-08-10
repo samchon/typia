@@ -4,5 +4,5 @@ import { ToJsonNull } from "../../structures/ToJsonNull";
 
 export const test_misc_validateClone_ToJsonNull =
     _test_misc_validateClone<ToJsonNull>(ToJsonNull)((input) =>
-        typia.misc.validateClone(input),
+        typia.misc.validateClone<ToJsonNull>(input),
     );

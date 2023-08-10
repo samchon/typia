@@ -4,4 +4,4 @@ import { AtomicUnion } from "../../../structures/AtomicUnion";
 
 export const test_misc_prune_AtomicUnion = _test_misc_prune<AtomicUnion>(
     AtomicUnion,
-)((input) => ((input: Array<AtomicUnion.Union>): void => {})(input));
+)((input) => ((input: AtomicUnion): void => {})(input));

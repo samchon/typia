@@ -5,23 +5,9 @@ import { ArrayAtomicAlias } from "../../../structures/ArrayAtomicAlias";
 export const test_validate_ArrayAtomicAlias = _test_validate<ArrayAtomicAlias>(
     ArrayAtomicAlias,
 )((input) =>
-    ((
-        input: any,
-    ): typia.IValidation<
-        [
-            ArrayAtomicAlias.Alias<boolean>,
-            ArrayAtomicAlias.Alias<number>,
-            ArrayAtomicAlias.Alias<string>,
-        ]
-    > => {
+    ((input: any): typia.IValidation<ArrayAtomicAlias> => {
         const errors = [] as any[];
-        const __is = (
-            input: any,
-        ): input is [
-            ArrayAtomicAlias.Alias<boolean>,
-            ArrayAtomicAlias.Alias<number>,
-            ArrayAtomicAlias.Alias<string>,
-        ] => {
+        const __is = (input: any): input is ArrayAtomicAlias => {
             return (
                 Array.isArray(input) &&
                 input.length === 3 &&
@@ -42,11 +28,7 @@ export const test_validate_ArrayAtomicAlias = _test_validate<ArrayAtomicAlias>(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is [
-                ArrayAtomicAlias.Alias<boolean>,
-                ArrayAtomicAlias.Alias<number>,
-                ArrayAtomicAlias.Alias<string>,
-            ] => {
+            ): input is ArrayAtomicAlias => {
                 return (
                     ((Array.isArray(input) ||
                         $report(true, {

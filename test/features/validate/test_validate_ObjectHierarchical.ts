@@ -4,5 +4,5 @@ import { ObjectHierarchical } from "../../structures/ObjectHierarchical";
 
 export const test_validate_ObjectHierarchical =
     _test_validate<ObjectHierarchical>(ObjectHierarchical)((input) =>
-        typia.validate(input),
+        typia.validate<ObjectHierarchical>(input),
     );

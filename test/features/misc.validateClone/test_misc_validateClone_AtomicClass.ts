@@ -4,5 +4,5 @@ import { AtomicClass } from "../../structures/AtomicClass";
 
 export const test_misc_validateClone_AtomicClass =
     _test_misc_validateClone<AtomicClass>(AtomicClass)((input) =>
-        typia.misc.validateClone(input),
+        typia.misc.validateClone<AtomicClass>(input),
     );

@@ -5,29 +5,11 @@ import { ConstantIntersection } from "../../../structures/ConstantIntersection";
 export const test_misc_assertClone_ConstantIntersection =
     _test_misc_assertClone<ConstantIntersection>(ConstantIntersection)(
         (input) =>
-            ((
-                input: any,
-            ): typia.Primitive<
-                [
-                    ConstantIntersection.Wrapper<false>,
-                    ConstantIntersection.Wrapper<1>,
-                    ConstantIntersection.Wrapper<"two">,
-                ]
-            > => {
-                const assert = (
-                    input: any,
-                ): [
-                    ConstantIntersection.Wrapper<false>,
-                    ConstantIntersection.Wrapper<1>,
-                    ConstantIntersection.Wrapper<"two">,
-                ] => {
+            ((input: any): typia.Primitive<ConstantIntersection> => {
+                const assert = (input: any): ConstantIntersection => {
                     const __is = (
                         input: any,
-                    ): input is [
-                        ConstantIntersection.Wrapper<false>,
-                        ConstantIntersection.Wrapper<1>,
-                        ConstantIntersection.Wrapper<"two">,
-                    ] => {
+                    ): input is ConstantIntersection => {
                         return (
                             Array.isArray(input) &&
                             input.length === 3 &&
@@ -41,11 +23,7 @@ export const test_misc_assertClone_ConstantIntersection =
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
-                        ): input is [
-                            ConstantIntersection.Wrapper<false>,
-                            ConstantIntersection.Wrapper<1>,
-                            ConstantIntersection.Wrapper<"two">,
-                        ] => {
+                        ): input is ConstantIntersection => {
                             const $guard = (typia.misc.assertClone as any)
                                 .guard;
                             return (
@@ -89,18 +67,8 @@ export const test_misc_assertClone_ConstantIntersection =
                     return input;
                 };
                 const clone = (
-                    input: [
-                        ConstantIntersection.Wrapper<false>,
-                        ConstantIntersection.Wrapper<1>,
-                        ConstantIntersection.Wrapper<"two">,
-                    ],
-                ): typia.Primitive<
-                    [
-                        ConstantIntersection.Wrapper<false>,
-                        ConstantIntersection.Wrapper<1>,
-                        ConstantIntersection.Wrapper<"two">,
-                    ]
-                > => {
+                    input: ConstantIntersection,
+                ): typia.Primitive<ConstantIntersection> => {
                     return Array.isArray(input) &&
                         input.length === 3 &&
                         false === input[0] &&

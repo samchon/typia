@@ -5,42 +5,11 @@ import { ObjectUnionComposite } from "../../../structures/ObjectUnionComposite";
 export const test_misc_assertPrune_ObjectUnionComposite =
     _test_misc_assertPrune<ObjectUnionComposite>(ObjectUnionComposite)(
         (input) =>
-            ((
-                input: any,
-            ): Array<
-                | ObjectUnionComposite.IPoint
-                | ObjectUnionComposite.ILine
-                | ObjectUnionComposite.ITriangle
-                | ObjectUnionComposite.IRectangle
-                | ObjectUnionComposite.IPolyline
-                | ObjectUnionComposite.IPolygon
-                | ObjectUnionComposite.IPointedShape
-                | ObjectUnionComposite.ICircle
-            > => {
-                const assert = (
-                    input: any,
-                ): Array<
-                    | ObjectUnionComposite.IPoint
-                    | ObjectUnionComposite.ILine
-                    | ObjectUnionComposite.ITriangle
-                    | ObjectUnionComposite.IRectangle
-                    | ObjectUnionComposite.IPolyline
-                    | ObjectUnionComposite.IPolygon
-                    | ObjectUnionComposite.IPointedShape
-                    | ObjectUnionComposite.ICircle
-                > => {
+            ((input: any): ObjectUnionComposite => {
+                const assert = (input: any): ObjectUnionComposite => {
                     const __is = (
                         input: any,
-                    ): input is Array<
-                        | ObjectUnionComposite.IPoint
-                        | ObjectUnionComposite.ILine
-                        | ObjectUnionComposite.ITriangle
-                        | ObjectUnionComposite.IRectangle
-                        | ObjectUnionComposite.IPolyline
-                        | ObjectUnionComposite.IPolygon
-                        | ObjectUnionComposite.IPointedShape
-                        | ObjectUnionComposite.ICircle
-                    > => {
+                    ): input is ObjectUnionComposite => {
                         const $io0 = (input: any): boolean =>
                             "number" === typeof input.x &&
                             Number.isFinite(input.x) &&
@@ -190,16 +159,7 @@ export const test_misc_assertPrune_ObjectUnionComposite =
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
-                        ): input is Array<
-                            | ObjectUnionComposite.IPoint
-                            | ObjectUnionComposite.ILine
-                            | ObjectUnionComposite.ITriangle
-                            | ObjectUnionComposite.IRectangle
-                            | ObjectUnionComposite.IPolyline
-                            | ObjectUnionComposite.IPolygon
-                            | ObjectUnionComposite.IPointedShape
-                            | ObjectUnionComposite.ICircle
-                        > => {
+                        ): input is ObjectUnionComposite => {
                             const $guard = (typia.misc.assertPrune as any)
                                 .guard;
                             const $ao0 = (
@@ -729,18 +689,7 @@ export const test_misc_assertPrune_ObjectUnionComposite =
                         })(input, "$input", true);
                     return input;
                 };
-                const prune = (
-                    input: Array<
-                        | ObjectUnionComposite.IPoint
-                        | ObjectUnionComposite.ILine
-                        | ObjectUnionComposite.ITriangle
-                        | ObjectUnionComposite.IRectangle
-                        | ObjectUnionComposite.IPolyline
-                        | ObjectUnionComposite.IPolygon
-                        | ObjectUnionComposite.IPointedShape
-                        | ObjectUnionComposite.ICircle
-                    >,
-                ): void => {
+                const prune = (input: ObjectUnionComposite): void => {
                     const $io0 = (input: any): boolean =>
                         "number" === typeof input.x &&
                         "number" === typeof input.y;

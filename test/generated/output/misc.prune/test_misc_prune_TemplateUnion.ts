@@ -5,7 +5,7 @@ import { TemplateUnion } from "../../../structures/TemplateUnion";
 export const test_misc_prune_TemplateUnion = _test_misc_prune<TemplateUnion>(
     TemplateUnion,
 )((input) =>
-    ((input: IPointer<Array<TemplateUnion.Type>>): void => {
+    ((input: TemplateUnion): void => {
         const $io1 = (input: any): boolean =>
             "string" === typeof input.prefix &&
             (RegExp(/^prefix_(.*)/).test(input.prefix) ||

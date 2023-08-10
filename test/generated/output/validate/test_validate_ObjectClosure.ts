@@ -5,9 +5,9 @@ import { ObjectClosure } from "../../../structures/ObjectClosure";
 export const test_validate_ObjectClosure = _test_validate<ObjectClosure>(
     ObjectClosure,
 )((input) =>
-    ((input: any): typia.IValidation<ObjectClosure.IRecord> => {
+    ((input: any): typia.IValidation<ObjectClosure> => {
         const errors = [] as any[];
-        const __is = (input: any): input is ObjectClosure.IRecord => {
+        const __is = (input: any): input is ObjectClosure => {
             const $io0 = (input: any): boolean =>
                 "string" === typeof input.id &&
                 "function" === typeof input.open;
@@ -19,7 +19,7 @@ export const test_validate_ObjectClosure = _test_validate<ObjectClosure>(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is ObjectClosure.IRecord => {
+            ): input is ObjectClosure => {
                 const $vo0 = (
                     input: any,
                     _path: string,

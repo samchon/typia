@@ -4,5 +4,5 @@ import { DynamicComposite } from "../../structures/DynamicComposite";
 
 export const test_misc_prune_DynamicComposite =
     _test_misc_prune<DynamicComposite>(DynamicComposite)((input) =>
-        typia.misc.prune(input),
+        typia.misc.prune<DynamicComposite>(input),
     );

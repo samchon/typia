@@ -5,8 +5,8 @@ import { TagRange } from "../../../structures/TagRange";
 export const test_misc_isPrune_TagRange = _test_misc_isPrune<TagRange>(
     TagRange,
 )((input) =>
-    ((input: any): input is IPointer<Array<TagRange.Type>> => {
-        const is = (input: any): input is IPointer<Array<TagRange.Type>> => {
+    ((input: any): input is TagRange => {
+        const is = (input: any): input is TagRange => {
             const $io0 = (input: any): boolean =>
                 Array.isArray(input.value) &&
                 input.value.every(
@@ -40,7 +40,7 @@ export const test_misc_isPrune_TagRange = _test_misc_isPrune<TagRange>(
                 7 >= input.greater_equal_less_equal;
             return "object" === typeof input && null !== input && $io0(input);
         };
-        const prune = (input: IPointer<Array<TagRange.Type>>): void => {
+        const prune = (input: TagRange): void => {
             const $io1 = (input: any): boolean =>
                 "number" === typeof input.greater &&
                 3 < input.greater &&

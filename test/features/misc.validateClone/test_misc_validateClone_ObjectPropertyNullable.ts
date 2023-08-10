@@ -4,5 +4,5 @@ import { ObjectPropertyNullable } from "../../structures/ObjectPropertyNullable"
 
 export const test_misc_validateClone_ObjectPropertyNullable =
     _test_misc_validateClone<ObjectPropertyNullable>(ObjectPropertyNullable)(
-        (input) => typia.misc.validateClone(input),
+        (input) => typia.misc.validateClone<ObjectPropertyNullable>(input),
     );

@@ -4,4 +4,4 @@ import { ObjectGeneric } from "../../structures/ObjectGeneric";
 
 export const test_misc_clone_ObjectGeneric = _test_misc_clone<ObjectGeneric>(
     ObjectGeneric,
-)((input) => typia.misc.clone(input));
+)((input) => typia.misc.clone<ObjectGeneric>(input));

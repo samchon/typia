@@ -4,4 +4,4 @@ import { AtomicUnion } from "../../structures/AtomicUnion";
 
 export const test_validate_AtomicUnion = _test_validate<AtomicUnion>(
     AtomicUnion,
-)((input) => typia.validate(input));
+)((input) => typia.validate<AtomicUnion>(input));

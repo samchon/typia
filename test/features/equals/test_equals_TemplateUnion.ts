@@ -4,4 +4,4 @@ import { TemplateUnion } from "../../structures/TemplateUnion";
 
 export const test_equals_TemplateUnion = _test_equals<TemplateUnion>(
     TemplateUnion,
-)((input) => typia.equals(input));
+)((input) => typia.equals<TemplateUnion>(input));

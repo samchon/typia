@@ -5,9 +5,7 @@ import { ObjectTuple } from "../../../structures/ObjectTuple";
 export const test_misc_clone_ObjectTuple = _test_misc_clone<ObjectTuple>(
     ObjectTuple,
 )((input) =>
-    ((
-        input: [ObjectTuple.ISection, ObjectTuple.ICitizen],
-    ): typia.Primitive<[ObjectTuple.ISection, ObjectTuple.ICitizen]> => {
+    ((input: ObjectTuple): typia.Primitive<ObjectTuple> => {
         const $io0 = (input: any): boolean =>
             "string" === typeof input.id &&
             "string" === typeof input.code &&

@@ -4,7 +4,7 @@ import { TagAtomicUnion } from "../../../structures/TagAtomicUnion";
 
 export const test_json_stringify_TagAtomicUnion =
     _test_json_stringify<TagAtomicUnion>(TagAtomicUnion)((input) =>
-        ((input: IPointer<Array<TagAtomicUnion.Type>>): string => {
+        ((input: TagAtomicUnion): string => {
             const $io1 = (input: any): boolean =>
                 ("string" === typeof input.value &&
                     3 <= input.value.length &&

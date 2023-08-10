@@ -5,23 +5,11 @@ import { ToJsonTuple } from "../../../structures/ToJsonTuple";
 export const test_assertEquals_ToJsonTuple = _test_assertEquals<ToJsonTuple>(
     ToJsonTuple,
 )((input) =>
-    ((
-        input: any,
-    ): [
-        ToJsonTuple.IToJson<string>,
-        ToJsonTuple.IToJson<number>,
-        ToJsonTuple.IToJson<boolean>,
-        ToJsonTuple.IObject,
-    ] => {
+    ((input: any): ToJsonTuple => {
         const __is = (
             input: any,
             _exceptionable: boolean = true,
-        ): input is [
-            ToJsonTuple.IToJson<string>,
-            ToJsonTuple.IToJson<number>,
-            ToJsonTuple.IToJson<boolean>,
-            ToJsonTuple.IObject,
-        ] => {
+        ): input is ToJsonTuple => {
             const $io0 = (
                 input: any,
                 _exceptionable: boolean = true,
@@ -96,12 +84,7 @@ export const test_assertEquals_ToJsonTuple = _test_assertEquals<ToJsonTuple>(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is [
-                ToJsonTuple.IToJson<string>,
-                ToJsonTuple.IToJson<number>,
-                ToJsonTuple.IToJson<boolean>,
-                ToJsonTuple.IObject,
-            ] => {
+            ): input is ToJsonTuple => {
                 const $guard = (typia.assertEquals as any).guard;
                 const $join = (typia.assertEquals as any).join;
                 const $ao0 = (

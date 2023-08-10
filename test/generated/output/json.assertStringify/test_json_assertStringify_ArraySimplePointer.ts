@@ -6,12 +6,8 @@ export const test_json_assertStringify_ArraySimplePointer =
     _test_json_assertStringify<ArraySimplePointer>(ArraySimplePointer)(
         (input) =>
             ((input: any): string => {
-                const assert = (
-                    input: any,
-                ): IPointer<Array<ArraySimplePointer.IPerson>> => {
-                    const __is = (
-                        input: any,
-                    ): input is IPointer<Array<ArraySimplePointer.IPerson>> => {
+                const assert = (input: any): ArraySimplePointer => {
+                    const __is = (input: any): input is ArraySimplePointer => {
                         const $io0 = (input: any): boolean =>
                             Array.isArray(input.value) &&
                             input.value.every(
@@ -46,9 +42,7 @@ export const test_json_assertStringify_ArraySimplePointer =
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
-                        ): input is IPointer<
-                            Array<ArraySimplePointer.IPerson>
-                        > => {
+                        ): input is ArraySimplePointer => {
                             const $guard = (typia.json.assertStringify as any)
                                 .guard;
                             const $ao0 = (
@@ -207,9 +201,7 @@ export const test_json_assertStringify_ArraySimplePointer =
                         })(input, "$input", true);
                     return input;
                 };
-                const stringify = (
-                    input: IPointer<Array<ArraySimplePointer.IPerson>>,
-                ): string => {
+                const stringify = (input: ArraySimplePointer): string => {
                     const $io1 = (input: any): boolean =>
                         "string" === typeof input.name &&
                         "string" === typeof input.email &&

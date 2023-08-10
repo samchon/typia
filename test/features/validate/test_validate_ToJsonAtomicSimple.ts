@@ -4,5 +4,5 @@ import { ToJsonAtomicSimple } from "../../structures/ToJsonAtomicSimple";
 
 export const test_validate_ToJsonAtomicSimple =
     _test_validate<ToJsonAtomicSimple>(ToJsonAtomicSimple)((input) =>
-        typia.validate(input),
+        typia.validate<ToJsonAtomicSimple>(input),
     );

@@ -4,10 +4,8 @@ import { ObjectLiteralProperty } from "../../../structures/ObjectLiteralProperty
 
 export const test_assert_ObjectLiteralProperty =
     _test_assert<ObjectLiteralProperty>(ObjectLiteralProperty)((input) =>
-        ((input: any): ObjectLiteralProperty.ISomething => {
-            const __is = (
-                input: any,
-            ): input is ObjectLiteralProperty.ISomething => {
+        ((input: any): ObjectLiteralProperty => {
+            const __is = (input: any): input is ObjectLiteralProperty => {
                 return (
                     "object" === typeof input &&
                     null !== input &&
@@ -24,7 +22,7 @@ export const test_assert_ObjectLiteralProperty =
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ObjectLiteralProperty.ISomething => {
+                ): input is ObjectLiteralProperty => {
                     const $guard = (typia.assert as any).guard;
                     const $ao0 = (
                         input: any,

@@ -4,9 +4,7 @@ import { ObjectIntersection } from "../../../structures/ObjectIntersection";
 
 export const test_json_stringify_ObjectIntersection =
     _test_json_stringify<ObjectIntersection>(ObjectIntersection)((input) =>
-        ((
-            input: ObjectIntersection.IEmail & ObjectIntersection.IName,
-        ): string => {
+        ((input: ObjectIntersection): string => {
             const $string = (typia.json.stringify as any).string;
             return `{"email":${$string((input as any).email)},"name":${$string(
                 (input as any).name,

@@ -4,7 +4,7 @@ import { ObjectSimple } from "../../../structures/ObjectSimple";
 
 export const test_is_ObjectSimple = _test_is<ObjectSimple>(ObjectSimple)(
     (input) =>
-        ((input: any): input is ObjectSimple.IBox3D => {
+        ((input: any): input is ObjectSimple => {
             return (
                 "object" === typeof input &&
                 null !== input &&

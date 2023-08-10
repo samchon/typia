@@ -4,7 +4,7 @@ import { DynamicArray } from "../../../structures/DynamicArray";
 
 export const test_json_stringify_DynamicArray =
     _test_json_stringify<DynamicArray>(DynamicArray)((input) =>
-        ((input: IPointer<{ [key: string]: Array<string> }>): string => {
+        ((input: DynamicArray): string => {
             const $io1 = (input: any): boolean =>
                 Object.keys(input).every((key: any) => {
                     const value = input[key];

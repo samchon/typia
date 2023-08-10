@@ -4,4 +4,4 @@ import { TagType } from "../../structures/TagType";
 
 export const test_misc_assertPrune_TagType = _test_misc_assertPrune<TagType>(
     TagType,
-)((input) => typia.misc.assertPrune(input));
+)((input) => typia.misc.assertPrune<TagType>(input));

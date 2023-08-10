@@ -4,5 +4,5 @@ import { TagMatrix } from "../../structures/TagMatrix";
 
 export const test_json_isStringify_TagMatrix =
     _test_json_isStringify<TagMatrix>(TagMatrix)((input) =>
-        typia.json.isStringify(input),
+        typia.json.isStringify<TagMatrix>(input),
     );

@@ -4,4 +4,4 @@ import { TagRange } from "../../structures/TagRange";
 
 export const test_json_isStringify_TagRange = _test_json_isStringify<TagRange>(
     TagRange,
-)((input) => typia.json.isStringify(input));
+)((input) => typia.json.isStringify<TagRange>(input));

@@ -5,7 +5,7 @@ import { ArrayUnion } from "../../../structures/ArrayUnion";
 export const test_json_stringify_ArrayUnion = _test_json_stringify<ArrayUnion>(
     ArrayUnion,
 )((input) =>
-    ((input: Array<ArrayUnion.IUnion>): string => {
+    ((input: ArrayUnion): string => {
         const $number = (typia.json.stringify as any).number;
         const $string = (typia.json.stringify as any).string;
         const $throws = (typia.json.stringify as any).throws;

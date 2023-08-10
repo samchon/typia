@@ -4,4 +4,4 @@ import { TupleRestArray } from "../../structures/TupleRestArray";
 
 export const test_misc_clone_TupleRestArray = _test_misc_clone<TupleRestArray>(
     TupleRestArray,
-)((input) => typia.misc.clone(input));
+)((input) => typia.misc.clone<TupleRestArray>(input));

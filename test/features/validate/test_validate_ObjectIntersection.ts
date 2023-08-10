@@ -4,5 +4,5 @@ import { ObjectIntersection } from "../../structures/ObjectIntersection";
 
 export const test_validate_ObjectIntersection =
     _test_validate<ObjectIntersection>(ObjectIntersection)((input) =>
-        typia.validate(input),
+        typia.validate<ObjectIntersection>(input),
     );

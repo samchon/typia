@@ -4,4 +4,4 @@ import { TagObjectUnion } from "../../structures/TagObjectUnion";
 
 export const test_misc_prune_TagObjectUnion = _test_misc_prune<TagObjectUnion>(
     TagObjectUnion,
-)((input) => typia.misc.prune(input));
+)((input) => typia.misc.prune<TagObjectUnion>(input));

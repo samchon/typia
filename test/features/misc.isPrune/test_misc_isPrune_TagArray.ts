@@ -4,4 +4,4 @@ import { TagArray } from "../../structures/TagArray";
 
 export const test_misc_isPrune_TagArray = _test_misc_isPrune<TagArray>(
     TagArray,
-)((input) => typia.misc.isPrune(input));
+)((input) => typia.misc.isPrune<TagArray>(input));

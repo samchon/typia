@@ -4,4 +4,4 @@ import { TupleUnion } from "../../structures/TupleUnion";
 
 export const test_misc_isPrune_TupleUnion = _test_misc_isPrune<TupleUnion>(
     TupleUnion,
-)((input) => typia.misc.isPrune(input));
+)((input) => typia.misc.isPrune<TupleUnion>(input));

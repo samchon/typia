@@ -4,5 +4,5 @@ import { ArrayAtomicAlias } from "../../structures/ArrayAtomicAlias";
 
 export const test_misc_validateClone_ArrayAtomicAlias =
     _test_misc_validateClone<ArrayAtomicAlias>(ArrayAtomicAlias)((input) =>
-        typia.misc.validateClone(input),
+        typia.misc.validateClone<ArrayAtomicAlias>(input),
     );

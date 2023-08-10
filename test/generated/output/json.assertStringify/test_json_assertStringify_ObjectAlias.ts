@@ -5,10 +5,8 @@ import { ObjectAlias } from "../../../structures/ObjectAlias";
 export const test_json_assertStringify_ObjectAlias =
     _test_json_assertStringify<ObjectAlias>(ObjectAlias)((input) =>
         ((input: any): string => {
-            const assert = (input: any): Array<ObjectAlias.IMember> => {
-                const __is = (
-                    input: any,
-                ): input is Array<ObjectAlias.IMember> => {
+            const assert = (input: any): ObjectAlias => {
+                const __is = (input: any): input is ObjectAlias => {
                     const $io0 = (input: any): boolean =>
                         (null === input.id || "string" === typeof input.id) &&
                         "string" === typeof input.email &&
@@ -38,7 +36,7 @@ export const test_json_assertStringify_ObjectAlias =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is Array<ObjectAlias.IMember> => {
+                    ): input is ObjectAlias => {
                         const $guard = (typia.json.assertStringify as any)
                             .guard;
                         const $ao0 = (
@@ -128,7 +126,7 @@ export const test_json_assertStringify_ObjectAlias =
                     })(input, "$input", true);
                 return input;
             };
-            const stringify = (input: Array<ObjectAlias.IMember>): string => {
+            const stringify = (input: ObjectAlias): string => {
                 const $string = (typia.json.assertStringify as any).string;
                 const $number = (typia.json.assertStringify as any).number;
                 const $throws = (typia.json.assertStringify as any).throws;

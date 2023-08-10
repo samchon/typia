@@ -4,5 +4,5 @@ import { TagArray } from "../../structures/TagArray";
 
 export const test_misc_validateClone_TagArray =
     _test_misc_validateClone<TagArray>(TagArray)((input) =>
-        typia.misc.validateClone(input),
+        typia.misc.validateClone<TagArray>(input),
     );

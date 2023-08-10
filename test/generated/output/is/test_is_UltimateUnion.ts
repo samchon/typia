@@ -4,7 +4,7 @@ import { UltimateUnion } from "../../../structures/UltimateUnion";
 
 export const test_is_UltimateUnion = _test_is<UltimateUnion>(UltimateUnion)(
     (input) =>
-        ((input: any): input is Array<typia.IJsonApplication> => {
+        ((input: any): input is UltimateUnion => {
             const $join = (typia.is as any).join;
             const $io0 = (input: any): boolean =>
                 Array.isArray(input.schemas) &&

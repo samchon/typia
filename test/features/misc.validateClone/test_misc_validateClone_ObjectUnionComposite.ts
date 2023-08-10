@@ -4,5 +4,5 @@ import { ObjectUnionComposite } from "../../structures/ObjectUnionComposite";
 
 export const test_misc_validateClone_ObjectUnionComposite =
     _test_misc_validateClone<ObjectUnionComposite>(ObjectUnionComposite)(
-        (input) => typia.misc.validateClone(input),
+        (input) => typia.misc.validateClone<ObjectUnionComposite>(input),
     );

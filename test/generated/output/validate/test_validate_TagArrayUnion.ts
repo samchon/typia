@@ -5,9 +5,9 @@ import { TagArrayUnion } from "../../../structures/TagArrayUnion";
 export const test_validate_TagArrayUnion = _test_validate<TagArrayUnion>(
     TagArrayUnion,
 )((input) =>
-    ((input: any): typia.IValidation<Array<TagArrayUnion.Type>> => {
+    ((input: any): typia.IValidation<TagArrayUnion> => {
         const errors = [] as any[];
-        const __is = (input: any): input is Array<TagArrayUnion.Type> => {
+        const __is = (input: any): input is TagArrayUnion => {
             const $is_uuid = (typia.validate as any).is_uuid;
             const $io0 = (input: any): boolean =>
                 Array.isArray(input.items) &&
@@ -52,7 +52,7 @@ export const test_validate_TagArrayUnion = _test_validate<TagArrayUnion>(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is Array<TagArrayUnion.Type> => {
+            ): input is TagArrayUnion => {
                 const $is_uuid = (typia.validate as any).is_uuid;
                 const $vo0 = (
                     input: any,

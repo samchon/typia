@@ -4,5 +4,5 @@ import { UltimateUnion } from "../../structures/UltimateUnion";
 
 export const test_json_assertStringify_UltimateUnion =
     _test_json_assertStringify<UltimateUnion>(UltimateUnion)((input) =>
-        typia.json.assertStringify(input),
+        typia.json.assertStringify<UltimateUnion>(input),
     );

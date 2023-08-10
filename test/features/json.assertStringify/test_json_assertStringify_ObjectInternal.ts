@@ -4,5 +4,5 @@ import { ObjectInternal } from "../../structures/ObjectInternal";
 
 export const test_json_assertStringify_ObjectInternal =
     _test_json_assertStringify<ObjectInternal>(ObjectInternal)((input) =>
-        typia.json.assertStringify(input),
+        typia.json.assertStringify<ObjectInternal>(input),
     );

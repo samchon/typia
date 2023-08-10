@@ -4,5 +4,5 @@ import { FunctionalArrayUnion } from "../../structures/FunctionalArrayUnion";
 
 export const test_validateEquals_FunctionalArrayUnion =
     _test_validateEquals<FunctionalArrayUnion>(FunctionalArrayUnion)((input) =>
-        typia.validateEquals(input),
+        typia.validateEquals<FunctionalArrayUnion>(input),
     );

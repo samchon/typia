@@ -4,4 +4,4 @@ import { ArrayMatrix } from "../../structures/ArrayMatrix";
 
 export const test_misc_prune_ArrayMatrix = _test_misc_prune<ArrayMatrix>(
     ArrayMatrix,
-)((input) => typia.misc.prune(input));
+)((input) => typia.misc.prune<ArrayMatrix>(input));

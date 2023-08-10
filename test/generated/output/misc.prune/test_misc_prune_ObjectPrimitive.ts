@@ -4,7 +4,7 @@ import { ObjectPrimitive } from "../../../structures/ObjectPrimitive";
 
 export const test_misc_prune_ObjectPrimitive =
     _test_misc_prune<ObjectPrimitive>(ObjectPrimitive)((input) =>
-        ((input: ObjectPrimitive.IArticle): void => {
+        ((input: ObjectPrimitive): void => {
             const $io1 = (input: any): boolean =>
                 "string" === typeof input.id &&
                 "string" === typeof input.name &&

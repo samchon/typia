@@ -4,14 +4,12 @@ import { TupleRestAtomic } from "../../../structures/TupleRestAtomic";
 
 export const test_misc_validatePrune_TupleRestAtomic =
     _test_misc_validatePrune<TupleRestAtomic>(TupleRestAtomic)((input) =>
-        ((input: any): typia.IValidation<[boolean, number, ...string[]]> => {
+        ((input: any): typia.IValidation<TupleRestAtomic> => {
             const validate = (
                 input: any,
-            ): typia.IValidation<[boolean, number, ...string[]]> => {
+            ): typia.IValidation<TupleRestAtomic> => {
                 const errors = [] as any[];
-                const __is = (
-                    input: any,
-                ): input is [boolean, number, ...string[]] => {
+                const __is = (input: any): input is TupleRestAtomic => {
                     return (
                         Array.isArray(input) &&
                         "boolean" === typeof input[0] &&
@@ -31,7 +29,7 @@ export const test_misc_validatePrune_TupleRestAtomic =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is [boolean, number, ...string[]] => {
+                    ): input is TupleRestAtomic => {
                         return (
                             ((Array.isArray(input) ||
                                 $report(true, {
@@ -96,7 +94,7 @@ export const test_misc_validatePrune_TupleRestAtomic =
                     data: success ? input : undefined,
                 } as any;
             };
-            const prune = (input: [boolean, number, ...string[]]): void => {};
+            const prune = (input: TupleRestAtomic): void => {};
             const output = validate(input);
             if (output.success) prune(input);
             return output;

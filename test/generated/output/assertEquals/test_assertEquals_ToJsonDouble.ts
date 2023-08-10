@@ -5,11 +5,11 @@ import { ToJsonDouble } from "../../../structures/ToJsonDouble";
 export const test_assertEquals_ToJsonDouble = _test_assertEquals<ToJsonDouble>(
     ToJsonDouble,
 )((input) =>
-    ((input: any): ToJsonDouble.Parent => {
+    ((input: any): ToJsonDouble => {
         const __is = (
             input: any,
             _exceptionable: boolean = true,
-        ): input is ToJsonDouble.Parent => {
+        ): input is ToJsonDouble => {
             const $io0 = (
                 input: any,
                 _exceptionable: boolean = true,
@@ -32,7 +32,7 @@ export const test_assertEquals_ToJsonDouble = _test_assertEquals<ToJsonDouble>(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is ToJsonDouble.Parent => {
+            ): input is ToJsonDouble => {
                 const $guard = (typia.assertEquals as any).guard;
                 const $join = (typia.assertEquals as any).join;
                 const $ao0 = (

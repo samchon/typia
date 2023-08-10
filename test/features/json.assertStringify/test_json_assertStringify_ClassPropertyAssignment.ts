@@ -5,4 +5,4 @@ import { ClassPropertyAssignment } from "../../structures/ClassPropertyAssignmen
 export const test_json_assertStringify_ClassPropertyAssignment =
     _test_json_assertStringify<ClassPropertyAssignment>(
         ClassPropertyAssignment,
-    )((input) => typia.json.assertStringify(input));
+    )((input) => typia.json.assertStringify<ClassPropertyAssignment>(input));

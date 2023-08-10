@@ -4,4 +4,4 @@ import { ObjectNullable } from "../../structures/ObjectNullable";
 
 export const test_misc_prune_ObjectNullable = _test_misc_prune<ObjectNullable>(
     ObjectNullable,
-)((input) => typia.misc.prune(input));
+)((input) => typia.misc.prune<ObjectNullable>(input));

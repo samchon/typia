@@ -4,5 +4,5 @@ import { ObjectAlias } from "../../structures/ObjectAlias";
 
 export const test_validateEquals_ObjectAlias =
     _test_validateEquals<ObjectAlias>(ObjectAlias)((input) =>
-        typia.validateEquals(input),
+        typia.validateEquals<ObjectAlias>(input),
     );

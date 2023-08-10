@@ -4,5 +4,5 @@ import { ObjectUnionComposite } from "../../structures/ObjectUnionComposite";
 
 export const test_misc_prune_ObjectUnionComposite =
     _test_misc_prune<ObjectUnionComposite>(ObjectUnionComposite)((input) =>
-        typia.misc.prune(input),
+        typia.misc.prune<ObjectUnionComposite>(input),
     );

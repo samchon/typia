@@ -5,7 +5,7 @@ import { ObjectSimple } from "../../../structures/ObjectSimple";
 export const test_misc_clone_ObjectSimple = _test_misc_clone<ObjectSimple>(
     ObjectSimple,
 )((input) =>
-    ((input: ObjectSimple.IBox3D): typia.Primitive<ObjectSimple.IBox3D> => {
+    ((input: ObjectSimple): typia.Primitive<ObjectSimple> => {
         const $io1 = (input: any): boolean =>
             "number" === typeof input.x &&
             "number" === typeof input.y &&

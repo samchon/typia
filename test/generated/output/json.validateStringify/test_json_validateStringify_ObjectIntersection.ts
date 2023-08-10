@@ -5,19 +5,12 @@ import { ObjectIntersection } from "../../../structures/ObjectIntersection";
 export const test_json_validateStringify_ObjectIntersection =
     _test_json_validateStringify<ObjectIntersection>(ObjectIntersection)(
         (input) =>
-            ((
-                input: ObjectIntersection.IEmail & ObjectIntersection.IName,
-            ): typia.IValidation<string> => {
+            ((input: ObjectIntersection): typia.IValidation<string> => {
                 const validate = (
                     input: any,
-                ): typia.IValidation<
-                    ObjectIntersection.IEmail & ObjectIntersection.IName
-                > => {
+                ): typia.IValidation<ObjectIntersection> => {
                     const errors = [] as any[];
-                    const __is = (
-                        input: any,
-                    ): input is ObjectIntersection.IEmail &
-                        ObjectIntersection.IName => {
+                    const __is = (input: any): input is ObjectIntersection => {
                         return (
                             "object" === typeof input &&
                             null !== input &&
@@ -34,8 +27,7 @@ export const test_json_validateStringify_ObjectIntersection =
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
-                        ): input is ObjectIntersection.IEmail &
-                            ObjectIntersection.IName => {
+                        ): input is ObjectIntersection => {
                             const $vo0 = (
                                 input: any,
                                 _path: string,
@@ -85,9 +77,7 @@ export const test_json_validateStringify_ObjectIntersection =
                         data: success ? input : undefined,
                     } as any;
                 };
-                const stringify = (
-                    input: ObjectIntersection.IEmail & ObjectIntersection.IName,
-                ): string => {
+                const stringify = (input: ObjectIntersection): string => {
                     const $string = (typia.json.validateStringify as any)
                         .string;
                     return `{"email":${$string(

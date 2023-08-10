@@ -4,5 +4,5 @@ import { TemplateConstant } from "../../structures/TemplateConstant";
 
 export const test_json_isStringify_TemplateConstant =
     _test_json_isStringify<TemplateConstant>(TemplateConstant)((input) =>
-        typia.json.isStringify(input),
+        typia.json.isStringify<TemplateConstant>(input),
     );

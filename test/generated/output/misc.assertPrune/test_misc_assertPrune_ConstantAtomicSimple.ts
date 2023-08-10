@@ -5,11 +5,11 @@ import { ConstantAtomicSimple } from "../../../structures/ConstantAtomicSimple";
 export const test_misc_assertPrune_ConstantAtomicSimple =
     _test_misc_assertPrune<ConstantAtomicSimple>(ConstantAtomicSimple)(
         (input) =>
-            ((input: any): [false, true, 2, "three"] => {
-                const assert = (input: any): [false, true, 2, "three"] => {
+            ((input: any): ConstantAtomicSimple => {
+                const assert = (input: any): ConstantAtomicSimple => {
                     const __is = (
                         input: any,
-                    ): input is [false, true, 2, "three"] => {
+                    ): input is ConstantAtomicSimple => {
                         return (
                             Array.isArray(input) &&
                             input.length === 4 &&
@@ -24,7 +24,7 @@ export const test_misc_assertPrune_ConstantAtomicSimple =
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
-                        ): input is [false, true, 2, "three"] => {
+                        ): input is ConstantAtomicSimple => {
                             const $guard = (typia.misc.assertPrune as any)
                                 .guard;
                             return (
@@ -74,7 +74,7 @@ export const test_misc_assertPrune_ConstantAtomicSimple =
                         })(input, "$input", true);
                     return input;
                 };
-                const prune = (input: [false, true, 2, "three"]): void => {};
+                const prune = (input: ConstantAtomicSimple): void => {};
                 assert(input);
                 prune(input);
                 return input;

@@ -4,5 +4,5 @@ import { ConstantAtomicUnion } from "../../structures/ConstantAtomicUnion";
 
 export const test_misc_prune_ConstantAtomicUnion =
     _test_misc_prune<ConstantAtomicUnion>(ConstantAtomicUnion)((input) =>
-        typia.misc.prune(input),
+        typia.misc.prune<ConstantAtomicUnion>(input),
     );

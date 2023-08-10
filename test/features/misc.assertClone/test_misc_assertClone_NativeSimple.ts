@@ -4,5 +4,5 @@ import { NativeSimple } from "../../structures/NativeSimple";
 
 export const test_misc_assertClone_NativeSimple =
     _test_misc_assertClone<NativeSimple>(NativeSimple)((input) =>
-        typia.misc.assertClone(input),
+        typia.misc.assertClone<NativeSimple>(input),
     );

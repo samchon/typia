@@ -4,5 +4,5 @@ import { ObjectNullable } from "../../structures/ObjectNullable";
 
 export const test_misc_isClone_ObjectNullable =
     _test_misc_isClone<ObjectNullable>(ObjectNullable)((input) =>
-        typia.misc.isClone(input),
+        typia.misc.isClone<ObjectNullable>(input),
     );

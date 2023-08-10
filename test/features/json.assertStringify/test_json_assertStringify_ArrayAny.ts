@@ -4,5 +4,5 @@ import { ArrayAny } from "../../structures/ArrayAny";
 
 export const test_json_assertStringify_ArrayAny =
     _test_json_assertStringify<ArrayAny>(ArrayAny)((input) =>
-        typia.json.assertStringify(input),
+        typia.json.assertStringify<ArrayAny>(input),
     );

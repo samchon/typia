@@ -4,5 +4,5 @@ import { ArrayUnion } from "../../structures/ArrayUnion";
 
 export const test_misc_validateClone_ArrayUnion =
     _test_misc_validateClone<ArrayUnion>(ArrayUnion)((input) =>
-        typia.misc.validateClone(input),
+        typia.misc.validateClone<ArrayUnion>(input),
     );

@@ -4,14 +4,10 @@ import { ArrayUnion } from "../../../structures/ArrayUnion";
 
 export const test_misc_validatePrune_ArrayUnion =
     _test_misc_validatePrune<ArrayUnion>(ArrayUnion)((input) =>
-        ((input: any): typia.IValidation<Array<ArrayUnion.IUnion>> => {
-            const validate = (
-                input: any,
-            ): typia.IValidation<Array<ArrayUnion.IUnion>> => {
+        ((input: any): typia.IValidation<ArrayUnion> => {
+            const validate = (input: any): typia.IValidation<ArrayUnion> => {
                 const errors = [] as any[];
-                const __is = (
-                    input: any,
-                ): input is Array<ArrayUnion.IUnion> => {
+                const __is = (input: any): input is ArrayUnion => {
                     const $ip0 = (input: any) => {
                         const array = input;
                         const top = input[0];
@@ -74,7 +70,7 @@ export const test_misc_validatePrune_ArrayUnion =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is Array<ArrayUnion.IUnion> => {
+                    ): input is ArrayUnion => {
                         const $vp0 = (
                             input: any,
                             _path: string,
@@ -227,7 +223,7 @@ export const test_misc_validatePrune_ArrayUnion =
                     data: success ? input : undefined,
                 } as any;
             };
-            const prune = (input: Array<ArrayUnion.IUnion>): void => {};
+            const prune = (input: ArrayUnion): void => {};
             const output = validate(input);
             if (output.success) prune(input);
             return output;

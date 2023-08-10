@@ -4,13 +4,7 @@ import { ObjectUnionNonPredictable } from "../../../structures/ObjectUnionNonPre
 
 export const test_is_ObjectUnionNonPredictable =
     _test_is<ObjectUnionNonPredictable>(ObjectUnionNonPredictable)((input) =>
-        ((
-            input: any,
-        ): input is IPointer<
-            Array<
-                ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
-            >
-        > => {
+        ((input: any): input is ObjectUnionNonPredictable => {
             const $io0 = (input: any): boolean =>
                 Array.isArray(input.value) &&
                 input.value.every(

@@ -4,4 +4,4 @@ import { TagRange } from "../../structures/TagRange";
 
 export const test_misc_isClone_TagRange = _test_misc_isClone<TagRange>(
     TagRange,
-)((input) => typia.misc.isClone(input));
+)((input) => typia.misc.isClone<TagRange>(input));

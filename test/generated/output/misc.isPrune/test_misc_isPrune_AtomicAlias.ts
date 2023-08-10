@@ -5,8 +5,8 @@ import { AtomicAlias } from "../../../structures/AtomicAlias";
 export const test_misc_isPrune_AtomicAlias = _test_misc_isPrune<AtomicAlias>(
     AtomicAlias,
 )((input) =>
-    ((input: any): input is [boolean, number, string] => {
-        const is = (input: any): input is [boolean, number, string] => {
+    ((input: any): input is AtomicAlias => {
+        const is = (input: any): input is AtomicAlias => {
             return (
                 Array.isArray(input) &&
                 input.length === 3 &&
@@ -16,7 +16,7 @@ export const test_misc_isPrune_AtomicAlias = _test_misc_isPrune<AtomicAlias>(
                 "string" === typeof input[2]
             );
         };
-        const prune = (input: [boolean, number, string]): void => {};
+        const prune = (input: AtomicAlias): void => {};
         if (!is(input)) return false;
         prune(input);
         return true;

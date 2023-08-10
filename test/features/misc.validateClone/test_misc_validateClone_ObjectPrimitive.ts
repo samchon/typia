@@ -4,5 +4,5 @@ import { ObjectPrimitive } from "../../structures/ObjectPrimitive";
 
 export const test_misc_validateClone_ObjectPrimitive =
     _test_misc_validateClone<ObjectPrimitive>(ObjectPrimitive)((input) =>
-        typia.misc.validateClone(input),
+        typia.misc.validateClone<ObjectPrimitive>(input),
     );

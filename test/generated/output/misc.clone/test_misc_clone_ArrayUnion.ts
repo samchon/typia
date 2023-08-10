@@ -5,9 +5,7 @@ import { ArrayUnion } from "../../../structures/ArrayUnion";
 export const test_misc_clone_ArrayUnion = _test_misc_clone<ArrayUnion>(
     ArrayUnion,
 )((input) =>
-    ((
-        input: Array<ArrayUnion.IUnion>,
-    ): typia.Primitive<Array<ArrayUnion.IUnion>> => {
+    ((input: ArrayUnion): typia.Primitive<ArrayUnion> => {
         const $throws = (typia.misc.clone as any).throws;
         const $cp0 = (input: any) => {
             const array = input;

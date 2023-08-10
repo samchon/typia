@@ -4,11 +4,9 @@ import { ObjectPrimitive } from "../../../structures/ObjectPrimitive";
 
 export const test_misc_assertClone_ObjectPrimitive =
     _test_misc_assertClone<ObjectPrimitive>(ObjectPrimitive)((input) =>
-        ((input: any): typia.Primitive<ObjectPrimitive.IArticle> => {
-            const assert = (input: any): ObjectPrimitive.IArticle => {
-                const __is = (
-                    input: any,
-                ): input is ObjectPrimitive.IArticle => {
+        ((input: any): typia.Primitive<ObjectPrimitive> => {
+            const assert = (input: any): ObjectPrimitive => {
+                const __is = (input: any): input is ObjectPrimitive => {
                     const $io0 = (input: any): boolean =>
                         "string" === typeof input.id &&
                         ("txt" === input.extension ||
@@ -42,7 +40,7 @@ export const test_misc_assertClone_ObjectPrimitive =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is ObjectPrimitive.IArticle => {
+                    ): input is ObjectPrimitive => {
                         const $guard = (typia.misc.assertClone as any).guard;
                         const $ao0 = (
                             input: any,
@@ -183,8 +181,8 @@ export const test_misc_assertClone_ObjectPrimitive =
                 return input;
             };
             const clone = (
-                input: ObjectPrimitive.IArticle,
-            ): typia.Primitive<ObjectPrimitive.IArticle> => {
+                input: ObjectPrimitive,
+            ): typia.Primitive<ObjectPrimitive> => {
                 const $io1 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     "string" === typeof input.name &&

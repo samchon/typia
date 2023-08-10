@@ -4,5 +4,5 @@ import { ObjectNullable } from "../../structures/ObjectNullable";
 
 export const test_misc_validatePrune_ObjectNullable =
     _test_misc_validatePrune<ObjectNullable>(ObjectNullable)((input) =>
-        typia.misc.validatePrune(input),
+        typia.misc.validatePrune<ObjectNullable>(input),
     );

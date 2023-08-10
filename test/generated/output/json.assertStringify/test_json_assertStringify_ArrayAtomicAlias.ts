@@ -5,20 +5,8 @@ import { ArrayAtomicAlias } from "../../../structures/ArrayAtomicAlias";
 export const test_json_assertStringify_ArrayAtomicAlias =
     _test_json_assertStringify<ArrayAtomicAlias>(ArrayAtomicAlias)((input) =>
         ((input: any): string => {
-            const assert = (
-                input: any,
-            ): [
-                ArrayAtomicAlias.Alias<boolean>,
-                ArrayAtomicAlias.Alias<number>,
-                ArrayAtomicAlias.Alias<string>,
-            ] => {
-                const __is = (
-                    input: any,
-                ): input is [
-                    ArrayAtomicAlias.Alias<boolean>,
-                    ArrayAtomicAlias.Alias<number>,
-                    ArrayAtomicAlias.Alias<string>,
-                ] => {
+            const assert = (input: any): ArrayAtomicAlias => {
+                const __is = (input: any): input is ArrayAtomicAlias => {
                     return (
                         Array.isArray(input) &&
                         input.length === 3 &&
@@ -41,11 +29,7 @@ export const test_json_assertStringify_ArrayAtomicAlias =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is [
-                        ArrayAtomicAlias.Alias<boolean>,
-                        ArrayAtomicAlias.Alias<number>,
-                        ArrayAtomicAlias.Alias<string>,
-                    ] => {
+                    ): input is ArrayAtomicAlias => {
                         const $guard = (typia.json.assertStringify as any)
                             .guard;
                         return (
@@ -150,13 +134,7 @@ export const test_json_assertStringify_ArrayAtomicAlias =
                     })(input, "$input", true);
                 return input;
             };
-            const stringify = (
-                input: [
-                    ArrayAtomicAlias.Alias<boolean>,
-                    ArrayAtomicAlias.Alias<number>,
-                    ArrayAtomicAlias.Alias<string>,
-                ],
-            ): string => {
+            const stringify = (input: ArrayAtomicAlias): string => {
                 const $number = (typia.json.assertStringify as any).number;
                 const $string = (typia.json.assertStringify as any).string;
                 return `[${`[${input[0]

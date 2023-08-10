@@ -5,7 +5,7 @@ import { TagArray } from "../../../structures/TagArray";
 export const test_json_stringify_TagArray = _test_json_stringify<TagArray>(
     TagArray,
 )((input) =>
-    ((input: IPointer<Array<TagArray.Type>>): string => {
+    ((input: TagArray): string => {
         const $io1 = (input: any): boolean =>
             Array.isArray(input.items) &&
             3 === input.items.length &&

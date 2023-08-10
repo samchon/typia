@@ -5,8 +5,8 @@ import { AtomicSimple } from "../../../structures/AtomicSimple";
 export const test_misc_isPrune_AtomicSimple = _test_misc_isPrune<AtomicSimple>(
     AtomicSimple,
 )((input) =>
-    ((input: any): input is [boolean, number, string] => {
-        const is = (input: any): input is [boolean, number, string] => {
+    ((input: any): input is AtomicSimple => {
+        const is = (input: any): input is AtomicSimple => {
             return (
                 Array.isArray(input) &&
                 input.length === 3 &&
@@ -16,7 +16,7 @@ export const test_misc_isPrune_AtomicSimple = _test_misc_isPrune<AtomicSimple>(
                 "string" === typeof input[2]
             );
         };
-        const prune = (input: [boolean, number, string]): void => {};
+        const prune = (input: AtomicSimple): void => {};
         if (!is(input)) return false;
         prune(input);
         return true;

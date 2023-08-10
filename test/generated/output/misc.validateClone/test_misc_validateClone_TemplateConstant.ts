@@ -4,18 +4,12 @@ import { TemplateConstant } from "../../../structures/TemplateConstant";
 
 export const test_misc_validateClone_TemplateConstant =
     _test_misc_validateClone<TemplateConstant>(TemplateConstant)((input) =>
-        ((
-            input: any,
-        ): typia.IValidation<
-            typia.Primitive<IPointer<Array<TemplateConstant.Type>>>
-        > => {
+        ((input: any): typia.IValidation<typia.Primitive<TemplateConstant>> => {
             const validate = (
                 input: any,
-            ): typia.IValidation<IPointer<Array<TemplateConstant.Type>>> => {
+            ): typia.IValidation<TemplateConstant> => {
                 const errors = [] as any[];
-                const __is = (
-                    input: any,
-                ): input is IPointer<Array<TemplateConstant.Type>> => {
+                const __is = (input: any): input is TemplateConstant => {
                     const $io0 = (input: any): boolean =>
                         Array.isArray(input.value) &&
                         input.value.every(
@@ -54,7 +48,7 @@ export const test_misc_validateClone_TemplateConstant =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is IPointer<Array<TemplateConstant.Type>> => {
+                    ): input is TemplateConstant => {
                         const $vo0 = (
                             input: any,
                             _path: string,
@@ -182,8 +176,8 @@ export const test_misc_validateClone_TemplateConstant =
                 } as any;
             };
             const clone = (
-                input: IPointer<Array<TemplateConstant.Type>>,
-            ): typia.Primitive<IPointer<Array<TemplateConstant.Type>>> => {
+                input: TemplateConstant,
+            ): typia.Primitive<TemplateConstant> => {
                 const $io1 = (input: any): boolean =>
                     ("prefix_A" === input.prefix ||
                         "prefix_B" === input.prefix ||

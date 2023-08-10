@@ -4,18 +4,12 @@ import { TagAtomicUnion } from "../../../structures/TagAtomicUnion";
 
 export const test_misc_validateClone_TagAtomicUnion =
     _test_misc_validateClone<TagAtomicUnion>(TagAtomicUnion)((input) =>
-        ((
-            input: any,
-        ): typia.IValidation<
-            typia.Primitive<IPointer<Array<TagAtomicUnion.Type>>>
-        > => {
+        ((input: any): typia.IValidation<typia.Primitive<TagAtomicUnion>> => {
             const validate = (
                 input: any,
-            ): typia.IValidation<IPointer<Array<TagAtomicUnion.Type>>> => {
+            ): typia.IValidation<TagAtomicUnion> => {
                 const errors = [] as any[];
-                const __is = (
-                    input: any,
-                ): input is IPointer<Array<TagAtomicUnion.Type>> => {
+                const __is = (input: any): input is TagAtomicUnion => {
                     const $io0 = (input: any): boolean =>
                         Array.isArray(input.value) &&
                         input.value.every(
@@ -45,7 +39,7 @@ export const test_misc_validateClone_TagAtomicUnion =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is IPointer<Array<TagAtomicUnion.Type>> => {
+                    ): input is TagAtomicUnion => {
                         const $vo0 = (
                             input: any,
                             _path: string,
@@ -156,8 +150,8 @@ export const test_misc_validateClone_TagAtomicUnion =
                 } as any;
             };
             const clone = (
-                input: IPointer<Array<TagAtomicUnion.Type>>,
-            ): typia.Primitive<IPointer<Array<TagAtomicUnion.Type>>> => {
+                input: TagAtomicUnion,
+            ): typia.Primitive<TagAtomicUnion> => {
                 const $io1 = (input: any): boolean =>
                     ("string" === typeof input.value &&
                         3 <= input.value.length &&

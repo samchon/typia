@@ -4,7 +4,7 @@ import { ArrayRecursive } from "../../../structures/ArrayRecursive";
 
 export const test_json_stringify_ArrayRecursive =
     _test_json_stringify<ArrayRecursive>(ArrayRecursive)((input) =>
-        ((input: ArrayRecursive.ICategory): string => {
+        ((input: ArrayRecursive): string => {
             const $io0 = (input: any): boolean =>
                 Array.isArray(input.children) &&
                 input.children.every(

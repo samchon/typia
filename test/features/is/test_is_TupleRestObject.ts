@@ -4,4 +4,4 @@ import { TupleRestObject } from "../../structures/TupleRestObject";
 
 export const test_is_TupleRestObject = _test_is<TupleRestObject>(
     TupleRestObject,
-)((input) => typia.is(input));
+)((input) => typia.is<TupleRestObject>(input));

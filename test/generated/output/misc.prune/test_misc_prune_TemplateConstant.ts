@@ -4,7 +4,7 @@ import { TemplateConstant } from "../../../structures/TemplateConstant";
 
 export const test_misc_prune_TemplateConstant =
     _test_misc_prune<TemplateConstant>(TemplateConstant)((input) =>
-        ((input: IPointer<Array<TemplateConstant.Type>>): void => {
+        ((input: TemplateConstant): void => {
             const $io1 = (input: any): boolean =>
                 ("prefix_A" === input.prefix ||
                     "prefix_B" === input.prefix ||

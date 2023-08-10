@@ -4,5 +4,5 @@ import { ObjectGenericUnion } from "../../structures/ObjectGenericUnion";
 
 export const test_validateEquals_ObjectGenericUnion =
     _test_validateEquals<ObjectGenericUnion>(ObjectGenericUnion)((input) =>
-        typia.validateEquals(input),
+        typia.validateEquals<ObjectGenericUnion>(input),
     );

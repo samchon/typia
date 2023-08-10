@@ -4,5 +4,5 @@ import { ObjectIntersection } from "../../structures/ObjectIntersection";
 
 export const test_misc_prune_ObjectIntersection =
     _test_misc_prune<ObjectIntersection>(ObjectIntersection)((input) =>
-        typia.misc.prune(input),
+        typia.misc.prune<ObjectIntersection>(input),
     );

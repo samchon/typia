@@ -4,11 +4,9 @@ import { TagLength } from "../../../structures/TagLength";
 
 export const test_misc_assertClone_TagLength =
     _test_misc_assertClone<TagLength>(TagLength)((input) =>
-        ((input: any): typia.Primitive<IPointer<Array<TagLength.Type>>> => {
-            const assert = (input: any): IPointer<Array<TagLength.Type>> => {
-                const __is = (
-                    input: any,
-                ): input is IPointer<Array<TagLength.Type>> => {
+        ((input: any): typia.Primitive<TagLength> => {
+            const assert = (input: any): TagLength => {
+                const __is = (input: any): input is TagLength => {
                     const $io0 = (input: any): boolean =>
                         Array.isArray(input.value) &&
                         input.value.every(
@@ -38,7 +36,7 @@ export const test_misc_assertClone_TagLength =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is IPointer<Array<TagLength.Type>> => {
+                    ): input is TagLength => {
                         const $guard = (typia.misc.assertClone as any).guard;
                         const $ao0 = (
                             input: any,
@@ -163,9 +161,7 @@ export const test_misc_assertClone_TagLength =
                     })(input, "$input", true);
                 return input;
             };
-            const clone = (
-                input: IPointer<Array<TagLength.Type>>,
-            ): typia.Primitive<IPointer<Array<TagLength.Type>>> => {
+            const clone = (input: TagLength): typia.Primitive<TagLength> => {
                 const $io1 = (input: any): boolean =>
                     "string" === typeof input.fixed &&
                     5 === input.fixed.length &&

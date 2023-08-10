@@ -4,4 +4,4 @@ import { TagTuple } from "../../structures/TagTuple";
 
 export const test_misc_isClone_TagTuple = _test_misc_isClone<TagTuple>(
     TagTuple,
-)((input) => typia.misc.isClone(input));
+)((input) => typia.misc.isClone<TagTuple>(input));

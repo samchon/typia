@@ -4,5 +4,5 @@ import { DynamicTemplate } from "../../structures/DynamicTemplate";
 
 export const test_misc_assertPrune_DynamicTemplate =
     _test_misc_assertPrune<DynamicTemplate>(DynamicTemplate)((input) =>
-        typia.misc.assertPrune(input),
+        typia.misc.assertPrune<DynamicTemplate>(input),
     );

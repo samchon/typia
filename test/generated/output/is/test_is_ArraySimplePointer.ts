@@ -5,7 +5,7 @@ import { ArraySimplePointer } from "../../../structures/ArraySimplePointer";
 export const test_is_ArraySimplePointer = _test_is<ArraySimplePointer>(
     ArraySimplePointer,
 )((input) =>
-    ((input: any): input is IPointer<Array<ArraySimplePointer.IPerson>> => {
+    ((input: any): input is ArraySimplePointer => {
         const $io0 = (input: any): boolean =>
             Array.isArray(input.value) &&
             input.value.every(

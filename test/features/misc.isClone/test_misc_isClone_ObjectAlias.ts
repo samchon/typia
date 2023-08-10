@@ -4,4 +4,4 @@ import { ObjectAlias } from "../../structures/ObjectAlias";
 
 export const test_misc_isClone_ObjectAlias = _test_misc_isClone<ObjectAlias>(
     ObjectAlias,
-)((input) => typia.misc.isClone(input));
+)((input) => typia.misc.isClone<ObjectAlias>(input));

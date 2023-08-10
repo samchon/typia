@@ -4,4 +4,4 @@ import { DynamicUndefined } from "../../structures/DynamicUndefined";
 
 export const test_is_DynamicUndefined = _test_is<DynamicUndefined>(
     DynamicUndefined,
-)((input) => typia.is(input));
+)((input) => typia.is<DynamicUndefined>(input));

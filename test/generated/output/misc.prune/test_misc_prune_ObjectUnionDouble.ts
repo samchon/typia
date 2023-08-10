@@ -4,7 +4,7 @@ import { ObjectUnionDouble } from "../../../structures/ObjectUnionDouble";
 
 export const test_misc_prune_ObjectUnionDouble =
     _test_misc_prune<ObjectUnionDouble>(ObjectUnionDouble)((input) =>
-        ((input: Array<ObjectUnionDouble.Union>): void => {
+        ((input: ObjectUnionDouble): void => {
             const $io0 = (input: any): boolean =>
                 "object" === typeof input.value &&
                 null !== input.value &&

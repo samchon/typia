@@ -4,10 +4,8 @@ import { ConstantAtomicUnion } from "../../../structures/ConstantAtomicUnion";
 
 export const test_misc_isPrune_ConstantAtomicUnion =
     _test_misc_isPrune<ConstantAtomicUnion>(ConstantAtomicUnion)((input) =>
-        ((input: any): input is Array<ConstantAtomicUnion.Union> => {
-            const is = (
-                input: any,
-            ): input is Array<ConstantAtomicUnion.Union> => {
+        ((input: any): input is ConstantAtomicUnion => {
+            const is = (input: any): input is ConstantAtomicUnion => {
                 const $io0 = (input: any): boolean => "key" === input.key;
                 return (
                     Array.isArray(input) &&
@@ -26,7 +24,7 @@ export const test_misc_isPrune_ConstantAtomicUnion =
                     )
                 );
             };
-            const prune = (input: Array<ConstantAtomicUnion.Union>): void => {
+            const prune = (input: ConstantAtomicUnion): void => {
                 const $pp0 = (input: any) =>
                     input.forEach((elem: any) => {
                         if ("object" === typeof elem && null !== elem)

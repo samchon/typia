@@ -3,5 +3,5 @@ import { _test_equals } from "../../internal/_test_equals";
 import { ObjectAlias } from "../../structures/ObjectAlias";
 
 export const test_equals_ObjectAlias = _test_equals<ObjectAlias>(ObjectAlias)(
-    (input) => typia.equals(input),
+    (input) => typia.equals<ObjectAlias>(input),
 );

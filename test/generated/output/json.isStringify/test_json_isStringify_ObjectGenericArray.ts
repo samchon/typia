@@ -4,12 +4,8 @@ import { ObjectGenericArray } from "../../../structures/ObjectGenericArray";
 
 export const test_json_isStringify_ObjectGenericArray =
     _test_json_isStringify<ObjectGenericArray>(ObjectGenericArray)((input) =>
-        ((
-            input: ObjectGenericArray.IPage<ObjectGenericArray.IPerson>,
-        ): string | null => {
-            const is = (
-                input: any,
-            ): input is ObjectGenericArray.IPage<ObjectGenericArray.IPerson> => {
+        ((input: ObjectGenericArray): string | null => {
+            const is = (input: any): input is ObjectGenericArray => {
                 const $io0 = (input: any): boolean =>
                     "object" === typeof input.pagination &&
                     null !== input.pagination &&
@@ -36,9 +32,7 @@ export const test_json_isStringify_ObjectGenericArray =
                     "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            const stringify = (
-                input: ObjectGenericArray.IPage<ObjectGenericArray.IPerson>,
-            ): string => {
+            const stringify = (input: ObjectGenericArray): string => {
                 const $io1 = (input: any): boolean =>
                     "number" === typeof input.page &&
                     "number" === typeof input.limit &&

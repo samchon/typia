@@ -6,39 +6,12 @@ export const test_json_validateStringify_ObjectPropertyNullable =
     _test_json_validateStringify<ObjectPropertyNullable>(
         ObjectPropertyNullable,
     )((input) =>
-        ((
-            input: [
-                Array<ObjectPropertyNullable.IPointer<boolean>>,
-                Array<ObjectPropertyNullable.IPointer<number>>,
-                Array<ObjectPropertyNullable.IPointer<string>>,
-                Array<
-                    ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>
-                >,
-            ],
-        ): typia.IValidation<string> => {
+        ((input: ObjectPropertyNullable): typia.IValidation<string> => {
             const validate = (
                 input: any,
-            ): typia.IValidation<
-                [
-                    Array<ObjectPropertyNullable.IPointer<boolean>>,
-                    Array<ObjectPropertyNullable.IPointer<number>>,
-                    Array<ObjectPropertyNullable.IPointer<string>>,
-                    Array<
-                        ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>
-                    >,
-                ]
-            > => {
+            ): typia.IValidation<ObjectPropertyNullable> => {
                 const errors = [] as any[];
-                const __is = (
-                    input: any,
-                ): input is [
-                    Array<ObjectPropertyNullable.IPointer<boolean>>,
-                    Array<ObjectPropertyNullable.IPointer<number>>,
-                    Array<ObjectPropertyNullable.IPointer<string>>,
-                    Array<
-                        ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>
-                    >,
-                ] => {
+                const __is = (input: any): input is ObjectPropertyNullable => {
                     const $io0 = (input: any): boolean =>
                         null === input.value ||
                         "boolean" === typeof input.value;
@@ -107,14 +80,7 @@ export const test_json_validateStringify_ObjectPropertyNullable =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is [
-                        Array<ObjectPropertyNullable.IPointer<boolean>>,
-                        Array<ObjectPropertyNullable.IPointer<number>>,
-                        Array<ObjectPropertyNullable.IPointer<string>>,
-                        Array<
-                            ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>
-                        >,
-                    ] => {
+                    ): input is ObjectPropertyNullable => {
                         const $vo0 = (
                             input: any,
                             _path: string,
@@ -456,16 +422,7 @@ export const test_json_validateStringify_ObjectPropertyNullable =
                     data: success ? input : undefined,
                 } as any;
             };
-            const stringify = (
-                input: [
-                    Array<ObjectPropertyNullable.IPointer<boolean>>,
-                    Array<ObjectPropertyNullable.IPointer<number>>,
-                    Array<ObjectPropertyNullable.IPointer<string>>,
-                    Array<
-                        ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>
-                    >,
-                ],
-            ): string => {
+            const stringify = (input: ObjectPropertyNullable): string => {
                 const $io4 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     (null === input.name || "string" === typeof input.name) &&

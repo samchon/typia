@@ -5,10 +5,8 @@ import { TagArray } from "../../../structures/TagArray";
 export const test_json_assertStringify_TagArray =
     _test_json_assertStringify<TagArray>(TagArray)((input) =>
         ((input: any): string => {
-            const assert = (input: any): IPointer<Array<TagArray.Type>> => {
-                const __is = (
-                    input: any,
-                ): input is IPointer<Array<TagArray.Type>> => {
+            const assert = (input: any): TagArray => {
+                const __is = (input: any): input is TagArray => {
                     const $is_uuid = (typia.json.assertStringify as any)
                         .is_uuid;
                     const $io0 = (input: any): boolean =>
@@ -52,7 +50,7 @@ export const test_json_assertStringify_TagArray =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is IPointer<Array<TagArray.Type>> => {
+                    ): input is TagArray => {
                         const $guard = (typia.json.assertStringify as any)
                             .guard;
                         const $is_uuid = (typia.json.assertStringify as any)
@@ -256,9 +254,7 @@ export const test_json_assertStringify_TagArray =
                     })(input, "$input", true);
                 return input;
             };
-            const stringify = (
-                input: IPointer<Array<TagArray.Type>>,
-            ): string => {
+            const stringify = (input: TagArray): string => {
                 const $io1 = (input: any): boolean =>
                     Array.isArray(input.items) &&
                     3 === input.items.length &&

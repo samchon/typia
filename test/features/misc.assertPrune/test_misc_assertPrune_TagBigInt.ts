@@ -4,5 +4,5 @@ import { TagBigInt } from "../../structures/TagBigInt";
 
 export const test_misc_assertPrune_TagBigInt =
     _test_misc_assertPrune<TagBigInt>(TagBigInt)((input) =>
-        typia.misc.assertPrune(input),
+        typia.misc.assertPrune<TagBigInt>(input),
     );

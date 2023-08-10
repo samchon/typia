@@ -4,4 +4,4 @@ import { TagRange } from "../../structures/TagRange";
 
 export const test_assertEquals_TagRange = _test_assertEquals<TagRange>(
     TagRange,
-)((input) => typia.assertEquals(input));
+)((input) => typia.assertEquals<TagRange>(input));

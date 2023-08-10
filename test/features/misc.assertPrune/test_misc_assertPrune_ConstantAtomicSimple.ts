@@ -4,5 +4,5 @@ import { ConstantAtomicSimple } from "../../structures/ConstantAtomicSimple";
 
 export const test_misc_assertPrune_ConstantAtomicSimple =
     _test_misc_assertPrune<ConstantAtomicSimple>(ConstantAtomicSimple)(
-        (input) => typia.misc.assertPrune(input),
+        (input) => typia.misc.assertPrune<ConstantAtomicSimple>(input),
     );

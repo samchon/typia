@@ -4,12 +4,8 @@ import { ObjectNullable } from "../../../structures/ObjectNullable";
 
 export const test_misc_isClone_ObjectNullable =
     _test_misc_isClone<ObjectNullable>(ObjectNullable)((input) =>
-        ((
-            input: any,
-        ): typia.Primitive<IPointer<Array<ObjectNullable.IProduct>>> | null => {
-            const is = (
-                input: any,
-            ): input is IPointer<Array<ObjectNullable.IProduct>> => {
+        ((input: any): typia.Primitive<ObjectNullable> | null => {
+            const is = (input: any): input is ObjectNullable => {
                 const $io0 = (input: any): boolean =>
                     Array.isArray(input.value) &&
                     input.value.every(
@@ -47,8 +43,8 @@ export const test_misc_isClone_ObjectNullable =
                 );
             };
             const clone = (
-                input: IPointer<Array<ObjectNullable.IProduct>>,
-            ): typia.Primitive<IPointer<Array<ObjectNullable.IProduct>>> => {
+                input: ObjectNullable,
+            ): typia.Primitive<ObjectNullable> => {
                 const $io1 = (input: any): boolean =>
                     "string" === typeof input.name &&
                     "object" === typeof input.manufacturer &&

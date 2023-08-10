@@ -4,12 +4,10 @@ import { ClassGetter } from "../../../structures/ClassGetter";
 
 export const test_json_validateStringify_ClassGetter =
     _test_json_validateStringify<ClassGetter>(ClassGetter)((input) =>
-        ((input: ClassGetter.Person): typia.IValidation<string> => {
-            const validate = (
-                input: any,
-            ): typia.IValidation<ClassGetter.Person> => {
+        ((input: ClassGetter): typia.IValidation<string> => {
+            const validate = (input: any): typia.IValidation<ClassGetter> => {
                 const errors = [] as any[];
-                const __is = (input: any): input is ClassGetter.Person => {
+                const __is = (input: any): input is ClassGetter => {
                     const $io0 = (input: any): boolean =>
                         "string" === typeof input.id &&
                         "string" === typeof input.name &&
@@ -29,7 +27,7 @@ export const test_json_validateStringify_ClassGetter =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is ClassGetter.Person => {
+                    ): input is ClassGetter => {
                         const $vo0 = (
                             input: any,
                             _path: string,
@@ -79,7 +77,7 @@ export const test_json_validateStringify_ClassGetter =
                     data: success ? input : undefined,
                 } as any;
             };
-            const stringify = (input: ClassGetter.Person): string => {
+            const stringify = (input: ClassGetter): string => {
                 const $string = (typia.json.validateStringify as any).string;
                 const $so0 = (input: any): any =>
                     `{"id":${$string(input.id)},"name":${$string(

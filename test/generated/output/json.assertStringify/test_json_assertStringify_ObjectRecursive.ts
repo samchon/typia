@@ -5,10 +5,8 @@ import { ObjectRecursive } from "../../../structures/ObjectRecursive";
 export const test_json_assertStringify_ObjectRecursive =
     _test_json_assertStringify<ObjectRecursive>(ObjectRecursive)((input) =>
         ((input: any): string => {
-            const assert = (input: any): ObjectRecursive.IDepartment => {
-                const __is = (
-                    input: any,
-                ): input is ObjectRecursive.IDepartment => {
+            const assert = (input: any): ObjectRecursive => {
+                const __is = (input: any): input is ObjectRecursive => {
                     const $io0 = (input: any): boolean =>
                         (null === input.parent ||
                             ("object" === typeof input.parent &&
@@ -37,7 +35,7 @@ export const test_json_assertStringify_ObjectRecursive =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is ObjectRecursive.IDepartment => {
+                    ): input is ObjectRecursive => {
                         const $guard = (typia.json.assertStringify as any)
                             .guard;
                         const $ao0 = (
@@ -144,7 +142,7 @@ export const test_json_assertStringify_ObjectRecursive =
                     })(input, "$input", true);
                 return input;
             };
-            const stringify = (input: ObjectRecursive.IDepartment): string => {
+            const stringify = (input: ObjectRecursive): string => {
                 const $io0 = (input: any): boolean =>
                     (null === input.parent ||
                         ("object" === typeof input.parent &&

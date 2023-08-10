@@ -5,11 +5,9 @@ import { TagRange } from "../../../structures/TagRange";
 export const test_misc_assertClone_TagRange = _test_misc_assertClone<TagRange>(
     TagRange,
 )((input) =>
-    ((input: any): typia.Primitive<IPointer<Array<TagRange.Type>>> => {
-        const assert = (input: any): IPointer<Array<TagRange.Type>> => {
-            const __is = (
-                input: any,
-            ): input is IPointer<Array<TagRange.Type>> => {
+    ((input: any): typia.Primitive<TagRange> => {
+        const assert = (input: any): TagRange => {
+            const __is = (input: any): input is TagRange => {
                 const $io0 = (input: any): boolean =>
                     Array.isArray(input.value) &&
                     input.value.every(
@@ -52,7 +50,7 @@ export const test_misc_assertClone_TagRange = _test_misc_assertClone<TagRange>(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is IPointer<Array<TagRange.Type>> => {
+                ): input is TagRange => {
                     const $guard = (typia.misc.assertClone as any).guard;
                     const $ao0 = (
                         input: any,
@@ -240,9 +238,7 @@ export const test_misc_assertClone_TagRange = _test_misc_assertClone<TagRange>(
                 })(input, "$input", true);
             return input;
         };
-        const clone = (
-            input: IPointer<Array<TagRange.Type>>,
-        ): typia.Primitive<IPointer<Array<TagRange.Type>>> => {
+        const clone = (input: TagRange): typia.Primitive<TagRange> => {
             const $io1 = (input: any): boolean =>
                 "number" === typeof input.greater &&
                 3 < input.greater &&

@@ -4,5 +4,5 @@ import { SetUnion } from "../../structures/SetUnion";
 
 export const test_misc_validateClone_SetUnion =
     _test_misc_validateClone<SetUnion>(SetUnion)((input) =>
-        typia.misc.validateClone(input),
+        typia.misc.validateClone<SetUnion>(input),
     );

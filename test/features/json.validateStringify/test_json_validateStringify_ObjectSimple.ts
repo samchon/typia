@@ -4,5 +4,5 @@ import { ObjectSimple } from "../../structures/ObjectSimple";
 
 export const test_json_validateStringify_ObjectSimple =
     _test_json_validateStringify<ObjectSimple>(ObjectSimple)((input) =>
-        typia.json.validateStringify(input),
+        typia.json.validateStringify<ObjectSimple>(input),
     );

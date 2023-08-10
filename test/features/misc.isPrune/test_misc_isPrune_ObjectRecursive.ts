@@ -4,5 +4,5 @@ import { ObjectRecursive } from "../../structures/ObjectRecursive";
 
 export const test_misc_isPrune_ObjectRecursive =
     _test_misc_isPrune<ObjectRecursive>(ObjectRecursive)((input) =>
-        typia.misc.isPrune(input),
+        typia.misc.isPrune<ObjectRecursive>(input),
     );

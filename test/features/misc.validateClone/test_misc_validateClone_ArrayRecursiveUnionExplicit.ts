@@ -5,4 +5,4 @@ import { ArrayRecursiveUnionExplicit } from "../../structures/ArrayRecursiveUnio
 export const test_misc_validateClone_ArrayRecursiveUnionExplicit =
     _test_misc_validateClone<ArrayRecursiveUnionExplicit>(
         ArrayRecursiveUnionExplicit,
-    )((input) => typia.misc.validateClone(input));
+    )((input) => typia.misc.validateClone<ArrayRecursiveUnionExplicit>(input));

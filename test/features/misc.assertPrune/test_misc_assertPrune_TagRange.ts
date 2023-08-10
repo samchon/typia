@@ -4,4 +4,4 @@ import { TagRange } from "../../structures/TagRange";
 
 export const test_misc_assertPrune_TagRange = _test_misc_assertPrune<TagRange>(
     TagRange,
-)((input) => typia.misc.assertPrune(input));
+)((input) => typia.misc.assertPrune<TagRange>(input));

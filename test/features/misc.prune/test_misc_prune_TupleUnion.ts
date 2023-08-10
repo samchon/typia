@@ -4,4 +4,4 @@ import { TupleUnion } from "../../structures/TupleUnion";
 
 export const test_misc_prune_TupleUnion = _test_misc_prune<TupleUnion>(
     TupleUnion,
-)((input) => typia.misc.prune(input));
+)((input) => typia.misc.prune<TupleUnion>(input));

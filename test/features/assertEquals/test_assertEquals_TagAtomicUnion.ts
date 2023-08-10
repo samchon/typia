@@ -4,5 +4,5 @@ import { TagAtomicUnion } from "../../structures/TagAtomicUnion";
 
 export const test_assertEquals_TagAtomicUnion =
     _test_assertEquals<TagAtomicUnion>(TagAtomicUnion)((input) =>
-        typia.assertEquals(input),
+        typia.assertEquals<TagAtomicUnion>(input),
     );

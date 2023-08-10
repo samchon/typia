@@ -5,11 +5,11 @@ import { TagLength } from "../../../structures/TagLength";
 export const test_assertEquals_TagLength = _test_assertEquals<TagLength>(
     TagLength,
 )((input) =>
-    ((input: any): IPointer<Array<TagLength.Type>> => {
+    ((input: any): TagLength => {
         const __is = (
             input: any,
             _exceptionable: boolean = true,
-        ): input is IPointer<Array<TagLength.Type>> => {
+        ): input is TagLength => {
             const $io0 = (
                 input: any,
                 _exceptionable: boolean = true,
@@ -66,7 +66,7 @@ export const test_assertEquals_TagLength = _test_assertEquals<TagLength>(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is IPointer<Array<TagLength.Type>> => {
+            ): input is TagLength => {
                 const $guard = (typia.assertEquals as any).guard;
                 const $join = (typia.assertEquals as any).join;
                 const $ao0 = (

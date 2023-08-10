@@ -5,4 +5,4 @@ import { ObjectUnionNonPredictable } from "../../structures/ObjectUnionNonPredic
 export const test_misc_assertPrune_ObjectUnionNonPredictable =
     _test_misc_assertPrune<ObjectUnionNonPredictable>(
         ObjectUnionNonPredictable,
-    )((input) => typia.misc.assertPrune(input));
+    )((input) => typia.misc.assertPrune<ObjectUnionNonPredictable>(input));

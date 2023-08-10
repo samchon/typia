@@ -4,5 +4,5 @@ import { ObjectUnionExplicit } from "../../structures/ObjectUnionExplicit";
 
 export const test_misc_prune_ObjectUnionExplicit =
     _test_misc_prune<ObjectUnionExplicit>(ObjectUnionExplicit)((input) =>
-        typia.misc.prune(input),
+        typia.misc.prune<ObjectUnionExplicit>(input),
     );

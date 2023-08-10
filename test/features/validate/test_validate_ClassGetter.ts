@@ -4,4 +4,4 @@ import { ClassGetter } from "../../structures/ClassGetter";
 
 export const test_validate_ClassGetter = _test_validate<ClassGetter>(
     ClassGetter,
-)((input) => typia.validate(input));
+)((input) => typia.validate<ClassGetter>(input));

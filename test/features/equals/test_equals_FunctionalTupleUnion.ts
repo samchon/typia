@@ -4,5 +4,5 @@ import { FunctionalTupleUnion } from "../../structures/FunctionalTupleUnion";
 
 export const test_equals_FunctionalTupleUnion =
     _test_equals<FunctionalTupleUnion>(FunctionalTupleUnion)((input) =>
-        typia.equals(input),
+        typia.equals<FunctionalTupleUnion>(input),
     );

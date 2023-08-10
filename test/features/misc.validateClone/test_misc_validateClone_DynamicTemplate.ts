@@ -4,5 +4,5 @@ import { DynamicTemplate } from "../../structures/DynamicTemplate";
 
 export const test_misc_validateClone_DynamicTemplate =
     _test_misc_validateClone<DynamicTemplate>(DynamicTemplate)((input) =>
-        typia.misc.validateClone(input),
+        typia.misc.validateClone<DynamicTemplate>(input),
     );

@@ -4,7 +4,7 @@ import { ObjectLiteralType } from "../../../structures/ObjectLiteralType";
 
 export const test_json_stringify_ObjectLiteralType =
     _test_json_stringify<ObjectLiteralType>(ObjectLiteralType)((input) =>
-        ((input: { id: string; name: string; age: number }): string => {
+        ((input: ObjectLiteralType): string => {
             const $string = (typia.json.stringify as any).string;
             const $number = (typia.json.stringify as any).number;
             return `{"id":${$string((input as any).id)},"name":${$string(

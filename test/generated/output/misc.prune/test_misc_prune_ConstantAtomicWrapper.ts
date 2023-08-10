@@ -4,13 +4,7 @@ import { ConstantAtomicWrapper } from "../../../structures/ConstantAtomicWrapper
 
 export const test_misc_prune_ConstantAtomicWrapper =
     _test_misc_prune<ConstantAtomicWrapper>(ConstantAtomicWrapper)((input) =>
-        ((
-            input: [
-                ConstantAtomicWrapper.IPointer<boolean>,
-                ConstantAtomicWrapper.IPointer<number>,
-                ConstantAtomicWrapper.IPointer<string>,
-            ],
-        ): void => {
+        ((input: ConstantAtomicWrapper): void => {
             const $io0 = (input: any): boolean =>
                 "boolean" === typeof input.value;
             const $io1 = (input: any): boolean =>

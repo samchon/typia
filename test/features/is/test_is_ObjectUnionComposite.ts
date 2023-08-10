@@ -4,4 +4,4 @@ import { ObjectUnionComposite } from "../../structures/ObjectUnionComposite";
 
 export const test_is_ObjectUnionComposite = _test_is<ObjectUnionComposite>(
     ObjectUnionComposite,
-)((input) => typia.is(input));
+)((input) => typia.is<ObjectUnionComposite>(input));

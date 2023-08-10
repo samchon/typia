@@ -7,20 +7,8 @@ export const test_misc_isClone_ObjectUnionNonPredictable =
         (input) =>
             ((
                 input: any,
-            ): typia.Primitive<
-                IPointer<
-                    Array<
-                        ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
-                    >
-                >
-            > | null => {
-                const is = (
-                    input: any,
-                ): input is IPointer<
-                    Array<
-                        ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
-                    >
-                > => {
+            ): typia.Primitive<ObjectUnionNonPredictable> | null => {
+                const is = (input: any): input is ObjectUnionNonPredictable => {
                     const $io0 = (input: any): boolean =>
                         Array.isArray(input.value) &&
                         input.value.every(
@@ -64,18 +52,8 @@ export const test_misc_isClone_ObjectUnionNonPredictable =
                     );
                 };
                 const clone = (
-                    input: IPointer<
-                        Array<
-                            ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
-                        >
-                    >,
-                ): typia.Primitive<
-                    IPointer<
-                        Array<
-                            ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
-                        >
-                    >
-                > => {
+                    input: ObjectUnionNonPredictable,
+                ): typia.Primitive<ObjectUnionNonPredictable> => {
                     const $io1 = (input: any): boolean =>
                         "object" === typeof input.value &&
                         null !== input.value &&

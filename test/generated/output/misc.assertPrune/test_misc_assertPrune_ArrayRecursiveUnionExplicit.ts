@@ -6,13 +6,11 @@ export const test_misc_assertPrune_ArrayRecursiveUnionExplicit =
     _test_misc_assertPrune<ArrayRecursiveUnionExplicit>(
         ArrayRecursiveUnionExplicit,
     )((input) =>
-        ((input: any): Array<ArrayRecursiveUnionExplicit.IBucket> => {
-            const assert = (
-                input: any,
-            ): Array<ArrayRecursiveUnionExplicit.IBucket> => {
+        ((input: any): ArrayRecursiveUnionExplicit => {
+            const assert = (input: any): ArrayRecursiveUnionExplicit => {
                 const __is = (
                     input: any,
-                ): input is Array<ArrayRecursiveUnionExplicit.IBucket> => {
+                ): input is ArrayRecursiveUnionExplicit => {
                     const $io0 = (input: any): boolean =>
                         "number" === typeof input.id &&
                         Number.isFinite(input.id) &&
@@ -95,7 +93,7 @@ export const test_misc_assertPrune_ArrayRecursiveUnionExplicit =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is Array<ArrayRecursiveUnionExplicit.IBucket> => {
+                    ): input is ArrayRecursiveUnionExplicit => {
                         const $guard = (typia.misc.assertPrune as any).guard;
                         const $ao0 = (
                             input: any,
@@ -472,9 +470,7 @@ export const test_misc_assertPrune_ArrayRecursiveUnionExplicit =
                     })(input, "$input", true);
                 return input;
             };
-            const prune = (
-                input: Array<ArrayRecursiveUnionExplicit.IBucket>,
-            ): void => {
+            const prune = (input: ArrayRecursiveUnionExplicit): void => {
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.id &&
                     "string" === typeof input.name &&

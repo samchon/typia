@@ -4,7 +4,7 @@ import { ObjectHierarchical } from "../../../structures/ObjectHierarchical";
 
 export const test_misc_prune_ObjectHierarchical =
     _test_misc_prune<ObjectHierarchical>(ObjectHierarchical)((input) =>
-        ((input: ObjectHierarchical.ICustomer): void => {
+        ((input: ObjectHierarchical): void => {
             const $io1 = (input: any): boolean =>
                 "number" === typeof input.id &&
                 "string" === typeof input.code &&

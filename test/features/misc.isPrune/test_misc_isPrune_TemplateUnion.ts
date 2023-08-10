@@ -4,5 +4,5 @@ import { TemplateUnion } from "../../structures/TemplateUnion";
 
 export const test_misc_isPrune_TemplateUnion =
     _test_misc_isPrune<TemplateUnion>(TemplateUnion)((input) =>
-        typia.misc.isPrune(input),
+        typia.misc.isPrune<TemplateUnion>(input),
     );

@@ -5,9 +5,7 @@ import { ArrayHierarchicalPointer } from "../../../structures/ArrayHierarchicalP
 export const test_json_stringify_ArrayHierarchicalPointer =
     _test_json_stringify<ArrayHierarchicalPointer>(ArrayHierarchicalPointer)(
         (input) =>
-            ((
-                input: IPointer<Array<ArrayHierarchicalPointer.ICompany>>,
-            ): string => {
+            ((input: ArrayHierarchicalPointer): string => {
                 const $io1 = (input: any): boolean =>
                     "number" === typeof input.id &&
                     "number" === typeof input.serial &&

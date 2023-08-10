@@ -5,10 +5,8 @@ import { ArraySimple } from "../../../structures/ArraySimple";
 export const test_json_assertStringify_ArraySimple =
     _test_json_assertStringify<ArraySimple>(ArraySimple)((input) =>
         ((input: any): string => {
-            const assert = (input: any): Array<ArraySimple.IPerson> => {
-                const __is = (
-                    input: any,
-                ): input is Array<ArraySimple.IPerson> => {
+            const assert = (input: any): ArraySimple => {
+                const __is = (input: any): input is ArraySimple => {
                     const $io0 = (input: any): boolean =>
                         "string" === typeof input.name &&
                         "string" === typeof input.email &&
@@ -39,7 +37,7 @@ export const test_json_assertStringify_ArraySimple =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is Array<ArraySimple.IPerson> => {
+                    ): input is ArraySimple => {
                         const $guard = (typia.json.assertStringify as any)
                             .guard;
                         const $ao0 = (
@@ -162,7 +160,7 @@ export const test_json_assertStringify_ArraySimple =
                     })(input, "$input", true);
                 return input;
             };
-            const stringify = (input: Array<ArraySimple.IPerson>): string => {
+            const stringify = (input: ArraySimple): string => {
                 const $io1 = (input: any): boolean =>
                     "string" === typeof input.name &&
                     "string" === typeof input.body &&

@@ -4,11 +4,9 @@ import { ArraySimple } from "../../../structures/ArraySimple";
 
 export const test_misc_assertPrune_ArraySimple =
     _test_misc_assertPrune<ArraySimple>(ArraySimple)((input) =>
-        ((input: any): Array<ArraySimple.IPerson> => {
-            const assert = (input: any): Array<ArraySimple.IPerson> => {
-                const __is = (
-                    input: any,
-                ): input is Array<ArraySimple.IPerson> => {
+        ((input: any): ArraySimple => {
+            const assert = (input: any): ArraySimple => {
+                const __is = (input: any): input is ArraySimple => {
                     const $io0 = (input: any): boolean =>
                         "string" === typeof input.name &&
                         "string" === typeof input.email &&
@@ -39,7 +37,7 @@ export const test_misc_assertPrune_ArraySimple =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is Array<ArraySimple.IPerson> => {
+                    ): input is ArraySimple => {
                         const $guard = (typia.misc.assertPrune as any).guard;
                         const $ao0 = (
                             input: any,
@@ -161,7 +159,7 @@ export const test_misc_assertPrune_ArraySimple =
                     })(input, "$input", true);
                 return input;
             };
-            const prune = (input: Array<ArraySimple.IPerson>): void => {
+            const prune = (input: ArraySimple): void => {
                 const $io1 = (input: any): boolean =>
                     "string" === typeof input.name &&
                     "string" === typeof input.body &&

@@ -4,10 +4,8 @@ import { ArrayHierarchicalPointer } from "../../../structures/ArrayHierarchicalP
 
 export const test_assert_ArrayHierarchicalPointer =
     _test_assert<ArrayHierarchicalPointer>(ArrayHierarchicalPointer)((input) =>
-        ((input: any): IPointer<Array<ArrayHierarchicalPointer.ICompany>> => {
-            const __is = (
-                input: any,
-            ): input is IPointer<Array<ArrayHierarchicalPointer.ICompany>> => {
+        ((input: any): ArrayHierarchicalPointer => {
+            const __is = (input: any): input is ArrayHierarchicalPointer => {
                 const $io0 = (input: any): boolean =>
                     Array.isArray(input.value) &&
                     input.value.every(
@@ -77,9 +75,7 @@ export const test_assert_ArrayHierarchicalPointer =
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is IPointer<
-                    Array<ArrayHierarchicalPointer.ICompany>
-                > => {
+                ): input is ArrayHierarchicalPointer => {
                     const $guard = (typia.assert as any).guard;
                     const $ao0 = (
                         input: any,

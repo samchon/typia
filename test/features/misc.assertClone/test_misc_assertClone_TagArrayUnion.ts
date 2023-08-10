@@ -4,5 +4,5 @@ import { TagArrayUnion } from "../../structures/TagArrayUnion";
 
 export const test_misc_assertClone_TagArrayUnion =
     _test_misc_assertClone<TagArrayUnion>(TagArrayUnion)((input) =>
-        typia.misc.assertClone(input),
+        typia.misc.assertClone<TagArrayUnion>(input),
     );

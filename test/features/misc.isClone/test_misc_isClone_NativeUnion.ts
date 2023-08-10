@@ -4,4 +4,4 @@ import { NativeUnion } from "../../structures/NativeUnion";
 
 export const test_misc_isClone_NativeUnion = _test_misc_isClone<NativeUnion>(
     NativeUnion,
-)((input) => typia.misc.isClone(input));
+)((input) => typia.misc.isClone<NativeUnion>(input));

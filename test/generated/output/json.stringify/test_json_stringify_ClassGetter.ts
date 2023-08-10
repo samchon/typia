@@ -4,7 +4,7 @@ import { ClassGetter } from "../../../structures/ClassGetter";
 
 export const test_json_stringify_ClassGetter =
     _test_json_stringify<ClassGetter>(ClassGetter)((input) =>
-        ((input: ClassGetter.Person): string => {
+        ((input: ClassGetter): string => {
             const $string = (typia.json.stringify as any).string;
             const $so0 = (input: any): any =>
                 `{"id":${$string(input.id)},"name":${$string(

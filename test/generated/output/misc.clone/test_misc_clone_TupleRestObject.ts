@@ -4,9 +4,7 @@ import { TupleRestObject } from "../../../structures/TupleRestObject";
 
 export const test_misc_clone_TupleRestObject =
     _test_misc_clone<TupleRestObject>(TupleRestObject)((input) =>
-        ((
-            input: [boolean, number, ...TupleRestObject.IObject[]],
-        ): typia.Primitive<[boolean, number, ...TupleRestObject.IObject[]]> => {
+        ((input: TupleRestObject): typia.Primitive<TupleRestObject> => {
             const $io0 = (input: any): boolean =>
                 "string" === typeof input.value;
             const $cp0 = (input: any) =>

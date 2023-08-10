@@ -4,24 +4,12 @@ import { AtomicIntersection } from "../../../structures/AtomicIntersection";
 
 export const test_validateEquals_AtomicIntersection =
     _test_validateEquals<AtomicIntersection>(AtomicIntersection)((input) =>
-        ((
-            input: any,
-        ): typia.IValidation<
-            [
-                AtomicIntersection.Wrapper<boolean>,
-                AtomicIntersection.Wrapper<number>,
-                AtomicIntersection.Wrapper<string>,
-            ]
-        > => {
+        ((input: any): typia.IValidation<AtomicIntersection> => {
             const errors = [] as any[];
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
-            ): input is [
-                AtomicIntersection.Wrapper<boolean>,
-                AtomicIntersection.Wrapper<number>,
-                AtomicIntersection.Wrapper<string>,
-            ] => {
+            ): input is AtomicIntersection => {
                 return (
                     Array.isArray(input) &&
                     input.length === 3 &&
@@ -37,11 +25,7 @@ export const test_validateEquals_AtomicIntersection =
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is [
-                    AtomicIntersection.Wrapper<boolean>,
-                    AtomicIntersection.Wrapper<number>,
-                    AtomicIntersection.Wrapper<string>,
-                ] => {
+                ): input is AtomicIntersection => {
                     return (
                         ((Array.isArray(input) ||
                             $report(true, {

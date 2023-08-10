@@ -6,16 +6,12 @@ export const test_misc_validateClone_ObjectGenericAlias =
     _test_misc_validateClone<ObjectGenericAlias>(ObjectGenericAlias)((input) =>
         ((
             input: any,
-        ): typia.IValidation<
-            typia.Primitive<ObjectGenericAlias.ISomething<string>>
-        > => {
+        ): typia.IValidation<typia.Primitive<ObjectGenericAlias>> => {
             const validate = (
                 input: any,
-            ): typia.IValidation<ObjectGenericAlias.ISomething<string>> => {
+            ): typia.IValidation<ObjectGenericAlias> => {
                 const errors = [] as any[];
-                const __is = (
-                    input: any,
-                ): input is ObjectGenericAlias.ISomething<string> => {
+                const __is = (input: any): input is ObjectGenericAlias => {
                     return (
                         "object" === typeof input &&
                         null !== input &&
@@ -30,7 +26,7 @@ export const test_misc_validateClone_ObjectGenericAlias =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is ObjectGenericAlias.ISomething<string> => {
+                    ): input is ObjectGenericAlias => {
                         const $vo0 = (
                             input: any,
                             _path: string,
@@ -68,8 +64,8 @@ export const test_misc_validateClone_ObjectGenericAlias =
                 } as any;
             };
             const clone = (
-                input: ObjectGenericAlias.ISomething<string>,
-            ): typia.Primitive<ObjectGenericAlias.ISomething<string>> => {
+                input: ObjectGenericAlias,
+            ): typia.Primitive<ObjectGenericAlias> => {
                 const $co0 = (input: any): any => ({
                     value: input.value as any,
                 });

@@ -4,12 +4,8 @@ import { ToJsonAtomicUnion } from "../../../structures/ToJsonAtomicUnion";
 
 export const test_misc_isClone_ToJsonAtomicUnion =
     _test_misc_isClone<ToJsonAtomicUnion>(ToJsonAtomicUnion)((input) =>
-        ((
-            input: any,
-        ): typia.Primitive<Array<ToJsonAtomicUnion.IToJson>> | null => {
-            const is = (
-                input: any,
-            ): input is Array<ToJsonAtomicUnion.IToJson> => {
+        ((input: any): typia.Primitive<ToJsonAtomicUnion> | null => {
+            const is = (input: any): input is ToJsonAtomicUnion => {
                 const $io0 = (input: any): boolean =>
                     "function" === typeof input.toJSON;
                 return (
@@ -23,8 +19,8 @@ export const test_misc_isClone_ToJsonAtomicUnion =
                 );
             };
             const clone = (
-                input: Array<ToJsonAtomicUnion.IToJson>,
-            ): typia.Primitive<Array<ToJsonAtomicUnion.IToJson>> => {
+                input: ToJsonAtomicUnion,
+            ): typia.Primitive<ToJsonAtomicUnion> => {
                 const $cp0 = (input: any) =>
                     input.map((elem: any) =>
                         "object" === typeof elem &&

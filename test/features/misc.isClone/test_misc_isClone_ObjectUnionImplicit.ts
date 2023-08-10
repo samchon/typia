@@ -4,5 +4,5 @@ import { ObjectUnionImplicit } from "../../structures/ObjectUnionImplicit";
 
 export const test_misc_isClone_ObjectUnionImplicit =
     _test_misc_isClone<ObjectUnionImplicit>(ObjectUnionImplicit)((input) =>
-        typia.misc.isClone(input),
+        typia.misc.isClone<ObjectUnionImplicit>(input),
     );

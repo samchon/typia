@@ -4,4 +4,4 @@ import { AtomicSimple } from "../../../structures/AtomicSimple";
 
 export const test_misc_prune_AtomicSimple = _test_misc_prune<AtomicSimple>(
     AtomicSimple,
-)((input) => ((input: [boolean, number, string]): void => {})(input));
+)((input) => ((input: AtomicSimple): void => {})(input));

@@ -3,5 +3,5 @@ import { _test_misc_clone } from "../../internal/_test_misc_clone";
 import { TagTuple } from "../../structures/TagTuple";
 
 export const test_misc_clone_TagTuple = _test_misc_clone<TagTuple>(TagTuple)(
-    (input) => typia.misc.clone(input),
+    (input) => typia.misc.clone<TagTuple>(input),
 );

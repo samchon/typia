@@ -4,5 +4,5 @@ import { ArrayMatrix } from "../../structures/ArrayMatrix";
 
 export const test_misc_validatePrune_ArrayMatrix =
     _test_misc_validatePrune<ArrayMatrix>(ArrayMatrix)((input) =>
-        typia.misc.validatePrune(input),
+        typia.misc.validatePrune<ArrayMatrix>(input),
     );

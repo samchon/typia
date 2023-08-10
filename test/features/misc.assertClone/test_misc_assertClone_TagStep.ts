@@ -4,4 +4,4 @@ import { TagStep } from "../../structures/TagStep";
 
 export const test_misc_assertClone_TagStep = _test_misc_assertClone<TagStep>(
     TagStep,
-)((input) => typia.misc.assertClone(input));
+)((input) => typia.misc.assertClone<TagStep>(input));

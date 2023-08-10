@@ -4,5 +4,5 @@ import { ConstantIntersection } from "../../structures/ConstantIntersection";
 
 export const test_misc_validatePrune_ConstantIntersection =
     _test_misc_validatePrune<ConstantIntersection>(ConstantIntersection)(
-        (input) => typia.misc.validatePrune(input),
+        (input) => typia.misc.validatePrune<ConstantIntersection>(input),
     );

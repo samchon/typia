@@ -6,16 +6,12 @@ export const test_misc_validateClone_ArrayHierarchical =
     _test_misc_validateClone<ArrayHierarchical>(ArrayHierarchical)((input) =>
         ((
             input: any,
-        ): typia.IValidation<
-            typia.Primitive<Array<ArrayHierarchical.ICompany>>
-        > => {
+        ): typia.IValidation<typia.Primitive<ArrayHierarchical>> => {
             const validate = (
                 input: any,
-            ): typia.IValidation<Array<ArrayHierarchical.ICompany>> => {
+            ): typia.IValidation<ArrayHierarchical> => {
                 const errors = [] as any[];
-                const __is = (
-                    input: any,
-                ): input is Array<ArrayHierarchical.ICompany> => {
+                const __is = (input: any): input is ArrayHierarchical => {
                     const $io0 = (input: any): boolean =>
                         "number" === typeof input.id &&
                         Number.isFinite(input.id) &&
@@ -88,7 +84,7 @@ export const test_misc_validateClone_ArrayHierarchical =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is Array<ArrayHierarchical.ICompany> => {
+                    ): input is ArrayHierarchical => {
                         const $vo0 = (
                             input: any,
                             _path: string,
@@ -403,8 +399,8 @@ export const test_misc_validateClone_ArrayHierarchical =
                 } as any;
             };
             const clone = (
-                input: Array<ArrayHierarchical.ICompany>,
-            ): typia.Primitive<Array<ArrayHierarchical.ICompany>> => {
+                input: ArrayHierarchical,
+            ): typia.Primitive<ArrayHierarchical> => {
                 const $io1 = (input: any): boolean =>
                     "number" === typeof input.time &&
                     "number" === typeof input.zone;

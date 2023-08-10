@@ -4,12 +4,8 @@ import { TupleRestObject } from "../../../structures/TupleRestObject";
 
 export const test_misc_isPrune_TupleRestObject =
     _test_misc_isPrune<TupleRestObject>(TupleRestObject)((input) =>
-        ((
-            input: any,
-        ): input is [boolean, number, ...TupleRestObject.IObject[]] => {
-            const is = (
-                input: any,
-            ): input is [boolean, number, ...TupleRestObject.IObject[]] => {
+        ((input: any): input is TupleRestObject => {
+            const is = (input: any): input is TupleRestObject => {
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.value;
                 return (
@@ -28,9 +24,7 @@ export const test_misc_isPrune_TupleRestObject =
                         )
                 );
             };
-            const prune = (
-                input: [boolean, number, ...TupleRestObject.IObject[]],
-            ): void => {
+            const prune = (input: TupleRestObject): void => {
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.value;
                 const $pp0 = (input: any) =>

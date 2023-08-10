@@ -4,7 +4,7 @@ import { ArraySimplePointer } from "../../../structures/ArraySimplePointer";
 
 export const test_misc_prune_ArraySimplePointer =
     _test_misc_prune<ArraySimplePointer>(ArraySimplePointer)((input) =>
-        ((input: IPointer<Array<ArraySimplePointer.IPerson>>): void => {
+        ((input: ArraySimplePointer): void => {
             const $io1 = (input: any): boolean =>
                 "string" === typeof input.name &&
                 "string" === typeof input.email &&

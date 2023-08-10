@@ -4,5 +4,5 @@ import { ArrayHierarchicalPointer } from "../../structures/ArrayHierarchicalPoin
 
 export const test_assertEquals_ArrayHierarchicalPointer =
     _test_assertEquals<ArrayHierarchicalPointer>(ArrayHierarchicalPointer)(
-        (input) => typia.assertEquals(input),
+        (input) => typia.assertEquals<ArrayHierarchicalPointer>(input),
     );

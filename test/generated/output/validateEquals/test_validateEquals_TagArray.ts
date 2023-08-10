@@ -5,12 +5,12 @@ import { TagArray } from "../../../structures/TagArray";
 export const test_validateEquals_TagArray = _test_validateEquals<TagArray>(
     TagArray,
 )((input) =>
-    ((input: any): typia.IValidation<IPointer<Array<TagArray.Type>>> => {
+    ((input: any): typia.IValidation<TagArray> => {
         const errors = [] as any[];
         const __is = (
             input: any,
             _exceptionable: boolean = true,
-        ): input is IPointer<Array<TagArray.Type>> => {
+        ): input is TagArray => {
             const $is_uuid = (typia.validateEquals as any).is_uuid;
             const $io0 = (
                 input: any,
@@ -78,7 +78,7 @@ export const test_validateEquals_TagArray = _test_validateEquals<TagArray>(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is IPointer<Array<TagArray.Type>> => {
+            ): input is TagArray => {
                 const $join = (typia.validateEquals as any).join;
                 const $is_uuid = (typia.validateEquals as any).is_uuid;
                 const $vo0 = (

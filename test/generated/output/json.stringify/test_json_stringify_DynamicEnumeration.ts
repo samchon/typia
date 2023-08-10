@@ -4,20 +4,7 @@ import { DynamicEnumeration } from "../../../structures/DynamicEnumeration";
 
 export const test_json_stringify_DynamicEnumeration =
     _test_json_stringify<DynamicEnumeration>(DynamicEnumeration)((input) =>
-        ((
-            input: IPointer<{
-                ar?: string | undefined;
-                "zh-Hans"?: string | undefined;
-                "zh-Hant"?: string | undefined;
-                en?: string | undefined;
-                fr?: string | undefined;
-                de?: string | undefined;
-                ja?: string | undefined;
-                ko?: string | undefined;
-                pt?: string | undefined;
-                ru?: string | undefined;
-            }>,
-        ): string => {
+        ((input: DynamicEnumeration): string => {
             const $io1 = (input: any): boolean =>
                 (undefined === input.ar || "string" === typeof input.ar) &&
                 (undefined === input["zh-Hans"] ||

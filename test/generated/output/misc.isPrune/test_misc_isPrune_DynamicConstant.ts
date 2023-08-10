@@ -4,22 +4,8 @@ import { DynamicConstant } from "../../../structures/DynamicConstant";
 
 export const test_misc_isPrune_DynamicConstant =
     _test_misc_isPrune<DynamicConstant>(DynamicConstant)((input) =>
-        ((
-            input: any,
-        ): input is IPointer<{
-            a: number;
-            b: number;
-            c: number;
-            d: number;
-        }> => {
-            const is = (
-                input: any,
-            ): input is IPointer<{
-                a: number;
-                b: number;
-                c: number;
-                d: number;
-            }> => {
+        ((input: any): input is DynamicConstant => {
+            const is = (input: any): input is DynamicConstant => {
                 return (
                     "object" === typeof input &&
                     null !== input &&
@@ -35,9 +21,7 @@ export const test_misc_isPrune_DynamicConstant =
                     Number.isFinite(((input as any).value as any).d)
                 );
             };
-            const prune = (
-                input: IPointer<{ a: number; b: number; c: number; d: number }>,
-            ): void => {
+            const prune = (input: DynamicConstant): void => {
                 const $io1 = (input: any): boolean =>
                     "number" === typeof input.a &&
                     "number" === typeof input.b &&

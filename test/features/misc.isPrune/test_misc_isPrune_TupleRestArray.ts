@@ -4,5 +4,5 @@ import { TupleRestArray } from "../../structures/TupleRestArray";
 
 export const test_misc_isPrune_TupleRestArray =
     _test_misc_isPrune<TupleRestArray>(TupleRestArray)((input) =>
-        typia.misc.isPrune(input),
+        typia.misc.isPrune<TupleRestArray>(input),
     );

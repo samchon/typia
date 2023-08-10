@@ -5,7 +5,7 @@ import { ConstantConstEnumeration } from "../../../structures/ConstantConstEnume
 export const test_json_stringify_ConstantConstEnumeration =
     _test_json_stringify<ConstantConstEnumeration>(ConstantConstEnumeration)(
         (input) =>
-            ((input: Array<ConstantConstEnumeration.Enumeration>): string => {
+            ((input: ConstantConstEnumeration): string => {
                 const $string = (typia.json.stringify as any).string;
                 const $number = (typia.json.stringify as any).number;
                 const $throws = (typia.json.stringify as any).throws;

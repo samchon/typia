@@ -4,5 +4,5 @@ import { ObjectPrimitive } from "../../structures/ObjectPrimitive";
 
 export const test_misc_assertPrune_ObjectPrimitive =
     _test_misc_assertPrune<ObjectPrimitive>(ObjectPrimitive)((input) =>
-        typia.misc.assertPrune(input),
+        typia.misc.assertPrune<ObjectPrimitive>(input),
     );

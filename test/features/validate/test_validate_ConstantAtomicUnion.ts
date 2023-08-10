@@ -4,5 +4,5 @@ import { ConstantAtomicUnion } from "../../structures/ConstantAtomicUnion";
 
 export const test_validate_ConstantAtomicUnion =
     _test_validate<ConstantAtomicUnion>(ConstantAtomicUnion)((input) =>
-        typia.validate(input),
+        typia.validate<ConstantAtomicUnion>(input),
     );

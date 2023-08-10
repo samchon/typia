@@ -5,30 +5,12 @@ import { ToJsonAtomicSimple } from "../../../structures/ToJsonAtomicSimple";
 export const test_json_validateStringify_ToJsonAtomicSimple =
     _test_json_validateStringify<ToJsonAtomicSimple>(ToJsonAtomicSimple)(
         (input) =>
-            ((
-                input: [
-                    ToJsonAtomicSimple.IToJson<boolean>,
-                    ToJsonAtomicSimple.IToJson<number>,
-                    ToJsonAtomicSimple.IToJson<string>,
-                ],
-            ): typia.IValidation<string> => {
+            ((input: ToJsonAtomicSimple): typia.IValidation<string> => {
                 const validate = (
                     input: any,
-                ): typia.IValidation<
-                    [
-                        ToJsonAtomicSimple.IToJson<boolean>,
-                        ToJsonAtomicSimple.IToJson<number>,
-                        ToJsonAtomicSimple.IToJson<string>,
-                    ]
-                > => {
+                ): typia.IValidation<ToJsonAtomicSimple> => {
                     const errors = [] as any[];
-                    const __is = (
-                        input: any,
-                    ): input is [
-                        ToJsonAtomicSimple.IToJson<boolean>,
-                        ToJsonAtomicSimple.IToJson<number>,
-                        ToJsonAtomicSimple.IToJson<string>,
-                    ] => {
+                    const __is = (input: any): input is ToJsonAtomicSimple => {
                         const $io0 = (input: any): boolean => true;
                         const $io1 = (input: any): boolean => true;
                         const $io2 = (input: any): boolean => true;
@@ -54,11 +36,7 @@ export const test_json_validateStringify_ToJsonAtomicSimple =
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
-                        ): input is [
-                            ToJsonAtomicSimple.IToJson<boolean>,
-                            ToJsonAtomicSimple.IToJson<number>,
-                            ToJsonAtomicSimple.IToJson<string>,
-                        ] => {
+                        ): input is ToJsonAtomicSimple => {
                             const $vo0 = (
                                 input: any,
                                 _path: string,
@@ -186,13 +164,7 @@ export const test_json_validateStringify_ToJsonAtomicSimple =
                         data: success ? input : undefined,
                     } as any;
                 };
-                const stringify = (
-                    input: [
-                        ToJsonAtomicSimple.IToJson<boolean>,
-                        ToJsonAtomicSimple.IToJson<number>,
-                        ToJsonAtomicSimple.IToJson<string>,
-                    ],
-                ): string => {
+                const stringify = (input: ToJsonAtomicSimple): string => {
                     const $number = (typia.json.validateStringify as any)
                         .number;
                     const $string = (typia.json.validateStringify as any)

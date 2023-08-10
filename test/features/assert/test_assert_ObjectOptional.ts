@@ -4,4 +4,4 @@ import { ObjectOptional } from "../../structures/ObjectOptional";
 
 export const test_assert_ObjectOptional = _test_assert<ObjectOptional>(
     ObjectOptional,
-)((input) => typia.assert(input));
+)((input) => typia.assert<ObjectOptional>(input));

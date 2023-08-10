@@ -4,5 +4,5 @@ import { ArrayMatrix } from "../../structures/ArrayMatrix";
 
 export const test_misc_validateClone_ArrayMatrix =
     _test_misc_validateClone<ArrayMatrix>(ArrayMatrix)((input) =>
-        typia.misc.validateClone(input),
+        typia.misc.validateClone<ArrayMatrix>(input),
     );

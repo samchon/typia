@@ -1,7 +1,7 @@
 syntax = "proto3";
 
 message ObjectIntersection {
-    string email = 1;
-    string name = 2;
-    bool vulnerable = 3;
+    requiredstring email = 1;
+    requiredstring name = 2;
+    requiredbool vulnerable = 3;
 }

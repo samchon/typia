@@ -4,4 +4,4 @@ import { NativeSimple } from "../../structures/NativeSimple";
 
 export const test_misc_isClone_NativeSimple = _test_misc_isClone<NativeSimple>(
     NativeSimple,
-)((input) => typia.misc.isClone(input));
+)((input) => typia.misc.isClone<NativeSimple>(input));

@@ -4,5 +4,5 @@ import { ConstantEnumeration } from "../../structures/ConstantEnumeration";
 
 export const test_json_validateStringify_ConstantEnumeration =
     _test_json_validateStringify<ConstantEnumeration>(ConstantEnumeration)(
-        (input) => typia.json.validateStringify(input),
+        (input) => typia.json.validateStringify<ConstantEnumeration>(input),
     );

@@ -4,4 +4,4 @@ import { TagArray } from "../../structures/TagArray";
 
 export const test_misc_isClone_TagArray = _test_misc_isClone<TagArray>(
     TagArray,
-)((input) => typia.misc.isClone(input));
+)((input) => typia.misc.isClone<TagArray>(input));

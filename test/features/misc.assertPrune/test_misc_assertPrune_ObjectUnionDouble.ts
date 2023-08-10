@@ -4,5 +4,5 @@ import { ObjectUnionDouble } from "../../structures/ObjectUnionDouble";
 
 export const test_misc_assertPrune_ObjectUnionDouble =
     _test_misc_assertPrune<ObjectUnionDouble>(ObjectUnionDouble)((input) =>
-        typia.misc.assertPrune(input),
+        typia.misc.assertPrune<ObjectUnionDouble>(input),
     );

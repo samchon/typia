@@ -5,10 +5,8 @@ import { TagType } from "../../../structures/TagType";
 export const test_json_assertStringify_TagType =
     _test_json_assertStringify<TagType>(TagType)((input) =>
         ((input: any): string => {
-            const assert = (input: any): IPointer<Array<TagType.Type>> => {
-                const __is = (
-                    input: any,
-                ): input is IPointer<Array<TagType.Type>> => {
+            const assert = (input: any): TagType => {
+                const __is = (input: any): input is TagType => {
                     const $io0 = (input: any): boolean =>
                         Array.isArray(input.value) &&
                         input.value.every(
@@ -36,7 +34,7 @@ export const test_json_assertStringify_TagType =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is IPointer<Array<TagType.Type>> => {
+                    ): input is TagType => {
                         const $guard = (typia.json.assertStringify as any)
                             .guard;
                         const $ao0 = (
@@ -140,9 +138,7 @@ export const test_json_assertStringify_TagType =
                     })(input, "$input", true);
                 return input;
             };
-            const stringify = (
-                input: IPointer<Array<TagType.Type>>,
-            ): string => {
+            const stringify = (input: TagType): string => {
                 const $io1 = (input: any): boolean =>
                     "number" === typeof input.int &&
                     parseInt(input.int) === input.int &&

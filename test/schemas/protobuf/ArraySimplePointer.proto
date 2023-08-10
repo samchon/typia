@@ -3,14 +3,14 @@ syntax = "proto3";
 message ArraySimplePointer {
     repeated ArraySimplePointer.IPerson value = 1;
     message IPerson {
-        string name = 1;
-        string email = 2;
+        requiredstring name = 1;
+        requiredstring email = 2;
         repeated ArraySimplePointer.IHobby hobbies = 3;
     }
 
     message IHobby {
-        string name = 1;
-        string body = 2;
-        double rank = 3;
+        requiredstring name = 1;
+        requiredstring body = 2;
+        requireddouble rank = 3;
     }
 }

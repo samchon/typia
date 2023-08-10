@@ -4,5 +4,5 @@ import { ArrayHierarchical } from "../../structures/ArrayHierarchical";
 
 export const test_misc_assertClone_ArrayHierarchical =
     _test_misc_assertClone<ArrayHierarchical>(ArrayHierarchical)((input) =>
-        typia.misc.assertClone(input),
+        typia.misc.assertClone<ArrayHierarchical>(input),
     );

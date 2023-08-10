@@ -4,5 +4,5 @@ import { ArraySimplePointer } from "../../structures/ArraySimplePointer";
 
 export const test_misc_prune_ArraySimplePointer =
     _test_misc_prune<ArraySimplePointer>(ArraySimplePointer)((input) =>
-        typia.misc.prune(input),
+        typia.misc.prune<ArraySimplePointer>(input),
     );

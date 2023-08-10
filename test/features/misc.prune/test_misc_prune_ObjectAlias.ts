@@ -4,4 +4,4 @@ import { ObjectAlias } from "../../structures/ObjectAlias";
 
 export const test_misc_prune_ObjectAlias = _test_misc_prune<ObjectAlias>(
     ObjectAlias,
-)((input) => typia.misc.prune(input));
+)((input) => typia.misc.prune<ObjectAlias>(input));

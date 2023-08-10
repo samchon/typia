@@ -5,7 +5,7 @@ import { TagAtomicUnion } from "../../../structures/TagAtomicUnion";
 export const test_misc_prune_TagAtomicUnion = _test_misc_prune<TagAtomicUnion>(
     TagAtomicUnion,
 )((input) =>
-    ((input: IPointer<Array<TagAtomicUnion.Type>>): void => {
+    ((input: TagAtomicUnion): void => {
         const $io1 = (input: any): boolean =>
             ("string" === typeof input.value &&
                 3 <= input.value.length &&

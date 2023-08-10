@@ -3,19 +3,7 @@ import { _test_is } from "../../../internal/_test_is";
 import { AtomicClass } from "../../../structures/AtomicClass";
 
 export const test_is_AtomicClass = _test_is<AtomicClass>(AtomicClass)((input) =>
-    ((
-        input: any,
-    ): input is [
-        Boolean,
-        false | Boolean,
-        boolean | Boolean,
-        Number,
-        Number | 1,
-        number | Number,
-        String,
-        String | "characters",
-        string | String,
-    ] => {
+    ((input: any): input is AtomicClass => {
         return (
             Array.isArray(input) &&
             input.length === 9 &&

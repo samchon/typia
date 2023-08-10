@@ -4,4 +4,4 @@ import { MapUnion } from "../../structures/MapUnion";
 
 export const test_json_isStringify_MapUnion = _test_json_isStringify<MapUnion>(
     MapUnion,
-)((input) => typia.json.isStringify(input));
+)((input) => typia.json.isStringify<MapUnion>(input));

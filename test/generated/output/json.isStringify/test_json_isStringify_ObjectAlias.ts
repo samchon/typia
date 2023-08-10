@@ -4,8 +4,8 @@ import { ObjectAlias } from "../../../structures/ObjectAlias";
 
 export const test_json_isStringify_ObjectAlias =
     _test_json_isStringify<ObjectAlias>(ObjectAlias)((input) =>
-        ((input: Array<ObjectAlias.IMember>): string | null => {
-            const is = (input: any): input is Array<ObjectAlias.IMember> => {
+        ((input: ObjectAlias): string | null => {
+            const is = (input: any): input is ObjectAlias => {
                 const $io0 = (input: any): boolean =>
                     (null === input.id || "string" === typeof input.id) &&
                     "string" === typeof input.email &&
@@ -29,7 +29,7 @@ export const test_json_isStringify_ObjectAlias =
                     )
                 );
             };
-            const stringify = (input: Array<ObjectAlias.IMember>): string => {
+            const stringify = (input: ObjectAlias): string => {
                 const $string = (typia.json.isStringify as any).string;
                 const $number = (typia.json.isStringify as any).number;
                 const $throws = (typia.json.isStringify as any).throws;

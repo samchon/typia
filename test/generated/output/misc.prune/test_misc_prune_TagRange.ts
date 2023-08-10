@@ -4,7 +4,7 @@ import { TagRange } from "../../../structures/TagRange";
 
 export const test_misc_prune_TagRange = _test_misc_prune<TagRange>(TagRange)(
     (input) =>
-        ((input: IPointer<Array<TagRange.Type>>): void => {
+        ((input: TagRange): void => {
             const $io1 = (input: any): boolean =>
                 "number" === typeof input.greater &&
                 3 < input.greater &&

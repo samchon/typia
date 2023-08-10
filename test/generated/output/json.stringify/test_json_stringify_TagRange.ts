@@ -5,7 +5,7 @@ import { TagRange } from "../../../structures/TagRange";
 export const test_json_stringify_TagRange = _test_json_stringify<TagRange>(
     TagRange,
 )((input) =>
-    ((input: IPointer<Array<TagRange.Type>>): string => {
+    ((input: TagRange): string => {
         const $io1 = (input: any): boolean =>
             "number" === typeof input.greater &&
             3 < input.greater &&

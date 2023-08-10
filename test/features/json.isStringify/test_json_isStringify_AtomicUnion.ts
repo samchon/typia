@@ -4,5 +4,5 @@ import { AtomicUnion } from "../../structures/AtomicUnion";
 
 export const test_json_isStringify_AtomicUnion =
     _test_json_isStringify<AtomicUnion>(AtomicUnion)((input) =>
-        typia.json.isStringify(input),
+        typia.json.isStringify<AtomicUnion>(input),
     );

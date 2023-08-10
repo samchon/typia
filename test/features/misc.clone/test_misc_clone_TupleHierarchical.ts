@@ -4,5 +4,5 @@ import { TupleHierarchical } from "../../structures/TupleHierarchical";
 
 export const test_misc_clone_TupleHierarchical =
     _test_misc_clone<TupleHierarchical>(TupleHierarchical)((input) =>
-        typia.misc.clone(input),
+        typia.misc.clone<TupleHierarchical>(input),
     );

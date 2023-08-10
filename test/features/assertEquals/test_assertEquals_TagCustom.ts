@@ -4,4 +4,4 @@ import { TagCustom } from "../../structures/TagCustom";
 
 export const test_assertEquals_TagCustom = _test_assertEquals<TagCustom>(
     TagCustom,
-)((input) => typia.assertEquals(input));
+)((input) => typia.assertEquals<TagCustom>(input));

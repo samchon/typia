@@ -8,7 +8,7 @@ export const test_equals_ArrayRecursiveUnionExplicit =
             ((
                 input: any,
                 _exceptionable: boolean = true,
-            ): input is Array<ArrayRecursiveUnionExplicit.IBucket> => {
+            ): input is ArrayRecursiveUnionExplicit => {
                 const $io0 = (
                     input: any,
                     _exceptionable: boolean = true,

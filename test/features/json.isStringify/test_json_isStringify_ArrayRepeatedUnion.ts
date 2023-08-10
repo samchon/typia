@@ -4,5 +4,5 @@ import { ArrayRepeatedUnion } from "../../structures/ArrayRepeatedUnion";
 
 export const test_json_isStringify_ArrayRepeatedUnion =
     _test_json_isStringify<ArrayRepeatedUnion>(ArrayRepeatedUnion)((input) =>
-        typia.json.isStringify(input),
+        typia.json.isStringify<ArrayRepeatedUnion>(input),
     );

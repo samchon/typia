@@ -4,11 +4,11 @@ import { ToJsonAtomicUnion } from "../../../structures/ToJsonAtomicUnion";
 
 export const test_assertEquals_ToJsonAtomicUnion =
     _test_assertEquals<ToJsonAtomicUnion>(ToJsonAtomicUnion)((input) =>
-        ((input: any): Array<ToJsonAtomicUnion.IToJson> => {
+        ((input: any): ToJsonAtomicUnion => {
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
-            ): input is Array<ToJsonAtomicUnion.IToJson> => {
+            ): input is ToJsonAtomicUnion => {
                 const $io0 = (
                     input: any,
                     _exceptionable: boolean = true,
@@ -37,7 +37,7 @@ export const test_assertEquals_ToJsonAtomicUnion =
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is Array<ToJsonAtomicUnion.IToJson> => {
+                ): input is ToJsonAtomicUnion => {
                     const $guard = (typia.assertEquals as any).guard;
                     const $join = (typia.assertEquals as any).join;
                     const $ao0 = (

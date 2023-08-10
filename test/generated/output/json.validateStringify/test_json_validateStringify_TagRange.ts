@@ -4,14 +4,10 @@ import { TagRange } from "../../../structures/TagRange";
 
 export const test_json_validateStringify_TagRange =
     _test_json_validateStringify<TagRange>(TagRange)((input) =>
-        ((input: IPointer<Array<TagRange.Type>>): typia.IValidation<string> => {
-            const validate = (
-                input: any,
-            ): typia.IValidation<IPointer<Array<TagRange.Type>>> => {
+        ((input: TagRange): typia.IValidation<string> => {
+            const validate = (input: any): typia.IValidation<TagRange> => {
                 const errors = [] as any[];
-                const __is = (
-                    input: any,
-                ): input is IPointer<Array<TagRange.Type>> => {
+                const __is = (input: any): input is TagRange => {
                     const $io0 = (input: any): boolean =>
                         Array.isArray(input.value) &&
                         input.value.every(
@@ -59,7 +55,7 @@ export const test_json_validateStringify_TagRange =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is IPointer<Array<TagRange.Type>> => {
+                    ): input is TagRange => {
                         const $vo0 = (
                             input: any,
                             _path: string,
@@ -278,9 +274,7 @@ export const test_json_validateStringify_TagRange =
                     data: success ? input : undefined,
                 } as any;
             };
-            const stringify = (
-                input: IPointer<Array<TagRange.Type>>,
-            ): string => {
+            const stringify = (input: TagRange): string => {
                 const $io1 = (input: any): boolean =>
                     "number" === typeof input.greater &&
                     3 < input.greater &&

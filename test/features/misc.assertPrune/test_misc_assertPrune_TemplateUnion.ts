@@ -4,5 +4,5 @@ import { TemplateUnion } from "../../structures/TemplateUnion";
 
 export const test_misc_assertPrune_TemplateUnion =
     _test_misc_assertPrune<TemplateUnion>(TemplateUnion)((input) =>
-        typia.misc.assertPrune(input),
+        typia.misc.assertPrune<TemplateUnion>(input),
     );

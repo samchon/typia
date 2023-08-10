@@ -4,4 +4,4 @@ import { SetUnion } from "../../structures/SetUnion";
 
 export const test_misc_assertClone_SetUnion = _test_misc_assertClone<SetUnion>(
     SetUnion,
-)((input) => typia.misc.assertClone(input));
+)((input) => typia.misc.assertClone<SetUnion>(input));

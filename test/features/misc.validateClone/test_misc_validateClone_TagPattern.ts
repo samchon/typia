@@ -4,5 +4,5 @@ import { TagPattern } from "../../structures/TagPattern";
 
 export const test_misc_validateClone_TagPattern =
     _test_misc_validateClone<TagPattern>(TagPattern)((input) =>
-        typia.misc.validateClone(input),
+        typia.misc.validateClone<TagPattern>(input),
     );

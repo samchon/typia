@@ -4,5 +4,5 @@ import { ObjectUndefined } from "../../structures/ObjectUndefined";
 
 export const test_json_stringify_ObjectUndefined =
     _test_json_stringify<ObjectUndefined>(ObjectUndefined)((input) =>
-        typia.json.stringify(input),
+        typia.json.stringify<ObjectUndefined>(input),
     );

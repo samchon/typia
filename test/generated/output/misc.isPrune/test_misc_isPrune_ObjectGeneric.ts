@@ -4,20 +4,8 @@ import { ObjectGeneric } from "../../../structures/ObjectGeneric";
 
 export const test_misc_isPrune_ObjectGeneric =
     _test_misc_isPrune<ObjectGeneric>(ObjectGeneric)((input) =>
-        ((
-            input: any,
-        ): input is [
-            ObjectGeneric.ISomething<boolean>,
-            ObjectGeneric.ISomething<number>,
-            ObjectGeneric.ISomething<string>,
-        ] => {
-            const is = (
-                input: any,
-            ): input is [
-                ObjectGeneric.ISomething<boolean>,
-                ObjectGeneric.ISomething<number>,
-                ObjectGeneric.ISomething<string>,
-            ] => {
+        ((input: any): input is ObjectGeneric => {
+            const is = (input: any): input is ObjectGeneric => {
                 const $io0 = (input: any): boolean =>
                     "boolean" === typeof input.value &&
                     "object" === typeof input.child &&
@@ -85,13 +73,7 @@ export const test_misc_isPrune_ObjectGeneric =
                     $io4(input[2])
                 );
             };
-            const prune = (
-                input: [
-                    ObjectGeneric.ISomething<boolean>,
-                    ObjectGeneric.ISomething<number>,
-                    ObjectGeneric.ISomething<string>,
-                ],
-            ): void => {
+            const prune = (input: ObjectGeneric): void => {
                 const $io0 = (input: any): boolean =>
                     "boolean" === typeof input.value &&
                     "object" === typeof input.child &&

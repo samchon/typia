@@ -4,5 +4,5 @@ import { DynamicConstant } from "../../structures/DynamicConstant";
 
 export const test_json_validateStringify_DynamicConstant =
     _test_json_validateStringify<DynamicConstant>(DynamicConstant)((input) =>
-        typia.json.validateStringify(input),
+        typia.json.validateStringify<DynamicConstant>(input),
     );

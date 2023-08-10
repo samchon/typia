@@ -4,5 +4,5 @@ import { DynamicSimple } from "../../structures/DynamicSimple";
 
 export const test_misc_isClone_DynamicSimple =
     _test_misc_isClone<DynamicSimple>(DynamicSimple)((input) =>
-        typia.misc.isClone(input),
+        typia.misc.isClone<DynamicSimple>(input),
     );

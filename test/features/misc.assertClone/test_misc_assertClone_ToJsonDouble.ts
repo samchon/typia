@@ -4,5 +4,5 @@ import { ToJsonDouble } from "../../structures/ToJsonDouble";
 
 export const test_misc_assertClone_ToJsonDouble =
     _test_misc_assertClone<ToJsonDouble>(ToJsonDouble)((input) =>
-        typia.misc.assertClone(input),
+        typia.misc.assertClone<ToJsonDouble>(input),
     );

@@ -5,17 +5,11 @@ import { ArrayHierarchicalPointer } from "../../../structures/ArrayHierarchicalP
 export const test_misc_assertPrune_ArrayHierarchicalPointer =
     _test_misc_assertPrune<ArrayHierarchicalPointer>(ArrayHierarchicalPointer)(
         (input) =>
-            ((
-                input: any,
-            ): IPointer<Array<ArrayHierarchicalPointer.ICompany>> => {
-                const assert = (
-                    input: any,
-                ): IPointer<Array<ArrayHierarchicalPointer.ICompany>> => {
+            ((input: any): ArrayHierarchicalPointer => {
+                const assert = (input: any): ArrayHierarchicalPointer => {
                     const __is = (
                         input: any,
-                    ): input is IPointer<
-                        Array<ArrayHierarchicalPointer.ICompany>
-                    > => {
+                    ): input is ArrayHierarchicalPointer => {
                         const $io0 = (input: any): boolean =>
                             Array.isArray(input.value) &&
                             input.value.every(
@@ -97,9 +91,7 @@ export const test_misc_assertPrune_ArrayHierarchicalPointer =
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
-                        ): input is IPointer<
-                            Array<ArrayHierarchicalPointer.ICompany>
-                        > => {
+                        ): input is ArrayHierarchicalPointer => {
                             const $guard = (typia.misc.assertPrune as any)
                                 .guard;
                             const $ao0 = (
@@ -421,9 +413,7 @@ export const test_misc_assertPrune_ArrayHierarchicalPointer =
                         })(input, "$input", true);
                     return input;
                 };
-                const prune = (
-                    input: IPointer<Array<ArrayHierarchicalPointer.ICompany>>,
-                ): void => {
+                const prune = (input: ArrayHierarchicalPointer): void => {
                     const $io1 = (input: any): boolean =>
                         "number" === typeof input.id &&
                         "number" === typeof input.serial &&

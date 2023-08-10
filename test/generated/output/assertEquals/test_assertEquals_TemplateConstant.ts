@@ -4,11 +4,11 @@ import { TemplateConstant } from "../../../structures/TemplateConstant";
 
 export const test_assertEquals_TemplateConstant =
     _test_assertEquals<TemplateConstant>(TemplateConstant)((input) =>
-        ((input: any): IPointer<Array<TemplateConstant.Type>> => {
+        ((input: any): TemplateConstant => {
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
-            ): input is IPointer<Array<TemplateConstant.Type>> => {
+            ): input is TemplateConstant => {
                 const $io0 = (
                     input: any,
                     _exceptionable: boolean = true,
@@ -70,7 +70,7 @@ export const test_assertEquals_TemplateConstant =
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is IPointer<Array<TemplateConstant.Type>> => {
+                ): input is TemplateConstant => {
                     const $guard = (typia.assertEquals as any).guard;
                     const $join = (typia.assertEquals as any).join;
                     const $ao0 = (

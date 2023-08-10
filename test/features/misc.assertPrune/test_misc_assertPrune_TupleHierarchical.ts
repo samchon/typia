@@ -4,5 +4,5 @@ import { TupleHierarchical } from "../../structures/TupleHierarchical";
 
 export const test_misc_assertPrune_TupleHierarchical =
     _test_misc_assertPrune<TupleHierarchical>(TupleHierarchical)((input) =>
-        typia.misc.assertPrune(input),
+        typia.misc.assertPrune<TupleHierarchical>(input),
     );

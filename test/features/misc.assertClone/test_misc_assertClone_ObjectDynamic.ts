@@ -4,5 +4,5 @@ import { ObjectDynamic } from "../../structures/ObjectDynamic";
 
 export const test_misc_assertClone_ObjectDynamic =
     _test_misc_assertClone<ObjectDynamic>(ObjectDynamic)((input) =>
-        typia.misc.assertClone(input),
+        typia.misc.assertClone<ObjectDynamic>(input),
     );

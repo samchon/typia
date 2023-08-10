@@ -5,7 +5,7 @@ import { ConstantAtomicSimple } from "../../../structures/ConstantAtomicSimple";
 export const test_is_ConstantAtomicSimple = _test_is<ConstantAtomicSimple>(
     ConstantAtomicSimple,
 )((input) =>
-    ((input: any): input is [false, true, 2, "three"] => {
+    ((input: any): input is ConstantAtomicSimple => {
         return (
             Array.isArray(input) &&
             input.length === 4 &&

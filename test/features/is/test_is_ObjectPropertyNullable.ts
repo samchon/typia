@@ -4,4 +4,4 @@ import { ObjectPropertyNullable } from "../../structures/ObjectPropertyNullable"
 
 export const test_is_ObjectPropertyNullable = _test_is<ObjectPropertyNullable>(
     ObjectPropertyNullable,
-)((input) => typia.is(input));
+)((input) => typia.is<ObjectPropertyNullable>(input));

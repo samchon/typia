@@ -5,4 +5,6 @@ import { ArrayRecursiveUnionImplicit } from "../../structures/ArrayRecursiveUnio
 export const test_json_assertStringify_ArrayRecursiveUnionImplicit =
     _test_json_assertStringify<ArrayRecursiveUnionImplicit>(
         ArrayRecursiveUnionImplicit,
-    )((input) => typia.json.assertStringify(input));
+    )((input) =>
+        typia.json.assertStringify<ArrayRecursiveUnionImplicit>(input),
+    );

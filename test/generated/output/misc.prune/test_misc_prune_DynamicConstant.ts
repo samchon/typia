@@ -4,9 +4,7 @@ import { DynamicConstant } from "../../../structures/DynamicConstant";
 
 export const test_misc_prune_DynamicConstant =
     _test_misc_prune<DynamicConstant>(DynamicConstant)((input) =>
-        ((
-            input: IPointer<{ a: number; b: number; c: number; d: number }>,
-        ): void => {
+        ((input: DynamicConstant): void => {
             const $io1 = (input: any): boolean =>
                 "number" === typeof input.a &&
                 "number" === typeof input.b &&

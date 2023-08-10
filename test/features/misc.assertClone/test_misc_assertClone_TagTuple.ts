@@ -4,4 +4,4 @@ import { TagTuple } from "../../structures/TagTuple";
 
 export const test_misc_assertClone_TagTuple = _test_misc_assertClone<TagTuple>(
     TagTuple,
-)((input) => typia.misc.assertClone(input));
+)((input) => typia.misc.assertClone<TagTuple>(input));

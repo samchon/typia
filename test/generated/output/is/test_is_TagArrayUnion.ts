@@ -4,7 +4,7 @@ import { TagArrayUnion } from "../../../structures/TagArrayUnion";
 
 export const test_is_TagArrayUnion = _test_is<TagArrayUnion>(TagArrayUnion)(
     (input) =>
-        ((input: any): input is Array<TagArrayUnion.Type> => {
+        ((input: any): input is TagArrayUnion => {
             const $is_uuid = (typia.is as any).is_uuid;
             const $io0 = (input: any): boolean =>
                 Array.isArray(input.items) &&

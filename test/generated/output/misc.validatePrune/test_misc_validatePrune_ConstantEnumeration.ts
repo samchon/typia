@@ -5,18 +5,12 @@ import { ConstantEnumeration } from "../../../structures/ConstantEnumeration";
 export const test_misc_validatePrune_ConstantEnumeration =
     _test_misc_validatePrune<ConstantEnumeration>(ConstantEnumeration)(
         (input) =>
-            ((
-                input: any,
-            ): typia.IValidation<Array<ConstantEnumeration.Enumeration>> => {
+            ((input: any): typia.IValidation<ConstantEnumeration> => {
                 const validate = (
                     input: any,
-                ): typia.IValidation<
-                    Array<ConstantEnumeration.Enumeration>
-                > => {
+                ): typia.IValidation<ConstantEnumeration> => {
                     const errors = [] as any[];
-                    const __is = (
-                        input: any,
-                    ): input is Array<ConstantEnumeration.Enumeration> => {
+                    const __is = (input: any): input is ConstantEnumeration => {
                         return (
                             Array.isArray(input) &&
                             input.every(
@@ -37,7 +31,7 @@ export const test_misc_validatePrune_ConstantEnumeration =
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
-                        ): input is Array<ConstantEnumeration.Enumeration> => {
+                        ): input is ConstantEnumeration => {
                             return (
                                 ((Array.isArray(input) ||
                                     $report(true, {
@@ -80,9 +74,7 @@ export const test_misc_validatePrune_ConstantEnumeration =
                         data: success ? input : undefined,
                     } as any;
                 };
-                const prune = (
-                    input: Array<ConstantEnumeration.Enumeration>,
-                ): void => {};
+                const prune = (input: ConstantEnumeration): void => {};
                 const output = validate(input);
                 if (output.success) prune(input);
                 return output;

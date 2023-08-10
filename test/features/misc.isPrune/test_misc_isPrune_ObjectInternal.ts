@@ -4,5 +4,5 @@ import { ObjectInternal } from "../../structures/ObjectInternal";
 
 export const test_misc_isPrune_ObjectInternal =
     _test_misc_isPrune<ObjectInternal>(ObjectInternal)((input) =>
-        typia.misc.isPrune(input),
+        typia.misc.isPrune<ObjectInternal>(input),
     );

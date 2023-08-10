@@ -4,5 +4,5 @@ import { ObjectGeneric } from "../../structures/ObjectGeneric";
 
 export const test_misc_assertPrune_ObjectGeneric =
     _test_misc_assertPrune<ObjectGeneric>(ObjectGeneric)((input) =>
-        typia.misc.assertPrune(input),
+        typia.misc.assertPrune<ObjectGeneric>(input),
     );

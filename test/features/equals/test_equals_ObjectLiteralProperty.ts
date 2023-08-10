@@ -4,5 +4,5 @@ import { ObjectLiteralProperty } from "../../structures/ObjectLiteralProperty";
 
 export const test_equals_ObjectLiteralProperty =
     _test_equals<ObjectLiteralProperty>(ObjectLiteralProperty)((input) =>
-        typia.equals(input),
+        typia.equals<ObjectLiteralProperty>(input),
     );

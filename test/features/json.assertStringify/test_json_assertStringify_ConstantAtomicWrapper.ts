@@ -4,5 +4,5 @@ import { ConstantAtomicWrapper } from "../../structures/ConstantAtomicWrapper";
 
 export const test_json_assertStringify_ConstantAtomicWrapper =
     _test_json_assertStringify<ConstantAtomicWrapper>(ConstantAtomicWrapper)(
-        (input) => typia.json.assertStringify(input),
+        (input) => typia.json.assertStringify<ConstantAtomicWrapper>(input),
     );

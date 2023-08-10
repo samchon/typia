@@ -4,4 +4,4 @@ import { TagMatrix } from "../../structures/TagMatrix";
 
 export const test_misc_isPrune_TagMatrix = _test_misc_isPrune<TagMatrix>(
     TagMatrix,
-)((input) => typia.misc.isPrune(input));
+)((input) => typia.misc.isPrune<TagMatrix>(input));

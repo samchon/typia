@@ -4,8 +4,8 @@ import { ConstantAtomicSimple } from "../../../structures/ConstantAtomicSimple";
 
 export const test_misc_isPrune_ConstantAtomicSimple =
     _test_misc_isPrune<ConstantAtomicSimple>(ConstantAtomicSimple)((input) =>
-        ((input: any): input is [false, true, 2, "three"] => {
-            const is = (input: any): input is [false, true, 2, "three"] => {
+        ((input: any): input is ConstantAtomicSimple => {
+            const is = (input: any): input is ConstantAtomicSimple => {
                 return (
                     Array.isArray(input) &&
                     input.length === 4 &&
@@ -15,7 +15,7 @@ export const test_misc_isPrune_ConstantAtomicSimple =
                     "three" === input[3]
                 );
             };
-            const prune = (input: [false, true, 2, "three"]): void => {};
+            const prune = (input: ConstantAtomicSimple): void => {};
             if (!is(input)) return false;
             prune(input);
             return true;

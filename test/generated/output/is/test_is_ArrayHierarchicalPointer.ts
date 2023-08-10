@@ -4,9 +4,7 @@ import { ArrayHierarchicalPointer } from "../../../structures/ArrayHierarchicalP
 
 export const test_is_ArrayHierarchicalPointer =
     _test_is<ArrayHierarchicalPointer>(ArrayHierarchicalPointer)((input) =>
-        ((
-            input: any,
-        ): input is IPointer<Array<ArrayHierarchicalPointer.ICompany>> => {
+        ((input: any): input is ArrayHierarchicalPointer => {
             const $io0 = (input: any): boolean =>
                 Array.isArray(input.value) &&
                 input.value.every(

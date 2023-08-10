@@ -7,11 +7,7 @@ export const test_equals_ConstantIntersection =
         ((
             input: any,
             _exceptionable: boolean = true,
-        ): input is [
-            ConstantIntersection.Wrapper<false>,
-            ConstantIntersection.Wrapper<1>,
-            ConstantIntersection.Wrapper<"two">,
-        ] => {
+        ): input is ConstantIntersection => {
             return (
                 Array.isArray(input) &&
                 input.length === 3 &&

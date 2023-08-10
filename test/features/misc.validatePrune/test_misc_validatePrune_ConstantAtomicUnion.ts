@@ -4,5 +4,5 @@ import { ConstantAtomicUnion } from "../../structures/ConstantAtomicUnion";
 
 export const test_misc_validatePrune_ConstantAtomicUnion =
     _test_misc_validatePrune<ConstantAtomicUnion>(ConstantAtomicUnion)(
-        (input) => typia.misc.validatePrune(input),
+        (input) => typia.misc.validatePrune<ConstantAtomicUnion>(input),
     );

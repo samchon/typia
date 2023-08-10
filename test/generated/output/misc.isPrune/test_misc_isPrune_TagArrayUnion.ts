@@ -4,8 +4,8 @@ import { TagArrayUnion } from "../../../structures/TagArrayUnion";
 
 export const test_misc_isPrune_TagArrayUnion =
     _test_misc_isPrune<TagArrayUnion>(TagArrayUnion)((input) =>
-        ((input: any): input is Array<TagArrayUnion.Type> => {
-            const is = (input: any): input is Array<TagArrayUnion.Type> => {
+        ((input: any): input is TagArrayUnion => {
+            const is = (input: any): input is TagArrayUnion => {
                 const $is_uuid = (typia.misc.isPrune as any).is_uuid;
                 const $io0 = (input: any): boolean =>
                     Array.isArray(input.items) &&
@@ -48,7 +48,7 @@ export const test_misc_isPrune_TagArrayUnion =
                     )
                 );
             };
-            const prune = (input: Array<TagArrayUnion.Type>): void => {
+            const prune = (input: TagArrayUnion): void => {
                 const $is_uuid = (typia.misc.isPrune as any).is_uuid;
                 const $pp0 = (input: any) =>
                     input.forEach((elem: any) => {

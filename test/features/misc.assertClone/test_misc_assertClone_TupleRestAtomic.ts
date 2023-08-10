@@ -4,5 +4,5 @@ import { TupleRestAtomic } from "../../structures/TupleRestAtomic";
 
 export const test_misc_assertClone_TupleRestAtomic =
     _test_misc_assertClone<TupleRestAtomic>(TupleRestAtomic)((input) =>
-        typia.misc.assertClone(input),
+        typia.misc.assertClone<TupleRestAtomic>(input),
     );

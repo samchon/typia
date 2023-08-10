@@ -4,4 +4,4 @@ import { TagStep } from "../../structures/TagStep";
 
 export const test_json_isStringify_TagStep = _test_json_isStringify<TagStep>(
     TagStep,
-)((input) => typia.json.isStringify(input));
+)((input) => typia.json.isStringify<TagStep>(input));

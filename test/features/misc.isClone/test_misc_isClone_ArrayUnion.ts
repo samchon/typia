@@ -4,4 +4,4 @@ import { ArrayUnion } from "../../structures/ArrayUnion";
 
 export const test_misc_isClone_ArrayUnion = _test_misc_isClone<ArrayUnion>(
     ArrayUnion,
-)((input) => typia.misc.isClone(input));
+)((input) => typia.misc.isClone<ArrayUnion>(input));

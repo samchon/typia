@@ -5,11 +5,11 @@ import { ObjectAlias } from "../../../structures/ObjectAlias";
 export const test_assertEquals_ObjectAlias = _test_assertEquals<ObjectAlias>(
     ObjectAlias,
 )((input) =>
-    ((input: any): Array<ObjectAlias.IMember> => {
+    ((input: any): ObjectAlias => {
         const __is = (
             input: any,
             _exceptionable: boolean = true,
-        ): input is Array<ObjectAlias.IMember> => {
+        ): input is ObjectAlias => {
             const $io0 = (
                 input: any,
                 _exceptionable: boolean = true,
@@ -53,7 +53,7 @@ export const test_assertEquals_ObjectAlias = _test_assertEquals<ObjectAlias>(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is Array<ObjectAlias.IMember> => {
+            ): input is ObjectAlias => {
                 const $guard = (typia.assertEquals as any).guard;
                 const $join = (typia.assertEquals as any).join;
                 const $ao0 = (

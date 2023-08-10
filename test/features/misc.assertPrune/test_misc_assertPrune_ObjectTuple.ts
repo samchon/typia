@@ -4,5 +4,5 @@ import { ObjectTuple } from "../../structures/ObjectTuple";
 
 export const test_misc_assertPrune_ObjectTuple =
     _test_misc_assertPrune<ObjectTuple>(ObjectTuple)((input) =>
-        typia.misc.assertPrune(input),
+        typia.misc.assertPrune<ObjectTuple>(input),
     );

@@ -5,12 +5,8 @@ import { ObjectNullable } from "../../../structures/ObjectNullable";
 export const test_json_assertStringify_ObjectNullable =
     _test_json_assertStringify<ObjectNullable>(ObjectNullable)((input) =>
         ((input: any): string => {
-            const assert = (
-                input: any,
-            ): IPointer<Array<ObjectNullable.IProduct>> => {
-                const __is = (
-                    input: any,
-                ): input is IPointer<Array<ObjectNullable.IProduct>> => {
+            const assert = (input: any): ObjectNullable => {
+                const __is = (input: any): input is ObjectNullable => {
                     const $io0 = (input: any): boolean =>
                         Array.isArray(input.value) &&
                         input.value.every(
@@ -56,7 +52,7 @@ export const test_json_assertStringify_ObjectNullable =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is IPointer<Array<ObjectNullable.IProduct>> => {
+                    ): input is ObjectNullable => {
                         const $guard = (typia.json.assertStringify as any)
                             .guard;
                         const $ao0 = (
@@ -250,9 +246,7 @@ export const test_json_assertStringify_ObjectNullable =
                     })(input, "$input", true);
                 return input;
             };
-            const stringify = (
-                input: IPointer<Array<ObjectNullable.IProduct>>,
-            ): string => {
+            const stringify = (input: ObjectNullable): string => {
                 const $io1 = (input: any): boolean =>
                     "string" === typeof input.name &&
                     "object" === typeof input.manufacturer &&

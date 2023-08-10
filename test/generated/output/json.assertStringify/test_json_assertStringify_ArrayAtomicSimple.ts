@@ -5,12 +5,8 @@ import { ArrayAtomicSimple } from "../../../structures/ArrayAtomicSimple";
 export const test_json_assertStringify_ArrayAtomicSimple =
     _test_json_assertStringify<ArrayAtomicSimple>(ArrayAtomicSimple)((input) =>
         ((input: any): string => {
-            const assert = (
-                input: any,
-            ): [Array<boolean>, Array<number>, Array<string>] => {
-                const __is = (
-                    input: any,
-                ): input is [Array<boolean>, Array<number>, Array<string>] => {
+            const assert = (input: any): ArrayAtomicSimple => {
+                const __is = (input: any): input is ArrayAtomicSimple => {
                     return (
                         Array.isArray(input) &&
                         input.length === 3 &&
@@ -33,11 +29,7 @@ export const test_json_assertStringify_ArrayAtomicSimple =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is [
-                        Array<boolean>,
-                        Array<number>,
-                        Array<string>,
-                    ] => {
+                    ): input is ArrayAtomicSimple => {
                         const $guard = (typia.json.assertStringify as any)
                             .guard;
                         return (
@@ -136,9 +128,7 @@ export const test_json_assertStringify_ArrayAtomicSimple =
                     })(input, "$input", true);
                 return input;
             };
-            const stringify = (
-                input: [Array<boolean>, Array<number>, Array<string>],
-            ): string => {
+            const stringify = (input: ArrayAtomicSimple): string => {
                 const $number = (typia.json.assertStringify as any).number;
                 const $string = (typia.json.assertStringify as any).string;
                 return `[${`[${input[0]

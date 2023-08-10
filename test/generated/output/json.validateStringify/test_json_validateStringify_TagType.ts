@@ -4,14 +4,10 @@ import { TagType } from "../../../structures/TagType";
 
 export const test_json_validateStringify_TagType =
     _test_json_validateStringify<TagType>(TagType)((input) =>
-        ((input: IPointer<Array<TagType.Type>>): typia.IValidation<string> => {
-            const validate = (
-                input: any,
-            ): typia.IValidation<IPointer<Array<TagType.Type>>> => {
+        ((input: TagType): typia.IValidation<string> => {
+            const validate = (input: any): typia.IValidation<TagType> => {
                 const errors = [] as any[];
-                const __is = (
-                    input: any,
-                ): input is IPointer<Array<TagType.Type>> => {
+                const __is = (input: any): input is TagType => {
                     const $io0 = (input: any): boolean =>
                         Array.isArray(input.value) &&
                         input.value.every(
@@ -42,7 +38,7 @@ export const test_json_validateStringify_TagType =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is IPointer<Array<TagType.Type>> => {
+                    ): input is TagType => {
                         const $vo0 = (
                             input: any,
                             _path: string,
@@ -157,9 +153,7 @@ export const test_json_validateStringify_TagType =
                     data: success ? input : undefined,
                 } as any;
             };
-            const stringify = (
-                input: IPointer<Array<TagType.Type>>,
-            ): string => {
+            const stringify = (input: TagType): string => {
                 const $io1 = (input: any): boolean =>
                     "number" === typeof input.int &&
                     parseInt(input.int) === input.int &&

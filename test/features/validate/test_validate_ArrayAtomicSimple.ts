@@ -4,5 +4,5 @@ import { ArrayAtomicSimple } from "../../structures/ArrayAtomicSimple";
 
 export const test_validate_ArrayAtomicSimple =
     _test_validate<ArrayAtomicSimple>(ArrayAtomicSimple)((input) =>
-        typia.validate(input),
+        typia.validate<ArrayAtomicSimple>(input),
     );

@@ -5,8 +5,8 @@ import { TupleUnion } from "../../../structures/TupleUnion";
 export const test_misc_isPrune_TupleUnion = _test_misc_isPrune<TupleUnion>(
     TupleUnion,
 )((input) =>
-    ((input: any): input is Array<TupleUnion.Union> => {
-        const is = (input: any): input is Array<TupleUnion.Union> => {
+    ((input: any): input is TupleUnion => {
+        const is = (input: any): input is TupleUnion => {
             const $ip0 = (input: any) => {
                 const array = input;
                 const tuplePredicators = [
@@ -52,7 +52,7 @@ export const test_misc_isPrune_TupleUnion = _test_misc_isPrune<TupleUnion>(
                 )
             );
         };
-        const prune = (input: Array<TupleUnion.Union>): void => {};
+        const prune = (input: TupleUnion): void => {};
         if (!is(input)) return false;
         prune(input);
         return true;

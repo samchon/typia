@@ -4,5 +4,5 @@ import { ArraySimplePointer } from "../../structures/ArraySimplePointer";
 
 export const test_misc_validateClone_ArraySimplePointer =
     _test_misc_validateClone<ArraySimplePointer>(ArraySimplePointer)((input) =>
-        typia.misc.validateClone(input),
+        typia.misc.validateClone<ArraySimplePointer>(input),
     );

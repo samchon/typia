@@ -4,7 +4,7 @@ import { ConstantAtomicSimple } from "../../../structures/ConstantAtomicSimple";
 
 export const test_json_stringify_ConstantAtomicSimple =
     _test_json_stringify<ConstantAtomicSimple>(ConstantAtomicSimple)((input) =>
-        ((input: [false, true, 2, "three"]): string => {
+        ((input: ConstantAtomicSimple): string => {
             const $number = (typia.json.stringify as any).number;
             const $string = (typia.json.stringify as any).string;
             const $throws = (typia.json.stringify as any).throws;

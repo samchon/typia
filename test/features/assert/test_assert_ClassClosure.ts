@@ -4,4 +4,4 @@ import { ClassClosure } from "../../structures/ClassClosure";
 
 export const test_assert_ClassClosure = _test_assert<ClassClosure>(
     ClassClosure,
-)((input) => typia.assert(input));
+)((input) => typia.assert<ClassClosure>(input));

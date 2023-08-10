@@ -4,14 +4,10 @@ import { AtomicUnion } from "../../../structures/AtomicUnion";
 
 export const test_misc_validatePrune_AtomicUnion =
     _test_misc_validatePrune<AtomicUnion>(AtomicUnion)((input) =>
-        ((input: any): typia.IValidation<Array<AtomicUnion.Union>> => {
-            const validate = (
-                input: any,
-            ): typia.IValidation<Array<AtomicUnion.Union>> => {
+        ((input: any): typia.IValidation<AtomicUnion> => {
+            const validate = (input: any): typia.IValidation<AtomicUnion> => {
                 const errors = [] as any[];
-                const __is = (
-                    input: any,
-                ): input is Array<AtomicUnion.Union> => {
+                const __is = (input: any): input is AtomicUnion => {
                     return (
                         Array.isArray(input) &&
                         input.every(
@@ -32,7 +28,7 @@ export const test_misc_validatePrune_AtomicUnion =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is Array<AtomicUnion.Union> => {
+                    ): input is AtomicUnion => {
                         return (
                             ((Array.isArray(input) ||
                                 $report(true, {
@@ -72,7 +68,7 @@ export const test_misc_validatePrune_AtomicUnion =
                     data: success ? input : undefined,
                 } as any;
             };
-            const prune = (input: Array<AtomicUnion.Union>): void => {};
+            const prune = (input: AtomicUnion): void => {};
             const output = validate(input);
             if (output.success) prune(input);
             return output;

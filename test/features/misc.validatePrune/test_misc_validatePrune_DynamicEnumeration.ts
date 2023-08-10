@@ -4,5 +4,5 @@ import { DynamicEnumeration } from "../../structures/DynamicEnumeration";
 
 export const test_misc_validatePrune_DynamicEnumeration =
     _test_misc_validatePrune<DynamicEnumeration>(DynamicEnumeration)((input) =>
-        typia.misc.validatePrune(input),
+        typia.misc.validatePrune<DynamicEnumeration>(input),
     );

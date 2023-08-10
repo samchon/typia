@@ -4,5 +4,5 @@ import { ObjectGenericAlias } from "../../structures/ObjectGenericAlias";
 
 export const test_misc_clone_ObjectGenericAlias =
     _test_misc_clone<ObjectGenericAlias>(ObjectGenericAlias)((input) =>
-        typia.misc.clone(input),
+        typia.misc.clone<ObjectGenericAlias>(input),
     );

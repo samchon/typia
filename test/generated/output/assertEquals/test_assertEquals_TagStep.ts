@@ -4,11 +4,11 @@ import { TagStep } from "../../../structures/TagStep";
 
 export const test_assertEquals_TagStep = _test_assertEquals<TagStep>(TagStep)(
     (input) =>
-        ((input: any): IPointer<Array<TagStep.Type>> => {
+        ((input: any): TagStep => {
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
-            ): input is IPointer<Array<TagStep.Type>> => {
+            ): input is TagStep => {
                 const $io0 = (
                     input: any,
                     _exceptionable: boolean = true,
@@ -72,7 +72,7 @@ export const test_assertEquals_TagStep = _test_assertEquals<TagStep>(TagStep)(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is IPointer<Array<TagStep.Type>> => {
+                ): input is TagStep => {
                     const $guard = (typia.assertEquals as any).guard;
                     const $join = (typia.assertEquals as any).join;
                     const $ao0 = (

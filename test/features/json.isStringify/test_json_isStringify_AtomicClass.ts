@@ -4,5 +4,5 @@ import { AtomicClass } from "../../structures/AtomicClass";
 
 export const test_json_isStringify_AtomicClass =
     _test_json_isStringify<AtomicClass>(AtomicClass)((input) =>
-        typia.json.isStringify(input),
+        typia.json.isStringify<AtomicClass>(input),
     );

@@ -4,26 +4,8 @@ import { ToJsonUnion } from "../../../structures/ToJsonUnion";
 
 export const test_json_isStringify_ToJsonUnion =
     _test_json_isStringify<ToJsonUnion>(ToJsonUnion)((input) =>
-        ((
-            input: Array<
-                | string
-                | number
-                | ToJsonUnion.ICitizen
-                | ToJsonUnion.IWrapper<boolean>
-                | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen>
-                | ToJsonUnion.IWrapper<ToJsonUnion.IProduct>
-            >,
-        ): string | null => {
-            const is = (
-                input: any,
-            ): input is Array<
-                | string
-                | number
-                | ToJsonUnion.ICitizen
-                | ToJsonUnion.IWrapper<boolean>
-                | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen>
-                | ToJsonUnion.IWrapper<ToJsonUnion.IProduct>
-            > => {
+        ((input: ToJsonUnion): string | null => {
+            const is = (input: any): input is ToJsonUnion => {
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.id &&
                     Number.isFinite(input.id) &&
@@ -57,16 +39,7 @@ export const test_json_isStringify_ToJsonUnion =
                     )
                 );
             };
-            const stringify = (
-                input: Array<
-                    | string
-                    | number
-                    | ToJsonUnion.ICitizen
-                    | ToJsonUnion.IWrapper<boolean>
-                    | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen>
-                    | ToJsonUnion.IWrapper<ToJsonUnion.IProduct>
-                >,
-            ): string => {
+            const stringify = (input: ToJsonUnion): string => {
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.id &&
                     "string" === typeof input.mobile &&

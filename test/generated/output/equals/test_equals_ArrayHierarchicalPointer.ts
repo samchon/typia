@@ -7,7 +7,7 @@ export const test_equals_ArrayHierarchicalPointer =
         ((
             input: any,
             _exceptionable: boolean = true,
-        ): input is IPointer<Array<ArrayHierarchicalPointer.ICompany>> => {
+        ): input is ArrayHierarchicalPointer => {
             const $io0 = (
                 input: any,
                 _exceptionable: boolean = true,

@@ -4,13 +4,9 @@ import { ArraySimplePointer } from "../../../structures/ArraySimplePointer";
 
 export const test_validate_ArraySimplePointer =
     _test_validate<ArraySimplePointer>(ArraySimplePointer)((input) =>
-        ((
-            input: any,
-        ): typia.IValidation<IPointer<Array<ArraySimplePointer.IPerson>>> => {
+        ((input: any): typia.IValidation<ArraySimplePointer> => {
             const errors = [] as any[];
-            const __is = (
-                input: any,
-            ): input is IPointer<Array<ArraySimplePointer.IPerson>> => {
+            const __is = (input: any): input is ArraySimplePointer => {
                 const $io0 = (input: any): boolean =>
                     Array.isArray(input.value) &&
                     input.value.every(
@@ -44,7 +40,7 @@ export const test_validate_ArraySimplePointer =
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is IPointer<Array<ArraySimplePointer.IPerson>> => {
+                ): input is ArraySimplePointer => {
                     const $vo0 = (
                         input: any,
                         _path: string,

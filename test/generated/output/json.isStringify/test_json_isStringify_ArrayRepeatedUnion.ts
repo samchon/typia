@@ -4,22 +4,8 @@ import { ArrayRepeatedUnion } from "../../../structures/ArrayRepeatedUnion";
 
 export const test_json_isStringify_ArrayRepeatedUnion =
     _test_json_isStringify<ArrayRepeatedUnion>(ArrayRepeatedUnion)((input) =>
-        ((
-            input:
-                | number
-                | boolean
-                | Array<string>
-                | Array<ArrayRepeatedUnion>
-                | Array<ArrayRepeatedUnion.IBox3D>,
-        ): string | null => {
-            const is = (
-                input: any,
-            ): input is
-                | number
-                | boolean
-                | Array<string>
-                | Array<ArrayRepeatedUnion>
-                | Array<ArrayRepeatedUnion.IBox3D> => {
+        ((input: ArrayRepeatedUnion): string | null => {
+            const is = (input: any): input is ArrayRepeatedUnion => {
                 const $ip0 = (input: any) => {
                     const array = input;
                     const top = input[0];
@@ -122,14 +108,7 @@ export const test_json_isStringify_ArrayRepeatedUnion =
                         (Array.isArray(input) && ($ip0(input) || false)))
                 );
             };
-            const stringify = (
-                input:
-                    | number
-                    | boolean
-                    | Array<string>
-                    | Array<ArrayRepeatedUnion>
-                    | Array<ArrayRepeatedUnion.IBox3D>,
-            ): string => {
+            const stringify = (input: ArrayRepeatedUnion): string => {
                 const $io0 = (input: any): boolean =>
                     "object" === typeof input.scale &&
                     null !== input.scale &&

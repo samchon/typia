@@ -4,20 +4,12 @@ import { TupleRestObject } from "../../../structures/TupleRestObject";
 
 export const test_misc_validatePrune_TupleRestObject =
     _test_misc_validatePrune<TupleRestObject>(TupleRestObject)((input) =>
-        ((
-            input: any,
-        ): typia.IValidation<
-            [boolean, number, ...TupleRestObject.IObject[]]
-        > => {
+        ((input: any): typia.IValidation<TupleRestObject> => {
             const validate = (
                 input: any,
-            ): typia.IValidation<
-                [boolean, number, ...TupleRestObject.IObject[]]
-            > => {
+            ): typia.IValidation<TupleRestObject> => {
                 const errors = [] as any[];
-                const __is = (
-                    input: any,
-                ): input is [boolean, number, ...TupleRestObject.IObject[]] => {
+                const __is = (input: any): input is TupleRestObject => {
                     const $io0 = (input: any): boolean =>
                         "string" === typeof input.value;
                     return (
@@ -44,11 +36,7 @@ export const test_misc_validatePrune_TupleRestObject =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is [
-                        boolean,
-                        number,
-                        ...TupleRestObject.IObject[],
-                    ] => {
+                    ): input is TupleRestObject => {
                         const $vo0 = (
                             input: any,
                             _path: string,
@@ -146,9 +134,7 @@ export const test_misc_validatePrune_TupleRestObject =
                     data: success ? input : undefined,
                 } as any;
             };
-            const prune = (
-                input: [boolean, number, ...TupleRestObject.IObject[]],
-            ): void => {
+            const prune = (input: TupleRestObject): void => {
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.value;
                 const $pp0 = (input: any) =>

@@ -4,5 +4,5 @@ import { ObjectAlias } from "../../structures/ObjectAlias";
 
 export const test_misc_validatePrune_ObjectAlias =
     _test_misc_validatePrune<ObjectAlias>(ObjectAlias)((input) =>
-        typia.misc.validatePrune(input),
+        typia.misc.validatePrune<ObjectAlias>(input),
     );

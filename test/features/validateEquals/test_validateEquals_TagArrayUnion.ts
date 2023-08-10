@@ -4,5 +4,5 @@ import { TagArrayUnion } from "../../structures/TagArrayUnion";
 
 export const test_validateEquals_TagArrayUnion =
     _test_validateEquals<TagArrayUnion>(TagArrayUnion)((input) =>
-        typia.validateEquals(input),
+        typia.validateEquals<TagArrayUnion>(input),
     );

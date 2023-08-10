@@ -4,5 +4,5 @@ import { ArrayUnion } from "../../structures/ArrayUnion";
 
 export const test_json_assertStringify_ArrayUnion =
     _test_json_assertStringify<ArrayUnion>(ArrayUnion)((input) =>
-        typia.json.assertStringify(input),
+        typia.json.assertStringify<ArrayUnion>(input),
     );

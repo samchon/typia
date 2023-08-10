@@ -6,15 +6,11 @@ export const test_misc_assertClone_ArrayRecursiveUnionExplicit =
     _test_misc_assertClone<ArrayRecursiveUnionExplicit>(
         ArrayRecursiveUnionExplicit,
     )((input) =>
-        ((
-            input: any,
-        ): typia.Primitive<Array<ArrayRecursiveUnionExplicit.IBucket>> => {
-            const assert = (
-                input: any,
-            ): Array<ArrayRecursiveUnionExplicit.IBucket> => {
+        ((input: any): typia.Primitive<ArrayRecursiveUnionExplicit> => {
+            const assert = (input: any): ArrayRecursiveUnionExplicit => {
                 const __is = (
                     input: any,
-                ): input is Array<ArrayRecursiveUnionExplicit.IBucket> => {
+                ): input is ArrayRecursiveUnionExplicit => {
                     const $io0 = (input: any): boolean =>
                         "number" === typeof input.id &&
                         Number.isFinite(input.id) &&
@@ -97,7 +93,7 @@ export const test_misc_assertClone_ArrayRecursiveUnionExplicit =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is Array<ArrayRecursiveUnionExplicit.IBucket> => {
+                    ): input is ArrayRecursiveUnionExplicit => {
                         const $guard = (typia.misc.assertClone as any).guard;
                         const $ao0 = (
                             input: any,
@@ -475,8 +471,8 @@ export const test_misc_assertClone_ArrayRecursiveUnionExplicit =
                 return input;
             };
             const clone = (
-                input: Array<ArrayRecursiveUnionExplicit.IBucket>,
-            ): typia.Primitive<Array<ArrayRecursiveUnionExplicit.IBucket>> => {
+                input: ArrayRecursiveUnionExplicit,
+            ): typia.Primitive<ArrayRecursiveUnionExplicit> => {
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.id &&
                     "string" === typeof input.name &&

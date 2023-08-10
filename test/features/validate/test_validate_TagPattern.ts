@@ -3,5 +3,5 @@ import { _test_validate } from "../../internal/_test_validate";
 import { TagPattern } from "../../structures/TagPattern";
 
 export const test_validate_TagPattern = _test_validate<TagPattern>(TagPattern)(
-    (input) => typia.validate(input),
+    (input) => typia.validate<TagPattern>(input),
 );

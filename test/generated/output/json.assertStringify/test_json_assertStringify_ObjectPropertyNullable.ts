@@ -6,26 +6,10 @@ export const test_json_assertStringify_ObjectPropertyNullable =
     _test_json_assertStringify<ObjectPropertyNullable>(ObjectPropertyNullable)(
         (input) =>
             ((input: any): string => {
-                const assert = (
-                    input: any,
-                ): [
-                    Array<ObjectPropertyNullable.IPointer<boolean>>,
-                    Array<ObjectPropertyNullable.IPointer<number>>,
-                    Array<ObjectPropertyNullable.IPointer<string>>,
-                    Array<
-                        ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>
-                    >,
-                ] => {
+                const assert = (input: any): ObjectPropertyNullable => {
                     const __is = (
                         input: any,
-                    ): input is [
-                        Array<ObjectPropertyNullable.IPointer<boolean>>,
-                        Array<ObjectPropertyNullable.IPointer<number>>,
-                        Array<ObjectPropertyNullable.IPointer<string>>,
-                        Array<
-                            ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>
-                        >,
-                    ] => {
+                    ): input is ObjectPropertyNullable => {
                         const $io0 = (input: any): boolean =>
                             null === input.value ||
                             "boolean" === typeof input.value;
@@ -92,14 +76,7 @@ export const test_json_assertStringify_ObjectPropertyNullable =
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
-                        ): input is [
-                            Array<ObjectPropertyNullable.IPointer<boolean>>,
-                            Array<ObjectPropertyNullable.IPointer<number>>,
-                            Array<ObjectPropertyNullable.IPointer<string>>,
-                            Array<
-                                ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>
-                            >,
-                        ] => {
+                        ): input is ObjectPropertyNullable => {
                             const $guard = (typia.json.assertStringify as any)
                                 .guard;
                             const $ao0 = (
@@ -413,16 +390,7 @@ export const test_json_assertStringify_ObjectPropertyNullable =
                         })(input, "$input", true);
                     return input;
                 };
-                const stringify = (
-                    input: [
-                        Array<ObjectPropertyNullable.IPointer<boolean>>,
-                        Array<ObjectPropertyNullable.IPointer<number>>,
-                        Array<ObjectPropertyNullable.IPointer<string>>,
-                        Array<
-                            ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>
-                        >,
-                    ],
-                ): string => {
+                const stringify = (input: ObjectPropertyNullable): string => {
                     const $io4 = (input: any): boolean =>
                         "string" === typeof input.id &&
                         (null === input.name ||

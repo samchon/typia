@@ -5,105 +5,12 @@ import { ObjectUnionExplicit } from "../../../structures/ObjectUnionExplicit";
 export const test_json_validateStringify_ObjectUnionExplicit =
     _test_json_validateStringify<ObjectUnionExplicit>(ObjectUnionExplicit)(
         (input) =>
-            ((
-                input: Array<
-                    | ObjectUnionExplicit.Discriminator<
-                          "point",
-                          ObjectUnionExplicit.IPoint
-                      >
-                    | ObjectUnionExplicit.Discriminator<
-                          "line",
-                          ObjectUnionExplicit.ILine
-                      >
-                    | ObjectUnionExplicit.Discriminator<
-                          "triangle",
-                          ObjectUnionExplicit.ITriangle
-                      >
-                    | ObjectUnionExplicit.Discriminator<
-                          "rectangle",
-                          ObjectUnionExplicit.IRectangle
-                      >
-                    | ObjectUnionExplicit.Discriminator<
-                          "polyline",
-                          ObjectUnionExplicit.IPolyline
-                      >
-                    | ObjectUnionExplicit.Discriminator<
-                          "polygon",
-                          ObjectUnionExplicit.IPolygon
-                      >
-                    | ObjectUnionExplicit.Discriminator<
-                          "circle",
-                          ObjectUnionExplicit.ICircle
-                      >
-                >,
-            ): typia.IValidation<string> => {
+            ((input: ObjectUnionExplicit): typia.IValidation<string> => {
                 const validate = (
                     input: any,
-                ): typia.IValidation<
-                    Array<
-                        | ObjectUnionExplicit.Discriminator<
-                              "point",
-                              ObjectUnionExplicit.IPoint
-                          >
-                        | ObjectUnionExplicit.Discriminator<
-                              "line",
-                              ObjectUnionExplicit.ILine
-                          >
-                        | ObjectUnionExplicit.Discriminator<
-                              "triangle",
-                              ObjectUnionExplicit.ITriangle
-                          >
-                        | ObjectUnionExplicit.Discriminator<
-                              "rectangle",
-                              ObjectUnionExplicit.IRectangle
-                          >
-                        | ObjectUnionExplicit.Discriminator<
-                              "polyline",
-                              ObjectUnionExplicit.IPolyline
-                          >
-                        | ObjectUnionExplicit.Discriminator<
-                              "polygon",
-                              ObjectUnionExplicit.IPolygon
-                          >
-                        | ObjectUnionExplicit.Discriminator<
-                              "circle",
-                              ObjectUnionExplicit.ICircle
-                          >
-                    >
-                > => {
+                ): typia.IValidation<ObjectUnionExplicit> => {
                     const errors = [] as any[];
-                    const __is = (
-                        input: any,
-                    ): input is Array<
-                        | ObjectUnionExplicit.Discriminator<
-                              "point",
-                              ObjectUnionExplicit.IPoint
-                          >
-                        | ObjectUnionExplicit.Discriminator<
-                              "line",
-                              ObjectUnionExplicit.ILine
-                          >
-                        | ObjectUnionExplicit.Discriminator<
-                              "triangle",
-                              ObjectUnionExplicit.ITriangle
-                          >
-                        | ObjectUnionExplicit.Discriminator<
-                              "rectangle",
-                              ObjectUnionExplicit.IRectangle
-                          >
-                        | ObjectUnionExplicit.Discriminator<
-                              "polyline",
-                              ObjectUnionExplicit.IPolyline
-                          >
-                        | ObjectUnionExplicit.Discriminator<
-                              "polygon",
-                              ObjectUnionExplicit.IPolygon
-                          >
-                        | ObjectUnionExplicit.Discriminator<
-                              "circle",
-                              ObjectUnionExplicit.ICircle
-                          >
-                    > => {
+                    const __is = (input: any): input is ObjectUnionExplicit => {
                         const $io0 = (input: any): boolean =>
                             "number" === typeof input.x &&
                             Number.isFinite(input.x) &&
@@ -247,36 +154,7 @@ export const test_json_validateStringify_ObjectUnionExplicit =
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
-                        ): input is Array<
-                            | ObjectUnionExplicit.Discriminator<
-                                  "point",
-                                  ObjectUnionExplicit.IPoint
-                              >
-                            | ObjectUnionExplicit.Discriminator<
-                                  "line",
-                                  ObjectUnionExplicit.ILine
-                              >
-                            | ObjectUnionExplicit.Discriminator<
-                                  "triangle",
-                                  ObjectUnionExplicit.ITriangle
-                              >
-                            | ObjectUnionExplicit.Discriminator<
-                                  "rectangle",
-                                  ObjectUnionExplicit.IRectangle
-                              >
-                            | ObjectUnionExplicit.Discriminator<
-                                  "polyline",
-                                  ObjectUnionExplicit.IPolyline
-                              >
-                            | ObjectUnionExplicit.Discriminator<
-                                  "polygon",
-                                  ObjectUnionExplicit.IPolygon
-                              >
-                            | ObjectUnionExplicit.Discriminator<
-                                  "circle",
-                                  ObjectUnionExplicit.ICircle
-                              >
-                        > => {
+                        ): input is ObjectUnionExplicit => {
                             const $vo0 = (
                                 input: any,
                                 _path: string,
@@ -897,38 +775,7 @@ export const test_json_validateStringify_ObjectUnionExplicit =
                         data: success ? input : undefined,
                     } as any;
                 };
-                const stringify = (
-                    input: Array<
-                        | ObjectUnionExplicit.Discriminator<
-                              "point",
-                              ObjectUnionExplicit.IPoint
-                          >
-                        | ObjectUnionExplicit.Discriminator<
-                              "line",
-                              ObjectUnionExplicit.ILine
-                          >
-                        | ObjectUnionExplicit.Discriminator<
-                              "triangle",
-                              ObjectUnionExplicit.ITriangle
-                          >
-                        | ObjectUnionExplicit.Discriminator<
-                              "rectangle",
-                              ObjectUnionExplicit.IRectangle
-                          >
-                        | ObjectUnionExplicit.Discriminator<
-                              "polyline",
-                              ObjectUnionExplicit.IPolyline
-                          >
-                        | ObjectUnionExplicit.Discriminator<
-                              "polygon",
-                              ObjectUnionExplicit.IPolygon
-                          >
-                        | ObjectUnionExplicit.Discriminator<
-                              "circle",
-                              ObjectUnionExplicit.ICircle
-                          >
-                    >,
-                ): string => {
+                const stringify = (input: ObjectUnionExplicit): string => {
                     const $io0 = (input: any): boolean =>
                         "number" === typeof input.x &&
                         "number" === typeof input.y &&

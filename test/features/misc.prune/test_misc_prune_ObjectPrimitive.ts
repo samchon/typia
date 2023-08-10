@@ -4,5 +4,5 @@ import { ObjectPrimitive } from "../../structures/ObjectPrimitive";
 
 export const test_misc_prune_ObjectPrimitive =
     _test_misc_prune<ObjectPrimitive>(ObjectPrimitive)((input) =>
-        typia.misc.prune(input),
+        typia.misc.prune<ObjectPrimitive>(input),
     );

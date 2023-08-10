@@ -4,7 +4,7 @@ import { DynamicSimple } from "../../../structures/DynamicSimple";
 
 export const test_json_stringify_DynamicSimple =
     _test_json_stringify<DynamicSimple>(DynamicSimple)((input) =>
-        ((input: IPointer<{ [key: string]: number }>): string => {
+        ((input: DynamicSimple): string => {
             const $io1 = (input: any): boolean =>
                 Object.keys(input).every((key: any) => {
                     const value = input[key];

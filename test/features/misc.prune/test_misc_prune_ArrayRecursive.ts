@@ -4,4 +4,4 @@ import { ArrayRecursive } from "../../structures/ArrayRecursive";
 
 export const test_misc_prune_ArrayRecursive = _test_misc_prune<ArrayRecursive>(
     ArrayRecursive,
-)((input) => typia.misc.prune(input));
+)((input) => typia.misc.prune<ArrayRecursive>(input));

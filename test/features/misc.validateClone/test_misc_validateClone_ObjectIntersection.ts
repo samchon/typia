@@ -4,5 +4,5 @@ import { ObjectIntersection } from "../../structures/ObjectIntersection";
 
 export const test_misc_validateClone_ObjectIntersection =
     _test_misc_validateClone<ObjectIntersection>(ObjectIntersection)((input) =>
-        typia.misc.validateClone(input),
+        typia.misc.validateClone<ObjectIntersection>(input),
     );

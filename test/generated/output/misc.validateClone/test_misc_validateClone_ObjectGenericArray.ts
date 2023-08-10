@@ -6,20 +6,12 @@ export const test_misc_validateClone_ObjectGenericArray =
     _test_misc_validateClone<ObjectGenericArray>(ObjectGenericArray)((input) =>
         ((
             input: any,
-        ): typia.IValidation<
-            typia.Primitive<
-                ObjectGenericArray.IPage<ObjectGenericArray.IPerson>
-            >
-        > => {
+        ): typia.IValidation<typia.Primitive<ObjectGenericArray>> => {
             const validate = (
                 input: any,
-            ): typia.IValidation<
-                ObjectGenericArray.IPage<ObjectGenericArray.IPerson>
-            > => {
+            ): typia.IValidation<ObjectGenericArray> => {
                 const errors = [] as any[];
-                const __is = (
-                    input: any,
-                ): input is ObjectGenericArray.IPage<ObjectGenericArray.IPerson> => {
+                const __is = (input: any): input is ObjectGenericArray => {
                     const $io0 = (input: any): boolean =>
                         "object" === typeof input.pagination &&
                         null !== input.pagination &&
@@ -62,7 +54,7 @@ export const test_misc_validateClone_ObjectGenericArray =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is ObjectGenericArray.IPage<ObjectGenericArray.IPerson> => {
+                    ): input is ObjectGenericArray => {
                         const $vo0 = (
                             input: any,
                             _path: string,
@@ -216,10 +208,8 @@ export const test_misc_validateClone_ObjectGenericArray =
                 } as any;
             };
             const clone = (
-                input: ObjectGenericArray.IPage<ObjectGenericArray.IPerson>,
-            ): typia.Primitive<
-                ObjectGenericArray.IPage<ObjectGenericArray.IPerson>
-            > => {
+                input: ObjectGenericArray,
+            ): typia.Primitive<ObjectGenericArray> => {
                 const $io1 = (input: any): boolean =>
                     "number" === typeof input.page &&
                     "number" === typeof input.limit &&

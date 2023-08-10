@@ -4,10 +4,8 @@ import { ObjectUnionDouble } from "../../../structures/ObjectUnionDouble";
 
 export const test_misc_isPrune_ObjectUnionDouble =
     _test_misc_isPrune<ObjectUnionDouble>(ObjectUnionDouble)((input) =>
-        ((input: any): input is Array<ObjectUnionDouble.Union> => {
-            const is = (
-                input: any,
-            ): input is Array<ObjectUnionDouble.Union> => {
+        ((input: any): input is ObjectUnionDouble => {
+            const is = (input: any): input is ObjectUnionDouble => {
                 const $io0 = (input: any): boolean =>
                     "object" === typeof input.value &&
                     null !== input.value &&
@@ -74,7 +72,7 @@ export const test_misc_isPrune_ObjectUnionDouble =
                     )
                 );
             };
-            const prune = (input: Array<ObjectUnionDouble.Union>): void => {
+            const prune = (input: ObjectUnionDouble): void => {
                 const $io0 = (input: any): boolean =>
                     "object" === typeof input.value &&
                     null !== input.value &&

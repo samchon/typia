@@ -4,5 +4,5 @@ import { ObjectInternal } from "../../structures/ObjectInternal";
 
 export const test_misc_validateClone_ObjectInternal =
     _test_misc_validateClone<ObjectInternal>(ObjectInternal)((input) =>
-        typia.misc.validateClone(input),
+        typia.misc.validateClone<ObjectInternal>(input),
     );

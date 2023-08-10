@@ -5,10 +5,7 @@ import { ObjectPrimitive } from "../../../structures/ObjectPrimitive";
 export const test_equals_ObjectPrimitive = _test_equals<ObjectPrimitive>(
     ObjectPrimitive,
 )((input) =>
-    ((
-        input: any,
-        _exceptionable: boolean = true,
-    ): input is ObjectPrimitive.IArticle => {
+    ((input: any, _exceptionable: boolean = true): input is ObjectPrimitive => {
         const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
             "string" === typeof input.id &&
             ("txt" === input.extension ||

@@ -5,32 +5,8 @@ import { AtomicClass } from "../../../structures/AtomicClass";
 export const test_json_assertStringify_AtomicClass =
     _test_json_assertStringify<AtomicClass>(AtomicClass)((input) =>
         ((input: any): string => {
-            const assert = (
-                input: any,
-            ): [
-                Boolean,
-                false | Boolean,
-                boolean | Boolean,
-                Number,
-                Number | 1,
-                number | Number,
-                String,
-                String | "characters",
-                string | String,
-            ] => {
-                const __is = (
-                    input: any,
-                ): input is [
-                    Boolean,
-                    false | Boolean,
-                    boolean | Boolean,
-                    Number,
-                    Number | 1,
-                    number | Number,
-                    String,
-                    String | "characters",
-                    string | String,
-                ] => {
+            const assert = (input: any): AtomicClass => {
+                const __is = (input: any): input is AtomicClass => {
                     return (
                         Array.isArray(input) &&
                         input.length === 9 &&
@@ -71,17 +47,7 @@ export const test_json_assertStringify_AtomicClass =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is [
-                        Boolean,
-                        false | Boolean,
-                        boolean | Boolean,
-                        Number,
-                        Number | 1,
-                        number | Number,
-                        String,
-                        String | "characters",
-                        string | String,
-                    ] => {
+                    ): input is AtomicClass => {
                         const $guard = (typia.json.assertStringify as any)
                             .guard;
                         return (
@@ -242,19 +208,7 @@ export const test_json_assertStringify_AtomicClass =
                     })(input, "$input", true);
                 return input;
             };
-            const stringify = (
-                input: [
-                    Boolean,
-                    false | Boolean,
-                    boolean | Boolean,
-                    Number,
-                    Number | 1,
-                    number | Number,
-                    String,
-                    String | "characters",
-                    string | String,
-                ],
-            ): string => {
+            const stringify = (input: AtomicClass): string => {
                 const $number = (typia.json.assertStringify as any).number;
                 const $string = (typia.json.assertStringify as any).string;
                 const $throws = (typia.json.assertStringify as any).throws;

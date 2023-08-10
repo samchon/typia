@@ -5,21 +5,11 @@ import { ArrayRepeatedNullable } from "../../../structures/ArrayRepeatedNullable
 export const test_misc_assertClone_ArrayRepeatedNullable =
     _test_misc_assertClone<ArrayRepeatedNullable>(ArrayRepeatedNullable)(
         (input) =>
-            ((
-                input: any,
-            ): typia.Primitive<
-                string | number | Array<ArrayRepeatedNullable> | null
-            > => {
-                const assert = (
-                    input: any,
-                ): string | number | Array<ArrayRepeatedNullable> | null => {
+            ((input: any): typia.Primitive<ArrayRepeatedNullable> => {
+                const assert = (input: any): ArrayRepeatedNullable => {
                     const __is = (
                         input: any,
-                    ): input is
-                        | string
-                        | number
-                        | Array<ArrayRepeatedNullable>
-                        | null => {
+                    ): input is ArrayRepeatedNullable => {
                         const $ia0 = (input: any): any =>
                             input.every(
                                 (elem: any) =>
@@ -46,11 +36,7 @@ export const test_misc_assertClone_ArrayRepeatedNullable =
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
-                        ): input is
-                            | string
-                            | number
-                            | Array<ArrayRepeatedNullable>
-                            | null => {
+                        ): input is ArrayRepeatedNullable => {
                             const $guard = (typia.misc.assertClone as any)
                                 .guard;
                             const $aa0 = (
@@ -147,14 +133,8 @@ export const test_misc_assertClone_ArrayRepeatedNullable =
                     return input;
                 };
                 const clone = (
-                    input:
-                        | string
-                        | number
-                        | Array<ArrayRepeatedNullable>
-                        | null,
-                ): typia.Primitive<
-                    string | number | Array<ArrayRepeatedNullable> | null
-                > => {
+                    input: ArrayRepeatedNullable,
+                ): typia.Primitive<ArrayRepeatedNullable> => {
                     const $ia0 = (input: any): any =>
                         input.every(
                             (elem: any) =>

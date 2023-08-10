@@ -4,8 +4,8 @@ import { TagType } from "../../../structures/TagType";
 
 export const test_misc_isPrune_TagType = _test_misc_isPrune<TagType>(TagType)(
     (input) =>
-        ((input: any): input is IPointer<Array<TagType.Type>> => {
-            const is = (input: any): input is IPointer<Array<TagType.Type>> => {
+        ((input: any): input is TagType => {
+            const is = (input: any): input is TagType => {
                 const $io0 = (input: any): boolean =>
                     Array.isArray(input.value) &&
                     input.value.every(
@@ -26,7 +26,7 @@ export const test_misc_isPrune_TagType = _test_misc_isPrune<TagType>(TagType)(
                     "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            const prune = (input: IPointer<Array<TagType.Type>>): void => {
+            const prune = (input: TagType): void => {
                 const $io1 = (input: any): boolean =>
                     "number" === typeof input.int &&
                     parseInt(input.int) === input.int &&

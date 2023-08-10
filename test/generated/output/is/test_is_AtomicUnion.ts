@@ -3,7 +3,7 @@ import { _test_is } from "../../../internal/_test_is";
 import { AtomicUnion } from "../../../structures/AtomicUnion";
 
 export const test_is_AtomicUnion = _test_is<AtomicUnion>(AtomicUnion)((input) =>
-    ((input: any): input is Array<AtomicUnion.Union> => {
+    ((input: any): input is AtomicUnion => {
         return (
             Array.isArray(input) &&
             input.every(

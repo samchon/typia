@@ -4,32 +4,10 @@ import { ObjectGeneric } from "../../../structures/ObjectGeneric";
 
 export const test_misc_validatePrune_ObjectGeneric =
     _test_misc_validatePrune<ObjectGeneric>(ObjectGeneric)((input) =>
-        ((
-            input: any,
-        ): typia.IValidation<
-            [
-                ObjectGeneric.ISomething<boolean>,
-                ObjectGeneric.ISomething<number>,
-                ObjectGeneric.ISomething<string>,
-            ]
-        > => {
-            const validate = (
-                input: any,
-            ): typia.IValidation<
-                [
-                    ObjectGeneric.ISomething<boolean>,
-                    ObjectGeneric.ISomething<number>,
-                    ObjectGeneric.ISomething<string>,
-                ]
-            > => {
+        ((input: any): typia.IValidation<ObjectGeneric> => {
+            const validate = (input: any): typia.IValidation<ObjectGeneric> => {
                 const errors = [] as any[];
-                const __is = (
-                    input: any,
-                ): input is [
-                    ObjectGeneric.ISomething<boolean>,
-                    ObjectGeneric.ISomething<number>,
-                    ObjectGeneric.ISomething<string>,
-                ] => {
+                const __is = (input: any): input is ObjectGeneric => {
                     const $io0 = (input: any): boolean =>
                         "boolean" === typeof input.value &&
                         "object" === typeof input.child &&
@@ -105,11 +83,7 @@ export const test_misc_validatePrune_ObjectGeneric =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is [
-                        ObjectGeneric.ISomething<boolean>,
-                        ObjectGeneric.ISomething<number>,
-                        ObjectGeneric.ISomething<string>,
-                    ] => {
+                    ): input is ObjectGeneric => {
                         const $vo0 = (
                             input: any,
                             _path: string,
@@ -486,13 +460,7 @@ export const test_misc_validatePrune_ObjectGeneric =
                     data: success ? input : undefined,
                 } as any;
             };
-            const prune = (
-                input: [
-                    ObjectGeneric.ISomething<boolean>,
-                    ObjectGeneric.ISomething<number>,
-                    ObjectGeneric.ISomething<string>,
-                ],
-            ): void => {
+            const prune = (input: ObjectGeneric): void => {
                 const $io0 = (input: any): boolean =>
                     "boolean" === typeof input.value &&
                     "object" === typeof input.child &&

@@ -4,5 +4,5 @@ import { ObjectHierarchical } from "../../structures/ObjectHierarchical";
 
 export const test_misc_isPrune_ObjectHierarchical =
     _test_misc_isPrune<ObjectHierarchical>(ObjectHierarchical)((input) =>
-        typia.misc.isPrune(input),
+        typia.misc.isPrune<ObjectHierarchical>(input),
     );

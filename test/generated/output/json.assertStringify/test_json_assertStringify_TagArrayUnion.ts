@@ -5,10 +5,8 @@ import { TagArrayUnion } from "../../../structures/TagArrayUnion";
 export const test_json_assertStringify_TagArrayUnion =
     _test_json_assertStringify<TagArrayUnion>(TagArrayUnion)((input) =>
         ((input: any): string => {
-            const assert = (input: any): Array<TagArrayUnion.Type> => {
-                const __is = (
-                    input: any,
-                ): input is Array<TagArrayUnion.Type> => {
+            const assert = (input: any): TagArrayUnion => {
+                const __is = (input: any): input is TagArrayUnion => {
                     const $is_uuid = (typia.json.assertStringify as any)
                         .is_uuid;
                     const $io0 = (input: any): boolean =>
@@ -58,7 +56,7 @@ export const test_json_assertStringify_TagArrayUnion =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is Array<TagArrayUnion.Type> => {
+                    ): input is TagArrayUnion => {
                         const $guard = (typia.json.assertStringify as any)
                             .guard;
                         const $is_uuid = (typia.json.assertStringify as any)
@@ -289,7 +287,7 @@ export const test_json_assertStringify_TagArrayUnion =
                     })(input, "$input", true);
                 return input;
             };
-            const stringify = (input: Array<TagArrayUnion.Type>): string => {
+            const stringify = (input: TagArrayUnion): string => {
                 const $string = (typia.json.assertStringify as any).string;
                 const $number = (typia.json.assertStringify as any).number;
                 const $throws = (typia.json.assertStringify as any).throws;

@@ -5,9 +5,7 @@ import { ArrayHierarchicalPointer } from "../../../structures/ArrayHierarchicalP
 export const test_misc_prune_ArrayHierarchicalPointer =
     _test_misc_prune<ArrayHierarchicalPointer>(ArrayHierarchicalPointer)(
         (input) =>
-            ((
-                input: IPointer<Array<ArrayHierarchicalPointer.ICompany>>,
-            ): void => {
+            ((input: ArrayHierarchicalPointer): void => {
                 const $io1 = (input: any): boolean =>
                     "number" === typeof input.id &&
                     "number" === typeof input.serial &&

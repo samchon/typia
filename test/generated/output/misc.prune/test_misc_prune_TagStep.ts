@@ -4,7 +4,7 @@ import { TagStep } from "../../../structures/TagStep";
 
 export const test_misc_prune_TagStep = _test_misc_prune<TagStep>(TagStep)(
     (input) =>
-        ((input: IPointer<Array<TagStep.Type>>): void => {
+        ((input: TagStep): void => {
             const $io1 = (input: any): boolean =>
                 "number" === typeof input.exclusiveMinimum &&
                 0 === (input.exclusiveMinimum % 5) - 3 &&

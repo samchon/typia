@@ -5,34 +5,8 @@ import { AtomicClass } from "../../../structures/AtomicClass";
 export const test_misc_isClone_AtomicClass = _test_misc_isClone<AtomicClass>(
     AtomicClass,
 )((input) =>
-    ((
-        input: any,
-    ): typia.Primitive<
-        [
-            Boolean,
-            false | Boolean,
-            boolean | Boolean,
-            Number,
-            Number | 1,
-            number | Number,
-            String,
-            String | "characters",
-            string | String,
-        ]
-    > | null => {
-        const is = (
-            input: any,
-        ): input is [
-            Boolean,
-            false | Boolean,
-            boolean | Boolean,
-            Number,
-            Number | 1,
-            number | Number,
-            String,
-            String | "characters",
-            string | String,
-        ] => {
+    ((input: any): typia.Primitive<AtomicClass> | null => {
+        const is = (input: any): input is AtomicClass => {
             return (
                 Array.isArray(input) &&
                 input.length === 9 &&
@@ -62,31 +36,7 @@ export const test_misc_isClone_AtomicClass = _test_misc_isClone<AtomicClass>(
                 ("string" === typeof input[8] || input[8] instanceof String)
             );
         };
-        const clone = (
-            input: [
-                Boolean,
-                false | Boolean,
-                boolean | Boolean,
-                Number,
-                Number | 1,
-                number | Number,
-                String,
-                String | "characters",
-                string | String,
-            ],
-        ): typia.Primitive<
-            [
-                Boolean,
-                false | Boolean,
-                boolean | Boolean,
-                Number,
-                Number | 1,
-                number | Number,
-                String,
-                String | "characters",
-                string | String,
-            ]
-        > => {
+        const clone = (input: AtomicClass): typia.Primitive<AtomicClass> => {
             return Array.isArray(input) &&
                 input.length === 9 &&
                 ("boolean" === typeof input[0] ||

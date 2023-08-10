@@ -5,15 +5,11 @@ import { ConstantConstEnumeration } from "../../../structures/ConstantConstEnume
 export const test_misc_assertClone_ConstantConstEnumeration =
     _test_misc_assertClone<ConstantConstEnumeration>(ConstantConstEnumeration)(
         (input) =>
-            ((
-                input: any,
-            ): typia.Primitive<Array<ConstantConstEnumeration.Enumeration>> => {
-                const assert = (
-                    input: any,
-                ): Array<ConstantConstEnumeration.Enumeration> => {
+            ((input: any): typia.Primitive<ConstantConstEnumeration> => {
+                const assert = (input: any): ConstantConstEnumeration => {
                     const __is = (
                         input: any,
-                    ): input is Array<ConstantConstEnumeration.Enumeration> => {
+                    ): input is ConstantConstEnumeration => {
                         return (
                             Array.isArray(input) &&
                             input.every(
@@ -31,7 +27,7 @@ export const test_misc_assertClone_ConstantConstEnumeration =
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
-                        ): input is Array<ConstantConstEnumeration.Enumeration> => {
+                        ): input is ConstantConstEnumeration => {
                             const $guard = (typia.misc.assertClone as any)
                                 .guard;
                             return (
@@ -66,10 +62,8 @@ export const test_misc_assertClone_ConstantConstEnumeration =
                     return input;
                 };
                 const clone = (
-                    input: Array<ConstantConstEnumeration.Enumeration>,
-                ): typia.Primitive<
-                    Array<ConstantConstEnumeration.Enumeration>
-                > => {
+                    input: ConstantConstEnumeration,
+                ): typia.Primitive<ConstantConstEnumeration> => {
                     const $cp0 = (input: any) =>
                         input.map((elem: any) => elem as any);
                     return Array.isArray(input) ? $cp0(input) : (input as any);

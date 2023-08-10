@@ -4,5 +4,5 @@ import { ObjectSimple } from "../../structures/ObjectSimple";
 
 export const test_misc_validatePrune_ObjectSimple =
     _test_misc_validatePrune<ObjectSimple>(ObjectSimple)((input) =>
-        typia.misc.validatePrune(input),
+        typia.misc.validatePrune<ObjectSimple>(input),
     );

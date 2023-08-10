@@ -5,16 +5,12 @@ import { ToJsonAtomicUnion } from "../../../structures/ToJsonAtomicUnion";
 export const test_json_validateStringify_ToJsonAtomicUnion =
     _test_json_validateStringify<ToJsonAtomicUnion>(ToJsonAtomicUnion)(
         (input) =>
-            ((
-                input: Array<ToJsonAtomicUnion.IToJson>,
-            ): typia.IValidation<string> => {
+            ((input: ToJsonAtomicUnion): typia.IValidation<string> => {
                 const validate = (
                     input: any,
-                ): typia.IValidation<Array<ToJsonAtomicUnion.IToJson>> => {
+                ): typia.IValidation<ToJsonAtomicUnion> => {
                     const errors = [] as any[];
-                    const __is = (
-                        input: any,
-                    ): input is Array<ToJsonAtomicUnion.IToJson> => {
+                    const __is = (input: any): input is ToJsonAtomicUnion => {
                         const $io0 = (input: any): boolean => true;
                         return (
                             Array.isArray(input) &&
@@ -34,7 +30,7 @@ export const test_json_validateStringify_ToJsonAtomicUnion =
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
-                        ): input is Array<ToJsonAtomicUnion.IToJson> => {
+                        ): input is ToJsonAtomicUnion => {
                             const $vo0 = (
                                 input: any,
                                 _path: string,
@@ -105,9 +101,7 @@ export const test_json_validateStringify_ToJsonAtomicUnion =
                         data: success ? input : undefined,
                     } as any;
                 };
-                const stringify = (
-                    input: Array<ToJsonAtomicUnion.IToJson>,
-                ): string => {
+                const stringify = (input: ToJsonAtomicUnion): string => {
                     const $string = (typia.json.validateStringify as any)
                         .string;
                     const $number = (typia.json.validateStringify as any)

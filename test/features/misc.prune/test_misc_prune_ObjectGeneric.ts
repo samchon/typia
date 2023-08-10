@@ -4,4 +4,4 @@ import { ObjectGeneric } from "../../structures/ObjectGeneric";
 
 export const test_misc_prune_ObjectGeneric = _test_misc_prune<ObjectGeneric>(
     ObjectGeneric,
-)((input) => typia.misc.prune(input));
+)((input) => typia.misc.prune<ObjectGeneric>(input));

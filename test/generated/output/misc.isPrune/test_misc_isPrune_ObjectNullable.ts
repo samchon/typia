@@ -4,10 +4,8 @@ import { ObjectNullable } from "../../../structures/ObjectNullable";
 
 export const test_misc_isPrune_ObjectNullable =
     _test_misc_isPrune<ObjectNullable>(ObjectNullable)((input) =>
-        ((input: any): input is IPointer<Array<ObjectNullable.IProduct>> => {
-            const is = (
-                input: any,
-            ): input is IPointer<Array<ObjectNullable.IProduct>> => {
+        ((input: any): input is ObjectNullable => {
+            const is = (input: any): input is ObjectNullable => {
                 const $io0 = (input: any): boolean =>
                     Array.isArray(input.value) &&
                     input.value.every(
@@ -44,9 +42,7 @@ export const test_misc_isPrune_ObjectNullable =
                     "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            const prune = (
-                input: IPointer<Array<ObjectNullable.IProduct>>,
-            ): void => {
+            const prune = (input: ObjectNullable): void => {
                 const $io1 = (input: any): boolean =>
                     "string" === typeof input.name &&
                     "object" === typeof input.manufacturer &&

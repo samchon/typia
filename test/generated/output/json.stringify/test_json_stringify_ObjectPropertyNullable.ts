@@ -5,16 +5,7 @@ import { ObjectPropertyNullable } from "../../../structures/ObjectPropertyNullab
 export const test_json_stringify_ObjectPropertyNullable =
     _test_json_stringify<ObjectPropertyNullable>(ObjectPropertyNullable)(
         (input) =>
-            ((
-                input: [
-                    Array<ObjectPropertyNullable.IPointer<boolean>>,
-                    Array<ObjectPropertyNullable.IPointer<number>>,
-                    Array<ObjectPropertyNullable.IPointer<string>>,
-                    Array<
-                        ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>
-                    >,
-                ],
-            ): string => {
+            ((input: ObjectPropertyNullable): string => {
                 const $io4 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     (null === input.name || "string" === typeof input.name) &&

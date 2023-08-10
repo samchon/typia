@@ -4,4 +4,4 @@ import { ArraySimple } from "../../structures/ArraySimple";
 
 export const test_misc_isPrune_ArraySimple = _test_misc_isPrune<ArraySimple>(
     ArraySimple,
-)((input) => typia.misc.isPrune(input));
+)((input) => typia.misc.isPrune<ArraySimple>(input));

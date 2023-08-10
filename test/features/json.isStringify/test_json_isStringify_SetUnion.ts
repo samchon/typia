@@ -4,4 +4,4 @@ import { SetUnion } from "../../structures/SetUnion";
 
 export const test_json_isStringify_SetUnion = _test_json_isStringify<SetUnion>(
     SetUnion,
-)((input) => typia.json.isStringify(input));
+)((input) => typia.json.isStringify<SetUnion>(input));

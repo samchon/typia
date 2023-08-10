@@ -4,24 +4,7 @@ import { TupleHierarchical } from "../../../structures/TupleHierarchical";
 
 export const test_json_stringify_TupleHierarchical =
     _test_json_stringify<TupleHierarchical>(TupleHierarchical)((input) =>
-        ((
-            input: [
-                boolean,
-                null,
-                number,
-                [boolean, null, [number, [boolean, string]]],
-                [
-                    number,
-                    Array<
-                        [
-                            string,
-                            boolean,
-                            Array<[number, number, [boolean, string]]>,
-                        ]
-                    >,
-                ],
-            ],
-        ): string => {
+        ((input: TupleHierarchical): string => {
             const $number = (typia.json.stringify as any).number;
             const $string = (typia.json.stringify as any).string;
             return `[${input[0]},null,${$number(input[2])},${`[${

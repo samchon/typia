@@ -4,21 +4,12 @@ import { ObjectIntersection } from "../../../structures/ObjectIntersection";
 
 export const test_misc_validatePrune_ObjectIntersection =
     _test_misc_validatePrune<ObjectIntersection>(ObjectIntersection)((input) =>
-        ((
-            input: any,
-        ): typia.IValidation<
-            ObjectIntersection.IEmail & ObjectIntersection.IName
-        > => {
+        ((input: any): typia.IValidation<ObjectIntersection> => {
             const validate = (
                 input: any,
-            ): typia.IValidation<
-                ObjectIntersection.IEmail & ObjectIntersection.IName
-            > => {
+            ): typia.IValidation<ObjectIntersection> => {
                 const errors = [] as any[];
-                const __is = (
-                    input: any,
-                ): input is ObjectIntersection.IEmail &
-                    ObjectIntersection.IName => {
+                const __is = (input: any): input is ObjectIntersection => {
                     return (
                         "object" === typeof input &&
                         null !== input &&
@@ -35,8 +26,7 @@ export const test_misc_validatePrune_ObjectIntersection =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is ObjectIntersection.IEmail &
-                        ObjectIntersection.IName => {
+                    ): input is ObjectIntersection => {
                         const $vo0 = (
                             input: any,
                             _path: string,
@@ -85,9 +75,7 @@ export const test_misc_validatePrune_ObjectIntersection =
                     data: success ? input : undefined,
                 } as any;
             };
-            const prune = (
-                input: ObjectIntersection.IEmail & ObjectIntersection.IName,
-            ): void => {
+            const prune = (input: ObjectIntersection): void => {
                 const $po0 = (input: any): any => {
                     for (const key of Object.keys(input)) {
                         if (

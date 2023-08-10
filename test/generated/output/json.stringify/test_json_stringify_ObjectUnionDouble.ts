@@ -4,7 +4,7 @@ import { ObjectUnionDouble } from "../../../structures/ObjectUnionDouble";
 
 export const test_json_stringify_ObjectUnionDouble =
     _test_json_stringify<ObjectUnionDouble>(ObjectUnionDouble)((input) =>
-        ((input: Array<ObjectUnionDouble.Union>): string => {
+        ((input: ObjectUnionDouble): string => {
             const $io0 = (input: any): boolean =>
                 "object" === typeof input.value &&
                 null !== input.value &&

@@ -4,4 +4,4 @@ import { TagNaN } from "../../structures/TagNaN";
 
 export const test_misc_assertPrune_TagNaN = _test_misc_assertPrune<TagNaN>(
     TagNaN,
-)((input) => typia.misc.assertPrune(input));
+)((input) => typia.misc.assertPrune<TagNaN>(input));

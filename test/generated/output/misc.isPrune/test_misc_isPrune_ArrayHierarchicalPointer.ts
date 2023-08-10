@@ -5,14 +5,8 @@ import { ArrayHierarchicalPointer } from "../../../structures/ArrayHierarchicalP
 export const test_misc_isPrune_ArrayHierarchicalPointer =
     _test_misc_isPrune<ArrayHierarchicalPointer>(ArrayHierarchicalPointer)(
         (input) =>
-            ((
-                input: any,
-            ): input is IPointer<Array<ArrayHierarchicalPointer.ICompany>> => {
-                const is = (
-                    input: any,
-                ): input is IPointer<
-                    Array<ArrayHierarchicalPointer.ICompany>
-                > => {
+            ((input: any): input is ArrayHierarchicalPointer => {
+                const is = (input: any): input is ArrayHierarchicalPointer => {
                     const $io0 = (input: any): boolean =>
                         Array.isArray(input.value) &&
                         input.value.every(
@@ -81,9 +75,7 @@ export const test_misc_isPrune_ArrayHierarchicalPointer =
                         $io0(input)
                     );
                 };
-                const prune = (
-                    input: IPointer<Array<ArrayHierarchicalPointer.ICompany>>,
-                ): void => {
+                const prune = (input: ArrayHierarchicalPointer): void => {
                     const $io1 = (input: any): boolean =>
                         "number" === typeof input.id &&
                         "number" === typeof input.serial &&

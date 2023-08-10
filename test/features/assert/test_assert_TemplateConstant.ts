@@ -4,4 +4,4 @@ import { TemplateConstant } from "../../structures/TemplateConstant";
 
 export const test_assert_TemplateConstant = _test_assert<TemplateConstant>(
     TemplateConstant,
-)((input) => typia.assert(input));
+)((input) => typia.assert<TemplateConstant>(input));

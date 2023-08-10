@@ -4,5 +4,5 @@ import { ObjectUndefined } from "../../structures/ObjectUndefined";
 
 export const test_misc_validateClone_ObjectUndefined =
     _test_misc_validateClone<ObjectUndefined>(ObjectUndefined)((input) =>
-        typia.misc.validateClone(input),
+        typia.misc.validateClone<ObjectUndefined>(input),
     );

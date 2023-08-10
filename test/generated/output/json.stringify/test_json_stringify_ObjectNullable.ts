@@ -4,7 +4,7 @@ import { ObjectNullable } from "../../../structures/ObjectNullable";
 
 export const test_json_stringify_ObjectNullable =
     _test_json_stringify<ObjectNullable>(ObjectNullable)((input) =>
-        ((input: IPointer<Array<ObjectNullable.IProduct>>): string => {
+        ((input: ObjectNullable): string => {
             const $io1 = (input: any): boolean =>
                 "string" === typeof input.name &&
                 "object" === typeof input.manufacturer &&

@@ -4,5 +4,5 @@ import { TupleRestArray } from "../../structures/TupleRestArray";
 
 export const test_json_assertStringify_TupleRestArray =
     _test_json_assertStringify<TupleRestArray>(TupleRestArray)((input) =>
-        typia.json.assertStringify(input),
+        typia.json.assertStringify<TupleRestArray>(input),
     );

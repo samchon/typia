@@ -4,7 +4,7 @@ import { TemplateUnion } from "../../../structures/TemplateUnion";
 
 export const test_is_TemplateUnion = _test_is<TemplateUnion>(TemplateUnion)(
     (input) =>
-        ((input: any): input is IPointer<Array<TemplateUnion.Type>> => {
+        ((input: any): input is TemplateUnion => {
             const $io0 = (input: any): boolean =>
                 Array.isArray(input.value) &&
                 input.value.every(

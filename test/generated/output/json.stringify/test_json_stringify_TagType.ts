@@ -5,7 +5,7 @@ import { TagType } from "../../../structures/TagType";
 export const test_json_stringify_TagType = _test_json_stringify<TagType>(
     TagType,
 )((input) =>
-    ((input: IPointer<Array<TagType.Type>>): string => {
+    ((input: TagType): string => {
         const $io1 = (input: any): boolean =>
             "number" === typeof input.int &&
             parseInt(input.int) === input.int &&

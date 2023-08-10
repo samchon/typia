@@ -4,20 +4,8 @@ import { ToJsonAtomicSimple } from "../../../structures/ToJsonAtomicSimple";
 
 export const test_json_isStringify_ToJsonAtomicSimple =
     _test_json_isStringify<ToJsonAtomicSimple>(ToJsonAtomicSimple)((input) =>
-        ((
-            input: [
-                ToJsonAtomicSimple.IToJson<boolean>,
-                ToJsonAtomicSimple.IToJson<number>,
-                ToJsonAtomicSimple.IToJson<string>,
-            ],
-        ): string | null => {
-            const is = (
-                input: any,
-            ): input is [
-                ToJsonAtomicSimple.IToJson<boolean>,
-                ToJsonAtomicSimple.IToJson<number>,
-                ToJsonAtomicSimple.IToJson<string>,
-            ] => {
+        ((input: ToJsonAtomicSimple): string | null => {
+            const is = (input: any): input is ToJsonAtomicSimple => {
                 const $io0 = (input: any): boolean => true;
                 const $io1 = (input: any): boolean => true;
                 const $io2 = (input: any): boolean => true;
@@ -35,13 +23,7 @@ export const test_json_isStringify_ToJsonAtomicSimple =
                     $io2(input[2])
                 );
             };
-            const stringify = (
-                input: [
-                    ToJsonAtomicSimple.IToJson<boolean>,
-                    ToJsonAtomicSimple.IToJson<number>,
-                    ToJsonAtomicSimple.IToJson<string>,
-                ],
-            ): string => {
+            const stringify = (input: ToJsonAtomicSimple): string => {
                 const $number = (typia.json.isStringify as any).number;
                 const $string = (typia.json.isStringify as any).string;
                 return `[${input[0].toJSON()},${$number(

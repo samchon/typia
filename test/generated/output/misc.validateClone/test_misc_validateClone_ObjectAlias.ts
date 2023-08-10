@@ -4,16 +4,10 @@ import { ObjectAlias } from "../../../structures/ObjectAlias";
 
 export const test_misc_validateClone_ObjectAlias =
     _test_misc_validateClone<ObjectAlias>(ObjectAlias)((input) =>
-        ((
-            input: any,
-        ): typia.IValidation<typia.Primitive<Array<ObjectAlias.IMember>>> => {
-            const validate = (
-                input: any,
-            ): typia.IValidation<Array<ObjectAlias.IMember>> => {
+        ((input: any): typia.IValidation<typia.Primitive<ObjectAlias>> => {
+            const validate = (input: any): typia.IValidation<ObjectAlias> => {
                 const errors = [] as any[];
-                const __is = (
-                    input: any,
-                ): input is Array<ObjectAlias.IMember> => {
+                const __is = (input: any): input is ObjectAlias => {
                     const $io0 = (input: any): boolean =>
                         (null === input.id || "string" === typeof input.id) &&
                         "string" === typeof input.email &&
@@ -46,7 +40,7 @@ export const test_misc_validateClone_ObjectAlias =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is Array<ObjectAlias.IMember> => {
+                    ): input is ObjectAlias => {
                         const $vo0 = (
                             input: any,
                             _path: string,
@@ -150,8 +144,8 @@ export const test_misc_validateClone_ObjectAlias =
                 } as any;
             };
             const clone = (
-                input: Array<ObjectAlias.IMember>,
-            ): typia.Primitive<Array<ObjectAlias.IMember>> => {
+                input: ObjectAlias,
+            ): typia.Primitive<ObjectAlias> => {
                 const $cp0 = (input: any) =>
                     input.map((elem: any) =>
                         "object" === typeof elem && null !== elem

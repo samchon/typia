@@ -5,19 +5,11 @@ import { ArrayHierarchicalPointer } from "../../../structures/ArrayHierarchicalP
 export const test_misc_assertClone_ArrayHierarchicalPointer =
     _test_misc_assertClone<ArrayHierarchicalPointer>(ArrayHierarchicalPointer)(
         (input) =>
-            ((
-                input: any,
-            ): typia.Primitive<
-                IPointer<Array<ArrayHierarchicalPointer.ICompany>>
-            > => {
-                const assert = (
-                    input: any,
-                ): IPointer<Array<ArrayHierarchicalPointer.ICompany>> => {
+            ((input: any): typia.Primitive<ArrayHierarchicalPointer> => {
+                const assert = (input: any): ArrayHierarchicalPointer => {
                     const __is = (
                         input: any,
-                    ): input is IPointer<
-                        Array<ArrayHierarchicalPointer.ICompany>
-                    > => {
+                    ): input is ArrayHierarchicalPointer => {
                         const $io0 = (input: any): boolean =>
                             Array.isArray(input.value) &&
                             input.value.every(
@@ -99,9 +91,7 @@ export const test_misc_assertClone_ArrayHierarchicalPointer =
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
-                        ): input is IPointer<
-                            Array<ArrayHierarchicalPointer.ICompany>
-                        > => {
+                        ): input is ArrayHierarchicalPointer => {
                             const $guard = (typia.misc.assertClone as any)
                                 .guard;
                             const $ao0 = (
@@ -424,10 +414,8 @@ export const test_misc_assertClone_ArrayHierarchicalPointer =
                     return input;
                 };
                 const clone = (
-                    input: IPointer<Array<ArrayHierarchicalPointer.ICompany>>,
-                ): typia.Primitive<
-                    IPointer<Array<ArrayHierarchicalPointer.ICompany>>
-                > => {
+                    input: ArrayHierarchicalPointer,
+                ): typia.Primitive<ArrayHierarchicalPointer> => {
                     const $io1 = (input: any): boolean =>
                         "number" === typeof input.id &&
                         "number" === typeof input.serial &&

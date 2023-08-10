@@ -5,10 +5,7 @@ import { TagAtomicUnion } from "../../../structures/TagAtomicUnion";
 export const test_equals_TagAtomicUnion = _test_equals<TagAtomicUnion>(
     TagAtomicUnion,
 )((input) =>
-    ((
-        input: any,
-        _exceptionable: boolean = true,
-    ): input is IPointer<Array<TagAtomicUnion.Type>> => {
+    ((input: any, _exceptionable: boolean = true): input is TagAtomicUnion => {
         const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
             Array.isArray(input.value) &&
             input.value.every(

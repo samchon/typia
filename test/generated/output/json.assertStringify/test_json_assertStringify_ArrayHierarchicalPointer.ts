@@ -7,14 +7,10 @@ export const test_json_assertStringify_ArrayHierarchicalPointer =
         ArrayHierarchicalPointer,
     )((input) =>
         ((input: any): string => {
-            const assert = (
-                input: any,
-            ): IPointer<Array<ArrayHierarchicalPointer.ICompany>> => {
+            const assert = (input: any): ArrayHierarchicalPointer => {
                 const __is = (
                     input: any,
-                ): input is IPointer<
-                    Array<ArrayHierarchicalPointer.ICompany>
-                > => {
+                ): input is ArrayHierarchicalPointer => {
                     const $io0 = (input: any): boolean =>
                         Array.isArray(input.value) &&
                         input.value.every(
@@ -88,9 +84,7 @@ export const test_json_assertStringify_ArrayHierarchicalPointer =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is IPointer<
-                        Array<ArrayHierarchicalPointer.ICompany>
-                    > => {
+                    ): input is ArrayHierarchicalPointer => {
                         const $guard = (typia.json.assertStringify as any)
                             .guard;
                         const $ao0 = (
@@ -411,9 +405,7 @@ export const test_json_assertStringify_ArrayHierarchicalPointer =
                     })(input, "$input", true);
                 return input;
             };
-            const stringify = (
-                input: IPointer<Array<ArrayHierarchicalPointer.ICompany>>,
-            ): string => {
+            const stringify = (input: ArrayHierarchicalPointer): string => {
                 const $io1 = (input: any): boolean =>
                     "number" === typeof input.id &&
                     "number" === typeof input.serial &&

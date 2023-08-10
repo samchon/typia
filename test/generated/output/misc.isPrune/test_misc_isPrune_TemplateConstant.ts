@@ -4,10 +4,8 @@ import { TemplateConstant } from "../../../structures/TemplateConstant";
 
 export const test_misc_isPrune_TemplateConstant =
     _test_misc_isPrune<TemplateConstant>(TemplateConstant)((input) =>
-        ((input: any): input is IPointer<Array<TemplateConstant.Type>> => {
-            const is = (
-                input: any,
-            ): input is IPointer<Array<TemplateConstant.Type>> => {
+        ((input: any): input is TemplateConstant => {
+            const is = (input: any): input is TemplateConstant => {
                 const $io0 = (input: any): boolean =>
                     Array.isArray(input.value) &&
                     input.value.every(
@@ -36,9 +34,7 @@ export const test_misc_isPrune_TemplateConstant =
                     "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            const prune = (
-                input: IPointer<Array<TemplateConstant.Type>>,
-            ): void => {
+            const prune = (input: TemplateConstant): void => {
                 const $io1 = (input: any): boolean =>
                     ("prefix_A" === input.prefix ||
                         "prefix_B" === input.prefix ||

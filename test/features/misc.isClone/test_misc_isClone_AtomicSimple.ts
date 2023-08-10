@@ -4,4 +4,4 @@ import { AtomicSimple } from "../../structures/AtomicSimple";
 
 export const test_misc_isClone_AtomicSimple = _test_misc_isClone<AtomicSimple>(
     AtomicSimple,
-)((input) => typia.misc.isClone(input));
+)((input) => typia.misc.isClone<AtomicSimple>(input));

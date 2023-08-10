@@ -6,12 +6,8 @@ export const test_json_assertStringify_ObjectGenericAlias =
     _test_json_assertStringify<ObjectGenericAlias>(ObjectGenericAlias)(
         (input) =>
             ((input: any): string => {
-                const assert = (
-                    input: any,
-                ): ObjectGenericAlias.ISomething<string> => {
-                    const __is = (
-                        input: any,
-                    ): input is ObjectGenericAlias.ISomething<string> => {
+                const assert = (input: any): ObjectGenericAlias => {
+                    const __is = (input: any): input is ObjectGenericAlias => {
                         return (
                             "object" === typeof input &&
                             null !== input &&
@@ -23,7 +19,7 @@ export const test_json_assertStringify_ObjectGenericAlias =
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
-                        ): input is ObjectGenericAlias.ISomething<string> => {
+                        ): input is ObjectGenericAlias => {
                             const $guard = (typia.json.assertStringify as any)
                                 .guard;
                             const $ao0 = (
@@ -55,9 +51,7 @@ export const test_json_assertStringify_ObjectGenericAlias =
                         })(input, "$input", true);
                     return input;
                 };
-                const stringify = (
-                    input: ObjectGenericAlias.ISomething<string>,
-                ): string => {
+                const stringify = (input: ObjectGenericAlias): string => {
                     const $string = (typia.json.assertStringify as any).string;
                     return `{"value":${$string((input as any).value)}}`;
                 };

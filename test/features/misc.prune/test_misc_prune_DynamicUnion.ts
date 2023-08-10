@@ -4,4 +4,4 @@ import { DynamicUnion } from "../../structures/DynamicUnion";
 
 export const test_misc_prune_DynamicUnion = _test_misc_prune<DynamicUnion>(
     DynamicUnion,
-)((input) => typia.misc.prune(input));
+)((input) => typia.misc.prune<DynamicUnion>(input));

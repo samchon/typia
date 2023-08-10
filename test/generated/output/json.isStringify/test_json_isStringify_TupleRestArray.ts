@@ -4,10 +4,8 @@ import { TupleRestArray } from "../../../structures/TupleRestArray";
 
 export const test_json_isStringify_TupleRestArray =
     _test_json_isStringify<TupleRestArray>(TupleRestArray)((input) =>
-        ((input: [boolean, number, ...Array<string>[]]): string | null => {
-            const is = (
-                input: any,
-            ): input is [boolean, number, ...Array<string>[]] => {
+        ((input: TupleRestArray): string | null => {
+            const is = (input: any): input is TupleRestArray => {
                 return (
                     Array.isArray(input) &&
                     "boolean" === typeof input[0] &&
@@ -25,9 +23,7 @@ export const test_json_isStringify_TupleRestArray =
                         )
                 );
             };
-            const stringify = (
-                input: [boolean, number, ...Array<string>[]],
-            ): string => {
+            const stringify = (input: TupleRestArray): string => {
                 const $number = (typia.json.isStringify as any).number;
                 const $string = (typia.json.isStringify as any).string;
                 const $rest = (typia.json.isStringify as any).rest;

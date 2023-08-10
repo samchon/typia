@@ -4,13 +4,9 @@ import { ObjectTuple } from "../../../structures/ObjectTuple";
 
 export const test_misc_assertPrune_ObjectTuple =
     _test_misc_assertPrune<ObjectTuple>(ObjectTuple)((input) =>
-        ((input: any): [ObjectTuple.ISection, ObjectTuple.ICitizen] => {
-            const assert = (
-                input: any,
-            ): [ObjectTuple.ISection, ObjectTuple.ICitizen] => {
-                const __is = (
-                    input: any,
-                ): input is [ObjectTuple.ISection, ObjectTuple.ICitizen] => {
+        ((input: any): ObjectTuple => {
+            const assert = (input: any): ObjectTuple => {
+                const __is = (input: any): input is ObjectTuple => {
                     const $io0 = (input: any): boolean =>
                         "string" === typeof input.id &&
                         "string" === typeof input.code &&
@@ -35,10 +31,7 @@ export const test_misc_assertPrune_ObjectTuple =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is [
-                        ObjectTuple.ISection,
-                        ObjectTuple.ICitizen,
-                    ] => {
+                    ): input is ObjectTuple => {
                         const $guard = (typia.misc.assertPrune as any).guard;
                         const $ao0 = (
                             input: any,
@@ -135,9 +128,7 @@ export const test_misc_assertPrune_ObjectTuple =
                     })(input, "$input", true);
                 return input;
             };
-            const prune = (
-                input: [ObjectTuple.ISection, ObjectTuple.ICitizen],
-            ): void => {
+            const prune = (input: ObjectTuple): void => {
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     "string" === typeof input.code &&

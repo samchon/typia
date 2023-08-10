@@ -4,22 +4,8 @@ import { AtomicIntersection } from "../../../structures/AtomicIntersection";
 
 export const test_misc_isClone_AtomicIntersection =
     _test_misc_isClone<AtomicIntersection>(AtomicIntersection)((input) =>
-        ((
-            input: any,
-        ): typia.Primitive<
-            [
-                AtomicIntersection.Wrapper<boolean>,
-                AtomicIntersection.Wrapper<number>,
-                AtomicIntersection.Wrapper<string>,
-            ]
-        > | null => {
-            const is = (
-                input: any,
-            ): input is [
-                AtomicIntersection.Wrapper<boolean>,
-                AtomicIntersection.Wrapper<number>,
-                AtomicIntersection.Wrapper<string>,
-            ] => {
+        ((input: any): typia.Primitive<AtomicIntersection> | null => {
+            const is = (input: any): input is AtomicIntersection => {
                 return (
                     Array.isArray(input) &&
                     input.length === 3 &&
@@ -30,18 +16,8 @@ export const test_misc_isClone_AtomicIntersection =
                 );
             };
             const clone = (
-                input: [
-                    AtomicIntersection.Wrapper<boolean>,
-                    AtomicIntersection.Wrapper<number>,
-                    AtomicIntersection.Wrapper<string>,
-                ],
-            ): typia.Primitive<
-                [
-                    AtomicIntersection.Wrapper<boolean>,
-                    AtomicIntersection.Wrapper<number>,
-                    AtomicIntersection.Wrapper<string>,
-                ]
-            > => {
+                input: AtomicIntersection,
+            ): typia.Primitive<AtomicIntersection> => {
                 return Array.isArray(input) &&
                     input.length === 3 &&
                     "boolean" === typeof input[0] &&

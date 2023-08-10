@@ -3,5 +3,5 @@ import { _test_misc_prune } from "../../internal/_test_misc_prune";
 import { TagLength } from "../../structures/TagLength";
 
 export const test_misc_prune_TagLength = _test_misc_prune<TagLength>(TagLength)(
-    (input) => typia.misc.prune(input),
+    (input) => typia.misc.prune<TagLength>(input),
 );

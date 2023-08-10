@@ -4,9 +4,7 @@ import { DynamicConstant } from "../../../structures/DynamicConstant";
 
 export const test_json_stringify_DynamicConstant =
     _test_json_stringify<DynamicConstant>(DynamicConstant)((input) =>
-        ((
-            input: IPointer<{ a: number; b: number; c: number; d: number }>,
-        ): string => {
+        ((input: DynamicConstant): string => {
             const $io1 = (input: any): boolean =>
                 "number" === typeof input.a &&
                 "number" === typeof input.b &&

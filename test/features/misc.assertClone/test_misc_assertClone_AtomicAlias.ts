@@ -4,5 +4,5 @@ import { AtomicAlias } from "../../structures/AtomicAlias";
 
 export const test_misc_assertClone_AtomicAlias =
     _test_misc_assertClone<AtomicAlias>(AtomicAlias)((input) =>
-        typia.misc.assertClone(input),
+        typia.misc.assertClone<AtomicAlias>(input),
     );

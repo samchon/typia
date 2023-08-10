@@ -4,4 +4,4 @@ import { AtomicClass } from "../../structures/AtomicClass";
 
 export const test_misc_prune_AtomicClass = _test_misc_prune<AtomicClass>(
     AtomicClass,
-)((input) => typia.misc.prune(input));
+)((input) => typia.misc.prune<AtomicClass>(input));

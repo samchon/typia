@@ -4,11 +4,9 @@ import { ArrayUnion } from "../../../structures/ArrayUnion";
 
 export const test_misc_assertClone_ArrayUnion =
     _test_misc_assertClone<ArrayUnion>(ArrayUnion)((input) =>
-        ((input: any): typia.Primitive<Array<ArrayUnion.IUnion>> => {
-            const assert = (input: any): Array<ArrayUnion.IUnion> => {
-                const __is = (
-                    input: any,
-                ): input is Array<ArrayUnion.IUnion> => {
+        ((input: any): typia.Primitive<ArrayUnion> => {
+            const assert = (input: any): ArrayUnion => {
+                const __is = (input: any): input is ArrayUnion => {
                     const $ip0 = (input: any) => {
                         const array = input;
                         const top = input[0];
@@ -68,7 +66,7 @@ export const test_misc_assertClone_ArrayUnion =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is Array<ArrayUnion.IUnion> => {
+                    ): input is ArrayUnion => {
                         const $guard = (typia.misc.assertClone as any).guard;
                         const $ap0 = (
                             input: any,
@@ -202,9 +200,7 @@ export const test_misc_assertClone_ArrayUnion =
                     })(input, "$input", true);
                 return input;
             };
-            const clone = (
-                input: Array<ArrayUnion.IUnion>,
-            ): typia.Primitive<Array<ArrayUnion.IUnion>> => {
+            const clone = (input: ArrayUnion): typia.Primitive<ArrayUnion> => {
                 const $throws = (typia.misc.assertClone as any).throws;
                 const $cp0 = (input: any) => {
                     const array = input;

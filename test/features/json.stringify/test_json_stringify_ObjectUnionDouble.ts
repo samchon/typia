@@ -4,5 +4,5 @@ import { ObjectUnionDouble } from "../../structures/ObjectUnionDouble";
 
 export const test_json_stringify_ObjectUnionDouble =
     _test_json_stringify<ObjectUnionDouble>(ObjectUnionDouble)((input) =>
-        typia.json.stringify(input),
+        typia.json.stringify<ObjectUnionDouble>(input),
     );

@@ -4,4 +4,4 @@ import { TagNaN } from "../../structures/TagNaN";
 
 export const test_misc_validatePrune_TagNaN = _test_misc_validatePrune<TagNaN>(
     TagNaN,
-)((input) => typia.misc.validatePrune(input));
+)((input) => typia.misc.validatePrune<TagNaN>(input));

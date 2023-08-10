@@ -4,4 +4,4 @@ import { SetUnion } from "../../structures/SetUnion";
 
 export const test_misc_isClone_SetUnion = _test_misc_isClone<SetUnion>(
     SetUnion,
-)((input) => typia.misc.isClone(input));
+)((input) => typia.misc.isClone<SetUnion>(input));

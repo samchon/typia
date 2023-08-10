@@ -4,5 +4,5 @@ import { ObjectUnionExplicit } from "../../structures/ObjectUnionExplicit";
 
 export const test_json_stringify_ObjectUnionExplicit =
     _test_json_stringify<ObjectUnionExplicit>(ObjectUnionExplicit)((input) =>
-        typia.json.stringify(input),
+        typia.json.stringify<ObjectUnionExplicit>(input),
     );

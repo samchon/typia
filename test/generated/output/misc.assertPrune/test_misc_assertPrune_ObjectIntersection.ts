@@ -4,14 +4,9 @@ import { ObjectIntersection } from "../../../structures/ObjectIntersection";
 
 export const test_misc_assertPrune_ObjectIntersection =
     _test_misc_assertPrune<ObjectIntersection>(ObjectIntersection)((input) =>
-        ((input: any): ObjectIntersection.IEmail & ObjectIntersection.IName => {
-            const assert = (
-                input: any,
-            ): ObjectIntersection.IEmail & ObjectIntersection.IName => {
-                const __is = (
-                    input: any,
-                ): input is ObjectIntersection.IEmail &
-                    ObjectIntersection.IName => {
+        ((input: any): ObjectIntersection => {
+            const assert = (input: any): ObjectIntersection => {
+                const __is = (input: any): input is ObjectIntersection => {
                     return (
                         "object" === typeof input &&
                         null !== input &&
@@ -25,8 +20,7 @@ export const test_misc_assertPrune_ObjectIntersection =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is ObjectIntersection.IEmail &
-                        ObjectIntersection.IName => {
+                    ): input is ObjectIntersection => {
                         const $guard = (typia.misc.assertPrune as any).guard;
                         const $ao0 = (
                             input: any,
@@ -68,9 +62,7 @@ export const test_misc_assertPrune_ObjectIntersection =
                     })(input, "$input", true);
                 return input;
             };
-            const prune = (
-                input: ObjectIntersection.IEmail & ObjectIntersection.IName,
-            ): void => {
+            const prune = (input: ObjectIntersection): void => {
                 const $po0 = (input: any): any => {
                     for (const key of Object.keys(input)) {
                         if (

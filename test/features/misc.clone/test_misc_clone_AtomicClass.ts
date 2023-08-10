@@ -4,4 +4,4 @@ import { AtomicClass } from "../../structures/AtomicClass";
 
 export const test_misc_clone_AtomicClass = _test_misc_clone<AtomicClass>(
     AtomicClass,
-)((input) => typia.misc.clone(input));
+)((input) => typia.misc.clone<AtomicClass>(input));

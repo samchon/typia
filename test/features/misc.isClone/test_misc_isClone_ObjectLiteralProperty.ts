@@ -4,5 +4,5 @@ import { ObjectLiteralProperty } from "../../structures/ObjectLiteralProperty";
 
 export const test_misc_isClone_ObjectLiteralProperty =
     _test_misc_isClone<ObjectLiteralProperty>(ObjectLiteralProperty)((input) =>
-        typia.misc.isClone(input),
+        typia.misc.isClone<ObjectLiteralProperty>(input),
     );

@@ -4,4 +4,4 @@ import { ObjectPrimitive } from "../../structures/ObjectPrimitive";
 
 export const test_equals_ObjectPrimitive = _test_equals<ObjectPrimitive>(
     ObjectPrimitive,
-)((input) => typia.equals(input));
+)((input) => typia.equals<ObjectPrimitive>(input));

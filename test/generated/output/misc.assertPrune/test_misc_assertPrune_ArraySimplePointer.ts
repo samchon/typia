@@ -4,13 +4,9 @@ import { ArraySimplePointer } from "../../../structures/ArraySimplePointer";
 
 export const test_misc_assertPrune_ArraySimplePointer =
     _test_misc_assertPrune<ArraySimplePointer>(ArraySimplePointer)((input) =>
-        ((input: any): IPointer<Array<ArraySimplePointer.IPerson>> => {
-            const assert = (
-                input: any,
-            ): IPointer<Array<ArraySimplePointer.IPerson>> => {
-                const __is = (
-                    input: any,
-                ): input is IPointer<Array<ArraySimplePointer.IPerson>> => {
+        ((input: any): ArraySimplePointer => {
+            const assert = (input: any): ArraySimplePointer => {
+                const __is = (input: any): input is ArraySimplePointer => {
                     const $io0 = (input: any): boolean =>
                         Array.isArray(input.value) &&
                         input.value.every(
@@ -45,7 +41,7 @@ export const test_misc_assertPrune_ArraySimplePointer =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is IPointer<Array<ArraySimplePointer.IPerson>> => {
+                    ): input is ArraySimplePointer => {
                         const $guard = (typia.misc.assertPrune as any).guard;
                         const $ao0 = (
                             input: any,
@@ -201,9 +197,7 @@ export const test_misc_assertPrune_ArraySimplePointer =
                     })(input, "$input", true);
                 return input;
             };
-            const prune = (
-                input: IPointer<Array<ArraySimplePointer.IPerson>>,
-            ): void => {
+            const prune = (input: ArraySimplePointer): void => {
                 const $io1 = (input: any): boolean =>
                     "string" === typeof input.name &&
                     "string" === typeof input.email &&

@@ -3,14 +3,7 @@ import { _test_is } from "../../../internal/_test_is";
 import { ToJsonTuple } from "../../../structures/ToJsonTuple";
 
 export const test_is_ToJsonTuple = _test_is<ToJsonTuple>(ToJsonTuple)((input) =>
-    ((
-        input: any,
-    ): input is [
-        ToJsonTuple.IToJson<string>,
-        ToJsonTuple.IToJson<number>,
-        ToJsonTuple.IToJson<boolean>,
-        ToJsonTuple.IObject,
-    ] => {
+    ((input: any): input is ToJsonTuple => {
         const $io0 = (input: any): boolean =>
             "function" === typeof input.toJSON;
         const $io1 = (input: any): boolean =>

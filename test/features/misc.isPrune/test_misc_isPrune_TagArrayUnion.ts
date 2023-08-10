@@ -4,5 +4,5 @@ import { TagArrayUnion } from "../../structures/TagArrayUnion";
 
 export const test_misc_isPrune_TagArrayUnion =
     _test_misc_isPrune<TagArrayUnion>(TagArrayUnion)((input) =>
-        typia.misc.isPrune(input),
+        typia.misc.isPrune<TagArrayUnion>(input),
     );

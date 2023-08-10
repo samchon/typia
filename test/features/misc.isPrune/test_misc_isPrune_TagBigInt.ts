@@ -4,4 +4,4 @@ import { TagBigInt } from "../../structures/TagBigInt";
 
 export const test_misc_isPrune_TagBigInt = _test_misc_isPrune<TagBigInt>(
     TagBigInt,
-)((input) => typia.misc.isPrune(input));
+)((input) => typia.misc.isPrune<TagBigInt>(input));

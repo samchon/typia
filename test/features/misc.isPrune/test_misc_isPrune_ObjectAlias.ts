@@ -4,4 +4,4 @@ import { ObjectAlias } from "../../structures/ObjectAlias";
 
 export const test_misc_isPrune_ObjectAlias = _test_misc_isPrune<ObjectAlias>(
     ObjectAlias,
-)((input) => typia.misc.isPrune(input));
+)((input) => typia.misc.isPrune<ObjectAlias>(input));

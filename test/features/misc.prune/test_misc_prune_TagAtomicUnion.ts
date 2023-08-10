@@ -4,4 +4,4 @@ import { TagAtomicUnion } from "../../structures/TagAtomicUnion";
 
 export const test_misc_prune_TagAtomicUnion = _test_misc_prune<TagAtomicUnion>(
     TagAtomicUnion,
-)((input) => typia.misc.prune(input));
+)((input) => typia.misc.prune<TagAtomicUnion>(input));

@@ -4,5 +4,5 @@ import { TagObjectUnion } from "../../structures/TagObjectUnion";
 
 export const test_misc_validatePrune_TagObjectUnion =
     _test_misc_validatePrune<TagObjectUnion>(TagObjectUnion)((input) =>
-        typia.misc.validatePrune(input),
+        typia.misc.validatePrune<TagObjectUnion>(input),
     );

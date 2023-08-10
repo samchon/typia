@@ -4,4 +4,4 @@ import { ObjectNullable } from "../../structures/ObjectNullable";
 
 export const test_equals_ObjectNullable = _test_equals<ObjectNullable>(
     ObjectNullable,
-)((input) => typia.equals(input));
+)((input) => typia.equals<ObjectNullable>(input));

@@ -4,5 +4,5 @@ import { ConstantIntersection } from "../../structures/ConstantIntersection";
 
 export const test_misc_assertClone_ConstantIntersection =
     _test_misc_assertClone<ConstantIntersection>(ConstantIntersection)(
-        (input) => typia.misc.assertClone(input),
+        (input) => typia.misc.assertClone<ConstantIntersection>(input),
     );

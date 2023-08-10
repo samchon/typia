@@ -5,9 +5,7 @@ import { TagAtomicUnion } from "../../../structures/TagAtomicUnion";
 export const test_misc_clone_TagAtomicUnion = _test_misc_clone<TagAtomicUnion>(
     TagAtomicUnion,
 )((input) =>
-    ((
-        input: IPointer<Array<TagAtomicUnion.Type>>,
-    ): typia.Primitive<IPointer<Array<TagAtomicUnion.Type>>> => {
+    ((input: TagAtomicUnion): typia.Primitive<TagAtomicUnion> => {
         const $io1 = (input: any): boolean =>
             ("string" === typeof input.value &&
                 3 <= input.value.length &&

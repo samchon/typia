@@ -4,4 +4,4 @@ import { TagTuple } from "../../structures/TagTuple";
 
 export const test_misc_isPrune_TagTuple = _test_misc_isPrune<TagTuple>(
     TagTuple,
-)((input) => typia.misc.isPrune(input));
+)((input) => typia.misc.isPrune<TagTuple>(input));

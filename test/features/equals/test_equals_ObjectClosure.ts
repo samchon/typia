@@ -4,4 +4,4 @@ import { ObjectClosure } from "../../structures/ObjectClosure";
 
 export const test_equals_ObjectClosure = _test_equals<ObjectClosure>(
     ObjectClosure,
-)((input) => typia.equals(input));
+)((input) => typia.equals<ObjectClosure>(input));

@@ -5,38 +5,11 @@ import { ObjectPropertyNullable } from "../../../structures/ObjectPropertyNullab
 export const test_misc_assertClone_ObjectPropertyNullable =
     _test_misc_assertClone<ObjectPropertyNullable>(ObjectPropertyNullable)(
         (input) =>
-            ((
-                input: any,
-            ): typia.Primitive<
-                [
-                    Array<ObjectPropertyNullable.IPointer<boolean>>,
-                    Array<ObjectPropertyNullable.IPointer<number>>,
-                    Array<ObjectPropertyNullable.IPointer<string>>,
-                    Array<
-                        ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>
-                    >,
-                ]
-            > => {
-                const assert = (
-                    input: any,
-                ): [
-                    Array<ObjectPropertyNullable.IPointer<boolean>>,
-                    Array<ObjectPropertyNullable.IPointer<number>>,
-                    Array<ObjectPropertyNullable.IPointer<string>>,
-                    Array<
-                        ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>
-                    >,
-                ] => {
+            ((input: any): typia.Primitive<ObjectPropertyNullable> => {
+                const assert = (input: any): ObjectPropertyNullable => {
                     const __is = (
                         input: any,
-                    ): input is [
-                        Array<ObjectPropertyNullable.IPointer<boolean>>,
-                        Array<ObjectPropertyNullable.IPointer<number>>,
-                        Array<ObjectPropertyNullable.IPointer<string>>,
-                        Array<
-                            ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>
-                        >,
-                    ] => {
+                    ): input is ObjectPropertyNullable => {
                         const $io0 = (input: any): boolean =>
                             null === input.value ||
                             "boolean" === typeof input.value;
@@ -103,14 +76,7 @@ export const test_misc_assertClone_ObjectPropertyNullable =
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
-                        ): input is [
-                            Array<ObjectPropertyNullable.IPointer<boolean>>,
-                            Array<ObjectPropertyNullable.IPointer<number>>,
-                            Array<ObjectPropertyNullable.IPointer<string>>,
-                            Array<
-                                ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>
-                            >,
-                        ] => {
+                        ): input is ObjectPropertyNullable => {
                             const $guard = (typia.misc.assertClone as any)
                                 .guard;
                             const $ao0 = (
@@ -425,24 +391,8 @@ export const test_misc_assertClone_ObjectPropertyNullable =
                     return input;
                 };
                 const clone = (
-                    input: [
-                        Array<ObjectPropertyNullable.IPointer<boolean>>,
-                        Array<ObjectPropertyNullable.IPointer<number>>,
-                        Array<ObjectPropertyNullable.IPointer<string>>,
-                        Array<
-                            ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>
-                        >,
-                    ],
-                ): typia.Primitive<
-                    [
-                        Array<ObjectPropertyNullable.IPointer<boolean>>,
-                        Array<ObjectPropertyNullable.IPointer<number>>,
-                        Array<ObjectPropertyNullable.IPointer<string>>,
-                        Array<
-                            ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>
-                        >,
-                    ]
-                > => {
+                    input: ObjectPropertyNullable,
+                ): typia.Primitive<ObjectPropertyNullable> => {
                     const $io0 = (input: any): boolean =>
                         null === input.value ||
                         "boolean" === typeof input.value;

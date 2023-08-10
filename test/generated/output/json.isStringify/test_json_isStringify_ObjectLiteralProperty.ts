@@ -5,10 +5,8 @@ import { ObjectLiteralProperty } from "../../../structures/ObjectLiteralProperty
 export const test_json_isStringify_ObjectLiteralProperty =
     _test_json_isStringify<ObjectLiteralProperty>(ObjectLiteralProperty)(
         (input) =>
-            ((input: ObjectLiteralProperty.ISomething): string | null => {
-                const is = (
-                    input: any,
-                ): input is ObjectLiteralProperty.ISomething => {
+            ((input: ObjectLiteralProperty): string | null => {
+                const is = (input: any): input is ObjectLiteralProperty => {
                     return (
                         "object" === typeof input &&
                         null !== input &&
@@ -22,9 +20,7 @@ export const test_json_isStringify_ObjectLiteralProperty =
                             ]
                     );
                 };
-                const stringify = (
-                    input: ObjectLiteralProperty.ISomething,
-                ): string => {
+                const stringify = (input: ObjectLiteralProperty): string => {
                     const $string = (typia.json.isStringify as any).string;
                     return `{"something-interesting-do-you-want?":${$string(
                         (input as any)["something-interesting-do-you-want?"],

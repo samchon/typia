@@ -4,4 +4,4 @@ import { DynamicArray } from "../../structures/DynamicArray";
 
 export const test_validate_DynamicArray = _test_validate<DynamicArray>(
     DynamicArray,
-)((input) => typia.validate(input));
+)((input) => typia.validate<DynamicArray>(input));

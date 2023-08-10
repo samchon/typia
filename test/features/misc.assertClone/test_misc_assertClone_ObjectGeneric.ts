@@ -4,5 +4,5 @@ import { ObjectGeneric } from "../../structures/ObjectGeneric";
 
 export const test_misc_assertClone_ObjectGeneric =
     _test_misc_assertClone<ObjectGeneric>(ObjectGeneric)((input) =>
-        typia.misc.assertClone(input),
+        typia.misc.assertClone<ObjectGeneric>(input),
     );

@@ -5,10 +5,7 @@ import { TemplateUnion } from "../../../structures/TemplateUnion";
 export const test_equals_TemplateUnion = _test_equals<TemplateUnion>(
     TemplateUnion,
 )((input) =>
-    ((
-        input: any,
-        _exceptionable: boolean = true,
-    ): input is IPointer<Array<TemplateUnion.Type>> => {
+    ((input: any, _exceptionable: boolean = true): input is TemplateUnion => {
         const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
             Array.isArray(input.value) &&
             input.value.every(

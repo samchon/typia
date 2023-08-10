@@ -4,5 +4,5 @@ import { ObjectGenericUnion } from "../../structures/ObjectGenericUnion";
 
 export const test_misc_validatePrune_ObjectGenericUnion =
     _test_misc_validatePrune<ObjectGenericUnion>(ObjectGenericUnion)((input) =>
-        typia.misc.validatePrune(input),
+        typia.misc.validatePrune<ObjectGenericUnion>(input),
     );

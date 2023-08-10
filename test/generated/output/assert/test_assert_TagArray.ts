@@ -3,8 +3,8 @@ import { _test_assert } from "../../../internal/_test_assert";
 import { TagArray } from "../../../structures/TagArray";
 
 export const test_assert_TagArray = _test_assert<TagArray>(TagArray)((input) =>
-    ((input: any): IPointer<Array<TagArray.Type>> => {
-        const __is = (input: any): input is IPointer<Array<TagArray.Type>> => {
+    ((input: any): TagArray => {
+        const __is = (input: any): input is TagArray => {
             const $is_uuid = (typia.assert as any).is_uuid;
             const $io0 = (input: any): boolean =>
                 Array.isArray(input.value) &&
@@ -39,7 +39,7 @@ export const test_assert_TagArray = _test_assert<TagArray>(TagArray)((input) =>
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is IPointer<Array<TagArray.Type>> => {
+            ): input is TagArray => {
                 const $guard = (typia.assert as any).guard;
                 const $is_uuid = (typia.assert as any).is_uuid;
                 const $ao0 = (

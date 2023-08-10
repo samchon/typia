@@ -4,5 +4,5 @@ import { TemplateAtomic } from "../../structures/TemplateAtomic";
 
 export const test_misc_validateClone_TemplateAtomic =
     _test_misc_validateClone<TemplateAtomic>(TemplateAtomic)((input) =>
-        typia.misc.validateClone(input),
+        typia.misc.validateClone<TemplateAtomic>(input),
     );

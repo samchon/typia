@@ -4,4 +4,4 @@ import { ArrayUnion } from "../../structures/ArrayUnion";
 
 export const test_misc_clone_ArrayUnion = _test_misc_clone<ArrayUnion>(
     ArrayUnion,
-)((input) => typia.misc.clone(input));
+)((input) => typia.misc.clone<ArrayUnion>(input));

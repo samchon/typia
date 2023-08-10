@@ -5,11 +5,11 @@ import { ConstantConstEnumeration } from "../../../structures/ConstantConstEnume
 export const test_assertEquals_ConstantConstEnumeration =
     _test_assertEquals<ConstantConstEnumeration>(ConstantConstEnumeration)(
         (input) =>
-            ((input: any): Array<ConstantConstEnumeration.Enumeration> => {
+            ((input: any): ConstantConstEnumeration => {
                 const __is = (
                     input: any,
                     _exceptionable: boolean = true,
-                ): input is Array<ConstantConstEnumeration.Enumeration> => {
+                ): input is ConstantConstEnumeration => {
                     return (
                         Array.isArray(input) &&
                         input.every(
@@ -27,7 +27,7 @@ export const test_assertEquals_ConstantConstEnumeration =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is Array<ConstantConstEnumeration.Enumeration> => {
+                    ): input is ConstantConstEnumeration => {
                         const $guard = (typia.assertEquals as any).guard;
                         return (
                             ((Array.isArray(input) ||

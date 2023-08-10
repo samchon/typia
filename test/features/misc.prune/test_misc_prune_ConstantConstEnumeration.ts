@@ -4,5 +4,5 @@ import { ConstantConstEnumeration } from "../../structures/ConstantConstEnumerat
 
 export const test_misc_prune_ConstantConstEnumeration =
     _test_misc_prune<ConstantConstEnumeration>(ConstantConstEnumeration)(
-        (input) => typia.misc.prune(input),
+        (input) => typia.misc.prune<ConstantConstEnumeration>(input),
     );

@@ -5,16 +5,12 @@ import { ObjectGenericAlias } from "../../../structures/ObjectGenericAlias";
 export const test_json_validateStringify_ObjectGenericAlias =
     _test_json_validateStringify<ObjectGenericAlias>(ObjectGenericAlias)(
         (input) =>
-            ((
-                input: ObjectGenericAlias.ISomething<string>,
-            ): typia.IValidation<string> => {
+            ((input: ObjectGenericAlias): typia.IValidation<string> => {
                 const validate = (
                     input: any,
-                ): typia.IValidation<ObjectGenericAlias.ISomething<string>> => {
+                ): typia.IValidation<ObjectGenericAlias> => {
                     const errors = [] as any[];
-                    const __is = (
-                        input: any,
-                    ): input is ObjectGenericAlias.ISomething<string> => {
+                    const __is = (input: any): input is ObjectGenericAlias => {
                         return (
                             "object" === typeof input &&
                             null !== input &&
@@ -29,7 +25,7 @@ export const test_json_validateStringify_ObjectGenericAlias =
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
-                        ): input is ObjectGenericAlias.ISomething<string> => {
+                        ): input is ObjectGenericAlias => {
                             const $vo0 = (
                                 input: any,
                                 _path: string,
@@ -67,9 +63,7 @@ export const test_json_validateStringify_ObjectGenericAlias =
                         data: success ? input : undefined,
                     } as any;
                 };
-                const stringify = (
-                    input: ObjectGenericAlias.ISomething<string>,
-                ): string => {
+                const stringify = (input: ObjectGenericAlias): string => {
                     const $string = (typia.json.validateStringify as any)
                         .string;
                     return `{"value":${$string((input as any).value)}}`;

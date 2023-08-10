@@ -7,16 +7,7 @@ export const test_equals_ObjectUnionComposite =
         ((
             input: any,
             _exceptionable: boolean = true,
-        ): input is Array<
-            | ObjectUnionComposite.IPoint
-            | ObjectUnionComposite.ILine
-            | ObjectUnionComposite.ITriangle
-            | ObjectUnionComposite.IRectangle
-            | ObjectUnionComposite.IPolyline
-            | ObjectUnionComposite.IPolygon
-            | ObjectUnionComposite.IPointedShape
-            | ObjectUnionComposite.ICircle
-        > => {
+        ): input is ObjectUnionComposite => {
             const $io0 = (
                 input: any,
                 _exceptionable: boolean = true,

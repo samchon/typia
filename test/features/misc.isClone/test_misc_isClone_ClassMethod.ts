@@ -4,4 +4,4 @@ import { ClassMethod } from "../../structures/ClassMethod";
 
 export const test_misc_isClone_ClassMethod = _test_misc_isClone<ClassMethod>(
     ClassMethod,
-)((input) => typia.misc.isClone(input));
+)((input) => typia.misc.isClone<ClassMethod>(input));

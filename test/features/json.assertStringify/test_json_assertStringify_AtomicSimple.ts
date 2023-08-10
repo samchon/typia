@@ -4,5 +4,5 @@ import { AtomicSimple } from "../../structures/AtomicSimple";
 
 export const test_json_assertStringify_AtomicSimple =
     _test_json_assertStringify<AtomicSimple>(AtomicSimple)((input) =>
-        typia.json.assertStringify(input),
+        typia.json.assertStringify<AtomicSimple>(input),
     );

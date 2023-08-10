@@ -5,8 +5,8 @@ import { TagLength } from "../../../structures/TagLength";
 export const test_misc_isClone_TagLength = _test_misc_isClone<TagLength>(
     TagLength,
 )((input) =>
-    ((input: any): typia.Primitive<IPointer<Array<TagLength.Type>>> | null => {
-        const is = (input: any): input is IPointer<Array<TagLength.Type>> => {
+    ((input: any): typia.Primitive<TagLength> | null => {
+        const is = (input: any): input is TagLength => {
             const $io0 = (input: any): boolean =>
                 Array.isArray(input.value) &&
                 input.value.every(
@@ -25,9 +25,7 @@ export const test_misc_isClone_TagLength = _test_misc_isClone<TagLength>(
                 7 >= input.minimum_and_maximum.length;
             return "object" === typeof input && null !== input && $io0(input);
         };
-        const clone = (
-            input: IPointer<Array<TagLength.Type>>,
-        ): typia.Primitive<IPointer<Array<TagLength.Type>>> => {
+        const clone = (input: TagLength): typia.Primitive<TagLength> => {
             const $io1 = (input: any): boolean =>
                 "string" === typeof input.fixed &&
                 5 === input.fixed.length &&

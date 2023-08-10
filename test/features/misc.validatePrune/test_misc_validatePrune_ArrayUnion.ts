@@ -4,5 +4,5 @@ import { ArrayUnion } from "../../structures/ArrayUnion";
 
 export const test_misc_validatePrune_ArrayUnion =
     _test_misc_validatePrune<ArrayUnion>(ArrayUnion)((input) =>
-        typia.misc.validatePrune(input),
+        typia.misc.validatePrune<ArrayUnion>(input),
     );

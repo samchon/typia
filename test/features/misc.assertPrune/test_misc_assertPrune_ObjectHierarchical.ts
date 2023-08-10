@@ -4,5 +4,5 @@ import { ObjectHierarchical } from "../../structures/ObjectHierarchical";
 
 export const test_misc_assertPrune_ObjectHierarchical =
     _test_misc_assertPrune<ObjectHierarchical>(ObjectHierarchical)((input) =>
-        typia.misc.assertPrune(input),
+        typia.misc.assertPrune<ObjectHierarchical>(input),
     );

@@ -5,7 +5,7 @@ import { MapUnion } from "../../../structures/MapUnion";
 export const test_json_stringify_MapUnion = _test_json_stringify<MapUnion>(
     MapUnion,
 )((input) =>
-    ((input: Array<MapUnion.Union>): string => {
+    ((input: MapUnion): string => {
         const $string = (typia.json.stringify as any).string;
         const $number = (typia.json.stringify as any).number;
         return `[${input.map((elem: any) => "{}").join(",")}]`;

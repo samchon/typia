@@ -4,4 +4,4 @@ import { ObjectNullable } from "../../structures/ObjectNullable";
 
 export const test_misc_clone_ObjectNullable = _test_misc_clone<ObjectNullable>(
     ObjectNullable,
-)((input) => typia.misc.clone(input));
+)((input) => typia.misc.clone<ObjectNullable>(input));

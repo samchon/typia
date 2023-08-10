@@ -3,5 +3,5 @@ import { _test_is } from "../../internal/_test_is";
 import { TagPattern } from "../../structures/TagPattern";
 
 export const test_is_TagPattern = _test_is<TagPattern>(TagPattern)((input) =>
-    typia.is(input),
+    typia.is<TagPattern>(input),
 );

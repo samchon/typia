@@ -4,8 +4,8 @@ import { TagObjectUnion } from "../../../structures/TagObjectUnion";
 
 export const test_json_isStringify_TagObjectUnion =
     _test_json_isStringify<TagObjectUnion>(TagObjectUnion)((input) =>
-        ((input: Array<TagObjectUnion.Type>): string | null => {
-            const is = (input: any): input is Array<TagObjectUnion.Type> => {
+        ((input: TagObjectUnion): string | null => {
+            const is = (input: any): input is TagObjectUnion => {
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.value &&
                     Number.isFinite(input.value) &&
@@ -34,7 +34,7 @@ export const test_json_isStringify_TagObjectUnion =
                     )
                 );
             };
-            const stringify = (input: Array<TagObjectUnion.Type>): string => {
+            const stringify = (input: TagObjectUnion): string => {
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.value && 3 <= input.value;
                 const $io1 = (input: any): boolean =>

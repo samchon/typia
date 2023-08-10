@@ -4,5 +4,5 @@ import { TemplateAtomic } from "../../structures/TemplateAtomic";
 
 export const test_misc_assertClone_TemplateAtomic =
     _test_misc_assertClone<TemplateAtomic>(TemplateAtomic)((input) =>
-        typia.misc.assertClone(input),
+        typia.misc.assertClone<TemplateAtomic>(input),
     );

@@ -4,4 +4,4 @@ import { ArrayAny } from "../../structures/ArrayAny";
 
 export const test_json_isStringify_ArrayAny = _test_json_isStringify<ArrayAny>(
     ArrayAny,
-)((input) => typia.json.isStringify(input));
+)((input) => typia.json.isStringify<ArrayAny>(input));

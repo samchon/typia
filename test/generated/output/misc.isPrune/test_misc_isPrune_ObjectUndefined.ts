@@ -4,10 +4,8 @@ import { ObjectUndefined } from "../../../structures/ObjectUndefined";
 
 export const test_misc_isPrune_ObjectUndefined =
     _test_misc_isPrune<ObjectUndefined>(ObjectUndefined)((input) =>
-        ((input: any): input is Array<ObjectUndefined.ILecture> => {
-            const is = (
-                input: any,
-            ): input is Array<ObjectUndefined.ILecture> => {
+        ((input: any): input is ObjectUndefined => {
+            const is = (input: any): input is ObjectUndefined => {
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.name &&
                     (undefined === input.professor ||
@@ -39,7 +37,7 @@ export const test_misc_isPrune_ObjectUndefined =
                     )
                 );
             };
-            const prune = (input: Array<ObjectUndefined.ILecture>): void => {
+            const prune = (input: ObjectUndefined): void => {
                 const $io1 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     "string" === typeof input.name;

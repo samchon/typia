@@ -4,5 +4,5 @@ import { ArrayHierarchical } from "../../structures/ArrayHierarchical";
 
 export const test_misc_validateClone_ArrayHierarchical =
     _test_misc_validateClone<ArrayHierarchical>(ArrayHierarchical)((input) =>
-        typia.misc.validateClone(input),
+        typia.misc.validateClone<ArrayHierarchical>(input),
     );

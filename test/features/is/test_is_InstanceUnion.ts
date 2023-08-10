@@ -3,5 +3,5 @@ import { _test_is } from "../../internal/_test_is";
 import { InstanceUnion } from "../../structures/InstanceUnion";
 
 export const test_is_InstanceUnion = _test_is<InstanceUnion>(InstanceUnion)(
-    (input) => typia.is(input),
+    (input) => typia.is<InstanceUnion>(input),
 );

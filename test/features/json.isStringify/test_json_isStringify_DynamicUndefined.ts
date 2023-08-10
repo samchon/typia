@@ -4,5 +4,5 @@ import { DynamicUndefined } from "../../structures/DynamicUndefined";
 
 export const test_json_isStringify_DynamicUndefined =
     _test_json_isStringify<DynamicUndefined>(DynamicUndefined)((input) =>
-        typia.json.isStringify(input),
+        typia.json.isStringify<DynamicUndefined>(input),
     );

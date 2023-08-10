@@ -4,11 +4,11 @@ import { ObjectClosure } from "../../../structures/ObjectClosure";
 
 export const test_assertEquals_ObjectClosure =
     _test_assertEquals<ObjectClosure>(ObjectClosure)((input) =>
-        ((input: any): ObjectClosure.IRecord => {
+        ((input: any): ObjectClosure => {
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
-            ): input is ObjectClosure.IRecord => {
+            ): input is ObjectClosure => {
                 const $io0 = (
                     input: any,
                     _exceptionable: boolean = true,
@@ -36,7 +36,7 @@ export const test_assertEquals_ObjectClosure =
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ObjectClosure.IRecord => {
+                ): input is ObjectClosure => {
                     const $guard = (typia.assertEquals as any).guard;
                     const $join = (typia.assertEquals as any).join;
                     const $ao0 = (

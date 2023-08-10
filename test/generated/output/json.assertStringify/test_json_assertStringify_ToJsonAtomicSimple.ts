@@ -6,20 +6,8 @@ export const test_json_assertStringify_ToJsonAtomicSimple =
     _test_json_assertStringify<ToJsonAtomicSimple>(ToJsonAtomicSimple)(
         (input) =>
             ((input: any): string => {
-                const assert = (
-                    input: any,
-                ): [
-                    ToJsonAtomicSimple.IToJson<boolean>,
-                    ToJsonAtomicSimple.IToJson<number>,
-                    ToJsonAtomicSimple.IToJson<string>,
-                ] => {
-                    const __is = (
-                        input: any,
-                    ): input is [
-                        ToJsonAtomicSimple.IToJson<boolean>,
-                        ToJsonAtomicSimple.IToJson<number>,
-                        ToJsonAtomicSimple.IToJson<string>,
-                    ] => {
+                const assert = (input: any): ToJsonAtomicSimple => {
+                    const __is = (input: any): input is ToJsonAtomicSimple => {
                         const $io0 = (input: any): boolean => true;
                         const $io1 = (input: any): boolean => true;
                         const $io2 = (input: any): boolean => true;
@@ -42,11 +30,7 @@ export const test_json_assertStringify_ToJsonAtomicSimple =
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
-                        ): input is [
-                            ToJsonAtomicSimple.IToJson<boolean>,
-                            ToJsonAtomicSimple.IToJson<number>,
-                            ToJsonAtomicSimple.IToJson<string>,
-                        ] => {
+                        ): input is ToJsonAtomicSimple => {
                             const $guard = (typia.json.assertStringify as any)
                                 .guard;
                             const $ao0 = (
@@ -150,13 +134,7 @@ export const test_json_assertStringify_ToJsonAtomicSimple =
                         })(input, "$input", true);
                     return input;
                 };
-                const stringify = (
-                    input: [
-                        ToJsonAtomicSimple.IToJson<boolean>,
-                        ToJsonAtomicSimple.IToJson<number>,
-                        ToJsonAtomicSimple.IToJson<string>,
-                    ],
-                ): string => {
+                const stringify = (input: ToJsonAtomicSimple): string => {
                     const $number = (typia.json.assertStringify as any).number;
                     const $string = (typia.json.assertStringify as any).string;
                     return `[${input[0].toJSON()},${$number(

@@ -4,7 +4,7 @@ import { TagObjectUnion } from "../../../structures/TagObjectUnion";
 
 export const test_json_stringify_TagObjectUnion =
     _test_json_stringify<TagObjectUnion>(TagObjectUnion)((input) =>
-        ((input: Array<TagObjectUnion.Type>): string => {
+        ((input: TagObjectUnion): string => {
             const $io0 = (input: any): boolean =>
                 "number" === typeof input.value && 3 <= input.value;
             const $io1 = (input: any): boolean =>

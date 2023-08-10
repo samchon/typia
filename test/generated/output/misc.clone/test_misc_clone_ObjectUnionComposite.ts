@@ -5,28 +5,8 @@ import { ObjectUnionComposite } from "../../../structures/ObjectUnionComposite";
 export const test_misc_clone_ObjectUnionComposite =
     _test_misc_clone<ObjectUnionComposite>(ObjectUnionComposite)((input) =>
         ((
-            input: Array<
-                | ObjectUnionComposite.IPoint
-                | ObjectUnionComposite.ILine
-                | ObjectUnionComposite.ITriangle
-                | ObjectUnionComposite.IRectangle
-                | ObjectUnionComposite.IPolyline
-                | ObjectUnionComposite.IPolygon
-                | ObjectUnionComposite.IPointedShape
-                | ObjectUnionComposite.ICircle
-            >,
-        ): typia.Primitive<
-            Array<
-                | ObjectUnionComposite.IPoint
-                | ObjectUnionComposite.ILine
-                | ObjectUnionComposite.ITriangle
-                | ObjectUnionComposite.IRectangle
-                | ObjectUnionComposite.IPolyline
-                | ObjectUnionComposite.IPolygon
-                | ObjectUnionComposite.IPointedShape
-                | ObjectUnionComposite.ICircle
-            >
-        > => {
+            input: ObjectUnionComposite,
+        ): typia.Primitive<ObjectUnionComposite> => {
             const $io0 = (input: any): boolean =>
                 "number" === typeof input.x && "number" === typeof input.y;
             const $io1 = (input: any): boolean =>

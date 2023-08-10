@@ -4,12 +4,8 @@ import { ArrayHierarchical } from "../../../structures/ArrayHierarchical";
 
 export const test_misc_isClone_ArrayHierarchical =
     _test_misc_isClone<ArrayHierarchical>(ArrayHierarchical)((input) =>
-        ((
-            input: any,
-        ): typia.Primitive<Array<ArrayHierarchical.ICompany>> | null => {
-            const is = (
-                input: any,
-            ): input is Array<ArrayHierarchical.ICompany> => {
+        ((input: any): typia.Primitive<ArrayHierarchical> | null => {
+            const is = (input: any): input is ArrayHierarchical => {
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.id &&
                     Number.isFinite(input.id) &&
@@ -73,8 +69,8 @@ export const test_misc_isClone_ArrayHierarchical =
                 );
             };
             const clone = (
-                input: Array<ArrayHierarchical.ICompany>,
-            ): typia.Primitive<Array<ArrayHierarchical.ICompany>> => {
+                input: ArrayHierarchical,
+            ): typia.Primitive<ArrayHierarchical> => {
                 const $io1 = (input: any): boolean =>
                     "number" === typeof input.time &&
                     "number" === typeof input.zone;

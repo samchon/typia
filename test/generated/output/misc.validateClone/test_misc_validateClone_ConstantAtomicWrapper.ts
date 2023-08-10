@@ -7,32 +7,14 @@ export const test_misc_validateClone_ConstantAtomicWrapper =
         (input) =>
             ((
                 input: any,
-            ): typia.IValidation<
-                typia.Primitive<
-                    [
-                        ConstantAtomicWrapper.IPointer<boolean>,
-                        ConstantAtomicWrapper.IPointer<number>,
-                        ConstantAtomicWrapper.IPointer<string>,
-                    ]
-                >
-            > => {
+            ): typia.IValidation<typia.Primitive<ConstantAtomicWrapper>> => {
                 const validate = (
                     input: any,
-                ): typia.IValidation<
-                    [
-                        ConstantAtomicWrapper.IPointer<boolean>,
-                        ConstantAtomicWrapper.IPointer<number>,
-                        ConstantAtomicWrapper.IPointer<string>,
-                    ]
-                > => {
+                ): typia.IValidation<ConstantAtomicWrapper> => {
                     const errors = [] as any[];
                     const __is = (
                         input: any,
-                    ): input is [
-                        ConstantAtomicWrapper.IPointer<boolean>,
-                        ConstantAtomicWrapper.IPointer<number>,
-                        ConstantAtomicWrapper.IPointer<string>,
-                    ] => {
+                    ): input is ConstantAtomicWrapper => {
                         const $io0 = (input: any): boolean =>
                             "boolean" === typeof input.value;
                         const $io1 = (input: any): boolean =>
@@ -62,11 +44,7 @@ export const test_misc_validateClone_ConstantAtomicWrapper =
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
-                        ): input is [
-                            ConstantAtomicWrapper.IPointer<boolean>,
-                            ConstantAtomicWrapper.IPointer<number>,
-                            ConstantAtomicWrapper.IPointer<string>,
-                        ] => {
+                        ): input is ConstantAtomicWrapper => {
                             const $vo0 = (
                                 input: any,
                                 _path: string,
@@ -196,18 +174,8 @@ export const test_misc_validateClone_ConstantAtomicWrapper =
                     } as any;
                 };
                 const clone = (
-                    input: [
-                        ConstantAtomicWrapper.IPointer<boolean>,
-                        ConstantAtomicWrapper.IPointer<number>,
-                        ConstantAtomicWrapper.IPointer<string>,
-                    ],
-                ): typia.Primitive<
-                    [
-                        ConstantAtomicWrapper.IPointer<boolean>,
-                        ConstantAtomicWrapper.IPointer<number>,
-                        ConstantAtomicWrapper.IPointer<string>,
-                    ]
-                > => {
+                    input: ConstantAtomicWrapper,
+                ): typia.Primitive<ConstantAtomicWrapper> => {
                     const $io0 = (input: any): boolean =>
                         "boolean" === typeof input.value;
                     const $io1 = (input: any): boolean =>

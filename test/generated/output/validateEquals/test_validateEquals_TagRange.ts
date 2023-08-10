@@ -5,12 +5,12 @@ import { TagRange } from "../../../structures/TagRange";
 export const test_validateEquals_TagRange = _test_validateEquals<TagRange>(
     TagRange,
 )((input) =>
-    ((input: any): typia.IValidation<IPointer<Array<TagRange.Type>>> => {
+    ((input: any): typia.IValidation<TagRange> => {
         const errors = [] as any[];
         const __is = (
             input: any,
             _exceptionable: boolean = true,
-        ): input is IPointer<Array<TagRange.Type>> => {
+        ): input is TagRange => {
             const $io0 = (
                 input: any,
                 _exceptionable: boolean = true,
@@ -87,7 +87,7 @@ export const test_validateEquals_TagRange = _test_validateEquals<TagRange>(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is IPointer<Array<TagRange.Type>> => {
+            ): input is TagRange => {
                 const $join = (typia.validateEquals as any).join;
                 const $vo0 = (
                     input: any,

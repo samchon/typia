@@ -4,5 +4,5 @@ import { ObjectAlias } from "../../structures/ObjectAlias";
 
 export const test_json_stringify_ObjectAlias =
     _test_json_stringify<ObjectAlias>(ObjectAlias)((input) =>
-        typia.json.stringify(input),
+        typia.json.stringify<ObjectAlias>(input),
     );

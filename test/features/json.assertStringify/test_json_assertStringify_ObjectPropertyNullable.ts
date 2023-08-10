@@ -4,5 +4,5 @@ import { ObjectPropertyNullable } from "../../structures/ObjectPropertyNullable"
 
 export const test_json_assertStringify_ObjectPropertyNullable =
     _test_json_assertStringify<ObjectPropertyNullable>(ObjectPropertyNullable)(
-        (input) => typia.json.assertStringify(input),
+        (input) => typia.json.assertStringify<ObjectPropertyNullable>(input),
     );

@@ -4,5 +4,5 @@ import { TagTuple } from "../../structures/TagTuple";
 
 export const test_json_validateStringify_TagTuple =
     _test_json_validateStringify<TagTuple>(TagTuple)((input) =>
-        typia.json.validateStringify(input),
+        typia.json.validateStringify<TagTuple>(input),
     );

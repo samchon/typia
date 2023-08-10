@@ -4,5 +4,5 @@ import { ArrayUnion } from "../../structures/ArrayUnion";
 
 export const test_misc_assertPrune_ArrayUnion =
     _test_misc_assertPrune<ArrayUnion>(ArrayUnion)((input) =>
-        typia.misc.assertPrune(input),
+        typia.misc.assertPrune<ArrayUnion>(input),
     );

@@ -6,70 +6,8 @@ export const test_json_assertStringify_ObjectUnionExplicit =
     _test_json_assertStringify<ObjectUnionExplicit>(ObjectUnionExplicit)(
         (input) =>
             ((input: any): string => {
-                const assert = (
-                    input: any,
-                ): Array<
-                    | ObjectUnionExplicit.Discriminator<
-                          "point",
-                          ObjectUnionExplicit.IPoint
-                      >
-                    | ObjectUnionExplicit.Discriminator<
-                          "line",
-                          ObjectUnionExplicit.ILine
-                      >
-                    | ObjectUnionExplicit.Discriminator<
-                          "triangle",
-                          ObjectUnionExplicit.ITriangle
-                      >
-                    | ObjectUnionExplicit.Discriminator<
-                          "rectangle",
-                          ObjectUnionExplicit.IRectangle
-                      >
-                    | ObjectUnionExplicit.Discriminator<
-                          "polyline",
-                          ObjectUnionExplicit.IPolyline
-                      >
-                    | ObjectUnionExplicit.Discriminator<
-                          "polygon",
-                          ObjectUnionExplicit.IPolygon
-                      >
-                    | ObjectUnionExplicit.Discriminator<
-                          "circle",
-                          ObjectUnionExplicit.ICircle
-                      >
-                > => {
-                    const __is = (
-                        input: any,
-                    ): input is Array<
-                        | ObjectUnionExplicit.Discriminator<
-                              "point",
-                              ObjectUnionExplicit.IPoint
-                          >
-                        | ObjectUnionExplicit.Discriminator<
-                              "line",
-                              ObjectUnionExplicit.ILine
-                          >
-                        | ObjectUnionExplicit.Discriminator<
-                              "triangle",
-                              ObjectUnionExplicit.ITriangle
-                          >
-                        | ObjectUnionExplicit.Discriminator<
-                              "rectangle",
-                              ObjectUnionExplicit.IRectangle
-                          >
-                        | ObjectUnionExplicit.Discriminator<
-                              "polyline",
-                              ObjectUnionExplicit.IPolyline
-                          >
-                        | ObjectUnionExplicit.Discriminator<
-                              "polygon",
-                              ObjectUnionExplicit.IPolygon
-                          >
-                        | ObjectUnionExplicit.Discriminator<
-                              "circle",
-                              ObjectUnionExplicit.ICircle
-                          >
-                    > => {
+                const assert = (input: any): ObjectUnionExplicit => {
+                    const __is = (input: any): input is ObjectUnionExplicit => {
                         const $io0 = (input: any): boolean =>
                             "number" === typeof input.x &&
                             Number.isFinite(input.x) &&
@@ -210,36 +148,7 @@ export const test_json_assertStringify_ObjectUnionExplicit =
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
-                        ): input is Array<
-                            | ObjectUnionExplicit.Discriminator<
-                                  "point",
-                                  ObjectUnionExplicit.IPoint
-                              >
-                            | ObjectUnionExplicit.Discriminator<
-                                  "line",
-                                  ObjectUnionExplicit.ILine
-                              >
-                            | ObjectUnionExplicit.Discriminator<
-                                  "triangle",
-                                  ObjectUnionExplicit.ITriangle
-                              >
-                            | ObjectUnionExplicit.Discriminator<
-                                  "rectangle",
-                                  ObjectUnionExplicit.IRectangle
-                              >
-                            | ObjectUnionExplicit.Discriminator<
-                                  "polyline",
-                                  ObjectUnionExplicit.IPolyline
-                              >
-                            | ObjectUnionExplicit.Discriminator<
-                                  "polygon",
-                                  ObjectUnionExplicit.IPolygon
-                              >
-                            | ObjectUnionExplicit.Discriminator<
-                                  "circle",
-                                  ObjectUnionExplicit.ICircle
-                              >
-                        > => {
+                        ): input is ObjectUnionExplicit => {
                             const $guard = (typia.json.assertStringify as any)
                                 .guard;
                             const $ao0 = (
@@ -789,38 +698,7 @@ export const test_json_assertStringify_ObjectUnionExplicit =
                         })(input, "$input", true);
                     return input;
                 };
-                const stringify = (
-                    input: Array<
-                        | ObjectUnionExplicit.Discriminator<
-                              "point",
-                              ObjectUnionExplicit.IPoint
-                          >
-                        | ObjectUnionExplicit.Discriminator<
-                              "line",
-                              ObjectUnionExplicit.ILine
-                          >
-                        | ObjectUnionExplicit.Discriminator<
-                              "triangle",
-                              ObjectUnionExplicit.ITriangle
-                          >
-                        | ObjectUnionExplicit.Discriminator<
-                              "rectangle",
-                              ObjectUnionExplicit.IRectangle
-                          >
-                        | ObjectUnionExplicit.Discriminator<
-                              "polyline",
-                              ObjectUnionExplicit.IPolyline
-                          >
-                        | ObjectUnionExplicit.Discriminator<
-                              "polygon",
-                              ObjectUnionExplicit.IPolygon
-                          >
-                        | ObjectUnionExplicit.Discriminator<
-                              "circle",
-                              ObjectUnionExplicit.ICircle
-                          >
-                    >,
-                ): string => {
+                const stringify = (input: ObjectUnionExplicit): string => {
                     const $io0 = (input: any): boolean =>
                         "number" === typeof input.x &&
                         "number" === typeof input.y &&

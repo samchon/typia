@@ -4,5 +4,5 @@ import { AtomicIntersection } from "../../structures/AtomicIntersection";
 
 export const test_misc_isPrune_AtomicIntersection =
     _test_misc_isPrune<AtomicIntersection>(AtomicIntersection)((input) =>
-        typia.misc.isPrune(input),
+        typia.misc.isPrune<AtomicIntersection>(input),
     );

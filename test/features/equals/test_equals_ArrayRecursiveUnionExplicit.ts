@@ -4,5 +4,5 @@ import { ArrayRecursiveUnionExplicit } from "../../structures/ArrayRecursiveUnio
 
 export const test_equals_ArrayRecursiveUnionExplicit =
     _test_equals<ArrayRecursiveUnionExplicit>(ArrayRecursiveUnionExplicit)(
-        (input) => typia.equals(input),
+        (input) => typia.equals<ArrayRecursiveUnionExplicit>(input),
     );

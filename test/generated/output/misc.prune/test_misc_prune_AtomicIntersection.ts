@@ -4,11 +4,5 @@ import { AtomicIntersection } from "../../../structures/AtomicIntersection";
 
 export const test_misc_prune_AtomicIntersection =
     _test_misc_prune<AtomicIntersection>(AtomicIntersection)((input) =>
-        ((
-            input: [
-                AtomicIntersection.Wrapper<boolean>,
-                AtomicIntersection.Wrapper<number>,
-                AtomicIntersection.Wrapper<string>,
-            ],
-        ): void => {})(input),
+        ((input: AtomicIntersection): void => {})(input),
     );

@@ -4,5 +4,5 @@ import { ObjectRecursive } from "../../structures/ObjectRecursive";
 
 export const test_misc_validateClone_ObjectRecursive =
     _test_misc_validateClone<ObjectRecursive>(ObjectRecursive)((input) =>
-        typia.misc.validateClone(input),
+        typia.misc.validateClone<ObjectRecursive>(input),
     );

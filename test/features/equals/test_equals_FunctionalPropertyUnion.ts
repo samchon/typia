@@ -4,5 +4,5 @@ import { FunctionalPropertyUnion } from "../../structures/FunctionalPropertyUnio
 
 export const test_equals_FunctionalPropertyUnion =
     _test_equals<FunctionalPropertyUnion>(FunctionalPropertyUnion)((input) =>
-        typia.equals(input),
+        typia.equals<FunctionalPropertyUnion>(input),
     );

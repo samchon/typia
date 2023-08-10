@@ -4,5 +4,5 @@ import { AtomicUnion } from "../../structures/AtomicUnion";
 
 export const test_misc_assertClone_AtomicUnion =
     _test_misc_assertClone<AtomicUnion>(AtomicUnion)((input) =>
-        typia.misc.assertClone(input),
+        typia.misc.assertClone<AtomicUnion>(input),
     );

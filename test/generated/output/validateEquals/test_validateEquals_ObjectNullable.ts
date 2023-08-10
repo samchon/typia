@@ -4,14 +4,12 @@ import { ObjectNullable } from "../../../structures/ObjectNullable";
 
 export const test_validateEquals_ObjectNullable =
     _test_validateEquals<ObjectNullable>(ObjectNullable)((input) =>
-        ((
-            input: any,
-        ): typia.IValidation<IPointer<Array<ObjectNullable.IProduct>>> => {
+        ((input: any): typia.IValidation<ObjectNullable> => {
             const errors = [] as any[];
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
-            ): input is IPointer<Array<ObjectNullable.IProduct>> => {
+            ): input is ObjectNullable => {
                 const $io0 = (
                     input: any,
                     _exceptionable: boolean = true,
@@ -121,7 +119,7 @@ export const test_validateEquals_ObjectNullable =
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is IPointer<Array<ObjectNullable.IProduct>> => {
+                ): input is ObjectNullable => {
                     const $join = (typia.validateEquals as any).join;
                     const $vo0 = (
                         input: any,

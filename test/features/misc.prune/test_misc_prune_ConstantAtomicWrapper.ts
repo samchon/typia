@@ -4,5 +4,5 @@ import { ConstantAtomicWrapper } from "../../structures/ConstantAtomicWrapper";
 
 export const test_misc_prune_ConstantAtomicWrapper =
     _test_misc_prune<ConstantAtomicWrapper>(ConstantAtomicWrapper)((input) =>
-        typia.misc.prune(input),
+        typia.misc.prune<ConstantAtomicWrapper>(input),
     );

@@ -8,7 +8,7 @@ export const test_equals_ObjectUnionDouble = _test_equals<ObjectUnionDouble>(
     ((
         input: any,
         _exceptionable: boolean = true,
-    ): input is Array<ObjectUnionDouble.Union> => {
+    ): input is ObjectUnionDouble => {
         const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
             "object" === typeof input.value &&
             null !== input.value &&

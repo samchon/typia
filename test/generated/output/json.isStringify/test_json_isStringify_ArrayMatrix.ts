@@ -4,8 +4,8 @@ import { ArrayMatrix } from "../../../structures/ArrayMatrix";
 
 export const test_json_isStringify_ArrayMatrix =
     _test_json_isStringify<ArrayMatrix>(ArrayMatrix)((input) =>
-        ((input: Array<Array<Array<number>>>): string | null => {
-            const is = (input: any): input is Array<Array<Array<number>>> => {
+        ((input: ArrayMatrix): string | null => {
+            const is = (input: any): input is ArrayMatrix => {
                 return (
                     Array.isArray(input) &&
                     input.every(
@@ -23,7 +23,7 @@ export const test_json_isStringify_ArrayMatrix =
                     )
                 );
             };
-            const stringify = (input: Array<Array<Array<number>>>): string => {
+            const stringify = (input: ArrayMatrix): string => {
                 const $number = (typia.json.isStringify as any).number;
                 return `[${input
                     .map(

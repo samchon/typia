@@ -4,5 +4,5 @@ import { ObjectUnionComposite } from "../../structures/ObjectUnionComposite";
 
 export const test_misc_assertPrune_ObjectUnionComposite =
     _test_misc_assertPrune<ObjectUnionComposite>(ObjectUnionComposite)(
-        (input) => typia.misc.assertPrune(input),
+        (input) => typia.misc.assertPrune<ObjectUnionComposite>(input),
     );

@@ -4,11 +4,9 @@ import { ObjectAlias } from "../../../structures/ObjectAlias";
 
 export const test_misc_assertClone_ObjectAlias =
     _test_misc_assertClone<ObjectAlias>(ObjectAlias)((input) =>
-        ((input: any): typia.Primitive<Array<ObjectAlias.IMember>> => {
-            const assert = (input: any): Array<ObjectAlias.IMember> => {
-                const __is = (
-                    input: any,
-                ): input is Array<ObjectAlias.IMember> => {
+        ((input: any): typia.Primitive<ObjectAlias> => {
+            const assert = (input: any): ObjectAlias => {
+                const __is = (input: any): input is ObjectAlias => {
                     const $io0 = (input: any): boolean =>
                         (null === input.id || "string" === typeof input.id) &&
                         "string" === typeof input.email &&
@@ -38,7 +36,7 @@ export const test_misc_assertClone_ObjectAlias =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is Array<ObjectAlias.IMember> => {
+                    ): input is ObjectAlias => {
                         const $guard = (typia.misc.assertClone as any).guard;
                         const $ao0 = (
                             input: any,
@@ -128,8 +126,8 @@ export const test_misc_assertClone_ObjectAlias =
                 return input;
             };
             const clone = (
-                input: Array<ObjectAlias.IMember>,
-            ): typia.Primitive<Array<ObjectAlias.IMember>> => {
+                input: ObjectAlias,
+            ): typia.Primitive<ObjectAlias> => {
                 const $cp0 = (input: any) =>
                     input.map((elem: any) =>
                         "object" === typeof elem && null !== elem

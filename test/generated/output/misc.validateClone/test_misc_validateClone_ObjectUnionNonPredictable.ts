@@ -8,32 +8,14 @@ export const test_misc_validateClone_ObjectUnionNonPredictable =
     )((input) =>
         ((
             input: any,
-        ): typia.IValidation<
-            typia.Primitive<
-                IPointer<
-                    Array<
-                        ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
-                    >
-                >
-            >
-        > => {
+        ): typia.IValidation<typia.Primitive<ObjectUnionNonPredictable>> => {
             const validate = (
                 input: any,
-            ): typia.IValidation<
-                IPointer<
-                    Array<
-                        ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
-                    >
-                >
-            > => {
+            ): typia.IValidation<ObjectUnionNonPredictable> => {
                 const errors = [] as any[];
                 const __is = (
                     input: any,
-                ): input is IPointer<
-                    Array<
-                        ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
-                    >
-                > => {
+                ): input is ObjectUnionNonPredictable => {
                     const $io0 = (input: any): boolean =>
                         Array.isArray(input.value) &&
                         input.value.every(
@@ -84,11 +66,7 @@ export const test_misc_validateClone_ObjectUnionNonPredictable =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is IPointer<
-                        Array<
-                            ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
-                        >
-                    > => {
+                    ): input is ObjectUnionNonPredictable => {
                         const $vo0 = (
                             input: any,
                             _path: string,
@@ -340,18 +318,8 @@ export const test_misc_validateClone_ObjectUnionNonPredictable =
                 } as any;
             };
             const clone = (
-                input: IPointer<
-                    Array<
-                        ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
-                    >
-                >,
-            ): typia.Primitive<
-                IPointer<
-                    Array<
-                        ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
-                    >
-                >
-            > => {
+                input: ObjectUnionNonPredictable,
+            ): typia.Primitive<ObjectUnionNonPredictable> => {
                 const $io1 = (input: any): boolean =>
                     "object" === typeof input.value &&
                     null !== input.value &&

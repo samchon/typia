@@ -4,15 +4,9 @@ import { ArrayAtomicSimple } from "../../../structures/ArrayAtomicSimple";
 
 export const test_validate_ArrayAtomicSimple =
     _test_validate<ArrayAtomicSimple>(ArrayAtomicSimple)((input) =>
-        ((
-            input: any,
-        ): typia.IValidation<
-            [Array<boolean>, Array<number>, Array<string>]
-        > => {
+        ((input: any): typia.IValidation<ArrayAtomicSimple> => {
             const errors = [] as any[];
-            const __is = (
-                input: any,
-            ): input is [Array<boolean>, Array<number>, Array<string>] => {
+            const __is = (input: any): input is ArrayAtomicSimple => {
                 return (
                     Array.isArray(input) &&
                     input.length === 3 &&
@@ -33,7 +27,7 @@ export const test_validate_ArrayAtomicSimple =
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is [Array<boolean>, Array<number>, Array<string>] => {
+                ): input is ArrayAtomicSimple => {
                     return (
                         ((Array.isArray(input) ||
                             $report(true, {

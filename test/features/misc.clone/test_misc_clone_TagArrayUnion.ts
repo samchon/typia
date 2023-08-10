@@ -4,4 +4,4 @@ import { TagArrayUnion } from "../../structures/TagArrayUnion";
 
 export const test_misc_clone_TagArrayUnion = _test_misc_clone<TagArrayUnion>(
     TagArrayUnion,
-)((input) => typia.misc.clone(input));
+)((input) => typia.misc.clone<TagArrayUnion>(input));

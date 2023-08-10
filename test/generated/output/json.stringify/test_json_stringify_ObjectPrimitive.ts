@@ -4,7 +4,7 @@ import { ObjectPrimitive } from "../../../structures/ObjectPrimitive";
 
 export const test_json_stringify_ObjectPrimitive =
     _test_json_stringify<ObjectPrimitive>(ObjectPrimitive)((input) =>
-        ((input: ObjectPrimitive.IArticle): string => {
+        ((input: ObjectPrimitive): string => {
             const $io1 = (input: any): boolean =>
                 "string" === typeof input.id &&
                 "string" === typeof input.name &&

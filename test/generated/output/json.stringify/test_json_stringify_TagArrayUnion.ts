@@ -4,7 +4,7 @@ import { TagArrayUnion } from "../../../structures/TagArrayUnion";
 
 export const test_json_stringify_TagArrayUnion =
     _test_json_stringify<TagArrayUnion>(TagArrayUnion)((input) =>
-        ((input: Array<TagArrayUnion.Type>): string => {
+        ((input: TagArrayUnion): string => {
             const $string = (typia.json.stringify as any).string;
             const $number = (typia.json.stringify as any).number;
             const $throws = (typia.json.stringify as any).throws;

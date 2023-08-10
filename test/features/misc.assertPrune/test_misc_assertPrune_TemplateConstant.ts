@@ -4,5 +4,5 @@ import { TemplateConstant } from "../../structures/TemplateConstant";
 
 export const test_misc_assertPrune_TemplateConstant =
     _test_misc_assertPrune<TemplateConstant>(TemplateConstant)((input) =>
-        typia.misc.assertPrune(input),
+        typia.misc.assertPrune<TemplateConstant>(input),
     );

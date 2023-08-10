@@ -4,4 +4,4 @@ import { ArraySimple } from "../../structures/ArraySimple";
 
 export const test_misc_prune_ArraySimple = _test_misc_prune<ArraySimple>(
     ArraySimple,
-)((input) => typia.misc.prune(input));
+)((input) => typia.misc.prune<ArraySimple>(input));

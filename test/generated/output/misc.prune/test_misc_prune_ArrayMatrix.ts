@@ -4,4 +4,4 @@ import { ArrayMatrix } from "../../../structures/ArrayMatrix";
 
 export const test_misc_prune_ArrayMatrix = _test_misc_prune<ArrayMatrix>(
     ArrayMatrix,
-)((input) => ((input: Array<Array<Array<number>>>): void => {})(input));
+)((input) => ((input: ArrayMatrix): void => {})(input));

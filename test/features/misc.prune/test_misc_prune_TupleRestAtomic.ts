@@ -4,5 +4,5 @@ import { TupleRestAtomic } from "../../structures/TupleRestAtomic";
 
 export const test_misc_prune_TupleRestAtomic =
     _test_misc_prune<TupleRestAtomic>(TupleRestAtomic)((input) =>
-        typia.misc.prune(input),
+        typia.misc.prune<TupleRestAtomic>(input),
     );

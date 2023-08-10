@@ -4,5 +4,5 @@ import { ClassPropertyAssignment } from "../../structures/ClassPropertyAssignmen
 
 export const test_is_ClassPropertyAssignment =
     _test_is<ClassPropertyAssignment>(ClassPropertyAssignment)((input) =>
-        typia.is(input),
+        typia.is<ClassPropertyAssignment>(input),
     );

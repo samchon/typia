@@ -4,5 +4,5 @@ import { ArrayRepeatedRequired } from "../../structures/ArrayRepeatedRequired";
 
 export const test_assert_ArrayRepeatedRequired =
     _test_assert<ArrayRepeatedRequired>(ArrayRepeatedRequired)((input) =>
-        typia.assert(input),
+        typia.assert<ArrayRepeatedRequired>(input),
     );

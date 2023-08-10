@@ -4,4 +4,4 @@ import { ToJsonDouble } from "../../structures/ToJsonDouble";
 
 export const test_misc_clone_ToJsonDouble = _test_misc_clone<ToJsonDouble>(
     ToJsonDouble,
-)((input) => typia.misc.clone(input));
+)((input) => typia.misc.clone<ToJsonDouble>(input));

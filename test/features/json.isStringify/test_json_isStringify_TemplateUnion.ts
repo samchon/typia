@@ -4,5 +4,5 @@ import { TemplateUnion } from "../../structures/TemplateUnion";
 
 export const test_json_isStringify_TemplateUnion =
     _test_json_isStringify<TemplateUnion>(TemplateUnion)((input) =>
-        typia.json.isStringify(input),
+        typia.json.isStringify<TemplateUnion>(input),
     );

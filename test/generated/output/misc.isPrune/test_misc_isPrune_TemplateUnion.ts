@@ -4,10 +4,8 @@ import { TemplateUnion } from "../../../structures/TemplateUnion";
 
 export const test_misc_isPrune_TemplateUnion =
     _test_misc_isPrune<TemplateUnion>(TemplateUnion)((input) =>
-        ((input: any): input is IPointer<Array<TemplateUnion.Type>> => {
-            const is = (
-                input: any,
-            ): input is IPointer<Array<TemplateUnion.Type>> => {
+        ((input: any): input is TemplateUnion => {
+            const is = (input: any): input is TemplateUnion => {
                 const $io0 = (input: any): boolean =>
                     Array.isArray(input.value) &&
                     input.value.every(
@@ -55,9 +53,7 @@ export const test_misc_isPrune_TemplateUnion =
                     "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            const prune = (
-                input: IPointer<Array<TemplateUnion.Type>>,
-            ): void => {
+            const prune = (input: TemplateUnion): void => {
                 const $io1 = (input: any): boolean =>
                     "string" === typeof input.prefix &&
                     (RegExp(/^prefix_(.*)/).test(input.prefix) ||

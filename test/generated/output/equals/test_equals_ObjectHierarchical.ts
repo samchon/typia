@@ -8,7 +8,7 @@ export const test_equals_ObjectHierarchical = _test_equals<ObjectHierarchical>(
     ((
         input: any,
         _exceptionable: boolean = true,
-    ): input is ObjectHierarchical.ICustomer => {
+    ): input is ObjectHierarchical => {
         const $is_url = (typia.equals as any).is_url;
         const $is_ipv4 = (typia.equals as any).is_ipv4;
         const $io0 = (input: any, _exceptionable: boolean = true): boolean =>

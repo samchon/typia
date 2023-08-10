@@ -5,13 +5,11 @@ import { ConstantConstEnumeration } from "../../../structures/ConstantConstEnume
 export const test_misc_assertPrune_ConstantConstEnumeration =
     _test_misc_assertPrune<ConstantConstEnumeration>(ConstantConstEnumeration)(
         (input) =>
-            ((input: any): Array<ConstantConstEnumeration.Enumeration> => {
-                const assert = (
-                    input: any,
-                ): Array<ConstantConstEnumeration.Enumeration> => {
+            ((input: any): ConstantConstEnumeration => {
+                const assert = (input: any): ConstantConstEnumeration => {
                     const __is = (
                         input: any,
-                    ): input is Array<ConstantConstEnumeration.Enumeration> => {
+                    ): input is ConstantConstEnumeration => {
                         return (
                             Array.isArray(input) &&
                             input.every(
@@ -29,7 +27,7 @@ export const test_misc_assertPrune_ConstantConstEnumeration =
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
-                        ): input is Array<ConstantConstEnumeration.Enumeration> => {
+                        ): input is ConstantConstEnumeration => {
                             const $guard = (typia.misc.assertPrune as any)
                                 .guard;
                             return (
@@ -63,9 +61,7 @@ export const test_misc_assertPrune_ConstantConstEnumeration =
                         })(input, "$input", true);
                     return input;
                 };
-                const prune = (
-                    input: Array<ConstantConstEnumeration.Enumeration>,
-                ): void => {};
+                const prune = (input: ConstantConstEnumeration): void => {};
                 assert(input);
                 prune(input);
                 return input;

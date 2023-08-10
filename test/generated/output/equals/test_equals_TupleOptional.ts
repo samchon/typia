@@ -5,18 +5,7 @@ import { TupleOptional } from "../../../structures/TupleOptional";
 export const test_equals_TupleOptional = _test_equals<TupleOptional>(
     TupleOptional,
 )((input) =>
-    ((
-        input: any,
-        _exceptionable: boolean = true,
-    ): input is Array<
-        [
-            number,
-            boolean,
-            string,
-            (number | null | undefined)?,
-            (string | null | undefined)?,
-        ]
-    > => {
+    ((input: any, _exceptionable: boolean = true): input is TupleOptional => {
         return (
             Array.isArray(input) &&
             input.every(

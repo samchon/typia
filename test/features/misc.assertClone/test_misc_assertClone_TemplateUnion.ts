@@ -4,5 +4,5 @@ import { TemplateUnion } from "../../structures/TemplateUnion";
 
 export const test_misc_assertClone_TemplateUnion =
     _test_misc_assertClone<TemplateUnion>(TemplateUnion)((input) =>
-        typia.misc.assertClone(input),
+        typia.misc.assertClone<TemplateUnion>(input),
     );

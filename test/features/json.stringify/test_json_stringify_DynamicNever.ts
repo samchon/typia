@@ -4,5 +4,5 @@ import { DynamicNever } from "../../structures/DynamicNever";
 
 export const test_json_stringify_DynamicNever =
     _test_json_stringify<DynamicNever>(DynamicNever)((input) =>
-        typia.json.stringify(input),
+        typia.json.stringify<DynamicNever>(input),
     );

@@ -4,16 +4,7 @@ import { ObjectPropertyNullable } from "../../../structures/ObjectPropertyNullab
 
 export const test_misc_prune_ObjectPropertyNullable =
     _test_misc_prune<ObjectPropertyNullable>(ObjectPropertyNullable)((input) =>
-        ((
-            input: [
-                Array<ObjectPropertyNullable.IPointer<boolean>>,
-                Array<ObjectPropertyNullable.IPointer<number>>,
-                Array<ObjectPropertyNullable.IPointer<string>>,
-                Array<
-                    ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>
-                >,
-            ],
-        ): void => {
+        ((input: ObjectPropertyNullable): void => {
             const $io0 = (input: any): boolean =>
                 null === input.value || "boolean" === typeof input.value;
             const $io1 = (input: any): boolean =>

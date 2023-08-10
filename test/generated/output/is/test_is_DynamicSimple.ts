@@ -4,7 +4,7 @@ import { DynamicSimple } from "../../../structures/DynamicSimple";
 
 export const test_is_DynamicSimple = _test_is<DynamicSimple>(DynamicSimple)(
     (input) =>
-        ((input: any): input is IPointer<{ [key: string]: number }> => {
+        ((input: any): input is DynamicSimple => {
             const $join = (typia.is as any).join;
             const $io0 = (input: any): boolean =>
                 "object" === typeof input.value &&

@@ -4,7 +4,7 @@ import { ArrayHierarchical } from "../../../structures/ArrayHierarchical";
 
 export const test_json_stringify_ArrayHierarchical =
     _test_json_stringify<ArrayHierarchical>(ArrayHierarchical)((input) =>
-        ((input: Array<ArrayHierarchical.ICompany>): string => {
+        ((input: ArrayHierarchical): string => {
             const $io1 = (input: any): boolean =>
                 "number" === typeof input.time &&
                 "number" === typeof input.zone;

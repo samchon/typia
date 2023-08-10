@@ -5,9 +5,7 @@ import { ArrayRepeatedNullable } from "../../../structures/ArrayRepeatedNullable
 export const test_json_stringify_ArrayRepeatedNullable =
     _test_json_stringify<ArrayRepeatedNullable>(ArrayRepeatedNullable)(
         (input) =>
-            ((
-                input: string | number | Array<ArrayRepeatedNullable> | null,
-            ): string => {
+            ((input: ArrayRepeatedNullable): string => {
                 const $ia0 = (input: any): any =>
                     input.every(
                         (elem: any) =>

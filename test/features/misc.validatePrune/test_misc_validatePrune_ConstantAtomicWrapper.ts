@@ -4,5 +4,5 @@ import { ConstantAtomicWrapper } from "../../structures/ConstantAtomicWrapper";
 
 export const test_misc_validatePrune_ConstantAtomicWrapper =
     _test_misc_validatePrune<ConstantAtomicWrapper>(ConstantAtomicWrapper)(
-        (input) => typia.misc.validatePrune(input),
+        (input) => typia.misc.validatePrune<ConstantAtomicWrapper>(input),
     );

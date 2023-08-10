@@ -5,8 +5,8 @@ import { ClassClosure } from "../../../structures/ClassClosure";
 export const test_assert_ClassClosure = _test_assert<ClassClosure>(
     ClassClosure,
 )((input) =>
-    ((input: any): ClassClosure.Something => {
-        const __is = (input: any): input is ClassClosure.Something => {
+    ((input: any): ClassClosure => {
+        const __is = (input: any): input is ClassClosure => {
             const $io0 = (input: any): boolean =>
                 "string" === typeof input.id &&
                 "something" === input.type &&
@@ -18,7 +18,7 @@ export const test_assert_ClassClosure = _test_assert<ClassClosure>(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is ClassClosure.Something => {
+            ): input is ClassClosure => {
                 const $guard = (typia.assert as any).guard;
                 const $ao0 = (
                     input: any,

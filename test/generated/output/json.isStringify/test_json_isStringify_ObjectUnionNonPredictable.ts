@@ -6,20 +6,8 @@ export const test_json_isStringify_ObjectUnionNonPredictable =
     _test_json_isStringify<ObjectUnionNonPredictable>(
         ObjectUnionNonPredictable,
     )((input) =>
-        ((
-            input: IPointer<
-                Array<
-                    ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
-                >
-            >,
-        ): string | null => {
-            const is = (
-                input: any,
-            ): input is IPointer<
-                Array<
-                    ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
-                >
-            > => {
+        ((input: ObjectUnionNonPredictable): string | null => {
+            const is = (input: any): input is ObjectUnionNonPredictable => {
                 const $io0 = (input: any): boolean =>
                     Array.isArray(input.value) &&
                     input.value.every(
@@ -60,13 +48,7 @@ export const test_json_isStringify_ObjectUnionNonPredictable =
                     "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            const stringify = (
-                input: IPointer<
-                    Array<
-                        ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
-                    >
-                >,
-            ): string => {
+            const stringify = (input: ObjectUnionNonPredictable): string => {
                 const $io1 = (input: any): boolean =>
                     "object" === typeof input.value &&
                     null !== input.value &&

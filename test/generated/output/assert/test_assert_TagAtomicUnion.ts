@@ -5,10 +5,8 @@ import { TagAtomicUnion } from "../../../structures/TagAtomicUnion";
 export const test_assert_TagAtomicUnion = _test_assert<TagAtomicUnion>(
     TagAtomicUnion,
 )((input) =>
-    ((input: any): IPointer<Array<TagAtomicUnion.Type>> => {
-        const __is = (
-            input: any,
-        ): input is IPointer<Array<TagAtomicUnion.Type>> => {
+    ((input: any): TagAtomicUnion => {
+        const __is = (input: any): input is TagAtomicUnion => {
             const $io0 = (input: any): boolean =>
                 Array.isArray(input.value) &&
                 input.value.every(
@@ -29,7 +27,7 @@ export const test_assert_TagAtomicUnion = _test_assert<TagAtomicUnion>(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is IPointer<Array<TagAtomicUnion.Type>> => {
+            ): input is TagAtomicUnion => {
                 const $guard = (typia.assert as any).guard;
                 const $ao0 = (
                     input: any,

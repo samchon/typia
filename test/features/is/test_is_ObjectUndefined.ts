@@ -4,4 +4,4 @@ import { ObjectUndefined } from "../../structures/ObjectUndefined";
 
 export const test_is_ObjectUndefined = _test_is<ObjectUndefined>(
     ObjectUndefined,
-)((input) => typia.is(input));
+)((input) => typia.is<ObjectUndefined>(input));

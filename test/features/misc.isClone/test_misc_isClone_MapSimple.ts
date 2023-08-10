@@ -4,4 +4,4 @@ import { MapSimple } from "../../structures/MapSimple";
 
 export const test_misc_isClone_MapSimple = _test_misc_isClone<MapSimple>(
     MapSimple,
-)((input) => typia.misc.isClone(input));
+)((input) => typia.misc.isClone<MapSimple>(input));

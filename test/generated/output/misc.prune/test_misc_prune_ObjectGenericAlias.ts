@@ -4,7 +4,7 @@ import { ObjectGenericAlias } from "../../../structures/ObjectGenericAlias";
 
 export const test_misc_prune_ObjectGenericAlias =
     _test_misc_prune<ObjectGenericAlias>(ObjectGenericAlias)((input) =>
-        ((input: ObjectGenericAlias.ISomething<string>): void => {
+        ((input: ObjectGenericAlias): void => {
             const $po0 = (input: any): any => {
                 for (const key of Object.keys(input)) {
                     if ("value" === key) continue;

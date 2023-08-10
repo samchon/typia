@@ -4,5 +4,5 @@ import { DynamicComposite } from "../../structures/DynamicComposite";
 
 export const test_misc_validatePrune_DynamicComposite =
     _test_misc_validatePrune<DynamicComposite>(DynamicComposite)((input) =>
-        typia.misc.validatePrune(input),
+        typia.misc.validatePrune<DynamicComposite>(input),
     );

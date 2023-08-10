@@ -7,7 +7,7 @@ export const test_equals_ConstantEnumeration =
         ((
             input: any,
             _exceptionable: boolean = true,
-        ): input is Array<ConstantEnumeration.Enumeration> => {
+        ): input is ConstantEnumeration => {
             return (
                 Array.isArray(input) &&
                 input.every(

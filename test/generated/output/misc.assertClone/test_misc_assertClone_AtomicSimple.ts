@@ -4,11 +4,9 @@ import { AtomicSimple } from "../../../structures/AtomicSimple";
 
 export const test_misc_assertClone_AtomicSimple =
     _test_misc_assertClone<AtomicSimple>(AtomicSimple)((input) =>
-        ((input: any): typia.Primitive<[boolean, number, string]> => {
-            const assert = (input: any): [boolean, number, string] => {
-                const __is = (
-                    input: any,
-                ): input is [boolean, number, string] => {
+        ((input: any): typia.Primitive<AtomicSimple> => {
+            const assert = (input: any): AtomicSimple => {
+                const __is = (input: any): input is AtomicSimple => {
                     return (
                         Array.isArray(input) &&
                         input.length === 3 &&
@@ -23,7 +21,7 @@ export const test_misc_assertClone_AtomicSimple =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is [boolean, number, string] => {
+                    ): input is AtomicSimple => {
                         const $guard = (typia.misc.assertClone as any).guard;
                         return (
                             ((Array.isArray(input) ||
@@ -67,8 +65,8 @@ export const test_misc_assertClone_AtomicSimple =
                 return input;
             };
             const clone = (
-                input: [boolean, number, string],
-            ): typia.Primitive<[boolean, number, string]> => {
+                input: AtomicSimple,
+            ): typia.Primitive<AtomicSimple> => {
                 return Array.isArray(input) &&
                     input.length === 3 &&
                     "boolean" === typeof input[0] &&

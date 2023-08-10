@@ -4,14 +4,12 @@ import { TagObjectUnion } from "../../../structures/TagObjectUnion";
 
 export const test_json_validateStringify_TagObjectUnion =
     _test_json_validateStringify<TagObjectUnion>(TagObjectUnion)((input) =>
-        ((input: Array<TagObjectUnion.Type>): typia.IValidation<string> => {
+        ((input: TagObjectUnion): typia.IValidation<string> => {
             const validate = (
                 input: any,
-            ): typia.IValidation<Array<TagObjectUnion.Type>> => {
+            ): typia.IValidation<TagObjectUnion> => {
                 const errors = [] as any[];
-                const __is = (
-                    input: any,
-                ): input is Array<TagObjectUnion.Type> => {
+                const __is = (input: any): input is TagObjectUnion => {
                     const $io0 = (input: any): boolean =>
                         "number" === typeof input.value &&
                         Number.isFinite(input.value) &&
@@ -49,7 +47,7 @@ export const test_json_validateStringify_TagObjectUnion =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is Array<TagObjectUnion.Type> => {
+                    ): input is TagObjectUnion => {
                         const $vo0 = (
                             input: any,
                             _path: string,
@@ -171,7 +169,7 @@ export const test_json_validateStringify_TagObjectUnion =
                     data: success ? input : undefined,
                 } as any;
             };
-            const stringify = (input: Array<TagObjectUnion.Type>): string => {
+            const stringify = (input: TagObjectUnion): string => {
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.value && 3 <= input.value;
                 const $io1 = (input: any): boolean =>

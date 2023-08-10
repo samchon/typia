@@ -4,12 +4,12 @@ import { ObjectSimple } from "../../../structures/ObjectSimple";
 
 export const test_validateEquals_ObjectSimple =
     _test_validateEquals<ObjectSimple>(ObjectSimple)((input) =>
-        ((input: any): typia.IValidation<ObjectSimple.IBox3D> => {
+        ((input: any): typia.IValidation<ObjectSimple> => {
             const errors = [] as any[];
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
-            ): input is ObjectSimple.IBox3D => {
+            ): input is ObjectSimple => {
                 const $io0 = (
                     input: any,
                     _exceptionable: boolean = true,
@@ -72,7 +72,7 @@ export const test_validateEquals_ObjectSimple =
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ObjectSimple.IBox3D => {
+                ): input is ObjectSimple => {
                     const $join = (typia.validateEquals as any).join;
                     const $vo0 = (
                         input: any,

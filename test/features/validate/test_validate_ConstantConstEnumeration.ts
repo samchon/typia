@@ -4,5 +4,5 @@ import { ConstantConstEnumeration } from "../../structures/ConstantConstEnumerat
 
 export const test_validate_ConstantConstEnumeration =
     _test_validate<ConstantConstEnumeration>(ConstantConstEnumeration)(
-        (input) => typia.validate(input),
+        (input) => typia.validate<ConstantConstEnumeration>(input),
     );

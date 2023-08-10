@@ -4,10 +4,8 @@ import { ObjectUndefined } from "../../../structures/ObjectUndefined";
 
 export const test_json_isStringify_ObjectUndefined =
     _test_json_isStringify<ObjectUndefined>(ObjectUndefined)((input) =>
-        ((input: Array<ObjectUndefined.ILecture>): string | null => {
-            const is = (
-                input: any,
-            ): input is Array<ObjectUndefined.ILecture> => {
+        ((input: ObjectUndefined): string | null => {
+            const is = (input: any): input is ObjectUndefined => {
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.name &&
                     (undefined === input.professor ||
@@ -39,9 +37,7 @@ export const test_json_isStringify_ObjectUndefined =
                     )
                 );
             };
-            const stringify = (
-                input: Array<ObjectUndefined.ILecture>,
-            ): string => {
+            const stringify = (input: ObjectUndefined): string => {
                 const $io1 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     "string" === typeof input.name;

@@ -4,11 +4,11 @@ import { ObjectGenericAlias } from "../../../structures/ObjectGenericAlias";
 
 export const test_assertEquals_ObjectGenericAlias =
     _test_assertEquals<ObjectGenericAlias>(ObjectGenericAlias)((input) =>
-        ((input: any): ObjectGenericAlias.ISomething<string> => {
+        ((input: any): ObjectGenericAlias => {
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
-            ): input is ObjectGenericAlias.ISomething<string> => {
+            ): input is ObjectGenericAlias => {
                 const $io0 = (
                     input: any,
                     _exceptionable: boolean = true,
@@ -33,7 +33,7 @@ export const test_assertEquals_ObjectGenericAlias =
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ObjectGenericAlias.ISomething<string> => {
+                ): input is ObjectGenericAlias => {
                     const $guard = (typia.assertEquals as any).guard;
                     const $join = (typia.assertEquals as any).join;
                     const $ao0 = (

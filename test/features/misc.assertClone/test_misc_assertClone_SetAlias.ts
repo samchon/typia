@@ -4,4 +4,4 @@ import { SetAlias } from "../../structures/SetAlias";
 
 export const test_misc_assertClone_SetAlias = _test_misc_assertClone<SetAlias>(
     SetAlias,
-)((input) => typia.misc.assertClone(input));
+)((input) => typia.misc.assertClone<SetAlias>(input));

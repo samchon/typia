@@ -5,5 +5,5 @@ import { ArrayRecursive } from "../../../structures/ArrayRecursive";
 export const test_protobuf_message_ArrayRecursive = _test_protobuf_message(
     "ArrayRecursive",
 )(
-    'syntax = "proto3";\n\nmessage ArrayRecursive {\n    message ICategory {\n        repeated ArrayRecursive.ICategory children = 1;\n        double id = 2;\n        string code = 3;\n        double sequence = 4;\n        ArrayRecursive.ITimestamp created_at = 5;\n    }\n\n    message ITimestamp {\n        double time = 1;\n        double zone = 2;\n    }\n}',
+    'syntax = "proto3";\n\nmessage ArrayRecursive {\n    message ICategory {\n        repeated ArrayRecursive.ICategory children = 1;\n        requireddouble id = 2;\n        requiredstring code = 3;\n        requireddouble sequence = 4;\n        requiredArrayRecursive.ITimestamp created_at = 5;\n    }\n\n    message ITimestamp {\n        requireddouble time = 1;\n        requireddouble zone = 2;\n    }\n}',
 );

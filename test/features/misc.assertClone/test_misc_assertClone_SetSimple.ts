@@ -4,5 +4,5 @@ import { SetSimple } from "../../structures/SetSimple";
 
 export const test_misc_assertClone_SetSimple =
     _test_misc_assertClone<SetSimple>(SetSimple)((input) =>
-        typia.misc.assertClone(input),
+        typia.misc.assertClone<SetSimple>(input),
     );

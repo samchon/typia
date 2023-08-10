@@ -5,13 +5,7 @@ import { ConstantAtomicWrapper } from "../../../structures/ConstantAtomicWrapper
 export const test_json_stringify_ConstantAtomicWrapper =
     _test_json_stringify<ConstantAtomicWrapper>(ConstantAtomicWrapper)(
         (input) =>
-            ((
-                input: [
-                    ConstantAtomicWrapper.IPointer<boolean>,
-                    ConstantAtomicWrapper.IPointer<number>,
-                    ConstantAtomicWrapper.IPointer<string>,
-                ],
-            ): string => {
+            ((input: ConstantAtomicWrapper): string => {
                 const $number = (typia.json.stringify as any).number;
                 const $string = (typia.json.stringify as any).string;
                 return `[${`{"value":${

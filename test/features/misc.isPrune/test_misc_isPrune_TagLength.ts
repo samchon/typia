@@ -4,4 +4,4 @@ import { TagLength } from "../../structures/TagLength";
 
 export const test_misc_isPrune_TagLength = _test_misc_isPrune<TagLength>(
     TagLength,
-)((input) => typia.misc.isPrune(input));
+)((input) => typia.misc.isPrune<TagLength>(input));

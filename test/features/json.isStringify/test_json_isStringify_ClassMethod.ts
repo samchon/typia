@@ -4,5 +4,5 @@ import { ClassMethod } from "../../structures/ClassMethod";
 
 export const test_json_isStringify_ClassMethod =
     _test_json_isStringify<ClassMethod>(ClassMethod)((input) =>
-        typia.json.isStringify(input),
+        typia.json.isStringify<ClassMethod>(input),
     );

@@ -4,8 +4,8 @@ import { TagArrayUnion } from "../../../structures/TagArrayUnion";
 
 export const test_json_isStringify_TagArrayUnion =
     _test_json_isStringify<TagArrayUnion>(TagArrayUnion)((input) =>
-        ((input: Array<TagArrayUnion.Type>): string | null => {
-            const is = (input: any): input is Array<TagArrayUnion.Type> => {
+        ((input: TagArrayUnion): string | null => {
+            const is = (input: any): input is TagArrayUnion => {
                 const $is_uuid = (typia.json.isStringify as any).is_uuid;
                 const $io0 = (input: any): boolean =>
                     Array.isArray(input.items) &&
@@ -48,7 +48,7 @@ export const test_json_isStringify_TagArrayUnion =
                     )
                 );
             };
-            const stringify = (input: Array<TagArrayUnion.Type>): string => {
+            const stringify = (input: TagArrayUnion): string => {
                 const $string = (typia.json.isStringify as any).string;
                 const $number = (typia.json.isStringify as any).number;
                 const $throws = (typia.json.isStringify as any).throws;

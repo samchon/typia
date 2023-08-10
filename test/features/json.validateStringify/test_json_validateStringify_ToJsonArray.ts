@@ -4,5 +4,5 @@ import { ToJsonArray } from "../../structures/ToJsonArray";
 
 export const test_json_validateStringify_ToJsonArray =
     _test_json_validateStringify<ToJsonArray>(ToJsonArray)((input) =>
-        typia.json.validateStringify(input),
+        typia.json.validateStringify<ToJsonArray>(input),
     );

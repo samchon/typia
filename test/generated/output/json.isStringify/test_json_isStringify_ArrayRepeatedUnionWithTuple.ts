@@ -6,32 +6,8 @@ export const test_json_isStringify_ArrayRepeatedUnionWithTuple =
     _test_json_isStringify<ArrayRepeatedUnionWithTuple>(
         ArrayRepeatedUnionWithTuple,
     )((input) =>
-        ((
-            input:
-                | number
-                | boolean
-                | Array<string>
-                | Array<ArrayRepeatedUnionWithTuple>
-                | Array<ArrayRepeatedUnionWithTuple.IBox3D>
-                | [string, number, boolean]
-                | [
-                      ArrayRepeatedUnionWithTuple.IBox3D,
-                      ArrayRepeatedUnionWithTuple.IPoint3D,
-                  ],
-        ): string | null => {
-            const is = (
-                input: any,
-            ): input is
-                | number
-                | boolean
-                | Array<string>
-                | Array<ArrayRepeatedUnionWithTuple>
-                | Array<ArrayRepeatedUnionWithTuple.IBox3D>
-                | [string, number, boolean]
-                | [
-                      ArrayRepeatedUnionWithTuple.IBox3D,
-                      ArrayRepeatedUnionWithTuple.IPoint3D,
-                  ] => {
+        ((input: ArrayRepeatedUnionWithTuple): string | null => {
+            const is = (input: any): input is ArrayRepeatedUnionWithTuple => {
                 const $ip0 = (input: any) => {
                     const array = input;
                     const tuplePredicators = [
@@ -177,19 +153,7 @@ export const test_json_isStringify_ArrayRepeatedUnionWithTuple =
                         (Array.isArray(input) && ($ip0(input) || false)))
                 );
             };
-            const stringify = (
-                input:
-                    | number
-                    | boolean
-                    | Array<string>
-                    | Array<ArrayRepeatedUnionWithTuple>
-                    | Array<ArrayRepeatedUnionWithTuple.IBox3D>
-                    | [string, number, boolean]
-                    | [
-                          ArrayRepeatedUnionWithTuple.IBox3D,
-                          ArrayRepeatedUnionWithTuple.IPoint3D,
-                      ],
-            ): string => {
+            const stringify = (input: ArrayRepeatedUnionWithTuple): string => {
                 const $io0 = (input: any): boolean =>
                     "object" === typeof input.scale &&
                     null !== input.scale &&

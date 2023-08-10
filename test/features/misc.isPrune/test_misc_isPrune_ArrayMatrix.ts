@@ -4,4 +4,4 @@ import { ArrayMatrix } from "../../structures/ArrayMatrix";
 
 export const test_misc_isPrune_ArrayMatrix = _test_misc_isPrune<ArrayMatrix>(
     ArrayMatrix,
-)((input) => typia.misc.isPrune(input));
+)((input) => typia.misc.isPrune<ArrayMatrix>(input));

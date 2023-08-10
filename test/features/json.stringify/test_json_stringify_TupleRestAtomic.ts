@@ -4,5 +4,5 @@ import { TupleRestAtomic } from "../../structures/TupleRestAtomic";
 
 export const test_json_stringify_TupleRestAtomic =
     _test_json_stringify<TupleRestAtomic>(TupleRestAtomic)((input) =>
-        typia.json.stringify(input),
+        typia.json.stringify<TupleRestAtomic>(input),
     );

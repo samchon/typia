@@ -4,5 +4,5 @@ import { ArrayRepeatedUnionWithTuple } from "../../structures/ArrayRepeatedUnion
 
 export const test_is_ArrayRepeatedUnionWithTuple =
     _test_is<ArrayRepeatedUnionWithTuple>(ArrayRepeatedUnionWithTuple)(
-        (input) => typia.is(input),
+        (input) => typia.is<ArrayRepeatedUnionWithTuple>(input),
     );

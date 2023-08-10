@@ -4,5 +4,5 @@ import { ObjectLiteralType } from "../../structures/ObjectLiteralType";
 
 export const test_json_assertStringify_ObjectLiteralType =
     _test_json_assertStringify<ObjectLiteralType>(ObjectLiteralType)((input) =>
-        typia.json.assertStringify(input),
+        typia.json.assertStringify<ObjectLiteralType>(input),
     );

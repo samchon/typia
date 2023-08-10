@@ -4,4 +4,4 @@ import { ClassMethod } from "../../structures/ClassMethod";
 
 export const test_assertEquals_ClassMethod = _test_assertEquals<ClassMethod>(
     ClassMethod,
-)((input) => typia.assertEquals(input));
+)((input) => typia.assertEquals<ClassMethod>(input));

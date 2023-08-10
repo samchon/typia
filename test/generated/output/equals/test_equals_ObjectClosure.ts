@@ -5,10 +5,7 @@ import { ObjectClosure } from "../../../structures/ObjectClosure";
 export const test_equals_ObjectClosure = _test_equals<ObjectClosure>(
     ObjectClosure,
 )((input) =>
-    ((
-        input: any,
-        _exceptionable: boolean = true,
-    ): input is ObjectClosure.IRecord => {
+    ((input: any, _exceptionable: boolean = true): input is ObjectClosure => {
         const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
             "string" === typeof input.id &&
             "function" === typeof input.open &&

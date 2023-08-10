@@ -5,4 +5,4 @@ import { ArrayHierarchicalPointer } from "../../structures/ArrayHierarchicalPoin
 export const test_json_assertStringify_ArrayHierarchicalPointer =
     _test_json_assertStringify<ArrayHierarchicalPointer>(
         ArrayHierarchicalPointer,
-    )((input) => typia.json.assertStringify(input));
+    )((input) => typia.json.assertStringify<ArrayHierarchicalPointer>(input));

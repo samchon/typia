@@ -6,14 +6,8 @@ export const test_misc_isClone_ArrayRecursiveUnionImplicit =
     _test_misc_isClone<ArrayRecursiveUnionImplicit>(
         ArrayRecursiveUnionImplicit,
     )((input) =>
-        ((
-            input: any,
-        ): typia.Primitive<
-            Array<ArrayRecursiveUnionImplicit.IBucket>
-        > | null => {
-            const is = (
-                input: any,
-            ): input is Array<ArrayRecursiveUnionImplicit.IBucket> => {
+        ((input: any): typia.Primitive<ArrayRecursiveUnionImplicit> | null => {
+            const is = (input: any): input is ArrayRecursiveUnionImplicit => {
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.id &&
                     Number.isFinite(input.id) &&
@@ -96,8 +90,8 @@ export const test_misc_isClone_ArrayRecursiveUnionImplicit =
                 );
             };
             const clone = (
-                input: Array<ArrayRecursiveUnionImplicit.IBucket>,
-            ): typia.Primitive<Array<ArrayRecursiveUnionImplicit.IBucket>> => {
+                input: ArrayRecursiveUnionImplicit,
+            ): typia.Primitive<ArrayRecursiveUnionImplicit> => {
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.id &&
                     "string" === typeof input.name &&

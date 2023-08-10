@@ -4,5 +4,5 @@ import { TagCustom } from "../../structures/TagCustom";
 
 export const test_misc_assertClone_TagCustom =
     _test_misc_assertClone<TagCustom>(TagCustom)((input) =>
-        typia.misc.assertClone(input),
+        typia.misc.assertClone<TagCustom>(input),
     );

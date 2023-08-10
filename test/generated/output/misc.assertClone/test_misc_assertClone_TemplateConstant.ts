@@ -4,15 +4,9 @@ import { TemplateConstant } from "../../../structures/TemplateConstant";
 
 export const test_misc_assertClone_TemplateConstant =
     _test_misc_assertClone<TemplateConstant>(TemplateConstant)((input) =>
-        ((
-            input: any,
-        ): typia.Primitive<IPointer<Array<TemplateConstant.Type>>> => {
-            const assert = (
-                input: any,
-            ): IPointer<Array<TemplateConstant.Type>> => {
-                const __is = (
-                    input: any,
-                ): input is IPointer<Array<TemplateConstant.Type>> => {
+        ((input: any): typia.Primitive<TemplateConstant> => {
+            const assert = (input: any): TemplateConstant => {
+                const __is = (input: any): input is TemplateConstant => {
                     const $io0 = (input: any): boolean =>
                         Array.isArray(input.value) &&
                         input.value.every(
@@ -48,7 +42,7 @@ export const test_misc_assertClone_TemplateConstant =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is IPointer<Array<TemplateConstant.Type>> => {
+                    ): input is TemplateConstant => {
                         const $guard = (typia.misc.assertClone as any).guard;
                         const $ao0 = (
                             input: any,
@@ -154,8 +148,8 @@ export const test_misc_assertClone_TemplateConstant =
                 return input;
             };
             const clone = (
-                input: IPointer<Array<TemplateConstant.Type>>,
-            ): typia.Primitive<IPointer<Array<TemplateConstant.Type>>> => {
+                input: TemplateConstant,
+            ): typia.Primitive<TemplateConstant> => {
                 const $io1 = (input: any): boolean =>
                     ("prefix_A" === input.prefix ||
                         "prefix_B" === input.prefix ||

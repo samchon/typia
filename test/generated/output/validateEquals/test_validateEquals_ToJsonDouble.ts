@@ -4,12 +4,12 @@ import { ToJsonDouble } from "../../../structures/ToJsonDouble";
 
 export const test_validateEquals_ToJsonDouble =
     _test_validateEquals<ToJsonDouble>(ToJsonDouble)((input) =>
-        ((input: any): typia.IValidation<ToJsonDouble.Parent> => {
+        ((input: any): typia.IValidation<ToJsonDouble> => {
             const errors = [] as any[];
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
-            ): input is ToJsonDouble.Parent => {
+            ): input is ToJsonDouble => {
                 const $io0 = (
                     input: any,
                     _exceptionable: boolean = true,
@@ -33,7 +33,7 @@ export const test_validateEquals_ToJsonDouble =
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ToJsonDouble.Parent => {
+                ): input is ToJsonDouble => {
                     const $join = (typia.validateEquals as any).join;
                     const $vo0 = (
                         input: any,

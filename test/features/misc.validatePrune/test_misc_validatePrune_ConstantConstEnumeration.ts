@@ -5,4 +5,4 @@ import { ConstantConstEnumeration } from "../../structures/ConstantConstEnumerat
 export const test_misc_validatePrune_ConstantConstEnumeration =
     _test_misc_validatePrune<ConstantConstEnumeration>(
         ConstantConstEnumeration,
-    )((input) => typia.misc.validatePrune(input));
+    )((input) => typia.misc.validatePrune<ConstantConstEnumeration>(input));

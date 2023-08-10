@@ -4,4 +4,4 @@ import { NativeSimple } from "../../structures/NativeSimple";
 
 export const test_validate_NativeSimple = _test_validate<NativeSimple>(
     NativeSimple,
-)((input) => typia.validate(input));
+)((input) => typia.validate<NativeSimple>(input));

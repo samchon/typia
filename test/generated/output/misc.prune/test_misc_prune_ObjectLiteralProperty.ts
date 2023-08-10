@@ -4,7 +4,7 @@ import { ObjectLiteralProperty } from "../../../structures/ObjectLiteralProperty
 
 export const test_misc_prune_ObjectLiteralProperty =
     _test_misc_prune<ObjectLiteralProperty>(ObjectLiteralProperty)((input) =>
-        ((input: ObjectLiteralProperty.ISomething): void => {
+        ((input: ObjectLiteralProperty): void => {
             const $po0 = (input: any): any => {
                 for (const key of Object.keys(input)) {
                     if (

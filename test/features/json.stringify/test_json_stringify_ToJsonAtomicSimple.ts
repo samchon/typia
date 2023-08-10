@@ -4,5 +4,5 @@ import { ToJsonAtomicSimple } from "../../structures/ToJsonAtomicSimple";
 
 export const test_json_stringify_ToJsonAtomicSimple =
     _test_json_stringify<ToJsonAtomicSimple>(ToJsonAtomicSimple)((input) =>
-        typia.json.stringify(input),
+        typia.json.stringify<ToJsonAtomicSimple>(input),
     );

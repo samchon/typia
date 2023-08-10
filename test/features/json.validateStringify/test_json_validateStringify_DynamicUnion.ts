@@ -4,5 +4,5 @@ import { DynamicUnion } from "../../structures/DynamicUnion";
 
 export const test_json_validateStringify_DynamicUnion =
     _test_json_validateStringify<DynamicUnion>(DynamicUnion)((input) =>
-        typia.json.validateStringify(input),
+        typia.json.validateStringify<DynamicUnion>(input),
     );

@@ -4,22 +4,8 @@ import { ToJsonAtomicSimple } from "../../../structures/ToJsonAtomicSimple";
 
 export const test_misc_isClone_ToJsonAtomicSimple =
     _test_misc_isClone<ToJsonAtomicSimple>(ToJsonAtomicSimple)((input) =>
-        ((
-            input: any,
-        ): typia.Primitive<
-            [
-                ToJsonAtomicSimple.IToJson<boolean>,
-                ToJsonAtomicSimple.IToJson<number>,
-                ToJsonAtomicSimple.IToJson<string>,
-            ]
-        > | null => {
-            const is = (
-                input: any,
-            ): input is [
-                ToJsonAtomicSimple.IToJson<boolean>,
-                ToJsonAtomicSimple.IToJson<number>,
-                ToJsonAtomicSimple.IToJson<string>,
-            ] => {
+        ((input: any): typia.Primitive<ToJsonAtomicSimple> | null => {
+            const is = (input: any): input is ToJsonAtomicSimple => {
                 const $io0 = (input: any): boolean =>
                     "function" === typeof input.toJSON;
                 const $io1 = (input: any): boolean =>
@@ -41,18 +27,8 @@ export const test_misc_isClone_ToJsonAtomicSimple =
                 );
             };
             const clone = (
-                input: [
-                    ToJsonAtomicSimple.IToJson<boolean>,
-                    ToJsonAtomicSimple.IToJson<number>,
-                    ToJsonAtomicSimple.IToJson<string>,
-                ],
-            ): typia.Primitive<
-                [
-                    ToJsonAtomicSimple.IToJson<boolean>,
-                    ToJsonAtomicSimple.IToJson<number>,
-                    ToJsonAtomicSimple.IToJson<string>,
-                ]
-            > => {
+                input: ToJsonAtomicSimple,
+            ): typia.Primitive<ToJsonAtomicSimple> => {
                 return Array.isArray(input) &&
                     input.length === 3 &&
                     true &&

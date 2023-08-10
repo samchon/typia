@@ -5,12 +5,8 @@ import { ConstantConstEnumeration } from "../../../structures/ConstantConstEnume
 export const test_json_isStringify_ConstantConstEnumeration =
     _test_json_isStringify<ConstantConstEnumeration>(ConstantConstEnumeration)(
         (input) =>
-            ((
-                input: Array<ConstantConstEnumeration.Enumeration>,
-            ): string | null => {
-                const is = (
-                    input: any,
-                ): input is Array<ConstantConstEnumeration.Enumeration> => {
+            ((input: ConstantConstEnumeration): string | null => {
+                const is = (input: any): input is ConstantConstEnumeration => {
                     return (
                         Array.isArray(input) &&
                         input.every(
@@ -23,9 +19,7 @@ export const test_json_isStringify_ConstantConstEnumeration =
                         )
                     );
                 };
-                const stringify = (
-                    input: Array<ConstantConstEnumeration.Enumeration>,
-                ): string => {
+                const stringify = (input: ConstantConstEnumeration): string => {
                     const $string = (typia.json.isStringify as any).string;
                     const $number = (typia.json.isStringify as any).number;
                     const $throws = (typia.json.isStringify as any).throws;

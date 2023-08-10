@@ -4,5 +4,5 @@ import { NativeAlias } from "../../structures/NativeAlias";
 
 export const test_json_validateStringify_NativeAlias =
     _test_json_validateStringify<NativeAlias>(NativeAlias)((input) =>
-        typia.json.validateStringify(input),
+        typia.json.validateStringify<NativeAlias>(input),
     );

@@ -4,10 +4,8 @@ import { TagStep } from "../../../structures/TagStep";
 
 export const test_misc_isClone_TagStep = _test_misc_isClone<TagStep>(TagStep)(
     (input) =>
-        ((
-            input: any,
-        ): typia.Primitive<IPointer<Array<TagStep.Type>>> | null => {
-            const is = (input: any): input is IPointer<Array<TagStep.Type>> => {
+        ((input: any): typia.Primitive<TagStep> | null => {
+            const is = (input: any): input is TagStep => {
                 const $io0 = (input: any): boolean =>
                     Array.isArray(input.value) &&
                     input.value.every(
@@ -35,9 +33,7 @@ export const test_misc_isClone_TagStep = _test_misc_isClone<TagStep>(TagStep)(
                     "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            const clone = (
-                input: IPointer<Array<TagStep.Type>>,
-            ): typia.Primitive<IPointer<Array<TagStep.Type>>> => {
+            const clone = (input: TagStep): typia.Primitive<TagStep> => {
                 const $io1 = (input: any): boolean =>
                     "number" === typeof input.exclusiveMinimum &&
                     0 === (input.exclusiveMinimum % 5) - 3 &&

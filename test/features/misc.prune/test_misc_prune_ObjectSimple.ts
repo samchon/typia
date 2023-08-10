@@ -4,4 +4,4 @@ import { ObjectSimple } from "../../structures/ObjectSimple";
 
 export const test_misc_prune_ObjectSimple = _test_misc_prune<ObjectSimple>(
     ObjectSimple,
-)((input) => typia.misc.prune(input));
+)((input) => typia.misc.prune<ObjectSimple>(input));

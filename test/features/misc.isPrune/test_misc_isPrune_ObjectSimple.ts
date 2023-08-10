@@ -4,4 +4,4 @@ import { ObjectSimple } from "../../structures/ObjectSimple";
 
 export const test_misc_isPrune_ObjectSimple = _test_misc_isPrune<ObjectSimple>(
     ObjectSimple,
-)((input) => typia.misc.isPrune(input));
+)((input) => typia.misc.isPrune<ObjectSimple>(input));

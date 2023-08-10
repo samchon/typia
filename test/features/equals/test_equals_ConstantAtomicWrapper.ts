@@ -4,5 +4,5 @@ import { ConstantAtomicWrapper } from "../../structures/ConstantAtomicWrapper";
 
 export const test_equals_ConstantAtomicWrapper =
     _test_equals<ConstantAtomicWrapper>(ConstantAtomicWrapper)((input) =>
-        typia.equals(input),
+        typia.equals<ConstantAtomicWrapper>(input),
     );

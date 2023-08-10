@@ -4,5 +4,5 @@ import { TagObjectUnion } from "../../structures/TagObjectUnion";
 
 export const test_misc_isClone_TagObjectUnion =
     _test_misc_isClone<TagObjectUnion>(TagObjectUnion)((input) =>
-        typia.misc.isClone(input),
+        typia.misc.isClone<TagObjectUnion>(input),
     );

@@ -4,12 +4,12 @@ import { ClassMethod } from "../../../structures/ClassMethod";
 
 export const test_validateEquals_ClassMethod =
     _test_validateEquals<ClassMethod>(ClassMethod)((input) =>
-        ((input: any): typia.IValidation<ClassMethod.Animal> => {
+        ((input: any): typia.IValidation<ClassMethod> => {
             const errors = [] as any[];
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
-            ): input is ClassMethod.Animal => {
+            ): input is ClassMethod => {
                 const $io0 = (
                     input: any,
                     _exceptionable: boolean = true,
@@ -41,7 +41,7 @@ export const test_validateEquals_ClassMethod =
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ClassMethod.Animal => {
+                ): input is ClassMethod => {
                     const $join = (typia.validateEquals as any).join;
                     const $vo0 = (
                         input: any,

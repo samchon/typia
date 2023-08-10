@@ -5,10 +5,10 @@ import { ArrayRecursiveUnionExplicit } from "../../../structures/ArrayRecursiveU
 export const test_assert_ArrayRecursiveUnionExplicit =
     _test_assert<ArrayRecursiveUnionExplicit>(ArrayRecursiveUnionExplicit)(
         (input) =>
-            ((input: any): Array<ArrayRecursiveUnionExplicit.IBucket> => {
+            ((input: any): ArrayRecursiveUnionExplicit => {
                 const __is = (
                     input: any,
-                ): input is Array<ArrayRecursiveUnionExplicit.IBucket> => {
+                ): input is ArrayRecursiveUnionExplicit => {
                     const $io0 = (input: any): boolean =>
                         "number" === typeof input.id &&
                         Number.isFinite(input.id) &&
@@ -91,7 +91,7 @@ export const test_assert_ArrayRecursiveUnionExplicit =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is Array<ArrayRecursiveUnionExplicit.IBucket> => {
+                    ): input is ArrayRecursiveUnionExplicit => {
                         const $guard = (typia.assert as any).guard;
                         const $ao0 = (
                             input: any,

@@ -4,4 +4,4 @@ import { TagFormat } from "../../structures/TagFormat";
 
 export const test_assertEquals_TagFormat = _test_assertEquals<TagFormat>(
     TagFormat,
-)((input) => typia.assertEquals(input));
+)((input) => typia.assertEquals<TagFormat>(input));

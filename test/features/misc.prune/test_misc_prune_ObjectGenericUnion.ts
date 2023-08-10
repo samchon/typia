@@ -4,5 +4,5 @@ import { ObjectGenericUnion } from "../../structures/ObjectGenericUnion";
 
 export const test_misc_prune_ObjectGenericUnion =
     _test_misc_prune<ObjectGenericUnion>(ObjectGenericUnion)((input) =>
-        typia.misc.prune(input),
+        typia.misc.prune<ObjectGenericUnion>(input),
     );

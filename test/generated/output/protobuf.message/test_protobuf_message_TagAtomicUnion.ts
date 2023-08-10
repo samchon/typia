@@ -5,5 +5,5 @@ import { TagAtomicUnion } from "../../../structures/TagAtomicUnion";
 export const test_protobuf_message_TagAtomicUnion = _test_protobuf_message(
     "TagAtomicUnion",
 )(
-    'syntax = "proto3";\n\nmessage TagAtomicUnion {\n    repeated TagAtomicUnion.Type value = 1;\n    message Type {\n        oneof value {\n            string v1 = 1\n            double v2 = 2\n        }\n    }\n}',
+    'syntax = "proto3";\n\nmessage TagAtomicUnion {\n    repeated TagAtomicUnion.Type value = 1;\n    message Type {\n        oneof value {\n            string v1 = 1;\n            double v2 = 2;\n        }\n    }\n}',
 );

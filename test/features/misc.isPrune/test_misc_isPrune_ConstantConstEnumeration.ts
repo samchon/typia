@@ -4,5 +4,5 @@ import { ConstantConstEnumeration } from "../../structures/ConstantConstEnumerat
 
 export const test_misc_isPrune_ConstantConstEnumeration =
     _test_misc_isPrune<ConstantConstEnumeration>(ConstantConstEnumeration)(
-        (input) => typia.misc.isPrune(input),
+        (input) => typia.misc.isPrune<ConstantConstEnumeration>(input),
     );

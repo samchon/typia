@@ -4,5 +4,5 @@ import { TagObjectUnion } from "../../structures/TagObjectUnion";
 
 export const test_misc_validateClone_TagObjectUnion =
     _test_misc_validateClone<TagObjectUnion>(TagObjectUnion)((input) =>
-        typia.misc.validateClone(input),
+        typia.misc.validateClone<TagObjectUnion>(input),
     );

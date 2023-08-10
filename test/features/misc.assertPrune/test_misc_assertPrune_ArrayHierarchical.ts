@@ -4,5 +4,5 @@ import { ArrayHierarchical } from "../../structures/ArrayHierarchical";
 
 export const test_misc_assertPrune_ArrayHierarchical =
     _test_misc_assertPrune<ArrayHierarchical>(ArrayHierarchical)((input) =>
-        typia.misc.assertPrune(input),
+        typia.misc.assertPrune<ArrayHierarchical>(input),
     );

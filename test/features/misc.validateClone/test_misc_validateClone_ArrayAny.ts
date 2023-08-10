@@ -4,5 +4,5 @@ import { ArrayAny } from "../../structures/ArrayAny";
 
 export const test_misc_validateClone_ArrayAny =
     _test_misc_validateClone<ArrayAny>(ArrayAny)((input) =>
-        typia.misc.validateClone(input),
+        typia.misc.validateClone<ArrayAny>(input),
     );

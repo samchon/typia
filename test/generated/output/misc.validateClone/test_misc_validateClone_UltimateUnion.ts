@@ -4,18 +4,10 @@ import { UltimateUnion } from "../../../structures/UltimateUnion";
 
 export const test_misc_validateClone_UltimateUnion =
     _test_misc_validateClone<UltimateUnion>(UltimateUnion)((input) =>
-        ((
-            input: any,
-        ): typia.IValidation<
-            typia.Primitive<Array<typia.IJsonApplication>>
-        > => {
-            const validate = (
-                input: any,
-            ): typia.IValidation<Array<typia.IJsonApplication>> => {
+        ((input: any): typia.IValidation<typia.Primitive<UltimateUnion>> => {
+            const validate = (input: any): typia.IValidation<UltimateUnion> => {
                 const errors = [] as any[];
-                const __is = (
-                    input: any,
-                ): input is Array<typia.IJsonApplication> => {
+                const __is = (input: any): input is UltimateUnion => {
                     const $join = (typia.misc.validateClone as any).join;
                     const $io0 = (input: any): boolean =>
                         Array.isArray(input.schemas) &&
@@ -1417,7 +1409,7 @@ export const test_misc_validateClone_UltimateUnion =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is Array<typia.IJsonApplication> => {
+                    ): input is UltimateUnion => {
                         const $join = (typia.misc.validateClone as any).join;
                         const $vo0 = (
                             input: any,
@@ -8477,8 +8469,8 @@ export const test_misc_validateClone_UltimateUnion =
                 } as any;
             };
             const clone = (
-                input: Array<typia.IJsonApplication>,
-            ): typia.Primitive<Array<typia.IJsonApplication>> => {
+                input: UltimateUnion,
+            ): typia.Primitive<UltimateUnion> => {
                 const $io1 = (input: any): boolean =>
                     Array.isArray(input["enum"]) &&
                     input["enum"].every(

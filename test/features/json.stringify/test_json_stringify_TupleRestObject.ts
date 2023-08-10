@@ -4,5 +4,5 @@ import { TupleRestObject } from "../../structures/TupleRestObject";
 
 export const test_json_stringify_TupleRestObject =
     _test_json_stringify<TupleRestObject>(TupleRestObject)((input) =>
-        typia.json.stringify(input),
+        typia.json.stringify<TupleRestObject>(input),
     );

@@ -4,5 +4,5 @@ import { ObjectUnionNonPredictable } from "../../structures/ObjectUnionNonPredic
 
 export const test_json_stringify_ObjectUnionNonPredictable =
     _test_json_stringify<ObjectUnionNonPredictable>(ObjectUnionNonPredictable)(
-        (input) => typia.json.stringify(input),
+        (input) => typia.json.stringify<ObjectUnionNonPredictable>(input),
     );

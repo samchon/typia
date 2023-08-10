@@ -4,5 +4,5 @@ import { ObjectLiteralType } from "../../structures/ObjectLiteralType";
 
 export const test_misc_prune_ObjectLiteralType =
     _test_misc_prune<ObjectLiteralType>(ObjectLiteralType)((input) =>
-        typia.misc.prune(input),
+        typia.misc.prune<ObjectLiteralType>(input),
     );

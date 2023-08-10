@@ -4,8 +4,8 @@ import { UltimateUnion } from "../../../structures/UltimateUnion";
 
 export const test_json_isStringify_UltimateUnion =
     _test_json_isStringify<UltimateUnion>(UltimateUnion)((input) =>
-        ((input: Array<typia.IJsonApplication>): string | null => {
-            const is = (input: any): input is Array<typia.IJsonApplication> => {
+        ((input: UltimateUnion): string | null => {
+            const is = (input: any): input is UltimateUnion => {
                 const $join = (typia.json.isStringify as any).join;
                 const $io0 = (input: any): boolean =>
                     Array.isArray(input.schemas) &&
@@ -1391,9 +1391,7 @@ export const test_json_isStringify_UltimateUnion =
                     )
                 );
             };
-            const stringify = (
-                input: Array<typia.IJsonApplication>,
-            ): string => {
+            const stringify = (input: UltimateUnion): string => {
                 const $io1 = (input: any): boolean =>
                     Array.isArray(input["enum"]) &&
                     input["enum"].every(

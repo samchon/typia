@@ -4,5 +4,5 @@ import { ObjectLiteralProperty } from "../../structures/ObjectLiteralProperty";
 
 export const test_misc_validatePrune_ObjectLiteralProperty =
     _test_misc_validatePrune<ObjectLiteralProperty>(ObjectLiteralProperty)(
-        (input) => typia.misc.validatePrune(input),
+        (input) => typia.misc.validatePrune<ObjectLiteralProperty>(input),
     );

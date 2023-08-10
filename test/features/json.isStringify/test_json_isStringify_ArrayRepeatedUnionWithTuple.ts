@@ -5,4 +5,4 @@ import { ArrayRepeatedUnionWithTuple } from "../../structures/ArrayRepeatedUnion
 export const test_json_isStringify_ArrayRepeatedUnionWithTuple =
     _test_json_isStringify<ArrayRepeatedUnionWithTuple>(
         ArrayRepeatedUnionWithTuple,
-    )((input) => typia.json.isStringify(input));
+    )((input) => typia.json.isStringify<ArrayRepeatedUnionWithTuple>(input));

@@ -5,8 +5,8 @@ import { AtomicUnion } from "../../../structures/AtomicUnion";
 export const test_misc_isPrune_AtomicUnion = _test_misc_isPrune<AtomicUnion>(
     AtomicUnion,
 )((input) =>
-    ((input: any): input is Array<AtomicUnion.Union> => {
-        const is = (input: any): input is Array<AtomicUnion.Union> => {
+    ((input: any): input is AtomicUnion => {
+        const is = (input: any): input is AtomicUnion => {
             return (
                 Array.isArray(input) &&
                 input.every(
@@ -18,7 +18,7 @@ export const test_misc_isPrune_AtomicUnion = _test_misc_isPrune<AtomicUnion>(
                 )
             );
         };
-        const prune = (input: Array<AtomicUnion.Union>): void => {};
+        const prune = (input: AtomicUnion): void => {};
         if (!is(input)) return false;
         prune(input);
         return true;

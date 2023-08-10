@@ -4,5 +4,5 @@ import { ObjectLiteralProperty } from "../../structures/ObjectLiteralProperty";
 
 export const test_misc_validateClone_ObjectLiteralProperty =
     _test_misc_validateClone<ObjectLiteralProperty>(ObjectLiteralProperty)(
-        (input) => typia.misc.validateClone(input),
+        (input) => typia.misc.validateClone<ObjectLiteralProperty>(input),
     );

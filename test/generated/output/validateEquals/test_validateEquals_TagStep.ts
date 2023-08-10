@@ -5,12 +5,12 @@ import { TagStep } from "../../../structures/TagStep";
 export const test_validateEquals_TagStep = _test_validateEquals<TagStep>(
     TagStep,
 )((input) =>
-    ((input: any): typia.IValidation<IPointer<Array<TagStep.Type>>> => {
+    ((input: any): typia.IValidation<TagStep> => {
         const errors = [] as any[];
         const __is = (
             input: any,
             _exceptionable: boolean = true,
-        ): input is IPointer<Array<TagStep.Type>> => {
+        ): input is TagStep => {
             const $io0 = (
                 input: any,
                 _exceptionable: boolean = true,
@@ -73,7 +73,7 @@ export const test_validateEquals_TagStep = _test_validateEquals<TagStep>(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is IPointer<Array<TagStep.Type>> => {
+            ): input is TagStep => {
                 const $join = (typia.validateEquals as any).join;
                 const $vo0 = (
                     input: any,

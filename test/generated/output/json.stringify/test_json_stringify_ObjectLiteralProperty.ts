@@ -5,7 +5,7 @@ import { ObjectLiteralProperty } from "../../../structures/ObjectLiteralProperty
 export const test_json_stringify_ObjectLiteralProperty =
     _test_json_stringify<ObjectLiteralProperty>(ObjectLiteralProperty)(
         (input) =>
-            ((input: ObjectLiteralProperty.ISomething): string => {
+            ((input: ObjectLiteralProperty): string => {
                 const $string = (typia.json.stringify as any).string;
                 return `{"something-interesting-do-you-want?":${$string(
                     (input as any)["something-interesting-do-you-want?"],

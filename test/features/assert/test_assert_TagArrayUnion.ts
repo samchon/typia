@@ -4,4 +4,4 @@ import { TagArrayUnion } from "../../structures/TagArrayUnion";
 
 export const test_assert_TagArrayUnion = _test_assert<TagArrayUnion>(
     TagArrayUnion,
-)((input) => typia.assert(input));
+)((input) => typia.assert<TagArrayUnion>(input));

@@ -4,4 +4,4 @@ import { TupleRestArray } from "../../structures/TupleRestArray";
 
 export const test_misc_prune_TupleRestArray = _test_misc_prune<TupleRestArray>(
     TupleRestArray,
-)((input) => typia.misc.prune(input));
+)((input) => typia.misc.prune<TupleRestArray>(input));

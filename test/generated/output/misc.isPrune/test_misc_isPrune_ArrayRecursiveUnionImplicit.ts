@@ -6,10 +6,8 @@ export const test_misc_isPrune_ArrayRecursiveUnionImplicit =
     _test_misc_isPrune<ArrayRecursiveUnionImplicit>(
         ArrayRecursiveUnionImplicit,
     )((input) =>
-        ((input: any): input is Array<ArrayRecursiveUnionImplicit.IBucket> => {
-            const is = (
-                input: any,
-            ): input is Array<ArrayRecursiveUnionImplicit.IBucket> => {
+        ((input: any): input is ArrayRecursiveUnionImplicit => {
+            const is = (input: any): input is ArrayRecursiveUnionImplicit => {
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.id &&
                     Number.isFinite(input.id) &&
@@ -91,9 +89,7 @@ export const test_misc_isPrune_ArrayRecursiveUnionImplicit =
                     )
                 );
             };
-            const prune = (
-                input: Array<ArrayRecursiveUnionImplicit.IBucket>,
-            ): void => {
+            const prune = (input: ArrayRecursiveUnionImplicit): void => {
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.id &&
                     "string" === typeof input.name &&

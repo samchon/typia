@@ -4,12 +4,8 @@ import { TemplateUnion } from "../../../structures/TemplateUnion";
 
 export const test_misc_isClone_TemplateUnion =
     _test_misc_isClone<TemplateUnion>(TemplateUnion)((input) =>
-        ((
-            input: any,
-        ): typia.Primitive<IPointer<Array<TemplateUnion.Type>>> | null => {
-            const is = (
-                input: any,
-            ): input is IPointer<Array<TemplateUnion.Type>> => {
+        ((input: any): typia.Primitive<TemplateUnion> | null => {
+            const is = (input: any): input is TemplateUnion => {
                 const $io0 = (input: any): boolean =>
                     Array.isArray(input.value) &&
                     input.value.every(
@@ -58,8 +54,8 @@ export const test_misc_isClone_TemplateUnion =
                 );
             };
             const clone = (
-                input: IPointer<Array<TemplateUnion.Type>>,
-            ): typia.Primitive<IPointer<Array<TemplateUnion.Type>>> => {
+                input: TemplateUnion,
+            ): typia.Primitive<TemplateUnion> => {
                 const $io1 = (input: any): boolean =>
                     "string" === typeof input.prefix &&
                     (RegExp(/^prefix_(.*)/).test(input.prefix) ||

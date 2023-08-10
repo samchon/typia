@@ -4,15 +4,9 @@ import { ConstantEnumeration } from "../../../structures/ConstantEnumeration";
 
 export const test_misc_assertClone_ConstantEnumeration =
     _test_misc_assertClone<ConstantEnumeration>(ConstantEnumeration)((input) =>
-        ((
-            input: any,
-        ): typia.Primitive<Array<ConstantEnumeration.Enumeration>> => {
-            const assert = (
-                input: any,
-            ): Array<ConstantEnumeration.Enumeration> => {
-                const __is = (
-                    input: any,
-                ): input is Array<ConstantEnumeration.Enumeration> => {
+        ((input: any): typia.Primitive<ConstantEnumeration> => {
+            const assert = (input: any): ConstantEnumeration => {
+                const __is = (input: any): input is ConstantEnumeration => {
                     return (
                         Array.isArray(input) &&
                         input.every(
@@ -30,7 +24,7 @@ export const test_misc_assertClone_ConstantEnumeration =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is Array<ConstantEnumeration.Enumeration> => {
+                    ): input is ConstantEnumeration => {
                         const $guard = (typia.misc.assertClone as any).guard;
                         return (
                             ((Array.isArray(input) ||
@@ -63,8 +57,8 @@ export const test_misc_assertClone_ConstantEnumeration =
                 return input;
             };
             const clone = (
-                input: Array<ConstantEnumeration.Enumeration>,
-            ): typia.Primitive<Array<ConstantEnumeration.Enumeration>> => {
+                input: ConstantEnumeration,
+            ): typia.Primitive<ConstantEnumeration> => {
                 const $cp0 = (input: any) =>
                     input.map((elem: any) => elem as any);
                 return Array.isArray(input) ? $cp0(input) : (input as any);

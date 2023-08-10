@@ -6,27 +6,11 @@ export const test_misc_assertPrune_ObjectUnionNonPredictable =
     _test_misc_assertPrune<ObjectUnionNonPredictable>(
         ObjectUnionNonPredictable,
     )((input) =>
-        ((
-            input: any,
-        ): IPointer<
-            Array<
-                ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
-            >
-        > => {
-            const assert = (
-                input: any,
-            ): IPointer<
-                Array<
-                    ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
-                >
-            > => {
+        ((input: any): ObjectUnionNonPredictable => {
+            const assert = (input: any): ObjectUnionNonPredictable => {
                 const __is = (
                     input: any,
-                ): input is IPointer<
-                    Array<
-                        ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
-                    >
-                > => {
+                ): input is ObjectUnionNonPredictable => {
                     const $io0 = (input: any): boolean =>
                         Array.isArray(input.value) &&
                         input.value.every(
@@ -74,11 +58,7 @@ export const test_misc_assertPrune_ObjectUnionNonPredictable =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is IPointer<
-                        Array<
-                            ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
-                        >
-                    > => {
+                    ): input is ObjectUnionNonPredictable => {
                         const $guard = (typia.misc.assertPrune as any).guard;
                         const $ao0 = (
                             input: any,
@@ -310,13 +290,7 @@ export const test_misc_assertPrune_ObjectUnionNonPredictable =
                     })(input, "$input", true);
                 return input;
             };
-            const prune = (
-                input: IPointer<
-                    Array<
-                        ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
-                    >
-                >,
-            ): void => {
+            const prune = (input: ObjectUnionNonPredictable): void => {
                 const $io1 = (input: any): boolean =>
                     "object" === typeof input.value &&
                     null !== input.value &&

@@ -4,14 +4,10 @@ import { UltimateUnion } from "../../../structures/UltimateUnion";
 
 export const test_json_validateStringify_UltimateUnion =
     _test_json_validateStringify<UltimateUnion>(UltimateUnion)((input) =>
-        ((input: Array<typia.IJsonApplication>): typia.IValidation<string> => {
-            const validate = (
-                input: any,
-            ): typia.IValidation<Array<typia.IJsonApplication>> => {
+        ((input: UltimateUnion): typia.IValidation<string> => {
+            const validate = (input: any): typia.IValidation<UltimateUnion> => {
                 const errors = [] as any[];
-                const __is = (
-                    input: any,
-                ): input is Array<typia.IJsonApplication> => {
+                const __is = (input: any): input is UltimateUnion => {
                     const $join = (typia.json.validateStringify as any).join;
                     const $io0 = (input: any): boolean =>
                         Array.isArray(input.schemas) &&
@@ -1413,7 +1409,7 @@ export const test_json_validateStringify_UltimateUnion =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is Array<typia.IJsonApplication> => {
+                    ): input is UltimateUnion => {
                         const $join = (typia.json.validateStringify as any)
                             .join;
                         const $vo0 = (
@@ -8473,9 +8469,7 @@ export const test_json_validateStringify_UltimateUnion =
                     data: success ? input : undefined,
                 } as any;
             };
-            const stringify = (
-                input: Array<typia.IJsonApplication>,
-            ): string => {
+            const stringify = (input: UltimateUnion): string => {
                 const $io1 = (input: any): boolean =>
                     Array.isArray(input["enum"]) &&
                     input["enum"].every(

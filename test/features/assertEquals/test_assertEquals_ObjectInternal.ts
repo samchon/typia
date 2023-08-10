@@ -4,5 +4,5 @@ import { ObjectInternal } from "../../structures/ObjectInternal";
 
 export const test_assertEquals_ObjectInternal =
     _test_assertEquals<ObjectInternal>(ObjectInternal)((input) =>
-        typia.assertEquals(input),
+        typia.assertEquals<ObjectInternal>(input),
     );

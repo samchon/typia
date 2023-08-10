@@ -7,15 +7,7 @@ export const test_equals_ObjectUnionImplicit =
         ((
             input: any,
             _exceptionable: boolean = true,
-        ): input is Array<
-            | ObjectUnionImplicit.IPoint
-            | ObjectUnionImplicit.ILine
-            | ObjectUnionImplicit.ITriangle
-            | ObjectUnionImplicit.IRectangle
-            | ObjectUnionImplicit.IPolyline
-            | ObjectUnionImplicit.IPolygon
-            | ObjectUnionImplicit.ICircle
-        > => {
+        ): input is ObjectUnionImplicit => {
             const $io0 = (
                 input: any,
                 _exceptionable: boolean = true,

@@ -4,4 +4,4 @@ import { ClassGetter } from "../../structures/ClassGetter";
 
 export const test_misc_isClone_ClassGetter = _test_misc_isClone<ClassGetter>(
     ClassGetter,
-)((input) => typia.misc.isClone(input));
+)((input) => typia.misc.isClone<ClassGetter>(input));

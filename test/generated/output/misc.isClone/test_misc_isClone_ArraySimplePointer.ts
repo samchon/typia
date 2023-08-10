@@ -4,14 +4,8 @@ import { ArraySimplePointer } from "../../../structures/ArraySimplePointer";
 
 export const test_misc_isClone_ArraySimplePointer =
     _test_misc_isClone<ArraySimplePointer>(ArraySimplePointer)((input) =>
-        ((
-            input: any,
-        ): typia.Primitive<
-            IPointer<Array<ArraySimplePointer.IPerson>>
-        > | null => {
-            const is = (
-                input: any,
-            ): input is IPointer<Array<ArraySimplePointer.IPerson>> => {
+        ((input: any): typia.Primitive<ArraySimplePointer> | null => {
+            const is = (input: any): input is ArraySimplePointer => {
                 const $io0 = (input: any): boolean =>
                     Array.isArray(input.value) &&
                     input.value.every(
@@ -40,8 +34,8 @@ export const test_misc_isClone_ArraySimplePointer =
                 );
             };
             const clone = (
-                input: IPointer<Array<ArraySimplePointer.IPerson>>,
-            ): typia.Primitive<IPointer<Array<ArraySimplePointer.IPerson>>> => {
+                input: ArraySimplePointer,
+            ): typia.Primitive<ArraySimplePointer> => {
                 const $io1 = (input: any): boolean =>
                     "string" === typeof input.name &&
                     "string" === typeof input.email &&

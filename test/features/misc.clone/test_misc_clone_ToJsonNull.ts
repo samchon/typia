@@ -4,4 +4,4 @@ import { ToJsonNull } from "../../structures/ToJsonNull";
 
 export const test_misc_clone_ToJsonNull = _test_misc_clone<ToJsonNull>(
     ToJsonNull,
-)((input) => typia.misc.clone(input));
+)((input) => typia.misc.clone<ToJsonNull>(input));

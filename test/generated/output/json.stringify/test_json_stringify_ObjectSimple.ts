@@ -4,7 +4,7 @@ import { ObjectSimple } from "../../../structures/ObjectSimple";
 
 export const test_json_stringify_ObjectSimple =
     _test_json_stringify<ObjectSimple>(ObjectSimple)((input) =>
-        ((input: ObjectSimple.IBox3D): string => {
+        ((input: ObjectSimple): string => {
             const $io1 = (input: any): boolean =>
                 "number" === typeof input.x &&
                 "number" === typeof input.y &&

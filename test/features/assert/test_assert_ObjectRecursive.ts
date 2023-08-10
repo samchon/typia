@@ -4,4 +4,4 @@ import { ObjectRecursive } from "../../structures/ObjectRecursive";
 
 export const test_assert_ObjectRecursive = _test_assert<ObjectRecursive>(
     ObjectRecursive,
-)((input) => typia.assert(input));
+)((input) => typia.assert<ObjectRecursive>(input));

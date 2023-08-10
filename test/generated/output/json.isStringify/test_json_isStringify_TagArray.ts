@@ -5,8 +5,8 @@ import { TagArray } from "../../../structures/TagArray";
 export const test_json_isStringify_TagArray = _test_json_isStringify<TagArray>(
     TagArray,
 )((input) =>
-    ((input: IPointer<Array<TagArray.Type>>): string | null => {
-        const is = (input: any): input is IPointer<Array<TagArray.Type>> => {
+    ((input: TagArray): string | null => {
+        const is = (input: any): input is TagArray => {
             const $is_uuid = (typia.json.isStringify as any).is_uuid;
             const $io0 = (input: any): boolean =>
                 Array.isArray(input.value) &&
@@ -36,7 +36,7 @@ export const test_json_isStringify_TagArray = _test_json_isStringify<TagArray>(
                 );
             return "object" === typeof input && null !== input && $io0(input);
         };
-        const stringify = (input: IPointer<Array<TagArray.Type>>): string => {
+        const stringify = (input: TagArray): string => {
             const $io1 = (input: any): boolean =>
                 Array.isArray(input.items) &&
                 3 === input.items.length &&

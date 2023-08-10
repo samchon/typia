@@ -8,20 +8,14 @@ export const test_misc_validateClone_ArrayHierarchicalPointer =
     )((input) =>
         ((
             input: any,
-        ): typia.IValidation<
-            typia.Primitive<IPointer<Array<ArrayHierarchicalPointer.ICompany>>>
-        > => {
+        ): typia.IValidation<typia.Primitive<ArrayHierarchicalPointer>> => {
             const validate = (
                 input: any,
-            ): typia.IValidation<
-                IPointer<Array<ArrayHierarchicalPointer.ICompany>>
-            > => {
+            ): typia.IValidation<ArrayHierarchicalPointer> => {
                 const errors = [] as any[];
                 const __is = (
                     input: any,
-                ): input is IPointer<
-                    Array<ArrayHierarchicalPointer.ICompany>
-                > => {
+                ): input is ArrayHierarchicalPointer => {
                     const $io0 = (input: any): boolean =>
                         Array.isArray(input.value) &&
                         input.value.every(
@@ -98,9 +92,7 @@ export const test_misc_validateClone_ArrayHierarchicalPointer =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is IPointer<
-                        Array<ArrayHierarchicalPointer.ICompany>
-                    > => {
+                    ): input is ArrayHierarchicalPointer => {
                         const $vo0 = (
                             input: any,
                             _path: string,
@@ -442,10 +434,8 @@ export const test_misc_validateClone_ArrayHierarchicalPointer =
                 } as any;
             };
             const clone = (
-                input: IPointer<Array<ArrayHierarchicalPointer.ICompany>>,
-            ): typia.Primitive<
-                IPointer<Array<ArrayHierarchicalPointer.ICompany>>
-            > => {
+                input: ArrayHierarchicalPointer,
+            ): typia.Primitive<ArrayHierarchicalPointer> => {
                 const $io1 = (input: any): boolean =>
                     "number" === typeof input.id &&
                     "number" === typeof input.serial &&

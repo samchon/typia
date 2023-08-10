@@ -4,5 +4,5 @@ import { DynamicArray } from "../../structures/DynamicArray";
 
 export const test_json_isStringify_DynamicArray =
     _test_json_isStringify<DynamicArray>(DynamicArray)((input) =>
-        typia.json.isStringify(input),
+        typia.json.isStringify<DynamicArray>(input),
     );

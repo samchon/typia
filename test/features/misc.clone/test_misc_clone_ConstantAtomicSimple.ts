@@ -4,5 +4,5 @@ import { ConstantAtomicSimple } from "../../structures/ConstantAtomicSimple";
 
 export const test_misc_clone_ConstantAtomicSimple =
     _test_misc_clone<ConstantAtomicSimple>(ConstantAtomicSimple)((input) =>
-        typia.misc.clone(input),
+        typia.misc.clone<ConstantAtomicSimple>(input),
     );

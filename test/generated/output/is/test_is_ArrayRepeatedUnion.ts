@@ -5,14 +5,7 @@ import { ArrayRepeatedUnion } from "../../../structures/ArrayRepeatedUnion";
 export const test_is_ArrayRepeatedUnion = _test_is<ArrayRepeatedUnion>(
     ArrayRepeatedUnion,
 )((input) =>
-    ((
-        input: any,
-    ): input is
-        | number
-        | boolean
-        | Array<string>
-        | Array<ArrayRepeatedUnion>
-        | Array<ArrayRepeatedUnion.IBox3D> => {
+    ((input: any): input is ArrayRepeatedUnion => {
         const $ip0 = (input: any) => {
             const array = input;
             const top = input[0];

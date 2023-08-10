@@ -5,8 +5,8 @@ import { TagRange } from "../../../structures/TagRange";
 export const test_json_isStringify_TagRange = _test_json_isStringify<TagRange>(
     TagRange,
 )((input) =>
-    ((input: IPointer<Array<TagRange.Type>>): string | null => {
-        const is = (input: any): input is IPointer<Array<TagRange.Type>> => {
+    ((input: TagRange): string | null => {
+        const is = (input: any): input is TagRange => {
             const $io0 = (input: any): boolean =>
                 Array.isArray(input.value) &&
                 input.value.every(
@@ -40,7 +40,7 @@ export const test_json_isStringify_TagRange = _test_json_isStringify<TagRange>(
                 7 >= input.greater_equal_less_equal;
             return "object" === typeof input && null !== input && $io0(input);
         };
-        const stringify = (input: IPointer<Array<TagRange.Type>>): string => {
+        const stringify = (input: TagRange): string => {
             const $io1 = (input: any): boolean =>
                 "number" === typeof input.greater &&
                 3 < input.greater &&

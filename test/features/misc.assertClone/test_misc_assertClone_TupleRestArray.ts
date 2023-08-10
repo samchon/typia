@@ -4,5 +4,5 @@ import { TupleRestArray } from "../../structures/TupleRestArray";
 
 export const test_misc_assertClone_TupleRestArray =
     _test_misc_assertClone<TupleRestArray>(TupleRestArray)((input) =>
-        typia.misc.assertClone(input),
+        typia.misc.assertClone<TupleRestArray>(input),
     );

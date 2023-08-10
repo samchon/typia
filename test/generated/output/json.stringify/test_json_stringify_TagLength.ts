@@ -5,7 +5,7 @@ import { TagLength } from "../../../structures/TagLength";
 export const test_json_stringify_TagLength = _test_json_stringify<TagLength>(
     TagLength,
 )((input) =>
-    ((input: IPointer<Array<TagLength.Type>>): string => {
+    ((input: TagLength): string => {
         const $io1 = (input: any): boolean =>
             "string" === typeof input.fixed &&
             5 === input.fixed.length &&

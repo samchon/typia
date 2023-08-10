@@ -4,5 +4,5 @@ import { AtomicAlias } from "../../structures/AtomicAlias";
 
 export const test_json_stringify_AtomicAlias =
     _test_json_stringify<AtomicAlias>(AtomicAlias)((input) =>
-        typia.json.stringify(input),
+        typia.json.stringify<AtomicAlias>(input),
     );

@@ -4,5 +4,5 @@ import { ObjectPropertyNullable } from "../../structures/ObjectPropertyNullable"
 
 export const test_assert_ObjectPropertyNullable =
     _test_assert<ObjectPropertyNullable>(ObjectPropertyNullable)((input) =>
-        typia.assert(input),
+        typia.assert<ObjectPropertyNullable>(input),
     );

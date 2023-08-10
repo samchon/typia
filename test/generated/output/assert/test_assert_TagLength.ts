@@ -4,10 +4,8 @@ import { TagLength } from "../../../structures/TagLength";
 
 export const test_assert_TagLength = _test_assert<TagLength>(TagLength)(
     (input) =>
-        ((input: any): IPointer<Array<TagLength.Type>> => {
-            const __is = (
-                input: any,
-            ): input is IPointer<Array<TagLength.Type>> => {
+        ((input: any): TagLength => {
+            const __is = (input: any): input is TagLength => {
                 const $io0 = (input: any): boolean =>
                     Array.isArray(input.value) &&
                     input.value.every(
@@ -35,7 +33,7 @@ export const test_assert_TagLength = _test_assert<TagLength>(TagLength)(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is IPointer<Array<TagLength.Type>> => {
+                ): input is TagLength => {
                     const $guard = (typia.assert as any).guard;
                     const $ao0 = (
                         input: any,

@@ -4,4 +4,4 @@ import { ObjectTuple } from "../../structures/ObjectTuple";
 
 export const test_misc_isClone_ObjectTuple = _test_misc_isClone<ObjectTuple>(
     ObjectTuple,
-)((input) => typia.misc.isClone(input));
+)((input) => typia.misc.isClone<ObjectTuple>(input));

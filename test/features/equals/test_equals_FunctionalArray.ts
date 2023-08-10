@@ -4,4 +4,4 @@ import { FunctionalArray } from "../../structures/FunctionalArray";
 
 export const test_equals_FunctionalArray = _test_equals<FunctionalArray>(
     FunctionalArray,
-)((input) => typia.equals(input));
+)((input) => typia.equals<FunctionalArray>(input));

@@ -4,5 +4,5 @@ import { ObjectUndefined } from "../../structures/ObjectUndefined";
 
 export const test_misc_isPrune_ObjectUndefined =
     _test_misc_isPrune<ObjectUndefined>(ObjectUndefined)((input) =>
-        typia.misc.isPrune(input),
+        typia.misc.isPrune<ObjectUndefined>(input),
     );

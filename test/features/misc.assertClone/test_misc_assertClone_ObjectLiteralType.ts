@@ -4,5 +4,5 @@ import { ObjectLiteralType } from "../../structures/ObjectLiteralType";
 
 export const test_misc_assertClone_ObjectLiteralType =
     _test_misc_assertClone<ObjectLiteralType>(ObjectLiteralType)((input) =>
-        typia.misc.assertClone(input),
+        typia.misc.assertClone<ObjectLiteralType>(input),
     );

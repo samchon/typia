@@ -5,13 +5,7 @@ import { ObjectUnionNonPredictable } from "../../../structures/ObjectUnionNonPre
 export const test_json_stringify_ObjectUnionNonPredictable =
     _test_json_stringify<ObjectUnionNonPredictable>(ObjectUnionNonPredictable)(
         (input) =>
-            ((
-                input: IPointer<
-                    Array<
-                        ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
-                    >
-                >,
-            ): string => {
+            ((input: ObjectUnionNonPredictable): string => {
                 const $io1 = (input: any): boolean =>
                     "object" === typeof input.value &&
                     null !== input.value &&

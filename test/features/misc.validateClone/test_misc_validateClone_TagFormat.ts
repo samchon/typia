@@ -4,5 +4,5 @@ import { TagFormat } from "../../structures/TagFormat";
 
 export const test_misc_validateClone_TagFormat =
     _test_misc_validateClone<TagFormat>(TagFormat)((input) =>
-        typia.misc.validateClone(input),
+        typia.misc.validateClone<TagFormat>(input),
     );

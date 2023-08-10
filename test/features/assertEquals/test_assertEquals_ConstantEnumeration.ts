@@ -4,5 +4,5 @@ import { ConstantEnumeration } from "../../structures/ConstantEnumeration";
 
 export const test_assertEquals_ConstantEnumeration =
     _test_assertEquals<ConstantEnumeration>(ConstantEnumeration)((input) =>
-        typia.assertEquals(input),
+        typia.assertEquals<ConstantEnumeration>(input),
     );

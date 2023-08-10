@@ -4,7 +4,7 @@ import { ArraySimplePointer } from "../../../structures/ArraySimplePointer";
 
 export const test_json_stringify_ArraySimplePointer =
     _test_json_stringify<ArraySimplePointer>(ArraySimplePointer)((input) =>
-        ((input: IPointer<Array<ArraySimplePointer.IPerson>>): string => {
+        ((input: ArraySimplePointer): string => {
             const $io1 = (input: any): boolean =>
                 "string" === typeof input.name &&
                 "string" === typeof input.email &&

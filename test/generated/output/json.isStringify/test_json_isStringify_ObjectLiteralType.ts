@@ -4,10 +4,8 @@ import { ObjectLiteralType } from "../../../structures/ObjectLiteralType";
 
 export const test_json_isStringify_ObjectLiteralType =
     _test_json_isStringify<ObjectLiteralType>(ObjectLiteralType)((input) =>
-        ((input: { id: string; name: string; age: number }): string | null => {
-            const is = (
-                input: any,
-            ): input is { id: string; name: string; age: number } => {
+        ((input: ObjectLiteralType): string | null => {
+            const is = (input: any): input is ObjectLiteralType => {
                 return (
                     "object" === typeof input &&
                     null !== input &&
@@ -17,11 +15,7 @@ export const test_json_isStringify_ObjectLiteralType =
                     Number.isFinite((input as any).age)
                 );
             };
-            const stringify = (input: {
-                id: string;
-                name: string;
-                age: number;
-            }): string => {
+            const stringify = (input: ObjectLiteralType): string => {
                 const $string = (typia.json.isStringify as any).string;
                 const $number = (typia.json.isStringify as any).number;
                 return `{"id":${$string((input as any).id)},"name":${$string(

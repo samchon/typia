@@ -4,5 +4,5 @@ import { ConstantAtomicSimple } from "../../structures/ConstantAtomicSimple";
 
 export const test_json_validateStringify_ConstantAtomicSimple =
     _test_json_validateStringify<ConstantAtomicSimple>(ConstantAtomicSimple)(
-        (input) => typia.json.validateStringify(input),
+        (input) => typia.json.validateStringify<ConstantAtomicSimple>(input),
     );

@@ -4,5 +4,5 @@ import { ObjectLiteralProperty } from "../../structures/ObjectLiteralProperty";
 
 export const test_json_validateStringify_ObjectLiteralProperty =
     _test_json_validateStringify<ObjectLiteralProperty>(ObjectLiteralProperty)(
-        (input) => typia.json.validateStringify(input),
+        (input) => typia.json.validateStringify<ObjectLiteralProperty>(input),
     );

@@ -3,15 +3,15 @@ syntax = "proto3";
 message ObjectRecursive {
     message IDepartment {
         optional ObjectRecursive.IDepartment parent = 1;
-        double id = 2;
-        string code = 3;
-        string name = 4;
-        double sequence = 5;
-        ObjectRecursive.ITimestamp created_at = 6;
+        requireddouble id = 2;
+        requiredstring code = 3;
+        requiredstring name = 4;
+        requireddouble sequence = 5;
+        requiredObjectRecursive.ITimestamp created_at = 6;
     }
 
     message ITimestamp {
-        double time = 1;
-        double zone = 2;
+        requireddouble time = 1;
+        requireddouble zone = 2;
     }
 }

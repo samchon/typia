@@ -4,5 +4,5 @@ import { TemplateConstant } from "../../structures/TemplateConstant";
 
 export const test_misc_isClone_TemplateConstant =
     _test_misc_isClone<TemplateConstant>(TemplateConstant)((input) =>
-        typia.misc.isClone(input),
+        typia.misc.isClone<TemplateConstant>(input),
     );

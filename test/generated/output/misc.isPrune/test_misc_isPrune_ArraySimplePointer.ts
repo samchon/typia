@@ -4,10 +4,8 @@ import { ArraySimplePointer } from "../../../structures/ArraySimplePointer";
 
 export const test_misc_isPrune_ArraySimplePointer =
     _test_misc_isPrune<ArraySimplePointer>(ArraySimplePointer)((input) =>
-        ((input: any): input is IPointer<Array<ArraySimplePointer.IPerson>> => {
-            const is = (
-                input: any,
-            ): input is IPointer<Array<ArraySimplePointer.IPerson>> => {
+        ((input: any): input is ArraySimplePointer => {
+            const is = (input: any): input is ArraySimplePointer => {
                 const $io0 = (input: any): boolean =>
                     Array.isArray(input.value) &&
                     input.value.every(
@@ -35,9 +33,7 @@ export const test_misc_isPrune_ArraySimplePointer =
                     "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            const prune = (
-                input: IPointer<Array<ArraySimplePointer.IPerson>>,
-            ): void => {
+            const prune = (input: ArraySimplePointer): void => {
                 const $io1 = (input: any): boolean =>
                     "string" === typeof input.name &&
                     "string" === typeof input.email &&

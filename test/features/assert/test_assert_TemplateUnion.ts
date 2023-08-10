@@ -4,4 +4,4 @@ import { TemplateUnion } from "../../structures/TemplateUnion";
 
 export const test_assert_TemplateUnion = _test_assert<TemplateUnion>(
     TemplateUnion,
-)((input) => typia.assert(input));
+)((input) => typia.assert<TemplateUnion>(input));

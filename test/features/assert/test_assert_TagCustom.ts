@@ -3,5 +3,5 @@ import { _test_assert } from "../../internal/_test_assert";
 import { TagCustom } from "../../structures/TagCustom";
 
 export const test_assert_TagCustom = _test_assert<TagCustom>(TagCustom)(
-    (input) => typia.assert(input),
+    (input) => typia.assert<TagCustom>(input),
 );

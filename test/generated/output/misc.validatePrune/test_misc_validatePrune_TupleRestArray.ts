@@ -4,16 +4,12 @@ import { TupleRestArray } from "../../../structures/TupleRestArray";
 
 export const test_misc_validatePrune_TupleRestArray =
     _test_misc_validatePrune<TupleRestArray>(TupleRestArray)((input) =>
-        ((
-            input: any,
-        ): typia.IValidation<[boolean, number, ...Array<string>[]]> => {
+        ((input: any): typia.IValidation<TupleRestArray> => {
             const validate = (
                 input: any,
-            ): typia.IValidation<[boolean, number, ...Array<string>[]]> => {
+            ): typia.IValidation<TupleRestArray> => {
                 const errors = [] as any[];
-                const __is = (
-                    input: any,
-                ): input is [boolean, number, ...Array<string>[]] => {
+                const __is = (input: any): input is TupleRestArray => {
                     return (
                         Array.isArray(input) &&
                         "boolean" === typeof input[0] &&
@@ -39,7 +35,7 @@ export const test_misc_validatePrune_TupleRestArray =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is [boolean, number, ...Array<string>[]] => {
+                    ): input is TupleRestArray => {
                         return (
                             ((Array.isArray(input) ||
                                 $report(true, {
@@ -140,9 +136,7 @@ export const test_misc_validatePrune_TupleRestArray =
                     data: success ? input : undefined,
                 } as any;
             };
-            const prune = (
-                input: [boolean, number, ...Array<string>[]],
-            ): void => {};
+            const prune = (input: TupleRestArray): void => {};
             const output = validate(input);
             if (output.success) prune(input);
             return output;

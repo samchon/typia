@@ -4,4 +4,4 @@ import { ObjectGenericAlias } from "../../structures/ObjectGenericAlias";
 
 export const test_is_ObjectGenericAlias = _test_is<ObjectGenericAlias>(
     ObjectGenericAlias,
-)((input) => typia.is(input));
+)((input) => typia.is<ObjectGenericAlias>(input));

@@ -3,10 +3,7 @@ import { _test_equals } from "../../../internal/_test_equals";
 import { TagRange } from "../../../structures/TagRange";
 
 export const test_equals_TagRange = _test_equals<TagRange>(TagRange)((input) =>
-    ((
-        input: any,
-        _exceptionable: boolean = true,
-    ): input is IPointer<Array<TagRange.Type>> => {
+    ((input: any, _exceptionable: boolean = true): input is TagRange => {
         const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
             Array.isArray(input.value) &&
             input.value.every(

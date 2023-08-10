@@ -5,7 +5,7 @@ import { TagArrayUnion } from "../../../structures/TagArrayUnion";
 export const test_misc_prune_TagArrayUnion = _test_misc_prune<TagArrayUnion>(
     TagArrayUnion,
 )((input) =>
-    ((input: Array<TagArrayUnion.Type>): void => {
+    ((input: TagArrayUnion): void => {
         const $is_uuid = (typia.misc.prune as any).is_uuid;
         const $pp0 = (input: any) =>
             input.forEach((elem: any) => {

@@ -4,10 +4,8 @@ import { TagLength } from "../../../structures/TagLength";
 
 export const test_json_isStringify_TagLength =
     _test_json_isStringify<TagLength>(TagLength)((input) =>
-        ((input: IPointer<Array<TagLength.Type>>): string | null => {
-            const is = (
-                input: any,
-            ): input is IPointer<Array<TagLength.Type>> => {
+        ((input: TagLength): string | null => {
+            const is = (input: any): input is TagLength => {
                 const $io0 = (input: any): boolean =>
                     Array.isArray(input.value) &&
                     input.value.every(
@@ -30,9 +28,7 @@ export const test_json_isStringify_TagLength =
                     "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            const stringify = (
-                input: IPointer<Array<TagLength.Type>>,
-            ): string => {
+            const stringify = (input: TagLength): string => {
                 const $io1 = (input: any): boolean =>
                     "string" === typeof input.fixed &&
                     5 === input.fixed.length &&

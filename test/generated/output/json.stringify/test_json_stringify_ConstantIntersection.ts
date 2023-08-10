@@ -4,13 +4,7 @@ import { ConstantIntersection } from "../../../structures/ConstantIntersection";
 
 export const test_json_stringify_ConstantIntersection =
     _test_json_stringify<ConstantIntersection>(ConstantIntersection)((input) =>
-        ((
-            input: [
-                ConstantIntersection.Wrapper<false>,
-                ConstantIntersection.Wrapper<1>,
-                ConstantIntersection.Wrapper<"two">,
-            ],
-        ): string => {
+        ((input: ConstantIntersection): string => {
             const $number = (typia.json.stringify as any).number;
             const $string = (typia.json.stringify as any).string;
             const $throws = (typia.json.stringify as any).throws;

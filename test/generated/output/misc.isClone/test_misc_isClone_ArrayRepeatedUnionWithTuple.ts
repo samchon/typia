@@ -6,33 +6,8 @@ export const test_misc_isClone_ArrayRepeatedUnionWithTuple =
     _test_misc_isClone<ArrayRepeatedUnionWithTuple>(
         ArrayRepeatedUnionWithTuple,
     )((input) =>
-        ((
-            input: any,
-        ): typia.Primitive<
-            | number
-            | boolean
-            | Array<string>
-            | Array<ArrayRepeatedUnionWithTuple>
-            | Array<ArrayRepeatedUnionWithTuple.IBox3D>
-            | [string, number, boolean]
-            | [
-                  ArrayRepeatedUnionWithTuple.IBox3D,
-                  ArrayRepeatedUnionWithTuple.IPoint3D,
-              ]
-        > | null => {
-            const is = (
-                input: any,
-            ): input is
-                | number
-                | boolean
-                | Array<string>
-                | Array<ArrayRepeatedUnionWithTuple>
-                | Array<ArrayRepeatedUnionWithTuple.IBox3D>
-                | [string, number, boolean]
-                | [
-                      ArrayRepeatedUnionWithTuple.IBox3D,
-                      ArrayRepeatedUnionWithTuple.IPoint3D,
-                  ] => {
+        ((input: any): typia.Primitive<ArrayRepeatedUnionWithTuple> | null => {
+            const is = (input: any): input is ArrayRepeatedUnionWithTuple => {
                 const $ip0 = (input: any) => {
                     const array = input;
                     const tuplePredicators = [
@@ -179,29 +154,8 @@ export const test_misc_isClone_ArrayRepeatedUnionWithTuple =
                 );
             };
             const clone = (
-                input:
-                    | number
-                    | boolean
-                    | Array<string>
-                    | Array<ArrayRepeatedUnionWithTuple>
-                    | Array<ArrayRepeatedUnionWithTuple.IBox3D>
-                    | [string, number, boolean]
-                    | [
-                          ArrayRepeatedUnionWithTuple.IBox3D,
-                          ArrayRepeatedUnionWithTuple.IPoint3D,
-                      ],
-            ): typia.Primitive<
-                | number
-                | boolean
-                | Array<string>
-                | Array<ArrayRepeatedUnionWithTuple>
-                | Array<ArrayRepeatedUnionWithTuple.IBox3D>
-                | [string, number, boolean]
-                | [
-                      ArrayRepeatedUnionWithTuple.IBox3D,
-                      ArrayRepeatedUnionWithTuple.IPoint3D,
-                  ]
-            > => {
+                input: ArrayRepeatedUnionWithTuple,
+            ): typia.Primitive<ArrayRepeatedUnionWithTuple> => {
                 const $io0 = (input: any): boolean =>
                     "object" === typeof input.scale &&
                     null !== input.scale &&

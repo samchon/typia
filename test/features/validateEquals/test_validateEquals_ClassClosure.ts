@@ -4,5 +4,5 @@ import { ClassClosure } from "../../structures/ClassClosure";
 
 export const test_validateEquals_ClassClosure =
     _test_validateEquals<ClassClosure>(ClassClosure)((input) =>
-        typia.validateEquals(input),
+        typia.validateEquals<ClassClosure>(input),
     );

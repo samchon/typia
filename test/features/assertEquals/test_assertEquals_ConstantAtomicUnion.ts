@@ -4,5 +4,5 @@ import { ConstantAtomicUnion } from "../../structures/ConstantAtomicUnion";
 
 export const test_assertEquals_ConstantAtomicUnion =
     _test_assertEquals<ConstantAtomicUnion>(ConstantAtomicUnion)((input) =>
-        typia.assertEquals(input),
+        typia.assertEquals<ConstantAtomicUnion>(input),
     );

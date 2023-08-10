@@ -4,5 +4,5 @@ import { DynamicTree } from "../../structures/DynamicTree";
 
 export const test_json_stringify_DynamicTree =
     _test_json_stringify<DynamicTree>(DynamicTree)((input) =>
-        typia.json.stringify(input),
+        typia.json.stringify<DynamicTree>(input),
     );

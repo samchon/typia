@@ -4,4 +4,4 @@ import { ObjectTuple } from "../../structures/ObjectTuple";
 
 export const test_misc_isPrune_ObjectTuple = _test_misc_isPrune<ObjectTuple>(
     ObjectTuple,
-)((input) => typia.misc.isPrune(input));
+)((input) => typia.misc.isPrune<ObjectTuple>(input));

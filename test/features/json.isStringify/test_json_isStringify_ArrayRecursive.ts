@@ -4,5 +4,5 @@ import { ArrayRecursive } from "../../structures/ArrayRecursive";
 
 export const test_json_isStringify_ArrayRecursive =
     _test_json_isStringify<ArrayRecursive>(ArrayRecursive)((input) =>
-        typia.json.isStringify(input),
+        typia.json.isStringify<ArrayRecursive>(input),
     );

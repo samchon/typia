@@ -4,34 +4,10 @@ import { ObjectGeneric } from "../../../structures/ObjectGeneric";
 
 export const test_misc_validateClone_ObjectGeneric =
     _test_misc_validateClone<ObjectGeneric>(ObjectGeneric)((input) =>
-        ((
-            input: any,
-        ): typia.IValidation<
-            typia.Primitive<
-                [
-                    ObjectGeneric.ISomething<boolean>,
-                    ObjectGeneric.ISomething<number>,
-                    ObjectGeneric.ISomething<string>,
-                ]
-            >
-        > => {
-            const validate = (
-                input: any,
-            ): typia.IValidation<
-                [
-                    ObjectGeneric.ISomething<boolean>,
-                    ObjectGeneric.ISomething<number>,
-                    ObjectGeneric.ISomething<string>,
-                ]
-            > => {
+        ((input: any): typia.IValidation<typia.Primitive<ObjectGeneric>> => {
+            const validate = (input: any): typia.IValidation<ObjectGeneric> => {
                 const errors = [] as any[];
-                const __is = (
-                    input: any,
-                ): input is [
-                    ObjectGeneric.ISomething<boolean>,
-                    ObjectGeneric.ISomething<number>,
-                    ObjectGeneric.ISomething<string>,
-                ] => {
+                const __is = (input: any): input is ObjectGeneric => {
                     const $io0 = (input: any): boolean =>
                         "boolean" === typeof input.value &&
                         "object" === typeof input.child &&
@@ -107,11 +83,7 @@ export const test_misc_validateClone_ObjectGeneric =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is [
-                        ObjectGeneric.ISomething<boolean>,
-                        ObjectGeneric.ISomething<number>,
-                        ObjectGeneric.ISomething<string>,
-                    ] => {
+                    ): input is ObjectGeneric => {
                         const $vo0 = (
                             input: any,
                             _path: string,
@@ -489,18 +461,8 @@ export const test_misc_validateClone_ObjectGeneric =
                 } as any;
             };
             const clone = (
-                input: [
-                    ObjectGeneric.ISomething<boolean>,
-                    ObjectGeneric.ISomething<number>,
-                    ObjectGeneric.ISomething<string>,
-                ],
-            ): typia.Primitive<
-                [
-                    ObjectGeneric.ISomething<boolean>,
-                    ObjectGeneric.ISomething<number>,
-                    ObjectGeneric.ISomething<string>,
-                ]
-            > => {
+                input: ObjectGeneric,
+            ): typia.Primitive<ObjectGeneric> => {
                 const $io0 = (input: any): boolean =>
                     "boolean" === typeof input.value &&
                     "object" === typeof input.child &&

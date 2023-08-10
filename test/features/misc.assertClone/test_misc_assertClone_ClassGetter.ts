@@ -4,5 +4,5 @@ import { ClassGetter } from "../../structures/ClassGetter";
 
 export const test_misc_assertClone_ClassGetter =
     _test_misc_assertClone<ClassGetter>(ClassGetter)((input) =>
-        typia.misc.assertClone(input),
+        typia.misc.assertClone<ClassGetter>(input),
     );

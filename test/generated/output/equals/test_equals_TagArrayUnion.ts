@@ -5,10 +5,7 @@ import { TagArrayUnion } from "../../../structures/TagArrayUnion";
 export const test_equals_TagArrayUnion = _test_equals<TagArrayUnion>(
     TagArrayUnion,
 )((input) =>
-    ((
-        input: any,
-        _exceptionable: boolean = true,
-    ): input is Array<TagArrayUnion.Type> => {
+    ((input: any, _exceptionable: boolean = true): input is TagArrayUnion => {
         const $is_uuid = (typia.equals as any).is_uuid;
         const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
             Array.isArray(input.items) &&

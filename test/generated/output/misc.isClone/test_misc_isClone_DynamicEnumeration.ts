@@ -4,36 +4,8 @@ import { DynamicEnumeration } from "../../../structures/DynamicEnumeration";
 
 export const test_misc_isClone_DynamicEnumeration =
     _test_misc_isClone<DynamicEnumeration>(DynamicEnumeration)((input) =>
-        ((
-            input: any,
-        ): typia.Primitive<
-            IPointer<{
-                ar?: string | undefined;
-                "zh-Hans"?: string | undefined;
-                "zh-Hant"?: string | undefined;
-                en?: string | undefined;
-                fr?: string | undefined;
-                de?: string | undefined;
-                ja?: string | undefined;
-                ko?: string | undefined;
-                pt?: string | undefined;
-                ru?: string | undefined;
-            }>
-        > | null => {
-            const is = (
-                input: any,
-            ): input is IPointer<{
-                ar?: string | undefined;
-                "zh-Hans"?: string | undefined;
-                "zh-Hant"?: string | undefined;
-                en?: string | undefined;
-                fr?: string | undefined;
-                de?: string | undefined;
-                ja?: string | undefined;
-                ko?: string | undefined;
-                pt?: string | undefined;
-                ru?: string | undefined;
-            }> => {
+        ((input: any): typia.Primitive<DynamicEnumeration> | null => {
+            const is = (input: any): input is DynamicEnumeration => {
                 const $io0 = (input: any): boolean =>
                     "object" === typeof input.value &&
                     null !== input.value &&
@@ -57,32 +29,8 @@ export const test_misc_isClone_DynamicEnumeration =
                 );
             };
             const clone = (
-                input: IPointer<{
-                    ar?: string | undefined;
-                    "zh-Hans"?: string | undefined;
-                    "zh-Hant"?: string | undefined;
-                    en?: string | undefined;
-                    fr?: string | undefined;
-                    de?: string | undefined;
-                    ja?: string | undefined;
-                    ko?: string | undefined;
-                    pt?: string | undefined;
-                    ru?: string | undefined;
-                }>,
-            ): typia.Primitive<
-                IPointer<{
-                    ar?: string | undefined;
-                    "zh-Hans"?: string | undefined;
-                    "zh-Hant"?: string | undefined;
-                    en?: string | undefined;
-                    fr?: string | undefined;
-                    de?: string | undefined;
-                    ja?: string | undefined;
-                    ko?: string | undefined;
-                    pt?: string | undefined;
-                    ru?: string | undefined;
-                }>
-            > => {
+                input: DynamicEnumeration,
+            ): typia.Primitive<DynamicEnumeration> => {
                 const $io1 = (input: any): boolean =>
                     (undefined === input.ar || "string" === typeof input.ar) &&
                     (undefined === input["zh-Hans"] ||

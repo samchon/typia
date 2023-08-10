@@ -4,4 +4,4 @@ import { MapAlias } from "../../structures/MapAlias";
 
 export const test_misc_isClone_MapAlias = _test_misc_isClone<MapAlias>(
     MapAlias,
-)((input) => typia.misc.isClone(input));
+)((input) => typia.misc.isClone<MapAlias>(input));

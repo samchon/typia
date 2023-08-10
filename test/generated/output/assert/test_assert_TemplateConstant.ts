@@ -5,10 +5,8 @@ import { TemplateConstant } from "../../../structures/TemplateConstant";
 export const test_assert_TemplateConstant = _test_assert<TemplateConstant>(
     TemplateConstant,
 )((input) =>
-    ((input: any): IPointer<Array<TemplateConstant.Type>> => {
-        const __is = (
-            input: any,
-        ): input is IPointer<Array<TemplateConstant.Type>> => {
+    ((input: any): TemplateConstant => {
+        const __is = (input: any): input is TemplateConstant => {
             const $io0 = (input: any): boolean =>
                 Array.isArray(input.value) &&
                 input.value.every(
@@ -38,7 +36,7 @@ export const test_assert_TemplateConstant = _test_assert<TemplateConstant>(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is IPointer<Array<TemplateConstant.Type>> => {
+            ): input is TemplateConstant => {
                 const $guard = (typia.assert as any).guard;
                 const $ao0 = (
                     input: any,

@@ -4,20 +4,8 @@ import { ArrayAtomicAlias } from "../../../structures/ArrayAtomicAlias";
 
 export const test_misc_isPrune_ArrayAtomicAlias =
     _test_misc_isPrune<ArrayAtomicAlias>(ArrayAtomicAlias)((input) =>
-        ((
-            input: any,
-        ): input is [
-            ArrayAtomicAlias.Alias<boolean>,
-            ArrayAtomicAlias.Alias<number>,
-            ArrayAtomicAlias.Alias<string>,
-        ] => {
-            const is = (
-                input: any,
-            ): input is [
-                ArrayAtomicAlias.Alias<boolean>,
-                ArrayAtomicAlias.Alias<number>,
-                ArrayAtomicAlias.Alias<string>,
-            ] => {
+        ((input: any): input is ArrayAtomicAlias => {
+            const is = (input: any): input is ArrayAtomicAlias => {
                 return (
                     Array.isArray(input) &&
                     input.length === 3 &&
@@ -32,13 +20,7 @@ export const test_misc_isPrune_ArrayAtomicAlias =
                     input[2].every((elem: any) => "string" === typeof elem)
                 );
             };
-            const prune = (
-                input: [
-                    ArrayAtomicAlias.Alias<boolean>,
-                    ArrayAtomicAlias.Alias<number>,
-                    ArrayAtomicAlias.Alias<string>,
-                ],
-            ): void => {};
+            const prune = (input: ArrayAtomicAlias): void => {};
             if (!is(input)) return false;
             prune(input);
             return true;

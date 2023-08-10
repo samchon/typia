@@ -4,5 +4,5 @@ import { ObjectHierarchical } from "../../structures/ObjectHierarchical";
 
 export const test_misc_isClone_ObjectHierarchical =
     _test_misc_isClone<ObjectHierarchical>(ObjectHierarchical)((input) =>
-        typia.misc.isClone(input),
+        typia.misc.isClone<ObjectHierarchical>(input),
     );

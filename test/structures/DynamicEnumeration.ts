@@ -32,11 +32,11 @@ export namespace DynamicEnumeration {
     export const SPOILERS: Spoiler<DynamicEnumeration>[] = [
         (input) => {
             input.value["fr"] = null!;
-            return ["$input.fr"];
+            return ["$input.value.fr"];
         },
         (input) => {
             input.value["ar"] = 0 as any;
-            return ["$input.ar"];
+            return ["$input.value.ar"];
         },
     ];
 }

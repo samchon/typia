@@ -6,18 +6,14 @@ export const test_json_validateStringify_ConstantConstEnumeration =
     _test_json_validateStringify<ConstantConstEnumeration>(
         ConstantConstEnumeration,
     )((input) =>
-        ((
-            input: Array<ConstantConstEnumeration.Enumeration>,
-        ): typia.IValidation<string> => {
+        ((input: ConstantConstEnumeration): typia.IValidation<string> => {
             const validate = (
                 input: any,
-            ): typia.IValidation<
-                Array<ConstantConstEnumeration.Enumeration>
-            > => {
+            ): typia.IValidation<ConstantConstEnumeration> => {
                 const errors = [] as any[];
                 const __is = (
                     input: any,
-                ): input is Array<ConstantConstEnumeration.Enumeration> => {
+                ): input is ConstantConstEnumeration => {
                     return (
                         Array.isArray(input) &&
                         input.every(
@@ -38,7 +34,7 @@ export const test_json_validateStringify_ConstantConstEnumeration =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is Array<ConstantConstEnumeration.Enumeration> => {
+                    ): input is ConstantConstEnumeration => {
                         return (
                             ((Array.isArray(input) ||
                                 $report(true, {
@@ -78,9 +74,7 @@ export const test_json_validateStringify_ConstantConstEnumeration =
                     data: success ? input : undefined,
                 } as any;
             };
-            const stringify = (
-                input: Array<ConstantConstEnumeration.Enumeration>,
-            ): string => {
+            const stringify = (input: ConstantConstEnumeration): string => {
                 const $string = (typia.json.validateStringify as any).string;
                 const $number = (typia.json.validateStringify as any).number;
                 const $throws = (typia.json.validateStringify as any).throws;

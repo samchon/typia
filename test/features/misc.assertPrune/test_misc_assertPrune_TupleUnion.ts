@@ -4,5 +4,5 @@ import { TupleUnion } from "../../structures/TupleUnion";
 
 export const test_misc_assertPrune_TupleUnion =
     _test_misc_assertPrune<TupleUnion>(TupleUnion)((input) =>
-        typia.misc.assertPrune(input),
+        typia.misc.assertPrune<TupleUnion>(input),
     );

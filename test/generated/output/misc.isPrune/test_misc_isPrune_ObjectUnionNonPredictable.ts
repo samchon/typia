@@ -5,20 +5,8 @@ import { ObjectUnionNonPredictable } from "../../../structures/ObjectUnionNonPre
 export const test_misc_isPrune_ObjectUnionNonPredictable =
     _test_misc_isPrune<ObjectUnionNonPredictable>(ObjectUnionNonPredictable)(
         (input) =>
-            ((
-                input: any,
-            ): input is IPointer<
-                Array<
-                    ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
-                >
-            > => {
-                const is = (
-                    input: any,
-                ): input is IPointer<
-                    Array<
-                        ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
-                    >
-                > => {
+            ((input: any): input is ObjectUnionNonPredictable => {
+                const is = (input: any): input is ObjectUnionNonPredictable => {
                     const $io0 = (input: any): boolean =>
                         Array.isArray(input.value) &&
                         input.value.every(
@@ -61,13 +49,7 @@ export const test_misc_isPrune_ObjectUnionNonPredictable =
                         $io0(input)
                     );
                 };
-                const prune = (
-                    input: IPointer<
-                        Array<
-                            ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
-                        >
-                    >,
-                ): void => {
+                const prune = (input: ObjectUnionNonPredictable): void => {
                     const $io1 = (input: any): boolean =>
                         "object" === typeof input.value &&
                         null !== input.value &&

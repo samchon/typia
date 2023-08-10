@@ -4,5 +4,5 @@ import { ObjectTuple } from "../../structures/ObjectTuple";
 
 export const test_misc_validateClone_ObjectTuple =
     _test_misc_validateClone<ObjectTuple>(ObjectTuple)((input) =>
-        typia.misc.validateClone(input),
+        typia.misc.validateClone<ObjectTuple>(input),
     );

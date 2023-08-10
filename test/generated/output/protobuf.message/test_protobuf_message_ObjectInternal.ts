@@ -5,5 +5,5 @@ import { ObjectInternal } from "../../../structures/ObjectInternal";
 export const test_protobuf_message_ObjectInternal = _test_protobuf_message(
     "ObjectInternal",
 )(
-    'syntax = "proto3";\n\nmessage ObjectInternal {\n    string id = 1;\n    string name = 2;\n}',
+    'syntax = "proto3";\n\nmessage ObjectInternal {\n    requiredstring id = 1;\n    requiredstring name = 2;\n}',
 );

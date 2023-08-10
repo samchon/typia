@@ -4,13 +4,9 @@ import { ArrayAtomicSimple } from "../../../structures/ArrayAtomicSimple";
 
 export const test_misc_assertPrune_ArrayAtomicSimple =
     _test_misc_assertPrune<ArrayAtomicSimple>(ArrayAtomicSimple)((input) =>
-        ((input: any): [Array<boolean>, Array<number>, Array<string>] => {
-            const assert = (
-                input: any,
-            ): [Array<boolean>, Array<number>, Array<string>] => {
-                const __is = (
-                    input: any,
-                ): input is [Array<boolean>, Array<number>, Array<string>] => {
+        ((input: any): ArrayAtomicSimple => {
+            const assert = (input: any): ArrayAtomicSimple => {
+                const __is = (input: any): input is ArrayAtomicSimple => {
                     return (
                         Array.isArray(input) &&
                         input.length === 3 &&
@@ -33,11 +29,7 @@ export const test_misc_assertPrune_ArrayAtomicSimple =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is [
-                        Array<boolean>,
-                        Array<number>,
-                        Array<string>,
-                    ] => {
+                    ): input is ArrayAtomicSimple => {
                         const $guard = (typia.misc.assertPrune as any).guard;
                         return (
                             ((Array.isArray(input) ||
@@ -135,9 +127,7 @@ export const test_misc_assertPrune_ArrayAtomicSimple =
                     })(input, "$input", true);
                 return input;
             };
-            const prune = (
-                input: [Array<boolean>, Array<number>, Array<string>],
-            ): void => {};
+            const prune = (input: ArrayAtomicSimple): void => {};
             assert(input);
             prune(input);
             return input;

@@ -4,22 +4,8 @@ import { ObjectGeneric } from "../../../structures/ObjectGeneric";
 
 export const test_misc_isClone_ObjectGeneric =
     _test_misc_isClone<ObjectGeneric>(ObjectGeneric)((input) =>
-        ((
-            input: any,
-        ): typia.Primitive<
-            [
-                ObjectGeneric.ISomething<boolean>,
-                ObjectGeneric.ISomething<number>,
-                ObjectGeneric.ISomething<string>,
-            ]
-        > | null => {
-            const is = (
-                input: any,
-            ): input is [
-                ObjectGeneric.ISomething<boolean>,
-                ObjectGeneric.ISomething<number>,
-                ObjectGeneric.ISomething<string>,
-            ] => {
+        ((input: any): typia.Primitive<ObjectGeneric> | null => {
+            const is = (input: any): input is ObjectGeneric => {
                 const $io0 = (input: any): boolean =>
                     "boolean" === typeof input.value &&
                     "object" === typeof input.child &&
@@ -88,18 +74,8 @@ export const test_misc_isClone_ObjectGeneric =
                 );
             };
             const clone = (
-                input: [
-                    ObjectGeneric.ISomething<boolean>,
-                    ObjectGeneric.ISomething<number>,
-                    ObjectGeneric.ISomething<string>,
-                ],
-            ): typia.Primitive<
-                [
-                    ObjectGeneric.ISomething<boolean>,
-                    ObjectGeneric.ISomething<number>,
-                    ObjectGeneric.ISomething<string>,
-                ]
-            > => {
+                input: ObjectGeneric,
+            ): typia.Primitive<ObjectGeneric> => {
                 const $io0 = (input: any): boolean =>
                     "boolean" === typeof input.value &&
                     "object" === typeof input.child &&

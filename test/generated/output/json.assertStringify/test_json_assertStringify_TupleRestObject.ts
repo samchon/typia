@@ -5,12 +5,8 @@ import { TupleRestObject } from "../../../structures/TupleRestObject";
 export const test_json_assertStringify_TupleRestObject =
     _test_json_assertStringify<TupleRestObject>(TupleRestObject)((input) =>
         ((input: any): string => {
-            const assert = (
-                input: any,
-            ): [boolean, number, ...TupleRestObject.IObject[]] => {
-                const __is = (
-                    input: any,
-                ): input is [boolean, number, ...TupleRestObject.IObject[]] => {
+            const assert = (input: any): TupleRestObject => {
+                const __is = (input: any): input is TupleRestObject => {
                     const $io0 = (input: any): boolean =>
                         "string" === typeof input.value;
                     return (
@@ -34,11 +30,7 @@ export const test_json_assertStringify_TupleRestObject =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is [
-                        boolean,
-                        number,
-                        ...TupleRestObject.IObject[],
-                    ] => {
+                    ): input is TupleRestObject => {
                         const $guard = (typia.json.assertStringify as any)
                             .guard;
                         const $ao0 = (
@@ -125,9 +117,7 @@ export const test_json_assertStringify_TupleRestObject =
                     })(input, "$input", true);
                 return input;
             };
-            const stringify = (
-                input: [boolean, number, ...TupleRestObject.IObject[]],
-            ): string => {
+            const stringify = (input: TupleRestObject): string => {
                 const $number = (typia.json.assertStringify as any).number;
                 const $string = (typia.json.assertStringify as any).string;
                 const $rest = (typia.json.assertStringify as any).rest;

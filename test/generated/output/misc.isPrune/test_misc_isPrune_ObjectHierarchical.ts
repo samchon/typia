@@ -4,8 +4,8 @@ import { ObjectHierarchical } from "../../../structures/ObjectHierarchical";
 
 export const test_misc_isPrune_ObjectHierarchical =
     _test_misc_isPrune<ObjectHierarchical>(ObjectHierarchical)((input) =>
-        ((input: any): input is ObjectHierarchical.ICustomer => {
-            const is = (input: any): input is ObjectHierarchical.ICustomer => {
+        ((input: any): input is ObjectHierarchical => {
+            const is = (input: any): input is ObjectHierarchical => {
                 const $is_url = (typia.misc.isPrune as any).is_url;
                 const $is_ipv4 = (typia.misc.isPrune as any).is_ipv4;
                 const $io0 = (input: any): boolean =>
@@ -100,7 +100,7 @@ export const test_misc_isPrune_ObjectHierarchical =
                     "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            const prune = (input: ObjectHierarchical.ICustomer): void => {
+            const prune = (input: ObjectHierarchical): void => {
                 const $io1 = (input: any): boolean =>
                     "number" === typeof input.id &&
                     "string" === typeof input.code &&

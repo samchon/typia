@@ -4,5 +4,5 @@ import { DynamicTemplate } from "../../structures/DynamicTemplate";
 
 export const test_misc_isClone_DynamicTemplate =
     _test_misc_isClone<DynamicTemplate>(DynamicTemplate)((input) =>
-        typia.misc.isClone(input),
+        typia.misc.isClone<DynamicTemplate>(input),
     );

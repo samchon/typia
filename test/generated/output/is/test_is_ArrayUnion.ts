@@ -3,7 +3,7 @@ import { _test_is } from "../../../internal/_test_is";
 import { ArrayUnion } from "../../../structures/ArrayUnion";
 
 export const test_is_ArrayUnion = _test_is<ArrayUnion>(ArrayUnion)((input) =>
-    ((input: any): input is Array<ArrayUnion.IUnion> => {
+    ((input: any): input is ArrayUnion => {
         const $ip0 = (input: any) => {
             const array = input;
             const top = input[0];

@@ -4,5 +4,5 @@ import { ToJsonTuple } from "../../structures/ToJsonTuple";
 
 export const test_json_isStringify_ToJsonTuple =
     _test_json_isStringify<ToJsonTuple>(ToJsonTuple)((input) =>
-        typia.json.isStringify(input),
+        typia.json.isStringify<ToJsonTuple>(input),
     );

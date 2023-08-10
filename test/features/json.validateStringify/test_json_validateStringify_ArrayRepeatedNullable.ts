@@ -4,5 +4,5 @@ import { ArrayRepeatedNullable } from "../../structures/ArrayRepeatedNullable";
 
 export const test_json_validateStringify_ArrayRepeatedNullable =
     _test_json_validateStringify<ArrayRepeatedNullable>(ArrayRepeatedNullable)(
-        (input) => typia.json.validateStringify(input),
+        (input) => typia.json.validateStringify<ArrayRepeatedNullable>(input),
     );

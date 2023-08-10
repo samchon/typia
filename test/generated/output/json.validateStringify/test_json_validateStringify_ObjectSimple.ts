@@ -4,12 +4,10 @@ import { ObjectSimple } from "../../../structures/ObjectSimple";
 
 export const test_json_validateStringify_ObjectSimple =
     _test_json_validateStringify<ObjectSimple>(ObjectSimple)((input) =>
-        ((input: ObjectSimple.IBox3D): typia.IValidation<string> => {
-            const validate = (
-                input: any,
-            ): typia.IValidation<ObjectSimple.IBox3D> => {
+        ((input: ObjectSimple): typia.IValidation<string> => {
+            const validate = (input: any): typia.IValidation<ObjectSimple> => {
                 const errors = [] as any[];
-                const __is = (input: any): input is ObjectSimple.IBox3D => {
+                const __is = (input: any): input is ObjectSimple => {
                     return (
                         "object" === typeof input &&
                         null !== input &&
@@ -58,7 +56,7 @@ export const test_json_validateStringify_ObjectSimple =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is ObjectSimple.IBox3D => {
+                    ): input is ObjectSimple => {
                         const $vo0 = (
                             input: any,
                             _path: string,
@@ -185,7 +183,7 @@ export const test_json_validateStringify_ObjectSimple =
                     data: success ? input : undefined,
                 } as any;
             };
-            const stringify = (input: ObjectSimple.IBox3D): string => {
+            const stringify = (input: ObjectSimple): string => {
                 const $io1 = (input: any): boolean =>
                     "number" === typeof input.x &&
                     "number" === typeof input.y &&

@@ -6,20 +6,8 @@ export const test_json_assertStringify_AtomicIntersection =
     _test_json_assertStringify<AtomicIntersection>(AtomicIntersection)(
         (input) =>
             ((input: any): string => {
-                const assert = (
-                    input: any,
-                ): [
-                    AtomicIntersection.Wrapper<boolean>,
-                    AtomicIntersection.Wrapper<number>,
-                    AtomicIntersection.Wrapper<string>,
-                ] => {
-                    const __is = (
-                        input: any,
-                    ): input is [
-                        AtomicIntersection.Wrapper<boolean>,
-                        AtomicIntersection.Wrapper<number>,
-                        AtomicIntersection.Wrapper<string>,
-                    ] => {
+                const assert = (input: any): AtomicIntersection => {
+                    const __is = (input: any): input is AtomicIntersection => {
                         return (
                             Array.isArray(input) &&
                             input.length === 3 &&
@@ -34,11 +22,7 @@ export const test_json_assertStringify_AtomicIntersection =
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
-                        ): input is [
-                            AtomicIntersection.Wrapper<boolean>,
-                            AtomicIntersection.Wrapper<number>,
-                            AtomicIntersection.Wrapper<string>,
-                        ] => {
+                        ): input is AtomicIntersection => {
                             const $guard = (typia.json.assertStringify as any)
                                 .guard;
                             return (
@@ -83,13 +67,7 @@ export const test_json_assertStringify_AtomicIntersection =
                         })(input, "$input", true);
                     return input;
                 };
-                const stringify = (
-                    input: [
-                        AtomicIntersection.Wrapper<boolean>,
-                        AtomicIntersection.Wrapper<number>,
-                        AtomicIntersection.Wrapper<string>,
-                    ],
-                ): string => {
+                const stringify = (input: AtomicIntersection): string => {
                     const $number = (typia.json.assertStringify as any).number;
                     const $string = (typia.json.assertStringify as any).string;
                     return `[${input[0]},${$number(input[1])},${$string(

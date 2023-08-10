@@ -4,14 +4,7 @@ import { ArrayRepeatedUnion } from "../../../structures/ArrayRepeatedUnion";
 
 export const test_json_stringify_ArrayRepeatedUnion =
     _test_json_stringify<ArrayRepeatedUnion>(ArrayRepeatedUnion)((input) =>
-        ((
-            input:
-                | number
-                | boolean
-                | Array<string>
-                | Array<ArrayRepeatedUnion>
-                | Array<ArrayRepeatedUnion.IBox3D>,
-        ): string => {
+        ((input: ArrayRepeatedUnion): string => {
             const $io0 = (input: any): boolean =>
                 "object" === typeof input.scale &&
                 null !== input.scale &&

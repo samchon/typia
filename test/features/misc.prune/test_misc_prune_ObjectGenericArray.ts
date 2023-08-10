@@ -4,5 +4,5 @@ import { ObjectGenericArray } from "../../structures/ObjectGenericArray";
 
 export const test_misc_prune_ObjectGenericArray =
     _test_misc_prune<ObjectGenericArray>(ObjectGenericArray)((input) =>
-        typia.misc.prune(input),
+        typia.misc.prune<ObjectGenericArray>(input),
     );

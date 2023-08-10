@@ -5,10 +5,7 @@ import { ObjectSimple } from "../../../structures/ObjectSimple";
 export const test_equals_ObjectSimple = _test_equals<ObjectSimple>(
     ObjectSimple,
 )((input) =>
-    ((
-        input: any,
-        _exceptionable: boolean = true,
-    ): input is ObjectSimple.IBox3D => {
+    ((input: any, _exceptionable: boolean = true): input is ObjectSimple => {
         const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
             "object" === typeof input.scale &&
             null !== input.scale &&

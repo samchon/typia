@@ -4,7 +4,7 @@ import { ObjectHierarchical } from "../../../structures/ObjectHierarchical";
 
 export const test_json_stringify_ObjectHierarchical =
     _test_json_stringify<ObjectHierarchical>(ObjectHierarchical)((input) =>
-        ((input: ObjectHierarchical.ICustomer): string => {
+        ((input: ObjectHierarchical): string => {
             const $io1 = (input: any): boolean =>
                 "number" === typeof input.id &&
                 "string" === typeof input.code &&

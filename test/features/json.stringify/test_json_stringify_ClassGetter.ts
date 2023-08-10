@@ -4,5 +4,5 @@ import { ClassGetter } from "../../structures/ClassGetter";
 
 export const test_json_stringify_ClassGetter =
     _test_json_stringify<ClassGetter>(ClassGetter)((input) =>
-        typia.json.stringify(input),
+        typia.json.stringify<ClassGetter>(input),
     );

@@ -4,4 +4,4 @@ import { ArrayRepeatedUnion } from "../../structures/ArrayRepeatedUnion";
 
 export const test_is_ArrayRepeatedUnion = _test_is<ArrayRepeatedUnion>(
     ArrayRepeatedUnion,
-)((input) => typia.is(input));
+)((input) => typia.is<ArrayRepeatedUnion>(input));

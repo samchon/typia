@@ -4,5 +4,5 @@ import { MapAlias } from "../../structures/MapAlias";
 
 export const test_misc_validateClone_MapAlias =
     _test_misc_validateClone<MapAlias>(MapAlias)((input) =>
-        typia.misc.validateClone(input),
+        typia.misc.validateClone<MapAlias>(input),
     );

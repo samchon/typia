@@ -4,5 +4,5 @@ import { TagMatrix } from "../../structures/TagMatrix";
 
 export const test_misc_validatePrune_TagMatrix =
     _test_misc_validatePrune<TagMatrix>(TagMatrix)((input) =>
-        typia.misc.validatePrune(input),
+        typia.misc.validatePrune<TagMatrix>(input),
     );

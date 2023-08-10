@@ -4,11 +4,5 @@ import { ArrayAtomicAlias } from "../../../structures/ArrayAtomicAlias";
 
 export const test_misc_prune_ArrayAtomicAlias =
     _test_misc_prune<ArrayAtomicAlias>(ArrayAtomicAlias)((input) =>
-        ((
-            input: [
-                ArrayAtomicAlias.Alias<boolean>,
-                ArrayAtomicAlias.Alias<number>,
-                ArrayAtomicAlias.Alias<string>,
-            ],
-        ): void => {})(input),
+        ((input: ArrayAtomicAlias): void => {})(input),
     );

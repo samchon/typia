@@ -5,9 +5,9 @@ import { ObjectUndefined } from "../../../structures/ObjectUndefined";
 export const test_validate_ObjectUndefined = _test_validate<ObjectUndefined>(
     ObjectUndefined,
 )((input) =>
-    ((input: any): typia.IValidation<Array<ObjectUndefined.ILecture>> => {
+    ((input: any): typia.IValidation<ObjectUndefined> => {
         const errors = [] as any[];
-        const __is = (input: any): input is Array<ObjectUndefined.ILecture> => {
+        const __is = (input: any): input is ObjectUndefined => {
             const $io0 = (input: any): boolean =>
                 "string" === typeof input.name &&
                 (undefined === input.professor ||
@@ -42,7 +42,7 @@ export const test_validate_ObjectUndefined = _test_validate<ObjectUndefined>(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is Array<ObjectUndefined.ILecture> => {
+            ): input is ObjectUndefined => {
                 const $vo0 = (
                     input: any,
                     _path: string,

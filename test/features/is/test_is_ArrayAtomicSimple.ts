@@ -4,4 +4,4 @@ import { ArrayAtomicSimple } from "../../structures/ArrayAtomicSimple";
 
 export const test_is_ArrayAtomicSimple = _test_is<ArrayAtomicSimple>(
     ArrayAtomicSimple,
-)((input) => typia.is(input));
+)((input) => typia.is<ArrayAtomicSimple>(input));

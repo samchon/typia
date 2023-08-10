@@ -4,4 +4,4 @@ import { ObjectLiteralType } from "../../structures/ObjectLiteralType";
 
 export const test_is_ObjectLiteralType = _test_is<ObjectLiteralType>(
     ObjectLiteralType,
-)((input) => typia.is(input));
+)((input) => typia.is<ObjectLiteralType>(input));

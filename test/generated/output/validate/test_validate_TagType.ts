@@ -3,9 +3,9 @@ import { _test_validate } from "../../../internal/_test_validate";
 import { TagType } from "../../../structures/TagType";
 
 export const test_validate_TagType = _test_validate<TagType>(TagType)((input) =>
-    ((input: any): typia.IValidation<IPointer<Array<TagType.Type>>> => {
+    ((input: any): typia.IValidation<TagType> => {
         const errors = [] as any[];
-        const __is = (input: any): input is IPointer<Array<TagType.Type>> => {
+        const __is = (input: any): input is TagType => {
             const $io0 = (input: any): boolean =>
                 Array.isArray(input.value) &&
                 input.value.every(
@@ -28,7 +28,7 @@ export const test_validate_TagType = _test_validate<TagType>(TagType)((input) =>
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is IPointer<Array<TagType.Type>> => {
+            ): input is TagType => {
                 const $vo0 = (
                     input: any,
                     _path: string,

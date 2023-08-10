@@ -5,30 +5,12 @@ import { AtomicIntersection } from "../../../structures/AtomicIntersection";
 export const test_json_validateStringify_AtomicIntersection =
     _test_json_validateStringify<AtomicIntersection>(AtomicIntersection)(
         (input) =>
-            ((
-                input: [
-                    AtomicIntersection.Wrapper<boolean>,
-                    AtomicIntersection.Wrapper<number>,
-                    AtomicIntersection.Wrapper<string>,
-                ],
-            ): typia.IValidation<string> => {
+            ((input: AtomicIntersection): typia.IValidation<string> => {
                 const validate = (
                     input: any,
-                ): typia.IValidation<
-                    [
-                        AtomicIntersection.Wrapper<boolean>,
-                        AtomicIntersection.Wrapper<number>,
-                        AtomicIntersection.Wrapper<string>,
-                    ]
-                > => {
+                ): typia.IValidation<AtomicIntersection> => {
                     const errors = [] as any[];
-                    const __is = (
-                        input: any,
-                    ): input is [
-                        AtomicIntersection.Wrapper<boolean>,
-                        AtomicIntersection.Wrapper<number>,
-                        AtomicIntersection.Wrapper<string>,
-                    ] => {
+                    const __is = (input: any): input is AtomicIntersection => {
                         return (
                             Array.isArray(input) &&
                             input.length === 3 &&
@@ -46,11 +28,7 @@ export const test_json_validateStringify_AtomicIntersection =
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
-                        ): input is [
-                            AtomicIntersection.Wrapper<boolean>,
-                            AtomicIntersection.Wrapper<number>,
-                            AtomicIntersection.Wrapper<string>,
-                        ] => {
+                        ): input is AtomicIntersection => {
                             return (
                                 ((Array.isArray(input) ||
                                     $report(true, {
@@ -101,13 +79,7 @@ export const test_json_validateStringify_AtomicIntersection =
                         data: success ? input : undefined,
                     } as any;
                 };
-                const stringify = (
-                    input: [
-                        AtomicIntersection.Wrapper<boolean>,
-                        AtomicIntersection.Wrapper<number>,
-                        AtomicIntersection.Wrapper<string>,
-                    ],
-                ): string => {
+                const stringify = (input: AtomicIntersection): string => {
                     const $number = (typia.json.validateStringify as any)
                         .number;
                     const $string = (typia.json.validateStringify as any)

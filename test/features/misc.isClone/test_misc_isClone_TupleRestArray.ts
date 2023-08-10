@@ -4,5 +4,5 @@ import { TupleRestArray } from "../../structures/TupleRestArray";
 
 export const test_misc_isClone_TupleRestArray =
     _test_misc_isClone<TupleRestArray>(TupleRestArray)((input) =>
-        typia.misc.isClone(input),
+        typia.misc.isClone<TupleRestArray>(input),
     );

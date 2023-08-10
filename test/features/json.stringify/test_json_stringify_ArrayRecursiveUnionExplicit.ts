@@ -5,4 +5,4 @@ import { ArrayRecursiveUnionExplicit } from "../../structures/ArrayRecursiveUnio
 export const test_json_stringify_ArrayRecursiveUnionExplicit =
     _test_json_stringify<ArrayRecursiveUnionExplicit>(
         ArrayRecursiveUnionExplicit,
-    )((input) => typia.json.stringify(input));
+    )((input) => typia.json.stringify<ArrayRecursiveUnionExplicit>(input));

@@ -4,5 +4,5 @@ import { TagObjectUnion } from "../../structures/TagObjectUnion";
 
 export const test_json_stringify_TagObjectUnion =
     _test_json_stringify<TagObjectUnion>(TagObjectUnion)((input) =>
-        typia.json.stringify(input),
+        typia.json.stringify<TagObjectUnion>(input),
     );

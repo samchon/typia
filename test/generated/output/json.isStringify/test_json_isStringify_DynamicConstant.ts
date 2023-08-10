@@ -4,17 +4,8 @@ import { DynamicConstant } from "../../../structures/DynamicConstant";
 
 export const test_json_isStringify_DynamicConstant =
     _test_json_isStringify<DynamicConstant>(DynamicConstant)((input) =>
-        ((
-            input: IPointer<{ a: number; b: number; c: number; d: number }>,
-        ): string | null => {
-            const is = (
-                input: any,
-            ): input is IPointer<{
-                a: number;
-                b: number;
-                c: number;
-                d: number;
-            }> => {
+        ((input: DynamicConstant): string | null => {
+            const is = (input: any): input is DynamicConstant => {
                 return (
                     "object" === typeof input &&
                     null !== input &&
@@ -30,9 +21,7 @@ export const test_json_isStringify_DynamicConstant =
                     Number.isFinite(((input as any).value as any).d)
                 );
             };
-            const stringify = (
-                input: IPointer<{ a: number; b: number; c: number; d: number }>,
-            ): string => {
+            const stringify = (input: DynamicConstant): string => {
                 const $io1 = (input: any): boolean =>
                     "number" === typeof input.a &&
                     "number" === typeof input.b &&

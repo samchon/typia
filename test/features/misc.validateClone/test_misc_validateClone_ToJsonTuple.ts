@@ -4,5 +4,5 @@ import { ToJsonTuple } from "../../structures/ToJsonTuple";
 
 export const test_misc_validateClone_ToJsonTuple =
     _test_misc_validateClone<ToJsonTuple>(ToJsonTuple)((input) =>
-        typia.misc.validateClone(input),
+        typia.misc.validateClone<ToJsonTuple>(input),
     );

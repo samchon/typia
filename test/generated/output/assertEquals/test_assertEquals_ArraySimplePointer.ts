@@ -4,11 +4,11 @@ import { ArraySimplePointer } from "../../../structures/ArraySimplePointer";
 
 export const test_assertEquals_ArraySimplePointer =
     _test_assertEquals<ArraySimplePointer>(ArraySimplePointer)((input) =>
-        ((input: any): IPointer<Array<ArraySimplePointer.IPerson>> => {
+        ((input: any): ArraySimplePointer => {
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
-            ): input is IPointer<Array<ArraySimplePointer.IPerson>> => {
+            ): input is ArraySimplePointer => {
                 const $io0 = (
                     input: any,
                     _exceptionable: boolean = true,
@@ -84,7 +84,7 @@ export const test_assertEquals_ArraySimplePointer =
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is IPointer<Array<ArraySimplePointer.IPerson>> => {
+                ): input is ArraySimplePointer => {
                     const $guard = (typia.assertEquals as any).guard;
                     const $join = (typia.assertEquals as any).join;
                     const $ao0 = (

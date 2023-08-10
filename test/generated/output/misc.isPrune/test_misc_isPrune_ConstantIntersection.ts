@@ -4,20 +4,8 @@ import { ConstantIntersection } from "../../../structures/ConstantIntersection";
 
 export const test_misc_isPrune_ConstantIntersection =
     _test_misc_isPrune<ConstantIntersection>(ConstantIntersection)((input) =>
-        ((
-            input: any,
-        ): input is [
-            ConstantIntersection.Wrapper<false>,
-            ConstantIntersection.Wrapper<1>,
-            ConstantIntersection.Wrapper<"two">,
-        ] => {
-            const is = (
-                input: any,
-            ): input is [
-                ConstantIntersection.Wrapper<false>,
-                ConstantIntersection.Wrapper<1>,
-                ConstantIntersection.Wrapper<"two">,
-            ] => {
+        ((input: any): input is ConstantIntersection => {
+            const is = (input: any): input is ConstantIntersection => {
                 return (
                     Array.isArray(input) &&
                     input.length === 3 &&
@@ -26,13 +14,7 @@ export const test_misc_isPrune_ConstantIntersection =
                     "two" === input[2]
                 );
             };
-            const prune = (
-                input: [
-                    ConstantIntersection.Wrapper<false>,
-                    ConstantIntersection.Wrapper<1>,
-                    ConstantIntersection.Wrapper<"two">,
-                ],
-            ): void => {};
+            const prune = (input: ConstantIntersection): void => {};
             if (!is(input)) return false;
             prune(input);
             return true;

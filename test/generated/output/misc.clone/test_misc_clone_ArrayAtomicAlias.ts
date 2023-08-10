@@ -4,19 +4,7 @@ import { ArrayAtomicAlias } from "../../../structures/ArrayAtomicAlias";
 
 export const test_misc_clone_ArrayAtomicAlias =
     _test_misc_clone<ArrayAtomicAlias>(ArrayAtomicAlias)((input) =>
-        ((
-            input: [
-                ArrayAtomicAlias.Alias<boolean>,
-                ArrayAtomicAlias.Alias<number>,
-                ArrayAtomicAlias.Alias<string>,
-            ],
-        ): typia.Primitive<
-            [
-                ArrayAtomicAlias.Alias<boolean>,
-                ArrayAtomicAlias.Alias<number>,
-                ArrayAtomicAlias.Alias<string>,
-            ]
-        > => {
+        ((input: ArrayAtomicAlias): typia.Primitive<ArrayAtomicAlias> => {
             const $cp0 = (input: any) => input.map((elem: any) => elem as any);
             const $cp1 = (input: any) => input.map((elem: any) => elem as any);
             const $cp2 = (input: any) => input.map((elem: any) => elem as any);

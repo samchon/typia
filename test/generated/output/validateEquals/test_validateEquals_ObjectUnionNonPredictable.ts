@@ -5,24 +5,12 @@ import { ObjectUnionNonPredictable } from "../../../structures/ObjectUnionNonPre
 export const test_validateEquals_ObjectUnionNonPredictable =
     _test_validateEquals<ObjectUnionNonPredictable>(ObjectUnionNonPredictable)(
         (input) =>
-            ((
-                input: any,
-            ): typia.IValidation<
-                IPointer<
-                    Array<
-                        ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
-                    >
-                >
-            > => {
+            ((input: any): typia.IValidation<ObjectUnionNonPredictable> => {
                 const errors = [] as any[];
                 const __is = (
                     input: any,
                     _exceptionable: boolean = true,
-                ): input is IPointer<
-                    Array<
-                        ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
-                    >
-                > => {
+                ): input is ObjectUnionNonPredictable => {
                     const $io0 = (
                         input: any,
                         _exceptionable: boolean = true,
@@ -184,11 +172,7 @@ export const test_validateEquals_ObjectUnionNonPredictable =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is IPointer<
-                        Array<
-                            ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
-                        >
-                    > => {
+                    ): input is ObjectUnionNonPredictable => {
                         const $join = (typia.validateEquals as any).join;
                         const $vo0 = (
                             input: any,

@@ -107,6 +107,4 @@ export namespace ObjectNullable {
             return [`$input.value[0].similar`];
         },
     ];
-
-    export const BINARABLE = false;
 }

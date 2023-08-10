@@ -4,5 +4,5 @@ import { TagObjectUnion } from "../../structures/TagObjectUnion";
 
 export const test_misc_isPrune_TagObjectUnion =
     _test_misc_isPrune<TagObjectUnion>(TagObjectUnion)((input) =>
-        typia.misc.isPrune(input),
+        typia.misc.isPrune<TagObjectUnion>(input),
     );

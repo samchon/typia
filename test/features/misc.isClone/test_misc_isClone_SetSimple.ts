@@ -4,4 +4,4 @@ import { SetSimple } from "../../structures/SetSimple";
 
 export const test_misc_isClone_SetSimple = _test_misc_isClone<SetSimple>(
     SetSimple,
-)((input) => typia.misc.isClone(input));
+)((input) => typia.misc.isClone<SetSimple>(input));

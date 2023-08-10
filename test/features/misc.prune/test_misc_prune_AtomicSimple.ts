@@ -4,4 +4,4 @@ import { AtomicSimple } from "../../structures/AtomicSimple";
 
 export const test_misc_prune_AtomicSimple = _test_misc_prune<AtomicSimple>(
     AtomicSimple,
-)((input) => typia.misc.prune(input));
+)((input) => typia.misc.prune<AtomicSimple>(input));

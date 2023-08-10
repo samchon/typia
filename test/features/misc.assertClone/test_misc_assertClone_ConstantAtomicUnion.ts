@@ -4,5 +4,5 @@ import { ConstantAtomicUnion } from "../../structures/ConstantAtomicUnion";
 
 export const test_misc_assertClone_ConstantAtomicUnion =
     _test_misc_assertClone<ConstantAtomicUnion>(ConstantAtomicUnion)((input) =>
-        typia.misc.assertClone(input),
+        typia.misc.assertClone<ConstantAtomicUnion>(input),
     );

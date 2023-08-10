@@ -5,12 +5,8 @@ import { ConstantConstEnumeration } from "../../../structures/ConstantConstEnume
 export const test_misc_isPrune_ConstantConstEnumeration =
     _test_misc_isPrune<ConstantConstEnumeration>(ConstantConstEnumeration)(
         (input) =>
-            ((
-                input: any,
-            ): input is Array<ConstantConstEnumeration.Enumeration> => {
-                const is = (
-                    input: any,
-                ): input is Array<ConstantConstEnumeration.Enumeration> => {
+            ((input: any): input is ConstantConstEnumeration => {
+                const is = (input: any): input is ConstantConstEnumeration => {
                     return (
                         Array.isArray(input) &&
                         input.every(
@@ -23,9 +19,7 @@ export const test_misc_isPrune_ConstantConstEnumeration =
                         )
                     );
                 };
-                const prune = (
-                    input: Array<ConstantConstEnumeration.Enumeration>,
-                ): void => {};
+                const prune = (input: ConstantConstEnumeration): void => {};
                 if (!is(input)) return false;
                 prune(input);
                 return true;

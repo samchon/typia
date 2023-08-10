@@ -4,4 +4,4 @@ import { TagPattern } from "../../structures/TagPattern";
 
 export const test_assertEquals_TagPattern = _test_assertEquals<TagPattern>(
     TagPattern,
-)((input) => typia.assertEquals(input));
+)((input) => typia.assertEquals<TagPattern>(input));

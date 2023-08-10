@@ -4,4 +4,4 @@ import { UltimateUnion } from "../../structures/UltimateUnion";
 
 export const test_assert_UltimateUnion = _test_assert<UltimateUnion>(
     UltimateUnion,
-)((input) => typia.assert(input));
+)((input) => typia.assert<UltimateUnion>(input));

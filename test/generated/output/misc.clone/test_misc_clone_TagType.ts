@@ -4,9 +4,7 @@ import { TagType } from "../../../structures/TagType";
 
 export const test_misc_clone_TagType = _test_misc_clone<TagType>(TagType)(
     (input) =>
-        ((
-            input: IPointer<Array<TagType.Type>>,
-        ): typia.Primitive<IPointer<Array<TagType.Type>>> => {
+        ((input: TagType): typia.Primitive<TagType> => {
             const $io1 = (input: any): boolean =>
                 "number" === typeof input.int &&
                 parseInt(input.int) === input.int &&

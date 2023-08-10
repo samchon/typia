@@ -4,15 +4,9 @@ import { ObjectNullable } from "../../../structures/ObjectNullable";
 
 export const test_misc_assertClone_ObjectNullable =
     _test_misc_assertClone<ObjectNullable>(ObjectNullable)((input) =>
-        ((
-            input: any,
-        ): typia.Primitive<IPointer<Array<ObjectNullable.IProduct>>> => {
-            const assert = (
-                input: any,
-            ): IPointer<Array<ObjectNullable.IProduct>> => {
-                const __is = (
-                    input: any,
-                ): input is IPointer<Array<ObjectNullable.IProduct>> => {
+        ((input: any): typia.Primitive<ObjectNullable> => {
+            const assert = (input: any): ObjectNullable => {
+                const __is = (input: any): input is ObjectNullable => {
                     const $io0 = (input: any): boolean =>
                         Array.isArray(input.value) &&
                         input.value.every(
@@ -58,7 +52,7 @@ export const test_misc_assertClone_ObjectNullable =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is IPointer<Array<ObjectNullable.IProduct>> => {
+                    ): input is ObjectNullable => {
                         const $guard = (typia.misc.assertClone as any).guard;
                         const $ao0 = (
                             input: any,
@@ -252,8 +246,8 @@ export const test_misc_assertClone_ObjectNullable =
                 return input;
             };
             const clone = (
-                input: IPointer<Array<ObjectNullable.IProduct>>,
-            ): typia.Primitive<IPointer<Array<ObjectNullable.IProduct>>> => {
+                input: ObjectNullable,
+            ): typia.Primitive<ObjectNullable> => {
                 const $io1 = (input: any): boolean =>
                     "string" === typeof input.name &&
                     "object" === typeof input.manufacturer &&

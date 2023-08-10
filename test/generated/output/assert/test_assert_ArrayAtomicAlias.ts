@@ -5,20 +5,8 @@ import { ArrayAtomicAlias } from "../../../structures/ArrayAtomicAlias";
 export const test_assert_ArrayAtomicAlias = _test_assert<ArrayAtomicAlias>(
     ArrayAtomicAlias,
 )((input) =>
-    ((
-        input: any,
-    ): [
-        ArrayAtomicAlias.Alias<boolean>,
-        ArrayAtomicAlias.Alias<number>,
-        ArrayAtomicAlias.Alias<string>,
-    ] => {
-        const __is = (
-            input: any,
-        ): input is [
-            ArrayAtomicAlias.Alias<boolean>,
-            ArrayAtomicAlias.Alias<number>,
-            ArrayAtomicAlias.Alias<string>,
-        ] => {
+    ((input: any): ArrayAtomicAlias => {
+        const __is = (input: any): input is ArrayAtomicAlias => {
             return (
                 Array.isArray(input) &&
                 input.length === 3 &&
@@ -38,11 +26,7 @@ export const test_assert_ArrayAtomicAlias = _test_assert<ArrayAtomicAlias>(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is [
-                ArrayAtomicAlias.Alias<boolean>,
-                ArrayAtomicAlias.Alias<number>,
-                ArrayAtomicAlias.Alias<string>,
-            ] => {
+            ): input is ArrayAtomicAlias => {
                 const $guard = (typia.assert as any).guard;
                 return (
                     ((Array.isArray(input) ||

@@ -4,5 +4,5 @@ import { AtomicIntersection } from "../../structures/AtomicIntersection";
 
 export const test_validateEquals_AtomicIntersection =
     _test_validateEquals<AtomicIntersection>(AtomicIntersection)((input) =>
-        typia.validateEquals(input),
+        typia.validateEquals<AtomicIntersection>(input),
     );

@@ -5,10 +5,8 @@ import { ArrayHierarchical } from "../../../structures/ArrayHierarchical";
 export const test_assert_ArrayHierarchical = _test_assert<ArrayHierarchical>(
     ArrayHierarchical,
 )((input) =>
-    ((input: any): Array<ArrayHierarchical.ICompany> => {
-        const __is = (
-            input: any,
-        ): input is Array<ArrayHierarchical.ICompany> => {
+    ((input: any): ArrayHierarchical => {
+        const __is = (input: any): input is ArrayHierarchical => {
             const $io0 = (input: any): boolean =>
                 "number" === typeof input.id &&
                 Number.isFinite(input.id) &&
@@ -70,7 +68,7 @@ export const test_assert_ArrayHierarchical = _test_assert<ArrayHierarchical>(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is Array<ArrayHierarchical.ICompany> => {
+            ): input is ArrayHierarchical => {
                 const $guard = (typia.assert as any).guard;
                 const $ao0 = (
                     input: any,

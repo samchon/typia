@@ -4,5 +4,5 @@ import { ObjectGeneric } from "../../structures/ObjectGeneric";
 
 export const test_misc_isPrune_ObjectGeneric =
     _test_misc_isPrune<ObjectGeneric>(ObjectGeneric)((input) =>
-        typia.misc.isPrune(input),
+        typia.misc.isPrune<ObjectGeneric>(input),
     );

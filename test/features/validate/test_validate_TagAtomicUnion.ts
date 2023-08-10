@@ -4,4 +4,4 @@ import { TagAtomicUnion } from "../../structures/TagAtomicUnion";
 
 export const test_validate_TagAtomicUnion = _test_validate<TagAtomicUnion>(
     TagAtomicUnion,
-)((input) => typia.validate(input));
+)((input) => typia.validate<TagAtomicUnion>(input));

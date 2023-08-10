@@ -4,4 +4,4 @@ import { ClassClosure } from "../../structures/ClassClosure";
 
 export const test_equals_ClassClosure = _test_equals<ClassClosure>(
     ClassClosure,
-)((input) => typia.equals(input));
+)((input) => typia.equals<ClassClosure>(input));

@@ -4,5 +4,5 @@ import { NativeUnion } from "../../structures/NativeUnion";
 
 export const test_json_isStringify_NativeUnion =
     _test_json_isStringify<NativeUnion>(NativeUnion)((input) =>
-        typia.json.isStringify(input),
+        typia.json.isStringify<NativeUnion>(input),
     );

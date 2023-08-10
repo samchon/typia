@@ -4,4 +4,4 @@ import { NativeAlias } from "../../structures/NativeAlias";
 
 export const test_misc_clone_NativeAlias = _test_misc_clone<NativeAlias>(
     NativeAlias,
-)((input) => typia.misc.clone(input));
+)((input) => typia.misc.clone<NativeAlias>(input));

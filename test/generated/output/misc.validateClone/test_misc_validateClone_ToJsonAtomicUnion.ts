@@ -6,16 +6,12 @@ export const test_misc_validateClone_ToJsonAtomicUnion =
     _test_misc_validateClone<ToJsonAtomicUnion>(ToJsonAtomicUnion)((input) =>
         ((
             input: any,
-        ): typia.IValidation<
-            typia.Primitive<Array<ToJsonAtomicUnion.IToJson>>
-        > => {
+        ): typia.IValidation<typia.Primitive<ToJsonAtomicUnion>> => {
             const validate = (
                 input: any,
-            ): typia.IValidation<Array<ToJsonAtomicUnion.IToJson>> => {
+            ): typia.IValidation<ToJsonAtomicUnion> => {
                 const errors = [] as any[];
-                const __is = (
-                    input: any,
-                ): input is Array<ToJsonAtomicUnion.IToJson> => {
+                const __is = (input: any): input is ToJsonAtomicUnion => {
                     const $io0 = (input: any): boolean => true;
                     return (
                         Array.isArray(input) &&
@@ -35,7 +31,7 @@ export const test_misc_validateClone_ToJsonAtomicUnion =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is Array<ToJsonAtomicUnion.IToJson> => {
+                    ): input is ToJsonAtomicUnion => {
                         const $vo0 = (
                             input: any,
                             _path: string,
@@ -101,8 +97,8 @@ export const test_misc_validateClone_ToJsonAtomicUnion =
                 } as any;
             };
             const clone = (
-                input: Array<ToJsonAtomicUnion.IToJson>,
-            ): typia.Primitive<Array<ToJsonAtomicUnion.IToJson>> => {
+                input: ToJsonAtomicUnion,
+            ): typia.Primitive<ToJsonAtomicUnion> => {
                 const $cp0 = (input: any) =>
                     input.map((elem: any) =>
                         "object" === typeof elem &&

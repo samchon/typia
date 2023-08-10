@@ -4,5 +4,5 @@ import { UltimateUnion } from "../../structures/UltimateUnion";
 
 export const test_misc_isClone_UltimateUnion =
     _test_misc_isClone<UltimateUnion>(UltimateUnion)((input) =>
-        typia.misc.isClone(input),
+        typia.misc.isClone<UltimateUnion>(input),
     );

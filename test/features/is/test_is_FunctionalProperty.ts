@@ -4,4 +4,4 @@ import { FunctionalProperty } from "../../structures/FunctionalProperty";
 
 export const test_is_FunctionalProperty = _test_is<FunctionalProperty>(
     FunctionalProperty,
-)((input) => typia.is(input));
+)((input) => typia.is<FunctionalProperty>(input));

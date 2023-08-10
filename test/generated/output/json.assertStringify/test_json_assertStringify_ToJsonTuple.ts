@@ -5,22 +5,8 @@ import { ToJsonTuple } from "../../../structures/ToJsonTuple";
 export const test_json_assertStringify_ToJsonTuple =
     _test_json_assertStringify<ToJsonTuple>(ToJsonTuple)((input) =>
         ((input: any): string => {
-            const assert = (
-                input: any,
-            ): [
-                ToJsonTuple.IToJson<string>,
-                ToJsonTuple.IToJson<number>,
-                ToJsonTuple.IToJson<boolean>,
-                ToJsonTuple.IObject,
-            ] => {
-                const __is = (
-                    input: any,
-                ): input is [
-                    ToJsonTuple.IToJson<string>,
-                    ToJsonTuple.IToJson<number>,
-                    ToJsonTuple.IToJson<boolean>,
-                    ToJsonTuple.IObject,
-                ] => {
+            const assert = (input: any): ToJsonTuple => {
+                const __is = (input: any): input is ToJsonTuple => {
                     const $io0 = (input: any): boolean => true;
                     const $io1 = (input: any): boolean => true;
                     const $io2 = (input: any): boolean => true;
@@ -47,12 +33,7 @@ export const test_json_assertStringify_ToJsonTuple =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is [
-                        ToJsonTuple.IToJson<string>,
-                        ToJsonTuple.IToJson<number>,
-                        ToJsonTuple.IToJson<boolean>,
-                        ToJsonTuple.IObject,
-                    ] => {
+                    ): input is ToJsonTuple => {
                         const $guard = (typia.json.assertStringify as any)
                             .guard;
                         const $ao0 = (
@@ -176,14 +157,7 @@ export const test_json_assertStringify_ToJsonTuple =
                     })(input, "$input", true);
                 return input;
             };
-            const stringify = (
-                input: [
-                    ToJsonTuple.IToJson<string>,
-                    ToJsonTuple.IToJson<number>,
-                    ToJsonTuple.IToJson<boolean>,
-                    ToJsonTuple.IObject,
-                ],
-            ): string => {
+            const stringify = (input: ToJsonTuple): string => {
                 const $string = (typia.json.assertStringify as any).string;
                 const $number = (typia.json.assertStringify as any).number;
                 return `[${$string(input[0].toJSON())},${$number(

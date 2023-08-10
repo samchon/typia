@@ -4,4 +4,4 @@ import { ToJsonTuple } from "../../structures/ToJsonTuple";
 
 export const test_misc_clone_ToJsonTuple = _test_misc_clone<ToJsonTuple>(
     ToJsonTuple,
-)((input) => typia.misc.clone(input));
+)((input) => typia.misc.clone<ToJsonTuple>(input));

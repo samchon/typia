@@ -5,11 +5,9 @@ import { TagType } from "../../../structures/TagType";
 export const test_misc_assertClone_TagType = _test_misc_assertClone<TagType>(
     TagType,
 )((input) =>
-    ((input: any): typia.Primitive<IPointer<Array<TagType.Type>>> => {
-        const assert = (input: any): IPointer<Array<TagType.Type>> => {
-            const __is = (
-                input: any,
-            ): input is IPointer<Array<TagType.Type>> => {
+    ((input: any): typia.Primitive<TagType> => {
+        const assert = (input: any): TagType => {
+            const __is = (input: any): input is TagType => {
                 const $io0 = (input: any): boolean =>
                     Array.isArray(input.value) &&
                     input.value.every(
@@ -35,7 +33,7 @@ export const test_misc_assertClone_TagType = _test_misc_assertClone<TagType>(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is IPointer<Array<TagType.Type>> => {
+                ): input is TagType => {
                     const $guard = (typia.misc.assertClone as any).guard;
                     const $ao0 = (
                         input: any,
@@ -131,9 +129,7 @@ export const test_misc_assertClone_TagType = _test_misc_assertClone<TagType>(
                 })(input, "$input", true);
             return input;
         };
-        const clone = (
-            input: IPointer<Array<TagType.Type>>,
-        ): typia.Primitive<IPointer<Array<TagType.Type>>> => {
+        const clone = (input: TagType): typia.Primitive<TagType> => {
             const $io1 = (input: any): boolean =>
                 "number" === typeof input.int &&
                 parseInt(input.int) === input.int &&

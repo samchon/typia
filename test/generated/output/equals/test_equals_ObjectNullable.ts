@@ -5,10 +5,7 @@ import { ObjectNullable } from "../../../structures/ObjectNullable";
 export const test_equals_ObjectNullable = _test_equals<ObjectNullable>(
     ObjectNullable,
 )((input) =>
-    ((
-        input: any,
-        _exceptionable: boolean = true,
-    ): input is IPointer<Array<ObjectNullable.IProduct>> => {
+    ((input: any, _exceptionable: boolean = true): input is ObjectNullable => {
         const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
             Array.isArray(input.value) &&
             input.value.every(

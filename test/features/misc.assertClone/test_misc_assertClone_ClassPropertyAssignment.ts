@@ -4,5 +4,5 @@ import { ClassPropertyAssignment } from "../../structures/ClassPropertyAssignmen
 
 export const test_misc_assertClone_ClassPropertyAssignment =
     _test_misc_assertClone<ClassPropertyAssignment>(ClassPropertyAssignment)(
-        (input) => typia.misc.assertClone(input),
+        (input) => typia.misc.assertClone<ClassPropertyAssignment>(input),
     );

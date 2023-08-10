@@ -4,5 +4,5 @@ import { ConstantAtomicWrapper } from "../../structures/ConstantAtomicWrapper";
 
 export const test_validate_ConstantAtomicWrapper =
     _test_validate<ConstantAtomicWrapper>(ConstantAtomicWrapper)((input) =>
-        typia.validate(input),
+        typia.validate<ConstantAtomicWrapper>(input),
     );

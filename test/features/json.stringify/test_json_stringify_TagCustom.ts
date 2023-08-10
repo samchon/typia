@@ -4,4 +4,4 @@ import { TagCustom } from "../../structures/TagCustom";
 
 export const test_json_stringify_TagCustom = _test_json_stringify<TagCustom>(
     TagCustom,
-)((input) => typia.json.stringify(input));
+)((input) => typia.json.stringify<TagCustom>(input));

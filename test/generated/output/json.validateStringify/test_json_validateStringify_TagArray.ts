@@ -4,14 +4,10 @@ import { TagArray } from "../../../structures/TagArray";
 
 export const test_json_validateStringify_TagArray =
     _test_json_validateStringify<TagArray>(TagArray)((input) =>
-        ((input: IPointer<Array<TagArray.Type>>): typia.IValidation<string> => {
-            const validate = (
-                input: any,
-            ): typia.IValidation<IPointer<Array<TagArray.Type>>> => {
+        ((input: TagArray): typia.IValidation<string> => {
+            const validate = (input: any): typia.IValidation<TagArray> => {
                 const errors = [] as any[];
-                const __is = (
-                    input: any,
-                ): input is IPointer<Array<TagArray.Type>> => {
+                const __is = (input: any): input is TagArray => {
                     const $is_uuid = (typia.json.validateStringify as any)
                         .is_uuid;
                     const $io0 = (input: any): boolean =>
@@ -58,7 +54,7 @@ export const test_json_validateStringify_TagArray =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is IPointer<Array<TagArray.Type>> => {
+                    ): input is TagArray => {
                         const $is_uuid = (typia.json.validateStringify as any)
                             .is_uuid;
                         const $vo0 = (
@@ -291,9 +287,7 @@ export const test_json_validateStringify_TagArray =
                     data: success ? input : undefined,
                 } as any;
             };
-            const stringify = (
-                input: IPointer<Array<TagArray.Type>>,
-            ): string => {
+            const stringify = (input: TagArray): string => {
                 const $io1 = (input: any): boolean =>
                     Array.isArray(input.items) &&
                     3 === input.items.length &&

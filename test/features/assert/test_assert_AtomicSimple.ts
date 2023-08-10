@@ -4,4 +4,4 @@ import { AtomicSimple } from "../../structures/AtomicSimple";
 
 export const test_assert_AtomicSimple = _test_assert<AtomicSimple>(
     AtomicSimple,
-)((input) => typia.assert(input));
+)((input) => typia.assert<AtomicSimple>(input));

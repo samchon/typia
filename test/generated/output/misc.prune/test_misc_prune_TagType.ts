@@ -4,7 +4,7 @@ import { TagType } from "../../../structures/TagType";
 
 export const test_misc_prune_TagType = _test_misc_prune<TagType>(TagType)(
     (input) =>
-        ((input: IPointer<Array<TagType.Type>>): void => {
+        ((input: TagType): void => {
             const $io1 = (input: any): boolean =>
                 "number" === typeof input.int &&
                 parseInt(input.int) === input.int &&

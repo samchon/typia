@@ -4,5 +4,5 @@ import { TagRange } from "../../structures/TagRange";
 
 export const test_misc_validateClone_TagRange =
     _test_misc_validateClone<TagRange>(TagRange)((input) =>
-        typia.misc.validateClone(input),
+        typia.misc.validateClone<TagRange>(input),
     );

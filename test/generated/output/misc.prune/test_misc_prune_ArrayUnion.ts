@@ -4,4 +4,4 @@ import { ArrayUnion } from "../../../structures/ArrayUnion";
 
 export const test_misc_prune_ArrayUnion = _test_misc_prune<ArrayUnion>(
     ArrayUnion,
-)((input) => ((input: Array<ArrayUnion.IUnion>): void => {})(input));
+)((input) => ((input: ArrayUnion): void => {})(input));

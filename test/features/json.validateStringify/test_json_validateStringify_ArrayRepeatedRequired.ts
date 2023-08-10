@@ -4,5 +4,5 @@ import { ArrayRepeatedRequired } from "../../structures/ArrayRepeatedRequired";
 
 export const test_json_validateStringify_ArrayRepeatedRequired =
     _test_json_validateStringify<ArrayRepeatedRequired>(ArrayRepeatedRequired)(
-        (input) => typia.json.validateStringify(input),
+        (input) => typia.json.validateStringify<ArrayRepeatedRequired>(input),
     );

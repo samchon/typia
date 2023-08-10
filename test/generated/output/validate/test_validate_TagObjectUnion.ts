@@ -5,9 +5,9 @@ import { TagObjectUnion } from "../../../structures/TagObjectUnion";
 export const test_validate_TagObjectUnion = _test_validate<TagObjectUnion>(
     TagObjectUnion,
 )((input) =>
-    ((input: any): typia.IValidation<Array<TagObjectUnion.Type>> => {
+    ((input: any): typia.IValidation<TagObjectUnion> => {
         const errors = [] as any[];
-        const __is = (input: any): input is Array<TagObjectUnion.Type> => {
+        const __is = (input: any): input is TagObjectUnion => {
             const $io0 = (input: any): boolean =>
                 "number" === typeof input.value &&
                 Number.isFinite(input.value) &&
@@ -40,7 +40,7 @@ export const test_validate_TagObjectUnion = _test_validate<TagObjectUnion>(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is Array<TagObjectUnion.Type> => {
+            ): input is TagObjectUnion => {
                 const $vo0 = (
                     input: any,
                     _path: string,

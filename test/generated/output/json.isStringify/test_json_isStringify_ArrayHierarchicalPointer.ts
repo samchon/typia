@@ -5,14 +5,8 @@ import { ArrayHierarchicalPointer } from "../../../structures/ArrayHierarchicalP
 export const test_json_isStringify_ArrayHierarchicalPointer =
     _test_json_isStringify<ArrayHierarchicalPointer>(ArrayHierarchicalPointer)(
         (input) =>
-            ((
-                input: IPointer<Array<ArrayHierarchicalPointer.ICompany>>,
-            ): string | null => {
-                const is = (
-                    input: any,
-                ): input is IPointer<
-                    Array<ArrayHierarchicalPointer.ICompany>
-                > => {
+            ((input: ArrayHierarchicalPointer): string | null => {
+                const is = (input: any): input is ArrayHierarchicalPointer => {
                     const $io0 = (input: any): boolean =>
                         Array.isArray(input.value) &&
                         input.value.every(
@@ -81,9 +75,7 @@ export const test_json_isStringify_ArrayHierarchicalPointer =
                         $io0(input)
                     );
                 };
-                const stringify = (
-                    input: IPointer<Array<ArrayHierarchicalPointer.ICompany>>,
-                ): string => {
+                const stringify = (input: ArrayHierarchicalPointer): string => {
                     const $io1 = (input: any): boolean =>
                         "number" === typeof input.id &&
                         "number" === typeof input.serial &&

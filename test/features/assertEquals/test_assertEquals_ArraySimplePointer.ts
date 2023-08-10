@@ -4,5 +4,5 @@ import { ArraySimplePointer } from "../../structures/ArraySimplePointer";
 
 export const test_assertEquals_ArraySimplePointer =
     _test_assertEquals<ArraySimplePointer>(ArraySimplePointer)((input) =>
-        typia.assertEquals(input),
+        typia.assertEquals<ArraySimplePointer>(input),
     );

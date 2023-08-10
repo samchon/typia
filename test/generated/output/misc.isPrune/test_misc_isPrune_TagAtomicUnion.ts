@@ -4,10 +4,8 @@ import { TagAtomicUnion } from "../../../structures/TagAtomicUnion";
 
 export const test_misc_isPrune_TagAtomicUnion =
     _test_misc_isPrune<TagAtomicUnion>(TagAtomicUnion)((input) =>
-        ((input: any): input is IPointer<Array<TagAtomicUnion.Type>> => {
-            const is = (
-                input: any,
-            ): input is IPointer<Array<TagAtomicUnion.Type>> => {
+        ((input: any): input is TagAtomicUnion => {
+            const is = (input: any): input is TagAtomicUnion => {
                 const $io0 = (input: any): boolean =>
                     Array.isArray(input.value) &&
                     input.value.every(
@@ -27,9 +25,7 @@ export const test_misc_isPrune_TagAtomicUnion =
                     "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            const prune = (
-                input: IPointer<Array<TagAtomicUnion.Type>>,
-            ): void => {
+            const prune = (input: TagAtomicUnion): void => {
                 const $io1 = (input: any): boolean =>
                     ("string" === typeof input.value &&
                         3 <= input.value.length &&

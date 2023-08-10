@@ -4,43 +4,10 @@ import { ToJsonUnion } from "../../../structures/ToJsonUnion";
 
 export const test_misc_validateClone_ToJsonUnion =
     _test_misc_validateClone<ToJsonUnion>(ToJsonUnion)((input) =>
-        ((
-            input: any,
-        ): typia.IValidation<
-            typia.Primitive<
-                Array<
-                    | string
-                    | number
-                    | ToJsonUnion.ICitizen
-                    | ToJsonUnion.IWrapper<boolean>
-                    | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen>
-                    | ToJsonUnion.IWrapper<ToJsonUnion.IProduct>
-                >
-            >
-        > => {
-            const validate = (
-                input: any,
-            ): typia.IValidation<
-                Array<
-                    | string
-                    | number
-                    | ToJsonUnion.ICitizen
-                    | ToJsonUnion.IWrapper<boolean>
-                    | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen>
-                    | ToJsonUnion.IWrapper<ToJsonUnion.IProduct>
-                >
-            > => {
+        ((input: any): typia.IValidation<typia.Primitive<ToJsonUnion>> => {
+            const validate = (input: any): typia.IValidation<ToJsonUnion> => {
                 const errors = [] as any[];
-                const __is = (
-                    input: any,
-                ): input is Array<
-                    | string
-                    | number
-                    | ToJsonUnion.ICitizen
-                    | ToJsonUnion.IWrapper<boolean>
-                    | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen>
-                    | ToJsonUnion.IWrapper<ToJsonUnion.IProduct>
-                > => {
+                const __is = (input: any): input is ToJsonUnion => {
                     const $io0 = (input: any): boolean =>
                         "number" === typeof input.id &&
                         Number.isFinite(input.id) &&
@@ -82,14 +49,7 @@ export const test_misc_validateClone_ToJsonUnion =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is Array<
-                        | string
-                        | number
-                        | ToJsonUnion.ICitizen
-                        | ToJsonUnion.IWrapper<boolean>
-                        | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen>
-                        | ToJsonUnion.IWrapper<ToJsonUnion.IProduct>
-                    > => {
+                    ): input is ToJsonUnion => {
                         const $vo0 = (
                             input: any,
                             _path: string,
@@ -264,24 +224,8 @@ export const test_misc_validateClone_ToJsonUnion =
                 } as any;
             };
             const clone = (
-                input: Array<
-                    | string
-                    | number
-                    | ToJsonUnion.ICitizen
-                    | ToJsonUnion.IWrapper<boolean>
-                    | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen>
-                    | ToJsonUnion.IWrapper<ToJsonUnion.IProduct>
-                >,
-            ): typia.Primitive<
-                Array<
-                    | string
-                    | number
-                    | ToJsonUnion.ICitizen
-                    | ToJsonUnion.IWrapper<boolean>
-                    | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen>
-                    | ToJsonUnion.IWrapper<ToJsonUnion.IProduct>
-                >
-            > => {
+                input: ToJsonUnion,
+            ): typia.Primitive<ToJsonUnion> => {
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.id &&
                     "string" === typeof input.mobile &&

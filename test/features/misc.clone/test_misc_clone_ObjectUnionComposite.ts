@@ -4,5 +4,5 @@ import { ObjectUnionComposite } from "../../structures/ObjectUnionComposite";
 
 export const test_misc_clone_ObjectUnionComposite =
     _test_misc_clone<ObjectUnionComposite>(ObjectUnionComposite)((input) =>
-        typia.misc.clone(input),
+        typia.misc.clone<ObjectUnionComposite>(input),
     );

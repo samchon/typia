@@ -4,5 +4,5 @@ import { ConstantIntersection } from "../../structures/ConstantIntersection";
 
 export const test_validate_ConstantIntersection =
     _test_validate<ConstantIntersection>(ConstantIntersection)((input) =>
-        typia.validate(input),
+        typia.validate<ConstantIntersection>(input),
     );

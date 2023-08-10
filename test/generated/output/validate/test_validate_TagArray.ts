@@ -4,11 +4,9 @@ import { TagArray } from "../../../structures/TagArray";
 
 export const test_validate_TagArray = _test_validate<TagArray>(TagArray)(
     (input) =>
-        ((input: any): typia.IValidation<IPointer<Array<TagArray.Type>>> => {
+        ((input: any): typia.IValidation<TagArray> => {
             const errors = [] as any[];
-            const __is = (
-                input: any,
-            ): input is IPointer<Array<TagArray.Type>> => {
+            const __is = (input: any): input is TagArray => {
                 const $is_uuid = (typia.validate as any).is_uuid;
                 const $io0 = (input: any): boolean =>
                     Array.isArray(input.value) &&
@@ -50,7 +48,7 @@ export const test_validate_TagArray = _test_validate<TagArray>(TagArray)(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is IPointer<Array<TagArray.Type>> => {
+                ): input is TagArray => {
                     const $is_uuid = (typia.validate as any).is_uuid;
                     const $vo0 = (
                         input: any,

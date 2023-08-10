@@ -4,5 +4,5 @@ import { ArraySimplePointer } from "../../structures/ArraySimplePointer";
 
 export const test_misc_clone_ArraySimplePointer =
     _test_misc_clone<ArraySimplePointer>(ArraySimplePointer)((input) =>
-        typia.misc.clone(input),
+        typia.misc.clone<ArraySimplePointer>(input),
     );

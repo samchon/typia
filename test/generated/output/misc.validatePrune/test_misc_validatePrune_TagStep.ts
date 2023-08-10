@@ -4,14 +4,10 @@ import { TagStep } from "../../../structures/TagStep";
 
 export const test_misc_validatePrune_TagStep =
     _test_misc_validatePrune<TagStep>(TagStep)((input) =>
-        ((input: any): typia.IValidation<IPointer<Array<TagStep.Type>>> => {
-            const validate = (
-                input: any,
-            ): typia.IValidation<IPointer<Array<TagStep.Type>>> => {
+        ((input: any): typia.IValidation<TagStep> => {
+            const validate = (input: any): typia.IValidation<TagStep> => {
                 const errors = [] as any[];
-                const __is = (
-                    input: any,
-                ): input is IPointer<Array<TagStep.Type>> => {
+                const __is = (input: any): input is TagStep => {
                     const $io0 = (input: any): boolean =>
                         Array.isArray(input.value) &&
                         input.value.every(
@@ -49,7 +45,7 @@ export const test_misc_validatePrune_TagStep =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is IPointer<Array<TagStep.Type>> => {
+                    ): input is TagStep => {
                         const $vo0 = (
                             input: any,
                             _path: string,
@@ -219,7 +215,7 @@ export const test_misc_validatePrune_TagStep =
                     data: success ? input : undefined,
                 } as any;
             };
-            const prune = (input: IPointer<Array<TagStep.Type>>): void => {
+            const prune = (input: TagStep): void => {
                 const $io1 = (input: any): boolean =>
                     "number" === typeof input.exclusiveMinimum &&
                     0 === (input.exclusiveMinimum % 5) - 3 &&

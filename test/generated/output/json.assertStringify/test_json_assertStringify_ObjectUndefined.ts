@@ -5,10 +5,8 @@ import { ObjectUndefined } from "../../../structures/ObjectUndefined";
 export const test_json_assertStringify_ObjectUndefined =
     _test_json_assertStringify<ObjectUndefined>(ObjectUndefined)((input) =>
         ((input: any): string => {
-            const assert = (input: any): Array<ObjectUndefined.ILecture> => {
-                const __is = (
-                    input: any,
-                ): input is Array<ObjectUndefined.ILecture> => {
+            const assert = (input: any): ObjectUndefined => {
+                const __is = (input: any): input is ObjectUndefined => {
                     const $io0 = (input: any): boolean =>
                         "string" === typeof input.name &&
                         (undefined === input.professor ||
@@ -45,7 +43,7 @@ export const test_json_assertStringify_ObjectUndefined =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is Array<ObjectUndefined.ILecture> => {
+                    ): input is ObjectUndefined => {
                         const $guard = (typia.json.assertStringify as any)
                             .guard;
                         const $ao0 = (
@@ -177,9 +175,7 @@ export const test_json_assertStringify_ObjectUndefined =
                     })(input, "$input", true);
                 return input;
             };
-            const stringify = (
-                input: Array<ObjectUndefined.ILecture>,
-            ): string => {
+            const stringify = (input: ObjectUndefined): string => {
                 const $io1 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     "string" === typeof input.name;

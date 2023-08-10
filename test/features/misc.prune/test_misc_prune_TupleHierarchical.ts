@@ -4,5 +4,5 @@ import { TupleHierarchical } from "../../structures/TupleHierarchical";
 
 export const test_misc_prune_TupleHierarchical =
     _test_misc_prune<TupleHierarchical>(TupleHierarchical)((input) =>
-        typia.misc.prune(input),
+        typia.misc.prune<TupleHierarchical>(input),
     );

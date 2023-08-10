@@ -4,4 +4,4 @@ import { ObjectInternal } from "../../structures/ObjectInternal";
 
 export const test_assert_ObjectInternal = _test_assert<ObjectInternal>(
     ObjectInternal,
-)((input) => typia.assert(input));
+)((input) => typia.assert<ObjectInternal>(input));

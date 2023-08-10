@@ -8,11 +8,7 @@ export const test_equals_ObjectUnionNonPredictable =
             ((
                 input: any,
                 _exceptionable: boolean = true,
-            ): input is IPointer<
-                Array<
-                    ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
-                >
-            > => {
+            ): input is ObjectUnionNonPredictable => {
                 const $io0 = (
                     input: any,
                     _exceptionable: boolean = true,

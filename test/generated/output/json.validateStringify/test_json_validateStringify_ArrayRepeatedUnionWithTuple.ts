@@ -6,47 +6,14 @@ export const test_json_validateStringify_ArrayRepeatedUnionWithTuple =
     _test_json_validateStringify<ArrayRepeatedUnionWithTuple>(
         ArrayRepeatedUnionWithTuple,
     )((input) =>
-        ((
-            input:
-                | number
-                | boolean
-                | Array<string>
-                | Array<ArrayRepeatedUnionWithTuple>
-                | Array<ArrayRepeatedUnionWithTuple.IBox3D>
-                | [string, number, boolean]
-                | [
-                      ArrayRepeatedUnionWithTuple.IBox3D,
-                      ArrayRepeatedUnionWithTuple.IPoint3D,
-                  ],
-        ): typia.IValidation<string> => {
+        ((input: ArrayRepeatedUnionWithTuple): typia.IValidation<string> => {
             const validate = (
                 input: any,
-            ): typia.IValidation<
-                | number
-                | boolean
-                | Array<string>
-                | Array<ArrayRepeatedUnionWithTuple>
-                | Array<ArrayRepeatedUnionWithTuple.IBox3D>
-                | [string, number, boolean]
-                | [
-                      ArrayRepeatedUnionWithTuple.IBox3D,
-                      ArrayRepeatedUnionWithTuple.IPoint3D,
-                  ]
-            > => {
+            ): typia.IValidation<ArrayRepeatedUnionWithTuple> => {
                 const errors = [] as any[];
                 const __is = (
                     input: any,
-                ): input is
-                    | number
-                    | boolean
-                    | Array<string>
-                    | Array<ArrayRepeatedUnionWithTuple>
-                    | Array<ArrayRepeatedUnionWithTuple.IBox3D>
-                    | [string, number, boolean]
-                    | [
-                          ArrayRepeatedUnionWithTuple.IBox3D,
-                          ArrayRepeatedUnionWithTuple.IPoint3D,
-                      ] => {
+                ): input is ArrayRepeatedUnionWithTuple => {
                     const $ip0 = (input: any) => {
                         const array = input;
                         const tuplePredicators = [
@@ -202,17 +169,7 @@ export const test_json_validateStringify_ArrayRepeatedUnionWithTuple =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is
-                        | number
-                        | boolean
-                        | Array<string>
-                        | Array<ArrayRepeatedUnionWithTuple>
-                        | Array<ArrayRepeatedUnionWithTuple.IBox3D>
-                        | [string, number, boolean]
-                        | [
-                              ArrayRepeatedUnionWithTuple.IBox3D,
-                              ArrayRepeatedUnionWithTuple.IPoint3D,
-                          ] => {
+                    ): input is ArrayRepeatedUnionWithTuple => {
                         const $vp0 = (
                             input: any,
                             _path: string,
@@ -681,19 +638,7 @@ export const test_json_validateStringify_ArrayRepeatedUnionWithTuple =
                     data: success ? input : undefined,
                 } as any;
             };
-            const stringify = (
-                input:
-                    | number
-                    | boolean
-                    | Array<string>
-                    | Array<ArrayRepeatedUnionWithTuple>
-                    | Array<ArrayRepeatedUnionWithTuple.IBox3D>
-                    | [string, number, boolean]
-                    | [
-                          ArrayRepeatedUnionWithTuple.IBox3D,
-                          ArrayRepeatedUnionWithTuple.IPoint3D,
-                      ],
-            ): string => {
+            const stringify = (input: ArrayRepeatedUnionWithTuple): string => {
                 const $io0 = (input: any): boolean =>
                     "object" === typeof input.scale &&
                     null !== input.scale &&

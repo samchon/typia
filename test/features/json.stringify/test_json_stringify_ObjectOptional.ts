@@ -4,5 +4,5 @@ import { ObjectOptional } from "../../structures/ObjectOptional";
 
 export const test_json_stringify_ObjectOptional =
     _test_json_stringify<ObjectOptional>(ObjectOptional)((input) =>
-        typia.json.stringify(input),
+        typia.json.stringify<ObjectOptional>(input),
     );

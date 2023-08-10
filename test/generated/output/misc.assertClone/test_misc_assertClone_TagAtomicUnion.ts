@@ -4,15 +4,9 @@ import { TagAtomicUnion } from "../../../structures/TagAtomicUnion";
 
 export const test_misc_assertClone_TagAtomicUnion =
     _test_misc_assertClone<TagAtomicUnion>(TagAtomicUnion)((input) =>
-        ((
-            input: any,
-        ): typia.Primitive<IPointer<Array<TagAtomicUnion.Type>>> => {
-            const assert = (
-                input: any,
-            ): IPointer<Array<TagAtomicUnion.Type>> => {
-                const __is = (
-                    input: any,
-                ): input is IPointer<Array<TagAtomicUnion.Type>> => {
+        ((input: any): typia.Primitive<TagAtomicUnion> => {
+            const assert = (input: any): TagAtomicUnion => {
+                const __is = (input: any): input is TagAtomicUnion => {
                     const $io0 = (input: any): boolean =>
                         Array.isArray(input.value) &&
                         input.value.every(
@@ -39,7 +33,7 @@ export const test_misc_assertClone_TagAtomicUnion =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is IPointer<Array<TagAtomicUnion.Type>> => {
+                    ): input is TagAtomicUnion => {
                         const $guard = (typia.misc.assertClone as any).guard;
                         const $ao0 = (
                             input: any,
@@ -137,8 +131,8 @@ export const test_misc_assertClone_TagAtomicUnion =
                 return input;
             };
             const clone = (
-                input: IPointer<Array<TagAtomicUnion.Type>>,
-            ): typia.Primitive<IPointer<Array<TagAtomicUnion.Type>>> => {
+                input: TagAtomicUnion,
+            ): typia.Primitive<TagAtomicUnion> => {
                 const $io1 = (input: any): boolean =>
                     ("string" === typeof input.value &&
                         3 <= input.value.length &&

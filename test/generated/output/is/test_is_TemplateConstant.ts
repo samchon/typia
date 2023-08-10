@@ -5,7 +5,7 @@ import { TemplateConstant } from "../../../structures/TemplateConstant";
 export const test_is_TemplateConstant = _test_is<TemplateConstant>(
     TemplateConstant,
 )((input) =>
-    ((input: any): input is IPointer<Array<TemplateConstant.Type>> => {
+    ((input: any): input is TemplateConstant => {
         const $io0 = (input: any): boolean =>
             Array.isArray(input.value) &&
             input.value.every(

@@ -5,11 +5,9 @@ import { TagStep } from "../../../structures/TagStep";
 export const test_misc_assertPrune_TagStep = _test_misc_assertPrune<TagStep>(
     TagStep,
 )((input) =>
-    ((input: any): IPointer<Array<TagStep.Type>> => {
-        const assert = (input: any): IPointer<Array<TagStep.Type>> => {
-            const __is = (
-                input: any,
-            ): input is IPointer<Array<TagStep.Type>> => {
+    ((input: any): TagStep => {
+        const assert = (input: any): TagStep => {
+            const __is = (input: any): input is TagStep => {
                 const $io0 = (input: any): boolean =>
                     Array.isArray(input.value) &&
                     input.value.every(
@@ -42,7 +40,7 @@ export const test_misc_assertPrune_TagStep = _test_misc_assertPrune<TagStep>(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is IPointer<Array<TagStep.Type>> => {
+                ): input is TagStep => {
                     const $guard = (typia.misc.assertPrune as any).guard;
                     const $ao0 = (
                         input: any,
@@ -190,7 +188,7 @@ export const test_misc_assertPrune_TagStep = _test_misc_assertPrune<TagStep>(
                 })(input, "$input", true);
             return input;
         };
-        const prune = (input: IPointer<Array<TagStep.Type>>): void => {
+        const prune = (input: TagStep): void => {
             const $io1 = (input: any): boolean =>
                 "number" === typeof input.exclusiveMinimum &&
                 0 === (input.exclusiveMinimum % 5) - 3 &&

@@ -4,4 +4,4 @@ import { TemplateUnion } from "../../structures/TemplateUnion";
 
 export const test_misc_prune_TemplateUnion = _test_misc_prune<TemplateUnion>(
     TemplateUnion,
-)((input) => typia.misc.prune(input));
+)((input) => typia.misc.prune<TemplateUnion>(input));

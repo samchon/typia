@@ -4,16 +4,12 @@ import { TagObjectUnion } from "../../../structures/TagObjectUnion";
 
 export const test_misc_validateClone_TagObjectUnion =
     _test_misc_validateClone<TagObjectUnion>(TagObjectUnion)((input) =>
-        ((
-            input: any,
-        ): typia.IValidation<typia.Primitive<Array<TagObjectUnion.Type>>> => {
+        ((input: any): typia.IValidation<typia.Primitive<TagObjectUnion>> => {
             const validate = (
                 input: any,
-            ): typia.IValidation<Array<TagObjectUnion.Type>> => {
+            ): typia.IValidation<TagObjectUnion> => {
                 const errors = [] as any[];
-                const __is = (
-                    input: any,
-                ): input is Array<TagObjectUnion.Type> => {
+                const __is = (input: any): input is TagObjectUnion => {
                     const $io0 = (input: any): boolean =>
                         "number" === typeof input.value &&
                         Number.isFinite(input.value) &&
@@ -51,7 +47,7 @@ export const test_misc_validateClone_TagObjectUnion =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is Array<TagObjectUnion.Type> => {
+                    ): input is TagObjectUnion => {
                         const $vo0 = (
                             input: any,
                             _path: string,
@@ -174,8 +170,8 @@ export const test_misc_validateClone_TagObjectUnion =
                 } as any;
             };
             const clone = (
-                input: Array<TagObjectUnion.Type>,
-            ): typia.Primitive<Array<TagObjectUnion.Type>> => {
+                input: TagObjectUnion,
+            ): typia.Primitive<TagObjectUnion> => {
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.value && 3 <= input.value;
                 const $io1 = (input: any): boolean =>

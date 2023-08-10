@@ -5,7 +5,7 @@ import { ConstantAtomicUnion } from "../../../structures/ConstantAtomicUnion";
 export const test_is_ConstantAtomicUnion = _test_is<ConstantAtomicUnion>(
     ConstantAtomicUnion,
 )((input) =>
-    ((input: any): input is Array<ConstantAtomicUnion.Union> => {
+    ((input: any): input is ConstantAtomicUnion => {
         const $io0 = (input: any): boolean => "key" === input.key;
         return (
             Array.isArray(input) &&

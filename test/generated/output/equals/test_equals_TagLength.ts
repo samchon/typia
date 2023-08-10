@@ -4,10 +4,7 @@ import { TagLength } from "../../../structures/TagLength";
 
 export const test_equals_TagLength = _test_equals<TagLength>(TagLength)(
     (input) =>
-        ((
-            input: any,
-            _exceptionable: boolean = true,
-        ): input is IPointer<Array<TagLength.Type>> => {
+        ((input: any, _exceptionable: boolean = true): input is TagLength => {
             const $io0 = (
                 input: any,
                 _exceptionable: boolean = true,

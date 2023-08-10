@@ -4,26 +4,12 @@ import { ToJsonTuple } from "../../../structures/ToJsonTuple";
 
 export const test_validateEquals_ToJsonTuple =
     _test_validateEquals<ToJsonTuple>(ToJsonTuple)((input) =>
-        ((
-            input: any,
-        ): typia.IValidation<
-            [
-                ToJsonTuple.IToJson<string>,
-                ToJsonTuple.IToJson<number>,
-                ToJsonTuple.IToJson<boolean>,
-                ToJsonTuple.IObject,
-            ]
-        > => {
+        ((input: any): typia.IValidation<ToJsonTuple> => {
             const errors = [] as any[];
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
-            ): input is [
-                ToJsonTuple.IToJson<string>,
-                ToJsonTuple.IToJson<number>,
-                ToJsonTuple.IToJson<boolean>,
-                ToJsonTuple.IObject,
-            ] => {
+            ): input is ToJsonTuple => {
                 const $io0 = (
                     input: any,
                     _exceptionable: boolean = true,
@@ -99,12 +85,7 @@ export const test_validateEquals_ToJsonTuple =
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is [
-                    ToJsonTuple.IToJson<string>,
-                    ToJsonTuple.IToJson<number>,
-                    ToJsonTuple.IToJson<boolean>,
-                    ToJsonTuple.IObject,
-                ] => {
+                ): input is ToJsonTuple => {
                     const $join = (typia.validateEquals as any).join;
                     const $vo0 = (
                         input: any,

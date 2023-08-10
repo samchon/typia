@@ -4,5 +4,5 @@ import { ObjectGenericUnion } from "../../structures/ObjectGenericUnion";
 
 export const test_misc_clone_ObjectGenericUnion =
     _test_misc_clone<ObjectGenericUnion>(ObjectGenericUnion)((input) =>
-        typia.misc.clone(input),
+        typia.misc.clone<ObjectGenericUnion>(input),
     );

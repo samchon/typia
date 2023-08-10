@@ -5,8 +5,8 @@ import { ObjectRecursive } from "../../../structures/ObjectRecursive";
 export const test_assert_ObjectRecursive = _test_assert<ObjectRecursive>(
     ObjectRecursive,
 )((input) =>
-    ((input: any): ObjectRecursive.IDepartment => {
-        const __is = (input: any): input is ObjectRecursive.IDepartment => {
+    ((input: any): ObjectRecursive => {
+        const __is = (input: any): input is ObjectRecursive => {
             const $io0 = (input: any): boolean =>
                 (null === input.parent ||
                     ("object" === typeof input.parent &&
@@ -31,7 +31,7 @@ export const test_assert_ObjectRecursive = _test_assert<ObjectRecursive>(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is ObjectRecursive.IDepartment => {
+            ): input is ObjectRecursive => {
                 const $guard = (typia.assert as any).guard;
                 const $ao0 = (
                     input: any,

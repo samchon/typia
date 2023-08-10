@@ -4,4 +4,4 @@ import { ObjectInternal } from "../../structures/ObjectInternal";
 
 export const test_validate_ObjectInternal = _test_validate<ObjectInternal>(
     ObjectInternal,
-)((input) => typia.validate(input));
+)((input) => typia.validate<ObjectInternal>(input));

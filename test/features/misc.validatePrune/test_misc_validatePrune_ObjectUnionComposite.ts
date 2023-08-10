@@ -4,5 +4,5 @@ import { ObjectUnionComposite } from "../../structures/ObjectUnionComposite";
 
 export const test_misc_validatePrune_ObjectUnionComposite =
     _test_misc_validatePrune<ObjectUnionComposite>(ObjectUnionComposite)(
-        (input) => typia.misc.validatePrune(input),
+        (input) => typia.misc.validatePrune<ObjectUnionComposite>(input),
     );

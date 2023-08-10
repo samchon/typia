@@ -4,14 +4,7 @@ import { ToJsonArray } from "../../../structures/ToJsonArray";
 
 export const test_json_stringify_ToJsonArray =
     _test_json_stringify<ToJsonArray>(ToJsonArray)((input) =>
-        ((
-            input: [
-                ToJsonArray.IArray<boolean>,
-                ToJsonArray.IArray<number>,
-                ToJsonArray.IArray<string>,
-                ToJsonArray.IArray<ToJsonArray.IObject>,
-            ],
-        ): string => {
+        ((input: ToJsonArray): string => {
             const $number = (typia.json.stringify as any).number;
             const $string = (typia.json.stringify as any).string;
             return `[${`[${input[0]

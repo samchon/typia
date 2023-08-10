@@ -4,14 +4,10 @@ import { TagArrayUnion } from "../../../structures/TagArrayUnion";
 
 export const test_misc_validatePrune_TagArrayUnion =
     _test_misc_validatePrune<TagArrayUnion>(TagArrayUnion)((input) =>
-        ((input: any): typia.IValidation<Array<TagArrayUnion.Type>> => {
-            const validate = (
-                input: any,
-            ): typia.IValidation<Array<TagArrayUnion.Type>> => {
+        ((input: any): typia.IValidation<TagArrayUnion> => {
+            const validate = (input: any): typia.IValidation<TagArrayUnion> => {
                 const errors = [] as any[];
-                const __is = (
-                    input: any,
-                ): input is Array<TagArrayUnion.Type> => {
+                const __is = (input: any): input is TagArrayUnion => {
                     const $is_uuid = (typia.misc.validatePrune as any).is_uuid;
                     const $io0 = (input: any): boolean =>
                         Array.isArray(input.items) &&
@@ -63,7 +59,7 @@ export const test_misc_validatePrune_TagArrayUnion =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is Array<TagArrayUnion.Type> => {
+                    ): input is TagArrayUnion => {
                         const $is_uuid = (typia.misc.validatePrune as any)
                             .is_uuid;
                         const $vo0 = (
@@ -335,7 +331,7 @@ export const test_misc_validatePrune_TagArrayUnion =
                     data: success ? input : undefined,
                 } as any;
             };
-            const prune = (input: Array<TagArrayUnion.Type>): void => {
+            const prune = (input: TagArrayUnion): void => {
                 const $is_uuid = (typia.misc.validatePrune as any).is_uuid;
                 const $pp0 = (input: any) =>
                     input.forEach((elem: any) => {

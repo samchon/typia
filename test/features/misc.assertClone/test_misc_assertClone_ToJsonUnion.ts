@@ -4,5 +4,5 @@ import { ToJsonUnion } from "../../structures/ToJsonUnion";
 
 export const test_misc_assertClone_ToJsonUnion =
     _test_misc_assertClone<ToJsonUnion>(ToJsonUnion)((input) =>
-        typia.misc.assertClone(input),
+        typia.misc.assertClone<ToJsonUnion>(input),
     );

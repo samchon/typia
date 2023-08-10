@@ -4,12 +4,8 @@ import { ObjectGenericArray } from "../../../structures/ObjectGenericArray";
 
 export const test_misc_isPrune_ObjectGenericArray =
     _test_misc_isPrune<ObjectGenericArray>(ObjectGenericArray)((input) =>
-        ((
-            input: any,
-        ): input is ObjectGenericArray.IPage<ObjectGenericArray.IPerson> => {
-            const is = (
-                input: any,
-            ): input is ObjectGenericArray.IPage<ObjectGenericArray.IPerson> => {
+        ((input: any): input is ObjectGenericArray => {
+            const is = (input: any): input is ObjectGenericArray => {
                 const $io0 = (input: any): boolean =>
                     "object" === typeof input.pagination &&
                     null !== input.pagination &&
@@ -36,9 +32,7 @@ export const test_misc_isPrune_ObjectGenericArray =
                     "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            const prune = (
-                input: ObjectGenericArray.IPage<ObjectGenericArray.IPerson>,
-            ): void => {
+            const prune = (input: ObjectGenericArray): void => {
                 const $io1 = (input: any): boolean =>
                     "number" === typeof input.page &&
                     "number" === typeof input.limit &&

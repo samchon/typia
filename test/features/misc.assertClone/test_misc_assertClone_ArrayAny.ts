@@ -4,4 +4,4 @@ import { ArrayAny } from "../../structures/ArrayAny";
 
 export const test_misc_assertClone_ArrayAny = _test_misc_assertClone<ArrayAny>(
     ArrayAny,
-)((input) => typia.misc.assertClone(input));
+)((input) => typia.misc.assertClone<ArrayAny>(input));

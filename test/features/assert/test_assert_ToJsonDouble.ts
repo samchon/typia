@@ -4,4 +4,4 @@ import { ToJsonDouble } from "../../structures/ToJsonDouble";
 
 export const test_assert_ToJsonDouble = _test_assert<ToJsonDouble>(
     ToJsonDouble,
-)((input) => typia.assert(input));
+)((input) => typia.assert<ToJsonDouble>(input));

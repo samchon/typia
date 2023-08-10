@@ -5,31 +5,9 @@ import { TupleOptional } from "../../../structures/TupleOptional";
 export const test_validate_TupleOptional = _test_validate<TupleOptional>(
     TupleOptional,
 )((input) =>
-    ((
-        input: any,
-    ): typia.IValidation<
-        Array<
-            [
-                number,
-                boolean,
-                string,
-                (number | null | undefined)?,
-                (string | null | undefined)?,
-            ]
-        >
-    > => {
+    ((input: any): typia.IValidation<TupleOptional> => {
         const errors = [] as any[];
-        const __is = (
-            input: any,
-        ): input is Array<
-            [
-                number,
-                boolean,
-                string,
-                (number | null | undefined)?,
-                (string | null | undefined)?,
-            ]
-        > => {
+        const __is = (input: any): input is TupleOptional => {
             return (
                 Array.isArray(input) &&
                 input.every(
@@ -57,15 +35,7 @@ export const test_validate_TupleOptional = _test_validate<TupleOptional>(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is Array<
-                [
-                    number,
-                    boolean,
-                    string,
-                    (number | null | undefined)?,
-                    (string | null | undefined)?,
-                ]
-            > => {
+            ): input is TupleOptional => {
                 return (
                     ((Array.isArray(input) ||
                         $report(true, {

@@ -5,8 +5,8 @@ import { UltimateUnion } from "../../../structures/UltimateUnion";
 export const test_assert_UltimateUnion = _test_assert<UltimateUnion>(
     UltimateUnion,
 )((input) =>
-    ((input: any): Array<typia.IJsonApplication> => {
-        const __is = (input: any): input is Array<typia.IJsonApplication> => {
+    ((input: any): UltimateUnion => {
+        const __is = (input: any): input is UltimateUnion => {
             const $join = (typia.assert as any).join;
             const $io0 = (input: any): boolean =>
                 Array.isArray(input.schemas) &&
@@ -1367,7 +1367,7 @@ export const test_assert_UltimateUnion = _test_assert<UltimateUnion>(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is Array<typia.IJsonApplication> => {
+            ): input is UltimateUnion => {
                 const $guard = (typia.assert as any).guard;
                 const $join = (typia.assert as any).join;
                 const $ao0 = (

@@ -5,10 +5,8 @@ import { TagStep } from "../../../structures/TagStep";
 export const test_json_assertStringify_TagStep =
     _test_json_assertStringify<TagStep>(TagStep)((input) =>
         ((input: any): string => {
-            const assert = (input: any): IPointer<Array<TagStep.Type>> => {
-                const __is = (
-                    input: any,
-                ): input is IPointer<Array<TagStep.Type>> => {
+            const assert = (input: any): TagStep => {
+                const __is = (input: any): input is TagStep => {
                     const $io0 = (input: any): boolean =>
                         Array.isArray(input.value) &&
                         input.value.every(
@@ -43,7 +41,7 @@ export const test_json_assertStringify_TagStep =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is IPointer<Array<TagStep.Type>> => {
+                    ): input is TagStep => {
                         const $guard = (typia.json.assertStringify as any)
                             .guard;
                         const $ao0 = (
@@ -202,9 +200,7 @@ export const test_json_assertStringify_TagStep =
                     })(input, "$input", true);
                 return input;
             };
-            const stringify = (
-                input: IPointer<Array<TagStep.Type>>,
-            ): string => {
+            const stringify = (input: TagStep): string => {
                 const $io1 = (input: any): boolean =>
                     "number" === typeof input.exclusiveMinimum &&
                     0 === (input.exclusiveMinimum % 5) - 3 &&

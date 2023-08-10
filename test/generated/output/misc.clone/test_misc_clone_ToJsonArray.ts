@@ -5,21 +5,7 @@ import { ToJsonArray } from "../../../structures/ToJsonArray";
 export const test_misc_clone_ToJsonArray = _test_misc_clone<ToJsonArray>(
     ToJsonArray,
 )((input) =>
-    ((
-        input: [
-            ToJsonArray.IArray<boolean>,
-            ToJsonArray.IArray<number>,
-            ToJsonArray.IArray<string>,
-            ToJsonArray.IArray<ToJsonArray.IObject>,
-        ],
-    ): typia.Primitive<
-        [
-            ToJsonArray.IArray<boolean>,
-            ToJsonArray.IArray<number>,
-            ToJsonArray.IArray<string>,
-            ToJsonArray.IArray<ToJsonArray.IObject>,
-        ]
-    > => {
+    ((input: ToJsonArray): typia.Primitive<ToJsonArray> => {
         const $cp0 = (input: any) => input.map((elem: any) => elem as any);
         const $cp1 = (input: any) => input.map((elem: any) => elem as any);
         const $cp2 = (input: any) => input.map((elem: any) => elem as any);

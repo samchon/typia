@@ -4,44 +4,8 @@ import { TupleHierarchical } from "../../../structures/TupleHierarchical";
 
 export const test_misc_isClone_TupleHierarchical =
     _test_misc_isClone<TupleHierarchical>(TupleHierarchical)((input) =>
-        ((
-            input: any,
-        ): typia.Primitive<
-            [
-                boolean,
-                null,
-                number,
-                [boolean, null, [number, [boolean, string]]],
-                [
-                    number,
-                    Array<
-                        [
-                            string,
-                            boolean,
-                            Array<[number, number, [boolean, string]]>,
-                        ]
-                    >,
-                ],
-            ]
-        > | null => {
-            const is = (
-                input: any,
-            ): input is [
-                boolean,
-                null,
-                number,
-                [boolean, null, [number, [boolean, string]]],
-                [
-                    number,
-                    Array<
-                        [
-                            string,
-                            boolean,
-                            Array<[number, number, [boolean, string]]>,
-                        ]
-                    >,
-                ],
-            ] => {
+        ((input: any): typia.Primitive<TupleHierarchical> | null => {
+            const is = (input: any): input is TupleHierarchical => {
                 return (
                     Array.isArray(input) &&
                     input.length === 5 &&
@@ -92,40 +56,8 @@ export const test_misc_isClone_TupleHierarchical =
                 );
             };
             const clone = (
-                input: [
-                    boolean,
-                    null,
-                    number,
-                    [boolean, null, [number, [boolean, string]]],
-                    [
-                        number,
-                        Array<
-                            [
-                                string,
-                                boolean,
-                                Array<[number, number, [boolean, string]]>,
-                            ]
-                        >,
-                    ],
-                ],
-            ): typia.Primitive<
-                [
-                    boolean,
-                    null,
-                    number,
-                    [boolean, null, [number, [boolean, string]]],
-                    [
-                        number,
-                        Array<
-                            [
-                                string,
-                                boolean,
-                                Array<[number, number, [boolean, string]]>,
-                            ]
-                        >,
-                    ],
-                ]
-            > => {
+                input: TupleHierarchical,
+            ): typia.Primitive<TupleHierarchical> => {
                 const $cp0 = (input: any) =>
                     input.map((elem: any) =>
                         Array.isArray(elem) &&

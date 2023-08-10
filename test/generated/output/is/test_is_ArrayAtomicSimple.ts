@@ -5,7 +5,7 @@ import { ArrayAtomicSimple } from "../../../structures/ArrayAtomicSimple";
 export const test_is_ArrayAtomicSimple = _test_is<ArrayAtomicSimple>(
     ArrayAtomicSimple,
 )((input) =>
-    ((input: any): input is [Array<boolean>, Array<number>, Array<string>] => {
+    ((input: any): input is ArrayAtomicSimple => {
         return (
             Array.isArray(input) &&
             input.length === 3 &&

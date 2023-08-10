@@ -4,7 +4,7 @@ import { UltimateUnion } from "../../../structures/UltimateUnion";
 
 export const test_json_stringify_UltimateUnion =
     _test_json_stringify<UltimateUnion>(UltimateUnion)((input) =>
-        ((input: Array<typia.IJsonApplication>): string => {
+        ((input: UltimateUnion): string => {
             const $io1 = (input: any): boolean =>
                 Array.isArray(input["enum"]) &&
                 input["enum"].every((elem: any) => "boolean" === typeof elem) &&

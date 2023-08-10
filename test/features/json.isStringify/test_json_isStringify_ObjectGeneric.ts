@@ -4,5 +4,5 @@ import { ObjectGeneric } from "../../structures/ObjectGeneric";
 
 export const test_json_isStringify_ObjectGeneric =
     _test_json_isStringify<ObjectGeneric>(ObjectGeneric)((input) =>
-        typia.json.isStringify(input),
+        typia.json.isStringify<ObjectGeneric>(input),
     );

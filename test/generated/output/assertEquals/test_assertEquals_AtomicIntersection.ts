@@ -4,21 +4,11 @@ import { AtomicIntersection } from "../../../structures/AtomicIntersection";
 
 export const test_assertEquals_AtomicIntersection =
     _test_assertEquals<AtomicIntersection>(AtomicIntersection)((input) =>
-        ((
-            input: any,
-        ): [
-            AtomicIntersection.Wrapper<boolean>,
-            AtomicIntersection.Wrapper<number>,
-            AtomicIntersection.Wrapper<string>,
-        ] => {
+        ((input: any): AtomicIntersection => {
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
-            ): input is [
-                AtomicIntersection.Wrapper<boolean>,
-                AtomicIntersection.Wrapper<number>,
-                AtomicIntersection.Wrapper<string>,
-            ] => {
+            ): input is AtomicIntersection => {
                 return (
                     Array.isArray(input) &&
                     input.length === 3 &&
@@ -33,11 +23,7 @@ export const test_assertEquals_AtomicIntersection =
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is [
-                    AtomicIntersection.Wrapper<boolean>,
-                    AtomicIntersection.Wrapper<number>,
-                    AtomicIntersection.Wrapper<string>,
-                ] => {
+                ): input is AtomicIntersection => {
                     const $guard = (typia.assertEquals as any).guard;
                     return (
                         ((Array.isArray(input) ||

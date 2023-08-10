@@ -4,5 +4,5 @@ import { ObjectDynamic } from "../../structures/ObjectDynamic";
 
 export const test_json_isStringify_ObjectDynamic =
     _test_json_isStringify<ObjectDynamic>(ObjectDynamic)((input) =>
-        typia.json.isStringify(input),
+        typia.json.isStringify<ObjectDynamic>(input),
     );

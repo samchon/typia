@@ -4,5 +4,5 @@ import { ObjectGenericUnion } from "../../structures/ObjectGenericUnion";
 
 export const test_json_stringify_ObjectGenericUnion =
     _test_json_stringify<ObjectGenericUnion>(ObjectGenericUnion)((input) =>
-        typia.json.stringify(input),
+        typia.json.stringify<ObjectGenericUnion>(input),
     );

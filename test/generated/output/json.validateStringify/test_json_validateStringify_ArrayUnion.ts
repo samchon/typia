@@ -4,14 +4,10 @@ import { ArrayUnion } from "../../../structures/ArrayUnion";
 
 export const test_json_validateStringify_ArrayUnion =
     _test_json_validateStringify<ArrayUnion>(ArrayUnion)((input) =>
-        ((input: Array<ArrayUnion.IUnion>): typia.IValidation<string> => {
-            const validate = (
-                input: any,
-            ): typia.IValidation<Array<ArrayUnion.IUnion>> => {
+        ((input: ArrayUnion): typia.IValidation<string> => {
+            const validate = (input: any): typia.IValidation<ArrayUnion> => {
                 const errors = [] as any[];
-                const __is = (
-                    input: any,
-                ): input is Array<ArrayUnion.IUnion> => {
+                const __is = (input: any): input is ArrayUnion => {
                     const $ip0 = (input: any) => {
                         const array = input;
                         const top = input[0];
@@ -74,7 +70,7 @@ export const test_json_validateStringify_ArrayUnion =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is Array<ArrayUnion.IUnion> => {
+                    ): input is ArrayUnion => {
                         const $vp0 = (
                             input: any,
                             _path: string,
@@ -227,7 +223,7 @@ export const test_json_validateStringify_ArrayUnion =
                     data: success ? input : undefined,
                 } as any;
             };
-            const stringify = (input: Array<ArrayUnion.IUnion>): string => {
+            const stringify = (input: ArrayUnion): string => {
                 const $number = (typia.json.validateStringify as any).number;
                 const $string = (typia.json.validateStringify as any).string;
                 const $throws = (typia.json.validateStringify as any).throws;

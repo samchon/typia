@@ -4,8 +4,8 @@ import { TagObjectUnion } from "../../../structures/TagObjectUnion";
 
 export const test_misc_isClone_TagObjectUnion =
     _test_misc_isClone<TagObjectUnion>(TagObjectUnion)((input) =>
-        ((input: any): typia.Primitive<Array<TagObjectUnion.Type>> | null => {
-            const is = (input: any): input is Array<TagObjectUnion.Type> => {
+        ((input: any): typia.Primitive<TagObjectUnion> | null => {
+            const is = (input: any): input is TagObjectUnion => {
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.value &&
                     Number.isFinite(input.value) &&
@@ -35,8 +35,8 @@ export const test_misc_isClone_TagObjectUnion =
                 );
             };
             const clone = (
-                input: Array<TagObjectUnion.Type>,
-            ): typia.Primitive<Array<TagObjectUnion.Type>> => {
+                input: TagObjectUnion,
+            ): typia.Primitive<TagObjectUnion> => {
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.value && 3 <= input.value;
                 const $io1 = (input: any): boolean =>

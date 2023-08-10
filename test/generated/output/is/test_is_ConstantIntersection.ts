@@ -5,13 +5,7 @@ import { ConstantIntersection } from "../../../structures/ConstantIntersection";
 export const test_is_ConstantIntersection = _test_is<ConstantIntersection>(
     ConstantIntersection,
 )((input) =>
-    ((
-        input: any,
-    ): input is [
-        ConstantIntersection.Wrapper<false>,
-        ConstantIntersection.Wrapper<1>,
-        ConstantIntersection.Wrapper<"two">,
-    ] => {
+    ((input: any): input is ConstantIntersection => {
         return (
             Array.isArray(input) &&
             input.length === 3 &&

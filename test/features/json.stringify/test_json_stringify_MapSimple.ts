@@ -4,4 +4,4 @@ import { MapSimple } from "../../structures/MapSimple";
 
 export const test_json_stringify_MapSimple = _test_json_stringify<MapSimple>(
     MapSimple,
-)((input) => typia.json.stringify(input));
+)((input) => typia.json.stringify<MapSimple>(input));

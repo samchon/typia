@@ -4,10 +4,7 @@ import { ClassGetter } from "../../../structures/ClassGetter";
 
 export const test_equals_ClassGetter = _test_equals<ClassGetter>(ClassGetter)(
     (input) =>
-        ((
-            input: any,
-            _exceptionable: boolean = true,
-        ): input is ClassGetter.Person => {
+        ((input: any, _exceptionable: boolean = true): input is ClassGetter => {
             const $io0 = (
                 input: any,
                 _exceptionable: boolean = true,

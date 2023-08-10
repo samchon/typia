@@ -4,4 +4,4 @@ import { TupleRestAtomic } from "../../structures/TupleRestAtomic";
 
 export const test_is_TupleRestAtomic = _test_is<TupleRestAtomic>(
     TupleRestAtomic,
-)((input) => typia.is(input));
+)((input) => typia.is<TupleRestAtomic>(input));

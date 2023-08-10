@@ -4,9 +4,9 @@ import { ArrayUnion } from "../../../structures/ArrayUnion";
 
 export const test_validate_ArrayUnion = _test_validate<ArrayUnion>(ArrayUnion)(
     (input) =>
-        ((input: any): typia.IValidation<Array<ArrayUnion.IUnion>> => {
+        ((input: any): typia.IValidation<ArrayUnion> => {
             const errors = [] as any[];
-            const __is = (input: any): input is Array<ArrayUnion.IUnion> => {
+            const __is = (input: any): input is ArrayUnion => {
                 const $ip0 = (input: any) => {
                     const array = input;
                     const top = input[0];
@@ -65,7 +65,7 @@ export const test_validate_ArrayUnion = _test_validate<ArrayUnion>(ArrayUnion)(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is Array<ArrayUnion.IUnion> => {
+                ): input is ArrayUnion => {
                     const $vp0 = (
                         input: any,
                         _path: string,

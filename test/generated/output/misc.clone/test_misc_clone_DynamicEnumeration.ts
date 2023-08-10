@@ -4,33 +4,7 @@ import { DynamicEnumeration } from "../../../structures/DynamicEnumeration";
 
 export const test_misc_clone_DynamicEnumeration =
     _test_misc_clone<DynamicEnumeration>(DynamicEnumeration)((input) =>
-        ((
-            input: IPointer<{
-                ar?: string | undefined;
-                "zh-Hans"?: string | undefined;
-                "zh-Hant"?: string | undefined;
-                en?: string | undefined;
-                fr?: string | undefined;
-                de?: string | undefined;
-                ja?: string | undefined;
-                ko?: string | undefined;
-                pt?: string | undefined;
-                ru?: string | undefined;
-            }>,
-        ): typia.Primitive<
-            IPointer<{
-                ar?: string | undefined;
-                "zh-Hans"?: string | undefined;
-                "zh-Hant"?: string | undefined;
-                en?: string | undefined;
-                fr?: string | undefined;
-                de?: string | undefined;
-                ja?: string | undefined;
-                ko?: string | undefined;
-                pt?: string | undefined;
-                ru?: string | undefined;
-            }>
-        > => {
+        ((input: DynamicEnumeration): typia.Primitive<DynamicEnumeration> => {
             const $io1 = (input: any): boolean =>
                 (undefined === input.ar || "string" === typeof input.ar) &&
                 (undefined === input["zh-Hans"] ||

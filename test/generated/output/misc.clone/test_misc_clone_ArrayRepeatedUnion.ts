@@ -4,20 +4,7 @@ import { ArrayRepeatedUnion } from "../../../structures/ArrayRepeatedUnion";
 
 export const test_misc_clone_ArrayRepeatedUnion =
     _test_misc_clone<ArrayRepeatedUnion>(ArrayRepeatedUnion)((input) =>
-        ((
-            input:
-                | number
-                | boolean
-                | Array<string>
-                | Array<ArrayRepeatedUnion>
-                | Array<ArrayRepeatedUnion.IBox3D>,
-        ): typia.Primitive<
-            | number
-            | boolean
-            | Array<string>
-            | Array<ArrayRepeatedUnion>
-            | Array<ArrayRepeatedUnion.IBox3D>
-        > => {
+        ((input: ArrayRepeatedUnion): typia.Primitive<ArrayRepeatedUnion> => {
             const $io0 = (input: any): boolean =>
                 "object" === typeof input.scale &&
                 null !== input.scale &&

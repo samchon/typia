@@ -5,10 +5,8 @@ import { TagLength } from "../../../structures/TagLength";
 export const test_json_assertStringify_TagLength =
     _test_json_assertStringify<TagLength>(TagLength)((input) =>
         ((input: any): string => {
-            const assert = (input: any): IPointer<Array<TagLength.Type>> => {
-                const __is = (
-                    input: any,
-                ): input is IPointer<Array<TagLength.Type>> => {
+            const assert = (input: any): TagLength => {
+                const __is = (input: any): input is TagLength => {
                     const $io0 = (input: any): boolean =>
                         Array.isArray(input.value) &&
                         input.value.every(
@@ -38,7 +36,7 @@ export const test_json_assertStringify_TagLength =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is IPointer<Array<TagLength.Type>> => {
+                    ): input is TagLength => {
                         const $guard = (typia.json.assertStringify as any)
                             .guard;
                         const $ao0 = (
@@ -164,9 +162,7 @@ export const test_json_assertStringify_TagLength =
                     })(input, "$input", true);
                 return input;
             };
-            const stringify = (
-                input: IPointer<Array<TagLength.Type>>,
-            ): string => {
+            const stringify = (input: TagLength): string => {
                 const $io1 = (input: any): boolean =>
                     "string" === typeof input.fixed &&
                     5 === input.fixed.length &&

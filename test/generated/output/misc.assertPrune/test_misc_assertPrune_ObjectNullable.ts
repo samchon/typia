@@ -4,13 +4,9 @@ import { ObjectNullable } from "../../../structures/ObjectNullable";
 
 export const test_misc_assertPrune_ObjectNullable =
     _test_misc_assertPrune<ObjectNullable>(ObjectNullable)((input) =>
-        ((input: any): IPointer<Array<ObjectNullable.IProduct>> => {
-            const assert = (
-                input: any,
-            ): IPointer<Array<ObjectNullable.IProduct>> => {
-                const __is = (
-                    input: any,
-                ): input is IPointer<Array<ObjectNullable.IProduct>> => {
+        ((input: any): ObjectNullable => {
+            const assert = (input: any): ObjectNullable => {
+                const __is = (input: any): input is ObjectNullable => {
                     const $io0 = (input: any): boolean =>
                         Array.isArray(input.value) &&
                         input.value.every(
@@ -56,7 +52,7 @@ export const test_misc_assertPrune_ObjectNullable =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is IPointer<Array<ObjectNullable.IProduct>> => {
+                    ): input is ObjectNullable => {
                         const $guard = (typia.misc.assertPrune as any).guard;
                         const $ao0 = (
                             input: any,
@@ -249,9 +245,7 @@ export const test_misc_assertPrune_ObjectNullable =
                     })(input, "$input", true);
                 return input;
             };
-            const prune = (
-                input: IPointer<Array<ObjectNullable.IProduct>>,
-            ): void => {
+            const prune = (input: ObjectNullable): void => {
                 const $io1 = (input: any): boolean =>
                     "string" === typeof input.name &&
                     "object" === typeof input.manufacturer &&

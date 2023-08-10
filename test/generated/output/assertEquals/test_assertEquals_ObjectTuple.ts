@@ -5,11 +5,11 @@ import { ObjectTuple } from "../../../structures/ObjectTuple";
 export const test_assertEquals_ObjectTuple = _test_assertEquals<ObjectTuple>(
     ObjectTuple,
 )((input) =>
-    ((input: any): [ObjectTuple.ISection, ObjectTuple.ICitizen] => {
+    ((input: any): ObjectTuple => {
         const __is = (
             input: any,
             _exceptionable: boolean = true,
-        ): input is [ObjectTuple.ISection, ObjectTuple.ICitizen] => {
+        ): input is ObjectTuple => {
             const $io0 = (
                 input: any,
                 _exceptionable: boolean = true,
@@ -64,7 +64,7 @@ export const test_assertEquals_ObjectTuple = _test_assertEquals<ObjectTuple>(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is [ObjectTuple.ISection, ObjectTuple.ICitizen] => {
+            ): input is ObjectTuple => {
                 const $guard = (typia.assertEquals as any).guard;
                 const $join = (typia.assertEquals as any).join;
                 const $ao0 = (

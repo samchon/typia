@@ -4,5 +4,5 @@ import { TagLength } from "../../structures/TagLength";
 
 export const test_misc_assertPrune_TagLength =
     _test_misc_assertPrune<TagLength>(TagLength)((input) =>
-        typia.misc.assertPrune(input),
+        typia.misc.assertPrune<TagLength>(input),
     );

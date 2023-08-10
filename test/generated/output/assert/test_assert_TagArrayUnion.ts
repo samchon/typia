@@ -5,8 +5,8 @@ import { TagArrayUnion } from "../../../structures/TagArrayUnion";
 export const test_assert_TagArrayUnion = _test_assert<TagArrayUnion>(
     TagArrayUnion,
 )((input) =>
-    ((input: any): Array<TagArrayUnion.Type> => {
-        const __is = (input: any): input is Array<TagArrayUnion.Type> => {
+    ((input: any): TagArrayUnion => {
+        const __is = (input: any): input is TagArrayUnion => {
             const $is_uuid = (typia.assert as any).is_uuid;
             const $io0 = (input: any): boolean =>
                 Array.isArray(input.items) &&
@@ -50,7 +50,7 @@ export const test_assert_TagArrayUnion = _test_assert<TagArrayUnion>(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is Array<TagArrayUnion.Type> => {
+            ): input is TagArrayUnion => {
                 const $guard = (typia.assert as any).guard;
                 const $is_uuid = (typia.assert as any).is_uuid;
                 const $ao0 = (

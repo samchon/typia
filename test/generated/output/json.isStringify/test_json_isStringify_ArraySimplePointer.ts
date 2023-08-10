@@ -4,12 +4,8 @@ import { ArraySimplePointer } from "../../../structures/ArraySimplePointer";
 
 export const test_json_isStringify_ArraySimplePointer =
     _test_json_isStringify<ArraySimplePointer>(ArraySimplePointer)((input) =>
-        ((
-            input: IPointer<Array<ArraySimplePointer.IPerson>>,
-        ): string | null => {
-            const is = (
-                input: any,
-            ): input is IPointer<Array<ArraySimplePointer.IPerson>> => {
+        ((input: ArraySimplePointer): string | null => {
+            const is = (input: any): input is ArraySimplePointer => {
                 const $io0 = (input: any): boolean =>
                     Array.isArray(input.value) &&
                     input.value.every(
@@ -37,9 +33,7 @@ export const test_json_isStringify_ArraySimplePointer =
                     "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            const stringify = (
-                input: IPointer<Array<ArraySimplePointer.IPerson>>,
-            ): string => {
+            const stringify = (input: ArraySimplePointer): string => {
                 const $io1 = (input: any): boolean =>
                     "string" === typeof input.name &&
                     "string" === typeof input.email &&

@@ -4,12 +4,12 @@ import { ArrayRecursive } from "../../../structures/ArrayRecursive";
 
 export const test_validateEquals_ArrayRecursive =
     _test_validateEquals<ArrayRecursive>(ArrayRecursive)((input) =>
-        ((input: any): typia.IValidation<ArrayRecursive.ICategory> => {
+        ((input: any): typia.IValidation<ArrayRecursive> => {
             const errors = [] as any[];
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
-            ): input is ArrayRecursive.ICategory => {
+            ): input is ArrayRecursive => {
                 const $io0 = (
                     input: any,
                     _exceptionable: boolean = true,
@@ -77,7 +77,7 @@ export const test_validateEquals_ArrayRecursive =
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ArrayRecursive.ICategory => {
+                ): input is ArrayRecursive => {
                     const $join = (typia.validateEquals as any).join;
                     const $vo0 = (
                         input: any,

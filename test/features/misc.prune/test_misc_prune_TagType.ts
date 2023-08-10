@@ -3,5 +3,5 @@ import { _test_misc_prune } from "../../internal/_test_misc_prune";
 import { TagType } from "../../structures/TagType";
 
 export const test_misc_prune_TagType = _test_misc_prune<TagType>(TagType)(
-    (input) => typia.misc.prune(input),
+    (input) => typia.misc.prune<TagType>(input),
 );

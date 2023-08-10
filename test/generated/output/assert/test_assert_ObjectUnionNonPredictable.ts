@@ -5,20 +5,10 @@ import { ObjectUnionNonPredictable } from "../../../structures/ObjectUnionNonPre
 export const test_assert_ObjectUnionNonPredictable =
     _test_assert<ObjectUnionNonPredictable>(ObjectUnionNonPredictable)(
         (input) =>
-            ((
-                input: any,
-            ): IPointer<
-                Array<
-                    ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
-                >
-            > => {
+            ((input: any): ObjectUnionNonPredictable => {
                 const __is = (
                     input: any,
-                ): input is IPointer<
-                    Array<
-                        ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
-                    >
-                > => {
+                ): input is ObjectUnionNonPredictable => {
                     const $io0 = (input: any): boolean =>
                         Array.isArray(input.value) &&
                         input.value.every(
@@ -66,11 +56,7 @@ export const test_assert_ObjectUnionNonPredictable =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is IPointer<
-                        Array<
-                            ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
-                        >
-                    > => {
+                    ): input is ObjectUnionNonPredictable => {
                         const $guard = (typia.assert as any).guard;
                         const $ao0 = (
                             input: any,

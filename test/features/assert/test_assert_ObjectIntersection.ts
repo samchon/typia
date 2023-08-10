@@ -4,4 +4,4 @@ import { ObjectIntersection } from "../../structures/ObjectIntersection";
 
 export const test_assert_ObjectIntersection = _test_assert<ObjectIntersection>(
     ObjectIntersection,
-)((input) => typia.assert(input));
+)((input) => typia.assert<ObjectIntersection>(input));

@@ -4,4 +4,4 @@ import { DynamicNever } from "../../structures/DynamicNever";
 
 export const test_validate_DynamicNever = _test_validate<DynamicNever>(
     DynamicNever,
-)((input) => typia.validate(input));
+)((input) => typia.validate<DynamicNever>(input));

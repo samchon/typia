@@ -4,16 +4,10 @@ import { ArrayUnion } from "../../../structures/ArrayUnion";
 
 export const test_misc_validateClone_ArrayUnion =
     _test_misc_validateClone<ArrayUnion>(ArrayUnion)((input) =>
-        ((
-            input: any,
-        ): typia.IValidation<typia.Primitive<Array<ArrayUnion.IUnion>>> => {
-            const validate = (
-                input: any,
-            ): typia.IValidation<Array<ArrayUnion.IUnion>> => {
+        ((input: any): typia.IValidation<typia.Primitive<ArrayUnion>> => {
+            const validate = (input: any): typia.IValidation<ArrayUnion> => {
                 const errors = [] as any[];
-                const __is = (
-                    input: any,
-                ): input is Array<ArrayUnion.IUnion> => {
+                const __is = (input: any): input is ArrayUnion => {
                     const $ip0 = (input: any) => {
                         const array = input;
                         const top = input[0];
@@ -76,7 +70,7 @@ export const test_misc_validateClone_ArrayUnion =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is Array<ArrayUnion.IUnion> => {
+                    ): input is ArrayUnion => {
                         const $vp0 = (
                             input: any,
                             _path: string,
@@ -229,9 +223,7 @@ export const test_misc_validateClone_ArrayUnion =
                     data: success ? input : undefined,
                 } as any;
             };
-            const clone = (
-                input: Array<ArrayUnion.IUnion>,
-            ): typia.Primitive<Array<ArrayUnion.IUnion>> => {
+            const clone = (input: ArrayUnion): typia.Primitive<ArrayUnion> => {
                 const $throws = (typia.misc.validateClone as any).throws;
                 const $cp0 = (input: any) => {
                     const array = input;

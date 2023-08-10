@@ -4,9 +4,7 @@ import { ObjectUndefined } from "../../../structures/ObjectUndefined";
 
 export const test_misc_clone_ObjectUndefined =
     _test_misc_clone<ObjectUndefined>(ObjectUndefined)((input) =>
-        ((
-            input: Array<ObjectUndefined.ILecture>,
-        ): typia.Primitive<Array<ObjectUndefined.ILecture>> => {
+        ((input: ObjectUndefined): typia.Primitive<ObjectUndefined> => {
             const $io1 = (input: any): boolean =>
                 "string" === typeof input.id && "string" === typeof input.name;
             const $any = (typia.misc.clone as any).any;

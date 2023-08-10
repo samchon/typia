@@ -4,5 +4,5 @@ import { DynamicConstant } from "../../structures/DynamicConstant";
 
 export const test_misc_isClone_DynamicConstant =
     _test_misc_isClone<DynamicConstant>(DynamicConstant)((input) =>
-        typia.misc.isClone(input),
+        typia.misc.isClone<DynamicConstant>(input),
     );

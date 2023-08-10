@@ -4,5 +4,5 @@ import { ObjectGenericUnion } from "../../structures/ObjectGenericUnion";
 
 export const test_misc_assertPrune_ObjectGenericUnion =
     _test_misc_assertPrune<ObjectGenericUnion>(ObjectGenericUnion)((input) =>
-        typia.misc.assertPrune(input),
+        typia.misc.assertPrune<ObjectGenericUnion>(input),
     );

@@ -4,14 +4,12 @@ import { ArrayRecursive } from "../../../structures/ArrayRecursive";
 
 export const test_json_validateStringify_ArrayRecursive =
     _test_json_validateStringify<ArrayRecursive>(ArrayRecursive)((input) =>
-        ((input: ArrayRecursive.ICategory): typia.IValidation<string> => {
+        ((input: ArrayRecursive): typia.IValidation<string> => {
             const validate = (
                 input: any,
-            ): typia.IValidation<ArrayRecursive.ICategory> => {
+            ): typia.IValidation<ArrayRecursive> => {
                 const errors = [] as any[];
-                const __is = (
-                    input: any,
-                ): input is ArrayRecursive.ICategory => {
+                const __is = (input: any): input is ArrayRecursive => {
                     const $io0 = (input: any): boolean =>
                         Array.isArray(input.children) &&
                         input.children.every(
@@ -45,7 +43,7 @@ export const test_json_validateStringify_ArrayRecursive =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is ArrayRecursive.ICategory => {
+                    ): input is ArrayRecursive => {
                         const $vo0 = (
                             input: any,
                             _path: string,
@@ -182,7 +180,7 @@ export const test_json_validateStringify_ArrayRecursive =
                     data: success ? input : undefined,
                 } as any;
             };
-            const stringify = (input: ArrayRecursive.ICategory): string => {
+            const stringify = (input: ArrayRecursive): string => {
                 const $io0 = (input: any): boolean =>
                     Array.isArray(input.children) &&
                     input.children.every(

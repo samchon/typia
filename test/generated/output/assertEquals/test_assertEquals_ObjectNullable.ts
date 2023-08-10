@@ -4,11 +4,11 @@ import { ObjectNullable } from "../../../structures/ObjectNullable";
 
 export const test_assertEquals_ObjectNullable =
     _test_assertEquals<ObjectNullable>(ObjectNullable)((input) =>
-        ((input: any): IPointer<Array<ObjectNullable.IProduct>> => {
+        ((input: any): ObjectNullable => {
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
-            ): input is IPointer<Array<ObjectNullable.IProduct>> => {
+            ): input is ObjectNullable => {
                 const $io0 = (
                     input: any,
                     _exceptionable: boolean = true,
@@ -117,7 +117,7 @@ export const test_assertEquals_ObjectNullable =
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is IPointer<Array<ObjectNullable.IProduct>> => {
+                ): input is ObjectNullable => {
                     const $guard = (typia.assertEquals as any).guard;
                     const $join = (typia.assertEquals as any).join;
                     const $ao0 = (

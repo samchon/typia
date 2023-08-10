@@ -4,5 +4,5 @@ import { ConstantIntersection } from "../../structures/ConstantIntersection";
 
 export const test_equals_ConstantIntersection =
     _test_equals<ConstantIntersection>(ConstantIntersection)((input) =>
-        typia.equals(input),
+        typia.equals<ConstantIntersection>(input),
     );

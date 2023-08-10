@@ -4,7 +4,7 @@ import { ObjectUndefined } from "../../../structures/ObjectUndefined";
 
 export const test_json_stringify_ObjectUndefined =
     _test_json_stringify<ObjectUndefined>(ObjectUndefined)((input) =>
-        ((input: Array<ObjectUndefined.ILecture>): string => {
+        ((input: ObjectUndefined): string => {
             const $io1 = (input: any): boolean =>
                 "string" === typeof input.id && "string" === typeof input.name;
             const $string = (typia.json.stringify as any).string;

@@ -5,8 +5,8 @@ import { ArrayUnion } from "../../../structures/ArrayUnion";
 export const test_misc_isPrune_ArrayUnion = _test_misc_isPrune<ArrayUnion>(
     ArrayUnion,
 )((input) =>
-    ((input: any): input is Array<ArrayUnion.IUnion> => {
-        const is = (input: any): input is Array<ArrayUnion.IUnion> => {
+    ((input: any): input is ArrayUnion => {
+        const is = (input: any): input is ArrayUnion => {
             const $ip0 = (input: any) => {
                 const array = input;
                 const top = input[0];
@@ -56,7 +56,7 @@ export const test_misc_isPrune_ArrayUnion = _test_misc_isPrune<ArrayUnion>(
                 )
             );
         };
-        const prune = (input: Array<ArrayUnion.IUnion>): void => {};
+        const prune = (input: ArrayUnion): void => {};
         if (!is(input)) return false;
         prune(input);
         return true;

@@ -6,14 +6,12 @@ export const test_misc_validateClone_ObjectHierarchical =
     _test_misc_validateClone<ObjectHierarchical>(ObjectHierarchical)((input) =>
         ((
             input: any,
-        ): typia.IValidation<typia.Primitive<ObjectHierarchical.ICustomer>> => {
+        ): typia.IValidation<typia.Primitive<ObjectHierarchical>> => {
             const validate = (
                 input: any,
-            ): typia.IValidation<ObjectHierarchical.ICustomer> => {
+            ): typia.IValidation<ObjectHierarchical> => {
                 const errors = [] as any[];
-                const __is = (
-                    input: any,
-                ): input is ObjectHierarchical.ICustomer => {
+                const __is = (input: any): input is ObjectHierarchical => {
                     const $is_url = (typia.misc.validateClone as any).is_url;
                     const $is_ipv4 = (typia.misc.validateClone as any).is_ipv4;
                     const $io0 = (input: any): boolean =>
@@ -118,7 +116,7 @@ export const test_misc_validateClone_ObjectHierarchical =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is ObjectHierarchical.ICustomer => {
+                    ): input is ObjectHierarchical => {
                         const $is_url = (typia.misc.validateClone as any)
                             .is_url;
                         const $is_ipv4 = (typia.misc.validateClone as any)
@@ -563,8 +561,8 @@ export const test_misc_validateClone_ObjectHierarchical =
                 } as any;
             };
             const clone = (
-                input: ObjectHierarchical.ICustomer,
-            ): typia.Primitive<ObjectHierarchical.ICustomer> => {
+                input: ObjectHierarchical,
+            ): typia.Primitive<ObjectHierarchical> => {
                 const $io1 = (input: any): boolean =>
                     "number" === typeof input.id &&
                     "string" === typeof input.code &&

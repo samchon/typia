@@ -5,10 +5,8 @@ import { ArrayHierarchical } from "../../../structures/ArrayHierarchical";
 export const test_json_assertStringify_ArrayHierarchical =
     _test_json_assertStringify<ArrayHierarchical>(ArrayHierarchical)((input) =>
         ((input: any): string => {
-            const assert = (input: any): Array<ArrayHierarchical.ICompany> => {
-                const __is = (
-                    input: any,
-                ): input is Array<ArrayHierarchical.ICompany> => {
+            const assert = (input: any): ArrayHierarchical => {
+                const __is = (input: any): input is ArrayHierarchical => {
                     const $io0 = (input: any): boolean =>
                         "number" === typeof input.id &&
                         Number.isFinite(input.id) &&
@@ -78,7 +76,7 @@ export const test_json_assertStringify_ArrayHierarchical =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is Array<ArrayHierarchical.ICompany> => {
+                    ): input is ArrayHierarchical => {
                         const $guard = (typia.json.assertStringify as any)
                             .guard;
                         const $ao0 = (
@@ -364,9 +362,7 @@ export const test_json_assertStringify_ArrayHierarchical =
                     })(input, "$input", true);
                 return input;
             };
-            const stringify = (
-                input: Array<ArrayHierarchical.ICompany>,
-            ): string => {
+            const stringify = (input: ArrayHierarchical): string => {
                 const $io1 = (input: any): boolean =>
                     "number" === typeof input.time &&
                     "number" === typeof input.zone;

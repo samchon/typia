@@ -4,7 +4,7 @@ import { ObjectUndefined } from "../../../structures/ObjectUndefined";
 
 export const test_misc_prune_ObjectUndefined =
     _test_misc_prune<ObjectUndefined>(ObjectUndefined)((input) =>
-        ((input: Array<ObjectUndefined.ILecture>): void => {
+        ((input: ObjectUndefined): void => {
             const $io1 = (input: any): boolean =>
                 "string" === typeof input.id && "string" === typeof input.name;
             const $pp0 = (input: any) =>

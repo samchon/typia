@@ -4,12 +4,10 @@ import { MapUnion } from "../../../structures/MapUnion";
 
 export const test_json_validateStringify_MapUnion =
     _test_json_validateStringify<MapUnion>(MapUnion)((input) =>
-        ((input: Array<MapUnion.Union>): typia.IValidation<string> => {
-            const validate = (
-                input: any,
-            ): typia.IValidation<Array<MapUnion.Union>> => {
+        ((input: MapUnion): typia.IValidation<string> => {
+            const validate = (input: any): typia.IValidation<MapUnion> => {
                 const errors = [] as any[];
-                const __is = (input: any): input is Array<MapUnion.Union> => {
+                const __is = (input: any): input is MapUnion => {
                     const $io0 = (input: any): boolean =>
                         "string" === typeof input.id &&
                         "string" === typeof input.name &&
@@ -171,7 +169,7 @@ export const test_json_validateStringify_MapUnion =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is Array<MapUnion.Union> => {
+                    ): input is MapUnion => {
                         const $vo0 = (
                             input: any,
                             _path: string,
@@ -1002,7 +1000,7 @@ export const test_json_validateStringify_MapUnion =
                     data: success ? input : undefined,
                 } as any;
             };
-            const stringify = (input: Array<MapUnion.Union>): string => {
+            const stringify = (input: MapUnion): string => {
                 const $string = (typia.json.validateStringify as any).string;
                 const $number = (typia.json.validateStringify as any).number;
                 return `[${input.map((elem: any) => "{}").join(",")}]`;

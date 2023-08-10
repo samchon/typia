@@ -5,9 +5,7 @@ import { DynamicConstant } from "../../../structures/DynamicConstant";
 export const test_is_DynamicConstant = _test_is<DynamicConstant>(
     DynamicConstant,
 )((input) =>
-    ((
-        input: any,
-    ): input is IPointer<{ a: number; b: number; c: number; d: number }> => {
+    ((input: any): input is DynamicConstant => {
         return (
             "object" === typeof input &&
             null !== input &&

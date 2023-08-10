@@ -4,10 +4,7 @@ import { ObjectTuple } from "../../../structures/ObjectTuple";
 
 export const test_equals_ObjectTuple = _test_equals<ObjectTuple>(ObjectTuple)(
     (input) =>
-        ((
-            input: any,
-            _exceptionable: boolean = true,
-        ): input is [ObjectTuple.ISection, ObjectTuple.ICitizen] => {
+        ((input: any, _exceptionable: boolean = true): input is ObjectTuple => {
             const $io0 = (
                 input: any,
                 _exceptionable: boolean = true,

@@ -4,5 +4,5 @@ import { TagArray } from "../../structures/TagArray";
 
 export const test_misc_validatePrune_TagArray =
     _test_misc_validatePrune<TagArray>(TagArray)((input) =>
-        typia.misc.validatePrune(input),
+        typia.misc.validatePrune<TagArray>(input),
     );

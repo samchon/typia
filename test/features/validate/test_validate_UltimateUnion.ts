@@ -4,4 +4,4 @@ import { UltimateUnion } from "../../structures/UltimateUnion";
 
 export const test_validate_UltimateUnion = _test_validate<UltimateUnion>(
     UltimateUnion,
-)((input) => typia.validate(input));
+)((input) => typia.validate<UltimateUnion>(input));

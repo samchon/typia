@@ -4,5 +4,5 @@ import { AtomicIntersection } from "../../structures/AtomicIntersection";
 
 export const test_misc_prune_AtomicIntersection =
     _test_misc_prune<AtomicIntersection>(AtomicIntersection)((input) =>
-        typia.misc.prune(input),
+        typia.misc.prune<AtomicIntersection>(input),
     );

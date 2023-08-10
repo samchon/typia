@@ -4,5 +4,5 @@ import { TagTuple } from "../../structures/TagTuple";
 
 export const test_misc_validateClone_TagTuple =
     _test_misc_validateClone<TagTuple>(TagTuple)((input) =>
-        typia.misc.validateClone(input),
+        typia.misc.validateClone<TagTuple>(input),
     );

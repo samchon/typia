@@ -4,5 +4,5 @@ import { ConstantAtomicSimple } from "../../../structures/ConstantAtomicSimple";
 
 export const test_misc_prune_ConstantAtomicSimple =
     _test_misc_prune<ConstantAtomicSimple>(ConstantAtomicSimple)((input) =>
-        ((input: [false, true, 2, "three"]): void => {})(input),
+        ((input: ConstantAtomicSimple): void => {})(input),
     );

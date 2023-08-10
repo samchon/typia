@@ -4,4 +4,4 @@ import { ObjectInternal } from "../../structures/ObjectInternal";
 
 export const test_equals_ObjectInternal = _test_equals<ObjectInternal>(
     ObjectInternal,
-)((input) => typia.equals(input));
+)((input) => typia.equals<ObjectInternal>(input));

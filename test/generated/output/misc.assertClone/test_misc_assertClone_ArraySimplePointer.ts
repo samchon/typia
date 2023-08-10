@@ -4,15 +4,9 @@ import { ArraySimplePointer } from "../../../structures/ArraySimplePointer";
 
 export const test_misc_assertClone_ArraySimplePointer =
     _test_misc_assertClone<ArraySimplePointer>(ArraySimplePointer)((input) =>
-        ((
-            input: any,
-        ): typia.Primitive<IPointer<Array<ArraySimplePointer.IPerson>>> => {
-            const assert = (
-                input: any,
-            ): IPointer<Array<ArraySimplePointer.IPerson>> => {
-                const __is = (
-                    input: any,
-                ): input is IPointer<Array<ArraySimplePointer.IPerson>> => {
+        ((input: any): typia.Primitive<ArraySimplePointer> => {
+            const assert = (input: any): ArraySimplePointer => {
+                const __is = (input: any): input is ArraySimplePointer => {
                     const $io0 = (input: any): boolean =>
                         Array.isArray(input.value) &&
                         input.value.every(
@@ -47,7 +41,7 @@ export const test_misc_assertClone_ArraySimplePointer =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is IPointer<Array<ArraySimplePointer.IPerson>> => {
+                    ): input is ArraySimplePointer => {
                         const $guard = (typia.misc.assertClone as any).guard;
                         const $ao0 = (
                             input: any,
@@ -204,8 +198,8 @@ export const test_misc_assertClone_ArraySimplePointer =
                 return input;
             };
             const clone = (
-                input: IPointer<Array<ArraySimplePointer.IPerson>>,
-            ): typia.Primitive<IPointer<Array<ArraySimplePointer.IPerson>>> => {
+                input: ArraySimplePointer,
+            ): typia.Primitive<ArraySimplePointer> => {
                 const $io1 = (input: any): boolean =>
                     "string" === typeof input.name &&
                     "string" === typeof input.email &&

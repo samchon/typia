@@ -5,9 +5,9 @@ import { ClassNonPublic } from "../../../structures/ClassNonPublic";
 export const test_validate_ClassNonPublic = _test_validate<ClassNonPublic>(
     ClassNonPublic,
 )((input) =>
-    ((input: any): typia.IValidation<ClassNonPublic.Accessor> => {
+    ((input: any): typia.IValidation<ClassNonPublic> => {
         const errors = [] as any[];
-        const __is = (input: any): input is ClassNonPublic.Accessor => {
+        const __is = (input: any): input is ClassNonPublic => {
             return (
                 "object" === typeof input &&
                 null !== input &&
@@ -21,7 +21,7 @@ export const test_validate_ClassNonPublic = _test_validate<ClassNonPublic>(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is ClassNonPublic.Accessor => {
+            ): input is ClassNonPublic => {
                 const $vo0 = (
                     input: any,
                     _path: string,

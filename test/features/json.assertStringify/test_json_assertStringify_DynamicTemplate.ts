@@ -4,5 +4,5 @@ import { DynamicTemplate } from "../../structures/DynamicTemplate";
 
 export const test_json_assertStringify_DynamicTemplate =
     _test_json_assertStringify<DynamicTemplate>(DynamicTemplate)((input) =>
-        typia.json.assertStringify(input),
+        typia.json.assertStringify<DynamicTemplate>(input),
     );

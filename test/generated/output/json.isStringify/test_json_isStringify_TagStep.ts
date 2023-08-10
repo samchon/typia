@@ -5,8 +5,8 @@ import { TagStep } from "../../../structures/TagStep";
 export const test_json_isStringify_TagStep = _test_json_isStringify<TagStep>(
     TagStep,
 )((input) =>
-    ((input: IPointer<Array<TagStep.Type>>): string | null => {
-        const is = (input: any): input is IPointer<Array<TagStep.Type>> => {
+    ((input: TagStep): string | null => {
+        const is = (input: any): input is TagStep => {
             const $io0 = (input: any): boolean =>
                 Array.isArray(input.value) &&
                 input.value.every(
@@ -30,7 +30,7 @@ export const test_json_isStringify_TagStep = _test_json_isStringify<TagStep>(
                 99 >= input.multipleOf;
             return "object" === typeof input && null !== input && $io0(input);
         };
-        const stringify = (input: IPointer<Array<TagStep.Type>>): string => {
+        const stringify = (input: TagStep): string => {
             const $io1 = (input: any): boolean =>
                 "number" === typeof input.exclusiveMinimum &&
                 0 === (input.exclusiveMinimum % 5) - 3 &&

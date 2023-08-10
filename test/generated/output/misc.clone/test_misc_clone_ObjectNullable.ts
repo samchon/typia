@@ -5,9 +5,7 @@ import { ObjectNullable } from "../../../structures/ObjectNullable";
 export const test_misc_clone_ObjectNullable = _test_misc_clone<ObjectNullable>(
     ObjectNullable,
 )((input) =>
-    ((
-        input: IPointer<Array<ObjectNullable.IProduct>>,
-    ): typia.Primitive<IPointer<Array<ObjectNullable.IProduct>>> => {
+    ((input: ObjectNullable): typia.Primitive<ObjectNullable> => {
         const $io1 = (input: any): boolean =>
             "string" === typeof input.name &&
             "object" === typeof input.manufacturer &&

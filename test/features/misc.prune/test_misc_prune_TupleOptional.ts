@@ -4,4 +4,4 @@ import { TupleOptional } from "../../structures/TupleOptional";
 
 export const test_misc_prune_TupleOptional = _test_misc_prune<TupleOptional>(
     TupleOptional,
-)((input) => typia.misc.prune(input));
+)((input) => typia.misc.prune<TupleOptional>(input));

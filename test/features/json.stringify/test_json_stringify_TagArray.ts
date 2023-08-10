@@ -4,4 +4,4 @@ import { TagArray } from "../../structures/TagArray";
 
 export const test_json_stringify_TagArray = _test_json_stringify<TagArray>(
     TagArray,
-)((input) => typia.json.stringify(input));
+)((input) => typia.json.stringify<TagArray>(input));

@@ -4,5 +4,5 @@ import { TemplateConstant } from "../../structures/TemplateConstant";
 
 export const test_misc_prune_TemplateConstant =
     _test_misc_prune<TemplateConstant>(TemplateConstant)((input) =>
-        typia.misc.prune(input),
+        typia.misc.prune<TemplateConstant>(input),
     );

@@ -4,4 +4,4 @@ import { AtomicClass } from "../../structures/AtomicClass";
 
 export const test_assertEquals_AtomicClass = _test_assertEquals<AtomicClass>(
     AtomicClass,
-)((input) => typia.assertEquals(input));
+)((input) => typia.assertEquals<AtomicClass>(input));

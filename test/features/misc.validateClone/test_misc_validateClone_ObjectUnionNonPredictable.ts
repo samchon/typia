@@ -5,4 +5,4 @@ import { ObjectUnionNonPredictable } from "../../structures/ObjectUnionNonPredic
 export const test_misc_validateClone_ObjectUnionNonPredictable =
     _test_misc_validateClone<ObjectUnionNonPredictable>(
         ObjectUnionNonPredictable,
-    )((input) => typia.misc.validateClone(input));
+    )((input) => typia.misc.validateClone<ObjectUnionNonPredictable>(input));

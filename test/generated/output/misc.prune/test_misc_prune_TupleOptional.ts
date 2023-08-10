@@ -4,16 +4,4 @@ import { TupleOptional } from "../../../structures/TupleOptional";
 
 export const test_misc_prune_TupleOptional = _test_misc_prune<TupleOptional>(
     TupleOptional,
-)((input) =>
-    ((
-        input: Array<
-            [
-                number,
-                boolean,
-                string,
-                (number | null | undefined)?,
-                (string | null | undefined)?,
-            ]
-        >,
-    ): void => {})(input),
-);
+)((input) => ((input: TupleOptional): void => {})(input));

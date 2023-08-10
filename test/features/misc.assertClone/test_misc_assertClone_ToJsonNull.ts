@@ -4,5 +4,5 @@ import { ToJsonNull } from "../../structures/ToJsonNull";
 
 export const test_misc_assertClone_ToJsonNull =
     _test_misc_assertClone<ToJsonNull>(ToJsonNull)((input) =>
-        typia.misc.assertClone(input),
+        typia.misc.assertClone<ToJsonNull>(input),
     );

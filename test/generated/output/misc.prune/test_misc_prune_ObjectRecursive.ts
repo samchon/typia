@@ -4,7 +4,7 @@ import { ObjectRecursive } from "../../../structures/ObjectRecursive";
 
 export const test_misc_prune_ObjectRecursive =
     _test_misc_prune<ObjectRecursive>(ObjectRecursive)((input) =>
-        ((input: ObjectRecursive.IDepartment): void => {
+        ((input: ObjectRecursive): void => {
             const $io0 = (input: any): boolean =>
                 (null === input.parent ||
                     ("object" === typeof input.parent &&

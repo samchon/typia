@@ -4,5 +4,5 @@ import { TagStep } from "../../structures/TagStep";
 
 export const test_misc_validatePrune_TagStep =
     _test_misc_validatePrune<TagStep>(TagStep)((input) =>
-        typia.misc.validatePrune(input),
+        typia.misc.validatePrune<TagStep>(input),
     );

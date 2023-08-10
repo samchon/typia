@@ -4,4 +4,4 @@ import { ToJsonUnion } from "../../structures/ToJsonUnion";
 
 export const test_misc_clone_ToJsonUnion = _test_misc_clone<ToJsonUnion>(
     ToJsonUnion,
-)((input) => typia.misc.clone(input));
+)((input) => typia.misc.clone<ToJsonUnion>(input));

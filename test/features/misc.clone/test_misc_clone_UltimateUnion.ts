@@ -4,4 +4,4 @@ import { UltimateUnion } from "../../structures/UltimateUnion";
 
 export const test_misc_clone_UltimateUnion = _test_misc_clone<UltimateUnion>(
     UltimateUnion,
-)((input) => typia.misc.clone(input));
+)((input) => typia.misc.clone<UltimateUnion>(input));

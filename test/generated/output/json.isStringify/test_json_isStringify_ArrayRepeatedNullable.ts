@@ -5,16 +5,8 @@ import { ArrayRepeatedNullable } from "../../../structures/ArrayRepeatedNullable
 export const test_json_isStringify_ArrayRepeatedNullable =
     _test_json_isStringify<ArrayRepeatedNullable>(ArrayRepeatedNullable)(
         (input) =>
-            ((
-                input: string | number | Array<ArrayRepeatedNullable> | null,
-            ): string | null => {
-                const is = (
-                    input: any,
-                ): input is
-                    | string
-                    | number
-                    | Array<ArrayRepeatedNullable>
-                    | null => {
+            ((input: ArrayRepeatedNullable): string | null => {
+                const is = (input: any): input is ArrayRepeatedNullable => {
                     const $ia0 = (input: any): any =>
                         input.every(
                             (elem: any) =>
@@ -35,13 +27,7 @@ export const test_json_isStringify_ArrayRepeatedNullable =
                             (Array.isArray(input) && ($ia0(input) || false)))
                     );
                 };
-                const stringify = (
-                    input:
-                        | string
-                        | number
-                        | Array<ArrayRepeatedNullable>
-                        | null,
-                ): string => {
+                const stringify = (input: ArrayRepeatedNullable): string => {
                     const $ia0 = (input: any): any =>
                         input.every(
                             (elem: any) =>

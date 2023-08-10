@@ -4,13 +4,9 @@ import { TagAtomicUnion } from "../../../structures/TagAtomicUnion";
 
 export const test_misc_assertPrune_TagAtomicUnion =
     _test_misc_assertPrune<TagAtomicUnion>(TagAtomicUnion)((input) =>
-        ((input: any): IPointer<Array<TagAtomicUnion.Type>> => {
-            const assert = (
-                input: any,
-            ): IPointer<Array<TagAtomicUnion.Type>> => {
-                const __is = (
-                    input: any,
-                ): input is IPointer<Array<TagAtomicUnion.Type>> => {
+        ((input: any): TagAtomicUnion => {
+            const assert = (input: any): TagAtomicUnion => {
+                const __is = (input: any): input is TagAtomicUnion => {
                     const $io0 = (input: any): boolean =>
                         Array.isArray(input.value) &&
                         input.value.every(
@@ -37,7 +33,7 @@ export const test_misc_assertPrune_TagAtomicUnion =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is IPointer<Array<TagAtomicUnion.Type>> => {
+                    ): input is TagAtomicUnion => {
                         const $guard = (typia.misc.assertPrune as any).guard;
                         const $ao0 = (
                             input: any,
@@ -134,9 +130,7 @@ export const test_misc_assertPrune_TagAtomicUnion =
                     })(input, "$input", true);
                 return input;
             };
-            const prune = (
-                input: IPointer<Array<TagAtomicUnion.Type>>,
-            ): void => {
+            const prune = (input: TagAtomicUnion): void => {
                 const $io1 = (input: any): boolean =>
                     ("string" === typeof input.value &&
                         3 <= input.value.length &&

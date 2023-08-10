@@ -5,8 +5,8 @@ import { AtomicSimple } from "../../../structures/AtomicSimple";
 export const test_misc_isClone_AtomicSimple = _test_misc_isClone<AtomicSimple>(
     AtomicSimple,
 )((input) =>
-    ((input: any): typia.Primitive<[boolean, number, string]> | null => {
-        const is = (input: any): input is [boolean, number, string] => {
+    ((input: any): typia.Primitive<AtomicSimple> | null => {
+        const is = (input: any): input is AtomicSimple => {
             return (
                 Array.isArray(input) &&
                 input.length === 3 &&
@@ -16,9 +16,7 @@ export const test_misc_isClone_AtomicSimple = _test_misc_isClone<AtomicSimple>(
                 "string" === typeof input[2]
             );
         };
-        const clone = (
-            input: [boolean, number, string],
-        ): typia.Primitive<[boolean, number, string]> => {
+        const clone = (input: AtomicSimple): typia.Primitive<AtomicSimple> => {
             return Array.isArray(input) &&
                 input.length === 3 &&
                 "boolean" === typeof input[0] &&

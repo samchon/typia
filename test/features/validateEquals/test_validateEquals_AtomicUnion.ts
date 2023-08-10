@@ -4,5 +4,5 @@ import { AtomicUnion } from "../../structures/AtomicUnion";
 
 export const test_validateEquals_AtomicUnion =
     _test_validateEquals<AtomicUnion>(AtomicUnion)((input) =>
-        typia.validateEquals(input),
+        typia.validateEquals<AtomicUnion>(input),
     );

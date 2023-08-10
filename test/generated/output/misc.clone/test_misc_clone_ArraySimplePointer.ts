@@ -4,9 +4,7 @@ import { ArraySimplePointer } from "../../../structures/ArraySimplePointer";
 
 export const test_misc_clone_ArraySimplePointer =
     _test_misc_clone<ArraySimplePointer>(ArraySimplePointer)((input) =>
-        ((
-            input: IPointer<Array<ArraySimplePointer.IPerson>>,
-        ): typia.Primitive<IPointer<Array<ArraySimplePointer.IPerson>>> => {
+        ((input: ArraySimplePointer): typia.Primitive<ArraySimplePointer> => {
             const $io1 = (input: any): boolean =>
                 "string" === typeof input.name &&
                 "string" === typeof input.email &&

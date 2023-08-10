@@ -4,4 +4,4 @@ import { ArrayMatrix } from "../../structures/ArrayMatrix";
 
 export const test_misc_clone_ArrayMatrix = _test_misc_clone<ArrayMatrix>(
     ArrayMatrix,
-)((input) => typia.misc.clone(input));
+)((input) => typia.misc.clone<ArrayMatrix>(input));

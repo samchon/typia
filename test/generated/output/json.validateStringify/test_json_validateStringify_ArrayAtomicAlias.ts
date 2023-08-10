@@ -4,30 +4,12 @@ import { ArrayAtomicAlias } from "../../../structures/ArrayAtomicAlias";
 
 export const test_json_validateStringify_ArrayAtomicAlias =
     _test_json_validateStringify<ArrayAtomicAlias>(ArrayAtomicAlias)((input) =>
-        ((
-            input: [
-                ArrayAtomicAlias.Alias<boolean>,
-                ArrayAtomicAlias.Alias<number>,
-                ArrayAtomicAlias.Alias<string>,
-            ],
-        ): typia.IValidation<string> => {
+        ((input: ArrayAtomicAlias): typia.IValidation<string> => {
             const validate = (
                 input: any,
-            ): typia.IValidation<
-                [
-                    ArrayAtomicAlias.Alias<boolean>,
-                    ArrayAtomicAlias.Alias<number>,
-                    ArrayAtomicAlias.Alias<string>,
-                ]
-            > => {
+            ): typia.IValidation<ArrayAtomicAlias> => {
                 const errors = [] as any[];
-                const __is = (
-                    input: any,
-                ): input is [
-                    ArrayAtomicAlias.Alias<boolean>,
-                    ArrayAtomicAlias.Alias<number>,
-                    ArrayAtomicAlias.Alias<string>,
-                ] => {
+                const __is = (input: any): input is ArrayAtomicAlias => {
                     return (
                         Array.isArray(input) &&
                         input.length === 3 &&
@@ -53,11 +35,7 @@ export const test_json_validateStringify_ArrayAtomicAlias =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is [
-                        ArrayAtomicAlias.Alias<boolean>,
-                        ArrayAtomicAlias.Alias<number>,
-                        ArrayAtomicAlias.Alias<string>,
-                    ] => {
+                    ): input is ArrayAtomicAlias => {
                         return (
                             ((Array.isArray(input) ||
                                 $report(true, {
@@ -176,13 +154,7 @@ export const test_json_validateStringify_ArrayAtomicAlias =
                     data: success ? input : undefined,
                 } as any;
             };
-            const stringify = (
-                input: [
-                    ArrayAtomicAlias.Alias<boolean>,
-                    ArrayAtomicAlias.Alias<number>,
-                    ArrayAtomicAlias.Alias<string>,
-                ],
-            ): string => {
+            const stringify = (input: ArrayAtomicAlias): string => {
                 const $number = (typia.json.validateStringify as any).number;
                 const $string = (typia.json.validateStringify as any).string;
                 return `[${`[${input[0]

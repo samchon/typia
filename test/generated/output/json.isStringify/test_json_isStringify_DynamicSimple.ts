@@ -4,10 +4,8 @@ import { DynamicSimple } from "../../../structures/DynamicSimple";
 
 export const test_json_isStringify_DynamicSimple =
     _test_json_isStringify<DynamicSimple>(DynamicSimple)((input) =>
-        ((input: IPointer<{ [key: string]: number }>): string | null => {
-            const is = (
-                input: any,
-            ): input is IPointer<{ [key: string]: number }> => {
+        ((input: DynamicSimple): string | null => {
+            const is = (input: any): input is DynamicSimple => {
                 const $join = (typia.json.isStringify as any).join;
                 const $io0 = (input: any): boolean =>
                     "object" === typeof input.value &&
@@ -29,9 +27,7 @@ export const test_json_isStringify_DynamicSimple =
                     "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            const stringify = (
-                input: IPointer<{ [key: string]: number }>,
-            ): string => {
+            const stringify = (input: DynamicSimple): string => {
                 const $io1 = (input: any): boolean =>
                     Object.keys(input).every((key: any) => {
                         const value = input[key];

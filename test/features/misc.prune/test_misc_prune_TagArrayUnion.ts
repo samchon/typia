@@ -4,4 +4,4 @@ import { TagArrayUnion } from "../../structures/TagArrayUnion";
 
 export const test_misc_prune_TagArrayUnion = _test_misc_prune<TagArrayUnion>(
     TagArrayUnion,
-)((input) => typia.misc.prune(input));
+)((input) => typia.misc.prune<TagArrayUnion>(input));

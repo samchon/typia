@@ -5,10 +5,8 @@ import { AtomicUnion } from "../../../structures/AtomicUnion";
 export const test_json_assertStringify_AtomicUnion =
     _test_json_assertStringify<AtomicUnion>(AtomicUnion)((input) =>
         ((input: any): string => {
-            const assert = (input: any): Array<AtomicUnion.Union> => {
-                const __is = (
-                    input: any,
-                ): input is Array<AtomicUnion.Union> => {
+            const assert = (input: any): AtomicUnion => {
+                const __is = (input: any): input is AtomicUnion => {
                     return (
                         Array.isArray(input) &&
                         input.every(
@@ -26,7 +24,7 @@ export const test_json_assertStringify_AtomicUnion =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is Array<AtomicUnion.Union> => {
+                    ): input is AtomicUnion => {
                         const $guard = (typia.json.assertStringify as any)
                             .guard;
                         return (
@@ -59,7 +57,7 @@ export const test_json_assertStringify_AtomicUnion =
                     })(input, "$input", true);
                 return input;
             };
-            const stringify = (input: Array<AtomicUnion.Union>): string => {
+            const stringify = (input: AtomicUnion): string => {
                 const $string = (typia.json.assertStringify as any).string;
                 const $number = (typia.json.assertStringify as any).number;
                 const $throws = (typia.json.assertStringify as any).throws;

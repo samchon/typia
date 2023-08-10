@@ -4,4 +4,4 @@ import { MapUnion } from "../../structures/MapUnion";
 
 export const test_misc_assertClone_MapUnion = _test_misc_assertClone<MapUnion>(
     MapUnion,
-)((input) => typia.misc.assertClone(input));
+)((input) => typia.misc.assertClone<MapUnion>(input));

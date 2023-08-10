@@ -4,5 +4,5 @@ import { ArrayRecursive } from "../../structures/ArrayRecursive";
 
 export const test_misc_validatePrune_ArrayRecursive =
     _test_misc_validatePrune<ArrayRecursive>(ArrayRecursive)((input) =>
-        typia.misc.validatePrune(input),
+        typia.misc.validatePrune<ArrayRecursive>(input),
     );

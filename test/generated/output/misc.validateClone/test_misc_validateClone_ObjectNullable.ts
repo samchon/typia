@@ -4,18 +4,12 @@ import { ObjectNullable } from "../../../structures/ObjectNullable";
 
 export const test_misc_validateClone_ObjectNullable =
     _test_misc_validateClone<ObjectNullable>(ObjectNullable)((input) =>
-        ((
-            input: any,
-        ): typia.IValidation<
-            typia.Primitive<IPointer<Array<ObjectNullable.IProduct>>>
-        > => {
+        ((input: any): typia.IValidation<typia.Primitive<ObjectNullable>> => {
             const validate = (
                 input: any,
-            ): typia.IValidation<IPointer<Array<ObjectNullable.IProduct>>> => {
+            ): typia.IValidation<ObjectNullable> => {
                 const errors = [] as any[];
-                const __is = (
-                    input: any,
-                ): input is IPointer<Array<ObjectNullable.IProduct>> => {
+                const __is = (input: any): input is ObjectNullable => {
                     const $io0 = (input: any): boolean =>
                         Array.isArray(input.value) &&
                         input.value.every(
@@ -64,7 +58,7 @@ export const test_misc_validateClone_ObjectNullable =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is IPointer<Array<ObjectNullable.IProduct>> => {
+                    ): input is ObjectNullable => {
                         const $vo0 = (
                             input: any,
                             _path: string,
@@ -279,8 +273,8 @@ export const test_misc_validateClone_ObjectNullable =
                 } as any;
             };
             const clone = (
-                input: IPointer<Array<ObjectNullable.IProduct>>,
-            ): typia.Primitive<IPointer<Array<ObjectNullable.IProduct>>> => {
+                input: ObjectNullable,
+            ): typia.Primitive<ObjectNullable> => {
                 const $io1 = (input: any): boolean =>
                     "string" === typeof input.name &&
                     "object" === typeof input.manufacturer &&

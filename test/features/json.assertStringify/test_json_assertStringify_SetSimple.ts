@@ -4,5 +4,5 @@ import { SetSimple } from "../../structures/SetSimple";
 
 export const test_json_assertStringify_SetSimple =
     _test_json_assertStringify<SetSimple>(SetSimple)((input) =>
-        typia.json.assertStringify(input),
+        typia.json.assertStringify<SetSimple>(input),
     );

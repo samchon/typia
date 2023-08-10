@@ -5,8 +5,8 @@ import { TagRange } from "../../../structures/TagRange";
 export const test_misc_isClone_TagRange = _test_misc_isClone<TagRange>(
     TagRange,
 )((input) =>
-    ((input: any): typia.Primitive<IPointer<Array<TagRange.Type>>> | null => {
-        const is = (input: any): input is IPointer<Array<TagRange.Type>> => {
+    ((input: any): typia.Primitive<TagRange> | null => {
+        const is = (input: any): input is TagRange => {
             const $io0 = (input: any): boolean =>
                 Array.isArray(input.value) &&
                 input.value.every(
@@ -40,9 +40,7 @@ export const test_misc_isClone_TagRange = _test_misc_isClone<TagRange>(
                 7 >= input.greater_equal_less_equal;
             return "object" === typeof input && null !== input && $io0(input);
         };
-        const clone = (
-            input: IPointer<Array<TagRange.Type>>,
-        ): typia.Primitive<IPointer<Array<TagRange.Type>>> => {
+        const clone = (input: TagRange): typia.Primitive<TagRange> => {
             const $io1 = (input: any): boolean =>
                 "number" === typeof input.greater &&
                 3 < input.greater &&

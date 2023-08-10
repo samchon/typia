@@ -5,8 +5,8 @@ import { ObjectClosure } from "../../../structures/ObjectClosure";
 export const test_assert_ObjectClosure = _test_assert<ObjectClosure>(
     ObjectClosure,
 )((input) =>
-    ((input: any): ObjectClosure.IRecord => {
-        const __is = (input: any): input is ObjectClosure.IRecord => {
+    ((input: any): ObjectClosure => {
+        const __is = (input: any): input is ObjectClosure => {
             const $io0 = (input: any): boolean =>
                 "string" === typeof input.id &&
                 "function" === typeof input.open;
@@ -17,7 +17,7 @@ export const test_assert_ObjectClosure = _test_assert<ObjectClosure>(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is ObjectClosure.IRecord => {
+            ): input is ObjectClosure => {
                 const $guard = (typia.assert as any).guard;
                 const $ao0 = (
                     input: any,

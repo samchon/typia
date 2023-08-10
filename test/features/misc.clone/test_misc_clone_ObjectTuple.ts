@@ -4,4 +4,4 @@ import { ObjectTuple } from "../../structures/ObjectTuple";
 
 export const test_misc_clone_ObjectTuple = _test_misc_clone<ObjectTuple>(
     ObjectTuple,
-)((input) => typia.misc.clone(input));
+)((input) => typia.misc.clone<ObjectTuple>(input));

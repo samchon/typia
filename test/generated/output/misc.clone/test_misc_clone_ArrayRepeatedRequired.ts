@@ -5,8 +5,8 @@ import { ArrayRepeatedRequired } from "../../../structures/ArrayRepeatedRequired
 export const test_misc_clone_ArrayRepeatedRequired =
     _test_misc_clone<ArrayRepeatedRequired>(ArrayRepeatedRequired)((input) =>
         ((
-            input: string | number | Array<ArrayRepeatedRequired>,
-        ): typia.Primitive<string | number | Array<ArrayRepeatedRequired>> => {
+            input: ArrayRepeatedRequired,
+        ): typia.Primitive<ArrayRepeatedRequired> => {
             const $ia0 = (input: any): any =>
                 input.every(
                     (elem: any) =>

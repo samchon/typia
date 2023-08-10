@@ -4,8 +4,8 @@ import { ClassMethod } from "../../../structures/ClassMethod";
 
 export const test_assert_ClassMethod = _test_assert<ClassMethod>(ClassMethod)(
     (input) =>
-        ((input: any): ClassMethod.Animal => {
-            const __is = (input: any): input is ClassMethod.Animal => {
+        ((input: any): ClassMethod => {
+            const __is = (input: any): input is ClassMethod => {
                 return (
                     "object" === typeof input &&
                     null !== input &&
@@ -19,7 +19,7 @@ export const test_assert_ClassMethod = _test_assert<ClassMethod>(ClassMethod)(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ClassMethod.Animal => {
+                ): input is ClassMethod => {
                     const $guard = (typia.assert as any).guard;
                     const $ao0 = (
                         input: any,

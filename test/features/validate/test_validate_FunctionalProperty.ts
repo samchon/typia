@@ -4,5 +4,5 @@ import { FunctionalProperty } from "../../structures/FunctionalProperty";
 
 export const test_validate_FunctionalProperty =
     _test_validate<FunctionalProperty>(FunctionalProperty)((input) =>
-        typia.validate(input),
+        typia.validate<FunctionalProperty>(input),
     );

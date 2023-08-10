@@ -4,16 +4,9 @@ import { ObjectIntersection } from "../../../structures/ObjectIntersection";
 
 export const test_validate_ObjectIntersection =
     _test_validate<ObjectIntersection>(ObjectIntersection)((input) =>
-        ((
-            input: any,
-        ): typia.IValidation<
-            ObjectIntersection.IEmail & ObjectIntersection.IName
-        > => {
+        ((input: any): typia.IValidation<ObjectIntersection> => {
             const errors = [] as any[];
-            const __is = (
-                input: any,
-            ): input is ObjectIntersection.IEmail &
-                ObjectIntersection.IName => {
+            const __is = (input: any): input is ObjectIntersection => {
                 return (
                     "object" === typeof input &&
                     null !== input &&
@@ -28,8 +21,7 @@ export const test_validate_ObjectIntersection =
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ObjectIntersection.IEmail &
-                    ObjectIntersection.IName => {
+                ): input is ObjectIntersection => {
                     const $vo0 = (
                         input: any,
                         _path: string,

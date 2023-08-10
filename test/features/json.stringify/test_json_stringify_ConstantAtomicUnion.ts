@@ -4,5 +4,5 @@ import { ConstantAtomicUnion } from "../../structures/ConstantAtomicUnion";
 
 export const test_json_stringify_ConstantAtomicUnion =
     _test_json_stringify<ConstantAtomicUnion>(ConstantAtomicUnion)((input) =>
-        typia.json.stringify(input),
+        typia.json.stringify<ConstantAtomicUnion>(input),
     );

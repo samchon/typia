@@ -4,11 +4,11 @@ import { ToJsonDouble } from "../../../structures/ToJsonDouble";
 
 export const test_json_isStringify_ToJsonDouble =
     _test_json_isStringify<ToJsonDouble>(ToJsonDouble)((input) =>
-        ((input: ToJsonDouble.Parent): string | null => {
-            const is = (input: any): input is ToJsonDouble.Parent => {
+        ((input: ToJsonDouble): string | null => {
+            const is = (input: any): input is ToJsonDouble => {
                 return "object" === typeof input && null !== input && true;
             };
-            const stringify = (input: ToJsonDouble.Parent): string => {
+            const stringify = (input: ToJsonDouble): string => {
                 const $number = (typia.json.isStringify as any).number;
                 return `{"id":${$number((input.toJSON() as any).id)},"flag":${
                     (input.toJSON() as any).flag

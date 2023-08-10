@@ -4,18 +4,10 @@ import { TagLength } from "../../../structures/TagLength";
 
 export const test_misc_validateClone_TagLength =
     _test_misc_validateClone<TagLength>(TagLength)((input) =>
-        ((
-            input: any,
-        ): typia.IValidation<
-            typia.Primitive<IPointer<Array<TagLength.Type>>>
-        > => {
-            const validate = (
-                input: any,
-            ): typia.IValidation<IPointer<Array<TagLength.Type>>> => {
+        ((input: any): typia.IValidation<typia.Primitive<TagLength>> => {
+            const validate = (input: any): typia.IValidation<TagLength> => {
                 const errors = [] as any[];
-                const __is = (
-                    input: any,
-                ): input is IPointer<Array<TagLength.Type>> => {
+                const __is = (input: any): input is TagLength => {
                     const $io0 = (input: any): boolean =>
                         Array.isArray(input.value) &&
                         input.value.every(
@@ -48,7 +40,7 @@ export const test_misc_validateClone_TagLength =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is IPointer<Array<TagLength.Type>> => {
+                    ): input is TagLength => {
                         const $vo0 = (
                             input: any,
                             _path: string,
@@ -188,9 +180,7 @@ export const test_misc_validateClone_TagLength =
                     data: success ? input : undefined,
                 } as any;
             };
-            const clone = (
-                input: IPointer<Array<TagLength.Type>>,
-            ): typia.Primitive<IPointer<Array<TagLength.Type>>> => {
+            const clone = (input: TagLength): typia.Primitive<TagLength> => {
                 const $io1 = (input: any): boolean =>
                     "string" === typeof input.fixed &&
                     5 === input.fixed.length &&

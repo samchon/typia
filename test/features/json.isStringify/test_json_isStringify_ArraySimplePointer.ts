@@ -4,5 +4,5 @@ import { ArraySimplePointer } from "../../structures/ArraySimplePointer";
 
 export const test_json_isStringify_ArraySimplePointer =
     _test_json_isStringify<ArraySimplePointer>(ArraySimplePointer)((input) =>
-        typia.json.isStringify(input),
+        typia.json.isStringify<ArraySimplePointer>(input),
     );

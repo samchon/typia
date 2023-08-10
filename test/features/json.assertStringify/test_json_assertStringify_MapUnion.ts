@@ -4,5 +4,5 @@ import { MapUnion } from "../../structures/MapUnion";
 
 export const test_json_assertStringify_MapUnion =
     _test_json_assertStringify<MapUnion>(MapUnion)((input) =>
-        typia.json.assertStringify(input),
+        typia.json.assertStringify<MapUnion>(input),
     );

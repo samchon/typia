@@ -4,5 +4,5 @@ import { ArrayAtomicAlias } from "../../structures/ArrayAtomicAlias";
 
 export const test_misc_prune_ArrayAtomicAlias =
     _test_misc_prune<ArrayAtomicAlias>(ArrayAtomicAlias)((input) =>
-        typia.misc.prune(input),
+        typia.misc.prune<ArrayAtomicAlias>(input),
     );

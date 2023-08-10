@@ -5,11 +5,11 @@ import { TagArray } from "../../../structures/TagArray";
 export const test_assertEquals_TagArray = _test_assertEquals<TagArray>(
     TagArray,
 )((input) =>
-    ((input: any): IPointer<Array<TagArray.Type>> => {
+    ((input: any): TagArray => {
         const __is = (
             input: any,
             _exceptionable: boolean = true,
-        ): input is IPointer<Array<TagArray.Type>> => {
+        ): input is TagArray => {
             const $is_uuid = (typia.assertEquals as any).is_uuid;
             const $io0 = (
                 input: any,
@@ -76,7 +76,7 @@ export const test_assertEquals_TagArray = _test_assertEquals<TagArray>(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is IPointer<Array<TagArray.Type>> => {
+            ): input is TagArray => {
                 const $guard = (typia.assertEquals as any).guard;
                 const $join = (typia.assertEquals as any).join;
                 const $is_uuid = (typia.assertEquals as any).is_uuid;

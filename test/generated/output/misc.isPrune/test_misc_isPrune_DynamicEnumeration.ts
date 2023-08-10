@@ -4,34 +4,8 @@ import { DynamicEnumeration } from "../../../structures/DynamicEnumeration";
 
 export const test_misc_isPrune_DynamicEnumeration =
     _test_misc_isPrune<DynamicEnumeration>(DynamicEnumeration)((input) =>
-        ((
-            input: any,
-        ): input is IPointer<{
-            ar?: string | undefined;
-            "zh-Hans"?: string | undefined;
-            "zh-Hant"?: string | undefined;
-            en?: string | undefined;
-            fr?: string | undefined;
-            de?: string | undefined;
-            ja?: string | undefined;
-            ko?: string | undefined;
-            pt?: string | undefined;
-            ru?: string | undefined;
-        }> => {
-            const is = (
-                input: any,
-            ): input is IPointer<{
-                ar?: string | undefined;
-                "zh-Hans"?: string | undefined;
-                "zh-Hant"?: string | undefined;
-                en?: string | undefined;
-                fr?: string | undefined;
-                de?: string | undefined;
-                ja?: string | undefined;
-                ko?: string | undefined;
-                pt?: string | undefined;
-                ru?: string | undefined;
-            }> => {
+        ((input: any): input is DynamicEnumeration => {
+            const is = (input: any): input is DynamicEnumeration => {
                 const $io0 = (input: any): boolean =>
                     "object" === typeof input.value &&
                     null !== input.value &&
@@ -54,20 +28,7 @@ export const test_misc_isPrune_DynamicEnumeration =
                     "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            const prune = (
-                input: IPointer<{
-                    ar?: string | undefined;
-                    "zh-Hans"?: string | undefined;
-                    "zh-Hant"?: string | undefined;
-                    en?: string | undefined;
-                    fr?: string | undefined;
-                    de?: string | undefined;
-                    ja?: string | undefined;
-                    ko?: string | undefined;
-                    pt?: string | undefined;
-                    ru?: string | undefined;
-                }>,
-            ): void => {
+            const prune = (input: DynamicEnumeration): void => {
                 const $io1 = (input: any): boolean =>
                     (undefined === input.ar || "string" === typeof input.ar) &&
                     (undefined === input["zh-Hans"] ||

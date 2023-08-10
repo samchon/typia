@@ -5,12 +5,12 @@ import { TagLength } from "../../../structures/TagLength";
 export const test_validateEquals_TagLength = _test_validateEquals<TagLength>(
     TagLength,
 )((input) =>
-    ((input: any): typia.IValidation<IPointer<Array<TagLength.Type>>> => {
+    ((input: any): typia.IValidation<TagLength> => {
         const errors = [] as any[];
         const __is = (
             input: any,
             _exceptionable: boolean = true,
-        ): input is IPointer<Array<TagLength.Type>> => {
+        ): input is TagLength => {
             const $io0 = (
                 input: any,
                 _exceptionable: boolean = true,
@@ -68,7 +68,7 @@ export const test_validateEquals_TagLength = _test_validateEquals<TagLength>(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is IPointer<Array<TagLength.Type>> => {
+            ): input is TagLength => {
                 const $join = (typia.validateEquals as any).join;
                 const $vo0 = (
                     input: any,

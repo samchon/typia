@@ -1,0 +1,9 @@
+import typia from "../../../src";
+import { _test_random } from "../../internal/_test_random";
+import { ObjectUnionExplicitPointer } from "../../structures/ObjectUnionExplicitPointer";
+
+export const test_random_ObjectUnionExplicitPointer =
+    _test_random<ObjectUnionExplicitPointer>(ObjectUnionExplicitPointer)({
+        random: () => typia.random<ObjectUnionExplicitPointer>(),
+        assert: typia.createAssert<ObjectUnionExplicitPointer>(),
+    });

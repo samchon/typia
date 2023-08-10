@@ -5,8 +5,8 @@ import { ArrayMatrix } from "../../../structures/ArrayMatrix";
 export const test_misc_isPrune_ArrayMatrix = _test_misc_isPrune<ArrayMatrix>(
     ArrayMatrix,
 )((input) =>
-    ((input: any): input is Array<Array<Array<number>>> => {
-        const is = (input: any): input is Array<Array<Array<number>>> => {
+    ((input: any): input is ArrayMatrix => {
+        const is = (input: any): input is ArrayMatrix => {
             return (
                 Array.isArray(input) &&
                 input.every(
@@ -24,7 +24,7 @@ export const test_misc_isPrune_ArrayMatrix = _test_misc_isPrune<ArrayMatrix>(
                 )
             );
         };
-        const prune = (input: Array<Array<Array<number>>>): void => {};
+        const prune = (input: ArrayMatrix): void => {};
         if (!is(input)) return false;
         prune(input);
         return true;

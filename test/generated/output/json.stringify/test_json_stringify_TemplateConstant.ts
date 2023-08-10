@@ -4,7 +4,7 @@ import { TemplateConstant } from "../../../structures/TemplateConstant";
 
 export const test_json_stringify_TemplateConstant =
     _test_json_stringify<TemplateConstant>(TemplateConstant)((input) =>
-        ((input: IPointer<Array<TemplateConstant.Type>>): string => {
+        ((input: TemplateConstant): string => {
             const $io1 = (input: any): boolean =>
                 ("prefix_A" === input.prefix ||
                     "prefix_B" === input.prefix ||

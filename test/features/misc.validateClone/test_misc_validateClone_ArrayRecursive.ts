@@ -4,5 +4,5 @@ import { ArrayRecursive } from "../../structures/ArrayRecursive";
 
 export const test_misc_validateClone_ArrayRecursive =
     _test_misc_validateClone<ArrayRecursive>(ArrayRecursive)((input) =>
-        typia.misc.validateClone(input),
+        typia.misc.validateClone<ArrayRecursive>(input),
     );
