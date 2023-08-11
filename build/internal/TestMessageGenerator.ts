@@ -20,9 +20,7 @@ export namespace TestMessageGenerator {
                 "",
                 `export const test_protobuf_message_${s.name} = _test_protobuf_message(`,
                 `    "${s.name}",`,
-                `)(`,
-                `    typia.protobuf.message<${s.name}>(),`,
-                `);`,
+                `)(typia.protobuf.message<${s.name}>());`,
             ];
             await fs.promises.writeFile(
                 `${__dirname}/../../test/features/protobuf.message/test_protobuf_message_${s.name}.ts`,
