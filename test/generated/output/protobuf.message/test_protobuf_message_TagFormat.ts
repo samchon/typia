@@ -5,5 +5,5 @@ import { TagFormat } from "../../../structures/TagFormat";
 export const test_protobuf_message_TagFormat = _test_protobuf_message(
     "TagFormat",
 )(
-    'syntax = "proto3";\n\nmessage TagFormat {\n    requiredstring uuid = 1;\n    requiredstring email = 2;\n    requiredstring url = 3;\n    requiredstring ipv4 = 4;\n    requiredstring ipv6 = 5;\n    requiredstring date = 6;\n    requiredstring date_time = 7;\n    requiredstring datetime = 8;\n    requiredstring dateTime = 9;\n    requiredstring custom = 10;\n}',
+    'syntax = "proto3";\n\nmessage TagFormat {\n    required string uuid = 1;\n    required string email = 2;\n    required string url = 3;\n    required string ipv4 = 4;\n    required string ipv6 = 5;\n    required string date = 6;\n    required string date_time = 7;\n    required string datetime = 8;\n    required string dateTime = 9;\n    required string custom = 10;\n}',
 );

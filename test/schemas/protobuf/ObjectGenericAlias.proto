@@ -2,6 +2,6 @@ syntax = "proto3";
 
 message ObjectGenericAlias {
     message Alias {
-        requiredstring value = 1;
+        required string value = 1;
     }
 }

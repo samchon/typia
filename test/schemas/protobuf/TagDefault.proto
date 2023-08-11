@@ -1,11 +1,11 @@
 syntax = "proto3";
 
 message TagDefault {
-    requiredbool boolean = 1;
-    requireddouble number = 2;
-    requiredstring string = 3;
-    requiredstring text = 4;
-    requiredstring template = 5;
+    required bool boolean = 1;
+    required double number = 2;
+    required string string = 3;
+    required string text = 4;
+    required string template = 5;
     oneof boolean_and_number_and_string {
         string v1 = 6;
         double v2 = 7;
@@ -26,8 +26,8 @@ message TagDefault {
         double v2 = 16;
         bool v3 = 17;
     }
-    requireddouble vulnerable_range = 18;
-    requiredstring vulnerable_template = 19;
+    required double vulnerable_range = 18;
+    required string vulnerable_template = 19;
     oneof boolean_and_number_and_template {
         string v1 = 20;
         double v2 = 21;

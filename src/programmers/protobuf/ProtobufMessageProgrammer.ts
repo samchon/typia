@@ -91,7 +91,7 @@ export namespace ProtobufMessageProgrammer {
                               ? ""
                               : !prop.value.isRequired() || prop.value.nullable
                               ? "optional "
-                              : "required"
+                              : "required "
                       }${type} ${key} = ${++ptr.value};`;
             })
             .join("\n");

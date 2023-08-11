@@ -1,8 +1,8 @@
 syntax = "proto3";
 
 message TagPattern {
-    requiredstring uuid = 1;
-    requiredstring email = 2;
-    requiredstring ipv4 = 3;
-    requiredstring ipv6 = 4;
+    required string uuid = 1;
+    required string email = 2;
+    required string ipv4 = 3;
+    required string ipv6 = 4;
 }

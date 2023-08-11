@@ -1,7 +1,7 @@
 syntax = "proto3";
 
 message __object {
-    requiredstring id = 1;
-    requiredstring name = 2;
-    requireddouble age = 3;
+    required string id = 1;
+    required string name = 2;
+    required double age = 3;
 }

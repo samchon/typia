@@ -3,8 +3,8 @@ syntax = "proto3";
 message TemplateConstant {
     repeated TemplateConstant.Type value = 1;
     message Type {
-        requiredstring prefix = 1;
-        requiredstring postfix = 2;
-        requiredstring combined = 3;
+        required string prefix = 1;
+        required string postfix = 2;
+        required string combined = 3;
     }
 }

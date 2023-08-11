@@ -3,8 +3,8 @@ syntax = "proto3";
 message ObjectNullable {
     repeated ObjectNullable.IProduct value = 1;
     message IProduct {
-        requiredstring name = 1;
-        requiredObjectNullable.IManufacturer manufacturer = 2;
+        required string name = 1;
+        required ObjectNullable.IManufacturer manufacturer = 2;
         optional ObjectNullable.IBrand brand = 3;
         oneof similar {
             ObjectNullable.IBrand v1 = 4;
@@ -13,12 +13,12 @@ message ObjectNullable {
     }
 
     message IManufacturer {
-        requiredstring type = 1;
-        requiredstring name = 2;
+        required string type = 1;
+        required string name = 2;
     }
 
     message IBrand {
-        requiredstring type = 1;
-        requiredstring name = 2;
+        required string type = 1;
+        required string name = 2;
     }
 }

@@ -1,6 +1,6 @@
 import typia from "typia";
 
-import { ObjectHierarchical } from "../structures/ObjectHierarchical";
+import { ArrayHierarchicalPointer } from "../structures/ArrayHierarchicalPointer";
 
-const message: string = typia.protobuf.message<ObjectHierarchical>();
+const message: string = typia.protobuf.message<ArrayHierarchicalPointer>();
 console.log(message);

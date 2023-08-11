@@ -4,56 +4,56 @@ message ObjectUnionExplicitPointer {
     repeated IPointer_lt_ObjectUnionExplicitPointer.Shape_gt_ value = 1;
     message Discriminator_lt__doublequote_point_doublequote__comma__space_ObjectUnionExplicitPointer {
         message IPoint_gt_ {
-            requireddouble x = 1;
-            requireddouble y = 2;
-            requiredstring type = 3;
+            required double x = 1;
+            required double y = 2;
+            required string type = 3;
         }
     }
 
     message Discriminator_lt__doublequote_line_doublequote__comma__space_ObjectUnionExplicitPointer {
         message ILine_gt_ {
-            requiredObjectUnionExplicitPointer.IPoint p1 = 1;
-            requiredObjectUnionExplicitPointer.IPoint p2 = 2;
-            requiredstring type = 3;
+            required ObjectUnionExplicitPointer.IPoint p1 = 1;
+            required ObjectUnionExplicitPointer.IPoint p2 = 2;
+            required string type = 3;
         }
     }
 
     message IPoint {
-        requireddouble x = 1;
-        requireddouble y = 2;
+        required double x = 1;
+        required double y = 2;
     }
 
     message Discriminator_lt__doublequote_triangle_doublequote__comma__space_ObjectUnionExplicitPointer {
         message ITriangle_gt_ {
-            requiredObjectUnionExplicitPointer.IPoint p1 = 1;
-            requiredObjectUnionExplicitPointer.IPoint p2 = 2;
-            requiredObjectUnionExplicitPointer.IPoint p3 = 3;
-            requiredstring type = 4;
+            required ObjectUnionExplicitPointer.IPoint p1 = 1;
+            required ObjectUnionExplicitPointer.IPoint p2 = 2;
+            required ObjectUnionExplicitPointer.IPoint p3 = 3;
+            required string type = 4;
         }
     }
 
     message Discriminator_lt__doublequote_rectangle_doublequote__comma__space_ObjectUnionExplicitPointer {
         message IRectangle_gt_ {
-            requiredObjectUnionExplicitPointer.IPoint p1 = 1;
-            requiredObjectUnionExplicitPointer.IPoint p2 = 2;
-            requiredObjectUnionExplicitPointer.IPoint p3 = 3;
-            requiredObjectUnionExplicitPointer.IPoint p4 = 4;
-            requiredstring type = 5;
+            required ObjectUnionExplicitPointer.IPoint p1 = 1;
+            required ObjectUnionExplicitPointer.IPoint p2 = 2;
+            required ObjectUnionExplicitPointer.IPoint p3 = 3;
+            required ObjectUnionExplicitPointer.IPoint p4 = 4;
+            required string type = 5;
         }
     }
 
     message Discriminator_lt__doublequote_polyline_doublequote__comma__space_ObjectUnionExplicitPointer {
         message IPolyline_gt_ {
             repeated ObjectUnionExplicitPointer.IPoint points = 1;
-            requiredstring type = 2;
+            required string type = 2;
         }
     }
 
     message Discriminator_lt__doublequote_polygon_doublequote__comma__space_ObjectUnionExplicitPointer {
         message IPolygon_gt_ {
-            requiredObjectUnionExplicitPointer.IPolyline outer = 1;
+            required ObjectUnionExplicitPointer.IPolyline outer = 1;
             repeated ObjectUnionExplicitPointer.IPolyline inner = 2;
-            requiredstring type = 3;
+            required string type = 3;
         }
     }
 
@@ -63,9 +63,9 @@ message ObjectUnionExplicitPointer {
 
     message Discriminator_lt__doublequote_circle_doublequote__comma__space_ObjectUnionExplicitPointer {
         message ICircle_gt_ {
-            requiredObjectUnionExplicitPointer.IPoint centroid = 1;
-            requireddouble radius = 2;
-            requiredstring type = 3;
+            required ObjectUnionExplicitPointer.IPoint centroid = 1;
+            required double radius = 2;
+            required string type = 3;
         }
     }
 }

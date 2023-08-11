@@ -1,14 +1,14 @@
 syntax = "proto3";
 
 message TagFormat {
-    requiredstring uuid = 1;
-    requiredstring email = 2;
-    requiredstring url = 3;
-    requiredstring ipv4 = 4;
-    requiredstring ipv6 = 5;
-    requiredstring date = 6;
-    requiredstring date_time = 7;
-    requiredstring datetime = 8;
-    requiredstring dateTime = 9;
-    requiredstring custom = 10;
+    required string uuid = 1;
+    required string email = 2;
+    required string url = 3;
+    required string ipv4 = 4;
+    required string ipv6 = 5;
+    required string date = 6;
+    required string date_time = 7;
+    required string datetime = 8;
+    required string dateTime = 9;
+    required string custom = 10;
 }
