@@ -3,5 +3,5 @@ syntax = "proto3";
 message DynamicTree {
     required string id = 1;
     required double sequence = 2;
-    required map<string, DynamicTree> children = 3;
+    map<string, DynamicTree> children = 3;
 }

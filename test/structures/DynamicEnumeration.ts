@@ -39,4 +39,6 @@ export namespace DynamicEnumeration {
             return ["$input.value.ar"];
         },
     ];
+
+    export const BINARABLE = false;
 }

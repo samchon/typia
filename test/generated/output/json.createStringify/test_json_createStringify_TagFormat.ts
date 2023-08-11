@@ -13,17 +13,13 @@ export const test_json_stringify_TagFormat = _test_json_stringify<TagFormat>(
     const $is_ipv6 = (typia.json.createStringify as any).is_ipv6;
     const $is_date = (typia.json.createStringify as any).is_date;
     const $is_datetime = (typia.json.createStringify as any).is_datetime;
-    const $so0 = (input: any): any =>
-        `{"uuid":${$string(input.uuid)},"email":${$string(
-            input.email,
-        )},"url":${$string(input.url)},"ipv4":${$string(
-            input.ipv4,
-        )},"ipv6":${$string(input.ipv6)},"date":${$string(
-            input.date,
-        )},"date_time":${$string(input.date_time)},"datetime":${$string(
-            input.datetime,
-        )},"dateTime":${$string(input.dateTime)},"custom":${$string(
-            input.custom,
-        )}}`;
-    return $so0(input);
+    return `{"uuid":${$string((input as any).uuid)},"email":${$string(
+        (input as any).email,
+    )},"url":${$string((input as any).url)},"ipv4":${$string(
+        (input as any).ipv4,
+    )},"ipv6":${$string((input as any).ipv6)},"date":${$string(
+        (input as any).date,
+    )},"date_time":${$string((input as any).date_time)},"custom":${$string(
+        (input as any).custom,
+    )}}`;
 });

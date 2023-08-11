@@ -21,30 +21,24 @@ export const test_misc_assertClone_TagFormat =
                         .is_date;
                     const $is_datetime = (typia.misc.createAssertClone as any)
                         .is_datetime;
-                    const $io0 = (input: any): boolean =>
-                        "string" === typeof input.uuid &&
-                        $is_uuid(input.uuid) &&
-                        "string" === typeof input.email &&
-                        $is_email(input.email) &&
-                        "string" === typeof input.url &&
-                        $is_url(input.url) &&
-                        "string" === typeof input.ipv4 &&
-                        $is_ipv4(input.ipv4) &&
-                        "string" === typeof input.ipv6 &&
-                        $is_ipv6(input.ipv6) &&
-                        "string" === typeof input.date &&
-                        $is_date(input.date) &&
-                        "string" === typeof input.date_time &&
-                        $is_datetime(input.date_time) &&
-                        "string" === typeof input.datetime &&
-                        $is_datetime(input.datetime) &&
-                        "string" === typeof input.dateTime &&
-                        $is_datetime(input.dateTime) &&
-                        "string" === typeof input.custom;
                     return (
                         "object" === typeof input &&
                         null !== input &&
-                        $io0(input)
+                        "string" === typeof (input as any).uuid &&
+                        $is_uuid((input as any).uuid) &&
+                        "string" === typeof (input as any).email &&
+                        $is_email((input as any).email) &&
+                        "string" === typeof (input as any).url &&
+                        $is_url((input as any).url) &&
+                        "string" === typeof (input as any).ipv4 &&
+                        $is_ipv4((input as any).ipv4) &&
+                        "string" === typeof (input as any).ipv6 &&
+                        $is_ipv6((input as any).ipv6) &&
+                        "string" === typeof (input as any).date &&
+                        $is_date((input as any).date) &&
+                        "string" === typeof (input as any).date_time &&
+                        $is_datetime((input as any).date_time) &&
+                        "string" === typeof (input as any).custom
                     );
                 };
                 if (false === __is(input))
@@ -159,30 +153,6 @@ export const test_misc_assertClone_TagFormat =
                                     expected: "string",
                                     value: input.date_time,
                                 })) &&
-                            (("string" === typeof input.datetime &&
-                                ($is_datetime(input.datetime) ||
-                                    $guard(_exceptionable, {
-                                        path: _path + ".datetime",
-                                        expected: "string (@format datetime)",
-                                        value: input.datetime,
-                                    }))) ||
-                                $guard(_exceptionable, {
-                                    path: _path + ".datetime",
-                                    expected: "string",
-                                    value: input.datetime,
-                                })) &&
-                            (("string" === typeof input.dateTime &&
-                                ($is_datetime(input.dateTime) ||
-                                    $guard(_exceptionable, {
-                                        path: _path + ".dateTime",
-                                        expected: "string (@format datetime)",
-                                        value: input.dateTime,
-                                    }))) ||
-                                $guard(_exceptionable, {
-                                    path: _path + ".dateTime",
-                                    expected: "string",
-                                    value: input.dateTime,
-                                })) &&
                             ("string" === typeof input.custom ||
                                 $guard(_exceptionable, {
                                     path: _path + ".custom",
@@ -224,8 +194,6 @@ export const test_misc_assertClone_TagFormat =
                     ipv6: input.ipv6 as any,
                     date: input.date as any,
                     date_time: input.date_time as any,
-                    datetime: input.datetime as any,
-                    dateTime: input.dateTime as any,
                     custom: input.custom as any,
                 });
                 return "object" === typeof input && null !== input

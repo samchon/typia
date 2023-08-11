@@ -35,12 +35,8 @@ export const test_assertEquals_TagFormat = _test_assertEquals<TagFormat>(
                 $is_date(input.date) &&
                 "string" === typeof input.date_time &&
                 $is_datetime(input.date_time) &&
-                "string" === typeof input.datetime &&
-                $is_datetime(input.datetime) &&
-                "string" === typeof input.dateTime &&
-                $is_datetime(input.dateTime) &&
                 "string" === typeof input.custom &&
-                (10 === Object.keys(input).length ||
+                (8 === Object.keys(input).length ||
                     Object.keys(input).every((key: any) => {
                         if (
                             [
@@ -51,8 +47,6 @@ export const test_assertEquals_TagFormat = _test_assertEquals<TagFormat>(
                                 "ipv6",
                                 "date",
                                 "date_time",
-                                "datetime",
-                                "dateTime",
                                 "custom",
                             ].some((prop: any) => key === prop)
                         )
@@ -169,37 +163,13 @@ export const test_assertEquals_TagFormat = _test_assertEquals<TagFormat>(
                             expected: "string",
                             value: input.date_time,
                         })) &&
-                    (("string" === typeof input.datetime &&
-                        ($is_datetime(input.datetime) ||
-                            $guard(_exceptionable, {
-                                path: _path + ".datetime",
-                                expected: "string (@format datetime)",
-                                value: input.datetime,
-                            }))) ||
-                        $guard(_exceptionable, {
-                            path: _path + ".datetime",
-                            expected: "string",
-                            value: input.datetime,
-                        })) &&
-                    (("string" === typeof input.dateTime &&
-                        ($is_datetime(input.dateTime) ||
-                            $guard(_exceptionable, {
-                                path: _path + ".dateTime",
-                                expected: "string (@format datetime)",
-                                value: input.dateTime,
-                            }))) ||
-                        $guard(_exceptionable, {
-                            path: _path + ".dateTime",
-                            expected: "string",
-                            value: input.dateTime,
-                        })) &&
                     ("string" === typeof input.custom ||
                         $guard(_exceptionable, {
                             path: _path + ".custom",
                             expected: "string",
                             value: input.custom,
                         })) &&
-                    (10 === Object.keys(input).length ||
+                    (8 === Object.keys(input).length ||
                         false === _exceptionable ||
                         Object.keys(input).every((key: any) => {
                             if (
@@ -211,8 +181,6 @@ export const test_assertEquals_TagFormat = _test_assertEquals<TagFormat>(
                                     "ipv6",
                                     "date",
                                     "date_time",
-                                    "datetime",
-                                    "dateTime",
                                     "custom",
                                 ].some((prop: any) => key === prop)
                             )

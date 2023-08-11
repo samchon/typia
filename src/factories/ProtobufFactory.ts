@@ -4,6 +4,8 @@ import { Metadata } from "../schemas/metadata/Metadata";
 import { MetadataObject } from "../schemas/metadata/MetadataObject";
 import { IProtocolMessage } from "../schemas/protobuf/IProtocolMessage";
 
+import { Escaper } from "../utils/Escaper";
+
 import { MetadataCollection } from "./MetadataCollection";
 import { MetadataFactory } from "./MetadataFactory";
 import { emplace_protocol_object } from "./internal/protocols/emplace_protocol_object";
@@ -98,6 +100,20 @@ export namespace ProtobufFactory {
             throw notSupportedError({ method })(
                 "object type with mixed static and dynamic key typed properties. Keep statics or dynamic only.",
             );
+        // STATIC PROPERTY, BUT INVALID KEY NAME
+        else if (
+            meta.objects.length &&
+            meta.objects.some((obj) =>
+                obj.properties.some(
+                    (p) =>
+                        p.key.isSoleLiteral() &&
+                        !Escaper.variable(p.key.getSoleLiteral()!),
+                ),
+            )
+        )
+            throw notSupportedError({ method })(
+                `object type with invalid static key name.`,
+            );
         // NATIVE TYPE, BUT NOT Uint8Array
         else if (meta.natives.length) {
             const banned = meta.natives
@@ -111,11 +127,24 @@ export namespace ProtobufFactory {
                 );
         }
         // MAP TYPE, BUT PROPERTY KEY TYPE IS NOT ATOMIC
+        else if (meta.maps.length && meta.maps.some((m) => !isAtomicKey(m.key)))
+            throw notSupportedError({ method })("");
+        // MAP TYPE, BUT VALUE TYPE IS ARRAY
         else if (
             meta.maps.length &&
-            meta.maps.some((m) => !is_atomic_key(m.key))
+            meta.maps.some((m) => !!m.value.arrays.length)
         )
-            throw notSupportedError({ method })("");
+            throw notSupportedError({ method })(
+                "map type with array value type",
+            );
+        else if (
+            meta.objects.length &&
+            isDynamicObject(meta.objects[0]!) &&
+            meta.objects[0]!.properties.some((p) => !!p.value.arrays.length)
+        )
+            throw notSupportedError({ method })(
+                "dynamic object with array value type",
+            );
         //----
         // UNION TYPES
         //----
@@ -156,29 +185,6 @@ export namespace ProtobufFactory {
         else if (meta.maps.length && meta.maps.some((m) => isUnion(m.value)))
             throw notSupportedError({ method })("union type in map");
     };
-
-    const is_atomic_key = (key: Metadata) => {
-        if (
-            key.required &&
-            key.nullable === false &&
-            key.functional === false &&
-            key.resolved === null &&
-            key.size() ===
-                key.atomics.length +
-                    key.constants
-                        .map((c) => c.values.length)
-                        .reduce((a, b) => a + b, 0) +
-                    key.templates.length
-        ) {
-            const set: Set<string> = new Set();
-            for (const atomic of key.atomics) set.add(atomic);
-            for (const constant of key.constants) set.add(constant.type);
-            if (key.templates.length) set.add("string");
-
-            return set.size === 1;
-        }
-        return false;
-    };
 }
 
 const prefix = (method: string) => `Error on typia.protobuf.${method}():`;
@@ -187,6 +193,29 @@ const notSupportedError = (p: { method: string }) => (title: string) =>
     new Error(
         `${prefix(p.method)}: protocol buffer does not support ${title}.`,
     );
+
+const isAtomicKey = (key: Metadata) => {
+    if (
+        key.required &&
+        key.nullable === false &&
+        key.functional === false &&
+        key.resolved === null &&
+        key.size() ===
+            key.atomics.length +
+                key.constants
+                    .map((c) => c.values.length)
+                    .reduce((a, b) => a + b, 0) +
+                key.templates.length
+    ) {
+        const set: Set<string> = new Set();
+        for (const atomic of key.atomics) set.add(atomic);
+        for (const constant of key.constants) set.add(constant.type);
+        if (key.templates.length) set.add("string");
+
+        return set.size === 1;
+    }
+    return false;
+};
 
 const isDynamicObject = (obj: MetadataObject): boolean => {
     return (

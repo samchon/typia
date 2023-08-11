@@ -1,6 +1,8 @@
 import typia from "typia";
 
-import { ArrayHierarchicalPointer } from "../structures/ArrayHierarchicalPointer";
+interface Dynamic {
+    something: Record<string, number>;
+}
 
-const message: string = typia.protobuf.message<ArrayHierarchicalPointer>();
+const message: string = typia.protobuf.message<Dynamic>();
 console.log(message);

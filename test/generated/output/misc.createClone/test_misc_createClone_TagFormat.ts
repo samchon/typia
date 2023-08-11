@@ -19,8 +19,6 @@ export const test_misc_clone_TagFormat = _test_misc_clone<TagFormat>(TagFormat)(
             ipv6: input.ipv6 as any,
             date: input.date as any,
             date_time: input.date_time as any,
-            datetime: input.datetime as any,
-            dateTime: input.dateTime as any,
             custom: input.custom as any,
         });
         return "object" === typeof input && null !== input

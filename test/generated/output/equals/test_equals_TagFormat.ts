@@ -30,12 +30,8 @@ export const test_equals_TagFormat = _test_equals<TagFormat>(TagFormat)(
                 $is_date(input.date) &&
                 "string" === typeof input.date_time &&
                 $is_datetime(input.date_time) &&
-                "string" === typeof input.datetime &&
-                $is_datetime(input.datetime) &&
-                "string" === typeof input.dateTime &&
-                $is_datetime(input.dateTime) &&
                 "string" === typeof input.custom &&
-                (10 === Object.keys(input).length ||
+                (8 === Object.keys(input).length ||
                     Object.keys(input).every((key: any) => {
                         if (
                             [
@@ -46,8 +42,6 @@ export const test_equals_TagFormat = _test_equals<TagFormat>(TagFormat)(
                                 "ipv6",
                                 "date",
                                 "date_time",
-                                "datetime",
-                                "dateTime",
                                 "custom",
                             ].some((prop: any) => key === prop)
                         )

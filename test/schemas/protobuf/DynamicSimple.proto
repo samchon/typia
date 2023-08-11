@@ -1,5 +1,5 @@
 syntax = "proto3";
 
 message DynamicSimple {
-    required map<string, double> value = 1;
+    map<string, double> value = 1;
 }
