@@ -22,4 +22,5 @@ export namespace ObjectLiteralProperty {
             return [`$input["or-something-crazy-do-you-want?"]`];
         },
     ];
+    export const BINARABLE = false;
 }

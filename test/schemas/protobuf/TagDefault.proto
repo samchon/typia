@@ -1,36 +1,36 @@
 syntax = "proto3";
 
 message TagDefault {
-    requiredbool boolean = 1;
-    requireddouble number = 2;
-    requiredstring string = 3;
-    requiredstring text = 4;
-    requiredstring template = 5;
+    required bool boolean = 1;
+    required double number = 2;
+    required string string = 3;
+    required string text = 4;
+    required string template = 5;
     oneof boolean_and_number_and_string {
-        string v1 = 6;
-        double v2 = 7;
-        bool v3 = 8;
+        string v6 = 6;
+        double v7 = 7;
+        bool v8 = 8;
     }
     oneof union_but_boolean {
-        string v1 = 9;
-        double v2 = 10;
-        bool v3 = 11;
+        string v9 = 9;
+        double v10 = 10;
+        bool v11 = 11;
     }
     oneof union_but_number {
-        string v1 = 12;
-        double v2 = 13;
-        bool v3 = 14;
+        string v12 = 12;
+        double v13 = 13;
+        bool v14 = 14;
     }
     oneof union_but_string {
-        string v1 = 15;
-        double v2 = 16;
-        bool v3 = 17;
+        string v15 = 15;
+        double v16 = 16;
+        bool v17 = 17;
     }
-    requireddouble vulnerable_range = 18;
-    requiredstring vulnerable_template = 19;
+    required double vulnerable_range = 18;
+    required string vulnerable_template = 19;
     oneof boolean_and_number_and_template {
-        string v1 = 20;
-        double v2 = 21;
-        bool v3 = 22;
+        string v20 = 20;
+        double v21 = 21;
+        bool v22 = 22;
     }
 }

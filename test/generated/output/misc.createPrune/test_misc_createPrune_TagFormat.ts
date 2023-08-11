@@ -21,8 +21,6 @@ export const test_misc_prune_TagFormat = _test_misc_prune<TagFormat>(TagFormat)(
                     "ipv6" === key ||
                     "date" === key ||
                     "date_time" === key ||
-                    "datetime" === key ||
-                    "dateTime" === key ||
                     "custom" === key
                 )
                     continue;

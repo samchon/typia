@@ -4,20 +4,20 @@ message ObjectUnionNonPredictable {
     repeated ObjectUnionNonPredictable.IWrapper_lt_ObjectUnionNonPredictable.IUnion_gt_ value = 1;
     message IWrapper_lt_ObjectUnionNonPredictable {
         message IUnion_gt_ {
-            requiredIPointer_lt_ObjectUnionNonPredictable.IUnion_gt_ value = 1;
+            required IPointer_lt_ObjectUnionNonPredictable.IUnion_gt_ value = 1;
         }
     }
 
     message IWrapper_lt_boolean_gt_ {
-        requiredIPointer_lt_boolean_gt_ value = 1;
+        required IPointer_lt_boolean_gt_ value = 1;
     }
 
     message IWrapper_lt_number_gt_ {
-        requiredIPointer_lt_number_gt_ value = 1;
+        required IPointer_lt_number_gt_ value = 1;
     }
 
     message IWrapper_lt_string_gt_ {
-        requiredIPointer_lt_string_gt_ value = 1;
+        required IPointer_lt_string_gt_ value = 1;
     }
 }
 
@@ -32,13 +32,13 @@ message IPointer_lt_ObjectUnionNonPredictable {
 }
 
 message IPointer_lt_boolean_gt_ {
-    requiredbool value = 1;
+    required bool value = 1;
 }
 
 message IPointer_lt_number_gt_ {
-    requireddouble value = 1;
+    required double value = 1;
 }
 
 message IPointer_lt_string_gt_ {
-    requiredstring value = 1;
+    required string value = 1;
 }

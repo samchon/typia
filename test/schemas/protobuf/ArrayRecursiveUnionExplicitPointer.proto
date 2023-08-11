@@ -13,51 +13,51 @@ message ArrayRecursiveUnionExplicitPointer {
     }
 
     message IDirectory {
-        requireddouble id = 1;
-        requiredstring name = 2;
-        requiredstring path = 3;
+        required double id = 1;
+        required string name = 2;
+        required string path = 3;
         repeated ArrayRecursiveUnionExplicitPointer.IBucket children = 4;
-        requiredstring type = 5;
+        required string type = 5;
     }
 
     message IImageFile {
-        requireddouble id = 1;
-        requiredstring name = 2;
-        requiredstring path = 3;
-        requireddouble width = 4;
-        requireddouble height = 5;
-        requiredstring url = 6;
-        requireddouble size = 7;
-        requiredstring type = 8;
-        requiredstring extension = 9;
+        required double id = 1;
+        required string name = 2;
+        required string path = 3;
+        required double width = 4;
+        required double height = 5;
+        required string url = 6;
+        required double size = 7;
+        required string type = 8;
+        required string extension = 9;
     }
 
     message ITextFile {
-        requireddouble id = 1;
-        requiredstring name = 2;
-        requiredstring path = 3;
-        requireddouble size = 4;
-        requiredstring content = 5;
-        requiredstring type = 6;
-        requiredstring extension = 7;
+        required double id = 1;
+        required string name = 2;
+        required string path = 3;
+        required double size = 4;
+        required string content = 5;
+        required string type = 6;
+        required string extension = 7;
     }
 
     message IZipFile {
-        requireddouble id = 1;
-        requiredstring name = 2;
-        requiredstring path = 3;
-        requireddouble size = 4;
-        requireddouble count = 5;
-        requiredstring type = 6;
-        requiredstring extension = 7;
+        required double id = 1;
+        required string name = 2;
+        required string path = 3;
+        required double size = 4;
+        required double count = 5;
+        required string type = 6;
+        required string extension = 7;
     }
 
     message IShortcut {
-        requireddouble id = 1;
-        requiredstring name = 2;
-        requiredstring path = 3;
-        requiredArrayRecursiveUnionExplicitPointer.IBucket target = 4;
-        requiredstring type = 5;
-        requiredstring extension = 6;
+        required double id = 1;
+        required string name = 2;
+        required string path = 3;
+        required ArrayRecursiveUnionExplicitPointer.IBucket target = 4;
+        required string type = 5;
+        required string extension = 6;
     }
 }

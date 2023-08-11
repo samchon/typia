@@ -1,6 +1,6 @@
 {
   "name": "typia",
-  "version": "5.0.0-dev.20230810",
+  "version": "5.0.0-dev.20230811",
   "description": "Superfast runtime validators with only one line",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
@@ -113,6 +113,7 @@
     "jsdom": "^21.1.1",
     "physical-cpu-count": "^2.0.0",
     "prettier": "^2.6.2",
+    "protobufjs": "^7.2.4",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "sloc": "^0.2.1",

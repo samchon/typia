@@ -6,44 +6,44 @@ message ObjectGenericUnion {
         ObjectGenericUnion.ISaleQuestion v2 = 2;
     }
     message ISaleQuestion {
-        requiredstring writer = 1;
+        required string writer = 1;
         optional ObjectGenericUnion.ISaleAnswer answer = 2;
-        requiredstring id = 3;
-        requireddouble hit = 4;
+        required string id = 3;
+        required double hit = 4;
         repeated ObjectGenericUnion.ISaleArticle.IContent contents = 5;
-        requiredstring created_at = 6;
+        required string created_at = 6;
     }
 
     message ISaleAnswer {
-        requiredstring id = 1;
-        requireddouble hit = 2;
+        required string id = 1;
+        required double hit = 2;
         repeated ObjectGenericUnion.ISaleArticle.IContent contents = 3;
-        requiredstring created_at = 4;
+        required string created_at = 4;
     }
 
     message ISaleArticle {
         message IContent {
-            requiredstring id = 1;
-            requiredstring created_at = 2;
-            requiredstring title = 3;
-            requiredstring body = 4;
+            required string id = 1;
+            required string created_at = 2;
+            required string title = 3;
+            required string body = 4;
             repeated Omit_lt_ObjectGenericUnion.IAttachmentFile_comma__space__doublequote_id_doublequote__gt_ files = 5;
         }
     }
 
     message ISaleReview {
-        requiredstring writer = 1;
+        required string writer = 1;
         optional ObjectGenericUnion.ISaleAnswer answer = 2;
-        requiredstring id = 3;
-        requireddouble hit = 4;
+        required string id = 3;
+        required double hit = 4;
         repeated ObjectGenericUnion.ISaleReview.IContent contents = 5;
-        requiredstring created_at = 6;
+        required string created_at = 6;
         message IContent {
-            requireddouble score = 1;
-            requiredstring id = 2;
-            requiredstring created_at = 3;
-            requiredstring title = 4;
-            requiredstring body = 5;
+            required double score = 1;
+            required string id = 2;
+            required string created_at = 3;
+            required string title = 4;
+            required string body = 5;
             repeated Omit_lt_ObjectGenericUnion.IAttachmentFile_comma__space__doublequote_id_doublequote__gt_ files = 6;
         }
     }
@@ -51,8 +51,8 @@ message ObjectGenericUnion {
 
 message Omit_lt_ObjectGenericUnion {
     message IAttachmentFile_comma__space__doublequote_id_doublequote__gt_ {
-        requiredstring url = 1;
-        requiredstring name = 2;
+        required string url = 1;
+        required string name = 2;
         optional string extension = 3;
     }
 }

@@ -4,5 +4,5 @@ import { ClassPropertyAssignment } from "../../../structures/ClassPropertyAssign
 
 export const test_protobuf_message_ClassPropertyAssignment =
     _test_protobuf_message("ClassPropertyAssignment")(
-        'syntax = "proto3";\n\nmessage ClassPropertyAssignment {\n    requireddouble id = 1;\n    requiredstring name = 2;\n    requiredstring note = 3;\n    requiredbool editable = 4;\n    requiredbool incremental = 5;\n}',
+        'syntax = "proto3";\n\nmessage ClassPropertyAssignment {\n    required double id = 1;\n    required string name = 2;\n    required string note = 3;\n    required bool editable = 4;\n    required bool incremental = 5;\n}',
     );

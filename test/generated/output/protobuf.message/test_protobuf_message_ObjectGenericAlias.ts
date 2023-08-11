@@ -5,5 +5,5 @@ import { ObjectGenericAlias } from "../../../structures/ObjectGenericAlias";
 export const test_protobuf_message_ObjectGenericAlias = _test_protobuf_message(
     "ObjectGenericAlias",
 )(
-    'syntax = "proto3";\n\nmessage ObjectGenericAlias {\n    message Alias {\n        requiredstring value = 1;\n    }\n}',
+    'syntax = "proto3";\n\nmessage ObjectGenericAlias {\n    message Alias {\n        required string value = 1;\n    }\n}',
 );

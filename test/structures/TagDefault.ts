@@ -65,3 +65,21 @@ export interface TagDefault {
      */
     boolean_and_number_and_template: boolean | number | `prefix_${string}`;
 }
+export namespace TagDefault {
+    export function generate(): TagDefault {
+        return {
+            boolean: false,
+            number: 1,
+            string: "two",
+            text: "Very long text, can you understand it?",
+            template: "prefix_A",
+            boolean_and_number_and_string: false,
+            union_but_boolean: false,
+            union_but_number: 1,
+            union_but_string: "two",
+            vulnerable_range: 4,
+            vulnerable_template: "prefix_B",
+            boolean_and_number_and_template: false,
+        };
+    }
+}

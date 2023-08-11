@@ -22,4 +22,5 @@ export namespace DynamicArray {
         },
     ];
     export const ADDABLE = false;
+    export const BINARABLE = false;
 }

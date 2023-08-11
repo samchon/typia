@@ -23,4 +23,13 @@ export interface ObjectJsonTag {
      */
     complicate_title: string;
 }
-export namespace ObjectJsonTag {}
+export namespace ObjectJsonTag {
+    export function generate(): ObjectJsonTag {
+        return {
+            vulnerable: "vulnerable",
+            description: "description",
+            title: "title",
+            complicate_title: "complicate_title",
+        };
+    }
+}

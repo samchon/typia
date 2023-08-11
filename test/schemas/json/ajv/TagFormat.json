@@ -178,54 +178,6 @@
             "type": "string",
             "format": "date-time"
           },
-          "datetime": {
-            "description": "Date and time with only lowercase characters.",
-            "x-typia-metaTags": [
-              {
-                "kind": "format",
-                "value": "datetime"
-              }
-            ],
-            "x-typia-jsDocTags": [
-              {
-                "name": "format",
-                "text": [
-                  {
-                    "text": "datetime",
-                    "kind": "text"
-                  }
-                ]
-              }
-            ],
-            "x-typia-required": true,
-            "x-typia-optional": false,
-            "type": "string",
-            "format": "date-time"
-          },
-          "dateTime": {
-            "description": "Date and time with camelCase.",
-            "x-typia-metaTags": [
-              {
-                "kind": "format",
-                "value": "datetime"
-              }
-            ],
-            "x-typia-jsDocTags": [
-              {
-                "name": "format",
-                "text": [
-                  {
-                    "text": "dateTime",
-                    "kind": "text"
-                  }
-                ]
-              }
-            ],
-            "x-typia-required": true,
-            "x-typia-optional": false,
-            "type": "string",
-            "format": "date-time"
-          },
           "custom": {
             "description": "A custom format string.",
             "x-typia-jsDocTags": [
@@ -253,8 +205,6 @@
           "ipv6",
           "date",
           "date_time",
-          "datetime",
-          "dateTime",
           "custom"
         ],
         "x-typia-jsDocTags": []

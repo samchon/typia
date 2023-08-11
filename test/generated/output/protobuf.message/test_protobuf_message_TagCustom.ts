@@ -5,5 +5,5 @@ import { TagCustom } from "../../../structures/TagCustom";
 export const test_protobuf_message_TagCustom = _test_protobuf_message(
     "TagCustom",
 )(
-    'syntax = "proto3";\n\nmessage TagCustom {\n    requiredstring id = 1;\n    requiredstring dollar = 2;\n    requiredstring postfix = 3;\n    requireddouble log = 4;\n}',
+    'syntax = "proto3";\n\nmessage TagCustom {\n    required string id = 1;\n    required string dollar = 2;\n    required string postfix = 3;\n    required double log = 4;\n}',
 );

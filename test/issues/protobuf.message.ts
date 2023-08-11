@@ -1,6 +1,8 @@
 import typia from "typia";
 
-import { ObjectHierarchical } from "../structures/ObjectHierarchical";
+interface Dynamic {
+    something: Record<string, number>;
+}
 
-const message: string = typia.protobuf.message<ObjectHierarchical>();
+const message: string = typia.protobuf.message<Dynamic>();
 console.log(message);

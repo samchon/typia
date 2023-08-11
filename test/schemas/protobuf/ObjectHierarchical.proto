@@ -2,51 +2,51 @@ syntax = "proto3";
 
 message ObjectHierarchical {
     message ICustomer {
-        requireddouble id = 1;
-        requiredObjectHierarchical.IChannel channel = 2;
+        required double id = 1;
+        required ObjectHierarchical.IChannel channel = 2;
         optional ObjectHierarchical.IMember member = 3;
         optional ObjectHierarchical.IAccount account = 4;
-        requiredstring href = 5;
-        requiredstring referrer = 6;
-        requiredstring ip = 7;
-        requiredObjectHierarchical.ITimestamp created_at = 8;
+        required string href = 5;
+        required string referrer = 6;
+        required string ip = 7;
+        required ObjectHierarchical.ITimestamp created_at = 8;
     }
 
     message IChannel {
-        requireddouble id = 1;
-        requiredstring code = 2;
-        requiredstring name = 3;
-        requireddouble sequence = 4;
-        requiredbool exclusive = 5;
-        requireddouble priority = 6;
-        requiredObjectHierarchical.ITimestamp created_at = 7;
+        required double id = 1;
+        required string code = 2;
+        required string name = 3;
+        required double sequence = 4;
+        required bool exclusive = 5;
+        required double priority = 6;
+        required ObjectHierarchical.ITimestamp created_at = 7;
     }
 
     message ITimestamp {
-        requireddouble time = 1;
-        requireddouble zone = 2;
+        required double time = 1;
+        required double zone = 2;
     }
 
     message IMember {
-        requireddouble id = 1;
-        requiredObjectHierarchical.IAccount account = 2;
+        required double id = 1;
+        required ObjectHierarchical.IAccount account = 2;
         optional ObjectHierarchical.IEnterprise enterprise = 3;
         repeated string emails = 4;
-        requiredObjectHierarchical.ITimestamp created_at = 5;
-        requiredbool authorized = 6;
+        required ObjectHierarchical.ITimestamp created_at = 5;
+        required bool authorized = 6;
     }
 
     message IAccount {
-        requireddouble id = 1;
-        requiredstring code = 2;
-        requiredObjectHierarchical.ITimestamp created_at = 3;
+        required double id = 1;
+        required string code = 2;
+        required ObjectHierarchical.ITimestamp created_at = 3;
     }
 
     message IEnterprise {
-        requireddouble id = 1;
-        requiredObjectHierarchical.IAccount account = 2;
-        requiredstring name = 3;
-        requireddouble grade = 4;
-        requiredObjectHierarchical.ITimestamp created_at = 5;
+        required double id = 1;
+        required ObjectHierarchical.IAccount account = 2;
+        required string name = 3;
+        required double grade = 4;
+        required ObjectHierarchical.ITimestamp created_at = 5;
     }
 }
