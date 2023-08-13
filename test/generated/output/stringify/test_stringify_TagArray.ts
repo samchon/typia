@@ -29,6 +29,8 @@ export const test_stringify_TagArray = _test_stringify(
                     )
                     .join(",")}]`},"both":${`[${input.both
                     .map((elem: any) => $string(elem))
+                    .join(",")}]`},"equal":${`[${input.equal
+                    .map((elem: any) => $number(elem))
                     .join(",")}]`}}`;
             return `[${input.map((elem: any) => $so0(elem)).join(",")}]`;
         })(input),

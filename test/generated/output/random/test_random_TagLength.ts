@@ -54,6 +54,20 @@ export const test_random_TagLength = _test_random(
                     (generator?.string ?? $generator.string)(
                         (generator?.integer ?? $generator.integer)(3, 7),
                     ),
+                equal:
+                    (generator?.customs ?? $generator.customs)?.string?.([
+                        {
+                            name: "minLength",
+                            value: "10",
+                        },
+                        {
+                            name: "maxLength",
+                            value: "19",
+                        },
+                    ]) ??
+                    (generator?.string ?? $generator.string)(
+                        (generator?.integer ?? $generator.integer)(10, 19),
+                    ),
             });
             return (generator?.array ?? $generator.array)(() => $ro0());
         })(),
@@ -68,7 +82,10 @@ export const test_random_TagLength = _test_random(
                 7 >= input.maximum.length &&
                 "string" === typeof input.minimum_and_maximum &&
                 3 <= input.minimum_and_maximum.length &&
-                7 >= input.minimum_and_maximum.length;
+                7 >= input.minimum_and_maximum.length &&
+                "string" === typeof input.equal &&
+                10 <= input.equal.length &&
+                19 >= input.equal.length;
             return (
                 Array.isArray(input) &&
                 input.every(
@@ -142,6 +159,24 @@ export const test_random_TagLength = _test_random(
                             path: _path + ".minimum_and_maximum",
                             expected: "string",
                             value: input.minimum_and_maximum,
+                        })) &&
+                    (("string" === typeof input.equal &&
+                        (10 <= input.equal.length ||
+                            $guard(_exceptionable, {
+                                path: _path + ".equal",
+                                expected: "string (@minLength 10)",
+                                value: input.equal,
+                            })) &&
+                        (19 >= input.equal.length ||
+                            $guard(_exceptionable, {
+                                path: _path + ".equal",
+                                expected: "string (@maxLength 19)",
+                                value: input.equal,
+                            }))) ||
+                        $guard(_exceptionable, {
+                            path: _path + ".equal",
+                            expected: "string",
+                            value: input.equal,
                         }));
                 return (
                     ((Array.isArray(input) ||

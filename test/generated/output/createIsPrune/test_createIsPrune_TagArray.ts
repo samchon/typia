@@ -36,6 +36,13 @@ export const test_createIsPrune_TagArray = _test_isPrune(
                 7 >= input.both.length &&
                 input.both.every(
                     (elem: any) => "string" === typeof elem && $is_uuid(elem),
+                ) &&
+                Array.isArray(input.equal) &&
+                10 <= input.equal.length &&
+                10 >= input.equal.length &&
+                input.equal.every(
+                    (elem: any) =>
+                        "number" === typeof elem && 10 <= elem && 10 >= elem,
                 );
             return (
                 Array.isArray(input) &&
@@ -57,7 +64,8 @@ export const test_createIsPrune_TagArray = _test_isPrune(
                         "items" === key ||
                         "minItems" === key ||
                         "maxItems" === key ||
-                        "both" === key
+                        "both" === key ||
+                        "equal" === key
                     )
                         continue;
                     delete input[key];

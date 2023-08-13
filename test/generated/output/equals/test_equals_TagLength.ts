@@ -23,7 +23,10 @@ export const test_equals_TagLength = _test_equals(
                 "string" === typeof input.minimum_and_maximum &&
                 3 <= input.minimum_and_maximum.length &&
                 7 >= input.minimum_and_maximum.length &&
-                (4 === Object.keys(input).length ||
+                "string" === typeof input.equal &&
+                10 <= input.equal.length &&
+                19 >= input.equal.length &&
+                (5 === Object.keys(input).length ||
                     Object.keys(input).every((key: any) => {
                         if (
                             [
@@ -31,6 +34,7 @@ export const test_equals_TagLength = _test_equals(
                                 "minimum",
                                 "maximum",
                                 "minimum_and_maximum",
+                                "equal",
                             ].some((prop: any) => key === prop)
                         )
                             return true;

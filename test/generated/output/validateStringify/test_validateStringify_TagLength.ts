@@ -21,7 +21,10 @@ export const test_validateStringify_TagLength = _test_validateStringify(
                         7 >= input.maximum.length &&
                         "string" === typeof input.minimum_and_maximum &&
                         3 <= input.minimum_and_maximum.length &&
-                        7 >= input.minimum_and_maximum.length;
+                        7 >= input.minimum_and_maximum.length &&
+                        "string" === typeof input.equal &&
+                        10 <= input.equal.length &&
+                        19 >= input.equal.length;
                     return (
                         Array.isArray(input) &&
                         input.every(
@@ -104,6 +107,24 @@ export const test_validateStringify_TagLength = _test_validateStringify(
                                         expected: "string",
                                         value: input.minimum_and_maximum,
                                     }),
+                                ("string" === typeof input.equal &&
+                                    (10 <= input.equal.length ||
+                                        $report(_exceptionable, {
+                                            path: _path + ".equal",
+                                            expected: "string (@minLength 10)",
+                                            value: input.equal,
+                                        })) &&
+                                    (19 >= input.equal.length ||
+                                        $report(_exceptionable, {
+                                            path: _path + ".equal",
+                                            expected: "string (@maxLength 19)",
+                                            value: input.equal,
+                                        }))) ||
+                                    $report(_exceptionable, {
+                                        path: _path + ".equal",
+                                        expected: "string",
+                                        value: input.equal,
+                                    }),
                             ].every((flag: boolean) => flag);
                         return (
                             ((Array.isArray(input) ||
@@ -167,7 +188,7 @@ export const test_validateStringify_TagLength = _test_validateStringify(
                                 (elem as any).maximum,
                             )},"minimum_and_maximum":${$string(
                                 (elem as any).minimum_and_maximum,
-                            )}}`,
+                            )},"equal":${$string((elem as any).equal)}}`,
                     )
                     .join(",")}]`;
             };

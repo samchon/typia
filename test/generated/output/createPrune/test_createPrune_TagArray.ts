@@ -17,7 +17,8 @@ export const test_createPrune_TagArray = _test_prune(
                     "items" === key ||
                     "minItems" === key ||
                     "maxItems" === key ||
-                    "both" === key
+                    "both" === key ||
+                    "equal" === key
                 )
                     continue;
                 delete input[key];

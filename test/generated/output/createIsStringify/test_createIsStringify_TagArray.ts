@@ -36,6 +36,13 @@ export const test_createIsStringify_TagArray = _test_isStringify(
                 7 >= input.both.length &&
                 input.both.every(
                     (elem: any) => "string" === typeof elem && $is_uuid(elem),
+                ) &&
+                Array.isArray(input.equal) &&
+                10 <= input.equal.length &&
+                10 >= input.equal.length &&
+                input.equal.every(
+                    (elem: any) =>
+                        "number" === typeof elem && 10 <= elem && 10 >= elem,
                 );
             return (
                 Array.isArray(input) &&
@@ -68,6 +75,8 @@ export const test_createIsStringify_TagArray = _test_isStringify(
                     )
                     .join(",")}]`},"both":${`[${input.both
                     .map((elem: any) => $string(elem))
+                    .join(",")}]`},"equal":${`[${input.equal
+                    .map((elem: any) => $number(elem))
                     .join(",")}]`}}`;
             return `[${input.map((elem: any) => $so0(elem)).join(",")}]`;
         };

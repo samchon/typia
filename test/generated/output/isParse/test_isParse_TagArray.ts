@@ -39,6 +39,15 @@ export const test_isParse_TagArray = _test_isParse(
                     input.both.every(
                         (elem: any) =>
                             "string" === typeof elem && $is_uuid(elem),
+                    ) &&
+                    Array.isArray(input.equal) &&
+                    10 <= input.equal.length &&
+                    10 >= input.equal.length &&
+                    input.equal.every(
+                        (elem: any) =>
+                            "number" === typeof elem &&
+                            10 <= elem &&
+                            10 >= elem,
                     );
                 return (
                     Array.isArray(input) &&

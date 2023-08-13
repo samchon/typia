@@ -45,12 +45,23 @@ export const test_equals_TagArray = _test_equals(
                     (elem: any, _index5: number) =>
                         "string" === typeof elem && $is_uuid(elem),
                 ) &&
-                (4 === Object.keys(input).length ||
+                Array.isArray(input.equal) &&
+                10 <= input.equal.length &&
+                10 >= input.equal.length &&
+                input.equal.every(
+                    (elem: any, _index6: number) =>
+                        "number" === typeof elem && 10 <= elem && 10 >= elem,
+                ) &&
+                (5 === Object.keys(input).length ||
                     Object.keys(input).every((key: any) => {
                         if (
-                            ["items", "minItems", "maxItems", "both"].some(
-                                (prop: any) => key === prop,
-                            )
+                            [
+                                "items",
+                                "minItems",
+                                "maxItems",
+                                "both",
+                                "equal",
+                            ].some((prop: any) => key === prop)
                         )
                             return true;
                         const value = input[key];

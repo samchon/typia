@@ -32,7 +32,10 @@ export const test_createAssertParse_TagRange = _test_assertParse(
                     7 >= input.greater_less_equal &&
                     "number" === typeof input.greater_equal_less_equal &&
                     3 <= input.greater_equal_less_equal &&
-                    7 >= input.greater_equal_less_equal;
+                    7 >= input.greater_equal_less_equal &&
+                    "number" === typeof input.equal &&
+                    10 <= input.equal &&
+                    10 >= input.equal;
                 return (
                     Array.isArray(input) &&
                     input.every(
@@ -178,6 +181,24 @@ export const test_createAssertParse_TagRange = _test_assertParse(
                                 path: _path + ".greater_equal_less_equal",
                                 expected: "number",
                                 value: input.greater_equal_less_equal,
+                            })) &&
+                        (("number" === typeof input.equal &&
+                            (10 <= input.equal ||
+                                $guard(_exceptionable, {
+                                    path: _path + ".equal",
+                                    expected: "number (@minimum 10)",
+                                    value: input.equal,
+                                })) &&
+                            (10 >= input.equal ||
+                                $guard(_exceptionable, {
+                                    path: _path + ".equal",
+                                    expected: "number (@maximum 10)",
+                                    value: input.equal,
+                                }))) ||
+                            $guard(_exceptionable, {
+                                path: _path + ".equal",
+                                expected: "number",
+                                value: input.equal,
                             }));
                     return (
                         ((Array.isArray(input) ||

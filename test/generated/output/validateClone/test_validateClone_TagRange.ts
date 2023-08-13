@@ -38,7 +38,10 @@ export const test_validateClone_TagRange = _test_validateClone(
                         7 >= input.greater_less_equal &&
                         "number" === typeof input.greater_equal_less_equal &&
                         3 <= input.greater_equal_less_equal &&
-                        7 >= input.greater_equal_less_equal;
+                        7 >= input.greater_equal_less_equal &&
+                        "number" === typeof input.equal &&
+                        10 <= input.equal &&
+                        10 >= input.equal;
                     return (
                         Array.isArray(input) &&
                         input.every(
@@ -198,6 +201,24 @@ export const test_validateClone_TagRange = _test_validateClone(
                                         expected: "number",
                                         value: input.greater_equal_less_equal,
                                     }),
+                                ("number" === typeof input.equal &&
+                                    (10 <= input.equal ||
+                                        $report(_exceptionable, {
+                                            path: _path + ".equal",
+                                            expected: "number (@minimum 10)",
+                                            value: input.equal,
+                                        })) &&
+                                    (10 >= input.equal ||
+                                        $report(_exceptionable, {
+                                            path: _path + ".equal",
+                                            expected: "number (@maximum 10)",
+                                            value: input.equal,
+                                        }))) ||
+                                    $report(_exceptionable, {
+                                        path: _path + ".equal",
+                                        expected: "number",
+                                        value: input.equal,
+                                    }),
                             ].every((flag: boolean) => flag);
                         return (
                             ((Array.isArray(input) ||
@@ -267,6 +288,7 @@ export const test_validateClone_TagRange = _test_validateClone(
                     greater_less_equal: input.greater_less_equal as any,
                     greater_equal_less_equal:
                         input.greater_equal_less_equal as any,
+                    equal: input.equal as any,
                 });
                 return Array.isArray(input) ? $cp0(input) : (input as any);
             };

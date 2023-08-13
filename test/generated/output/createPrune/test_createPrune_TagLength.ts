@@ -16,7 +16,8 @@ export const test_createPrune_TagLength = _test_prune(
                     "fixed" === key ||
                     "minimum" === key ||
                     "maximum" === key ||
-                    "minimum_and_maximum" === key
+                    "minimum_and_maximum" === key ||
+                    "equal" === key
                 )
                     continue;
                 delete input[key];

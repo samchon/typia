@@ -119,6 +119,43 @@
             "type": "string",
             "minLength": 3,
             "maxLength": 7
+          },
+          "equal": {
+            "x-typia-metaTags": [
+              {
+                "kind": "minLength",
+                "value": 10
+              },
+              {
+                "kind": "maxLength",
+                "value": 19
+              }
+            ],
+            "x-typia-jsDocTags": [
+              {
+                "name": "minLength",
+                "text": [
+                  {
+                    "text": "10",
+                    "kind": "text"
+                  }
+                ]
+              },
+              {
+                "name": "maxLength",
+                "text": [
+                  {
+                    "text": "19",
+                    "kind": "text"
+                  }
+                ]
+              }
+            ],
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string",
+            "minLength": 10,
+            "maxLength": 19
           }
         },
         "nullable": false,
@@ -126,7 +163,8 @@
           "fixed",
           "minimum",
           "maximum",
-          "minimum_and_maximum"
+          "minimum_and_maximum",
+          "equal"
         ],
         "x-typia-jsDocTags": []
       }

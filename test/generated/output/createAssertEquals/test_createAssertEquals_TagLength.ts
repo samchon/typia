@@ -23,7 +23,10 @@ export const test_createAssertEquals_TagLength = _test_assertEquals(
                 "string" === typeof input.minimum_and_maximum &&
                 3 <= input.minimum_and_maximum.length &&
                 7 >= input.minimum_and_maximum.length &&
-                (4 === Object.keys(input).length ||
+                "string" === typeof input.equal &&
+                10 <= input.equal.length &&
+                19 >= input.equal.length &&
+                (5 === Object.keys(input).length ||
                     Object.keys(input).every((key: any) => {
                         if (
                             [
@@ -31,6 +34,7 @@ export const test_createAssertEquals_TagLength = _test_assertEquals(
                                 "minimum",
                                 "maximum",
                                 "minimum_and_maximum",
+                                "equal",
                             ].some((prop: any) => key === prop)
                         )
                             return true;
@@ -115,7 +119,25 @@ export const test_createAssertEquals_TagLength = _test_assertEquals(
                             expected: "string",
                             value: input.minimum_and_maximum,
                         })) &&
-                    (4 === Object.keys(input).length ||
+                    (("string" === typeof input.equal &&
+                        (10 <= input.equal.length ||
+                            $guard(_exceptionable, {
+                                path: _path + ".equal",
+                                expected: "string (@minLength 10)",
+                                value: input.equal,
+                            })) &&
+                        (19 >= input.equal.length ||
+                            $guard(_exceptionable, {
+                                path: _path + ".equal",
+                                expected: "string (@maxLength 19)",
+                                value: input.equal,
+                            }))) ||
+                        $guard(_exceptionable, {
+                            path: _path + ".equal",
+                            expected: "string",
+                            value: input.equal,
+                        })) &&
+                    (5 === Object.keys(input).length ||
                         false === _exceptionable ||
                         Object.keys(input).every((key: any) => {
                             if (
@@ -124,6 +146,7 @@ export const test_createAssertEquals_TagLength = _test_assertEquals(
                                     "minimum",
                                     "maximum",
                                     "minimum_and_maximum",
+                                    "equal",
                                 ].some((prop: any) => key === prop)
                             )
                                 return true;

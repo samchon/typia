@@ -33,7 +33,10 @@ export const test_createValidateStringify_TagRange = _test_validateStringify(
                     7 >= input.greater_less_equal &&
                     "number" === typeof input.greater_equal_less_equal &&
                     3 <= input.greater_equal_less_equal &&
-                    7 >= input.greater_equal_less_equal;
+                    7 >= input.greater_equal_less_equal &&
+                    "number" === typeof input.equal &&
+                    10 <= input.equal &&
+                    10 >= input.equal;
                 return (
                     Array.isArray(input) &&
                     input.every(
@@ -192,6 +195,24 @@ export const test_createValidateStringify_TagRange = _test_validateStringify(
                                     expected: "number",
                                     value: input.greater_equal_less_equal,
                                 }),
+                            ("number" === typeof input.equal &&
+                                (10 <= input.equal ||
+                                    $report(_exceptionable, {
+                                        path: _path + ".equal",
+                                        expected: "number (@minimum 10)",
+                                        value: input.equal,
+                                    })) &&
+                                (10 >= input.equal ||
+                                    $report(_exceptionable, {
+                                        path: _path + ".equal",
+                                        expected: "number (@maximum 10)",
+                                        value: input.equal,
+                                    }))) ||
+                                $report(_exceptionable, {
+                                    path: _path + ".equal",
+                                    expected: "number",
+                                    value: input.equal,
+                                }),
                         ].every((flag: boolean) => flag);
                     return (
                         ((Array.isArray(input) ||
@@ -259,7 +280,7 @@ export const test_createValidateStringify_TagRange = _test_validateStringify(
                             (elem as any).greater_less_equal,
                         )},"greater_equal_less_equal":${$number(
                             (elem as any).greater_equal_less_equal,
-                        )}}`,
+                        )},"equal":${$number((elem as any).equal)}}`,
                 )
                 .join(",")}]`;
         };

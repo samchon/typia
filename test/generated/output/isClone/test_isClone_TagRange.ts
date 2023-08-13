@@ -32,7 +32,10 @@ export const test_isClone_TagRange = _test_isClone(
                     7 >= input.greater_less_equal &&
                     "number" === typeof input.greater_equal_less_equal &&
                     3 <= input.greater_equal_less_equal &&
-                    7 >= input.greater_equal_less_equal;
+                    7 >= input.greater_equal_less_equal &&
+                    "number" === typeof input.equal &&
+                    10 <= input.equal &&
+                    10 >= input.equal;
                 return (
                     Array.isArray(input) &&
                     input.every(
@@ -62,6 +65,7 @@ export const test_isClone_TagRange = _test_isClone(
                     greater_less_equal: input.greater_less_equal as any,
                     greater_equal_less_equal:
                         input.greater_equal_less_equal as any,
+                    equal: input.equal as any,
                 });
                 return Array.isArray(input) ? $cp0(input) : (input as any);
             };

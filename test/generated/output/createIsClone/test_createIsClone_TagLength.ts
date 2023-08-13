@@ -16,7 +16,10 @@ export const test_createIsClone_TagLength = _test_isClone(
                 7 >= input.maximum.length &&
                 "string" === typeof input.minimum_and_maximum &&
                 3 <= input.minimum_and_maximum.length &&
-                7 >= input.minimum_and_maximum.length;
+                7 >= input.minimum_and_maximum.length &&
+                "string" === typeof input.equal &&
+                10 <= input.equal.length &&
+                19 >= input.equal.length;
             return (
                 Array.isArray(input) &&
                 input.every(
@@ -37,6 +40,7 @@ export const test_createIsClone_TagLength = _test_isClone(
                 minimum: input.minimum as any,
                 maximum: input.maximum as any,
                 minimum_and_maximum: input.minimum_and_maximum as any,
+                equal: input.equal as any,
             });
             return Array.isArray(input) ? $cp0(input) : (input as any);
         };

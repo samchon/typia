@@ -31,7 +31,10 @@ export const test_createIsStringify_TagRange = _test_isStringify(
                 7 >= input.greater_less_equal &&
                 "number" === typeof input.greater_equal_less_equal &&
                 3 <= input.greater_equal_less_equal &&
-                7 >= input.greater_equal_less_equal;
+                7 >= input.greater_equal_less_equal &&
+                "number" === typeof input.equal &&
+                10 <= input.equal &&
+                10 >= input.equal;
             return (
                 Array.isArray(input) &&
                 input.every(
@@ -61,7 +64,7 @@ export const test_createIsStringify_TagRange = _test_isStringify(
                             (elem as any).greater_less_equal,
                         )},"greater_equal_less_equal":${$number(
                             (elem as any).greater_equal_less_equal,
-                        )}}`,
+                        )},"equal":${$number((elem as any).equal)}}`,
                 )
                 .join(",")}]`;
         };

@@ -29,6 +29,9 @@ export const test_createClone_TagArray = _test_clone(
             both: Array.isArray(input.both)
                 ? $cp1(input.both)
                 : (input.both as any),
+            equal: Array.isArray(input.equal)
+                ? $cp2(input.equal)
+                : (input.equal as any),
         });
         return Array.isArray(input) ? $cp0(input) : (input as any);
     },
