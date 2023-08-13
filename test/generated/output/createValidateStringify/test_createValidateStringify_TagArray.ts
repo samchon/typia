@@ -40,6 +40,15 @@ export const test_createValidateStringify_TagArray = _test_validateStringify(
                     input.both.every(
                         (elem: any) =>
                             "string" === typeof elem && $is_uuid(elem),
+                    ) &&
+                    Array.isArray(input.equal) &&
+                    10 <= input.equal.length &&
+                    10 >= input.equal.length &&
+                    input.equal.every(
+                        (elem: any) =>
+                            "number" === typeof elem &&
+                            10 <= elem &&
+                            10 >= elem,
                     );
                 return (
                     Array.isArray(input) &&
@@ -260,6 +269,66 @@ export const test_createValidateStringify_TagArray = _test_validateStringify(
                                     expected: "Array<string>",
                                     value: input.both,
                                 }),
+                            (((Array.isArray(input.equal) &&
+                                (10 <= input.equal.length ||
+                                    $report(_exceptionable, {
+                                        path: _path + ".equal",
+                                        expected: "Array.length (@minItems 10)",
+                                        value: input.equal,
+                                    })) &&
+                                (10 >= input.equal.length ||
+                                    $report(_exceptionable, {
+                                        path: _path + ".equal",
+                                        expected: "Array.length (@maxItems 10)",
+                                        value: input.equal,
+                                    }))) ||
+                                $report(_exceptionable, {
+                                    path: _path + ".equal",
+                                    expected: "Array<number>",
+                                    value: input.equal,
+                                })) &&
+                                input.equal
+                                    .map(
+                                        (elem: any, _index6: number) =>
+                                            ("number" === typeof elem &&
+                                                (10 <= elem ||
+                                                    $report(_exceptionable, {
+                                                        path:
+                                                            _path +
+                                                            ".equal[" +
+                                                            _index6 +
+                                                            "]",
+                                                        expected:
+                                                            "number (@minimum 10)",
+                                                        value: elem,
+                                                    })) &&
+                                                (10 >= elem ||
+                                                    $report(_exceptionable, {
+                                                        path:
+                                                            _path +
+                                                            ".equal[" +
+                                                            _index6 +
+                                                            "]",
+                                                        expected:
+                                                            "number (@maximum 10)",
+                                                        value: elem,
+                                                    }))) ||
+                                            $report(_exceptionable, {
+                                                path:
+                                                    _path +
+                                                    ".equal[" +
+                                                    _index6 +
+                                                    "]",
+                                                expected: "number",
+                                                value: elem,
+                                            }),
+                                    )
+                                    .every((flag: boolean) => flag)) ||
+                                $report(_exceptionable, {
+                                    path: _path + ".equal",
+                                    expected: "Array<number>",
+                                    value: input.equal,
+                                }),
                         ].every((flag: boolean) => flag);
                     return (
                         ((Array.isArray(input) ||
@@ -329,6 +398,8 @@ export const test_createValidateStringify_TagArray = _test_validateStringify(
                     )
                     .join(",")}]`},"both":${`[${input.both
                     .map((elem: any) => $string(elem))
+                    .join(",")}]`},"equal":${`[${input.equal
+                    .map((elem: any) => $number(elem))
                     .join(",")}]`}}`;
             return `[${input.map((elem: any) => $so0(elem)).join(",")}]`;
         };

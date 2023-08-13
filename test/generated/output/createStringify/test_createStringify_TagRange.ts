@@ -26,7 +26,7 @@ export const test_createStringify_TagRange = _test_stringify(
                         (elem as any).greater_less_equal,
                     )},"greater_equal_less_equal":${$number(
                         (elem as any).greater_equal_less_equal,
-                    )}}`,
+                    )},"equal":${$number((elem as any).equal)}}`,
             )
             .join(",")}]`;
     },

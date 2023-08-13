@@ -18,7 +18,10 @@ export const test_createValidatePrune_TagLength = _test_validatePrune(
                     7 >= input.maximum.length &&
                     "string" === typeof input.minimum_and_maximum &&
                     3 <= input.minimum_and_maximum.length &&
-                    7 >= input.minimum_and_maximum.length;
+                    7 >= input.minimum_and_maximum.length &&
+                    "string" === typeof input.equal &&
+                    10 <= input.equal.length &&
+                    19 >= input.equal.length;
                 return (
                     Array.isArray(input) &&
                     input.every(
@@ -98,6 +101,24 @@ export const test_createValidatePrune_TagLength = _test_validatePrune(
                                     expected: "string",
                                     value: input.minimum_and_maximum,
                                 }),
+                            ("string" === typeof input.equal &&
+                                (10 <= input.equal.length ||
+                                    $report(_exceptionable, {
+                                        path: _path + ".equal",
+                                        expected: "string (@minLength 10)",
+                                        value: input.equal,
+                                    })) &&
+                                (19 >= input.equal.length ||
+                                    $report(_exceptionable, {
+                                        path: _path + ".equal",
+                                        expected: "string (@maxLength 19)",
+                                        value: input.equal,
+                                    }))) ||
+                                $report(_exceptionable, {
+                                    path: _path + ".equal",
+                                    expected: "string",
+                                    value: input.equal,
+                                }),
                         ].every((flag: boolean) => flag);
                     return (
                         ((Array.isArray(input) ||
@@ -155,7 +176,8 @@ export const test_createValidatePrune_TagLength = _test_validatePrune(
                         "fixed" === key ||
                         "minimum" === key ||
                         "maximum" === key ||
-                        "minimum_and_maximum" === key
+                        "minimum_and_maximum" === key ||
+                        "equal" === key
                     )
                         continue;
                     delete input[key];

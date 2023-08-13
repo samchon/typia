@@ -38,7 +38,10 @@ export const test_createAssertEquals_TagRange = _test_assertEquals(
                 "number" === typeof input.greater_equal_less_equal &&
                 3 <= input.greater_equal_less_equal &&
                 7 >= input.greater_equal_less_equal &&
-                (8 === Object.keys(input).length ||
+                "number" === typeof input.equal &&
+                10 <= input.equal &&
+                10 >= input.equal &&
+                (9 === Object.keys(input).length ||
                     Object.keys(input).every((key: any) => {
                         if (
                             [
@@ -50,6 +53,7 @@ export const test_createAssertEquals_TagRange = _test_assertEquals(
                                 "greater_equal_less",
                                 "greater_less_equal",
                                 "greater_equal_less_equal",
+                                "equal",
                             ].some((prop: any) => key === prop)
                         )
                             return true;
@@ -204,7 +208,25 @@ export const test_createAssertEquals_TagRange = _test_assertEquals(
                             expected: "number",
                             value: input.greater_equal_less_equal,
                         })) &&
-                    (8 === Object.keys(input).length ||
+                    (("number" === typeof input.equal &&
+                        (10 <= input.equal ||
+                            $guard(_exceptionable, {
+                                path: _path + ".equal",
+                                expected: "number (@minimum 10)",
+                                value: input.equal,
+                            })) &&
+                        (10 >= input.equal ||
+                            $guard(_exceptionable, {
+                                path: _path + ".equal",
+                                expected: "number (@maximum 10)",
+                                value: input.equal,
+                            }))) ||
+                        $guard(_exceptionable, {
+                            path: _path + ".equal",
+                            expected: "number",
+                            value: input.equal,
+                        })) &&
+                    (9 === Object.keys(input).length ||
                         false === _exceptionable ||
                         Object.keys(input).every((key: any) => {
                             if (
@@ -217,6 +239,7 @@ export const test_createAssertEquals_TagRange = _test_assertEquals(
                                     "greater_equal_less",
                                     "greater_less_equal",
                                     "greater_equal_less_equal",
+                                    "equal",
                                 ].some((prop: any) => key === prop)
                             )
                                 return true;

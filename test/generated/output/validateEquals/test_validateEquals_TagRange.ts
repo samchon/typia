@@ -40,7 +40,10 @@ export const test_validateEquals_TagRange = _test_validateEquals(
                     "number" === typeof input.greater_equal_less_equal &&
                     3 <= input.greater_equal_less_equal &&
                     7 >= input.greater_equal_less_equal &&
-                    (8 === Object.keys(input).length ||
+                    "number" === typeof input.equal &&
+                    10 <= input.equal &&
+                    10 >= input.equal &&
+                    (9 === Object.keys(input).length ||
                         Object.keys(input).every((key: any) => {
                             if (
                                 [
@@ -52,6 +55,7 @@ export const test_validateEquals_TagRange = _test_validateEquals(
                                     "greater_equal_less",
                                     "greater_less_equal",
                                     "greater_equal_less_equal",
+                                    "equal",
                                 ].some((prop: any) => key === prop)
                             )
                                 return true;
@@ -216,7 +220,25 @@ export const test_validateEquals_TagRange = _test_validateEquals(
                                     expected: "number",
                                     value: input.greater_equal_less_equal,
                                 }),
-                            8 === Object.keys(input).length ||
+                            ("number" === typeof input.equal &&
+                                (10 <= input.equal ||
+                                    $report(_exceptionable, {
+                                        path: _path + ".equal",
+                                        expected: "number (@minimum 10)",
+                                        value: input.equal,
+                                    })) &&
+                                (10 >= input.equal ||
+                                    $report(_exceptionable, {
+                                        path: _path + ".equal",
+                                        expected: "number (@maximum 10)",
+                                        value: input.equal,
+                                    }))) ||
+                                $report(_exceptionable, {
+                                    path: _path + ".equal",
+                                    expected: "number",
+                                    value: input.equal,
+                                }),
+                            9 === Object.keys(input).length ||
                                 false === _exceptionable ||
                                 Object.keys(input)
                                     .map((key: any) => {
@@ -230,6 +252,7 @@ export const test_validateEquals_TagRange = _test_validateEquals(
                                                 "greater_equal_less",
                                                 "greater_less_equal",
                                                 "greater_equal_less_equal",
+                                                "equal",
                                             ].some((prop: any) => key === prop)
                                         )
                                             return true;

@@ -85,6 +85,17 @@ export const test_random_TagRange = _test_random(
                             value: "7",
                         },
                     ]) ?? (generator?.number ?? $generator.number)(3, 7),
+                equal:
+                    (generator?.customs ?? $generator.customs)?.number?.([
+                        {
+                            name: "minimum",
+                            value: "10",
+                        },
+                        {
+                            name: "maximum",
+                            value: "10",
+                        },
+                    ]) ?? (generator?.number ?? $generator.number)(10, 10),
             });
             return (generator?.array ?? $generator.array)(() => $ro0());
         })(),
@@ -114,7 +125,10 @@ export const test_random_TagRange = _test_random(
                 7 >= input.greater_less_equal &&
                 "number" === typeof input.greater_equal_less_equal &&
                 3 <= input.greater_equal_less_equal &&
-                7 >= input.greater_equal_less_equal;
+                7 >= input.greater_equal_less_equal &&
+                "number" === typeof input.equal &&
+                10 <= input.equal &&
+                10 >= input.equal;
             return (
                 Array.isArray(input) &&
                 input.every(
@@ -258,6 +272,24 @@ export const test_random_TagRange = _test_random(
                             path: _path + ".greater_equal_less_equal",
                             expected: "number",
                             value: input.greater_equal_less_equal,
+                        })) &&
+                    (("number" === typeof input.equal &&
+                        (10 <= input.equal ||
+                            $guard(_exceptionable, {
+                                path: _path + ".equal",
+                                expected: "number (@minimum 10)",
+                                value: input.equal,
+                            })) &&
+                        (10 >= input.equal ||
+                            $guard(_exceptionable, {
+                                path: _path + ".equal",
+                                expected: "number (@maximum 10)",
+                                value: input.equal,
+                            }))) ||
+                        $guard(_exceptionable, {
+                            path: _path + ".equal",
+                            expected: "number",
+                            value: input.equal,
                         }));
                 return (
                     ((Array.isArray(input) ||

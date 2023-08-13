@@ -18,7 +18,10 @@ export const test_assertParse_TagLength = _test_assertParse(
                         7 >= input.maximum.length &&
                         "string" === typeof input.minimum_and_maximum &&
                         3 <= input.minimum_and_maximum.length &&
-                        7 >= input.minimum_and_maximum.length;
+                        7 >= input.minimum_and_maximum.length &&
+                        "string" === typeof input.equal &&
+                        10 <= input.equal.length &&
+                        19 >= input.equal.length;
                     return (
                         Array.isArray(input) &&
                         input.every(
@@ -94,6 +97,24 @@ export const test_assertParse_TagLength = _test_assertParse(
                                     path: _path + ".minimum_and_maximum",
                                     expected: "string",
                                     value: input.minimum_and_maximum,
+                                })) &&
+                            (("string" === typeof input.equal &&
+                                (10 <= input.equal.length ||
+                                    $guard(_exceptionable, {
+                                        path: _path + ".equal",
+                                        expected: "string (@minLength 10)",
+                                        value: input.equal,
+                                    })) &&
+                                (19 >= input.equal.length ||
+                                    $guard(_exceptionable, {
+                                        path: _path + ".equal",
+                                        expected: "string (@maxLength 19)",
+                                        value: input.equal,
+                                    }))) ||
+                                $guard(_exceptionable, {
+                                    path: _path + ".equal",
+                                    expected: "string",
+                                    value: input.equal,
                                 }));
                         return (
                             ((Array.isArray(input) ||

@@ -32,7 +32,10 @@ export const test_isPrune_TagRange = _test_isPrune(
                     7 >= input.greater_less_equal &&
                     "number" === typeof input.greater_equal_less_equal &&
                     3 <= input.greater_equal_less_equal &&
-                    7 >= input.greater_equal_less_equal;
+                    7 >= input.greater_equal_less_equal &&
+                    "number" === typeof input.equal &&
+                    10 <= input.equal &&
+                    10 >= input.equal;
                 return (
                     Array.isArray(input) &&
                     input.every(
@@ -59,7 +62,8 @@ export const test_isPrune_TagRange = _test_isPrune(
                             "greater_less" === key ||
                             "greater_equal_less" === key ||
                             "greater_less_equal" === key ||
-                            "greater_equal_less_equal" === key
+                            "greater_equal_less_equal" === key ||
+                            "equal" === key
                         )
                             continue;
                         delete input[key];

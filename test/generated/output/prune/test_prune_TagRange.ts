@@ -21,7 +21,8 @@ export const test_prune_TagRange = _test_prune(
                         "greater_less" === key ||
                         "greater_equal_less" === key ||
                         "greater_less_equal" === key ||
-                        "greater_equal_less_equal" === key
+                        "greater_equal_less_equal" === key ||
+                        "equal" === key
                     )
                         continue;
                     delete input[key];

@@ -21,6 +21,7 @@ export const test_createClone_TagRange = _test_clone(
             greater_equal_less: input.greater_equal_less as any,
             greater_less_equal: input.greater_less_equal as any,
             greater_equal_less_equal: input.greater_equal_less_equal as any,
+            equal: input.equal as any,
         });
         return Array.isArray(input) ? $cp0(input) : (input as any);
     },

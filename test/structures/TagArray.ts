@@ -31,6 +31,14 @@ export namespace TagArray {
          * @format uuid
          */
         both: string[];
+
+        /**
+         * @minItems 10
+         * @maxItems 10
+         * @minimum 10
+         * @maximum 10
+         */
+        equal: number[];
     }
 
     // prettier-ignore
@@ -47,6 +55,7 @@ export namespace TagArray {
                     minItems: TestRandomGenerator.array(() => minItems, minItems),
                     maxItems: TestRandomGenerator.array(() => closure(), maxItems),
                     both: TestRandomGenerator.array(() => v4(), both),
+                    equal: TestRandomGenerator.array(() => 10, 10),
                 });
         }
         return output;
@@ -108,6 +117,14 @@ export namespace TagArray {
         (input) => {
             input[10].both = TestRandomGenerator.array(() => v4(), 8);
             return ["$input[10].both"];
+        },
+        (input) => {
+            input[11].equal = TestRandomGenerator.array(() => 10, 9);
+            return ["$input[11].equal"];
+        },
+        (input) => {
+            input[12].equal = [...TestRandomGenerator.array(() => 10, 9), 9];
+            return ["$input[12].equal[9]"];
         },
     ];
 }

@@ -18,7 +18,7 @@ export const test_createStringify_TagLength = _test_stringify(
                         (elem as any).maximum,
                     )},"minimum_and_maximum":${$string(
                         (elem as any).minimum_and_maximum,
-                    )}}`,
+                    )},"equal":${$string((elem as any).equal)}}`,
             )
             .join(",")}]`;
     },

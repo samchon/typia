@@ -20,6 +20,7 @@ export const test_clone_TagLength = _test_clone(
                 minimum: input.minimum as any,
                 maximum: input.maximum as any,
                 minimum_and_maximum: input.minimum_and_maximum as any,
+                equal: input.equal as any,
             });
             return Array.isArray(input) ? $cp0(input) : (input as any);
         })(input),

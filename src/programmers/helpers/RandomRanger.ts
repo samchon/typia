@@ -26,7 +26,7 @@ export namespace RandomRanger {
 
             props.minimum ??= defs.minimum;
             props.maximum ??= defs.maximum;
-            if (props.maximum <= props.minimum)
+            if (props.maximum < props.minimum)
                 (props.maximum as number) += defs.gap;
 
             return ts.factory.createCallExpression(
