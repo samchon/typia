@@ -328,6 +328,24 @@ export class Metadata {
     /**
      * @internal
      */
+    public isBinaryUnion(): boolean {
+        const count: number =
+            new Set([
+                ...this.atomics,
+                ...this.constants.map((c) => c.type),
+                ...(this.templates.length ? ["string"] : []),
+            ]).size +
+            this.arrays.length +
+            this.tuples.length +
+            this.natives.length +
+            this.objects.length +
+            this.maps.length;
+        return count > 1;
+    }
+
+    /**
+     * @internal
+     */
     public getSoleLiteral(): string | null {
         if (
             this.size() === 1 &&

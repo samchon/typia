@@ -172,7 +172,7 @@ export namespace ProtobufFactory {
             meta.objects.some(
                 (obj) =>
                     isDynamicObject(obj) &&
-                    obj.properties.some((p) => isUnion(p.value)),
+                    obj.properties.some((p) => p.value.isBinaryUnion()),
             )
         )
             throw notSupportedError({ method })(
@@ -182,7 +182,10 @@ export namespace ProtobufFactory {
         else if (meta.size() > 1 && meta.maps.length)
             throw notSupportedError({ method })("union type with map type");
         // UNION IN MAP
-        else if (meta.maps.length && meta.maps.some((m) => isUnion(m.value)))
+        else if (
+            meta.maps.length &&
+            meta.maps.some((m) => m.value.isBinaryUnion())
+        )
             throw notSupportedError({ method })("union type in map");
     };
 }
@@ -222,21 +225,6 @@ const isDynamicObject = (obj: MetadataObject): boolean => {
         obj.properties.length > 0 &&
         obj.properties[0]!.key.isSoleLiteral() === false
     );
-};
-
-const isUnion = (meta: Metadata): boolean => {
-    const count: number =
-        new Set([
-            ...meta.atomics,
-            ...meta.constants.map((c) => c.type),
-            ...(meta.templates.length ? ["string"] : []),
-        ]).size +
-        meta.arrays.length +
-        meta.tuples.length +
-        meta.natives.length +
-        meta.objects.length +
-        meta.maps.length;
-    return count > 1;
 };
 
 const BANNED_NATIVE_TYPES: Map<string, string | null> = new Map([
