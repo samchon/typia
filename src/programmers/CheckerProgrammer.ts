@@ -218,15 +218,6 @@ export namespace CheckerProgrammer {
                         resolve: false,
                         constant: true,
                         absorb: true,
-                        validate: (meta) => {
-                            if (
-                                meta.arrays.length > 1 &&
-                                meta.arrays.some((a) => a.recursive)
-                            )
-                                throw new Error(
-                                    `Repeated union array types are not supported yet.`,
-                                );
-                        },
                     })(collection)(type);
                     return [collection, meta];
                 },
