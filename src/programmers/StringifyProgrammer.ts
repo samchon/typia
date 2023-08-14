@@ -937,6 +937,12 @@ export namespace StringifyProgrammer {
                 validate: (meta) => {
                     if (meta.atomics.find((str) => str === "bigint"))
                         throw new Error(NO_BIGINT);
+                    else if (
+                        meta.arrays.some(
+                            (array) => array.value.isRequired() === false,
+                        )
+                    )
+                        throw new Error(NO_UNDEFINED_IN_ARRAY);
                 },
             })(collection)(type);
             return [collection, meta];
@@ -976,3 +982,5 @@ interface IUnion {
 }
 
 const NO_BIGINT = "Error on typia.stringify(): does not allow bigint type.";
+const NO_UNDEFINED_IN_ARRAY =
+    "Error on typia.stringify(): does not allow undefined type in array.";

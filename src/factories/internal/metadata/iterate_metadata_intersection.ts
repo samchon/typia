@@ -74,6 +74,7 @@ export const iterate_metadata_intersection =
             throw new Error(message(children));
         });
         Object.assign(meta, Metadata.merge(meta, least));
+        collection.entire_.add(least);
         return true;
     };
 

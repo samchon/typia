@@ -58,6 +58,12 @@ export namespace ApplicationTransformer {
                     validate: (meta) => {
                         if (meta.atomics.find((str) => str === "bigint"))
                             throw new Error(NO_BIGIT);
+                        else if (
+                            meta.arrays.some(
+                                (array) => array.value.isRequired() === false,
+                            )
+                        )
+                            throw new Error(NO_UNDEFINED_IN_ARRAY);
                     },
                 })(collection)(type),
             );
@@ -102,3 +108,5 @@ const NO_GENERIC_ARGUMENT =
 const GENERIC_ARGUMENT =
     "Error on typia.application(): non-specified generic argument(s).";
 const NO_BIGIT = "Error on typia.application(): does not allow bigint type.";
+const NO_UNDEFINED_IN_ARRAY =
+    "Error on typia.application(): does not allow undefined type in array.";
