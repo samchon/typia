@@ -1,4 +1,25 @@
 //---------------------------------------------------------
+// MESSAGE
+//---------------------------------------------------------
+// syntax = "proto3";
+// 
+// message ObjectGenericArray {
+//     required ObjectGenericArray.IPagination pagination = 1;
+//     repeated ObjectGenericArray.IPerson data = 2;
+//     message IPagination {
+//         required double page = 1;
+//         required double limit = 2;
+//         required double total_count = 3;
+//         required double total_pages = 4;
+//     }
+// 
+//     message IPerson {
+//         required string name = 1;
+//         required double age = 2;
+//     }
+// }
+
+//---------------------------------------------------------
 // ENCODER
 //---------------------------------------------------------
 function ObjectGenericArray$encode(m,w){
@@ -9,6 +30,22 @@ function ObjectGenericArray$encode(m,w){
   for(var i=0;i<m.data.length;++i)
   types[1].encode(m.data[i],w.uint32(18).fork()).ldelim()
   }
+  return w
+}
+function IPagination$encode(m,w){
+  if(!w)
+  w=Writer.create()
+  w.uint32(9).double(m.page)
+  w.uint32(17).double(m.limit)
+  w.uint32(25).double(m.totalCount)
+  w.uint32(33).double(m.totalPages)
+  return w
+}
+function IPerson$encode(m,w){
+  if(!w)
+  w=Writer.create()
+  w.uint32(10).string(m.name)
+  w.uint32(17).double(m.age)
   return w
 }
 
@@ -39,5 +76,69 @@ function ObjectGenericArray$decode(r,l){
   }
   if(!m.hasOwnProperty("pagination"))
   throw util.ProtocolError("missing required 'pagination'",{instance:m})
+  return m
+}
+function IPagination$decode(r,l){
+  if(!(r instanceof Reader))
+  r=Reader.create(r)
+  var c=l===undefined?r.len:r.pos+l,m=new this.ctor
+  while(r.pos<c){
+  var t=r.uint32()
+  switch(t>>>3){
+  case 1: {
+  m.page=r.double()
+  break
+  }
+  case 2: {
+  m.limit=r.double()
+  break
+  }
+  case 3: {
+  m.totalCount=r.double()
+  break
+  }
+  case 4: {
+  m.totalPages=r.double()
+  break
+  }
+  default:
+  r.skipType(t&7)
+  break
+  }
+  }
+  if(!m.hasOwnProperty("page"))
+  throw util.ProtocolError("missing required 'page'",{instance:m})
+  if(!m.hasOwnProperty("limit"))
+  throw util.ProtocolError("missing required 'limit'",{instance:m})
+  if(!m.hasOwnProperty("totalCount"))
+  throw util.ProtocolError("missing required 'totalCount'",{instance:m})
+  if(!m.hasOwnProperty("totalPages"))
+  throw util.ProtocolError("missing required 'totalPages'",{instance:m})
+  return m
+}
+function IPerson$decode(r,l){
+  if(!(r instanceof Reader))
+  r=Reader.create(r)
+  var c=l===undefined?r.len:r.pos+l,m=new this.ctor
+  while(r.pos<c){
+  var t=r.uint32()
+  switch(t>>>3){
+  case 1: {
+  m.name=r.string()
+  break
+  }
+  case 2: {
+  m.age=r.double()
+  break
+  }
+  default:
+  r.skipType(t&7)
+  break
+  }
+  }
+  if(!m.hasOwnProperty("name"))
+  throw util.ProtocolError("missing required 'name'",{instance:m})
+  if(!m.hasOwnProperty("age"))
+  throw util.ProtocolError("missing required 'age'",{instance:m})
   return m
 }

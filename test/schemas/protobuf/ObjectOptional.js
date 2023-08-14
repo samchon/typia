@@ -1,4 +1,16 @@
 //---------------------------------------------------------
+// MESSAGE
+//---------------------------------------------------------
+// syntax = "proto3";
+// 
+// message ObjectOptional {
+//     optional string id = 1;
+//     optional string name = 2;
+//     optional string email = 3;
+//     optional double sequence = 4;
+// }
+
+//---------------------------------------------------------
 // ENCODER
 //---------------------------------------------------------
 function ObjectOptional$encode(m,w){

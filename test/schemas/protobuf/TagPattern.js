@@ -1,4 +1,16 @@
 //---------------------------------------------------------
+// MESSAGE
+//---------------------------------------------------------
+// syntax = "proto3";
+// 
+// message TagPattern {
+//     required string uuid = 1;
+//     required string email = 2;
+//     required string ipv4 = 3;
+//     required string ipv6 = 4;
+// }
+
+//---------------------------------------------------------
 // ENCODER
 //---------------------------------------------------------
 function TagPattern$encode(m,w){

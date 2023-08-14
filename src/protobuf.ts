@@ -71,6 +71,18 @@ export function validateDecode(): never {
 /* -----------------------------------------------------------
     ENCODE
 ----------------------------------------------------------- */
+/**
+ * @internal
+ */
+export function size<T>(input: T): number;
+
+/**
+ * @internal
+ */
+export function size(): never {
+    halt("size");
+}
+
 export function encode<T>(input: T): Uint16Array;
 
 /**
@@ -154,6 +166,23 @@ export function createValidateDecode<T>(): (
     input: Uint8Array,
 ) => IValidation<Primitive<T>> {
     halt("createValidateDecode");
+}
+
+/**
+ * @internal
+ */
+export function createSize(): never;
+
+/**
+ * @internal
+ */
+export function createSize<T>(): (input: T) => number;
+
+/**
+ * @internal
+ */
+export function createSize<T>(): (input: T) => number {
+    halt("createEncode");
 }
 
 export function createEncode(): never;

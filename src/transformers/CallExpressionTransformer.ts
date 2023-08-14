@@ -49,6 +49,7 @@ import { CreateProtobufDecodeTransformer } from "./features/protobuf/CreateProto
 import { CreateProtobufEncodeTransformer } from "./features/protobuf/CreateProtobufEncodeTransformer";
 import { CreateProtobufIsDecodeTransformer } from "./features/protobuf/CreateProtobufIsDecodeTransformer";
 import { CreateProtobufIsEncodeTransformer } from "./features/protobuf/CreateProtobufIsEncodeTransformer";
+import { CreateProtobufSizeTransformer } from "./features/protobuf/CreateProtobufSizeTransformer";
 import { CreateProtobufValidateDecodeTransformer } from "./features/protobuf/CreateProtobufValidateDecodeTransformer";
 import { CreateProtobufValidateEncodeTransformer } from "./features/protobuf/CreateProtobufValidateEncodeTransformer";
 import { ProtobufAssertDecodeTransformer } from "./features/protobuf/ProtobufAssertDecodeTransformer";
@@ -57,7 +58,8 @@ import { ProtobufDecodeTransformer } from "./features/protobuf/ProtobufDecodeTra
 import { ProtobufEncodeTransformer } from "./features/protobuf/ProtobufEncodeTransformer";
 import { ProtobufIsDecodeTransformer } from "./features/protobuf/ProtobufIsDecodeTransformer";
 import { ProtobufIsEncodeTransformer } from "./features/protobuf/ProtobufIsEncodeTransformer";
-import { MessageTransformer } from "./features/protobuf/ProtobufMessageTransformer";
+import { ProtobufMessageTransformer } from "./features/protobuf/ProtobufMessageTransformer";
+import { ProtobufSizeTransformer } from "./features/protobuf/ProtobufSizeTransformer";
 import { ProtobufValidateDecodeTransformer } from "./features/protobuf/ProtobufValidateDecodeTransformer";
 import { ProtobufValidateEncodeTransformer } from "./features/protobuf/ProtobufValidateEncodeTransformer";
 
@@ -155,36 +157,6 @@ const FUNCTORS: Record<string, Record<string, () => Task>> = {
         createValidateEquals: () => CreateValidateTransformer.transform(true),
         createRandom: () => CreateRandomTransformer.transform,
     },
-    protobuf: {
-        // SCHEMA
-        message: () => MessageTransformer.transform,
-
-        // ENCODE
-        encode: () => ProtobufEncodeTransformer.transform,
-        assertEncode: () => ProtobufAssertEncodeTransformer.transform,
-        isEncode: () => ProtobufIsEncodeTransformer.transform,
-        validateEncode: () => ProtobufValidateEncodeTransformer.transform,
-
-        // DECODE
-        decode: () => ProtobufDecodeTransformer.transform,
-        assertDecode: () => ProtobufAssertDecodeTransformer.transform,
-        isDecode: () => ProtobufIsDecodeTransformer.transform,
-        validateDecode: () => ProtobufValidateDecodeTransformer.transform,
-
-        // FACTORIES
-        createEncode: () => CreateProtobufEncodeTransformer.transform,
-        createAssertEncode: () =>
-            CreateProtobufAssertEncodeTransformer.transform,
-        createIsEncode: () => CreateProtobufIsEncodeTransformer.transform,
-        createValidateEncode: () =>
-            CreateProtobufValidateEncodeTransformer.transform,
-        createDecode: () => CreateProtobufDecodeTransformer.transform,
-        createAssertDecode: () =>
-            CreateProtobufAssertDecodeTransformer.transform,
-        createIsDecode: () => CreateProtobufIsDecodeTransformer.transform,
-        createValidateDecode: () =>
-            CreateProtobufValidateDecodeTransformer.transform,
-    },
     json: {
         // SCHEMA
         application: () => (P) => () => JsonApplicationTransformer.transform(P),
@@ -210,6 +182,38 @@ const FUNCTORS: Record<string, Record<string, () => Task>> = {
         createIsStringify: () => JsonCreateIsStringifyTransformer.transform,
         createValidateStringify: () =>
             JsonCreateValidateStringifyTransformer.transform,
+    },
+    protobuf: {
+        // SCHEMA
+        message: () => ProtobufMessageTransformer.transform,
+
+        // ENCODE
+        size: () => ProtobufSizeTransformer.transform,
+        encode: () => ProtobufEncodeTransformer.transform,
+        assertEncode: () => ProtobufAssertEncodeTransformer.transform,
+        isEncode: () => ProtobufIsEncodeTransformer.transform,
+        validateEncode: () => ProtobufValidateEncodeTransformer.transform,
+
+        // DECODE
+        decode: () => ProtobufDecodeTransformer.transform,
+        assertDecode: () => ProtobufAssertDecodeTransformer.transform,
+        isDecode: () => ProtobufIsDecodeTransformer.transform,
+        validateDecode: () => ProtobufValidateDecodeTransformer.transform,
+
+        // FACTORIES
+        createSize: () => CreateProtobufSizeTransformer.transform,
+        createEncode: () => CreateProtobufEncodeTransformer.transform,
+        createAssertEncode: () =>
+            CreateProtobufAssertEncodeTransformer.transform,
+        createIsEncode: () => CreateProtobufIsEncodeTransformer.transform,
+        createValidateEncode: () =>
+            CreateProtobufValidateEncodeTransformer.transform,
+        createDecode: () => CreateProtobufDecodeTransformer.transform,
+        createAssertDecode: () =>
+            CreateProtobufAssertDecodeTransformer.transform,
+        createIsDecode: () => CreateProtobufIsDecodeTransformer.transform,
+        createValidateDecode: () =>
+            CreateProtobufValidateDecodeTransformer.transform,
     },
     misc: {
         literals: () => (project) => () =>

@@ -1,4 +1,17 @@
 //---------------------------------------------------------
+// MESSAGE
+//---------------------------------------------------------
+// syntax = "proto3";
+// 
+// message ClassPropertyAssignment {
+//     required double id = 1;
+//     required string name = 2;
+//     required string note = 3;
+//     required bool editable = 4;
+//     required bool incremental = 5;
+// }
+
+//---------------------------------------------------------
 // ENCODER
 //---------------------------------------------------------
 function ClassPropertyAssignment$encode(m,w){

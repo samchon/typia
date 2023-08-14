@@ -1,4 +1,15 @@
 //---------------------------------------------------------
+// MESSAGE
+//---------------------------------------------------------
+// syntax = "proto3";
+// 
+// message ObjectIntersection {
+//     required string email = 1;
+//     required string name = 2;
+//     required bool vulnerable = 3;
+// }
+
+//---------------------------------------------------------
 // ENCODER
 //---------------------------------------------------------
 function ObjectIntersection$encode(m,w){

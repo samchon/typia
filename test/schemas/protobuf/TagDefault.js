@@ -1,4 +1,44 @@
 //---------------------------------------------------------
+// MESSAGE
+//---------------------------------------------------------
+// syntax = "proto3";
+// 
+// message TagDefault {
+//     required bool boolean = 1;
+//     required double number = 2;
+//     required string string = 3;
+//     required string text = 4;
+//     required string template = 5;
+//     oneof boolean_and_number_and_string {
+//         bool v6 = 6;
+//         double v7 = 7;
+//         string v8 = 8;
+//     }
+//     oneof union_but_boolean {
+//         bool v9 = 9;
+//         double v10 = 10;
+//         string v11 = 11;
+//     }
+//     oneof union_but_number {
+//         bool v12 = 12;
+//         double v13 = 13;
+//         string v14 = 14;
+//     }
+//     oneof union_but_string {
+//         bool v15 = 15;
+//         double v16 = 16;
+//         string v17 = 17;
+//     }
+//     required double vulnerable_range = 18;
+//     required string vulnerable_template = 19;
+//     oneof boolean_and_number_and_template {
+//         bool v20 = 20;
+//         double v21 = 21;
+//         string v22 = 22;
+//     }
+// }
+
+//---------------------------------------------------------
 // ENCODER
 //---------------------------------------------------------
 function TagDefault$encode(m,w){
@@ -10,37 +50,37 @@ function TagDefault$encode(m,w){
   w.uint32(34).string(m.text)
   w.uint32(42).string(m.template)
   if(m.v6!=null&&Object.hasOwnProperty.call(m,"v6"))
-  w.uint32(50).string(m.v6)
+  w.uint32(48).bool(m.v6)
   if(m.v7!=null&&Object.hasOwnProperty.call(m,"v7"))
   w.uint32(57).double(m.v7)
   if(m.v8!=null&&Object.hasOwnProperty.call(m,"v8"))
-  w.uint32(64).bool(m.v8)
+  w.uint32(66).string(m.v8)
   if(m.v9!=null&&Object.hasOwnProperty.call(m,"v9"))
-  w.uint32(74).string(m.v9)
+  w.uint32(72).bool(m.v9)
   if(m.v10!=null&&Object.hasOwnProperty.call(m,"v10"))
   w.uint32(81).double(m.v10)
   if(m.v11!=null&&Object.hasOwnProperty.call(m,"v11"))
-  w.uint32(88).bool(m.v11)
+  w.uint32(90).string(m.v11)
   if(m.v12!=null&&Object.hasOwnProperty.call(m,"v12"))
-  w.uint32(98).string(m.v12)
+  w.uint32(96).bool(m.v12)
   if(m.v13!=null&&Object.hasOwnProperty.call(m,"v13"))
   w.uint32(105).double(m.v13)
   if(m.v14!=null&&Object.hasOwnProperty.call(m,"v14"))
-  w.uint32(112).bool(m.v14)
+  w.uint32(114).string(m.v14)
   if(m.v15!=null&&Object.hasOwnProperty.call(m,"v15"))
-  w.uint32(122).string(m.v15)
+  w.uint32(120).bool(m.v15)
   if(m.v16!=null&&Object.hasOwnProperty.call(m,"v16"))
   w.uint32(129).double(m.v16)
   if(m.v17!=null&&Object.hasOwnProperty.call(m,"v17"))
-  w.uint32(136).bool(m.v17)
+  w.uint32(138).string(m.v17)
   w.uint32(145).double(m.vulnerableRange)
   w.uint32(154).string(m.vulnerableTemplate)
   if(m.v20!=null&&Object.hasOwnProperty.call(m,"v20"))
-  w.uint32(162).string(m.v20)
+  w.uint32(160).bool(m.v20)
   if(m.v21!=null&&Object.hasOwnProperty.call(m,"v21"))
   w.uint32(169).double(m.v21)
   if(m.v22!=null&&Object.hasOwnProperty.call(m,"v22"))
-  w.uint32(176).bool(m.v22)
+  w.uint32(178).string(m.v22)
   return w
 }
 
@@ -75,7 +115,7 @@ function TagDefault$decode(r,l){
   break
   }
   case 6: {
-  m.v6=r.string()
+  m.v6=r.bool()
   break
   }
   case 7: {
@@ -83,11 +123,11 @@ function TagDefault$decode(r,l){
   break
   }
   case 8: {
-  m.v8=r.bool()
+  m.v8=r.string()
   break
   }
   case 9: {
-  m.v9=r.string()
+  m.v9=r.bool()
   break
   }
   case 10: {
@@ -95,11 +135,11 @@ function TagDefault$decode(r,l){
   break
   }
   case 11: {
-  m.v11=r.bool()
+  m.v11=r.string()
   break
   }
   case 12: {
-  m.v12=r.string()
+  m.v12=r.bool()
   break
   }
   case 13: {
@@ -107,11 +147,11 @@ function TagDefault$decode(r,l){
   break
   }
   case 14: {
-  m.v14=r.bool()
+  m.v14=r.string()
   break
   }
   case 15: {
-  m.v15=r.string()
+  m.v15=r.bool()
   break
   }
   case 16: {
@@ -119,7 +159,7 @@ function TagDefault$decode(r,l){
   break
   }
   case 17: {
-  m.v17=r.bool()
+  m.v17=r.string()
   break
   }
   case 18: {
@@ -131,7 +171,7 @@ function TagDefault$decode(r,l){
   break
   }
   case 20: {
-  m.v20=r.string()
+  m.v20=r.bool()
   break
   }
   case 21: {
@@ -139,7 +179,7 @@ function TagDefault$decode(r,l){
   break
   }
   case 22: {
-  m.v22=r.bool()
+  m.v22=r.string()
   break
   }
   default:

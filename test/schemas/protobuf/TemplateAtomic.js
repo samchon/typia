@@ -1,4 +1,20 @@
 //---------------------------------------------------------
+// MESSAGE
+//---------------------------------------------------------
+// syntax = "proto3";
+// 
+// message TemplateAtomic {
+//     required string prefix = 1;
+//     required string postfix = 2;
+//     required string middle_string = 3;
+//     required string middle_string_empty = 4;
+//     required string middle_numeric = 5;
+//     required string middle_boolean = 6;
+//     required string ipv4 = 7;
+//     required string email = 8;
+// }
+
+//---------------------------------------------------------
 // ENCODER
 //---------------------------------------------------------
 function TemplateAtomic$encode(m,w){

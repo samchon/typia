@@ -1,4 +1,16 @@
 //---------------------------------------------------------
+// MESSAGE
+//---------------------------------------------------------
+// syntax = "proto3";
+// 
+// message TagCustom {
+//     required string id = 1;
+//     required string dollar = 2;
+//     required string postfix = 3;
+//     required double log = 4;
+// }
+
+//---------------------------------------------------------
 // ENCODER
 //---------------------------------------------------------
 function TagCustom$encode(m,w){

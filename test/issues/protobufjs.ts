@@ -1,18 +1,26 @@
-import external from "protobufjs";
+import pjs from "protobufjs";
 import typia from "typia";
 
-import { ArrayHierarchicalPointer } from "../structures/ArrayHierarchicalPointer";
+interface ISomething {
+    values: number[];
+}
 
-const result: external.IParserResult = external.parse(
-    typia.protobuf.message<ArrayHierarchicalPointer>(),
+const result: pjs.IParserResult = pjs.parse(
+    typia.protobuf.message<ISomething>(),
 );
-const schema = result.root.lookupType("ArrayHierarchicalPointer");
+const typeList: pjs.Type[] = result.root.nestedArray
+    .filter((nested) => nested instanceof pjs.Type)
+    .map((nested) => nested as pjs.Type);
 
-console.log(schema.decode.toString());
-
-// const message = schema.create(ArrayHierarchicalPointer.generate());
-// const buffer = schema.encode(message).finish();
-// const decoded = schema.decode(buffer).toJSON();
-
-// console.log(decoded);
-// console.log(schema.encode.toString());
+const script: string = [
+    "//---------------------------------------------------------",
+    "// ENCODER",
+    "//---------------------------------------------------------",
+    ...typeList.map((type) => pjs.encoder(type).toString()),
+    "",
+    "//---------------------------------------------------------",
+    "// DECODER",
+    "//---------------------------------------------------------",
+    ...typeList.map((type) => pjs.decoder(type).toString()),
+].join("\n");
+console.log(script);

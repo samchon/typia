@@ -1,4 +1,16 @@
 //---------------------------------------------------------
+// MESSAGE
+//---------------------------------------------------------
+// syntax = "proto3";
+// 
+// message ObjectJsonTag {
+//     required string vulnerable = 1;
+//     required string description = 2;
+//     required string title = 3;
+//     required string complicate_title = 4;
+// }
+
+//---------------------------------------------------------
 // ENCODER
 //---------------------------------------------------------
 function ObjectJsonTag$encode(m,w){

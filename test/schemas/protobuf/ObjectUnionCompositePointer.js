@@ -1,4 +1,67 @@
 //---------------------------------------------------------
+// MESSAGE
+//---------------------------------------------------------
+// syntax = "proto3";
+// 
+// message ObjectUnionCompositePointer {
+//     repeated IPointer_lt_IPoint_space__or__space_ILine_space__or__space_ITriangle_space__or__space_IRectangle_space__or__space_IPolyline_space__or__space_IPolygon_space__or__space_IPointedShape_space__or__space_ICircle_gt_ value = 1;
+//     message IPoint {
+//         required double x = 1;
+//         required double y = 2;
+//     }
+// 
+//     message ILine {
+//         required ObjectUnionCompositePointer.IPoint p1 = 1;
+//         required ObjectUnionCompositePointer.IPoint p2 = 2;
+//     }
+// 
+//     message ITriangle {
+//         required ObjectUnionCompositePointer.IPoint p1 = 1;
+//         required ObjectUnionCompositePointer.IPoint p2 = 2;
+//         required ObjectUnionCompositePointer.IPoint p3 = 3;
+//     }
+// 
+//     message IRectangle {
+//         required ObjectUnionCompositePointer.IPoint p1 = 1;
+//         required ObjectUnionCompositePointer.IPoint p2 = 2;
+//         required ObjectUnionCompositePointer.IPoint p3 = 3;
+//         required ObjectUnionCompositePointer.IPoint p4 = 4;
+//     }
+// 
+//     message IPolyline {
+//         repeated ObjectUnionCompositePointer.IPoint points = 1;
+//     }
+// 
+//     message IPolygon {
+//         required ObjectUnionCompositePointer.IPolyline outer = 1;
+//         repeated ObjectUnionCompositePointer.IPolyline inner = 2;
+//     }
+// 
+//     message IPointedShape {
+//         repeated ObjectUnionCompositePointer.IPoint outer = 1;
+//         required ObjectUnionCompositePointer.IPoint inner = 2;
+//     }
+// 
+//     message ICircle {
+//         required ObjectUnionCompositePointer.IPoint centroid = 1;
+//         required double radius = 2;
+//     }
+// }
+// 
+// message IPointer_lt_IPoint_space__or__space_ILine_space__or__space_ITriangle_space__or__space_IRectangle_space__or__space_IPolyline_space__or__space_IPolygon_space__or__space_IPointedShape_space__or__space_ICircle_gt_ {
+//     oneof value {
+//         ObjectUnionCompositePointer.IPoint v1 = 1;
+//         ObjectUnionCompositePointer.ILine v2 = 2;
+//         ObjectUnionCompositePointer.ITriangle v3 = 3;
+//         ObjectUnionCompositePointer.IRectangle v4 = 4;
+//         ObjectUnionCompositePointer.IPolyline v5 = 5;
+//         ObjectUnionCompositePointer.IPointedShape v6 = 6;
+//         ObjectUnionCompositePointer.IPolygon v7 = 7;
+//         ObjectUnionCompositePointer.ICircle v8 = 8;
+//     }
+// }
+
+//---------------------------------------------------------
 // ENCODER
 //---------------------------------------------------------
 function ObjectUnionCompositePointer$encode(m,w){
@@ -10,25 +73,71 @@ function ObjectUnionCompositePointer$encode(m,w){
   }
   return w
 }
-function IPointer_lt_IPoint_space__or__space_ILine_space__or__space_ITriangle_space__or__space_IRectangle_space__or__space_IPolyline_space__or__space_IPolygon_space__or__space_IPointedShape_space__or__space_ICircle_gt_$encode(m,w){
+function IPoint$encode(m,w){
   if(!w)
   w=Writer.create()
-  if(m.v1!=null&&Object.hasOwnProperty.call(m,"v1"))
-  types[0].encode(m.v1,w.uint32(10).fork()).ldelim()
-  if(m.v2!=null&&Object.hasOwnProperty.call(m,"v2"))
-  types[1].encode(m.v2,w.uint32(18).fork()).ldelim()
-  if(m.v3!=null&&Object.hasOwnProperty.call(m,"v3"))
-  types[2].encode(m.v3,w.uint32(26).fork()).ldelim()
-  if(m.v4!=null&&Object.hasOwnProperty.call(m,"v4"))
-  types[3].encode(m.v4,w.uint32(34).fork()).ldelim()
-  if(m.v5!=null&&Object.hasOwnProperty.call(m,"v5"))
-  types[4].encode(m.v5,w.uint32(42).fork()).ldelim()
-  if(m.v6!=null&&Object.hasOwnProperty.call(m,"v6"))
-  types[5].encode(m.v6,w.uint32(50).fork()).ldelim()
-  if(m.v7!=null&&Object.hasOwnProperty.call(m,"v7"))
-  types[6].encode(m.v7,w.uint32(58).fork()).ldelim()
-  if(m.v8!=null&&Object.hasOwnProperty.call(m,"v8"))
-  types[7].encode(m.v8,w.uint32(66).fork()).ldelim()
+  w.uint32(9).double(m.x)
+  w.uint32(17).double(m.y)
+  return w
+}
+function ILine$encode(m,w){
+  if(!w)
+  w=Writer.create()
+  types[0].encode(m.p1,w.uint32(10).fork()).ldelim()
+  types[1].encode(m.p2,w.uint32(18).fork()).ldelim()
+  return w
+}
+function ITriangle$encode(m,w){
+  if(!w)
+  w=Writer.create()
+  types[0].encode(m.p1,w.uint32(10).fork()).ldelim()
+  types[1].encode(m.p2,w.uint32(18).fork()).ldelim()
+  types[2].encode(m.p3,w.uint32(26).fork()).ldelim()
+  return w
+}
+function IRectangle$encode(m,w){
+  if(!w)
+  w=Writer.create()
+  types[0].encode(m.p1,w.uint32(10).fork()).ldelim()
+  types[1].encode(m.p2,w.uint32(18).fork()).ldelim()
+  types[2].encode(m.p3,w.uint32(26).fork()).ldelim()
+  types[3].encode(m.p4,w.uint32(34).fork()).ldelim()
+  return w
+}
+function IPolyline$encode(m,w){
+  if(!w)
+  w=Writer.create()
+  if(m.points!=null&&m.points.length){
+  for(var i=0;i<m.points.length;++i)
+  types[0].encode(m.points[i],w.uint32(10).fork()).ldelim()
+  }
+  return w
+}
+function IPolygon$encode(m,w){
+  if(!w)
+  w=Writer.create()
+  types[0].encode(m.outer,w.uint32(10).fork()).ldelim()
+  if(m.inner!=null&&m.inner.length){
+  for(var i=0;i<m.inner.length;++i)
+  types[1].encode(m.inner[i],w.uint32(18).fork()).ldelim()
+  }
+  return w
+}
+function IPointedShape$encode(m,w){
+  if(!w)
+  w=Writer.create()
+  if(m.outer!=null&&m.outer.length){
+  for(var i=0;i<m.outer.length;++i)
+  types[0].encode(m.outer[i],w.uint32(10).fork()).ldelim()
+  }
+  types[1].encode(m.inner,w.uint32(18).fork()).ldelim()
+  return w
+}
+function ICircle$encode(m,w){
+  if(!w)
+  w=Writer.create()
+  types[0].encode(m.centroid,w.uint32(10).fork()).ldelim()
+  w.uint32(17).double(m.radius)
   return w
 }
 
@@ -55,7 +164,7 @@ function ObjectUnionCompositePointer$decode(r,l){
   }
   return m
 }
-function IPointer_lt_IPoint_space__or__space_ILine_space__or__space_ITriangle_space__or__space_IRectangle_space__or__space_IPolyline_space__or__space_IPolygon_space__or__space_IPointedShape_space__or__space_ICircle_gt_$decode(r,l){
+function IPoint$decode(r,l){
   if(!(r instanceof Reader))
   r=Reader.create(r)
   var c=l===undefined?r.len:r.pos+l,m=new this.ctor
@@ -63,35 +172,11 @@ function IPointer_lt_IPoint_space__or__space_ILine_space__or__space_ITriangle_sp
   var t=r.uint32()
   switch(t>>>3){
   case 1: {
-  m.v1=types[0].decode(r,r.uint32())
+  m.x=r.double()
   break
   }
   case 2: {
-  m.v2=types[1].decode(r,r.uint32())
-  break
-  }
-  case 3: {
-  m.v3=types[2].decode(r,r.uint32())
-  break
-  }
-  case 4: {
-  m.v4=types[3].decode(r,r.uint32())
-  break
-  }
-  case 5: {
-  m.v5=types[4].decode(r,r.uint32())
-  break
-  }
-  case 6: {
-  m.v6=types[5].decode(r,r.uint32())
-  break
-  }
-  case 7: {
-  m.v7=types[6].decode(r,r.uint32())
-  break
-  }
-  case 8: {
-  m.v8=types[7].decode(r,r.uint32())
+  m.y=r.double()
   break
   }
   default:
@@ -99,5 +184,203 @@ function IPointer_lt_IPoint_space__or__space_ILine_space__or__space_ITriangle_sp
   break
   }
   }
+  if(!m.hasOwnProperty("x"))
+  throw util.ProtocolError("missing required 'x'",{instance:m})
+  if(!m.hasOwnProperty("y"))
+  throw util.ProtocolError("missing required 'y'",{instance:m})
+  return m
+}
+function ILine$decode(r,l){
+  if(!(r instanceof Reader))
+  r=Reader.create(r)
+  var c=l===undefined?r.len:r.pos+l,m=new this.ctor
+  while(r.pos<c){
+  var t=r.uint32()
+  switch(t>>>3){
+  case 1: {
+  m.p1=types[0].decode(r,r.uint32())
+  break
+  }
+  case 2: {
+  m.p2=types[1].decode(r,r.uint32())
+  break
+  }
+  default:
+  r.skipType(t&7)
+  break
+  }
+  }
+  if(!m.hasOwnProperty("p1"))
+  throw util.ProtocolError("missing required 'p1'",{instance:m})
+  if(!m.hasOwnProperty("p2"))
+  throw util.ProtocolError("missing required 'p2'",{instance:m})
+  return m
+}
+function ITriangle$decode(r,l){
+  if(!(r instanceof Reader))
+  r=Reader.create(r)
+  var c=l===undefined?r.len:r.pos+l,m=new this.ctor
+  while(r.pos<c){
+  var t=r.uint32()
+  switch(t>>>3){
+  case 1: {
+  m.p1=types[0].decode(r,r.uint32())
+  break
+  }
+  case 2: {
+  m.p2=types[1].decode(r,r.uint32())
+  break
+  }
+  case 3: {
+  m.p3=types[2].decode(r,r.uint32())
+  break
+  }
+  default:
+  r.skipType(t&7)
+  break
+  }
+  }
+  if(!m.hasOwnProperty("p1"))
+  throw util.ProtocolError("missing required 'p1'",{instance:m})
+  if(!m.hasOwnProperty("p2"))
+  throw util.ProtocolError("missing required 'p2'",{instance:m})
+  if(!m.hasOwnProperty("p3"))
+  throw util.ProtocolError("missing required 'p3'",{instance:m})
+  return m
+}
+function IRectangle$decode(r,l){
+  if(!(r instanceof Reader))
+  r=Reader.create(r)
+  var c=l===undefined?r.len:r.pos+l,m=new this.ctor
+  while(r.pos<c){
+  var t=r.uint32()
+  switch(t>>>3){
+  case 1: {
+  m.p1=types[0].decode(r,r.uint32())
+  break
+  }
+  case 2: {
+  m.p2=types[1].decode(r,r.uint32())
+  break
+  }
+  case 3: {
+  m.p3=types[2].decode(r,r.uint32())
+  break
+  }
+  case 4: {
+  m.p4=types[3].decode(r,r.uint32())
+  break
+  }
+  default:
+  r.skipType(t&7)
+  break
+  }
+  }
+  if(!m.hasOwnProperty("p1"))
+  throw util.ProtocolError("missing required 'p1'",{instance:m})
+  if(!m.hasOwnProperty("p2"))
+  throw util.ProtocolError("missing required 'p2'",{instance:m})
+  if(!m.hasOwnProperty("p3"))
+  throw util.ProtocolError("missing required 'p3'",{instance:m})
+  if(!m.hasOwnProperty("p4"))
+  throw util.ProtocolError("missing required 'p4'",{instance:m})
+  return m
+}
+function IPolyline$decode(r,l){
+  if(!(r instanceof Reader))
+  r=Reader.create(r)
+  var c=l===undefined?r.len:r.pos+l,m=new this.ctor
+  while(r.pos<c){
+  var t=r.uint32()
+  switch(t>>>3){
+  case 1: {
+  if(!(m.points&&m.points.length))
+  m.points=[]
+  m.points.push(types[0].decode(r,r.uint32()))
+  break
+  }
+  default:
+  r.skipType(t&7)
+  break
+  }
+  }
+  return m
+}
+function IPolygon$decode(r,l){
+  if(!(r instanceof Reader))
+  r=Reader.create(r)
+  var c=l===undefined?r.len:r.pos+l,m=new this.ctor
+  while(r.pos<c){
+  var t=r.uint32()
+  switch(t>>>3){
+  case 1: {
+  m.outer=types[0].decode(r,r.uint32())
+  break
+  }
+  case 2: {
+  if(!(m.inner&&m.inner.length))
+  m.inner=[]
+  m.inner.push(types[1].decode(r,r.uint32()))
+  break
+  }
+  default:
+  r.skipType(t&7)
+  break
+  }
+  }
+  if(!m.hasOwnProperty("outer"))
+  throw util.ProtocolError("missing required 'outer'",{instance:m})
+  return m
+}
+function IPointedShape$decode(r,l){
+  if(!(r instanceof Reader))
+  r=Reader.create(r)
+  var c=l===undefined?r.len:r.pos+l,m=new this.ctor
+  while(r.pos<c){
+  var t=r.uint32()
+  switch(t>>>3){
+  case 1: {
+  if(!(m.outer&&m.outer.length))
+  m.outer=[]
+  m.outer.push(types[0].decode(r,r.uint32()))
+  break
+  }
+  case 2: {
+  m.inner=types[1].decode(r,r.uint32())
+  break
+  }
+  default:
+  r.skipType(t&7)
+  break
+  }
+  }
+  if(!m.hasOwnProperty("inner"))
+  throw util.ProtocolError("missing required 'inner'",{instance:m})
+  return m
+}
+function ICircle$decode(r,l){
+  if(!(r instanceof Reader))
+  r=Reader.create(r)
+  var c=l===undefined?r.len:r.pos+l,m=new this.ctor
+  while(r.pos<c){
+  var t=r.uint32()
+  switch(t>>>3){
+  case 1: {
+  m.centroid=types[0].decode(r,r.uint32())
+  break
+  }
+  case 2: {
+  m.radius=r.double()
+  break
+  }
+  default:
+  r.skipType(t&7)
+  break
+  }
+  }
+  if(!m.hasOwnProperty("centroid"))
+  throw util.ProtocolError("missing required 'centroid'",{instance:m})
+  if(!m.hasOwnProperty("radius"))
+  throw util.ProtocolError("missing required 'radius'",{instance:m})
   return m
 }

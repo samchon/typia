@@ -7,9 +7,9 @@ message TemplateUnion {
         required string postfix = 2;
         required string middle = 3;
         oneof mixed {
-            string v4 = 4;
+            bool v4 = 4;
             double v5 = 5;
-            bool v6 = 6;
+            string v6 = 6;
             __type v7 = 7;
         }
     }

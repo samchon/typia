@@ -1,4 +1,20 @@
 //---------------------------------------------------------
+// MESSAGE
+//---------------------------------------------------------
+// syntax = "proto3";
+// 
+// message TagFormat {
+//     required string uuid = 1;
+//     required string email = 2;
+//     required string url = 3;
+//     required string ipv4 = 4;
+//     required string ipv6 = 5;
+//     required string date = 6;
+//     required string date_time = 7;
+//     required string custom = 8;
+// }
+
+//---------------------------------------------------------
 // ENCODER
 //---------------------------------------------------------
 function TagFormat$encode(m,w){

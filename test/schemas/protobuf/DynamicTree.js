@@ -1,4 +1,15 @@
 //---------------------------------------------------------
+// MESSAGE
+//---------------------------------------------------------
+// syntax = "proto3";
+// 
+// message DynamicTree {
+//     required string id = 1;
+//     required double sequence = 2;
+//     map<string, DynamicTree> children = 3;
+// }
+
+//---------------------------------------------------------
 // ENCODER
 //---------------------------------------------------------
 function DynamicTree$encode(m,w){
