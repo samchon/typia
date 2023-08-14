@@ -18,11 +18,9 @@ export const explore_metadata =
     ): Metadata => {
         // CONSTRUCT METADATA
         const meta: Metadata = Metadata.initialize(parentResolved);
-        const out = (meta: Metadata) => {
-            if (options.validate) options.validate(meta);
-            return meta;
-        };
-        if (type === null) return out(meta);
+        collection.entire_.add(meta);
+
+        if (type === null) return meta;
 
         // ITERATE TYPESCRIPT TYPES
         iterate_metadata(checker)(options)(collection)(
@@ -36,5 +34,5 @@ export const explore_metadata =
             emend_metadata_atomics(meta.resolved.original);
             emend_metadata_atomics(meta.resolved.returns);
         }
-        return out(meta);
+        return meta;
     };

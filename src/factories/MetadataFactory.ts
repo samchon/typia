@@ -25,6 +25,10 @@ export namespace MetadataFactory {
             )(type, false);
             iterate_metadata_collection(collection);
             iterate_metadata_sort(collection)(meta);
+
+            if (options.validate)
+                for (const elem of collection.entire_) options.validate(elem);
+            collection.entire_.clear();
             return meta;
         };
 }
