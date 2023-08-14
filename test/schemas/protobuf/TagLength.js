@@ -10,6 +10,7 @@
 //         required string minimum = 2;
 //         required string maximum = 3;
 //         required string minimum_and_maximum = 4;
+//         required string equal = 5;
 //     }
 // }
 
@@ -32,6 +33,7 @@ function Type$encode(m,w){
   w.uint32(18).string(m.minimum)
   w.uint32(26).string(m.maximum)
   w.uint32(34).string(m.minimumAndMaximum)
+  w.uint32(42).string(m.equal)
   return w
 }
 
@@ -81,6 +83,10 @@ function Type$decode(r,l){
   m.minimumAndMaximum=r.string()
   break
   }
+  case 5: {
+  m.equal=r.string()
+  break
+  }
   default:
   r.skipType(t&7)
   break
@@ -94,5 +100,7 @@ function Type$decode(r,l){
   throw util.ProtocolError("missing required 'maximum'",{instance:m})
   if(!m.hasOwnProperty("minimumAndMaximum"))
   throw util.ProtocolError("missing required 'minimumAndMaximum'",{instance:m})
+  if(!m.hasOwnProperty("equal"))
+  throw util.ProtocolError("missing required 'equal'",{instance:m})
   return m
 }

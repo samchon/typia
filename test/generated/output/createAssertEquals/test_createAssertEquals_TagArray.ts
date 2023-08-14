@@ -48,10 +48,17 @@ export const test_assertEquals_TagArray = _test_assertEquals<TagArray>(
                 (elem: any, _index4: number) =>
                     "string" === typeof elem && $is_uuid(elem),
             ) &&
-            (3 === Object.keys(input).length ||
+            Array.isArray(input.equal) &&
+            10 <= input.equal.length &&
+            10 >= input.equal.length &&
+            input.equal.every(
+                (elem: any, _index5: number) =>
+                    "number" === typeof elem && 10 <= elem && 10 >= elem,
+            ) &&
+            (4 === Object.keys(input).length ||
                 Object.keys(input).every((key: any) => {
                     if (
-                        ["items", "minItems", "both"].some(
+                        ["items", "minItems", "both", "equal"].some(
                             (prop: any) => key === prop,
                         )
                     )
@@ -231,11 +238,55 @@ export const test_assertEquals_TagArray = _test_assertEquals<TagArray>(
                         expected: "Array<string>",
                         value: input.both,
                     })) &&
-                (3 === Object.keys(input).length ||
+                ((((Array.isArray(input.equal) &&
+                    (10 <= input.equal.length ||
+                        $guard(_exceptionable, {
+                            path: _path + ".equal",
+                            expected: "Array.length (@minItems 10)",
+                            value: input.equal,
+                        })) &&
+                    (10 >= input.equal.length ||
+                        $guard(_exceptionable, {
+                            path: _path + ".equal",
+                            expected: "Array.length (@maxItems 10)",
+                            value: input.equal,
+                        }))) ||
+                    $guard(_exceptionable, {
+                        path: _path + ".equal",
+                        expected: "Array<number>",
+                        value: input.equal,
+                    })) &&
+                    input.equal.every(
+                        (elem: any, _index5: number) =>
+                            ("number" === typeof elem &&
+                                (10 <= elem ||
+                                    $guard(_exceptionable, {
+                                        path: _path + ".equal[" + _index5 + "]",
+                                        expected: "number (@minimum 10)",
+                                        value: elem,
+                                    })) &&
+                                (10 >= elem ||
+                                    $guard(_exceptionable, {
+                                        path: _path + ".equal[" + _index5 + "]",
+                                        expected: "number (@maximum 10)",
+                                        value: elem,
+                                    }))) ||
+                            $guard(_exceptionable, {
+                                path: _path + ".equal[" + _index5 + "]",
+                                expected: "number",
+                                value: elem,
+                            }),
+                    )) ||
+                    $guard(_exceptionable, {
+                        path: _path + ".equal",
+                        expected: "Array<number>",
+                        value: input.equal,
+                    })) &&
+                (4 === Object.keys(input).length ||
                     false === _exceptionable ||
                     Object.keys(input).every((key: any) => {
                         if (
-                            ["items", "minItems", "both"].some(
+                            ["items", "minItems", "both", "equal"].some(
                                 (prop: any) => key === prop,
                             )
                         )

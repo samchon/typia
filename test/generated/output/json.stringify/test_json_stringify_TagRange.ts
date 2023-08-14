@@ -26,7 +26,10 @@ export const test_json_stringify_TagRange = _test_json_stringify<TagRange>(
             7 >= input.greater_less_equal &&
             "number" === typeof input.greater_equal_less_equal &&
             3 <= input.greater_equal_less_equal &&
-            7 >= input.greater_equal_less_equal;
+            7 >= input.greater_equal_less_equal &&
+            "number" === typeof input.equal &&
+            10 <= input.equal &&
+            10 >= input.equal;
         const $number = (typia.json.stringify as any).number;
         const $so0 = (input: any): any =>
             `{"value":${`[${input.value
@@ -48,7 +51,7 @@ export const test_json_stringify_TagRange = _test_json_stringify<TagRange>(
                             (elem as any).greater_less_equal,
                         )},"greater_equal_less_equal":${$number(
                             (elem as any).greater_equal_less_equal,
-                        )}}`,
+                        )},"equal":${$number((elem as any).equal)}}`,
                 )
                 .join(",")}]`}}`;
         return $so0(input);

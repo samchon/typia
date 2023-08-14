@@ -13,7 +13,10 @@ export const test_misc_clone_TagLength = _test_misc_clone<TagLength>(TagLength)(
             7 >= input.maximum.length &&
             "string" === typeof input.minimum_and_maximum &&
             3 <= input.minimum_and_maximum.length &&
-            7 >= input.minimum_and_maximum.length;
+            7 >= input.minimum_and_maximum.length &&
+            "string" === typeof input.equal &&
+            10 <= input.equal.length &&
+            19 >= input.equal.length;
         const $cp0 = (input: any) =>
             input.map((elem: any) =>
                 "object" === typeof elem && null !== elem
@@ -30,6 +33,7 @@ export const test_misc_clone_TagLength = _test_misc_clone<TagLength>(TagLength)(
             minimum: input.minimum as any,
             maximum: input.maximum as any,
             minimum_and_maximum: input.minimum_and_maximum as any,
+            equal: input.equal as any,
         });
         return "object" === typeof input && null !== input
             ? $co0(input)

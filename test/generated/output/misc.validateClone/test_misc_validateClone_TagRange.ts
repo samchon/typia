@@ -40,7 +40,10 @@ export const test_misc_validateClone_TagRange =
                         7 >= input.greater_less_equal &&
                         "number" === typeof input.greater_equal_less_equal &&
                         3 <= input.greater_equal_less_equal &&
-                        7 >= input.greater_equal_less_equal;
+                        7 >= input.greater_equal_less_equal &&
+                        "number" === typeof input.equal &&
+                        10 <= input.equal &&
+                        10 >= input.equal;
                     return (
                         "object" === typeof input &&
                         null !== input &&
@@ -250,6 +253,24 @@ export const test_misc_validateClone_TagRange =
                                         expected: "number",
                                         value: input.greater_equal_less_equal,
                                     }),
+                                ("number" === typeof input.equal &&
+                                    (10 <= input.equal ||
+                                        $report(_exceptionable, {
+                                            path: _path + ".equal",
+                                            expected: "number (@minimum 10)",
+                                            value: input.equal,
+                                        })) &&
+                                    (10 >= input.equal ||
+                                        $report(_exceptionable, {
+                                            path: _path + ".equal",
+                                            expected: "number (@maximum 10)",
+                                            value: input.equal,
+                                        }))) ||
+                                    $report(_exceptionable, {
+                                        path: _path + ".equal",
+                                        expected: "number",
+                                        value: input.equal,
+                                    }),
                             ].every((flag: boolean) => flag);
                         return (
                             ((("object" === typeof input && null !== input) ||
@@ -295,7 +316,10 @@ export const test_misc_validateClone_TagRange =
                     7 >= input.greater_less_equal &&
                     "number" === typeof input.greater_equal_less_equal &&
                     3 <= input.greater_equal_less_equal &&
-                    7 >= input.greater_equal_less_equal;
+                    7 >= input.greater_equal_less_equal &&
+                    "number" === typeof input.equal &&
+                    10 <= input.equal &&
+                    10 >= input.equal;
                 const $cp0 = (input: any) =>
                     input.map((elem: any) =>
                         "object" === typeof elem && null !== elem
@@ -317,6 +341,7 @@ export const test_misc_validateClone_TagRange =
                     greater_less_equal: input.greater_less_equal as any,
                     greater_equal_less_equal:
                         input.greater_equal_less_equal as any,
+                    equal: input.equal as any,
                 });
                 return "object" === typeof input && null !== input
                     ? $co0(input)

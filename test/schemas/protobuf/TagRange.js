@@ -14,6 +14,7 @@
 //         required double greater_equal_less = 6;
 //         required double greater_less_equal = 7;
 //         required double greater_equal_less_equal = 8;
+//         required double equal = 9;
 //     }
 // }
 
@@ -40,6 +41,7 @@ function Type$encode(m,w){
   w.uint32(49).double(m.greaterEqualLess)
   w.uint32(57).double(m.greaterLessEqual)
   w.uint32(65).double(m.greaterEqualLessEqual)
+  w.uint32(73).double(m.equal)
   return w
 }
 
@@ -105,6 +107,10 @@ function Type$decode(r,l){
   m.greaterEqualLessEqual=r.double()
   break
   }
+  case 9: {
+  m.equal=r.double()
+  break
+  }
   default:
   r.skipType(t&7)
   break
@@ -126,5 +132,7 @@ function Type$decode(r,l){
   throw util.ProtocolError("missing required 'greaterLessEqual'",{instance:m})
   if(!m.hasOwnProperty("greaterEqualLessEqual"))
   throw util.ProtocolError("missing required 'greaterEqualLessEqual'",{instance:m})
+  if(!m.hasOwnProperty("equal"))
+  throw util.ProtocolError("missing required 'equal'",{instance:m})
   return m
 }

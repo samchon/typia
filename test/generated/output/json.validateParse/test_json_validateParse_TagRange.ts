@@ -40,7 +40,10 @@ export const test_json_validateParse_TagRange =
                         7 >= input.greater_less_equal &&
                         "number" === typeof input.greater_equal_less_equal &&
                         3 <= input.greater_equal_less_equal &&
-                        7 >= input.greater_equal_less_equal;
+                        7 >= input.greater_equal_less_equal &&
+                        "number" === typeof input.equal &&
+                        10 <= input.equal &&
+                        10 >= input.equal;
                     return (
                         "object" === typeof input &&
                         null !== input &&
@@ -249,6 +252,24 @@ export const test_json_validateParse_TagRange =
                                             _path + ".greater_equal_less_equal",
                                         expected: "number",
                                         value: input.greater_equal_less_equal,
+                                    }),
+                                ("number" === typeof input.equal &&
+                                    (10 <= input.equal ||
+                                        $report(_exceptionable, {
+                                            path: _path + ".equal",
+                                            expected: "number (@minimum 10)",
+                                            value: input.equal,
+                                        })) &&
+                                    (10 >= input.equal ||
+                                        $report(_exceptionable, {
+                                            path: _path + ".equal",
+                                            expected: "number (@maximum 10)",
+                                            value: input.equal,
+                                        }))) ||
+                                    $report(_exceptionable, {
+                                        path: _path + ".equal",
+                                        expected: "number",
+                                        value: input.equal,
                                     }),
                             ].every((flag: boolean) => flag);
                         return (

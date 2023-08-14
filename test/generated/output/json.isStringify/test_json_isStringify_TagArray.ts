@@ -33,6 +33,13 @@ export const test_json_isStringify_TagArray = _test_json_isStringify<TagArray>(
                 7 >= input.both.length &&
                 input.both.every(
                     (elem: any) => "string" === typeof elem && $is_uuid(elem),
+                ) &&
+                Array.isArray(input.equal) &&
+                10 <= input.equal.length &&
+                10 >= input.equal.length &&
+                input.equal.every(
+                    (elem: any) =>
+                        "number" === typeof elem && 10 <= elem && 10 >= elem,
                 );
             return "object" === typeof input && null !== input && $io0(input);
         };
@@ -53,6 +60,13 @@ export const test_json_isStringify_TagArray = _test_json_isStringify<TagArray>(
                 7 >= input.both.length &&
                 input.both.every(
                     (elem: any) => "string" === typeof elem && $is_uuid(elem),
+                ) &&
+                Array.isArray(input.equal) &&
+                10 <= input.equal.length &&
+                10 >= input.equal.length &&
+                input.equal.every(
+                    (elem: any) =>
+                        "number" === typeof elem && 10 <= elem && 10 >= elem,
                 );
             const $string = (typia.json.isStringify as any).string;
             const $number = (typia.json.isStringify as any).number;
@@ -68,6 +82,8 @@ export const test_json_isStringify_TagArray = _test_json_isStringify<TagArray>(
                     .map((elem: any) => $number(elem))
                     .join(",")}]`},"both":${`[${input.both
                     .map((elem: any) => $string(elem))
+                    .join(",")}]`},"equal":${`[${input.equal
+                    .map((elem: any) => $number(elem))
                     .join(",")}]`}}`;
             return $so0(input);
         };

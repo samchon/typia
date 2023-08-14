@@ -25,7 +25,10 @@ export const test_misc_validatePrune_TagLength =
                         7 >= input.maximum.length &&
                         "string" === typeof input.minimum_and_maximum &&
                         3 <= input.minimum_and_maximum.length &&
-                        7 >= input.minimum_and_maximum.length;
+                        7 >= input.minimum_and_maximum.length &&
+                        "string" === typeof input.equal &&
+                        10 <= input.equal.length &&
+                        19 >= input.equal.length;
                     return (
                         "object" === typeof input &&
                         null !== input &&
@@ -156,6 +159,24 @@ export const test_misc_validatePrune_TagLength =
                                         expected: "string",
                                         value: input.minimum_and_maximum,
                                     }),
+                                ("string" === typeof input.equal &&
+                                    (10 <= input.equal.length ||
+                                        $report(_exceptionable, {
+                                            path: _path + ".equal",
+                                            expected: "string (@minLength 10)",
+                                            value: input.equal,
+                                        })) &&
+                                    (19 >= input.equal.length ||
+                                        $report(_exceptionable, {
+                                            path: _path + ".equal",
+                                            expected: "string (@maxLength 19)",
+                                            value: input.equal,
+                                        }))) ||
+                                    $report(_exceptionable, {
+                                        path: _path + ".equal",
+                                        expected: "string",
+                                        value: input.equal,
+                                    }),
                             ].every((flag: boolean) => flag);
                         return (
                             ((("object" === typeof input && null !== input) ||
@@ -190,7 +211,10 @@ export const test_misc_validatePrune_TagLength =
                     7 >= input.maximum.length &&
                     "string" === typeof input.minimum_and_maximum &&
                     3 <= input.minimum_and_maximum.length &&
-                    7 >= input.minimum_and_maximum.length;
+                    7 >= input.minimum_and_maximum.length &&
+                    "string" === typeof input.equal &&
+                    10 <= input.equal.length &&
+                    19 >= input.equal.length;
                 const $pp0 = (input: any) =>
                     input.forEach((elem: any) => {
                         if ("object" === typeof elem && null !== elem)
@@ -209,7 +233,8 @@ export const test_misc_validatePrune_TagLength =
                             "fixed" === key ||
                             "minimum" === key ||
                             "maximum" === key ||
-                            "minimum_and_maximum" === key
+                            "minimum_and_maximum" === key ||
+                            "equal" === key
                         )
                             continue;
                         delete input[key];

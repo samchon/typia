@@ -40,7 +40,7 @@ export const test_random_TagArrayUnion = _test_random<TagArrayUnion>(
                             value: "3",
                         },
                     ]) ?? (generator?.number ?? $generator.number)(3, 13),
-                (generator?.integer ?? $generator.integer)(3, 6),
+                (generator?.integer ?? $generator.integer)(3, 3),
             ),
             maxItems: (generator?.array ?? $generator.array)(
                 () =>

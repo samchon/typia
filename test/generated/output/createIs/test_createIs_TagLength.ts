@@ -19,7 +19,10 @@ export const test_is_TagLength = _test_is<TagLength>(TagLength)(
             7 >= input.maximum.length &&
             "string" === typeof input.minimum_and_maximum &&
             3 <= input.minimum_and_maximum.length &&
-            7 >= input.minimum_and_maximum.length;
+            7 >= input.minimum_and_maximum.length &&
+            "string" === typeof input.equal &&
+            10 <= input.equal.length &&
+            19 >= input.equal.length;
         return "object" === typeof input && null !== input && $io0(input);
     },
 );

@@ -39,7 +39,10 @@ export const test_json_assertStringify_TagRange =
                         7 >= input.greater_less_equal &&
                         "number" === typeof input.greater_equal_less_equal &&
                         3 <= input.greater_equal_less_equal &&
-                        7 >= input.greater_equal_less_equal;
+                        7 >= input.greater_equal_less_equal &&
+                        "number" === typeof input.equal &&
+                        10 <= input.equal &&
+                        10 >= input.equal;
                     return (
                         "object" === typeof input &&
                         null !== input &&
@@ -238,6 +241,24 @@ export const test_json_assertStringify_TagRange =
                                     path: _path + ".greater_equal_less_equal",
                                     expected: "number",
                                     value: input.greater_equal_less_equal,
+                                })) &&
+                            (("number" === typeof input.equal &&
+                                (10 <= input.equal ||
+                                    $guard(_exceptionable, {
+                                        path: _path + ".equal",
+                                        expected: "number (@minimum 10)",
+                                        value: input.equal,
+                                    })) &&
+                                (10 >= input.equal ||
+                                    $guard(_exceptionable, {
+                                        path: _path + ".equal",
+                                        expected: "number (@maximum 10)",
+                                        value: input.equal,
+                                    }))) ||
+                                $guard(_exceptionable, {
+                                    path: _path + ".equal",
+                                    expected: "number",
+                                    value: input.equal,
                                 }));
                         return (
                             ((("object" === typeof input && null !== input) ||
@@ -277,7 +298,10 @@ export const test_json_assertStringify_TagRange =
                     7 >= input.greater_less_equal &&
                     "number" === typeof input.greater_equal_less_equal &&
                     3 <= input.greater_equal_less_equal &&
-                    7 >= input.greater_equal_less_equal;
+                    7 >= input.greater_equal_less_equal &&
+                    "number" === typeof input.equal &&
+                    10 <= input.equal &&
+                    10 >= input.equal;
                 const $number = (typia.json.assertStringify as any).number;
                 const $so0 = (input: any): any =>
                     `{"value":${`[${input.value
@@ -299,7 +323,7 @@ export const test_json_assertStringify_TagRange =
                                     (elem as any).greater_less_equal,
                                 )},"greater_equal_less_equal":${$number(
                                     (elem as any).greater_equal_less_equal,
-                                )}}`,
+                                )},"equal":${$number((elem as any).equal)}}`,
                         )
                         .join(",")}]`}}`;
                 return $so0(input);

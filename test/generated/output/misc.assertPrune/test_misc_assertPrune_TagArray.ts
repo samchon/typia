@@ -38,6 +38,15 @@ export const test_misc_assertPrune_TagArray = _test_misc_assertPrune<TagArray>(
                     input.both.every(
                         (elem: any) =>
                             "string" === typeof elem && $is_uuid(elem),
+                    ) &&
+                    Array.isArray(input.equal) &&
+                    10 <= input.equal.length &&
+                    10 >= input.equal.length &&
+                    input.equal.every(
+                        (elem: any) =>
+                            "number" === typeof elem &&
+                            10 <= elem &&
+                            10 >= elem,
                     );
                 return (
                     "object" === typeof input && null !== input && $io0(input)
@@ -216,6 +225,60 @@ export const test_misc_assertPrune_TagArray = _test_misc_assertPrune<TagArray>(
                                 path: _path + ".both",
                                 expected: "Array<string>",
                                 value: input.both,
+                            })) &&
+                        ((((Array.isArray(input.equal) &&
+                            (10 <= input.equal.length ||
+                                $guard(_exceptionable, {
+                                    path: _path + ".equal",
+                                    expected: "Array.length (@minItems 10)",
+                                    value: input.equal,
+                                })) &&
+                            (10 >= input.equal.length ||
+                                $guard(_exceptionable, {
+                                    path: _path + ".equal",
+                                    expected: "Array.length (@maxItems 10)",
+                                    value: input.equal,
+                                }))) ||
+                            $guard(_exceptionable, {
+                                path: _path + ".equal",
+                                expected: "Array<number>",
+                                value: input.equal,
+                            })) &&
+                            input.equal.every(
+                                (elem: any, _index5: number) =>
+                                    ("number" === typeof elem &&
+                                        (10 <= elem ||
+                                            $guard(_exceptionable, {
+                                                path:
+                                                    _path +
+                                                    ".equal[" +
+                                                    _index5 +
+                                                    "]",
+                                                expected:
+                                                    "number (@minimum 10)",
+                                                value: elem,
+                                            })) &&
+                                        (10 >= elem ||
+                                            $guard(_exceptionable, {
+                                                path:
+                                                    _path +
+                                                    ".equal[" +
+                                                    _index5 +
+                                                    "]",
+                                                expected:
+                                                    "number (@maximum 10)",
+                                                value: elem,
+                                            }))) ||
+                                    $guard(_exceptionable, {
+                                        path: _path + ".equal[" + _index5 + "]",
+                                        expected: "number",
+                                        value: elem,
+                                    }),
+                            )) ||
+                            $guard(_exceptionable, {
+                                path: _path + ".equal",
+                                expected: "Array<number>",
+                                value: input.equal,
                             }));
                     return (
                         ((("object" === typeof input && null !== input) ||
@@ -251,6 +314,13 @@ export const test_misc_assertPrune_TagArray = _test_misc_assertPrune<TagArray>(
                 7 >= input.both.length &&
                 input.both.every(
                     (elem: any) => "string" === typeof elem && $is_uuid(elem),
+                ) &&
+                Array.isArray(input.equal) &&
+                10 <= input.equal.length &&
+                10 >= input.equal.length &&
+                input.equal.every(
+                    (elem: any) =>
+                        "number" === typeof elem && 10 <= elem && 10 >= elem,
                 );
             const $is_uuid = (typia.misc.assertPrune as any).is_uuid;
             const $pp0 = (input: any) =>
@@ -266,7 +336,12 @@ export const test_misc_assertPrune_TagArray = _test_misc_assertPrune<TagArray>(
             };
             const $po1 = (input: any): any => {
                 for (const key of Object.keys(input)) {
-                    if ("items" === key || "minItems" === key || "both" === key)
+                    if (
+                        "items" === key ||
+                        "minItems" === key ||
+                        "both" === key ||
+                        "equal" === key
+                    )
                         continue;
                     delete input[key];
                 }

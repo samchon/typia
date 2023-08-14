@@ -9,6 +9,7 @@
 //         repeated string items = 1;
 //         repeated double minItems = 2;
 //         repeated string both = 3;
+//         repeated double equal = 4;
 //     }
 // }
 
@@ -40,6 +41,12 @@ function Type$encode(m,w){
   if(m.both!=null&&m.both.length){
   for(var i=0;i<m.both.length;++i)
   w.uint32(26).string(m.both[i])
+  }
+  if(m.equal!=null&&m.equal.length){
+  w.uint32(34).fork()
+  for(var i=0;i<m.equal.length;++i)
+  w.double(m.equal[i])
+  w.ldelim()
   }
   return w
 }
@@ -95,6 +102,17 @@ function Type$decode(r,l){
   if(!(m.both&&m.both.length))
   m.both=[]
   m.both.push(r.string())
+  break
+  }
+  case 4: {
+  if(!(m.equal&&m.equal.length))
+  m.equal=[]
+  if((t&7)===2){
+  var c2=r.uint32()+r.pos
+  while(r.pos<c2)
+  m.equal.push(r.double())
+  }else
+  m.equal.push(r.double())
   break
   }
   default:

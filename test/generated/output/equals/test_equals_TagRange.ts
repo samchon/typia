@@ -45,7 +45,10 @@ export const test_equals_TagRange = _test_equals<TagRange>(TagRange)((input) =>
             "number" === typeof input.greater_equal_less_equal &&
             3 <= input.greater_equal_less_equal &&
             7 >= input.greater_equal_less_equal &&
-            (8 === Object.keys(input).length ||
+            "number" === typeof input.equal &&
+            10 <= input.equal &&
+            10 >= input.equal &&
+            (9 === Object.keys(input).length ||
                 Object.keys(input).every((key: any) => {
                     if (
                         [
@@ -57,6 +60,7 @@ export const test_equals_TagRange = _test_equals<TagRange>(TagRange)((input) =>
                             "greater_equal_less",
                             "greater_less_equal",
                             "greater_equal_less_equal",
+                            "equal",
                         ].some((prop: any) => key === prop)
                     )
                         return true;
