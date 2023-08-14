@@ -14,6 +14,8 @@ import { Atomic } from "../../typings/Atomic";
 import { MapUtil } from "../../utils/MapUtil";
 import { NameEncoder } from "../../utils/NameEncoder";
 
+import { ProtobufUtil } from "../helpers/ProtobufUtil";
+
 export namespace ProtobufMessageProgrammer {
     export const write =
         ({ checker }: IProject) =>
@@ -97,17 +99,17 @@ export namespace ProtobufMessageProgrammer {
             .join("\n");
     };
 
+    /* -----------------------------------------------------------
+        DECODERS
+    ----------------------------------------------------------- */
     const decode =
         (ptr: IPointer<number>) =>
         (tags: IMetadataTag[]) =>
         (meta: Metadata): string => {
             const elements: Set<string> = new Set();
             if (meta.natives.length) elements.add("bytes");
-            if (meta.templates.length) elements.add("string");
-            for (const atomic of meta.atomics)
+            for (const atomic of ProtobufUtil.atomics(meta))
                 elements.add(decode_atomic(tags)(atomic));
-            for (const constant of meta.constants)
-                elements.add(decode_atomic(tags)(constant.type));
             for (const array of meta.arrays)
                 elements.add(`repeated ${decode(ptr)(tags)(array.value)}`);
             for (const obj of meta.objects)

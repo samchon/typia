@@ -4,7 +4,7 @@ import { ProtobufMessageProgrammer } from "../../../programmers/protobuf/Protobu
 
 import { IProject } from "../../IProject";
 
-export namespace MessageTransformer {
+export namespace ProtobufMessageTransformer {
     export const transform =
         (project: IProject) =>
         (_modulo: ts.LeftHandSideExpression) =>
@@ -26,6 +26,6 @@ export namespace MessageTransformer {
 }
 
 const enum ErrorMessages {
-    NOT_SPECIFIED = "Error on typia.message(): generic argument is not specified.",
-    GENERIC_ARGUMENT = "Error on typia.message(): non-specified generic argument.",
+    NOT_SPECIFIED = "Error on typia.protobuf.message(): generic argument is not specified.",
+    GENERIC_ARGUMENT = "Error on typia.protobuf.message(): non-specified generic argument.",
 }

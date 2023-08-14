@@ -1,6 +1,22 @@
 import ts from "typescript";
 
 export namespace StatementFactory {
+    export const mut = (name: string, initializer?: ts.Expression) =>
+        ts.factory.createVariableStatement(
+            undefined,
+            ts.factory.createVariableDeclarationList(
+                [
+                    ts.factory.createVariableDeclaration(
+                        name,
+                        undefined,
+                        undefined,
+                        initializer,
+                    ),
+                ],
+                ts.NodeFlags.Let,
+            ),
+        );
+
     export const constant = (name: string, initializer?: ts.Expression) =>
         ts.factory.createVariableStatement(
             undefined,

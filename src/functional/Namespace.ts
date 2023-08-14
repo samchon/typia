@@ -1,8 +1,9 @@
+import { Writer } from "protobufjs";
+
 import { RandomGenerator } from "../utils/RandomGenerator";
 
 import { IValidation } from "../IValidation";
 import { TypeGuardError } from "../TypeGuardError";
-import { $BufferWritter } from "./$BufferWriter";
 import { $any } from "./$any";
 import { $every } from "./$every";
 import { $guard } from "./$guard";
@@ -106,7 +107,7 @@ export namespace Namespace {
 
     export namespace protobuf {
         export const encode = (method: string) => ({
-            BufferWriter: $BufferWritter,
+            Writer: Writer,
             strl: $strlen,
             throws: $throws(method),
         });
