@@ -113,9 +113,9 @@ export const test_misc_isClone_ObjectUnionComposite =
                 const $iu0 = (input: any): any =>
                     (() => {
                         if (undefined !== input.x) return $io0(input);
-                        if (undefined !== input.p4) return $io3(input);
-                        if (undefined !== input.points) return $io4(input);
-                        if (
+                        else if (undefined !== input.p4) return $io3(input);
+                        else if (undefined !== input.points) return $io4(input);
+                        else if (
                             Array.isArray(input.outer) &&
                             input.outer.every(
                                 (elem: any) =>
@@ -125,17 +125,19 @@ export const test_misc_isClone_ObjectUnionComposite =
                             )
                         )
                             return $io6(input);
-                        if (
+                        else if (
                             "object" === typeof input.outer &&
                             null !== input.outer &&
                             $io4(input.outer)
                         )
                             return $io5(input);
-                        if (undefined !== input.centroid) return $io7(input);
-                        return (() => {
-                            if (undefined !== input.p3) return $io2(input);
-                            return $io1(input);
-                        })();
+                        else if (undefined !== input.centroid)
+                            return $io7(input);
+                        else
+                            return (() => {
+                                if (undefined !== input.p3) return $io2(input);
+                                else return $io1(input);
+                            })();
                     })();
                 return (
                     Array.isArray(input) &&
@@ -315,9 +317,9 @@ export const test_misc_isClone_ObjectUnionComposite =
                 const $cu0 = (input: any): any =>
                     (() => {
                         if (undefined !== input.x) return $co0(input);
-                        if (undefined !== input.p4) return $co3(input);
-                        if (undefined !== input.points) return $co4(input);
-                        if (
+                        else if (undefined !== input.p4) return $co3(input);
+                        else if (undefined !== input.points) return $co4(input);
+                        else if (
                             Array.isArray(input.outer) &&
                             input.outer.every(
                                 (elem: any) =>
@@ -327,17 +329,19 @@ export const test_misc_isClone_ObjectUnionComposite =
                             )
                         )
                             return $co6(input);
-                        if (
+                        else if (
                             "object" === typeof input.outer &&
                             null !== input.outer &&
                             $io4(input.outer)
                         )
                             return $co5(input);
-                        if (undefined !== input.centroid) return $co7(input);
-                        return (() => {
-                            if (undefined !== input.p3) return $co2(input);
-                            return $co1(input);
-                        })();
+                        else if (undefined !== input.centroid)
+                            return $co7(input);
+                        else
+                            return (() => {
+                                if (undefined !== input.p3) return $co2(input);
+                                else return $co1(input);
+                            })();
                     })();
                 return Array.isArray(input) ? $cp0(input) : (input as any);
             };

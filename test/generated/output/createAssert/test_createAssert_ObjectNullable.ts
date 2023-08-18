@@ -32,8 +32,8 @@ export const test_assert_ObjectNullable = _test_assert<ObjectNullable>(
         const $iu0 = (input: any): any =>
             (() => {
                 if ("brand" === input.type) return $io3(input);
-                if ("manufacturer" === input.type) return $io2(input);
-                return false;
+                else if ("manufacturer" === input.type) return $io2(input);
+                else return false;
             })();
         return "object" === typeof input && null !== input && $io0(input);
     };
@@ -187,14 +187,15 @@ export const test_assert_ObjectNullable = _test_assert<ObjectNullable>(
                 (() => {
                     if ("brand" === input.type)
                         return $ao3(input, _path, true && _exceptionable);
-                    if ("manufacturer" === input.type)
+                    else if ("manufacturer" === input.type)
                         return $ao2(input, _path, true && _exceptionable);
-                    return $guard(_exceptionable, {
-                        path: _path,
-                        expected:
-                            "(ObjectNullable.IBrand | ObjectNullable.IManufacturer)",
-                        value: input,
-                    });
+                    else
+                        return $guard(_exceptionable, {
+                            path: _path,
+                            expected:
+                                "(ObjectNullable.IBrand | ObjectNullable.IManufacturer)",
+                            value: input,
+                        });
                 })();
             return (
                 ((("object" === typeof input && null !== input) ||

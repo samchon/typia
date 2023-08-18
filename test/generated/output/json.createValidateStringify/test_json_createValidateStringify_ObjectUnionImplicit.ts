@@ -123,14 +123,19 @@ export const test_json_validateStringify_ObjectUnionImplicit =
                     const $iu0 = (input: any): any =>
                         (() => {
                             if (undefined !== input.x) return $io0(input);
-                            if (undefined !== input.p4) return $io3(input);
-                            if (undefined !== input.points) return $io4(input);
-                            if (undefined !== input.outer) return $io5(input);
-                            if (undefined !== input.radius) return $io6(input);
-                            return (() => {
-                                if (undefined !== input.p3) return $io2(input);
-                                return $io1(input);
-                            })();
+                            else if (undefined !== input.p4) return $io3(input);
+                            else if (undefined !== input.points)
+                                return $io4(input);
+                            else if (undefined !== input.outer)
+                                return $io5(input);
+                            else if (undefined !== input.radius)
+                                return $io6(input);
+                            else
+                                return (() => {
+                                    if (undefined !== input.p3)
+                                        return $io2(input);
+                                    else return $io1(input);
+                                })();
                         })();
                     return (
                         Array.isArray(input) &&
@@ -635,43 +640,45 @@ export const test_json_validateStringify_ObjectUnionImplicit =
                                         _path,
                                         true && _exceptionable,
                                     );
-                                if (undefined !== input.p4)
+                                else if (undefined !== input.p4)
                                     return $vo3(
                                         input,
                                         _path,
                                         true && _exceptionable,
                                     );
-                                if (undefined !== input.points)
+                                else if (undefined !== input.points)
                                     return $vo4(
                                         input,
                                         _path,
                                         true && _exceptionable,
                                     );
-                                if (undefined !== input.outer)
+                                else if (undefined !== input.outer)
                                     return $vo5(
                                         input,
                                         _path,
                                         true && _exceptionable,
                                     );
-                                if (undefined !== input.radius)
+                                else if (undefined !== input.radius)
                                     return $vo6(
                                         input,
                                         _path,
                                         true && _exceptionable,
                                     );
-                                return (() => {
-                                    if (undefined !== input.p3)
-                                        return $vo2(
-                                            input,
-                                            _path,
-                                            true && _exceptionable,
-                                        );
-                                    return $vo1(
-                                        input,
-                                        _path,
-                                        true && _exceptionable,
-                                    );
-                                })();
+                                else
+                                    return (() => {
+                                        if (undefined !== input.p3)
+                                            return $vo2(
+                                                input,
+                                                _path,
+                                                true && _exceptionable,
+                                            );
+                                        else
+                                            return $vo1(
+                                                input,
+                                                _path,
+                                                true && _exceptionable,
+                                            );
+                                    })();
                             })();
                         return (
                             ((Array.isArray(input) ||
@@ -983,14 +990,15 @@ export const test_json_validateStringify_ObjectUnionImplicit =
                 const $su0 = (input: any): any =>
                     (() => {
                         if (undefined !== input.x) return $so0(input);
-                        if (undefined !== input.p4) return $so3(input);
-                        if (undefined !== input.points) return $so4(input);
-                        if (undefined !== input.outer) return $so5(input);
-                        if (undefined !== input.radius) return $so6(input);
-                        return (() => {
-                            if (undefined !== input.p3) return $so2(input);
-                            return $so1(input);
-                        })();
+                        else if (undefined !== input.p4) return $so3(input);
+                        else if (undefined !== input.points) return $so4(input);
+                        else if (undefined !== input.outer) return $so5(input);
+                        else if (undefined !== input.radius) return $so6(input);
+                        else
+                            return (() => {
+                                if (undefined !== input.p3) return $so2(input);
+                                else return $so1(input);
+                            })();
                     })();
                 return `[${input.map((elem: any) => $su0(elem)).join(",")}]`;
             };

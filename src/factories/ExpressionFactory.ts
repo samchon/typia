@@ -87,4 +87,22 @@ export namespace ExpressionFactory {
                 ]);
             return prev;
         };
+
+    export const selfCall = (body: ts.ConciseBody) =>
+        ts.isCallExpression(body)
+            ? body
+            : ts.factory.createCallExpression(
+                  ts.factory.createParenthesizedExpression(
+                      ts.factory.createArrowFunction(
+                          undefined,
+                          undefined,
+                          [],
+                          undefined,
+                          undefined,
+                          body,
+                      ),
+                  ),
+                  undefined,
+                  undefined,
+              );
 }

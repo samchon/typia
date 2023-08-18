@@ -130,9 +130,10 @@ export const test_misc_assertClone_ObjectUnionCompositePointer =
                     const $iu0 = (input: any): any =>
                         (() => {
                             if (undefined !== input.x) return $io2(input);
-                            if (undefined !== input.p4) return $io5(input);
-                            if (undefined !== input.points) return $io6(input);
-                            if (
+                            else if (undefined !== input.p4) return $io5(input);
+                            else if (undefined !== input.points)
+                                return $io6(input);
+                            else if (
                                 Array.isArray(input.outer) &&
                                 input.outer.every(
                                     (elem: any) =>
@@ -142,18 +143,20 @@ export const test_misc_assertClone_ObjectUnionCompositePointer =
                                 )
                             )
                                 return $io8(input);
-                            if (
+                            else if (
                                 "object" === typeof input.outer &&
                                 null !== input.outer &&
                                 $io6(input.outer)
                             )
                                 return $io7(input);
-                            if (undefined !== input.centroid)
+                            else if (undefined !== input.centroid)
                                 return $io9(input);
-                            return (() => {
-                                if (undefined !== input.p3) return $io4(input);
-                                return $io3(input);
-                            })();
+                            else
+                                return (() => {
+                                    if (undefined !== input.p3)
+                                        return $io4(input);
+                                    else return $io3(input);
+                                })();
                         })();
                     return (
                         "object" === typeof input &&
@@ -682,19 +685,19 @@ export const test_misc_assertClone_ObjectUnionCompositePointer =
                                         _path,
                                         true && _exceptionable,
                                     );
-                                if (undefined !== input.p4)
+                                else if (undefined !== input.p4)
                                     return $ao5(
                                         input,
                                         _path,
                                         true && _exceptionable,
                                     );
-                                if (undefined !== input.points)
+                                else if (undefined !== input.points)
                                     return $ao6(
                                         input,
                                         _path,
                                         true && _exceptionable,
                                     );
-                                if (
+                                else if (
                                     Array.isArray(input.outer) &&
                                     input.outer.every(
                                         (elem: any, _index5: number) =>
@@ -715,7 +718,7 @@ export const test_misc_assertClone_ObjectUnionCompositePointer =
                                         _path,
                                         true && _exceptionable,
                                     );
-                                if (
+                                else if (
                                     "object" === typeof input.outer &&
                                     null !== input.outer &&
                                     $ao6(
@@ -729,25 +732,27 @@ export const test_misc_assertClone_ObjectUnionCompositePointer =
                                         _path,
                                         true && _exceptionable,
                                     );
-                                if (undefined !== input.centroid)
+                                else if (undefined !== input.centroid)
                                     return $ao9(
                                         input,
                                         _path,
                                         true && _exceptionable,
                                     );
-                                return (() => {
-                                    if (undefined !== input.p3)
-                                        return $ao4(
-                                            input,
-                                            _path,
-                                            true && _exceptionable,
-                                        );
-                                    return $ao3(
-                                        input,
-                                        _path,
-                                        true && _exceptionable,
-                                    );
-                                })();
+                                else
+                                    return (() => {
+                                        if (undefined !== input.p3)
+                                            return $ao4(
+                                                input,
+                                                _path,
+                                                true && _exceptionable,
+                                            );
+                                        else
+                                            return $ao3(
+                                                input,
+                                                _path,
+                                                true && _exceptionable,
+                                            );
+                                    })();
                             })();
                         return (
                             ((("object" === typeof input && null !== input) ||
@@ -843,9 +848,9 @@ export const test_misc_assertClone_ObjectUnionCompositePointer =
                 const $iu0 = (input: any): any =>
                     (() => {
                         if (undefined !== input.x) return $io2(input);
-                        if (undefined !== input.p4) return $io5(input);
-                        if (undefined !== input.points) return $io6(input);
-                        if (
+                        else if (undefined !== input.p4) return $io5(input);
+                        else if (undefined !== input.points) return $io6(input);
+                        else if (
                             Array.isArray(input.outer) &&
                             input.outer.every(
                                 (elem: any) =>
@@ -855,17 +860,19 @@ export const test_misc_assertClone_ObjectUnionCompositePointer =
                             )
                         )
                             return $io8(input);
-                        if (
+                        else if (
                             "object" === typeof input.outer &&
                             null !== input.outer &&
                             $io6(input.outer)
                         )
                             return $io7(input);
-                        if (undefined !== input.centroid) return $io9(input);
-                        return (() => {
-                            if (undefined !== input.p3) return $io4(input);
-                            return $io3(input);
-                        })();
+                        else if (undefined !== input.centroid)
+                            return $io9(input);
+                        else
+                            return (() => {
+                                if (undefined !== input.p3) return $io4(input);
+                                else return $io3(input);
+                            })();
                     })();
                 const $cp0 = (input: any) =>
                     input.map((elem: any) =>
@@ -976,9 +983,9 @@ export const test_misc_assertClone_ObjectUnionCompositePointer =
                 const $cu0 = (input: any): any =>
                     (() => {
                         if (undefined !== input.x) return $co2(input);
-                        if (undefined !== input.p4) return $co5(input);
-                        if (undefined !== input.points) return $co6(input);
-                        if (
+                        else if (undefined !== input.p4) return $co5(input);
+                        else if (undefined !== input.points) return $co6(input);
+                        else if (
                             Array.isArray(input.outer) &&
                             input.outer.every(
                                 (elem: any) =>
@@ -988,17 +995,19 @@ export const test_misc_assertClone_ObjectUnionCompositePointer =
                             )
                         )
                             return $co8(input);
-                        if (
+                        else if (
                             "object" === typeof input.outer &&
                             null !== input.outer &&
                             $io6(input.outer)
                         )
                             return $co7(input);
-                        if (undefined !== input.centroid) return $co9(input);
-                        return (() => {
-                            if (undefined !== input.p3) return $co4(input);
-                            return $co3(input);
-                        })();
+                        else if (undefined !== input.centroid)
+                            return $co9(input);
+                        else
+                            return (() => {
+                                if (undefined !== input.p3) return $co4(input);
+                                else return $co3(input);
+                            })();
                     })();
                 return "object" === typeof input && null !== input
                     ? $co0(input)

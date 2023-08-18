@@ -83,11 +83,11 @@ export const test_json_isParse_ArrayRecursiveUnionExplicitPointer =
                 const $iu0 = (input: any): any =>
                     (() => {
                         if ("directory" === input.type) return $io2(input);
-                        if ("jpg" === input.extension) return $io3(input);
-                        if ("txt" === input.extension) return $io4(input);
-                        if ("zip" === input.extension) return $io5(input);
-                        if ("lnk" === input.extension) return $io6(input);
-                        return false;
+                        else if ("jpg" === input.extension) return $io3(input);
+                        else if ("txt" === input.extension) return $io4(input);
+                        else if ("zip" === input.extension) return $io5(input);
+                        else if ("lnk" === input.extension) return $io6(input);
+                        else return false;
                     })();
                 return (
                     "object" === typeof input && null !== input && $io0(input)

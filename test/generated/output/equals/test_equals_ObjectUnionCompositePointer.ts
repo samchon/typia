@@ -229,11 +229,11 @@ export const test_equals_ObjectUnionCompositePointer =
                     (() => {
                         if (undefined !== input.x)
                             return $io2(input, true && _exceptionable);
-                        if (undefined !== input.p4)
+                        else if (undefined !== input.p4)
                             return $io5(input, true && _exceptionable);
-                        if (undefined !== input.points)
+                        else if (undefined !== input.points)
                             return $io6(input, true && _exceptionable);
-                        if (
+                        else if (
                             Array.isArray(input.outer) &&
                             input.outer.every(
                                 (elem: any, _index5: number) =>
@@ -243,19 +243,20 @@ export const test_equals_ObjectUnionCompositePointer =
                             )
                         )
                             return $io8(input, true && _exceptionable);
-                        if (
+                        else if (
                             "object" === typeof input.outer &&
                             null !== input.outer &&
                             $io6(input.outer, false && _exceptionable)
                         )
                             return $io7(input, true && _exceptionable);
-                        if (undefined !== input.centroid)
+                        else if (undefined !== input.centroid)
                             return $io9(input, true && _exceptionable);
-                        return (() => {
-                            if (undefined !== input.p3)
-                                return $io4(input, true && _exceptionable);
-                            return $io3(input, true && _exceptionable);
-                        })();
+                        else
+                            return (() => {
+                                if (undefined !== input.p3)
+                                    return $io4(input, true && _exceptionable);
+                                else return $io3(input, true && _exceptionable);
+                            })();
                     })();
                 return (
                     "object" === typeof input &&

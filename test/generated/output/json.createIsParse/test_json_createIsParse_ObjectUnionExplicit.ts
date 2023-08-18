@@ -119,13 +119,13 @@ export const test_json_isParse_ObjectUnionExplicit =
                 const $iu0 = (input: any): any =>
                     (() => {
                         if ("point" === input.type) return $io0(input);
-                        if ("line" === input.type) return $io1(input);
-                        if ("triangle" === input.type) return $io3(input);
-                        if ("rectangle" === input.type) return $io4(input);
-                        if ("polyline" === input.type) return $io5(input);
-                        if ("polygon" === input.type) return $io6(input);
-                        if ("circle" === input.type) return $io8(input);
-                        return false;
+                        else if ("line" === input.type) return $io1(input);
+                        else if ("triangle" === input.type) return $io3(input);
+                        else if ("rectangle" === input.type) return $io4(input);
+                        else if ("polyline" === input.type) return $io5(input);
+                        else if ("polygon" === input.type) return $io6(input);
+                        else if ("circle" === input.type) return $io8(input);
+                        else return false;
                     })();
                 return (
                     Array.isArray(input) &&

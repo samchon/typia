@@ -143,25 +143,25 @@ export const test_equals_ObjectUnionDouble = _test_equals<ObjectUnionDouble>(
         (() => {
             if ($io6(input, false && _exceptionable))
                 return $io6(input, true && _exceptionable);
-            if ($io0(input, false && _exceptionable))
+            else if ($io0(input, false && _exceptionable))
                 return $io0(input, true && _exceptionable);
-            return false;
+            else return false;
         })();
     const $iu1 = (input: any, _exceptionable: boolean = true): any =>
         (() => {
             if ($io4(input, false && _exceptionable))
                 return $io4(input, true && _exceptionable);
-            if ($io2(input, false && _exceptionable))
+            else if ($io2(input, false && _exceptionable))
                 return $io2(input, true && _exceptionable);
-            return false;
+            else return false;
         })();
     const $iu2 = (input: any, _exceptionable: boolean = true): any =>
         (() => {
             if ($io10(input, false && _exceptionable))
                 return $io10(input, true && _exceptionable);
-            if ($io8(input, false && _exceptionable))
+            else if ($io8(input, false && _exceptionable))
                 return $io8(input, true && _exceptionable);
-            return false;
+            else return false;
         })();
     return (
         Array.isArray(input) &&

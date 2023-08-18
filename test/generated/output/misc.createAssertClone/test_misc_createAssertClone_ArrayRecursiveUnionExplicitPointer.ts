@@ -83,11 +83,11 @@ export const test_misc_assertClone_ArrayRecursiveUnionExplicitPointer =
                 const $iu0 = (input: any): any =>
                     (() => {
                         if ("directory" === input.type) return $io2(input);
-                        if ("jpg" === input.extension) return $io3(input);
-                        if ("txt" === input.extension) return $io4(input);
-                        if ("zip" === input.extension) return $io5(input);
-                        if ("lnk" === input.extension) return $io6(input);
-                        return false;
+                        else if ("jpg" === input.extension) return $io3(input);
+                        else if ("txt" === input.extension) return $io4(input);
+                        else if ("zip" === input.extension) return $io5(input);
+                        else if ("lnk" === input.extension) return $io6(input);
+                        else return false;
                     })();
                 return (
                     "object" === typeof input && null !== input && $io0(input)
@@ -473,36 +473,37 @@ export const test_misc_assertClone_ArrayRecursiveUnionExplicitPointer =
                                     _path,
                                     true && _exceptionable,
                                 );
-                            if ("jpg" === input.extension)
+                            else if ("jpg" === input.extension)
                                 return $ao3(
                                     input,
                                     _path,
                                     true && _exceptionable,
                                 );
-                            if ("txt" === input.extension)
+                            else if ("txt" === input.extension)
                                 return $ao4(
                                     input,
                                     _path,
                                     true && _exceptionable,
                                 );
-                            if ("zip" === input.extension)
+                            else if ("zip" === input.extension)
                                 return $ao5(
                                     input,
                                     _path,
                                     true && _exceptionable,
                                 );
-                            if ("lnk" === input.extension)
+                            else if ("lnk" === input.extension)
                                 return $ao6(
                                     input,
                                     _path,
                                     true && _exceptionable,
                                 );
-                            return $guard(_exceptionable, {
-                                path: _path,
-                                expected:
-                                    "(ArrayRecursiveUnionExplicitPointer.IDirectory | ArrayRecursiveUnionExplicitPointer.IImageFile | ArrayRecursiveUnionExplicitPointer.ITextFile | ArrayRecursiveUnionExplicitPointer.IZipFile | ArrayRecursiveUnionExplicitPointer.IShortcut)",
-                                value: input,
-                            });
+                            else
+                                return $guard(_exceptionable, {
+                                    path: _path,
+                                    expected:
+                                        "(ArrayRecursiveUnionExplicitPointer.IDirectory | ArrayRecursiveUnionExplicitPointer.IImageFile | ArrayRecursiveUnionExplicitPointer.ITextFile | ArrayRecursiveUnionExplicitPointer.IZipFile | ArrayRecursiveUnionExplicitPointer.IShortcut)",
+                                    value: input,
+                                });
                         })();
                     return (
                         ((("object" === typeof input && null !== input) ||
@@ -576,11 +577,11 @@ export const test_misc_assertClone_ArrayRecursiveUnionExplicitPointer =
             const $iu0 = (input: any): any =>
                 (() => {
                     if ("directory" === input.type) return $io2(input);
-                    if ("jpg" === input.extension) return $io3(input);
-                    if ("txt" === input.extension) return $io4(input);
-                    if ("zip" === input.extension) return $io5(input);
-                    if ("lnk" === input.extension) return $io6(input);
-                    return false;
+                    else if ("jpg" === input.extension) return $io3(input);
+                    else if ("txt" === input.extension) return $io4(input);
+                    else if ("zip" === input.extension) return $io5(input);
+                    else if ("lnk" === input.extension) return $io6(input);
+                    else return false;
                 })();
             const $throws = (typia.misc.createAssertClone as any).throws;
             const $cp0 = (input: any) =>
@@ -658,15 +659,16 @@ export const test_misc_assertClone_ArrayRecursiveUnionExplicitPointer =
             const $cu0 = (input: any): any =>
                 (() => {
                     if ("directory" === input.type) return $co2(input);
-                    if ("jpg" === input.extension) return $co3(input);
-                    if ("txt" === input.extension) return $co4(input);
-                    if ("zip" === input.extension) return $co5(input);
-                    if ("lnk" === input.extension) return $co6(input);
-                    $throws({
-                        expected:
-                            "(ArrayRecursiveUnionExplicitPointer.IDirectory | ArrayRecursiveUnionExplicitPointer.IImageFile | ArrayRecursiveUnionExplicitPointer.ITextFile | ArrayRecursiveUnionExplicitPointer.IZipFile | ArrayRecursiveUnionExplicitPointer.IShortcut)",
-                        value: input,
-                    });
+                    else if ("jpg" === input.extension) return $co3(input);
+                    else if ("txt" === input.extension) return $co4(input);
+                    else if ("zip" === input.extension) return $co5(input);
+                    else if ("lnk" === input.extension) return $co6(input);
+                    else
+                        $throws({
+                            expected:
+                                "(ArrayRecursiveUnionExplicitPointer.IDirectory | ArrayRecursiveUnionExplicitPointer.IImageFile | ArrayRecursiveUnionExplicitPointer.ITextFile | ArrayRecursiveUnionExplicitPointer.IZipFile | ArrayRecursiveUnionExplicitPointer.IShortcut)",
+                            value: input,
+                        });
                 })();
             return "object" === typeof input && null !== input
                 ? $co0(input)

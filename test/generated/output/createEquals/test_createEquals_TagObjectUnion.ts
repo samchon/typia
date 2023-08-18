@@ -31,9 +31,12 @@ export const test_equals_TagObjectUnion = _test_equals<TagObjectUnion>(
         (() => {
             if ("string" === typeof input.value)
                 return $io1(input, true && _exceptionable);
-            if ("number" === typeof input.value && Number.isFinite(input.value))
+            else if (
+                "number" === typeof input.value &&
+                Number.isFinite(input.value)
+            )
                 return $io0(input, true && _exceptionable);
-            return false;
+            else return false;
         })();
     return (
         Array.isArray(input) &&

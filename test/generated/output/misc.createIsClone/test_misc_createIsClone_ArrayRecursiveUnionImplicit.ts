@@ -68,11 +68,11 @@ export const test_misc_isClone_ArrayRecursiveUnionImplicit =
             const $iu0 = (input: any): any =>
                 (() => {
                     if (undefined !== input.access) return $io1(input);
-                    if (undefined !== input.width) return $io2(input);
-                    if (undefined !== input.content) return $io3(input);
-                    if (undefined !== input.count) return $io4(input);
-                    if (undefined !== input.target) return $io5(input);
-                    return $io0(input);
+                    else if (undefined !== input.width) return $io2(input);
+                    else if (undefined !== input.content) return $io3(input);
+                    else if (undefined !== input.count) return $io4(input);
+                    else if (undefined !== input.target) return $io5(input);
+                    else return $io0(input);
                 })();
             return (
                 Array.isArray(input) &&
@@ -134,11 +134,11 @@ export const test_misc_isClone_ArrayRecursiveUnionImplicit =
             const $iu0 = (input: any): any =>
                 (() => {
                     if (undefined !== input.access) return $io1(input);
-                    if (undefined !== input.width) return $io2(input);
-                    if (undefined !== input.content) return $io3(input);
-                    if (undefined !== input.count) return $io4(input);
-                    if (undefined !== input.target) return $io5(input);
-                    return $io0(input);
+                    else if (undefined !== input.width) return $io2(input);
+                    else if (undefined !== input.content) return $io3(input);
+                    else if (undefined !== input.count) return $io4(input);
+                    else if (undefined !== input.target) return $io5(input);
+                    else return $io0(input);
                 })();
             const $cp0 = (input: any) =>
                 input.map((elem: any) =>
@@ -204,11 +204,11 @@ export const test_misc_isClone_ArrayRecursiveUnionImplicit =
             const $cu0 = (input: any): any =>
                 (() => {
                     if (undefined !== input.access) return $co1(input);
-                    if (undefined !== input.width) return $co2(input);
-                    if (undefined !== input.content) return $co3(input);
-                    if (undefined !== input.count) return $co4(input);
-                    if (undefined !== input.target) return $co5(input);
-                    return $co0(input);
+                    else if (undefined !== input.width) return $co2(input);
+                    else if (undefined !== input.content) return $co3(input);
+                    else if (undefined !== input.count) return $co4(input);
+                    else if (undefined !== input.target) return $co5(input);
+                    else return $co0(input);
                 })();
             return Array.isArray(input) ? $cp0(input) : (input as any);
         };

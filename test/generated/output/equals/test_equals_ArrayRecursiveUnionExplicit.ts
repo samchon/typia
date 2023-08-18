@@ -174,15 +174,15 @@ export const test_equals_ArrayRecursiveUnionExplicit =
                     (() => {
                         if ("directory" === input.type)
                             return $io0(input, true && _exceptionable);
-                        if ("jpg" === input.extension)
+                        else if ("jpg" === input.extension)
                             return $io1(input, true && _exceptionable);
-                        if ("txt" === input.extension)
+                        else if ("txt" === input.extension)
                             return $io2(input, true && _exceptionable);
-                        if ("zip" === input.extension)
+                        else if ("zip" === input.extension)
                             return $io3(input, true && _exceptionable);
-                        if ("lnk" === input.extension)
+                        else if ("lnk" === input.extension)
                             return $io4(input, true && _exceptionable);
-                        return false;
+                        else return false;
                     })();
                 return (
                     Array.isArray(input) &&

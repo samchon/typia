@@ -43,9 +43,9 @@ export const test_misc_assertPrune_ObjectUnionNonPredictable =
                     const $iu0 = (input: any): any =>
                         (() => {
                             if ($io7(input)) return $io7(input);
-                            if ($io5(input)) return $io5(input);
-                            if ($io3(input)) return $io3(input);
-                            return false;
+                            else if ($io5(input)) return $io5(input);
+                            else if ($io3(input)) return $io3(input);
+                            else return false;
                         })();
                     return (
                         "object" === typeof input &&
@@ -393,13 +393,14 @@ export const test_misc_assertPrune_ObjectUnionNonPredictable =
                 const $pu0 = (input: any): any =>
                     (() => {
                         if ($io7(input)) return $po7(input);
-                        if ($io5(input)) return $po5(input);
-                        if ($io3(input)) return $po3(input);
-                        $throws({
-                            expected:
-                                "(ObjectUnionNonPredictable.IWrapper<string> | ObjectUnionNonPredictable.IWrapper<number> | ObjectUnionNonPredictable.IWrapper<boolean>)",
-                            value: input,
-                        });
+                        else if ($io5(input)) return $po5(input);
+                        else if ($io3(input)) return $po3(input);
+                        else
+                            $throws({
+                                expected:
+                                    "(ObjectUnionNonPredictable.IWrapper<string> | ObjectUnionNonPredictable.IWrapper<number> | ObjectUnionNonPredictable.IWrapper<boolean>)",
+                                value: input,
+                            });
                     })();
                 if ("object" === typeof input && null !== input) $po0(input);
             };

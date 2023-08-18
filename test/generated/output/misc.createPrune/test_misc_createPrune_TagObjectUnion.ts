@@ -31,11 +31,13 @@ export const test_misc_prune_TagObjectUnion = _test_misc_prune<TagObjectUnion>(
     const $pu0 = (input: any): any =>
         (() => {
             if ("string" === typeof input.value) return $po1(input);
-            if ("number" === typeof input.value) return $po0(input);
-            $throws({
-                expected: "(TagObjectUnion.Literal | TagObjectUnion.Numeric)",
-                value: input,
-            });
+            else if ("number" === typeof input.value) return $po0(input);
+            else
+                $throws({
+                    expected:
+                        "(TagObjectUnion.Literal | TagObjectUnion.Numeric)",
+                    value: input,
+                });
         })();
     if (Array.isArray(input)) $pp0(input);
 });

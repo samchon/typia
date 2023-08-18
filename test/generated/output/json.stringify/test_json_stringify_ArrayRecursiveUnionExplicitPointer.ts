@@ -59,11 +59,11 @@ export const test_json_stringify_ArrayRecursiveUnionExplicitPointer =
             const $iu0 = (input: any): any =>
                 (() => {
                     if ("directory" === input.type) return $io2(input);
-                    if ("jpg" === input.extension) return $io3(input);
-                    if ("txt" === input.extension) return $io4(input);
-                    if ("zip" === input.extension) return $io5(input);
-                    if ("lnk" === input.extension) return $io6(input);
-                    return false;
+                    else if ("jpg" === input.extension) return $io3(input);
+                    else if ("txt" === input.extension) return $io4(input);
+                    else if ("zip" === input.extension) return $io5(input);
+                    else if ("lnk" === input.extension) return $io6(input);
+                    else return false;
                 })();
             const $number = (typia.json.stringify as any).number;
             const $string = (typia.json.stringify as any).string;
@@ -189,15 +189,16 @@ export const test_json_stringify_ArrayRecursiveUnionExplicitPointer =
             const $su0 = (input: any): any =>
                 (() => {
                     if ("directory" === input.type) return $so2(input);
-                    if ("jpg" === input.extension) return $so3(input);
-                    if ("txt" === input.extension) return $so4(input);
-                    if ("zip" === input.extension) return $so5(input);
-                    if ("lnk" === input.extension) return $so6(input);
-                    $throws({
-                        expected:
-                            "(ArrayRecursiveUnionExplicitPointer.IDirectory | ArrayRecursiveUnionExplicitPointer.IImageFile | ArrayRecursiveUnionExplicitPointer.ITextFile | ArrayRecursiveUnionExplicitPointer.IZipFile | ArrayRecursiveUnionExplicitPointer.IShortcut)",
-                        value: input,
-                    });
+                    else if ("jpg" === input.extension) return $so3(input);
+                    else if ("txt" === input.extension) return $so4(input);
+                    else if ("zip" === input.extension) return $so5(input);
+                    else if ("lnk" === input.extension) return $so6(input);
+                    else
+                        $throws({
+                            expected:
+                                "(ArrayRecursiveUnionExplicitPointer.IDirectory | ArrayRecursiveUnionExplicitPointer.IImageFile | ArrayRecursiveUnionExplicitPointer.ITextFile | ArrayRecursiveUnionExplicitPointer.IZipFile | ArrayRecursiveUnionExplicitPointer.IShortcut)",
+                            value: input,
+                        });
                 })();
             return $so0(input);
         })(input),

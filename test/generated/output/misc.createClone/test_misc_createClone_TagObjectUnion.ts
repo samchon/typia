@@ -27,11 +27,13 @@ export const test_misc_clone_TagObjectUnion = _test_misc_clone<TagObjectUnion>(
     const $cu0 = (input: any): any =>
         (() => {
             if ("string" === typeof input.value) return $co1(input);
-            if ("number" === typeof input.value) return $co0(input);
-            $throws({
-                expected: "(TagObjectUnion.Literal | TagObjectUnion.Numeric)",
-                value: input,
-            });
+            else if ("number" === typeof input.value) return $co0(input);
+            else
+                $throws({
+                    expected:
+                        "(TagObjectUnion.Literal | TagObjectUnion.Numeric)",
+                    value: input,
+                });
         })();
     return Array.isArray(input) ? $cp0(input) : (input as any);
 });

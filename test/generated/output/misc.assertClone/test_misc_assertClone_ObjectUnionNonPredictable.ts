@@ -43,9 +43,9 @@ export const test_misc_assertClone_ObjectUnionNonPredictable =
                     const $iu0 = (input: any): any =>
                         (() => {
                             if ($io7(input)) return $io7(input);
-                            if ($io5(input)) return $io5(input);
-                            if ($io3(input)) return $io3(input);
-                            return false;
+                            else if ($io5(input)) return $io5(input);
+                            else if ($io3(input)) return $io3(input);
+                            else return false;
                         })();
                     return (
                         "object" === typeof input &&
@@ -375,13 +375,14 @@ export const test_misc_assertClone_ObjectUnionNonPredictable =
                 const $cu0 = (input: any): any =>
                     (() => {
                         if ($io7(input)) return $co7(input);
-                        if ($io5(input)) return $co5(input);
-                        if ($io3(input)) return $co3(input);
-                        $throws({
-                            expected:
-                                "(ObjectUnionNonPredictable.IWrapper<string> | ObjectUnionNonPredictable.IWrapper<number> | ObjectUnionNonPredictable.IWrapper<boolean>)",
-                            value: input,
-                        });
+                        else if ($io5(input)) return $co5(input);
+                        else if ($io3(input)) return $co3(input);
+                        else
+                            $throws({
+                                expected:
+                                    "(ObjectUnionNonPredictable.IWrapper<string> | ObjectUnionNonPredictable.IWrapper<number> | ObjectUnionNonPredictable.IWrapper<boolean>)",
+                                value: input,
+                            });
                     })();
                 return "object" === typeof input && null !== input
                     ? $co0(input)

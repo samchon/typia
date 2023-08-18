@@ -105,11 +105,11 @@ export const test_equals_FunctionalObjectUnion =
                 (() => {
                     if (undefined !== input.x)
                         return $io0(input, true && _exceptionable);
-                    if (undefined !== input.p1)
+                    else if (undefined !== input.p1)
                         return $io1(input, true && _exceptionable);
-                    if (undefined !== input.area)
+                    else if (undefined !== input.area)
                         return $io3(input, true && _exceptionable);
-                    return $io2(input, true && _exceptionable);
+                    else return $io2(input, true && _exceptionable);
                 })();
             return (
                 Array.isArray(input) &&

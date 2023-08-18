@@ -91,11 +91,15 @@ export const test_json_validateParse_ArrayRecursiveUnionExplicitPointer =
                     const $iu0 = (input: any): any =>
                         (() => {
                             if ("directory" === input.type) return $io2(input);
-                            if ("jpg" === input.extension) return $io3(input);
-                            if ("txt" === input.extension) return $io4(input);
-                            if ("zip" === input.extension) return $io5(input);
-                            if ("lnk" === input.extension) return $io6(input);
-                            return false;
+                            else if ("jpg" === input.extension)
+                                return $io3(input);
+                            else if ("txt" === input.extension)
+                                return $io4(input);
+                            else if ("zip" === input.extension)
+                                return $io5(input);
+                            else if ("lnk" === input.extension)
+                                return $io6(input);
+                            else return false;
                         })();
                     return (
                         "object" === typeof input &&
@@ -510,36 +514,37 @@ export const test_json_validateParse_ArrayRecursiveUnionExplicitPointer =
                                         _path,
                                         true && _exceptionable,
                                     );
-                                if ("jpg" === input.extension)
+                                else if ("jpg" === input.extension)
                                     return $vo3(
                                         input,
                                         _path,
                                         true && _exceptionable,
                                     );
-                                if ("txt" === input.extension)
+                                else if ("txt" === input.extension)
                                     return $vo4(
                                         input,
                                         _path,
                                         true && _exceptionable,
                                     );
-                                if ("zip" === input.extension)
+                                else if ("zip" === input.extension)
                                     return $vo5(
                                         input,
                                         _path,
                                         true && _exceptionable,
                                     );
-                                if ("lnk" === input.extension)
+                                else if ("lnk" === input.extension)
                                     return $vo6(
                                         input,
                                         _path,
                                         true && _exceptionable,
                                     );
-                                return $report(_exceptionable, {
-                                    path: _path,
-                                    expected:
-                                        "(ArrayRecursiveUnionExplicitPointer.IDirectory | ArrayRecursiveUnionExplicitPointer.IImageFile | ArrayRecursiveUnionExplicitPointer.ITextFile | ArrayRecursiveUnionExplicitPointer.IZipFile | ArrayRecursiveUnionExplicitPointer.IShortcut)",
-                                    value: input,
-                                });
+                                else
+                                    return $report(_exceptionable, {
+                                        path: _path,
+                                        expected:
+                                            "(ArrayRecursiveUnionExplicitPointer.IDirectory | ArrayRecursiveUnionExplicitPointer.IImageFile | ArrayRecursiveUnionExplicitPointer.ITextFile | ArrayRecursiveUnionExplicitPointer.IZipFile | ArrayRecursiveUnionExplicitPointer.IShortcut)",
+                                        value: input,
+                                    });
                             })();
                         return (
                             ((("object" === typeof input && null !== input) ||

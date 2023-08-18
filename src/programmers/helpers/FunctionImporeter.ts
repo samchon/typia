@@ -29,7 +29,10 @@ export class FunctionImporter {
         return this.local_.has(name);
     }
 
-    public declare(modulo: ts.LeftHandSideExpression): ts.Statement[] {
+    public declare(
+        modulo: ts.LeftHandSideExpression,
+        includeUnions: boolean = true,
+    ): ts.Statement[] {
         return [
             ...[...this.used_].map((name) =>
                 StatementFactory.constant(
@@ -44,10 +47,18 @@ export class FunctionImporter {
                     )(name),
                 ),
             ),
-            ...[...this.unions_.values()].map(([key, arrow]) =>
-                StatementFactory.constant(key, arrow),
-            ),
+            ...(includeUnions === true
+                ? [...this.unions_.values()].map(([key, arrow]) =>
+                      StatementFactory.constant(key, arrow),
+                  )
+                : []),
         ];
+    }
+
+    public declareUnions(): ts.Statement[] {
+        return [...this.unions_.values()].map(([key, arrow]) =>
+            StatementFactory.constant(key, arrow),
+        );
     }
 
     public increment(): number {

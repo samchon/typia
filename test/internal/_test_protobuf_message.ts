@@ -18,37 +18,5 @@ export const _test_protobuf_message =
         }
 
         // VALIDATE THE SCHEMA
-        const result: pjs.IParserResult = pjs.parse(expected);
-        try {
-            const top: pjs.Type = result.root.lookupType(name);
-            const children: pjs.Type[] = top.nestedArray.filter(
-                (nested) => nested instanceof pjs.Type,
-            ) as pjs.Type[];
-
-            // ARCHIVE ENCODER AND DECODER SCRIPT FOR REFERENCE
-            fs.writeFileSync(
-                `${directory}/${name}.js`,
-                [
-                    "//---------------------------------------------------------",
-                    "// MESSAGE",
-                    "//---------------------------------------------------------",
-                    ...expected.split("\n").map((line) => `// ${line}`),
-                    "",
-                    "//---------------------------------------------------------",
-                    "// ENCODER",
-                    "//---------------------------------------------------------",
-                    ...[top, ...children].map((type) =>
-                        pjs.encoder(type).toString(),
-                    ),
-                    "",
-                    "//---------------------------------------------------------",
-                    "// DECODER",
-                    "//---------------------------------------------------------",
-                    ...[top, ...children].map((type) =>
-                        pjs.decoder(type).toString(),
-                    ),
-                ].join("\n"),
-                "utf8",
-            );
-        } catch {}
+        pjs.parse(expected);
     };

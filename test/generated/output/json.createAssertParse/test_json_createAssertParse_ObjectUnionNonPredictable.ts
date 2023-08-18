@@ -40,9 +40,9 @@ export const test_json_assertParse_ObjectUnionNonPredictable =
                 const $iu0 = (input: any): any =>
                     (() => {
                         if ($io7(input)) return $io7(input);
-                        if ($io5(input)) return $io5(input);
-                        if ($io3(input)) return $io3(input);
-                        return false;
+                        else if ($io5(input)) return $io5(input);
+                        else if ($io3(input)) return $io3(input);
+                        else return false;
                     })();
                 return (
                     "object" === typeof input && null !== input && $io0(input)

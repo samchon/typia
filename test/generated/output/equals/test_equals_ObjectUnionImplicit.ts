@@ -233,19 +233,20 @@ export const test_equals_ObjectUnionImplicit =
                 (() => {
                     if (undefined !== input.x)
                         return $io0(input, true && _exceptionable);
-                    if (undefined !== input.p4)
+                    else if (undefined !== input.p4)
                         return $io3(input, true && _exceptionable);
-                    if (undefined !== input.points)
+                    else if (undefined !== input.points)
                         return $io4(input, true && _exceptionable);
-                    if (undefined !== input.outer)
+                    else if (undefined !== input.outer)
                         return $io5(input, true && _exceptionable);
-                    if (undefined !== input.radius)
+                    else if (undefined !== input.radius)
                         return $io6(input, true && _exceptionable);
-                    return (() => {
-                        if (undefined !== input.p3)
-                            return $io2(input, true && _exceptionable);
-                        return $io1(input, true && _exceptionable);
-                    })();
+                    else
+                        return (() => {
+                            if (undefined !== input.p3)
+                                return $io2(input, true && _exceptionable);
+                            else return $io1(input, true && _exceptionable);
+                        })();
                 })();
             return (
                 Array.isArray(input) &&

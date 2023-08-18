@@ -17,12 +17,12 @@ export const test_misc_isClone_TagObjectUnion =
                 const $iu0 = (input: any): any =>
                     (() => {
                         if ("string" === typeof input.value) return $io1(input);
-                        if (
+                        else if (
                             "number" === typeof input.value &&
                             Number.isFinite(input.value)
                         )
                             return $io0(input);
-                        return false;
+                        else return false;
                     })();
                 return (
                     Array.isArray(input) &&
@@ -59,12 +59,14 @@ export const test_misc_isClone_TagObjectUnion =
                 const $cu0 = (input: any): any =>
                     (() => {
                         if ("string" === typeof input.value) return $co1(input);
-                        if ("number" === typeof input.value) return $co0(input);
-                        $throws({
-                            expected:
-                                "(TagObjectUnion.Literal | TagObjectUnion.Numeric)",
-                            value: input,
-                        });
+                        else if ("number" === typeof input.value)
+                            return $co0(input);
+                        else
+                            $throws({
+                                expected:
+                                    "(TagObjectUnion.Literal | TagObjectUnion.Numeric)",
+                                value: input,
+                            });
                     })();
                 return Array.isArray(input) ? $cp0(input) : (input as any);
             };

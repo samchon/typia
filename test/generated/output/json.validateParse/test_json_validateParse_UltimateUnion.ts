@@ -1302,14 +1302,14 @@ export const test_json_validateParse_UltimateUnion =
                     const $iu0 = (input: any): any =>
                         (() => {
                             if ("integer" === input.type) return $io22(input);
-                            if (
+                            else if (
                                 "object" === typeof input.items &&
                                 null !== input.items &&
                                 false === Array.isArray(input.items) &&
                                 $iu0(input.items)
                             )
                                 return $io25(input);
-                            if (
+                            else if (
                                 Array.isArray(input.items) &&
                                 input.items.every(
                                     (elem: any) =>
@@ -1320,53 +1320,67 @@ export const test_json_validateParse_UltimateUnion =
                                 )
                             )
                                 return $io26(input);
-                            if (undefined !== input.oneOf) return $io27(input);
-                            if (undefined !== input.$ref) return $io28(input);
-                            if ("null" === input.type) return $io29(input);
-                            return (() => {
-                                if ($io20(input)) return $io20(input);
-                                if ($io19(input)) return $io19(input);
-                                if ($io1(input)) return $io1(input);
-                                if ($io21(input)) return $io21(input);
-                                if ($io23(input)) return $io23(input);
-                                if ($io24(input)) return $io24(input);
-                                if ($io30(input)) return $io30(input);
-                                return false;
-                            })();
+                            else if (undefined !== input.oneOf)
+                                return $io27(input);
+                            else if (undefined !== input.$ref)
+                                return $io28(input);
+                            else if ("null" === input.type) return $io29(input);
+                            else
+                                return (() => {
+                                    if ($io20(input)) return $io20(input);
+                                    else if ($io19(input)) return $io19(input);
+                                    else if ($io1(input)) return $io1(input);
+                                    else if ($io21(input)) return $io21(input);
+                                    else if ($io23(input)) return $io23(input);
+                                    else if ($io24(input)) return $io24(input);
+                                    else if ($io30(input)) return $io30(input);
+                                    else return false;
+                                })();
                         })();
                     const $iu1 = (input: any): any =>
                         (() => {
                             if ("maxItems" === input.kind) return $io16(input);
-                            if ("minItems" === input.kind) return $io15(input);
-                            if ("items" === input.kind) return $io14(input);
-                            if ("maxLength" === input.kind) return $io13(input);
-                            if ("minLength" === input.kind) return $io12(input);
-                            if ("length" === input.kind) return $io11(input);
-                            if ("pattern" === input.kind) return $io10(input);
-                            if ("format" === input.kind) return $io9(input);
-                            if ("step" === input.kind) return $io8(input);
-                            if ("multipleOf" === input.kind) return $io7(input);
-                            if ("exclusiveMaximum" === input.kind)
+                            else if ("minItems" === input.kind)
+                                return $io15(input);
+                            else if ("items" === input.kind)
+                                return $io14(input);
+                            else if ("maxLength" === input.kind)
+                                return $io13(input);
+                            else if ("minLength" === input.kind)
+                                return $io12(input);
+                            else if ("length" === input.kind)
+                                return $io11(input);
+                            else if ("pattern" === input.kind)
+                                return $io10(input);
+                            else if ("format" === input.kind)
+                                return $io9(input);
+                            else if ("step" === input.kind) return $io8(input);
+                            else if ("multipleOf" === input.kind)
+                                return $io7(input);
+                            else if ("exclusiveMaximum" === input.kind)
                                 return $io6(input);
-                            if ("exclusiveMinimum" === input.kind)
+                            else if ("exclusiveMinimum" === input.kind)
                                 return $io5(input);
-                            if ("maximum" === input.kind) return $io4(input);
-                            if ("minimum" === input.kind) return $io3(input);
-                            if ("type" === input.kind) return $io2(input);
-                            return false;
+                            else if ("maximum" === input.kind)
+                                return $io4(input);
+                            else if ("minimum" === input.kind)
+                                return $io3(input);
+                            else if ("type" === input.kind) return $io2(input);
+                            else return false;
                         })();
                     const $iu2 = (input: any): any =>
                         (() => {
                             if ("object" === input.type) return $io33(input);
-                            if ("integer" === input.type) return $io39(input);
-                            if (
+                            else if ("integer" === input.type)
+                                return $io39(input);
+                            else if (
                                 "object" === typeof input.items &&
                                 null !== input.items &&
                                 false === Array.isArray(input.items) &&
                                 $iu0(input.items)
                             )
                                 return $io42(input);
-                            if (
+                            else if (
                                 Array.isArray(input.items) &&
                                 input.items.every(
                                     (elem: any) =>
@@ -1377,19 +1391,22 @@ export const test_json_validateParse_UltimateUnion =
                                 )
                             )
                                 return $io43(input);
-                            if (undefined !== input.oneOf) return $io44(input);
-                            if (undefined !== input.$ref) return $io45(input);
-                            if ("null" === input.type) return $io46(input);
-                            return (() => {
-                                if ($io37(input)) return $io37(input);
-                                if ($io36(input)) return $io36(input);
-                                if ($io35(input)) return $io35(input);
-                                if ($io38(input)) return $io38(input);
-                                if ($io40(input)) return $io40(input);
-                                if ($io41(input)) return $io41(input);
-                                if ($io47(input)) return $io47(input);
-                                return false;
-                            })();
+                            else if (undefined !== input.oneOf)
+                                return $io44(input);
+                            else if (undefined !== input.$ref)
+                                return $io45(input);
+                            else if ("null" === input.type) return $io46(input);
+                            else
+                                return (() => {
+                                    if ($io37(input)) return $io37(input);
+                                    else if ($io36(input)) return $io36(input);
+                                    else if ($io35(input)) return $io35(input);
+                                    else if ($io38(input)) return $io38(input);
+                                    else if ($io40(input)) return $io40(input);
+                                    else if ($io41(input)) return $io41(input);
+                                    else if ($io47(input)) return $io47(input);
+                                    else return false;
+                                })();
                         })();
                     return (
                         Array.isArray(input) &&
@@ -8115,7 +8132,7 @@ export const test_json_validateParse_UltimateUnion =
                                         _path,
                                         true && _exceptionable,
                                     );
-                                if (
+                                else if (
                                     "object" === typeof input.items &&
                                     null !== input.items &&
                                     false === Array.isArray(input.items) &&
@@ -8130,7 +8147,7 @@ export const test_json_validateParse_UltimateUnion =
                                         _path,
                                         true && _exceptionable,
                                     );
-                                if (
+                                else if (
                                     Array.isArray(input.items) &&
                                     input.items
                                         .map(
@@ -8154,57 +8171,62 @@ export const test_json_validateParse_UltimateUnion =
                                         _path,
                                         true && _exceptionable,
                                     );
-                                if (undefined !== input.oneOf)
+                                else if (undefined !== input.oneOf)
                                     return $vo27(
                                         input,
                                         _path,
                                         true && _exceptionable,
                                     );
-                                if (undefined !== input.$ref)
+                                else if (undefined !== input.$ref)
                                     return $vo28(
                                         input,
                                         _path,
                                         true && _exceptionable,
                                     );
-                                if ("null" === input.type)
+                                else if ("null" === input.type)
                                     return $vo29(
                                         input,
                                         _path,
                                         true && _exceptionable,
                                     );
-                                return (
-                                    $vo20(
-                                        input,
-                                        _path,
-                                        false && _exceptionable,
-                                    ) ||
-                                    $vo19(
-                                        input,
-                                        _path,
-                                        false && _exceptionable,
-                                    ) ||
-                                    $vo1(
-                                        input,
-                                        _path,
-                                        false && _exceptionable,
-                                    ) ||
-                                    $vo21(
-                                        input,
-                                        _path,
-                                        false && _exceptionable,
-                                    ) ||
-                                    $vo23(
-                                        input,
-                                        _path,
-                                        false && _exceptionable,
-                                    ) ||
-                                    $vo24(
-                                        input,
-                                        _path,
-                                        false && _exceptionable,
-                                    ) ||
-                                    $vo30(input, _path, false && _exceptionable)
-                                );
+                                else
+                                    return (
+                                        $vo20(
+                                            input,
+                                            _path,
+                                            false && _exceptionable,
+                                        ) ||
+                                        $vo19(
+                                            input,
+                                            _path,
+                                            false && _exceptionable,
+                                        ) ||
+                                        $vo1(
+                                            input,
+                                            _path,
+                                            false && _exceptionable,
+                                        ) ||
+                                        $vo21(
+                                            input,
+                                            _path,
+                                            false && _exceptionable,
+                                        ) ||
+                                        $vo23(
+                                            input,
+                                            _path,
+                                            false && _exceptionable,
+                                        ) ||
+                                        $vo24(
+                                            input,
+                                            _path,
+                                            false && _exceptionable,
+                                        ) ||
+                                        $vo30(
+                                            input,
+                                            _path,
+                                            false && _exceptionable,
+                                        )
+                                    );
                             })();
                         const $vu1 = (
                             input: any,
@@ -8218,96 +8240,97 @@ export const test_json_validateParse_UltimateUnion =
                                         _path,
                                         true && _exceptionable,
                                     );
-                                if ("minItems" === input.kind)
+                                else if ("minItems" === input.kind)
                                     return $vo15(
                                         input,
                                         _path,
                                         true && _exceptionable,
                                     );
-                                if ("items" === input.kind)
+                                else if ("items" === input.kind)
                                     return $vo14(
                                         input,
                                         _path,
                                         true && _exceptionable,
                                     );
-                                if ("maxLength" === input.kind)
+                                else if ("maxLength" === input.kind)
                                     return $vo13(
                                         input,
                                         _path,
                                         true && _exceptionable,
                                     );
-                                if ("minLength" === input.kind)
+                                else if ("minLength" === input.kind)
                                     return $vo12(
                                         input,
                                         _path,
                                         true && _exceptionable,
                                     );
-                                if ("length" === input.kind)
+                                else if ("length" === input.kind)
                                     return $vo11(
                                         input,
                                         _path,
                                         true && _exceptionable,
                                     );
-                                if ("pattern" === input.kind)
+                                else if ("pattern" === input.kind)
                                     return $vo10(
                                         input,
                                         _path,
                                         true && _exceptionable,
                                     );
-                                if ("format" === input.kind)
+                                else if ("format" === input.kind)
                                     return $vo9(
                                         input,
                                         _path,
                                         true && _exceptionable,
                                     );
-                                if ("step" === input.kind)
+                                else if ("step" === input.kind)
                                     return $vo8(
                                         input,
                                         _path,
                                         true && _exceptionable,
                                     );
-                                if ("multipleOf" === input.kind)
+                                else if ("multipleOf" === input.kind)
                                     return $vo7(
                                         input,
                                         _path,
                                         true && _exceptionable,
                                     );
-                                if ("exclusiveMaximum" === input.kind)
+                                else if ("exclusiveMaximum" === input.kind)
                                     return $vo6(
                                         input,
                                         _path,
                                         true && _exceptionable,
                                     );
-                                if ("exclusiveMinimum" === input.kind)
+                                else if ("exclusiveMinimum" === input.kind)
                                     return $vo5(
                                         input,
                                         _path,
                                         true && _exceptionable,
                                     );
-                                if ("maximum" === input.kind)
+                                else if ("maximum" === input.kind)
                                     return $vo4(
                                         input,
                                         _path,
                                         true && _exceptionable,
                                     );
-                                if ("minimum" === input.kind)
+                                else if ("minimum" === input.kind)
                                     return $vo3(
                                         input,
                                         _path,
                                         true && _exceptionable,
                                     );
-                                if ("type" === input.kind)
+                                else if ("type" === input.kind)
                                     return $vo2(
                                         input,
                                         _path,
                                         true && _exceptionable,
                                     );
-                                return $report(_exceptionable, {
-                                    path: _path,
-                                    expected:
-                                        "(IMetadataTag.IMaxItems | IMetadataTag.IMinItems | IMetadataTag.IItems | IMetadataTag.IMaxLength | IMetadataTag.IMinLength | IMetadataTag.ILength | IMetadataTag.IPattern | IMetadataTag.IFormat | IMetadataTag.IStep | IMetadataTag.IMultipleOf | IMetadataTag.IExclusiveMaximum | IMetadataTag.IExclusiveMinimum | IMetadataTag.IMaximum | IMetadataTag.IMinimum | IMetadataTag.INumberType)",
-                                    value: input,
-                                });
+                                else
+                                    return $report(_exceptionable, {
+                                        path: _path,
+                                        expected:
+                                            "(IMetadataTag.IMaxItems | IMetadataTag.IMinItems | IMetadataTag.IItems | IMetadataTag.IMaxLength | IMetadataTag.IMinLength | IMetadataTag.ILength | IMetadataTag.IPattern | IMetadataTag.IFormat | IMetadataTag.IStep | IMetadataTag.IMultipleOf | IMetadataTag.IExclusiveMaximum | IMetadataTag.IExclusiveMinimum | IMetadataTag.IMaximum | IMetadataTag.IMinimum | IMetadataTag.INumberType)",
+                                        value: input,
+                                    });
                             })();
                         const $vu2 = (
                             input: any,
@@ -8321,13 +8344,13 @@ export const test_json_validateParse_UltimateUnion =
                                         _path,
                                         true && _exceptionable,
                                     );
-                                if ("integer" === input.type)
+                                else if ("integer" === input.type)
                                     return $vo39(
                                         input,
                                         _path,
                                         true && _exceptionable,
                                     );
-                                if (
+                                else if (
                                     "object" === typeof input.items &&
                                     null !== input.items &&
                                     false === Array.isArray(input.items) &&
@@ -8342,7 +8365,7 @@ export const test_json_validateParse_UltimateUnion =
                                         _path,
                                         true && _exceptionable,
                                     );
-                                if (
+                                else if (
                                     Array.isArray(input.items) &&
                                     input.items
                                         .map(
@@ -8366,57 +8389,62 @@ export const test_json_validateParse_UltimateUnion =
                                         _path,
                                         true && _exceptionable,
                                     );
-                                if (undefined !== input.oneOf)
+                                else if (undefined !== input.oneOf)
                                     return $vo44(
                                         input,
                                         _path,
                                         true && _exceptionable,
                                     );
-                                if (undefined !== input.$ref)
+                                else if (undefined !== input.$ref)
                                     return $vo45(
                                         input,
                                         _path,
                                         true && _exceptionable,
                                     );
-                                if ("null" === input.type)
+                                else if ("null" === input.type)
                                     return $vo46(
                                         input,
                                         _path,
                                         true && _exceptionable,
                                     );
-                                return (
-                                    $vo37(
-                                        input,
-                                        _path,
-                                        false && _exceptionable,
-                                    ) ||
-                                    $vo36(
-                                        input,
-                                        _path,
-                                        false && _exceptionable,
-                                    ) ||
-                                    $vo35(
-                                        input,
-                                        _path,
-                                        false && _exceptionable,
-                                    ) ||
-                                    $vo38(
-                                        input,
-                                        _path,
-                                        false && _exceptionable,
-                                    ) ||
-                                    $vo40(
-                                        input,
-                                        _path,
-                                        false && _exceptionable,
-                                    ) ||
-                                    $vo41(
-                                        input,
-                                        _path,
-                                        false && _exceptionable,
-                                    ) ||
-                                    $vo47(input, _path, false && _exceptionable)
-                                );
+                                else
+                                    return (
+                                        $vo37(
+                                            input,
+                                            _path,
+                                            false && _exceptionable,
+                                        ) ||
+                                        $vo36(
+                                            input,
+                                            _path,
+                                            false && _exceptionable,
+                                        ) ||
+                                        $vo35(
+                                            input,
+                                            _path,
+                                            false && _exceptionable,
+                                        ) ||
+                                        $vo38(
+                                            input,
+                                            _path,
+                                            false && _exceptionable,
+                                        ) ||
+                                        $vo40(
+                                            input,
+                                            _path,
+                                            false && _exceptionable,
+                                        ) ||
+                                        $vo41(
+                                            input,
+                                            _path,
+                                            false && _exceptionable,
+                                        ) ||
+                                        $vo47(
+                                            input,
+                                            _path,
+                                            false && _exceptionable,
+                                        )
+                                    );
                             })();
                         return (
                             ((Array.isArray(input) ||

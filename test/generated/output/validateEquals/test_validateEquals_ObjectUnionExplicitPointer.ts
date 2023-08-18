@@ -260,19 +260,19 @@ export const test_validateEquals_ObjectUnionExplicitPointer =
                     (() => {
                         if ("point" === input.type)
                             return $io2(input, true && _exceptionable);
-                        if ("line" === input.type)
+                        else if ("line" === input.type)
                             return $io3(input, true && _exceptionable);
-                        if ("triangle" === input.type)
+                        else if ("triangle" === input.type)
                             return $io5(input, true && _exceptionable);
-                        if ("rectangle" === input.type)
+                        else if ("rectangle" === input.type)
                             return $io6(input, true && _exceptionable);
-                        if ("polyline" === input.type)
+                        else if ("polyline" === input.type)
                             return $io7(input, true && _exceptionable);
-                        if ("polygon" === input.type)
+                        else if ("polygon" === input.type)
                             return $io8(input, true && _exceptionable);
-                        if ("circle" === input.type)
+                        else if ("circle" === input.type)
                             return $io10(input, true && _exceptionable);
-                        return false;
+                        else return false;
                     })();
                 return (
                     "object" === typeof input &&
@@ -1087,48 +1087,49 @@ export const test_validateEquals_ObjectUnionExplicitPointer =
                                     _path,
                                     true && _exceptionable,
                                 );
-                            if ("line" === input.type)
+                            else if ("line" === input.type)
                                 return $vo3(
                                     input,
                                     _path,
                                     true && _exceptionable,
                                 );
-                            if ("triangle" === input.type)
+                            else if ("triangle" === input.type)
                                 return $vo5(
                                     input,
                                     _path,
                                     true && _exceptionable,
                                 );
-                            if ("rectangle" === input.type)
+                            else if ("rectangle" === input.type)
                                 return $vo6(
                                     input,
                                     _path,
                                     true && _exceptionable,
                                 );
-                            if ("polyline" === input.type)
+                            else if ("polyline" === input.type)
                                 return $vo7(
                                     input,
                                     _path,
                                     true && _exceptionable,
                                 );
-                            if ("polygon" === input.type)
+                            else if ("polygon" === input.type)
                                 return $vo8(
                                     input,
                                     _path,
                                     true && _exceptionable,
                                 );
-                            if ("circle" === input.type)
+                            else if ("circle" === input.type)
                                 return $vo10(
                                     input,
                                     _path,
                                     true && _exceptionable,
                                 );
-                            return $report(_exceptionable, {
-                                path: _path,
-                                expected:
-                                    '(ObjectUnionExplicitPointer.Discriminator<"point", ObjectUnionExplicitPointer.IPoint> | ObjectUnionExplicitPointer.Discriminator<"line", ObjectUnionExplicitPointer.ILine> | ObjectUnionExplicitPointer.Discriminator<"triangle", ObjectUnionExplicitPointer.ITriangle> | ObjectUnionExplicitPointer.Discriminator<"rectangle", ObjectUnionExplicitPointer.IRectangle> | ObjectUnionExplicitPointer.Discriminator<"polyline", ObjectUnionExplicitPointer.IPolyline> | ObjectUnionExplicitPointer.Discriminator<"polygon", ObjectUnionExplicitPointer.IPolygon> | ObjectUnionExplicitPointer.Discriminator<"circle", ObjectUnionExplicitPointer.ICircle>)',
-                                value: input,
-                            });
+                            else
+                                return $report(_exceptionable, {
+                                    path: _path,
+                                    expected:
+                                        '(ObjectUnionExplicitPointer.Discriminator<"point", ObjectUnionExplicitPointer.IPoint> | ObjectUnionExplicitPointer.Discriminator<"line", ObjectUnionExplicitPointer.ILine> | ObjectUnionExplicitPointer.Discriminator<"triangle", ObjectUnionExplicitPointer.ITriangle> | ObjectUnionExplicitPointer.Discriminator<"rectangle", ObjectUnionExplicitPointer.IRectangle> | ObjectUnionExplicitPointer.Discriminator<"polyline", ObjectUnionExplicitPointer.IPolyline> | ObjectUnionExplicitPointer.Discriminator<"polygon", ObjectUnionExplicitPointer.IPolygon> | ObjectUnionExplicitPointer.Discriminator<"circle", ObjectUnionExplicitPointer.ICircle>)',
+                                    value: input,
+                                });
                         })();
                     return (
                         ((("object" === typeof input && null !== input) ||

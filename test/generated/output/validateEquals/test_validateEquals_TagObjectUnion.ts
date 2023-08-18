@@ -47,12 +47,12 @@ export const test_validateEquals_TagObjectUnion =
                     (() => {
                         if ("string" === typeof input.value)
                             return $io1(input, true && _exceptionable);
-                        if (
+                        else if (
                             "number" === typeof input.value &&
                             Number.isFinite(input.value)
                         )
                             return $io0(input, true && _exceptionable);
-                        return false;
+                        else return false;
                     })();
                 return (
                     Array.isArray(input) &&
@@ -167,18 +167,19 @@ export const test_validateEquals_TagObjectUnion =
                                     _path,
                                     true && _exceptionable,
                                 );
-                            if ("number" === typeof input.value)
+                            else if ("number" === typeof input.value)
                                 return $vo0(
                                     input,
                                     _path,
                                     true && _exceptionable,
                                 );
-                            return $report(_exceptionable, {
-                                path: _path,
-                                expected:
-                                    "(TagObjectUnion.Literal | TagObjectUnion.Numeric)",
-                                value: input,
-                            });
+                            else
+                                return $report(_exceptionable, {
+                                    path: _path,
+                                    expected:
+                                        "(TagObjectUnion.Literal | TagObjectUnion.Numeric)",
+                                    value: input,
+                                });
                         })();
                     return (
                         ((Array.isArray(input) ||

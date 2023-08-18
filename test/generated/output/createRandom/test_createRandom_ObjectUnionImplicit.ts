@@ -300,14 +300,15 @@ export const test_random_ObjectUnionImplicit =
                 const $iu0 = (input: any): any =>
                     (() => {
                         if (undefined !== input.x) return $io0(input);
-                        if (undefined !== input.p4) return $io3(input);
-                        if (undefined !== input.points) return $io4(input);
-                        if (undefined !== input.outer) return $io5(input);
-                        if (undefined !== input.radius) return $io6(input);
-                        return (() => {
-                            if (undefined !== input.p3) return $io2(input);
-                            return $io1(input);
-                        })();
+                        else if (undefined !== input.p4) return $io3(input);
+                        else if (undefined !== input.points) return $io4(input);
+                        else if (undefined !== input.outer) return $io5(input);
+                        else if (undefined !== input.radius) return $io6(input);
+                        else
+                            return (() => {
+                                if (undefined !== input.p3) return $io2(input);
+                                else return $io1(input);
+                            })();
                     })();
                 return (
                     Array.isArray(input) &&
@@ -776,43 +777,45 @@ export const test_random_ObjectUnionImplicit =
                                     _path,
                                     true && _exceptionable,
                                 );
-                            if (undefined !== input.p4)
+                            else if (undefined !== input.p4)
                                 return $ao3(
                                     input,
                                     _path,
                                     true && _exceptionable,
                                 );
-                            if (undefined !== input.points)
+                            else if (undefined !== input.points)
                                 return $ao4(
                                     input,
                                     _path,
                                     true && _exceptionable,
                                 );
-                            if (undefined !== input.outer)
+                            else if (undefined !== input.outer)
                                 return $ao5(
                                     input,
                                     _path,
                                     true && _exceptionable,
                                 );
-                            if (undefined !== input.radius)
+                            else if (undefined !== input.radius)
                                 return $ao6(
                                     input,
                                     _path,
                                     true && _exceptionable,
                                 );
-                            return (() => {
-                                if (undefined !== input.p3)
-                                    return $ao2(
-                                        input,
-                                        _path,
-                                        true && _exceptionable,
-                                    );
-                                return $ao1(
-                                    input,
-                                    _path,
-                                    true && _exceptionable,
-                                );
-                            })();
+                            else
+                                return (() => {
+                                    if (undefined !== input.p3)
+                                        return $ao2(
+                                            input,
+                                            _path,
+                                            true && _exceptionable,
+                                        );
+                                    else
+                                        return $ao1(
+                                            input,
+                                            _path,
+                                            true && _exceptionable,
+                                        );
+                                })();
                         })();
                     return (
                         ((Array.isArray(input) ||

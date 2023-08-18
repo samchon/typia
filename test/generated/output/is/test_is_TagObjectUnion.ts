@@ -16,12 +16,12 @@ export const test_is_TagObjectUnion = _test_is<TagObjectUnion>(TagObjectUnion)(
             const $iu0 = (input: any): any =>
                 (() => {
                     if ("string" === typeof input.value) return $io1(input);
-                    if (
+                    else if (
                         "number" === typeof input.value &&
                         Number.isFinite(input.value)
                     )
                         return $io0(input);
-                    return false;
+                    else return false;
                 })();
             return (
                 Array.isArray(input) &&

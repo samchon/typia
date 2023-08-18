@@ -55,11 +55,11 @@ export const test_json_stringify_ArrayRecursiveUnionImplicit =
         const $iu0 = (input: any): any =>
             (() => {
                 if (undefined !== input.access) return $io1(input);
-                if (undefined !== input.width) return $io2(input);
-                if (undefined !== input.content) return $io3(input);
-                if (undefined !== input.count) return $io4(input);
-                if (undefined !== input.target) return $io5(input);
-                return $io0(input);
+                else if (undefined !== input.width) return $io2(input);
+                else if (undefined !== input.content) return $io3(input);
+                else if (undefined !== input.count) return $io4(input);
+                else if (undefined !== input.target) return $io5(input);
+                else return $io0(input);
             })();
         const $number = (typia.json.createStringify as any).number;
         const $string = (typia.json.createStringify as any).string;
@@ -112,11 +112,11 @@ export const test_json_stringify_ArrayRecursiveUnionImplicit =
         const $su0 = (input: any): any =>
             (() => {
                 if (undefined !== input.access) return $so1(input);
-                if (undefined !== input.width) return $so2(input);
-                if (undefined !== input.content) return $so3(input);
-                if (undefined !== input.count) return $so4(input);
-                if (undefined !== input.target) return $so5(input);
-                return $so0(input);
+                else if (undefined !== input.width) return $so2(input);
+                else if (undefined !== input.content) return $so3(input);
+                else if (undefined !== input.count) return $so4(input);
+                else if (undefined !== input.target) return $so5(input);
+                else return $so0(input);
             })();
         return `[${input.map((elem: any) => $su0(elem)).join(",")}]`;
     });

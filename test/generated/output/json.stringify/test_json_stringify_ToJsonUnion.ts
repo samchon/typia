@@ -29,12 +29,14 @@ export const test_json_stringify_ToJsonUnion =
             const $su0 = (input: any): any =>
                 (() => {
                     if (undefined !== input.id) return $so0(input);
-                    if (undefined !== input.manufacturer) return $so4(input);
-                    $throws({
-                        expected:
-                            "(ToJsonUnion.ICitizen | ToJsonUnion.IProduct)",
-                        value: input,
-                    });
+                    else if (undefined !== input.manufacturer)
+                        return $so4(input);
+                    else
+                        $throws({
+                            expected:
+                                "(ToJsonUnion.ICitizen | ToJsonUnion.IProduct)",
+                            value: input,
+                        });
                 })();
             return `[${input
                 .map((elem: any) =>

@@ -25,6 +25,8 @@ import { FunctionImporter } from "../helpers/FunctionImporeter";
 import { ProtobufUtil } from "../helpers/ProtobufUtil";
 import { ProtobufWire } from "../helpers/ProtobufWire";
 import { UnionExplorer } from "../helpers/UnionExplorer";
+import { UnionPredicator } from "../helpers/UnionPredicator";
+import { decode_union_object } from "../internal/decode_union_object";
 
 export namespace ProtobufEncodeProgrammer {
     export const write =
@@ -92,7 +94,7 @@ export namespace ProtobufEncodeProgrammer {
                 ts.factory.createTypeReferenceNode("Uint8Array"),
                 undefined,
                 ts.factory.createBlock(
-                    [...importer.declare(modulo), ...block],
+                    [...importer.declare(modulo, false), ...block],
                     true,
                 ),
             );
@@ -102,8 +104,37 @@ export namespace ProtobufEncodeProgrammer {
         (project: IProject) =>
         (importer: FunctionImporter) =>
         (collection: MetadataCollection) =>
-        (meta: Metadata): ts.ArrowFunction =>
-            ts.factory.createArrowFunction(
+        (meta: Metadata): ts.ArrowFunction => {
+            const functors = collection
+                .objects()
+                .filter((obj) => obj._Messagable())
+                .map((obj) =>
+                    StatementFactory.constant(
+                        `${PREFIX}o${obj.index}`,
+                        write_object_function(project)(importer)(
+                            ts.factory.createIdentifier("input"),
+                            obj,
+                            {
+                                source: "function",
+                                from: "object",
+                                tracable: false,
+                                postfix: "",
+                            },
+                        ),
+                    ),
+                );
+            const main = decode(project)(importer)(null)(
+                ts.factory.createIdentifier("input"),
+                meta,
+                {
+                    source: "top",
+                    from: "top",
+                    tracable: false,
+                    postfix: "",
+                },
+                [],
+            );
+            return ts.factory.createArrowFunction(
                 undefined,
                 undefined,
                 [IdentifierFactory.parameter("writer")],
@@ -111,35 +142,12 @@ export namespace ProtobufEncodeProgrammer {
                 undefined,
                 ts.factory.createBlock(
                     [
-                        ...collection
-                            .objects()
-                            .filter((obj) => obj._Messagable())
-                            .map((obj) =>
-                                StatementFactory.constant(
-                                    `${PREFIX}o${obj.index}`,
-                                    write_object_function(project)(importer)(
-                                        ts.factory.createIdentifier("input"),
-                                        obj,
-                                        {
-                                            source: "function",
-                                            from: "object",
-                                            tracable: false,
-                                            postfix: "",
-                                        },
-                                    ),
-                                ),
-                            ),
-                        ...decode(project)(importer)(null)(
-                            ts.factory.createIdentifier("input"),
-                            meta,
-                            {
-                                source: "top",
-                                from: "top",
-                                tracable: false,
-                                postfix: "",
-                            },
-                            [],
-                        ).statements,
+                        ...importer.declareUnions(),
+                        ...functors,
+                        ...IsProgrammer.write_function_statements(project)(
+                            importer,
+                        )(collection),
+                        ...main.statements,
                         ts.factory.createReturnStatement(
                             ts.factory.createIdentifier("writer"),
                         ),
@@ -147,6 +155,7 @@ export namespace ProtobufEncodeProgrammer {
                     true,
                 ),
             );
+        };
 
     const write_object_function =
         (project: IProject) =>
@@ -266,7 +275,7 @@ export namespace ProtobufEncodeProgrammer {
                         ts.factory.createStringLiteral(type),
                         ts.factory.createTypeOfExpression(input),
                     ),
-                value: () => decode_atomic(index!)(input, type, tags),
+                value: (index) => decode_atomic(index!)(input, type, tags),
             }));
 
             // CONSIDER BYTES
@@ -275,7 +284,7 @@ export namespace ProtobufEncodeProgrammer {
                     type: "bytes",
                     is: () =>
                         ExpressionFactory.isInstanceOf("Uint8Array")(input),
-                    value: () => decode_bytes("bytes")(index!)(input),
+                    value: (index) => decode_bytes("bytes")(index!)(input),
                 });
 
             // CONSIDER MAPS
@@ -283,7 +292,7 @@ export namespace ProtobufEncodeProgrammer {
                 unions.push({
                     type: "map",
                     is: () => ExpressionFactory.isInstanceOf("Map")(input),
-                    value: () =>
+                    value: (index) =>
                         decode_map(project)(importer)(index!)(
                             input,
                             meta.maps[0]!,
@@ -300,7 +309,7 @@ export namespace ProtobufEncodeProgrammer {
                 unions.push({
                     type: "array",
                     is: () => ExpressionFactory.isArray(input),
-                    value: () =>
+                    value: (index) =>
                         explore_arrays(project)(importer)(index!)(
                             input,
                             meta.arrays,
@@ -321,10 +330,10 @@ export namespace ProtobufEncodeProgrammer {
                             checkNull: true,
                             checkArray: false,
                         })(input),
-                    value: () =>
-                        explore_objects(project)(index)(importer)(
+                    value: (index) =>
+                        explore_objects(project)(importer)(0)(index)(
                             input,
-                            meta,
+                            meta.objects,
                             {
                                 ...explore,
                                 from: "object",
@@ -349,10 +358,26 @@ export namespace ProtobufEncodeProgrammer {
         (input: ts.Expression) =>
             ts.factory.createBlock(
                 [
-                    ...unions.map((u) =>
-                        ts.factory.createIfStatement(u.is(), u.value(index)),
-                    ),
-                    create_throw_error(importer)(expected)(input),
+                    unions
+                        .map((u, i) =>
+                            ts.factory.createIfStatement(
+                                u.is(),
+                                u.value(index ? index + i : null),
+                                i === unions.length - 1
+                                    ? create_throw_error(importer)(expected)(
+                                          input,
+                                      )
+                                    : undefined,
+                            ),
+                        )
+                        .reverse()
+                        .reduce((a, b) =>
+                            ts.factory.createIfStatement(
+                                b.expression,
+                                b.thenStatement,
+                                a,
+                            ),
+                        ),
                 ],
                 true,
             );
@@ -424,7 +449,11 @@ export namespace ProtobufEncodeProgrammer {
             const top: MetadataProperty = object.properties[0]!;
             if (top.key.isSoleLiteral() === false)
                 return decode_map(project)(importer)(index!)(
-                    input,
+                    ts.factory.createCallExpression(
+                        ts.factory.createIdentifier("Object.entries"),
+                        [],
+                        [input],
+                    ),
                     top,
                     explore,
                     tags,
@@ -637,35 +666,107 @@ export namespace ProtobufEncodeProgrammer {
     ----------------------------------------------------------- */
     const explore_objects =
         (project: IProject) =>
-        (index: number | null) =>
         (importer: FunctionImporter) =>
+        (level: number) =>
+        (index: number | null) =>
         (
             input: ts.Expression,
-            meta: Metadata,
+            targets: MetadataObject[],
             explore: FeatureProgrammer.IExplore,
             tags: IMetadataTag[],
-        ): ts.Block =>
-            meta.objects.length === 1
-                ? decode_object(project)(importer)(index)(
-                      input,
-                      meta.objects[0]!,
-                      explore,
-                      tags,
-                  )
-                : StatementFactory.block(
-                      ts.factory.createCallExpression(
-                          ts.factory.createIdentifier(
-                              importer.useLocal(
-                                  `${PREFIX}u${meta.union_index!}`,
-                              ),
-                          ),
-                          undefined,
-                          FeatureProgrammer.argumentsArray({
-                              trace: false,
-                              path: false,
-                          })(explore)(input),
-                      ),
-                  );
+        ): ts.Block => {
+            if (targets.length === 1)
+                return decode_object(project)(importer)(index)(
+                    input,
+                    targets[0]!,
+                    explore,
+                    tags,
+                );
+
+            const expected: string = `(${targets
+                .map((t) => t.name)
+                .join(" | ")})`;
+
+            // POSSIBLE TO SPECIALIZE?
+            const specList = UnionPredicator.object(targets);
+            if (specList.length === 0) {
+                const condition: ts.Expression = decode_union_object(
+                    IsProgrammer.decode_object(importer),
+                )((i, o, e) =>
+                    ExpressionFactory.selfCall(
+                        decode_object(project)(importer)(index)(i, o, e, tags),
+                    ),
+                )((expr) => expr)((value, expected) =>
+                    create_throw_error(importer)(expected)(value),
+                )(input, targets, explore);
+                return StatementFactory.block(condition);
+            }
+            const remained: MetadataObject[] = targets.filter(
+                (t) => specList.find((s) => s.object === t) === undefined,
+            );
+
+            // DO SPECIALIZE
+            const condition: ts.IfStatement = specList
+                .filter((spec) => spec.property.key.getSoleLiteral() !== null)
+                .map((spec, i, array) => {
+                    const key: string = spec.property.key.getSoleLiteral()!;
+                    const accessor: ts.Expression =
+                        IdentifierFactory.access(input)(key);
+                    const pred: ts.Expression = spec.neighbour
+                        ? IsProgrammer.decode(project)(importer)(
+                              accessor,
+                              spec.property.value,
+                              {
+                                  ...explore,
+                                  tracable: false,
+                                  postfix: IdentifierFactory.postfix(key),
+                              },
+                              tags,
+                              [],
+                          )
+                        : ExpressionFactory.isRequired(accessor);
+                    return ts.factory.createIfStatement(
+                        pred,
+                        ts.factory.createReturnStatement(
+                            ExpressionFactory.selfCall(
+                                decode_object(project)(importer)(index)(
+                                    input,
+                                    spec.object,
+                                    explore,
+                                    tags,
+                                ),
+                            ),
+                        ),
+                        i === array.length - 1
+                            ? remained.length
+                                ? ts.factory.createReturnStatement(
+                                      ExpressionFactory.selfCall(
+                                          explore_objects(project)(importer)(
+                                              level + 1,
+                                          )(index)(
+                                              input,
+                                              remained,
+                                              explore,
+                                              tags,
+                                          ),
+                                      ),
+                                  )
+                                : create_throw_error(importer)(expected)(input)
+                            : undefined,
+                    );
+                })
+                .reverse()
+                .reduce((a, b) =>
+                    ts.factory.createIfStatement(
+                        b.expression,
+                        b.thenStatement,
+                        a,
+                    ),
+                );
+
+            // RETURNS WITH CONDITIONS
+            return ts.factory.createBlock([condition], true);
+        };
 
     const explore_arrays =
         (project: IProject) =>

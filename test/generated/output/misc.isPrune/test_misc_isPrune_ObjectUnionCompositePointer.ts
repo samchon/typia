@@ -127,9 +127,9 @@ export const test_misc_isPrune_ObjectUnionCompositePointer =
                 const $iu0 = (input: any): any =>
                     (() => {
                         if (undefined !== input.x) return $io2(input);
-                        if (undefined !== input.p4) return $io5(input);
-                        if (undefined !== input.points) return $io6(input);
-                        if (
+                        else if (undefined !== input.p4) return $io5(input);
+                        else if (undefined !== input.points) return $io6(input);
+                        else if (
                             Array.isArray(input.outer) &&
                             input.outer.every(
                                 (elem: any) =>
@@ -139,17 +139,19 @@ export const test_misc_isPrune_ObjectUnionCompositePointer =
                             )
                         )
                             return $io8(input);
-                        if (
+                        else if (
                             "object" === typeof input.outer &&
                             null !== input.outer &&
                             $io6(input.outer)
                         )
                             return $io7(input);
-                        if (undefined !== input.centroid) return $io9(input);
-                        return (() => {
-                            if (undefined !== input.p3) return $io4(input);
-                            return $io3(input);
-                        })();
+                        else if (undefined !== input.centroid)
+                            return $io9(input);
+                        else
+                            return (() => {
+                                if (undefined !== input.p3) return $io4(input);
+                                else return $io3(input);
+                            })();
                     })();
                 return (
                     "object" === typeof input && null !== input && $io0(input)
@@ -230,9 +232,9 @@ export const test_misc_isPrune_ObjectUnionCompositePointer =
                 const $iu0 = (input: any): any =>
                     (() => {
                         if (undefined !== input.x) return $io2(input);
-                        if (undefined !== input.p4) return $io5(input);
-                        if (undefined !== input.points) return $io6(input);
-                        if (
+                        else if (undefined !== input.p4) return $io5(input);
+                        else if (undefined !== input.points) return $io6(input);
+                        else if (
                             Array.isArray(input.outer) &&
                             input.outer.every(
                                 (elem: any) =>
@@ -242,17 +244,19 @@ export const test_misc_isPrune_ObjectUnionCompositePointer =
                             )
                         )
                             return $io8(input);
-                        if (
+                        else if (
                             "object" === typeof input.outer &&
                             null !== input.outer &&
                             $io6(input.outer)
                         )
                             return $io7(input);
-                        if (undefined !== input.centroid) return $io9(input);
-                        return (() => {
-                            if (undefined !== input.p3) return $io4(input);
-                            return $io3(input);
-                        })();
+                        else if (undefined !== input.centroid)
+                            return $io9(input);
+                        else
+                            return (() => {
+                                if (undefined !== input.p3) return $io4(input);
+                                else return $io3(input);
+                            })();
                     })();
                 const $pp0 = (input: any) =>
                     input.forEach((elem: any) => {
@@ -372,9 +376,9 @@ export const test_misc_isPrune_ObjectUnionCompositePointer =
                 const $pu0 = (input: any): any =>
                     (() => {
                         if (undefined !== input.x) return $po2(input);
-                        if (undefined !== input.p4) return $po5(input);
-                        if (undefined !== input.points) return $po6(input);
-                        if (
+                        else if (undefined !== input.p4) return $po5(input);
+                        else if (undefined !== input.points) return $po6(input);
+                        else if (
                             Array.isArray(input.outer) &&
                             input.outer.every(
                                 (elem: any) =>
@@ -384,17 +388,19 @@ export const test_misc_isPrune_ObjectUnionCompositePointer =
                             )
                         )
                             return $po8(input);
-                        if (
+                        else if (
                             "object" === typeof input.outer &&
                             null !== input.outer &&
                             $io6(input.outer)
                         )
                             return $po7(input);
-                        if (undefined !== input.centroid) return $po9(input);
-                        return (() => {
-                            if (undefined !== input.p3) return $po4(input);
-                            return $po3(input);
-                        })();
+                        else if (undefined !== input.centroid)
+                            return $po9(input);
+                        else
+                            return (() => {
+                                if (undefined !== input.p3) return $po4(input);
+                                else return $po3(input);
+                            })();
                     })();
                 if ("object" === typeof input && null !== input) $po0(input);
             };

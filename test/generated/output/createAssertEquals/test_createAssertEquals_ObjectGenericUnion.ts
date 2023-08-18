@@ -217,9 +217,9 @@ export const test_assertEquals_ObjectGenericUnion =
                     (() => {
                         if ($io5(input, false && _exceptionable))
                             return $io5(input, true && _exceptionable);
-                        if ($io1(input, false && _exceptionable))
+                        else if ($io1(input, false && _exceptionable))
                             return $io1(input, true && _exceptionable);
-                        return false;
+                        else return false;
                     })();
                 return (
                     "object" === typeof input &&
@@ -837,18 +837,21 @@ export const test_assertEquals_ObjectGenericUnion =
                                     _path,
                                     true && _exceptionable,
                                 );
-                            if ($ao1(input, _path, false && _exceptionable))
+                            else if (
+                                $ao1(input, _path, false && _exceptionable)
+                            )
                                 return $ao1(
                                     input,
                                     _path,
                                     true && _exceptionable,
                                 );
-                            return $guard(_exceptionable, {
-                                path: _path,
-                                expected:
-                                    "(ObjectGenericUnion.ISaleReview | ObjectGenericUnion.ISaleQuestion)",
-                                value: input,
-                            });
+                            else
+                                return $guard(_exceptionable, {
+                                    path: _path,
+                                    expected:
+                                        "(ObjectGenericUnion.ISaleReview | ObjectGenericUnion.ISaleQuestion)",
+                                    value: input,
+                                });
                         })();
                     return (
                         ((("object" === typeof input && null !== input) ||

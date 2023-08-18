@@ -42,9 +42,9 @@ export const test_assert_FunctionalObjectUnion =
                 const $iu0 = (input: any): any =>
                     (() => {
                         if (undefined !== input.x) return $io0(input);
-                        if (undefined !== input.p1) return $io1(input);
-                        if (undefined !== input.area) return $io3(input);
-                        return $io2(input);
+                        else if (undefined !== input.p1) return $io1(input);
+                        else if (undefined !== input.area) return $io3(input);
+                        else return $io2(input);
                     })();
                 return (
                     Array.isArray(input) &&
@@ -249,19 +249,24 @@ export const test_assert_FunctionalObjectUnion =
                                     _path,
                                     true && _exceptionable,
                                 );
-                            if (undefined !== input.p1)
+                            else if (undefined !== input.p1)
                                 return $ao1(
                                     input,
                                     _path,
                                     true && _exceptionable,
                                 );
-                            if (undefined !== input.area)
+                            else if (undefined !== input.area)
                                 return $ao3(
                                     input,
                                     _path,
                                     true && _exceptionable,
                                 );
-                            return $ao2(input, _path, true && _exceptionable);
+                            else
+                                return $ao2(
+                                    input,
+                                    _path,
+                                    true && _exceptionable,
+                                );
                         })();
                     return (
                         ((Array.isArray(input) ||

@@ -129,9 +129,10 @@ export const test_validate_ObjectUnionCompositePointer =
                     const $iu0 = (input: any): any =>
                         (() => {
                             if (undefined !== input.x) return $io2(input);
-                            if (undefined !== input.p4) return $io5(input);
-                            if (undefined !== input.points) return $io6(input);
-                            if (
+                            else if (undefined !== input.p4) return $io5(input);
+                            else if (undefined !== input.points)
+                                return $io6(input);
+                            else if (
                                 Array.isArray(input.outer) &&
                                 input.outer.every(
                                     (elem: any) =>
@@ -141,18 +142,20 @@ export const test_validate_ObjectUnionCompositePointer =
                                 )
                             )
                                 return $io8(input);
-                            if (
+                            else if (
                                 "object" === typeof input.outer &&
                                 null !== input.outer &&
                                 $io6(input.outer)
                             )
                                 return $io7(input);
-                            if (undefined !== input.centroid)
+                            else if (undefined !== input.centroid)
                                 return $io9(input);
-                            return (() => {
-                                if (undefined !== input.p3) return $io4(input);
-                                return $io3(input);
-                            })();
+                            else
+                                return (() => {
+                                    if (undefined !== input.p3)
+                                        return $io4(input);
+                                    else return $io3(input);
+                                })();
                         })();
                     return (
                         "object" === typeof input &&
@@ -709,19 +712,19 @@ export const test_validate_ObjectUnionCompositePointer =
                                         _path,
                                         true && _exceptionable,
                                     );
-                                if (undefined !== input.p4)
+                                else if (undefined !== input.p4)
                                     return $vo5(
                                         input,
                                         _path,
                                         true && _exceptionable,
                                     );
-                                if (undefined !== input.points)
+                                else if (undefined !== input.points)
                                     return $vo6(
                                         input,
                                         _path,
                                         true && _exceptionable,
                                     );
-                                if (
+                                else if (
                                     Array.isArray(input.outer) &&
                                     input.outer
                                         .map(
@@ -744,7 +747,7 @@ export const test_validate_ObjectUnionCompositePointer =
                                         _path,
                                         true && _exceptionable,
                                     );
-                                if (
+                                else if (
                                     "object" === typeof input.outer &&
                                     null !== input.outer &&
                                     $vo6(
@@ -758,25 +761,27 @@ export const test_validate_ObjectUnionCompositePointer =
                                         _path,
                                         true && _exceptionable,
                                     );
-                                if (undefined !== input.centroid)
+                                else if (undefined !== input.centroid)
                                     return $vo9(
                                         input,
                                         _path,
                                         true && _exceptionable,
                                     );
-                                return (() => {
-                                    if (undefined !== input.p3)
-                                        return $vo4(
-                                            input,
-                                            _path,
-                                            true && _exceptionable,
-                                        );
-                                    return $vo3(
-                                        input,
-                                        _path,
-                                        true && _exceptionable,
-                                    );
-                                })();
+                                else
+                                    return (() => {
+                                        if (undefined !== input.p3)
+                                            return $vo4(
+                                                input,
+                                                _path,
+                                                true && _exceptionable,
+                                            );
+                                        else
+                                            return $vo3(
+                                                input,
+                                                _path,
+                                                true && _exceptionable,
+                                            );
+                                    })();
                             })();
                         return (
                             ((("object" === typeof input && null !== input) ||

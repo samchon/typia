@@ -1292,14 +1292,14 @@ export const test_json_isStringify_UltimateUnion =
                 const $iu0 = (input: any): any =>
                     (() => {
                         if ("integer" === input.type) return $io22(input);
-                        if (
+                        else if (
                             "object" === typeof input.items &&
                             null !== input.items &&
                             false === Array.isArray(input.items) &&
                             $iu0(input.items)
                         )
                             return $io25(input);
-                        if (
+                        else if (
                             Array.isArray(input.items) &&
                             input.items.every(
                                 (elem: any) =>
@@ -1310,53 +1310,57 @@ export const test_json_isStringify_UltimateUnion =
                             )
                         )
                             return $io26(input);
-                        if (undefined !== input.oneOf) return $io27(input);
-                        if (undefined !== input.$ref) return $io28(input);
-                        if ("null" === input.type) return $io29(input);
-                        return (() => {
-                            if ($io20(input)) return $io20(input);
-                            if ($io19(input)) return $io19(input);
-                            if ($io1(input)) return $io1(input);
-                            if ($io21(input)) return $io21(input);
-                            if ($io23(input)) return $io23(input);
-                            if ($io24(input)) return $io24(input);
-                            if ($io30(input)) return $io30(input);
-                            return false;
-                        })();
+                        else if (undefined !== input.oneOf) return $io27(input);
+                        else if (undefined !== input.$ref) return $io28(input);
+                        else if ("null" === input.type) return $io29(input);
+                        else
+                            return (() => {
+                                if ($io20(input)) return $io20(input);
+                                else if ($io19(input)) return $io19(input);
+                                else if ($io1(input)) return $io1(input);
+                                else if ($io21(input)) return $io21(input);
+                                else if ($io23(input)) return $io23(input);
+                                else if ($io24(input)) return $io24(input);
+                                else if ($io30(input)) return $io30(input);
+                                else return false;
+                            })();
                     })();
                 const $iu1 = (input: any): any =>
                     (() => {
                         if ("maxItems" === input.kind) return $io16(input);
-                        if ("minItems" === input.kind) return $io15(input);
-                        if ("items" === input.kind) return $io14(input);
-                        if ("maxLength" === input.kind) return $io13(input);
-                        if ("minLength" === input.kind) return $io12(input);
-                        if ("length" === input.kind) return $io11(input);
-                        if ("pattern" === input.kind) return $io10(input);
-                        if ("format" === input.kind) return $io9(input);
-                        if ("step" === input.kind) return $io8(input);
-                        if ("multipleOf" === input.kind) return $io7(input);
-                        if ("exclusiveMaximum" === input.kind)
+                        else if ("minItems" === input.kind) return $io15(input);
+                        else if ("items" === input.kind) return $io14(input);
+                        else if ("maxLength" === input.kind)
+                            return $io13(input);
+                        else if ("minLength" === input.kind)
+                            return $io12(input);
+                        else if ("length" === input.kind) return $io11(input);
+                        else if ("pattern" === input.kind) return $io10(input);
+                        else if ("format" === input.kind) return $io9(input);
+                        else if ("step" === input.kind) return $io8(input);
+                        else if ("multipleOf" === input.kind)
+                            return $io7(input);
+                        else if ("exclusiveMaximum" === input.kind)
                             return $io6(input);
-                        if ("exclusiveMinimum" === input.kind)
+                        else if ("exclusiveMinimum" === input.kind)
                             return $io5(input);
-                        if ("maximum" === input.kind) return $io4(input);
-                        if ("minimum" === input.kind) return $io3(input);
-                        if ("type" === input.kind) return $io2(input);
-                        return false;
+                        else if ("maximum" === input.kind) return $io4(input);
+                        else if ("minimum" === input.kind) return $io3(input);
+                        else if ("type" === input.kind) return $io2(input);
+                        else return false;
                     })();
                 const $iu2 = (input: any): any =>
                     (() => {
                         if ("object" === input.type) return $io33(input);
-                        if ("integer" === input.type) return $io39(input);
-                        if (
+                        else if ("integer" === input.type) return $io39(input);
+                        else if (
                             "object" === typeof input.items &&
                             null !== input.items &&
                             false === Array.isArray(input.items) &&
                             $iu0(input.items)
                         )
                             return $io42(input);
-                        if (
+                        else if (
                             Array.isArray(input.items) &&
                             input.items.every(
                                 (elem: any) =>
@@ -1367,19 +1371,20 @@ export const test_json_isStringify_UltimateUnion =
                             )
                         )
                             return $io43(input);
-                        if (undefined !== input.oneOf) return $io44(input);
-                        if (undefined !== input.$ref) return $io45(input);
-                        if ("null" === input.type) return $io46(input);
-                        return (() => {
-                            if ($io37(input)) return $io37(input);
-                            if ($io36(input)) return $io36(input);
-                            if ($io35(input)) return $io35(input);
-                            if ($io38(input)) return $io38(input);
-                            if ($io40(input)) return $io40(input);
-                            if ($io41(input)) return $io41(input);
-                            if ($io47(input)) return $io47(input);
-                            return false;
-                        })();
+                        else if (undefined !== input.oneOf) return $io44(input);
+                        else if (undefined !== input.$ref) return $io45(input);
+                        else if ("null" === input.type) return $io46(input);
+                        else
+                            return (() => {
+                                if ($io37(input)) return $io37(input);
+                                else if ($io36(input)) return $io36(input);
+                                else if ($io35(input)) return $io35(input);
+                                else if ($io38(input)) return $io38(input);
+                                else if ($io40(input)) return $io40(input);
+                                else if ($io41(input)) return $io41(input);
+                                else if ($io47(input)) return $io47(input);
+                                else return false;
+                            })();
                     })();
                 return (
                     Array.isArray(input) &&
@@ -2614,14 +2619,14 @@ export const test_json_isStringify_UltimateUnion =
                 const $iu0 = (input: any): any =>
                     (() => {
                         if ("integer" === input.type) return $io22(input);
-                        if (
+                        else if (
                             "object" === typeof input.items &&
                             null !== input.items &&
                             false === Array.isArray(input.items) &&
                             $iu0(input.items)
                         )
                             return $io25(input);
-                        if (
+                        else if (
                             Array.isArray(input.items) &&
                             input.items.every(
                                 (elem: any) =>
@@ -2632,52 +2637,56 @@ export const test_json_isStringify_UltimateUnion =
                             )
                         )
                             return $io26(input);
-                        if (undefined !== input.oneOf) return $io27(input);
-                        if (undefined !== input.$ref) return $io28(input);
-                        if ("null" === input.type) return $io29(input);
-                        return (
-                            $io20(input) ||
-                            $io19(input) ||
-                            $io1(input) ||
-                            $io21(input) ||
-                            $io23(input) ||
-                            $io24(input) ||
-                            $io30(input)
-                        );
+                        else if (undefined !== input.oneOf) return $io27(input);
+                        else if (undefined !== input.$ref) return $io28(input);
+                        else if ("null" === input.type) return $io29(input);
+                        else
+                            return (
+                                $io20(input) ||
+                                $io19(input) ||
+                                $io1(input) ||
+                                $io21(input) ||
+                                $io23(input) ||
+                                $io24(input) ||
+                                $io30(input)
+                            );
                     })();
                 const $iu1 = (input: any): any =>
                     (() => {
                         if ("maxItems" === input.kind) return $io16(input);
-                        if ("minItems" === input.kind) return $io15(input);
-                        if ("items" === input.kind) return $io14(input);
-                        if ("maxLength" === input.kind) return $io13(input);
-                        if ("minLength" === input.kind) return $io12(input);
-                        if ("length" === input.kind) return $io11(input);
-                        if ("pattern" === input.kind) return $io10(input);
-                        if ("format" === input.kind) return $io9(input);
-                        if ("step" === input.kind) return $io8(input);
-                        if ("multipleOf" === input.kind) return $io7(input);
-                        if ("exclusiveMaximum" === input.kind)
+                        else if ("minItems" === input.kind) return $io15(input);
+                        else if ("items" === input.kind) return $io14(input);
+                        else if ("maxLength" === input.kind)
+                            return $io13(input);
+                        else if ("minLength" === input.kind)
+                            return $io12(input);
+                        else if ("length" === input.kind) return $io11(input);
+                        else if ("pattern" === input.kind) return $io10(input);
+                        else if ("format" === input.kind) return $io9(input);
+                        else if ("step" === input.kind) return $io8(input);
+                        else if ("multipleOf" === input.kind)
+                            return $io7(input);
+                        else if ("exclusiveMaximum" === input.kind)
                             return $io6(input);
-                        if ("exclusiveMinimum" === input.kind)
+                        else if ("exclusiveMinimum" === input.kind)
                             return $io5(input);
-                        if ("maximum" === input.kind) return $io4(input);
-                        if ("minimum" === input.kind) return $io3(input);
-                        if ("type" === input.kind) return $io2(input);
-                        return false;
+                        else if ("maximum" === input.kind) return $io4(input);
+                        else if ("minimum" === input.kind) return $io3(input);
+                        else if ("type" === input.kind) return $io2(input);
+                        else return false;
                     })();
                 const $iu2 = (input: any): any =>
                     (() => {
                         if ("object" === input.type) return $io33(input);
-                        if ("integer" === input.type) return $io39(input);
-                        if (
+                        else if ("integer" === input.type) return $io39(input);
+                        else if (
                             "object" === typeof input.items &&
                             null !== input.items &&
                             false === Array.isArray(input.items) &&
                             $iu0(input.items)
                         )
                             return $io42(input);
-                        if (
+                        else if (
                             Array.isArray(input.items) &&
                             input.items.every(
                                 (elem: any) =>
@@ -2688,18 +2697,19 @@ export const test_json_isStringify_UltimateUnion =
                             )
                         )
                             return $io43(input);
-                        if (undefined !== input.oneOf) return $io44(input);
-                        if (undefined !== input.$ref) return $io45(input);
-                        if ("null" === input.type) return $io46(input);
-                        return (
-                            $io37(input) ||
-                            $io36(input) ||
-                            $io35(input) ||
-                            $io38(input) ||
-                            $io40(input) ||
-                            $io41(input) ||
-                            $io47(input)
-                        );
+                        else if (undefined !== input.oneOf) return $io44(input);
+                        else if (undefined !== input.$ref) return $io45(input);
+                        else if ("null" === input.type) return $io46(input);
+                        else
+                            return (
+                                $io37(input) ||
+                                $io36(input) ||
+                                $io35(input) ||
+                                $io38(input) ||
+                                $io40(input) ||
+                                $io41(input) ||
+                                $io47(input)
+                            );
                     })();
                 const $string = (typia.json.isStringify as any).string;
                 const $throws = (typia.json.isStringify as any).throws;
@@ -5831,14 +5841,14 @@ export const test_json_isStringify_UltimateUnion =
                 const $su0 = (input: any): any =>
                     (() => {
                         if ("integer" === input.type) return $so22(input);
-                        if (
+                        else if (
                             "object" === typeof input.items &&
                             null !== input.items &&
                             false === Array.isArray(input.items) &&
                             $iu0(input.items)
                         )
                             return $so25(input);
-                        if (
+                        else if (
                             Array.isArray(input.items) &&
                             input.items.every(
                                 (elem: any) =>
@@ -5849,61 +5859,67 @@ export const test_json_isStringify_UltimateUnion =
                             )
                         )
                             return $so26(input);
-                        if (undefined !== input.oneOf) return $so27(input);
-                        if (undefined !== input.$ref) return $so28(input);
-                        if ("null" === input.type) return $so29(input);
-                        return (() => {
-                            if ($io20(input)) return $so20(input);
-                            if ($io19(input)) return $so19(input);
-                            if ($io1(input)) return $so1(input);
-                            if ($io21(input)) return $so21(input);
-                            if ($io23(input)) return $so23(input);
-                            if ($io24(input)) return $so24(input);
-                            if ($io30(input)) return $so30(input);
-                            $throws({
-                                expected:
-                                    '(IJsonSchema.IEnumeration<"string"> | IJsonSchema.IEnumeration<"number"> | IJsonSchema.IEnumeration<"boolean"> | IJsonSchema.IBoolean | IJsonSchema.INumber | IJsonSchema.IString | IJsonSchema.IUnknown)',
-                                value: input,
-                            });
-                        })();
+                        else if (undefined !== input.oneOf) return $so27(input);
+                        else if (undefined !== input.$ref) return $so28(input);
+                        else if ("null" === input.type) return $so29(input);
+                        else
+                            return (() => {
+                                if ($io20(input)) return $so20(input);
+                                else if ($io19(input)) return $so19(input);
+                                else if ($io1(input)) return $so1(input);
+                                else if ($io21(input)) return $so21(input);
+                                else if ($io23(input)) return $so23(input);
+                                else if ($io24(input)) return $so24(input);
+                                else if ($io30(input)) return $so30(input);
+                                else
+                                    $throws({
+                                        expected:
+                                            '(IJsonSchema.IEnumeration<"string"> | IJsonSchema.IEnumeration<"number"> | IJsonSchema.IEnumeration<"boolean"> | IJsonSchema.IBoolean | IJsonSchema.INumber | IJsonSchema.IString | IJsonSchema.IUnknown)',
+                                        value: input,
+                                    });
+                            })();
                     })();
                 const $su1 = (input: any): any =>
                     (() => {
                         if ("maxItems" === input.kind) return $so16(input);
-                        if ("minItems" === input.kind) return $so15(input);
-                        if ("items" === input.kind) return $so14(input);
-                        if ("maxLength" === input.kind) return $so13(input);
-                        if ("minLength" === input.kind) return $so12(input);
-                        if ("length" === input.kind) return $so11(input);
-                        if ("pattern" === input.kind) return $so10(input);
-                        if ("format" === input.kind) return $so9(input);
-                        if ("step" === input.kind) return $so8(input);
-                        if ("multipleOf" === input.kind) return $so7(input);
-                        if ("exclusiveMaximum" === input.kind)
+                        else if ("minItems" === input.kind) return $so15(input);
+                        else if ("items" === input.kind) return $so14(input);
+                        else if ("maxLength" === input.kind)
+                            return $so13(input);
+                        else if ("minLength" === input.kind)
+                            return $so12(input);
+                        else if ("length" === input.kind) return $so11(input);
+                        else if ("pattern" === input.kind) return $so10(input);
+                        else if ("format" === input.kind) return $so9(input);
+                        else if ("step" === input.kind) return $so8(input);
+                        else if ("multipleOf" === input.kind)
+                            return $so7(input);
+                        else if ("exclusiveMaximum" === input.kind)
                             return $so6(input);
-                        if ("exclusiveMinimum" === input.kind)
+                        else if ("exclusiveMinimum" === input.kind)
                             return $so5(input);
-                        if ("maximum" === input.kind) return $so4(input);
-                        if ("minimum" === input.kind) return $so3(input);
-                        if ("type" === input.kind) return $so2(input);
-                        $throws({
-                            expected:
-                                "(IMetadataTag.IMaxItems | IMetadataTag.IMinItems | IMetadataTag.IItems | IMetadataTag.IMaxLength | IMetadataTag.IMinLength | IMetadataTag.ILength | IMetadataTag.IPattern | IMetadataTag.IFormat | IMetadataTag.IStep | IMetadataTag.IMultipleOf | IMetadataTag.IExclusiveMaximum | IMetadataTag.IExclusiveMinimum | IMetadataTag.IMaximum | IMetadataTag.IMinimum | IMetadataTag.INumberType)",
-                            value: input,
-                        });
+                        else if ("maximum" === input.kind) return $so4(input);
+                        else if ("minimum" === input.kind) return $so3(input);
+                        else if ("type" === input.kind) return $so2(input);
+                        else
+                            $throws({
+                                expected:
+                                    "(IMetadataTag.IMaxItems | IMetadataTag.IMinItems | IMetadataTag.IItems | IMetadataTag.IMaxLength | IMetadataTag.IMinLength | IMetadataTag.ILength | IMetadataTag.IPattern | IMetadataTag.IFormat | IMetadataTag.IStep | IMetadataTag.IMultipleOf | IMetadataTag.IExclusiveMaximum | IMetadataTag.IExclusiveMinimum | IMetadataTag.IMaximum | IMetadataTag.IMinimum | IMetadataTag.INumberType)",
+                                value: input,
+                            });
                     })();
                 const $su2 = (input: any): any =>
                     (() => {
                         if ("object" === input.type) return $so33(input);
-                        if ("integer" === input.type) return $so39(input);
-                        if (
+                        else if ("integer" === input.type) return $so39(input);
+                        else if (
                             "object" === typeof input.items &&
                             null !== input.items &&
                             false === Array.isArray(input.items) &&
                             $iu0(input.items)
                         )
                             return $so42(input);
-                        if (
+                        else if (
                             Array.isArray(input.items) &&
                             input.items.every(
                                 (elem: any) =>
@@ -5914,23 +5930,25 @@ export const test_json_isStringify_UltimateUnion =
                             )
                         )
                             return $so43(input);
-                        if (undefined !== input.oneOf) return $so44(input);
-                        if (undefined !== input.$ref) return $so45(input);
-                        if ("null" === input.type) return $so46(input);
-                        return (() => {
-                            if ($io37(input)) return $so37(input);
-                            if ($io36(input)) return $so36(input);
-                            if ($io35(input)) return $so35(input);
-                            if ($io38(input)) return $so38(input);
-                            if ($io40(input)) return $so40(input);
-                            if ($io41(input)) return $so41(input);
-                            if ($io47(input)) return $so47(input);
-                            $throws({
-                                expected:
-                                    '(IEnumeration<"string"> & { $id?: string | undefined; $recursiveAnchor?: boolean | undefined; } | IEnumeration<"number"> & { $id?: string | undefined; $recursiveAnchor?: boolean | undefined; } | IEnumeration<"boolean"> & { $id?: string | undefined; $recursiveAnchor?: boolean | undefined; } | IBoolean & { $id?: string | undefined; $recursiveAnchor?: boolean | undefined; } | INumber & { $id?: string | undefined; $recursiveAnchor?: boolean | undefined; } | IString & { $id?: string | undefined; $recursiveAnchor?: boolean | undefined; } | IUnknown & { $id?: string | undefined; $recursiveAnchor?: boolean | undefined; })',
-                                value: input,
-                            });
-                        })();
+                        else if (undefined !== input.oneOf) return $so44(input);
+                        else if (undefined !== input.$ref) return $so45(input);
+                        else if ("null" === input.type) return $so46(input);
+                        else
+                            return (() => {
+                                if ($io37(input)) return $so37(input);
+                                else if ($io36(input)) return $so36(input);
+                                else if ($io35(input)) return $so35(input);
+                                else if ($io38(input)) return $so38(input);
+                                else if ($io40(input)) return $so40(input);
+                                else if ($io41(input)) return $so41(input);
+                                else if ($io47(input)) return $so47(input);
+                                else
+                                    $throws({
+                                        expected:
+                                            '(IEnumeration<"string"> & { $id?: string | undefined; $recursiveAnchor?: boolean | undefined; } | IEnumeration<"number"> & { $id?: string | undefined; $recursiveAnchor?: boolean | undefined; } | IEnumeration<"boolean"> & { $id?: string | undefined; $recursiveAnchor?: boolean | undefined; } | IBoolean & { $id?: string | undefined; $recursiveAnchor?: boolean | undefined; } | INumber & { $id?: string | undefined; $recursiveAnchor?: boolean | undefined; } | IString & { $id?: string | undefined; $recursiveAnchor?: boolean | undefined; } | IUnknown & { $id?: string | undefined; $recursiveAnchor?: boolean | undefined; })',
+                                        value: input,
+                                    });
+                            })();
                     })();
                 return `[${input.map((elem: any) => $so0(elem)).join(",")}]`;
             };

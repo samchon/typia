@@ -35,8 +35,9 @@ export const test_json_isStringify_ObjectNullable =
                 const $iu0 = (input: any): any =>
                     (() => {
                         if ("brand" === input.type) return $io3(input);
-                        if ("manufacturer" === input.type) return $io2(input);
-                        return false;
+                        else if ("manufacturer" === input.type)
+                            return $io2(input);
+                        else return false;
                     })();
                 return (
                     "object" === typeof input && null !== input && $io0(input)
@@ -64,8 +65,9 @@ export const test_json_isStringify_ObjectNullable =
                 const $iu0 = (input: any): any =>
                     (() => {
                         if ("brand" === input.type) return $io3(input);
-                        if ("manufacturer" === input.type) return $io2(input);
-                        return false;
+                        else if ("manufacturer" === input.type)
+                            return $io2(input);
+                        else return false;
                     })();
                 const $string = (typia.json.createIsStringify as any).string;
                 const $throws = (typia.json.createIsStringify as any).throws;
@@ -106,12 +108,14 @@ export const test_json_isStringify_ObjectNullable =
                 const $su0 = (input: any): any =>
                     (() => {
                         if ("brand" === input.type) return $so3(input);
-                        if ("manufacturer" === input.type) return $so2(input);
-                        $throws({
-                            expected:
-                                "(ObjectNullable.IBrand | ObjectNullable.IManufacturer)",
-                            value: input,
-                        });
+                        else if ("manufacturer" === input.type)
+                            return $so2(input);
+                        else
+                            $throws({
+                                expected:
+                                    "(ObjectNullable.IBrand | ObjectNullable.IManufacturer)",
+                                value: input,
+                            });
                     })();
                 return $so0(input);
             };
