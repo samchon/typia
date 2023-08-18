@@ -73,9 +73,9 @@ export namespace UnionExplorer {
             );
 
             // DO SPECIALIZE
-            const conditions: ts.IfStatement[] = specList
+            const condition: ts.IfStatement = specList
                 .filter((spec) => spec.property.key.getSoleLiteral() !== null)
-                .map((spec) => {
+                .map((spec, i, array) => {
                     const key: string = spec.property.key.getSoleLiteral()!;
                     const accessor: ts.Expression =
                         IdentifierFactory.access(input)(key);
@@ -105,21 +105,8 @@ export namespace UnionExplorer {
                                 jsDocTags,
                             ),
                         ),
-                    );
-                });
-
-            // RETURNS WITH CONDITIONS
-            return ts.factory.createCallExpression(
-                ts.factory.createArrowFunction(
-                    undefined,
-                    undefined,
-                    [],
-                    undefined,
-                    undefined,
-                    ts.factory.createBlock(
-                        [
-                            ...conditions,
-                            remained.length
+                        i === array.length - 1
+                            ? remained.length
                                 ? ts.factory.createReturnStatement(
                                       object(config, level + 1)(
                                           input,
@@ -133,10 +120,28 @@ export namespace UnionExplorer {
                                       input,
                                       expected,
                                       explore,
-                                  ),
-                        ],
-                        true,
+                                  )
+                            : undefined,
+                    );
+                })
+                .reverse()
+                .reduce((a, b) =>
+                    ts.factory.createIfStatement(
+                        b.expression,
+                        b.thenStatement,
+                        a,
                     ),
+                );
+
+            // RETURNS WITH CONDITIONS
+            return ts.factory.createCallExpression(
+                ts.factory.createArrowFunction(
+                    undefined,
+                    undefined,
+                    [],
+                    undefined,
+                    undefined,
+                    ts.factory.createBlock([condition], true),
                 ),
                 undefined,
                 undefined,
