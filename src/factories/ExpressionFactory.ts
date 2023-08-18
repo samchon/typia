@@ -67,4 +67,24 @@ export namespace ExpressionFactory {
                 ts.factory.createToken(ts.SyntaxKind.QuestionQuestionToken),
                 y,
             );
+
+    export const currying =
+        (target: ts.Expression) => (parameters: ts.Expression[]) => {
+            if (parameters.length === 0)
+                return ts.factory.createCallExpression(
+                    target,
+                    undefined,
+                    undefined,
+                );
+            let prev: ts.CallExpression = ts.factory.createCallExpression(
+                target,
+                undefined,
+                [parameters[0]!],
+            );
+            for (const param of parameters.slice(1))
+                prev = ts.factory.createCallExpression(prev, undefined, [
+                    param,
+                ]);
+            return prev;
+        };
 }

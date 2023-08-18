@@ -32,7 +32,6 @@ export namespace CloneJoiner {
         if (dynamic.length === 0) return literal;
 
         const key = ts.factory.createIdentifier("key");
-        const value = ts.factory.createIdentifier("value");
         const output = ts.factory.createIdentifier("output");
 
         const statements: ts.Statement[] = dynamic.map((entry) =>
@@ -72,30 +71,7 @@ export namespace CloneJoiner {
             ),
             ts.factory.createForOfStatement(
                 undefined,
-                ts.factory.createVariableDeclarationList(
-                    [
-                        ts.factory.createVariableDeclaration(
-                            ts.factory.createArrayBindingPattern([
-                                ts.factory.createBindingElement(
-                                    undefined,
-                                    undefined,
-                                    key,
-                                    undefined,
-                                ),
-                                ts.factory.createBindingElement(
-                                    undefined,
-                                    undefined,
-                                    value,
-                                    undefined,
-                                ),
-                            ]),
-                            undefined,
-                            undefined,
-                            undefined,
-                        ),
-                    ],
-                    ts.NodeFlags.Const,
-                ),
+                StatementFactory.entry("key")("value"),
                 ts.factory.createCallExpression(
                     ts.factory.createIdentifier("Object.entries"),
                     undefined,

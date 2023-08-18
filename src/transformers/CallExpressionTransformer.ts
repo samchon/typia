@@ -49,7 +49,6 @@ import { CreateProtobufDecodeTransformer } from "./features/protobuf/CreateProto
 import { CreateProtobufEncodeTransformer } from "./features/protobuf/CreateProtobufEncodeTransformer";
 import { CreateProtobufIsDecodeTransformer } from "./features/protobuf/CreateProtobufIsDecodeTransformer";
 import { CreateProtobufIsEncodeTransformer } from "./features/protobuf/CreateProtobufIsEncodeTransformer";
-import { CreateProtobufSizeTransformer } from "./features/protobuf/CreateProtobufSizeTransformer";
 import { CreateProtobufValidateDecodeTransformer } from "./features/protobuf/CreateProtobufValidateDecodeTransformer";
 import { CreateProtobufValidateEncodeTransformer } from "./features/protobuf/CreateProtobufValidateEncodeTransformer";
 import { ProtobufAssertDecodeTransformer } from "./features/protobuf/ProtobufAssertDecodeTransformer";
@@ -59,7 +58,6 @@ import { ProtobufEncodeTransformer } from "./features/protobuf/ProtobufEncodeTra
 import { ProtobufIsDecodeTransformer } from "./features/protobuf/ProtobufIsDecodeTransformer";
 import { ProtobufIsEncodeTransformer } from "./features/protobuf/ProtobufIsEncodeTransformer";
 import { ProtobufMessageTransformer } from "./features/protobuf/ProtobufMessageTransformer";
-import { ProtobufSizeTransformer } from "./features/protobuf/ProtobufSizeTransformer";
 import { ProtobufValidateDecodeTransformer } from "./features/protobuf/ProtobufValidateDecodeTransformer";
 import { ProtobufValidateEncodeTransformer } from "./features/protobuf/ProtobufValidateEncodeTransformer";
 
@@ -188,7 +186,6 @@ const FUNCTORS: Record<string, Record<string, () => Task>> = {
         message: () => ProtobufMessageTransformer.transform,
 
         // ENCODE
-        size: () => ProtobufSizeTransformer.transform,
         encode: () => ProtobufEncodeTransformer.transform,
         assertEncode: () => ProtobufAssertEncodeTransformer.transform,
         isEncode: () => ProtobufIsEncodeTransformer.transform,
@@ -201,7 +198,6 @@ const FUNCTORS: Record<string, Record<string, () => Task>> = {
         validateDecode: () => ProtobufValidateDecodeTransformer.transform,
 
         // FACTORIES
-        createSize: () => CreateProtobufSizeTransformer.transform,
         createEncode: () => CreateProtobufEncodeTransformer.transform,
         createAssertEncode: () =>
             CreateProtobufAssertEncodeTransformer.transform,

@@ -115,17 +115,17 @@
               {
                 "x-typia-required": true,
                 "x-typia-optional": false,
+                "$ref": "#/components/objects/DataView"
+              },
+              {
+                "x-typia-required": true,
+                "x-typia-optional": false,
                 "$ref": "#/components/objects/ArrayBuffer"
               },
               {
                 "x-typia-required": true,
                 "x-typia-optional": false,
                 "$ref": "#/components/objects/SharedArrayBuffer"
-              },
-              {
-                "x-typia-required": true,
-                "x-typia-optional": false,
-                "$ref": "#/components/objects/DataView"
               }
             ],
             "x-typia-required": true,
@@ -242,6 +242,11 @@
         ],
         "x-typia-jsDocTags": []
       },
+      "DataView": {
+        "type": "object",
+        "$id": "#/components/objects/DataView",
+        "properties": {}
+      },
       "ArrayBuffer": {
         "type": "object",
         "$id": "#/components/objects/ArrayBuffer",
@@ -250,11 +255,6 @@
       "SharedArrayBuffer": {
         "type": "object",
         "$id": "#/components/objects/SharedArrayBuffer",
-        "properties": {}
-      },
-      "DataView": {
-        "type": "object",
-        "$id": "#/components/objects/DataView",
         "properties": {}
       },
       "WeakSet": {

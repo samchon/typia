@@ -143,7 +143,10 @@ export namespace ProtobufMessageProgrammer {
                 const type = tags.find((t) => t.kind === "type") as
                     | IMetadataTag.INumberType
                     | undefined;
-                return type?.value ?? "double";
+                if (type?.value === undefined) return "double";
+                else if (type.value === "int") return "int32";
+                else if (type.value === "uint") return "uint32";
+                else return type.value;
             }
             return literal;
         };

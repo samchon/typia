@@ -1,3 +1,5 @@
+import { Namespace } from "./functional/Namespace";
+
 import { IValidation } from "./IValidation";
 import { Primitive } from "./Primitive";
 
@@ -34,6 +36,7 @@ export function decode<T>(input: Uint8Array): Primitive<T>;
 export function decode(): never {
     halt("decode");
 }
+Object.assign(decode, Namespace.protobuf.decode("decode"));
 
 export function isDecode(input: Uint8Array): never;
 
@@ -45,6 +48,8 @@ export function isDecode<T>(input: Uint8Array): Primitive<T> | null;
 export function isDecode(): never {
     halt("isDecode");
 }
+Object.assign(isDecode, Namespace.is());
+Object.assign(isDecode, Namespace.protobuf.decode("isDecode"));
 
 export function assertDecode(input: Uint8Array): never;
 
@@ -56,6 +61,8 @@ export function assertDecode<T>(input: Uint8Array): Primitive<T>;
 export function assertDecode(): never {
     halt("assertDecode");
 }
+Object.assign(assertDecode, Namespace.assert("assertDecode"));
+Object.assign(assertDecode, Namespace.protobuf.decode("assertDecode"));
 
 export function validateDecode(input: Uint8Array): never;
 
@@ -67,22 +74,12 @@ export function validateDecode<T>(input: Uint8Array): IValidation<Primitive<T>>;
 export function validateDecode(): never {
     halt("validateDecode");
 }
+Object.assign(validateDecode, Namespace.validate());
+Object.assign(validateDecode, Namespace.protobuf.decode("validateDecode"));
 
 /* -----------------------------------------------------------
     ENCODE
 ----------------------------------------------------------- */
-/**
- * @internal
- */
-export function size<T>(input: T): number;
-
-/**
- * @internal
- */
-export function size(): never {
-    halt("size");
-}
-
 export function encode<T>(input: T): Uint16Array;
 
 /**
@@ -91,6 +88,7 @@ export function encode<T>(input: T): Uint16Array;
 export function encode(): never {
     halt("encode");
 }
+Object.assign(encode, Namespace.protobuf.encode("encode"));
 
 export function isEncode<T>(input: T): Uint16Array | null;
 
@@ -100,6 +98,8 @@ export function isEncode<T>(input: T): Uint16Array | null;
 export function isEncode(): never {
     halt("isEncode");
 }
+Object.assign(isEncode, Namespace.is());
+Object.assign(isEncode, Namespace.protobuf.encode("isEncode"));
 
 export function assertEncode<T>(input: T): Uint16Array;
 
@@ -109,6 +109,8 @@ export function assertEncode<T>(input: T): Uint16Array;
 export function assertEncode(): never {
     halt("assertEncode");
 }
+Object.assign(assertEncode, Namespace.assert("assertEncode"));
+Object.assign(assertEncode, Namespace.protobuf.encode("assertEncode"));
 
 export function validateEncode<T>(input: T): IValidation<Uint16Array>;
 
@@ -118,6 +120,8 @@ export function validateEncode<T>(input: T): IValidation<Uint16Array>;
 export function validateEncode(): never {
     halt("validateEncode");
 }
+Object.assign(validateEncode, Namespace.validate());
+Object.assign(validateEncode, Namespace.protobuf.encode("validateEncode"));
 
 /* -----------------------------------------------------------
     FACTORY FUNCTIONS
@@ -168,23 +172,6 @@ export function createValidateDecode<T>(): (
     halt("createValidateDecode");
 }
 
-/**
- * @internal
- */
-export function createSize(): never;
-
-/**
- * @internal
- */
-export function createSize<T>(): (input: T) => number;
-
-/**
- * @internal
- */
-export function createSize<T>(): (input: T) => number {
-    halt("createEncode");
-}
-
 export function createEncode(): never;
 export function createEncode<T>(): (input: T) => Uint8Array;
 
@@ -194,6 +181,7 @@ export function createEncode<T>(): (input: T) => Uint8Array;
 export function createEncode<T>(): (input: T) => Uint8Array {
     halt("createEncode");
 }
+Object.assign(createEncode, Namespace.protobuf.encode("createEncode"));
 
 export function createIsEncode(): never;
 export function createIsEncode<T>(): (input: T) => Uint8Array | null;
@@ -204,6 +192,8 @@ export function createIsEncode<T>(): (input: T) => Uint8Array | null;
 export function createIsEncode<T>(): (input: T) => Uint8Array | null {
     halt("createIsEncode");
 }
+Object.assign(createIsEncode, Namespace.is);
+Object.assign(createIsEncode, Namespace.protobuf.encode);
 
 export function createAssertEncode(): never;
 export function createAssertEncode<T>(): (input: T) => Uint8Array;
@@ -214,6 +204,8 @@ export function createAssertEncode<T>(): (input: T) => Uint8Array;
 export function createAssertEncode<T>(): (input: T) => Uint8Array {
     halt("createAssertEncode");
 }
+Object.assign(createAssertEncode, Namespace.assert);
+Object.assign(createAssertEncode, Namespace.protobuf.encode);
 
 export function createValidateEncode(): never;
 export function createValidateEncode<T>(): (
@@ -228,6 +220,8 @@ export function createValidateEncode<T>(): (
 ) => IValidation<Uint8Array> {
     halt("createValidateEncode");
 }
+Object.assign(createValidateEncode, Namespace.validate);
+Object.assign(createValidateEncode, Namespace.protobuf.encode);
 
 /**
  * @internal

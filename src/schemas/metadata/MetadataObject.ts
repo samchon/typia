@@ -73,6 +73,16 @@ export class MetadataObject {
     /**
      * @internal
      */
+    public _Messagable(): boolean {
+        return (
+            this.properties.length >= 1 &&
+            this.properties.every((p) => p.key.isSoleLiteral())
+        );
+    }
+
+    /**
+     * @internal
+     */
     public _Is_simple(level: number = 0): boolean {
         return (
             this.recursive === false &&
