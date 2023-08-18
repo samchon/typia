@@ -2,41 +2,35 @@ import typia from "typia";
 
 import { Spoiler } from "../helpers/Spoiler";
 import { primitive_equal_to } from "../helpers/primitive_equal_to";
+import { _test_protobuf_encode } from "./_test_protobuf_encode";
 
 export const _test_protobuf_validateEncode =
-    <T>(factory: {
+    <T extends object>(factory: {
         constructor: { name: string };
         generate(): T;
         SPOILERS?: Spoiler<T>[];
     }) =>
     (functor: {
-        decode: (input: Uint8Array) => typia.Primitive<T>;
-        encode: (input: T) => typia.IValidation<Uint8Array>;
+        message: string;
+        validateEncode: (input: T) => typia.IValidation<Uint8Array>;
     }) =>
     () => {
-        try {
-            const data: T = factory.generate();
-            const encoded: typia.IValidation<Uint8Array> = functor.encode(data);
-            if (encoded.success === false)
-                throw new Error(
-                    `Bug on typia.protobuf.validateEncode(): failed to understand ${factory.constructor.name} type.`,
-                );
-            const decoded: typia.Primitive<T> = functor.decode(encoded.data);
-            if (primitive_equal_to(data, decoded as T) === false)
-                throw new Error(
-                    `Bug on typia.protobuf.validateEncode(): failed to understand ${factory.constructor.name} type.`,
-                );
-        } catch {
-            throw new Error(
-                `Bug on typia.protobuf.validateEncode(): failed to encode ${factory.constructor.name} type.`,
-            );
-        }
+        _test_protobuf_encode(factory)({
+            message: functor.message,
+            encode: (input: T) => {
+                const result: typia.IValidation<Uint8Array> =
+                    functor.validateEncode(input);
+                if (!result.success) throw new Error();
+                return result.data;
+            },
+        });
 
         const wrong: ISpoiled[] = [];
         for (const spoil of factory.SPOILERS ?? []) {
             const elem: T = factory.generate();
             const expected: string[] = spoil(elem);
-            const valid: typia.IValidation<Uint8Array> = functor.encode(elem);
+            const valid: typia.IValidation<Uint8Array> =
+                functor.validateEncode(elem);
 
             if (valid.success === true)
                 throw new Error(

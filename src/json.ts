@@ -254,7 +254,7 @@ export function stringify<T>(input: T): string;
 export function stringify(): never {
     halt("stringify");
 }
-Object.assign(stringify, Namespace.stringify("stringify"));
+Object.assign(stringify, Namespace.json.stringify("stringify"));
 
 /**
  * 5x faster `JSON.stringify()` function with type assertion.
@@ -309,7 +309,7 @@ export function assertStringify(): string {
     halt("assertStringify");
 }
 Object.assign(assertStringify, Namespace.assert("assertStringify"));
-Object.assign(assertStringify, Namespace.stringify("assertStringify"));
+Object.assign(assertStringify, Namespace.json.stringify("assertStringify"));
 
 /**
  * 7x faster `JSON.stringify()` function with type checking.
@@ -365,7 +365,7 @@ export function isStringify(): string | null {
 }
 
 Object.assign(isStringify, Namespace.is());
-Object.assign(isStringify, Namespace.stringify("isStringify"));
+Object.assign(isStringify, Namespace.json.stringify("isStringify"));
 
 /**
  * 5x faster `JSON.stringify()` function with detailed type validation.
@@ -422,7 +422,7 @@ export function validateStringify(): IValidation<string> {
     halt("validateStringify");
 }
 Object.assign(validateStringify, Namespace.validate());
-Object.assign(validateStringify, Namespace.stringify("validateStringify"));
+Object.assign(validateStringify, Namespace.json.stringify("validateStringify"));
 
 /* -----------------------------------------------------------
     FACTORY FUNCTIONS

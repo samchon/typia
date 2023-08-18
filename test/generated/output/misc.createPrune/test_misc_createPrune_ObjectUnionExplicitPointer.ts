@@ -80,13 +80,13 @@ export const test_misc_prune_ObjectUnionExplicitPointer =
             const $iu0 = (input: any): any =>
                 (() => {
                     if ("point" === input.type) return $io2(input);
-                    if ("line" === input.type) return $io3(input);
-                    if ("triangle" === input.type) return $io5(input);
-                    if ("rectangle" === input.type) return $io6(input);
-                    if ("polyline" === input.type) return $io7(input);
-                    if ("polygon" === input.type) return $io8(input);
-                    if ("circle" === input.type) return $io10(input);
-                    return false;
+                    else if ("line" === input.type) return $io3(input);
+                    else if ("triangle" === input.type) return $io5(input);
+                    else if ("rectangle" === input.type) return $io6(input);
+                    else if ("polyline" === input.type) return $io7(input);
+                    else if ("polygon" === input.type) return $io8(input);
+                    else if ("circle" === input.type) return $io10(input);
+                    else return false;
                 })();
             const $throws = (typia.misc.createPrune as any).throws;
             const $pp0 = (input: any) =>
@@ -221,17 +221,18 @@ export const test_misc_prune_ObjectUnionExplicitPointer =
             const $pu0 = (input: any): any =>
                 (() => {
                     if ("point" === input.type) return $po2(input);
-                    if ("line" === input.type) return $po3(input);
-                    if ("triangle" === input.type) return $po5(input);
-                    if ("rectangle" === input.type) return $po6(input);
-                    if ("polyline" === input.type) return $po7(input);
-                    if ("polygon" === input.type) return $po8(input);
-                    if ("circle" === input.type) return $po10(input);
-                    $throws({
-                        expected:
-                            '(ObjectUnionExplicitPointer.Discriminator<"point", ObjectUnionExplicitPointer.IPoint> | ObjectUnionExplicitPointer.Discriminator<"line", ObjectUnionExplicitPointer.ILine> | ObjectUnionExplicitPointer.Discriminator<"triangle", ObjectUnionExplicitPointer.ITriangle> | ObjectUnionExplicitPointer.Discriminator<"rectangle", ObjectUnionExplicitPointer.IRectangle> | ObjectUnionExplicitPointer.Discriminator<"polyline", ObjectUnionExplicitPointer.IPolyline> | ObjectUnionExplicitPointer.Discriminator<"polygon", ObjectUnionExplicitPointer.IPolygon> | ObjectUnionExplicitPointer.Discriminator<"circle", ObjectUnionExplicitPointer.ICircle>)',
-                        value: input,
-                    });
+                    else if ("line" === input.type) return $po3(input);
+                    else if ("triangle" === input.type) return $po5(input);
+                    else if ("rectangle" === input.type) return $po6(input);
+                    else if ("polyline" === input.type) return $po7(input);
+                    else if ("polygon" === input.type) return $po8(input);
+                    else if ("circle" === input.type) return $po10(input);
+                    else
+                        $throws({
+                            expected:
+                                '(ObjectUnionExplicitPointer.Discriminator<"point", ObjectUnionExplicitPointer.IPoint> | ObjectUnionExplicitPointer.Discriminator<"line", ObjectUnionExplicitPointer.ILine> | ObjectUnionExplicitPointer.Discriminator<"triangle", ObjectUnionExplicitPointer.ITriangle> | ObjectUnionExplicitPointer.Discriminator<"rectangle", ObjectUnionExplicitPointer.IRectangle> | ObjectUnionExplicitPointer.Discriminator<"polyline", ObjectUnionExplicitPointer.IPolyline> | ObjectUnionExplicitPointer.Discriminator<"polygon", ObjectUnionExplicitPointer.IPolygon> | ObjectUnionExplicitPointer.Discriminator<"circle", ObjectUnionExplicitPointer.ICircle>)',
+                            value: input,
+                        });
                 })();
             if ("object" === typeof input && null !== input) $po0(input);
         },

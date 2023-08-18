@@ -32,6 +32,13 @@ export const test_misc_isPrune_TagArray = _test_misc_isPrune<TagArray>(
             7 >= input.both.length &&
             input.both.every(
                 (elem: any) => "string" === typeof elem && $is_uuid(elem),
+            ) &&
+            Array.isArray(input.equal) &&
+            10 <= input.equal.length &&
+            10 >= input.equal.length &&
+            input.equal.every(
+                (elem: any) =>
+                    "number" === typeof elem && 10 <= elem && 10 >= elem,
             );
         return "object" === typeof input && null !== input && $io0(input);
     };
@@ -52,6 +59,13 @@ export const test_misc_isPrune_TagArray = _test_misc_isPrune<TagArray>(
             7 >= input.both.length &&
             input.both.every(
                 (elem: any) => "string" === typeof elem && $is_uuid(elem),
+            ) &&
+            Array.isArray(input.equal) &&
+            10 <= input.equal.length &&
+            10 >= input.equal.length &&
+            input.equal.every(
+                (elem: any) =>
+                    "number" === typeof elem && 10 <= elem && 10 >= elem,
             );
         const $is_uuid = (typia.misc.createIsPrune as any).is_uuid;
         const $pp0 = (input: any) =>
@@ -67,7 +81,12 @@ export const test_misc_isPrune_TagArray = _test_misc_isPrune<TagArray>(
         };
         const $po1 = (input: any): any => {
             for (const key of Object.keys(input)) {
-                if ("items" === key || "minItems" === key || "both" === key)
+                if (
+                    "items" === key ||
+                    "minItems" === key ||
+                    "both" === key ||
+                    "equal" === key
+                )
                     continue;
                 delete input[key];
             }

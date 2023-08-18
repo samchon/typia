@@ -66,11 +66,11 @@ export const test_json_isParse_ArrayRecursiveUnionExplicit =
             const $iu0 = (input: any): any =>
                 (() => {
                     if ("directory" === input.type) return $io0(input);
-                    if ("jpg" === input.extension) return $io1(input);
-                    if ("txt" === input.extension) return $io2(input);
-                    if ("zip" === input.extension) return $io3(input);
-                    if ("lnk" === input.extension) return $io4(input);
-                    return false;
+                    else if ("jpg" === input.extension) return $io1(input);
+                    else if ("txt" === input.extension) return $io2(input);
+                    else if ("zip" === input.extension) return $io3(input);
+                    else if ("lnk" === input.extension) return $io4(input);
+                    else return false;
                 })();
             return (
                 Array.isArray(input) &&

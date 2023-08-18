@@ -71,32 +71,35 @@ export const test_json_stringify_ObjectUnionDouble =
             const $su0 = (input: any): any =>
                 (() => {
                     if ($io6(input)) return $so6(input);
-                    if ($io0(input)) return $so0(input);
-                    $throws({
-                        expected:
-                            "(ObjectUnionDouble.IB | ObjectUnionDouble.IA)",
-                        value: input,
-                    });
+                    else if ($io0(input)) return $so0(input);
+                    else
+                        $throws({
+                            expected:
+                                "(ObjectUnionDouble.IB | ObjectUnionDouble.IA)",
+                            value: input,
+                        });
                 })();
             const $su1 = (input: any): any =>
                 (() => {
                     if ($io4(input)) return $so4(input);
-                    if ($io2(input)) return $so2(input);
-                    $throws({
-                        expected:
-                            "(ObjectUnionDouble.IAB | ObjectUnionDouble.IAA)",
-                        value: input,
-                    });
+                    else if ($io2(input)) return $so2(input);
+                    else
+                        $throws({
+                            expected:
+                                "(ObjectUnionDouble.IAB | ObjectUnionDouble.IAA)",
+                            value: input,
+                        });
                 })();
             const $su2 = (input: any): any =>
                 (() => {
                     if ($io10(input)) return $so10(input);
-                    if ($io8(input)) return $so8(input);
-                    $throws({
-                        expected:
-                            "(ObjectUnionDouble.IBB | ObjectUnionDouble.IBA)",
-                        value: input,
-                    });
+                    else if ($io8(input)) return $so8(input);
+                    else
+                        $throws({
+                            expected:
+                                "(ObjectUnionDouble.IBB | ObjectUnionDouble.IBA)",
+                            value: input,
+                        });
                 })();
             return `[${input.map((elem: any) => $su0(elem)).join(",")}]`;
         },

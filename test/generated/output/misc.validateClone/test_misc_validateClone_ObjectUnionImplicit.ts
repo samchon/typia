@@ -126,18 +126,20 @@ export const test_misc_validateClone_ObjectUnionImplicit =
                         const $iu0 = (input: any): any =>
                             (() => {
                                 if (undefined !== input.x) return $io0(input);
-                                if (undefined !== input.p4) return $io3(input);
-                                if (undefined !== input.points)
+                                else if (undefined !== input.p4)
+                                    return $io3(input);
+                                else if (undefined !== input.points)
                                     return $io4(input);
-                                if (undefined !== input.outer)
+                                else if (undefined !== input.outer)
                                     return $io5(input);
-                                if (undefined !== input.radius)
+                                else if (undefined !== input.radius)
                                     return $io6(input);
-                                return (() => {
-                                    if (undefined !== input.p3)
-                                        return $io2(input);
-                                    return $io1(input);
-                                })();
+                                else
+                                    return (() => {
+                                        if (undefined !== input.p3)
+                                            return $io2(input);
+                                        else return $io1(input);
+                                    })();
                             })();
                         return (
                             Array.isArray(input) &&
@@ -685,43 +687,45 @@ export const test_misc_validateClone_ObjectUnionImplicit =
                                             _path,
                                             true && _exceptionable,
                                         );
-                                    if (undefined !== input.p4)
+                                    else if (undefined !== input.p4)
                                         return $vo3(
                                             input,
                                             _path,
                                             true && _exceptionable,
                                         );
-                                    if (undefined !== input.points)
+                                    else if (undefined !== input.points)
                                         return $vo4(
                                             input,
                                             _path,
                                             true && _exceptionable,
                                         );
-                                    if (undefined !== input.outer)
+                                    else if (undefined !== input.outer)
                                         return $vo5(
                                             input,
                                             _path,
                                             true && _exceptionable,
                                         );
-                                    if (undefined !== input.radius)
+                                    else if (undefined !== input.radius)
                                         return $vo6(
                                             input,
                                             _path,
                                             true && _exceptionable,
                                         );
-                                    return (() => {
-                                        if (undefined !== input.p3)
-                                            return $vo2(
-                                                input,
-                                                _path,
-                                                true && _exceptionable,
-                                            );
-                                        return $vo1(
-                                            input,
-                                            _path,
-                                            true && _exceptionable,
-                                        );
-                                    })();
+                                    else
+                                        return (() => {
+                                            if (undefined !== input.p3)
+                                                return $vo2(
+                                                    input,
+                                                    _path,
+                                                    true && _exceptionable,
+                                                );
+                                            else
+                                                return $vo1(
+                                                    input,
+                                                    _path,
+                                                    true && _exceptionable,
+                                                );
+                                        })();
                                 })();
                             return (
                                 ((Array.isArray(input) ||
@@ -980,14 +984,19 @@ export const test_misc_validateClone_ObjectUnionImplicit =
                     const $cu0 = (input: any): any =>
                         (() => {
                             if (undefined !== input.x) return $co0(input);
-                            if (undefined !== input.p4) return $co3(input);
-                            if (undefined !== input.points) return $co4(input);
-                            if (undefined !== input.outer) return $co5(input);
-                            if (undefined !== input.radius) return $co6(input);
-                            return (() => {
-                                if (undefined !== input.p3) return $co2(input);
-                                return $co1(input);
-                            })();
+                            else if (undefined !== input.p4) return $co3(input);
+                            else if (undefined !== input.points)
+                                return $co4(input);
+                            else if (undefined !== input.outer)
+                                return $co5(input);
+                            else if (undefined !== input.radius)
+                                return $co6(input);
+                            else
+                                return (() => {
+                                    if (undefined !== input.p3)
+                                        return $co2(input);
+                                    else return $co1(input);
+                                })();
                         })();
                     return Array.isArray(input) ? $cp0(input) : (input as any);
                 };

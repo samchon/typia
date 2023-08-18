@@ -124,17 +124,19 @@ export const test_json_validateStringify_ObjectUnionExplicit =
                         const $iu0 = (input: any): any =>
                             (() => {
                                 if ("point" === input.type) return $io0(input);
-                                if ("line" === input.type) return $io1(input);
-                                if ("triangle" === input.type)
+                                else if ("line" === input.type)
+                                    return $io1(input);
+                                else if ("triangle" === input.type)
                                     return $io3(input);
-                                if ("rectangle" === input.type)
+                                else if ("rectangle" === input.type)
                                     return $io4(input);
-                                if ("polyline" === input.type)
+                                else if ("polyline" === input.type)
                                     return $io5(input);
-                                if ("polygon" === input.type)
+                                else if ("polygon" === input.type)
                                     return $io6(input);
-                                if ("circle" === input.type) return $io8(input);
-                                return false;
+                                else if ("circle" === input.type)
+                                    return $io8(input);
+                                else return false;
                             })();
                         return (
                             Array.isArray(input) &&
@@ -675,48 +677,49 @@ export const test_json_validateStringify_ObjectUnionExplicit =
                                             _path,
                                             true && _exceptionable,
                                         );
-                                    if ("line" === input.type)
+                                    else if ("line" === input.type)
                                         return $vo1(
                                             input,
                                             _path,
                                             true && _exceptionable,
                                         );
-                                    if ("triangle" === input.type)
+                                    else if ("triangle" === input.type)
                                         return $vo3(
                                             input,
                                             _path,
                                             true && _exceptionable,
                                         );
-                                    if ("rectangle" === input.type)
+                                    else if ("rectangle" === input.type)
                                         return $vo4(
                                             input,
                                             _path,
                                             true && _exceptionable,
                                         );
-                                    if ("polyline" === input.type)
+                                    else if ("polyline" === input.type)
                                         return $vo5(
                                             input,
                                             _path,
                                             true && _exceptionable,
                                         );
-                                    if ("polygon" === input.type)
+                                    else if ("polygon" === input.type)
                                         return $vo6(
                                             input,
                                             _path,
                                             true && _exceptionable,
                                         );
-                                    if ("circle" === input.type)
+                                    else if ("circle" === input.type)
                                         return $vo8(
                                             input,
                                             _path,
                                             true && _exceptionable,
                                         );
-                                    return $report(_exceptionable, {
-                                        path: _path,
-                                        expected:
-                                            '(ObjectUnionExplicit.Discriminator<"point", ObjectUnionExplicit.IPoint> | ObjectUnionExplicit.Discriminator<"line", ObjectUnionExplicit.ILine> | ObjectUnionExplicit.Discriminator<"triangle", ObjectUnionExplicit.ITriangle> | ObjectUnionExplicit.Discriminator<"rectangle", ObjectUnionExplicit.IRectangle> | ObjectUnionExplicit.Discriminator<"polyline", ObjectUnionExplicit.IPolyline> | ObjectUnionExplicit.Discriminator<"polygon", ObjectUnionExplicit.IPolygon> | ObjectUnionExplicit.Discriminator<"circle", ObjectUnionExplicit.ICircle>)',
-                                        value: input,
-                                    });
+                                    else
+                                        return $report(_exceptionable, {
+                                            path: _path,
+                                            expected:
+                                                '(ObjectUnionExplicit.Discriminator<"point", ObjectUnionExplicit.IPoint> | ObjectUnionExplicit.Discriminator<"line", ObjectUnionExplicit.ILine> | ObjectUnionExplicit.Discriminator<"triangle", ObjectUnionExplicit.ITriangle> | ObjectUnionExplicit.Discriminator<"rectangle", ObjectUnionExplicit.IRectangle> | ObjectUnionExplicit.Discriminator<"polyline", ObjectUnionExplicit.IPolyline> | ObjectUnionExplicit.Discriminator<"polygon", ObjectUnionExplicit.IPolygon> | ObjectUnionExplicit.Discriminator<"circle", ObjectUnionExplicit.ICircle>)',
+                                            value: input,
+                                        });
                                 })();
                             return (
                                 ((Array.isArray(input) ||
@@ -999,17 +1002,23 @@ export const test_json_validateStringify_ObjectUnionExplicit =
                     const $su0 = (input: any): any =>
                         (() => {
                             if ("point" === input.type) return $so0(input);
-                            if ("line" === input.type) return $so1(input);
-                            if ("triangle" === input.type) return $so3(input);
-                            if ("rectangle" === input.type) return $so4(input);
-                            if ("polyline" === input.type) return $so5(input);
-                            if ("polygon" === input.type) return $so6(input);
-                            if ("circle" === input.type) return $so8(input);
-                            $throws({
-                                expected:
-                                    '(ObjectUnionExplicit.Discriminator<"point", ObjectUnionExplicit.IPoint> | ObjectUnionExplicit.Discriminator<"line", ObjectUnionExplicit.ILine> | ObjectUnionExplicit.Discriminator<"triangle", ObjectUnionExplicit.ITriangle> | ObjectUnionExplicit.Discriminator<"rectangle", ObjectUnionExplicit.IRectangle> | ObjectUnionExplicit.Discriminator<"polyline", ObjectUnionExplicit.IPolyline> | ObjectUnionExplicit.Discriminator<"polygon", ObjectUnionExplicit.IPolygon> | ObjectUnionExplicit.Discriminator<"circle", ObjectUnionExplicit.ICircle>)',
-                                value: input,
-                            });
+                            else if ("line" === input.type) return $so1(input);
+                            else if ("triangle" === input.type)
+                                return $so3(input);
+                            else if ("rectangle" === input.type)
+                                return $so4(input);
+                            else if ("polyline" === input.type)
+                                return $so5(input);
+                            else if ("polygon" === input.type)
+                                return $so6(input);
+                            else if ("circle" === input.type)
+                                return $so8(input);
+                            else
+                                $throws({
+                                    expected:
+                                        '(ObjectUnionExplicit.Discriminator<"point", ObjectUnionExplicit.IPoint> | ObjectUnionExplicit.Discriminator<"line", ObjectUnionExplicit.ILine> | ObjectUnionExplicit.Discriminator<"triangle", ObjectUnionExplicit.ITriangle> | ObjectUnionExplicit.Discriminator<"rectangle", ObjectUnionExplicit.IRectangle> | ObjectUnionExplicit.Discriminator<"polyline", ObjectUnionExplicit.IPolyline> | ObjectUnionExplicit.Discriminator<"polygon", ObjectUnionExplicit.IPolygon> | ObjectUnionExplicit.Discriminator<"circle", ObjectUnionExplicit.ICircle>)',
+                                    value: input,
+                                });
                         })();
                     return `[${input
                         .map((elem: any) => $su0(elem))

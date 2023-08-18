@@ -1,7 +1,13 @@
 import fs from "fs";
 import typia from "typia";
 
-import { ObjectSimple } from "../structures/ObjectSimple";
+import { ObjectUnionCompositePointer } from "../structures/ObjectUnionCompositePointer";
 
-const encode = typia.protobuf.createEncode<ObjectSimple>();
-fs.writeFileSync(__dirname + "/protobuf.encode.js", encode.toString(), "utf8");
+// TRACE ENCODE FUNCTION
+const encode = typia.protobuf.createEncode<ObjectUnionCompositePointer>();
+
+fs.writeFileSync(
+    __dirname + "/protobuf.encode.js",
+    [`const encode = ${encode.toString()}`].join("\n"),
+    "utf8",
+);

@@ -73,11 +73,12 @@ export const test_json_assertParse_ArrayRecursiveUnionImplicit =
                 const $iu0 = (input: any): any =>
                     (() => {
                         if (undefined !== input.access) return $io1(input);
-                        if (undefined !== input.width) return $io2(input);
-                        if (undefined !== input.content) return $io3(input);
-                        if (undefined !== input.count) return $io4(input);
-                        if (undefined !== input.target) return $io5(input);
-                        return $io0(input);
+                        else if (undefined !== input.width) return $io2(input);
+                        else if (undefined !== input.content)
+                            return $io3(input);
+                        else if (undefined !== input.count) return $io4(input);
+                        else if (undefined !== input.target) return $io5(input);
+                        else return $io0(input);
                     })();
                 return (
                     Array.isArray(input) &&
@@ -424,31 +425,36 @@ export const test_json_assertParse_ArrayRecursiveUnionImplicit =
                                     _path,
                                     true && _exceptionable,
                                 );
-                            if (undefined !== input.width)
+                            else if (undefined !== input.width)
                                 return $ao2(
                                     input,
                                     _path,
                                     true && _exceptionable,
                                 );
-                            if (undefined !== input.content)
+                            else if (undefined !== input.content)
                                 return $ao3(
                                     input,
                                     _path,
                                     true && _exceptionable,
                                 );
-                            if (undefined !== input.count)
+                            else if (undefined !== input.count)
                                 return $ao4(
                                     input,
                                     _path,
                                     true && _exceptionable,
                                 );
-                            if (undefined !== input.target)
+                            else if (undefined !== input.target)
                                 return $ao5(
                                     input,
                                     _path,
                                     true && _exceptionable,
                                 );
-                            return $ao0(input, _path, true && _exceptionable);
+                            else
+                                return $ao0(
+                                    input,
+                                    _path,
+                                    true && _exceptionable,
+                                );
                         })();
                     return (
                         ((Array.isArray(input) ||

@@ -30,8 +30,8 @@ export const test_is_ObjectNullable = _test_is<ObjectNullable>(ObjectNullable)(
         const $iu0 = (input: any): any =>
             (() => {
                 if ("brand" === input.type) return $io3(input);
-                if ("manufacturer" === input.type) return $io2(input);
-                return false;
+                else if ("manufacturer" === input.type) return $io2(input);
+                else return false;
             })();
         return "object" === typeof input && null !== input && $io0(input);
     },

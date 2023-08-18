@@ -173,15 +173,15 @@ export const test_validateEquals_ArrayRecursiveUnionImplicit =
                 (() => {
                     if (undefined !== input.access)
                         return $io1(input, true && _exceptionable);
-                    if (undefined !== input.width)
+                    else if (undefined !== input.width)
                         return $io2(input, true && _exceptionable);
-                    if (undefined !== input.content)
+                    else if (undefined !== input.content)
                         return $io3(input, true && _exceptionable);
-                    if (undefined !== input.count)
+                    else if (undefined !== input.count)
                         return $io4(input, true && _exceptionable);
-                    if (undefined !== input.target)
+                    else if (undefined !== input.target)
                         return $io5(input, true && _exceptionable);
-                    return $io0(input, true && _exceptionable);
+                    else return $io0(input, true && _exceptionable);
                 })();
             return (
                 Array.isArray(input) &&
@@ -673,15 +673,15 @@ export const test_validateEquals_ArrayRecursiveUnionImplicit =
                     (() => {
                         if (undefined !== input.access)
                             return $vo1(input, _path, true && _exceptionable);
-                        if (undefined !== input.width)
+                        else if (undefined !== input.width)
                             return $vo2(input, _path, true && _exceptionable);
-                        if (undefined !== input.content)
+                        else if (undefined !== input.content)
                             return $vo3(input, _path, true && _exceptionable);
-                        if (undefined !== input.count)
+                        else if (undefined !== input.count)
                             return $vo4(input, _path, true && _exceptionable);
-                        if (undefined !== input.target)
+                        else if (undefined !== input.target)
                             return $vo5(input, _path, true && _exceptionable);
-                        return $vo0(input, _path, true && _exceptionable);
+                        else return $vo0(input, _path, true && _exceptionable);
                     })();
                 return (
                     ((Array.isArray(input) ||

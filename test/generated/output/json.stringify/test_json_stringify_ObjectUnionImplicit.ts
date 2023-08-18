@@ -260,14 +260,15 @@ export const test_json_stringify_ObjectUnionImplicit =
             const $su0 = (input: any): any =>
                 (() => {
                     if (undefined !== input.x) return $so0(input);
-                    if (undefined !== input.p4) return $so3(input);
-                    if (undefined !== input.points) return $so4(input);
-                    if (undefined !== input.outer) return $so5(input);
-                    if (undefined !== input.radius) return $so6(input);
-                    return (() => {
-                        if (undefined !== input.p3) return $so2(input);
-                        return $so1(input);
-                    })();
+                    else if (undefined !== input.p4) return $so3(input);
+                    else if (undefined !== input.points) return $so4(input);
+                    else if (undefined !== input.outer) return $so5(input);
+                    else if (undefined !== input.radius) return $so6(input);
+                    else
+                        return (() => {
+                            if (undefined !== input.p3) return $so2(input);
+                            else return $so1(input);
+                        })();
                 })();
             return `[${input.map((elem: any) => $su0(elem)).join(",")}]`;
         })(input),

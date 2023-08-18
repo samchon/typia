@@ -141,13 +141,18 @@ export const test_misc_validateClone_ObjectUnionExplicitPointer =
                     const $iu0 = (input: any): any =>
                         (() => {
                             if ("point" === input.type) return $io2(input);
-                            if ("line" === input.type) return $io3(input);
-                            if ("triangle" === input.type) return $io5(input);
-                            if ("rectangle" === input.type) return $io6(input);
-                            if ("polyline" === input.type) return $io7(input);
-                            if ("polygon" === input.type) return $io8(input);
-                            if ("circle" === input.type) return $io10(input);
-                            return false;
+                            else if ("line" === input.type) return $io3(input);
+                            else if ("triangle" === input.type)
+                                return $io5(input);
+                            else if ("rectangle" === input.type)
+                                return $io6(input);
+                            else if ("polyline" === input.type)
+                                return $io7(input);
+                            else if ("polygon" === input.type)
+                                return $io8(input);
+                            else if ("circle" === input.type)
+                                return $io10(input);
+                            else return false;
                         })();
                     return (
                         "object" === typeof input &&
@@ -750,48 +755,49 @@ export const test_misc_validateClone_ObjectUnionExplicitPointer =
                                         _path,
                                         true && _exceptionable,
                                     );
-                                if ("line" === input.type)
+                                else if ("line" === input.type)
                                     return $vo3(
                                         input,
                                         _path,
                                         true && _exceptionable,
                                     );
-                                if ("triangle" === input.type)
+                                else if ("triangle" === input.type)
                                     return $vo5(
                                         input,
                                         _path,
                                         true && _exceptionable,
                                     );
-                                if ("rectangle" === input.type)
+                                else if ("rectangle" === input.type)
                                     return $vo6(
                                         input,
                                         _path,
                                         true && _exceptionable,
                                     );
-                                if ("polyline" === input.type)
+                                else if ("polyline" === input.type)
                                     return $vo7(
                                         input,
                                         _path,
                                         true && _exceptionable,
                                     );
-                                if ("polygon" === input.type)
+                                else if ("polygon" === input.type)
                                     return $vo8(
                                         input,
                                         _path,
                                         true && _exceptionable,
                                     );
-                                if ("circle" === input.type)
+                                else if ("circle" === input.type)
                                     return $vo10(
                                         input,
                                         _path,
                                         true && _exceptionable,
                                     );
-                                return $report(_exceptionable, {
-                                    path: _path,
-                                    expected:
-                                        '(ObjectUnionExplicitPointer.Discriminator<"point", ObjectUnionExplicitPointer.IPoint> | ObjectUnionExplicitPointer.Discriminator<"line", ObjectUnionExplicitPointer.ILine> | ObjectUnionExplicitPointer.Discriminator<"triangle", ObjectUnionExplicitPointer.ITriangle> | ObjectUnionExplicitPointer.Discriminator<"rectangle", ObjectUnionExplicitPointer.IRectangle> | ObjectUnionExplicitPointer.Discriminator<"polyline", ObjectUnionExplicitPointer.IPolyline> | ObjectUnionExplicitPointer.Discriminator<"polygon", ObjectUnionExplicitPointer.IPolygon> | ObjectUnionExplicitPointer.Discriminator<"circle", ObjectUnionExplicitPointer.ICircle>)',
-                                    value: input,
-                                });
+                                else
+                                    return $report(_exceptionable, {
+                                        path: _path,
+                                        expected:
+                                            '(ObjectUnionExplicitPointer.Discriminator<"point", ObjectUnionExplicitPointer.IPoint> | ObjectUnionExplicitPointer.Discriminator<"line", ObjectUnionExplicitPointer.ILine> | ObjectUnionExplicitPointer.Discriminator<"triangle", ObjectUnionExplicitPointer.ITriangle> | ObjectUnionExplicitPointer.Discriminator<"rectangle", ObjectUnionExplicitPointer.IRectangle> | ObjectUnionExplicitPointer.Discriminator<"polyline", ObjectUnionExplicitPointer.IPolyline> | ObjectUnionExplicitPointer.Discriminator<"polygon", ObjectUnionExplicitPointer.IPolygon> | ObjectUnionExplicitPointer.Discriminator<"circle", ObjectUnionExplicitPointer.ICircle>)',
+                                        value: input,
+                                    });
                             })();
                         return (
                             ((("object" === typeof input && null !== input) ||
@@ -900,13 +906,13 @@ export const test_misc_validateClone_ObjectUnionExplicitPointer =
                 const $iu0 = (input: any): any =>
                     (() => {
                         if ("point" === input.type) return $io2(input);
-                        if ("line" === input.type) return $io3(input);
-                        if ("triangle" === input.type) return $io5(input);
-                        if ("rectangle" === input.type) return $io6(input);
-                        if ("polyline" === input.type) return $io7(input);
-                        if ("polygon" === input.type) return $io8(input);
-                        if ("circle" === input.type) return $io10(input);
-                        return false;
+                        else if ("line" === input.type) return $io3(input);
+                        else if ("triangle" === input.type) return $io5(input);
+                        else if ("rectangle" === input.type) return $io6(input);
+                        else if ("polyline" === input.type) return $io7(input);
+                        else if ("polygon" === input.type) return $io8(input);
+                        else if ("circle" === input.type) return $io10(input);
+                        else return false;
                     })();
                 const $throws = (typia.misc.createValidateClone as any).throws;
                 const $cp0 = (input: any) =>
@@ -1025,17 +1031,18 @@ export const test_misc_validateClone_ObjectUnionExplicitPointer =
                 const $cu0 = (input: any): any =>
                     (() => {
                         if ("point" === input.type) return $co2(input);
-                        if ("line" === input.type) return $co3(input);
-                        if ("triangle" === input.type) return $co5(input);
-                        if ("rectangle" === input.type) return $co6(input);
-                        if ("polyline" === input.type) return $co7(input);
-                        if ("polygon" === input.type) return $co8(input);
-                        if ("circle" === input.type) return $co10(input);
-                        $throws({
-                            expected:
-                                '(ObjectUnionExplicitPointer.Discriminator<"point", ObjectUnionExplicitPointer.IPoint> | ObjectUnionExplicitPointer.Discriminator<"line", ObjectUnionExplicitPointer.ILine> | ObjectUnionExplicitPointer.Discriminator<"triangle", ObjectUnionExplicitPointer.ITriangle> | ObjectUnionExplicitPointer.Discriminator<"rectangle", ObjectUnionExplicitPointer.IRectangle> | ObjectUnionExplicitPointer.Discriminator<"polyline", ObjectUnionExplicitPointer.IPolyline> | ObjectUnionExplicitPointer.Discriminator<"polygon", ObjectUnionExplicitPointer.IPolygon> | ObjectUnionExplicitPointer.Discriminator<"circle", ObjectUnionExplicitPointer.ICircle>)',
-                            value: input,
-                        });
+                        else if ("line" === input.type) return $co3(input);
+                        else if ("triangle" === input.type) return $co5(input);
+                        else if ("rectangle" === input.type) return $co6(input);
+                        else if ("polyline" === input.type) return $co7(input);
+                        else if ("polygon" === input.type) return $co8(input);
+                        else if ("circle" === input.type) return $co10(input);
+                        else
+                            $throws({
+                                expected:
+                                    '(ObjectUnionExplicitPointer.Discriminator<"point", ObjectUnionExplicitPointer.IPoint> | ObjectUnionExplicitPointer.Discriminator<"line", ObjectUnionExplicitPointer.ILine> | ObjectUnionExplicitPointer.Discriminator<"triangle", ObjectUnionExplicitPointer.ITriangle> | ObjectUnionExplicitPointer.Discriminator<"rectangle", ObjectUnionExplicitPointer.IRectangle> | ObjectUnionExplicitPointer.Discriminator<"polyline", ObjectUnionExplicitPointer.IPolyline> | ObjectUnionExplicitPointer.Discriminator<"polygon", ObjectUnionExplicitPointer.IPolygon> | ObjectUnionExplicitPointer.Discriminator<"circle", ObjectUnionExplicitPointer.ICircle>)',
+                                value: input,
+                            });
                     })();
                 return "object" === typeof input && null !== input
                     ? $co0(input)

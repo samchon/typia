@@ -183,9 +183,9 @@ export const test_equals_ObjectGenericUnion = _test_equals<ObjectGenericUnion>(
         (() => {
             if ($io5(input, false && _exceptionable))
                 return $io5(input, true && _exceptionable);
-            if ($io1(input, false && _exceptionable))
+            else if ($io1(input, false && _exceptionable))
                 return $io1(input, true && _exceptionable);
-            return false;
+            else return false;
         })();
     return "object" === typeof input && null !== input && $io0(input, true);
 });

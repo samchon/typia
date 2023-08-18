@@ -18,12 +18,12 @@ export const test_assert_TagObjectUnion = _test_assert<TagObjectUnion>(
             const $iu0 = (input: any): any =>
                 (() => {
                     if ("string" === typeof input.value) return $io1(input);
-                    if (
+                    else if (
                         "number" === typeof input.value &&
                         Number.isFinite(input.value)
                     )
                         return $io0(input);
-                    return false;
+                    else return false;
                 })();
             return (
                 Array.isArray(input) &&
@@ -89,14 +89,15 @@ export const test_assert_TagObjectUnion = _test_assert<TagObjectUnion>(
                     (() => {
                         if ("string" === typeof input.value)
                             return $ao1(input, _path, true && _exceptionable);
-                        if ("number" === typeof input.value)
+                        else if ("number" === typeof input.value)
                             return $ao0(input, _path, true && _exceptionable);
-                        return $guard(_exceptionable, {
-                            path: _path,
-                            expected:
-                                "(TagObjectUnion.Literal | TagObjectUnion.Numeric)",
-                            value: input,
-                        });
+                        else
+                            return $guard(_exceptionable, {
+                                path: _path,
+                                expected:
+                                    "(TagObjectUnion.Literal | TagObjectUnion.Numeric)",
+                                value: input,
+                            });
                     })();
                 return (
                     ((Array.isArray(input) ||

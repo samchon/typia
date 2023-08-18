@@ -7,5 +7,6 @@ message TagLength {
         required string minimum = 2;
         required string maximum = 3;
         required string minimum_and_maximum = 4;
+        required string equal = 5;
     }
 }

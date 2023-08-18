@@ -18,12 +18,13 @@ export const test_json_assertStringify_ToJsonUnion =
                     const $iu0 = (input: any): any =>
                         (() => {
                             if (undefined !== input.id) return $io0(input);
-                            return (() => {
-                                if ($io3(input)) return $io3(input);
-                                if ($io2(input)) return $io2(input);
-                                if ($io1(input)) return $io1(input);
-                                return false;
-                            })();
+                            else
+                                return (() => {
+                                    if ($io3(input)) return $io3(input);
+                                    else if ($io2(input)) return $io2(input);
+                                    else if ($io1(input)) return $io1(input);
+                                    else return false;
+                                })();
                         })();
                     return (
                         Array.isArray(input) &&
@@ -117,29 +118,30 @@ export const test_json_assertStringify_ToJsonUnion =
                                         _path,
                                         true && _exceptionable,
                                     );
-                                return (
-                                    $ao3(
-                                        input,
-                                        _path,
-                                        false && _exceptionable,
-                                    ) ||
-                                    $ao2(
-                                        input,
-                                        _path,
-                                        false && _exceptionable,
-                                    ) ||
-                                    $ao1(
-                                        input,
-                                        _path,
-                                        false && _exceptionable,
-                                    ) ||
-                                    $guard(_exceptionable, {
-                                        path: _path,
-                                        expected:
-                                            "(ToJsonUnion.IWrapper<ToJsonUnion.IProduct> | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen> | ToJsonUnion.IWrapper<boolean>)",
-                                        value: input,
-                                    })
-                                );
+                                else
+                                    return (
+                                        $ao3(
+                                            input,
+                                            _path,
+                                            false && _exceptionable,
+                                        ) ||
+                                        $ao2(
+                                            input,
+                                            _path,
+                                            false && _exceptionable,
+                                        ) ||
+                                        $ao1(
+                                            input,
+                                            _path,
+                                            false && _exceptionable,
+                                        ) ||
+                                        $guard(_exceptionable, {
+                                            path: _path,
+                                            expected:
+                                                "(ToJsonUnion.IWrapper<ToJsonUnion.IProduct> | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen> | ToJsonUnion.IWrapper<boolean>)",
+                                            value: input,
+                                        })
+                                    );
                             })();
                         return (
                             ((Array.isArray(input) ||
@@ -231,13 +233,14 @@ export const test_json_assertStringify_ToJsonUnion =
                 const $su0 = (input: any): any =>
                     (() => {
                         if (undefined !== input.id) return $so0(input);
-                        if (undefined !== input.manufacturer)
+                        else if (undefined !== input.manufacturer)
                             return $so4(input);
-                        $throws({
-                            expected:
-                                "(ToJsonUnion.ICitizen | ToJsonUnion.IProduct)",
-                            value: input,
-                        });
+                        else
+                            $throws({
+                                expected:
+                                    "(ToJsonUnion.ICitizen | ToJsonUnion.IProduct)",
+                                value: input,
+                            });
                     })();
                 return `[${input
                     .map((elem: any) =>

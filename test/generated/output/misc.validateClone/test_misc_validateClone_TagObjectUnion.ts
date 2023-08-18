@@ -22,12 +22,12 @@ export const test_misc_validateClone_TagObjectUnion =
                         (() => {
                             if ("string" === typeof input.value)
                                 return $io1(input);
-                            if (
+                            else if (
                                 "number" === typeof input.value &&
                                 Number.isFinite(input.value)
                             )
                                 return $io0(input);
-                            return false;
+                            else return false;
                         })();
                     return (
                         Array.isArray(input) &&
@@ -105,18 +105,19 @@ export const test_misc_validateClone_TagObjectUnion =
                                         _path,
                                         true && _exceptionable,
                                     );
-                                if ("number" === typeof input.value)
+                                else if ("number" === typeof input.value)
                                     return $vo0(
                                         input,
                                         _path,
                                         true && _exceptionable,
                                     );
-                                return $report(_exceptionable, {
-                                    path: _path,
-                                    expected:
-                                        "(TagObjectUnion.Literal | TagObjectUnion.Numeric)",
-                                    value: input,
-                                });
+                                else
+                                    return $report(_exceptionable, {
+                                        path: _path,
+                                        expected:
+                                            "(TagObjectUnion.Literal | TagObjectUnion.Numeric)",
+                                        value: input,
+                                    });
                             })();
                         return (
                             ((Array.isArray(input) ||
@@ -194,12 +195,14 @@ export const test_misc_validateClone_TagObjectUnion =
                 const $cu0 = (input: any): any =>
                     (() => {
                         if ("string" === typeof input.value) return $co1(input);
-                        if ("number" === typeof input.value) return $co0(input);
-                        $throws({
-                            expected:
-                                "(TagObjectUnion.Literal | TagObjectUnion.Numeric)",
-                            value: input,
-                        });
+                        else if ("number" === typeof input.value)
+                            return $co0(input);
+                        else
+                            $throws({
+                                expected:
+                                    "(TagObjectUnion.Literal | TagObjectUnion.Numeric)",
+                                value: input,
+                            });
                     })();
                 return Array.isArray(input) ? $cp0(input) : (input as any);
             };

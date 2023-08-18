@@ -257,19 +257,19 @@ export const test_equals_ObjectUnionExplicitPointer =
                     (() => {
                         if ("point" === input.type)
                             return $io2(input, true && _exceptionable);
-                        if ("line" === input.type)
+                        else if ("line" === input.type)
                             return $io3(input, true && _exceptionable);
-                        if ("triangle" === input.type)
+                        else if ("triangle" === input.type)
                             return $io5(input, true && _exceptionable);
-                        if ("rectangle" === input.type)
+                        else if ("rectangle" === input.type)
                             return $io6(input, true && _exceptionable);
-                        if ("polyline" === input.type)
+                        else if ("polyline" === input.type)
                             return $io7(input, true && _exceptionable);
-                        if ("polygon" === input.type)
+                        else if ("polygon" === input.type)
                             return $io8(input, true && _exceptionable);
-                        if ("circle" === input.type)
+                        else if ("circle" === input.type)
                             return $io10(input, true && _exceptionable);
-                        return false;
+                        else return false;
                     })();
                 return (
                     "object" === typeof input &&

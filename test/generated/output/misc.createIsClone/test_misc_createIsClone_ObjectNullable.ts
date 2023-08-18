@@ -35,8 +35,9 @@ export const test_misc_isClone_ObjectNullable =
                 const $iu0 = (input: any): any =>
                     (() => {
                         if ("brand" === input.type) return $io3(input);
-                        if ("manufacturer" === input.type) return $io2(input);
-                        return false;
+                        else if ("manufacturer" === input.type)
+                            return $io2(input);
+                        else return false;
                     })();
                 return (
                     "object" === typeof input && null !== input && $io0(input)
@@ -66,8 +67,9 @@ export const test_misc_isClone_ObjectNullable =
                 const $iu0 = (input: any): any =>
                     (() => {
                         if ("brand" === input.type) return $io3(input);
-                        if ("manufacturer" === input.type) return $io2(input);
-                        return false;
+                        else if ("manufacturer" === input.type)
+                            return $io2(input);
+                        else return false;
                     })();
                 const $throws = (typia.misc.createIsClone as any).throws;
                 const $cp0 = (input: any) =>
@@ -109,12 +111,14 @@ export const test_misc_isClone_ObjectNullable =
                 const $cu0 = (input: any): any =>
                     (() => {
                         if ("brand" === input.type) return $co3(input);
-                        if ("manufacturer" === input.type) return $co2(input);
-                        $throws({
-                            expected:
-                                "(ObjectNullable.IBrand | ObjectNullable.IManufacturer)",
-                            value: input,
-                        });
+                        else if ("manufacturer" === input.type)
+                            return $co2(input);
+                        else
+                            $throws({
+                                expected:
+                                    "(ObjectNullable.IBrand | ObjectNullable.IManufacturer)",
+                                value: input,
+                            });
                     })();
                 return "object" === typeof input && null !== input
                     ? $co0(input)

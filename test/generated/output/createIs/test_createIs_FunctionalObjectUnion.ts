@@ -37,9 +37,9 @@ export const test_is_FunctionalObjectUnion = _test_is<FunctionalObjectUnion>(
     const $iu0 = (input: any): any =>
         (() => {
             if (undefined !== input.x) return $io0(input);
-            if (undefined !== input.p1) return $io1(input);
-            if (undefined !== input.area) return $io3(input);
-            return $io2(input);
+            else if (undefined !== input.p1) return $io1(input);
+            else if (undefined !== input.area) return $io3(input);
+            else return $io2(input);
         })();
     return (
         Array.isArray(input) &&

@@ -178,15 +178,15 @@ export const test_equals_ArrayRecursiveUnionImplicit =
                     (() => {
                         if (undefined !== input.access)
                             return $io1(input, true && _exceptionable);
-                        if (undefined !== input.width)
+                        else if (undefined !== input.width)
                             return $io2(input, true && _exceptionable);
-                        if (undefined !== input.content)
+                        else if (undefined !== input.content)
                             return $io3(input, true && _exceptionable);
-                        if (undefined !== input.count)
+                        else if (undefined !== input.count)
                             return $io4(input, true && _exceptionable);
-                        if (undefined !== input.target)
+                        else if (undefined !== input.target)
                             return $io5(input, true && _exceptionable);
-                        return $io0(input, true && _exceptionable);
+                        else return $io0(input, true && _exceptionable);
                     })();
                 return (
                     Array.isArray(input) &&

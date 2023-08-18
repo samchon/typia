@@ -165,9 +165,9 @@ export const test_misc_prune_ObjectUnionComposite =
             const $pu0 = (input: any): any =>
                 (() => {
                     if (undefined !== input.x) return $po0(input);
-                    if (undefined !== input.p4) return $po3(input);
-                    if (undefined !== input.points) return $po4(input);
-                    if (
+                    else if (undefined !== input.p4) return $po3(input);
+                    else if (undefined !== input.points) return $po4(input);
+                    else if (
                         Array.isArray(input.outer) &&
                         input.outer.every(
                             (elem: any) =>
@@ -177,17 +177,18 @@ export const test_misc_prune_ObjectUnionComposite =
                         )
                     )
                         return $po6(input);
-                    if (
+                    else if (
                         "object" === typeof input.outer &&
                         null !== input.outer &&
                         $io4(input.outer)
                     )
                         return $po5(input);
-                    if (undefined !== input.centroid) return $po7(input);
-                    return (() => {
-                        if (undefined !== input.p3) return $po2(input);
-                        return $po1(input);
-                    })();
+                    else if (undefined !== input.centroid) return $po7(input);
+                    else
+                        return (() => {
+                            if (undefined !== input.p3) return $po2(input);
+                            else return $po1(input);
+                        })();
                 })();
             if (Array.isArray(input)) $pp0(input);
         })(input),

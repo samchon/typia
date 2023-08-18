@@ -20,6 +20,13 @@ export const test_misc_clone_TagArray = _test_misc_clone<TagArray>(TagArray)(
             7 >= input.both.length &&
             input.both.every(
                 (elem: any) => "string" === typeof elem && $is_uuid(elem),
+            ) &&
+            Array.isArray(input.equal) &&
+            10 <= input.equal.length &&
+            10 >= input.equal.length &&
+            input.equal.every(
+                (elem: any) =>
+                    "number" === typeof elem && 10 <= elem && 10 >= elem,
             );
         const $is_uuid = (typia.misc.createClone as any).is_uuid;
         const $cp0 = (input: any) =>
@@ -45,6 +52,9 @@ export const test_misc_clone_TagArray = _test_misc_clone<TagArray>(TagArray)(
             both: Array.isArray(input.both)
                 ? $cp1(input.both)
                 : (input.both as any),
+            equal: Array.isArray(input.equal)
+                ? $cp2(input.equal)
+                : (input.equal as any),
         });
         return "object" === typeof input && null !== input
             ? $co0(input)

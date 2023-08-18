@@ -4,8 +4,8 @@ message TagAtomicUnion {
     repeated TagAtomicUnion.Type value = 1;
     message Type {
         oneof value {
-            string v1 = 1;
-            double v2 = 2;
+            double v1 = 1;
+            string v2 = 2;
         }
     }
 }

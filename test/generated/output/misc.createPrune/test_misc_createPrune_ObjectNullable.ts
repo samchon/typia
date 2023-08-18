@@ -25,8 +25,8 @@ export const test_misc_prune_ObjectNullable = _test_misc_prune<ObjectNullable>(
     const $iu0 = (input: any): any =>
         (() => {
             if ("brand" === input.type) return $io3(input);
-            if ("manufacturer" === input.type) return $io2(input);
-            return false;
+            else if ("manufacturer" === input.type) return $io2(input);
+            else return false;
         })();
     const $throws = (typia.misc.createPrune as any).throws;
     const $pp0 = (input: any) =>
@@ -76,12 +76,13 @@ export const test_misc_prune_ObjectNullable = _test_misc_prune<ObjectNullable>(
     const $pu0 = (input: any): any =>
         (() => {
             if ("brand" === input.type) return $po3(input);
-            if ("manufacturer" === input.type) return $po2(input);
-            $throws({
-                expected:
-                    "(ObjectNullable.IBrand | ObjectNullable.IManufacturer)",
-                value: input,
-            });
+            else if ("manufacturer" === input.type) return $po2(input);
+            else
+                $throws({
+                    expected:
+                        "(ObjectNullable.IBrand | ObjectNullable.IManufacturer)",
+                    value: input,
+                });
         })();
     if ("object" === typeof input && null !== input) $po0(input);
 });

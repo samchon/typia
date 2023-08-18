@@ -55,13 +55,14 @@ export const test_json_stringify_ObjectUnionNonPredictable =
             const $su0 = (input: any): any =>
                 (() => {
                     if ($io7(input)) return $so7(input);
-                    if ($io5(input)) return $so5(input);
-                    if ($io3(input)) return $so3(input);
-                    $throws({
-                        expected:
-                            "(ObjectUnionNonPredictable.IWrapper<string> | ObjectUnionNonPredictable.IWrapper<number> | ObjectUnionNonPredictable.IWrapper<boolean>)",
-                        value: input,
-                    });
+                    else if ($io5(input)) return $so5(input);
+                    else if ($io3(input)) return $so3(input);
+                    else
+                        $throws({
+                            expected:
+                                "(ObjectUnionNonPredictable.IWrapper<string> | ObjectUnionNonPredictable.IWrapper<number> | ObjectUnionNonPredictable.IWrapper<boolean>)",
+                            value: input,
+                        });
                 })();
             return $so0(input);
         },

@@ -12,6 +12,7 @@ const disable = (importer: FunctionImporter): MethodOnly<FunctionImporter> => ({
     useLocal: (name: string): string => importer.useLocal(name),
     hasLocal: (name: string): boolean => importer.hasLocal(name),
     declare: (_modulo: ts.LeftHandSideExpression): ts.Statement[] => [],
+    declareUnions: (): ts.Statement[] => [],
     increment: (): number => importer.increment(),
     emplaceUnion: (
         prefix: string,

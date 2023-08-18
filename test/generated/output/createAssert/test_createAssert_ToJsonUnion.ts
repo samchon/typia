@@ -19,12 +19,13 @@ export const test_assert_ToJsonUnion = _test_assert<ToJsonUnion>(ToJsonUnion)(
             const $iu0 = (input: any): any =>
                 (() => {
                     if (undefined !== input.id) return $io0(input);
-                    return (() => {
-                        if ($io3(input)) return $io3(input);
-                        if ($io2(input)) return $io2(input);
-                        if ($io1(input)) return $io1(input);
-                        return false;
-                    })();
+                    else
+                        return (() => {
+                            if ($io3(input)) return $io3(input);
+                            else if ($io2(input)) return $io2(input);
+                            else if ($io1(input)) return $io1(input);
+                            else return false;
+                        })();
                 })();
             return (
                 Array.isArray(input) &&
@@ -113,17 +114,18 @@ export const test_assert_ToJsonUnion = _test_assert<ToJsonUnion>(ToJsonUnion)(
                     (() => {
                         if (undefined !== input.id)
                             return $ao0(input, _path, true && _exceptionable);
-                        return (
-                            $ao3(input, _path, false && _exceptionable) ||
-                            $ao2(input, _path, false && _exceptionable) ||
-                            $ao1(input, _path, false && _exceptionable) ||
-                            $guard(_exceptionable, {
-                                path: _path,
-                                expected:
-                                    "(ToJsonUnion.IWrapper<ToJsonUnion.IProduct> | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen> | ToJsonUnion.IWrapper<boolean>)",
-                                value: input,
-                            })
-                        );
+                        else
+                            return (
+                                $ao3(input, _path, false && _exceptionable) ||
+                                $ao2(input, _path, false && _exceptionable) ||
+                                $ao1(input, _path, false && _exceptionable) ||
+                                $guard(_exceptionable, {
+                                    path: _path,
+                                    expected:
+                                        "(ToJsonUnion.IWrapper<ToJsonUnion.IProduct> | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen> | ToJsonUnion.IWrapper<boolean>)",
+                                    value: input,
+                                })
+                            );
                     })();
                 return (
                     ((Array.isArray(input) ||

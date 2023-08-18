@@ -20,12 +20,13 @@ export const test_misc_isClone_ToJsonUnion = _test_misc_isClone<ToJsonUnion>(
         const $iu0 = (input: any): any =>
             (() => {
                 if (undefined !== input.id) return $io0(input);
-                return (() => {
-                    if ($io3(input)) return $io3(input);
-                    if ($io2(input)) return $io2(input);
-                    if ($io1(input)) return $io1(input);
-                    return false;
-                })();
+                else
+                    return (() => {
+                        if ($io3(input)) return $io3(input);
+                        else if ($io2(input)) return $io2(input);
+                        else if ($io1(input)) return $io1(input);
+                        else return false;
+                    })();
             })();
         return (
             Array.isArray(input) &&
@@ -77,11 +78,13 @@ export const test_misc_isClone_ToJsonUnion = _test_misc_isClone<ToJsonUnion>(
         const $cu0 = (input: any): any =>
             (() => {
                 if (undefined !== input.id) return $co0(input);
-                if (undefined !== input.manufacturer) return $co4(input);
-                $throws({
-                    expected: "(ToJsonUnion.ICitizen | ToJsonUnion.IProduct)",
-                    value: input,
-                });
+                else if (undefined !== input.manufacturer) return $co4(input);
+                else
+                    $throws({
+                        expected:
+                            "(ToJsonUnion.ICitizen | ToJsonUnion.IProduct)",
+                        value: input,
+                    });
             })();
         return Array.isArray(input) ? $cp0(input) : (input as any);
     };

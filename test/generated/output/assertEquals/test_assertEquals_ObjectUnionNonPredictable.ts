@@ -151,11 +151,11 @@ export const test_assertEquals_ObjectUnionNonPredictable =
                         (() => {
                             if ($io7(input, false && _exceptionable))
                                 return $io7(input, true && _exceptionable);
-                            if ($io5(input, false && _exceptionable))
+                            else if ($io5(input, false && _exceptionable))
                                 return $io5(input, true && _exceptionable);
-                            if ($io3(input, false && _exceptionable))
+                            else if ($io3(input, false && _exceptionable))
                                 return $io3(input, true && _exceptionable);
-                            return false;
+                            else return false;
                         })();
                     return (
                         "object" === typeof input &&
@@ -535,24 +535,29 @@ export const test_assertEquals_ObjectUnionNonPredictable =
                                         _path,
                                         true && _exceptionable,
                                     );
-                                if ($ao5(input, _path, false && _exceptionable))
+                                else if (
+                                    $ao5(input, _path, false && _exceptionable)
+                                )
                                     return $ao5(
                                         input,
                                         _path,
                                         true && _exceptionable,
                                     );
-                                if ($ao3(input, _path, false && _exceptionable))
+                                else if (
+                                    $ao3(input, _path, false && _exceptionable)
+                                )
                                     return $ao3(
                                         input,
                                         _path,
                                         true && _exceptionable,
                                     );
-                                return $guard(_exceptionable, {
-                                    path: _path,
-                                    expected:
-                                        "(ObjectUnionNonPredictable.IWrapper<string> | ObjectUnionNonPredictable.IWrapper<number> | ObjectUnionNonPredictable.IWrapper<boolean>)",
-                                    value: input,
-                                });
+                                else
+                                    return $guard(_exceptionable, {
+                                        path: _path,
+                                        expected:
+                                            "(ObjectUnionNonPredictable.IWrapper<string> | ObjectUnionNonPredictable.IWrapper<number> | ObjectUnionNonPredictable.IWrapper<boolean>)",
+                                        value: input,
+                                    });
                             })();
                         return (
                             ((("object" === typeof input && null !== input) ||

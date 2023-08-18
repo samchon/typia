@@ -25,7 +25,10 @@ export const test_misc_prune_TagRange = _test_misc_prune<TagRange>(TagRange)(
                 7 >= input.greater_less_equal &&
                 "number" === typeof input.greater_equal_less_equal &&
                 3 <= input.greater_equal_less_equal &&
-                7 >= input.greater_equal_less_equal;
+                7 >= input.greater_equal_less_equal &&
+                "number" === typeof input.equal &&
+                10 <= input.equal &&
+                10 >= input.equal;
             const $pp0 = (input: any) =>
                 input.forEach((elem: any) => {
                     if ("object" === typeof elem && null !== elem) $po1(elem);
@@ -47,7 +50,8 @@ export const test_misc_prune_TagRange = _test_misc_prune<TagRange>(TagRange)(
                         "greater_less" === key ||
                         "greater_equal_less" === key ||
                         "greater_less_equal" === key ||
-                        "greater_equal_less_equal" === key
+                        "greater_equal_less_equal" === key ||
+                        "equal" === key
                     )
                         continue;
                     delete input[key];

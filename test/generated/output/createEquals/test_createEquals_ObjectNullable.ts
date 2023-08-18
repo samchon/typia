@@ -71,9 +71,9 @@ export const test_equals_ObjectNullable = _test_equals<ObjectNullable>(
         (() => {
             if ("brand" === input.type)
                 return $io3(input, true && _exceptionable);
-            if ("manufacturer" === input.type)
+            else if ("manufacturer" === input.type)
                 return $io2(input, true && _exceptionable);
-            return false;
+            else return false;
         })();
     return "object" === typeof input && null !== input && $io0(input, true);
 });

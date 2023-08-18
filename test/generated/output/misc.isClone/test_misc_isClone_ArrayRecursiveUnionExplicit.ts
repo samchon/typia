@@ -69,11 +69,11 @@ export const test_misc_isClone_ArrayRecursiveUnionExplicit =
                 const $iu0 = (input: any): any =>
                     (() => {
                         if ("directory" === input.type) return $io0(input);
-                        if ("jpg" === input.extension) return $io1(input);
-                        if ("txt" === input.extension) return $io2(input);
-                        if ("zip" === input.extension) return $io3(input);
-                        if ("lnk" === input.extension) return $io4(input);
-                        return false;
+                        else if ("jpg" === input.extension) return $io1(input);
+                        else if ("txt" === input.extension) return $io2(input);
+                        else if ("zip" === input.extension) return $io3(input);
+                        else if ("lnk" === input.extension) return $io4(input);
+                        else return false;
                     })();
                 return (
                     Array.isArray(input) &&
@@ -138,11 +138,11 @@ export const test_misc_isClone_ArrayRecursiveUnionExplicit =
                 const $iu0 = (input: any): any =>
                     (() => {
                         if ("directory" === input.type) return $io0(input);
-                        if ("jpg" === input.extension) return $io1(input);
-                        if ("txt" === input.extension) return $io2(input);
-                        if ("zip" === input.extension) return $io3(input);
-                        if ("lnk" === input.extension) return $io4(input);
-                        return false;
+                        else if ("jpg" === input.extension) return $io1(input);
+                        else if ("txt" === input.extension) return $io2(input);
+                        else if ("zip" === input.extension) return $io3(input);
+                        else if ("lnk" === input.extension) return $io4(input);
+                        else return false;
                     })();
                 const $throws = (typia.misc.isClone as any).throws;
                 const $cp0 = (input: any) =>
@@ -210,15 +210,16 @@ export const test_misc_isClone_ArrayRecursiveUnionExplicit =
                 const $cu0 = (input: any): any =>
                     (() => {
                         if ("directory" === input.type) return $co0(input);
-                        if ("jpg" === input.extension) return $co1(input);
-                        if ("txt" === input.extension) return $co2(input);
-                        if ("zip" === input.extension) return $co3(input);
-                        if ("lnk" === input.extension) return $co4(input);
-                        $throws({
-                            expected:
-                                "(ArrayRecursiveUnionExplicit.IDirectory | ArrayRecursiveUnionExplicit.IImageFile | ArrayRecursiveUnionExplicit.ITextFile | ArrayRecursiveUnionExplicit.IZipFile | ArrayRecursiveUnionExplicit.IShortcut)",
-                            value: input,
-                        });
+                        else if ("jpg" === input.extension) return $co1(input);
+                        else if ("txt" === input.extension) return $co2(input);
+                        else if ("zip" === input.extension) return $co3(input);
+                        else if ("lnk" === input.extension) return $co4(input);
+                        else
+                            $throws({
+                                expected:
+                                    "(ArrayRecursiveUnionExplicit.IDirectory | ArrayRecursiveUnionExplicit.IImageFile | ArrayRecursiveUnionExplicit.ITextFile | ArrayRecursiveUnionExplicit.IZipFile | ArrayRecursiveUnionExplicit.IShortcut)",
+                                value: input,
+                            });
                     })();
                 return Array.isArray(input) ? $cp0(input) : (input as any);
             };

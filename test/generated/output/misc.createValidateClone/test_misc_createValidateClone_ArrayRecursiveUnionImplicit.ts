@@ -81,11 +81,15 @@ export const test_misc_validateClone_ArrayRecursiveUnionImplicit =
                     const $iu0 = (input: any): any =>
                         (() => {
                             if (undefined !== input.access) return $io1(input);
-                            if (undefined !== input.width) return $io2(input);
-                            if (undefined !== input.content) return $io3(input);
-                            if (undefined !== input.count) return $io4(input);
-                            if (undefined !== input.target) return $io5(input);
-                            return $io0(input);
+                            else if (undefined !== input.width)
+                                return $io2(input);
+                            else if (undefined !== input.content)
+                                return $io3(input);
+                            else if (undefined !== input.count)
+                                return $io4(input);
+                            else if (undefined !== input.target)
+                                return $io5(input);
+                            else return $io0(input);
                         })();
                     return (
                         Array.isArray(input) &&
@@ -450,35 +454,36 @@ export const test_misc_validateClone_ArrayRecursiveUnionImplicit =
                                         _path,
                                         true && _exceptionable,
                                     );
-                                if (undefined !== input.width)
+                                else if (undefined !== input.width)
                                     return $vo2(
                                         input,
                                         _path,
                                         true && _exceptionable,
                                     );
-                                if (undefined !== input.content)
+                                else if (undefined !== input.content)
                                     return $vo3(
                                         input,
                                         _path,
                                         true && _exceptionable,
                                     );
-                                if (undefined !== input.count)
+                                else if (undefined !== input.count)
                                     return $vo4(
                                         input,
                                         _path,
                                         true && _exceptionable,
                                     );
-                                if (undefined !== input.target)
+                                else if (undefined !== input.target)
                                     return $vo5(
                                         input,
                                         _path,
                                         true && _exceptionable,
                                     );
-                                return $vo0(
-                                    input,
-                                    _path,
-                                    true && _exceptionable,
-                                );
+                                else
+                                    return $vo0(
+                                        input,
+                                        _path,
+                                        true && _exceptionable,
+                                    );
                             })();
                         return (
                             ((Array.isArray(input) ||
@@ -587,11 +592,12 @@ export const test_misc_validateClone_ArrayRecursiveUnionImplicit =
                 const $iu0 = (input: any): any =>
                     (() => {
                         if (undefined !== input.access) return $io1(input);
-                        if (undefined !== input.width) return $io2(input);
-                        if (undefined !== input.content) return $io3(input);
-                        if (undefined !== input.count) return $io4(input);
-                        if (undefined !== input.target) return $io5(input);
-                        return $io0(input);
+                        else if (undefined !== input.width) return $io2(input);
+                        else if (undefined !== input.content)
+                            return $io3(input);
+                        else if (undefined !== input.count) return $io4(input);
+                        else if (undefined !== input.target) return $io5(input);
+                        else return $io0(input);
                     })();
                 const $cp0 = (input: any) =>
                     input.map((elem: any) =>
@@ -658,11 +664,12 @@ export const test_misc_validateClone_ArrayRecursiveUnionImplicit =
                 const $cu0 = (input: any): any =>
                     (() => {
                         if (undefined !== input.access) return $co1(input);
-                        if (undefined !== input.width) return $co2(input);
-                        if (undefined !== input.content) return $co3(input);
-                        if (undefined !== input.count) return $co4(input);
-                        if (undefined !== input.target) return $co5(input);
-                        return $co0(input);
+                        else if (undefined !== input.width) return $co2(input);
+                        else if (undefined !== input.content)
+                            return $co3(input);
+                        else if (undefined !== input.count) return $co4(input);
+                        else if (undefined !== input.target) return $co5(input);
+                        else return $co0(input);
                     })();
                 return Array.isArray(input) ? $cp0(input) : (input as any);
             };

@@ -21,12 +21,13 @@ export const test_validate_ToJsonUnion = _test_validate<ToJsonUnion>(
         const $iu0 = (input: any): any =>
             (() => {
                 if (undefined !== input.id) return $io0(input);
-                return (() => {
-                    if ($io3(input)) return $io3(input);
-                    if ($io2(input)) return $io2(input);
-                    if ($io1(input)) return $io1(input);
-                    return false;
-                })();
+                else
+                    return (() => {
+                        if ($io3(input)) return $io3(input);
+                        else if ($io2(input)) return $io2(input);
+                        else if ($io1(input)) return $io1(input);
+                        else return false;
+                    })();
             })();
         return (
             Array.isArray(input) &&
@@ -122,11 +123,12 @@ export const test_validate_ToJsonUnion = _test_validate<ToJsonUnion>(
                 (() => {
                     if (undefined !== input.id)
                         return $vo0(input, _path, true && _exceptionable);
-                    return (
-                        $vo3(input, _path, false && _exceptionable) ||
-                        $vo2(input, _path, false && _exceptionable) ||
-                        $vo1(input, _path, false && _exceptionable)
-                    );
+                    else
+                        return (
+                            $vo3(input, _path, false && _exceptionable) ||
+                            $vo2(input, _path, false && _exceptionable) ||
+                            $vo1(input, _path, false && _exceptionable)
+                        );
                 })();
             return (
                 ((Array.isArray(input) ||

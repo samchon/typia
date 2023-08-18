@@ -56,6 +56,12 @@ export namespace JsonApplicationTransformer {
                     validate: (meta) => {
                         if (meta.atomics.find((str) => str === "bigint"))
                             throw new Error(NO_BIGIT);
+                        else if (
+                            meta.arrays.some(
+                                (array) => array.value.isRequired() === false,
+                            )
+                        )
+                            throw new Error(NO_UNDEFINED_IN_ARRAY);
                     },
                 })(collection)(type),
             );
@@ -96,7 +102,10 @@ export namespace JsonApplicationTransformer {
 }
 
 const NO_GENERIC_ARGUMENT =
-    "Error on typia.application(): no generic argument.";
+    "Error on typia.json.application(): no generic argument.";
 const GENERIC_ARGUMENT =
-    "Error on typia.application(): non-specified generic argument(s).";
-const NO_BIGIT = "Error on typia.application(): does not allow bigint type.";
+    "Error on typia.json.application(): non-specified generic argument(s).";
+const NO_BIGIT =
+    "Error on typia.json.application(): does not allow bigint type.";
+const NO_UNDEFINED_IN_ARRAY =
+    "Error on typia.json.application(): does not allow undefined type in array.";

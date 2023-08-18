@@ -11,5 +11,6 @@ message TagRange {
         required double greater_equal_less = 6;
         required double greater_less_equal = 7;
         required double greater_equal_less_equal = 8;
+        required double equal = 9;
     }
 }

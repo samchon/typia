@@ -243,19 +243,20 @@ export const test_validateEquals_ObjectUnionImplicit =
                     (() => {
                         if (undefined !== input.x)
                             return $io0(input, true && _exceptionable);
-                        if (undefined !== input.p4)
+                        else if (undefined !== input.p4)
                             return $io3(input, true && _exceptionable);
-                        if (undefined !== input.points)
+                        else if (undefined !== input.points)
                             return $io4(input, true && _exceptionable);
-                        if (undefined !== input.outer)
+                        else if (undefined !== input.outer)
                             return $io5(input, true && _exceptionable);
-                        if (undefined !== input.radius)
+                        else if (undefined !== input.radius)
                             return $io6(input, true && _exceptionable);
-                        return (() => {
-                            if (undefined !== input.p3)
-                                return $io2(input, true && _exceptionable);
-                            return $io1(input, true && _exceptionable);
-                        })();
+                        else
+                            return (() => {
+                                if (undefined !== input.p3)
+                                    return $io2(input, true && _exceptionable);
+                                else return $io1(input, true && _exceptionable);
+                            })();
                     })();
                 return (
                     Array.isArray(input) &&
@@ -899,43 +900,45 @@ export const test_validateEquals_ObjectUnionImplicit =
                                     _path,
                                     true && _exceptionable,
                                 );
-                            if (undefined !== input.p4)
+                            else if (undefined !== input.p4)
                                 return $vo3(
                                     input,
                                     _path,
                                     true && _exceptionable,
                                 );
-                            if (undefined !== input.points)
+                            else if (undefined !== input.points)
                                 return $vo4(
                                     input,
                                     _path,
                                     true && _exceptionable,
                                 );
-                            if (undefined !== input.outer)
+                            else if (undefined !== input.outer)
                                 return $vo5(
                                     input,
                                     _path,
                                     true && _exceptionable,
                                 );
-                            if (undefined !== input.radius)
+                            else if (undefined !== input.radius)
                                 return $vo6(
                                     input,
                                     _path,
                                     true && _exceptionable,
                                 );
-                            return (() => {
-                                if (undefined !== input.p3)
-                                    return $vo2(
-                                        input,
-                                        _path,
-                                        true && _exceptionable,
-                                    );
-                                return $vo1(
-                                    input,
-                                    _path,
-                                    true && _exceptionable,
-                                );
-                            })();
+                            else
+                                return (() => {
+                                    if (undefined !== input.p3)
+                                        return $vo2(
+                                            input,
+                                            _path,
+                                            true && _exceptionable,
+                                        );
+                                    else
+                                        return $vo1(
+                                            input,
+                                            _path,
+                                            true && _exceptionable,
+                                        );
+                                })();
                         })();
                     return (
                         ((Array.isArray(input) ||

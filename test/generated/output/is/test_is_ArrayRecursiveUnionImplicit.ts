@@ -71,11 +71,12 @@ export const test_is_ArrayRecursiveUnionImplicit =
                 const $iu0 = (input: any): any =>
                     (() => {
                         if (undefined !== input.access) return $io1(input);
-                        if (undefined !== input.width) return $io2(input);
-                        if (undefined !== input.content) return $io3(input);
-                        if (undefined !== input.count) return $io4(input);
-                        if (undefined !== input.target) return $io5(input);
-                        return $io0(input);
+                        else if (undefined !== input.width) return $io2(input);
+                        else if (undefined !== input.content)
+                            return $io3(input);
+                        else if (undefined !== input.count) return $io4(input);
+                        else if (undefined !== input.target) return $io5(input);
+                        else return $io0(input);
                     })();
                 return (
                     Array.isArray(input) &&

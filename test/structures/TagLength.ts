@@ -27,18 +27,25 @@ export namespace TagLength {
          * @maxLength 7
          */
         minimum_and_maximum: string;
+
+        /**
+         * @minLength 10
+         * @maxLength 19
+         */
+        equal: string;
     }
 
     export function generate(): TagLength {
         const output: Type[] = [];
 
-        ArrayUtil.repeat(4, () => {
+        ArrayUtil.repeat(6, () => {
             for (const minimum_and_maximum of [MINIMUM, MAXIMUM]) {
                 const numeric = {
                     fixed: FIXED,
                     minimum: MINIMUM,
                     maximum: MAXIMUM,
                     minimum_and_maximum,
+                    equal: EQUAL,
                 };
                 const obj: Type = {} as any;
                 for (const [key, value] of Object.entries(numeric))
@@ -49,9 +56,10 @@ export namespace TagLength {
         return { value: output };
     }
 
-    export const FIXED = 5;
-    export const MINIMUM = 3;
-    export const MAXIMUM = 7;
+    const FIXED = 5;
+    const MINIMUM = 3;
+    const MAXIMUM = 7;
+    const EQUAL = 10;
 
     export const SPOILERS: Spoiler<TagLength>[] = [
         (input) => {
@@ -73,6 +81,10 @@ export namespace TagLength {
         (input) => {
             input.value[4].minimum_and_maximum = "12345678";
             return ["$input.value[4].minimum_and_maximum"];
+        },
+        (input) => {
+            input.value[5].equal = "3";
+            return ["$input.value[5].equal"];
         },
     ];
 }

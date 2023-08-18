@@ -103,9 +103,9 @@ export const test_validateEquals_ObjectNullable =
                     (() => {
                         if ("brand" === input.type)
                             return $io3(input, true && _exceptionable);
-                        if ("manufacturer" === input.type)
+                        else if ("manufacturer" === input.type)
                             return $io2(input, true && _exceptionable);
-                        return false;
+                        else return false;
                     })();
                 return (
                     "object" === typeof input &&
@@ -374,18 +374,19 @@ export const test_validateEquals_ObjectNullable =
                                     _path,
                                     true && _exceptionable,
                                 );
-                            if ("manufacturer" === input.type)
+                            else if ("manufacturer" === input.type)
                                 return $vo2(
                                     input,
                                     _path,
                                     true && _exceptionable,
                                 );
-                            return $report(_exceptionable, {
-                                path: _path,
-                                expected:
-                                    "(ObjectNullable.IBrand | ObjectNullable.IManufacturer)",
-                                value: input,
-                            });
+                            else
+                                return $report(_exceptionable, {
+                                    path: _path,
+                                    expected:
+                                        "(ObjectNullable.IBrand | ObjectNullable.IManufacturer)",
+                                    value: input,
+                                });
                         })();
                     return (
                         ((("object" === typeof input && null !== input) ||

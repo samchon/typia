@@ -17,12 +17,13 @@ export const test_json_isStringify_ToJsonUnion =
                 const $iu0 = (input: any): any =>
                     (() => {
                         if (undefined !== input.id) return $io0(input);
-                        return (() => {
-                            if ($io3(input)) return $io3(input);
-                            if ($io2(input)) return $io2(input);
-                            if ($io1(input)) return $io1(input);
-                            return false;
-                        })();
+                        else
+                            return (() => {
+                                if ($io3(input)) return $io3(input);
+                                else if ($io2(input)) return $io2(input);
+                                else if ($io1(input)) return $io1(input);
+                                else return false;
+                            })();
                     })();
                 return (
                     Array.isArray(input) &&
@@ -64,13 +65,14 @@ export const test_json_isStringify_ToJsonUnion =
                 const $su0 = (input: any): any =>
                     (() => {
                         if (undefined !== input.id) return $so0(input);
-                        if (undefined !== input.manufacturer)
+                        else if (undefined !== input.manufacturer)
                             return $so4(input);
-                        $throws({
-                            expected:
-                                "(ToJsonUnion.ICitizen | ToJsonUnion.IProduct)",
-                            value: input,
-                        });
+                        else
+                            $throws({
+                                expected:
+                                    "(ToJsonUnion.ICitizen | ToJsonUnion.IProduct)",
+                                value: input,
+                            });
                     })();
                 return `[${input
                     .map((elem: any) =>

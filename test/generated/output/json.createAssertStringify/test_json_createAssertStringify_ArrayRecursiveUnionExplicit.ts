@@ -69,11 +69,11 @@ export const test_json_assertStringify_ArrayRecursiveUnionExplicit =
                 const $iu0 = (input: any): any =>
                     (() => {
                         if ("directory" === input.type) return $io0(input);
-                        if ("jpg" === input.extension) return $io1(input);
-                        if ("txt" === input.extension) return $io2(input);
-                        if ("zip" === input.extension) return $io3(input);
-                        if ("lnk" === input.extension) return $io4(input);
-                        return false;
+                        else if ("jpg" === input.extension) return $io1(input);
+                        else if ("txt" === input.extension) return $io2(input);
+                        else if ("zip" === input.extension) return $io3(input);
+                        else if ("lnk" === input.extension) return $io4(input);
+                        else return false;
                     })();
                 return (
                     Array.isArray(input) &&
@@ -398,36 +398,37 @@ export const test_json_assertStringify_ArrayRecursiveUnionExplicit =
                                     _path,
                                     true && _exceptionable,
                                 );
-                            if ("jpg" === input.extension)
+                            else if ("jpg" === input.extension)
                                 return $ao1(
                                     input,
                                     _path,
                                     true && _exceptionable,
                                 );
-                            if ("txt" === input.extension)
+                            else if ("txt" === input.extension)
                                 return $ao2(
                                     input,
                                     _path,
                                     true && _exceptionable,
                                 );
-                            if ("zip" === input.extension)
+                            else if ("zip" === input.extension)
                                 return $ao3(
                                     input,
                                     _path,
                                     true && _exceptionable,
                                 );
-                            if ("lnk" === input.extension)
+                            else if ("lnk" === input.extension)
                                 return $ao4(
                                     input,
                                     _path,
                                     true && _exceptionable,
                                 );
-                            return $guard(_exceptionable, {
-                                path: _path,
-                                expected:
-                                    "(ArrayRecursiveUnionExplicit.IDirectory | ArrayRecursiveUnionExplicit.IImageFile | ArrayRecursiveUnionExplicit.ITextFile | ArrayRecursiveUnionExplicit.IZipFile | ArrayRecursiveUnionExplicit.IShortcut)",
-                                value: input,
-                            });
+                            else
+                                return $guard(_exceptionable, {
+                                    path: _path,
+                                    expected:
+                                        "(ArrayRecursiveUnionExplicit.IDirectory | ArrayRecursiveUnionExplicit.IImageFile | ArrayRecursiveUnionExplicit.ITextFile | ArrayRecursiveUnionExplicit.IZipFile | ArrayRecursiveUnionExplicit.IShortcut)",
+                                    value: input,
+                                });
                         })();
                     return (
                         ((Array.isArray(input) ||
@@ -516,11 +517,11 @@ export const test_json_assertStringify_ArrayRecursiveUnionExplicit =
             const $iu0 = (input: any): any =>
                 (() => {
                     if ("directory" === input.type) return $io0(input);
-                    if ("jpg" === input.extension) return $io1(input);
-                    if ("txt" === input.extension) return $io2(input);
-                    if ("zip" === input.extension) return $io3(input);
-                    if ("lnk" === input.extension) return $io4(input);
-                    return false;
+                    else if ("jpg" === input.extension) return $io1(input);
+                    else if ("txt" === input.extension) return $io2(input);
+                    else if ("zip" === input.extension) return $io3(input);
+                    else if ("lnk" === input.extension) return $io4(input);
+                    else return false;
                 })();
             const $number = (typia.json.createAssertStringify as any).number;
             const $string = (typia.json.createAssertStringify as any).string;
@@ -641,15 +642,16 @@ export const test_json_assertStringify_ArrayRecursiveUnionExplicit =
             const $su0 = (input: any): any =>
                 (() => {
                     if ("directory" === input.type) return $so0(input);
-                    if ("jpg" === input.extension) return $so1(input);
-                    if ("txt" === input.extension) return $so2(input);
-                    if ("zip" === input.extension) return $so3(input);
-                    if ("lnk" === input.extension) return $so4(input);
-                    $throws({
-                        expected:
-                            "(ArrayRecursiveUnionExplicit.IDirectory | ArrayRecursiveUnionExplicit.IImageFile | ArrayRecursiveUnionExplicit.ITextFile | ArrayRecursiveUnionExplicit.IZipFile | ArrayRecursiveUnionExplicit.IShortcut)",
-                        value: input,
-                    });
+                    else if ("jpg" === input.extension) return $so1(input);
+                    else if ("txt" === input.extension) return $so2(input);
+                    else if ("zip" === input.extension) return $so3(input);
+                    else if ("lnk" === input.extension) return $so4(input);
+                    else
+                        $throws({
+                            expected:
+                                "(ArrayRecursiveUnionExplicit.IDirectory | ArrayRecursiveUnionExplicit.IImageFile | ArrayRecursiveUnionExplicit.ITextFile | ArrayRecursiveUnionExplicit.IZipFile | ArrayRecursiveUnionExplicit.IShortcut)",
+                            value: input,
+                        });
                 })();
             return `[${input.map((elem: any) => $su0(elem)).join(",")}]`;
         };

@@ -25,18 +25,28 @@ export namespace TagArray {
          * @format uuid
          */
         both: string[];
+
+        /**
+         * @minItems 10
+         * @maxItems 10
+         * @minimum 10
+         * @maximum 10
+         */
+        equal: number[];
     }
 
     // prettier-ignore
     export function generate(): TagArray {
         const output: Type[] = [];
         for (const minItems of [3, 10])
-        for (const both of [3, 7])
+        for (const both of [3, 7]) {
             output.push({
                 items: TestRandomGenerator.array(() => v4(), 3),
                 minItems: TestRandomGenerator.array(() => minItems, minItems),
                 both: TestRandomGenerator.array(() => v4(), both),
+                equal: TestRandomGenerator.array(() => 10, 10),
             });
+        }
         return { value: output };
     }
 
@@ -84,6 +94,17 @@ export namespace TagArray {
         (input) => {
             input.value[3].both = TestRandomGenerator.array(() => v4(), 8);
             return ["$input.value[3].both"];
+        },
+        (input) => {
+            input.value[0].equal = TestRandomGenerator.array(() => 10, 9);
+            return ["$input.value[0].equal"];
+        },
+        (input) => {
+            input.value[1].equal = [
+                ...TestRandomGenerator.array(() => 10, 9),
+                9,
+            ];
+            return ["$input.value[1].equal[9]"];
         },
     ];
 }

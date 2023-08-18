@@ -191,17 +191,18 @@ export const test_misc_prune_ObjectUnionExplicit =
             const $pu0 = (input: any): any =>
                 (() => {
                     if ("point" === input.type) return $po0(input);
-                    if ("line" === input.type) return $po1(input);
-                    if ("triangle" === input.type) return $po3(input);
-                    if ("rectangle" === input.type) return $po4(input);
-                    if ("polyline" === input.type) return $po5(input);
-                    if ("polygon" === input.type) return $po6(input);
-                    if ("circle" === input.type) return $po8(input);
-                    $throws({
-                        expected:
-                            '(ObjectUnionExplicit.Discriminator<"point", ObjectUnionExplicit.IPoint> | ObjectUnionExplicit.Discriminator<"line", ObjectUnionExplicit.ILine> | ObjectUnionExplicit.Discriminator<"triangle", ObjectUnionExplicit.ITriangle> | ObjectUnionExplicit.Discriminator<"rectangle", ObjectUnionExplicit.IRectangle> | ObjectUnionExplicit.Discriminator<"polyline", ObjectUnionExplicit.IPolyline> | ObjectUnionExplicit.Discriminator<"polygon", ObjectUnionExplicit.IPolygon> | ObjectUnionExplicit.Discriminator<"circle", ObjectUnionExplicit.ICircle>)',
-                        value: input,
-                    });
+                    else if ("line" === input.type) return $po1(input);
+                    else if ("triangle" === input.type) return $po3(input);
+                    else if ("rectangle" === input.type) return $po4(input);
+                    else if ("polyline" === input.type) return $po5(input);
+                    else if ("polygon" === input.type) return $po6(input);
+                    else if ("circle" === input.type) return $po8(input);
+                    else
+                        $throws({
+                            expected:
+                                '(ObjectUnionExplicit.Discriminator<"point", ObjectUnionExplicit.IPoint> | ObjectUnionExplicit.Discriminator<"line", ObjectUnionExplicit.ILine> | ObjectUnionExplicit.Discriminator<"triangle", ObjectUnionExplicit.ITriangle> | ObjectUnionExplicit.Discriminator<"rectangle", ObjectUnionExplicit.IRectangle> | ObjectUnionExplicit.Discriminator<"polyline", ObjectUnionExplicit.IPolyline> | ObjectUnionExplicit.Discriminator<"polygon", ObjectUnionExplicit.IPolygon> | ObjectUnionExplicit.Discriminator<"circle", ObjectUnionExplicit.ICircle>)',
+                            value: input,
+                        });
                 })();
             if (Array.isArray(input)) $pp0(input);
         })(input),

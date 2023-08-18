@@ -39,6 +39,15 @@ export const test_json_validateStringify_TagArray =
                         input.both.every(
                             (elem: any) =>
                                 "string" === typeof elem && $is_uuid(elem),
+                        ) &&
+                        Array.isArray(input.equal) &&
+                        10 <= input.equal.length &&
+                        10 >= input.equal.length &&
+                        input.equal.every(
+                            (elem: any) =>
+                                "number" === typeof elem &&
+                                10 <= elem &&
+                                10 >= elem,
                         );
                     return (
                         "object" === typeof input &&
@@ -263,6 +272,74 @@ export const test_json_validateStringify_TagArray =
                                         expected: "Array<string>",
                                         value: input.both,
                                     }),
+                                (((Array.isArray(input.equal) &&
+                                    (10 <= input.equal.length ||
+                                        $report(_exceptionable, {
+                                            path: _path + ".equal",
+                                            expected:
+                                                "Array.length (@minItems 10)",
+                                            value: input.equal,
+                                        })) &&
+                                    (10 >= input.equal.length ||
+                                        $report(_exceptionable, {
+                                            path: _path + ".equal",
+                                            expected:
+                                                "Array.length (@maxItems 10)",
+                                            value: input.equal,
+                                        }))) ||
+                                    $report(_exceptionable, {
+                                        path: _path + ".equal",
+                                        expected: "Array<number>",
+                                        value: input.equal,
+                                    })) &&
+                                    input.equal
+                                        .map(
+                                            (elem: any, _index5: number) =>
+                                                ("number" === typeof elem &&
+                                                    (10 <= elem ||
+                                                        $report(
+                                                            _exceptionable,
+                                                            {
+                                                                path:
+                                                                    _path +
+                                                                    ".equal[" +
+                                                                    _index5 +
+                                                                    "]",
+                                                                expected:
+                                                                    "number (@minimum 10)",
+                                                                value: elem,
+                                                            },
+                                                        )) &&
+                                                    (10 >= elem ||
+                                                        $report(
+                                                            _exceptionable,
+                                                            {
+                                                                path:
+                                                                    _path +
+                                                                    ".equal[" +
+                                                                    _index5 +
+                                                                    "]",
+                                                                expected:
+                                                                    "number (@maximum 10)",
+                                                                value: elem,
+                                                            },
+                                                        ))) ||
+                                                $report(_exceptionable, {
+                                                    path:
+                                                        _path +
+                                                        ".equal[" +
+                                                        _index5 +
+                                                        "]",
+                                                    expected: "number",
+                                                    value: elem,
+                                                }),
+                                        )
+                                        .every((flag: boolean) => flag)) ||
+                                    $report(_exceptionable, {
+                                        path: _path + ".equal",
+                                        expected: "Array<number>",
+                                        value: input.equal,
+                                    }),
                             ].every((flag: boolean) => flag);
                         return (
                             ((("object" === typeof input && null !== input) ||
@@ -306,6 +383,15 @@ export const test_json_validateStringify_TagArray =
                     input.both.every(
                         (elem: any) =>
                             "string" === typeof elem && $is_uuid(elem),
+                    ) &&
+                    Array.isArray(input.equal) &&
+                    10 <= input.equal.length &&
+                    10 >= input.equal.length &&
+                    input.equal.every(
+                        (elem: any) =>
+                            "number" === typeof elem &&
+                            10 <= elem &&
+                            10 >= elem,
                     );
                 const $string = (typia.json.validateStringify as any).string;
                 const $number = (typia.json.validateStringify as any).number;
@@ -321,6 +407,8 @@ export const test_json_validateStringify_TagArray =
                         .map((elem: any) => $number(elem))
                         .join(",")}]`},"both":${`[${input.both
                         .map((elem: any) => $string(elem))
+                        .join(",")}]`},"equal":${`[${input.equal
+                        .map((elem: any) => $number(elem))
                         .join(",")}]`}}`;
                 return $so0(input);
             };

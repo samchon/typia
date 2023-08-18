@@ -56,11 +56,11 @@ export const test_misc_prune_ArrayRecursiveUnionExplicit =
                 const $iu0 = (input: any): any =>
                     (() => {
                         if ("directory" === input.type) return $io0(input);
-                        if ("jpg" === input.extension) return $io1(input);
-                        if ("txt" === input.extension) return $io2(input);
-                        if ("zip" === input.extension) return $io3(input);
-                        if ("lnk" === input.extension) return $io4(input);
-                        return false;
+                        else if ("jpg" === input.extension) return $io1(input);
+                        else if ("txt" === input.extension) return $io2(input);
+                        else if ("zip" === input.extension) return $io3(input);
+                        else if ("lnk" === input.extension) return $io4(input);
+                        else return false;
                     })();
                 const $throws = (typia.misc.prune as any).throws;
                 const $pp0 = (input: any) =>
@@ -156,15 +156,16 @@ export const test_misc_prune_ArrayRecursiveUnionExplicit =
                 const $pu0 = (input: any): any =>
                     (() => {
                         if ("directory" === input.type) return $po0(input);
-                        if ("jpg" === input.extension) return $po1(input);
-                        if ("txt" === input.extension) return $po2(input);
-                        if ("zip" === input.extension) return $po3(input);
-                        if ("lnk" === input.extension) return $po4(input);
-                        $throws({
-                            expected:
-                                "(ArrayRecursiveUnionExplicit.IDirectory | ArrayRecursiveUnionExplicit.IImageFile | ArrayRecursiveUnionExplicit.ITextFile | ArrayRecursiveUnionExplicit.IZipFile | ArrayRecursiveUnionExplicit.IShortcut)",
-                            value: input,
-                        });
+                        else if ("jpg" === input.extension) return $po1(input);
+                        else if ("txt" === input.extension) return $po2(input);
+                        else if ("zip" === input.extension) return $po3(input);
+                        else if ("lnk" === input.extension) return $po4(input);
+                        else
+                            $throws({
+                                expected:
+                                    "(ArrayRecursiveUnionExplicit.IDirectory | ArrayRecursiveUnionExplicit.IImageFile | ArrayRecursiveUnionExplicit.ITextFile | ArrayRecursiveUnionExplicit.IZipFile | ArrayRecursiveUnionExplicit.IShortcut)",
+                                value: input,
+                            });
                     })();
                 if (Array.isArray(input)) $pp0(input);
             })(input),

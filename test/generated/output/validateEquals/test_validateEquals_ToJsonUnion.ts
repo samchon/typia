@@ -76,15 +76,16 @@ export const test_validateEquals_ToJsonUnion =
                     (() => {
                         if (undefined !== input.id)
                             return $io0(input, true && _exceptionable);
-                        return (() => {
-                            if ($io3(input, false && _exceptionable))
-                                return $io3(input, true && _exceptionable);
-                            if ($io2(input, false && _exceptionable))
-                                return $io2(input, true && _exceptionable);
-                            if ($io1(input, false && _exceptionable))
-                                return $io1(input, true && _exceptionable);
-                            return false;
-                        })();
+                        else
+                            return (() => {
+                                if ($io3(input, false && _exceptionable))
+                                    return $io3(input, true && _exceptionable);
+                                else if ($io2(input, false && _exceptionable))
+                                    return $io2(input, true && _exceptionable);
+                                else if ($io1(input, false && _exceptionable))
+                                    return $io1(input, true && _exceptionable);
+                                else return false;
+                            })();
                     })();
                 return (
                     Array.isArray(input) &&
@@ -262,32 +263,52 @@ export const test_validateEquals_ToJsonUnion =
                                     _path,
                                     true && _exceptionable,
                                 );
-                            return (() => {
-                                if ($vo3(input, _path, false && _exceptionable))
-                                    return $vo3(
-                                        input,
-                                        _path,
-                                        true && _exceptionable,
-                                    );
-                                if ($vo2(input, _path, false && _exceptionable))
-                                    return $vo2(
-                                        input,
-                                        _path,
-                                        true && _exceptionable,
-                                    );
-                                if ($vo1(input, _path, false && _exceptionable))
-                                    return $vo1(
-                                        input,
-                                        _path,
-                                        true && _exceptionable,
-                                    );
-                                return $report(_exceptionable, {
-                                    path: _path,
-                                    expected:
-                                        "(ToJsonUnion.IWrapper<ToJsonUnion.IProduct> | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen> | ToJsonUnion.IWrapper<boolean>)",
-                                    value: input,
-                                });
-                            })();
+                            else
+                                return (() => {
+                                    if (
+                                        $vo3(
+                                            input,
+                                            _path,
+                                            false && _exceptionable,
+                                        )
+                                    )
+                                        return $vo3(
+                                            input,
+                                            _path,
+                                            true && _exceptionable,
+                                        );
+                                    else if (
+                                        $vo2(
+                                            input,
+                                            _path,
+                                            false && _exceptionable,
+                                        )
+                                    )
+                                        return $vo2(
+                                            input,
+                                            _path,
+                                            true && _exceptionable,
+                                        );
+                                    else if (
+                                        $vo1(
+                                            input,
+                                            _path,
+                                            false && _exceptionable,
+                                        )
+                                    )
+                                        return $vo1(
+                                            input,
+                                            _path,
+                                            true && _exceptionable,
+                                        );
+                                    else
+                                        return $report(_exceptionable, {
+                                            path: _path,
+                                            expected:
+                                                "(ToJsonUnion.IWrapper<ToJsonUnion.IProduct> | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen> | ToJsonUnion.IWrapper<boolean>)",
+                                            value: input,
+                                        });
+                                })();
                         })();
                     return (
                         ((Array.isArray(input) ||

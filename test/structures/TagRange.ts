@@ -47,6 +47,12 @@ export namespace TagRange {
          * @maximum 7
          */
         greater_equal_less_equal: number;
+
+        /**
+         * @minimum 10
+         * @maximum 10
+         */
+        equal: number;
     }
 
     // prettier-ignore
@@ -70,6 +76,7 @@ export namespace TagRange {
                 greater_less_equal,
                 greater_equal_less,
                 greater_equal_less_equal,
+                equal: 10,
             });
         return { value: output };
     }
@@ -125,6 +132,10 @@ export namespace TagRange {
         (input) => {
             input.value[15].greater_equal_less_equal = 8;
             return ["$input.value[15].greater_equal_less_equal"];
+        },
+        (input) => {
+            input.value[16].equal = 9;
+            return ["$input.value[16].equal"];
         },
     ];
 }

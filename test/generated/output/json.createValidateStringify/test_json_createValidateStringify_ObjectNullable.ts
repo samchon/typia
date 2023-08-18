@@ -40,9 +40,9 @@ export const test_json_validateStringify_ObjectNullable =
                     const $iu0 = (input: any): any =>
                         (() => {
                             if ("brand" === input.type) return $io3(input);
-                            if ("manufacturer" === input.type)
+                            else if ("manufacturer" === input.type)
                                 return $io2(input);
-                            return false;
+                            else return false;
                         })();
                     return (
                         "object" === typeof input &&
@@ -236,18 +236,19 @@ export const test_json_validateStringify_ObjectNullable =
                                         _path,
                                         true && _exceptionable,
                                     );
-                                if ("manufacturer" === input.type)
+                                else if ("manufacturer" === input.type)
                                     return $vo2(
                                         input,
                                         _path,
                                         true && _exceptionable,
                                     );
-                                return $report(_exceptionable, {
-                                    path: _path,
-                                    expected:
-                                        "(ObjectNullable.IBrand | ObjectNullable.IManufacturer)",
-                                    value: input,
-                                });
+                                else
+                                    return $report(_exceptionable, {
+                                        path: _path,
+                                        expected:
+                                            "(ObjectNullable.IBrand | ObjectNullable.IManufacturer)",
+                                        value: input,
+                                    });
                             })();
                         return (
                             ((("object" === typeof input && null !== input) ||
@@ -294,8 +295,9 @@ export const test_json_validateStringify_ObjectNullable =
                 const $iu0 = (input: any): any =>
                     (() => {
                         if ("brand" === input.type) return $io3(input);
-                        if ("manufacturer" === input.type) return $io2(input);
-                        return false;
+                        else if ("manufacturer" === input.type)
+                            return $io2(input);
+                        else return false;
                     })();
                 const $string = (typia.json.createValidateStringify as any)
                     .string;
@@ -338,12 +340,14 @@ export const test_json_validateStringify_ObjectNullable =
                 const $su0 = (input: any): any =>
                     (() => {
                         if ("brand" === input.type) return $so3(input);
-                        if ("manufacturer" === input.type) return $so2(input);
-                        $throws({
-                            expected:
-                                "(ObjectNullable.IBrand | ObjectNullable.IManufacturer)",
-                            value: input,
-                        });
+                        else if ("manufacturer" === input.type)
+                            return $so2(input);
+                        else
+                            $throws({
+                                expected:
+                                    "(ObjectNullable.IBrand | ObjectNullable.IManufacturer)",
+                                value: input,
+                            });
                     })();
                 return $so0(input);
             };

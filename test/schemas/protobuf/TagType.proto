@@ -3,7 +3,7 @@ syntax = "proto3";
 message TagType {
     repeated TagType.Type value = 1;
     message Type {
-        required int int = 1;
-        required uint uint = 2;
+        required int32 int = 1;
+        required uint32 uint = 2;
     }
 }

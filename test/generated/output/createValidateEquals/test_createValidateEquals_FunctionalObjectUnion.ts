@@ -110,11 +110,11 @@ export const test_validateEquals_FunctionalObjectUnion =
                     (() => {
                         if (undefined !== input.x)
                             return $io0(input, true && _exceptionable);
-                        if (undefined !== input.p1)
+                        else if (undefined !== input.p1)
                             return $io1(input, true && _exceptionable);
-                        if (undefined !== input.area)
+                        else if (undefined !== input.area)
                             return $io3(input, true && _exceptionable);
-                        return $io2(input, true && _exceptionable);
+                        else return $io2(input, true && _exceptionable);
                     })();
                 return (
                     Array.isArray(input) &&
@@ -426,19 +426,24 @@ export const test_validateEquals_FunctionalObjectUnion =
                                     _path,
                                     true && _exceptionable,
                                 );
-                            if (undefined !== input.p1)
+                            else if (undefined !== input.p1)
                                 return $vo1(
                                     input,
                                     _path,
                                     true && _exceptionable,
                                 );
-                            if (undefined !== input.area)
+                            else if (undefined !== input.area)
                                 return $vo3(
                                     input,
                                     _path,
                                     true && _exceptionable,
                                 );
-                            return $vo2(input, _path, true && _exceptionable);
+                            else
+                                return $vo2(
+                                    input,
+                                    _path,
+                                    true && _exceptionable,
+                                );
                         })();
                     return (
                         ((Array.isArray(input) ||

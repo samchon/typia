@@ -114,9 +114,10 @@ export const test_json_assertStringify_ObjectUnionComposite =
                     const $iu0 = (input: any): any =>
                         (() => {
                             if (undefined !== input.x) return $io0(input);
-                            if (undefined !== input.p4) return $io3(input);
-                            if (undefined !== input.points) return $io4(input);
-                            if (
+                            else if (undefined !== input.p4) return $io3(input);
+                            else if (undefined !== input.points)
+                                return $io4(input);
+                            else if (
                                 Array.isArray(input.outer) &&
                                 input.outer.every(
                                     (elem: any) =>
@@ -126,18 +127,20 @@ export const test_json_assertStringify_ObjectUnionComposite =
                                 )
                             )
                                 return $io6(input);
-                            if (
+                            else if (
                                 "object" === typeof input.outer &&
                                 null !== input.outer &&
                                 $io4(input.outer)
                             )
                                 return $io5(input);
-                            if (undefined !== input.centroid)
+                            else if (undefined !== input.centroid)
                                 return $io7(input);
-                            return (() => {
-                                if (undefined !== input.p3) return $io2(input);
-                                return $io1(input);
-                            })();
+                            else
+                                return (() => {
+                                    if (undefined !== input.p3)
+                                        return $io2(input);
+                                    else return $io1(input);
+                                })();
                         })();
                     return (
                         Array.isArray(input) &&
@@ -571,19 +574,19 @@ export const test_json_assertStringify_ObjectUnionComposite =
                                         _path,
                                         true && _exceptionable,
                                     );
-                                if (undefined !== input.p4)
+                                else if (undefined !== input.p4)
                                     return $ao3(
                                         input,
                                         _path,
                                         true && _exceptionable,
                                     );
-                                if (undefined !== input.points)
+                                else if (undefined !== input.points)
                                     return $ao4(
                                         input,
                                         _path,
                                         true && _exceptionable,
                                     );
-                                if (
+                                else if (
                                     Array.isArray(input.outer) &&
                                     input.outer.every(
                                         (elem: any, _index5: number) =>
@@ -604,7 +607,7 @@ export const test_json_assertStringify_ObjectUnionComposite =
                                         _path,
                                         true && _exceptionable,
                                     );
-                                if (
+                                else if (
                                     "object" === typeof input.outer &&
                                     null !== input.outer &&
                                     $ao4(
@@ -618,25 +621,27 @@ export const test_json_assertStringify_ObjectUnionComposite =
                                         _path,
                                         true && _exceptionable,
                                     );
-                                if (undefined !== input.centroid)
+                                else if (undefined !== input.centroid)
                                     return $ao7(
                                         input,
                                         _path,
                                         true && _exceptionable,
                                     );
-                                return (() => {
-                                    if (undefined !== input.p3)
-                                        return $ao2(
-                                            input,
-                                            _path,
-                                            true && _exceptionable,
-                                        );
-                                    return $ao1(
-                                        input,
-                                        _path,
-                                        true && _exceptionable,
-                                    );
-                                })();
+                                else
+                                    return (() => {
+                                        if (undefined !== input.p3)
+                                            return $ao2(
+                                                input,
+                                                _path,
+                                                true && _exceptionable,
+                                            );
+                                        else
+                                            return $ao1(
+                                                input,
+                                                _path,
+                                                true && _exceptionable,
+                                            );
+                                    })();
                             })();
                         return (
                             ((Array.isArray(input) ||
@@ -818,9 +823,9 @@ export const test_json_assertStringify_ObjectUnionComposite =
                 const $su0 = (input: any): any =>
                     (() => {
                         if (undefined !== input.x) return $so0(input);
-                        if (undefined !== input.p4) return $so3(input);
-                        if (undefined !== input.points) return $so4(input);
-                        if (
+                        else if (undefined !== input.p4) return $so3(input);
+                        else if (undefined !== input.points) return $so4(input);
+                        else if (
                             Array.isArray(input.outer) &&
                             input.outer.every(
                                 (elem: any) =>
@@ -830,17 +835,19 @@ export const test_json_assertStringify_ObjectUnionComposite =
                             )
                         )
                             return $so6(input);
-                        if (
+                        else if (
                             "object" === typeof input.outer &&
                             null !== input.outer &&
                             $io4(input.outer)
                         )
                             return $so5(input);
-                        if (undefined !== input.centroid) return $so7(input);
-                        return (() => {
-                            if (undefined !== input.p3) return $so2(input);
-                            return $so1(input);
-                        })();
+                        else if (undefined !== input.centroid)
+                            return $so7(input);
+                        else
+                            return (() => {
+                                if (undefined !== input.p3) return $so2(input);
+                                else return $so1(input);
+                            })();
                     })();
                 return `[${input.map((elem: any) => $su0(elem)).join(",")}]`;
             };

@@ -41,11 +41,13 @@ export const test_misc_clone_ToJsonUnion = _test_misc_clone<ToJsonUnion>(
         const $cu0 = (input: any): any =>
             (() => {
                 if (undefined !== input.id) return $co0(input);
-                if (undefined !== input.manufacturer) return $co4(input);
-                $throws({
-                    expected: "(ToJsonUnion.ICitizen | ToJsonUnion.IProduct)",
-                    value: input,
-                });
+                else if (undefined !== input.manufacturer) return $co4(input);
+                else
+                    $throws({
+                        expected:
+                            "(ToJsonUnion.ICitizen | ToJsonUnion.IProduct)",
+                        value: input,
+                    });
             })();
         return Array.isArray(input) ? $cp0(input) : (input as any);
     })(input),

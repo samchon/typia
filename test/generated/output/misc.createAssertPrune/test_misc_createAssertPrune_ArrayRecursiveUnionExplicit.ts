@@ -69,11 +69,11 @@ export const test_misc_assertPrune_ArrayRecursiveUnionExplicit =
                 const $iu0 = (input: any): any =>
                     (() => {
                         if ("directory" === input.type) return $io0(input);
-                        if ("jpg" === input.extension) return $io1(input);
-                        if ("txt" === input.extension) return $io2(input);
-                        if ("zip" === input.extension) return $io3(input);
-                        if ("lnk" === input.extension) return $io4(input);
-                        return false;
+                        else if ("jpg" === input.extension) return $io1(input);
+                        else if ("txt" === input.extension) return $io2(input);
+                        else if ("zip" === input.extension) return $io3(input);
+                        else if ("lnk" === input.extension) return $io4(input);
+                        else return false;
                     })();
                 return (
                     Array.isArray(input) &&
@@ -397,36 +397,37 @@ export const test_misc_assertPrune_ArrayRecursiveUnionExplicit =
                                     _path,
                                     true && _exceptionable,
                                 );
-                            if ("jpg" === input.extension)
+                            else if ("jpg" === input.extension)
                                 return $ao1(
                                     input,
                                     _path,
                                     true && _exceptionable,
                                 );
-                            if ("txt" === input.extension)
+                            else if ("txt" === input.extension)
                                 return $ao2(
                                     input,
                                     _path,
                                     true && _exceptionable,
                                 );
-                            if ("zip" === input.extension)
+                            else if ("zip" === input.extension)
                                 return $ao3(
                                     input,
                                     _path,
                                     true && _exceptionable,
                                 );
-                            if ("lnk" === input.extension)
+                            else if ("lnk" === input.extension)
                                 return $ao4(
                                     input,
                                     _path,
                                     true && _exceptionable,
                                 );
-                            return $guard(_exceptionable, {
-                                path: _path,
-                                expected:
-                                    "(ArrayRecursiveUnionExplicit.IDirectory | ArrayRecursiveUnionExplicit.IImageFile | ArrayRecursiveUnionExplicit.ITextFile | ArrayRecursiveUnionExplicit.IZipFile | ArrayRecursiveUnionExplicit.IShortcut)",
-                                value: input,
-                            });
+                            else
+                                return $guard(_exceptionable, {
+                                    path: _path,
+                                    expected:
+                                        "(ArrayRecursiveUnionExplicit.IDirectory | ArrayRecursiveUnionExplicit.IImageFile | ArrayRecursiveUnionExplicit.ITextFile | ArrayRecursiveUnionExplicit.IZipFile | ArrayRecursiveUnionExplicit.IShortcut)",
+                                    value: input,
+                                });
                         })();
                     return (
                         ((Array.isArray(input) ||
@@ -515,11 +516,11 @@ export const test_misc_assertPrune_ArrayRecursiveUnionExplicit =
             const $iu0 = (input: any): any =>
                 (() => {
                     if ("directory" === input.type) return $io0(input);
-                    if ("jpg" === input.extension) return $io1(input);
-                    if ("txt" === input.extension) return $io2(input);
-                    if ("zip" === input.extension) return $io3(input);
-                    if ("lnk" === input.extension) return $io4(input);
-                    return false;
+                    else if ("jpg" === input.extension) return $io1(input);
+                    else if ("txt" === input.extension) return $io2(input);
+                    else if ("zip" === input.extension) return $io3(input);
+                    else if ("lnk" === input.extension) return $io4(input);
+                    else return false;
                 })();
             const $throws = (typia.misc.createAssertPrune as any).throws;
             const $pp0 = (input: any) =>
@@ -610,15 +611,16 @@ export const test_misc_assertPrune_ArrayRecursiveUnionExplicit =
             const $pu0 = (input: any): any =>
                 (() => {
                     if ("directory" === input.type) return $po0(input);
-                    if ("jpg" === input.extension) return $po1(input);
-                    if ("txt" === input.extension) return $po2(input);
-                    if ("zip" === input.extension) return $po3(input);
-                    if ("lnk" === input.extension) return $po4(input);
-                    $throws({
-                        expected:
-                            "(ArrayRecursiveUnionExplicit.IDirectory | ArrayRecursiveUnionExplicit.IImageFile | ArrayRecursiveUnionExplicit.ITextFile | ArrayRecursiveUnionExplicit.IZipFile | ArrayRecursiveUnionExplicit.IShortcut)",
-                        value: input,
-                    });
+                    else if ("jpg" === input.extension) return $po1(input);
+                    else if ("txt" === input.extension) return $po2(input);
+                    else if ("zip" === input.extension) return $po3(input);
+                    else if ("lnk" === input.extension) return $po4(input);
+                    else
+                        $throws({
+                            expected:
+                                "(ArrayRecursiveUnionExplicit.IDirectory | ArrayRecursiveUnionExplicit.IImageFile | ArrayRecursiveUnionExplicit.ITextFile | ArrayRecursiveUnionExplicit.IZipFile | ArrayRecursiveUnionExplicit.IShortcut)",
+                            value: input,
+                        });
                 })();
             if (Array.isArray(input)) $pp0(input);
         };

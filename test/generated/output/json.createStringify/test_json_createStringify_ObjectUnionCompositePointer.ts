@@ -74,9 +74,9 @@ export const test_json_stringify_ObjectUnionCompositePointer =
         const $iu0 = (input: any): any =>
             (() => {
                 if (undefined !== input.x) return $io2(input);
-                if (undefined !== input.p4) return $io5(input);
-                if (undefined !== input.points) return $io6(input);
-                if (
+                else if (undefined !== input.p4) return $io5(input);
+                else if (undefined !== input.points) return $io6(input);
+                else if (
                     Array.isArray(input.outer) &&
                     input.outer.every(
                         (elem: any) =>
@@ -86,17 +86,18 @@ export const test_json_stringify_ObjectUnionCompositePointer =
                     )
                 )
                     return $io8(input);
-                if (
+                else if (
                     "object" === typeof input.outer &&
                     null !== input.outer &&
                     $io6(input.outer)
                 )
                     return $io7(input);
-                if (undefined !== input.centroid) return $io9(input);
-                return (() => {
-                    if (undefined !== input.p3) return $io4(input);
-                    return $io3(input);
-                })();
+                else if (undefined !== input.centroid) return $io9(input);
+                else
+                    return (() => {
+                        if (undefined !== input.p3) return $io4(input);
+                        else return $io3(input);
+                    })();
             })();
         const $number = (typia.json.createStringify as any).number;
         const $so0 = (input: any): any =>
@@ -163,9 +164,9 @@ export const test_json_stringify_ObjectUnionCompositePointer =
         const $su0 = (input: any): any =>
             (() => {
                 if (undefined !== input.x) return $so2(input);
-                if (undefined !== input.p4) return $so5(input);
-                if (undefined !== input.points) return $so6(input);
-                if (
+                else if (undefined !== input.p4) return $so5(input);
+                else if (undefined !== input.points) return $so6(input);
+                else if (
                     Array.isArray(input.outer) &&
                     input.outer.every(
                         (elem: any) =>
@@ -175,17 +176,18 @@ export const test_json_stringify_ObjectUnionCompositePointer =
                     )
                 )
                     return $so8(input);
-                if (
+                else if (
                     "object" === typeof input.outer &&
                     null !== input.outer &&
                     $io6(input.outer)
                 )
                     return $so7(input);
-                if (undefined !== input.centroid) return $so9(input);
-                return (() => {
-                    if (undefined !== input.p3) return $so4(input);
-                    return $so3(input);
-                })();
+                else if (undefined !== input.centroid) return $so9(input);
+                else
+                    return (() => {
+                        if (undefined !== input.p3) return $so4(input);
+                        else return $so3(input);
+                    })();
             })();
         return $so0(input);
     });

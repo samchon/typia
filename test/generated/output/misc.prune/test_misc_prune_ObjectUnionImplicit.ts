@@ -211,14 +211,15 @@ export const test_misc_prune_ObjectUnionImplicit =
             const $pu0 = (input: any): any =>
                 (() => {
                     if (undefined !== input.x) return $po0(input);
-                    if (undefined !== input.p4) return $po3(input);
-                    if (undefined !== input.points) return $po4(input);
-                    if (undefined !== input.outer) return $po5(input);
-                    if (undefined !== input.radius) return $po6(input);
-                    return (() => {
-                        if (undefined !== input.p3) return $po2(input);
-                        return $po1(input);
-                    })();
+                    else if (undefined !== input.p4) return $po3(input);
+                    else if (undefined !== input.points) return $po4(input);
+                    else if (undefined !== input.outer) return $po5(input);
+                    else if (undefined !== input.radius) return $po6(input);
+                    else
+                        return (() => {
+                            if (undefined !== input.p3) return $po2(input);
+                            else return $po1(input);
+                        })();
                 })();
             if (Array.isArray(input)) $pp0(input);
         })(input),

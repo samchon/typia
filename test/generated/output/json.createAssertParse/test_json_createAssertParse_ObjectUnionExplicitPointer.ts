@@ -133,13 +133,13 @@ export const test_json_assertParse_ObjectUnionExplicitPointer =
                 const $iu0 = (input: any): any =>
                     (() => {
                         if ("point" === input.type) return $io2(input);
-                        if ("line" === input.type) return $io3(input);
-                        if ("triangle" === input.type) return $io5(input);
-                        if ("rectangle" === input.type) return $io6(input);
-                        if ("polyline" === input.type) return $io7(input);
-                        if ("polygon" === input.type) return $io8(input);
-                        if ("circle" === input.type) return $io10(input);
-                        return false;
+                        else if ("line" === input.type) return $io3(input);
+                        else if ("triangle" === input.type) return $io5(input);
+                        else if ("rectangle" === input.type) return $io6(input);
+                        else if ("polyline" === input.type) return $io7(input);
+                        else if ("polygon" === input.type) return $io8(input);
+                        else if ("circle" === input.type) return $io10(input);
+                        else return false;
                     })();
                 return (
                     "object" === typeof input && null !== input && $io0(input)
@@ -662,48 +662,49 @@ export const test_json_assertParse_ObjectUnionExplicitPointer =
                                     _path,
                                     true && _exceptionable,
                                 );
-                            if ("line" === input.type)
+                            else if ("line" === input.type)
                                 return $ao3(
                                     input,
                                     _path,
                                     true && _exceptionable,
                                 );
-                            if ("triangle" === input.type)
+                            else if ("triangle" === input.type)
                                 return $ao5(
                                     input,
                                     _path,
                                     true && _exceptionable,
                                 );
-                            if ("rectangle" === input.type)
+                            else if ("rectangle" === input.type)
                                 return $ao6(
                                     input,
                                     _path,
                                     true && _exceptionable,
                                 );
-                            if ("polyline" === input.type)
+                            else if ("polyline" === input.type)
                                 return $ao7(
                                     input,
                                     _path,
                                     true && _exceptionable,
                                 );
-                            if ("polygon" === input.type)
+                            else if ("polygon" === input.type)
                                 return $ao8(
                                     input,
                                     _path,
                                     true && _exceptionable,
                                 );
-                            if ("circle" === input.type)
+                            else if ("circle" === input.type)
                                 return $ao10(
                                     input,
                                     _path,
                                     true && _exceptionable,
                                 );
-                            return $guard(_exceptionable, {
-                                path: _path,
-                                expected:
-                                    '(ObjectUnionExplicitPointer.Discriminator<"point", ObjectUnionExplicitPointer.IPoint> | ObjectUnionExplicitPointer.Discriminator<"line", ObjectUnionExplicitPointer.ILine> | ObjectUnionExplicitPointer.Discriminator<"triangle", ObjectUnionExplicitPointer.ITriangle> | ObjectUnionExplicitPointer.Discriminator<"rectangle", ObjectUnionExplicitPointer.IRectangle> | ObjectUnionExplicitPointer.Discriminator<"polyline", ObjectUnionExplicitPointer.IPolyline> | ObjectUnionExplicitPointer.Discriminator<"polygon", ObjectUnionExplicitPointer.IPolygon> | ObjectUnionExplicitPointer.Discriminator<"circle", ObjectUnionExplicitPointer.ICircle>)',
-                                value: input,
-                            });
+                            else
+                                return $guard(_exceptionable, {
+                                    path: _path,
+                                    expected:
+                                        '(ObjectUnionExplicitPointer.Discriminator<"point", ObjectUnionExplicitPointer.IPoint> | ObjectUnionExplicitPointer.Discriminator<"line", ObjectUnionExplicitPointer.ILine> | ObjectUnionExplicitPointer.Discriminator<"triangle", ObjectUnionExplicitPointer.ITriangle> | ObjectUnionExplicitPointer.Discriminator<"rectangle", ObjectUnionExplicitPointer.IRectangle> | ObjectUnionExplicitPointer.Discriminator<"polyline", ObjectUnionExplicitPointer.IPolyline> | ObjectUnionExplicitPointer.Discriminator<"polygon", ObjectUnionExplicitPointer.IPolygon> | ObjectUnionExplicitPointer.Discriminator<"circle", ObjectUnionExplicitPointer.ICircle>)',
+                                    value: input,
+                                });
                         })();
                     return (
                         ((("object" === typeof input && null !== input) ||

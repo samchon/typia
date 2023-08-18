@@ -45,20 +45,20 @@ export const test_is_ObjectUnionDouble = _test_is<ObjectUnionDouble>(
     const $iu0 = (input: any): any =>
         (() => {
             if ($io6(input)) return $io6(input);
-            if ($io0(input)) return $io0(input);
-            return false;
+            else if ($io0(input)) return $io0(input);
+            else return false;
         })();
     const $iu1 = (input: any): any =>
         (() => {
             if ($io4(input)) return $io4(input);
-            if ($io2(input)) return $io2(input);
-            return false;
+            else if ($io2(input)) return $io2(input);
+            else return false;
         })();
     const $iu2 = (input: any): any =>
         (() => {
             if ($io10(input)) return $io10(input);
-            if ($io8(input)) return $io8(input);
-            return false;
+            else if ($io8(input)) return $io8(input);
+            else return false;
         })();
     return (
         Array.isArray(input) &&

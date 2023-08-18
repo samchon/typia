@@ -17,12 +17,12 @@ export const test_misc_isPrune_TagObjectUnion =
                 const $iu0 = (input: any): any =>
                     (() => {
                         if ("string" === typeof input.value) return $io1(input);
-                        if (
+                        else if (
                             "number" === typeof input.value &&
                             Number.isFinite(input.value)
                         )
                             return $io0(input);
-                        return false;
+                        else return false;
                     })();
                 return (
                     Array.isArray(input) &&
@@ -62,12 +62,14 @@ export const test_misc_isPrune_TagObjectUnion =
                 const $pu0 = (input: any): any =>
                     (() => {
                         if ("string" === typeof input.value) return $po1(input);
-                        if ("number" === typeof input.value) return $po0(input);
-                        $throws({
-                            expected:
-                                "(TagObjectUnion.Literal | TagObjectUnion.Numeric)",
-                            value: input,
-                        });
+                        else if ("number" === typeof input.value)
+                            return $po0(input);
+                        else
+                            $throws({
+                                expected:
+                                    "(TagObjectUnion.Literal | TagObjectUnion.Numeric)",
+                                value: input,
+                            });
                     })();
                 if (Array.isArray(input)) $pp0(input);
             };

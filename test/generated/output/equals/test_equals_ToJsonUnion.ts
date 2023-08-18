@@ -68,15 +68,16 @@ export const test_equals_ToJsonUnion = _test_equals<ToJsonUnion>(ToJsonUnion)(
                 (() => {
                     if (undefined !== input.id)
                         return $io0(input, true && _exceptionable);
-                    return (() => {
-                        if ($io3(input, false && _exceptionable))
-                            return $io3(input, true && _exceptionable);
-                        if ($io2(input, false && _exceptionable))
-                            return $io2(input, true && _exceptionable);
-                        if ($io1(input, false && _exceptionable))
-                            return $io1(input, true && _exceptionable);
-                        return false;
-                    })();
+                    else
+                        return (() => {
+                            if ($io3(input, false && _exceptionable))
+                                return $io3(input, true && _exceptionable);
+                            else if ($io2(input, false && _exceptionable))
+                                return $io2(input, true && _exceptionable);
+                            else if ($io1(input, false && _exceptionable))
+                                return $io1(input, true && _exceptionable);
+                            else return false;
+                        })();
                 })();
             return (
                 Array.isArray(input) &&

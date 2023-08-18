@@ -47,20 +47,20 @@ export const test_misc_isPrune_ObjectUnionDouble =
                 const $iu0 = (input: any): any =>
                     (() => {
                         if ($io6(input)) return $io6(input);
-                        if ($io0(input)) return $io0(input);
-                        return false;
+                        else if ($io0(input)) return $io0(input);
+                        else return false;
                     })();
                 const $iu1 = (input: any): any =>
                     (() => {
                         if ($io4(input)) return $io4(input);
-                        if ($io2(input)) return $io2(input);
-                        return false;
+                        else if ($io2(input)) return $io2(input);
+                        else return false;
                     })();
                 const $iu2 = (input: any): any =>
                     (() => {
                         if ($io10(input)) return $io10(input);
-                        if ($io8(input)) return $io8(input);
-                        return false;
+                        else if ($io8(input)) return $io8(input);
+                        else return false;
                     })();
                 return (
                     Array.isArray(input) &&
@@ -215,32 +215,35 @@ export const test_misc_isPrune_ObjectUnionDouble =
                 const $pu0 = (input: any): any =>
                     (() => {
                         if ($io6(input)) return $po6(input);
-                        if ($io0(input)) return $po0(input);
-                        $throws({
-                            expected:
-                                "(ObjectUnionDouble.IB | ObjectUnionDouble.IA)",
-                            value: input,
-                        });
+                        else if ($io0(input)) return $po0(input);
+                        else
+                            $throws({
+                                expected:
+                                    "(ObjectUnionDouble.IB | ObjectUnionDouble.IA)",
+                                value: input,
+                            });
                     })();
                 const $pu1 = (input: any): any =>
                     (() => {
                         if ($io4(input)) return $po4(input);
-                        if ($io2(input)) return $po2(input);
-                        $throws({
-                            expected:
-                                "(ObjectUnionDouble.IAB | ObjectUnionDouble.IAA)",
-                            value: input,
-                        });
+                        else if ($io2(input)) return $po2(input);
+                        else
+                            $throws({
+                                expected:
+                                    "(ObjectUnionDouble.IAB | ObjectUnionDouble.IAA)",
+                                value: input,
+                            });
                     })();
                 const $pu2 = (input: any): any =>
                     (() => {
                         if ($io10(input)) return $po10(input);
-                        if ($io8(input)) return $po8(input);
-                        $throws({
-                            expected:
-                                "(ObjectUnionDouble.IBB | ObjectUnionDouble.IBA)",
-                            value: input,
-                        });
+                        else if ($io8(input)) return $po8(input);
+                        else
+                            $throws({
+                                expected:
+                                    "(ObjectUnionDouble.IBB | ObjectUnionDouble.IBA)",
+                                value: input,
+                            });
                     })();
                 if (Array.isArray(input)) $pp0(input);
             };

@@ -40,7 +40,10 @@ export const test_misc_assertPrune_TagRange = _test_misc_assertPrune<TagRange>(
                     7 >= input.greater_less_equal &&
                     "number" === typeof input.greater_equal_less_equal &&
                     3 <= input.greater_equal_less_equal &&
-                    7 >= input.greater_equal_less_equal;
+                    7 >= input.greater_equal_less_equal &&
+                    "number" === typeof input.equal &&
+                    10 <= input.equal &&
+                    10 >= input.equal;
                 return (
                     "object" === typeof input && null !== input && $io0(input)
                 );
@@ -220,6 +223,24 @@ export const test_misc_assertPrune_TagRange = _test_misc_assertPrune<TagRange>(
                                 path: _path + ".greater_equal_less_equal",
                                 expected: "number",
                                 value: input.greater_equal_less_equal,
+                            })) &&
+                        (("number" === typeof input.equal &&
+                            (10 <= input.equal ||
+                                $guard(_exceptionable, {
+                                    path: _path + ".equal",
+                                    expected: "number (@minimum 10)",
+                                    value: input.equal,
+                                })) &&
+                            (10 >= input.equal ||
+                                $guard(_exceptionable, {
+                                    path: _path + ".equal",
+                                    expected: "number (@maximum 10)",
+                                    value: input.equal,
+                                }))) ||
+                            $guard(_exceptionable, {
+                                path: _path + ".equal",
+                                expected: "number",
+                                value: input.equal,
                             }));
                     return (
                         ((("object" === typeof input && null !== input) ||
@@ -259,7 +280,10 @@ export const test_misc_assertPrune_TagRange = _test_misc_assertPrune<TagRange>(
                 7 >= input.greater_less_equal &&
                 "number" === typeof input.greater_equal_less_equal &&
                 3 <= input.greater_equal_less_equal &&
-                7 >= input.greater_equal_less_equal;
+                7 >= input.greater_equal_less_equal &&
+                "number" === typeof input.equal &&
+                10 <= input.equal &&
+                10 >= input.equal;
             const $pp0 = (input: any) =>
                 input.forEach((elem: any) => {
                     if ("object" === typeof elem && null !== elem) $po1(elem);
@@ -281,7 +305,8 @@ export const test_misc_assertPrune_TagRange = _test_misc_assertPrune<TagRange>(
                         "greater_less" === key ||
                         "greater_equal_less" === key ||
                         "greater_less_equal" === key ||
-                        "greater_equal_less_equal" === key
+                        "greater_equal_less_equal" === key ||
+                        "equal" === key
                     )
                         continue;
                     delete input[key];

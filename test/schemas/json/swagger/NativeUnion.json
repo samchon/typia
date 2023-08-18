@@ -102,17 +102,17 @@
               {
                 "x-typia-required": true,
                 "x-typia-optional": false,
+                "$ref": "#/components/objects/DataView"
+              },
+              {
+                "x-typia-required": true,
+                "x-typia-optional": false,
                 "$ref": "#/components/objects/ArrayBuffer"
               },
               {
                 "x-typia-required": true,
                 "x-typia-optional": false,
                 "$ref": "#/components/objects/SharedArrayBuffer"
-              },
-              {
-                "x-typia-required": true,
-                "x-typia-optional": false,
-                "$ref": "#/components/objects/DataView"
               }
             ],
             "x-typia-required": true,
@@ -230,17 +230,17 @@
         ],
         "x-typia-jsDocTags": []
       },
+      "DataView": {
+        "type": "object",
+        "properties": {},
+        "nullable": false
+      },
       "ArrayBuffer": {
         "type": "object",
         "properties": {},
         "nullable": false
       },
       "SharedArrayBuffer": {
-        "type": "object",
-        "properties": {},
-        "nullable": false
-      },
-      "DataView": {
         "type": "object",
         "properties": {},
         "nullable": false
