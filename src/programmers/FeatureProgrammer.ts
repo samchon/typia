@@ -278,9 +278,9 @@ export namespace FeatureProgrammer {
         (collection: MetadataCollection) =>
             collection
                 .objects()
-                .map((obj, i) =>
+                .map((obj) =>
                     StatementFactory.constant(
-                        `${config.prefix}o${i}`,
+                        `${config.prefix}o${obj.index}`,
                         ts.factory.createArrowFunction(
                             undefined,
                             undefined,

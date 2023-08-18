@@ -1,9 +1,10 @@
-import { Writer } from "protobufjs";
-
 import { RandomGenerator } from "../utils/RandomGenerator";
 
 import { IValidation } from "../IValidation";
 import { TypeGuardError } from "../TypeGuardError";
+import { $ProtobufReader } from "./$ProtobufReader";
+import { $ProtobufSizer } from "./$ProtobufSizer";
+import { $ProtobufWriter } from "./$ProtobufWriter";
 import { $any } from "./$any";
 import { $every } from "./$every";
 import { $guard } from "./$guard";
@@ -101,14 +102,20 @@ export namespace Namespace {
             string: $string,
             tail: $tail,
             rest: $rest,
-            throws: $throws(method),
+            throws: $throws(`json.${method}`),
         });
     }
 
     export namespace protobuf {
+        export const decode = (method: string) => ({
+            Reader: $ProtobufReader,
+            throws: $throws(`protobuf.${method}`),
+        });
+
         export const encode = (method: string) => ({
-            Writer: Writer,
-            strl: $strlen,
+            Sizer: $ProtobufSizer,
+            Writer: $ProtobufWriter,
+            strlen: $strlen,
             throws: $throws(method),
         });
     }
@@ -116,13 +123,13 @@ export namespace Namespace {
     export namespace misc {
         export const clone = (method: string) => ({
             ...is(),
-            throws: $throws(method),
+            throws: $throws(`misc.${method}`),
             any: $any,
         });
 
         export const prune = (method: string) => ({
             ...is(),
-            throws: $throws(method),
+            throws: $throws(`misc.${method}`),
         });
     }
 
