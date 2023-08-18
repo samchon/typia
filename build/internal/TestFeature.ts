@@ -76,6 +76,51 @@ export namespace TestFeature {
         },
 
         //----
+        // PROTOBUF FUNCTIONS
+        //----
+        // ENCODERS
+        {
+            module: "protobuf",
+            method: "encode",
+            creatable: true,
+            spoilable: false,
+            opposite: {
+                name: "message",
+                method: "typia.protobuf.message",
+            },
+        },
+        {
+            module: "protobuf",
+            method: "isEncode",
+            creatable: true,
+            spoilable: true,
+            opposite: {
+                name: "message",
+                method: "typia.protobuf.message",
+            },
+        },
+        {
+            module: "protobuf",
+            method: "assertEncode",
+            creatable: true,
+            spoilable: true,
+            opposite: {
+                name: "message",
+                method: "typia.protobuf.message",
+            },
+        },
+        {
+            module: "protobuf",
+            method: "validateEncode",
+            creatable: true,
+            spoilable: true,
+            opposite: {
+                name: "message",
+                method: "typia.protobuf.message",
+            },
+        },
+
+        //----
         // JSON FUNCTIONS
         //----
         // PARSERS

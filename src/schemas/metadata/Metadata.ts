@@ -40,6 +40,7 @@ export class Metadata {
     /** @internal */ private name_?: string;
     /** @internal */ private parent_resolved_: boolean = false;
     /** @internal */ public union_index?: number;
+    /** @internal */ public fixed_?: number | null;
 
     /* -----------------------------------------------------------
         CONSTRUCTORS
@@ -288,6 +289,24 @@ export class Metadata {
         );
     }
 
+    /**
+     * @internal
+     */
+    public binarySize(): number {
+        return (
+            new Set([
+                ...this.atomics,
+                ...this.constants.map((c) => c.type),
+                ...(this.templates.length ? ["string"] : []),
+            ]).size +
+            this.arrays.length +
+            this.tuples.length +
+            this.natives.length +
+            this.objects.length +
+            this.maps.length
+        );
+    }
+
     public bucket(): number {
         return (
             (this.any ? 1 : 0) +
@@ -323,6 +342,13 @@ export class Metadata {
         const emended: number =
             !!this.atomics.length && !!this.constants.length ? size - 1 : size;
         return emended > 1;
+    }
+
+    /**
+     * @internal
+     */
+    public isBinaryUnion(): boolean {
+        return this.binarySize() > 1;
     }
 
     /**

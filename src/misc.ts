@@ -84,7 +84,7 @@ export function clone<T>(input: T): Primitive<T>;
 export function clone(): never {
     halt("clone");
 }
-Object.assign(clone, Namespace.clone("clone"));
+Object.assign(clone, Namespace.misc.clone("clone"));
 
 /**
  * Clone a data with type assertion.
@@ -131,7 +131,7 @@ export function assertClone(): never {
     halt("assertClone");
 }
 Object.assign(assertClone, Namespace.assert("assertClone"));
-Object.assign(assertClone, Namespace.clone("assertClone"));
+Object.assign(assertClone, Namespace.misc.clone("assertClone"));
 
 /**
  * Clone a data with type checking.
@@ -178,7 +178,7 @@ export function isClone(): never {
     halt("isClone");
 }
 Object.assign(isClone, Namespace.is());
-Object.assign(isClone, Namespace.clone("isClone"));
+Object.assign(isClone, Namespace.misc.clone("isClone"));
 
 /**
  * Clone a data with detailed type validation.
@@ -223,7 +223,7 @@ export function validateClone(): never {
     halt("validateClone");
 }
 Object.assign(validateClone, Namespace.validate());
-Object.assign(validateClone, Namespace.clone("validateClone"));
+Object.assign(validateClone, Namespace.misc.clone("validateClone"));
 
 /* -----------------------------------------------------------
     PRUNE
@@ -257,7 +257,7 @@ export function prune<T extends object>(input: T): void;
 export function prune(): never {
     halt("prune");
 }
-Object.assign(prune, Namespace.prune("prune"));
+Object.assign(prune, Namespace.misc.prune("prune"));
 
 /**
  * Prune, erase superfluous properties, with type assertion.
@@ -302,7 +302,7 @@ export function assertPrune(): unknown {
     halt("assertPrune");
 }
 Object.assign(assertPrune, Namespace.assert("assertPrune"));
-Object.assign(assertPrune, Namespace.prune("assertPrune"));
+Object.assign(assertPrune, Namespace.misc.prune("assertPrune"));
 
 /**
  * Prune, erase superfluous properties, with type checking.
@@ -349,7 +349,7 @@ export function isPrune(): never {
     halt("isPrune");
 }
 Object.assign(isPrune, Namespace.is());
-Object.assign(isPrune, Namespace.prune("isPrune"));
+Object.assign(isPrune, Namespace.misc.prune("isPrune"));
 
 /**
  * Prune, erase superfluous properties, with type validation.
@@ -397,7 +397,7 @@ export function validatePrune<T>(input: unknown): IValidation<T>;
 export function validatePrune<T>(): IValidation<T> {
     halt("validatePrune");
 }
-Object.assign(validatePrune, Namespace.prune("validatePrune"));
+Object.assign(validatePrune, Namespace.misc.prune("validatePrune"));
 Object.assign(validatePrune, Namespace.validate());
 
 /* -----------------------------------------------------------

@@ -55,6 +55,7 @@ async function generate(
         else if (feat.primitive && s.PRIMITIVE === false) continue;
         else if (feat.strict && s.ADDABLE === false) continue;
         else if (feat.method === "random" && s.RANDOM === false) continue;
+        else if (feat.module === "protobuf" && s.BINARABLE === false) continue;
         else if (
             feat.method.toLowerCase().includes("prune") &&
             s.ADDABLE === false

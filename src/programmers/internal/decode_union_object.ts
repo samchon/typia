@@ -55,13 +55,24 @@ const iterate =
     (input: ts.Expression, unions: IUnion[], expected: string) =>
         ts.factory.createBlock(
             [
-                ...unions.map((u) =>
-                    ts.factory.createIfStatement(
-                        u.is(),
-                        ts.factory.createReturnStatement(u.value()),
+                unions
+                    .map((u, i) =>
+                        ts.factory.createIfStatement(
+                            u.is(),
+                            ts.factory.createReturnStatement(u.value()),
+                            i === unions.length - 1
+                                ? escaper(input, expected)
+                                : undefined,
+                        ),
+                    )
+                    .reverse()
+                    .reduce((a, b) =>
+                        ts.factory.createIfStatement(
+                            b.expression,
+                            b.thenStatement,
+                            a,
+                        ),
                     ),
-                ),
-                escaper(input, expected),
             ],
             true,
         );

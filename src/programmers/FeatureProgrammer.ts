@@ -59,7 +59,7 @@ export namespace FeatureProgrammer {
         /**
          * Object configurator.
          */
-        objector: IConfig.IObjector;
+        objector: IConfig.IObjector<Output>;
 
         /**
          * Generator of functions for object types.
@@ -72,7 +72,9 @@ export namespace FeatureProgrammer {
             output: (type: ts.Type, name?: string) => ts.TypeNode;
         }
 
-        export interface IObjector {
+        export interface IObjector<
+            Output extends ts.ConciseBody = ts.ConciseBody,
+        > {
             /**
              * Type checker when union object type comes.
              */
@@ -88,7 +90,7 @@ export namespace FeatureProgrammer {
              */
             joiner(
                 input: ts.Expression,
-                entries: IExpressionEntry[],
+                entries: IExpressionEntry<Output>[],
                 parent: MetadataObject,
             ): ts.ConciseBody;
 
@@ -276,9 +278,9 @@ export namespace FeatureProgrammer {
         (collection: MetadataCollection) =>
             collection
                 .objects()
-                .map((obj, i) =>
+                .map((obj) =>
                     StatementFactory.constant(
-                        `${config.prefix}o${i}`,
+                        `${config.prefix}o${obj.index}`,
                         ts.factory.createArrowFunction(
                             undefined,
                             undefined,

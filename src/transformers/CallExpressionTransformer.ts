@@ -57,7 +57,7 @@ import { ProtobufDecodeTransformer } from "./features/protobuf/ProtobufDecodeTra
 import { ProtobufEncodeTransformer } from "./features/protobuf/ProtobufEncodeTransformer";
 import { ProtobufIsDecodeTransformer } from "./features/protobuf/ProtobufIsDecodeTransformer";
 import { ProtobufIsEncodeTransformer } from "./features/protobuf/ProtobufIsEncodeTransformer";
-import { MessageTransformer } from "./features/protobuf/ProtobufMessageTransformer";
+import { ProtobufMessageTransformer } from "./features/protobuf/ProtobufMessageTransformer";
 import { ProtobufValidateDecodeTransformer } from "./features/protobuf/ProtobufValidateDecodeTransformer";
 import { ProtobufValidateEncodeTransformer } from "./features/protobuf/ProtobufValidateEncodeTransformer";
 
@@ -155,9 +155,35 @@ const FUNCTORS: Record<string, Record<string, () => Task>> = {
         createValidateEquals: () => CreateValidateTransformer.transform(true),
         createRandom: () => CreateRandomTransformer.transform,
     },
+    json: {
+        // SCHEMA
+        application: () => (P) => () => JsonApplicationTransformer.transform(P),
+
+        // PARSER
+        isParse: () => JsonIsParseTransformer.transform,
+        assertParse: () => JsonAssertParseTransformer.transform,
+        validateParse: () => JsonValidateParseTransformer.transform,
+
+        // STRINGIFY
+        stringify: () => JsonStringifyTransformer.transform,
+        assertStringify: () => JsonAssertStringifyTransformer.transform,
+        isStringify: () => JsonIsStringifyTransformer.transform,
+        validateStringify: () => JsonValidateStringifyTransformer.transform,
+
+        // FACTORIES
+        createIsParse: () => JsonCreateIsParseTransformer.transform,
+        createAssertParse: () => JsonCreateAssertParseTransformer.transform,
+        createValidateParse: () => JsonCreateValidateParseTransformer.transform,
+        createStringify: () => JsonCreateStringifyTransformer.transform,
+        createAssertStringify: () =>
+            JsonCreateAssertStringifyTransformer.transform,
+        createIsStringify: () => JsonCreateIsStringifyTransformer.transform,
+        createValidateStringify: () =>
+            JsonCreateValidateStringifyTransformer.transform,
+    },
     protobuf: {
         // SCHEMA
-        message: () => MessageTransformer.transform,
+        message: () => ProtobufMessageTransformer.transform,
 
         // ENCODE
         encode: () => ProtobufEncodeTransformer.transform,
@@ -184,32 +210,6 @@ const FUNCTORS: Record<string, Record<string, () => Task>> = {
         createIsDecode: () => CreateProtobufIsDecodeTransformer.transform,
         createValidateDecode: () =>
             CreateProtobufValidateDecodeTransformer.transform,
-    },
-    json: {
-        // SCHEMA
-        application: () => (P) => () => JsonApplicationTransformer.transform(P),
-
-        // PARSER
-        isParse: () => JsonIsParseTransformer.transform,
-        assertParse: () => JsonAssertParseTransformer.transform,
-        validateParse: () => JsonValidateParseTransformer.transform,
-
-        // STRINGIFY
-        stringify: () => JsonStringifyTransformer.transform,
-        assertStringify: () => JsonAssertStringifyTransformer.transform,
-        isStringify: () => JsonIsStringifyTransformer.transform,
-        validateStringify: () => JsonValidateStringifyTransformer.transform,
-
-        // FACTORIES
-        createIsParse: () => JsonCreateIsParseTransformer.transform,
-        createAssertParse: () => JsonCreateAssertParseTransformer.transform,
-        createValidateParse: () => JsonCreateValidateParseTransformer.transform,
-        createStringify: () => JsonCreateStringifyTransformer.transform,
-        createAssertStringify: () =>
-            JsonCreateAssertStringifyTransformer.transform,
-        createIsStringify: () => JsonCreateIsStringifyTransformer.transform,
-        createValidateStringify: () =>
-            JsonCreateValidateStringifyTransformer.transform,
     },
     misc: {
         literals: () => (project) => () =>
