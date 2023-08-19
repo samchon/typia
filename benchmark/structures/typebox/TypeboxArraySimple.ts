@@ -1,6 +1,6 @@
 import { Type } from "@sinclair/typebox";
 import { TypeCompiler } from "@sinclair/typebox/compiler";
-import { TypeSystem } from "@sinclair/typebox/system";
+import { TypeSystemPolicy } from "@sinclair/typebox/system";
 
 const Hobby = Type.Object({
     name: Type.String(),
@@ -21,8 +21,8 @@ const Person = Type.Object({
     ]),
 });
 
-TypeSystem.AllowArrayObjects = true;
-TypeSystem.AllowNaN = true;
+TypeSystemPolicy.AllowArrayObject = true;
+TypeSystemPolicy.AllowNaN = true;
 
 export const __TypeboxArraySimple = Type.Array(Person);
 export const TypeboxArraySimple = TypeCompiler.Compile(__TypeboxArraySimple);

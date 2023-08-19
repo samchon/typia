@@ -1,6 +1,6 @@
 import { Type } from "@sinclair/typebox";
 import { TypeCompiler } from "@sinclair/typebox/compiler";
-import { TypeSystem } from "@sinclair/typebox/system";
+import { TypeSystemPolicy } from "@sinclair/typebox/system";
 
 const Point = Type.Object({
     x: Type.Number(),
@@ -80,8 +80,8 @@ const Union = Type.Union([
     ]),
 ]);
 
-TypeSystem.AllowArrayObjects = true;
-TypeSystem.AllowNaN = true;
+TypeSystemPolicy.AllowArrayObject = true;
+TypeSystemPolicy.AllowNaN = true;
 
 export const __TypeboxObjectUnionExplicit = Type.Array(Union);
 export const TypeboxObjectUnionExplicit = TypeCompiler.Compile(
