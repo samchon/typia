@@ -1,6 +1,6 @@
 import { TSchema, Type } from "@sinclair/typebox";
 import { TypeCompiler } from "@sinclair/typebox/compiler";
-import { TypeSystem } from "@sinclair/typebox/system";
+import { TypeSystemPolicy } from "@sinclair/typebox/system";
 
 const Attribute = {
     description: Type.Optional(Type.String()),
@@ -129,8 +129,8 @@ const Schema = Type.Recursive((schema) =>
     ]),
 );
 
-TypeSystem.AllowArrayObjects = true;
-TypeSystem.AllowNaN = true;
+TypeSystemPolicy.AllowArrayObject = true;
+TypeSystemPolicy.AllowNaN = true;
 
 export const __TypeboxUltimateUnion = Type.Array(Application(Schema));
 export const TypeboxUltimateUnion = TypeCompiler.Compile(

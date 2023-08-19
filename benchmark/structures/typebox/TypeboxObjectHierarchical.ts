@@ -1,6 +1,6 @@
 import { Type } from "@sinclair/typebox";
 import { TypeCompiler } from "@sinclair/typebox/compiler";
-import { TypeSystem } from "@sinclair/typebox/system";
+import { TypeSystemPolicy } from "@sinclair/typebox/system";
 
 const Timestamp = Type.Object({
     time: Type.Number(),
@@ -56,8 +56,8 @@ const Customer = Type.Object({
     created_at: Timestamp,
 });
 
-TypeSystem.AllowArrayObjects = true;
-TypeSystem.AllowNaN = true;
+TypeSystemPolicy.AllowArrayObject = true;
+TypeSystemPolicy.AllowNaN = true;
 
 export const __TypeboxObjectHierarchical = Customer;
 export const TypeboxObjectHierarchical = TypeCompiler.Compile(

@@ -1,6 +1,6 @@
 import { Type } from "@sinclair/typebox";
 import { TypeCompiler } from "@sinclair/typebox/compiler";
-import { TypeSystem } from "@sinclair/typebox/system";
+import { TypeSystemPolicy } from "@sinclair/typebox/system";
 
 const Timestamp = Type.Object({
     time: Type.Number(),
@@ -17,8 +17,8 @@ const Category = Type.Recursive((Category) =>
     }),
 );
 
-TypeSystem.AllowArrayObjects = true;
-TypeSystem.AllowNaN = true;
+TypeSystemPolicy.AllowArrayObject = true;
+TypeSystemPolicy.AllowNaN = true;
 
 export const __TypeboxArrayRecursive = Category;
 export const TypeboxArrayRecursive = TypeCompiler.Compile(
