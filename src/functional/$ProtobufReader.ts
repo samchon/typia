@@ -22,6 +22,10 @@ export class $ProtobufReader {
         this.view = new DataView(buf.buffer);
     }
 
+    public complete(): boolean {
+        return this.ptr >= this.buf.length;
+    }
+
     // public reset(buf: Uint8Array): void {
     //     this.buf = buf;
     //     this.ptr = 0;
