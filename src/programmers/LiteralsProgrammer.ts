@@ -1,5 +1,6 @@
 import ts from "typescript";
 
+import { ExpressionFactory } from "../factories/ExpressionFactory";
 import { MetadataCollection } from "../factories/MetadataCollection";
 import { MetadataFactory } from "../factories/MetadataFactory";
 
@@ -47,7 +48,7 @@ export namespace LiteralsProgrammer {
                         : typeof v === "number"
                         ? ts.factory.createNumericLiteral(v)
                         : typeof v === "bigint"
-                        ? ts.factory.createBigIntLiteral(v.toString())
+                        ? ExpressionFactory.bigint(Number(v))
                         : ts.factory.createStringLiteral(v),
                 ),
                 true,
