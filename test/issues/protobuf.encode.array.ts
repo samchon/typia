@@ -2,44 +2,35 @@ import fs from "fs";
 import pjs from "protobufjs";
 import typia from "typia";
 
-interface ISomething {
-    boolean: boolean[];
-    /**
-     * @type int32
-     */
-    int32: number[];
-    /**
-     * @type uint32
-     */
-    uint32: number[];
-    int64: bigint[];
-    /**
-     * @type uint64
-     */
-    uint64: bigint[];
-    /**
-     * @type float
-     */
-    float: number[];
-    double: number[];
-    string: string[];
-    bytes: Uint8Array[];
-    something: ISomething[];
-}
+import { ArraySimpleProtobuf } from "../structures/ArraySimpleProtobuf";
 
 const result: pjs.IParserResult = pjs.parse(
-    typia.protobuf.message<ISomething>(),
+    typia.protobuf.message<ArraySimpleProtobuf>(),
 );
-const type: pjs.Type = result.root.lookupType("ISomething");
+const type: pjs.Type = result.root.lookupType("ArraySimpleProtobuf");
+const data: ArraySimpleProtobuf = ArraySimpleProtobuf.generate();
+
+console.log(
+    typia.protobuf.encode<ArraySimpleProtobuf>(data).length,
+    type.encode(data).finish().length,
+);
 
 fs.writeFileSync(
     __dirname + "/protobuf.encode.array.js",
     [
         "//-------------------------------------------------",
+        "// MESSAGE",
+        "//-------------------------------------------------",
+        ...typia.protobuf
+            .message<ArraySimpleProtobuf>()
+            .split("\n")
+            .map((line) => `// ${line}`),
+        "",
+        "//-------------------------------------------------",
         "// TYPIA",
         "//-------------------------------------------------",
         `const encode = ${typia.protobuf
-            .createEncode<ISomething>()
+            .createEncode<ArraySimpleProtobuf>()
             .toString()}`,
         "",
         "//-------------------------------------------------",

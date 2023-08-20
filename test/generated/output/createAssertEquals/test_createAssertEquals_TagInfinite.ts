@@ -25,7 +25,7 @@ export const test_assertEquals_TagInfinite = _test_assertEquals<TagInfinite>(
             0 === input.multipleOf % 3 &&
             "number" === typeof input.typed &&
             Number.isFinite(input.typed) &&
-            parseInt(input.typed) === input.typed &&
+            Math.floor(input.typed) === input.typed &&
             (6 === Object.keys(input).length ||
                 Object.keys(input).every((key: any) => {
                     if (
@@ -123,7 +123,7 @@ export const test_assertEquals_TagInfinite = _test_assertEquals<TagInfinite>(
                     })) &&
                 (("number" === typeof input.typed &&
                     Number.isFinite(input.typed) &&
-                    (parseInt(input.typed) === input.typed ||
+                    (Math.floor(input.typed) === input.typed ||
                         $guard(_exceptionable, {
                             path: _path + ".typed",
                             expected: "number (@type int)",

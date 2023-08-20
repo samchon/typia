@@ -36,10 +36,10 @@ export const test_validateEquals_TagType = _test_validateEquals<TagType>(
             ): boolean =>
                 "number" === typeof input.int &&
                 Number.isFinite(input.int) &&
-                parseInt(input.int) === input.int &&
+                Math.floor(input.int) === input.int &&
                 "number" === typeof input.uint &&
                 Number.isFinite(input.uint) &&
-                parseInt(input.uint) === input.uint &&
+                Math.floor(input.uint) === input.uint &&
                 0 <= input.uint &&
                 (2 === Object.keys(input).length ||
                     Object.keys(input).every((key: any) => {
@@ -139,7 +139,7 @@ export const test_validateEquals_TagType = _test_validateEquals<TagType>(
                     [
                         ("number" === typeof input.int &&
                             Number.isFinite(input.int) &&
-                            (parseInt(input.int) === input.int ||
+                            (Math.floor(input.int) === input.int ||
                                 $report(_exceptionable, {
                                     path: _path + ".int",
                                     expected: "number (@type int)",
@@ -152,7 +152,7 @@ export const test_validateEquals_TagType = _test_validateEquals<TagType>(
                             }),
                         ("number" === typeof input.uint &&
                             Number.isFinite(input.uint) &&
-                            (parseInt(input.uint) === input.uint ||
+                            (Math.floor(input.uint) === input.uint ||
                                 $report(_exceptionable, {
                                     path: _path + ".uint",
                                     expected: "number (@type uint)",

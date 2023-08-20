@@ -19,10 +19,10 @@ export const test_protobuf_assertEncode_TagType =
                         const $io1 = (input: any): boolean =>
                             "number" === typeof input.int &&
                             Number.isFinite(input.int) &&
-                            parseInt(input.int) === input.int &&
+                            Math.floor(input.int) === input.int &&
                             "number" === typeof input.uint &&
                             Number.isFinite(input.uint) &&
-                            parseInt(input.uint) === input.uint &&
+                            Math.floor(input.uint) === input.uint &&
                             0 <= input.uint;
                         return (
                             "object" === typeof input &&
@@ -92,7 +92,7 @@ export const test_protobuf_assertEncode_TagType =
                             ): boolean =>
                                 (("number" === typeof input.int &&
                                     Number.isFinite(input.int) &&
-                                    (parseInt(input.int) === input.int ||
+                                    (Math.floor(input.int) === input.int ||
                                         $guard(_exceptionable, {
                                             path: _path + ".int",
                                             expected: "number (@type int)",
@@ -105,7 +105,7 @@ export const test_protobuf_assertEncode_TagType =
                                     })) &&
                                 (("number" === typeof input.uint &&
                                     Number.isFinite(input.uint) &&
-                                    (parseInt(input.uint) === input.uint ||
+                                    (Math.floor(input.uint) === input.uint ||
                                         $guard(_exceptionable, {
                                             path: _path + ".uint",
                                             expected: "number (@type uint)",
@@ -165,9 +165,9 @@ export const test_protobuf_assertEncode_TagType =
                         };
                         const $io1 = (input: any): boolean =>
                             "number" === typeof input.int &&
-                            parseInt(input.int) === input.int &&
+                            Math.floor(input.int) === input.int &&
                             "number" === typeof input.uint &&
-                            parseInt(input.uint) === input.uint &&
+                            Math.floor(input.uint) === input.uint &&
                             0 <= input.uint;
                         $peo0(input);
                         return writer;

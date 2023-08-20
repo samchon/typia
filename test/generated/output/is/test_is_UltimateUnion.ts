@@ -252,11 +252,11 @@ export const test_is_UltimateUnion = _test_is<UltimateUnion>(UltimateUnion)(
                 (undefined === input.minimum ||
                     ("number" === typeof input.minimum &&
                         Number.isFinite(input.minimum) &&
-                        parseInt(input.minimum) === input.minimum)) &&
+                        Math.floor(input.minimum) === input.minimum)) &&
                 (undefined === input.maximum ||
                     ("number" === typeof input.maximum &&
                         Number.isFinite(input.maximum) &&
-                        parseInt(input.maximum) === input.maximum)) &&
+                        Math.floor(input.maximum) === input.maximum)) &&
                 (undefined === input.exclusiveMinimum ||
                     "boolean" === typeof input.exclusiveMinimum) &&
                 (undefined === input.exclusiveMaximum ||
@@ -264,7 +264,7 @@ export const test_is_UltimateUnion = _test_is<UltimateUnion>(UltimateUnion)(
                 (undefined === input.multipleOf ||
                     ("number" === typeof input.multipleOf &&
                         Number.isFinite(input.multipleOf) &&
-                        parseInt(input.multipleOf) === input.multipleOf)) &&
+                        Math.floor(input.multipleOf) === input.multipleOf)) &&
                 (undefined === input["default"] ||
                     ("number" === typeof input["default"] &&
                         Number.isFinite(input["default"]))) &&
@@ -351,12 +351,12 @@ export const test_is_UltimateUnion = _test_is<UltimateUnion>(UltimateUnion)(
                 (undefined === input.minLength ||
                     ("number" === typeof input.minLength &&
                         Number.isFinite(input.minLength) &&
-                        parseInt(input.minLength) === input.minLength &&
+                        Math.floor(input.minLength) === input.minLength &&
                         0 <= input.minLength)) &&
                 (undefined === input.maxLength ||
                     ("number" === typeof input.maxLength &&
                         Number.isFinite(input.maxLength) &&
-                        parseInt(input.maxLength) === input.maxLength &&
+                        Math.floor(input.maxLength) === input.maxLength &&
                         0 <= input.maxLength)) &&
                 (undefined === input.pattern ||
                     "string" === typeof input.pattern) &&
@@ -403,12 +403,12 @@ export const test_is_UltimateUnion = _test_is<UltimateUnion>(UltimateUnion)(
                 (undefined === input.minItems ||
                     ("number" === typeof input.minItems &&
                         Number.isFinite(input.minItems) &&
-                        parseInt(input.minItems) === input.minItems &&
+                        Math.floor(input.minItems) === input.minItems &&
                         0 <= input.minItems)) &&
                 (undefined === input.maxItems ||
                     ("number" === typeof input.maxItems &&
                         Number.isFinite(input.maxItems) &&
-                        parseInt(input.maxItems) === input.maxItems &&
+                        Math.floor(input.maxItems) === input.maxItems &&
                         0 <= input.maxItems)) &&
                 (undefined === input["x-typia-tuple"] ||
                     ("object" === typeof input["x-typia-tuple"] &&
@@ -456,12 +456,12 @@ export const test_is_UltimateUnion = _test_is<UltimateUnion>(UltimateUnion)(
                 ) &&
                 "number" === typeof input.minItems &&
                 Number.isFinite(input.minItems) &&
-                parseInt(input.minItems) === input.minItems &&
+                Math.floor(input.minItems) === input.minItems &&
                 0 <= input.minItems &&
                 (undefined === input.maxItems ||
                     ("number" === typeof input.maxItems &&
                         Number.isFinite(input.maxItems) &&
-                        parseInt(input.maxItems) === input.maxItems &&
+                        Math.floor(input.maxItems) === input.maxItems &&
                         0 <= input.maxItems)) &&
                 "array" === input.type &&
                 (undefined === input.nullable ||
@@ -865,11 +865,11 @@ export const test_is_UltimateUnion = _test_is<UltimateUnion>(UltimateUnion)(
                 (undefined === input.minimum ||
                     ("number" === typeof input.minimum &&
                         Number.isFinite(input.minimum) &&
-                        parseInt(input.minimum) === input.minimum)) &&
+                        Math.floor(input.minimum) === input.minimum)) &&
                 (undefined === input.maximum ||
                     ("number" === typeof input.maximum &&
                         Number.isFinite(input.maximum) &&
-                        parseInt(input.maximum) === input.maximum)) &&
+                        Math.floor(input.maximum) === input.maximum)) &&
                 (undefined === input.exclusiveMinimum ||
                     "boolean" === typeof input.exclusiveMinimum) &&
                 (undefined === input.exclusiveMaximum ||
@@ -877,7 +877,7 @@ export const test_is_UltimateUnion = _test_is<UltimateUnion>(UltimateUnion)(
                 (undefined === input.multipleOf ||
                     ("number" === typeof input.multipleOf &&
                         Number.isFinite(input.multipleOf) &&
-                        parseInt(input.multipleOf) === input.multipleOf)) &&
+                        Math.floor(input.multipleOf) === input.multipleOf)) &&
                 (undefined === input["default"] ||
                     ("number" === typeof input["default"] &&
                         Number.isFinite(input["default"]))) &&
@@ -970,12 +970,12 @@ export const test_is_UltimateUnion = _test_is<UltimateUnion>(UltimateUnion)(
                 (undefined === input.minLength ||
                     ("number" === typeof input.minLength &&
                         Number.isFinite(input.minLength) &&
-                        parseInt(input.minLength) === input.minLength &&
+                        Math.floor(input.minLength) === input.minLength &&
                         0 <= input.minLength)) &&
                 (undefined === input.maxLength ||
                     ("number" === typeof input.maxLength &&
                         Number.isFinite(input.maxLength) &&
-                        parseInt(input.maxLength) === input.maxLength &&
+                        Math.floor(input.maxLength) === input.maxLength &&
                         0 <= input.maxLength)) &&
                 (undefined === input.pattern ||
                     "string" === typeof input.pattern) &&
@@ -1025,12 +1025,12 @@ export const test_is_UltimateUnion = _test_is<UltimateUnion>(UltimateUnion)(
                 (undefined === input.minItems ||
                     ("number" === typeof input.minItems &&
                         Number.isFinite(input.minItems) &&
-                        parseInt(input.minItems) === input.minItems &&
+                        Math.floor(input.minItems) === input.minItems &&
                         0 <= input.minItems)) &&
                 (undefined === input.maxItems ||
                     ("number" === typeof input.maxItems &&
                         Number.isFinite(input.maxItems) &&
-                        parseInt(input.maxItems) === input.maxItems &&
+                        Math.floor(input.maxItems) === input.maxItems &&
                         0 <= input.maxItems)) &&
                 (undefined === input["x-typia-tuple"] ||
                     ("object" === typeof input["x-typia-tuple"] &&
@@ -1081,12 +1081,12 @@ export const test_is_UltimateUnion = _test_is<UltimateUnion>(UltimateUnion)(
                 ) &&
                 "number" === typeof input.minItems &&
                 Number.isFinite(input.minItems) &&
-                parseInt(input.minItems) === input.minItems &&
+                Math.floor(input.minItems) === input.minItems &&
                 0 <= input.minItems &&
                 (undefined === input.maxItems ||
                     ("number" === typeof input.maxItems &&
                         Number.isFinite(input.maxItems) &&
-                        parseInt(input.maxItems) === input.maxItems &&
+                        Math.floor(input.maxItems) === input.maxItems &&
                         0 <= input.maxItems)) &&
                 "array" === input.type &&
                 (undefined === input.nullable ||

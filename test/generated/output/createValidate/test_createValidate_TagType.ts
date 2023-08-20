@@ -15,10 +15,10 @@ export const test_validate_TagType = _test_validate<TagType>(TagType)(
             const $io1 = (input: any): boolean =>
                 "number" === typeof input.int &&
                 Number.isFinite(input.int) &&
-                parseInt(input.int) === input.int &&
+                Math.floor(input.int) === input.int &&
                 "number" === typeof input.uint &&
                 Number.isFinite(input.uint) &&
-                parseInt(input.uint) === input.uint &&
+                Math.floor(input.uint) === input.uint &&
                 0 <= input.uint;
             return "object" === typeof input && null !== input && $io0(input);
         };
@@ -88,7 +88,7 @@ export const test_validate_TagType = _test_validate<TagType>(TagType)(
                     [
                         ("number" === typeof input.int &&
                             Number.isFinite(input.int) &&
-                            (parseInt(input.int) === input.int ||
+                            (Math.floor(input.int) === input.int ||
                                 $report(_exceptionable, {
                                     path: _path + ".int",
                                     expected: "number (@type int)",
@@ -101,7 +101,7 @@ export const test_validate_TagType = _test_validate<TagType>(TagType)(
                             }),
                         ("number" === typeof input.uint &&
                             Number.isFinite(input.uint) &&
-                            (parseInt(input.uint) === input.uint ||
+                            (Math.floor(input.uint) === input.uint ||
                                 $report(_exceptionable, {
                                     path: _path + ".uint",
                                     expected: "number (@type uint)",

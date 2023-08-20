@@ -138,7 +138,12 @@ export namespace ProtobufMessageProgrammer {
         (tags: IMetadataTag[]) =>
         (literal: Atomic.Literal): string => {
             if (literal === "boolean") return "bool";
-            else if (literal === "bigint") return "int64";
+            else if (literal === "bigint")
+                return tags.find(
+                    (t) => t.kind === "type" && t.value === "uint64",
+                )
+                    ? "uint64"
+                    : "int64";
             else if (literal === "number") {
                 const type = tags.find((t) => t.kind === "type") as
                     | IMetadataTag.INumberType

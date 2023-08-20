@@ -14,10 +14,10 @@ export const test_json_isParse_TagType = _test_json_isParse<TagType>(TagType)(
             const $io1 = (input: any): boolean =>
                 "number" === typeof input.int &&
                 Number.isFinite(input.int) &&
-                parseInt(input.int) === input.int &&
+                Math.floor(input.int) === input.int &&
                 "number" === typeof input.uint &&
                 Number.isFinite(input.uint) &&
-                parseInt(input.uint) === input.uint &&
+                Math.floor(input.uint) === input.uint &&
                 0 <= input.uint;
             return "object" === typeof input && null !== input && $io0(input);
         };

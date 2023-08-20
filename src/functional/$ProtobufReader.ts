@@ -170,8 +170,7 @@ export class $ProtobufReader {
         if (loaded < N80) return value;
 
         value |= (this.u8n() & N01) << BigInt(63);
-
-        return value;
+        return BigInt.asIntN(64, value);
     }
 
     private u8(): number {

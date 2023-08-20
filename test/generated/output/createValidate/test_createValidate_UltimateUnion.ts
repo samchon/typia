@@ -249,11 +249,11 @@ export const test_validate_UltimateUnion = _test_validate<UltimateUnion>(
             (undefined === input.minimum ||
                 ("number" === typeof input.minimum &&
                     Number.isFinite(input.minimum) &&
-                    parseInt(input.minimum) === input.minimum)) &&
+                    Math.floor(input.minimum) === input.minimum)) &&
             (undefined === input.maximum ||
                 ("number" === typeof input.maximum &&
                     Number.isFinite(input.maximum) &&
-                    parseInt(input.maximum) === input.maximum)) &&
+                    Math.floor(input.maximum) === input.maximum)) &&
             (undefined === input.exclusiveMinimum ||
                 "boolean" === typeof input.exclusiveMinimum) &&
             (undefined === input.exclusiveMaximum ||
@@ -261,7 +261,7 @@ export const test_validate_UltimateUnion = _test_validate<UltimateUnion>(
             (undefined === input.multipleOf ||
                 ("number" === typeof input.multipleOf &&
                     Number.isFinite(input.multipleOf) &&
-                    parseInt(input.multipleOf) === input.multipleOf)) &&
+                    Math.floor(input.multipleOf) === input.multipleOf)) &&
             (undefined === input["default"] ||
                 ("number" === typeof input["default"] &&
                     Number.isFinite(input["default"]))) &&
@@ -346,12 +346,12 @@ export const test_validate_UltimateUnion = _test_validate<UltimateUnion>(
             (undefined === input.minLength ||
                 ("number" === typeof input.minLength &&
                     Number.isFinite(input.minLength) &&
-                    parseInt(input.minLength) === input.minLength &&
+                    Math.floor(input.minLength) === input.minLength &&
                     0 <= input.minLength)) &&
             (undefined === input.maxLength ||
                 ("number" === typeof input.maxLength &&
                     Number.isFinite(input.maxLength) &&
-                    parseInt(input.maxLength) === input.maxLength &&
+                    Math.floor(input.maxLength) === input.maxLength &&
                     0 <= input.maxLength)) &&
             (undefined === input.pattern ||
                 "string" === typeof input.pattern) &&
@@ -396,12 +396,12 @@ export const test_validate_UltimateUnion = _test_validate<UltimateUnion>(
             (undefined === input.minItems ||
                 ("number" === typeof input.minItems &&
                     Number.isFinite(input.minItems) &&
-                    parseInt(input.minItems) === input.minItems &&
+                    Math.floor(input.minItems) === input.minItems &&
                     0 <= input.minItems)) &&
             (undefined === input.maxItems ||
                 ("number" === typeof input.maxItems &&
                     Number.isFinite(input.maxItems) &&
-                    parseInt(input.maxItems) === input.maxItems &&
+                    Math.floor(input.maxItems) === input.maxItems &&
                     0 <= input.maxItems)) &&
             (undefined === input["x-typia-tuple"] ||
                 ("object" === typeof input["x-typia-tuple"] &&
@@ -448,12 +448,12 @@ export const test_validate_UltimateUnion = _test_validate<UltimateUnion>(
             ) &&
             "number" === typeof input.minItems &&
             Number.isFinite(input.minItems) &&
-            parseInt(input.minItems) === input.minItems &&
+            Math.floor(input.minItems) === input.minItems &&
             0 <= input.minItems &&
             (undefined === input.maxItems ||
                 ("number" === typeof input.maxItems &&
                     Number.isFinite(input.maxItems) &&
-                    parseInt(input.maxItems) === input.maxItems &&
+                    Math.floor(input.maxItems) === input.maxItems &&
                     0 <= input.maxItems)) &&
             "array" === input.type &&
             (undefined === input.nullable ||
@@ -845,11 +845,11 @@ export const test_validate_UltimateUnion = _test_validate<UltimateUnion>(
             (undefined === input.minimum ||
                 ("number" === typeof input.minimum &&
                     Number.isFinite(input.minimum) &&
-                    parseInt(input.minimum) === input.minimum)) &&
+                    Math.floor(input.minimum) === input.minimum)) &&
             (undefined === input.maximum ||
                 ("number" === typeof input.maximum &&
                     Number.isFinite(input.maximum) &&
-                    parseInt(input.maximum) === input.maximum)) &&
+                    Math.floor(input.maximum) === input.maximum)) &&
             (undefined === input.exclusiveMinimum ||
                 "boolean" === typeof input.exclusiveMinimum) &&
             (undefined === input.exclusiveMaximum ||
@@ -857,7 +857,7 @@ export const test_validate_UltimateUnion = _test_validate<UltimateUnion>(
             (undefined === input.multipleOf ||
                 ("number" === typeof input.multipleOf &&
                     Number.isFinite(input.multipleOf) &&
-                    parseInt(input.multipleOf) === input.multipleOf)) &&
+                    Math.floor(input.multipleOf) === input.multipleOf)) &&
             (undefined === input["default"] ||
                 ("number" === typeof input["default"] &&
                     Number.isFinite(input["default"]))) &&
@@ -948,12 +948,12 @@ export const test_validate_UltimateUnion = _test_validate<UltimateUnion>(
             (undefined === input.minLength ||
                 ("number" === typeof input.minLength &&
                     Number.isFinite(input.minLength) &&
-                    parseInt(input.minLength) === input.minLength &&
+                    Math.floor(input.minLength) === input.minLength &&
                     0 <= input.minLength)) &&
             (undefined === input.maxLength ||
                 ("number" === typeof input.maxLength &&
                     Number.isFinite(input.maxLength) &&
-                    parseInt(input.maxLength) === input.maxLength &&
+                    Math.floor(input.maxLength) === input.maxLength &&
                     0 <= input.maxLength)) &&
             (undefined === input.pattern ||
                 "string" === typeof input.pattern) &&
@@ -1001,12 +1001,12 @@ export const test_validate_UltimateUnion = _test_validate<UltimateUnion>(
             (undefined === input.minItems ||
                 ("number" === typeof input.minItems &&
                     Number.isFinite(input.minItems) &&
-                    parseInt(input.minItems) === input.minItems &&
+                    Math.floor(input.minItems) === input.minItems &&
                     0 <= input.minItems)) &&
             (undefined === input.maxItems ||
                 ("number" === typeof input.maxItems &&
                     Number.isFinite(input.maxItems) &&
-                    parseInt(input.maxItems) === input.maxItems &&
+                    Math.floor(input.maxItems) === input.maxItems &&
                     0 <= input.maxItems)) &&
             (undefined === input["x-typia-tuple"] ||
                 ("object" === typeof input["x-typia-tuple"] &&
@@ -1056,12 +1056,12 @@ export const test_validate_UltimateUnion = _test_validate<UltimateUnion>(
             ) &&
             "number" === typeof input.minItems &&
             Number.isFinite(input.minItems) &&
-            parseInt(input.minItems) === input.minItems &&
+            Math.floor(input.minItems) === input.minItems &&
             0 <= input.minItems &&
             (undefined === input.maxItems ||
                 ("number" === typeof input.maxItems &&
                     Number.isFinite(input.maxItems) &&
-                    parseInt(input.maxItems) === input.maxItems &&
+                    Math.floor(input.maxItems) === input.maxItems &&
                     0 <= input.maxItems)) &&
             "array" === input.type &&
             (undefined === input.nullable ||
@@ -2531,7 +2531,7 @@ export const test_validate_UltimateUnion = _test_validate<UltimateUnion>(
                     undefined === input.minimum ||
                         ("number" === typeof input.minimum &&
                             Number.isFinite(input.minimum) &&
-                            (parseInt(input.minimum) === input.minimum ||
+                            (Math.floor(input.minimum) === input.minimum ||
                                 $report(_exceptionable, {
                                     path: _path + ".minimum",
                                     expected: "number (@type int)",
@@ -2545,7 +2545,7 @@ export const test_validate_UltimateUnion = _test_validate<UltimateUnion>(
                     undefined === input.maximum ||
                         ("number" === typeof input.maximum &&
                             Number.isFinite(input.maximum) &&
-                            (parseInt(input.maximum) === input.maximum ||
+                            (Math.floor(input.maximum) === input.maximum ||
                                 $report(_exceptionable, {
                                     path: _path + ".maximum",
                                     expected: "number (@type int)",
@@ -2573,7 +2573,8 @@ export const test_validate_UltimateUnion = _test_validate<UltimateUnion>(
                     undefined === input.multipleOf ||
                         ("number" === typeof input.multipleOf &&
                             Number.isFinite(input.multipleOf) &&
-                            (parseInt(input.multipleOf) === input.multipleOf ||
+                            (Math.floor(input.multipleOf) ===
+                                input.multipleOf ||
                                 $report(_exceptionable, {
                                     path: _path + ".multipleOf",
                                     expected: "number (@type int)",
@@ -2949,7 +2950,7 @@ export const test_validate_UltimateUnion = _test_validate<UltimateUnion>(
                     undefined === input.minLength ||
                         ("number" === typeof input.minLength &&
                             Number.isFinite(input.minLength) &&
-                            (parseInt(input.minLength) === input.minLength ||
+                            (Math.floor(input.minLength) === input.minLength ||
                                 $report(_exceptionable, {
                                     path: _path + ".minLength",
                                     expected: "number (@type uint)",
@@ -2969,7 +2970,7 @@ export const test_validate_UltimateUnion = _test_validate<UltimateUnion>(
                     undefined === input.maxLength ||
                         ("number" === typeof input.maxLength &&
                             Number.isFinite(input.maxLength) &&
-                            (parseInt(input.maxLength) === input.maxLength ||
+                            (Math.floor(input.maxLength) === input.maxLength ||
                                 $report(_exceptionable, {
                                     path: _path + ".maxLength",
                                     expected: "number (@type uint)",
@@ -3184,7 +3185,7 @@ export const test_validate_UltimateUnion = _test_validate<UltimateUnion>(
                     undefined === input.minItems ||
                         ("number" === typeof input.minItems &&
                             Number.isFinite(input.minItems) &&
-                            (parseInt(input.minItems) === input.minItems ||
+                            (Math.floor(input.minItems) === input.minItems ||
                                 $report(_exceptionable, {
                                     path: _path + ".minItems",
                                     expected: "number (@type uint)",
@@ -3204,7 +3205,7 @@ export const test_validate_UltimateUnion = _test_validate<UltimateUnion>(
                     undefined === input.maxItems ||
                         ("number" === typeof input.maxItems &&
                             Number.isFinite(input.maxItems) &&
-                            (parseInt(input.maxItems) === input.maxItems ||
+                            (Math.floor(input.maxItems) === input.maxItems ||
                                 $report(_exceptionable, {
                                     path: _path + ".maxItems",
                                     expected: "number (@type uint)",
@@ -3436,7 +3437,7 @@ export const test_validate_UltimateUnion = _test_validate<UltimateUnion>(
                         }),
                     ("number" === typeof input.minItems &&
                         Number.isFinite(input.minItems) &&
-                        (parseInt(input.minItems) === input.minItems ||
+                        (Math.floor(input.minItems) === input.minItems ||
                             $report(_exceptionable, {
                                 path: _path + ".minItems",
                                 expected: "number (@type uint)",
@@ -3456,7 +3457,7 @@ export const test_validate_UltimateUnion = _test_validate<UltimateUnion>(
                     undefined === input.maxItems ||
                         ("number" === typeof input.maxItems &&
                             Number.isFinite(input.maxItems) &&
-                            (parseInt(input.maxItems) === input.maxItems ||
+                            (Math.floor(input.maxItems) === input.maxItems ||
                                 $report(_exceptionable, {
                                     path: _path + ".maxItems",
                                     expected: "number (@type uint)",
@@ -5361,7 +5362,7 @@ export const test_validate_UltimateUnion = _test_validate<UltimateUnion>(
                     undefined === input.minimum ||
                         ("number" === typeof input.minimum &&
                             Number.isFinite(input.minimum) &&
-                            (parseInt(input.minimum) === input.minimum ||
+                            (Math.floor(input.minimum) === input.minimum ||
                                 $report(_exceptionable, {
                                     path: _path + ".minimum",
                                     expected: "number (@type int)",
@@ -5375,7 +5376,7 @@ export const test_validate_UltimateUnion = _test_validate<UltimateUnion>(
                     undefined === input.maximum ||
                         ("number" === typeof input.maximum &&
                             Number.isFinite(input.maximum) &&
-                            (parseInt(input.maximum) === input.maximum ||
+                            (Math.floor(input.maximum) === input.maximum ||
                                 $report(_exceptionable, {
                                     path: _path + ".maximum",
                                     expected: "number (@type int)",
@@ -5403,7 +5404,8 @@ export const test_validate_UltimateUnion = _test_validate<UltimateUnion>(
                     undefined === input.multipleOf ||
                         ("number" === typeof input.multipleOf &&
                             Number.isFinite(input.multipleOf) &&
-                            (parseInt(input.multipleOf) === input.multipleOf ||
+                            (Math.floor(input.multipleOf) ===
+                                input.multipleOf ||
                                 $report(_exceptionable, {
                                     path: _path + ".multipleOf",
                                     expected: "number (@type int)",
@@ -5807,7 +5809,7 @@ export const test_validate_UltimateUnion = _test_validate<UltimateUnion>(
                     undefined === input.minLength ||
                         ("number" === typeof input.minLength &&
                             Number.isFinite(input.minLength) &&
-                            (parseInt(input.minLength) === input.minLength ||
+                            (Math.floor(input.minLength) === input.minLength ||
                                 $report(_exceptionable, {
                                     path: _path + ".minLength",
                                     expected: "number (@type uint)",
@@ -5827,7 +5829,7 @@ export const test_validate_UltimateUnion = _test_validate<UltimateUnion>(
                     undefined === input.maxLength ||
                         ("number" === typeof input.maxLength &&
                             Number.isFinite(input.maxLength) &&
-                            (parseInt(input.maxLength) === input.maxLength ||
+                            (Math.floor(input.maxLength) === input.maxLength ||
                                 $report(_exceptionable, {
                                     path: _path + ".maxLength",
                                     expected: "number (@type uint)",
@@ -6056,7 +6058,7 @@ export const test_validate_UltimateUnion = _test_validate<UltimateUnion>(
                     undefined === input.minItems ||
                         ("number" === typeof input.minItems &&
                             Number.isFinite(input.minItems) &&
-                            (parseInt(input.minItems) === input.minItems ||
+                            (Math.floor(input.minItems) === input.minItems ||
                                 $report(_exceptionable, {
                                     path: _path + ".minItems",
                                     expected: "number (@type uint)",
@@ -6076,7 +6078,7 @@ export const test_validate_UltimateUnion = _test_validate<UltimateUnion>(
                     undefined === input.maxItems ||
                         ("number" === typeof input.maxItems &&
                             Number.isFinite(input.maxItems) &&
-                            (parseInt(input.maxItems) === input.maxItems ||
+                            (Math.floor(input.maxItems) === input.maxItems ||
                                 $report(_exceptionable, {
                                     path: _path + ".maxItems",
                                     expected: "number (@type uint)",
@@ -6322,7 +6324,7 @@ export const test_validate_UltimateUnion = _test_validate<UltimateUnion>(
                         }),
                     ("number" === typeof input.minItems &&
                         Number.isFinite(input.minItems) &&
-                        (parseInt(input.minItems) === input.minItems ||
+                        (Math.floor(input.minItems) === input.minItems ||
                             $report(_exceptionable, {
                                 path: _path + ".minItems",
                                 expected: "number (@type uint)",
@@ -6342,7 +6344,7 @@ export const test_validate_UltimateUnion = _test_validate<UltimateUnion>(
                     undefined === input.maxItems ||
                         ("number" === typeof input.maxItems &&
                             Number.isFinite(input.maxItems) &&
-                            (parseInt(input.maxItems) === input.maxItems ||
+                            (Math.floor(input.maxItems) === input.maxItems ||
                                 $report(_exceptionable, {
                                     path: _path + ".maxItems",
                                     expected: "number (@type uint)",
