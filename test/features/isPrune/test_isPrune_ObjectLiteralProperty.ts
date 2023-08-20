@@ -5,6 +5,6 @@ import { ObjectLiteralProperty } from "../../structures/ObjectLiteralProperty";
 export const test_isPrune_ObjectLiteralProperty = _test_isPrune(
     "ObjectLiteralProperty",
     ObjectLiteralProperty.generate,
-    (input) => typia.isPrune(input),
+    (input) => typia.isPrune<ObjectLiteralProperty>(input),
     ObjectLiteralProperty.SPOILERS,
 );

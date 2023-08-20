@@ -6,6 +6,6 @@ export const test_validateStringify_ConstantIntersection =
     _test_validateStringify(
         "ConstantIntersection",
         ConstantIntersection.generate,
-        (input) => typia.validateStringify(input),
+        (input) => typia.validateStringify<ConstantIntersection>(input),
         ConstantIntersection.SPOILERS,
     );

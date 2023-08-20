@@ -5,6 +5,6 @@ import { ArrayUnion } from "../../structures/ArrayUnion";
 export const test_assertClone_ArrayUnion = _test_assertClone(
     "ArrayUnion",
     ArrayUnion.generate,
-    (input) => typia.assertClone(input),
+    (input) => typia.assertClone<ArrayUnion>(input),
     ArrayUnion.SPOILERS,
 );

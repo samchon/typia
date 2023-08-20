@@ -5,6 +5,6 @@ import { ObjectUnionImplicit } from "../../structures/ObjectUnionImplicit";
 export const test_isPrune_ObjectUnionImplicit = _test_isPrune(
     "ObjectUnionImplicit",
     ObjectUnionImplicit.generate,
-    (input) => typia.isPrune(input),
+    (input) => typia.isPrune<ObjectUnionImplicit>(input),
     ObjectUnionImplicit.SPOILERS,
 );

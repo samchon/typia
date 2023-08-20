@@ -5,5 +5,5 @@ import { ObjectGenericAlias } from "../../structures/ObjectGenericAlias";
 export const test_stringify_ObjectGenericAlias = _test_stringify(
     "ObjectGenericAlias",
     ObjectGenericAlias.generate,
-    (input) => typia.stringify(input),
+    (input) => typia.stringify<ObjectGenericAlias>(input),
 );

@@ -5,5 +5,5 @@ import { TagPattern } from "../../structures/TagPattern";
 export const test_prune_TagPattern = _test_prune(
     "TagPattern",
     TagPattern.generate,
-    (input) => typia.prune(input),
+    (input) => typia.prune<TagPattern>(input),
 );

@@ -6,14 +6,12 @@ export const test_validatePrune_ConstantAtomicSimple = _test_validatePrune(
     "ConstantAtomicSimple",
     ConstantAtomicSimple.generate,
     (input) =>
-        ((input: any): typia.IValidation<[false, true, 2, "three"]> => {
+        ((input: any): typia.IValidation<ConstantAtomicSimple> => {
             const validate = (
                 input: any,
-            ): typia.IValidation<[false, true, 2, "three"]> => {
+            ): typia.IValidation<ConstantAtomicSimple> => {
                 const errors = [] as any[];
-                const __is = (
-                    input: any,
-                ): input is [false, true, 2, "three"] => {
+                const __is = (input: any): input is ConstantAtomicSimple => {
                     return (
                         Array.isArray(input) &&
                         input.length === 4 &&
@@ -29,7 +27,7 @@ export const test_validatePrune_ConstantAtomicSimple = _test_validatePrune(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is [false, true, 2, "three"] => {
+                    ): input is ConstantAtomicSimple => {
                         return (
                             ((Array.isArray(input) ||
                                 $report(true, {
@@ -84,7 +82,7 @@ export const test_validatePrune_ConstantAtomicSimple = _test_validatePrune(
                     data: success ? input : undefined,
                 } as any;
             };
-            const prune = (input: [false, true, 2, "three"]): void => {};
+            const prune = (input: ConstantAtomicSimple): void => {};
             const output = validate(input);
             if (output.success) prune(input);
             return output;

@@ -5,6 +5,6 @@ import { ObjectTuple } from "../../structures/ObjectTuple";
 export const test_validateClone_ObjectTuple = _test_validateClone(
     "ObjectTuple",
     ObjectTuple.generate,
-    (input) => typia.validateClone(input),
+    (input) => typia.validateClone<ObjectTuple>(input),
     ObjectTuple.SPOILERS,
 );

@@ -5,6 +5,6 @@ import { DynamicUnion } from "../../structures/DynamicUnion";
 export const test_validateClone_DynamicUnion = _test_validateClone(
     "DynamicUnion",
     DynamicUnion.generate,
-    (input) => typia.validateClone(input),
+    (input) => typia.validateClone<DynamicUnion>(input),
     DynamicUnion.SPOILERS,
 );

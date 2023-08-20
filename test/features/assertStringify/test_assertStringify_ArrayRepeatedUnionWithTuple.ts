@@ -6,6 +6,6 @@ export const test_assertStringify_ArrayRepeatedUnionWithTuple =
     _test_assertStringify(
         "ArrayRepeatedUnionWithTuple",
         ArrayRepeatedUnionWithTuple.generate,
-        (input) => typia.assertStringify(input),
+        (input) => typia.assertStringify<ArrayRepeatedUnionWithTuple>(input),
         ArrayRepeatedUnionWithTuple.SPOILERS,
     );

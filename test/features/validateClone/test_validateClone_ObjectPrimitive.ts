@@ -5,6 +5,6 @@ import { ObjectPrimitive } from "../../structures/ObjectPrimitive";
 export const test_validateClone_ObjectPrimitive = _test_validateClone(
     "ObjectPrimitive",
     ObjectPrimitive.generate,
-    (input) => typia.validateClone(input),
+    (input) => typia.validateClone<ObjectPrimitive>(input),
     ObjectPrimitive.SPOILERS,
 );

@@ -5,6 +5,6 @@ import { ObjectGenericUnion } from "../../structures/ObjectGenericUnion";
 export const test_assertPrune_ObjectGenericUnion = _test_assertPrune(
     "ObjectGenericUnion",
     ObjectGenericUnion.generate,
-    (input) => typia.assertPrune(input),
+    (input) => typia.assertPrune<ObjectGenericUnion>(input),
     ObjectGenericUnion.SPOILERS,
 );

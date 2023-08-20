@@ -6,6 +6,6 @@ export const test_validateStringify_DynamicEnumeration =
     _test_validateStringify(
         "DynamicEnumeration",
         DynamicEnumeration.generate,
-        (input) => typia.validateStringify(input),
+        (input) => typia.validateStringify<DynamicEnumeration>(input),
         DynamicEnumeration.SPOILERS,
     );

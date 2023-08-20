@@ -6,10 +6,8 @@ export const test_assert_ToJsonAtomicUnion = _test_assert(
     "ToJsonAtomicUnion",
     ToJsonAtomicUnion.generate,
     (input) =>
-        ((input: any): Array<ToJsonAtomicUnion.IToJson> => {
-            const __is = (
-                input: any,
-            ): input is Array<ToJsonAtomicUnion.IToJson> => {
+        ((input: any): ToJsonAtomicUnion => {
+            const __is = (input: any): input is ToJsonAtomicUnion => {
                 const $io0 = (input: any): boolean =>
                     "function" === typeof input.toJSON;
                 return (
@@ -27,7 +25,7 @@ export const test_assert_ToJsonAtomicUnion = _test_assert(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is Array<ToJsonAtomicUnion.IToJson> => {
+                ): input is ToJsonAtomicUnion => {
                     const $guard = (typia.assert as any).guard;
                     const $ao0 = (
                         input: any,

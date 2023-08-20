@@ -6,7 +6,7 @@ export const test_stringify_ObjectTuple = _test_stringify(
     "ObjectTuple",
     ObjectTuple.generate,
     (input) =>
-        ((input: [ObjectTuple.ISection, ObjectTuple.ICitizen]): string => {
+        ((input: ObjectTuple): string => {
             const $string = (typia.stringify as any).string;
             return `[${`{"id":${$string((input[0] as any).id)},"code":${$string(
                 (input[0] as any).code,

@@ -5,5 +5,5 @@ import { TupleRestArray } from "../../structures/TupleRestArray";
 export const test_clone_TupleRestArray = _test_clone(
     "TupleRestArray",
     TupleRestArray.generate,
-    (input) => typia.clone(input),
+    (input) => typia.clone<TupleRestArray>(input),
 );

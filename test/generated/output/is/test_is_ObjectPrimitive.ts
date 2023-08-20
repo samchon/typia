@@ -6,7 +6,7 @@ export const test_is_ObjectPrimitive = _test_is(
     "ObjectPrimitive",
     ObjectPrimitive.generate,
     (input) =>
-        ((input: any): input is ObjectPrimitive.IArticle => {
+        ((input: any): input is ObjectPrimitive => {
             const $io0 = (input: any): boolean =>
                 "string" === typeof input.id &&
                 ("md" === input.extension ||

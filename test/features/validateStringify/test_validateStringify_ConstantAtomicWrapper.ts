@@ -6,6 +6,6 @@ export const test_validateStringify_ConstantAtomicWrapper =
     _test_validateStringify(
         "ConstantAtomicWrapper",
         ConstantAtomicWrapper.generate,
-        (input) => typia.validateStringify(input),
+        (input) => typia.validateStringify<ConstantAtomicWrapper>(input),
         ConstantAtomicWrapper.SPOILERS,
     );

@@ -5,6 +5,6 @@ import { TagTuple } from "../../structures/TagTuple";
 export const test_is_TagTuple = _test_is(
     "TagTuple",
     TagTuple.generate,
-    (input) => typia.is(input),
+    (input) => typia.is<TagTuple>(input),
     TagTuple.SPOILERS,
 );

@@ -6,13 +6,7 @@ export const test_stringify_ToJsonAtomicSimple = _test_stringify(
     "ToJsonAtomicSimple",
     ToJsonAtomicSimple.generate,
     (input) =>
-        ((
-            input: [
-                ToJsonAtomicSimple.IToJson<boolean>,
-                ToJsonAtomicSimple.IToJson<number>,
-                ToJsonAtomicSimple.IToJson<string>,
-            ],
-        ): string => {
+        ((input: ToJsonAtomicSimple): string => {
             const $number = (typia.stringify as any).number;
             const $string = (typia.stringify as any).string;
             return `[${input[0].toJSON()},${$number(

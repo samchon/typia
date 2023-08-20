@@ -5,5 +5,5 @@ import { ArrayRepeatedUnion } from "../../structures/ArrayRepeatedUnion";
 export const test_stringify_ArrayRepeatedUnion = _test_stringify(
     "ArrayRepeatedUnion",
     ArrayRepeatedUnion.generate,
-    (input) => typia.stringify(input),
+    (input) => typia.stringify<ArrayRepeatedUnion>(input),
 );

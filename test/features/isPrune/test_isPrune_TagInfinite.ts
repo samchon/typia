@@ -5,6 +5,6 @@ import { TagInfinite } from "../../structures/TagInfinite";
 export const test_isPrune_TagInfinite = _test_isPrune(
     "TagInfinite",
     TagInfinite.generate,
-    (input) => typia.isPrune(input),
+    (input) => typia.isPrune<TagInfinite>(input),
     TagInfinite.SPOILERS,
 );

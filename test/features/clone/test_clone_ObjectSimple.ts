@@ -5,5 +5,5 @@ import { ObjectSimple } from "../../structures/ObjectSimple";
 export const test_clone_ObjectSimple = _test_clone(
     "ObjectSimple",
     ObjectSimple.generate,
-    (input) => typia.clone(input),
+    (input) => typia.clone<ObjectSimple>(input),
 );

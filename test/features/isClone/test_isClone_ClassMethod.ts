@@ -5,6 +5,6 @@ import { ClassMethod } from "../../structures/ClassMethod";
 export const test_isClone_ClassMethod = _test_isClone(
     "ClassMethod",
     ClassMethod.generate,
-    (input) => typia.isClone(input),
+    (input) => typia.isClone<ClassMethod>(input),
     ClassMethod.SPOILERS,
 );

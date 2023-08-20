@@ -5,6 +5,6 @@ import { TemplateConstant } from "../../structures/TemplateConstant";
 export const test_assertClone_TemplateConstant = _test_assertClone(
     "TemplateConstant",
     TemplateConstant.generate,
-    (input) => typia.assertClone(input),
+    (input) => typia.assertClone<TemplateConstant>(input),
     TemplateConstant.SPOILERS,
 );

@@ -9,7 +9,7 @@ export const test_equals_ConstantAtomicSimple = _test_equals(
         ((
             input: any,
             _exceptionable: boolean = true,
-        ): input is [false, true, 2, "three"] => {
+        ): input is ConstantAtomicSimple => {
             return (
                 Array.isArray(input) &&
                 input.length === 4 &&

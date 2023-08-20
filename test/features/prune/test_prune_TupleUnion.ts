@@ -5,5 +5,5 @@ import { TupleUnion } from "../../structures/TupleUnion";
 export const test_prune_TupleUnion = _test_prune(
     "TupleUnion",
     TupleUnion.generate,
-    (input) => typia.prune(input),
+    (input) => typia.prune<TupleUnion>(input),
 );

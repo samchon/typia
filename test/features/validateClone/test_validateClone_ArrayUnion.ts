@@ -5,6 +5,6 @@ import { ArrayUnion } from "../../structures/ArrayUnion";
 export const test_validateClone_ArrayUnion = _test_validateClone(
     "ArrayUnion",
     ArrayUnion.generate,
-    (input) => typia.validateClone(input),
+    (input) => typia.validateClone<ArrayUnion>(input),
     ArrayUnion.SPOILERS,
 );

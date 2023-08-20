@@ -6,6 +6,6 @@ export const test_assertStringify_ArrayRecursiveUnionImplicit =
     _test_assertStringify(
         "ArrayRecursiveUnionImplicit",
         ArrayRecursiveUnionImplicit.generate,
-        (input) => typia.assertStringify(input),
+        (input) => typia.assertStringify<ArrayRecursiveUnionImplicit>(input),
         ArrayRecursiveUnionImplicit.SPOILERS,
     );

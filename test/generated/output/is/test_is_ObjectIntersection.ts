@@ -6,9 +6,7 @@ export const test_is_ObjectIntersection = _test_is(
     "ObjectIntersection",
     ObjectIntersection.generate,
     (input) =>
-        ((
-            input: any,
-        ): input is ObjectIntersection.IEmail & ObjectIntersection.IName => {
+        ((input: any): input is ObjectIntersection => {
             return (
                 "object" === typeof input &&
                 null !== input &&

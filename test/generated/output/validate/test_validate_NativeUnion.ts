@@ -6,9 +6,9 @@ export const test_validate_NativeUnion = _test_validate(
     "NativeUnion",
     NativeUnion.generate,
     (input) =>
-        ((input: any): typia.IValidation<Array<NativeUnion.Union>> => {
+        ((input: any): typia.IValidation<NativeUnion> => {
             const errors = [] as any[];
-            const __is = (input: any): input is Array<NativeUnion.Union> => {
+            const __is = (input: any): input is NativeUnion => {
                 const $io0 = (input: any): boolean =>
                     (null === input.date || input.date instanceof Date) &&
                     (input.unsigned instanceof Uint8Array ||
@@ -44,7 +44,7 @@ export const test_validate_NativeUnion = _test_validate(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is Array<NativeUnion.Union> => {
+                ): input is NativeUnion => {
                     const $vo0 = (
                         input: any,
                         _path: string,

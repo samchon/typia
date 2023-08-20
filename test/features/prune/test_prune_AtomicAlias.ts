@@ -5,5 +5,5 @@ import { AtomicAlias } from "../../structures/AtomicAlias";
 export const test_prune_AtomicAlias = _test_prune(
     "AtomicAlias",
     AtomicAlias.generate,
-    (input) => typia.prune(input),
+    (input) => typia.prune<AtomicAlias>(input),
 );

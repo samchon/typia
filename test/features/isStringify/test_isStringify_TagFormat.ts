@@ -5,6 +5,6 @@ import { TagFormat } from "../../structures/TagFormat";
 export const test_isStringify_TagFormat = _test_isStringify(
     "TagFormat",
     TagFormat.generate,
-    (input) => typia.isStringify(input),
+    (input) => typia.isStringify<TagFormat>(input),
     TagFormat.SPOILERS,
 );

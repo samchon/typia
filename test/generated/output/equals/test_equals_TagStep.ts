@@ -6,10 +6,7 @@ export const test_equals_TagStep = _test_equals(
     "TagStep",
     TagStep.generate,
     (input) =>
-        ((
-            input: any,
-            _exceptionable: boolean = true,
-        ): input is Array<TagStep.Type> => {
+        ((input: any, _exceptionable: boolean = true): input is TagStep => {
             const $io0 = (
                 input: any,
                 _exceptionable: boolean = true,

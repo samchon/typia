@@ -5,6 +5,6 @@ import { ArrayRecursive } from "../../structures/ArrayRecursive";
 export const test_isStringify_ArrayRecursive = _test_isStringify(
     "ArrayRecursive",
     ArrayRecursive.generate,
-    (input) => typia.isStringify(input),
+    (input) => typia.isStringify<ArrayRecursive>(input),
     ArrayRecursive.SPOILERS,
 );

@@ -12,14 +12,14 @@ export const test_is_TagBigInt = _test_is(
                 null !== input &&
                 "bigint" === typeof (input as any).value &&
                 "bigint" === typeof (input as any).ranged &&
-                0n <= (input as any).ranged &&
-                100n >= (input as any).ranged &&
+                BigInt(0) <= (input as any).ranged &&
+                BigInt(100) >= (input as any).ranged &&
                 "bigint" === typeof (input as any).minimum &&
-                0n <= (input as any).minimum &&
+                BigInt(0) <= (input as any).minimum &&
                 "bigint" === typeof (input as any).maximum &&
-                100n >= (input as any).maximum &&
+                BigInt(100) >= (input as any).maximum &&
                 "bigint" === typeof (input as any).multipleOf &&
-                0n === (input as any).multipleOf % 3n
+                BigInt(0) === (input as any).multipleOf % BigInt(3)
             );
         })(input),
     TagBigInt.SPOILERS,

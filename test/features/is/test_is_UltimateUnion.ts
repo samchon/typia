@@ -5,6 +5,6 @@ import { UltimateUnion } from "../../structures/UltimateUnion";
 export const test_is_UltimateUnion = _test_is(
     "UltimateUnion",
     UltimateUnion.generate,
-    (input) => typia.is(input),
+    (input) => typia.is<UltimateUnion>(input),
     UltimateUnion.SPOILERS,
 );

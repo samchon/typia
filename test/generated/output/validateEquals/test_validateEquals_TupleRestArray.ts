@@ -6,14 +6,12 @@ export const test_validateEquals_TupleRestArray = _test_validateEquals(
     "TupleRestArray",
     TupleRestArray.generate,
     (input) =>
-        ((
-            input: any,
-        ): typia.IValidation<[boolean, number, ...Array<string>[]]> => {
+        ((input: any): typia.IValidation<TupleRestArray> => {
             const errors = [] as any[];
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
-            ): input is [boolean, number, ...Array<string>[]] => {
+            ): input is TupleRestArray => {
                 return (
                     Array.isArray(input) &&
                     "boolean" === typeof input[0] &&
@@ -38,7 +36,7 @@ export const test_validateEquals_TupleRestArray = _test_validateEquals(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is [boolean, number, ...Array<string>[]] => {
+                ): input is TupleRestArray => {
                     return (
                         ((Array.isArray(input) ||
                             $report(true, {

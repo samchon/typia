@@ -7,16 +7,12 @@ export const test_validateEquals_ConstantConstEnumeration =
         "ConstantConstEnumeration",
         ConstantConstEnumeration.generate,
         (input) =>
-            ((
-                input: any,
-            ): typia.IValidation<
-                Array<ConstantConstEnumeration.Enumeration>
-            > => {
+            ((input: any): typia.IValidation<ConstantConstEnumeration> => {
                 const errors = [] as any[];
                 const __is = (
                     input: any,
                     _exceptionable: boolean = true,
-                ): input is Array<ConstantConstEnumeration.Enumeration> => {
+                ): input is ConstantConstEnumeration => {
                     return (
                         Array.isArray(input) &&
                         input.every(
@@ -37,7 +33,7 @@ export const test_validateEquals_ConstantConstEnumeration =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is Array<ConstantConstEnumeration.Enumeration> => {
+                    ): input is ConstantConstEnumeration => {
                         return (
                             ((Array.isArray(input) ||
                                 $report(true, {

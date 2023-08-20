@@ -6,11 +6,11 @@ export const test_assertEquals_ObjectRecursive = _test_assertEquals(
     "ObjectRecursive",
     ObjectRecursive.generate,
     (input) =>
-        ((input: any): ObjectRecursive.IDepartment => {
+        ((input: any): ObjectRecursive => {
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
-            ): input is ObjectRecursive.IDepartment => {
+            ): input is ObjectRecursive => {
                 const $io0 = (
                     input: any,
                     _exceptionable: boolean = true,
@@ -76,7 +76,7 @@ export const test_assertEquals_ObjectRecursive = _test_assertEquals(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ObjectRecursive.IDepartment => {
+                ): input is ObjectRecursive => {
                     const $guard = (typia.assertEquals as any).guard;
                     const $join = (typia.assertEquals as any).join;
                     const $ao0 = (

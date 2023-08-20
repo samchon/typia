@@ -5,5 +5,5 @@ import { ObjectSimple } from "../../structures/ObjectSimple";
 export const test_prune_ObjectSimple = _test_prune(
     "ObjectSimple",
     ObjectSimple.generate,
-    (input) => typia.prune(input),
+    (input) => typia.prune<ObjectSimple>(input),
 );

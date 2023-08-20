@@ -6,30 +6,12 @@ export const test_validateEquals_ToJsonUnion = _test_validateEquals(
     "ToJsonUnion",
     ToJsonUnion.generate,
     (input) =>
-        ((
-            input: any,
-        ): typia.IValidation<
-            Array<
-                | string
-                | number
-                | ToJsonUnion.ICitizen
-                | ToJsonUnion.IWrapper<boolean>
-                | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen>
-                | ToJsonUnion.IWrapper<ToJsonUnion.IProduct>
-            >
-        > => {
+        ((input: any): typia.IValidation<ToJsonUnion> => {
             const errors = [] as any[];
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
-            ): input is Array<
-                | string
-                | number
-                | ToJsonUnion.ICitizen
-                | ToJsonUnion.IWrapper<boolean>
-                | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen>
-                | ToJsonUnion.IWrapper<ToJsonUnion.IProduct>
-            > => {
+            ): input is ToJsonUnion => {
                 const $io0 = (
                     input: any,
                     _exceptionable: boolean = true,
@@ -127,14 +109,7 @@ export const test_validateEquals_ToJsonUnion = _test_validateEquals(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is Array<
-                    | string
-                    | number
-                    | ToJsonUnion.ICitizen
-                    | ToJsonUnion.IWrapper<boolean>
-                    | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen>
-                    | ToJsonUnion.IWrapper<ToJsonUnion.IProduct>
-                > => {
+                ): input is ToJsonUnion => {
                     const $join = (typia.validateEquals as any).join;
                     const $vo0 = (
                         input: any,

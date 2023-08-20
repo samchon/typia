@@ -5,6 +5,6 @@ import { TagStep } from "../../structures/TagStep";
 export const test_isStringify_TagStep = _test_isStringify(
     "TagStep",
     TagStep.generate,
-    (input) => typia.isStringify(input),
+    (input) => typia.isStringify<TagStep>(input),
     TagStep.SPOILERS,
 );

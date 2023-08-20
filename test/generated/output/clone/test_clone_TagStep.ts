@@ -6,7 +6,7 @@ export const test_clone_TagStep = _test_clone(
     "TagStep",
     TagStep.generate,
     (input) =>
-        ((input: Array<TagStep.Type>): typia.Primitive<Array<TagStep.Type>> => {
+        ((input: TagStep): typia.Primitive<TagStep> => {
             const $cp0 = (input: any) =>
                 input.map((elem: any) =>
                     "object" === typeof elem && null !== elem

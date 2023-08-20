@@ -5,5 +5,5 @@ import { TagType } from "../../structures/TagType";
 export const test_prune_TagType = _test_prune(
     "TagType",
     TagType.generate,
-    (input) => typia.prune(input),
+    (input) => typia.prune<TagType>(input),
 );

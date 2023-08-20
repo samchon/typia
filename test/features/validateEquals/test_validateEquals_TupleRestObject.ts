@@ -5,5 +5,5 @@ import { TupleRestObject } from "../../structures/TupleRestObject";
 export const test_validateEquals_TupleRestObject = _test_validateEquals(
     "TupleRestObject",
     TupleRestObject.generate,
-    (input) => typia.validateEquals(input),
+    (input) => typia.validateEquals<TupleRestObject>(input),
 );

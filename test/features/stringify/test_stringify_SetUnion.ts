@@ -5,5 +5,5 @@ import { SetUnion } from "../../structures/SetUnion";
 export const test_stringify_SetUnion = _test_stringify(
     "SetUnion",
     SetUnion.generate,
-    (input) => typia.stringify(input),
+    (input) => typia.stringify<SetUnion>(input),
 );

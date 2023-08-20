@@ -5,6 +5,6 @@ import { ObjectGenericUnion } from "../../structures/ObjectGenericUnion";
 export const test_is_ObjectGenericUnion = _test_is(
     "ObjectGenericUnion",
     ObjectGenericUnion.generate,
-    (input) => typia.is(input),
+    (input) => typia.is<ObjectGenericUnion>(input),
     ObjectGenericUnion.SPOILERS,
 );

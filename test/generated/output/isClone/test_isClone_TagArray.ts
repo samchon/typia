@@ -6,8 +6,8 @@ export const test_isClone_TagArray = _test_isClone(
     "TagArray",
     TagArray.generate,
     (input) =>
-        ((input: any): typia.Primitive<Array<TagArray.Type>> | null => {
-            const is = (input: any): input is Array<TagArray.Type> => {
+        ((input: any): typia.Primitive<TagArray> | null => {
+            const is = (input: any): input is TagArray => {
                 const $is_uuid = (typia.isClone as any).is_uuid;
                 const $io0 = (input: any): boolean =>
                     Array.isArray(input.items) &&
@@ -59,9 +59,7 @@ export const test_isClone_TagArray = _test_isClone(
                     )
                 );
             };
-            const clone = (
-                input: Array<TagArray.Type>,
-            ): typia.Primitive<Array<TagArray.Type>> => {
+            const clone = (input: TagArray): typia.Primitive<TagArray> => {
                 const $is_uuid = (typia.isClone as any).is_uuid;
                 const $cp0 = (input: any) =>
                     input.map((elem: any) =>

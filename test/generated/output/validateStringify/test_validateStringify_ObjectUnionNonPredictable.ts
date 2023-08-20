@@ -7,24 +7,14 @@ export const test_validateStringify_ObjectUnionNonPredictable =
         "ObjectUnionNonPredictable",
         ObjectUnionNonPredictable.generate,
         (input) =>
-            ((
-                input: Array<
-                    ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
-                >,
-            ): typia.IValidation<string> => {
+            ((input: ObjectUnionNonPredictable): typia.IValidation<string> => {
                 const validate = (
                     input: any,
-                ): typia.IValidation<
-                    Array<
-                        ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
-                    >
-                > => {
+                ): typia.IValidation<ObjectUnionNonPredictable> => {
                     const errors = [] as any[];
                     const __is = (
                         input: any,
-                    ): input is Array<
-                        ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
-                    > => {
+                    ): input is ObjectUnionNonPredictable => {
                         const $io0 = (input: any): boolean =>
                             "object" === typeof input.value &&
                             null !== input.value &&
@@ -71,9 +61,7 @@ export const test_validateStringify_ObjectUnionNonPredictable =
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
-                        ): input is Array<
-                            ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
-                        > => {
+                        ): input is ObjectUnionNonPredictable => {
                             const $vo0 = (
                                 input: any,
                                 _path: string,
@@ -310,9 +298,7 @@ export const test_validateStringify_ObjectUnionNonPredictable =
                     } as any;
                 };
                 const stringify = (
-                    input: Array<
-                        ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
-                    >,
+                    input: ObjectUnionNonPredictable,
                 ): string => {
                     const $io1 = (input: any): boolean =>
                         "object" === typeof input.value &&

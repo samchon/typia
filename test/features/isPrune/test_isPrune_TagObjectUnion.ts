@@ -5,6 +5,6 @@ import { TagObjectUnion } from "../../structures/TagObjectUnion";
 export const test_isPrune_TagObjectUnion = _test_isPrune(
     "TagObjectUnion",
     TagObjectUnion.generate,
-    (input) => typia.isPrune(input),
+    (input) => typia.isPrune<TagObjectUnion>(input),
     TagObjectUnion.SPOILERS,
 );

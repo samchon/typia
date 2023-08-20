@@ -6,71 +6,11 @@ export const test_assertEquals_ObjectUnionExplicit = _test_assertEquals(
     "ObjectUnionExplicit",
     ObjectUnionExplicit.generate,
     (input) =>
-        ((
-            input: any,
-        ): Array<
-            | ObjectUnionExplicit.Discriminator<
-                  "point",
-                  ObjectUnionExplicit.IPoint
-              >
-            | ObjectUnionExplicit.Discriminator<
-                  "line",
-                  ObjectUnionExplicit.ILine
-              >
-            | ObjectUnionExplicit.Discriminator<
-                  "triangle",
-                  ObjectUnionExplicit.ITriangle
-              >
-            | ObjectUnionExplicit.Discriminator<
-                  "rectangle",
-                  ObjectUnionExplicit.IRectangle
-              >
-            | ObjectUnionExplicit.Discriminator<
-                  "polyline",
-                  ObjectUnionExplicit.IPolyline
-              >
-            | ObjectUnionExplicit.Discriminator<
-                  "polygon",
-                  ObjectUnionExplicit.IPolygon
-              >
-            | ObjectUnionExplicit.Discriminator<
-                  "circle",
-                  ObjectUnionExplicit.ICircle
-              >
-        > => {
+        ((input: any): ObjectUnionExplicit => {
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
-            ): input is Array<
-                | ObjectUnionExplicit.Discriminator<
-                      "point",
-                      ObjectUnionExplicit.IPoint
-                  >
-                | ObjectUnionExplicit.Discriminator<
-                      "line",
-                      ObjectUnionExplicit.ILine
-                  >
-                | ObjectUnionExplicit.Discriminator<
-                      "triangle",
-                      ObjectUnionExplicit.ITriangle
-                  >
-                | ObjectUnionExplicit.Discriminator<
-                      "rectangle",
-                      ObjectUnionExplicit.IRectangle
-                  >
-                | ObjectUnionExplicit.Discriminator<
-                      "polyline",
-                      ObjectUnionExplicit.IPolyline
-                  >
-                | ObjectUnionExplicit.Discriminator<
-                      "polygon",
-                      ObjectUnionExplicit.IPolygon
-                  >
-                | ObjectUnionExplicit.Discriminator<
-                      "circle",
-                      ObjectUnionExplicit.ICircle
-                  >
-            > => {
+            ): input is ObjectUnionExplicit => {
                 const $io0 = (
                     input: any,
                     _exceptionable: boolean = true,
@@ -314,36 +254,7 @@ export const test_assertEquals_ObjectUnionExplicit = _test_assertEquals(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is Array<
-                    | ObjectUnionExplicit.Discriminator<
-                          "point",
-                          ObjectUnionExplicit.IPoint
-                      >
-                    | ObjectUnionExplicit.Discriminator<
-                          "line",
-                          ObjectUnionExplicit.ILine
-                      >
-                    | ObjectUnionExplicit.Discriminator<
-                          "triangle",
-                          ObjectUnionExplicit.ITriangle
-                      >
-                    | ObjectUnionExplicit.Discriminator<
-                          "rectangle",
-                          ObjectUnionExplicit.IRectangle
-                      >
-                    | ObjectUnionExplicit.Discriminator<
-                          "polyline",
-                          ObjectUnionExplicit.IPolyline
-                      >
-                    | ObjectUnionExplicit.Discriminator<
-                          "polygon",
-                          ObjectUnionExplicit.IPolygon
-                      >
-                    | ObjectUnionExplicit.Discriminator<
-                          "circle",
-                          ObjectUnionExplicit.ICircle
-                      >
-                > => {
+                ): input is ObjectUnionExplicit => {
                     const $guard = (typia.assertEquals as any).guard;
                     const $join = (typia.assertEquals as any).join;
                     const $ao0 = (

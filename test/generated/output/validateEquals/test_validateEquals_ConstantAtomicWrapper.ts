@@ -6,24 +6,12 @@ export const test_validateEquals_ConstantAtomicWrapper = _test_validateEquals(
     "ConstantAtomicWrapper",
     ConstantAtomicWrapper.generate,
     (input) =>
-        ((
-            input: any,
-        ): typia.IValidation<
-            [
-                ConstantAtomicWrapper.IPointer<boolean>,
-                ConstantAtomicWrapper.IPointer<number>,
-                ConstantAtomicWrapper.IPointer<string>,
-            ]
-        > => {
+        ((input: any): typia.IValidation<ConstantAtomicWrapper> => {
             const errors = [] as any[];
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
-            ): input is [
-                ConstantAtomicWrapper.IPointer<boolean>,
-                ConstantAtomicWrapper.IPointer<number>,
-                ConstantAtomicWrapper.IPointer<string>,
-            ] => {
+            ): input is ConstantAtomicWrapper => {
                 const $io0 = (
                     input: any,
                     _exceptionable: boolean = true,
@@ -84,11 +72,7 @@ export const test_validateEquals_ConstantAtomicWrapper = _test_validateEquals(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is [
-                    ConstantAtomicWrapper.IPointer<boolean>,
-                    ConstantAtomicWrapper.IPointer<number>,
-                    ConstantAtomicWrapper.IPointer<string>,
-                ] => {
+                ): input is ConstantAtomicWrapper => {
                     const $join = (typia.validateEquals as any).join;
                     const $vo0 = (
                         input: any,

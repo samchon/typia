@@ -5,5 +5,5 @@ import { ToJsonDouble } from "../../structures/ToJsonDouble";
 export const test_assertEquals_ToJsonDouble = _test_assertEquals(
     "ToJsonDouble",
     ToJsonDouble.generate,
-    (input) => typia.assertEquals(input),
+    (input) => typia.assertEquals<ToJsonDouble>(input),
 );

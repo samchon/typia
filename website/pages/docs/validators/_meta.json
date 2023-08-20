@@ -2,5 +2,5 @@
     "is": "is() function",
     "assert": "assert() function",
     "validate": "validate() function",
-    "comment-tags": "Comment Tags"
+    "tags": "Comment Tags"
 }

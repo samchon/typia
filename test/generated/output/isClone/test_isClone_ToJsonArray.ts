@@ -6,24 +6,8 @@ export const test_isClone_ToJsonArray = _test_isClone(
     "ToJsonArray",
     ToJsonArray.generate,
     (input) =>
-        ((
-            input: any,
-        ): typia.Primitive<
-            [
-                ToJsonArray.IArray<boolean>,
-                ToJsonArray.IArray<number>,
-                ToJsonArray.IArray<string>,
-                ToJsonArray.IArray<ToJsonArray.IObject>,
-            ]
-        > | null => {
-            const is = (
-                input: any,
-            ): input is [
-                ToJsonArray.IArray<boolean>,
-                ToJsonArray.IArray<number>,
-                ToJsonArray.IArray<string>,
-                ToJsonArray.IArray<ToJsonArray.IObject>,
-            ] => {
+        ((input: any): typia.Primitive<ToJsonArray> | null => {
+            const is = (input: any): input is ToJsonArray => {
                 const $io0 = (input: any): boolean =>
                     "function" === typeof input.toJSON;
                 const $io1 = (input: any): boolean =>
@@ -50,20 +34,8 @@ export const test_isClone_ToJsonArray = _test_isClone(
                 );
             };
             const clone = (
-                input: [
-                    ToJsonArray.IArray<boolean>,
-                    ToJsonArray.IArray<number>,
-                    ToJsonArray.IArray<string>,
-                    ToJsonArray.IArray<ToJsonArray.IObject>,
-                ],
-            ): typia.Primitive<
-                [
-                    ToJsonArray.IArray<boolean>,
-                    ToJsonArray.IArray<number>,
-                    ToJsonArray.IArray<string>,
-                    ToJsonArray.IArray<ToJsonArray.IObject>,
-                ]
-            > => {
+                input: ToJsonArray,
+            ): typia.Primitive<ToJsonArray> => {
                 const $cp0 = (input: any) =>
                     input.map((elem: any) => elem as any);
                 const $cp1 = (input: any) =>

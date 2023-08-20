@@ -6,8 +6,8 @@ export const test_isPrune_TemplateConstant = _test_isPrune(
     "TemplateConstant",
     TemplateConstant.generate,
     (input) =>
-        ((input: any): input is Array<TemplateConstant.Type> => {
-            const is = (input: any): input is Array<TemplateConstant.Type> => {
+        ((input: any): input is TemplateConstant => {
+            const is = (input: any): input is TemplateConstant => {
                 const $io0 = (input: any): boolean =>
                     ("prefix_A" === input.prefix ||
                         "prefix_B" === input.prefix ||
@@ -34,7 +34,7 @@ export const test_isPrune_TemplateConstant = _test_isPrune(
                     )
                 );
             };
-            const prune = (input: Array<TemplateConstant.Type>): void => {
+            const prune = (input: TemplateConstant): void => {
                 const $pp0 = (input: any) =>
                     input.forEach((elem: any) => {
                         if ("object" === typeof elem && null !== elem)

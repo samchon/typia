@@ -6,11 +6,7 @@ export const test_prune_ObjectUnionNonPredictable = _test_prune(
     "ObjectUnionNonPredictable",
     ObjectUnionNonPredictable.generate,
     (input) =>
-        ((
-            input: Array<
-                ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
-            >,
-        ): void => {
+        ((input: ObjectUnionNonPredictable): void => {
             const $io1 = (input: any): boolean =>
                 "object" === typeof input.value &&
                 null !== input.value &&

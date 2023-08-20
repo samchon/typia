@@ -5,6 +5,6 @@ import { DynamicNever } from "../../structures/DynamicNever";
 export const test_isStringify_DynamicNever = _test_isStringify(
     "DynamicNever",
     DynamicNever.generate,
-    (input) => typia.isStringify(input),
+    (input) => typia.isStringify<DynamicNever>(input),
     DynamicNever.SPOILERS,
 );

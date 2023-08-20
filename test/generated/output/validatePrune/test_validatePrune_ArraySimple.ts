@@ -6,14 +6,10 @@ export const test_validatePrune_ArraySimple = _test_validatePrune(
     "ArraySimple",
     ArraySimple.generate,
     (input) =>
-        ((input: any): typia.IValidation<Array<ArraySimple.IPerson>> => {
-            const validate = (
-                input: any,
-            ): typia.IValidation<Array<ArraySimple.IPerson>> => {
+        ((input: any): typia.IValidation<ArraySimple> => {
+            const validate = (input: any): typia.IValidation<ArraySimple> => {
                 const errors = [] as any[];
-                const __is = (
-                    input: any,
-                ): input is Array<ArraySimple.IPerson> => {
+                const __is = (input: any): input is ArraySimple => {
                     const $io0 = (input: any): boolean =>
                         "string" === typeof input.name &&
                         "string" === typeof input.email &&
@@ -45,7 +41,7 @@ export const test_validatePrune_ArraySimple = _test_validatePrune(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is Array<ArraySimple.IPerson> => {
+                    ): input is ArraySimple => {
                         const $vo0 = (
                             input: any,
                             _path: string,
@@ -187,7 +183,7 @@ export const test_validatePrune_ArraySimple = _test_validatePrune(
                     data: success ? input : undefined,
                 } as any;
             };
-            const prune = (input: Array<ArraySimple.IPerson>): void => {
+            const prune = (input: ArraySimple): void => {
                 const $io1 = (input: any): boolean =>
                     "string" === typeof input.name &&
                     "string" === typeof input.body &&

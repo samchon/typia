@@ -6,32 +6,8 @@ export const test_assert_ArrayRepeatedUnionWithTuple = _test_assert(
     "ArrayRepeatedUnionWithTuple",
     ArrayRepeatedUnionWithTuple.generate,
     (input) =>
-        ((
-            input: any,
-        ):
-            | number
-            | boolean
-            | Array<string>
-            | Array<ArrayRepeatedUnionWithTuple>
-            | Array<ArrayRepeatedUnionWithTuple.IBox3D>
-            | [string, number, boolean]
-            | [
-                  ArrayRepeatedUnionWithTuple.IBox3D,
-                  ArrayRepeatedUnionWithTuple.IPoint3D,
-              ] => {
-            const __is = (
-                input: any,
-            ): input is
-                | number
-                | boolean
-                | Array<string>
-                | Array<ArrayRepeatedUnionWithTuple>
-                | Array<ArrayRepeatedUnionWithTuple.IBox3D>
-                | [string, number, boolean]
-                | [
-                      ArrayRepeatedUnionWithTuple.IBox3D,
-                      ArrayRepeatedUnionWithTuple.IPoint3D,
-                  ] => {
+        ((input: any): ArrayRepeatedUnionWithTuple => {
+            const __is = (input: any): input is ArrayRepeatedUnionWithTuple => {
                 const $ip0 = (input: any) => {
                     const array = input;
                     const tuplePredicators = [
@@ -182,17 +158,7 @@ export const test_assert_ArrayRepeatedUnionWithTuple = _test_assert(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is
-                    | number
-                    | boolean
-                    | Array<string>
-                    | Array<ArrayRepeatedUnionWithTuple>
-                    | Array<ArrayRepeatedUnionWithTuple.IBox3D>
-                    | [string, number, boolean]
-                    | [
-                          ArrayRepeatedUnionWithTuple.IBox3D,
-                          ArrayRepeatedUnionWithTuple.IPoint3D,
-                      ] => {
+                ): input is ArrayRepeatedUnionWithTuple => {
                     const $guard = (typia.assert as any).guard;
                     const $ap0 = (
                         input: any,

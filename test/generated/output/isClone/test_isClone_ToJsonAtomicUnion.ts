@@ -6,12 +6,8 @@ export const test_isClone_ToJsonAtomicUnion = _test_isClone(
     "ToJsonAtomicUnion",
     ToJsonAtomicUnion.generate,
     (input) =>
-        ((
-            input: any,
-        ): typia.Primitive<Array<ToJsonAtomicUnion.IToJson>> | null => {
-            const is = (
-                input: any,
-            ): input is Array<ToJsonAtomicUnion.IToJson> => {
+        ((input: any): typia.Primitive<ToJsonAtomicUnion> | null => {
+            const is = (input: any): input is ToJsonAtomicUnion => {
                 const $io0 = (input: any): boolean =>
                     "function" === typeof input.toJSON;
                 return (
@@ -25,8 +21,8 @@ export const test_isClone_ToJsonAtomicUnion = _test_isClone(
                 );
             };
             const clone = (
-                input: Array<ToJsonAtomicUnion.IToJson>,
-            ): typia.Primitive<Array<ToJsonAtomicUnion.IToJson>> => {
+                input: ToJsonAtomicUnion,
+            ): typia.Primitive<ToJsonAtomicUnion> => {
                 const $cp0 = (input: any) =>
                     input.map((elem: any) =>
                         "object" === typeof elem &&

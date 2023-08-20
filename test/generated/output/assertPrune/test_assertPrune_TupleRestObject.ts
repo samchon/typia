@@ -6,13 +6,9 @@ export const test_assertPrune_TupleRestObject = _test_assertPrune(
     "TupleRestObject",
     TupleRestObject.generate,
     (input) =>
-        ((input: any): [boolean, number, ...TupleRestObject.IObject[]] => {
-            const assert = (
-                input: any,
-            ): [boolean, number, ...TupleRestObject.IObject[]] => {
-                const __is = (
-                    input: any,
-                ): input is [boolean, number, ...TupleRestObject.IObject[]] => {
+        ((input: any): TupleRestObject => {
+            const assert = (input: any): TupleRestObject => {
+                const __is = (input: any): input is TupleRestObject => {
                     const $io0 = (input: any): boolean =>
                         "string" === typeof input.value;
                     return (
@@ -36,11 +32,7 @@ export const test_assertPrune_TupleRestObject = _test_assertPrune(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is [
-                        boolean,
-                        number,
-                        ...TupleRestObject.IObject[],
-                    ] => {
+                    ): input is TupleRestObject => {
                         const $guard = (typia.assertPrune as any).guard;
                         const $ao0 = (
                             input: any,
@@ -126,9 +118,7 @@ export const test_assertPrune_TupleRestObject = _test_assertPrune(
                     })(input, "$input", true);
                 return input;
             };
-            const prune = (
-                input: [boolean, number, ...TupleRestObject.IObject[]],
-            ): void => {
+            const prune = (input: TupleRestObject): void => {
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.value;
                 const $pp0 = (input: any) =>

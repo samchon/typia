@@ -5,6 +5,6 @@ import { TagMatrix } from "../../structures/TagMatrix";
 export const test_isStringify_TagMatrix = _test_isStringify(
     "TagMatrix",
     TagMatrix.generate,
-    (input) => typia.isStringify(input),
+    (input) => typia.isStringify<TagMatrix>(input),
     TagMatrix.SPOILERS,
 );

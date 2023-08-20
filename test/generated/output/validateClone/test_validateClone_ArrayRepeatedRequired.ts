@@ -8,18 +8,12 @@ export const test_validateClone_ArrayRepeatedRequired = _test_validateClone(
     (input) =>
         ((
             input: any,
-        ): typia.IValidation<
-            typia.Primitive<string | number | Array<ArrayRepeatedRequired>>
-        > => {
+        ): typia.IValidation<typia.Primitive<ArrayRepeatedRequired>> => {
             const validate = (
                 input: any,
-            ): typia.IValidation<
-                string | number | Array<ArrayRepeatedRequired>
-            > => {
+            ): typia.IValidation<ArrayRepeatedRequired> => {
                 const errors = [] as any[];
-                const __is = (
-                    input: any,
-                ): input is string | number | Array<ArrayRepeatedRequired> => {
+                const __is = (input: any): input is ArrayRepeatedRequired => {
                     const $ia0 = (input: any): any =>
                         input.every(
                             (elem: any) =>
@@ -46,10 +40,7 @@ export const test_validateClone_ArrayRepeatedRequired = _test_validateClone(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is
-                        | string
-                        | number
-                        | Array<ArrayRepeatedRequired> => {
+                    ): input is ArrayRepeatedRequired => {
                         const $va0 = (
                             input: any,
                             _path: string,
@@ -165,10 +156,8 @@ export const test_validateClone_ArrayRepeatedRequired = _test_validateClone(
                 } as any;
             };
             const clone = (
-                input: string | number | Array<ArrayRepeatedRequired>,
-            ): typia.Primitive<
-                string | number | Array<ArrayRepeatedRequired>
-            > => {
+                input: ArrayRepeatedRequired,
+            ): typia.Primitive<ArrayRepeatedRequired> => {
                 const $ia0 = (input: any): any =>
                     input.every(
                         (elem: any) =>

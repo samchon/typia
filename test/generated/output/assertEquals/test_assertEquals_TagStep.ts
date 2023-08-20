@@ -6,11 +6,11 @@ export const test_assertEquals_TagStep = _test_assertEquals(
     "TagStep",
     TagStep.generate,
     (input) =>
-        ((input: any): Array<TagStep.Type> => {
+        ((input: any): TagStep => {
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
-            ): input is Array<TagStep.Type> => {
+            ): input is TagStep => {
                 const $io0 = (
                     input: any,
                     _exceptionable: boolean = true,
@@ -59,7 +59,7 @@ export const test_assertEquals_TagStep = _test_assertEquals(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is Array<TagStep.Type> => {
+                ): input is TagStep => {
                     const $guard = (typia.assertEquals as any).guard;
                     const $join = (typia.assertEquals as any).join;
                     const $ao0 = (
@@ -175,7 +175,7 @@ export const test_assertEquals_TagStep = _test_assertEquals(
                         ((Array.isArray(input) ||
                             $guard(true, {
                                 path: _path + "",
-                                expected: "Array<TagStep.Type>",
+                                expected: "TagStep",
                                 value: input,
                             })) &&
                             input.every(
@@ -200,7 +200,7 @@ export const test_assertEquals_TagStep = _test_assertEquals(
                             )) ||
                         $guard(true, {
                             path: _path + "",
-                            expected: "Array<TagStep.Type>",
+                            expected: "TagStep",
                             value: input,
                         })
                     );

@@ -6,10 +6,8 @@ export const test_isPrune_ArrayRecursiveUnionExplicit = _test_isPrune(
     "ArrayRecursiveUnionExplicit",
     ArrayRecursiveUnionExplicit.generate,
     (input) =>
-        ((input: any): input is Array<ArrayRecursiveUnionExplicit.IBucket> => {
-            const is = (
-                input: any,
-            ): input is Array<ArrayRecursiveUnionExplicit.IBucket> => {
+        ((input: any): input is ArrayRecursiveUnionExplicit => {
+            const is = (input: any): input is ArrayRecursiveUnionExplicit => {
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.id &&
                     Number.isFinite(input.id) &&
@@ -87,9 +85,7 @@ export const test_isPrune_ArrayRecursiveUnionExplicit = _test_isPrune(
                     )
                 );
             };
-            const prune = (
-                input: Array<ArrayRecursiveUnionExplicit.IBucket>,
-            ): void => {
+            const prune = (input: ArrayRecursiveUnionExplicit): void => {
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.id &&
                     "string" === typeof input.name &&

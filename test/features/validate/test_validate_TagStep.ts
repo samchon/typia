@@ -5,6 +5,6 @@ import { TagStep } from "../../structures/TagStep";
 export const test_validate_TagStep = _test_validate(
     "TagStep",
     TagStep.generate,
-    (input) => typia.validate(input),
+    (input) => typia.validate<TagStep>(input),
     TagStep.SPOILERS,
 );

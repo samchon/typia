@@ -6,6 +6,6 @@ export const test_validateStringify_ObjectHierarchical =
     _test_validateStringify(
         "ObjectHierarchical",
         ObjectHierarchical.generate,
-        (input) => typia.validateStringify(input),
+        (input) => typia.validateStringify<ObjectHierarchical>(input),
         ObjectHierarchical.SPOILERS,
     );

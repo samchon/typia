@@ -5,5 +5,5 @@ import { DynamicSimple } from "../../structures/DynamicSimple";
 export const test_stringify_DynamicSimple = _test_stringify(
     "DynamicSimple",
     DynamicSimple.generate,
-    (input) => typia.stringify(input),
+    (input) => typia.stringify<DynamicSimple>(input),
 );

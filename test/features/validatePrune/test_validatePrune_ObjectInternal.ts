@@ -5,6 +5,6 @@ import { ObjectInternal } from "../../structures/ObjectInternal";
 export const test_validatePrune_ObjectInternal = _test_validatePrune(
     "ObjectInternal",
     ObjectInternal.generate,
-    (input) => typia.validatePrune(input),
+    (input) => typia.validatePrune<ObjectInternal>(input),
     ObjectInternal.SPOILERS,
 );

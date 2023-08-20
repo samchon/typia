@@ -6,9 +6,9 @@ export const test_validate_TagAtomicUnion = _test_validate(
     "TagAtomicUnion",
     TagAtomicUnion.generate,
     (input) =>
-        ((input: any): typia.IValidation<Array<TagAtomicUnion.Type>> => {
+        ((input: any): typia.IValidation<TagAtomicUnion> => {
             const errors = [] as any[];
-            const __is = (input: any): input is Array<TagAtomicUnion.Type> => {
+            const __is = (input: any): input is TagAtomicUnion => {
                 const $io0 = (input: any): boolean =>
                     ("string" === typeof input.value &&
                         3 <= input.value.length &&
@@ -32,7 +32,7 @@ export const test_validate_TagAtomicUnion = _test_validate(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is Array<TagAtomicUnion.Type> => {
+                ): input is TagAtomicUnion => {
                     const $vo0 = (
                         input: any,
                         _path: string,

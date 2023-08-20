@@ -6,9 +6,7 @@ export const test_clone_ArrayHierarchical = _test_clone(
     "ArrayHierarchical",
     ArrayHierarchical.generate,
     (input) =>
-        ((
-            input: Array<ArrayHierarchical.ICompany>,
-        ): typia.Primitive<Array<ArrayHierarchical.ICompany>> => {
+        ((input: ArrayHierarchical): typia.Primitive<ArrayHierarchical> => {
             const $io1 = (input: any): boolean =>
                 "number" === typeof input.time &&
                 "number" === typeof input.zone;

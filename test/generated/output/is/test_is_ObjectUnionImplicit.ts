@@ -6,17 +6,7 @@ export const test_is_ObjectUnionImplicit = _test_is(
     "ObjectUnionImplicit",
     ObjectUnionImplicit.generate,
     (input) =>
-        ((
-            input: any,
-        ): input is Array<
-            | ObjectUnionImplicit.IPoint
-            | ObjectUnionImplicit.ILine
-            | ObjectUnionImplicit.ITriangle
-            | ObjectUnionImplicit.IRectangle
-            | ObjectUnionImplicit.IPolyline
-            | ObjectUnionImplicit.IPolygon
-            | ObjectUnionImplicit.ICircle
-        > => {
+        ((input: any): input is ObjectUnionImplicit => {
             const $io0 = (input: any): boolean =>
                 "number" === typeof input.x &&
                 Number.isFinite(input.x) &&

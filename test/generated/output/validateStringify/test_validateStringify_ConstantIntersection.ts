@@ -7,30 +7,14 @@ export const test_validateStringify_ConstantIntersection =
         "ConstantIntersection",
         ConstantIntersection.generate,
         (input) =>
-            ((
-                input: [
-                    ConstantIntersection.Wrapper<false>,
-                    ConstantIntersection.Wrapper<1>,
-                    ConstantIntersection.Wrapper<"two">,
-                ],
-            ): typia.IValidation<string> => {
+            ((input: ConstantIntersection): typia.IValidation<string> => {
                 const validate = (
                     input: any,
-                ): typia.IValidation<
-                    [
-                        ConstantIntersection.Wrapper<false>,
-                        ConstantIntersection.Wrapper<1>,
-                        ConstantIntersection.Wrapper<"two">,
-                    ]
-                > => {
+                ): typia.IValidation<ConstantIntersection> => {
                     const errors = [] as any[];
                     const __is = (
                         input: any,
-                    ): input is [
-                        ConstantIntersection.Wrapper<false>,
-                        ConstantIntersection.Wrapper<1>,
-                        ConstantIntersection.Wrapper<"two">,
-                    ] => {
+                    ): input is ConstantIntersection => {
                         return (
                             Array.isArray(input) &&
                             input.length === 3 &&
@@ -47,11 +31,7 @@ export const test_validateStringify_ConstantIntersection =
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
-                        ): input is [
-                            ConstantIntersection.Wrapper<false>,
-                            ConstantIntersection.Wrapper<1>,
-                            ConstantIntersection.Wrapper<"two">,
-                        ] => {
+                        ): input is ConstantIntersection => {
                             return (
                                 ((Array.isArray(input) ||
                                     $report(true, {
@@ -100,13 +80,7 @@ export const test_validateStringify_ConstantIntersection =
                         data: success ? input : undefined,
                     } as any;
                 };
-                const stringify = (
-                    input: [
-                        ConstantIntersection.Wrapper<false>,
-                        ConstantIntersection.Wrapper<1>,
-                        ConstantIntersection.Wrapper<"two">,
-                    ],
-                ): string => {
+                const stringify = (input: ConstantIntersection): string => {
                     const $number = (typia.validateStringify as any).number;
                     const $string = (typia.validateStringify as any).string;
                     const $throws = (typia.validateStringify as any).throws;

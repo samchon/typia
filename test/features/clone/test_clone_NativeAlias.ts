@@ -5,5 +5,5 @@ import { NativeAlias } from "../../structures/NativeAlias";
 export const test_clone_NativeAlias = _test_clone(
     "NativeAlias",
     NativeAlias.generate,
-    (input) => typia.clone(input),
+    (input) => typia.clone<NativeAlias>(input),
 );

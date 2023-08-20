@@ -6,7 +6,7 @@ export const test_stringify_TemplateConstant = _test_stringify(
     "TemplateConstant",
     TemplateConstant.generate,
     (input) =>
-        ((input: Array<TemplateConstant.Type>): string => {
+        ((input: TemplateConstant): string => {
             const $string = (typia.stringify as any).string;
             const $throws = (typia.stringify as any).throws;
             const $so0 = (input: any): any =>

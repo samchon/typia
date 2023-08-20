@@ -6,7 +6,7 @@ export const test_stringify_TupleRestArray = _test_stringify(
     "TupleRestArray",
     TupleRestArray.generate,
     (input) =>
-        ((input: [boolean, number, ...Array<string>[]]): string => {
+        ((input: TupleRestArray): string => {
             const $number = (typia.stringify as any).number;
             const $string = (typia.stringify as any).string;
             const $rest = (typia.stringify as any).rest;

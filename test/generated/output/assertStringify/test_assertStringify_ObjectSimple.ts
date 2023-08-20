@@ -7,8 +7,8 @@ export const test_assertStringify_ObjectSimple = _test_assertStringify(
     ObjectSimple.generate,
     (input) =>
         ((input: any): string => {
-            const assert = (input: any): ObjectSimple.IBox3D => {
-                const __is = (input: any): input is ObjectSimple.IBox3D => {
+            const assert = (input: any): ObjectSimple => {
+                const __is = (input: any): input is ObjectSimple => {
                     return (
                         "object" === typeof input &&
                         null !== input &&
@@ -54,7 +54,7 @@ export const test_assertStringify_ObjectSimple = _test_assertStringify(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is ObjectSimple.IBox3D => {
+                    ): input is ObjectSimple => {
                         const $guard = (typia.assertStringify as any).guard;
                         const $ao0 = (
                             input: any,
@@ -172,7 +172,7 @@ export const test_assertStringify_ObjectSimple = _test_assertStringify(
                     })(input, "$input", true);
                 return input;
             };
-            const stringify = (input: ObjectSimple.IBox3D): string => {
+            const stringify = (input: ObjectSimple): string => {
                 const $io1 = (input: any): boolean =>
                     "number" === typeof input.x &&
                     "number" === typeof input.y &&

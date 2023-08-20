@@ -6,6 +6,6 @@ export const test_validateStringify_ConstantConstEnumeration =
     _test_validateStringify(
         "ConstantConstEnumeration",
         ConstantConstEnumeration.generate,
-        (input) => typia.validateStringify(input),
+        (input) => typia.validateStringify<ConstantConstEnumeration>(input),
         ConstantConstEnumeration.SPOILERS,
     );

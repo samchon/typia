@@ -5,6 +5,6 @@ import { ObjectClosure } from "../../structures/ObjectClosure";
 export const test_is_ObjectClosure = _test_is(
     "ObjectClosure",
     ObjectClosure.generate,
-    (input) => typia.is(input),
+    (input) => typia.is<ObjectClosure>(input),
     ObjectClosure.SPOILERS,
 );

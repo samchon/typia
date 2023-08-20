@@ -5,6 +5,6 @@ import { ObjectIntersection } from "../../structures/ObjectIntersection";
 export const test_assertPrune_ObjectIntersection = _test_assertPrune(
     "ObjectIntersection",
     ObjectIntersection.generate,
-    (input) => typia.assertPrune(input),
+    (input) => typia.assertPrune<ObjectIntersection>(input),
     ObjectIntersection.SPOILERS,
 );

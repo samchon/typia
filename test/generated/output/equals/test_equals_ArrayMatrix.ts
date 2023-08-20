@@ -6,10 +6,7 @@ export const test_equals_ArrayMatrix = _test_equals(
     "ArrayMatrix",
     ArrayMatrix.generate,
     (input) =>
-        ((
-            input: any,
-            _exceptionable: boolean = true,
-        ): input is Array<Array<Array<number>>> => {
+        ((input: any, _exceptionable: boolean = true): input is ArrayMatrix => {
             return (
                 Array.isArray(input) &&
                 input.every(

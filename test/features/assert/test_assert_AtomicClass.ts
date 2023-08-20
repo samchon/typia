@@ -5,6 +5,6 @@ import { AtomicClass } from "../../structures/AtomicClass";
 export const test_assert_AtomicClass = _test_assert(
     "AtomicClass",
     AtomicClass.generate,
-    (input) => typia.assert(input),
+    (input) => typia.assert<AtomicClass>(input),
     AtomicClass.SPOILERS,
 );

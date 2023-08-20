@@ -5,6 +5,6 @@ import { ArrayRepeatedUnionWithTuple } from "../../structures/ArrayRepeatedUnion
 export const test_validate_ArrayRepeatedUnionWithTuple = _test_validate(
     "ArrayRepeatedUnionWithTuple",
     ArrayRepeatedUnionWithTuple.generate,
-    (input) => typia.validate(input),
+    (input) => typia.validate<ArrayRepeatedUnionWithTuple>(input),
     ArrayRepeatedUnionWithTuple.SPOILERS,
 );

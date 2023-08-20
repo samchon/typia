@@ -5,6 +5,6 @@ import { TagType } from "../../structures/TagType";
 export const test_validateClone_TagType = _test_validateClone(
     "TagType",
     TagType.generate,
-    (input) => typia.validateClone(input),
+    (input) => typia.validateClone<TagType>(input),
     TagType.SPOILERS,
 );

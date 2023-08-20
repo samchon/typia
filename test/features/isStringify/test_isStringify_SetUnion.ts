@@ -5,6 +5,6 @@ import { SetUnion } from "../../structures/SetUnion";
 export const test_isStringify_SetUnion = _test_isStringify(
     "SetUnion",
     SetUnion.generate,
-    (input) => typia.isStringify(input),
+    (input) => typia.isStringify<SetUnion>(input),
     SetUnion.SPOILERS,
 );

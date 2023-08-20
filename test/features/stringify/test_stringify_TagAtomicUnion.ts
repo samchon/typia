@@ -5,5 +5,5 @@ import { TagAtomicUnion } from "../../structures/TagAtomicUnion";
 export const test_stringify_TagAtomicUnion = _test_stringify(
     "TagAtomicUnion",
     TagAtomicUnion.generate,
-    (input) => typia.stringify(input),
+    (input) => typia.stringify<TagAtomicUnion>(input),
 );

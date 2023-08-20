@@ -6,7 +6,7 @@ export const test_stringify_UltimateUnion = _test_stringify(
     "UltimateUnion",
     UltimateUnion.generate,
     (input) =>
-        ((input: Array<typia.IJsonApplication>): string => {
+        ((input: UltimateUnion): string => {
             const $io1 = (input: any): boolean =>
                 Array.isArray(input["enum"]) &&
                 input["enum"].every((elem: any) => "boolean" === typeof elem) &&
@@ -45,7 +45,13 @@ export const test_stringify_UltimateUnion = _test_stringify(
                     "boolean" === typeof input["x-typia-rest"]);
             const $io2 = (input: any): boolean =>
                 "type" === input.kind &&
-                ("int" === input.value || "uint" === input.value);
+                ("int" === input.value ||
+                    "uint" === input.value ||
+                    "int32" === input.value ||
+                    "uint32" === input.value ||
+                    "int64" === input.value ||
+                    "uint64" === input.value ||
+                    "float" === input.value);
             const $io3 = (input: any): boolean =>
                 "minimum" === input.kind && "number" === typeof input.value;
             const $io4 = (input: any): boolean =>
@@ -205,17 +211,17 @@ export const test_stringify_UltimateUnion = _test_stringify(
             const $io22 = (input: any): boolean =>
                 (undefined === input.minimum ||
                     ("number" === typeof input.minimum &&
-                        parseInt(input.minimum) === input.minimum)) &&
+                        Math.floor(input.minimum) === input.minimum)) &&
                 (undefined === input.maximum ||
                     ("number" === typeof input.maximum &&
-                        parseInt(input.maximum) === input.maximum)) &&
+                        Math.floor(input.maximum) === input.maximum)) &&
                 (undefined === input.exclusiveMinimum ||
                     "boolean" === typeof input.exclusiveMinimum) &&
                 (undefined === input.exclusiveMaximum ||
                     "boolean" === typeof input.exclusiveMaximum) &&
                 (undefined === input.multipleOf ||
                     ("number" === typeof input.multipleOf &&
-                        parseInt(input.multipleOf) === input.multipleOf)) &&
+                        Math.floor(input.multipleOf) === input.multipleOf)) &&
                 (undefined === input["default"] ||
                     "number" === typeof input["default"]) &&
                 "integer" === input.type &&
@@ -296,11 +302,11 @@ export const test_stringify_UltimateUnion = _test_stringify(
             const $io24 = (input: any): boolean =>
                 (undefined === input.minLength ||
                     ("number" === typeof input.minLength &&
-                        parseInt(input.minLength) === input.minLength &&
+                        Math.floor(input.minLength) === input.minLength &&
                         0 <= input.minLength)) &&
                 (undefined === input.maxLength ||
                     ("number" === typeof input.maxLength &&
-                        parseInt(input.maxLength) === input.maxLength &&
+                        Math.floor(input.maxLength) === input.maxLength &&
                         0 <= input.maxLength)) &&
                 (undefined === input.pattern ||
                     "string" === typeof input.pattern) &&
@@ -346,11 +352,11 @@ export const test_stringify_UltimateUnion = _test_stringify(
                 $iu0(input.items) &&
                 (undefined === input.minItems ||
                     ("number" === typeof input.minItems &&
-                        parseInt(input.minItems) === input.minItems &&
+                        Math.floor(input.minItems) === input.minItems &&
                         0 <= input.minItems)) &&
                 (undefined === input.maxItems ||
                     ("number" === typeof input.maxItems &&
-                        parseInt(input.maxItems) === input.maxItems &&
+                        Math.floor(input.maxItems) === input.maxItems &&
                         0 <= input.maxItems)) &&
                 (undefined === input["x-typia-tuple"] ||
                     ("object" === typeof input["x-typia-tuple"] &&
@@ -397,11 +403,11 @@ export const test_stringify_UltimateUnion = _test_stringify(
                         $iu0(elem),
                 ) &&
                 "number" === typeof input.minItems &&
-                parseInt(input.minItems) === input.minItems &&
+                Math.floor(input.minItems) === input.minItems &&
                 0 <= input.minItems &&
                 (undefined === input.maxItems ||
                     ("number" === typeof input.maxItems &&
-                        parseInt(input.maxItems) === input.maxItems &&
+                        Math.floor(input.maxItems) === input.maxItems &&
                         0 <= input.maxItems)) &&
                 "array" === input.type &&
                 (undefined === input.nullable ||
@@ -800,17 +806,17 @@ export const test_stringify_UltimateUnion = _test_stringify(
             const $io39 = (input: any): boolean =>
                 (undefined === input.minimum ||
                     ("number" === typeof input.minimum &&
-                        parseInt(input.minimum) === input.minimum)) &&
+                        Math.floor(input.minimum) === input.minimum)) &&
                 (undefined === input.maximum ||
                     ("number" === typeof input.maximum &&
-                        parseInt(input.maximum) === input.maximum)) &&
+                        Math.floor(input.maximum) === input.maximum)) &&
                 (undefined === input.exclusiveMinimum ||
                     "boolean" === typeof input.exclusiveMinimum) &&
                 (undefined === input.exclusiveMaximum ||
                     "boolean" === typeof input.exclusiveMaximum) &&
                 (undefined === input.multipleOf ||
                     ("number" === typeof input.multipleOf &&
-                        parseInt(input.multipleOf) === input.multipleOf)) &&
+                        Math.floor(input.multipleOf) === input.multipleOf)) &&
                 (undefined === input["default"] ||
                     "number" === typeof input["default"]) &&
                 "integer" === input.type &&
@@ -897,11 +903,11 @@ export const test_stringify_UltimateUnion = _test_stringify(
             const $io41 = (input: any): boolean =>
                 (undefined === input.minLength ||
                     ("number" === typeof input.minLength &&
-                        parseInt(input.minLength) === input.minLength &&
+                        Math.floor(input.minLength) === input.minLength &&
                         0 <= input.minLength)) &&
                 (undefined === input.maxLength ||
                     ("number" === typeof input.maxLength &&
-                        parseInt(input.maxLength) === input.maxLength &&
+                        Math.floor(input.maxLength) === input.maxLength &&
                         0 <= input.maxLength)) &&
                 (undefined === input.pattern ||
                     "string" === typeof input.pattern) &&
@@ -950,11 +956,11 @@ export const test_stringify_UltimateUnion = _test_stringify(
                 $iu0(input.items) &&
                 (undefined === input.minItems ||
                     ("number" === typeof input.minItems &&
-                        parseInt(input.minItems) === input.minItems &&
+                        Math.floor(input.minItems) === input.minItems &&
                         0 <= input.minItems)) &&
                 (undefined === input.maxItems ||
                     ("number" === typeof input.maxItems &&
-                        parseInt(input.maxItems) === input.maxItems &&
+                        Math.floor(input.maxItems) === input.maxItems &&
                         0 <= input.maxItems)) &&
                 (undefined === input["x-typia-tuple"] ||
                     ("object" === typeof input["x-typia-tuple"] &&
@@ -1004,11 +1010,11 @@ export const test_stringify_UltimateUnion = _test_stringify(
                         $iu0(elem),
                 ) &&
                 "number" === typeof input.minItems &&
-                parseInt(input.minItems) === input.minItems &&
+                Math.floor(input.minItems) === input.minItems &&
                 0 <= input.minItems &&
                 (undefined === input.maxItems ||
                     ("number" === typeof input.maxItems &&
-                        parseInt(input.maxItems) === input.maxItems &&
+                        Math.floor(input.maxItems) === input.maxItems &&
                         0 <= input.maxItems)) &&
                 "array" === input.type &&
                 (undefined === input.nullable ||
@@ -1405,7 +1411,8 @@ export const test_stringify_UltimateUnion = _test_stringify(
                     if ("string" === typeof input.value)
                         return '"' + input.value + '"';
                     $throws({
-                        expected: '("int" | "uint")',
+                        expected:
+                            '("float" | "int" | "int32" | "int64" | "uint" | "uint32" | "uint64")',
                         value: input.value,
                     });
                 })()}}`;

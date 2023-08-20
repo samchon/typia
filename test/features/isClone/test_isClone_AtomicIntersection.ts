@@ -5,6 +5,6 @@ import { AtomicIntersection } from "../../structures/AtomicIntersection";
 export const test_isClone_AtomicIntersection = _test_isClone(
     "AtomicIntersection",
     AtomicIntersection.generate,
-    (input) => typia.isClone(input),
+    (input) => typia.isClone<AtomicIntersection>(input),
     AtomicIntersection.SPOILERS,
 );

@@ -5,6 +5,6 @@ import { DynamicTemplate } from "../../structures/DynamicTemplate";
 export const test_assertStringify_DynamicTemplate = _test_assertStringify(
     "DynamicTemplate",
     DynamicTemplate.generate,
-    (input) => typia.assertStringify(input),
+    (input) => typia.assertStringify<DynamicTemplate>(input),
     DynamicTemplate.SPOILERS,
 );

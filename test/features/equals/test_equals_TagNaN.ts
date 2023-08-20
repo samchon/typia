@@ -5,5 +5,5 @@ import { TagNaN } from "../../structures/TagNaN";
 export const test_equals_TagNaN = _test_equals(
     "TagNaN",
     TagNaN.generate,
-    (input) => typia.equals(input),
+    (input) => typia.equals<TagNaN>(input),
 );

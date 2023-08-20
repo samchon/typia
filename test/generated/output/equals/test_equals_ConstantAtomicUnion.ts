@@ -9,7 +9,7 @@ export const test_equals_ConstantAtomicUnion = _test_equals(
         ((
             input: any,
             _exceptionable: boolean = true,
-        ): input is Array<ConstantAtomicUnion.Union> => {
+        ): input is ConstantAtomicUnion => {
             const $io0 = (
                 input: any,
                 _exceptionable: boolean = true,

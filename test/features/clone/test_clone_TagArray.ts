@@ -5,5 +5,5 @@ import { TagArray } from "../../structures/TagArray";
 export const test_clone_TagArray = _test_clone(
     "TagArray",
     TagArray.generate,
-    (input) => typia.clone(input),
+    (input) => typia.clone<TagArray>(input),
 );

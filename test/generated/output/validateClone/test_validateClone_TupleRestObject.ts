@@ -6,20 +6,12 @@ export const test_validateClone_TupleRestObject = _test_validateClone(
     "TupleRestObject",
     TupleRestObject.generate,
     (input) =>
-        ((
-            input: any,
-        ): typia.IValidation<
-            typia.Primitive<[boolean, number, ...TupleRestObject.IObject[]]>
-        > => {
+        ((input: any): typia.IValidation<typia.Primitive<TupleRestObject>> => {
             const validate = (
                 input: any,
-            ): typia.IValidation<
-                [boolean, number, ...TupleRestObject.IObject[]]
-            > => {
+            ): typia.IValidation<TupleRestObject> => {
                 const errors = [] as any[];
-                const __is = (
-                    input: any,
-                ): input is [boolean, number, ...TupleRestObject.IObject[]] => {
+                const __is = (input: any): input is TupleRestObject => {
                     const $io0 = (input: any): boolean =>
                         "string" === typeof input.value;
                     return (
@@ -44,11 +36,7 @@ export const test_validateClone_TupleRestObject = _test_validateClone(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is [
-                        boolean,
-                        number,
-                        ...TupleRestObject.IObject[],
-                    ] => {
+                    ): input is TupleRestObject => {
                         const $vo0 = (
                             input: any,
                             _path: string,
@@ -147,10 +135,8 @@ export const test_validateClone_TupleRestObject = _test_validateClone(
                 } as any;
             };
             const clone = (
-                input: [boolean, number, ...TupleRestObject.IObject[]],
-            ): typia.Primitive<
-                [boolean, number, ...TupleRestObject.IObject[]]
-            > => {
+                input: TupleRestObject,
+            ): typia.Primitive<TupleRestObject> => {
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.value;
                 const $cp0 = (input: any) =>

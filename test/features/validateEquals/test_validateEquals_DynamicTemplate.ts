@@ -5,5 +5,5 @@ import { DynamicTemplate } from "../../structures/DynamicTemplate";
 export const test_validateEquals_DynamicTemplate = _test_validateEquals(
     "DynamicTemplate",
     DynamicTemplate.generate,
-    (input) => typia.validateEquals(input),
+    (input) => typia.validateEquals<DynamicTemplate>(input),
 );

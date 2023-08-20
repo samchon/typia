@@ -5,6 +5,6 @@ import { TagLength } from "../../structures/TagLength";
 export const test_validateClone_TagLength = _test_validateClone(
     "TagLength",
     TagLength.generate,
-    (input) => typia.validateClone(input),
+    (input) => typia.validateClone<TagLength>(input),
     TagLength.SPOILERS,
 );

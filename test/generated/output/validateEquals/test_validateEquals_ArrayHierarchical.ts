@@ -6,12 +6,12 @@ export const test_validateEquals_ArrayHierarchical = _test_validateEquals(
     "ArrayHierarchical",
     ArrayHierarchical.generate,
     (input) =>
-        ((input: any): typia.IValidation<Array<ArrayHierarchical.ICompany>> => {
+        ((input: any): typia.IValidation<ArrayHierarchical> => {
             const errors = [] as any[];
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
-            ): input is Array<ArrayHierarchical.ICompany> => {
+            ): input is ArrayHierarchical => {
                 const $io0 = (
                     input: any,
                     _exceptionable: boolean = true,
@@ -148,7 +148,7 @@ export const test_validateEquals_ArrayHierarchical = _test_validateEquals(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is Array<ArrayHierarchical.ICompany> => {
+                ): input is ArrayHierarchical => {
                     const $join = (typia.validateEquals as any).join;
                     const $vo0 = (
                         input: any,

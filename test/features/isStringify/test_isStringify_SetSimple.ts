@@ -5,6 +5,6 @@ import { SetSimple } from "../../structures/SetSimple";
 export const test_isStringify_SetSimple = _test_isStringify(
     "SetSimple",
     SetSimple.generate,
-    (input) => typia.isStringify(input),
+    (input) => typia.isStringify<SetSimple>(input),
     SetSimple.SPOILERS,
 );

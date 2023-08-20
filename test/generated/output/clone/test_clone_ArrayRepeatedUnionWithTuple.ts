@@ -7,29 +7,8 @@ export const test_clone_ArrayRepeatedUnionWithTuple = _test_clone(
     ArrayRepeatedUnionWithTuple.generate,
     (input) =>
         ((
-            input:
-                | number
-                | boolean
-                | Array<string>
-                | Array<ArrayRepeatedUnionWithTuple>
-                | Array<ArrayRepeatedUnionWithTuple.IBox3D>
-                | [string, number, boolean]
-                | [
-                      ArrayRepeatedUnionWithTuple.IBox3D,
-                      ArrayRepeatedUnionWithTuple.IPoint3D,
-                  ],
-        ): typia.Primitive<
-            | number
-            | boolean
-            | Array<string>
-            | Array<ArrayRepeatedUnionWithTuple>
-            | Array<ArrayRepeatedUnionWithTuple.IBox3D>
-            | [string, number, boolean]
-            | [
-                  ArrayRepeatedUnionWithTuple.IBox3D,
-                  ArrayRepeatedUnionWithTuple.IPoint3D,
-              ]
-        > => {
+            input: ArrayRepeatedUnionWithTuple,
+        ): typia.Primitive<ArrayRepeatedUnionWithTuple> => {
             const $io0 = (input: any): boolean =>
                 "object" === typeof input.scale &&
                 null !== input.scale &&

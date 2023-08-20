@@ -6,7 +6,7 @@ export const test_prune_ConstantAtomicUnion = _test_prune(
     "ConstantAtomicUnion",
     ConstantAtomicUnion.generate,
     (input) =>
-        ((input: Array<ConstantAtomicUnion.Union>): void => {
+        ((input: ConstantAtomicUnion): void => {
             const $pp0 = (input: any) =>
                 input.forEach((elem: any) => {
                     if ("object" === typeof elem && null !== elem) $po0(elem);

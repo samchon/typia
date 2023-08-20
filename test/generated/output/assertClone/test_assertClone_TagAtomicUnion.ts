@@ -6,11 +6,9 @@ export const test_assertClone_TagAtomicUnion = _test_assertClone(
     "TagAtomicUnion",
     TagAtomicUnion.generate,
     (input) =>
-        ((input: any): typia.Primitive<Array<TagAtomicUnion.Type>> => {
-            const assert = (input: any): Array<TagAtomicUnion.Type> => {
-                const __is = (
-                    input: any,
-                ): input is Array<TagAtomicUnion.Type> => {
+        ((input: any): typia.Primitive<TagAtomicUnion> => {
+            const assert = (input: any): TagAtomicUnion => {
+                const __is = (input: any): input is TagAtomicUnion => {
                     const $io0 = (input: any): boolean =>
                         ("string" === typeof input.value &&
                             3 <= input.value.length &&
@@ -33,7 +31,7 @@ export const test_assertClone_TagAtomicUnion = _test_assertClone(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is Array<TagAtomicUnion.Type> => {
+                    ): input is TagAtomicUnion => {
                         const $guard = (typia.assertClone as any).guard;
                         const $ao0 = (
                             input: any,
@@ -104,8 +102,8 @@ export const test_assertClone_TagAtomicUnion = _test_assertClone(
                 return input;
             };
             const clone = (
-                input: Array<TagAtomicUnion.Type>,
-            ): typia.Primitive<Array<TagAtomicUnion.Type>> => {
+                input: TagAtomicUnion,
+            ): typia.Primitive<TagAtomicUnion> => {
                 const $cp0 = (input: any) =>
                     input.map((elem: any) =>
                         "object" === typeof elem && null !== elem

@@ -5,6 +5,6 @@ import { ClassGetter } from "../../structures/ClassGetter";
 export const test_is_ClassGetter = _test_is(
     "ClassGetter",
     ClassGetter.generate,
-    (input) => typia.is(input),
+    (input) => typia.is<ClassGetter>(input),
     ClassGetter.SPOILERS,
 );

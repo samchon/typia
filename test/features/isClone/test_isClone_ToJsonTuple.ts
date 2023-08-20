@@ -5,5 +5,5 @@ import { ToJsonTuple } from "../../structures/ToJsonTuple";
 export const test_isClone_ToJsonTuple = _test_isClone(
     "ToJsonTuple",
     ToJsonTuple.generate,
-    (input) => typia.isClone(input),
+    (input) => typia.isClone<ToJsonTuple>(input),
 );

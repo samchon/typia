@@ -6,12 +6,8 @@ export const test_isPrune_DynamicConstant = _test_isPrune(
     "DynamicConstant",
     DynamicConstant.generate,
     (input) =>
-        ((
-            input: any,
-        ): input is { a: number; b: number; c: number; d: number } => {
-            const is = (
-                input: any,
-            ): input is { a: number; b: number; c: number; d: number } => {
+        ((input: any): input is DynamicConstant => {
+            const is = (input: any): input is DynamicConstant => {
                 return (
                     "object" === typeof input &&
                     null !== input &&
@@ -25,12 +21,7 @@ export const test_isPrune_DynamicConstant = _test_isPrune(
                     Number.isFinite((input as any).d)
                 );
             };
-            const prune = (input: {
-                a: number;
-                b: number;
-                c: number;
-                d: number;
-            }): void => {
+            const prune = (input: DynamicConstant): void => {
                 const $po0 = (input: any): any => {
                     for (const key of Object.keys(input)) {
                         if (

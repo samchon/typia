@@ -5,6 +5,6 @@ import { ArrayAtomicAlias } from "../../structures/ArrayAtomicAlias";
 export const test_isStringify_ArrayAtomicAlias = _test_isStringify(
     "ArrayAtomicAlias",
     ArrayAtomicAlias.generate,
-    (input) => typia.isStringify(input),
+    (input) => typia.isStringify<ArrayAtomicAlias>(input),
     ArrayAtomicAlias.SPOILERS,
 );

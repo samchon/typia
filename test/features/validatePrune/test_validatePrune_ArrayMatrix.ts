@@ -5,6 +5,6 @@ import { ArrayMatrix } from "../../structures/ArrayMatrix";
 export const test_validatePrune_ArrayMatrix = _test_validatePrune(
     "ArrayMatrix",
     ArrayMatrix.generate,
-    (input) => typia.validatePrune(input),
+    (input) => typia.validatePrune<ArrayMatrix>(input),
     ArrayMatrix.SPOILERS,
 );

@@ -5,6 +5,6 @@ import { ConstantAtomicWrapper } from "../../structures/ConstantAtomicWrapper";
 export const test_isPrune_ConstantAtomicWrapper = _test_isPrune(
     "ConstantAtomicWrapper",
     ConstantAtomicWrapper.generate,
-    (input) => typia.isPrune(input),
+    (input) => typia.isPrune<ConstantAtomicWrapper>(input),
     ConstantAtomicWrapper.SPOILERS,
 );

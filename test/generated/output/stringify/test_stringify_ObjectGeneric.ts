@@ -6,13 +6,7 @@ export const test_stringify_ObjectGeneric = _test_stringify(
     "ObjectGeneric",
     ObjectGeneric.generate,
     (input) =>
-        ((
-            input: [
-                ObjectGeneric.ISomething<boolean>,
-                ObjectGeneric.ISomething<number>,
-                ObjectGeneric.ISomething<string>,
-            ],
-        ): string => {
+        ((input: ObjectGeneric): string => {
             const $io1 = (input: any): boolean =>
                 "boolean" === typeof input.child_value &&
                 "boolean" === typeof input.child_next;

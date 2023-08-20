@@ -5,6 +5,6 @@ import { TagArray } from "../../structures/TagArray";
 export const test_assertPrune_TagArray = _test_assertPrune(
     "TagArray",
     TagArray.generate,
-    (input) => typia.assertPrune(input),
+    (input) => typia.assertPrune<TagArray>(input),
     TagArray.SPOILERS,
 );

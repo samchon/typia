@@ -5,5 +5,5 @@ import { ConstantAtomicWrapper } from "../../structures/ConstantAtomicWrapper";
 export const test_stringify_ConstantAtomicWrapper = _test_stringify(
     "ConstantAtomicWrapper",
     ConstantAtomicWrapper.generate,
-    (input) => typia.stringify(input),
+    (input) => typia.stringify<ConstantAtomicWrapper>(input),
 );

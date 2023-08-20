@@ -5,6 +5,6 @@ import { ConstantConstEnumeration } from "../../structures/ConstantConstEnumerat
 export const test_assertClone_ConstantConstEnumeration = _test_assertClone(
     "ConstantConstEnumeration",
     ConstantConstEnumeration.generate,
-    (input) => typia.assertClone(input),
+    (input) => typia.assertClone<ConstantConstEnumeration>(input),
     ConstantConstEnumeration.SPOILERS,
 );

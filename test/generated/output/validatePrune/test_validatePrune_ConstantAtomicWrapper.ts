@@ -6,32 +6,12 @@ export const test_validatePrune_ConstantAtomicWrapper = _test_validatePrune(
     "ConstantAtomicWrapper",
     ConstantAtomicWrapper.generate,
     (input) =>
-        ((
-            input: any,
-        ): typia.IValidation<
-            [
-                ConstantAtomicWrapper.IPointer<boolean>,
-                ConstantAtomicWrapper.IPointer<number>,
-                ConstantAtomicWrapper.IPointer<string>,
-            ]
-        > => {
+        ((input: any): typia.IValidation<ConstantAtomicWrapper> => {
             const validate = (
                 input: any,
-            ): typia.IValidation<
-                [
-                    ConstantAtomicWrapper.IPointer<boolean>,
-                    ConstantAtomicWrapper.IPointer<number>,
-                    ConstantAtomicWrapper.IPointer<string>,
-                ]
-            > => {
+            ): typia.IValidation<ConstantAtomicWrapper> => {
                 const errors = [] as any[];
-                const __is = (
-                    input: any,
-                ): input is [
-                    ConstantAtomicWrapper.IPointer<boolean>,
-                    ConstantAtomicWrapper.IPointer<number>,
-                    ConstantAtomicWrapper.IPointer<string>,
-                ] => {
+                const __is = (input: any): input is ConstantAtomicWrapper => {
                     const $io0 = (input: any): boolean =>
                         "boolean" === typeof input.value;
                     const $io1 = (input: any): boolean =>
@@ -59,11 +39,7 @@ export const test_validatePrune_ConstantAtomicWrapper = _test_validatePrune(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is [
-                        ConstantAtomicWrapper.IPointer<boolean>,
-                        ConstantAtomicWrapper.IPointer<number>,
-                        ConstantAtomicWrapper.IPointer<string>,
-                    ] => {
+                    ): input is ConstantAtomicWrapper => {
                         const $vo0 = (
                             input: any,
                             _path: string,
@@ -180,13 +156,7 @@ export const test_validatePrune_ConstantAtomicWrapper = _test_validatePrune(
                     data: success ? input : undefined,
                 } as any;
             };
-            const prune = (
-                input: [
-                    ConstantAtomicWrapper.IPointer<boolean>,
-                    ConstantAtomicWrapper.IPointer<number>,
-                    ConstantAtomicWrapper.IPointer<string>,
-                ],
-            ): void => {
+            const prune = (input: ConstantAtomicWrapper): void => {
                 const $io0 = (input: any): boolean =>
                     "boolean" === typeof input.value;
                 const $io1 = (input: any): boolean =>

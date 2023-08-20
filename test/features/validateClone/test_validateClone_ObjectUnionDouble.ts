@@ -5,6 +5,6 @@ import { ObjectUnionDouble } from "../../structures/ObjectUnionDouble";
 export const test_validateClone_ObjectUnionDouble = _test_validateClone(
     "ObjectUnionDouble",
     ObjectUnionDouble.generate,
-    (input) => typia.validateClone(input),
+    (input) => typia.validateClone<ObjectUnionDouble>(input),
     ObjectUnionDouble.SPOILERS,
 );

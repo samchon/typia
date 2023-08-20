@@ -6,38 +6,9 @@ export const test_assertClone_ToJsonUnion = _test_assertClone(
     "ToJsonUnion",
     ToJsonUnion.generate,
     (input) =>
-        ((
-            input: any,
-        ): typia.Primitive<
-            Array<
-                | string
-                | number
-                | ToJsonUnion.ICitizen
-                | ToJsonUnion.IWrapper<boolean>
-                | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen>
-                | ToJsonUnion.IWrapper<ToJsonUnion.IProduct>
-            >
-        > => {
-            const assert = (
-                input: any,
-            ): Array<
-                | string
-                | number
-                | ToJsonUnion.ICitizen
-                | ToJsonUnion.IWrapper<boolean>
-                | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen>
-                | ToJsonUnion.IWrapper<ToJsonUnion.IProduct>
-            > => {
-                const __is = (
-                    input: any,
-                ): input is Array<
-                    | string
-                    | number
-                    | ToJsonUnion.ICitizen
-                    | ToJsonUnion.IWrapper<boolean>
-                    | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen>
-                    | ToJsonUnion.IWrapper<ToJsonUnion.IProduct>
-                > => {
+        ((input: any): typia.Primitive<ToJsonUnion> => {
+            const assert = (input: any): ToJsonUnion => {
+                const __is = (input: any): input is ToJsonUnion => {
                     const $io0 = (input: any): boolean =>
                         "number" === typeof input.id &&
                         Number.isFinite(input.id) &&
@@ -79,14 +50,7 @@ export const test_assertClone_ToJsonUnion = _test_assertClone(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is Array<
-                        | string
-                        | number
-                        | ToJsonUnion.ICitizen
-                        | ToJsonUnion.IWrapper<boolean>
-                        | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen>
-                        | ToJsonUnion.IWrapper<ToJsonUnion.IProduct>
-                    > => {
+                    ): input is ToJsonUnion => {
                         const $guard = (typia.assertClone as any).guard;
                         const $ao0 = (
                             input: any,
@@ -244,24 +208,8 @@ export const test_assertClone_ToJsonUnion = _test_assertClone(
                 return input;
             };
             const clone = (
-                input: Array<
-                    | string
-                    | number
-                    | ToJsonUnion.ICitizen
-                    | ToJsonUnion.IWrapper<boolean>
-                    | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen>
-                    | ToJsonUnion.IWrapper<ToJsonUnion.IProduct>
-                >,
-            ): typia.Primitive<
-                Array<
-                    | string
-                    | number
-                    | ToJsonUnion.ICitizen
-                    | ToJsonUnion.IWrapper<boolean>
-                    | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen>
-                    | ToJsonUnion.IWrapper<ToJsonUnion.IProduct>
-                >
-            > => {
+                input: ToJsonUnion,
+            ): typia.Primitive<ToJsonUnion> => {
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.id &&
                     "string" === typeof input.mobile &&

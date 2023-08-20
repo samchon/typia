@@ -6,7 +6,7 @@ export const test_prune_ObjectPrimitive = _test_prune(
     "ObjectPrimitive",
     ObjectPrimitive.generate,
     (input) =>
-        ((input: ObjectPrimitive.IArticle): void => {
+        ((input: ObjectPrimitive): void => {
             const $io1 = (input: any): boolean =>
                 "string" === typeof input.id &&
                 "string" === typeof input.name &&

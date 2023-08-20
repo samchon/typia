@@ -6,7 +6,7 @@ export const test_prune_ObjectUndefined = _test_prune(
     "ObjectUndefined",
     ObjectUndefined.generate,
     (input) =>
-        ((input: Array<ObjectUndefined.ILecture>): void => {
+        ((input: ObjectUndefined): void => {
             const $io1 = (input: any): boolean =>
                 "string" === typeof input.id && "string" === typeof input.name;
             const $pp0 = (input: any) =>

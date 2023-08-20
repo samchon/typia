@@ -6,8 +6,8 @@ export const test_assert_TupleUnion = _test_assert(
     "TupleUnion",
     TupleUnion.generate,
     (input) =>
-        ((input: any): Array<TupleUnion.Union> => {
-            const __is = (input: any): input is Array<TupleUnion.Union> => {
+        ((input: any): TupleUnion => {
+            const __is = (input: any): input is TupleUnion => {
                 const $ip0 = (input: any) => {
                     const array = input;
                     const tuplePredicators = [
@@ -59,7 +59,7 @@ export const test_assert_TupleUnion = _test_assert(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is Array<TupleUnion.Union> => {
+                ): input is TupleUnion => {
                     const $guard = (typia.assert as any).guard;
                     const $ap0 = (
                         input: any,

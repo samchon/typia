@@ -5,6 +5,6 @@ import { AtomicIntersection } from "../../structures/AtomicIntersection";
 export const test_isPrune_AtomicIntersection = _test_isPrune(
     "AtomicIntersection",
     AtomicIntersection.generate,
-    (input) => typia.isPrune(input),
+    (input) => typia.isPrune<AtomicIntersection>(input),
     AtomicIntersection.SPOILERS,
 );

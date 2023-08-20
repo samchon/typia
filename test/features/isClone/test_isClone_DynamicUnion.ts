@@ -5,6 +5,6 @@ import { DynamicUnion } from "../../structures/DynamicUnion";
 export const test_isClone_DynamicUnion = _test_isClone(
     "DynamicUnion",
     DynamicUnion.generate,
-    (input) => typia.isClone(input),
+    (input) => typia.isClone<DynamicUnion>(input),
     DynamicUnion.SPOILERS,
 );

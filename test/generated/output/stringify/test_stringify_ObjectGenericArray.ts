@@ -6,9 +6,7 @@ export const test_stringify_ObjectGenericArray = _test_stringify(
     "ObjectGenericArray",
     ObjectGenericArray.generate,
     (input) =>
-        ((
-            input: ObjectGenericArray.IPage<ObjectGenericArray.IPerson>,
-        ): string => {
+        ((input: ObjectGenericArray): string => {
             const $io1 = (input: any): boolean =>
                 "number" === typeof input.page &&
                 "number" === typeof input.limit &&

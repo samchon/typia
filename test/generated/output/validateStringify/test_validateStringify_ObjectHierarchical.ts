@@ -7,16 +7,12 @@ export const test_validateStringify_ObjectHierarchical =
         "ObjectHierarchical",
         ObjectHierarchical.generate,
         (input) =>
-            ((
-                input: ObjectHierarchical.ICustomer,
-            ): typia.IValidation<string> => {
+            ((input: ObjectHierarchical): typia.IValidation<string> => {
                 const validate = (
                     input: any,
-                ): typia.IValidation<ObjectHierarchical.ICustomer> => {
+                ): typia.IValidation<ObjectHierarchical> => {
                     const errors = [] as any[];
-                    const __is = (
-                        input: any,
-                    ): input is ObjectHierarchical.ICustomer => {
+                    const __is = (input: any): input is ObjectHierarchical => {
                         const $io0 = (input: any): boolean =>
                             "number" === typeof input.id &&
                             Number.isFinite(input.id) &&
@@ -135,7 +131,7 @@ export const test_validateStringify_ObjectHierarchical =
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
-                        ): input is ObjectHierarchical.ICustomer => {
+                        ): input is ObjectHierarchical => {
                             const $vo0 = (
                                 input: any,
                                 _path: string,
@@ -610,9 +606,7 @@ export const test_validateStringify_ObjectHierarchical =
                         data: success ? input : undefined,
                     } as any;
                 };
-                const stringify = (
-                    input: ObjectHierarchical.ICustomer,
-                ): string => {
+                const stringify = (input: ObjectHierarchical): string => {
                     const $io1 = (input: any): boolean =>
                         "number" === typeof input.id &&
                         "string" === typeof input.code &&

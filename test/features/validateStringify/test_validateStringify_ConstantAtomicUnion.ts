@@ -6,6 +6,6 @@ export const test_validateStringify_ConstantAtomicUnion =
     _test_validateStringify(
         "ConstantAtomicUnion",
         ConstantAtomicUnion.generate,
-        (input) => typia.validateStringify(input),
+        (input) => typia.validateStringify<ConstantAtomicUnion>(input),
         ConstantAtomicUnion.SPOILERS,
     );

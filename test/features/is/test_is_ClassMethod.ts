@@ -5,6 +5,6 @@ import { ClassMethod } from "../../structures/ClassMethod";
 export const test_is_ClassMethod = _test_is(
     "ClassMethod",
     ClassMethod.generate,
-    (input) => typia.is(input),
+    (input) => typia.is<ClassMethod>(input),
     ClassMethod.SPOILERS,
 );

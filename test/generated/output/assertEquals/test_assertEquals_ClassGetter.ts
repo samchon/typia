@@ -6,11 +6,11 @@ export const test_assertEquals_ClassGetter = _test_assertEquals(
     "ClassGetter",
     ClassGetter.generate,
     (input) =>
-        ((input: any): ClassGetter.Person => {
+        ((input: any): ClassGetter => {
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
-            ): input is ClassGetter.Person => {
+            ): input is ClassGetter => {
                 const $io0 = (
                     input: any,
                     _exceptionable: boolean = true,
@@ -41,7 +41,7 @@ export const test_assertEquals_ClassGetter = _test_assertEquals(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ClassGetter.Person => {
+                ): input is ClassGetter => {
                     const $guard = (typia.assertEquals as any).guard;
                     const $join = (typia.assertEquals as any).join;
                     const $ao0 = (

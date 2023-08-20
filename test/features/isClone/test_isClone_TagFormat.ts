@@ -5,6 +5,6 @@ import { TagFormat } from "../../structures/TagFormat";
 export const test_isClone_TagFormat = _test_isClone(
     "TagFormat",
     TagFormat.generate,
-    (input) => typia.isClone(input),
+    (input) => typia.isClone<TagFormat>(input),
     TagFormat.SPOILERS,
 );

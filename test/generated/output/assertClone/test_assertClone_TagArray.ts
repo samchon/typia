@@ -6,9 +6,9 @@ export const test_assertClone_TagArray = _test_assertClone(
     "TagArray",
     TagArray.generate,
     (input) =>
-        ((input: any): typia.Primitive<Array<TagArray.Type>> => {
-            const assert = (input: any): Array<TagArray.Type> => {
-                const __is = (input: any): input is Array<TagArray.Type> => {
+        ((input: any): typia.Primitive<TagArray> => {
+            const assert = (input: any): TagArray => {
+                const __is = (input: any): input is TagArray => {
                     const $is_uuid = (typia.assertClone as any).is_uuid;
                     const $io0 = (input: any): boolean =>
                         Array.isArray(input.items) &&
@@ -66,7 +66,7 @@ export const test_assertClone_TagArray = _test_assertClone(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is Array<TagArray.Type> => {
+                    ): input is TagArray => {
                         const $guard = (typia.assertClone as any).guard;
                         const $is_uuid = (typia.assertClone as any).is_uuid;
                         const $ao0 = (
@@ -320,7 +320,7 @@ export const test_assertClone_TagArray = _test_assertClone(
                             ((Array.isArray(input) ||
                                 $guard(true, {
                                     path: _path + "",
-                                    expected: "Array<TagArray.Type>",
+                                    expected: "TagArray",
                                     value: input,
                                 })) &&
                                 input.every(
@@ -346,16 +346,14 @@ export const test_assertClone_TagArray = _test_assertClone(
                                 )) ||
                             $guard(true, {
                                 path: _path + "",
-                                expected: "Array<TagArray.Type>",
+                                expected: "TagArray",
                                 value: input,
                             })
                         );
                     })(input, "$input", true);
                 return input;
             };
-            const clone = (
-                input: Array<TagArray.Type>,
-            ): typia.Primitive<Array<TagArray.Type>> => {
+            const clone = (input: TagArray): typia.Primitive<TagArray> => {
                 const $is_uuid = (typia.assertClone as any).is_uuid;
                 const $cp0 = (input: any) =>
                     input.map((elem: any) =>

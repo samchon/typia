@@ -6,6 +6,6 @@ export const test_validateStringify_ArrayRepeatedUnion =
     _test_validateStringify(
         "ArrayRepeatedUnion",
         ArrayRepeatedUnion.generate,
-        (input) => typia.validateStringify(input),
+        (input) => typia.validateStringify<ArrayRepeatedUnion>(input),
         ArrayRepeatedUnion.SPOILERS,
     );

@@ -5,5 +5,5 @@ import { ToJsonArray } from "../../structures/ToJsonArray";
 export const test_is_ToJsonArray = _test_is(
     "ToJsonArray",
     ToJsonArray.generate,
-    (input) => typia.is(input),
+    (input) => typia.is<ToJsonArray>(input),
 );

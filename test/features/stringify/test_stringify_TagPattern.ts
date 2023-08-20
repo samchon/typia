@@ -5,5 +5,5 @@ import { TagPattern } from "../../structures/TagPattern";
 export const test_stringify_TagPattern = _test_stringify(
     "TagPattern",
     TagPattern.generate,
-    (input) => typia.stringify(input),
+    (input) => typia.stringify<TagPattern>(input),
 );

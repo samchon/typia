@@ -5,5 +5,5 @@ import { TemplateAtomic } from "../../structures/TemplateAtomic";
 export const test_prune_TemplateAtomic = _test_prune(
     "TemplateAtomic",
     TemplateAtomic.generate,
-    (input) => typia.prune(input),
+    (input) => typia.prune<TemplateAtomic>(input),
 );

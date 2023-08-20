@@ -5,6 +5,6 @@ import { ObjectLiteralType } from "../../structures/ObjectLiteralType";
 export const test_validateClone_ObjectLiteralType = _test_validateClone(
     "ObjectLiteralType",
     ObjectLiteralType.generate,
-    (input) => typia.validateClone(input),
+    (input) => typia.validateClone<ObjectLiteralType>(input),
     ObjectLiteralType.SPOILERS,
 );

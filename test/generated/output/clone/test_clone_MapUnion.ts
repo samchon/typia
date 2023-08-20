@@ -6,9 +6,7 @@ export const test_clone_MapUnion = _test_clone(
     "MapUnion",
     MapUnion.generate,
     (input) =>
-        ((
-            input: Array<MapUnion.Union>,
-        ): typia.Primitive<Array<MapUnion.Union>> => {
+        ((input: MapUnion): typia.Primitive<MapUnion> => {
             const $cp0 = (input: any) =>
                 input.map((elem: any) =>
                     elem instanceof Map ? {} : (elem as any),

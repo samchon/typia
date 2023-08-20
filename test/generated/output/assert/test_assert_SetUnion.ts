@@ -6,8 +6,8 @@ export const test_assert_SetUnion = _test_assert(
     "SetUnion",
     SetUnion.generate,
     (input) =>
-        ((input: any): Array<SetUnion.Union> => {
-            const __is = (input: any): input is Array<SetUnion.Union> => {
+        ((input: any): SetUnion => {
+            const __is = (input: any): input is SetUnion => {
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     "string" === typeof input.name &&
@@ -112,7 +112,7 @@ export const test_assert_SetUnion = _test_assert(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is Array<SetUnion.Union> => {
+                ): input is SetUnion => {
                     const $guard = (typia.assert as any).guard;
                     const $ao0 = (
                         input: any,

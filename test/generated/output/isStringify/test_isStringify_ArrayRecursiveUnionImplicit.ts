@@ -6,10 +6,8 @@ export const test_isStringify_ArrayRecursiveUnionImplicit = _test_isStringify(
     "ArrayRecursiveUnionImplicit",
     ArrayRecursiveUnionImplicit.generate,
     (input) =>
-        ((input: Array<ArrayRecursiveUnionImplicit.IBucket>): string | null => {
-            const is = (
-                input: any,
-            ): input is Array<ArrayRecursiveUnionImplicit.IBucket> => {
+        ((input: ArrayRecursiveUnionImplicit): string | null => {
+            const is = (input: any): input is ArrayRecursiveUnionImplicit => {
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.id &&
                     Number.isFinite(input.id) &&
@@ -91,9 +89,7 @@ export const test_isStringify_ArrayRecursiveUnionImplicit = _test_isStringify(
                     )
                 );
             };
-            const stringify = (
-                input: Array<ArrayRecursiveUnionImplicit.IBucket>,
-            ): string => {
+            const stringify = (input: ArrayRecursiveUnionImplicit): string => {
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.id &&
                     "string" === typeof input.name &&

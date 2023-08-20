@@ -5,6 +5,6 @@ import { ObjectGenericArray } from "../../structures/ObjectGenericArray";
 export const test_isClone_ObjectGenericArray = _test_isClone(
     "ObjectGenericArray",
     ObjectGenericArray.generate,
-    (input) => typia.isClone(input),
+    (input) => typia.isClone<ObjectGenericArray>(input),
     ObjectGenericArray.SPOILERS,
 );

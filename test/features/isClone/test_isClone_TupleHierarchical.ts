@@ -5,6 +5,6 @@ import { TupleHierarchical } from "../../structures/TupleHierarchical";
 export const test_isClone_TupleHierarchical = _test_isClone(
     "TupleHierarchical",
     TupleHierarchical.generate,
-    (input) => typia.isClone(input),
+    (input) => typia.isClone<TupleHierarchical>(input),
     TupleHierarchical.SPOILERS,
 );

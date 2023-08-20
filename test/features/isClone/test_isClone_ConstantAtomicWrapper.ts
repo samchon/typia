@@ -5,6 +5,6 @@ import { ConstantAtomicWrapper } from "../../structures/ConstantAtomicWrapper";
 export const test_isClone_ConstantAtomicWrapper = _test_isClone(
     "ConstantAtomicWrapper",
     ConstantAtomicWrapper.generate,
-    (input) => typia.isClone(input),
+    (input) => typia.isClone<ConstantAtomicWrapper>(input),
     ConstantAtomicWrapper.SPOILERS,
 );

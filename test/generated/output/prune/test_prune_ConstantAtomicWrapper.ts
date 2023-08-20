@@ -6,13 +6,7 @@ export const test_prune_ConstantAtomicWrapper = _test_prune(
     "ConstantAtomicWrapper",
     ConstantAtomicWrapper.generate,
     (input) =>
-        ((
-            input: [
-                ConstantAtomicWrapper.IPointer<boolean>,
-                ConstantAtomicWrapper.IPointer<number>,
-                ConstantAtomicWrapper.IPointer<string>,
-            ],
-        ): void => {
+        ((input: ConstantAtomicWrapper): void => {
             const $io0 = (input: any): boolean =>
                 "boolean" === typeof input.value;
             const $io1 = (input: any): boolean =>

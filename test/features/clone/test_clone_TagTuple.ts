@@ -5,5 +5,5 @@ import { TagTuple } from "../../structures/TagTuple";
 export const test_clone_TagTuple = _test_clone(
     "TagTuple",
     TagTuple.generate,
-    (input) => typia.clone(input),
+    (input) => typia.clone<TagTuple>(input),
 );

@@ -6,6 +6,6 @@ export const test_validateStringify_ObjectUnionNonPredictable =
     _test_validateStringify(
         "ObjectUnionNonPredictable",
         ObjectUnionNonPredictable.generate,
-        (input) => typia.validateStringify(input),
+        (input) => typia.validateStringify<ObjectUnionNonPredictable>(input),
         ObjectUnionNonPredictable.SPOILERS,
     );

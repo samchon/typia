@@ -6,23 +6,9 @@ export const test_validate_ObjectNullable = _test_validate(
     "ObjectNullable",
     ObjectNullable.generate,
     (input) =>
-        ((
-            input: any,
-        ): typia.IValidation<
-            [
-                ObjectNullable.IProduct,
-                ObjectNullable.IProduct,
-                ObjectNullable.IProduct,
-            ]
-        > => {
+        ((input: any): typia.IValidation<ObjectNullable> => {
             const errors = [] as any[];
-            const __is = (
-                input: any,
-            ): input is [
-                ObjectNullable.IProduct,
-                ObjectNullable.IProduct,
-                ObjectNullable.IProduct,
-            ] => {
+            const __is = (input: any): input is ObjectNullable => {
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.name &&
                     "object" === typeof input.manufacturer &&
@@ -67,11 +53,7 @@ export const test_validate_ObjectNullable = _test_validate(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is [
-                    ObjectNullable.IProduct,
-                    ObjectNullable.IProduct,
-                    ObjectNullable.IProduct,
-                ] => {
+                ): input is ObjectNullable => {
                     const $vo0 = (
                         input: any,
                         _path: string,

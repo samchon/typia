@@ -6,7 +6,7 @@ export const test_stringify_AtomicUnion = _test_stringify(
     "AtomicUnion",
     AtomicUnion.generate,
     (input) =>
-        ((input: Array<AtomicUnion.Union>): string => {
+        ((input: AtomicUnion): string => {
             const $string = (typia.stringify as any).string;
             const $number = (typia.stringify as any).number;
             const $throws = (typia.stringify as any).throws;

@@ -5,6 +5,6 @@ import { ClassNonPublic } from "../../structures/ClassNonPublic";
 export const test_assert_ClassNonPublic = _test_assert(
     "ClassNonPublic",
     ClassNonPublic.generate,
-    (input) => typia.assert(input),
+    (input) => typia.assert<ClassNonPublic>(input),
     ClassNonPublic.SPOILERS,
 );

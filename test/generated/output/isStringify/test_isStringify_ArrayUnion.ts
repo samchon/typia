@@ -6,8 +6,8 @@ export const test_isStringify_ArrayUnion = _test_isStringify(
     "ArrayUnion",
     ArrayUnion.generate,
     (input) =>
-        ((input: Array<ArrayUnion.IUnion>): string | null => {
-            const is = (input: any): input is Array<ArrayUnion.IUnion> => {
+        ((input: ArrayUnion): string | null => {
+            const is = (input: any): input is ArrayUnion => {
                 const $ip0 = (input: any) => {
                     const array = input;
                     const top = input[0];
@@ -60,7 +60,7 @@ export const test_isStringify_ArrayUnion = _test_isStringify(
                     )
                 );
             };
-            const stringify = (input: Array<ArrayUnion.IUnion>): string => {
+            const stringify = (input: ArrayUnion): string => {
                 const $string = (typia.isStringify as any).string;
                 const $number = (typia.isStringify as any).number;
                 const $throws = (typia.isStringify as any).throws;

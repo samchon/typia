@@ -6,8 +6,8 @@ export const test_isPrune_TagAtomicUnion = _test_isPrune(
     "TagAtomicUnion",
     TagAtomicUnion.generate,
     (input) =>
-        ((input: any): input is Array<TagAtomicUnion.Type> => {
-            const is = (input: any): input is Array<TagAtomicUnion.Type> => {
+        ((input: any): input is TagAtomicUnion => {
+            const is = (input: any): input is TagAtomicUnion => {
                 const $io0 = (input: any): boolean =>
                     ("string" === typeof input.value &&
                         3 <= input.value.length &&
@@ -25,7 +25,7 @@ export const test_isPrune_TagAtomicUnion = _test_isPrune(
                     )
                 );
             };
-            const prune = (input: Array<TagAtomicUnion.Type>): void => {
+            const prune = (input: TagAtomicUnion): void => {
                 const $pp0 = (input: any) =>
                     input.forEach((elem: any) => {
                         if ("object" === typeof elem && null !== elem)

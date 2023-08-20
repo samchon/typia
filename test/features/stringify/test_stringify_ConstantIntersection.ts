@@ -5,5 +5,5 @@ import { ConstantIntersection } from "../../structures/ConstantIntersection";
 export const test_stringify_ConstantIntersection = _test_stringify(
     "ConstantIntersection",
     ConstantIntersection.generate,
-    (input) => typia.stringify(input),
+    (input) => typia.stringify<ConstantIntersection>(input),
 );

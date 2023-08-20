@@ -6,8 +6,8 @@ export const test_isClone_ObjectPrimitive = _test_isClone(
     "ObjectPrimitive",
     ObjectPrimitive.generate,
     (input) =>
-        ((input: any): typia.Primitive<ObjectPrimitive.IArticle> | null => {
-            const is = (input: any): input is ObjectPrimitive.IArticle => {
+        ((input: any): typia.Primitive<ObjectPrimitive> | null => {
+            const is = (input: any): input is ObjectPrimitive => {
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     ("md" === input.extension ||
@@ -35,8 +35,8 @@ export const test_isClone_ObjectPrimitive = _test_isClone(
                 );
             };
             const clone = (
-                input: ObjectPrimitive.IArticle,
-            ): typia.Primitive<ObjectPrimitive.IArticle> => {
+                input: ObjectPrimitive,
+            ): typia.Primitive<ObjectPrimitive> => {
                 const $io1 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     "string" === typeof input.name &&

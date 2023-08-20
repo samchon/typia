@@ -6,7 +6,7 @@ export const test_is_ConstantConstEnumeration = _test_is(
     "ConstantConstEnumeration",
     ConstantConstEnumeration.generate,
     (input) =>
-        ((input: any): input is Array<ConstantConstEnumeration.Enumeration> => {
+        ((input: any): input is ConstantConstEnumeration => {
             return (
                 Array.isArray(input) &&
                 input.every(

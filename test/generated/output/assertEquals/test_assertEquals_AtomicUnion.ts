@@ -6,11 +6,11 @@ export const test_assertEquals_AtomicUnion = _test_assertEquals(
     "AtomicUnion",
     AtomicUnion.generate,
     (input) =>
-        ((input: any): Array<AtomicUnion.Union> => {
+        ((input: any): AtomicUnion => {
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
-            ): input is Array<AtomicUnion.Union> => {
+            ): input is AtomicUnion => {
                 return (
                     Array.isArray(input) &&
                     input.every(
@@ -28,7 +28,7 @@ export const test_assertEquals_AtomicUnion = _test_assertEquals(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is Array<AtomicUnion.Union> => {
+                ): input is AtomicUnion => {
                     const $guard = (typia.assertEquals as any).guard;
                     return (
                         ((Array.isArray(input) ||

@@ -9,7 +9,7 @@ export const test_equals_ObjectClosure = _test_equals(
         ((
             input: any,
             _exceptionable: boolean = true,
-        ): input is { id: string; open: () => string } => {
+        ): input is ObjectClosure => {
             const $io0 = (
                 input: any,
                 _exceptionable: boolean = true,

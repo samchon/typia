@@ -6,11 +6,11 @@ export const test_assertEquals_ArrayUnion = _test_assertEquals(
     "ArrayUnion",
     ArrayUnion.generate,
     (input) =>
-        ((input: any): Array<ArrayUnion.IUnion> => {
+        ((input: any): ArrayUnion => {
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
-            ): input is Array<ArrayUnion.IUnion> => {
+            ): input is ArrayUnion => {
                 const $ip0 = (input: any, _exceptionable: boolean = true) => {
                     const array = input;
                     const top = input[0];
@@ -71,7 +71,7 @@ export const test_assertEquals_ArrayUnion = _test_assertEquals(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is Array<ArrayUnion.IUnion> => {
+                ): input is ArrayUnion => {
                     const $guard = (typia.assertEquals as any).guard;
                     const $ap0 = (
                         input: any,

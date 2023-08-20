@@ -7,8 +7,8 @@ export const test_assertStringify_TagLength = _test_assertStringify(
     TagLength.generate,
     (input) =>
         ((input: any): string => {
-            const assert = (input: any): Array<TagLength.Type> => {
-                const __is = (input: any): input is Array<TagLength.Type> => {
+            const assert = (input: any): TagLength => {
+                const __is = (input: any): input is TagLength => {
                     const $io0 = (input: any): boolean =>
                         "string" === typeof input.fixed &&
                         5 === input.fixed.length &&
@@ -37,7 +37,7 @@ export const test_assertStringify_TagLength = _test_assertStringify(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is Array<TagLength.Type> => {
+                    ): input is TagLength => {
                         const $guard = (typia.assertStringify as any).guard;
                         const $ao0 = (
                             input: any,
@@ -120,7 +120,7 @@ export const test_assertStringify_TagLength = _test_assertStringify(
                             ((Array.isArray(input) ||
                                 $guard(true, {
                                     path: _path + "",
-                                    expected: "Array<TagLength.Type>",
+                                    expected: "TagLength",
                                     value: input,
                                 })) &&
                                 input.every(
@@ -146,14 +146,14 @@ export const test_assertStringify_TagLength = _test_assertStringify(
                                 )) ||
                             $guard(true, {
                                 path: _path + "",
-                                expected: "Array<TagLength.Type>",
+                                expected: "TagLength",
                                 value: input,
                             })
                         );
                     })(input, "$input", true);
                 return input;
             };
-            const stringify = (input: Array<TagLength.Type>): string => {
+            const stringify = (input: TagLength): string => {
                 const $string = (typia.assertStringify as any).string;
                 return `[${input
                     .map(

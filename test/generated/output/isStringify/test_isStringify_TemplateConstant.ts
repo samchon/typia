@@ -6,8 +6,8 @@ export const test_isStringify_TemplateConstant = _test_isStringify(
     "TemplateConstant",
     TemplateConstant.generate,
     (input) =>
-        ((input: Array<TemplateConstant.Type>): string | null => {
-            const is = (input: any): input is Array<TemplateConstant.Type> => {
+        ((input: TemplateConstant): string | null => {
+            const is = (input: any): input is TemplateConstant => {
                 const $io0 = (input: any): boolean =>
                     ("prefix_A" === input.prefix ||
                         "prefix_B" === input.prefix ||
@@ -34,7 +34,7 @@ export const test_isStringify_TemplateConstant = _test_isStringify(
                     )
                 );
             };
-            const stringify = (input: Array<TemplateConstant.Type>): string => {
+            const stringify = (input: TemplateConstant): string => {
                 const $string = (typia.isStringify as any).string;
                 const $throws = (typia.isStringify as any).throws;
                 const $so0 = (input: any): any =>

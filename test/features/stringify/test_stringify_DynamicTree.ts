@@ -5,5 +5,5 @@ import { DynamicTree } from "../../structures/DynamicTree";
 export const test_stringify_DynamicTree = _test_stringify(
     "DynamicTree",
     DynamicTree.generate,
-    (input) => typia.stringify(input),
+    (input) => typia.stringify<DynamicTree>(input),
 );

@@ -5,5 +5,5 @@ import { ClassMethod } from "../../structures/ClassMethod";
 export const test_stringify_ClassMethod = _test_stringify(
     "ClassMethod",
     ClassMethod.generate,
-    (input) => typia.stringify(input),
+    (input) => typia.stringify<ClassMethod>(input),
 );

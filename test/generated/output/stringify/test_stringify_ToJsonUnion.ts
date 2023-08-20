@@ -6,16 +6,7 @@ export const test_stringify_ToJsonUnion = _test_stringify(
     "ToJsonUnion",
     ToJsonUnion.generate,
     (input) =>
-        ((
-            input: Array<
-                | string
-                | number
-                | ToJsonUnion.ICitizen
-                | ToJsonUnion.IWrapper<boolean>
-                | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen>
-                | ToJsonUnion.IWrapper<ToJsonUnion.IProduct>
-            >,
-        ): string => {
+        ((input: ToJsonUnion): string => {
             const $io0 = (input: any): boolean =>
                 "number" === typeof input.id &&
                 "string" === typeof input.mobile &&

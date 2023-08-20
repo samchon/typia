@@ -5,6 +5,6 @@ import { ObjectAlias } from "../../structures/ObjectAlias";
 export const test_isStringify_ObjectAlias = _test_isStringify(
     "ObjectAlias",
     ObjectAlias.generate,
-    (input) => typia.isStringify(input),
+    (input) => typia.isStringify<ObjectAlias>(input),
     ObjectAlias.SPOILERS,
 );

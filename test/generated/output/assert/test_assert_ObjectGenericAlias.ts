@@ -6,10 +6,8 @@ export const test_assert_ObjectGenericAlias = _test_assert(
     "ObjectGenericAlias",
     ObjectGenericAlias.generate,
     (input) =>
-        ((input: any): ObjectGenericAlias.ISomething<string> => {
-            const __is = (
-                input: any,
-            ): input is ObjectGenericAlias.ISomething<string> => {
+        ((input: any): ObjectGenericAlias => {
+            const __is = (input: any): input is ObjectGenericAlias => {
                 return (
                     "object" === typeof input &&
                     null !== input &&
@@ -21,7 +19,7 @@ export const test_assert_ObjectGenericAlias = _test_assert(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ObjectGenericAlias.ISomething<string> => {
+                ): input is ObjectGenericAlias => {
                     const $guard = (typia.assert as any).guard;
                     const $ao0 = (
                         input: any,

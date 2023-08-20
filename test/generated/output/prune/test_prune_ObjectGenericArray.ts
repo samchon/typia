@@ -6,9 +6,7 @@ export const test_prune_ObjectGenericArray = _test_prune(
     "ObjectGenericArray",
     ObjectGenericArray.generate,
     (input) =>
-        ((
-            input: ObjectGenericArray.IPage<ObjectGenericArray.IPerson>,
-        ): void => {
+        ((input: ObjectGenericArray): void => {
             const $io1 = (input: any): boolean =>
                 "number" === typeof input.page &&
                 "number" === typeof input.limit &&

@@ -5,5 +5,5 @@ import { FunctionalValue } from "../../structures/FunctionalValue";
 export const test_assert_FunctionalValue = _test_assert(
     "FunctionalValue",
     FunctionalValue.generate,
-    (input) => typia.assert(input),
+    (input) => typia.assert<FunctionalValue>(input),
 );

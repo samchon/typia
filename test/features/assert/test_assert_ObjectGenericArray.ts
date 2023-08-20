@@ -5,6 +5,6 @@ import { ObjectGenericArray } from "../../structures/ObjectGenericArray";
 export const test_assert_ObjectGenericArray = _test_assert(
     "ObjectGenericArray",
     ObjectGenericArray.generate,
-    (input) => typia.assert(input),
+    (input) => typia.assert<ObjectGenericArray>(input),
     ObjectGenericArray.SPOILERS,
 );

@@ -5,6 +5,6 @@ import { AtomicIntersection } from "../../structures/AtomicIntersection";
 export const test_assertStringify_AtomicIntersection = _test_assertStringify(
     "AtomicIntersection",
     AtomicIntersection.generate,
-    (input) => typia.assertStringify(input),
+    (input) => typia.assertStringify<AtomicIntersection>(input),
     AtomicIntersection.SPOILERS,
 );

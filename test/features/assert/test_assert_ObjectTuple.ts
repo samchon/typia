@@ -5,6 +5,6 @@ import { ObjectTuple } from "../../structures/ObjectTuple";
 export const test_assert_ObjectTuple = _test_assert(
     "ObjectTuple",
     ObjectTuple.generate,
-    (input) => typia.assert(input),
+    (input) => typia.assert<ObjectTuple>(input),
     ObjectTuple.SPOILERS,
 );

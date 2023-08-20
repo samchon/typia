@@ -5,6 +5,6 @@ import { DynamicTemplate } from "../../structures/DynamicTemplate";
 export const test_assertClone_DynamicTemplate = _test_assertClone(
     "DynamicTemplate",
     DynamicTemplate.generate,
-    (input) => typia.assertClone(input),
+    (input) => typia.assertClone<DynamicTemplate>(input),
     DynamicTemplate.SPOILERS,
 );

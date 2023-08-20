@@ -6,9 +6,9 @@ export const test_assertPrune_TagArray = _test_assertPrune(
     "TagArray",
     TagArray.generate,
     (input) =>
-        ((input: any): Array<TagArray.Type> => {
-            const assert = (input: any): Array<TagArray.Type> => {
-                const __is = (input: any): input is Array<TagArray.Type> => {
+        ((input: any): TagArray => {
+            const assert = (input: any): TagArray => {
+                const __is = (input: any): input is TagArray => {
                     const $is_uuid = (typia.assertPrune as any).is_uuid;
                     const $io0 = (input: any): boolean =>
                         Array.isArray(input.items) &&
@@ -66,7 +66,7 @@ export const test_assertPrune_TagArray = _test_assertPrune(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is Array<TagArray.Type> => {
+                    ): input is TagArray => {
                         const $guard = (typia.assertPrune as any).guard;
                         const $is_uuid = (typia.assertPrune as any).is_uuid;
                         const $ao0 = (
@@ -320,7 +320,7 @@ export const test_assertPrune_TagArray = _test_assertPrune(
                             ((Array.isArray(input) ||
                                 $guard(true, {
                                     path: _path + "",
-                                    expected: "Array<TagArray.Type>",
+                                    expected: "TagArray",
                                     value: input,
                                 })) &&
                                 input.every(
@@ -346,14 +346,14 @@ export const test_assertPrune_TagArray = _test_assertPrune(
                                 )) ||
                             $guard(true, {
                                 path: _path + "",
-                                expected: "Array<TagArray.Type>",
+                                expected: "TagArray",
                                 value: input,
                             })
                         );
                     })(input, "$input", true);
                 return input;
             };
-            const prune = (input: Array<TagArray.Type>): void => {
+            const prune = (input: TagArray): void => {
                 const $is_uuid = (typia.assertPrune as any).is_uuid;
                 const $pp0 = (input: any) =>
                     input.forEach((elem: any) => {

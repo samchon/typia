@@ -6,17 +6,7 @@ export const test_stringify_ObjectUnionImplicit = _test_stringify(
     "ObjectUnionImplicit",
     ObjectUnionImplicit.generate,
     (input) =>
-        ((
-            input: Array<
-                | ObjectUnionImplicit.IPoint
-                | ObjectUnionImplicit.ILine
-                | ObjectUnionImplicit.ITriangle
-                | ObjectUnionImplicit.IRectangle
-                | ObjectUnionImplicit.IPolyline
-                | ObjectUnionImplicit.IPolygon
-                | ObjectUnionImplicit.ICircle
-            >,
-        ): string => {
+        ((input: ObjectUnionImplicit): string => {
             const $io0 = (input: any): boolean =>
                 "number" === typeof input.x &&
                 "number" === typeof input.y &&

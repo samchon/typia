@@ -5,5 +5,5 @@ import { TagType } from "../../structures/TagType";
 export const test_clone_TagType = _test_clone(
     "TagType",
     TagType.generate,
-    (input) => typia.clone(input),
+    (input) => typia.clone<TagType>(input),
 );

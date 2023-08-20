@@ -5,6 +5,6 @@ import { ArrayAtomicAlias } from "../../structures/ArrayAtomicAlias";
 export const test_isPrune_ArrayAtomicAlias = _test_isPrune(
     "ArrayAtomicAlias",
     ArrayAtomicAlias.generate,
-    (input) => typia.isPrune(input),
+    (input) => typia.isPrune<ArrayAtomicAlias>(input),
     ArrayAtomicAlias.SPOILERS,
 );

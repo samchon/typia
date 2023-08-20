@@ -5,6 +5,6 @@ import { ObjectSimple } from "../../structures/ObjectSimple";
 export const test_assertClone_ObjectSimple = _test_assertClone(
     "ObjectSimple",
     ObjectSimple.generate,
-    (input) => typia.assertClone(input),
+    (input) => typia.assertClone<ObjectSimple>(input),
     ObjectSimple.SPOILERS,
 );

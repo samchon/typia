@@ -7,10 +7,8 @@ export const test_assertStringify_ArrayUnion = _test_assertStringify(
     ArrayUnion.generate,
     (input) =>
         ((input: any): string => {
-            const assert = (input: any): Array<ArrayUnion.IUnion> => {
-                const __is = (
-                    input: any,
-                ): input is Array<ArrayUnion.IUnion> => {
+            const assert = (input: any): ArrayUnion => {
+                const __is = (input: any): input is ArrayUnion => {
                     const $ip0 = (input: any) => {
                         const array = input;
                         const top = input[0];
@@ -70,7 +68,7 @@ export const test_assertStringify_ArrayUnion = _test_assertStringify(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is Array<ArrayUnion.IUnion> => {
+                    ): input is ArrayUnion => {
                         const $guard = (typia.assertStringify as any).guard;
                         const $ap0 = (
                             input: any,
@@ -204,7 +202,7 @@ export const test_assertStringify_ArrayUnion = _test_assertStringify(
                     })(input, "$input", true);
                 return input;
             };
-            const stringify = (input: Array<ArrayUnion.IUnion>): string => {
+            const stringify = (input: ArrayUnion): string => {
                 const $string = (typia.assertStringify as any).string;
                 const $number = (typia.assertStringify as any).number;
                 const $throws = (typia.assertStringify as any).throws;

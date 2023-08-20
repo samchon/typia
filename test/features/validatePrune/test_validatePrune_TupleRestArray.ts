@@ -5,6 +5,6 @@ import { TupleRestArray } from "../../structures/TupleRestArray";
 export const test_validatePrune_TupleRestArray = _test_validatePrune(
     "TupleRestArray",
     TupleRestArray.generate,
-    (input) => typia.validatePrune(input),
+    (input) => typia.validatePrune<TupleRestArray>(input),
     TupleRestArray.SPOILERS,
 );

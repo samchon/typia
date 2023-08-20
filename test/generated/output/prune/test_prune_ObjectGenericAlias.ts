@@ -6,7 +6,7 @@ export const test_prune_ObjectGenericAlias = _test_prune(
     "ObjectGenericAlias",
     ObjectGenericAlias.generate,
     (input) =>
-        ((input: ObjectGenericAlias.ISomething<string>): void => {
+        ((input: ObjectGenericAlias): void => {
             const $po0 = (input: any): any => {
                 for (const key of Object.keys(input)) {
                     if ("value" === key) continue;

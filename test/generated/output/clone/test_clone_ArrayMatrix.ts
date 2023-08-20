@@ -6,9 +6,7 @@ export const test_clone_ArrayMatrix = _test_clone(
     "ArrayMatrix",
     ArrayMatrix.generate,
     (input) =>
-        ((
-            input: Array<Array<Array<number>>>,
-        ): typia.Primitive<Array<Array<Array<number>>>> => {
+        ((input: ArrayMatrix): typia.Primitive<ArrayMatrix> => {
             const $cp0 = (input: any) => input.map((elem: any) => elem as any);
             const $cp1 = (input: any) =>
                 input.map((elem: any) =>

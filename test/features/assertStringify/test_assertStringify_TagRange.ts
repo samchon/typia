@@ -5,6 +5,6 @@ import { TagRange } from "../../structures/TagRange";
 export const test_assertStringify_TagRange = _test_assertStringify(
     "TagRange",
     TagRange.generate,
-    (input) => typia.assertStringify(input),
+    (input) => typia.assertStringify<TagRange>(input),
     TagRange.SPOILERS,
 );

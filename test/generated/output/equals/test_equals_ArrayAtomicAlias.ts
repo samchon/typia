@@ -9,11 +9,7 @@ export const test_equals_ArrayAtomicAlias = _test_equals(
         ((
             input: any,
             _exceptionable: boolean = true,
-        ): input is [
-            ArrayAtomicAlias.Alias<boolean>,
-            ArrayAtomicAlias.Alias<number>,
-            ArrayAtomicAlias.Alias<string>,
-        ] => {
+        ): input is ArrayAtomicAlias => {
             return (
                 Array.isArray(input) &&
                 input.length === 3 &&

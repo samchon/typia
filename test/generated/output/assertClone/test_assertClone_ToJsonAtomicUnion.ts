@@ -6,11 +6,9 @@ export const test_assertClone_ToJsonAtomicUnion = _test_assertClone(
     "ToJsonAtomicUnion",
     ToJsonAtomicUnion.generate,
     (input) =>
-        ((input: any): typia.Primitive<Array<ToJsonAtomicUnion.IToJson>> => {
-            const assert = (input: any): Array<ToJsonAtomicUnion.IToJson> => {
-                const __is = (
-                    input: any,
-                ): input is Array<ToJsonAtomicUnion.IToJson> => {
+        ((input: any): typia.Primitive<ToJsonAtomicUnion> => {
+            const assert = (input: any): ToJsonAtomicUnion => {
+                const __is = (input: any): input is ToJsonAtomicUnion => {
                     const $io0 = (input: any): boolean =>
                         "function" === typeof input.toJSON;
                     return (
@@ -28,7 +26,7 @@ export const test_assertClone_ToJsonAtomicUnion = _test_assertClone(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is Array<ToJsonAtomicUnion.IToJson> => {
+                    ): input is ToJsonAtomicUnion => {
                         const $guard = (typia.assertClone as any).guard;
                         const $ao0 = (
                             input: any,
@@ -81,8 +79,8 @@ export const test_assertClone_ToJsonAtomicUnion = _test_assertClone(
                 return input;
             };
             const clone = (
-                input: Array<ToJsonAtomicUnion.IToJson>,
-            ): typia.Primitive<Array<ToJsonAtomicUnion.IToJson>> => {
+                input: ToJsonAtomicUnion,
+            ): typia.Primitive<ToJsonAtomicUnion> => {
                 const $cp0 = (input: any) =>
                     input.map((elem: any) =>
                         "object" === typeof elem &&

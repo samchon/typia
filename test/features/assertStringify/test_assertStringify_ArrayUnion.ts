@@ -5,6 +5,6 @@ import { ArrayUnion } from "../../structures/ArrayUnion";
 export const test_assertStringify_ArrayUnion = _test_assertStringify(
     "ArrayUnion",
     ArrayUnion.generate,
-    (input) => typia.assertStringify(input),
+    (input) => typia.assertStringify<ArrayUnion>(input),
     ArrayUnion.SPOILERS,
 );

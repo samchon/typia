@@ -5,5 +5,5 @@ import { DynamicEnumeration } from "../../structures/DynamicEnumeration";
 export const test_prune_DynamicEnumeration = _test_prune(
     "DynamicEnumeration",
     DynamicEnumeration.generate,
-    (input) => typia.prune(input),
+    (input) => typia.prune<DynamicEnumeration>(input),
 );

@@ -5,6 +5,6 @@ import { ObjectUnionNonPredictable } from "../../structures/ObjectUnionNonPredic
 export const test_assert_ObjectUnionNonPredictable = _test_assert(
     "ObjectUnionNonPredictable",
     ObjectUnionNonPredictable.generate,
-    (input) => typia.assert(input),
+    (input) => typia.assert<ObjectUnionNonPredictable>(input),
     ObjectUnionNonPredictable.SPOILERS,
 );

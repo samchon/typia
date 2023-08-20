@@ -6,7 +6,7 @@ export const test_is_TagLength = _test_is(
     "TagLength",
     TagLength.generate,
     (input) =>
-        ((input: any): input is Array<TagLength.Type> => {
+        ((input: any): input is TagLength => {
             const $io0 = (input: any): boolean =>
                 "string" === typeof input.fixed &&
                 5 === input.fixed.length &&

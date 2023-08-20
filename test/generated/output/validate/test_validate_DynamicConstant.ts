@@ -6,18 +6,9 @@ export const test_validate_DynamicConstant = _test_validate(
     "DynamicConstant",
     DynamicConstant.generate,
     (input) =>
-        ((
-            input: any,
-        ): typia.IValidation<{
-            a: number;
-            b: number;
-            c: number;
-            d: number;
-        }> => {
+        ((input: any): typia.IValidation<DynamicConstant> => {
             const errors = [] as any[];
-            const __is = (
-                input: any,
-            ): input is { a: number; b: number; c: number; d: number } => {
+            const __is = (input: any): input is DynamicConstant => {
                 return (
                     "object" === typeof input &&
                     null !== input &&
@@ -37,7 +28,7 @@ export const test_validate_DynamicConstant = _test_validate(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is { a: number; b: number; c: number; d: number } => {
+                ): input is DynamicConstant => {
                     const $vo0 = (
                         input: any,
                         _path: string,

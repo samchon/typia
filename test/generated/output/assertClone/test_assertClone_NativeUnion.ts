@@ -6,11 +6,9 @@ export const test_assertClone_NativeUnion = _test_assertClone(
     "NativeUnion",
     NativeUnion.generate,
     (input) =>
-        ((input: any): typia.Primitive<Array<NativeUnion.Union>> => {
-            const assert = (input: any): Array<NativeUnion.Union> => {
-                const __is = (
-                    input: any,
-                ): input is Array<NativeUnion.Union> => {
+        ((input: any): typia.Primitive<NativeUnion> => {
+            const assert = (input: any): NativeUnion => {
+                const __is = (input: any): input is NativeUnion => {
                     const $io0 = (input: any): boolean =>
                         (null === input.date || input.date instanceof Date) &&
                         (input.unsigned instanceof Uint8Array ||
@@ -45,7 +43,7 @@ export const test_assertClone_NativeUnion = _test_assertClone(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is Array<NativeUnion.Union> => {
+                    ): input is NativeUnion => {
                         const $guard = (typia.assertClone as any).guard;
                         const $ao0 = (
                             input: any,
@@ -142,8 +140,8 @@ export const test_assertClone_NativeUnion = _test_assertClone(
                 return input;
             };
             const clone = (
-                input: Array<NativeUnion.Union>,
-            ): typia.Primitive<Array<NativeUnion.Union>> => {
+                input: NativeUnion,
+            ): typia.Primitive<NativeUnion> => {
                 const $cp0 = (input: any) =>
                     input.map((elem: any) =>
                         "object" === typeof elem && null !== elem

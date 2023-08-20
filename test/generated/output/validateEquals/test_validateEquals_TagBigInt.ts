@@ -18,14 +18,14 @@ export const test_validateEquals_TagBigInt = _test_validateEquals(
                 ): boolean =>
                     "bigint" === typeof input.value &&
                     "bigint" === typeof input.ranged &&
-                    0n <= input.ranged &&
-                    100n >= input.ranged &&
+                    BigInt(0) <= input.ranged &&
+                    BigInt(100) >= input.ranged &&
                     "bigint" === typeof input.minimum &&
-                    0n <= input.minimum &&
+                    BigInt(0) <= input.minimum &&
                     "bigint" === typeof input.maximum &&
-                    100n >= input.maximum &&
+                    BigInt(100) >= input.maximum &&
                     "bigint" === typeof input.multipleOf &&
-                    0n === input.multipleOf % 3n &&
+                    BigInt(0) === input.multipleOf % BigInt(3) &&
                     (5 === Object.keys(input).length ||
                         Object.keys(input).every((key: any) => {
                             if (
@@ -69,13 +69,13 @@ export const test_validateEquals_TagBigInt = _test_validateEquals(
                                     value: input.value,
                                 }),
                             ("bigint" === typeof input.ranged &&
-                                (0n <= input.ranged ||
+                                (BigInt(0) <= input.ranged ||
                                     $report(_exceptionable, {
                                         path: _path + ".ranged",
                                         expected: "bigint (@minimum 0)",
                                         value: input.ranged,
                                     })) &&
-                                (100n >= input.ranged ||
+                                (BigInt(100) >= input.ranged ||
                                     $report(_exceptionable, {
                                         path: _path + ".ranged",
                                         expected: "bigint (@maximum 100)",
@@ -87,7 +87,7 @@ export const test_validateEquals_TagBigInt = _test_validateEquals(
                                     value: input.ranged,
                                 }),
                             ("bigint" === typeof input.minimum &&
-                                (0n <= input.minimum ||
+                                (BigInt(0) <= input.minimum ||
                                     $report(_exceptionable, {
                                         path: _path + ".minimum",
                                         expected: "bigint (@minimum 0)",
@@ -99,7 +99,7 @@ export const test_validateEquals_TagBigInt = _test_validateEquals(
                                     value: input.minimum,
                                 }),
                             ("bigint" === typeof input.maximum &&
-                                (100n >= input.maximum ||
+                                (BigInt(100) >= input.maximum ||
                                     $report(_exceptionable, {
                                         path: _path + ".maximum",
                                         expected: "bigint (@maximum 100)",
@@ -111,7 +111,7 @@ export const test_validateEquals_TagBigInt = _test_validateEquals(
                                     value: input.maximum,
                                 }),
                             ("bigint" === typeof input.multipleOf &&
-                                (0n === input.multipleOf % 3n ||
+                                (BigInt(0) === input.multipleOf % BigInt(3) ||
                                     $report(_exceptionable, {
                                         path: _path + ".multipleOf",
                                         expected: "bigint (@multipleOf 3)",

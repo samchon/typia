@@ -5,5 +5,5 @@ import { TemplateConstant } from "../../structures/TemplateConstant";
 export const test_stringify_TemplateConstant = _test_stringify(
     "TemplateConstant",
     TemplateConstant.generate,
-    (input) => typia.stringify(input),
+    (input) => typia.stringify<TemplateConstant>(input),
 );

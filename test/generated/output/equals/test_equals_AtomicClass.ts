@@ -6,20 +6,7 @@ export const test_equals_AtomicClass = _test_equals(
     "AtomicClass",
     AtomicClass.generate,
     (input) =>
-        ((
-            input: any,
-            _exceptionable: boolean = true,
-        ): input is [
-            Boolean,
-            false | Boolean,
-            boolean | Boolean,
-            Number,
-            Number | 1,
-            number | Number,
-            String,
-            String | "characters",
-            string | String,
-        ] => {
+        ((input: any, _exceptionable: boolean = true): input is AtomicClass => {
             return (
                 Array.isArray(input) &&
                 input.length === 9 &&

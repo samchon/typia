@@ -5,6 +5,6 @@ import { TagLength } from "../../structures/TagLength";
 export const test_isStringify_TagLength = _test_isStringify(
     "TagLength",
     TagLength.generate,
-    (input) => typia.isStringify(input),
+    (input) => typia.isStringify<TagLength>(input),
     TagLength.SPOILERS,
 );

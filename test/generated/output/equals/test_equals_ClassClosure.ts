@@ -9,7 +9,7 @@ export const test_equals_ClassClosure = _test_equals(
         ((
             input: any,
             _exceptionable: boolean = true,
-        ): input is ClassClosure.Something => {
+        ): input is ClassClosure => {
             const $io0 = (
                 input: any,
                 _exceptionable: boolean = true,

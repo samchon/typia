@@ -6,14 +6,8 @@ export const test_isClone_ArrayRepeatedRequired = _test_isClone(
     "ArrayRepeatedRequired",
     ArrayRepeatedRequired.generate,
     (input) =>
-        ((
-            input: any,
-        ): typia.Primitive<
-            string | number | Array<ArrayRepeatedRequired>
-        > | null => {
-            const is = (
-                input: any,
-            ): input is string | number | Array<ArrayRepeatedRequired> => {
+        ((input: any): typia.Primitive<ArrayRepeatedRequired> | null => {
+            const is = (input: any): input is ArrayRepeatedRequired => {
                 const $ia0 = (input: any): any =>
                     input.every(
                         (elem: any) =>
@@ -33,10 +27,8 @@ export const test_isClone_ArrayRepeatedRequired = _test_isClone(
                 );
             };
             const clone = (
-                input: string | number | Array<ArrayRepeatedRequired>,
-            ): typia.Primitive<
-                string | number | Array<ArrayRepeatedRequired>
-            > => {
+                input: ArrayRepeatedRequired,
+            ): typia.Primitive<ArrayRepeatedRequired> => {
                 const $ia0 = (input: any): any =>
                     input.every(
                         (elem: any) =>

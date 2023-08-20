@@ -6,8 +6,8 @@ export const test_isPrune_AtomicAlias = _test_isPrune(
     "AtomicAlias",
     AtomicAlias.generate,
     (input) =>
-        ((input: any): input is [boolean, number, string] => {
-            const is = (input: any): input is [boolean, number, string] => {
+        ((input: any): input is AtomicAlias => {
+            const is = (input: any): input is AtomicAlias => {
                 return (
                     Array.isArray(input) &&
                     input.length === 3 &&
@@ -17,7 +17,7 @@ export const test_isPrune_AtomicAlias = _test_isPrune(
                     "string" === typeof input[2]
                 );
             };
-            const prune = (input: [boolean, number, string]): void => {};
+            const prune = (input: AtomicAlias): void => {};
             if (!is(input)) return false;
             prune(input);
             return true;

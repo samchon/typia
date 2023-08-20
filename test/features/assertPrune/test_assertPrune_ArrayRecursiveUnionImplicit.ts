@@ -5,6 +5,6 @@ import { ArrayRecursiveUnionImplicit } from "../../structures/ArrayRecursiveUnio
 export const test_assertPrune_ArrayRecursiveUnionImplicit = _test_assertPrune(
     "ArrayRecursiveUnionImplicit",
     ArrayRecursiveUnionImplicit.generate,
-    (input) => typia.assertPrune(input),
+    (input) => typia.assertPrune<ArrayRecursiveUnionImplicit>(input),
     ArrayRecursiveUnionImplicit.SPOILERS,
 );

@@ -6,28 +6,8 @@ export const test_isClone_ToJsonUnion = _test_isClone(
     "ToJsonUnion",
     ToJsonUnion.generate,
     (input) =>
-        ((
-            input: any,
-        ): typia.Primitive<
-            Array<
-                | string
-                | number
-                | ToJsonUnion.ICitizen
-                | ToJsonUnion.IWrapper<boolean>
-                | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen>
-                | ToJsonUnion.IWrapper<ToJsonUnion.IProduct>
-            >
-        > | null => {
-            const is = (
-                input: any,
-            ): input is Array<
-                | string
-                | number
-                | ToJsonUnion.ICitizen
-                | ToJsonUnion.IWrapper<boolean>
-                | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen>
-                | ToJsonUnion.IWrapper<ToJsonUnion.IProduct>
-            > => {
+        ((input: any): typia.Primitive<ToJsonUnion> | null => {
+            const is = (input: any): input is ToJsonUnion => {
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.id &&
                     Number.isFinite(input.id) &&
@@ -65,24 +45,8 @@ export const test_isClone_ToJsonUnion = _test_isClone(
                 );
             };
             const clone = (
-                input: Array<
-                    | string
-                    | number
-                    | ToJsonUnion.ICitizen
-                    | ToJsonUnion.IWrapper<boolean>
-                    | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen>
-                    | ToJsonUnion.IWrapper<ToJsonUnion.IProduct>
-                >,
-            ): typia.Primitive<
-                Array<
-                    | string
-                    | number
-                    | ToJsonUnion.ICitizen
-                    | ToJsonUnion.IWrapper<boolean>
-                    | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen>
-                    | ToJsonUnion.IWrapper<ToJsonUnion.IProduct>
-                >
-            > => {
+                input: ToJsonUnion,
+            ): typia.Primitive<ToJsonUnion> => {
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.id &&
                     "string" === typeof input.mobile &&

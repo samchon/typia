@@ -5,6 +5,6 @@ import { DynamicComposite } from "../../structures/DynamicComposite";
 export const test_assertPrune_DynamicComposite = _test_assertPrune(
     "DynamicComposite",
     DynamicComposite.generate,
-    (input) => typia.assertPrune(input),
+    (input) => typia.assertPrune<DynamicComposite>(input),
     DynamicComposite.SPOILERS,
 );

@@ -6,19 +6,15 @@ export const test_isPrune_ObjectGenericAlias = _test_isPrune(
     "ObjectGenericAlias",
     ObjectGenericAlias.generate,
     (input) =>
-        ((input: any): input is ObjectGenericAlias.ISomething<string> => {
-            const is = (
-                input: any,
-            ): input is ObjectGenericAlias.ISomething<string> => {
+        ((input: any): input is ObjectGenericAlias => {
+            const is = (input: any): input is ObjectGenericAlias => {
                 return (
                     "object" === typeof input &&
                     null !== input &&
                     "string" === typeof (input as any).value
                 );
             };
-            const prune = (
-                input: ObjectGenericAlias.ISomething<string>,
-            ): void => {
+            const prune = (input: ObjectGenericAlias): void => {
                 const $po0 = (input: any): any => {
                     for (const key of Object.keys(input)) {
                         if ("value" === key) continue;

@@ -5,5 +5,5 @@ import { ConstantIntersection } from "../../structures/ConstantIntersection";
 export const test_prune_ConstantIntersection = _test_prune(
     "ConstantIntersection",
     ConstantIntersection.generate,
-    (input) => typia.prune(input),
+    (input) => typia.prune<ConstantIntersection>(input),
 );

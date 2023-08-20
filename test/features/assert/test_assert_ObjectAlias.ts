@@ -5,6 +5,6 @@ import { ObjectAlias } from "../../structures/ObjectAlias";
 export const test_assert_ObjectAlias = _test_assert(
     "ObjectAlias",
     ObjectAlias.generate,
-    (input) => typia.assert(input),
+    (input) => typia.assert<ObjectAlias>(input),
     ObjectAlias.SPOILERS,
 );

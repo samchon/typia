@@ -6,7 +6,7 @@ export const test_prune_TagObjectUnion = _test_prune(
     "TagObjectUnion",
     TagObjectUnion.generate,
     (input) =>
-        ((input: Array<TagObjectUnion.Type>): void => {
+        ((input: TagObjectUnion): void => {
             const $io0 = (input: any): boolean =>
                 "number" === typeof input.value && 3 <= input.value;
             const $io1 = (input: any): boolean =>

@@ -6,12 +6,12 @@ export const test_validateEquals_AtomicAlias = _test_validateEquals(
     "AtomicAlias",
     AtomicAlias.generate,
     (input) =>
-        ((input: any): typia.IValidation<[boolean, number, string]> => {
+        ((input: any): typia.IValidation<AtomicAlias> => {
             const errors = [] as any[];
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
-            ): input is [boolean, number, string] => {
+            ): input is AtomicAlias => {
                 return (
                     Array.isArray(input) &&
                     input.length === 3 &&
@@ -27,7 +27,7 @@ export const test_validateEquals_AtomicAlias = _test_validateEquals(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is [boolean, number, string] => {
+                ): input is AtomicAlias => {
                     return (
                         ((Array.isArray(input) ||
                             $report(true, {

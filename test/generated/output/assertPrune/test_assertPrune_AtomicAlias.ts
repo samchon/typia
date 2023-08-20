@@ -6,11 +6,9 @@ export const test_assertPrune_AtomicAlias = _test_assertPrune(
     "AtomicAlias",
     AtomicAlias.generate,
     (input) =>
-        ((input: any): [boolean, number, string] => {
-            const assert = (input: any): [boolean, number, string] => {
-                const __is = (
-                    input: any,
-                ): input is [boolean, number, string] => {
+        ((input: any): AtomicAlias => {
+            const assert = (input: any): AtomicAlias => {
+                const __is = (input: any): input is AtomicAlias => {
                     return (
                         Array.isArray(input) &&
                         input.length === 3 &&
@@ -25,7 +23,7 @@ export const test_assertPrune_AtomicAlias = _test_assertPrune(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is [boolean, number, string] => {
+                    ): input is AtomicAlias => {
                         const $guard = (typia.assertPrune as any).guard;
                         return (
                             ((Array.isArray(input) ||
@@ -68,7 +66,7 @@ export const test_assertPrune_AtomicAlias = _test_assertPrune(
                     })(input, "$input", true);
                 return input;
             };
-            const prune = (input: [boolean, number, string]): void => {};
+            const prune = (input: AtomicAlias): void => {};
             assert(input);
             prune(input);
             return input;

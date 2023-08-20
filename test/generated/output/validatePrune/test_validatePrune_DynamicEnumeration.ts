@@ -6,49 +6,12 @@ export const test_validatePrune_DynamicEnumeration = _test_validatePrune(
     "DynamicEnumeration",
     DynamicEnumeration.generate,
     (input) =>
-        ((
-            input: any,
-        ): typia.IValidation<{
-            ar?: string | undefined;
-            "zh-Hans"?: string | undefined;
-            "zh-Hant"?: string | undefined;
-            en?: string | undefined;
-            fr?: string | undefined;
-            de?: string | undefined;
-            ja?: string | undefined;
-            ko?: string | undefined;
-            pt?: string | undefined;
-            ru?: string | undefined;
-        }> => {
+        ((input: any): typia.IValidation<DynamicEnumeration> => {
             const validate = (
                 input: any,
-            ): typia.IValidation<{
-                ar?: string | undefined;
-                "zh-Hans"?: string | undefined;
-                "zh-Hant"?: string | undefined;
-                en?: string | undefined;
-                fr?: string | undefined;
-                de?: string | undefined;
-                ja?: string | undefined;
-                ko?: string | undefined;
-                pt?: string | undefined;
-                ru?: string | undefined;
-            }> => {
+            ): typia.IValidation<DynamicEnumeration> => {
                 const errors = [] as any[];
-                const __is = (
-                    input: any,
-                ): input is {
-                    ar?: string | undefined;
-                    "zh-Hans"?: string | undefined;
-                    "zh-Hant"?: string | undefined;
-                    en?: string | undefined;
-                    fr?: string | undefined;
-                    de?: string | undefined;
-                    ja?: string | undefined;
-                    ko?: string | undefined;
-                    pt?: string | undefined;
-                    ru?: string | undefined;
-                } => {
+                const __is = (input: any): input is DynamicEnumeration => {
                     const $io0 = (input: any): boolean =>
                         (undefined === input.ar ||
                             "string" === typeof input.ar) &&
@@ -83,18 +46,7 @@ export const test_validatePrune_DynamicEnumeration = _test_validatePrune(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is {
-                        ar?: string | undefined;
-                        "zh-Hans"?: string | undefined;
-                        "zh-Hant"?: string | undefined;
-                        en?: string | undefined;
-                        fr?: string | undefined;
-                        de?: string | undefined;
-                        ja?: string | undefined;
-                        ko?: string | undefined;
-                        pt?: string | undefined;
-                        ru?: string | undefined;
-                    } => {
+                    ): input is DynamicEnumeration => {
                         const $vo0 = (
                             input: any,
                             _path: string,
@@ -197,18 +149,7 @@ export const test_validatePrune_DynamicEnumeration = _test_validatePrune(
                     data: success ? input : undefined,
                 } as any;
             };
-            const prune = (input: {
-                ar?: string | undefined;
-                "zh-Hans"?: string | undefined;
-                "zh-Hant"?: string | undefined;
-                en?: string | undefined;
-                fr?: string | undefined;
-                de?: string | undefined;
-                ja?: string | undefined;
-                ko?: string | undefined;
-                pt?: string | undefined;
-                ru?: string | undefined;
-            }): void => {
+            const prune = (input: DynamicEnumeration): void => {
                 const $po0 = (input: any): any => {
                     for (const key of Object.keys(input)) {
                         if (

@@ -5,6 +5,6 @@ import { ObjectGeneric } from "../../structures/ObjectGeneric";
 export const test_is_ObjectGeneric = _test_is(
     "ObjectGeneric",
     ObjectGeneric.generate,
-    (input) => typia.is(input),
+    (input) => typia.is<ObjectGeneric>(input),
     ObjectGeneric.SPOILERS,
 );

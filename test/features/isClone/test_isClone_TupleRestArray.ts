@@ -5,6 +5,6 @@ import { TupleRestArray } from "../../structures/TupleRestArray";
 export const test_isClone_TupleRestArray = _test_isClone(
     "TupleRestArray",
     TupleRestArray.generate,
-    (input) => typia.isClone(input),
+    (input) => typia.isClone<TupleRestArray>(input),
     TupleRestArray.SPOILERS,
 );

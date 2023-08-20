@@ -5,5 +5,5 @@ import { ToJsonNull } from "../../structures/ToJsonNull";
 export const test_validateStringify_ToJsonNull = _test_validateStringify(
     "ToJsonNull",
     ToJsonNull.generate,
-    (input) => typia.validateStringify(input),
+    (input) => typia.validateStringify<ToJsonNull>(input),
 );

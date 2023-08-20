@@ -6,8 +6,8 @@ export const test_assert_ClassNonPublic = _test_assert(
     "ClassNonPublic",
     ClassNonPublic.generate,
     (input) =>
-        ((input: any): ClassNonPublic.Accessor => {
-            const __is = (input: any): input is ClassNonPublic.Accessor => {
+        ((input: any): ClassNonPublic => {
+            const __is = (input: any): input is ClassNonPublic => {
                 return (
                     "object" === typeof input &&
                     null !== input &&
@@ -20,7 +20,7 @@ export const test_assert_ClassNonPublic = _test_assert(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ClassNonPublic.Accessor => {
+                ): input is ClassNonPublic => {
                     const $guard = (typia.assert as any).guard;
                     const $ao0 = (
                         input: any,

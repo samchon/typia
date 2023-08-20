@@ -6,16 +6,12 @@ export const test_validateClone_ObjectPrimitive = _test_validateClone(
     "ObjectPrimitive",
     ObjectPrimitive.generate,
     (input) =>
-        ((
-            input: any,
-        ): typia.IValidation<typia.Primitive<ObjectPrimitive.IArticle>> => {
+        ((input: any): typia.IValidation<typia.Primitive<ObjectPrimitive>> => {
             const validate = (
                 input: any,
-            ): typia.IValidation<ObjectPrimitive.IArticle> => {
+            ): typia.IValidation<ObjectPrimitive> => {
                 const errors = [] as any[];
-                const __is = (
-                    input: any,
-                ): input is ObjectPrimitive.IArticle => {
+                const __is = (input: any): input is ObjectPrimitive => {
                     const $io0 = (input: any): boolean =>
                         "string" === typeof input.id &&
                         ("md" === input.extension ||
@@ -50,7 +46,7 @@ export const test_validateClone_ObjectPrimitive = _test_validateClone(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is ObjectPrimitive.IArticle => {
+                    ): input is ObjectPrimitive => {
                         const $vo0 = (
                             input: any,
                             _path: string,
@@ -205,8 +201,8 @@ export const test_validateClone_ObjectPrimitive = _test_validateClone(
                 } as any;
             };
             const clone = (
-                input: ObjectPrimitive.IArticle,
-            ): typia.Primitive<ObjectPrimitive.IArticle> => {
+                input: ObjectPrimitive,
+            ): typia.Primitive<ObjectPrimitive> => {
                 const $io1 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     "string" === typeof input.name &&

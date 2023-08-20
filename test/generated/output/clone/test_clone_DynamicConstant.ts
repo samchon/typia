@@ -6,12 +6,7 @@ export const test_clone_DynamicConstant = _test_clone(
     "DynamicConstant",
     DynamicConstant.generate,
     (input) =>
-        ((input: {
-            a: number;
-            b: number;
-            c: number;
-            d: number;
-        }): typia.Primitive<{ a: number; b: number; c: number; d: number }> => {
+        ((input: DynamicConstant): typia.Primitive<DynamicConstant> => {
             const $co0 = (input: any): any => ({
                 a: input.a as any,
                 b: input.b as any,

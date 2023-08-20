@@ -6,10 +6,8 @@ export const test_assert_ObjectUndefined = _test_assert(
     "ObjectUndefined",
     ObjectUndefined.generate,
     (input) =>
-        ((input: any): Array<ObjectUndefined.ILecture> => {
-            const __is = (
-                input: any,
-            ): input is Array<ObjectUndefined.ILecture> => {
+        ((input: any): ObjectUndefined => {
+            const __is = (input: any): input is ObjectUndefined => {
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.name &&
                     (undefined === input.professor ||
@@ -46,7 +44,7 @@ export const test_assert_ObjectUndefined = _test_assert(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is Array<ObjectUndefined.ILecture> => {
+                ): input is ObjectUndefined => {
                     const $guard = (typia.assert as any).guard;
                     const $ao0 = (
                         input: any,

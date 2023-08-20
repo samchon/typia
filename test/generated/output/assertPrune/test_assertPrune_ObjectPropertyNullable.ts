@@ -6,36 +6,9 @@ export const test_assertPrune_ObjectPropertyNullable = _test_assertPrune(
     "ObjectPropertyNullable",
     ObjectPropertyNullable.generate,
     (input) =>
-        ((
-            input: any,
-        ): [
-            Array<ObjectPropertyNullable.IPointer<boolean>>,
-            Array<ObjectPropertyNullable.IPointer<number>>,
-            Array<ObjectPropertyNullable.IPointer<string>>,
-            Array<
-                ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>
-            >,
-        ] => {
-            const assert = (
-                input: any,
-            ): [
-                Array<ObjectPropertyNullable.IPointer<boolean>>,
-                Array<ObjectPropertyNullable.IPointer<number>>,
-                Array<ObjectPropertyNullable.IPointer<string>>,
-                Array<
-                    ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>
-                >,
-            ] => {
-                const __is = (
-                    input: any,
-                ): input is [
-                    Array<ObjectPropertyNullable.IPointer<boolean>>,
-                    Array<ObjectPropertyNullable.IPointer<number>>,
-                    Array<ObjectPropertyNullable.IPointer<string>>,
-                    Array<
-                        ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>
-                    >,
-                ] => {
+        ((input: any): ObjectPropertyNullable => {
+            const assert = (input: any): ObjectPropertyNullable => {
+                const __is = (input: any): input is ObjectPropertyNullable => {
                     const $io0 = (input: any): boolean =>
                         null === input.value ||
                         "boolean" === typeof input.value;
@@ -101,14 +74,7 @@ export const test_assertPrune_ObjectPropertyNullable = _test_assertPrune(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is [
-                        Array<ObjectPropertyNullable.IPointer<boolean>>,
-                        Array<ObjectPropertyNullable.IPointer<number>>,
-                        Array<ObjectPropertyNullable.IPointer<string>>,
-                        Array<
-                            ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>
-                        >,
-                    ] => {
+                    ): input is ObjectPropertyNullable => {
                         const $guard = (typia.assertPrune as any).guard;
                         const $ao0 = (
                             input: any,
@@ -421,16 +387,7 @@ export const test_assertPrune_ObjectPropertyNullable = _test_assertPrune(
                     })(input, "$input", true);
                 return input;
             };
-            const prune = (
-                input: [
-                    Array<ObjectPropertyNullable.IPointer<boolean>>,
-                    Array<ObjectPropertyNullable.IPointer<number>>,
-                    Array<ObjectPropertyNullable.IPointer<string>>,
-                    Array<
-                        ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>
-                    >,
-                ],
-            ): void => {
+            const prune = (input: ObjectPropertyNullable): void => {
                 const $io0 = (input: any): boolean =>
                     null === input.value || "boolean" === typeof input.value;
                 const $io1 = (input: any): boolean =>

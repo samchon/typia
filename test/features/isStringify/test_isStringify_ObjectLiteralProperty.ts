@@ -5,6 +5,6 @@ import { ObjectLiteralProperty } from "../../structures/ObjectLiteralProperty";
 export const test_isStringify_ObjectLiteralProperty = _test_isStringify(
     "ObjectLiteralProperty",
     ObjectLiteralProperty.generate,
-    (input) => typia.isStringify(input),
+    (input) => typia.isStringify<ObjectLiteralProperty>(input),
     ObjectLiteralProperty.SPOILERS,
 );

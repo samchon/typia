@@ -5,6 +5,6 @@ import { ObjectLiteralType } from "../../structures/ObjectLiteralType";
 export const test_assertStringify_ObjectLiteralType = _test_assertStringify(
     "ObjectLiteralType",
     ObjectLiteralType.generate,
-    (input) => typia.assertStringify(input),
+    (input) => typia.assertStringify<ObjectLiteralType>(input),
     ObjectLiteralType.SPOILERS,
 );

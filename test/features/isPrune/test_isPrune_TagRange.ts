@@ -5,6 +5,6 @@ import { TagRange } from "../../structures/TagRange";
 export const test_isPrune_TagRange = _test_isPrune(
     "TagRange",
     TagRange.generate,
-    (input) => typia.isPrune(input),
+    (input) => typia.isPrune<TagRange>(input),
     TagRange.SPOILERS,
 );

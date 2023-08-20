@@ -5,5 +5,5 @@ import { ArraySimple } from "../../structures/ArraySimple";
 export const test_prune_ArraySimple = _test_prune(
     "ArraySimple",
     ArraySimple.generate,
-    (input) => typia.prune(input),
+    (input) => typia.prune<ArraySimple>(input),
 );

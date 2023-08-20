@@ -6,50 +6,10 @@ export const test_validatePrune_AtomicClass = _test_validatePrune(
     "AtomicClass",
     AtomicClass.generate,
     (input) =>
-        ((
-            input: any,
-        ): typia.IValidation<
-            [
-                Boolean,
-                false | Boolean,
-                boolean | Boolean,
-                Number,
-                Number | 1,
-                number | Number,
-                String,
-                String | "characters",
-                string | String,
-            ]
-        > => {
-            const validate = (
-                input: any,
-            ): typia.IValidation<
-                [
-                    Boolean,
-                    false | Boolean,
-                    boolean | Boolean,
-                    Number,
-                    Number | 1,
-                    number | Number,
-                    String,
-                    String | "characters",
-                    string | String,
-                ]
-            > => {
+        ((input: any): typia.IValidation<AtomicClass> => {
+            const validate = (input: any): typia.IValidation<AtomicClass> => {
                 const errors = [] as any[];
-                const __is = (
-                    input: any,
-                ): input is [
-                    Boolean,
-                    false | Boolean,
-                    boolean | Boolean,
-                    Number,
-                    Number | 1,
-                    number | Number,
-                    String,
-                    String | "characters",
-                    string | String,
-                ] => {
+                const __is = (input: any): input is AtomicClass => {
                     return (
                         Array.isArray(input) &&
                         input.length === 9 &&
@@ -85,17 +45,7 @@ export const test_validatePrune_AtomicClass = _test_validatePrune(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is [
-                        Boolean,
-                        false | Boolean,
-                        boolean | Boolean,
-                        Number,
-                        Number | 1,
-                        number | Number,
-                        String,
-                        String | "characters",
-                        string | String,
-                    ] => {
+                    ): input is AtomicClass => {
                         return (
                             ((Array.isArray(input) ||
                                 $report(true, {
@@ -226,19 +176,7 @@ export const test_validatePrune_AtomicClass = _test_validatePrune(
                     data: success ? input : undefined,
                 } as any;
             };
-            const prune = (
-                input: [
-                    Boolean,
-                    false | Boolean,
-                    boolean | Boolean,
-                    Number,
-                    Number | 1,
-                    number | Number,
-                    String,
-                    String | "characters",
-                    string | String,
-                ],
-            ): void => {};
+            const prune = (input: AtomicClass): void => {};
             const output = validate(input);
             if (output.success) prune(input);
             return output;

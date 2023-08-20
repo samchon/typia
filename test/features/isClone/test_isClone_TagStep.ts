@@ -5,6 +5,6 @@ import { TagStep } from "../../structures/TagStep";
 export const test_isClone_TagStep = _test_isClone(
     "TagStep",
     TagStep.generate,
-    (input) => typia.isClone(input),
+    (input) => typia.isClone<TagStep>(input),
     TagStep.SPOILERS,
 );

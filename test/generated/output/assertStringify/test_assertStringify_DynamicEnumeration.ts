@@ -7,34 +7,8 @@ export const test_assertStringify_DynamicEnumeration = _test_assertStringify(
     DynamicEnumeration.generate,
     (input) =>
         ((input: any): string => {
-            const assert = (
-                input: any,
-            ): {
-                ar?: string | undefined;
-                "zh-Hans"?: string | undefined;
-                "zh-Hant"?: string | undefined;
-                en?: string | undefined;
-                fr?: string | undefined;
-                de?: string | undefined;
-                ja?: string | undefined;
-                ko?: string | undefined;
-                pt?: string | undefined;
-                ru?: string | undefined;
-            } => {
-                const __is = (
-                    input: any,
-                ): input is {
-                    ar?: string | undefined;
-                    "zh-Hans"?: string | undefined;
-                    "zh-Hant"?: string | undefined;
-                    en?: string | undefined;
-                    fr?: string | undefined;
-                    de?: string | undefined;
-                    ja?: string | undefined;
-                    ko?: string | undefined;
-                    pt?: string | undefined;
-                    ru?: string | undefined;
-                } => {
+            const assert = (input: any): DynamicEnumeration => {
+                const __is = (input: any): input is DynamicEnumeration => {
                     const $io0 = (input: any): boolean =>
                         (undefined === input.ar ||
                             "string" === typeof input.ar) &&
@@ -68,18 +42,7 @@ export const test_assertStringify_DynamicEnumeration = _test_assertStringify(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is {
-                        ar?: string | undefined;
-                        "zh-Hans"?: string | undefined;
-                        "zh-Hant"?: string | undefined;
-                        en?: string | undefined;
-                        fr?: string | undefined;
-                        de?: string | undefined;
-                        ja?: string | undefined;
-                        ko?: string | undefined;
-                        pt?: string | undefined;
-                        ru?: string | undefined;
-                    } => {
+                    ): input is DynamicEnumeration => {
                         const $guard = (typia.assertStringify as any).guard;
                         const $ao0 = (
                             input: any,
@@ -175,18 +138,7 @@ export const test_assertStringify_DynamicEnumeration = _test_assertStringify(
                     })(input, "$input", true);
                 return input;
             };
-            const stringify = (input: {
-                ar?: string | undefined;
-                "zh-Hans"?: string | undefined;
-                "zh-Hant"?: string | undefined;
-                en?: string | undefined;
-                fr?: string | undefined;
-                de?: string | undefined;
-                ja?: string | undefined;
-                ko?: string | undefined;
-                pt?: string | undefined;
-                ru?: string | undefined;
-            }): string => {
+            const stringify = (input: DynamicEnumeration): string => {
                 const $string = (typia.assertStringify as any).string;
                 const $tail = (typia.assertStringify as any).tail;
                 const $so0 = (input: any): any =>

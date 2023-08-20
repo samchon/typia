@@ -6,9 +6,7 @@ export const test_clone_TupleRestArray = _test_clone(
     "TupleRestArray",
     TupleRestArray.generate,
     (input) =>
-        ((
-            input: [boolean, number, ...Array<string>[]],
-        ): typia.Primitive<[boolean, number, ...Array<string>[]]> => {
+        ((input: TupleRestArray): typia.Primitive<TupleRestArray> => {
             const $cp0 = (input: any) => input.map((elem: any) => elem as any);
             const $cp1 = (input: any) =>
                 input.map((elem: any) =>

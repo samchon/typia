@@ -5,5 +5,5 @@ import { ObjectUnionNonPredictable } from "../../structures/ObjectUnionNonPredic
 export const test_prune_ObjectUnionNonPredictable = _test_prune(
     "ObjectUnionNonPredictable",
     ObjectUnionNonPredictable.generate,
-    (input) => typia.prune(input),
+    (input) => typia.prune<ObjectUnionNonPredictable>(input),
 );

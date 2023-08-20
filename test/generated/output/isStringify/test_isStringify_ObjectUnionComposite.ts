@@ -6,30 +6,8 @@ export const test_isStringify_ObjectUnionComposite = _test_isStringify(
     "ObjectUnionComposite",
     ObjectUnionComposite.generate,
     (input) =>
-        ((
-            input: Array<
-                | ObjectUnionComposite.IPoint
-                | ObjectUnionComposite.ILine
-                | ObjectUnionComposite.ITriangle
-                | ObjectUnionComposite.IRectangle
-                | ObjectUnionComposite.IPolyline
-                | ObjectUnionComposite.IPolygon
-                | ObjectUnionComposite.IPointedShape
-                | ObjectUnionComposite.ICircle
-            >,
-        ): string | null => {
-            const is = (
-                input: any,
-            ): input is Array<
-                | ObjectUnionComposite.IPoint
-                | ObjectUnionComposite.ILine
-                | ObjectUnionComposite.ITriangle
-                | ObjectUnionComposite.IRectangle
-                | ObjectUnionComposite.IPolyline
-                | ObjectUnionComposite.IPolygon
-                | ObjectUnionComposite.IPointedShape
-                | ObjectUnionComposite.ICircle
-            > => {
+        ((input: ObjectUnionComposite): string | null => {
+            const is = (input: any): input is ObjectUnionComposite => {
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.x &&
                     Number.isFinite(input.x) &&
@@ -171,18 +149,7 @@ export const test_isStringify_ObjectUnionComposite = _test_isStringify(
                     )
                 );
             };
-            const stringify = (
-                input: Array<
-                    | ObjectUnionComposite.IPoint
-                    | ObjectUnionComposite.ILine
-                    | ObjectUnionComposite.ITriangle
-                    | ObjectUnionComposite.IRectangle
-                    | ObjectUnionComposite.IPolyline
-                    | ObjectUnionComposite.IPolygon
-                    | ObjectUnionComposite.IPointedShape
-                    | ObjectUnionComposite.ICircle
-                >,
-            ): string => {
+            const stringify = (input: ObjectUnionComposite): string => {
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.x && "number" === typeof input.y;
                 const $io1 = (input: any): boolean =>

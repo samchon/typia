@@ -5,6 +5,6 @@ import { TupleUnion } from "../../structures/TupleUnion";
 export const test_is_TupleUnion = _test_is(
     "TupleUnion",
     TupleUnion.generate,
-    (input) => typia.is(input),
+    (input) => typia.is<TupleUnion>(input),
     TupleUnion.SPOILERS,
 );

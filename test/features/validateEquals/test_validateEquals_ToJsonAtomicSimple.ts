@@ -5,5 +5,5 @@ import { ToJsonAtomicSimple } from "../../structures/ToJsonAtomicSimple";
 export const test_validateEquals_ToJsonAtomicSimple = _test_validateEquals(
     "ToJsonAtomicSimple",
     ToJsonAtomicSimple.generate,
-    (input) => typia.validateEquals(input),
+    (input) => typia.validateEquals<ToJsonAtomicSimple>(input),
 );

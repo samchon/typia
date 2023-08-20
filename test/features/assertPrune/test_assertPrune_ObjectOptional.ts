@@ -5,6 +5,6 @@ import { ObjectOptional } from "../../structures/ObjectOptional";
 export const test_assertPrune_ObjectOptional = _test_assertPrune(
     "ObjectOptional",
     ObjectOptional.generate,
-    (input) => typia.assertPrune(input),
+    (input) => typia.assertPrune<ObjectOptional>(input),
     ObjectOptional.SPOILERS,
 );

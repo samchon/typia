@@ -5,5 +5,5 @@ import { ClassMethod } from "../../structures/ClassMethod";
 export const test_clone_ClassMethod = _test_clone(
     "ClassMethod",
     ClassMethod.generate,
-    (input) => typia.clone(input),
+    (input) => typia.clone<ClassMethod>(input),
 );

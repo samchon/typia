@@ -5,5 +5,5 @@ import { TagObjectUnion } from "../../structures/TagObjectUnion";
 export const test_validateEquals_TagObjectUnion = _test_validateEquals(
     "TagObjectUnion",
     TagObjectUnion.generate,
-    (input) => typia.validateEquals(input),
+    (input) => typia.validateEquals<TagObjectUnion>(input),
 );

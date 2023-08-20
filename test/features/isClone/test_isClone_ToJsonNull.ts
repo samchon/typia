@@ -5,5 +5,5 @@ import { ToJsonNull } from "../../structures/ToJsonNull";
 export const test_isClone_ToJsonNull = _test_isClone(
     "ToJsonNull",
     ToJsonNull.generate,
-    (input) => typia.isClone(input),
+    (input) => typia.isClone<ToJsonNull>(input),
 );

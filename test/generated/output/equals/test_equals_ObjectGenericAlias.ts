@@ -9,7 +9,7 @@ export const test_equals_ObjectGenericAlias = _test_equals(
         ((
             input: any,
             _exceptionable: boolean = true,
-        ): input is ObjectGenericAlias.ISomething<string> => {
+        ): input is ObjectGenericAlias => {
             const $io0 = (
                 input: any,
                 _exceptionable: boolean = true,

@@ -6,6 +6,6 @@ export const test_validateStringify_ObjectGenericArray =
     _test_validateStringify(
         "ObjectGenericArray",
         ObjectGenericArray.generate,
-        (input) => typia.validateStringify(input),
+        (input) => typia.validateStringify<ObjectGenericArray>(input),
         ObjectGenericArray.SPOILERS,
     );

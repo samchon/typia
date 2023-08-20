@@ -5,6 +5,5 @@ import { ConstantEnumeration } from "../../../structures/ConstantEnumeration";
 export const test_prune_ConstantEnumeration = _test_prune(
     "ConstantEnumeration",
     ConstantEnumeration.generate,
-    (input) =>
-        ((input: Array<ConstantEnumeration.Enumeration>): void => {})(input),
+    (input) => ((input: ConstantEnumeration): void => {})(input),
 );

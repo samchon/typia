@@ -5,5 +5,5 @@ import { ToJsonDouble } from "../../structures/ToJsonDouble";
 export const test_validateStringify_ToJsonDouble = _test_validateStringify(
     "ToJsonDouble",
     ToJsonDouble.generate,
-    (input) => typia.validateStringify(input),
+    (input) => typia.validateStringify<ToJsonDouble>(input),
 );

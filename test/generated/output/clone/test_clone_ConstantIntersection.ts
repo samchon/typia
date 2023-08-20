@@ -7,18 +7,8 @@ export const test_clone_ConstantIntersection = _test_clone(
     ConstantIntersection.generate,
     (input) =>
         ((
-            input: [
-                ConstantIntersection.Wrapper<false>,
-                ConstantIntersection.Wrapper<1>,
-                ConstantIntersection.Wrapper<"two">,
-            ],
-        ): typia.Primitive<
-            [
-                ConstantIntersection.Wrapper<false>,
-                ConstantIntersection.Wrapper<1>,
-                ConstantIntersection.Wrapper<"two">,
-            ]
-        > => {
+            input: ConstantIntersection,
+        ): typia.Primitive<ConstantIntersection> => {
             return Array.isArray(input) &&
                 input.length === 3 &&
                 false === input[0] &&

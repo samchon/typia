@@ -6,7 +6,7 @@ export const test_prune_TemplateConstant = _test_prune(
     "TemplateConstant",
     TemplateConstant.generate,
     (input) =>
-        ((input: Array<TemplateConstant.Type>): void => {
+        ((input: TemplateConstant): void => {
             const $pp0 = (input: any) =>
                 input.forEach((elem: any) => {
                     if ("object" === typeof elem && null !== elem) $po0(elem);

@@ -5,6 +5,6 @@ import { TupleUnion } from "../../structures/TupleUnion";
 export const test_validatePrune_TupleUnion = _test_validatePrune(
     "TupleUnion",
     TupleUnion.generate,
-    (input) => typia.validatePrune(input),
+    (input) => typia.validatePrune<TupleUnion>(input),
     TupleUnion.SPOILERS,
 );

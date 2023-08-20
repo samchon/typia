@@ -5,5 +5,5 @@ import { ToJsonAtomicSimple } from "../../structures/ToJsonAtomicSimple";
 export const test_isClone_ToJsonAtomicSimple = _test_isClone(
     "ToJsonAtomicSimple",
     ToJsonAtomicSimple.generate,
-    (input) => typia.isClone(input),
+    (input) => typia.isClone<ToJsonAtomicSimple>(input),
 );

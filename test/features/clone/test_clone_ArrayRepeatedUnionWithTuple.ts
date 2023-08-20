@@ -5,5 +5,5 @@ import { ArrayRepeatedUnionWithTuple } from "../../structures/ArrayRepeatedUnion
 export const test_clone_ArrayRepeatedUnionWithTuple = _test_clone(
     "ArrayRepeatedUnionWithTuple",
     ArrayRepeatedUnionWithTuple.generate,
-    (input) => typia.clone(input),
+    (input) => typia.clone<ArrayRepeatedUnionWithTuple>(input),
 );

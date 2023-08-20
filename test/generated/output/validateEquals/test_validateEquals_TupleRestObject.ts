@@ -6,16 +6,12 @@ export const test_validateEquals_TupleRestObject = _test_validateEquals(
     "TupleRestObject",
     TupleRestObject.generate,
     (input) =>
-        ((
-            input: any,
-        ): typia.IValidation<
-            [boolean, number, ...TupleRestObject.IObject[]]
-        > => {
+        ((input: any): typia.IValidation<TupleRestObject> => {
             const errors = [] as any[];
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
-            ): input is [boolean, number, ...TupleRestObject.IObject[]] => {
+            ): input is TupleRestObject => {
                 const $io0 = (
                     input: any,
                     _exceptionable: boolean = true,
@@ -51,7 +47,7 @@ export const test_validateEquals_TupleRestObject = _test_validateEquals(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is [boolean, number, ...TupleRestObject.IObject[]] => {
+                ): input is TupleRestObject => {
                     const $join = (typia.validateEquals as any).join;
                     const $vo0 = (
                         input: any,

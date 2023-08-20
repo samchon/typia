@@ -5,6 +5,6 @@ import { ArraySimple } from "../../structures/ArraySimple";
 export const test_validatePrune_ArraySimple = _test_validatePrune(
     "ArraySimple",
     ArraySimple.generate,
-    (input) => typia.validatePrune(input),
+    (input) => typia.validatePrune<ArraySimple>(input),
     ArraySimple.SPOILERS,
 );

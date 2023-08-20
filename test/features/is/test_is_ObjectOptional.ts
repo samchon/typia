@@ -5,6 +5,6 @@ import { ObjectOptional } from "../../structures/ObjectOptional";
 export const test_is_ObjectOptional = _test_is(
     "ObjectOptional",
     ObjectOptional.generate,
-    (input) => typia.is(input),
+    (input) => typia.is<ObjectOptional>(input),
     ObjectOptional.SPOILERS,
 );

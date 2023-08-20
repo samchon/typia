@@ -5,6 +5,6 @@ import { TagType } from "../../structures/TagType";
 export const test_assertPrune_TagType = _test_assertPrune(
     "TagType",
     TagType.generate,
-    (input) => typia.assertPrune(input),
+    (input) => typia.assertPrune<TagType>(input),
     TagType.SPOILERS,
 );

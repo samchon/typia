@@ -5,6 +5,6 @@ import { NativeAlias } from "../../structures/NativeAlias";
 export const test_isStringify_NativeAlias = _test_isStringify(
     "NativeAlias",
     NativeAlias.generate,
-    (input) => typia.isStringify(input),
+    (input) => typia.isStringify<NativeAlias>(input),
     NativeAlias.SPOILERS,
 );

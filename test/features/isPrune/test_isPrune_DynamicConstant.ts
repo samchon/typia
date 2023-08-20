@@ -5,6 +5,6 @@ import { DynamicConstant } from "../../structures/DynamicConstant";
 export const test_isPrune_DynamicConstant = _test_isPrune(
     "DynamicConstant",
     DynamicConstant.generate,
-    (input) => typia.isPrune(input),
+    (input) => typia.isPrune<DynamicConstant>(input),
     DynamicConstant.SPOILERS,
 );

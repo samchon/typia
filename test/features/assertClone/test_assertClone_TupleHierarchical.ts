@@ -5,6 +5,6 @@ import { TupleHierarchical } from "../../structures/TupleHierarchical";
 export const test_assertClone_TupleHierarchical = _test_assertClone(
     "TupleHierarchical",
     TupleHierarchical.generate,
-    (input) => typia.assertClone(input),
+    (input) => typia.assertClone<TupleHierarchical>(input),
     TupleHierarchical.SPOILERS,
 );

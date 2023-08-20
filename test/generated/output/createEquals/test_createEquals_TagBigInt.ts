@@ -9,14 +9,14 @@ export const test_createEquals_TagBigInt = _test_equals(
         const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
             "bigint" === typeof input.value &&
             "bigint" === typeof input.ranged &&
-            0n <= input.ranged &&
-            100n >= input.ranged &&
+            BigInt(0) <= input.ranged &&
+            BigInt(100) >= input.ranged &&
             "bigint" === typeof input.minimum &&
-            0n <= input.minimum &&
+            BigInt(0) <= input.minimum &&
             "bigint" === typeof input.maximum &&
-            100n >= input.maximum &&
+            BigInt(100) >= input.maximum &&
             "bigint" === typeof input.multipleOf &&
-            0n === input.multipleOf % 3n &&
+            BigInt(0) === input.multipleOf % BigInt(3) &&
             (5 === Object.keys(input).length ||
                 Object.keys(input).every((key: any) => {
                     if (

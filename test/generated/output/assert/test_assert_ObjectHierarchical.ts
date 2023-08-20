@@ -6,10 +6,8 @@ export const test_assert_ObjectHierarchical = _test_assert(
     "ObjectHierarchical",
     ObjectHierarchical.generate,
     (input) =>
-        ((input: any): ObjectHierarchical.ICustomer => {
-            const __is = (
-                input: any,
-            ): input is ObjectHierarchical.ICustomer => {
+        ((input: any): ObjectHierarchical => {
+            const __is = (input: any): input is ObjectHierarchical => {
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.id &&
                     Number.isFinite(input.id) &&
@@ -113,7 +111,7 @@ export const test_assert_ObjectHierarchical = _test_assert(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ObjectHierarchical.ICustomer => {
+                ): input is ObjectHierarchical => {
                     const $guard = (typia.assert as any).guard;
                     const $ao0 = (
                         input: any,

@@ -5,6 +5,6 @@ import { MapAlias } from "../../structures/MapAlias";
 export const test_validateStringify_MapAlias = _test_validateStringify(
     "MapAlias",
     MapAlias.generate,
-    (input) => typia.validateStringify(input),
+    (input) => typia.validateStringify<MapAlias>(input),
     MapAlias.SPOILERS,
 );

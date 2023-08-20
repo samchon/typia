@@ -6,8 +6,8 @@ export const test_isStringify_MapUnion = _test_isStringify(
     "MapUnion",
     MapUnion.generate,
     (input) =>
-        ((input: Array<MapUnion.Union>): string | null => {
-            const is = (input: any): input is Array<MapUnion.Union> => {
+        ((input: MapUnion): string | null => {
+            const is = (input: any): input is MapUnion => {
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     "string" === typeof input.name &&
@@ -146,7 +146,7 @@ export const test_isStringify_MapUnion = _test_isStringify(
                     )
                 );
             };
-            const stringify = (input: Array<MapUnion.Union>): string => {
+            const stringify = (input: MapUnion): string => {
                 const $string = (typia.isStringify as any).string;
                 const $number = (typia.isStringify as any).number;
                 return `[${input.map((elem: any) => "{}").join(",")}]`;

@@ -5,5 +5,5 @@ import { ConstantAtomicWrapper } from "../../structures/ConstantAtomicWrapper";
 export const test_clone_ConstantAtomicWrapper = _test_clone(
     "ConstantAtomicWrapper",
     ConstantAtomicWrapper.generate,
-    (input) => typia.clone(input),
+    (input) => typia.clone<ConstantAtomicWrapper>(input),
 );

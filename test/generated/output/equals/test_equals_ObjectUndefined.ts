@@ -9,7 +9,7 @@ export const test_equals_ObjectUndefined = _test_equals(
         ((
             input: any,
             _exceptionable: boolean = true,
-        ): input is Array<ObjectUndefined.ILecture> => {
+        ): input is ObjectUndefined => {
             const $io0 = (
                 input: any,
                 _exceptionable: boolean = true,

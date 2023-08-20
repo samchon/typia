@@ -5,6 +5,6 @@ import { TupleRestAtomic } from "../../structures/TupleRestAtomic";
 export const test_isPrune_TupleRestAtomic = _test_isPrune(
     "TupleRestAtomic",
     TupleRestAtomic.generate,
-    (input) => typia.isPrune(input),
+    (input) => typia.isPrune<TupleRestAtomic>(input),
     TupleRestAtomic.SPOILERS,
 );

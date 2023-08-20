@@ -5,5 +5,5 @@ import { DynamicConstant } from "../../structures/DynamicConstant";
 export const test_validateEquals_DynamicConstant = _test_validateEquals(
     "DynamicConstant",
     DynamicConstant.generate,
-    (input) => typia.validateEquals(input),
+    (input) => typia.validateEquals<DynamicConstant>(input),
 );

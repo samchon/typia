@@ -6,32 +6,12 @@ export const test_validatePrune_ObjectNullable = _test_validatePrune(
     "ObjectNullable",
     ObjectNullable.generate,
     (input) =>
-        ((
-            input: any,
-        ): typia.IValidation<
-            [
-                ObjectNullable.IProduct,
-                ObjectNullable.IProduct,
-                ObjectNullable.IProduct,
-            ]
-        > => {
+        ((input: any): typia.IValidation<ObjectNullable> => {
             const validate = (
                 input: any,
-            ): typia.IValidation<
-                [
-                    ObjectNullable.IProduct,
-                    ObjectNullable.IProduct,
-                    ObjectNullable.IProduct,
-                ]
-            > => {
+            ): typia.IValidation<ObjectNullable> => {
                 const errors = [] as any[];
-                const __is = (
-                    input: any,
-                ): input is [
-                    ObjectNullable.IProduct,
-                    ObjectNullable.IProduct,
-                    ObjectNullable.IProduct,
-                ] => {
+                const __is = (input: any): input is ObjectNullable => {
                     const $io0 = (input: any): boolean =>
                         "string" === typeof input.name &&
                         "object" === typeof input.manufacturer &&
@@ -78,11 +58,7 @@ export const test_validatePrune_ObjectNullable = _test_validatePrune(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is [
-                        ObjectNullable.IProduct,
-                        ObjectNullable.IProduct,
-                        ObjectNullable.IProduct,
-                    ] => {
+                    ): input is ObjectNullable => {
                         const $vo0 = (
                             input: any,
                             _path: string,
@@ -288,13 +264,7 @@ export const test_validatePrune_ObjectNullable = _test_validatePrune(
                     data: success ? input : undefined,
                 } as any;
             };
-            const prune = (
-                input: [
-                    ObjectNullable.IProduct,
-                    ObjectNullable.IProduct,
-                    ObjectNullable.IProduct,
-                ],
-            ): void => {
+            const prune = (input: ObjectNullable): void => {
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.name &&
                     "object" === typeof input.manufacturer &&

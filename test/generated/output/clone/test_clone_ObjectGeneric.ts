@@ -6,19 +6,7 @@ export const test_clone_ObjectGeneric = _test_clone(
     "ObjectGeneric",
     ObjectGeneric.generate,
     (input) =>
-        ((
-            input: [
-                ObjectGeneric.ISomething<boolean>,
-                ObjectGeneric.ISomething<number>,
-                ObjectGeneric.ISomething<string>,
-            ],
-        ): typia.Primitive<
-            [
-                ObjectGeneric.ISomething<boolean>,
-                ObjectGeneric.ISomething<number>,
-                ObjectGeneric.ISomething<string>,
-            ]
-        > => {
+        ((input: ObjectGeneric): typia.Primitive<ObjectGeneric> => {
             const $io0 = (input: any): boolean =>
                 "boolean" === typeof input.value &&
                 "object" === typeof input.child &&

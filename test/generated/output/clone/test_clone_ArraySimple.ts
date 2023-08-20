@@ -6,9 +6,7 @@ export const test_clone_ArraySimple = _test_clone(
     "ArraySimple",
     ArraySimple.generate,
     (input) =>
-        ((
-            input: Array<ArraySimple.IPerson>,
-        ): typia.Primitive<Array<ArraySimple.IPerson>> => {
+        ((input: ArraySimple): typia.Primitive<ArraySimple> => {
             const $io1 = (input: any): boolean =>
                 "string" === typeof input.name &&
                 "string" === typeof input.body &&

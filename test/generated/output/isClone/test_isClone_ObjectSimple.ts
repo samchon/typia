@@ -6,8 +6,8 @@ export const test_isClone_ObjectSimple = _test_isClone(
     "ObjectSimple",
     ObjectSimple.generate,
     (input) =>
-        ((input: any): typia.Primitive<ObjectSimple.IBox3D> | null => {
-            const is = (input: any): input is ObjectSimple.IBox3D => {
+        ((input: any): typia.Primitive<ObjectSimple> | null => {
+            const is = (input: any): input is ObjectSimple => {
                 return (
                     "object" === typeof input &&
                     null !== input &&
@@ -46,8 +46,8 @@ export const test_isClone_ObjectSimple = _test_isClone(
                 );
             };
             const clone = (
-                input: ObjectSimple.IBox3D,
-            ): typia.Primitive<ObjectSimple.IBox3D> => {
+                input: ObjectSimple,
+            ): typia.Primitive<ObjectSimple> => {
                 const $io1 = (input: any): boolean =>
                     "number" === typeof input.x &&
                     "number" === typeof input.y &&

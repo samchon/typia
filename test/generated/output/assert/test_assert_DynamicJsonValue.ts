@@ -6,24 +6,8 @@ export const test_assert_DynamicJsonValue = _test_assert(
     "DynamicJsonValue",
     DynamicJsonValue.generate,
     (input) =>
-        ((
-            input: any,
-        ):
-            | string
-            | number
-            | boolean
-            | DynamicJsonValue.JsonObject
-            | DynamicJsonValue.JsonArray
-            | null => {
-            const __is = (
-                input: any,
-            ): input is
-                | string
-                | number
-                | boolean
-                | DynamicJsonValue.JsonObject
-                | DynamicJsonValue.JsonArray
-                | null => {
+        ((input: any): DynamicJsonValue => {
+            const __is = (input: any): input is DynamicJsonValue => {
                 const $join = (typia.assert as any).join;
                 const $io0 = (input: any): boolean =>
                     Object.keys(input).every((key: any) => {
@@ -80,13 +64,7 @@ export const test_assert_DynamicJsonValue = _test_assert(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is
-                    | string
-                    | number
-                    | boolean
-                    | DynamicJsonValue.JsonObject
-                    | DynamicJsonValue.JsonArray
-                    | null => {
+                ): input is DynamicJsonValue => {
                     const $guard = (typia.assert as any).guard;
                     const $join = (typia.assert as any).join;
                     const $ao0 = (

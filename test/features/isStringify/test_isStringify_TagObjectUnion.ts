@@ -5,6 +5,6 @@ import { TagObjectUnion } from "../../structures/TagObjectUnion";
 export const test_isStringify_TagObjectUnion = _test_isStringify(
     "TagObjectUnion",
     TagObjectUnion.generate,
-    (input) => typia.isStringify(input),
+    (input) => typia.isStringify<TagObjectUnion>(input),
     TagObjectUnion.SPOILERS,
 );

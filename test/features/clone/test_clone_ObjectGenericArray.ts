@@ -5,5 +5,5 @@ import { ObjectGenericArray } from "../../structures/ObjectGenericArray";
 export const test_clone_ObjectGenericArray = _test_clone(
     "ObjectGenericArray",
     ObjectGenericArray.generate,
-    (input) => typia.clone(input),
+    (input) => typia.clone<ObjectGenericArray>(input),
 );

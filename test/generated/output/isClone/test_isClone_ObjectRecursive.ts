@@ -6,8 +6,8 @@ export const test_isClone_ObjectRecursive = _test_isClone(
     "ObjectRecursive",
     ObjectRecursive.generate,
     (input) =>
-        ((input: any): typia.Primitive<ObjectRecursive.IDepartment> | null => {
-            const is = (input: any): input is ObjectRecursive.IDepartment => {
+        ((input: any): typia.Primitive<ObjectRecursive> | null => {
+            const is = (input: any): input is ObjectRecursive => {
                 const $io0 = (input: any): boolean =>
                     (null === input.parent ||
                         ("object" === typeof input.parent &&
@@ -30,8 +30,8 @@ export const test_isClone_ObjectRecursive = _test_isClone(
                 );
             };
             const clone = (
-                input: ObjectRecursive.IDepartment,
-            ): typia.Primitive<ObjectRecursive.IDepartment> => {
+                input: ObjectRecursive,
+            ): typia.Primitive<ObjectRecursive> => {
                 const $io0 = (input: any): boolean =>
                     (null === input.parent ||
                         ("object" === typeof input.parent &&

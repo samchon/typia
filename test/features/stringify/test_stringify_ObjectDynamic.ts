@@ -5,5 +5,5 @@ import { ObjectDynamic } from "../../structures/ObjectDynamic";
 export const test_stringify_ObjectDynamic = _test_stringify(
     "ObjectDynamic",
     ObjectDynamic.generate,
-    (input) => typia.stringify(input),
+    (input) => typia.stringify<ObjectDynamic>(input),
 );

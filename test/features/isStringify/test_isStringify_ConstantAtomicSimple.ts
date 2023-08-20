@@ -5,6 +5,6 @@ import { ConstantAtomicSimple } from "../../structures/ConstantAtomicSimple";
 export const test_isStringify_ConstantAtomicSimple = _test_isStringify(
     "ConstantAtomicSimple",
     ConstantAtomicSimple.generate,
-    (input) => typia.isStringify(input),
+    (input) => typia.isStringify<ConstantAtomicSimple>(input),
     ConstantAtomicSimple.SPOILERS,
 );

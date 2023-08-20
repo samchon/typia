@@ -5,6 +5,6 @@ import { TagBigInt } from "../../structures/TagBigInt";
 export const test_validate_TagBigInt = _test_validate(
     "TagBigInt",
     TagBigInt.generate,
-    (input) => typia.validate(input),
+    (input) => typia.validate<TagBigInt>(input),
     TagBigInt.SPOILERS,
 );

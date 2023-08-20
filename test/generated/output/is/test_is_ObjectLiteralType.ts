@@ -6,7 +6,7 @@ export const test_is_ObjectLiteralType = _test_is(
     "ObjectLiteralType",
     ObjectLiteralType.generate,
     (input) =>
-        ((input: any): input is { id: string; name: string; age: number } => {
+        ((input: any): input is ObjectLiteralType => {
             return (
                 "object" === typeof input &&
                 null !== input &&

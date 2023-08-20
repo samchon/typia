@@ -6,11 +6,9 @@ export const test_assertClone_TagObjectUnion = _test_assertClone(
     "TagObjectUnion",
     TagObjectUnion.generate,
     (input) =>
-        ((input: any): typia.Primitive<Array<TagObjectUnion.Type>> => {
-            const assert = (input: any): Array<TagObjectUnion.Type> => {
-                const __is = (
-                    input: any,
-                ): input is Array<TagObjectUnion.Type> => {
+        ((input: any): typia.Primitive<TagObjectUnion> => {
+            const assert = (input: any): TagObjectUnion => {
+                const __is = (input: any): input is TagObjectUnion => {
                     const $io0 = (input: any): boolean =>
                         "number" === typeof input.value &&
                         Number.isFinite(input.value) &&
@@ -45,7 +43,7 @@ export const test_assertClone_TagObjectUnion = _test_assertClone(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is Array<TagObjectUnion.Type> => {
+                    ): input is TagObjectUnion => {
                         const $guard = (typia.assertClone as any).guard;
                         const $ao0 = (
                             input: any,
@@ -153,8 +151,8 @@ export const test_assertClone_TagObjectUnion = _test_assertClone(
                 return input;
             };
             const clone = (
-                input: Array<TagObjectUnion.Type>,
-            ): typia.Primitive<Array<TagObjectUnion.Type>> => {
+                input: TagObjectUnion,
+            ): typia.Primitive<TagObjectUnion> => {
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.value && 3 <= input.value;
                 const $io1 = (input: any): boolean =>

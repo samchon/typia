@@ -6,7 +6,7 @@ export const test_stringify_ArrayRecursive = _test_stringify(
     "ArrayRecursive",
     ArrayRecursive.generate,
     (input) =>
-        ((input: ArrayRecursive.ICategory): string => {
+        ((input: ArrayRecursive): string => {
             const $io0 = (input: any): boolean =>
                 Array.isArray(input.children) &&
                 input.children.every(

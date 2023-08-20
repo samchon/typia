@@ -5,5 +5,5 @@ import { TagRange } from "../../structures/TagRange";
 export const test_prune_TagRange = _test_prune(
     "TagRange",
     TagRange.generate,
-    (input) => typia.prune(input),
+    (input) => typia.prune<TagRange>(input),
 );

@@ -5,6 +5,6 @@ import { DynamicArray } from "../../structures/DynamicArray";
 export const test_isClone_DynamicArray = _test_isClone(
     "DynamicArray",
     DynamicArray.generate,
-    (input) => typia.isClone(input),
+    (input) => typia.isClone<DynamicArray>(input),
     DynamicArray.SPOILERS,
 );

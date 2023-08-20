@@ -5,6 +5,6 @@ import { TagRange } from "../../structures/TagRange";
 export const test_validateClone_TagRange = _test_validateClone(
     "TagRange",
     TagRange.generate,
-    (input) => typia.validateClone(input),
+    (input) => typia.validateClone<TagRange>(input),
     TagRange.SPOILERS,
 );

@@ -5,6 +5,6 @@ import { ObjectGenericUnion } from "../../structures/ObjectGenericUnion";
 export const test_validateClone_ObjectGenericUnion = _test_validateClone(
     "ObjectGenericUnion",
     ObjectGenericUnion.generate,
-    (input) => typia.validateClone(input),
+    (input) => typia.validateClone<ObjectGenericUnion>(input),
     ObjectGenericUnion.SPOILERS,
 );

@@ -5,6 +5,6 @@ import { DynamicJsonValue } from "../../structures/DynamicJsonValue";
 export const test_is_DynamicJsonValue = _test_is(
     "DynamicJsonValue",
     DynamicJsonValue.generate,
-    (input) => typia.is(input),
+    (input) => typia.is<DynamicJsonValue>(input),
     DynamicJsonValue.SPOILERS,
 );

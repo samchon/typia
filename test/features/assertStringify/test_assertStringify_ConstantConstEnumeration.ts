@@ -6,6 +6,6 @@ export const test_assertStringify_ConstantConstEnumeration =
     _test_assertStringify(
         "ConstantConstEnumeration",
         ConstantConstEnumeration.generate,
-        (input) => typia.assertStringify(input),
+        (input) => typia.assertStringify<ConstantConstEnumeration>(input),
         ConstantConstEnumeration.SPOILERS,
     );

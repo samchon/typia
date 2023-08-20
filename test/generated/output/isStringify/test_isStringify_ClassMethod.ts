@@ -6,8 +6,8 @@ export const test_isStringify_ClassMethod = _test_isStringify(
     "ClassMethod",
     ClassMethod.generate,
     (input) =>
-        ((input: ClassMethod.Animal): string | null => {
-            const is = (input: any): input is ClassMethod.Animal => {
+        ((input: ClassMethod): string | null => {
+            const is = (input: any): input is ClassMethod => {
                 return (
                     "object" === typeof input &&
                     null !== input &&
@@ -16,7 +16,7 @@ export const test_isStringify_ClassMethod = _test_isStringify(
                     Number.isFinite((input as any).age)
                 );
             };
-            const stringify = (input: ClassMethod.Animal): string => {
+            const stringify = (input: ClassMethod): string => {
                 const $string = (typia.isStringify as any).string;
                 const $number = (typia.isStringify as any).number;
                 return `{"name":${$string((input as any).name)},"age":${$number(

@@ -5,6 +5,6 @@ import { ObjectSimple } from "../../structures/ObjectSimple";
 export const test_is_ObjectSimple = _test_is(
     "ObjectSimple",
     ObjectSimple.generate,
-    (input) => typia.is(input),
+    (input) => typia.is<ObjectSimple>(input),
     ObjectSimple.SPOILERS,
 );

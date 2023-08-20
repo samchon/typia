@@ -6,9 +6,7 @@ export const test_clone_ObjectGenericAlias = _test_clone(
     "ObjectGenericAlias",
     ObjectGenericAlias.generate,
     (input) =>
-        ((
-            input: ObjectGenericAlias.ISomething<string>,
-        ): typia.Primitive<ObjectGenericAlias.ISomething<string>> => {
+        ((input: ObjectGenericAlias): typia.Primitive<ObjectGenericAlias> => {
             const $co0 = (input: any): any => ({
                 value: input.value as any,
             });

@@ -6,7 +6,7 @@ export const test_prune_ArrayRecursiveUnionImplicit = _test_prune(
     "ArrayRecursiveUnionImplicit",
     ArrayRecursiveUnionImplicit.generate,
     (input) =>
-        ((input: Array<ArrayRecursiveUnionImplicit.IBucket>): void => {
+        ((input: ArrayRecursiveUnionImplicit): void => {
             const $io0 = (input: any): boolean =>
                 "number" === typeof input.id &&
                 "string" === typeof input.name &&

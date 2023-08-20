@@ -7,22 +7,8 @@ export const test_assertStringify_ArrayRepeatedUnion = _test_assertStringify(
     ArrayRepeatedUnion.generate,
     (input) =>
         ((input: any): string => {
-            const assert = (
-                input: any,
-            ):
-                | number
-                | boolean
-                | Array<string>
-                | Array<ArrayRepeatedUnion>
-                | Array<ArrayRepeatedUnion.IBox3D> => {
-                const __is = (
-                    input: any,
-                ): input is
-                    | number
-                    | boolean
-                    | Array<string>
-                    | Array<ArrayRepeatedUnion>
-                    | Array<ArrayRepeatedUnion.IBox3D> => {
+            const assert = (input: any): ArrayRepeatedUnion => {
+                const __is = (input: any): input is ArrayRepeatedUnion => {
                     const $ip0 = (input: any) => {
                         const array = input;
                         const top = input[0];
@@ -132,12 +118,7 @@ export const test_assertStringify_ArrayRepeatedUnion = _test_assertStringify(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is
-                        | number
-                        | boolean
-                        | Array<string>
-                        | Array<ArrayRepeatedUnion>
-                        | Array<ArrayRepeatedUnion.IBox3D> => {
+                    ): input is ArrayRepeatedUnion => {
                         const $guard = (typia.assertStringify as any).guard;
                         const $ap0 = (
                             input: any,
@@ -461,14 +442,7 @@ export const test_assertStringify_ArrayRepeatedUnion = _test_assertStringify(
                     })(input, "$input", true);
                 return input;
             };
-            const stringify = (
-                input:
-                    | number
-                    | boolean
-                    | Array<string>
-                    | Array<ArrayRepeatedUnion>
-                    | Array<ArrayRepeatedUnion.IBox3D>,
-            ): string => {
+            const stringify = (input: ArrayRepeatedUnion): string => {
                 const $io0 = (input: any): boolean =>
                     "object" === typeof input.scale &&
                     null !== input.scale &&

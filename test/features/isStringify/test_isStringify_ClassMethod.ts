@@ -5,6 +5,6 @@ import { ClassMethod } from "../../structures/ClassMethod";
 export const test_isStringify_ClassMethod = _test_isStringify(
     "ClassMethod",
     ClassMethod.generate,
-    (input) => typia.isStringify(input),
+    (input) => typia.isStringify<ClassMethod>(input),
     ClassMethod.SPOILERS,
 );

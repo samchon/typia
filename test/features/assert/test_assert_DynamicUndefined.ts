@@ -5,6 +5,6 @@ import { DynamicUndefined } from "../../structures/DynamicUndefined";
 export const test_assert_DynamicUndefined = _test_assert(
     "DynamicUndefined",
     DynamicUndefined.generate,
-    (input) => typia.assert(input),
+    (input) => typia.assert<DynamicUndefined>(input),
     DynamicUndefined.SPOILERS,
 );

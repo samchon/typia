@@ -7,10 +7,8 @@ export const test_assertStringify_TemplateConstant = _test_assertStringify(
     TemplateConstant.generate,
     (input) =>
         ((input: any): string => {
-            const assert = (input: any): Array<TemplateConstant.Type> => {
-                const __is = (
-                    input: any,
-                ): input is Array<TemplateConstant.Type> => {
+            const assert = (input: any): TemplateConstant => {
+                const __is = (input: any): input is TemplateConstant => {
                     const $io0 = (input: any): boolean =>
                         ("prefix_A" === input.prefix ||
                             "prefix_B" === input.prefix ||
@@ -42,7 +40,7 @@ export const test_assertStringify_TemplateConstant = _test_assertStringify(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is Array<TemplateConstant.Type> => {
+                    ): input is TemplateConstant => {
                         const $guard = (typia.assertStringify as any).guard;
                         const $ao0 = (
                             input: any,
@@ -86,7 +84,7 @@ export const test_assertStringify_TemplateConstant = _test_assertStringify(
                             ((Array.isArray(input) ||
                                 $guard(true, {
                                     path: _path + "",
-                                    expected: "Array<TemplateConstant.Type>",
+                                    expected: "TemplateConstant",
                                     value: input,
                                 })) &&
                                 input.every(
@@ -113,14 +111,14 @@ export const test_assertStringify_TemplateConstant = _test_assertStringify(
                                 )) ||
                             $guard(true, {
                                 path: _path + "",
-                                expected: "Array<TemplateConstant.Type>",
+                                expected: "TemplateConstant",
                                 value: input,
                             })
                         );
                     })(input, "$input", true);
                 return input;
             };
-            const stringify = (input: Array<TemplateConstant.Type>): string => {
+            const stringify = (input: TemplateConstant): string => {
                 const $string = (typia.assertStringify as any).string;
                 const $throws = (typia.assertStringify as any).throws;
                 const $so0 = (input: any): any =>

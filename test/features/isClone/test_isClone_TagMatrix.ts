@@ -5,6 +5,6 @@ import { TagMatrix } from "../../structures/TagMatrix";
 export const test_isClone_TagMatrix = _test_isClone(
     "TagMatrix",
     TagMatrix.generate,
-    (input) => typia.isClone(input),
+    (input) => typia.isClone<TagMatrix>(input),
     TagMatrix.SPOILERS,
 );

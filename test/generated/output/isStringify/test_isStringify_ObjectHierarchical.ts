@@ -6,8 +6,8 @@ export const test_isStringify_ObjectHierarchical = _test_isStringify(
     "ObjectHierarchical",
     ObjectHierarchical.generate,
     (input) =>
-        ((input: ObjectHierarchical.ICustomer): string | null => {
-            const is = (input: any): input is ObjectHierarchical.ICustomer => {
+        ((input: ObjectHierarchical): string | null => {
+            const is = (input: any): input is ObjectHierarchical => {
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.id &&
                     Number.isFinite(input.id) &&
@@ -106,7 +106,7 @@ export const test_isStringify_ObjectHierarchical = _test_isStringify(
                     "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            const stringify = (input: ObjectHierarchical.ICustomer): string => {
+            const stringify = (input: ObjectHierarchical): string => {
                 const $io1 = (input: any): boolean =>
                     "number" === typeof input.id &&
                     "string" === typeof input.code &&

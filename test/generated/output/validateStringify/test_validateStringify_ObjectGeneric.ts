@@ -6,30 +6,10 @@ export const test_validateStringify_ObjectGeneric = _test_validateStringify(
     "ObjectGeneric",
     ObjectGeneric.generate,
     (input) =>
-        ((
-            input: [
-                ObjectGeneric.ISomething<boolean>,
-                ObjectGeneric.ISomething<number>,
-                ObjectGeneric.ISomething<string>,
-            ],
-        ): typia.IValidation<string> => {
-            const validate = (
-                input: any,
-            ): typia.IValidation<
-                [
-                    ObjectGeneric.ISomething<boolean>,
-                    ObjectGeneric.ISomething<number>,
-                    ObjectGeneric.ISomething<string>,
-                ]
-            > => {
+        ((input: ObjectGeneric): typia.IValidation<string> => {
+            const validate = (input: any): typia.IValidation<ObjectGeneric> => {
                 const errors = [] as any[];
-                const __is = (
-                    input: any,
-                ): input is [
-                    ObjectGeneric.ISomething<boolean>,
-                    ObjectGeneric.ISomething<number>,
-                    ObjectGeneric.ISomething<string>,
-                ] => {
+                const __is = (input: any): input is ObjectGeneric => {
                     const $io0 = (input: any): boolean =>
                         "boolean" === typeof input.value &&
                         "object" === typeof input.child &&
@@ -105,11 +85,7 @@ export const test_validateStringify_ObjectGeneric = _test_validateStringify(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is [
-                        ObjectGeneric.ISomething<boolean>,
-                        ObjectGeneric.ISomething<number>,
-                        ObjectGeneric.ISomething<string>,
-                    ] => {
+                    ): input is ObjectGeneric => {
                         const $vo0 = (
                             input: any,
                             _path: string,
@@ -486,13 +462,7 @@ export const test_validateStringify_ObjectGeneric = _test_validateStringify(
                     data: success ? input : undefined,
                 } as any;
             };
-            const stringify = (
-                input: [
-                    ObjectGeneric.ISomething<boolean>,
-                    ObjectGeneric.ISomething<number>,
-                    ObjectGeneric.ISomething<string>,
-                ],
-            ): string => {
+            const stringify = (input: ObjectGeneric): string => {
                 const $io1 = (input: any): boolean =>
                     "boolean" === typeof input.child_value &&
                     "boolean" === typeof input.child_next;

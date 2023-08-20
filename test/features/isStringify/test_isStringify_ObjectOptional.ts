@@ -5,6 +5,6 @@ import { ObjectOptional } from "../../structures/ObjectOptional";
 export const test_isStringify_ObjectOptional = _test_isStringify(
     "ObjectOptional",
     ObjectOptional.generate,
-    (input) => typia.isStringify(input),
+    (input) => typia.isStringify<ObjectOptional>(input),
     ObjectOptional.SPOILERS,
 );

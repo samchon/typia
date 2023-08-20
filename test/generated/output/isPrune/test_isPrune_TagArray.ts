@@ -6,8 +6,8 @@ export const test_isPrune_TagArray = _test_isPrune(
     "TagArray",
     TagArray.generate,
     (input) =>
-        ((input: any): input is Array<TagArray.Type> => {
-            const is = (input: any): input is Array<TagArray.Type> => {
+        ((input: any): input is TagArray => {
+            const is = (input: any): input is TagArray => {
                 const $is_uuid = (typia.isPrune as any).is_uuid;
                 const $io0 = (input: any): boolean =>
                     Array.isArray(input.items) &&
@@ -59,7 +59,7 @@ export const test_isPrune_TagArray = _test_isPrune(
                     )
                 );
             };
-            const prune = (input: Array<TagArray.Type>): void => {
+            const prune = (input: TagArray): void => {
                 const $is_uuid = (typia.isPrune as any).is_uuid;
                 const $pp0 = (input: any) =>
                     input.forEach((elem: any) => {

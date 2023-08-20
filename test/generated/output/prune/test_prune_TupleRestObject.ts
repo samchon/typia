@@ -6,7 +6,7 @@ export const test_prune_TupleRestObject = _test_prune(
     "TupleRestObject",
     TupleRestObject.generate,
     (input) =>
-        ((input: [boolean, number, ...TupleRestObject.IObject[]]): void => {
+        ((input: TupleRestObject): void => {
             const $io0 = (input: any): boolean =>
                 "string" === typeof input.value;
             const $pp0 = (input: any) =>

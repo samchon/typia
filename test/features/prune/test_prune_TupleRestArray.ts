@@ -5,5 +5,5 @@ import { TupleRestArray } from "../../structures/TupleRestArray";
 export const test_prune_TupleRestArray = _test_prune(
     "TupleRestArray",
     TupleRestArray.generate,
-    (input) => typia.prune(input),
+    (input) => typia.prune<TupleRestArray>(input),
 );

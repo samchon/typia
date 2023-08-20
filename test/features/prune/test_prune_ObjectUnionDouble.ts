@@ -5,5 +5,5 @@ import { ObjectUnionDouble } from "../../structures/ObjectUnionDouble";
 export const test_prune_ObjectUnionDouble = _test_prune(
     "ObjectUnionDouble",
     ObjectUnionDouble.generate,
-    (input) => typia.prune(input),
+    (input) => typia.prune<ObjectUnionDouble>(input),
 );

@@ -5,6 +5,6 @@ import { ArrayRecursiveUnionExplicit } from "../../structures/ArrayRecursiveUnio
 export const test_isPrune_ArrayRecursiveUnionExplicit = _test_isPrune(
     "ArrayRecursiveUnionExplicit",
     ArrayRecursiveUnionExplicit.generate,
-    (input) => typia.isPrune(input),
+    (input) => typia.isPrune<ArrayRecursiveUnionExplicit>(input),
     ArrayRecursiveUnionExplicit.SPOILERS,
 );

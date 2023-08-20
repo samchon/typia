@@ -5,6 +5,6 @@ import { TupleRestArray } from "../../structures/TupleRestArray";
 export const test_assertClone_TupleRestArray = _test_assertClone(
     "TupleRestArray",
     TupleRestArray.generate,
-    (input) => typia.assertClone(input),
+    (input) => typia.assertClone<TupleRestArray>(input),
     TupleRestArray.SPOILERS,
 );

@@ -6,8 +6,8 @@ export const test_assert_ObjectSimple = _test_assert(
     "ObjectSimple",
     ObjectSimple.generate,
     (input) =>
-        ((input: any): ObjectSimple.IBox3D => {
-            const __is = (input: any): input is ObjectSimple.IBox3D => {
+        ((input: any): ObjectSimple => {
+            const __is = (input: any): input is ObjectSimple => {
                 return (
                     "object" === typeof input &&
                     null !== input &&
@@ -50,7 +50,7 @@ export const test_assert_ObjectSimple = _test_assert(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ObjectSimple.IBox3D => {
+                ): input is ObjectSimple => {
                     const $guard = (typia.assert as any).guard;
                     const $ao0 = (
                         input: any,

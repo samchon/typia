@@ -6,14 +6,10 @@ export const test_validateStringify_ArrayUnion = _test_validateStringify(
     "ArrayUnion",
     ArrayUnion.generate,
     (input) =>
-        ((input: Array<ArrayUnion.IUnion>): typia.IValidation<string> => {
-            const validate = (
-                input: any,
-            ): typia.IValidation<Array<ArrayUnion.IUnion>> => {
+        ((input: ArrayUnion): typia.IValidation<string> => {
+            const validate = (input: any): typia.IValidation<ArrayUnion> => {
                 const errors = [] as any[];
-                const __is = (
-                    input: any,
-                ): input is Array<ArrayUnion.IUnion> => {
+                const __is = (input: any): input is ArrayUnion => {
                     const $ip0 = (input: any) => {
                         const array = input;
                         const top = input[0];
@@ -76,7 +72,7 @@ export const test_validateStringify_ArrayUnion = _test_validateStringify(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is Array<ArrayUnion.IUnion> => {
+                    ): input is ArrayUnion => {
                         const $vp0 = (
                             input: any,
                             _path: string,
@@ -229,7 +225,7 @@ export const test_validateStringify_ArrayUnion = _test_validateStringify(
                     data: success ? input : undefined,
                 } as any;
             };
-            const stringify = (input: Array<ArrayUnion.IUnion>): string => {
+            const stringify = (input: ArrayUnion): string => {
                 const $string = (typia.validateStringify as any).string;
                 const $number = (typia.validateStringify as any).number;
                 const $throws = (typia.validateStringify as any).throws;

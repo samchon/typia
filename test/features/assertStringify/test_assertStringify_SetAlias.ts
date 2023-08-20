@@ -5,6 +5,6 @@ import { SetAlias } from "../../structures/SetAlias";
 export const test_assertStringify_SetAlias = _test_assertStringify(
     "SetAlias",
     SetAlias.generate,
-    (input) => typia.assertStringify(input),
+    (input) => typia.assertStringify<SetAlias>(input),
     SetAlias.SPOILERS,
 );

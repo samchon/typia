@@ -6,33 +6,10 @@ export const test_validateStringify_ToJsonTuple = _test_validateStringify(
     "ToJsonTuple",
     ToJsonTuple.generate,
     (input) =>
-        ((
-            input: [
-                ToJsonTuple.IToJson<string>,
-                ToJsonTuple.IToJson<number>,
-                ToJsonTuple.IToJson<boolean>,
-                ToJsonTuple.IObject,
-            ],
-        ): typia.IValidation<string> => {
-            const validate = (
-                input: any,
-            ): typia.IValidation<
-                [
-                    ToJsonTuple.IToJson<string>,
-                    ToJsonTuple.IToJson<number>,
-                    ToJsonTuple.IToJson<boolean>,
-                    ToJsonTuple.IObject,
-                ]
-            > => {
+        ((input: ToJsonTuple): typia.IValidation<string> => {
+            const validate = (input: any): typia.IValidation<ToJsonTuple> => {
                 const errors = [] as any[];
-                const __is = (
-                    input: any,
-                ): input is [
-                    ToJsonTuple.IToJson<string>,
-                    ToJsonTuple.IToJson<number>,
-                    ToJsonTuple.IToJson<boolean>,
-                    ToJsonTuple.IObject,
-                ] => {
+                const __is = (input: any): input is ToJsonTuple => {
                     const $io0 = (input: any): boolean => true;
                     const $io1 = (input: any): boolean => true;
                     const $io2 = (input: any): boolean => true;
@@ -62,12 +39,7 @@ export const test_validateStringify_ToJsonTuple = _test_validateStringify(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is [
-                        ToJsonTuple.IToJson<string>,
-                        ToJsonTuple.IToJson<number>,
-                        ToJsonTuple.IToJson<boolean>,
-                        ToJsonTuple.IObject,
-                    ] => {
+                    ): input is ToJsonTuple => {
                         const $vo0 = (
                             input: any,
                             _path: string,
@@ -209,14 +181,7 @@ export const test_validateStringify_ToJsonTuple = _test_validateStringify(
                     data: success ? input : undefined,
                 } as any;
             };
-            const stringify = (
-                input: [
-                    ToJsonTuple.IToJson<string>,
-                    ToJsonTuple.IToJson<number>,
-                    ToJsonTuple.IToJson<boolean>,
-                    ToJsonTuple.IObject,
-                ],
-            ): string => {
+            const stringify = (input: ToJsonTuple): string => {
                 const $string = (typia.validateStringify as any).string;
                 const $number = (typia.validateStringify as any).number;
                 return `[${$string(input[0].toJSON())},${$number(

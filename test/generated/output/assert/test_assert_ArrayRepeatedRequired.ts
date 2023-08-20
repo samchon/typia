@@ -6,10 +6,8 @@ export const test_assert_ArrayRepeatedRequired = _test_assert(
     "ArrayRepeatedRequired",
     ArrayRepeatedRequired.generate,
     (input) =>
-        ((input: any): string | number | Array<ArrayRepeatedRequired> => {
-            const __is = (
-                input: any,
-            ): input is string | number | Array<ArrayRepeatedRequired> => {
+        ((input: any): ArrayRepeatedRequired => {
+            const __is = (input: any): input is ArrayRepeatedRequired => {
                 const $ia0 = (input: any): any =>
                     input.every(
                         (elem: any) =>
@@ -33,7 +31,7 @@ export const test_assert_ArrayRepeatedRequired = _test_assert(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is string | number | Array<ArrayRepeatedRequired> => {
+                ): input is ArrayRepeatedRequired => {
                     const $guard = (typia.assert as any).guard;
                     const $aa0 = (
                         input: any,

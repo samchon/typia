@@ -6,8 +6,8 @@ export const test_isClone_MapUnion = _test_isClone(
     "MapUnion",
     MapUnion.generate,
     (input) =>
-        ((input: any): typia.Primitive<Array<MapUnion.Union>> | null => {
-            const is = (input: any): input is Array<MapUnion.Union> => {
+        ((input: any): typia.Primitive<MapUnion> | null => {
+            const is = (input: any): input is MapUnion => {
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     "string" === typeof input.name &&
@@ -146,9 +146,7 @@ export const test_isClone_MapUnion = _test_isClone(
                     )
                 );
             };
-            const clone = (
-                input: Array<MapUnion.Union>,
-            ): typia.Primitive<Array<MapUnion.Union>> => {
+            const clone = (input: MapUnion): typia.Primitive<MapUnion> => {
                 const $cp0 = (input: any) =>
                     input.map((elem: any) =>
                         elem instanceof Map ? {} : (elem as any),

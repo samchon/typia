@@ -5,6 +5,6 @@ import { TagRange } from "../../structures/TagRange";
 export const test_validatePrune_TagRange = _test_validatePrune(
     "TagRange",
     TagRange.generate,
-    (input) => typia.validatePrune(input),
+    (input) => typia.validatePrune<TagRange>(input),
     TagRange.SPOILERS,
 );

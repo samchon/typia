@@ -6,9 +6,7 @@ export const test_clone_TupleRestObject = _test_clone(
     "TupleRestObject",
     TupleRestObject.generate,
     (input) =>
-        ((
-            input: [boolean, number, ...TupleRestObject.IObject[]],
-        ): typia.Primitive<[boolean, number, ...TupleRestObject.IObject[]]> => {
+        ((input: TupleRestObject): typia.Primitive<TupleRestObject> => {
             const $io0 = (input: any): boolean =>
                 "string" === typeof input.value;
             const $cp0 = (input: any) =>

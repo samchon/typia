@@ -6,8 +6,8 @@ export const test_isStringify_ArrayMatrix = _test_isStringify(
     "ArrayMatrix",
     ArrayMatrix.generate,
     (input) =>
-        ((input: Array<Array<Array<number>>>): string | null => {
-            const is = (input: any): input is Array<Array<Array<number>>> => {
+        ((input: ArrayMatrix): string | null => {
+            const is = (input: any): input is ArrayMatrix => {
                 return (
                     Array.isArray(input) &&
                     input.every(
@@ -25,7 +25,7 @@ export const test_isStringify_ArrayMatrix = _test_isStringify(
                     )
                 );
             };
-            const stringify = (input: Array<Array<Array<number>>>): string => {
+            const stringify = (input: ArrayMatrix): string => {
                 const $number = (typia.isStringify as any).number;
                 return `[${input
                     .map(

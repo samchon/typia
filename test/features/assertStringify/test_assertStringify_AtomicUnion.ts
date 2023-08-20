@@ -5,6 +5,6 @@ import { AtomicUnion } from "../../structures/AtomicUnion";
 export const test_assertStringify_AtomicUnion = _test_assertStringify(
     "AtomicUnion",
     AtomicUnion.generate,
-    (input) => typia.assertStringify(input),
+    (input) => typia.assertStringify<AtomicUnion>(input),
     AtomicUnion.SPOILERS,
 );

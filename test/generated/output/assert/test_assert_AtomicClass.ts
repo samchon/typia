@@ -6,32 +6,8 @@ export const test_assert_AtomicClass = _test_assert(
     "AtomicClass",
     AtomicClass.generate,
     (input) =>
-        ((
-            input: any,
-        ): [
-            Boolean,
-            false | Boolean,
-            boolean | Boolean,
-            Number,
-            Number | 1,
-            number | Number,
-            String,
-            String | "characters",
-            string | String,
-        ] => {
-            const __is = (
-                input: any,
-            ): input is [
-                Boolean,
-                false | Boolean,
-                boolean | Boolean,
-                Number,
-                Number | 1,
-                number | Number,
-                String,
-                String | "characters",
-                string | String,
-            ] => {
+        ((input: any): AtomicClass => {
+            const __is = (input: any): input is AtomicClass => {
                 return (
                     Array.isArray(input) &&
                     input.length === 9 &&
@@ -65,17 +41,7 @@ export const test_assert_AtomicClass = _test_assert(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is [
-                    Boolean,
-                    false | Boolean,
-                    boolean | Boolean,
-                    Number,
-                    Number | 1,
-                    number | Number,
-                    String,
-                    String | "characters",
-                    string | String,
-                ] => {
+                ): input is AtomicClass => {
                     const $guard = (typia.assert as any).guard;
                     return (
                         ((Array.isArray(input) ||

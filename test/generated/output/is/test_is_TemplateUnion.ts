@@ -6,7 +6,7 @@ export const test_is_TemplateUnion = _test_is(
     "TemplateUnion",
     TemplateUnion.generate,
     (input) =>
-        ((input: any): input is Array<TemplateUnion.Type> => {
+        ((input: any): input is TemplateUnion => {
             const $io0 = (input: any): boolean =>
                 "string" === typeof input.prefix &&
                 (RegExp(/^prefix_(.*)/).test(input.prefix) ||

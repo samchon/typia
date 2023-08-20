@@ -5,6 +5,6 @@ import { ArrayRecursive } from "../../structures/ArrayRecursive";
 export const test_isClone_ArrayRecursive = _test_isClone(
     "ArrayRecursive",
     ArrayRecursive.generate,
-    (input) => typia.isClone(input),
+    (input) => typia.isClone<ArrayRecursive>(input),
     ArrayRecursive.SPOILERS,
 );

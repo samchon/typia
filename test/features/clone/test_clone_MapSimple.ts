@@ -5,5 +5,5 @@ import { MapSimple } from "../../structures/MapSimple";
 export const test_clone_MapSimple = _test_clone(
     "MapSimple",
     MapSimple.generate,
-    (input) => typia.clone(input),
+    (input) => typia.clone<MapSimple>(input),
 );

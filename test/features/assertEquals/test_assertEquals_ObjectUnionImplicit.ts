@@ -5,5 +5,5 @@ import { ObjectUnionImplicit } from "../../structures/ObjectUnionImplicit";
 export const test_assertEquals_ObjectUnionImplicit = _test_assertEquals(
     "ObjectUnionImplicit",
     ObjectUnionImplicit.generate,
-    (input) => typia.assertEquals(input),
+    (input) => typia.assertEquals<ObjectUnionImplicit>(input),
 );

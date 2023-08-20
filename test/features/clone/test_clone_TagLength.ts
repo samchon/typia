@@ -5,5 +5,5 @@ import { TagLength } from "../../structures/TagLength";
 export const test_clone_TagLength = _test_clone(
     "TagLength",
     TagLength.generate,
-    (input) => typia.clone(input),
+    (input) => typia.clone<TagLength>(input),
 );

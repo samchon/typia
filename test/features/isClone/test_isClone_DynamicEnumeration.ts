@@ -5,6 +5,6 @@ import { DynamicEnumeration } from "../../structures/DynamicEnumeration";
 export const test_isClone_DynamicEnumeration = _test_isClone(
     "DynamicEnumeration",
     DynamicEnumeration.generate,
-    (input) => typia.isClone(input),
+    (input) => typia.isClone<DynamicEnumeration>(input),
     DynamicEnumeration.SPOILERS,
 );

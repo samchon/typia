@@ -5,6 +5,6 @@ import { TemplateUnion } from "../../structures/TemplateUnion";
 export const test_assertClone_TemplateUnion = _test_assertClone(
     "TemplateUnion",
     TemplateUnion.generate,
-    (input) => typia.assertClone(input),
+    (input) => typia.assertClone<TemplateUnion>(input),
     TemplateUnion.SPOILERS,
 );

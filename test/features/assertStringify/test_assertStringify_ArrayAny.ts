@@ -5,6 +5,6 @@ import { ArrayAny } from "../../structures/ArrayAny";
 export const test_assertStringify_ArrayAny = _test_assertStringify(
     "ArrayAny",
     ArrayAny.generate,
-    (input) => typia.assertStringify(input),
+    (input) => typia.assertStringify<ArrayAny>(input),
     ArrayAny.SPOILERS,
 );

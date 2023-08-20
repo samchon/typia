@@ -5,6 +5,6 @@ import { ObjectAlias } from "../../structures/ObjectAlias";
 export const test_assertPrune_ObjectAlias = _test_assertPrune(
     "ObjectAlias",
     ObjectAlias.generate,
-    (input) => typia.assertPrune(input),
+    (input) => typia.assertPrune<ObjectAlias>(input),
     ObjectAlias.SPOILERS,
 );

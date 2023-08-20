@@ -6,8 +6,8 @@ export const test_isPrune_TagObjectUnion = _test_isPrune(
     "TagObjectUnion",
     TagObjectUnion.generate,
     (input) =>
-        ((input: any): input is Array<TagObjectUnion.Type> => {
-            const is = (input: any): input is Array<TagObjectUnion.Type> => {
+        ((input: any): input is TagObjectUnion => {
+            const is = (input: any): input is TagObjectUnion => {
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.value &&
                     Number.isFinite(input.value) &&
@@ -36,7 +36,7 @@ export const test_isPrune_TagObjectUnion = _test_isPrune(
                     )
                 );
             };
-            const prune = (input: Array<TagObjectUnion.Type>): void => {
+            const prune = (input: TagObjectUnion): void => {
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.value && 3 <= input.value;
                 const $io1 = (input: any): boolean =>

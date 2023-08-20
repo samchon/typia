@@ -5,6 +5,6 @@ import { AtomicSimple } from "../../structures/AtomicSimple";
 export const test_assertStringify_AtomicSimple = _test_assertStringify(
     "AtomicSimple",
     AtomicSimple.generate,
-    (input) => typia.assertStringify(input),
+    (input) => typia.assertStringify<AtomicSimple>(input),
     AtomicSimple.SPOILERS,
 );

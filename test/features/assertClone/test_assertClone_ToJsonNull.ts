@@ -5,5 +5,5 @@ import { ToJsonNull } from "../../structures/ToJsonNull";
 export const test_assertClone_ToJsonNull = _test_assertClone(
     "ToJsonNull",
     ToJsonNull.generate,
-    (input) => typia.assertClone(input),
+    (input) => typia.assertClone<ToJsonNull>(input),
 );

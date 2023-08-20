@@ -5,5 +5,5 @@ import { ObjectTuple } from "../../structures/ObjectTuple";
 export const test_prune_ObjectTuple = _test_prune(
     "ObjectTuple",
     ObjectTuple.generate,
-    (input) => typia.prune(input),
+    (input) => typia.prune<ObjectTuple>(input),
 );

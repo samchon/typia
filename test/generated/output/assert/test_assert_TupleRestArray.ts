@@ -6,10 +6,8 @@ export const test_assert_TupleRestArray = _test_assert(
     "TupleRestArray",
     TupleRestArray.generate,
     (input) =>
-        ((input: any): [boolean, number, ...Array<string>[]] => {
-            const __is = (
-                input: any,
-            ): input is [boolean, number, ...Array<string>[]] => {
+        ((input: any): TupleRestArray => {
+            const __is = (input: any): input is TupleRestArray => {
                 return (
                     Array.isArray(input) &&
                     "boolean" === typeof input[0] &&
@@ -32,7 +30,7 @@ export const test_assert_TupleRestArray = _test_assert(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is [boolean, number, ...Array<string>[]] => {
+                ): input is TupleRestArray => {
                     const $guard = (typia.assert as any).guard;
                     return (
                         ((Array.isArray(input) ||

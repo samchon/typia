@@ -6,13 +6,7 @@ export const test_is_ObjectNullable = _test_is(
     "ObjectNullable",
     ObjectNullable.generate,
     (input) =>
-        ((
-            input: any,
-        ): input is [
-            ObjectNullable.IProduct,
-            ObjectNullable.IProduct,
-            ObjectNullable.IProduct,
-        ] => {
+        ((input: any): input is ObjectNullable => {
             const $io0 = (input: any): boolean =>
                 "string" === typeof input.name &&
                 "object" === typeof input.manufacturer &&

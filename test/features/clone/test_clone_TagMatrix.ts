@@ -5,5 +5,5 @@ import { TagMatrix } from "../../structures/TagMatrix";
 export const test_clone_TagMatrix = _test_clone(
     "TagMatrix",
     TagMatrix.generate,
-    (input) => typia.clone(input),
+    (input) => typia.clone<TagMatrix>(input),
 );

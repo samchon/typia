@@ -5,5 +5,5 @@ import { ConstantAtomicUnion } from "../../structures/ConstantAtomicUnion";
 export const test_stringify_ConstantAtomicUnion = _test_stringify(
     "ConstantAtomicUnion",
     ConstantAtomicUnion.generate,
-    (input) => typia.stringify(input),
+    (input) => typia.stringify<ConstantAtomicUnion>(input),
 );

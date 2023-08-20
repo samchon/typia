@@ -5,12 +5,5 @@ import { ConstantIntersection } from "../../../structures/ConstantIntersection";
 export const test_prune_ConstantIntersection = _test_prune(
     "ConstantIntersection",
     ConstantIntersection.generate,
-    (input) =>
-        ((
-            input: [
-                ConstantIntersection.Wrapper<false>,
-                ConstantIntersection.Wrapper<1>,
-                ConstantIntersection.Wrapper<"two">,
-            ],
-        ): void => {})(input),
+    (input) => ((input: ConstantIntersection): void => {})(input),
 );

@@ -5,6 +5,6 @@ import { ObjectGeneric } from "../../structures/ObjectGeneric";
 export const test_assertClone_ObjectGeneric = _test_assertClone(
     "ObjectGeneric",
     ObjectGeneric.generate,
-    (input) => typia.assertClone(input),
+    (input) => typia.assertClone<ObjectGeneric>(input),
     ObjectGeneric.SPOILERS,
 );

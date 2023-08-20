@@ -5,6 +5,6 @@ import { TagArray } from "../../structures/TagArray";
 export const test_isPrune_TagArray = _test_isPrune(
     "TagArray",
     TagArray.generate,
-    (input) => typia.isPrune(input),
+    (input) => typia.isPrune<TagArray>(input),
     TagArray.SPOILERS,
 );

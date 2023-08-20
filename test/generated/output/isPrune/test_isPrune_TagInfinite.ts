@@ -26,7 +26,7 @@ export const test_isPrune_TagInfinite = _test_isPrune(
                     0 === (input as any).multipleOf % 3 &&
                     "number" === typeof (input as any).typed &&
                     Number.isFinite((input as any).typed) &&
-                    parseInt((input as any).typed) === (input as any).typed
+                    Math.floor((input as any).typed) === (input as any).typed
                 );
             };
             const prune = (input: TagInfinite): void => {

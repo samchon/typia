@@ -5,6 +5,6 @@ import { ObjectUnionDouble } from "../../structures/ObjectUnionDouble";
 export const test_assertStringify_ObjectUnionDouble = _test_assertStringify(
     "ObjectUnionDouble",
     ObjectUnionDouble.generate,
-    (input) => typia.assertStringify(input),
+    (input) => typia.assertStringify<ObjectUnionDouble>(input),
     ObjectUnionDouble.SPOILERS,
 );

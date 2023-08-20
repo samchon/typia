@@ -6,10 +6,7 @@ export const test_equals_TagArray = _test_equals(
     "TagArray",
     TagArray.generate,
     (input) =>
-        ((
-            input: any,
-            _exceptionable: boolean = true,
-        ): input is Array<TagArray.Type> => {
+        ((input: any, _exceptionable: boolean = true): input is TagArray => {
             const $is_uuid = (typia.equals as any).is_uuid;
             const $io0 = (
                 input: any,

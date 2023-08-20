@@ -6,18 +6,12 @@ export const test_validateClone_TupleRestAtomic = _test_validateClone(
     "TupleRestAtomic",
     TupleRestAtomic.generate,
     (input) =>
-        ((
-            input: any,
-        ): typia.IValidation<
-            typia.Primitive<[boolean, number, ...string[]]>
-        > => {
+        ((input: any): typia.IValidation<typia.Primitive<TupleRestAtomic>> => {
             const validate = (
                 input: any,
-            ): typia.IValidation<[boolean, number, ...string[]]> => {
+            ): typia.IValidation<TupleRestAtomic> => {
                 const errors = [] as any[];
-                const __is = (
-                    input: any,
-                ): input is [boolean, number, ...string[]] => {
+                const __is = (input: any): input is TupleRestAtomic => {
                     return (
                         Array.isArray(input) &&
                         "boolean" === typeof input[0] &&
@@ -35,7 +29,7 @@ export const test_validateClone_TupleRestAtomic = _test_validateClone(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is [boolean, number, ...string[]] => {
+                    ): input is TupleRestAtomic => {
                         return (
                             ((Array.isArray(input) ||
                                 $report(true, {
@@ -101,8 +95,8 @@ export const test_validateClone_TupleRestAtomic = _test_validateClone(
                 } as any;
             };
             const clone = (
-                input: [boolean, number, ...string[]],
-            ): typia.Primitive<[boolean, number, ...string[]]> => {
+                input: TupleRestAtomic,
+            ): typia.Primitive<TupleRestAtomic> => {
                 const $cp0 = (input: any) =>
                     input.map((elem: any) => elem as any);
                 return Array.isArray(input) &&

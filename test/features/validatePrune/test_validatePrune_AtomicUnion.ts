@@ -5,6 +5,6 @@ import { AtomicUnion } from "../../structures/AtomicUnion";
 export const test_validatePrune_AtomicUnion = _test_validatePrune(
     "AtomicUnion",
     AtomicUnion.generate,
-    (input) => typia.validatePrune(input),
+    (input) => typia.validatePrune<AtomicUnion>(input),
     AtomicUnion.SPOILERS,
 );

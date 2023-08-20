@@ -6,18 +6,12 @@ export const test_validateClone_TupleRestArray = _test_validateClone(
     "TupleRestArray",
     TupleRestArray.generate,
     (input) =>
-        ((
-            input: any,
-        ): typia.IValidation<
-            typia.Primitive<[boolean, number, ...Array<string>[]]>
-        > => {
+        ((input: any): typia.IValidation<typia.Primitive<TupleRestArray>> => {
             const validate = (
                 input: any,
-            ): typia.IValidation<[boolean, number, ...Array<string>[]]> => {
+            ): typia.IValidation<TupleRestArray> => {
                 const errors = [] as any[];
-                const __is = (
-                    input: any,
-                ): input is [boolean, number, ...Array<string>[]] => {
+                const __is = (input: any): input is TupleRestArray => {
                     return (
                         Array.isArray(input) &&
                         "boolean" === typeof input[0] &&
@@ -41,7 +35,7 @@ export const test_validateClone_TupleRestArray = _test_validateClone(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is [boolean, number, ...Array<string>[]] => {
+                    ): input is TupleRestArray => {
                         return (
                             ((Array.isArray(input) ||
                                 $report(true, {
@@ -143,8 +137,8 @@ export const test_validateClone_TupleRestArray = _test_validateClone(
                 } as any;
             };
             const clone = (
-                input: [boolean, number, ...Array<string>[]],
-            ): typia.Primitive<[boolean, number, ...Array<string>[]]> => {
+                input: TupleRestArray,
+            ): typia.Primitive<TupleRestArray> => {
                 const $cp0 = (input: any) =>
                     input.map((elem: any) => elem as any);
                 const $cp1 = (input: any) =>

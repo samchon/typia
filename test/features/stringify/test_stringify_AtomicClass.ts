@@ -5,5 +5,5 @@ import { AtomicClass } from "../../structures/AtomicClass";
 export const test_stringify_AtomicClass = _test_stringify(
     "AtomicClass",
     AtomicClass.generate,
-    (input) => typia.stringify(input),
+    (input) => typia.stringify<AtomicClass>(input),
 );

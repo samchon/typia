@@ -5,5 +5,5 @@ import { FunctionalArray } from "../../structures/FunctionalArray";
 export const test_validateEquals_FunctionalArray = _test_validateEquals(
     "FunctionalArray",
     FunctionalArray.generate,
-    (input) => typia.validateEquals(input),
+    (input) => typia.validateEquals<FunctionalArray>(input),
 );

@@ -5,6 +5,6 @@ import { ObjectPropertyNullable } from "../../structures/ObjectPropertyNullable"
 export const test_isStringify_ObjectPropertyNullable = _test_isStringify(
     "ObjectPropertyNullable",
     ObjectPropertyNullable.generate,
-    (input) => typia.isStringify(input),
+    (input) => typia.isStringify<ObjectPropertyNullable>(input),
     ObjectPropertyNullable.SPOILERS,
 );

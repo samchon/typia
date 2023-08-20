@@ -5,6 +5,6 @@ import { NativeAlias } from "../../structures/NativeAlias";
 export const test_is_NativeAlias = _test_is(
     "NativeAlias",
     NativeAlias.generate,
-    (input) => typia.is(input),
+    (input) => typia.is<NativeAlias>(input),
     NativeAlias.SPOILERS,
 );

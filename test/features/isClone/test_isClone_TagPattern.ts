@@ -5,6 +5,6 @@ import { TagPattern } from "../../structures/TagPattern";
 export const test_isClone_TagPattern = _test_isClone(
     "TagPattern",
     TagPattern.generate,
-    (input) => typia.isClone(input),
+    (input) => typia.isClone<TagPattern>(input),
     TagPattern.SPOILERS,
 );

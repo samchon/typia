@@ -6,12 +6,12 @@ export const test_validateEquals_TagAtomicUnion = _test_validateEquals(
     "TagAtomicUnion",
     TagAtomicUnion.generate,
     (input) =>
-        ((input: any): typia.IValidation<Array<TagAtomicUnion.Type>> => {
+        ((input: any): typia.IValidation<TagAtomicUnion> => {
             const errors = [] as any[];
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
-            ): input is Array<TagAtomicUnion.Type> => {
+            ): input is TagAtomicUnion => {
                 const $io0 = (
                     input: any,
                     _exceptionable: boolean = true,
@@ -46,7 +46,7 @@ export const test_validateEquals_TagAtomicUnion = _test_validateEquals(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is Array<TagAtomicUnion.Type> => {
+                ): input is TagAtomicUnion => {
                     const $join = (typia.validateEquals as any).join;
                     const $vo0 = (
                         input: any,

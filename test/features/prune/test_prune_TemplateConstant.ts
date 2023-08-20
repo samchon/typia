@@ -5,5 +5,5 @@ import { TemplateConstant } from "../../structures/TemplateConstant";
 export const test_prune_TemplateConstant = _test_prune(
     "TemplateConstant",
     TemplateConstant.generate,
-    (input) => typia.prune(input),
+    (input) => typia.prune<TemplateConstant>(input),
 );

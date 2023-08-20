@@ -6,14 +6,10 @@ export const test_validateStringify_ObjectAlias = _test_validateStringify(
     "ObjectAlias",
     ObjectAlias.generate,
     (input) =>
-        ((input: Array<ObjectAlias.IMember>): typia.IValidation<string> => {
-            const validate = (
-                input: any,
-            ): typia.IValidation<Array<ObjectAlias.IMember>> => {
+        ((input: ObjectAlias): typia.IValidation<string> => {
+            const validate = (input: any): typia.IValidation<ObjectAlias> => {
                 const errors = [] as any[];
-                const __is = (
-                    input: any,
-                ): input is Array<ObjectAlias.IMember> => {
+                const __is = (input: any): input is ObjectAlias => {
                     const $io0 = (input: any): boolean =>
                         (null === input.id || "string" === typeof input.id) &&
                         "string" === typeof input.email &&
@@ -46,7 +42,7 @@ export const test_validateStringify_ObjectAlias = _test_validateStringify(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is Array<ObjectAlias.IMember> => {
+                    ): input is ObjectAlias => {
                         const $vo0 = (
                             input: any,
                             _path: string,
@@ -149,7 +145,7 @@ export const test_validateStringify_ObjectAlias = _test_validateStringify(
                     data: success ? input : undefined,
                 } as any;
             };
-            const stringify = (input: Array<ObjectAlias.IMember>): string => {
+            const stringify = (input: ObjectAlias): string => {
                 const $string = (typia.validateStringify as any).string;
                 const $number = (typia.validateStringify as any).number;
                 const $throws = (typia.validateStringify as any).throws;

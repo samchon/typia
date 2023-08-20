@@ -5,6 +5,6 @@ import { ObjectGenericUnion } from "../../structures/ObjectGenericUnion";
 export const test_assertStringify_ObjectGenericUnion = _test_assertStringify(
     "ObjectGenericUnion",
     ObjectGenericUnion.generate,
-    (input) => typia.assertStringify(input),
+    (input) => typia.assertStringify<ObjectGenericUnion>(input),
     ObjectGenericUnion.SPOILERS,
 );

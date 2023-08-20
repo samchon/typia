@@ -6,8 +6,8 @@ export const test_assert_ObjectPrimitive = _test_assert(
     "ObjectPrimitive",
     ObjectPrimitive.generate,
     (input) =>
-        ((input: any): ObjectPrimitive.IArticle => {
-            const __is = (input: any): input is ObjectPrimitive.IArticle => {
+        ((input: any): ObjectPrimitive => {
+            const __is = (input: any): input is ObjectPrimitive => {
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     ("md" === input.extension ||
@@ -39,7 +39,7 @@ export const test_assert_ObjectPrimitive = _test_assert(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ObjectPrimitive.IArticle => {
+                ): input is ObjectPrimitive => {
                     const $guard = (typia.assert as any).guard;
                     const $ao0 = (
                         input: any,

@@ -5,6 +5,6 @@ import { TupleRestAtomic } from "../../structures/TupleRestAtomic";
 export const test_isClone_TupleRestAtomic = _test_isClone(
     "TupleRestAtomic",
     TupleRestAtomic.generate,
-    (input) => typia.isClone(input),
+    (input) => typia.isClone<TupleRestAtomic>(input),
     TupleRestAtomic.SPOILERS,
 );

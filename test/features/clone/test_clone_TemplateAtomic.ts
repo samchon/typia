@@ -5,5 +5,5 @@ import { TemplateAtomic } from "../../structures/TemplateAtomic";
 export const test_clone_TemplateAtomic = _test_clone(
     "TemplateAtomic",
     TemplateAtomic.generate,
-    (input) => typia.clone(input),
+    (input) => typia.clone<TemplateAtomic>(input),
 );

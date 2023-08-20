@@ -6,7 +6,7 @@ export const test_is_ClassMethod = _test_is(
     "ClassMethod",
     ClassMethod.generate,
     (input) =>
-        ((input: any): input is ClassMethod.Animal => {
+        ((input: any): input is ClassMethod => {
             return (
                 "object" === typeof input &&
                 null !== input &&

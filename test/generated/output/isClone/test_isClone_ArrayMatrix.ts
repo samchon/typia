@@ -6,8 +6,8 @@ export const test_isClone_ArrayMatrix = _test_isClone(
     "ArrayMatrix",
     ArrayMatrix.generate,
     (input) =>
-        ((input: any): typia.Primitive<Array<Array<Array<number>>>> | null => {
-            const is = (input: any): input is Array<Array<Array<number>>> => {
+        ((input: any): typia.Primitive<ArrayMatrix> | null => {
+            const is = (input: any): input is ArrayMatrix => {
                 return (
                     Array.isArray(input) &&
                     input.every(
@@ -26,8 +26,8 @@ export const test_isClone_ArrayMatrix = _test_isClone(
                 );
             };
             const clone = (
-                input: Array<Array<Array<number>>>,
-            ): typia.Primitive<Array<Array<Array<number>>>> => {
+                input: ArrayMatrix,
+            ): typia.Primitive<ArrayMatrix> => {
                 const $cp0 = (input: any) =>
                     input.map((elem: any) => elem as any);
                 const $cp1 = (input: any) =>

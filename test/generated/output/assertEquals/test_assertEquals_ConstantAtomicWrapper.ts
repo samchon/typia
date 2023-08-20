@@ -6,21 +6,11 @@ export const test_assertEquals_ConstantAtomicWrapper = _test_assertEquals(
     "ConstantAtomicWrapper",
     ConstantAtomicWrapper.generate,
     (input) =>
-        ((
-            input: any,
-        ): [
-            ConstantAtomicWrapper.IPointer<boolean>,
-            ConstantAtomicWrapper.IPointer<number>,
-            ConstantAtomicWrapper.IPointer<string>,
-        ] => {
+        ((input: any): ConstantAtomicWrapper => {
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
-            ): input is [
-                ConstantAtomicWrapper.IPointer<boolean>,
-                ConstantAtomicWrapper.IPointer<number>,
-                ConstantAtomicWrapper.IPointer<string>,
-            ] => {
+            ): input is ConstantAtomicWrapper => {
                 const $io0 = (
                     input: any,
                     _exceptionable: boolean = true,
@@ -80,11 +70,7 @@ export const test_assertEquals_ConstantAtomicWrapper = _test_assertEquals(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is [
-                    ConstantAtomicWrapper.IPointer<boolean>,
-                    ConstantAtomicWrapper.IPointer<number>,
-                    ConstantAtomicWrapper.IPointer<string>,
-                ] => {
+                ): input is ConstantAtomicWrapper => {
                     const $guard = (typia.assertEquals as any).guard;
                     const $join = (typia.assertEquals as any).join;
                     const $ao0 = (

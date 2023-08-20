@@ -5,6 +5,6 @@ import { TemplateConstant } from "../../structures/TemplateConstant";
 export const test_assertPrune_TemplateConstant = _test_assertPrune(
     "TemplateConstant",
     TemplateConstant.generate,
-    (input) => typia.assertPrune(input),
+    (input) => typia.assertPrune<TemplateConstant>(input),
     TemplateConstant.SPOILERS,
 );

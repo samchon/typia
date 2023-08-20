@@ -6,16 +6,12 @@ export const test_validatePrune_ObjectGenericAlias = _test_validatePrune(
     "ObjectGenericAlias",
     ObjectGenericAlias.generate,
     (input) =>
-        ((
-            input: any,
-        ): typia.IValidation<ObjectGenericAlias.ISomething<string>> => {
+        ((input: any): typia.IValidation<ObjectGenericAlias> => {
             const validate = (
                 input: any,
-            ): typia.IValidation<ObjectGenericAlias.ISomething<string>> => {
+            ): typia.IValidation<ObjectGenericAlias> => {
                 const errors = [] as any[];
-                const __is = (
-                    input: any,
-                ): input is ObjectGenericAlias.ISomething<string> => {
+                const __is = (input: any): input is ObjectGenericAlias => {
                     return (
                         "object" === typeof input &&
                         null !== input &&
@@ -28,7 +24,7 @@ export const test_validatePrune_ObjectGenericAlias = _test_validatePrune(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is ObjectGenericAlias.ISomething<string> => {
+                    ): input is ObjectGenericAlias => {
                         const $vo0 = (
                             input: any,
                             _path: string,
@@ -65,9 +61,7 @@ export const test_validatePrune_ObjectGenericAlias = _test_validatePrune(
                     data: success ? input : undefined,
                 } as any;
             };
-            const prune = (
-                input: ObjectGenericAlias.ISomething<string>,
-            ): void => {
+            const prune = (input: ObjectGenericAlias): void => {
                 const $po0 = (input: any): any => {
                     for (const key of Object.keys(input)) {
                         if ("value" === key) continue;

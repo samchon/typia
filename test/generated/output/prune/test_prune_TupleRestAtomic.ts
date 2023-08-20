@@ -5,5 +5,5 @@ import { TupleRestAtomic } from "../../../structures/TupleRestAtomic";
 export const test_prune_TupleRestAtomic = _test_prune(
     "TupleRestAtomic",
     TupleRestAtomic.generate,
-    (input) => ((input: [boolean, number, ...string[]]): void => {})(input),
+    (input) => ((input: TupleRestAtomic): void => {})(input),
 );

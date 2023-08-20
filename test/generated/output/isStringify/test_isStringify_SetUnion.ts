@@ -6,8 +6,8 @@ export const test_isStringify_SetUnion = _test_isStringify(
     "SetUnion",
     SetUnion.generate,
     (input) =>
-        ((input: Array<SetUnion.Union>): string | null => {
-            const is = (input: any): input is Array<SetUnion.Union> => {
+        ((input: SetUnion): string | null => {
+            const is = (input: any): input is SetUnion => {
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     "string" === typeof input.name &&
@@ -107,7 +107,7 @@ export const test_isStringify_SetUnion = _test_isStringify(
                     )
                 );
             };
-            const stringify = (input: Array<SetUnion.Union>): string => {
+            const stringify = (input: SetUnion): string => {
                 const $string = (typia.isStringify as any).string;
                 const $number = (typia.isStringify as any).number;
                 return `[${input.map((elem: any) => "{}").join(",")}]`;

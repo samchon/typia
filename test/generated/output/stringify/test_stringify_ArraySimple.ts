@@ -6,7 +6,7 @@ export const test_stringify_ArraySimple = _test_stringify(
     "ArraySimple",
     ArraySimple.generate,
     (input) =>
-        ((input: Array<ArraySimple.IPerson>): string => {
+        ((input: ArraySimple): string => {
             const $io1 = (input: any): boolean =>
                 "string" === typeof input.name &&
                 "string" === typeof input.body &&

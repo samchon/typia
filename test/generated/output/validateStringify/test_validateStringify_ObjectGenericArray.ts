@@ -7,18 +7,12 @@ export const test_validateStringify_ObjectGenericArray =
         "ObjectGenericArray",
         ObjectGenericArray.generate,
         (input) =>
-            ((
-                input: ObjectGenericArray.IPage<ObjectGenericArray.IPerson>,
-            ): typia.IValidation<string> => {
+            ((input: ObjectGenericArray): typia.IValidation<string> => {
                 const validate = (
                     input: any,
-                ): typia.IValidation<
-                    ObjectGenericArray.IPage<ObjectGenericArray.IPerson>
-                > => {
+                ): typia.IValidation<ObjectGenericArray> => {
                     const errors = [] as any[];
-                    const __is = (
-                        input: any,
-                    ): input is ObjectGenericArray.IPage<ObjectGenericArray.IPerson> => {
+                    const __is = (input: any): input is ObjectGenericArray => {
                         const $io0 = (input: any): boolean =>
                             "object" === typeof input.pagination &&
                             null !== input.pagination &&
@@ -63,7 +57,7 @@ export const test_validateStringify_ObjectGenericArray =
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
-                        ): input is ObjectGenericArray.IPage<ObjectGenericArray.IPerson> => {
+                        ): input is ObjectGenericArray => {
                             const $vo0 = (
                                 input: any,
                                 _path: string,
@@ -222,9 +216,7 @@ export const test_validateStringify_ObjectGenericArray =
                         data: success ? input : undefined,
                     } as any;
                 };
-                const stringify = (
-                    input: ObjectGenericArray.IPage<ObjectGenericArray.IPerson>,
-                ): string => {
+                const stringify = (input: ObjectGenericArray): string => {
                     const $io1 = (input: any): boolean =>
                         "number" === typeof input.page &&
                         "number" === typeof input.limit &&

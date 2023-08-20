@@ -5,6 +5,6 @@ import { TagPattern } from "../../structures/TagPattern";
 export const test_validateStringify_TagPattern = _test_validateStringify(
     "TagPattern",
     TagPattern.generate,
-    (input) => typia.validateStringify(input),
+    (input) => typia.validateStringify<TagPattern>(input),
     TagPattern.SPOILERS,
 );

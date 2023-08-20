@@ -5,6 +5,6 @@ import { TagInfinite } from "../../structures/TagInfinite";
 export const test_validatePrune_TagInfinite = _test_validatePrune(
     "TagInfinite",
     TagInfinite.generate,
-    (input) => typia.validatePrune(input),
+    (input) => typia.validatePrune<TagInfinite>(input),
     TagInfinite.SPOILERS,
 );

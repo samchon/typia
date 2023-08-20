@@ -5,6 +5,6 @@ import { TagTuple } from "../../structures/TagTuple";
 export const test_assertClone_TagTuple = _test_assertClone(
     "TagTuple",
     TagTuple.generate,
-    (input) => typia.assertClone(input),
+    (input) => typia.assertClone<TagTuple>(input),
     TagTuple.SPOILERS,
 );

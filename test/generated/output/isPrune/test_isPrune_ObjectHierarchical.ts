@@ -6,8 +6,8 @@ export const test_isPrune_ObjectHierarchical = _test_isPrune(
     "ObjectHierarchical",
     ObjectHierarchical.generate,
     (input) =>
-        ((input: any): input is ObjectHierarchical.ICustomer => {
-            const is = (input: any): input is ObjectHierarchical.ICustomer => {
+        ((input: any): input is ObjectHierarchical => {
+            const is = (input: any): input is ObjectHierarchical => {
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.id &&
                     Number.isFinite(input.id) &&
@@ -106,7 +106,7 @@ export const test_isPrune_ObjectHierarchical = _test_isPrune(
                     "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            const prune = (input: ObjectHierarchical.ICustomer): void => {
+            const prune = (input: ObjectHierarchical): void => {
                 const $io1 = (input: any): boolean =>
                     "number" === typeof input.id &&
                     "string" === typeof input.code &&

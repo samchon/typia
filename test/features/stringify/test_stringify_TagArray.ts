@@ -5,5 +5,5 @@ import { TagArray } from "../../structures/TagArray";
 export const test_stringify_TagArray = _test_stringify(
     "TagArray",
     TagArray.generate,
-    (input) => typia.stringify(input),
+    (input) => typia.stringify<TagArray>(input),
 );

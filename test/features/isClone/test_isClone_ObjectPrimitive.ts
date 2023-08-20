@@ -5,6 +5,6 @@ import { ObjectPrimitive } from "../../structures/ObjectPrimitive";
 export const test_isClone_ObjectPrimitive = _test_isClone(
     "ObjectPrimitive",
     ObjectPrimitive.generate,
-    (input) => typia.isClone(input),
+    (input) => typia.isClone<ObjectPrimitive>(input),
     ObjectPrimitive.SPOILERS,
 );

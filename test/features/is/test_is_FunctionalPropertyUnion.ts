@@ -5,6 +5,6 @@ import { FunctionalPropertyUnion } from "../../structures/FunctionalPropertyUnio
 export const test_is_FunctionalPropertyUnion = _test_is(
     "FunctionalPropertyUnion",
     FunctionalPropertyUnion.generate,
-    (input) => typia.is(input),
+    (input) => typia.is<FunctionalPropertyUnion>(input),
     FunctionalPropertyUnion.SPOILERS,
 );

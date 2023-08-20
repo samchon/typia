@@ -8,14 +8,12 @@ export const test_validateClone_ObjectHierarchical = _test_validateClone(
     (input) =>
         ((
             input: any,
-        ): typia.IValidation<typia.Primitive<ObjectHierarchical.ICustomer>> => {
+        ): typia.IValidation<typia.Primitive<ObjectHierarchical>> => {
             const validate = (
                 input: any,
-            ): typia.IValidation<ObjectHierarchical.ICustomer> => {
+            ): typia.IValidation<ObjectHierarchical> => {
                 const errors = [] as any[];
-                const __is = (
-                    input: any,
-                ): input is ObjectHierarchical.ICustomer => {
+                const __is = (input: any): input is ObjectHierarchical => {
                     const $io0 = (input: any): boolean =>
                         "number" === typeof input.id &&
                         Number.isFinite(input.id) &&
@@ -122,7 +120,7 @@ export const test_validateClone_ObjectHierarchical = _test_validateClone(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is ObjectHierarchical.ICustomer => {
+                    ): input is ObjectHierarchical => {
                         const $vo0 = (
                             input: any,
                             _path: string,
@@ -589,8 +587,8 @@ export const test_validateClone_ObjectHierarchical = _test_validateClone(
                 } as any;
             };
             const clone = (
-                input: ObjectHierarchical.ICustomer,
-            ): typia.Primitive<ObjectHierarchical.ICustomer> => {
+                input: ObjectHierarchical,
+            ): typia.Primitive<ObjectHierarchical> => {
                 const $io1 = (input: any): boolean =>
                     "number" === typeof input.id &&
                     "string" === typeof input.code &&

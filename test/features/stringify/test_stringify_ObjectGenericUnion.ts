@@ -5,5 +5,5 @@ import { ObjectGenericUnion } from "../../structures/ObjectGenericUnion";
 export const test_stringify_ObjectGenericUnion = _test_stringify(
     "ObjectGenericUnion",
     ObjectGenericUnion.generate,
-    (input) => typia.stringify(input),
+    (input) => typia.stringify<ObjectGenericUnion>(input),
 );

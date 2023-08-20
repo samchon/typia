@@ -5,5 +5,5 @@ import { ToJsonDouble } from "../../structures/ToJsonDouble";
 export const test_assertClone_ToJsonDouble = _test_assertClone(
     "ToJsonDouble",
     ToJsonDouble.generate,
-    (input) => typia.assertClone(input),
+    (input) => typia.assertClone<ToJsonDouble>(input),
 );

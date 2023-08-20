@@ -6,13 +6,9 @@ export const test_validate_ConstantEnumeration = _test_validate(
     "ConstantEnumeration",
     ConstantEnumeration.generate,
     (input) =>
-        ((
-            input: any,
-        ): typia.IValidation<Array<ConstantEnumeration.Enumeration>> => {
+        ((input: any): typia.IValidation<ConstantEnumeration> => {
             const errors = [] as any[];
-            const __is = (
-                input: any,
-            ): input is Array<ConstantEnumeration.Enumeration> => {
+            const __is = (input: any): input is ConstantEnumeration => {
                 return (
                     Array.isArray(input) &&
                     input.every(
@@ -31,7 +27,7 @@ export const test_validate_ConstantEnumeration = _test_validate(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is Array<ConstantEnumeration.Enumeration> => {
+                ): input is ConstantEnumeration => {
                     return (
                         ((Array.isArray(input) ||
                             $report(true, {

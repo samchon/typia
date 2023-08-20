@@ -5,6 +5,6 @@ import { ObjectUndefined } from "../../structures/ObjectUndefined";
 export const test_assertStringify_ObjectUndefined = _test_assertStringify(
     "ObjectUndefined",
     ObjectUndefined.generate,
-    (input) => typia.assertStringify(input),
+    (input) => typia.assertStringify<ObjectUndefined>(input),
     ObjectUndefined.SPOILERS,
 );

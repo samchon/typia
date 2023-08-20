@@ -6,7 +6,7 @@ export const test_is_AtomicUnion = _test_is(
     "AtomicUnion",
     AtomicUnion.generate,
     (input) =>
-        ((input: any): input is Array<AtomicUnion.Union> => {
+        ((input: any): input is AtomicUnion => {
             return (
                 Array.isArray(input) &&
                 input.every(

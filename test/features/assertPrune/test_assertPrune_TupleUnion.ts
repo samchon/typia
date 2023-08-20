@@ -5,6 +5,6 @@ import { TupleUnion } from "../../structures/TupleUnion";
 export const test_assertPrune_TupleUnion = _test_assertPrune(
     "TupleUnion",
     TupleUnion.generate,
-    (input) => typia.assertPrune(input),
+    (input) => typia.assertPrune<TupleUnion>(input),
     TupleUnion.SPOILERS,
 );

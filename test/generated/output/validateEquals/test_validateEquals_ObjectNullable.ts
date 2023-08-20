@@ -6,24 +6,12 @@ export const test_validateEquals_ObjectNullable = _test_validateEquals(
     "ObjectNullable",
     ObjectNullable.generate,
     (input) =>
-        ((
-            input: any,
-        ): typia.IValidation<
-            [
-                ObjectNullable.IProduct,
-                ObjectNullable.IProduct,
-                ObjectNullable.IProduct,
-            ]
-        > => {
+        ((input: any): typia.IValidation<ObjectNullable> => {
             const errors = [] as any[];
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
-            ): input is [
-                ObjectNullable.IProduct,
-                ObjectNullable.IProduct,
-                ObjectNullable.IProduct,
-            ] => {
+            ): input is ObjectNullable => {
                 const $io0 = (
                     input: any,
                     _exceptionable: boolean = true,
@@ -122,11 +110,7 @@ export const test_validateEquals_ObjectNullable = _test_validateEquals(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is [
-                    ObjectNullable.IProduct,
-                    ObjectNullable.IProduct,
-                    ObjectNullable.IProduct,
-                ] => {
+                ): input is ObjectNullable => {
                     const $join = (typia.validateEquals as any).join;
                     const $vo0 = (
                         input: any,

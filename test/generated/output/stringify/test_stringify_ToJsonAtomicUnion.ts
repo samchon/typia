@@ -6,7 +6,7 @@ export const test_stringify_ToJsonAtomicUnion = _test_stringify(
     "ToJsonAtomicUnion",
     ToJsonAtomicUnion.generate,
     (input) =>
-        ((input: Array<ToJsonAtomicUnion.IToJson>): string => {
+        ((input: ToJsonAtomicUnion): string => {
             const $string = (typia.stringify as any).string;
             const $number = (typia.stringify as any).number;
             const $throws = (typia.stringify as any).throws;

@@ -6,13 +6,9 @@ export const test_validate_ObjectTuple = _test_validate(
     "ObjectTuple",
     ObjectTuple.generate,
     (input) =>
-        ((
-            input: any,
-        ): typia.IValidation<[ObjectTuple.ISection, ObjectTuple.ICitizen]> => {
+        ((input: any): typia.IValidation<ObjectTuple> => {
             const errors = [] as any[];
-            const __is = (
-                input: any,
-            ): input is [ObjectTuple.ISection, ObjectTuple.ICitizen] => {
+            const __is = (input: any): input is ObjectTuple => {
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     "string" === typeof input.code &&
@@ -38,7 +34,7 @@ export const test_validate_ObjectTuple = _test_validate(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is [ObjectTuple.ISection, ObjectTuple.ICitizen] => {
+                ): input is ObjectTuple => {
                     const $vo0 = (
                         input: any,
                         _path: string,

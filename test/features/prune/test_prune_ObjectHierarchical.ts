@@ -5,5 +5,5 @@ import { ObjectHierarchical } from "../../structures/ObjectHierarchical";
 export const test_prune_ObjectHierarchical = _test_prune(
     "ObjectHierarchical",
     ObjectHierarchical.generate,
-    (input) => typia.prune(input),
+    (input) => typia.prune<ObjectHierarchical>(input),
 );

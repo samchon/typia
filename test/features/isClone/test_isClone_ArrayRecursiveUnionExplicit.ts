@@ -5,6 +5,6 @@ import { ArrayRecursiveUnionExplicit } from "../../structures/ArrayRecursiveUnio
 export const test_isClone_ArrayRecursiveUnionExplicit = _test_isClone(
     "ArrayRecursiveUnionExplicit",
     ArrayRecursiveUnionExplicit.generate,
-    (input) => typia.isClone(input),
+    (input) => typia.isClone<ArrayRecursiveUnionExplicit>(input),
     ArrayRecursiveUnionExplicit.SPOILERS,
 );

@@ -6,9 +6,7 @@ export const test_is_ObjectGenericArray = _test_is(
     "ObjectGenericArray",
     ObjectGenericArray.generate,
     (input) =>
-        ((
-            input: any,
-        ): input is ObjectGenericArray.IPage<ObjectGenericArray.IPerson> => {
+        ((input: any): input is ObjectGenericArray => {
             const $io0 = (input: any): boolean =>
                 "object" === typeof input.pagination &&
                 null !== input.pagination &&

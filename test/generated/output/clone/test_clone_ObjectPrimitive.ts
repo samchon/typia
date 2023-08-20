@@ -6,9 +6,7 @@ export const test_clone_ObjectPrimitive = _test_clone(
     "ObjectPrimitive",
     ObjectPrimitive.generate,
     (input) =>
-        ((
-            input: ObjectPrimitive.IArticle,
-        ): typia.Primitive<ObjectPrimitive.IArticle> => {
+        ((input: ObjectPrimitive): typia.Primitive<ObjectPrimitive> => {
             const $io1 = (input: any): boolean =>
                 "string" === typeof input.id &&
                 "string" === typeof input.name &&

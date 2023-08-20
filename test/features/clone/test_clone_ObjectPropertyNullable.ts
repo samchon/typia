@@ -5,5 +5,5 @@ import { ObjectPropertyNullable } from "../../structures/ObjectPropertyNullable"
 export const test_clone_ObjectPropertyNullable = _test_clone(
     "ObjectPropertyNullable",
     ObjectPropertyNullable.generate,
-    (input) => typia.clone(input),
+    (input) => typia.clone<ObjectPropertyNullable>(input),
 );

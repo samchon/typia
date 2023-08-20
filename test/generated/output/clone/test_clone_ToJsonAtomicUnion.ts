@@ -6,9 +6,7 @@ export const test_clone_ToJsonAtomicUnion = _test_clone(
     "ToJsonAtomicUnion",
     ToJsonAtomicUnion.generate,
     (input) =>
-        ((
-            input: Array<ToJsonAtomicUnion.IToJson>,
-        ): typia.Primitive<Array<ToJsonAtomicUnion.IToJson>> => {
+        ((input: ToJsonAtomicUnion): typia.Primitive<ToJsonAtomicUnion> => {
             const $cp0 = (input: any) =>
                 input.map((elem: any) =>
                     "object" === typeof elem &&

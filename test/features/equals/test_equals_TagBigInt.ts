@@ -5,5 +5,5 @@ import { TagBigInt } from "../../structures/TagBigInt";
 export const test_equals_TagBigInt = _test_equals(
     "TagBigInt",
     TagBigInt.generate,
-    (input) => typia.equals(input),
+    (input) => typia.equals<TagBigInt>(input),
 );

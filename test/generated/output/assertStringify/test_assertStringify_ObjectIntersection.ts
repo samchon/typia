@@ -7,13 +7,8 @@ export const test_assertStringify_ObjectIntersection = _test_assertStringify(
     ObjectIntersection.generate,
     (input) =>
         ((input: any): string => {
-            const assert = (
-                input: any,
-            ): ObjectIntersection.IEmail & ObjectIntersection.IName => {
-                const __is = (
-                    input: any,
-                ): input is ObjectIntersection.IEmail &
-                    ObjectIntersection.IName => {
+            const assert = (input: any): ObjectIntersection => {
+                const __is = (input: any): input is ObjectIntersection => {
                     return (
                         "object" === typeof input &&
                         null !== input &&
@@ -27,8 +22,7 @@ export const test_assertStringify_ObjectIntersection = _test_assertStringify(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is ObjectIntersection.IEmail &
-                        ObjectIntersection.IName => {
+                    ): input is ObjectIntersection => {
                         const $guard = (typia.assertStringify as any).guard;
                         const $ao0 = (
                             input: any,
@@ -70,9 +64,7 @@ export const test_assertStringify_ObjectIntersection = _test_assertStringify(
                     })(input, "$input", true);
                 return input;
             };
-            const stringify = (
-                input: ObjectIntersection.IEmail & ObjectIntersection.IName,
-            ): string => {
+            const stringify = (input: ObjectIntersection): string => {
                 const $string = (typia.assertStringify as any).string;
                 return `{"email":${$string(
                     (input as any).email,

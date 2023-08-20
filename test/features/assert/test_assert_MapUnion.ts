@@ -5,6 +5,6 @@ import { MapUnion } from "../../structures/MapUnion";
 export const test_assert_MapUnion = _test_assert(
     "MapUnion",
     MapUnion.generate,
-    (input) => typia.assert(input),
+    (input) => typia.assert<MapUnion>(input),
     MapUnion.SPOILERS,
 );

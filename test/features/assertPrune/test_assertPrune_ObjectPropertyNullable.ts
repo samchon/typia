@@ -5,6 +5,6 @@ import { ObjectPropertyNullable } from "../../structures/ObjectPropertyNullable"
 export const test_assertPrune_ObjectPropertyNullable = _test_assertPrune(
     "ObjectPropertyNullable",
     ObjectPropertyNullable.generate,
-    (input) => typia.assertPrune(input),
+    (input) => typia.assertPrune<ObjectPropertyNullable>(input),
     ObjectPropertyNullable.SPOILERS,
 );

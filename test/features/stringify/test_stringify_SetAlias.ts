@@ -5,5 +5,5 @@ import { SetAlias } from "../../structures/SetAlias";
 export const test_stringify_SetAlias = _test_stringify(
     "SetAlias",
     SetAlias.generate,
-    (input) => typia.stringify(input),
+    (input) => typia.stringify<SetAlias>(input),
 );

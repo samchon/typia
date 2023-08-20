@@ -6,23 +6,8 @@ export const test_isClone_ArrayRepeatedUnion = _test_isClone(
     "ArrayRepeatedUnion",
     ArrayRepeatedUnion.generate,
     (input) =>
-        ((
-            input: any,
-        ): typia.Primitive<
-            | number
-            | boolean
-            | Array<string>
-            | Array<ArrayRepeatedUnion>
-            | Array<ArrayRepeatedUnion.IBox3D>
-        > | null => {
-            const is = (
-                input: any,
-            ): input is
-                | number
-                | boolean
-                | Array<string>
-                | Array<ArrayRepeatedUnion>
-                | Array<ArrayRepeatedUnion.IBox3D> => {
+        ((input: any): typia.Primitive<ArrayRepeatedUnion> | null => {
+            const is = (input: any): input is ArrayRepeatedUnion => {
                 const $ip0 = (input: any) => {
                     const array = input;
                     const top = input[0];
@@ -126,19 +111,8 @@ export const test_isClone_ArrayRepeatedUnion = _test_isClone(
                 );
             };
             const clone = (
-                input:
-                    | number
-                    | boolean
-                    | Array<string>
-                    | Array<ArrayRepeatedUnion>
-                    | Array<ArrayRepeatedUnion.IBox3D>,
-            ): typia.Primitive<
-                | number
-                | boolean
-                | Array<string>
-                | Array<ArrayRepeatedUnion>
-                | Array<ArrayRepeatedUnion.IBox3D>
-            > => {
+                input: ArrayRepeatedUnion,
+            ): typia.Primitive<ArrayRepeatedUnion> => {
                 const $io0 = (input: any): boolean =>
                     "object" === typeof input.scale &&
                     null !== input.scale &&

@@ -9,7 +9,7 @@ export const test_equals_TemplateConstant = _test_equals(
         ((
             input: any,
             _exceptionable: boolean = true,
-        ): input is Array<TemplateConstant.Type> => {
+        ): input is TemplateConstant => {
             const $io0 = (
                 input: any,
                 _exceptionable: boolean = true,

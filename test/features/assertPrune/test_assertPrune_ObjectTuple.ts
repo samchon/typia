@@ -5,6 +5,6 @@ import { ObjectTuple } from "../../structures/ObjectTuple";
 export const test_assertPrune_ObjectTuple = _test_assertPrune(
     "ObjectTuple",
     ObjectTuple.generate,
-    (input) => typia.assertPrune(input),
+    (input) => typia.assertPrune<ObjectTuple>(input),
     ObjectTuple.SPOILERS,
 );

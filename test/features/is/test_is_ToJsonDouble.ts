@@ -5,5 +5,5 @@ import { ToJsonDouble } from "../../structures/ToJsonDouble";
 export const test_is_ToJsonDouble = _test_is(
     "ToJsonDouble",
     ToJsonDouble.generate,
-    (input) => typia.is(input),
+    (input) => typia.is<ToJsonDouble>(input),
 );

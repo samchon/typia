@@ -5,5 +5,5 @@ import { ArrayUnion } from "../../../structures/ArrayUnion";
 export const test_prune_ArrayUnion = _test_prune(
     "ArrayUnion",
     ArrayUnion.generate,
-    (input) => ((input: Array<ArrayUnion.IUnion>): void => {})(input),
+    (input) => ((input: ArrayUnion): void => {})(input),
 );

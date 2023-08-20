@@ -6,7 +6,7 @@ export const test_stringify_ObjectGenericAlias = _test_stringify(
     "ObjectGenericAlias",
     ObjectGenericAlias.generate,
     (input) =>
-        ((input: ObjectGenericAlias.ISomething<string>): string => {
+        ((input: ObjectGenericAlias): string => {
             const $string = (typia.stringify as any).string;
             return `{"value":${$string((input as any).value)}}`;
         })(input),

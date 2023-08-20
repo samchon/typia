@@ -6,27 +6,9 @@ export const test_assertPrune_AtomicIntersection = _test_assertPrune(
     "AtomicIntersection",
     AtomicIntersection.generate,
     (input) =>
-        ((
-            input: any,
-        ): [
-            AtomicIntersection.Wrapper<boolean>,
-            AtomicIntersection.Wrapper<number>,
-            AtomicIntersection.Wrapper<string>,
-        ] => {
-            const assert = (
-                input: any,
-            ): [
-                AtomicIntersection.Wrapper<boolean>,
-                AtomicIntersection.Wrapper<number>,
-                AtomicIntersection.Wrapper<string>,
-            ] => {
-                const __is = (
-                    input: any,
-                ): input is [
-                    AtomicIntersection.Wrapper<boolean>,
-                    AtomicIntersection.Wrapper<number>,
-                    AtomicIntersection.Wrapper<string>,
-                ] => {
+        ((input: any): AtomicIntersection => {
+            const assert = (input: any): AtomicIntersection => {
+                const __is = (input: any): input is AtomicIntersection => {
                     return (
                         Array.isArray(input) &&
                         input.length === 3 &&
@@ -41,11 +23,7 @@ export const test_assertPrune_AtomicIntersection = _test_assertPrune(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is [
-                        AtomicIntersection.Wrapper<boolean>,
-                        AtomicIntersection.Wrapper<number>,
-                        AtomicIntersection.Wrapper<string>,
-                    ] => {
+                    ): input is AtomicIntersection => {
                         const $guard = (typia.assertPrune as any).guard;
                         return (
                             ((Array.isArray(input) ||
@@ -88,13 +66,7 @@ export const test_assertPrune_AtomicIntersection = _test_assertPrune(
                     })(input, "$input", true);
                 return input;
             };
-            const prune = (
-                input: [
-                    AtomicIntersection.Wrapper<boolean>,
-                    AtomicIntersection.Wrapper<number>,
-                    AtomicIntersection.Wrapper<string>,
-                ],
-            ): void => {};
+            const prune = (input: AtomicIntersection): void => {};
             assert(input);
             prune(input);
             return input;

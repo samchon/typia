@@ -5,5 +5,5 @@ import { AtomicClass } from "../../structures/AtomicClass";
 export const test_equals_AtomicClass = _test_equals(
     "AtomicClass",
     AtomicClass.generate,
-    (input) => typia.equals(input),
+    (input) => typia.equals<AtomicClass>(input),
 );

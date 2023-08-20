@@ -5,6 +5,6 @@ import { ClassGetter } from "../../structures/ClassGetter";
 export const test_isClone_ClassGetter = _test_isClone(
     "ClassGetter",
     ClassGetter.generate,
-    (input) => typia.isClone(input),
+    (input) => typia.isClone<ClassGetter>(input),
     ClassGetter.SPOILERS,
 );

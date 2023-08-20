@@ -5,5 +5,5 @@ import { NativeAlias } from "../../structures/NativeAlias";
 export const test_stringify_NativeAlias = _test_stringify(
     "NativeAlias",
     NativeAlias.generate,
-    (input) => typia.stringify(input),
+    (input) => typia.stringify<NativeAlias>(input),
 );

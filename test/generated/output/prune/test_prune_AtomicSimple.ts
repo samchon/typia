@@ -5,5 +5,5 @@ import { AtomicSimple } from "../../../structures/AtomicSimple";
 export const test_prune_AtomicSimple = _test_prune(
     "AtomicSimple",
     AtomicSimple.generate,
-    (input) => ((input: [boolean, number, string]): void => {})(input),
+    (input) => ((input: AtomicSimple): void => {})(input),
 );

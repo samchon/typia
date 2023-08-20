@@ -5,6 +5,6 @@ import { ClassClosure } from "../../structures/ClassClosure";
 export const test_is_ClassClosure = _test_is(
     "ClassClosure",
     ClassClosure.generate,
-    (input) => typia.is(input),
+    (input) => typia.is<ClassClosure>(input),
     ClassClosure.SPOILERS,
 );

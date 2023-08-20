@@ -5,5 +5,5 @@ import { ArrayRecursive } from "../../structures/ArrayRecursive";
 export const test_prune_ArrayRecursive = _test_prune(
     "ArrayRecursive",
     ArrayRecursive.generate,
-    (input) => typia.prune(input),
+    (input) => typia.prune<ArrayRecursive>(input),
 );

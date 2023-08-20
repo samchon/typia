@@ -5,6 +5,6 @@ import { TagType } from "../../structures/TagType";
 export const test_isStringify_TagType = _test_isStringify(
     "TagType",
     TagType.generate,
-    (input) => typia.isStringify(input),
+    (input) => typia.isStringify<TagType>(input),
     TagType.SPOILERS,
 );

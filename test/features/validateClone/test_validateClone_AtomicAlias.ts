@@ -5,6 +5,6 @@ import { AtomicAlias } from "../../structures/AtomicAlias";
 export const test_validateClone_AtomicAlias = _test_validateClone(
     "AtomicAlias",
     AtomicAlias.generate,
-    (input) => typia.validateClone(input),
+    (input) => typia.validateClone<AtomicAlias>(input),
     AtomicAlias.SPOILERS,
 );

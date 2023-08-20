@@ -5,5 +5,5 @@ import { TagFormat } from "../../structures/TagFormat";
 export const test_equals_TagFormat = _test_equals(
     "TagFormat",
     TagFormat.generate,
-    (input) => typia.equals(input),
+    (input) => typia.equals<TagFormat>(input),
 );

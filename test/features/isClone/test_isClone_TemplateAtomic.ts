@@ -5,6 +5,6 @@ import { TemplateAtomic } from "../../structures/TemplateAtomic";
 export const test_isClone_TemplateAtomic = _test_isClone(
     "TemplateAtomic",
     TemplateAtomic.generate,
-    (input) => typia.isClone(input),
+    (input) => typia.isClone<TemplateAtomic>(input),
     TemplateAtomic.SPOILERS,
 );

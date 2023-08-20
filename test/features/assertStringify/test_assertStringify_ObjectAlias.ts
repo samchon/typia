@@ -5,6 +5,6 @@ import { ObjectAlias } from "../../structures/ObjectAlias";
 export const test_assertStringify_ObjectAlias = _test_assertStringify(
     "ObjectAlias",
     ObjectAlias.generate,
-    (input) => typia.assertStringify(input),
+    (input) => typia.assertStringify<ObjectAlias>(input),
     ObjectAlias.SPOILERS,
 );

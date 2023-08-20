@@ -5,5 +5,5 @@ import { TagMatrix } from "../../structures/TagMatrix";
 export const test_assertEquals_TagMatrix = _test_assertEquals(
     "TagMatrix",
     TagMatrix.generate,
-    (input) => typia.assertEquals(input),
+    (input) => typia.assertEquals<TagMatrix>(input),
 );

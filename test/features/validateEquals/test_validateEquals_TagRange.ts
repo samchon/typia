@@ -5,5 +5,5 @@ import { TagRange } from "../../structures/TagRange";
 export const test_validateEquals_TagRange = _test_validateEquals(
     "TagRange",
     TagRange.generate,
-    (input) => typia.validateEquals(input),
+    (input) => typia.validateEquals<TagRange>(input),
 );

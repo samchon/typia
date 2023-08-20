@@ -6,13 +6,7 @@ export const test_prune_ObjectGeneric = _test_prune(
     "ObjectGeneric",
     ObjectGeneric.generate,
     (input) =>
-        ((
-            input: [
-                ObjectGeneric.ISomething<boolean>,
-                ObjectGeneric.ISomething<number>,
-                ObjectGeneric.ISomething<string>,
-            ],
-        ): void => {
+        ((input: ObjectGeneric): void => {
             const $io0 = (input: any): boolean =>
                 "boolean" === typeof input.value &&
                 "object" === typeof input.child &&

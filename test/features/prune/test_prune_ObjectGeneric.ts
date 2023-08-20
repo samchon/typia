@@ -5,5 +5,5 @@ import { ObjectGeneric } from "../../structures/ObjectGeneric";
 export const test_prune_ObjectGeneric = _test_prune(
     "ObjectGeneric",
     ObjectGeneric.generate,
-    (input) => typia.prune(input),
+    (input) => typia.prune<ObjectGeneric>(input),
 );

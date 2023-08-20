@@ -6,11 +6,11 @@ export const test_assertEquals_TagLength = _test_assertEquals(
     "TagLength",
     TagLength.generate,
     (input) =>
-        ((input: any): Array<TagLength.Type> => {
+        ((input: any): TagLength => {
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
-            ): input is Array<TagLength.Type> => {
+            ): input is TagLength => {
                 const $io0 = (
                     input: any,
                     _exceptionable: boolean = true,
@@ -58,7 +58,7 @@ export const test_assertEquals_TagLength = _test_assertEquals(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is Array<TagLength.Type> => {
+                ): input is TagLength => {
                     const $guard = (typia.assertEquals as any).guard;
                     const $join = (typia.assertEquals as any).join;
                     const $ao0 = (
@@ -163,7 +163,7 @@ export const test_assertEquals_TagLength = _test_assertEquals(
                         ((Array.isArray(input) ||
                             $guard(true, {
                                 path: _path + "",
-                                expected: "Array<TagLength.Type>",
+                                expected: "TagLength",
                                 value: input,
                             })) &&
                             input.every(
@@ -188,7 +188,7 @@ export const test_assertEquals_TagLength = _test_assertEquals(
                             )) ||
                         $guard(true, {
                             path: _path + "",
-                            expected: "Array<TagLength.Type>",
+                            expected: "TagLength",
                             value: input,
                         })
                     );

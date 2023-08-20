@@ -9,7 +9,7 @@ export const test_equals_ToJsonDouble = _test_equals(
         ((
             input: any,
             _exceptionable: boolean = true,
-        ): input is ToJsonDouble.Parent => {
+        ): input is ToJsonDouble => {
             const $io0 = (
                 input: any,
                 _exceptionable: boolean = true,

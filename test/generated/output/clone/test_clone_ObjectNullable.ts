@@ -6,19 +6,7 @@ export const test_clone_ObjectNullable = _test_clone(
     "ObjectNullable",
     ObjectNullable.generate,
     (input) =>
-        ((
-            input: [
-                ObjectNullable.IProduct,
-                ObjectNullable.IProduct,
-                ObjectNullable.IProduct,
-            ],
-        ): typia.Primitive<
-            [
-                ObjectNullable.IProduct,
-                ObjectNullable.IProduct,
-                ObjectNullable.IProduct,
-            ]
-        > => {
+        ((input: ObjectNullable): typia.Primitive<ObjectNullable> => {
             const $io0 = (input: any): boolean =>
                 "string" === typeof input.name &&
                 "object" === typeof input.manufacturer &&

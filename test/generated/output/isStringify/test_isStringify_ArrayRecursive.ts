@@ -6,8 +6,8 @@ export const test_isStringify_ArrayRecursive = _test_isStringify(
     "ArrayRecursive",
     ArrayRecursive.generate,
     (input) =>
-        ((input: ArrayRecursive.ICategory): string | null => {
-            const is = (input: any): input is ArrayRecursive.ICategory => {
+        ((input: ArrayRecursive): string | null => {
+            const is = (input: any): input is ArrayRecursive => {
                 const $io0 = (input: any): boolean =>
                     Array.isArray(input.children) &&
                     input.children.every(
@@ -31,7 +31,7 @@ export const test_isStringify_ArrayRecursive = _test_isStringify(
                     "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            const stringify = (input: ArrayRecursive.ICategory): string => {
+            const stringify = (input: ArrayRecursive): string => {
                 const $io0 = (input: any): boolean =>
                     Array.isArray(input.children) &&
                     input.children.every(

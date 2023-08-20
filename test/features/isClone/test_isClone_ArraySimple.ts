@@ -5,6 +5,6 @@ import { ArraySimple } from "../../structures/ArraySimple";
 export const test_isClone_ArraySimple = _test_isClone(
     "ArraySimple",
     ArraySimple.generate,
-    (input) => typia.isClone(input),
+    (input) => typia.isClone<ArraySimple>(input),
     ArraySimple.SPOILERS,
 );

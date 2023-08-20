@@ -6,10 +6,8 @@ export const test_isStringify_ObjectUnionDouble = _test_isStringify(
     "ObjectUnionDouble",
     ObjectUnionDouble.generate,
     (input) =>
-        ((input: Array<ObjectUnionDouble.Union>): string | null => {
-            const is = (
-                input: any,
-            ): input is Array<ObjectUnionDouble.Union> => {
+        ((input: ObjectUnionDouble): string | null => {
+            const is = (input: any): input is ObjectUnionDouble => {
                 const $io0 = (input: any): boolean =>
                     "object" === typeof input.value &&
                     null !== input.value &&
@@ -76,9 +74,7 @@ export const test_isStringify_ObjectUnionDouble = _test_isStringify(
                     )
                 );
             };
-            const stringify = (
-                input: Array<ObjectUnionDouble.Union>,
-            ): string => {
+            const stringify = (input: ObjectUnionDouble): string => {
                 const $io0 = (input: any): boolean =>
                     "object" === typeof input.value &&
                     null !== input.value &&

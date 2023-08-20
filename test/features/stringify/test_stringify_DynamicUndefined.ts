@@ -5,5 +5,5 @@ import { DynamicUndefined } from "../../structures/DynamicUndefined";
 export const test_stringify_DynamicUndefined = _test_stringify(
     "DynamicUndefined",
     DynamicUndefined.generate,
-    (input) => typia.stringify(input),
+    (input) => typia.stringify<DynamicUndefined>(input),
 );

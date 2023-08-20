@@ -5,6 +5,6 @@ import { ObjectInternal } from "../../structures/ObjectInternal";
 export const test_is_ObjectInternal = _test_is(
     "ObjectInternal",
     ObjectInternal.generate,
-    (input) => typia.is(input),
+    (input) => typia.is<ObjectInternal>(input),
     ObjectInternal.SPOILERS,
 );

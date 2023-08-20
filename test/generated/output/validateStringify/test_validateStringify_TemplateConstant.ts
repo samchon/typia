@@ -6,14 +6,12 @@ export const test_validateStringify_TemplateConstant = _test_validateStringify(
     "TemplateConstant",
     TemplateConstant.generate,
     (input) =>
-        ((input: Array<TemplateConstant.Type>): typia.IValidation<string> => {
+        ((input: TemplateConstant): typia.IValidation<string> => {
             const validate = (
                 input: any,
-            ): typia.IValidation<Array<TemplateConstant.Type>> => {
+            ): typia.IValidation<TemplateConstant> => {
                 const errors = [] as any[];
-                const __is = (
-                    input: any,
-                ): input is Array<TemplateConstant.Type> => {
+                const __is = (input: any): input is TemplateConstant => {
                     const $io0 = (input: any): boolean =>
                         ("prefix_A" === input.prefix ||
                             "prefix_B" === input.prefix ||
@@ -48,7 +46,7 @@ export const test_validateStringify_TemplateConstant = _test_validateStringify(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is Array<TemplateConstant.Type> => {
+                    ): input is TemplateConstant => {
                         const $vo0 = (
                             input: any,
                             _path: string,
@@ -101,7 +99,7 @@ export const test_validateStringify_TemplateConstant = _test_validateStringify(
                             ((Array.isArray(input) ||
                                 $report(true, {
                                     path: _path + "",
-                                    expected: "Array<TemplateConstant.Type>",
+                                    expected: "TemplateConstant",
                                     value: input,
                                 })) &&
                                 input
@@ -135,7 +133,7 @@ export const test_validateStringify_TemplateConstant = _test_validateStringify(
                                     .every((flag: boolean) => flag)) ||
                             $report(true, {
                                 path: _path + "",
-                                expected: "Array<TemplateConstant.Type>",
+                                expected: "TemplateConstant",
                                 value: input,
                             })
                         );
@@ -148,7 +146,7 @@ export const test_validateStringify_TemplateConstant = _test_validateStringify(
                     data: success ? input : undefined,
                 } as any;
             };
-            const stringify = (input: Array<TemplateConstant.Type>): string => {
+            const stringify = (input: TemplateConstant): string => {
                 const $string = (typia.validateStringify as any).string;
                 const $throws = (typia.validateStringify as any).throws;
                 const $so0 = (input: any): any =>

@@ -5,6 +5,6 @@ import { ArrayAny } from "../../structures/ArrayAny";
 export const test_is_ArrayAny = _test_is(
     "ArrayAny",
     ArrayAny.generate,
-    (input) => typia.is(input),
+    (input) => typia.is<ArrayAny>(input),
     ArrayAny.SPOILERS,
 );

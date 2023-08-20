@@ -5,6 +5,6 @@ import { ArrayHierarchical } from "../../structures/ArrayHierarchical";
 export const test_isClone_ArrayHierarchical = _test_isClone(
     "ArrayHierarchical",
     ArrayHierarchical.generate,
-    (input) => typia.isClone(input),
+    (input) => typia.isClone<ArrayHierarchical>(input),
     ArrayHierarchical.SPOILERS,
 );

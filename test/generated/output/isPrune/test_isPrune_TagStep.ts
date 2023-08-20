@@ -6,8 +6,8 @@ export const test_isPrune_TagStep = _test_isPrune(
     "TagStep",
     TagStep.generate,
     (input) =>
-        ((input: any): input is Array<TagStep.Type> => {
-            const is = (input: any): input is Array<TagStep.Type> => {
+        ((input: any): input is TagStep => {
+            const is = (input: any): input is TagStep => {
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.exclusiveMinimum &&
                     0 === (input.exclusiveMinimum % 5) - 3 &&
@@ -33,7 +33,7 @@ export const test_isPrune_TagStep = _test_isPrune(
                     )
                 );
             };
-            const prune = (input: Array<TagStep.Type>): void => {
+            const prune = (input: TagStep): void => {
                 const $pp0 = (input: any) =>
                     input.forEach((elem: any) => {
                         if ("object" === typeof elem && null !== elem)

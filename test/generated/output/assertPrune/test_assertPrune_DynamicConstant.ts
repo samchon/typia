@@ -6,13 +6,9 @@ export const test_assertPrune_DynamicConstant = _test_assertPrune(
     "DynamicConstant",
     DynamicConstant.generate,
     (input) =>
-        ((input: any): { a: number; b: number; c: number; d: number } => {
-            const assert = (
-                input: any,
-            ): { a: number; b: number; c: number; d: number } => {
-                const __is = (
-                    input: any,
-                ): input is { a: number; b: number; c: number; d: number } => {
+        ((input: any): DynamicConstant => {
+            const assert = (input: any): DynamicConstant => {
+                const __is = (input: any): input is DynamicConstant => {
                     return (
                         "object" === typeof input &&
                         null !== input &&
@@ -31,12 +27,7 @@ export const test_assertPrune_DynamicConstant = _test_assertPrune(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is {
-                        a: number;
-                        b: number;
-                        c: number;
-                        d: number;
-                    } => {
+                    ): input is DynamicConstant => {
                         const $guard = (typia.assertPrune as any).guard;
                         const $ao0 = (
                             input: any,
@@ -88,12 +79,7 @@ export const test_assertPrune_DynamicConstant = _test_assertPrune(
                     })(input, "$input", true);
                 return input;
             };
-            const prune = (input: {
-                a: number;
-                b: number;
-                c: number;
-                d: number;
-            }): void => {
+            const prune = (input: DynamicConstant): void => {
                 const $po0 = (input: any): any => {
                     for (const key of Object.keys(input)) {
                         if (

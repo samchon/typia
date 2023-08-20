@@ -5,6 +5,6 @@ import { TagCustom } from "../../structures/TagCustom";
 export const test_validatePrune_TagCustom = _test_validatePrune(
     "TagCustom",
     TagCustom.generate,
-    (input) => typia.validatePrune(input),
+    (input) => typia.validatePrune<TagCustom>(input),
     TagCustom.SPOILERS,
 );

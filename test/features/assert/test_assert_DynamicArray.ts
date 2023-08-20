@@ -5,6 +5,6 @@ import { DynamicArray } from "../../structures/DynamicArray";
 export const test_assert_DynamicArray = _test_assert(
     "DynamicArray",
     DynamicArray.generate,
-    (input) => typia.assert(input),
+    (input) => typia.assert<DynamicArray>(input),
     DynamicArray.SPOILERS,
 );

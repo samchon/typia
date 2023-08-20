@@ -5,6 +5,6 @@ import { ObjectSimple } from "../../structures/ObjectSimple";
 export const test_isPrune_ObjectSimple = _test_isPrune(
     "ObjectSimple",
     ObjectSimple.generate,
-    (input) => typia.isPrune(input),
+    (input) => typia.isPrune<ObjectSimple>(input),
     ObjectSimple.SPOILERS,
 );

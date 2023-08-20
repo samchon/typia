@@ -8,32 +8,12 @@ export const test_validateClone_ConstantIntersection = _test_validateClone(
     (input) =>
         ((
             input: any,
-        ): typia.IValidation<
-            typia.Primitive<
-                [
-                    ConstantIntersection.Wrapper<false>,
-                    ConstantIntersection.Wrapper<1>,
-                    ConstantIntersection.Wrapper<"two">,
-                ]
-            >
-        > => {
+        ): typia.IValidation<typia.Primitive<ConstantIntersection>> => {
             const validate = (
                 input: any,
-            ): typia.IValidation<
-                [
-                    ConstantIntersection.Wrapper<false>,
-                    ConstantIntersection.Wrapper<1>,
-                    ConstantIntersection.Wrapper<"two">,
-                ]
-            > => {
+            ): typia.IValidation<ConstantIntersection> => {
                 const errors = [] as any[];
-                const __is = (
-                    input: any,
-                ): input is [
-                    ConstantIntersection.Wrapper<false>,
-                    ConstantIntersection.Wrapper<1>,
-                    ConstantIntersection.Wrapper<"two">,
-                ] => {
+                const __is = (input: any): input is ConstantIntersection => {
                     return (
                         Array.isArray(input) &&
                         input.length === 3 &&
@@ -48,11 +28,7 @@ export const test_validateClone_ConstantIntersection = _test_validateClone(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is [
-                        ConstantIntersection.Wrapper<false>,
-                        ConstantIntersection.Wrapper<1>,
-                        ConstantIntersection.Wrapper<"two">,
-                    ] => {
+                    ): input is ConstantIntersection => {
                         return (
                             ((Array.isArray(input) ||
                                 $report(true, {
@@ -102,18 +78,8 @@ export const test_validateClone_ConstantIntersection = _test_validateClone(
                 } as any;
             };
             const clone = (
-                input: [
-                    ConstantIntersection.Wrapper<false>,
-                    ConstantIntersection.Wrapper<1>,
-                    ConstantIntersection.Wrapper<"two">,
-                ],
-            ): typia.Primitive<
-                [
-                    ConstantIntersection.Wrapper<false>,
-                    ConstantIntersection.Wrapper<1>,
-                    ConstantIntersection.Wrapper<"two">,
-                ]
-            > => {
+                input: ConstantIntersection,
+            ): typia.Primitive<ConstantIntersection> => {
                 return Array.isArray(input) &&
                     input.length === 3 &&
                     false === input[0] &&

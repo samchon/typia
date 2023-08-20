@@ -7,8 +7,8 @@ export const test_clone_ArrayRepeatedRequired = _test_clone(
     ArrayRepeatedRequired.generate,
     (input) =>
         ((
-            input: string | number | Array<ArrayRepeatedRequired>,
-        ): typia.Primitive<string | number | Array<ArrayRepeatedRequired>> => {
+            input: ArrayRepeatedRequired,
+        ): typia.Primitive<ArrayRepeatedRequired> => {
             const $ia0 = (input: any): any =>
                 input.every(
                     (elem: any) =>

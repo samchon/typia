@@ -5,6 +5,6 @@ import { ClassNonPublic } from "../../structures/ClassNonPublic";
 export const test_is_ClassNonPublic = _test_is(
     "ClassNonPublic",
     ClassNonPublic.generate,
-    (input) => typia.is(input),
+    (input) => typia.is<ClassNonPublic>(input),
     ClassNonPublic.SPOILERS,
 );

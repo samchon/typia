@@ -5,6 +5,6 @@ import { ObjectInternal } from "../../structures/ObjectInternal";
 export const test_assertStringify_ObjectInternal = _test_assertStringify(
     "ObjectInternal",
     ObjectInternal.generate,
-    (input) => typia.assertStringify(input),
+    (input) => typia.assertStringify<ObjectInternal>(input),
     ObjectInternal.SPOILERS,
 );

@@ -5,6 +5,6 @@ import { ConstantEnumeration } from "../../structures/ConstantEnumeration";
 export const test_assertStringify_ConstantEnumeration = _test_assertStringify(
     "ConstantEnumeration",
     ConstantEnumeration.generate,
-    (input) => typia.assertStringify(input),
+    (input) => typia.assertStringify<ConstantEnumeration>(input),
     ConstantEnumeration.SPOILERS,
 );

@@ -5,5 +5,5 @@ import { NativeUnion } from "../../structures/NativeUnion";
 export const test_clone_NativeUnion = _test_clone(
     "NativeUnion",
     NativeUnion.generate,
-    (input) => typia.clone(input),
+    (input) => typia.clone<NativeUnion>(input),
 );

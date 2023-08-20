@@ -6,29 +6,9 @@ export const test_validate_ObjectPropertyNullable = _test_validate(
     "ObjectPropertyNullable",
     ObjectPropertyNullable.generate,
     (input) =>
-        ((
-            input: any,
-        ): typia.IValidation<
-            [
-                Array<ObjectPropertyNullable.IPointer<boolean>>,
-                Array<ObjectPropertyNullable.IPointer<number>>,
-                Array<ObjectPropertyNullable.IPointer<string>>,
-                Array<
-                    ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>
-                >,
-            ]
-        > => {
+        ((input: any): typia.IValidation<ObjectPropertyNullable> => {
             const errors = [] as any[];
-            const __is = (
-                input: any,
-            ): input is [
-                Array<ObjectPropertyNullable.IPointer<boolean>>,
-                Array<ObjectPropertyNullable.IPointer<number>>,
-                Array<ObjectPropertyNullable.IPointer<string>>,
-                Array<
-                    ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>
-                >,
-            ] => {
+            const __is = (input: any): input is ObjectPropertyNullable => {
                 const $io0 = (input: any): boolean =>
                     null === input.value || "boolean" === typeof input.value;
                 const $io1 = (input: any): boolean =>
@@ -93,14 +73,7 @@ export const test_validate_ObjectPropertyNullable = _test_validate(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is [
-                    Array<ObjectPropertyNullable.IPointer<boolean>>,
-                    Array<ObjectPropertyNullable.IPointer<number>>,
-                    Array<ObjectPropertyNullable.IPointer<string>>,
-                    Array<
-                        ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>
-                    >,
-                ] => {
+                ): input is ObjectPropertyNullable => {
                     const $vo0 = (
                         input: any,
                         _path: string,

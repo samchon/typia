@@ -5,6 +5,6 @@ import { FunctionalArray } from "../../structures/FunctionalArray";
 export const test_is_FunctionalArray = _test_is(
     "FunctionalArray",
     FunctionalArray.generate,
-    (input) => typia.is(input),
+    (input) => typia.is<FunctionalArray>(input),
     FunctionalArray.SPOILERS,
 );

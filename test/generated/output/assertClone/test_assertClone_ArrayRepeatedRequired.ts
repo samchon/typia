@@ -6,15 +6,9 @@ export const test_assertClone_ArrayRepeatedRequired = _test_assertClone(
     "ArrayRepeatedRequired",
     ArrayRepeatedRequired.generate,
     (input) =>
-        ((
-            input: any,
-        ): typia.Primitive<string | number | Array<ArrayRepeatedRequired>> => {
-            const assert = (
-                input: any,
-            ): string | number | Array<ArrayRepeatedRequired> => {
-                const __is = (
-                    input: any,
-                ): input is string | number | Array<ArrayRepeatedRequired> => {
+        ((input: any): typia.Primitive<ArrayRepeatedRequired> => {
+            const assert = (input: any): ArrayRepeatedRequired => {
+                const __is = (input: any): input is ArrayRepeatedRequired => {
                     const $ia0 = (input: any): any =>
                         input.every(
                             (elem: any) =>
@@ -40,10 +34,7 @@ export const test_assertClone_ArrayRepeatedRequired = _test_assertClone(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is
-                        | string
-                        | number
-                        | Array<ArrayRepeatedRequired> => {
+                    ): input is ArrayRepeatedRequired => {
                         const $guard = (typia.assertClone as any).guard;
                         const $aa0 = (
                             input: any,
@@ -146,10 +137,8 @@ export const test_assertClone_ArrayRepeatedRequired = _test_assertClone(
                 return input;
             };
             const clone = (
-                input: string | number | Array<ArrayRepeatedRequired>,
-            ): typia.Primitive<
-                string | number | Array<ArrayRepeatedRequired>
-            > => {
+                input: ArrayRepeatedRequired,
+            ): typia.Primitive<ArrayRepeatedRequired> => {
                 const $ia0 = (input: any): any =>
                     input.every(
                         (elem: any) =>

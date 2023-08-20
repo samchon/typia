@@ -6,19 +6,15 @@ export const test_isStringify_ObjectGenericAlias = _test_isStringify(
     "ObjectGenericAlias",
     ObjectGenericAlias.generate,
     (input) =>
-        ((input: ObjectGenericAlias.ISomething<string>): string | null => {
-            const is = (
-                input: any,
-            ): input is ObjectGenericAlias.ISomething<string> => {
+        ((input: ObjectGenericAlias): string | null => {
+            const is = (input: any): input is ObjectGenericAlias => {
                 return (
                     "object" === typeof input &&
                     null !== input &&
                     "string" === typeof (input as any).value
                 );
             };
-            const stringify = (
-                input: ObjectGenericAlias.ISomething<string>,
-            ): string => {
+            const stringify = (input: ObjectGenericAlias): string => {
                 const $string = (typia.isStringify as any).string;
                 return `{"value":${$string((input as any).value)}}`;
             };

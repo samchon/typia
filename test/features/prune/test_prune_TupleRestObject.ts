@@ -5,5 +5,5 @@ import { TupleRestObject } from "../../structures/TupleRestObject";
 export const test_prune_TupleRestObject = _test_prune(
     "TupleRestObject",
     TupleRestObject.generate,
-    (input) => typia.prune(input),
+    (input) => typia.prune<TupleRestObject>(input),
 );

@@ -6,10 +6,8 @@ export const test_isPrune_ObjectUnionDouble = _test_isPrune(
     "ObjectUnionDouble",
     ObjectUnionDouble.generate,
     (input) =>
-        ((input: any): input is Array<ObjectUnionDouble.Union> => {
-            const is = (
-                input: any,
-            ): input is Array<ObjectUnionDouble.Union> => {
+        ((input: any): input is ObjectUnionDouble => {
+            const is = (input: any): input is ObjectUnionDouble => {
                 const $io0 = (input: any): boolean =>
                     "object" === typeof input.value &&
                     null !== input.value &&
@@ -76,7 +74,7 @@ export const test_isPrune_ObjectUnionDouble = _test_isPrune(
                     )
                 );
             };
-            const prune = (input: Array<ObjectUnionDouble.Union>): void => {
+            const prune = (input: ObjectUnionDouble): void => {
                 const $io0 = (input: any): boolean =>
                     "object" === typeof input.value &&
                     null !== input.value &&

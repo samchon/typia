@@ -6,16 +6,10 @@ export const test_validateClone_NativeUnion = _test_validateClone(
     "NativeUnion",
     NativeUnion.generate,
     (input) =>
-        ((
-            input: any,
-        ): typia.IValidation<typia.Primitive<Array<NativeUnion.Union>>> => {
-            const validate = (
-                input: any,
-            ): typia.IValidation<Array<NativeUnion.Union>> => {
+        ((input: any): typia.IValidation<typia.Primitive<NativeUnion>> => {
+            const validate = (input: any): typia.IValidation<NativeUnion> => {
                 const errors = [] as any[];
-                const __is = (
-                    input: any,
-                ): input is Array<NativeUnion.Union> => {
+                const __is = (input: any): input is NativeUnion => {
                     const $io0 = (input: any): boolean =>
                         (null === input.date || input.date instanceof Date) &&
                         (input.unsigned instanceof Uint8Array ||
@@ -51,7 +45,7 @@ export const test_validateClone_NativeUnion = _test_validateClone(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is Array<NativeUnion.Union> => {
+                    ): input is NativeUnion => {
                         const $vo0 = (
                             input: any,
                             _path: string,
@@ -164,8 +158,8 @@ export const test_validateClone_NativeUnion = _test_validateClone(
                 } as any;
             };
             const clone = (
-                input: Array<NativeUnion.Union>,
-            ): typia.Primitive<Array<NativeUnion.Union>> => {
+                input: NativeUnion,
+            ): typia.Primitive<NativeUnion> => {
                 const $cp0 = (input: any) =>
                     input.map((elem: any) =>
                         "object" === typeof elem && null !== elem

@@ -5,5 +5,5 @@ import { TagNaN } from "../../structures/TagNaN";
 export const test_prune_TagNaN = _test_prune(
     "TagNaN",
     TagNaN.generate,
-    (input) => typia.prune(input),
+    (input) => typia.prune<TagNaN>(input),
 );

@@ -5,6 +5,6 @@ import { TemplateConstant } from "../../structures/TemplateConstant";
 export const test_validateStringify_TemplateConstant = _test_validateStringify(
     "TemplateConstant",
     TemplateConstant.generate,
-    (input) => typia.validateStringify(input),
+    (input) => typia.validateStringify<TemplateConstant>(input),
     TemplateConstant.SPOILERS,
 );

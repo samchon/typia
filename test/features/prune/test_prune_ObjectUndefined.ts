@@ -5,5 +5,5 @@ import { ObjectUndefined } from "../../structures/ObjectUndefined";
 export const test_prune_ObjectUndefined = _test_prune(
     "ObjectUndefined",
     ObjectUndefined.generate,
-    (input) => typia.prune(input),
+    (input) => typia.prune<ObjectUndefined>(input),
 );

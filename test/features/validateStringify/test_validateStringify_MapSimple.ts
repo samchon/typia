@@ -5,6 +5,6 @@ import { MapSimple } from "../../structures/MapSimple";
 export const test_validateStringify_MapSimple = _test_validateStringify(
     "MapSimple",
     MapSimple.generate,
-    (input) => typia.validateStringify(input),
+    (input) => typia.validateStringify<MapSimple>(input),
     MapSimple.SPOILERS,
 );

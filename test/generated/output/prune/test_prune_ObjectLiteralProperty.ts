@@ -6,7 +6,7 @@ export const test_prune_ObjectLiteralProperty = _test_prune(
     "ObjectLiteralProperty",
     ObjectLiteralProperty.generate,
     (input) =>
-        ((input: ObjectLiteralProperty.ISomething): void => {
+        ((input: ObjectLiteralProperty): void => {
             const $po0 = (input: any): any => {
                 for (const key of Object.keys(input)) {
                     if (

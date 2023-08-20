@@ -6,24 +6,7 @@ export const test_stringify_TupleHierarchical = _test_stringify(
     "TupleHierarchical",
     TupleHierarchical.generate,
     (input) =>
-        ((
-            input: [
-                boolean,
-                null,
-                number,
-                [boolean, null, [number, [boolean, string]]],
-                [
-                    number,
-                    Array<
-                        [
-                            string,
-                            boolean,
-                            Array<[number, number, [boolean, string]]>,
-                        ]
-                    >,
-                ],
-            ],
-        ): string => {
+        ((input: TupleHierarchical): string => {
             const $number = (typia.stringify as any).number;
             const $string = (typia.stringify as any).string;
             return `[${input[0]},null,${$number(input[2])},${`[${

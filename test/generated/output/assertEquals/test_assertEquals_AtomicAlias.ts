@@ -6,11 +6,11 @@ export const test_assertEquals_AtomicAlias = _test_assertEquals(
     "AtomicAlias",
     AtomicAlias.generate,
     (input) =>
-        ((input: any): [boolean, number, string] => {
+        ((input: any): AtomicAlias => {
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
-            ): input is [boolean, number, string] => {
+            ): input is AtomicAlias => {
                 return (
                     Array.isArray(input) &&
                     input.length === 3 &&
@@ -25,7 +25,7 @@ export const test_assertEquals_AtomicAlias = _test_assertEquals(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is [boolean, number, string] => {
+                ): input is AtomicAlias => {
                     const $guard = (typia.assertEquals as any).guard;
                     return (
                         ((Array.isArray(input) ||

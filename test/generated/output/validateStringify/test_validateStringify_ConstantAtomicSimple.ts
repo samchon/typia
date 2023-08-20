@@ -7,14 +7,14 @@ export const test_validateStringify_ConstantAtomicSimple =
         "ConstantAtomicSimple",
         ConstantAtomicSimple.generate,
         (input) =>
-            ((input: [false, true, 2, "three"]): typia.IValidation<string> => {
+            ((input: ConstantAtomicSimple): typia.IValidation<string> => {
                 const validate = (
                     input: any,
-                ): typia.IValidation<[false, true, 2, "three"]> => {
+                ): typia.IValidation<ConstantAtomicSimple> => {
                     const errors = [] as any[];
                     const __is = (
                         input: any,
-                    ): input is [false, true, 2, "three"] => {
+                    ): input is ConstantAtomicSimple => {
                         return (
                             Array.isArray(input) &&
                             input.length === 4 &&
@@ -32,7 +32,7 @@ export const test_validateStringify_ConstantAtomicSimple =
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
-                        ): input is [false, true, 2, "three"] => {
+                        ): input is ConstantAtomicSimple => {
                             return (
                                 ((Array.isArray(input) ||
                                     $report(true, {
@@ -88,9 +88,7 @@ export const test_validateStringify_ConstantAtomicSimple =
                         data: success ? input : undefined,
                     } as any;
                 };
-                const stringify = (
-                    input: [false, true, 2, "three"],
-                ): string => {
+                const stringify = (input: ConstantAtomicSimple): string => {
                     const $number = (typia.validateStringify as any).number;
                     const $string = (typia.validateStringify as any).string;
                     const $throws = (typia.validateStringify as any).throws;

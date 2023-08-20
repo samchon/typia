@@ -6,11 +6,9 @@ export const test_assertPrune_TagAtomicUnion = _test_assertPrune(
     "TagAtomicUnion",
     TagAtomicUnion.generate,
     (input) =>
-        ((input: any): Array<TagAtomicUnion.Type> => {
-            const assert = (input: any): Array<TagAtomicUnion.Type> => {
-                const __is = (
-                    input: any,
-                ): input is Array<TagAtomicUnion.Type> => {
+        ((input: any): TagAtomicUnion => {
+            const assert = (input: any): TagAtomicUnion => {
+                const __is = (input: any): input is TagAtomicUnion => {
                     const $io0 = (input: any): boolean =>
                         ("string" === typeof input.value &&
                             3 <= input.value.length &&
@@ -33,7 +31,7 @@ export const test_assertPrune_TagAtomicUnion = _test_assertPrune(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is Array<TagAtomicUnion.Type> => {
+                    ): input is TagAtomicUnion => {
                         const $guard = (typia.assertPrune as any).guard;
                         const $ao0 = (
                             input: any,
@@ -103,7 +101,7 @@ export const test_assertPrune_TagAtomicUnion = _test_assertPrune(
                     })(input, "$input", true);
                 return input;
             };
-            const prune = (input: Array<TagAtomicUnion.Type>): void => {
+            const prune = (input: TagAtomicUnion): void => {
                 const $pp0 = (input: any) =>
                     input.forEach((elem: any) => {
                         if ("object" === typeof elem && null !== elem)

@@ -5,5 +5,5 @@ import { ObjectTuple } from "../../structures/ObjectTuple";
 export const test_clone_ObjectTuple = _test_clone(
     "ObjectTuple",
     ObjectTuple.generate,
-    (input) => typia.clone(input),
+    (input) => typia.clone<ObjectTuple>(input),
 );

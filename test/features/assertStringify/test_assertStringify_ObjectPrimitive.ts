@@ -5,6 +5,6 @@ import { ObjectPrimitive } from "../../structures/ObjectPrimitive";
 export const test_assertStringify_ObjectPrimitive = _test_assertStringify(
     "ObjectPrimitive",
     ObjectPrimitive.generate,
-    (input) => typia.assertStringify(input),
+    (input) => typia.assertStringify<ObjectPrimitive>(input),
     ObjectPrimitive.SPOILERS,
 );

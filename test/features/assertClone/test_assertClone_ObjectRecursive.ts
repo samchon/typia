@@ -5,6 +5,6 @@ import { ObjectRecursive } from "../../structures/ObjectRecursive";
 export const test_assertClone_ObjectRecursive = _test_assertClone(
     "ObjectRecursive",
     ObjectRecursive.generate,
-    (input) => typia.assertClone(input),
+    (input) => typia.assertClone<ObjectRecursive>(input),
     ObjectRecursive.SPOILERS,
 );

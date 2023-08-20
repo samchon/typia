@@ -17,8 +17,10 @@ export const application_number = (
             tag.kind === "type" &&
             (tag.value === "int" ||
                 tag.value === "uint" ||
-                tag.value === "{int}" ||
-                tag.value === "{uint}")
+                tag.value === "int32" ||
+                tag.value === "uint32" ||
+                tag.value === "int64" ||
+                tag.value === "uint64")
         )
             output.type = "integer";
         // RANGE TAG
@@ -39,7 +41,11 @@ export const application_number = (
     if (
         output.type === "integer" &&
         (attribute["x-typia-metaTags"] ?? []).find(
-            (tag) => tag.kind === "type" && tag.value === "uint",
+            (tag) =>
+                tag.kind === "type" &&
+                (tag.value === "uint" ||
+                    tag.value === "uint32" ||
+                    tag.value === "uint64"),
         )
     )
         if (

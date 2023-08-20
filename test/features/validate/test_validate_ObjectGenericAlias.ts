@@ -5,6 +5,6 @@ import { ObjectGenericAlias } from "../../structures/ObjectGenericAlias";
 export const test_validate_ObjectGenericAlias = _test_validate(
     "ObjectGenericAlias",
     ObjectGenericAlias.generate,
-    (input) => typia.validate(input),
+    (input) => typia.validate<ObjectGenericAlias>(input),
     ObjectGenericAlias.SPOILERS,
 );

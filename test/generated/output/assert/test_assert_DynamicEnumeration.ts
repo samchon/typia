@@ -6,34 +6,8 @@ export const test_assert_DynamicEnumeration = _test_assert(
     "DynamicEnumeration",
     DynamicEnumeration.generate,
     (input) =>
-        ((
-            input: any,
-        ): {
-            ar?: string | undefined;
-            "zh-Hans"?: string | undefined;
-            "zh-Hant"?: string | undefined;
-            en?: string | undefined;
-            fr?: string | undefined;
-            de?: string | undefined;
-            ja?: string | undefined;
-            ko?: string | undefined;
-            pt?: string | undefined;
-            ru?: string | undefined;
-        } => {
-            const __is = (
-                input: any,
-            ): input is {
-                ar?: string | undefined;
-                "zh-Hans"?: string | undefined;
-                "zh-Hant"?: string | undefined;
-                en?: string | undefined;
-                fr?: string | undefined;
-                de?: string | undefined;
-                ja?: string | undefined;
-                ko?: string | undefined;
-                pt?: string | undefined;
-                ru?: string | undefined;
-            } => {
+        ((input: any): DynamicEnumeration => {
+            const __is = (input: any): input is DynamicEnumeration => {
                 const $io0 = (input: any): boolean =>
                     (undefined === input.ar || "string" === typeof input.ar) &&
                     (undefined === input["zh-Hans"] ||
@@ -59,18 +33,7 @@ export const test_assert_DynamicEnumeration = _test_assert(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is {
-                    ar?: string | undefined;
-                    "zh-Hans"?: string | undefined;
-                    "zh-Hant"?: string | undefined;
-                    en?: string | undefined;
-                    fr?: string | undefined;
-                    de?: string | undefined;
-                    ja?: string | undefined;
-                    ko?: string | undefined;
-                    pt?: string | undefined;
-                    ru?: string | undefined;
-                } => {
+                ): input is DynamicEnumeration => {
                     const $guard = (typia.assert as any).guard;
                     const $ao0 = (
                         input: any,

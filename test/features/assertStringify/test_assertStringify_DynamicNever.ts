@@ -5,6 +5,6 @@ import { DynamicNever } from "../../structures/DynamicNever";
 export const test_assertStringify_DynamicNever = _test_assertStringify(
     "DynamicNever",
     DynamicNever.generate,
-    (input) => typia.assertStringify(input),
+    (input) => typia.assertStringify<DynamicNever>(input),
     DynamicNever.SPOILERS,
 );

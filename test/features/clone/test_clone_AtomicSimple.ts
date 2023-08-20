@@ -5,5 +5,5 @@ import { AtomicSimple } from "../../structures/AtomicSimple";
 export const test_clone_AtomicSimple = _test_clone(
     "AtomicSimple",
     AtomicSimple.generate,
-    (input) => typia.clone(input),
+    (input) => typia.clone<AtomicSimple>(input),
 );

@@ -6,23 +6,11 @@ export const test_assertEquals_ToJsonArray = _test_assertEquals(
     "ToJsonArray",
     ToJsonArray.generate,
     (input) =>
-        ((
-            input: any,
-        ): [
-            ToJsonArray.IArray<boolean>,
-            ToJsonArray.IArray<number>,
-            ToJsonArray.IArray<string>,
-            ToJsonArray.IArray<ToJsonArray.IObject>,
-        ] => {
+        ((input: any): ToJsonArray => {
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
-            ): input is [
-                ToJsonArray.IArray<boolean>,
-                ToJsonArray.IArray<number>,
-                ToJsonArray.IArray<string>,
-                ToJsonArray.IArray<ToJsonArray.IObject>,
-            ] => {
+            ): input is ToJsonArray => {
                 const $io0 = (
                     input: any,
                     _exceptionable: boolean = true,
@@ -97,12 +85,7 @@ export const test_assertEquals_ToJsonArray = _test_assertEquals(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is [
-                    ToJsonArray.IArray<boolean>,
-                    ToJsonArray.IArray<number>,
-                    ToJsonArray.IArray<string>,
-                    ToJsonArray.IArray<ToJsonArray.IObject>,
-                ] => {
+                ): input is ToJsonArray => {
                     const $guard = (typia.assertEquals as any).guard;
                     const $join = (typia.assertEquals as any).join;
                     const $ao0 = (

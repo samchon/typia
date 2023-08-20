@@ -6,9 +6,7 @@ export const test_clone_TemplateConstant = _test_clone(
     "TemplateConstant",
     TemplateConstant.generate,
     (input) =>
-        ((
-            input: Array<TemplateConstant.Type>,
-        ): typia.Primitive<Array<TemplateConstant.Type>> => {
+        ((input: TemplateConstant): typia.Primitive<TemplateConstant> => {
             const $cp0 = (input: any) =>
                 input.map((elem: any) =>
                     "object" === typeof elem && null !== elem

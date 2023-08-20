@@ -5,5 +5,5 @@ import { TupleOptional } from "../../structures/TupleOptional";
 export const test_validateEquals_TupleOptional = _test_validateEquals(
     "TupleOptional",
     TupleOptional.generate,
-    (input) => typia.validateEquals(input),
+    (input) => typia.validateEquals<TupleOptional>(input),
 );

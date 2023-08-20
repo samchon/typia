@@ -5,5 +5,5 @@ import { ArrayMatrix } from "../../structures/ArrayMatrix";
 export const test_prune_ArrayMatrix = _test_prune(
     "ArrayMatrix",
     ArrayMatrix.generate,
-    (input) => typia.prune(input),
+    (input) => typia.prune<ArrayMatrix>(input),
 );

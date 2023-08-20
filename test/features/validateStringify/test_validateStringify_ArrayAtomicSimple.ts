@@ -5,6 +5,6 @@ import { ArrayAtomicSimple } from "../../structures/ArrayAtomicSimple";
 export const test_validateStringify_ArrayAtomicSimple = _test_validateStringify(
     "ArrayAtomicSimple",
     ArrayAtomicSimple.generate,
-    (input) => typia.validateStringify(input),
+    (input) => typia.validateStringify<ArrayAtomicSimple>(input),
     ArrayAtomicSimple.SPOILERS,
 );

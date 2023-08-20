@@ -6,6 +6,6 @@ export const test_validateStringify_AtomicIntersection =
     _test_validateStringify(
         "AtomicIntersection",
         AtomicIntersection.generate,
-        (input) => typia.validateStringify(input),
+        (input) => typia.validateStringify<AtomicIntersection>(input),
         AtomicIntersection.SPOILERS,
     );

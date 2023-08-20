@@ -6,22 +6,8 @@ export const test_assert_ToJsonTuple = _test_assert(
     "ToJsonTuple",
     ToJsonTuple.generate,
     (input) =>
-        ((
-            input: any,
-        ): [
-            ToJsonTuple.IToJson<string>,
-            ToJsonTuple.IToJson<number>,
-            ToJsonTuple.IToJson<boolean>,
-            ToJsonTuple.IObject,
-        ] => {
-            const __is = (
-                input: any,
-            ): input is [
-                ToJsonTuple.IToJson<string>,
-                ToJsonTuple.IToJson<number>,
-                ToJsonTuple.IToJson<boolean>,
-                ToJsonTuple.IObject,
-            ] => {
+        ((input: any): ToJsonTuple => {
+            const __is = (input: any): input is ToJsonTuple => {
                 const $io0 = (input: any): boolean =>
                     "function" === typeof input.toJSON;
                 const $io1 = (input: any): boolean =>
@@ -52,12 +38,7 @@ export const test_assert_ToJsonTuple = _test_assert(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is [
-                    ToJsonTuple.IToJson<string>,
-                    ToJsonTuple.IToJson<number>,
-                    ToJsonTuple.IToJson<boolean>,
-                    ToJsonTuple.IObject,
-                ] => {
+                ): input is ToJsonTuple => {
                     const $guard = (typia.assert as any).guard;
                     const $ao0 = (
                         input: any,

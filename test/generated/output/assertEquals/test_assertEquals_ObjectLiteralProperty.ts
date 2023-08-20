@@ -6,11 +6,11 @@ export const test_assertEquals_ObjectLiteralProperty = _test_assertEquals(
     "ObjectLiteralProperty",
     ObjectLiteralProperty.generate,
     (input) =>
-        ((input: any): ObjectLiteralProperty.ISomething => {
+        ((input: any): ObjectLiteralProperty => {
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
-            ): input is ObjectLiteralProperty.ISomething => {
+            ): input is ObjectLiteralProperty => {
                 const $io0 = (
                     input: any,
                     _exceptionable: boolean = true,
@@ -43,7 +43,7 @@ export const test_assertEquals_ObjectLiteralProperty = _test_assertEquals(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ObjectLiteralProperty.ISomething => {
+                ): input is ObjectLiteralProperty => {
                     const $guard = (typia.assertEquals as any).guard;
                     const $join = (typia.assertEquals as any).join;
                     const $ao0 = (

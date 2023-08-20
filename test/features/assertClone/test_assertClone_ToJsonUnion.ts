@@ -5,5 +5,5 @@ import { ToJsonUnion } from "../../structures/ToJsonUnion";
 export const test_assertClone_ToJsonUnion = _test_assertClone(
     "ToJsonUnion",
     ToJsonUnion.generate,
-    (input) => typia.assertClone(input),
+    (input) => typia.assertClone<ToJsonUnion>(input),
 );

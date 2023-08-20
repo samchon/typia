@@ -5,6 +5,6 @@ import { ObjectTuple } from "../../structures/ObjectTuple";
 export const test_validatePrune_ObjectTuple = _test_validatePrune(
     "ObjectTuple",
     ObjectTuple.generate,
-    (input) => typia.validatePrune(input),
+    (input) => typia.validatePrune<ObjectTuple>(input),
     ObjectTuple.SPOILERS,
 );

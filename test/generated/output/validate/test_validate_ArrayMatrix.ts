@@ -6,9 +6,9 @@ export const test_validate_ArrayMatrix = _test_validate(
     "ArrayMatrix",
     ArrayMatrix.generate,
     (input) =>
-        ((input: any): typia.IValidation<Array<Array<Array<number>>>> => {
+        ((input: any): typia.IValidation<ArrayMatrix> => {
             const errors = [] as any[];
-            const __is = (input: any): input is Array<Array<Array<number>>> => {
+            const __is = (input: any): input is ArrayMatrix => {
                 return (
                     Array.isArray(input) &&
                     input.every(
@@ -32,7 +32,7 @@ export const test_validate_ArrayMatrix = _test_validate(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is Array<Array<Array<number>>> => {
+                ): input is ArrayMatrix => {
                     return (
                         ((Array.isArray(input) ||
                             $report(true, {

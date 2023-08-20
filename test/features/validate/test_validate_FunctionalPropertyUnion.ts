@@ -5,6 +5,6 @@ import { FunctionalPropertyUnion } from "../../structures/FunctionalPropertyUnio
 export const test_validate_FunctionalPropertyUnion = _test_validate(
     "FunctionalPropertyUnion",
     FunctionalPropertyUnion.generate,
-    (input) => typia.validate(input),
+    (input) => typia.validate<FunctionalPropertyUnion>(input),
     FunctionalPropertyUnion.SPOILERS,
 );

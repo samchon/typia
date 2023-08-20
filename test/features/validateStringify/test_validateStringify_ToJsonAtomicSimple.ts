@@ -6,5 +6,5 @@ export const test_validateStringify_ToJsonAtomicSimple =
     _test_validateStringify(
         "ToJsonAtomicSimple",
         ToJsonAtomicSimple.generate,
-        (input) => typia.validateStringify(input),
+        (input) => typia.validateStringify<ToJsonAtomicSimple>(input),
     );

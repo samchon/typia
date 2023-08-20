@@ -6,5 +6,5 @@ export const test_validateEquals_ConstantConstEnumeration =
     _test_validateEquals(
         "ConstantConstEnumeration",
         ConstantConstEnumeration.generate,
-        (input) => typia.validateEquals(input),
+        (input) => typia.validateEquals<ConstantConstEnumeration>(input),
     );

@@ -5,6 +5,6 @@ import { ObjectDynamic } from "../../structures/ObjectDynamic";
 export const test_is_ObjectDynamic = _test_is(
     "ObjectDynamic",
     ObjectDynamic.generate,
-    (input) => typia.is(input),
+    (input) => typia.is<ObjectDynamic>(input),
     ObjectDynamic.SPOILERS,
 );

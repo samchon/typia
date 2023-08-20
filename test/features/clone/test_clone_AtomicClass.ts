@@ -5,5 +5,5 @@ import { AtomicClass } from "../../structures/AtomicClass";
 export const test_clone_AtomicClass = _test_clone(
     "AtomicClass",
     AtomicClass.generate,
-    (input) => typia.clone(input),
+    (input) => typia.clone<AtomicClass>(input),
 );

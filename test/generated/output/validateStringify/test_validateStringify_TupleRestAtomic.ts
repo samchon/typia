@@ -6,14 +6,12 @@ export const test_validateStringify_TupleRestAtomic = _test_validateStringify(
     "TupleRestAtomic",
     TupleRestAtomic.generate,
     (input) =>
-        ((input: [boolean, number, ...string[]]): typia.IValidation<string> => {
+        ((input: TupleRestAtomic): typia.IValidation<string> => {
             const validate = (
                 input: any,
-            ): typia.IValidation<[boolean, number, ...string[]]> => {
+            ): typia.IValidation<TupleRestAtomic> => {
                 const errors = [] as any[];
-                const __is = (
-                    input: any,
-                ): input is [boolean, number, ...string[]] => {
+                const __is = (input: any): input is TupleRestAtomic => {
                     return (
                         Array.isArray(input) &&
                         "boolean" === typeof input[0] &&
@@ -33,7 +31,7 @@ export const test_validateStringify_TupleRestAtomic = _test_validateStringify(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is [boolean, number, ...string[]] => {
+                    ): input is TupleRestAtomic => {
                         return (
                             ((Array.isArray(input) ||
                                 $report(true, {
@@ -98,9 +96,7 @@ export const test_validateStringify_TupleRestAtomic = _test_validateStringify(
                     data: success ? input : undefined,
                 } as any;
             };
-            const stringify = (
-                input: [boolean, number, ...string[]],
-            ): string => {
+            const stringify = (input: TupleRestAtomic): string => {
                 const $number = (typia.validateStringify as any).number;
                 const $string = (typia.validateStringify as any).string;
                 const $rest = (typia.validateStringify as any).rest;

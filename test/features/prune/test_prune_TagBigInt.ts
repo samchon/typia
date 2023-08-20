@@ -5,5 +5,5 @@ import { TagBigInt } from "../../structures/TagBigInt";
 export const test_prune_TagBigInt = _test_prune(
     "TagBigInt",
     TagBigInt.generate,
-    (input) => typia.prune(input),
+    (input) => typia.prune<TagBigInt>(input),
 );

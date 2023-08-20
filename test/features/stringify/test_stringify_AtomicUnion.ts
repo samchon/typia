@@ -5,5 +5,5 @@ import { AtomicUnion } from "../../structures/AtomicUnion";
 export const test_stringify_AtomicUnion = _test_stringify(
     "AtomicUnion",
     AtomicUnion.generate,
-    (input) => typia.stringify(input),
+    (input) => typia.stringify<AtomicUnion>(input),
 );

@@ -6,8 +6,8 @@ export const test_isClone_TagLength = _test_isClone(
     "TagLength",
     TagLength.generate,
     (input) =>
-        ((input: any): typia.Primitive<Array<TagLength.Type>> | null => {
-            const is = (input: any): input is Array<TagLength.Type> => {
+        ((input: any): typia.Primitive<TagLength> | null => {
+            const is = (input: any): input is TagLength => {
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.fixed &&
                     5 === input.fixed.length &&
@@ -31,9 +31,7 @@ export const test_isClone_TagLength = _test_isClone(
                     )
                 );
             };
-            const clone = (
-                input: Array<TagLength.Type>,
-            ): typia.Primitive<Array<TagLength.Type>> => {
+            const clone = (input: TagLength): typia.Primitive<TagLength> => {
                 const $cp0 = (input: any) =>
                     input.map((elem: any) =>
                         "object" === typeof elem && null !== elem

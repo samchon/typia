@@ -5,6 +5,6 @@ import { TagRange } from "../../structures/TagRange";
 export const test_isStringify_TagRange = _test_isStringify(
     "TagRange",
     TagRange.generate,
-    (input) => typia.isStringify(input),
+    (input) => typia.isStringify<TagRange>(input),
     TagRange.SPOILERS,
 );

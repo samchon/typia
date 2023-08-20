@@ -5,6 +5,6 @@ import { AtomicAlias } from "../../structures/AtomicAlias";
 export const test_assertPrune_AtomicAlias = _test_assertPrune(
     "AtomicAlias",
     AtomicAlias.generate,
-    (input) => typia.assertPrune(input),
+    (input) => typia.assertPrune<AtomicAlias>(input),
     AtomicAlias.SPOILERS,
 );

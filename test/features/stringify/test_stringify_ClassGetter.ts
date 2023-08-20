@@ -5,5 +5,5 @@ import { ClassGetter } from "../../structures/ClassGetter";
 export const test_stringify_ClassGetter = _test_stringify(
     "ClassGetter",
     ClassGetter.generate,
-    (input) => typia.stringify(input),
+    (input) => typia.stringify<ClassGetter>(input),
 );

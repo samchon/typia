@@ -5,6 +5,6 @@ import { TupleRestArray } from "../../structures/TupleRestArray";
 export const test_validateStringify_TupleRestArray = _test_validateStringify(
     "TupleRestArray",
     TupleRestArray.generate,
-    (input) => typia.validateStringify(input),
+    (input) => typia.validateStringify<TupleRestArray>(input),
     TupleRestArray.SPOILERS,
 );

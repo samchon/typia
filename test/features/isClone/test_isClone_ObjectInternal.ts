@@ -5,6 +5,6 @@ import { ObjectInternal } from "../../structures/ObjectInternal";
 export const test_isClone_ObjectInternal = _test_isClone(
     "ObjectInternal",
     ObjectInternal.generate,
-    (input) => typia.isClone(input),
+    (input) => typia.isClone<ObjectInternal>(input),
     ObjectInternal.SPOILERS,
 );

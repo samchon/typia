@@ -5,5 +5,5 @@ import { ArrayUnion } from "../../structures/ArrayUnion";
 export const test_equals_ArrayUnion = _test_equals(
     "ArrayUnion",
     ArrayUnion.generate,
-    (input) => typia.equals(input),
+    (input) => typia.equals<ArrayUnion>(input),
 );

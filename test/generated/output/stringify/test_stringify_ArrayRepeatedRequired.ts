@@ -6,7 +6,7 @@ export const test_stringify_ArrayRepeatedRequired = _test_stringify(
     "ArrayRepeatedRequired",
     ArrayRepeatedRequired.generate,
     (input) =>
-        ((input: string | number | Array<ArrayRepeatedRequired>): string => {
+        ((input: ArrayRepeatedRequired): string => {
             const $ia0 = (input: any): any =>
                 input.every(
                     (elem: any) =>

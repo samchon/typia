@@ -6,11 +6,11 @@ export const test_assertEquals_ArrayRecursiveUnionImplicit = _test_assertEquals(
     "ArrayRecursiveUnionImplicit",
     ArrayRecursiveUnionImplicit.generate,
     (input) =>
-        ((input: any): Array<ArrayRecursiveUnionImplicit.IBucket> => {
+        ((input: any): ArrayRecursiveUnionImplicit => {
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
-            ): input is Array<ArrayRecursiveUnionImplicit.IBucket> => {
+            ): input is ArrayRecursiveUnionImplicit => {
                 const $io0 = (
                     input: any,
                     _exceptionable: boolean = true,
@@ -205,7 +205,7 @@ export const test_assertEquals_ArrayRecursiveUnionImplicit = _test_assertEquals(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is Array<ArrayRecursiveUnionImplicit.IBucket> => {
+                ): input is ArrayRecursiveUnionImplicit => {
                     const $guard = (typia.assertEquals as any).guard;
                     const $join = (typia.assertEquals as any).join;
                     const $ao0 = (

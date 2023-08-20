@@ -5,6 +5,6 @@ import { ObjectNullable } from "../../structures/ObjectNullable";
 export const test_is_ObjectNullable = _test_is(
     "ObjectNullable",
     ObjectNullable.generate,
-    (input) => typia.is(input),
+    (input) => typia.is<ObjectNullable>(input),
     ObjectNullable.SPOILERS,
 );

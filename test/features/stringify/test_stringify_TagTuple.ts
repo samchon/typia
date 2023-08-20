@@ -5,5 +5,5 @@ import { TagTuple } from "../../structures/TagTuple";
 export const test_stringify_TagTuple = _test_stringify(
     "TagTuple",
     TagTuple.generate,
-    (input) => typia.stringify(input),
+    (input) => typia.stringify<TagTuple>(input),
 );

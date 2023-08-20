@@ -5,6 +5,6 @@ import { MapAlias } from "../../structures/MapAlias";
 export const test_isClone_MapAlias = _test_isClone(
     "MapAlias",
     MapAlias.generate,
-    (input) => typia.isClone(input),
+    (input) => typia.isClone<MapAlias>(input),
     MapAlias.SPOILERS,
 );

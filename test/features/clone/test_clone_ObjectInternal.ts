@@ -5,5 +5,5 @@ import { ObjectInternal } from "../../structures/ObjectInternal";
 export const test_clone_ObjectInternal = _test_clone(
     "ObjectInternal",
     ObjectInternal.generate,
-    (input) => typia.clone(input),
+    (input) => typia.clone<ObjectInternal>(input),
 );

@@ -6,7 +6,7 @@ export const test_is_ObjectUnionDouble = _test_is(
     "ObjectUnionDouble",
     ObjectUnionDouble.generate,
     (input) =>
-        ((input: any): input is Array<ObjectUnionDouble.Union> => {
+        ((input: any): input is ObjectUnionDouble => {
             const $io0 = (input: any): boolean =>
                 "object" === typeof input.value &&
                 null !== input.value &&

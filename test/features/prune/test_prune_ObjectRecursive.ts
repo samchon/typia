@@ -5,5 +5,5 @@ import { ObjectRecursive } from "../../structures/ObjectRecursive";
 export const test_prune_ObjectRecursive = _test_prune(
     "ObjectRecursive",
     ObjectRecursive.generate,
-    (input) => typia.prune(input),
+    (input) => typia.prune<ObjectRecursive>(input),
 );

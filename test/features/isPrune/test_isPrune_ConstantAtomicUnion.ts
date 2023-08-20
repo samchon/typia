@@ -5,6 +5,6 @@ import { ConstantAtomicUnion } from "../../structures/ConstantAtomicUnion";
 export const test_isPrune_ConstantAtomicUnion = _test_isPrune(
     "ConstantAtomicUnion",
     ConstantAtomicUnion.generate,
-    (input) => typia.isPrune(input),
+    (input) => typia.isPrune<ConstantAtomicUnion>(input),
     ConstantAtomicUnion.SPOILERS,
 );

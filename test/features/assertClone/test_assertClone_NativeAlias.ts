@@ -5,6 +5,6 @@ import { NativeAlias } from "../../structures/NativeAlias";
 export const test_assertClone_NativeAlias = _test_assertClone(
     "NativeAlias",
     NativeAlias.generate,
-    (input) => typia.assertClone(input),
+    (input) => typia.assertClone<NativeAlias>(input),
     NativeAlias.SPOILERS,
 );

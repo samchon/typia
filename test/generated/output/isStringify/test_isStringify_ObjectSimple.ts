@@ -6,8 +6,8 @@ export const test_isStringify_ObjectSimple = _test_isStringify(
     "ObjectSimple",
     ObjectSimple.generate,
     (input) =>
-        ((input: ObjectSimple.IBox3D): string | null => {
-            const is = (input: any): input is ObjectSimple.IBox3D => {
+        ((input: ObjectSimple): string | null => {
+            const is = (input: any): input is ObjectSimple => {
                 return (
                     "object" === typeof input &&
                     null !== input &&
@@ -45,7 +45,7 @@ export const test_isStringify_ObjectSimple = _test_isStringify(
                     Number.isFinite(((input as any).pivot as any).z)
                 );
             };
-            const stringify = (input: ObjectSimple.IBox3D): string => {
+            const stringify = (input: ObjectSimple): string => {
                 const $io1 = (input: any): boolean =>
                     "number" === typeof input.x &&
                     "number" === typeof input.y &&

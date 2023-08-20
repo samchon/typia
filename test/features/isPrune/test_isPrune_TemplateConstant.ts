@@ -5,6 +5,6 @@ import { TemplateConstant } from "../../structures/TemplateConstant";
 export const test_isPrune_TemplateConstant = _test_isPrune(
     "TemplateConstant",
     TemplateConstant.generate,
-    (input) => typia.isPrune(input),
+    (input) => typia.isPrune<TemplateConstant>(input),
     TemplateConstant.SPOILERS,
 );

@@ -5,6 +5,6 @@ import { TagCustom } from "../../structures/TagCustom";
 export const test_isClone_TagCustom = _test_isClone(
     "TagCustom",
     TagCustom.generate,
-    (input) => typia.isClone(input),
+    (input) => typia.isClone<TagCustom>(input),
     TagCustom.SPOILERS,
 );

@@ -6,26 +6,14 @@ export const test_validatePrune_ObjectUnionNonPredictable = _test_validatePrune(
     "ObjectUnionNonPredictable",
     ObjectUnionNonPredictable.generate,
     (input) =>
-        ((
-            input: any,
-        ): typia.IValidation<
-            Array<
-                ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
-            >
-        > => {
+        ((input: any): typia.IValidation<ObjectUnionNonPredictable> => {
             const validate = (
                 input: any,
-            ): typia.IValidation<
-                Array<
-                    ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
-                >
-            > => {
+            ): typia.IValidation<ObjectUnionNonPredictable> => {
                 const errors = [] as any[];
                 const __is = (
                     input: any,
-                ): input is Array<
-                    ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
-                > => {
+                ): input is ObjectUnionNonPredictable => {
                     const $io0 = (input: any): boolean =>
                         "object" === typeof input.value &&
                         null !== input.value &&
@@ -70,9 +58,7 @@ export const test_validatePrune_ObjectUnionNonPredictable = _test_validatePrune(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is Array<
-                        ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
-                    > => {
+                    ): input is ObjectUnionNonPredictable => {
                         const $vo0 = (
                             input: any,
                             _path: string,
@@ -302,11 +288,7 @@ export const test_validatePrune_ObjectUnionNonPredictable = _test_validatePrune(
                     data: success ? input : undefined,
                 } as any;
             };
-            const prune = (
-                input: Array<
-                    ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
-                >,
-            ): void => {
+            const prune = (input: ObjectUnionNonPredictable): void => {
                 const $io1 = (input: any): boolean =>
                     "object" === typeof input.value &&
                     null !== input.value &&

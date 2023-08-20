@@ -6,8 +6,8 @@ export const test_isPrune_TemplateUnion = _test_isPrune(
     "TemplateUnion",
     TemplateUnion.generate,
     (input) =>
-        ((input: any): input is Array<TemplateUnion.Type> => {
-            const is = (input: any): input is Array<TemplateUnion.Type> => {
+        ((input: any): input is TemplateUnion => {
+            const is = (input: any): input is TemplateUnion => {
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.prefix &&
                     (RegExp(/^prefix_(.*)/).test(input.prefix) ||
@@ -51,7 +51,7 @@ export const test_isPrune_TemplateUnion = _test_isPrune(
                     )
                 );
             };
-            const prune = (input: Array<TemplateUnion.Type>): void => {
+            const prune = (input: TemplateUnion): void => {
                 const $io1 = (input: any): boolean =>
                     "string" === typeof input.name;
                 const $pp0 = (input: any) =>

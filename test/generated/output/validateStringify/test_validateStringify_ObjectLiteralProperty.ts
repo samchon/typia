@@ -7,16 +7,14 @@ export const test_validateStringify_ObjectLiteralProperty =
         "ObjectLiteralProperty",
         ObjectLiteralProperty.generate,
         (input) =>
-            ((
-                input: ObjectLiteralProperty.ISomething,
-            ): typia.IValidation<string> => {
+            ((input: ObjectLiteralProperty): typia.IValidation<string> => {
                 const validate = (
                     input: any,
-                ): typia.IValidation<ObjectLiteralProperty.ISomething> => {
+                ): typia.IValidation<ObjectLiteralProperty> => {
                     const errors = [] as any[];
                     const __is = (
                         input: any,
-                    ): input is ObjectLiteralProperty.ISomething => {
+                    ): input is ObjectLiteralProperty => {
                         return (
                             "object" === typeof input &&
                             null !== input &&
@@ -38,7 +36,7 @@ export const test_validateStringify_ObjectLiteralProperty =
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
-                        ): input is ObjectLiteralProperty.ISomething => {
+                        ): input is ObjectLiteralProperty => {
                             const $vo0 = (
                                 input: any,
                                 _path: string,
@@ -98,9 +96,7 @@ export const test_validateStringify_ObjectLiteralProperty =
                         data: success ? input : undefined,
                     } as any;
                 };
-                const stringify = (
-                    input: ObjectLiteralProperty.ISomething,
-                ): string => {
+                const stringify = (input: ObjectLiteralProperty): string => {
                     const $string = (typia.validateStringify as any).string;
                     return `{"something-interesting-do-you-want?":${$string(
                         (input as any)["something-interesting-do-you-want?"],

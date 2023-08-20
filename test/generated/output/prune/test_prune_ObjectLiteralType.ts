@@ -6,7 +6,7 @@ export const test_prune_ObjectLiteralType = _test_prune(
     "ObjectLiteralType",
     ObjectLiteralType.generate,
     (input) =>
-        ((input: { id: string; name: string; age: number }): void => {
+        ((input: ObjectLiteralType): void => {
             const $po0 = (input: any): any => {
                 for (const key of Object.keys(input)) {
                     if ("id" === key || "name" === key || "age" === key)

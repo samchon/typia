@@ -5,5 +5,5 @@ import { TagObjectUnion } from "../../structures/TagObjectUnion";
 export const test_stringify_TagObjectUnion = _test_stringify(
     "TagObjectUnion",
     TagObjectUnion.generate,
-    (input) => typia.stringify(input),
+    (input) => typia.stringify<TagObjectUnion>(input),
 );

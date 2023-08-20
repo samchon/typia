@@ -6,32 +6,12 @@ export const test_validatePrune_ArrayAtomicAlias = _test_validatePrune(
     "ArrayAtomicAlias",
     ArrayAtomicAlias.generate,
     (input) =>
-        ((
-            input: any,
-        ): typia.IValidation<
-            [
-                ArrayAtomicAlias.Alias<boolean>,
-                ArrayAtomicAlias.Alias<number>,
-                ArrayAtomicAlias.Alias<string>,
-            ]
-        > => {
+        ((input: any): typia.IValidation<ArrayAtomicAlias> => {
             const validate = (
                 input: any,
-            ): typia.IValidation<
-                [
-                    ArrayAtomicAlias.Alias<boolean>,
-                    ArrayAtomicAlias.Alias<number>,
-                    ArrayAtomicAlias.Alias<string>,
-                ]
-            > => {
+            ): typia.IValidation<ArrayAtomicAlias> => {
                 const errors = [] as any[];
-                const __is = (
-                    input: any,
-                ): input is [
-                    ArrayAtomicAlias.Alias<boolean>,
-                    ArrayAtomicAlias.Alias<number>,
-                    ArrayAtomicAlias.Alias<string>,
-                ] => {
+                const __is = (input: any): input is ArrayAtomicAlias => {
                     return (
                         Array.isArray(input) &&
                         input.length === 3 &&
@@ -55,11 +35,7 @@ export const test_validatePrune_ArrayAtomicAlias = _test_validatePrune(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is [
-                        ArrayAtomicAlias.Alias<boolean>,
-                        ArrayAtomicAlias.Alias<number>,
-                        ArrayAtomicAlias.Alias<string>,
-                    ] => {
+                    ): input is ArrayAtomicAlias => {
                         return (
                             ((Array.isArray(input) ||
                                 $report(true, {
@@ -178,13 +154,7 @@ export const test_validatePrune_ArrayAtomicAlias = _test_validatePrune(
                     data: success ? input : undefined,
                 } as any;
             };
-            const prune = (
-                input: [
-                    ArrayAtomicAlias.Alias<boolean>,
-                    ArrayAtomicAlias.Alias<number>,
-                    ArrayAtomicAlias.Alias<string>,
-                ],
-            ): void => {};
+            const prune = (input: ArrayAtomicAlias): void => {};
             const output = validate(input);
             if (output.success) prune(input);
             return output;

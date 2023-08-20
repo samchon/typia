@@ -9,7 +9,7 @@ export const test_equals_ObjectSimple = _test_equals(
         ((
             input: any,
             _exceptionable: boolean = true,
-        ): input is ObjectSimple.IBox3D => {
+        ): input is ObjectSimple => {
             const $io0 = (
                 input: any,
                 _exceptionable: boolean = true,

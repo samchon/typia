@@ -6,26 +6,9 @@ export const test_validate_DynamicJsonValue = _test_validate(
     "DynamicJsonValue",
     DynamicJsonValue.generate,
     (input) =>
-        ((
-            input: any,
-        ): typia.IValidation<
-            | string
-            | number
-            | boolean
-            | DynamicJsonValue.JsonObject
-            | DynamicJsonValue.JsonArray
-            | null
-        > => {
+        ((input: any): typia.IValidation<DynamicJsonValue> => {
             const errors = [] as any[];
-            const __is = (
-                input: any,
-            ): input is
-                | string
-                | number
-                | boolean
-                | DynamicJsonValue.JsonObject
-                | DynamicJsonValue.JsonArray
-                | null => {
+            const __is = (input: any): input is DynamicJsonValue => {
                 const $join = (typia.validate as any).join;
                 const $io0 = (input: any): boolean =>
                     Object.keys(input).every((key: any) => {
@@ -83,13 +66,7 @@ export const test_validate_DynamicJsonValue = _test_validate(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is
-                    | string
-                    | number
-                    | boolean
-                    | DynamicJsonValue.JsonObject
-                    | DynamicJsonValue.JsonArray
-                    | null => {
+                ): input is DynamicJsonValue => {
                     const $join = (typia.validate as any).join;
                     const $vo0 = (
                         input: any,

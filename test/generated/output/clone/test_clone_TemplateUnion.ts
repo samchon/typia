@@ -6,9 +6,7 @@ export const test_clone_TemplateUnion = _test_clone(
     "TemplateUnion",
     TemplateUnion.generate,
     (input) =>
-        ((
-            input: Array<TemplateUnion.Type>,
-        ): typia.Primitive<Array<TemplateUnion.Type>> => {
+        ((input: TemplateUnion): typia.Primitive<TemplateUnion> => {
             const $io1 = (input: any): boolean =>
                 "string" === typeof input.name;
             const $cp0 = (input: any) =>

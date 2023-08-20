@@ -6,24 +6,12 @@ export const test_validateEquals_ObjectGeneric = _test_validateEquals(
     "ObjectGeneric",
     ObjectGeneric.generate,
     (input) =>
-        ((
-            input: any,
-        ): typia.IValidation<
-            [
-                ObjectGeneric.ISomething<boolean>,
-                ObjectGeneric.ISomething<number>,
-                ObjectGeneric.ISomething<string>,
-            ]
-        > => {
+        ((input: any): typia.IValidation<ObjectGeneric> => {
             const errors = [] as any[];
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
-            ): input is [
-                ObjectGeneric.ISomething<boolean>,
-                ObjectGeneric.ISomething<number>,
-                ObjectGeneric.ISomething<string>,
-            ] => {
+            ): input is ObjectGeneric => {
                 const $io0 = (
                     input: any,
                     _exceptionable: boolean = true,
@@ -182,11 +170,7 @@ export const test_validateEquals_ObjectGeneric = _test_validateEquals(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is [
-                    ObjectGeneric.ISomething<boolean>,
-                    ObjectGeneric.ISomething<number>,
-                    ObjectGeneric.ISomething<string>,
-                ] => {
+                ): input is ObjectGeneric => {
                     const $join = (typia.validateEquals as any).join;
                     const $vo0 = (
                         input: any,
