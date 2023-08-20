@@ -67,8 +67,7 @@ export const test_json_isParse_UltimateUnion =
                         "uint32" === input.value ||
                         "int64" === input.value ||
                         "uint64" === input.value ||
-                        "float" === input.value ||
-                        "double" === input.value);
+                        "float" === input.value);
                 const $io3 = (input: any): boolean =>
                     "minimum" === input.kind &&
                     "number" === typeof input.value &&

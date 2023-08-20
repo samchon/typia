@@ -198,7 +198,6 @@ export const test_random_UltimateUnion = _test_random<UltimateUnion>(
                     () => "int64",
                     () => "uint64",
                     () => "float",
-                    () => "double",
                 ])(),
             });
             const $ro3 = (
@@ -4709,8 +4708,7 @@ export const test_random_UltimateUnion = _test_random<UltimateUnion>(
                     "uint32" === input.value ||
                     "int64" === input.value ||
                     "uint64" === input.value ||
-                    "float" === input.value ||
-                    "double" === input.value);
+                    "float" === input.value);
             const $io3 = (input: any): boolean =>
                 "minimum" === input.kind &&
                 "number" === typeof input.value &&
@@ -6275,11 +6273,10 @@ export const test_random_UltimateUnion = _test_random<UltimateUnion>(
                         "int64" === input.value ||
                         "uint64" === input.value ||
                         "float" === input.value ||
-                        "double" === input.value ||
                         $guard(_exceptionable, {
                             path: _path + ".value",
                             expected:
-                                '("double" | "float" | "int" | "int32" | "int64" | "uint" | "uint32" | "uint64")',
+                                '("float" | "int" | "int32" | "int64" | "uint" | "uint32" | "uint64")',
                             value: input.value,
                         }));
                 const $ao3 = (

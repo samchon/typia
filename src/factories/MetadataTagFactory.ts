@@ -93,8 +93,7 @@ export namespace MetadataTagFactory {
                     text === "uint32" ||
                     text === "int64" ||
                     text === "uint64" ||
-                    text === "float" ||
-                    text === "double")
+                    text === "float")
                 ? { kind: "type", value: text }
                 : null;
         },

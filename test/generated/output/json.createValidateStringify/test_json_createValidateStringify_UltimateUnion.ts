@@ -71,8 +71,7 @@ export const test_json_validateStringify_UltimateUnion =
                             "uint32" === input.value ||
                             "int64" === input.value ||
                             "uint64" === input.value ||
-                            "float" === input.value ||
-                            "double" === input.value);
+                            "float" === input.value);
                     const $io3 = (input: any): boolean =>
                         "minimum" === input.kind &&
                         "number" === typeof input.value &&
@@ -1747,11 +1746,10 @@ export const test_json_validateStringify_UltimateUnion =
                                     "int64" === input.value ||
                                     "uint64" === input.value ||
                                     "float" === input.value ||
-                                    "double" === input.value ||
                                     $report(_exceptionable, {
                                         path: _path + ".value",
                                         expected:
-                                            '("double" | "float" | "int" | "int32" | "int64" | "uint" | "uint32" | "uint64")',
+                                            '("float" | "int" | "int32" | "int64" | "uint" | "uint32" | "uint64")',
                                         value: input.value,
                                     }),
                             ].every((flag: boolean) => flag);
@@ -8550,8 +8548,7 @@ export const test_json_validateStringify_UltimateUnion =
                         "uint32" === input.value ||
                         "int64" === input.value ||
                         "uint64" === input.value ||
-                        "float" === input.value ||
-                        "double" === input.value);
+                        "float" === input.value);
                 const $io3 = (input: any): boolean =>
                     "minimum" === input.kind && "number" === typeof input.value;
                 const $io4 = (input: any): boolean =>
@@ -9957,7 +9954,7 @@ export const test_json_validateStringify_UltimateUnion =
                             return '"' + input.value + '"';
                         $throws({
                             expected:
-                                '("double" | "float" | "int" | "int32" | "int64" | "uint" | "uint32" | "uint64")',
+                                '("float" | "int" | "int32" | "int64" | "uint" | "uint32" | "uint64")',
                             value: input.value,
                         });
                     })()}}`;

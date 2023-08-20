@@ -597,8 +597,7 @@ export namespace ProtobufEncodeProgrammer {
                 return out(ProtobufWire.VARIANT)(
                     type?.value === "uint64" ? "uint64" : "int64",
                 );
-            else if (type === undefined || type?.value === "double")
-                return out(ProtobufWire.I64)("double");
+            else if (type === undefined) return out(ProtobufWire.I64)("double");
             else if (type.value === "float")
                 return out(ProtobufWire.I32)("float");
             return out(ProtobufWire.VARIANT)(

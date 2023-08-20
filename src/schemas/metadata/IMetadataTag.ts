@@ -31,8 +31,7 @@ export namespace IMetadataTag {
             | "uint32"
             | "int64"
             | "uint64"
-            | "float"
-            | "double";
+            | "float";
     }
 
     export interface IMinimum {
