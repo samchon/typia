@@ -99,11 +99,13 @@ function script(
               struct.RANDOM ? `${struct.name}.RANDOM` : ""
           })`
         : `(input) => ${symbol}<${struct.name}>(input)`;
-    const body: string = feat.opposite
+    const body: string = feat.opposite?.length
         ? [
               "{",
               `    ${feat.method}: ${call},`,
-              `    ${feat.opposite.name}: ${feat.opposite.method}<${struct.name}>(),`,
+              ...feat.opposite.map(
+                  (o) => `    ${o.name}: ${o.method}<${struct.name}>(),`,
+              ),
               "}",
           ].join("\n")
         : call;
