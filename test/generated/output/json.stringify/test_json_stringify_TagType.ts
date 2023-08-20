@@ -8,9 +8,9 @@ export const test_json_stringify_TagType = _test_json_stringify<TagType>(
     ((input: TagType): string => {
         const $io1 = (input: any): boolean =>
             "number" === typeof input.int &&
-            parseInt(input.int) === input.int &&
+            Math.floor(input.int) === input.int &&
             "number" === typeof input.uint &&
-            parseInt(input.uint) === input.uint &&
+            Math.floor(input.uint) === input.uint &&
             0 <= input.uint;
         const $number = (typia.json.stringify as any).number;
         const $so0 = (input: any): any =>

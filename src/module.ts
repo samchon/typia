@@ -130,44 +130,6 @@ export function assert(): never {
 Object.assign(assert, Namespace.assert("assert"));
 
 /**
- * Asserts a value type.
- *
- * Duplicated function of {@link assert} for `typescript-is` users.
- *
- * @template T Type of the input value
- * @param input A value to be asserted
- * @returns Parametric input value
- * @throws A {@link TypeGuardError} instance with detailed reason
- *
- * @author Jeongho Nam - https://github.com/samchon
- * @deprecated
- */
-export function assertType<T>(input: T): T;
-
-/**
- * Asserts a value type.
- *
- * Duplicated function of {@link assert} for `typescript-is` users.
- *
- * @template T Type of the input value
- * @param input A value to be asserted
- * @returns Parametric input value
- * @throws A {@link TypeGuardError} instance with detailed reason
- *
- * @author Jeongho Nam - https://github.com/samchon
- * @deprecated
- */
-export function assertType<T>(input: unknown): T;
-
-/**
- * @internal
- */
-export function assertType(): never {
-    halt("assertType");
-}
-Object.assign(assertType, Namespace.assert("assertType"));
-
-/**
  * Tests a value type.
  *
  * Tests a parametric value type and returns whether it's following the type `T` or not.
@@ -557,41 +519,6 @@ export function createAssert<T>(): (input: unknown) => T {
     halt("createAssert");
 }
 Object.assign(createAssert, assert);
-
-/**
- * Creates a reusable {@link assertType} function.
- *
- * Duplicated function of {@link createAssert} for `typescript-is` users.
- *
- * @danger You have to specify the generic argument `T`
- * @return Nothing until specifying the generic argument `T`
- * @throws compile error
- *
- * @author Jeongho Nam - https://github.com/samchon
- * @deprecated
- */
-export function createAssertType(): never;
-
-/**
- * Creates a reusable {@link assertType} function.
- *
- * Duplicated function of {@link createAssert} for `typescript-is` users.
- *
- * @template T Type of the input value
- * @returns A reusable `assert` function
- *
- * @author Jeongho Nam - https://github.com/samchon
- * @deprecated
- */
-export function createAssertType<T>(): (input: unknown) => T;
-
-/**
- * @internal
- */
-export function createAssertType<T>(): (input: unknown) => T {
-    halt("createAssertType");
-}
-Object.assign(createAssertType, assertType);
 
 /**
  * Creates a reusable {@link is} function.

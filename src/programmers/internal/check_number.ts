@@ -22,23 +22,76 @@ export const check_number =
         const entries: [IMetadataTag, ts.Expression][] = [];
         for (const tag of metaTags)
             if (tag.kind === "type") {
-                entries.push([
-                    tag,
-                    ts.factory.createStrictEquality(
-                        ts.factory.createCallExpression(
-                            ts.factory.createIdentifier("parseInt"),
-                            undefined,
-                            [input],
+                // MUST BE INTEGER
+                if (
+                    tag.value === "int" ||
+                    tag.value === "uint" ||
+                    tag.value === "int32" ||
+                    tag.value === "uint32" ||
+                    tag.value === "int64" ||
+                    tag.value === "uint64"
+                )
+                    entries.push([
+                        tag,
+                        ts.factory.createStrictEquality(
+                            ts.factory.createCallExpression(
+                                ts.factory.createIdentifier("Math.floor"),
+                                undefined,
+                                [input],
+                            ),
+                            input,
                         ),
-                        input,
-                    ),
-                ]);
-                if (tag.value === "uint")
+                    ]);
+                // GREATER THAN OR EQUAL TO ZERO
+                if (
+                    tag.value === "uint" ||
+                    tag.value === "uint32" ||
+                    tag.value === "uint64"
+                )
                     entries.push([
                         tag,
                         ts.factory.createLessThanEquals(
                             ts.factory.createNumericLiteral(0),
                             input,
+                        ),
+                    ]);
+                // RANGE LIMIT
+                if (tag.value === "uint32")
+                    entries.push([
+                        tag,
+                        ts.factory.createLessThanEquals(
+                            input,
+                            ts.factory.createNumericLiteral(4294967295),
+                        ),
+                    ]);
+                else if (tag.value === "int32")
+                    entries.push([
+                        tag,
+                        ts.factory.createLogicalAnd(
+                            ts.factory.createLessThanEquals(
+                                ts.factory.createNumericLiteral(-2147483648),
+                                input,
+                            ),
+                            ts.factory.createLessThanEquals(
+                                input,
+                                ts.factory.createNumericLiteral(2147483647),
+                            ),
+                        ),
+                    ]);
+                else if (tag.value === "float")
+                    entries.push([
+                        tag,
+                        ts.factory.createLogicalAnd(
+                            ts.factory.createLessThanEquals(
+                                ts.factory.createNumericLiteral(
+                                    -1.175494351e38,
+                                ),
+                                input,
+                            ),
+                            ts.factory.createLessThanEquals(
+                                input,
+                                ts.factory.createNumericLiteral(3.4028235e38),
+                            ),
                         ),
                     ]);
             } else if (tag.kind === "multipleOf")

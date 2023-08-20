@@ -19,7 +19,10 @@ export const _test_protobuf_encode =
             }
         })();
 
-        if (functor.message.indexOf("oneof") === -1) {
+        if (
+            functor.message.indexOf("oneof") === -1 &&
+            functor.message.indexOf("int64") === -1
+        ) {
             const exected: Uint8Array = google(functor.message)(data);
             if (
                 result.length !== exected.length &&

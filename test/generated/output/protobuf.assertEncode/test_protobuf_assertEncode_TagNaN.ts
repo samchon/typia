@@ -26,7 +26,7 @@ export const test_protobuf_assertEncode_TagNaN =
                             0 === (input as any).multipleOf % 3 &&
                             "number" === typeof (input as any).typed &&
                             Number.isFinite((input as any).typed) &&
-                            parseInt((input as any).typed) ===
+                            Math.floor((input as any).typed) ===
                                 (input as any).typed
                         );
                     };
@@ -108,7 +108,7 @@ export const test_protobuf_assertEncode_TagNaN =
                                     })) &&
                                 (("number" === typeof input.typed &&
                                     Number.isFinite(input.typed) &&
-                                    (parseInt(input.typed) === input.typed ||
+                                    (Math.floor(input.typed) === input.typed ||
                                         $guard(_exceptionable, {
                                             path: _path + ".typed",
                                             expected: "number (@type int)",

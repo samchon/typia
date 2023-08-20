@@ -17,10 +17,10 @@ export const test_json_assertStringify_TagType =
                 const $io1 = (input: any): boolean =>
                     "number" === typeof input.int &&
                     Number.isFinite(input.int) &&
-                    parseInt(input.int) === input.int &&
+                    Math.floor(input.int) === input.int &&
                     "number" === typeof input.uint &&
                     Number.isFinite(input.uint) &&
-                    parseInt(input.uint) === input.uint &&
+                    Math.floor(input.uint) === input.uint &&
                     0 <= input.uint;
                 return (
                     "object" === typeof input && null !== input && $io0(input)
@@ -81,7 +81,7 @@ export const test_json_assertStringify_TagType =
                     ): boolean =>
                         (("number" === typeof input.int &&
                             Number.isFinite(input.int) &&
-                            (parseInt(input.int) === input.int ||
+                            (Math.floor(input.int) === input.int ||
                                 $guard(_exceptionable, {
                                     path: _path + ".int",
                                     expected: "number (@type int)",
@@ -94,7 +94,7 @@ export const test_json_assertStringify_TagType =
                             })) &&
                         (("number" === typeof input.uint &&
                             Number.isFinite(input.uint) &&
-                            (parseInt(input.uint) === input.uint ||
+                            (Math.floor(input.uint) === input.uint ||
                                 $guard(_exceptionable, {
                                     path: _path + ".uint",
                                     expected: "number (@type uint)",
@@ -131,9 +131,9 @@ export const test_json_assertStringify_TagType =
         const stringify = (input: TagType): string => {
             const $io1 = (input: any): boolean =>
                 "number" === typeof input.int &&
-                parseInt(input.int) === input.int &&
+                Math.floor(input.int) === input.int &&
                 "number" === typeof input.uint &&
-                parseInt(input.uint) === input.uint &&
+                Math.floor(input.uint) === input.uint &&
                 0 <= input.uint;
             const $number = (typia.json.createAssertStringify as any).number;
             const $so0 = (input: any): any =>

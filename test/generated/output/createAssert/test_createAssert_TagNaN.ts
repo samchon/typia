@@ -23,7 +23,7 @@ export const test_assert_TagNaN = _test_assert<TagNaN>(TagNaN)(
                 0 === (input as any).multipleOf % 3 &&
                 "number" === typeof (input as any).typed &&
                 Number.isFinite((input as any).typed) &&
-                parseInt((input as any).typed) === (input as any).typed
+                Math.floor((input as any).typed) === (input as any).typed
             );
         };
         if (false === __is(input))
@@ -103,7 +103,7 @@ export const test_assert_TagNaN = _test_assert<TagNaN>(TagNaN)(
                         })) &&
                     (("number" === typeof input.typed &&
                         Number.isFinite(input.typed) &&
-                        (parseInt(input.typed) === input.typed ||
+                        (Math.floor(input.typed) === input.typed ||
                             $guard(_exceptionable, {
                                 path: _path + ".typed",
                                 expected: "number (@type int)",

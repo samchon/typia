@@ -317,7 +317,7 @@ export namespace RandomProgrammer {
             ? ts.factory.createNumericLiteral(value)
             : typeof value === "string"
             ? ts.factory.createStringLiteral(value)
-            : ts.factory.createBigIntLiteral(value.toString());
+            : ExpressionFactory.bigint(Number(value));
 
     const decode_template =
         (importer: FunctionImporter) =>
@@ -332,11 +332,16 @@ export namespace RandomProgrammer {
         (tags: IMetadataTag[]) =>
         (comments: ICommentTag[]): ts.Expression => {
             const type = tags.find(
-                (t) => t.kind === "type" && t.value === "uint",
+                (t) =>
+                    t.kind === "type" &&
+                    (t.value === "int" ||
+                        t.value === "uint" ||
+                        t.value === "int32" ||
+                        t.value === "uint32" ||
+                        t.value === "int64" ||
+                        t.value === "uint64"),
             )
                 ? "int"
-                : tags.find((t) => t.kind === "type" && t.value === "int")
-                ? "uint"
                 : "double";
             return random_custom(COALESCE(importer))("number")(comments)(
                 RandomRanger.number({
