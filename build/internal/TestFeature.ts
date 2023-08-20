@@ -8,10 +8,10 @@ export interface TestFeature {
     explicit?: true;
     primitive?: true;
     random?: true;
-    opposite?: {
+    opposite?: Array<{
         name: string;
         method: string;
-    };
+    }>;
 }
 export namespace TestFeature {
     export const DATA: TestFeature[] = [
@@ -69,10 +69,12 @@ export namespace TestFeature {
             spoilable: false,
             primitive: true,
             random: true,
-            opposite: {
-                name: "assert",
-                method: "typia.createAssert",
-            },
+            opposite: [
+                {
+                    name: "assert",
+                    method: "typia.createAssert",
+                },
+            ],
         },
 
         //----
@@ -84,40 +86,48 @@ export namespace TestFeature {
             method: "encode",
             creatable: true,
             spoilable: false,
-            opposite: {
-                name: "message",
-                method: "typia.protobuf.message",
-            },
+            opposite: [
+                {
+                    name: "message",
+                    method: "typia.protobuf.message",
+                },
+            ],
         },
         {
             module: "protobuf",
             method: "isEncode",
             creatable: true,
             spoilable: true,
-            opposite: {
-                name: "message",
-                method: "typia.protobuf.message",
-            },
+            opposite: [
+                {
+                    name: "message",
+                    method: "typia.protobuf.message",
+                },
+            ],
         },
         {
             module: "protobuf",
             method: "assertEncode",
             creatable: true,
             spoilable: true,
-            opposite: {
-                name: "message",
-                method: "typia.protobuf.message",
-            },
+            opposite: [
+                {
+                    name: "message",
+                    method: "typia.protobuf.message",
+                },
+            ],
         },
         {
             module: "protobuf",
             method: "validateEncode",
             creatable: true,
             spoilable: true,
-            opposite: {
-                name: "message",
-                method: "typia.protobuf.message",
-            },
+            opposite: [
+                {
+                    name: "message",
+                    method: "typia.protobuf.message",
+                },
+            ],
         },
 
         //----

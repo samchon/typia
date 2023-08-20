@@ -1,6 +1,13 @@
 import ts from "typescript";
 
 export namespace ExpressionFactory {
+    export const bigint = (value: number) =>
+        ts.factory.createCallExpression(
+            ts.factory.createIdentifier("BigInt"),
+            undefined,
+            [ts.factory.createNumericLiteral(value)],
+        );
+
     export const isRequired = (input: ts.Expression): ts.Expression =>
         ts.factory.createStrictInequality(
             ts.factory.createIdentifier("undefined"),

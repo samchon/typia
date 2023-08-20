@@ -93,8 +93,7 @@ export namespace MetadataTagFactory {
                     text === "uint32" ||
                     text === "int64" ||
                     text === "uint64" ||
-                    text === "float" ||
-                    text === "double")
+                    text === "float")
                 ? { kind: "type", value: text }
                 : null;
         },
@@ -315,6 +314,7 @@ const has_atomic =
             metadata.tuples.some((tuple) =>
                 tuple.elements.some(has_atomic(type)(visited)),
             ) ||
+            metadata.maps.some((map) => has_atomic(type)(visited)(map.value)) ||
             metadata.aliases.some((alias) =>
                 has_atomic(type)(visited)(alias.value),
             ) ||
@@ -337,6 +337,7 @@ const has_native =
             metadata.tuples.some((tuple) =>
                 tuple.elements.some(has_native(type)(visited)),
             ) ||
+            metadata.maps.some((map) => has_native(type)(visited)(map.value)) ||
             metadata.aliases.some((alias) =>
                 has_native(type)(visited)(alias.value),
             ) ||
@@ -355,6 +356,7 @@ const has_array =
             metadata.tuples.some((tuple) =>
                 tuple.elements.some(has_array(visited)),
             ) ||
+            metadata.maps.some((map) => has_array(visited)(map.value)) ||
             metadata.aliases.some((alias) => has_array(visited)(alias.value)) ||
             (metadata.resolved !== null &&
                 has_array(visited)(metadata.resolved.returns))
