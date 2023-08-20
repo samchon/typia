@@ -84,11 +84,17 @@ export namespace MetadataTagFactory {
             NUMBER
         ----------------------------------------------------------- */
         type: (_identifier, metadata, text, _output) => {
+            if (text.startsWith("{") && text.endsWith("}"))
+                text = text.substring(1, text.length - 1);
             return has_atomic("number")(new Set())(metadata) &&
-                (text === "int" || text === "uint")
+                (text === "int" ||
+                    text === "uint" ||
+                    text === "int32" ||
+                    text === "uint32" ||
+                    text === "int64" ||
+                    text === "uint64" ||
+                    text === "float")
                 ? { kind: "type", value: text }
-                : text === "{int}" || text === "{uint}"
-                ? { kind: "type", value: text.slice(1, -1) as "int" | "uint" }
                 : null;
         },
         minimum: (identifier, metadata, text, output) => {
@@ -291,7 +297,7 @@ const validate = (
 
 // @todo: must block repeated array and tuple type
 const has_atomic =
-    (type: "string" | "number") =>
+    (type: "string" | "number" | "bigint") =>
     (visited: Set<Metadata>) =>
     (metadata: Metadata): boolean => {
         if (visited.has(metadata)) return false;

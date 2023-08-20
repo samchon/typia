@@ -466,8 +466,8 @@ export namespace CheckerProgrammer {
                                 ...explore,
                                 from: "array",
                             },
-                            [],
-                            [],
+                            metaTags,
+                            jsDocTags,
                         ),
                     );
             }
@@ -775,8 +775,8 @@ export namespace CheckerProgrammer {
                                 ? `${explore.postfix.slice(0, -1)}[${index}]"`
                                 : `"[${index}]"`,
                         },
-                        tagList,
-                        jsDocTags,
+                        tuple.of_map === true && index !== 1 ? [] : tagList,
+                        tuple.of_map === true && index !== 1 ? [] : jsDocTags,
                     ),
                 );
             const rest: ts.Expression | null =

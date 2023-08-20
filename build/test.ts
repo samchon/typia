@@ -89,9 +89,7 @@ function script(
             ? `    () => typia.random<${struct.name}>(${
                   struct.RANDOM ? `${struct.name}.RANDOM` : ""
               }),`
-            : `    (input) => typia.${method}${
-                  feat.explicit ? `<${struct.name}>` : ""
-              }(input),`,
+            : `    (input) => typia.${method}<${struct.name}>(input),`,
         feat.spoilable && struct.SPOILERS
             ? `    ${struct.name}.SPOILERS,`
             : null,

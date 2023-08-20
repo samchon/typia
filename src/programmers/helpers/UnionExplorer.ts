@@ -280,13 +280,17 @@ export namespace UnionExplorer {
                     value: Metadata.create({
                         ...Metadata.initialize(),
                         tuples: [
-                            MetadataTuple.create({
-                                name: `[${m.key.getName()}, ${m.value.getName()}]`,
-                                index: null,
-                                recursive: false,
-                                nullables: [],
-                                elements: [m.key, m.value],
-                            }),
+                            (() => {
+                                const tuple = MetadataTuple.create({
+                                    name: `[${m.key.getName()}, ${m.value.getName()}]`,
+                                    index: null,
+                                    recursive: false,
+                                    nullables: [],
+                                    elements: [m.key, m.value],
+                                });
+                                tuple.of_map = true;
+                                return tuple;
+                            })(),
                         ],
                     }),
                 }),

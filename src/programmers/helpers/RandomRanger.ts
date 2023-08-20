@@ -101,11 +101,7 @@ export namespace RandomRanger {
             //----
             // INT
             const integer = (value: number) => value === Math.floor(value);
-            if (
-                tags.find(
-                    (t) => t.kind === "type" && t.value.indexOf("int") !== -1,
-                ) !== undefined
-            ) {
+            if (config.type === "int") {
                 if (range.minimum.value !== undefined) {
                     if (range.minimum.exclusive) {
                         range.minimum.exclusive = false;
@@ -125,11 +121,7 @@ export namespace RandomRanger {
             }
 
             // UNSIGNED INT
-            if (
-                tags.find(
-                    (t) => t.kind === "type" && t.value.indexOf("uint") === 0,
-                ) !== undefined
-            ) {
+            if (config.type === "uint") {
                 if (range.minimum.value === undefined) range.minimum.value = 0;
                 else if (range.minimum.value <= 0) {
                     range.minimum.value = 0;

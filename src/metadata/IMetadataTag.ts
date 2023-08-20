@@ -24,7 +24,14 @@ export namespace IMetadataTag {
     ----------------------------------------------------------- */
     export interface IType {
         kind: "type";
-        value: "int" | "uint";
+        value:
+            | "int"
+            | "uint"
+            | "int32"
+            | "uint32"
+            | "int64"
+            | "uint64"
+            | "float";
     }
 
     export interface IMinimum {

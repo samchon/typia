@@ -317,7 +317,7 @@ export namespace RandomProgrammer {
             ? ts.factory.createNumericLiteral(value)
             : typeof value === "string"
             ? ts.factory.createStringLiteral(value)
-            : ts.factory.createBigIntLiteral(value.toString());
+            : ExpressionFactory.bigint(Number(value));
 
     const decode_template =
         (importer: FunctionImporter) =>
@@ -332,10 +332,20 @@ export namespace RandomProgrammer {
         (tags: IMetadataTag[]) =>
         (comments: ICommentTag[]): ts.Expression => {
             const type = tags.find(
-                (t) => t.kind === "type" && t.value === "uint",
+                (t) =>
+                    t.kind === "type" &&
+                    (t.value === "int" ||
+                        t.value === "int32" ||
+                        t.value === "int64"),
             )
                 ? "int"
-                : tags.find((t) => t.kind === "type" && t.value === "int")
+                : tags.find(
+                      (t) =>
+                          t.kind === "type" &&
+                          (t.value === "uint" ||
+                              t.value === "uint32" ||
+                              t.value === "uint64"),
+                  )
                 ? "uint"
                 : "double";
             return random_custom(COALESCE(importer))("number")(comments)(
@@ -373,30 +383,19 @@ export namespace RandomProgrammer {
             random_custom(COALESCE(importer))("bigint")(comments)(
                 RandomRanger.number({
                     type: tags.find(
-                        (t) => t.kind === "type" && t.value === "uint",
+                        (t) =>
+                            t.kind === "type" &&
+                            (t.value === "uint" || t.value === "uint64"),
                     )
                         ? "uint"
                         : "int",
-                    transform: (value) =>
-                        ts.factory.createCallExpression(
-                            ts.factory.createIdentifier("BigInt"),
-                            undefined,
-                            [ts.factory.createStringLiteral(value.toString())],
-                        ),
+                    transform: (value) => ExpressionFactory.bigint(value),
                     setter: (args) =>
                         ts.factory.createCallExpression(
                             COALESCE(importer)("bigint"),
                             undefined,
                             args.map((value) =>
-                                ts.factory.createCallExpression(
-                                    ts.factory.createIdentifier("BigInt"),
-                                    undefined,
-                                    [
-                                        ts.factory.createStringLiteral(
-                                            value.toString(),
-                                        ),
-                                    ],
-                                ),
+                                ExpressionFactory.bigint(value),
                             ),
                         ),
                 })({
