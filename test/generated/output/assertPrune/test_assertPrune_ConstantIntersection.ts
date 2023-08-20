@@ -6,27 +6,9 @@ export const test_assertPrune_ConstantIntersection = _test_assertPrune(
     "ConstantIntersection",
     ConstantIntersection.generate,
     (input) =>
-        ((
-            input: any,
-        ): [
-            ConstantIntersection.Wrapper<false>,
-            ConstantIntersection.Wrapper<1>,
-            ConstantIntersection.Wrapper<"two">,
-        ] => {
-            const assert = (
-                input: any,
-            ): [
-                ConstantIntersection.Wrapper<false>,
-                ConstantIntersection.Wrapper<1>,
-                ConstantIntersection.Wrapper<"two">,
-            ] => {
-                const __is = (
-                    input: any,
-                ): input is [
-                    ConstantIntersection.Wrapper<false>,
-                    ConstantIntersection.Wrapper<1>,
-                    ConstantIntersection.Wrapper<"two">,
-                ] => {
+        ((input: any): ConstantIntersection => {
+            const assert = (input: any): ConstantIntersection => {
+                const __is = (input: any): input is ConstantIntersection => {
                     return (
                         Array.isArray(input) &&
                         input.length === 3 &&
@@ -40,11 +22,7 @@ export const test_assertPrune_ConstantIntersection = _test_assertPrune(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is [
-                        ConstantIntersection.Wrapper<false>,
-                        ConstantIntersection.Wrapper<1>,
-                        ConstantIntersection.Wrapper<"two">,
-                    ] => {
+                    ): input is ConstantIntersection => {
                         const $guard = (typia.assertPrune as any).guard;
                         return (
                             ((Array.isArray(input) ||
@@ -86,13 +64,7 @@ export const test_assertPrune_ConstantIntersection = _test_assertPrune(
                     })(input, "$input", true);
                 return input;
             };
-            const prune = (
-                input: [
-                    ConstantIntersection.Wrapper<false>,
-                    ConstantIntersection.Wrapper<1>,
-                    ConstantIntersection.Wrapper<"two">,
-                ],
-            ): void => {};
+            const prune = (input: ConstantIntersection): void => {};
             assert(input);
             prune(input);
             return input;

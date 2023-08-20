@@ -6,20 +6,8 @@ export const test_isStringify_ConstantIntersection = _test_isStringify(
     "ConstantIntersection",
     ConstantIntersection.generate,
     (input) =>
-        ((
-            input: [
-                ConstantIntersection.Wrapper<false>,
-                ConstantIntersection.Wrapper<1>,
-                ConstantIntersection.Wrapper<"two">,
-            ],
-        ): string | null => {
-            const is = (
-                input: any,
-            ): input is [
-                ConstantIntersection.Wrapper<false>,
-                ConstantIntersection.Wrapper<1>,
-                ConstantIntersection.Wrapper<"two">,
-            ] => {
+        ((input: ConstantIntersection): string | null => {
+            const is = (input: any): input is ConstantIntersection => {
                 return (
                     Array.isArray(input) &&
                     input.length === 3 &&
@@ -28,13 +16,7 @@ export const test_isStringify_ConstantIntersection = _test_isStringify(
                     "two" === input[2]
                 );
             };
-            const stringify = (
-                input: [
-                    ConstantIntersection.Wrapper<false>,
-                    ConstantIntersection.Wrapper<1>,
-                    ConstantIntersection.Wrapper<"two">,
-                ],
-            ): string => {
+            const stringify = (input: ConstantIntersection): string => {
                 const $number = (typia.isStringify as any).number;
                 const $string = (typia.isStringify as any).string;
                 const $throws = (typia.isStringify as any).throws;

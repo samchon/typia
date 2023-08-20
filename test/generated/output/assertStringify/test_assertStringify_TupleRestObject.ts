@@ -7,12 +7,8 @@ export const test_assertStringify_TupleRestObject = _test_assertStringify(
     TupleRestObject.generate,
     (input) =>
         ((input: any): string => {
-            const assert = (
-                input: any,
-            ): [boolean, number, ...TupleRestObject.IObject[]] => {
-                const __is = (
-                    input: any,
-                ): input is [boolean, number, ...TupleRestObject.IObject[]] => {
+            const assert = (input: any): TupleRestObject => {
+                const __is = (input: any): input is TupleRestObject => {
                     const $io0 = (input: any): boolean =>
                         "string" === typeof input.value;
                     return (
@@ -36,11 +32,7 @@ export const test_assertStringify_TupleRestObject = _test_assertStringify(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is [
-                        boolean,
-                        number,
-                        ...TupleRestObject.IObject[],
-                    ] => {
+                    ): input is TupleRestObject => {
                         const $guard = (typia.assertStringify as any).guard;
                         const $ao0 = (
                             input: any,
@@ -126,9 +118,7 @@ export const test_assertStringify_TupleRestObject = _test_assertStringify(
                     })(input, "$input", true);
                 return input;
             };
-            const stringify = (
-                input: [boolean, number, ...TupleRestObject.IObject[]],
-            ): string => {
+            const stringify = (input: TupleRestObject): string => {
                 const $number = (typia.assertStringify as any).number;
                 const $string = (typia.assertStringify as any).string;
                 const $rest = (typia.assertStringify as any).rest;

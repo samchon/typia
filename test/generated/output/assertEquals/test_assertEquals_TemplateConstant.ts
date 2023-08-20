@@ -6,11 +6,11 @@ export const test_assertEquals_TemplateConstant = _test_assertEquals(
     "TemplateConstant",
     TemplateConstant.generate,
     (input) =>
-        ((input: any): Array<TemplateConstant.Type> => {
+        ((input: any): TemplateConstant => {
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
-            ): input is Array<TemplateConstant.Type> => {
+            ): input is TemplateConstant => {
                 const $io0 = (
                     input: any,
                     _exceptionable: boolean = true,
@@ -57,7 +57,7 @@ export const test_assertEquals_TemplateConstant = _test_assertEquals(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is Array<TemplateConstant.Type> => {
+                ): input is TemplateConstant => {
                     const $guard = (typia.assertEquals as any).guard;
                     const $join = (typia.assertEquals as any).join;
                     const $ao0 = (
@@ -119,7 +119,7 @@ export const test_assertEquals_TemplateConstant = _test_assertEquals(
                         ((Array.isArray(input) ||
                             $guard(true, {
                                 path: _path + "",
-                                expected: "Array<TemplateConstant.Type>",
+                                expected: "TemplateConstant",
                                 value: input,
                             })) &&
                             input.every(
@@ -144,7 +144,7 @@ export const test_assertEquals_TemplateConstant = _test_assertEquals(
                             )) ||
                         $guard(true, {
                             path: _path + "",
-                            expected: "Array<TemplateConstant.Type>",
+                            expected: "TemplateConstant",
                             value: input,
                         })
                     );

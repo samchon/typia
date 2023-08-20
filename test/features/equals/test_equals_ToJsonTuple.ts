@@ -5,5 +5,5 @@ import { ToJsonTuple } from "../../structures/ToJsonTuple";
 export const test_equals_ToJsonTuple = _test_equals(
     "ToJsonTuple",
     ToJsonTuple.generate,
-    (input) => typia.equals(input),
+    (input) => typia.equals<ToJsonTuple>(input),
 );

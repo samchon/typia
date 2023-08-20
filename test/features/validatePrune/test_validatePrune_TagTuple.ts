@@ -5,6 +5,6 @@ import { TagTuple } from "../../structures/TagTuple";
 export const test_validatePrune_TagTuple = _test_validatePrune(
     "TagTuple",
     TagTuple.generate,
-    (input) => typia.validatePrune(input),
+    (input) => typia.validatePrune<TagTuple>(input),
     TagTuple.SPOILERS,
 );

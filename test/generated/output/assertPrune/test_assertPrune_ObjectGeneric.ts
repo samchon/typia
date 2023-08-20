@@ -6,27 +6,9 @@ export const test_assertPrune_ObjectGeneric = _test_assertPrune(
     "ObjectGeneric",
     ObjectGeneric.generate,
     (input) =>
-        ((
-            input: any,
-        ): [
-            ObjectGeneric.ISomething<boolean>,
-            ObjectGeneric.ISomething<number>,
-            ObjectGeneric.ISomething<string>,
-        ] => {
-            const assert = (
-                input: any,
-            ): [
-                ObjectGeneric.ISomething<boolean>,
-                ObjectGeneric.ISomething<number>,
-                ObjectGeneric.ISomething<string>,
-            ] => {
-                const __is = (
-                    input: any,
-                ): input is [
-                    ObjectGeneric.ISomething<boolean>,
-                    ObjectGeneric.ISomething<number>,
-                    ObjectGeneric.ISomething<string>,
-                ] => {
+        ((input: any): ObjectGeneric => {
+            const assert = (input: any): ObjectGeneric => {
+                const __is = (input: any): input is ObjectGeneric => {
                     const $io0 = (input: any): boolean =>
                         "boolean" === typeof input.value &&
                         "object" === typeof input.child &&
@@ -99,11 +81,7 @@ export const test_assertPrune_ObjectGeneric = _test_assertPrune(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is [
-                        ObjectGeneric.ISomething<boolean>,
-                        ObjectGeneric.ISomething<number>,
-                        ObjectGeneric.ISomething<string>,
-                    ] => {
+                    ): input is ObjectGeneric => {
                         const $guard = (typia.assertPrune as any).guard;
                         const $ao0 = (
                             input: any,
@@ -455,13 +433,7 @@ export const test_assertPrune_ObjectGeneric = _test_assertPrune(
                     })(input, "$input", true);
                 return input;
             };
-            const prune = (
-                input: [
-                    ObjectGeneric.ISomething<boolean>,
-                    ObjectGeneric.ISomething<number>,
-                    ObjectGeneric.ISomething<string>,
-                ],
-            ): void => {
+            const prune = (input: ObjectGeneric): void => {
                 const $io0 = (input: any): boolean =>
                     "boolean" === typeof input.value &&
                     "object" === typeof input.child &&

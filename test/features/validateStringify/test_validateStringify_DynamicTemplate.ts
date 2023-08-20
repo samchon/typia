@@ -5,6 +5,6 @@ import { DynamicTemplate } from "../../structures/DynamicTemplate";
 export const test_validateStringify_DynamicTemplate = _test_validateStringify(
     "DynamicTemplate",
     DynamicTemplate.generate,
-    (input) => typia.validateStringify(input),
+    (input) => typia.validateStringify<DynamicTemplate>(input),
     DynamicTemplate.SPOILERS,
 );

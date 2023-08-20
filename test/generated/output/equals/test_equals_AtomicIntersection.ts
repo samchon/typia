@@ -9,11 +9,7 @@ export const test_equals_AtomicIntersection = _test_equals(
         ((
             input: any,
             _exceptionable: boolean = true,
-        ): input is [
-            AtomicIntersection.Wrapper<boolean>,
-            AtomicIntersection.Wrapper<number>,
-            AtomicIntersection.Wrapper<string>,
-        ] => {
+        ): input is AtomicIntersection => {
             return (
                 Array.isArray(input) &&
                 input.length === 3 &&

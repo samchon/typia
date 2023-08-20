@@ -6,8 +6,8 @@ export const test_isPrune_AtomicSimple = _test_isPrune(
     "AtomicSimple",
     AtomicSimple.generate,
     (input) =>
-        ((input: any): input is [boolean, number, string] => {
-            const is = (input: any): input is [boolean, number, string] => {
+        ((input: any): input is AtomicSimple => {
+            const is = (input: any): input is AtomicSimple => {
                 return (
                     Array.isArray(input) &&
                     input.length === 3 &&
@@ -17,7 +17,7 @@ export const test_isPrune_AtomicSimple = _test_isPrune(
                     "string" === typeof input[2]
                 );
             };
-            const prune = (input: [boolean, number, string]): void => {};
+            const prune = (input: AtomicSimple): void => {};
             if (!is(input)) return false;
             prune(input);
             return true;

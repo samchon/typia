@@ -5,5 +5,5 @@ import { ObjectUndefined } from "../../structures/ObjectUndefined";
 export const test_equals_ObjectUndefined = _test_equals(
     "ObjectUndefined",
     ObjectUndefined.generate,
-    (input) => typia.equals(input),
+    (input) => typia.equals<ObjectUndefined>(input),
 );

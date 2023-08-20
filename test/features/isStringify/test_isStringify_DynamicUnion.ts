@@ -5,6 +5,6 @@ import { DynamicUnion } from "../../structures/DynamicUnion";
 export const test_isStringify_DynamicUnion = _test_isStringify(
     "DynamicUnion",
     DynamicUnion.generate,
-    (input) => typia.isStringify(input),
+    (input) => typia.isStringify<DynamicUnion>(input),
     DynamicUnion.SPOILERS,
 );

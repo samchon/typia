@@ -7,12 +7,8 @@ export const test_assertStringify_ArrayRepeatedRequired = _test_assertStringify(
     ArrayRepeatedRequired.generate,
     (input) =>
         ((input: any): string => {
-            const assert = (
-                input: any,
-            ): string | number | Array<ArrayRepeatedRequired> => {
-                const __is = (
-                    input: any,
-                ): input is string | number | Array<ArrayRepeatedRequired> => {
+            const assert = (input: any): ArrayRepeatedRequired => {
+                const __is = (input: any): input is ArrayRepeatedRequired => {
                     const $ia0 = (input: any): any =>
                         input.every(
                             (elem: any) =>
@@ -38,10 +34,7 @@ export const test_assertStringify_ArrayRepeatedRequired = _test_assertStringify(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is
-                        | string
-                        | number
-                        | Array<ArrayRepeatedRequired> => {
+                    ): input is ArrayRepeatedRequired => {
                         const $guard = (typia.assertStringify as any).guard;
                         const $aa0 = (
                             input: any,
@@ -143,9 +136,7 @@ export const test_assertStringify_ArrayRepeatedRequired = _test_assertStringify(
                     })(input, "$input", true);
                 return input;
             };
-            const stringify = (
-                input: string | number | Array<ArrayRepeatedRequired>,
-            ): string => {
+            const stringify = (input: ArrayRepeatedRequired): string => {
                 const $ia0 = (input: any): any =>
                     input.every(
                         (elem: any) =>

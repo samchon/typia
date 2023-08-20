@@ -6,15 +6,9 @@ export const test_assertClone_TupleRestObject = _test_assertClone(
     "TupleRestObject",
     TupleRestObject.generate,
     (input) =>
-        ((
-            input: any,
-        ): typia.Primitive<[boolean, number, ...TupleRestObject.IObject[]]> => {
-            const assert = (
-                input: any,
-            ): [boolean, number, ...TupleRestObject.IObject[]] => {
-                const __is = (
-                    input: any,
-                ): input is [boolean, number, ...TupleRestObject.IObject[]] => {
+        ((input: any): typia.Primitive<TupleRestObject> => {
+            const assert = (input: any): TupleRestObject => {
+                const __is = (input: any): input is TupleRestObject => {
                     const $io0 = (input: any): boolean =>
                         "string" === typeof input.value;
                     return (
@@ -38,11 +32,7 @@ export const test_assertClone_TupleRestObject = _test_assertClone(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is [
-                        boolean,
-                        number,
-                        ...TupleRestObject.IObject[],
-                    ] => {
+                    ): input is TupleRestObject => {
                         const $guard = (typia.assertClone as any).guard;
                         const $ao0 = (
                             input: any,
@@ -129,10 +119,8 @@ export const test_assertClone_TupleRestObject = _test_assertClone(
                 return input;
             };
             const clone = (
-                input: [boolean, number, ...TupleRestObject.IObject[]],
-            ): typia.Primitive<
-                [boolean, number, ...TupleRestObject.IObject[]]
-            > => {
+                input: TupleRestObject,
+            ): typia.Primitive<TupleRestObject> => {
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.value;
                 const $cp0 = (input: any) =>

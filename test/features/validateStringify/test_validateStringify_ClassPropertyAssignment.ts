@@ -6,6 +6,6 @@ export const test_validateStringify_ClassPropertyAssignment =
     _test_validateStringify(
         "ClassPropertyAssignment",
         ClassPropertyAssignment.generate,
-        (input) => typia.validateStringify(input),
+        (input) => typia.validateStringify<ClassPropertyAssignment>(input),
         ClassPropertyAssignment.SPOILERS,
     );

@@ -9,7 +9,7 @@ export const test_equals_ObjectPrimitive = _test_equals(
         ((
             input: any,
             _exceptionable: boolean = true,
-        ): input is ObjectPrimitive.IArticle => {
+        ): input is ObjectPrimitive => {
             const $io0 = (
                 input: any,
                 _exceptionable: boolean = true,

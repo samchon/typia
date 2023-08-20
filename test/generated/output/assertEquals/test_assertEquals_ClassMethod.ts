@@ -6,11 +6,11 @@ export const test_assertEquals_ClassMethod = _test_assertEquals(
     "ClassMethod",
     ClassMethod.generate,
     (input) =>
-        ((input: any): ClassMethod.Animal => {
+        ((input: any): ClassMethod => {
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
-            ): input is ClassMethod.Animal => {
+            ): input is ClassMethod => {
                 const $io0 = (
                     input: any,
                     _exceptionable: boolean = true,
@@ -41,7 +41,7 @@ export const test_assertEquals_ClassMethod = _test_assertEquals(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ClassMethod.Animal => {
+                ): input is ClassMethod => {
                     const $guard = (typia.assertEquals as any).guard;
                     const $join = (typia.assertEquals as any).join;
                     const $ao0 = (

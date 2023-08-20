@@ -5,5 +5,5 @@ import { ArrayMatrix } from "../../structures/ArrayMatrix";
 export const test_validateEquals_ArrayMatrix = _test_validateEquals(
     "ArrayMatrix",
     ArrayMatrix.generate,
-    (input) => typia.validateEquals(input),
+    (input) => typia.validateEquals<ArrayMatrix>(input),
 );

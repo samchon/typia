@@ -5,6 +5,6 @@ import { NativeAlias } from "../../structures/NativeAlias";
 export const test_validate_NativeAlias = _test_validate(
     "NativeAlias",
     NativeAlias.generate,
-    (input) => typia.validate(input),
+    (input) => typia.validate<NativeAlias>(input),
     NativeAlias.SPOILERS,
 );

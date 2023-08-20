@@ -5,6 +5,6 @@ import { DynamicArray } from "../../structures/DynamicArray";
 export const test_assertStringify_DynamicArray = _test_assertStringify(
     "DynamicArray",
     DynamicArray.generate,
-    (input) => typia.assertStringify(input),
+    (input) => typia.assertStringify<DynamicArray>(input),
     DynamicArray.SPOILERS,
 );

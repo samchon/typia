@@ -6,8 +6,8 @@ export const test_isPrune_TagLength = _test_isPrune(
     "TagLength",
     TagLength.generate,
     (input) =>
-        ((input: any): input is Array<TagLength.Type> => {
-            const is = (input: any): input is Array<TagLength.Type> => {
+        ((input: any): input is TagLength => {
+            const is = (input: any): input is TagLength => {
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.fixed &&
                     5 === input.fixed.length &&
@@ -31,7 +31,7 @@ export const test_isPrune_TagLength = _test_isPrune(
                     )
                 );
             };
-            const prune = (input: Array<TagLength.Type>): void => {
+            const prune = (input: TagLength): void => {
                 const $pp0 = (input: any) =>
                     input.forEach((elem: any) => {
                         if ("object" === typeof elem && null !== elem)

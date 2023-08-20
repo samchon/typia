@@ -6,29 +6,9 @@ export const test_assertClone_ObjectNullable = _test_assertClone(
     "ObjectNullable",
     ObjectNullable.generate,
     (input) =>
-        ((
-            input: any,
-        ): typia.Primitive<
-            [
-                ObjectNullable.IProduct,
-                ObjectNullable.IProduct,
-                ObjectNullable.IProduct,
-            ]
-        > => {
-            const assert = (
-                input: any,
-            ): [
-                ObjectNullable.IProduct,
-                ObjectNullable.IProduct,
-                ObjectNullable.IProduct,
-            ] => {
-                const __is = (
-                    input: any,
-                ): input is [
-                    ObjectNullable.IProduct,
-                    ObjectNullable.IProduct,
-                    ObjectNullable.IProduct,
-                ] => {
+        ((input: any): typia.Primitive<ObjectNullable> => {
+            const assert = (input: any): ObjectNullable => {
+                const __is = (input: any): input is ObjectNullable => {
                     const $io0 = (input: any): boolean =>
                         "string" === typeof input.name &&
                         "object" === typeof input.manufacturer &&
@@ -74,11 +54,7 @@ export const test_assertClone_ObjectNullable = _test_assertClone(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is [
-                        ObjectNullable.IProduct,
-                        ObjectNullable.IProduct,
-                        ObjectNullable.IProduct,
-                    ] => {
+                    ): input is ObjectNullable => {
                         const $guard = (typia.assertClone as any).guard;
                         const $ao0 = (
                             input: any,
@@ -269,18 +245,8 @@ export const test_assertClone_ObjectNullable = _test_assertClone(
                 return input;
             };
             const clone = (
-                input: [
-                    ObjectNullable.IProduct,
-                    ObjectNullable.IProduct,
-                    ObjectNullable.IProduct,
-                ],
-            ): typia.Primitive<
-                [
-                    ObjectNullable.IProduct,
-                    ObjectNullable.IProduct,
-                    ObjectNullable.IProduct,
-                ]
-            > => {
+                input: ObjectNullable,
+            ): typia.Primitive<ObjectNullable> => {
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.name &&
                     "object" === typeof input.manufacturer &&

@@ -5,6 +5,6 @@ import { ArrayMatrix } from "../../structures/ArrayMatrix";
 export const test_validateStringify_ArrayMatrix = _test_validateStringify(
     "ArrayMatrix",
     ArrayMatrix.generate,
-    (input) => typia.validateStringify(input),
+    (input) => typia.validateStringify<ArrayMatrix>(input),
     ArrayMatrix.SPOILERS,
 );

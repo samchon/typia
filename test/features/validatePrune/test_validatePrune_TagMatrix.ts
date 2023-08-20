@@ -5,6 +5,6 @@ import { TagMatrix } from "../../structures/TagMatrix";
 export const test_validatePrune_TagMatrix = _test_validatePrune(
     "TagMatrix",
     TagMatrix.generate,
-    (input) => typia.validatePrune(input),
+    (input) => typia.validatePrune<TagMatrix>(input),
     TagMatrix.SPOILERS,
 );

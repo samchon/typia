@@ -5,5 +5,5 @@ import { ObjectUndefined } from "../../structures/ObjectUndefined";
 export const test_clone_ObjectUndefined = _test_clone(
     "ObjectUndefined",
     ObjectUndefined.generate,
-    (input) => typia.clone(input),
+    (input) => typia.clone<ObjectUndefined>(input),
 );

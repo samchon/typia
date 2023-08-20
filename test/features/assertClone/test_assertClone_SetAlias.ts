@@ -5,6 +5,6 @@ import { SetAlias } from "../../structures/SetAlias";
 export const test_assertClone_SetAlias = _test_assertClone(
     "SetAlias",
     SetAlias.generate,
-    (input) => typia.assertClone(input),
+    (input) => typia.assertClone<SetAlias>(input),
     SetAlias.SPOILERS,
 );

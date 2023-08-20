@@ -6,9 +6,7 @@ export const test_clone_NativeUnion = _test_clone(
     "NativeUnion",
     NativeUnion.generate,
     (input) =>
-        ((
-            input: Array<NativeUnion.Union>,
-        ): typia.Primitive<Array<NativeUnion.Union>> => {
+        ((input: NativeUnion): typia.Primitive<NativeUnion> => {
             const $cp0 = (input: any) =>
                 input.map((elem: any) =>
                     "object" === typeof elem && null !== elem

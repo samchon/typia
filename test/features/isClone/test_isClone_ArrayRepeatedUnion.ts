@@ -5,6 +5,6 @@ import { ArrayRepeatedUnion } from "../../structures/ArrayRepeatedUnion";
 export const test_isClone_ArrayRepeatedUnion = _test_isClone(
     "ArrayRepeatedUnion",
     ArrayRepeatedUnion.generate,
-    (input) => typia.isClone(input),
+    (input) => typia.isClone<ArrayRepeatedUnion>(input),
     ArrayRepeatedUnion.SPOILERS,
 );

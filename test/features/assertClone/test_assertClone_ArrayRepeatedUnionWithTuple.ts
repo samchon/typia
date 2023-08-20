@@ -5,6 +5,6 @@ import { ArrayRepeatedUnionWithTuple } from "../../structures/ArrayRepeatedUnion
 export const test_assertClone_ArrayRepeatedUnionWithTuple = _test_assertClone(
     "ArrayRepeatedUnionWithTuple",
     ArrayRepeatedUnionWithTuple.generate,
-    (input) => typia.assertClone(input),
+    (input) => typia.assertClone<ArrayRepeatedUnionWithTuple>(input),
     ArrayRepeatedUnionWithTuple.SPOILERS,
 );

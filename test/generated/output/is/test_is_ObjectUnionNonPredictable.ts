@@ -6,11 +6,7 @@ export const test_is_ObjectUnionNonPredictable = _test_is(
     "ObjectUnionNonPredictable",
     ObjectUnionNonPredictable.generate,
     (input) =>
-        ((
-            input: any,
-        ): input is Array<
-            ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
-        > => {
+        ((input: any): input is ObjectUnionNonPredictable => {
             const $io0 = (input: any): boolean =>
                 "object" === typeof input.value &&
                 null !== input.value &&

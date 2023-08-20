@@ -6,9 +6,9 @@ export const test_assertClone_SetUnion = _test_assertClone(
     "SetUnion",
     SetUnion.generate,
     (input) =>
-        ((input: any): typia.Primitive<Array<SetUnion.Union>> => {
-            const assert = (input: any): Array<SetUnion.Union> => {
-                const __is = (input: any): input is Array<SetUnion.Union> => {
+        ((input: any): typia.Primitive<SetUnion> => {
+            const assert = (input: any): SetUnion => {
+                const __is = (input: any): input is SetUnion => {
                     const $io0 = (input: any): boolean =>
                         "string" === typeof input.id &&
                         "string" === typeof input.name &&
@@ -118,7 +118,7 @@ export const test_assertClone_SetUnion = _test_assertClone(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is Array<SetUnion.Union> => {
+                    ): input is SetUnion => {
                         const $guard = (typia.assertClone as any).guard;
                         const $ao0 = (
                             input: any,
@@ -458,9 +458,7 @@ export const test_assertClone_SetUnion = _test_assertClone(
                     })(input, "$input", true);
                 return input;
             };
-            const clone = (
-                input: Array<SetUnion.Union>,
-            ): typia.Primitive<Array<SetUnion.Union>> => {
+            const clone = (input: SetUnion): typia.Primitive<SetUnion> => {
                 const $cp0 = (input: any) =>
                     input.map((elem: any) =>
                         elem instanceof Set ? {} : (elem as any),

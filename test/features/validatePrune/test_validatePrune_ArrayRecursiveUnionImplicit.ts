@@ -6,6 +6,6 @@ export const test_validatePrune_ArrayRecursiveUnionImplicit =
     _test_validatePrune(
         "ArrayRecursiveUnionImplicit",
         ArrayRecursiveUnionImplicit.generate,
-        (input) => typia.validatePrune(input),
+        (input) => typia.validatePrune<ArrayRecursiveUnionImplicit>(input),
         ArrayRecursiveUnionImplicit.SPOILERS,
     );

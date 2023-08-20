@@ -6,13 +6,7 @@ export const test_stringify_ConstantIntersection = _test_stringify(
     "ConstantIntersection",
     ConstantIntersection.generate,
     (input) =>
-        ((
-            input: [
-                ConstantIntersection.Wrapper<false>,
-                ConstantIntersection.Wrapper<1>,
-                ConstantIntersection.Wrapper<"two">,
-            ],
-        ): string => {
+        ((input: ConstantIntersection): string => {
             const $number = (typia.stringify as any).number;
             const $string = (typia.stringify as any).string;
             const $throws = (typia.stringify as any).throws;

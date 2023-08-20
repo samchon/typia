@@ -5,6 +5,6 @@ import { ConstantAtomicUnion } from "../../structures/ConstantAtomicUnion";
 export const test_assert_ConstantAtomicUnion = _test_assert(
     "ConstantAtomicUnion",
     ConstantAtomicUnion.generate,
-    (input) => typia.assert(input),
+    (input) => typia.assert<ConstantAtomicUnion>(input),
     ConstantAtomicUnion.SPOILERS,
 );

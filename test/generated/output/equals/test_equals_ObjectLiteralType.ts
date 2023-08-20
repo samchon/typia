@@ -9,7 +9,7 @@ export const test_equals_ObjectLiteralType = _test_equals(
         ((
             input: any,
             _exceptionable: boolean = true,
-        ): input is { id: string; name: string; age: number } => {
+        ): input is ObjectLiteralType => {
             const $io0 = (
                 input: any,
                 _exceptionable: boolean = true,

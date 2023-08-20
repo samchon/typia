@@ -5,6 +5,6 @@ import { ArrayAtomicSimple } from "../../structures/ArrayAtomicSimple";
 export const test_validatePrune_ArrayAtomicSimple = _test_validatePrune(
     "ArrayAtomicSimple",
     ArrayAtomicSimple.generate,
-    (input) => typia.validatePrune(input),
+    (input) => typia.validatePrune<ArrayAtomicSimple>(input),
     ArrayAtomicSimple.SPOILERS,
 );

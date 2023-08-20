@@ -9,11 +9,7 @@ export const test_equals_ObjectNullable = _test_equals(
         ((
             input: any,
             _exceptionable: boolean = true,
-        ): input is [
-            ObjectNullable.IProduct,
-            ObjectNullable.IProduct,
-            ObjectNullable.IProduct,
-        ] => {
+        ): input is ObjectNullable => {
             const $io0 = (
                 input: any,
                 _exceptionable: boolean = true,

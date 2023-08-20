@@ -5,6 +5,6 @@ import { ArrayMatrix } from "../../structures/ArrayMatrix";
 export const test_is_ArrayMatrix = _test_is(
     "ArrayMatrix",
     ArrayMatrix.generate,
-    (input) => typia.is(input),
+    (input) => typia.is<ArrayMatrix>(input),
     ArrayMatrix.SPOILERS,
 );

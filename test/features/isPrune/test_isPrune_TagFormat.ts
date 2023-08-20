@@ -5,6 +5,6 @@ import { TagFormat } from "../../structures/TagFormat";
 export const test_isPrune_TagFormat = _test_isPrune(
     "TagFormat",
     TagFormat.generate,
-    (input) => typia.isPrune(input),
+    (input) => typia.isPrune<TagFormat>(input),
     TagFormat.SPOILERS,
 );

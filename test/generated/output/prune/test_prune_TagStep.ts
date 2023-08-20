@@ -6,7 +6,7 @@ export const test_prune_TagStep = _test_prune(
     "TagStep",
     TagStep.generate,
     (input) =>
-        ((input: Array<TagStep.Type>): void => {
+        ((input: TagStep): void => {
             const $pp0 = (input: any) =>
                 input.forEach((elem: any) => {
                     if ("object" === typeof elem && null !== elem) $po0(elem);

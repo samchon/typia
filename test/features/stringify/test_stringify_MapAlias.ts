@@ -5,5 +5,5 @@ import { MapAlias } from "../../structures/MapAlias";
 export const test_stringify_MapAlias = _test_stringify(
     "MapAlias",
     MapAlias.generate,
-    (input) => typia.stringify(input),
+    (input) => typia.stringify<MapAlias>(input),
 );

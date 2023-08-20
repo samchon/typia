@@ -5,6 +5,6 @@ import { NativeSimple } from "../../structures/NativeSimple";
 export const test_validateClone_NativeSimple = _test_validateClone(
     "NativeSimple",
     NativeSimple.generate,
-    (input) => typia.validateClone(input),
+    (input) => typia.validateClone<NativeSimple>(input),
     NativeSimple.SPOILERS,
 );

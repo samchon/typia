@@ -9,7 +9,7 @@ export const test_equals_ObjectRecursive = _test_equals(
         ((
             input: any,
             _exceptionable: boolean = true,
-        ): input is ObjectRecursive.IDepartment => {
+        ): input is ObjectRecursive => {
             const $io0 = (
                 input: any,
                 _exceptionable: boolean = true,

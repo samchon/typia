@@ -6,22 +6,8 @@ export const test_isClone_AtomicIntersection = _test_isClone(
     "AtomicIntersection",
     AtomicIntersection.generate,
     (input) =>
-        ((
-            input: any,
-        ): typia.Primitive<
-            [
-                AtomicIntersection.Wrapper<boolean>,
-                AtomicIntersection.Wrapper<number>,
-                AtomicIntersection.Wrapper<string>,
-            ]
-        > | null => {
-            const is = (
-                input: any,
-            ): input is [
-                AtomicIntersection.Wrapper<boolean>,
-                AtomicIntersection.Wrapper<number>,
-                AtomicIntersection.Wrapper<string>,
-            ] => {
+        ((input: any): typia.Primitive<AtomicIntersection> | null => {
+            const is = (input: any): input is AtomicIntersection => {
                 return (
                     Array.isArray(input) &&
                     input.length === 3 &&
@@ -32,18 +18,8 @@ export const test_isClone_AtomicIntersection = _test_isClone(
                 );
             };
             const clone = (
-                input: [
-                    AtomicIntersection.Wrapper<boolean>,
-                    AtomicIntersection.Wrapper<number>,
-                    AtomicIntersection.Wrapper<string>,
-                ],
-            ): typia.Primitive<
-                [
-                    AtomicIntersection.Wrapper<boolean>,
-                    AtomicIntersection.Wrapper<number>,
-                    AtomicIntersection.Wrapper<string>,
-                ]
-            > => {
+                input: AtomicIntersection,
+            ): typia.Primitive<AtomicIntersection> => {
                 return Array.isArray(input) &&
                     input.length === 3 &&
                     "boolean" === typeof input[0] &&

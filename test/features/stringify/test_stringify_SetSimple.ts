@@ -5,5 +5,5 @@ import { SetSimple } from "../../structures/SetSimple";
 export const test_stringify_SetSimple = _test_stringify(
     "SetSimple",
     SetSimple.generate,
-    (input) => typia.stringify(input),
+    (input) => typia.stringify<SetSimple>(input),
 );

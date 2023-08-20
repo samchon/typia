@@ -5,6 +5,6 @@ import { SetAlias } from "../../structures/SetAlias";
 export const test_validate_SetAlias = _test_validate(
     "SetAlias",
     SetAlias.generate,
-    (input) => typia.validate(input),
+    (input) => typia.validate<SetAlias>(input),
     SetAlias.SPOILERS,
 );

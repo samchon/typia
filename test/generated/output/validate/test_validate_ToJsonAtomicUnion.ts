@@ -6,11 +6,9 @@ export const test_validate_ToJsonAtomicUnion = _test_validate(
     "ToJsonAtomicUnion",
     ToJsonAtomicUnion.generate,
     (input) =>
-        ((input: any): typia.IValidation<Array<ToJsonAtomicUnion.IToJson>> => {
+        ((input: any): typia.IValidation<ToJsonAtomicUnion> => {
             const errors = [] as any[];
-            const __is = (
-                input: any,
-            ): input is Array<ToJsonAtomicUnion.IToJson> => {
+            const __is = (input: any): input is ToJsonAtomicUnion => {
                 const $io0 = (input: any): boolean =>
                     "function" === typeof input.toJSON;
                 return (
@@ -29,7 +27,7 @@ export const test_validate_ToJsonAtomicUnion = _test_validate(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is Array<ToJsonAtomicUnion.IToJson> => {
+                ): input is ToJsonAtomicUnion => {
                     const $vo0 = (
                         input: any,
                         _path: string,

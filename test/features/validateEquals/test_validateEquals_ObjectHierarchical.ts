@@ -5,5 +5,5 @@ import { ObjectHierarchical } from "../../structures/ObjectHierarchical";
 export const test_validateEquals_ObjectHierarchical = _test_validateEquals(
     "ObjectHierarchical",
     ObjectHierarchical.generate,
-    (input) => typia.validateEquals(input),
+    (input) => typia.validateEquals<ObjectHierarchical>(input),
 );

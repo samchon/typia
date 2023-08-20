@@ -5,6 +5,6 @@ import { ConstantEnumeration } from "../../structures/ConstantEnumeration";
 export const test_isPrune_ConstantEnumeration = _test_isPrune(
     "ConstantEnumeration",
     ConstantEnumeration.generate,
-    (input) => typia.isPrune(input),
+    (input) => typia.isPrune<ConstantEnumeration>(input),
     ConstantEnumeration.SPOILERS,
 );

@@ -6,7 +6,7 @@ export const test_stringify_ObjectSimple = _test_stringify(
     "ObjectSimple",
     ObjectSimple.generate,
     (input) =>
-        ((input: ObjectSimple.IBox3D): string => {
+        ((input: ObjectSimple): string => {
             const $io1 = (input: any): boolean =>
                 "number" === typeof input.x &&
                 "number" === typeof input.y &&

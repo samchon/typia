@@ -6,10 +6,8 @@ export const test_assert_ObjectTuple = _test_assert(
     "ObjectTuple",
     ObjectTuple.generate,
     (input) =>
-        ((input: any): [ObjectTuple.ISection, ObjectTuple.ICitizen] => {
-            const __is = (
-                input: any,
-            ): input is [ObjectTuple.ISection, ObjectTuple.ICitizen] => {
+        ((input: any): ObjectTuple => {
+            const __is = (input: any): input is ObjectTuple => {
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     "string" === typeof input.code &&
@@ -34,7 +32,7 @@ export const test_assert_ObjectTuple = _test_assert(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is [ObjectTuple.ISection, ObjectTuple.ICitizen] => {
+                ): input is ObjectTuple => {
                     const $guard = (typia.assert as any).guard;
                     const $ao0 = (
                         input: any,

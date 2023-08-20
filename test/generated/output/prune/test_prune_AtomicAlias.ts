@@ -5,5 +5,5 @@ import { AtomicAlias } from "../../../structures/AtomicAlias";
 export const test_prune_AtomicAlias = _test_prune(
     "AtomicAlias",
     AtomicAlias.generate,
-    (input) => ((input: [boolean, number, string]): void => {})(input),
+    (input) => ((input: AtomicAlias): void => {})(input),
 );

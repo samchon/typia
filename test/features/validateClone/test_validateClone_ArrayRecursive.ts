@@ -5,6 +5,6 @@ import { ArrayRecursive } from "../../structures/ArrayRecursive";
 export const test_validateClone_ArrayRecursive = _test_validateClone(
     "ArrayRecursive",
     ArrayRecursive.generate,
-    (input) => typia.validateClone(input),
+    (input) => typia.validateClone<ArrayRecursive>(input),
     ArrayRecursive.SPOILERS,
 );

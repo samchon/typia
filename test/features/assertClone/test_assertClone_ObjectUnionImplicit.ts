@@ -5,6 +5,6 @@ import { ObjectUnionImplicit } from "../../structures/ObjectUnionImplicit";
 export const test_assertClone_ObjectUnionImplicit = _test_assertClone(
     "ObjectUnionImplicit",
     ObjectUnionImplicit.generate,
-    (input) => typia.assertClone(input),
+    (input) => typia.assertClone<ObjectUnionImplicit>(input),
     ObjectUnionImplicit.SPOILERS,
 );

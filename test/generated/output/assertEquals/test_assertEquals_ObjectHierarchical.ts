@@ -6,11 +6,11 @@ export const test_assertEquals_ObjectHierarchical = _test_assertEquals(
     "ObjectHierarchical",
     ObjectHierarchical.generate,
     (input) =>
-        ((input: any): ObjectHierarchical.ICustomer => {
+        ((input: any): ObjectHierarchical => {
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
-            ): input is ObjectHierarchical.ICustomer => {
+            ): input is ObjectHierarchical => {
                 const $io0 = (
                     input: any,
                     _exceptionable: boolean = true,
@@ -219,7 +219,7 @@ export const test_assertEquals_ObjectHierarchical = _test_assertEquals(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ObjectHierarchical.ICustomer => {
+                ): input is ObjectHierarchical => {
                     const $guard = (typia.assertEquals as any).guard;
                     const $join = (typia.assertEquals as any).join;
                     const $ao0 = (

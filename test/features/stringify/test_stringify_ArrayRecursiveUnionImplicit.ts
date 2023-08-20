@@ -5,5 +5,5 @@ import { ArrayRecursiveUnionImplicit } from "../../structures/ArrayRecursiveUnio
 export const test_stringify_ArrayRecursiveUnionImplicit = _test_stringify(
     "ArrayRecursiveUnionImplicit",
     ArrayRecursiveUnionImplicit.generate,
-    (input) => typia.stringify(input),
+    (input) => typia.stringify<ArrayRecursiveUnionImplicit>(input),
 );

@@ -6,7 +6,7 @@ export const test_stringify_ObjectLiteralProperty = _test_stringify(
     "ObjectLiteralProperty",
     ObjectLiteralProperty.generate,
     (input) =>
-        ((input: ObjectLiteralProperty.ISomething): string => {
+        ((input: ObjectLiteralProperty): string => {
             const $string = (typia.stringify as any).string;
             return `{"something-interesting-do-you-want?":${$string(
                 (input as any)["something-interesting-do-you-want?"],

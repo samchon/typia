@@ -6,14 +6,12 @@ export const test_validatePrune_ArrayRecursive = _test_validatePrune(
     "ArrayRecursive",
     ArrayRecursive.generate,
     (input) =>
-        ((input: any): typia.IValidation<ArrayRecursive.ICategory> => {
+        ((input: any): typia.IValidation<ArrayRecursive> => {
             const validate = (
                 input: any,
-            ): typia.IValidation<ArrayRecursive.ICategory> => {
+            ): typia.IValidation<ArrayRecursive> => {
                 const errors = [] as any[];
-                const __is = (
-                    input: any,
-                ): input is ArrayRecursive.ICategory => {
+                const __is = (input: any): input is ArrayRecursive => {
                     const $io0 = (input: any): boolean =>
                         Array.isArray(input.children) &&
                         input.children.every(
@@ -45,7 +43,7 @@ export const test_validatePrune_ArrayRecursive = _test_validatePrune(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is ArrayRecursive.ICategory => {
+                    ): input is ArrayRecursive => {
                         const $vo0 = (
                             input: any,
                             _path: string,
@@ -182,7 +180,7 @@ export const test_validatePrune_ArrayRecursive = _test_validatePrune(
                     data: success ? input : undefined,
                 } as any;
             };
-            const prune = (input: ArrayRecursive.ICategory): void => {
+            const prune = (input: ArrayRecursive): void => {
                 const $io0 = (input: any): boolean =>
                     Array.isArray(input.children) &&
                     input.children.every(

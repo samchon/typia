@@ -6,11 +6,9 @@ export const test_validate_ObjectHierarchical = _test_validate(
     "ObjectHierarchical",
     ObjectHierarchical.generate,
     (input) =>
-        ((input: any): typia.IValidation<ObjectHierarchical.ICustomer> => {
+        ((input: any): typia.IValidation<ObjectHierarchical> => {
             const errors = [] as any[];
-            const __is = (
-                input: any,
-            ): input is ObjectHierarchical.ICustomer => {
+            const __is = (input: any): input is ObjectHierarchical => {
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.id &&
                     Number.isFinite(input.id) &&
@@ -115,7 +113,7 @@ export const test_validate_ObjectHierarchical = _test_validate(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ObjectHierarchical.ICustomer => {
+                ): input is ObjectHierarchical => {
                     const $vo0 = (
                         input: any,
                         _path: string,

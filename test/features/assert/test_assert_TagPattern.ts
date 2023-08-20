@@ -5,6 +5,6 @@ import { TagPattern } from "../../structures/TagPattern";
 export const test_assert_TagPattern = _test_assert(
     "TagPattern",
     TagPattern.generate,
-    (input) => typia.assert(input),
+    (input) => typia.assert<TagPattern>(input),
     TagPattern.SPOILERS,
 );

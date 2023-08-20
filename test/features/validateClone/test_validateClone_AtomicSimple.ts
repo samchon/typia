@@ -5,6 +5,6 @@ import { AtomicSimple } from "../../structures/AtomicSimple";
 export const test_validateClone_AtomicSimple = _test_validateClone(
     "AtomicSimple",
     AtomicSimple.generate,
-    (input) => typia.validateClone(input),
+    (input) => typia.validateClone<AtomicSimple>(input),
     AtomicSimple.SPOILERS,
 );

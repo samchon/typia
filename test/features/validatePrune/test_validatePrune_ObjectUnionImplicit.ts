@@ -5,6 +5,6 @@ import { ObjectUnionImplicit } from "../../structures/ObjectUnionImplicit";
 export const test_validatePrune_ObjectUnionImplicit = _test_validatePrune(
     "ObjectUnionImplicit",
     ObjectUnionImplicit.generate,
-    (input) => typia.validatePrune(input),
+    (input) => typia.validatePrune<ObjectUnionImplicit>(input),
     ObjectUnionImplicit.SPOILERS,
 );

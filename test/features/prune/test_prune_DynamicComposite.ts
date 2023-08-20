@@ -5,5 +5,5 @@ import { DynamicComposite } from "../../structures/DynamicComposite";
 export const test_prune_DynamicComposite = _test_prune(
     "DynamicComposite",
     DynamicComposite.generate,
-    (input) => typia.prune(input),
+    (input) => typia.prune<DynamicComposite>(input),
 );

@@ -5,6 +5,6 @@ import { ObjectIntersection } from "../../structures/ObjectIntersection";
 export const test_isStringify_ObjectIntersection = _test_isStringify(
     "ObjectIntersection",
     ObjectIntersection.generate,
-    (input) => typia.isStringify(input),
+    (input) => typia.isStringify<ObjectIntersection>(input),
     ObjectIntersection.SPOILERS,
 );

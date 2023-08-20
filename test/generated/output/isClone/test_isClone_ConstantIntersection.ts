@@ -6,22 +6,8 @@ export const test_isClone_ConstantIntersection = _test_isClone(
     "ConstantIntersection",
     ConstantIntersection.generate,
     (input) =>
-        ((
-            input: any,
-        ): typia.Primitive<
-            [
-                ConstantIntersection.Wrapper<false>,
-                ConstantIntersection.Wrapper<1>,
-                ConstantIntersection.Wrapper<"two">,
-            ]
-        > | null => {
-            const is = (
-                input: any,
-            ): input is [
-                ConstantIntersection.Wrapper<false>,
-                ConstantIntersection.Wrapper<1>,
-                ConstantIntersection.Wrapper<"two">,
-            ] => {
+        ((input: any): typia.Primitive<ConstantIntersection> | null => {
+            const is = (input: any): input is ConstantIntersection => {
                 return (
                     Array.isArray(input) &&
                     input.length === 3 &&
@@ -31,18 +17,8 @@ export const test_isClone_ConstantIntersection = _test_isClone(
                 );
             };
             const clone = (
-                input: [
-                    ConstantIntersection.Wrapper<false>,
-                    ConstantIntersection.Wrapper<1>,
-                    ConstantIntersection.Wrapper<"two">,
-                ],
-            ): typia.Primitive<
-                [
-                    ConstantIntersection.Wrapper<false>,
-                    ConstantIntersection.Wrapper<1>,
-                    ConstantIntersection.Wrapper<"two">,
-                ]
-            > => {
+                input: ConstantIntersection,
+            ): typia.Primitive<ConstantIntersection> => {
                 return Array.isArray(input) &&
                     input.length === 3 &&
                     false === input[0] &&

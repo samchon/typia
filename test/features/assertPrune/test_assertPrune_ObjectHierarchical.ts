@@ -5,6 +5,6 @@ import { ObjectHierarchical } from "../../structures/ObjectHierarchical";
 export const test_assertPrune_ObjectHierarchical = _test_assertPrune(
     "ObjectHierarchical",
     ObjectHierarchical.generate,
-    (input) => typia.assertPrune(input),
+    (input) => typia.assertPrune<ObjectHierarchical>(input),
     ObjectHierarchical.SPOILERS,
 );

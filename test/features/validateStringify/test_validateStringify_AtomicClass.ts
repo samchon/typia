@@ -5,6 +5,6 @@ import { AtomicClass } from "../../structures/AtomicClass";
 export const test_validateStringify_AtomicClass = _test_validateStringify(
     "AtomicClass",
     AtomicClass.generate,
-    (input) => typia.validateStringify(input),
+    (input) => typia.validateStringify<AtomicClass>(input),
     AtomicClass.SPOILERS,
 );

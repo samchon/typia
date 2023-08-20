@@ -5,5 +5,5 @@ import { DynamicArray } from "../../structures/DynamicArray";
 export const test_clone_DynamicArray = _test_clone(
     "DynamicArray",
     DynamicArray.generate,
-    (input) => typia.clone(input),
+    (input) => typia.clone<DynamicArray>(input),
 );

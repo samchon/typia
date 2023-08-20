@@ -6,18 +6,12 @@ export const test_validateStringify_ArrayAtomicSimple = _test_validateStringify(
     "ArrayAtomicSimple",
     ArrayAtomicSimple.generate,
     (input) =>
-        ((
-            input: [Array<boolean>, Array<number>, Array<string>],
-        ): typia.IValidation<string> => {
+        ((input: ArrayAtomicSimple): typia.IValidation<string> => {
             const validate = (
                 input: any,
-            ): typia.IValidation<
-                [Array<boolean>, Array<number>, Array<string>]
-            > => {
+            ): typia.IValidation<ArrayAtomicSimple> => {
                 const errors = [] as any[];
-                const __is = (
-                    input: any,
-                ): input is [Array<boolean>, Array<number>, Array<string>] => {
+                const __is = (input: any): input is ArrayAtomicSimple => {
                     return (
                         Array.isArray(input) &&
                         input.length === 3 &&
@@ -43,11 +37,7 @@ export const test_validateStringify_ArrayAtomicSimple = _test_validateStringify(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is [
-                        Array<boolean>,
-                        Array<number>,
-                        Array<string>,
-                    ] => {
+                    ): input is ArrayAtomicSimple => {
                         return (
                             ((Array.isArray(input) ||
                                 $report(true, {
@@ -160,9 +150,7 @@ export const test_validateStringify_ArrayAtomicSimple = _test_validateStringify(
                     data: success ? input : undefined,
                 } as any;
             };
-            const stringify = (
-                input: [Array<boolean>, Array<number>, Array<string>],
-            ): string => {
+            const stringify = (input: ArrayAtomicSimple): string => {
                 const $number = (typia.validateStringify as any).number;
                 const $string = (typia.validateStringify as any).string;
                 return `[${`[${input[0]

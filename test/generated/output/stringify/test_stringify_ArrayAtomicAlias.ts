@@ -6,13 +6,7 @@ export const test_stringify_ArrayAtomicAlias = _test_stringify(
     "ArrayAtomicAlias",
     ArrayAtomicAlias.generate,
     (input) =>
-        ((
-            input: [
-                ArrayAtomicAlias.Alias<boolean>,
-                ArrayAtomicAlias.Alias<number>,
-                ArrayAtomicAlias.Alias<string>,
-            ],
-        ): string => {
+        ((input: ArrayAtomicAlias): string => {
             const $number = (typia.stringify as any).number;
             const $string = (typia.stringify as any).string;
             return `[${`[${input[0]

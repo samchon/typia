@@ -5,6 +5,6 @@ import { TagBigInt } from "../../structures/TagBigInt";
 export const test_assert_TagBigInt = _test_assert(
     "TagBigInt",
     TagBigInt.generate,
-    (input) => typia.assert(input),
+    (input) => typia.assert<TagBigInt>(input),
     TagBigInt.SPOILERS,
 );

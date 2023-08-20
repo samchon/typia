@@ -9,15 +9,7 @@ export const test_equals_TupleOptional = _test_equals(
         ((
             input: any,
             _exceptionable: boolean = true,
-        ): input is Array<
-            [
-                number,
-                boolean,
-                string,
-                (number | null | undefined)?,
-                (string | null | undefined)?,
-            ]
-        > => {
+        ): input is TupleOptional => {
             return (
                 Array.isArray(input) &&
                 input.every(

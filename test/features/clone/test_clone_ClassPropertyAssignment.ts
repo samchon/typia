@@ -5,5 +5,5 @@ import { ClassPropertyAssignment } from "../../structures/ClassPropertyAssignmen
 export const test_clone_ClassPropertyAssignment = _test_clone(
     "ClassPropertyAssignment",
     ClassPropertyAssignment.generate,
-    (input) => typia.clone(input),
+    (input) => typia.clone<ClassPropertyAssignment>(input),
 );

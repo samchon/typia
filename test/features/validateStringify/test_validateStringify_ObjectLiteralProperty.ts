@@ -6,6 +6,6 @@ export const test_validateStringify_ObjectLiteralProperty =
     _test_validateStringify(
         "ObjectLiteralProperty",
         ObjectLiteralProperty.generate,
-        (input) => typia.validateStringify(input),
+        (input) => typia.validateStringify<ObjectLiteralProperty>(input),
         ObjectLiteralProperty.SPOILERS,
     );

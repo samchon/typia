@@ -9,7 +9,7 @@ export const test_equals_TupleRestArray = _test_equals(
         ((
             input: any,
             _exceptionable: boolean = true,
-        ): input is [boolean, number, ...Array<string>[]] => {
+        ): input is TupleRestArray => {
             return (
                 Array.isArray(input) &&
                 "boolean" === typeof input[0] &&

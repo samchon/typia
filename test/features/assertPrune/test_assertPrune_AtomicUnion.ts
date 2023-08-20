@@ -5,6 +5,6 @@ import { AtomicUnion } from "../../structures/AtomicUnion";
 export const test_assertPrune_AtomicUnion = _test_assertPrune(
     "AtomicUnion",
     AtomicUnion.generate,
-    (input) => typia.assertPrune(input),
+    (input) => typia.assertPrune<AtomicUnion>(input),
     AtomicUnion.SPOILERS,
 );

@@ -6,12 +6,8 @@ export const test_isClone_ConstantAtomicUnion = _test_isClone(
     "ConstantAtomicUnion",
     ConstantAtomicUnion.generate,
     (input) =>
-        ((
-            input: any,
-        ): typia.Primitive<Array<ConstantAtomicUnion.Union>> | null => {
-            const is = (
-                input: any,
-            ): input is Array<ConstantAtomicUnion.Union> => {
+        ((input: any): typia.Primitive<ConstantAtomicUnion> | null => {
+            const is = (input: any): input is ConstantAtomicUnion => {
                 const $io0 = (input: any): boolean => "key" === input.key;
                 return (
                     Array.isArray(input) &&
@@ -29,8 +25,8 @@ export const test_isClone_ConstantAtomicUnion = _test_isClone(
                 );
             };
             const clone = (
-                input: Array<ConstantAtomicUnion.Union>,
-            ): typia.Primitive<Array<ConstantAtomicUnion.Union>> => {
+                input: ConstantAtomicUnion,
+            ): typia.Primitive<ConstantAtomicUnion> => {
                 const $cp0 = (input: any) =>
                     input.map((elem: any) =>
                         "object" === typeof elem && null !== elem

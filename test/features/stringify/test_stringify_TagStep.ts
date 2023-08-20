@@ -5,5 +5,5 @@ import { TagStep } from "../../structures/TagStep";
 export const test_stringify_TagStep = _test_stringify(
     "TagStep",
     TagStep.generate,
-    (input) => typia.stringify(input),
+    (input) => typia.stringify<TagStep>(input),
 );

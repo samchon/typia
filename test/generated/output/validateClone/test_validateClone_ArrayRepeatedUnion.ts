@@ -8,33 +8,12 @@ export const test_validateClone_ArrayRepeatedUnion = _test_validateClone(
     (input) =>
         ((
             input: any,
-        ): typia.IValidation<
-            typia.Primitive<
-                | number
-                | boolean
-                | Array<string>
-                | Array<ArrayRepeatedUnion>
-                | Array<ArrayRepeatedUnion.IBox3D>
-            >
-        > => {
+        ): typia.IValidation<typia.Primitive<ArrayRepeatedUnion>> => {
             const validate = (
                 input: any,
-            ): typia.IValidation<
-                | number
-                | boolean
-                | Array<string>
-                | Array<ArrayRepeatedUnion>
-                | Array<ArrayRepeatedUnion.IBox3D>
-            > => {
+            ): typia.IValidation<ArrayRepeatedUnion> => {
                 const errors = [] as any[];
-                const __is = (
-                    input: any,
-                ): input is
-                    | number
-                    | boolean
-                    | Array<string>
-                    | Array<ArrayRepeatedUnion>
-                    | Array<ArrayRepeatedUnion.IBox3D> => {
+                const __is = (input: any): input is ArrayRepeatedUnion => {
                     const $ip0 = (input: any) => {
                         const array = input;
                         const top = input[0];
@@ -145,12 +124,7 @@ export const test_validateClone_ArrayRepeatedUnion = _test_validateClone(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is
-                        | number
-                        | boolean
-                        | Array<string>
-                        | Array<ArrayRepeatedUnion>
-                        | Array<ArrayRepeatedUnion.IBox3D> => {
+                    ): input is ArrayRepeatedUnion => {
                         const $vp0 = (
                             input: any,
                             _path: string,
@@ -501,19 +475,8 @@ export const test_validateClone_ArrayRepeatedUnion = _test_validateClone(
                 } as any;
             };
             const clone = (
-                input:
-                    | number
-                    | boolean
-                    | Array<string>
-                    | Array<ArrayRepeatedUnion>
-                    | Array<ArrayRepeatedUnion.IBox3D>,
-            ): typia.Primitive<
-                | number
-                | boolean
-                | Array<string>
-                | Array<ArrayRepeatedUnion>
-                | Array<ArrayRepeatedUnion.IBox3D>
-            > => {
+                input: ArrayRepeatedUnion,
+            ): typia.Primitive<ArrayRepeatedUnion> => {
                 const $io0 = (input: any): boolean =>
                     "object" === typeof input.scale &&
                     null !== input.scale &&

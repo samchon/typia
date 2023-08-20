@@ -6,11 +6,9 @@ export const test_assertPrune_TagObjectUnion = _test_assertPrune(
     "TagObjectUnion",
     TagObjectUnion.generate,
     (input) =>
-        ((input: any): Array<TagObjectUnion.Type> => {
-            const assert = (input: any): Array<TagObjectUnion.Type> => {
-                const __is = (
-                    input: any,
-                ): input is Array<TagObjectUnion.Type> => {
+        ((input: any): TagObjectUnion => {
+            const assert = (input: any): TagObjectUnion => {
+                const __is = (input: any): input is TagObjectUnion => {
                     const $io0 = (input: any): boolean =>
                         "number" === typeof input.value &&
                         Number.isFinite(input.value) &&
@@ -45,7 +43,7 @@ export const test_assertPrune_TagObjectUnion = _test_assertPrune(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is Array<TagObjectUnion.Type> => {
+                    ): input is TagObjectUnion => {
                         const $guard = (typia.assertPrune as any).guard;
                         const $ao0 = (
                             input: any,
@@ -152,7 +150,7 @@ export const test_assertPrune_TagObjectUnion = _test_assertPrune(
                     })(input, "$input", true);
                 return input;
             };
-            const prune = (input: Array<TagObjectUnion.Type>): void => {
+            const prune = (input: TagObjectUnion): void => {
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.value && 3 <= input.value;
                 const $io1 = (input: any): boolean =>

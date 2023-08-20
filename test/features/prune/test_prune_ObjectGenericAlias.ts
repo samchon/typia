@@ -5,5 +5,5 @@ import { ObjectGenericAlias } from "../../structures/ObjectGenericAlias";
 export const test_prune_ObjectGenericAlias = _test_prune(
     "ObjectGenericAlias",
     ObjectGenericAlias.generate,
-    (input) => typia.prune(input),
+    (input) => typia.prune<ObjectGenericAlias>(input),
 );

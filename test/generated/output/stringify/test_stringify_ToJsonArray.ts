@@ -6,14 +6,7 @@ export const test_stringify_ToJsonArray = _test_stringify(
     "ToJsonArray",
     ToJsonArray.generate,
     (input) =>
-        ((
-            input: [
-                ToJsonArray.IArray<boolean>,
-                ToJsonArray.IArray<number>,
-                ToJsonArray.IArray<string>,
-                ToJsonArray.IArray<ToJsonArray.IObject>,
-            ],
-        ): string => {
+        ((input: ToJsonArray): string => {
             const $number = (typia.stringify as any).number;
             const $string = (typia.stringify as any).string;
             return `[${`[${input[0]

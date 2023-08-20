@@ -5,6 +5,6 @@ import { ObjectTuple } from "../../structures/ObjectTuple";
 export const test_is_ObjectTuple = _test_is(
     "ObjectTuple",
     ObjectTuple.generate,
-    (input) => typia.is(input),
+    (input) => typia.is<ObjectTuple>(input),
     ObjectTuple.SPOILERS,
 );

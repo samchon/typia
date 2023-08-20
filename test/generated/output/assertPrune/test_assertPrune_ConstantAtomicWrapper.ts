@@ -6,27 +6,9 @@ export const test_assertPrune_ConstantAtomicWrapper = _test_assertPrune(
     "ConstantAtomicWrapper",
     ConstantAtomicWrapper.generate,
     (input) =>
-        ((
-            input: any,
-        ): [
-            ConstantAtomicWrapper.IPointer<boolean>,
-            ConstantAtomicWrapper.IPointer<number>,
-            ConstantAtomicWrapper.IPointer<string>,
-        ] => {
-            const assert = (
-                input: any,
-            ): [
-                ConstantAtomicWrapper.IPointer<boolean>,
-                ConstantAtomicWrapper.IPointer<number>,
-                ConstantAtomicWrapper.IPointer<string>,
-            ] => {
-                const __is = (
-                    input: any,
-                ): input is [
-                    ConstantAtomicWrapper.IPointer<boolean>,
-                    ConstantAtomicWrapper.IPointer<number>,
-                    ConstantAtomicWrapper.IPointer<string>,
-                ] => {
+        ((input: any): ConstantAtomicWrapper => {
+            const assert = (input: any): ConstantAtomicWrapper => {
+                const __is = (input: any): input is ConstantAtomicWrapper => {
                     const $io0 = (input: any): boolean =>
                         "boolean" === typeof input.value;
                     const $io1 = (input: any): boolean =>
@@ -53,11 +35,7 @@ export const test_assertPrune_ConstantAtomicWrapper = _test_assertPrune(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is [
-                        ConstantAtomicWrapper.IPointer<boolean>,
-                        ConstantAtomicWrapper.IPointer<number>,
-                        ConstantAtomicWrapper.IPointer<string>,
-                    ] => {
+                    ): input is ConstantAtomicWrapper => {
                         const $guard = (typia.assertPrune as any).guard;
                         const $ao0 = (
                             input: any,
@@ -161,13 +139,7 @@ export const test_assertPrune_ConstantAtomicWrapper = _test_assertPrune(
                     })(input, "$input", true);
                 return input;
             };
-            const prune = (
-                input: [
-                    ConstantAtomicWrapper.IPointer<boolean>,
-                    ConstantAtomicWrapper.IPointer<number>,
-                    ConstantAtomicWrapper.IPointer<string>,
-                ],
-            ): void => {
+            const prune = (input: ConstantAtomicWrapper): void => {
                 const $io0 = (input: any): boolean =>
                     "boolean" === typeof input.value;
                 const $io1 = (input: any): boolean =>

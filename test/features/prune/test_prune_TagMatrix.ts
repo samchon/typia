@@ -5,5 +5,5 @@ import { TagMatrix } from "../../structures/TagMatrix";
 export const test_prune_TagMatrix = _test_prune(
     "TagMatrix",
     TagMatrix.generate,
-    (input) => typia.prune(input),
+    (input) => typia.prune<TagMatrix>(input),
 );

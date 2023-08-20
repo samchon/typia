@@ -5,6 +5,6 @@ import { ArrayAtomicAlias } from "../../structures/ArrayAtomicAlias";
 export const test_assertClone_ArrayAtomicAlias = _test_assertClone(
     "ArrayAtomicAlias",
     ArrayAtomicAlias.generate,
-    (input) => typia.assertClone(input),
+    (input) => typia.assertClone<ArrayAtomicAlias>(input),
     ArrayAtomicAlias.SPOILERS,
 );

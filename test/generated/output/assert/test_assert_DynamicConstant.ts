@@ -6,10 +6,8 @@ export const test_assert_DynamicConstant = _test_assert(
     "DynamicConstant",
     DynamicConstant.generate,
     (input) =>
-        ((input: any): { a: number; b: number; c: number; d: number } => {
-            const __is = (
-                input: any,
-            ): input is { a: number; b: number; c: number; d: number } => {
+        ((input: any): DynamicConstant => {
+            const __is = (input: any): input is DynamicConstant => {
                 return (
                     "object" === typeof input &&
                     null !== input &&
@@ -28,7 +26,7 @@ export const test_assert_DynamicConstant = _test_assert(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is { a: number; b: number; c: number; d: number } => {
+                ): input is DynamicConstant => {
                     const $guard = (typia.assert as any).guard;
                     const $ao0 = (
                         input: any,

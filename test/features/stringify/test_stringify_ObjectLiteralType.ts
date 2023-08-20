@@ -5,5 +5,5 @@ import { ObjectLiteralType } from "../../structures/ObjectLiteralType";
 export const test_stringify_ObjectLiteralType = _test_stringify(
     "ObjectLiteralType",
     ObjectLiteralType.generate,
-    (input) => typia.stringify(input),
+    (input) => typia.stringify<ObjectLiteralType>(input),
 );

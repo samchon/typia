@@ -5,5 +5,5 @@ import { ObjectGeneric } from "../../structures/ObjectGeneric";
 export const test_validateEquals_ObjectGeneric = _test_validateEquals(
     "ObjectGeneric",
     ObjectGeneric.generate,
-    (input) => typia.validateEquals(input),
+    (input) => typia.validateEquals<ObjectGeneric>(input),
 );

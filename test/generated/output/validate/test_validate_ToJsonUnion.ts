@@ -6,29 +6,9 @@ export const test_validate_ToJsonUnion = _test_validate(
     "ToJsonUnion",
     ToJsonUnion.generate,
     (input) =>
-        ((
-            input: any,
-        ): typia.IValidation<
-            Array<
-                | string
-                | number
-                | ToJsonUnion.ICitizen
-                | ToJsonUnion.IWrapper<boolean>
-                | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen>
-                | ToJsonUnion.IWrapper<ToJsonUnion.IProduct>
-            >
-        > => {
+        ((input: any): typia.IValidation<ToJsonUnion> => {
             const errors = [] as any[];
-            const __is = (
-                input: any,
-            ): input is Array<
-                | string
-                | number
-                | ToJsonUnion.ICitizen
-                | ToJsonUnion.IWrapper<boolean>
-                | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen>
-                | ToJsonUnion.IWrapper<ToJsonUnion.IProduct>
-            > => {
+            const __is = (input: any): input is ToJsonUnion => {
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.id &&
                     Number.isFinite(input.id) &&
@@ -71,14 +51,7 @@ export const test_validate_ToJsonUnion = _test_validate(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is Array<
-                    | string
-                    | number
-                    | ToJsonUnion.ICitizen
-                    | ToJsonUnion.IWrapper<boolean>
-                    | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen>
-                    | ToJsonUnion.IWrapper<ToJsonUnion.IProduct>
-                > => {
+                ): input is ToJsonUnion => {
                     const $vo0 = (
                         input: any,
                         _path: string,

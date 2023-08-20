@@ -9,18 +9,7 @@ export const test_equals_DynamicEnumeration = _test_equals(
         ((
             input: any,
             _exceptionable: boolean = true,
-        ): input is {
-            ar?: string | undefined;
-            "zh-Hans"?: string | undefined;
-            "zh-Hant"?: string | undefined;
-            en?: string | undefined;
-            fr?: string | undefined;
-            de?: string | undefined;
-            ja?: string | undefined;
-            ko?: string | undefined;
-            pt?: string | undefined;
-            ru?: string | undefined;
-        } => {
+        ): input is DynamicEnumeration => {
             const $io0 = (
                 input: any,
                 _exceptionable: boolean = true,

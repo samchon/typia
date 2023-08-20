@@ -5,6 +5,6 @@ import { TagNaN } from "../../structures/TagNaN";
 export const test_is_TagNaN = _test_is(
     "TagNaN",
     TagNaN.generate,
-    (input) => typia.is(input),
+    (input) => typia.is<TagNaN>(input),
     TagNaN.SPOILERS,
 );

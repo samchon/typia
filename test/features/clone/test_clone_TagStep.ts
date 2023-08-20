@@ -5,5 +5,5 @@ import { TagStep } from "../../structures/TagStep";
 export const test_clone_TagStep = _test_clone(
     "TagStep",
     TagStep.generate,
-    (input) => typia.clone(input),
+    (input) => typia.clone<TagStep>(input),
 );

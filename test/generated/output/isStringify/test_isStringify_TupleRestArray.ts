@@ -6,10 +6,8 @@ export const test_isStringify_TupleRestArray = _test_isStringify(
     "TupleRestArray",
     TupleRestArray.generate,
     (input) =>
-        ((input: [boolean, number, ...Array<string>[]]): string | null => {
-            const is = (
-                input: any,
-            ): input is [boolean, number, ...Array<string>[]] => {
+        ((input: TupleRestArray): string | null => {
+            const is = (input: any): input is TupleRestArray => {
                 return (
                     Array.isArray(input) &&
                     "boolean" === typeof input[0] &&
@@ -27,9 +25,7 @@ export const test_isStringify_TupleRestArray = _test_isStringify(
                         )
                 );
             };
-            const stringify = (
-                input: [boolean, number, ...Array<string>[]],
-            ): string => {
+            const stringify = (input: TupleRestArray): string => {
                 const $number = (typia.isStringify as any).number;
                 const $string = (typia.isStringify as any).string;
                 const $rest = (typia.isStringify as any).rest;

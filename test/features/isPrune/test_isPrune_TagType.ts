@@ -5,6 +5,6 @@ import { TagType } from "../../structures/TagType";
 export const test_isPrune_TagType = _test_isPrune(
     "TagType",
     TagType.generate,
-    (input) => typia.isPrune(input),
+    (input) => typia.isPrune<TagType>(input),
     TagType.SPOILERS,
 );

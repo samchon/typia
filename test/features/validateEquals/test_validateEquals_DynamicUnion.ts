@@ -5,5 +5,5 @@ import { DynamicUnion } from "../../structures/DynamicUnion";
 export const test_validateEquals_DynamicUnion = _test_validateEquals(
     "DynamicUnion",
     DynamicUnion.generate,
-    (input) => typia.validateEquals(input),
+    (input) => typia.validateEquals<DynamicUnion>(input),
 );

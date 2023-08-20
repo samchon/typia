@@ -5,6 +5,6 @@ import { NativeUnion } from "../../structures/NativeUnion";
 export const test_isStringify_NativeUnion = _test_isStringify(
     "NativeUnion",
     NativeUnion.generate,
-    (input) => typia.isStringify(input),
+    (input) => typia.isStringify<NativeUnion>(input),
     NativeUnion.SPOILERS,
 );

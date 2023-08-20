@@ -6,14 +6,10 @@ export const test_validateClone_TagLength = _test_validateClone(
     "TagLength",
     TagLength.generate,
     (input) =>
-        ((
-            input: any,
-        ): typia.IValidation<typia.Primitive<Array<TagLength.Type>>> => {
-            const validate = (
-                input: any,
-            ): typia.IValidation<Array<TagLength.Type>> => {
+        ((input: any): typia.IValidation<typia.Primitive<TagLength>> => {
+            const validate = (input: any): typia.IValidation<TagLength> => {
                 const errors = [] as any[];
-                const __is = (input: any): input is Array<TagLength.Type> => {
+                const __is = (input: any): input is TagLength => {
                     const $io0 = (input: any): boolean =>
                         "string" === typeof input.fixed &&
                         5 === input.fixed.length &&
@@ -43,7 +39,7 @@ export const test_validateClone_TagLength = _test_validateClone(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is Array<TagLength.Type> => {
+                    ): input is TagLength => {
                         const $vo0 = (
                             input: any,
                             _path: string,
@@ -130,7 +126,7 @@ export const test_validateClone_TagLength = _test_validateClone(
                             ((Array.isArray(input) ||
                                 $report(true, {
                                     path: _path + "",
-                                    expected: "Array<TagLength.Type>",
+                                    expected: "TagLength",
                                     value: input,
                                 })) &&
                                 input
@@ -162,7 +158,7 @@ export const test_validateClone_TagLength = _test_validateClone(
                                     .every((flag: boolean) => flag)) ||
                             $report(true, {
                                 path: _path + "",
-                                expected: "Array<TagLength.Type>",
+                                expected: "TagLength",
                                 value: input,
                             })
                         );
@@ -175,9 +171,7 @@ export const test_validateClone_TagLength = _test_validateClone(
                     data: success ? input : undefined,
                 } as any;
             };
-            const clone = (
-                input: Array<TagLength.Type>,
-            ): typia.Primitive<Array<TagLength.Type>> => {
+            const clone = (input: TagLength): typia.Primitive<TagLength> => {
                 const $cp0 = (input: any) =>
                     input.map((elem: any) =>
                         "object" === typeof elem && null !== elem

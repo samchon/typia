@@ -5,5 +5,5 @@ import { ObjectIntersection } from "../../structures/ObjectIntersection";
 export const test_stringify_ObjectIntersection = _test_stringify(
     "ObjectIntersection",
     ObjectIntersection.generate,
-    (input) => typia.stringify(input),
+    (input) => typia.stringify<ObjectIntersection>(input),
 );

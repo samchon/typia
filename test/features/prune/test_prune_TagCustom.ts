@@ -5,5 +5,5 @@ import { TagCustom } from "../../structures/TagCustom";
 export const test_prune_TagCustom = _test_prune(
     "TagCustom",
     TagCustom.generate,
-    (input) => typia.prune(input),
+    (input) => typia.prune<TagCustom>(input),
 );

@@ -5,6 +5,6 @@ import { ObjectLiteralProperty } from "../../structures/ObjectLiteralProperty";
 export const test_is_ObjectLiteralProperty = _test_is(
     "ObjectLiteralProperty",
     ObjectLiteralProperty.generate,
-    (input) => typia.is(input),
+    (input) => typia.is<ObjectLiteralProperty>(input),
     ObjectLiteralProperty.SPOILERS,
 );

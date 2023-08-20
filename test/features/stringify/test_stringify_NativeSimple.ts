@@ -5,5 +5,5 @@ import { NativeSimple } from "../../structures/NativeSimple";
 export const test_stringify_NativeSimple = _test_stringify(
     "NativeSimple",
     NativeSimple.generate,
-    (input) => typia.stringify(input),
+    (input) => typia.stringify<NativeSimple>(input),
 );

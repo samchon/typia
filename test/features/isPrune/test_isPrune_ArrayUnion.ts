@@ -5,6 +5,6 @@ import { ArrayUnion } from "../../structures/ArrayUnion";
 export const test_isPrune_ArrayUnion = _test_isPrune(
     "ArrayUnion",
     ArrayUnion.generate,
-    (input) => typia.isPrune(input),
+    (input) => typia.isPrune<ArrayUnion>(input),
     ArrayUnion.SPOILERS,
 );

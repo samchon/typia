@@ -5,6 +5,6 @@ import { TagLength } from "../../structures/TagLength";
 export const test_validatePrune_TagLength = _test_validatePrune(
     "TagLength",
     TagLength.generate,
-    (input) => typia.validatePrune(input),
+    (input) => typia.validatePrune<TagLength>(input),
     TagLength.SPOILERS,
 );

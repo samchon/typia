@@ -7,12 +7,8 @@ export const test_assertStringify_ObjectGenericArray = _test_assertStringify(
     ObjectGenericArray.generate,
     (input) =>
         ((input: any): string => {
-            const assert = (
-                input: any,
-            ): ObjectGenericArray.IPage<ObjectGenericArray.IPerson> => {
-                const __is = (
-                    input: any,
-                ): input is ObjectGenericArray.IPage<ObjectGenericArray.IPerson> => {
+            const assert = (input: any): ObjectGenericArray => {
+                const __is = (input: any): input is ObjectGenericArray => {
                     const $io0 = (input: any): boolean =>
                         "object" === typeof input.pagination &&
                         null !== input.pagination &&
@@ -52,7 +48,7 @@ export const test_assertStringify_ObjectGenericArray = _test_assertStringify(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is ObjectGenericArray.IPage<ObjectGenericArray.IPerson> => {
+                    ): input is ObjectGenericArray => {
                         const $guard = (typia.assertStringify as any).guard;
                         const $ao0 = (
                             input: any,
@@ -190,9 +186,7 @@ export const test_assertStringify_ObjectGenericArray = _test_assertStringify(
                     })(input, "$input", true);
                 return input;
             };
-            const stringify = (
-                input: ObjectGenericArray.IPage<ObjectGenericArray.IPerson>,
-            ): string => {
+            const stringify = (input: ObjectGenericArray): string => {
                 const $io1 = (input: any): boolean =>
                     "number" === typeof input.page &&
                     "number" === typeof input.limit &&

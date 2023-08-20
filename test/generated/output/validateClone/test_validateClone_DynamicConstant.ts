@@ -6,23 +6,12 @@ export const test_validateClone_DynamicConstant = _test_validateClone(
     "DynamicConstant",
     DynamicConstant.generate,
     (input) =>
-        ((
-            input: any,
-        ): typia.IValidation<
-            typia.Primitive<{ a: number; b: number; c: number; d: number }>
-        > => {
+        ((input: any): typia.IValidation<typia.Primitive<DynamicConstant>> => {
             const validate = (
                 input: any,
-            ): typia.IValidation<{
-                a: number;
-                b: number;
-                c: number;
-                d: number;
-            }> => {
+            ): typia.IValidation<DynamicConstant> => {
                 const errors = [] as any[];
-                const __is = (
-                    input: any,
-                ): input is { a: number; b: number; c: number; d: number } => {
+                const __is = (input: any): input is DynamicConstant => {
                     return (
                         "object" === typeof input &&
                         null !== input &&
@@ -42,12 +31,7 @@ export const test_validateClone_DynamicConstant = _test_validateClone(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is {
-                        a: number;
-                        b: number;
-                        c: number;
-                        d: number;
-                    } => {
+                    ): input is DynamicConstant => {
                         const $vo0 = (
                             input: any,
                             _path: string,
@@ -106,17 +90,9 @@ export const test_validateClone_DynamicConstant = _test_validateClone(
                     data: success ? input : undefined,
                 } as any;
             };
-            const clone = (input: {
-                a: number;
-                b: number;
-                c: number;
-                d: number;
-            }): typia.Primitive<{
-                a: number;
-                b: number;
-                c: number;
-                d: number;
-            }> => {
+            const clone = (
+                input: DynamicConstant,
+            ): typia.Primitive<DynamicConstant> => {
                 const $co0 = (input: any): any => ({
                     a: input.a as any,
                     b: input.b as any,

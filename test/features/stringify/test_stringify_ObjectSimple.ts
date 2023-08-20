@@ -5,5 +5,5 @@ import { ObjectSimple } from "../../structures/ObjectSimple";
 export const test_stringify_ObjectSimple = _test_stringify(
     "ObjectSimple",
     ObjectSimple.generate,
-    (input) => typia.stringify(input),
+    (input) => typia.stringify<ObjectSimple>(input),
 );

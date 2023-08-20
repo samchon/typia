@@ -6,20 +6,8 @@ export const test_isStringify_AtomicIntersection = _test_isStringify(
     "AtomicIntersection",
     AtomicIntersection.generate,
     (input) =>
-        ((
-            input: [
-                AtomicIntersection.Wrapper<boolean>,
-                AtomicIntersection.Wrapper<number>,
-                AtomicIntersection.Wrapper<string>,
-            ],
-        ): string | null => {
-            const is = (
-                input: any,
-            ): input is [
-                AtomicIntersection.Wrapper<boolean>,
-                AtomicIntersection.Wrapper<number>,
-                AtomicIntersection.Wrapper<string>,
-            ] => {
+        ((input: AtomicIntersection): string | null => {
+            const is = (input: any): input is AtomicIntersection => {
                 return (
                     Array.isArray(input) &&
                     input.length === 3 &&
@@ -29,13 +17,7 @@ export const test_isStringify_AtomicIntersection = _test_isStringify(
                     "string" === typeof input[2]
                 );
             };
-            const stringify = (
-                input: [
-                    AtomicIntersection.Wrapper<boolean>,
-                    AtomicIntersection.Wrapper<number>,
-                    AtomicIntersection.Wrapper<string>,
-                ],
-            ): string => {
+            const stringify = (input: AtomicIntersection): string => {
                 const $number = (typia.isStringify as any).number;
                 const $string = (typia.isStringify as any).string;
                 return `[${input[0]},${$number(input[1])},${$string(

@@ -5,5 +5,5 @@ import { ObjectGeneric } from "../../structures/ObjectGeneric";
 export const test_clone_ObjectGeneric = _test_clone(
     "ObjectGeneric",
     ObjectGeneric.generate,
-    (input) => typia.clone(input),
+    (input) => typia.clone<ObjectGeneric>(input),
 );

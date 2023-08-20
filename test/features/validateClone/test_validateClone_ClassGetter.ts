@@ -5,6 +5,6 @@ import { ClassGetter } from "../../structures/ClassGetter";
 export const test_validateClone_ClassGetter = _test_validateClone(
     "ClassGetter",
     ClassGetter.generate,
-    (input) => typia.validateClone(input),
+    (input) => typia.validateClone<ClassGetter>(input),
     ClassGetter.SPOILERS,
 );

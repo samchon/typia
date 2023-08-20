@@ -5,6 +5,6 @@ import { DynamicTree } from "../../structures/DynamicTree";
 export const test_isClone_DynamicTree = _test_isClone(
     "DynamicTree",
     DynamicTree.generate,
-    (input) => typia.isClone(input),
+    (input) => typia.isClone<DynamicTree>(input),
     DynamicTree.SPOILERS,
 );

@@ -6,13 +6,7 @@ export const test_prune_ObjectNullable = _test_prune(
     "ObjectNullable",
     ObjectNullable.generate,
     (input) =>
-        ((
-            input: [
-                ObjectNullable.IProduct,
-                ObjectNullable.IProduct,
-                ObjectNullable.IProduct,
-            ],
-        ): void => {
+        ((input: ObjectNullable): void => {
             const $io0 = (input: any): boolean =>
                 "string" === typeof input.name &&
                 "object" === typeof input.manufacturer &&

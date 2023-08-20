@@ -6,7 +6,7 @@ export const test_prune_TagArray = _test_prune(
     "TagArray",
     TagArray.generate,
     (input) =>
-        ((input: Array<TagArray.Type>): void => {
+        ((input: TagArray): void => {
             const $is_uuid = (typia.prune as any).is_uuid;
             const $pp0 = (input: any) =>
                 input.forEach((elem: any) => {

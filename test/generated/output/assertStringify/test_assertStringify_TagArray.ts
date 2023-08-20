@@ -7,8 +7,8 @@ export const test_assertStringify_TagArray = _test_assertStringify(
     TagArray.generate,
     (input) =>
         ((input: any): string => {
-            const assert = (input: any): Array<TagArray.Type> => {
-                const __is = (input: any): input is Array<TagArray.Type> => {
+            const assert = (input: any): TagArray => {
+                const __is = (input: any): input is TagArray => {
                     const $is_uuid = (typia.assertStringify as any).is_uuid;
                     const $io0 = (input: any): boolean =>
                         Array.isArray(input.items) &&
@@ -66,7 +66,7 @@ export const test_assertStringify_TagArray = _test_assertStringify(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is Array<TagArray.Type> => {
+                    ): input is TagArray => {
                         const $guard = (typia.assertStringify as any).guard;
                         const $is_uuid = (typia.assertStringify as any).is_uuid;
                         const $ao0 = (
@@ -320,7 +320,7 @@ export const test_assertStringify_TagArray = _test_assertStringify(
                             ((Array.isArray(input) ||
                                 $guard(true, {
                                     path: _path + "",
-                                    expected: "Array<TagArray.Type>",
+                                    expected: "TagArray",
                                     value: input,
                                 })) &&
                                 input.every(
@@ -346,14 +346,14 @@ export const test_assertStringify_TagArray = _test_assertStringify(
                                 )) ||
                             $guard(true, {
                                 path: _path + "",
-                                expected: "Array<TagArray.Type>",
+                                expected: "TagArray",
                                 value: input,
                             })
                         );
                     })(input, "$input", true);
                 return input;
             };
-            const stringify = (input: Array<TagArray.Type>): string => {
+            const stringify = (input: TagArray): string => {
                 const $string = (typia.assertStringify as any).string;
                 const $number = (typia.assertStringify as any).number;
                 const $throws = (typia.assertStringify as any).throws;

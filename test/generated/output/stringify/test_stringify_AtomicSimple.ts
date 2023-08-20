@@ -6,7 +6,7 @@ export const test_stringify_AtomicSimple = _test_stringify(
     "AtomicSimple",
     AtomicSimple.generate,
     (input) =>
-        ((input: [boolean, number, string]): string => {
+        ((input: AtomicSimple): string => {
             const $number = (typia.stringify as any).number;
             const $string = (typia.stringify as any).string;
             return `[${input[0]},${$number(input[1])},${$string(input[2])}]`;

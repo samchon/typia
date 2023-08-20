@@ -5,5 +5,5 @@ import { TagRange } from "../../structures/TagRange";
 export const test_stringify_TagRange = _test_stringify(
     "TagRange",
     TagRange.generate,
-    (input) => typia.stringify(input),
+    (input) => typia.stringify<TagRange>(input),
 );

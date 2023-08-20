@@ -5,5 +5,5 @@ import { DynamicSimple } from "../../structures/DynamicSimple";
 export const test_clone_DynamicSimple = _test_clone(
     "DynamicSimple",
     DynamicSimple.generate,
-    (input) => typia.clone(input),
+    (input) => typia.clone<DynamicSimple>(input),
 );

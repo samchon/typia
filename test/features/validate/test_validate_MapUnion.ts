@@ -5,6 +5,6 @@ import { MapUnion } from "../../structures/MapUnion";
 export const test_validate_MapUnion = _test_validate(
     "MapUnion",
     MapUnion.generate,
-    (input) => typia.validate(input),
+    (input) => typia.validate<MapUnion>(input),
     MapUnion.SPOILERS,
 );

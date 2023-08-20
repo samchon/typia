@@ -6,11 +6,9 @@ export const test_assertPrune_AtomicUnion = _test_assertPrune(
     "AtomicUnion",
     AtomicUnion.generate,
     (input) =>
-        ((input: any): Array<AtomicUnion.Union> => {
-            const assert = (input: any): Array<AtomicUnion.Union> => {
-                const __is = (
-                    input: any,
-                ): input is Array<AtomicUnion.Union> => {
+        ((input: any): AtomicUnion => {
+            const assert = (input: any): AtomicUnion => {
+                const __is = (input: any): input is AtomicUnion => {
                     return (
                         Array.isArray(input) &&
                         input.every(
@@ -28,7 +26,7 @@ export const test_assertPrune_AtomicUnion = _test_assertPrune(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is Array<AtomicUnion.Union> => {
+                    ): input is AtomicUnion => {
                         const $guard = (typia.assertPrune as any).guard;
                         return (
                             ((Array.isArray(input) ||
@@ -60,7 +58,7 @@ export const test_assertPrune_AtomicUnion = _test_assertPrune(
                     })(input, "$input", true);
                 return input;
             };
-            const prune = (input: Array<AtomicUnion.Union>): void => {};
+            const prune = (input: AtomicUnion): void => {};
             assert(input);
             prune(input);
             return input;

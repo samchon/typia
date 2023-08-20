@@ -1,53 +1,63 @@
+import { IPointer } from "../helpers/IPointer";
 import { Spoiler } from "../helpers/Spoiler";
 
-export type TagRange = TagRange.Type[];
+export type TagRange = IPointer<TagRange.Type[]>;
 export namespace TagRange {
     export interface Type {
         /**
+         * @type int
          * @exclusiveMinimum 3
          */
         greater: number;
 
         /**
+         * @type int
          * @minimum 3
          */
         greater_equal: number;
 
         /**
+         * @type int
          * @exclusiveMaximum 7
          */
         less: number;
 
         /**
+         * @type int
          * @maximum 7
          */
         less_equal: number;
 
         /**
+         * @type int
          * @exclusiveMinimum 3
          * @exclusiveMaximum 7
          */
         greater_less: number;
 
         /**
+         * @type int
          * @minimum 3
          * @exclusiveMaximum 7
          */
         greater_equal_less: number;
 
         /**
+         * @type int
          * @exclusiveMinimum 3
          * @maximum 7
          */
         greater_less_equal: number;
 
         /**
+         * @type int
          * @minimum 3
          * @maximum 7
          */
         greater_equal_less_equal: number;
 
         /**
+         * @type int
          * @minimum 10
          * @maximum 10
          */
@@ -55,8 +65,8 @@ export namespace TagRange {
     }
 
     // prettier-ignore
-    export function generate(): Type[] {
-        const output: Type[] = [];
+    export function generate(): TagRange {
+        const value: Type[] = [];
 
         for (const greater of [MINIMUM + 1, 10])
         for (const greater_equal of [MINIMUM, 10])
@@ -66,7 +76,7 @@ export namespace TagRange {
         for (const greater_equal_less of [MINIMUM, MAXIMUM - 1])
         for (const greater_less_equal of [MINIMUM + 1, MAXIMUM])
         for (const greater_equal_less_equal of [MINIMUM, MAXIMUM])
-            output.push({
+            value.push({
                 greater,
                 greater_equal,
                 less,
@@ -77,7 +87,7 @@ export namespace TagRange {
                 greater_equal_less_equal,
                 equal: 10,
             });
-        return output;
+        return { value };
     }
 
     export const MINIMUM = 3;
@@ -85,56 +95,56 @@ export namespace TagRange {
 
     export const SPOILERS: Spoiler<TagRange>[] = [
         (input) => {
-            input[4].greater = 3;
-            return ["$input[4].greater"];
+            input.value[4].greater = 3;
+            return ["$input.value[4].greater"];
         },
         (input) => {
-            input[5].greater_equal = 2;
-            return ["$input[5].greater_equal"];
+            input.value[5].greater_equal = 2;
+            return ["$input.value[5].greater_equal"];
         },
         (input) => {
-            input[6].less = 7;
-            return ["$input[6].less"];
+            input.value[6].less = 7;
+            return ["$input.value[6].less"];
         },
         (input) => {
-            input[7].less_equal = 8;
-            return ["$input[7].less_equal"];
+            input.value[7].less_equal = 8;
+            return ["$input.value[7].less_equal"];
         },
         (input) => {
-            input[8].greater_less = 3;
-            return ["$input[8].greater_less"];
+            input.value[8].greater_less = 3;
+            return ["$input.value[8].greater_less"];
         },
         (input) => {
-            input[9].greater_less = 7;
-            return ["$input[9].greater_less"];
+            input.value[9].greater_less = 7;
+            return ["$input.value[9].greater_less"];
         },
         (input) => {
-            input[10].greater_equal_less = 2;
-            return ["$input[10].greater_equal_less"];
+            input.value[10].greater_equal_less = 2;
+            return ["$input.value[10].greater_equal_less"];
         },
         (input) => {
-            input[11].greater_equal_less = 7;
-            return ["$input[11].greater_equal_less"];
+            input.value[11].greater_equal_less = 7;
+            return ["$input.value[11].greater_equal_less"];
         },
         (input) => {
-            input[12].greater_less_equal = 3;
-            return ["$input[12].greater_less_equal"];
+            input.value[12].greater_less_equal = 3;
+            return ["$input.value[12].greater_less_equal"];
         },
         (input) => {
-            input[13].greater_less_equal = 8;
-            return ["$input[13].greater_less_equal"];
+            input.value[13].greater_less_equal = 8;
+            return ["$input.value[13].greater_less_equal"];
         },
         (input) => {
-            input[14].greater_equal_less_equal = 2;
-            return ["$input[14].greater_equal_less_equal"];
+            input.value[14].greater_equal_less_equal = 2;
+            return ["$input.value[14].greater_equal_less_equal"];
         },
         (input) => {
-            input[15].greater_equal_less_equal = 8;
-            return ["$input[15].greater_equal_less_equal"];
+            input.value[15].greater_equal_less_equal = 8;
+            return ["$input.value[15].greater_equal_less_equal"];
         },
         (input) => {
-            input[16].equal = 9;
-            return ["$input[16].equal"];
+            input.value[16].equal = 9;
+            return ["$input.value[16].equal"];
         },
     ];
 }

@@ -5,6 +5,6 @@ import { AtomicClass } from "../../structures/AtomicClass";
 export const test_assertStringify_AtomicClass = _test_assertStringify(
     "AtomicClass",
     AtomicClass.generate,
-    (input) => typia.assertStringify(input),
+    (input) => typia.assertStringify<AtomicClass>(input),
     AtomicClass.SPOILERS,
 );

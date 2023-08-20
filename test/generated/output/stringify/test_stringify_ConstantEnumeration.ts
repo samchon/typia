@@ -6,7 +6,7 @@ export const test_stringify_ConstantEnumeration = _test_stringify(
     "ConstantEnumeration",
     ConstantEnumeration.generate,
     (input) =>
-        ((input: Array<ConstantEnumeration.Enumeration>): string => {
+        ((input: ConstantEnumeration): string => {
             const $string = (typia.stringify as any).string;
             const $number = (typia.stringify as any).number;
             const $throws = (typia.stringify as any).throws;

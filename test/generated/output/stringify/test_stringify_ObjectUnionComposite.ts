@@ -6,18 +6,7 @@ export const test_stringify_ObjectUnionComposite = _test_stringify(
     "ObjectUnionComposite",
     ObjectUnionComposite.generate,
     (input) =>
-        ((
-            input: Array<
-                | ObjectUnionComposite.IPoint
-                | ObjectUnionComposite.ILine
-                | ObjectUnionComposite.ITriangle
-                | ObjectUnionComposite.IRectangle
-                | ObjectUnionComposite.IPolyline
-                | ObjectUnionComposite.IPolygon
-                | ObjectUnionComposite.IPointedShape
-                | ObjectUnionComposite.ICircle
-            >,
-        ): string => {
+        ((input: ObjectUnionComposite): string => {
             const $io0 = (input: any): boolean =>
                 "number" === typeof input.x && "number" === typeof input.y;
             const $io1 = (input: any): boolean =>

@@ -6,17 +6,8 @@ export const test_isClone_DynamicConstant = _test_isClone(
     "DynamicConstant",
     DynamicConstant.generate,
     (input) =>
-        ((
-            input: any,
-        ): typia.Primitive<{
-            a: number;
-            b: number;
-            c: number;
-            d: number;
-        }> | null => {
-            const is = (
-                input: any,
-            ): input is { a: number; b: number; c: number; d: number } => {
+        ((input: any): typia.Primitive<DynamicConstant> | null => {
+            const is = (input: any): input is DynamicConstant => {
                 return (
                     "object" === typeof input &&
                     null !== input &&
@@ -30,17 +21,9 @@ export const test_isClone_DynamicConstant = _test_isClone(
                     Number.isFinite((input as any).d)
                 );
             };
-            const clone = (input: {
-                a: number;
-                b: number;
-                c: number;
-                d: number;
-            }): typia.Primitive<{
-                a: number;
-                b: number;
-                c: number;
-                d: number;
-            }> => {
+            const clone = (
+                input: DynamicConstant,
+            ): typia.Primitive<DynamicConstant> => {
                 const $co0 = (input: any): any => ({
                     a: input.a as any,
                     b: input.b as any,

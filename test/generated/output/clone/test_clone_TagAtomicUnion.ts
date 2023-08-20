@@ -6,9 +6,7 @@ export const test_clone_TagAtomicUnion = _test_clone(
     "TagAtomicUnion",
     TagAtomicUnion.generate,
     (input) =>
-        ((
-            input: Array<TagAtomicUnion.Type>,
-        ): typia.Primitive<Array<TagAtomicUnion.Type>> => {
+        ((input: TagAtomicUnion): typia.Primitive<TagAtomicUnion> => {
             const $cp0 = (input: any) =>
                 input.map((elem: any) =>
                     "object" === typeof elem && null !== elem

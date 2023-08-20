@@ -6,14 +6,10 @@ export const test_validatePrune_AtomicAlias = _test_validatePrune(
     "AtomicAlias",
     AtomicAlias.generate,
     (input) =>
-        ((input: any): typia.IValidation<[boolean, number, string]> => {
-            const validate = (
-                input: any,
-            ): typia.IValidation<[boolean, number, string]> => {
+        ((input: any): typia.IValidation<AtomicAlias> => {
+            const validate = (input: any): typia.IValidation<AtomicAlias> => {
                 const errors = [] as any[];
-                const __is = (
-                    input: any,
-                ): input is [boolean, number, string] => {
+                const __is = (input: any): input is AtomicAlias => {
                     return (
                         Array.isArray(input) &&
                         input.length === 3 &&
@@ -29,7 +25,7 @@ export const test_validatePrune_AtomicAlias = _test_validatePrune(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is [boolean, number, string] => {
+                    ): input is AtomicAlias => {
                         return (
                             ((Array.isArray(input) ||
                                 $report(true, {
@@ -79,7 +75,7 @@ export const test_validatePrune_AtomicAlias = _test_validatePrune(
                     data: success ? input : undefined,
                 } as any;
             };
-            const prune = (input: [boolean, number, string]): void => {};
+            const prune = (input: AtomicAlias): void => {};
             const output = validate(input);
             if (output.success) prune(input);
             return output;

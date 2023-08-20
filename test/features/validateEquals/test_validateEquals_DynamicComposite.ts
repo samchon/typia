@@ -5,5 +5,5 @@ import { DynamicComposite } from "../../structures/DynamicComposite";
 export const test_validateEquals_DynamicComposite = _test_validateEquals(
     "DynamicComposite",
     DynamicComposite.generate,
-    (input) => typia.validateEquals(input),
+    (input) => typia.validateEquals<DynamicComposite>(input),
 );

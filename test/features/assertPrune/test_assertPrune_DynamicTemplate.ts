@@ -5,6 +5,6 @@ import { DynamicTemplate } from "../../structures/DynamicTemplate";
 export const test_assertPrune_DynamicTemplate = _test_assertPrune(
     "DynamicTemplate",
     DynamicTemplate.generate,
-    (input) => typia.assertPrune(input),
+    (input) => typia.assertPrune<DynamicTemplate>(input),
     DynamicTemplate.SPOILERS,
 );

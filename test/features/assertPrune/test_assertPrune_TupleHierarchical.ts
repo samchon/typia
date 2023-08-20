@@ -5,6 +5,6 @@ import { TupleHierarchical } from "../../structures/TupleHierarchical";
 export const test_assertPrune_TupleHierarchical = _test_assertPrune(
     "TupleHierarchical",
     TupleHierarchical.generate,
-    (input) => typia.assertPrune(input),
+    (input) => typia.assertPrune<TupleHierarchical>(input),
     TupleHierarchical.SPOILERS,
 );

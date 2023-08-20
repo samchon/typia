@@ -5,5 +5,5 @@ import { ToJsonArray } from "../../structures/ToJsonArray";
 export const test_validate_ToJsonArray = _test_validate(
     "ToJsonArray",
     ToJsonArray.generate,
-    (input) => typia.validate(input),
+    (input) => typia.validate<ToJsonArray>(input),
 );

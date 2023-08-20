@@ -6,36 +6,12 @@ export const test_validateEquals_AtomicClass = _test_validateEquals(
     "AtomicClass",
     AtomicClass.generate,
     (input) =>
-        ((
-            input: any,
-        ): typia.IValidation<
-            [
-                Boolean,
-                false | Boolean,
-                boolean | Boolean,
-                Number,
-                Number | 1,
-                number | Number,
-                String,
-                String | "characters",
-                string | String,
-            ]
-        > => {
+        ((input: any): typia.IValidation<AtomicClass> => {
             const errors = [] as any[];
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
-            ): input is [
-                Boolean,
-                false | Boolean,
-                boolean | Boolean,
-                Number,
-                Number | 1,
-                number | Number,
-                String,
-                String | "characters",
-                string | String,
-            ] => {
+            ): input is AtomicClass => {
                 return (
                     Array.isArray(input) &&
                     input.length === 9 &&
@@ -70,17 +46,7 @@ export const test_validateEquals_AtomicClass = _test_validateEquals(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is [
-                    Boolean,
-                    false | Boolean,
-                    boolean | Boolean,
-                    Number,
-                    Number | 1,
-                    number | Number,
-                    String,
-                    String | "characters",
-                    string | String,
-                ] => {
+                ): input is AtomicClass => {
                     return (
                         ((Array.isArray(input) ||
                             $report(true, {

@@ -6,20 +6,8 @@ export const test_isPrune_AtomicIntersection = _test_isPrune(
     "AtomicIntersection",
     AtomicIntersection.generate,
     (input) =>
-        ((
-            input: any,
-        ): input is [
-            AtomicIntersection.Wrapper<boolean>,
-            AtomicIntersection.Wrapper<number>,
-            AtomicIntersection.Wrapper<string>,
-        ] => {
-            const is = (
-                input: any,
-            ): input is [
-                AtomicIntersection.Wrapper<boolean>,
-                AtomicIntersection.Wrapper<number>,
-                AtomicIntersection.Wrapper<string>,
-            ] => {
+        ((input: any): input is AtomicIntersection => {
+            const is = (input: any): input is AtomicIntersection => {
                 return (
                     Array.isArray(input) &&
                     input.length === 3 &&
@@ -29,13 +17,7 @@ export const test_isPrune_AtomicIntersection = _test_isPrune(
                     "string" === typeof input[2]
                 );
             };
-            const prune = (
-                input: [
-                    AtomicIntersection.Wrapper<boolean>,
-                    AtomicIntersection.Wrapper<number>,
-                    AtomicIntersection.Wrapper<string>,
-                ],
-            ): void => {};
+            const prune = (input: AtomicIntersection): void => {};
             if (!is(input)) return false;
             prune(input);
             return true;

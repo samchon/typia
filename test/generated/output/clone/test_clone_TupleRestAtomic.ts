@@ -6,9 +6,7 @@ export const test_clone_TupleRestAtomic = _test_clone(
     "TupleRestAtomic",
     TupleRestAtomic.generate,
     (input) =>
-        ((
-            input: [boolean, number, ...string[]],
-        ): typia.Primitive<[boolean, number, ...string[]]> => {
+        ((input: TupleRestAtomic): typia.Primitive<TupleRestAtomic> => {
             const $cp0 = (input: any) => input.map((elem: any) => elem as any);
             return Array.isArray(input) &&
                 "boolean" === typeof input[0] &&

@@ -5,6 +5,6 @@ import { TagFormat } from "../../structures/TagFormat";
 export const test_assertClone_TagFormat = _test_assertClone(
     "TagFormat",
     TagFormat.generate,
-    (input) => typia.assertClone(input),
+    (input) => typia.assertClone<TagFormat>(input),
     TagFormat.SPOILERS,
 );

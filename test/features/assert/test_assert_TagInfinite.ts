@@ -5,6 +5,6 @@ import { TagInfinite } from "../../structures/TagInfinite";
 export const test_assert_TagInfinite = _test_assert(
     "TagInfinite",
     TagInfinite.generate,
-    (input) => typia.assert(input),
+    (input) => typia.assert<TagInfinite>(input),
     TagInfinite.SPOILERS,
 );

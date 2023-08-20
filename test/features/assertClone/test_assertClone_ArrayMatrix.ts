@@ -5,6 +5,6 @@ import { ArrayMatrix } from "../../structures/ArrayMatrix";
 export const test_assertClone_ArrayMatrix = _test_assertClone(
     "ArrayMatrix",
     ArrayMatrix.generate,
-    (input) => typia.assertClone(input),
+    (input) => typia.assertClone<ArrayMatrix>(input),
     ArrayMatrix.SPOILERS,
 );

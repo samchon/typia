@@ -5,5 +5,5 @@ import { ToJsonTuple } from "../../structures/ToJsonTuple";
 export const test_assert_ToJsonTuple = _test_assert(
     "ToJsonTuple",
     ToJsonTuple.generate,
-    (input) => typia.assert(input),
+    (input) => typia.assert<ToJsonTuple>(input),
 );

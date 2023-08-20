@@ -7,26 +7,8 @@ export const test_assertStringify_ToJsonUnion = _test_assertStringify(
     ToJsonUnion.generate,
     (input) =>
         ((input: any): string => {
-            const assert = (
-                input: any,
-            ): Array<
-                | string
-                | number
-                | ToJsonUnion.ICitizen
-                | ToJsonUnion.IWrapper<boolean>
-                | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen>
-                | ToJsonUnion.IWrapper<ToJsonUnion.IProduct>
-            > => {
-                const __is = (
-                    input: any,
-                ): input is Array<
-                    | string
-                    | number
-                    | ToJsonUnion.ICitizen
-                    | ToJsonUnion.IWrapper<boolean>
-                    | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen>
-                    | ToJsonUnion.IWrapper<ToJsonUnion.IProduct>
-                > => {
+            const assert = (input: any): ToJsonUnion => {
+                const __is = (input: any): input is ToJsonUnion => {
                     const $io0 = (input: any): boolean =>
                         "number" === typeof input.id &&
                         Number.isFinite(input.id) &&
@@ -65,14 +47,7 @@ export const test_assertStringify_ToJsonUnion = _test_assertStringify(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is Array<
-                        | string
-                        | number
-                        | ToJsonUnion.ICitizen
-                        | ToJsonUnion.IWrapper<boolean>
-                        | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen>
-                        | ToJsonUnion.IWrapper<ToJsonUnion.IProduct>
-                    > => {
+                    ): input is ToJsonUnion => {
                         const $guard = (typia.assertStringify as any).guard;
                         const $ao0 = (
                             input: any,
@@ -229,16 +204,7 @@ export const test_assertStringify_ToJsonUnion = _test_assertStringify(
                     })(input, "$input", true);
                 return input;
             };
-            const stringify = (
-                input: Array<
-                    | string
-                    | number
-                    | ToJsonUnion.ICitizen
-                    | ToJsonUnion.IWrapper<boolean>
-                    | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen>
-                    | ToJsonUnion.IWrapper<ToJsonUnion.IProduct>
-                >,
-            ): string => {
+            const stringify = (input: ToJsonUnion): string => {
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.id &&
                     "string" === typeof input.mobile &&

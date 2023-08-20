@@ -5,5 +5,5 @@ import { DynamicTemplate } from "../../structures/DynamicTemplate";
 export const test_prune_DynamicTemplate = _test_prune(
     "DynamicTemplate",
     DynamicTemplate.generate,
-    (input) => typia.prune(input),
+    (input) => typia.prune<DynamicTemplate>(input),
 );

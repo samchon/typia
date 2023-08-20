@@ -5,6 +5,6 @@ import { SetSimple } from "../../structures/SetSimple";
 export const test_is_SetSimple = _test_is(
     "SetSimple",
     SetSimple.generate,
-    (input) => typia.is(input),
+    (input) => typia.is<SetSimple>(input),
     SetSimple.SPOILERS,
 );

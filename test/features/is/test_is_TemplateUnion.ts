@@ -5,6 +5,6 @@ import { TemplateUnion } from "../../structures/TemplateUnion";
 export const test_is_TemplateUnion = _test_is(
     "TemplateUnion",
     TemplateUnion.generate,
-    (input) => typia.is(input),
+    (input) => typia.is<TemplateUnion>(input),
     TemplateUnion.SPOILERS,
 );

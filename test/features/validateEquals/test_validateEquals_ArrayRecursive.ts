@@ -5,5 +5,5 @@ import { ArrayRecursive } from "../../structures/ArrayRecursive";
 export const test_validateEquals_ArrayRecursive = _test_validateEquals(
     "ArrayRecursive",
     ArrayRecursive.generate,
-    (input) => typia.validateEquals(input),
+    (input) => typia.validateEquals<ArrayRecursive>(input),
 );

@@ -6,18 +6,7 @@ export const test_stringify_DynamicEnumeration = _test_stringify(
     "DynamicEnumeration",
     DynamicEnumeration.generate,
     (input) =>
-        ((input: {
-            ar?: string | undefined;
-            "zh-Hans"?: string | undefined;
-            "zh-Hant"?: string | undefined;
-            en?: string | undefined;
-            fr?: string | undefined;
-            de?: string | undefined;
-            ja?: string | undefined;
-            ko?: string | undefined;
-            pt?: string | undefined;
-            ru?: string | undefined;
-        }): string => {
+        ((input: DynamicEnumeration): string => {
             const $string = (typia.stringify as any).string;
             const $tail = (typia.stringify as any).tail;
             const $so0 = (input: any): any =>

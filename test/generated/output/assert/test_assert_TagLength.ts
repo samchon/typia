@@ -6,8 +6,8 @@ export const test_assert_TagLength = _test_assert(
     "TagLength",
     TagLength.generate,
     (input) =>
-        ((input: any): Array<TagLength.Type> => {
-            const __is = (input: any): input is Array<TagLength.Type> => {
+        ((input: any): TagLength => {
+            const __is = (input: any): input is TagLength => {
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.fixed &&
                     5 === input.fixed.length &&
@@ -36,7 +36,7 @@ export const test_assert_TagLength = _test_assert(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is Array<TagLength.Type> => {
+                ): input is TagLength => {
                     const $guard = (typia.assert as any).guard;
                     const $ao0 = (
                         input: any,
@@ -119,7 +119,7 @@ export const test_assert_TagLength = _test_assert(
                         ((Array.isArray(input) ||
                             $guard(true, {
                                 path: _path + "",
-                                expected: "Array<TagLength.Type>",
+                                expected: "TagLength",
                                 value: input,
                             })) &&
                             input.every(
@@ -144,7 +144,7 @@ export const test_assert_TagLength = _test_assert(
                             )) ||
                         $guard(true, {
                             path: _path + "",
-                            expected: "Array<TagLength.Type>",
+                            expected: "TagLength",
                             value: input,
                         })
                     );

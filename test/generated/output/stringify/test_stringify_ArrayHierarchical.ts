@@ -6,7 +6,7 @@ export const test_stringify_ArrayHierarchical = _test_stringify(
     "ArrayHierarchical",
     ArrayHierarchical.generate,
     (input) =>
-        ((input: Array<ArrayHierarchical.ICompany>): string => {
+        ((input: ArrayHierarchical): string => {
             const $io1 = (input: any): boolean =>
                 "number" === typeof input.time &&
                 "number" === typeof input.zone;

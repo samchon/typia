@@ -5,6 +5,6 @@ import { ArrayRepeatedNullable } from "../../structures/ArrayRepeatedNullable";
 export const test_is_ArrayRepeatedNullable = _test_is(
     "ArrayRepeatedNullable",
     ArrayRepeatedNullable.generate,
-    (input) => typia.is(input),
+    (input) => typia.is<ArrayRepeatedNullable>(input),
     ArrayRepeatedNullable.SPOILERS,
 );

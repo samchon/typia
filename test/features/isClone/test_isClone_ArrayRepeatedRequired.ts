@@ -5,6 +5,6 @@ import { ArrayRepeatedRequired } from "../../structures/ArrayRepeatedRequired";
 export const test_isClone_ArrayRepeatedRequired = _test_isClone(
     "ArrayRepeatedRequired",
     ArrayRepeatedRequired.generate,
-    (input) => typia.isClone(input),
+    (input) => typia.isClone<ArrayRepeatedRequired>(input),
     ArrayRepeatedRequired.SPOILERS,
 );

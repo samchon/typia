@@ -6,9 +6,7 @@ export const test_is_DynamicConstant = _test_is(
     "DynamicConstant",
     DynamicConstant.generate,
     (input) =>
-        ((
-            input: any,
-        ): input is { a: number; b: number; c: number; d: number } => {
+        ((input: any): input is DynamicConstant => {
             return (
                 "object" === typeof input &&
                 null !== input &&

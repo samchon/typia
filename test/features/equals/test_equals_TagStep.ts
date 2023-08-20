@@ -5,5 +5,5 @@ import { TagStep } from "../../structures/TagStep";
 export const test_equals_TagStep = _test_equals(
     "TagStep",
     TagStep.generate,
-    (input) => typia.equals(input),
+    (input) => typia.equals<TagStep>(input),
 );

@@ -5,5 +5,5 @@ import { ToJsonAtomicSimple } from "../../structures/ToJsonAtomicSimple";
 export const test_validateClone_ToJsonAtomicSimple = _test_validateClone(
     "ToJsonAtomicSimple",
     ToJsonAtomicSimple.generate,
-    (input) => typia.validateClone(input),
+    (input) => typia.validateClone<ToJsonAtomicSimple>(input),
 );

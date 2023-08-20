@@ -5,5 +5,5 @@ import { ClassMethod } from "../../structures/ClassMethod";
 export const test_equals_ClassMethod = _test_equals(
     "ClassMethod",
     ClassMethod.generate,
-    (input) => typia.equals(input),
+    (input) => typia.equals<ClassMethod>(input),
 );

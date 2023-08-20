@@ -5,6 +5,6 @@ import { NativeUnion } from "../../structures/NativeUnion";
 export const test_validateClone_NativeUnion = _test_validateClone(
     "NativeUnion",
     NativeUnion.generate,
-    (input) => typia.validateClone(input),
+    (input) => typia.validateClone<NativeUnion>(input),
     NativeUnion.SPOILERS,
 );

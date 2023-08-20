@@ -6,6 +6,6 @@ export const test_validateStringify_ArrayRepeatedRequired =
     _test_validateStringify(
         "ArrayRepeatedRequired",
         ArrayRepeatedRequired.generate,
-        (input) => typia.validateStringify(input),
+        (input) => typia.validateStringify<ArrayRepeatedRequired>(input),
         ArrayRepeatedRequired.SPOILERS,
     );

@@ -6,22 +6,8 @@ export const test_assert_ToJsonArray = _test_assert(
     "ToJsonArray",
     ToJsonArray.generate,
     (input) =>
-        ((
-            input: any,
-        ): [
-            ToJsonArray.IArray<boolean>,
-            ToJsonArray.IArray<number>,
-            ToJsonArray.IArray<string>,
-            ToJsonArray.IArray<ToJsonArray.IObject>,
-        ] => {
-            const __is = (
-                input: any,
-            ): input is [
-                ToJsonArray.IArray<boolean>,
-                ToJsonArray.IArray<number>,
-                ToJsonArray.IArray<string>,
-                ToJsonArray.IArray<ToJsonArray.IObject>,
-            ] => {
+        ((input: any): ToJsonArray => {
+            const __is = (input: any): input is ToJsonArray => {
                 const $io0 = (input: any): boolean =>
                     "function" === typeof input.toJSON;
                 const $io1 = (input: any): boolean =>
@@ -52,12 +38,7 @@ export const test_assert_ToJsonArray = _test_assert(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is [
-                    ToJsonArray.IArray<boolean>,
-                    ToJsonArray.IArray<number>,
-                    ToJsonArray.IArray<string>,
-                    ToJsonArray.IArray<ToJsonArray.IObject>,
-                ] => {
+                ): input is ToJsonArray => {
                     const $guard = (typia.assert as any).guard;
                     const $ao0 = (
                         input: any,

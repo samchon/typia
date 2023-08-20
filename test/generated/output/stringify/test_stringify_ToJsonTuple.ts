@@ -6,14 +6,7 @@ export const test_stringify_ToJsonTuple = _test_stringify(
     "ToJsonTuple",
     ToJsonTuple.generate,
     (input) =>
-        ((
-            input: [
-                ToJsonTuple.IToJson<string>,
-                ToJsonTuple.IToJson<number>,
-                ToJsonTuple.IToJson<boolean>,
-                ToJsonTuple.IObject,
-            ],
-        ): string => {
+        ((input: ToJsonTuple): string => {
             const $string = (typia.stringify as any).string;
             const $number = (typia.stringify as any).number;
             return `[${$string(input[0].toJSON())},${$number(

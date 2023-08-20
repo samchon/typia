@@ -5,6 +5,6 @@ import { ObjectUndefined } from "../../structures/ObjectUndefined";
 export const test_validatePrune_ObjectUndefined = _test_validatePrune(
     "ObjectUndefined",
     ObjectUndefined.generate,
-    (input) => typia.validatePrune(input),
+    (input) => typia.validatePrune<ObjectUndefined>(input),
     ObjectUndefined.SPOILERS,
 );

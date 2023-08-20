@@ -6,13 +6,9 @@ export const test_assertPrune_ConstantEnumeration = _test_assertPrune(
     "ConstantEnumeration",
     ConstantEnumeration.generate,
     (input) =>
-        ((input: any): Array<ConstantEnumeration.Enumeration> => {
-            const assert = (
-                input: any,
-            ): Array<ConstantEnumeration.Enumeration> => {
-                const __is = (
-                    input: any,
-                ): input is Array<ConstantEnumeration.Enumeration> => {
+        ((input: any): ConstantEnumeration => {
+            const assert = (input: any): ConstantEnumeration => {
+                const __is = (input: any): input is ConstantEnumeration => {
                     return (
                         Array.isArray(input) &&
                         input.every(
@@ -30,7 +26,7 @@ export const test_assertPrune_ConstantEnumeration = _test_assertPrune(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is Array<ConstantEnumeration.Enumeration> => {
+                    ): input is ConstantEnumeration => {
                         const $guard = (typia.assertPrune as any).guard;
                         return (
                             ((Array.isArray(input) ||
@@ -62,9 +58,7 @@ export const test_assertPrune_ConstantEnumeration = _test_assertPrune(
                     })(input, "$input", true);
                 return input;
             };
-            const prune = (
-                input: Array<ConstantEnumeration.Enumeration>,
-            ): void => {};
+            const prune = (input: ConstantEnumeration): void => {};
             assert(input);
             prune(input);
             return input;

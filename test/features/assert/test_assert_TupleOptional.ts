@@ -5,6 +5,6 @@ import { TupleOptional } from "../../structures/TupleOptional";
 export const test_assert_TupleOptional = _test_assert(
     "TupleOptional",
     TupleOptional.generate,
-    (input) => typia.assert(input),
+    (input) => typia.assert<TupleOptional>(input),
     TupleOptional.SPOILERS,
 );

@@ -5,6 +5,6 @@ import { ObjectIntersection } from "../../structures/ObjectIntersection";
 export const test_isClone_ObjectIntersection = _test_isClone(
     "ObjectIntersection",
     ObjectIntersection.generate,
-    (input) => typia.isClone(input),
+    (input) => typia.isClone<ObjectIntersection>(input),
     ObjectIntersection.SPOILERS,
 );

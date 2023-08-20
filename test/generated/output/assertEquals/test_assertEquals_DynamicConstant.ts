@@ -6,11 +6,11 @@ export const test_assertEquals_DynamicConstant = _test_assertEquals(
     "DynamicConstant",
     DynamicConstant.generate,
     (input) =>
-        ((input: any): { a: number; b: number; c: number; d: number } => {
+        ((input: any): DynamicConstant => {
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
-            ): input is { a: number; b: number; c: number; d: number } => {
+            ): input is DynamicConstant => {
                 const $io0 = (
                     input: any,
                     _exceptionable: boolean = true,
@@ -46,7 +46,7 @@ export const test_assertEquals_DynamicConstant = _test_assertEquals(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is { a: number; b: number; c: number; d: number } => {
+                ): input is DynamicConstant => {
                     const $guard = (typia.assertEquals as any).guard;
                     const $join = (typia.assertEquals as any).join;
                     const $ao0 = (

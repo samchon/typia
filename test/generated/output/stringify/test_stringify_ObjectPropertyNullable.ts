@@ -6,16 +6,7 @@ export const test_stringify_ObjectPropertyNullable = _test_stringify(
     "ObjectPropertyNullable",
     ObjectPropertyNullable.generate,
     (input) =>
-        ((
-            input: [
-                Array<ObjectPropertyNullable.IPointer<boolean>>,
-                Array<ObjectPropertyNullable.IPointer<number>>,
-                Array<ObjectPropertyNullable.IPointer<string>>,
-                Array<
-                    ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>
-                >,
-            ],
-        ): string => {
+        ((input: ObjectPropertyNullable): string => {
             const $io4 = (input: any): boolean =>
                 "string" === typeof input.id &&
                 (null === input.name || "string" === typeof input.name) &&

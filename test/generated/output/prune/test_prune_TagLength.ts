@@ -6,7 +6,7 @@ export const test_prune_TagLength = _test_prune(
     "TagLength",
     TagLength.generate,
     (input) =>
-        ((input: Array<TagLength.Type>): void => {
+        ((input: TagLength): void => {
             const $pp0 = (input: any) =>
                 input.forEach((elem: any) => {
                     if ("object" === typeof elem && null !== elem) $po0(elem);

@@ -5,6 +5,6 @@ import { NativeUnion } from "../../structures/NativeUnion";
 export const test_assert_NativeUnion = _test_assert(
     "NativeUnion",
     NativeUnion.generate,
-    (input) => typia.assert(input),
+    (input) => typia.assert<NativeUnion>(input),
     NativeUnion.SPOILERS,
 );

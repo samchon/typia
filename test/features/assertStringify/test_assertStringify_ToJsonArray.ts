@@ -5,5 +5,5 @@ import { ToJsonArray } from "../../structures/ToJsonArray";
 export const test_assertStringify_ToJsonArray = _test_assertStringify(
     "ToJsonArray",
     ToJsonArray.generate,
-    (input) => typia.assertStringify(input),
+    (input) => typia.assertStringify<ToJsonArray>(input),
 );

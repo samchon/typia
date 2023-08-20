@@ -6,21 +6,11 @@ export const test_assertEquals_ConstantIntersection = _test_assertEquals(
     "ConstantIntersection",
     ConstantIntersection.generate,
     (input) =>
-        ((
-            input: any,
-        ): [
-            ConstantIntersection.Wrapper<false>,
-            ConstantIntersection.Wrapper<1>,
-            ConstantIntersection.Wrapper<"two">,
-        ] => {
+        ((input: any): ConstantIntersection => {
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
-            ): input is [
-                ConstantIntersection.Wrapper<false>,
-                ConstantIntersection.Wrapper<1>,
-                ConstantIntersection.Wrapper<"two">,
-            ] => {
+            ): input is ConstantIntersection => {
                 return (
                     Array.isArray(input) &&
                     input.length === 3 &&
@@ -34,11 +24,7 @@ export const test_assertEquals_ConstantIntersection = _test_assertEquals(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is [
-                    ConstantIntersection.Wrapper<false>,
-                    ConstantIntersection.Wrapper<1>,
-                    ConstantIntersection.Wrapper<"two">,
-                ] => {
+                ): input is ConstantIntersection => {
                     const $guard = (typia.assertEquals as any).guard;
                     return (
                         ((Array.isArray(input) ||

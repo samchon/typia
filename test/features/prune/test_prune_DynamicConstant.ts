@@ -5,5 +5,5 @@ import { DynamicConstant } from "../../structures/DynamicConstant";
 export const test_prune_DynamicConstant = _test_prune(
     "DynamicConstant",
     DynamicConstant.generate,
-    (input) => typia.prune(input),
+    (input) => typia.prune<DynamicConstant>(input),
 );

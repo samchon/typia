@@ -5,6 +5,6 @@ import { TagCustom } from "../../structures/TagCustom";
 export const test_validate_TagCustom = _test_validate(
     "TagCustom",
     TagCustom.generate,
-    (input) => typia.validate(input),
+    (input) => typia.validate<TagCustom>(input),
     TagCustom.SPOILERS,
 );

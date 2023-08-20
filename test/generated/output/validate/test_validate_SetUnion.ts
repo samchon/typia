@@ -6,9 +6,9 @@ export const test_validate_SetUnion = _test_validate(
     "SetUnion",
     SetUnion.generate,
     (input) =>
-        ((input: any): typia.IValidation<Array<SetUnion.Union>> => {
+        ((input: any): typia.IValidation<SetUnion> => {
             const errors = [] as any[];
-            const __is = (input: any): input is Array<SetUnion.Union> => {
+            const __is = (input: any): input is SetUnion => {
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     "string" === typeof input.name &&
@@ -114,7 +114,7 @@ export const test_validate_SetUnion = _test_validate(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is Array<SetUnion.Union> => {
+                ): input is SetUnion => {
                     const $vo0 = (
                         input: any,
                         _path: string,

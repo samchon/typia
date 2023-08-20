@@ -5,6 +5,6 @@ import { ObjectInternal } from "../../structures/ObjectInternal";
 export const test_assertPrune_ObjectInternal = _test_assertPrune(
     "ObjectInternal",
     ObjectInternal.generate,
-    (input) => typia.assertPrune(input),
+    (input) => typia.assertPrune<ObjectInternal>(input),
     ObjectInternal.SPOILERS,
 );

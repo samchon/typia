@@ -6,7 +6,7 @@ export const test_is_ObjectHierarchical = _test_is(
     "ObjectHierarchical",
     ObjectHierarchical.generate,
     (input) =>
-        ((input: any): input is ObjectHierarchical.ICustomer => {
+        ((input: any): input is ObjectHierarchical => {
             const $io0 = (input: any): boolean =>
                 "number" === typeof input.id &&
                 Number.isFinite(input.id) &&

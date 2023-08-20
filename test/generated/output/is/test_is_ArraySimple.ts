@@ -6,7 +6,7 @@ export const test_is_ArraySimple = _test_is(
     "ArraySimple",
     ArraySimple.generate,
     (input) =>
-        ((input: any): input is Array<ArraySimple.IPerson> => {
+        ((input: any): input is ArraySimple => {
             const $io0 = (input: any): boolean =>
                 "string" === typeof input.name &&
                 "string" === typeof input.email &&

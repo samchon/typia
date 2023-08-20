@@ -6,24 +6,12 @@ export const test_validateStringify_DynamicConstant = _test_validateStringify(
     "DynamicConstant",
     DynamicConstant.generate,
     (input) =>
-        ((input: {
-            a: number;
-            b: number;
-            c: number;
-            d: number;
-        }): typia.IValidation<string> => {
+        ((input: DynamicConstant): typia.IValidation<string> => {
             const validate = (
                 input: any,
-            ): typia.IValidation<{
-                a: number;
-                b: number;
-                c: number;
-                d: number;
-            }> => {
+            ): typia.IValidation<DynamicConstant> => {
                 const errors = [] as any[];
-                const __is = (
-                    input: any,
-                ): input is { a: number; b: number; c: number; d: number } => {
+                const __is = (input: any): input is DynamicConstant => {
                     return (
                         "object" === typeof input &&
                         null !== input &&
@@ -45,12 +33,7 @@ export const test_validateStringify_DynamicConstant = _test_validateStringify(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is {
-                        a: number;
-                        b: number;
-                        c: number;
-                        d: number;
-                    } => {
+                    ): input is DynamicConstant => {
                         const $vo0 = (
                             input: any,
                             _path: string,
@@ -109,12 +92,7 @@ export const test_validateStringify_DynamicConstant = _test_validateStringify(
                     data: success ? input : undefined,
                 } as any;
             };
-            const stringify = (input: {
-                a: number;
-                b: number;
-                c: number;
-                d: number;
-            }): string => {
+            const stringify = (input: DynamicConstant): string => {
                 const $number = (typia.validateStringify as any).number;
                 return `{"a":${$number((input as any).a)},"b":${$number(
                     (input as any).b,

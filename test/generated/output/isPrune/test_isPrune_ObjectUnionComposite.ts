@@ -6,30 +6,8 @@ export const test_isPrune_ObjectUnionComposite = _test_isPrune(
     "ObjectUnionComposite",
     ObjectUnionComposite.generate,
     (input) =>
-        ((
-            input: any,
-        ): input is Array<
-            | ObjectUnionComposite.IPoint
-            | ObjectUnionComposite.ILine
-            | ObjectUnionComposite.ITriangle
-            | ObjectUnionComposite.IRectangle
-            | ObjectUnionComposite.IPolyline
-            | ObjectUnionComposite.IPolygon
-            | ObjectUnionComposite.IPointedShape
-            | ObjectUnionComposite.ICircle
-        > => {
-            const is = (
-                input: any,
-            ): input is Array<
-                | ObjectUnionComposite.IPoint
-                | ObjectUnionComposite.ILine
-                | ObjectUnionComposite.ITriangle
-                | ObjectUnionComposite.IRectangle
-                | ObjectUnionComposite.IPolyline
-                | ObjectUnionComposite.IPolygon
-                | ObjectUnionComposite.IPointedShape
-                | ObjectUnionComposite.ICircle
-            > => {
+        ((input: any): input is ObjectUnionComposite => {
+            const is = (input: any): input is ObjectUnionComposite => {
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.x &&
                     Number.isFinite(input.x) &&
@@ -171,18 +149,7 @@ export const test_isPrune_ObjectUnionComposite = _test_isPrune(
                     )
                 );
             };
-            const prune = (
-                input: Array<
-                    | ObjectUnionComposite.IPoint
-                    | ObjectUnionComposite.ILine
-                    | ObjectUnionComposite.ITriangle
-                    | ObjectUnionComposite.IRectangle
-                    | ObjectUnionComposite.IPolyline
-                    | ObjectUnionComposite.IPolygon
-                    | ObjectUnionComposite.IPointedShape
-                    | ObjectUnionComposite.ICircle
-                >,
-            ): void => {
+            const prune = (input: ObjectUnionComposite): void => {
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.x && "number" === typeof input.y;
                 const $io1 = (input: any): boolean =>

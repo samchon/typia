@@ -5,6 +5,6 @@ import { ClassPropertyAssignment } from "../../structures/ClassPropertyAssignmen
 export const test_isStringify_ClassPropertyAssignment = _test_isStringify(
     "ClassPropertyAssignment",
     ClassPropertyAssignment.generate,
-    (input) => typia.isStringify(input),
+    (input) => typia.isStringify<ClassPropertyAssignment>(input),
     ClassPropertyAssignment.SPOILERS,
 );

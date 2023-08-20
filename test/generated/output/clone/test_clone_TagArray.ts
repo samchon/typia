@@ -6,9 +6,7 @@ export const test_clone_TagArray = _test_clone(
     "TagArray",
     TagArray.generate,
     (input) =>
-        ((
-            input: Array<TagArray.Type>,
-        ): typia.Primitive<Array<TagArray.Type>> => {
+        ((input: TagArray): typia.Primitive<TagArray> => {
             const $is_uuid = (typia.clone as any).is_uuid;
             const $cp0 = (input: any) =>
                 input.map((elem: any) =>

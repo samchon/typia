@@ -5,6 +5,6 @@ import { TagRange } from "../../structures/TagRange";
 export const test_is_TagRange = _test_is(
     "TagRange",
     TagRange.generate,
-    (input) => typia.is(input),
+    (input) => typia.is<TagRange>(input),
     TagRange.SPOILERS,
 );

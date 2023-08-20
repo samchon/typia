@@ -5,5 +5,5 @@ import { ObjectInternal } from "../../structures/ObjectInternal";
 export const test_prune_ObjectInternal = _test_prune(
     "ObjectInternal",
     ObjectInternal.generate,
-    (input) => typia.prune(input),
+    (input) => typia.prune<ObjectInternal>(input),
 );

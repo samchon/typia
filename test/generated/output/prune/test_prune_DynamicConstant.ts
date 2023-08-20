@@ -6,7 +6,7 @@ export const test_prune_DynamicConstant = _test_prune(
     "DynamicConstant",
     DynamicConstant.generate,
     (input) =>
-        ((input: { a: number; b: number; c: number; d: number }): void => {
+        ((input: DynamicConstant): void => {
             const $po0 = (input: any): any => {
                 for (const key of Object.keys(input)) {
                     if (

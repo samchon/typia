@@ -6,9 +6,7 @@ export const test_clone_TagLength = _test_clone(
     "TagLength",
     TagLength.generate,
     (input) =>
-        ((
-            input: Array<TagLength.Type>,
-        ): typia.Primitive<Array<TagLength.Type>> => {
+        ((input: TagLength): typia.Primitive<TagLength> => {
             const $cp0 = (input: any) =>
                 input.map((elem: any) =>
                     "object" === typeof elem && null !== elem

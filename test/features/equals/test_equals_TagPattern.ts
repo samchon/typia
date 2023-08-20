@@ -5,5 +5,5 @@ import { TagPattern } from "../../structures/TagPattern";
 export const test_equals_TagPattern = _test_equals(
     "TagPattern",
     TagPattern.generate,
-    (input) => typia.equals(input),
+    (input) => typia.equals<TagPattern>(input),
 );

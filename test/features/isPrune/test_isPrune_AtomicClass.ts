@@ -5,6 +5,6 @@ import { AtomicClass } from "../../structures/AtomicClass";
 export const test_isPrune_AtomicClass = _test_isPrune(
     "AtomicClass",
     AtomicClass.generate,
-    (input) => typia.isPrune(input),
+    (input) => typia.isPrune<AtomicClass>(input),
     AtomicClass.SPOILERS,
 );

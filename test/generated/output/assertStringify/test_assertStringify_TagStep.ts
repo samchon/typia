@@ -7,8 +7,8 @@ export const test_assertStringify_TagStep = _test_assertStringify(
     TagStep.generate,
     (input) =>
         ((input: any): string => {
-            const assert = (input: any): Array<TagStep.Type> => {
-                const __is = (input: any): input is Array<TagStep.Type> => {
+            const assert = (input: any): TagStep => {
+                const __is = (input: any): input is TagStep => {
                     const $io0 = (input: any): boolean =>
                         "number" === typeof input.exclusiveMinimum &&
                         0 === (input.exclusiveMinimum % 5) - 3 &&
@@ -39,7 +39,7 @@ export const test_assertStringify_TagStep = _test_assertStringify(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is Array<TagStep.Type> => {
+                    ): input is TagStep => {
                         const $guard = (typia.assertStringify as any).guard;
                         const $ao0 = (
                             input: any,
@@ -137,7 +137,7 @@ export const test_assertStringify_TagStep = _test_assertStringify(
                             ((Array.isArray(input) ||
                                 $guard(true, {
                                     path: _path + "",
-                                    expected: "Array<TagStep.Type>",
+                                    expected: "TagStep",
                                     value: input,
                                 })) &&
                                 input.every(
@@ -163,14 +163,14 @@ export const test_assertStringify_TagStep = _test_assertStringify(
                                 )) ||
                             $guard(true, {
                                 path: _path + "",
-                                expected: "Array<TagStep.Type>",
+                                expected: "TagStep",
                                 value: input,
                             })
                         );
                     })(input, "$input", true);
                 return input;
             };
-            const stringify = (input: Array<TagStep.Type>): string => {
+            const stringify = (input: TagStep): string => {
                 const $number = (typia.assertStringify as any).number;
                 return `[${input
                     .map(

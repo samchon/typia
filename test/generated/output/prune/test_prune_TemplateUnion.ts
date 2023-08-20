@@ -6,7 +6,7 @@ export const test_prune_TemplateUnion = _test_prune(
     "TemplateUnion",
     TemplateUnion.generate,
     (input) =>
-        ((input: Array<TemplateUnion.Type>): void => {
+        ((input: TemplateUnion): void => {
             const $io1 = (input: any): boolean =>
                 "string" === typeof input.name;
             const $pp0 = (input: any) =>

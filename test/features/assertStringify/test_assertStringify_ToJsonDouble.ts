@@ -5,5 +5,5 @@ import { ToJsonDouble } from "../../structures/ToJsonDouble";
 export const test_assertStringify_ToJsonDouble = _test_assertStringify(
     "ToJsonDouble",
     ToJsonDouble.generate,
-    (input) => typia.assertStringify(input),
+    (input) => typia.assertStringify<ToJsonDouble>(input),
 );

@@ -6,9 +6,7 @@ export const test_is_ArrayRepeatedNullable = _test_is(
     "ArrayRepeatedNullable",
     ArrayRepeatedNullable.generate,
     (input) =>
-        ((
-            input: any,
-        ): input is string | number | Array<ArrayRepeatedNullable> | null => {
+        ((input: any): input is ArrayRepeatedNullable => {
             const $ia0 = (input: any): any =>
                 input.every(
                     (elem: any) =>

@@ -5,6 +5,6 @@ import { SetUnion } from "../../structures/SetUnion";
 export const test_validate_SetUnion = _test_validate(
     "SetUnion",
     SetUnion.generate,
-    (input) => typia.validate(input),
+    (input) => typia.validate<SetUnion>(input),
     SetUnion.SPOILERS,
 );

@@ -7,10 +7,8 @@ export const test_assertStringify_ArrayHierarchical = _test_assertStringify(
     ArrayHierarchical.generate,
     (input) =>
         ((input: any): string => {
-            const assert = (input: any): Array<ArrayHierarchical.ICompany> => {
-                const __is = (
-                    input: any,
-                ): input is Array<ArrayHierarchical.ICompany> => {
+            const assert = (input: any): ArrayHierarchical => {
+                const __is = (input: any): input is ArrayHierarchical => {
                     const $io0 = (input: any): boolean =>
                         "number" === typeof input.id &&
                         Number.isFinite(input.id) &&
@@ -80,7 +78,7 @@ export const test_assertStringify_ArrayHierarchical = _test_assertStringify(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is Array<ArrayHierarchical.ICompany> => {
+                    ): input is ArrayHierarchical => {
                         const $guard = (typia.assertStringify as any).guard;
                         const $ao0 = (
                             input: any,
@@ -365,9 +363,7 @@ export const test_assertStringify_ArrayHierarchical = _test_assertStringify(
                     })(input, "$input", true);
                 return input;
             };
-            const stringify = (
-                input: Array<ArrayHierarchical.ICompany>,
-            ): string => {
+            const stringify = (input: ArrayHierarchical): string => {
                 const $io1 = (input: any): boolean =>
                     "number" === typeof input.time &&
                     "number" === typeof input.zone;

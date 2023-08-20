@@ -6,11 +6,7 @@ export const test_clone_ObjectIntersection = _test_clone(
     "ObjectIntersection",
     ObjectIntersection.generate,
     (input) =>
-        ((
-            input: ObjectIntersection.IEmail & ObjectIntersection.IName,
-        ): typia.Primitive<
-            ObjectIntersection.IEmail & ObjectIntersection.IName
-        > => {
+        ((input: ObjectIntersection): typia.Primitive<ObjectIntersection> => {
             const $co0 = (input: any): any => ({
                 email: input.email as any,
                 name: input.name as any,

@@ -5,6 +5,6 @@ import { ArrayHierarchical } from "../../structures/ArrayHierarchical";
 export const test_is_ArrayHierarchical = _test_is(
     "ArrayHierarchical",
     ArrayHierarchical.generate,
-    (input) => typia.is(input),
+    (input) => typia.is<ArrayHierarchical>(input),
     ArrayHierarchical.SPOILERS,
 );

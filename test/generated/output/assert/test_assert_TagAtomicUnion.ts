@@ -6,8 +6,8 @@ export const test_assert_TagAtomicUnion = _test_assert(
     "TagAtomicUnion",
     TagAtomicUnion.generate,
     (input) =>
-        ((input: any): Array<TagAtomicUnion.Type> => {
-            const __is = (input: any): input is Array<TagAtomicUnion.Type> => {
+        ((input: any): TagAtomicUnion => {
+            const __is = (input: any): input is TagAtomicUnion => {
                 const $io0 = (input: any): boolean =>
                     ("string" === typeof input.value &&
                         3 <= input.value.length &&
@@ -30,7 +30,7 @@ export const test_assert_TagAtomicUnion = _test_assert(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is Array<TagAtomicUnion.Type> => {
+                ): input is TagAtomicUnion => {
                     const $guard = (typia.assert as any).guard;
                     const $ao0 = (
                         input: any,

@@ -6,16 +6,8 @@ export const test_assert_ObjectUnionNonPredictable = _test_assert(
     "ObjectUnionNonPredictable",
     ObjectUnionNonPredictable.generate,
     (input) =>
-        ((
-            input: any,
-        ): Array<
-            ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
-        > => {
-            const __is = (
-                input: any,
-            ): input is Array<
-                ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
-            > => {
+        ((input: any): ObjectUnionNonPredictable => {
+            const __is = (input: any): input is ObjectUnionNonPredictable => {
                 const $io0 = (input: any): boolean =>
                     "object" === typeof input.value &&
                     null !== input.value &&
@@ -59,9 +51,7 @@ export const test_assert_ObjectUnionNonPredictable = _test_assert(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is Array<
-                    ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
-                > => {
+                ): input is ObjectUnionNonPredictable => {
                     const $guard = (typia.assert as any).guard;
                     const $ao0 = (
                         input: any,

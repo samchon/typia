@@ -5,6 +5,6 @@ import { SetAlias } from "../../structures/SetAlias";
 export const test_is_SetAlias = _test_is(
     "SetAlias",
     SetAlias.generate,
-    (input) => typia.is(input),
+    (input) => typia.is<SetAlias>(input),
     SetAlias.SPOILERS,
 );

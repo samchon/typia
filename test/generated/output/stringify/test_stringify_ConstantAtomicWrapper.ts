@@ -6,13 +6,7 @@ export const test_stringify_ConstantAtomicWrapper = _test_stringify(
     "ConstantAtomicWrapper",
     ConstantAtomicWrapper.generate,
     (input) =>
-        ((
-            input: [
-                ConstantAtomicWrapper.IPointer<boolean>,
-                ConstantAtomicWrapper.IPointer<number>,
-                ConstantAtomicWrapper.IPointer<string>,
-            ],
-        ): string => {
+        ((input: ConstantAtomicWrapper): string => {
             const $number = (typia.stringify as any).number;
             const $string = (typia.stringify as any).string;
             return `[${`{"value":${

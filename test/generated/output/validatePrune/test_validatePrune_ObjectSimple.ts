@@ -6,12 +6,10 @@ export const test_validatePrune_ObjectSimple = _test_validatePrune(
     "ObjectSimple",
     ObjectSimple.generate,
     (input) =>
-        ((input: any): typia.IValidation<ObjectSimple.IBox3D> => {
-            const validate = (
-                input: any,
-            ): typia.IValidation<ObjectSimple.IBox3D> => {
+        ((input: any): typia.IValidation<ObjectSimple> => {
+            const validate = (input: any): typia.IValidation<ObjectSimple> => {
                 const errors = [] as any[];
-                const __is = (input: any): input is ObjectSimple.IBox3D => {
+                const __is = (input: any): input is ObjectSimple => {
                     return (
                         "object" === typeof input &&
                         null !== input &&
@@ -58,7 +56,7 @@ export const test_validatePrune_ObjectSimple = _test_validatePrune(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is ObjectSimple.IBox3D => {
+                    ): input is ObjectSimple => {
                         const $vo0 = (
                             input: any,
                             _path: string,
@@ -185,7 +183,7 @@ export const test_validatePrune_ObjectSimple = _test_validatePrune(
                     data: success ? input : undefined,
                 } as any;
             };
-            const prune = (input: ObjectSimple.IBox3D): void => {
+            const prune = (input: ObjectSimple): void => {
                 const $io1 = (input: any): boolean =>
                     "number" === typeof input.x &&
                     "number" === typeof input.y &&

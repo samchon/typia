@@ -5,6 +5,6 @@ import { SetUnion } from "../../structures/SetUnion";
 export const test_isClone_SetUnion = _test_isClone(
     "SetUnion",
     SetUnion.generate,
-    (input) => typia.isClone(input),
+    (input) => typia.isClone<SetUnion>(input),
     SetUnion.SPOILERS,
 );

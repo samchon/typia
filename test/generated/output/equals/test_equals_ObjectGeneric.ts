@@ -9,11 +9,7 @@ export const test_equals_ObjectGeneric = _test_equals(
         ((
             input: any,
             _exceptionable: boolean = true,
-        ): input is [
-            ObjectGeneric.ISomething<boolean>,
-            ObjectGeneric.ISomething<number>,
-            ObjectGeneric.ISomething<string>,
-        ] => {
+        ): input is ObjectGeneric => {
             const $io0 = (
                 input: any,
                 _exceptionable: boolean = true,

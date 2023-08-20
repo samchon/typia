@@ -5,5 +5,5 @@ import { TemplateAtomic } from "../../structures/TemplateAtomic";
 export const test_stringify_TemplateAtomic = _test_stringify(
     "TemplateAtomic",
     TemplateAtomic.generate,
-    (input) => typia.stringify(input),
+    (input) => typia.stringify<TemplateAtomic>(input),
 );

@@ -6,16 +6,8 @@ export const test_isStringify_ObjectUnionNonPredictable = _test_isStringify(
     "ObjectUnionNonPredictable",
     ObjectUnionNonPredictable.generate,
     (input) =>
-        ((
-            input: Array<
-                ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
-            >,
-        ): string | null => {
-            const is = (
-                input: any,
-            ): input is Array<
-                ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
-            > => {
+        ((input: ObjectUnionNonPredictable): string | null => {
+            const is = (input: any): input is ObjectUnionNonPredictable => {
                 const $io0 = (input: any): boolean =>
                     "object" === typeof input.value &&
                     null !== input.value &&
@@ -54,11 +46,7 @@ export const test_isStringify_ObjectUnionNonPredictable = _test_isStringify(
                     )
                 );
             };
-            const stringify = (
-                input: Array<
-                    ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
-                >,
-            ): string => {
+            const stringify = (input: ObjectUnionNonPredictable): string => {
                 const $io1 = (input: any): boolean =>
                     "object" === typeof input.value &&
                     null !== input.value &&

@@ -6,7 +6,7 @@ export const test_stringify_TagStep = _test_stringify(
     "TagStep",
     TagStep.generate,
     (input) =>
-        ((input: Array<TagStep.Type>): string => {
+        ((input: TagStep): string => {
             const $number = (typia.stringify as any).number;
             return `[${input
                 .map(

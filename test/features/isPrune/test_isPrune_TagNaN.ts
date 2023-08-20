@@ -5,6 +5,6 @@ import { TagNaN } from "../../structures/TagNaN";
 export const test_isPrune_TagNaN = _test_isPrune(
     "TagNaN",
     TagNaN.generate,
-    (input) => typia.isPrune(input),
+    (input) => typia.isPrune<TagNaN>(input),
     TagNaN.SPOILERS,
 );

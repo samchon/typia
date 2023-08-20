@@ -6,8 +6,8 @@ export const test_assert_AtomicSimple = _test_assert(
     "AtomicSimple",
     AtomicSimple.generate,
     (input) =>
-        ((input: any): [boolean, number, string] => {
-            const __is = (input: any): input is [boolean, number, string] => {
+        ((input: any): AtomicSimple => {
+            const __is = (input: any): input is AtomicSimple => {
                 return (
                     Array.isArray(input) &&
                     input.length === 3 &&
@@ -22,7 +22,7 @@ export const test_assert_AtomicSimple = _test_assert(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is [boolean, number, string] => {
+                ): input is AtomicSimple => {
                     const $guard = (typia.assert as any).guard;
                     return (
                         ((Array.isArray(input) ||

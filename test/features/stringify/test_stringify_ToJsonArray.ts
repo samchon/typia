@@ -5,5 +5,5 @@ import { ToJsonArray } from "../../structures/ToJsonArray";
 export const test_stringify_ToJsonArray = _test_stringify(
     "ToJsonArray",
     ToJsonArray.generate,
-    (input) => typia.stringify(input),
+    (input) => typia.stringify<ToJsonArray>(input),
 );

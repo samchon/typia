@@ -6,23 +6,9 @@ export const test_validate_ConstantIntersection = _test_validate(
     "ConstantIntersection",
     ConstantIntersection.generate,
     (input) =>
-        ((
-            input: any,
-        ): typia.IValidation<
-            [
-                ConstantIntersection.Wrapper<false>,
-                ConstantIntersection.Wrapper<1>,
-                ConstantIntersection.Wrapper<"two">,
-            ]
-        > => {
+        ((input: any): typia.IValidation<ConstantIntersection> => {
             const errors = [] as any[];
-            const __is = (
-                input: any,
-            ): input is [
-                ConstantIntersection.Wrapper<false>,
-                ConstantIntersection.Wrapper<1>,
-                ConstantIntersection.Wrapper<"two">,
-            ] => {
+            const __is = (input: any): input is ConstantIntersection => {
                 return (
                     Array.isArray(input) &&
                     input.length === 3 &&
@@ -37,11 +23,7 @@ export const test_validate_ConstantIntersection = _test_validate(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is [
-                    ConstantIntersection.Wrapper<false>,
-                    ConstantIntersection.Wrapper<1>,
-                    ConstantIntersection.Wrapper<"two">,
-                ] => {
+                ): input is ConstantIntersection => {
                     return (
                         ((Array.isArray(input) ||
                             $report(true, {

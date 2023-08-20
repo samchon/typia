@@ -5,6 +5,6 @@ import { TagLength } from "../../structures/TagLength";
 export const test_isPrune_TagLength = _test_isPrune(
     "TagLength",
     TagLength.generate,
-    (input) => typia.isPrune(input),
+    (input) => typia.isPrune<TagLength>(input),
     TagLength.SPOILERS,
 );

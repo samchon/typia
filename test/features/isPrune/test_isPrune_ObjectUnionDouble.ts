@@ -5,6 +5,6 @@ import { ObjectUnionDouble } from "../../structures/ObjectUnionDouble";
 export const test_isPrune_ObjectUnionDouble = _test_isPrune(
     "ObjectUnionDouble",
     ObjectUnionDouble.generate,
-    (input) => typia.isPrune(input),
+    (input) => typia.isPrune<ObjectUnionDouble>(input),
     ObjectUnionDouble.SPOILERS,
 );

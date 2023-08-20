@@ -6,20 +6,12 @@ export const test_validatePrune_ArrayAtomicSimple = _test_validatePrune(
     "ArrayAtomicSimple",
     ArrayAtomicSimple.generate,
     (input) =>
-        ((
-            input: any,
-        ): typia.IValidation<
-            [Array<boolean>, Array<number>, Array<string>]
-        > => {
+        ((input: any): typia.IValidation<ArrayAtomicSimple> => {
             const validate = (
                 input: any,
-            ): typia.IValidation<
-                [Array<boolean>, Array<number>, Array<string>]
-            > => {
+            ): typia.IValidation<ArrayAtomicSimple> => {
                 const errors = [] as any[];
-                const __is = (
-                    input: any,
-                ): input is [Array<boolean>, Array<number>, Array<string>] => {
+                const __is = (input: any): input is ArrayAtomicSimple => {
                     return (
                         Array.isArray(input) &&
                         input.length === 3 &&
@@ -43,11 +35,7 @@ export const test_validatePrune_ArrayAtomicSimple = _test_validatePrune(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is [
-                        Array<boolean>,
-                        Array<number>,
-                        Array<string>,
-                    ] => {
+                    ): input is ArrayAtomicSimple => {
                         return (
                             ((Array.isArray(input) ||
                                 $report(true, {
@@ -160,9 +148,7 @@ export const test_validatePrune_ArrayAtomicSimple = _test_validatePrune(
                     data: success ? input : undefined,
                 } as any;
             };
-            const prune = (
-                input: [Array<boolean>, Array<number>, Array<string>],
-            ): void => {};
+            const prune = (input: ArrayAtomicSimple): void => {};
             const output = validate(input);
             if (output.success) prune(input);
             return output;

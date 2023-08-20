@@ -6,8 +6,8 @@ export const test_isPrune_ObjectAlias = _test_isPrune(
     "ObjectAlias",
     ObjectAlias.generate,
     (input) =>
-        ((input: any): input is Array<ObjectAlias.IMember> => {
-            const is = (input: any): input is Array<ObjectAlias.IMember> => {
+        ((input: any): input is ObjectAlias => {
+            const is = (input: any): input is ObjectAlias => {
                 const $io0 = (input: any): boolean =>
                     (null === input.id || "string" === typeof input.id) &&
                     "string" === typeof input.email &&
@@ -31,7 +31,7 @@ export const test_isPrune_ObjectAlias = _test_isPrune(
                     )
                 );
             };
-            const prune = (input: Array<ObjectAlias.IMember>): void => {
+            const prune = (input: ObjectAlias): void => {
                 const $pp0 = (input: any) =>
                     input.forEach((elem: any) => {
                         if ("object" === typeof elem && null !== elem)

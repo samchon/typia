@@ -5,5 +5,5 @@ import { TagFormat } from "../../structures/TagFormat";
 export const test_prune_TagFormat = _test_prune(
     "TagFormat",
     TagFormat.generate,
-    (input) => typia.prune(input),
+    (input) => typia.prune<TagFormat>(input),
 );

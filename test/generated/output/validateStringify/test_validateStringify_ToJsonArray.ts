@@ -6,33 +6,10 @@ export const test_validateStringify_ToJsonArray = _test_validateStringify(
     "ToJsonArray",
     ToJsonArray.generate,
     (input) =>
-        ((
-            input: [
-                ToJsonArray.IArray<boolean>,
-                ToJsonArray.IArray<number>,
-                ToJsonArray.IArray<string>,
-                ToJsonArray.IArray<ToJsonArray.IObject>,
-            ],
-        ): typia.IValidation<string> => {
-            const validate = (
-                input: any,
-            ): typia.IValidation<
-                [
-                    ToJsonArray.IArray<boolean>,
-                    ToJsonArray.IArray<number>,
-                    ToJsonArray.IArray<string>,
-                    ToJsonArray.IArray<ToJsonArray.IObject>,
-                ]
-            > => {
+        ((input: ToJsonArray): typia.IValidation<string> => {
+            const validate = (input: any): typia.IValidation<ToJsonArray> => {
                 const errors = [] as any[];
-                const __is = (
-                    input: any,
-                ): input is [
-                    ToJsonArray.IArray<boolean>,
-                    ToJsonArray.IArray<number>,
-                    ToJsonArray.IArray<string>,
-                    ToJsonArray.IArray<ToJsonArray.IObject>,
-                ] => {
+                const __is = (input: any): input is ToJsonArray => {
                     const $io0 = (input: any): boolean => true;
                     const $io1 = (input: any): boolean => true;
                     const $io2 = (input: any): boolean => true;
@@ -62,12 +39,7 @@ export const test_validateStringify_ToJsonArray = _test_validateStringify(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is [
-                        ToJsonArray.IArray<boolean>,
-                        ToJsonArray.IArray<number>,
-                        ToJsonArray.IArray<string>,
-                        ToJsonArray.IArray<ToJsonArray.IObject>,
-                    ] => {
+                    ): input is ToJsonArray => {
                         const $vo0 = (
                             input: any,
                             _path: string,
@@ -211,14 +183,7 @@ export const test_validateStringify_ToJsonArray = _test_validateStringify(
                     data: success ? input : undefined,
                 } as any;
             };
-            const stringify = (
-                input: [
-                    ToJsonArray.IArray<boolean>,
-                    ToJsonArray.IArray<number>,
-                    ToJsonArray.IArray<string>,
-                    ToJsonArray.IArray<ToJsonArray.IObject>,
-                ],
-            ): string => {
+            const stringify = (input: ToJsonArray): string => {
                 const $number = (typia.validateStringify as any).number;
                 const $string = (typia.validateStringify as any).string;
                 return `[${`[${input[0]

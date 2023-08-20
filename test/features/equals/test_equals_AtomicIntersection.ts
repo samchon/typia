@@ -5,5 +5,5 @@ import { AtomicIntersection } from "../../structures/AtomicIntersection";
 export const test_equals_AtomicIntersection = _test_equals(
     "AtomicIntersection",
     AtomicIntersection.generate,
-    (input) => typia.equals(input),
+    (input) => typia.equals<AtomicIntersection>(input),
 );

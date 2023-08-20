@@ -7,8 +7,8 @@ export const test_clone_ConstantAtomicSimple = _test_clone(
     ConstantAtomicSimple.generate,
     (input) =>
         ((
-            input: [false, true, 2, "three"],
-        ): typia.Primitive<[false, true, 2, "three"]> => {
+            input: ConstantAtomicSimple,
+        ): typia.Primitive<ConstantAtomicSimple> => {
             return Array.isArray(input) &&
                 input.length === 4 &&
                 false === input[0] &&

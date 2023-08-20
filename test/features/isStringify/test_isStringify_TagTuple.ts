@@ -5,6 +5,6 @@ import { TagTuple } from "../../structures/TagTuple";
 export const test_isStringify_TagTuple = _test_isStringify(
     "TagTuple",
     TagTuple.generate,
-    (input) => typia.isStringify(input),
+    (input) => typia.isStringify<TagTuple>(input),
     TagTuple.SPOILERS,
 );

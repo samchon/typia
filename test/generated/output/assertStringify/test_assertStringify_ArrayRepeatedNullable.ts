@@ -7,16 +7,8 @@ export const test_assertStringify_ArrayRepeatedNullable = _test_assertStringify(
     ArrayRepeatedNullable.generate,
     (input) =>
         ((input: any): string => {
-            const assert = (
-                input: any,
-            ): string | number | Array<ArrayRepeatedNullable> | null => {
-                const __is = (
-                    input: any,
-                ): input is
-                    | string
-                    | number
-                    | Array<ArrayRepeatedNullable>
-                    | null => {
+            const assert = (input: any): ArrayRepeatedNullable => {
+                const __is = (input: any): input is ArrayRepeatedNullable => {
                     const $ia0 = (input: any): any =>
                         input.every(
                             (elem: any) =>
@@ -42,11 +34,7 @@ export const test_assertStringify_ArrayRepeatedNullable = _test_assertStringify(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is
-                        | string
-                        | number
-                        | Array<ArrayRepeatedNullable>
-                        | null => {
+                    ): input is ArrayRepeatedNullable => {
                         const $guard = (typia.assertStringify as any).guard;
                         const $aa0 = (
                             input: any,
@@ -136,9 +124,7 @@ export const test_assertStringify_ArrayRepeatedNullable = _test_assertStringify(
                     })(input, "$input", true);
                 return input;
             };
-            const stringify = (
-                input: string | number | Array<ArrayRepeatedNullable> | null,
-            ): string => {
+            const stringify = (input: ArrayRepeatedNullable): string => {
                 const $ia0 = (input: any): any =>
                     input.every(
                         (elem: any) =>

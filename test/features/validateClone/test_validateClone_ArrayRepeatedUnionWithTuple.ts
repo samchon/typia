@@ -6,6 +6,6 @@ export const test_validateClone_ArrayRepeatedUnionWithTuple =
     _test_validateClone(
         "ArrayRepeatedUnionWithTuple",
         ArrayRepeatedUnionWithTuple.generate,
-        (input) => typia.validateClone(input),
+        (input) => typia.validateClone<ArrayRepeatedUnionWithTuple>(input),
         ArrayRepeatedUnionWithTuple.SPOILERS,
     );

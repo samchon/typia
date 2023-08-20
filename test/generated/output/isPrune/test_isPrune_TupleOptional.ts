@@ -6,28 +6,8 @@ export const test_isPrune_TupleOptional = _test_isPrune(
     "TupleOptional",
     TupleOptional.generate,
     (input) =>
-        ((
-            input: any,
-        ): input is Array<
-            [
-                number,
-                boolean,
-                string,
-                (number | null | undefined)?,
-                (string | null | undefined)?,
-            ]
-        > => {
-            const is = (
-                input: any,
-            ): input is Array<
-                [
-                    number,
-                    boolean,
-                    string,
-                    (number | null | undefined)?,
-                    (string | null | undefined)?,
-                ]
-            > => {
+        ((input: any): input is TupleOptional => {
+            const is = (input: any): input is TupleOptional => {
                 return (
                     Array.isArray(input) &&
                     input.every(
@@ -49,17 +29,7 @@ export const test_isPrune_TupleOptional = _test_isPrune(
                     )
                 );
             };
-            const prune = (
-                input: Array<
-                    [
-                        number,
-                        boolean,
-                        string,
-                        (number | null | undefined)?,
-                        (string | null | undefined)?,
-                    ]
-                >,
-            ): void => {};
+            const prune = (input: TupleOptional): void => {};
             if (!is(input)) return false;
             prune(input);
             return true;

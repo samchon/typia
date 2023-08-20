@@ -5,6 +5,6 @@ import { ObjectSimple } from "../../structures/ObjectSimple";
 export const test_validatePrune_ObjectSimple = _test_validatePrune(
     "ObjectSimple",
     ObjectSimple.generate,
-    (input) => typia.validatePrune(input),
+    (input) => typia.validatePrune<ObjectSimple>(input),
     ObjectSimple.SPOILERS,
 );

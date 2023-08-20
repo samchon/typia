@@ -5,6 +5,6 @@ import { DynamicConstant } from "../../structures/DynamicConstant";
 export const test_isClone_DynamicConstant = _test_isClone(
     "DynamicConstant",
     DynamicConstant.generate,
-    (input) => typia.isClone(input),
+    (input) => typia.isClone<DynamicConstant>(input),
     DynamicConstant.SPOILERS,
 );

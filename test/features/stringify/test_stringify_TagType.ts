@@ -5,5 +5,5 @@ import { TagType } from "../../structures/TagType";
 export const test_stringify_TagType = _test_stringify(
     "TagType",
     TagType.generate,
-    (input) => typia.stringify(input),
+    (input) => typia.stringify<TagType>(input),
 );

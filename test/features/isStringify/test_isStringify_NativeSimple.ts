@@ -5,6 +5,6 @@ import { NativeSimple } from "../../structures/NativeSimple";
 export const test_isStringify_NativeSimple = _test_isStringify(
     "NativeSimple",
     NativeSimple.generate,
-    (input) => typia.isStringify(input),
+    (input) => typia.isStringify<NativeSimple>(input),
     NativeSimple.SPOILERS,
 );

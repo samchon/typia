@@ -6,9 +6,7 @@ export const test_clone_ObjectTuple = _test_clone(
     "ObjectTuple",
     ObjectTuple.generate,
     (input) =>
-        ((
-            input: [ObjectTuple.ISection, ObjectTuple.ICitizen],
-        ): typia.Primitive<[ObjectTuple.ISection, ObjectTuple.ICitizen]> => {
+        ((input: ObjectTuple): typia.Primitive<ObjectTuple> => {
             const $io0 = (input: any): boolean =>
                 "string" === typeof input.id &&
                 "string" === typeof input.code &&

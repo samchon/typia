@@ -5,5 +5,5 @@ import { ObjectOptional } from "../../structures/ObjectOptional";
 export const test_prune_ObjectOptional = _test_prune(
     "ObjectOptional",
     ObjectOptional.generate,
-    (input) => typia.prune(input),
+    (input) => typia.prune<ObjectOptional>(input),
 );

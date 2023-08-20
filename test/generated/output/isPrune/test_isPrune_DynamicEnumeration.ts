@@ -6,34 +6,8 @@ export const test_isPrune_DynamicEnumeration = _test_isPrune(
     "DynamicEnumeration",
     DynamicEnumeration.generate,
     (input) =>
-        ((
-            input: any,
-        ): input is {
-            ar?: string | undefined;
-            "zh-Hans"?: string | undefined;
-            "zh-Hant"?: string | undefined;
-            en?: string | undefined;
-            fr?: string | undefined;
-            de?: string | undefined;
-            ja?: string | undefined;
-            ko?: string | undefined;
-            pt?: string | undefined;
-            ru?: string | undefined;
-        } => {
-            const is = (
-                input: any,
-            ): input is {
-                ar?: string | undefined;
-                "zh-Hans"?: string | undefined;
-                "zh-Hant"?: string | undefined;
-                en?: string | undefined;
-                fr?: string | undefined;
-                de?: string | undefined;
-                ja?: string | undefined;
-                ko?: string | undefined;
-                pt?: string | undefined;
-                ru?: string | undefined;
-            } => {
+        ((input: any): input is DynamicEnumeration => {
+            const is = (input: any): input is DynamicEnumeration => {
                 const $io0 = (input: any): boolean =>
                     (undefined === input.ar || "string" === typeof input.ar) &&
                     (undefined === input["zh-Hans"] ||
@@ -54,18 +28,7 @@ export const test_isPrune_DynamicEnumeration = _test_isPrune(
                     $io0(input)
                 );
             };
-            const prune = (input: {
-                ar?: string | undefined;
-                "zh-Hans"?: string | undefined;
-                "zh-Hant"?: string | undefined;
-                en?: string | undefined;
-                fr?: string | undefined;
-                de?: string | undefined;
-                ja?: string | undefined;
-                ko?: string | undefined;
-                pt?: string | undefined;
-                ru?: string | undefined;
-            }): void => {
+            const prune = (input: DynamicEnumeration): void => {
                 const $po0 = (input: any): any => {
                     for (const key of Object.keys(input)) {
                         if (

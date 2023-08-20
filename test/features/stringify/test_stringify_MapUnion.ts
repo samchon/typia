@@ -5,5 +5,5 @@ import { MapUnion } from "../../structures/MapUnion";
 export const test_stringify_MapUnion = _test_stringify(
     "MapUnion",
     MapUnion.generate,
-    (input) => typia.stringify(input),
+    (input) => typia.stringify<MapUnion>(input),
 );

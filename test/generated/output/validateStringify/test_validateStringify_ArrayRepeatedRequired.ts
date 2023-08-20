@@ -7,21 +7,14 @@ export const test_validateStringify_ArrayRepeatedRequired =
         "ArrayRepeatedRequired",
         ArrayRepeatedRequired.generate,
         (input) =>
-            ((
-                input: string | number | Array<ArrayRepeatedRequired>,
-            ): typia.IValidation<string> => {
+            ((input: ArrayRepeatedRequired): typia.IValidation<string> => {
                 const validate = (
                     input: any,
-                ): typia.IValidation<
-                    string | number | Array<ArrayRepeatedRequired>
-                > => {
+                ): typia.IValidation<ArrayRepeatedRequired> => {
                     const errors = [] as any[];
                     const __is = (
                         input: any,
-                    ): input is
-                        | string
-                        | number
-                        | Array<ArrayRepeatedRequired> => {
+                    ): input is ArrayRepeatedRequired => {
                         const $ia0 = (input: any): any =>
                             input.every(
                                 (elem: any) =>
@@ -51,10 +44,7 @@ export const test_validateStringify_ArrayRepeatedRequired =
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
-                        ): input is
-                            | string
-                            | number
-                            | Array<ArrayRepeatedRequired> => {
+                        ): input is ArrayRepeatedRequired => {
                             const $va0 = (
                                 input: any,
                                 _path: string,
@@ -184,9 +174,7 @@ export const test_validateStringify_ArrayRepeatedRequired =
                         data: success ? input : undefined,
                     } as any;
                 };
-                const stringify = (
-                    input: string | number | Array<ArrayRepeatedRequired>,
-                ): string => {
+                const stringify = (input: ArrayRepeatedRequired): string => {
                     const $ia0 = (input: any): any =>
                         input.every(
                             (elem: any) =>

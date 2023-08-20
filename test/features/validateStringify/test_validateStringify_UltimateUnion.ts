@@ -5,6 +5,6 @@ import { UltimateUnion } from "../../structures/UltimateUnion";
 export const test_validateStringify_UltimateUnion = _test_validateStringify(
     "UltimateUnion",
     UltimateUnion.generate,
-    (input) => typia.validateStringify(input),
+    (input) => typia.validateStringify<UltimateUnion>(input),
     UltimateUnion.SPOILERS,
 );

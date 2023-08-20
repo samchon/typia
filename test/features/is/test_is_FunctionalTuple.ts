@@ -5,6 +5,6 @@ import { FunctionalTuple } from "../../structures/FunctionalTuple";
 export const test_is_FunctionalTuple = _test_is(
     "FunctionalTuple",
     FunctionalTuple.generate,
-    (input) => typia.is(input),
+    (input) => typia.is<FunctionalTuple>(input),
     FunctionalTuple.SPOILERS,
 );

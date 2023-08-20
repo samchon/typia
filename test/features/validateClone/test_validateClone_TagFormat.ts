@@ -5,6 +5,6 @@ import { TagFormat } from "../../structures/TagFormat";
 export const test_validateClone_TagFormat = _test_validateClone(
     "TagFormat",
     TagFormat.generate,
-    (input) => typia.validateClone(input),
+    (input) => typia.validateClone<TagFormat>(input),
     TagFormat.SPOILERS,
 );

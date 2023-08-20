@@ -6,8 +6,8 @@ export const test_isStringify_TagArray = _test_isStringify(
     "TagArray",
     TagArray.generate,
     (input) =>
-        ((input: Array<TagArray.Type>): string | null => {
-            const is = (input: any): input is Array<TagArray.Type> => {
+        ((input: TagArray): string | null => {
+            const is = (input: any): input is TagArray => {
                 const $is_uuid = (typia.isStringify as any).is_uuid;
                 const $io0 = (input: any): boolean =>
                     Array.isArray(input.items) &&
@@ -59,7 +59,7 @@ export const test_isStringify_TagArray = _test_isStringify(
                     )
                 );
             };
-            const stringify = (input: Array<TagArray.Type>): string => {
+            const stringify = (input: TagArray): string => {
                 const $string = (typia.isStringify as any).string;
                 const $number = (typia.isStringify as any).number;
                 const $throws = (typia.isStringify as any).throws;

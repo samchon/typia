@@ -5,6 +5,6 @@ import { TagAtomicUnion } from "../../structures/TagAtomicUnion";
 export const test_isClone_TagAtomicUnion = _test_isClone(
     "TagAtomicUnion",
     TagAtomicUnion.generate,
-    (input) => typia.isClone(input),
+    (input) => typia.isClone<TagAtomicUnion>(input),
     TagAtomicUnion.SPOILERS,
 );

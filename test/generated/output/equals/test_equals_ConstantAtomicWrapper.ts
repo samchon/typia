@@ -9,11 +9,7 @@ export const test_equals_ConstantAtomicWrapper = _test_equals(
         ((
             input: any,
             _exceptionable: boolean = true,
-        ): input is [
-            ConstantAtomicWrapper.IPointer<boolean>,
-            ConstantAtomicWrapper.IPointer<number>,
-            ConstantAtomicWrapper.IPointer<string>,
-        ] => {
+        ): input is ConstantAtomicWrapper => {
             const $io0 = (
                 input: any,
                 _exceptionable: boolean = true,

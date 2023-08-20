@@ -5,6 +5,6 @@ import { ObjectUnionComposite } from "../../structures/ObjectUnionComposite";
 export const test_assertStringify_ObjectUnionComposite = _test_assertStringify(
     "ObjectUnionComposite",
     ObjectUnionComposite.generate,
-    (input) => typia.assertStringify(input),
+    (input) => typia.assertStringify<ObjectUnionComposite>(input),
     ObjectUnionComposite.SPOILERS,
 );

@@ -5,6 +5,6 @@ import { ObjectClosure } from "../../structures/ObjectClosure";
 export const test_assert_ObjectClosure = _test_assert(
     "ObjectClosure",
     ObjectClosure.generate,
-    (input) => typia.assert(input),
+    (input) => typia.assert<ObjectClosure>(input),
     ObjectClosure.SPOILERS,
 );

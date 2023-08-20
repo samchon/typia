@@ -5,6 +5,6 @@ import { TagArray } from "../../structures/TagArray";
 export const test_is_TagArray = _test_is(
     "TagArray",
     TagArray.generate,
-    (input) => typia.is(input),
+    (input) => typia.is<TagArray>(input),
     TagArray.SPOILERS,
 );

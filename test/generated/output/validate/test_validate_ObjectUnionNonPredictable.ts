@@ -6,19 +6,9 @@ export const test_validate_ObjectUnionNonPredictable = _test_validate(
     "ObjectUnionNonPredictable",
     ObjectUnionNonPredictable.generate,
     (input) =>
-        ((
-            input: any,
-        ): typia.IValidation<
-            Array<
-                ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
-            >
-        > => {
+        ((input: any): typia.IValidation<ObjectUnionNonPredictable> => {
             const errors = [] as any[];
-            const __is = (
-                input: any,
-            ): input is Array<
-                ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
-            > => {
+            const __is = (input: any): input is ObjectUnionNonPredictable => {
                 const $io0 = (input: any): boolean =>
                     "object" === typeof input.value &&
                     null !== input.value &&
@@ -63,9 +53,7 @@ export const test_validate_ObjectUnionNonPredictable = _test_validate(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is Array<
-                    ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
-                > => {
+                ): input is ObjectUnionNonPredictable => {
                     const $vo0 = (
                         input: any,
                         _path: string,

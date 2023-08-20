@@ -5,6 +5,6 @@ import { TagArray } from "../../structures/TagArray";
 export const test_assertStringify_TagArray = _test_assertStringify(
     "TagArray",
     TagArray.generate,
-    (input) => typia.assertStringify(input),
+    (input) => typia.assertStringify<TagArray>(input),
     TagArray.SPOILERS,
 );

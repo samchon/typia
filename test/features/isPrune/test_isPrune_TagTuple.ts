@@ -5,6 +5,6 @@ import { TagTuple } from "../../structures/TagTuple";
 export const test_isPrune_TagTuple = _test_isPrune(
     "TagTuple",
     TagTuple.generate,
-    (input) => typia.isPrune(input),
+    (input) => typia.isPrune<TagTuple>(input),
     TagTuple.SPOILERS,
 );

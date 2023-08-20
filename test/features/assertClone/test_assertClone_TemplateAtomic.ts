@@ -5,6 +5,6 @@ import { TemplateAtomic } from "../../structures/TemplateAtomic";
 export const test_assertClone_TemplateAtomic = _test_assertClone(
     "TemplateAtomic",
     TemplateAtomic.generate,
-    (input) => typia.assertClone(input),
+    (input) => typia.assertClone<TemplateAtomic>(input),
     TemplateAtomic.SPOILERS,
 );

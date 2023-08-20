@@ -5,5 +5,5 @@ import { ArrayRepeatedRequired } from "../../structures/ArrayRepeatedRequired";
 export const test_stringify_ArrayRepeatedRequired = _test_stringify(
     "ArrayRepeatedRequired",
     ArrayRepeatedRequired.generate,
-    (input) => typia.stringify(input),
+    (input) => typia.stringify<ArrayRepeatedRequired>(input),
 );

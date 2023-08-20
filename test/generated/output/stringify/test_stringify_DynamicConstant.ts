@@ -6,7 +6,7 @@ export const test_stringify_DynamicConstant = _test_stringify(
     "DynamicConstant",
     DynamicConstant.generate,
     (input) =>
-        ((input: { a: number; b: number; c: number; d: number }): string => {
+        ((input: DynamicConstant): string => {
             const $number = (typia.stringify as any).number;
             return `{"a":${$number((input as any).a)},"b":${$number(
                 (input as any).b,

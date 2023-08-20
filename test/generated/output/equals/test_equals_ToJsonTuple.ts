@@ -6,15 +6,7 @@ export const test_equals_ToJsonTuple = _test_equals(
     "ToJsonTuple",
     ToJsonTuple.generate,
     (input) =>
-        ((
-            input: any,
-            _exceptionable: boolean = true,
-        ): input is [
-            ToJsonTuple.IToJson<string>,
-            ToJsonTuple.IToJson<number>,
-            ToJsonTuple.IToJson<boolean>,
-            ToJsonTuple.IObject,
-        ] => {
+        ((input: any, _exceptionable: boolean = true): input is ToJsonTuple => {
             const $io0 = (
                 input: any,
                 _exceptionable: boolean = true,

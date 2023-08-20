@@ -8,10 +8,21 @@
     "schemas": {
       "TagRange": {
         "$id": "#/components/schemas/TagRange",
-        "type": "array",
-        "items": {
-          "$ref": "#/components/schemas/TagRange.Type"
-        }
+        "type": "object",
+        "properties": {
+          "value": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TagRange.Type"
+            }
+          }
+        },
+        "required": [
+          "value"
+        ],
+        "x-typia-jsDocTags": []
       },
       "TagRange.Type": {
         "$id": "#/components/schemas/TagRange.Type",
@@ -20,11 +31,24 @@
           "greater": {
             "x-typia-metaTags": [
               {
+                "kind": "type",
+                "value": "int"
+              },
+              {
                 "kind": "exclusiveMinimum",
                 "value": 3
               }
             ],
             "x-typia-jsDocTags": [
+              {
+                "name": "type",
+                "text": [
+                  {
+                    "text": "int",
+                    "kind": "text"
+                  }
+                ]
+              },
               {
                 "name": "exclusiveMinimum",
                 "text": [
@@ -37,18 +61,31 @@
             ],
             "x-typia-required": true,
             "x-typia-optional": false,
-            "type": "number",
+            "type": "integer",
             "minimum": 3,
             "exclusiveMinimum": true
           },
           "greater_equal": {
             "x-typia-metaTags": [
               {
+                "kind": "type",
+                "value": "int"
+              },
+              {
                 "kind": "minimum",
                 "value": 3
               }
             ],
             "x-typia-jsDocTags": [
+              {
+                "name": "type",
+                "text": [
+                  {
+                    "text": "int",
+                    "kind": "text"
+                  }
+                ]
+              },
               {
                 "name": "minimum",
                 "text": [
@@ -61,17 +98,30 @@
             ],
             "x-typia-required": true,
             "x-typia-optional": false,
-            "type": "number",
+            "type": "integer",
             "minimum": 3
           },
           "less": {
             "x-typia-metaTags": [
+              {
+                "kind": "type",
+                "value": "int"
+              },
               {
                 "kind": "exclusiveMaximum",
                 "value": 7
               }
             ],
             "x-typia-jsDocTags": [
+              {
+                "name": "type",
+                "text": [
+                  {
+                    "text": "int",
+                    "kind": "text"
+                  }
+                ]
+              },
               {
                 "name": "exclusiveMaximum",
                 "text": [
@@ -84,18 +134,31 @@
             ],
             "x-typia-required": true,
             "x-typia-optional": false,
-            "type": "number",
+            "type": "integer",
             "maximum": 7,
             "exclusiveMaximum": true
           },
           "less_equal": {
             "x-typia-metaTags": [
               {
+                "kind": "type",
+                "value": "int"
+              },
+              {
                 "kind": "maximum",
                 "value": 7
               }
             ],
             "x-typia-jsDocTags": [
+              {
+                "name": "type",
+                "text": [
+                  {
+                    "text": "int",
+                    "kind": "text"
+                  }
+                ]
+              },
               {
                 "name": "maximum",
                 "text": [
@@ -108,11 +171,15 @@
             ],
             "x-typia-required": true,
             "x-typia-optional": false,
-            "type": "number",
+            "type": "integer",
             "maximum": 7
           },
           "greater_less": {
             "x-typia-metaTags": [
+              {
+                "kind": "type",
+                "value": "int"
+              },
               {
                 "kind": "exclusiveMinimum",
                 "value": 3
@@ -123,6 +190,15 @@
               }
             ],
             "x-typia-jsDocTags": [
+              {
+                "name": "type",
+                "text": [
+                  {
+                    "text": "int",
+                    "kind": "text"
+                  }
+                ]
+              },
               {
                 "name": "exclusiveMinimum",
                 "text": [
@@ -144,7 +220,7 @@
             ],
             "x-typia-required": true,
             "x-typia-optional": false,
-            "type": "number",
+            "type": "integer",
             "minimum": 3,
             "exclusiveMinimum": true,
             "maximum": 7,
@@ -153,6 +229,10 @@
           "greater_equal_less": {
             "x-typia-metaTags": [
               {
+                "kind": "type",
+                "value": "int"
+              },
+              {
                 "kind": "minimum",
                 "value": 3
               },
@@ -162,6 +242,15 @@
               }
             ],
             "x-typia-jsDocTags": [
+              {
+                "name": "type",
+                "text": [
+                  {
+                    "text": "int",
+                    "kind": "text"
+                  }
+                ]
+              },
               {
                 "name": "minimum",
                 "text": [
@@ -183,13 +272,17 @@
             ],
             "x-typia-required": true,
             "x-typia-optional": false,
-            "type": "number",
+            "type": "integer",
             "minimum": 3,
             "maximum": 7,
             "exclusiveMaximum": true
           },
           "greater_less_equal": {
             "x-typia-metaTags": [
+              {
+                "kind": "type",
+                "value": "int"
+              },
               {
                 "kind": "exclusiveMinimum",
                 "value": 3
@@ -200,6 +293,15 @@
               }
             ],
             "x-typia-jsDocTags": [
+              {
+                "name": "type",
+                "text": [
+                  {
+                    "text": "int",
+                    "kind": "text"
+                  }
+                ]
+              },
               {
                 "name": "exclusiveMinimum",
                 "text": [
@@ -221,13 +323,17 @@
             ],
             "x-typia-required": true,
             "x-typia-optional": false,
-            "type": "number",
+            "type": "integer",
             "minimum": 3,
             "exclusiveMinimum": true,
             "maximum": 7
           },
           "greater_equal_less_equal": {
             "x-typia-metaTags": [
+              {
+                "kind": "type",
+                "value": "int"
+              },
               {
                 "kind": "minimum",
                 "value": 3
@@ -238,6 +344,15 @@
               }
             ],
             "x-typia-jsDocTags": [
+              {
+                "name": "type",
+                "text": [
+                  {
+                    "text": "int",
+                    "kind": "text"
+                  }
+                ]
+              },
               {
                 "name": "minimum",
                 "text": [
@@ -259,12 +374,16 @@
             ],
             "x-typia-required": true,
             "x-typia-optional": false,
-            "type": "number",
+            "type": "integer",
             "minimum": 3,
             "maximum": 7
           },
           "equal": {
             "x-typia-metaTags": [
+              {
+                "kind": "type",
+                "value": "int"
+              },
               {
                 "kind": "minimum",
                 "value": 10
@@ -275,6 +394,15 @@
               }
             ],
             "x-typia-jsDocTags": [
+              {
+                "name": "type",
+                "text": [
+                  {
+                    "text": "int",
+                    "kind": "text"
+                  }
+                ]
+              },
               {
                 "name": "minimum",
                 "text": [
@@ -296,7 +424,7 @@
             ],
             "x-typia-required": true,
             "x-typia-optional": false,
-            "type": "number",
+            "type": "integer",
             "minimum": 10,
             "maximum": 10
           }

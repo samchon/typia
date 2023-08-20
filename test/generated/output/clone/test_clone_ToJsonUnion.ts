@@ -6,25 +6,7 @@ export const test_clone_ToJsonUnion = _test_clone(
     "ToJsonUnion",
     ToJsonUnion.generate,
     (input) =>
-        ((
-            input: Array<
-                | string
-                | number
-                | ToJsonUnion.ICitizen
-                | ToJsonUnion.IWrapper<boolean>
-                | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen>
-                | ToJsonUnion.IWrapper<ToJsonUnion.IProduct>
-            >,
-        ): typia.Primitive<
-            Array<
-                | string
-                | number
-                | ToJsonUnion.ICitizen
-                | ToJsonUnion.IWrapper<boolean>
-                | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen>
-                | ToJsonUnion.IWrapper<ToJsonUnion.IProduct>
-            >
-        > => {
+        ((input: ToJsonUnion): typia.Primitive<ToJsonUnion> => {
             const $io0 = (input: any): boolean =>
                 "number" === typeof input.id &&
                 "string" === typeof input.mobile &&

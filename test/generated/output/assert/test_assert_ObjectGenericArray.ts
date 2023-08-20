@@ -6,10 +6,8 @@ export const test_assert_ObjectGenericArray = _test_assert(
     "ObjectGenericArray",
     ObjectGenericArray.generate,
     (input) =>
-        ((input: any): ObjectGenericArray.IPage<ObjectGenericArray.IPerson> => {
-            const __is = (
-                input: any,
-            ): input is ObjectGenericArray.IPage<ObjectGenericArray.IPerson> => {
+        ((input: any): ObjectGenericArray => {
+            const __is = (input: any): input is ObjectGenericArray => {
                 const $io0 = (input: any): boolean =>
                     "object" === typeof input.pagination &&
                     null !== input.pagination &&
@@ -41,7 +39,7 @@ export const test_assert_ObjectGenericArray = _test_assert(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ObjectGenericArray.IPage<ObjectGenericArray.IPerson> => {
+                ): input is ObjectGenericArray => {
                     const $guard = (typia.assert as any).guard;
                     const $ao0 = (
                         input: any,

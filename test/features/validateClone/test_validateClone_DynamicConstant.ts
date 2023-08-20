@@ -5,6 +5,6 @@ import { DynamicConstant } from "../../structures/DynamicConstant";
 export const test_validateClone_DynamicConstant = _test_validateClone(
     "DynamicConstant",
     DynamicConstant.generate,
-    (input) => typia.validateClone(input),
+    (input) => typia.validateClone<DynamicConstant>(input),
     DynamicConstant.SPOILERS,
 );

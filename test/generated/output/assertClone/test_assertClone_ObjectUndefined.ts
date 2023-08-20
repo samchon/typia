@@ -6,11 +6,9 @@ export const test_assertClone_ObjectUndefined = _test_assertClone(
     "ObjectUndefined",
     ObjectUndefined.generate,
     (input) =>
-        ((input: any): typia.Primitive<Array<ObjectUndefined.ILecture>> => {
-            const assert = (input: any): Array<ObjectUndefined.ILecture> => {
-                const __is = (
-                    input: any,
-                ): input is Array<ObjectUndefined.ILecture> => {
+        ((input: any): typia.Primitive<ObjectUndefined> => {
+            const assert = (input: any): ObjectUndefined => {
+                const __is = (input: any): input is ObjectUndefined => {
                     const $io0 = (input: any): boolean =>
                         "string" === typeof input.name &&
                         (undefined === input.professor ||
@@ -47,7 +45,7 @@ export const test_assertClone_ObjectUndefined = _test_assertClone(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is Array<ObjectUndefined.ILecture> => {
+                    ): input is ObjectUndefined => {
                         const $guard = (typia.assertClone as any).guard;
                         const $ao0 = (
                             input: any,
@@ -179,8 +177,8 @@ export const test_assertClone_ObjectUndefined = _test_assertClone(
                 return input;
             };
             const clone = (
-                input: Array<ObjectUndefined.ILecture>,
-            ): typia.Primitive<Array<ObjectUndefined.ILecture>> => {
+                input: ObjectUndefined,
+            ): typia.Primitive<ObjectUndefined> => {
                 const $io1 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     "string" === typeof input.name;

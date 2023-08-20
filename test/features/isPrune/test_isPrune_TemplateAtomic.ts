@@ -5,6 +5,6 @@ import { TemplateAtomic } from "../../structures/TemplateAtomic";
 export const test_isPrune_TemplateAtomic = _test_isPrune(
     "TemplateAtomic",
     TemplateAtomic.generate,
-    (input) => typia.isPrune(input),
+    (input) => typia.isPrune<TemplateAtomic>(input),
     TemplateAtomic.SPOILERS,
 );

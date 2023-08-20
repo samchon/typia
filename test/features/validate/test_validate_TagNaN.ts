@@ -5,6 +5,6 @@ import { TagNaN } from "../../structures/TagNaN";
 export const test_validate_TagNaN = _test_validate(
     "TagNaN",
     TagNaN.generate,
-    (input) => typia.validate(input),
+    (input) => typia.validate<TagNaN>(input),
     TagNaN.SPOILERS,
 );

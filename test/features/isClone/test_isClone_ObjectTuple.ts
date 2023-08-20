@@ -5,6 +5,6 @@ import { ObjectTuple } from "../../structures/ObjectTuple";
 export const test_isClone_ObjectTuple = _test_isClone(
     "ObjectTuple",
     ObjectTuple.generate,
-    (input) => typia.isClone(input),
+    (input) => typia.isClone<ObjectTuple>(input),
     ObjectTuple.SPOILERS,
 );

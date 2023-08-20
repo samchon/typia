@@ -5,5 +5,5 @@ import { NativeUnion } from "../../structures/NativeUnion";
 export const test_stringify_NativeUnion = _test_stringify(
     "NativeUnion",
     NativeUnion.generate,
-    (input) => typia.stringify(input),
+    (input) => typia.stringify<NativeUnion>(input),
 );

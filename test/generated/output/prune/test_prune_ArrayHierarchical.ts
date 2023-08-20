@@ -6,7 +6,7 @@ export const test_prune_ArrayHierarchical = _test_prune(
     "ArrayHierarchical",
     ArrayHierarchical.generate,
     (input) =>
-        ((input: Array<ArrayHierarchical.ICompany>): void => {
+        ((input: ArrayHierarchical): void => {
             const $io1 = (input: any): boolean =>
                 "number" === typeof input.time &&
                 "number" === typeof input.zone;

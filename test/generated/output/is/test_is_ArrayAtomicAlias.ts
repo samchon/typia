@@ -6,13 +6,7 @@ export const test_is_ArrayAtomicAlias = _test_is(
     "ArrayAtomicAlias",
     ArrayAtomicAlias.generate,
     (input) =>
-        ((
-            input: any,
-        ): input is [
-            ArrayAtomicAlias.Alias<boolean>,
-            ArrayAtomicAlias.Alias<number>,
-            ArrayAtomicAlias.Alias<string>,
-        ] => {
+        ((input: any): input is ArrayAtomicAlias => {
             return (
                 Array.isArray(input) &&
                 input.length === 3 &&

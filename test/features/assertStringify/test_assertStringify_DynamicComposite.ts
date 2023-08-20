@@ -5,6 +5,6 @@ import { DynamicComposite } from "../../structures/DynamicComposite";
 export const test_assertStringify_DynamicComposite = _test_assertStringify(
     "DynamicComposite",
     DynamicComposite.generate,
-    (input) => typia.assertStringify(input),
+    (input) => typia.assertStringify<DynamicComposite>(input),
     DynamicComposite.SPOILERS,
 );

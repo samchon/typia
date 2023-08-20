@@ -5,5 +5,5 @@ import { ArrayRepeatedNullable } from "../../structures/ArrayRepeatedNullable";
 export const test_clone_ArrayRepeatedNullable = _test_clone(
     "ArrayRepeatedNullable",
     ArrayRepeatedNullable.generate,
-    (input) => typia.clone(input),
+    (input) => typia.clone<ArrayRepeatedNullable>(input),
 );

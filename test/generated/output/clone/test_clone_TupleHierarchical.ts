@@ -6,41 +6,7 @@ export const test_clone_TupleHierarchical = _test_clone(
     "TupleHierarchical",
     TupleHierarchical.generate,
     (input) =>
-        ((
-            input: [
-                boolean,
-                null,
-                number,
-                [boolean, null, [number, [boolean, string]]],
-                [
-                    number,
-                    Array<
-                        [
-                            string,
-                            boolean,
-                            Array<[number, number, [boolean, string]]>,
-                        ]
-                    >,
-                ],
-            ],
-        ): typia.Primitive<
-            [
-                boolean,
-                null,
-                number,
-                [boolean, null, [number, [boolean, string]]],
-                [
-                    number,
-                    Array<
-                        [
-                            string,
-                            boolean,
-                            Array<[number, number, [boolean, string]]>,
-                        ]
-                    >,
-                ],
-            ]
-        > => {
+        ((input: TupleHierarchical): typia.Primitive<TupleHierarchical> => {
             const $cp0 = (input: any) =>
                 input.map((elem: any) =>
                     Array.isArray(elem) &&

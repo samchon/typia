@@ -7,10 +7,8 @@ export const test_assertStringify_ObjectHierarchical = _test_assertStringify(
     ObjectHierarchical.generate,
     (input) =>
         ((input: any): string => {
-            const assert = (input: any): ObjectHierarchical.ICustomer => {
-                const __is = (
-                    input: any,
-                ): input is ObjectHierarchical.ICustomer => {
+            const assert = (input: any): ObjectHierarchical => {
+                const __is = (input: any): input is ObjectHierarchical => {
                     const $io0 = (input: any): boolean =>
                         "number" === typeof input.id &&
                         Number.isFinite(input.id) &&
@@ -116,7 +114,7 @@ export const test_assertStringify_ObjectHierarchical = _test_assertStringify(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is ObjectHierarchical.ICustomer => {
+                    ): input is ObjectHierarchical => {
                         const $guard = (typia.assertStringify as any).guard;
                         const $ao0 = (
                             input: any,
@@ -551,7 +549,7 @@ export const test_assertStringify_ObjectHierarchical = _test_assertStringify(
                     })(input, "$input", true);
                 return input;
             };
-            const stringify = (input: ObjectHierarchical.ICustomer): string => {
+            const stringify = (input: ObjectHierarchical): string => {
                 const $io1 = (input: any): boolean =>
                     "number" === typeof input.id &&
                     "string" === typeof input.code &&

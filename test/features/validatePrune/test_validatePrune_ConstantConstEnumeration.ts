@@ -5,6 +5,6 @@ import { ConstantConstEnumeration } from "../../structures/ConstantConstEnumerat
 export const test_validatePrune_ConstantConstEnumeration = _test_validatePrune(
     "ConstantConstEnumeration",
     ConstantConstEnumeration.generate,
-    (input) => typia.validatePrune(input),
+    (input) => typia.validatePrune<ConstantConstEnumeration>(input),
     ConstantConstEnumeration.SPOILERS,
 );

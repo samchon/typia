@@ -5,5 +5,5 @@ import { TupleOptional } from "../../structures/TupleOptional";
 export const test_prune_TupleOptional = _test_prune(
     "TupleOptional",
     TupleOptional.generate,
-    (input) => typia.prune(input),
+    (input) => typia.prune<TupleOptional>(input),
 );

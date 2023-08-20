@@ -6,7 +6,7 @@ export const test_is_TupleUnion = _test_is(
     "TupleUnion",
     TupleUnion.generate,
     (input) =>
-        ((input: any): input is Array<TupleUnion.Union> => {
+        ((input: any): input is TupleUnion => {
             const $ip0 = (input: any) => {
                 const array = input;
                 const tuplePredicators = [

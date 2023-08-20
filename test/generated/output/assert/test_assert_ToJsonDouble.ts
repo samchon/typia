@@ -6,8 +6,8 @@ export const test_assert_ToJsonDouble = _test_assert(
     "ToJsonDouble",
     ToJsonDouble.generate,
     (input) =>
-        ((input: any): ToJsonDouble.Parent => {
-            const __is = (input: any): input is ToJsonDouble.Parent => {
+        ((input: any): ToJsonDouble => {
+            const __is = (input: any): input is ToJsonDouble => {
                 return "object" === typeof input && null !== input && true;
             };
             if (false === __is(input))
@@ -15,7 +15,7 @@ export const test_assert_ToJsonDouble = _test_assert(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ToJsonDouble.Parent => {
+                ): input is ToJsonDouble => {
                     const $guard = (typia.assert as any).guard;
                     const $ao0 = (
                         input: any,

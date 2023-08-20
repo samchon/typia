@@ -5,6 +5,6 @@ import { TagTuple } from "../../structures/TagTuple";
 export const test_assert_TagTuple = _test_assert(
     "TagTuple",
     TagTuple.generate,
-    (input) => typia.assert(input),
+    (input) => typia.assert<TagTuple>(input),
     TagTuple.SPOILERS,
 );

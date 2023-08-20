@@ -7,20 +7,8 @@ export const test_assertStringify_ObjectNullable = _test_assertStringify(
     ObjectNullable.generate,
     (input) =>
         ((input: any): string => {
-            const assert = (
-                input: any,
-            ): [
-                ObjectNullable.IProduct,
-                ObjectNullable.IProduct,
-                ObjectNullable.IProduct,
-            ] => {
-                const __is = (
-                    input: any,
-                ): input is [
-                    ObjectNullable.IProduct,
-                    ObjectNullable.IProduct,
-                    ObjectNullable.IProduct,
-                ] => {
+            const assert = (input: any): ObjectNullable => {
+                const __is = (input: any): input is ObjectNullable => {
                     const $io0 = (input: any): boolean =>
                         "string" === typeof input.name &&
                         "object" === typeof input.manufacturer &&
@@ -66,11 +54,7 @@ export const test_assertStringify_ObjectNullable = _test_assertStringify(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is [
-                        ObjectNullable.IProduct,
-                        ObjectNullable.IProduct,
-                        ObjectNullable.IProduct,
-                    ] => {
+                    ): input is ObjectNullable => {
                         const $guard = (typia.assertStringify as any).guard;
                         const $ao0 = (
                             input: any,
@@ -260,13 +244,7 @@ export const test_assertStringify_ObjectNullable = _test_assertStringify(
                     })(input, "$input", true);
                 return input;
             };
-            const stringify = (
-                input: [
-                    ObjectNullable.IProduct,
-                    ObjectNullable.IProduct,
-                    ObjectNullable.IProduct,
-                ],
-            ): string => {
+            const stringify = (input: ObjectNullable): string => {
                 const $io1 = (input: any): boolean =>
                     "manufacturer" === input.type &&
                     "string" === typeof input.name;

@@ -6,7 +6,7 @@ export const test_prune_ObjectAlias = _test_prune(
     "ObjectAlias",
     ObjectAlias.generate,
     (input) =>
-        ((input: Array<ObjectAlias.IMember>): void => {
+        ((input: ObjectAlias): void => {
             const $pp0 = (input: any) =>
                 input.forEach((elem: any) => {
                     if ("object" === typeof elem && null !== elem) $po0(elem);

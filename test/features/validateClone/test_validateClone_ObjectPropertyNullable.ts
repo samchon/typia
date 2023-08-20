@@ -5,6 +5,6 @@ import { ObjectPropertyNullable } from "../../structures/ObjectPropertyNullable"
 export const test_validateClone_ObjectPropertyNullable = _test_validateClone(
     "ObjectPropertyNullable",
     ObjectPropertyNullable.generate,
-    (input) => typia.validateClone(input),
+    (input) => typia.validateClone<ObjectPropertyNullable>(input),
     ObjectPropertyNullable.SPOILERS,
 );

@@ -5,5 +5,5 @@ import { TagAtomicUnion } from "../../structures/TagAtomicUnion";
 export const test_clone_TagAtomicUnion = _test_clone(
     "TagAtomicUnion",
     TagAtomicUnion.generate,
-    (input) => typia.clone(input),
+    (input) => typia.clone<TagAtomicUnion>(input),
 );

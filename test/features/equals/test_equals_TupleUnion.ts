@@ -5,5 +5,5 @@ import { TupleUnion } from "../../structures/TupleUnion";
 export const test_equals_TupleUnion = _test_equals(
     "TupleUnion",
     TupleUnion.generate,
-    (input) => typia.equals(input),
+    (input) => typia.equals<TupleUnion>(input),
 );

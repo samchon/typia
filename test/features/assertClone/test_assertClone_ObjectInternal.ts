@@ -5,6 +5,6 @@ import { ObjectInternal } from "../../structures/ObjectInternal";
 export const test_assertClone_ObjectInternal = _test_assertClone(
     "ObjectInternal",
     ObjectInternal.generate,
-    (input) => typia.assertClone(input),
+    (input) => typia.assertClone<ObjectInternal>(input),
     ObjectInternal.SPOILERS,
 );

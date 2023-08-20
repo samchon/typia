@@ -9,7 +9,7 @@ export const test_equals_ObjectHierarchical = _test_equals(
         ((
             input: any,
             _exceptionable: boolean = true,
-        ): input is ObjectHierarchical.ICustomer => {
+        ): input is ObjectHierarchical => {
             const $io0 = (
                 input: any,
                 _exceptionable: boolean = true,

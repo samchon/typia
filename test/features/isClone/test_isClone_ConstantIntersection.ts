@@ -5,6 +5,6 @@ import { ConstantIntersection } from "../../structures/ConstantIntersection";
 export const test_isClone_ConstantIntersection = _test_isClone(
     "ConstantIntersection",
     ConstantIntersection.generate,
-    (input) => typia.isClone(input),
+    (input) => typia.isClone<ConstantIntersection>(input),
     ConstantIntersection.SPOILERS,
 );

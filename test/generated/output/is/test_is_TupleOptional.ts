@@ -6,17 +6,7 @@ export const test_is_TupleOptional = _test_is(
     "TupleOptional",
     TupleOptional.generate,
     (input) =>
-        ((
-            input: any,
-        ): input is Array<
-            [
-                number,
-                boolean,
-                string,
-                (number | null | undefined)?,
-                (string | null | undefined)?,
-            ]
-        > => {
+        ((input: any): input is TupleOptional => {
             return (
                 Array.isArray(input) &&
                 input.every(

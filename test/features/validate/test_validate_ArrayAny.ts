@@ -5,6 +5,6 @@ import { ArrayAny } from "../../structures/ArrayAny";
 export const test_validate_ArrayAny = _test_validate(
     "ArrayAny",
     ArrayAny.generate,
-    (input) => typia.validate(input),
+    (input) => typia.validate<ArrayAny>(input),
     ArrayAny.SPOILERS,
 );

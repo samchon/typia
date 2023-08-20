@@ -5,5 +5,5 @@ import { ArraySimple } from "../../structures/ArraySimple";
 export const test_validateEquals_ArraySimple = _test_validateEquals(
     "ArraySimple",
     ArraySimple.generate,
-    (input) => typia.validateEquals(input),
+    (input) => typia.validateEquals<ArraySimple>(input),
 );

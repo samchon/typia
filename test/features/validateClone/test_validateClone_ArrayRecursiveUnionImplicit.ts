@@ -6,6 +6,6 @@ export const test_validateClone_ArrayRecursiveUnionImplicit =
     _test_validateClone(
         "ArrayRecursiveUnionImplicit",
         ArrayRecursiveUnionImplicit.generate,
-        (input) => typia.validateClone(input),
+        (input) => typia.validateClone<ArrayRecursiveUnionImplicit>(input),
         ArrayRecursiveUnionImplicit.SPOILERS,
     );

@@ -5,5 +5,5 @@ import { DynamicEnumeration } from "../../structures/DynamicEnumeration";
 export const test_stringify_DynamicEnumeration = _test_stringify(
     "DynamicEnumeration",
     DynamicEnumeration.generate,
-    (input) => typia.stringify(input),
+    (input) => typia.stringify<DynamicEnumeration>(input),
 );

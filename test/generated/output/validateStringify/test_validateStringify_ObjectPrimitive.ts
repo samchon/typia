@@ -6,14 +6,12 @@ export const test_validateStringify_ObjectPrimitive = _test_validateStringify(
     "ObjectPrimitive",
     ObjectPrimitive.generate,
     (input) =>
-        ((input: ObjectPrimitive.IArticle): typia.IValidation<string> => {
+        ((input: ObjectPrimitive): typia.IValidation<string> => {
             const validate = (
                 input: any,
-            ): typia.IValidation<ObjectPrimitive.IArticle> => {
+            ): typia.IValidation<ObjectPrimitive> => {
                 const errors = [] as any[];
-                const __is = (
-                    input: any,
-                ): input is ObjectPrimitive.IArticle => {
+                const __is = (input: any): input is ObjectPrimitive => {
                     const $io0 = (input: any): boolean =>
                         "string" === typeof input.id &&
                         ("md" === input.extension ||
@@ -50,7 +48,7 @@ export const test_validateStringify_ObjectPrimitive = _test_validateStringify(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is ObjectPrimitive.IArticle => {
+                    ): input is ObjectPrimitive => {
                         const $vo0 = (
                             input: any,
                             _path: string,
@@ -204,7 +202,7 @@ export const test_validateStringify_ObjectPrimitive = _test_validateStringify(
                     data: success ? input : undefined,
                 } as any;
             };
-            const stringify = (input: ObjectPrimitive.IArticle): string => {
+            const stringify = (input: ObjectPrimitive): string => {
                 const $io1 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     "string" === typeof input.name &&

@@ -5,6 +5,6 @@ import { TagAtomicUnion } from "../../structures/TagAtomicUnion";
 export const test_isPrune_TagAtomicUnion = _test_isPrune(
     "TagAtomicUnion",
     TagAtomicUnion.generate,
-    (input) => typia.isPrune(input),
+    (input) => typia.isPrune<TagAtomicUnion>(input),
     TagAtomicUnion.SPOILERS,
 );

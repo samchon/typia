@@ -6,7 +6,7 @@ export const test_is_MapUnion = _test_is(
     "MapUnion",
     MapUnion.generate,
     (input) =>
-        ((input: any): input is Array<MapUnion.Union> => {
+        ((input: any): input is MapUnion => {
             const $io0 = (input: any): boolean =>
                 "string" === typeof input.id &&
                 "string" === typeof input.name &&

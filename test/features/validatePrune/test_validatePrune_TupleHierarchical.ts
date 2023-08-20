@@ -5,6 +5,6 @@ import { TupleHierarchical } from "../../structures/TupleHierarchical";
 export const test_validatePrune_TupleHierarchical = _test_validatePrune(
     "TupleHierarchical",
     TupleHierarchical.generate,
-    (input) => typia.validatePrune(input),
+    (input) => typia.validatePrune<TupleHierarchical>(input),
     TupleHierarchical.SPOILERS,
 );

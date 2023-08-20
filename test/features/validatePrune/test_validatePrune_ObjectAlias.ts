@@ -5,6 +5,6 @@ import { ObjectAlias } from "../../structures/ObjectAlias";
 export const test_validatePrune_ObjectAlias = _test_validatePrune(
     "ObjectAlias",
     ObjectAlias.generate,
-    (input) => typia.validatePrune(input),
+    (input) => typia.validatePrune<ObjectAlias>(input),
     ObjectAlias.SPOILERS,
 );

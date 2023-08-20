@@ -63,7 +63,13 @@ export const test_createAssertClone_UltimateUnion = _test_assertClone(
                         "boolean" === typeof input["x-typia-rest"]);
                 const $io2 = (input: any): boolean =>
                     "type" === input.kind &&
-                    ("int" === input.value || "uint" === input.value);
+                    ("int" === input.value ||
+                        "uint" === input.value ||
+                        "int32" === input.value ||
+                        "uint32" === input.value ||
+                        "int64" === input.value ||
+                        "uint64" === input.value ||
+                        "float" === input.value);
                 const $io3 = (input: any): boolean =>
                     "minimum" === input.kind &&
                     "number" === typeof input.value &&
@@ -252,11 +258,11 @@ export const test_createAssertClone_UltimateUnion = _test_assertClone(
                     (undefined === input.minimum ||
                         ("number" === typeof input.minimum &&
                             Number.isFinite(input.minimum) &&
-                            parseInt(input.minimum) === input.minimum)) &&
+                            Math.floor(input.minimum) === input.minimum)) &&
                     (undefined === input.maximum ||
                         ("number" === typeof input.maximum &&
                             Number.isFinite(input.maximum) &&
-                            parseInt(input.maximum) === input.maximum)) &&
+                            Math.floor(input.maximum) === input.maximum)) &&
                     (undefined === input.exclusiveMinimum ||
                         "boolean" === typeof input.exclusiveMinimum) &&
                     (undefined === input.exclusiveMaximum ||
@@ -264,7 +270,8 @@ export const test_createAssertClone_UltimateUnion = _test_assertClone(
                     (undefined === input.multipleOf ||
                         ("number" === typeof input.multipleOf &&
                             Number.isFinite(input.multipleOf) &&
-                            parseInt(input.multipleOf) === input.multipleOf)) &&
+                            Math.floor(input.multipleOf) ===
+                                input.multipleOf)) &&
                     (undefined === input["default"] ||
                         ("number" === typeof input["default"] &&
                             Number.isFinite(input["default"]))) &&
@@ -351,12 +358,12 @@ export const test_createAssertClone_UltimateUnion = _test_assertClone(
                     (undefined === input.minLength ||
                         ("number" === typeof input.minLength &&
                             Number.isFinite(input.minLength) &&
-                            parseInt(input.minLength) === input.minLength &&
+                            Math.floor(input.minLength) === input.minLength &&
                             0 <= input.minLength)) &&
                     (undefined === input.maxLength ||
                         ("number" === typeof input.maxLength &&
                             Number.isFinite(input.maxLength) &&
-                            parseInt(input.maxLength) === input.maxLength &&
+                            Math.floor(input.maxLength) === input.maxLength &&
                             0 <= input.maxLength)) &&
                     (undefined === input.pattern ||
                         "string" === typeof input.pattern) &&
@@ -403,12 +410,12 @@ export const test_createAssertClone_UltimateUnion = _test_assertClone(
                     (undefined === input.minItems ||
                         ("number" === typeof input.minItems &&
                             Number.isFinite(input.minItems) &&
-                            parseInt(input.minItems) === input.minItems &&
+                            Math.floor(input.minItems) === input.minItems &&
                             0 <= input.minItems)) &&
                     (undefined === input.maxItems ||
                         ("number" === typeof input.maxItems &&
                             Number.isFinite(input.maxItems) &&
-                            parseInt(input.maxItems) === input.maxItems &&
+                            Math.floor(input.maxItems) === input.maxItems &&
                             0 <= input.maxItems)) &&
                     (undefined === input["x-typia-tuple"] ||
                         ("object" === typeof input["x-typia-tuple"] &&
@@ -456,12 +463,12 @@ export const test_createAssertClone_UltimateUnion = _test_assertClone(
                     ) &&
                     "number" === typeof input.minItems &&
                     Number.isFinite(input.minItems) &&
-                    parseInt(input.minItems) === input.minItems &&
+                    Math.floor(input.minItems) === input.minItems &&
                     0 <= input.minItems &&
                     (undefined === input.maxItems ||
                         ("number" === typeof input.maxItems &&
                             Number.isFinite(input.maxItems) &&
-                            parseInt(input.maxItems) === input.maxItems &&
+                            Math.floor(input.maxItems) === input.maxItems &&
                             0 <= input.maxItems)) &&
                     "array" === input.type &&
                     (undefined === input.nullable ||
@@ -878,11 +885,11 @@ export const test_createAssertClone_UltimateUnion = _test_assertClone(
                     (undefined === input.minimum ||
                         ("number" === typeof input.minimum &&
                             Number.isFinite(input.minimum) &&
-                            parseInt(input.minimum) === input.minimum)) &&
+                            Math.floor(input.minimum) === input.minimum)) &&
                     (undefined === input.maximum ||
                         ("number" === typeof input.maximum &&
                             Number.isFinite(input.maximum) &&
-                            parseInt(input.maximum) === input.maximum)) &&
+                            Math.floor(input.maximum) === input.maximum)) &&
                     (undefined === input.exclusiveMinimum ||
                         "boolean" === typeof input.exclusiveMinimum) &&
                     (undefined === input.exclusiveMaximum ||
@@ -890,7 +897,8 @@ export const test_createAssertClone_UltimateUnion = _test_assertClone(
                     (undefined === input.multipleOf ||
                         ("number" === typeof input.multipleOf &&
                             Number.isFinite(input.multipleOf) &&
-                            parseInt(input.multipleOf) === input.multipleOf)) &&
+                            Math.floor(input.multipleOf) ===
+                                input.multipleOf)) &&
                     (undefined === input["default"] ||
                         ("number" === typeof input["default"] &&
                             Number.isFinite(input["default"]))) &&
@@ -985,12 +993,12 @@ export const test_createAssertClone_UltimateUnion = _test_assertClone(
                     (undefined === input.minLength ||
                         ("number" === typeof input.minLength &&
                             Number.isFinite(input.minLength) &&
-                            parseInt(input.minLength) === input.minLength &&
+                            Math.floor(input.minLength) === input.minLength &&
                             0 <= input.minLength)) &&
                     (undefined === input.maxLength ||
                         ("number" === typeof input.maxLength &&
                             Number.isFinite(input.maxLength) &&
-                            parseInt(input.maxLength) === input.maxLength &&
+                            Math.floor(input.maxLength) === input.maxLength &&
                             0 <= input.maxLength)) &&
                     (undefined === input.pattern ||
                         "string" === typeof input.pattern) &&
@@ -1041,12 +1049,12 @@ export const test_createAssertClone_UltimateUnion = _test_assertClone(
                     (undefined === input.minItems ||
                         ("number" === typeof input.minItems &&
                             Number.isFinite(input.minItems) &&
-                            parseInt(input.minItems) === input.minItems &&
+                            Math.floor(input.minItems) === input.minItems &&
                             0 <= input.minItems)) &&
                     (undefined === input.maxItems ||
                         ("number" === typeof input.maxItems &&
                             Number.isFinite(input.maxItems) &&
-                            parseInt(input.maxItems) === input.maxItems &&
+                            Math.floor(input.maxItems) === input.maxItems &&
                             0 <= input.maxItems)) &&
                     (undefined === input["x-typia-tuple"] ||
                         ("object" === typeof input["x-typia-tuple"] &&
@@ -1098,12 +1106,12 @@ export const test_createAssertClone_UltimateUnion = _test_assertClone(
                     ) &&
                     "number" === typeof input.minItems &&
                     Number.isFinite(input.minItems) &&
-                    parseInt(input.minItems) === input.minItems &&
+                    Math.floor(input.minItems) === input.minItems &&
                     0 <= input.minItems &&
                     (undefined === input.maxItems ||
                         ("number" === typeof input.maxItems &&
                             Number.isFinite(input.maxItems) &&
-                            parseInt(input.maxItems) === input.maxItems &&
+                            Math.floor(input.maxItems) === input.maxItems &&
                             0 <= input.maxItems)) &&
                     "array" === input.type &&
                     (undefined === input.nullable ||
@@ -1654,9 +1662,15 @@ export const test_createAssertClone_UltimateUnion = _test_assertClone(
                             })) &&
                         ("int" === input.value ||
                             "uint" === input.value ||
+                            "int32" === input.value ||
+                            "uint32" === input.value ||
+                            "int64" === input.value ||
+                            "uint64" === input.value ||
+                            "float" === input.value ||
                             $guard(_exceptionable, {
                                 path: _path + ".value",
-                                expected: '("int" | "uint")',
+                                expected:
+                                    '("float" | "int" | "int32" | "int64" | "uint" | "uint32" | "uint64")',
                                 value: input.value,
                             }));
                     const $ao3 = (
@@ -2515,7 +2529,7 @@ export const test_createAssertClone_UltimateUnion = _test_assertClone(
                         (undefined === input.minimum ||
                             ("number" === typeof input.minimum &&
                                 Number.isFinite(input.minimum) &&
-                                (parseInt(input.minimum) === input.minimum ||
+                                (Math.floor(input.minimum) === input.minimum ||
                                     $guard(_exceptionable, {
                                         path: _path + ".minimum",
                                         expected: "number (@type int)",
@@ -2529,7 +2543,7 @@ export const test_createAssertClone_UltimateUnion = _test_assertClone(
                         (undefined === input.maximum ||
                             ("number" === typeof input.maximum &&
                                 Number.isFinite(input.maximum) &&
-                                (parseInt(input.maximum) === input.maximum ||
+                                (Math.floor(input.maximum) === input.maximum ||
                                     $guard(_exceptionable, {
                                         path: _path + ".maximum",
                                         expected: "number (@type int)",
@@ -2557,7 +2571,7 @@ export const test_createAssertClone_UltimateUnion = _test_assertClone(
                         (undefined === input.multipleOf ||
                             ("number" === typeof input.multipleOf &&
                                 Number.isFinite(input.multipleOf) &&
-                                (parseInt(input.multipleOf) ===
+                                (Math.floor(input.multipleOf) ===
                                     input.multipleOf ||
                                     $guard(_exceptionable, {
                                         path: _path + ".multipleOf",
@@ -2926,7 +2940,7 @@ export const test_createAssertClone_UltimateUnion = _test_assertClone(
                         (undefined === input.minLength ||
                             ("number" === typeof input.minLength &&
                                 Number.isFinite(input.minLength) &&
-                                (parseInt(input.minLength) ===
+                                (Math.floor(input.minLength) ===
                                     input.minLength ||
                                     $guard(_exceptionable, {
                                         path: _path + ".minLength",
@@ -2947,7 +2961,7 @@ export const test_createAssertClone_UltimateUnion = _test_assertClone(
                         (undefined === input.maxLength ||
                             ("number" === typeof input.maxLength &&
                                 Number.isFinite(input.maxLength) &&
-                                (parseInt(input.maxLength) ===
+                                (Math.floor(input.maxLength) ===
                                     input.maxLength ||
                                     $guard(_exceptionable, {
                                         path: _path + ".maxLength",
@@ -3159,7 +3173,8 @@ export const test_createAssertClone_UltimateUnion = _test_assertClone(
                         (undefined === input.minItems ||
                             ("number" === typeof input.minItems &&
                                 Number.isFinite(input.minItems) &&
-                                (parseInt(input.minItems) === input.minItems ||
+                                (Math.floor(input.minItems) ===
+                                    input.minItems ||
                                     $guard(_exceptionable, {
                                         path: _path + ".minItems",
                                         expected: "number (@type uint)",
@@ -3179,7 +3194,8 @@ export const test_createAssertClone_UltimateUnion = _test_assertClone(
                         (undefined === input.maxItems ||
                             ("number" === typeof input.maxItems &&
                                 Number.isFinite(input.maxItems) &&
-                                (parseInt(input.maxItems) === input.maxItems ||
+                                (Math.floor(input.maxItems) ===
+                                    input.maxItems ||
                                     $guard(_exceptionable, {
                                         path: _path + ".maxItems",
                                         expected: "number (@type uint)",
@@ -3406,7 +3422,7 @@ export const test_createAssertClone_UltimateUnion = _test_assertClone(
                             })) &&
                         (("number" === typeof input.minItems &&
                             Number.isFinite(input.minItems) &&
-                            (parseInt(input.minItems) === input.minItems ||
+                            (Math.floor(input.minItems) === input.minItems ||
                                 $guard(_exceptionable, {
                                     path: _path + ".minItems",
                                     expected: "number (@type uint)",
@@ -3426,7 +3442,8 @@ export const test_createAssertClone_UltimateUnion = _test_assertClone(
                         (undefined === input.maxItems ||
                             ("number" === typeof input.maxItems &&
                                 Number.isFinite(input.maxItems) &&
-                                (parseInt(input.maxItems) === input.maxItems ||
+                                (Math.floor(input.maxItems) ===
+                                    input.maxItems ||
                                     $guard(_exceptionable, {
                                         path: _path + ".maxItems",
                                         expected: "number (@type uint)",
@@ -5281,7 +5298,7 @@ export const test_createAssertClone_UltimateUnion = _test_assertClone(
                         (undefined === input.minimum ||
                             ("number" === typeof input.minimum &&
                                 Number.isFinite(input.minimum) &&
-                                (parseInt(input.minimum) === input.minimum ||
+                                (Math.floor(input.minimum) === input.minimum ||
                                     $guard(_exceptionable, {
                                         path: _path + ".minimum",
                                         expected: "number (@type int)",
@@ -5295,7 +5312,7 @@ export const test_createAssertClone_UltimateUnion = _test_assertClone(
                         (undefined === input.maximum ||
                             ("number" === typeof input.maximum &&
                                 Number.isFinite(input.maximum) &&
-                                (parseInt(input.maximum) === input.maximum ||
+                                (Math.floor(input.maximum) === input.maximum ||
                                     $guard(_exceptionable, {
                                         path: _path + ".maximum",
                                         expected: "number (@type int)",
@@ -5323,7 +5340,7 @@ export const test_createAssertClone_UltimateUnion = _test_assertClone(
                         (undefined === input.multipleOf ||
                             ("number" === typeof input.multipleOf &&
                                 Number.isFinite(input.multipleOf) &&
-                                (parseInt(input.multipleOf) ===
+                                (Math.floor(input.multipleOf) ===
                                     input.multipleOf ||
                                     $guard(_exceptionable, {
                                         path: _path + ".multipleOf",
@@ -5720,7 +5737,7 @@ export const test_createAssertClone_UltimateUnion = _test_assertClone(
                         (undefined === input.minLength ||
                             ("number" === typeof input.minLength &&
                                 Number.isFinite(input.minLength) &&
-                                (parseInt(input.minLength) ===
+                                (Math.floor(input.minLength) ===
                                     input.minLength ||
                                     $guard(_exceptionable, {
                                         path: _path + ".minLength",
@@ -5741,7 +5758,7 @@ export const test_createAssertClone_UltimateUnion = _test_assertClone(
                         (undefined === input.maxLength ||
                             ("number" === typeof input.maxLength &&
                                 Number.isFinite(input.maxLength) &&
-                                (parseInt(input.maxLength) ===
+                                (Math.floor(input.maxLength) ===
                                     input.maxLength ||
                                     $guard(_exceptionable, {
                                         path: _path + ".maxLength",
@@ -5967,7 +5984,8 @@ export const test_createAssertClone_UltimateUnion = _test_assertClone(
                         (undefined === input.minItems ||
                             ("number" === typeof input.minItems &&
                                 Number.isFinite(input.minItems) &&
-                                (parseInt(input.minItems) === input.minItems ||
+                                (Math.floor(input.minItems) ===
+                                    input.minItems ||
                                     $guard(_exceptionable, {
                                         path: _path + ".minItems",
                                         expected: "number (@type uint)",
@@ -5987,7 +6005,8 @@ export const test_createAssertClone_UltimateUnion = _test_assertClone(
                         (undefined === input.maxItems ||
                             ("number" === typeof input.maxItems &&
                                 Number.isFinite(input.maxItems) &&
-                                (parseInt(input.maxItems) === input.maxItems ||
+                                (Math.floor(input.maxItems) ===
+                                    input.maxItems ||
                                     $guard(_exceptionable, {
                                         path: _path + ".maxItems",
                                         expected: "number (@type uint)",
@@ -6228,7 +6247,7 @@ export const test_createAssertClone_UltimateUnion = _test_assertClone(
                             })) &&
                         (("number" === typeof input.minItems &&
                             Number.isFinite(input.minItems) &&
-                            (parseInt(input.minItems) === input.minItems ||
+                            (Math.floor(input.minItems) === input.minItems ||
                                 $guard(_exceptionable, {
                                     path: _path + ".minItems",
                                     expected: "number (@type uint)",
@@ -6248,7 +6267,8 @@ export const test_createAssertClone_UltimateUnion = _test_assertClone(
                         (undefined === input.maxItems ||
                             ("number" === typeof input.maxItems &&
                                 Number.isFinite(input.maxItems) &&
-                                (parseInt(input.maxItems) === input.maxItems ||
+                                (Math.floor(input.maxItems) ===
+                                    input.maxItems ||
                                     $guard(_exceptionable, {
                                         path: _path + ".maxItems",
                                         expected: "number (@type uint)",
@@ -7437,7 +7457,13 @@ export const test_createAssertClone_UltimateUnion = _test_assertClone(
                     "boolean" === typeof input["x-typia-rest"]);
             const $io2 = (input: any): boolean =>
                 "type" === input.kind &&
-                ("int" === input.value || "uint" === input.value);
+                ("int" === input.value ||
+                    "uint" === input.value ||
+                    "int32" === input.value ||
+                    "uint32" === input.value ||
+                    "int64" === input.value ||
+                    "uint64" === input.value ||
+                    "float" === input.value);
             const $io3 = (input: any): boolean =>
                 "minimum" === input.kind && "number" === typeof input.value;
             const $io4 = (input: any): boolean =>
@@ -7597,17 +7623,17 @@ export const test_createAssertClone_UltimateUnion = _test_assertClone(
             const $io22 = (input: any): boolean =>
                 (undefined === input.minimum ||
                     ("number" === typeof input.minimum &&
-                        parseInt(input.minimum) === input.minimum)) &&
+                        Math.floor(input.minimum) === input.minimum)) &&
                 (undefined === input.maximum ||
                     ("number" === typeof input.maximum &&
-                        parseInt(input.maximum) === input.maximum)) &&
+                        Math.floor(input.maximum) === input.maximum)) &&
                 (undefined === input.exclusiveMinimum ||
                     "boolean" === typeof input.exclusiveMinimum) &&
                 (undefined === input.exclusiveMaximum ||
                     "boolean" === typeof input.exclusiveMaximum) &&
                 (undefined === input.multipleOf ||
                     ("number" === typeof input.multipleOf &&
-                        parseInt(input.multipleOf) === input.multipleOf)) &&
+                        Math.floor(input.multipleOf) === input.multipleOf)) &&
                 (undefined === input["default"] ||
                     "number" === typeof input["default"]) &&
                 "integer" === input.type &&
@@ -7688,11 +7714,11 @@ export const test_createAssertClone_UltimateUnion = _test_assertClone(
             const $io24 = (input: any): boolean =>
                 (undefined === input.minLength ||
                     ("number" === typeof input.minLength &&
-                        parseInt(input.minLength) === input.minLength &&
+                        Math.floor(input.minLength) === input.minLength &&
                         0 <= input.minLength)) &&
                 (undefined === input.maxLength ||
                     ("number" === typeof input.maxLength &&
-                        parseInt(input.maxLength) === input.maxLength &&
+                        Math.floor(input.maxLength) === input.maxLength &&
                         0 <= input.maxLength)) &&
                 (undefined === input.pattern ||
                     "string" === typeof input.pattern) &&
@@ -7738,11 +7764,11 @@ export const test_createAssertClone_UltimateUnion = _test_assertClone(
                 $iu0(input.items) &&
                 (undefined === input.minItems ||
                     ("number" === typeof input.minItems &&
-                        parseInt(input.minItems) === input.minItems &&
+                        Math.floor(input.minItems) === input.minItems &&
                         0 <= input.minItems)) &&
                 (undefined === input.maxItems ||
                     ("number" === typeof input.maxItems &&
-                        parseInt(input.maxItems) === input.maxItems &&
+                        Math.floor(input.maxItems) === input.maxItems &&
                         0 <= input.maxItems)) &&
                 (undefined === input["x-typia-tuple"] ||
                     ("object" === typeof input["x-typia-tuple"] &&
@@ -7789,11 +7815,11 @@ export const test_createAssertClone_UltimateUnion = _test_assertClone(
                         $iu0(elem),
                 ) &&
                 "number" === typeof input.minItems &&
-                parseInt(input.minItems) === input.minItems &&
+                Math.floor(input.minItems) === input.minItems &&
                 0 <= input.minItems &&
                 (undefined === input.maxItems ||
                     ("number" === typeof input.maxItems &&
-                        parseInt(input.maxItems) === input.maxItems &&
+                        Math.floor(input.maxItems) === input.maxItems &&
                         0 <= input.maxItems)) &&
                 "array" === input.type &&
                 (undefined === input.nullable ||
@@ -8192,17 +8218,17 @@ export const test_createAssertClone_UltimateUnion = _test_assertClone(
             const $io39 = (input: any): boolean =>
                 (undefined === input.minimum ||
                     ("number" === typeof input.minimum &&
-                        parseInt(input.minimum) === input.minimum)) &&
+                        Math.floor(input.minimum) === input.minimum)) &&
                 (undefined === input.maximum ||
                     ("number" === typeof input.maximum &&
-                        parseInt(input.maximum) === input.maximum)) &&
+                        Math.floor(input.maximum) === input.maximum)) &&
                 (undefined === input.exclusiveMinimum ||
                     "boolean" === typeof input.exclusiveMinimum) &&
                 (undefined === input.exclusiveMaximum ||
                     "boolean" === typeof input.exclusiveMaximum) &&
                 (undefined === input.multipleOf ||
                     ("number" === typeof input.multipleOf &&
-                        parseInt(input.multipleOf) === input.multipleOf)) &&
+                        Math.floor(input.multipleOf) === input.multipleOf)) &&
                 (undefined === input["default"] ||
                     "number" === typeof input["default"]) &&
                 "integer" === input.type &&
@@ -8289,11 +8315,11 @@ export const test_createAssertClone_UltimateUnion = _test_assertClone(
             const $io41 = (input: any): boolean =>
                 (undefined === input.minLength ||
                     ("number" === typeof input.minLength &&
-                        parseInt(input.minLength) === input.minLength &&
+                        Math.floor(input.minLength) === input.minLength &&
                         0 <= input.minLength)) &&
                 (undefined === input.maxLength ||
                     ("number" === typeof input.maxLength &&
-                        parseInt(input.maxLength) === input.maxLength &&
+                        Math.floor(input.maxLength) === input.maxLength &&
                         0 <= input.maxLength)) &&
                 (undefined === input.pattern ||
                     "string" === typeof input.pattern) &&
@@ -8342,11 +8368,11 @@ export const test_createAssertClone_UltimateUnion = _test_assertClone(
                 $iu0(input.items) &&
                 (undefined === input.minItems ||
                     ("number" === typeof input.minItems &&
-                        parseInt(input.minItems) === input.minItems &&
+                        Math.floor(input.minItems) === input.minItems &&
                         0 <= input.minItems)) &&
                 (undefined === input.maxItems ||
                     ("number" === typeof input.maxItems &&
-                        parseInt(input.maxItems) === input.maxItems &&
+                        Math.floor(input.maxItems) === input.maxItems &&
                         0 <= input.maxItems)) &&
                 (undefined === input["x-typia-tuple"] ||
                     ("object" === typeof input["x-typia-tuple"] &&
@@ -8396,11 +8422,11 @@ export const test_createAssertClone_UltimateUnion = _test_assertClone(
                         $iu0(elem),
                 ) &&
                 "number" === typeof input.minItems &&
-                parseInt(input.minItems) === input.minItems &&
+                Math.floor(input.minItems) === input.minItems &&
                 0 <= input.minItems &&
                 (undefined === input.maxItems ||
                     ("number" === typeof input.maxItems &&
-                        parseInt(input.maxItems) === input.maxItems &&
+                        Math.floor(input.maxItems) === input.maxItems &&
                         0 <= input.maxItems)) &&
                 "array" === input.type &&
                 (undefined === input.nullable ||

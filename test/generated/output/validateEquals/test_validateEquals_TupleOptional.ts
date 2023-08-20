@@ -6,32 +6,12 @@ export const test_validateEquals_TupleOptional = _test_validateEquals(
     "TupleOptional",
     TupleOptional.generate,
     (input) =>
-        ((
-            input: any,
-        ): typia.IValidation<
-            Array<
-                [
-                    number,
-                    boolean,
-                    string,
-                    (number | null | undefined)?,
-                    (string | null | undefined)?,
-                ]
-            >
-        > => {
+        ((input: any): typia.IValidation<TupleOptional> => {
             const errors = [] as any[];
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
-            ): input is Array<
-                [
-                    number,
-                    boolean,
-                    string,
-                    (number | null | undefined)?,
-                    (string | null | undefined)?,
-                ]
-            > => {
+            ): input is TupleOptional => {
                 return (
                     Array.isArray(input) &&
                     input.every(
@@ -59,15 +39,7 @@ export const test_validateEquals_TupleOptional = _test_validateEquals(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is Array<
-                    [
-                        number,
-                        boolean,
-                        string,
-                        (number | null | undefined)?,
-                        (string | null | undefined)?,
-                    ]
-                > => {
+                ): input is TupleOptional => {
                     return (
                         ((Array.isArray(input) ||
                             $report(true, {

@@ -5,6 +5,6 @@ import { ObjectSimple } from "../../structures/ObjectSimple";
 export const test_validateClone_ObjectSimple = _test_validateClone(
     "ObjectSimple",
     ObjectSimple.generate,
-    (input) => typia.validateClone(input),
+    (input) => typia.validateClone<ObjectSimple>(input),
     ObjectSimple.SPOILERS,
 );

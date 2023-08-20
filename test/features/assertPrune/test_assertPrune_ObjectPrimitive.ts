@@ -5,6 +5,6 @@ import { ObjectPrimitive } from "../../structures/ObjectPrimitive";
 export const test_assertPrune_ObjectPrimitive = _test_assertPrune(
     "ObjectPrimitive",
     ObjectPrimitive.generate,
-    (input) => typia.assertPrune(input),
+    (input) => typia.assertPrune<ObjectPrimitive>(input),
     ObjectPrimitive.SPOILERS,
 );

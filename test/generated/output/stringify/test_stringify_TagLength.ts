@@ -6,7 +6,7 @@ export const test_stringify_TagLength = _test_stringify(
     "TagLength",
     TagLength.generate,
     (input) =>
-        ((input: Array<TagLength.Type>): string => {
+        ((input: TagLength): string => {
             const $string = (typia.stringify as any).string;
             return `[${input
                 .map(

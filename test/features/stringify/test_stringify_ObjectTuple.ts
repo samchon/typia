@@ -5,5 +5,5 @@ import { ObjectTuple } from "../../structures/ObjectTuple";
 export const test_stringify_ObjectTuple = _test_stringify(
     "ObjectTuple",
     ObjectTuple.generate,
-    (input) => typia.stringify(input),
+    (input) => typia.stringify<ObjectTuple>(input),
 );

@@ -5,5 +5,5 @@ import { ArrayMatrix } from "../../structures/ArrayMatrix";
 export const test_clone_ArrayMatrix = _test_clone(
     "ArrayMatrix",
     ArrayMatrix.generate,
-    (input) => typia.clone(input),
+    (input) => typia.clone<ArrayMatrix>(input),
 );

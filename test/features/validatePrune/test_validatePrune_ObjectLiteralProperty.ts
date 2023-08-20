@@ -5,6 +5,6 @@ import { ObjectLiteralProperty } from "../../structures/ObjectLiteralProperty";
 export const test_validatePrune_ObjectLiteralProperty = _test_validatePrune(
     "ObjectLiteralProperty",
     ObjectLiteralProperty.generate,
-    (input) => typia.validatePrune(input),
+    (input) => typia.validatePrune<ObjectLiteralProperty>(input),
     ObjectLiteralProperty.SPOILERS,
 );

@@ -6,6 +6,6 @@ export const test_validateStringify_ObjectUnionComposite =
     _test_validateStringify(
         "ObjectUnionComposite",
         ObjectUnionComposite.generate,
-        (input) => typia.validateStringify(input),
+        (input) => typia.validateStringify<ObjectUnionComposite>(input),
         ObjectUnionComposite.SPOILERS,
     );

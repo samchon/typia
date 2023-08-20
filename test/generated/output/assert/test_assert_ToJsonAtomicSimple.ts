@@ -6,20 +6,8 @@ export const test_assert_ToJsonAtomicSimple = _test_assert(
     "ToJsonAtomicSimple",
     ToJsonAtomicSimple.generate,
     (input) =>
-        ((
-            input: any,
-        ): [
-            ToJsonAtomicSimple.IToJson<boolean>,
-            ToJsonAtomicSimple.IToJson<number>,
-            ToJsonAtomicSimple.IToJson<string>,
-        ] => {
-            const __is = (
-                input: any,
-            ): input is [
-                ToJsonAtomicSimple.IToJson<boolean>,
-                ToJsonAtomicSimple.IToJson<number>,
-                ToJsonAtomicSimple.IToJson<string>,
-            ] => {
+        ((input: any): ToJsonAtomicSimple => {
+            const __is = (input: any): input is ToJsonAtomicSimple => {
                 const $io0 = (input: any): boolean =>
                     "function" === typeof input.toJSON;
                 const $io1 = (input: any): boolean =>
@@ -45,11 +33,7 @@ export const test_assert_ToJsonAtomicSimple = _test_assert(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is [
-                    ToJsonAtomicSimple.IToJson<boolean>,
-                    ToJsonAtomicSimple.IToJson<number>,
-                    ToJsonAtomicSimple.IToJson<string>,
-                ] => {
+                ): input is ToJsonAtomicSimple => {
                     const $guard = (typia.assert as any).guard;
                     const $ao0 = (
                         input: any,

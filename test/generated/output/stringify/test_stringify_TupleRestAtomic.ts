@@ -6,7 +6,7 @@ export const test_stringify_TupleRestAtomic = _test_stringify(
     "TupleRestAtomic",
     TupleRestAtomic.generate,
     (input) =>
-        ((input: [boolean, number, ...string[]]): string => {
+        ((input: TupleRestAtomic): string => {
             const $number = (typia.stringify as any).number;
             const $string = (typia.stringify as any).string;
             const $rest = (typia.stringify as any).rest;

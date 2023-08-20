@@ -6,12 +6,12 @@ export const test_validateEquals_ObjectHierarchical = _test_validateEquals(
     "ObjectHierarchical",
     ObjectHierarchical.generate,
     (input) =>
-        ((input: any): typia.IValidation<ObjectHierarchical.ICustomer> => {
+        ((input: any): typia.IValidation<ObjectHierarchical> => {
             const errors = [] as any[];
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
-            ): input is ObjectHierarchical.ICustomer => {
+            ): input is ObjectHierarchical => {
                 const $io0 = (
                     input: any,
                     _exceptionable: boolean = true,
@@ -221,7 +221,7 @@ export const test_validateEquals_ObjectHierarchical = _test_validateEquals(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ObjectHierarchical.ICustomer => {
+                ): input is ObjectHierarchical => {
                     const $join = (typia.validateEquals as any).join;
                     const $vo0 = (
                         input: any,

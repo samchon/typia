@@ -6,19 +6,7 @@ export const test_is_ArrayRepeatedUnionWithTuple = _test_is(
     "ArrayRepeatedUnionWithTuple",
     ArrayRepeatedUnionWithTuple.generate,
     (input) =>
-        ((
-            input: any,
-        ): input is
-            | number
-            | boolean
-            | Array<string>
-            | Array<ArrayRepeatedUnionWithTuple>
-            | Array<ArrayRepeatedUnionWithTuple.IBox3D>
-            | [string, number, boolean]
-            | [
-                  ArrayRepeatedUnionWithTuple.IBox3D,
-                  ArrayRepeatedUnionWithTuple.IPoint3D,
-              ] => {
+        ((input: any): input is ArrayRepeatedUnionWithTuple => {
             const $ip0 = (input: any) => {
                 const array = input;
                 const tuplePredicators = [

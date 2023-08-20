@@ -5,5 +5,5 @@ import { TagArray } from "../../structures/TagArray";
 export const test_validateEquals_TagArray = _test_validateEquals(
     "TagArray",
     TagArray.generate,
-    (input) => typia.validateEquals(input),
+    (input) => typia.validateEquals<TagArray>(input),
 );

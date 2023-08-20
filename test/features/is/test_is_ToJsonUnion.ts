@@ -5,5 +5,5 @@ import { ToJsonUnion } from "../../structures/ToJsonUnion";
 export const test_is_ToJsonUnion = _test_is(
     "ToJsonUnion",
     ToJsonUnion.generate,
-    (input) => typia.is(input),
+    (input) => typia.is<ToJsonUnion>(input),
 );

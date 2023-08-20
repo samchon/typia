@@ -5,5 +5,5 @@ import { InstanceUnion } from "../../structures/InstanceUnion";
 export const test_validate_InstanceUnion = _test_validate(
     "InstanceUnion",
     InstanceUnion.generate,
-    (input) => typia.validate(input),
+    (input) => typia.validate<InstanceUnion>(input),
 );

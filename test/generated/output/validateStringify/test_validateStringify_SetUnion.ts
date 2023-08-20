@@ -6,12 +6,10 @@ export const test_validateStringify_SetUnion = _test_validateStringify(
     "SetUnion",
     SetUnion.generate,
     (input) =>
-        ((input: Array<SetUnion.Union>): typia.IValidation<string> => {
-            const validate = (
-                input: any,
-            ): typia.IValidation<Array<SetUnion.Union>> => {
+        ((input: SetUnion): typia.IValidation<string> => {
+            const validate = (input: any): typia.IValidation<SetUnion> => {
                 const errors = [] as any[];
-                const __is = (input: any): input is Array<SetUnion.Union> => {
+                const __is = (input: any): input is SetUnion => {
                     const $io0 = (input: any): boolean =>
                         "string" === typeof input.id &&
                         "string" === typeof input.name &&
@@ -124,7 +122,7 @@ export const test_validateStringify_SetUnion = _test_validateStringify(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is Array<SetUnion.Union> => {
+                    ): input is SetUnion => {
                         const $vo0 = (
                             input: any,
                             _path: string,
@@ -544,7 +542,7 @@ export const test_validateStringify_SetUnion = _test_validateStringify(
                     data: success ? input : undefined,
                 } as any;
             };
-            const stringify = (input: Array<SetUnion.Union>): string => {
+            const stringify = (input: SetUnion): string => {
                 const $string = (typia.validateStringify as any).string;
                 const $number = (typia.validateStringify as any).number;
                 return `[${input.map((elem: any) => "{}").join(",")}]`;

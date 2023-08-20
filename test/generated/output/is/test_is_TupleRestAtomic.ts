@@ -6,7 +6,7 @@ export const test_is_TupleRestAtomic = _test_is(
     "TupleRestAtomic",
     TupleRestAtomic.generate,
     (input) =>
-        ((input: any): input is [boolean, number, ...string[]] => {
+        ((input: any): input is TupleRestAtomic => {
             return (
                 Array.isArray(input) &&
                 "boolean" === typeof input[0] &&

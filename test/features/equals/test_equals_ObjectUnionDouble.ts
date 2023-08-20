@@ -5,5 +5,5 @@ import { ObjectUnionDouble } from "../../structures/ObjectUnionDouble";
 export const test_equals_ObjectUnionDouble = _test_equals(
     "ObjectUnionDouble",
     ObjectUnionDouble.generate,
-    (input) => typia.equals(input),
+    (input) => typia.equals<ObjectUnionDouble>(input),
 );

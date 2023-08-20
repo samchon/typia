@@ -6,12 +6,12 @@ export const test_validateEquals_TupleRestAtomic = _test_validateEquals(
     "TupleRestAtomic",
     TupleRestAtomic.generate,
     (input) =>
-        ((input: any): typia.IValidation<[boolean, number, ...string[]]> => {
+        ((input: any): typia.IValidation<TupleRestAtomic> => {
             const errors = [] as any[];
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
-            ): input is [boolean, number, ...string[]] => {
+            ): input is TupleRestAtomic => {
                 return (
                     Array.isArray(input) &&
                     "boolean" === typeof input[0] &&
@@ -32,7 +32,7 @@ export const test_validateEquals_TupleRestAtomic = _test_validateEquals(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is [boolean, number, ...string[]] => {
+                ): input is TupleRestAtomic => {
                     return (
                         ((Array.isArray(input) ||
                             $report(true, {

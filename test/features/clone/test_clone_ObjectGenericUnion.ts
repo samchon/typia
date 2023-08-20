@@ -5,5 +5,5 @@ import { ObjectGenericUnion } from "../../structures/ObjectGenericUnion";
 export const test_clone_ObjectGenericUnion = _test_clone(
     "ObjectGenericUnion",
     ObjectGenericUnion.generate,
-    (input) => typia.clone(input),
+    (input) => typia.clone<ObjectGenericUnion>(input),
 );

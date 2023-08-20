@@ -5,5 +5,5 @@ import { ToJsonUnion } from "../../structures/ToJsonUnion";
 export const test_validateEquals_ToJsonUnion = _test_validateEquals(
     "ToJsonUnion",
     ToJsonUnion.generate,
-    (input) => typia.validateEquals(input),
+    (input) => typia.validateEquals<ToJsonUnion>(input),
 );

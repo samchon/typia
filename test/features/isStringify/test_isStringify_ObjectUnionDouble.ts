@@ -5,6 +5,6 @@ import { ObjectUnionDouble } from "../../structures/ObjectUnionDouble";
 export const test_isStringify_ObjectUnionDouble = _test_isStringify(
     "ObjectUnionDouble",
     ObjectUnionDouble.generate,
-    (input) => typia.isStringify(input),
+    (input) => typia.isStringify<ObjectUnionDouble>(input),
     ObjectUnionDouble.SPOILERS,
 );

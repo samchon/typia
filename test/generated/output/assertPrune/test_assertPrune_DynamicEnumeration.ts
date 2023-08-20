@@ -6,48 +6,9 @@ export const test_assertPrune_DynamicEnumeration = _test_assertPrune(
     "DynamicEnumeration",
     DynamicEnumeration.generate,
     (input) =>
-        ((
-            input: any,
-        ): {
-            ar?: string | undefined;
-            "zh-Hans"?: string | undefined;
-            "zh-Hant"?: string | undefined;
-            en?: string | undefined;
-            fr?: string | undefined;
-            de?: string | undefined;
-            ja?: string | undefined;
-            ko?: string | undefined;
-            pt?: string | undefined;
-            ru?: string | undefined;
-        } => {
-            const assert = (
-                input: any,
-            ): {
-                ar?: string | undefined;
-                "zh-Hans"?: string | undefined;
-                "zh-Hant"?: string | undefined;
-                en?: string | undefined;
-                fr?: string | undefined;
-                de?: string | undefined;
-                ja?: string | undefined;
-                ko?: string | undefined;
-                pt?: string | undefined;
-                ru?: string | undefined;
-            } => {
-                const __is = (
-                    input: any,
-                ): input is {
-                    ar?: string | undefined;
-                    "zh-Hans"?: string | undefined;
-                    "zh-Hant"?: string | undefined;
-                    en?: string | undefined;
-                    fr?: string | undefined;
-                    de?: string | undefined;
-                    ja?: string | undefined;
-                    ko?: string | undefined;
-                    pt?: string | undefined;
-                    ru?: string | undefined;
-                } => {
+        ((input: any): DynamicEnumeration => {
+            const assert = (input: any): DynamicEnumeration => {
+                const __is = (input: any): input is DynamicEnumeration => {
                     const $io0 = (input: any): boolean =>
                         (undefined === input.ar ||
                             "string" === typeof input.ar) &&
@@ -81,18 +42,7 @@ export const test_assertPrune_DynamicEnumeration = _test_assertPrune(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is {
-                        ar?: string | undefined;
-                        "zh-Hans"?: string | undefined;
-                        "zh-Hant"?: string | undefined;
-                        en?: string | undefined;
-                        fr?: string | undefined;
-                        de?: string | undefined;
-                        ja?: string | undefined;
-                        ko?: string | undefined;
-                        pt?: string | undefined;
-                        ru?: string | undefined;
-                    } => {
+                    ): input is DynamicEnumeration => {
                         const $guard = (typia.assertPrune as any).guard;
                         const $ao0 = (
                             input: any,
@@ -188,18 +138,7 @@ export const test_assertPrune_DynamicEnumeration = _test_assertPrune(
                     })(input, "$input", true);
                 return input;
             };
-            const prune = (input: {
-                ar?: string | undefined;
-                "zh-Hans"?: string | undefined;
-                "zh-Hant"?: string | undefined;
-                en?: string | undefined;
-                fr?: string | undefined;
-                de?: string | undefined;
-                ja?: string | undefined;
-                ko?: string | undefined;
-                pt?: string | undefined;
-                ru?: string | undefined;
-            }): void => {
+            const prune = (input: DynamicEnumeration): void => {
                 const $po0 = (input: any): any => {
                     for (const key of Object.keys(input)) {
                         if (

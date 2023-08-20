@@ -7,10 +7,8 @@ export const test_assertStringify_ToJsonAtomicUnion = _test_assertStringify(
     ToJsonAtomicUnion.generate,
     (input) =>
         ((input: any): string => {
-            const assert = (input: any): Array<ToJsonAtomicUnion.IToJson> => {
-                const __is = (
-                    input: any,
-                ): input is Array<ToJsonAtomicUnion.IToJson> => {
+            const assert = (input: any): ToJsonAtomicUnion => {
+                const __is = (input: any): input is ToJsonAtomicUnion => {
                     const $io0 = (input: any): boolean => true;
                     return (
                         Array.isArray(input) &&
@@ -27,7 +25,7 @@ export const test_assertStringify_ToJsonAtomicUnion = _test_assertStringify(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is Array<ToJsonAtomicUnion.IToJson> => {
+                    ): input is ToJsonAtomicUnion => {
                         const $guard = (typia.assertStringify as any).guard;
                         const $ao0 = (
                             input: any,
@@ -79,9 +77,7 @@ export const test_assertStringify_ToJsonAtomicUnion = _test_assertStringify(
                     })(input, "$input", true);
                 return input;
             };
-            const stringify = (
-                input: Array<ToJsonAtomicUnion.IToJson>,
-            ): string => {
+            const stringify = (input: ToJsonAtomicUnion): string => {
                 const $string = (typia.assertStringify as any).string;
                 const $number = (typia.assertStringify as any).number;
                 const $throws = (typia.assertStringify as any).throws;

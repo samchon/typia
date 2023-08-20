@@ -6,7 +6,7 @@ export const test_clone_ClassMethod = _test_clone(
     "ClassMethod",
     ClassMethod.generate,
     (input) =>
-        ((input: ClassMethod.Animal): typia.Primitive<ClassMethod.Animal> => {
+        ((input: ClassMethod): typia.Primitive<ClassMethod> => {
             const $co0 = (input: any): any => ({
                 name: input.name as any,
                 age: input.age as any,

@@ -8,12 +8,10 @@ export const test_assertStringify_ArrayRecursiveUnionImplicit =
         ArrayRecursiveUnionImplicit.generate,
         (input) =>
             ((input: any): string => {
-                const assert = (
-                    input: any,
-                ): Array<ArrayRecursiveUnionImplicit.IBucket> => {
+                const assert = (input: any): ArrayRecursiveUnionImplicit => {
                     const __is = (
                         input: any,
-                    ): input is Array<ArrayRecursiveUnionImplicit.IBucket> => {
+                    ): input is ArrayRecursiveUnionImplicit => {
                         const $io0 = (input: any): boolean =>
                             "number" === typeof input.id &&
                             Number.isFinite(input.id) &&
@@ -106,7 +104,7 @@ export const test_assertStringify_ArrayRecursiveUnionImplicit =
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
-                        ): input is Array<ArrayRecursiveUnionImplicit.IBucket> => {
+                        ): input is ArrayRecursiveUnionImplicit => {
                             const $guard = (typia.assertStringify as any).guard;
                             const $ao0 = (
                                 input: any,
@@ -510,7 +508,7 @@ export const test_assertStringify_ArrayRecursiveUnionImplicit =
                     return input;
                 };
                 const stringify = (
-                    input: Array<ArrayRecursiveUnionImplicit.IBucket>,
+                    input: ArrayRecursiveUnionImplicit,
                 ): string => {
                     const $io0 = (input: any): boolean =>
                         "number" === typeof input.id &&

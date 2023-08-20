@@ -6,7 +6,7 @@ export const test_stringify_ArrayUnion = _test_stringify(
     "ArrayUnion",
     ArrayUnion.generate,
     (input) =>
-        ((input: Array<ArrayUnion.IUnion>): string => {
+        ((input: ArrayUnion): string => {
             const $string = (typia.stringify as any).string;
             const $number = (typia.stringify as any).number;
             const $throws = (typia.stringify as any).throws;

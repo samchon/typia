@@ -5,5 +5,5 @@ import { ArrayAtomicSimple } from "../../structures/ArrayAtomicSimple";
 export const test_clone_ArrayAtomicSimple = _test_clone(
     "ArrayAtomicSimple",
     ArrayAtomicSimple.generate,
-    (input) => typia.clone(input),
+    (input) => typia.clone<ArrayAtomicSimple>(input),
 );

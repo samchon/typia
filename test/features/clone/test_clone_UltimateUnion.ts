@@ -5,5 +5,5 @@ import { UltimateUnion } from "../../structures/UltimateUnion";
 export const test_clone_UltimateUnion = _test_clone(
     "UltimateUnion",
     UltimateUnion.generate,
-    (input) => typia.clone(input),
+    (input) => typia.clone<UltimateUnion>(input),
 );

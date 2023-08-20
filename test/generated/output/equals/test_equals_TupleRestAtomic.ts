@@ -9,7 +9,7 @@ export const test_equals_TupleRestAtomic = _test_equals(
         ((
             input: any,
             _exceptionable: boolean = true,
-        ): input is [boolean, number, ...string[]] => {
+        ): input is TupleRestAtomic => {
             return (
                 Array.isArray(input) &&
                 "boolean" === typeof input[0] &&

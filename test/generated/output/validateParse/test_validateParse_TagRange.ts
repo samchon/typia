@@ -11,41 +11,58 @@ export const test_validateParse_TagRange = _test_validateParse(
                 const errors = [] as any[];
                 const __is = (input: any): input is TagRange => {
                     const $io0 = (input: any): boolean =>
-                        "number" === typeof input.greater &&
-                        Number.isFinite(input.greater) &&
-                        3 < input.greater &&
-                        "number" === typeof input.greater_equal &&
-                        Number.isFinite(input.greater_equal) &&
-                        3 <= input.greater_equal &&
-                        "number" === typeof input.less &&
-                        Number.isFinite(input.less) &&
-                        7 > input.less &&
-                        "number" === typeof input.less_equal &&
-                        Number.isFinite(input.less_equal) &&
-                        7 >= input.less_equal &&
-                        "number" === typeof input.greater_less &&
-                        3 < input.greater_less &&
-                        7 > input.greater_less &&
-                        "number" === typeof input.greater_equal_less &&
-                        3 <= input.greater_equal_less &&
-                        7 > input.greater_equal_less &&
-                        "number" === typeof input.greater_less_equal &&
-                        3 < input.greater_less_equal &&
-                        7 >= input.greater_less_equal &&
-                        "number" === typeof input.greater_equal_less_equal &&
-                        3 <= input.greater_equal_less_equal &&
-                        7 >= input.greater_equal_less_equal &&
-                        "number" === typeof input.equal &&
-                        10 <= input.equal &&
-                        10 >= input.equal;
-                    return (
-                        Array.isArray(input) &&
-                        input.every(
+                        Array.isArray(input.value) &&
+                        input.value.every(
                             (elem: any) =>
                                 "object" === typeof elem &&
                                 null !== elem &&
-                                $io0(elem),
-                        )
+                                $io1(elem),
+                        );
+                    const $io1 = (input: any): boolean =>
+                        "number" === typeof input.greater &&
+                        Number.isFinite(input.greater) &&
+                        Math.floor(input.greater) === input.greater &&
+                        3 < input.greater &&
+                        "number" === typeof input.greater_equal &&
+                        Number.isFinite(input.greater_equal) &&
+                        Math.floor(input.greater_equal) ===
+                            input.greater_equal &&
+                        3 <= input.greater_equal &&
+                        "number" === typeof input.less &&
+                        Number.isFinite(input.less) &&
+                        Math.floor(input.less) === input.less &&
+                        7 > input.less &&
+                        "number" === typeof input.less_equal &&
+                        Number.isFinite(input.less_equal) &&
+                        Math.floor(input.less_equal) === input.less_equal &&
+                        7 >= input.less_equal &&
+                        "number" === typeof input.greater_less &&
+                        Math.floor(input.greater_less) === input.greater_less &&
+                        3 < input.greater_less &&
+                        7 > input.greater_less &&
+                        "number" === typeof input.greater_equal_less &&
+                        Math.floor(input.greater_equal_less) ===
+                            input.greater_equal_less &&
+                        3 <= input.greater_equal_less &&
+                        7 > input.greater_equal_less &&
+                        "number" === typeof input.greater_less_equal &&
+                        Math.floor(input.greater_less_equal) ===
+                            input.greater_less_equal &&
+                        3 < input.greater_less_equal &&
+                        7 >= input.greater_less_equal &&
+                        "number" === typeof input.greater_equal_less_equal &&
+                        Math.floor(input.greater_equal_less_equal) ===
+                            input.greater_equal_less_equal &&
+                        3 <= input.greater_equal_less_equal &&
+                        7 >= input.greater_equal_less_equal &&
+                        "number" === typeof input.equal &&
+                        Math.floor(input.equal) === input.equal &&
+                        10 <= input.equal &&
+                        10 >= input.equal;
+                    return (
+                        "object" === typeof input &&
+                        null !== input &&
+                        $io0(input)
                     );
                 };
                 if (false === __is(input)) {
@@ -61,8 +78,67 @@ export const test_validateParse_TagRange = _test_validateParse(
                             _exceptionable: boolean = true,
                         ): boolean =>
                             [
+                                ((Array.isArray(input.value) ||
+                                    $report(_exceptionable, {
+                                        path: _path + ".value",
+                                        expected: "Array<TagRange.Type>",
+                                        value: input.value,
+                                    })) &&
+                                    input.value
+                                        .map(
+                                            (elem: any, _index1: number) =>
+                                                ((("object" === typeof elem &&
+                                                    null !== elem) ||
+                                                    $report(_exceptionable, {
+                                                        path:
+                                                            _path +
+                                                            ".value[" +
+                                                            _index1 +
+                                                            "]",
+                                                        expected:
+                                                            "TagRange.Type",
+                                                        value: elem,
+                                                    })) &&
+                                                    $vo1(
+                                                        elem,
+                                                        _path +
+                                                            ".value[" +
+                                                            _index1 +
+                                                            "]",
+                                                        true && _exceptionable,
+                                                    )) ||
+                                                $report(_exceptionable, {
+                                                    path:
+                                                        _path +
+                                                        ".value[" +
+                                                        _index1 +
+                                                        "]",
+                                                    expected: "TagRange.Type",
+                                                    value: elem,
+                                                }),
+                                        )
+                                        .every((flag: boolean) => flag)) ||
+                                    $report(_exceptionable, {
+                                        path: _path + ".value",
+                                        expected: "Array<TagRange.Type>",
+                                        value: input.value,
+                                    }),
+                            ].every((flag: boolean) => flag);
+                        const $vo1 = (
+                            input: any,
+                            _path: string,
+                            _exceptionable: boolean = true,
+                        ): boolean =>
+                            [
                                 ("number" === typeof input.greater &&
                                     Number.isFinite(input.greater) &&
+                                    (Math.floor(input.greater) ===
+                                        input.greater ||
+                                        $report(_exceptionable, {
+                                            path: _path + ".greater",
+                                            expected: "number (@type int)",
+                                            value: input.greater,
+                                        })) &&
                                     (3 < input.greater ||
                                         $report(_exceptionable, {
                                             path: _path + ".greater",
@@ -77,6 +153,13 @@ export const test_validateParse_TagRange = _test_validateParse(
                                     }),
                                 ("number" === typeof input.greater_equal &&
                                     Number.isFinite(input.greater_equal) &&
+                                    (Math.floor(input.greater_equal) ===
+                                        input.greater_equal ||
+                                        $report(_exceptionable, {
+                                            path: _path + ".greater_equal",
+                                            expected: "number (@type int)",
+                                            value: input.greater_equal,
+                                        })) &&
                                     (3 <= input.greater_equal ||
                                         $report(_exceptionable, {
                                             path: _path + ".greater_equal",
@@ -90,6 +173,12 @@ export const test_validateParse_TagRange = _test_validateParse(
                                     }),
                                 ("number" === typeof input.less &&
                                     Number.isFinite(input.less) &&
+                                    (Math.floor(input.less) === input.less ||
+                                        $report(_exceptionable, {
+                                            path: _path + ".less",
+                                            expected: "number (@type int)",
+                                            value: input.less,
+                                        })) &&
                                     (7 > input.less ||
                                         $report(_exceptionable, {
                                             path: _path + ".less",
@@ -104,6 +193,13 @@ export const test_validateParse_TagRange = _test_validateParse(
                                     }),
                                 ("number" === typeof input.less_equal &&
                                     Number.isFinite(input.less_equal) &&
+                                    (Math.floor(input.less_equal) ===
+                                        input.less_equal ||
+                                        $report(_exceptionable, {
+                                            path: _path + ".less_equal",
+                                            expected: "number (@type int)",
+                                            value: input.less_equal,
+                                        })) &&
                                     (7 >= input.less_equal ||
                                         $report(_exceptionable, {
                                             path: _path + ".less_equal",
@@ -116,6 +212,13 @@ export const test_validateParse_TagRange = _test_validateParse(
                                         value: input.less_equal,
                                     }),
                                 ("number" === typeof input.greater_less &&
+                                    (Math.floor(input.greater_less) ===
+                                        input.greater_less ||
+                                        $report(_exceptionable, {
+                                            path: _path + ".greater_less",
+                                            expected: "number (@type int)",
+                                            value: input.greater_less,
+                                        })) &&
                                     (3 < input.greater_less ||
                                         $report(_exceptionable, {
                                             path: _path + ".greater_less",
@@ -136,6 +239,13 @@ export const test_validateParse_TagRange = _test_validateParse(
                                         value: input.greater_less,
                                     }),
                                 ("number" === typeof input.greater_equal_less &&
+                                    (Math.floor(input.greater_equal_less) ===
+                                        input.greater_equal_less ||
+                                        $report(_exceptionable, {
+                                            path: _path + ".greater_equal_less",
+                                            expected: "number (@type int)",
+                                            value: input.greater_equal_less,
+                                        })) &&
                                     (3 <= input.greater_equal_less ||
                                         $report(_exceptionable, {
                                             path: _path + ".greater_equal_less",
@@ -155,6 +265,13 @@ export const test_validateParse_TagRange = _test_validateParse(
                                         value: input.greater_equal_less,
                                     }),
                                 ("number" === typeof input.greater_less_equal &&
+                                    (Math.floor(input.greater_less_equal) ===
+                                        input.greater_less_equal ||
+                                        $report(_exceptionable, {
+                                            path: _path + ".greater_less_equal",
+                                            expected: "number (@type int)",
+                                            value: input.greater_less_equal,
+                                        })) &&
                                     (3 < input.greater_less_equal ||
                                         $report(_exceptionable, {
                                             path: _path + ".greater_less_equal",
@@ -175,6 +292,16 @@ export const test_validateParse_TagRange = _test_validateParse(
                                     }),
                                 ("number" ===
                                     typeof input.greater_equal_less_equal &&
+                                    (Math.floor(
+                                        input.greater_equal_less_equal,
+                                    ) === input.greater_equal_less_equal ||
+                                        $report(_exceptionable, {
+                                            path:
+                                                _path +
+                                                ".greater_equal_less_equal",
+                                            expected: "number (@type int)",
+                                            value: input.greater_equal_less_equal,
+                                        })) &&
                                     (3 <= input.greater_equal_less_equal ||
                                         $report(_exceptionable, {
                                             path:
@@ -198,6 +325,12 @@ export const test_validateParse_TagRange = _test_validateParse(
                                         value: input.greater_equal_less_equal,
                                     }),
                                 ("number" === typeof input.equal &&
+                                    (Math.floor(input.equal) === input.equal ||
+                                        $report(_exceptionable, {
+                                            path: _path + ".equal",
+                                            expected: "number (@type int)",
+                                            value: input.equal,
+                                        })) &&
                                     (10 <= input.equal ||
                                         $report(_exceptionable, {
                                             path: _path + ".equal",
@@ -217,39 +350,13 @@ export const test_validateParse_TagRange = _test_validateParse(
                                     }),
                             ].every((flag: boolean) => flag);
                         return (
-                            ((Array.isArray(input) ||
+                            ((("object" === typeof input && null !== input) ||
                                 $report(true, {
                                     path: _path + "",
                                     expected: "TagRange",
                                     value: input,
                                 })) &&
-                                input
-                                    .map(
-                                        (elem: any, _index1: number) =>
-                                            ((("object" === typeof elem &&
-                                                null !== elem) ||
-                                                $report(true, {
-                                                    path:
-                                                        _path +
-                                                        "[" +
-                                                        _index1 +
-                                                        "]",
-                                                    expected: "TagRange.Type",
-                                                    value: elem,
-                                                })) &&
-                                                $vo0(
-                                                    elem,
-                                                    _path + "[" + _index1 + "]",
-                                                    true,
-                                                )) ||
-                                            $report(true, {
-                                                path:
-                                                    _path + "[" + _index1 + "]",
-                                                expected: "TagRange.Type",
-                                                value: elem,
-                                            }),
-                                    )
-                                    .every((flag: boolean) => flag)) ||
+                                $vo0(input, _path + "", true)) ||
                             $report(true, {
                                 path: _path + "",
                                 expected: "TagRange",

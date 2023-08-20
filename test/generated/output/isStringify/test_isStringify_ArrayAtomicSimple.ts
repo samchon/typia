@@ -6,12 +6,8 @@ export const test_isStringify_ArrayAtomicSimple = _test_isStringify(
     "ArrayAtomicSimple",
     ArrayAtomicSimple.generate,
     (input) =>
-        ((
-            input: [Array<boolean>, Array<number>, Array<string>],
-        ): string | null => {
-            const is = (
-                input: any,
-            ): input is [Array<boolean>, Array<number>, Array<string>] => {
+        ((input: ArrayAtomicSimple): string | null => {
+            const is = (input: any): input is ArrayAtomicSimple => {
                 return (
                     Array.isArray(input) &&
                     input.length === 3 &&
@@ -26,9 +22,7 @@ export const test_isStringify_ArrayAtomicSimple = _test_isStringify(
                     input[2].every((elem: any) => "string" === typeof elem)
                 );
             };
-            const stringify = (
-                input: [Array<boolean>, Array<number>, Array<string>],
-            ): string => {
+            const stringify = (input: ArrayAtomicSimple): string => {
                 const $number = (typia.isStringify as any).number;
                 const $string = (typia.isStringify as any).string;
                 return `[${`[${input[0]

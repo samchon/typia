@@ -5,5 +5,5 @@ import { ObjectClosure } from "../../structures/ObjectClosure";
 export const test_assertEquals_ObjectClosure = _test_assertEquals(
     "ObjectClosure",
     ObjectClosure.generate,
-    (input) => typia.assertEquals(input),
+    (input) => typia.assertEquals<ObjectClosure>(input),
 );

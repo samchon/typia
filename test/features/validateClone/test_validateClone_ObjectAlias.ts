@@ -5,6 +5,6 @@ import { ObjectAlias } from "../../structures/ObjectAlias";
 export const test_validateClone_ObjectAlias = _test_validateClone(
     "ObjectAlias",
     ObjectAlias.generate,
-    (input) => typia.validateClone(input),
+    (input) => typia.validateClone<ObjectAlias>(input),
     ObjectAlias.SPOILERS,
 );

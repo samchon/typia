@@ -6,5 +6,5 @@ export const test_validateEquals_ArrayRecursiveUnionImplicit =
     _test_validateEquals(
         "ArrayRecursiveUnionImplicit",
         ArrayRecursiveUnionImplicit.generate,
-        (input) => typia.validateEquals(input),
+        (input) => typia.validateEquals<ArrayRecursiveUnionImplicit>(input),
     );

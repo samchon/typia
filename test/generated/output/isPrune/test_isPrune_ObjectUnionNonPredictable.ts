@@ -6,16 +6,8 @@ export const test_isPrune_ObjectUnionNonPredictable = _test_isPrune(
     "ObjectUnionNonPredictable",
     ObjectUnionNonPredictable.generate,
     (input) =>
-        ((
-            input: any,
-        ): input is Array<
-            ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
-        > => {
-            const is = (
-                input: any,
-            ): input is Array<
-                ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
-            > => {
+        ((input: any): input is ObjectUnionNonPredictable => {
+            const is = (input: any): input is ObjectUnionNonPredictable => {
                 const $io0 = (input: any): boolean =>
                     "object" === typeof input.value &&
                     null !== input.value &&
@@ -54,11 +46,7 @@ export const test_isPrune_ObjectUnionNonPredictable = _test_isPrune(
                     )
                 );
             };
-            const prune = (
-                input: Array<
-                    ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
-                >,
-            ): void => {
+            const prune = (input: ObjectUnionNonPredictable): void => {
                 const $io1 = (input: any): boolean =>
                     "object" === typeof input.value &&
                     null !== input.value &&

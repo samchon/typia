@@ -6,7 +6,7 @@ export const test_prune_ArrayRecursive = _test_prune(
     "ArrayRecursive",
     ArrayRecursive.generate,
     (input) =>
-        ((input: ArrayRecursive.ICategory): void => {
+        ((input: ArrayRecursive): void => {
             const $io0 = (input: any): boolean =>
                 Array.isArray(input.children) &&
                 input.children.every(

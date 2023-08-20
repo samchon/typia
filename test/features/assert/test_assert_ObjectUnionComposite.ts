@@ -5,6 +5,6 @@ import { ObjectUnionComposite } from "../../structures/ObjectUnionComposite";
 export const test_assert_ObjectUnionComposite = _test_assert(
     "ObjectUnionComposite",
     ObjectUnionComposite.generate,
-    (input) => typia.assert(input),
+    (input) => typia.assert<ObjectUnionComposite>(input),
     ObjectUnionComposite.SPOILERS,
 );

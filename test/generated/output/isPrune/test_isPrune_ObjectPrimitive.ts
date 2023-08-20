@@ -6,8 +6,8 @@ export const test_isPrune_ObjectPrimitive = _test_isPrune(
     "ObjectPrimitive",
     ObjectPrimitive.generate,
     (input) =>
-        ((input: any): input is ObjectPrimitive.IArticle => {
-            const is = (input: any): input is ObjectPrimitive.IArticle => {
+        ((input: any): input is ObjectPrimitive => {
+            const is = (input: any): input is ObjectPrimitive => {
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     ("md" === input.extension ||
@@ -34,7 +34,7 @@ export const test_isPrune_ObjectPrimitive = _test_isPrune(
                     "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            const prune = (input: ObjectPrimitive.IArticle): void => {
+            const prune = (input: ObjectPrimitive): void => {
                 const $io1 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     "string" === typeof input.name &&

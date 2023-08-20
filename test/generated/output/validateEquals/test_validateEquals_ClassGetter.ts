@@ -6,12 +6,12 @@ export const test_validateEquals_ClassGetter = _test_validateEquals(
     "ClassGetter",
     ClassGetter.generate,
     (input) =>
-        ((input: any): typia.IValidation<ClassGetter.Person> => {
+        ((input: any): typia.IValidation<ClassGetter> => {
             const errors = [] as any[];
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
-            ): input is ClassGetter.Person => {
+            ): input is ClassGetter => {
                 const $io0 = (
                     input: any,
                     _exceptionable: boolean = true,
@@ -43,7 +43,7 @@ export const test_validateEquals_ClassGetter = _test_validateEquals(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ClassGetter.Person => {
+                ): input is ClassGetter => {
                     const $join = (typia.validateEquals as any).join;
                     const $vo0 = (
                         input: any,

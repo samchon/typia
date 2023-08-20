@@ -5,6 +5,6 @@ import { MapSimple } from "../../structures/MapSimple";
 export const test_assertStringify_MapSimple = _test_assertStringify(
     "MapSimple",
     MapSimple.generate,
-    (input) => typia.assertStringify(input),
+    (input) => typia.assertStringify<MapSimple>(input),
     MapSimple.SPOILERS,
 );

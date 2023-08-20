@@ -5,5 +5,5 @@ import { TagType } from "../../structures/TagType";
 export const test_validateEquals_TagType = _test_validateEquals(
     "TagType",
     TagType.generate,
-    (input) => typia.validateEquals(input),
+    (input) => typia.validateEquals<TagType>(input),
 );

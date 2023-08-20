@@ -6,14 +6,10 @@ export const test_validateStringify_ArraySimple = _test_validateStringify(
     "ArraySimple",
     ArraySimple.generate,
     (input) =>
-        ((input: Array<ArraySimple.IPerson>): typia.IValidation<string> => {
-            const validate = (
-                input: any,
-            ): typia.IValidation<Array<ArraySimple.IPerson>> => {
+        ((input: ArraySimple): typia.IValidation<string> => {
+            const validate = (input: any): typia.IValidation<ArraySimple> => {
                 const errors = [] as any[];
-                const __is = (
-                    input: any,
-                ): input is Array<ArraySimple.IPerson> => {
+                const __is = (input: any): input is ArraySimple => {
                     const $io0 = (input: any): boolean =>
                         "string" === typeof input.name &&
                         "string" === typeof input.email &&
@@ -47,7 +43,7 @@ export const test_validateStringify_ArraySimple = _test_validateStringify(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is Array<ArraySimple.IPerson> => {
+                    ): input is ArraySimple => {
                         const $vo0 = (
                             input: any,
                             _path: string,
@@ -189,7 +185,7 @@ export const test_validateStringify_ArraySimple = _test_validateStringify(
                     data: success ? input : undefined,
                 } as any;
             };
-            const stringify = (input: Array<ArraySimple.IPerson>): string => {
+            const stringify = (input: ArraySimple): string => {
                 const $io1 = (input: any): boolean =>
                     "string" === typeof input.name &&
                     "string" === typeof input.body &&

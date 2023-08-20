@@ -6,8 +6,8 @@ export const test_isClone_ArrayUnion = _test_isClone(
     "ArrayUnion",
     ArrayUnion.generate,
     (input) =>
-        ((input: any): typia.Primitive<Array<ArrayUnion.IUnion>> | null => {
-            const is = (input: any): input is Array<ArrayUnion.IUnion> => {
+        ((input: any): typia.Primitive<ArrayUnion> | null => {
+            const is = (input: any): input is ArrayUnion => {
                 const $ip0 = (input: any) => {
                     const array = input;
                     const top = input[0];
@@ -60,9 +60,7 @@ export const test_isClone_ArrayUnion = _test_isClone(
                     )
                 );
             };
-            const clone = (
-                input: Array<ArrayUnion.IUnion>,
-            ): typia.Primitive<Array<ArrayUnion.IUnion>> => {
+            const clone = (input: ArrayUnion): typia.Primitive<ArrayUnion> => {
                 const $throws = (typia.isClone as any).throws;
                 const $cp0 = (input: any) => {
                     const array = input;

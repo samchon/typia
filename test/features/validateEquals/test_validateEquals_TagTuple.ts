@@ -5,5 +5,5 @@ import { TagTuple } from "../../structures/TagTuple";
 export const test_validateEquals_TagTuple = _test_validateEquals(
     "TagTuple",
     TagTuple.generate,
-    (input) => typia.validateEquals(input),
+    (input) => typia.validateEquals<TagTuple>(input),
 );

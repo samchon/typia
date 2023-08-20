@@ -6,9 +6,7 @@ export const test_clone_ArrayUnion = _test_clone(
     "ArrayUnion",
     ArrayUnion.generate,
     (input) =>
-        ((
-            input: Array<ArrayUnion.IUnion>,
-        ): typia.Primitive<Array<ArrayUnion.IUnion>> => {
+        ((input: ArrayUnion): typia.Primitive<ArrayUnion> => {
             const $throws = (typia.clone as any).throws;
             const $cp0 = (input: any) => {
                 const array = input;

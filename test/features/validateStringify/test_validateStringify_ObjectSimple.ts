@@ -5,6 +5,6 @@ import { ObjectSimple } from "../../structures/ObjectSimple";
 export const test_validateStringify_ObjectSimple = _test_validateStringify(
     "ObjectSimple",
     ObjectSimple.generate,
-    (input) => typia.validateStringify(input),
+    (input) => typia.validateStringify<ObjectSimple>(input),
     ObjectSimple.SPOILERS,
 );

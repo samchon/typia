@@ -5,5 +5,5 @@ import { ArrayAny } from "../../structures/ArrayAny";
 export const test_stringify_ArrayAny = _test_stringify(
     "ArrayAny",
     ArrayAny.generate,
-    (input) => typia.stringify(input),
+    (input) => typia.stringify<ArrayAny>(input),
 );

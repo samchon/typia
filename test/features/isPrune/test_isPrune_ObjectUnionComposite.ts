@@ -5,6 +5,6 @@ import { ObjectUnionComposite } from "../../structures/ObjectUnionComposite";
 export const test_isPrune_ObjectUnionComposite = _test_isPrune(
     "ObjectUnionComposite",
     ObjectUnionComposite.generate,
-    (input) => typia.isPrune(input),
+    (input) => typia.isPrune<ObjectUnionComposite>(input),
     ObjectUnionComposite.SPOILERS,
 );

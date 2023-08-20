@@ -6,18 +6,12 @@ export const test_validateStringify_TupleRestObject = _test_validateStringify(
     "TupleRestObject",
     TupleRestObject.generate,
     (input) =>
-        ((
-            input: [boolean, number, ...TupleRestObject.IObject[]],
-        ): typia.IValidation<string> => {
+        ((input: TupleRestObject): typia.IValidation<string> => {
             const validate = (
                 input: any,
-            ): typia.IValidation<
-                [boolean, number, ...TupleRestObject.IObject[]]
-            > => {
+            ): typia.IValidation<TupleRestObject> => {
                 const errors = [] as any[];
-                const __is = (
-                    input: any,
-                ): input is [boolean, number, ...TupleRestObject.IObject[]] => {
+                const __is = (input: any): input is TupleRestObject => {
                     const $io0 = (input: any): boolean =>
                         "string" === typeof input.value;
                     return (
@@ -44,11 +38,7 @@ export const test_validateStringify_TupleRestObject = _test_validateStringify(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is [
-                        boolean,
-                        number,
-                        ...TupleRestObject.IObject[],
-                    ] => {
+                    ): input is TupleRestObject => {
                         const $vo0 = (
                             input: any,
                             _path: string,
@@ -146,9 +136,7 @@ export const test_validateStringify_TupleRestObject = _test_validateStringify(
                     data: success ? input : undefined,
                 } as any;
             };
-            const stringify = (
-                input: [boolean, number, ...TupleRestObject.IObject[]],
-            ): string => {
+            const stringify = (input: TupleRestObject): string => {
                 const $number = (typia.validateStringify as any).number;
                 const $string = (typia.validateStringify as any).string;
                 const $rest = (typia.validateStringify as any).rest;

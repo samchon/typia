@@ -6,9 +6,9 @@ export const test_validate_InstanceUnion = _test_validate(
     "InstanceUnion",
     InstanceUnion.generate,
     (input) =>
-        ((input: any): typia.IValidation<Array<InstanceUnion.Union>> => {
+        ((input: any): typia.IValidation<InstanceUnion> => {
             const errors = [] as any[];
-            const __is = (input: any): input is Array<InstanceUnion.Union> => {
+            const __is = (input: any): input is InstanceUnion => {
                 const $ip0 = (input: any) => {
                     const array = input;
                     const tuplePredicators = [
@@ -277,7 +277,7 @@ export const test_validate_InstanceUnion = _test_validate(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is Array<InstanceUnion.Union> => {
+                ): input is InstanceUnion => {
                     const $vp0 = (
                         input: any,
                         _path: string,

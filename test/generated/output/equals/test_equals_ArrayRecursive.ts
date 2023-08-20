@@ -9,7 +9,7 @@ export const test_equals_ArrayRecursive = _test_equals(
         ((
             input: any,
             _exceptionable: boolean = true,
-        ): input is ArrayRecursive.ICategory => {
+        ): input is ArrayRecursive => {
             const $io0 = (
                 input: any,
                 _exceptionable: boolean = true,

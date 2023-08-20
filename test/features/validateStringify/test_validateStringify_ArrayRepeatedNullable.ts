@@ -6,6 +6,6 @@ export const test_validateStringify_ArrayRepeatedNullable =
     _test_validateStringify(
         "ArrayRepeatedNullable",
         ArrayRepeatedNullable.generate,
-        (input) => typia.validateStringify(input),
+        (input) => typia.validateStringify<ArrayRepeatedNullable>(input),
         ArrayRepeatedNullable.SPOILERS,
     );

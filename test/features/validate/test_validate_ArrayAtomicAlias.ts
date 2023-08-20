@@ -5,6 +5,6 @@ import { ArrayAtomicAlias } from "../../structures/ArrayAtomicAlias";
 export const test_validate_ArrayAtomicAlias = _test_validate(
     "ArrayAtomicAlias",
     ArrayAtomicAlias.generate,
-    (input) => typia.validate(input),
+    (input) => typia.validate<ArrayAtomicAlias>(input),
     ArrayAtomicAlias.SPOILERS,
 );

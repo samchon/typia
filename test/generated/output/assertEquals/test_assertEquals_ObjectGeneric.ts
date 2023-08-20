@@ -6,21 +6,11 @@ export const test_assertEquals_ObjectGeneric = _test_assertEquals(
     "ObjectGeneric",
     ObjectGeneric.generate,
     (input) =>
-        ((
-            input: any,
-        ): [
-            ObjectGeneric.ISomething<boolean>,
-            ObjectGeneric.ISomething<number>,
-            ObjectGeneric.ISomething<string>,
-        ] => {
+        ((input: any): ObjectGeneric => {
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
-            ): input is [
-                ObjectGeneric.ISomething<boolean>,
-                ObjectGeneric.ISomething<number>,
-                ObjectGeneric.ISomething<string>,
-            ] => {
+            ): input is ObjectGeneric => {
                 const $io0 = (
                     input: any,
                     _exceptionable: boolean = true,
@@ -178,11 +168,7 @@ export const test_assertEquals_ObjectGeneric = _test_assertEquals(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is [
-                    ObjectGeneric.ISomething<boolean>,
-                    ObjectGeneric.ISomething<number>,
-                    ObjectGeneric.ISomething<string>,
-                ] => {
+                ): input is ObjectGeneric => {
                     const $guard = (typia.assertEquals as any).guard;
                     const $join = (typia.assertEquals as any).join;
                     const $ao0 = (

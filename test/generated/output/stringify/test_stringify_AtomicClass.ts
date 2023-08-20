@@ -6,19 +6,7 @@ export const test_stringify_AtomicClass = _test_stringify(
     "AtomicClass",
     AtomicClass.generate,
     (input) =>
-        ((
-            input: [
-                Boolean,
-                false | Boolean,
-                boolean | Boolean,
-                Number,
-                Number | 1,
-                number | Number,
-                String,
-                String | "characters",
-                string | String,
-            ],
-        ): string => {
+        ((input: AtomicClass): string => {
             const $number = (typia.stringify as any).number;
             const $string = (typia.stringify as any).string;
             const $throws = (typia.stringify as any).throws;

@@ -6,7 +6,7 @@ export const test_stringify_ArrayMatrix = _test_stringify(
     "ArrayMatrix",
     ArrayMatrix.generate,
     (input) =>
-        ((input: Array<Array<Array<number>>>): string => {
+        ((input: ArrayMatrix): string => {
             const $number = (typia.stringify as any).number;
             return `[${input
                 .map(

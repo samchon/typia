@@ -5,6 +5,6 @@ import { ObjectGeneric } from "../../structures/ObjectGeneric";
 export const test_isPrune_ObjectGeneric = _test_isPrune(
     "ObjectGeneric",
     ObjectGeneric.generate,
-    (input) => typia.isPrune(input),
+    (input) => typia.isPrune<ObjectGeneric>(input),
     ObjectGeneric.SPOILERS,
 );

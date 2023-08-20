@@ -6,16 +6,8 @@ export const test_assert_ArrayRepeatedOptional = _test_assert(
     "ArrayRepeatedOptional",
     ArrayRepeatedOptional.generate,
     (input) =>
-        ((
-            input: any,
-        ): string | number | Array<ArrayRepeatedOptional> | undefined => {
-            const __is = (
-                input: any,
-            ): input is
-                | string
-                | number
-                | Array<ArrayRepeatedOptional>
-                | undefined => {
+        ((input: any): ArrayRepeatedOptional => {
+            const __is = (input: any): input is ArrayRepeatedOptional => {
                 const $ia0 = (input: any): any =>
                     input.every(
                         (elem: any) =>
@@ -39,11 +31,7 @@ export const test_assert_ArrayRepeatedOptional = _test_assert(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is
-                    | string
-                    | number
-                    | Array<ArrayRepeatedOptional>
-                    | undefined => {
+                ): input is ArrayRepeatedOptional => {
                     const $guard = (typia.assert as any).guard;
                     const $aa0 = (
                         input: any,

@@ -5,5 +5,5 @@ import { ObjectRecursive } from "../../structures/ObjectRecursive";
 export const test_stringify_ObjectRecursive = _test_stringify(
     "ObjectRecursive",
     ObjectRecursive.generate,
-    (input) => typia.stringify(input),
+    (input) => typia.stringify<ObjectRecursive>(input),
 );

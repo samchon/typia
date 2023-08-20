@@ -6,9 +6,9 @@ export const test_assertClone_ClassGetter = _test_assertClone(
     "ClassGetter",
     ClassGetter.generate,
     (input) =>
-        ((input: any): typia.Primitive<ClassGetter.Person> => {
-            const assert = (input: any): ClassGetter.Person => {
-                const __is = (input: any): input is ClassGetter.Person => {
+        ((input: any): typia.Primitive<ClassGetter> => {
+            const assert = (input: any): ClassGetter => {
+                const __is = (input: any): input is ClassGetter => {
                     const $io0 = (input: any): boolean =>
                         "string" === typeof input.id &&
                         "string" === typeof input.name &&
@@ -25,7 +25,7 @@ export const test_assertClone_ClassGetter = _test_assertClone(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is ClassGetter.Person => {
+                    ): input is ClassGetter => {
                         const $guard = (typia.assertClone as any).guard;
                         const $ao0 = (
                             input: any,
@@ -69,8 +69,8 @@ export const test_assertClone_ClassGetter = _test_assertClone(
                 return input;
             };
             const clone = (
-                input: ClassGetter.Person,
-            ): typia.Primitive<ClassGetter.Person> => {
+                input: ClassGetter,
+            ): typia.Primitive<ClassGetter> => {
                 const $co0 = (input: any): any => ({
                     id: input.id as any,
                     name: input.name as any,

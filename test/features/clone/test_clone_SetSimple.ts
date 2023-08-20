@@ -5,5 +5,5 @@ import { SetSimple } from "../../structures/SetSimple";
 export const test_clone_SetSimple = _test_clone(
     "SetSimple",
     SetSimple.generate,
-    (input) => typia.clone(input),
+    (input) => typia.clone<SetSimple>(input),
 );

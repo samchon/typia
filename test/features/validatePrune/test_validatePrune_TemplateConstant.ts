@@ -5,6 +5,6 @@ import { TemplateConstant } from "../../structures/TemplateConstant";
 export const test_validatePrune_TemplateConstant = _test_validatePrune(
     "TemplateConstant",
     TemplateConstant.generate,
-    (input) => typia.validatePrune(input),
+    (input) => typia.validatePrune<TemplateConstant>(input),
     TemplateConstant.SPOILERS,
 );

@@ -6,12 +6,10 @@ export const test_validateStringify_TagArray = _test_validateStringify(
     "TagArray",
     TagArray.generate,
     (input) =>
-        ((input: Array<TagArray.Type>): typia.IValidation<string> => {
-            const validate = (
-                input: any,
-            ): typia.IValidation<Array<TagArray.Type>> => {
+        ((input: TagArray): typia.IValidation<string> => {
+            const validate = (input: any): typia.IValidation<TagArray> => {
                 const errors = [] as any[];
-                const __is = (input: any): input is Array<TagArray.Type> => {
+                const __is = (input: any): input is TagArray => {
                     const $is_uuid = (typia.validateStringify as any).is_uuid;
                     const $io0 = (input: any): boolean =>
                         Array.isArray(input.items) &&
@@ -72,7 +70,7 @@ export const test_validateStringify_TagArray = _test_validateStringify(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is Array<TagArray.Type> => {
+                    ): input is TagArray => {
                         const $is_uuid = (typia.validateStringify as any)
                             .is_uuid;
                         const $vo0 = (
@@ -366,7 +364,7 @@ export const test_validateStringify_TagArray = _test_validateStringify(
                             ((Array.isArray(input) ||
                                 $report(true, {
                                     path: _path + "",
-                                    expected: "Array<TagArray.Type>",
+                                    expected: "TagArray",
                                     value: input,
                                 })) &&
                                 input
@@ -398,7 +396,7 @@ export const test_validateStringify_TagArray = _test_validateStringify(
                                     .every((flag: boolean) => flag)) ||
                             $report(true, {
                                 path: _path + "",
-                                expected: "Array<TagArray.Type>",
+                                expected: "TagArray",
                                 value: input,
                             })
                         );
@@ -411,7 +409,7 @@ export const test_validateStringify_TagArray = _test_validateStringify(
                     data: success ? input : undefined,
                 } as any;
             };
-            const stringify = (input: Array<TagArray.Type>): string => {
+            const stringify = (input: TagArray): string => {
                 const $string = (typia.validateStringify as any).string;
                 const $number = (typia.validateStringify as any).number;
                 const $throws = (typia.validateStringify as any).throws;

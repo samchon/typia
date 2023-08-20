@@ -5,6 +5,6 @@ import { ArrayMatrix } from "../../structures/ArrayMatrix";
 export const test_assertStringify_ArrayMatrix = _test_assertStringify(
     "ArrayMatrix",
     ArrayMatrix.generate,
-    (input) => typia.assertStringify(input),
+    (input) => typia.assertStringify<ArrayMatrix>(input),
     ArrayMatrix.SPOILERS,
 );

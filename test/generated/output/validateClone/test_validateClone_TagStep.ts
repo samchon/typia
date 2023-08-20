@@ -6,14 +6,10 @@ export const test_validateClone_TagStep = _test_validateClone(
     "TagStep",
     TagStep.generate,
     (input) =>
-        ((
-            input: any,
-        ): typia.IValidation<typia.Primitive<Array<TagStep.Type>>> => {
-            const validate = (
-                input: any,
-            ): typia.IValidation<Array<TagStep.Type>> => {
+        ((input: any): typia.IValidation<typia.Primitive<TagStep>> => {
+            const validate = (input: any): typia.IValidation<TagStep> => {
                 const errors = [] as any[];
-                const __is = (input: any): input is Array<TagStep.Type> => {
+                const __is = (input: any): input is TagStep => {
                     const $io0 = (input: any): boolean =>
                         "number" === typeof input.exclusiveMinimum &&
                         0 === (input.exclusiveMinimum % 5) - 3 &&
@@ -45,7 +41,7 @@ export const test_validateClone_TagStep = _test_validateClone(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is Array<TagStep.Type> => {
+                    ): input is TagStep => {
                         const $vo0 = (
                             input: any,
                             _path: string,
@@ -144,7 +140,7 @@ export const test_validateClone_TagStep = _test_validateClone(
                             ((Array.isArray(input) ||
                                 $report(true, {
                                     path: _path + "",
-                                    expected: "Array<TagStep.Type>",
+                                    expected: "TagStep",
                                     value: input,
                                 })) &&
                                 input
@@ -176,7 +172,7 @@ export const test_validateClone_TagStep = _test_validateClone(
                                     .every((flag: boolean) => flag)) ||
                             $report(true, {
                                 path: _path + "",
-                                expected: "Array<TagStep.Type>",
+                                expected: "TagStep",
                                 value: input,
                             })
                         );
@@ -189,9 +185,7 @@ export const test_validateClone_TagStep = _test_validateClone(
                     data: success ? input : undefined,
                 } as any;
             };
-            const clone = (
-                input: Array<TagStep.Type>,
-            ): typia.Primitive<Array<TagStep.Type>> => {
+            const clone = (input: TagStep): typia.Primitive<TagStep> => {
                 const $cp0 = (input: any) =>
                     input.map((elem: any) =>
                         "object" === typeof elem && null !== elem

@@ -5,5 +5,5 @@ import { ObjectUnionComposite } from "../../structures/ObjectUnionComposite";
 export const test_validateEquals_ObjectUnionComposite = _test_validateEquals(
     "ObjectUnionComposite",
     ObjectUnionComposite.generate,
-    (input) => typia.validateEquals(input),
+    (input) => typia.validateEquals<ObjectUnionComposite>(input),
 );

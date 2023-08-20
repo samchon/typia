@@ -5,5 +5,5 @@ import { ToJsonAtomicUnion } from "../../structures/ToJsonAtomicUnion";
 export const test_isClone_ToJsonAtomicUnion = _test_isClone(
     "ToJsonAtomicUnion",
     ToJsonAtomicUnion.generate,
-    (input) => typia.isClone(input),
+    (input) => typia.isClone<ToJsonAtomicUnion>(input),
 );

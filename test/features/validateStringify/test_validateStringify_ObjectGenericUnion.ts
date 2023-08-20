@@ -6,6 +6,6 @@ export const test_validateStringify_ObjectGenericUnion =
     _test_validateStringify(
         "ObjectGenericUnion",
         ObjectGenericUnion.generate,
-        (input) => typia.validateStringify(input),
+        (input) => typia.validateStringify<ObjectGenericUnion>(input),
         ObjectGenericUnion.SPOILERS,
     );

@@ -5,5 +5,5 @@ import { FunctionalValue } from "../../structures/FunctionalValue";
 export const test_is_FunctionalValue = _test_is(
     "FunctionalValue",
     FunctionalValue.generate,
-    (input) => typia.is(input),
+    (input) => typia.is<FunctionalValue>(input),
 );

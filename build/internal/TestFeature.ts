@@ -1,4 +1,5 @@
 export interface TestFeature {
+    module?: string;
     method: string;
     creatable: boolean;
     spoilable: boolean;
@@ -7,6 +8,10 @@ export interface TestFeature {
     explicit?: true;
     primitive?: true;
     random?: true;
+    opposite?: Array<{
+        name: string;
+        method: string;
+    }>;
 }
 export namespace TestFeature {
     export const DATA: TestFeature[] = [
@@ -158,6 +163,12 @@ export namespace TestFeature {
             spoilable: false,
             primitive: true,
             random: true,
+            opposite: [
+                {
+                    name: "assert",
+                    method: "typia.createAssert",
+                },
+            ],
         },
     ];
 }

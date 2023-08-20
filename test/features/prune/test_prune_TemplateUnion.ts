@@ -5,5 +5,5 @@ import { TemplateUnion } from "../../structures/TemplateUnion";
 export const test_prune_TemplateUnion = _test_prune(
     "TemplateUnion",
     TemplateUnion.generate,
-    (input) => typia.prune(input),
+    (input) => typia.prune<TemplateUnion>(input),
 );

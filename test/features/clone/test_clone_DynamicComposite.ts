@@ -5,5 +5,5 @@ import { DynamicComposite } from "../../structures/DynamicComposite";
 export const test_clone_DynamicComposite = _test_clone(
     "DynamicComposite",
     DynamicComposite.generate,
-    (input) => typia.clone(input),
+    (input) => typia.clone<DynamicComposite>(input),
 );

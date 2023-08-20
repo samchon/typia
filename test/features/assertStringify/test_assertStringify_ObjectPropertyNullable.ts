@@ -6,6 +6,6 @@ export const test_assertStringify_ObjectPropertyNullable =
     _test_assertStringify(
         "ObjectPropertyNullable",
         ObjectPropertyNullable.generate,
-        (input) => typia.assertStringify(input),
+        (input) => typia.assertStringify<ObjectPropertyNullable>(input),
         ObjectPropertyNullable.SPOILERS,
     );

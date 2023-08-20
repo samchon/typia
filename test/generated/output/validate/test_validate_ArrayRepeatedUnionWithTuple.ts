@@ -6,34 +6,9 @@ export const test_validate_ArrayRepeatedUnionWithTuple = _test_validate(
     "ArrayRepeatedUnionWithTuple",
     ArrayRepeatedUnionWithTuple.generate,
     (input) =>
-        ((
-            input: any,
-        ): typia.IValidation<
-            | number
-            | boolean
-            | Array<string>
-            | Array<ArrayRepeatedUnionWithTuple>
-            | Array<ArrayRepeatedUnionWithTuple.IBox3D>
-            | [string, number, boolean]
-            | [
-                  ArrayRepeatedUnionWithTuple.IBox3D,
-                  ArrayRepeatedUnionWithTuple.IPoint3D,
-              ]
-        > => {
+        ((input: any): typia.IValidation<ArrayRepeatedUnionWithTuple> => {
             const errors = [] as any[];
-            const __is = (
-                input: any,
-            ): input is
-                | number
-                | boolean
-                | Array<string>
-                | Array<ArrayRepeatedUnionWithTuple>
-                | Array<ArrayRepeatedUnionWithTuple.IBox3D>
-                | [string, number, boolean]
-                | [
-                      ArrayRepeatedUnionWithTuple.IBox3D,
-                      ArrayRepeatedUnionWithTuple.IPoint3D,
-                  ] => {
+            const __is = (input: any): input is ArrayRepeatedUnionWithTuple => {
                 const $ip0 = (input: any) => {
                     const array = input;
                     const tuplePredicators = [
@@ -185,17 +160,7 @@ export const test_validate_ArrayRepeatedUnionWithTuple = _test_validate(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is
-                    | number
-                    | boolean
-                    | Array<string>
-                    | Array<ArrayRepeatedUnionWithTuple>
-                    | Array<ArrayRepeatedUnionWithTuple.IBox3D>
-                    | [string, number, boolean]
-                    | [
-                          ArrayRepeatedUnionWithTuple.IBox3D,
-                          ArrayRepeatedUnionWithTuple.IPoint3D,
-                      ] => {
+                ): input is ArrayRepeatedUnionWithTuple => {
                     const $vp0 = (
                         input: any,
                         _path: string,

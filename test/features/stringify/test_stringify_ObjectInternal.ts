@@ -5,5 +5,5 @@ import { ObjectInternal } from "../../structures/ObjectInternal";
 export const test_stringify_ObjectInternal = _test_stringify(
     "ObjectInternal",
     ObjectInternal.generate,
-    (input) => typia.stringify(input),
+    (input) => typia.stringify<ObjectInternal>(input),
 );

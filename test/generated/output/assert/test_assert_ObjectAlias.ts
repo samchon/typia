@@ -6,8 +6,8 @@ export const test_assert_ObjectAlias = _test_assert(
     "ObjectAlias",
     ObjectAlias.generate,
     (input) =>
-        ((input: any): Array<ObjectAlias.IMember> => {
-            const __is = (input: any): input is Array<ObjectAlias.IMember> => {
+        ((input: any): ObjectAlias => {
+            const __is = (input: any): input is ObjectAlias => {
                 const $io0 = (input: any): boolean =>
                     (null === input.id || "string" === typeof input.id) &&
                     "string" === typeof input.email &&
@@ -36,7 +36,7 @@ export const test_assert_ObjectAlias = _test_assert(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is Array<ObjectAlias.IMember> => {
+                ): input is ObjectAlias => {
                     const $guard = (typia.assert as any).guard;
                     const $ao0 = (
                         input: any,

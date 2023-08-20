@@ -6,11 +6,11 @@ export const test_assertEquals_ConstantAtomicSimple = _test_assertEquals(
     "ConstantAtomicSimple",
     ConstantAtomicSimple.generate,
     (input) =>
-        ((input: any): [false, true, 2, "three"] => {
+        ((input: any): ConstantAtomicSimple => {
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
-            ): input is [false, true, 2, "three"] => {
+            ): input is ConstantAtomicSimple => {
                 return (
                     Array.isArray(input) &&
                     input.length === 4 &&
@@ -25,7 +25,7 @@ export const test_assertEquals_ConstantAtomicSimple = _test_assertEquals(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is [false, true, 2, "three"] => {
+                ): input is ConstantAtomicSimple => {
                     const $guard = (typia.assertEquals as any).guard;
                     return (
                         ((Array.isArray(input) ||

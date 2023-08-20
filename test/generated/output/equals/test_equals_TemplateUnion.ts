@@ -9,7 +9,7 @@ export const test_equals_TemplateUnion = _test_equals(
         ((
             input: any,
             _exceptionable: boolean = true,
-        ): input is Array<TemplateUnion.Type> => {
+        ): input is TemplateUnion => {
             const $io0 = (
                 input: any,
                 _exceptionable: boolean = true,

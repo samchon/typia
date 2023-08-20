@@ -6,10 +6,7 @@ export const test_equals_ArrayUnion = _test_equals(
     "ArrayUnion",
     ArrayUnion.generate,
     (input) =>
-        ((
-            input: any,
-            _exceptionable: boolean = true,
-        ): input is Array<ArrayUnion.IUnion> => {
+        ((input: any, _exceptionable: boolean = true): input is ArrayUnion => {
             const $ip0 = (input: any, _exceptionable: boolean = true) => {
                 const array = input;
                 const top = input[0];

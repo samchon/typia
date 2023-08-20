@@ -5,5 +5,5 @@ import { ConstantConstEnumeration } from "../../structures/ConstantConstEnumerat
 export const test_stringify_ConstantConstEnumeration = _test_stringify(
     "ConstantConstEnumeration",
     ConstantConstEnumeration.generate,
-    (input) => typia.stringify(input),
+    (input) => typia.stringify<ConstantConstEnumeration>(input),
 );

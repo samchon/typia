@@ -6,11 +6,9 @@ export const test_assertPrune_ArrayHierarchical = _test_assertPrune(
     "ArrayHierarchical",
     ArrayHierarchical.generate,
     (input) =>
-        ((input: any): Array<ArrayHierarchical.ICompany> => {
-            const assert = (input: any): Array<ArrayHierarchical.ICompany> => {
-                const __is = (
-                    input: any,
-                ): input is Array<ArrayHierarchical.ICompany> => {
+        ((input: any): ArrayHierarchical => {
+            const assert = (input: any): ArrayHierarchical => {
+                const __is = (input: any): input is ArrayHierarchical => {
                     const $io0 = (input: any): boolean =>
                         "number" === typeof input.id &&
                         Number.isFinite(input.id) &&
@@ -80,7 +78,7 @@ export const test_assertPrune_ArrayHierarchical = _test_assertPrune(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is Array<ArrayHierarchical.ICompany> => {
+                    ): input is ArrayHierarchical => {
                         const $guard = (typia.assertPrune as any).guard;
                         const $ao0 = (
                             input: any,
@@ -365,7 +363,7 @@ export const test_assertPrune_ArrayHierarchical = _test_assertPrune(
                     })(input, "$input", true);
                 return input;
             };
-            const prune = (input: Array<ArrayHierarchical.ICompany>): void => {
+            const prune = (input: ArrayHierarchical): void => {
                 const $io1 = (input: any): boolean =>
                     "number" === typeof input.time &&
                     "number" === typeof input.zone;

@@ -5,5 +5,5 @@ import { TagMatrix } from "../../structures/TagMatrix";
 export const test_stringify_TagMatrix = _test_stringify(
     "TagMatrix",
     TagMatrix.generate,
-    (input) => typia.stringify(input),
+    (input) => typia.stringify<TagMatrix>(input),
 );

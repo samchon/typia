@@ -5,5 +5,5 @@ import { ObjectGeneric } from "../../structures/ObjectGeneric";
 export const test_stringify_ObjectGeneric = _test_stringify(
     "ObjectGeneric",
     ObjectGeneric.generate,
-    (input) => typia.stringify(input),
+    (input) => typia.stringify<ObjectGeneric>(input),
 );

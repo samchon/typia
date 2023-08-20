@@ -5,6 +5,6 @@ import { ObjectUnionExplicit } from "../../structures/ObjectUnionExplicit";
 export const test_isPrune_ObjectUnionExplicit = _test_isPrune(
     "ObjectUnionExplicit",
     ObjectUnionExplicit.generate,
-    (input) => typia.isPrune(input),
+    (input) => typia.isPrune<ObjectUnionExplicit>(input),
     ObjectUnionExplicit.SPOILERS,
 );

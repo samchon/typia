@@ -6,37 +6,10 @@ export const test_validateClone_ToJsonTuple = _test_validateClone(
     "ToJsonTuple",
     ToJsonTuple.generate,
     (input) =>
-        ((
-            input: any,
-        ): typia.IValidation<
-            typia.Primitive<
-                [
-                    ToJsonTuple.IToJson<string>,
-                    ToJsonTuple.IToJson<number>,
-                    ToJsonTuple.IToJson<boolean>,
-                    ToJsonTuple.IObject,
-                ]
-            >
-        > => {
-            const validate = (
-                input: any,
-            ): typia.IValidation<
-                [
-                    ToJsonTuple.IToJson<string>,
-                    ToJsonTuple.IToJson<number>,
-                    ToJsonTuple.IToJson<boolean>,
-                    ToJsonTuple.IObject,
-                ]
-            > => {
+        ((input: any): typia.IValidation<typia.Primitive<ToJsonTuple>> => {
+            const validate = (input: any): typia.IValidation<ToJsonTuple> => {
                 const errors = [] as any[];
-                const __is = (
-                    input: any,
-                ): input is [
-                    ToJsonTuple.IToJson<string>,
-                    ToJsonTuple.IToJson<number>,
-                    ToJsonTuple.IToJson<boolean>,
-                    ToJsonTuple.IObject,
-                ] => {
+                const __is = (input: any): input is ToJsonTuple => {
                     const $io0 = (input: any): boolean => true;
                     const $io1 = (input: any): boolean => true;
                     const $io2 = (input: any): boolean => true;
@@ -64,12 +37,7 @@ export const test_validateClone_ToJsonTuple = _test_validateClone(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is [
-                        ToJsonTuple.IToJson<string>,
-                        ToJsonTuple.IToJson<number>,
-                        ToJsonTuple.IToJson<boolean>,
-                        ToJsonTuple.IObject,
-                    ] => {
+                    ): input is ToJsonTuple => {
                         const $vo0 = (
                             input: any,
                             _path: string,
@@ -212,20 +180,8 @@ export const test_validateClone_ToJsonTuple = _test_validateClone(
                 } as any;
             };
             const clone = (
-                input: [
-                    ToJsonTuple.IToJson<string>,
-                    ToJsonTuple.IToJson<number>,
-                    ToJsonTuple.IToJson<boolean>,
-                    ToJsonTuple.IObject,
-                ],
-            ): typia.Primitive<
-                [
-                    ToJsonTuple.IToJson<string>,
-                    ToJsonTuple.IToJson<number>,
-                    ToJsonTuple.IToJson<boolean>,
-                    ToJsonTuple.IObject,
-                ]
-            > => {
+                input: ToJsonTuple,
+            ): typia.Primitive<ToJsonTuple> => {
                 const $co4 = (input: any): any => ({
                     code: input.code as any,
                     name: input.name as any,

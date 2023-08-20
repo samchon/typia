@@ -6,26 +6,12 @@ export const test_validatePrune_DynamicConstant = _test_validatePrune(
     "DynamicConstant",
     DynamicConstant.generate,
     (input) =>
-        ((
-            input: any,
-        ): typia.IValidation<{
-            a: number;
-            b: number;
-            c: number;
-            d: number;
-        }> => {
+        ((input: any): typia.IValidation<DynamicConstant> => {
             const validate = (
                 input: any,
-            ): typia.IValidation<{
-                a: number;
-                b: number;
-                c: number;
-                d: number;
-            }> => {
+            ): typia.IValidation<DynamicConstant> => {
                 const errors = [] as any[];
-                const __is = (
-                    input: any,
-                ): input is { a: number; b: number; c: number; d: number } => {
+                const __is = (input: any): input is DynamicConstant => {
                     return (
                         "object" === typeof input &&
                         null !== input &&
@@ -45,12 +31,7 @@ export const test_validatePrune_DynamicConstant = _test_validatePrune(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is {
-                        a: number;
-                        b: number;
-                        c: number;
-                        d: number;
-                    } => {
+                    ): input is DynamicConstant => {
                         const $vo0 = (
                             input: any,
                             _path: string,
@@ -109,12 +90,7 @@ export const test_validatePrune_DynamicConstant = _test_validatePrune(
                     data: success ? input : undefined,
                 } as any;
             };
-            const prune = (input: {
-                a: number;
-                b: number;
-                c: number;
-                d: number;
-            }): void => {
+            const prune = (input: DynamicConstant): void => {
                 const $po0 = (input: any): any => {
                     for (const key of Object.keys(input)) {
                         if (

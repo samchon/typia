@@ -6,9 +6,9 @@ export const test_validate_TupleUnion = _test_validate(
     "TupleUnion",
     TupleUnion.generate,
     (input) =>
-        ((input: any): typia.IValidation<Array<TupleUnion.Union>> => {
+        ((input: any): typia.IValidation<TupleUnion> => {
             const errors = [] as any[];
-            const __is = (input: any): input is Array<TupleUnion.Union> => {
+            const __is = (input: any): input is TupleUnion => {
                 const $ip0 = (input: any) => {
                     const array = input;
                     const tuplePredicators = [
@@ -61,7 +61,7 @@ export const test_validate_TupleUnion = _test_validate(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is Array<TupleUnion.Union> => {
+                ): input is TupleUnion => {
                     const $vp0 = (
                         input: any,
                         _path: string,

@@ -6,14 +6,12 @@ export const test_validatePrune_ObjectPrimitive = _test_validatePrune(
     "ObjectPrimitive",
     ObjectPrimitive.generate,
     (input) =>
-        ((input: any): typia.IValidation<ObjectPrimitive.IArticle> => {
+        ((input: any): typia.IValidation<ObjectPrimitive> => {
             const validate = (
                 input: any,
-            ): typia.IValidation<ObjectPrimitive.IArticle> => {
+            ): typia.IValidation<ObjectPrimitive> => {
                 const errors = [] as any[];
-                const __is = (
-                    input: any,
-                ): input is ObjectPrimitive.IArticle => {
+                const __is = (input: any): input is ObjectPrimitive => {
                     const $io0 = (input: any): boolean =>
                         "string" === typeof input.id &&
                         ("md" === input.extension ||
@@ -48,7 +46,7 @@ export const test_validatePrune_ObjectPrimitive = _test_validatePrune(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is ObjectPrimitive.IArticle => {
+                    ): input is ObjectPrimitive => {
                         const $vo0 = (
                             input: any,
                             _path: string,
@@ -202,7 +200,7 @@ export const test_validatePrune_ObjectPrimitive = _test_validatePrune(
                     data: success ? input : undefined,
                 } as any;
             };
-            const prune = (input: ObjectPrimitive.IArticle): void => {
+            const prune = (input: ObjectPrimitive): void => {
                 const $io1 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     "string" === typeof input.name &&

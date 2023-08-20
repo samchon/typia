@@ -5,6 +5,6 @@ import { TagMatrix } from "../../structures/TagMatrix";
 export const test_validate_TagMatrix = _test_validate(
     "TagMatrix",
     TagMatrix.generate,
-    (input) => typia.validate(input),
+    (input) => typia.validate<TagMatrix>(input),
     TagMatrix.SPOILERS,
 );

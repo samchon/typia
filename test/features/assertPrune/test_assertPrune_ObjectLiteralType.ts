@@ -5,6 +5,6 @@ import { ObjectLiteralType } from "../../structures/ObjectLiteralType";
 export const test_assertPrune_ObjectLiteralType = _test_assertPrune(
     "ObjectLiteralType",
     ObjectLiteralType.generate,
-    (input) => typia.assertPrune(input),
+    (input) => typia.assertPrune<ObjectLiteralType>(input),
     ObjectLiteralType.SPOILERS,
 );

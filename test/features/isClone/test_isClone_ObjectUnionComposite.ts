@@ -5,6 +5,6 @@ import { ObjectUnionComposite } from "../../structures/ObjectUnionComposite";
 export const test_isClone_ObjectUnionComposite = _test_isClone(
     "ObjectUnionComposite",
     ObjectUnionComposite.generate,
-    (input) => typia.isClone(input),
+    (input) => typia.isClone<ObjectUnionComposite>(input),
     ObjectUnionComposite.SPOILERS,
 );

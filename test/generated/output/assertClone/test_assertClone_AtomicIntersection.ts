@@ -6,29 +6,9 @@ export const test_assertClone_AtomicIntersection = _test_assertClone(
     "AtomicIntersection",
     AtomicIntersection.generate,
     (input) =>
-        ((
-            input: any,
-        ): typia.Primitive<
-            [
-                AtomicIntersection.Wrapper<boolean>,
-                AtomicIntersection.Wrapper<number>,
-                AtomicIntersection.Wrapper<string>,
-            ]
-        > => {
-            const assert = (
-                input: any,
-            ): [
-                AtomicIntersection.Wrapper<boolean>,
-                AtomicIntersection.Wrapper<number>,
-                AtomicIntersection.Wrapper<string>,
-            ] => {
-                const __is = (
-                    input: any,
-                ): input is [
-                    AtomicIntersection.Wrapper<boolean>,
-                    AtomicIntersection.Wrapper<number>,
-                    AtomicIntersection.Wrapper<string>,
-                ] => {
+        ((input: any): typia.Primitive<AtomicIntersection> => {
+            const assert = (input: any): AtomicIntersection => {
+                const __is = (input: any): input is AtomicIntersection => {
                     return (
                         Array.isArray(input) &&
                         input.length === 3 &&
@@ -43,11 +23,7 @@ export const test_assertClone_AtomicIntersection = _test_assertClone(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is [
-                        AtomicIntersection.Wrapper<boolean>,
-                        AtomicIntersection.Wrapper<number>,
-                        AtomicIntersection.Wrapper<string>,
-                    ] => {
+                    ): input is AtomicIntersection => {
                         const $guard = (typia.assertClone as any).guard;
                         return (
                             ((Array.isArray(input) ||
@@ -91,18 +67,8 @@ export const test_assertClone_AtomicIntersection = _test_assertClone(
                 return input;
             };
             const clone = (
-                input: [
-                    AtomicIntersection.Wrapper<boolean>,
-                    AtomicIntersection.Wrapper<number>,
-                    AtomicIntersection.Wrapper<string>,
-                ],
-            ): typia.Primitive<
-                [
-                    AtomicIntersection.Wrapper<boolean>,
-                    AtomicIntersection.Wrapper<number>,
-                    AtomicIntersection.Wrapper<string>,
-                ]
-            > => {
+                input: AtomicIntersection,
+            ): typia.Primitive<AtomicIntersection> => {
                 return Array.isArray(input) &&
                     input.length === 3 &&
                     "boolean" === typeof input[0] &&

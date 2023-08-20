@@ -6,22 +6,8 @@ export const test_isStringify_ToJsonTuple = _test_isStringify(
     "ToJsonTuple",
     ToJsonTuple.generate,
     (input) =>
-        ((
-            input: [
-                ToJsonTuple.IToJson<string>,
-                ToJsonTuple.IToJson<number>,
-                ToJsonTuple.IToJson<boolean>,
-                ToJsonTuple.IObject,
-            ],
-        ): string | null => {
-            const is = (
-                input: any,
-            ): input is [
-                ToJsonTuple.IToJson<string>,
-                ToJsonTuple.IToJson<number>,
-                ToJsonTuple.IToJson<boolean>,
-                ToJsonTuple.IObject,
-            ] => {
+        ((input: ToJsonTuple): string | null => {
+            const is = (input: any): input is ToJsonTuple => {
                 const $io0 = (input: any): boolean => true;
                 const $io1 = (input: any): boolean => true;
                 const $io2 = (input: any): boolean => true;
@@ -43,14 +29,7 @@ export const test_isStringify_ToJsonTuple = _test_isStringify(
                     $io3(input[3])
                 );
             };
-            const stringify = (
-                input: [
-                    ToJsonTuple.IToJson<string>,
-                    ToJsonTuple.IToJson<number>,
-                    ToJsonTuple.IToJson<boolean>,
-                    ToJsonTuple.IObject,
-                ],
-            ): string => {
+            const stringify = (input: ToJsonTuple): string => {
                 const $string = (typia.isStringify as any).string;
                 const $number = (typia.isStringify as any).number;
                 return `[${$string(input[0].toJSON())},${$number(

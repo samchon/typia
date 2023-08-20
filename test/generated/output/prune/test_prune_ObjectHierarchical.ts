@@ -6,7 +6,7 @@ export const test_prune_ObjectHierarchical = _test_prune(
     "ObjectHierarchical",
     ObjectHierarchical.generate,
     (input) =>
-        ((input: ObjectHierarchical.ICustomer): void => {
+        ((input: ObjectHierarchical): void => {
             const $io1 = (input: any): boolean =>
                 "number" === typeof input.id &&
                 "string" === typeof input.code &&

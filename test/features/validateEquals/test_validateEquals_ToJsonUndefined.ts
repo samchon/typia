@@ -5,5 +5,5 @@ import { ToJsonUndefined } from "../../structures/ToJsonUndefined";
 export const test_validateEquals_ToJsonUndefined = _test_validateEquals(
     "ToJsonUndefined",
     ToJsonUndefined.generate,
-    (input) => typia.validateEquals(input),
+    (input) => typia.validateEquals<ToJsonUndefined>(input),
 );

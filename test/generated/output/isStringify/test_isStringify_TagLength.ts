@@ -6,8 +6,8 @@ export const test_isStringify_TagLength = _test_isStringify(
     "TagLength",
     TagLength.generate,
     (input) =>
-        ((input: Array<TagLength.Type>): string | null => {
-            const is = (input: any): input is Array<TagLength.Type> => {
+        ((input: TagLength): string | null => {
+            const is = (input: any): input is TagLength => {
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.fixed &&
                     5 === input.fixed.length &&
@@ -31,7 +31,7 @@ export const test_isStringify_TagLength = _test_isStringify(
                     )
                 );
             };
-            const stringify = (input: Array<TagLength.Type>): string => {
+            const stringify = (input: TagLength): string => {
                 const $string = (typia.isStringify as any).string;
                 return `[${input
                     .map(

@@ -5,6 +5,6 @@ import { TupleOptional } from "../../structures/TupleOptional";
 export const test_assertPrune_TupleOptional = _test_assertPrune(
     "TupleOptional",
     TupleOptional.generate,
-    (input) => typia.assertPrune(input),
+    (input) => typia.assertPrune<TupleOptional>(input),
     TupleOptional.SPOILERS,
 );

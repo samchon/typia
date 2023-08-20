@@ -5,6 +5,6 @@ import { DynamicUndefined } from "../../structures/DynamicUndefined";
 export const test_validateStringify_DynamicUndefined = _test_validateStringify(
     "DynamicUndefined",
     DynamicUndefined.generate,
-    (input) => typia.validateStringify(input),
+    (input) => typia.validateStringify<DynamicUndefined>(input),
     DynamicUndefined.SPOILERS,
 );

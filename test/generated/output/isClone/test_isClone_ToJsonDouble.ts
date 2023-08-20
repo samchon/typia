@@ -6,13 +6,13 @@ export const test_isClone_ToJsonDouble = _test_isClone(
     "ToJsonDouble",
     ToJsonDouble.generate,
     (input) =>
-        ((input: any): typia.Primitive<ToJsonDouble.Parent> | null => {
-            const is = (input: any): input is ToJsonDouble.Parent => {
+        ((input: any): typia.Primitive<ToJsonDouble> | null => {
+            const is = (input: any): input is ToJsonDouble => {
                 return "object" === typeof input && null !== input && true;
             };
             const clone = (
-                input: ToJsonDouble.Parent,
-            ): typia.Primitive<ToJsonDouble.Parent> => {
+                input: ToJsonDouble,
+            ): typia.Primitive<ToJsonDouble> => {
                 const $co1 = (input: any): any => ({
                     id: input.id as any,
                     flag: input.flag as any,

@@ -6,16 +6,12 @@ export const test_validateClone_TemplateConstant = _test_validateClone(
     "TemplateConstant",
     TemplateConstant.generate,
     (input) =>
-        ((
-            input: any,
-        ): typia.IValidation<typia.Primitive<Array<TemplateConstant.Type>>> => {
+        ((input: any): typia.IValidation<typia.Primitive<TemplateConstant>> => {
             const validate = (
                 input: any,
-            ): typia.IValidation<Array<TemplateConstant.Type>> => {
+            ): typia.IValidation<TemplateConstant> => {
                 const errors = [] as any[];
-                const __is = (
-                    input: any,
-                ): input is Array<TemplateConstant.Type> => {
+                const __is = (input: any): input is TemplateConstant => {
                     const $io0 = (input: any): boolean =>
                         ("prefix_A" === input.prefix ||
                             "prefix_B" === input.prefix ||
@@ -48,7 +44,7 @@ export const test_validateClone_TemplateConstant = _test_validateClone(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is Array<TemplateConstant.Type> => {
+                    ): input is TemplateConstant => {
                         const $vo0 = (
                             input: any,
                             _path: string,
@@ -101,7 +97,7 @@ export const test_validateClone_TemplateConstant = _test_validateClone(
                             ((Array.isArray(input) ||
                                 $report(true, {
                                     path: _path + "",
-                                    expected: "Array<TemplateConstant.Type>",
+                                    expected: "TemplateConstant",
                                     value: input,
                                 })) &&
                                 input
@@ -135,7 +131,7 @@ export const test_validateClone_TemplateConstant = _test_validateClone(
                                     .every((flag: boolean) => flag)) ||
                             $report(true, {
                                 path: _path + "",
-                                expected: "Array<TemplateConstant.Type>",
+                                expected: "TemplateConstant",
                                 value: input,
                             })
                         );
@@ -149,8 +145,8 @@ export const test_validateClone_TemplateConstant = _test_validateClone(
                 } as any;
             };
             const clone = (
-                input: Array<TemplateConstant.Type>,
-            ): typia.Primitive<Array<TemplateConstant.Type>> => {
+                input: TemplateConstant,
+            ): typia.Primitive<TemplateConstant> => {
                 const $cp0 = (input: any) =>
                     input.map((elem: any) =>
                         "object" === typeof elem && null !== elem

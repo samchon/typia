@@ -5,5 +5,5 @@ import { ConstantIntersection } from "../../structures/ConstantIntersection";
 export const test_clone_ConstantIntersection = _test_clone(
     "ConstantIntersection",
     ConstantIntersection.generate,
-    (input) => typia.clone(input),
+    (input) => typia.clone<ConstantIntersection>(input),
 );

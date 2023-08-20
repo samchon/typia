@@ -6,7 +6,7 @@ export const test_is_ArrayHierarchical = _test_is(
     "ArrayHierarchical",
     ArrayHierarchical.generate,
     (input) =>
-        ((input: any): input is Array<ArrayHierarchical.ICompany> => {
+        ((input: any): input is ArrayHierarchical => {
             const $io0 = (input: any): boolean =>
                 "number" === typeof input.id &&
                 Number.isFinite(input.id) &&

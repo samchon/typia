@@ -5,5 +5,5 @@ import { TagInfinite } from "../../structures/TagInfinite";
 export const test_prune_TagInfinite = _test_prune(
     "TagInfinite",
     TagInfinite.generate,
-    (input) => typia.prune(input),
+    (input) => typia.prune<TagInfinite>(input),
 );

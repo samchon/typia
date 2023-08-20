@@ -6,11 +6,11 @@ export const test_assertEquals_ArrayMatrix = _test_assertEquals(
     "ArrayMatrix",
     ArrayMatrix.generate,
     (input) =>
-        ((input: any): Array<Array<Array<number>>> => {
+        ((input: any): ArrayMatrix => {
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
-            ): input is Array<Array<Array<number>>> => {
+            ): input is ArrayMatrix => {
                 return (
                     Array.isArray(input) &&
                     input.every(
@@ -33,7 +33,7 @@ export const test_assertEquals_ArrayMatrix = _test_assertEquals(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is Array<Array<Array<number>>> => {
+                ): input is ArrayMatrix => {
                     const $guard = (typia.assertEquals as any).guard;
                     return (
                         ((Array.isArray(input) ||

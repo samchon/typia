@@ -5,6 +5,6 @@ import { ObjectGenericArray } from "../../structures/ObjectGenericArray";
 export const test_validate_ObjectGenericArray = _test_validate(
     "ObjectGenericArray",
     ObjectGenericArray.generate,
-    (input) => typia.validate(input),
+    (input) => typia.validate<ObjectGenericArray>(input),
     ObjectGenericArray.SPOILERS,
 );

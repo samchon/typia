@@ -5,6 +5,6 @@ import { ObjectOptional } from "../../structures/ObjectOptional";
 export const test_isPrune_ObjectOptional = _test_isPrune(
     "ObjectOptional",
     ObjectOptional.generate,
-    (input) => typia.isPrune(input),
+    (input) => typia.isPrune<ObjectOptional>(input),
     ObjectOptional.SPOILERS,
 );

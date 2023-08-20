@@ -5,5 +5,5 @@ import { ObjectGenericArray } from "../../structures/ObjectGenericArray";
 export const test_stringify_ObjectGenericArray = _test_stringify(
     "ObjectGenericArray",
     ObjectGenericArray.generate,
-    (input) => typia.stringify(input),
+    (input) => typia.stringify<ObjectGenericArray>(input),
 );

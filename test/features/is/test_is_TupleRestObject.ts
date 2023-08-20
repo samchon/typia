@@ -5,6 +5,6 @@ import { TupleRestObject } from "../../structures/TupleRestObject";
 export const test_is_TupleRestObject = _test_is(
     "TupleRestObject",
     TupleRestObject.generate,
-    (input) => typia.is(input),
+    (input) => typia.is<TupleRestObject>(input),
     TupleRestObject.SPOILERS,
 );

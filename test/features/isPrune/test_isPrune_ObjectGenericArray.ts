@@ -5,6 +5,6 @@ import { ObjectGenericArray } from "../../structures/ObjectGenericArray";
 export const test_isPrune_ObjectGenericArray = _test_isPrune(
     "ObjectGenericArray",
     ObjectGenericArray.generate,
-    (input) => typia.isPrune(input),
+    (input) => typia.isPrune<ObjectGenericArray>(input),
     ObjectGenericArray.SPOILERS,
 );

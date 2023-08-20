@@ -5,5 +5,5 @@ import { ObjectPrimitive } from "../../structures/ObjectPrimitive";
 export const test_assertEquals_ObjectPrimitive = _test_assertEquals(
     "ObjectPrimitive",
     ObjectPrimitive.generate,
-    (input) => typia.assertEquals(input),
+    (input) => typia.assertEquals<ObjectPrimitive>(input),
 );

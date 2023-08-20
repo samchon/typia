@@ -6,19 +6,12 @@ export const test_validateEquals_DynamicConstant = _test_validateEquals(
     "DynamicConstant",
     DynamicConstant.generate,
     (input) =>
-        ((
-            input: any,
-        ): typia.IValidation<{
-            a: number;
-            b: number;
-            c: number;
-            d: number;
-        }> => {
+        ((input: any): typia.IValidation<DynamicConstant> => {
             const errors = [] as any[];
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
-            ): input is { a: number; b: number; c: number; d: number } => {
+            ): input is DynamicConstant => {
                 const $io0 = (
                     input: any,
                     _exceptionable: boolean = true,
@@ -55,7 +48,7 @@ export const test_validateEquals_DynamicConstant = _test_validateEquals(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is { a: number; b: number; c: number; d: number } => {
+                ): input is DynamicConstant => {
                     const $join = (typia.validateEquals as any).join;
                     const $vo0 = (
                         input: any,

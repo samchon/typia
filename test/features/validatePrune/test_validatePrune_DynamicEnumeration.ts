@@ -5,6 +5,6 @@ import { DynamicEnumeration } from "../../structures/DynamicEnumeration";
 export const test_validatePrune_DynamicEnumeration = _test_validatePrune(
     "DynamicEnumeration",
     DynamicEnumeration.generate,
-    (input) => typia.validatePrune(input),
+    (input) => typia.validatePrune<DynamicEnumeration>(input),
     DynamicEnumeration.SPOILERS,
 );

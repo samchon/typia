@@ -6,14 +6,12 @@ export const test_validatePrune_ArrayHierarchical = _test_validatePrune(
     "ArrayHierarchical",
     ArrayHierarchical.generate,
     (input) =>
-        ((input: any): typia.IValidation<Array<ArrayHierarchical.ICompany>> => {
+        ((input: any): typia.IValidation<ArrayHierarchical> => {
             const validate = (
                 input: any,
-            ): typia.IValidation<Array<ArrayHierarchical.ICompany>> => {
+            ): typia.IValidation<ArrayHierarchical> => {
                 const errors = [] as any[];
-                const __is = (
-                    input: any,
-                ): input is Array<ArrayHierarchical.ICompany> => {
+                const __is = (input: any): input is ArrayHierarchical => {
                     const $io0 = (input: any): boolean =>
                         "number" === typeof input.id &&
                         Number.isFinite(input.id) &&
@@ -84,7 +82,7 @@ export const test_validatePrune_ArrayHierarchical = _test_validatePrune(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is Array<ArrayHierarchical.ICompany> => {
+                    ): input is ArrayHierarchical => {
                         const $vo0 = (
                             input: any,
                             _path: string,
@@ -398,7 +396,7 @@ export const test_validatePrune_ArrayHierarchical = _test_validatePrune(
                     data: success ? input : undefined,
                 } as any;
             };
-            const prune = (input: Array<ArrayHierarchical.ICompany>): void => {
+            const prune = (input: ArrayHierarchical): void => {
                 const $io1 = (input: any): boolean =>
                     "number" === typeof input.time &&
                     "number" === typeof input.zone;

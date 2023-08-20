@@ -5,6 +5,6 @@ import { MapAlias } from "../../structures/MapAlias";
 export const test_assert_MapAlias = _test_assert(
     "MapAlias",
     MapAlias.generate,
-    (input) => typia.assert(input),
+    (input) => typia.assert<MapAlias>(input),
     MapAlias.SPOILERS,
 );

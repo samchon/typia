@@ -5,6 +5,6 @@ import { TagStep } from "../../structures/TagStep";
 export const test_assertPrune_TagStep = _test_assertPrune(
     "TagStep",
     TagStep.generate,
-    (input) => typia.assertPrune(input),
+    (input) => typia.assertPrune<TagStep>(input),
     TagStep.SPOILERS,
 );

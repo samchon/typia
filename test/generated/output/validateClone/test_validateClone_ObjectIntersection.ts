@@ -8,21 +8,12 @@ export const test_validateClone_ObjectIntersection = _test_validateClone(
     (input) =>
         ((
             input: any,
-        ): typia.IValidation<
-            typia.Primitive<
-                ObjectIntersection.IEmail & ObjectIntersection.IName
-            >
-        > => {
+        ): typia.IValidation<typia.Primitive<ObjectIntersection>> => {
             const validate = (
                 input: any,
-            ): typia.IValidation<
-                ObjectIntersection.IEmail & ObjectIntersection.IName
-            > => {
+            ): typia.IValidation<ObjectIntersection> => {
                 const errors = [] as any[];
-                const __is = (
-                    input: any,
-                ): input is ObjectIntersection.IEmail &
-                    ObjectIntersection.IName => {
+                const __is = (input: any): input is ObjectIntersection => {
                     return (
                         "object" === typeof input &&
                         null !== input &&
@@ -37,8 +28,7 @@ export const test_validateClone_ObjectIntersection = _test_validateClone(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is ObjectIntersection.IEmail &
-                        ObjectIntersection.IName => {
+                    ): input is ObjectIntersection => {
                         const $vo0 = (
                             input: any,
                             _path: string,
@@ -88,10 +78,8 @@ export const test_validateClone_ObjectIntersection = _test_validateClone(
                 } as any;
             };
             const clone = (
-                input: ObjectIntersection.IEmail & ObjectIntersection.IName,
-            ): typia.Primitive<
-                ObjectIntersection.IEmail & ObjectIntersection.IName
-            > => {
+                input: ObjectIntersection,
+            ): typia.Primitive<ObjectIntersection> => {
                 const $co0 = (input: any): any => ({
                     email: input.email as any,
                     name: input.name as any,

@@ -5,5 +5,5 @@ import { TagObjectUnion } from "../../structures/TagObjectUnion";
 export const test_prune_TagObjectUnion = _test_prune(
     "TagObjectUnion",
     TagObjectUnion.generate,
-    (input) => typia.prune(input),
+    (input) => typia.prune<TagObjectUnion>(input),
 );

@@ -5,5 +5,5 @@ import { DynamicComposite } from "../../structures/DynamicComposite";
 export const test_assertEquals_DynamicComposite = _test_assertEquals(
     "DynamicComposite",
     DynamicComposite.generate,
-    (input) => typia.assertEquals(input),
+    (input) => typia.assertEquals<DynamicComposite>(input),
 );

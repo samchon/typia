@@ -10,17 +10,15 @@ export const test_validateClone_ArrayRecursiveUnionExplicit =
             ((
                 input: any,
             ): typia.IValidation<
-                typia.Primitive<Array<ArrayRecursiveUnionExplicit.IBucket>>
+                typia.Primitive<ArrayRecursiveUnionExplicit>
             > => {
                 const validate = (
                     input: any,
-                ): typia.IValidation<
-                    Array<ArrayRecursiveUnionExplicit.IBucket>
-                > => {
+                ): typia.IValidation<ArrayRecursiveUnionExplicit> => {
                     const errors = [] as any[];
                     const __is = (
                         input: any,
-                    ): input is Array<ArrayRecursiveUnionExplicit.IBucket> => {
+                    ): input is ArrayRecursiveUnionExplicit => {
                         const $io0 = (input: any): boolean =>
                             "number" === typeof input.id &&
                             Number.isFinite(input.id) &&
@@ -111,7 +109,7 @@ export const test_validateClone_ArrayRecursiveUnionExplicit =
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
-                        ): input is Array<ArrayRecursiveUnionExplicit.IBucket> => {
+                        ): input is ArrayRecursiveUnionExplicit => {
                             const $vo0 = (
                                 input: any,
                                 _path: string,
@@ -523,10 +521,8 @@ export const test_validateClone_ArrayRecursiveUnionExplicit =
                     } as any;
                 };
                 const clone = (
-                    input: Array<ArrayRecursiveUnionExplicit.IBucket>,
-                ): typia.Primitive<
-                    Array<ArrayRecursiveUnionExplicit.IBucket>
-                > => {
+                    input: ArrayRecursiveUnionExplicit,
+                ): typia.Primitive<ArrayRecursiveUnionExplicit> => {
                     const $io0 = (input: any): boolean =>
                         "number" === typeof input.id &&
                         "string" === typeof input.name &&

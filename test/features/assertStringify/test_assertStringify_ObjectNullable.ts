@@ -5,6 +5,6 @@ import { ObjectNullable } from "../../structures/ObjectNullable";
 export const test_assertStringify_ObjectNullable = _test_assertStringify(
     "ObjectNullable",
     ObjectNullable.generate,
-    (input) => typia.assertStringify(input),
+    (input) => typia.assertStringify<ObjectNullable>(input),
     ObjectNullable.SPOILERS,
 );

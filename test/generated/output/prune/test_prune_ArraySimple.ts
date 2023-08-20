@@ -6,7 +6,7 @@ export const test_prune_ArraySimple = _test_prune(
     "ArraySimple",
     ArraySimple.generate,
     (input) =>
-        ((input: Array<ArraySimple.IPerson>): void => {
+        ((input: ArraySimple): void => {
             const $io1 = (input: any): boolean =>
                 "string" === typeof input.name &&
                 "string" === typeof input.body &&

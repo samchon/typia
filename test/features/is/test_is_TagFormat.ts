@@ -5,6 +5,6 @@ import { TagFormat } from "../../structures/TagFormat";
 export const test_is_TagFormat = _test_is(
     "TagFormat",
     TagFormat.generate,
-    (input) => typia.is(input),
+    (input) => typia.is<TagFormat>(input),
     TagFormat.SPOILERS,
 );

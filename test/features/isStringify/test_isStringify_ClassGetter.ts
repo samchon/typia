@@ -5,6 +5,6 @@ import { ClassGetter } from "../../structures/ClassGetter";
 export const test_isStringify_ClassGetter = _test_isStringify(
     "ClassGetter",
     ClassGetter.generate,
-    (input) => typia.isStringify(input),
+    (input) => typia.isStringify<ClassGetter>(input),
     ClassGetter.SPOILERS,
 );

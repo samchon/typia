@@ -6,9 +6,7 @@ export const test_is_ArrayRepeatedRequired = _test_is(
     "ArrayRepeatedRequired",
     ArrayRepeatedRequired.generate,
     (input) =>
-        ((
-            input: any,
-        ): input is string | number | Array<ArrayRepeatedRequired> => {
+        ((input: any): input is ArrayRepeatedRequired => {
             const $ia0 = (input: any): any =>
                 input.every(
                     (elem: any) =>

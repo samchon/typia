@@ -5,6 +5,6 @@ import { ArrayAny } from "../../structures/ArrayAny";
 export const test_assertClone_ArrayAny = _test_assertClone(
     "ArrayAny",
     ArrayAny.generate,
-    (input) => typia.assertClone(input),
+    (input) => typia.assertClone<ArrayAny>(input),
     ArrayAny.SPOILERS,
 );

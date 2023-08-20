@@ -6,7 +6,7 @@ export const test_stringify_ObjectHierarchical = _test_stringify(
     "ObjectHierarchical",
     ObjectHierarchical.generate,
     (input) =>
-        ((input: ObjectHierarchical.ICustomer): string => {
+        ((input: ObjectHierarchical): string => {
             const $io1 = (input: any): boolean =>
                 "number" === typeof input.id &&
                 "string" === typeof input.code &&

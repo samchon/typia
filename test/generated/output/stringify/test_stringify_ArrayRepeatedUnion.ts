@@ -6,14 +6,7 @@ export const test_stringify_ArrayRepeatedUnion = _test_stringify(
     "ArrayRepeatedUnion",
     ArrayRepeatedUnion.generate,
     (input) =>
-        ((
-            input:
-                | number
-                | boolean
-                | Array<string>
-                | Array<ArrayRepeatedUnion>
-                | Array<ArrayRepeatedUnion.IBox3D>,
-        ): string => {
+        ((input: ArrayRepeatedUnion): string => {
             const $io0 = (input: any): boolean =>
                 "object" === typeof input.scale &&
                 null !== input.scale &&

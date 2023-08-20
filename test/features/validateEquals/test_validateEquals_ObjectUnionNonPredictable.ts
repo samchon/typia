@@ -6,5 +6,5 @@ export const test_validateEquals_ObjectUnionNonPredictable =
     _test_validateEquals(
         "ObjectUnionNonPredictable",
         ObjectUnionNonPredictable.generate,
-        (input) => typia.validateEquals(input),
+        (input) => typia.validateEquals<ObjectUnionNonPredictable>(input),
     );

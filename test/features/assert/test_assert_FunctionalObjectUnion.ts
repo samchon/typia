@@ -5,6 +5,6 @@ import { FunctionalObjectUnion } from "../../structures/FunctionalObjectUnion";
 export const test_assert_FunctionalObjectUnion = _test_assert(
     "FunctionalObjectUnion",
     FunctionalObjectUnion.generate,
-    (input) => typia.assert(input),
+    (input) => typia.assert<FunctionalObjectUnion>(input),
     FunctionalObjectUnion.SPOILERS,
 );

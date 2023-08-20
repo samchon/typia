@@ -5,6 +5,6 @@ import { TagAtomicUnion } from "../../structures/TagAtomicUnion";
 export const test_validatePrune_TagAtomicUnion = _test_validatePrune(
     "TagAtomicUnion",
     TagAtomicUnion.generate,
-    (input) => typia.validatePrune(input),
+    (input) => typia.validatePrune<TagAtomicUnion>(input),
     TagAtomicUnion.SPOILERS,
 );

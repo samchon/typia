@@ -6,30 +6,12 @@ export const test_validateStringify_ObjectNullable = _test_validateStringify(
     "ObjectNullable",
     ObjectNullable.generate,
     (input) =>
-        ((
-            input: [
-                ObjectNullable.IProduct,
-                ObjectNullable.IProduct,
-                ObjectNullable.IProduct,
-            ],
-        ): typia.IValidation<string> => {
+        ((input: ObjectNullable): typia.IValidation<string> => {
             const validate = (
                 input: any,
-            ): typia.IValidation<
-                [
-                    ObjectNullable.IProduct,
-                    ObjectNullable.IProduct,
-                    ObjectNullable.IProduct,
-                ]
-            > => {
+            ): typia.IValidation<ObjectNullable> => {
                 const errors = [] as any[];
-                const __is = (
-                    input: any,
-                ): input is [
-                    ObjectNullable.IProduct,
-                    ObjectNullable.IProduct,
-                    ObjectNullable.IProduct,
-                ] => {
+                const __is = (input: any): input is ObjectNullable => {
                     const $io0 = (input: any): boolean =>
                         "string" === typeof input.name &&
                         "object" === typeof input.manufacturer &&
@@ -78,11 +60,7 @@ export const test_validateStringify_ObjectNullable = _test_validateStringify(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is [
-                        ObjectNullable.IProduct,
-                        ObjectNullable.IProduct,
-                        ObjectNullable.IProduct,
-                    ] => {
+                    ): input is ObjectNullable => {
                         const $vo0 = (
                             input: any,
                             _path: string,
@@ -288,13 +266,7 @@ export const test_validateStringify_ObjectNullable = _test_validateStringify(
                     data: success ? input : undefined,
                 } as any;
             };
-            const stringify = (
-                input: [
-                    ObjectNullable.IProduct,
-                    ObjectNullable.IProduct,
-                    ObjectNullable.IProduct,
-                ],
-            ): string => {
+            const stringify = (input: ObjectNullable): string => {
                 const $io1 = (input: any): boolean =>
                     "manufacturer" === input.type &&
                     "string" === typeof input.name;

@@ -6,7 +6,7 @@ export const test_stringify_ObjectRecursive = _test_stringify(
     "ObjectRecursive",
     ObjectRecursive.generate,
     (input) =>
-        ((input: ObjectRecursive.IDepartment): string => {
+        ((input: ObjectRecursive): string => {
             const $io0 = (input: any): boolean =>
                 (null === input.parent ||
                     ("object" === typeof input.parent &&

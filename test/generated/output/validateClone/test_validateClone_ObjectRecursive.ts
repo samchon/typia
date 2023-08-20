@@ -6,16 +6,12 @@ export const test_validateClone_ObjectRecursive = _test_validateClone(
     "ObjectRecursive",
     ObjectRecursive.generate,
     (input) =>
-        ((
-            input: any,
-        ): typia.IValidation<typia.Primitive<ObjectRecursive.IDepartment>> => {
+        ((input: any): typia.IValidation<typia.Primitive<ObjectRecursive>> => {
             const validate = (
                 input: any,
-            ): typia.IValidation<ObjectRecursive.IDepartment> => {
+            ): typia.IValidation<ObjectRecursive> => {
                 const errors = [] as any[];
-                const __is = (
-                    input: any,
-                ): input is ObjectRecursive.IDepartment => {
+                const __is = (input: any): input is ObjectRecursive => {
                     const $io0 = (input: any): boolean =>
                         (null === input.parent ||
                             ("object" === typeof input.parent &&
@@ -45,7 +41,7 @@ export const test_validateClone_ObjectRecursive = _test_validateClone(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is ObjectRecursive.IDepartment => {
+                    ): input is ObjectRecursive => {
                         const $vo0 = (
                             input: any,
                             _path: string,
@@ -161,8 +157,8 @@ export const test_validateClone_ObjectRecursive = _test_validateClone(
                 } as any;
             };
             const clone = (
-                input: ObjectRecursive.IDepartment,
-            ): typia.Primitive<ObjectRecursive.IDepartment> => {
+                input: ObjectRecursive,
+            ): typia.Primitive<ObjectRecursive> => {
                 const $io0 = (input: any): boolean =>
                     (null === input.parent ||
                         ("object" === typeof input.parent &&

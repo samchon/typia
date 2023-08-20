@@ -5,6 +5,6 @@ import { TagArray } from "../../structures/TagArray";
 export const test_assertClone_TagArray = _test_assertClone(
     "TagArray",
     TagArray.generate,
-    (input) => typia.assertClone(input),
+    (input) => typia.assertClone<TagArray>(input),
     TagArray.SPOILERS,
 );

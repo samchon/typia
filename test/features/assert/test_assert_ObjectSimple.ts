@@ -5,6 +5,6 @@ import { ObjectSimple } from "../../structures/ObjectSimple";
 export const test_assert_ObjectSimple = _test_assert(
     "ObjectSimple",
     ObjectSimple.generate,
-    (input) => typia.assert(input),
+    (input) => typia.assert<ObjectSimple>(input),
     ObjectSimple.SPOILERS,
 );

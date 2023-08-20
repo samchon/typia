@@ -5,6 +5,6 @@ import { TupleHierarchical } from "../../structures/TupleHierarchical";
 export const test_validateStringify_TupleHierarchical = _test_validateStringify(
     "TupleHierarchical",
     TupleHierarchical.generate,
-    (input) => typia.validateStringify(input),
+    (input) => typia.validateStringify<TupleHierarchical>(input),
     TupleHierarchical.SPOILERS,
 );

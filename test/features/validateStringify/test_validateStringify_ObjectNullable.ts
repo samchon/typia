@@ -5,6 +5,6 @@ import { ObjectNullable } from "../../structures/ObjectNullable";
 export const test_validateStringify_ObjectNullable = _test_validateStringify(
     "ObjectNullable",
     ObjectNullable.generate,
-    (input) => typia.validateStringify(input),
+    (input) => typia.validateStringify<ObjectNullable>(input),
     ObjectNullable.SPOILERS,
 );

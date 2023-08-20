@@ -5,6 +5,6 @@ import { DynamicUnion } from "../../structures/DynamicUnion";
 export const test_isPrune_DynamicUnion = _test_isPrune(
     "DynamicUnion",
     DynamicUnion.generate,
-    (input) => typia.isPrune(input),
+    (input) => typia.isPrune<DynamicUnion>(input),
     DynamicUnion.SPOILERS,
 );

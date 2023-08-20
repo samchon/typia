@@ -5,6 +5,6 @@ import { ObjectDynamic } from "../../structures/ObjectDynamic";
 export const test_isClone_ObjectDynamic = _test_isClone(
     "ObjectDynamic",
     ObjectDynamic.generate,
-    (input) => typia.isClone(input),
+    (input) => typia.isClone<ObjectDynamic>(input),
     ObjectDynamic.SPOILERS,
 );

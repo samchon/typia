@@ -5,6 +5,6 @@ import { TemplateUnion } from "../../structures/TemplateUnion";
 export const test_assertPrune_TemplateUnion = _test_assertPrune(
     "TemplateUnion",
     TemplateUnion.generate,
-    (input) => typia.assertPrune(input),
+    (input) => typia.assertPrune<TemplateUnion>(input),
     TemplateUnion.SPOILERS,
 );

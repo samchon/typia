@@ -5,5 +5,5 @@ import { AtomicIntersection } from "../../structures/AtomicIntersection";
 export const test_stringify_AtomicIntersection = _test_stringify(
     "AtomicIntersection",
     AtomicIntersection.generate,
-    (input) => typia.stringify(input),
+    (input) => typia.stringify<AtomicIntersection>(input),
 );

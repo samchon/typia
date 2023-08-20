@@ -5,6 +5,6 @@ import { TupleOptional } from "../../structures/TupleOptional";
 export const test_validate_TupleOptional = _test_validate(
     "TupleOptional",
     TupleOptional.generate,
-    (input) => typia.validate(input),
+    (input) => typia.validate<TupleOptional>(input),
     TupleOptional.SPOILERS,
 );

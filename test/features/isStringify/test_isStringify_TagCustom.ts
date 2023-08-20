@@ -5,6 +5,6 @@ import { TagCustom } from "../../structures/TagCustom";
 export const test_isStringify_TagCustom = _test_isStringify(
     "TagCustom",
     TagCustom.generate,
-    (input) => typia.isStringify(input),
+    (input) => typia.isStringify<TagCustom>(input),
     TagCustom.SPOILERS,
 );

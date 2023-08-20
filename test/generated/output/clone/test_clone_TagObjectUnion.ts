@@ -6,9 +6,7 @@ export const test_clone_TagObjectUnion = _test_clone(
     "TagObjectUnion",
     TagObjectUnion.generate,
     (input) =>
-        ((
-            input: Array<TagObjectUnion.Type>,
-        ): typia.Primitive<Array<TagObjectUnion.Type>> => {
+        ((input: TagObjectUnion): typia.Primitive<TagObjectUnion> => {
             const $io0 = (input: any): boolean =>
                 "number" === typeof input.value && 3 <= input.value;
             const $io1 = (input: any): boolean =>

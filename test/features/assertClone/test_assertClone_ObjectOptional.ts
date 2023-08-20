@@ -5,6 +5,6 @@ import { ObjectOptional } from "../../structures/ObjectOptional";
 export const test_assertClone_ObjectOptional = _test_assertClone(
     "ObjectOptional",
     ObjectOptional.generate,
-    (input) => typia.assertClone(input),
+    (input) => typia.assertClone<ObjectOptional>(input),
     ObjectOptional.SPOILERS,
 );

@@ -6,11 +6,9 @@ export const test_assertPrune_ObjectAlias = _test_assertPrune(
     "ObjectAlias",
     ObjectAlias.generate,
     (input) =>
-        ((input: any): Array<ObjectAlias.IMember> => {
-            const assert = (input: any): Array<ObjectAlias.IMember> => {
-                const __is = (
-                    input: any,
-                ): input is Array<ObjectAlias.IMember> => {
+        ((input: any): ObjectAlias => {
+            const assert = (input: any): ObjectAlias => {
+                const __is = (input: any): input is ObjectAlias => {
                     const $io0 = (input: any): boolean =>
                         (null === input.id || "string" === typeof input.id) &&
                         "string" === typeof input.email &&
@@ -40,7 +38,7 @@ export const test_assertPrune_ObjectAlias = _test_assertPrune(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is Array<ObjectAlias.IMember> => {
+                    ): input is ObjectAlias => {
                         const $guard = (typia.assertPrune as any).guard;
                         const $ao0 = (
                             input: any,
@@ -129,7 +127,7 @@ export const test_assertPrune_ObjectAlias = _test_assertPrune(
                     })(input, "$input", true);
                 return input;
             };
-            const prune = (input: Array<ObjectAlias.IMember>): void => {
+            const prune = (input: ObjectAlias): void => {
                 const $pp0 = (input: any) =>
                     input.forEach((elem: any) => {
                         if ("object" === typeof elem && null !== elem)

@@ -6,7 +6,7 @@ export const test_stringify_ObjectUndefined = _test_stringify(
     "ObjectUndefined",
     ObjectUndefined.generate,
     (input) =>
-        ((input: Array<ObjectUndefined.ILecture>): string => {
+        ((input: ObjectUndefined): string => {
             const $io1 = (input: any): boolean =>
                 "string" === typeof input.id && "string" === typeof input.name;
             const $string = (typia.stringify as any).string;

@@ -5,5 +5,5 @@ import { TagCustom } from "../../structures/TagCustom";
 export const test_equals_TagCustom = _test_equals(
     "TagCustom",
     TagCustom.generate,
-    (input) => typia.equals(input),
+    (input) => typia.equals<TagCustom>(input),
 );

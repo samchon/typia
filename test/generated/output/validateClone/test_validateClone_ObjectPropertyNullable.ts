@@ -8,41 +8,12 @@ export const test_validateClone_ObjectPropertyNullable = _test_validateClone(
     (input) =>
         ((
             input: any,
-        ): typia.IValidation<
-            typia.Primitive<
-                [
-                    Array<ObjectPropertyNullable.IPointer<boolean>>,
-                    Array<ObjectPropertyNullable.IPointer<number>>,
-                    Array<ObjectPropertyNullable.IPointer<string>>,
-                    Array<
-                        ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>
-                    >,
-                ]
-            >
-        > => {
+        ): typia.IValidation<typia.Primitive<ObjectPropertyNullable>> => {
             const validate = (
                 input: any,
-            ): typia.IValidation<
-                [
-                    Array<ObjectPropertyNullable.IPointer<boolean>>,
-                    Array<ObjectPropertyNullable.IPointer<number>>,
-                    Array<ObjectPropertyNullable.IPointer<string>>,
-                    Array<
-                        ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>
-                    >,
-                ]
-            > => {
+            ): typia.IValidation<ObjectPropertyNullable> => {
                 const errors = [] as any[];
-                const __is = (
-                    input: any,
-                ): input is [
-                    Array<ObjectPropertyNullable.IPointer<boolean>>,
-                    Array<ObjectPropertyNullable.IPointer<number>>,
-                    Array<ObjectPropertyNullable.IPointer<string>>,
-                    Array<
-                        ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>
-                    >,
-                ] => {
+                const __is = (input: any): input is ObjectPropertyNullable => {
                     const $io0 = (input: any): boolean =>
                         null === input.value ||
                         "boolean" === typeof input.value;
@@ -109,14 +80,7 @@ export const test_validateClone_ObjectPropertyNullable = _test_validateClone(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is [
-                        Array<ObjectPropertyNullable.IPointer<boolean>>,
-                        Array<ObjectPropertyNullable.IPointer<number>>,
-                        Array<ObjectPropertyNullable.IPointer<string>>,
-                        Array<
-                            ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>
-                        >,
-                    ] => {
+                    ): input is ObjectPropertyNullable => {
                         const $vo0 = (
                             input: any,
                             _path: string,
@@ -459,24 +423,8 @@ export const test_validateClone_ObjectPropertyNullable = _test_validateClone(
                 } as any;
             };
             const clone = (
-                input: [
-                    Array<ObjectPropertyNullable.IPointer<boolean>>,
-                    Array<ObjectPropertyNullable.IPointer<number>>,
-                    Array<ObjectPropertyNullable.IPointer<string>>,
-                    Array<
-                        ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>
-                    >,
-                ],
-            ): typia.Primitive<
-                [
-                    Array<ObjectPropertyNullable.IPointer<boolean>>,
-                    Array<ObjectPropertyNullable.IPointer<number>>,
-                    Array<ObjectPropertyNullable.IPointer<string>>,
-                    Array<
-                        ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>
-                    >,
-                ]
-            > => {
+                input: ObjectPropertyNullable,
+            ): typia.Primitive<ObjectPropertyNullable> => {
                 const $io0 = (input: any): boolean =>
                     null === input.value || "boolean" === typeof input.value;
                 const $io1 = (input: any): boolean =>

@@ -5,5 +5,5 @@ import { TagAtomicUnion } from "../../structures/TagAtomicUnion";
 export const test_equals_TagAtomicUnion = _test_equals(
     "TagAtomicUnion",
     TagAtomicUnion.generate,
-    (input) => typia.equals(input),
+    (input) => typia.equals<TagAtomicUnion>(input),
 );

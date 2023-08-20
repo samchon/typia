@@ -6,18 +6,12 @@ export const test_validateClone_ObjectUndefined = _test_validateClone(
     "ObjectUndefined",
     ObjectUndefined.generate,
     (input) =>
-        ((
-            input: any,
-        ): typia.IValidation<
-            typia.Primitive<Array<ObjectUndefined.ILecture>>
-        > => {
+        ((input: any): typia.IValidation<typia.Primitive<ObjectUndefined>> => {
             const validate = (
                 input: any,
-            ): typia.IValidation<Array<ObjectUndefined.ILecture>> => {
+            ): typia.IValidation<ObjectUndefined> => {
                 const errors = [] as any[];
-                const __is = (
-                    input: any,
-                ): input is Array<ObjectUndefined.ILecture> => {
+                const __is = (input: any): input is ObjectUndefined => {
                     const $io0 = (input: any): boolean =>
                         "string" === typeof input.name &&
                         (undefined === input.professor ||
@@ -55,7 +49,7 @@ export const test_validateClone_ObjectUndefined = _test_validateClone(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is Array<ObjectUndefined.ILecture> => {
+                    ): input is ObjectUndefined => {
                         const $vo0 = (
                             input: any,
                             _path: string,
@@ -203,8 +197,8 @@ export const test_validateClone_ObjectUndefined = _test_validateClone(
                 } as any;
             };
             const clone = (
-                input: Array<ObjectUndefined.ILecture>,
-            ): typia.Primitive<Array<ObjectUndefined.ILecture>> => {
+                input: ObjectUndefined,
+            ): typia.Primitive<ObjectUndefined> => {
                 const $io1 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     "string" === typeof input.name;

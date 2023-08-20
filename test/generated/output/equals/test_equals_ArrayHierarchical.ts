@@ -9,7 +9,7 @@ export const test_equals_ArrayHierarchical = _test_equals(
         ((
             input: any,
             _exceptionable: boolean = true,
-        ): input is Array<ArrayHierarchical.ICompany> => {
+        ): input is ArrayHierarchical => {
             const $io0 = (
                 input: any,
                 _exceptionable: boolean = true,

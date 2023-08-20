@@ -6,18 +6,7 @@ export const test_prune_ObjectUnionComposite = _test_prune(
     "ObjectUnionComposite",
     ObjectUnionComposite.generate,
     (input) =>
-        ((
-            input: Array<
-                | ObjectUnionComposite.IPoint
-                | ObjectUnionComposite.ILine
-                | ObjectUnionComposite.ITriangle
-                | ObjectUnionComposite.IRectangle
-                | ObjectUnionComposite.IPolyline
-                | ObjectUnionComposite.IPolygon
-                | ObjectUnionComposite.IPointedShape
-                | ObjectUnionComposite.ICircle
-            >,
-        ): void => {
+        ((input: ObjectUnionComposite): void => {
             const $io0 = (input: any): boolean =>
                 "number" === typeof input.x && "number" === typeof input.y;
             const $io1 = (input: any): boolean =>

@@ -6,7 +6,7 @@ export const test_stringify_TagArray = _test_stringify(
     "TagArray",
     TagArray.generate,
     (input) =>
-        ((input: Array<TagArray.Type>): string => {
+        ((input: TagArray): string => {
             const $string = (typia.stringify as any).string;
             const $number = (typia.stringify as any).number;
             const $throws = (typia.stringify as any).throws;

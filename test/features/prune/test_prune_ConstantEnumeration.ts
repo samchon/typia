@@ -5,5 +5,5 @@ import { ConstantEnumeration } from "../../structures/ConstantEnumeration";
 export const test_prune_ConstantEnumeration = _test_prune(
     "ConstantEnumeration",
     ConstantEnumeration.generate,
-    (input) => typia.prune(input),
+    (input) => typia.prune<ConstantEnumeration>(input),
 );

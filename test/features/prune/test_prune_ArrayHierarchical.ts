@@ -5,5 +5,5 @@ import { ArrayHierarchical } from "../../structures/ArrayHierarchical";
 export const test_prune_ArrayHierarchical = _test_prune(
     "ArrayHierarchical",
     ArrayHierarchical.generate,
-    (input) => typia.prune(input),
+    (input) => typia.prune<ArrayHierarchical>(input),
 );

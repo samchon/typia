@@ -5,5 +5,5 @@ import { TagLength } from "../../structures/TagLength";
 export const test_prune_TagLength = _test_prune(
     "TagLength",
     TagLength.generate,
-    (input) => typia.prune(input),
+    (input) => typia.prune<TagLength>(input),
 );

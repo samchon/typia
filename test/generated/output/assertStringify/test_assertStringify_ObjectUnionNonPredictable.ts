@@ -8,16 +8,10 @@ export const test_assertStringify_ObjectUnionNonPredictable =
         ObjectUnionNonPredictable.generate,
         (input) =>
             ((input: any): string => {
-                const assert = (
-                    input: any,
-                ): Array<
-                    ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
-                > => {
+                const assert = (input: any): ObjectUnionNonPredictable => {
                     const __is = (
                         input: any,
-                    ): input is Array<
-                        ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
-                    > => {
+                    ): input is ObjectUnionNonPredictable => {
                         const $io0 = (input: any): boolean =>
                             "object" === typeof input.value &&
                             null !== input.value &&
@@ -61,9 +55,7 @@ export const test_assertStringify_ObjectUnionNonPredictable =
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
-                        ): input is Array<
-                            ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
-                        > => {
+                        ): input is ObjectUnionNonPredictable => {
                             const $guard = (typia.assertStringify as any).guard;
                             const $ao0 = (
                                 input: any,
@@ -277,9 +269,7 @@ export const test_assertStringify_ObjectUnionNonPredictable =
                     return input;
                 };
                 const stringify = (
-                    input: Array<
-                        ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
-                    >,
+                    input: ObjectUnionNonPredictable,
                 ): string => {
                     const $io1 = (input: any): boolean =>
                         "object" === typeof input.value &&

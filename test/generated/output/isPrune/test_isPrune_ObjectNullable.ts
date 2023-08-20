@@ -6,20 +6,8 @@ export const test_isPrune_ObjectNullable = _test_isPrune(
     "ObjectNullable",
     ObjectNullable.generate,
     (input) =>
-        ((
-            input: any,
-        ): input is [
-            ObjectNullable.IProduct,
-            ObjectNullable.IProduct,
-            ObjectNullable.IProduct,
-        ] => {
-            const is = (
-                input: any,
-            ): input is [
-                ObjectNullable.IProduct,
-                ObjectNullable.IProduct,
-                ObjectNullable.IProduct,
-            ] => {
+        ((input: any): input is ObjectNullable => {
+            const is = (input: any): input is ObjectNullable => {
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.name &&
                     "object" === typeof input.manufacturer &&
@@ -58,13 +46,7 @@ export const test_isPrune_ObjectNullable = _test_isPrune(
                     $io0(input[2])
                 );
             };
-            const prune = (
-                input: [
-                    ObjectNullable.IProduct,
-                    ObjectNullable.IProduct,
-                    ObjectNullable.IProduct,
-                ],
-            ): void => {
+            const prune = (input: ObjectNullable): void => {
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.name &&
                     "object" === typeof input.manufacturer &&

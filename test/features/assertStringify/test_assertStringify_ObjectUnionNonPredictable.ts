@@ -6,6 +6,6 @@ export const test_assertStringify_ObjectUnionNonPredictable =
     _test_assertStringify(
         "ObjectUnionNonPredictable",
         ObjectUnionNonPredictable.generate,
-        (input) => typia.assertStringify(input),
+        (input) => typia.assertStringify<ObjectUnionNonPredictable>(input),
         ObjectUnionNonPredictable.SPOILERS,
     );

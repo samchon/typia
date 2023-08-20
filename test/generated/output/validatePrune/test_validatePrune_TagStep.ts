@@ -6,12 +6,10 @@ export const test_validatePrune_TagStep = _test_validatePrune(
     "TagStep",
     TagStep.generate,
     (input) =>
-        ((input: any): typia.IValidation<Array<TagStep.Type>> => {
-            const validate = (
-                input: any,
-            ): typia.IValidation<Array<TagStep.Type>> => {
+        ((input: any): typia.IValidation<TagStep> => {
+            const validate = (input: any): typia.IValidation<TagStep> => {
                 const errors = [] as any[];
-                const __is = (input: any): input is Array<TagStep.Type> => {
+                const __is = (input: any): input is TagStep => {
                     const $io0 = (input: any): boolean =>
                         "number" === typeof input.exclusiveMinimum &&
                         0 === (input.exclusiveMinimum % 5) - 3 &&
@@ -43,7 +41,7 @@ export const test_validatePrune_TagStep = _test_validatePrune(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is Array<TagStep.Type> => {
+                    ): input is TagStep => {
                         const $vo0 = (
                             input: any,
                             _path: string,
@@ -142,7 +140,7 @@ export const test_validatePrune_TagStep = _test_validatePrune(
                             ((Array.isArray(input) ||
                                 $report(true, {
                                     path: _path + "",
-                                    expected: "Array<TagStep.Type>",
+                                    expected: "TagStep",
                                     value: input,
                                 })) &&
                                 input
@@ -174,7 +172,7 @@ export const test_validatePrune_TagStep = _test_validatePrune(
                                     .every((flag: boolean) => flag)) ||
                             $report(true, {
                                 path: _path + "",
-                                expected: "Array<TagStep.Type>",
+                                expected: "TagStep",
                                 value: input,
                             })
                         );
@@ -187,7 +185,7 @@ export const test_validatePrune_TagStep = _test_validatePrune(
                     data: success ? input : undefined,
                 } as any;
             };
-            const prune = (input: Array<TagStep.Type>): void => {
+            const prune = (input: TagStep): void => {
                 const $pp0 = (input: any) =>
                     input.forEach((elem: any) => {
                         if ("object" === typeof elem && null !== elem)

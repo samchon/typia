@@ -6,27 +6,9 @@ export const test_assertPrune_ObjectNullable = _test_assertPrune(
     "ObjectNullable",
     ObjectNullable.generate,
     (input) =>
-        ((
-            input: any,
-        ): [
-            ObjectNullable.IProduct,
-            ObjectNullable.IProduct,
-            ObjectNullable.IProduct,
-        ] => {
-            const assert = (
-                input: any,
-            ): [
-                ObjectNullable.IProduct,
-                ObjectNullable.IProduct,
-                ObjectNullable.IProduct,
-            ] => {
-                const __is = (
-                    input: any,
-                ): input is [
-                    ObjectNullable.IProduct,
-                    ObjectNullable.IProduct,
-                    ObjectNullable.IProduct,
-                ] => {
+        ((input: any): ObjectNullable => {
+            const assert = (input: any): ObjectNullable => {
+                const __is = (input: any): input is ObjectNullable => {
                     const $io0 = (input: any): boolean =>
                         "string" === typeof input.name &&
                         "object" === typeof input.manufacturer &&
@@ -72,11 +54,7 @@ export const test_assertPrune_ObjectNullable = _test_assertPrune(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is [
-                        ObjectNullable.IProduct,
-                        ObjectNullable.IProduct,
-                        ObjectNullable.IProduct,
-                    ] => {
+                    ): input is ObjectNullable => {
                         const $guard = (typia.assertPrune as any).guard;
                         const $ao0 = (
                             input: any,
@@ -266,13 +244,7 @@ export const test_assertPrune_ObjectNullable = _test_assertPrune(
                     })(input, "$input", true);
                 return input;
             };
-            const prune = (
-                input: [
-                    ObjectNullable.IProduct,
-                    ObjectNullable.IProduct,
-                    ObjectNullable.IProduct,
-                ],
-            ): void => {
+            const prune = (input: ObjectNullable): void => {
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.name &&
                     "object" === typeof input.manufacturer &&

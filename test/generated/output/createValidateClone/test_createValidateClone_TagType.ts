@@ -10,21 +10,47 @@ export const test_createValidateClone_TagType = _test_validateClone(
             const errors = [] as any[];
             const __is = (input: any): input is TagType => {
                 const $io0 = (input: any): boolean =>
-                    "number" === typeof input.int &&
-                    Number.isFinite(input.int) &&
-                    parseInt(input.int) === input.int &&
-                    "number" === typeof input.uint &&
-                    Number.isFinite(input.uint) &&
-                    parseInt(input.uint) === input.uint &&
-                    0 <= input.uint;
-                return (
-                    Array.isArray(input) &&
-                    input.every(
+                    Array.isArray(input.value) &&
+                    input.value.every(
                         (elem: any) =>
                             "object" === typeof elem &&
                             null !== elem &&
-                            $io0(elem),
-                    )
+                            $io1(elem),
+                    );
+                const $io1 = (input: any): boolean =>
+                    "number" === typeof input.int &&
+                    Number.isFinite(input.int) &&
+                    Math.floor(input.int) === input.int &&
+                    "number" === typeof input.uint &&
+                    Number.isFinite(input.uint) &&
+                    Math.floor(input.uint) === input.uint &&
+                    0 <= input.uint &&
+                    "number" === typeof input.int32 &&
+                    Number.isFinite(input.int32) &&
+                    Math.floor(input.int32) === input.int32 &&
+                    -2147483648 <= input.int32 &&
+                    input.int32 <= 2147483647 &&
+                    "number" === typeof input.uint32 &&
+                    Number.isFinite(input.uint32) &&
+                    Math.floor(input.uint32) === input.uint32 &&
+                    0 <= input.uint32 &&
+                    input.uint32 <= 4294967295 &&
+                    "number" === typeof input.int64 &&
+                    Number.isFinite(input.int64) &&
+                    Math.floor(input.int64) === input.int64 &&
+                    -9223372036854776000 <= input.int64 &&
+                    input.int64 <= 9223372036854776000 &&
+                    "number" === typeof input.uint64 &&
+                    Number.isFinite(input.uint64) &&
+                    Math.floor(input.uint64) === input.uint64 &&
+                    0 <= input.uint64 &&
+                    input.uint64 <= 18446744073709552000 &&
+                    "number" === typeof input.float &&
+                    Number.isFinite(input.float) &&
+                    -1.175494351e38 <= input.float &&
+                    input.float <= 3.4028235e38;
+                return (
+                    "object" === typeof input && null !== input && $io0(input)
                 );
             };
             if (false === __is(input)) {
@@ -42,9 +68,60 @@ export const test_createValidateClone_TagType = _test_validateClone(
                         _exceptionable: boolean = true,
                     ): boolean =>
                         [
+                            ((Array.isArray(input.value) ||
+                                $report(_exceptionable, {
+                                    path: _path + ".value",
+                                    expected: "Array<TagType.Type>",
+                                    value: input.value,
+                                })) &&
+                                input.value
+                                    .map(
+                                        (elem: any, _index1: number) =>
+                                            ((("object" === typeof elem &&
+                                                null !== elem) ||
+                                                $report(_exceptionable, {
+                                                    path:
+                                                        _path +
+                                                        ".value[" +
+                                                        _index1 +
+                                                        "]",
+                                                    expected: "TagType.Type",
+                                                    value: elem,
+                                                })) &&
+                                                $vo1(
+                                                    elem,
+                                                    _path +
+                                                        ".value[" +
+                                                        _index1 +
+                                                        "]",
+                                                    true && _exceptionable,
+                                                )) ||
+                                            $report(_exceptionable, {
+                                                path:
+                                                    _path +
+                                                    ".value[" +
+                                                    _index1 +
+                                                    "]",
+                                                expected: "TagType.Type",
+                                                value: elem,
+                                            }),
+                                    )
+                                    .every((flag: boolean) => flag)) ||
+                                $report(_exceptionable, {
+                                    path: _path + ".value",
+                                    expected: "Array<TagType.Type>",
+                                    value: input.value,
+                                }),
+                        ].every((flag: boolean) => flag);
+                    const $vo1 = (
+                        input: any,
+                        _path: string,
+                        _exceptionable: boolean = true,
+                    ): boolean =>
+                        [
                             ("number" === typeof input.int &&
                                 Number.isFinite(input.int) &&
-                                (parseInt(input.int) === input.int ||
+                                (Math.floor(input.int) === input.int ||
                                     $report(_exceptionable, {
                                         path: _path + ".int",
                                         expected: "number (@type int)",
@@ -57,7 +134,7 @@ export const test_createValidateClone_TagType = _test_validateClone(
                                 }),
                             ("number" === typeof input.uint &&
                                 Number.isFinite(input.uint) &&
-                                (parseInt(input.uint) === input.uint ||
+                                (Math.floor(input.uint) === input.uint ||
                                     $report(_exceptionable, {
                                         path: _path + ".uint",
                                         expected: "number (@type uint)",
@@ -74,37 +151,119 @@ export const test_createValidateClone_TagType = _test_validateClone(
                                     expected: "number",
                                     value: input.uint,
                                 }),
+                            ("number" === typeof input.int32 &&
+                                Number.isFinite(input.int32) &&
+                                (Math.floor(input.int32) === input.int32 ||
+                                    $report(_exceptionable, {
+                                        path: _path + ".int32",
+                                        expected: "number (@type int32)",
+                                        value: input.int32,
+                                    })) &&
+                                ((-2147483648 <= input.int32 &&
+                                    input.int32 <= 2147483647) ||
+                                    $report(_exceptionable, {
+                                        path: _path + ".int32",
+                                        expected: "number (@type int32)",
+                                        value: input.int32,
+                                    }))) ||
+                                $report(_exceptionable, {
+                                    path: _path + ".int32",
+                                    expected: "number",
+                                    value: input.int32,
+                                }),
+                            ("number" === typeof input.uint32 &&
+                                Number.isFinite(input.uint32) &&
+                                (Math.floor(input.uint32) === input.uint32 ||
+                                    $report(_exceptionable, {
+                                        path: _path + ".uint32",
+                                        expected: "number (@type uint32)",
+                                        value: input.uint32,
+                                    })) &&
+                                (0 <= input.uint32 ||
+                                    $report(_exceptionable, {
+                                        path: _path + ".uint32",
+                                        expected: "number (@type uint32)",
+                                        value: input.uint32,
+                                    })) &&
+                                (input.uint32 <= 4294967295 ||
+                                    $report(_exceptionable, {
+                                        path: _path + ".uint32",
+                                        expected: "number (@type uint32)",
+                                        value: input.uint32,
+                                    }))) ||
+                                $report(_exceptionable, {
+                                    path: _path + ".uint32",
+                                    expected: "number",
+                                    value: input.uint32,
+                                }),
+                            ("number" === typeof input.int64 &&
+                                Number.isFinite(input.int64) &&
+                                (Math.floor(input.int64) === input.int64 ||
+                                    $report(_exceptionable, {
+                                        path: _path + ".int64",
+                                        expected: "number (@type int64)",
+                                        value: input.int64,
+                                    })) &&
+                                ((-9223372036854776000 <= input.int64 &&
+                                    input.int64 <= 9223372036854776000) ||
+                                    $report(_exceptionable, {
+                                        path: _path + ".int64",
+                                        expected: "number (@type int64)",
+                                        value: input.int64,
+                                    }))) ||
+                                $report(_exceptionable, {
+                                    path: _path + ".int64",
+                                    expected: "number",
+                                    value: input.int64,
+                                }),
+                            ("number" === typeof input.uint64 &&
+                                Number.isFinite(input.uint64) &&
+                                (Math.floor(input.uint64) === input.uint64 ||
+                                    $report(_exceptionable, {
+                                        path: _path + ".uint64",
+                                        expected: "number (@type uint64)",
+                                        value: input.uint64,
+                                    })) &&
+                                (0 <= input.uint64 ||
+                                    $report(_exceptionable, {
+                                        path: _path + ".uint64",
+                                        expected: "number (@type uint64)",
+                                        value: input.uint64,
+                                    })) &&
+                                (input.uint64 <= 18446744073709552000 ||
+                                    $report(_exceptionable, {
+                                        path: _path + ".uint64",
+                                        expected: "number (@type uint64)",
+                                        value: input.uint64,
+                                    }))) ||
+                                $report(_exceptionable, {
+                                    path: _path + ".uint64",
+                                    expected: "number",
+                                    value: input.uint64,
+                                }),
+                            ("number" === typeof input.float &&
+                                Number.isFinite(input.float) &&
+                                ((-1.175494351e38 <= input.float &&
+                                    input.float <= 3.4028235e38) ||
+                                    $report(_exceptionable, {
+                                        path: _path + ".float",
+                                        expected: "number (@type float)",
+                                        value: input.float,
+                                    }))) ||
+                                $report(_exceptionable, {
+                                    path: _path + ".float",
+                                    expected: "number",
+                                    value: input.float,
+                                }),
                         ].every((flag: boolean) => flag);
                     return (
-                        ((Array.isArray(input) ||
+                        ((("object" === typeof input && null !== input) ||
                             $report(true, {
                                 path: _path + "",
                                 expected: "TagType",
                                 value: input,
                             })) &&
-                            input
-                                .map(
-                                    (elem: any, _index1: number) =>
-                                        ((("object" === typeof elem &&
-                                            null !== elem) ||
-                                            $report(true, {
-                                                path:
-                                                    _path + "[" + _index1 + "]",
-                                                expected: "TagType.Type",
-                                                value: elem,
-                                            })) &&
-                                            $vo0(
-                                                elem,
-                                                _path + "[" + _index1 + "]",
-                                                true,
-                                            )) ||
-                                        $report(true, {
-                                            path: _path + "[" + _index1 + "]",
-                                            expected: "TagType.Type",
-                                            value: elem,
-                                        }),
-                                )
-                                .every((flag: boolean) => flag)) ||
+                            $vo0(input, _path + "", true)) ||
                         $report(true, {
                             path: _path + "",
                             expected: "TagType",
@@ -121,17 +280,54 @@ export const test_createValidateClone_TagType = _test_validateClone(
             } as any;
         };
         const clone = (input: TagType): typia.Primitive<TagType> => {
+            const $io1 = (input: any): boolean =>
+                "number" === typeof input.int &&
+                Math.floor(input.int) === input.int &&
+                "number" === typeof input.uint &&
+                Math.floor(input.uint) === input.uint &&
+                0 <= input.uint &&
+                "number" === typeof input.int32 &&
+                Math.floor(input.int32) === input.int32 &&
+                -2147483648 <= input.int32 &&
+                input.int32 <= 2147483647 &&
+                "number" === typeof input.uint32 &&
+                Math.floor(input.uint32) === input.uint32 &&
+                0 <= input.uint32 &&
+                input.uint32 <= 4294967295 &&
+                "number" === typeof input.int64 &&
+                Math.floor(input.int64) === input.int64 &&
+                -9223372036854776000 <= input.int64 &&
+                input.int64 <= 9223372036854776000 &&
+                "number" === typeof input.uint64 &&
+                Math.floor(input.uint64) === input.uint64 &&
+                0 <= input.uint64 &&
+                input.uint64 <= 18446744073709552000 &&
+                "number" === typeof input.float &&
+                -1.175494351e38 <= input.float &&
+                input.float <= 3.4028235e38;
             const $cp0 = (input: any) =>
                 input.map((elem: any) =>
                     "object" === typeof elem && null !== elem
-                        ? $co0(elem)
+                        ? $co1(elem)
                         : (elem as any),
                 );
             const $co0 = (input: any): any => ({
+                value: Array.isArray(input.value)
+                    ? $cp0(input.value)
+                    : (input.value as any),
+            });
+            const $co1 = (input: any): any => ({
                 int: input.int as any,
                 uint: input.uint as any,
+                int32: input.int32 as any,
+                uint32: input.uint32 as any,
+                int64: input.int64 as any,
+                uint64: input.uint64 as any,
+                float: input.float as any,
             });
-            return Array.isArray(input) ? $cp0(input) : (input as any);
+            return "object" === typeof input && null !== input
+                ? $co0(input)
+                : (input as any);
         };
         const output = validate(input) as any;
         if (output.success) output.data = clone(input);

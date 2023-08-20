@@ -5,5 +5,5 @@ import { ToJsonNull } from "../../structures/ToJsonNull";
 export const test_validateEquals_ToJsonNull = _test_validateEquals(
     "ToJsonNull",
     ToJsonNull.generate,
-    (input) => typia.validateEquals(input),
+    (input) => typia.validateEquals<ToJsonNull>(input),
 );

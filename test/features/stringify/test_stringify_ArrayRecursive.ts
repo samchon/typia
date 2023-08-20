@@ -5,5 +5,5 @@ import { ArrayRecursive } from "../../structures/ArrayRecursive";
 export const test_stringify_ArrayRecursive = _test_stringify(
     "ArrayRecursive",
     ArrayRecursive.generate,
-    (input) => typia.stringify(input),
+    (input) => typia.stringify<ArrayRecursive>(input),
 );

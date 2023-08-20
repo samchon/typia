@@ -5,6 +5,6 @@ import { ClassMethod } from "../../structures/ClassMethod";
 export const test_assert_ClassMethod = _test_assert(
     "ClassMethod",
     ClassMethod.generate,
-    (input) => typia.assert(input),
+    (input) => typia.assert<ClassMethod>(input),
     ClassMethod.SPOILERS,
 );

@@ -5,6 +5,6 @@ import { ObjectClosure } from "../../structures/ObjectClosure";
 export const test_validate_ObjectClosure = _test_validate(
     "ObjectClosure",
     ObjectClosure.generate,
-    (input) => typia.validate(input),
+    (input) => typia.validate<ObjectClosure>(input),
     ObjectClosure.SPOILERS,
 );

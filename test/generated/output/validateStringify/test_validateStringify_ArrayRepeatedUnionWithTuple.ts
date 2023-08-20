@@ -8,46 +8,15 @@ export const test_validateStringify_ArrayRepeatedUnionWithTuple =
         ArrayRepeatedUnionWithTuple.generate,
         (input) =>
             ((
-                input:
-                    | number
-                    | boolean
-                    | Array<string>
-                    | Array<ArrayRepeatedUnionWithTuple>
-                    | Array<ArrayRepeatedUnionWithTuple.IBox3D>
-                    | [string, number, boolean]
-                    | [
-                          ArrayRepeatedUnionWithTuple.IBox3D,
-                          ArrayRepeatedUnionWithTuple.IPoint3D,
-                      ],
+                input: ArrayRepeatedUnionWithTuple,
             ): typia.IValidation<string> => {
                 const validate = (
                     input: any,
-                ): typia.IValidation<
-                    | number
-                    | boolean
-                    | Array<string>
-                    | Array<ArrayRepeatedUnionWithTuple>
-                    | Array<ArrayRepeatedUnionWithTuple.IBox3D>
-                    | [string, number, boolean]
-                    | [
-                          ArrayRepeatedUnionWithTuple.IBox3D,
-                          ArrayRepeatedUnionWithTuple.IPoint3D,
-                      ]
-                > => {
+                ): typia.IValidation<ArrayRepeatedUnionWithTuple> => {
                     const errors = [] as any[];
                     const __is = (
                         input: any,
-                    ): input is
-                        | number
-                        | boolean
-                        | Array<string>
-                        | Array<ArrayRepeatedUnionWithTuple>
-                        | Array<ArrayRepeatedUnionWithTuple.IBox3D>
-                        | [string, number, boolean]
-                        | [
-                              ArrayRepeatedUnionWithTuple.IBox3D,
-                              ArrayRepeatedUnionWithTuple.IPoint3D,
-                          ] => {
+                    ): input is ArrayRepeatedUnionWithTuple => {
                         const $ip0 = (input: any) => {
                             const array = input;
                             const tuplePredicators = [
@@ -207,17 +176,7 @@ export const test_validateStringify_ArrayRepeatedUnionWithTuple =
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
-                        ): input is
-                            | number
-                            | boolean
-                            | Array<string>
-                            | Array<ArrayRepeatedUnionWithTuple>
-                            | Array<ArrayRepeatedUnionWithTuple.IBox3D>
-                            | [string, number, boolean]
-                            | [
-                                  ArrayRepeatedUnionWithTuple.IBox3D,
-                                  ArrayRepeatedUnionWithTuple.IPoint3D,
-                              ] => {
+                        ): input is ArrayRepeatedUnionWithTuple => {
                             const $vp0 = (
                                 input: any,
                                 _path: string,
@@ -729,17 +688,7 @@ export const test_validateStringify_ArrayRepeatedUnionWithTuple =
                     } as any;
                 };
                 const stringify = (
-                    input:
-                        | number
-                        | boolean
-                        | Array<string>
-                        | Array<ArrayRepeatedUnionWithTuple>
-                        | Array<ArrayRepeatedUnionWithTuple.IBox3D>
-                        | [string, number, boolean]
-                        | [
-                              ArrayRepeatedUnionWithTuple.IBox3D,
-                              ArrayRepeatedUnionWithTuple.IPoint3D,
-                          ],
+                    input: ArrayRepeatedUnionWithTuple,
                 ): string => {
                     const $io0 = (input: any): boolean =>
                         "object" === typeof input.scale &&

@@ -5,6 +5,6 @@ import { AtomicUnion } from "../../structures/AtomicUnion";
 export const test_validateClone_AtomicUnion = _test_validateClone(
     "AtomicUnion",
     AtomicUnion.generate,
-    (input) => typia.validateClone(input),
+    (input) => typia.validateClone<AtomicUnion>(input),
     AtomicUnion.SPOILERS,
 );

@@ -5,5 +5,5 @@ import { ObjectUndefined } from "../../structures/ObjectUndefined";
 export const test_stringify_ObjectUndefined = _test_stringify(
     "ObjectUndefined",
     ObjectUndefined.generate,
-    (input) => typia.stringify(input),
+    (input) => typia.stringify<ObjectUndefined>(input),
 );

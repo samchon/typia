@@ -5,6 +5,6 @@ import { SetSimple } from "../../structures/SetSimple";
 export const test_assertClone_SetSimple = _test_assertClone(
     "SetSimple",
     SetSimple.generate,
-    (input) => typia.assertClone(input),
+    (input) => typia.assertClone<SetSimple>(input),
     SetSimple.SPOILERS,
 );

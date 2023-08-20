@@ -5,5 +5,5 @@ import { MapAlias } from "../../structures/MapAlias";
 export const test_clone_MapAlias = _test_clone(
     "MapAlias",
     MapAlias.generate,
-    (input) => typia.clone(input),
+    (input) => typia.clone<MapAlias>(input),
 );

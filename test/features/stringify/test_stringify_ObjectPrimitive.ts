@@ -5,5 +5,5 @@ import { ObjectPrimitive } from "../../structures/ObjectPrimitive";
 export const test_stringify_ObjectPrimitive = _test_stringify(
     "ObjectPrimitive",
     ObjectPrimitive.generate,
-    (input) => typia.stringify(input),
+    (input) => typia.stringify<ObjectPrimitive>(input),
 );

@@ -5,5 +5,5 @@ import { FunctionalProperty } from "../../structures/FunctionalProperty";
 export const test_validateEquals_FunctionalProperty = _test_validateEquals(
     "FunctionalProperty",
     FunctionalProperty.generate,
-    (input) => typia.validateEquals(input),
+    (input) => typia.validateEquals<FunctionalProperty>(input),
 );

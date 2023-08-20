@@ -5,6 +5,6 @@ import { FunctionalArray } from "../../structures/FunctionalArray";
 export const test_assert_FunctionalArray = _test_assert(
     "FunctionalArray",
     FunctionalArray.generate,
-    (input) => typia.assert(input),
+    (input) => typia.assert<FunctionalArray>(input),
     FunctionalArray.SPOILERS,
 );

@@ -5,6 +5,6 @@ import { AtomicAlias } from "../../structures/AtomicAlias";
 export const test_assert_AtomicAlias = _test_assert(
     "AtomicAlias",
     AtomicAlias.generate,
-    (input) => typia.assert(input),
+    (input) => typia.assert<AtomicAlias>(input),
     AtomicAlias.SPOILERS,
 );

@@ -5,5 +5,5 @@ import { ToJsonArray } from "../../structures/ToJsonArray";
 export const test_validateClone_ToJsonArray = _test_validateClone(
     "ToJsonArray",
     ToJsonArray.generate,
-    (input) => typia.validateClone(input),
+    (input) => typia.validateClone<ToJsonArray>(input),
 );

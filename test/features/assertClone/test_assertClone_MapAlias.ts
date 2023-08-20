@@ -5,6 +5,6 @@ import { MapAlias } from "../../structures/MapAlias";
 export const test_assertClone_MapAlias = _test_assertClone(
     "MapAlias",
     MapAlias.generate,
-    (input) => typia.assertClone(input),
+    (input) => typia.assertClone<MapAlias>(input),
     MapAlias.SPOILERS,
 );

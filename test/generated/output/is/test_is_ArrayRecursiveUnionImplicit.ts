@@ -6,7 +6,7 @@ export const test_is_ArrayRecursiveUnionImplicit = _test_is(
     "ArrayRecursiveUnionImplicit",
     ArrayRecursiveUnionImplicit.generate,
     (input) =>
-        ((input: any): input is Array<ArrayRecursiveUnionImplicit.IBucket> => {
+        ((input: any): input is ArrayRecursiveUnionImplicit => {
             const $io0 = (input: any): boolean =>
                 "number" === typeof input.id &&
                 Number.isFinite(input.id) &&

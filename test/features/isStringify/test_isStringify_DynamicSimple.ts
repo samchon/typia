@@ -5,6 +5,6 @@ import { DynamicSimple } from "../../structures/DynamicSimple";
 export const test_isStringify_DynamicSimple = _test_isStringify(
     "DynamicSimple",
     DynamicSimple.generate,
-    (input) => typia.isStringify(input),
+    (input) => typia.isStringify<DynamicSimple>(input),
     DynamicSimple.SPOILERS,
 );

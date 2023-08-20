@@ -6,11 +6,11 @@ export const test_assertEquals_ClassClosure = _test_assertEquals(
     "ClassClosure",
     ClassClosure.generate,
     (input) =>
-        ((input: any): ClassClosure.Something => {
+        ((input: any): ClassClosure => {
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
-            ): input is ClassClosure.Something => {
+            ): input is ClassClosure => {
                 const $io0 = (
                     input: any,
                     _exceptionable: boolean = true,
@@ -41,7 +41,7 @@ export const test_assertEquals_ClassClosure = _test_assertEquals(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ClassClosure.Something => {
+                ): input is ClassClosure => {
                     const $guard = (typia.assertEquals as any).guard;
                     const $join = (typia.assertEquals as any).join;
                     const $ao0 = (

@@ -7,8 +7,8 @@ export const test_assertStringify_ToJsonDouble = _test_assertStringify(
     ToJsonDouble.generate,
     (input) =>
         ((input: any): string => {
-            const assert = (input: any): ToJsonDouble.Parent => {
-                const __is = (input: any): input is ToJsonDouble.Parent => {
+            const assert = (input: any): ToJsonDouble => {
+                const __is = (input: any): input is ToJsonDouble => {
                     return "object" === typeof input && null !== input && true;
                 };
                 if (false === __is(input))
@@ -16,7 +16,7 @@ export const test_assertStringify_ToJsonDouble = _test_assertStringify(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is ToJsonDouble.Parent => {
+                    ): input is ToJsonDouble => {
                         const $guard = (typia.assertStringify as any).guard;
                         const $ao0 = (
                             input: any,
@@ -42,7 +42,7 @@ export const test_assertStringify_ToJsonDouble = _test_assertStringify(
                     })(input, "$input", true);
                 return input;
             };
-            const stringify = (input: ToJsonDouble.Parent): string => {
+            const stringify = (input: ToJsonDouble): string => {
                 const $number = (typia.assertStringify as any).number;
                 return `{"id":${$number((input.toJSON() as any).id)},"flag":${
                     (input.toJSON() as any).flag

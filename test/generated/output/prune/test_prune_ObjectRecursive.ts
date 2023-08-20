@@ -6,7 +6,7 @@ export const test_prune_ObjectRecursive = _test_prune(
     "ObjectRecursive",
     ObjectRecursive.generate,
     (input) =>
-        ((input: ObjectRecursive.IDepartment): void => {
+        ((input: ObjectRecursive): void => {
             const $io0 = (input: any): boolean =>
                 (null === input.parent ||
                     ("object" === typeof input.parent &&

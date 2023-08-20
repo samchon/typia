@@ -5,5 +5,5 @@ import { ObjectLiteralProperty } from "../../structures/ObjectLiteralProperty";
 export const test_clone_ObjectLiteralProperty = _test_clone(
     "ObjectLiteralProperty",
     ObjectLiteralProperty.generate,
-    (input) => typia.clone(input),
+    (input) => typia.clone<ObjectLiteralProperty>(input),
 );

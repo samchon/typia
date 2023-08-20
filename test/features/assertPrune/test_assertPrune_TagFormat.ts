@@ -5,6 +5,6 @@ import { TagFormat } from "../../structures/TagFormat";
 export const test_assertPrune_TagFormat = _test_assertPrune(
     "TagFormat",
     TagFormat.generate,
-    (input) => typia.assertPrune(input),
+    (input) => typia.assertPrune<TagFormat>(input),
     TagFormat.SPOILERS,
 );

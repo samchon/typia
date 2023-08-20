@@ -5,6 +5,6 @@ import { ArrayHierarchical } from "../../structures/ArrayHierarchical";
 export const test_assertPrune_ArrayHierarchical = _test_assertPrune(
     "ArrayHierarchical",
     ArrayHierarchical.generate,
-    (input) => typia.assertPrune(input),
+    (input) => typia.assertPrune<ArrayHierarchical>(input),
     ArrayHierarchical.SPOILERS,
 );

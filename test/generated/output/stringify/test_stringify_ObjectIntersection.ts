@@ -6,9 +6,7 @@ export const test_stringify_ObjectIntersection = _test_stringify(
     "ObjectIntersection",
     ObjectIntersection.generate,
     (input) =>
-        ((
-            input: ObjectIntersection.IEmail & ObjectIntersection.IName,
-        ): string => {
+        ((input: ObjectIntersection): string => {
             const $string = (typia.stringify as any).string;
             return `{"email":${$string((input as any).email)},"name":${$string(
                 (input as any).name,

@@ -6,10 +6,8 @@ export const test_isStringify_ConstantEnumeration = _test_isStringify(
     "ConstantEnumeration",
     ConstantEnumeration.generate,
     (input) =>
-        ((input: Array<ConstantEnumeration.Enumeration>): string | null => {
-            const is = (
-                input: any,
-            ): input is Array<ConstantEnumeration.Enumeration> => {
+        ((input: ConstantEnumeration): string | null => {
+            const is = (input: any): input is ConstantEnumeration => {
                 return (
                     Array.isArray(input) &&
                     input.every(
@@ -22,9 +20,7 @@ export const test_isStringify_ConstantEnumeration = _test_isStringify(
                     )
                 );
             };
-            const stringify = (
-                input: Array<ConstantEnumeration.Enumeration>,
-            ): string => {
+            const stringify = (input: ConstantEnumeration): string => {
                 const $string = (typia.isStringify as any).string;
                 const $number = (typia.isStringify as any).number;
                 const $throws = (typia.isStringify as any).throws;

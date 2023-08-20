@@ -5,6 +5,6 @@ import { TagPattern } from "../../structures/TagPattern";
 export const test_is_TagPattern = _test_is(
     "TagPattern",
     TagPattern.generate,
-    (input) => typia.is(input),
+    (input) => typia.is<TagPattern>(input),
     TagPattern.SPOILERS,
 );

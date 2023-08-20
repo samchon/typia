@@ -6,12 +6,12 @@ export const test_validateEquals_TagStep = _test_validateEquals(
     "TagStep",
     TagStep.generate,
     (input) =>
-        ((input: any): typia.IValidation<Array<TagStep.Type>> => {
+        ((input: any): typia.IValidation<TagStep> => {
             const errors = [] as any[];
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
-            ): input is Array<TagStep.Type> => {
+            ): input is TagStep => {
                 const $io0 = (
                     input: any,
                     _exceptionable: boolean = true,
@@ -61,7 +61,7 @@ export const test_validateEquals_TagStep = _test_validateEquals(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is Array<TagStep.Type> => {
+                ): input is TagStep => {
                     const $join = (typia.validateEquals as any).join;
                     const $vo0 = (
                         input: any,
@@ -183,7 +183,7 @@ export const test_validateEquals_TagStep = _test_validateEquals(
                         ((Array.isArray(input) ||
                             $report(true, {
                                 path: _path + "",
-                                expected: "Array<TagStep.Type>",
+                                expected: "TagStep",
                                 value: input,
                             })) &&
                             input
@@ -211,7 +211,7 @@ export const test_validateEquals_TagStep = _test_validateEquals(
                                 .every((flag: boolean) => flag)) ||
                         $report(true, {
                             path: _path + "",
-                            expected: "Array<TagStep.Type>",
+                            expected: "TagStep",
                             value: input,
                         })
                     );

@@ -9,7 +9,7 @@ export const test_equals_TupleRestObject = _test_equals(
         ((
             input: any,
             _exceptionable: boolean = true,
-        ): input is [boolean, number, ...TupleRestObject.IObject[]] => {
+        ): input is TupleRestObject => {
             const $io0 = (
                 input: any,
                 _exceptionable: boolean = true,

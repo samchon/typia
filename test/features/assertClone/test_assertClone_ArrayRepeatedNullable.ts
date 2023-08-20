@@ -5,6 +5,6 @@ import { ArrayRepeatedNullable } from "../../structures/ArrayRepeatedNullable";
 export const test_assertClone_ArrayRepeatedNullable = _test_assertClone(
     "ArrayRepeatedNullable",
     ArrayRepeatedNullable.generate,
-    (input) => typia.assertClone(input),
+    (input) => typia.assertClone<ArrayRepeatedNullable>(input),
     ArrayRepeatedNullable.SPOILERS,
 );

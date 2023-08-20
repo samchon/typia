@@ -7,10 +7,8 @@ export const test_assertStringify_TupleRestAtomic = _test_assertStringify(
     TupleRestAtomic.generate,
     (input) =>
         ((input: any): string => {
-            const assert = (input: any): [boolean, number, ...string[]] => {
-                const __is = (
-                    input: any,
-                ): input is [boolean, number, ...string[]] => {
+            const assert = (input: any): TupleRestAtomic => {
+                const __is = (input: any): input is TupleRestAtomic => {
                     return (
                         Array.isArray(input) &&
                         "boolean" === typeof input[0] &&
@@ -27,7 +25,7 @@ export const test_assertStringify_TupleRestAtomic = _test_assertStringify(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is [boolean, number, ...string[]] => {
+                    ): input is TupleRestAtomic => {
                         const $guard = (typia.assertStringify as any).guard;
                         return (
                             ((Array.isArray(input) ||
@@ -82,9 +80,7 @@ export const test_assertStringify_TupleRestAtomic = _test_assertStringify(
                     })(input, "$input", true);
                 return input;
             };
-            const stringify = (
-                input: [boolean, number, ...string[]],
-            ): string => {
+            const stringify = (input: TupleRestAtomic): string => {
                 const $number = (typia.assertStringify as any).number;
                 const $string = (typia.assertStringify as any).string;
                 const $rest = (typia.assertStringify as any).rest;

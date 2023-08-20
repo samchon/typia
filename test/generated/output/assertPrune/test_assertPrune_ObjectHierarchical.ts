@@ -6,11 +6,9 @@ export const test_assertPrune_ObjectHierarchical = _test_assertPrune(
     "ObjectHierarchical",
     ObjectHierarchical.generate,
     (input) =>
-        ((input: any): ObjectHierarchical.ICustomer => {
-            const assert = (input: any): ObjectHierarchical.ICustomer => {
-                const __is = (
-                    input: any,
-                ): input is ObjectHierarchical.ICustomer => {
+        ((input: any): ObjectHierarchical => {
+            const assert = (input: any): ObjectHierarchical => {
+                const __is = (input: any): input is ObjectHierarchical => {
                     const $io0 = (input: any): boolean =>
                         "number" === typeof input.id &&
                         Number.isFinite(input.id) &&
@@ -116,7 +114,7 @@ export const test_assertPrune_ObjectHierarchical = _test_assertPrune(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is ObjectHierarchical.ICustomer => {
+                    ): input is ObjectHierarchical => {
                         const $guard = (typia.assertPrune as any).guard;
                         const $ao0 = (
                             input: any,
@@ -551,7 +549,7 @@ export const test_assertPrune_ObjectHierarchical = _test_assertPrune(
                     })(input, "$input", true);
                 return input;
             };
-            const prune = (input: ObjectHierarchical.ICustomer): void => {
+            const prune = (input: ObjectHierarchical): void => {
                 const $io1 = (input: any): boolean =>
                     "number" === typeof input.id &&
                     "string" === typeof input.code &&

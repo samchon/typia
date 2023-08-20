@@ -7,16 +7,12 @@ export const test_validateEquals_ArrayRecursiveUnionImplicit =
         "ArrayRecursiveUnionImplicit",
         ArrayRecursiveUnionImplicit.generate,
         (input) =>
-            ((
-                input: any,
-            ): typia.IValidation<
-                Array<ArrayRecursiveUnionImplicit.IBucket>
-            > => {
+            ((input: any): typia.IValidation<ArrayRecursiveUnionImplicit> => {
                 const errors = [] as any[];
                 const __is = (
                     input: any,
                     _exceptionable: boolean = true,
-                ): input is Array<ArrayRecursiveUnionImplicit.IBucket> => {
+                ): input is ArrayRecursiveUnionImplicit => {
                     const $io0 = (
                         input: any,
                         _exceptionable: boolean = true,
@@ -222,7 +218,7 @@ export const test_validateEquals_ArrayRecursiveUnionImplicit =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is Array<ArrayRecursiveUnionImplicit.IBucket> => {
+                    ): input is ArrayRecursiveUnionImplicit => {
                         const $join = (typia.validateEquals as any).join;
                         const $vo0 = (
                             input: any,

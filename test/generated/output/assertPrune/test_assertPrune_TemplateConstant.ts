@@ -6,11 +6,9 @@ export const test_assertPrune_TemplateConstant = _test_assertPrune(
     "TemplateConstant",
     TemplateConstant.generate,
     (input) =>
-        ((input: any): Array<TemplateConstant.Type> => {
-            const assert = (input: any): Array<TemplateConstant.Type> => {
-                const __is = (
-                    input: any,
-                ): input is Array<TemplateConstant.Type> => {
+        ((input: any): TemplateConstant => {
+            const assert = (input: any): TemplateConstant => {
+                const __is = (input: any): input is TemplateConstant => {
                     const $io0 = (input: any): boolean =>
                         ("prefix_A" === input.prefix ||
                             "prefix_B" === input.prefix ||
@@ -42,7 +40,7 @@ export const test_assertPrune_TemplateConstant = _test_assertPrune(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is Array<TemplateConstant.Type> => {
+                    ): input is TemplateConstant => {
                         const $guard = (typia.assertPrune as any).guard;
                         const $ao0 = (
                             input: any,
@@ -86,7 +84,7 @@ export const test_assertPrune_TemplateConstant = _test_assertPrune(
                             ((Array.isArray(input) ||
                                 $guard(true, {
                                     path: _path + "",
-                                    expected: "Array<TemplateConstant.Type>",
+                                    expected: "TemplateConstant",
                                     value: input,
                                 })) &&
                                 input.every(
@@ -113,14 +111,14 @@ export const test_assertPrune_TemplateConstant = _test_assertPrune(
                                 )) ||
                             $guard(true, {
                                 path: _path + "",
-                                expected: "Array<TemplateConstant.Type>",
+                                expected: "TemplateConstant",
                                 value: input,
                             })
                         );
                     })(input, "$input", true);
                 return input;
             };
-            const prune = (input: Array<TemplateConstant.Type>): void => {
+            const prune = (input: TemplateConstant): void => {
                 const $pp0 = (input: any) =>
                     input.forEach((elem: any) => {
                         if ("object" === typeof elem && null !== elem)

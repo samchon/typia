@@ -6,7 +6,7 @@ export const test_prune_TagAtomicUnion = _test_prune(
     "TagAtomicUnion",
     TagAtomicUnion.generate,
     (input) =>
-        ((input: Array<TagAtomicUnion.Type>): void => {
+        ((input: TagAtomicUnion): void => {
             const $pp0 = (input: any) =>
                 input.forEach((elem: any) => {
                     if ("object" === typeof elem && null !== elem) $po0(elem);

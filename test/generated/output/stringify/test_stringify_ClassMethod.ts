@@ -6,7 +6,7 @@ export const test_stringify_ClassMethod = _test_stringify(
     "ClassMethod",
     ClassMethod.generate,
     (input) =>
-        ((input: ClassMethod.Animal): string => {
+        ((input: ClassMethod): string => {
             const $string = (typia.stringify as any).string;
             const $number = (typia.stringify as any).number;
             return `{"name":${$string((input as any).name)},"age":${$number(

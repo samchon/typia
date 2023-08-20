@@ -6,8 +6,8 @@ export const test_isStringify_ClassGetter = _test_isStringify(
     "ClassGetter",
     ClassGetter.generate,
     (input) =>
-        ((input: ClassGetter.Person): string | null => {
-            const is = (input: any): input is ClassGetter.Person => {
+        ((input: ClassGetter): string | null => {
+            const is = (input: any): input is ClassGetter => {
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     "string" === typeof input.name &&
@@ -16,7 +16,7 @@ export const test_isStringify_ClassGetter = _test_isStringify(
                     "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            const stringify = (input: ClassGetter.Person): string => {
+            const stringify = (input: ClassGetter): string => {
                 const $string = (typia.isStringify as any).string;
                 const $so0 = (input: any): any =>
                     `{"id":${$string(input.id)},"name":${$string(

@@ -6,7 +6,7 @@ export const test_stringify_ClassGetter = _test_stringify(
     "ClassGetter",
     ClassGetter.generate,
     (input) =>
-        ((input: ClassGetter.Person): string => {
+        ((input: ClassGetter): string => {
             const $string = (typia.stringify as any).string;
             const $so0 = (input: any): any =>
                 `{"id":${$string(input.id)},"name":${$string(

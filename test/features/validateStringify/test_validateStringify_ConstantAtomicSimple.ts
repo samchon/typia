@@ -6,6 +6,6 @@ export const test_validateStringify_ConstantAtomicSimple =
     _test_validateStringify(
         "ConstantAtomicSimple",
         ConstantAtomicSimple.generate,
-        (input) => typia.validateStringify(input),
+        (input) => typia.validateStringify<ConstantAtomicSimple>(input),
         ConstantAtomicSimple.SPOILERS,
     );

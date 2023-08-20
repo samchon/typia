@@ -5,6 +5,6 @@ import { ConstantAtomicUnion } from "../../structures/ConstantAtomicUnion";
 export const test_isClone_ConstantAtomicUnion = _test_isClone(
     "ConstantAtomicUnion",
     ConstantAtomicUnion.generate,
-    (input) => typia.isClone(input),
+    (input) => typia.isClone<ConstantAtomicUnion>(input),
     ConstantAtomicUnion.SPOILERS,
 );

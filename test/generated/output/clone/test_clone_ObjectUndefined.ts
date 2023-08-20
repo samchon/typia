@@ -6,9 +6,7 @@ export const test_clone_ObjectUndefined = _test_clone(
     "ObjectUndefined",
     ObjectUndefined.generate,
     (input) =>
-        ((
-            input: Array<ObjectUndefined.ILecture>,
-        ): typia.Primitive<Array<ObjectUndefined.ILecture>> => {
+        ((input: ObjectUndefined): typia.Primitive<ObjectUndefined> => {
             const $io1 = (input: any): boolean =>
                 "string" === typeof input.id && "string" === typeof input.name;
             const $any = (typia.clone as any).any;

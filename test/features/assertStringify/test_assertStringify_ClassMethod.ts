@@ -5,6 +5,6 @@ import { ClassMethod } from "../../structures/ClassMethod";
 export const test_assertStringify_ClassMethod = _test_assertStringify(
     "ClassMethod",
     ClassMethod.generate,
-    (input) => typia.assertStringify(input),
+    (input) => typia.assertStringify<ClassMethod>(input),
     ClassMethod.SPOILERS,
 );

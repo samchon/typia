@@ -6,9 +6,9 @@ export const test_validate_ObjectRecursive = _test_validate(
     "ObjectRecursive",
     ObjectRecursive.generate,
     (input) =>
-        ((input: any): typia.IValidation<ObjectRecursive.IDepartment> => {
+        ((input: any): typia.IValidation<ObjectRecursive> => {
             const errors = [] as any[];
-            const __is = (input: any): input is ObjectRecursive.IDepartment => {
+            const __is = (input: any): input is ObjectRecursive => {
                 const $io0 = (input: any): boolean =>
                     (null === input.parent ||
                         ("object" === typeof input.parent &&
@@ -36,7 +36,7 @@ export const test_validate_ObjectRecursive = _test_validate(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ObjectRecursive.IDepartment => {
+                ): input is ObjectRecursive => {
                     const $vo0 = (
                         input: any,
                         _path: string,

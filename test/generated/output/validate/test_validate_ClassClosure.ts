@@ -6,9 +6,9 @@ export const test_validate_ClassClosure = _test_validate(
     "ClassClosure",
     ClassClosure.generate,
     (input) =>
-        ((input: any): typia.IValidation<ClassClosure.Something> => {
+        ((input: any): typia.IValidation<ClassClosure> => {
             const errors = [] as any[];
-            const __is = (input: any): input is ClassClosure.Something => {
+            const __is = (input: any): input is ClassClosure => {
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     "something" === input.type &&
@@ -23,7 +23,7 @@ export const test_validate_ClassClosure = _test_validate(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ClassClosure.Something => {
+                ): input is ClassClosure => {
                     const $vo0 = (
                         input: any,
                         _path: string,

@@ -6,104 +6,9 @@ export const test_assertClone_ObjectUnionExplicit = _test_assertClone(
     "ObjectUnionExplicit",
     ObjectUnionExplicit.generate,
     (input) =>
-        ((
-            input: any,
-        ): typia.Primitive<
-            Array<
-                | ObjectUnionExplicit.Discriminator<
-                      "point",
-                      ObjectUnionExplicit.IPoint
-                  >
-                | ObjectUnionExplicit.Discriminator<
-                      "line",
-                      ObjectUnionExplicit.ILine
-                  >
-                | ObjectUnionExplicit.Discriminator<
-                      "triangle",
-                      ObjectUnionExplicit.ITriangle
-                  >
-                | ObjectUnionExplicit.Discriminator<
-                      "rectangle",
-                      ObjectUnionExplicit.IRectangle
-                  >
-                | ObjectUnionExplicit.Discriminator<
-                      "polyline",
-                      ObjectUnionExplicit.IPolyline
-                  >
-                | ObjectUnionExplicit.Discriminator<
-                      "polygon",
-                      ObjectUnionExplicit.IPolygon
-                  >
-                | ObjectUnionExplicit.Discriminator<
-                      "circle",
-                      ObjectUnionExplicit.ICircle
-                  >
-            >
-        > => {
-            const assert = (
-                input: any,
-            ): Array<
-                | ObjectUnionExplicit.Discriminator<
-                      "point",
-                      ObjectUnionExplicit.IPoint
-                  >
-                | ObjectUnionExplicit.Discriminator<
-                      "line",
-                      ObjectUnionExplicit.ILine
-                  >
-                | ObjectUnionExplicit.Discriminator<
-                      "triangle",
-                      ObjectUnionExplicit.ITriangle
-                  >
-                | ObjectUnionExplicit.Discriminator<
-                      "rectangle",
-                      ObjectUnionExplicit.IRectangle
-                  >
-                | ObjectUnionExplicit.Discriminator<
-                      "polyline",
-                      ObjectUnionExplicit.IPolyline
-                  >
-                | ObjectUnionExplicit.Discriminator<
-                      "polygon",
-                      ObjectUnionExplicit.IPolygon
-                  >
-                | ObjectUnionExplicit.Discriminator<
-                      "circle",
-                      ObjectUnionExplicit.ICircle
-                  >
-            > => {
-                const __is = (
-                    input: any,
-                ): input is Array<
-                    | ObjectUnionExplicit.Discriminator<
-                          "point",
-                          ObjectUnionExplicit.IPoint
-                      >
-                    | ObjectUnionExplicit.Discriminator<
-                          "line",
-                          ObjectUnionExplicit.ILine
-                      >
-                    | ObjectUnionExplicit.Discriminator<
-                          "triangle",
-                          ObjectUnionExplicit.ITriangle
-                      >
-                    | ObjectUnionExplicit.Discriminator<
-                          "rectangle",
-                          ObjectUnionExplicit.IRectangle
-                      >
-                    | ObjectUnionExplicit.Discriminator<
-                          "polyline",
-                          ObjectUnionExplicit.IPolyline
-                      >
-                    | ObjectUnionExplicit.Discriminator<
-                          "polygon",
-                          ObjectUnionExplicit.IPolygon
-                      >
-                    | ObjectUnionExplicit.Discriminator<
-                          "circle",
-                          ObjectUnionExplicit.ICircle
-                      >
-                > => {
+        ((input: any): typia.Primitive<ObjectUnionExplicit> => {
+            const assert = (input: any): ObjectUnionExplicit => {
+                const __is = (input: any): input is ObjectUnionExplicit => {
                     const $io0 = (input: any): boolean =>
                         "number" === typeof input.x &&
                         Number.isFinite(input.x) &&
@@ -240,36 +145,7 @@ export const test_assertClone_ObjectUnionExplicit = _test_assertClone(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is Array<
-                        | ObjectUnionExplicit.Discriminator<
-                              "point",
-                              ObjectUnionExplicit.IPoint
-                          >
-                        | ObjectUnionExplicit.Discriminator<
-                              "line",
-                              ObjectUnionExplicit.ILine
-                          >
-                        | ObjectUnionExplicit.Discriminator<
-                              "triangle",
-                              ObjectUnionExplicit.ITriangle
-                          >
-                        | ObjectUnionExplicit.Discriminator<
-                              "rectangle",
-                              ObjectUnionExplicit.IRectangle
-                          >
-                        | ObjectUnionExplicit.Discriminator<
-                              "polyline",
-                              ObjectUnionExplicit.IPolyline
-                          >
-                        | ObjectUnionExplicit.Discriminator<
-                              "polygon",
-                              ObjectUnionExplicit.IPolygon
-                          >
-                        | ObjectUnionExplicit.Discriminator<
-                              "circle",
-                              ObjectUnionExplicit.ICircle
-                          >
-                    > => {
+                    ): input is ObjectUnionExplicit => {
                         const $guard = (typia.assertClone as any).guard;
                         const $ao0 = (
                             input: any,
@@ -812,68 +688,8 @@ export const test_assertClone_ObjectUnionExplicit = _test_assertClone(
                 return input;
             };
             const clone = (
-                input: Array<
-                    | ObjectUnionExplicit.Discriminator<
-                          "point",
-                          ObjectUnionExplicit.IPoint
-                      >
-                    | ObjectUnionExplicit.Discriminator<
-                          "line",
-                          ObjectUnionExplicit.ILine
-                      >
-                    | ObjectUnionExplicit.Discriminator<
-                          "triangle",
-                          ObjectUnionExplicit.ITriangle
-                      >
-                    | ObjectUnionExplicit.Discriminator<
-                          "rectangle",
-                          ObjectUnionExplicit.IRectangle
-                      >
-                    | ObjectUnionExplicit.Discriminator<
-                          "polyline",
-                          ObjectUnionExplicit.IPolyline
-                      >
-                    | ObjectUnionExplicit.Discriminator<
-                          "polygon",
-                          ObjectUnionExplicit.IPolygon
-                      >
-                    | ObjectUnionExplicit.Discriminator<
-                          "circle",
-                          ObjectUnionExplicit.ICircle
-                      >
-                >,
-            ): typia.Primitive<
-                Array<
-                    | ObjectUnionExplicit.Discriminator<
-                          "point",
-                          ObjectUnionExplicit.IPoint
-                      >
-                    | ObjectUnionExplicit.Discriminator<
-                          "line",
-                          ObjectUnionExplicit.ILine
-                      >
-                    | ObjectUnionExplicit.Discriminator<
-                          "triangle",
-                          ObjectUnionExplicit.ITriangle
-                      >
-                    | ObjectUnionExplicit.Discriminator<
-                          "rectangle",
-                          ObjectUnionExplicit.IRectangle
-                      >
-                    | ObjectUnionExplicit.Discriminator<
-                          "polyline",
-                          ObjectUnionExplicit.IPolyline
-                      >
-                    | ObjectUnionExplicit.Discriminator<
-                          "polygon",
-                          ObjectUnionExplicit.IPolygon
-                      >
-                    | ObjectUnionExplicit.Discriminator<
-                          "circle",
-                          ObjectUnionExplicit.ICircle
-                      >
-                >
-            > => {
+                input: ObjectUnionExplicit,
+            ): typia.Primitive<ObjectUnionExplicit> => {
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.x &&
                     "number" === typeof input.y &&

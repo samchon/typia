@@ -6,6 +6,6 @@ export const test_validateStringify_ObjectUnionImplicit =
     _test_validateStringify(
         "ObjectUnionImplicit",
         ObjectUnionImplicit.generate,
-        (input) => typia.validateStringify(input),
+        (input) => typia.validateStringify<ObjectUnionImplicit>(input),
         ObjectUnionImplicit.SPOILERS,
     );

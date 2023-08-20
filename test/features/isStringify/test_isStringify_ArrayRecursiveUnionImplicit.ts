@@ -5,6 +5,6 @@ import { ArrayRecursiveUnionImplicit } from "../../structures/ArrayRecursiveUnio
 export const test_isStringify_ArrayRecursiveUnionImplicit = _test_isStringify(
     "ArrayRecursiveUnionImplicit",
     ArrayRecursiveUnionImplicit.generate,
-    (input) => typia.isStringify(input),
+    (input) => typia.isStringify<ArrayRecursiveUnionImplicit>(input),
     ArrayRecursiveUnionImplicit.SPOILERS,
 );

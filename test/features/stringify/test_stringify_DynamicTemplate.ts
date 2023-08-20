@@ -5,5 +5,5 @@ import { DynamicTemplate } from "../../structures/DynamicTemplate";
 export const test_stringify_DynamicTemplate = _test_stringify(
     "DynamicTemplate",
     DynamicTemplate.generate,
-    (input) => typia.stringify(input),
+    (input) => typia.stringify<DynamicTemplate>(input),
 );

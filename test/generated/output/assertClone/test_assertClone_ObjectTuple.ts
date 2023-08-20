@@ -6,15 +6,9 @@ export const test_assertClone_ObjectTuple = _test_assertClone(
     "ObjectTuple",
     ObjectTuple.generate,
     (input) =>
-        ((
-            input: any,
-        ): typia.Primitive<[ObjectTuple.ISection, ObjectTuple.ICitizen]> => {
-            const assert = (
-                input: any,
-            ): [ObjectTuple.ISection, ObjectTuple.ICitizen] => {
-                const __is = (
-                    input: any,
-                ): input is [ObjectTuple.ISection, ObjectTuple.ICitizen] => {
+        ((input: any): typia.Primitive<ObjectTuple> => {
+            const assert = (input: any): ObjectTuple => {
+                const __is = (input: any): input is ObjectTuple => {
                     const $io0 = (input: any): boolean =>
                         "string" === typeof input.id &&
                         "string" === typeof input.code &&
@@ -39,10 +33,7 @@ export const test_assertClone_ObjectTuple = _test_assertClone(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is [
-                        ObjectTuple.ISection,
-                        ObjectTuple.ICitizen,
-                    ] => {
+                    ): input is ObjectTuple => {
                         const $guard = (typia.assertClone as any).guard;
                         const $ao0 = (
                             input: any,
@@ -140,10 +131,8 @@ export const test_assertClone_ObjectTuple = _test_assertClone(
                 return input;
             };
             const clone = (
-                input: [ObjectTuple.ISection, ObjectTuple.ICitizen],
-            ): typia.Primitive<
-                [ObjectTuple.ISection, ObjectTuple.ICitizen]
-            > => {
+                input: ObjectTuple,
+            ): typia.Primitive<ObjectTuple> => {
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     "string" === typeof input.code &&

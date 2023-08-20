@@ -7,42 +7,8 @@ export const test_assertStringify_TupleHierarchical = _test_assertStringify(
     TupleHierarchical.generate,
     (input) =>
         ((input: any): string => {
-            const assert = (
-                input: any,
-            ): [
-                boolean,
-                null,
-                number,
-                [boolean, null, [number, [boolean, string]]],
-                [
-                    number,
-                    Array<
-                        [
-                            string,
-                            boolean,
-                            Array<[number, number, [boolean, string]]>,
-                        ]
-                    >,
-                ],
-            ] => {
-                const __is = (
-                    input: any,
-                ): input is [
-                    boolean,
-                    null,
-                    number,
-                    [boolean, null, [number, [boolean, string]]],
-                    [
-                        number,
-                        Array<
-                            [
-                                string,
-                                boolean,
-                                Array<[number, number, [boolean, string]]>,
-                            ]
-                        >,
-                    ],
-                ] => {
+            const assert = (input: any): TupleHierarchical => {
+                const __is = (input: any): input is TupleHierarchical => {
                     return (
                         Array.isArray(input) &&
                         input.length === 5 &&
@@ -97,22 +63,7 @@ export const test_assertStringify_TupleHierarchical = _test_assertStringify(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is [
-                        boolean,
-                        null,
-                        number,
-                        [boolean, null, [number, [boolean, string]]],
-                        [
-                            number,
-                            Array<
-                                [
-                                    string,
-                                    boolean,
-                                    Array<[number, number, [boolean, string]]>,
-                                ]
-                            >,
-                        ],
-                    ] => {
+                    ): input is TupleHierarchical => {
                         const $guard = (typia.assertStringify as any).guard;
                         return (
                             ((Array.isArray(input) ||
@@ -557,24 +508,7 @@ export const test_assertStringify_TupleHierarchical = _test_assertStringify(
                     })(input, "$input", true);
                 return input;
             };
-            const stringify = (
-                input: [
-                    boolean,
-                    null,
-                    number,
-                    [boolean, null, [number, [boolean, string]]],
-                    [
-                        number,
-                        Array<
-                            [
-                                string,
-                                boolean,
-                                Array<[number, number, [boolean, string]]>,
-                            ]
-                        >,
-                    ],
-                ],
-            ): string => {
+            const stringify = (input: TupleHierarchical): string => {
                 const $number = (typia.assertStringify as any).number;
                 const $string = (typia.assertStringify as any).string;
                 return `[${input[0]},null,${$number(input[2])},${`[${

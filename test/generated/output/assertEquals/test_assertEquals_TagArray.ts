@@ -6,11 +6,11 @@ export const test_assertEquals_TagArray = _test_assertEquals(
     "TagArray",
     TagArray.generate,
     (input) =>
-        ((input: any): Array<TagArray.Type> => {
+        ((input: any): TagArray => {
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
-            ): input is Array<TagArray.Type> => {
+            ): input is TagArray => {
                 const $is_uuid = (typia.assertEquals as any).is_uuid;
                 const $io0 = (
                     input: any,
@@ -86,7 +86,7 @@ export const test_assertEquals_TagArray = _test_assertEquals(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is Array<TagArray.Type> => {
+                ): input is TagArray => {
                     const $guard = (typia.assertEquals as any).guard;
                     const $is_uuid = (typia.assertEquals as any).is_uuid;
                     const $join = (typia.assertEquals as any).join;
@@ -348,7 +348,7 @@ export const test_assertEquals_TagArray = _test_assertEquals(
                         ((Array.isArray(input) ||
                             $guard(true, {
                                 path: _path + "",
-                                expected: "Array<TagArray.Type>",
+                                expected: "TagArray",
                                 value: input,
                             })) &&
                             input.every(
@@ -373,7 +373,7 @@ export const test_assertEquals_TagArray = _test_assertEquals(
                             )) ||
                         $guard(true, {
                             path: _path + "",
-                            expected: "Array<TagArray.Type>",
+                            expected: "TagArray",
                             value: input,
                         })
                     );

@@ -5,6 +5,6 @@ import { ClassPropertyAssignment } from "../../structures/ClassPropertyAssignmen
 export const test_assertClone_ClassPropertyAssignment = _test_assertClone(
     "ClassPropertyAssignment",
     ClassPropertyAssignment.generate,
-    (input) => typia.assertClone(input),
+    (input) => typia.assertClone<ClassPropertyAssignment>(input),
     ClassPropertyAssignment.SPOILERS,
 );

@@ -5,6 +5,6 @@ import { TagCustom } from "../../structures/TagCustom";
 export const test_assertStringify_TagCustom = _test_assertStringify(
     "TagCustom",
     TagCustom.generate,
-    (input) => typia.assertStringify(input),
+    (input) => typia.assertStringify<TagCustom>(input),
     TagCustom.SPOILERS,
 );

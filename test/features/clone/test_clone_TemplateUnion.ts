@@ -5,5 +5,5 @@ import { TemplateUnion } from "../../structures/TemplateUnion";
 export const test_clone_TemplateUnion = _test_clone(
     "TemplateUnion",
     TemplateUnion.generate,
-    (input) => typia.clone(input),
+    (input) => typia.clone<TemplateUnion>(input),
 );

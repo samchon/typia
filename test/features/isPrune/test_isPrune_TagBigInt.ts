@@ -5,6 +5,6 @@ import { TagBigInt } from "../../structures/TagBigInt";
 export const test_isPrune_TagBigInt = _test_isPrune(
     "TagBigInt",
     TagBigInt.generate,
-    (input) => typia.isPrune(input),
+    (input) => typia.isPrune<TagBigInt>(input),
     TagBigInt.SPOILERS,
 );

@@ -5,6 +5,6 @@ import { ObjectUnionDouble } from "../../structures/ObjectUnionDouble";
 export const test_validatePrune_ObjectUnionDouble = _test_validatePrune(
     "ObjectUnionDouble",
     ObjectUnionDouble.generate,
-    (input) => typia.validatePrune(input),
+    (input) => typia.validatePrune<ObjectUnionDouble>(input),
     ObjectUnionDouble.SPOILERS,
 );

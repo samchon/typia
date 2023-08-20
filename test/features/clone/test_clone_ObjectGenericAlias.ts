@@ -5,5 +5,5 @@ import { ObjectGenericAlias } from "../../structures/ObjectGenericAlias";
 export const test_clone_ObjectGenericAlias = _test_clone(
     "ObjectGenericAlias",
     ObjectGenericAlias.generate,
-    (input) => typia.clone(input),
+    (input) => typia.clone<ObjectGenericAlias>(input),
 );

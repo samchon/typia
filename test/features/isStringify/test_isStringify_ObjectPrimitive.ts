@@ -5,6 +5,6 @@ import { ObjectPrimitive } from "../../structures/ObjectPrimitive";
 export const test_isStringify_ObjectPrimitive = _test_isStringify(
     "ObjectPrimitive",
     ObjectPrimitive.generate,
-    (input) => typia.isStringify(input),
+    (input) => typia.isStringify<ObjectPrimitive>(input),
     ObjectPrimitive.SPOILERS,
 );

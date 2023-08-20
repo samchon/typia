@@ -5,6 +5,6 @@ import { NativeSimple } from "../../structures/NativeSimple";
 export const test_is_NativeSimple = _test_is(
     "NativeSimple",
     NativeSimple.generate,
-    (input) => typia.is(input),
+    (input) => typia.is<NativeSimple>(input),
     NativeSimple.SPOILERS,
 );

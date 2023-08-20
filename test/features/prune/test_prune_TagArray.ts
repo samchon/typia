@@ -5,5 +5,5 @@ import { TagArray } from "../../structures/TagArray";
 export const test_prune_TagArray = _test_prune(
     "TagArray",
     TagArray.generate,
-    (input) => typia.prune(input),
+    (input) => typia.prune<TagArray>(input),
 );

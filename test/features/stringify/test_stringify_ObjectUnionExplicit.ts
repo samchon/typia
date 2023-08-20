@@ -5,5 +5,5 @@ import { ObjectUnionExplicit } from "../../structures/ObjectUnionExplicit";
 export const test_stringify_ObjectUnionExplicit = _test_stringify(
     "ObjectUnionExplicit",
     ObjectUnionExplicit.generate,
-    (input) => typia.stringify(input),
+    (input) => typia.stringify<ObjectUnionExplicit>(input),
 );

@@ -6,8 +6,8 @@ export const test_isClone_TagStep = _test_isClone(
     "TagStep",
     TagStep.generate,
     (input) =>
-        ((input: any): typia.Primitive<Array<TagStep.Type>> | null => {
-            const is = (input: any): input is Array<TagStep.Type> => {
+        ((input: any): typia.Primitive<TagStep> | null => {
+            const is = (input: any): input is TagStep => {
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.exclusiveMinimum &&
                     0 === (input.exclusiveMinimum % 5) - 3 &&
@@ -33,9 +33,7 @@ export const test_isClone_TagStep = _test_isClone(
                     )
                 );
             };
-            const clone = (
-                input: Array<TagStep.Type>,
-            ): typia.Primitive<Array<TagStep.Type>> => {
+            const clone = (input: TagStep): typia.Primitive<TagStep> => {
                 const $cp0 = (input: any) =>
                     input.map((elem: any) =>
                         "object" === typeof elem && null !== elem

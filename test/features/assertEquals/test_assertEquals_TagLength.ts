@@ -5,5 +5,5 @@ import { TagLength } from "../../structures/TagLength";
 export const test_assertEquals_TagLength = _test_assertEquals(
     "TagLength",
     TagLength.generate,
-    (input) => typia.assertEquals(input),
+    (input) => typia.assertEquals<TagLength>(input),
 );

@@ -9,7 +9,7 @@ export const test_equals_DynamicConstant = _test_equals(
         ((
             input: any,
             _exceptionable: boolean = true,
-        ): input is { a: number; b: number; c: number; d: number } => {
+        ): input is DynamicConstant => {
             const $io0 = (
                 input: any,
                 _exceptionable: boolean = true,

@@ -5,6 +5,6 @@ import { DynamicTree } from "../../structures/DynamicTree";
 export const test_is_DynamicTree = _test_is(
     "DynamicTree",
     DynamicTree.generate,
-    (input) => typia.is(input),
+    (input) => typia.is<DynamicTree>(input),
     DynamicTree.SPOILERS,
 );

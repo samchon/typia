@@ -5,5 +5,5 @@ import { ClassGetter } from "../../structures/ClassGetter";
 export const test_assertEquals_ClassGetter = _test_assertEquals(
     "ClassGetter",
     ClassGetter.generate,
-    (input) => typia.assertEquals(input),
+    (input) => typia.assertEquals<ClassGetter>(input),
 );

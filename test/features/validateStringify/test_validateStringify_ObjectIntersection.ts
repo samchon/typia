@@ -6,6 +6,6 @@ export const test_validateStringify_ObjectIntersection =
     _test_validateStringify(
         "ObjectIntersection",
         ObjectIntersection.generate,
-        (input) => typia.validateStringify(input),
+        (input) => typia.validateStringify<ObjectIntersection>(input),
         ObjectIntersection.SPOILERS,
     );

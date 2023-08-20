@@ -6,7 +6,7 @@ export const test_stringify_ConstantAtomicSimple = _test_stringify(
     "ConstantAtomicSimple",
     ConstantAtomicSimple.generate,
     (input) =>
-        ((input: [false, true, 2, "three"]): string => {
+        ((input: ConstantAtomicSimple): string => {
             const $number = (typia.stringify as any).number;
             const $string = (typia.stringify as any).string;
             const $throws = (typia.stringify as any).throws;

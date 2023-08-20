@@ -5,5 +5,5 @@ import { ArrayRepeatedUnionWithTuple } from "../../structures/ArrayRepeatedUnion
 export const test_stringify_ArrayRepeatedUnionWithTuple = _test_stringify(
     "ArrayRepeatedUnionWithTuple",
     ArrayRepeatedUnionWithTuple.generate,
-    (input) => typia.stringify(input),
+    (input) => typia.stringify<ArrayRepeatedUnionWithTuple>(input),
 );

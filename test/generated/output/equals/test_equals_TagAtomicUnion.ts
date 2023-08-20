@@ -9,7 +9,7 @@ export const test_equals_TagAtomicUnion = _test_equals(
         ((
             input: any,
             _exceptionable: boolean = true,
-        ): input is Array<TagAtomicUnion.Type> => {
+        ): input is TagAtomicUnion => {
             const $io0 = (
                 input: any,
                 _exceptionable: boolean = true,

@@ -6,11 +6,9 @@ export const test_assertPrune_TupleRestAtomic = _test_assertPrune(
     "TupleRestAtomic",
     TupleRestAtomic.generate,
     (input) =>
-        ((input: any): [boolean, number, ...string[]] => {
-            const assert = (input: any): [boolean, number, ...string[]] => {
-                const __is = (
-                    input: any,
-                ): input is [boolean, number, ...string[]] => {
+        ((input: any): TupleRestAtomic => {
+            const assert = (input: any): TupleRestAtomic => {
+                const __is = (input: any): input is TupleRestAtomic => {
                     return (
                         Array.isArray(input) &&
                         "boolean" === typeof input[0] &&
@@ -27,7 +25,7 @@ export const test_assertPrune_TupleRestAtomic = _test_assertPrune(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is [boolean, number, ...string[]] => {
+                    ): input is TupleRestAtomic => {
                         const $guard = (typia.assertPrune as any).guard;
                         return (
                             ((Array.isArray(input) ||
@@ -82,7 +80,7 @@ export const test_assertPrune_TupleRestAtomic = _test_assertPrune(
                     })(input, "$input", true);
                 return input;
             };
-            const prune = (input: [boolean, number, ...string[]]): void => {};
+            const prune = (input: TupleRestAtomic): void => {};
             assert(input);
             prune(input);
             return input;

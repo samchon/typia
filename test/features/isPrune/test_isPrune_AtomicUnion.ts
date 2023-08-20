@@ -5,6 +5,6 @@ import { AtomicUnion } from "../../structures/AtomicUnion";
 export const test_isPrune_AtomicUnion = _test_isPrune(
     "AtomicUnion",
     AtomicUnion.generate,
-    (input) => typia.isPrune(input),
+    (input) => typia.isPrune<AtomicUnion>(input),
     AtomicUnion.SPOILERS,
 );

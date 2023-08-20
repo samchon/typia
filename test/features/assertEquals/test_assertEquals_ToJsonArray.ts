@@ -5,5 +5,5 @@ import { ToJsonArray } from "../../structures/ToJsonArray";
 export const test_assertEquals_ToJsonArray = _test_assertEquals(
     "ToJsonArray",
     ToJsonArray.generate,
-    (input) => typia.assertEquals(input),
+    (input) => typia.assertEquals<ToJsonArray>(input),
 );

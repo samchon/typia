@@ -5,6 +5,6 @@ import { ObjectUnionExplicit } from "../../structures/ObjectUnionExplicit";
 export const test_validateClone_ObjectUnionExplicit = _test_validateClone(
     "ObjectUnionExplicit",
     ObjectUnionExplicit.generate,
-    (input) => typia.validateClone(input),
+    (input) => typia.validateClone<ObjectUnionExplicit>(input),
     ObjectUnionExplicit.SPOILERS,
 );

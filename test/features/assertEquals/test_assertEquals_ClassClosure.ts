@@ -5,5 +5,5 @@ import { ClassClosure } from "../../structures/ClassClosure";
 export const test_assertEquals_ClassClosure = _test_assertEquals(
     "ClassClosure",
     ClassClosure.generate,
-    (input) => typia.assertEquals(input),
+    (input) => typia.assertEquals<ClassClosure>(input),
 );

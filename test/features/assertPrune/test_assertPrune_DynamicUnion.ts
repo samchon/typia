@@ -5,6 +5,6 @@ import { DynamicUnion } from "../../structures/DynamicUnion";
 export const test_assertPrune_DynamicUnion = _test_assertPrune(
     "DynamicUnion",
     DynamicUnion.generate,
-    (input) => typia.assertPrune(input),
+    (input) => typia.assertPrune<DynamicUnion>(input),
     DynamicUnion.SPOILERS,
 );

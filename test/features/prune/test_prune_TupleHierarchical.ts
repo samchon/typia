@@ -5,5 +5,5 @@ import { TupleHierarchical } from "../../structures/TupleHierarchical";
 export const test_prune_TupleHierarchical = _test_prune(
     "TupleHierarchical",
     TupleHierarchical.generate,
-    (input) => typia.prune(input),
+    (input) => typia.prune<TupleHierarchical>(input),
 );

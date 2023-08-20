@@ -6,11 +6,8 @@ export const test_assert_ObjectIntersection = _test_assert(
     "ObjectIntersection",
     ObjectIntersection.generate,
     (input) =>
-        ((input: any): ObjectIntersection.IEmail & ObjectIntersection.IName => {
-            const __is = (
-                input: any,
-            ): input is ObjectIntersection.IEmail &
-                ObjectIntersection.IName => {
+        ((input: any): ObjectIntersection => {
+            const __is = (input: any): input is ObjectIntersection => {
                 return (
                     "object" === typeof input &&
                     null !== input &&
@@ -24,8 +21,7 @@ export const test_assert_ObjectIntersection = _test_assert(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ObjectIntersection.IEmail &
-                    ObjectIntersection.IName => {
+                ): input is ObjectIntersection => {
                     const $guard = (typia.assert as any).guard;
                     const $ao0 = (
                         input: any,

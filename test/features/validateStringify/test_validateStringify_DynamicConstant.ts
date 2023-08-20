@@ -5,6 +5,6 @@ import { DynamicConstant } from "../../structures/DynamicConstant";
 export const test_validateStringify_DynamicConstant = _test_validateStringify(
     "DynamicConstant",
     DynamicConstant.generate,
-    (input) => typia.validateStringify(input),
+    (input) => typia.validateStringify<DynamicConstant>(input),
     DynamicConstant.SPOILERS,
 );

@@ -5,6 +5,6 @@ import { ClassGetter } from "../../structures/ClassGetter";
 export const test_assertStringify_ClassGetter = _test_assertStringify(
     "ClassGetter",
     ClassGetter.generate,
-    (input) => typia.assertStringify(input),
+    (input) => typia.assertStringify<ClassGetter>(input),
     ClassGetter.SPOILERS,
 );

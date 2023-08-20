@@ -5,5 +5,5 @@ import { TagCustom } from "../../structures/TagCustom";
 export const test_stringify_TagCustom = _test_stringify(
     "TagCustom",
     TagCustom.generate,
-    (input) => typia.stringify(input),
+    (input) => typia.stringify<TagCustom>(input),
 );

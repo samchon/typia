@@ -5,5 +5,5 @@ import { AtomicAlias } from "../../structures/AtomicAlias";
 export const test_stringify_AtomicAlias = _test_stringify(
     "AtomicAlias",
     AtomicAlias.generate,
-    (input) => typia.stringify(input),
+    (input) => typia.stringify<AtomicAlias>(input),
 );

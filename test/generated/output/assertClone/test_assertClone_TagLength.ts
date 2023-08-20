@@ -6,9 +6,9 @@ export const test_assertClone_TagLength = _test_assertClone(
     "TagLength",
     TagLength.generate,
     (input) =>
-        ((input: any): typia.Primitive<Array<TagLength.Type>> => {
-            const assert = (input: any): Array<TagLength.Type> => {
-                const __is = (input: any): input is Array<TagLength.Type> => {
+        ((input: any): typia.Primitive<TagLength> => {
+            const assert = (input: any): TagLength => {
+                const __is = (input: any): input is TagLength => {
                     const $io0 = (input: any): boolean =>
                         "string" === typeof input.fixed &&
                         5 === input.fixed.length &&
@@ -37,7 +37,7 @@ export const test_assertClone_TagLength = _test_assertClone(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is Array<TagLength.Type> => {
+                    ): input is TagLength => {
                         const $guard = (typia.assertClone as any).guard;
                         const $ao0 = (
                             input: any,
@@ -120,7 +120,7 @@ export const test_assertClone_TagLength = _test_assertClone(
                             ((Array.isArray(input) ||
                                 $guard(true, {
                                     path: _path + "",
-                                    expected: "Array<TagLength.Type>",
+                                    expected: "TagLength",
                                     value: input,
                                 })) &&
                                 input.every(
@@ -146,16 +146,14 @@ export const test_assertClone_TagLength = _test_assertClone(
                                 )) ||
                             $guard(true, {
                                 path: _path + "",
-                                expected: "Array<TagLength.Type>",
+                                expected: "TagLength",
                                 value: input,
                             })
                         );
                     })(input, "$input", true);
                 return input;
             };
-            const clone = (
-                input: Array<TagLength.Type>,
-            ): typia.Primitive<Array<TagLength.Type>> => {
+            const clone = (input: TagLength): typia.Primitive<TagLength> => {
                 const $cp0 = (input: any) =>
                     input.map((elem: any) =>
                         "object" === typeof elem && null !== elem

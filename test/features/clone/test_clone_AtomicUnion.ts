@@ -5,5 +5,5 @@ import { AtomicUnion } from "../../structures/AtomicUnion";
 export const test_clone_AtomicUnion = _test_clone(
     "AtomicUnion",
     AtomicUnion.generate,
-    (input) => typia.clone(input),
+    (input) => typia.clone<AtomicUnion>(input),
 );

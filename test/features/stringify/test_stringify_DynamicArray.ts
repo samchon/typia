@@ -5,5 +5,5 @@ import { DynamicArray } from "../../structures/DynamicArray";
 export const test_stringify_DynamicArray = _test_stringify(
     "DynamicArray",
     DynamicArray.generate,
-    (input) => typia.stringify(input),
+    (input) => typia.stringify<DynamicArray>(input),
 );

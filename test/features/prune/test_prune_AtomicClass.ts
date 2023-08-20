@@ -5,5 +5,5 @@ import { AtomicClass } from "../../structures/AtomicClass";
 export const test_prune_AtomicClass = _test_prune(
     "AtomicClass",
     AtomicClass.generate,
-    (input) => typia.prune(input),
+    (input) => typia.prune<AtomicClass>(input),
 );

@@ -6,13 +6,7 @@ export const test_is_AtomicIntersection = _test_is(
     "AtomicIntersection",
     AtomicIntersection.generate,
     (input) =>
-        ((
-            input: any,
-        ): input is [
-            AtomicIntersection.Wrapper<boolean>,
-            AtomicIntersection.Wrapper<number>,
-            AtomicIntersection.Wrapper<string>,
-        ] => {
+        ((input: any): input is AtomicIntersection => {
             return (
                 Array.isArray(input) &&
                 input.length === 3 &&

@@ -5,6 +5,6 @@ import { ArrayRecursive } from "../../structures/ArrayRecursive";
 export const test_assertPrune_ArrayRecursive = _test_assertPrune(
     "ArrayRecursive",
     ArrayRecursive.generate,
-    (input) => typia.assertPrune(input),
+    (input) => typia.assertPrune<ArrayRecursive>(input),
     ArrayRecursive.SPOILERS,
 );

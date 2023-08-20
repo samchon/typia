@@ -5,5 +5,5 @@ import { TagFormat } from "../../structures/TagFormat";
 export const test_stringify_TagFormat = _test_stringify(
     "TagFormat",
     TagFormat.generate,
-    (input) => typia.stringify(input),
+    (input) => typia.stringify<TagFormat>(input),
 );

@@ -5,6 +5,6 @@ import { ObjectSimple } from "../../structures/ObjectSimple";
 export const test_isClone_ObjectSimple = _test_isClone(
     "ObjectSimple",
     ObjectSimple.generate,
-    (input) => typia.isClone(input),
+    (input) => typia.isClone<ObjectSimple>(input),
     ObjectSimple.SPOILERS,
 );

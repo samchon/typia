@@ -5,6 +5,6 @@ import { ClassPropertyAssignment } from "../../structures/ClassPropertyAssignmen
 export const test_validateClone_ClassPropertyAssignment = _test_validateClone(
     "ClassPropertyAssignment",
     ClassPropertyAssignment.generate,
-    (input) => typia.validateClone(input),
+    (input) => typia.validateClone<ClassPropertyAssignment>(input),
     ClassPropertyAssignment.SPOILERS,
 );

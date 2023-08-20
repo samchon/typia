@@ -8,26 +8,14 @@ export const test_validateClone_ObjectUnionNonPredictable = _test_validateClone(
     (input) =>
         ((
             input: any,
-        ): typia.IValidation<
-            typia.Primitive<
-                Array<
-                    ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
-                >
-            >
-        > => {
+        ): typia.IValidation<typia.Primitive<ObjectUnionNonPredictable>> => {
             const validate = (
                 input: any,
-            ): typia.IValidation<
-                Array<
-                    ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
-                >
-            > => {
+            ): typia.IValidation<ObjectUnionNonPredictable> => {
                 const errors = [] as any[];
                 const __is = (
                     input: any,
-                ): input is Array<
-                    ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
-                > => {
+                ): input is ObjectUnionNonPredictable => {
                     const $io0 = (input: any): boolean =>
                         "object" === typeof input.value &&
                         null !== input.value &&
@@ -72,9 +60,7 @@ export const test_validateClone_ObjectUnionNonPredictable = _test_validateClone(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is Array<
-                        ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
-                    > => {
+                    ): input is ObjectUnionNonPredictable => {
                         const $vo0 = (
                             input: any,
                             _path: string,
@@ -305,14 +291,8 @@ export const test_validateClone_ObjectUnionNonPredictable = _test_validateClone(
                 } as any;
             };
             const clone = (
-                input: Array<
-                    ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
-                >,
-            ): typia.Primitive<
-                Array<
-                    ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
-                >
-            > => {
+                input: ObjectUnionNonPredictable,
+            ): typia.Primitive<ObjectUnionNonPredictable> => {
                 const $io1 = (input: any): boolean =>
                     "object" === typeof input.value &&
                     null !== input.value &&

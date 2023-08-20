@@ -7,10 +7,8 @@ export const test_assertStringify_ObjectPrimitive = _test_assertStringify(
     ObjectPrimitive.generate,
     (input) =>
         ((input: any): string => {
-            const assert = (input: any): ObjectPrimitive.IArticle => {
-                const __is = (
-                    input: any,
-                ): input is ObjectPrimitive.IArticle => {
+            const assert = (input: any): ObjectPrimitive => {
+                const __is = (input: any): input is ObjectPrimitive => {
                     const $io0 = (input: any): boolean =>
                         "string" === typeof input.id &&
                         ("md" === input.extension ||
@@ -44,7 +42,7 @@ export const test_assertStringify_ObjectPrimitive = _test_assertStringify(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is ObjectPrimitive.IArticle => {
+                    ): input is ObjectPrimitive => {
                         const $guard = (typia.assertStringify as any).guard;
                         const $ao0 = (
                             input: any,
@@ -184,7 +182,7 @@ export const test_assertStringify_ObjectPrimitive = _test_assertStringify(
                     })(input, "$input", true);
                 return input;
             };
-            const stringify = (input: ObjectPrimitive.IArticle): string => {
+            const stringify = (input: ObjectPrimitive): string => {
                 const $io1 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     "string" === typeof input.name &&

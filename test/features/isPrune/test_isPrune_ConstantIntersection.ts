@@ -5,6 +5,6 @@ import { ConstantIntersection } from "../../structures/ConstantIntersection";
 export const test_isPrune_ConstantIntersection = _test_isPrune(
     "ConstantIntersection",
     ConstantIntersection.generate,
-    (input) => typia.isPrune(input),
+    (input) => typia.isPrune<ConstantIntersection>(input),
     ConstantIntersection.SPOILERS,
 );
