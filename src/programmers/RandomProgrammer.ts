@@ -317,7 +317,7 @@ export namespace RandomProgrammer {
             ? ts.factory.createNumericLiteral(value)
             : typeof value === "string"
             ? ts.factory.createStringLiteral(value)
-            : ts.factory.createBigIntLiteral(value.toString());
+            : ExpressionFactory.bigint(Number(value));
 
     const decode_template =
         (importer: FunctionImporter) =>

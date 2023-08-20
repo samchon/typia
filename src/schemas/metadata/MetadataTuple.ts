@@ -14,6 +14,11 @@ export class MetadataTuple {
     /**
      * @internal
      */
+    public of_map?: boolean;
+
+    /**
+     * @internal
+     */
     private constructor(props: ClassProperties<MetadataTuple>) {
         this.name = props.name;
         this.elements = props.elements;

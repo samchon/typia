@@ -1,5 +1,7 @@
 import ts from "typescript";
 
+import { ExpressionFactory } from "../../factories/ExpressionFactory";
+
 import { IJsDocTagInfo } from "../../schemas/metadata/IJsDocTagInfo";
 import { IMetadataTag } from "../../schemas/metadata/IMetadataTag";
 
@@ -17,7 +19,15 @@ export const check_bigint =
     (input: ts.Expression): ICheckEntry => {
         const entries: [IMetadataTag, ts.Expression][] = [];
         for (const tag of metaTags) {
-            if (tag.kind === "multipleOf")
+            if (tag.kind === "type" && tag.value === "uint64")
+                entries.push([
+                    tag,
+                    ts.factory.createLessThanEquals(
+                        ExpressionFactory.bigint(0),
+                        input,
+                    ),
+                ]);
+            else if (tag.kind === "multipleOf")
                 entries.push([
                     tag,
                     ts.factory.createStrictEquality(
