@@ -5,50 +5,59 @@ export type TagRange = IPointer<TagRange.Type[]>;
 export namespace TagRange {
     export interface Type {
         /**
+         * @type int
          * @exclusiveMinimum 3
          */
         greater: number;
 
         /**
+         * @type int
          * @minimum 3
          */
         greater_equal: number;
 
         /**
+         * @type int
          * @exclusiveMaximum 7
          */
         less: number;
 
         /**
+         * @type int
          * @maximum 7
          */
         less_equal: number;
 
         /**
+         * @type int
          * @exclusiveMinimum 3
          * @exclusiveMaximum 7
          */
         greater_less: number;
 
         /**
+         * @type int
          * @minimum 3
          * @exclusiveMaximum 7
          */
         greater_equal_less: number;
 
         /**
+         * @type int
          * @exclusiveMinimum 3
          * @maximum 7
          */
         greater_less_equal: number;
 
         /**
+         * @type int
          * @minimum 3
          * @maximum 7
          */
         greater_equal_less_equal: number;
 
         /**
+         * @type int
          * @minimum 10
          * @maximum 10
          */
@@ -57,7 +66,7 @@ export namespace TagRange {
 
     // prettier-ignore
     export function generate(): TagRange {
-        const output: Type[] = [];
+        const value: Type[] = [];
 
         for (const greater of [MINIMUM + 1, 10])
         for (const greater_equal of [MINIMUM, 10])
@@ -67,7 +76,7 @@ export namespace TagRange {
         for (const greater_equal_less of [MINIMUM, MAXIMUM - 1])
         for (const greater_less_equal of [MINIMUM + 1, MAXIMUM])
         for (const greater_equal_less_equal of [MINIMUM, MAXIMUM])
-            output.push({
+            value.push({
                 greater,
                 greater_equal,
                 less,
@@ -78,7 +87,7 @@ export namespace TagRange {
                 greater_equal_less_equal,
                 equal: 10,
             });
-        return { value: output };
+        return { value };
     }
 
     export const MINIMUM = 3;

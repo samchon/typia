@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_assert } from "../../../internal/_test_assert";
 import { FunctionalProperty } from "../../../structures/FunctionalProperty";
 
-export const test_assert_FunctionalProperty = _test_assert<FunctionalProperty>(
-    FunctionalProperty,
-)((input: any): FunctionalProperty => {
+export const test_assert_FunctionalProperty = _test_assert(
+    "FunctionalProperty",
+)<FunctionalProperty>(FunctionalProperty)((input: any): FunctionalProperty => {
     const __is = (input: any): input is FunctionalProperty => {
         const $io0 = (input: any): boolean =>
             "string" === typeof input.name &&

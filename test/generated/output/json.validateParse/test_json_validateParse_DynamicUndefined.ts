@@ -3,7 +3,9 @@ import { _test_json_validateParse } from "../../../internal/_test_json_validateP
 import { DynamicUndefined } from "../../../structures/DynamicUndefined";
 
 export const test_json_validateParse_DynamicUndefined =
-    _test_json_validateParse<DynamicUndefined>(DynamicUndefined)((input) =>
+    _test_json_validateParse("DynamicUndefined")<DynamicUndefined>(
+        DynamicUndefined,
+    )((input) =>
         ((
             input: string,
         ): typia.IValidation<typia.Primitive<DynamicUndefined>> => {

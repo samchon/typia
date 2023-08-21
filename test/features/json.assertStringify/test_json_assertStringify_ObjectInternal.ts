@@ -3,6 +3,6 @@ import { _test_json_assertStringify } from "../../internal/_test_json_assertStri
 import { ObjectInternal } from "../../structures/ObjectInternal";
 
 export const test_json_assertStringify_ObjectInternal =
-    _test_json_assertStringify<ObjectInternal>(ObjectInternal)((input) =>
-        typia.json.assertStringify<ObjectInternal>(input),
-    );
+    _test_json_assertStringify("ObjectInternal")<ObjectInternal>(
+        ObjectInternal,
+    )((input) => typia.json.assertStringify<ObjectInternal>(input));

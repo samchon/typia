@@ -2,10 +2,63 @@ import typia from "../../../../src";
 import { _test_assert } from "../../../internal/_test_assert";
 import { ArrayUnion } from "../../../structures/ArrayUnion";
 
-export const test_assert_ArrayUnion = _test_assert<ArrayUnion>(ArrayUnion)(
-    (input: any): ArrayUnion => {
-        const __is = (input: any): input is ArrayUnion => {
-            const $ip0 = (input: any) => {
+export const test_assert_ArrayUnion = _test_assert("ArrayUnion")<ArrayUnion>(
+    ArrayUnion,
+)((input: any): ArrayUnion => {
+    const __is = (input: any): input is ArrayUnion => {
+        const $ip0 = (input: any) => {
+            const array = input;
+            const top = input[0];
+            if (0 === input.length) return true;
+            const arrayPredicators = [
+                [
+                    (top: any): any => "boolean" === typeof top,
+                    (entire: any[]): any =>
+                        entire.every((elem: any) => "boolean" === typeof elem),
+                ],
+                [
+                    (top: any): any =>
+                        "number" === typeof top && Number.isFinite(top),
+                    (entire: any[]): any =>
+                        entire.every(
+                            (elem: any) =>
+                                "number" === typeof elem &&
+                                Number.isFinite(elem),
+                        ),
+                ],
+                [
+                    (top: any): any => "string" === typeof top,
+                    (entire: any[]): any =>
+                        entire.every((elem: any) => "string" === typeof elem),
+                ],
+            ];
+            const passed = arrayPredicators.filter((pred: any) => pred[0](top));
+            if (1 === passed.length) return passed[0][1](array);
+            else if (1 < passed.length)
+                for (const pred of passed)
+                    if (array.every((value: any) => true === pred[0](value)))
+                        return pred[1](array);
+            return false;
+        };
+        return (
+            Array.isArray(input) &&
+            input.every(
+                (elem: any) => Array.isArray(elem) && ($ip0(elem) || false),
+            )
+        );
+    };
+    if (false === __is(input))
+        ((
+            input: any,
+            _path: string,
+            _exceptionable: boolean = true,
+        ): input is ArrayUnion => {
+            const $guard = (typia.createAssert as any).guard;
+            const $ap0 = (
+                input: any,
+                _path: string,
+                _exceptionable: boolean = true,
+            ) => {
                 const array = input;
                 const top = input[0];
                 if (0 === input.length) return true;
@@ -14,7 +67,13 @@ export const test_assert_ArrayUnion = _test_assert<ArrayUnion>(ArrayUnion)(
                         (top: any): any => "boolean" === typeof top,
                         (entire: any[]): any =>
                             entire.every(
-                                (elem: any) => "boolean" === typeof elem,
+                                (elem: any, _index5: number) =>
+                                    "boolean" === typeof elem ||
+                                    $guard(_exceptionable, {
+                                        path: _path + "[" + _index5 + "]",
+                                        expected: "boolean",
+                                        value: elem,
+                                    }),
                             ),
                     ],
                     [
@@ -22,16 +81,27 @@ export const test_assert_ArrayUnion = _test_assert<ArrayUnion>(ArrayUnion)(
                             "number" === typeof top && Number.isFinite(top),
                         (entire: any[]): any =>
                             entire.every(
-                                (elem: any) =>
-                                    "number" === typeof elem &&
-                                    Number.isFinite(elem),
+                                (elem: any, _index6: number) =>
+                                    ("number" === typeof elem &&
+                                        Number.isFinite(elem)) ||
+                                    $guard(_exceptionable, {
+                                        path: _path + "[" + _index6 + "]",
+                                        expected: "number",
+                                        value: elem,
+                                    }),
                             ),
                     ],
                     [
                         (top: any): any => "string" === typeof top,
                         (entire: any[]): any =>
                             entire.every(
-                                (elem: any) => "string" === typeof elem,
+                                (elem: any, _index7: number) =>
+                                    "string" === typeof elem ||
+                                    $guard(_exceptionable, {
+                                        path: _path + "[" + _index7 + "]",
+                                        expected: "string",
+                                        value: elem,
+                                    }),
                             ),
                     ],
                 ];
@@ -45,133 +115,53 @@ export const test_assert_ArrayUnion = _test_assert<ArrayUnion>(ArrayUnion)(
                             array.every((value: any) => true === pred[0](value))
                         )
                             return pred[1](array);
-                return false;
+                return $guard(_exceptionable, {
+                    path: _path,
+                    expected:
+                        "(Array<boolean> | Array<number> | Array<string>)",
+                    value: input,
+                });
             };
             return (
-                Array.isArray(input) &&
-                input.every(
-                    (elem: any) => Array.isArray(elem) && ($ip0(elem) || false),
-                )
-            );
-        };
-        if (false === __is(input))
-            ((
-                input: any,
-                _path: string,
-                _exceptionable: boolean = true,
-            ): input is ArrayUnion => {
-                const $guard = (typia.createAssert as any).guard;
-                const $ap0 = (
-                    input: any,
-                    _path: string,
-                    _exceptionable: boolean = true,
-                ) => {
-                    const array = input;
-                    const top = input[0];
-                    if (0 === input.length) return true;
-                    const arrayPredicators = [
-                        [
-                            (top: any): any => "boolean" === typeof top,
-                            (entire: any[]): any =>
-                                entire.every(
-                                    (elem: any, _index5: number) =>
-                                        "boolean" === typeof elem ||
-                                        $guard(_exceptionable, {
-                                            path: _path + "[" + _index5 + "]",
-                                            expected: "boolean",
-                                            value: elem,
-                                        }),
-                                ),
-                        ],
-                        [
-                            (top: any): any =>
-                                "number" === typeof top && Number.isFinite(top),
-                            (entire: any[]): any =>
-                                entire.every(
-                                    (elem: any, _index6: number) =>
-                                        ("number" === typeof elem &&
-                                            Number.isFinite(elem)) ||
-                                        $guard(_exceptionable, {
-                                            path: _path + "[" + _index6 + "]",
-                                            expected: "number",
-                                            value: elem,
-                                        }),
-                                ),
-                        ],
-                        [
-                            (top: any): any => "string" === typeof top,
-                            (entire: any[]): any =>
-                                entire.every(
-                                    (elem: any, _index7: number) =>
-                                        "string" === typeof elem ||
-                                        $guard(_exceptionable, {
-                                            path: _path + "[" + _index7 + "]",
-                                            expected: "string",
-                                            value: elem,
-                                        }),
-                                ),
-                        ],
-                    ];
-                    const passed = arrayPredicators.filter((pred: any) =>
-                        pred[0](top),
-                    );
-                    if (1 === passed.length) return passed[0][1](array);
-                    else if (1 < passed.length)
-                        for (const pred of passed)
-                            if (
-                                array.every(
-                                    (value: any) => true === pred[0](value),
-                                )
-                            )
-                                return pred[1](array);
-                    return $guard(_exceptionable, {
-                        path: _path,
-                        expected:
-                            "(Array<boolean> | Array<number> | Array<string>)",
+                ((Array.isArray(input) ||
+                    $guard(true, {
+                        path: _path + "",
+                        expected: "ArrayUnion",
                         value: input,
-                    });
-                };
-                return (
-                    ((Array.isArray(input) ||
-                        $guard(true, {
-                            path: _path + "",
-                            expected: "ArrayUnion",
-                            value: input,
-                        })) &&
-                        input.every(
-                            (elem: any, _index1: number) =>
-                                ((Array.isArray(elem) ||
-                                    $guard(true, {
-                                        path: _path + "[" + _index1 + "]",
-                                        expected:
-                                            "(Array<boolean> | Array<number> | Array<string>)",
-                                        value: elem,
-                                    })) &&
-                                    ($ap0(
-                                        elem,
-                                        _path + "[" + _index1 + "]",
-                                        true && _exceptionable,
-                                    ) ||
-                                        $guard(_exceptionable, {
-                                            path: _path + "[" + _index1 + "]",
-                                            expected:
-                                                "Array<boolean> | Array<number> | Array<string>",
-                                            value: elem,
-                                        }))) ||
+                    })) &&
+                    input.every(
+                        (elem: any, _index1: number) =>
+                            ((Array.isArray(elem) ||
                                 $guard(true, {
                                     path: _path + "[" + _index1 + "]",
                                     expected:
                                         "(Array<boolean> | Array<number> | Array<string>)",
                                     value: elem,
-                                }),
-                        )) ||
-                    $guard(true, {
-                        path: _path + "",
-                        expected: "ArrayUnion",
-                        value: input,
-                    })
-                );
-            })(input, "$input", true);
-        return input;
-    },
-);
+                                })) &&
+                                ($ap0(
+                                    elem,
+                                    _path + "[" + _index1 + "]",
+                                    true && _exceptionable,
+                                ) ||
+                                    $guard(_exceptionable, {
+                                        path: _path + "[" + _index1 + "]",
+                                        expected:
+                                            "Array<boolean> | Array<number> | Array<string>",
+                                        value: elem,
+                                    }))) ||
+                            $guard(true, {
+                                path: _path + "[" + _index1 + "]",
+                                expected:
+                                    "(Array<boolean> | Array<number> | Array<string>)",
+                                value: elem,
+                            }),
+                    )) ||
+                $guard(true, {
+                    path: _path + "",
+                    expected: "ArrayUnion",
+                    value: input,
+                })
+            );
+        })(input, "$input", true);
+    return input;
+});

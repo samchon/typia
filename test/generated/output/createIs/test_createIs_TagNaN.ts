@@ -2,7 +2,7 @@ import typia from "../../../../src";
 import { _test_is } from "../../../internal/_test_is";
 import { TagNaN } from "../../../structures/TagNaN";
 
-export const test_is_TagNaN = _test_is<TagNaN>(TagNaN)(
+export const test_is_TagNaN = _test_is("TagNaN")<TagNaN>(TagNaN)(
     (input: any): input is TagNaN => {
         return (
             "object" === typeof input &&
@@ -22,7 +22,9 @@ export const test_is_TagNaN = _test_is<TagNaN>(TagNaN)(
             0 === (input as any).multipleOf % 3 &&
             "number" === typeof (input as any).typed &&
             Number.isFinite((input as any).typed) &&
-            Math.floor((input as any).typed) === (input as any).typed
+            Math.floor((input as any).typed) === (input as any).typed &&
+            -2147483648 <= (input as any).typed &&
+            (input as any).typed <= 2147483647
         );
     },
 );

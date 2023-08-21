@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_validate } from "../../../internal/_test_validate";
 import { DynamicTemplate } from "../../../structures/DynamicTemplate";
 
-export const test_validate_DynamicTemplate = _test_validate<DynamicTemplate>(
-    DynamicTemplate,
-)((input) =>
+export const test_validate_DynamicTemplate = _test_validate(
+    "DynamicTemplate",
+)<DynamicTemplate>(DynamicTemplate)((input) =>
     ((input: any): typia.IValidation<DynamicTemplate> => {
         const errors = [] as any[];
         const __is = (input: any): input is DynamicTemplate => {

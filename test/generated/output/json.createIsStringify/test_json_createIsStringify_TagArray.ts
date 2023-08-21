@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_json_isStringify } from "../../../internal/_test_json_isStringify";
 import { TagArray } from "../../../structures/TagArray";
 
-export const test_json_isStringify_TagArray = _test_json_isStringify<TagArray>(
-    TagArray,
-)((input: TagArray): string | null => {
+export const test_json_isStringify_TagArray = _test_json_isStringify(
+    "TagArray",
+)<TagArray>(TagArray)((input: TagArray): string | null => {
     const is = (input: any): input is TagArray => {
         const $is_uuid = (typia.json.createIsStringify as any).is_uuid;
         const $io0 = (input: any): boolean =>

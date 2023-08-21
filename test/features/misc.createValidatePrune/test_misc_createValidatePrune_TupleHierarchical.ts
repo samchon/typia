@@ -3,6 +3,6 @@ import { _test_misc_validatePrune } from "../../internal/_test_misc_validatePrun
 import { TupleHierarchical } from "../../structures/TupleHierarchical";
 
 export const test_misc_validatePrune_TupleHierarchical =
-    _test_misc_validatePrune<TupleHierarchical>(TupleHierarchical)(
-        typia.misc.createValidatePrune<TupleHierarchical>(),
-    );
+    _test_misc_validatePrune("TupleHierarchical")<TupleHierarchical>(
+        TupleHierarchical,
+    )(typia.misc.createValidatePrune<TupleHierarchical>());

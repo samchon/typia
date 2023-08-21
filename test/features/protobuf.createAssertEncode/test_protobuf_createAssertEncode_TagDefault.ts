@@ -3,7 +3,7 @@ import { _test_protobuf_assertEncode } from "../../internal/_test_protobuf_asser
 import { TagDefault } from "../../structures/TagDefault";
 
 export const test_protobuf_assertEncode_TagDefault =
-    _test_protobuf_assertEncode<TagDefault>(TagDefault)({
+    _test_protobuf_assertEncode("TagDefault")<TagDefault>(TagDefault)({
         assertEncode: typia.protobuf.createAssertEncode<TagDefault>(),
         message: typia.protobuf.message<TagDefault>(),
     });

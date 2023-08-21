@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_validate } from "../../../internal/_test_validate";
 import { TagInfinite } from "../../../structures/TagInfinite";
 
-export const test_validate_TagInfinite = _test_validate<TagInfinite>(
-    TagInfinite,
-)((input: any): typia.IValidation<TagInfinite> => {
+export const test_validate_TagInfinite = _test_validate(
+    "TagInfinite",
+)<TagInfinite>(TagInfinite)((input: any): typia.IValidation<TagInfinite> => {
     const errors = [] as any[];
     const __is = (input: any): input is TagInfinite => {
         return (
@@ -25,7 +25,9 @@ export const test_validate_TagInfinite = _test_validate<TagInfinite>(
             0 === (input as any).multipleOf % 3 &&
             "number" === typeof (input as any).typed &&
             Number.isFinite((input as any).typed) &&
-            Math.floor((input as any).typed) === (input as any).typed
+            Math.floor((input as any).typed) === (input as any).typed &&
+            -2147483648 <= (input as any).typed &&
+            (input as any).typed <= 2147483647
         );
     };
     if (false === __is(input)) {
@@ -107,6 +109,13 @@ export const test_validate_TagInfinite = _test_validate<TagInfinite>(
                     ("number" === typeof input.typed &&
                         Number.isFinite(input.typed) &&
                         (Math.floor(input.typed) === input.typed ||
+                            $report(_exceptionable, {
+                                path: _path + ".typed",
+                                expected: "number (@type int)",
+                                value: input.typed,
+                            })) &&
+                        ((-2147483648 <= input.typed &&
+                            input.typed <= 2147483647) ||
                             $report(_exceptionable, {
                                 path: _path + ".typed",
                                 expected: "number (@type int)",

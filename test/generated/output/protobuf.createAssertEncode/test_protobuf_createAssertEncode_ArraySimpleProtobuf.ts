@@ -3,7 +3,9 @@ import { _test_protobuf_assertEncode } from "../../../internal/_test_protobuf_as
 import { ArraySimpleProtobuf } from "../../../structures/ArraySimpleProtobuf";
 
 export const test_protobuf_assertEncode_ArraySimpleProtobuf =
-    _test_protobuf_assertEncode<ArraySimpleProtobuf>(ArraySimpleProtobuf)({
+    _test_protobuf_assertEncode("ArraySimpleProtobuf")<ArraySimpleProtobuf>(
+        ArraySimpleProtobuf,
+    )({
         assertEncode: (input: any): Uint8Array => {
             const assert = (input: any): ArraySimpleProtobuf => {
                 const __is = (input: any): input is ArraySimpleProtobuf => {

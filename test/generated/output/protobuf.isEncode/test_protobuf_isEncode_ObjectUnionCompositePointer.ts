@@ -3,9 +3,9 @@ import { _test_protobuf_isEncode } from "../../../internal/_test_protobuf_isEnco
 import { ObjectUnionCompositePointer } from "../../../structures/ObjectUnionCompositePointer";
 
 export const test_protobuf_isEncode_ObjectUnionCompositePointer =
-    _test_protobuf_isEncode<ObjectUnionCompositePointer>(
-        ObjectUnionCompositePointer,
-    )({
+    _test_protobuf_isEncode(
+        "ObjectUnionCompositePointer",
+    )<ObjectUnionCompositePointer>(ObjectUnionCompositePointer)({
         isEncode: (input) =>
             ((input: ObjectUnionCompositePointer): Uint8Array | null => {
                 const is = (

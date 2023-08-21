@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_assert } from "../../../internal/_test_assert";
 import { ObjectHierarchical } from "../../../structures/ObjectHierarchical";
 
-export const test_assert_ObjectHierarchical = _test_assert<ObjectHierarchical>(
-    ObjectHierarchical,
-)((input: any): ObjectHierarchical => {
+export const test_assert_ObjectHierarchical = _test_assert(
+    "ObjectHierarchical",
+)<ObjectHierarchical>(ObjectHierarchical)((input: any): ObjectHierarchical => {
     const __is = (input: any): input is ObjectHierarchical => {
         const $is_url = (typia.createAssert as any).is_url;
         const $is_ipv4 = (typia.createAssert as any).is_ipv4;

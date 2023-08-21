@@ -5,6 +5,7 @@ import { primitive_equal_to } from "../helpers/primitive_equal_to";
 import { _check_invalidate_json_value } from "./_check_invalidate_json_value";
 
 export const _test_json_assertParse =
+    (name: string) =>
     <T>(factory: TestStructure<T>) =>
     (parse: (input: string) => Primitive<T>) =>
     () => {
@@ -15,7 +16,7 @@ export const _test_json_assertParse =
 
         if (primitive_equal_to(expected, parsed) === false) {
             throw new Error(
-                `Bug on typia.json.assertParse(): failed to understand the ${factory.constructor.name} type.`,
+                `Bug on typia.json.assertParse(): failed to understand the ${name} type.`,
             );
         }
 
@@ -37,7 +38,7 @@ export const _test_json_assertParse =
                         });
             }
             throw new Error(
-                `Bug on typia.json.assertParse(): failed to detect error on the ${factory.constructor.name} type.`,
+                `Bug on typia.json.assertParse(): failed to detect error on the ${name} type.`,
             );
         }
     };

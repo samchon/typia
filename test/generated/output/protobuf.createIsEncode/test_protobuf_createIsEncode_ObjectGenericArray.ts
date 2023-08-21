@@ -3,7 +3,9 @@ import { _test_protobuf_isEncode } from "../../../internal/_test_protobuf_isEnco
 import { ObjectGenericArray } from "../../../structures/ObjectGenericArray";
 
 export const test_protobuf_isEncode_ObjectGenericArray =
-    _test_protobuf_isEncode<ObjectGenericArray>(ObjectGenericArray)({
+    _test_protobuf_isEncode("ObjectGenericArray")<ObjectGenericArray>(
+        ObjectGenericArray,
+    )({
         isEncode: (input: ObjectGenericArray): Uint8Array | null => {
             const is = (input: any): input is ObjectGenericArray => {
                 const $io0 = (input: any): boolean =>

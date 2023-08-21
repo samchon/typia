@@ -3,9 +3,9 @@ import { _test_json_assertParse } from "../../../internal/_test_json_assertParse
 import { ArrayRepeatedUnionWithTuple } from "../../../structures/ArrayRepeatedUnionWithTuple";
 
 export const test_json_assertParse_ArrayRepeatedUnionWithTuple =
-    _test_json_assertParse<ArrayRepeatedUnionWithTuple>(
-        ArrayRepeatedUnionWithTuple,
-    )((input) =>
+    _test_json_assertParse(
+        "ArrayRepeatedUnionWithTuple",
+    )<ArrayRepeatedUnionWithTuple>(ArrayRepeatedUnionWithTuple)((input) =>
         ((input: string): typia.Primitive<ArrayRepeatedUnionWithTuple> => {
             const assert = (input: any): ArrayRepeatedUnionWithTuple => {
                 const __is = (

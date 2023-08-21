@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_assert } from "../../../internal/_test_assert";
 import { ObjectJsonTag } from "../../../structures/ObjectJsonTag";
 
-export const test_assert_ObjectJsonTag = _test_assert<ObjectJsonTag>(
-    ObjectJsonTag,
-)((input) =>
+export const test_assert_ObjectJsonTag = _test_assert(
+    "ObjectJsonTag",
+)<ObjectJsonTag>(ObjectJsonTag)((input) =>
     ((input: any): ObjectJsonTag => {
         const __is = (input: any): input is ObjectJsonTag => {
             const $is_custom = (typia.assert as any).is_custom;

@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_misc_prune } from "../../../internal/_test_misc_prune";
 import { TagAtomicUnion } from "../../../structures/TagAtomicUnion";
 
-export const test_misc_prune_TagAtomicUnion = _test_misc_prune<TagAtomicUnion>(
-    TagAtomicUnion,
-)((input) =>
+export const test_misc_prune_TagAtomicUnion = _test_misc_prune(
+    "TagAtomicUnion",
+)<TagAtomicUnion>(TagAtomicUnion)((input) =>
     ((input: TagAtomicUnion): void => {
         const $io1 = (input: any): boolean =>
             ("string" === typeof input.value &&

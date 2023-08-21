@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_validate } from "../../../internal/_test_validate";
 import { ObjectDynamic } from "../../../structures/ObjectDynamic";
 
-export const test_validate_ObjectDynamic = _test_validate<ObjectDynamic>(
-    ObjectDynamic,
-)((input) =>
+export const test_validate_ObjectDynamic = _test_validate(
+    "ObjectDynamic",
+)<ObjectDynamic>(ObjectDynamic)((input) =>
     ((input: any): typia.IValidation<ObjectDynamic> => {
         const errors = [] as any[];
         const __is = (input: any): input is ObjectDynamic => {

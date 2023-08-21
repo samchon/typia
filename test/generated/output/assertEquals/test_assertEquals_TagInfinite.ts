@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_assertEquals } from "../../../internal/_test_assertEquals";
 import { TagInfinite } from "../../../structures/TagInfinite";
 
-export const test_assertEquals_TagInfinite = _test_assertEquals<TagInfinite>(
-    TagInfinite,
-)((input) =>
+export const test_assertEquals_TagInfinite = _test_assertEquals(
+    "TagInfinite",
+)<TagInfinite>(TagInfinite)((input) =>
     ((input: any): TagInfinite => {
         const __is = (
             input: any,
@@ -30,6 +30,8 @@ export const test_assertEquals_TagInfinite = _test_assertEquals<TagInfinite>(
                 "number" === typeof input.typed &&
                 Number.isFinite(input.typed) &&
                 Math.floor(input.typed) === input.typed &&
+                -2147483648 <= input.typed &&
+                input.typed <= 2147483647 &&
                 (6 === Object.keys(input).length ||
                     Object.keys(input).every((key: any) => {
                         if (
@@ -130,6 +132,13 @@ export const test_assertEquals_TagInfinite = _test_assertEquals<TagInfinite>(
                     (("number" === typeof input.typed &&
                         Number.isFinite(input.typed) &&
                         (Math.floor(input.typed) === input.typed ||
+                            $guard(_exceptionable, {
+                                path: _path + ".typed",
+                                expected: "number (@type int)",
+                                value: input.typed,
+                            })) &&
+                        ((-2147483648 <= input.typed &&
+                            input.typed <= 2147483647) ||
                             $guard(_exceptionable, {
                                 path: _path + ".typed",
                                 expected: "number (@type int)",

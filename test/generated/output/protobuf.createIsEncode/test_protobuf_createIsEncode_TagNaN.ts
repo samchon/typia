@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_protobuf_isEncode } from "../../../internal/_test_protobuf_isEncode";
 import { TagNaN } from "../../../structures/TagNaN";
 
-export const test_protobuf_isEncode_TagNaN = _test_protobuf_isEncode<TagNaN>(
-    TagNaN,
-)({
+export const test_protobuf_isEncode_TagNaN = _test_protobuf_isEncode(
+    "TagNaN",
+)<TagNaN>(TagNaN)({
     isEncode: (input: TagNaN): Uint8Array | null => {
         const is = (input: any): input is TagNaN => {
             return (
@@ -25,7 +25,9 @@ export const test_protobuf_isEncode_TagNaN = _test_protobuf_isEncode<TagNaN>(
                 0 === (input as any).multipleOf % 3 &&
                 "number" === typeof (input as any).typed &&
                 Number.isFinite((input as any).typed) &&
-                Math.floor((input as any).typed) === (input as any).typed
+                Math.floor((input as any).typed) === (input as any).typed &&
+                -2147483648 <= (input as any).typed &&
+                (input as any).typed <= 2147483647
             );
         };
         const encode = (input: TagNaN): Uint8Array => {

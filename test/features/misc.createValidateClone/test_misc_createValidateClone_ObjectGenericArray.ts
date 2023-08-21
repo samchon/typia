@@ -3,6 +3,6 @@ import { _test_misc_validateClone } from "../../internal/_test_misc_validateClon
 import { ObjectGenericArray } from "../../structures/ObjectGenericArray";
 
 export const test_misc_validateClone_ObjectGenericArray =
-    _test_misc_validateClone<ObjectGenericArray>(ObjectGenericArray)(
-        typia.misc.createValidateClone<ObjectGenericArray>(),
-    );
+    _test_misc_validateClone("ObjectGenericArray")<ObjectGenericArray>(
+        ObjectGenericArray,
+    )(typia.misc.createValidateClone<ObjectGenericArray>());

@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_json_assertParse } from "../../../internal/_test_json_assertParse";
 import { TagStep } from "../../../structures/TagStep";
 
-export const test_json_assertParse_TagStep = _test_json_assertParse<TagStep>(
-    TagStep,
-)((input) =>
+export const test_json_assertParse_TagStep = _test_json_assertParse(
+    "TagStep",
+)<TagStep>(TagStep)((input) =>
     ((input: string): typia.Primitive<TagStep> => {
         const assert = (input: any): TagStep => {
             const __is = (input: any): input is TagStep => {

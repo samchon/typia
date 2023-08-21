@@ -3,7 +3,9 @@ import { _test_protobuf_validateEncode } from "../../../internal/_test_protobuf_
 import { ObjectIntersection } from "../../../structures/ObjectIntersection";
 
 export const test_protobuf_validateEncode_ObjectIntersection =
-    _test_protobuf_validateEncode<ObjectIntersection>(ObjectIntersection)({
+    _test_protobuf_validateEncode("ObjectIntersection")<ObjectIntersection>(
+        ObjectIntersection,
+    )({
         validateEncode: (input) =>
             ((input: ObjectIntersection): typia.IValidation<Uint8Array> => {
                 const validate = (

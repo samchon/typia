@@ -21,7 +21,7 @@ export const checkCommentTag = typia.createIs<CommentTag>();
 
 interface CommentTag {
     /**
-     * @type int
+     * @type uint
      */
     type: number;
 
@@ -66,7 +66,9 @@ export const checkCommentTag = (input) => {
     const $is_uuid = typia.createIs.is_uuid;
     const $io0 = (input) =>
         "number" === typeof input.type &&
-        parseInt(input.type) === input.type &&
+        Math.floor(input.type) === input.type &&
+        0 <= input.type &&
+         input.type <= 4_294_967_295 &&
         (undefined === input.number ||
             ("number" === typeof input.number &&
                 19 < input.number &&
@@ -96,12 +98,24 @@ export const checkCommentTag = (input) => {
 I think below list is not hard to understand.
 
   - number
-    - `@type {"int"|"uint"}`
+    - `@type {string}`
+      - `int` / `int32`
+      - `uint` / `uint32`
+      - `int64`
+      - `uint64`
+      - `float`
     - `@minimum {number}`
     - `@maximum {number}`
     - `@exclusiveMinimum {number}`
     - `@exclusiveMaximum {number}`
     - `@multipleOf {number}`
+  - bigint
+    - `@type uint64`
+    - `@minimum {bigint}`
+    - `@maximum {bigint}`
+    - `@exclusiveMinimum {bigint}`
+    - `@exclusiveMaximum {bigint}`
+    - `@multipleOf {bigint}`
   - string
     - `@minLength {number}`
     - `@maxLength {number}`

@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_misc_isPrune } from "../../../internal/_test_misc_isPrune";
 import { TagCustom } from "../../../structures/TagCustom";
 
-export const test_misc_isPrune_TagCustom = _test_misc_isPrune<TagCustom>(
-    TagCustom,
-)((input) =>
+export const test_misc_isPrune_TagCustom = _test_misc_isPrune(
+    "TagCustom",
+)<TagCustom>(TagCustom)((input) =>
     ((input: any): input is TagCustom => {
         const is = (input: any): input is TagCustom => {
             const $is_uuid = (typia.misc.isPrune as any).is_uuid;

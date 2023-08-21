@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_misc_clone } from "../../../internal/_test_misc_clone";
 import { ArrayUnion } from "../../../structures/ArrayUnion";
 
-export const test_misc_clone_ArrayUnion = _test_misc_clone<ArrayUnion>(
-    ArrayUnion,
-)((input) =>
+export const test_misc_clone_ArrayUnion = _test_misc_clone(
+    "ArrayUnion",
+)<ArrayUnion>(ArrayUnion)((input) =>
     ((input: ArrayUnion): typia.Primitive<ArrayUnion> => {
         const $throws = (typia.misc.clone as any).throws;
         const $cp0 = (input: any) => {

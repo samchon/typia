@@ -3,9 +3,9 @@ import { _test_json_assertParse } from "../../../internal/_test_json_assertParse
 import { ObjectUnionCompositePointer } from "../../../structures/ObjectUnionCompositePointer";
 
 export const test_json_assertParse_ObjectUnionCompositePointer =
-    _test_json_assertParse<ObjectUnionCompositePointer>(
-        ObjectUnionCompositePointer,
-    )((input) =>
+    _test_json_assertParse(
+        "ObjectUnionCompositePointer",
+    )<ObjectUnionCompositePointer>(ObjectUnionCompositePointer)((input) =>
         ((input: string): typia.Primitive<ObjectUnionCompositePointer> => {
             const assert = (input: any): ObjectUnionCompositePointer => {
                 const __is = (

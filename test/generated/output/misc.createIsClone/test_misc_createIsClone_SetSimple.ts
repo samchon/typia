@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_misc_isClone } from "../../../internal/_test_misc_isClone";
 import { SetSimple } from "../../../structures/SetSimple";
 
-export const test_misc_isClone_SetSimple = _test_misc_isClone<SetSimple>(
-    SetSimple,
-)((input: any): typia.Primitive<SetSimple> | null => {
+export const test_misc_isClone_SetSimple = _test_misc_isClone(
+    "SetSimple",
+)<SetSimple>(SetSimple)((input: any): typia.Primitive<SetSimple> | null => {
     const is = (input: any): input is SetSimple => {
         const $io0 = (input: any): boolean =>
             input.booleans instanceof Set &&

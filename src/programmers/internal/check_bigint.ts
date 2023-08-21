@@ -31,12 +31,18 @@ export const check_bigint =
                 entries.push([
                     tag,
                     ts.factory.createStrictEquality(
-                        cast(0),
-                        ts.factory.createModulo(input, cast(tag.value)),
+                        ExpressionFactory.bigint(0),
+                        ts.factory.createModulo(
+                            input,
+                            ExpressionFactory.bigint(tag.value),
+                        ),
                     ),
                 ]);
             else if (tag.kind === "step") {
-                const modulo = ts.factory.createModulo(input, cast(tag.value));
+                const modulo = ts.factory.createModulo(
+                    input,
+                    ExpressionFactory.bigint(tag.value),
+                );
                 const minimum =
                     (metaTags.find(
                         (tag) =>
@@ -46,31 +52,46 @@ export const check_bigint =
                 entries.push([
                     tag,
                     ts.factory.createStrictEquality(
-                        cast(0),
+                        ExpressionFactory.bigint(0),
                         minimum !== undefined
-                            ? ts.factory.createSubtract(modulo, cast(minimum))
+                            ? ts.factory.createSubtract(
+                                  modulo,
+                                  ExpressionFactory.bigint(minimum),
+                              )
                             : modulo,
                     ),
                 ]);
             } else if (tag.kind === "minimum")
                 entries.push([
                     tag,
-                    ts.factory.createLessThanEquals(cast(tag.value), input),
+                    ts.factory.createLessThanEquals(
+                        ExpressionFactory.bigint(tag.value),
+                        input,
+                    ),
                 ]);
             else if (tag.kind === "maximum")
                 entries.push([
                     tag,
-                    ts.factory.createGreaterThanEquals(cast(tag.value), input),
+                    ts.factory.createGreaterThanEquals(
+                        ExpressionFactory.bigint(tag.value),
+                        input,
+                    ),
                 ]);
             else if (tag.kind === "exclusiveMinimum")
                 entries.push([
                     tag,
-                    ts.factory.createLessThan(cast(tag.value), input),
+                    ts.factory.createLessThan(
+                        ExpressionFactory.bigint(tag.value),
+                        input,
+                    ),
                 ]);
             else if (tag.kind === "exclusiveMaximum")
                 entries.push([
                     tag,
-                    ts.factory.createGreaterThan(cast(tag.value), input),
+                    ts.factory.createGreaterThan(
+                        ExpressionFactory.bigint(tag.value),
+                        input,
+                    ),
                 ]);
         }
         return {
@@ -87,6 +108,3 @@ export const check_bigint =
             ],
         };
     };
-
-const cast = (value: number) =>
-    ts.factory.createIdentifier(`${Math.floor(value)}n`);

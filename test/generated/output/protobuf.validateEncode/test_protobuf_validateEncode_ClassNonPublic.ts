@@ -3,7 +3,9 @@ import { _test_protobuf_validateEncode } from "../../../internal/_test_protobuf_
 import { ClassNonPublic } from "../../../structures/ClassNonPublic";
 
 export const test_protobuf_validateEncode_ClassNonPublic =
-    _test_protobuf_validateEncode<ClassNonPublic>(ClassNonPublic)({
+    _test_protobuf_validateEncode("ClassNonPublic")<ClassNonPublic>(
+        ClassNonPublic,
+    )({
         validateEncode: (input) =>
             ((input: ClassNonPublic): typia.IValidation<Uint8Array> => {
                 const validate = (

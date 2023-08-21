@@ -3,14 +3,14 @@ syntax = "proto3";
 message TagRange {
     repeated TagRange.Type value = 1;
     message Type {
-        required double greater = 1;
-        required double greater_equal = 2;
-        required double less = 3;
-        required double less_equal = 4;
-        required double greater_less = 5;
-        required double greater_equal_less = 6;
-        required double greater_less_equal = 7;
-        required double greater_equal_less_equal = 8;
-        required double equal = 9;
+        required int32 greater = 1;
+        required int32 greater_equal = 2;
+        required int32 less = 3;
+        required int32 less_equal = 4;
+        required int32 greater_less = 5;
+        required int32 greater_equal_less = 6;
+        required int32 greater_less_equal = 7;
+        required int32 greater_equal_less_equal = 8;
+        required int32 equal = 9;
     }
 }

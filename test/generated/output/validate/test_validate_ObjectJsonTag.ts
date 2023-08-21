@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_validate } from "../../../internal/_test_validate";
 import { ObjectJsonTag } from "../../../structures/ObjectJsonTag";
 
-export const test_validate_ObjectJsonTag = _test_validate<ObjectJsonTag>(
-    ObjectJsonTag,
-)((input) =>
+export const test_validate_ObjectJsonTag = _test_validate(
+    "ObjectJsonTag",
+)<ObjectJsonTag>(ObjectJsonTag)((input) =>
     ((input: any): typia.IValidation<ObjectJsonTag> => {
         const errors = [] as any[];
         const __is = (input: any): input is ObjectJsonTag => {

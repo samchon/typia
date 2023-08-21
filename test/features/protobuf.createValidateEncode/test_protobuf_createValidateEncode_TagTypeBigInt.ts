@@ -1,0 +1,11 @@
+import typia from "../../../src";
+import { _test_protobuf_validateEncode } from "../../internal/_test_protobuf_validateEncode";
+import { TagTypeBigInt } from "../../structures/TagTypeBigInt";
+
+export const test_protobuf_validateEncode_TagTypeBigInt =
+    _test_protobuf_validateEncode("TagTypeBigInt")<TagTypeBigInt>(
+        TagTypeBigInt,
+    )({
+        validateEncode: typia.protobuf.createValidateEncode<TagTypeBigInt>(),
+        message: typia.protobuf.message<TagTypeBigInt>(),
+    });

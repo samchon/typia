@@ -3,9 +3,9 @@ import { _test_protobuf_assertEncode } from "../../../internal/_test_protobuf_as
 import { ClassPropertyAssignment } from "../../../structures/ClassPropertyAssignment";
 
 export const test_protobuf_assertEncode_ClassPropertyAssignment =
-    _test_protobuf_assertEncode<ClassPropertyAssignment>(
-        ClassPropertyAssignment,
-    )({
+    _test_protobuf_assertEncode(
+        "ClassPropertyAssignment",
+    )<ClassPropertyAssignment>(ClassPropertyAssignment)({
         assertEncode: (input) =>
             ((input: any): Uint8Array => {
                 const assert = (input: any): ClassPropertyAssignment => {

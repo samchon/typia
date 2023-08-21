@@ -3,9 +3,9 @@ import { _test_json_isStringify } from "../../../internal/_test_json_isStringify
 import { ArrayRecursiveUnionExplicit } from "../../../structures/ArrayRecursiveUnionExplicit";
 
 export const test_json_isStringify_ArrayRecursiveUnionExplicit =
-    _test_json_isStringify<ArrayRecursiveUnionExplicit>(
-        ArrayRecursiveUnionExplicit,
-    )((input) =>
+    _test_json_isStringify(
+        "ArrayRecursiveUnionExplicit",
+    )<ArrayRecursiveUnionExplicit>(ArrayRecursiveUnionExplicit)((input) =>
         ((input: ArrayRecursiveUnionExplicit): string | null => {
             const is = (input: any): input is ArrayRecursiveUnionExplicit => {
                 const $io0 = (input: any): boolean =>

@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_misc_assertClone } from "../../../internal/_test_misc_assertClone";
 import { SetUnion } from "../../../structures/SetUnion";
 
-export const test_misc_assertClone_SetUnion = _test_misc_assertClone<SetUnion>(
-    SetUnion,
-)((input: any): typia.Primitive<SetUnion> => {
+export const test_misc_assertClone_SetUnion = _test_misc_assertClone(
+    "SetUnion",
+)<SetUnion>(SetUnion)((input: any): typia.Primitive<SetUnion> => {
     const assert = (input: any): SetUnion => {
         const __is = (input: any): input is SetUnion => {
             const $io0 = (input: any): boolean =>

@@ -3,9 +3,9 @@ import { _test_json_isStringify } from "../../../internal/_test_json_isStringify
 import { ObjectUnionNonPredictable } from "../../../structures/ObjectUnionNonPredictable";
 
 export const test_json_isStringify_ObjectUnionNonPredictable =
-    _test_json_isStringify<ObjectUnionNonPredictable>(
-        ObjectUnionNonPredictable,
-    )((input) =>
+    _test_json_isStringify(
+        "ObjectUnionNonPredictable",
+    )<ObjectUnionNonPredictable>(ObjectUnionNonPredictable)((input) =>
         ((input: ObjectUnionNonPredictable): string | null => {
             const is = (input: any): input is ObjectUnionNonPredictable => {
                 const $io0 = (input: any): boolean =>

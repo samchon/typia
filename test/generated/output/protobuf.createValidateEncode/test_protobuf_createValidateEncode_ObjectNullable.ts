@@ -3,7 +3,9 @@ import { _test_protobuf_validateEncode } from "../../../internal/_test_protobuf_
 import { ObjectNullable } from "../../../structures/ObjectNullable";
 
 export const test_protobuf_validateEncode_ObjectNullable =
-    _test_protobuf_validateEncode<ObjectNullable>(ObjectNullable)({
+    _test_protobuf_validateEncode("ObjectNullable")<ObjectNullable>(
+        ObjectNullable,
+    )({
         validateEncode: (
             input: ObjectNullable,
         ): typia.IValidation<Uint8Array> => {

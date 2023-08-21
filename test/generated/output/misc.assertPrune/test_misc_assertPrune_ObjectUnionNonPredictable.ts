@@ -3,9 +3,9 @@ import { _test_misc_assertPrune } from "../../../internal/_test_misc_assertPrune
 import { ObjectUnionNonPredictable } from "../../../structures/ObjectUnionNonPredictable";
 
 export const test_misc_assertPrune_ObjectUnionNonPredictable =
-    _test_misc_assertPrune<ObjectUnionNonPredictable>(
-        ObjectUnionNonPredictable,
-    )((input) =>
+    _test_misc_assertPrune(
+        "ObjectUnionNonPredictable",
+    )<ObjectUnionNonPredictable>(ObjectUnionNonPredictable)((input) =>
         ((input: any): ObjectUnionNonPredictable => {
             const assert = (input: any): ObjectUnionNonPredictable => {
                 const __is = (

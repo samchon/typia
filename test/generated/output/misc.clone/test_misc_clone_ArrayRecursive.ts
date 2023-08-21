@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_misc_clone } from "../../../internal/_test_misc_clone";
 import { ArrayRecursive } from "../../../structures/ArrayRecursive";
 
-export const test_misc_clone_ArrayRecursive = _test_misc_clone<ArrayRecursive>(
-    ArrayRecursive,
-)((input) =>
+export const test_misc_clone_ArrayRecursive = _test_misc_clone(
+    "ArrayRecursive",
+)<ArrayRecursive>(ArrayRecursive)((input) =>
     ((input: ArrayRecursive): typia.Primitive<ArrayRecursive> => {
         const $io0 = (input: any): boolean =>
             Array.isArray(input.children) &&

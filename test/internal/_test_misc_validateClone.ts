@@ -5,6 +5,7 @@ import { primitive_clone } from "../helpers/primitive_clone";
 import { primitive_equal_to } from "../helpers/primitive_equal_to";
 
 export const _test_misc_validateClone =
+    (name: string) =>
     <T>(factory: TestStructure<T>) =>
     (clone: (input: T) => typia.IValidation<typia.Primitive<T>>) =>
     () => {
@@ -13,12 +14,12 @@ export const _test_misc_validateClone =
         const valid: typia.IValidation<typia.Primitive<T>> = clone(input);
         if (valid.success === false)
             throw new Error(
-                `Bug on typia.validateClone(): failed to understand the ${factory.constructor.name} type.`,
+                `Bug on typia.validateClone(): failed to understand the ${name} type.`,
             );
 
         if (primitive_equal_to(replica, valid.data) === false) {
             throw new Error(
-                `Bug on typia.assertStringify(): failed to understand the ${factory.constructor.name} type.`,
+                `Bug on typia.assertStringify(): failed to understand the ${name} type.`,
             );
         }
 
@@ -30,7 +31,7 @@ export const _test_misc_validateClone =
 
             if (valid.success === true)
                 throw new Error(
-                    `Bug on typia.validateClone(): failed to detect error on the ${factory.constructor.name} type.`,
+                    `Bug on typia.validateClone(): failed to detect error on the ${name} type.`,
                 );
 
             typia.assert(valid);
@@ -48,7 +49,7 @@ export const _test_misc_validateClone =
         }
         if (wrong.length !== 0)
             throw new Error(
-                `Bug on typia.validateClone(): failed to detect error on the ${factory.constructor.name} type.`,
+                `Bug on typia.validateClone(): failed to detect error on the ${name} type.`,
             );
     };
 

@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_is } from "../../../internal/_test_is";
 import { ObjectUnionComposite } from "../../../structures/ObjectUnionComposite";
 
-export const test_is_ObjectUnionComposite = _test_is<ObjectUnionComposite>(
-    ObjectUnionComposite,
-)((input) =>
+export const test_is_ObjectUnionComposite = _test_is(
+    "ObjectUnionComposite",
+)<ObjectUnionComposite>(ObjectUnionComposite)((input) =>
     ((input: any): input is ObjectUnionComposite => {
         const $io0 = (input: any): boolean =>
             "number" === typeof input.x &&

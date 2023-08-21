@@ -3,9 +3,9 @@ import { _test_protobuf_encode } from "../../../internal/_test_protobuf_encode";
 import { ObjectUnionCompositePointer } from "../../../structures/ObjectUnionCompositePointer";
 
 export const test_protobuf_encode_ObjectUnionCompositePointer =
-    _test_protobuf_encode<ObjectUnionCompositePointer>(
-        ObjectUnionCompositePointer,
-    )({
+    _test_protobuf_encode(
+        "ObjectUnionCompositePointer",
+    )<ObjectUnionCompositePointer>(ObjectUnionCompositePointer)({
         encode: (input) =>
             ((input: ObjectUnionCompositePointer): Uint8Array => {
                 const $Sizer = (typia.protobuf.encode as any).Sizer;

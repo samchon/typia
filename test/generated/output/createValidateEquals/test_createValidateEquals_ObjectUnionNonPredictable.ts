@@ -3,7 +3,9 @@ import { _test_validateEquals } from "../../../internal/_test_validateEquals";
 import { ObjectUnionNonPredictable } from "../../../structures/ObjectUnionNonPredictable";
 
 export const test_validateEquals_ObjectUnionNonPredictable =
-    _test_validateEquals<ObjectUnionNonPredictable>(ObjectUnionNonPredictable)(
+    _test_validateEquals(
+        "ObjectUnionNonPredictable",
+    )<ObjectUnionNonPredictable>(ObjectUnionNonPredictable)(
         (input: any): typia.IValidation<ObjectUnionNonPredictable> => {
             const errors = [] as any[];
             const __is = (

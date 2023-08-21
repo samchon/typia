@@ -2,7 +2,8 @@ import typia from "../../../src";
 import { _test_validateEquals } from "../../internal/_test_validateEquals";
 import { FunctionalObjectUnion } from "../../structures/FunctionalObjectUnion";
 
-export const test_validateEquals_FunctionalObjectUnion =
-    _test_validateEquals<FunctionalObjectUnion>(FunctionalObjectUnion)(
-        typia.createValidateEquals<FunctionalObjectUnion>(),
-    );
+export const test_validateEquals_FunctionalObjectUnion = _test_validateEquals(
+    "FunctionalObjectUnion",
+)<FunctionalObjectUnion>(FunctionalObjectUnion)(
+    typia.createValidateEquals<FunctionalObjectUnion>(),
+);

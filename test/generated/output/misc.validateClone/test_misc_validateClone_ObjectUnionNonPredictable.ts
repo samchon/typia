@@ -3,9 +3,9 @@ import { _test_misc_validateClone } from "../../../internal/_test_misc_validateC
 import { ObjectUnionNonPredictable } from "../../../structures/ObjectUnionNonPredictable";
 
 export const test_misc_validateClone_ObjectUnionNonPredictable =
-    _test_misc_validateClone<ObjectUnionNonPredictable>(
-        ObjectUnionNonPredictable,
-    )((input) =>
+    _test_misc_validateClone(
+        "ObjectUnionNonPredictable",
+    )<ObjectUnionNonPredictable>(ObjectUnionNonPredictable)((input) =>
         ((
             input: any,
         ): typia.IValidation<typia.Primitive<ObjectUnionNonPredictable>> => {

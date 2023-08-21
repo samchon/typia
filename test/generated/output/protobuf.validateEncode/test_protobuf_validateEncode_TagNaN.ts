@@ -3,7 +3,7 @@ import { _test_protobuf_validateEncode } from "../../../internal/_test_protobuf_
 import { TagNaN } from "../../../structures/TagNaN";
 
 export const test_protobuf_validateEncode_TagNaN =
-    _test_protobuf_validateEncode<TagNaN>(TagNaN)({
+    _test_protobuf_validateEncode("TagNaN")<TagNaN>(TagNaN)({
         validateEncode: (input) =>
             ((input: TagNaN): typia.IValidation<Uint8Array> => {
                 const validate = (input: any): typia.IValidation<TagNaN> => {
@@ -28,7 +28,9 @@ export const test_protobuf_validateEncode_TagNaN =
                             "number" === typeof (input as any).typed &&
                             Number.isFinite((input as any).typed) &&
                             Math.floor((input as any).typed) ===
-                                (input as any).typed
+                                (input as any).typed &&
+                            -2147483648 <= (input as any).typed &&
+                            (input as any).typed <= 2147483647
                         );
                     };
                     if (false === __is(input)) {
@@ -116,6 +118,13 @@ export const test_protobuf_validateEncode_TagNaN =
                                         Number.isFinite(input.typed) &&
                                         (Math.floor(input.typed) ===
                                             input.typed ||
+                                            $report(_exceptionable, {
+                                                path: _path + ".typed",
+                                                expected: "number (@type int)",
+                                                value: input.typed,
+                                            })) &&
+                                        ((-2147483648 <= input.typed &&
+                                            input.typed <= 2147483647) ||
                                             $report(_exceptionable, {
                                                 path: _path + ".typed",
                                                 expected: "number (@type int)",

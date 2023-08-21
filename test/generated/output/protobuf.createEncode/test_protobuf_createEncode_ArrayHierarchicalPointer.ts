@@ -3,7 +3,9 @@ import { _test_protobuf_encode } from "../../../internal/_test_protobuf_encode";
 import { ArrayHierarchicalPointer } from "../../../structures/ArrayHierarchicalPointer";
 
 export const test_protobuf_encode_ArrayHierarchicalPointer =
-    _test_protobuf_encode<ArrayHierarchicalPointer>(ArrayHierarchicalPointer)({
+    _test_protobuf_encode("ArrayHierarchicalPointer")<ArrayHierarchicalPointer>(
+        ArrayHierarchicalPointer,
+    )({
         encode: (input: ArrayHierarchicalPointer): Uint8Array => {
             const $Sizer = (typia.protobuf.createEncode as any).Sizer;
             const $Writer = (typia.protobuf.createEncode as any).Writer;

@@ -3,7 +3,7 @@ import { _test_json_validateStringify } from "../../../internal/_test_json_valid
 import { ObjectTuple } from "../../../structures/ObjectTuple";
 
 export const test_json_validateStringify_ObjectTuple =
-    _test_json_validateStringify<ObjectTuple>(ObjectTuple)(
+    _test_json_validateStringify("ObjectTuple")<ObjectTuple>(ObjectTuple)(
         (input: ObjectTuple): typia.IValidation<string> => {
             const validate = (input: any): typia.IValidation<ObjectTuple> => {
                 const errors = [] as any[];

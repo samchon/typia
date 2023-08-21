@@ -3,9 +3,9 @@ import { _test_protobuf_assertEncode } from "../../../internal/_test_protobuf_as
 import { ArrayRecursiveUnionExplicitPointer } from "../../../structures/ArrayRecursiveUnionExplicitPointer";
 
 export const test_protobuf_assertEncode_ArrayRecursiveUnionExplicitPointer =
-    _test_protobuf_assertEncode<ArrayRecursiveUnionExplicitPointer>(
-        ArrayRecursiveUnionExplicitPointer,
-    )({
+    _test_protobuf_assertEncode(
+        "ArrayRecursiveUnionExplicitPointer",
+    )<ArrayRecursiveUnionExplicitPointer>(ArrayRecursiveUnionExplicitPointer)({
         assertEncode: (input) =>
             ((input: any): Uint8Array => {
                 const assert = (

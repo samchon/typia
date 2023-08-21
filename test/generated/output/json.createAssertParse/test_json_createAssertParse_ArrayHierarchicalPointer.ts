@@ -3,7 +3,9 @@ import { _test_json_assertParse } from "../../../internal/_test_json_assertParse
 import { ArrayHierarchicalPointer } from "../../../structures/ArrayHierarchicalPointer";
 
 export const test_json_assertParse_ArrayHierarchicalPointer =
-    _test_json_assertParse<ArrayHierarchicalPointer>(ArrayHierarchicalPointer)(
+    _test_json_assertParse(
+        "ArrayHierarchicalPointer",
+    )<ArrayHierarchicalPointer>(ArrayHierarchicalPointer)(
         (input: string): typia.Primitive<ArrayHierarchicalPointer> => {
             const assert = (input: any): ArrayHierarchicalPointer => {
                 const __is = (

@@ -2,10 +2,10 @@ import typia from "../../../../src";
 import { _test_assert } from "../../../internal/_test_assert";
 import { ArrayRecursiveUnionExplicitPointer } from "../../../structures/ArrayRecursiveUnionExplicitPointer";
 
-export const test_assert_ArrayRecursiveUnionExplicitPointer =
-    _test_assert<ArrayRecursiveUnionExplicitPointer>(
-        ArrayRecursiveUnionExplicitPointer,
-    )((input: any): ArrayRecursiveUnionExplicitPointer => {
+export const test_assert_ArrayRecursiveUnionExplicitPointer = _test_assert(
+    "ArrayRecursiveUnionExplicitPointer",
+)<ArrayRecursiveUnionExplicitPointer>(ArrayRecursiveUnionExplicitPointer)(
+    (input: any): ArrayRecursiveUnionExplicitPointer => {
         const __is = (
             input: any,
         ): input is ArrayRecursiveUnionExplicitPointer => {
@@ -481,4 +481,5 @@ export const test_assert_ArrayRecursiveUnionExplicitPointer =
                 );
             })(input, "$input", true);
         return input;
-    });
+    },
+);

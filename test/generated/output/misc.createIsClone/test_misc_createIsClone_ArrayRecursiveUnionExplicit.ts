@@ -2,10 +2,10 @@ import typia from "../../../../src";
 import { _test_misc_isClone } from "../../../internal/_test_misc_isClone";
 import { ArrayRecursiveUnionExplicit } from "../../../structures/ArrayRecursiveUnionExplicit";
 
-export const test_misc_isClone_ArrayRecursiveUnionExplicit =
-    _test_misc_isClone<ArrayRecursiveUnionExplicit>(
-        ArrayRecursiveUnionExplicit,
-    )((input: any): typia.Primitive<ArrayRecursiveUnionExplicit> | null => {
+export const test_misc_isClone_ArrayRecursiveUnionExplicit = _test_misc_isClone(
+    "ArrayRecursiveUnionExplicit",
+)<ArrayRecursiveUnionExplicit>(ArrayRecursiveUnionExplicit)(
+    (input: any): typia.Primitive<ArrayRecursiveUnionExplicit> | null => {
         const is = (input: any): input is ArrayRecursiveUnionExplicit => {
             const $io0 = (input: any): boolean =>
                 "number" === typeof input.id &&
@@ -218,4 +218,5 @@ export const test_misc_isClone_ArrayRecursiveUnionExplicit =
         if (!is(input)) return null;
         const output = clone(input);
         return output;
-    });
+    },
+);

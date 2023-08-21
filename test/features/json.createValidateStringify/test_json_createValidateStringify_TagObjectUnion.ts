@@ -3,6 +3,6 @@ import { _test_json_validateStringify } from "../../internal/_test_json_validate
 import { TagObjectUnion } from "../../structures/TagObjectUnion";
 
 export const test_json_validateStringify_TagObjectUnion =
-    _test_json_validateStringify<TagObjectUnion>(TagObjectUnion)(
-        typia.json.createValidateStringify<TagObjectUnion>(),
-    );
+    _test_json_validateStringify("TagObjectUnion")<TagObjectUnion>(
+        TagObjectUnion,
+    )(typia.json.createValidateStringify<TagObjectUnion>());

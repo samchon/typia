@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_misc_isClone } from "../../../internal/_test_misc_isClone";
 import { ToJsonNull } from "../../../structures/ToJsonNull";
 
-export const test_misc_isClone_ToJsonNull = _test_misc_isClone<ToJsonNull>(
-    ToJsonNull,
-)((input: any): typia.Primitive<ToJsonNull> | null => {
+export const test_misc_isClone_ToJsonNull = _test_misc_isClone(
+    "ToJsonNull",
+)<ToJsonNull>(ToJsonNull)((input: any): typia.Primitive<ToJsonNull> | null => {
     const is = (input: any): input is ToJsonNull => {
         const $io0 = (input: any): boolean =>
             "function" === typeof input.toJSON;

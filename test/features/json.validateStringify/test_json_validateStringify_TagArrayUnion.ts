@@ -3,6 +3,6 @@ import { _test_json_validateStringify } from "../../internal/_test_json_validate
 import { TagArrayUnion } from "../../structures/TagArrayUnion";
 
 export const test_json_validateStringify_TagArrayUnion =
-    _test_json_validateStringify<TagArrayUnion>(TagArrayUnion)((input) =>
-        typia.json.validateStringify<TagArrayUnion>(input),
+    _test_json_validateStringify("TagArrayUnion")<TagArrayUnion>(TagArrayUnion)(
+        (input) => typia.json.validateStringify<TagArrayUnion>(input),
     );

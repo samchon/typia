@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_random } from "../../../internal/_test_random";
 import { ObjectNullable } from "../../../structures/ObjectNullable";
 
-export const test_random_ObjectNullable = _test_random<ObjectNullable>(
-    ObjectNullable,
-)({
+export const test_random_ObjectNullable = _test_random(
+    "ObjectNullable",
+)<ObjectNullable>(ObjectNullable)({
     random: (
         generator?: Partial<typia.IRandomGenerator>,
     ): typia.Primitive<ObjectNullable> => {

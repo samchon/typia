@@ -3,7 +3,7 @@ import { _test_json_validateStringify } from "../../../internal/_test_json_valid
 import { MapUnion } from "../../../structures/MapUnion";
 
 export const test_json_validateStringify_MapUnion =
-    _test_json_validateStringify<MapUnion>(MapUnion)((input) =>
+    _test_json_validateStringify("MapUnion")<MapUnion>(MapUnion)((input) =>
         ((input: MapUnion): typia.IValidation<string> => {
             const validate = (input: any): typia.IValidation<MapUnion> => {
                 const errors = [] as any[];

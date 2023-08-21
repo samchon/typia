@@ -3,7 +3,7 @@ import { _test_json_assertStringify } from "../../../internal/_test_json_assertS
 import { ObjectDynamic } from "../../../structures/ObjectDynamic";
 
 export const test_json_assertStringify_ObjectDynamic =
-    _test_json_assertStringify<ObjectDynamic>(ObjectDynamic)(
+    _test_json_assertStringify("ObjectDynamic")<ObjectDynamic>(ObjectDynamic)(
         (input: any): string => {
             const assert = (input: any): ObjectDynamic => {
                 const __is = (input: any): input is ObjectDynamic => {

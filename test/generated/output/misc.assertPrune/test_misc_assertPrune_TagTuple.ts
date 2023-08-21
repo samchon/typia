@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_misc_assertPrune } from "../../../internal/_test_misc_assertPrune";
 import { TagTuple } from "../../../structures/TagTuple";
 
-export const test_misc_assertPrune_TagTuple = _test_misc_assertPrune<TagTuple>(
-    TagTuple,
-)((input) =>
+export const test_misc_assertPrune_TagTuple = _test_misc_assertPrune(
+    "TagTuple",
+)<TagTuple>(TagTuple)((input) =>
     ((input: any): TagTuple => {
         const assert = (input: any): TagTuple => {
             const __is = (input: any): input is TagTuple => {

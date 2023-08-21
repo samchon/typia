@@ -3,6 +3,7 @@ import { TypeGuardError } from "typia";
 import { TestStructure } from "../helpers/TestStructure";
 
 export const _test_misc_assertPrune =
+    (name: string) =>
     <T>(factory: TestStructure<T>) =>
     (prune: (input: T) => T) =>
     () => {
@@ -27,7 +28,7 @@ export const _test_misc_assertPrune =
                     )
                 )
                     throw new Error(
-                        `Bug on typia.misc.isPrune(): failed to prune the ${factory.constructor.name} type.`,
+                        `Bug on typia.misc.isPrune(): failed to prune the ${name} type.`,
                     );
             })(input);
 
@@ -49,7 +50,7 @@ export const _test_misc_assertPrune =
                         });
             }
             throw new Error(
-                `Bug on typia.misc.assertPrune(): failed to detect error on the ${factory.constructor.name} type.`,
+                `Bug on typia.misc.assertPrune(): failed to detect error on the ${name} type.`,
             );
         }
     };

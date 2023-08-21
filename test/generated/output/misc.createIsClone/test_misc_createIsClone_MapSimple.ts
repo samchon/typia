@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_misc_isClone } from "../../../internal/_test_misc_isClone";
 import { MapSimple } from "../../../structures/MapSimple";
 
-export const test_misc_isClone_MapSimple = _test_misc_isClone<MapSimple>(
-    MapSimple,
-)((input: any): typia.Primitive<MapSimple> | null => {
+export const test_misc_isClone_MapSimple = _test_misc_isClone(
+    "MapSimple",
+)<MapSimple>(MapSimple)((input: any): typia.Primitive<MapSimple> | null => {
     const is = (input: any): input is MapSimple => {
         const $io0 = (input: any): boolean =>
             input.boolean instanceof Map &&

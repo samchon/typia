@@ -2,6 +2,6 @@ import typia from "../../../src";
 import { _test_misc_validatePrune } from "../../internal/_test_misc_validatePrune";
 import { TagNaN } from "../../structures/TagNaN";
 
-export const test_misc_validatePrune_TagNaN = _test_misc_validatePrune<TagNaN>(
-    TagNaN,
-)((input) => typia.misc.validatePrune<TagNaN>(input));
+export const test_misc_validatePrune_TagNaN = _test_misc_validatePrune(
+    "TagNaN",
+)<TagNaN>(TagNaN)((input) => typia.misc.validatePrune<TagNaN>(input));

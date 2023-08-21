@@ -3,9 +3,9 @@ import { _test_misc_validateClone } from "../../../internal/_test_misc_validateC
 import { ObjectUnionExplicitPointer } from "../../../structures/ObjectUnionExplicitPointer";
 
 export const test_misc_validateClone_ObjectUnionExplicitPointer =
-    _test_misc_validateClone<ObjectUnionExplicitPointer>(
-        ObjectUnionExplicitPointer,
-    )((input) =>
+    _test_misc_validateClone(
+        "ObjectUnionExplicitPointer",
+    )<ObjectUnionExplicitPointer>(ObjectUnionExplicitPointer)((input) =>
         ((
             input: any,
         ): typia.IValidation<typia.Primitive<ObjectUnionExplicitPointer>> => {

@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_misc_isPrune } from "../../../internal/_test_misc_isPrune";
 import { ArrayUnion } from "../../../structures/ArrayUnion";
 
-export const test_misc_isPrune_ArrayUnion = _test_misc_isPrune<ArrayUnion>(
-    ArrayUnion,
-)((input) =>
+export const test_misc_isPrune_ArrayUnion = _test_misc_isPrune(
+    "ArrayUnion",
+)<ArrayUnion>(ArrayUnion)((input) =>
     ((input: any): input is ArrayUnion => {
         const is = (input: any): input is ArrayUnion => {
             const $ip0 = (input: any) => {

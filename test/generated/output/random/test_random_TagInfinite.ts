@@ -2,7 +2,9 @@ import typia from "../../../../src";
 import { _test_random } from "../../../internal/_test_random";
 import { TagInfinite } from "../../../structures/TagInfinite";
 
-export const test_random_TagInfinite = _test_random<TagInfinite>(TagInfinite)({
+export const test_random_TagInfinite = _test_random("TagInfinite")<TagInfinite>(
+    TagInfinite,
+)({
     random: () =>
         ((
             generator?: Partial<typia.IRandomGenerator>,
@@ -77,7 +79,9 @@ export const test_random_TagInfinite = _test_random<TagInfinite>(TagInfinite)({
                 0 === (input as any).multipleOf % 3 &&
                 "number" === typeof (input as any).typed &&
                 Number.isFinite((input as any).typed) &&
-                Math.floor((input as any).typed) === (input as any).typed
+                Math.floor((input as any).typed) === (input as any).typed &&
+                -2147483648 <= (input as any).typed &&
+                (input as any).typed <= 2147483647
             );
         };
         if (false === __is(input))
@@ -158,6 +162,13 @@ export const test_random_TagInfinite = _test_random<TagInfinite>(TagInfinite)({
                     (("number" === typeof input.typed &&
                         Number.isFinite(input.typed) &&
                         (Math.floor(input.typed) === input.typed ||
+                            $guard(_exceptionable, {
+                                path: _path + ".typed",
+                                expected: "number (@type int)",
+                                value: input.typed,
+                            })) &&
+                        ((-2147483648 <= input.typed &&
+                            input.typed <= 2147483647) ||
                             $guard(_exceptionable, {
                                 path: _path + ".typed",
                                 expected: "number (@type int)",

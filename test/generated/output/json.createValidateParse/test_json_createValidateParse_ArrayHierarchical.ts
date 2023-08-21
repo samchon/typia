@@ -3,7 +3,9 @@ import { _test_json_validateParse } from "../../../internal/_test_json_validateP
 import { ArrayHierarchical } from "../../../structures/ArrayHierarchical";
 
 export const test_json_validateParse_ArrayHierarchical =
-    _test_json_validateParse<ArrayHierarchical>(ArrayHierarchical)(
+    _test_json_validateParse("ArrayHierarchical")<ArrayHierarchical>(
+        ArrayHierarchical,
+    )(
         (
             input: string,
         ): typia.IValidation<typia.Primitive<ArrayHierarchical>> => {

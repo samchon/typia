@@ -3,7 +3,9 @@ import { _test_json_assertStringify } from "../../../internal/_test_json_assertS
 import { TagAtomicUnion } from "../../../structures/TagAtomicUnion";
 
 export const test_json_assertStringify_TagAtomicUnion =
-    _test_json_assertStringify<TagAtomicUnion>(TagAtomicUnion)((input) =>
+    _test_json_assertStringify("TagAtomicUnion")<TagAtomicUnion>(
+        TagAtomicUnion,
+    )((input) =>
         ((input: any): string => {
             const assert = (input: any): TagAtomicUnion => {
                 const __is = (input: any): input is TagAtomicUnion => {

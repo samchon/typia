@@ -3,7 +3,9 @@ import { _test_json_validateParse } from "../../../internal/_test_json_validateP
 import { ConstantEnumeration } from "../../../structures/ConstantEnumeration";
 
 export const test_json_validateParse_ConstantEnumeration =
-    _test_json_validateParse<ConstantEnumeration>(ConstantEnumeration)(
+    _test_json_validateParse("ConstantEnumeration")<ConstantEnumeration>(
+        ConstantEnumeration,
+    )(
         (
             input: string,
         ): typia.IValidation<typia.Primitive<ConstantEnumeration>> => {

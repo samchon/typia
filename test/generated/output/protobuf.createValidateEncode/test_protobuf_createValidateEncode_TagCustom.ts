@@ -3,7 +3,7 @@ import { _test_protobuf_validateEncode } from "../../../internal/_test_protobuf_
 import { TagCustom } from "../../../structures/TagCustom";
 
 export const test_protobuf_validateEncode_TagCustom =
-    _test_protobuf_validateEncode<TagCustom>(TagCustom)({
+    _test_protobuf_validateEncode("TagCustom")<TagCustom>(TagCustom)({
         validateEncode: (input: TagCustom): typia.IValidation<Uint8Array> => {
             const validate = (input: any): typia.IValidation<TagCustom> => {
                 const errors = [] as any[];

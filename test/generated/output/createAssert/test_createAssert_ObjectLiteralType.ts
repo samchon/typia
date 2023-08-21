@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_assert } from "../../../internal/_test_assert";
 import { ObjectLiteralType } from "../../../structures/ObjectLiteralType";
 
-export const test_assert_ObjectLiteralType = _test_assert<ObjectLiteralType>(
-    ObjectLiteralType,
-)((input: any): ObjectLiteralType => {
+export const test_assert_ObjectLiteralType = _test_assert(
+    "ObjectLiteralType",
+)<ObjectLiteralType>(ObjectLiteralType)((input: any): ObjectLiteralType => {
     const __is = (input: any): input is ObjectLiteralType => {
         return (
             "object" === typeof input &&

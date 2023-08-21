@@ -3,7 +3,9 @@ import { _test_json_assertStringify } from "../../../internal/_test_json_assertS
 import { TupleRestArray } from "../../../structures/TupleRestArray";
 
 export const test_json_assertStringify_TupleRestArray =
-    _test_json_assertStringify<TupleRestArray>(TupleRestArray)((input) =>
+    _test_json_assertStringify("TupleRestArray")<TupleRestArray>(
+        TupleRestArray,
+    )((input) =>
         ((input: any): string => {
             const assert = (input: any): TupleRestArray => {
                 const __is = (input: any): input is TupleRestArray => {

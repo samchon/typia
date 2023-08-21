@@ -3,7 +3,9 @@ import { _test_misc_validateClone } from "../../../internal/_test_misc_validateC
 import { DynamicUndefined } from "../../../structures/DynamicUndefined";
 
 export const test_misc_validateClone_DynamicUndefined =
-    _test_misc_validateClone<DynamicUndefined>(DynamicUndefined)((input) =>
+    _test_misc_validateClone("DynamicUndefined")<DynamicUndefined>(
+        DynamicUndefined,
+    )((input) =>
         ((input: any): typia.IValidation<typia.Primitive<DynamicUndefined>> => {
             const validate = (
                 input: any,

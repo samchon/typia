@@ -2,6 +2,8 @@ import typia from "../../../src";
 import { _test_validate } from "../../internal/_test_validate";
 import { ArrayAtomicAlias } from "../../structures/ArrayAtomicAlias";
 
-export const test_validate_ArrayAtomicAlias = _test_validate<ArrayAtomicAlias>(
-    ArrayAtomicAlias,
-)((input) => typia.validate<ArrayAtomicAlias>(input));
+export const test_validate_ArrayAtomicAlias = _test_validate(
+    "ArrayAtomicAlias",
+)<ArrayAtomicAlias>(ArrayAtomicAlias)((input) =>
+    typia.validate<ArrayAtomicAlias>(input),
+);

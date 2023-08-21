@@ -2,7 +2,9 @@ import typia from "../../../../src";
 import { _test_equals } from "../../../internal/_test_equals";
 import { TagRange } from "../../../structures/TagRange";
 
-export const test_equals_TagRange = _test_equals<TagRange>(TagRange)((input) =>
+export const test_equals_TagRange = _test_equals("TagRange")<TagRange>(
+    TagRange,
+)((input) =>
     ((input: any, _exceptionable: boolean = true): input is TagRange => {
         const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
             Array.isArray(input.value) &&
@@ -23,29 +25,57 @@ export const test_equals_TagRange = _test_equals<TagRange>(TagRange)((input) =>
         const $io1 = (input: any, _exceptionable: boolean = true): boolean =>
             "number" === typeof input.greater &&
             Number.isFinite(input.greater) &&
+            Math.floor(input.greater) === input.greater &&
+            -2147483648 <= input.greater &&
+            input.greater <= 2147483647 &&
             3 < input.greater &&
             "number" === typeof input.greater_equal &&
             Number.isFinite(input.greater_equal) &&
+            Math.floor(input.greater_equal) === input.greater_equal &&
+            -2147483648 <= input.greater_equal &&
+            input.greater_equal <= 2147483647 &&
             3 <= input.greater_equal &&
             "number" === typeof input.less &&
             Number.isFinite(input.less) &&
+            Math.floor(input.less) === input.less &&
+            -2147483648 <= input.less &&
+            input.less <= 2147483647 &&
             7 > input.less &&
             "number" === typeof input.less_equal &&
             Number.isFinite(input.less_equal) &&
+            Math.floor(input.less_equal) === input.less_equal &&
+            -2147483648 <= input.less_equal &&
+            input.less_equal <= 2147483647 &&
             7 >= input.less_equal &&
             "number" === typeof input.greater_less &&
+            Math.floor(input.greater_less) === input.greater_less &&
+            -2147483648 <= input.greater_less &&
+            input.greater_less <= 2147483647 &&
             3 < input.greater_less &&
             7 > input.greater_less &&
             "number" === typeof input.greater_equal_less &&
+            Math.floor(input.greater_equal_less) === input.greater_equal_less &&
+            -2147483648 <= input.greater_equal_less &&
+            input.greater_equal_less <= 2147483647 &&
             3 <= input.greater_equal_less &&
             7 > input.greater_equal_less &&
             "number" === typeof input.greater_less_equal &&
+            Math.floor(input.greater_less_equal) === input.greater_less_equal &&
+            -2147483648 <= input.greater_less_equal &&
+            input.greater_less_equal <= 2147483647 &&
             3 < input.greater_less_equal &&
             7 >= input.greater_less_equal &&
             "number" === typeof input.greater_equal_less_equal &&
+            Math.floor(input.greater_equal_less_equal) ===
+                input.greater_equal_less_equal &&
+            -2147483648 <= input.greater_equal_less_equal &&
+            input.greater_equal_less_equal <= 2147483647 &&
             3 <= input.greater_equal_less_equal &&
             7 >= input.greater_equal_less_equal &&
             "number" === typeof input.equal &&
+            Math.floor(input.equal) === input.equal &&
+            -2147483648 <= input.equal &&
+            input.equal <= 2147483647 &&
             10 <= input.equal &&
             10 >= input.equal &&
             (9 === Object.keys(input).length ||

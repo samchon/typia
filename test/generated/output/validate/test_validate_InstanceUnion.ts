@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_validate } from "../../../internal/_test_validate";
 import { InstanceUnion } from "../../../structures/InstanceUnion";
 
-export const test_validate_InstanceUnion = _test_validate<InstanceUnion>(
-    InstanceUnion,
-)((input) =>
+export const test_validate_InstanceUnion = _test_validate(
+    "InstanceUnion",
+)<InstanceUnion>(InstanceUnion)((input) =>
     ((input: any): typia.IValidation<InstanceUnion> => {
         const errors = [] as any[];
         const __is = (input: any): input is InstanceUnion => {

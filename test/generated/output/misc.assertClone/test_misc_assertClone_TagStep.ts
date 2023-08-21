@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_misc_assertClone } from "../../../internal/_test_misc_assertClone";
 import { TagStep } from "../../../structures/TagStep";
 
-export const test_misc_assertClone_TagStep = _test_misc_assertClone<TagStep>(
-    TagStep,
-)((input) =>
+export const test_misc_assertClone_TagStep = _test_misc_assertClone(
+    "TagStep",
+)<TagStep>(TagStep)((input) =>
     ((input: any): typia.Primitive<TagStep> => {
         const assert = (input: any): TagStep => {
             const __is = (input: any): input is TagStep => {

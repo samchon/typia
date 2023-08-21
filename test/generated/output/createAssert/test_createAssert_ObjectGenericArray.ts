@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_assert } from "../../../internal/_test_assert";
 import { ObjectGenericArray } from "../../../structures/ObjectGenericArray";
 
-export const test_assert_ObjectGenericArray = _test_assert<ObjectGenericArray>(
-    ObjectGenericArray,
-)((input: any): ObjectGenericArray => {
+export const test_assert_ObjectGenericArray = _test_assert(
+    "ObjectGenericArray",
+)<ObjectGenericArray>(ObjectGenericArray)((input: any): ObjectGenericArray => {
     const __is = (input: any): input is ObjectGenericArray => {
         const $io0 = (input: any): boolean =>
             "object" === typeof input.pagination &&

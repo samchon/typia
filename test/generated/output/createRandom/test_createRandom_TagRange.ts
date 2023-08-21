@@ -2,7 +2,9 @@ import typia from "../../../../src";
 import { _test_random } from "../../../internal/_test_random";
 import { TagRange } from "../../../structures/TagRange";
 
-export const test_random_TagRange = _test_random<TagRange>(TagRange)({
+export const test_random_TagRange = _test_random("TagRange")<TagRange>(
+    TagRange,
+)({
     random: (
         generator?: Partial<typia.IRandomGenerator>,
     ): typia.Primitive<TagRange> => {
@@ -22,34 +24,54 @@ export const test_random_TagRange = _test_random<TagRange>(TagRange)({
             greater:
                 (generator?.customs ?? $generator.customs)?.number?.([
                     {
+                        name: "type",
+                        value: "int",
+                    },
+                    {
                         name: "exclusiveMinimum",
                         value: "3",
                     },
-                ]) ?? (generator?.number ?? $generator.number)(3, 13),
+                ]) ?? (generator?.integer ?? $generator.integer)(4, 14),
             greater_equal:
                 (generator?.customs ?? $generator.customs)?.number?.([
                     {
+                        name: "type",
+                        value: "int",
+                    },
+                    {
                         name: "minimum",
                         value: "3",
                     },
-                ]) ?? (generator?.number ?? $generator.number)(3, 13),
+                ]) ?? (generator?.integer ?? $generator.integer)(3, 13),
             less:
                 (generator?.customs ?? $generator.customs)?.number?.([
                     {
+                        name: "type",
+                        value: "int",
+                    },
+                    {
                         name: "exclusiveMaximum",
                         value: "7",
                     },
-                ]) ?? (generator?.number ?? $generator.number)(-3, 7),
+                ]) ?? (generator?.integer ?? $generator.integer)(-4, 6),
             less_equal:
                 (generator?.customs ?? $generator.customs)?.number?.([
                     {
+                        name: "type",
+                        value: "int",
+                    },
+                    {
                         name: "maximum",
                         value: "7",
                     },
-                ]) ?? (generator?.number ?? $generator.number)(-3, 7),
+                ]) ?? (generator?.integer ?? $generator.integer)(-3, 7),
             greater_less:
                 (generator?.customs ?? $generator.customs)?.number?.([
                     {
+                        name: "type",
+                        value: "int",
+                    },
+                    {
                         name: "exclusiveMinimum",
                         value: "3",
                     },
@@ -57,10 +79,14 @@ export const test_random_TagRange = _test_random<TagRange>(TagRange)({
                         name: "exclusiveMaximum",
                         value: "7",
                     },
-                ]) ?? (generator?.number ?? $generator.number)(3, 7),
+                ]) ?? (generator?.integer ?? $generator.integer)(4, 6),
             greater_equal_less:
                 (generator?.customs ?? $generator.customs)?.number?.([
                     {
+                        name: "type",
+                        value: "int",
+                    },
+                    {
                         name: "minimum",
                         value: "3",
                     },
@@ -68,9 +94,13 @@ export const test_random_TagRange = _test_random<TagRange>(TagRange)({
                         name: "exclusiveMaximum",
                         value: "7",
                     },
-                ]) ?? (generator?.number ?? $generator.number)(3, 7),
+                ]) ?? (generator?.integer ?? $generator.integer)(3, 6),
             greater_less_equal:
                 (generator?.customs ?? $generator.customs)?.number?.([
+                    {
+                        name: "type",
+                        value: "int",
+                    },
                     {
                         name: "exclusiveMinimum",
                         value: "3",
@@ -79,9 +109,13 @@ export const test_random_TagRange = _test_random<TagRange>(TagRange)({
                         name: "maximum",
                         value: "7",
                     },
-                ]) ?? (generator?.number ?? $generator.number)(3, 7),
+                ]) ?? (generator?.integer ?? $generator.integer)(4, 7),
             greater_equal_less_equal:
                 (generator?.customs ?? $generator.customs)?.number?.([
+                    {
+                        name: "type",
+                        value: "int",
+                    },
                     {
                         name: "minimum",
                         value: "3",
@@ -90,9 +124,13 @@ export const test_random_TagRange = _test_random<TagRange>(TagRange)({
                         name: "maximum",
                         value: "7",
                     },
-                ]) ?? (generator?.number ?? $generator.number)(3, 7),
+                ]) ?? (generator?.integer ?? $generator.integer)(3, 7),
             equal:
                 (generator?.customs ?? $generator.customs)?.number?.([
+                    {
+                        name: "type",
+                        value: "int",
+                    },
                     {
                         name: "minimum",
                         value: "10",
@@ -101,7 +139,7 @@ export const test_random_TagRange = _test_random<TagRange>(TagRange)({
                         name: "maximum",
                         value: "10",
                     },
-                ]) ?? (generator?.number ?? $generator.number)(10, 10),
+                ]) ?? (generator?.integer ?? $generator.integer)(10, 10),
         });
         return $ro0();
     },
@@ -116,29 +154,59 @@ export const test_random_TagRange = _test_random<TagRange>(TagRange)({
             const $io1 = (input: any): boolean =>
                 "number" === typeof input.greater &&
                 Number.isFinite(input.greater) &&
+                Math.floor(input.greater) === input.greater &&
+                -2147483648 <= input.greater &&
+                input.greater <= 2147483647 &&
                 3 < input.greater &&
                 "number" === typeof input.greater_equal &&
                 Number.isFinite(input.greater_equal) &&
+                Math.floor(input.greater_equal) === input.greater_equal &&
+                -2147483648 <= input.greater_equal &&
+                input.greater_equal <= 2147483647 &&
                 3 <= input.greater_equal &&
                 "number" === typeof input.less &&
                 Number.isFinite(input.less) &&
+                Math.floor(input.less) === input.less &&
+                -2147483648 <= input.less &&
+                input.less <= 2147483647 &&
                 7 > input.less &&
                 "number" === typeof input.less_equal &&
                 Number.isFinite(input.less_equal) &&
+                Math.floor(input.less_equal) === input.less_equal &&
+                -2147483648 <= input.less_equal &&
+                input.less_equal <= 2147483647 &&
                 7 >= input.less_equal &&
                 "number" === typeof input.greater_less &&
+                Math.floor(input.greater_less) === input.greater_less &&
+                -2147483648 <= input.greater_less &&
+                input.greater_less <= 2147483647 &&
                 3 < input.greater_less &&
                 7 > input.greater_less &&
                 "number" === typeof input.greater_equal_less &&
+                Math.floor(input.greater_equal_less) ===
+                    input.greater_equal_less &&
+                -2147483648 <= input.greater_equal_less &&
+                input.greater_equal_less <= 2147483647 &&
                 3 <= input.greater_equal_less &&
                 7 > input.greater_equal_less &&
                 "number" === typeof input.greater_less_equal &&
+                Math.floor(input.greater_less_equal) ===
+                    input.greater_less_equal &&
+                -2147483648 <= input.greater_less_equal &&
+                input.greater_less_equal <= 2147483647 &&
                 3 < input.greater_less_equal &&
                 7 >= input.greater_less_equal &&
                 "number" === typeof input.greater_equal_less_equal &&
+                Math.floor(input.greater_equal_less_equal) ===
+                    input.greater_equal_less_equal &&
+                -2147483648 <= input.greater_equal_less_equal &&
+                input.greater_equal_less_equal <= 2147483647 &&
                 3 <= input.greater_equal_less_equal &&
                 7 >= input.greater_equal_less_equal &&
                 "number" === typeof input.equal &&
+                Math.floor(input.equal) === input.equal &&
+                -2147483648 <= input.equal &&
+                input.equal <= 2147483647 &&
                 10 <= input.equal &&
                 10 >= input.equal;
             return "object" === typeof input && null !== input && $io0(input);
@@ -192,6 +260,19 @@ export const test_random_TagRange = _test_random<TagRange>(TagRange)({
                 ): boolean =>
                     (("number" === typeof input.greater &&
                         Number.isFinite(input.greater) &&
+                        (Math.floor(input.greater) === input.greater ||
+                            $guard(_exceptionable, {
+                                path: _path + ".greater",
+                                expected: "number (@type int)",
+                                value: input.greater,
+                            })) &&
+                        ((-2147483648 <= input.greater &&
+                            input.greater <= 2147483647) ||
+                            $guard(_exceptionable, {
+                                path: _path + ".greater",
+                                expected: "number (@type int)",
+                                value: input.greater,
+                            })) &&
                         (3 < input.greater ||
                             $guard(_exceptionable, {
                                 path: _path + ".greater",
@@ -205,6 +286,20 @@ export const test_random_TagRange = _test_random<TagRange>(TagRange)({
                         })) &&
                     (("number" === typeof input.greater_equal &&
                         Number.isFinite(input.greater_equal) &&
+                        (Math.floor(input.greater_equal) ===
+                            input.greater_equal ||
+                            $guard(_exceptionable, {
+                                path: _path + ".greater_equal",
+                                expected: "number (@type int)",
+                                value: input.greater_equal,
+                            })) &&
+                        ((-2147483648 <= input.greater_equal &&
+                            input.greater_equal <= 2147483647) ||
+                            $guard(_exceptionable, {
+                                path: _path + ".greater_equal",
+                                expected: "number (@type int)",
+                                value: input.greater_equal,
+                            })) &&
                         (3 <= input.greater_equal ||
                             $guard(_exceptionable, {
                                 path: _path + ".greater_equal",
@@ -218,6 +313,19 @@ export const test_random_TagRange = _test_random<TagRange>(TagRange)({
                         })) &&
                     (("number" === typeof input.less &&
                         Number.isFinite(input.less) &&
+                        (Math.floor(input.less) === input.less ||
+                            $guard(_exceptionable, {
+                                path: _path + ".less",
+                                expected: "number (@type int)",
+                                value: input.less,
+                            })) &&
+                        ((-2147483648 <= input.less &&
+                            input.less <= 2147483647) ||
+                            $guard(_exceptionable, {
+                                path: _path + ".less",
+                                expected: "number (@type int)",
+                                value: input.less,
+                            })) &&
                         (7 > input.less ||
                             $guard(_exceptionable, {
                                 path: _path + ".less",
@@ -231,6 +339,19 @@ export const test_random_TagRange = _test_random<TagRange>(TagRange)({
                         })) &&
                     (("number" === typeof input.less_equal &&
                         Number.isFinite(input.less_equal) &&
+                        (Math.floor(input.less_equal) === input.less_equal ||
+                            $guard(_exceptionable, {
+                                path: _path + ".less_equal",
+                                expected: "number (@type int)",
+                                value: input.less_equal,
+                            })) &&
+                        ((-2147483648 <= input.less_equal &&
+                            input.less_equal <= 2147483647) ||
+                            $guard(_exceptionable, {
+                                path: _path + ".less_equal",
+                                expected: "number (@type int)",
+                                value: input.less_equal,
+                            })) &&
                         (7 >= input.less_equal ||
                             $guard(_exceptionable, {
                                 path: _path + ".less_equal",
@@ -243,6 +364,20 @@ export const test_random_TagRange = _test_random<TagRange>(TagRange)({
                             value: input.less_equal,
                         })) &&
                     (("number" === typeof input.greater_less &&
+                        (Math.floor(input.greater_less) ===
+                            input.greater_less ||
+                            $guard(_exceptionable, {
+                                path: _path + ".greater_less",
+                                expected: "number (@type int)",
+                                value: input.greater_less,
+                            })) &&
+                        ((-2147483648 <= input.greater_less &&
+                            input.greater_less <= 2147483647) ||
+                            $guard(_exceptionable, {
+                                path: _path + ".greater_less",
+                                expected: "number (@type int)",
+                                value: input.greater_less,
+                            })) &&
                         (3 < input.greater_less ||
                             $guard(_exceptionable, {
                                 path: _path + ".greater_less",
@@ -261,6 +396,20 @@ export const test_random_TagRange = _test_random<TagRange>(TagRange)({
                             value: input.greater_less,
                         })) &&
                     (("number" === typeof input.greater_equal_less &&
+                        (Math.floor(input.greater_equal_less) ===
+                            input.greater_equal_less ||
+                            $guard(_exceptionable, {
+                                path: _path + ".greater_equal_less",
+                                expected: "number (@type int)",
+                                value: input.greater_equal_less,
+                            })) &&
+                        ((-2147483648 <= input.greater_equal_less &&
+                            input.greater_equal_less <= 2147483647) ||
+                            $guard(_exceptionable, {
+                                path: _path + ".greater_equal_less",
+                                expected: "number (@type int)",
+                                value: input.greater_equal_less,
+                            })) &&
                         (3 <= input.greater_equal_less ||
                             $guard(_exceptionable, {
                                 path: _path + ".greater_equal_less",
@@ -279,6 +428,20 @@ export const test_random_TagRange = _test_random<TagRange>(TagRange)({
                             value: input.greater_equal_less,
                         })) &&
                     (("number" === typeof input.greater_less_equal &&
+                        (Math.floor(input.greater_less_equal) ===
+                            input.greater_less_equal ||
+                            $guard(_exceptionable, {
+                                path: _path + ".greater_less_equal",
+                                expected: "number (@type int)",
+                                value: input.greater_less_equal,
+                            })) &&
+                        ((-2147483648 <= input.greater_less_equal &&
+                            input.greater_less_equal <= 2147483647) ||
+                            $guard(_exceptionable, {
+                                path: _path + ".greater_less_equal",
+                                expected: "number (@type int)",
+                                value: input.greater_less_equal,
+                            })) &&
                         (3 < input.greater_less_equal ||
                             $guard(_exceptionable, {
                                 path: _path + ".greater_less_equal",
@@ -297,6 +460,20 @@ export const test_random_TagRange = _test_random<TagRange>(TagRange)({
                             value: input.greater_less_equal,
                         })) &&
                     (("number" === typeof input.greater_equal_less_equal &&
+                        (Math.floor(input.greater_equal_less_equal) ===
+                            input.greater_equal_less_equal ||
+                            $guard(_exceptionable, {
+                                path: _path + ".greater_equal_less_equal",
+                                expected: "number (@type int)",
+                                value: input.greater_equal_less_equal,
+                            })) &&
+                        ((-2147483648 <= input.greater_equal_less_equal &&
+                            input.greater_equal_less_equal <= 2147483647) ||
+                            $guard(_exceptionable, {
+                                path: _path + ".greater_equal_less_equal",
+                                expected: "number (@type int)",
+                                value: input.greater_equal_less_equal,
+                            })) &&
                         (3 <= input.greater_equal_less_equal ||
                             $guard(_exceptionable, {
                                 path: _path + ".greater_equal_less_equal",
@@ -315,6 +492,19 @@ export const test_random_TagRange = _test_random<TagRange>(TagRange)({
                             value: input.greater_equal_less_equal,
                         })) &&
                     (("number" === typeof input.equal &&
+                        (Math.floor(input.equal) === input.equal ||
+                            $guard(_exceptionable, {
+                                path: _path + ".equal",
+                                expected: "number (@type int)",
+                                value: input.equal,
+                            })) &&
+                        ((-2147483648 <= input.equal &&
+                            input.equal <= 2147483647) ||
+                            $guard(_exceptionable, {
+                                path: _path + ".equal",
+                                expected: "number (@type int)",
+                                value: input.equal,
+                            })) &&
                         (10 <= input.equal ||
                             $guard(_exceptionable, {
                                 path: _path + ".equal",

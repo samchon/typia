@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_json_isParse } from "../../../internal/_test_json_isParse";
 import { TagCustom } from "../../../structures/TagCustom";
 
-export const test_json_isParse_TagCustom = _test_json_isParse<TagCustom>(
-    TagCustom,
-)((input) =>
+export const test_json_isParse_TagCustom = _test_json_isParse(
+    "TagCustom",
+)<TagCustom>(TagCustom)((input) =>
     ((input: any): typia.Primitive<TagCustom> => {
         const is = (input: any): input is TagCustom => {
             const $is_uuid = (typia.json.isParse as any).is_uuid;

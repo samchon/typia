@@ -2,7 +2,9 @@ import typia from "../../../../src";
 import { _test_is } from "../../../internal/_test_is";
 import { DynamicTree } from "../../../structures/DynamicTree";
 
-export const test_is_DynamicTree = _test_is<DynamicTree>(DynamicTree)((input) =>
+export const test_is_DynamicTree = _test_is("DynamicTree")<DynamicTree>(
+    DynamicTree,
+)((input) =>
     ((input: any): input is DynamicTree => {
         const $join = (typia.is as any).join;
         const $io0 = (input: any): boolean =>

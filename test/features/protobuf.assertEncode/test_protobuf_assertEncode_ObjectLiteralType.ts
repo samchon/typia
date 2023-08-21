@@ -3,7 +3,9 @@ import { _test_protobuf_assertEncode } from "../../internal/_test_protobuf_asser
 import { ObjectLiteralType } from "../../structures/ObjectLiteralType";
 
 export const test_protobuf_assertEncode_ObjectLiteralType =
-    _test_protobuf_assertEncode<ObjectLiteralType>(ObjectLiteralType)({
+    _test_protobuf_assertEncode("ObjectLiteralType")<ObjectLiteralType>(
+        ObjectLiteralType,
+    )({
         assertEncode: (input) =>
             typia.protobuf.assertEncode<ObjectLiteralType>(input),
         message: typia.protobuf.message<ObjectLiteralType>(),

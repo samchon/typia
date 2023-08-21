@@ -3,7 +3,9 @@ import { _test_misc_validatePrune } from "../../../internal/_test_misc_validateP
 import { ObjectGenericArray } from "../../../structures/ObjectGenericArray";
 
 export const test_misc_validatePrune_ObjectGenericArray =
-    _test_misc_validatePrune<ObjectGenericArray>(ObjectGenericArray)((input) =>
+    _test_misc_validatePrune("ObjectGenericArray")<ObjectGenericArray>(
+        ObjectGenericArray,
+    )((input) =>
         ((input: any): typia.IValidation<ObjectGenericArray> => {
             const validate = (
                 input: any,

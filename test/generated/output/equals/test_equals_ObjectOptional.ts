@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_equals } from "../../../internal/_test_equals";
 import { ObjectOptional } from "../../../structures/ObjectOptional";
 
-export const test_equals_ObjectOptional = _test_equals<ObjectOptional>(
-    ObjectOptional,
-)((input) =>
+export const test_equals_ObjectOptional = _test_equals(
+    "ObjectOptional",
+)<ObjectOptional>(ObjectOptional)((input) =>
     ((input: any, _exceptionable: boolean = true): input is ObjectOptional => {
         const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
             (undefined === input.id || "string" === typeof input.id) &&

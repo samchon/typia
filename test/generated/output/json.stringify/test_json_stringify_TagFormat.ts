@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_json_stringify } from "../../../internal/_test_json_stringify";
 import { TagFormat } from "../../../structures/TagFormat";
 
-export const test_json_stringify_TagFormat = _test_json_stringify<TagFormat>(
-    TagFormat,
-)((input) =>
+export const test_json_stringify_TagFormat = _test_json_stringify(
+    "TagFormat",
+)<TagFormat>(TagFormat)((input) =>
     ((input: TagFormat): string => {
         const $string = (typia.json.stringify as any).string;
         const $is_uuid = (typia.json.stringify as any).is_uuid;

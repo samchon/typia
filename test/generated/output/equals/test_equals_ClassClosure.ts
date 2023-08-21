@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_equals } from "../../../internal/_test_equals";
 import { ClassClosure } from "../../../structures/ClassClosure";
 
-export const test_equals_ClassClosure = _test_equals<ClassClosure>(
-    ClassClosure,
-)((input) =>
+export const test_equals_ClassClosure = _test_equals(
+    "ClassClosure",
+)<ClassClosure>(ClassClosure)((input) =>
     ((input: any, _exceptionable: boolean = true): input is ClassClosure => {
         const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
             "string" === typeof input.id &&

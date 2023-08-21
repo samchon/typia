@@ -2,7 +2,7 @@ import typia from "../../../../src";
 import { _test_validate } from "../../../internal/_test_validate";
 import { TagNaN } from "../../../structures/TagNaN";
 
-export const test_validate_TagNaN = _test_validate<TagNaN>(TagNaN)(
+export const test_validate_TagNaN = _test_validate("TagNaN")<TagNaN>(TagNaN)(
     (input: any): typia.IValidation<TagNaN> => {
         const errors = [] as any[];
         const __is = (input: any): input is TagNaN => {
@@ -24,7 +24,9 @@ export const test_validate_TagNaN = _test_validate<TagNaN>(TagNaN)(
                 0 === (input as any).multipleOf % 3 &&
                 "number" === typeof (input as any).typed &&
                 Number.isFinite((input as any).typed) &&
-                Math.floor((input as any).typed) === (input as any).typed
+                Math.floor((input as any).typed) === (input as any).typed &&
+                -2147483648 <= (input as any).typed &&
+                (input as any).typed <= 2147483647
             );
         };
         if (false === __is(input)) {
@@ -106,6 +108,13 @@ export const test_validate_TagNaN = _test_validate<TagNaN>(TagNaN)(
                         ("number" === typeof input.typed &&
                             Number.isFinite(input.typed) &&
                             (Math.floor(input.typed) === input.typed ||
+                                $report(_exceptionable, {
+                                    path: _path + ".typed",
+                                    expected: "number (@type int)",
+                                    value: input.typed,
+                                })) &&
+                            ((-2147483648 <= input.typed &&
+                                input.typed <= 2147483647) ||
                                 $report(_exceptionable, {
                                     path: _path + ".typed",
                                     expected: "number (@type int)",

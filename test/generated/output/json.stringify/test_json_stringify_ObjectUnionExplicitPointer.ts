@@ -3,9 +3,9 @@ import { _test_json_stringify } from "../../../internal/_test_json_stringify";
 import { ObjectUnionExplicitPointer } from "../../../structures/ObjectUnionExplicitPointer";
 
 export const test_json_stringify_ObjectUnionExplicitPointer =
-    _test_json_stringify<ObjectUnionExplicitPointer>(
-        ObjectUnionExplicitPointer,
-    )((input) =>
+    _test_json_stringify(
+        "ObjectUnionExplicitPointer",
+    )<ObjectUnionExplicitPointer>(ObjectUnionExplicitPointer)((input) =>
         ((input: ObjectUnionExplicitPointer): string => {
             const $io1 = (input: any): boolean =>
                 "object" === typeof input.value &&

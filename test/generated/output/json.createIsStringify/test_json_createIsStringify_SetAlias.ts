@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_json_isStringify } from "../../../internal/_test_json_isStringify";
 import { SetAlias } from "../../../structures/SetAlias";
 
-export const test_json_isStringify_SetAlias = _test_json_isStringify<SetAlias>(
-    SetAlias,
-)((input: SetAlias): string | null => {
+export const test_json_isStringify_SetAlias = _test_json_isStringify(
+    "SetAlias",
+)<SetAlias>(SetAlias)((input: SetAlias): string | null => {
     const is = (input: any): input is SetAlias => {
         const $io0 = (input: any): boolean =>
             input.booleans instanceof Set &&

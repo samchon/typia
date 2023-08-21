@@ -2,7 +2,9 @@ import typia from "../../../../src";
 import { _test_is } from "../../../internal/_test_is";
 import { ToJsonArray } from "../../../structures/ToJsonArray";
 
-export const test_is_ToJsonArray = _test_is<ToJsonArray>(ToJsonArray)((input) =>
+export const test_is_ToJsonArray = _test_is("ToJsonArray")<ToJsonArray>(
+    ToJsonArray,
+)((input) =>
     ((input: any): input is ToJsonArray => {
         const $io0 = (input: any): boolean =>
             "function" === typeof input.toJSON;

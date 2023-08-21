@@ -5,6 +5,7 @@ import { primitive_equal_to } from "../helpers/primitive_equal_to";
 import { _check_invalidate_json_value } from "./_check_invalidate_json_value";
 
 export const _test_json_validateParse =
+    (name: string) =>
     <T>(factory: TestStructure<T>) =>
     (parse: (input: string) => IValidation<Primitive<T>>) =>
     () => {
@@ -15,11 +16,11 @@ export const _test_json_validateParse =
 
         if (valid.success === false)
             throw new Error(
-                `Bug on typia.json.validateParse(): failed to understand the ${factory.constructor.name} type.`,
+                `Bug on typia.json.validateParse(): failed to understand the ${name} type.`,
             );
         else if (primitive_equal_to(expected, valid.data) === false) {
             throw new Error(
-                `Bug on typia.json.validateParse(): failed to understand the ${factory.constructor.name} type.`,
+                `Bug on typia.json.validateParse(): failed to understand the ${name} type.`,
             );
         }
 
@@ -34,7 +35,7 @@ export const _test_json_validateParse =
             );
             if (valid.success === true)
                 throw new Error(
-                    `Bug on typia.json.validateParse(): failed to detect error on the ${factory.constructor.name} type.`,
+                    `Bug on typia.json.validateParse(): failed to detect error on the ${name} type.`,
                 );
 
             typia.assert(valid);
@@ -53,7 +54,7 @@ export const _test_json_validateParse =
         if (wrong.length !== 0) {
             console.log(wrong);
             throw new Error(
-                `Bug on typia.json.validateParse(): failed to detect error on the ${factory.constructor.name} type.`,
+                `Bug on typia.json.validateParse(): failed to detect error on the ${name} type.`,
             );
         }
     };

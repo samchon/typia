@@ -3,7 +3,9 @@ import { _test_json_validateParse } from "../../../internal/_test_json_validateP
 import { ArrayRepeatedRequired } from "../../../structures/ArrayRepeatedRequired";
 
 export const test_json_validateParse_ArrayRepeatedRequired =
-    _test_json_validateParse<ArrayRepeatedRequired>(ArrayRepeatedRequired)(
+    _test_json_validateParse("ArrayRepeatedRequired")<ArrayRepeatedRequired>(
+        ArrayRepeatedRequired,
+    )(
         (
             input: string,
         ): typia.IValidation<typia.Primitive<ArrayRepeatedRequired>> => {

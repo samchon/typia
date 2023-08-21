@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_validate } from "../../../internal/_test_validate";
 import { TemplateConstant } from "../../../structures/TemplateConstant";
 
-export const test_validate_TemplateConstant = _test_validate<TemplateConstant>(
-    TemplateConstant,
-)((input) =>
+export const test_validate_TemplateConstant = _test_validate(
+    "TemplateConstant",
+)<TemplateConstant>(TemplateConstant)((input) =>
     ((input: any): typia.IValidation<TemplateConstant> => {
         const errors = [] as any[];
         const __is = (input: any): input is TemplateConstant => {

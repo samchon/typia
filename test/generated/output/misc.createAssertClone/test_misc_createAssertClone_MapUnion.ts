@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_misc_assertClone } from "../../../internal/_test_misc_assertClone";
 import { MapUnion } from "../../../structures/MapUnion";
 
-export const test_misc_assertClone_MapUnion = _test_misc_assertClone<MapUnion>(
-    MapUnion,
-)((input: any): typia.Primitive<MapUnion> => {
+export const test_misc_assertClone_MapUnion = _test_misc_assertClone(
+    "MapUnion",
+)<MapUnion>(MapUnion)((input: any): typia.Primitive<MapUnion> => {
     const assert = (input: any): MapUnion => {
         const __is = (input: any): input is MapUnion => {
             const $io0 = (input: any): boolean =>

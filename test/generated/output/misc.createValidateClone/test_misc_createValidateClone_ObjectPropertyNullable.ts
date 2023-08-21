@@ -3,7 +3,9 @@ import { _test_misc_validateClone } from "../../../internal/_test_misc_validateC
 import { ObjectPropertyNullable } from "../../../structures/ObjectPropertyNullable";
 
 export const test_misc_validateClone_ObjectPropertyNullable =
-    _test_misc_validateClone<ObjectPropertyNullable>(ObjectPropertyNullable)(
+    _test_misc_validateClone("ObjectPropertyNullable")<ObjectPropertyNullable>(
+        ObjectPropertyNullable,
+    )(
         (
             input: any,
         ): typia.IValidation<typia.Primitive<ObjectPropertyNullable>> => {

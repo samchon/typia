@@ -3,6 +3,6 @@ import { _test_json_assertStringify } from "../../internal/_test_json_assertStri
 import { ObjectUnionImplicit } from "../../structures/ObjectUnionImplicit";
 
 export const test_json_assertStringify_ObjectUnionImplicit =
-    _test_json_assertStringify<ObjectUnionImplicit>(ObjectUnionImplicit)(
-        typia.json.createAssertStringify<ObjectUnionImplicit>(),
-    );
+    _test_json_assertStringify("ObjectUnionImplicit")<ObjectUnionImplicit>(
+        ObjectUnionImplicit,
+    )(typia.json.createAssertStringify<ObjectUnionImplicit>());

@@ -3,7 +3,9 @@ import { _test_protobuf_isEncode } from "../../../internal/_test_protobuf_isEnco
 import { ObjectHierarchical } from "../../../structures/ObjectHierarchical";
 
 export const test_protobuf_isEncode_ObjectHierarchical =
-    _test_protobuf_isEncode<ObjectHierarchical>(ObjectHierarchical)({
+    _test_protobuf_isEncode("ObjectHierarchical")<ObjectHierarchical>(
+        ObjectHierarchical,
+    )({
         isEncode: (input) =>
             ((input: ObjectHierarchical): Uint8Array | null => {
                 const is = (input: any): input is ObjectHierarchical => {

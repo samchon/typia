@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_json_assertParse } from "../../../internal/_test_json_assertParse";
 import { ArrayAny } from "../../../structures/ArrayAny";
 
-export const test_json_assertParse_ArrayAny = _test_json_assertParse<ArrayAny>(
-    ArrayAny,
-)((input: string): typia.Primitive<ArrayAny> => {
+export const test_json_assertParse_ArrayAny = _test_json_assertParse(
+    "ArrayAny",
+)<ArrayAny>(ArrayAny)((input: string): typia.Primitive<ArrayAny> => {
     const assert = (input: any): ArrayAny => {
         const __is = (input: any): input is ArrayAny => {
             const $io0 = (input: any): boolean =>

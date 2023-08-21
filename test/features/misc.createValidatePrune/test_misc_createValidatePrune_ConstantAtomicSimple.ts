@@ -3,6 +3,6 @@ import { _test_misc_validatePrune } from "../../internal/_test_misc_validatePrun
 import { ConstantAtomicSimple } from "../../structures/ConstantAtomicSimple";
 
 export const test_misc_validatePrune_ConstantAtomicSimple =
-    _test_misc_validatePrune<ConstantAtomicSimple>(ConstantAtomicSimple)(
-        typia.misc.createValidatePrune<ConstantAtomicSimple>(),
-    );
+    _test_misc_validatePrune("ConstantAtomicSimple")<ConstantAtomicSimple>(
+        ConstantAtomicSimple,
+    )(typia.misc.createValidatePrune<ConstantAtomicSimple>());

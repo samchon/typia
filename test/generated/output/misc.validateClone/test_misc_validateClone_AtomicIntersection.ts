@@ -3,7 +3,9 @@ import { _test_misc_validateClone } from "../../../internal/_test_misc_validateC
 import { AtomicIntersection } from "../../../structures/AtomicIntersection";
 
 export const test_misc_validateClone_AtomicIntersection =
-    _test_misc_validateClone<AtomicIntersection>(AtomicIntersection)((input) =>
+    _test_misc_validateClone("AtomicIntersection")<AtomicIntersection>(
+        AtomicIntersection,
+    )((input) =>
         ((
             input: any,
         ): typia.IValidation<typia.Primitive<AtomicIntersection>> => {

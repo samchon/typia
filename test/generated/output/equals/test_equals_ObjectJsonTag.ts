@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_equals } from "../../../internal/_test_equals";
 import { ObjectJsonTag } from "../../../structures/ObjectJsonTag";
 
-export const test_equals_ObjectJsonTag = _test_equals<ObjectJsonTag>(
-    ObjectJsonTag,
-)((input) =>
+export const test_equals_ObjectJsonTag = _test_equals(
+    "ObjectJsonTag",
+)<ObjectJsonTag>(ObjectJsonTag)((input) =>
     ((input: any, _exceptionable: boolean = true): input is ObjectJsonTag => {
         const $is_custom = (typia.equals as any).is_custom;
         const $io0 = (input: any, _exceptionable: boolean = true): boolean =>

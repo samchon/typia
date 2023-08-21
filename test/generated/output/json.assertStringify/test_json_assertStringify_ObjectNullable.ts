@@ -3,7 +3,9 @@ import { _test_json_assertStringify } from "../../../internal/_test_json_assertS
 import { ObjectNullable } from "../../../structures/ObjectNullable";
 
 export const test_json_assertStringify_ObjectNullable =
-    _test_json_assertStringify<ObjectNullable>(ObjectNullable)((input) =>
+    _test_json_assertStringify("ObjectNullable")<ObjectNullable>(
+        ObjectNullable,
+    )((input) =>
         ((input: any): string => {
             const assert = (input: any): ObjectNullable => {
                 const __is = (input: any): input is ObjectNullable => {

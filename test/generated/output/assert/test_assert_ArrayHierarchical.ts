@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_assert } from "../../../internal/_test_assert";
 import { ArrayHierarchical } from "../../../structures/ArrayHierarchical";
 
-export const test_assert_ArrayHierarchical = _test_assert<ArrayHierarchical>(
-    ArrayHierarchical,
-)((input) =>
+export const test_assert_ArrayHierarchical = _test_assert(
+    "ArrayHierarchical",
+)<ArrayHierarchical>(ArrayHierarchical)((input) =>
     ((input: any): ArrayHierarchical => {
         const __is = (input: any): input is ArrayHierarchical => {
             const $io0 = (input: any): boolean =>

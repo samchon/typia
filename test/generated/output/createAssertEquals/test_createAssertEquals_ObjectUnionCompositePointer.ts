@@ -2,10 +2,10 @@ import typia from "../../../../src";
 import { _test_assertEquals } from "../../../internal/_test_assertEquals";
 import { ObjectUnionCompositePointer } from "../../../structures/ObjectUnionCompositePointer";
 
-export const test_assertEquals_ObjectUnionCompositePointer =
-    _test_assertEquals<ObjectUnionCompositePointer>(
-        ObjectUnionCompositePointer,
-    )((input: any): ObjectUnionCompositePointer => {
+export const test_assertEquals_ObjectUnionCompositePointer = _test_assertEquals(
+    "ObjectUnionCompositePointer",
+)<ObjectUnionCompositePointer>(ObjectUnionCompositePointer)(
+    (input: any): ObjectUnionCompositePointer => {
         const __is = (
             input: any,
             _exceptionable: boolean = true,
@@ -904,4 +904,5 @@ export const test_assertEquals_ObjectUnionCompositePointer =
                 );
             })(input, "$input", true);
         return input;
-    });
+    },
+);

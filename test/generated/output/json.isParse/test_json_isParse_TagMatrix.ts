@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_json_isParse } from "../../../internal/_test_json_isParse";
 import { TagMatrix } from "../../../structures/TagMatrix";
 
-export const test_json_isParse_TagMatrix = _test_json_isParse<TagMatrix>(
-    TagMatrix,
-)((input) =>
+export const test_json_isParse_TagMatrix = _test_json_isParse(
+    "TagMatrix",
+)<TagMatrix>(TagMatrix)((input) =>
     ((input: any): typia.Primitive<TagMatrix> => {
         const is = (input: any): input is TagMatrix => {
             const $is_uuid = (typia.json.isParse as any).is_uuid;

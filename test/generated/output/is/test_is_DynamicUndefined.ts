@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_is } from "../../../internal/_test_is";
 import { DynamicUndefined } from "../../../structures/DynamicUndefined";
 
-export const test_is_DynamicUndefined = _test_is<DynamicUndefined>(
-    DynamicUndefined,
-)((input) =>
+export const test_is_DynamicUndefined = _test_is(
+    "DynamicUndefined",
+)<DynamicUndefined>(DynamicUndefined)((input) =>
     ((input: any): input is DynamicUndefined => {
         const $join = (typia.is as any).join;
         const $io0 = (input: any): boolean =>

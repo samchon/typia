@@ -3,7 +3,9 @@ import { _test_json_assertStringify } from "../../../internal/_test_json_assertS
 import { ToJsonAtomicUnion } from "../../../structures/ToJsonAtomicUnion";
 
 export const test_json_assertStringify_ToJsonAtomicUnion =
-    _test_json_assertStringify<ToJsonAtomicUnion>(ToJsonAtomicUnion)((input) =>
+    _test_json_assertStringify("ToJsonAtomicUnion")<ToJsonAtomicUnion>(
+        ToJsonAtomicUnion,
+    )((input) =>
         ((input: any): string => {
             const assert = (input: any): ToJsonAtomicUnion => {
                 const __is = (input: any): input is ToJsonAtomicUnion => {

@@ -3,9 +3,9 @@ import { _test_json_validateParse } from "../../../internal/_test_json_validateP
 import { ArrayHierarchicalPointer } from "../../../structures/ArrayHierarchicalPointer";
 
 export const test_json_validateParse_ArrayHierarchicalPointer =
-    _test_json_validateParse<ArrayHierarchicalPointer>(
-        ArrayHierarchicalPointer,
-    )((input) =>
+    _test_json_validateParse(
+        "ArrayHierarchicalPointer",
+    )<ArrayHierarchicalPointer>(ArrayHierarchicalPointer)((input) =>
         ((
             input: string,
         ): typia.IValidation<typia.Primitive<ArrayHierarchicalPointer>> => {

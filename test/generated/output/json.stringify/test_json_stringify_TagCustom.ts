@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_json_stringify } from "../../../internal/_test_json_stringify";
 import { TagCustom } from "../../../structures/TagCustom";
 
-export const test_json_stringify_TagCustom = _test_json_stringify<TagCustom>(
-    TagCustom,
-)((input) =>
+export const test_json_stringify_TagCustom = _test_json_stringify(
+    "TagCustom",
+)<TagCustom>(TagCustom)((input) =>
     ((input: TagCustom): string => {
         const $string = (typia.json.stringify as any).string;
         const $number = (typia.json.stringify as any).number;

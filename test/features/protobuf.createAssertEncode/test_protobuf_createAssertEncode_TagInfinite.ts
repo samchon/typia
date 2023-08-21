@@ -3,7 +3,7 @@ import { _test_protobuf_assertEncode } from "../../internal/_test_protobuf_asser
 import { TagInfinite } from "../../structures/TagInfinite";
 
 export const test_protobuf_assertEncode_TagInfinite =
-    _test_protobuf_assertEncode<TagInfinite>(TagInfinite)({
+    _test_protobuf_assertEncode("TagInfinite")<TagInfinite>(TagInfinite)({
         assertEncode: typia.protobuf.createAssertEncode<TagInfinite>(),
         message: typia.protobuf.message<TagInfinite>(),
     });

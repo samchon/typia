@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_misc_isClone } from "../../../internal/_test_misc_isClone";
 import { ArrayAny } from "../../../structures/ArrayAny";
 
-export const test_misc_isClone_ArrayAny = _test_misc_isClone<ArrayAny>(
-    ArrayAny,
-)((input) =>
+export const test_misc_isClone_ArrayAny = _test_misc_isClone(
+    "ArrayAny",
+)<ArrayAny>(ArrayAny)((input) =>
     ((input: any): typia.Primitive<ArrayAny> | null => {
         const is = (input: any): input is ArrayAny => {
             const $io0 = (input: any): boolean =>

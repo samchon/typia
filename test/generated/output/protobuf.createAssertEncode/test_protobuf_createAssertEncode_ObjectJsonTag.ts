@@ -3,7 +3,7 @@ import { _test_protobuf_assertEncode } from "../../../internal/_test_protobuf_as
 import { ObjectJsonTag } from "../../../structures/ObjectJsonTag";
 
 export const test_protobuf_assertEncode_ObjectJsonTag =
-    _test_protobuf_assertEncode<ObjectJsonTag>(ObjectJsonTag)({
+    _test_protobuf_assertEncode("ObjectJsonTag")<ObjectJsonTag>(ObjectJsonTag)({
         assertEncode: (input: any): Uint8Array => {
             const assert = (input: any): ObjectJsonTag => {
                 const __is = (input: any): input is ObjectJsonTag => {

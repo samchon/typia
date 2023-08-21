@@ -3,7 +3,9 @@ import { _test_protobuf_isEncode } from "../../../internal/_test_protobuf_isEnco
 import { ArraySimpleProtobuf } from "../../../structures/ArraySimpleProtobuf";
 
 export const test_protobuf_isEncode_ArraySimpleProtobuf =
-    _test_protobuf_isEncode<ArraySimpleProtobuf>(ArraySimpleProtobuf)({
+    _test_protobuf_isEncode("ArraySimpleProtobuf")<ArraySimpleProtobuf>(
+        ArraySimpleProtobuf,
+    )({
         isEncode: (input) =>
             ((input: ArraySimpleProtobuf): Uint8Array | null => {
                 const is = (input: any): input is ArraySimpleProtobuf => {

@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_assert } from "../../../internal/_test_assert";
 import { FunctionalArray } from "../../../structures/FunctionalArray";
 
-export const test_assert_FunctionalArray = _test_assert<FunctionalArray>(
-    FunctionalArray,
-)((input: any): FunctionalArray => {
+export const test_assert_FunctionalArray = _test_assert(
+    "FunctionalArray",
+)<FunctionalArray>(FunctionalArray)((input: any): FunctionalArray => {
     const __is = (input: any): input is FunctionalArray => {
         return (
             Array.isArray(input) &&

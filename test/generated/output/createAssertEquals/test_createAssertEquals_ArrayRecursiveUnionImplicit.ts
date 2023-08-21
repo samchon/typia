@@ -2,10 +2,10 @@ import typia from "../../../../src";
 import { _test_assertEquals } from "../../../internal/_test_assertEquals";
 import { ArrayRecursiveUnionImplicit } from "../../../structures/ArrayRecursiveUnionImplicit";
 
-export const test_assertEquals_ArrayRecursiveUnionImplicit =
-    _test_assertEquals<ArrayRecursiveUnionImplicit>(
-        ArrayRecursiveUnionImplicit,
-    )((input: any): ArrayRecursiveUnionImplicit => {
+export const test_assertEquals_ArrayRecursiveUnionImplicit = _test_assertEquals(
+    "ArrayRecursiveUnionImplicit",
+)<ArrayRecursiveUnionImplicit>(ArrayRecursiveUnionImplicit)(
+    (input: any): ArrayRecursiveUnionImplicit => {
         const __is = (
             input: any,
             _exceptionable: boolean = true,
@@ -666,4 +666,5 @@ export const test_assertEquals_ArrayRecursiveUnionImplicit =
                 );
             })(input, "$input", true);
         return input;
-    });
+    },
+);

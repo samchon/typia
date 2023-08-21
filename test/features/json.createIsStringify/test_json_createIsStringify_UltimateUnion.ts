@@ -2,7 +2,6 @@ import typia from "../../../src";
 import { _test_json_isStringify } from "../../internal/_test_json_isStringify";
 import { UltimateUnion } from "../../structures/UltimateUnion";
 
-export const test_json_isStringify_UltimateUnion =
-    _test_json_isStringify<UltimateUnion>(UltimateUnion)(
-        typia.json.createIsStringify<UltimateUnion>(),
-    );
+export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
+    "UltimateUnion",
+)<UltimateUnion>(UltimateUnion)(typia.json.createIsStringify<UltimateUnion>());

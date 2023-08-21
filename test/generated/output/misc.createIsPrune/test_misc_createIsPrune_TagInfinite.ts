@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_misc_isPrune } from "../../../internal/_test_misc_isPrune";
 import { TagInfinite } from "../../../structures/TagInfinite";
 
-export const test_misc_isPrune_TagInfinite = _test_misc_isPrune<TagInfinite>(
-    TagInfinite,
-)((input: any): input is TagInfinite => {
+export const test_misc_isPrune_TagInfinite = _test_misc_isPrune(
+    "TagInfinite",
+)<TagInfinite>(TagInfinite)((input: any): input is TagInfinite => {
     const is = (input: any): input is TagInfinite => {
         return (
             "object" === typeof input &&
@@ -24,7 +24,9 @@ export const test_misc_isPrune_TagInfinite = _test_misc_isPrune<TagInfinite>(
             0 === (input as any).multipleOf % 3 &&
             "number" === typeof (input as any).typed &&
             Number.isFinite((input as any).typed) &&
-            Math.floor((input as any).typed) === (input as any).typed
+            Math.floor((input as any).typed) === (input as any).typed &&
+            -2147483648 <= (input as any).typed &&
+            (input as any).typed <= 2147483647
         );
     };
     const prune = (input: TagInfinite): void => {

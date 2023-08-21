@@ -3,7 +3,9 @@ import { _test_json_validateStringify } from "../../../internal/_test_json_valid
 import { ObjectPrimitive } from "../../../structures/ObjectPrimitive";
 
 export const test_json_validateStringify_ObjectPrimitive =
-    _test_json_validateStringify<ObjectPrimitive>(ObjectPrimitive)((input) =>
+    _test_json_validateStringify("ObjectPrimitive")<ObjectPrimitive>(
+        ObjectPrimitive,
+    )((input) =>
         ((input: ObjectPrimitive): typia.IValidation<string> => {
             const validate = (
                 input: any,

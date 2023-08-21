@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_assert } from "../../../internal/_test_assert";
 import { ToJsonAtomicUnion } from "../../../structures/ToJsonAtomicUnion";
 
-export const test_assert_ToJsonAtomicUnion = _test_assert<ToJsonAtomicUnion>(
-    ToJsonAtomicUnion,
-)((input) =>
+export const test_assert_ToJsonAtomicUnion = _test_assert(
+    "ToJsonAtomicUnion",
+)<ToJsonAtomicUnion>(ToJsonAtomicUnion)((input) =>
     ((input: any): ToJsonAtomicUnion => {
         const __is = (input: any): input is ToJsonAtomicUnion => {
             const $io0 = (input: any): boolean =>

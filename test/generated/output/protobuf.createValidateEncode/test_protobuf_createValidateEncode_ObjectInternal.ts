@@ -3,7 +3,9 @@ import { _test_protobuf_validateEncode } from "../../../internal/_test_protobuf_
 import { ObjectInternal } from "../../../structures/ObjectInternal";
 
 export const test_protobuf_validateEncode_ObjectInternal =
-    _test_protobuf_validateEncode<ObjectInternal>(ObjectInternal)({
+    _test_protobuf_validateEncode("ObjectInternal")<ObjectInternal>(
+        ObjectInternal,
+    )({
         validateEncode: (
             input: ObjectInternal,
         ): typia.IValidation<Uint8Array> => {

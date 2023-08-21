@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_assert } from "../../../internal/_test_assert";
 import { DynamicUnion } from "../../../structures/DynamicUnion";
 
-export const test_assert_DynamicUnion = _test_assert<DynamicUnion>(
-    DynamicUnion,
-)((input: any): DynamicUnion => {
+export const test_assert_DynamicUnion = _test_assert(
+    "DynamicUnion",
+)<DynamicUnion>(DynamicUnion)((input: any): DynamicUnion => {
     const __is = (input: any): input is DynamicUnion => {
         const $join = (typia.createAssert as any).join;
         const $io0 = (input: any): boolean =>

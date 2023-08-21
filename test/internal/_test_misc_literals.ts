@@ -11,6 +11,6 @@ export const _test_misc_literals =
             result.some((elem, i) => elem !== expected[i])
         )
             throw new Error(
-                `Bug on typia.literals() for ${factory.constructor.name}: array is different than expected`,
+                `Bug on typia.literals() for ${name}: array is different than expected`,
             );
     };

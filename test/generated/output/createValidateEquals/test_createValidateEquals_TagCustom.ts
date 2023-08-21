@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_validateEquals } from "../../../internal/_test_validateEquals";
 import { TagCustom } from "../../../structures/TagCustom";
 
-export const test_validateEquals_TagCustom = _test_validateEquals<TagCustom>(
-    TagCustom,
-)((input: any): typia.IValidation<TagCustom> => {
+export const test_validateEquals_TagCustom = _test_validateEquals(
+    "TagCustom",
+)<TagCustom>(TagCustom)((input: any): typia.IValidation<TagCustom> => {
     const errors = [] as any[];
     const __is = (
         input: any,

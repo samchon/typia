@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_protobuf_encode } from "../../../internal/_test_protobuf_encode";
 import { TagArray } from "../../../structures/TagArray";
 
-export const test_protobuf_encode_TagArray = _test_protobuf_encode<TagArray>(
-    TagArray,
-)({
+export const test_protobuf_encode_TagArray = _test_protobuf_encode(
+    "TagArray",
+)<TagArray>(TagArray)({
     encode: (input) =>
         ((input: TagArray): Uint8Array => {
             const $is_uuid = (typia.protobuf.encode as any).is_uuid;

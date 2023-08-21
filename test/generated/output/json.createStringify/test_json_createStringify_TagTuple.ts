@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_json_stringify } from "../../../internal/_test_json_stringify";
 import { TagTuple } from "../../../structures/TagTuple";
 
-export const test_json_stringify_TagTuple = _test_json_stringify<TagTuple>(
-    TagTuple,
-)((input: TagTuple): string => {
+export const test_json_stringify_TagTuple = _test_json_stringify(
+    "TagTuple",
+)<TagTuple>(TagTuple)((input: TagTuple): string => {
     const $string = (typia.json.createStringify as any).string;
     const $number = (typia.json.createStringify as any).number;
     const $so0 = (input: any): any =>

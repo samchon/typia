@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_validate } from "../../../internal/_test_validate";
 import { ObjectUndefined } from "../../../structures/ObjectUndefined";
 
-export const test_validate_ObjectUndefined = _test_validate<ObjectUndefined>(
-    ObjectUndefined,
-)((input) =>
+export const test_validate_ObjectUndefined = _test_validate(
+    "ObjectUndefined",
+)<ObjectUndefined>(ObjectUndefined)((input) =>
     ((input: any): typia.IValidation<ObjectUndefined> => {
         const errors = [] as any[];
         const __is = (input: any): input is ObjectUndefined => {

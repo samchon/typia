@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_json_isParse } from "../../../internal/_test_json_isParse";
 import { TagDefault } from "../../../structures/TagDefault";
 
-export const test_json_isParse_TagDefault = _test_json_isParse<TagDefault>(
-    TagDefault,
-)((input: any): typia.Primitive<TagDefault> => {
+export const test_json_isParse_TagDefault = _test_json_isParse(
+    "TagDefault",
+)<TagDefault>(TagDefault)((input: any): typia.Primitive<TagDefault> => {
     const is = (input: any): input is TagDefault => {
         const $is_custom = (typia.json.createIsParse as any).is_custom;
         const $io0 = (input: any): boolean =>

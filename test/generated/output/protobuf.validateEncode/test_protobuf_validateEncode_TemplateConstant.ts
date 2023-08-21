@@ -3,7 +3,9 @@ import { _test_protobuf_validateEncode } from "../../../internal/_test_protobuf_
 import { TemplateConstant } from "../../../structures/TemplateConstant";
 
 export const test_protobuf_validateEncode_TemplateConstant =
-    _test_protobuf_validateEncode<TemplateConstant>(TemplateConstant)({
+    _test_protobuf_validateEncode("TemplateConstant")<TemplateConstant>(
+        TemplateConstant,
+    )({
         validateEncode: (input) =>
             ((input: TemplateConstant): typia.IValidation<Uint8Array> => {
                 const validate = (

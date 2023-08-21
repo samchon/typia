@@ -2,7 +2,9 @@ import typia from "../../../../src";
 import { _test_is } from "../../../internal/_test_is";
 import { AtomicClass } from "../../../structures/AtomicClass";
 
-export const test_is_AtomicClass = _test_is<AtomicClass>(AtomicClass)((input) =>
+export const test_is_AtomicClass = _test_is("AtomicClass")<AtomicClass>(
+    AtomicClass,
+)((input) =>
     ((input: any): input is AtomicClass => {
         return (
             Array.isArray(input) &&

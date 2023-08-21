@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_misc_isClone } from "../../../internal/_test_misc_isClone";
 import { DynamicUnion } from "../../../structures/DynamicUnion";
 
-export const test_misc_isClone_DynamicUnion = _test_misc_isClone<DynamicUnion>(
-    DynamicUnion,
-)((input) =>
+export const test_misc_isClone_DynamicUnion = _test_misc_isClone(
+    "DynamicUnion",
+)<DynamicUnion>(DynamicUnion)((input) =>
     ((input: any): typia.Primitive<DynamicUnion> | null => {
         const is = (input: any): input is DynamicUnion => {
             const $join = (typia.misc.isClone as any).join;

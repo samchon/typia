@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_equals } from "../../../internal/_test_equals";
 import { TupleRestObject } from "../../../structures/TupleRestObject";
 
-export const test_equals_TupleRestObject = _test_equals<TupleRestObject>(
-    TupleRestObject,
-)((input) =>
+export const test_equals_TupleRestObject = _test_equals(
+    "TupleRestObject",
+)<TupleRestObject>(TupleRestObject)((input) =>
     ((input: any, _exceptionable: boolean = true): input is TupleRestObject => {
         const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
             "string" === typeof input.value &&

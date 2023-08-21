@@ -2,10 +2,10 @@ import typia from "../../../../src";
 import { _test_validate } from "../../../internal/_test_validate";
 import { ArrayRecursiveUnionExplicitPointer } from "../../../structures/ArrayRecursiveUnionExplicitPointer";
 
-export const test_validate_ArrayRecursiveUnionExplicitPointer =
-    _test_validate<ArrayRecursiveUnionExplicitPointer>(
-        ArrayRecursiveUnionExplicitPointer,
-    )((input: any): typia.IValidation<ArrayRecursiveUnionExplicitPointer> => {
+export const test_validate_ArrayRecursiveUnionExplicitPointer = _test_validate(
+    "ArrayRecursiveUnionExplicitPointer",
+)<ArrayRecursiveUnionExplicitPointer>(ArrayRecursiveUnionExplicitPointer)(
+    (input: any): typia.IValidation<ArrayRecursiveUnionExplicitPointer> => {
         const errors = [] as any[];
         const __is = (
             input: any,
@@ -526,4 +526,5 @@ export const test_validate_ArrayRecursiveUnionExplicitPointer =
             errors,
             data: success ? input : undefined,
         } as any;
-    });
+    },
+);

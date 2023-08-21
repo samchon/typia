@@ -3,9 +3,9 @@ import { _test_json_stringify } from "../../../internal/_test_json_stringify";
 import { ArrayRepeatedUnionWithTuple } from "../../../structures/ArrayRepeatedUnionWithTuple";
 
 export const test_json_stringify_ArrayRepeatedUnionWithTuple =
-    _test_json_stringify<ArrayRepeatedUnionWithTuple>(
-        ArrayRepeatedUnionWithTuple,
-    )((input) =>
+    _test_json_stringify(
+        "ArrayRepeatedUnionWithTuple",
+    )<ArrayRepeatedUnionWithTuple>(ArrayRepeatedUnionWithTuple)((input) =>
         ((input: ArrayRepeatedUnionWithTuple): string => {
             const $io0 = (input: any): boolean =>
                 "object" === typeof input.scale &&

@@ -78,7 +78,7 @@ Check out the document in the [website](https://typia.io/docs/):
     - [`is()` function](https://typia.io/docs/validators/is/)
     - [`assert()` function](https://typia.io/docs/validators/assert/)
     - [`validate()` function](https://typia.io/docs/validators/validate/)
-    - [Comment Tags](https://typia.io/docs/validators/comment-tags/)
+    - [Comment Tags](https://typia.io/docs/validators/tags/)
   - Enhanced JSON
     - [`stringify()` functions](https://typia.io/docs/json/stringify/)
     - [`parse()` functions](https://typia.io/docs/json/parse/)

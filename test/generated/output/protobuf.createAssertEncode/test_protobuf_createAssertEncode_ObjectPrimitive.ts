@@ -3,7 +3,9 @@ import { _test_protobuf_assertEncode } from "../../../internal/_test_protobuf_as
 import { ObjectPrimitive } from "../../../structures/ObjectPrimitive";
 
 export const test_protobuf_assertEncode_ObjectPrimitive =
-    _test_protobuf_assertEncode<ObjectPrimitive>(ObjectPrimitive)({
+    _test_protobuf_assertEncode("ObjectPrimitive")<ObjectPrimitive>(
+        ObjectPrimitive,
+    )({
         assertEncode: (input: any): Uint8Array => {
             const assert = (input: any): ObjectPrimitive => {
                 const __is = (input: any): input is ObjectPrimitive => {

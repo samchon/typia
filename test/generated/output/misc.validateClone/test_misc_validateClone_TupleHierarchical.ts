@@ -3,7 +3,9 @@ import { _test_misc_validateClone } from "../../../internal/_test_misc_validateC
 import { TupleHierarchical } from "../../../structures/TupleHierarchical";
 
 export const test_misc_validateClone_TupleHierarchical =
-    _test_misc_validateClone<TupleHierarchical>(TupleHierarchical)((input) =>
+    _test_misc_validateClone("TupleHierarchical")<TupleHierarchical>(
+        TupleHierarchical,
+    )((input) =>
         ((
             input: any,
         ): typia.IValidation<typia.Primitive<TupleHierarchical>> => {

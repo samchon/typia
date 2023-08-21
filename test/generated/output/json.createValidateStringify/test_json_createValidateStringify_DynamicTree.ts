@@ -3,7 +3,7 @@ import { _test_json_validateStringify } from "../../../internal/_test_json_valid
 import { DynamicTree } from "../../../structures/DynamicTree";
 
 export const test_json_validateStringify_DynamicTree =
-    _test_json_validateStringify<DynamicTree>(DynamicTree)(
+    _test_json_validateStringify("DynamicTree")<DynamicTree>(DynamicTree)(
         (input: DynamicTree): typia.IValidation<string> => {
             const validate = (input: any): typia.IValidation<DynamicTree> => {
                 const errors = [] as any[];

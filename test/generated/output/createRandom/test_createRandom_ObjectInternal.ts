@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_random } from "../../../internal/_test_random";
 import { ObjectInternal } from "../../../structures/ObjectInternal";
 
-export const test_random_ObjectInternal = _test_random<ObjectInternal>(
-    ObjectInternal,
-)({
+export const test_random_ObjectInternal = _test_random(
+    "ObjectInternal",
+)<ObjectInternal>(ObjectInternal)({
     random: (
         generator?: Partial<typia.IRandomGenerator>,
     ): typia.Primitive<ObjectInternal> => {

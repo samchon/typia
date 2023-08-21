@@ -3,7 +3,9 @@ import { _test_json_assertStringify } from "../../../internal/_test_json_assertS
 import { ObjectInternal } from "../../../structures/ObjectInternal";
 
 export const test_json_assertStringify_ObjectInternal =
-    _test_json_assertStringify<ObjectInternal>(ObjectInternal)((input) =>
+    _test_json_assertStringify("ObjectInternal")<ObjectInternal>(
+        ObjectInternal,
+    )((input) =>
         ((input: any): string => {
             const assert = (input: any): ObjectInternal => {
                 const __is = (input: any): input is ObjectInternal => {

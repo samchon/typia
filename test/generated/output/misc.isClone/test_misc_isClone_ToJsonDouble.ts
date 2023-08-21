@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_misc_isClone } from "../../../internal/_test_misc_isClone";
 import { ToJsonDouble } from "../../../structures/ToJsonDouble";
 
-export const test_misc_isClone_ToJsonDouble = _test_misc_isClone<ToJsonDouble>(
-    ToJsonDouble,
-)((input) =>
+export const test_misc_isClone_ToJsonDouble = _test_misc_isClone(
+    "ToJsonDouble",
+)<ToJsonDouble>(ToJsonDouble)((input) =>
     ((input: any): typia.Primitive<ToJsonDouble> | null => {
         const is = (input: any): input is ToJsonDouble => {
             return "object" === typeof input && null !== input && true;

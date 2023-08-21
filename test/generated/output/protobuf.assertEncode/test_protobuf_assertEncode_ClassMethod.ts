@@ -3,7 +3,7 @@ import { _test_protobuf_assertEncode } from "../../../internal/_test_protobuf_as
 import { ClassMethod } from "../../../structures/ClassMethod";
 
 export const test_protobuf_assertEncode_ClassMethod =
-    _test_protobuf_assertEncode<ClassMethod>(ClassMethod)({
+    _test_protobuf_assertEncode("ClassMethod")<ClassMethod>(ClassMethod)({
         assertEncode: (input) =>
             ((input: any): Uint8Array => {
                 const assert = (input: any): ClassMethod => {

@@ -2,7 +2,7 @@ import typia from "../../../../src";
 import { _test_is } from "../../../internal/_test_is";
 import { TagFormat } from "../../../structures/TagFormat";
 
-export const test_is_TagFormat = _test_is<TagFormat>(TagFormat)(
+export const test_is_TagFormat = _test_is("TagFormat")<TagFormat>(TagFormat)(
     (input: any): input is TagFormat => {
         const $is_uuid = (typia.createIs as any).is_uuid;
         const $is_email = (typia.createIs as any).is_email;

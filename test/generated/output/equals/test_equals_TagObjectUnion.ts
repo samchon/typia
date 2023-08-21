@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_equals } from "../../../internal/_test_equals";
 import { TagObjectUnion } from "../../../structures/TagObjectUnion";
 
-export const test_equals_TagObjectUnion = _test_equals<TagObjectUnion>(
-    TagObjectUnion,
-)((input) =>
+export const test_equals_TagObjectUnion = _test_equals(
+    "TagObjectUnion",
+)<TagObjectUnion>(TagObjectUnion)((input) =>
     ((input: any, _exceptionable: boolean = true): input is TagObjectUnion => {
         const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
             "number" === typeof input.value &&

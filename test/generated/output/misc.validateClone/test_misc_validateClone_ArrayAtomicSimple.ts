@@ -3,7 +3,9 @@ import { _test_misc_validateClone } from "../../../internal/_test_misc_validateC
 import { ArrayAtomicSimple } from "../../../structures/ArrayAtomicSimple";
 
 export const test_misc_validateClone_ArrayAtomicSimple =
-    _test_misc_validateClone<ArrayAtomicSimple>(ArrayAtomicSimple)((input) =>
+    _test_misc_validateClone("ArrayAtomicSimple")<ArrayAtomicSimple>(
+        ArrayAtomicSimple,
+    )((input) =>
         ((
             input: any,
         ): typia.IValidation<typia.Primitive<ArrayAtomicSimple>> => {

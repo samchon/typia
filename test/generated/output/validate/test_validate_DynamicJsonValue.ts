@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_validate } from "../../../internal/_test_validate";
 import { DynamicJsonValue } from "../../../structures/DynamicJsonValue";
 
-export const test_validate_DynamicJsonValue = _test_validate<DynamicJsonValue>(
-    DynamicJsonValue,
-)((input) =>
+export const test_validate_DynamicJsonValue = _test_validate(
+    "DynamicJsonValue",
+)<DynamicJsonValue>(DynamicJsonValue)((input) =>
     ((input: any): typia.IValidation<DynamicJsonValue> => {
         const errors = [] as any[];
         const __is = (input: any): input is DynamicJsonValue => {

@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_misc_isClone } from "../../../internal/_test_misc_isClone";
 import { ToJsonArray } from "../../../structures/ToJsonArray";
 
-export const test_misc_isClone_ToJsonArray = _test_misc_isClone<ToJsonArray>(
-    ToJsonArray,
-)((input) =>
+export const test_misc_isClone_ToJsonArray = _test_misc_isClone(
+    "ToJsonArray",
+)<ToJsonArray>(ToJsonArray)((input) =>
     ((input: any): typia.Primitive<ToJsonArray> | null => {
         const is = (input: any): input is ToJsonArray => {
             const $io0 = (input: any): boolean =>

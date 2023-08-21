@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_misc_clone } from "../../../internal/_test_misc_clone";
 import { TagDefault } from "../../../structures/TagDefault";
 
-export const test_misc_clone_TagDefault = _test_misc_clone<TagDefault>(
-    TagDefault,
-)((input: TagDefault): typia.Primitive<TagDefault> => {
+export const test_misc_clone_TagDefault = _test_misc_clone(
+    "TagDefault",
+)<TagDefault>(TagDefault)((input: TagDefault): typia.Primitive<TagDefault> => {
     const $is_custom = (typia.misc.createClone as any).is_custom;
     const $co0 = (input: any): any => ({
         boolean: input.boolean as any,

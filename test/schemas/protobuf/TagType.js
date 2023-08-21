@@ -36,6 +36,26 @@ function Type$decode(r,l){
   m.uint=r.uint32()
   break
   }
+  case 3: {
+  m.int32=r.int32()
+  break
+  }
+  case 4: {
+  m.uint32=r.uint32()
+  break
+  }
+  case 5: {
+  m.int64=r.int64()
+  break
+  }
+  case 6: {
+  m.uint64=r.uint64()
+  break
+  }
+  case 7: {
+  m.float=r.float()
+  break
+  }
   default:
   r.skipType(t&7)
   break
@@ -45,6 +65,16 @@ function Type$decode(r,l){
   throw util.ProtocolError("missing required 'int'",{instance:m})
   if(!m.hasOwnProperty("uint"))
   throw util.ProtocolError("missing required 'uint'",{instance:m})
+  if(!m.hasOwnProperty("int32"))
+  throw util.ProtocolError("missing required 'int32'",{instance:m})
+  if(!m.hasOwnProperty("uint32"))
+  throw util.ProtocolError("missing required 'uint32'",{instance:m})
+  if(!m.hasOwnProperty("int64"))
+  throw util.ProtocolError("missing required 'int64'",{instance:m})
+  if(!m.hasOwnProperty("uint64"))
+  throw util.ProtocolError("missing required 'uint64'",{instance:m})
+  if(!m.hasOwnProperty("float"))
+  throw util.ProtocolError("missing required 'float'",{instance:m})
   return m
 }
 
@@ -65,5 +95,10 @@ function Type$encode(m,w){
   w=Writer.create()
   w.uint32(8).int32(m.int)
   w.uint32(16).uint32(m.uint)
+  w.uint32(24).int32(m.int32)
+  w.uint32(32).uint32(m.uint32)
+  w.uint32(40).int64(m.int64)
+  w.uint32(48).uint64(m.uint64)
+  w.uint32(61).float(m.float)
   return w
 }

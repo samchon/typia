@@ -3,7 +3,9 @@ import { _test_protobuf_assertEncode } from "../../../internal/_test_protobuf_as
 import { ObjectGenericArray } from "../../../structures/ObjectGenericArray";
 
 export const test_protobuf_assertEncode_ObjectGenericArray =
-    _test_protobuf_assertEncode<ObjectGenericArray>(ObjectGenericArray)({
+    _test_protobuf_assertEncode("ObjectGenericArray")<ObjectGenericArray>(
+        ObjectGenericArray,
+    )({
         assertEncode: (input) =>
             ((input: any): Uint8Array => {
                 const assert = (input: any): ObjectGenericArray => {

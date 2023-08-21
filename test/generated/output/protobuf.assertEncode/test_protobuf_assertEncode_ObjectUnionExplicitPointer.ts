@@ -3,9 +3,9 @@ import { _test_protobuf_assertEncode } from "../../../internal/_test_protobuf_as
 import { ObjectUnionExplicitPointer } from "../../../structures/ObjectUnionExplicitPointer";
 
 export const test_protobuf_assertEncode_ObjectUnionExplicitPointer =
-    _test_protobuf_assertEncode<ObjectUnionExplicitPointer>(
-        ObjectUnionExplicitPointer,
-    )({
+    _test_protobuf_assertEncode(
+        "ObjectUnionExplicitPointer",
+    )<ObjectUnionExplicitPointer>(ObjectUnionExplicitPointer)({
         assertEncode: (input) =>
             ((input: any): Uint8Array => {
                 const assert = (input: any): ObjectUnionExplicitPointer => {

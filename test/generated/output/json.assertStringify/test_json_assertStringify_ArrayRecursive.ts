@@ -3,7 +3,9 @@ import { _test_json_assertStringify } from "../../../internal/_test_json_assertS
 import { ArrayRecursive } from "../../../structures/ArrayRecursive";
 
 export const test_json_assertStringify_ArrayRecursive =
-    _test_json_assertStringify<ArrayRecursive>(ArrayRecursive)((input) =>
+    _test_json_assertStringify("ArrayRecursive")<ArrayRecursive>(
+        ArrayRecursive,
+    )((input) =>
         ((input: any): string => {
             const assert = (input: any): ArrayRecursive => {
                 const __is = (input: any): input is ArrayRecursive => {

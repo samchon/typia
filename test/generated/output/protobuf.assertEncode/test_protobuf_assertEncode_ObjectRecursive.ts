@@ -3,7 +3,9 @@ import { _test_protobuf_assertEncode } from "../../../internal/_test_protobuf_as
 import { ObjectRecursive } from "../../../structures/ObjectRecursive";
 
 export const test_protobuf_assertEncode_ObjectRecursive =
-    _test_protobuf_assertEncode<ObjectRecursive>(ObjectRecursive)({
+    _test_protobuf_assertEncode("ObjectRecursive")<ObjectRecursive>(
+        ObjectRecursive,
+    )({
         assertEncode: (input) =>
             ((input: any): Uint8Array => {
                 const assert = (input: any): ObjectRecursive => {

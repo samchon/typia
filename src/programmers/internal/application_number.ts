@@ -42,7 +42,11 @@ export const application_number = (
     if (
         output.type === "integer" &&
         (attribute["x-typia-metaTags"] ?? []).find(
-            (tag) => tag.kind === "type" && tag.value === "uint",
+            (tag) =>
+                tag.kind === "type" &&
+                (tag.value === "uint" ||
+                    tag.value === "uint32" ||
+                    tag.value === "uint64"),
         )
     )
         if (

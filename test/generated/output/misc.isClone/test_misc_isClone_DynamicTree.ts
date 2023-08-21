@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_misc_isClone } from "../../../internal/_test_misc_isClone";
 import { DynamicTree } from "../../../structures/DynamicTree";
 
-export const test_misc_isClone_DynamicTree = _test_misc_isClone<DynamicTree>(
-    DynamicTree,
-)((input) =>
+export const test_misc_isClone_DynamicTree = _test_misc_isClone(
+    "DynamicTree",
+)<DynamicTree>(DynamicTree)((input) =>
     ((input: any): typia.Primitive<DynamicTree> | null => {
         const is = (input: any): input is DynamicTree => {
             const $join = (typia.misc.isClone as any).join;

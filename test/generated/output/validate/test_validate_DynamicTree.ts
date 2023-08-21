@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_validate } from "../../../internal/_test_validate";
 import { DynamicTree } from "../../../structures/DynamicTree";
 
-export const test_validate_DynamicTree = _test_validate<DynamicTree>(
-    DynamicTree,
-)((input) =>
+export const test_validate_DynamicTree = _test_validate(
+    "DynamicTree",
+)<DynamicTree>(DynamicTree)((input) =>
     ((input: any): typia.IValidation<DynamicTree> => {
         const errors = [] as any[];
         const __is = (input: any): input is DynamicTree => {

@@ -2,7 +2,7 @@ import typia from "../../../../src";
 import { _test_is } from "../../../internal/_test_is";
 import { TagMatrix } from "../../../structures/TagMatrix";
 
-export const test_is_TagMatrix = _test_is<TagMatrix>(TagMatrix)(
+export const test_is_TagMatrix = _test_is("TagMatrix")<TagMatrix>(TagMatrix)(
     (input: any): input is TagMatrix => {
         const $is_uuid = (typia.createIs as any).is_uuid;
         const $io0 = (input: any): boolean =>

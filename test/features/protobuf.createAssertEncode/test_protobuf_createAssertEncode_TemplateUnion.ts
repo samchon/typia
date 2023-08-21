@@ -3,7 +3,7 @@ import { _test_protobuf_assertEncode } from "../../internal/_test_protobuf_asser
 import { TemplateUnion } from "../../structures/TemplateUnion";
 
 export const test_protobuf_assertEncode_TemplateUnion =
-    _test_protobuf_assertEncode<TemplateUnion>(TemplateUnion)({
+    _test_protobuf_assertEncode("TemplateUnion")<TemplateUnion>(TemplateUnion)({
         assertEncode: typia.protobuf.createAssertEncode<TemplateUnion>(),
         message: typia.protobuf.message<TemplateUnion>(),
     });

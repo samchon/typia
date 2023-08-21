@@ -56,7 +56,7 @@ export const check_number =
                         ),
                     ]);
                 // RANGE LIMIT
-                if (tag.value === "uint32")
+                if (tag.value === "uint" || tag.value === "uint32")
                     entries.push([
                         tag,
                         ts.factory.createLessThanEquals(
@@ -64,7 +64,35 @@ export const check_number =
                             ts.factory.createNumericLiteral(4294967295),
                         ),
                     ]);
-                else if (tag.value === "int32")
+                else if (tag.value === "uint64")
+                    entries.push([
+                        tag,
+                        ts.factory.createLessThanEquals(
+                            input,
+                            ts.factory.createNumericLiteral(
+                                18446744073709551615,
+                            ),
+                        ),
+                    ]);
+                else if (tag.value === "int64")
+                    entries.push([
+                        tag,
+                        ts.factory.createLogicalAnd(
+                            ts.factory.createLessThanEquals(
+                                ts.factory.createNumericLiteral(
+                                    -9223372036854775808,
+                                ),
+                                input,
+                            ),
+                            ts.factory.createLessThanEquals(
+                                input,
+                                ts.factory.createNumericLiteral(
+                                    9223372036854775807,
+                                ),
+                            ),
+                        ),
+                    ]);
+                else if (tag.value === "int" || tag.value === "int32")
                     entries.push([
                         tag,
                         ts.factory.createLogicalAnd(

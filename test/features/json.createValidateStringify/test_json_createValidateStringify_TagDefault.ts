@@ -3,6 +3,6 @@ import { _test_json_validateStringify } from "../../internal/_test_json_validate
 import { TagDefault } from "../../structures/TagDefault";
 
 export const test_json_validateStringify_TagDefault =
-    _test_json_validateStringify<TagDefault>(TagDefault)(
+    _test_json_validateStringify("TagDefault")<TagDefault>(TagDefault)(
         typia.json.createValidateStringify<TagDefault>(),
     );

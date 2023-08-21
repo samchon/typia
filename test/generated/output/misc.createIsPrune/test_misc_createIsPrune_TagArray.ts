@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_misc_isPrune } from "../../../internal/_test_misc_isPrune";
 import { TagArray } from "../../../structures/TagArray";
 
-export const test_misc_isPrune_TagArray = _test_misc_isPrune<TagArray>(
-    TagArray,
-)((input: any): input is TagArray => {
+export const test_misc_isPrune_TagArray = _test_misc_isPrune(
+    "TagArray",
+)<TagArray>(TagArray)((input: any): input is TagArray => {
     const is = (input: any): input is TagArray => {
         const $is_uuid = (typia.misc.createIsPrune as any).is_uuid;
         const $io0 = (input: any): boolean =>

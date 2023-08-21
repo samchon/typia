@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_misc_clone } from "../../../internal/_test_misc_clone";
 import { NativeAlias } from "../../../structures/NativeAlias";
 
-export const test_misc_clone_NativeAlias = _test_misc_clone<NativeAlias>(
-    NativeAlias,
-)((input) =>
+export const test_misc_clone_NativeAlias = _test_misc_clone(
+    "NativeAlias",
+)<NativeAlias>(NativeAlias)((input) =>
     ((input: NativeAlias): typia.Primitive<NativeAlias> => {
         const $cp0 = (input: any) => input.map((elem: any) => elem as any);
         const $co0 = (input: any): any => ({

@@ -3,7 +3,9 @@ import { _test_protobuf_isEncode } from "../../../internal/_test_protobuf_isEnco
 import { ObjectHierarchical } from "../../../structures/ObjectHierarchical";
 
 export const test_protobuf_isEncode_ObjectHierarchical =
-    _test_protobuf_isEncode<ObjectHierarchical>(ObjectHierarchical)({
+    _test_protobuf_isEncode("ObjectHierarchical")<ObjectHierarchical>(
+        ObjectHierarchical,
+    )({
         isEncode: (input: ObjectHierarchical): Uint8Array | null => {
             const is = (input: any): input is ObjectHierarchical => {
                 const $is_url = (typia.protobuf.createIsEncode as any).is_url;

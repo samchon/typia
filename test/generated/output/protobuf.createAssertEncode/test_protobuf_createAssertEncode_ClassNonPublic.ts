@@ -3,7 +3,9 @@ import { _test_protobuf_assertEncode } from "../../../internal/_test_protobuf_as
 import { ClassNonPublic } from "../../../structures/ClassNonPublic";
 
 export const test_protobuf_assertEncode_ClassNonPublic =
-    _test_protobuf_assertEncode<ClassNonPublic>(ClassNonPublic)({
+    _test_protobuf_assertEncode("ClassNonPublic")<ClassNonPublic>(
+        ClassNonPublic,
+    )({
         assertEncode: (input: any): Uint8Array => {
             const assert = (input: any): ClassNonPublic => {
                 const __is = (input: any): input is ClassNonPublic => {

@@ -3,9 +3,9 @@ import { _test_json_assertStringify } from "../../../internal/_test_json_assertS
 import { ClassPropertyAssignment } from "../../../structures/ClassPropertyAssignment";
 
 export const test_json_assertStringify_ClassPropertyAssignment =
-    _test_json_assertStringify<ClassPropertyAssignment>(
-        ClassPropertyAssignment,
-    )((input) =>
+    _test_json_assertStringify(
+        "ClassPropertyAssignment",
+    )<ClassPropertyAssignment>(ClassPropertyAssignment)((input) =>
         ((input: any): string => {
             const assert = (input: any): ClassPropertyAssignment => {
                 const __is = (input: any): input is ClassPropertyAssignment => {

@@ -1,6 +1,7 @@
 import { TestStructure } from "../helpers/TestStructure";
 
 export const _test_misc_isPrune =
+    (name: string) =>
     <T>(factory: TestStructure<T>) =>
     (prune: (input: T) => boolean) =>
     () => {
@@ -18,7 +19,7 @@ export const _test_misc_isPrune =
         // DO VALIDATE
         if (prune(input) === false)
             throw new Error(
-                `Bug on typia.misc.isPrune(): failed to understand the ${factory.constructor.name} type.`,
+                `Bug on typia.misc.isPrune(): failed to understand the ${name} type.`,
             );
         else if (prune.toString().indexOf("RegExp(/(.*)/).test") === -1)
             iterate((obj: any) => {
@@ -28,7 +29,7 @@ export const _test_misc_isPrune =
                     )
                 )
                     throw new Error(
-                        `Bug on typia.misc.isPrune(): failed to prune the ${factory.constructor.name} type.`,
+                        `Bug on typia.misc.isPrune(): failed to prune the ${name} type.`,
                     );
             })(input);
 
@@ -39,7 +40,7 @@ export const _test_misc_isPrune =
 
             if (prune(elem) === true)
                 throw new Error(
-                    `Bug on typia.misc.isPrune(): failed to detect error on the ${factory.constructor.name} type.`,
+                    `Bug on typia.misc.isPrune(): failed to detect error on the ${name} type.`,
                 );
         }
     };

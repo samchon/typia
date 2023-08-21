@@ -3,6 +3,7 @@ import typia from "typia";
 import { TestStructure } from "../helpers/TestStructure";
 
 export const _test_validate =
+    (name: string) =>
     <T>(factory: TestStructure<T>) =>
     (validate: (input: T) => typia.IValidation<T>) =>
     () => {
@@ -10,7 +11,7 @@ export const _test_validate =
         const valid: typia.IValidation<unknown> = validate(input);
         if (valid.success === false)
             throw new Error(
-                `Bug on typia.validate(): failed to understand the ${factory.constructor.name} type.`,
+                `Bug on typia.validate(): failed to understand the ${name} type.`,
             );
         else if (valid.data !== input)
             throw new Error(
@@ -26,7 +27,7 @@ export const _test_validate =
 
             if (valid.success === true)
                 throw new Error(
-                    `Bug on typia.validate(): failed to detect error on the ${factory.constructor.name} type.`,
+                    `Bug on typia.validate(): failed to detect error on the ${name} type.`,
                 );
 
             typia.assert(valid);
@@ -45,7 +46,7 @@ export const _test_validate =
         if (wrong.length !== 0) {
             console.log(wrong);
             throw new Error(
-                `Bug on typia.validate(): failed to detect error on the ${factory.constructor.name} type.`,
+                `Bug on typia.validate(): failed to detect error on the ${name} type.`,
             );
         }
     };

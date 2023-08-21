@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_validateEquals } from "../../../internal/_test_validateEquals";
 import { TagFormat } from "../../../structures/TagFormat";
 
-export const test_validateEquals_TagFormat = _test_validateEquals<TagFormat>(
-    TagFormat,
-)((input: any): typia.IValidation<TagFormat> => {
+export const test_validateEquals_TagFormat = _test_validateEquals(
+    "TagFormat",
+)<TagFormat>(TagFormat)((input: any): typia.IValidation<TagFormat> => {
     const errors = [] as any[];
     const __is = (
         input: any,

@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_equals } from "../../../internal/_test_equals";
 import { DynamicUnion } from "../../../structures/DynamicUnion";
 
-export const test_equals_DynamicUnion = _test_equals<DynamicUnion>(
-    DynamicUnion,
-)((input) =>
+export const test_equals_DynamicUnion = _test_equals(
+    "DynamicUnion",
+)<DynamicUnion>(DynamicUnion)((input) =>
     ((input: any, _exceptionable: boolean = true): input is DynamicUnion => {
         const $join = (typia.equals as any).join;
         const $io0 = (input: any, _exceptionable: boolean = true): boolean =>

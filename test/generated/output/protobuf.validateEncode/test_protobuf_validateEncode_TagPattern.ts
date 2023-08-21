@@ -3,7 +3,7 @@ import { _test_protobuf_validateEncode } from "../../../internal/_test_protobuf_
 import { TagPattern } from "../../../structures/TagPattern";
 
 export const test_protobuf_validateEncode_TagPattern =
-    _test_protobuf_validateEncode<TagPattern>(TagPattern)({
+    _test_protobuf_validateEncode("TagPattern")<TagPattern>(TagPattern)({
         validateEncode: (input) =>
             ((input: TagPattern): typia.IValidation<Uint8Array> => {
                 const validate = (

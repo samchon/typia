@@ -3,7 +3,7 @@ import { _test_protobuf_assertEncode } from "../../../internal/_test_protobuf_as
 import { TagPattern } from "../../../structures/TagPattern";
 
 export const test_protobuf_assertEncode_TagPattern =
-    _test_protobuf_assertEncode<TagPattern>(TagPattern)({
+    _test_protobuf_assertEncode("TagPattern")<TagPattern>(TagPattern)({
         assertEncode: (input) =>
             ((input: any): Uint8Array => {
                 const assert = (input: any): TagPattern => {

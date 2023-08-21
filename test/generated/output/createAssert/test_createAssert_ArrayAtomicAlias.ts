@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_assert } from "../../../internal/_test_assert";
 import { ArrayAtomicAlias } from "../../../structures/ArrayAtomicAlias";
 
-export const test_assert_ArrayAtomicAlias = _test_assert<ArrayAtomicAlias>(
-    ArrayAtomicAlias,
-)((input: any): ArrayAtomicAlias => {
+export const test_assert_ArrayAtomicAlias = _test_assert(
+    "ArrayAtomicAlias",
+)<ArrayAtomicAlias>(ArrayAtomicAlias)((input: any): ArrayAtomicAlias => {
     const __is = (input: any): input is ArrayAtomicAlias => {
         return (
             Array.isArray(input) &&

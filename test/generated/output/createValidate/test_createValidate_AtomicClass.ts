@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_validate } from "../../../internal/_test_validate";
 import { AtomicClass } from "../../../structures/AtomicClass";
 
-export const test_validate_AtomicClass = _test_validate<AtomicClass>(
-    AtomicClass,
-)((input: any): typia.IValidation<AtomicClass> => {
+export const test_validate_AtomicClass = _test_validate(
+    "AtomicClass",
+)<AtomicClass>(AtomicClass)((input: any): typia.IValidation<AtomicClass> => {
     const errors = [] as any[];
     const __is = (input: any): input is AtomicClass => {
         return (

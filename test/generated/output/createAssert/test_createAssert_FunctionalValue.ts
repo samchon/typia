@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_assert } from "../../../internal/_test_assert";
 import { FunctionalValue } from "../../../structures/FunctionalValue";
 
-export const test_assert_FunctionalValue = _test_assert<FunctionalValue>(
-    FunctionalValue,
-)((input: any): FunctionalValue => {
+export const test_assert_FunctionalValue = _test_assert(
+    "FunctionalValue",
+)<FunctionalValue>(FunctionalValue)((input: any): FunctionalValue => {
     const __is = (input: any): input is FunctionalValue => {
         return "function" === typeof input;
     };
