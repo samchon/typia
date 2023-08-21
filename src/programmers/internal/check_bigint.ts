@@ -19,10 +19,7 @@ export const check_bigint =
     (input: ts.Expression): ICheckEntry => {
         const entries: [IMetadataTag, ts.Expression][] = [];
         for (const tag of metaTags) {
-            if (
-                tag.kind === "type" &&
-                (tag.value === "uint" || tag.value === "uint64")
-            )
+            if (tag.kind === "type" && tag.value === "uint64")
                 entries.push([
                     tag,
                     ts.factory.createLessThanEquals(
