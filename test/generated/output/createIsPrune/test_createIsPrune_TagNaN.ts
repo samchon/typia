@@ -25,7 +25,9 @@ export const test_createIsPrune_TagNaN = _test_isPrune(
                 0 === (input as any).multipleOf % 3 &&
                 "number" === typeof (input as any).typed &&
                 Number.isFinite((input as any).typed) &&
-                Math.floor((input as any).typed) === (input as any).typed
+                Math.floor((input as any).typed) === (input as any).typed &&
+                -2147483648 <= (input as any).typed &&
+                (input as any).typed <= 2147483647
             );
         };
         const prune = (input: TagNaN): void => {

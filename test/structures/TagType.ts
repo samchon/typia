@@ -94,6 +94,18 @@ export namespace TagType {
             ])
             .flat(),
         (input) => {
+            input.value[0].uint = 4294967296;
+            return ["$input.value[0].uint"];
+        },
+        (input) => {
+            input.value[1].int = -2147483649;
+            return ["$input.value[1].int"];
+        },
+        (input) => {
+            input.value[2].int = 2147483648;
+            return ["$input.value[2].int"];
+        },
+        (input) => {
             input.value[0].uint32 = 4294967296;
             return ["$input.value[0].uint32"];
         },

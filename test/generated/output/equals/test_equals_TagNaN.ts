@@ -27,6 +27,8 @@ export const test_equals_TagNaN = _test_equals(
                 "number" === typeof input.typed &&
                 Number.isFinite(input.typed) &&
                 Math.floor(input.typed) === input.typed &&
+                -2147483648 <= input.typed &&
+                input.typed <= 2147483647 &&
                 (6 === Object.keys(input).length ||
                     Object.keys(input).every((key: any) => {
                         if (
