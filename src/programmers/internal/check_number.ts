@@ -56,7 +56,7 @@ export const check_number =
                         ),
                     ]);
                 // RANGE LIMIT
-                if (tag.value === "uint32")
+                if (tag.value === "uint" || tag.value === "uint32")
                     entries.push([
                         tag,
                         ts.factory.createLessThanEquals(
@@ -92,7 +92,7 @@ export const check_number =
                             ),
                         ),
                     ]);
-                else if (tag.value === "int32")
+                else if (tag.value === "int" || tag.value === "int32")
                     entries.push([
                         tag,
                         ts.factory.createLogicalAnd(
