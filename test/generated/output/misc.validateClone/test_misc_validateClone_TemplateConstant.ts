@@ -3,7 +3,9 @@ import { _test_misc_validateClone } from "../../../internal/_test_misc_validateC
 import { TemplateConstant } from "../../../structures/TemplateConstant";
 
 export const test_misc_validateClone_TemplateConstant =
-    _test_misc_validateClone<TemplateConstant>(TemplateConstant)((input) =>
+    _test_misc_validateClone("TemplateConstant")<TemplateConstant>(
+        TemplateConstant,
+    )((input) =>
         ((input: any): typia.IValidation<typia.Primitive<TemplateConstant>> => {
             const validate = (
                 input: any,

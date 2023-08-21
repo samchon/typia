@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_assert } from "../../../internal/_test_assert";
 import { ObjectRecursive } from "../../../structures/ObjectRecursive";
 
-export const test_assert_ObjectRecursive = _test_assert<ObjectRecursive>(
-    ObjectRecursive,
-)((input) =>
+export const test_assert_ObjectRecursive = _test_assert(
+    "ObjectRecursive",
+)<ObjectRecursive>(ObjectRecursive)((input) =>
     ((input: any): ObjectRecursive => {
         const __is = (input: any): input is ObjectRecursive => {
             const $io0 = (input: any): boolean =>

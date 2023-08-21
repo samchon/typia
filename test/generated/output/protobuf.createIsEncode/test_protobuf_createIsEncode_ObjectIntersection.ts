@@ -3,7 +3,9 @@ import { _test_protobuf_isEncode } from "../../../internal/_test_protobuf_isEnco
 import { ObjectIntersection } from "../../../structures/ObjectIntersection";
 
 export const test_protobuf_isEncode_ObjectIntersection =
-    _test_protobuf_isEncode<ObjectIntersection>(ObjectIntersection)({
+    _test_protobuf_isEncode("ObjectIntersection")<ObjectIntersection>(
+        ObjectIntersection,
+    )({
         isEncode: (input: ObjectIntersection): Uint8Array | null => {
             const is = (input: any): input is ObjectIntersection => {
                 return (

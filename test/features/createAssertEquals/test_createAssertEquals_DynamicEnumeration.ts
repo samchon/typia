@@ -2,7 +2,8 @@ import typia from "../../../src";
 import { _test_assertEquals } from "../../internal/_test_assertEquals";
 import { DynamicEnumeration } from "../../structures/DynamicEnumeration";
 
-export const test_assertEquals_DynamicEnumeration =
-    _test_assertEquals<DynamicEnumeration>(DynamicEnumeration)(
-        typia.createAssertEquals<DynamicEnumeration>(),
-    );
+export const test_assertEquals_DynamicEnumeration = _test_assertEquals(
+    "DynamicEnumeration",
+)<DynamicEnumeration>(DynamicEnumeration)(
+    typia.createAssertEquals<DynamicEnumeration>(),
+);

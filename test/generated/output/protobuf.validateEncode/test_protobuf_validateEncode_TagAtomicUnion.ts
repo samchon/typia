@@ -3,7 +3,9 @@ import { _test_protobuf_validateEncode } from "../../../internal/_test_protobuf_
 import { TagAtomicUnion } from "../../../structures/TagAtomicUnion";
 
 export const test_protobuf_validateEncode_TagAtomicUnion =
-    _test_protobuf_validateEncode<TagAtomicUnion>(TagAtomicUnion)({
+    _test_protobuf_validateEncode("TagAtomicUnion")<TagAtomicUnion>(
+        TagAtomicUnion,
+    )({
         validateEncode: (input) =>
             ((input: TagAtomicUnion): typia.IValidation<Uint8Array> => {
                 const validate = (

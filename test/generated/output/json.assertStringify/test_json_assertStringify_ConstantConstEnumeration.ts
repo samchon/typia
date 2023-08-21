@@ -3,9 +3,9 @@ import { _test_json_assertStringify } from "../../../internal/_test_json_assertS
 import { ConstantConstEnumeration } from "../../../structures/ConstantConstEnumeration";
 
 export const test_json_assertStringify_ConstantConstEnumeration =
-    _test_json_assertStringify<ConstantConstEnumeration>(
-        ConstantConstEnumeration,
-    )((input) =>
+    _test_json_assertStringify(
+        "ConstantConstEnumeration",
+    )<ConstantConstEnumeration>(ConstantConstEnumeration)((input) =>
         ((input: any): string => {
             const assert = (input: any): ConstantConstEnumeration => {
                 const __is = (

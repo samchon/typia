@@ -2,7 +2,8 @@ import typia from "../../../src";
 import { _test_json_stringify } from "../../internal/_test_json_stringify";
 import { ObjectNullable } from "../../structures/ObjectNullable";
 
-export const test_json_stringify_ObjectNullable =
-    _test_json_stringify<ObjectNullable>(ObjectNullable)((input) =>
-        typia.json.stringify<ObjectNullable>(input),
-    );
+export const test_json_stringify_ObjectNullable = _test_json_stringify(
+    "ObjectNullable",
+)<ObjectNullable>(ObjectNullable)((input) =>
+    typia.json.stringify<ObjectNullable>(input),
+);

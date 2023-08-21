@@ -3,7 +3,9 @@ import { _test_json_assertStringify } from "../../../internal/_test_json_assertS
 import { ArrayHierarchical } from "../../../structures/ArrayHierarchical";
 
 export const test_json_assertStringify_ArrayHierarchical =
-    _test_json_assertStringify<ArrayHierarchical>(ArrayHierarchical)((input) =>
+    _test_json_assertStringify("ArrayHierarchical")<ArrayHierarchical>(
+        ArrayHierarchical,
+    )((input) =>
         ((input: any): string => {
             const assert = (input: any): ArrayHierarchical => {
                 const __is = (input: any): input is ArrayHierarchical => {

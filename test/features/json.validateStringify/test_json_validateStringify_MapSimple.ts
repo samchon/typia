@@ -3,6 +3,6 @@ import { _test_json_validateStringify } from "../../internal/_test_json_validate
 import { MapSimple } from "../../structures/MapSimple";
 
 export const test_json_validateStringify_MapSimple =
-    _test_json_validateStringify<MapSimple>(MapSimple)((input) =>
+    _test_json_validateStringify("MapSimple")<MapSimple>(MapSimple)((input) =>
         typia.json.validateStringify<MapSimple>(input),
     );

@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_validate } from "../../../internal/_test_validate";
 import { ObjectPrimitive } from "../../../structures/ObjectPrimitive";
 
-export const test_validate_ObjectPrimitive = _test_validate<ObjectPrimitive>(
-    ObjectPrimitive,
-)((input) =>
+export const test_validate_ObjectPrimitive = _test_validate(
+    "ObjectPrimitive",
+)<ObjectPrimitive>(ObjectPrimitive)((input) =>
     ((input: any): typia.IValidation<ObjectPrimitive> => {
         const errors = [] as any[];
         const __is = (input: any): input is ObjectPrimitive => {

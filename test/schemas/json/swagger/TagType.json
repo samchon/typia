@@ -40,7 +40,7 @@
                 "name": "type",
                 "text": [
                   {
-                    "text": "int",
+                    "text": "{int}",
                     "kind": "text"
                   }
                 ]
@@ -73,12 +73,129 @@
             "x-typia-optional": false,
             "type": "integer",
             "minimum": 0
+          },
+          "int32": {
+            "x-typia-metaTags": [
+              {
+                "kind": "type",
+                "value": "int32"
+              }
+            ],
+            "x-typia-jsDocTags": [
+              {
+                "name": "type",
+                "text": [
+                  {
+                    "text": "{int32}",
+                    "kind": "text"
+                  }
+                ]
+              }
+            ],
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "integer"
+          },
+          "uint32": {
+            "x-typia-metaTags": [
+              {
+                "kind": "type",
+                "value": "uint32"
+              }
+            ],
+            "x-typia-jsDocTags": [
+              {
+                "name": "type",
+                "text": [
+                  {
+                    "text": "uint32",
+                    "kind": "text"
+                  }
+                ]
+              }
+            ],
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "integer",
+            "minimum": 0
+          },
+          "int64": {
+            "x-typia-metaTags": [
+              {
+                "kind": "type",
+                "value": "int64"
+              }
+            ],
+            "x-typia-jsDocTags": [
+              {
+                "name": "type",
+                "text": [
+                  {
+                    "text": "int64",
+                    "kind": "text"
+                  }
+                ]
+              }
+            ],
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "integer"
+          },
+          "uint64": {
+            "x-typia-metaTags": [
+              {
+                "kind": "type",
+                "value": "uint64"
+              }
+            ],
+            "x-typia-jsDocTags": [
+              {
+                "name": "type",
+                "text": [
+                  {
+                    "text": "{uint64}",
+                    "kind": "text"
+                  }
+                ]
+              }
+            ],
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "integer",
+            "minimum": 0
+          },
+          "float": {
+            "x-typia-metaTags": [
+              {
+                "kind": "type",
+                "value": "float"
+              }
+            ],
+            "x-typia-jsDocTags": [
+              {
+                "name": "type",
+                "text": [
+                  {
+                    "text": "float",
+                    "kind": "text"
+                  }
+                ]
+              }
+            ],
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "number"
           }
         },
         "nullable": false,
         "required": [
           "int",
-          "uint"
+          "uint",
+          "int32",
+          "uint32",
+          "int64",
+          "uint64",
+          "float"
         ],
         "x-typia-jsDocTags": []
       }

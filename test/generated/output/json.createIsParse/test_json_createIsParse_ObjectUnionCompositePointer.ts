@@ -2,10 +2,10 @@ import typia from "../../../../src";
 import { _test_json_isParse } from "../../../internal/_test_json_isParse";
 import { ObjectUnionCompositePointer } from "../../../structures/ObjectUnionCompositePointer";
 
-export const test_json_isParse_ObjectUnionCompositePointer =
-    _test_json_isParse<ObjectUnionCompositePointer>(
-        ObjectUnionCompositePointer,
-    )((input: any): typia.Primitive<ObjectUnionCompositePointer> => {
+export const test_json_isParse_ObjectUnionCompositePointer = _test_json_isParse(
+    "ObjectUnionCompositePointer",
+)<ObjectUnionCompositePointer>(ObjectUnionCompositePointer)(
+    (input: any): typia.Primitive<ObjectUnionCompositePointer> => {
         const is = (input: any): input is ObjectUnionCompositePointer => {
             const $io0 = (input: any): boolean =>
                 Array.isArray(input.value) &&
@@ -147,4 +147,5 @@ export const test_json_isParse_ObjectUnionCompositePointer =
         };
         input = JSON.parse(input);
         return is(input) ? (input as any) : null;
-    });
+    },
+);

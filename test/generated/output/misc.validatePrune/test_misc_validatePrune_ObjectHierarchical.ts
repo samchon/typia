@@ -3,7 +3,9 @@ import { _test_misc_validatePrune } from "../../../internal/_test_misc_validateP
 import { ObjectHierarchical } from "../../../structures/ObjectHierarchical";
 
 export const test_misc_validatePrune_ObjectHierarchical =
-    _test_misc_validatePrune<ObjectHierarchical>(ObjectHierarchical)((input) =>
+    _test_misc_validatePrune("ObjectHierarchical")<ObjectHierarchical>(
+        ObjectHierarchical,
+    )((input) =>
         ((input: any): typia.IValidation<ObjectHierarchical> => {
             const validate = (
                 input: any,

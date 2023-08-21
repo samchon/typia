@@ -3,7 +3,7 @@ import { _test_protobuf_validateEncode } from "../../internal/_test_protobuf_val
 import { TagStep } from "../../structures/TagStep";
 
 export const test_protobuf_validateEncode_TagStep =
-    _test_protobuf_validateEncode<TagStep>(TagStep)({
+    _test_protobuf_validateEncode("TagStep")<TagStep>(TagStep)({
         validateEncode: (input) =>
             typia.protobuf.validateEncode<TagStep>(input),
         message: typia.protobuf.message<TagStep>(),

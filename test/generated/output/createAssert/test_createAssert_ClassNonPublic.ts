@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_assert } from "../../../internal/_test_assert";
 import { ClassNonPublic } from "../../../structures/ClassNonPublic";
 
-export const test_assert_ClassNonPublic = _test_assert<ClassNonPublic>(
-    ClassNonPublic,
-)((input: any): ClassNonPublic => {
+export const test_assert_ClassNonPublic = _test_assert(
+    "ClassNonPublic",
+)<ClassNonPublic>(ClassNonPublic)((input: any): ClassNonPublic => {
     const __is = (input: any): input is ClassNonPublic => {
         return (
             "object" === typeof input &&

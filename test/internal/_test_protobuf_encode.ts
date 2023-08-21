@@ -1,10 +1,10 @@
 import pjs from "protobufjs";
 
+import { TestStructure } from "../helpers/TestStructure";
+
 export const _test_protobuf_encode =
-    <T extends object>(factory: {
-        constructor: { name: string };
-        generate(): T;
-    }) =>
+    (name: string) =>
+    <T extends object>(factory: TestStructure<T>) =>
     (functor: { message: string; encode: (input: T) => Uint8Array }) =>
     () => {
         const data: T = factory.generate();
@@ -14,7 +14,7 @@ export const _test_protobuf_encode =
             } catch (exp) {
                 console.log((exp as any)?.message);
                 throw new Error(
-                    `Bug on typia.protobuf.encode(): failed to encode ${factory.constructor.name} type.`,
+                    `Bug on typia.protobuf.encode(): failed to encode ${name} type.`,
                 );
             }
         })();
@@ -30,7 +30,7 @@ export const _test_protobuf_encode =
             ) {
                 console.log(result.length, exected.length);
                 throw new Error(
-                    `Bug on typia.protobuf.encode(): invalid encoding happened on ${factory.constructor.name} type.`,
+                    `Bug on typia.protobuf.encode(): invalid encoding happened on ${name} type.`,
                 );
             }
         }

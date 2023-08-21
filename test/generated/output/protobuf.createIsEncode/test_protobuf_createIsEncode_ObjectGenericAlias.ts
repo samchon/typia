@@ -3,7 +3,9 @@ import { _test_protobuf_isEncode } from "../../../internal/_test_protobuf_isEnco
 import { ObjectGenericAlias } from "../../../structures/ObjectGenericAlias";
 
 export const test_protobuf_isEncode_ObjectGenericAlias =
-    _test_protobuf_isEncode<ObjectGenericAlias>(ObjectGenericAlias)({
+    _test_protobuf_isEncode("ObjectGenericAlias")<ObjectGenericAlias>(
+        ObjectGenericAlias,
+    )({
         isEncode: (input: ObjectGenericAlias): Uint8Array | null => {
             const is = (input: any): input is ObjectGenericAlias => {
                 return (

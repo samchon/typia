@@ -3,9 +3,9 @@ import { _test_protobuf_encode } from "../../../internal/_test_protobuf_encode";
 import { ObjectUnionExplicitPointer } from "../../../structures/ObjectUnionExplicitPointer";
 
 export const test_protobuf_encode_ObjectUnionExplicitPointer =
-    _test_protobuf_encode<ObjectUnionExplicitPointer>(
-        ObjectUnionExplicitPointer,
-    )({
+    _test_protobuf_encode(
+        "ObjectUnionExplicitPointer",
+    )<ObjectUnionExplicitPointer>(ObjectUnionExplicitPointer)({
         encode: (input) =>
             ((input: ObjectUnionExplicitPointer): Uint8Array => {
                 const $throws = (typia.protobuf.encode as any).throws;

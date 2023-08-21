@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_misc_isPrune } from "../../../internal/_test_misc_isPrune";
 import { ObjectAlias } from "../../../structures/ObjectAlias";
 
-export const test_misc_isPrune_ObjectAlias = _test_misc_isPrune<ObjectAlias>(
-    ObjectAlias,
-)((input: any): input is ObjectAlias => {
+export const test_misc_isPrune_ObjectAlias = _test_misc_isPrune(
+    "ObjectAlias",
+)<ObjectAlias>(ObjectAlias)((input: any): input is ObjectAlias => {
     const is = (input: any): input is ObjectAlias => {
         const $io0 = (input: any): boolean =>
             (null === input.id || "string" === typeof input.id) &&

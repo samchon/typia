@@ -3,7 +3,9 @@ import { _test_misc_validateClone } from "../../../internal/_test_misc_validateC
 import { ObjectGenericAlias } from "../../../structures/ObjectGenericAlias";
 
 export const test_misc_validateClone_ObjectGenericAlias =
-    _test_misc_validateClone<ObjectGenericAlias>(ObjectGenericAlias)((input) =>
+    _test_misc_validateClone("ObjectGenericAlias")<ObjectGenericAlias>(
+        ObjectGenericAlias,
+    )((input) =>
         ((
             input: any,
         ): typia.IValidation<typia.Primitive<ObjectGenericAlias>> => {

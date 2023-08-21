@@ -3,7 +3,9 @@ import { _test_json_assertStringify } from "../../../internal/_test_json_assertS
 import { ObjectUndefined } from "../../../structures/ObjectUndefined";
 
 export const test_json_assertStringify_ObjectUndefined =
-    _test_json_assertStringify<ObjectUndefined>(ObjectUndefined)((input) =>
+    _test_json_assertStringify("ObjectUndefined")<ObjectUndefined>(
+        ObjectUndefined,
+    )((input) =>
         ((input: any): string => {
             const assert = (input: any): ObjectUndefined => {
                 const __is = (input: any): input is ObjectUndefined => {

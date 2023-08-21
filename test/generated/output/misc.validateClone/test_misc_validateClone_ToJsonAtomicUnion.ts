@@ -3,7 +3,9 @@ import { _test_misc_validateClone } from "../../../internal/_test_misc_validateC
 import { ToJsonAtomicUnion } from "../../../structures/ToJsonAtomicUnion";
 
 export const test_misc_validateClone_ToJsonAtomicUnion =
-    _test_misc_validateClone<ToJsonAtomicUnion>(ToJsonAtomicUnion)((input) =>
+    _test_misc_validateClone("ToJsonAtomicUnion")<ToJsonAtomicUnion>(
+        ToJsonAtomicUnion,
+    )((input) =>
         ((
             input: any,
         ): typia.IValidation<typia.Primitive<ToJsonAtomicUnion>> => {

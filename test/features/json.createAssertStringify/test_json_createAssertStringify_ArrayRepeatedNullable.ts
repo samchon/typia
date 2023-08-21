@@ -3,6 +3,6 @@ import { _test_json_assertStringify } from "../../internal/_test_json_assertStri
 import { ArrayRepeatedNullable } from "../../structures/ArrayRepeatedNullable";
 
 export const test_json_assertStringify_ArrayRepeatedNullable =
-    _test_json_assertStringify<ArrayRepeatedNullable>(ArrayRepeatedNullable)(
-        typia.json.createAssertStringify<ArrayRepeatedNullable>(),
-    );
+    _test_json_assertStringify("ArrayRepeatedNullable")<ArrayRepeatedNullable>(
+        ArrayRepeatedNullable,
+    )(typia.json.createAssertStringify<ArrayRepeatedNullable>());

@@ -3,7 +3,7 @@ import { _test_json_validateStringify } from "../../../internal/_test_json_valid
 import { ArrayAny } from "../../../structures/ArrayAny";
 
 export const test_json_validateStringify_ArrayAny =
-    _test_json_validateStringify<ArrayAny>(ArrayAny)((input) =>
+    _test_json_validateStringify("ArrayAny")<ArrayAny>(ArrayAny)((input) =>
         ((input: ArrayAny): typia.IValidation<string> => {
             const validate = (input: any): typia.IValidation<ArrayAny> => {
                 const errors = [] as any[];

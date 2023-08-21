@@ -3,9 +3,9 @@ import { _test_protobuf_assertEncode } from "../../../internal/_test_protobuf_as
 import { ObjectUnionNonPredictable } from "../../../structures/ObjectUnionNonPredictable";
 
 export const test_protobuf_assertEncode_ObjectUnionNonPredictable =
-    _test_protobuf_assertEncode<ObjectUnionNonPredictable>(
-        ObjectUnionNonPredictable,
-    )({
+    _test_protobuf_assertEncode(
+        "ObjectUnionNonPredictable",
+    )<ObjectUnionNonPredictable>(ObjectUnionNonPredictable)({
         assertEncode: (input: any): Uint8Array => {
             const assert = (input: any): ObjectUnionNonPredictable => {
                 const __is = (

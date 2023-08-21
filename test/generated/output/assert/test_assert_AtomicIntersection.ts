@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_assert } from "../../../internal/_test_assert";
 import { AtomicIntersection } from "../../../structures/AtomicIntersection";
 
-export const test_assert_AtomicIntersection = _test_assert<AtomicIntersection>(
-    AtomicIntersection,
-)((input) =>
+export const test_assert_AtomicIntersection = _test_assert(
+    "AtomicIntersection",
+)<AtomicIntersection>(AtomicIntersection)((input) =>
     ((input: any): AtomicIntersection => {
         const __is = (input: any): input is AtomicIntersection => {
             return (

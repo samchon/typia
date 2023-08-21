@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_misc_isClone } from "../../../internal/_test_misc_isClone";
 import { NativeUnion } from "../../../structures/NativeUnion";
 
-export const test_misc_isClone_NativeUnion = _test_misc_isClone<NativeUnion>(
-    NativeUnion,
-)((input) =>
+export const test_misc_isClone_NativeUnion = _test_misc_isClone(
+    "NativeUnion",
+)<NativeUnion>(NativeUnion)((input) =>
     ((input: any): typia.Primitive<NativeUnion> | null => {
         const is = (input: any): input is NativeUnion => {
             const $io0 = (input: any): boolean =>

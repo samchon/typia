@@ -3,7 +3,9 @@ import { _test_json_validateParse } from "../../../internal/_test_json_validateP
 import { ConstantAtomicWrapper } from "../../../structures/ConstantAtomicWrapper";
 
 export const test_json_validateParse_ConstantAtomicWrapper =
-    _test_json_validateParse<ConstantAtomicWrapper>(ConstantAtomicWrapper)(
+    _test_json_validateParse("ConstantAtomicWrapper")<ConstantAtomicWrapper>(
+        ConstantAtomicWrapper,
+    )(
         (
             input: string,
         ): typia.IValidation<typia.Primitive<ConstantAtomicWrapper>> => {

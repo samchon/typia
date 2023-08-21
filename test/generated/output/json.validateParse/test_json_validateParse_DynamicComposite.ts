@@ -3,7 +3,9 @@ import { _test_json_validateParse } from "../../../internal/_test_json_validateP
 import { DynamicComposite } from "../../../structures/DynamicComposite";
 
 export const test_json_validateParse_DynamicComposite =
-    _test_json_validateParse<DynamicComposite>(DynamicComposite)((input) =>
+    _test_json_validateParse("DynamicComposite")<DynamicComposite>(
+        DynamicComposite,
+    )((input) =>
         ((
             input: string,
         ): typia.IValidation<typia.Primitive<DynamicComposite>> => {

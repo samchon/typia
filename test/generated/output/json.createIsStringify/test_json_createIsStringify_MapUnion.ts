@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_json_isStringify } from "../../../internal/_test_json_isStringify";
 import { MapUnion } from "../../../structures/MapUnion";
 
-export const test_json_isStringify_MapUnion = _test_json_isStringify<MapUnion>(
-    MapUnion,
-)((input: MapUnion): string | null => {
+export const test_json_isStringify_MapUnion = _test_json_isStringify(
+    "MapUnion",
+)<MapUnion>(MapUnion)((input: MapUnion): string | null => {
     const is = (input: any): input is MapUnion => {
         const $io0 = (input: any): boolean =>
             "string" === typeof input.id &&

@@ -3,9 +3,9 @@ import { _test_json_validateStringify } from "../../../internal/_test_json_valid
 import { ConstantConstEnumeration } from "../../../structures/ConstantConstEnumeration";
 
 export const test_json_validateStringify_ConstantConstEnumeration =
-    _test_json_validateStringify<ConstantConstEnumeration>(
-        ConstantConstEnumeration,
-    )((input) =>
+    _test_json_validateStringify(
+        "ConstantConstEnumeration",
+    )<ConstantConstEnumeration>(ConstantConstEnumeration)((input) =>
         ((input: ConstantConstEnumeration): typia.IValidation<string> => {
             const validate = (
                 input: any,

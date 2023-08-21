@@ -3,7 +3,7 @@ import { _test_json_validateStringify } from "../../../internal/_test_json_valid
 import { SetUnion } from "../../../structures/SetUnion";
 
 export const test_json_validateStringify_SetUnion =
-    _test_json_validateStringify<SetUnion>(SetUnion)(
+    _test_json_validateStringify("SetUnion")<SetUnion>(SetUnion)(
         (input: SetUnion): typia.IValidation<string> => {
             const validate = (input: any): typia.IValidation<SetUnion> => {
                 const errors = [] as any[];

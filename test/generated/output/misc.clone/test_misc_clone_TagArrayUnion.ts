@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_misc_clone } from "../../../internal/_test_misc_clone";
 import { TagArrayUnion } from "../../../structures/TagArrayUnion";
 
-export const test_misc_clone_TagArrayUnion = _test_misc_clone<TagArrayUnion>(
-    TagArrayUnion,
-)((input) =>
+export const test_misc_clone_TagArrayUnion = _test_misc_clone(
+    "TagArrayUnion",
+)<TagArrayUnion>(TagArrayUnion)((input) =>
     ((input: TagArrayUnion): typia.Primitive<TagArrayUnion> => {
         const $is_uuid = (typia.misc.clone as any).is_uuid;
         const $cp0 = (input: any) =>

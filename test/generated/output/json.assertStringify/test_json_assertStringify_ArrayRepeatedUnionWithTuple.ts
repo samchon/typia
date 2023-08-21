@@ -3,9 +3,9 @@ import { _test_json_assertStringify } from "../../../internal/_test_json_assertS
 import { ArrayRepeatedUnionWithTuple } from "../../../structures/ArrayRepeatedUnionWithTuple";
 
 export const test_json_assertStringify_ArrayRepeatedUnionWithTuple =
-    _test_json_assertStringify<ArrayRepeatedUnionWithTuple>(
-        ArrayRepeatedUnionWithTuple,
-    )((input) =>
+    _test_json_assertStringify(
+        "ArrayRepeatedUnionWithTuple",
+    )<ArrayRepeatedUnionWithTuple>(ArrayRepeatedUnionWithTuple)((input) =>
         ((input: any): string => {
             const assert = (input: any): ArrayRepeatedUnionWithTuple => {
                 const __is = (

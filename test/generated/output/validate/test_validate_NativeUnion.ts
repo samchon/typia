@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_validate } from "../../../internal/_test_validate";
 import { NativeUnion } from "../../../structures/NativeUnion";
 
-export const test_validate_NativeUnion = _test_validate<NativeUnion>(
-    NativeUnion,
-)((input) =>
+export const test_validate_NativeUnion = _test_validate(
+    "NativeUnion",
+)<NativeUnion>(NativeUnion)((input) =>
     ((input: any): typia.IValidation<NativeUnion> => {
         const errors = [] as any[];
         const __is = (input: any): input is NativeUnion => {

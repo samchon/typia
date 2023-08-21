@@ -3,7 +3,9 @@ import { _test_protobuf_validateEncode } from "../../../internal/_test_protobuf_
 import { ObjectOptional } from "../../../structures/ObjectOptional";
 
 export const test_protobuf_validateEncode_ObjectOptional =
-    _test_protobuf_validateEncode<ObjectOptional>(ObjectOptional)({
+    _test_protobuf_validateEncode("ObjectOptional")<ObjectOptional>(
+        ObjectOptional,
+    )({
         validateEncode: (input) =>
             ((input: ObjectOptional): typia.IValidation<Uint8Array> => {
                 const validate = (

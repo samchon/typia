@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_json_isParse } from "../../../internal/_test_json_isParse";
 import { DynamicNever } from "../../../structures/DynamicNever";
 
-export const test_json_isParse_DynamicNever = _test_json_isParse<DynamicNever>(
-    DynamicNever,
-)((input) =>
+export const test_json_isParse_DynamicNever = _test_json_isParse(
+    "DynamicNever",
+)<DynamicNever>(DynamicNever)((input) =>
     ((input: any): typia.Primitive<DynamicNever> => {
         const is = (input: any): input is DynamicNever => {
             const $join = (typia.json.isParse as any).join;

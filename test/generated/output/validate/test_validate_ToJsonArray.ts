@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_validate } from "../../../internal/_test_validate";
 import { ToJsonArray } from "../../../structures/ToJsonArray";
 
-export const test_validate_ToJsonArray = _test_validate<ToJsonArray>(
-    ToJsonArray,
-)((input) =>
+export const test_validate_ToJsonArray = _test_validate(
+    "ToJsonArray",
+)<ToJsonArray>(ToJsonArray)((input) =>
     ((input: any): typia.IValidation<ToJsonArray> => {
         const errors = [] as any[];
         const __is = (input: any): input is ToJsonArray => {

@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_assertEquals } from "../../../internal/_test_assertEquals";
 import { DynamicUnion } from "../../../structures/DynamicUnion";
 
-export const test_assertEquals_DynamicUnion = _test_assertEquals<DynamicUnion>(
-    DynamicUnion,
-)((input: any): DynamicUnion => {
+export const test_assertEquals_DynamicUnion = _test_assertEquals(
+    "DynamicUnion",
+)<DynamicUnion>(DynamicUnion)((input: any): DynamicUnion => {
     const __is = (
         input: any,
         _exceptionable: boolean = true,

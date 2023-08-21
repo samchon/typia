@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_validate } from "../../../internal/_test_validate";
 import { NativeAlias } from "../../../structures/NativeAlias";
 
-export const test_validate_NativeAlias = _test_validate<NativeAlias>(
-    NativeAlias,
-)((input: any): typia.IValidation<NativeAlias> => {
+export const test_validate_NativeAlias = _test_validate(
+    "NativeAlias",
+)<NativeAlias>(NativeAlias)((input: any): typia.IValidation<NativeAlias> => {
     const errors = [] as any[];
     const __is = (input: any): input is NativeAlias => {
         const $io0 = (input: any): boolean =>

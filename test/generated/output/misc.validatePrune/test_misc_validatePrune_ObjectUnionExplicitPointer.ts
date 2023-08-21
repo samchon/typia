@@ -3,9 +3,9 @@ import { _test_misc_validatePrune } from "../../../internal/_test_misc_validateP
 import { ObjectUnionExplicitPointer } from "../../../structures/ObjectUnionExplicitPointer";
 
 export const test_misc_validatePrune_ObjectUnionExplicitPointer =
-    _test_misc_validatePrune<ObjectUnionExplicitPointer>(
-        ObjectUnionExplicitPointer,
-    )((input) =>
+    _test_misc_validatePrune(
+        "ObjectUnionExplicitPointer",
+    )<ObjectUnionExplicitPointer>(ObjectUnionExplicitPointer)((input) =>
         ((input: any): typia.IValidation<ObjectUnionExplicitPointer> => {
             const validate = (
                 input: any,

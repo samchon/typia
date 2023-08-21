@@ -3,9 +3,9 @@ import { _test_protobuf_assertEncode } from "../../internal/_test_protobuf_asser
 import { ArrayRecursiveUnionExplicitPointer } from "../../structures/ArrayRecursiveUnionExplicitPointer";
 
 export const test_protobuf_assertEncode_ArrayRecursiveUnionExplicitPointer =
-    _test_protobuf_assertEncode<ArrayRecursiveUnionExplicitPointer>(
-        ArrayRecursiveUnionExplicitPointer,
-    )({
+    _test_protobuf_assertEncode(
+        "ArrayRecursiveUnionExplicitPointer",
+    )<ArrayRecursiveUnionExplicitPointer>(ArrayRecursiveUnionExplicitPointer)({
         assertEncode:
             typia.protobuf.createAssertEncode<ArrayRecursiveUnionExplicitPointer>(),
         message: typia.protobuf.message<ArrayRecursiveUnionExplicitPointer>(),

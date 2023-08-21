@@ -3,6 +3,6 @@ import { _test_misc_assertClone } from "../../internal/_test_misc_assertClone";
 import { ArrayRepeatedNullable } from "../../structures/ArrayRepeatedNullable";
 
 export const test_misc_assertClone_ArrayRepeatedNullable =
-    _test_misc_assertClone<ArrayRepeatedNullable>(ArrayRepeatedNullable)(
-        typia.misc.createAssertClone<ArrayRepeatedNullable>(),
-    );
+    _test_misc_assertClone("ArrayRepeatedNullable")<ArrayRepeatedNullable>(
+        ArrayRepeatedNullable,
+    )(typia.misc.createAssertClone<ArrayRepeatedNullable>());

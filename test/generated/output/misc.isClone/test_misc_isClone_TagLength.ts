@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_misc_isClone } from "../../../internal/_test_misc_isClone";
 import { TagLength } from "../../../structures/TagLength";
 
-export const test_misc_isClone_TagLength = _test_misc_isClone<TagLength>(
-    TagLength,
-)((input) =>
+export const test_misc_isClone_TagLength = _test_misc_isClone(
+    "TagLength",
+)<TagLength>(TagLength)((input) =>
     ((input: any): typia.Primitive<TagLength> | null => {
         const is = (input: any): input is TagLength => {
             const $io0 = (input: any): boolean =>

@@ -3,7 +3,7 @@ import { _test_json_validateStringify } from "../../../internal/_test_json_valid
 import { ToJsonArray } from "../../../structures/ToJsonArray";
 
 export const test_json_validateStringify_ToJsonArray =
-    _test_json_validateStringify<ToJsonArray>(ToJsonArray)(
+    _test_json_validateStringify("ToJsonArray")<ToJsonArray>(ToJsonArray)(
         (input: ToJsonArray): typia.IValidation<string> => {
             const validate = (input: any): typia.IValidation<ToJsonArray> => {
                 const errors = [] as any[];

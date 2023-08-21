@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_validate } from "../../../internal/_test_validate";
 import { DynamicComposite } from "../../../structures/DynamicComposite";
 
-export const test_validate_DynamicComposite = _test_validate<DynamicComposite>(
-    DynamicComposite,
-)((input) =>
+export const test_validate_DynamicComposite = _test_validate(
+    "DynamicComposite",
+)<DynamicComposite>(DynamicComposite)((input) =>
     ((input: any): typia.IValidation<DynamicComposite> => {
         const errors = [] as any[];
         const __is = (input: any): input is DynamicComposite => {

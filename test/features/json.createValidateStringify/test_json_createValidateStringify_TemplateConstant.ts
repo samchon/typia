@@ -3,6 +3,6 @@ import { _test_json_validateStringify } from "../../internal/_test_json_validate
 import { TemplateConstant } from "../../structures/TemplateConstant";
 
 export const test_json_validateStringify_TemplateConstant =
-    _test_json_validateStringify<TemplateConstant>(TemplateConstant)(
-        typia.json.createValidateStringify<TemplateConstant>(),
-    );
+    _test_json_validateStringify("TemplateConstant")<TemplateConstant>(
+        TemplateConstant,
+    )(typia.json.createValidateStringify<TemplateConstant>());

@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_misc_clone } from "../../../internal/_test_misc_clone";
 import { ArraySimple } from "../../../structures/ArraySimple";
 
-export const test_misc_clone_ArraySimple = _test_misc_clone<ArraySimple>(
-    ArraySimple,
-)((input) =>
+export const test_misc_clone_ArraySimple = _test_misc_clone(
+    "ArraySimple",
+)<ArraySimple>(ArraySimple)((input) =>
     ((input: ArraySimple): typia.Primitive<ArraySimple> => {
         const $io1 = (input: any): boolean =>
             "string" === typeof input.name &&

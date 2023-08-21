@@ -2,7 +2,7 @@ import typia from "../../../../src";
 import { _test_equals } from "../../../internal/_test_equals";
 import { TagStep } from "../../../structures/TagStep";
 
-export const test_equals_TagStep = _test_equals<TagStep>(TagStep)(
+export const test_equals_TagStep = _test_equals("TagStep")<TagStep>(TagStep)(
     (input: any, _exceptionable: boolean = true): input is TagStep => {
         const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
             Array.isArray(input.value) &&

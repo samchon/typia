@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_validate } from "../../../internal/_test_validate";
 import { ToJsonDouble } from "../../../structures/ToJsonDouble";
 
-export const test_validate_ToJsonDouble = _test_validate<ToJsonDouble>(
-    ToJsonDouble,
-)((input: any): typia.IValidation<ToJsonDouble> => {
+export const test_validate_ToJsonDouble = _test_validate(
+    "ToJsonDouble",
+)<ToJsonDouble>(ToJsonDouble)((input: any): typia.IValidation<ToJsonDouble> => {
     const errors = [] as any[];
     const __is = (input: any): input is ToJsonDouble => {
         return "object" === typeof input && null !== input && true;

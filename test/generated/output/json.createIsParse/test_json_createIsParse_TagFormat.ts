@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_json_isParse } from "../../../internal/_test_json_isParse";
 import { TagFormat } from "../../../structures/TagFormat";
 
-export const test_json_isParse_TagFormat = _test_json_isParse<TagFormat>(
-    TagFormat,
-)((input: any): typia.Primitive<TagFormat> => {
+export const test_json_isParse_TagFormat = _test_json_isParse(
+    "TagFormat",
+)<TagFormat>(TagFormat)((input: any): typia.Primitive<TagFormat> => {
     const is = (input: any): input is TagFormat => {
         const $is_uuid = (typia.json.createIsParse as any).is_uuid;
         const $is_email = (typia.json.createIsParse as any).is_email;

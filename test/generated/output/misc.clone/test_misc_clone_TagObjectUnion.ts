@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_misc_clone } from "../../../internal/_test_misc_clone";
 import { TagObjectUnion } from "../../../structures/TagObjectUnion";
 
-export const test_misc_clone_TagObjectUnion = _test_misc_clone<TagObjectUnion>(
-    TagObjectUnion,
-)((input) =>
+export const test_misc_clone_TagObjectUnion = _test_misc_clone(
+    "TagObjectUnion",
+)<TagObjectUnion>(TagObjectUnion)((input) =>
     ((input: TagObjectUnion): typia.Primitive<TagObjectUnion> => {
         const $io0 = (input: any): boolean =>
             "number" === typeof input.value && 3 <= input.value;

@@ -3,9 +3,9 @@ import { _test_misc_validatePrune } from "../../../internal/_test_misc_validateP
 import { ArrayRecursiveUnionImplicit } from "../../../structures/ArrayRecursiveUnionImplicit";
 
 export const test_misc_validatePrune_ArrayRecursiveUnionImplicit =
-    _test_misc_validatePrune<ArrayRecursiveUnionImplicit>(
-        ArrayRecursiveUnionImplicit,
-    )((input) =>
+    _test_misc_validatePrune(
+        "ArrayRecursiveUnionImplicit",
+    )<ArrayRecursiveUnionImplicit>(ArrayRecursiveUnionImplicit)((input) =>
         ((input: any): typia.IValidation<ArrayRecursiveUnionImplicit> => {
             const validate = (
                 input: any,

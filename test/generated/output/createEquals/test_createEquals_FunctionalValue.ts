@@ -2,8 +2,10 @@ import typia from "../../../../src";
 import { _test_equals } from "../../../internal/_test_equals";
 import { FunctionalValue } from "../../../structures/FunctionalValue";
 
-export const test_equals_FunctionalValue = _test_equals<FunctionalValue>(
-    FunctionalValue,
-)((input: any, _exceptionable: boolean = true): input is FunctionalValue => {
-    return "function" === typeof input;
-});
+export const test_equals_FunctionalValue = _test_equals(
+    "FunctionalValue",
+)<FunctionalValue>(FunctionalValue)(
+    (input: any, _exceptionable: boolean = true): input is FunctionalValue => {
+        return "function" === typeof input;
+    },
+);

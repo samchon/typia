@@ -3,7 +3,9 @@ import { _test_protobuf_validateEncode } from "../../../internal/_test_protobuf_
 import { ArrayRecursive } from "../../../structures/ArrayRecursive";
 
 export const test_protobuf_validateEncode_ArrayRecursive =
-    _test_protobuf_validateEncode<ArrayRecursive>(ArrayRecursive)({
+    _test_protobuf_validateEncode("ArrayRecursive")<ArrayRecursive>(
+        ArrayRecursive,
+    )({
         validateEncode: (input) =>
             ((input: ArrayRecursive): typia.IValidation<Uint8Array> => {
                 const validate = (

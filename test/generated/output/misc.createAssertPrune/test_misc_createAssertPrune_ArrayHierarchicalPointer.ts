@@ -3,7 +3,9 @@ import { _test_misc_assertPrune } from "../../../internal/_test_misc_assertPrune
 import { ArrayHierarchicalPointer } from "../../../structures/ArrayHierarchicalPointer";
 
 export const test_misc_assertPrune_ArrayHierarchicalPointer =
-    _test_misc_assertPrune<ArrayHierarchicalPointer>(ArrayHierarchicalPointer)(
+    _test_misc_assertPrune(
+        "ArrayHierarchicalPointer",
+    )<ArrayHierarchicalPointer>(ArrayHierarchicalPointer)(
         (input: any): ArrayHierarchicalPointer => {
             const assert = (input: any): ArrayHierarchicalPointer => {
                 const __is = (

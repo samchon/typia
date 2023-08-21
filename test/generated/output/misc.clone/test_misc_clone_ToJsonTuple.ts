@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_misc_clone } from "../../../internal/_test_misc_clone";
 import { ToJsonTuple } from "../../../structures/ToJsonTuple";
 
-export const test_misc_clone_ToJsonTuple = _test_misc_clone<ToJsonTuple>(
-    ToJsonTuple,
-)((input) =>
+export const test_misc_clone_ToJsonTuple = _test_misc_clone(
+    "ToJsonTuple",
+)<ToJsonTuple>(ToJsonTuple)((input) =>
     ((input: ToJsonTuple): typia.Primitive<ToJsonTuple> => {
         const $co4 = (input: any): any => ({
             code: input.code as any,

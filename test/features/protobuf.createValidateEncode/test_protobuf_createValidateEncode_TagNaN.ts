@@ -3,7 +3,7 @@ import { _test_protobuf_validateEncode } from "../../internal/_test_protobuf_val
 import { TagNaN } from "../../structures/TagNaN";
 
 export const test_protobuf_validateEncode_TagNaN =
-    _test_protobuf_validateEncode<TagNaN>(TagNaN)({
+    _test_protobuf_validateEncode("TagNaN")<TagNaN>(TagNaN)({
         validateEncode: typia.protobuf.createValidateEncode<TagNaN>(),
         message: typia.protobuf.message<TagNaN>(),
     });

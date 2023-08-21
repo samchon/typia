@@ -3,9 +3,9 @@ import { _test_misc_validatePrune } from "../../../internal/_test_misc_validateP
 import { ConstantConstEnumeration } from "../../../structures/ConstantConstEnumeration";
 
 export const test_misc_validatePrune_ConstantConstEnumeration =
-    _test_misc_validatePrune<ConstantConstEnumeration>(
-        ConstantConstEnumeration,
-    )((input) =>
+    _test_misc_validatePrune(
+        "ConstantConstEnumeration",
+    )<ConstantConstEnumeration>(ConstantConstEnumeration)((input) =>
         ((input: any): typia.IValidation<ConstantConstEnumeration> => {
             const validate = (
                 input: any,

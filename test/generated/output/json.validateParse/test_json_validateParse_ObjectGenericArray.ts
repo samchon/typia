@@ -3,7 +3,9 @@ import { _test_json_validateParse } from "../../../internal/_test_json_validateP
 import { ObjectGenericArray } from "../../../structures/ObjectGenericArray";
 
 export const test_json_validateParse_ObjectGenericArray =
-    _test_json_validateParse<ObjectGenericArray>(ObjectGenericArray)((input) =>
+    _test_json_validateParse("ObjectGenericArray")<ObjectGenericArray>(
+        ObjectGenericArray,
+    )((input) =>
         ((
             input: string,
         ): typia.IValidation<typia.Primitive<ObjectGenericArray>> => {

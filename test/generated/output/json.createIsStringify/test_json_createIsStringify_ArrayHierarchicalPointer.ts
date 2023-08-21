@@ -3,7 +3,9 @@ import { _test_json_isStringify } from "../../../internal/_test_json_isStringify
 import { ArrayHierarchicalPointer } from "../../../structures/ArrayHierarchicalPointer";
 
 export const test_json_isStringify_ArrayHierarchicalPointer =
-    _test_json_isStringify<ArrayHierarchicalPointer>(ArrayHierarchicalPointer)(
+    _test_json_isStringify(
+        "ArrayHierarchicalPointer",
+    )<ArrayHierarchicalPointer>(ArrayHierarchicalPointer)(
         (input: ArrayHierarchicalPointer): string | null => {
             const is = (input: any): input is ArrayHierarchicalPointer => {
                 const $io0 = (input: any): boolean =>

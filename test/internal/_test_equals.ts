@@ -1,19 +1,20 @@
 import { TestStructure } from "../helpers/TestStructure";
 
 export const _test_equals =
+    (name: string) =>
     <T>(factory: TestStructure<T>) =>
     (equals: (input: T) => boolean, repeat: number = 1) =>
     () => {
         if (equals(factory.generate()) === false)
             throw new Error(
-                `Bug on typia.equals(): failed to understand the ${factory.constructor.name} type.`,
+                `Bug on typia.equals(): failed to understand the ${name} type.`,
             );
 
         while (repeat-- > 0) {
             const elem: T = factory.generate();
             if (spoil(elem) && equals(elem))
                 throw new Error(
-                    `Bug on typia.equals(): failed to detect error on the ${factory.constructor.name} type.`,
+                    `Bug on typia.equals(): failed to detect error on the ${name} type.`,
                 );
         }
     };

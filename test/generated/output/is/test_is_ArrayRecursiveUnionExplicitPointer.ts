@@ -2,10 +2,10 @@ import typia from "../../../../src";
 import { _test_is } from "../../../internal/_test_is";
 import { ArrayRecursiveUnionExplicitPointer } from "../../../structures/ArrayRecursiveUnionExplicitPointer";
 
-export const test_is_ArrayRecursiveUnionExplicitPointer =
-    _test_is<ArrayRecursiveUnionExplicitPointer>(
-        ArrayRecursiveUnionExplicitPointer,
-    )((input) =>
+export const test_is_ArrayRecursiveUnionExplicitPointer = _test_is(
+    "ArrayRecursiveUnionExplicitPointer",
+)<ArrayRecursiveUnionExplicitPointer>(ArrayRecursiveUnionExplicitPointer)(
+    (input) =>
         ((input: any): input is ArrayRecursiveUnionExplicitPointer => {
             const $io0 = (input: any): boolean =>
                 Array.isArray(input.value) &&
@@ -84,4 +84,4 @@ export const test_is_ArrayRecursiveUnionExplicitPointer =
                 })();
             return "object" === typeof input && null !== input && $io0(input);
         })(input),
-    );
+);

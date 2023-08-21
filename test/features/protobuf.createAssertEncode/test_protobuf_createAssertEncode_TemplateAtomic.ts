@@ -3,7 +3,9 @@ import { _test_protobuf_assertEncode } from "../../internal/_test_protobuf_asser
 import { TemplateAtomic } from "../../structures/TemplateAtomic";
 
 export const test_protobuf_assertEncode_TemplateAtomic =
-    _test_protobuf_assertEncode<TemplateAtomic>(TemplateAtomic)({
+    _test_protobuf_assertEncode("TemplateAtomic")<TemplateAtomic>(
+        TemplateAtomic,
+    )({
         assertEncode: typia.protobuf.createAssertEncode<TemplateAtomic>(),
         message: typia.protobuf.message<TemplateAtomic>(),
     });

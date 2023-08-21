@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_json_isParse } from "../../../internal/_test_json_isParse";
 import { TagLength } from "../../../structures/TagLength";
 
-export const test_json_isParse_TagLength = _test_json_isParse<TagLength>(
-    TagLength,
-)((input) =>
+export const test_json_isParse_TagLength = _test_json_isParse(
+    "TagLength",
+)<TagLength>(TagLength)((input) =>
     ((input: any): typia.Primitive<TagLength> => {
         const is = (input: any): input is TagLength => {
             const $io0 = (input: any): boolean =>

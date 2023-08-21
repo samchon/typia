@@ -3,9 +3,9 @@ import { _test_misc_assertPrune } from "../../../internal/_test_misc_assertPrune
 import { ObjectUnionExplicitPointer } from "../../../structures/ObjectUnionExplicitPointer";
 
 export const test_misc_assertPrune_ObjectUnionExplicitPointer =
-    _test_misc_assertPrune<ObjectUnionExplicitPointer>(
-        ObjectUnionExplicitPointer,
-    )((input) =>
+    _test_misc_assertPrune(
+        "ObjectUnionExplicitPointer",
+    )<ObjectUnionExplicitPointer>(ObjectUnionExplicitPointer)((input) =>
         ((input: any): ObjectUnionExplicitPointer => {
             const assert = (input: any): ObjectUnionExplicitPointer => {
                 const __is = (

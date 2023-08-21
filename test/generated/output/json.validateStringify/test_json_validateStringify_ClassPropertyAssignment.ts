@@ -3,9 +3,9 @@ import { _test_json_validateStringify } from "../../../internal/_test_json_valid
 import { ClassPropertyAssignment } from "../../../structures/ClassPropertyAssignment";
 
 export const test_json_validateStringify_ClassPropertyAssignment =
-    _test_json_validateStringify<ClassPropertyAssignment>(
-        ClassPropertyAssignment,
-    )((input) =>
+    _test_json_validateStringify(
+        "ClassPropertyAssignment",
+    )<ClassPropertyAssignment>(ClassPropertyAssignment)((input) =>
         ((input: ClassPropertyAssignment): typia.IValidation<string> => {
             const validate = (
                 input: any,

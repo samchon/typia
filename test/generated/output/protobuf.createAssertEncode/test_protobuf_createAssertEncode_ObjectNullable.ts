@@ -3,7 +3,9 @@ import { _test_protobuf_assertEncode } from "../../../internal/_test_protobuf_as
 import { ObjectNullable } from "../../../structures/ObjectNullable";
 
 export const test_protobuf_assertEncode_ObjectNullable =
-    _test_protobuf_assertEncode<ObjectNullable>(ObjectNullable)({
+    _test_protobuf_assertEncode("ObjectNullable")<ObjectNullable>(
+        ObjectNullable,
+    )({
         assertEncode: (input: any): Uint8Array => {
             const assert = (input: any): ObjectNullable => {
                 const __is = (input: any): input is ObjectNullable => {

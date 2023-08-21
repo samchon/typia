@@ -5,6 +5,7 @@ import { primitive_clone } from "../helpers/primitive_clone";
 import { primitive_equal_to } from "../helpers/primitive_equal_to";
 
 export const _test_misc_isClone =
+    (name: string) =>
     <T>(factory: TestStructure<T>) =>
     (clone: (input: T) => Primitive<T> | null) =>
     () => {
@@ -14,7 +15,7 @@ export const _test_misc_isClone =
 
         if (primitive_equal_to(replica, cloned) === false) {
             throw new Error(
-                `Bug on typia.isClone(): failed to understand the ${factory.constructor.name} type.`,
+                `Bug on typia.isClone(): failed to understand the ${name} type.`,
             );
         }
 
@@ -24,7 +25,7 @@ export const _test_misc_isClone =
 
             if (clone(elem) !== null)
                 throw new Error(
-                    `Bug on typia.isClone(): failed to detect error on the ${factory.constructor.name} type.`,
+                    `Bug on typia.isClone(): failed to detect error on the ${name} type.`,
                 );
         }
     };

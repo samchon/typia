@@ -3,6 +3,6 @@ import { _test_json_assertStringify } from "../../internal/_test_json_assertStri
 import { DynamicSimple } from "../../structures/DynamicSimple";
 
 export const test_json_assertStringify_DynamicSimple =
-    _test_json_assertStringify<DynamicSimple>(DynamicSimple)(
+    _test_json_assertStringify("DynamicSimple")<DynamicSimple>(DynamicSimple)(
         typia.json.createAssertStringify<DynamicSimple>(),
     );

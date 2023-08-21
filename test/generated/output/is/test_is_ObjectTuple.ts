@@ -2,7 +2,9 @@ import typia from "../../../../src";
 import { _test_is } from "../../../internal/_test_is";
 import { ObjectTuple } from "../../../structures/ObjectTuple";
 
-export const test_is_ObjectTuple = _test_is<ObjectTuple>(ObjectTuple)((input) =>
+export const test_is_ObjectTuple = _test_is("ObjectTuple")<ObjectTuple>(
+    ObjectTuple,
+)((input) =>
     ((input: any): input is ObjectTuple => {
         const $io0 = (input: any): boolean =>
             "string" === typeof input.id &&

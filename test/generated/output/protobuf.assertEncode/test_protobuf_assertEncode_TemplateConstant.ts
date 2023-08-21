@@ -3,7 +3,9 @@ import { _test_protobuf_assertEncode } from "../../../internal/_test_protobuf_as
 import { TemplateConstant } from "../../../structures/TemplateConstant";
 
 export const test_protobuf_assertEncode_TemplateConstant =
-    _test_protobuf_assertEncode<TemplateConstant>(TemplateConstant)({
+    _test_protobuf_assertEncode("TemplateConstant")<TemplateConstant>(
+        TemplateConstant,
+    )({
         assertEncode: (input) =>
             ((input: any): Uint8Array => {
                 const assert = (input: any): TemplateConstant => {

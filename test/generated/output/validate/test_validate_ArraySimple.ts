@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_validate } from "../../../internal/_test_validate";
 import { ArraySimple } from "../../../structures/ArraySimple";
 
-export const test_validate_ArraySimple = _test_validate<ArraySimple>(
-    ArraySimple,
-)((input) =>
+export const test_validate_ArraySimple = _test_validate(
+    "ArraySimple",
+)<ArraySimple>(ArraySimple)((input) =>
     ((input: any): typia.IValidation<ArraySimple> => {
         const errors = [] as any[];
         const __is = (input: any): input is ArraySimple => {

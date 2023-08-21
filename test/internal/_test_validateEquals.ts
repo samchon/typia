@@ -6,6 +6,7 @@ import { Escaper } from "typia/lib/utils/Escaper";
 import { TestStructure } from "../helpers/TestStructure";
 
 export const _test_validateEquals =
+    (name: string) =>
     <T>(factory: TestStructure<T>) =>
     (validateEquals: (input: T) => IValidation<T>) =>
     () => {
@@ -15,7 +16,7 @@ export const _test_validateEquals =
         const valid: IValidation<unknown> = validateEquals(input);
         if (valid.success === false)
             throw new Error(
-                `Bug on typia.validateEquals(): failed to understand the ${factory.constructor.name} type.`,
+                `Bug on typia.validateEquals(): failed to understand the ${name} type.`,
             );
         else if (valid.data !== input)
             throw new Error(
@@ -45,7 +46,7 @@ export const _test_validateEquals =
             console.log(expected);
             console.log(actual);
             throw new Error(
-                `Bug on typia.validateEquals(): failed to detect surplus property on the ${factory.constructor.name} type.`,
+                `Bug on typia.validateEquals(): failed to detect surplus property on the ${name} type.`,
             );
         }
     };

@@ -3,7 +3,9 @@ import { _test_json_validateStringify } from "../../../internal/_test_json_valid
 import { TupleRestObject } from "../../../structures/TupleRestObject";
 
 export const test_json_validateStringify_TupleRestObject =
-    _test_json_validateStringify<TupleRestObject>(TupleRestObject)((input) =>
+    _test_json_validateStringify("TupleRestObject")<TupleRestObject>(
+        TupleRestObject,
+    )((input) =>
         ((input: TupleRestObject): typia.IValidation<string> => {
             const validate = (
                 input: any,

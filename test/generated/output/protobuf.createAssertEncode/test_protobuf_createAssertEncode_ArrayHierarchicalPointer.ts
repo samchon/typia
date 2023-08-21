@@ -3,9 +3,9 @@ import { _test_protobuf_assertEncode } from "../../../internal/_test_protobuf_as
 import { ArrayHierarchicalPointer } from "../../../structures/ArrayHierarchicalPointer";
 
 export const test_protobuf_assertEncode_ArrayHierarchicalPointer =
-    _test_protobuf_assertEncode<ArrayHierarchicalPointer>(
-        ArrayHierarchicalPointer,
-    )({
+    _test_protobuf_assertEncode(
+        "ArrayHierarchicalPointer",
+    )<ArrayHierarchicalPointer>(ArrayHierarchicalPointer)({
         assertEncode: (input: any): Uint8Array => {
             const assert = (input: any): ArrayHierarchicalPointer => {
                 const __is = (

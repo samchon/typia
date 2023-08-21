@@ -4,6 +4,7 @@ import { TestStructure } from "../helpers/TestStructure";
 import { primitive_equal_to } from "../helpers/primitive_equal_to";
 
 export const _test_json_assertStringify =
+    (name: string) =>
     <T>(factory: TestStructure<T>) =>
     (stringify: (input: T) => string) =>
     () => {
@@ -12,7 +13,7 @@ export const _test_json_assertStringify =
 
         if (predicate(data, optimized) === false) {
             throw new Error(
-                `Bug on typia.json.assertStringify(): failed to understand the ${factory.constructor.name} type.`,
+                `Bug on typia.json.assertStringify(): failed to understand the ${name} type.`,
             );
         }
 
@@ -33,7 +34,7 @@ export const _test_json_assertStringify =
                         });
             }
             throw new Error(
-                `Bug on typia.json.assertStringify(): failed to detect error on the ${factory.constructor.name} type.`,
+                `Bug on typia.json.assertStringify(): failed to detect error on the ${name} type.`,
             );
         }
     };

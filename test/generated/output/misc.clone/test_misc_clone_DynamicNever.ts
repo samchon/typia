@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_misc_clone } from "../../../internal/_test_misc_clone";
 import { DynamicNever } from "../../../structures/DynamicNever";
 
-export const test_misc_clone_DynamicNever = _test_misc_clone<DynamicNever>(
-    DynamicNever,
-)((input) =>
+export const test_misc_clone_DynamicNever = _test_misc_clone(
+    "DynamicNever",
+)<DynamicNever>(DynamicNever)((input) =>
     ((input: DynamicNever): typia.Primitive<DynamicNever> => {
         const $join = (typia.misc.clone as any).join;
         const $co0 = (input: any): any => {

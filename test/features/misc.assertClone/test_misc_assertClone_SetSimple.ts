@@ -2,7 +2,6 @@ import typia from "../../../src";
 import { _test_misc_assertClone } from "../../internal/_test_misc_assertClone";
 import { SetSimple } from "../../structures/SetSimple";
 
-export const test_misc_assertClone_SetSimple =
-    _test_misc_assertClone<SetSimple>(SetSimple)((input) =>
-        typia.misc.assertClone<SetSimple>(input),
-    );
+export const test_misc_assertClone_SetSimple = _test_misc_assertClone(
+    "SetSimple",
+)<SetSimple>(SetSimple)((input) => typia.misc.assertClone<SetSimple>(input));

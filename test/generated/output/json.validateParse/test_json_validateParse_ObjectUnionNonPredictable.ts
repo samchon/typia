@@ -3,9 +3,9 @@ import { _test_json_validateParse } from "../../../internal/_test_json_validateP
 import { ObjectUnionNonPredictable } from "../../../structures/ObjectUnionNonPredictable";
 
 export const test_json_validateParse_ObjectUnionNonPredictable =
-    _test_json_validateParse<ObjectUnionNonPredictable>(
-        ObjectUnionNonPredictable,
-    )((input) =>
+    _test_json_validateParse(
+        "ObjectUnionNonPredictable",
+    )<ObjectUnionNonPredictable>(ObjectUnionNonPredictable)((input) =>
         ((
             input: string,
         ): typia.IValidation<typia.Primitive<ObjectUnionNonPredictable>> => {

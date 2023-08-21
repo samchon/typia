@@ -3,7 +3,9 @@ import { _test_misc_validatePrune } from "../../../internal/_test_misc_validateP
 import { TemplateConstant } from "../../../structures/TemplateConstant";
 
 export const test_misc_validatePrune_TemplateConstant =
-    _test_misc_validatePrune<TemplateConstant>(TemplateConstant)((input) =>
+    _test_misc_validatePrune("TemplateConstant")<TemplateConstant>(
+        TemplateConstant,
+    )((input) =>
         ((input: any): typia.IValidation<TemplateConstant> => {
             const validate = (
                 input: any,

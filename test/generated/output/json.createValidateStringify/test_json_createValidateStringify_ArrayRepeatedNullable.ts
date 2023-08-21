@@ -3,7 +3,9 @@ import { _test_json_validateStringify } from "../../../internal/_test_json_valid
 import { ArrayRepeatedNullable } from "../../../structures/ArrayRepeatedNullable";
 
 export const test_json_validateStringify_ArrayRepeatedNullable =
-    _test_json_validateStringify<ArrayRepeatedNullable>(ArrayRepeatedNullable)(
+    _test_json_validateStringify(
+        "ArrayRepeatedNullable",
+    )<ArrayRepeatedNullable>(ArrayRepeatedNullable)(
         (input: ArrayRepeatedNullable): typia.IValidation<string> => {
             const validate = (
                 input: any,

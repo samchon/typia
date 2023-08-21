@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_validate } from "../../../internal/_test_validate";
 import { TupleRestObject } from "../../../structures/TupleRestObject";
 
-export const test_validate_TupleRestObject = _test_validate<TupleRestObject>(
-    TupleRestObject,
-)((input) =>
+export const test_validate_TupleRestObject = _test_validate(
+    "TupleRestObject",
+)<TupleRestObject>(TupleRestObject)((input) =>
     ((input: any): typia.IValidation<TupleRestObject> => {
         const errors = [] as any[];
         const __is = (input: any): input is TupleRestObject => {

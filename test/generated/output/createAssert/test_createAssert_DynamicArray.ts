@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_assert } from "../../../internal/_test_assert";
 import { DynamicArray } from "../../../structures/DynamicArray";
 
-export const test_assert_DynamicArray = _test_assert<DynamicArray>(
-    DynamicArray,
-)((input: any): DynamicArray => {
+export const test_assert_DynamicArray = _test_assert(
+    "DynamicArray",
+)<DynamicArray>(DynamicArray)((input: any): DynamicArray => {
     const __is = (input: any): input is DynamicArray => {
         const $join = (typia.createAssert as any).join;
         const $io0 = (input: any): boolean =>

@@ -3,7 +3,9 @@ import { _test_json_assertStringify } from "../../../internal/_test_json_assertS
 import { TemplateConstant } from "../../../structures/TemplateConstant";
 
 export const test_json_assertStringify_TemplateConstant =
-    _test_json_assertStringify<TemplateConstant>(TemplateConstant)((input) =>
+    _test_json_assertStringify("TemplateConstant")<TemplateConstant>(
+        TemplateConstant,
+    )((input) =>
         ((input: any): string => {
             const assert = (input: any): TemplateConstant => {
                 const __is = (input: any): input is TemplateConstant => {

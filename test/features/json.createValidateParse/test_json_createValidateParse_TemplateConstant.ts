@@ -3,6 +3,6 @@ import { _test_json_validateParse } from "../../internal/_test_json_validatePars
 import { TemplateConstant } from "../../structures/TemplateConstant";
 
 export const test_json_validateParse_TemplateConstant =
-    _test_json_validateParse<TemplateConstant>(TemplateConstant)(
-        typia.json.createValidateParse<TemplateConstant>(),
-    );
+    _test_json_validateParse("TemplateConstant")<TemplateConstant>(
+        TemplateConstant,
+    )(typia.json.createValidateParse<TemplateConstant>());

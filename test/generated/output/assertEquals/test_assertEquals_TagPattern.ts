@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_assertEquals } from "../../../internal/_test_assertEquals";
 import { TagPattern } from "../../../structures/TagPattern";
 
-export const test_assertEquals_TagPattern = _test_assertEquals<TagPattern>(
-    TagPattern,
-)((input) =>
+export const test_assertEquals_TagPattern = _test_assertEquals(
+    "TagPattern",
+)<TagPattern>(TagPattern)((input) =>
     ((input: any): TagPattern => {
         const __is = (
             input: any,

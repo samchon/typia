@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_is } from "../../../internal/_test_is";
 import { DynamicTemplate } from "../../../structures/DynamicTemplate";
 
-export const test_is_DynamicTemplate = _test_is<DynamicTemplate>(
-    DynamicTemplate,
-)((input) =>
+export const test_is_DynamicTemplate = _test_is(
+    "DynamicTemplate",
+)<DynamicTemplate>(DynamicTemplate)((input) =>
     ((input: any): input is DynamicTemplate => {
         const $join = (typia.is as any).join;
         const $io0 = (input: any): boolean =>

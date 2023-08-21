@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_equals } from "../../../internal/_test_equals";
 import { TagArrayUnion } from "../../../structures/TagArrayUnion";
 
-export const test_equals_TagArrayUnion = _test_equals<TagArrayUnion>(
-    TagArrayUnion,
-)((input) =>
+export const test_equals_TagArrayUnion = _test_equals(
+    "TagArrayUnion",
+)<TagArrayUnion>(TagArrayUnion)((input) =>
     ((input: any, _exceptionable: boolean = true): input is TagArrayUnion => {
         const $is_uuid = (typia.equals as any).is_uuid;
         const $io0 = (input: any, _exceptionable: boolean = true): boolean =>

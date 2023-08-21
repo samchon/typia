@@ -3,9 +3,9 @@ import { _test_json_assertStringify } from "../../../internal/_test_json_assertS
 import { ObjectUnionExplicitPointer } from "../../../structures/ObjectUnionExplicitPointer";
 
 export const test_json_assertStringify_ObjectUnionExplicitPointer =
-    _test_json_assertStringify<ObjectUnionExplicitPointer>(
-        ObjectUnionExplicitPointer,
-    )((input) =>
+    _test_json_assertStringify(
+        "ObjectUnionExplicitPointer",
+    )<ObjectUnionExplicitPointer>(ObjectUnionExplicitPointer)((input) =>
         ((input: any): string => {
             const assert = (input: any): ObjectUnionExplicitPointer => {
                 const __is = (

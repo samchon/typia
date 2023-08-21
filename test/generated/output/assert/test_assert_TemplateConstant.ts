@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_assert } from "../../../internal/_test_assert";
 import { TemplateConstant } from "../../../structures/TemplateConstant";
 
-export const test_assert_TemplateConstant = _test_assert<TemplateConstant>(
-    TemplateConstant,
-)((input) =>
+export const test_assert_TemplateConstant = _test_assert(
+    "TemplateConstant",
+)<TemplateConstant>(TemplateConstant)((input) =>
     ((input: any): TemplateConstant => {
         const __is = (input: any): input is TemplateConstant => {
             const $io0 = (input: any): boolean =>

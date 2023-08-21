@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_json_stringify } from "../../../internal/_test_json_stringify";
 import { ArrayUnion } from "../../../structures/ArrayUnion";
 
-export const test_json_stringify_ArrayUnion = _test_json_stringify<ArrayUnion>(
-    ArrayUnion,
-)((input: ArrayUnion): string => {
+export const test_json_stringify_ArrayUnion = _test_json_stringify(
+    "ArrayUnion",
+)<ArrayUnion>(ArrayUnion)((input: ArrayUnion): string => {
     const $number = (typia.json.createStringify as any).number;
     const $string = (typia.json.createStringify as any).string;
     const $throws = (typia.json.createStringify as any).throws;

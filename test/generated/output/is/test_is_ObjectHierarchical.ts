@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_is } from "../../../internal/_test_is";
 import { ObjectHierarchical } from "../../../structures/ObjectHierarchical";
 
-export const test_is_ObjectHierarchical = _test_is<ObjectHierarchical>(
-    ObjectHierarchical,
-)((input) =>
+export const test_is_ObjectHierarchical = _test_is(
+    "ObjectHierarchical",
+)<ObjectHierarchical>(ObjectHierarchical)((input) =>
     ((input: any): input is ObjectHierarchical => {
         const $is_url = (typia.is as any).is_url;
         const $is_ipv4 = (typia.is as any).is_ipv4;

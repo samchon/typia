@@ -2,6 +2,8 @@ import typia from "../../../src";
 import { _test_misc_isClone } from "../../internal/_test_misc_isClone";
 import { AtomicSimple } from "../../structures/AtomicSimple";
 
-export const test_misc_isClone_AtomicSimple = _test_misc_isClone<AtomicSimple>(
-    AtomicSimple,
-)((input) => typia.misc.isClone<AtomicSimple>(input));
+export const test_misc_isClone_AtomicSimple = _test_misc_isClone(
+    "AtomicSimple",
+)<AtomicSimple>(AtomicSimple)((input) =>
+    typia.misc.isClone<AtomicSimple>(input),
+);

@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_assert } from "../../../internal/_test_assert";
 import { DynamicSimple } from "../../../structures/DynamicSimple";
 
-export const test_assert_DynamicSimple = _test_assert<DynamicSimple>(
-    DynamicSimple,
-)((input: any): DynamicSimple => {
+export const test_assert_DynamicSimple = _test_assert(
+    "DynamicSimple",
+)<DynamicSimple>(DynamicSimple)((input: any): DynamicSimple => {
     const __is = (input: any): input is DynamicSimple => {
         const $join = (typia.createAssert as any).join;
         const $io0 = (input: any): boolean =>

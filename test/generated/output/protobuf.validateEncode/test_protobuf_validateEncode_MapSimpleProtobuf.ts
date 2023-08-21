@@ -3,7 +3,9 @@ import { _test_protobuf_validateEncode } from "../../../internal/_test_protobuf_
 import { MapSimpleProtobuf } from "../../../structures/MapSimpleProtobuf";
 
 export const test_protobuf_validateEncode_MapSimpleProtobuf =
-    _test_protobuf_validateEncode<MapSimpleProtobuf>(MapSimpleProtobuf)({
+    _test_protobuf_validateEncode("MapSimpleProtobuf")<MapSimpleProtobuf>(
+        MapSimpleProtobuf,
+    )({
         validateEncode: (input) =>
             ((input: MapSimpleProtobuf): typia.IValidation<Uint8Array> => {
                 const validate = (

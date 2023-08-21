@@ -2,7 +2,9 @@ import typia from "../../../../src";
 import { _test_assert } from "../../../internal/_test_assert";
 import { ArrayAny } from "../../../structures/ArrayAny";
 
-export const test_assert_ArrayAny = _test_assert<ArrayAny>(ArrayAny)((input) =>
+export const test_assert_ArrayAny = _test_assert("ArrayAny")<ArrayAny>(
+    ArrayAny,
+)((input) =>
     ((input: any): ArrayAny => {
         const __is = (input: any): input is ArrayAny => {
             const $io0 = (input: any): boolean =>

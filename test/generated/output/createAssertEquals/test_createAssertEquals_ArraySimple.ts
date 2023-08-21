@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_assertEquals } from "../../../internal/_test_assertEquals";
 import { ArraySimple } from "../../../structures/ArraySimple";
 
-export const test_assertEquals_ArraySimple = _test_assertEquals<ArraySimple>(
-    ArraySimple,
-)((input: any): ArraySimple => {
+export const test_assertEquals_ArraySimple = _test_assertEquals(
+    "ArraySimple",
+)<ArraySimple>(ArraySimple)((input: any): ArraySimple => {
     const __is = (
         input: any,
         _exceptionable: boolean = true,

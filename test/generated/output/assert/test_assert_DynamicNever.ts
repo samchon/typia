@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_assert } from "../../../internal/_test_assert";
 import { DynamicNever } from "../../../structures/DynamicNever";
 
-export const test_assert_DynamicNever = _test_assert<DynamicNever>(
-    DynamicNever,
-)((input) =>
+export const test_assert_DynamicNever = _test_assert(
+    "DynamicNever",
+)<DynamicNever>(DynamicNever)((input) =>
     ((input: any): DynamicNever => {
         const __is = (input: any): input is DynamicNever => {
             const $join = (typia.assert as any).join;

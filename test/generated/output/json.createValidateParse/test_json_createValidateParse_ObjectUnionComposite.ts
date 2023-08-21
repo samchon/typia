@@ -3,7 +3,9 @@ import { _test_json_validateParse } from "../../../internal/_test_json_validateP
 import { ObjectUnionComposite } from "../../../structures/ObjectUnionComposite";
 
 export const test_json_validateParse_ObjectUnionComposite =
-    _test_json_validateParse<ObjectUnionComposite>(ObjectUnionComposite)(
+    _test_json_validateParse("ObjectUnionComposite")<ObjectUnionComposite>(
+        ObjectUnionComposite,
+    )(
         (
             input: string,
         ): typia.IValidation<typia.Primitive<ObjectUnionComposite>> => {

@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_misc_isPrune } from "../../../internal/_test_misc_isPrune";
 import { AtomicSimple } from "../../../structures/AtomicSimple";
 
-export const test_misc_isPrune_AtomicSimple = _test_misc_isPrune<AtomicSimple>(
-    AtomicSimple,
-)((input: any): input is AtomicSimple => {
+export const test_misc_isPrune_AtomicSimple = _test_misc_isPrune(
+    "AtomicSimple",
+)<AtomicSimple>(AtomicSimple)((input: any): input is AtomicSimple => {
     const is = (input: any): input is AtomicSimple => {
         return (
             Array.isArray(input) &&

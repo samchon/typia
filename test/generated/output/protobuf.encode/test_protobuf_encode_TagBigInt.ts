@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_protobuf_encode } from "../../../internal/_test_protobuf_encode";
 import { TagBigInt } from "../../../structures/TagBigInt";
 
-export const test_protobuf_encode_TagBigInt = _test_protobuf_encode<TagBigInt>(
-    TagBigInt,
-)({
+export const test_protobuf_encode_TagBigInt = _test_protobuf_encode(
+    "TagBigInt",
+)<TagBigInt>(TagBigInt)({
     encode: (input) =>
         ((input: TagBigInt): Uint8Array => {
             const $Sizer = (typia.protobuf.encode as any).Sizer;

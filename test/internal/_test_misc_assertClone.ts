@@ -5,6 +5,7 @@ import { primitive_clone } from "../helpers/primitive_clone";
 import { primitive_equal_to } from "../helpers/primitive_equal_to";
 
 export const _test_misc_assertClone =
+    (name: string) =>
     <T>(factory: TestStructure<T>) =>
     (clone: (input: T) => Primitive<T>) =>
     () => {
@@ -14,7 +15,7 @@ export const _test_misc_assertClone =
 
         if (primitive_equal_to(replica, cloned) === false) {
             throw new Error(
-                `Bug on TSON.assertClone(): failed to understand the ${factory.constructor.name} type.`,
+                `Bug on TSON.assertClone(): failed to understand the ${name} type.`,
             );
         }
 
@@ -34,7 +35,7 @@ export const _test_misc_assertClone =
                         });
             }
             throw new Error(
-                `Bug on TSON.assertClone(): failed to detect error on the ${factory.constructor.name} type.`,
+                `Bug on TSON.assertClone(): failed to detect error on the ${name} type.`,
             );
         }
     };

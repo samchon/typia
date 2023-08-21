@@ -2,10 +2,10 @@ import typia from "../../../../src";
 import { _test_json_isParse } from "../../../internal/_test_json_isParse";
 import { ArrayRepeatedUnionWithTuple } from "../../../structures/ArrayRepeatedUnionWithTuple";
 
-export const test_json_isParse_ArrayRepeatedUnionWithTuple =
-    _test_json_isParse<ArrayRepeatedUnionWithTuple>(
-        ArrayRepeatedUnionWithTuple,
-    )((input: any): typia.Primitive<ArrayRepeatedUnionWithTuple> => {
+export const test_json_isParse_ArrayRepeatedUnionWithTuple = _test_json_isParse(
+    "ArrayRepeatedUnionWithTuple",
+)<ArrayRepeatedUnionWithTuple>(ArrayRepeatedUnionWithTuple)(
+    (input: any): typia.Primitive<ArrayRepeatedUnionWithTuple> => {
         const is = (input: any): input is ArrayRepeatedUnionWithTuple => {
             const $ip0 = (input: any) => {
                 const array = input;
@@ -150,4 +150,5 @@ export const test_json_isParse_ArrayRepeatedUnionWithTuple =
         };
         input = JSON.parse(input);
         return is(input) ? (input as any) : null;
-    });
+    },
+);

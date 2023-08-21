@@ -3,9 +3,9 @@ import { _test_json_isStringify } from "../../../internal/_test_json_isStringify
 import { ArrayRepeatedUnionWithTuple } from "../../../structures/ArrayRepeatedUnionWithTuple";
 
 export const test_json_isStringify_ArrayRepeatedUnionWithTuple =
-    _test_json_isStringify<ArrayRepeatedUnionWithTuple>(
-        ArrayRepeatedUnionWithTuple,
-    )((input) =>
+    _test_json_isStringify(
+        "ArrayRepeatedUnionWithTuple",
+    )<ArrayRepeatedUnionWithTuple>(ArrayRepeatedUnionWithTuple)((input) =>
         ((input: ArrayRepeatedUnionWithTuple): string | null => {
             const is = (input: any): input is ArrayRepeatedUnionWithTuple => {
                 const $ip0 = (input: any) => {

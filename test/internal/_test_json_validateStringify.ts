@@ -4,6 +4,7 @@ import { TestStructure } from "../helpers/TestStructure";
 import { primitive_equal_to } from "../helpers/primitive_equal_to";
 
 export const _test_json_validateStringify =
+    (name: string) =>
     <T>(factory: TestStructure<T>) =>
     (stringify: (input: T) => typia.IValidation<string>) =>
     () => {
@@ -11,12 +12,12 @@ export const _test_json_validateStringify =
         const valid: typia.IValidation<string> = stringify(input);
         if (valid.success === false)
             throw new Error(
-                `Bug on typia.json.validateStringify(): failed to understand the ${factory.constructor.name} type.`,
+                `Bug on typia.json.validateStringify(): failed to understand the ${name} type.`,
             );
 
         if (predicate(input, valid.data) === false) {
             throw new Error(
-                `Bug on typia.json.validateStringify(): failed to understand the ${factory.constructor.name} type.`,
+                `Bug on typia.json.validateStringify(): failed to understand the ${name} type.`,
             );
         }
 
@@ -28,7 +29,7 @@ export const _test_json_validateStringify =
 
             if (valid.success === true)
                 throw new Error(
-                    `Bug on typia.json.validateStringify(): failed to detect error on the ${factory.constructor.name} type.`,
+                    `Bug on typia.json.validateStringify(): failed to detect error on the ${name} type.`,
                 );
 
             typia.assert(valid);
@@ -47,7 +48,7 @@ export const _test_json_validateStringify =
         if (wrong.length !== 0) {
             console.log(wrong);
             throw new Error(
-                `Bug on typia.json.validateStringify(): failed to detect error on the ${factory.constructor.name} type.`,
+                `Bug on typia.json.validateStringify(): failed to detect error on the ${name} type.`,
             );
         }
     };

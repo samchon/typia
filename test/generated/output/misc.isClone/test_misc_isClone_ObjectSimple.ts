@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_misc_isClone } from "../../../internal/_test_misc_isClone";
 import { ObjectSimple } from "../../../structures/ObjectSimple";
 
-export const test_misc_isClone_ObjectSimple = _test_misc_isClone<ObjectSimple>(
-    ObjectSimple,
-)((input) =>
+export const test_misc_isClone_ObjectSimple = _test_misc_isClone(
+    "ObjectSimple",
+)<ObjectSimple>(ObjectSimple)((input) =>
     ((input: any): typia.Primitive<ObjectSimple> | null => {
         const is = (input: any): input is ObjectSimple => {
             return (

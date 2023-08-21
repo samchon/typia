@@ -3,7 +3,9 @@ import { _test_json_validateStringify } from "../../../internal/_test_json_valid
 import { TemplateAtomic } from "../../../structures/TemplateAtomic";
 
 export const test_json_validateStringify_TemplateAtomic =
-    _test_json_validateStringify<TemplateAtomic>(TemplateAtomic)((input) =>
+    _test_json_validateStringify("TemplateAtomic")<TemplateAtomic>(
+        TemplateAtomic,
+    )((input) =>
         ((input: TemplateAtomic): typia.IValidation<string> => {
             const validate = (
                 input: any,

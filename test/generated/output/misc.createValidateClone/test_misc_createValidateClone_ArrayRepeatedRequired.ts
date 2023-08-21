@@ -3,7 +3,9 @@ import { _test_misc_validateClone } from "../../../internal/_test_misc_validateC
 import { ArrayRepeatedRequired } from "../../../structures/ArrayRepeatedRequired";
 
 export const test_misc_validateClone_ArrayRepeatedRequired =
-    _test_misc_validateClone<ArrayRepeatedRequired>(ArrayRepeatedRequired)(
+    _test_misc_validateClone("ArrayRepeatedRequired")<ArrayRepeatedRequired>(
+        ArrayRepeatedRequired,
+    )(
         (
             input: any,
         ): typia.IValidation<typia.Primitive<ArrayRepeatedRequired>> => {

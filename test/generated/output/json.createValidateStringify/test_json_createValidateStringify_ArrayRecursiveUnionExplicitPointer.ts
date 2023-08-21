@@ -3,9 +3,9 @@ import { _test_json_validateStringify } from "../../../internal/_test_json_valid
 import { ArrayRecursiveUnionExplicitPointer } from "../../../structures/ArrayRecursiveUnionExplicitPointer";
 
 export const test_json_validateStringify_ArrayRecursiveUnionExplicitPointer =
-    _test_json_validateStringify<ArrayRecursiveUnionExplicitPointer>(
-        ArrayRecursiveUnionExplicitPointer,
-    )(
+    _test_json_validateStringify(
+        "ArrayRecursiveUnionExplicitPointer",
+    )<ArrayRecursiveUnionExplicitPointer>(ArrayRecursiveUnionExplicitPointer)(
         (
             input: ArrayRecursiveUnionExplicitPointer,
         ): typia.IValidation<string> => {

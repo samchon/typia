@@ -3,7 +3,9 @@ import { _test_json_validateParse } from "../../../internal/_test_json_validateP
 import { TemplateConstant } from "../../../structures/TemplateConstant";
 
 export const test_json_validateParse_TemplateConstant =
-    _test_json_validateParse<TemplateConstant>(TemplateConstant)((input) =>
+    _test_json_validateParse("TemplateConstant")<TemplateConstant>(
+        TemplateConstant,
+    )((input) =>
         ((
             input: string,
         ): typia.IValidation<typia.Primitive<TemplateConstant>> => {

@@ -3,9 +3,9 @@ import { _test_validateEquals } from "../../../internal/_test_validateEquals";
 import { ObjectUnionCompositePointer } from "../../../structures/ObjectUnionCompositePointer";
 
 export const test_validateEquals_ObjectUnionCompositePointer =
-    _test_validateEquals<ObjectUnionCompositePointer>(
-        ObjectUnionCompositePointer,
-    )((input) =>
+    _test_validateEquals(
+        "ObjectUnionCompositePointer",
+    )<ObjectUnionCompositePointer>(ObjectUnionCompositePointer)((input) =>
         ((input: any): typia.IValidation<ObjectUnionCompositePointer> => {
             const errors = [] as any[];
             const __is = (

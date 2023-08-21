@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_validateEquals } from "../../../internal/_test_validateEquals";
 import { ToJsonNull } from "../../../structures/ToJsonNull";
 
-export const test_validateEquals_ToJsonNull = _test_validateEquals<ToJsonNull>(
-    ToJsonNull,
-)((input: any): typia.IValidation<ToJsonNull> => {
+export const test_validateEquals_ToJsonNull = _test_validateEquals(
+    "ToJsonNull",
+)<ToJsonNull>(ToJsonNull)((input: any): typia.IValidation<ToJsonNull> => {
     const errors = [] as any[];
     const __is = (
         input: any,

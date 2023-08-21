@@ -3,9 +3,9 @@ import { _test_protobuf_isEncode } from "../../../internal/_test_protobuf_isEnco
 import { ObjectUnionNonPredictable } from "../../../structures/ObjectUnionNonPredictable";
 
 export const test_protobuf_isEncode_ObjectUnionNonPredictable =
-    _test_protobuf_isEncode<ObjectUnionNonPredictable>(
-        ObjectUnionNonPredictable,
-    )({
+    _test_protobuf_isEncode(
+        "ObjectUnionNonPredictable",
+    )<ObjectUnionNonPredictable>(ObjectUnionNonPredictable)({
         isEncode: (input: ObjectUnionNonPredictable): Uint8Array | null => {
             const is = (input: any): input is ObjectUnionNonPredictable => {
                 const $io0 = (input: any): boolean =>

@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_protobuf_isEncode } from "../../../internal/_test_protobuf_isEncode";
 import { TagStep } from "../../../structures/TagStep";
 
-export const test_protobuf_isEncode_TagStep = _test_protobuf_isEncode<TagStep>(
-    TagStep,
-)({
+export const test_protobuf_isEncode_TagStep = _test_protobuf_isEncode(
+    "TagStep",
+)<TagStep>(TagStep)({
     isEncode: (input: TagStep): Uint8Array | null => {
         const is = (input: any): input is TagStep => {
             const $io0 = (input: any): boolean =>

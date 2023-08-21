@@ -3,7 +3,9 @@ import { _test_json_validateParse } from "../../../internal/_test_json_validateP
 import { ObjectGenericAlias } from "../../../structures/ObjectGenericAlias";
 
 export const test_json_validateParse_ObjectGenericAlias =
-    _test_json_validateParse<ObjectGenericAlias>(ObjectGenericAlias)((input) =>
+    _test_json_validateParse("ObjectGenericAlias")<ObjectGenericAlias>(
+        ObjectGenericAlias,
+    )((input) =>
         ((
             input: string,
         ): typia.IValidation<typia.Primitive<ObjectGenericAlias>> => {

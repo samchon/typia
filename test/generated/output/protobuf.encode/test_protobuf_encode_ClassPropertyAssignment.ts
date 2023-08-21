@@ -3,7 +3,9 @@ import { _test_protobuf_encode } from "../../../internal/_test_protobuf_encode";
 import { ClassPropertyAssignment } from "../../../structures/ClassPropertyAssignment";
 
 export const test_protobuf_encode_ClassPropertyAssignment =
-    _test_protobuf_encode<ClassPropertyAssignment>(ClassPropertyAssignment)({
+    _test_protobuf_encode("ClassPropertyAssignment")<ClassPropertyAssignment>(
+        ClassPropertyAssignment,
+    )({
         encode: (input) =>
             ((input: ClassPropertyAssignment): Uint8Array => {
                 const $Sizer = (typia.protobuf.encode as any).Sizer;

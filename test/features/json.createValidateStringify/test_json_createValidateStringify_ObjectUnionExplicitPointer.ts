@@ -3,6 +3,8 @@ import { _test_json_validateStringify } from "../../internal/_test_json_validate
 import { ObjectUnionExplicitPointer } from "../../structures/ObjectUnionExplicitPointer";
 
 export const test_json_validateStringify_ObjectUnionExplicitPointer =
-    _test_json_validateStringify<ObjectUnionExplicitPointer>(
-        ObjectUnionExplicitPointer,
-    )(typia.json.createValidateStringify<ObjectUnionExplicitPointer>());
+    _test_json_validateStringify(
+        "ObjectUnionExplicitPointer",
+    )<ObjectUnionExplicitPointer>(ObjectUnionExplicitPointer)(
+        typia.json.createValidateStringify<ObjectUnionExplicitPointer>(),
+    );

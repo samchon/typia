@@ -2,7 +2,9 @@ import typia from "../../../../src";
 import { _test_assert } from "../../../internal/_test_assert";
 import { TagTuple } from "../../../structures/TagTuple";
 
-export const test_assert_TagTuple = _test_assert<TagTuple>(TagTuple)((input) =>
+export const test_assert_TagTuple = _test_assert("TagTuple")<TagTuple>(
+    TagTuple,
+)((input) =>
     ((input: any): TagTuple => {
         const __is = (input: any): input is TagTuple => {
             const $io0 = (input: any): boolean =>

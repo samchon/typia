@@ -3,7 +3,9 @@ import { _test_protobuf_isEncode } from "../../../internal/_test_protobuf_isEnco
 import { ClassPropertyAssignment } from "../../../structures/ClassPropertyAssignment";
 
 export const test_protobuf_isEncode_ClassPropertyAssignment =
-    _test_protobuf_isEncode<ClassPropertyAssignment>(ClassPropertyAssignment)({
+    _test_protobuf_isEncode("ClassPropertyAssignment")<ClassPropertyAssignment>(
+        ClassPropertyAssignment,
+    )({
         isEncode: (input: ClassPropertyAssignment): Uint8Array | null => {
             const is = (input: any): input is ClassPropertyAssignment => {
                 const $io0 = (input: any): boolean =>

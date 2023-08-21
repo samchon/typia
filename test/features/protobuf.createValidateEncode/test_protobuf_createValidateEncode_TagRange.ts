@@ -3,7 +3,7 @@ import { _test_protobuf_validateEncode } from "../../internal/_test_protobuf_val
 import { TagRange } from "../../structures/TagRange";
 
 export const test_protobuf_validateEncode_TagRange =
-    _test_protobuf_validateEncode<TagRange>(TagRange)({
+    _test_protobuf_validateEncode("TagRange")<TagRange>(TagRange)({
         validateEncode: typia.protobuf.createValidateEncode<TagRange>(),
         message: typia.protobuf.message<TagRange>(),
     });

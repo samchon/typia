@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_assert } from "../../../internal/_test_assert";
 import { DynamicEnumeration } from "../../../structures/DynamicEnumeration";
 
-export const test_assert_DynamicEnumeration = _test_assert<DynamicEnumeration>(
-    DynamicEnumeration,
-)((input: any): DynamicEnumeration => {
+export const test_assert_DynamicEnumeration = _test_assert(
+    "DynamicEnumeration",
+)<DynamicEnumeration>(DynamicEnumeration)((input: any): DynamicEnumeration => {
     const __is = (input: any): input is DynamicEnumeration => {
         const $io0 = (input: any): boolean =>
             "object" === typeof input.value &&

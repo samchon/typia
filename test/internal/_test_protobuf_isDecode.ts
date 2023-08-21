@@ -1,9 +1,11 @@
 import typia from "typia";
 
+import { TestStructure } from "../helpers/TestStructure";
 import { primitive_equal_to } from "../helpers/primitive_equal_to";
 
 export const _test_protobuf_isDecode =
-    <T>(factory: { constructor: { name: string }; generate(): T }) =>
+    (name: string) =>
+    <T extends object>(factory: TestStructure<T>) =>
     (functor: {
         decode: (input: Uint8Array) => typia.Primitive<T> | null;
         encode: (input: T) => Uint8Array;
@@ -19,11 +21,11 @@ export const _test_protobuf_isDecode =
                 primitive_equal_to(data, decoded as T) === false
             )
                 throw new Error(
-                    `Bug on typia.protobuf.isDecode(): failed to understand ${factory.constructor.name} type.`,
+                    `Bug on typia.protobuf.isDecode(): failed to understand ${name} type.`,
                 );
         } catch {
             throw new Error(
-                `Bug on typia.protobuf.isDecode(): failed to decode ${factory.constructor.name} type.`,
+                `Bug on typia.protobuf.isDecode(): failed to decode ${name} type.`,
             );
         }
     };

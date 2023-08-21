@@ -3,9 +3,9 @@ import { _test_json_validateStringify } from "../../../internal/_test_json_valid
 import { ObjectUnionCompositePointer } from "../../../structures/ObjectUnionCompositePointer";
 
 export const test_json_validateStringify_ObjectUnionCompositePointer =
-    _test_json_validateStringify<ObjectUnionCompositePointer>(
-        ObjectUnionCompositePointer,
-    )((input) =>
+    _test_json_validateStringify(
+        "ObjectUnionCompositePointer",
+    )<ObjectUnionCompositePointer>(ObjectUnionCompositePointer)((input) =>
         ((input: ObjectUnionCompositePointer): typia.IValidation<string> => {
             const validate = (
                 input: any,

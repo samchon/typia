@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_validate } from "../../../internal/_test_validate";
 import { ToJsonUndefined } from "../../../structures/ToJsonUndefined";
 
-export const test_validate_ToJsonUndefined = _test_validate<ToJsonUndefined>(
-    ToJsonUndefined,
-)((input) =>
+export const test_validate_ToJsonUndefined = _test_validate(
+    "ToJsonUndefined",
+)<ToJsonUndefined>(ToJsonUndefined)((input) =>
     ((input: any): typia.IValidation<ToJsonUndefined> => {
         const errors = [] as any[];
         const __is = (input: any): input is ToJsonUndefined => {

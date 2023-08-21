@@ -3,9 +3,9 @@ import { _test_misc_validateClone } from "../../../internal/_test_misc_validateC
 import { ArrayRecursiveUnionExplicit } from "../../../structures/ArrayRecursiveUnionExplicit";
 
 export const test_misc_validateClone_ArrayRecursiveUnionExplicit =
-    _test_misc_validateClone<ArrayRecursiveUnionExplicit>(
-        ArrayRecursiveUnionExplicit,
-    )((input) =>
+    _test_misc_validateClone(
+        "ArrayRecursiveUnionExplicit",
+    )<ArrayRecursiveUnionExplicit>(ArrayRecursiveUnionExplicit)((input) =>
         ((
             input: any,
         ): typia.IValidation<typia.Primitive<ArrayRecursiveUnionExplicit>> => {

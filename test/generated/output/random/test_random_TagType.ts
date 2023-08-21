@@ -2,7 +2,7 @@ import typia from "../../../../src";
 import { _test_random } from "../../../internal/_test_random";
 import { TagType } from "../../../structures/TagType";
 
-export const test_random_TagType = _test_random<TagType>(TagType)({
+export const test_random_TagType = _test_random("TagType")<TagType>(TagType)({
     random: () =>
         ((
             generator?: Partial<typia.IRandomGenerator>,
@@ -24,7 +24,7 @@ export const test_random_TagType = _test_random<TagType>(TagType)({
                     (generator?.customs ?? $generator.customs)?.number?.([
                         {
                             name: "type",
-                            value: "int",
+                            value: "{int}",
                         },
                     ]) ?? (generator?.integer ?? $generator.integer)(0, 100),
                 uint:
@@ -34,6 +34,41 @@ export const test_random_TagType = _test_random<TagType>(TagType)({
                             value: "uint",
                         },
                     ]) ?? (generator?.integer ?? $generator.integer)(0, 10),
+                int32:
+                    (generator?.customs ?? $generator.customs)?.number?.([
+                        {
+                            name: "type",
+                            value: "{int32}",
+                        },
+                    ]) ?? (generator?.integer ?? $generator.integer)(0, 100),
+                uint32:
+                    (generator?.customs ?? $generator.customs)?.number?.([
+                        {
+                            name: "type",
+                            value: "uint32",
+                        },
+                    ]) ?? (generator?.integer ?? $generator.integer)(0, 10),
+                int64:
+                    (generator?.customs ?? $generator.customs)?.number?.([
+                        {
+                            name: "type",
+                            value: "int64",
+                        },
+                    ]) ?? (generator?.integer ?? $generator.integer)(0, 100),
+                uint64:
+                    (generator?.customs ?? $generator.customs)?.number?.([
+                        {
+                            name: "type",
+                            value: "{uint64}",
+                        },
+                    ]) ?? (generator?.integer ?? $generator.integer)(0, 10),
+                float:
+                    (generator?.customs ?? $generator.customs)?.number?.([
+                        {
+                            name: "type",
+                            value: "float",
+                        },
+                    ]) ?? (generator?.number ?? $generator.number)(0, 100),
             });
             return $ro0();
         })(),
@@ -49,10 +84,37 @@ export const test_random_TagType = _test_random<TagType>(TagType)({
                 "number" === typeof input.int &&
                 Number.isFinite(input.int) &&
                 Math.floor(input.int) === input.int &&
+                -2147483648 <= input.int &&
+                input.int <= 2147483647 &&
                 "number" === typeof input.uint &&
                 Number.isFinite(input.uint) &&
                 Math.floor(input.uint) === input.uint &&
-                0 <= input.uint;
+                0 <= input.uint &&
+                input.uint <= 4294967295 &&
+                "number" === typeof input.int32 &&
+                Number.isFinite(input.int32) &&
+                Math.floor(input.int32) === input.int32 &&
+                -2147483648 <= input.int32 &&
+                input.int32 <= 2147483647 &&
+                "number" === typeof input.uint32 &&
+                Number.isFinite(input.uint32) &&
+                Math.floor(input.uint32) === input.uint32 &&
+                0 <= input.uint32 &&
+                input.uint32 <= 4294967295 &&
+                "number" === typeof input.int64 &&
+                Number.isFinite(input.int64) &&
+                Math.floor(input.int64) === input.int64 &&
+                -9223372036854776000 <= input.int64 &&
+                input.int64 <= 9223372036854776000 &&
+                "number" === typeof input.uint64 &&
+                Number.isFinite(input.uint64) &&
+                Math.floor(input.uint64) === input.uint64 &&
+                0 <= input.uint64 &&
+                input.uint64 <= 18446744073709552000 &&
+                "number" === typeof input.float &&
+                Number.isFinite(input.float) &&
+                -1.175494351e38 <= input.float &&
+                input.float <= 3.4028235e38;
             return "object" === typeof input && null !== input && $io0(input);
         };
         if (false === __is(input))
@@ -109,6 +171,13 @@ export const test_random_TagType = _test_random<TagType>(TagType)({
                                 path: _path + ".int",
                                 expected: "number (@type int)",
                                 value: input.int,
+                            })) &&
+                        ((-2147483648 <= input.int &&
+                            input.int <= 2147483647) ||
+                            $guard(_exceptionable, {
+                                path: _path + ".int",
+                                expected: "number (@type int)",
+                                value: input.int,
                             }))) ||
                         $guard(_exceptionable, {
                             path: _path + ".int",
@@ -128,11 +197,121 @@ export const test_random_TagType = _test_random<TagType>(TagType)({
                                 path: _path + ".uint",
                                 expected: "number (@type uint)",
                                 value: input.uint,
+                            })) &&
+                        (input.uint <= 4294967295 ||
+                            $guard(_exceptionable, {
+                                path: _path + ".uint",
+                                expected: "number (@type uint)",
+                                value: input.uint,
                             }))) ||
                         $guard(_exceptionable, {
                             path: _path + ".uint",
                             expected: "number",
                             value: input.uint,
+                        })) &&
+                    (("number" === typeof input.int32 &&
+                        Number.isFinite(input.int32) &&
+                        (Math.floor(input.int32) === input.int32 ||
+                            $guard(_exceptionable, {
+                                path: _path + ".int32",
+                                expected: "number (@type int32)",
+                                value: input.int32,
+                            })) &&
+                        ((-2147483648 <= input.int32 &&
+                            input.int32 <= 2147483647) ||
+                            $guard(_exceptionable, {
+                                path: _path + ".int32",
+                                expected: "number (@type int32)",
+                                value: input.int32,
+                            }))) ||
+                        $guard(_exceptionable, {
+                            path: _path + ".int32",
+                            expected: "number",
+                            value: input.int32,
+                        })) &&
+                    (("number" === typeof input.uint32 &&
+                        Number.isFinite(input.uint32) &&
+                        (Math.floor(input.uint32) === input.uint32 ||
+                            $guard(_exceptionable, {
+                                path: _path + ".uint32",
+                                expected: "number (@type uint32)",
+                                value: input.uint32,
+                            })) &&
+                        (0 <= input.uint32 ||
+                            $guard(_exceptionable, {
+                                path: _path + ".uint32",
+                                expected: "number (@type uint32)",
+                                value: input.uint32,
+                            })) &&
+                        (input.uint32 <= 4294967295 ||
+                            $guard(_exceptionable, {
+                                path: _path + ".uint32",
+                                expected: "number (@type uint32)",
+                                value: input.uint32,
+                            }))) ||
+                        $guard(_exceptionable, {
+                            path: _path + ".uint32",
+                            expected: "number",
+                            value: input.uint32,
+                        })) &&
+                    (("number" === typeof input.int64 &&
+                        Number.isFinite(input.int64) &&
+                        (Math.floor(input.int64) === input.int64 ||
+                            $guard(_exceptionable, {
+                                path: _path + ".int64",
+                                expected: "number (@type int64)",
+                                value: input.int64,
+                            })) &&
+                        ((-9223372036854776000 <= input.int64 &&
+                            input.int64 <= 9223372036854776000) ||
+                            $guard(_exceptionable, {
+                                path: _path + ".int64",
+                                expected: "number (@type int64)",
+                                value: input.int64,
+                            }))) ||
+                        $guard(_exceptionable, {
+                            path: _path + ".int64",
+                            expected: "number",
+                            value: input.int64,
+                        })) &&
+                    (("number" === typeof input.uint64 &&
+                        Number.isFinite(input.uint64) &&
+                        (Math.floor(input.uint64) === input.uint64 ||
+                            $guard(_exceptionable, {
+                                path: _path + ".uint64",
+                                expected: "number (@type uint64)",
+                                value: input.uint64,
+                            })) &&
+                        (0 <= input.uint64 ||
+                            $guard(_exceptionable, {
+                                path: _path + ".uint64",
+                                expected: "number (@type uint64)",
+                                value: input.uint64,
+                            })) &&
+                        (input.uint64 <= 18446744073709552000 ||
+                            $guard(_exceptionable, {
+                                path: _path + ".uint64",
+                                expected: "number (@type uint64)",
+                                value: input.uint64,
+                            }))) ||
+                        $guard(_exceptionable, {
+                            path: _path + ".uint64",
+                            expected: "number",
+                            value: input.uint64,
+                        })) &&
+                    (("number" === typeof input.float &&
+                        Number.isFinite(input.float) &&
+                        ((-1.175494351e38 <= input.float &&
+                            input.float <= 3.4028235e38) ||
+                            $guard(_exceptionable, {
+                                path: _path + ".float",
+                                expected: "number (@type float)",
+                                value: input.float,
+                            }))) ||
+                        $guard(_exceptionable, {
+                            path: _path + ".float",
+                            expected: "number",
+                            value: input.float,
                         }));
                 return (
                     ((("object" === typeof input && null !== input) ||

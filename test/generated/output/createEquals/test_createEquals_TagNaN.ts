@@ -2,7 +2,7 @@ import typia from "../../../../src";
 import { _test_equals } from "../../../internal/_test_equals";
 import { TagNaN } from "../../../structures/TagNaN";
 
-export const test_equals_TagNaN = _test_equals<TagNaN>(TagNaN)(
+export const test_equals_TagNaN = _test_equals("TagNaN")<TagNaN>(TagNaN)(
     (input: any, _exceptionable: boolean = true): input is TagNaN => {
         const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
             "number" === typeof input.value &&
@@ -21,6 +21,8 @@ export const test_equals_TagNaN = _test_equals<TagNaN>(TagNaN)(
             "number" === typeof input.typed &&
             Number.isFinite(input.typed) &&
             Math.floor(input.typed) === input.typed &&
+            -2147483648 <= input.typed &&
+            input.typed <= 2147483647 &&
             (6 === Object.keys(input).length ||
                 Object.keys(input).every((key: any) => {
                     if (

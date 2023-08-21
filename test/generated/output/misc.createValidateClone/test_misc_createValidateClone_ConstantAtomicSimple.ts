@@ -3,7 +3,9 @@ import { _test_misc_validateClone } from "../../../internal/_test_misc_validateC
 import { ConstantAtomicSimple } from "../../../structures/ConstantAtomicSimple";
 
 export const test_misc_validateClone_ConstantAtomicSimple =
-    _test_misc_validateClone<ConstantAtomicSimple>(ConstantAtomicSimple)(
+    _test_misc_validateClone("ConstantAtomicSimple")<ConstantAtomicSimple>(
+        ConstantAtomicSimple,
+    )(
         (
             input: any,
         ): typia.IValidation<typia.Primitive<ConstantAtomicSimple>> => {

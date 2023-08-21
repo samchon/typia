@@ -3,7 +3,9 @@ import { _test_json_assertStringify } from "../../../internal/_test_json_assertS
 import { ObjectOptional } from "../../../structures/ObjectOptional";
 
 export const test_json_assertStringify_ObjectOptional =
-    _test_json_assertStringify<ObjectOptional>(ObjectOptional)((input) =>
+    _test_json_assertStringify("ObjectOptional")<ObjectOptional>(
+        ObjectOptional,
+    )((input) =>
         ((input: any): string => {
             const assert = (input: any): ObjectOptional => {
                 const __is = (input: any): input is ObjectOptional => {

@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_validate } from "../../../internal/_test_validate";
 import { ToJsonTuple } from "../../../structures/ToJsonTuple";
 
-export const test_validate_ToJsonTuple = _test_validate<ToJsonTuple>(
-    ToJsonTuple,
-)((input: any): typia.IValidation<ToJsonTuple> => {
+export const test_validate_ToJsonTuple = _test_validate(
+    "ToJsonTuple",
+)<ToJsonTuple>(ToJsonTuple)((input: any): typia.IValidation<ToJsonTuple> => {
     const errors = [] as any[];
     const __is = (input: any): input is ToJsonTuple => {
         const $io0 = (input: any): boolean =>

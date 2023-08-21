@@ -3,9 +3,9 @@ import { _test_json_stringify } from "../../../internal/_test_json_stringify";
 import { ObjectUnionCompositePointer } from "../../../structures/ObjectUnionCompositePointer";
 
 export const test_json_stringify_ObjectUnionCompositePointer =
-    _test_json_stringify<ObjectUnionCompositePointer>(
-        ObjectUnionCompositePointer,
-    )((input) =>
+    _test_json_stringify(
+        "ObjectUnionCompositePointer",
+    )<ObjectUnionCompositePointer>(ObjectUnionCompositePointer)((input) =>
         ((input: ObjectUnionCompositePointer): string => {
             const $io1 = (input: any): boolean =>
                 "object" === typeof input.value &&

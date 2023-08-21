@@ -3,50 +3,58 @@ import { _test_misc_assertClone } from "../../../internal/_test_misc_assertClone
 import { ArrayRepeatedNullable } from "../../../structures/ArrayRepeatedNullable";
 
 export const test_misc_assertClone_ArrayRepeatedNullable =
-    _test_misc_assertClone<ArrayRepeatedNullable>(ArrayRepeatedNullable)(
-        (input) =>
-            ((input: any): typia.Primitive<ArrayRepeatedNullable> => {
-                const assert = (input: any): ArrayRepeatedNullable => {
-                    const __is = (
+    _test_misc_assertClone("ArrayRepeatedNullable")<ArrayRepeatedNullable>(
+        ArrayRepeatedNullable,
+    )((input) =>
+        ((input: any): typia.Primitive<ArrayRepeatedNullable> => {
+            const assert = (input: any): ArrayRepeatedNullable => {
+                const __is = (input: any): input is ArrayRepeatedNullable => {
+                    const $ia0 = (input: any): any =>
+                        input.every(
+                            (elem: any) =>
+                                undefined !== elem &&
+                                (null === elem ||
+                                    "string" === typeof elem ||
+                                    ("number" === typeof elem &&
+                                        Number.isFinite(elem)) ||
+                                    (Array.isArray(elem) &&
+                                        ($ia0(elem) || false))),
+                        );
+                    return (
+                        undefined !== input &&
+                        (null === input ||
+                            "string" === typeof input ||
+                            ("number" === typeof input &&
+                                Number.isFinite(input)) ||
+                            (Array.isArray(input) && ($ia0(input) || false)))
+                    );
+                };
+                if (false === __is(input))
+                    ((
                         input: any,
+                        _path: string,
+                        _exceptionable: boolean = true,
                     ): input is ArrayRepeatedNullable => {
-                        const $ia0 = (input: any): any =>
+                        const $guard = (typia.misc.assertClone as any).guard;
+                        const $aa0 = (
+                            input: any,
+                            _path: string,
+                            _exceptionable: boolean = true,
+                        ): any =>
                             input.every(
-                                (elem: any) =>
-                                    undefined !== elem &&
+                                (elem: any, _index1: number) =>
+                                    (undefined !== elem ||
+                                        $guard(_exceptionable, {
+                                            path: _path + "[" + _index1 + "]",
+                                            expected:
+                                                "(Array<ArrayRepeatedNullable> | null | number | string)",
+                                            value: elem,
+                                        })) &&
                                     (null === elem ||
                                         "string" === typeof elem ||
                                         ("number" === typeof elem &&
                                             Number.isFinite(elem)) ||
-                                        (Array.isArray(elem) &&
-                                            ($ia0(elem) || false))),
-                            );
-                        return (
-                            undefined !== input &&
-                            (null === input ||
-                                "string" === typeof input ||
-                                ("number" === typeof input &&
-                                    Number.isFinite(input)) ||
-                                (Array.isArray(input) &&
-                                    ($ia0(input) || false)))
-                        );
-                    };
-                    if (false === __is(input))
-                        ((
-                            input: any,
-                            _path: string,
-                            _exceptionable: boolean = true,
-                        ): input is ArrayRepeatedNullable => {
-                            const $guard = (typia.misc.assertClone as any)
-                                .guard;
-                            const $aa0 = (
-                                input: any,
-                                _path: string,
-                                _exceptionable: boolean = true,
-                            ): any =>
-                                input.every(
-                                    (elem: any, _index1: number) =>
-                                        (undefined !== elem ||
+                                        ((Array.isArray(elem) ||
                                             $guard(_exceptionable, {
                                                 path:
                                                     _path + "[" + _index1 + "]",
@@ -54,11 +62,11 @@ export const test_misc_assertClone_ArrayRepeatedNullable =
                                                     "(Array<ArrayRepeatedNullable> | null | number | string)",
                                                 value: elem,
                                             })) &&
-                                        (null === elem ||
-                                            "string" === typeof elem ||
-                                            ("number" === typeof elem &&
-                                                Number.isFinite(elem)) ||
-                                            ((Array.isArray(elem) ||
+                                            ($aa0(
+                                                elem,
+                                                _path + "[" + _index1 + "]",
+                                                true && _exceptionable,
+                                            ) ||
                                                 $guard(_exceptionable, {
                                                     path:
                                                         _path +
@@ -66,94 +74,77 @@ export const test_misc_assertClone_ArrayRepeatedNullable =
                                                         _index1 +
                                                         "]",
                                                     expected:
-                                                        "(Array<ArrayRepeatedNullable> | null | number | string)",
+                                                        "Array<ArrayRepeatedNullable>",
                                                     value: elem,
-                                                })) &&
-                                                ($aa0(
-                                                    elem,
-                                                    _path + "[" + _index1 + "]",
-                                                    true && _exceptionable,
-                                                ) ||
-                                                    $guard(_exceptionable, {
-                                                        path:
-                                                            _path +
-                                                            "[" +
-                                                            _index1 +
-                                                            "]",
-                                                        expected:
-                                                            "Array<ArrayRepeatedNullable>",
-                                                        value: elem,
-                                                    }))) ||
-                                            $guard(_exceptionable, {
-                                                path:
-                                                    _path + "[" + _index1 + "]",
-                                                expected:
-                                                    "(Array<ArrayRepeatedNullable> | null | number | string)",
-                                                value: elem,
-                                            })),
-                                );
-                            return (
-                                (undefined !== input ||
+                                                }))) ||
+                                        $guard(_exceptionable, {
+                                            path: _path + "[" + _index1 + "]",
+                                            expected:
+                                                "(Array<ArrayRepeatedNullable> | null | number | string)",
+                                            value: elem,
+                                        })),
+                            );
+                        return (
+                            (undefined !== input ||
+                                $guard(true, {
+                                    path: _path + "",
+                                    expected:
+                                        "(Array<ArrayRepeatedNullable> | null | number | string)",
+                                    value: input,
+                                })) &&
+                            (null === input ||
+                                "string" === typeof input ||
+                                ("number" === typeof input &&
+                                    Number.isFinite(input)) ||
+                                ((Array.isArray(input) ||
                                     $guard(true, {
                                         path: _path + "",
                                         expected:
                                             "(Array<ArrayRepeatedNullable> | null | number | string)",
                                         value: input,
                                     })) &&
-                                (null === input ||
-                                    "string" === typeof input ||
-                                    ("number" === typeof input &&
-                                        Number.isFinite(input)) ||
-                                    ((Array.isArray(input) ||
-                                        $guard(true, {
+                                    ($aa0(
+                                        input,
+                                        _path + "",
+                                        true && _exceptionable,
+                                    ) ||
+                                        $guard(_exceptionable, {
                                             path: _path + "",
                                             expected:
-                                                "(Array<ArrayRepeatedNullable> | null | number | string)",
+                                                "Array<ArrayRepeatedNullable>",
                                             value: input,
-                                        })) &&
-                                        ($aa0(
-                                            input,
-                                            _path + "",
-                                            true && _exceptionable,
-                                        ) ||
-                                            $guard(_exceptionable, {
-                                                path: _path + "",
-                                                expected:
-                                                    "Array<ArrayRepeatedNullable>",
-                                                value: input,
-                                            }))) ||
-                                    $guard(true, {
-                                        path: _path + "",
-                                        expected:
-                                            "(Array<ArrayRepeatedNullable> | null | number | string)",
-                                        value: input,
-                                    }))
-                            );
-                        })(input, "$input", true);
-                    return input;
-                };
-                const clone = (
-                    input: ArrayRepeatedNullable,
-                ): typia.Primitive<ArrayRepeatedNullable> => {
-                    const $ia0 = (input: any): any =>
-                        input.every(
-                            (elem: any) =>
-                                undefined !== elem &&
-                                (null === elem ||
-                                    "string" === typeof elem ||
-                                    "number" === typeof elem ||
-                                    (Array.isArray(elem) &&
-                                        ($ia0(elem) || false))),
+                                        }))) ||
+                                $guard(true, {
+                                    path: _path + "",
+                                    expected:
+                                        "(Array<ArrayRepeatedNullable> | null | number | string)",
+                                    value: input,
+                                }))
                         );
-                    const $cp0 = (input: any) => $ca0(input);
-                    const $ca0 = (input: any): any =>
-                        input.map((elem: any) =>
-                            Array.isArray(elem) ? $cp0(elem) : (elem as any),
-                        );
-                    return Array.isArray(input) ? $cp0(input) : (input as any);
-                };
-                assert(input);
-                const output = clone(input);
-                return output;
-            })(input),
+                    })(input, "$input", true);
+                return input;
+            };
+            const clone = (
+                input: ArrayRepeatedNullable,
+            ): typia.Primitive<ArrayRepeatedNullable> => {
+                const $ia0 = (input: any): any =>
+                    input.every(
+                        (elem: any) =>
+                            undefined !== elem &&
+                            (null === elem ||
+                                "string" === typeof elem ||
+                                "number" === typeof elem ||
+                                (Array.isArray(elem) && ($ia0(elem) || false))),
+                    );
+                const $cp0 = (input: any) => $ca0(input);
+                const $ca0 = (input: any): any =>
+                    input.map((elem: any) =>
+                        Array.isArray(elem) ? $cp0(elem) : (elem as any),
+                    );
+                return Array.isArray(input) ? $cp0(input) : (input as any);
+            };
+            assert(input);
+            const output = clone(input);
+            return output;
+        })(input),
     );

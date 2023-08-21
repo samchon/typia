@@ -3,9 +3,9 @@ import { _test_json_validateStringify } from "../../../internal/_test_json_valid
 import { ArrayHierarchicalPointer } from "../../../structures/ArrayHierarchicalPointer";
 
 export const test_json_validateStringify_ArrayHierarchicalPointer =
-    _test_json_validateStringify<ArrayHierarchicalPointer>(
-        ArrayHierarchicalPointer,
-    )((input) =>
+    _test_json_validateStringify(
+        "ArrayHierarchicalPointer",
+    )<ArrayHierarchicalPointer>(ArrayHierarchicalPointer)((input) =>
         ((input: ArrayHierarchicalPointer): typia.IValidation<string> => {
             const validate = (
                 input: any,

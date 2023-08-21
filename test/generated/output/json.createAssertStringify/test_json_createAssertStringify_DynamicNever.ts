@@ -3,7 +3,7 @@ import { _test_json_assertStringify } from "../../../internal/_test_json_assertS
 import { DynamicNever } from "../../../structures/DynamicNever";
 
 export const test_json_assertStringify_DynamicNever =
-    _test_json_assertStringify<DynamicNever>(DynamicNever)(
+    _test_json_assertStringify("DynamicNever")<DynamicNever>(DynamicNever)(
         (input: any): string => {
             const assert = (input: any): DynamicNever => {
                 const __is = (input: any): input is DynamicNever => {

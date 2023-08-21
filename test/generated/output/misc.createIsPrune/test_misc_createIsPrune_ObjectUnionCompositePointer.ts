@@ -2,10 +2,10 @@ import typia from "../../../../src";
 import { _test_misc_isPrune } from "../../../internal/_test_misc_isPrune";
 import { ObjectUnionCompositePointer } from "../../../structures/ObjectUnionCompositePointer";
 
-export const test_misc_isPrune_ObjectUnionCompositePointer =
-    _test_misc_isPrune<ObjectUnionCompositePointer>(
-        ObjectUnionCompositePointer,
-    )((input: any): input is ObjectUnionCompositePointer => {
+export const test_misc_isPrune_ObjectUnionCompositePointer = _test_misc_isPrune(
+    "ObjectUnionCompositePointer",
+)<ObjectUnionCompositePointer>(ObjectUnionCompositePointer)(
+    (input: any): input is ObjectUnionCompositePointer => {
         const is = (input: any): input is ObjectUnionCompositePointer => {
             const $io0 = (input: any): boolean =>
                 Array.isArray(input.value) &&
@@ -383,4 +383,5 @@ export const test_misc_isPrune_ObjectUnionCompositePointer =
         if (!is(input)) return false;
         prune(input);
         return true;
-    });
+    },
+);

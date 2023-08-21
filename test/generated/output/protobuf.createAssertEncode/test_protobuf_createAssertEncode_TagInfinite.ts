@@ -3,7 +3,7 @@ import { _test_protobuf_assertEncode } from "../../../internal/_test_protobuf_as
 import { TagInfinite } from "../../../structures/TagInfinite";
 
 export const test_protobuf_assertEncode_TagInfinite =
-    _test_protobuf_assertEncode<TagInfinite>(TagInfinite)({
+    _test_protobuf_assertEncode("TagInfinite")<TagInfinite>(TagInfinite)({
         assertEncode: (input: any): Uint8Array => {
             const assert = (input: any): TagInfinite => {
                 const __is = (input: any): input is TagInfinite => {
@@ -26,7 +26,9 @@ export const test_protobuf_assertEncode_TagInfinite =
                         "number" === typeof (input as any).typed &&
                         Number.isFinite((input as any).typed) &&
                         Math.floor((input as any).typed) ===
-                            (input as any).typed
+                            (input as any).typed &&
+                        -2147483648 <= (input as any).typed &&
+                        (input as any).typed <= 2147483647
                     );
                 };
                 if (false === __is(input))
@@ -109,6 +111,13 @@ export const test_protobuf_assertEncode_TagInfinite =
                             (("number" === typeof input.typed &&
                                 Number.isFinite(input.typed) &&
                                 (Math.floor(input.typed) === input.typed ||
+                                    $guard(_exceptionable, {
+                                        path: _path + ".typed",
+                                        expected: "number (@type int)",
+                                        value: input.typed,
+                                    })) &&
+                                ((-2147483648 <= input.typed &&
+                                    input.typed <= 2147483647) ||
                                     $guard(_exceptionable, {
                                         path: _path + ".typed",
                                         expected: "number (@type int)",

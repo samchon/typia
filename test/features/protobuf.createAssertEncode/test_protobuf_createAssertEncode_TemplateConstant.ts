@@ -3,7 +3,9 @@ import { _test_protobuf_assertEncode } from "../../internal/_test_protobuf_asser
 import { TemplateConstant } from "../../structures/TemplateConstant";
 
 export const test_protobuf_assertEncode_TemplateConstant =
-    _test_protobuf_assertEncode<TemplateConstant>(TemplateConstant)({
+    _test_protobuf_assertEncode("TemplateConstant")<TemplateConstant>(
+        TemplateConstant,
+    )({
         assertEncode: typia.protobuf.createAssertEncode<TemplateConstant>(),
         message: typia.protobuf.message<TemplateConstant>(),
     });

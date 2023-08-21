@@ -3,7 +3,7 @@ import { _test_protobuf_validateEncode } from "../../../internal/_test_protobuf_
 import { TagArray } from "../../../structures/TagArray";
 
 export const test_protobuf_validateEncode_TagArray =
-    _test_protobuf_validateEncode<TagArray>(TagArray)({
+    _test_protobuf_validateEncode("TagArray")<TagArray>(TagArray)({
         validateEncode: (input: TagArray): typia.IValidation<Uint8Array> => {
             const validate = (input: any): typia.IValidation<TagArray> => {
                 const errors = [] as any[];

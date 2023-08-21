@@ -2,6 +2,7 @@ import { TestStructure } from "../helpers/TestStructure";
 import { primitive_equal_to } from "../helpers/primitive_equal_to";
 
 export const _test_json_stringify =
+    (name: string) =>
     <T>(factory: TestStructure<T>) =>
     (stringify: (input: T) => string) =>
     () => {
@@ -10,7 +11,7 @@ export const _test_json_stringify =
 
         if (predicate(data, optimized) === false)
             throw new Error(
-                `Bug on typia.json.stringify(): failed to understand the ${factory.constructor.name} type.`,
+                `Bug on typia.json.stringify(): failed to understand the ${name} type.`,
             );
     };
 

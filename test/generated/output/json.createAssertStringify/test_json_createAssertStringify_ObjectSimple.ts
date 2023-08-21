@@ -3,7 +3,7 @@ import { _test_json_assertStringify } from "../../../internal/_test_json_assertS
 import { ObjectSimple } from "../../../structures/ObjectSimple";
 
 export const test_json_assertStringify_ObjectSimple =
-    _test_json_assertStringify<ObjectSimple>(ObjectSimple)(
+    _test_json_assertStringify("ObjectSimple")<ObjectSimple>(ObjectSimple)(
         (input: any): string => {
             const assert = (input: any): ObjectSimple => {
                 const __is = (input: any): input is ObjectSimple => {

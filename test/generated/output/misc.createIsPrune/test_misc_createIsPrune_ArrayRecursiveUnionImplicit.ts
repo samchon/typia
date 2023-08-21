@@ -2,10 +2,10 @@ import typia from "../../../../src";
 import { _test_misc_isPrune } from "../../../internal/_test_misc_isPrune";
 import { ArrayRecursiveUnionImplicit } from "../../../structures/ArrayRecursiveUnionImplicit";
 
-export const test_misc_isPrune_ArrayRecursiveUnionImplicit =
-    _test_misc_isPrune<ArrayRecursiveUnionImplicit>(
-        ArrayRecursiveUnionImplicit,
-    )((input: any): input is ArrayRecursiveUnionImplicit => {
+export const test_misc_isPrune_ArrayRecursiveUnionImplicit = _test_misc_isPrune(
+    "ArrayRecursiveUnionImplicit",
+)<ArrayRecursiveUnionImplicit>(ArrayRecursiveUnionImplicit)(
+    (input: any): input is ArrayRecursiveUnionImplicit => {
         const is = (input: any): input is ArrayRecursiveUnionImplicit => {
             const $io0 = (input: any): boolean =>
                 "number" === typeof input.id &&
@@ -242,4 +242,5 @@ export const test_misc_isPrune_ArrayRecursiveUnionImplicit =
         if (!is(input)) return false;
         prune(input);
         return true;
-    });
+    },
+);

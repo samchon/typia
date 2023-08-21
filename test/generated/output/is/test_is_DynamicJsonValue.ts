@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_is } from "../../../internal/_test_is";
 import { DynamicJsonValue } from "../../../structures/DynamicJsonValue";
 
-export const test_is_DynamicJsonValue = _test_is<DynamicJsonValue>(
-    DynamicJsonValue,
-)((input) =>
+export const test_is_DynamicJsonValue = _test_is(
+    "DynamicJsonValue",
+)<DynamicJsonValue>(DynamicJsonValue)((input) =>
     ((input: any): input is DynamicJsonValue => {
         const $join = (typia.is as any).join;
         const $io0 = (input: any): boolean =>

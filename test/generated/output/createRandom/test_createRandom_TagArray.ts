@@ -2,7 +2,9 @@ import typia from "../../../../src";
 import { _test_random } from "../../../internal/_test_random";
 import { TagArray } from "../../../structures/TagArray";
 
-export const test_random_TagArray = _test_random<TagArray>(TagArray)({
+export const test_random_TagArray = _test_random("TagArray")<TagArray>(
+    TagArray,
+)({
     random: (
         generator?: Partial<typia.IRandomGenerator>,
     ): typia.Primitive<TagArray> => {

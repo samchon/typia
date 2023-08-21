@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_is } from "../../../internal/_test_is";
 import { TupleRestAtomic } from "../../../structures/TupleRestAtomic";
 
-export const test_is_TupleRestAtomic = _test_is<TupleRestAtomic>(
-    TupleRestAtomic,
-)((input: any): input is TupleRestAtomic => {
+export const test_is_TupleRestAtomic = _test_is(
+    "TupleRestAtomic",
+)<TupleRestAtomic>(TupleRestAtomic)((input: any): input is TupleRestAtomic => {
     return (
         Array.isArray(input) &&
         "boolean" === typeof input[0] &&

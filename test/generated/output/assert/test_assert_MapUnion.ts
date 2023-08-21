@@ -2,7 +2,9 @@ import typia from "../../../../src";
 import { _test_assert } from "../../../internal/_test_assert";
 import { MapUnion } from "../../../structures/MapUnion";
 
-export const test_assert_MapUnion = _test_assert<MapUnion>(MapUnion)((input) =>
+export const test_assert_MapUnion = _test_assert("MapUnion")<MapUnion>(
+    MapUnion,
+)((input) =>
     ((input: any): MapUnion => {
         const __is = (input: any): input is MapUnion => {
             const $io0 = (input: any): boolean =>

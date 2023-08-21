@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_validate } from "../../../internal/_test_validate";
 import { TagAtomicUnion } from "../../../structures/TagAtomicUnion";
 
-export const test_validate_TagAtomicUnion = _test_validate<TagAtomicUnion>(
-    TagAtomicUnion,
-)((input) =>
+export const test_validate_TagAtomicUnion = _test_validate(
+    "TagAtomicUnion",
+)<TagAtomicUnion>(TagAtomicUnion)((input) =>
     ((input: any): typia.IValidation<TagAtomicUnion> => {
         const errors = [] as any[];
         const __is = (input: any): input is TagAtomicUnion => {

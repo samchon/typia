@@ -3,7 +3,9 @@ import { _test_protobuf_validateEncode } from "../../../internal/_test_protobuf_
 import { ObjectGenericAlias } from "../../../structures/ObjectGenericAlias";
 
 export const test_protobuf_validateEncode_ObjectGenericAlias =
-    _test_protobuf_validateEncode<ObjectGenericAlias>(ObjectGenericAlias)({
+    _test_protobuf_validateEncode("ObjectGenericAlias")<ObjectGenericAlias>(
+        ObjectGenericAlias,
+    )({
         validateEncode: (
             input: ObjectGenericAlias,
         ): typia.IValidation<Uint8Array> => {

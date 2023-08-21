@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_json_isStringify } from "../../../internal/_test_json_isStringify";
 import { SetUnion } from "../../../structures/SetUnion";
 
-export const test_json_isStringify_SetUnion = _test_json_isStringify<SetUnion>(
-    SetUnion,
-)((input) =>
+export const test_json_isStringify_SetUnion = _test_json_isStringify(
+    "SetUnion",
+)<SetUnion>(SetUnion)((input) =>
     ((input: SetUnion): string | null => {
         const is = (input: any): input is SetUnion => {
             const $io0 = (input: any): boolean =>

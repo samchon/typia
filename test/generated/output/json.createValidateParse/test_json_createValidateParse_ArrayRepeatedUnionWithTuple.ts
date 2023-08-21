@@ -3,9 +3,9 @@ import { _test_json_validateParse } from "../../../internal/_test_json_validateP
 import { ArrayRepeatedUnionWithTuple } from "../../../structures/ArrayRepeatedUnionWithTuple";
 
 export const test_json_validateParse_ArrayRepeatedUnionWithTuple =
-    _test_json_validateParse<ArrayRepeatedUnionWithTuple>(
-        ArrayRepeatedUnionWithTuple,
-    )(
+    _test_json_validateParse(
+        "ArrayRepeatedUnionWithTuple",
+    )<ArrayRepeatedUnionWithTuple>(ArrayRepeatedUnionWithTuple)(
         (
             input: string,
         ): typia.IValidation<typia.Primitive<ArrayRepeatedUnionWithTuple>> => {

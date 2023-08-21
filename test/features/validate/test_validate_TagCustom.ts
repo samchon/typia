@@ -2,6 +2,6 @@ import typia from "../../../src";
 import { _test_validate } from "../../internal/_test_validate";
 import { TagCustom } from "../../structures/TagCustom";
 
-export const test_validate_TagCustom = _test_validate<TagCustom>(TagCustom)(
-    (input) => typia.validate<TagCustom>(input),
-);
+export const test_validate_TagCustom = _test_validate("TagCustom")<TagCustom>(
+    TagCustom,
+)((input) => typia.validate<TagCustom>(input));

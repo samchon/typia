@@ -3,7 +3,9 @@ import { _test_misc_validatePrune } from "../../../internal/_test_misc_validateP
 import { ArrayAtomicSimple } from "../../../structures/ArrayAtomicSimple";
 
 export const test_misc_validatePrune_ArrayAtomicSimple =
-    _test_misc_validatePrune<ArrayAtomicSimple>(ArrayAtomicSimple)((input) =>
+    _test_misc_validatePrune("ArrayAtomicSimple")<ArrayAtomicSimple>(
+        ArrayAtomicSimple,
+    )((input) =>
         ((input: any): typia.IValidation<ArrayAtomicSimple> => {
             const validate = (
                 input: any,

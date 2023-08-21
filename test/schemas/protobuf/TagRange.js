@@ -29,39 +29,39 @@ function Type$decode(r,l){
   var t=r.uint32()
   switch(t>>>3){
   case 1: {
-  m.greater=r.double()
+  m.greater=r.int32()
   break
   }
   case 2: {
-  m.greaterEqual=r.double()
+  m.greaterEqual=r.int32()
   break
   }
   case 3: {
-  m.less=r.double()
+  m.less=r.int32()
   break
   }
   case 4: {
-  m.lessEqual=r.double()
+  m.lessEqual=r.int32()
   break
   }
   case 5: {
-  m.greaterLess=r.double()
+  m.greaterLess=r.int32()
   break
   }
   case 6: {
-  m.greaterEqualLess=r.double()
+  m.greaterEqualLess=r.int32()
   break
   }
   case 7: {
-  m.greaterLessEqual=r.double()
+  m.greaterLessEqual=r.int32()
   break
   }
   case 8: {
-  m.greaterEqualLessEqual=r.double()
+  m.greaterEqualLessEqual=r.int32()
   break
   }
   case 9: {
-  m.equal=r.double()
+  m.equal=r.int32()
   break
   }
   default:
@@ -105,14 +105,14 @@ function TagRange$encode(m,w){
 function Type$encode(m,w){
   if(!w)
   w=Writer.create()
-  w.uint32(9).double(m.greater)
-  w.uint32(17).double(m.greaterEqual)
-  w.uint32(25).double(m.less)
-  w.uint32(33).double(m.lessEqual)
-  w.uint32(41).double(m.greaterLess)
-  w.uint32(49).double(m.greaterEqualLess)
-  w.uint32(57).double(m.greaterLessEqual)
-  w.uint32(65).double(m.greaterEqualLessEqual)
-  w.uint32(73).double(m.equal)
+  w.uint32(8).int32(m.greater)
+  w.uint32(16).int32(m.greaterEqual)
+  w.uint32(24).int32(m.less)
+  w.uint32(32).int32(m.lessEqual)
+  w.uint32(40).int32(m.greaterLess)
+  w.uint32(48).int32(m.greaterEqualLess)
+  w.uint32(56).int32(m.greaterLessEqual)
+  w.uint32(64).int32(m.greaterEqualLessEqual)
+  w.uint32(72).int32(m.equal)
   return w
 }

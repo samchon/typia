@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_assert } from "../../../internal/_test_assert";
 import { TemplateAtomic } from "../../../structures/TemplateAtomic";
 
-export const test_assert_TemplateAtomic = _test_assert<TemplateAtomic>(
-    TemplateAtomic,
-)((input) =>
+export const test_assert_TemplateAtomic = _test_assert(
+    "TemplateAtomic",
+)<TemplateAtomic>(TemplateAtomic)((input) =>
     ((input: any): TemplateAtomic => {
         const __is = (input: any): input is TemplateAtomic => {
             const $io0 = (input: any): boolean =>

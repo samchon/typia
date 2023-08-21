@@ -3,7 +3,9 @@ import { _test_json_validateStringify } from "../../../internal/_test_json_valid
 import { ArrayRecursive } from "../../../structures/ArrayRecursive";
 
 export const test_json_validateStringify_ArrayRecursive =
-    _test_json_validateStringify<ArrayRecursive>(ArrayRecursive)((input) =>
+    _test_json_validateStringify("ArrayRecursive")<ArrayRecursive>(
+        ArrayRecursive,
+    )((input) =>
         ((input: ArrayRecursive): typia.IValidation<string> => {
             const validate = (
                 input: any,

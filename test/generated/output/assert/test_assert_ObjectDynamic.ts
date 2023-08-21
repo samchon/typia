@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_assert } from "../../../internal/_test_assert";
 import { ObjectDynamic } from "../../../structures/ObjectDynamic";
 
-export const test_assert_ObjectDynamic = _test_assert<ObjectDynamic>(
-    ObjectDynamic,
-)((input) =>
+export const test_assert_ObjectDynamic = _test_assert(
+    "ObjectDynamic",
+)<ObjectDynamic>(ObjectDynamic)((input) =>
     ((input: any): ObjectDynamic => {
         const __is = (input: any): input is ObjectDynamic => {
             const $join = (typia.assert as any).join;

@@ -3,6 +3,7 @@ import { TypeGuardError } from "typia";
 import { TestStructure } from "../helpers/TestStructure";
 
 export const _test_assert =
+    (name: string) =>
     <T>(factory: TestStructure<T>) =>
     (assert: (input: T) => T) =>
     () => {
@@ -18,7 +19,7 @@ export const _test_assert =
             if (exp instanceof TypeGuardError) {
                 console.log(exp);
                 throw new Error(
-                    `Bug on typia.assert(): failed to understand the ${factory.constructor.name} type.`,
+                    `Bug on typia.assert(): failed to understand the ${name} type.`,
                 );
             } else throw exp;
         }
@@ -40,7 +41,7 @@ export const _test_assert =
                         });
             }
             throw new Error(
-                `Bug on typia.assert(): failed to detect error on the ${factory.constructor.name} type.`,
+                `Bug on typia.assert(): failed to detect error on the ${name} type.`,
             );
         }
     };

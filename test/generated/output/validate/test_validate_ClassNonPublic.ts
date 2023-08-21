@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_validate } from "../../../internal/_test_validate";
 import { ClassNonPublic } from "../../../structures/ClassNonPublic";
 
-export const test_validate_ClassNonPublic = _test_validate<ClassNonPublic>(
-    ClassNonPublic,
-)((input) =>
+export const test_validate_ClassNonPublic = _test_validate(
+    "ClassNonPublic",
+)<ClassNonPublic>(ClassNonPublic)((input) =>
     ((input: any): typia.IValidation<ClassNonPublic> => {
         const errors = [] as any[];
         const __is = (input: any): input is ClassNonPublic => {

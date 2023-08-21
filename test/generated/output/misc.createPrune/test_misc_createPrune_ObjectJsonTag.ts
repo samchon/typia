@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_misc_prune } from "../../../internal/_test_misc_prune";
 import { ObjectJsonTag } from "../../../structures/ObjectJsonTag";
 
-export const test_misc_prune_ObjectJsonTag = _test_misc_prune<ObjectJsonTag>(
-    ObjectJsonTag,
-)((input: ObjectJsonTag): void => {
+export const test_misc_prune_ObjectJsonTag = _test_misc_prune(
+    "ObjectJsonTag",
+)<ObjectJsonTag>(ObjectJsonTag)((input: ObjectJsonTag): void => {
     const $is_custom = (typia.misc.createPrune as any).is_custom;
     const $po0 = (input: any): any => {
         for (const key of Object.keys(input)) {

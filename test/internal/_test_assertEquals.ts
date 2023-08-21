@@ -5,6 +5,7 @@ import { Escaper } from "typia/lib/utils/Escaper";
 import { TestStructure } from "../helpers/TestStructure";
 
 export const _test_assertEquals =
+    (name: string) =>
     <T>(factory: TestStructure<T>) =>
     (assertEquals: (input: T) => T) =>
     () => {
@@ -20,7 +21,7 @@ export const _test_assertEquals =
         } catch (exp) {
             if (exp instanceof TypeGuardError) {
                 throw new Error(
-                    `Bug on typia.assertEquals(): failed to understand the ${factory.constructor.name} type.`,
+                    `Bug on typia.assertEquals(): failed to understand the ${name} type.`,
                 );
             } else throw exp;
         }
@@ -46,7 +47,7 @@ export const _test_assertEquals =
             try {
                 assertEquals(input);
                 throw new Error(
-                    `Bug on typia.assertEquals(): failed to detect surplus property on the ${factory.constructor.name} type.`,
+                    `Bug on typia.assertEquals(): failed to detect surplus property on the ${name} type.`,
                 );
             } catch (exp) {
                 if (
@@ -66,7 +67,7 @@ export const _test_assertEquals =
                         actual: exp.expected,
                     });
                     throw new Error(
-                        `Bug on typia.assertEquals(): failed to detect surplus property on the ${factory.constructor.name} type.`,
+                        `Bug on typia.assertEquals(): failed to detect surplus property on the ${name} type.`,
                     );
                 } else throw exp;
             }

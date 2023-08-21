@@ -3,7 +3,9 @@ import { _test_misc_validateClone } from "../../../internal/_test_misc_validateC
 import { DynamicComposite } from "../../../structures/DynamicComposite";
 
 export const test_misc_validateClone_DynamicComposite =
-    _test_misc_validateClone<DynamicComposite>(DynamicComposite)((input) =>
+    _test_misc_validateClone("DynamicComposite")<DynamicComposite>(
+        DynamicComposite,
+    )((input) =>
         ((input: any): typia.IValidation<typia.Primitive<DynamicComposite>> => {
             const validate = (
                 input: any,

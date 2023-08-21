@@ -3,9 +3,9 @@ import { _test_misc_validateClone } from "../../../internal/_test_misc_validateC
 import { ObjectUnionCompositePointer } from "../../../structures/ObjectUnionCompositePointer";
 
 export const test_misc_validateClone_ObjectUnionCompositePointer =
-    _test_misc_validateClone<ObjectUnionCompositePointer>(
-        ObjectUnionCompositePointer,
-    )((input) =>
+    _test_misc_validateClone(
+        "ObjectUnionCompositePointer",
+    )<ObjectUnionCompositePointer>(ObjectUnionCompositePointer)((input) =>
         ((
             input: any,
         ): typia.IValidation<typia.Primitive<ObjectUnionCompositePointer>> => {

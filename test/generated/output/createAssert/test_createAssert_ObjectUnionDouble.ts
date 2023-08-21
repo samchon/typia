@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_assert } from "../../../internal/_test_assert";
 import { ObjectUnionDouble } from "../../../structures/ObjectUnionDouble";
 
-export const test_assert_ObjectUnionDouble = _test_assert<ObjectUnionDouble>(
-    ObjectUnionDouble,
-)((input: any): ObjectUnionDouble => {
+export const test_assert_ObjectUnionDouble = _test_assert(
+    "ObjectUnionDouble",
+)<ObjectUnionDouble>(ObjectUnionDouble)((input: any): ObjectUnionDouble => {
     const __is = (input: any): input is ObjectUnionDouble => {
         const $io0 = (input: any): boolean =>
             "object" === typeof input.value &&

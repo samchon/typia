@@ -3,7 +3,7 @@ import { _test_protobuf_validateEncode } from "../../../internal/_test_protobuf_
 import { TagLength } from "../../../structures/TagLength";
 
 export const test_protobuf_validateEncode_TagLength =
-    _test_protobuf_validateEncode<TagLength>(TagLength)({
+    _test_protobuf_validateEncode("TagLength")<TagLength>(TagLength)({
         validateEncode: (input: TagLength): typia.IValidation<Uint8Array> => {
             const validate = (input: any): typia.IValidation<TagLength> => {
                 const errors = [] as any[];

@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_json_isParse } from "../../../internal/_test_json_isParse";
 import { ArraySimple } from "../../../structures/ArraySimple";
 
-export const test_json_isParse_ArraySimple = _test_json_isParse<ArraySimple>(
-    ArraySimple,
-)((input: any): typia.Primitive<ArraySimple> => {
+export const test_json_isParse_ArraySimple = _test_json_isParse(
+    "ArraySimple",
+)<ArraySimple>(ArraySimple)((input: any): typia.Primitive<ArraySimple> => {
     const is = (input: any): input is ArraySimple => {
         const $io0 = (input: any): boolean =>
             "string" === typeof input.name &&

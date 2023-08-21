@@ -3,7 +3,9 @@ import { _test_protobuf_assertEncode } from "../../../internal/_test_protobuf_as
 import { ObjectHierarchical } from "../../../structures/ObjectHierarchical";
 
 export const test_protobuf_assertEncode_ObjectHierarchical =
-    _test_protobuf_assertEncode<ObjectHierarchical>(ObjectHierarchical)({
+    _test_protobuf_assertEncode("ObjectHierarchical")<ObjectHierarchical>(
+        ObjectHierarchical,
+    )({
         assertEncode: (input) =>
             ((input: any): Uint8Array => {
                 const assert = (input: any): ObjectHierarchical => {

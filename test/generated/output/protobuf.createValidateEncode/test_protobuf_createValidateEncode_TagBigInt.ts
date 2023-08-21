@@ -3,7 +3,7 @@ import { _test_protobuf_validateEncode } from "../../../internal/_test_protobuf_
 import { TagBigInt } from "../../../structures/TagBigInt";
 
 export const test_protobuf_validateEncode_TagBigInt =
-    _test_protobuf_validateEncode<TagBigInt>(TagBigInt)({
+    _test_protobuf_validateEncode("TagBigInt")<TagBigInt>(TagBigInt)({
         validateEncode: (input: TagBigInt): typia.IValidation<Uint8Array> => {
             const validate = (input: any): typia.IValidation<TagBigInt> => {
                 const errors = [] as any[];
@@ -13,14 +13,14 @@ export const test_protobuf_validateEncode_TagBigInt =
                         null !== input &&
                         "bigint" === typeof (input as any).value &&
                         "bigint" === typeof (input as any).ranged &&
-                        0n <= (input as any).ranged &&
-                        100n >= (input as any).ranged &&
+                        BigInt(0) <= (input as any).ranged &&
+                        BigInt(100) >= (input as any).ranged &&
                         "bigint" === typeof (input as any).minimum &&
-                        0n <= (input as any).minimum &&
+                        BigInt(0) <= (input as any).minimum &&
                         "bigint" === typeof (input as any).maximum &&
-                        100n >= (input as any).maximum &&
+                        BigInt(100) >= (input as any).maximum &&
                         "bigint" === typeof (input as any).multipleOf &&
-                        0n === (input as any).multipleOf % 3n
+                        BigInt(0) === (input as any).multipleOf % BigInt(3)
                     );
                 };
                 if (false === __is(input)) {
@@ -45,13 +45,13 @@ export const test_protobuf_validateEncode_TagBigInt =
                                         value: input.value,
                                     }),
                                 ("bigint" === typeof input.ranged &&
-                                    (0n <= input.ranged ||
+                                    (BigInt(0) <= input.ranged ||
                                         $report(_exceptionable, {
                                             path: _path + ".ranged",
                                             expected: "bigint (@minimum 0)",
                                             value: input.ranged,
                                         })) &&
-                                    (100n >= input.ranged ||
+                                    (BigInt(100) >= input.ranged ||
                                         $report(_exceptionable, {
                                             path: _path + ".ranged",
                                             expected: "bigint (@maximum 100)",
@@ -63,7 +63,7 @@ export const test_protobuf_validateEncode_TagBigInt =
                                         value: input.ranged,
                                     }),
                                 ("bigint" === typeof input.minimum &&
-                                    (0n <= input.minimum ||
+                                    (BigInt(0) <= input.minimum ||
                                         $report(_exceptionable, {
                                             path: _path + ".minimum",
                                             expected: "bigint (@minimum 0)",
@@ -75,7 +75,7 @@ export const test_protobuf_validateEncode_TagBigInt =
                                         value: input.minimum,
                                     }),
                                 ("bigint" === typeof input.maximum &&
-                                    (100n >= input.maximum ||
+                                    (BigInt(100) >= input.maximum ||
                                         $report(_exceptionable, {
                                             path: _path + ".maximum",
                                             expected: "bigint (@maximum 100)",
@@ -87,7 +87,8 @@ export const test_protobuf_validateEncode_TagBigInt =
                                         value: input.maximum,
                                     }),
                                 ("bigint" === typeof input.multipleOf &&
-                                    (0n === input.multipleOf % 3n ||
+                                    (BigInt(0) ===
+                                        input.multipleOf % BigInt(3) ||
                                         $report(_exceptionable, {
                                             path: _path + ".multipleOf",
                                             expected: "bigint (@multipleOf 3)",

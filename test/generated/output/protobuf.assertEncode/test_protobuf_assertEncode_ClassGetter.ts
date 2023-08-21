@@ -3,7 +3,7 @@ import { _test_protobuf_assertEncode } from "../../../internal/_test_protobuf_as
 import { ClassGetter } from "../../../structures/ClassGetter";
 
 export const test_protobuf_assertEncode_ClassGetter =
-    _test_protobuf_assertEncode<ClassGetter>(ClassGetter)({
+    _test_protobuf_assertEncode("ClassGetter")<ClassGetter>(ClassGetter)({
         assertEncode: (input) =>
             ((input: any): Uint8Array => {
                 const assert = (input: any): ClassGetter => {

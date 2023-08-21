@@ -3,7 +3,7 @@ import { _test_protobuf_validateEncode } from "../../../internal/_test_protobuf_
 import { ClassMethod } from "../../../structures/ClassMethod";
 
 export const test_protobuf_validateEncode_ClassMethod =
-    _test_protobuf_validateEncode<ClassMethod>(ClassMethod)({
+    _test_protobuf_validateEncode("ClassMethod")<ClassMethod>(ClassMethod)({
         validateEncode: (input: ClassMethod): typia.IValidation<Uint8Array> => {
             const validate = (input: any): typia.IValidation<ClassMethod> => {
                 const errors = [] as any[];

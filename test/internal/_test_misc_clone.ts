@@ -5,6 +5,7 @@ import { primitive_clone } from "../helpers/primitive_clone";
 import { primitive_equal_to } from "../helpers/primitive_equal_to";
 
 export const _test_misc_clone =
+    (name: string) =>
     <T>(factory: TestStructure<T>) =>
     (clone: (input: T) => Primitive<T>) =>
     () => {
@@ -14,7 +15,7 @@ export const _test_misc_clone =
 
         if (primitive_equal_to(cloned, primitived) === false) {
             throw new Error(
-                `Bug on typia.misc.clone(): failed to clone the ${factory.constructor.name} type.`,
+                `Bug on typia.misc.clone(): failed to clone the ${name} type.`,
             );
         }
     };

@@ -3,7 +3,9 @@ import { _test_protobuf_assertEncode } from "../../internal/_test_protobuf_asser
 import { ObjectRecursive } from "../../structures/ObjectRecursive";
 
 export const test_protobuf_assertEncode_ObjectRecursive =
-    _test_protobuf_assertEncode<ObjectRecursive>(ObjectRecursive)({
+    _test_protobuf_assertEncode("ObjectRecursive")<ObjectRecursive>(
+        ObjectRecursive,
+    )({
         assertEncode: (input) =>
             typia.protobuf.assertEncode<ObjectRecursive>(input),
         message: typia.protobuf.message<ObjectRecursive>(),

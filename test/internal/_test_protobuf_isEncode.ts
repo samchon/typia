@@ -1,15 +1,12 @@
-import { Spoiler } from "../helpers/Spoiler";
+import { TestStructure } from "../helpers/TestStructure";
 import { _test_protobuf_encode } from "./_test_protobuf_encode";
 
 export const _test_protobuf_isEncode =
-    <T extends object>(factory: {
-        constructor: { name: string };
-        generate(): T;
-        SPOILERS?: Spoiler<T>[];
-    }) =>
+    (name: string) =>
+    <T extends object>(factory: TestStructure<T>) =>
     (functor: { message: string; isEncode: (input: T) => Uint8Array | null }) =>
     () => {
-        _test_protobuf_encode(factory)({
+        _test_protobuf_encode(name)(factory)({
             message: functor.message,
             encode: (input) => {
                 const binary: Uint8Array | null = functor.isEncode(input);
@@ -23,7 +20,7 @@ export const _test_protobuf_isEncode =
 
             if (functor.isEncode(elem) !== null)
                 throw new Error(
-                    `Bug on typia.json.isEncode(): failed to detect error on the ${factory.constructor.name} type.`,
+                    `Bug on typia.json.isEncode(): failed to detect error on the ${name} type.`,
                 );
         }
     };
