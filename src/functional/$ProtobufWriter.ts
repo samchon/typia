@@ -84,7 +84,6 @@ export class $ProtobufWriter implements IProtobufWriter {
     }
 
     bytes(value: Uint8Array): void {
-        this.fork();
         this.uint32(value.byteLength);
         for (let i = 0; i < value.byteLength; i++)
             this.buf[this.ptr++] = value[i]!;

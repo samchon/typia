@@ -31,4 +31,16 @@ export namespace MetadataFactory {
             collection.entire_.clear();
             return meta;
         };
+
+    /**
+     * @internal
+     */
+    export const soleLiteral = (value: string): Metadata => {
+        const meta: Metadata = Metadata.initialize();
+        meta.constants.push({
+            values: [value],
+            type: "string",
+        });
+        return meta;
+    };
 }

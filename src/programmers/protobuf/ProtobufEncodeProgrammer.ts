@@ -287,23 +287,6 @@ export namespace ProtobufEncodeProgrammer {
                     value: (index) => decode_bytes("bytes")(index!)(input),
                 });
 
-            // CONSIDER MAPS
-            if (meta.maps.length)
-                unions.push({
-                    type: "map",
-                    is: () => ExpressionFactory.isInstanceOf("Map")(input),
-                    value: (index) =>
-                        decode_map(project)(importer)(index!)(
-                            input,
-                            meta.maps[0]!,
-                            {
-                                ...explore,
-                                from: "array",
-                            },
-                            tags,
-                        ),
-                });
-
             // CONSIDER ARRAYS
             if (meta.arrays.length)
                 unions.push({
@@ -313,6 +296,23 @@ export namespace ProtobufEncodeProgrammer {
                         explore_arrays(project)(importer)(index!)(
                             input,
                             meta.arrays,
+                            {
+                                ...explore,
+                                from: "array",
+                            },
+                            tags,
+                        ),
+                });
+
+            // CONSIDER MAPS
+            if (meta.maps.length)
+                unions.push({
+                    type: "map",
+                    is: () => ExpressionFactory.isInstanceOf("Map")(input),
+                    value: (index) =>
+                        decode_map(project)(importer)(index!)(
+                            input,
+                            meta.maps[0]!,
                             {
                                 ...explore,
                                 from: "array",
@@ -472,7 +472,7 @@ export namespace ProtobufEncodeProgrammer {
                         : []),
                     ts.factory.createCallExpression(
                         ts.factory.createIdentifier(
-                            `${PREFIX}o${object.index}`,
+                            importer.useLocal(`${PREFIX}o${object.index}`),
                         ),
                         [],
                         [input],
