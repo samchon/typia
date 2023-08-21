@@ -297,7 +297,7 @@ const validate = (
 
 // @todo: must block repeated array and tuple type
 const has_atomic =
-    (type: "string" | "number") =>
+    (type: "string" | "number" | "bigint") =>
     (visited: Set<Metadata>) =>
     (metadata: Metadata): boolean => {
         if (visited.has(metadata)) return false;

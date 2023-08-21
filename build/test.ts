@@ -108,7 +108,7 @@ function script(
               ),
               "}",
           ].join("\n")
-        : call;
+        : `\n    ${call},\n`;
 
     const elements: Array<string | null> = [
         `import typia from "../../../src";`,
@@ -116,9 +116,9 @@ function script(
         `import { ${struct.name} } from "../../structures/${struct.name}";`,
         `import { ${common} } from "../../internal/${common}";`,
         "",
-        `export const ${functor} = ${common}<${struct.name}>(`,
-        `    ${struct.name},`,
-        `)(${body});`,
+        `export const ${functor} = ${common}(`,
+        `    "${struct.name}",`,
+        `)<${struct.name}>(${struct.name})(${body});`,
         "",
     ];
     return elements.filter((e) => e !== null).join("\n");
