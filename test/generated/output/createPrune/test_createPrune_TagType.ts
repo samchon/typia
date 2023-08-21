@@ -9,9 +9,12 @@ export const test_createPrune_TagType = _test_prune(
         const $io1 = (input: any): boolean =>
             "number" === typeof input.int &&
             Math.floor(input.int) === input.int &&
+            -2147483648 <= input.int &&
+            input.int <= 2147483647 &&
             "number" === typeof input.uint &&
             Math.floor(input.uint) === input.uint &&
             0 <= input.uint &&
+            input.uint <= 4294967295 &&
             "number" === typeof input.int32 &&
             Math.floor(input.int32) === input.int32 &&
             -2147483648 <= input.int32 &&

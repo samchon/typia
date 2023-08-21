@@ -20,10 +20,13 @@ export const test_createAssertPrune_TagType = _test_assertPrune(
                     "number" === typeof input.int &&
                     Number.isFinite(input.int) &&
                     Math.floor(input.int) === input.int &&
+                    -2147483648 <= input.int &&
+                    input.int <= 2147483647 &&
                     "number" === typeof input.uint &&
                     Number.isFinite(input.uint) &&
                     Math.floor(input.uint) === input.uint &&
                     0 <= input.uint &&
+                    input.uint <= 4294967295 &&
                     "number" === typeof input.int32 &&
                     Number.isFinite(input.int32) &&
                     Math.floor(input.int32) === input.int32 &&
@@ -111,6 +114,13 @@ export const test_createAssertPrune_TagType = _test_assertPrune(
                                     path: _path + ".int",
                                     expected: "number (@type int)",
                                     value: input.int,
+                                })) &&
+                            ((-2147483648 <= input.int &&
+                                input.int <= 2147483647) ||
+                                $guard(_exceptionable, {
+                                    path: _path + ".int",
+                                    expected: "number (@type int)",
+                                    value: input.int,
                                 }))) ||
                             $guard(_exceptionable, {
                                 path: _path + ".int",
@@ -126,6 +136,12 @@ export const test_createAssertPrune_TagType = _test_assertPrune(
                                     value: input.uint,
                                 })) &&
                             (0 <= input.uint ||
+                                $guard(_exceptionable, {
+                                    path: _path + ".uint",
+                                    expected: "number (@type uint)",
+                                    value: input.uint,
+                                })) &&
+                            (input.uint <= 4294967295 ||
                                 $guard(_exceptionable, {
                                     path: _path + ".uint",
                                     expected: "number (@type uint)",
@@ -261,9 +277,12 @@ export const test_createAssertPrune_TagType = _test_assertPrune(
             const $io1 = (input: any): boolean =>
                 "number" === typeof input.int &&
                 Math.floor(input.int) === input.int &&
+                -2147483648 <= input.int &&
+                input.int <= 2147483647 &&
                 "number" === typeof input.uint &&
                 Math.floor(input.uint) === input.uint &&
                 0 <= input.uint &&
+                input.uint <= 4294967295 &&
                 "number" === typeof input.int32 &&
                 Math.floor(input.int32) === input.int32 &&
                 -2147483648 <= input.int32 &&

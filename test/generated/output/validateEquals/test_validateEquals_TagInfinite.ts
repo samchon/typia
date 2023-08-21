@@ -32,6 +32,8 @@ export const test_validateEquals_TagInfinite = _test_validateEquals(
                     "number" === typeof input.typed &&
                     Number.isFinite(input.typed) &&
                     Math.floor(input.typed) === input.typed &&
+                    -2147483648 <= input.typed &&
+                    input.typed <= 2147483647 &&
                     (6 === Object.keys(input).length ||
                         Object.keys(input).every((key: any) => {
                             if (
@@ -135,6 +137,13 @@ export const test_validateEquals_TagInfinite = _test_validateEquals(
                             ("number" === typeof input.typed &&
                                 Number.isFinite(input.typed) &&
                                 (Math.floor(input.typed) === input.typed ||
+                                    $report(_exceptionable, {
+                                        path: _path + ".typed",
+                                        expected: "number (@type int)",
+                                        value: input.typed,
+                                    })) &&
+                                ((-2147483648 <= input.typed &&
+                                    input.typed <= 2147483647) ||
                                     $report(_exceptionable, {
                                         path: _path + ".typed",
                                         expected: "number (@type int)",

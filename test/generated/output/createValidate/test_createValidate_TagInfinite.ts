@@ -26,7 +26,9 @@ export const test_createValidate_TagInfinite = _test_validate(
                 0 === (input as any).multipleOf % 3 &&
                 "number" === typeof (input as any).typed &&
                 Number.isFinite((input as any).typed) &&
-                Math.floor((input as any).typed) === (input as any).typed
+                Math.floor((input as any).typed) === (input as any).typed &&
+                -2147483648 <= (input as any).typed &&
+                (input as any).typed <= 2147483647
             );
         };
         if (false === __is(input)) {
@@ -108,6 +110,13 @@ export const test_createValidate_TagInfinite = _test_validate(
                         ("number" === typeof input.typed &&
                             Number.isFinite(input.typed) &&
                             (Math.floor(input.typed) === input.typed ||
+                                $report(_exceptionable, {
+                                    path: _path + ".typed",
+                                    expected: "number (@type int)",
+                                    value: input.typed,
+                                })) &&
+                            ((-2147483648 <= input.typed &&
+                                input.typed <= 2147483647) ||
                                 $report(_exceptionable, {
                                     path: _path + ".typed",
                                     expected: "number (@type int)",

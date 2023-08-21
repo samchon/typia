@@ -22,41 +22,59 @@ export const test_validateStringify_TagRange = _test_validateStringify(
                         "number" === typeof input.greater &&
                         Number.isFinite(input.greater) &&
                         Math.floor(input.greater) === input.greater &&
+                        -2147483648 <= input.greater &&
+                        input.greater <= 2147483647 &&
                         3 < input.greater &&
                         "number" === typeof input.greater_equal &&
                         Number.isFinite(input.greater_equal) &&
                         Math.floor(input.greater_equal) ===
                             input.greater_equal &&
+                        -2147483648 <= input.greater_equal &&
+                        input.greater_equal <= 2147483647 &&
                         3 <= input.greater_equal &&
                         "number" === typeof input.less &&
                         Number.isFinite(input.less) &&
                         Math.floor(input.less) === input.less &&
+                        -2147483648 <= input.less &&
+                        input.less <= 2147483647 &&
                         7 > input.less &&
                         "number" === typeof input.less_equal &&
                         Number.isFinite(input.less_equal) &&
                         Math.floor(input.less_equal) === input.less_equal &&
+                        -2147483648 <= input.less_equal &&
+                        input.less_equal <= 2147483647 &&
                         7 >= input.less_equal &&
                         "number" === typeof input.greater_less &&
                         Math.floor(input.greater_less) === input.greater_less &&
+                        -2147483648 <= input.greater_less &&
+                        input.greater_less <= 2147483647 &&
                         3 < input.greater_less &&
                         7 > input.greater_less &&
                         "number" === typeof input.greater_equal_less &&
                         Math.floor(input.greater_equal_less) ===
                             input.greater_equal_less &&
+                        -2147483648 <= input.greater_equal_less &&
+                        input.greater_equal_less <= 2147483647 &&
                         3 <= input.greater_equal_less &&
                         7 > input.greater_equal_less &&
                         "number" === typeof input.greater_less_equal &&
                         Math.floor(input.greater_less_equal) ===
                             input.greater_less_equal &&
+                        -2147483648 <= input.greater_less_equal &&
+                        input.greater_less_equal <= 2147483647 &&
                         3 < input.greater_less_equal &&
                         7 >= input.greater_less_equal &&
                         "number" === typeof input.greater_equal_less_equal &&
                         Math.floor(input.greater_equal_less_equal) ===
                             input.greater_equal_less_equal &&
+                        -2147483648 <= input.greater_equal_less_equal &&
+                        input.greater_equal_less_equal <= 2147483647 &&
                         3 <= input.greater_equal_less_equal &&
                         7 >= input.greater_equal_less_equal &&
                         "number" === typeof input.equal &&
                         Math.floor(input.equal) === input.equal &&
+                        -2147483648 <= input.equal &&
+                        input.equal <= 2147483647 &&
                         10 <= input.equal &&
                         10 >= input.equal;
                     return (
@@ -141,6 +159,13 @@ export const test_validateStringify_TagRange = _test_validateStringify(
                                             expected: "number (@type int)",
                                             value: input.greater,
                                         })) &&
+                                    ((-2147483648 <= input.greater &&
+                                        input.greater <= 2147483647) ||
+                                        $report(_exceptionable, {
+                                            path: _path + ".greater",
+                                            expected: "number (@type int)",
+                                            value: input.greater,
+                                        })) &&
                                     (3 < input.greater ||
                                         $report(_exceptionable, {
                                             path: _path + ".greater",
@@ -162,6 +187,13 @@ export const test_validateStringify_TagRange = _test_validateStringify(
                                             expected: "number (@type int)",
                                             value: input.greater_equal,
                                         })) &&
+                                    ((-2147483648 <= input.greater_equal &&
+                                        input.greater_equal <= 2147483647) ||
+                                        $report(_exceptionable, {
+                                            path: _path + ".greater_equal",
+                                            expected: "number (@type int)",
+                                            value: input.greater_equal,
+                                        })) &&
                                     (3 <= input.greater_equal ||
                                         $report(_exceptionable, {
                                             path: _path + ".greater_equal",
@@ -176,6 +208,13 @@ export const test_validateStringify_TagRange = _test_validateStringify(
                                 ("number" === typeof input.less &&
                                     Number.isFinite(input.less) &&
                                     (Math.floor(input.less) === input.less ||
+                                        $report(_exceptionable, {
+                                            path: _path + ".less",
+                                            expected: "number (@type int)",
+                                            value: input.less,
+                                        })) &&
+                                    ((-2147483648 <= input.less &&
+                                        input.less <= 2147483647) ||
                                         $report(_exceptionable, {
                                             path: _path + ".less",
                                             expected: "number (@type int)",
@@ -202,6 +241,13 @@ export const test_validateStringify_TagRange = _test_validateStringify(
                                             expected: "number (@type int)",
                                             value: input.less_equal,
                                         })) &&
+                                    ((-2147483648 <= input.less_equal &&
+                                        input.less_equal <= 2147483647) ||
+                                        $report(_exceptionable, {
+                                            path: _path + ".less_equal",
+                                            expected: "number (@type int)",
+                                            value: input.less_equal,
+                                        })) &&
                                     (7 >= input.less_equal ||
                                         $report(_exceptionable, {
                                             path: _path + ".less_equal",
@@ -216,6 +262,13 @@ export const test_validateStringify_TagRange = _test_validateStringify(
                                 ("number" === typeof input.greater_less &&
                                     (Math.floor(input.greater_less) ===
                                         input.greater_less ||
+                                        $report(_exceptionable, {
+                                            path: _path + ".greater_less",
+                                            expected: "number (@type int)",
+                                            value: input.greater_less,
+                                        })) &&
+                                    ((-2147483648 <= input.greater_less &&
+                                        input.greater_less <= 2147483647) ||
                                         $report(_exceptionable, {
                                             path: _path + ".greater_less",
                                             expected: "number (@type int)",
@@ -248,6 +301,14 @@ export const test_validateStringify_TagRange = _test_validateStringify(
                                             expected: "number (@type int)",
                                             value: input.greater_equal_less,
                                         })) &&
+                                    ((-2147483648 <= input.greater_equal_less &&
+                                        input.greater_equal_less <=
+                                            2147483647) ||
+                                        $report(_exceptionable, {
+                                            path: _path + ".greater_equal_less",
+                                            expected: "number (@type int)",
+                                            value: input.greater_equal_less,
+                                        })) &&
                                     (3 <= input.greater_equal_less ||
                                         $report(_exceptionable, {
                                             path: _path + ".greater_equal_less",
@@ -269,6 +330,14 @@ export const test_validateStringify_TagRange = _test_validateStringify(
                                 ("number" === typeof input.greater_less_equal &&
                                     (Math.floor(input.greater_less_equal) ===
                                         input.greater_less_equal ||
+                                        $report(_exceptionable, {
+                                            path: _path + ".greater_less_equal",
+                                            expected: "number (@type int)",
+                                            value: input.greater_less_equal,
+                                        })) &&
+                                    ((-2147483648 <= input.greater_less_equal &&
+                                        input.greater_less_equal <=
+                                            2147483647) ||
                                         $report(_exceptionable, {
                                             path: _path + ".greater_less_equal",
                                             expected: "number (@type int)",
@@ -304,6 +373,17 @@ export const test_validateStringify_TagRange = _test_validateStringify(
                                             expected: "number (@type int)",
                                             value: input.greater_equal_less_equal,
                                         })) &&
+                                    ((-2147483648 <=
+                                        input.greater_equal_less_equal &&
+                                        input.greater_equal_less_equal <=
+                                            2147483647) ||
+                                        $report(_exceptionable, {
+                                            path:
+                                                _path +
+                                                ".greater_equal_less_equal",
+                                            expected: "number (@type int)",
+                                            value: input.greater_equal_less_equal,
+                                        })) &&
                                     (3 <= input.greater_equal_less_equal ||
                                         $report(_exceptionable, {
                                             path:
@@ -328,6 +408,13 @@ export const test_validateStringify_TagRange = _test_validateStringify(
                                     }),
                                 ("number" === typeof input.equal &&
                                     (Math.floor(input.equal) === input.equal ||
+                                        $report(_exceptionable, {
+                                            path: _path + ".equal",
+                                            expected: "number (@type int)",
+                                            value: input.equal,
+                                        })) &&
+                                    ((-2147483648 <= input.equal &&
+                                        input.equal <= 2147483647) ||
                                         $report(_exceptionable, {
                                             path: _path + ".equal",
                                             expected: "number (@type int)",
@@ -378,37 +465,55 @@ export const test_validateStringify_TagRange = _test_validateStringify(
                 const $io1 = (input: any): boolean =>
                     "number" === typeof input.greater &&
                     Math.floor(input.greater) === input.greater &&
+                    -2147483648 <= input.greater &&
+                    input.greater <= 2147483647 &&
                     3 < input.greater &&
                     "number" === typeof input.greater_equal &&
                     Math.floor(input.greater_equal) === input.greater_equal &&
+                    -2147483648 <= input.greater_equal &&
+                    input.greater_equal <= 2147483647 &&
                     3 <= input.greater_equal &&
                     "number" === typeof input.less &&
                     Math.floor(input.less) === input.less &&
+                    -2147483648 <= input.less &&
+                    input.less <= 2147483647 &&
                     7 > input.less &&
                     "number" === typeof input.less_equal &&
                     Math.floor(input.less_equal) === input.less_equal &&
+                    -2147483648 <= input.less_equal &&
+                    input.less_equal <= 2147483647 &&
                     7 >= input.less_equal &&
                     "number" === typeof input.greater_less &&
                     Math.floor(input.greater_less) === input.greater_less &&
+                    -2147483648 <= input.greater_less &&
+                    input.greater_less <= 2147483647 &&
                     3 < input.greater_less &&
                     7 > input.greater_less &&
                     "number" === typeof input.greater_equal_less &&
                     Math.floor(input.greater_equal_less) ===
                         input.greater_equal_less &&
+                    -2147483648 <= input.greater_equal_less &&
+                    input.greater_equal_less <= 2147483647 &&
                     3 <= input.greater_equal_less &&
                     7 > input.greater_equal_less &&
                     "number" === typeof input.greater_less_equal &&
                     Math.floor(input.greater_less_equal) ===
                         input.greater_less_equal &&
+                    -2147483648 <= input.greater_less_equal &&
+                    input.greater_less_equal <= 2147483647 &&
                     3 < input.greater_less_equal &&
                     7 >= input.greater_less_equal &&
                     "number" === typeof input.greater_equal_less_equal &&
                     Math.floor(input.greater_equal_less_equal) ===
                         input.greater_equal_less_equal &&
+                    -2147483648 <= input.greater_equal_less_equal &&
+                    input.greater_equal_less_equal <= 2147483647 &&
                     3 <= input.greater_equal_less_equal &&
                     7 >= input.greater_equal_less_equal &&
                     "number" === typeof input.equal &&
                     Math.floor(input.equal) === input.equal &&
+                    -2147483648 <= input.equal &&
+                    input.equal <= 2147483647 &&
                     10 <= input.equal &&
                     10 >= input.equal;
                 const $number = (typia.validateStringify as any).number;
