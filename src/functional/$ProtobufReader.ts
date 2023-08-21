@@ -22,15 +22,13 @@ export class $ProtobufReader {
         this.view = new DataView(buf.buffer);
     }
 
-    public complete(): boolean {
-        return this.ptr >= this.buf.length;
+    public index(): number {
+        return this.ptr;
     }
 
-    // public reset(buf: Uint8Array): void {
-    //     this.buf = buf;
-    //     this.ptr = 0;
-    //     this.view = new DataView(buf.buffer);
-    // }
+    public size(): number {
+        return this.buf.length;
+    }
 
     public uint32(): number {
         return this.varint32();
@@ -76,7 +74,9 @@ export class $ProtobufReader {
 
     public bytes(): Uint8Array {
         const length: number = this.uint32();
-        return this.buf.subarray(this.ptr, (this.ptr += length));
+        const from: number = this.ptr;
+        this.ptr += length;
+        return this.buf.subarray(from, from + length);
     }
 
     public string(): string {

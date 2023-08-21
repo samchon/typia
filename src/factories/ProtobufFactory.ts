@@ -93,6 +93,17 @@ export namespace ProtobufFactory {
             meta.arrays.some((a) => a.value.size() > 1)
         )
             throw notSupportedError({ method })("union type in array");
+        // DO DYNAMIC OBJECT IN ARRAY
+        else if (
+            meta.arrays.length &&
+            meta.arrays.some(
+                (a) =>
+                    a.value.maps.length ||
+                    (a.value.objects.length &&
+                        a.value.objects.some((o) => o._Messagable() === false)),
+            )
+        )
+            throw notSupportedError({ method })("dynamic object in array");
         // UNION WITH ARRAY
         else if (meta.size() > 1 && meta.arrays.length)
             throw notSupportedError({ method })("union type with array type");
