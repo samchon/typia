@@ -56,4 +56,65 @@ export const test_protobuf_encode_ObjectSimple = _test_protobuf_encode(
         })(input),
     message:
         'syntax = "proto3";\n\nmessage ObjectSimple {\n    message IBox3D {\n        required ObjectSimple.IPoint3D scale = 1;\n        required ObjectSimple.IPoint3D position = 2;\n        required ObjectSimple.IPoint3D rotate = 3;\n        required ObjectSimple.IPoint3D pivot = 4;\n    }\n\n    message IPoint3D {\n        required double x = 1;\n        required double y = 2;\n        required double z = 3;\n    }\n}',
+    decode: (input: Uint8Array): ObjectSimple => {
+        const $Reader = (typia.protobuf.createDecode as any).Reader;
+        const $pdo0 = (reader: any, length: number = -1): any => {
+            length = length < 0 ? reader.size() : reader.index() + length;
+            const output = {
+                scale: undefined as any,
+                position: undefined as any,
+                rotate: undefined as any,
+                pivot: undefined as any,
+            };
+            while (reader.index() < length) {
+                const tag = reader.uint32();
+                switch (tag >>> 3) {
+                    case 1:
+                        output.scale = $pdo1(reader, reader.uint32());
+                        break;
+                    case 2:
+                        output.position = $pdo1(reader, reader.uint32());
+                        break;
+                    case 3:
+                        output.rotate = $pdo1(reader, reader.uint32());
+                        break;
+                    case 4:
+                        output.pivot = $pdo1(reader, reader.uint32());
+                        break;
+                    default:
+                        reader.skipType(tag & 7);
+                        break;
+                }
+            }
+            return output;
+        };
+        const $pdo1 = (reader: any, length: number = -1): any => {
+            length = length < 0 ? reader.size() : reader.index() + length;
+            const output = {
+                x: undefined as any,
+                y: undefined as any,
+                z: undefined as any,
+            };
+            while (reader.index() < length) {
+                const tag = reader.uint32();
+                switch (tag >>> 3) {
+                    case 1:
+                        output.x = reader.double();
+                        break;
+                    case 2:
+                        output.y = reader.double();
+                        break;
+                    case 3:
+                        output.z = reader.double();
+                        break;
+                    default:
+                        reader.skipType(tag & 7);
+                        break;
+                }
+            }
+            return output;
+        };
+        const reader = new $Reader(input);
+        return $pdo0(reader);
+    },
 });

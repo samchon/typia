@@ -108,7 +108,7 @@ export namespace ProtobufMessageProgrammer {
         (meta: Metadata): string => {
             const elements: Set<string> = new Set();
             if (meta.natives.length) elements.add("bytes");
-            for (const atomic of ProtobufUtil.atomics(meta))
+            for (const atomic of ProtobufUtil.getAtomics(meta))
                 elements.add(decode_atomic(tags)(atomic));
             for (const array of meta.arrays)
                 elements.add(`repeated ${decode(ptr)(tags)(array.value)}`);

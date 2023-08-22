@@ -7,4 +7,5 @@ export const test_protobuf_isEncode_ClassGetter = _test_protobuf_isEncode(
 )<ClassGetter>(ClassGetter)({
     isEncode: typia.protobuf.createIsEncode<ClassGetter>(),
     message: typia.protobuf.message<ClassGetter>(),
+    decode: typia.protobuf.createDecode<ClassGetter>(),
 });

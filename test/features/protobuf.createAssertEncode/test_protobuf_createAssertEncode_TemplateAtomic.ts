@@ -8,4 +8,5 @@ export const test_protobuf_assertEncode_TemplateAtomic =
     )({
         assertEncode: typia.protobuf.createAssertEncode<TemplateAtomic>(),
         message: typia.protobuf.message<TemplateAtomic>(),
+        decode: typia.protobuf.createDecode<TemplateAtomic>(),
     });

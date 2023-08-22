@@ -7,4 +7,5 @@ export const test_protobuf_isEncode_DynamicSimple = _test_protobuf_isEncode(
 )<DynamicSimple>(DynamicSimple)({
     isEncode: typia.protobuf.createIsEncode<DynamicSimple>(),
     message: typia.protobuf.message<DynamicSimple>(),
+    decode: typia.protobuf.createDecode<DynamicSimple>(),
 });

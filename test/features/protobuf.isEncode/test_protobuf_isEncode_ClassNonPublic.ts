@@ -7,4 +7,5 @@ export const test_protobuf_isEncode_ClassNonPublic = _test_protobuf_isEncode(
 )<ClassNonPublic>(ClassNonPublic)({
     isEncode: (input) => typia.protobuf.isEncode<ClassNonPublic>(input),
     message: typia.protobuf.message<ClassNonPublic>(),
+    decode: typia.protobuf.createDecode<ClassNonPublic>(),
 });

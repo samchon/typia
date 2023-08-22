@@ -9,4 +9,5 @@ export const test_protobuf_validateEncode_ObjectInternal =
         validateEncode: (input) =>
             typia.protobuf.validateEncode<ObjectInternal>(input),
         message: typia.protobuf.message<ObjectInternal>(),
+        decode: typia.protobuf.createDecode<ObjectInternal>(),
     });

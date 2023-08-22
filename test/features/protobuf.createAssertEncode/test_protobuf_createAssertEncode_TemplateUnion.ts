@@ -6,4 +6,5 @@ export const test_protobuf_assertEncode_TemplateUnion =
     _test_protobuf_assertEncode("TemplateUnion")<TemplateUnion>(TemplateUnion)({
         assertEncode: typia.protobuf.createAssertEncode<TemplateUnion>(),
         message: typia.protobuf.message<TemplateUnion>(),
+        decode: typia.protobuf.createDecode<TemplateUnion>(),
     });

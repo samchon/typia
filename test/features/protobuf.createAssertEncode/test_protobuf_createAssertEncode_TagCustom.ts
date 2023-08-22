@@ -7,4 +7,5 @@ export const test_protobuf_assertEncode_TagCustom = _test_protobuf_assertEncode(
 )<TagCustom>(TagCustom)({
     assertEncode: typia.protobuf.createAssertEncode<TagCustom>(),
     message: typia.protobuf.message<TagCustom>(),
+    decode: typia.protobuf.createDecode<TagCustom>(),
 });

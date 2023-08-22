@@ -8,4 +8,5 @@ export const test_protobuf_isEncode_ObjectHierarchical =
     )({
         isEncode: (input) => typia.protobuf.isEncode<ObjectHierarchical>(input),
         message: typia.protobuf.message<ObjectHierarchical>(),
+        decode: typia.protobuf.createDecode<ObjectHierarchical>(),
     });

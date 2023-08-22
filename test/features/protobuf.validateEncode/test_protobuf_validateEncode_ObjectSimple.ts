@@ -7,4 +7,5 @@ export const test_protobuf_validateEncode_ObjectSimple =
         validateEncode: (input) =>
             typia.protobuf.validateEncode<ObjectSimple>(input),
         message: typia.protobuf.message<ObjectSimple>(),
+        decode: typia.protobuf.createDecode<ObjectSimple>(),
     });

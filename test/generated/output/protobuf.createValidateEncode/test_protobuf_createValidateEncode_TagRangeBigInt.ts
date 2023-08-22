@@ -379,4 +379,77 @@ export const test_protobuf_validateEncode_TagRangeBigInt =
         },
         message:
             'syntax = "proto3";\n\nmessage TagRangeBigInt {\n    repeated TagRangeBigInt.Type value = 1;\n    message Type {\n        required int64 greater = 1;\n        required int64 greater_equal = 2;\n        required int64 less = 3;\n        required int64 less_equal = 4;\n        required int64 greater_less = 5;\n        required int64 greater_equal_less = 6;\n        required int64 greater_less_equal = 7;\n        required int64 greater_equal_less_equal = 8;\n        required int64 equal = 9;\n    }\n}',
+        decode: (input: Uint8Array): TagRangeBigInt => {
+            const $Reader = (typia.protobuf.createDecode as any).Reader;
+            const $pdo0 = (reader: any, length: number = -1): any => {
+                length = length < 0 ? reader.size() : reader.index() + length;
+                const output = {
+                    value: [] as any,
+                };
+                while (reader.index() < length) {
+                    const tag = reader.uint32();
+                    switch (tag >>> 3) {
+                        case 1:
+                            output.value.push($pdo1(reader, reader.uint32()));
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                    }
+                }
+                return output;
+            };
+            const $pdo1 = (reader: any, length: number = -1): any => {
+                length = length < 0 ? reader.size() : reader.index() + length;
+                const output = {
+                    greater: undefined as any,
+                    greater_equal: undefined as any,
+                    less: undefined as any,
+                    less_equal: undefined as any,
+                    greater_less: undefined as any,
+                    greater_equal_less: undefined as any,
+                    greater_less_equal: undefined as any,
+                    greater_equal_less_equal: undefined as any,
+                    equal: undefined as any,
+                };
+                while (reader.index() < length) {
+                    const tag = reader.uint32();
+                    switch (tag >>> 3) {
+                        case 1:
+                            output.greater = reader.int64();
+                            break;
+                        case 2:
+                            output.greater_equal = reader.int64();
+                            break;
+                        case 3:
+                            output.less = reader.int64();
+                            break;
+                        case 4:
+                            output.less_equal = reader.int64();
+                            break;
+                        case 5:
+                            output.greater_less = reader.int64();
+                            break;
+                        case 6:
+                            output.greater_equal_less = reader.int64();
+                            break;
+                        case 7:
+                            output.greater_less_equal = reader.int64();
+                            break;
+                        case 8:
+                            output.greater_equal_less_equal = reader.int64();
+                            break;
+                        case 9:
+                            output.equal = reader.int64();
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                    }
+                }
+                return output;
+            };
+            const reader = new $Reader(input);
+            return $pdo0(reader);
+        },
     });

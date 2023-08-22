@@ -6,4 +6,5 @@ export const test_protobuf_validateEncode_ClassGetter =
     _test_protobuf_validateEncode("ClassGetter")<ClassGetter>(ClassGetter)({
         validateEncode: typia.protobuf.createValidateEncode<ClassGetter>(),
         message: typia.protobuf.message<ClassGetter>(),
+        decode: typia.protobuf.createDecode<ClassGetter>(),
     });

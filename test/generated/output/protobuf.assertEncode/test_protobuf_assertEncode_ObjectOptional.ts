@@ -131,4 +131,39 @@ export const test_protobuf_assertEncode_ObjectOptional =
             })(input),
         message:
             'syntax = "proto3";\n\nmessage ObjectOptional {\n    optional string id = 1;\n    optional string name = 2;\n    optional string email = 3;\n    optional double sequence = 4;\n}',
+        decode: (input: Uint8Array): ObjectOptional => {
+            const $Reader = (typia.protobuf.createDecode as any).Reader;
+            const $pdo0 = (reader: any, length: number = -1): any => {
+                length = length < 0 ? reader.size() : reader.index() + length;
+                const output = {
+                    id: undefined as any,
+                    name: undefined as any,
+                    email: undefined as any,
+                    sequence: undefined as any,
+                };
+                while (reader.index() < length) {
+                    const tag = reader.uint32();
+                    switch (tag >>> 3) {
+                        case 1:
+                            output.id = reader.string();
+                            break;
+                        case 2:
+                            output.name = reader.string();
+                            break;
+                        case 3:
+                            output.email = reader.string();
+                            break;
+                        case 4:
+                            output.sequence = reader.double();
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                    }
+                }
+                return output;
+            };
+            const reader = new $Reader(input);
+            return $pdo0(reader);
+        },
     });

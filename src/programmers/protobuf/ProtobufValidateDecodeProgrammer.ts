@@ -24,7 +24,9 @@ export namespace ProtobufValidateDecodeProgrammer {
                     ),
                 ],
                 ts.factory.createTypeReferenceNode(
-                    name ?? TypeFactory.getFullName(project.checker)(type),
+                    `typia.IValidation<${
+                        name ?? TypeFactory.getFullName(project.checker)(type)
+                    }>`,
                 ),
                 undefined,
                 ts.factory.createBlock([
@@ -52,31 +54,21 @@ export namespace ProtobufValidateDecodeProgrammer {
                     ),
                     StatementFactory.constant(
                         "output",
+                        ts.factory.createCallExpression(
+                            ts.factory.createIdentifier("decode"),
+                            undefined,
+                            [ts.factory.createIdentifier("input")],
+                        ),
+                    ),
+                    ts.factory.createReturnStatement(
                         ts.factory.createAsExpression(
                             ts.factory.createCallExpression(
                                 ts.factory.createIdentifier("validate"),
                                 undefined,
-                                [ts.factory.createIdentifier("input")],
+                                [ts.factory.createIdentifier("output")],
                             ),
-                            TypeFactory.keyword("any"),
+                            ts.factory.createTypeReferenceNode("any"),
                         ),
-                    ),
-                    ts.factory.createIfStatement(
-                        ts.factory.createIdentifier("output.success"),
-                        ts.factory.createExpressionStatement(
-                            ts.factory.createBinaryExpression(
-                                ts.factory.createIdentifier("output.data"),
-                                ts.SyntaxKind.EqualsToken,
-                                ts.factory.createCallExpression(
-                                    ts.factory.createIdentifier("decode"),
-                                    undefined,
-                                    [ts.factory.createIdentifier("input")],
-                                ),
-                            ),
-                        ),
-                    ),
-                    ts.factory.createReturnStatement(
-                        ts.factory.createIdentifier("output"),
                     ),
                 ]),
             );

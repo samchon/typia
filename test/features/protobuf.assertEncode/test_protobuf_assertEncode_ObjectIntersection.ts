@@ -9,4 +9,5 @@ export const test_protobuf_assertEncode_ObjectIntersection =
         assertEncode: (input) =>
             typia.protobuf.assertEncode<ObjectIntersection>(input),
         message: typia.protobuf.message<ObjectIntersection>(),
+        decode: typia.protobuf.createDecode<ObjectIntersection>(),
     });

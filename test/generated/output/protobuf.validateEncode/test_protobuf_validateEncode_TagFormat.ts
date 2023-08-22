@@ -260,4 +260,55 @@ export const test_protobuf_validateEncode_TagFormat =
             })(input),
         message:
             'syntax = "proto3";\n\nmessage TagFormat {\n    required string uuid = 1;\n    required string email = 2;\n    required string url = 3;\n    required string ipv4 = 4;\n    required string ipv6 = 5;\n    required string date = 6;\n    required string date_time = 7;\n    required string custom = 8;\n}',
+        decode: (input: Uint8Array): TagFormat => {
+            const $Reader = (typia.protobuf.createDecode as any).Reader;
+            const $pdo0 = (reader: any, length: number = -1): any => {
+                length = length < 0 ? reader.size() : reader.index() + length;
+                const output = {
+                    uuid: "" as any,
+                    email: "" as any,
+                    url: "" as any,
+                    ipv4: "" as any,
+                    ipv6: "" as any,
+                    date: "" as any,
+                    date_time: "" as any,
+                    custom: "" as any,
+                };
+                while (reader.index() < length) {
+                    const tag = reader.uint32();
+                    switch (tag >>> 3) {
+                        case 1:
+                            output.uuid = reader.string();
+                            break;
+                        case 2:
+                            output.email = reader.string();
+                            break;
+                        case 3:
+                            output.url = reader.string();
+                            break;
+                        case 4:
+                            output.ipv4 = reader.string();
+                            break;
+                        case 5:
+                            output.ipv6 = reader.string();
+                            break;
+                        case 6:
+                            output.date = reader.string();
+                            break;
+                        case 7:
+                            output.date_time = reader.string();
+                            break;
+                        case 8:
+                            output.custom = reader.string();
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                    }
+                }
+                return output;
+            };
+            const reader = new $Reader(input);
+            return $pdo0(reader);
+        },
     });

@@ -7,4 +7,5 @@ export const test_protobuf_assertEncode_ClassGetter =
         assertEncode: (input) =>
             typia.protobuf.assertEncode<ClassGetter>(input),
         message: typia.protobuf.message<ClassGetter>(),
+        decode: typia.protobuf.createDecode<ClassGetter>(),
     });

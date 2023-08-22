@@ -8,4 +8,5 @@ export const test_protobuf_assertEncode_ObjectOptional =
     )({
         assertEncode: typia.protobuf.createAssertEncode<ObjectOptional>(),
         message: typia.protobuf.message<ObjectOptional>(),
+        decode: typia.protobuf.createDecode<ObjectOptional>(),
     });

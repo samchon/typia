@@ -40,28 +40,21 @@ export namespace JsonValidateParseProgrammer {
                             },
                         })(modulo)(false)(type, name),
                     ),
-                    ts.factory.createExpressionStatement(
-                        ts.factory.createBinaryExpression(
-                            ts.factory.createIdentifier("input"),
-                            ts.SyntaxKind.EqualsToken,
-                            ts.factory.createCallExpression(
-                                ts.factory.createIdentifier("JSON.parse"),
-                                undefined,
-                                [ts.factory.createIdentifier("input")],
-                            ),
-                        ),
-                    ),
                     StatementFactory.constant(
                         "output",
                         ts.factory.createCallExpression(
-                            ts.factory.createIdentifier("validate"),
+                            ts.factory.createIdentifier("JSON.parse"),
                             undefined,
                             [ts.factory.createIdentifier("input")],
                         ),
                     ),
                     ts.factory.createReturnStatement(
                         ts.factory.createAsExpression(
-                            ts.factory.createIdentifier("output"),
+                            ts.factory.createCallExpression(
+                                ts.factory.createIdentifier("validate"),
+                                undefined,
+                                [ts.factory.createIdentifier("output")],
+                            ),
                             ts.factory.createTypeReferenceNode("any"),
                         ),
                     ),

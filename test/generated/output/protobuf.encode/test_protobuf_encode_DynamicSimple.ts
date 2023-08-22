@@ -40,4 +40,48 @@ export const test_protobuf_encode_DynamicSimple = _test_protobuf_encode(
         })(input),
     message:
         'syntax = "proto3";\n\nmessage DynamicSimple {\n    map<string, double> value = 1;\n}',
+    decode: (input: Uint8Array): DynamicSimple => {
+        const $Reader = (typia.protobuf.createDecode as any).Reader;
+        const $pdo0 = (reader: any, length: number = -1): any => {
+            length = length < 0 ? reader.size() : reader.index() + length;
+            const output = {
+                value: {} as any,
+            };
+            while (reader.index() < length) {
+                const tag = reader.uint32();
+                switch (tag >>> 3) {
+                    case 1:
+                        (() => {
+                            const piece = reader.uint32() + reader.index();
+                            const entry = {
+                                key: "" as any,
+                                value: undefined as any,
+                            };
+                            while (reader.index() < piece) {
+                                const kind = reader.uint32();
+                                switch (kind >>> 3) {
+                                    case 1:
+                                        entry.key = reader.string();
+                                        break;
+                                    case 2:
+                                        entry.value = reader.double();
+                                        break;
+                                    default:
+                                        reader.skipType(kind & 7);
+                                        break;
+                                }
+                            }
+                            output.value[entry.key] = entry.value;
+                        })();
+                        break;
+                    default:
+                        reader.skipType(tag & 7);
+                        break;
+                }
+            }
+            return output;
+        };
+        const reader = new $Reader(input);
+        return $pdo0(reader);
+    },
 });

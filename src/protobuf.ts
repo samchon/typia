@@ -1,7 +1,6 @@
 import { Namespace } from "./functional/Namespace";
 
 import { IValidation } from "./IValidation";
-import { Primitive } from "./Primitive";
 
 /* ===========================================================
     PROTOCOL BUFFER
@@ -28,7 +27,7 @@ export function message(): never {
 ----------------------------------------------------------- */
 export function decode(input: Uint8Array): never;
 
-export function decode<T>(input: Uint8Array): Primitive<T>;
+export function decode<T>(input: Uint8Array): T;
 
 /**
  * @internal
@@ -40,7 +39,7 @@ Object.assign(decode, Namespace.protobuf.decode("decode"));
 
 export function isDecode(input: Uint8Array): never;
 
-export function isDecode<T>(input: Uint8Array): Primitive<T> | null;
+export function isDecode<T>(input: Uint8Array): T | null;
 
 /**
  * @internal
@@ -53,7 +52,7 @@ Object.assign(isDecode, Namespace.protobuf.decode("isDecode"));
 
 export function assertDecode(input: Uint8Array): never;
 
-export function assertDecode<T>(input: Uint8Array): Primitive<T>;
+export function assertDecode<T>(input: Uint8Array): T;
 
 /**
  * @internal
@@ -66,7 +65,7 @@ Object.assign(assertDecode, Namespace.protobuf.decode("assertDecode"));
 
 export function validateDecode(input: Uint8Array): never;
 
-export function validateDecode<T>(input: Uint8Array): IValidation<Primitive<T>>;
+export function validateDecode<T>(input: Uint8Array): IValidation<T>;
 
 /**
  * @internal
@@ -127,50 +126,61 @@ Object.assign(validateEncode, Namespace.protobuf.encode("validateEncode"));
     FACTORY FUNCTIONS
 ----------------------------------------------------------- */
 export function createDecode(): never;
-export function createDecode<T>(): (input: Uint8Array) => Primitive<T>;
+export function createDecode<T>(): (input: Uint8Array) => T;
 
 /**
  * @internal
  */
-export function createDecode<T>(): (input: Uint8Array) => Primitive<T> {
+export function createDecode<T>(): (input: Uint8Array) => T {
     halt("createDecode");
 }
+Object.assign(createDecode, Namespace.protobuf.decode("createDecode"));
 
 export function createIsDecode(): never;
-export function createIsDecode<T>(): (input: Uint8Array) => Primitive<T> | null;
+export function createIsDecode<T>(): (input: Uint8Array) => T | null;
 
 /**
  * @internal
  */
-export function createIsDecode<T>(): (
-    input: Uint8Array,
-) => Primitive<T> | null {
+export function createIsDecode<T>(): (input: Uint8Array) => T | null {
     halt("createIsDecode");
 }
+Object.assign(createIsDecode, Namespace.is());
+Object.assign(createIsDecode, Namespace.protobuf.decode("createIsDecode"));
 
 export function createAssertDecode(): never;
-export function createAssertDecode<T>(): (input: Uint8Array) => Primitive<T>;
+export function createAssertDecode<T>(): (input: Uint8Array) => T;
 
 /**
  * @internal
  */
-export function createAssertDecode<T>(): (input: Uint8Array) => Primitive<T> {
+export function createAssertDecode<T>(): (input: Uint8Array) => T {
     halt("createAssertDecode");
 }
+Object.assign(createAssertDecode, Namespace.assert("createAssertDecode"));
+Object.assign(
+    createAssertDecode,
+    Namespace.protobuf.decode("createAssertDecode"),
+);
 
 export function createValidateDecode(): never;
 export function createValidateDecode<T>(): (
     input: Uint8Array,
-) => IValidation<Primitive<T>>;
+) => IValidation<T>;
 
 /**
  * @internal
  */
 export function createValidateDecode<T>(): (
     input: Uint8Array,
-) => IValidation<Primitive<T>> {
+) => IValidation<T> {
     halt("createValidateDecode");
 }
+Object.assign(createValidateDecode, Namespace.validate());
+Object.assign(
+    createValidateDecode,
+    Namespace.protobuf.decode("createValidateDecode"),
+);
 
 export function createEncode(): never;
 export function createEncode<T>(): (input: T) => Uint8Array;

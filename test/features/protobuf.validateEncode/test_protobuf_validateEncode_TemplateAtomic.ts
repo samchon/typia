@@ -9,4 +9,5 @@ export const test_protobuf_validateEncode_TemplateAtomic =
         validateEncode: (input) =>
             typia.protobuf.validateEncode<TemplateAtomic>(input),
         message: typia.protobuf.message<TemplateAtomic>(),
+        decode: typia.protobuf.createDecode<TemplateAtomic>(),
     });

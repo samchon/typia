@@ -9,4 +9,5 @@ export const test_protobuf_assertEncode_ClassPropertyAssignment =
         assertEncode:
             typia.protobuf.createAssertEncode<ClassPropertyAssignment>(),
         message: typia.protobuf.message<ClassPropertyAssignment>(),
+        decode: typia.protobuf.createDecode<ClassPropertyAssignment>(),
     });

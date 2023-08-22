@@ -9,4 +9,5 @@ export const test_protobuf_isEncode_ObjectUnionNonPredictable =
         isEncode: (input) =>
             typia.protobuf.isEncode<ObjectUnionNonPredictable>(input),
         message: typia.protobuf.message<ObjectUnionNonPredictable>(),
+        decode: typia.protobuf.createDecode<ObjectUnionNonPredictable>(),
     });

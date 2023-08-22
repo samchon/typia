@@ -9,4 +9,5 @@ export const test_protobuf_validateEncode_ObjectPrimitive =
         validateEncode: (input) =>
             typia.protobuf.validateEncode<ObjectPrimitive>(input),
         message: typia.protobuf.message<ObjectPrimitive>(),
+        decode: typia.protobuf.createDecode<ObjectPrimitive>(),
     });

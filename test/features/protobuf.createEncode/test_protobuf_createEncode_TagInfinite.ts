@@ -7,4 +7,5 @@ export const test_protobuf_encode_TagInfinite = _test_protobuf_encode(
 )<TagInfinite>(TagInfinite)({
     encode: typia.protobuf.createEncode<TagInfinite>(),
     message: typia.protobuf.message<TagInfinite>(),
+    decode: typia.protobuf.createDecode<TagInfinite>(),
 });

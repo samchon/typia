@@ -1,16 +1,20 @@
 import typia from "typia";
 
-import { Spoiler } from "../helpers/Spoiler";
 import { TestStructure } from "../helpers/TestStructure";
 import { _test_protobuf_encode } from "./_test_protobuf_encode";
 
 export const _test_protobuf_assertEncode =
     (name: string) =>
     <T extends object>(factory: TestStructure<T>) =>
-    (functor: { message: string; assertEncode: (input: T) => Uint8Array }) =>
+    (functor: {
+        message: string;
+        assertEncode: (input: T) => Uint8Array;
+        decode: (input: Uint8Array) => T;
+    }) =>
     () => {
         _test_protobuf_encode(name)(factory)({
             message: functor.message,
+            decode: functor.decode,
             encode: functor.assertEncode,
         });
 

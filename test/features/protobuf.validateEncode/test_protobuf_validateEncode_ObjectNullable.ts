@@ -9,4 +9,5 @@ export const test_protobuf_validateEncode_ObjectNullable =
         validateEncode: (input) =>
             typia.protobuf.validateEncode<ObjectNullable>(input),
         message: typia.protobuf.message<ObjectNullable>(),
+        decode: typia.protobuf.createDecode<ObjectNullable>(),
     });

@@ -8,4 +8,5 @@ export const test_protobuf_assertEncode_DynamicConstant =
     )({
         assertEncode: typia.protobuf.createAssertEncode<DynamicConstant>(),
         message: typia.protobuf.message<DynamicConstant>(),
+        decode: typia.protobuf.createDecode<DynamicConstant>(),
     });

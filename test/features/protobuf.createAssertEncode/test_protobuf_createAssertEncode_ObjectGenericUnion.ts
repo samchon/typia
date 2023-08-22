@@ -8,4 +8,5 @@ export const test_protobuf_assertEncode_ObjectGenericUnion =
     )({
         assertEncode: typia.protobuf.createAssertEncode<ObjectGenericUnion>(),
         message: typia.protobuf.message<ObjectGenericUnion>(),
+        decode: typia.protobuf.createDecode<ObjectGenericUnion>(),
     });

@@ -7,4 +7,5 @@ export const test_protobuf_encode_TagAtomicUnion = _test_protobuf_encode(
 )<TagAtomicUnion>(TagAtomicUnion)({
     encode: typia.protobuf.createEncode<TagAtomicUnion>(),
     message: typia.protobuf.message<TagAtomicUnion>(),
+    decode: typia.protobuf.createDecode<TagAtomicUnion>(),
 });

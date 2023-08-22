@@ -8,4 +8,5 @@ export const test_protobuf_encode_ArrayHierarchicalPointer =
     )({
         encode: typia.protobuf.createEncode<ArrayHierarchicalPointer>(),
         message: typia.protobuf.message<ArrayHierarchicalPointer>(),
+        decode: typia.protobuf.createDecode<ArrayHierarchicalPointer>(),
     });

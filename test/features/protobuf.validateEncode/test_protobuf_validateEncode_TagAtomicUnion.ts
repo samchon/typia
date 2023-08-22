@@ -9,4 +9,5 @@ export const test_protobuf_validateEncode_TagAtomicUnion =
         validateEncode: (input) =>
             typia.protobuf.validateEncode<TagAtomicUnion>(input),
         message: typia.protobuf.message<TagAtomicUnion>(),
+        decode: typia.protobuf.createDecode<TagAtomicUnion>(),
     });

@@ -7,13 +7,11 @@ import { ProtobufFactory } from "../../factories/ProtobufFactory";
 import { StatementFactory } from "../../factories/StatementFactory";
 import { TypeFactory } from "../../factories/TypeFactory";
 
-import { IJsDocTagInfo } from "../../schemas/metadata/IJsDocTagInfo";
 import { IMetadataTag } from "../../schemas/metadata/IMetadataTag";
 import { Metadata } from "../../schemas/metadata/Metadata";
 import { MetadataArray } from "../../schemas/metadata/MetadataArray";
 import { MetadataObject } from "../../schemas/metadata/MetadataObject";
 import { MetadataProperty } from "../../schemas/metadata/MetadataProperty";
-import { MetadataTuple } from "../../schemas/metadata/MetadataTuple";
 
 import { IProject } from "../../transformers/IProject";
 
@@ -24,7 +22,6 @@ import { IsProgrammer } from "../IsProgrammer";
 import { FunctionImporter } from "../helpers/FunctionImporeter";
 import { ProtobufUtil } from "../helpers/ProtobufUtil";
 import { ProtobufWire } from "../helpers/ProtobufWire";
-import { UnionExplorer } from "../helpers/UnionExplorer";
 import { UnionPredicator } from "../helpers/UnionPredicator";
 import { decode_union_object } from "../internal/decode_union_object";
 
@@ -107,7 +104,7 @@ export namespace ProtobufEncodeProgrammer {
         (meta: Metadata): ts.ArrowFunction => {
             const functors = collection
                 .objects()
-                .filter((obj) => obj._Messagable())
+                .filter((obj) => ProtobufUtil.isStaticObject(obj))
                 .map((obj) =>
                     StatementFactory.constant(
                         `${PREFIX}o${obj.index}`,
@@ -267,16 +264,18 @@ export namespace ProtobufEncodeProgrammer {
                           );
 
             // STARTS FROM ATOMIC TYPES
-            const unions: IUnion[] = ProtobufUtil.atomics(meta).map((type) => ({
-                type,
-                wire: () => null!,
-                is: () =>
-                    ts.factory.createStrictEquality(
-                        ts.factory.createStringLiteral(type),
-                        ts.factory.createTypeOfExpression(input),
-                    ),
-                value: (index) => decode_atomic(index!)(input, type, tags),
-            }));
+            const unions: IUnion[] = ProtobufUtil.getAtomics(meta).map(
+                (type) => ({
+                    type,
+                    wire: () => null!,
+                    is: () =>
+                        ts.factory.createStrictEquality(
+                            ts.factory.createStringLiteral(type),
+                            ts.factory.createTypeOfExpression(input),
+                        ),
+                    value: (index) => decode_atomic(index!)(input, type, tags),
+                }),
+            );
 
             // CONSIDER BYTES
             if (meta.natives.length)
@@ -285,6 +284,23 @@ export namespace ProtobufEncodeProgrammer {
                     is: () =>
                         ExpressionFactory.isInstanceOf("Uint8Array")(input),
                     value: (index) => decode_bytes("bytes")(index!)(input),
+                });
+
+            // CONSIDER ARRAYS
+            if (meta.arrays.length)
+                unions.push({
+                    type: "array",
+                    is: () => ExpressionFactory.isArray(input),
+                    value: (index) =>
+                        decode_array(project)(importer)(index!)(
+                            input,
+                            meta.arrays[0]!,
+                            {
+                                ...explore,
+                                from: "array",
+                            },
+                            tags,
+                        ),
                 });
 
             // CONSIDER MAPS
@@ -296,23 +312,6 @@ export namespace ProtobufEncodeProgrammer {
                         decode_map(project)(importer)(index!)(
                             input,
                             meta.maps[0]!,
-                            {
-                                ...explore,
-                                from: "array",
-                            },
-                            tags,
-                        ),
-                });
-
-            // CONSIDER ARRAYS
-            if (meta.arrays.length)
-                unions.push({
-                    type: "array",
-                    is: () => ExpressionFactory.isArray(input),
-                    value: (index) =>
-                        explore_arrays(project)(importer)(index!)(
-                            input,
-                            meta.arrays,
                             {
                                 ...explore,
                                 from: "array",
@@ -472,7 +471,7 @@ export namespace ProtobufEncodeProgrammer {
                         : []),
                     ts.factory.createCallExpression(
                         ts.factory.createIdentifier(
-                            `${PREFIX}o${object.index}`,
+                            importer.useLocal(`${PREFIX}o${object.index}`),
                         ),
                         [],
                         [input],
@@ -648,7 +647,7 @@ export namespace ProtobufEncodeProgrammer {
         )
             return ProtobufWire.LEN;
 
-        const v = ProtobufUtil.atomics(meta)[0]!;
+        const v = ProtobufUtil.getAtomics(meta)[0]!;
         if (v === "string") return ProtobufWire.LEN;
         else if (v === "boolean" || v === "bigint") return ProtobufWire.VARIANT;
 
@@ -685,6 +684,9 @@ export namespace ProtobufEncodeProgrammer {
             const expected: string = `(${targets
                 .map((t) => t.name)
                 .join(" | ")})`;
+            const indexes: Map<MetadataObject, number> = new Map(
+                targets.map((t, i) => [t, index! + i]),
+            );
 
             // POSSIBLE TO SPECIALIZE?
             const specList = UnionPredicator.object(targets);
@@ -693,7 +695,12 @@ export namespace ProtobufEncodeProgrammer {
                     IsProgrammer.decode_object(importer),
                 )((i, o, e) =>
                     ExpressionFactory.selfCall(
-                        decode_object(project)(importer)(index)(i, o, e, tags),
+                        decode_object(project)(importer)(indexes.get(o)!)(
+                            i,
+                            o,
+                            e,
+                            tags,
+                        ),
                     ),
                 )((expr) => expr)((value, expected) =>
                     create_throw_error(importer)(expected)(value),
@@ -728,12 +735,9 @@ export namespace ProtobufEncodeProgrammer {
                         pred,
                         ts.factory.createReturnStatement(
                             ExpressionFactory.selfCall(
-                                decode_object(project)(importer)(index)(
-                                    input,
-                                    spec.object,
-                                    explore,
-                                    tags,
-                                ),
+                                decode_object(project)(importer)(
+                                    indexes.get(spec.object)!,
+                                )(input, spec.object, explore, tags),
                             ),
                         ),
                         i === array.length - 1
@@ -767,122 +771,10 @@ export namespace ProtobufEncodeProgrammer {
             return ts.factory.createBlock([condition], true);
         };
 
-    const explore_arrays =
-        (project: IProject) =>
-        (importer: FunctionImporter) =>
-        (index: number) =>
-        (
-            input: ts.Expression,
-            elements: MetadataArray[],
-            explore: FeatureProgrammer.IExplore,
-            tags: IMetadataTag[],
-        ): ts.Block =>
-            elements.length === 1
-                ? decode_array(project)(importer)(index)(
-                      input,
-                      elements[0]!,
-                      explore,
-                      tags,
-                  )
-                : explore_array_like_union_types(importer)(
-                      UnionExplorer.array({
-                          checker: IsProgrammer.decode(project)(importer),
-                          decoder: (input, target, explore, tags) =>
-                              ts.factory.createCallExpression(
-                                  ts.factory.createArrowFunction(
-                                      undefined,
-                                      undefined,
-                                      [],
-                                      undefined,
-                                      undefined,
-                                      decode_array(project)(importer)(index)(
-                                          input,
-                                          target,
-                                          explore,
-                                          tags,
-                                      ),
-                                  ),
-                                  undefined,
-                                  undefined,
-                              ),
-                          empty: ts.factory.createStringLiteral("[]"),
-                          success: ts.factory.createTrue(),
-                          failure: (input, expected) =>
-                              create_throw_error(importer)(expected)(input),
-                      }),
-                  )(input, elements, explore, tags);
-
-    const explore_array_like_union_types =
-        (importer: FunctionImporter) =>
-        <T extends MetadataArray | MetadataTuple>(
-            factory: (
-                parameters: ts.ParameterDeclaration[],
-            ) => (
-                input: ts.Expression,
-                elements: T[],
-                explore: FeatureProgrammer.IExplore,
-                tags: IMetadataTag[],
-                jsDocTags: IJsDocTagInfo[],
-            ) => ts.ArrowFunction,
-        ) =>
-        (
-            input: ts.Expression,
-            elements: T[],
-            explore: FeatureProgrammer.IExplore,
-            tags: IMetadataTag[],
-        ): ts.Block => {
-            const arrow =
-                (parameters: ts.ParameterDeclaration[]) =>
-                (explore: FeatureProgrammer.IExplore) =>
-                (input: ts.Expression): ts.ArrowFunction =>
-                    factory(parameters)(input, elements, explore, tags, []);
-            if (elements.every((e) => e.recursive === false))
-                return StatementFactory.block(
-                    ts.factory.createCallExpression(
-                        arrow([])(explore)(input),
-                        undefined,
-                        [],
-                    ),
-                );
-
-            explore = {
-                ...explore,
-                source: "function",
-                from: "array",
-            };
-            return StatementFactory.block(
-                ts.factory.createCallExpression(
-                    ts.factory.createIdentifier(
-                        importer.emplaceUnion(
-                            PREFIX,
-                            elements.map((e) => e.name).join(" | "),
-                            () =>
-                                arrow(
-                                    FeatureProgrammer.parameterDeclarations(
-                                        CONFIG,
-                                    )(TypeFactory.keyword("any"))(
-                                        ts.factory.createIdentifier("input"),
-                                    ),
-                                )({
-                                    ...explore,
-                                    postfix: "",
-                                })(ts.factory.createIdentifier("input")),
-                        ),
-                    ),
-                    undefined,
-                    FeatureProgrammer.argumentsArray(CONFIG)(explore)(input),
-                ),
-            );
-        };
-
     /* -----------------------------------------------------------
         CONFIGURATIONS
     ----------------------------------------------------------- */
     const PREFIX = "$pe";
-    const CONFIG = {
-        path: false,
-        trace: false,
-    };
 
     const create_throw_error =
         (importer: FunctionImporter) =>

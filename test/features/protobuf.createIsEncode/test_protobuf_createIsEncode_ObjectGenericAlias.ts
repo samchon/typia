@@ -8,4 +8,5 @@ export const test_protobuf_isEncode_ObjectGenericAlias =
     )({
         isEncode: typia.protobuf.createIsEncode<ObjectGenericAlias>(),
         message: typia.protobuf.message<ObjectGenericAlias>(),
+        decode: typia.protobuf.createDecode<ObjectGenericAlias>(),
     });

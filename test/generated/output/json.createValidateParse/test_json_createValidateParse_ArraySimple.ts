@@ -178,8 +178,7 @@ export const test_json_validateParse_ArraySimple = _test_json_validateParse(
                 data: success ? input : undefined,
             } as any;
         };
-        input = JSON.parse(input);
-        const output = validate(input);
-        return output as any;
+        const output = JSON.parse(input);
+        return validate(output) as any;
     },
 );

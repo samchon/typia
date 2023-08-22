@@ -93,4 +93,65 @@ export const test_protobuf_encode_TagArray = _test_protobuf_encode(
         })(input),
     message:
         'syntax = "proto3";\n\nmessage TagArray {\n    repeated TagArray.Type value = 1;\n    message Type {\n        repeated string items = 1;\n        repeated double minItems = 2;\n        repeated string both = 3;\n        repeated double equal = 4;\n    }\n}',
+    decode: (input: Uint8Array): TagArray => {
+        const $Reader = (typia.protobuf.createDecode as any).Reader;
+        const $pdo0 = (reader: any, length: number = -1): any => {
+            length = length < 0 ? reader.size() : reader.index() + length;
+            const output = {
+                value: [] as any,
+            };
+            while (reader.index() < length) {
+                const tag = reader.uint32();
+                switch (tag >>> 3) {
+                    case 1:
+                        output.value.push($pdo1(reader, reader.uint32()));
+                        break;
+                    default:
+                        reader.skipType(tag & 7);
+                        break;
+                }
+            }
+            return output;
+        };
+        const $pdo1 = (reader: any, length: number = -1): any => {
+            length = length < 0 ? reader.size() : reader.index() + length;
+            const output = {
+                items: [] as any,
+                minItems: [] as any,
+                both: [] as any,
+                equal: [] as any,
+            };
+            while (reader.index() < length) {
+                const tag = reader.uint32();
+                switch (tag >>> 3) {
+                    case 1:
+                        output.items.push(reader.string());
+                        break;
+                    case 2:
+                        if (2 === (tag & 7)) {
+                            const piece = reader.uint32() + reader.index();
+                            while (reader.index() < piece)
+                                output.minItems.push(reader.double());
+                        } else output.minItems.push(reader.double());
+                        break;
+                    case 3:
+                        output.both.push(reader.string());
+                        break;
+                    case 4:
+                        if (2 === (tag & 7)) {
+                            const piece = reader.uint32() + reader.index();
+                            while (reader.index() < piece)
+                                output.equal.push(reader.double());
+                        } else output.equal.push(reader.double());
+                        break;
+                    default:
+                        reader.skipType(tag & 7);
+                        break;
+                }
+            }
+            return output;
+        };
+        const reader = new $Reader(input);
+        return $pdo0(reader);
+    },
 });

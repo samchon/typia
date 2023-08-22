@@ -255,4 +255,85 @@ export const test_protobuf_assertEncode_ObjectPrimitive =
             })(input),
         message:
             'syntax = "proto3";\n\nmessage ObjectPrimitive {\n    message IArticle {\n        required string id = 1;\n        required string extension = 2;\n        required string title = 3;\n        required string body = 4;\n        repeated ObjectPrimitive.IFile files = 5;\n        required bool secret = 6;\n        required string created_at = 7;\n    }\n\n    message IFile {\n        required string id = 1;\n        required string name = 2;\n        required string extension = 3;\n        required string url = 4;\n        required string created_at = 5;\n    }\n}',
+        decode: (input: Uint8Array): ObjectPrimitive => {
+            const $Reader = (typia.protobuf.createDecode as any).Reader;
+            const $pdo0 = (reader: any, length: number = -1): any => {
+                length = length < 0 ? reader.size() : reader.index() + length;
+                const output = {
+                    id: "" as any,
+                    extension: undefined as any,
+                    title: "" as any,
+                    body: "" as any,
+                    files: [] as any,
+                    secret: undefined as any,
+                    created_at: "" as any,
+                };
+                while (reader.index() < length) {
+                    const tag = reader.uint32();
+                    switch (tag >>> 3) {
+                        case 1:
+                            output.id = reader.string();
+                            break;
+                        case 2:
+                            output.extension = reader.string();
+                            break;
+                        case 3:
+                            output.title = reader.string();
+                            break;
+                        case 4:
+                            output.body = reader.string();
+                            break;
+                        case 5:
+                            output.files.push($pdo1(reader, reader.uint32()));
+                            break;
+                        case 6:
+                            output.secret = reader.bool();
+                            break;
+                        case 7:
+                            output.created_at = reader.string();
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                    }
+                }
+                return output;
+            };
+            const $pdo1 = (reader: any, length: number = -1): any => {
+                length = length < 0 ? reader.size() : reader.index() + length;
+                const output = {
+                    id: "" as any,
+                    name: "" as any,
+                    extension: "" as any,
+                    url: "" as any,
+                    created_at: "" as any,
+                };
+                while (reader.index() < length) {
+                    const tag = reader.uint32();
+                    switch (tag >>> 3) {
+                        case 1:
+                            output.id = reader.string();
+                            break;
+                        case 2:
+                            output.name = reader.string();
+                            break;
+                        case 3:
+                            output.extension = reader.string();
+                            break;
+                        case 4:
+                            output.url = reader.string();
+                            break;
+                        case 5:
+                            output.created_at = reader.string();
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                    }
+                }
+                return output;
+            };
+            const reader = new $Reader(input);
+            return $pdo0(reader);
+        },
     });

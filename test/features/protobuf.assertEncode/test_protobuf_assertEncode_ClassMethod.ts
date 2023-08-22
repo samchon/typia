@@ -7,4 +7,5 @@ export const test_protobuf_assertEncode_ClassMethod =
         assertEncode: (input) =>
             typia.protobuf.assertEncode<ClassMethod>(input),
         message: typia.protobuf.message<ClassMethod>(),
+        decode: typia.protobuf.createDecode<ClassMethod>(),
     });

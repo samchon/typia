@@ -253,4 +253,67 @@ export const test_protobuf_validateEncode_ArrayRecursive =
         },
         message:
             'syntax = "proto3";\n\nmessage ArrayRecursive {\n    message ICategory {\n        repeated ArrayRecursive.ICategory children = 1;\n        required double id = 2;\n        required string code = 3;\n        required double sequence = 4;\n        required ArrayRecursive.ITimestamp created_at = 5;\n    }\n\n    message ITimestamp {\n        required double time = 1;\n        required double zone = 2;\n    }\n}',
+        decode: (input: Uint8Array): ArrayRecursive => {
+            const $Reader = (typia.protobuf.createDecode as any).Reader;
+            const $pdo0 = (reader: any, length: number = -1): any => {
+                length = length < 0 ? reader.size() : reader.index() + length;
+                const output = {
+                    children: [] as any,
+                    id: undefined as any,
+                    code: "" as any,
+                    sequence: undefined as any,
+                    created_at: undefined as any,
+                };
+                while (reader.index() < length) {
+                    const tag = reader.uint32();
+                    switch (tag >>> 3) {
+                        case 1:
+                            output.children.push(
+                                $pdo0(reader, reader.uint32()),
+                            );
+                            break;
+                        case 2:
+                            output.id = reader.double();
+                            break;
+                        case 3:
+                            output.code = reader.string();
+                            break;
+                        case 4:
+                            output.sequence = reader.double();
+                            break;
+                        case 5:
+                            output.created_at = $pdo1(reader, reader.uint32());
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                    }
+                }
+                return output;
+            };
+            const $pdo1 = (reader: any, length: number = -1): any => {
+                length = length < 0 ? reader.size() : reader.index() + length;
+                const output = {
+                    time: undefined as any,
+                    zone: undefined as any,
+                };
+                while (reader.index() < length) {
+                    const tag = reader.uint32();
+                    switch (tag >>> 3) {
+                        case 1:
+                            output.time = reader.double();
+                            break;
+                        case 2:
+                            output.zone = reader.double();
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                    }
+                }
+                return output;
+            };
+            const reader = new $Reader(input);
+            return $pdo0(reader);
+        },
     });

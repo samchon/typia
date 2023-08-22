@@ -9,4 +9,5 @@ export const test_protobuf_isEncode_ObjectUnionExplicitPointer =
         isEncode: (input) =>
             typia.protobuf.isEncode<ObjectUnionExplicitPointer>(input),
         message: typia.protobuf.message<ObjectUnionExplicitPointer>(),
+        decode: typia.protobuf.createDecode<ObjectUnionExplicitPointer>(),
     });

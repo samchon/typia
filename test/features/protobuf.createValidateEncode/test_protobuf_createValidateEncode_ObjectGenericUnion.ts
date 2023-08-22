@@ -9,4 +9,5 @@ export const test_protobuf_validateEncode_ObjectGenericUnion =
         validateEncode:
             typia.protobuf.createValidateEncode<ObjectGenericUnion>(),
         message: typia.protobuf.message<ObjectGenericUnion>(),
+        decode: typia.protobuf.createDecode<ObjectGenericUnion>(),
     });

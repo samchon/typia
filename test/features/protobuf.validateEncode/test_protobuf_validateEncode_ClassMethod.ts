@@ -7,4 +7,5 @@ export const test_protobuf_validateEncode_ClassMethod =
         validateEncode: (input) =>
             typia.protobuf.validateEncode<ClassMethod>(input),
         message: typia.protobuf.message<ClassMethod>(),
+        decode: typia.protobuf.createDecode<ClassMethod>(),
     });

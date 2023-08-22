@@ -7,4 +7,5 @@ export const test_protobuf_assertEncode_TagTypeBigInt =
         assertEncode: (input) =>
             typia.protobuf.assertEncode<TagTypeBigInt>(input),
         message: typia.protobuf.message<TagTypeBigInt>(),
+        decode: typia.protobuf.createDecode<TagTypeBigInt>(),
     });

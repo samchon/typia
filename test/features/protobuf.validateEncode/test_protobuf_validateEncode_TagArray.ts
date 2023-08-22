@@ -7,4 +7,5 @@ export const test_protobuf_validateEncode_TagArray =
         validateEncode: (input) =>
             typia.protobuf.validateEncode<TagArray>(input),
         message: typia.protobuf.message<TagArray>(),
+        decode: typia.protobuf.createDecode<TagArray>(),
     });

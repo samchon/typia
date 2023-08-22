@@ -1,28 +1,16 @@
-import typia from "typia";
-
 import { TestStructure } from "../helpers/TestStructure";
-import { primitive_equal_to } from "../helpers/primitive_equal_to";
+import { _test_protobuf_decode } from "./_test_protobuf_decode";
 
 export const _test_protobuf_assertDecode =
     (name: string) =>
     <T extends object>(factory: TestStructure<T>) =>
     (functor: {
-        decode: (input: Uint8Array) => typia.Primitive<T>;
+        assertDecode: (input: Uint8Array) => T;
         encode: (input: T) => Uint8Array;
     }) =>
     () => {
-        try {
-            const data: T = factory.generate();
-            const encoded: Uint8Array = functor.encode(data);
-            const decoded: typia.Primitive<T> = functor.decode(encoded);
-
-            if (primitive_equal_to(data, decoded as T) === false)
-                throw new Error(
-                    `Bug on typia.protobuf.assertDecode(): failed to understand ${name} type.`,
-                );
-        } catch {
-            throw new Error(
-                `Bug on typia.protobuf.assertDecode(): failed to decode ${name} type.`,
-            );
-        }
+        _test_protobuf_decode(name)(factory)({
+            decode: functor.assertDecode,
+            encode: functor.encode,
+        })();
     };

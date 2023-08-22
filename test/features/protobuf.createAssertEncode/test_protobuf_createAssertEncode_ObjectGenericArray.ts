@@ -8,4 +8,5 @@ export const test_protobuf_assertEncode_ObjectGenericArray =
     )({
         assertEncode: typia.protobuf.createAssertEncode<ObjectGenericArray>(),
         message: typia.protobuf.message<ObjectGenericArray>(),
+        decode: typia.protobuf.createDecode<ObjectGenericArray>(),
     });

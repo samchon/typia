@@ -7,4 +7,5 @@ export const test_protobuf_isEncode_TagLength = _test_protobuf_isEncode(
 )<TagLength>(TagLength)({
     isEncode: (input) => typia.protobuf.isEncode<TagLength>(input),
     message: typia.protobuf.message<TagLength>(),
+    decode: typia.protobuf.createDecode<TagLength>(),
 });

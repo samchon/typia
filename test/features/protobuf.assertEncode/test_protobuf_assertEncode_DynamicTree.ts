@@ -7,4 +7,5 @@ export const test_protobuf_assertEncode_DynamicTree =
         assertEncode: (input) =>
             typia.protobuf.assertEncode<DynamicTree>(input),
         message: typia.protobuf.message<DynamicTree>(),
+        decode: typia.protobuf.createDecode<DynamicTree>(),
     });

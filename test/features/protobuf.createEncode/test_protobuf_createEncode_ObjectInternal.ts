@@ -7,4 +7,5 @@ export const test_protobuf_encode_ObjectInternal = _test_protobuf_encode(
 )<ObjectInternal>(ObjectInternal)({
     encode: typia.protobuf.createEncode<ObjectInternal>(),
     message: typia.protobuf.message<ObjectInternal>(),
+    decode: typia.protobuf.createDecode<ObjectInternal>(),
 });

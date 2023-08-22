@@ -8,4 +8,5 @@ export const test_protobuf_validateEncode_ObjectOptional =
     )({
         validateEncode: typia.protobuf.createValidateEncode<ObjectOptional>(),
         message: typia.protobuf.message<ObjectOptional>(),
+        decode: typia.protobuf.createDecode<ObjectOptional>(),
     });

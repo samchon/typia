@@ -7,4 +7,5 @@ export const test_protobuf_encode_ObjectNullable = _test_protobuf_encode(
 )<ObjectNullable>(ObjectNullable)({
     encode: typia.protobuf.createEncode<ObjectNullable>(),
     message: typia.protobuf.message<ObjectNullable>(),
+    decode: typia.protobuf.createDecode<ObjectNullable>(),
 });

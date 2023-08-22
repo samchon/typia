@@ -9,4 +9,5 @@ export const test_protobuf_validateEncode_ObjectHierarchical =
         validateEncode:
             typia.protobuf.createValidateEncode<ObjectHierarchical>(),
         message: typia.protobuf.message<ObjectHierarchical>(),
+        decode: typia.protobuf.createDecode<ObjectHierarchical>(),
     });

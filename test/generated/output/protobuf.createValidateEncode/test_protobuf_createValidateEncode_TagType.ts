@@ -380,4 +380,69 @@ export const test_protobuf_validateEncode_TagType =
         },
         message:
             'syntax = "proto3";\n\nmessage TagType {\n    repeated TagType.Type value = 1;\n    message Type {\n        required int32 int = 1;\n        required uint32 uint = 2;\n        required int32 int32 = 3;\n        required uint32 uint32 = 4;\n        required int64 int64 = 5;\n        required uint64 uint64 = 6;\n        required float float = 7;\n    }\n}',
+        decode: (input: Uint8Array): TagType => {
+            const $Reader = (typia.protobuf.createDecode as any).Reader;
+            const $pdo0 = (reader: any, length: number = -1): any => {
+                length = length < 0 ? reader.size() : reader.index() + length;
+                const output = {
+                    value: [] as any,
+                };
+                while (reader.index() < length) {
+                    const tag = reader.uint32();
+                    switch (tag >>> 3) {
+                        case 1:
+                            output.value.push($pdo1(reader, reader.uint32()));
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                    }
+                }
+                return output;
+            };
+            const $pdo1 = (reader: any, length: number = -1): any => {
+                length = length < 0 ? reader.size() : reader.index() + length;
+                const output = {
+                    int: undefined as any,
+                    uint: undefined as any,
+                    int32: undefined as any,
+                    uint32: undefined as any,
+                    int64: undefined as any,
+                    uint64: undefined as any,
+                    float: undefined as any,
+                };
+                while (reader.index() < length) {
+                    const tag = reader.uint32();
+                    switch (tag >>> 3) {
+                        case 1:
+                            output.int = reader.int32();
+                            break;
+                        case 2:
+                            output.uint = reader.uint32();
+                            break;
+                        case 3:
+                            output.int32 = reader.int32();
+                            break;
+                        case 4:
+                            output.uint32 = reader.uint32();
+                            break;
+                        case 5:
+                            output.int64 = Number(reader.int64());
+                            break;
+                        case 6:
+                            output.uint64 = Number(reader.uint64());
+                            break;
+                        case 7:
+                            output.float = reader.float();
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                    }
+                }
+                return output;
+            };
+            const reader = new $Reader(input);
+            return $pdo0(reader);
+        },
     });

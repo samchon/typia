@@ -7,4 +7,5 @@ export const test_protobuf_encode_ObjectPrimitive = _test_protobuf_encode(
 )<ObjectPrimitive>(ObjectPrimitive)({
     encode: (input) => typia.protobuf.encode<ObjectPrimitive>(input),
     message: typia.protobuf.message<ObjectPrimitive>(),
+    decode: typia.protobuf.createDecode<ObjectPrimitive>(),
 });

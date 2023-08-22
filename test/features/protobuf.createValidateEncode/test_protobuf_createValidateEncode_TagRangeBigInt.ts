@@ -8,4 +8,5 @@ export const test_protobuf_validateEncode_TagRangeBigInt =
     )({
         validateEncode: typia.protobuf.createValidateEncode<TagRangeBigInt>(),
         message: typia.protobuf.message<TagRangeBigInt>(),
+        decode: typia.protobuf.createDecode<TagRangeBigInt>(),
     });

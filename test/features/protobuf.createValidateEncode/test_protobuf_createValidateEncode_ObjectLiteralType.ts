@@ -9,4 +9,5 @@ export const test_protobuf_validateEncode_ObjectLiteralType =
         validateEncode:
             typia.protobuf.createValidateEncode<ObjectLiteralType>(),
         message: typia.protobuf.message<ObjectLiteralType>(),
+        decode: typia.protobuf.createDecode<ObjectLiteralType>(),
     });

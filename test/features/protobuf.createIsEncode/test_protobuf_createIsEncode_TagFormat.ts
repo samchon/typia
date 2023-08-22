@@ -7,4 +7,5 @@ export const test_protobuf_isEncode_TagFormat = _test_protobuf_isEncode(
 )<TagFormat>(TagFormat)({
     isEncode: typia.protobuf.createIsEncode<TagFormat>(),
     message: typia.protobuf.message<TagFormat>(),
+    decode: typia.protobuf.createDecode<TagFormat>(),
 });

@@ -8,4 +8,5 @@ export const test_protobuf_isEncode_ObjectIntersection =
     )({
         isEncode: typia.protobuf.createIsEncode<ObjectIntersection>(),
         message: typia.protobuf.message<ObjectIntersection>(),
+        decode: typia.protobuf.createDecode<ObjectIntersection>(),
     });

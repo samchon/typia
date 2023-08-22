@@ -150,4 +150,91 @@ export const test_protobuf_encode_ArraySimpleProtobuf = _test_protobuf_encode(
     },
     message:
         'syntax = "proto3";\n\nmessage ArraySimpleProtobuf {\n    repeated bool boolean = 1;\n    repeated int32 int32 = 2;\n    repeated uint32 uint32 = 3;\n    repeated int64 int64 = 4;\n    repeated uint64 uint64 = 5;\n    repeated float float = 6;\n    repeated double double = 7;\n    repeated string string = 8;\n    repeated bytes bytes = 9;\n    repeated ArraySimpleProtobuf object = 10;\n}',
+    decode: (input: Uint8Array): ArraySimpleProtobuf => {
+        const $Reader = (typia.protobuf.createDecode as any).Reader;
+        const $pdo0 = (reader: any, length: number = -1): any => {
+            length = length < 0 ? reader.size() : reader.index() + length;
+            const output = {
+                boolean: [] as any,
+                int32: [] as any,
+                uint32: [] as any,
+                int64: [] as any,
+                uint64: [] as any,
+                float: [] as any,
+                double: [] as any,
+                string: [] as any,
+                bytes: [] as any,
+                object: [] as any,
+            };
+            while (reader.index() < length) {
+                const tag = reader.uint32();
+                switch (tag >>> 3) {
+                    case 1:
+                        if (2 === (tag & 7)) {
+                            const piece = reader.uint32() + reader.index();
+                            while (reader.index() < piece)
+                                output.boolean.push(reader.bool());
+                        } else output.boolean.push(reader.bool());
+                        break;
+                    case 2:
+                        if (2 === (tag & 7)) {
+                            const piece = reader.uint32() + reader.index();
+                            while (reader.index() < piece)
+                                output.int32.push(reader.int32());
+                        } else output.int32.push(reader.int32());
+                        break;
+                    case 3:
+                        if (2 === (tag & 7)) {
+                            const piece = reader.uint32() + reader.index();
+                            while (reader.index() < piece)
+                                output.uint32.push(reader.uint32());
+                        } else output.uint32.push(reader.uint32());
+                        break;
+                    case 4:
+                        if (2 === (tag & 7)) {
+                            const piece = reader.uint32() + reader.index();
+                            while (reader.index() < piece)
+                                output.int64.push(reader.int64());
+                        } else output.int64.push(reader.int64());
+                        break;
+                    case 5:
+                        if (2 === (tag & 7)) {
+                            const piece = reader.uint32() + reader.index();
+                            while (reader.index() < piece)
+                                output.uint64.push(reader.uint64());
+                        } else output.uint64.push(reader.uint64());
+                        break;
+                    case 6:
+                        if (2 === (tag & 7)) {
+                            const piece = reader.uint32() + reader.index();
+                            while (reader.index() < piece)
+                                output.float.push(reader.float());
+                        } else output.float.push(reader.float());
+                        break;
+                    case 7:
+                        if (2 === (tag & 7)) {
+                            const piece = reader.uint32() + reader.index();
+                            while (reader.index() < piece)
+                                output.double.push(reader.double());
+                        } else output.double.push(reader.double());
+                        break;
+                    case 8:
+                        output.string.push(reader.string());
+                        break;
+                    case 9:
+                        output.bytes.push(reader.bytes());
+                        break;
+                    case 10:
+                        output.object.push($pdo0(reader, reader.uint32()));
+                        break;
+                    default:
+                        reader.skipType(tag & 7);
+                        break;
+                }
+            }
+            return output;
+        };
+        const reader = new $Reader(input);
+        return $pdo0(reader);
+    },
 });

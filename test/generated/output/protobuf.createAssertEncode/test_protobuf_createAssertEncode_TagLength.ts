@@ -231,4 +231,61 @@ export const test_protobuf_assertEncode_TagLength = _test_protobuf_assertEncode(
     },
     message:
         'syntax = "proto3";\n\nmessage TagLength {\n    repeated TagLength.Type value = 1;\n    message Type {\n        required string fixed = 1;\n        required string minimum = 2;\n        required string maximum = 3;\n        required string minimum_and_maximum = 4;\n        required string equal = 5;\n    }\n}',
+    decode: (input: Uint8Array): TagLength => {
+        const $Reader = (typia.protobuf.createDecode as any).Reader;
+        const $pdo0 = (reader: any, length: number = -1): any => {
+            length = length < 0 ? reader.size() : reader.index() + length;
+            const output = {
+                value: [] as any,
+            };
+            while (reader.index() < length) {
+                const tag = reader.uint32();
+                switch (tag >>> 3) {
+                    case 1:
+                        output.value.push($pdo1(reader, reader.uint32()));
+                        break;
+                    default:
+                        reader.skipType(tag & 7);
+                        break;
+                }
+            }
+            return output;
+        };
+        const $pdo1 = (reader: any, length: number = -1): any => {
+            length = length < 0 ? reader.size() : reader.index() + length;
+            const output = {
+                fixed: "" as any,
+                minimum: "" as any,
+                maximum: "" as any,
+                minimum_and_maximum: "" as any,
+                equal: "" as any,
+            };
+            while (reader.index() < length) {
+                const tag = reader.uint32();
+                switch (tag >>> 3) {
+                    case 1:
+                        output.fixed = reader.string();
+                        break;
+                    case 2:
+                        output.minimum = reader.string();
+                        break;
+                    case 3:
+                        output.maximum = reader.string();
+                        break;
+                    case 4:
+                        output.minimum_and_maximum = reader.string();
+                        break;
+                    case 5:
+                        output.equal = reader.string();
+                        break;
+                    default:
+                        reader.skipType(tag & 7);
+                        break;
+                }
+            }
+            return output;
+        };
+        const reader = new $Reader(input);
+        return $pdo0(reader);
+    },
 });

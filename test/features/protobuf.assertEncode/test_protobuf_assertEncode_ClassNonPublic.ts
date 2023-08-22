@@ -9,4 +9,5 @@ export const test_protobuf_assertEncode_ClassNonPublic =
         assertEncode: (input) =>
             typia.protobuf.assertEncode<ClassNonPublic>(input),
         message: typia.protobuf.message<ClassNonPublic>(),
+        decode: typia.protobuf.createDecode<ClassNonPublic>(),
     });

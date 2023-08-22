@@ -9,4 +9,5 @@ export const test_protobuf_assertEncode_TagAtomicUnion =
         assertEncode: (input) =>
             typia.protobuf.assertEncode<TagAtomicUnion>(input),
         message: typia.protobuf.message<TagAtomicUnion>(),
+        decode: typia.protobuf.createDecode<TagAtomicUnion>(),
     });

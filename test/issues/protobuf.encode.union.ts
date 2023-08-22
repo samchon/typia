@@ -1,35 +1,41 @@
 import fs from "fs";
-import pjs from "protobufjs";
 import typia from "typia";
 
-import { TagDefault } from "../structures/TagDefault";
+interface ICircle {
+    type: "circle";
+    radius: number;
+}
 
-const result: pjs.IParserResult = pjs.parse(
-    typia.protobuf.message<TagDefault>(),
-    {
-        keepCase: true,
-    },
-);
-const type: pjs.Type = result.root.lookupType("TagDefault");
+interface IPolygon {
+    type: "triangle";
+    points: IPoint[];
+}
+
+interface IRectangle {
+    type: "rectangle";
+    width: number;
+    height: number;
+}
+
+interface IPoint {
+    type: "point";
+    x: number;
+    y: number;
+}
+
+interface IDocument {
+    shape:
+        | number
+        | string
+        | Uint8Array
+        | ICircle
+        | IPolygon
+        | IRectangle
+        | IPoint;
+}
 
 fs.writeFileSync(
     __dirname + "/protobuf.encode.union.js",
-    [
-        "//-------------------------------------------------",
-        "// TYPIA",
-        "//-------------------------------------------------",
-        ...typia.protobuf
-            .message<TagDefault>()
-            .split("\n")
-            .map((str) => `// ${str}`),
-        `const encode = ${typia.protobuf
-            .createEncode<TagDefault>()
-            .toString()}`,
-        "",
-        "//-------------------------------------------------",
-        "// GOOGLE",
-        "//-------------------------------------------------",
-        pjs.encoder(type).toString(),
-    ].join("\n"),
+    typia.protobuf.createEncode<IDocument>().toString(),
     "utf8",
 );

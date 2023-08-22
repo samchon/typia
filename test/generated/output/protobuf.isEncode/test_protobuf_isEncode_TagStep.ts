@@ -90,4 +90,57 @@ export const test_protobuf_isEncode_TagStep = _test_protobuf_isEncode(
         })(input),
     message:
         'syntax = "proto3";\n\nmessage TagStep {\n    repeated TagStep.Type value = 1;\n    message Type {\n        required double exclusiveMinimum = 1;\n        required double minimum = 2;\n        required double range = 3;\n        required double multipleOf = 4;\n    }\n}',
+    decode: (input: Uint8Array): TagStep => {
+        const $Reader = (typia.protobuf.createDecode as any).Reader;
+        const $pdo0 = (reader: any, length: number = -1): any => {
+            length = length < 0 ? reader.size() : reader.index() + length;
+            const output = {
+                value: [] as any,
+            };
+            while (reader.index() < length) {
+                const tag = reader.uint32();
+                switch (tag >>> 3) {
+                    case 1:
+                        output.value.push($pdo1(reader, reader.uint32()));
+                        break;
+                    default:
+                        reader.skipType(tag & 7);
+                        break;
+                }
+            }
+            return output;
+        };
+        const $pdo1 = (reader: any, length: number = -1): any => {
+            length = length < 0 ? reader.size() : reader.index() + length;
+            const output = {
+                exclusiveMinimum: undefined as any,
+                minimum: undefined as any,
+                range: undefined as any,
+                multipleOf: undefined as any,
+            };
+            while (reader.index() < length) {
+                const tag = reader.uint32();
+                switch (tag >>> 3) {
+                    case 1:
+                        output.exclusiveMinimum = reader.double();
+                        break;
+                    case 2:
+                        output.minimum = reader.double();
+                        break;
+                    case 3:
+                        output.range = reader.double();
+                        break;
+                    case 4:
+                        output.multipleOf = reader.double();
+                        break;
+                    default:
+                        reader.skipType(tag & 7);
+                        break;
+                }
+            }
+            return output;
+        };
+        const reader = new $Reader(input);
+        return $pdo0(reader);
+    },
 });

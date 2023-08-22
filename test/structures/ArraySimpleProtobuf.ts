@@ -98,5 +98,13 @@ export namespace ArraySimpleProtobuf {
             input.double[1] = "3.14" as any;
             return ["$input.double[1]"];
         },
+        (input) => {
+            input.string = undefined!;
+            return ["$input.string"];
+        },
+        (input) => {
+            input.bytes = null!;
+            return ["$input.bytes"];
+        },
     ];
 }

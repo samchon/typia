@@ -7,4 +7,5 @@ export const test_protobuf_encode_TagArray = _test_protobuf_encode(
 )<TagArray>(TagArray)({
     encode: typia.protobuf.createEncode<TagArray>(),
     message: typia.protobuf.message<TagArray>(),
+    decode: typia.protobuf.createDecode<TagArray>(),
 });

@@ -9,4 +9,5 @@ export const test_protobuf_assertEncode_ObjectRecursive =
         assertEncode: (input) =>
             typia.protobuf.assertEncode<ObjectRecursive>(input),
         message: typia.protobuf.message<ObjectRecursive>(),
+        decode: typia.protobuf.createDecode<ObjectRecursive>(),
     });

@@ -9,4 +9,5 @@ export const test_protobuf_validateEncode_ClassPropertyAssignment =
         validateEncode:
             typia.protobuf.createValidateEncode<ClassPropertyAssignment>(),
         message: typia.protobuf.message<ClassPropertyAssignment>(),
+        decode: typia.protobuf.createDecode<ClassPropertyAssignment>(),
     });

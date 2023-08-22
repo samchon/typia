@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+message ObjectSimpleProtobufNullable {
+    optional bool bool = 1;
+    optional int32 int32 = 2;
+    optional uint32 uint32 = 3;
+    optional int64 int64 = 4;
+    optional uint64 uint64 = 5;
+    optional float float = 6;
+    optional double double = 7;
+    optional string string = 8;
+    optional bytes bytes = 9;
+}

@@ -7,4 +7,5 @@ export const test_protobuf_isEncode_ObjectNullable = _test_protobuf_isEncode(
 )<ObjectNullable>(ObjectNullable)({
     isEncode: typia.protobuf.createIsEncode<ObjectNullable>(),
     message: typia.protobuf.message<ObjectNullable>(),
+    decode: typia.protobuf.createDecode<ObjectNullable>(),
 });

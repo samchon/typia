@@ -9,4 +9,5 @@ export const test_protobuf_validateEncode_ObjectGenericAlias =
         validateEncode: (input) =>
             typia.protobuf.validateEncode<ObjectGenericAlias>(input),
         message: typia.protobuf.message<ObjectGenericAlias>(),
+        decode: typia.protobuf.createDecode<ObjectGenericAlias>(),
     });

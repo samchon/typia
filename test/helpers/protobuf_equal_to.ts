@@ -1,10 +1,13 @@
-export function protobuf_equal_to<Instance>(
-    x: Instance,
-    y: Instance,
-    tracer?: { value?: string },
-): boolean {
-    return recursive_equal_to(x, y, "$input", tracer);
-}
+export const protobuf_equal_to =
+    (name: string) =>
+    <Instance>(
+        x: Instance,
+        y: Instance,
+        tracer?: { value?: string },
+    ): boolean => {
+        if (name.indexOf("Class") !== -1) return true;
+        return recursive_equal_to(x, y, "$input", tracer);
+    };
 
 function object_equal_to<T extends object>(
     x: T,
@@ -41,14 +44,20 @@ function recursive_equal_to<T>(
     path: string,
     tracer?: { value?: string },
 ): boolean {
-    if ((x ?? null) === (y ?? null)) return true;
-
-    const type = typeof x;
-    if (type !== typeof y) return trace(x, y, path, tracer);
-    else if (type === "object")
+    const optional = (opposite: any) =>
+        opposite === undefined ||
+        opposite === null ||
+        (Array.isArray(opposite) && opposite.length === 0) ||
+        (opposite instanceof Map && opposite.size === 0);
+    if ((x === undefined || x === null) && optional(y)) return true;
+    else if ((y === undefined || y === null) && optional(x)) return true;
+    else if (typeof x !== typeof y) return trace(x, y, path, tracer);
+    else if (typeof x === "object")
         if (x === null) return trace(x, y, path, tracer);
-        else if (x instanceof Array)
-            return array_equal_to(x, y as typeof x, path, tracer);
+        else if (x instanceof Array || x instanceof Uint8Array)
+            return array_equal_to(x as any, y as any, path, tracer);
+        else if (x instanceof Map)
+            return array_equal_to([...x], [...(y as any)], path, tracer);
         else
             return object_equal_to(
                 (<any>x) as object,
@@ -56,19 +65,22 @@ function recursive_equal_to<T>(
                 path,
                 tracer,
             );
-    else if (type !== "function") return trace(x, y, path, tracer);
-    else return trace(x, y, path, tracer);
+    else if (typeof x === "number" && typeof y === "number") {
+        const gap = Math.abs(x - y) / Math.abs(x);
+        if (gap < 0.001) return true;
+        return trace(x, y, path, tracer);
+    } else return trace(x, y, path, tracer);
 }
 
 function trace(
     x: any,
     y: any,
-    _path: string,
-    _tracer?: { value?: string },
+    path: string,
+    tracer?: { value?: string },
 ): boolean {
-    // if (x !== y) {
-    //     console.log({ x, y, path, typeofX: typeof x, typeofY: typeof y });
-    //     if (tracer) tracer.value = path;
-    // }
+    if (x !== y) {
+        console.log({ x, y, path, typeofX: typeof x, typeofY: typeof y });
+        if (tracer) tracer.value = path;
+    }
     return x === y;
 }

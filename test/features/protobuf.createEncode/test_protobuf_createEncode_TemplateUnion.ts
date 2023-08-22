@@ -7,4 +7,5 @@ export const test_protobuf_encode_TemplateUnion = _test_protobuf_encode(
 )<TemplateUnion>(TemplateUnion)({
     encode: typia.protobuf.createEncode<TemplateUnion>(),
     message: typia.protobuf.message<TemplateUnion>(),
+    decode: typia.protobuf.createDecode<TemplateUnion>(),
 });
