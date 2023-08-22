@@ -91,6 +91,10 @@ export namespace TestFeature {
                     name: "message",
                     method: "typia.protobuf.message",
                 },
+                {
+                    name: "decode",
+                    method: "typia.protobuf.createDecode",
+                },
             ],
         },
         {
@@ -102,6 +106,10 @@ export namespace TestFeature {
                 {
                     name: "message",
                     method: "typia.protobuf.message",
+                },
+                {
+                    name: "decode",
+                    method: "typia.protobuf.createDecode",
                 },
             ],
         },
@@ -115,6 +123,10 @@ export namespace TestFeature {
                     name: "message",
                     method: "typia.protobuf.message",
                 },
+                {
+                    name: "decode",
+                    method: "typia.protobuf.createDecode",
+                },
             ],
         },
         {
@@ -126,6 +138,59 @@ export namespace TestFeature {
                 {
                     name: "message",
                     method: "typia.protobuf.message",
+                },
+                {
+                    name: "decode",
+                    method: "typia.protobuf.createDecode",
+                },
+            ],
+        },
+        // DECODERS
+        {
+            module: "protobuf",
+            method: "decode",
+            creatable: true,
+            spoilable: false,
+            opposite: [
+                {
+                    name: "encode",
+                    method: "typia.protobuf.createEncode",
+                },
+            ],
+        },
+        {
+            module: "protobuf",
+            method: "isDecode",
+            creatable: true,
+            spoilable: true,
+            opposite: [
+                {
+                    name: "encode",
+                    method: "typia.protobuf.createEncode",
+                },
+            ],
+        },
+        {
+            module: "protobuf",
+            method: "assertDecode",
+            creatable: true,
+            spoilable: true,
+            opposite: [
+                {
+                    name: "encode",
+                    method: "typia.protobuf.createEncode",
+                },
+            ],
+        },
+        {
+            module: "protobuf",
+            method: "validateDecode",
+            creatable: true,
+            spoilable: true,
+            opposite: [
+                {
+                    name: "encode",
+                    method: "typia.protobuf.createEncode",
                 },
             ],
         },

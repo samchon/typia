@@ -11,7 +11,7 @@ export namespace TestMessageGenerator {
         await mkdir(path);
 
         for (const s of structures) {
-            if (s.JSONABLE === false || s.BINARABLE === false) continue;
+            if (s.BINARABLE === false) continue;
 
             const content: string[] = [
                 `import typia from "../../../src";`,

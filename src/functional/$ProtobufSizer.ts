@@ -1,6 +1,7 @@
 import { $strlen } from "./$strlen";
 import { IProtobufWriter } from "./IProtobufWriter";
 
+/// @reference https://github.com/piotr-oles/as-proto/blob/main/packages/as-proto/assembly/internal/FixedSizer.ts
 export class $ProtobufSizer implements IProtobufWriter {
     /**
      * Total length.
@@ -96,7 +97,9 @@ export class $ProtobufSizer implements IProtobufWriter {
 
     public ldelim(): void {
         if (!(this.pos.length && this.varlenidx.length))
-            throw new Error("Missing fork() before ldelim() call.");
+            throw new Error(
+                "Error on typia.protobuf.encode(): missing fork() before ldelim() call.",
+            );
 
         const endPos = this.len; // current position is end position
         const startPos = this.pos.pop()!; // get start position from stack

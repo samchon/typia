@@ -1,9 +1,10 @@
 import { Metadata } from "../../schemas/metadata/Metadata";
+import { MetadataObject } from "../../schemas/metadata/MetadataObject";
 
 import { Atomic } from "../../typings/Atomic";
 
 export namespace ProtobufUtil {
-    export const atomics = (meta: Metadata) => {
+    export const getAtomics = (meta: Metadata) => {
         const set: Set<Atomic.Literal> = new Set();
 
         for (const atomic of meta.atomics) set.add(atomic);
@@ -14,6 +15,10 @@ export namespace ProtobufUtil {
             (x, y) => ATOMIC_ORDER.get(x)! - ATOMIC_ORDER.get(y)!,
         );
     };
+
+    export const isStaticObject = (obj: MetadataObject): boolean =>
+        obj.properties.length >= 1 &&
+        obj.properties.every((p) => p.key.isSoleLiteral());
 }
 
 const ATOMIC_ORDER = new Map<Atomic.Literal, number>([

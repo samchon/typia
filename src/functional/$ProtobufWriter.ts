@@ -1,6 +1,7 @@
 import { $ProtobufSizer } from "./$ProtobufSizer";
 import { IProtobufWriter } from "./IProtobufWriter";
 
+/// @reference https://github.com/piotr-oles/as-proto/blob/main/packages/as-proto/assembly/internal/FixedWriter.ts
 export class $ProtobufWriter implements IProtobufWriter {
     /**
      * Related sizer
@@ -84,7 +85,6 @@ export class $ProtobufWriter implements IProtobufWriter {
     }
 
     bytes(value: Uint8Array): void {
-        this.fork();
         this.uint32(value.byteLength);
         for (let i = 0; i < value.byteLength; i++)
             this.buf[this.ptr++] = value[i]!;

@@ -46,25 +46,25 @@ export namespace ProtobufIsDecodeProgrammer {
                             },
                         })(modulo)(type, name),
                     ),
-                    ts.factory.createIfStatement(
-                        ts.factory.createPrefixUnaryExpression(
-                            ts.SyntaxKind.ExclamationToken,
-                            ts.factory.createCallExpression(
-                                ts.factory.createIdentifier("is"),
-                                undefined,
-                                [ts.factory.createIdentifier("input")],
-                            ),
-                        ),
-                        ts.factory.createReturnStatement(
-                            ts.factory.createNull(),
-                        ),
-                    ),
                     StatementFactory.constant(
                         "output",
                         ts.factory.createCallExpression(
                             ts.factory.createIdentifier("decode"),
                             undefined,
                             [ts.factory.createIdentifier("input")],
+                        ),
+                    ),
+                    ts.factory.createIfStatement(
+                        ts.factory.createPrefixUnaryExpression(
+                            ts.SyntaxKind.ExclamationToken,
+                            ts.factory.createCallExpression(
+                                ts.factory.createIdentifier("is"),
+                                undefined,
+                                [ts.factory.createIdentifier("output")],
+                            ),
+                        ),
+                        ts.factory.createReturnStatement(
+                            ts.factory.createNull(),
                         ),
                     ),
                     ts.factory.createReturnStatement(
