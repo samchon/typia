@@ -9,4 +9,5 @@ export const test_protobuf_assertEncode_ObjectUnionCompositePointer =
         assertEncode:
             typia.protobuf.createAssertEncode<ObjectUnionCompositePointer>(),
         message: typia.protobuf.message<ObjectUnionCompositePointer>(),
+        decode: typia.protobuf.createDecode<ObjectUnionCompositePointer>(),
     });

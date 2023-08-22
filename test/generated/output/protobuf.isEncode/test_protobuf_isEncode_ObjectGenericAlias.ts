@@ -35,4 +35,27 @@ export const test_protobuf_isEncode_ObjectGenericAlias =
             })(input),
         message:
             'syntax = "proto3";\n\nmessage ObjectGenericAlias {\n    message Alias {\n        required string value = 1;\n    }\n}',
+        decode: (input: Uint8Array): ObjectGenericAlias => {
+            const $Reader = (typia.protobuf.createDecode as any).Reader;
+            const $pdo0 = (reader: any, length: number = -1): any => {
+                length = length < 0 ? reader.size() : reader.index() + length;
+                const output = {
+                    value: "" as any,
+                };
+                while (reader.index() < length) {
+                    const tag = reader.uint32();
+                    switch (tag >>> 3) {
+                        case 1:
+                            output.value = reader.string();
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                    }
+                }
+                return output;
+            };
+            const reader = new $Reader(input);
+            return $pdo0(reader);
+        },
     });

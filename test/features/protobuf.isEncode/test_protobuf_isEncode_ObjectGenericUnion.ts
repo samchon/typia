@@ -8,4 +8,5 @@ export const test_protobuf_isEncode_ObjectGenericUnion =
     )({
         isEncode: (input) => typia.protobuf.isEncode<ObjectGenericUnion>(input),
         message: typia.protobuf.message<ObjectGenericUnion>(),
+        decode: typia.protobuf.createDecode<ObjectGenericUnion>(),
     });

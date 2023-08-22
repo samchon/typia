@@ -8,4 +8,5 @@ export const test_protobuf_validateEncode_ObjectInternal =
     )({
         validateEncode: typia.protobuf.createValidateEncode<ObjectInternal>(),
         message: typia.protobuf.message<ObjectInternal>(),
+        decode: typia.protobuf.createDecode<ObjectInternal>(),
     });

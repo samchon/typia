@@ -7,4 +7,5 @@ export const test_protobuf_encode_DynamicConstant = _test_protobuf_encode(
 )<DynamicConstant>(DynamicConstant)({
     encode: (input) => typia.protobuf.encode<DynamicConstant>(input),
     message: typia.protobuf.message<DynamicConstant>(),
+    decode: typia.protobuf.createDecode<DynamicConstant>(),
 });

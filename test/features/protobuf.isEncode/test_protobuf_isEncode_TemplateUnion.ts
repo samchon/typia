@@ -7,4 +7,5 @@ export const test_protobuf_isEncode_TemplateUnion = _test_protobuf_isEncode(
 )<TemplateUnion>(TemplateUnion)({
     isEncode: (input) => typia.protobuf.isEncode<TemplateUnion>(input),
     message: typia.protobuf.message<TemplateUnion>(),
+    decode: typia.protobuf.createDecode<TemplateUnion>(),
 });

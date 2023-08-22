@@ -7,4 +7,5 @@ export const test_protobuf_assertEncode_ObjectJsonTag =
         assertEncode: (input) =>
             typia.protobuf.assertEncode<ObjectJsonTag>(input),
         message: typia.protobuf.message<ObjectJsonTag>(),
+        decode: typia.protobuf.createDecode<ObjectJsonTag>(),
     });

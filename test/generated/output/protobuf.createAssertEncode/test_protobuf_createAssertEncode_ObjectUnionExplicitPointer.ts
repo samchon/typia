@@ -1099,4 +1099,293 @@ export const test_protobuf_assertEncode_ObjectUnionExplicitPointer =
         },
         message:
             'syntax = "proto3";\n\nmessage ObjectUnionExplicitPointer {\n    repeated IPointer_lt_ObjectUnionExplicitPointer.Shape_gt_ value = 1;\n    message Discriminator_lt__doublequote_point_doublequote__comma__space_ObjectUnionExplicitPointer {\n        message IPoint_gt_ {\n            required double x = 1;\n            required double y = 2;\n            required string type = 3;\n        }\n    }\n\n    message Discriminator_lt__doublequote_line_doublequote__comma__space_ObjectUnionExplicitPointer {\n        message ILine_gt_ {\n            required ObjectUnionExplicitPointer.IPoint p1 = 1;\n            required ObjectUnionExplicitPointer.IPoint p2 = 2;\n            required string type = 3;\n        }\n    }\n\n    message IPoint {\n        required double x = 1;\n        required double y = 2;\n    }\n\n    message Discriminator_lt__doublequote_triangle_doublequote__comma__space_ObjectUnionExplicitPointer {\n        message ITriangle_gt_ {\n            required ObjectUnionExplicitPointer.IPoint p1 = 1;\n            required ObjectUnionExplicitPointer.IPoint p2 = 2;\n            required ObjectUnionExplicitPointer.IPoint p3 = 3;\n            required string type = 4;\n        }\n    }\n\n    message Discriminator_lt__doublequote_rectangle_doublequote__comma__space_ObjectUnionExplicitPointer {\n        message IRectangle_gt_ {\n            required ObjectUnionExplicitPointer.IPoint p1 = 1;\n            required ObjectUnionExplicitPointer.IPoint p2 = 2;\n            required ObjectUnionExplicitPointer.IPoint p3 = 3;\n            required ObjectUnionExplicitPointer.IPoint p4 = 4;\n            required string type = 5;\n        }\n    }\n\n    message Discriminator_lt__doublequote_polyline_doublequote__comma__space_ObjectUnionExplicitPointer {\n        message IPolyline_gt_ {\n            repeated ObjectUnionExplicitPointer.IPoint points = 1;\n            required string type = 2;\n        }\n    }\n\n    message Discriminator_lt__doublequote_polygon_doublequote__comma__space_ObjectUnionExplicitPointer {\n        message IPolygon_gt_ {\n            required ObjectUnionExplicitPointer.IPolyline outer = 1;\n            repeated ObjectUnionExplicitPointer.IPolyline inner = 2;\n            required string type = 3;\n        }\n    }\n\n    message IPolyline {\n        repeated ObjectUnionExplicitPointer.IPoint points = 1;\n    }\n\n    message Discriminator_lt__doublequote_circle_doublequote__comma__space_ObjectUnionExplicitPointer {\n        message ICircle_gt_ {\n            required ObjectUnionExplicitPointer.IPoint centroid = 1;\n            required double radius = 2;\n            required string type = 3;\n        }\n    }\n}\n\nmessage IPointer_lt_ObjectUnionExplicitPointer {\n    message Shape_gt_ {\n        oneof value {\n            ObjectUnionExplicitPointer.Discriminator_lt__doublequote_point_doublequote__comma__space_ObjectUnionExplicitPointer.IPoint_gt_ v1 = 1;\n            ObjectUnionExplicitPointer.Discriminator_lt__doublequote_line_doublequote__comma__space_ObjectUnionExplicitPointer.ILine_gt_ v2 = 2;\n            ObjectUnionExplicitPointer.Discriminator_lt__doublequote_triangle_doublequote__comma__space_ObjectUnionExplicitPointer.ITriangle_gt_ v3 = 3;\n            ObjectUnionExplicitPointer.Discriminator_lt__doublequote_rectangle_doublequote__comma__space_ObjectUnionExplicitPointer.IRectangle_gt_ v4 = 4;\n            ObjectUnionExplicitPointer.Discriminator_lt__doublequote_polyline_doublequote__comma__space_ObjectUnionExplicitPointer.IPolyline_gt_ v5 = 5;\n            ObjectUnionExplicitPointer.Discriminator_lt__doublequote_polygon_doublequote__comma__space_ObjectUnionExplicitPointer.IPolygon_gt_ v6 = 6;\n            ObjectUnionExplicitPointer.Discriminator_lt__doublequote_circle_doublequote__comma__space_ObjectUnionExplicitPointer.ICircle_gt_ v7 = 7;\n        }\n    }\n}',
+        decode: (input: Uint8Array): ObjectUnionExplicitPointer => {
+            const $Reader = (typia.protobuf.createDecode as any).Reader;
+            const $pdo0 = (reader: any, length: number = -1): any => {
+                length = length < 0 ? reader.size() : reader.index() + length;
+                const output = {
+                    value: [] as any,
+                };
+                while (reader.index() < length) {
+                    const tag = reader.uint32();
+                    switch (tag >>> 3) {
+                        case 1:
+                            output.value.push($pdo1(reader, reader.uint32()));
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                    }
+                }
+                return output;
+            };
+            const $pdo1 = (reader: any, length: number = -1): any => {
+                length = length < 0 ? reader.size() : reader.index() + length;
+                const output = {
+                    value: undefined as any,
+                };
+                while (reader.index() < length) {
+                    const tag = reader.uint32();
+                    switch (tag >>> 3) {
+                        case 1:
+                            output.value = $pdo2(reader, reader.uint32());
+                            break;
+                        case 2:
+                            output.value = $pdo3(reader, reader.uint32());
+                            break;
+                        case 3:
+                            output.value = $pdo5(reader, reader.uint32());
+                            break;
+                        case 4:
+                            output.value = $pdo6(reader, reader.uint32());
+                            break;
+                        case 5:
+                            output.value = $pdo7(reader, reader.uint32());
+                            break;
+                        case 6:
+                            output.value = $pdo8(reader, reader.uint32());
+                            break;
+                        case 7:
+                            output.value = $pdo10(reader, reader.uint32());
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                    }
+                }
+                return output;
+            };
+            const $pdo2 = (reader: any, length: number = -1): any => {
+                length = length < 0 ? reader.size() : reader.index() + length;
+                const output = {
+                    x: undefined as any,
+                    y: undefined as any,
+                    type: undefined as any,
+                };
+                while (reader.index() < length) {
+                    const tag = reader.uint32();
+                    switch (tag >>> 3) {
+                        case 1:
+                            output.x = reader.double();
+                            break;
+                        case 2:
+                            output.y = reader.double();
+                            break;
+                        case 3:
+                            output.type = reader.string();
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                    }
+                }
+                return output;
+            };
+            const $pdo3 = (reader: any, length: number = -1): any => {
+                length = length < 0 ? reader.size() : reader.index() + length;
+                const output = {
+                    p1: undefined as any,
+                    p2: undefined as any,
+                    type: undefined as any,
+                };
+                while (reader.index() < length) {
+                    const tag = reader.uint32();
+                    switch (tag >>> 3) {
+                        case 1:
+                            output.p1 = $pdo4(reader, reader.uint32());
+                            break;
+                        case 2:
+                            output.p2 = $pdo4(reader, reader.uint32());
+                            break;
+                        case 3:
+                            output.type = reader.string();
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                    }
+                }
+                return output;
+            };
+            const $pdo4 = (reader: any, length: number = -1): any => {
+                length = length < 0 ? reader.size() : reader.index() + length;
+                const output = {
+                    x: undefined as any,
+                    y: undefined as any,
+                };
+                while (reader.index() < length) {
+                    const tag = reader.uint32();
+                    switch (tag >>> 3) {
+                        case 1:
+                            output.x = reader.double();
+                            break;
+                        case 2:
+                            output.y = reader.double();
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                    }
+                }
+                return output;
+            };
+            const $pdo5 = (reader: any, length: number = -1): any => {
+                length = length < 0 ? reader.size() : reader.index() + length;
+                const output = {
+                    p1: undefined as any,
+                    p2: undefined as any,
+                    p3: undefined as any,
+                    type: undefined as any,
+                };
+                while (reader.index() < length) {
+                    const tag = reader.uint32();
+                    switch (tag >>> 3) {
+                        case 1:
+                            output.p1 = $pdo4(reader, reader.uint32());
+                            break;
+                        case 2:
+                            output.p2 = $pdo4(reader, reader.uint32());
+                            break;
+                        case 3:
+                            output.p3 = $pdo4(reader, reader.uint32());
+                            break;
+                        case 4:
+                            output.type = reader.string();
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                    }
+                }
+                return output;
+            };
+            const $pdo6 = (reader: any, length: number = -1): any => {
+                length = length < 0 ? reader.size() : reader.index() + length;
+                const output = {
+                    p1: undefined as any,
+                    p2: undefined as any,
+                    p3: undefined as any,
+                    p4: undefined as any,
+                    type: undefined as any,
+                };
+                while (reader.index() < length) {
+                    const tag = reader.uint32();
+                    switch (tag >>> 3) {
+                        case 1:
+                            output.p1 = $pdo4(reader, reader.uint32());
+                            break;
+                        case 2:
+                            output.p2 = $pdo4(reader, reader.uint32());
+                            break;
+                        case 3:
+                            output.p3 = $pdo4(reader, reader.uint32());
+                            break;
+                        case 4:
+                            output.p4 = $pdo4(reader, reader.uint32());
+                            break;
+                        case 5:
+                            output.type = reader.string();
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                    }
+                }
+                return output;
+            };
+            const $pdo7 = (reader: any, length: number = -1): any => {
+                length = length < 0 ? reader.size() : reader.index() + length;
+                const output = {
+                    points: [] as any,
+                    type: undefined as any,
+                };
+                while (reader.index() < length) {
+                    const tag = reader.uint32();
+                    switch (tag >>> 3) {
+                        case 1:
+                            output.points.push($pdo4(reader, reader.uint32()));
+                            break;
+                        case 2:
+                            output.type = reader.string();
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                    }
+                }
+                return output;
+            };
+            const $pdo8 = (reader: any, length: number = -1): any => {
+                length = length < 0 ? reader.size() : reader.index() + length;
+                const output = {
+                    outer: undefined as any,
+                    inner: [] as any,
+                    type: undefined as any,
+                };
+                while (reader.index() < length) {
+                    const tag = reader.uint32();
+                    switch (tag >>> 3) {
+                        case 1:
+                            output.outer = $pdo9(reader, reader.uint32());
+                            break;
+                        case 2:
+                            output.inner.push($pdo9(reader, reader.uint32()));
+                            break;
+                        case 3:
+                            output.type = reader.string();
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                    }
+                }
+                return output;
+            };
+            const $pdo9 = (reader: any, length: number = -1): any => {
+                length = length < 0 ? reader.size() : reader.index() + length;
+                const output = {
+                    points: [] as any,
+                };
+                while (reader.index() < length) {
+                    const tag = reader.uint32();
+                    switch (tag >>> 3) {
+                        case 1:
+                            output.points.push($pdo4(reader, reader.uint32()));
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                    }
+                }
+                return output;
+            };
+            const $pdo10 = (reader: any, length: number = -1): any => {
+                length = length < 0 ? reader.size() : reader.index() + length;
+                const output = {
+                    centroid: undefined as any,
+                    radius: undefined as any,
+                    type: undefined as any,
+                };
+                while (reader.index() < length) {
+                    const tag = reader.uint32();
+                    switch (tag >>> 3) {
+                        case 1:
+                            output.centroid = $pdo4(reader, reader.uint32());
+                            break;
+                        case 2:
+                            output.radius = reader.double();
+                            break;
+                        case 3:
+                            output.type = reader.string();
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                    }
+                }
+                return output;
+            };
+            const reader = new $Reader(input);
+            return $pdo0(reader);
+        },
     });

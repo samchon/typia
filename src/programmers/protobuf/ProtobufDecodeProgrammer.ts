@@ -34,15 +34,21 @@ export namespace ProtobufDecodeProgrammer {
 
             const functors = collection
                 .objects()
-                .filter((obj) => obj._Messagable())
+                .filter((obj) => ProtobufUtil.isStaticObject(obj))
                 .map((obj) =>
                     StatementFactory.constant(
                         `${PREFIX}o${obj.index}`,
                         write_object_function(project)(importer)(obj),
                     ),
                 );
-
-            importer.use("Reader");
+            const reader = StatementFactory.constant(
+                "reader",
+                ts.factory.createNewExpression(
+                    importer.use("Reader"),
+                    undefined,
+                    [ts.factory.createIdentifier("input")],
+                ),
+            );
 
             return ts.factory.createArrowFunction(
                 undefined,
@@ -61,14 +67,7 @@ export namespace ProtobufDecodeProgrammer {
                     [
                         ...importer.declare(modulo),
                         ...functors,
-                        StatementFactory.constant(
-                            "reader",
-                            ts.factory.createNewExpression(
-                                importer.use("Reader"),
-                                undefined,
-                                [ts.factory.createIdentifier("input")],
-                            ),
-                        ),
+                        reader,
                         ts.factory.createReturnStatement(
                             decode_regular_object(true)(meta.objects[0]!),
                         ),
@@ -130,11 +129,7 @@ export namespace ProtobufDecodeProgrammer {
                                 ),
                             ),
                         ),
-                        StatementFactory.constant(
-                            "output",
-                            ts.factory.createObjectLiteralExpression(),
-                        ),
-                        write_while_statement(project)(importer)({
+                        ...write_object_function_body(project)(importer)({
                             condition: ts.factory.createLessThan(
                                 ts.factory.createCallExpression(
                                     IdentifierFactory.access(READER())("index"),
@@ -154,11 +149,11 @@ export namespace ProtobufDecodeProgrammer {
                 ),
             );
 
-    const write_while_statement =
+    const write_object_function_body =
         (project: IProject) =>
         (importer: FunctionImporter) =>
         (props: { condition: ts.Expression; tag: string; output: string }) =>
-        (properties: MetadataProperty[]): ts.WhileStatement => {
+        (properties: MetadataProperty[]): ts.Statement[] => {
             let i: number = 1;
             const clauses: ts.CaseClause[] = properties
                 .map((p) => {
@@ -173,50 +168,95 @@ export namespace ProtobufDecodeProgrammer {
                     return clause;
                 })
                 .flat();
-            return ts.factory.createWhileStatement(
-                props.condition,
-                ts.factory.createBlock([
-                    StatementFactory.constant(
-                        props.tag,
-                        ts.factory.createCallExpression(
-                            IdentifierFactory.access(READER())("uint32"),
-                            undefined,
-                            undefined,
-                        ),
-                    ),
-                    ts.factory.createSwitchStatement(
-                        ts.factory.createUnsignedRightShift(
-                            ts.factory.createIdentifier(props.tag),
-                            ts.factory.createNumericLiteral(3),
-                        ),
-                        ts.factory.createCaseBlock([
-                            ...clauses,
-                            ts.factory.createDefaultClause([
-                                ts.factory.createExpressionStatement(
-                                    ts.factory.createCallExpression(
-                                        IdentifierFactory.access(READER())(
-                                            "skipType",
-                                        ),
-                                        undefined,
-                                        [
-                                            ts.factory.createBitwiseAnd(
-                                                ts.factory.createIdentifier(
-                                                    props.tag,
-                                                ),
-                                                ts.factory.createNumericLiteral(
-                                                    7,
-                                                ),
-                                            ),
-                                        ],
-                                    ),
+            return [
+                StatementFactory.constant(
+                    props.output,
+                    ts.factory.createObjectLiteralExpression(
+                        properties.map((p) =>
+                            ts.factory.createPropertyAssignment(
+                                IdentifierFactory.identifier(
+                                    p.key.getSoleLiteral()!,
                                 ),
-                                ts.factory.createBreakStatement(),
-                            ]),
-                        ]),
+                                write_property_default_value(p.value),
+                            ),
+                        ),
+                        true,
                     ),
-                ]),
-            );
+                ),
+                ts.factory.createWhileStatement(
+                    props.condition,
+                    ts.factory.createBlock([
+                        StatementFactory.constant(
+                            props.tag,
+                            ts.factory.createCallExpression(
+                                IdentifierFactory.access(READER())("uint32"),
+                                undefined,
+                                undefined,
+                            ),
+                        ),
+                        ts.factory.createSwitchStatement(
+                            ts.factory.createUnsignedRightShift(
+                                ts.factory.createIdentifier(props.tag),
+                                ts.factory.createNumericLiteral(3),
+                            ),
+                            ts.factory.createCaseBlock([
+                                ...clauses,
+                                ts.factory.createDefaultClause([
+                                    ts.factory.createExpressionStatement(
+                                        ts.factory.createCallExpression(
+                                            IdentifierFactory.access(READER())(
+                                                "skipType",
+                                            ),
+                                            undefined,
+                                            [
+                                                ts.factory.createBitwiseAnd(
+                                                    ts.factory.createIdentifier(
+                                                        props.tag,
+                                                    ),
+                                                    ts.factory.createNumericLiteral(
+                                                        7,
+                                                    ),
+                                                ),
+                                            ],
+                                        ),
+                                    ),
+                                    ts.factory.createBreakStatement(),
+                                ]),
+                            ]),
+                        ),
+                    ]),
+                ),
+            ];
         };
+
+    const write_property_default_value = (value: Metadata) =>
+        ts.factory.createAsExpression(
+            value.nullable
+                ? ts.factory.createNull()
+                : value.isRequired() === false
+                ? ts.factory.createIdentifier("undefined")
+                : value.arrays.length
+                ? ts.factory.createArrayLiteralExpression()
+                : value.maps.length
+                ? ts.factory.createNewExpression(
+                      ts.factory.createIdentifier("Map"),
+                      undefined,
+                      [],
+                  )
+                : value.natives.length
+                ? ts.factory.createNewExpression(
+                      ts.factory.createIdentifier("Uint8Array"),
+                      undefined,
+                      [],
+                  )
+                : value.atomics.some((str) => str === "string")
+                ? ts.factory.createStringLiteral("")
+                : value.objects.length &&
+                  value.objects.some((obj) => !ProtobufUtil.isStaticObject(obj))
+                ? ts.factory.createObjectLiteralExpression()
+                : ts.factory.createIdentifier("undefined"),
+            TypeFactory.keyword("any"),
+        );
 
     /* -----------------------------------------------------------
         DECODERS
@@ -251,20 +291,30 @@ export namespace ProtobufDecodeProgrammer {
                               ],
                     ),
                 );
-            for (const atomic of ProtobufUtil.atomics(meta))
+
+            const required: boolean = meta.isRequired() && !meta.nullable;
+            for (const atomic of ProtobufUtil.getAtomics(meta))
                 emplace(decode_atomic(atomic, tags));
             if (meta.natives.length) emplace(decode_bytes("bytes"));
             for (const array of meta.arrays)
-                emplace(decode_array(project)(importer)(index)(array, tags));
+                emplace(decode_array(accessor, array, required, tags));
             for (const map of meta.maps)
-                emplace(decode_map(project)(importer)(accessor, map, tags));
+                emplace(
+                    decode_map(project)(importer)(
+                        accessor,
+                        map,
+                        required,
+                        tags,
+                    ),
+                );
             for (const obj of meta.objects)
                 emplace(
-                    obj._Messagable()
+                    ProtobufUtil.isStaticObject(obj)
                         ? decode_regular_object(false)(obj)
                         : decode_dynamic_object(project)(importer)(
                               accessor,
                               obj,
+                              required,
                           ),
                 );
             return clauses;
@@ -273,45 +323,46 @@ export namespace ProtobufDecodeProgrammer {
     const decode_atomic = (
         atomic: Atomic.Literal,
         tags: IMetadataTag[],
-    ): ts.Expression =>
-        atomic === "string"
-            ? decode_bytes("string")
-            : ts.factory.createCallExpression(
-                  IdentifierFactory.access(
-                      ts.factory.createIdentifier("reader"),
-                  )(
-                      atomic === "bigint"
-                          ? tags.find(
-                                (t) =>
-                                    t.kind === "type" && t.value === "uint64",
-                            )
-                              ? "uint64"
-                              : "int64"
-                          : atomic === "number"
-                          ? (() => {
-                                const type = tags.find(
-                                    (t) => t.kind === "type",
-                                );
-                                if (type === undefined) return "double";
-                                return type.value === "int" ||
-                                    type.value === "int32"
-                                    ? "int32"
-                                    : type.value === "uint" ||
-                                      type.value === "uint32"
-                                    ? "uint32"
-                                    : type.value === "int64"
-                                    ? "int64"
-                                    : type.value === "uint64"
-                                    ? "uint64"
-                                    : type.value === "float"
-                                    ? "float"
-                                    : "double";
-                            })()
-                          : "bool",
-                  ),
+    ): ts.Expression => {
+        if (atomic === "string") return decode_bytes("string");
+        const method =
+            atomic === "bigint"
+                ? tags.find((t) => t.kind === "type" && t.value === "uint64")
+                    ? "uint64"
+                    : "int64"
+                : atomic === "number"
+                ? (() => {
+                      const type = tags.find((t) => t.kind === "type");
+                      if (type === undefined) return "double";
+                      return type.value === "int" || type.value === "int32"
+                          ? "int32"
+                          : type.value === "uint" || type.value === "uint32"
+                          ? "uint32"
+                          : type.value === "int64"
+                          ? "int64"
+                          : type.value === "uint64"
+                          ? "uint64"
+                          : type.value === "float"
+                          ? "float"
+                          : "double";
+                  })()
+                : "bool";
+        const call = ts.factory.createCallExpression(
+            IdentifierFactory.access(ts.factory.createIdentifier("reader"))(
+                method,
+            ),
+            undefined,
+            undefined,
+        );
+        return atomic === "number" &&
+            (method === "int64" || method === "uint64")
+            ? ts.factory.createCallExpression(
+                  ts.factory.createIdentifier("Number"),
                   undefined,
-                  undefined,
-              );
+                  [call],
+              )
+            : call;
+    };
 
     const decode_bytes = (method: "bytes" | "string"): ts.Expression =>
         ts.factory.createCallExpression(
@@ -322,18 +373,113 @@ export namespace ProtobufDecodeProgrammer {
             undefined,
         );
 
-    const decode_array =
-        (project: IProject) =>
-        (importer: FunctionImporter) =>
-        (index: number) =>
-        (meta: MetadataArray, tags: IMetadataTag[]): ts.Expression => {
-            project;
-            importer;
-            index;
-            meta;
-            tags;
-            return null!;
-        };
+    const decode_array = (
+        accessor: ts.ElementAccessExpression | ts.PropertyAccessExpression,
+        array: MetadataArray,
+        required: boolean,
+        tags: IMetadataTag[],
+    ): ts.Statement[] => {
+        const statements: Array<ts.Expression | ts.Statement> = [];
+        if (required === false)
+            statements.push(
+                ts.factory.createBinaryExpression(
+                    accessor,
+                    ts.factory.createToken(
+                        ts.SyntaxKind.QuestionQuestionEqualsToken,
+                    ),
+                    ts.factory.createAsExpression(
+                        ts.factory.createArrayLiteralExpression(),
+                        ts.factory.createTypeReferenceNode("any[]"),
+                    ),
+                ),
+            );
+        const atomics = ProtobufUtil.getAtomics(array.value);
+        const decoder = atomics.length
+            ? () => decode_atomic(atomics[0]!, tags)
+            : array.value.natives.length
+            ? () => decode_bytes("bytes")
+            : array.value.objects.length
+            ? () => decode_regular_object(false)(array.value.objects[0]!)
+            : null;
+        if (decoder === null) throw new Error("Never reach here.");
+        else if (atomics.length && atomics[0] !== "string") {
+            statements.push(
+                ts.factory.createIfStatement(
+                    ts.factory.createStrictEquality(
+                        ts.factory.createNumericLiteral(2),
+                        ts.factory.createBitwiseAnd(
+                            ts.factory.createIdentifier("tag"),
+                            ts.factory.createNumericLiteral(7),
+                        ),
+                    ),
+                    ts.factory.createBlock(
+                        [
+                            StatementFactory.constant(
+                                "piece",
+                                ts.factory.createAdd(
+                                    ts.factory.createCallExpression(
+                                        IdentifierFactory.access(READER())(
+                                            "index",
+                                        ),
+                                        undefined,
+                                        undefined,
+                                    ),
+                                    ts.factory.createCallExpression(
+                                        IdentifierFactory.access(READER())(
+                                            "uint32",
+                                        ),
+                                        undefined,
+                                        undefined,
+                                    ),
+                                ),
+                            ),
+                            ts.factory.createWhileStatement(
+                                ts.factory.createLessThan(
+                                    ts.factory.createCallExpression(
+                                        IdentifierFactory.access(READER())(
+                                            "index",
+                                        ),
+                                        undefined,
+                                        undefined,
+                                    ),
+                                    ts.factory.createIdentifier("piece"),
+                                ),
+                                ts.factory.createExpressionStatement(
+                                    ts.factory.createCallExpression(
+                                        IdentifierFactory.access(accessor)(
+                                            "push",
+                                        ),
+                                        undefined,
+                                        [decoder()],
+                                    ),
+                                ),
+                            ),
+                        ],
+                        true,
+                    ),
+                    ts.factory.createExpressionStatement(
+                        ts.factory.createCallExpression(
+                            IdentifierFactory.access(accessor)("push"),
+                            undefined,
+                            [decoder()],
+                        ),
+                    ),
+                ),
+            );
+        } else
+            statements.push(
+                ts.factory.createCallExpression(
+                    IdentifierFactory.access(accessor)("push"),
+                    undefined,
+                    [decoder()],
+                ),
+            );
+        return statements.map((stmt) =>
+            ts.isExpression(stmt)
+                ? ts.factory.createExpressionStatement(stmt)
+                : stmt,
+        );
+    };
 
     const decode_regular_object =
         (top: boolean) =>
@@ -361,6 +507,7 @@ export namespace ProtobufDecodeProgrammer {
         (
             accessor: ts.ElementAccessExpression | ts.PropertyAccessExpression,
             obj: MetadataObject,
+            required: boolean,
         ): ts.Statement[] => {
             const top = obj.properties[0]!;
             return decode_entry(project)(importer)({
@@ -374,11 +521,14 @@ export namespace ProtobufDecodeProgrammer {
                     ),
                 setter: () =>
                     ts.factory.createBinaryExpression(
-                        ts.factory.createIdentifier("entry.key"),
+                        ts.factory.createElementAccessExpression(
+                            accessor,
+                            ts.factory.createIdentifier("entry.key"),
+                        ),
                         ts.factory.createToken(ts.SyntaxKind.EqualsToken),
                         ts.factory.createIdentifier("entry.value"),
                     ),
-            })(top, top.tags);
+            })(top, required, top.tags);
         };
 
     const decode_map =
@@ -387,6 +537,7 @@ export namespace ProtobufDecodeProgrammer {
         (
             accessor: ts.ElementAccessExpression | ts.PropertyAccessExpression,
             map: Metadata.Entry,
+            required: boolean,
             tags: IMetadataTag[],
         ): ts.Statement[] =>
             decode_entry(project)(importer)({
@@ -414,7 +565,7 @@ export namespace ProtobufDecodeProgrammer {
                             ts.factory.createIdentifier("entry.value"),
                         ],
                     ),
-            })(map, tags);
+            })(map, required, tags);
 
     const decode_entry =
         (project: IProject) =>
@@ -423,9 +574,19 @@ export namespace ProtobufDecodeProgrammer {
             initializer: () => ts.Expression;
             setter: () => ts.Expression;
         }) =>
-        (map: Metadata.Entry, tags: IMetadataTag[]): ts.Statement[] => {
+        (
+            map: Metadata.Entry,
+            required: boolean,
+            tags: IMetadataTag[],
+        ): ts.Statement[] => {
             const statements: ts.Statement[] = [
-                ts.factory.createExpressionStatement(props.initializer()),
+                ...(required
+                    ? []
+                    : [
+                          ts.factory.createExpressionStatement(
+                              props.initializer(),
+                          ),
+                      ]),
                 StatementFactory.constant(
                     "piece",
                     ts.factory.createAdd(
@@ -441,11 +602,7 @@ export namespace ProtobufDecodeProgrammer {
                         ),
                     ),
                 ),
-                StatementFactory.constant(
-                    "entry",
-                    ts.factory.createObjectLiteralExpression(),
-                ),
-                write_while_statement(project)(importer)({
+                ...write_object_function_body(project)(importer)({
                     condition: ts.factory.createLessThan(
                         ts.factory.createCallExpression(
                             IdentifierFactory.access(READER())("index"),

@@ -7,4 +7,5 @@ export const test_protobuf_validateEncode_DynamicTree =
         validateEncode: (input) =>
             typia.protobuf.validateEncode<DynamicTree>(input),
         message: typia.protobuf.message<DynamicTree>(),
+        decode: typia.protobuf.createDecode<DynamicTree>(),
     });

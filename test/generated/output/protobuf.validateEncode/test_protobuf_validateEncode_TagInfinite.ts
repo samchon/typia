@@ -200,4 +200,47 @@ export const test_protobuf_validateEncode_TagInfinite =
             })(input),
         message:
             'syntax = "proto3";\n\nmessage TagInfinite {\n    required double value = 1;\n    required double ranged = 2;\n    required double minimum = 3;\n    required double maximum = 4;\n    required double multipleOf = 5;\n    required int32 typed = 6;\n}',
+        decode: (input: Uint8Array): TagInfinite => {
+            const $Reader = (typia.protobuf.createDecode as any).Reader;
+            const $pdo0 = (reader: any, length: number = -1): any => {
+                length = length < 0 ? reader.size() : reader.index() + length;
+                const output = {
+                    value: undefined as any,
+                    ranged: undefined as any,
+                    minimum: undefined as any,
+                    maximum: undefined as any,
+                    multipleOf: undefined as any,
+                    typed: undefined as any,
+                };
+                while (reader.index() < length) {
+                    const tag = reader.uint32();
+                    switch (tag >>> 3) {
+                        case 1:
+                            output.value = reader.double();
+                            break;
+                        case 2:
+                            output.ranged = reader.double();
+                            break;
+                        case 3:
+                            output.minimum = reader.double();
+                            break;
+                        case 4:
+                            output.maximum = reader.double();
+                            break;
+                        case 5:
+                            output.multipleOf = reader.double();
+                            break;
+                        case 6:
+                            output.typed = reader.int32();
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                    }
+                }
+                return output;
+            };
+            const reader = new $Reader(input);
+            return $pdo0(reader);
+        },
     });

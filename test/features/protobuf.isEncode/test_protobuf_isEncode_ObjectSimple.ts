@@ -7,4 +7,5 @@ export const test_protobuf_isEncode_ObjectSimple = _test_protobuf_isEncode(
 )<ObjectSimple>(ObjectSimple)({
     isEncode: (input) => typia.protobuf.isEncode<ObjectSimple>(input),
     message: typia.protobuf.message<ObjectSimple>(),
+    decode: typia.protobuf.createDecode<ObjectSimple>(),
 });

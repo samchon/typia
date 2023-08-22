@@ -7,4 +7,5 @@ export const test_protobuf_encode_ObjectJsonTag = _test_protobuf_encode(
 )<ObjectJsonTag>(ObjectJsonTag)({
     encode: typia.protobuf.createEncode<ObjectJsonTag>(),
     message: typia.protobuf.message<ObjectJsonTag>(),
+    decode: typia.protobuf.createDecode<ObjectJsonTag>(),
 });

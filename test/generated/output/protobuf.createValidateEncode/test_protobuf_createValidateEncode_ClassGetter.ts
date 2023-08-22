@@ -109,4 +109,35 @@ export const test_protobuf_validateEncode_ClassGetter =
         },
         message:
             'syntax = "proto3";\n\nmessage ClassGetter {\n    message Person {\n        required string id = 1;\n        required string name = 2;\n        optional bool dead = 3;\n    }\n}',
+        decode: (input: Uint8Array): ClassGetter => {
+            const $Reader = (typia.protobuf.createDecode as any).Reader;
+            const $pdo0 = (reader: any, length: number = -1): any => {
+                length = length < 0 ? reader.size() : reader.index() + length;
+                const output = {
+                    id: "" as any,
+                    name: "" as any,
+                    dead: null as any,
+                };
+                while (reader.index() < length) {
+                    const tag = reader.uint32();
+                    switch (tag >>> 3) {
+                        case 1:
+                            output.id = reader.string();
+                            break;
+                        case 2:
+                            output.name = reader.string();
+                            break;
+                        case 3:
+                            output.dead = reader.bool();
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                    }
+                }
+                return output;
+            };
+            const reader = new $Reader(input);
+            return $pdo0(reader);
+        },
     });

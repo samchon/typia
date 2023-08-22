@@ -9,4 +9,5 @@ export const test_protobuf_validateEncode_ObjectJsonTag =
         validateEncode: (input) =>
             typia.protobuf.validateEncode<ObjectJsonTag>(input),
         message: typia.protobuf.message<ObjectJsonTag>(),
+        decode: typia.protobuf.createDecode<ObjectJsonTag>(),
     });

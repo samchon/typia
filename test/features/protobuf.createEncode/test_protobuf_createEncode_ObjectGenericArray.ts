@@ -7,4 +7,5 @@ export const test_protobuf_encode_ObjectGenericArray = _test_protobuf_encode(
 )<ObjectGenericArray>(ObjectGenericArray)({
     encode: typia.protobuf.createEncode<ObjectGenericArray>(),
     message: typia.protobuf.message<ObjectGenericArray>(),
+    decode: typia.protobuf.createDecode<ObjectGenericArray>(),
 });

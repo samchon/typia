@@ -8,4 +8,5 @@ export const test_protobuf_assertEncode_ObjectInternal =
     )({
         assertEncode: typia.protobuf.createAssertEncode<ObjectInternal>(),
         message: typia.protobuf.message<ObjectInternal>(),
+        decode: typia.protobuf.createDecode<ObjectInternal>(),
     });

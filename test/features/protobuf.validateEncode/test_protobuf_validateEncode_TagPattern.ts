@@ -7,4 +7,5 @@ export const test_protobuf_validateEncode_TagPattern =
         validateEncode: (input) =>
             typia.protobuf.validateEncode<TagPattern>(input),
         message: typia.protobuf.message<TagPattern>(),
+        decode: typia.protobuf.createDecode<TagPattern>(),
     });

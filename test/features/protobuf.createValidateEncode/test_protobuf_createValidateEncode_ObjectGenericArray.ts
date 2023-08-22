@@ -9,4 +9,5 @@ export const test_protobuf_validateEncode_ObjectGenericArray =
         validateEncode:
             typia.protobuf.createValidateEncode<ObjectGenericArray>(),
         message: typia.protobuf.message<ObjectGenericArray>(),
+        decode: typia.protobuf.createDecode<ObjectGenericArray>(),
     });

@@ -154,4 +154,104 @@ export const test_protobuf_isEncode_ObjectNullable = _test_protobuf_isEncode(
         })(input),
     message:
         'syntax = "proto3";\n\nmessage ObjectNullable {\n    repeated ObjectNullable.IProduct value = 1;\n    message IProduct {\n        required string name = 1;\n        required ObjectNullable.IManufacturer manufacturer = 2;\n        optional ObjectNullable.IBrand brand = 3;\n        oneof similar {\n            ObjectNullable.IBrand v4 = 4;\n            ObjectNullable.IManufacturer v5 = 5;\n        }\n    }\n\n    message IManufacturer {\n        required string type = 1;\n        required string name = 2;\n    }\n\n    message IBrand {\n        required string type = 1;\n        required string name = 2;\n    }\n}',
+    decode: (input: Uint8Array): ObjectNullable => {
+        const $Reader = (typia.protobuf.createDecode as any).Reader;
+        const $pdo0 = (reader: any, length: number = -1): any => {
+            length = length < 0 ? reader.size() : reader.index() + length;
+            const output = {
+                value: [] as any,
+            };
+            while (reader.index() < length) {
+                const tag = reader.uint32();
+                switch (tag >>> 3) {
+                    case 1:
+                        output.value.push($pdo1(reader, reader.uint32()));
+                        break;
+                    default:
+                        reader.skipType(tag & 7);
+                        break;
+                }
+            }
+            return output;
+        };
+        const $pdo1 = (reader: any, length: number = -1): any => {
+            length = length < 0 ? reader.size() : reader.index() + length;
+            const output = {
+                name: "" as any,
+                manufacturer: undefined as any,
+                brand: null as any,
+                similar: null as any,
+            };
+            while (reader.index() < length) {
+                const tag = reader.uint32();
+                switch (tag >>> 3) {
+                    case 1:
+                        output.name = reader.string();
+                        break;
+                    case 2:
+                        output.manufacturer = $pdo2(reader, reader.uint32());
+                        break;
+                    case 3:
+                        output.brand = $pdo3(reader, reader.uint32());
+                        break;
+                    case 4:
+                        output.similar = $pdo3(reader, reader.uint32());
+                        break;
+                    case 5:
+                        output.similar = $pdo2(reader, reader.uint32());
+                        break;
+                    default:
+                        reader.skipType(tag & 7);
+                        break;
+                }
+            }
+            return output;
+        };
+        const $pdo2 = (reader: any, length: number = -1): any => {
+            length = length < 0 ? reader.size() : reader.index() + length;
+            const output = {
+                type: undefined as any,
+                name: "" as any,
+            };
+            while (reader.index() < length) {
+                const tag = reader.uint32();
+                switch (tag >>> 3) {
+                    case 1:
+                        output.type = reader.string();
+                        break;
+                    case 2:
+                        output.name = reader.string();
+                        break;
+                    default:
+                        reader.skipType(tag & 7);
+                        break;
+                }
+            }
+            return output;
+        };
+        const $pdo3 = (reader: any, length: number = -1): any => {
+            length = length < 0 ? reader.size() : reader.index() + length;
+            const output = {
+                type: undefined as any,
+                name: "" as any,
+            };
+            while (reader.index() < length) {
+                const tag = reader.uint32();
+                switch (tag >>> 3) {
+                    case 1:
+                        output.type = reader.string();
+                        break;
+                    case 2:
+                        output.name = reader.string();
+                        break;
+                    default:
+                        reader.skipType(tag & 7);
+                        break;
+                }
+            }
+            return output;
+        };
+        const reader = new $Reader(input);
+        return $pdo0(reader);
+    },
 });

@@ -8,4 +8,5 @@ export const test_protobuf_isEncode_ClassPropertyAssignment =
     )({
         isEncode: typia.protobuf.createIsEncode<ClassPropertyAssignment>(),
         message: typia.protobuf.message<ClassPropertyAssignment>(),
+        decode: typia.protobuf.createDecode<ClassPropertyAssignment>(),
     });

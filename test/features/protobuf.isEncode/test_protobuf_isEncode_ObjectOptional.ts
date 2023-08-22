@@ -7,4 +7,5 @@ export const test_protobuf_isEncode_ObjectOptional = _test_protobuf_isEncode(
 )<ObjectOptional>(ObjectOptional)({
     isEncode: (input) => typia.protobuf.isEncode<ObjectOptional>(input),
     message: typia.protobuf.message<ObjectOptional>(),
+    decode: typia.protobuf.createDecode<ObjectOptional>(),
 });

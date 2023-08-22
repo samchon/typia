@@ -260,4 +260,265 @@ export const test_protobuf_encode_ArrayRecursiveUnionExplicitPointer =
             })(input),
         message:
             'syntax = "proto3";\n\nmessage ArrayRecursiveUnionExplicitPointer {\n    repeated ArrayRecursiveUnionExplicitPointer.IBucket value = 1;\n    message IBucket {\n        oneof value {\n            ArrayRecursiveUnionExplicitPointer.IDirectory v1 = 1;\n            ArrayRecursiveUnionExplicitPointer.IImageFile v2 = 2;\n            ArrayRecursiveUnionExplicitPointer.ITextFile v3 = 3;\n            ArrayRecursiveUnionExplicitPointer.IZipFile v4 = 4;\n            ArrayRecursiveUnionExplicitPointer.IShortcut v5 = 5;\n        }\n    }\n\n    message IDirectory {\n        required double id = 1;\n        required string name = 2;\n        required string path = 3;\n        repeated ArrayRecursiveUnionExplicitPointer.IBucket children = 4;\n        required string type = 5;\n    }\n\n    message IImageFile {\n        required double id = 1;\n        required string name = 2;\n        required string path = 3;\n        required double width = 4;\n        required double height = 5;\n        required string url = 6;\n        required double size = 7;\n        required string type = 8;\n        required string extension = 9;\n    }\n\n    message ITextFile {\n        required double id = 1;\n        required string name = 2;\n        required string path = 3;\n        required double size = 4;\n        required string content = 5;\n        required string type = 6;\n        required string extension = 7;\n    }\n\n    message IZipFile {\n        required double id = 1;\n        required string name = 2;\n        required string path = 3;\n        required double size = 4;\n        required double count = 5;\n        required string type = 6;\n        required string extension = 7;\n    }\n\n    message IShortcut {\n        required double id = 1;\n        required string name = 2;\n        required string path = 3;\n        required ArrayRecursiveUnionExplicitPointer.IBucket target = 4;\n        required string type = 5;\n        required string extension = 6;\n    }\n}',
+        decode: (input: Uint8Array): ArrayRecursiveUnionExplicitPointer => {
+            const $Reader = (typia.protobuf.createDecode as any).Reader;
+            const $pdo0 = (reader: any, length: number = -1): any => {
+                length = length < 0 ? reader.size() : reader.index() + length;
+                const output = {
+                    value: [] as any,
+                };
+                while (reader.index() < length) {
+                    const tag = reader.uint32();
+                    switch (tag >>> 3) {
+                        case 1:
+                            output.value.push($pdo1(reader, reader.uint32()));
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                    }
+                }
+                return output;
+            };
+            const $pdo1 = (reader: any, length: number = -1): any => {
+                length = length < 0 ? reader.size() : reader.index() + length;
+                const output = {
+                    value: undefined as any,
+                };
+                while (reader.index() < length) {
+                    const tag = reader.uint32();
+                    switch (tag >>> 3) {
+                        case 1:
+                            output.value = $pdo2(reader, reader.uint32());
+                            break;
+                        case 2:
+                            output.value = $pdo3(reader, reader.uint32());
+                            break;
+                        case 3:
+                            output.value = $pdo4(reader, reader.uint32());
+                            break;
+                        case 4:
+                            output.value = $pdo5(reader, reader.uint32());
+                            break;
+                        case 5:
+                            output.value = $pdo6(reader, reader.uint32());
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                    }
+                }
+                return output;
+            };
+            const $pdo2 = (reader: any, length: number = -1): any => {
+                length = length < 0 ? reader.size() : reader.index() + length;
+                const output = {
+                    id: undefined as any,
+                    name: "" as any,
+                    path: "" as any,
+                    children: [] as any,
+                    type: undefined as any,
+                };
+                while (reader.index() < length) {
+                    const tag = reader.uint32();
+                    switch (tag >>> 3) {
+                        case 1:
+                            output.id = reader.double();
+                            break;
+                        case 2:
+                            output.name = reader.string();
+                            break;
+                        case 3:
+                            output.path = reader.string();
+                            break;
+                        case 4:
+                            output.children.push(
+                                $pdo1(reader, reader.uint32()),
+                            );
+                            break;
+                        case 5:
+                            output.type = reader.string();
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                    }
+                }
+                return output;
+            };
+            const $pdo3 = (reader: any, length: number = -1): any => {
+                length = length < 0 ? reader.size() : reader.index() + length;
+                const output = {
+                    id: undefined as any,
+                    name: "" as any,
+                    path: "" as any,
+                    width: undefined as any,
+                    height: undefined as any,
+                    url: "" as any,
+                    size: undefined as any,
+                    type: undefined as any,
+                    extension: undefined as any,
+                };
+                while (reader.index() < length) {
+                    const tag = reader.uint32();
+                    switch (tag >>> 3) {
+                        case 1:
+                            output.id = reader.double();
+                            break;
+                        case 2:
+                            output.name = reader.string();
+                            break;
+                        case 3:
+                            output.path = reader.string();
+                            break;
+                        case 4:
+                            output.width = reader.double();
+                            break;
+                        case 5:
+                            output.height = reader.double();
+                            break;
+                        case 6:
+                            output.url = reader.string();
+                            break;
+                        case 7:
+                            output.size = reader.double();
+                            break;
+                        case 8:
+                            output.type = reader.string();
+                            break;
+                        case 9:
+                            output.extension = reader.string();
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                    }
+                }
+                return output;
+            };
+            const $pdo4 = (reader: any, length: number = -1): any => {
+                length = length < 0 ? reader.size() : reader.index() + length;
+                const output = {
+                    id: undefined as any,
+                    name: "" as any,
+                    path: "" as any,
+                    size: undefined as any,
+                    content: "" as any,
+                    type: undefined as any,
+                    extension: undefined as any,
+                };
+                while (reader.index() < length) {
+                    const tag = reader.uint32();
+                    switch (tag >>> 3) {
+                        case 1:
+                            output.id = reader.double();
+                            break;
+                        case 2:
+                            output.name = reader.string();
+                            break;
+                        case 3:
+                            output.path = reader.string();
+                            break;
+                        case 4:
+                            output.size = reader.double();
+                            break;
+                        case 5:
+                            output.content = reader.string();
+                            break;
+                        case 6:
+                            output.type = reader.string();
+                            break;
+                        case 7:
+                            output.extension = reader.string();
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                    }
+                }
+                return output;
+            };
+            const $pdo5 = (reader: any, length: number = -1): any => {
+                length = length < 0 ? reader.size() : reader.index() + length;
+                const output = {
+                    id: undefined as any,
+                    name: "" as any,
+                    path: "" as any,
+                    size: undefined as any,
+                    count: undefined as any,
+                    type: undefined as any,
+                    extension: undefined as any,
+                };
+                while (reader.index() < length) {
+                    const tag = reader.uint32();
+                    switch (tag >>> 3) {
+                        case 1:
+                            output.id = reader.double();
+                            break;
+                        case 2:
+                            output.name = reader.string();
+                            break;
+                        case 3:
+                            output.path = reader.string();
+                            break;
+                        case 4:
+                            output.size = reader.double();
+                            break;
+                        case 5:
+                            output.count = reader.double();
+                            break;
+                        case 6:
+                            output.type = reader.string();
+                            break;
+                        case 7:
+                            output.extension = reader.string();
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                    }
+                }
+                return output;
+            };
+            const $pdo6 = (reader: any, length: number = -1): any => {
+                length = length < 0 ? reader.size() : reader.index() + length;
+                const output = {
+                    id: undefined as any,
+                    name: "" as any,
+                    path: "" as any,
+                    target: undefined as any,
+                    type: undefined as any,
+                    extension: undefined as any,
+                };
+                while (reader.index() < length) {
+                    const tag = reader.uint32();
+                    switch (tag >>> 3) {
+                        case 1:
+                            output.id = reader.double();
+                            break;
+                        case 2:
+                            output.name = reader.string();
+                            break;
+                        case 3:
+                            output.path = reader.string();
+                            break;
+                        case 4:
+                            output.target = $pdo1(reader, reader.uint32());
+                            break;
+                        case 5:
+                            output.type = reader.string();
+                            break;
+                        case 6:
+                            output.extension = reader.string();
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                    }
+                }
+                return output;
+            };
+            const reader = new $Reader(input);
+            return $pdo0(reader);
+        },
     });

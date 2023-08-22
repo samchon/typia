@@ -7,4 +7,5 @@ export const test_protobuf_encode_TagPattern = _test_protobuf_encode(
 )<TagPattern>(TagPattern)({
     encode: (input) => typia.protobuf.encode<TagPattern>(input),
     message: typia.protobuf.message<TagPattern>(),
+    decode: typia.protobuf.createDecode<TagPattern>(),
 });

@@ -7,4 +7,5 @@ export const test_protobuf_isEncode_TagStep = _test_protobuf_isEncode(
 )<TagStep>(TagStep)({
     isEncode: typia.protobuf.createIsEncode<TagStep>(),
     message: typia.protobuf.message<TagStep>(),
+    decode: typia.protobuf.createDecode<TagStep>(),
 });

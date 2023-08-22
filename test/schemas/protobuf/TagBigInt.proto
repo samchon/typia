@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+message TagBigInt {
+    required int64 value = 1;
+    required int64 ranged = 2;
+    required int64 minimum = 3;
+    required int64 maximum = 4;
+    required int64 multipleOf = 5;
+}

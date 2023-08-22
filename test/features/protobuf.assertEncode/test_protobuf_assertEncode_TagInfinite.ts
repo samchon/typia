@@ -7,4 +7,5 @@ export const test_protobuf_assertEncode_TagInfinite =
         assertEncode: (input) =>
             typia.protobuf.assertEncode<TagInfinite>(input),
         message: typia.protobuf.message<TagInfinite>(),
+        decode: typia.protobuf.createDecode<TagInfinite>(),
     });

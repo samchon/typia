@@ -7,4 +7,5 @@ export const test_protobuf_assertEncode_TagRange = _test_protobuf_assertEncode(
 )<TagRange>(TagRange)({
     assertEncode: typia.protobuf.createAssertEncode<TagRange>(),
     message: typia.protobuf.message<TagRange>(),
+    decode: typia.protobuf.createDecode<TagRange>(),
 });

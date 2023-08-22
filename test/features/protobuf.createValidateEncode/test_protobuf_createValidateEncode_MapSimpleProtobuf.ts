@@ -9,4 +9,5 @@ export const test_protobuf_validateEncode_MapSimpleProtobuf =
         validateEncode:
             typia.protobuf.createValidateEncode<MapSimpleProtobuf>(),
         message: typia.protobuf.message<MapSimpleProtobuf>(),
+        decode: typia.protobuf.createDecode<MapSimpleProtobuf>(),
     });

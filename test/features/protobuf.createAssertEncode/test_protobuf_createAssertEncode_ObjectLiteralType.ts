@@ -8,4 +8,5 @@ export const test_protobuf_assertEncode_ObjectLiteralType =
     )({
         assertEncode: typia.protobuf.createAssertEncode<ObjectLiteralType>(),
         message: typia.protobuf.message<ObjectLiteralType>(),
+        decode: typia.protobuf.createDecode<ObjectLiteralType>(),
     });

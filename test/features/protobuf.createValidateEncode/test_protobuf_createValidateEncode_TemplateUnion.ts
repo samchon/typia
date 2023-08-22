@@ -8,4 +8,5 @@ export const test_protobuf_validateEncode_TemplateUnion =
     )({
         validateEncode: typia.protobuf.createValidateEncode<TemplateUnion>(),
         message: typia.protobuf.message<TemplateUnion>(),
+        decode: typia.protobuf.createDecode<TemplateUnion>(),
     });

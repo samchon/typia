@@ -8,4 +8,5 @@ export const test_protobuf_assertEncode_MapSimpleProtobuf =
     )({
         assertEncode: typia.protobuf.createAssertEncode<MapSimpleProtobuf>(),
         message: typia.protobuf.message<MapSimpleProtobuf>(),
+        decode: typia.protobuf.createDecode<MapSimpleProtobuf>(),
     });

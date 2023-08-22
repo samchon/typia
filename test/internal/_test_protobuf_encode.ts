@@ -1,11 +1,16 @@
 import pjs from "protobufjs";
 
 import { TestStructure } from "../helpers/TestStructure";
+import { protobuf_equal_to } from "../helpers/protobuf_equal_to";
 
 export const _test_protobuf_encode =
     (name: string) =>
     <T extends object>(factory: TestStructure<T>) =>
-    (functor: { message: string; encode: (input: T) => Uint8Array }) =>
+    (functor: {
+        message: string;
+        encode: (input: T) => Uint8Array;
+        decode: (input: Uint8Array) => T;
+    }) =>
     () => {
         const data: T = factory.generate();
         const result: Uint8Array = (() => {
@@ -19,24 +24,42 @@ export const _test_protobuf_encode =
             }
         })();
 
+        const equal = (x: Uint8Array, y: Uint8Array) =>
+            x.length === y.length &&
+            (() => {
+                for (let i: number = 0; i < x.length; i++)
+                    if (x[i] !== y[i]) return false;
+                return true;
+            })();
+
+        // COMPARE WITH PROTOBUF.JS
         if (
             functor.message.indexOf("oneof") === -1 &&
             functor.message.indexOf("int64") === -1
         ) {
-            const exected: Uint8Array = google(functor.message)(data);
-            if (
-                result.length !== exected.length &&
-                result.some((byte, i) => byte !== exected[i])
-            ) {
-                console.log(result.length, exected.length);
+            const expected: Uint8Array = protobufJS(functor.message)(data);
+            if (equal(result, expected) === false) {
+                console.log(result.length, expected.length);
                 throw new Error(
                     `Bug on typia.protobuf.encode(): invalid encoding happened on ${name} type.`,
                 );
             }
         }
+
+        // COMPARE WITH DECODER
+        const decoded: T = functor.decode(result);
+        const again: Uint8Array = functor.encode(decoded);
+
+        if (
+            protobuf_equal_to(data, decoded) === false ||
+            equal(result, again) === false
+        )
+            throw new Error(
+                `Bug on typia.protobuf.encode(): failed to decode binary from encoded ${name} type.`,
+            );
     };
 
-const google =
+const protobufJS =
     (message: string) =>
     <T extends object>(data: T): Uint8Array => {
         const name: string = (() => {

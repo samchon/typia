@@ -6,4 +6,5 @@ export const test_protobuf_validateEncode_TagDefault =
     _test_protobuf_validateEncode("TagDefault")<TagDefault>(TagDefault)({
         validateEncode: typia.protobuf.createValidateEncode<TagDefault>(),
         message: typia.protobuf.message<TagDefault>(),
+        decode: typia.protobuf.createDecode<TagDefault>(),
     });

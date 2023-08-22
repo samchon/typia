@@ -4,10 +4,15 @@ import { _test_protobuf_encode } from "./_test_protobuf_encode";
 export const _test_protobuf_isEncode =
     (name: string) =>
     <T extends object>(factory: TestStructure<T>) =>
-    (functor: { message: string; isEncode: (input: T) => Uint8Array | null }) =>
+    (functor: {
+        message: string;
+        isEncode: (input: T) => Uint8Array | null;
+        decode: (input: Uint8Array) => T;
+    }) =>
     () => {
         _test_protobuf_encode(name)(factory)({
             message: functor.message,
+            decode: functor.decode,
             encode: (input) => {
                 const binary: Uint8Array | null = functor.isEncode(input);
                 if (binary === null) throw new Error();

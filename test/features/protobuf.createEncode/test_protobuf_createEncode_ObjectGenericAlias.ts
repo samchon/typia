@@ -7,4 +7,5 @@ export const test_protobuf_encode_ObjectGenericAlias = _test_protobuf_encode(
 )<ObjectGenericAlias>(ObjectGenericAlias)({
     encode: typia.protobuf.createEncode<ObjectGenericAlias>(),
     message: typia.protobuf.message<ObjectGenericAlias>(),
+    decode: typia.protobuf.createDecode<ObjectGenericAlias>(),
 });

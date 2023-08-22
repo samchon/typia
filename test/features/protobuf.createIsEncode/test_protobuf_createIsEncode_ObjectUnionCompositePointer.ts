@@ -8,4 +8,5 @@ export const test_protobuf_isEncode_ObjectUnionCompositePointer =
     )<ObjectUnionCompositePointer>(ObjectUnionCompositePointer)({
         isEncode: typia.protobuf.createIsEncode<ObjectUnionCompositePointer>(),
         message: typia.protobuf.message<ObjectUnionCompositePointer>(),
+        decode: typia.protobuf.createDecode<ObjectUnionCompositePointer>(),
     });

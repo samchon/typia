@@ -7,4 +7,5 @@ export const test_protobuf_assertEncode_TagArray = _test_protobuf_assertEncode(
 )<TagArray>(TagArray)({
     assertEncode: (input) => typia.protobuf.assertEncode<TagArray>(input),
     message: typia.protobuf.message<TagArray>(),
+    decode: typia.protobuf.createDecode<TagArray>(),
 });

@@ -7,4 +7,5 @@ export const test_protobuf_encode_ObjectRecursive = _test_protobuf_encode(
 )<ObjectRecursive>(ObjectRecursive)({
     encode: (input) => typia.protobuf.encode<ObjectRecursive>(input),
     message: typia.protobuf.message<ObjectRecursive>(),
+    decode: typia.protobuf.createDecode<ObjectRecursive>(),
 });

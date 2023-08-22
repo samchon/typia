@@ -9,4 +9,5 @@ export const test_protobuf_assertEncode_TagRangeBigInt =
         assertEncode: (input) =>
             typia.protobuf.assertEncode<TagRangeBigInt>(input),
         message: typia.protobuf.message<TagRangeBigInt>(),
+        decode: typia.protobuf.createDecode<TagRangeBigInt>(),
     });

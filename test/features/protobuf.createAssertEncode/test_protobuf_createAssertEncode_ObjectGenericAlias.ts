@@ -8,4 +8,5 @@ export const test_protobuf_assertEncode_ObjectGenericAlias =
     )({
         assertEncode: typia.protobuf.createAssertEncode<ObjectGenericAlias>(),
         message: typia.protobuf.message<ObjectGenericAlias>(),
+        decode: typia.protobuf.createDecode<ObjectGenericAlias>(),
     });

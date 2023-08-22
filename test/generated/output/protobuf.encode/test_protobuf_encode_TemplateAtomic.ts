@@ -45,4 +45,55 @@ export const test_protobuf_encode_TemplateAtomic = _test_protobuf_encode(
         })(input),
     message:
         'syntax = "proto3";\n\nmessage TemplateAtomic {\n    required string prefix = 1;\n    required string postfix = 2;\n    required string middle_string = 3;\n    required string middle_string_empty = 4;\n    required string middle_numeric = 5;\n    required string middle_boolean = 6;\n    required string ipv4 = 7;\n    required string email = 8;\n}',
+    decode: (input: Uint8Array): TemplateAtomic => {
+        const $Reader = (typia.protobuf.createDecode as any).Reader;
+        const $pdo0 = (reader: any, length: number = -1): any => {
+            length = length < 0 ? reader.size() : reader.index() + length;
+            const output = {
+                prefix: undefined as any,
+                postfix: undefined as any,
+                middle_string: undefined as any,
+                middle_string_empty: undefined as any,
+                middle_numeric: undefined as any,
+                middle_boolean: undefined as any,
+                ipv4: undefined as any,
+                email: undefined as any,
+            };
+            while (reader.index() < length) {
+                const tag = reader.uint32();
+                switch (tag >>> 3) {
+                    case 1:
+                        output.prefix = reader.string();
+                        break;
+                    case 2:
+                        output.postfix = reader.string();
+                        break;
+                    case 3:
+                        output.middle_string = reader.string();
+                        break;
+                    case 4:
+                        output.middle_string_empty = reader.string();
+                        break;
+                    case 5:
+                        output.middle_numeric = reader.string();
+                        break;
+                    case 6:
+                        output.middle_boolean = reader.string();
+                        break;
+                    case 7:
+                        output.ipv4 = reader.string();
+                        break;
+                    case 8:
+                        output.email = reader.string();
+                        break;
+                    default:
+                        reader.skipType(tag & 7);
+                        break;
+                }
+            }
+            return output;
+        };
+        const reader = new $Reader(input);
+        return $pdo0(reader);
+    },
 });

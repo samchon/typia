@@ -8,4 +8,5 @@ export const test_protobuf_validateEncode_TemplateConstant =
     )({
         validateEncode: typia.protobuf.createValidateEncode<TemplateConstant>(),
         message: typia.protobuf.message<TemplateConstant>(),
+        decode: typia.protobuf.createDecode<TemplateConstant>(),
     });

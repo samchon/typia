@@ -51,4 +51,43 @@ export const test_protobuf_isEncode_ClassPropertyAssignment =
         },
         message:
             'syntax = "proto3";\n\nmessage ClassPropertyAssignment {\n    required double id = 1;\n    required string name = 2;\n    required string note = 3;\n    required bool editable = 4;\n    required bool incremental = 5;\n}',
+        decode: (input: Uint8Array): ClassPropertyAssignment => {
+            const $Reader = (typia.protobuf.createDecode as any).Reader;
+            const $pdo0 = (reader: any, length: number = -1): any => {
+                length = length < 0 ? reader.size() : reader.index() + length;
+                const output = {
+                    id: undefined as any,
+                    name: "" as any,
+                    note: undefined as any,
+                    editable: undefined as any,
+                    incremental: undefined as any,
+                };
+                while (reader.index() < length) {
+                    const tag = reader.uint32();
+                    switch (tag >>> 3) {
+                        case 1:
+                            output.id = reader.double();
+                            break;
+                        case 2:
+                            output.name = reader.string();
+                            break;
+                        case 3:
+                            output.note = reader.string();
+                            break;
+                        case 4:
+                            output.editable = reader.bool();
+                            break;
+                        case 5:
+                            output.incremental = reader.bool();
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                    }
+                }
+                return output;
+            };
+            const reader = new $Reader(input);
+            return $pdo0(reader);
+        },
     });

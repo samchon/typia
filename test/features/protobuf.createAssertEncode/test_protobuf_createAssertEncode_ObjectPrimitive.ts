@@ -8,4 +8,5 @@ export const test_protobuf_assertEncode_ObjectPrimitive =
     )({
         assertEncode: typia.protobuf.createAssertEncode<ObjectPrimitive>(),
         message: typia.protobuf.message<ObjectPrimitive>(),
+        decode: typia.protobuf.createDecode<ObjectPrimitive>(),
     });

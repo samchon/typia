@@ -1,6 +1,5 @@
 import typia from "typia";
 
-import { Spoiler } from "../helpers/Spoiler";
 import { TestStructure } from "../helpers/TestStructure";
 import { primitive_equal_to } from "../helpers/primitive_equal_to";
 import { _test_protobuf_encode } from "./_test_protobuf_encode";
@@ -11,10 +10,12 @@ export const _test_protobuf_validateEncode =
     (functor: {
         message: string;
         validateEncode: (input: T) => typia.IValidation<Uint8Array>;
+        decode: (input: Uint8Array) => T;
     }) =>
     () => {
         _test_protobuf_encode(name)(factory)({
             message: functor.message,
+            decode: functor.decode,
             encode: (input: T) => {
                 const result: typia.IValidation<Uint8Array> =
                     functor.validateEncode(input);

@@ -9,4 +9,5 @@ export const test_protobuf_validateEncode_ArraySimpleProtobuf =
         validateEncode:
             typia.protobuf.createValidateEncode<ArraySimpleProtobuf>(),
         message: typia.protobuf.message<ArraySimpleProtobuf>(),
+        decode: typia.protobuf.createDecode<ArraySimpleProtobuf>(),
     });

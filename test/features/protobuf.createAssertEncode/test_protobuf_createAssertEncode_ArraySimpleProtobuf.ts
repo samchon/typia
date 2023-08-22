@@ -8,4 +8,5 @@ export const test_protobuf_assertEncode_ArraySimpleProtobuf =
     )({
         assertEncode: typia.protobuf.createAssertEncode<ArraySimpleProtobuf>(),
         message: typia.protobuf.message<ArraySimpleProtobuf>(),
+        decode: typia.protobuf.createDecode<ArraySimpleProtobuf>(),
     });

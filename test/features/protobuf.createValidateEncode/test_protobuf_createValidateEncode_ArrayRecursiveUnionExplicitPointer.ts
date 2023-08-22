@@ -9,4 +9,5 @@ export const test_protobuf_validateEncode_ArrayRecursiveUnionExplicitPointer =
         validateEncode:
             typia.protobuf.createValidateEncode<ArrayRecursiveUnionExplicitPointer>(),
         message: typia.protobuf.message<ArrayRecursiveUnionExplicitPointer>(),
+        decode: typia.protobuf.createDecode<ArrayRecursiveUnionExplicitPointer>(),
     });

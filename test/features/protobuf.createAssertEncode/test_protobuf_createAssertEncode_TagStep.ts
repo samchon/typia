@@ -7,4 +7,5 @@ export const test_protobuf_assertEncode_TagStep = _test_protobuf_assertEncode(
 )<TagStep>(TagStep)({
     assertEncode: typia.protobuf.createAssertEncode<TagStep>(),
     message: typia.protobuf.message<TagStep>(),
+    decode: typia.protobuf.createDecode<TagStep>(),
 });

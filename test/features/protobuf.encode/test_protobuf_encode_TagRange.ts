@@ -7,4 +7,5 @@ export const test_protobuf_encode_TagRange = _test_protobuf_encode(
 )<TagRange>(TagRange)({
     encode: (input) => typia.protobuf.encode<TagRange>(input),
     message: typia.protobuf.message<TagRange>(),
+    decode: typia.protobuf.createDecode<TagRange>(),
 });

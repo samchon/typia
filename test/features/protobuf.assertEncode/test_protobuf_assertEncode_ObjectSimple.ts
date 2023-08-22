@@ -7,4 +7,5 @@ export const test_protobuf_assertEncode_ObjectSimple =
         assertEncode: (input) =>
             typia.protobuf.assertEncode<ObjectSimple>(input),
         message: typia.protobuf.message<ObjectSimple>(),
+        decode: typia.protobuf.createDecode<ObjectSimple>(),
     });

@@ -7,4 +7,5 @@ export const test_protobuf_isEncode_DynamicTree = _test_protobuf_isEncode(
 )<DynamicTree>(DynamicTree)({
     isEncode: (input) => typia.protobuf.isEncode<DynamicTree>(input),
     message: typia.protobuf.message<DynamicTree>(),
+    decode: typia.protobuf.createDecode<DynamicTree>(),
 });

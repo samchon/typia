@@ -7,4 +7,5 @@ export const test_protobuf_assertEncode_TagLength = _test_protobuf_assertEncode(
 )<TagLength>(TagLength)({
     assertEncode: typia.protobuf.createAssertEncode<TagLength>(),
     message: typia.protobuf.message<TagLength>(),
+    decode: typia.protobuf.createDecode<TagLength>(),
 });

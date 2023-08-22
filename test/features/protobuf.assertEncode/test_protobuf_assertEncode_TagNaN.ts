@@ -7,4 +7,5 @@ export const test_protobuf_assertEncode_TagNaN = _test_protobuf_assertEncode(
 )<TagNaN>(TagNaN)({
     assertEncode: (input) => typia.protobuf.assertEncode<TagNaN>(input),
     message: typia.protobuf.message<TagNaN>(),
+    decode: typia.protobuf.createDecode<TagNaN>(),
 });

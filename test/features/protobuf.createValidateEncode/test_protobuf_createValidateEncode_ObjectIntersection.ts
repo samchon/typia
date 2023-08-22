@@ -9,4 +9,5 @@ export const test_protobuf_validateEncode_ObjectIntersection =
         validateEncode:
             typia.protobuf.createValidateEncode<ObjectIntersection>(),
         message: typia.protobuf.message<ObjectIntersection>(),
+        decode: typia.protobuf.createDecode<ObjectIntersection>(),
     });

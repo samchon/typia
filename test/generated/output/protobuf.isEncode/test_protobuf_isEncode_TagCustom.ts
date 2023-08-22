@@ -60,4 +60,39 @@ export const test_protobuf_isEncode_TagCustom = _test_protobuf_isEncode(
         })(input),
     message:
         'syntax = "proto3";\n\nmessage TagCustom {\n    required string id = 1;\n    required string dollar = 2;\n    required string postfix = 3;\n    required double log = 4;\n}',
+    decode: (input: Uint8Array): TagCustom => {
+        const $Reader = (typia.protobuf.createDecode as any).Reader;
+        const $pdo0 = (reader: any, length: number = -1): any => {
+            length = length < 0 ? reader.size() : reader.index() + length;
+            const output = {
+                id: "" as any,
+                dollar: "" as any,
+                postfix: "" as any,
+                log: undefined as any,
+            };
+            while (reader.index() < length) {
+                const tag = reader.uint32();
+                switch (tag >>> 3) {
+                    case 1:
+                        output.id = reader.string();
+                        break;
+                    case 2:
+                        output.dollar = reader.string();
+                        break;
+                    case 3:
+                        output.postfix = reader.string();
+                        break;
+                    case 4:
+                        output.log = reader.double();
+                        break;
+                    default:
+                        reader.skipType(tag & 7);
+                        break;
+                }
+            }
+            return output;
+        };
+        const reader = new $Reader(input);
+        return $pdo0(reader);
+    },
 });

@@ -9,4 +9,5 @@ export const test_protobuf_assertEncode_ObjectHierarchical =
         assertEncode: (input) =>
             typia.protobuf.assertEncode<ObjectHierarchical>(input),
         message: typia.protobuf.message<ObjectHierarchical>(),
+        decode: typia.protobuf.createDecode<ObjectHierarchical>(),
     });

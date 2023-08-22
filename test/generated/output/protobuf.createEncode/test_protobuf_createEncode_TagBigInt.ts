@@ -35,4 +35,43 @@ export const test_protobuf_encode_TagBigInt = _test_protobuf_encode(
     },
     message:
         'syntax = "proto3";\n\nmessage TagBigInt {\n    required int64 value = 1;\n    required int64 ranged = 2;\n    required int64 minimum = 3;\n    required int64 maximum = 4;\n    required int64 multipleOf = 5;\n}',
+    decode: (input: Uint8Array): TagBigInt => {
+        const $Reader = (typia.protobuf.createDecode as any).Reader;
+        const $pdo0 = (reader: any, length: number = -1): any => {
+            length = length < 0 ? reader.size() : reader.index() + length;
+            const output = {
+                value: undefined as any,
+                ranged: undefined as any,
+                minimum: undefined as any,
+                maximum: undefined as any,
+                multipleOf: undefined as any,
+            };
+            while (reader.index() < length) {
+                const tag = reader.uint32();
+                switch (tag >>> 3) {
+                    case 1:
+                        output.value = reader.int64();
+                        break;
+                    case 2:
+                        output.ranged = reader.int64();
+                        break;
+                    case 3:
+                        output.minimum = reader.int64();
+                        break;
+                    case 4:
+                        output.maximum = reader.int64();
+                        break;
+                    case 5:
+                        output.multipleOf = reader.int64();
+                        break;
+                    default:
+                        reader.skipType(tag & 7);
+                        break;
+                }
+            }
+            return output;
+        };
+        const reader = new $Reader(input);
+        return $pdo0(reader);
+    },
 });

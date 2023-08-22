@@ -29,4 +29,35 @@ export const test_protobuf_encode_ObjectIntersection = _test_protobuf_encode(
     },
     message:
         'syntax = "proto3";\n\nmessage ObjectIntersection {\n    required string email = 1;\n    required string name = 2;\n    required bool vulnerable = 3;\n}',
+    decode: (input: Uint8Array): ObjectIntersection => {
+        const $Reader = (typia.protobuf.createDecode as any).Reader;
+        const $pdo0 = (reader: any, length: number = -1): any => {
+            length = length < 0 ? reader.size() : reader.index() + length;
+            const output = {
+                email: "" as any,
+                name: "" as any,
+                vulnerable: undefined as any,
+            };
+            while (reader.index() < length) {
+                const tag = reader.uint32();
+                switch (tag >>> 3) {
+                    case 1:
+                        output.email = reader.string();
+                        break;
+                    case 2:
+                        output.name = reader.string();
+                        break;
+                    case 3:
+                        output.vulnerable = reader.bool();
+                        break;
+                    default:
+                        reader.skipType(tag & 7);
+                        break;
+                }
+            }
+            return output;
+        };
+        const reader = new $Reader(input);
+        return $pdo0(reader);
+    },
 });

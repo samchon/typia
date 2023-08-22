@@ -7,4 +7,5 @@ export const test_protobuf_encode_TagRangeBigInt = _test_protobuf_encode(
 )<TagRangeBigInt>(TagRangeBigInt)({
     encode: typia.protobuf.createEncode<TagRangeBigInt>(),
     message: typia.protobuf.message<TagRangeBigInt>(),
+    decode: typia.protobuf.createDecode<TagRangeBigInt>(),
 });

@@ -59,4 +59,39 @@ export const test_protobuf_isEncode_ObjectJsonTag = _test_protobuf_isEncode(
     },
     message:
         'syntax = "proto3";\n\nmessage ObjectJsonTag {\n    required string vulnerable = 1;\n    required string description = 2;\n    required string title = 3;\n    required string complicate_title = 4;\n}',
+    decode: (input: Uint8Array): ObjectJsonTag => {
+        const $Reader = (typia.protobuf.createDecode as any).Reader;
+        const $pdo0 = (reader: any, length: number = -1): any => {
+            length = length < 0 ? reader.size() : reader.index() + length;
+            const output = {
+                vulnerable: "" as any,
+                description: "" as any,
+                title: "" as any,
+                complicate_title: "" as any,
+            };
+            while (reader.index() < length) {
+                const tag = reader.uint32();
+                switch (tag >>> 3) {
+                    case 1:
+                        output.vulnerable = reader.string();
+                        break;
+                    case 2:
+                        output.description = reader.string();
+                        break;
+                    case 3:
+                        output.title = reader.string();
+                        break;
+                    case 4:
+                        output.complicate_title = reader.string();
+                        break;
+                    default:
+                        reader.skipType(tag & 7);
+                        break;
+                }
+            }
+            return output;
+        };
+        const reader = new $Reader(input);
+        return $pdo0(reader);
+    },
 });

@@ -8,4 +8,5 @@ export const test_protobuf_validateEncode_ObjectRecursive =
     )({
         validateEncode: typia.protobuf.createValidateEncode<ObjectRecursive>(),
         message: typia.protobuf.message<ObjectRecursive>(),
+        decode: typia.protobuf.createDecode<ObjectRecursive>(),
     });

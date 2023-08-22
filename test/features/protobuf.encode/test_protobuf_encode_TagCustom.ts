@@ -7,4 +7,5 @@ export const test_protobuf_encode_TagCustom = _test_protobuf_encode(
 )<TagCustom>(TagCustom)({
     encode: (input) => typia.protobuf.encode<TagCustom>(input),
     message: typia.protobuf.message<TagCustom>(),
+    decode: typia.protobuf.createDecode<TagCustom>(),
 });

@@ -7,4 +7,5 @@ export const test_protobuf_isEncode_TemplateConstant = _test_protobuf_isEncode(
 )<TemplateConstant>(TemplateConstant)({
     isEncode: typia.protobuf.createIsEncode<TemplateConstant>(),
     message: typia.protobuf.message<TemplateConstant>(),
+    decode: typia.protobuf.createDecode<TemplateConstant>(),
 });

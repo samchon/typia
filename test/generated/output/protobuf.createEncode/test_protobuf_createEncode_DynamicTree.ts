@@ -58,4 +58,59 @@ export const test_protobuf_encode_DynamicTree = _test_protobuf_encode(
     },
     message:
         'syntax = "proto3";\n\nmessage DynamicTree {\n    required string id = 1;\n    required double sequence = 2;\n    map<string, DynamicTree> children = 3;\n}',
+    decode: (input: Uint8Array): DynamicTree => {
+        const $Reader = (typia.protobuf.createDecode as any).Reader;
+        const $pdo0 = (reader: any, length: number = -1): any => {
+            length = length < 0 ? reader.size() : reader.index() + length;
+            const output = {
+                id: "" as any,
+                sequence: undefined as any,
+                children: {} as any,
+            };
+            while (reader.index() < length) {
+                const tag = reader.uint32();
+                switch (tag >>> 3) {
+                    case 1:
+                        output.id = reader.string();
+                        break;
+                    case 2:
+                        output.sequence = reader.double();
+                        break;
+                    case 3:
+                        (() => {
+                            const piece = reader.index() + reader.uint32();
+                            const entry = {
+                                key: "" as any,
+                                value: undefined as any,
+                            };
+                            while (reader.index() < piece) {
+                                const kind = reader.uint32();
+                                switch (kind >>> 3) {
+                                    case 1:
+                                        entry.key = reader.string();
+                                        break;
+                                    case 2:
+                                        entry.value = $pdo0(
+                                            reader,
+                                            reader.uint32(),
+                                        );
+                                        break;
+                                    default:
+                                        reader.skipType(kind & 7);
+                                        break;
+                                }
+                            }
+                            output.children[entry.key] = entry.value;
+                        })();
+                        break;
+                    default:
+                        reader.skipType(tag & 7);
+                        break;
+                }
+            }
+            return output;
+        };
+        const reader = new $Reader(input);
+        return $pdo0(reader);
+    },
 });

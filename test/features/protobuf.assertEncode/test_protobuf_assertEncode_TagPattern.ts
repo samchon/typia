@@ -6,4 +6,5 @@ export const test_protobuf_assertEncode_TagPattern =
     _test_protobuf_assertEncode("TagPattern")<TagPattern>(TagPattern)({
         assertEncode: (input) => typia.protobuf.assertEncode<TagPattern>(input),
         message: typia.protobuf.message<TagPattern>(),
+        decode: typia.protobuf.createDecode<TagPattern>(),
     });

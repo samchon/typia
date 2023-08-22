@@ -7,4 +7,5 @@ export const test_protobuf_isEncode_ObjectJsonTag = _test_protobuf_isEncode(
 )<ObjectJsonTag>(ObjectJsonTag)({
     isEncode: (input) => typia.protobuf.isEncode<ObjectJsonTag>(input),
     message: typia.protobuf.message<ObjectJsonTag>(),
+    decode: typia.protobuf.createDecode<ObjectJsonTag>(),
 });

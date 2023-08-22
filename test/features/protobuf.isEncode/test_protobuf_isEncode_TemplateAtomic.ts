@@ -7,4 +7,5 @@ export const test_protobuf_isEncode_TemplateAtomic = _test_protobuf_isEncode(
 )<TemplateAtomic>(TemplateAtomic)({
     isEncode: (input) => typia.protobuf.isEncode<TemplateAtomic>(input),
     message: typia.protobuf.message<TemplateAtomic>(),
+    decode: typia.protobuf.createDecode<TemplateAtomic>(),
 });

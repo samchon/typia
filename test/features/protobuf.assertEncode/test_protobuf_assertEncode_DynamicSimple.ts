@@ -7,4 +7,5 @@ export const test_protobuf_assertEncode_DynamicSimple =
         assertEncode: (input) =>
             typia.protobuf.assertEncode<DynamicSimple>(input),
         message: typia.protobuf.message<DynamicSimple>(),
+        decode: typia.protobuf.createDecode<DynamicSimple>(),
     });

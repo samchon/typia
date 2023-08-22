@@ -7,4 +7,5 @@ export const test_protobuf_isEncode_ArrayRecursive = _test_protobuf_isEncode(
 )<ArrayRecursive>(ArrayRecursive)({
     isEncode: typia.protobuf.createIsEncode<ArrayRecursive>(),
     message: typia.protobuf.message<ArrayRecursive>(),
+    decode: typia.protobuf.createDecode<ArrayRecursive>(),
 });
