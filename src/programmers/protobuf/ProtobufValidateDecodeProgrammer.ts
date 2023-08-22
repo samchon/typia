@@ -24,7 +24,9 @@ export namespace ProtobufValidateDecodeProgrammer {
                     ),
                 ],
                 ts.factory.createTypeReferenceNode(
-                    name ?? TypeFactory.getFullName(project.checker)(type),
+                    `typia.IValidation<${
+                        name ?? TypeFactory.getFullName(project.checker)(type)
+                    }>`,
                 ),
                 undefined,
                 ts.factory.createBlock([

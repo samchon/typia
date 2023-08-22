@@ -3,6 +3,8 @@ import ts from "typescript";
 import { Metadata } from "../schemas/metadata/Metadata";
 import { MetadataObject } from "../schemas/metadata/MetadataObject";
 
+import { ProtobufUtil } from "../programmers/helpers/ProtobufUtil";
+
 import { Escaper } from "../utils/Escaper";
 
 import { MetadataCollection } from "./MetadataCollection";
@@ -100,7 +102,9 @@ export namespace ProtobufFactory {
                 (a) =>
                     a.value.maps.length ||
                     (a.value.objects.length &&
-                        a.value.objects.some((o) => o._Messagable() === false)),
+                        a.value.objects.some(
+                            (o) => ProtobufUtil.isStaticObject(o) === false,
+                        )),
             )
         )
             throw notSupportedError({ method })("dynamic object in array");
