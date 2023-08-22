@@ -249,7 +249,15 @@ export namespace ProtobufDecodeProgrammer {
                       undefined,
                       [],
                   )
-                : value.atomics.some((str) => str === "string")
+                : value.atomics.some((str) => str === "string") ||
+                  value.constants.some(
+                      (c) =>
+                          c.type === "string" && c.values.some((v) => v === ""),
+                  ) ||
+                  value.templates.some(
+                      (tpl) =>
+                          tpl.length === 1 && tpl[0]!.getName() === "string",
+                  )
                 ? ts.factory.createStringLiteral("")
                 : value.objects.length &&
                   value.objects.some((obj) => !ProtobufUtil.isStaticObject(obj))
@@ -419,14 +427,14 @@ export namespace ProtobufDecodeProgrammer {
                                 ts.factory.createAdd(
                                     ts.factory.createCallExpression(
                                         IdentifierFactory.access(READER())(
-                                            "index",
+                                            "uint32",
                                         ),
                                         undefined,
                                         undefined,
                                     ),
                                     ts.factory.createCallExpression(
                                         IdentifierFactory.access(READER())(
-                                            "uint32",
+                                            "index",
                                         ),
                                         undefined,
                                         undefined,
@@ -591,12 +599,12 @@ export namespace ProtobufDecodeProgrammer {
                     "piece",
                     ts.factory.createAdd(
                         ts.factory.createCallExpression(
-                            IdentifierFactory.access(READER())("index"),
+                            IdentifierFactory.access(READER())("uint32"),
                             undefined,
                             undefined,
                         ),
                         ts.factory.createCallExpression(
-                            IdentifierFactory.access(READER())("uint32"),
+                            IdentifierFactory.access(READER())("index"),
                             undefined,
                             undefined,
                         ),

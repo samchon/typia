@@ -1,6 +1,7 @@
 import { $ProtobufSizer } from "./$ProtobufSizer";
 import { IProtobufWriter } from "./IProtobufWriter";
 
+/// @reference https://github.com/piotr-oles/as-proto/blob/main/packages/as-proto/assembly/internal/FixedWriter.ts
 export class $ProtobufWriter implements IProtobufWriter {
     /**
      * Related sizer
