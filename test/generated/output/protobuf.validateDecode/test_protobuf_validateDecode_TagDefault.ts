@@ -855,9 +855,8 @@ export const test_protobuf_validateDecode_TagDefault =
                     const reader = new $Reader(input);
                     return $pdo0(reader);
                 };
-                const output = validate(input) as any;
-                if (output.success) output.data = decode(input);
-                return output;
+                const output = decode(input);
+                return validate(output) as any;
             })(input),
         encode: (input: TagDefault): Uint8Array => {
             const $throws = (typia.protobuf.createEncode as any).throws;

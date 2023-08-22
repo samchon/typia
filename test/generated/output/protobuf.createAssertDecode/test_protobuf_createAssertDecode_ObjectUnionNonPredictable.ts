@@ -7,6 +7,191 @@ export const test_protobuf_assertDecode_ObjectUnionNonPredictable =
         "ObjectUnionNonPredictable",
     )<ObjectUnionNonPredictable>(ObjectUnionNonPredictable)({
         assertDecode: (input: Uint8Array): ObjectUnionNonPredictable => {
+            const decode = (input: Uint8Array): ObjectUnionNonPredictable => {
+                const $Reader = (typia.protobuf.createAssertDecode as any)
+                    .Reader;
+                const $pdo0 = (reader: any, length: number = -1): any => {
+                    length =
+                        length < 0 ? reader.size() : reader.index() + length;
+                    const output = {
+                        value: [] as any,
+                    };
+                    while (reader.index() < length) {
+                        const tag = reader.uint32();
+                        switch (tag >>> 3) {
+                            case 1:
+                                output.value.push(
+                                    $pdo1(reader, reader.uint32()),
+                                );
+                                break;
+                            default:
+                                reader.skipType(tag & 7);
+                                break;
+                        }
+                    }
+                    return output;
+                };
+                const $pdo1 = (reader: any, length: number = -1): any => {
+                    length =
+                        length < 0 ? reader.size() : reader.index() + length;
+                    const output = {
+                        value: undefined as any,
+                    };
+                    while (reader.index() < length) {
+                        const tag = reader.uint32();
+                        switch (tag >>> 3) {
+                            case 1:
+                                output.value = $pdo2(reader, reader.uint32());
+                                break;
+                            default:
+                                reader.skipType(tag & 7);
+                                break;
+                        }
+                    }
+                    return output;
+                };
+                const $pdo2 = (reader: any, length: number = -1): any => {
+                    length =
+                        length < 0 ? reader.size() : reader.index() + length;
+                    const output = {
+                        value: undefined as any,
+                    };
+                    while (reader.index() < length) {
+                        const tag = reader.uint32();
+                        switch (tag >>> 3) {
+                            case 1:
+                                output.value = $pdo7(reader, reader.uint32());
+                                break;
+                            case 2:
+                                output.value = $pdo5(reader, reader.uint32());
+                                break;
+                            case 3:
+                                output.value = $pdo3(reader, reader.uint32());
+                                break;
+                            default:
+                                reader.skipType(tag & 7);
+                                break;
+                        }
+                    }
+                    return output;
+                };
+                const $pdo3 = (reader: any, length: number = -1): any => {
+                    length =
+                        length < 0 ? reader.size() : reader.index() + length;
+                    const output = {
+                        value: undefined as any,
+                    };
+                    while (reader.index() < length) {
+                        const tag = reader.uint32();
+                        switch (tag >>> 3) {
+                            case 1:
+                                output.value = $pdo4(reader, reader.uint32());
+                                break;
+                            default:
+                                reader.skipType(tag & 7);
+                                break;
+                        }
+                    }
+                    return output;
+                };
+                const $pdo4 = (reader: any, length: number = -1): any => {
+                    length =
+                        length < 0 ? reader.size() : reader.index() + length;
+                    const output = {
+                        value: undefined as any,
+                    };
+                    while (reader.index() < length) {
+                        const tag = reader.uint32();
+                        switch (tag >>> 3) {
+                            case 1:
+                                output.value = reader.bool();
+                                break;
+                            default:
+                                reader.skipType(tag & 7);
+                                break;
+                        }
+                    }
+                    return output;
+                };
+                const $pdo5 = (reader: any, length: number = -1): any => {
+                    length =
+                        length < 0 ? reader.size() : reader.index() + length;
+                    const output = {
+                        value: undefined as any,
+                    };
+                    while (reader.index() < length) {
+                        const tag = reader.uint32();
+                        switch (tag >>> 3) {
+                            case 1:
+                                output.value = $pdo6(reader, reader.uint32());
+                                break;
+                            default:
+                                reader.skipType(tag & 7);
+                                break;
+                        }
+                    }
+                    return output;
+                };
+                const $pdo6 = (reader: any, length: number = -1): any => {
+                    length =
+                        length < 0 ? reader.size() : reader.index() + length;
+                    const output = {
+                        value: undefined as any,
+                    };
+                    while (reader.index() < length) {
+                        const tag = reader.uint32();
+                        switch (tag >>> 3) {
+                            case 1:
+                                output.value = reader.double();
+                                break;
+                            default:
+                                reader.skipType(tag & 7);
+                                break;
+                        }
+                    }
+                    return output;
+                };
+                const $pdo7 = (reader: any, length: number = -1): any => {
+                    length =
+                        length < 0 ? reader.size() : reader.index() + length;
+                    const output = {
+                        value: undefined as any,
+                    };
+                    while (reader.index() < length) {
+                        const tag = reader.uint32();
+                        switch (tag >>> 3) {
+                            case 1:
+                                output.value = $pdo8(reader, reader.uint32());
+                                break;
+                            default:
+                                reader.skipType(tag & 7);
+                                break;
+                        }
+                    }
+                    return output;
+                };
+                const $pdo8 = (reader: any, length: number = -1): any => {
+                    length =
+                        length < 0 ? reader.size() : reader.index() + length;
+                    const output = {
+                        value: "" as any,
+                    };
+                    while (reader.index() < length) {
+                        const tag = reader.uint32();
+                        switch (tag >>> 3) {
+                            case 1:
+                                output.value = reader.string();
+                                break;
+                            default:
+                                reader.skipType(tag & 7);
+                                break;
+                        }
+                    }
+                    return output;
+                };
+                const reader = new $Reader(input);
+                return $pdo0(reader);
+            };
             const assert = (input: any): ObjectUnionNonPredictable => {
                 const __is = (
                     input: any,
@@ -292,194 +477,8 @@ export const test_protobuf_assertDecode_ObjectUnionNonPredictable =
                     })(input, "$input", true);
                 return input;
             };
-            const decode = (input: Uint8Array): ObjectUnionNonPredictable => {
-                const $Reader = (typia.protobuf.createAssertDecode as any)
-                    .Reader;
-                const $pdo0 = (reader: any, length: number = -1): any => {
-                    length =
-                        length < 0 ? reader.size() : reader.index() + length;
-                    const output = {
-                        value: [] as any,
-                    };
-                    while (reader.index() < length) {
-                        const tag = reader.uint32();
-                        switch (tag >>> 3) {
-                            case 1:
-                                output.value.push(
-                                    $pdo1(reader, reader.uint32()),
-                                );
-                                break;
-                            default:
-                                reader.skipType(tag & 7);
-                                break;
-                        }
-                    }
-                    return output;
-                };
-                const $pdo1 = (reader: any, length: number = -1): any => {
-                    length =
-                        length < 0 ? reader.size() : reader.index() + length;
-                    const output = {
-                        value: undefined as any,
-                    };
-                    while (reader.index() < length) {
-                        const tag = reader.uint32();
-                        switch (tag >>> 3) {
-                            case 1:
-                                output.value = $pdo2(reader, reader.uint32());
-                                break;
-                            default:
-                                reader.skipType(tag & 7);
-                                break;
-                        }
-                    }
-                    return output;
-                };
-                const $pdo2 = (reader: any, length: number = -1): any => {
-                    length =
-                        length < 0 ? reader.size() : reader.index() + length;
-                    const output = {
-                        value: undefined as any,
-                    };
-                    while (reader.index() < length) {
-                        const tag = reader.uint32();
-                        switch (tag >>> 3) {
-                            case 1:
-                                output.value = $pdo7(reader, reader.uint32());
-                                break;
-                            case 2:
-                                output.value = $pdo5(reader, reader.uint32());
-                                break;
-                            case 3:
-                                output.value = $pdo3(reader, reader.uint32());
-                                break;
-                            default:
-                                reader.skipType(tag & 7);
-                                break;
-                        }
-                    }
-                    return output;
-                };
-                const $pdo3 = (reader: any, length: number = -1): any => {
-                    length =
-                        length < 0 ? reader.size() : reader.index() + length;
-                    const output = {
-                        value: undefined as any,
-                    };
-                    while (reader.index() < length) {
-                        const tag = reader.uint32();
-                        switch (tag >>> 3) {
-                            case 1:
-                                output.value = $pdo4(reader, reader.uint32());
-                                break;
-                            default:
-                                reader.skipType(tag & 7);
-                                break;
-                        }
-                    }
-                    return output;
-                };
-                const $pdo4 = (reader: any, length: number = -1): any => {
-                    length =
-                        length < 0 ? reader.size() : reader.index() + length;
-                    const output = {
-                        value: undefined as any,
-                    };
-                    while (reader.index() < length) {
-                        const tag = reader.uint32();
-                        switch (tag >>> 3) {
-                            case 1:
-                                output.value = reader.bool();
-                                break;
-                            default:
-                                reader.skipType(tag & 7);
-                                break;
-                        }
-                    }
-                    return output;
-                };
-                const $pdo5 = (reader: any, length: number = -1): any => {
-                    length =
-                        length < 0 ? reader.size() : reader.index() + length;
-                    const output = {
-                        value: undefined as any,
-                    };
-                    while (reader.index() < length) {
-                        const tag = reader.uint32();
-                        switch (tag >>> 3) {
-                            case 1:
-                                output.value = $pdo6(reader, reader.uint32());
-                                break;
-                            default:
-                                reader.skipType(tag & 7);
-                                break;
-                        }
-                    }
-                    return output;
-                };
-                const $pdo6 = (reader: any, length: number = -1): any => {
-                    length =
-                        length < 0 ? reader.size() : reader.index() + length;
-                    const output = {
-                        value: undefined as any,
-                    };
-                    while (reader.index() < length) {
-                        const tag = reader.uint32();
-                        switch (tag >>> 3) {
-                            case 1:
-                                output.value = reader.double();
-                                break;
-                            default:
-                                reader.skipType(tag & 7);
-                                break;
-                        }
-                    }
-                    return output;
-                };
-                const $pdo7 = (reader: any, length: number = -1): any => {
-                    length =
-                        length < 0 ? reader.size() : reader.index() + length;
-                    const output = {
-                        value: undefined as any,
-                    };
-                    while (reader.index() < length) {
-                        const tag = reader.uint32();
-                        switch (tag >>> 3) {
-                            case 1:
-                                output.value = $pdo8(reader, reader.uint32());
-                                break;
-                            default:
-                                reader.skipType(tag & 7);
-                                break;
-                        }
-                    }
-                    return output;
-                };
-                const $pdo8 = (reader: any, length: number = -1): any => {
-                    length =
-                        length < 0 ? reader.size() : reader.index() + length;
-                    const output = {
-                        value: "" as any,
-                    };
-                    while (reader.index() < length) {
-                        const tag = reader.uint32();
-                        switch (tag >>> 3) {
-                            case 1:
-                                output.value = reader.string();
-                                break;
-                            default:
-                                reader.skipType(tag & 7);
-                                break;
-                        }
-                    }
-                    return output;
-                };
-                const reader = new $Reader(input);
-                return $pdo0(reader);
-            };
-            assert(input);
             const output = decode(input);
-            return output;
+            return assert(output);
         },
         encode: (input: ObjectUnionNonPredictable): Uint8Array => {
             const $throws = (typia.protobuf.createEncode as any).throws;
@@ -516,14 +515,14 @@ export const test_protobuf_assertDecode_ObjectUnionNonPredictable =
                             })();
                         else if ($io5(input.value))
                             return (() => {
-                                writer.uint32(10);
+                                writer.uint32(18);
                                 writer.fork();
                                 $peo5(input.value);
                                 writer.ldelim();
                             })();
                         else if ($io3(input.value))
                             return (() => {
-                                writer.uint32(10);
+                                writer.uint32(26);
                                 writer.fork();
                                 $peo3(input.value);
                                 writer.ldelim();

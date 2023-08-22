@@ -99,7 +99,7 @@ export const test_protobuf_isDecode_MapSimpleProtobuf = _test_protobuf_isDecode(
                     switch (tag >>> 3) {
                         case 1:
                             (() => {
-                                const piece = reader.index() + reader.uint32();
+                                const piece = reader.uint32() + reader.index();
                                 const entry = {
                                     key: "" as any,
                                     value: undefined as any,
@@ -123,7 +123,7 @@ export const test_protobuf_isDecode_MapSimpleProtobuf = _test_protobuf_isDecode(
                             break;
                         case 2:
                             (() => {
-                                const piece = reader.index() + reader.uint32();
+                                const piece = reader.uint32() + reader.index();
                                 const entry = {
                                     key: "" as any,
                                     value: undefined as any,
@@ -147,7 +147,7 @@ export const test_protobuf_isDecode_MapSimpleProtobuf = _test_protobuf_isDecode(
                             break;
                         case 3:
                             (() => {
-                                const piece = reader.index() + reader.uint32();
+                                const piece = reader.uint32() + reader.index();
                                 const entry = {
                                     key: "" as any,
                                     value: undefined as any,
@@ -171,7 +171,7 @@ export const test_protobuf_isDecode_MapSimpleProtobuf = _test_protobuf_isDecode(
                             break;
                         case 4:
                             (() => {
-                                const piece = reader.index() + reader.uint32();
+                                const piece = reader.uint32() + reader.index();
                                 const entry = {
                                     key: "" as any,
                                     value: undefined as any,
@@ -195,7 +195,7 @@ export const test_protobuf_isDecode_MapSimpleProtobuf = _test_protobuf_isDecode(
                             break;
                         case 5:
                             (() => {
-                                const piece = reader.index() + reader.uint32();
+                                const piece = reader.uint32() + reader.index();
                                 const entry = {
                                     key: "" as any,
                                     value: "" as any,
@@ -219,7 +219,7 @@ export const test_protobuf_isDecode_MapSimpleProtobuf = _test_protobuf_isDecode(
                             break;
                         case 6:
                             (() => {
-                                const piece = reader.index() + reader.uint32();
+                                const piece = reader.uint32() + reader.index();
                                 const entry = {
                                     key: "" as any,
                                     value: new Uint8Array() as any,
@@ -243,7 +243,7 @@ export const test_protobuf_isDecode_MapSimpleProtobuf = _test_protobuf_isDecode(
                             break;
                         case 7:
                             (() => {
-                                const piece = reader.index() + reader.uint32();
+                                const piece = reader.uint32() + reader.index();
                                 const entry = {
                                     key: "" as any,
                                     value: undefined as any,
@@ -278,8 +278,8 @@ export const test_protobuf_isDecode_MapSimpleProtobuf = _test_protobuf_isDecode(
             const reader = new $Reader(input);
             return $pdo0(reader);
         };
-        if (!is(input)) return null;
         const output = decode(input);
+        if (!is(output)) return null;
         return output;
     },
     encode: (input: MapSimpleProtobuf): Uint8Array => {

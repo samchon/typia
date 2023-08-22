@@ -19,7 +19,10 @@ async function main(): Promise<void> {
         })),
     );
 
-    if (fs.existsSync(__dirname + "/generated/output")) {
+    if (
+        fs.existsSync(__dirname + "/generated/output") &&
+        process.argv.every((str) => str !== "--skipGenerated")
+    ) {
         console.log("-------------------------------------------------------");
         console.log("  GENERATION TESTING");
         console.log("-------------------------------------------------------");

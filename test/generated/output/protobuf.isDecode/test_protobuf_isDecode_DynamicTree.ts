@@ -55,7 +55,7 @@ export const test_protobuf_isDecode_DynamicTree = _test_protobuf_isDecode(
                             case 3:
                                 (() => {
                                     const piece =
-                                        reader.index() + reader.uint32();
+                                        reader.uint32() + reader.index();
                                     const entry = {
                                         key: "" as any,
                                         value: undefined as any,
@@ -90,8 +90,8 @@ export const test_protobuf_isDecode_DynamicTree = _test_protobuf_isDecode(
                 const reader = new $Reader(input);
                 return $pdo0(reader);
             };
-            if (!is(input)) return null;
             const output = decode(input);
+            if (!is(output)) return null;
             return output;
         })(input),
     encode: (input: DynamicTree): Uint8Array => {

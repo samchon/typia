@@ -120,5 +120,21 @@ export namespace MapSimpleProtobuf {
             input.string.set("wrong", 3 as any);
             return ["$input.string[4][1]"];
         },
+        (input) => {
+            input.string = null!;
+            return ["$input.string"];
+        },
+        (input) => {
+            input.bytes = undefined!;
+            return ["$input.bytes"];
+        },
+        (input) => {
+            input.objects = {} as any;
+            return ["$input.objects"];
+        },
+        (input) => {
+            input.objects = [] as any;
+            return ["$input.objects"];
+        },
     ];
 }

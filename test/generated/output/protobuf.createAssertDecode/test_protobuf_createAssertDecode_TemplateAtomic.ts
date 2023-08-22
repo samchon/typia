@@ -7,6 +7,59 @@ export const test_protobuf_assertDecode_TemplateAtomic =
         TemplateAtomic,
     )({
         assertDecode: (input: Uint8Array): TemplateAtomic => {
+            const decode = (input: Uint8Array): TemplateAtomic => {
+                const $Reader = (typia.protobuf.createAssertDecode as any)
+                    .Reader;
+                const $pdo0 = (reader: any, length: number = -1): any => {
+                    length =
+                        length < 0 ? reader.size() : reader.index() + length;
+                    const output = {
+                        prefix: undefined as any,
+                        postfix: undefined as any,
+                        middle_string: undefined as any,
+                        middle_string_empty: undefined as any,
+                        middle_numeric: undefined as any,
+                        middle_boolean: undefined as any,
+                        ipv4: undefined as any,
+                        email: undefined as any,
+                    };
+                    while (reader.index() < length) {
+                        const tag = reader.uint32();
+                        switch (tag >>> 3) {
+                            case 1:
+                                output.prefix = reader.string();
+                                break;
+                            case 2:
+                                output.postfix = reader.string();
+                                break;
+                            case 3:
+                                output.middle_string = reader.string();
+                                break;
+                            case 4:
+                                output.middle_string_empty = reader.string();
+                                break;
+                            case 5:
+                                output.middle_numeric = reader.string();
+                                break;
+                            case 6:
+                                output.middle_boolean = reader.string();
+                                break;
+                            case 7:
+                                output.ipv4 = reader.string();
+                                break;
+                            case 8:
+                                output.email = reader.string();
+                                break;
+                            default:
+                                reader.skipType(tag & 7);
+                                break;
+                        }
+                    }
+                    return output;
+                };
+                const reader = new $Reader(input);
+                return $pdo0(reader);
+            };
             const assert = (input: any): TemplateAtomic => {
                 const __is = (input: any): input is TemplateAtomic => {
                     const $io0 = (input: any): boolean =>
@@ -135,62 +188,8 @@ export const test_protobuf_assertDecode_TemplateAtomic =
                     })(input, "$input", true);
                 return input;
             };
-            const decode = (input: Uint8Array): TemplateAtomic => {
-                const $Reader = (typia.protobuf.createAssertDecode as any)
-                    .Reader;
-                const $pdo0 = (reader: any, length: number = -1): any => {
-                    length =
-                        length < 0 ? reader.size() : reader.index() + length;
-                    const output = {
-                        prefix: undefined as any,
-                        postfix: undefined as any,
-                        middle_string: undefined as any,
-                        middle_string_empty: undefined as any,
-                        middle_numeric: undefined as any,
-                        middle_boolean: undefined as any,
-                        ipv4: undefined as any,
-                        email: undefined as any,
-                    };
-                    while (reader.index() < length) {
-                        const tag = reader.uint32();
-                        switch (tag >>> 3) {
-                            case 1:
-                                output.prefix = reader.string();
-                                break;
-                            case 2:
-                                output.postfix = reader.string();
-                                break;
-                            case 3:
-                                output.middle_string = reader.string();
-                                break;
-                            case 4:
-                                output.middle_string_empty = reader.string();
-                                break;
-                            case 5:
-                                output.middle_numeric = reader.string();
-                                break;
-                            case 6:
-                                output.middle_boolean = reader.string();
-                                break;
-                            case 7:
-                                output.ipv4 = reader.string();
-                                break;
-                            case 8:
-                                output.email = reader.string();
-                                break;
-                            default:
-                                reader.skipType(tag & 7);
-                                break;
-                        }
-                    }
-                    return output;
-                };
-                const reader = new $Reader(input);
-                return $pdo0(reader);
-            };
-            assert(input);
             const output = decode(input);
-            return output;
+            return assert(output);
         },
         encode: (input: TemplateAtomic): Uint8Array => {
             const $Sizer = (typia.protobuf.createEncode as any).Sizer;

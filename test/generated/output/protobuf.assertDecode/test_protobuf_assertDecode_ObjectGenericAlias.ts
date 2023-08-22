@@ -8,6 +8,32 @@ export const test_protobuf_assertDecode_ObjectGenericAlias =
     )({
         assertDecode: (input) =>
             ((input: Uint8Array): ObjectGenericAlias => {
+                const decode = (input: Uint8Array): ObjectGenericAlias => {
+                    const $Reader = (typia.protobuf.assertDecode as any).Reader;
+                    const $pdo0 = (reader: any, length: number = -1): any => {
+                        length =
+                            length < 0
+                                ? reader.size()
+                                : reader.index() + length;
+                        const output = {
+                            value: "" as any,
+                        };
+                        while (reader.index() < length) {
+                            const tag = reader.uint32();
+                            switch (tag >>> 3) {
+                                case 1:
+                                    output.value = reader.string();
+                                    break;
+                                default:
+                                    reader.skipType(tag & 7);
+                                    break;
+                            }
+                        }
+                        return output;
+                    };
+                    const reader = new $Reader(input);
+                    return $pdo0(reader);
+                };
                 const assert = (input: any): ObjectGenericAlias => {
                     const __is = (input: any): input is ObjectGenericAlias => {
                         return (
@@ -53,35 +79,8 @@ export const test_protobuf_assertDecode_ObjectGenericAlias =
                         })(input, "$input", true);
                     return input;
                 };
-                const decode = (input: Uint8Array): ObjectGenericAlias => {
-                    const $Reader = (typia.protobuf.assertDecode as any).Reader;
-                    const $pdo0 = (reader: any, length: number = -1): any => {
-                        length =
-                            length < 0
-                                ? reader.size()
-                                : reader.index() + length;
-                        const output = {
-                            value: "" as any,
-                        };
-                        while (reader.index() < length) {
-                            const tag = reader.uint32();
-                            switch (tag >>> 3) {
-                                case 1:
-                                    output.value = reader.string();
-                                    break;
-                                default:
-                                    reader.skipType(tag & 7);
-                                    break;
-                            }
-                        }
-                        return output;
-                    };
-                    const reader = new $Reader(input);
-                    return $pdo0(reader);
-                };
-                assert(input);
                 const output = decode(input);
-                return output;
+                return assert(output);
             })(input),
         encode: (input: ObjectGenericAlias): Uint8Array => {
             const $Sizer = (typia.protobuf.createEncode as any).Sizer;

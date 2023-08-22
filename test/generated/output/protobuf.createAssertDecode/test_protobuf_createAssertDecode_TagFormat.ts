@@ -6,6 +6,57 @@ export const test_protobuf_assertDecode_TagFormat = _test_protobuf_assertDecode(
     "TagFormat",
 )<TagFormat>(TagFormat)({
     assertDecode: (input: Uint8Array): TagFormat => {
+        const decode = (input: Uint8Array): TagFormat => {
+            const $Reader = (typia.protobuf.createAssertDecode as any).Reader;
+            const $pdo0 = (reader: any, length: number = -1): any => {
+                length = length < 0 ? reader.size() : reader.index() + length;
+                const output = {
+                    uuid: "" as any,
+                    email: "" as any,
+                    url: "" as any,
+                    ipv4: "" as any,
+                    ipv6: "" as any,
+                    date: "" as any,
+                    date_time: "" as any,
+                    custom: "" as any,
+                };
+                while (reader.index() < length) {
+                    const tag = reader.uint32();
+                    switch (tag >>> 3) {
+                        case 1:
+                            output.uuid = reader.string();
+                            break;
+                        case 2:
+                            output.email = reader.string();
+                            break;
+                        case 3:
+                            output.url = reader.string();
+                            break;
+                        case 4:
+                            output.ipv4 = reader.string();
+                            break;
+                        case 5:
+                            output.ipv6 = reader.string();
+                            break;
+                        case 6:
+                            output.date = reader.string();
+                            break;
+                        case 7:
+                            output.date_time = reader.string();
+                            break;
+                        case 8:
+                            output.custom = reader.string();
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                    }
+                }
+                return output;
+            };
+            const reader = new $Reader(input);
+            return $pdo0(reader);
+        };
         const assert = (input: any): TagFormat => {
             const __is = (input: any): input is TagFormat => {
                 const $is_uuid = (typia.protobuf.createAssertDecode as any)
@@ -177,60 +228,8 @@ export const test_protobuf_assertDecode_TagFormat = _test_protobuf_assertDecode(
                 })(input, "$input", true);
             return input;
         };
-        const decode = (input: Uint8Array): TagFormat => {
-            const $Reader = (typia.protobuf.createAssertDecode as any).Reader;
-            const $pdo0 = (reader: any, length: number = -1): any => {
-                length = length < 0 ? reader.size() : reader.index() + length;
-                const output = {
-                    uuid: "" as any,
-                    email: "" as any,
-                    url: "" as any,
-                    ipv4: "" as any,
-                    ipv6: "" as any,
-                    date: "" as any,
-                    date_time: "" as any,
-                    custom: "" as any,
-                };
-                while (reader.index() < length) {
-                    const tag = reader.uint32();
-                    switch (tag >>> 3) {
-                        case 1:
-                            output.uuid = reader.string();
-                            break;
-                        case 2:
-                            output.email = reader.string();
-                            break;
-                        case 3:
-                            output.url = reader.string();
-                            break;
-                        case 4:
-                            output.ipv4 = reader.string();
-                            break;
-                        case 5:
-                            output.ipv6 = reader.string();
-                            break;
-                        case 6:
-                            output.date = reader.string();
-                            break;
-                        case 7:
-                            output.date_time = reader.string();
-                            break;
-                        case 8:
-                            output.custom = reader.string();
-                            break;
-                        default:
-                            reader.skipType(tag & 7);
-                            break;
-                    }
-                }
-                return output;
-            };
-            const reader = new $Reader(input);
-            return $pdo0(reader);
-        };
-        assert(input);
         const output = decode(input);
-        return output;
+        return assert(output);
     },
     encode: (input: TagFormat): Uint8Array => {
         const $is_uuid = (typia.protobuf.createEncode as any).is_uuid;

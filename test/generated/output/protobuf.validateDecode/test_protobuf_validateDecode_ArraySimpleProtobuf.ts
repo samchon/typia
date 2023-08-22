@@ -546,7 +546,7 @@ export const test_protobuf_validateDecode_ArraySimpleProtobuf =
                                 case 1:
                                     if (2 === (tag & 7)) {
                                         const piece =
-                                            reader.index() + reader.uint32();
+                                            reader.uint32() + reader.index();
                                         while (reader.index() < piece)
                                             output.boolean.push(reader.bool());
                                     } else output.boolean.push(reader.bool());
@@ -554,7 +554,7 @@ export const test_protobuf_validateDecode_ArraySimpleProtobuf =
                                 case 2:
                                     if (2 === (tag & 7)) {
                                         const piece =
-                                            reader.index() + reader.uint32();
+                                            reader.uint32() + reader.index();
                                         while (reader.index() < piece)
                                             output.int32.push(reader.int32());
                                     } else output.int32.push(reader.int32());
@@ -562,7 +562,7 @@ export const test_protobuf_validateDecode_ArraySimpleProtobuf =
                                 case 3:
                                     if (2 === (tag & 7)) {
                                         const piece =
-                                            reader.index() + reader.uint32();
+                                            reader.uint32() + reader.index();
                                         while (reader.index() < piece)
                                             output.uint32.push(reader.uint32());
                                     } else output.uint32.push(reader.uint32());
@@ -570,7 +570,7 @@ export const test_protobuf_validateDecode_ArraySimpleProtobuf =
                                 case 4:
                                     if (2 === (tag & 7)) {
                                         const piece =
-                                            reader.index() + reader.uint32();
+                                            reader.uint32() + reader.index();
                                         while (reader.index() < piece)
                                             output.int64.push(reader.int64());
                                     } else output.int64.push(reader.int64());
@@ -578,7 +578,7 @@ export const test_protobuf_validateDecode_ArraySimpleProtobuf =
                                 case 5:
                                     if (2 === (tag & 7)) {
                                         const piece =
-                                            reader.index() + reader.uint32();
+                                            reader.uint32() + reader.index();
                                         while (reader.index() < piece)
                                             output.uint64.push(reader.uint64());
                                     } else output.uint64.push(reader.uint64());
@@ -586,7 +586,7 @@ export const test_protobuf_validateDecode_ArraySimpleProtobuf =
                                 case 6:
                                     if (2 === (tag & 7)) {
                                         const piece =
-                                            reader.index() + reader.uint32();
+                                            reader.uint32() + reader.index();
                                         while (reader.index() < piece)
                                             output.float.push(reader.float());
                                     } else output.float.push(reader.float());
@@ -594,7 +594,7 @@ export const test_protobuf_validateDecode_ArraySimpleProtobuf =
                                 case 7:
                                     if (2 === (tag & 7)) {
                                         const piece =
-                                            reader.index() + reader.uint32();
+                                            reader.uint32() + reader.index();
                                         while (reader.index() < piece)
                                             output.double.push(reader.double());
                                     } else output.double.push(reader.double());
@@ -620,9 +620,8 @@ export const test_protobuf_validateDecode_ArraySimpleProtobuf =
                     const reader = new $Reader(input);
                     return $pdo0(reader);
                 };
-                const output = validate(input) as any;
-                if (output.success) output.data = decode(input);
-                return output;
+                const output = decode(input);
+                return validate(output) as any;
             })(input),
         encode: (input: ArraySimpleProtobuf): Uint8Array => {
             const $Sizer = (typia.protobuf.createEncode as any).Sizer;

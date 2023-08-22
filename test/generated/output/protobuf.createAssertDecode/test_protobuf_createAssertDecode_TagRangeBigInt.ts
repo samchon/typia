@@ -7,6 +7,85 @@ export const test_protobuf_assertDecode_TagRangeBigInt =
         TagRangeBigInt,
     )({
         assertDecode: (input: Uint8Array): TagRangeBigInt => {
+            const decode = (input: Uint8Array): TagRangeBigInt => {
+                const $Reader = (typia.protobuf.createAssertDecode as any)
+                    .Reader;
+                const $pdo0 = (reader: any, length: number = -1): any => {
+                    length =
+                        length < 0 ? reader.size() : reader.index() + length;
+                    const output = {
+                        value: [] as any,
+                    };
+                    while (reader.index() < length) {
+                        const tag = reader.uint32();
+                        switch (tag >>> 3) {
+                            case 1:
+                                output.value.push(
+                                    $pdo1(reader, reader.uint32()),
+                                );
+                                break;
+                            default:
+                                reader.skipType(tag & 7);
+                                break;
+                        }
+                    }
+                    return output;
+                };
+                const $pdo1 = (reader: any, length: number = -1): any => {
+                    length =
+                        length < 0 ? reader.size() : reader.index() + length;
+                    const output = {
+                        greater: undefined as any,
+                        greater_equal: undefined as any,
+                        less: undefined as any,
+                        less_equal: undefined as any,
+                        greater_less: undefined as any,
+                        greater_equal_less: undefined as any,
+                        greater_less_equal: undefined as any,
+                        greater_equal_less_equal: undefined as any,
+                        equal: undefined as any,
+                    };
+                    while (reader.index() < length) {
+                        const tag = reader.uint32();
+                        switch (tag >>> 3) {
+                            case 1:
+                                output.greater = reader.int64();
+                                break;
+                            case 2:
+                                output.greater_equal = reader.int64();
+                                break;
+                            case 3:
+                                output.less = reader.int64();
+                                break;
+                            case 4:
+                                output.less_equal = reader.int64();
+                                break;
+                            case 5:
+                                output.greater_less = reader.int64();
+                                break;
+                            case 6:
+                                output.greater_equal_less = reader.int64();
+                                break;
+                            case 7:
+                                output.greater_less_equal = reader.int64();
+                                break;
+                            case 8:
+                                output.greater_equal_less_equal =
+                                    reader.int64();
+                                break;
+                            case 9:
+                                output.equal = reader.int64();
+                                break;
+                            default:
+                                reader.skipType(tag & 7);
+                                break;
+                        }
+                    }
+                    return output;
+                };
+                const reader = new $Reader(input);
+                return $pdo0(reader);
+            };
             const assert = (input: any): TagRangeBigInt => {
                 const __is = (input: any): input is TagRangeBigInt => {
                     const $io0 = (input: any): boolean =>
@@ -272,88 +351,8 @@ export const test_protobuf_assertDecode_TagRangeBigInt =
                     })(input, "$input", true);
                 return input;
             };
-            const decode = (input: Uint8Array): TagRangeBigInt => {
-                const $Reader = (typia.protobuf.createAssertDecode as any)
-                    .Reader;
-                const $pdo0 = (reader: any, length: number = -1): any => {
-                    length =
-                        length < 0 ? reader.size() : reader.index() + length;
-                    const output = {
-                        value: [] as any,
-                    };
-                    while (reader.index() < length) {
-                        const tag = reader.uint32();
-                        switch (tag >>> 3) {
-                            case 1:
-                                output.value.push(
-                                    $pdo1(reader, reader.uint32()),
-                                );
-                                break;
-                            default:
-                                reader.skipType(tag & 7);
-                                break;
-                        }
-                    }
-                    return output;
-                };
-                const $pdo1 = (reader: any, length: number = -1): any => {
-                    length =
-                        length < 0 ? reader.size() : reader.index() + length;
-                    const output = {
-                        greater: undefined as any,
-                        greater_equal: undefined as any,
-                        less: undefined as any,
-                        less_equal: undefined as any,
-                        greater_less: undefined as any,
-                        greater_equal_less: undefined as any,
-                        greater_less_equal: undefined as any,
-                        greater_equal_less_equal: undefined as any,
-                        equal: undefined as any,
-                    };
-                    while (reader.index() < length) {
-                        const tag = reader.uint32();
-                        switch (tag >>> 3) {
-                            case 1:
-                                output.greater = reader.int64();
-                                break;
-                            case 2:
-                                output.greater_equal = reader.int64();
-                                break;
-                            case 3:
-                                output.less = reader.int64();
-                                break;
-                            case 4:
-                                output.less_equal = reader.int64();
-                                break;
-                            case 5:
-                                output.greater_less = reader.int64();
-                                break;
-                            case 6:
-                                output.greater_equal_less = reader.int64();
-                                break;
-                            case 7:
-                                output.greater_less_equal = reader.int64();
-                                break;
-                            case 8:
-                                output.greater_equal_less_equal =
-                                    reader.int64();
-                                break;
-                            case 9:
-                                output.equal = reader.int64();
-                                break;
-                            default:
-                                reader.skipType(tag & 7);
-                                break;
-                        }
-                    }
-                    return output;
-                };
-                const reader = new $Reader(input);
-                return $pdo0(reader);
-            };
-            assert(input);
             const output = decode(input);
-            return output;
+            return assert(output);
         },
         encode: (input: TagRangeBigInt): Uint8Array => {
             const $Sizer = (typia.protobuf.createEncode as any).Sizer;

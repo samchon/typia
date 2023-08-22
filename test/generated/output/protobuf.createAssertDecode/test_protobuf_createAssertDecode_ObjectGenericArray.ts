@@ -7,6 +7,94 @@ export const test_protobuf_assertDecode_ObjectGenericArray =
         ObjectGenericArray,
     )({
         assertDecode: (input: Uint8Array): ObjectGenericArray => {
+            const decode = (input: Uint8Array): ObjectGenericArray => {
+                const $Reader = (typia.protobuf.createAssertDecode as any)
+                    .Reader;
+                const $pdo0 = (reader: any, length: number = -1): any => {
+                    length =
+                        length < 0 ? reader.size() : reader.index() + length;
+                    const output = {
+                        pagination: undefined as any,
+                        data: [] as any,
+                    };
+                    while (reader.index() < length) {
+                        const tag = reader.uint32();
+                        switch (tag >>> 3) {
+                            case 1:
+                                output.pagination = $pdo1(
+                                    reader,
+                                    reader.uint32(),
+                                );
+                                break;
+                            case 2:
+                                output.data.push(
+                                    $pdo2(reader, reader.uint32()),
+                                );
+                                break;
+                            default:
+                                reader.skipType(tag & 7);
+                                break;
+                        }
+                    }
+                    return output;
+                };
+                const $pdo1 = (reader: any, length: number = -1): any => {
+                    length =
+                        length < 0 ? reader.size() : reader.index() + length;
+                    const output = {
+                        page: undefined as any,
+                        limit: undefined as any,
+                        total_count: undefined as any,
+                        total_pages: undefined as any,
+                    };
+                    while (reader.index() < length) {
+                        const tag = reader.uint32();
+                        switch (tag >>> 3) {
+                            case 1:
+                                output.page = reader.double();
+                                break;
+                            case 2:
+                                output.limit = reader.double();
+                                break;
+                            case 3:
+                                output.total_count = reader.double();
+                                break;
+                            case 4:
+                                output.total_pages = reader.double();
+                                break;
+                            default:
+                                reader.skipType(tag & 7);
+                                break;
+                        }
+                    }
+                    return output;
+                };
+                const $pdo2 = (reader: any, length: number = -1): any => {
+                    length =
+                        length < 0 ? reader.size() : reader.index() + length;
+                    const output = {
+                        name: "" as any,
+                        age: undefined as any,
+                    };
+                    while (reader.index() < length) {
+                        const tag = reader.uint32();
+                        switch (tag >>> 3) {
+                            case 1:
+                                output.name = reader.string();
+                                break;
+                            case 2:
+                                output.age = reader.double();
+                                break;
+                            default:
+                                reader.skipType(tag & 7);
+                                break;
+                        }
+                    }
+                    return output;
+                };
+                const reader = new $Reader(input);
+                return $pdo0(reader);
+            };
             const assert = (input: any): ObjectGenericArray => {
                 const __is = (input: any): input is ObjectGenericArray => {
                     const $io0 = (input: any): boolean =>
@@ -188,97 +276,8 @@ export const test_protobuf_assertDecode_ObjectGenericArray =
                     })(input, "$input", true);
                 return input;
             };
-            const decode = (input: Uint8Array): ObjectGenericArray => {
-                const $Reader = (typia.protobuf.createAssertDecode as any)
-                    .Reader;
-                const $pdo0 = (reader: any, length: number = -1): any => {
-                    length =
-                        length < 0 ? reader.size() : reader.index() + length;
-                    const output = {
-                        pagination: undefined as any,
-                        data: [] as any,
-                    };
-                    while (reader.index() < length) {
-                        const tag = reader.uint32();
-                        switch (tag >>> 3) {
-                            case 1:
-                                output.pagination = $pdo1(
-                                    reader,
-                                    reader.uint32(),
-                                );
-                                break;
-                            case 2:
-                                output.data.push(
-                                    $pdo2(reader, reader.uint32()),
-                                );
-                                break;
-                            default:
-                                reader.skipType(tag & 7);
-                                break;
-                        }
-                    }
-                    return output;
-                };
-                const $pdo1 = (reader: any, length: number = -1): any => {
-                    length =
-                        length < 0 ? reader.size() : reader.index() + length;
-                    const output = {
-                        page: undefined as any,
-                        limit: undefined as any,
-                        total_count: undefined as any,
-                        total_pages: undefined as any,
-                    };
-                    while (reader.index() < length) {
-                        const tag = reader.uint32();
-                        switch (tag >>> 3) {
-                            case 1:
-                                output.page = reader.double();
-                                break;
-                            case 2:
-                                output.limit = reader.double();
-                                break;
-                            case 3:
-                                output.total_count = reader.double();
-                                break;
-                            case 4:
-                                output.total_pages = reader.double();
-                                break;
-                            default:
-                                reader.skipType(tag & 7);
-                                break;
-                        }
-                    }
-                    return output;
-                };
-                const $pdo2 = (reader: any, length: number = -1): any => {
-                    length =
-                        length < 0 ? reader.size() : reader.index() + length;
-                    const output = {
-                        name: "" as any,
-                        age: undefined as any,
-                    };
-                    while (reader.index() < length) {
-                        const tag = reader.uint32();
-                        switch (tag >>> 3) {
-                            case 1:
-                                output.name = reader.string();
-                                break;
-                            case 2:
-                                output.age = reader.double();
-                                break;
-                            default:
-                                reader.skipType(tag & 7);
-                                break;
-                        }
-                    }
-                    return output;
-                };
-                const reader = new $Reader(input);
-                return $pdo0(reader);
-            };
-            assert(input);
             const output = decode(input);
-            return output;
+            return assert(output);
         },
         encode: (input: ObjectGenericArray): Uint8Array => {
             const $Sizer = (typia.protobuf.createEncode as any).Sizer;

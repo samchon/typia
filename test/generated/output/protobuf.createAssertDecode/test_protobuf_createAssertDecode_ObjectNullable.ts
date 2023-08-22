@@ -7,6 +7,116 @@ export const test_protobuf_assertDecode_ObjectNullable =
         ObjectNullable,
     )({
         assertDecode: (input: Uint8Array): ObjectNullable => {
+            const decode = (input: Uint8Array): ObjectNullable => {
+                const $Reader = (typia.protobuf.createAssertDecode as any)
+                    .Reader;
+                const $pdo0 = (reader: any, length: number = -1): any => {
+                    length =
+                        length < 0 ? reader.size() : reader.index() + length;
+                    const output = {
+                        value: [] as any,
+                    };
+                    while (reader.index() < length) {
+                        const tag = reader.uint32();
+                        switch (tag >>> 3) {
+                            case 1:
+                                output.value.push(
+                                    $pdo1(reader, reader.uint32()),
+                                );
+                                break;
+                            default:
+                                reader.skipType(tag & 7);
+                                break;
+                        }
+                    }
+                    return output;
+                };
+                const $pdo1 = (reader: any, length: number = -1): any => {
+                    length =
+                        length < 0 ? reader.size() : reader.index() + length;
+                    const output = {
+                        name: "" as any,
+                        manufacturer: undefined as any,
+                        brand: null as any,
+                        similar: null as any,
+                    };
+                    while (reader.index() < length) {
+                        const tag = reader.uint32();
+                        switch (tag >>> 3) {
+                            case 1:
+                                output.name = reader.string();
+                                break;
+                            case 2:
+                                output.manufacturer = $pdo2(
+                                    reader,
+                                    reader.uint32(),
+                                );
+                                break;
+                            case 3:
+                                output.brand = $pdo3(reader, reader.uint32());
+                                break;
+                            case 4:
+                                output.similar = $pdo3(reader, reader.uint32());
+                                break;
+                            case 5:
+                                output.similar = $pdo2(reader, reader.uint32());
+                                break;
+                            default:
+                                reader.skipType(tag & 7);
+                                break;
+                        }
+                    }
+                    return output;
+                };
+                const $pdo2 = (reader: any, length: number = -1): any => {
+                    length =
+                        length < 0 ? reader.size() : reader.index() + length;
+                    const output = {
+                        type: undefined as any,
+                        name: "" as any,
+                    };
+                    while (reader.index() < length) {
+                        const tag = reader.uint32();
+                        switch (tag >>> 3) {
+                            case 1:
+                                output.type = reader.string();
+                                break;
+                            case 2:
+                                output.name = reader.string();
+                                break;
+                            default:
+                                reader.skipType(tag & 7);
+                                break;
+                        }
+                    }
+                    return output;
+                };
+                const $pdo3 = (reader: any, length: number = -1): any => {
+                    length =
+                        length < 0 ? reader.size() : reader.index() + length;
+                    const output = {
+                        type: undefined as any,
+                        name: "" as any,
+                    };
+                    while (reader.index() < length) {
+                        const tag = reader.uint32();
+                        switch (tag >>> 3) {
+                            case 1:
+                                output.type = reader.string();
+                                break;
+                            case 2:
+                                output.name = reader.string();
+                                break;
+                            default:
+                                reader.skipType(tag & 7);
+                                break;
+                        }
+                    }
+                    return output;
+                };
+                const reader = new $Reader(input);
+                return $pdo0(reader);
+            };
             const assert = (input: any): ObjectNullable => {
                 const __is = (input: any): input is ObjectNullable => {
                     const $io0 = (input: any): boolean =>
@@ -250,119 +360,8 @@ export const test_protobuf_assertDecode_ObjectNullable =
                     })(input, "$input", true);
                 return input;
             };
-            const decode = (input: Uint8Array): ObjectNullable => {
-                const $Reader = (typia.protobuf.createAssertDecode as any)
-                    .Reader;
-                const $pdo0 = (reader: any, length: number = -1): any => {
-                    length =
-                        length < 0 ? reader.size() : reader.index() + length;
-                    const output = {
-                        value: [] as any,
-                    };
-                    while (reader.index() < length) {
-                        const tag = reader.uint32();
-                        switch (tag >>> 3) {
-                            case 1:
-                                output.value.push(
-                                    $pdo1(reader, reader.uint32()),
-                                );
-                                break;
-                            default:
-                                reader.skipType(tag & 7);
-                                break;
-                        }
-                    }
-                    return output;
-                };
-                const $pdo1 = (reader: any, length: number = -1): any => {
-                    length =
-                        length < 0 ? reader.size() : reader.index() + length;
-                    const output = {
-                        name: "" as any,
-                        manufacturer: undefined as any,
-                        brand: null as any,
-                        similar: null as any,
-                    };
-                    while (reader.index() < length) {
-                        const tag = reader.uint32();
-                        switch (tag >>> 3) {
-                            case 1:
-                                output.name = reader.string();
-                                break;
-                            case 2:
-                                output.manufacturer = $pdo2(
-                                    reader,
-                                    reader.uint32(),
-                                );
-                                break;
-                            case 3:
-                                output.brand = $pdo3(reader, reader.uint32());
-                                break;
-                            case 4:
-                                output.similar = $pdo3(reader, reader.uint32());
-                                break;
-                            case 5:
-                                output.similar = $pdo2(reader, reader.uint32());
-                                break;
-                            default:
-                                reader.skipType(tag & 7);
-                                break;
-                        }
-                    }
-                    return output;
-                };
-                const $pdo2 = (reader: any, length: number = -1): any => {
-                    length =
-                        length < 0 ? reader.size() : reader.index() + length;
-                    const output = {
-                        type: undefined as any,
-                        name: "" as any,
-                    };
-                    while (reader.index() < length) {
-                        const tag = reader.uint32();
-                        switch (tag >>> 3) {
-                            case 1:
-                                output.type = reader.string();
-                                break;
-                            case 2:
-                                output.name = reader.string();
-                                break;
-                            default:
-                                reader.skipType(tag & 7);
-                                break;
-                        }
-                    }
-                    return output;
-                };
-                const $pdo3 = (reader: any, length: number = -1): any => {
-                    length =
-                        length < 0 ? reader.size() : reader.index() + length;
-                    const output = {
-                        type: undefined as any,
-                        name: "" as any,
-                    };
-                    while (reader.index() < length) {
-                        const tag = reader.uint32();
-                        switch (tag >>> 3) {
-                            case 1:
-                                output.type = reader.string();
-                                break;
-                            case 2:
-                                output.name = reader.string();
-                                break;
-                            default:
-                                reader.skipType(tag & 7);
-                                break;
-                        }
-                    }
-                    return output;
-                };
-                const reader = new $Reader(input);
-                return $pdo0(reader);
-            };
-            assert(input);
             const output = decode(input);
-            return output;
+            return assert(output);
         },
         encode: (input: ObjectNullable): Uint8Array => {
             const $throws = (typia.protobuf.createEncode as any).throws;
@@ -407,7 +406,7 @@ export const test_protobuf_assertDecode_ObjectNullable =
                             })();
                         else if ("manufacturer" === input.similar.type)
                             return (() => {
-                                writer.uint32(34);
+                                writer.uint32(42);
                                 writer.fork();
                                 $peo2(input.similar);
                                 writer.ldelim();

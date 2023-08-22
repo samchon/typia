@@ -5,6 +5,73 @@ import { ObjectSimple } from "../../../structures/ObjectSimple";
 export const test_protobuf_assertDecode_ObjectSimple =
     _test_protobuf_assertDecode("ObjectSimple")<ObjectSimple>(ObjectSimple)({
         assertDecode: (input: Uint8Array): ObjectSimple => {
+            const decode = (input: Uint8Array): ObjectSimple => {
+                const $Reader = (typia.protobuf.createAssertDecode as any)
+                    .Reader;
+                const $pdo0 = (reader: any, length: number = -1): any => {
+                    length =
+                        length < 0 ? reader.size() : reader.index() + length;
+                    const output = {
+                        scale: undefined as any,
+                        position: undefined as any,
+                        rotate: undefined as any,
+                        pivot: undefined as any,
+                    };
+                    while (reader.index() < length) {
+                        const tag = reader.uint32();
+                        switch (tag >>> 3) {
+                            case 1:
+                                output.scale = $pdo1(reader, reader.uint32());
+                                break;
+                            case 2:
+                                output.position = $pdo1(
+                                    reader,
+                                    reader.uint32(),
+                                );
+                                break;
+                            case 3:
+                                output.rotate = $pdo1(reader, reader.uint32());
+                                break;
+                            case 4:
+                                output.pivot = $pdo1(reader, reader.uint32());
+                                break;
+                            default:
+                                reader.skipType(tag & 7);
+                                break;
+                        }
+                    }
+                    return output;
+                };
+                const $pdo1 = (reader: any, length: number = -1): any => {
+                    length =
+                        length < 0 ? reader.size() : reader.index() + length;
+                    const output = {
+                        x: undefined as any,
+                        y: undefined as any,
+                        z: undefined as any,
+                    };
+                    while (reader.index() < length) {
+                        const tag = reader.uint32();
+                        switch (tag >>> 3) {
+                            case 1:
+                                output.x = reader.double();
+                                break;
+                            case 2:
+                                output.y = reader.double();
+                                break;
+                            case 3:
+                                output.z = reader.double();
+                                break;
+                            default:
+                                reader.skipType(tag & 7);
+                                break;
+                        }
+                    }
+                    return output;
+                };
+                const reader = new $Reader(input);
+                return $pdo0(reader);
+            };
             const assert = (input: any): ObjectSimple => {
                 const __is = (input: any): input is ObjectSimple => {
                     return (
@@ -172,76 +239,8 @@ export const test_protobuf_assertDecode_ObjectSimple =
                     })(input, "$input", true);
                 return input;
             };
-            const decode = (input: Uint8Array): ObjectSimple => {
-                const $Reader = (typia.protobuf.createAssertDecode as any)
-                    .Reader;
-                const $pdo0 = (reader: any, length: number = -1): any => {
-                    length =
-                        length < 0 ? reader.size() : reader.index() + length;
-                    const output = {
-                        scale: undefined as any,
-                        position: undefined as any,
-                        rotate: undefined as any,
-                        pivot: undefined as any,
-                    };
-                    while (reader.index() < length) {
-                        const tag = reader.uint32();
-                        switch (tag >>> 3) {
-                            case 1:
-                                output.scale = $pdo1(reader, reader.uint32());
-                                break;
-                            case 2:
-                                output.position = $pdo1(
-                                    reader,
-                                    reader.uint32(),
-                                );
-                                break;
-                            case 3:
-                                output.rotate = $pdo1(reader, reader.uint32());
-                                break;
-                            case 4:
-                                output.pivot = $pdo1(reader, reader.uint32());
-                                break;
-                            default:
-                                reader.skipType(tag & 7);
-                                break;
-                        }
-                    }
-                    return output;
-                };
-                const $pdo1 = (reader: any, length: number = -1): any => {
-                    length =
-                        length < 0 ? reader.size() : reader.index() + length;
-                    const output = {
-                        x: undefined as any,
-                        y: undefined as any,
-                        z: undefined as any,
-                    };
-                    while (reader.index() < length) {
-                        const tag = reader.uint32();
-                        switch (tag >>> 3) {
-                            case 1:
-                                output.x = reader.double();
-                                break;
-                            case 2:
-                                output.y = reader.double();
-                                break;
-                            case 3:
-                                output.z = reader.double();
-                                break;
-                            default:
-                                reader.skipType(tag & 7);
-                                break;
-                        }
-                    }
-                    return output;
-                };
-                const reader = new $Reader(input);
-                return $pdo0(reader);
-            };
-            assert(input);
             const output = decode(input);
-            return output;
+            return assert(output);
         },
         encode: (input: ObjectSimple): Uint8Array => {
             const $Sizer = (typia.protobuf.createEncode as any).Sizer;

@@ -7,6 +7,212 @@ export const test_protobuf_assertDecode_MapSimpleProtobuf =
         MapSimpleProtobuf,
     )({
         assertDecode: (input: Uint8Array): MapSimpleProtobuf => {
+            const decode = (input: Uint8Array): MapSimpleProtobuf => {
+                const $Reader = (typia.protobuf.createAssertDecode as any)
+                    .Reader;
+                const $pdo0 = (reader: any, length: number = -1): any => {
+                    length =
+                        length < 0 ? reader.size() : reader.index() + length;
+                    const output = {
+                        boolean: new Map() as any,
+                        int32: new Map() as any,
+                        bigint: new Map() as any,
+                        double: new Map() as any,
+                        string: new Map() as any,
+                        bytes: new Map() as any,
+                        objects: new Map() as any,
+                    };
+                    while (reader.index() < length) {
+                        const tag = reader.uint32();
+                        switch (tag >>> 3) {
+                            case 1:
+                                (() => {
+                                    const piece =
+                                        reader.uint32() + reader.index();
+                                    const entry = {
+                                        key: "" as any,
+                                        value: undefined as any,
+                                    };
+                                    while (reader.index() < piece) {
+                                        const kind = reader.uint32();
+                                        switch (kind >>> 3) {
+                                            case 1:
+                                                entry.key = reader.string();
+                                                break;
+                                            case 2:
+                                                entry.value = reader.bool();
+                                                break;
+                                            default:
+                                                reader.skipType(kind & 7);
+                                                break;
+                                        }
+                                    }
+                                    output.boolean.set(entry.key, entry.value);
+                                })();
+                                break;
+                            case 2:
+                                (() => {
+                                    const piece =
+                                        reader.uint32() + reader.index();
+                                    const entry = {
+                                        key: "" as any,
+                                        value: undefined as any,
+                                    };
+                                    while (reader.index() < piece) {
+                                        const kind = reader.uint32();
+                                        switch (kind >>> 3) {
+                                            case 1:
+                                                entry.key = reader.string();
+                                                break;
+                                            case 2:
+                                                entry.value = reader.int32();
+                                                break;
+                                            default:
+                                                reader.skipType(kind & 7);
+                                                break;
+                                        }
+                                    }
+                                    output.int32.set(entry.key, entry.value);
+                                })();
+                                break;
+                            case 3:
+                                (() => {
+                                    const piece =
+                                        reader.uint32() + reader.index();
+                                    const entry = {
+                                        key: "" as any,
+                                        value: undefined as any,
+                                    };
+                                    while (reader.index() < piece) {
+                                        const kind = reader.uint32();
+                                        switch (kind >>> 3) {
+                                            case 1:
+                                                entry.key = reader.string();
+                                                break;
+                                            case 2:
+                                                entry.value = reader.int64();
+                                                break;
+                                            default:
+                                                reader.skipType(kind & 7);
+                                                break;
+                                        }
+                                    }
+                                    output.bigint.set(entry.key, entry.value);
+                                })();
+                                break;
+                            case 4:
+                                (() => {
+                                    const piece =
+                                        reader.uint32() + reader.index();
+                                    const entry = {
+                                        key: "" as any,
+                                        value: undefined as any,
+                                    };
+                                    while (reader.index() < piece) {
+                                        const kind = reader.uint32();
+                                        switch (kind >>> 3) {
+                                            case 1:
+                                                entry.key = reader.string();
+                                                break;
+                                            case 2:
+                                                entry.value = reader.double();
+                                                break;
+                                            default:
+                                                reader.skipType(kind & 7);
+                                                break;
+                                        }
+                                    }
+                                    output.double.set(entry.key, entry.value);
+                                })();
+                                break;
+                            case 5:
+                                (() => {
+                                    const piece =
+                                        reader.uint32() + reader.index();
+                                    const entry = {
+                                        key: "" as any,
+                                        value: "" as any,
+                                    };
+                                    while (reader.index() < piece) {
+                                        const kind = reader.uint32();
+                                        switch (kind >>> 3) {
+                                            case 1:
+                                                entry.key = reader.string();
+                                                break;
+                                            case 2:
+                                                entry.value = reader.string();
+                                                break;
+                                            default:
+                                                reader.skipType(kind & 7);
+                                                break;
+                                        }
+                                    }
+                                    output.string.set(entry.key, entry.value);
+                                })();
+                                break;
+                            case 6:
+                                (() => {
+                                    const piece =
+                                        reader.uint32() + reader.index();
+                                    const entry = {
+                                        key: "" as any,
+                                        value: new Uint8Array() as any,
+                                    };
+                                    while (reader.index() < piece) {
+                                        const kind = reader.uint32();
+                                        switch (kind >>> 3) {
+                                            case 1:
+                                                entry.key = reader.string();
+                                                break;
+                                            case 2:
+                                                entry.value = reader.bytes();
+                                                break;
+                                            default:
+                                                reader.skipType(kind & 7);
+                                                break;
+                                        }
+                                    }
+                                    output.bytes.set(entry.key, entry.value);
+                                })();
+                                break;
+                            case 7:
+                                (() => {
+                                    const piece =
+                                        reader.uint32() + reader.index();
+                                    const entry = {
+                                        key: "" as any,
+                                        value: undefined as any,
+                                    };
+                                    while (reader.index() < piece) {
+                                        const kind = reader.uint32();
+                                        switch (kind >>> 3) {
+                                            case 1:
+                                                entry.key = reader.string();
+                                                break;
+                                            case 2:
+                                                entry.value = $pdo0(
+                                                    reader,
+                                                    reader.uint32(),
+                                                );
+                                                break;
+                                            default:
+                                                reader.skipType(kind & 7);
+                                                break;
+                                        }
+                                    }
+                                    output.objects.set(entry.key, entry.value);
+                                })();
+                                break;
+                            default:
+                                reader.skipType(tag & 7);
+                                break;
+                        }
+                    }
+                    return output;
+                };
+                const reader = new $Reader(input);
+                return $pdo0(reader);
+            };
             const assert = (input: any): MapSimpleProtobuf => {
                 const __is = (input: any): input is MapSimpleProtobuf => {
                     const $io0 = (input: any): boolean =>
@@ -642,215 +848,8 @@ export const test_protobuf_assertDecode_MapSimpleProtobuf =
                     })(input, "$input", true);
                 return input;
             };
-            const decode = (input: Uint8Array): MapSimpleProtobuf => {
-                const $Reader = (typia.protobuf.createAssertDecode as any)
-                    .Reader;
-                const $pdo0 = (reader: any, length: number = -1): any => {
-                    length =
-                        length < 0 ? reader.size() : reader.index() + length;
-                    const output = {
-                        boolean: new Map() as any,
-                        int32: new Map() as any,
-                        bigint: new Map() as any,
-                        double: new Map() as any,
-                        string: new Map() as any,
-                        bytes: new Map() as any,
-                        objects: new Map() as any,
-                    };
-                    while (reader.index() < length) {
-                        const tag = reader.uint32();
-                        switch (tag >>> 3) {
-                            case 1:
-                                (() => {
-                                    const piece =
-                                        reader.index() + reader.uint32();
-                                    const entry = {
-                                        key: "" as any,
-                                        value: undefined as any,
-                                    };
-                                    while (reader.index() < piece) {
-                                        const kind = reader.uint32();
-                                        switch (kind >>> 3) {
-                                            case 1:
-                                                entry.key = reader.string();
-                                                break;
-                                            case 2:
-                                                entry.value = reader.bool();
-                                                break;
-                                            default:
-                                                reader.skipType(kind & 7);
-                                                break;
-                                        }
-                                    }
-                                    output.boolean.set(entry.key, entry.value);
-                                })();
-                                break;
-                            case 2:
-                                (() => {
-                                    const piece =
-                                        reader.index() + reader.uint32();
-                                    const entry = {
-                                        key: "" as any,
-                                        value: undefined as any,
-                                    };
-                                    while (reader.index() < piece) {
-                                        const kind = reader.uint32();
-                                        switch (kind >>> 3) {
-                                            case 1:
-                                                entry.key = reader.string();
-                                                break;
-                                            case 2:
-                                                entry.value = reader.int32();
-                                                break;
-                                            default:
-                                                reader.skipType(kind & 7);
-                                                break;
-                                        }
-                                    }
-                                    output.int32.set(entry.key, entry.value);
-                                })();
-                                break;
-                            case 3:
-                                (() => {
-                                    const piece =
-                                        reader.index() + reader.uint32();
-                                    const entry = {
-                                        key: "" as any,
-                                        value: undefined as any,
-                                    };
-                                    while (reader.index() < piece) {
-                                        const kind = reader.uint32();
-                                        switch (kind >>> 3) {
-                                            case 1:
-                                                entry.key = reader.string();
-                                                break;
-                                            case 2:
-                                                entry.value = reader.int64();
-                                                break;
-                                            default:
-                                                reader.skipType(kind & 7);
-                                                break;
-                                        }
-                                    }
-                                    output.bigint.set(entry.key, entry.value);
-                                })();
-                                break;
-                            case 4:
-                                (() => {
-                                    const piece =
-                                        reader.index() + reader.uint32();
-                                    const entry = {
-                                        key: "" as any,
-                                        value: undefined as any,
-                                    };
-                                    while (reader.index() < piece) {
-                                        const kind = reader.uint32();
-                                        switch (kind >>> 3) {
-                                            case 1:
-                                                entry.key = reader.string();
-                                                break;
-                                            case 2:
-                                                entry.value = reader.double();
-                                                break;
-                                            default:
-                                                reader.skipType(kind & 7);
-                                                break;
-                                        }
-                                    }
-                                    output.double.set(entry.key, entry.value);
-                                })();
-                                break;
-                            case 5:
-                                (() => {
-                                    const piece =
-                                        reader.index() + reader.uint32();
-                                    const entry = {
-                                        key: "" as any,
-                                        value: "" as any,
-                                    };
-                                    while (reader.index() < piece) {
-                                        const kind = reader.uint32();
-                                        switch (kind >>> 3) {
-                                            case 1:
-                                                entry.key = reader.string();
-                                                break;
-                                            case 2:
-                                                entry.value = reader.string();
-                                                break;
-                                            default:
-                                                reader.skipType(kind & 7);
-                                                break;
-                                        }
-                                    }
-                                    output.string.set(entry.key, entry.value);
-                                })();
-                                break;
-                            case 6:
-                                (() => {
-                                    const piece =
-                                        reader.index() + reader.uint32();
-                                    const entry = {
-                                        key: "" as any,
-                                        value: new Uint8Array() as any,
-                                    };
-                                    while (reader.index() < piece) {
-                                        const kind = reader.uint32();
-                                        switch (kind >>> 3) {
-                                            case 1:
-                                                entry.key = reader.string();
-                                                break;
-                                            case 2:
-                                                entry.value = reader.bytes();
-                                                break;
-                                            default:
-                                                reader.skipType(kind & 7);
-                                                break;
-                                        }
-                                    }
-                                    output.bytes.set(entry.key, entry.value);
-                                })();
-                                break;
-                            case 7:
-                                (() => {
-                                    const piece =
-                                        reader.index() + reader.uint32();
-                                    const entry = {
-                                        key: "" as any,
-                                        value: undefined as any,
-                                    };
-                                    while (reader.index() < piece) {
-                                        const kind = reader.uint32();
-                                        switch (kind >>> 3) {
-                                            case 1:
-                                                entry.key = reader.string();
-                                                break;
-                                            case 2:
-                                                entry.value = $pdo0(
-                                                    reader,
-                                                    reader.uint32(),
-                                                );
-                                                break;
-                                            default:
-                                                reader.skipType(kind & 7);
-                                                break;
-                                        }
-                                    }
-                                    output.objects.set(entry.key, entry.value);
-                                })();
-                                break;
-                            default:
-                                reader.skipType(tag & 7);
-                                break;
-                        }
-                    }
-                    return output;
-                };
-                const reader = new $Reader(input);
-                return $pdo0(reader);
-            };
-            assert(input);
             const output = decode(input);
-            return output;
+            return assert(output);
         },
         encode: (input: MapSimpleProtobuf): Uint8Array => {
             const $Sizer = (typia.protobuf.createEncode as any).Sizer;

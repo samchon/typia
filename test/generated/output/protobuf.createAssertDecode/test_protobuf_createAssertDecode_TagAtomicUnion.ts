@@ -7,6 +7,55 @@ export const test_protobuf_assertDecode_TagAtomicUnion =
         TagAtomicUnion,
     )({
         assertDecode: (input: Uint8Array): TagAtomicUnion => {
+            const decode = (input: Uint8Array): TagAtomicUnion => {
+                const $Reader = (typia.protobuf.createAssertDecode as any)
+                    .Reader;
+                const $pdo0 = (reader: any, length: number = -1): any => {
+                    length =
+                        length < 0 ? reader.size() : reader.index() + length;
+                    const output = {
+                        value: [] as any,
+                    };
+                    while (reader.index() < length) {
+                        const tag = reader.uint32();
+                        switch (tag >>> 3) {
+                            case 1:
+                                output.value.push(
+                                    $pdo1(reader, reader.uint32()),
+                                );
+                                break;
+                            default:
+                                reader.skipType(tag & 7);
+                                break;
+                        }
+                    }
+                    return output;
+                };
+                const $pdo1 = (reader: any, length: number = -1): any => {
+                    length =
+                        length < 0 ? reader.size() : reader.index() + length;
+                    const output = {
+                        value: "" as any,
+                    };
+                    while (reader.index() < length) {
+                        const tag = reader.uint32();
+                        switch (tag >>> 3) {
+                            case 1:
+                                output.value = reader.double();
+                                break;
+                            case 2:
+                                output.value = reader.string();
+                                break;
+                            default:
+                                reader.skipType(tag & 7);
+                                break;
+                        }
+                    }
+                    return output;
+                };
+                const reader = new $Reader(input);
+                return $pdo0(reader);
+            };
             const assert = (input: any): TagAtomicUnion => {
                 const __is = (input: any): input is TagAtomicUnion => {
                     const $io0 = (input: any): boolean =>
@@ -134,58 +183,8 @@ export const test_protobuf_assertDecode_TagAtomicUnion =
                     })(input, "$input", true);
                 return input;
             };
-            const decode = (input: Uint8Array): TagAtomicUnion => {
-                const $Reader = (typia.protobuf.createAssertDecode as any)
-                    .Reader;
-                const $pdo0 = (reader: any, length: number = -1): any => {
-                    length =
-                        length < 0 ? reader.size() : reader.index() + length;
-                    const output = {
-                        value: [] as any,
-                    };
-                    while (reader.index() < length) {
-                        const tag = reader.uint32();
-                        switch (tag >>> 3) {
-                            case 1:
-                                output.value.push(
-                                    $pdo1(reader, reader.uint32()),
-                                );
-                                break;
-                            default:
-                                reader.skipType(tag & 7);
-                                break;
-                        }
-                    }
-                    return output;
-                };
-                const $pdo1 = (reader: any, length: number = -1): any => {
-                    length =
-                        length < 0 ? reader.size() : reader.index() + length;
-                    const output = {
-                        value: "" as any,
-                    };
-                    while (reader.index() < length) {
-                        const tag = reader.uint32();
-                        switch (tag >>> 3) {
-                            case 1:
-                                output.value = reader.double();
-                                break;
-                            case 2:
-                                output.value = reader.string();
-                                break;
-                            default:
-                                reader.skipType(tag & 7);
-                                break;
-                        }
-                    }
-                    return output;
-                };
-                const reader = new $Reader(input);
-                return $pdo0(reader);
-            };
-            assert(input);
             const output = decode(input);
-            return output;
+            return assert(output);
         },
         encode: (input: TagAtomicUnion): Uint8Array => {
             const $throws = (typia.protobuf.createEncode as any).throws;

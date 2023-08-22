@@ -232,8 +232,8 @@ export const test_protobuf_isDecode_ObjectUnionNonPredictable =
                 const reader = new $Reader(input);
                 return $pdo0(reader);
             };
-            if (!is(input)) return null;
             const output = decode(input);
+            if (!is(output)) return null;
             return output;
         },
         encode: (input: ObjectUnionNonPredictable): Uint8Array => {
@@ -271,14 +271,14 @@ export const test_protobuf_isDecode_ObjectUnionNonPredictable =
                             })();
                         else if ($io5(input.value))
                             return (() => {
-                                writer.uint32(10);
+                                writer.uint32(18);
                                 writer.fork();
                                 $peo5(input.value);
                                 writer.ldelim();
                             })();
                         else if ($io3(input.value))
                             return (() => {
-                                writer.uint32(10);
+                                writer.uint32(26);
                                 writer.fork();
                                 $peo3(input.value);
                                 writer.ldelim();

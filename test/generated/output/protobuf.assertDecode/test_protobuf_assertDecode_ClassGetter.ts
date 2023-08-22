@@ -6,6 +6,40 @@ export const test_protobuf_assertDecode_ClassGetter =
     _test_protobuf_assertDecode("ClassGetter")<ClassGetter>(ClassGetter)({
         assertDecode: (input) =>
             ((input: Uint8Array): ClassGetter => {
+                const decode = (input: Uint8Array): ClassGetter => {
+                    const $Reader = (typia.protobuf.assertDecode as any).Reader;
+                    const $pdo0 = (reader: any, length: number = -1): any => {
+                        length =
+                            length < 0
+                                ? reader.size()
+                                : reader.index() + length;
+                        const output = {
+                            id: "" as any,
+                            name: "" as any,
+                            dead: null as any,
+                        };
+                        while (reader.index() < length) {
+                            const tag = reader.uint32();
+                            switch (tag >>> 3) {
+                                case 1:
+                                    output.id = reader.string();
+                                    break;
+                                case 2:
+                                    output.name = reader.string();
+                                    break;
+                                case 3:
+                                    output.dead = reader.bool();
+                                    break;
+                                default:
+                                    reader.skipType(tag & 7);
+                                    break;
+                            }
+                        }
+                        return output;
+                    };
+                    const reader = new $Reader(input);
+                    return $pdo0(reader);
+                };
                 const assert = (input: any): ClassGetter => {
                     const __is = (input: any): input is ClassGetter => {
                         const $io0 = (input: any): boolean =>
@@ -69,43 +103,8 @@ export const test_protobuf_assertDecode_ClassGetter =
                         })(input, "$input", true);
                     return input;
                 };
-                const decode = (input: Uint8Array): ClassGetter => {
-                    const $Reader = (typia.protobuf.assertDecode as any).Reader;
-                    const $pdo0 = (reader: any, length: number = -1): any => {
-                        length =
-                            length < 0
-                                ? reader.size()
-                                : reader.index() + length;
-                        const output = {
-                            id: "" as any,
-                            name: "" as any,
-                            dead: null as any,
-                        };
-                        while (reader.index() < length) {
-                            const tag = reader.uint32();
-                            switch (tag >>> 3) {
-                                case 1:
-                                    output.id = reader.string();
-                                    break;
-                                case 2:
-                                    output.name = reader.string();
-                                    break;
-                                case 3:
-                                    output.dead = reader.bool();
-                                    break;
-                                default:
-                                    reader.skipType(tag & 7);
-                                    break;
-                            }
-                        }
-                        return output;
-                    };
-                    const reader = new $Reader(input);
-                    return $pdo0(reader);
-                };
-                assert(input);
                 const output = decode(input);
-                return output;
+                return assert(output);
             })(input),
         encode: (input: ClassGetter): Uint8Array => {
             const $Sizer = (typia.protobuf.createEncode as any).Sizer;

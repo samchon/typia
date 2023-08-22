@@ -44,19 +44,19 @@ export const _test_protobuf_encode =
                     `Bug on typia.protobuf.encode(): invalid encoding happened on ${name} type.`,
                 );
             }
+        } else {
+            // COMPARE WITH DECODER
+            const decoded: T = functor.decode(result);
+            const again: Uint8Array = functor.encode(decoded);
+
+            if (
+                protobuf_equal_to(name)(data, decoded) === false ||
+                equal(result, again) === false
+            )
+                throw new Error(
+                    `Bug on typia.protobuf.encode(): failed to decode binary from encoded ${name} type.`,
+                );
         }
-
-        // COMPARE WITH DECODER
-        const decoded: T = functor.decode(result);
-        const again: Uint8Array = functor.encode(decoded);
-
-        if (
-            protobuf_equal_to(data, decoded) === false ||
-            equal(result, again) === false
-        )
-            throw new Error(
-                `Bug on typia.protobuf.encode(): failed to decode binary from encoded ${name} type.`,
-            );
     };
 
 const protobufJS =

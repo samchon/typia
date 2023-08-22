@@ -387,9 +387,8 @@ export const test_protobuf_validateDecode_ObjectNullable =
                 const reader = new $Reader(input);
                 return $pdo0(reader);
             };
-            const output = validate(input) as any;
-            if (output.success) output.data = decode(input);
-            return output;
+            const output = decode(input);
+            return validate(output) as any;
         },
         encode: (input: ObjectNullable): Uint8Array => {
             const $throws = (typia.protobuf.createEncode as any).throws;
@@ -434,7 +433,7 @@ export const test_protobuf_validateDecode_ObjectNullable =
                             })();
                         else if ("manufacturer" === input.similar.type)
                             return (() => {
-                                writer.uint32(34);
+                                writer.uint32(42);
                                 writer.fork();
                                 $peo2(input.similar);
                                 writer.ldelim();

@@ -79,7 +79,7 @@ export const test_protobuf_isEncode_DynamicSimple = _test_protobuf_isEncode(
                 switch (tag >>> 3) {
                     case 1:
                         (() => {
-                            const piece = reader.index() + reader.uint32();
+                            const piece = reader.uint32() + reader.index();
                             const entry = {
                                 key: "" as any,
                                 value: undefined as any,

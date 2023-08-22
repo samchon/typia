@@ -7,6 +7,47 @@ export const test_protobuf_assertDecode_ClassPropertyAssignment =
         "ClassPropertyAssignment",
     )<ClassPropertyAssignment>(ClassPropertyAssignment)({
         assertDecode: (input: Uint8Array): ClassPropertyAssignment => {
+            const decode = (input: Uint8Array): ClassPropertyAssignment => {
+                const $Reader = (typia.protobuf.createAssertDecode as any)
+                    .Reader;
+                const $pdo0 = (reader: any, length: number = -1): any => {
+                    length =
+                        length < 0 ? reader.size() : reader.index() + length;
+                    const output = {
+                        id: undefined as any,
+                        name: "" as any,
+                        note: undefined as any,
+                        editable: undefined as any,
+                        incremental: undefined as any,
+                    };
+                    while (reader.index() < length) {
+                        const tag = reader.uint32();
+                        switch (tag >>> 3) {
+                            case 1:
+                                output.id = reader.double();
+                                break;
+                            case 2:
+                                output.name = reader.string();
+                                break;
+                            case 3:
+                                output.note = reader.string();
+                                break;
+                            case 4:
+                                output.editable = reader.bool();
+                                break;
+                            case 5:
+                                output.incremental = reader.bool();
+                                break;
+                            default:
+                                reader.skipType(tag & 7);
+                                break;
+                        }
+                    }
+                    return output;
+                };
+                const reader = new $Reader(input);
+                return $pdo0(reader);
+            };
             const assert = (input: any): ClassPropertyAssignment => {
                 const __is = (input: any): input is ClassPropertyAssignment => {
                     const $io0 = (input: any): boolean =>
@@ -84,50 +125,8 @@ export const test_protobuf_assertDecode_ClassPropertyAssignment =
                     })(input, "$input", true);
                 return input;
             };
-            const decode = (input: Uint8Array): ClassPropertyAssignment => {
-                const $Reader = (typia.protobuf.createAssertDecode as any)
-                    .Reader;
-                const $pdo0 = (reader: any, length: number = -1): any => {
-                    length =
-                        length < 0 ? reader.size() : reader.index() + length;
-                    const output = {
-                        id: undefined as any,
-                        name: "" as any,
-                        note: undefined as any,
-                        editable: undefined as any,
-                        incremental: undefined as any,
-                    };
-                    while (reader.index() < length) {
-                        const tag = reader.uint32();
-                        switch (tag >>> 3) {
-                            case 1:
-                                output.id = reader.double();
-                                break;
-                            case 2:
-                                output.name = reader.string();
-                                break;
-                            case 3:
-                                output.note = reader.string();
-                                break;
-                            case 4:
-                                output.editable = reader.bool();
-                                break;
-                            case 5:
-                                output.incremental = reader.bool();
-                                break;
-                            default:
-                                reader.skipType(tag & 7);
-                                break;
-                        }
-                    }
-                    return output;
-                };
-                const reader = new $Reader(input);
-                return $pdo0(reader);
-            };
-            assert(input);
             const output = decode(input);
-            return output;
+            return assert(output);
         },
         encode: (input: ClassPropertyAssignment): Uint8Array => {
             const $Sizer = (typia.protobuf.createEncode as any).Sizer;

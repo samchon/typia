@@ -6,6 +6,36 @@ export const test_protobuf_assertDecode_TagTypeBigInt =
     _test_protobuf_assertDecode("TagTypeBigInt")<TagTypeBigInt>(TagTypeBigInt)({
         assertDecode: (input) =>
             ((input: Uint8Array): TagTypeBigInt => {
+                const decode = (input: Uint8Array): TagTypeBigInt => {
+                    const $Reader = (typia.protobuf.assertDecode as any).Reader;
+                    const $pdo0 = (reader: any, length: number = -1): any => {
+                        length =
+                            length < 0
+                                ? reader.size()
+                                : reader.index() + length;
+                        const output = {
+                            in64: undefined as any,
+                            uint64: undefined as any,
+                        };
+                        while (reader.index() < length) {
+                            const tag = reader.uint32();
+                            switch (tag >>> 3) {
+                                case 1:
+                                    output.in64 = reader.int64();
+                                    break;
+                                case 2:
+                                    output.uint64 = reader.uint64();
+                                    break;
+                                default:
+                                    reader.skipType(tag & 7);
+                                    break;
+                            }
+                        }
+                        return output;
+                    };
+                    const reader = new $Reader(input);
+                    return $pdo0(reader);
+                };
                 const assert = (input: any): TagTypeBigInt => {
                     const __is = (input: any): input is TagTypeBigInt => {
                         return (
@@ -65,39 +95,8 @@ export const test_protobuf_assertDecode_TagTypeBigInt =
                         })(input, "$input", true);
                     return input;
                 };
-                const decode = (input: Uint8Array): TagTypeBigInt => {
-                    const $Reader = (typia.protobuf.assertDecode as any).Reader;
-                    const $pdo0 = (reader: any, length: number = -1): any => {
-                        length =
-                            length < 0
-                                ? reader.size()
-                                : reader.index() + length;
-                        const output = {
-                            in64: undefined as any,
-                            uint64: undefined as any,
-                        };
-                        while (reader.index() < length) {
-                            const tag = reader.uint32();
-                            switch (tag >>> 3) {
-                                case 1:
-                                    output.in64 = reader.int64();
-                                    break;
-                                case 2:
-                                    output.uint64 = reader.uint64();
-                                    break;
-                                default:
-                                    reader.skipType(tag & 7);
-                                    break;
-                            }
-                        }
-                        return output;
-                    };
-                    const reader = new $Reader(input);
-                    return $pdo0(reader);
-                };
-                assert(input);
                 const output = decode(input);
-                return output;
+                return assert(output);
             })(input),
         encode: (input: TagTypeBigInt): Uint8Array => {
             const $Sizer = (typia.protobuf.createEncode as any).Sizer;

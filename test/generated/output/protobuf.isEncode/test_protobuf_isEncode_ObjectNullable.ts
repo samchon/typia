@@ -88,7 +88,7 @@ export const test_protobuf_isEncode_ObjectNullable = _test_protobuf_isEncode(
                                 })();
                             else if ("manufacturer" === input.similar.type)
                                 return (() => {
-                                    writer.uint32(34);
+                                    writer.uint32(42);
                                     writer.fork();
                                     $peo2(input.similar);
                                     writer.ldelim();

@@ -5,6 +5,35 @@ import { ClassMethod } from "../../../structures/ClassMethod";
 export const test_protobuf_assertDecode_ClassMethod =
     _test_protobuf_assertDecode("ClassMethod")<ClassMethod>(ClassMethod)({
         assertDecode: (input: Uint8Array): ClassMethod => {
+            const decode = (input: Uint8Array): ClassMethod => {
+                const $Reader = (typia.protobuf.createAssertDecode as any)
+                    .Reader;
+                const $pdo0 = (reader: any, length: number = -1): any => {
+                    length =
+                        length < 0 ? reader.size() : reader.index() + length;
+                    const output = {
+                        name: "" as any,
+                        age: undefined as any,
+                    };
+                    while (reader.index() < length) {
+                        const tag = reader.uint32();
+                        switch (tag >>> 3) {
+                            case 1:
+                                output.name = reader.string();
+                                break;
+                            case 2:
+                                output.age = reader.double();
+                                break;
+                            default:
+                                reader.skipType(tag & 7);
+                                break;
+                        }
+                    }
+                    return output;
+                };
+                const reader = new $Reader(input);
+                return $pdo0(reader);
+            };
             const assert = (input: any): ClassMethod => {
                 const __is = (input: any): input is ClassMethod => {
                     return (
@@ -59,38 +88,8 @@ export const test_protobuf_assertDecode_ClassMethod =
                     })(input, "$input", true);
                 return input;
             };
-            const decode = (input: Uint8Array): ClassMethod => {
-                const $Reader = (typia.protobuf.createAssertDecode as any)
-                    .Reader;
-                const $pdo0 = (reader: any, length: number = -1): any => {
-                    length =
-                        length < 0 ? reader.size() : reader.index() + length;
-                    const output = {
-                        name: "" as any,
-                        age: undefined as any,
-                    };
-                    while (reader.index() < length) {
-                        const tag = reader.uint32();
-                        switch (tag >>> 3) {
-                            case 1:
-                                output.name = reader.string();
-                                break;
-                            case 2:
-                                output.age = reader.double();
-                                break;
-                            default:
-                                reader.skipType(tag & 7);
-                                break;
-                        }
-                    }
-                    return output;
-                };
-                const reader = new $Reader(input);
-                return $pdo0(reader);
-            };
-            assert(input);
             const output = decode(input);
-            return output;
+            return assert(output);
         },
         encode: (input: ClassMethod): Uint8Array => {
             const $Sizer = (typia.protobuf.createEncode as any).Sizer;

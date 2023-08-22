@@ -5,6 +5,43 @@ import { TagPattern } from "../../../structures/TagPattern";
 export const test_protobuf_assertDecode_TagPattern =
     _test_protobuf_assertDecode("TagPattern")<TagPattern>(TagPattern)({
         assertDecode: (input: Uint8Array): TagPattern => {
+            const decode = (input: Uint8Array): TagPattern => {
+                const $Reader = (typia.protobuf.createAssertDecode as any)
+                    .Reader;
+                const $pdo0 = (reader: any, length: number = -1): any => {
+                    length =
+                        length < 0 ? reader.size() : reader.index() + length;
+                    const output = {
+                        uuid: "" as any,
+                        email: "" as any,
+                        ipv4: "" as any,
+                        ipv6: "" as any,
+                    };
+                    while (reader.index() < length) {
+                        const tag = reader.uint32();
+                        switch (tag >>> 3) {
+                            case 1:
+                                output.uuid = reader.string();
+                                break;
+                            case 2:
+                                output.email = reader.string();
+                                break;
+                            case 3:
+                                output.ipv4 = reader.string();
+                                break;
+                            case 4:
+                                output.ipv6 = reader.string();
+                                break;
+                            default:
+                                reader.skipType(tag & 7);
+                                break;
+                        }
+                    }
+                    return output;
+                };
+                const reader = new $Reader(input);
+                return $pdo0(reader);
+            };
             const assert = (input: any): TagPattern => {
                 const __is = (input: any): input is TagPattern => {
                     return (
@@ -119,46 +156,8 @@ export const test_protobuf_assertDecode_TagPattern =
                     })(input, "$input", true);
                 return input;
             };
-            const decode = (input: Uint8Array): TagPattern => {
-                const $Reader = (typia.protobuf.createAssertDecode as any)
-                    .Reader;
-                const $pdo0 = (reader: any, length: number = -1): any => {
-                    length =
-                        length < 0 ? reader.size() : reader.index() + length;
-                    const output = {
-                        uuid: "" as any,
-                        email: "" as any,
-                        ipv4: "" as any,
-                        ipv6: "" as any,
-                    };
-                    while (reader.index() < length) {
-                        const tag = reader.uint32();
-                        switch (tag >>> 3) {
-                            case 1:
-                                output.uuid = reader.string();
-                                break;
-                            case 2:
-                                output.email = reader.string();
-                                break;
-                            case 3:
-                                output.ipv4 = reader.string();
-                                break;
-                            case 4:
-                                output.ipv6 = reader.string();
-                                break;
-                            default:
-                                reader.skipType(tag & 7);
-                                break;
-                        }
-                    }
-                    return output;
-                };
-                const reader = new $Reader(input);
-                return $pdo0(reader);
-            };
-            assert(input);
             const output = decode(input);
-            return output;
+            return assert(output);
         },
         encode: (input: TagPattern): Uint8Array => {
             const $Sizer = (typia.protobuf.createEncode as any).Sizer;

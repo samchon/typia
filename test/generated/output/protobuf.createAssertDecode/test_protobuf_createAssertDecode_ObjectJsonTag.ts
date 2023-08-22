@@ -5,6 +5,43 @@ import { ObjectJsonTag } from "../../../structures/ObjectJsonTag";
 export const test_protobuf_assertDecode_ObjectJsonTag =
     _test_protobuf_assertDecode("ObjectJsonTag")<ObjectJsonTag>(ObjectJsonTag)({
         assertDecode: (input: Uint8Array): ObjectJsonTag => {
+            const decode = (input: Uint8Array): ObjectJsonTag => {
+                const $Reader = (typia.protobuf.createAssertDecode as any)
+                    .Reader;
+                const $pdo0 = (reader: any, length: number = -1): any => {
+                    length =
+                        length < 0 ? reader.size() : reader.index() + length;
+                    const output = {
+                        vulnerable: "" as any,
+                        description: "" as any,
+                        title: "" as any,
+                        complicate_title: "" as any,
+                    };
+                    while (reader.index() < length) {
+                        const tag = reader.uint32();
+                        switch (tag >>> 3) {
+                            case 1:
+                                output.vulnerable = reader.string();
+                                break;
+                            case 2:
+                                output.description = reader.string();
+                                break;
+                            case 3:
+                                output.title = reader.string();
+                                break;
+                            case 4:
+                                output.complicate_title = reader.string();
+                                break;
+                            default:
+                                reader.skipType(tag & 7);
+                                break;
+                        }
+                    }
+                    return output;
+                };
+                const reader = new $Reader(input);
+                return $pdo0(reader);
+            };
             const assert = (input: any): ObjectJsonTag => {
                 const __is = (input: any): input is ObjectJsonTag => {
                     const $is_custom = (
@@ -111,46 +148,8 @@ export const test_protobuf_assertDecode_ObjectJsonTag =
                     })(input, "$input", true);
                 return input;
             };
-            const decode = (input: Uint8Array): ObjectJsonTag => {
-                const $Reader = (typia.protobuf.createAssertDecode as any)
-                    .Reader;
-                const $pdo0 = (reader: any, length: number = -1): any => {
-                    length =
-                        length < 0 ? reader.size() : reader.index() + length;
-                    const output = {
-                        vulnerable: "" as any,
-                        description: "" as any,
-                        title: "" as any,
-                        complicate_title: "" as any,
-                    };
-                    while (reader.index() < length) {
-                        const tag = reader.uint32();
-                        switch (tag >>> 3) {
-                            case 1:
-                                output.vulnerable = reader.string();
-                                break;
-                            case 2:
-                                output.description = reader.string();
-                                break;
-                            case 3:
-                                output.title = reader.string();
-                                break;
-                            case 4:
-                                output.complicate_title = reader.string();
-                                break;
-                            default:
-                                reader.skipType(tag & 7);
-                                break;
-                        }
-                    }
-                    return output;
-                };
-                const reader = new $Reader(input);
-                return $pdo0(reader);
-            };
-            assert(input);
             const output = decode(input);
-            return output;
+            return assert(output);
         },
         encode: (input: ObjectJsonTag): Uint8Array => {
             const $is_custom = (typia.protobuf.createEncode as any).is_custom;

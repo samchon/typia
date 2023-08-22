@@ -5,6 +5,64 @@ import { DynamicTree } from "../../../structures/DynamicTree";
 export const test_protobuf_assertDecode_DynamicTree =
     _test_protobuf_assertDecode("DynamicTree")<DynamicTree>(DynamicTree)({
         assertDecode: (input: Uint8Array): DynamicTree => {
+            const decode = (input: Uint8Array): DynamicTree => {
+                const $Reader = (typia.protobuf.createAssertDecode as any)
+                    .Reader;
+                const $pdo0 = (reader: any, length: number = -1): any => {
+                    length =
+                        length < 0 ? reader.size() : reader.index() + length;
+                    const output = {
+                        id: "" as any,
+                        sequence: undefined as any,
+                        children: {} as any,
+                    };
+                    while (reader.index() < length) {
+                        const tag = reader.uint32();
+                        switch (tag >>> 3) {
+                            case 1:
+                                output.id = reader.string();
+                                break;
+                            case 2:
+                                output.sequence = reader.double();
+                                break;
+                            case 3:
+                                (() => {
+                                    const piece =
+                                        reader.uint32() + reader.index();
+                                    const entry = {
+                                        key: "" as any,
+                                        value: undefined as any,
+                                    };
+                                    while (reader.index() < piece) {
+                                        const kind = reader.uint32();
+                                        switch (kind >>> 3) {
+                                            case 1:
+                                                entry.key = reader.string();
+                                                break;
+                                            case 2:
+                                                entry.value = $pdo0(
+                                                    reader,
+                                                    reader.uint32(),
+                                                );
+                                                break;
+                                            default:
+                                                reader.skipType(kind & 7);
+                                                break;
+                                        }
+                                    }
+                                    output.children[entry.key] = entry.value;
+                                })();
+                                break;
+                            default:
+                                reader.skipType(tag & 7);
+                                break;
+                        }
+                    }
+                    return output;
+                };
+                const reader = new $Reader(input);
+                return $pdo0(reader);
+            };
             const assert = (input: any): DynamicTree => {
                 const __is = (input: any): input is DynamicTree => {
                     const $join = (typia.protobuf.createAssertDecode as any)
@@ -130,67 +188,8 @@ export const test_protobuf_assertDecode_DynamicTree =
                     })(input, "$input", true);
                 return input;
             };
-            const decode = (input: Uint8Array): DynamicTree => {
-                const $Reader = (typia.protobuf.createAssertDecode as any)
-                    .Reader;
-                const $pdo0 = (reader: any, length: number = -1): any => {
-                    length =
-                        length < 0 ? reader.size() : reader.index() + length;
-                    const output = {
-                        id: "" as any,
-                        sequence: undefined as any,
-                        children: {} as any,
-                    };
-                    while (reader.index() < length) {
-                        const tag = reader.uint32();
-                        switch (tag >>> 3) {
-                            case 1:
-                                output.id = reader.string();
-                                break;
-                            case 2:
-                                output.sequence = reader.double();
-                                break;
-                            case 3:
-                                (() => {
-                                    const piece =
-                                        reader.index() + reader.uint32();
-                                    const entry = {
-                                        key: "" as any,
-                                        value: undefined as any,
-                                    };
-                                    while (reader.index() < piece) {
-                                        const kind = reader.uint32();
-                                        switch (kind >>> 3) {
-                                            case 1:
-                                                entry.key = reader.string();
-                                                break;
-                                            case 2:
-                                                entry.value = $pdo0(
-                                                    reader,
-                                                    reader.uint32(),
-                                                );
-                                                break;
-                                            default:
-                                                reader.skipType(kind & 7);
-                                                break;
-                                        }
-                                    }
-                                    output.children[entry.key] = entry.value;
-                                })();
-                                break;
-                            default:
-                                reader.skipType(tag & 7);
-                                break;
-                        }
-                    }
-                    return output;
-                };
-                const reader = new $Reader(input);
-                return $pdo0(reader);
-            };
-            assert(input);
             const output = decode(input);
-            return output;
+            return assert(output);
         },
         encode: (input: DynamicTree): Uint8Array => {
             const $join = (typia.protobuf.createEncode as any).join;

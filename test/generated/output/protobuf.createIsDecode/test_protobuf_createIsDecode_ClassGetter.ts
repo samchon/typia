@@ -44,8 +44,8 @@ export const test_protobuf_isDecode_ClassGetter = _test_protobuf_isDecode(
             const reader = new $Reader(input);
             return $pdo0(reader);
         };
-        if (!is(input)) return null;
         const output = decode(input);
+        if (!is(output)) return null;
         return output;
     },
     encode: (input: ClassGetter): Uint8Array => {

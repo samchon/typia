@@ -1205,9 +1205,8 @@ export const test_protobuf_validateDecode_ObjectUnionExplicitPointer =
                     const reader = new $Reader(input);
                     return $pdo0(reader);
                 };
-                const output = validate(input) as any;
-                if (output.success) output.data = decode(input);
-                return output;
+                const output = decode(input);
+                return validate(output) as any;
             })(input),
         encode: (input: ObjectUnionExplicitPointer): Uint8Array => {
             const $throws = (typia.protobuf.createEncode as any).throws;
@@ -1236,42 +1235,42 @@ export const test_protobuf_validateDecode_ObjectUnionExplicitPointer =
                         })();
                     else if ("line" === input.value.type)
                         return (() => {
-                            writer.uint32(10);
+                            writer.uint32(18);
                             writer.fork();
                             $peo3(input.value);
                             writer.ldelim();
                         })();
                     else if ("triangle" === input.value.type)
                         return (() => {
-                            writer.uint32(10);
+                            writer.uint32(26);
                             writer.fork();
                             $peo5(input.value);
                             writer.ldelim();
                         })();
                     else if ("rectangle" === input.value.type)
                         return (() => {
-                            writer.uint32(10);
+                            writer.uint32(34);
                             writer.fork();
                             $peo6(input.value);
                             writer.ldelim();
                         })();
                     else if ("polyline" === input.value.type)
                         return (() => {
-                            writer.uint32(10);
+                            writer.uint32(42);
                             writer.fork();
                             $peo7(input.value);
                             writer.ldelim();
                         })();
                     else if ("polygon" === input.value.type)
                         return (() => {
-                            writer.uint32(10);
+                            writer.uint32(50);
                             writer.fork();
                             $peo8(input.value);
                             writer.ldelim();
                         })();
                     else if ("circle" === input.value.type)
                         return (() => {
-                            writer.uint32(10);
+                            writer.uint32(58);
                             writer.fork();
                             $peo10(input.value);
                             writer.ldelim();

@@ -7,6 +7,39 @@ export const test_protobuf_assertDecode_ObjectIntersection =
         ObjectIntersection,
     )({
         assertDecode: (input: Uint8Array): ObjectIntersection => {
+            const decode = (input: Uint8Array): ObjectIntersection => {
+                const $Reader = (typia.protobuf.createAssertDecode as any)
+                    .Reader;
+                const $pdo0 = (reader: any, length: number = -1): any => {
+                    length =
+                        length < 0 ? reader.size() : reader.index() + length;
+                    const output = {
+                        email: "" as any,
+                        name: "" as any,
+                        vulnerable: undefined as any,
+                    };
+                    while (reader.index() < length) {
+                        const tag = reader.uint32();
+                        switch (tag >>> 3) {
+                            case 1:
+                                output.email = reader.string();
+                                break;
+                            case 2:
+                                output.name = reader.string();
+                                break;
+                            case 3:
+                                output.vulnerable = reader.bool();
+                                break;
+                            default:
+                                reader.skipType(tag & 7);
+                                break;
+                        }
+                    }
+                    return output;
+                };
+                const reader = new $Reader(input);
+                return $pdo0(reader);
+            };
             const assert = (input: any): ObjectIntersection => {
                 const __is = (input: any): input is ObjectIntersection => {
                     return (
@@ -66,42 +99,8 @@ export const test_protobuf_assertDecode_ObjectIntersection =
                     })(input, "$input", true);
                 return input;
             };
-            const decode = (input: Uint8Array): ObjectIntersection => {
-                const $Reader = (typia.protobuf.createAssertDecode as any)
-                    .Reader;
-                const $pdo0 = (reader: any, length: number = -1): any => {
-                    length =
-                        length < 0 ? reader.size() : reader.index() + length;
-                    const output = {
-                        email: "" as any,
-                        name: "" as any,
-                        vulnerable: undefined as any,
-                    };
-                    while (reader.index() < length) {
-                        const tag = reader.uint32();
-                        switch (tag >>> 3) {
-                            case 1:
-                                output.email = reader.string();
-                                break;
-                            case 2:
-                                output.name = reader.string();
-                                break;
-                            case 3:
-                                output.vulnerable = reader.bool();
-                                break;
-                            default:
-                                reader.skipType(tag & 7);
-                                break;
-                        }
-                    }
-                    return output;
-                };
-                const reader = new $Reader(input);
-                return $pdo0(reader);
-            };
-            assert(input);
             const output = decode(input);
-            return output;
+            return assert(output);
         },
         encode: (input: ObjectIntersection): Uint8Array => {
             const $Sizer = (typia.protobuf.createEncode as any).Sizer;

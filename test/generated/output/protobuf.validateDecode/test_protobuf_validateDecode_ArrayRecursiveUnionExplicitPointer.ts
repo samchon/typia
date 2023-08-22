@@ -887,9 +887,8 @@ export const test_protobuf_validateDecode_ArrayRecursiveUnionExplicitPointer =
                     const reader = new $Reader(input);
                     return $pdo0(reader);
                 };
-                const output = validate(input) as any;
-                if (output.success) output.data = decode(input);
-                return output;
+                const output = decode(input);
+                return validate(output) as any;
             })(input),
         encode: (input: ArrayRecursiveUnionExplicitPointer): Uint8Array => {
             const $throws = (typia.protobuf.createEncode as any).throws;
@@ -918,28 +917,28 @@ export const test_protobuf_validateDecode_ArrayRecursiveUnionExplicitPointer =
                         })();
                     else if ("jpg" === input.value.extension)
                         return (() => {
-                            writer.uint32(10);
+                            writer.uint32(18);
                             writer.fork();
                             $peo3(input.value);
                             writer.ldelim();
                         })();
                     else if ("txt" === input.value.extension)
                         return (() => {
-                            writer.uint32(10);
+                            writer.uint32(26);
                             writer.fork();
                             $peo4(input.value);
                             writer.ldelim();
                         })();
                     else if ("zip" === input.value.extension)
                         return (() => {
-                            writer.uint32(10);
+                            writer.uint32(34);
                             writer.fork();
                             $peo5(input.value);
                             writer.ldelim();
                         })();
                     else if ("lnk" === input.value.extension)
                         return (() => {
-                            writer.uint32(10);
+                            writer.uint32(42);
                             writer.fork();
                             $peo6(input.value);
                             writer.ldelim();

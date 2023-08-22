@@ -8,6 +8,36 @@ export const test_protobuf_assertDecode_ClassNonPublic =
     )({
         assertDecode: (input) =>
             ((input: Uint8Array): ClassNonPublic => {
+                const decode = (input: Uint8Array): ClassNonPublic => {
+                    const $Reader = (typia.protobuf.assertDecode as any).Reader;
+                    const $pdo0 = (reader: any, length: number = -1): any => {
+                        length =
+                            length < 0
+                                ? reader.size()
+                                : reader.index() + length;
+                        const output = {
+                            implicit: "" as any,
+                            shown: "" as any,
+                        };
+                        while (reader.index() < length) {
+                            const tag = reader.uint32();
+                            switch (tag >>> 3) {
+                                case 1:
+                                    output.implicit = reader.string();
+                                    break;
+                                case 2:
+                                    output.shown = reader.string();
+                                    break;
+                                default:
+                                    reader.skipType(tag & 7);
+                                    break;
+                            }
+                        }
+                        return output;
+                    };
+                    const reader = new $Reader(input);
+                    return $pdo0(reader);
+                };
                 const assert = (input: any): ClassNonPublic => {
                     const __is = (input: any): input is ClassNonPublic => {
                         return (
@@ -60,39 +90,8 @@ export const test_protobuf_assertDecode_ClassNonPublic =
                         })(input, "$input", true);
                     return input;
                 };
-                const decode = (input: Uint8Array): ClassNonPublic => {
-                    const $Reader = (typia.protobuf.assertDecode as any).Reader;
-                    const $pdo0 = (reader: any, length: number = -1): any => {
-                        length =
-                            length < 0
-                                ? reader.size()
-                                : reader.index() + length;
-                        const output = {
-                            implicit: "" as any,
-                            shown: "" as any,
-                        };
-                        while (reader.index() < length) {
-                            const tag = reader.uint32();
-                            switch (tag >>> 3) {
-                                case 1:
-                                    output.implicit = reader.string();
-                                    break;
-                                case 2:
-                                    output.shown = reader.string();
-                                    break;
-                                default:
-                                    reader.skipType(tag & 7);
-                                    break;
-                            }
-                        }
-                        return output;
-                    };
-                    const reader = new $Reader(input);
-                    return $pdo0(reader);
-                };
-                assert(input);
                 const output = decode(input);
-                return output;
+                return assert(output);
             })(input),
         encode: (input: ClassNonPublic): Uint8Array => {
             const $Sizer = (typia.protobuf.createEncode as any).Sizer;

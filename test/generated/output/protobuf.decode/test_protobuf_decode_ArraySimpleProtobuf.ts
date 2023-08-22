@@ -27,49 +27,49 @@ export const test_protobuf_decode_ArraySimpleProtobuf = _test_protobuf_decode(
                     switch (tag >>> 3) {
                         case 1:
                             if (2 === (tag & 7)) {
-                                const piece = reader.index() + reader.uint32();
+                                const piece = reader.uint32() + reader.index();
                                 while (reader.index() < piece)
                                     output.boolean.push(reader.bool());
                             } else output.boolean.push(reader.bool());
                             break;
                         case 2:
                             if (2 === (tag & 7)) {
-                                const piece = reader.index() + reader.uint32();
+                                const piece = reader.uint32() + reader.index();
                                 while (reader.index() < piece)
                                     output.int32.push(reader.int32());
                             } else output.int32.push(reader.int32());
                             break;
                         case 3:
                             if (2 === (tag & 7)) {
-                                const piece = reader.index() + reader.uint32();
+                                const piece = reader.uint32() + reader.index();
                                 while (reader.index() < piece)
                                     output.uint32.push(reader.uint32());
                             } else output.uint32.push(reader.uint32());
                             break;
                         case 4:
                             if (2 === (tag & 7)) {
-                                const piece = reader.index() + reader.uint32();
+                                const piece = reader.uint32() + reader.index();
                                 while (reader.index() < piece)
                                     output.int64.push(reader.int64());
                             } else output.int64.push(reader.int64());
                             break;
                         case 5:
                             if (2 === (tag & 7)) {
-                                const piece = reader.index() + reader.uint32();
+                                const piece = reader.uint32() + reader.index();
                                 while (reader.index() < piece)
                                     output.uint64.push(reader.uint64());
                             } else output.uint64.push(reader.uint64());
                             break;
                         case 6:
                             if (2 === (tag & 7)) {
-                                const piece = reader.index() + reader.uint32();
+                                const piece = reader.uint32() + reader.index();
                                 while (reader.index() < piece)
                                     output.float.push(reader.float());
                             } else output.float.push(reader.float());
                             break;
                         case 7:
                             if (2 === (tag & 7)) {
-                                const piece = reader.index() + reader.uint32();
+                                const piece = reader.uint32() + reader.index();
                                 while (reader.index() < piece)
                                     output.double.push(reader.double());
                             } else output.double.push(reader.double());

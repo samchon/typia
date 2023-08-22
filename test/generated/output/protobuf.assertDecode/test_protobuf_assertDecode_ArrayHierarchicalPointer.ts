@@ -8,6 +8,185 @@ export const test_protobuf_assertDecode_ArrayHierarchicalPointer =
     )<ArrayHierarchicalPointer>(ArrayHierarchicalPointer)({
         assertDecode: (input) =>
             ((input: Uint8Array): ArrayHierarchicalPointer => {
+                const decode = (
+                    input: Uint8Array,
+                ): ArrayHierarchicalPointer => {
+                    const $Reader = (typia.protobuf.assertDecode as any).Reader;
+                    const $pdo0 = (reader: any, length: number = -1): any => {
+                        length =
+                            length < 0
+                                ? reader.size()
+                                : reader.index() + length;
+                        const output = {
+                            value: [] as any,
+                        };
+                        while (reader.index() < length) {
+                            const tag = reader.uint32();
+                            switch (tag >>> 3) {
+                                case 1:
+                                    output.value.push(
+                                        $pdo1(reader, reader.uint32()),
+                                    );
+                                    break;
+                                default:
+                                    reader.skipType(tag & 7);
+                                    break;
+                            }
+                        }
+                        return output;
+                    };
+                    const $pdo1 = (reader: any, length: number = -1): any => {
+                        length =
+                            length < 0
+                                ? reader.size()
+                                : reader.index() + length;
+                        const output = {
+                            id: undefined as any,
+                            serial: undefined as any,
+                            name: "" as any,
+                            established_at: undefined as any,
+                            departments: [] as any,
+                        };
+                        while (reader.index() < length) {
+                            const tag = reader.uint32();
+                            switch (tag >>> 3) {
+                                case 1:
+                                    output.id = reader.double();
+                                    break;
+                                case 2:
+                                    output.serial = reader.double();
+                                    break;
+                                case 3:
+                                    output.name = reader.string();
+                                    break;
+                                case 4:
+                                    output.established_at = $pdo2(
+                                        reader,
+                                        reader.uint32(),
+                                    );
+                                    break;
+                                case 5:
+                                    output.departments.push(
+                                        $pdo3(reader, reader.uint32()),
+                                    );
+                                    break;
+                                default:
+                                    reader.skipType(tag & 7);
+                                    break;
+                            }
+                        }
+                        return output;
+                    };
+                    const $pdo2 = (reader: any, length: number = -1): any => {
+                        length =
+                            length < 0
+                                ? reader.size()
+                                : reader.index() + length;
+                        const output = {
+                            time: undefined as any,
+                            zone: undefined as any,
+                        };
+                        while (reader.index() < length) {
+                            const tag = reader.uint32();
+                            switch (tag >>> 3) {
+                                case 1:
+                                    output.time = reader.double();
+                                    break;
+                                case 2:
+                                    output.zone = reader.double();
+                                    break;
+                                default:
+                                    reader.skipType(tag & 7);
+                                    break;
+                            }
+                        }
+                        return output;
+                    };
+                    const $pdo3 = (reader: any, length: number = -1): any => {
+                        length =
+                            length < 0
+                                ? reader.size()
+                                : reader.index() + length;
+                        const output = {
+                            id: undefined as any,
+                            code: "" as any,
+                            sales: undefined as any,
+                            created_at: undefined as any,
+                            employees: [] as any,
+                        };
+                        while (reader.index() < length) {
+                            const tag = reader.uint32();
+                            switch (tag >>> 3) {
+                                case 1:
+                                    output.id = reader.double();
+                                    break;
+                                case 2:
+                                    output.code = reader.string();
+                                    break;
+                                case 3:
+                                    output.sales = reader.double();
+                                    break;
+                                case 4:
+                                    output.created_at = $pdo2(
+                                        reader,
+                                        reader.uint32(),
+                                    );
+                                    break;
+                                case 5:
+                                    output.employees.push(
+                                        $pdo4(reader, reader.uint32()),
+                                    );
+                                    break;
+                                default:
+                                    reader.skipType(tag & 7);
+                                    break;
+                            }
+                        }
+                        return output;
+                    };
+                    const $pdo4 = (reader: any, length: number = -1): any => {
+                        length =
+                            length < 0
+                                ? reader.size()
+                                : reader.index() + length;
+                        const output = {
+                            id: undefined as any,
+                            name: "" as any,
+                            age: undefined as any,
+                            grade: undefined as any,
+                            employeed_at: undefined as any,
+                        };
+                        while (reader.index() < length) {
+                            const tag = reader.uint32();
+                            switch (tag >>> 3) {
+                                case 1:
+                                    output.id = reader.double();
+                                    break;
+                                case 2:
+                                    output.name = reader.string();
+                                    break;
+                                case 3:
+                                    output.age = reader.double();
+                                    break;
+                                case 4:
+                                    output.grade = reader.double();
+                                    break;
+                                case 5:
+                                    output.employeed_at = $pdo2(
+                                        reader,
+                                        reader.uint32(),
+                                    );
+                                    break;
+                                default:
+                                    reader.skipType(tag & 7);
+                                    break;
+                            }
+                        }
+                        return output;
+                    };
+                    const reader = new $Reader(input);
+                    return $pdo0(reader);
+                };
                 const assert = (input: any): ArrayHierarchicalPointer => {
                     const __is = (
                         input: any,
@@ -415,188 +594,8 @@ export const test_protobuf_assertDecode_ArrayHierarchicalPointer =
                         })(input, "$input", true);
                     return input;
                 };
-                const decode = (
-                    input: Uint8Array,
-                ): ArrayHierarchicalPointer => {
-                    const $Reader = (typia.protobuf.assertDecode as any).Reader;
-                    const $pdo0 = (reader: any, length: number = -1): any => {
-                        length =
-                            length < 0
-                                ? reader.size()
-                                : reader.index() + length;
-                        const output = {
-                            value: [] as any,
-                        };
-                        while (reader.index() < length) {
-                            const tag = reader.uint32();
-                            switch (tag >>> 3) {
-                                case 1:
-                                    output.value.push(
-                                        $pdo1(reader, reader.uint32()),
-                                    );
-                                    break;
-                                default:
-                                    reader.skipType(tag & 7);
-                                    break;
-                            }
-                        }
-                        return output;
-                    };
-                    const $pdo1 = (reader: any, length: number = -1): any => {
-                        length =
-                            length < 0
-                                ? reader.size()
-                                : reader.index() + length;
-                        const output = {
-                            id: undefined as any,
-                            serial: undefined as any,
-                            name: "" as any,
-                            established_at: undefined as any,
-                            departments: [] as any,
-                        };
-                        while (reader.index() < length) {
-                            const tag = reader.uint32();
-                            switch (tag >>> 3) {
-                                case 1:
-                                    output.id = reader.double();
-                                    break;
-                                case 2:
-                                    output.serial = reader.double();
-                                    break;
-                                case 3:
-                                    output.name = reader.string();
-                                    break;
-                                case 4:
-                                    output.established_at = $pdo2(
-                                        reader,
-                                        reader.uint32(),
-                                    );
-                                    break;
-                                case 5:
-                                    output.departments.push(
-                                        $pdo3(reader, reader.uint32()),
-                                    );
-                                    break;
-                                default:
-                                    reader.skipType(tag & 7);
-                                    break;
-                            }
-                        }
-                        return output;
-                    };
-                    const $pdo2 = (reader: any, length: number = -1): any => {
-                        length =
-                            length < 0
-                                ? reader.size()
-                                : reader.index() + length;
-                        const output = {
-                            time: undefined as any,
-                            zone: undefined as any,
-                        };
-                        while (reader.index() < length) {
-                            const tag = reader.uint32();
-                            switch (tag >>> 3) {
-                                case 1:
-                                    output.time = reader.double();
-                                    break;
-                                case 2:
-                                    output.zone = reader.double();
-                                    break;
-                                default:
-                                    reader.skipType(tag & 7);
-                                    break;
-                            }
-                        }
-                        return output;
-                    };
-                    const $pdo3 = (reader: any, length: number = -1): any => {
-                        length =
-                            length < 0
-                                ? reader.size()
-                                : reader.index() + length;
-                        const output = {
-                            id: undefined as any,
-                            code: "" as any,
-                            sales: undefined as any,
-                            created_at: undefined as any,
-                            employees: [] as any,
-                        };
-                        while (reader.index() < length) {
-                            const tag = reader.uint32();
-                            switch (tag >>> 3) {
-                                case 1:
-                                    output.id = reader.double();
-                                    break;
-                                case 2:
-                                    output.code = reader.string();
-                                    break;
-                                case 3:
-                                    output.sales = reader.double();
-                                    break;
-                                case 4:
-                                    output.created_at = $pdo2(
-                                        reader,
-                                        reader.uint32(),
-                                    );
-                                    break;
-                                case 5:
-                                    output.employees.push(
-                                        $pdo4(reader, reader.uint32()),
-                                    );
-                                    break;
-                                default:
-                                    reader.skipType(tag & 7);
-                                    break;
-                            }
-                        }
-                        return output;
-                    };
-                    const $pdo4 = (reader: any, length: number = -1): any => {
-                        length =
-                            length < 0
-                                ? reader.size()
-                                : reader.index() + length;
-                        const output = {
-                            id: undefined as any,
-                            name: "" as any,
-                            age: undefined as any,
-                            grade: undefined as any,
-                            employeed_at: undefined as any,
-                        };
-                        while (reader.index() < length) {
-                            const tag = reader.uint32();
-                            switch (tag >>> 3) {
-                                case 1:
-                                    output.id = reader.double();
-                                    break;
-                                case 2:
-                                    output.name = reader.string();
-                                    break;
-                                case 3:
-                                    output.age = reader.double();
-                                    break;
-                                case 4:
-                                    output.grade = reader.double();
-                                    break;
-                                case 5:
-                                    output.employeed_at = $pdo2(
-                                        reader,
-                                        reader.uint32(),
-                                    );
-                                    break;
-                                default:
-                                    reader.skipType(tag & 7);
-                                    break;
-                            }
-                        }
-                        return output;
-                    };
-                    const reader = new $Reader(input);
-                    return $pdo0(reader);
-                };
-                assert(input);
                 const output = decode(input);
-                return output;
+                return assert(output);
             })(input),
         encode: (input: ArrayHierarchicalPointer): Uint8Array => {
             const $Sizer = (typia.protobuf.createEncode as any).Sizer;

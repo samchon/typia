@@ -79,7 +79,7 @@ export const test_protobuf_encode_DynamicTree = _test_protobuf_encode(
                         break;
                     case 3:
                         (() => {
-                            const piece = reader.index() + reader.uint32();
+                            const piece = reader.uint32() + reader.index();
                             const entry = {
                                 key: "" as any,
                                 value: undefined as any,

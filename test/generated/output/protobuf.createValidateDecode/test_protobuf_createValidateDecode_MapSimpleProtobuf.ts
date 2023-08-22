@@ -877,7 +877,7 @@ export const test_protobuf_validateDecode_MapSimpleProtobuf =
                             case 1:
                                 (() => {
                                     const piece =
-                                        reader.index() + reader.uint32();
+                                        reader.uint32() + reader.index();
                                     const entry = {
                                         key: "" as any,
                                         value: undefined as any,
@@ -902,7 +902,7 @@ export const test_protobuf_validateDecode_MapSimpleProtobuf =
                             case 2:
                                 (() => {
                                     const piece =
-                                        reader.index() + reader.uint32();
+                                        reader.uint32() + reader.index();
                                     const entry = {
                                         key: "" as any,
                                         value: undefined as any,
@@ -927,7 +927,7 @@ export const test_protobuf_validateDecode_MapSimpleProtobuf =
                             case 3:
                                 (() => {
                                     const piece =
-                                        reader.index() + reader.uint32();
+                                        reader.uint32() + reader.index();
                                     const entry = {
                                         key: "" as any,
                                         value: undefined as any,
@@ -952,7 +952,7 @@ export const test_protobuf_validateDecode_MapSimpleProtobuf =
                             case 4:
                                 (() => {
                                     const piece =
-                                        reader.index() + reader.uint32();
+                                        reader.uint32() + reader.index();
                                     const entry = {
                                         key: "" as any,
                                         value: undefined as any,
@@ -977,7 +977,7 @@ export const test_protobuf_validateDecode_MapSimpleProtobuf =
                             case 5:
                                 (() => {
                                     const piece =
-                                        reader.index() + reader.uint32();
+                                        reader.uint32() + reader.index();
                                     const entry = {
                                         key: "" as any,
                                         value: "" as any,
@@ -1002,7 +1002,7 @@ export const test_protobuf_validateDecode_MapSimpleProtobuf =
                             case 6:
                                 (() => {
                                     const piece =
-                                        reader.index() + reader.uint32();
+                                        reader.uint32() + reader.index();
                                     const entry = {
                                         key: "" as any,
                                         value: new Uint8Array() as any,
@@ -1027,7 +1027,7 @@ export const test_protobuf_validateDecode_MapSimpleProtobuf =
                             case 7:
                                 (() => {
                                     const piece =
-                                        reader.index() + reader.uint32();
+                                        reader.uint32() + reader.index();
                                     const entry = {
                                         key: "" as any,
                                         value: undefined as any,
@@ -1062,9 +1062,8 @@ export const test_protobuf_validateDecode_MapSimpleProtobuf =
                 const reader = new $Reader(input);
                 return $pdo0(reader);
             };
-            const output = validate(input) as any;
-            if (output.success) output.data = decode(input);
-            return output;
+            const output = decode(input);
+            return validate(output) as any;
         },
         encode: (input: MapSimpleProtobuf): Uint8Array => {
             const $Sizer = (typia.protobuf.createEncode as any).Sizer;

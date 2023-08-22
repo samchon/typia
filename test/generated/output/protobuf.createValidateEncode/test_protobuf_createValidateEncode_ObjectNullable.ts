@@ -323,7 +323,7 @@ export const test_protobuf_validateEncode_ObjectNullable =
                                 })();
                             else if ("manufacturer" === input.similar.type)
                                 return (() => {
-                                    writer.uint32(34);
+                                    writer.uint32(42);
                                     writer.fork();
                                     $peo2(input.similar);
                                     writer.ldelim();

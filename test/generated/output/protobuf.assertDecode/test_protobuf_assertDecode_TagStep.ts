@@ -7,6 +7,63 @@ export const test_protobuf_assertDecode_TagStep = _test_protobuf_assertDecode(
 )<TagStep>(TagStep)({
     assertDecode: (input) =>
         ((input: Uint8Array): TagStep => {
+            const decode = (input: Uint8Array): TagStep => {
+                const $Reader = (typia.protobuf.assertDecode as any).Reader;
+                const $pdo0 = (reader: any, length: number = -1): any => {
+                    length =
+                        length < 0 ? reader.size() : reader.index() + length;
+                    const output = {
+                        value: [] as any,
+                    };
+                    while (reader.index() < length) {
+                        const tag = reader.uint32();
+                        switch (tag >>> 3) {
+                            case 1:
+                                output.value.push(
+                                    $pdo1(reader, reader.uint32()),
+                                );
+                                break;
+                            default:
+                                reader.skipType(tag & 7);
+                                break;
+                        }
+                    }
+                    return output;
+                };
+                const $pdo1 = (reader: any, length: number = -1): any => {
+                    length =
+                        length < 0 ? reader.size() : reader.index() + length;
+                    const output = {
+                        exclusiveMinimum: undefined as any,
+                        minimum: undefined as any,
+                        range: undefined as any,
+                        multipleOf: undefined as any,
+                    };
+                    while (reader.index() < length) {
+                        const tag = reader.uint32();
+                        switch (tag >>> 3) {
+                            case 1:
+                                output.exclusiveMinimum = reader.double();
+                                break;
+                            case 2:
+                                output.minimum = reader.double();
+                                break;
+                            case 3:
+                                output.range = reader.double();
+                                break;
+                            case 4:
+                                output.multipleOf = reader.double();
+                                break;
+                            default:
+                                reader.skipType(tag & 7);
+                                break;
+                        }
+                    }
+                    return output;
+                };
+                const reader = new $Reader(input);
+                return $pdo0(reader);
+            };
             const assert = (input: any): TagStep => {
                 const __is = (input: any): input is TagStep => {
                     const $io0 = (input: any): boolean =>
@@ -202,66 +259,8 @@ export const test_protobuf_assertDecode_TagStep = _test_protobuf_assertDecode(
                     })(input, "$input", true);
                 return input;
             };
-            const decode = (input: Uint8Array): TagStep => {
-                const $Reader = (typia.protobuf.assertDecode as any).Reader;
-                const $pdo0 = (reader: any, length: number = -1): any => {
-                    length =
-                        length < 0 ? reader.size() : reader.index() + length;
-                    const output = {
-                        value: [] as any,
-                    };
-                    while (reader.index() < length) {
-                        const tag = reader.uint32();
-                        switch (tag >>> 3) {
-                            case 1:
-                                output.value.push(
-                                    $pdo1(reader, reader.uint32()),
-                                );
-                                break;
-                            default:
-                                reader.skipType(tag & 7);
-                                break;
-                        }
-                    }
-                    return output;
-                };
-                const $pdo1 = (reader: any, length: number = -1): any => {
-                    length =
-                        length < 0 ? reader.size() : reader.index() + length;
-                    const output = {
-                        exclusiveMinimum: undefined as any,
-                        minimum: undefined as any,
-                        range: undefined as any,
-                        multipleOf: undefined as any,
-                    };
-                    while (reader.index() < length) {
-                        const tag = reader.uint32();
-                        switch (tag >>> 3) {
-                            case 1:
-                                output.exclusiveMinimum = reader.double();
-                                break;
-                            case 2:
-                                output.minimum = reader.double();
-                                break;
-                            case 3:
-                                output.range = reader.double();
-                                break;
-                            case 4:
-                                output.multipleOf = reader.double();
-                                break;
-                            default:
-                                reader.skipType(tag & 7);
-                                break;
-                        }
-                    }
-                    return output;
-                };
-                const reader = new $Reader(input);
-                return $pdo0(reader);
-            };
-            assert(input);
             const output = decode(input);
-            return output;
+            return assert(output);
         })(input),
     encode: (input: TagStep): Uint8Array => {
         const $Sizer = (typia.protobuf.createEncode as any).Sizer;

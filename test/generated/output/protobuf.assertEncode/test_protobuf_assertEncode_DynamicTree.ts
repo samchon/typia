@@ -207,7 +207,7 @@ export const test_protobuf_assertEncode_DynamicTree =
                             break;
                         case 3:
                             (() => {
-                                const piece = reader.index() + reader.uint32();
+                                const piece = reader.uint32() + reader.index();
                                 const entry = {
                                     key: "" as any,
                                     value: undefined as any,

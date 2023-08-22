@@ -502,9 +502,8 @@ export const test_protobuf_validateDecode_ObjectUnionNonPredictable =
                 const reader = new $Reader(input);
                 return $pdo0(reader);
             };
-            const output = validate(input) as any;
-            if (output.success) output.data = decode(input);
-            return output;
+            const output = decode(input);
+            return validate(output) as any;
         },
         encode: (input: ObjectUnionNonPredictable): Uint8Array => {
             const $throws = (typia.protobuf.createEncode as any).throws;
@@ -541,14 +540,14 @@ export const test_protobuf_validateDecode_ObjectUnionNonPredictable =
                             })();
                         else if ($io5(input.value))
                             return (() => {
-                                writer.uint32(10);
+                                writer.uint32(18);
                                 writer.fork();
                                 $peo5(input.value);
                                 writer.ldelim();
                             })();
                         else if ($io3(input.value))
                             return (() => {
-                                writer.uint32(10);
+                                writer.uint32(26);
                                 writer.fork();
                                 $peo3(input.value);
                                 writer.ldelim();

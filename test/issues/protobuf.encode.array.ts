@@ -10,10 +10,13 @@ const result: pjs.IParserResult = pjs.parse(
 const type: pjs.Type = result.root.lookupType("ArraySimpleProtobuf");
 const data: ArraySimpleProtobuf = ArraySimpleProtobuf.generate();
 
-console.log(
-    typia.protobuf.encode<ArraySimpleProtobuf>(data).length,
-    type.encode(data).finish().length,
-);
+const encoded = typia.protobuf.encode<ArraySimpleProtobuf>(data);
+const decoded = typia.protobuf.decode<ArraySimpleProtobuf>(encoded);
+
+console.log({
+    data,
+    decoded,
+});
 
 fs.writeFileSync(
     __dirname + "/protobuf.encode.array.js",

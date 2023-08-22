@@ -193,7 +193,7 @@ export const test_protobuf_validateDecode_DynamicTree =
                                 case 3:
                                     (() => {
                                         const piece =
-                                            reader.index() + reader.uint32();
+                                            reader.uint32() + reader.index();
                                         const entry = {
                                             key: "" as any,
                                             value: undefined as any,
@@ -229,9 +229,8 @@ export const test_protobuf_validateDecode_DynamicTree =
                     const reader = new $Reader(input);
                     return $pdo0(reader);
                 };
-                const output = validate(input) as any;
-                if (output.success) output.data = decode(input);
-                return output;
+                const output = decode(input);
+                return validate(output) as any;
             })(input),
         encode: (input: DynamicTree): Uint8Array => {
             const $join = (typia.protobuf.createEncode as any).join;

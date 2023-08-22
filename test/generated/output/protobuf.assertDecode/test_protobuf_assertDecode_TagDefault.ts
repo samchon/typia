@@ -6,6 +6,113 @@ export const test_protobuf_assertDecode_TagDefault =
     _test_protobuf_assertDecode("TagDefault")<TagDefault>(TagDefault)({
         assertDecode: (input) =>
             ((input: Uint8Array): TagDefault => {
+                const decode = (input: Uint8Array): TagDefault => {
+                    const $Reader = (typia.protobuf.assertDecode as any).Reader;
+                    const $pdo0 = (reader: any, length: number = -1): any => {
+                        length =
+                            length < 0
+                                ? reader.size()
+                                : reader.index() + length;
+                        const output = {
+                            boolean: undefined as any,
+                            number: undefined as any,
+                            string: "" as any,
+                            text: "" as any,
+                            template: undefined as any,
+                            boolean_and_number_and_string: "" as any,
+                            union_but_boolean: "" as any,
+                            union_but_number: "" as any,
+                            union_but_string: "" as any,
+                            vulnerable_range: undefined as any,
+                            vulnerable_template: undefined as any,
+                            boolean_and_number_and_template: undefined as any,
+                        };
+                        while (reader.index() < length) {
+                            const tag = reader.uint32();
+                            switch (tag >>> 3) {
+                                case 1:
+                                    output.boolean = reader.bool();
+                                    break;
+                                case 2:
+                                    output.number = reader.double();
+                                    break;
+                                case 3:
+                                    output.string = reader.string();
+                                    break;
+                                case 4:
+                                    output.text = reader.string();
+                                    break;
+                                case 5:
+                                    output.template = reader.string();
+                                    break;
+                                case 6:
+                                    output.boolean_and_number_and_string =
+                                        reader.bool();
+                                    break;
+                                case 7:
+                                    output.boolean_and_number_and_string =
+                                        reader.double();
+                                    break;
+                                case 8:
+                                    output.boolean_and_number_and_string =
+                                        reader.string();
+                                    break;
+                                case 9:
+                                    output.union_but_boolean = reader.bool();
+                                    break;
+                                case 10:
+                                    output.union_but_boolean = reader.double();
+                                    break;
+                                case 11:
+                                    output.union_but_boolean = reader.string();
+                                    break;
+                                case 12:
+                                    output.union_but_number = reader.bool();
+                                    break;
+                                case 13:
+                                    output.union_but_number = reader.double();
+                                    break;
+                                case 14:
+                                    output.union_but_number = reader.string();
+                                    break;
+                                case 15:
+                                    output.union_but_string = reader.bool();
+                                    break;
+                                case 16:
+                                    output.union_but_string = reader.double();
+                                    break;
+                                case 17:
+                                    output.union_but_string = reader.string();
+                                    break;
+                                case 18:
+                                    output.vulnerable_range = reader.double();
+                                    break;
+                                case 19:
+                                    output.vulnerable_template =
+                                        reader.string();
+                                    break;
+                                case 20:
+                                    output.boolean_and_number_and_template =
+                                        reader.bool();
+                                    break;
+                                case 21:
+                                    output.boolean_and_number_and_template =
+                                        reader.double();
+                                    break;
+                                case 22:
+                                    output.boolean_and_number_and_template =
+                                        reader.string();
+                                    break;
+                                default:
+                                    reader.skipType(tag & 7);
+                                    break;
+                            }
+                        }
+                        return output;
+                    };
+                    const reader = new $Reader(input);
+                    return $pdo0(reader);
+                };
                 const assert = (input: any): TagDefault => {
                     const __is = (input: any): input is TagDefault => {
                         const $is_custom = (typia.protobuf.assertDecode as any)
@@ -704,116 +811,8 @@ export const test_protobuf_assertDecode_TagDefault =
                         })(input, "$input", true);
                     return input;
                 };
-                const decode = (input: Uint8Array): TagDefault => {
-                    const $Reader = (typia.protobuf.assertDecode as any).Reader;
-                    const $pdo0 = (reader: any, length: number = -1): any => {
-                        length =
-                            length < 0
-                                ? reader.size()
-                                : reader.index() + length;
-                        const output = {
-                            boolean: undefined as any,
-                            number: undefined as any,
-                            string: "" as any,
-                            text: "" as any,
-                            template: undefined as any,
-                            boolean_and_number_and_string: "" as any,
-                            union_but_boolean: "" as any,
-                            union_but_number: "" as any,
-                            union_but_string: "" as any,
-                            vulnerable_range: undefined as any,
-                            vulnerable_template: undefined as any,
-                            boolean_and_number_and_template: undefined as any,
-                        };
-                        while (reader.index() < length) {
-                            const tag = reader.uint32();
-                            switch (tag >>> 3) {
-                                case 1:
-                                    output.boolean = reader.bool();
-                                    break;
-                                case 2:
-                                    output.number = reader.double();
-                                    break;
-                                case 3:
-                                    output.string = reader.string();
-                                    break;
-                                case 4:
-                                    output.text = reader.string();
-                                    break;
-                                case 5:
-                                    output.template = reader.string();
-                                    break;
-                                case 6:
-                                    output.boolean_and_number_and_string =
-                                        reader.bool();
-                                    break;
-                                case 7:
-                                    output.boolean_and_number_and_string =
-                                        reader.double();
-                                    break;
-                                case 8:
-                                    output.boolean_and_number_and_string =
-                                        reader.string();
-                                    break;
-                                case 9:
-                                    output.union_but_boolean = reader.bool();
-                                    break;
-                                case 10:
-                                    output.union_but_boolean = reader.double();
-                                    break;
-                                case 11:
-                                    output.union_but_boolean = reader.string();
-                                    break;
-                                case 12:
-                                    output.union_but_number = reader.bool();
-                                    break;
-                                case 13:
-                                    output.union_but_number = reader.double();
-                                    break;
-                                case 14:
-                                    output.union_but_number = reader.string();
-                                    break;
-                                case 15:
-                                    output.union_but_string = reader.bool();
-                                    break;
-                                case 16:
-                                    output.union_but_string = reader.double();
-                                    break;
-                                case 17:
-                                    output.union_but_string = reader.string();
-                                    break;
-                                case 18:
-                                    output.vulnerable_range = reader.double();
-                                    break;
-                                case 19:
-                                    output.vulnerable_template =
-                                        reader.string();
-                                    break;
-                                case 20:
-                                    output.boolean_and_number_and_template =
-                                        reader.bool();
-                                    break;
-                                case 21:
-                                    output.boolean_and_number_and_template =
-                                        reader.double();
-                                    break;
-                                case 22:
-                                    output.boolean_and_number_and_template =
-                                        reader.string();
-                                    break;
-                                default:
-                                    reader.skipType(tag & 7);
-                                    break;
-                            }
-                        }
-                        return output;
-                    };
-                    const reader = new $Reader(input);
-                    return $pdo0(reader);
-                };
-                assert(input);
                 const output = decode(input);
-                return output;
+                return assert(output);
             })(input),
         encode: (input: TagDefault): Uint8Array => {
             const $throws = (typia.protobuf.createEncode as any).throws;

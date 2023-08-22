@@ -1,5 +1,6 @@
 import { ProtobufWire } from "../programmers/helpers/ProtobufWire";
 
+/// @reference https://github.com/piotr-oles/as-proto/blob/main/packages/as-proto/assembly/internal/FixedReader.ts
 export class $ProtobufReader {
     /**
      * Read buffer
@@ -85,7 +86,13 @@ export class $ProtobufReader {
 
     public skip(length: number): void {
         if (length === 0) while (this.u8() & 0x80);
-        else this.ptr += length;
+        else {
+            if (this.index() + length > this.size())
+                throw new Error(
+                    "Error on typia.protobuf.decode(): buffer overflow.",
+                );
+            this.ptr += length;
+        }
     }
 
     public skipType(wireType: ProtobufWire): void {
@@ -109,7 +116,9 @@ export class $ProtobufReader {
                 this.skip(4);
                 break;
             default:
-                throw new Error("Invalid wire type " + wireType.toString());
+                throw new Error(
+                    `Invalid wire type ${wireType} at offset ${this.ptr}.`,
+                );
         }
     }
 

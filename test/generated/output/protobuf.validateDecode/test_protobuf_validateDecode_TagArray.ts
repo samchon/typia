@@ -420,7 +420,7 @@ export const test_protobuf_validateDecode_TagArray =
                                 case 2:
                                     if (2 === (tag & 7)) {
                                         const piece =
-                                            reader.index() + reader.uint32();
+                                            reader.uint32() + reader.index();
                                         while (reader.index() < piece)
                                             output.minItems.push(
                                                 reader.double(),
@@ -434,7 +434,7 @@ export const test_protobuf_validateDecode_TagArray =
                                 case 4:
                                     if (2 === (tag & 7)) {
                                         const piece =
-                                            reader.index() + reader.uint32();
+                                            reader.uint32() + reader.index();
                                         while (reader.index() < piece)
                                             output.equal.push(reader.double());
                                     } else output.equal.push(reader.double());
@@ -449,9 +449,8 @@ export const test_protobuf_validateDecode_TagArray =
                     const reader = new $Reader(input);
                     return $pdo0(reader);
                 };
-                const output = validate(input) as any;
-                if (output.success) output.data = decode(input);
-                return output;
+                const output = decode(input);
+                return validate(output) as any;
             })(input),
         encode: (input: TagArray): Uint8Array => {
             const $is_uuid = (typia.protobuf.createEncode as any).is_uuid;

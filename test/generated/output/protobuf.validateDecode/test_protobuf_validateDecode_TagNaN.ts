@@ -207,9 +207,8 @@ export const test_protobuf_validateDecode_TagNaN =
                     const reader = new $Reader(input);
                     return $pdo0(reader);
                 };
-                const output = validate(input) as any;
-                if (output.success) output.data = decode(input);
-                return output;
+                const output = decode(input);
+                return validate(output) as any;
             })(input),
         encode: (input: TagNaN): Uint8Array => {
             const $Sizer = (typia.protobuf.createEncode as any).Sizer;

@@ -41,8 +41,8 @@ export const test_protobuf_isDecode_ObjectInternal = _test_protobuf_isDecode(
             const reader = new $Reader(input);
             return $pdo0(reader);
         };
-        if (!is(input)) return null;
         const output = decode(input);
+        if (!is(output)) return null;
         return output;
     },
     encode: (input: ObjectInternal): Uint8Array => {

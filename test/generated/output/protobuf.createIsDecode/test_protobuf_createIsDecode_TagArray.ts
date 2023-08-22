@@ -79,7 +79,7 @@ export const test_protobuf_isDecode_TagArray = _test_protobuf_isDecode(
                             break;
                         case 2:
                             if (2 === (tag & 7)) {
-                                const piece = reader.index() + reader.uint32();
+                                const piece = reader.uint32() + reader.index();
                                 while (reader.index() < piece)
                                     output.minItems.push(reader.double());
                             } else output.minItems.push(reader.double());
@@ -89,7 +89,7 @@ export const test_protobuf_isDecode_TagArray = _test_protobuf_isDecode(
                             break;
                         case 4:
                             if (2 === (tag & 7)) {
-                                const piece = reader.index() + reader.uint32();
+                                const piece = reader.uint32() + reader.index();
                                 while (reader.index() < piece)
                                     output.equal.push(reader.double());
                             } else output.equal.push(reader.double());
@@ -104,8 +104,8 @@ export const test_protobuf_isDecode_TagArray = _test_protobuf_isDecode(
             const reader = new $Reader(input);
             return $pdo0(reader);
         };
-        if (!is(input)) return null;
         const output = decode(input);
+        if (!is(output)) return null;
         return output;
     },
     encode: (input: TagArray): Uint8Array => {

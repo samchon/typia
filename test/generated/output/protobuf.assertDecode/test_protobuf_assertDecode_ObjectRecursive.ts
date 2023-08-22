@@ -8,6 +8,83 @@ export const test_protobuf_assertDecode_ObjectRecursive =
     )({
         assertDecode: (input) =>
             ((input: Uint8Array): ObjectRecursive => {
+                const decode = (input: Uint8Array): ObjectRecursive => {
+                    const $Reader = (typia.protobuf.assertDecode as any).Reader;
+                    const $pdo0 = (reader: any, length: number = -1): any => {
+                        length =
+                            length < 0
+                                ? reader.size()
+                                : reader.index() + length;
+                        const output = {
+                            parent: null as any,
+                            id: undefined as any,
+                            code: "" as any,
+                            name: "" as any,
+                            sequence: undefined as any,
+                            created_at: undefined as any,
+                        };
+                        while (reader.index() < length) {
+                            const tag = reader.uint32();
+                            switch (tag >>> 3) {
+                                case 1:
+                                    output.parent = $pdo0(
+                                        reader,
+                                        reader.uint32(),
+                                    );
+                                    break;
+                                case 2:
+                                    output.id = reader.double();
+                                    break;
+                                case 3:
+                                    output.code = reader.string();
+                                    break;
+                                case 4:
+                                    output.name = reader.string();
+                                    break;
+                                case 5:
+                                    output.sequence = reader.double();
+                                    break;
+                                case 6:
+                                    output.created_at = $pdo1(
+                                        reader,
+                                        reader.uint32(),
+                                    );
+                                    break;
+                                default:
+                                    reader.skipType(tag & 7);
+                                    break;
+                            }
+                        }
+                        return output;
+                    };
+                    const $pdo1 = (reader: any, length: number = -1): any => {
+                        length =
+                            length < 0
+                                ? reader.size()
+                                : reader.index() + length;
+                        const output = {
+                            time: undefined as any,
+                            zone: undefined as any,
+                        };
+                        while (reader.index() < length) {
+                            const tag = reader.uint32();
+                            switch (tag >>> 3) {
+                                case 1:
+                                    output.time = reader.double();
+                                    break;
+                                case 2:
+                                    output.zone = reader.double();
+                                    break;
+                                default:
+                                    reader.skipType(tag & 7);
+                                    break;
+                            }
+                        }
+                        return output;
+                    };
+                    const reader = new $Reader(input);
+                    return $pdo0(reader);
+                };
                 const assert = (input: any): ObjectRecursive => {
                     const __is = (input: any): input is ObjectRecursive => {
                         const $io0 = (input: any): boolean =>
@@ -148,86 +225,8 @@ export const test_protobuf_assertDecode_ObjectRecursive =
                         })(input, "$input", true);
                     return input;
                 };
-                const decode = (input: Uint8Array): ObjectRecursive => {
-                    const $Reader = (typia.protobuf.assertDecode as any).Reader;
-                    const $pdo0 = (reader: any, length: number = -1): any => {
-                        length =
-                            length < 0
-                                ? reader.size()
-                                : reader.index() + length;
-                        const output = {
-                            parent: null as any,
-                            id: undefined as any,
-                            code: "" as any,
-                            name: "" as any,
-                            sequence: undefined as any,
-                            created_at: undefined as any,
-                        };
-                        while (reader.index() < length) {
-                            const tag = reader.uint32();
-                            switch (tag >>> 3) {
-                                case 1:
-                                    output.parent = $pdo0(
-                                        reader,
-                                        reader.uint32(),
-                                    );
-                                    break;
-                                case 2:
-                                    output.id = reader.double();
-                                    break;
-                                case 3:
-                                    output.code = reader.string();
-                                    break;
-                                case 4:
-                                    output.name = reader.string();
-                                    break;
-                                case 5:
-                                    output.sequence = reader.double();
-                                    break;
-                                case 6:
-                                    output.created_at = $pdo1(
-                                        reader,
-                                        reader.uint32(),
-                                    );
-                                    break;
-                                default:
-                                    reader.skipType(tag & 7);
-                                    break;
-                            }
-                        }
-                        return output;
-                    };
-                    const $pdo1 = (reader: any, length: number = -1): any => {
-                        length =
-                            length < 0
-                                ? reader.size()
-                                : reader.index() + length;
-                        const output = {
-                            time: undefined as any,
-                            zone: undefined as any,
-                        };
-                        while (reader.index() < length) {
-                            const tag = reader.uint32();
-                            switch (tag >>> 3) {
-                                case 1:
-                                    output.time = reader.double();
-                                    break;
-                                case 2:
-                                    output.zone = reader.double();
-                                    break;
-                                default:
-                                    reader.skipType(tag & 7);
-                                    break;
-                            }
-                        }
-                        return output;
-                    };
-                    const reader = new $Reader(input);
-                    return $pdo0(reader);
-                };
-                assert(input);
                 const output = decode(input);
-                return output;
+                return assert(output);
             })(input),
         encode: (input: ObjectRecursive): Uint8Array => {
             const $Sizer = (typia.protobuf.createEncode as any).Sizer;

@@ -37,7 +37,7 @@ export const test_protobuf_isDecode_DynamicSimple = _test_protobuf_isDecode(
                     switch (tag >>> 3) {
                         case 1:
                             (() => {
-                                const piece = reader.index() + reader.uint32();
+                                const piece = reader.uint32() + reader.index();
                                 const entry = {
                                     key: "" as any,
                                     value: undefined as any,
@@ -69,8 +69,8 @@ export const test_protobuf_isDecode_DynamicSimple = _test_protobuf_isDecode(
             const reader = new $Reader(input);
             return $pdo0(reader);
         };
-        if (!is(input)) return null;
         const output = decode(input);
+        if (!is(output)) return null;
         return output;
     },
     encode: (input: DynamicSimple): Uint8Array => {

@@ -684,6 +684,9 @@ export namespace ProtobufEncodeProgrammer {
             const expected: string = `(${targets
                 .map((t) => t.name)
                 .join(" | ")})`;
+            const indexes: Map<MetadataObject, number> = new Map(
+                targets.map((t, i) => [t, index! + i]),
+            );
 
             // POSSIBLE TO SPECIALIZE?
             const specList = UnionPredicator.object(targets);
@@ -692,7 +695,12 @@ export namespace ProtobufEncodeProgrammer {
                     IsProgrammer.decode_object(importer),
                 )((i, o, e) =>
                     ExpressionFactory.selfCall(
-                        decode_object(project)(importer)(index)(i, o, e, tags),
+                        decode_object(project)(importer)(indexes.get(o)!)(
+                            i,
+                            o,
+                            e,
+                            tags,
+                        ),
                     ),
                 )((expr) => expr)((value, expected) =>
                     create_throw_error(importer)(expected)(value),
@@ -727,12 +735,9 @@ export namespace ProtobufEncodeProgrammer {
                         pred,
                         ts.factory.createReturnStatement(
                             ExpressionFactory.selfCall(
-                                decode_object(project)(importer)(index)(
-                                    input,
-                                    spec.object,
-                                    explore,
-                                    tags,
-                                ),
+                                decode_object(project)(importer)(
+                                    indexes.get(spec.object)!,
+                                )(input, spec.object, explore, tags),
                             ),
                         ),
                         i === array.length - 1

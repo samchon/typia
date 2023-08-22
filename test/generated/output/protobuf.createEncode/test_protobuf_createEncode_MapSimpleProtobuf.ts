@@ -180,7 +180,7 @@ export const test_protobuf_encode_MapSimpleProtobuf = _test_protobuf_encode(
                 switch (tag >>> 3) {
                     case 1:
                         (() => {
-                            const piece = reader.index() + reader.uint32();
+                            const piece = reader.uint32() + reader.index();
                             const entry = {
                                 key: "" as any,
                                 value: undefined as any,
@@ -204,7 +204,7 @@ export const test_protobuf_encode_MapSimpleProtobuf = _test_protobuf_encode(
                         break;
                     case 2:
                         (() => {
-                            const piece = reader.index() + reader.uint32();
+                            const piece = reader.uint32() + reader.index();
                             const entry = {
                                 key: "" as any,
                                 value: undefined as any,
@@ -228,7 +228,7 @@ export const test_protobuf_encode_MapSimpleProtobuf = _test_protobuf_encode(
                         break;
                     case 3:
                         (() => {
-                            const piece = reader.index() + reader.uint32();
+                            const piece = reader.uint32() + reader.index();
                             const entry = {
                                 key: "" as any,
                                 value: undefined as any,
@@ -252,7 +252,7 @@ export const test_protobuf_encode_MapSimpleProtobuf = _test_protobuf_encode(
                         break;
                     case 4:
                         (() => {
-                            const piece = reader.index() + reader.uint32();
+                            const piece = reader.uint32() + reader.index();
                             const entry = {
                                 key: "" as any,
                                 value: undefined as any,
@@ -276,7 +276,7 @@ export const test_protobuf_encode_MapSimpleProtobuf = _test_protobuf_encode(
                         break;
                     case 5:
                         (() => {
-                            const piece = reader.index() + reader.uint32();
+                            const piece = reader.uint32() + reader.index();
                             const entry = {
                                 key: "" as any,
                                 value: "" as any,
@@ -300,7 +300,7 @@ export const test_protobuf_encode_MapSimpleProtobuf = _test_protobuf_encode(
                         break;
                     case 6:
                         (() => {
-                            const piece = reader.index() + reader.uint32();
+                            const piece = reader.uint32() + reader.index();
                             const entry = {
                                 key: "" as any,
                                 value: new Uint8Array() as any,
@@ -324,7 +324,7 @@ export const test_protobuf_encode_MapSimpleProtobuf = _test_protobuf_encode(
                         break;
                     case 7:
                         (() => {
-                            const piece = reader.index() + reader.uint32();
+                            const piece = reader.uint32() + reader.index();
                             const entry = {
                                 key: "" as any,
                                 value: undefined as any,

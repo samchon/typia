@@ -168,7 +168,7 @@ export const test_protobuf_isEncode_TagArray = _test_protobuf_isEncode(
                         break;
                     case 2:
                         if (2 === (tag & 7)) {
-                            const piece = reader.index() + reader.uint32();
+                            const piece = reader.uint32() + reader.index();
                             while (reader.index() < piece)
                                 output.minItems.push(reader.double());
                         } else output.minItems.push(reader.double());
@@ -178,7 +178,7 @@ export const test_protobuf_isEncode_TagArray = _test_protobuf_isEncode(
                         break;
                     case 4:
                         if (2 === (tag & 7)) {
-                            const piece = reader.index() + reader.uint32();
+                            const piece = reader.uint32() + reader.index();
                             while (reader.index() < piece)
                                 output.equal.push(reader.double());
                         } else output.equal.push(reader.double());

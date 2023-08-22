@@ -154,8 +154,8 @@ export const test_protobuf_isDecode_ObjectNullable = _test_protobuf_isDecode(
                 const reader = new $Reader(input);
                 return $pdo0(reader);
             };
-            if (!is(input)) return null;
             const output = decode(input);
+            if (!is(output)) return null;
             return output;
         })(input),
     encode: (input: ObjectNullable): Uint8Array => {
@@ -201,7 +201,7 @@ export const test_protobuf_isDecode_ObjectNullable = _test_protobuf_isDecode(
                         })();
                     else if ("manufacturer" === input.similar.type)
                         return (() => {
-                            writer.uint32(34);
+                            writer.uint32(42);
                             writer.fork();
                             $peo2(input.similar);
                             writer.ldelim();

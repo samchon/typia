@@ -7,6 +7,92 @@ export const test_protobuf_assertDecode_ObjectPrimitive =
         ObjectPrimitive,
     )({
         assertDecode: (input: Uint8Array): ObjectPrimitive => {
+            const decode = (input: Uint8Array): ObjectPrimitive => {
+                const $Reader = (typia.protobuf.createAssertDecode as any)
+                    .Reader;
+                const $pdo0 = (reader: any, length: number = -1): any => {
+                    length =
+                        length < 0 ? reader.size() : reader.index() + length;
+                    const output = {
+                        id: "" as any,
+                        extension: undefined as any,
+                        title: "" as any,
+                        body: "" as any,
+                        files: [] as any,
+                        secret: undefined as any,
+                        created_at: "" as any,
+                    };
+                    while (reader.index() < length) {
+                        const tag = reader.uint32();
+                        switch (tag >>> 3) {
+                            case 1:
+                                output.id = reader.string();
+                                break;
+                            case 2:
+                                output.extension = reader.string();
+                                break;
+                            case 3:
+                                output.title = reader.string();
+                                break;
+                            case 4:
+                                output.body = reader.string();
+                                break;
+                            case 5:
+                                output.files.push(
+                                    $pdo1(reader, reader.uint32()),
+                                );
+                                break;
+                            case 6:
+                                output.secret = reader.bool();
+                                break;
+                            case 7:
+                                output.created_at = reader.string();
+                                break;
+                            default:
+                                reader.skipType(tag & 7);
+                                break;
+                        }
+                    }
+                    return output;
+                };
+                const $pdo1 = (reader: any, length: number = -1): any => {
+                    length =
+                        length < 0 ? reader.size() : reader.index() + length;
+                    const output = {
+                        id: "" as any,
+                        name: "" as any,
+                        extension: "" as any,
+                        url: "" as any,
+                        created_at: "" as any,
+                    };
+                    while (reader.index() < length) {
+                        const tag = reader.uint32();
+                        switch (tag >>> 3) {
+                            case 1:
+                                output.id = reader.string();
+                                break;
+                            case 2:
+                                output.name = reader.string();
+                                break;
+                            case 3:
+                                output.extension = reader.string();
+                                break;
+                            case 4:
+                                output.url = reader.string();
+                                break;
+                            case 5:
+                                output.created_at = reader.string();
+                                break;
+                            default:
+                                reader.skipType(tag & 7);
+                                break;
+                        }
+                    }
+                    return output;
+                };
+                const reader = new $Reader(input);
+                return $pdo0(reader);
+            };
             const assert = (input: any): ObjectPrimitive => {
                 const __is = (input: any): input is ObjectPrimitive => {
                     const $io0 = (input: any): boolean =>
@@ -184,95 +270,8 @@ export const test_protobuf_assertDecode_ObjectPrimitive =
                     })(input, "$input", true);
                 return input;
             };
-            const decode = (input: Uint8Array): ObjectPrimitive => {
-                const $Reader = (typia.protobuf.createAssertDecode as any)
-                    .Reader;
-                const $pdo0 = (reader: any, length: number = -1): any => {
-                    length =
-                        length < 0 ? reader.size() : reader.index() + length;
-                    const output = {
-                        id: "" as any,
-                        extension: undefined as any,
-                        title: "" as any,
-                        body: "" as any,
-                        files: [] as any,
-                        secret: undefined as any,
-                        created_at: "" as any,
-                    };
-                    while (reader.index() < length) {
-                        const tag = reader.uint32();
-                        switch (tag >>> 3) {
-                            case 1:
-                                output.id = reader.string();
-                                break;
-                            case 2:
-                                output.extension = reader.string();
-                                break;
-                            case 3:
-                                output.title = reader.string();
-                                break;
-                            case 4:
-                                output.body = reader.string();
-                                break;
-                            case 5:
-                                output.files.push(
-                                    $pdo1(reader, reader.uint32()),
-                                );
-                                break;
-                            case 6:
-                                output.secret = reader.bool();
-                                break;
-                            case 7:
-                                output.created_at = reader.string();
-                                break;
-                            default:
-                                reader.skipType(tag & 7);
-                                break;
-                        }
-                    }
-                    return output;
-                };
-                const $pdo1 = (reader: any, length: number = -1): any => {
-                    length =
-                        length < 0 ? reader.size() : reader.index() + length;
-                    const output = {
-                        id: "" as any,
-                        name: "" as any,
-                        extension: "" as any,
-                        url: "" as any,
-                        created_at: "" as any,
-                    };
-                    while (reader.index() < length) {
-                        const tag = reader.uint32();
-                        switch (tag >>> 3) {
-                            case 1:
-                                output.id = reader.string();
-                                break;
-                            case 2:
-                                output.name = reader.string();
-                                break;
-                            case 3:
-                                output.extension = reader.string();
-                                break;
-                            case 4:
-                                output.url = reader.string();
-                                break;
-                            case 5:
-                                output.created_at = reader.string();
-                                break;
-                            default:
-                                reader.skipType(tag & 7);
-                                break;
-                        }
-                    }
-                    return output;
-                };
-                const reader = new $Reader(input);
-                return $pdo0(reader);
-            };
-            assert(input);
             const output = decode(input);
-            return output;
+            return assert(output);
         },
         encode: (input: ObjectPrimitive): Uint8Array => {
             const $Sizer = (typia.protobuf.createEncode as any).Sizer;

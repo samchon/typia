@@ -6,6 +6,71 @@ export const test_protobuf_assertDecode_TagType = _test_protobuf_assertDecode(
     "TagType",
 )<TagType>(TagType)({
     assertDecode: (input: Uint8Array): TagType => {
+        const decode = (input: Uint8Array): TagType => {
+            const $Reader = (typia.protobuf.createAssertDecode as any).Reader;
+            const $pdo0 = (reader: any, length: number = -1): any => {
+                length = length < 0 ? reader.size() : reader.index() + length;
+                const output = {
+                    value: [] as any,
+                };
+                while (reader.index() < length) {
+                    const tag = reader.uint32();
+                    switch (tag >>> 3) {
+                        case 1:
+                            output.value.push($pdo1(reader, reader.uint32()));
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                    }
+                }
+                return output;
+            };
+            const $pdo1 = (reader: any, length: number = -1): any => {
+                length = length < 0 ? reader.size() : reader.index() + length;
+                const output = {
+                    int: undefined as any,
+                    uint: undefined as any,
+                    int32: undefined as any,
+                    uint32: undefined as any,
+                    int64: undefined as any,
+                    uint64: undefined as any,
+                    float: undefined as any,
+                };
+                while (reader.index() < length) {
+                    const tag = reader.uint32();
+                    switch (tag >>> 3) {
+                        case 1:
+                            output.int = reader.int32();
+                            break;
+                        case 2:
+                            output.uint = reader.uint32();
+                            break;
+                        case 3:
+                            output.int32 = reader.int32();
+                            break;
+                        case 4:
+                            output.uint32 = reader.uint32();
+                            break;
+                        case 5:
+                            output.int64 = Number(reader.int64());
+                            break;
+                        case 6:
+                            output.uint64 = Number(reader.uint64());
+                            break;
+                        case 7:
+                            output.float = reader.float();
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                    }
+                }
+                return output;
+            };
+            const reader = new $Reader(input);
+            return $pdo0(reader);
+        };
         const assert = (input: any): TagType => {
             const __is = (input: any): input is TagType => {
                 const $io0 = (input: any): boolean =>
@@ -274,74 +339,8 @@ export const test_protobuf_assertDecode_TagType = _test_protobuf_assertDecode(
                 })(input, "$input", true);
             return input;
         };
-        const decode = (input: Uint8Array): TagType => {
-            const $Reader = (typia.protobuf.createAssertDecode as any).Reader;
-            const $pdo0 = (reader: any, length: number = -1): any => {
-                length = length < 0 ? reader.size() : reader.index() + length;
-                const output = {
-                    value: [] as any,
-                };
-                while (reader.index() < length) {
-                    const tag = reader.uint32();
-                    switch (tag >>> 3) {
-                        case 1:
-                            output.value.push($pdo1(reader, reader.uint32()));
-                            break;
-                        default:
-                            reader.skipType(tag & 7);
-                            break;
-                    }
-                }
-                return output;
-            };
-            const $pdo1 = (reader: any, length: number = -1): any => {
-                length = length < 0 ? reader.size() : reader.index() + length;
-                const output = {
-                    int: undefined as any,
-                    uint: undefined as any,
-                    int32: undefined as any,
-                    uint32: undefined as any,
-                    int64: undefined as any,
-                    uint64: undefined as any,
-                    float: undefined as any,
-                };
-                while (reader.index() < length) {
-                    const tag = reader.uint32();
-                    switch (tag >>> 3) {
-                        case 1:
-                            output.int = reader.int32();
-                            break;
-                        case 2:
-                            output.uint = reader.uint32();
-                            break;
-                        case 3:
-                            output.int32 = reader.int32();
-                            break;
-                        case 4:
-                            output.uint32 = reader.uint32();
-                            break;
-                        case 5:
-                            output.int64 = Number(reader.int64());
-                            break;
-                        case 6:
-                            output.uint64 = Number(reader.uint64());
-                            break;
-                        case 7:
-                            output.float = reader.float();
-                            break;
-                        default:
-                            reader.skipType(tag & 7);
-                            break;
-                    }
-                }
-                return output;
-            };
-            const reader = new $Reader(input);
-            return $pdo0(reader);
-        };
-        assert(input);
         const output = decode(input);
-        return output;
+        return assert(output);
     },
     encode: (input: TagType): Uint8Array => {
         const $Sizer = (typia.protobuf.createEncode as any).Sizer;

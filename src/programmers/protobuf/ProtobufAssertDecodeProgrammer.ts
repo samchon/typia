@@ -29,13 +29,6 @@ export namespace ProtobufAssertDecodeProgrammer {
                 undefined,
                 ts.factory.createBlock([
                     StatementFactory.constant(
-                        "assert",
-                        AssertProgrammer.write(project)(modulo)(false)(
-                            type,
-                            name,
-                        ),
-                    ),
-                    StatementFactory.constant(
                         "decode",
                         ProtobufDecodeProgrammer.write({
                             ...project,
@@ -46,11 +39,11 @@ export namespace ProtobufAssertDecodeProgrammer {
                             },
                         })(modulo)(type, name),
                     ),
-                    ts.factory.createExpressionStatement(
-                        ts.factory.createCallExpression(
-                            ts.factory.createIdentifier("assert"),
-                            undefined,
-                            [ts.factory.createIdentifier("input")],
+                    StatementFactory.constant(
+                        "assert",
+                        AssertProgrammer.write(project)(modulo)(false)(
+                            type,
+                            name,
                         ),
                     ),
                     StatementFactory.constant(
@@ -62,7 +55,11 @@ export namespace ProtobufAssertDecodeProgrammer {
                         ),
                     ),
                     ts.factory.createReturnStatement(
-                        ts.factory.createIdentifier("output"),
+                        ts.factory.createCallExpression(
+                            ts.factory.createIdentifier("assert"),
+                            undefined,
+                            [ts.factory.createIdentifier("output")],
+                        ),
                     ),
                 ]),
             );
