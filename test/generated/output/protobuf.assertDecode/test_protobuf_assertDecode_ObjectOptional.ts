@@ -25,15 +25,19 @@ export const test_protobuf_assertDecode_ObjectOptional =
                             const tag = reader.uint32();
                             switch (tag >>> 3) {
                                 case 1:
+                                    // string;
                                     output.id = reader.string();
                                     break;
                                 case 2:
+                                    // string;
                                     output.name = reader.string();
                                     break;
                                 case 3:
+                                    // string;
                                     output.email = reader.string();
                                     break;
                                 case 4:
+                                    // number;
                                     output.sequence = reader.double();
                                     break;
                                 default:
@@ -155,6 +159,7 @@ export const test_protobuf_assertDecode_ObjectOptional =
                         writer.double(input.sequence);
                     }
                 };
+                //ObjectOptional;
                 $peo0(input);
                 return writer;
             };

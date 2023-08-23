@@ -583,6 +583,7 @@ export const test_protobuf_validateDecode_ArraySimpleProtobufOptional =
                         const tag = reader.uint32();
                         switch (tag >>> 3) {
                             case 1:
+                                // type: Array<boolean>;
                                 output.boolean ??= [] as any[];
                                 if (2 === (tag & 7)) {
                                     const piece =
@@ -592,6 +593,7 @@ export const test_protobuf_validateDecode_ArraySimpleProtobufOptional =
                                 } else output.boolean.push(reader.bool());
                                 break;
                             case 2:
+                                // type: Array<number>;
                                 output.int32 ??= [] as any[];
                                 if (2 === (tag & 7)) {
                                     const piece =
@@ -601,6 +603,7 @@ export const test_protobuf_validateDecode_ArraySimpleProtobufOptional =
                                 } else output.int32.push(reader.int32());
                                 break;
                             case 3:
+                                // type: Array<number>;
                                 output.uint32 ??= [] as any[];
                                 if (2 === (tag & 7)) {
                                     const piece =
@@ -610,6 +613,7 @@ export const test_protobuf_validateDecode_ArraySimpleProtobufOptional =
                                 } else output.uint32.push(reader.uint32());
                                 break;
                             case 4:
+                                // type: Array<bigint>;
                                 output.int64 ??= [] as any[];
                                 if (2 === (tag & 7)) {
                                     const piece =
@@ -619,6 +623,7 @@ export const test_protobuf_validateDecode_ArraySimpleProtobufOptional =
                                 } else output.int64.push(reader.int64());
                                 break;
                             case 5:
+                                // type: Array<bigint>;
                                 output.uint64 ??= [] as any[];
                                 if (2 === (tag & 7)) {
                                     const piece =
@@ -628,6 +633,7 @@ export const test_protobuf_validateDecode_ArraySimpleProtobufOptional =
                                 } else output.uint64.push(reader.uint64());
                                 break;
                             case 6:
+                                // type: Array<number>;
                                 output.float ??= [] as any[];
                                 if (2 === (tag & 7)) {
                                     const piece =
@@ -637,6 +643,7 @@ export const test_protobuf_validateDecode_ArraySimpleProtobufOptional =
                                 } else output.float.push(reader.float());
                                 break;
                             case 7:
+                                // type: Array<number>;
                                 output.double ??= [] as any[];
                                 if (2 === (tag & 7)) {
                                     const piece =
@@ -646,14 +653,17 @@ export const test_protobuf_validateDecode_ArraySimpleProtobufOptional =
                                 } else output.double.push(reader.double());
                                 break;
                             case 8:
+                                // type: Array<string>;
                                 output.string ??= [] as any[];
                                 output.string.push(reader.string());
                                 break;
                             case 9:
+                                // type: Array<Uint8Array>;
                                 output.bytes ??= [] as any[];
                                 output.bytes.push(reader.bytes());
                                 break;
                             case 10:
+                                // type: Array<ArraySimpleProtobufOptional>;
                                 output.object ??= [] as any[];
                                 output.object.push(
                                     $pdo0(reader, reader.uint32()),
@@ -776,6 +786,7 @@ export const test_protobuf_validateDecode_ArraySimpleProtobufOptional =
                     if (undefined != input.object && null != input.object) {
                         if (0 !== input.object.length) {
                             for (const elem of input.object) {
+                                // 10 -> ArraySimpleProtobufOptional;
                                 writer.uint32(82);
                                 writer.fork();
                                 $peo0(elem);
@@ -852,6 +863,7 @@ export const test_protobuf_validateDecode_ArraySimpleProtobufOptional =
                                     false === Array.isArray(elem) &&
                                     $io0(elem),
                             )));
+                //ArraySimpleProtobufOptional;
                 $peo0(input);
                 return writer;
             };

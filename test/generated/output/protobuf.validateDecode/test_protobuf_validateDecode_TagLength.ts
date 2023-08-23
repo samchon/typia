@@ -235,6 +235,7 @@ export const test_protobuf_validateDecode_TagLength =
                             const tag = reader.uint32();
                             switch (tag >>> 3) {
                                 case 1:
+                                    // type: Array<TagLength.Type>;
                                     output.value.push(
                                         $pdo1(reader, reader.uint32()),
                                     );
@@ -262,19 +263,24 @@ export const test_protobuf_validateDecode_TagLength =
                             const tag = reader.uint32();
                             switch (tag >>> 3) {
                                 case 1:
+                                    // string;
                                     output.fixed = reader.string();
                                     break;
                                 case 2:
+                                    // string;
                                     output.minimum = reader.string();
                                     break;
                                 case 3:
+                                    // string;
                                     output.maximum = reader.string();
                                     break;
                                 case 4:
+                                    // string;
                                     output.minimum_and_maximum =
                                         reader.string();
                                     break;
                                 case 5:
+                                    // string;
                                     output.equal = reader.string();
                                     break;
                                 default:
@@ -298,6 +304,7 @@ export const test_protobuf_validateDecode_TagLength =
                     // property "value";
                     if (0 !== input.value.length) {
                         for (const elem of input.value) {
+                            // 1 -> TagLength.Type;
                             writer.uint32(10);
                             writer.fork();
                             $peo1(elem);
@@ -335,6 +342,7 @@ export const test_protobuf_validateDecode_TagLength =
                     "string" === typeof input.equal &&
                     10 <= input.equal.length &&
                     19 >= input.equal.length;
+                //TagLength;
                 $peo0(input);
                 return writer;
             };

@@ -46,21 +46,27 @@ export const test_protobuf_isDecode_TagNaN = _test_protobuf_isDecode(
                     const tag = reader.uint32();
                     switch (tag >>> 3) {
                         case 1:
+                            // number;
                             output.value = reader.double();
                             break;
                         case 2:
+                            // number;
                             output.ranged = reader.double();
                             break;
                         case 3:
+                            // number;
                             output.minimum = reader.double();
                             break;
                         case 4:
+                            // number;
                             output.maximum = reader.double();
                             break;
                         case 5:
+                            // number;
                             output.multipleOf = reader.double();
                             break;
                         case 6:
+                            // number;
                             output.typed = reader.int32();
                             break;
                         default:
@@ -101,6 +107,7 @@ export const test_protobuf_isDecode_TagNaN = _test_protobuf_isDecode(
                 writer.uint32(48);
                 writer.int32(input.typed);
             };
+            //TagNaN;
             $peo0(input);
             return writer;
         };

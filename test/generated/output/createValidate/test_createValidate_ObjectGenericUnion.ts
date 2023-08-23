@@ -328,7 +328,7 @@ export const test_validate_ObjectGenericUnion = _test_validate(
                             $report(_exceptionable, {
                                 path: _path + ".files",
                                 expected:
-                                    'Array<Omit<ObjectGenericUnion.IAttachmentFile, "id">>',
+                                    "Array<ObjectGenericUnion.IAttachmentFile>",
                                 value: input.files,
                             })) &&
                             input.files
@@ -343,7 +343,7 @@ export const test_validate_ObjectGenericUnion = _test_validate(
                                                     _index3 +
                                                     "]",
                                                 expected:
-                                                    'Omit<ObjectGenericUnion.IAttachmentFile, "id">',
+                                                    "ObjectGenericUnion.IAttachmentFile",
                                                 value: elem,
                                             })) &&
                                             $vo4(
@@ -361,7 +361,7 @@ export const test_validate_ObjectGenericUnion = _test_validate(
                                                 _index3 +
                                                 "]",
                                             expected:
-                                                'Omit<ObjectGenericUnion.IAttachmentFile, "id">',
+                                                "ObjectGenericUnion.IAttachmentFile",
                                             value: elem,
                                         }),
                                 )
@@ -369,7 +369,7 @@ export const test_validate_ObjectGenericUnion = _test_validate(
                             $report(_exceptionable, {
                                 path: _path + ".files",
                                 expected:
-                                    'Array<Omit<ObjectGenericUnion.IAttachmentFile, "id">>',
+                                    "Array<ObjectGenericUnion.IAttachmentFile>",
                                 value: input.files,
                             }),
                     ].every((flag: boolean) => flag);
@@ -540,7 +540,7 @@ export const test_validate_ObjectGenericUnion = _test_validate(
                             $report(_exceptionable, {
                                 path: _path + ".files",
                                 expected:
-                                    'Array<Omit<ObjectGenericUnion.IAttachmentFile, "id">>',
+                                    "Array<ObjectGenericUnion.IAttachmentFile>",
                                 value: input.files,
                             })) &&
                             input.files
@@ -555,7 +555,7 @@ export const test_validate_ObjectGenericUnion = _test_validate(
                                                     _index5 +
                                                     "]",
                                                 expected:
-                                                    'Omit<ObjectGenericUnion.IAttachmentFile, "id">',
+                                                    "ObjectGenericUnion.IAttachmentFile",
                                                 value: elem,
                                             })) &&
                                             $vo4(
@@ -573,7 +573,7 @@ export const test_validate_ObjectGenericUnion = _test_validate(
                                                 _index5 +
                                                 "]",
                                             expected:
-                                                'Omit<ObjectGenericUnion.IAttachmentFile, "id">',
+                                                "ObjectGenericUnion.IAttachmentFile",
                                             value: elem,
                                         }),
                                 )
@@ -581,7 +581,7 @@ export const test_validate_ObjectGenericUnion = _test_validate(
                             $report(_exceptionable, {
                                 path: _path + ".files",
                                 expected:
-                                    'Array<Omit<ObjectGenericUnion.IAttachmentFile, "id">>',
+                                    "Array<ObjectGenericUnion.IAttachmentFile>",
                                 value: input.files,
                             }),
                     ].every((flag: boolean) => flag);

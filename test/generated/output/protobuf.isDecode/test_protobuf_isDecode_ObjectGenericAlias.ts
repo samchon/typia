@@ -29,6 +29,7 @@ export const test_protobuf_isDecode_ObjectGenericAlias =
                             const tag = reader.uint32();
                             switch (tag >>> 3) {
                                 case 1:
+                                    // string;
                                     output.value = reader.string();
                                     break;
                                 default:
@@ -54,6 +55,7 @@ export const test_protobuf_isDecode_ObjectGenericAlias =
                     writer.uint32(10);
                     writer.string(input.value);
                 };
+                //ObjectGenericAlias.Alias;
                 $peo0(input);
                 return writer;
             };

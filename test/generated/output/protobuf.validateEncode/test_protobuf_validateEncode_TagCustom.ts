@@ -179,6 +179,7 @@ export const test_protobuf_validateEncode_TagCustom =
                             writer.uint32(33);
                             writer.double(input.log);
                         };
+                        //TagCustom;
                         $peo0(input);
                         return writer;
                     };
@@ -206,15 +207,19 @@ export const test_protobuf_validateEncode_TagCustom =
                     const tag = reader.uint32();
                     switch (tag >>> 3) {
                         case 1:
+                            // string;
                             output.id = reader.string();
                             break;
                         case 2:
+                            // string;
                             output.dollar = reader.string();
                             break;
                         case 3:
+                            // string;
                             output.postfix = reader.string();
                             break;
                         case 4:
+                            // number;
                             output.log = reader.double();
                             break;
                         default:

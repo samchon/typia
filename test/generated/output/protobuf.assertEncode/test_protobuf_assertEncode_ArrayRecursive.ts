@@ -178,6 +178,7 @@ export const test_protobuf_assertEncode_ArrayRecursive =
                             // property "children";
                             if (0 !== input.children.length) {
                                 for (const elem of input.children) {
+                                    // 1 -> ArrayRecursive.ICategory;
                                     writer.uint32(10);
                                     writer.fork();
                                     $peo0(elem);
@@ -194,6 +195,7 @@ export const test_protobuf_assertEncode_ArrayRecursive =
                             writer.uint32(33);
                             writer.double(input.sequence);
                             // property "created_at";
+                            // 5 -> ArrayRecursive.ITimestamp;
                             writer.uint32(42);
                             writer.fork();
                             $peo1(input.created_at);
@@ -224,6 +226,7 @@ export const test_protobuf_assertEncode_ArrayRecursive =
                         const $io1 = (input: any): boolean =>
                             "number" === typeof input.time &&
                             "number" === typeof input.zone;
+                        //ArrayRecursive.ICategory;
                         $peo0(input);
                         return writer;
                     };
@@ -250,20 +253,25 @@ export const test_protobuf_assertEncode_ArrayRecursive =
                     const tag = reader.uint32();
                     switch (tag >>> 3) {
                         case 1:
+                            // type: Array<ArrayRecursive.ICategory>;
                             output.children.push(
                                 $pdo0(reader, reader.uint32()),
                             );
                             break;
                         case 2:
+                            // number;
                             output.id = reader.double();
                             break;
                         case 3:
+                            // string;
                             output.code = reader.string();
                             break;
                         case 4:
+                            // number;
                             output.sequence = reader.double();
                             break;
                         case 5:
+                            // ArrayRecursive.ITimestamp;
                             output.created_at = $pdo1(reader, reader.uint32());
                             break;
                         default:
@@ -283,9 +291,11 @@ export const test_protobuf_assertEncode_ArrayRecursive =
                     const tag = reader.uint32();
                     switch (tag >>> 3) {
                         case 1:
+                            // number;
                             output.time = reader.double();
                             break;
                         case 2:
+                            // number;
                             output.zone = reader.double();
                             break;
                         default:

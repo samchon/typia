@@ -17,6 +17,7 @@ export const test_protobuf_encode_ObjectInternal = _test_protobuf_encode(
                 writer.uint32(18);
                 writer.string(input.name);
             };
+            //ObjectInternal;
             $peo0(input);
             return writer;
         };
@@ -38,9 +39,11 @@ export const test_protobuf_encode_ObjectInternal = _test_protobuf_encode(
                 const tag = reader.uint32();
                 switch (tag >>> 3) {
                     case 1:
+                        // string;
                         output.id = reader.string();
                         break;
                     case 2:
+                        // string;
                         output.name = reader.string();
                         break;
                     default:

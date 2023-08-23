@@ -23,27 +23,35 @@ export const test_protobuf_decode_TagFormat = _test_protobuf_decode(
                 const tag = reader.uint32();
                 switch (tag >>> 3) {
                     case 1:
+                        // string;
                         output.uuid = reader.string();
                         break;
                     case 2:
+                        // string;
                         output.email = reader.string();
                         break;
                     case 3:
+                        // string;
                         output.url = reader.string();
                         break;
                     case 4:
+                        // string;
                         output.ipv4 = reader.string();
                         break;
                     case 5:
+                        // string;
                         output.ipv6 = reader.string();
                         break;
                     case 6:
+                        // string;
                         output.date = reader.string();
                         break;
                     case 7:
+                        // string;
                         output.date_time = reader.string();
                         break;
                     case 8:
+                        // string;
                         output.custom = reader.string();
                         break;
                     default:
@@ -93,6 +101,7 @@ export const test_protobuf_decode_TagFormat = _test_protobuf_decode(
                 writer.uint32(66);
                 writer.string(input.custom);
             };
+            //TagFormat;
             $peo0(input);
             return writer;
         };

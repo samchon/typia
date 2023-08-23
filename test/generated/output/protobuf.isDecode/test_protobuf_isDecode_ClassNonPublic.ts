@@ -28,9 +28,11 @@ export const test_protobuf_isDecode_ClassNonPublic = _test_protobuf_isDecode(
                         const tag = reader.uint32();
                         switch (tag >>> 3) {
                             case 1:
+                                // string;
                                 output.implicit = reader.string();
                                 break;
                             case 2:
+                                // string;
                                 output.shown = reader.string();
                                 break;
                             default:
@@ -59,6 +61,7 @@ export const test_protobuf_isDecode_ClassNonPublic = _test_protobuf_isDecode(
                 writer.uint32(18);
                 writer.string(input.shown);
             };
+            //ClassNonPublic.Accessor;
             $peo0(input);
             return writer;
         };

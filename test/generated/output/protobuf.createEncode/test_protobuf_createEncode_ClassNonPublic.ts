@@ -17,6 +17,7 @@ export const test_protobuf_encode_ClassNonPublic = _test_protobuf_encode(
                 writer.uint32(18);
                 writer.string(input.shown);
             };
+            //ClassNonPublic.Accessor;
             $peo0(input);
             return writer;
         };
@@ -38,9 +39,11 @@ export const test_protobuf_encode_ClassNonPublic = _test_protobuf_encode(
                 const tag = reader.uint32();
                 switch (tag >>> 3) {
                     case 1:
+                        // string;
                         output.implicit = reader.string();
                         break;
                     case 2:
+                        // string;
                         output.shown = reader.string();
                         break;
                     default:

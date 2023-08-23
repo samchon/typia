@@ -31,6 +31,7 @@ export const test_protobuf_encode_ObjectOptional = _test_protobuf_encode(
                     writer.double(input.sequence);
                 }
             };
+            //ObjectOptional;
             $peo0(input);
             return writer;
         };
@@ -54,15 +55,19 @@ export const test_protobuf_encode_ObjectOptional = _test_protobuf_encode(
                 const tag = reader.uint32();
                 switch (tag >>> 3) {
                     case 1:
+                        // string;
                         output.id = reader.string();
                         break;
                     case 2:
+                        // string;
                         output.name = reader.string();
                         break;
                     case 3:
+                        // string;
                         output.email = reader.string();
                         break;
                     case 4:
+                        // number;
                         output.sequence = reader.double();
                         break;
                     default:

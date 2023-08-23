@@ -54,6 +54,7 @@ export const test_protobuf_isEncode_ObjectNullable = _test_protobuf_isEncode(
                         // property "value";
                         if (0 !== input.value.length) {
                             for (const elem of input.value) {
+                                // 1 -> ObjectNullable.IProduct;
                                 writer.uint32(10);
                                 writer.fork();
                                 $peo1(elem);
@@ -66,12 +67,14 @@ export const test_protobuf_isEncode_ObjectNullable = _test_protobuf_isEncode(
                         writer.uint32(10);
                         writer.string(input.name);
                         // property "manufacturer";
+                        // 2 -> ObjectNullable.IManufacturer;
                         writer.uint32(18);
                         writer.fork();
                         $peo2(input.manufacturer);
                         writer.ldelim();
                         // property "brand";
                         if (null != input.brand) {
+                            // 3 -> ObjectNullable.IBrand;
                             writer.uint32(26);
                             writer.fork();
                             $peo3(input.brand);
@@ -81,6 +84,7 @@ export const test_protobuf_isEncode_ObjectNullable = _test_protobuf_isEncode(
                         if (null != input.similar) {
                             if ("brand" === input.similar.type)
                                 return (() => {
+                                    // 4 -> ObjectNullable.IBrand;
                                     writer.uint32(34);
                                     writer.fork();
                                     $peo3(input.similar);
@@ -88,6 +92,7 @@ export const test_protobuf_isEncode_ObjectNullable = _test_protobuf_isEncode(
                                 })();
                             else if ("manufacturer" === input.similar.type)
                                 return (() => {
+                                    // 5 -> ObjectNullable.IManufacturer;
                                     writer.uint32(42);
                                     writer.fork();
                                     $peo2(input.similar);
@@ -143,6 +148,7 @@ export const test_protobuf_isEncode_ObjectNullable = _test_protobuf_isEncode(
                                 return $io2(input);
                             else return false;
                         })();
+                    //ObjectNullable;
                     $peo0(input);
                     return writer;
                 };
@@ -165,6 +171,7 @@ export const test_protobuf_isEncode_ObjectNullable = _test_protobuf_isEncode(
                 const tag = reader.uint32();
                 switch (tag >>> 3) {
                     case 1:
+                        // type: Array<ObjectNullable.IProduct>;
                         output.value.push($pdo1(reader, reader.uint32()));
                         break;
                     default:
@@ -186,18 +193,23 @@ export const test_protobuf_isEncode_ObjectNullable = _test_protobuf_isEncode(
                 const tag = reader.uint32();
                 switch (tag >>> 3) {
                     case 1:
+                        // string;
                         output.name = reader.string();
                         break;
                     case 2:
+                        // ObjectNullable.IManufacturer;
                         output.manufacturer = $pdo2(reader, reader.uint32());
                         break;
                     case 3:
+                        // ObjectNullable.IBrand;
                         output.brand = $pdo3(reader, reader.uint32());
                         break;
                     case 4:
+                        // ObjectNullable.IBrand;
                         output.similar = $pdo3(reader, reader.uint32());
                         break;
                     case 5:
+                        // ObjectNullable.IManufacturer;
                         output.similar = $pdo2(reader, reader.uint32());
                         break;
                     default:
@@ -217,9 +229,11 @@ export const test_protobuf_isEncode_ObjectNullable = _test_protobuf_isEncode(
                 const tag = reader.uint32();
                 switch (tag >>> 3) {
                     case 1:
+                        // string;
                         output.type = reader.string();
                         break;
                     case 2:
+                        // string;
                         output.name = reader.string();
                         break;
                     default:
@@ -239,9 +253,11 @@ export const test_protobuf_isEncode_ObjectNullable = _test_protobuf_isEncode(
                 const tag = reader.uint32();
                 switch (tag >>> 3) {
                     case 1:
+                        // string;
                         output.type = reader.string();
                         break;
                     case 2:
+                        // string;
                         output.name = reader.string();
                         break;
                     default:

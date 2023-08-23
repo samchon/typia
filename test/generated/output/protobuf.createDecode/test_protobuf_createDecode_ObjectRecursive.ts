@@ -21,21 +21,27 @@ export const test_protobuf_decode_ObjectRecursive = _test_protobuf_decode(
                 const tag = reader.uint32();
                 switch (tag >>> 3) {
                     case 1:
+                        // ObjectRecursive.IDepartment;
                         output.parent = $pdo0(reader, reader.uint32());
                         break;
                     case 2:
+                        // number;
                         output.id = reader.double();
                         break;
                     case 3:
+                        // string;
                         output.code = reader.string();
                         break;
                     case 4:
+                        // string;
                         output.name = reader.string();
                         break;
                     case 5:
+                        // number;
                         output.sequence = reader.double();
                         break;
                     case 6:
+                        // ObjectRecursive.ITimestamp;
                         output.created_at = $pdo1(reader, reader.uint32());
                         break;
                     default:
@@ -55,9 +61,11 @@ export const test_protobuf_decode_ObjectRecursive = _test_protobuf_decode(
                 const tag = reader.uint32();
                 switch (tag >>> 3) {
                     case 1:
+                        // number;
                         output.time = reader.double();
                         break;
                     case 2:
+                        // number;
                         output.zone = reader.double();
                         break;
                     default:
@@ -77,6 +85,7 @@ export const test_protobuf_decode_ObjectRecursive = _test_protobuf_decode(
             const $peo0 = (input: any): any => {
                 // property "parent";
                 if (null != input.parent) {
+                    // 1 -> ObjectRecursive.IDepartment;
                     writer.uint32(10);
                     writer.fork();
                     $peo0(input.parent);
@@ -95,6 +104,7 @@ export const test_protobuf_decode_ObjectRecursive = _test_protobuf_decode(
                 writer.uint32(41);
                 writer.double(input.sequence);
                 // property "created_at";
+                // 6 -> ObjectRecursive.ITimestamp;
                 writer.uint32(50);
                 writer.fork();
                 $peo1(input.created_at);
@@ -123,6 +133,7 @@ export const test_protobuf_decode_ObjectRecursive = _test_protobuf_decode(
             const $io1 = (input: any): boolean =>
                 "number" === typeof input.time &&
                 "number" === typeof input.zone;
+            //ObjectRecursive.IDepartment;
             $peo0(input);
             return writer;
         };

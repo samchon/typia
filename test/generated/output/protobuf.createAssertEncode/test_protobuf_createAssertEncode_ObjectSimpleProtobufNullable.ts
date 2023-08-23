@@ -246,6 +246,7 @@ export const test_protobuf_assertEncode_ObjectSimpleProtobufNullable =
                             writer.bytes(input.bytes);
                         }
                     };
+                    //ObjectSimpleProtobufNullable;
                     $peo0(input);
                     return writer;
                 };
@@ -276,30 +277,39 @@ export const test_protobuf_assertEncode_ObjectSimpleProtobufNullable =
                     const tag = reader.uint32();
                     switch (tag >>> 3) {
                         case 1:
+                            // boolean;
                             output.bool = reader.bool();
                             break;
                         case 2:
+                            // number;
                             output.int32 = reader.int32();
                             break;
                         case 3:
+                            // number;
                             output.uint32 = reader.uint32();
                             break;
                         case 4:
+                            // bigint;
                             output.int64 = reader.int64();
                             break;
                         case 5:
+                            // bigint;
                             output.uint64 = reader.uint64();
                             break;
                         case 6:
+                            // number;
                             output.float = reader.float();
                             break;
                         case 7:
+                            // number;
                             output.double = reader.double();
                             break;
                         case 8:
+                            // string;
                             output.string = reader.string();
                             break;
                         case 9:
+                            // bytes;
                             output.bytes = reader.bytes();
                             break;
                         default:

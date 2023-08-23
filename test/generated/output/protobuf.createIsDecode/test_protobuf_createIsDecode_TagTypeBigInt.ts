@@ -27,9 +27,11 @@ export const test_protobuf_isDecode_TagTypeBigInt = _test_protobuf_isDecode(
                     const tag = reader.uint32();
                     switch (tag >>> 3) {
                         case 1:
+                            // bigint;
                             output.in64 = reader.int64();
                             break;
                         case 2:
+                            // bigint;
                             output.uint64 = reader.uint64();
                             break;
                         default:
@@ -58,6 +60,7 @@ export const test_protobuf_isDecode_TagTypeBigInt = _test_protobuf_isDecode(
                 writer.uint32(16);
                 writer.uint64(input.uint64);
             };
+            //TagTypeBigInt;
             $peo0(input);
             return writer;
         };

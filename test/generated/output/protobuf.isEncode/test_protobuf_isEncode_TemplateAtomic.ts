@@ -65,6 +65,7 @@ export const test_protobuf_isEncode_TemplateAtomic = _test_protobuf_isEncode(
                         writer.uint32(66);
                         writer.string(input.email);
                     };
+                    //TemplateAtomic;
                     $peo0(input);
                     return writer;
                 };
@@ -94,27 +95,35 @@ export const test_protobuf_isEncode_TemplateAtomic = _test_protobuf_isEncode(
                 const tag = reader.uint32();
                 switch (tag >>> 3) {
                     case 1:
+                        // string;
                         output.prefix = reader.string();
                         break;
                     case 2:
+                        // string;
                         output.postfix = reader.string();
                         break;
                     case 3:
+                        // string;
                         output.middle_string = reader.string();
                         break;
                     case 4:
+                        // string;
                         output.middle_string_empty = reader.string();
                         break;
                     case 5:
+                        // string;
                         output.middle_numeric = reader.string();
                         break;
                     case 6:
+                        // string;
                         output.middle_boolean = reader.string();
                         break;
                     case 7:
+                        // string;
                         output.ipv4 = reader.string();
                         break;
                     case 8:
+                        // string;
                         output.email = reader.string();
                         break;
                     default:

@@ -87,6 +87,7 @@ export const test_protobuf_isEncode_ArrayHierarchicalPointer =
                             // property "value";
                             if (0 !== input.value.length) {
                                 for (const elem of input.value) {
+                                    // 1 -> ArrayHierarchicalPointer.ICompany;
                                     writer.uint32(10);
                                     writer.fork();
                                     $peo1(elem);
@@ -105,6 +106,7 @@ export const test_protobuf_isEncode_ArrayHierarchicalPointer =
                             writer.uint32(26);
                             writer.string(input.name);
                             // property "established_at";
+                            // 4 -> ArrayHierarchicalPointer.ITimestamp;
                             writer.uint32(34);
                             writer.fork();
                             $peo2(input.established_at);
@@ -112,6 +114,7 @@ export const test_protobuf_isEncode_ArrayHierarchicalPointer =
                             // property "departments";
                             if (0 !== input.departments.length) {
                                 for (const elem of input.departments) {
+                                    // 5 -> ArrayHierarchicalPointer.IDepartment;
                                     writer.uint32(42);
                                     writer.fork();
                                     $peo3(elem);
@@ -138,6 +141,7 @@ export const test_protobuf_isEncode_ArrayHierarchicalPointer =
                             writer.uint32(25);
                             writer.double(input.sales);
                             // property "created_at";
+                            // 4 -> ArrayHierarchicalPointer.ITimestamp;
                             writer.uint32(34);
                             writer.fork();
                             $peo2(input.created_at);
@@ -145,6 +149,7 @@ export const test_protobuf_isEncode_ArrayHierarchicalPointer =
                             // property "employees";
                             if (0 !== input.employees.length) {
                                 for (const elem of input.employees) {
+                                    // 5 -> ArrayHierarchicalPointer.IEmployee;
                                     writer.uint32(42);
                                     writer.fork();
                                     $peo4(elem);
@@ -166,6 +171,7 @@ export const test_protobuf_isEncode_ArrayHierarchicalPointer =
                             writer.uint32(33);
                             writer.double(input.grade);
                             // property "employeed_at";
+                            // 5 -> ArrayHierarchicalPointer.ITimestamp;
                             writer.uint32(42);
                             writer.fork();
                             $peo2(input.employeed_at);
@@ -210,6 +216,7 @@ export const test_protobuf_isEncode_ArrayHierarchicalPointer =
                             "object" === typeof input.employeed_at &&
                             null !== input.employeed_at &&
                             $io2(input.employeed_at);
+                        //ArrayHierarchicalPointer;
                         $peo0(input);
                         return writer;
                     };
@@ -232,6 +239,7 @@ export const test_protobuf_isEncode_ArrayHierarchicalPointer =
                     const tag = reader.uint32();
                     switch (tag >>> 3) {
                         case 1:
+                            // type: Array<ArrayHierarchicalPointer.ICompany>;
                             output.value.push($pdo1(reader, reader.uint32()));
                             break;
                         default:
@@ -254,21 +262,26 @@ export const test_protobuf_isEncode_ArrayHierarchicalPointer =
                     const tag = reader.uint32();
                     switch (tag >>> 3) {
                         case 1:
+                            // number;
                             output.id = reader.double();
                             break;
                         case 2:
+                            // number;
                             output.serial = reader.double();
                             break;
                         case 3:
+                            // string;
                             output.name = reader.string();
                             break;
                         case 4:
+                            // ArrayHierarchicalPointer.ITimestamp;
                             output.established_at = $pdo2(
                                 reader,
                                 reader.uint32(),
                             );
                             break;
                         case 5:
+                            // type: Array<ArrayHierarchicalPointer.IDepartment>;
                             output.departments.push(
                                 $pdo3(reader, reader.uint32()),
                             );
@@ -290,9 +303,11 @@ export const test_protobuf_isEncode_ArrayHierarchicalPointer =
                     const tag = reader.uint32();
                     switch (tag >>> 3) {
                         case 1:
+                            // number;
                             output.time = reader.double();
                             break;
                         case 2:
+                            // number;
                             output.zone = reader.double();
                             break;
                         default:
@@ -315,18 +330,23 @@ export const test_protobuf_isEncode_ArrayHierarchicalPointer =
                     const tag = reader.uint32();
                     switch (tag >>> 3) {
                         case 1:
+                            // number;
                             output.id = reader.double();
                             break;
                         case 2:
+                            // string;
                             output.code = reader.string();
                             break;
                         case 3:
+                            // number;
                             output.sales = reader.double();
                             break;
                         case 4:
+                            // ArrayHierarchicalPointer.ITimestamp;
                             output.created_at = $pdo2(reader, reader.uint32());
                             break;
                         case 5:
+                            // type: Array<ArrayHierarchicalPointer.IEmployee>;
                             output.employees.push(
                                 $pdo4(reader, reader.uint32()),
                             );
@@ -351,18 +371,23 @@ export const test_protobuf_isEncode_ArrayHierarchicalPointer =
                     const tag = reader.uint32();
                     switch (tag >>> 3) {
                         case 1:
+                            // number;
                             output.id = reader.double();
                             break;
                         case 2:
+                            // string;
                             output.name = reader.string();
                             break;
                         case 3:
+                            // number;
                             output.age = reader.double();
                             break;
                         case 4:
+                            // number;
                             output.grade = reader.double();
                             break;
                         case 5:
+                            // ArrayHierarchicalPointer.ITimestamp;
                             output.employeed_at = $pdo2(
                                 reader,
                                 reader.uint32(),

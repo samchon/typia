@@ -14,7 +14,6 @@ export namespace ObjectGenericUnion {
                 title: TestRandomGenerator.string(),
                 body: TestRandomGenerator.string(),
                 files: TestRandomGenerator.array(() => ({
-                    // id: "id",
                     name: TestRandomGenerator.string(),
                     extension: TestRandomGenerator.string(),
                     url: TestRandomGenerator.string(),
@@ -70,13 +69,12 @@ export namespace ObjectGenericUnion {
         export interface IUpdate {
             title: string;
             body: string;
-            files: Omit<IAttachmentFile, "id">[];
+            files: IAttachmentFile[];
         }
     }
 
     // MISC
-    interface IAttachmentFile {
-        id: string;
+    export interface IAttachmentFile {
         name: string;
         extension: string | null;
         url: string;

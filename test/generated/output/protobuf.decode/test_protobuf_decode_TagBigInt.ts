@@ -21,18 +21,23 @@ export const test_protobuf_decode_TagBigInt = _test_protobuf_decode(
                     const tag = reader.uint32();
                     switch (tag >>> 3) {
                         case 1:
+                            // bigint;
                             output.value = reader.int64();
                             break;
                         case 2:
+                            // bigint;
                             output.ranged = reader.int64();
                             break;
                         case 3:
+                            // bigint;
                             output.minimum = reader.int64();
                             break;
                         case 4:
+                            // bigint;
                             output.maximum = reader.int64();
                             break;
                         case 5:
+                            // bigint;
                             output.multipleOf = reader.int64();
                             break;
                         default:
@@ -66,6 +71,7 @@ export const test_protobuf_decode_TagBigInt = _test_protobuf_decode(
                 writer.uint32(40);
                 writer.int64(input.multipleOf);
             };
+            //TagBigInt;
             $peo0(input);
             return writer;
         };

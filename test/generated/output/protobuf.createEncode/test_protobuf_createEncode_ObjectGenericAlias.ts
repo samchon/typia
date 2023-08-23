@@ -14,6 +14,7 @@ export const test_protobuf_encode_ObjectGenericAlias = _test_protobuf_encode(
                 writer.uint32(10);
                 writer.string(input.value);
             };
+            //ObjectGenericAlias.Alias;
             $peo0(input);
             return writer;
         };
@@ -34,6 +35,7 @@ export const test_protobuf_encode_ObjectGenericAlias = _test_protobuf_encode(
                 const tag = reader.uint32();
                 switch (tag >>> 3) {
                     case 1:
+                        // string;
                         output.value = reader.string();
                         break;
                     default:

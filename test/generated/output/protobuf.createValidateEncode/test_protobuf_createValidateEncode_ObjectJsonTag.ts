@@ -147,6 +147,7 @@ export const test_protobuf_validateEncode_ObjectJsonTag =
                         writer.uint32(34);
                         writer.string(input.complicate_title);
                     };
+                    //ObjectJsonTag;
                     $peo0(input);
                     return writer;
                 };
@@ -174,15 +175,19 @@ export const test_protobuf_validateEncode_ObjectJsonTag =
                     const tag = reader.uint32();
                     switch (tag >>> 3) {
                         case 1:
+                            // string;
                             output.vulnerable = reader.string();
                             break;
                         case 2:
+                            // string;
                             output.description = reader.string();
                             break;
                         case 3:
+                            // string;
                             output.title = reader.string();
                             break;
                         case 4:
+                            // string;
                             output.complicate_title = reader.string();
                             break;
                         default:

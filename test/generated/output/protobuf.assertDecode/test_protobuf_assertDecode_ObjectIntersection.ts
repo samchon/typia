@@ -24,12 +24,15 @@ export const test_protobuf_assertDecode_ObjectIntersection =
                             const tag = reader.uint32();
                             switch (tag >>> 3) {
                                 case 1:
+                                    // string;
                                     output.email = reader.string();
                                     break;
                                 case 2:
+                                    // string;
                                     output.name = reader.string();
                                     break;
                                 case 3:
+                                    // boolean;
                                     output.vulnerable = reader.bool();
                                     break;
                                 default:
@@ -119,6 +122,7 @@ export const test_protobuf_assertDecode_ObjectIntersection =
                     writer.uint32(24);
                     writer.bool(input.vulnerable);
                 };
+                //ObjectIntersection;
                 $peo0(input);
                 return writer;
             };

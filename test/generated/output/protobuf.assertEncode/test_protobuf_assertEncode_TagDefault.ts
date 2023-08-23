@@ -852,6 +852,7 @@ export const test_protobuf_assertEncode_TagDefault =
                                     value: input.boolean_and_number_and_template,
                                 });
                         };
+                        //TagDefault;
                         $peo0(input);
                         return writer;
                     };
@@ -885,74 +886,96 @@ export const test_protobuf_assertEncode_TagDefault =
                     const tag = reader.uint32();
                     switch (tag >>> 3) {
                         case 1:
+                            // boolean;
                             output.boolean = reader.bool();
                             break;
                         case 2:
+                            // number;
                             output.number = reader.double();
                             break;
                         case 3:
+                            // string;
                             output.string = reader.string();
                             break;
                         case 4:
+                            // string;
                             output.text = reader.string();
                             break;
                         case 5:
+                            // string;
                             output.template = reader.string();
                             break;
                         case 6:
+                            // boolean;
                             output.boolean_and_number_and_string =
                                 reader.bool();
                             break;
                         case 7:
+                            // number;
                             output.boolean_and_number_and_string =
                                 reader.double();
                             break;
                         case 8:
+                            // string;
                             output.boolean_and_number_and_string =
                                 reader.string();
                             break;
                         case 9:
+                            // boolean;
                             output.union_but_boolean = reader.bool();
                             break;
                         case 10:
+                            // number;
                             output.union_but_boolean = reader.double();
                             break;
                         case 11:
+                            // string;
                             output.union_but_boolean = reader.string();
                             break;
                         case 12:
+                            // boolean;
                             output.union_but_number = reader.bool();
                             break;
                         case 13:
+                            // number;
                             output.union_but_number = reader.double();
                             break;
                         case 14:
+                            // string;
                             output.union_but_number = reader.string();
                             break;
                         case 15:
+                            // boolean;
                             output.union_but_string = reader.bool();
                             break;
                         case 16:
+                            // number;
                             output.union_but_string = reader.double();
                             break;
                         case 17:
+                            // string;
                             output.union_but_string = reader.string();
                             break;
                         case 18:
+                            // number;
                             output.vulnerable_range = reader.double();
                             break;
                         case 19:
+                            // string;
                             output.vulnerable_template = reader.string();
                             break;
                         case 20:
+                            // boolean;
                             output.boolean_and_number_and_template =
                                 reader.bool();
                             break;
                         case 21:
+                            // number;
                             output.boolean_and_number_and_template =
                                 reader.double();
                             break;
                         case 22:
+                            // string;
                             output.boolean_and_number_and_template =
                                 reader.string();
                             break;

@@ -194,21 +194,25 @@ export const test_protobuf_assertEncode_ObjectSimple =
                     const encoder = (writer: any): any => {
                         const $peo0 = (input: any): any => {
                             // property "scale";
+                            // 1 -> ObjectSimple.IPoint3D;
                             writer.uint32(10);
                             writer.fork();
                             $peo1(input.scale);
                             writer.ldelim();
                             // property "position";
+                            // 2 -> ObjectSimple.IPoint3D;
                             writer.uint32(18);
                             writer.fork();
                             $peo1(input.position);
                             writer.ldelim();
                             // property "rotate";
+                            // 3 -> ObjectSimple.IPoint3D;
                             writer.uint32(26);
                             writer.fork();
                             $peo1(input.rotate);
                             writer.ldelim();
                             // property "pivot";
+                            // 4 -> ObjectSimple.IPoint3D;
                             writer.uint32(34);
                             writer.fork();
                             $peo1(input.pivot);
@@ -229,6 +233,7 @@ export const test_protobuf_assertEncode_ObjectSimple =
                             "number" === typeof input.x &&
                             "number" === typeof input.y &&
                             "number" === typeof input.z;
+                        //ObjectSimple.IBox3D;
                         $peo0(input);
                         return writer;
                     };
@@ -254,15 +259,19 @@ export const test_protobuf_assertEncode_ObjectSimple =
                     const tag = reader.uint32();
                     switch (tag >>> 3) {
                         case 1:
+                            // ObjectSimple.IPoint3D;
                             output.scale = $pdo1(reader, reader.uint32());
                             break;
                         case 2:
+                            // ObjectSimple.IPoint3D;
                             output.position = $pdo1(reader, reader.uint32());
                             break;
                         case 3:
+                            // ObjectSimple.IPoint3D;
                             output.rotate = $pdo1(reader, reader.uint32());
                             break;
                         case 4:
+                            // ObjectSimple.IPoint3D;
                             output.pivot = $pdo1(reader, reader.uint32());
                             break;
                         default:
@@ -283,12 +292,15 @@ export const test_protobuf_assertEncode_ObjectSimple =
                     const tag = reader.uint32();
                     switch (tag >>> 3) {
                         case 1:
+                            // number;
                             output.x = reader.double();
                             break;
                         case 2:
+                            // number;
                             output.y = reader.double();
                             break;
                         case 3:
+                            // number;
                             output.z = reader.double();
                             break;
                         default:
