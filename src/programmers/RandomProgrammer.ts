@@ -35,7 +35,7 @@ export namespace RandomProgrammer {
                 const collection: MetadataCollection = new MetadataCollection();
                 const meta: Metadata = MetadataFactory.analyze(project.checker)(
                     {
-                        resolve: false,
+                        escape: false,
                         constant: true,
                         absorb: true,
                         validate: (meta) => {
@@ -259,10 +259,10 @@ export namespace RandomProgrammer {
                     expressions.push(decode_bigint(importer)(tags, comments));
 
             // INSTANCE TYPES
-            if (meta.resolved)
+            if (meta.escaped)
                 expressions.push(
                     decode(importer)(explore)(
-                        meta.resolved.returns,
+                        meta.escaped.returns,
                         tags,
                         comments,
                     ),
@@ -290,7 +290,7 @@ export namespace RandomProgrammer {
                     decode_map(importer)(explore)(map, tags, comments),
                 );
 
-            // PRIMITIVE TYPES
+            // PICK UP A TYPE
             if (expressions.length === 1) return expressions[0]!;
             return ts.factory.createCallExpression(
                 ts.factory.createCallExpression(
@@ -641,7 +641,7 @@ export namespace RandomProgrammer {
                 return decode_number(importer)(tags, comments);
             else if (type === "String")
                 return decode_string(importer)(tags, comments);
-            else if (type === "Date") return decode_date(importer);
+            else if (type === "Date") return decode_native_date(importer);
             else if (
                 type === "Uint8Array" ||
                 type === "Uint8ClampedArray" ||
@@ -668,11 +668,17 @@ export namespace RandomProgrammer {
                 );
         };
 
-    const decode_date = (importer: FunctionImporter) =>
-        ts.factory.createCallExpression(
-            COALESCE(importer)("datetime"),
+    const decode_native_date = (importer: FunctionImporter) =>
+        ts.factory.createNewExpression(
+            ts.factory.createIdentifier("Date"),
             undefined,
-            [],
+            [
+                ts.factory.createCallExpression(
+                    COALESCE(importer)("datetime"),
+                    undefined,
+                    [],
+                ),
+            ],
         );
 
     const decode_native_byte_array =
@@ -785,7 +791,9 @@ export namespace RandomProgrammer {
                               ),
                               ts.factory.createExpressionStatement(
                                   ts.factory.createCallExpression(
-                                      ts.factory.createIdentifier("bytes.set"),
+                                      IdentifierFactory.access(
+                                          ts.factory.createIdentifier("bytes"),
+                                      )("set"),
                                       undefined,
                                       [
                                           ts.factory.createCallExpression(
@@ -814,6 +822,9 @@ export namespace RandomProgrammer {
                                                               ),
                                                           ],
                                                       ),
+                                                  ),
+                                                  ts.factory.createIdentifier(
+                                                      "length",
                                                   ),
                                               ],
                                           ),
@@ -852,6 +863,7 @@ const PREFIX = {
     array: (i: number) => `$ra${i}`,
     tuple: (i: number) => `$rt${i}`,
 };
+
 const COALESCE = (importer: FunctionImporter) => (name: string) =>
     ExpressionFactory.coalesce(
         ts.factory.createPropertyAccessChain(

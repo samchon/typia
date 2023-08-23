@@ -18,7 +18,7 @@ export namespace ProtobufFactory {
         (type: ts.Type) => {
             // COMPOSE METADATA WITH INDIVIDUAL VALIDATIONS
             const top: Metadata = MetadataFactory.analyze(checker)({
-                resolve: false,
+                escape: false,
                 constant: true,
                 absorb: true,
                 validate: validate(method),

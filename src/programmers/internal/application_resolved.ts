@@ -1,5 +1,5 @@
 import { Metadata } from "../../schemas/metadata/Metadata";
-import { MetadataResolved } from "../../schemas/metadata/MetadataResolved";
+import { MetadataEscaped } from "../../schemas/metadata/MetadataEscaped";
 
 import { IJsonComponents, IJsonSchema } from "../../module";
 import { JsonApplicationProgrammer } from "../json/JsonApplicationProgrammer";
@@ -9,7 +9,7 @@ export const application_resolved =
     (options: JsonApplicationProgrammer.IOptions) =>
     <BlockNever extends boolean>(blockNever: BlockNever) =>
     (components: IJsonComponents) =>
-    (resolved: MetadataResolved) =>
+    (resolved: MetadataEscaped) =>
     (attribute: IJsonSchema.IAttribute): IJsonSchema[] => {
         const output = application_schema(options)(blockNever)(components)(
             resolved.returns,

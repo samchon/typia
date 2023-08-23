@@ -36,7 +36,14 @@ export namespace ProtobufIsDecodeProgrammer {
                 ts.factory.createBlock([
                     StatementFactory.constant(
                         "is",
-                        IsProgrammer.write(project)(modulo)(false)(type, name),
+                        IsProgrammer.write({
+                            ...project,
+                            options: {
+                                ...project.options,
+                                functional: false,
+                                numeric: false,
+                            },
+                        })(modulo)(false)(type, name),
                     ),
                     StatementFactory.constant(
                         "decode",

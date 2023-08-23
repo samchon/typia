@@ -406,8 +406,8 @@ Object.assign(validatePrune, Namespace.validate());
 /**
  * Creates a reusable {@link clone} function.
  *
- * @danger You have to specify the generic argument `T`
- * @return Nothing until specifying the generic argument `T`
+ * @danger You must configure the generic argument `T`
+ * @returns Nothing until you configure the generic argument `T`
  * @throws compile error
  *
  * @author Jeongho Nam - https://github.com/samchon
@@ -435,8 +435,8 @@ Object.assign(createClone, clone);
 /**
  * Creates a reusable {@link assertClone} function.
  *
- * @danger You have to specify the generic argument `T`
- * @return Nothing until specifying the generic argument `T`
+ * @danger You must configure the generic argument `T`
+ * @returns Nothing until you configure the generic argument `T`
  * @throws compile error
  *
  * @author Jeongho Nam - https://github.com/samchon
@@ -464,8 +464,8 @@ Object.assign(createAssertClone, assertClone);
 /**
  * Creates a reusable {@link isClone} function.
  *
- * @danger You have to specify the generic argument `T`
- * @return Nothing until specifying the generic argument `T`
+ * @danger You must configure the generic argument `T`
+ * @returns Nothing until you configure the generic argument `T`
  * @throws compile error
  *
  * @author Jeongho Nam - https://github.com/samchon
@@ -493,8 +493,8 @@ Object.assign(createIsClone, isClone);
 /**
  * Creates a reusable {@link validateClone} function.
  *
- * @danger You have to specify the generic argument `T`
- * @return Nothing until specifying the generic argument `T`
+ * @danger You must configure the generic argument `T`
+ * @returns Nothing until you configure the generic argument `T`
  * @throws compile error
  *
  * @author Jeongho Nam - https://github.com/samchon
@@ -524,8 +524,8 @@ Object.assign(createValidateClone, validateClone);
 /**
  * Creates a reusable {@link prune} function.
  *
- * @danger You have to specify the generic argument `T`
- * @return Nothing until specifying the generic argument `T`
+ * @danger You must configure the generic argument `T`
+ * @returns Nothing until you configure the generic argument `T`
  * @throws compile error
  *
  * @author Jeongho Nam - https://github.com/samchon
@@ -553,8 +553,8 @@ Object.assign(createPrune, prune);
 /**
  * Creates a reusable {@link assertPrune} function.
  *
- * @danger You have to specify the generic argument `T`
- * @return Nothing until specifying the generic argument `T`
+ * @danger You must configure the generic argument `T`
+ * @returns Nothing until you configure the generic argument `T`
  * @throws compile error
  *
  * @author Jeongho Nam - https://github.com/samchon
@@ -582,8 +582,8 @@ Object.assign(createAssertPrune, assertPrune);
 /**
  * Creates a reusable {@link isPrune} function.
  *
- * @danger You have to specify the generic argument `T`
- * @return Nothing until specifying the generic argument `T`
+ * @danger You must configure the generic argument `T`
+ * @returns Nothing until you configure the generic argument `T`
  * @throws compile error
  *
  * @author Jeongho Nam - https://github.com/samchon
@@ -611,8 +611,8 @@ Object.assign(createIsPrune, isPrune);
 /**
  * Creates a reusable {@link validatePrune} function.
  *
- * @danger You have to specify the generic argument `T`
- * @return Nothing until specifying the generic argument `T`
+ * @danger You must configure the generic argument `T`
+ * @returns Nothing until you configure the generic argument `T`
  * @throws compile error
  *
  * @author Jeongho Nam - https://github.com/samchon

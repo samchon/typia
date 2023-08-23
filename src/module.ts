@@ -495,8 +495,8 @@ export function metadata(): never {
 /**
  * Creates a reusable {@link assert} function.
  *
- * @danger You have to specify the generic argument `T`
- * @return Nothing until specifying the generic argument `T`
+ * @danger You must configure the generic argument `T`
+ * @returns Nothing until you configure the generic argument `T`
  * @throws compile error
  *
  * @author Jeongho Nam - https://github.com/samchon
@@ -524,8 +524,8 @@ Object.assign(createAssert, assert);
 /**
  * Creates a reusable {@link is} function.
  *
- * @danger You have to specify the generic argument `T`
- * @return Nothing until specifying the generic argument `T`
+ * @danger You must configure the generic argument `T`
+ * @returns Nothing until you configure the generic argument `T`
  * @throws compile error
  *
  * @author Jeongho Nam - https://github.com/samchon
@@ -553,8 +553,8 @@ Object.assign(createIs, is);
 /**
  * Creates a reusable {@link validate} function.
  *
- * @danger You have to specify the generic argument `T`
- * @return Nothing until specifying the generic argument `T`
+ * @danger You must configure the generic argument `T`
+ * @returns Nothing until you configure the generic argument `T`
  * @throws compile error
  *
  * @author Jeongho Nam - https://github.com/samchon
@@ -582,8 +582,8 @@ Object.assign(createValidate, validate);
 /**
  * Creates a reusable {@link assertEquals} function.
  *
- * @danger You have to specify the generic argument `T`
- * @return Nothing until specifying the generic argument `T`
+ * @danger You must configure the generic argument `T`
+ * @returns Nothing until you configure the generic argument `T`
  * @throws compile error
  *
  * @author Jeongho Nam - https://github.com/samchon
@@ -611,8 +611,8 @@ Object.assign(createAssertEquals, assertEquals);
 /**
  * Creates a reusable {@link equals} function.
  *
- * @danger You have to specify the generic argument `T`
- * @return Nothing until specifying the generic argument `T`
+ * @danger You must configure the generic argument `T`
+ * @returns Nothing until you configure the generic argument `T`
  * @throws compile error
  *
  * @author Jeongho Nam - https://github.com/samchon
@@ -640,8 +640,8 @@ Object.assign(createEquals, equals);
 /**
  * Creates a reusable {@link validateEquals} function.
  *
- * @danger You have to specify the generic argument `T`
- * @return Nothing until specifying the generic argument `T`
+ * @danger You must configure the generic argument `T`
+ * @returns Nothing until you configure the generic argument `T`
  * @throws compile error
  *
  * @author Jeongho Nam - https://github.com/samchon
@@ -669,9 +669,9 @@ Object.assign(createValidateEquals, validateEquals);
 /**
  * Creates a reusable {@link random} function.
  *
- * @danger You have to specify the generic argument `T`
+ * @danger You must configure the generic argument `T`
  * @param generator Random data generator
- * @return Nothing until specifying the generic argument `T`
+ * @returns Nothing until you configure the generic argument `T`
  * @throws compile error
  *
  * @author Jeongho Nam - https://github.com/samchon

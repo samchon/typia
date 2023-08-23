@@ -58,10 +58,10 @@ export const application_schema =
                 : (schema: IJsonSchema) => union.push(schema);
 
         // toJSON() METHOD
-        if (meta.resolved !== null)
+        if (meta.escaped !== null)
             union.push(
                 ...application_resolved(options)(blockNever)(components)(
-                    meta.resolved,
+                    meta.escaped,
                 )(attribute),
             );
 

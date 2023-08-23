@@ -4,6 +4,7 @@ export interface TestFeature {
     creatable: boolean;
     spoilable: boolean;
     jsonable?: true;
+    primitive?: true;
     resolved?: true;
     strict?: true;
     explicit?: true;
@@ -213,6 +214,7 @@ export namespace TestFeature {
             creatable: true,
             spoilable: true,
             jsonable: true,
+            primitive: true,
             explicit: true,
         },
         {
@@ -221,6 +223,7 @@ export namespace TestFeature {
             creatable: true,
             spoilable: true,
             jsonable: true,
+            primitive: true,
             explicit: true,
         },
         {
@@ -230,6 +233,7 @@ export namespace TestFeature {
             spoilable: true,
             jsonable: true,
             explicit: true,
+            primitive: true,
             resolved: true,
         },
 

@@ -1,6 +1,6 @@
 import { IMetadata } from "./IMetadata";
 
-export interface IMetadataResolved {
+export interface IMetadataEscaped {
     original: IMetadata;
     returns: IMetadata;
 }

@@ -730,7 +730,7 @@ export namespace MiscCloneProgrammer {
         (type) => {
             const collection = new MetadataCollection();
             const meta = MetadataFactory.analyze(checker)({
-                resolve: false,
+                escape: false,
                 constant: true,
                 absorb: true,
                 validate: (meta) => {
