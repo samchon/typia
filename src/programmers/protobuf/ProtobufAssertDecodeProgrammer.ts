@@ -24,7 +24,9 @@ export namespace ProtobufAssertDecodeProgrammer {
                     ),
                 ],
                 ts.factory.createTypeReferenceNode(
-                    name ?? TypeFactory.getFullName(project.checker)(type),
+                    `typia.Resolved<${
+                        name ?? TypeFactory.getFullName(project.checker)(type)
+                    }>`,
                 ),
                 undefined,
                 ts.factory.createBlock([

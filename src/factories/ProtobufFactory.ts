@@ -231,7 +231,7 @@ export namespace ProtobufFactory {
     };
 }
 
-const prefix = (method: string) => `Error on typia.protobuf.${method}():`;
+const prefix = (method: string) => `Error on ${method}():`;
 
 const notSupportedError = (p: { method: string }) => (title: string) =>
     new Error(

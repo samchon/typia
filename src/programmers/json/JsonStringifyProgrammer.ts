@@ -42,7 +42,9 @@ export namespace JsonStringifyProgrammer {
 
     export const write =
         (project: IProject) => (modulo: ts.LeftHandSideExpression) => {
-            const importer: FunctionImporter = new FunctionImporter();
+            const importer: FunctionImporter = new FunctionImporter(
+                modulo.getText(),
+            );
             const config: FeatureProgrammer.IConfig =
                 configure(project)(importer);
 

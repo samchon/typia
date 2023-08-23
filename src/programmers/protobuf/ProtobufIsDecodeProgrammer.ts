@@ -25,7 +25,10 @@ export namespace ProtobufIsDecodeProgrammer {
                 ],
                 ts.factory.createUnionTypeNode([
                     ts.factory.createTypeReferenceNode(
-                        name ?? TypeFactory.getFullName(project.checker)(type),
+                        `typia.Resolved<${
+                            name ??
+                            TypeFactory.getFullName(project.checker)(type)
+                        }>`,
                     ),
                     ts.factory.createLiteralTypeNode(ts.factory.createNull()),
                 ]),

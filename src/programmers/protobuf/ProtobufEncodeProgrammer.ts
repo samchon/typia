@@ -30,7 +30,7 @@ export namespace ProtobufEncodeProgrammer {
         (project: IProject) =>
         (modulo: ts.LeftHandSideExpression) =>
         (type: ts.Type, name?: string): ts.ArrowFunction => {
-            const importer = new FunctionImporter();
+            const importer = new FunctionImporter(modulo.getText());
             const collection = new MetadataCollection();
             const meta: Metadata = ProtobufFactory.metadata(modulo.getText())(
                 project.checker,
