@@ -75,7 +75,6 @@ export namespace ProtobufEncodeProgrammer {
                 ),
             ];
 
-            // @todo
             return ts.factory.createArrowFunction(
                 undefined,
                 undefined,
@@ -459,6 +458,11 @@ export namespace ProtobufEncodeProgrammer {
                 );
             return ts.factory.createBlock(
                 [
+                    ts.factory.createIdentifier(
+                        `//${index !== null ? ` ${index} -> ` : ""}${
+                            object.name
+                        }`,
+                    ),
                     ...(index !== null
                         ? [
                               decode_tag(ProtobufWire.LEN)(index),
@@ -672,30 +676,27 @@ export namespace ProtobufEncodeProgrammer {
             targets: MetadataObject[],
             explore: FeatureProgrammer.IExplore,
             tags: IMetadataTag[],
+            indexes?: Map<MetadataObject, number>,
         ): ts.Block => {
             if (targets.length === 1)
-                return decode_object(project)(importer)(index)(
-                    input,
-                    targets[0]!,
-                    explore,
-                    tags,
-                );
+                return decode_object(project)(importer)(
+                    indexes ? indexes.get(targets[0]!)! : index,
+                )(input, targets[0]!, explore, tags);
 
             const expected: string = `(${targets
                 .map((t) => t.name)
                 .join(" | ")})`;
-            const indexes: Map<MetadataObject, number> = new Map(
-                targets.map((t, i) => [t, index! + i]),
-            );
 
             // POSSIBLE TO SPECIALIZE?
             const specList = UnionPredicator.object(targets);
+            indexes ??= new Map(targets.map((t, i) => [t, index! + i]));
+
             if (specList.length === 0) {
                 const condition: ts.Expression = decode_union_object(
                     IsProgrammer.decode_object(importer),
                 )((i, o, e) =>
                     ExpressionFactory.selfCall(
-                        decode_object(project)(importer)(indexes.get(o)!)(
+                        decode_object(project)(importer)(indexes!.get(o)!)(
                             i,
                             o,
                             e,
@@ -736,7 +737,7 @@ export namespace ProtobufEncodeProgrammer {
                         ts.factory.createReturnStatement(
                             ExpressionFactory.selfCall(
                                 decode_object(project)(importer)(
-                                    indexes.get(spec.object)!,
+                                    indexes!.get(spec.object)!,
                                 )(input, spec.object, explore, tags),
                             ),
                         ),
@@ -751,6 +752,7 @@ export namespace ProtobufEncodeProgrammer {
                                               remained,
                                               explore,
                                               tags,
+                                              indexes,
                                           ),
                                       ),
                                   )

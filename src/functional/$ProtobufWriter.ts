@@ -130,8 +130,7 @@ export class $ProtobufWriter implements IProtobufWriter {
         val = BigInt.asUintN(64, val);
         while (val > NX7F) {
             this.buf[this.ptr++] = Number((val & NX7F) | NX80);
-            val = val >> ND07; // @todo
-            // (val / (128n) % 2n === 1n)
+            val = val >> ND07;
         }
         this.buf[this.ptr++] = Number(val);
     }
