@@ -27,8 +27,8 @@ const iterate =
         // ITERATE CHILDREN
         for (const map of meta.maps) iterate(visited)(collection)(map.value);
         for (const set of meta.sets) iterate(visited)(collection)(set);
-        if (meta.resolved !== null)
-            iterate(visited)(collection)(meta.resolved.returns);
+        if (meta.escaped !== null)
+            iterate(visited)(collection)(meta.escaped.returns);
         if (meta.rest !== null) iterate(visited)(collection)(meta.rest);
 
         // SORT OBJECTS

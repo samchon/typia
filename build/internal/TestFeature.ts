@@ -4,9 +4,10 @@ export interface TestFeature {
     creatable: boolean;
     spoilable: boolean;
     jsonable?: true;
+    primitive?: true;
+    resolved?: true;
     strict?: true;
     explicit?: true;
-    primitive?: true;
     random?: true;
     opposite?: Array<{
         name: string;
@@ -67,8 +68,8 @@ export namespace TestFeature {
             method: "random",
             creatable: true,
             spoilable: false,
-            primitive: true,
             random: true,
+            resolved: true,
             opposite: [
                 {
                     name: "assert",
@@ -86,6 +87,7 @@ export namespace TestFeature {
             method: "encode",
             creatable: true,
             spoilable: false,
+            resolved: true,
             opposite: [
                 {
                     name: "message",
@@ -102,6 +104,7 @@ export namespace TestFeature {
             method: "isEncode",
             creatable: true,
             spoilable: true,
+            resolved: true,
             opposite: [
                 {
                     name: "message",
@@ -118,6 +121,7 @@ export namespace TestFeature {
             method: "assertEncode",
             creatable: true,
             spoilable: true,
+            resolved: true,
             opposite: [
                 {
                     name: "message",
@@ -134,6 +138,7 @@ export namespace TestFeature {
             method: "validateEncode",
             creatable: true,
             spoilable: true,
+            resolved: true,
             opposite: [
                 {
                     name: "message",
@@ -151,6 +156,7 @@ export namespace TestFeature {
             method: "decode",
             creatable: true,
             spoilable: false,
+            resolved: true,
             opposite: [
                 {
                     name: "encode",
@@ -163,6 +169,7 @@ export namespace TestFeature {
             method: "isDecode",
             creatable: true,
             spoilable: true,
+            resolved: true,
             opposite: [
                 {
                     name: "encode",
@@ -175,6 +182,7 @@ export namespace TestFeature {
             method: "assertDecode",
             creatable: true,
             spoilable: true,
+            resolved: true,
             opposite: [
                 {
                     name: "encode",
@@ -187,6 +195,7 @@ export namespace TestFeature {
             method: "validateDecode",
             creatable: true,
             spoilable: true,
+            resolved: true,
             opposite: [
                 {
                     name: "encode",
@@ -205,8 +214,8 @@ export namespace TestFeature {
             creatable: true,
             spoilable: true,
             jsonable: true,
-            explicit: true,
             primitive: true,
+            explicit: true,
         },
         {
             module: "json",
@@ -214,8 +223,8 @@ export namespace TestFeature {
             creatable: true,
             spoilable: true,
             jsonable: true,
-            explicit: true,
             primitive: true,
+            explicit: true,
         },
         {
             module: "json",
@@ -225,6 +234,7 @@ export namespace TestFeature {
             jsonable: true,
             explicit: true,
             primitive: true,
+            resolved: true,
         },
 
         // STRINGIFY
@@ -266,6 +276,7 @@ export namespace TestFeature {
             creatable: true,
             spoilable: false,
             jsonable: true,
+            resolved: true,
         },
         {
             module: "misc",
@@ -273,6 +284,7 @@ export namespace TestFeature {
             creatable: true,
             spoilable: true,
             jsonable: true,
+            resolved: true,
         },
         {
             module: "misc",
@@ -280,6 +292,7 @@ export namespace TestFeature {
             creatable: true,
             spoilable: true,
             jsonable: true,
+            resolved: true,
         },
         {
             module: "misc",
@@ -287,6 +300,7 @@ export namespace TestFeature {
             creatable: true,
             spoilable: true,
             jsonable: true,
+            resolved: true,
         },
         {
             module: "misc",
@@ -294,7 +308,7 @@ export namespace TestFeature {
             creatable: true,
             spoilable: false,
             strict: true,
-            primitive: true,
+            resolved: true,
         },
         {
             module: "misc",
@@ -302,7 +316,7 @@ export namespace TestFeature {
             creatable: true,
             spoilable: true,
             strict: true,
-            primitive: true,
+            resolved: true,
         },
         {
             module: "misc",
@@ -310,7 +324,7 @@ export namespace TestFeature {
             creatable: true,
             spoilable: true,
             strict: true,
-            primitive: true,
+            resolved: true,
         },
         {
             module: "misc",
@@ -318,7 +332,7 @@ export namespace TestFeature {
             creatable: true,
             spoilable: true,
             strict: true,
-            primitive: true,
+            resolved: true,
         },
     ];
 }

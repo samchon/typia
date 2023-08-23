@@ -8,7 +8,7 @@ import { MapUtil } from "./utils/MapUtil";
 import { CustomValidatorMap } from "./CustomValidatorMap";
 import { IRandomGenerator } from "./IRandomGenerator";
 import { IValidation } from "./IValidation";
-import { Primitive } from "./Primitive";
+import { Resolved } from "./Resolved";
 
 export * as json from "./json";
 export * as protobuf from "./protobuf";
@@ -20,6 +20,7 @@ export * from "./schemas/json/IJsonSchema";
 export * from "./IRandomGenerator";
 export * from "./IValidation";
 export * from "./Primitive";
+export * from "./Resolved";
 export * from "./TypeGuardError";
 
 /**
@@ -461,7 +462,7 @@ export function random(generator?: Partial<IRandomGenerator>): never;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function random<T>(generator?: Partial<IRandomGenerator>): Primitive<T>;
+export function random<T>(generator?: Partial<IRandomGenerator>): Resolved<T>;
 
 /**
  * @internal
@@ -494,8 +495,8 @@ export function metadata(): never {
 /**
  * Creates a reusable {@link assert} function.
  *
- * @danger You have to specify the generic argument `T`
- * @return Nothing until specifying the generic argument `T`
+ * @danger You must configure the generic argument `T`
+ * @returns Nothing until you configure the generic argument `T`
  * @throws compile error
  *
  * @author Jeongho Nam - https://github.com/samchon
@@ -523,8 +524,8 @@ Object.assign(createAssert, assert);
 /**
  * Creates a reusable {@link is} function.
  *
- * @danger You have to specify the generic argument `T`
- * @return Nothing until specifying the generic argument `T`
+ * @danger You must configure the generic argument `T`
+ * @returns Nothing until you configure the generic argument `T`
  * @throws compile error
  *
  * @author Jeongho Nam - https://github.com/samchon
@@ -552,8 +553,8 @@ Object.assign(createIs, is);
 /**
  * Creates a reusable {@link validate} function.
  *
- * @danger You have to specify the generic argument `T`
- * @return Nothing until specifying the generic argument `T`
+ * @danger You must configure the generic argument `T`
+ * @returns Nothing until you configure the generic argument `T`
  * @throws compile error
  *
  * @author Jeongho Nam - https://github.com/samchon
@@ -581,8 +582,8 @@ Object.assign(createValidate, validate);
 /**
  * Creates a reusable {@link assertEquals} function.
  *
- * @danger You have to specify the generic argument `T`
- * @return Nothing until specifying the generic argument `T`
+ * @danger You must configure the generic argument `T`
+ * @returns Nothing until you configure the generic argument `T`
  * @throws compile error
  *
  * @author Jeongho Nam - https://github.com/samchon
@@ -610,8 +611,8 @@ Object.assign(createAssertEquals, assertEquals);
 /**
  * Creates a reusable {@link equals} function.
  *
- * @danger You have to specify the generic argument `T`
- * @return Nothing until specifying the generic argument `T`
+ * @danger You must configure the generic argument `T`
+ * @returns Nothing until you configure the generic argument `T`
  * @throws compile error
  *
  * @author Jeongho Nam - https://github.com/samchon
@@ -639,8 +640,8 @@ Object.assign(createEquals, equals);
 /**
  * Creates a reusable {@link validateEquals} function.
  *
- * @danger You have to specify the generic argument `T`
- * @return Nothing until specifying the generic argument `T`
+ * @danger You must configure the generic argument `T`
+ * @returns Nothing until you configure the generic argument `T`
  * @throws compile error
  *
  * @author Jeongho Nam - https://github.com/samchon
@@ -668,9 +669,9 @@ Object.assign(createValidateEquals, validateEquals);
 /**
  * Creates a reusable {@link random} function.
  *
- * @danger You have to specify the generic argument `T`
+ * @danger You must configure the generic argument `T`
  * @param generator Random data generator
- * @return Nothing until specifying the generic argument `T`
+ * @returns Nothing until you configure the generic argument `T`
  * @throws compile error
  *
  * @author Jeongho Nam - https://github.com/samchon
@@ -688,7 +689,7 @@ export function createRandom(generator?: Partial<IRandomGenerator>): never;
  */
 export function createRandom<T>(
     generator?: Partial<IRandomGenerator>,
-): () => Primitive<T>;
+): () => Resolved<T>;
 
 /**
  * @internal

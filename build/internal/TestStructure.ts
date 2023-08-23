@@ -8,6 +8,7 @@ export interface TestStructure<T> {
     SPOILERS?: Spoiler<T>[];
     ADDABLE?: boolean;
     BINARABLE?: boolean;
+    RESOLVABLE?: boolean;
     JSONABLE?: boolean;
     PRIMITIVE?: boolean;
     RANDOM?: false | typia.IRandomGenerator;

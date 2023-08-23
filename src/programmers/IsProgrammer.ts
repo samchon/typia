@@ -97,8 +97,10 @@ export namespace IsProgrammer {
         (equals: boolean) => {
             const importer: FunctionImporter =
                 disable === <any>{}
-                    ? disable_function_importer_declare(new FunctionImporter())
-                    : new FunctionImporter();
+                    ? disable_function_importer_declare(
+                          new FunctionImporter(modulo.getText()),
+                      )
+                    : new FunctionImporter(modulo.getText());
 
             // CONFIGURATION
             const config: CheckerProgrammer.IConfig = {

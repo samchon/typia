@@ -215,7 +215,7 @@ export namespace CheckerProgrammer {
                     const collection: MetadataCollection =
                         new MetadataCollection();
                     const meta: Metadata = MetadataFactory.analyze(checker)({
-                        resolve: false,
+                        escape: false,
                         constant: true,
                         absorb: true,
                     })(collection)(type);

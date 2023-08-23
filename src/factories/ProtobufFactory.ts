@@ -18,7 +18,7 @@ export namespace ProtobufFactory {
         (type: ts.Type) => {
             // COMPOSE METADATA WITH INDIVIDUAL VALIDATIONS
             const top: Metadata = MetadataFactory.analyze(checker)({
-                resolve: false,
+                escape: false,
                 constant: true,
                 absorb: true,
                 validate: validate(method),
@@ -231,7 +231,7 @@ export namespace ProtobufFactory {
     };
 }
 
-const prefix = (method: string) => `Error on typia.protobuf.${method}():`;
+const prefix = (method: string) => `Error on ${method}():`;
 
 const notSupportedError = (p: { method: string }) => (title: string) =>
     new Error(

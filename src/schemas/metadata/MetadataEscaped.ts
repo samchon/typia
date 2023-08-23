@@ -1,17 +1,17 @@
 import { ClassProperties } from "../../typings/ClassProperties";
 
 import { IMetadataDictionary } from "./IMetadataDictionary";
-import { IMetadataResolved } from "./IMetadataResolved";
+import { IMetadataEscaped } from "./IMetadataEscaped";
 import { Metadata } from "./Metadata";
 
-export class MetadataResolved {
+export class MetadataEscaped {
     public readonly original: Metadata;
     public readonly returns: Metadata;
 
     /**
      * @hidden
      */
-    private constructor(props: ClassProperties<MetadataResolved>) {
+    private constructor(props: ClassProperties<MetadataEscaped>) {
         this.original = props.original;
         this.returns = props.returns;
     }
@@ -20,9 +20,9 @@ export class MetadataResolved {
      * @internal
      */
     public static _From(
-        props: IMetadataResolved,
+        props: IMetadataEscaped,
         dict: IMetadataDictionary,
-    ): MetadataResolved {
+    ): MetadataEscaped {
         return this.create({
             original: Metadata._From(props.original, dict),
             returns: Metadata._From(props.returns, dict),
@@ -33,16 +33,16 @@ export class MetadataResolved {
      * @internal
      */
     public static create(
-        props: ClassProperties<MetadataResolved>,
-    ): MetadataResolved {
-        return new MetadataResolved(props);
+        props: ClassProperties<MetadataEscaped>,
+    ): MetadataEscaped {
+        return new MetadataEscaped(props);
     }
 
     public getName(): string {
         return this.returns.getName();
     }
 
-    public toJSON(): IMetadataResolved {
+    public toJSON(): IMetadataEscaped {
         return {
             original: this.original.toJSON(),
             returns: this.returns.toJSON(),
