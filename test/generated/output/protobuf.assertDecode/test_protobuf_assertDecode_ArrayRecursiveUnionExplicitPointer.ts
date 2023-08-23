@@ -891,7 +891,7 @@ export const test_protobuf_assertDecode_ArrayRecursiveUnionExplicitPointer =
                     return input;
                 };
                 const output = decode(input);
-                return assert(output);
+                return assert(output) as any;
             })(input),
         encode: (input: ArrayRecursiveUnionExplicitPointer): Uint8Array => {
             const $throws = (typia.protobuf.createEncode as any).throws;

@@ -52,8 +52,6 @@ type ResolvedObject<Instance extends object> = Instance extends Array<infer T>
     ? Map<ResolvedMain<K>, ResolvedMain<V>>
     : Instance extends WeakSet<any> | WeakMap<any, any>
     ? never
-    : Instance extends DataView
-    ? never
     : Instance extends
           | Date
           | Uint8Array
@@ -69,6 +67,7 @@ type ResolvedObject<Instance extends object> = Instance extends Array<infer T>
           | Float64Array
           | ArrayBuffer
           | SharedArrayBuffer
+          | DataView
     ? Instance
     : {
           [P in keyof Instance]: ResolvedMain<Instance[P]>;

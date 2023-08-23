@@ -26,6 +26,7 @@ export interface TagBigInt {
 }
 export namespace TagBigInt {
     export const JSONABLE = false;
+    export const PRIMITIVE = false;
 
     export function generate(): TagBigInt {
         return {

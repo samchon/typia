@@ -9,6 +9,8 @@ export type FunctionalTupleUnion = [
 export namespace FunctionalTupleUnion {
     export const BINARABLE = false;
     export const JSONABLE = false;
+    export const PRIMITIVE = false;
+    export const RESOLVABLE = false;
 
     export type Union = ((...args: any[]) => any) | number | string | null;
     export function generate(): FunctionalTupleUnion {

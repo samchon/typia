@@ -4,6 +4,8 @@ export type FunctionalValueUnion = FunctionalValueUnion.Union[];
 export namespace FunctionalValueUnion {
     export const BINARABLE = false;
     export const JSONABLE = false;
+    export const RESOLVABLE = false;
+    export const PRIMITIVE = false;
 
     export type Union = (() => any) | number | string | null;
     export function generate(): FunctionalValueUnion {

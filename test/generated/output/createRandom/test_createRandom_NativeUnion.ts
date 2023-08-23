@@ -16,7 +16,7 @@ export const test_random_NativeUnion = _test_random("NativeUnion")<NativeUnion>(
         ): any => ({
             date: $pick([
                 () => null,
-                () => (generator?.datetime ?? $generator.datetime)(),
+                () => new Date((generator?.datetime ?? $generator.datetime)()),
             ])(),
             unsigned: $pick([
                 () =>
@@ -132,11 +132,13 @@ export const test_random_NativeUnion = _test_random("NativeUnion")<NativeUnion>(
                         const buffer = new SharedArrayBuffer(length);
                         const bytes = new Uint8Array(buffer);
                         bytes.set(
-                            (generator?.array ?? $generator.array)((): any =>
-                                (generator?.integer ?? $generator.integer)(
-                                    0,
-                                    255,
-                                ),
+                            (generator?.array ?? $generator.array)(
+                                (): any =>
+                                    (generator?.integer ?? $generator.integer)(
+                                        0,
+                                        255,
+                                    ),
+                                length,
                             ),
                             0,
                         );

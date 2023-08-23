@@ -198,7 +198,7 @@ export const test_protobuf_assertDecode_DynamicTree =
                     return input;
                 };
                 const output = decode(input);
-                return assert(output);
+                return assert(output) as any;
             })(input),
         encode: (input: DynamicTree): Uint8Array => {
             const $join = (typia.protobuf.createEncode as any).join;

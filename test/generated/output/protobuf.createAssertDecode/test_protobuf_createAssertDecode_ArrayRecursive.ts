@@ -244,7 +244,7 @@ export const test_protobuf_assertDecode_ArrayRecursive =
                 return input;
             };
             const output = decode(input);
-            return assert(output);
+            return assert(output) as any;
         },
         encode: (input: ArrayRecursive): Uint8Array => {
             const $Sizer = (typia.protobuf.createEncode as any).Sizer;

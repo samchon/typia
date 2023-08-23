@@ -952,7 +952,7 @@ export const test_protobuf_assertDecode_MapSimpleProtobufOptional =
                 return input;
             };
             const output = decode(input);
-            return assert(output);
+            return assert(output) as any;
         },
         encode: (input: MapSimpleProtobufOptional): Uint8Array => {
             const $Sizer = (typia.protobuf.createEncode as any).Sizer;

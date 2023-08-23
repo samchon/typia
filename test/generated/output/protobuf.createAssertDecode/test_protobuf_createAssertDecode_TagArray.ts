@@ -367,7 +367,7 @@ export const test_protobuf_assertDecode_TagArray = _test_protobuf_assertDecode(
             return input;
         };
         const output = decode(input);
-        return assert(output);
+        return assert(output) as any;
     },
     encode: (input: TagArray): Uint8Array => {
         const $is_uuid = (typia.protobuf.createEncode as any).is_uuid;

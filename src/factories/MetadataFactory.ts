@@ -9,7 +9,7 @@ import { MetadataCollection } from "./MetadataCollection";
 
 export namespace MetadataFactory {
     export interface IOptions {
-        resolve: boolean;
+        escape: boolean;
         constant: boolean;
         absorb: boolean;
         validate?: (meta: Metadata) => void;

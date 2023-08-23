@@ -4,6 +4,7 @@ export type NativeUnion = NativeUnion.Union[];
 export namespace NativeUnion {
     export const ADDABLE = false;
     export const BINARABLE = false;
+    export const PRIMITIVE = false;
 
     export interface Union {
         date: Date | null;

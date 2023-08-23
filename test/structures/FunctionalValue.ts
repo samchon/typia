@@ -6,4 +6,6 @@ export namespace FunctionalValue {
 
     export const BINARABLE = false;
     export const JSONABLE = false;
+    export const RESOLVABLE = false;
+    export const PRIMITIVE = false;
 }

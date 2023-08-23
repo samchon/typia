@@ -26,6 +26,7 @@ export interface MapSimpleProtobuf {
 export namespace MapSimpleProtobuf {
     export const ADDABLE = false;
     export const JSONABLE = false;
+    export const PRIMITIVE = false;
 
     export function generate(level: number = 0): MapSimpleProtobuf {
         return {

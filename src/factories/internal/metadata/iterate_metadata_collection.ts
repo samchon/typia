@@ -58,8 +58,8 @@ const isArrayRecursive =
             ) ||
             meta.maps.some((m) => isArrayRecursive(visited)(array)(m.value)) ||
             meta.sets.some((s) => isArrayRecursive(visited)(array)(s)) ||
-            (meta.resolved !== null &&
-                isArrayRecursive(visited)(array)(meta.resolved.returns)) ||
+            (meta.escaped !== null &&
+                isArrayRecursive(visited)(array)(meta.escaped.returns)) ||
             (meta.rest !== null && isArrayRecursive(visited)(array)(meta.rest))
         );
     };
@@ -86,8 +86,8 @@ const isTupleRecursive =
             meta.aliases.some((alias) =>
                 isTupleRecursive(visited)(tuple)(alias.value),
             ) ||
-            (meta.resolved !== null &&
-                isTupleRecursive(visited)(tuple)(meta.resolved.returns)) ||
+            (meta.escaped !== null &&
+                isTupleRecursive(visited)(tuple)(meta.escaped.returns)) ||
             (meta.rest !== null && isTupleRecursive(visited)(tuple)(meta.rest))
         );
     };
@@ -126,8 +126,8 @@ const isObjectRecursive =
                 isObjectRecursive(visited)(obj)(map.value),
             ) ||
             meta.sets.some((value) => isObjectRecursive(visited)(obj)(value)) ||
-            (meta.resolved !== null &&
-                isObjectRecursive(visited)(obj)(meta.resolved.returns)) ||
+            (meta.escaped !== null &&
+                isObjectRecursive(visited)(obj)(meta.escaped.returns)) ||
             (meta.rest !== null && isObjectRecursive(visited)(obj)(meta.rest))
         );
     };

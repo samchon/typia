@@ -14,7 +14,7 @@ export const test_random_NativeAlias = _test_random("NativeAlias")<NativeAlias>(
                 _recursive: boolean = false,
                 _depth: number = 0,
             ): any => ({
-                date: (generator?.datetime ?? $generator.datetime)(),
+                date: new Date((generator?.datetime ?? $generator.datetime)()),
                 uint8Array: new Uint8Array(
                     (generator?.array ?? $generator.array)((): any =>
                         (generator?.integer ?? $generator.integer)(0, 255),
@@ -101,8 +101,13 @@ export const test_random_NativeAlias = _test_random("NativeAlias")<NativeAlias>(
                     const buffer = new SharedArrayBuffer(length);
                     const bytes = new Uint8Array(buffer);
                     bytes.set(
-                        (generator?.array ?? $generator.array)((): any =>
-                            (generator?.integer ?? $generator.integer)(0, 255),
+                        (generator?.array ?? $generator.array)(
+                            (): any =>
+                                (generator?.integer ?? $generator.integer)(
+                                    0,
+                                    255,
+                                ),
+                            length,
                         ),
                         0,
                     );

@@ -43,10 +43,14 @@ export namespace ProtobufAssertDecodeProgrammer {
                     ),
                     StatementFactory.constant(
                         "assert",
-                        AssertProgrammer.write(project)(modulo)(false)(
-                            type,
-                            name,
-                        ),
+                        AssertProgrammer.write({
+                            ...project,
+                            options: {
+                                ...project.options,
+                                functional: false,
+                                numeric: false,
+                            },
+                        })(modulo)(false)(type, name),
                     ),
                     StatementFactory.constant(
                         "output",
@@ -57,10 +61,13 @@ export namespace ProtobufAssertDecodeProgrammer {
                         ),
                     ),
                     ts.factory.createReturnStatement(
-                        ts.factory.createCallExpression(
-                            ts.factory.createIdentifier("assert"),
-                            undefined,
-                            [ts.factory.createIdentifier("output")],
+                        ts.factory.createAsExpression(
+                            ts.factory.createCallExpression(
+                                ts.factory.createIdentifier("assert"),
+                                undefined,
+                                [ts.factory.createIdentifier("output")],
+                            ),
+                            TypeFactory.keyword("any"),
                         ),
                     ),
                 ]),

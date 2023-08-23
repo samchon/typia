@@ -189,7 +189,7 @@ export const test_protobuf_assertDecode_TagAtomicUnion =
                 return input;
             };
             const output = decode(input);
-            return assert(output);
+            return assert(output) as any;
         },
         encode: (input: TagAtomicUnion): Uint8Array => {
             const $throws = (typia.protobuf.createEncode as any).throws;

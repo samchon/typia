@@ -18,7 +18,9 @@ export interface NativeSimple {
     dataView: DataView;
 }
 export namespace NativeSimple {
+    export const ADDABLE = false;
     export const BINARABLE = false;
+    export const PRIMITIVE = false;
 
     export function generate(): NativeSimple {
         return {
@@ -39,8 +41,6 @@ export namespace NativeSimple {
             dataView: new DataView(new ArrayBuffer(0)),
         };
     }
-
-    export const ADDABLE = false;
 
     export const SPOILERS: Spoiler<NativeSimple>[] = [
         (input) => {

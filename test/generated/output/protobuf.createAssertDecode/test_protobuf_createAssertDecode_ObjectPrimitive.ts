@@ -285,7 +285,7 @@ export const test_protobuf_assertDecode_ObjectPrimitive =
                 return input;
             };
             const output = decode(input);
-            return assert(output);
+            return assert(output) as any;
         },
         encode: (input: ObjectPrimitive): Uint8Array => {
             const $Sizer = (typia.protobuf.createEncode as any).Sizer;

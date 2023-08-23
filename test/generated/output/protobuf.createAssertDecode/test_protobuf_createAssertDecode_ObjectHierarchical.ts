@@ -805,7 +805,7 @@ export const test_protobuf_assertDecode_ObjectHierarchical =
                 return input;
             };
             const output = decode(input);
-            return assert(output);
+            return assert(output) as any;
         },
         encode: (input: ObjectHierarchical): Uint8Array => {
             const $is_url = (typia.protobuf.createEncode as any).is_url;

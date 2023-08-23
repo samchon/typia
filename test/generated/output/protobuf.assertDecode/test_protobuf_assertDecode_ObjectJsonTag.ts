@@ -157,7 +157,7 @@ export const test_protobuf_assertDecode_ObjectJsonTag =
                     return input;
                 };
                 const output = decode(input);
-                return assert(output);
+                return assert(output) as any;
             })(input),
         encode: (input: ObjectJsonTag): Uint8Array => {
             const $is_custom = (typia.protobuf.createEncode as any).is_custom;

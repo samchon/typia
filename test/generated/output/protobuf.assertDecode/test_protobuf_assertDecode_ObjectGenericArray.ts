@@ -297,7 +297,7 @@ export const test_protobuf_assertDecode_ObjectGenericArray =
                     return input;
                 };
                 const output = decode(input);
-                return assert(output);
+                return assert(output) as any;
             })(input),
         encode: (input: ObjectGenericArray): Uint8Array => {
             const $Sizer = (typia.protobuf.createEncode as any).Sizer;

@@ -1132,7 +1132,7 @@ export const test_protobuf_assertDecode_ObjectUnionExplicitPointer =
                 return input;
             };
             const output = decode(input);
-            return assert(output);
+            return assert(output) as any;
         },
         encode: (input: ObjectUnionExplicitPointer): Uint8Array => {
             const $throws = (typia.protobuf.createEncode as any).throws;

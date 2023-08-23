@@ -16,6 +16,7 @@ export namespace MapSimple {
 
     export const ADDABLE = false;
     export const BINARABLE = false;
+    export const PRIMITIVE = false;
 
     export function generate(): MapSimple {
         return {

@@ -50,7 +50,7 @@ export namespace JsonApplicationTransformer {
             const collection: MetadataCollection = new MetadataCollection();
             const metadatas: Array<Metadata> = types.map((type) =>
                 MetadataFactory.analyze(checker)({
-                    resolve: true,
+                    escape: true,
                     constant: true,
                     absorb: false,
                     validate: (meta) => {

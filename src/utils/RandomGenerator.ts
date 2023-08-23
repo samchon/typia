@@ -74,8 +74,10 @@ export namespace RandomGenerator {
     };
 
     export const datetime = (min?: number, max?: number) => {
-        min ??= 0;
-        max ??= Date.now() * 2;
+        min ??= Date.now() - 30 * DAY;
+        max ??= Date.now() + 7 * DAY;
         return new Date(number(min, max)).toISOString();
     };
 }
+
+const DAY = 1000 * 60 * 60 * 24;

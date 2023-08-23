@@ -17,7 +17,10 @@ export const test_random_NativeUnion = _test_random("NativeUnion")<NativeUnion>(
             ): any => ({
                 date: $pick([
                     () => null,
-                    () => (generator?.datetime ?? $generator.datetime)(),
+                    () =>
+                        new Date(
+                            (generator?.datetime ?? $generator.datetime)(),
+                        ),
                 ])(),
                 unsigned: $pick([
                     () =>
@@ -148,6 +151,7 @@ export const test_random_NativeUnion = _test_random("NativeUnion")<NativeUnion>(
                                             generator?.integer ??
                                             $generator.integer
                                         )(0, 255),
+                                    length,
                                 ),
                                 0,
                             );
