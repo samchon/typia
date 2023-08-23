@@ -862,6 +862,7 @@ export const test_protobuf_validateDecode_ObjectUnionExplicitPointer =
                             const tag = reader.uint32();
                             switch (tag >>> 3) {
                                 case 1:
+                                    // type: Array<IPointer<ObjectUnionExplicitPointer.Shape>>;
                                     output.value.push(
                                         $pdo1(reader, reader.uint32()),
                                     );
@@ -885,42 +886,49 @@ export const test_protobuf_validateDecode_ObjectUnionExplicitPointer =
                             const tag = reader.uint32();
                             switch (tag >>> 3) {
                                 case 1:
+                                    // ObjectUnionExplicitPointer.Discriminator<"point", ObjectUnionExplicitPointer.IPoint>;
                                     output.value = $pdo2(
                                         reader,
                                         reader.uint32(),
                                     );
                                     break;
                                 case 2:
+                                    // ObjectUnionExplicitPointer.Discriminator<"line", ObjectUnionExplicitPointer.ILine>;
                                     output.value = $pdo3(
                                         reader,
                                         reader.uint32(),
                                     );
                                     break;
                                 case 3:
+                                    // ObjectUnionExplicitPointer.Discriminator<"triangle", ObjectUnionExplicitPointer.ITriangle>;
                                     output.value = $pdo5(
                                         reader,
                                         reader.uint32(),
                                     );
                                     break;
                                 case 4:
+                                    // ObjectUnionExplicitPointer.Discriminator<"rectangle", ObjectUnionExplicitPointer.IRectangle>;
                                     output.value = $pdo6(
                                         reader,
                                         reader.uint32(),
                                     );
                                     break;
                                 case 5:
+                                    // ObjectUnionExplicitPointer.Discriminator<"polyline", ObjectUnionExplicitPointer.IPolyline>;
                                     output.value = $pdo7(
                                         reader,
                                         reader.uint32(),
                                     );
                                     break;
                                 case 6:
+                                    // ObjectUnionExplicitPointer.Discriminator<"polygon", ObjectUnionExplicitPointer.IPolygon>;
                                     output.value = $pdo8(
                                         reader,
                                         reader.uint32(),
                                     );
                                     break;
                                 case 7:
+                                    // ObjectUnionExplicitPointer.Discriminator<"circle", ObjectUnionExplicitPointer.ICircle>;
                                     output.value = $pdo10(
                                         reader,
                                         reader.uint32(),
@@ -947,12 +955,15 @@ export const test_protobuf_validateDecode_ObjectUnionExplicitPointer =
                             const tag = reader.uint32();
                             switch (tag >>> 3) {
                                 case 1:
+                                    // number;
                                     output.x = reader.double();
                                     break;
                                 case 2:
+                                    // number;
                                     output.y = reader.double();
                                     break;
                                 case 3:
+                                    // string;
                                     output.type = reader.string();
                                     break;
                                 default:
@@ -976,12 +987,15 @@ export const test_protobuf_validateDecode_ObjectUnionExplicitPointer =
                             const tag = reader.uint32();
                             switch (tag >>> 3) {
                                 case 1:
+                                    // ObjectUnionExplicitPointer.IPoint;
                                     output.p1 = $pdo4(reader, reader.uint32());
                                     break;
                                 case 2:
+                                    // ObjectUnionExplicitPointer.IPoint;
                                     output.p2 = $pdo4(reader, reader.uint32());
                                     break;
                                 case 3:
+                                    // string;
                                     output.type = reader.string();
                                     break;
                                 default:
@@ -1004,9 +1018,11 @@ export const test_protobuf_validateDecode_ObjectUnionExplicitPointer =
                             const tag = reader.uint32();
                             switch (tag >>> 3) {
                                 case 1:
+                                    // number;
                                     output.x = reader.double();
                                     break;
                                 case 2:
+                                    // number;
                                     output.y = reader.double();
                                     break;
                                 default:
@@ -1031,15 +1047,19 @@ export const test_protobuf_validateDecode_ObjectUnionExplicitPointer =
                             const tag = reader.uint32();
                             switch (tag >>> 3) {
                                 case 1:
+                                    // ObjectUnionExplicitPointer.IPoint;
                                     output.p1 = $pdo4(reader, reader.uint32());
                                     break;
                                 case 2:
+                                    // ObjectUnionExplicitPointer.IPoint;
                                     output.p2 = $pdo4(reader, reader.uint32());
                                     break;
                                 case 3:
+                                    // ObjectUnionExplicitPointer.IPoint;
                                     output.p3 = $pdo4(reader, reader.uint32());
                                     break;
                                 case 4:
+                                    // string;
                                     output.type = reader.string();
                                     break;
                                 default:
@@ -1065,18 +1085,23 @@ export const test_protobuf_validateDecode_ObjectUnionExplicitPointer =
                             const tag = reader.uint32();
                             switch (tag >>> 3) {
                                 case 1:
+                                    // ObjectUnionExplicitPointer.IPoint;
                                     output.p1 = $pdo4(reader, reader.uint32());
                                     break;
                                 case 2:
+                                    // ObjectUnionExplicitPointer.IPoint;
                                     output.p2 = $pdo4(reader, reader.uint32());
                                     break;
                                 case 3:
+                                    // ObjectUnionExplicitPointer.IPoint;
                                     output.p3 = $pdo4(reader, reader.uint32());
                                     break;
                                 case 4:
+                                    // ObjectUnionExplicitPointer.IPoint;
                                     output.p4 = $pdo4(reader, reader.uint32());
                                     break;
                                 case 5:
+                                    // string;
                                     output.type = reader.string();
                                     break;
                                 default:
@@ -1099,11 +1124,13 @@ export const test_protobuf_validateDecode_ObjectUnionExplicitPointer =
                             const tag = reader.uint32();
                             switch (tag >>> 3) {
                                 case 1:
+                                    // type: Array<ObjectUnionExplicitPointer.IPoint>;
                                     output.points.push(
                                         $pdo4(reader, reader.uint32()),
                                     );
                                     break;
                                 case 2:
+                                    // string;
                                     output.type = reader.string();
                                     break;
                                 default:
@@ -1127,17 +1154,20 @@ export const test_protobuf_validateDecode_ObjectUnionExplicitPointer =
                             const tag = reader.uint32();
                             switch (tag >>> 3) {
                                 case 1:
+                                    // ObjectUnionExplicitPointer.IPolyline;
                                     output.outer = $pdo9(
                                         reader,
                                         reader.uint32(),
                                     );
                                     break;
                                 case 2:
+                                    // type: Array<ObjectUnionExplicitPointer.IPolyline>;
                                     output.inner.push(
                                         $pdo9(reader, reader.uint32()),
                                     );
                                     break;
                                 case 3:
+                                    // string;
                                     output.type = reader.string();
                                     break;
                                 default:
@@ -1159,6 +1189,7 @@ export const test_protobuf_validateDecode_ObjectUnionExplicitPointer =
                             const tag = reader.uint32();
                             switch (tag >>> 3) {
                                 case 1:
+                                    // type: Array<ObjectUnionExplicitPointer.IPoint>;
                                     output.points.push(
                                         $pdo4(reader, reader.uint32()),
                                     );
@@ -1184,15 +1215,18 @@ export const test_protobuf_validateDecode_ObjectUnionExplicitPointer =
                             const tag = reader.uint32();
                             switch (tag >>> 3) {
                                 case 1:
+                                    // ObjectUnionExplicitPointer.IPoint;
                                     output.centroid = $pdo4(
                                         reader,
                                         reader.uint32(),
                                     );
                                     break;
                                 case 2:
+                                    // number;
                                     output.radius = reader.double();
                                     break;
                                 case 3:
+                                    // string;
                                     output.type = reader.string();
                                     break;
                                 default:
@@ -1217,6 +1251,7 @@ export const test_protobuf_validateDecode_ObjectUnionExplicitPointer =
                     // property "value";
                     if (0 !== input.value.length) {
                         for (const elem of input.value) {
+                            // 1 -> IPointer<ObjectUnionExplicitPointer.Shape>;
                             writer.uint32(10);
                             writer.fork();
                             $peo1(elem);
@@ -1228,6 +1263,7 @@ export const test_protobuf_validateDecode_ObjectUnionExplicitPointer =
                     // property "value";
                     if ("point" === input.value.type)
                         return (() => {
+                            // 1 -> ObjectUnionExplicitPointer.Discriminator<"point", ObjectUnionExplicitPointer.IPoint>;
                             writer.uint32(10);
                             writer.fork();
                             $peo2(input.value);
@@ -1235,6 +1271,7 @@ export const test_protobuf_validateDecode_ObjectUnionExplicitPointer =
                         })();
                     else if ("line" === input.value.type)
                         return (() => {
+                            // 2 -> ObjectUnionExplicitPointer.Discriminator<"line", ObjectUnionExplicitPointer.ILine>;
                             writer.uint32(18);
                             writer.fork();
                             $peo3(input.value);
@@ -1242,6 +1279,7 @@ export const test_protobuf_validateDecode_ObjectUnionExplicitPointer =
                         })();
                     else if ("triangle" === input.value.type)
                         return (() => {
+                            // 3 -> ObjectUnionExplicitPointer.Discriminator<"triangle", ObjectUnionExplicitPointer.ITriangle>;
                             writer.uint32(26);
                             writer.fork();
                             $peo5(input.value);
@@ -1249,6 +1287,7 @@ export const test_protobuf_validateDecode_ObjectUnionExplicitPointer =
                         })();
                     else if ("rectangle" === input.value.type)
                         return (() => {
+                            // 4 -> ObjectUnionExplicitPointer.Discriminator<"rectangle", ObjectUnionExplicitPointer.IRectangle>;
                             writer.uint32(34);
                             writer.fork();
                             $peo6(input.value);
@@ -1256,6 +1295,7 @@ export const test_protobuf_validateDecode_ObjectUnionExplicitPointer =
                         })();
                     else if ("polyline" === input.value.type)
                         return (() => {
+                            // 5 -> ObjectUnionExplicitPointer.Discriminator<"polyline", ObjectUnionExplicitPointer.IPolyline>;
                             writer.uint32(42);
                             writer.fork();
                             $peo7(input.value);
@@ -1263,6 +1303,7 @@ export const test_protobuf_validateDecode_ObjectUnionExplicitPointer =
                         })();
                     else if ("polygon" === input.value.type)
                         return (() => {
+                            // 6 -> ObjectUnionExplicitPointer.Discriminator<"polygon", ObjectUnionExplicitPointer.IPolygon>;
                             writer.uint32(50);
                             writer.fork();
                             $peo8(input.value);
@@ -1270,6 +1311,7 @@ export const test_protobuf_validateDecode_ObjectUnionExplicitPointer =
                         })();
                     else if ("circle" === input.value.type)
                         return (() => {
+                            // 7 -> ObjectUnionExplicitPointer.Discriminator<"circle", ObjectUnionExplicitPointer.ICircle>;
                             writer.uint32(58);
                             writer.fork();
                             $peo10(input.value);
@@ -1295,11 +1337,13 @@ export const test_protobuf_validateDecode_ObjectUnionExplicitPointer =
                 };
                 const $peo3 = (input: any): any => {
                     // property "p1";
+                    // 1 -> ObjectUnionExplicitPointer.IPoint;
                     writer.uint32(10);
                     writer.fork();
                     $peo4(input.p1);
                     writer.ldelim();
                     // property "p2";
+                    // 2 -> ObjectUnionExplicitPointer.IPoint;
                     writer.uint32(18);
                     writer.fork();
                     $peo4(input.p2);
@@ -1318,16 +1362,19 @@ export const test_protobuf_validateDecode_ObjectUnionExplicitPointer =
                 };
                 const $peo5 = (input: any): any => {
                     // property "p1";
+                    // 1 -> ObjectUnionExplicitPointer.IPoint;
                     writer.uint32(10);
                     writer.fork();
                     $peo4(input.p1);
                     writer.ldelim();
                     // property "p2";
+                    // 2 -> ObjectUnionExplicitPointer.IPoint;
                     writer.uint32(18);
                     writer.fork();
                     $peo4(input.p2);
                     writer.ldelim();
                     // property "p3";
+                    // 3 -> ObjectUnionExplicitPointer.IPoint;
                     writer.uint32(26);
                     writer.fork();
                     $peo4(input.p3);
@@ -1338,21 +1385,25 @@ export const test_protobuf_validateDecode_ObjectUnionExplicitPointer =
                 };
                 const $peo6 = (input: any): any => {
                     // property "p1";
+                    // 1 -> ObjectUnionExplicitPointer.IPoint;
                     writer.uint32(10);
                     writer.fork();
                     $peo4(input.p1);
                     writer.ldelim();
                     // property "p2";
+                    // 2 -> ObjectUnionExplicitPointer.IPoint;
                     writer.uint32(18);
                     writer.fork();
                     $peo4(input.p2);
                     writer.ldelim();
                     // property "p3";
+                    // 3 -> ObjectUnionExplicitPointer.IPoint;
                     writer.uint32(26);
                     writer.fork();
                     $peo4(input.p3);
                     writer.ldelim();
                     // property "p4";
+                    // 4 -> ObjectUnionExplicitPointer.IPoint;
                     writer.uint32(34);
                     writer.fork();
                     $peo4(input.p4);
@@ -1365,6 +1416,7 @@ export const test_protobuf_validateDecode_ObjectUnionExplicitPointer =
                     // property "points";
                     if (0 !== input.points.length) {
                         for (const elem of input.points) {
+                            // 1 -> ObjectUnionExplicitPointer.IPoint;
                             writer.uint32(10);
                             writer.fork();
                             $peo4(elem);
@@ -1377,6 +1429,7 @@ export const test_protobuf_validateDecode_ObjectUnionExplicitPointer =
                 };
                 const $peo8 = (input: any): any => {
                     // property "outer";
+                    // 1 -> ObjectUnionExplicitPointer.IPolyline;
                     writer.uint32(10);
                     writer.fork();
                     $peo9(input.outer);
@@ -1384,6 +1437,7 @@ export const test_protobuf_validateDecode_ObjectUnionExplicitPointer =
                     // property "inner";
                     if (0 !== input.inner.length) {
                         for (const elem of input.inner) {
+                            // 2 -> ObjectUnionExplicitPointer.IPolyline;
                             writer.uint32(18);
                             writer.fork();
                             $peo9(elem);
@@ -1398,6 +1452,7 @@ export const test_protobuf_validateDecode_ObjectUnionExplicitPointer =
                     // property "points";
                     if (0 !== input.points.length) {
                         for (const elem of input.points) {
+                            // 1 -> ObjectUnionExplicitPointer.IPoint;
                             writer.uint32(10);
                             writer.fork();
                             $peo4(elem);
@@ -1407,6 +1462,7 @@ export const test_protobuf_validateDecode_ObjectUnionExplicitPointer =
                 };
                 const $peo10 = (input: any): any => {
                     // property "centroid";
+                    // 1 -> ObjectUnionExplicitPointer.IPoint;
                     writer.uint32(10);
                     writer.fork();
                     $peo4(input.centroid);
@@ -1507,6 +1563,7 @@ export const test_protobuf_validateDecode_ObjectUnionExplicitPointer =
                         else if ("circle" === input.type) return $io10(input);
                         else return false;
                     })();
+                //ObjectUnionExplicitPointer;
                 $peo0(input);
                 return writer;
             };

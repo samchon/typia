@@ -13,6 +13,7 @@ export const test_protobuf_encode_TemplateConstant = _test_protobuf_encode(
                 // property "value";
                 if (0 !== input.value.length) {
                     for (const elem of input.value) {
+                        // 1 -> TemplateConstant.Type;
                         writer.uint32(10);
                         writer.fork();
                         $peo1(elem);
@@ -47,6 +48,7 @@ export const test_protobuf_encode_TemplateConstant = _test_protobuf_encode(
                     "the_1_value_with_label_A" === input.combined ||
                     "the_1_value_with_label_B" === input.combined ||
                     "the_1_value_with_label_C" === input.combined);
+            //TemplateConstant;
             $peo0(input);
             return writer;
         };
@@ -67,6 +69,7 @@ export const test_protobuf_encode_TemplateConstant = _test_protobuf_encode(
                 const tag = reader.uint32();
                 switch (tag >>> 3) {
                     case 1:
+                        // type: Array<TemplateConstant.Type>;
                         output.value.push($pdo1(reader, reader.uint32()));
                         break;
                     default:
@@ -87,12 +90,15 @@ export const test_protobuf_encode_TemplateConstant = _test_protobuf_encode(
                 const tag = reader.uint32();
                 switch (tag >>> 3) {
                     case 1:
+                        // string;
                         output.prefix = reader.string();
                         break;
                     case 2:
+                        // string;
                         output.postfix = reader.string();
                         break;
                     case 3:
+                        // string;
                         output.combined = reader.string();
                         break;
                     default:

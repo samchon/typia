@@ -20,12 +20,15 @@ export const test_protobuf_assertDecode_ClassGetter =
                         const tag = reader.uint32();
                         switch (tag >>> 3) {
                             case 1:
+                                // string;
                                 output.id = reader.string();
                                 break;
                             case 2:
+                                // string;
                                 output.name = reader.string();
                                 break;
                             case 3:
+                                // boolean;
                                 output.dead = reader.bool();
                                 break;
                             default:
@@ -121,6 +124,7 @@ export const test_protobuf_assertDecode_ClassGetter =
                         writer.bool(input.dead);
                     }
                 };
+                //ClassGetter.Person;
                 $peo0(input);
                 return writer;
             };

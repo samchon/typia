@@ -27,8 +27,14 @@ message ObjectGenericUnion {
             required string created_at = 2;
             required string title = 3;
             required string body = 4;
-            repeated Omit_lt_ObjectGenericUnion.IAttachmentFile_comma__space__doublequote_id_doublequote__gt_ files = 5;
+            repeated ObjectGenericUnion.IAttachmentFile files = 5;
         }
+    }
+
+    message IAttachmentFile {
+        required string name = 1;
+        optional string extension = 2;
+        required string url = 3;
     }
 
     message ISaleReview {
@@ -44,15 +50,7 @@ message ObjectGenericUnion {
             required string created_at = 3;
             required string title = 4;
             required string body = 5;
-            repeated Omit_lt_ObjectGenericUnion.IAttachmentFile_comma__space__doublequote_id_doublequote__gt_ files = 6;
+            repeated ObjectGenericUnion.IAttachmentFile files = 6;
         }
-    }
-}
-
-message Omit_lt_ObjectGenericUnion {
-    message IAttachmentFile_comma__space__doublequote_id_doublequote__gt_ {
-        required string url = 1;
-        required string name = 2;
-        optional string extension = 3;
     }
 }

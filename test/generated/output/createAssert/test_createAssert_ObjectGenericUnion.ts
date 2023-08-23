@@ -286,8 +286,7 @@ export const test_assert_ObjectGenericUnion = _test_assert(
                 (((Array.isArray(input.files) ||
                     $guard(_exceptionable, {
                         path: _path + ".files",
-                        expected:
-                            'Array<Omit<ObjectGenericUnion.IAttachmentFile, "id">>',
+                        expected: "Array<ObjectGenericUnion.IAttachmentFile>",
                         value: input.files,
                     })) &&
                     input.files.every(
@@ -296,7 +295,7 @@ export const test_assert_ObjectGenericUnion = _test_assert(
                                 $guard(_exceptionable, {
                                     path: _path + ".files[" + _index3 + "]",
                                     expected:
-                                        'Omit<ObjectGenericUnion.IAttachmentFile, "id">',
+                                        "ObjectGenericUnion.IAttachmentFile",
                                     value: elem,
                                 })) &&
                                 $ao4(
@@ -306,15 +305,13 @@ export const test_assert_ObjectGenericUnion = _test_assert(
                                 )) ||
                             $guard(_exceptionable, {
                                 path: _path + ".files[" + _index3 + "]",
-                                expected:
-                                    'Omit<ObjectGenericUnion.IAttachmentFile, "id">',
+                                expected: "ObjectGenericUnion.IAttachmentFile",
                                 value: elem,
                             }),
                     )) ||
                     $guard(_exceptionable, {
                         path: _path + ".files",
-                        expected:
-                            'Array<Omit<ObjectGenericUnion.IAttachmentFile, "id">>',
+                        expected: "Array<ObjectGenericUnion.IAttachmentFile>",
                         value: input.files,
                     }));
             const $ao4 = (
@@ -462,8 +459,7 @@ export const test_assert_ObjectGenericUnion = _test_assert(
                 (((Array.isArray(input.files) ||
                     $guard(_exceptionable, {
                         path: _path + ".files",
-                        expected:
-                            'Array<Omit<ObjectGenericUnion.IAttachmentFile, "id">>',
+                        expected: "Array<ObjectGenericUnion.IAttachmentFile>",
                         value: input.files,
                     })) &&
                     input.files.every(
@@ -472,7 +468,7 @@ export const test_assert_ObjectGenericUnion = _test_assert(
                                 $guard(_exceptionable, {
                                     path: _path + ".files[" + _index5 + "]",
                                     expected:
-                                        'Omit<ObjectGenericUnion.IAttachmentFile, "id">',
+                                        "ObjectGenericUnion.IAttachmentFile",
                                     value: elem,
                                 })) &&
                                 $ao4(
@@ -482,15 +478,13 @@ export const test_assert_ObjectGenericUnion = _test_assert(
                                 )) ||
                             $guard(_exceptionable, {
                                 path: _path + ".files[" + _index5 + "]",
-                                expected:
-                                    'Omit<ObjectGenericUnion.IAttachmentFile, "id">',
+                                expected: "ObjectGenericUnion.IAttachmentFile",
                                 value: elem,
                             }),
                     )) ||
                     $guard(_exceptionable, {
                         path: _path + ".files",
-                        expected:
-                            'Array<Omit<ObjectGenericUnion.IAttachmentFile, "id">>',
+                        expected: "Array<ObjectGenericUnion.IAttachmentFile>",
                         value: input.files,
                     }));
             const $au0 = (

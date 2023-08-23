@@ -1,0 +1,59 @@
+syntax = "proto3";
+
+message ObjectUnionCompositePointer {
+    repeated IPointer_lt_IPoint_space__or__space_ILine_space__or__space_ITriangle_space__or__space_IRectangle_space__or__space_IPolyline_space__or__space_IPolygon_space__or__space_IPointedShape_space__or__space_ICircle_gt_ value = 1;
+    message IPoint {
+        required double x = 1;
+        required double y = 2;
+    }
+
+    message ILine {
+        required ObjectUnionCompositePointer.IPoint p1 = 1;
+        required ObjectUnionCompositePointer.IPoint p2 = 2;
+    }
+
+    message ITriangle {
+        required ObjectUnionCompositePointer.IPoint p1 = 1;
+        required ObjectUnionCompositePointer.IPoint p2 = 2;
+        required ObjectUnionCompositePointer.IPoint p3 = 3;
+    }
+
+    message IRectangle {
+        required ObjectUnionCompositePointer.IPoint p1 = 1;
+        required ObjectUnionCompositePointer.IPoint p2 = 2;
+        required ObjectUnionCompositePointer.IPoint p3 = 3;
+        required ObjectUnionCompositePointer.IPoint p4 = 4;
+    }
+
+    message IPolyline {
+        repeated ObjectUnionCompositePointer.IPoint points = 1;
+    }
+
+    message IPolygon {
+        required ObjectUnionCompositePointer.IPolyline outer = 1;
+        repeated ObjectUnionCompositePointer.IPolyline inner = 2;
+    }
+
+    message IPointedShape {
+        repeated ObjectUnionCompositePointer.IPoint outer = 1;
+        required ObjectUnionCompositePointer.IPoint inner = 2;
+    }
+
+    message ICircle {
+        required ObjectUnionCompositePointer.IPoint centroid = 1;
+        required double radius = 2;
+    }
+}
+
+message IPointer_lt_IPoint_space__or__space_ILine_space__or__space_ITriangle_space__or__space_IRectangle_space__or__space_IPolyline_space__or__space_IPolygon_space__or__space_IPointedShape_space__or__space_ICircle_gt_ {
+    oneof value {
+        ObjectUnionCompositePointer.IPoint v1 = 1;
+        ObjectUnionCompositePointer.ILine v2 = 2;
+        ObjectUnionCompositePointer.ITriangle v3 = 3;
+        ObjectUnionCompositePointer.IRectangle v4 = 4;
+        ObjectUnionCompositePointer.IPolyline v5 = 5;
+        ObjectUnionCompositePointer.IPointedShape v6 = 6;
+        ObjectUnionCompositePointer.IPolygon v7 = 7;
+        ObjectUnionCompositePointer.ICircle v8 = 8;
+    }
+}

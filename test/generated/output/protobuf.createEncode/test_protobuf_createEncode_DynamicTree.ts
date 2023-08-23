@@ -23,6 +23,7 @@ export const test_protobuf_encode_DynamicTree = _test_protobuf_encode(
                     writer.fork();
                     writer.uint32(10);
                     writer.string(key);
+                    // 2 -> DynamicTree;
                     writer.uint32(18);
                     writer.fork();
                     $peo0(value);
@@ -49,6 +50,7 @@ export const test_protobuf_encode_DynamicTree = _test_protobuf_encode(
                         );
                     return true;
                 });
+            //DynamicTree;
             $peo0(input);
             return writer;
         };
@@ -71,12 +73,15 @@ export const test_protobuf_encode_DynamicTree = _test_protobuf_encode(
                 const tag = reader.uint32();
                 switch (tag >>> 3) {
                     case 1:
+                        // string;
                         output.id = reader.string();
                         break;
                     case 2:
+                        // number;
                         output.sequence = reader.double();
                         break;
                     case 3:
+                        // type: Record<string, DynamicTree>;
                         (() => {
                             const piece = reader.uint32() + reader.index();
                             const entry = {
@@ -87,9 +92,11 @@ export const test_protobuf_encode_DynamicTree = _test_protobuf_encode(
                                 const kind = reader.uint32();
                                 switch (kind >>> 3) {
                                     case 1:
+                                        // string;
                                         entry.key = reader.string();
                                         break;
                                     case 2:
+                                        // DynamicTree;
                                         entry.value = $pdo0(
                                             reader,
                                             reader.uint32(),

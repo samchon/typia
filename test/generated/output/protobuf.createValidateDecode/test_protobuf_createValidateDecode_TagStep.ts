@@ -228,6 +228,7 @@ export const test_protobuf_validateDecode_TagStep =
                         const tag = reader.uint32();
                         switch (tag >>> 3) {
                             case 1:
+                                // type: Array<TagStep.Type>;
                                 output.value.push(
                                     $pdo1(reader, reader.uint32()),
                                 );
@@ -252,15 +253,19 @@ export const test_protobuf_validateDecode_TagStep =
                         const tag = reader.uint32();
                         switch (tag >>> 3) {
                             case 1:
+                                // number;
                                 output.exclusiveMinimum = reader.double();
                                 break;
                             case 2:
+                                // number;
                                 output.minimum = reader.double();
                                 break;
                             case 3:
+                                // number;
                                 output.range = reader.double();
                                 break;
                             case 4:
+                                // number;
                                 output.multipleOf = reader.double();
                                 break;
                             default:
@@ -284,6 +289,7 @@ export const test_protobuf_validateDecode_TagStep =
                     // property "value";
                     if (0 !== input.value.length) {
                         for (const elem of input.value) {
+                            // 1 -> TagStep.Type;
                             writer.uint32(10);
                             writer.fork();
                             $peo1(elem);
@@ -320,6 +326,7 @@ export const test_protobuf_validateDecode_TagStep =
                     0 === input.multipleOf % 5 &&
                     3 <= input.multipleOf &&
                     99 >= input.multipleOf;
+                //TagStep;
                 $peo0(input);
                 return writer;
             };

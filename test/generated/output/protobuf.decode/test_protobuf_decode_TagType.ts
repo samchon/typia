@@ -17,6 +17,7 @@ export const test_protobuf_decode_TagType = _test_protobuf_decode(
                     const tag = reader.uint32();
                     switch (tag >>> 3) {
                         case 1:
+                            // type: Array<TagType.Type>;
                             output.value.push($pdo1(reader, reader.uint32()));
                             break;
                         default:
@@ -41,24 +42,31 @@ export const test_protobuf_decode_TagType = _test_protobuf_decode(
                     const tag = reader.uint32();
                     switch (tag >>> 3) {
                         case 1:
+                            // number;
                             output.int = reader.int32();
                             break;
                         case 2:
+                            // number;
                             output.uint = reader.uint32();
                             break;
                         case 3:
+                            // number;
                             output.int32 = reader.int32();
                             break;
                         case 4:
+                            // number;
                             output.uint32 = reader.uint32();
                             break;
                         case 5:
+                            // number;
                             output.int64 = Number(reader.int64());
                             break;
                         case 6:
+                            // number;
                             output.uint64 = Number(reader.uint64());
                             break;
                         case 7:
+                            // number;
                             output.float = reader.float();
                             break;
                         default:
@@ -79,6 +87,7 @@ export const test_protobuf_decode_TagType = _test_protobuf_decode(
                 // property "value";
                 if (0 !== input.value.length) {
                     for (const elem of input.value) {
+                        // 1 -> TagType.Type;
                         writer.uint32(10);
                         writer.fork();
                         $peo1(elem);
@@ -137,6 +146,7 @@ export const test_protobuf_decode_TagType = _test_protobuf_decode(
                 "number" === typeof input.float &&
                 -1.175494351e38 <= input.float &&
                 input.float <= 3.4028235e38;
+            //TagType;
             $peo0(input);
             return writer;
         };

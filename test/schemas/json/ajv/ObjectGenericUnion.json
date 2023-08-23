@@ -152,7 +152,7 @@
             "x-typia-optional": false,
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/Omit<ObjectGenericUnion.IAttachmentFile, \"id\">"
+              "$ref": "#/components/schemas/ObjectGenericUnion.IAttachmentFile"
             }
           }
         },
@@ -165,15 +165,10 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "Omit<ObjectGenericUnion.IAttachmentFile, \"id\">": {
-        "$id": "#/components/schemas/Omit<ObjectGenericUnion.IAttachmentFile, \"id\">",
+      "ObjectGenericUnion.IAttachmentFile": {
+        "$id": "#/components/schemas/ObjectGenericUnion.IAttachmentFile",
         "type": "object",
         "properties": {
-          "url": {
-            "x-typia-required": true,
-            "x-typia-optional": false,
-            "type": "string"
-          },
           "name": {
             "x-typia-required": true,
             "x-typia-optional": false,
@@ -194,12 +189,17 @@
             ],
             "x-typia-required": true,
             "x-typia-optional": false
+          },
+          "url": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
           }
         },
         "required": [
-          "url",
           "name",
-          "extension"
+          "extension",
+          "url"
         ],
         "x-typia-jsDocTags": []
       },
@@ -294,7 +294,7 @@
             "x-typia-optional": false,
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/Omit<ObjectGenericUnion.IAttachmentFile, \"id\">"
+              "$ref": "#/components/schemas/ObjectGenericUnion.IAttachmentFile"
             }
           }
         },

@@ -26,6 +26,7 @@ export const test_protobuf_encode_ObjectPrimitive = _test_protobuf_encode(
                     // property "files";
                     if (0 !== input.files.length) {
                         for (const elem of input.files) {
+                            // 5 -> ObjectPrimitive.IFile;
                             writer.uint32(42);
                             writer.fork();
                             $peo1(elem);
@@ -62,6 +63,7 @@ export const test_protobuf_encode_ObjectPrimitive = _test_protobuf_encode(
                     "string" === typeof input.extension &&
                     "string" === typeof input.url &&
                     "string" === typeof input.created_at;
+                //ObjectPrimitive.IArticle;
                 $peo0(input);
                 return writer;
             };
@@ -88,24 +90,31 @@ export const test_protobuf_encode_ObjectPrimitive = _test_protobuf_encode(
                 const tag = reader.uint32();
                 switch (tag >>> 3) {
                     case 1:
+                        // string;
                         output.id = reader.string();
                         break;
                     case 2:
+                        // string;
                         output.extension = reader.string();
                         break;
                     case 3:
+                        // string;
                         output.title = reader.string();
                         break;
                     case 4:
+                        // string;
                         output.body = reader.string();
                         break;
                     case 5:
+                        // type: Array<ObjectPrimitive.IFile>;
                         output.files.push($pdo1(reader, reader.uint32()));
                         break;
                     case 6:
+                        // boolean;
                         output.secret = reader.bool();
                         break;
                     case 7:
+                        // string;
                         output.created_at = reader.string();
                         break;
                     default:
@@ -128,18 +137,23 @@ export const test_protobuf_encode_ObjectPrimitive = _test_protobuf_encode(
                 const tag = reader.uint32();
                 switch (tag >>> 3) {
                     case 1:
+                        // string;
                         output.id = reader.string();
                         break;
                     case 2:
+                        // string;
                         output.name = reader.string();
                         break;
                     case 3:
+                        // string;
                         output.extension = reader.string();
                         break;
                     case 4:
+                        // string;
                         output.url = reader.string();
                         break;
                     case 5:
+                        // string;
                         output.created_at = reader.string();
                         break;
                     default:

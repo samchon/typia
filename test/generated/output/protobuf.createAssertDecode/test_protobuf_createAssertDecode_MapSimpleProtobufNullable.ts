@@ -26,6 +26,7 @@ export const test_protobuf_assertDecode_MapSimpleProtobufNullable =
                         const tag = reader.uint32();
                         switch (tag >>> 3) {
                             case 1:
+                                // type: Map<string, boolean>;
                                 (() => {
                                     output.boolean ??= new Map<any, any>();
                                     const piece =
@@ -38,9 +39,11 @@ export const test_protobuf_assertDecode_MapSimpleProtobufNullable =
                                         const kind = reader.uint32();
                                         switch (kind >>> 3) {
                                             case 1:
+                                                // string;
                                                 entry.key = reader.string();
                                                 break;
                                             case 2:
+                                                // boolean;
                                                 entry.value = reader.bool();
                                                 break;
                                             default:
@@ -52,6 +55,7 @@ export const test_protobuf_assertDecode_MapSimpleProtobufNullable =
                                 })();
                                 break;
                             case 2:
+                                // type: Map<string, number>;
                                 (() => {
                                     output.int32 ??= new Map<any, any>();
                                     const piece =
@@ -64,9 +68,11 @@ export const test_protobuf_assertDecode_MapSimpleProtobufNullable =
                                         const kind = reader.uint32();
                                         switch (kind >>> 3) {
                                             case 1:
+                                                // string;
                                                 entry.key = reader.string();
                                                 break;
                                             case 2:
+                                                // number;
                                                 entry.value = reader.int32();
                                                 break;
                                             default:
@@ -78,6 +84,7 @@ export const test_protobuf_assertDecode_MapSimpleProtobufNullable =
                                 })();
                                 break;
                             case 3:
+                                // type: Map<string, bigint>;
                                 (() => {
                                     output.bigint ??= new Map<any, any>();
                                     const piece =
@@ -90,9 +97,11 @@ export const test_protobuf_assertDecode_MapSimpleProtobufNullable =
                                         const kind = reader.uint32();
                                         switch (kind >>> 3) {
                                             case 1:
+                                                // string;
                                                 entry.key = reader.string();
                                                 break;
                                             case 2:
+                                                // bigint;
                                                 entry.value = reader.int64();
                                                 break;
                                             default:
@@ -104,6 +113,7 @@ export const test_protobuf_assertDecode_MapSimpleProtobufNullable =
                                 })();
                                 break;
                             case 4:
+                                // type: Map<string, number>;
                                 (() => {
                                     output.double ??= new Map<any, any>();
                                     const piece =
@@ -116,9 +126,11 @@ export const test_protobuf_assertDecode_MapSimpleProtobufNullable =
                                         const kind = reader.uint32();
                                         switch (kind >>> 3) {
                                             case 1:
+                                                // string;
                                                 entry.key = reader.string();
                                                 break;
                                             case 2:
+                                                // number;
                                                 entry.value = reader.double();
                                                 break;
                                             default:
@@ -130,6 +142,7 @@ export const test_protobuf_assertDecode_MapSimpleProtobufNullable =
                                 })();
                                 break;
                             case 5:
+                                // type: Map<string, string>;
                                 (() => {
                                     output.string ??= new Map<any, any>();
                                     const piece =
@@ -142,9 +155,11 @@ export const test_protobuf_assertDecode_MapSimpleProtobufNullable =
                                         const kind = reader.uint32();
                                         switch (kind >>> 3) {
                                             case 1:
+                                                // string;
                                                 entry.key = reader.string();
                                                 break;
                                             case 2:
+                                                // string;
                                                 entry.value = reader.string();
                                                 break;
                                             default:
@@ -156,6 +171,7 @@ export const test_protobuf_assertDecode_MapSimpleProtobufNullable =
                                 })();
                                 break;
                             case 6:
+                                // type: Map<string, Uint8Array>;
                                 (() => {
                                     output.bytes ??= new Map<any, any>();
                                     const piece =
@@ -168,9 +184,11 @@ export const test_protobuf_assertDecode_MapSimpleProtobufNullable =
                                         const kind = reader.uint32();
                                         switch (kind >>> 3) {
                                             case 1:
+                                                // string;
                                                 entry.key = reader.string();
                                                 break;
                                             case 2:
+                                                // bytes;
                                                 entry.value = reader.bytes();
                                                 break;
                                             default:
@@ -182,6 +200,7 @@ export const test_protobuf_assertDecode_MapSimpleProtobufNullable =
                                 })();
                                 break;
                             case 7:
+                                // type: Map<string, MapSimpleProtobufNullable>;
                                 (() => {
                                     output.objects ??= new Map<any, any>();
                                     const piece =
@@ -194,9 +213,11 @@ export const test_protobuf_assertDecode_MapSimpleProtobufNullable =
                                         const kind = reader.uint32();
                                         switch (kind >>> 3) {
                                             case 1:
+                                                // string;
                                                 entry.key = reader.string();
                                                 break;
                                             case 2:
+                                                // MapSimpleProtobufNullable;
                                                 entry.value = $pdo0(
                                                     reader,
                                                     reader.uint32(),
@@ -1000,6 +1021,7 @@ export const test_protobuf_assertDecode_MapSimpleProtobufNullable =
                             writer.fork();
                             writer.uint32(10);
                             writer.string(key);
+                            // 2 -> MapSimpleProtobufNullable;
                             writer.uint32(18);
                             writer.fork();
                             $peo0(value);
@@ -1085,6 +1107,7 @@ export const test_protobuf_assertDecode_MapSimpleProtobufNullable =
                                         null !== elem[1] &&
                                         $io0(elem[1]),
                                 ))()));
+                //MapSimpleProtobufNullable;
                 $peo0(input);
                 return writer;
             };

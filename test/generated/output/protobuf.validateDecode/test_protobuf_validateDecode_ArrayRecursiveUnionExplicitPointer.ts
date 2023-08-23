@@ -599,6 +599,7 @@ export const test_protobuf_validateDecode_ArrayRecursiveUnionExplicitPointer =
                             const tag = reader.uint32();
                             switch (tag >>> 3) {
                                 case 1:
+                                    // type: Array<ArrayRecursiveUnionExplicitPointer.IBucket>;
                                     output.value.push(
                                         $pdo1(reader, reader.uint32()),
                                     );
@@ -622,30 +623,35 @@ export const test_protobuf_validateDecode_ArrayRecursiveUnionExplicitPointer =
                             const tag = reader.uint32();
                             switch (tag >>> 3) {
                                 case 1:
+                                    // ArrayRecursiveUnionExplicitPointer.IDirectory;
                                     output.value = $pdo2(
                                         reader,
                                         reader.uint32(),
                                     );
                                     break;
                                 case 2:
+                                    // ArrayRecursiveUnionExplicitPointer.IImageFile;
                                     output.value = $pdo3(
                                         reader,
                                         reader.uint32(),
                                     );
                                     break;
                                 case 3:
+                                    // ArrayRecursiveUnionExplicitPointer.ITextFile;
                                     output.value = $pdo4(
                                         reader,
                                         reader.uint32(),
                                     );
                                     break;
                                 case 4:
+                                    // ArrayRecursiveUnionExplicitPointer.IZipFile;
                                     output.value = $pdo5(
                                         reader,
                                         reader.uint32(),
                                     );
                                     break;
                                 case 5:
+                                    // ArrayRecursiveUnionExplicitPointer.IShortcut;
                                     output.value = $pdo6(
                                         reader,
                                         reader.uint32(),
@@ -674,20 +680,25 @@ export const test_protobuf_validateDecode_ArrayRecursiveUnionExplicitPointer =
                             const tag = reader.uint32();
                             switch (tag >>> 3) {
                                 case 1:
+                                    // number;
                                     output.id = reader.double();
                                     break;
                                 case 2:
+                                    // string;
                                     output.name = reader.string();
                                     break;
                                 case 3:
+                                    // string;
                                     output.path = reader.string();
                                     break;
                                 case 4:
+                                    // type: Array<ArrayRecursiveUnionExplicitPointer.IBucket>;
                                     output.children.push(
                                         $pdo1(reader, reader.uint32()),
                                     );
                                     break;
                                 case 5:
+                                    // string;
                                     output.type = reader.string();
                                     break;
                                 default:
@@ -717,30 +728,39 @@ export const test_protobuf_validateDecode_ArrayRecursiveUnionExplicitPointer =
                             const tag = reader.uint32();
                             switch (tag >>> 3) {
                                 case 1:
+                                    // number;
                                     output.id = reader.double();
                                     break;
                                 case 2:
+                                    // string;
                                     output.name = reader.string();
                                     break;
                                 case 3:
+                                    // string;
                                     output.path = reader.string();
                                     break;
                                 case 4:
+                                    // number;
                                     output.width = reader.double();
                                     break;
                                 case 5:
+                                    // number;
                                     output.height = reader.double();
                                     break;
                                 case 6:
+                                    // string;
                                     output.url = reader.string();
                                     break;
                                 case 7:
+                                    // number;
                                     output.size = reader.double();
                                     break;
                                 case 8:
+                                    // string;
                                     output.type = reader.string();
                                     break;
                                 case 9:
+                                    // string;
                                     output.extension = reader.string();
                                     break;
                                 default:
@@ -768,24 +788,31 @@ export const test_protobuf_validateDecode_ArrayRecursiveUnionExplicitPointer =
                             const tag = reader.uint32();
                             switch (tag >>> 3) {
                                 case 1:
+                                    // number;
                                     output.id = reader.double();
                                     break;
                                 case 2:
+                                    // string;
                                     output.name = reader.string();
                                     break;
                                 case 3:
+                                    // string;
                                     output.path = reader.string();
                                     break;
                                 case 4:
+                                    // number;
                                     output.size = reader.double();
                                     break;
                                 case 5:
+                                    // string;
                                     output.content = reader.string();
                                     break;
                                 case 6:
+                                    // string;
                                     output.type = reader.string();
                                     break;
                                 case 7:
+                                    // string;
                                     output.extension = reader.string();
                                     break;
                                 default:
@@ -813,24 +840,31 @@ export const test_protobuf_validateDecode_ArrayRecursiveUnionExplicitPointer =
                             const tag = reader.uint32();
                             switch (tag >>> 3) {
                                 case 1:
+                                    // number;
                                     output.id = reader.double();
                                     break;
                                 case 2:
+                                    // string;
                                     output.name = reader.string();
                                     break;
                                 case 3:
+                                    // string;
                                     output.path = reader.string();
                                     break;
                                 case 4:
+                                    // number;
                                     output.size = reader.double();
                                     break;
                                 case 5:
+                                    // number;
                                     output.count = reader.double();
                                     break;
                                 case 6:
+                                    // string;
                                     output.type = reader.string();
                                     break;
                                 case 7:
+                                    // string;
                                     output.extension = reader.string();
                                     break;
                                 default:
@@ -857,24 +891,30 @@ export const test_protobuf_validateDecode_ArrayRecursiveUnionExplicitPointer =
                             const tag = reader.uint32();
                             switch (tag >>> 3) {
                                 case 1:
+                                    // number;
                                     output.id = reader.double();
                                     break;
                                 case 2:
+                                    // string;
                                     output.name = reader.string();
                                     break;
                                 case 3:
+                                    // string;
                                     output.path = reader.string();
                                     break;
                                 case 4:
+                                    // ArrayRecursiveUnionExplicitPointer.IBucket;
                                     output.target = $pdo1(
                                         reader,
                                         reader.uint32(),
                                     );
                                     break;
                                 case 5:
+                                    // string;
                                     output.type = reader.string();
                                     break;
                                 case 6:
+                                    // string;
                                     output.extension = reader.string();
                                     break;
                                 default:
@@ -899,6 +939,7 @@ export const test_protobuf_validateDecode_ArrayRecursiveUnionExplicitPointer =
                     // property "value";
                     if (0 !== input.value.length) {
                         for (const elem of input.value) {
+                            // 1 -> ArrayRecursiveUnionExplicitPointer.IBucket;
                             writer.uint32(10);
                             writer.fork();
                             $peo1(elem);
@@ -910,6 +951,7 @@ export const test_protobuf_validateDecode_ArrayRecursiveUnionExplicitPointer =
                     // property "value";
                     if ("directory" === input.value.type)
                         return (() => {
+                            // 1 -> ArrayRecursiveUnionExplicitPointer.IDirectory;
                             writer.uint32(10);
                             writer.fork();
                             $peo2(input.value);
@@ -917,6 +959,7 @@ export const test_protobuf_validateDecode_ArrayRecursiveUnionExplicitPointer =
                         })();
                     else if ("jpg" === input.value.extension)
                         return (() => {
+                            // 2 -> ArrayRecursiveUnionExplicitPointer.IImageFile;
                             writer.uint32(18);
                             writer.fork();
                             $peo3(input.value);
@@ -924,6 +967,7 @@ export const test_protobuf_validateDecode_ArrayRecursiveUnionExplicitPointer =
                         })();
                     else if ("txt" === input.value.extension)
                         return (() => {
+                            // 3 -> ArrayRecursiveUnionExplicitPointer.ITextFile;
                             writer.uint32(26);
                             writer.fork();
                             $peo4(input.value);
@@ -931,6 +975,7 @@ export const test_protobuf_validateDecode_ArrayRecursiveUnionExplicitPointer =
                         })();
                     else if ("zip" === input.value.extension)
                         return (() => {
+                            // 4 -> ArrayRecursiveUnionExplicitPointer.IZipFile;
                             writer.uint32(34);
                             writer.fork();
                             $peo5(input.value);
@@ -938,6 +983,7 @@ export const test_protobuf_validateDecode_ArrayRecursiveUnionExplicitPointer =
                         })();
                     else if ("lnk" === input.value.extension)
                         return (() => {
+                            // 5 -> ArrayRecursiveUnionExplicitPointer.IShortcut;
                             writer.uint32(42);
                             writer.fork();
                             $peo6(input.value);
@@ -963,6 +1009,7 @@ export const test_protobuf_validateDecode_ArrayRecursiveUnionExplicitPointer =
                     // property "children";
                     if (0 !== input.children.length) {
                         for (const elem of input.children) {
+                            // 4 -> ArrayRecursiveUnionExplicitPointer.IBucket;
                             writer.uint32(34);
                             writer.fork();
                             $peo1(elem);
@@ -1059,6 +1106,7 @@ export const test_protobuf_validateDecode_ArrayRecursiveUnionExplicitPointer =
                     writer.uint32(26);
                     writer.string(input.path);
                     // property "target";
+                    // 4 -> ArrayRecursiveUnionExplicitPointer.IBucket;
                     writer.uint32(34);
                     writer.fork();
                     $peo1(input.target);
@@ -1130,6 +1178,7 @@ export const test_protobuf_validateDecode_ArrayRecursiveUnionExplicitPointer =
                         else if ("lnk" === input.extension) return $io6(input);
                         else return false;
                     })();
+                //ArrayRecursiveUnionExplicitPointer;
                 $peo0(input);
                 return writer;
             };

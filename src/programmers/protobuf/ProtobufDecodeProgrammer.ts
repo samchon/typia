@@ -279,35 +279,51 @@ export namespace ProtobufDecodeProgrammer {
             tags: IMetadataTag[],
         ): ts.CaseClause[] => {
             const clauses: ts.CaseClause[] = [];
-            const emplace = (v: ts.Expression | ts.Statement[]) =>
-                clauses.push(
-                    ts.factory.createCaseClause(
-                        ts.factory.createNumericLiteral(index++),
-                        Array.isArray(v)
-                            ? [...v, ts.factory.createBreakStatement()]
-                            : [
-                                  ts.factory.createExpressionStatement(
-                                      ts.factory.createBinaryExpression(
-                                          accessor,
-                                          ts.factory.createToken(
-                                              ts.SyntaxKind.EqualsToken,
+            const emplace =
+                (name: string) => (v: ts.Expression | ts.Statement[]) =>
+                    clauses.push(
+                        ts.factory.createCaseClause(
+                            ts.factory.createNumericLiteral(index++),
+                            Array.isArray(v)
+                                ? [
+                                      ts.factory.createExpressionStatement(
+                                          ts.factory.createIdentifier(
+                                              `// type: ${name}`,
                                           ),
-                                          v,
                                       ),
-                                  ),
-                                  ts.factory.createBreakStatement(),
-                              ],
-                    ),
-                );
+                                      ...v,
+                                      ts.factory.createBreakStatement(),
+                                  ]
+                                : [
+                                      ts.factory.createExpressionStatement(
+                                          ts.factory.createIdentifier(
+                                              `// ${name}`,
+                                          ),
+                                      ),
+                                      ts.factory.createExpressionStatement(
+                                          ts.factory.createBinaryExpression(
+                                              accessor,
+                                              ts.factory.createToken(
+                                                  ts.SyntaxKind.EqualsToken,
+                                              ),
+                                              v,
+                                          ),
+                                      ),
+                                      ts.factory.createBreakStatement(),
+                                  ],
+                        ),
+                    );
 
             const required: boolean = meta.isRequired() && !meta.nullable;
             for (const atomic of ProtobufUtil.getAtomics(meta))
-                emplace(decode_atomic(atomic, tags));
-            if (meta.natives.length) emplace(decode_bytes("bytes"));
+                emplace(atomic)(decode_atomic(atomic, tags));
+            if (meta.natives.length) emplace("bytes")(decode_bytes("bytes"));
             for (const array of meta.arrays)
-                emplace(decode_array(accessor, array, required, tags));
+                emplace(`Array<${array.value.getName()}>`)(
+                    decode_array(accessor, array, required, tags),
+                );
             for (const map of meta.maps)
-                emplace(
+                emplace(`Map<string, ${map.value.getName()}>`)(
                     decode_map(project)(importer)(
                         accessor,
                         map,
@@ -316,7 +332,7 @@ export namespace ProtobufDecodeProgrammer {
                     ),
                 );
             for (const obj of meta.objects)
-                emplace(
+                emplace(obj.name)(
                     ProtobufUtil.isStaticObject(obj)
                         ? decode_regular_object(false)(obj)
                         : decode_dynamic_object(project)(importer)(

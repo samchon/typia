@@ -527,7 +527,7 @@ export const test_validateEquals_ObjectGenericUnion = _test_validateEquals(
                             $report(_exceptionable, {
                                 path: _path + ".files",
                                 expected:
-                                    'Array<Omit<ObjectGenericUnion.IAttachmentFile, "id">>',
+                                    "Array<ObjectGenericUnion.IAttachmentFile>",
                                 value: input.files,
                             })) &&
                             input.files
@@ -542,7 +542,7 @@ export const test_validateEquals_ObjectGenericUnion = _test_validateEquals(
                                                     _index3 +
                                                     "]",
                                                 expected:
-                                                    'Omit<ObjectGenericUnion.IAttachmentFile, "id">',
+                                                    "ObjectGenericUnion.IAttachmentFile",
                                                 value: elem,
                                             })) &&
                                             $vo4(
@@ -560,7 +560,7 @@ export const test_validateEquals_ObjectGenericUnion = _test_validateEquals(
                                                 _index3 +
                                                 "]",
                                             expected:
-                                                'Omit<ObjectGenericUnion.IAttachmentFile, "id">',
+                                                "ObjectGenericUnion.IAttachmentFile",
                                             value: elem,
                                         }),
                                 )
@@ -568,7 +568,7 @@ export const test_validateEquals_ObjectGenericUnion = _test_validateEquals(
                             $report(_exceptionable, {
                                 path: _path + ".files",
                                 expected:
-                                    'Array<Omit<ObjectGenericUnion.IAttachmentFile, "id">>',
+                                    "Array<ObjectGenericUnion.IAttachmentFile>",
                                 value: input.files,
                             }),
                         5 === Object.keys(input).length ||
@@ -805,7 +805,7 @@ export const test_validateEquals_ObjectGenericUnion = _test_validateEquals(
                             $report(_exceptionable, {
                                 path: _path + ".files",
                                 expected:
-                                    'Array<Omit<ObjectGenericUnion.IAttachmentFile, "id">>',
+                                    "Array<ObjectGenericUnion.IAttachmentFile>",
                                 value: input.files,
                             })) &&
                             input.files
@@ -820,7 +820,7 @@ export const test_validateEquals_ObjectGenericUnion = _test_validateEquals(
                                                     _index5 +
                                                     "]",
                                                 expected:
-                                                    'Omit<ObjectGenericUnion.IAttachmentFile, "id">',
+                                                    "ObjectGenericUnion.IAttachmentFile",
                                                 value: elem,
                                             })) &&
                                             $vo4(
@@ -838,7 +838,7 @@ export const test_validateEquals_ObjectGenericUnion = _test_validateEquals(
                                                 _index5 +
                                                 "]",
                                             expected:
-                                                'Omit<ObjectGenericUnion.IAttachmentFile, "id">',
+                                                "ObjectGenericUnion.IAttachmentFile",
                                             value: elem,
                                         }),
                                 )
@@ -846,7 +846,7 @@ export const test_validateEquals_ObjectGenericUnion = _test_validateEquals(
                             $report(_exceptionable, {
                                 path: _path + ".files",
                                 expected:
-                                    'Array<Omit<ObjectGenericUnion.IAttachmentFile, "id">>',
+                                    "Array<ObjectGenericUnion.IAttachmentFile>",
                                 value: input.files,
                             }),
                         6 === Object.keys(input).length ||

@@ -20,6 +20,7 @@ export const test_protobuf_assertDecode_ObjectUnionNonPredictable =
                         const tag = reader.uint32();
                         switch (tag >>> 3) {
                             case 1:
+                                // type: Array<ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>>;
                                 output.value.push(
                                     $pdo1(reader, reader.uint32()),
                                 );
@@ -41,6 +42,7 @@ export const test_protobuf_assertDecode_ObjectUnionNonPredictable =
                         const tag = reader.uint32();
                         switch (tag >>> 3) {
                             case 1:
+                                // IPointer<ObjectUnionNonPredictable.IUnion>;
                                 output.value = $pdo2(reader, reader.uint32());
                                 break;
                             default:
@@ -60,12 +62,15 @@ export const test_protobuf_assertDecode_ObjectUnionNonPredictable =
                         const tag = reader.uint32();
                         switch (tag >>> 3) {
                             case 1:
+                                // ObjectUnionNonPredictable.IWrapper<string>;
                                 output.value = $pdo7(reader, reader.uint32());
                                 break;
                             case 2:
+                                // ObjectUnionNonPredictable.IWrapper<number>;
                                 output.value = $pdo5(reader, reader.uint32());
                                 break;
                             case 3:
+                                // ObjectUnionNonPredictable.IWrapper<boolean>;
                                 output.value = $pdo3(reader, reader.uint32());
                                 break;
                             default:
@@ -85,6 +90,7 @@ export const test_protobuf_assertDecode_ObjectUnionNonPredictable =
                         const tag = reader.uint32();
                         switch (tag >>> 3) {
                             case 1:
+                                // IPointer<boolean>;
                                 output.value = $pdo4(reader, reader.uint32());
                                 break;
                             default:
@@ -104,6 +110,7 @@ export const test_protobuf_assertDecode_ObjectUnionNonPredictable =
                         const tag = reader.uint32();
                         switch (tag >>> 3) {
                             case 1:
+                                // boolean;
                                 output.value = reader.bool();
                                 break;
                             default:
@@ -123,6 +130,7 @@ export const test_protobuf_assertDecode_ObjectUnionNonPredictable =
                         const tag = reader.uint32();
                         switch (tag >>> 3) {
                             case 1:
+                                // IPointer<number>;
                                 output.value = $pdo6(reader, reader.uint32());
                                 break;
                             default:
@@ -142,6 +150,7 @@ export const test_protobuf_assertDecode_ObjectUnionNonPredictable =
                         const tag = reader.uint32();
                         switch (tag >>> 3) {
                             case 1:
+                                // number;
                                 output.value = reader.double();
                                 break;
                             default:
@@ -161,6 +170,7 @@ export const test_protobuf_assertDecode_ObjectUnionNonPredictable =
                         const tag = reader.uint32();
                         switch (tag >>> 3) {
                             case 1:
+                                // IPointer<string>;
                                 output.value = $pdo8(reader, reader.uint32());
                                 break;
                             default:
@@ -180,6 +190,7 @@ export const test_protobuf_assertDecode_ObjectUnionNonPredictable =
                         const tag = reader.uint32();
                         switch (tag >>> 3) {
                             case 1:
+                                // string;
                                 output.value = reader.string();
                                 break;
                             default:
@@ -489,6 +500,7 @@ export const test_protobuf_assertDecode_ObjectUnionNonPredictable =
                     // property "value";
                     if (0 !== input.value.length) {
                         for (const elem of input.value) {
+                            // 1 -> ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>;
                             writer.uint32(10);
                             writer.fork();
                             $peo1(elem);
@@ -498,6 +510,7 @@ export const test_protobuf_assertDecode_ObjectUnionNonPredictable =
                 };
                 const $peo1 = (input: any): any => {
                     // property "value";
+                    // 1 -> IPointer<ObjectUnionNonPredictable.IUnion>;
                     writer.uint32(10);
                     writer.fork();
                     $peo2(input.value);
@@ -508,6 +521,7 @@ export const test_protobuf_assertDecode_ObjectUnionNonPredictable =
                     (() => {
                         if ($io7(input.value))
                             return (() => {
+                                // 1 -> ObjectUnionNonPredictable.IWrapper<string>;
                                 writer.uint32(10);
                                 writer.fork();
                                 $peo7(input.value);
@@ -515,6 +529,7 @@ export const test_protobuf_assertDecode_ObjectUnionNonPredictable =
                             })();
                         else if ($io5(input.value))
                             return (() => {
+                                // 2 -> ObjectUnionNonPredictable.IWrapper<number>;
                                 writer.uint32(18);
                                 writer.fork();
                                 $peo5(input.value);
@@ -522,6 +537,7 @@ export const test_protobuf_assertDecode_ObjectUnionNonPredictable =
                             })();
                         else if ($io3(input.value))
                             return (() => {
+                                // 3 -> ObjectUnionNonPredictable.IWrapper<boolean>;
                                 writer.uint32(26);
                                 writer.fork();
                                 $peo3(input.value);
@@ -537,6 +553,7 @@ export const test_protobuf_assertDecode_ObjectUnionNonPredictable =
                 };
                 const $peo3 = (input: any): any => {
                     // property "value";
+                    // 1 -> IPointer<boolean>;
                     writer.uint32(10);
                     writer.fork();
                     $peo4(input.value);
@@ -549,6 +566,7 @@ export const test_protobuf_assertDecode_ObjectUnionNonPredictable =
                 };
                 const $peo5 = (input: any): any => {
                     // property "value";
+                    // 1 -> IPointer<number>;
                     writer.uint32(10);
                     writer.fork();
                     $peo6(input.value);
@@ -561,6 +579,7 @@ export const test_protobuf_assertDecode_ObjectUnionNonPredictable =
                 };
                 const $peo7 = (input: any): any => {
                     // property "value";
+                    // 1 -> IPointer<string>;
                     writer.uint32(10);
                     writer.fork();
                     $peo8(input.value);
@@ -599,6 +618,7 @@ export const test_protobuf_assertDecode_ObjectUnionNonPredictable =
                     "string" === typeof input.value;
                 const $iu0 = (input: any): any =>
                     $io7(input) || $io5(input) || $io3(input);
+                //ObjectUnionNonPredictable;
                 $peo0(input);
                 return writer;
             };

@@ -82,9 +82,11 @@ export const test_protobuf_validateDecode_ClassMethod =
                         const tag = reader.uint32();
                         switch (tag >>> 3) {
                             case 1:
+                                // string;
                                 output.name = reader.string();
                                 break;
                             case 2:
+                                // number;
                                 output.age = reader.double();
                                 break;
                             default:
@@ -112,6 +114,7 @@ export const test_protobuf_validateDecode_ClassMethod =
                     writer.uint32(17);
                     writer.double(input.age);
                 };
+                //ClassMethod.Animal;
                 $peo0(input);
                 return writer;
             };

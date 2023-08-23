@@ -22,21 +22,27 @@ export const test_protobuf_decode_TagInfinite = _test_protobuf_decode(
                     const tag = reader.uint32();
                     switch (tag >>> 3) {
                         case 1:
+                            // number;
                             output.value = reader.double();
                             break;
                         case 2:
+                            // number;
                             output.ranged = reader.double();
                             break;
                         case 3:
+                            // number;
                             output.minimum = reader.double();
                             break;
                         case 4:
+                            // number;
                             output.maximum = reader.double();
                             break;
                         case 5:
+                            // number;
                             output.multipleOf = reader.double();
                             break;
                         case 6:
+                            // number;
                             output.typed = reader.int32();
                             break;
                         default:
@@ -73,6 +79,7 @@ export const test_protobuf_decode_TagInfinite = _test_protobuf_decode(
                 writer.uint32(48);
                 writer.int32(input.typed);
             };
+            //TagInfinite;
             $peo0(input);
             return writer;
         };

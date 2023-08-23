@@ -26,18 +26,23 @@ export const test_protobuf_assertDecode_ClassPropertyAssignment =
                             const tag = reader.uint32();
                             switch (tag >>> 3) {
                                 case 1:
+                                    // number;
                                     output.id = reader.double();
                                     break;
                                 case 2:
+                                    // string;
                                     output.name = reader.string();
                                     break;
                                 case 3:
+                                    // string;
                                     output.note = reader.string();
                                     break;
                                 case 4:
+                                    // boolean;
                                     output.editable = reader.bool();
                                     break;
                                 case 5:
+                                    // boolean;
                                     output.incremental = reader.bool();
                                     break;
                                 default:
@@ -153,6 +158,7 @@ export const test_protobuf_assertDecode_ClassPropertyAssignment =
                     writer.uint32(40);
                     writer.bool(input.incremental);
                 };
+                //ClassPropertyAssignment;
                 $peo0(input);
                 return writer;
             };

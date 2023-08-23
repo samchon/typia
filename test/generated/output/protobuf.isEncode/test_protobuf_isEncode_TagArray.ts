@@ -61,6 +61,7 @@ export const test_protobuf_isEncode_TagArray = _test_protobuf_isEncode(
                         // property "value";
                         if (0 !== input.value.length) {
                             for (const elem of input.value) {
+                                // 1 -> TagArray.Type;
                                 writer.uint32(10);
                                 writer.fork();
                                 $peo1(elem);
@@ -131,6 +132,7 @@ export const test_protobuf_isEncode_TagArray = _test_protobuf_isEncode(
                                 10 <= elem &&
                                 10 >= elem,
                         );
+                    //TagArray;
                     $peo0(input);
                     return writer;
                 };
@@ -153,6 +155,7 @@ export const test_protobuf_isEncode_TagArray = _test_protobuf_isEncode(
                 const tag = reader.uint32();
                 switch (tag >>> 3) {
                     case 1:
+                        // type: Array<TagArray.Type>;
                         output.value.push($pdo1(reader, reader.uint32()));
                         break;
                     default:
@@ -174,9 +177,11 @@ export const test_protobuf_isEncode_TagArray = _test_protobuf_isEncode(
                 const tag = reader.uint32();
                 switch (tag >>> 3) {
                     case 1:
+                        // type: Array<string>;
                         output.items.push(reader.string());
                         break;
                     case 2:
+                        // type: Array<number>;
                         if (2 === (tag & 7)) {
                             const piece = reader.uint32() + reader.index();
                             while (reader.index() < piece)
@@ -184,9 +189,11 @@ export const test_protobuf_isEncode_TagArray = _test_protobuf_isEncode(
                         } else output.minItems.push(reader.double());
                         break;
                     case 3:
+                        // type: Array<string>;
                         output.both.push(reader.string());
                         break;
                     case 4:
+                        // type: Array<number>;
                         if (2 === (tag & 7)) {
                             const piece = reader.uint32() + reader.index();
                             while (reader.index() < piece)

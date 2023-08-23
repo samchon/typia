@@ -93,6 +93,7 @@ export const test_protobuf_isDecode_ArraySimpleProtobuf =
                         const tag = reader.uint32();
                         switch (tag >>> 3) {
                             case 1:
+                                // type: Array<boolean>;
                                 if (2 === (tag & 7)) {
                                     const piece =
                                         reader.uint32() + reader.index();
@@ -101,6 +102,7 @@ export const test_protobuf_isDecode_ArraySimpleProtobuf =
                                 } else output.boolean.push(reader.bool());
                                 break;
                             case 2:
+                                // type: Array<number>;
                                 if (2 === (tag & 7)) {
                                     const piece =
                                         reader.uint32() + reader.index();
@@ -109,6 +111,7 @@ export const test_protobuf_isDecode_ArraySimpleProtobuf =
                                 } else output.int32.push(reader.int32());
                                 break;
                             case 3:
+                                // type: Array<number>;
                                 if (2 === (tag & 7)) {
                                     const piece =
                                         reader.uint32() + reader.index();
@@ -117,6 +120,7 @@ export const test_protobuf_isDecode_ArraySimpleProtobuf =
                                 } else output.uint32.push(reader.uint32());
                                 break;
                             case 4:
+                                // type: Array<bigint>;
                                 if (2 === (tag & 7)) {
                                     const piece =
                                         reader.uint32() + reader.index();
@@ -125,6 +129,7 @@ export const test_protobuf_isDecode_ArraySimpleProtobuf =
                                 } else output.int64.push(reader.int64());
                                 break;
                             case 5:
+                                // type: Array<bigint>;
                                 if (2 === (tag & 7)) {
                                     const piece =
                                         reader.uint32() + reader.index();
@@ -133,6 +138,7 @@ export const test_protobuf_isDecode_ArraySimpleProtobuf =
                                 } else output.uint64.push(reader.uint64());
                                 break;
                             case 6:
+                                // type: Array<number>;
                                 if (2 === (tag & 7)) {
                                     const piece =
                                         reader.uint32() + reader.index();
@@ -141,6 +147,7 @@ export const test_protobuf_isDecode_ArraySimpleProtobuf =
                                 } else output.float.push(reader.float());
                                 break;
                             case 7:
+                                // type: Array<number>;
                                 if (2 === (tag & 7)) {
                                     const piece =
                                         reader.uint32() + reader.index();
@@ -149,12 +156,15 @@ export const test_protobuf_isDecode_ArraySimpleProtobuf =
                                 } else output.double.push(reader.double());
                                 break;
                             case 8:
+                                // type: Array<string>;
                                 output.string.push(reader.string());
                                 break;
                             case 9:
+                                // type: Array<Uint8Array>;
                                 output.bytes.push(reader.bytes());
                                 break;
                             case 10:
+                                // type: Array<ArraySimpleProtobuf>;
                                 output.object.push(
                                     $pdo0(reader, reader.uint32()),
                                 );
@@ -258,6 +268,7 @@ export const test_protobuf_isDecode_ArraySimpleProtobuf =
                     // property "object";
                     if (0 !== input.object.length) {
                         for (const elem of input.object) {
+                            // 10 -> ArraySimpleProtobuf;
                             writer.uint32(82);
                             writer.fork();
                             $peo0(elem);
@@ -321,6 +332,7 @@ export const test_protobuf_isDecode_ArraySimpleProtobuf =
                             null !== elem &&
                             $io0(elem),
                     );
+                //ArraySimpleProtobuf;
                 $peo0(input);
                 return writer;
             };

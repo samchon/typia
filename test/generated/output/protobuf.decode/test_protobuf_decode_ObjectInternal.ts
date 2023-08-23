@@ -18,9 +18,11 @@ export const test_protobuf_decode_ObjectInternal = _test_protobuf_decode(
                     const tag = reader.uint32();
                     switch (tag >>> 3) {
                         case 1:
+                            // string;
                             output.id = reader.string();
                             break;
                         case 2:
+                            // string;
                             output.name = reader.string();
                             break;
                         default:
@@ -45,6 +47,7 @@ export const test_protobuf_decode_ObjectInternal = _test_protobuf_decode(
                 writer.uint32(18);
                 writer.string(input.name);
             };
+            //ObjectInternal;
             $peo0(input);
             return writer;
         };

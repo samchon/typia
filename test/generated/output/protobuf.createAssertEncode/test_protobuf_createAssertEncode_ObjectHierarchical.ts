@@ -545,12 +545,14 @@ export const test_protobuf_assertEncode_ObjectHierarchical =
                         writer.uint32(9);
                         writer.double(input.id);
                         // property "channel";
+                        // 2 -> ObjectHierarchical.IChannel;
                         writer.uint32(18);
                         writer.fork();
                         $peo1(input.channel);
                         writer.ldelim();
                         // property "member";
                         if (null != input.member) {
+                            // 3 -> ObjectHierarchical.IMember;
                             writer.uint32(26);
                             writer.fork();
                             $peo3(input.member);
@@ -558,6 +560,7 @@ export const test_protobuf_assertEncode_ObjectHierarchical =
                         }
                         // property "account";
                         if (null != input.account) {
+                            // 4 -> ObjectHierarchical.IAccount;
                             writer.uint32(34);
                             writer.fork();
                             $peo4(input.account);
@@ -573,6 +576,7 @@ export const test_protobuf_assertEncode_ObjectHierarchical =
                         writer.uint32(58);
                         writer.string(input.ip);
                         // property "created_at";
+                        // 8 -> ObjectHierarchical.ITimestamp;
                         writer.uint32(66);
                         writer.fork();
                         $peo2(input.created_at);
@@ -598,6 +602,7 @@ export const test_protobuf_assertEncode_ObjectHierarchical =
                         writer.uint32(49);
                         writer.double(input.priority);
                         // property "created_at";
+                        // 7 -> ObjectHierarchical.ITimestamp;
                         writer.uint32(58);
                         writer.fork();
                         $peo2(input.created_at);
@@ -616,12 +621,14 @@ export const test_protobuf_assertEncode_ObjectHierarchical =
                         writer.uint32(9);
                         writer.double(input.id);
                         // property "account";
+                        // 2 -> ObjectHierarchical.IAccount;
                         writer.uint32(18);
                         writer.fork();
                         $peo4(input.account);
                         writer.ldelim();
                         // property "enterprise";
                         if (null != input.enterprise) {
+                            // 3 -> ObjectHierarchical.IEnterprise;
                             writer.uint32(26);
                             writer.fork();
                             $peo5(input.enterprise);
@@ -635,6 +642,7 @@ export const test_protobuf_assertEncode_ObjectHierarchical =
                             }
                         }
                         // property "created_at";
+                        // 5 -> ObjectHierarchical.ITimestamp;
                         writer.uint32(42);
                         writer.fork();
                         $peo2(input.created_at);
@@ -651,6 +659,7 @@ export const test_protobuf_assertEncode_ObjectHierarchical =
                         writer.uint32(18);
                         writer.string(input.code);
                         // property "created_at";
+                        // 3 -> ObjectHierarchical.ITimestamp;
                         writer.uint32(26);
                         writer.fork();
                         $peo2(input.created_at);
@@ -661,6 +670,7 @@ export const test_protobuf_assertEncode_ObjectHierarchical =
                         writer.uint32(9);
                         writer.double(input.id);
                         // property "account";
+                        // 2 -> ObjectHierarchical.IAccount;
                         writer.uint32(18);
                         writer.fork();
                         $peo4(input.account);
@@ -672,6 +682,7 @@ export const test_protobuf_assertEncode_ObjectHierarchical =
                         writer.uint32(33);
                         writer.double(input.grade);
                         // property "created_at";
+                        // 5 -> ObjectHierarchical.ITimestamp;
                         writer.uint32(42);
                         writer.fork();
                         $peo2(input.created_at);
@@ -723,6 +734,7 @@ export const test_protobuf_assertEncode_ObjectHierarchical =
                         "object" === typeof input.created_at &&
                         null !== input.created_at &&
                         $io2(input.created_at);
+                    //ObjectHierarchical.ICustomer;
                     $peo0(input);
                     return writer;
                 };
@@ -752,27 +764,35 @@ export const test_protobuf_assertEncode_ObjectHierarchical =
                     const tag = reader.uint32();
                     switch (tag >>> 3) {
                         case 1:
+                            // number;
                             output.id = reader.double();
                             break;
                         case 2:
+                            // ObjectHierarchical.IChannel;
                             output.channel = $pdo1(reader, reader.uint32());
                             break;
                         case 3:
+                            // ObjectHierarchical.IMember;
                             output.member = $pdo3(reader, reader.uint32());
                             break;
                         case 4:
+                            // ObjectHierarchical.IAccount;
                             output.account = $pdo4(reader, reader.uint32());
                             break;
                         case 5:
+                            // string;
                             output.href = reader.string();
                             break;
                         case 6:
+                            // string;
                             output.referrer = reader.string();
                             break;
                         case 7:
+                            // string;
                             output.ip = reader.string();
                             break;
                         case 8:
+                            // ObjectHierarchical.ITimestamp;
                             output.created_at = $pdo2(reader, reader.uint32());
                             break;
                         default:
@@ -797,24 +817,31 @@ export const test_protobuf_assertEncode_ObjectHierarchical =
                     const tag = reader.uint32();
                     switch (tag >>> 3) {
                         case 1:
+                            // number;
                             output.id = reader.double();
                             break;
                         case 2:
+                            // string;
                             output.code = reader.string();
                             break;
                         case 3:
+                            // string;
                             output.name = reader.string();
                             break;
                         case 4:
+                            // number;
                             output.sequence = reader.double();
                             break;
                         case 5:
+                            // boolean;
                             output.exclusive = reader.bool();
                             break;
                         case 6:
+                            // number;
                             output.priority = reader.double();
                             break;
                         case 7:
+                            // ObjectHierarchical.ITimestamp;
                             output.created_at = $pdo2(reader, reader.uint32());
                             break;
                         default:
@@ -834,9 +861,11 @@ export const test_protobuf_assertEncode_ObjectHierarchical =
                     const tag = reader.uint32();
                     switch (tag >>> 3) {
                         case 1:
+                            // number;
                             output.time = reader.double();
                             break;
                         case 2:
+                            // number;
                             output.zone = reader.double();
                             break;
                         default:
@@ -860,21 +889,27 @@ export const test_protobuf_assertEncode_ObjectHierarchical =
                     const tag = reader.uint32();
                     switch (tag >>> 3) {
                         case 1:
+                            // number;
                             output.id = reader.double();
                             break;
                         case 2:
+                            // ObjectHierarchical.IAccount;
                             output.account = $pdo4(reader, reader.uint32());
                             break;
                         case 3:
+                            // ObjectHierarchical.IEnterprise;
                             output.enterprise = $pdo5(reader, reader.uint32());
                             break;
                         case 4:
+                            // type: Array<string>;
                             output.emails.push(reader.string());
                             break;
                         case 5:
+                            // ObjectHierarchical.ITimestamp;
                             output.created_at = $pdo2(reader, reader.uint32());
                             break;
                         case 6:
+                            // boolean;
                             output.authorized = reader.bool();
                             break;
                         default:
@@ -895,12 +930,15 @@ export const test_protobuf_assertEncode_ObjectHierarchical =
                     const tag = reader.uint32();
                     switch (tag >>> 3) {
                         case 1:
+                            // number;
                             output.id = reader.double();
                             break;
                         case 2:
+                            // string;
                             output.code = reader.string();
                             break;
                         case 3:
+                            // ObjectHierarchical.ITimestamp;
                             output.created_at = $pdo2(reader, reader.uint32());
                             break;
                         default:
@@ -923,18 +961,23 @@ export const test_protobuf_assertEncode_ObjectHierarchical =
                     const tag = reader.uint32();
                     switch (tag >>> 3) {
                         case 1:
+                            // number;
                             output.id = reader.double();
                             break;
                         case 2:
+                            // ObjectHierarchical.IAccount;
                             output.account = $pdo4(reader, reader.uint32());
                             break;
                         case 3:
+                            // string;
                             output.name = reader.string();
                             break;
                         case 4:
+                            // number;
                             output.grade = reader.double();
                             break;
                         case 5:
+                            // ObjectHierarchical.ITimestamp;
                             output.created_at = $pdo2(reader, reader.uint32());
                             break;
                         default:

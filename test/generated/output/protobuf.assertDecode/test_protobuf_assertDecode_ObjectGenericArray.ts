@@ -23,12 +23,14 @@ export const test_protobuf_assertDecode_ObjectGenericArray =
                             const tag = reader.uint32();
                             switch (tag >>> 3) {
                                 case 1:
+                                    // ObjectGenericArray.IPagination;
                                     output.pagination = $pdo1(
                                         reader,
                                         reader.uint32(),
                                     );
                                     break;
                                 case 2:
+                                    // type: Array<ObjectGenericArray.IPerson>;
                                     output.data.push(
                                         $pdo2(reader, reader.uint32()),
                                     );
@@ -55,15 +57,19 @@ export const test_protobuf_assertDecode_ObjectGenericArray =
                             const tag = reader.uint32();
                             switch (tag >>> 3) {
                                 case 1:
+                                    // number;
                                     output.page = reader.double();
                                     break;
                                 case 2:
+                                    // number;
                                     output.limit = reader.double();
                                     break;
                                 case 3:
+                                    // number;
                                     output.total_count = reader.double();
                                     break;
                                 case 4:
+                                    // number;
                                     output.total_pages = reader.double();
                                     break;
                                 default:
@@ -86,9 +92,11 @@ export const test_protobuf_assertDecode_ObjectGenericArray =
                             const tag = reader.uint32();
                             switch (tag >>> 3) {
                                 case 1:
+                                    // string;
                                     output.name = reader.string();
                                     break;
                                 case 2:
+                                    // number;
                                     output.age = reader.double();
                                     break;
                                 default:
@@ -295,6 +303,7 @@ export const test_protobuf_assertDecode_ObjectGenericArray =
             const encoder = (writer: any): any => {
                 const $peo0 = (input: any): any => {
                     // property "pagination";
+                    // 1 -> ObjectGenericArray.IPagination;
                     writer.uint32(10);
                     writer.fork();
                     $peo1(input.pagination);
@@ -302,6 +311,7 @@ export const test_protobuf_assertDecode_ObjectGenericArray =
                     // property "data";
                     if (0 !== input.data.length) {
                         for (const elem of input.data) {
+                            // 2 -> ObjectGenericArray.IPerson;
                             writer.uint32(18);
                             writer.fork();
                             $peo2(elem);
@@ -339,6 +349,7 @@ export const test_protobuf_assertDecode_ObjectGenericArray =
                 const $io2 = (input: any): boolean =>
                     "string" === typeof input.name &&
                     "number" === typeof input.age;
+                //ObjectGenericArray;
                 $peo0(input);
                 return writer;
             };

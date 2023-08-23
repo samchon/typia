@@ -23,6 +23,7 @@ export const test_protobuf_encode_TagPattern = _test_protobuf_encode(
                 writer.uint32(34);
                 writer.string(input.ipv6);
             };
+            //TagPattern;
             $peo0(input);
             return writer;
         };
@@ -46,15 +47,19 @@ export const test_protobuf_encode_TagPattern = _test_protobuf_encode(
                 const tag = reader.uint32();
                 switch (tag >>> 3) {
                     case 1:
+                        // string;
                         output.uuid = reader.string();
                         break;
                     case 2:
+                        // string;
                         output.email = reader.string();
                         break;
                     case 3:
+                        // string;
                         output.ipv4 = reader.string();
                         break;
                     case 4:
+                        // string;
                         output.ipv6 = reader.string();
                         break;
                     default:

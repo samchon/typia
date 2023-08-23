@@ -33,6 +33,7 @@ export const test_protobuf_isDecode_TagAtomicUnion = _test_protobuf_isDecode(
                     const tag = reader.uint32();
                     switch (tag >>> 3) {
                         case 1:
+                            // type: Array<TagAtomicUnion.Type>;
                             output.value.push($pdo1(reader, reader.uint32()));
                             break;
                         default:
@@ -51,9 +52,11 @@ export const test_protobuf_isDecode_TagAtomicUnion = _test_protobuf_isDecode(
                     const tag = reader.uint32();
                     switch (tag >>> 3) {
                         case 1:
+                            // number;
                             output.value = reader.double();
                             break;
                         case 2:
+                            // string;
                             output.value = reader.string();
                             break;
                         default:
@@ -79,6 +82,7 @@ export const test_protobuf_isDecode_TagAtomicUnion = _test_protobuf_isDecode(
                 // property "value";
                 if (0 !== input.value.length) {
                     for (const elem of input.value) {
+                        // 1 -> TagAtomicUnion.Type;
                         writer.uint32(10);
                         writer.fork();
                         $peo1(elem);
@@ -105,6 +109,7 @@ export const test_protobuf_isDecode_TagAtomicUnion = _test_protobuf_isDecode(
                     3 <= input.value.length &&
                     7 >= input.value.length) ||
                 ("number" === typeof input.value && 3 <= input.value);
+            //TagAtomicUnion;
             $peo0(input);
             return writer;
         };

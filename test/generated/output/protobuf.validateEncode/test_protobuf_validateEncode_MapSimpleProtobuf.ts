@@ -985,6 +985,7 @@ export const test_protobuf_validateEncode_MapSimpleProtobuf =
                                 writer.fork();
                                 writer.uint32(10);
                                 writer.string(key);
+                                // 2 -> MapSimpleProtobuf;
                                 writer.uint32(18);
                                 writer.fork();
                                 $peo0(value);
@@ -1062,6 +1063,7 @@ export const test_protobuf_validateEncode_MapSimpleProtobuf =
                                         null !== elem[1] &&
                                         $io0(elem[1]),
                                 ))();
+                        //MapSimpleProtobuf;
                         $peo0(input);
                         return writer;
                     };
@@ -1092,6 +1094,7 @@ export const test_protobuf_validateEncode_MapSimpleProtobuf =
                     const tag = reader.uint32();
                     switch (tag >>> 3) {
                         case 1:
+                            // type: Map<string, boolean>;
                             (() => {
                                 const piece = reader.uint32() + reader.index();
                                 const entry = {
@@ -1102,9 +1105,11 @@ export const test_protobuf_validateEncode_MapSimpleProtobuf =
                                     const kind = reader.uint32();
                                     switch (kind >>> 3) {
                                         case 1:
+                                            // string;
                                             entry.key = reader.string();
                                             break;
                                         case 2:
+                                            // boolean;
                                             entry.value = reader.bool();
                                             break;
                                         default:
@@ -1116,6 +1121,7 @@ export const test_protobuf_validateEncode_MapSimpleProtobuf =
                             })();
                             break;
                         case 2:
+                            // type: Map<string, number>;
                             (() => {
                                 const piece = reader.uint32() + reader.index();
                                 const entry = {
@@ -1126,9 +1132,11 @@ export const test_protobuf_validateEncode_MapSimpleProtobuf =
                                     const kind = reader.uint32();
                                     switch (kind >>> 3) {
                                         case 1:
+                                            // string;
                                             entry.key = reader.string();
                                             break;
                                         case 2:
+                                            // number;
                                             entry.value = reader.int32();
                                             break;
                                         default:
@@ -1140,6 +1148,7 @@ export const test_protobuf_validateEncode_MapSimpleProtobuf =
                             })();
                             break;
                         case 3:
+                            // type: Map<string, bigint>;
                             (() => {
                                 const piece = reader.uint32() + reader.index();
                                 const entry = {
@@ -1150,9 +1159,11 @@ export const test_protobuf_validateEncode_MapSimpleProtobuf =
                                     const kind = reader.uint32();
                                     switch (kind >>> 3) {
                                         case 1:
+                                            // string;
                                             entry.key = reader.string();
                                             break;
                                         case 2:
+                                            // bigint;
                                             entry.value = reader.int64();
                                             break;
                                         default:
@@ -1164,6 +1175,7 @@ export const test_protobuf_validateEncode_MapSimpleProtobuf =
                             })();
                             break;
                         case 4:
+                            // type: Map<string, number>;
                             (() => {
                                 const piece = reader.uint32() + reader.index();
                                 const entry = {
@@ -1174,9 +1186,11 @@ export const test_protobuf_validateEncode_MapSimpleProtobuf =
                                     const kind = reader.uint32();
                                     switch (kind >>> 3) {
                                         case 1:
+                                            // string;
                                             entry.key = reader.string();
                                             break;
                                         case 2:
+                                            // number;
                                             entry.value = reader.double();
                                             break;
                                         default:
@@ -1188,6 +1202,7 @@ export const test_protobuf_validateEncode_MapSimpleProtobuf =
                             })();
                             break;
                         case 5:
+                            // type: Map<string, string>;
                             (() => {
                                 const piece = reader.uint32() + reader.index();
                                 const entry = {
@@ -1198,9 +1213,11 @@ export const test_protobuf_validateEncode_MapSimpleProtobuf =
                                     const kind = reader.uint32();
                                     switch (kind >>> 3) {
                                         case 1:
+                                            // string;
                                             entry.key = reader.string();
                                             break;
                                         case 2:
+                                            // string;
                                             entry.value = reader.string();
                                             break;
                                         default:
@@ -1212,6 +1229,7 @@ export const test_protobuf_validateEncode_MapSimpleProtobuf =
                             })();
                             break;
                         case 6:
+                            // type: Map<string, Uint8Array>;
                             (() => {
                                 const piece = reader.uint32() + reader.index();
                                 const entry = {
@@ -1222,9 +1240,11 @@ export const test_protobuf_validateEncode_MapSimpleProtobuf =
                                     const kind = reader.uint32();
                                     switch (kind >>> 3) {
                                         case 1:
+                                            // string;
                                             entry.key = reader.string();
                                             break;
                                         case 2:
+                                            // bytes;
                                             entry.value = reader.bytes();
                                             break;
                                         default:
@@ -1236,6 +1256,7 @@ export const test_protobuf_validateEncode_MapSimpleProtobuf =
                             })();
                             break;
                         case 7:
+                            // type: Map<string, MapSimpleProtobuf>;
                             (() => {
                                 const piece = reader.uint32() + reader.index();
                                 const entry = {
@@ -1246,9 +1267,11 @@ export const test_protobuf_validateEncode_MapSimpleProtobuf =
                                     const kind = reader.uint32();
                                     switch (kind >>> 3) {
                                         case 1:
+                                            // string;
                                             entry.key = reader.string();
                                             break;
                                         case 2:
+                                            // MapSimpleProtobuf;
                                             entry.value = $pdo0(
                                                 reader,
                                                 reader.uint32(),

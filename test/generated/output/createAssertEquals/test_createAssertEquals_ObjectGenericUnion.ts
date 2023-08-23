@@ -449,8 +449,7 @@ export const test_assertEquals_ObjectGenericUnion = _test_assertEquals(
                 (((Array.isArray(input.files) ||
                     $guard(_exceptionable, {
                         path: _path + ".files",
-                        expected:
-                            'Array<Omit<ObjectGenericUnion.IAttachmentFile, "id">>',
+                        expected: "Array<ObjectGenericUnion.IAttachmentFile>",
                         value: input.files,
                     })) &&
                     input.files.every(
@@ -459,7 +458,7 @@ export const test_assertEquals_ObjectGenericUnion = _test_assertEquals(
                                 $guard(_exceptionable, {
                                     path: _path + ".files[" + _index3 + "]",
                                     expected:
-                                        'Omit<ObjectGenericUnion.IAttachmentFile, "id">',
+                                        "ObjectGenericUnion.IAttachmentFile",
                                     value: elem,
                                 })) &&
                                 $ao4(
@@ -469,15 +468,13 @@ export const test_assertEquals_ObjectGenericUnion = _test_assertEquals(
                                 )) ||
                             $guard(_exceptionable, {
                                 path: _path + ".files[" + _index3 + "]",
-                                expected:
-                                    'Omit<ObjectGenericUnion.IAttachmentFile, "id">',
+                                expected: "ObjectGenericUnion.IAttachmentFile",
                                 value: elem,
                             }),
                     )) ||
                     $guard(_exceptionable, {
                         path: _path + ".files",
-                        expected:
-                            'Array<Omit<ObjectGenericUnion.IAttachmentFile, "id">>',
+                        expected: "Array<ObjectGenericUnion.IAttachmentFile>",
                         value: input.files,
                     })) &&
                 (5 === Object.keys(input).length ||
@@ -681,8 +678,7 @@ export const test_assertEquals_ObjectGenericUnion = _test_assertEquals(
                 (((Array.isArray(input.files) ||
                     $guard(_exceptionable, {
                         path: _path + ".files",
-                        expected:
-                            'Array<Omit<ObjectGenericUnion.IAttachmentFile, "id">>',
+                        expected: "Array<ObjectGenericUnion.IAttachmentFile>",
                         value: input.files,
                     })) &&
                     input.files.every(
@@ -691,7 +687,7 @@ export const test_assertEquals_ObjectGenericUnion = _test_assertEquals(
                                 $guard(_exceptionable, {
                                     path: _path + ".files[" + _index5 + "]",
                                     expected:
-                                        'Omit<ObjectGenericUnion.IAttachmentFile, "id">',
+                                        "ObjectGenericUnion.IAttachmentFile",
                                     value: elem,
                                 })) &&
                                 $ao4(
@@ -701,15 +697,13 @@ export const test_assertEquals_ObjectGenericUnion = _test_assertEquals(
                                 )) ||
                             $guard(_exceptionable, {
                                 path: _path + ".files[" + _index5 + "]",
-                                expected:
-                                    'Omit<ObjectGenericUnion.IAttachmentFile, "id">',
+                                expected: "ObjectGenericUnion.IAttachmentFile",
                                 value: elem,
                             }),
                     )) ||
                     $guard(_exceptionable, {
                         path: _path + ".files",
-                        expected:
-                            'Array<Omit<ObjectGenericUnion.IAttachmentFile, "id">>',
+                        expected: "Array<ObjectGenericUnion.IAttachmentFile>",
                         value: input.files,
                     })) &&
                 (6 === Object.keys(input).length ||

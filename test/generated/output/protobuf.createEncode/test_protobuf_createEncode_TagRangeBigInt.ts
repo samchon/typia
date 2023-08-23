@@ -13,6 +13,7 @@ export const test_protobuf_encode_TagRangeBigInt = _test_protobuf_encode(
                 // property "value";
                 if (0 !== input.value.length) {
                     for (const elem of input.value) {
+                        // 1 -> TagRangeBigInt.Type;
                         writer.uint32(10);
                         writer.fork();
                         $peo1(elem);
@@ -73,6 +74,7 @@ export const test_protobuf_encode_TagRangeBigInt = _test_protobuf_encode(
                 "bigint" === typeof input.equal &&
                 BigInt(10) <= input.equal &&
                 BigInt(10) >= input.equal;
+            //TagRangeBigInt;
             $peo0(input);
             return writer;
         };
@@ -93,6 +95,7 @@ export const test_protobuf_encode_TagRangeBigInt = _test_protobuf_encode(
                 const tag = reader.uint32();
                 switch (tag >>> 3) {
                     case 1:
+                        // type: Array<TagRangeBigInt.Type>;
                         output.value.push($pdo1(reader, reader.uint32()));
                         break;
                     default:
@@ -119,30 +122,39 @@ export const test_protobuf_encode_TagRangeBigInt = _test_protobuf_encode(
                 const tag = reader.uint32();
                 switch (tag >>> 3) {
                     case 1:
+                        // bigint;
                         output.greater = reader.int64();
                         break;
                     case 2:
+                        // bigint;
                         output.greater_equal = reader.int64();
                         break;
                     case 3:
+                        // bigint;
                         output.less = reader.int64();
                         break;
                     case 4:
+                        // bigint;
                         output.less_equal = reader.int64();
                         break;
                     case 5:
+                        // bigint;
                         output.greater_less = reader.int64();
                         break;
                     case 6:
+                        // bigint;
                         output.greater_equal_less = reader.int64();
                         break;
                     case 7:
+                        // bigint;
                         output.greater_less_equal = reader.int64();
                         break;
                     case 8:
+                        // bigint;
                         output.greater_equal_less_equal = reader.int64();
                         break;
                     case 9:
+                        // bigint;
                         output.equal = reader.int64();
                         break;
                     default:

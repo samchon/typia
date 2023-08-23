@@ -84,7 +84,7 @@ Check out the document in the [website](https://typia.io/docs/):
     - [`parse()` functions](https://typia.io/docs/json/parse/)
     - [JSON Schema](https://typia.io/docs/json/schema)
   - Protocol Buffer
-    - [`message()` function](https://typia.io/docs/protobuf/message)
+    - [Message Schema](https://typia.io/docs/protobuf/message)
     - [`decode()` functions](https://typia.io/docs/protobuf/decode/)
     - [`encode()` functions](https://typia.io/docs/protobuf/encode/)
   - [Random Generator](https://typia.io/docs/random/)

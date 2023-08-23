@@ -472,6 +472,7 @@ export const test_protobuf_validateDecode_TagRange =
                         const tag = reader.uint32();
                         switch (tag >>> 3) {
                             case 1:
+                                // type: Array<TagRange.Type>;
                                 output.value.push(
                                     $pdo1(reader, reader.uint32()),
                                 );
@@ -501,31 +502,40 @@ export const test_protobuf_validateDecode_TagRange =
                         const tag = reader.uint32();
                         switch (tag >>> 3) {
                             case 1:
+                                // number;
                                 output.greater = reader.int32();
                                 break;
                             case 2:
+                                // number;
                                 output.greater_equal = reader.int32();
                                 break;
                             case 3:
+                                // number;
                                 output.less = reader.int32();
                                 break;
                             case 4:
+                                // number;
                                 output.less_equal = reader.int32();
                                 break;
                             case 5:
+                                // number;
                                 output.greater_less = reader.int32();
                                 break;
                             case 6:
+                                // number;
                                 output.greater_equal_less = reader.int32();
                                 break;
                             case 7:
+                                // number;
                                 output.greater_less_equal = reader.int32();
                                 break;
                             case 8:
+                                // number;
                                 output.greater_equal_less_equal =
                                     reader.int32();
                                 break;
                             case 9:
+                                // number;
                                 output.equal = reader.int32();
                                 break;
                             default:
@@ -549,6 +559,7 @@ export const test_protobuf_validateDecode_TagRange =
                     // property "value";
                     if (0 !== input.value.length) {
                         for (const elem of input.value) {
+                            // 1 -> TagRange.Type;
                             writer.uint32(10);
                             writer.fork();
                             $peo1(elem);
@@ -639,6 +650,7 @@ export const test_protobuf_validateDecode_TagRange =
                     input.equal <= 2147483647 &&
                     10 <= input.equal &&
                     10 >= input.equal;
+                //TagRange;
                 $peo0(input);
                 return writer;
             };
