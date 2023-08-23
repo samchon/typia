@@ -192,12 +192,14 @@ export namespace ProtobufFactory {
         // MAP CASES
         //----
         // MAP TYPE, BUT PROPERTY KEY TYPE IS NOT STRING
+        // @todo -> need to allow other typed keys
         else if (
             meta.maps.length &&
             meta.maps.some(
                 (m) =>
                     m.key.isBinaryUnion() ||
-                    (m.key.atomics.find((v) => v === "string") === undefined &&
+                    (m.key.atomics.find((v) => v.type === "string") ===
+                        undefined &&
                         m.key.constants.find((c) => c.type === "string") ===
                             undefined),
             )

@@ -354,9 +354,10 @@ export namespace CheckerProgrammer {
                         add(true, getConstantValue(val));
 
             // ATOMIC VALUES
-            for (const type of meta.atomics)
-                if (AtomicPredicator.atomic(meta)(type) === false) continue;
-                else if (type === "number")
+            for (const atom of meta.atomics)
+                if (AtomicPredicator.atomic(meta)(atom.type) === false)
+                    continue;
+                else if (atom.type === "number")
                     binaries.push({
                         expression: config.atomist(explore)(
                             check_number(project, config.numeric)(importer)(
@@ -365,14 +366,14 @@ export namespace CheckerProgrammer {
                         )(input),
                         combined: false,
                     });
-                else if (type === "bigint")
+                else if (atom.type === "bigint")
                     binaries.push({
                         expression: config.atomist(explore)(
                             check_bigint(importer)(metaTags)(jsDocTags)(input),
                         )(input),
                         combined: false,
                     });
-                else if (type === "string")
+                else if (atom.type === "string")
                     binaries.push({
                         expression: config.atomist(explore)(
                             check_string(importer)(metaTags)(jsDocTags)(input),
@@ -382,7 +383,7 @@ export namespace CheckerProgrammer {
                 else
                     add(
                         true,
-                        ts.factory.createStringLiteral(type),
+                        ts.factory.createStringLiteral(atom.type),
                         ValueFactory.TYPEOF(input),
                     );
 
