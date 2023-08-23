@@ -7,7 +7,7 @@ export namespace ProtobufUtil {
     export const getAtomics = (meta: Metadata) => {
         const set: Set<Atomic.Literal> = new Set();
 
-        for (const atomic of meta.atomics) set.add(atomic);
+        for (const a of meta.atomics) set.add(a.type);
         for (const constant of meta.constants) set.add(constant.type);
         if (meta.templates.length) set.add("string");
 

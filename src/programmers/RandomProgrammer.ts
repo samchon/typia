@@ -248,14 +248,14 @@ export namespace RandomProgrammer {
             // ATOMIC VARIABLES
             for (const template of meta.templates)
                 expressions.push(decode_template(importer)(explore)(template));
-            for (const atomic of meta.atomics)
-                if (atomic === "boolean")
+            for (const a of meta.atomics)
+                if (a.type === "boolean")
                     expressions.push(decode_boolean(importer));
-                else if (atomic === "number")
+                else if (a.type === "number")
                     expressions.push(decode_number(importer)(tags, comments));
-                else if (atomic === "string")
+                else if (a.type === "string")
                     expressions.push(decode_string(importer)(tags, comments));
-                else if (atomic === "bigint")
+                else if (a.type === "bigint")
                     expressions.push(decode_bigint(importer)(tags, comments));
 
             // INSTANCE TYPES

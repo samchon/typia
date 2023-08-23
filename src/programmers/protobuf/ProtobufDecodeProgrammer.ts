@@ -253,7 +253,7 @@ export namespace ProtobufDecodeProgrammer {
                       undefined,
                       [],
                   )
-                : value.atomics.some((str) => str === "string") ||
+                : value.atomics.some((a) => a.type === "string") ||
                   value.constants.some(
                       (c) =>
                           c.type === "string" && c.values.some((v) => v === ""),

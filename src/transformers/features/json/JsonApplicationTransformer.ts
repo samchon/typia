@@ -54,7 +54,7 @@ export namespace JsonApplicationTransformer {
                     constant: true,
                     absorb: false,
                     validate: (meta) => {
-                        if (meta.atomics.find((str) => str === "bigint"))
+                        if (meta.atomics.find((atom) => atom.type === "bigint"))
                             throw new Error(NO_BIGIT);
                         else if (
                             meta.arrays.some(
