@@ -213,7 +213,7 @@ export namespace JsonStringifyProgrammer {
             )
                 if (AtomicPredicator.template(meta)) {
                     const partial = Metadata.initialize();
-                    partial.atomics.push("string"),
+                    partial.atomics.push({ type: "string", tags: [] }),
                         unions.push({
                             type: "template literal",
                             is: () =>
@@ -245,7 +245,10 @@ export namespace JsonStringifyProgrammer {
                                 input,
                                 (() => {
                                     const partial = Metadata.initialize();
-                                    partial.atomics.push(constant.type);
+                                    partial.atomics.push({
+                                        type: constant.type,
+                                        tags: [],
+                                    });
                                     return partial;
                                 })(),
                                 explore,
@@ -267,7 +270,10 @@ export namespace JsonStringifyProgrammer {
                                 input,
                                 (() => {
                                     const partial = Metadata.initialize();
-                                    partial.atomics.push("string");
+                                    partial.atomics.push({
+                                        type: "string",
+                                        tags: [],
+                                    });
                                     return partial;
                                 })(),
                                 explore,
@@ -283,8 +289,8 @@ export namespace JsonStringifyProgrammer {
                     });
 
             /// ATOMICS
-            for (const type of meta.atomics)
-                if (AtomicPredicator.atomic(meta)(type))
+            for (const a of meta.atomics)
+                if (AtomicPredicator.atomic(meta)(a.type))
                     unions.push({
                         type: "atomic",
                         is: () =>
@@ -292,7 +298,7 @@ export namespace JsonStringifyProgrammer {
                                 input,
                                 (() => {
                                     const partial = Metadata.initialize();
-                                    partial.atomics.push(type);
+                                    partial.atomics.push(a);
                                     return partial;
                                 })(),
                                 explore,
@@ -302,7 +308,7 @@ export namespace JsonStringifyProgrammer {
                         value: () =>
                             decode_atomic(project)(importer)(
                                 input,
-                                type,
+                                a.type,
                                 explore,
                             ),
                     });
@@ -937,7 +943,7 @@ export namespace JsonStringifyProgrammer {
                 constant: true,
                 absorb: true,
                 validate: (meta) => {
-                    if (meta.atomics.find((str) => str === "bigint"))
+                    if (meta.atomics.find((a) => a.type === "bigint"))
                         throw new Error(NO_BIGINT);
                     else if (
                         meta.arrays.some(

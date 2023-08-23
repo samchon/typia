@@ -76,14 +76,14 @@ export const application_schema =
             )
                 continue;
             else insert(application_constant(constant)(attribute));
-        for (const type of meta.atomics)
-            if (type === "bigint") throw new Error(NO_BIGINT);
-            else if (AtomicPredicator.atomic(meta)(type) === false) continue;
+        for (const a of meta.atomics)
+            if (a.type === "bigint") throw new Error(NO_BIGINT);
+            else if (AtomicPredicator.atomic(meta)(a.type) === false) continue;
             else
                 insert(
-                    type === "string"
+                    a.type === "string"
                         ? application_string(meta)(attribute)
-                        : type === "boolean"
+                        : a.type === "boolean"
                         ? application_boolean(attribute)
                         : application_number(attribute),
                 );

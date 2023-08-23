@@ -23,7 +23,7 @@ export namespace MiscLiteralsProgrammer {
                     meta.constants
                         .map((c) => c.values.length)
                         .reduce((a, b) => a + b, 0) +
-                    meta.atomics.filter((type) => type === "boolean").length;
+                    meta.atomics.filter((a) => a.type === "boolean").length;
                 if (0 === length) throw new Error(ErrorMessages.NO);
                 else if (meta.size() !== length)
                     throw new Error(ErrorMessages.ONLY);
@@ -31,7 +31,7 @@ export namespace MiscLiteralsProgrammer {
         })(new MetadataCollection())(type);
         const values: Set<Atomic.Type | null> = new Set([
             ...ArrayUtil.flat<Atomic.Type>(meta.constants.map((c) => c.values)),
-            ...(meta.atomics.filter((type) => type === "boolean").length
+            ...(meta.atomics.filter((a) => a.type === "boolean").length
                 ? [true, false]
                 : []),
             ...(meta.nullable ? [null] : []),
