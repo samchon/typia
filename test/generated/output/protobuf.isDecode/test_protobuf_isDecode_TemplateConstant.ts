@@ -6,7 +6,7 @@ export const test_protobuf_isDecode_TemplateConstant = _test_protobuf_isDecode(
     "TemplateConstant",
 )<TemplateConstant>(TemplateConstant)({
     isDecode: (input) =>
-        ((input: Uint8Array): TemplateConstant | null => {
+        ((input: Uint8Array): typia.Resolved<TemplateConstant> | null => {
             const is = (input: any): input is TemplateConstant => {
                 const $io0 = (input: any): boolean =>
                     Array.isArray(input.value) &&
@@ -36,7 +36,9 @@ export const test_protobuf_isDecode_TemplateConstant = _test_protobuf_isDecode(
                     "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            const decode = (input: Uint8Array): TemplateConstant => {
+            const decode = (
+                input: Uint8Array,
+            ): typia.Resolved<TemplateConstant> => {
                 const $Reader = (typia.protobuf.isDecode as any).Reader;
                 const $pdo0 = (reader: any, length: number = -1): any => {
                     length =

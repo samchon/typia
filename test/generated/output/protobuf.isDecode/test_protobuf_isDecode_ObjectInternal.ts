@@ -6,7 +6,7 @@ export const test_protobuf_isDecode_ObjectInternal = _test_protobuf_isDecode(
     "ObjectInternal",
 )<ObjectInternal>(ObjectInternal)({
     isDecode: (input) =>
-        ((input: Uint8Array): ObjectInternal | null => {
+        ((input: Uint8Array): typia.Resolved<ObjectInternal> | null => {
             const is = (input: any): input is ObjectInternal => {
                 return (
                     "object" === typeof input &&
@@ -15,7 +15,9 @@ export const test_protobuf_isDecode_ObjectInternal = _test_protobuf_isDecode(
                     "string" === typeof (input as any).name
                 );
             };
-            const decode = (input: Uint8Array): ObjectInternal => {
+            const decode = (
+                input: Uint8Array,
+            ): typia.Resolved<ObjectInternal> => {
                 const $Reader = (typia.protobuf.isDecode as any).Reader;
                 const $pdo0 = (reader: any, length: number = -1): any => {
                     length =

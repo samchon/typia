@@ -5,7 +5,7 @@ import { TupleRestArray } from "../../../structures/TupleRestArray";
 export const test_misc_assertClone_TupleRestArray = _test_misc_assertClone(
     "TupleRestArray",
 )<TupleRestArray>(TupleRestArray)((input) =>
-    ((input: any): typia.Primitive<TupleRestArray> => {
+    ((input: any): typia.Resolved<TupleRestArray> => {
         const assert = (input: any): TupleRestArray => {
             const __is = (input: any): input is TupleRestArray => {
                 return (
@@ -111,7 +111,7 @@ export const test_misc_assertClone_TupleRestArray = _test_misc_assertClone(
         };
         const clone = (
             input: TupleRestArray,
-        ): typia.Primitive<TupleRestArray> => {
+        ): typia.Resolved<TupleRestArray> => {
             const $cp0 = (input: any) => input.map((elem: any) => elem as any);
             const $cp1 = (input: any) =>
                 input.map((elem: any) =>

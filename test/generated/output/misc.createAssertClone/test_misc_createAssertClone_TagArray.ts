@@ -4,7 +4,7 @@ import { TagArray } from "../../../structures/TagArray";
 
 export const test_misc_assertClone_TagArray = _test_misc_assertClone(
     "TagArray",
-)<TagArray>(TagArray)((input: any): typia.Primitive<TagArray> => {
+)<TagArray>(TagArray)((input: any): typia.Resolved<TagArray> => {
     const assert = (input: any): TagArray => {
         const __is = (input: any): input is TagArray => {
             const $is_uuid = (typia.misc.createAssertClone as any).is_uuid;
@@ -275,7 +275,7 @@ export const test_misc_assertClone_TagArray = _test_misc_assertClone(
             })(input, "$input", true);
         return input;
     };
-    const clone = (input: TagArray): typia.Primitive<TagArray> => {
+    const clone = (input: TagArray): typia.Resolved<TagArray> => {
         const $io1 = (input: any): boolean =>
             Array.isArray(input.items) &&
             3 === input.items.length &&

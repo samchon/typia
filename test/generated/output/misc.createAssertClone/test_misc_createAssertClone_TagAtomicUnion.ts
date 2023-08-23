@@ -5,7 +5,7 @@ import { TagAtomicUnion } from "../../../structures/TagAtomicUnion";
 export const test_misc_assertClone_TagAtomicUnion = _test_misc_assertClone(
     "TagAtomicUnion",
 )<TagAtomicUnion>(TagAtomicUnion)(
-    (input: any): typia.Primitive<TagAtomicUnion> => {
+    (input: any): typia.Resolved<TagAtomicUnion> => {
         const assert = (input: any): TagAtomicUnion => {
             const __is = (input: any): input is TagAtomicUnion => {
                 const $io0 = (input: any): boolean =>
@@ -124,7 +124,7 @@ export const test_misc_assertClone_TagAtomicUnion = _test_misc_assertClone(
         };
         const clone = (
             input: TagAtomicUnion,
-        ): typia.Primitive<TagAtomicUnion> => {
+        ): typia.Resolved<TagAtomicUnion> => {
             const $io1 = (input: any): boolean =>
                 ("string" === typeof input.value &&
                     3 <= input.value.length &&

@@ -5,8 +5,10 @@ import { TagDefault } from "../../../structures/TagDefault";
 export const test_protobuf_assertDecode_TagDefault =
     _test_protobuf_assertDecode("TagDefault")<TagDefault>(TagDefault)({
         assertDecode: (input) =>
-            ((input: Uint8Array): TagDefault => {
-                const decode = (input: Uint8Array): TagDefault => {
+            ((input: Uint8Array): typia.Resolved<TagDefault> => {
+                const decode = (
+                    input: Uint8Array,
+                ): typia.Resolved<TagDefault> => {
                     const $Reader = (typia.protobuf.assertDecode as any).Reader;
                     const $pdo0 = (reader: any, length: number = -1): any => {
                         length =

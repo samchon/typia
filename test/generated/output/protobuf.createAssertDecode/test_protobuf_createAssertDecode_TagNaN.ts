@@ -5,8 +5,8 @@ import { TagNaN } from "../../../structures/TagNaN";
 export const test_protobuf_assertDecode_TagNaN = _test_protobuf_assertDecode(
     "TagNaN",
 )<TagNaN>(TagNaN)({
-    assertDecode: (input: Uint8Array): TagNaN => {
-        const decode = (input: Uint8Array): TagNaN => {
+    assertDecode: (input: Uint8Array): typia.Resolved<TagNaN> => {
+        const decode = (input: Uint8Array): typia.Resolved<TagNaN> => {
             const $Reader = (typia.protobuf.createAssertDecode as any).Reader;
             const $pdo0 = (reader: any, length: number = -1): any => {
                 length = length < 0 ? reader.size() : reader.index() + length;

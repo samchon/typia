@@ -5,7 +5,7 @@ import { ObjectHierarchical } from "../../../structures/ObjectHierarchical";
 export const test_misc_validateClone_ObjectHierarchical =
     _test_misc_validateClone("ObjectHierarchical")<ObjectHierarchical>(
         ObjectHierarchical,
-    )((input: any): typia.IValidation<typia.Primitive<ObjectHierarchical>> => {
+    )((input: any): typia.IValidation<typia.Resolved<ObjectHierarchical>> => {
         const validate = (
             input: any,
         ): typia.IValidation<ObjectHierarchical> => {
@@ -550,7 +550,7 @@ export const test_misc_validateClone_ObjectHierarchical =
         };
         const clone = (
             input: ObjectHierarchical,
-        ): typia.Primitive<ObjectHierarchical> => {
+        ): typia.Resolved<ObjectHierarchical> => {
             const $io1 = (input: any): boolean =>
                 "number" === typeof input.id &&
                 "string" === typeof input.code &&

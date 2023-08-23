@@ -5,7 +5,7 @@ import { ObjectInternal } from "../../../structures/ObjectInternal";
 export const test_misc_validateClone_ObjectInternal = _test_misc_validateClone(
     "ObjectInternal",
 )<ObjectInternal>(ObjectInternal)(
-    (input: any): typia.IValidation<typia.Primitive<ObjectInternal>> => {
+    (input: any): typia.IValidation<typia.Resolved<ObjectInternal>> => {
         const validate = (input: any): typia.IValidation<ObjectInternal> => {
             const errors = [] as any[];
             const __is = (input: any): input is ObjectInternal => {
@@ -69,7 +69,7 @@ export const test_misc_validateClone_ObjectInternal = _test_misc_validateClone(
         };
         const clone = (
             input: ObjectInternal,
-        ): typia.Primitive<ObjectInternal> => {
+        ): typia.Resolved<ObjectInternal> => {
             const $co0 = (input: any): any => ({
                 id: input.id as any,
                 name: input.name as any,

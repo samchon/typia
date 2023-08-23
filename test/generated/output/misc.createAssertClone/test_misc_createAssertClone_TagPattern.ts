@@ -4,7 +4,7 @@ import { TagPattern } from "../../../structures/TagPattern";
 
 export const test_misc_assertClone_TagPattern = _test_misc_assertClone(
     "TagPattern",
-)<TagPattern>(TagPattern)((input: any): typia.Primitive<TagPattern> => {
+)<TagPattern>(TagPattern)((input: any): typia.Resolved<TagPattern> => {
     const assert = (input: any): TagPattern => {
         const __is = (input: any): input is TagPattern => {
             return (
@@ -117,7 +117,7 @@ export const test_misc_assertClone_TagPattern = _test_misc_assertClone(
             })(input, "$input", true);
         return input;
     };
-    const clone = (input: TagPattern): typia.Primitive<TagPattern> => {
+    const clone = (input: TagPattern): typia.Resolved<TagPattern> => {
         const $co0 = (input: any): any => ({
             uuid: input.uuid as any,
             email: input.email as any,

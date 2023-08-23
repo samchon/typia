@@ -7,7 +7,7 @@ export const test_misc_clone_ArrayRepeatedUnionWithTuple = _test_misc_clone(
 )<ArrayRepeatedUnionWithTuple>(ArrayRepeatedUnionWithTuple)(
     (
         input: ArrayRepeatedUnionWithTuple,
-    ): typia.Primitive<ArrayRepeatedUnionWithTuple> => {
+    ): typia.Resolved<ArrayRepeatedUnionWithTuple> => {
         const $io0 = (input: any): boolean =>
             "object" === typeof input.scale &&
             null !== input.scale &&

@@ -4,7 +4,7 @@ import { DynamicTree } from "../../../structures/DynamicTree";
 
 export const test_misc_assertClone_DynamicTree = _test_misc_assertClone(
     "DynamicTree",
-)<DynamicTree>(DynamicTree)((input: any): typia.Primitive<DynamicTree> => {
+)<DynamicTree>(DynamicTree)((input: any): typia.Resolved<DynamicTree> => {
     const assert = (input: any): DynamicTree => {
         const __is = (input: any): input is DynamicTree => {
             const $join = (typia.misc.createAssertClone as any).join;
@@ -122,7 +122,7 @@ export const test_misc_assertClone_DynamicTree = _test_misc_assertClone(
             })(input, "$input", true);
         return input;
     };
-    const clone = (input: DynamicTree): typia.Primitive<DynamicTree> => {
+    const clone = (input: DynamicTree): typia.Resolved<DynamicTree> => {
         const $io0 = (input: any): boolean =>
             "string" === typeof input.id &&
             "number" === typeof input.sequence &&

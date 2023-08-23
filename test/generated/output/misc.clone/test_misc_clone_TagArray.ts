@@ -5,7 +5,7 @@ import { TagArray } from "../../../structures/TagArray";
 export const test_misc_clone_TagArray = _test_misc_clone("TagArray")<TagArray>(
     TagArray,
 )((input) =>
-    ((input: TagArray): typia.Primitive<TagArray> => {
+    ((input: TagArray): typia.Resolved<TagArray> => {
         const $io1 = (input: any): boolean =>
             Array.isArray(input.items) &&
             3 === input.items.length &&

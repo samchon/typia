@@ -7,7 +7,9 @@ export const test_protobuf_isDecode_ArraySimpleProtobufOptional =
         "ArraySimpleProtobufOptional",
     )<ArraySimpleProtobufOptional>(ArraySimpleProtobufOptional)({
         isDecode: (input) =>
-            ((input: Uint8Array): ArraySimpleProtobufOptional | null => {
+            ((
+                input: Uint8Array,
+            ): typia.Resolved<ArraySimpleProtobufOptional> | null => {
                 const is = (
                     input: any,
                 ): input is ArraySimpleProtobufOptional => {
@@ -93,7 +95,7 @@ export const test_protobuf_isDecode_ArraySimpleProtobufOptional =
                 };
                 const decode = (
                     input: Uint8Array,
-                ): ArraySimpleProtobufOptional => {
+                ): typia.Resolved<ArraySimpleProtobufOptional> => {
                     const $Reader = (typia.protobuf.isDecode as any).Reader;
                     const $pdo0 = (reader: any, length: number = -1): any => {
                         length =

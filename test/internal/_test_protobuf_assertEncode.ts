@@ -9,7 +9,7 @@ export const _test_protobuf_assertEncode =
     (functor: {
         message: string;
         assertEncode: (input: T) => Uint8Array;
-        decode: (input: Uint8Array) => T;
+        decode: (input: Uint8Array) => typia.Resolved<T>;
     }) =>
     () => {
         _test_protobuf_encode(name)(factory)({

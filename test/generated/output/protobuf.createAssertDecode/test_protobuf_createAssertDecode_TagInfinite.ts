@@ -4,8 +4,8 @@ import { TagInfinite } from "../../../structures/TagInfinite";
 
 export const test_protobuf_assertDecode_TagInfinite =
     _test_protobuf_assertDecode("TagInfinite")<TagInfinite>(TagInfinite)({
-        assertDecode: (input: Uint8Array): TagInfinite => {
-            const decode = (input: Uint8Array): TagInfinite => {
+        assertDecode: (input: Uint8Array): typia.Resolved<TagInfinite> => {
+            const decode = (input: Uint8Array): typia.Resolved<TagInfinite> => {
                 const $Reader = (typia.protobuf.createAssertDecode as any)
                     .Reader;
                 const $pdo0 = (reader: any, length: number = -1): any => {

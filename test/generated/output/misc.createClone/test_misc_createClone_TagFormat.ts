@@ -4,7 +4,7 @@ import { TagFormat } from "../../../structures/TagFormat";
 
 export const test_misc_clone_TagFormat = _test_misc_clone(
     "TagFormat",
-)<TagFormat>(TagFormat)((input: TagFormat): typia.Primitive<TagFormat> => {
+)<TagFormat>(TagFormat)((input: TagFormat): typia.Resolved<TagFormat> => {
     const $is_uuid = (typia.misc.createClone as any).is_uuid;
     const $is_email = (typia.misc.createClone as any).is_email;
     const $is_url = (typia.misc.createClone as any).is_url;

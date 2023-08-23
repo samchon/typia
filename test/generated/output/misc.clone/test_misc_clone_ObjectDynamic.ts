@@ -5,7 +5,7 @@ import { ObjectDynamic } from "../../../structures/ObjectDynamic";
 export const test_misc_clone_ObjectDynamic = _test_misc_clone(
     "ObjectDynamic",
 )<ObjectDynamic>(ObjectDynamic)((input) =>
-    ((input: ObjectDynamic): typia.Primitive<ObjectDynamic> => {
+    ((input: ObjectDynamic): typia.Resolved<ObjectDynamic> => {
         const $join = (typia.misc.clone as any).join;
         const $co0 = (input: any): any => {
             const output = {} as any;

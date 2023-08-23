@@ -6,7 +6,7 @@ export const test_protobuf_isDecode_TagArray = _test_protobuf_isDecode(
     "TagArray",
 )<TagArray>(TagArray)({
     isDecode: (input) =>
-        ((input: Uint8Array): TagArray | null => {
+        ((input: Uint8Array): typia.Resolved<TagArray> | null => {
             const is = (input: any): input is TagArray => {
                 const $is_uuid = (typia.protobuf.isDecode as any).is_uuid;
                 const $io0 = (input: any): boolean =>
@@ -52,7 +52,7 @@ export const test_protobuf_isDecode_TagArray = _test_protobuf_isDecode(
                     "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            const decode = (input: Uint8Array): TagArray => {
+            const decode = (input: Uint8Array): typia.Resolved<TagArray> => {
                 const $Reader = (typia.protobuf.isDecode as any).Reader;
                 const $pdo0 = (reader: any, length: number = -1): any => {
                     length =

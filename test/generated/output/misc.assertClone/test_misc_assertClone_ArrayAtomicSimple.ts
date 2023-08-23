@@ -5,7 +5,7 @@ import { ArrayAtomicSimple } from "../../../structures/ArrayAtomicSimple";
 export const test_misc_assertClone_ArrayAtomicSimple = _test_misc_assertClone(
     "ArrayAtomicSimple",
 )<ArrayAtomicSimple>(ArrayAtomicSimple)((input) =>
-    ((input: any): typia.Primitive<ArrayAtomicSimple> => {
+    ((input: any): typia.Resolved<ArrayAtomicSimple> => {
         const assert = (input: any): ArrayAtomicSimple => {
             const __is = (input: any): input is ArrayAtomicSimple => {
                 return (
@@ -118,7 +118,7 @@ export const test_misc_assertClone_ArrayAtomicSimple = _test_misc_assertClone(
         };
         const clone = (
             input: ArrayAtomicSimple,
-        ): typia.Primitive<ArrayAtomicSimple> => {
+        ): typia.Resolved<ArrayAtomicSimple> => {
             const $cp0 = (input: any) => input.map((elem: any) => elem as any);
             const $cp1 = (input: any) => input.map((elem: any) => elem as any);
             const $cp2 = (input: any) => input.map((elem: any) => elem as any);

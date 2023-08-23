@@ -5,7 +5,7 @@ import { DynamicTemplate } from "../../../structures/DynamicTemplate";
 export const test_misc_clone_DynamicTemplate = _test_misc_clone(
     "DynamicTemplate",
 )<DynamicTemplate>(DynamicTemplate)(
-    (input: DynamicTemplate): typia.Primitive<DynamicTemplate> => {
+    (input: DynamicTemplate): typia.Resolved<DynamicTemplate> => {
         const $join = (typia.misc.createClone as any).join;
         const $co0 = (input: any): any => {
             const output = {} as any;

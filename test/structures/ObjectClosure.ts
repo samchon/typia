@@ -4,7 +4,6 @@ export type ObjectClosure = ObjectClosure.IRecord;
 export namespace ObjectClosure {
     export const BINARABLE = false;
     export const JSONABLE = false;
-    export const PRIMITIVE = false;
 
     export interface IRecord {
         id: string;

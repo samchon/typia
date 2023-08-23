@@ -5,7 +5,7 @@ import { DynamicTemplate } from "../../../structures/DynamicTemplate";
 export const test_misc_assertClone_DynamicTemplate = _test_misc_assertClone(
     "DynamicTemplate",
 )<DynamicTemplate>(DynamicTemplate)(
-    (input: any): typia.Primitive<DynamicTemplate> => {
+    (input: any): typia.Resolved<DynamicTemplate> => {
         const assert = (input: any): DynamicTemplate => {
             const __is = (input: any): input is DynamicTemplate => {
                 const $join = (typia.misc.createAssertClone as any).join;
@@ -126,7 +126,7 @@ export const test_misc_assertClone_DynamicTemplate = _test_misc_assertClone(
         };
         const clone = (
             input: DynamicTemplate,
-        ): typia.Primitive<DynamicTemplate> => {
+        ): typia.Resolved<DynamicTemplate> => {
             const $join = (typia.misc.createAssertClone as any).join;
             const $co0 = (input: any): any => {
                 const output = {} as any;

@@ -7,8 +7,10 @@ export const test_protobuf_assertDecode_TemplateAtomic =
         TemplateAtomic,
     )({
         assertDecode: (input) =>
-            ((input: Uint8Array): TemplateAtomic => {
-                const decode = (input: Uint8Array): TemplateAtomic => {
+            ((input: Uint8Array): typia.Resolved<TemplateAtomic> => {
+                const decode = (
+                    input: Uint8Array,
+                ): typia.Resolved<TemplateAtomic> => {
                     const $Reader = (typia.protobuf.assertDecode as any).Reader;
                     const $pdo0 = (reader: any, length: number = -1): any => {
                         length =

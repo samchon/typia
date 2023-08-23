@@ -7,8 +7,10 @@ export const test_protobuf_assertDecode_ObjectNullable =
         ObjectNullable,
     )({
         assertDecode: (input) =>
-            ((input: Uint8Array): ObjectNullable => {
-                const decode = (input: Uint8Array): ObjectNullable => {
+            ((input: Uint8Array): typia.Resolved<ObjectNullable> => {
+                const decode = (
+                    input: Uint8Array,
+                ): typia.Resolved<ObjectNullable> => {
                     const $Reader = (typia.protobuf.assertDecode as any).Reader;
                     const $pdo0 = (reader: any, length: number = -1): any => {
                         length =

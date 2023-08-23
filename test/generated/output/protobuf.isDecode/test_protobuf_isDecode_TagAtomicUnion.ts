@@ -6,7 +6,7 @@ export const test_protobuf_isDecode_TagAtomicUnion = _test_protobuf_isDecode(
     "TagAtomicUnion",
 )<TagAtomicUnion>(TagAtomicUnion)({
     isDecode: (input) =>
-        ((input: Uint8Array): TagAtomicUnion | null => {
+        ((input: Uint8Array): typia.Resolved<TagAtomicUnion> | null => {
             const is = (input: any): input is TagAtomicUnion => {
                 const $io0 = (input: any): boolean =>
                     Array.isArray(input.value) &&
@@ -27,7 +27,9 @@ export const test_protobuf_isDecode_TagAtomicUnion = _test_protobuf_isDecode(
                     "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            const decode = (input: Uint8Array): TagAtomicUnion => {
+            const decode = (
+                input: Uint8Array,
+            ): typia.Resolved<TagAtomicUnion> => {
                 const $Reader = (typia.protobuf.isDecode as any).Reader;
                 const $pdo0 = (reader: any, length: number = -1): any => {
                     length =

@@ -5,7 +5,7 @@ import { ObjectInternal } from "../../../structures/ObjectInternal";
 export const test_misc_clone_ObjectInternal = _test_misc_clone(
     "ObjectInternal",
 )<ObjectInternal>(ObjectInternal)((input) =>
-    ((input: ObjectInternal): typia.Primitive<ObjectInternal> => {
+    ((input: ObjectInternal): typia.Resolved<ObjectInternal> => {
         const $co0 = (input: any): any => ({
             id: input.id as any,
             name: input.name as any,

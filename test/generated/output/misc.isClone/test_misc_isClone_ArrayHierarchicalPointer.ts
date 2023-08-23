@@ -5,7 +5,7 @@ import { ArrayHierarchicalPointer } from "../../../structures/ArrayHierarchicalP
 export const test_misc_isClone_ArrayHierarchicalPointer = _test_misc_isClone(
     "ArrayHierarchicalPointer",
 )<ArrayHierarchicalPointer>(ArrayHierarchicalPointer)((input) =>
-    ((input: any): typia.Primitive<ArrayHierarchicalPointer> | null => {
+    ((input: any): typia.Resolved<ArrayHierarchicalPointer> | null => {
         const is = (input: any): input is ArrayHierarchicalPointer => {
             const $io0 = (input: any): boolean =>
                 Array.isArray(input.value) &&
@@ -65,7 +65,7 @@ export const test_misc_isClone_ArrayHierarchicalPointer = _test_misc_isClone(
         };
         const clone = (
             input: ArrayHierarchicalPointer,
-        ): typia.Primitive<ArrayHierarchicalPointer> => {
+        ): typia.Resolved<ArrayHierarchicalPointer> => {
             const $io1 = (input: any): boolean =>
                 "number" === typeof input.id &&
                 "number" === typeof input.serial &&

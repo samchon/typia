@@ -5,8 +5,10 @@ import { ObjectSimple } from "../../../structures/ObjectSimple";
 export const test_protobuf_assertDecode_ObjectSimple =
     _test_protobuf_assertDecode("ObjectSimple")<ObjectSimple>(ObjectSimple)({
         assertDecode: (input) =>
-            ((input: Uint8Array): ObjectSimple => {
-                const decode = (input: Uint8Array): ObjectSimple => {
+            ((input: Uint8Array): typia.Resolved<ObjectSimple> => {
+                const decode = (
+                    input: Uint8Array,
+                ): typia.Resolved<ObjectSimple> => {
                     const $Reader = (typia.protobuf.assertDecode as any).Reader;
                     const $pdo0 = (reader: any, length: number = -1): any => {
                         length =

@@ -26,7 +26,9 @@ import { wrap_metadata_rest_tuple } from "../internal/wrap_metadata_rest_tuple";
 export namespace MiscCloneProgrammer {
     export const write =
         (project: IProject) => (modulo: ts.LeftHandSideExpression) => {
-            const importer: FunctionImporter = new FunctionImporter();
+            const importer: FunctionImporter = new FunctionImporter(
+                modulo.getText(),
+            );
             return FeatureProgrammer.write(project)({
                 ...configure(project)(importer),
                 addition: (collection) => [
@@ -137,19 +139,6 @@ export namespace MiscCloneProgrammer {
             //----
             // LIST UP UNION TYPES
             //----
-            // toJSON() METHOD
-            if (meta.resolved !== null)
-                unions.push({
-                    type: "resolved",
-                    is: () => IsProgrammer.decode_to_json(true)(input),
-                    value: () =>
-                        decode_to_json(project)(config)(importer)(
-                            input,
-                            meta.resolved!.returns,
-                            explore,
-                        ),
-                });
-
             // TUPLES
             for (const tuple of meta.tuples)
                 unions.push({
@@ -195,13 +184,26 @@ export namespace MiscCloneProgrammer {
                 unions.push({
                     type: "set",
                     is: () => ExpressionFactory.isInstanceOf("Set")(input),
-                    value: () => ts.factory.createIdentifier("{}"),
+                    value: () =>
+                        explore_sets(project)(config)(importer)(
+                            input,
+                            meta.sets,
+                            { ...explore, from: "array" },
+                        ),
                 });
             if (meta.maps.length)
                 unions.push({
                     type: "map",
                     is: () => ExpressionFactory.isInstanceOf("Map")(input),
-                    value: () => ts.factory.createIdentifier("{}"),
+                    value: () =>
+                        explore_maps(project)(config)(importer)(
+                            input,
+                            meta.maps,
+                            {
+                                ...explore,
+                                from: "array",
+                            },
+                        ),
                 });
             for (const native of meta.natives)
                 unions.push({
@@ -216,7 +218,7 @@ export namespace MiscCloneProgrammer {
                                   undefined,
                                   undefined,
                               )
-                            : ts.factory.createIdentifier("{}"),
+                            : decode_native(native)(input),
                 });
 
             // OBJECTS
@@ -248,26 +250,6 @@ export namespace MiscCloneProgrammer {
             return ts.factory.createAsExpression(
                 last,
                 TypeFactory.keyword("any"),
-            );
-        };
-
-    const decode_to_json =
-        (project: IProject) =>
-        (config: FeatureProgrammer.IConfig) =>
-        (importer: FunctionImporter) =>
-        (
-            input: ts.Expression,
-            resolved: Metadata,
-            explore: FeatureProgrammer.IExplore,
-        ): ts.Expression => {
-            return decode(project)(config)(importer)(
-                ts.factory.createCallExpression(
-                    IdentifierFactory.access(input)("toJSON"),
-                    undefined,
-                    [],
-                ),
-                resolved,
-                explore,
             );
         };
 
@@ -394,8 +376,203 @@ export namespace MiscCloneProgrammer {
         };
 
     /* -----------------------------------------------------------
+        NATIVE CLASSES
+    ----------------------------------------------------------- */
+    const decode_native = (type: string) => (input: ts.Expression) =>
+        type === "Date" ||
+        type === "Uint8Array" ||
+        type === "Uint8ClampedArray" ||
+        type === "Uint16Array" ||
+        type === "Uint32Array" ||
+        type === "BigUint64Array" ||
+        type === "Int8Array" ||
+        type === "Int16Array" ||
+        type === "Int32Array" ||
+        type === "BigInt64Array" ||
+        type === "Float32Array" ||
+        type === "Float64Array"
+            ? decode_native_copyable(type)(input)
+            : type === "ArrayBuffer" || type === "SharedArrayBuffer"
+            ? decode_native_buffer(type)(input)
+            : type === "DataView"
+            ? decode_native_data_view(input)
+            : ts.factory.createCallExpression(
+                  ts.factory.createIdentifier(type),
+                  undefined,
+                  [],
+              );
+
+    const decode_native_copyable = (type: string) => (input: ts.Expression) =>
+        ts.factory.createNewExpression(
+            ts.factory.createIdentifier(type),
+            undefined,
+            [input],
+        );
+
+    const decode_native_buffer =
+        (type: "ArrayBuffer" | "SharedArrayBuffer") => (input: ts.Expression) =>
+            ExpressionFactory.selfCall(
+                ts.factory.createBlock(
+                    [
+                        StatementFactory.constant(
+                            "buffer",
+                            ts.factory.createNewExpression(
+                                ts.factory.createIdentifier(type),
+                                undefined,
+                                [IdentifierFactory.access(input)("byteLength")],
+                            ),
+                        ),
+                        ts.factory.createExpressionStatement(
+                            ts.factory.createCallExpression(
+                                IdentifierFactory.access(
+                                    ts.factory.createNewExpression(
+                                        ts.factory.createIdentifier(
+                                            "Uint8Array",
+                                        ),
+                                        undefined,
+                                        [ts.factory.createIdentifier("buffer")],
+                                    ),
+                                )("set"),
+                                undefined,
+                                [
+                                    ts.factory.createNewExpression(
+                                        ts.factory.createIdentifier(
+                                            "Uint8Array",
+                                        ),
+                                        undefined,
+                                        [input],
+                                    ),
+                                ],
+                            ),
+                        ),
+                        ts.factory.createReturnStatement(
+                            ts.factory.createIdentifier("buffer"),
+                        ),
+                    ],
+                    true,
+                ),
+            );
+
+    const decode_native_data_view = (input: ts.Expression) =>
+        ts.factory.createNewExpression(
+            ts.factory.createIdentifier("DataView"),
+            undefined,
+            [IdentifierFactory.access(input)("buffer")],
+        );
+
+    /* -----------------------------------------------------------
         EXPLORERS FOR UNION TYPES
     ----------------------------------------------------------- */
+    const explore_sets =
+        (project: IProject) =>
+        (config: FeatureProgrammer.IConfig) =>
+        (importer: FunctionImporter) =>
+        (
+            input: ts.Expression,
+            sets: Metadata[],
+            explore: FeatureProgrammer.IExplore,
+        ): ts.Expression =>
+            ts.factory.createCallExpression(
+                UnionExplorer.set({
+                    checker: IsProgrammer.decode(project)(importer),
+                    decoder: (input, array, explore) =>
+                        ts.factory.createNewExpression(
+                            ts.factory.createIdentifier("Set"),
+                            [TypeFactory.keyword("any")],
+                            [
+                                decode_array(config)(importer)(
+                                    input,
+                                    array,
+                                    explore,
+                                ),
+                            ],
+                        ),
+                    empty: ts.factory.createNewExpression(
+                        ts.factory.createIdentifier("Set"),
+                        [TypeFactory.keyword("any")],
+                        [],
+                    ),
+                    success: ts.factory.createTrue(),
+                    failure: (input, expected) =>
+                        create_throw_error(importer)(expected)(input),
+                })([])(input, sets, explore, [], []),
+                undefined,
+                undefined,
+            );
+
+    const explore_maps =
+        (project: IProject) =>
+        (config: FeatureProgrammer.IConfig) =>
+        (importer: FunctionImporter) =>
+        (
+            input: ts.Expression,
+            maps: Metadata.Entry[],
+            explore: FeatureProgrammer.IExplore,
+        ): ts.Expression =>
+            ts.factory.createCallExpression(
+                UnionExplorer.map({
+                    checker: (top, entry, explore) => {
+                        const func = IsProgrammer.decode(project)(importer);
+                        return ts.factory.createLogicalAnd(
+                            func(
+                                ts.factory.createElementAccessExpression(
+                                    top,
+                                    0,
+                                ),
+                                entry[0],
+                                {
+                                    ...explore,
+                                    postfix: `${explore.postfix}[0]`,
+                                },
+                                [],
+                                [],
+                            ),
+                            func(
+                                ts.factory.createElementAccessExpression(
+                                    top,
+                                    1,
+                                ),
+                                entry[1],
+                                {
+                                    ...explore,
+                                    postfix: `${explore.postfix}[1]`,
+                                },
+                                [],
+                                [],
+                            ),
+                        );
+                    },
+                    decoder: (input, array, explore) =>
+                        ts.factory.createNewExpression(
+                            ts.factory.createIdentifier("Map"),
+                            [
+                                TypeFactory.keyword("any"),
+                                TypeFactory.keyword("any"),
+                            ],
+                            [
+                                decode_array(config)(importer)(
+                                    input,
+                                    array,
+                                    explore,
+                                ),
+                            ],
+                        ),
+                    empty: ts.factory.createNewExpression(
+                        ts.factory.createIdentifier("Map"),
+                        [
+                            TypeFactory.keyword("any"),
+                            TypeFactory.keyword("any"),
+                        ],
+                        [],
+                    ),
+                    success: ts.factory.createTrue(),
+                    failure: (input, expected) =>
+                        create_throw_error(importer)(expected)(input),
+                })([])(input, maps, explore, [], []),
+                undefined,
+                undefined,
+            );
+
     const explore_objects =
         (config: FeatureProgrammer.IConfig) =>
         (importer: FunctionImporter) =>
@@ -514,7 +691,7 @@ export namespace MiscCloneProgrammer {
                         ),
                     output: (type, name) =>
                         ts.factory.createTypeReferenceNode(
-                            `typia.Primitive<${
+                            `typia.Resolved<${
                                 name ??
                                 TypeFactory.getFullName(project.checker)(type)
                             }>`,
@@ -523,7 +700,7 @@ export namespace MiscCloneProgrammer {
                 prefix: PREFIX,
                 trace: false,
                 path: false,
-                initializer,
+                initializer: initializer(importer.method),
                 decoder: () => decode(project)(config)(importer),
                 objector: {
                     checker: () => IsProgrammer.decode(project)(importer),
@@ -547,14 +724,25 @@ export namespace MiscCloneProgrammer {
             return config;
         };
 
-    const initializer: FeatureProgrammer.IConfig["initializer"] =
+    const initializer =
+        (method: string): FeatureProgrammer.IConfig["initializer"] =>
         ({ checker }) =>
         (type) => {
             const collection = new MetadataCollection();
             const meta = MetadataFactory.analyze(checker)({
-                resolve: true,
+                resolve: false,
                 constant: true,
                 absorb: true,
+                validate: (meta) => {
+                    if (meta.natives.some((n) => n === "WeakSet"))
+                        throw new Error(
+                            `Error on ${method}(): WeakSet is not supported.`,
+                        );
+                    else if (meta.natives.some((n) => n === "WeakMap"))
+                        throw new Error(
+                            `Error on ${method}(): WeakMap is not supported.`,
+                        );
+                },
             })(collection)(type);
             return [collection, meta];
         };

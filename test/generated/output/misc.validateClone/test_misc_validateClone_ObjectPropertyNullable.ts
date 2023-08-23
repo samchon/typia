@@ -8,7 +8,7 @@ export const test_misc_validateClone_ObjectPropertyNullable =
     )((input) =>
         ((
             input: any,
-        ): typia.IValidation<typia.Primitive<ObjectPropertyNullable>> => {
+        ): typia.IValidation<typia.Resolved<ObjectPropertyNullable>> => {
             const validate = (
                 input: any,
             ): typia.IValidation<ObjectPropertyNullable> => {
@@ -426,7 +426,7 @@ export const test_misc_validateClone_ObjectPropertyNullable =
             };
             const clone = (
                 input: ObjectPropertyNullable,
-            ): typia.Primitive<ObjectPropertyNullable> => {
+            ): typia.Resolved<ObjectPropertyNullable> => {
                 const $io0 = (input: any): boolean =>
                     null === input.value || "boolean" === typeof input.value;
                 const $io1 = (input: any): boolean =>

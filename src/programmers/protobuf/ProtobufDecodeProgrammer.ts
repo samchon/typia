@@ -26,7 +26,9 @@ export namespace ProtobufDecodeProgrammer {
         (project: IProject) =>
         (modulo: ts.LeftHandSideExpression) =>
         (type: ts.Type, name?: string): ts.ArrowFunction => {
-            const importer: FunctionImporter = new FunctionImporter();
+            const importer: FunctionImporter = new FunctionImporter(
+                modulo.getText(),
+            );
             const collection: MetadataCollection = new MetadataCollection();
             const meta: Metadata = ProtobufFactory.metadata(modulo.getText())(
                 project.checker,
@@ -60,7 +62,9 @@ export namespace ProtobufDecodeProgrammer {
                     ),
                 ],
                 ts.factory.createTypeReferenceNode(
-                    name ?? TypeFactory.getFullName(project.checker)(type),
+                    `typia.Resolved<${
+                        name ?? TypeFactory.getFullName(project.checker)(type)
+                    }>`,
                 ),
                 undefined,
                 ts.factory.createBlock(

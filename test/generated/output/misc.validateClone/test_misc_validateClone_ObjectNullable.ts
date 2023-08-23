@@ -5,7 +5,7 @@ import { ObjectNullable } from "../../../structures/ObjectNullable";
 export const test_misc_validateClone_ObjectNullable = _test_misc_validateClone(
     "ObjectNullable",
 )<ObjectNullable>(ObjectNullable)((input) =>
-    ((input: any): typia.IValidation<typia.Primitive<ObjectNullable>> => {
+    ((input: any): typia.IValidation<typia.Resolved<ObjectNullable>> => {
         const validate = (input: any): typia.IValidation<ObjectNullable> => {
             const errors = [] as any[];
             const __is = (input: any): input is ObjectNullable => {
@@ -266,7 +266,7 @@ export const test_misc_validateClone_ObjectNullable = _test_misc_validateClone(
         };
         const clone = (
             input: ObjectNullable,
-        ): typia.Primitive<ObjectNullable> => {
+        ): typia.Resolved<ObjectNullable> => {
             const $io1 = (input: any): boolean =>
                 "string" === typeof input.name &&
                 "object" === typeof input.manufacturer &&

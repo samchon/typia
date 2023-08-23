@@ -2,8 +2,8 @@ import { Spoiler } from "../helpers/Spoiler";
 
 export type NativeUnion = NativeUnion.Union[];
 export namespace NativeUnion {
+    export const ADDABLE = false;
     export const BINARABLE = false;
-    export const PRIMITIVE = false;
 
     export interface Union {
         date: Date | null;
@@ -15,11 +15,8 @@ export namespace NativeUnion {
             | BigUint64Array;
         signed: Int8Array | Int16Array | Int32Array | BigInt64Array;
         float: Float32Array | Float64Array;
-        buffer: Buffer | ArrayBuffer | SharedArrayBuffer | DataView;
-        weak: WeakSet<any> | WeakMap<any, any>;
+        buffer: ArrayBuffer | SharedArrayBuffer;
     }
-
-    export const ADDABLE = false;
 
     // prettier-ignore
     export function generate(): NativeUnion {
@@ -28,15 +25,13 @@ export namespace NativeUnion {
         for (const unsigned of [new Uint8Array(), new Uint8ClampedArray(), new Uint16Array(), new Uint32Array(), new BigUint64Array()])
         for (const signed of [new Int8Array(), new Int16Array(), new Int32Array(), new BigInt64Array()])
         for (const float of [new Float32Array(), new Float64Array()])
-        for (const buffer of [Buffer.alloc(0), new ArrayBuffer(0), new SharedArrayBuffer(0), new DataView(new ArrayBuffer(0))])
-        for (const weak of [new WeakSet(), new WeakMap()])
+        for (const buffer of [new ArrayBuffer(0), new SharedArrayBuffer(0)])
             output.push({ 
                 date, 
                 unsigned, 
                 signed, 
                 float, 
                 buffer, 
-                weak 
             });
         return output;
     }
@@ -69,10 +64,6 @@ export namespace NativeUnion {
         (input) => {
             input[6].buffer = new Uint8Array() as any;
             return ["$input[6].buffer"];
-        },
-        (input) => {
-            input[7].weak = new Map() as any;
-            return ["$input[7].weak"];
         },
     ];
 }

@@ -11,6 +11,8 @@ export class FunctionImporter {
         new Map();
     private sequence_: number = 0;
 
+    public constructor(public readonly method: string) {}
+
     public empty(): boolean {
         return this.used_.size === 0;
     }

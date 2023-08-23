@@ -1,7 +1,6 @@
 export type ToJsonDouble = ToJsonDouble.Parent;
 export namespace ToJsonDouble {
     export const BINARABLE = false;
-    export const PRIMITIVE = false;
 
     export class Parent {
         public toJSON(): Child {

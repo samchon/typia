@@ -7,7 +7,6 @@ export interface FunctionalProperty {
 export namespace FunctionalProperty {
     export const BINARABLE = false;
     export const JSONABLE = false;
-    export const PRIMITIVE = false;
 
     export function generate(): FunctionalProperty {
         return {

@@ -6,7 +6,7 @@ export const test_misc_assertClone_ArrayRepeatedUnionWithTuple =
     _test_misc_assertClone(
         "ArrayRepeatedUnionWithTuple",
     )<ArrayRepeatedUnionWithTuple>(ArrayRepeatedUnionWithTuple)(
-        (input: any): typia.Primitive<ArrayRepeatedUnionWithTuple> => {
+        (input: any): typia.Resolved<ArrayRepeatedUnionWithTuple> => {
             const assert = (input: any): ArrayRepeatedUnionWithTuple => {
                 const __is = (
                     input: any,
@@ -601,7 +601,7 @@ export const test_misc_assertClone_ArrayRepeatedUnionWithTuple =
             };
             const clone = (
                 input: ArrayRepeatedUnionWithTuple,
-            ): typia.Primitive<ArrayRepeatedUnionWithTuple> => {
+            ): typia.Resolved<ArrayRepeatedUnionWithTuple> => {
                 const $io0 = (input: any): boolean =>
                     "object" === typeof input.scale &&
                     null !== input.scale &&

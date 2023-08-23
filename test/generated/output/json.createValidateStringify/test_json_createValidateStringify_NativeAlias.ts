@@ -21,12 +21,9 @@ export const test_json_validateStringify_NativeAlias =
                         input.bigInt64Array instanceof BigInt64Array &&
                         input.float32Array instanceof Float32Array &&
                         input.float64Array instanceof Float64Array &&
-                        input.buffer instanceof Buffer &&
                         input.arrayBuffer instanceof ArrayBuffer &&
                         input.sharedArrayBuffer instanceof SharedArrayBuffer &&
-                        input.dataView instanceof DataView &&
-                        input.weakSet instanceof WeakSet &&
-                        input.weakMap instanceof WeakMap;
+                        input.dataView instanceof DataView;
                     return (
                         "object" === typeof input &&
                         null !== input &&
@@ -122,12 +119,6 @@ export const test_json_validateStringify_NativeAlias =
                                         expected: "Float64Array",
                                         value: input.float64Array,
                                     }),
-                                input.buffer instanceof Buffer ||
-                                    $report(_exceptionable, {
-                                        path: _path + ".buffer",
-                                        expected: "Buffer",
-                                        value: input.buffer,
-                                    }),
                                 input.arrayBuffer instanceof ArrayBuffer ||
                                     $report(_exceptionable, {
                                         path: _path + ".arrayBuffer",
@@ -146,18 +137,6 @@ export const test_json_validateStringify_NativeAlias =
                                         path: _path + ".dataView",
                                         expected: "DataView",
                                         value: input.dataView,
-                                    }),
-                                input.weakSet instanceof WeakSet ||
-                                    $report(_exceptionable, {
-                                        path: _path + ".weakSet",
-                                        expected: "WeakSet",
-                                        value: input.weakSet,
-                                    }),
-                                input.weakMap instanceof WeakMap ||
-                                    $report(_exceptionable, {
-                                        path: _path + ".weakMap",
-                                        expected: "WeakMap",
-                                        value: input.weakMap,
                                     }),
                             ].every((flag: boolean) => flag);
                         return (
@@ -186,29 +165,10 @@ export const test_json_validateStringify_NativeAlias =
             const stringify = (input: NativeAlias): string => {
                 const $string = (typia.json.createValidateStringify as any)
                     .string;
-                const $throws = (typia.json.createValidateStringify as any)
-                    .throws;
-                const $number = (typia.json.createValidateStringify as any)
-                    .number;
                 const $so0 = (input: any): any =>
                     `{"date":${$string(
                         input.date.toJSON(),
-                    )},"uint8Array":{},"uint8ClampedArray":{},"uint16Array":{},"uint32Array":{},"bigUint64Array":{},"int8Array":{},"int16Array":{},"int32Array":{},"bigInt64Array":{},"float32Array":{},"float64Array":{},"buffer":${$so1(
-                        input.buffer.toJSON(),
-                    )},"arrayBuffer":{},"sharedArrayBuffer":{},"dataView":{},"weakSet":{},"weakMap":{}}`;
-                const $so1 = (input: any): any =>
-                    `{"type":${(() => {
-                        if ("string" === typeof input.type)
-                            return $string(input.type);
-                        if ("string" === typeof input.type)
-                            return '"' + input.type + '"';
-                        $throws({
-                            expected: '"Buffer"',
-                            value: input.type,
-                        });
-                    })()},"data":${`[${input.data
-                        .map((elem: any) => $number(elem))
-                        .join(",")}]`}}`;
+                    )},"uint8Array":{},"uint8ClampedArray":{},"uint16Array":{},"uint32Array":{},"bigUint64Array":{},"int8Array":{},"int16Array":{},"int32Array":{},"bigInt64Array":{},"float32Array":{},"float64Array":{},"arrayBuffer":{},"sharedArrayBuffer":{},"dataView":{}}`;
                 return $so0(input);
             };
             const output = validate(input) as any;

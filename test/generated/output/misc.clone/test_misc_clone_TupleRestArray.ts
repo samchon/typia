@@ -5,7 +5,7 @@ import { TupleRestArray } from "../../../structures/TupleRestArray";
 export const test_misc_clone_TupleRestArray = _test_misc_clone(
     "TupleRestArray",
 )<TupleRestArray>(TupleRestArray)((input) =>
-    ((input: TupleRestArray): typia.Primitive<TupleRestArray> => {
+    ((input: TupleRestArray): typia.Resolved<TupleRestArray> => {
         const $cp0 = (input: any) => input.map((elem: any) => elem as any);
         const $cp1 = (input: any) =>
             input.map((elem: any) =>

@@ -6,7 +6,7 @@ export const test_protobuf_decode_ObjectNullable = _test_protobuf_decode(
     "ObjectNullable",
 )<ObjectNullable>(ObjectNullable)({
     decode: (input) =>
-        ((input: Uint8Array): ObjectNullable => {
+        ((input: Uint8Array): typia.Resolved<ObjectNullable> => {
             const $Reader = (typia.protobuf.decode as any).Reader;
             const $pdo0 = (reader: any, length: number = -1): any => {
                 length = length < 0 ? reader.size() : reader.index() + length;

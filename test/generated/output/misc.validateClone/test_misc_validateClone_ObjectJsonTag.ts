@@ -5,7 +5,7 @@ import { ObjectJsonTag } from "../../../structures/ObjectJsonTag";
 export const test_misc_validateClone_ObjectJsonTag = _test_misc_validateClone(
     "ObjectJsonTag",
 )<ObjectJsonTag>(ObjectJsonTag)((input) =>
-    ((input: any): typia.IValidation<typia.Primitive<ObjectJsonTag>> => {
+    ((input: any): typia.IValidation<typia.Resolved<ObjectJsonTag>> => {
         const validate = (input: any): typia.IValidation<ObjectJsonTag> => {
             const errors = [] as any[];
             const __is = (input: any): input is ObjectJsonTag => {
@@ -118,9 +118,7 @@ export const test_misc_validateClone_ObjectJsonTag = _test_misc_validateClone(
                 data: success ? input : undefined,
             } as any;
         };
-        const clone = (
-            input: ObjectJsonTag,
-        ): typia.Primitive<ObjectJsonTag> => {
+        const clone = (input: ObjectJsonTag): typia.Resolved<ObjectJsonTag> => {
             const $is_custom = (typia.misc.validateClone as any).is_custom;
             const $co0 = (input: any): any => ({
                 vulnerable: input.vulnerable as any,

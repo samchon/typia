@@ -4,7 +4,6 @@ export type FunctionalPropertyUnion = FunctionalPropertyUnion.IUnion[];
 export namespace FunctionalPropertyUnion {
     export const BINARABLE = false;
     export const JSONABLE = false;
-    export const PRIMITIVE = false;
 
     export interface IUnion {
         name: string;

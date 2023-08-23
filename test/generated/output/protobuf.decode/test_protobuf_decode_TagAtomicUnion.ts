@@ -6,7 +6,7 @@ export const test_protobuf_decode_TagAtomicUnion = _test_protobuf_decode(
     "TagAtomicUnion",
 )<TagAtomicUnion>(TagAtomicUnion)({
     decode: (input) =>
-        ((input: Uint8Array): TagAtomicUnion => {
+        ((input: Uint8Array): typia.Resolved<TagAtomicUnion> => {
             const $Reader = (typia.protobuf.decode as any).Reader;
             const $pdo0 = (reader: any, length: number = -1): any => {
                 length = length < 0 ? reader.size() : reader.index() + length;

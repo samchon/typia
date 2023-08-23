@@ -1,23 +1,21 @@
 import typia from "typia";
 
 import { TestStructure } from "../helpers/TestStructure";
-import { primitive_clone } from "../helpers/primitive_clone";
-import { primitive_equal_to } from "../helpers/primitive_equal_to";
+import { resolved_equal_to } from "../helpers/resolved_equal_to";
 
 export const _test_misc_validateClone =
     (name: string) =>
     <T>(factory: TestStructure<T>) =>
-    (clone: (input: T) => typia.IValidation<typia.Primitive<T>>) =>
+    (clone: (input: T) => typia.IValidation<typia.Resolved<T>>) =>
     () => {
         const input: T = factory.generate();
-        const replica: typia.Primitive<T> = primitive_clone(input);
-        const valid: typia.IValidation<typia.Primitive<T>> = clone(input);
+        const valid: typia.IValidation<typia.Resolved<T>> = clone(input);
         if (valid.success === false)
             throw new Error(
                 `Bug on typia.validateClone(): failed to understand the ${name} type.`,
             );
 
-        if (primitive_equal_to(replica, valid.data) === false) {
+        if (resolved_equal_to(name)(input, valid.data) === false) {
             throw new Error(
                 `Bug on typia.assertStringify(): failed to understand the ${name} type.`,
             );
@@ -27,7 +25,7 @@ export const _test_misc_validateClone =
         for (const spoil of factory.SPOILERS || []) {
             const elem: T = factory.generate();
             const expected: string[] = spoil(elem);
-            const valid: typia.IValidation<typia.Primitive<T>> = clone(elem);
+            const valid: typia.IValidation<typia.Resolved<T>> = clone(elem);
 
             if (valid.success === true)
                 throw new Error(

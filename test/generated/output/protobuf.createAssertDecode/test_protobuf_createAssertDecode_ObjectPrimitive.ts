@@ -6,8 +6,10 @@ export const test_protobuf_assertDecode_ObjectPrimitive =
     _test_protobuf_assertDecode("ObjectPrimitive")<ObjectPrimitive>(
         ObjectPrimitive,
     )({
-        assertDecode: (input: Uint8Array): ObjectPrimitive => {
-            const decode = (input: Uint8Array): ObjectPrimitive => {
+        assertDecode: (input: Uint8Array): typia.Resolved<ObjectPrimitive> => {
+            const decode = (
+                input: Uint8Array,
+            ): typia.Resolved<ObjectPrimitive> => {
                 const $Reader = (typia.protobuf.createAssertDecode as any)
                     .Reader;
                 const $pdo0 = (reader: any, length: number = -1): any => {

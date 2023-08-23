@@ -5,7 +5,7 @@ import { ArrayRecursive } from "../../../structures/ArrayRecursive";
 export const test_protobuf_decode_ArrayRecursive = _test_protobuf_decode(
     "ArrayRecursive",
 )<ArrayRecursive>(ArrayRecursive)({
-    decode: (input: Uint8Array): ArrayRecursive => {
+    decode: (input: Uint8Array): typia.Resolved<ArrayRecursive> => {
         const $Reader = (typia.protobuf.createDecode as any).Reader;
         const $pdo0 = (reader: any, length: number = -1): any => {
             length = length < 0 ? reader.size() : reader.index() + length;

@@ -7,7 +7,7 @@ export const test_random_ArrayRepeatedRequired = _test_random(
 )<ArrayRepeatedRequired>(ArrayRepeatedRequired)({
     random: (
         generator?: Partial<typia.IRandomGenerator>,
-    ): typia.Primitive<ArrayRepeatedRequired> => {
+    ): typia.Resolved<ArrayRepeatedRequired> => {
         const $generator = (typia.createRandom as any).generator;
         const $pick = (typia.createRandom as any).pick;
         const $ra0 = (

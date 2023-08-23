@@ -5,7 +5,7 @@ import { TagTuple } from "../../../structures/TagTuple";
 export const test_misc_validateClone_TagTuple = _test_misc_validateClone(
     "TagTuple",
 )<TagTuple>(TagTuple)((input) =>
-    ((input: any): typia.IValidation<typia.Primitive<TagTuple>> => {
+    ((input: any): typia.IValidation<typia.Resolved<TagTuple>> => {
         const validate = (input: any): typia.IValidation<TagTuple> => {
             const errors = [] as any[];
             const __is = (input: any): input is TagTuple => {
@@ -273,7 +273,7 @@ export const test_misc_validateClone_TagTuple = _test_misc_validateClone(
                 data: success ? input : undefined,
             } as any;
         };
-        const clone = (input: TagTuple): typia.Primitive<TagTuple> => {
+        const clone = (input: TagTuple): typia.Resolved<TagTuple> => {
             const $cp0 = (input: any) => input.map((elem: any) => elem as any);
             const $cp1 = (input: any) => input.map((elem: any) => elem as any);
             const $co0 = (input: any): any => ({

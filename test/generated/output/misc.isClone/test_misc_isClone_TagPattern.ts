@@ -5,7 +5,7 @@ import { TagPattern } from "../../../structures/TagPattern";
 export const test_misc_isClone_TagPattern = _test_misc_isClone(
     "TagPattern",
 )<TagPattern>(TagPattern)((input) =>
-    ((input: any): typia.Primitive<TagPattern> | null => {
+    ((input: any): typia.Resolved<TagPattern> | null => {
         const is = (input: any): input is TagPattern => {
             return (
                 "object" === typeof input &&
@@ -28,7 +28,7 @@ export const test_misc_isClone_TagPattern = _test_misc_isClone(
                 ).test((input as any).ipv6)
             );
         };
-        const clone = (input: TagPattern): typia.Primitive<TagPattern> => {
+        const clone = (input: TagPattern): typia.Resolved<TagPattern> => {
             const $co0 = (input: any): any => ({
                 uuid: input.uuid as any,
                 email: input.email as any,

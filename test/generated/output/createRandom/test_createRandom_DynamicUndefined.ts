@@ -7,7 +7,7 @@ export const test_random_DynamicUndefined = _test_random(
 )<DynamicUndefined>(DynamicUndefined)({
     random: (
         generator?: Partial<typia.IRandomGenerator>,
-    ): typia.Primitive<DynamicUndefined> => {
+    ): typia.Resolved<DynamicUndefined> => {
         const $generator = (typia.createRandom as any).generator;
         const $ro0 = (_recursive: boolean = false, _depth: number = 0): any => {
             const output = {} as any;

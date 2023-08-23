@@ -6,8 +6,12 @@ export const test_protobuf_assertDecode_ObjectUnionCompositePointer =
     _test_protobuf_assertDecode(
         "ObjectUnionCompositePointer",
     )<ObjectUnionCompositePointer>(ObjectUnionCompositePointer)({
-        assertDecode: (input: Uint8Array): ObjectUnionCompositePointer => {
-            const decode = (input: Uint8Array): ObjectUnionCompositePointer => {
+        assertDecode: (
+            input: Uint8Array,
+        ): typia.Resolved<ObjectUnionCompositePointer> => {
+            const decode = (
+                input: Uint8Array,
+            ): typia.Resolved<ObjectUnionCompositePointer> => {
                 const $Reader = (typia.protobuf.createAssertDecode as any)
                     .Reader;
                 const $pdo0 = (reader: any, length: number = -1): any => {

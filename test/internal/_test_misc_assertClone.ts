@@ -1,19 +1,17 @@
-import { Primitive, TypeGuardError } from "typia";
+import { Resolved, TypeGuardError } from "typia";
 
 import { TestStructure } from "../helpers/TestStructure";
-import { primitive_clone } from "../helpers/primitive_clone";
-import { primitive_equal_to } from "../helpers/primitive_equal_to";
+import { resolved_equal_to } from "../helpers/resolved_equal_to";
 
 export const _test_misc_assertClone =
     (name: string) =>
     <T>(factory: TestStructure<T>) =>
-    (clone: (input: T) => Primitive<T>) =>
+    (clone: (input: T) => Resolved<T>) =>
     () => {
         const input: T = factory.generate();
-        const replica: Primitive<T> = JSON.parse(JSON.stringify(input));
-        const cloned: Primitive<T> = primitive_clone(input);
+        const cloned: Resolved<T> = clone(input);
 
-        if (primitive_equal_to(replica, cloned) === false) {
+        if (resolved_equal_to(name)(input, cloned) === false) {
             throw new Error(
                 `Bug on TSON.assertClone(): failed to understand the ${name} type.`,
             );

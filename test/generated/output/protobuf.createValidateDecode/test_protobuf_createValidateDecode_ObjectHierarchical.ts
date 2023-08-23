@@ -8,7 +8,7 @@ export const test_protobuf_validateDecode_ObjectHierarchical =
     )({
         validateDecode: (
             input: Uint8Array,
-        ): typia.IValidation<ObjectHierarchical> => {
+        ): typia.IValidation<typia.Resolved<ObjectHierarchical>> => {
             const validate = (
                 input: any,
             ): typia.IValidation<ObjectHierarchical> => {
@@ -567,7 +567,9 @@ export const test_protobuf_validateDecode_ObjectHierarchical =
                     data: success ? input : undefined,
                 } as any;
             };
-            const decode = (input: Uint8Array): ObjectHierarchical => {
+            const decode = (
+                input: Uint8Array,
+            ): typia.Resolved<ObjectHierarchical> => {
                 const $Reader = (typia.protobuf.createValidateDecode as any)
                     .Reader;
                 const $pdo0 = (reader: any, length: number = -1): any => {

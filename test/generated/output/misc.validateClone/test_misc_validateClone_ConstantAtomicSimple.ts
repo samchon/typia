@@ -8,7 +8,7 @@ export const test_misc_validateClone_ConstantAtomicSimple =
     )((input) =>
         ((
             input: any,
-        ): typia.IValidation<typia.Primitive<ConstantAtomicSimple>> => {
+        ): typia.IValidation<typia.Resolved<ConstantAtomicSimple>> => {
             const validate = (
                 input: any,
             ): typia.IValidation<ConstantAtomicSimple> => {
@@ -88,7 +88,7 @@ export const test_misc_validateClone_ConstantAtomicSimple =
             };
             const clone = (
                 input: ConstantAtomicSimple,
-            ): typia.Primitive<ConstantAtomicSimple> => {
+            ): typia.Resolved<ConstantAtomicSimple> => {
                 return Array.isArray(input) &&
                     input.length === 4 &&
                     false === input[0] &&

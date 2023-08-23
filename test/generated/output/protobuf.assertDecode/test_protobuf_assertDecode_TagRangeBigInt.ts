@@ -7,8 +7,10 @@ export const test_protobuf_assertDecode_TagRangeBigInt =
         TagRangeBigInt,
     )({
         assertDecode: (input) =>
-            ((input: Uint8Array): TagRangeBigInt => {
-                const decode = (input: Uint8Array): TagRangeBigInt => {
+            ((input: Uint8Array): typia.Resolved<TagRangeBigInt> => {
+                const decode = (
+                    input: Uint8Array,
+                ): typia.Resolved<TagRangeBigInt> => {
                     const $Reader = (typia.protobuf.assertDecode as any).Reader;
                     const $pdo0 = (reader: any, length: number = -1): any => {
                         length =

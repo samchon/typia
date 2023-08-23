@@ -7,7 +7,7 @@ export const test_random_TemplateUnion = _test_random(
 )<TemplateUnion>(TemplateUnion)({
     random: (
         generator?: Partial<typia.IRandomGenerator>,
-    ): typia.Primitive<TemplateUnion> => {
+    ): typia.Resolved<TemplateUnion> => {
         const $generator = (typia.createRandom as any).generator;
         const $pick = (typia.createRandom as any).pick;
         const $ro0 = (

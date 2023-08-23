@@ -164,7 +164,7 @@ export const test_protobuf_validateEncode_ObjectJsonTag =
             })(input),
         message:
             'syntax = "proto3";\n\nmessage ObjectJsonTag {\n    required string vulnerable = 1;\n    required string description = 2;\n    required string title = 3;\n    required string complicate_title = 4;\n}',
-        decode: (input: Uint8Array): ObjectJsonTag => {
+        decode: (input: Uint8Array): typia.Resolved<ObjectJsonTag> => {
             const $Reader = (typia.protobuf.createDecode as any).Reader;
             const $pdo0 = (reader: any, length: number = -1): any => {
                 length = length < 0 ? reader.size() : reader.index() + length;

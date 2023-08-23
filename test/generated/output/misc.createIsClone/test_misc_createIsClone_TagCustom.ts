@@ -4,7 +4,7 @@ import { TagCustom } from "../../../structures/TagCustom";
 
 export const test_misc_isClone_TagCustom = _test_misc_isClone(
     "TagCustom",
-)<TagCustom>(TagCustom)((input: any): typia.Primitive<TagCustom> | null => {
+)<TagCustom>(TagCustom)((input: any): typia.Resolved<TagCustom> | null => {
     const is = (input: any): input is TagCustom => {
         const $is_uuid = (typia.misc.createIsClone as any).is_uuid;
         const $is_custom = (typia.misc.createIsClone as any).is_custom;
@@ -22,7 +22,7 @@ export const test_misc_isClone_TagCustom = _test_misc_isClone(
             $is_custom("powerOf", "number", "10", (input as any).log)
         );
     };
-    const clone = (input: TagCustom): typia.Primitive<TagCustom> => {
+    const clone = (input: TagCustom): typia.Resolved<TagCustom> => {
         const $is_uuid = (typia.misc.createIsClone as any).is_uuid;
         const $is_custom = (typia.misc.createIsClone as any).is_custom;
         const $co0 = (input: any): any => ({

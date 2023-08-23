@@ -7,7 +7,9 @@ export const test_protobuf_validateDecode_TagAtomicUnion =
         TagAtomicUnion,
     )({
         validateDecode: (input) =>
-            ((input: Uint8Array): typia.IValidation<TagAtomicUnion> => {
+            ((
+                input: Uint8Array,
+            ): typia.IValidation<typia.Resolved<TagAtomicUnion>> => {
                 const validate = (
                     input: any,
                 ): typia.IValidation<TagAtomicUnion> => {
@@ -163,7 +165,9 @@ export const test_protobuf_validateDecode_TagAtomicUnion =
                         data: success ? input : undefined,
                     } as any;
                 };
-                const decode = (input: Uint8Array): TagAtomicUnion => {
+                const decode = (
+                    input: Uint8Array,
+                ): typia.Resolved<TagAtomicUnion> => {
                     const $Reader = (typia.protobuf.validateDecode as any)
                         .Reader;
                     const $pdo0 = (reader: any, length: number = -1): any => {

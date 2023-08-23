@@ -8,7 +8,7 @@ export const test_random_ObjectOptional = _test_random(
     random: () =>
         ((
             generator?: Partial<typia.IRandomGenerator>,
-        ): typia.Primitive<ObjectOptional> => {
+        ): typia.Resolved<ObjectOptional> => {
             const $generator = (typia.random as any).generator;
             const $pick = (typia.random as any).pick;
             const $ro0 = (

@@ -52,14 +52,15 @@ async function generate(
     for (const s of structures) {
         if (s.generate === undefined) continue;
         else if (feat.jsonable && s.JSONABLE === false) continue;
-        else if (feat.primitive && s.PRIMITIVE === false) continue;
         else if (feat.strict && s.ADDABLE === false) continue;
+        else if (feat.module === "protobuf" && s.BINARABLE === false) continue;
         else if (
-            feat.method === "random" &&
-            (s.RANDOM === false || s.JSONABLE === false)
+            feat.resolved === true &&
+            (s.name.indexOf("Class") !== -1 ||
+                s.name.indexOf("Function") !== -1 ||
+                s.name.indexOf("ToJson") !== -1)
         )
             continue;
-        else if (feat.module === "protobuf" && s.BINARABLE === false) continue;
         else if (
             feat.method.toLowerCase().includes("prune") &&
             s.ADDABLE === false

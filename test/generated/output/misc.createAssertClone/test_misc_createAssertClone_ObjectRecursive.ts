@@ -5,7 +5,7 @@ import { ObjectRecursive } from "../../../structures/ObjectRecursive";
 export const test_misc_assertClone_ObjectRecursive = _test_misc_assertClone(
     "ObjectRecursive",
 )<ObjectRecursive>(ObjectRecursive)(
-    (input: any): typia.Primitive<ObjectRecursive> => {
+    (input: any): typia.Resolved<ObjectRecursive> => {
         const assert = (input: any): ObjectRecursive => {
             const __is = (input: any): input is ObjectRecursive => {
                 const $io0 = (input: any): boolean =>
@@ -142,7 +142,7 @@ export const test_misc_assertClone_ObjectRecursive = _test_misc_assertClone(
         };
         const clone = (
             input: ObjectRecursive,
-        ): typia.Primitive<ObjectRecursive> => {
+        ): typia.Resolved<ObjectRecursive> => {
             const $io0 = (input: any): boolean =>
                 (null === input.parent ||
                     ("object" === typeof input.parent &&

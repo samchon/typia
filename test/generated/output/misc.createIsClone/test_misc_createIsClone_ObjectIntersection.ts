@@ -5,7 +5,7 @@ import { ObjectIntersection } from "../../../structures/ObjectIntersection";
 export const test_misc_isClone_ObjectIntersection = _test_misc_isClone(
     "ObjectIntersection",
 )<ObjectIntersection>(ObjectIntersection)(
-    (input: any): typia.Primitive<ObjectIntersection> | null => {
+    (input: any): typia.Resolved<ObjectIntersection> | null => {
         const is = (input: any): input is ObjectIntersection => {
             return (
                 "object" === typeof input &&
@@ -17,7 +17,7 @@ export const test_misc_isClone_ObjectIntersection = _test_misc_isClone(
         };
         const clone = (
             input: ObjectIntersection,
-        ): typia.Primitive<ObjectIntersection> => {
+        ): typia.Resolved<ObjectIntersection> => {
             const $co0 = (input: any): any => ({
                 email: input.email as any,
                 name: input.name as any,

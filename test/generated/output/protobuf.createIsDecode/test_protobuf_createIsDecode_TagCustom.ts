@@ -5,7 +5,7 @@ import { TagCustom } from "../../../structures/TagCustom";
 export const test_protobuf_isDecode_TagCustom = _test_protobuf_isDecode(
     "TagCustom",
 )<TagCustom>(TagCustom)({
-    isDecode: (input: Uint8Array): TagCustom | null => {
+    isDecode: (input: Uint8Array): typia.Resolved<TagCustom> | null => {
         const is = (input: any): input is TagCustom => {
             const $is_uuid = (typia.protobuf.createIsDecode as any).is_uuid;
             const $is_custom = (typia.protobuf.createIsDecode as any).is_custom;
@@ -28,7 +28,7 @@ export const test_protobuf_isDecode_TagCustom = _test_protobuf_isDecode(
                 $is_custom("powerOf", "number", "10", (input as any).log)
             );
         };
-        const decode = (input: Uint8Array): TagCustom => {
+        const decode = (input: Uint8Array): typia.Resolved<TagCustom> => {
             const $Reader = (typia.protobuf.createIsDecode as any).Reader;
             const $pdo0 = (reader: any, length: number = -1): any => {
                 length = length < 0 ? reader.size() : reader.index() + length;

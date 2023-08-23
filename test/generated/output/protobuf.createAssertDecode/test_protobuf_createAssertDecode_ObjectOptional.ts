@@ -6,8 +6,10 @@ export const test_protobuf_assertDecode_ObjectOptional =
     _test_protobuf_assertDecode("ObjectOptional")<ObjectOptional>(
         ObjectOptional,
     )({
-        assertDecode: (input: Uint8Array): ObjectOptional => {
-            const decode = (input: Uint8Array): ObjectOptional => {
+        assertDecode: (input: Uint8Array): typia.Resolved<ObjectOptional> => {
+            const decode = (
+                input: Uint8Array,
+            ): typia.Resolved<ObjectOptional> => {
                 const $Reader = (typia.protobuf.createAssertDecode as any)
                     .Reader;
                 const $pdo0 = (reader: any, length: number = -1): any => {

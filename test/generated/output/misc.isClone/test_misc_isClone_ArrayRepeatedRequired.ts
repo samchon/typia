@@ -5,7 +5,7 @@ import { ArrayRepeatedRequired } from "../../../structures/ArrayRepeatedRequired
 export const test_misc_isClone_ArrayRepeatedRequired = _test_misc_isClone(
     "ArrayRepeatedRequired",
 )<ArrayRepeatedRequired>(ArrayRepeatedRequired)((input) =>
-    ((input: any): typia.Primitive<ArrayRepeatedRequired> | null => {
+    ((input: any): typia.Resolved<ArrayRepeatedRequired> | null => {
         const is = (input: any): input is ArrayRepeatedRequired => {
             const $ia0 = (input: any): any =>
                 input.every(
@@ -27,7 +27,7 @@ export const test_misc_isClone_ArrayRepeatedRequired = _test_misc_isClone(
         };
         const clone = (
             input: ArrayRepeatedRequired,
-        ): typia.Primitive<ArrayRepeatedRequired> => {
+        ): typia.Resolved<ArrayRepeatedRequired> => {
             const $ia0 = (input: any): any =>
                 input.every(
                     (elem: any) =>

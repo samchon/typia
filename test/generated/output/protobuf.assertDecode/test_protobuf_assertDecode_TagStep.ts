@@ -6,8 +6,8 @@ export const test_protobuf_assertDecode_TagStep = _test_protobuf_assertDecode(
     "TagStep",
 )<TagStep>(TagStep)({
     assertDecode: (input) =>
-        ((input: Uint8Array): TagStep => {
-            const decode = (input: Uint8Array): TagStep => {
+        ((input: Uint8Array): typia.Resolved<TagStep> => {
+            const decode = (input: Uint8Array): typia.Resolved<TagStep> => {
                 const $Reader = (typia.protobuf.assertDecode as any).Reader;
                 const $pdo0 = (reader: any, length: number = -1): any => {
                     length =

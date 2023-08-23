@@ -134,7 +134,7 @@ export const test_protobuf_isEncode_TagArray = _test_protobuf_isEncode(
     },
     message:
         'syntax = "proto3";\n\nmessage TagArray {\n    repeated TagArray.Type value = 1;\n    message Type {\n        repeated string items = 1;\n        repeated double minItems = 2;\n        repeated string both = 3;\n        repeated double equal = 4;\n    }\n}',
-    decode: (input: Uint8Array): TagArray => {
+    decode: (input: Uint8Array): typia.Resolved<TagArray> => {
         const $Reader = (typia.protobuf.createDecode as any).Reader;
         const $pdo0 = (reader: any, length: number = -1): any => {
             length = length < 0 ? reader.size() : reader.index() + length;

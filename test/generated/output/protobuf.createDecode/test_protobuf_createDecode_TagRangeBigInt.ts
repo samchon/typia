@@ -5,7 +5,7 @@ import { TagRangeBigInt } from "../../../structures/TagRangeBigInt";
 export const test_protobuf_decode_TagRangeBigInt = _test_protobuf_decode(
     "TagRangeBigInt",
 )<TagRangeBigInt>(TagRangeBigInt)({
-    decode: (input: Uint8Array): TagRangeBigInt => {
+    decode: (input: Uint8Array): typia.Resolved<TagRangeBigInt> => {
         const $Reader = (typia.protobuf.createDecode as any).Reader;
         const $pdo0 = (reader: any, length: number = -1): any => {
             length = length < 0 ? reader.size() : reader.index() + length;

@@ -5,7 +5,7 @@ import { TupleRestAtomic } from "../../../structures/TupleRestAtomic";
 export const test_misc_validateClone_TupleRestAtomic = _test_misc_validateClone(
     "TupleRestAtomic",
 )<TupleRestAtomic>(TupleRestAtomic)(
-    (input: any): typia.IValidation<typia.Primitive<TupleRestAtomic>> => {
+    (input: any): typia.IValidation<typia.Resolved<TupleRestAtomic>> => {
         const validate = (input: any): typia.IValidation<TupleRestAtomic> => {
             const errors = [] as any[];
             const __is = (input: any): input is TupleRestAtomic => {
@@ -95,7 +95,7 @@ export const test_misc_validateClone_TupleRestAtomic = _test_misc_validateClone(
         };
         const clone = (
             input: TupleRestAtomic,
-        ): typia.Primitive<TupleRestAtomic> => {
+        ): typia.Resolved<TupleRestAtomic> => {
             const $cp0 = (input: any) => input.map((elem: any) => elem as any);
             return Array.isArray(input) &&
                 "boolean" === typeof input[0] &&

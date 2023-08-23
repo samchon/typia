@@ -8,7 +8,7 @@ export const test_protobuf_validateDecode_ObjectPrimitive =
     )({
         validateDecode: (
             input: Uint8Array,
-        ): typia.IValidation<ObjectPrimitive> => {
+        ): typia.IValidation<typia.Resolved<ObjectPrimitive>> => {
             const validate = (
                 input: any,
             ): typia.IValidation<ObjectPrimitive> => {
@@ -204,7 +204,9 @@ export const test_protobuf_validateDecode_ObjectPrimitive =
                     data: success ? input : undefined,
                 } as any;
             };
-            const decode = (input: Uint8Array): ObjectPrimitive => {
+            const decode = (
+                input: Uint8Array,
+            ): typia.Resolved<ObjectPrimitive> => {
                 const $Reader = (typia.protobuf.createValidateDecode as any)
                     .Reader;
                 const $pdo0 = (reader: any, length: number = -1): any => {

@@ -5,7 +5,7 @@ import { TagStep } from "../../../structures/TagStep";
 export const test_misc_clone_TagStep = _test_misc_clone("TagStep")<TagStep>(
     TagStep,
 )((input) =>
-    ((input: TagStep): typia.Primitive<TagStep> => {
+    ((input: TagStep): typia.Resolved<TagStep> => {
         const $io1 = (input: any): boolean =>
             "number" === typeof input.exclusiveMinimum &&
             0 === (input.exclusiveMinimum % 5) - 3 &&

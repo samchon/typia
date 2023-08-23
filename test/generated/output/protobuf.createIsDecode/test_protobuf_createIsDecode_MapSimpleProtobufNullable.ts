@@ -6,7 +6,9 @@ export const test_protobuf_isDecode_MapSimpleProtobufNullable =
     _test_protobuf_isDecode(
         "MapSimpleProtobufNullable",
     )<MapSimpleProtobufNullable>(MapSimpleProtobufNullable)({
-        isDecode: (input: Uint8Array): MapSimpleProtobufNullable | null => {
+        isDecode: (
+            input: Uint8Array,
+        ): typia.Resolved<MapSimpleProtobufNullable> | null => {
             const is = (input: any): input is MapSimpleProtobufNullable => {
                 const $io0 = (input: any): boolean =>
                     (null === input.boolean ||
@@ -91,7 +93,9 @@ export const test_protobuf_isDecode_MapSimpleProtobufNullable =
                     "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            const decode = (input: Uint8Array): MapSimpleProtobufNullable => {
+            const decode = (
+                input: Uint8Array,
+            ): typia.Resolved<MapSimpleProtobufNullable> => {
                 const $Reader = (typia.protobuf.createIsDecode as any).Reader;
                 const $pdo0 = (reader: any, length: number = -1): any => {
                     length =

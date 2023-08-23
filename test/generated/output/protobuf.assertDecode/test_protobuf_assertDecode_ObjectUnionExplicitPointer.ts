@@ -7,10 +7,12 @@ export const test_protobuf_assertDecode_ObjectUnionExplicitPointer =
         "ObjectUnionExplicitPointer",
     )<ObjectUnionExplicitPointer>(ObjectUnionExplicitPointer)({
         assertDecode: (input) =>
-            ((input: Uint8Array): ObjectUnionExplicitPointer => {
+            ((
+                input: Uint8Array,
+            ): typia.Resolved<ObjectUnionExplicitPointer> => {
                 const decode = (
                     input: Uint8Array,
-                ): ObjectUnionExplicitPointer => {
+                ): typia.Resolved<ObjectUnionExplicitPointer> => {
                     const $Reader = (typia.protobuf.assertDecode as any).Reader;
                     const $pdo0 = (reader: any, length: number = -1): any => {
                         length =

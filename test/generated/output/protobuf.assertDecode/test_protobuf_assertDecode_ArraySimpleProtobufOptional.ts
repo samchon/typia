@@ -7,10 +7,12 @@ export const test_protobuf_assertDecode_ArraySimpleProtobufOptional =
         "ArraySimpleProtobufOptional",
     )<ArraySimpleProtobufOptional>(ArraySimpleProtobufOptional)({
         assertDecode: (input) =>
-            ((input: Uint8Array): ArraySimpleProtobufOptional => {
+            ((
+                input: Uint8Array,
+            ): typia.Resolved<ArraySimpleProtobufOptional> => {
                 const decode = (
                     input: Uint8Array,
-                ): ArraySimpleProtobufOptional => {
+                ): typia.Resolved<ArraySimpleProtobufOptional> => {
                     const $Reader = (typia.protobuf.assertDecode as any).Reader;
                     const $pdo0 = (reader: any, length: number = -1): any => {
                         length =

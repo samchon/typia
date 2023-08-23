@@ -5,7 +5,7 @@ import { TagPattern } from "../../../structures/TagPattern";
 export const test_misc_validateClone_TagPattern = _test_misc_validateClone(
     "TagPattern",
 )<TagPattern>(TagPattern)(
-    (input: any): typia.IValidation<typia.Primitive<TagPattern>> => {
+    (input: any): typia.IValidation<typia.Resolved<TagPattern>> => {
         const validate = (input: any): typia.IValidation<TagPattern> => {
             const errors = [] as any[];
             const __is = (input: any): input is TagPattern => {
@@ -129,7 +129,7 @@ export const test_misc_validateClone_TagPattern = _test_misc_validateClone(
                 data: success ? input : undefined,
             } as any;
         };
-        const clone = (input: TagPattern): typia.Primitive<TagPattern> => {
+        const clone = (input: TagPattern): typia.Resolved<TagPattern> => {
             const $co0 = (input: any): any => ({
                 uuid: input.uuid as any,
                 email: input.email as any,

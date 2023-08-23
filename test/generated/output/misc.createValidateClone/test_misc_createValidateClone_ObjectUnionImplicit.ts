@@ -5,7 +5,7 @@ import { ObjectUnionImplicit } from "../../../structures/ObjectUnionImplicit";
 export const test_misc_validateClone_ObjectUnionImplicit =
     _test_misc_validateClone("ObjectUnionImplicit")<ObjectUnionImplicit>(
         ObjectUnionImplicit,
-    )((input: any): typia.IValidation<typia.Primitive<ObjectUnionImplicit>> => {
+    )((input: any): typia.IValidation<typia.Resolved<ObjectUnionImplicit>> => {
         const validate = (
             input: any,
         ): typia.IValidation<ObjectUnionImplicit> => {
@@ -719,7 +719,7 @@ export const test_misc_validateClone_ObjectUnionImplicit =
         };
         const clone = (
             input: ObjectUnionImplicit,
-        ): typia.Primitive<ObjectUnionImplicit> => {
+        ): typia.Resolved<ObjectUnionImplicit> => {
             const $io0 = (input: any): boolean =>
                 "number" === typeof input.x &&
                 "number" === typeof input.y &&

@@ -8,7 +8,7 @@ export const test_misc_validateClone_ObjectUnionComposite =
     )((input) =>
         ((
             input: any,
-        ): typia.IValidation<typia.Primitive<ObjectUnionComposite>> => {
+        ): typia.IValidation<typia.Resolved<ObjectUnionComposite>> => {
             const validate = (
                 input: any,
             ): typia.IValidation<ObjectUnionComposite> => {
@@ -731,7 +731,7 @@ export const test_misc_validateClone_ObjectUnionComposite =
             };
             const clone = (
                 input: ObjectUnionComposite,
-            ): typia.Primitive<ObjectUnionComposite> => {
+            ): typia.Resolved<ObjectUnionComposite> => {
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.x && "number" === typeof input.y;
                 const $io1 = (input: any): boolean =>

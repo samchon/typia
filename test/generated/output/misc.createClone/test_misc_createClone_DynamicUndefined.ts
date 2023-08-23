@@ -5,7 +5,7 @@ import { DynamicUndefined } from "../../../structures/DynamicUndefined";
 export const test_misc_clone_DynamicUndefined = _test_misc_clone(
     "DynamicUndefined",
 )<DynamicUndefined>(DynamicUndefined)(
-    (input: DynamicUndefined): typia.Primitive<DynamicUndefined> => {
+    (input: DynamicUndefined): typia.Resolved<DynamicUndefined> => {
         const $join = (typia.misc.createClone as any).join;
         const $co0 = (input: any): any => {
             const output = {} as any;

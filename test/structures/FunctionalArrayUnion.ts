@@ -5,7 +5,6 @@ export type FunctionalArrayUnion = FunctionalArrayUnion.Union[];
 export namespace FunctionalArrayUnion {
     export const BINARABLE = false;
     export const JSONABLE = false;
-    export const PRIMITIVE = false;
 
     export type Union = Array<() => any> | number[] | string[] | null[];
     export function generate(): FunctionalArrayUnion {

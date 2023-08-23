@@ -12,7 +12,7 @@ import { Namespace } from "./functional/Namespace";
 import { Atomic } from "./typings/Atomic";
 
 import { IValidation } from "./IValidation";
-import { Primitive } from "./Primitive";
+import { Resolved } from "./Resolved";
 
 /**
  * > You must configure the generic argument `T`.
@@ -62,8 +62,8 @@ export function literals(): never {
  * Clone a data.
  *
  * Clones an instance following type `T`. If the target *input* value or its member
- * variable contains a class instance that is having a `toJSON()` method, its return
- * value would be cloned.
+ * variable contains a class instance having methods, those methods would not be
+ * cloned.
  *
  * For reference, this `typia.misc.clone()` function does not validate the input value
  * type. It just believes that the input value is following the type `T`. Therefore,
@@ -76,7 +76,7 @@ export function literals(): never {
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function clone<T>(input: T): Primitive<T>;
+export function clone<T>(input: T): Resolved<T>;
 
 /**
  * @internal
@@ -90,8 +90,8 @@ Object.assign(clone, Namespace.misc.clone("clone"));
  * Clone a data with type assertion.
  *
  * Clones an instance following type `T`, with type assertion. If the target `input`
- * value or its member variable contains a class instance that is having a `toJSON()`
- * method, its return value would be cloned.
+ * value or its member variable contains a class instance having methods, those
+ * methods would not be cloned.
  *
  * In such reason, when `input` value is not matched with the type `T`, it throws an
  * {@link TypeGuardError}. Otherwise, there's no problem on the `input` value, cloned
@@ -103,14 +103,14 @@ Object.assign(clone, Namespace.misc.clone("clone"));
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function assertClone<T>(input: T): Primitive<T>;
+export function assertClone<T>(input: T): Resolved<T>;
 
 /**
  * Clone a data with type assertion.
  *
  * Clones an instance following type `T`, with type assertion. If the target `input`
- * value or its member variable contains a class instance that is having a `toJSON()`
- * method, its return value would be cloned.
+ * value or its member variable contains a class instance having methods, those
+ * methods would not be cloned.
  *
  * In such reason, when `input` value is not matched with the type `T`, it throws an
  * {@link TypeGuardError}. Otherwise, there's no problem on the `input` value, cloned
@@ -122,7 +122,7 @@ export function assertClone<T>(input: T): Primitive<T>;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function assertClone<T>(input: unknown): Primitive<T>;
+export function assertClone<T>(input: unknown): Resolved<T>;
 
 /**
  * @internal
@@ -137,8 +137,8 @@ Object.assign(assertClone, Namespace.misc.clone("assertClone"));
  * Clone a data with type checking.
  *
  * Clones an instance following type `T`, with type checking. If the target `input`
- * value or its member variable contains a class instance that is having a `toJSON()`
- * method, its return value would be cloned.
+ * value or its member variable contains a class instance having methods, those
+ * methods would not be cloned.
  *
  * In such reason, when `input` value is not matched with the type `T`, it returns
  * `null` value instead. Otherwise, there's no problem on the `input` value, cloned
@@ -150,14 +150,14 @@ Object.assign(assertClone, Namespace.misc.clone("assertClone"));
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function isClone<T>(input: T): Primitive<T> | null;
+export function isClone<T>(input: T): Resolved<T> | null;
 
 /**
  * Clone a data with type checking.
  *
  * Clones an instance following type `T`, with type checking. If the target `input`
- * value or its member variable contains a class instance that is having a `toJSON()`
- * method, its return value would be cloned.
+ * value or its member variable contains a class instance having methods, those
+ * methods would not be cloned.
  *
  * In such reason, when `input` value is not matched with the type `T`, it returns
  * `null` value instead. Otherwise, there's no problem on the `input` value, cloned
@@ -169,7 +169,7 @@ export function isClone<T>(input: T): Primitive<T> | null;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function isClone<T>(input: unknown): Primitive<T> | null;
+export function isClone<T>(input: unknown): Resolved<T> | null;
 
 /**
  * @internal
@@ -184,8 +184,8 @@ Object.assign(isClone, Namespace.misc.clone("isClone"));
  * Clone a data with detailed type validation.
  *
  * Clones an instance following type `T`, with detailed type validation. If the target
- * `input` value or its member variable contains a class instance that is having a
- * `toJSON()` method, its return value would be cloned.
+ * `input` value or its member variable contains a class instance having methods,
+ * those methods would not be cloned.
  *
  * In such reason, when `input` value is not matched with the type `T`, it returns
  * {@link IValidation.Failure} value. Otherwise, there's no problem on the `input`
@@ -196,14 +196,14 @@ Object.assign(isClone, Namespace.misc.clone("isClone"));
  * @param input A value to be cloned
  * @returns Validation result with cloned value
  */
-export function validateClone<T>(input: T): IValidation<Primitive<T>>;
+export function validateClone<T>(input: T): IValidation<Resolved<T>>;
 
 /**
  * Clone a data with detailed type validation.
  *
  * Clones an instance following type `T`, with detailed type validation. If the target
- * `input` value or its member variable contains a class instance that is having a
- * `toJSON()` method, its return value would be cloned.
+ * `input` value or its member variable contains a class instance having methods,
+ * those methods would not be cloned.
  *
  * In such reason, when `input` value is not matched with the type `T`, it returns
  * {@link IValidation.Failure} value. Otherwise, there's no problem on the `input`
@@ -214,7 +214,7 @@ export function validateClone<T>(input: T): IValidation<Primitive<T>>;
  * @param input A value to be cloned
  * @returns Validation result with cloned value
  */
-export function validateClone<T>(input: unknown): IValidation<Primitive<T>>;
+export function validateClone<T>(input: unknown): IValidation<Resolved<T>>;
 
 /**
  * @internal
@@ -422,7 +422,7 @@ export function createClone(): never;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function createClone<T>(): (input: T) => Primitive<T>;
+export function createClone<T>(): (input: T) => Resolved<T>;
 
 /**
  * @internal
@@ -451,7 +451,7 @@ export function createAssertClone(): never;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function createAssertClone<T>(): (input: unknown) => Primitive<T>;
+export function createAssertClone<T>(): (input: unknown) => Resolved<T>;
 
 /**
  * @internal
@@ -480,7 +480,7 @@ export function createIsClone(): never;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function createIsClone<T>(): (input: unknown) => Primitive<T> | null;
+export function createIsClone<T>(): (input: unknown) => Resolved<T> | null;
 
 /**
  * @internal
@@ -511,7 +511,7 @@ export function createValidateClone(): never;
  */
 export function createValidateClone<T>(): (
     input: unknown,
-) => IValidation<Primitive<T>>;
+) => IValidation<Resolved<T>>;
 
 /**
  * @internal

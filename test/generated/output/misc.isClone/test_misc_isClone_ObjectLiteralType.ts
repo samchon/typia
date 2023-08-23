@@ -5,7 +5,7 @@ import { ObjectLiteralType } from "../../../structures/ObjectLiteralType";
 export const test_misc_isClone_ObjectLiteralType = _test_misc_isClone(
     "ObjectLiteralType",
 )<ObjectLiteralType>(ObjectLiteralType)((input) =>
-    ((input: any): typia.Primitive<ObjectLiteralType> | null => {
+    ((input: any): typia.Resolved<ObjectLiteralType> | null => {
         const is = (input: any): input is ObjectLiteralType => {
             return (
                 "object" === typeof input &&
@@ -18,7 +18,7 @@ export const test_misc_isClone_ObjectLiteralType = _test_misc_isClone(
         };
         const clone = (
             input: ObjectLiteralType,
-        ): typia.Primitive<ObjectLiteralType> => {
+        ): typia.Resolved<ObjectLiteralType> => {
             const $co0 = (input: any): any => ({
                 id: input.id as any,
                 name: input.name as any,

@@ -5,7 +5,7 @@ import { TagPattern } from "../../../structures/TagPattern";
 export const test_misc_clone_TagPattern = _test_misc_clone(
     "TagPattern",
 )<TagPattern>(TagPattern)((input) =>
-    ((input: TagPattern): typia.Primitive<TagPattern> => {
+    ((input: TagPattern): typia.Resolved<TagPattern> => {
         const $co0 = (input: any): any => ({
             uuid: input.uuid as any,
             email: input.email as any,

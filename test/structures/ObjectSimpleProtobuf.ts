@@ -36,7 +36,6 @@ export interface ObjectSimpleProtobuf {
 export namespace ObjectSimpleProtobuf {
     export const ADDABLE = false;
     export const JSONABLE = false;
-    export const PRIMITIVE = false;
 
     export function generate(): ObjectSimpleProtobuf {
         return {

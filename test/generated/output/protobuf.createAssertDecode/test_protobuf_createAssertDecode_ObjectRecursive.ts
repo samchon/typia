@@ -6,8 +6,10 @@ export const test_protobuf_assertDecode_ObjectRecursive =
     _test_protobuf_assertDecode("ObjectRecursive")<ObjectRecursive>(
         ObjectRecursive,
     )({
-        assertDecode: (input: Uint8Array): ObjectRecursive => {
-            const decode = (input: Uint8Array): ObjectRecursive => {
+        assertDecode: (input: Uint8Array): typia.Resolved<ObjectRecursive> => {
+            const decode = (
+                input: Uint8Array,
+            ): typia.Resolved<ObjectRecursive> => {
                 const $Reader = (typia.protobuf.createAssertDecode as any)
                     .Reader;
                 const $pdo0 = (reader: any, length: number = -1): any => {

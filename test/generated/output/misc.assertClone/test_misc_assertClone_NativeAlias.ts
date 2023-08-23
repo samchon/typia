@@ -5,7 +5,7 @@ import { NativeAlias } from "../../../structures/NativeAlias";
 export const test_misc_assertClone_NativeAlias = _test_misc_assertClone(
     "NativeAlias",
 )<NativeAlias>(NativeAlias)((input) =>
-    ((input: any): typia.Primitive<NativeAlias> => {
+    ((input: any): typia.Resolved<NativeAlias> => {
         const assert = (input: any): NativeAlias => {
             const __is = (input: any): input is NativeAlias => {
                 const $io0 = (input: any): boolean =>
@@ -21,12 +21,9 @@ export const test_misc_assertClone_NativeAlias = _test_misc_assertClone(
                     input.bigInt64Array instanceof BigInt64Array &&
                     input.float32Array instanceof Float32Array &&
                     input.float64Array instanceof Float64Array &&
-                    input.buffer instanceof Buffer &&
                     input.arrayBuffer instanceof ArrayBuffer &&
                     input.sharedArrayBuffer instanceof SharedArrayBuffer &&
-                    input.dataView instanceof DataView &&
-                    input.weakSet instanceof WeakSet &&
-                    input.weakMap instanceof WeakMap;
+                    input.dataView instanceof DataView;
                 return (
                     "object" === typeof input && null !== input && $io0(input)
                 );
@@ -115,12 +112,6 @@ export const test_misc_assertClone_NativeAlias = _test_misc_assertClone(
                                 expected: "Float64Array",
                                 value: input.float64Array,
                             })) &&
-                        (input.buffer instanceof Buffer ||
-                            $guard(_exceptionable, {
-                                path: _path + ".buffer",
-                                expected: "Buffer",
-                                value: input.buffer,
-                            })) &&
                         (input.arrayBuffer instanceof ArrayBuffer ||
                             $guard(_exceptionable, {
                                 path: _path + ".arrayBuffer",
@@ -138,18 +129,6 @@ export const test_misc_assertClone_NativeAlias = _test_misc_assertClone(
                                 path: _path + ".dataView",
                                 expected: "DataView",
                                 value: input.dataView,
-                            })) &&
-                        (input.weakSet instanceof WeakSet ||
-                            $guard(_exceptionable, {
-                                path: _path + ".weakSet",
-                                expected: "WeakSet",
-                                value: input.weakSet,
-                            })) &&
-                        (input.weakMap instanceof WeakMap ||
-                            $guard(_exceptionable, {
-                                path: _path + ".weakMap",
-                                expected: "WeakMap",
-                                value: input.weakMap,
                             }));
                     return (
                         ((("object" === typeof input && null !== input) ||
@@ -168,94 +147,84 @@ export const test_misc_assertClone_NativeAlias = _test_misc_assertClone(
                 })(input, "$input", true);
             return input;
         };
-        const clone = (input: NativeAlias): typia.Primitive<NativeAlias> => {
-            const $cp0 = (input: any) => input.map((elem: any) => elem as any);
+        const clone = (input: NativeAlias): typia.Resolved<NativeAlias> => {
             const $co0 = (input: any): any => ({
                 date:
-                    "object" === typeof input.date &&
-                    null !== input.date &&
-                    "function" === typeof input.date.toJSON
-                        ? (input.date.toJSON() as any)
+                    input.date instanceof Date
+                        ? new Date(input.date)
                         : (input.date as any),
                 uint8Array:
                     input.uint8Array instanceof Uint8Array
-                        ? {}
+                        ? new Uint8Array(input.uint8Array)
                         : (input.uint8Array as any),
                 uint8ClampedArray:
                     input.uint8ClampedArray instanceof Uint8ClampedArray
-                        ? {}
+                        ? new Uint8ClampedArray(input.uint8ClampedArray)
                         : (input.uint8ClampedArray as any),
                 uint16Array:
                     input.uint16Array instanceof Uint16Array
-                        ? {}
+                        ? new Uint16Array(input.uint16Array)
                         : (input.uint16Array as any),
                 uint32Array:
                     input.uint32Array instanceof Uint32Array
-                        ? {}
+                        ? new Uint32Array(input.uint32Array)
                         : (input.uint32Array as any),
                 bigUint64Array:
                     input.bigUint64Array instanceof BigUint64Array
-                        ? {}
+                        ? new BigUint64Array(input.bigUint64Array)
                         : (input.bigUint64Array as any),
                 int8Array:
                     input.int8Array instanceof Int8Array
-                        ? {}
+                        ? new Int8Array(input.int8Array)
                         : (input.int8Array as any),
                 int16Array:
                     input.int16Array instanceof Int16Array
-                        ? {}
+                        ? new Int16Array(input.int16Array)
                         : (input.int16Array as any),
                 int32Array:
                     input.int32Array instanceof Int32Array
-                        ? {}
+                        ? new Int32Array(input.int32Array)
                         : (input.int32Array as any),
                 bigInt64Array:
                     input.bigInt64Array instanceof BigInt64Array
-                        ? {}
+                        ? new BigInt64Array(input.bigInt64Array)
                         : (input.bigInt64Array as any),
                 float32Array:
                     input.float32Array instanceof Float32Array
-                        ? {}
+                        ? new Float32Array(input.float32Array)
                         : (input.float32Array as any),
                 float64Array:
                     input.float64Array instanceof Float64Array
-                        ? {}
+                        ? new Float64Array(input.float64Array)
                         : (input.float64Array as any),
-                buffer:
-                    "object" === typeof input.buffer &&
-                    null !== input.buffer &&
-                    "function" === typeof input.buffer.toJSON
-                        ? "object" === typeof input.buffer.toJSON() &&
-                          null !== input.buffer.toJSON()
-                            ? $co1(input.buffer.toJSON())
-                            : (input.buffer.toJSON() as any)
-                        : (input.buffer as any),
                 arrayBuffer:
                     input.arrayBuffer instanceof ArrayBuffer
-                        ? {}
+                        ? (() => {
+                              const buffer = new ArrayBuffer(
+                                  input.arrayBuffer.byteLength,
+                              );
+                              new Uint8Array(buffer).set(
+                                  new Uint8Array(input.arrayBuffer),
+                              );
+                              return buffer;
+                          })()
                         : (input.arrayBuffer as any),
                 sharedArrayBuffer:
                     input.sharedArrayBuffer instanceof SharedArrayBuffer
-                        ? {}
+                        ? (() => {
+                              const buffer = new SharedArrayBuffer(
+                                  input.sharedArrayBuffer.byteLength,
+                              );
+                              new Uint8Array(buffer).set(
+                                  new Uint8Array(input.sharedArrayBuffer),
+                              );
+                              return buffer;
+                          })()
                         : (input.sharedArrayBuffer as any),
                 dataView:
                     input.dataView instanceof DataView
-                        ? {}
+                        ? new DataView(input.dataView.buffer)
                         : (input.dataView as any),
-                weakSet:
-                    input.weakSet instanceof WeakSet
-                        ? {}
-                        : (input.weakSet as any),
-                weakMap:
-                    input.weakMap instanceof WeakMap
-                        ? {}
-                        : (input.weakMap as any),
-            });
-            const $co1 = (input: any): any => ({
-                type: input.type as any,
-                data: Array.isArray(input.data)
-                    ? $cp0(input.data)
-                    : (input.data as any),
             });
             return "object" === typeof input && null !== input
                 ? $co0(input)

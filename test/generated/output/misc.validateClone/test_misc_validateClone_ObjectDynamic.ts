@@ -5,7 +5,7 @@ import { ObjectDynamic } from "../../../structures/ObjectDynamic";
 export const test_misc_validateClone_ObjectDynamic = _test_misc_validateClone(
     "ObjectDynamic",
 )<ObjectDynamic>(ObjectDynamic)((input) =>
-    ((input: any): typia.IValidation<typia.Primitive<ObjectDynamic>> => {
+    ((input: any): typia.IValidation<typia.Resolved<ObjectDynamic>> => {
         const validate = (input: any): typia.IValidation<ObjectDynamic> => {
             const errors = [] as any[];
             const __is = (input: any): input is ObjectDynamic => {
@@ -93,9 +93,7 @@ export const test_misc_validateClone_ObjectDynamic = _test_misc_validateClone(
                 data: success ? input : undefined,
             } as any;
         };
-        const clone = (
-            input: ObjectDynamic,
-        ): typia.Primitive<ObjectDynamic> => {
+        const clone = (input: ObjectDynamic): typia.Resolved<ObjectDynamic> => {
             const $join = (typia.misc.validateClone as any).join;
             const $co0 = (input: any): any => {
                 const output = {} as any;

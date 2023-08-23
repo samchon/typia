@@ -8,7 +8,7 @@ import { MapUtil } from "./utils/MapUtil";
 import { CustomValidatorMap } from "./CustomValidatorMap";
 import { IRandomGenerator } from "./IRandomGenerator";
 import { IValidation } from "./IValidation";
-import { Primitive } from "./Primitive";
+import { Resolved } from "./Resolved";
 
 export * as json from "./json";
 export * as protobuf from "./protobuf";
@@ -20,6 +20,7 @@ export * from "./schemas/json/IJsonSchema";
 export * from "./IRandomGenerator";
 export * from "./IValidation";
 export * from "./Primitive";
+export * from "./Resolved";
 export * from "./TypeGuardError";
 
 /**
@@ -461,7 +462,7 @@ export function random(generator?: Partial<IRandomGenerator>): never;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function random<T>(generator?: Partial<IRandomGenerator>): Primitive<T>;
+export function random<T>(generator?: Partial<IRandomGenerator>): Resolved<T>;
 
 /**
  * @internal
@@ -688,7 +689,7 @@ export function createRandom(generator?: Partial<IRandomGenerator>): never;
  */
 export function createRandom<T>(
     generator?: Partial<IRandomGenerator>,
-): () => Primitive<T>;
+): () => Resolved<T>;
 
 /**
  * @internal

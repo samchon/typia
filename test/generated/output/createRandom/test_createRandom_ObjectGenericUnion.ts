@@ -7,7 +7,7 @@ export const test_random_ObjectGenericUnion = _test_random(
 )<ObjectGenericUnion>(ObjectGenericUnion)({
     random: (
         generator?: Partial<typia.IRandomGenerator>,
-    ): typia.Primitive<ObjectGenericUnion> => {
+    ): typia.Resolved<ObjectGenericUnion> => {
         const $pick = (typia.createRandom as any).pick;
         const $generator = (typia.createRandom as any).generator;
         const $ro0 = (

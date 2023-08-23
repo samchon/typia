@@ -1,8 +1,10 @@
+import { Resolved } from "typia";
+
 export const protobuf_equal_to =
     (name: string) =>
     <Instance>(
-        x: Instance,
-        y: Instance,
+        x: Instance | Resolved<Instance>,
+        y: Instance | Resolved<Instance>,
         tracer?: { value?: string },
     ): boolean => {
         if (name.indexOf("Class") !== -1) return true;

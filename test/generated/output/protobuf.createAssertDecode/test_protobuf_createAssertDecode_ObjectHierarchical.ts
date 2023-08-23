@@ -6,8 +6,12 @@ export const test_protobuf_assertDecode_ObjectHierarchical =
     _test_protobuf_assertDecode("ObjectHierarchical")<ObjectHierarchical>(
         ObjectHierarchical,
     )({
-        assertDecode: (input: Uint8Array): ObjectHierarchical => {
-            const decode = (input: Uint8Array): ObjectHierarchical => {
+        assertDecode: (
+            input: Uint8Array,
+        ): typia.Resolved<ObjectHierarchical> => {
+            const decode = (
+                input: Uint8Array,
+            ): typia.Resolved<ObjectHierarchical> => {
                 const $Reader = (typia.protobuf.createAssertDecode as any)
                     .Reader;
                 const $pdo0 = (reader: any, length: number = -1): any => {

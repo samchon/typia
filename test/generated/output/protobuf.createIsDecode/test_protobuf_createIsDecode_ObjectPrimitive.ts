@@ -5,7 +5,7 @@ import { ObjectPrimitive } from "../../../structures/ObjectPrimitive";
 export const test_protobuf_isDecode_ObjectPrimitive = _test_protobuf_isDecode(
     "ObjectPrimitive",
 )<ObjectPrimitive>(ObjectPrimitive)({
-    isDecode: (input: Uint8Array): ObjectPrimitive | null => {
+    isDecode: (input: Uint8Array): typia.Resolved<ObjectPrimitive> | null => {
         const is = (input: any): input is ObjectPrimitive => {
             const $io0 = (input: any): boolean =>
                 "string" === typeof input.id &&
@@ -29,7 +29,7 @@ export const test_protobuf_isDecode_ObjectPrimitive = _test_protobuf_isDecode(
                 "string" === typeof input.created_at;
             return "object" === typeof input && null !== input && $io0(input);
         };
-        const decode = (input: Uint8Array): ObjectPrimitive => {
+        const decode = (input: Uint8Array): typia.Resolved<ObjectPrimitive> => {
             const $Reader = (typia.protobuf.createIsDecode as any).Reader;
             const $pdo0 = (reader: any, length: number = -1): any => {
                 length = length < 0 ? reader.size() : reader.index() + length;

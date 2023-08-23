@@ -6,9 +6,7 @@ export const test_misc_validateClone_ArrayAtomicSimple =
     _test_misc_validateClone("ArrayAtomicSimple")<ArrayAtomicSimple>(
         ArrayAtomicSimple,
     )((input) =>
-        ((
-            input: any,
-        ): typia.IValidation<typia.Primitive<ArrayAtomicSimple>> => {
+        ((input: any): typia.IValidation<typia.Resolved<ArrayAtomicSimple>> => {
             const validate = (
                 input: any,
             ): typia.IValidation<ArrayAtomicSimple> => {
@@ -154,7 +152,7 @@ export const test_misc_validateClone_ArrayAtomicSimple =
             };
             const clone = (
                 input: ArrayAtomicSimple,
-            ): typia.Primitive<ArrayAtomicSimple> => {
+            ): typia.Resolved<ArrayAtomicSimple> => {
                 const $cp0 = (input: any) =>
                     input.map((elem: any) => elem as any);
                 const $cp1 = (input: any) =>

@@ -5,7 +5,7 @@ import { DynamicComposite } from "../../../structures/DynamicComposite";
 export const test_misc_clone_DynamicComposite = _test_misc_clone(
     "DynamicComposite",
 )<DynamicComposite>(DynamicComposite)(
-    (input: DynamicComposite): typia.Primitive<DynamicComposite> => {
+    (input: DynamicComposite): typia.Resolved<DynamicComposite> => {
         const $join = (typia.misc.createClone as any).join;
         const $co0 = (input: any): any => {
             const output = {

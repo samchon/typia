@@ -5,7 +5,7 @@ import { ObjectGeneric } from "../../../structures/ObjectGeneric";
 export const test_misc_validateClone_ObjectGeneric = _test_misc_validateClone(
     "ObjectGeneric",
 )<ObjectGeneric>(ObjectGeneric)(
-    (input: any): typia.IValidation<typia.Primitive<ObjectGeneric>> => {
+    (input: any): typia.IValidation<typia.Resolved<ObjectGeneric>> => {
         const validate = (input: any): typia.IValidation<ObjectGeneric> => {
             const errors = [] as any[];
             const __is = (input: any): input is ObjectGeneric => {
@@ -461,9 +461,7 @@ export const test_misc_validateClone_ObjectGeneric = _test_misc_validateClone(
                 data: success ? input : undefined,
             } as any;
         };
-        const clone = (
-            input: ObjectGeneric,
-        ): typia.Primitive<ObjectGeneric> => {
+        const clone = (input: ObjectGeneric): typia.Resolved<ObjectGeneric> => {
             const $io0 = (input: any): boolean =>
                 "boolean" === typeof input.value &&
                 "object" === typeof input.child &&

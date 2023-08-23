@@ -1,19 +1,17 @@
-import { Primitive } from "typia/lib/Primitive";
+import { Resolved } from "typia";
 
 import { TestStructure } from "../helpers/TestStructure";
-import { primitive_clone } from "../helpers/primitive_clone";
-import { primitive_equal_to } from "../helpers/primitive_equal_to";
+import { resolved_equal_to } from "../helpers/resolved_equal_to";
 
 export const _test_misc_clone =
     (name: string) =>
     <T>(factory: TestStructure<T>) =>
-    (clone: (input: T) => Primitive<T>) =>
+    (clone: (input: T) => Resolved<T>) =>
     () => {
         const data: T = factory.generate();
-        const cloned: Primitive<T> = clone(data);
-        const primitived: Primitive<T> = primitive_clone(data);
+        const cloned: Resolved<T> = clone(data);
 
-        if (primitive_equal_to(cloned, primitived) === false) {
+        if (resolved_equal_to(name)(data, cloned) === false) {
             throw new Error(
                 `Bug on typia.misc.clone(): failed to clone the ${name} type.`,
             );

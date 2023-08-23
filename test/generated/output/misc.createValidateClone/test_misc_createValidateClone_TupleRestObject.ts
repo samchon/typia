@@ -5,7 +5,7 @@ import { TupleRestObject } from "../../../structures/TupleRestObject";
 export const test_misc_validateClone_TupleRestObject = _test_misc_validateClone(
     "TupleRestObject",
 )<TupleRestObject>(TupleRestObject)(
-    (input: any): typia.IValidation<typia.Primitive<TupleRestObject>> => {
+    (input: any): typia.IValidation<typia.Resolved<TupleRestObject>> => {
         const validate = (input: any): typia.IValidation<TupleRestObject> => {
             const errors = [] as any[];
             const __is = (input: any): input is TupleRestObject => {
@@ -135,7 +135,7 @@ export const test_misc_validateClone_TupleRestObject = _test_misc_validateClone(
         };
         const clone = (
             input: TupleRestObject,
-        ): typia.Primitive<TupleRestObject> => {
+        ): typia.Resolved<TupleRestObject> => {
             const $io0 = (input: any): boolean =>
                 "string" === typeof input.value;
             const $cp0 = (input: any) =>

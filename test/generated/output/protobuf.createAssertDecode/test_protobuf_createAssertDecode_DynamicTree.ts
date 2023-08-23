@@ -4,8 +4,8 @@ import { DynamicTree } from "../../../structures/DynamicTree";
 
 export const test_protobuf_assertDecode_DynamicTree =
     _test_protobuf_assertDecode("DynamicTree")<DynamicTree>(DynamicTree)({
-        assertDecode: (input: Uint8Array): DynamicTree => {
-            const decode = (input: Uint8Array): DynamicTree => {
+        assertDecode: (input: Uint8Array): typia.Resolved<DynamicTree> => {
+            const decode = (input: Uint8Array): typia.Resolved<DynamicTree> => {
                 const $Reader = (typia.protobuf.createAssertDecode as any)
                     .Reader;
                 const $pdo0 = (reader: any, length: number = -1): any => {

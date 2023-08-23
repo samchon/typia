@@ -5,7 +5,7 @@ import { DynamicComposite } from "../../../structures/DynamicComposite";
 export const test_misc_validateClone_DynamicComposite =
     _test_misc_validateClone("DynamicComposite")<DynamicComposite>(
         DynamicComposite,
-    )((input: any): typia.IValidation<typia.Primitive<DynamicComposite>> => {
+    )((input: any): typia.IValidation<typia.Resolved<DynamicComposite>> => {
         const validate = (input: any): typia.IValidation<DynamicComposite> => {
             const errors = [] as any[];
             const __is = (input: any): input is DynamicComposite => {
@@ -176,7 +176,7 @@ export const test_misc_validateClone_DynamicComposite =
         };
         const clone = (
             input: DynamicComposite,
-        ): typia.Primitive<DynamicComposite> => {
+        ): typia.Resolved<DynamicComposite> => {
             const $join = (typia.misc.createValidateClone as any).join;
             const $co0 = (input: any): any => {
                 const output = {

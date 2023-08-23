@@ -6,7 +6,9 @@ export const test_protobuf_decode_ArraySimpleProtobufNullable =
     _test_protobuf_decode(
         "ArraySimpleProtobufNullable",
     )<ArraySimpleProtobufNullable>(ArraySimpleProtobufNullable)({
-        decode: (input: Uint8Array): ArraySimpleProtobufNullable => {
+        decode: (
+            input: Uint8Array,
+        ): typia.Resolved<ArraySimpleProtobufNullable> => {
             const $Reader = (typia.protobuf.createDecode as any).Reader;
             const $pdo0 = (reader: any, length: number = -1): any => {
                 length = length < 0 ? reader.size() : reader.index() + length;

@@ -5,7 +5,7 @@ import { ObjectInternal } from "../../../structures/ObjectInternal";
 export const test_protobuf_decode_ObjectInternal = _test_protobuf_decode(
     "ObjectInternal",
 )<ObjectInternal>(ObjectInternal)({
-    decode: (input: Uint8Array): ObjectInternal => {
+    decode: (input: Uint8Array): typia.Resolved<ObjectInternal> => {
         const $Reader = (typia.protobuf.createDecode as any).Reader;
         const $pdo0 = (reader: any, length: number = -1): any => {
             length = length < 0 ? reader.size() : reader.index() + length;

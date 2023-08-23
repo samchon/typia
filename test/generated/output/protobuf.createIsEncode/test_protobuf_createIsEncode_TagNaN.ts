@@ -66,7 +66,7 @@ export const test_protobuf_isEncode_TagNaN = _test_protobuf_isEncode(
     },
     message:
         'syntax = "proto3";\n\nmessage TagNaN {\n    required double value = 1;\n    required double ranged = 2;\n    required double minimum = 3;\n    required double maximum = 4;\n    required double multipleOf = 5;\n    required int32 typed = 6;\n}',
-    decode: (input: Uint8Array): TagNaN => {
+    decode: (input: Uint8Array): typia.Resolved<TagNaN> => {
         const $Reader = (typia.protobuf.createDecode as any).Reader;
         const $pdo0 = (reader: any, length: number = -1): any => {
             length = length < 0 ? reader.size() : reader.index() + length;

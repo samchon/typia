@@ -5,7 +5,7 @@ import { ObjectAlias } from "../../../structures/ObjectAlias";
 export const test_misc_isClone_ObjectAlias = _test_misc_isClone(
     "ObjectAlias",
 )<ObjectAlias>(ObjectAlias)((input) =>
-    ((input: any): typia.Primitive<ObjectAlias> | null => {
+    ((input: any): typia.Resolved<ObjectAlias> | null => {
         const is = (input: any): input is ObjectAlias => {
             const $io0 = (input: any): boolean =>
                 (null === input.id || "string" === typeof input.id) &&
@@ -28,7 +28,7 @@ export const test_misc_isClone_ObjectAlias = _test_misc_isClone(
                 )
             );
         };
-        const clone = (input: ObjectAlias): typia.Primitive<ObjectAlias> => {
+        const clone = (input: ObjectAlias): typia.Resolved<ObjectAlias> => {
             const $cp0 = (input: any) =>
                 input.map((elem: any) =>
                     "object" === typeof elem && null !== elem

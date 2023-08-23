@@ -5,7 +5,7 @@ import { MapSimpleProtobuf } from "../../../structures/MapSimpleProtobuf";
 export const test_protobuf_isDecode_MapSimpleProtobuf = _test_protobuf_isDecode(
     "MapSimpleProtobuf",
 )<MapSimpleProtobuf>(MapSimpleProtobuf)({
-    isDecode: (input: Uint8Array): MapSimpleProtobuf | null => {
+    isDecode: (input: Uint8Array): typia.Resolved<MapSimpleProtobuf> | null => {
         const is = (input: any): input is MapSimpleProtobuf => {
             const $io0 = (input: any): boolean =>
                 input.boolean instanceof Map &&
@@ -81,7 +81,9 @@ export const test_protobuf_isDecode_MapSimpleProtobuf = _test_protobuf_isDecode(
                     ))();
             return "object" === typeof input && null !== input && $io0(input);
         };
-        const decode = (input: Uint8Array): MapSimpleProtobuf => {
+        const decode = (
+            input: Uint8Array,
+        ): typia.Resolved<MapSimpleProtobuf> => {
             const $Reader = (typia.protobuf.createIsDecode as any).Reader;
             const $pdo0 = (reader: any, length: number = -1): any => {
                 length = length < 0 ? reader.size() : reader.index() + length;

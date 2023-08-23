@@ -5,8 +5,8 @@ import { TagLength } from "../../../structures/TagLength";
 export const test_protobuf_assertDecode_TagLength = _test_protobuf_assertDecode(
     "TagLength",
 )<TagLength>(TagLength)({
-    assertDecode: (input: Uint8Array): TagLength => {
-        const decode = (input: Uint8Array): TagLength => {
+    assertDecode: (input: Uint8Array): typia.Resolved<TagLength> => {
+        const decode = (input: Uint8Array): typia.Resolved<TagLength> => {
             const $Reader = (typia.protobuf.createAssertDecode as any).Reader;
             const $pdo0 = (reader: any, length: number = -1): any => {
                 length = length < 0 ? reader.size() : reader.index() + length;

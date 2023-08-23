@@ -8,7 +8,7 @@ export const test_misc_validateClone_ArrayHierarchicalPointer =
     )<ArrayHierarchicalPointer>(ArrayHierarchicalPointer)(
         (
             input: any,
-        ): typia.IValidation<typia.Primitive<ArrayHierarchicalPointer>> => {
+        ): typia.IValidation<typia.Resolved<ArrayHierarchicalPointer>> => {
             const validate = (
                 input: any,
             ): typia.IValidation<ArrayHierarchicalPointer> => {
@@ -435,7 +435,7 @@ export const test_misc_validateClone_ArrayHierarchicalPointer =
             };
             const clone = (
                 input: ArrayHierarchicalPointer,
-            ): typia.Primitive<ArrayHierarchicalPointer> => {
+            ): typia.Resolved<ArrayHierarchicalPointer> => {
                 const $io1 = (input: any): boolean =>
                     "number" === typeof input.id &&
                     "number" === typeof input.serial &&

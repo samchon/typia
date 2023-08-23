@@ -5,7 +5,7 @@ import { TagLength } from "../../../structures/TagLength";
 export const test_protobuf_isDecode_TagLength = _test_protobuf_isDecode(
     "TagLength",
 )<TagLength>(TagLength)({
-    isDecode: (input: Uint8Array): TagLength | null => {
+    isDecode: (input: Uint8Array): typia.Resolved<TagLength> | null => {
         const is = (input: any): input is TagLength => {
             const $io0 = (input: any): boolean =>
                 Array.isArray(input.value) &&
@@ -28,7 +28,7 @@ export const test_protobuf_isDecode_TagLength = _test_protobuf_isDecode(
                 19 >= input.equal.length;
             return "object" === typeof input && null !== input && $io0(input);
         };
-        const decode = (input: Uint8Array): TagLength => {
+        const decode = (input: Uint8Array): typia.Resolved<TagLength> => {
             const $Reader = (typia.protobuf.createIsDecode as any).Reader;
             const $pdo0 = (reader: any, length: number = -1): any => {
                 length = length < 0 ? reader.size() : reader.index() + length;

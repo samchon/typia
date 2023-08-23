@@ -4,7 +4,7 @@ import { SetAlias } from "../../../structures/SetAlias";
 
 export const test_misc_assertClone_SetAlias = _test_misc_assertClone(
     "SetAlias",
-)<SetAlias>(SetAlias)((input: any): typia.Primitive<SetAlias> => {
+)<SetAlias>(SetAlias)((input: any): typia.Resolved<SetAlias> => {
     const assert = (input: any): SetAlias => {
         const __is = (input: any): input is SetAlias => {
             const $io0 = (input: any): boolean =>
@@ -257,18 +257,67 @@ export const test_misc_assertClone_SetAlias = _test_misc_assertClone(
             })(input, "$input", true);
         return input;
     };
-    const clone = (input: SetAlias): typia.Primitive<SetAlias> => {
+    const clone = (input: SetAlias): typia.Resolved<SetAlias> => {
         const $io1 = (input: any): boolean =>
             "string" === typeof input.id &&
             "string" === typeof input.name &&
             "number" === typeof input.age;
+        const $cp0 = (input: any) => input.map((elem: any) => elem as any);
         const $co0 = (input: any): any => ({
             booleans:
-                input.booleans instanceof Set ? {} : (input.booleans as any),
-            numbers: input.numbers instanceof Set ? {} : (input.numbers as any),
-            strings: input.strings instanceof Set ? {} : (input.strings as any),
-            arrays: input.arrays instanceof Set ? {} : (input.arrays as any),
-            objects: input.objects instanceof Set ? {} : (input.objects as any),
+                input.booleans instanceof Set
+                    ? (() =>
+                          new Set<any>(
+                              [...input.booleans].map(
+                                  (elem: any) => elem as any,
+                              ),
+                          ))()
+                    : (input.booleans as any),
+            numbers:
+                input.numbers instanceof Set
+                    ? (() =>
+                          new Set<any>(
+                              [...input.numbers].map(
+                                  (elem: any) => elem as any,
+                              ),
+                          ))()
+                    : (input.numbers as any),
+            strings:
+                input.strings instanceof Set
+                    ? (() =>
+                          new Set<any>(
+                              [...input.strings].map(
+                                  (elem: any) => elem as any,
+                              ),
+                          ))()
+                    : (input.strings as any),
+            arrays:
+                input.arrays instanceof Set
+                    ? (() =>
+                          new Set<any>(
+                              [...input.arrays].map((elem: any) =>
+                                  Array.isArray(elem)
+                                      ? $cp0(elem)
+                                      : (elem as any),
+                              ),
+                          ))()
+                    : (input.arrays as any),
+            objects:
+                input.objects instanceof Set
+                    ? (() =>
+                          new Set<any>(
+                              [...input.objects].map((elem: any) =>
+                                  "object" === typeof elem && null !== elem
+                                      ? $co1(elem)
+                                      : (elem as any),
+                              ),
+                          ))()
+                    : (input.objects as any),
+        });
+        const $co1 = (input: any): any => ({
+            id: input.id as any,
+            name: input.name as any,
+            age: input.age as any,
         });
         return "object" === typeof input && null !== input
             ? $co0(input)

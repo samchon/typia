@@ -8,7 +8,7 @@ export const test_misc_validateClone_ObjectLiteralProperty =
     )(
         (
             input: any,
-        ): typia.IValidation<typia.Primitive<ObjectLiteralProperty>> => {
+        ): typia.IValidation<typia.Resolved<ObjectLiteralProperty>> => {
             const validate = (
                 input: any,
             ): typia.IValidation<ObjectLiteralProperty> => {
@@ -95,7 +95,7 @@ export const test_misc_validateClone_ObjectLiteralProperty =
             };
             const clone = (
                 input: ObjectLiteralProperty,
-            ): typia.Primitive<ObjectLiteralProperty> => {
+            ): typia.Resolved<ObjectLiteralProperty> => {
                 const $co0 = (input: any): any => ({
                     "something-interesting-do-you-want?": input[
                         "something-interesting-do-you-want?"

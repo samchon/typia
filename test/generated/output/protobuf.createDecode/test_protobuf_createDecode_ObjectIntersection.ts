@@ -5,7 +5,7 @@ import { ObjectIntersection } from "../../../structures/ObjectIntersection";
 export const test_protobuf_decode_ObjectIntersection = _test_protobuf_decode(
     "ObjectIntersection",
 )<ObjectIntersection>(ObjectIntersection)({
-    decode: (input: Uint8Array): ObjectIntersection => {
+    decode: (input: Uint8Array): typia.Resolved<ObjectIntersection> => {
         const $Reader = (typia.protobuf.createDecode as any).Reader;
         const $pdo0 = (reader: any, length: number = -1): any => {
             length = length < 0 ? reader.size() : reader.index() + length;

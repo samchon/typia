@@ -9,7 +9,9 @@ export const test_protobuf_validateDecode_ObjectUnionExplicitPointer =
         validateDecode: (input) =>
             ((
                 input: Uint8Array,
-            ): typia.IValidation<ObjectUnionExplicitPointer> => {
+            ): typia.IValidation<
+                typia.Resolved<ObjectUnionExplicitPointer>
+            > => {
                 const validate = (
                     input: any,
                 ): typia.IValidation<ObjectUnionExplicitPointer> => {
@@ -847,7 +849,7 @@ export const test_protobuf_validateDecode_ObjectUnionExplicitPointer =
                 };
                 const decode = (
                     input: Uint8Array,
-                ): ObjectUnionExplicitPointer => {
+                ): typia.Resolved<ObjectUnionExplicitPointer> => {
                     const $Reader = (typia.protobuf.validateDecode as any)
                         .Reader;
                     const $pdo0 = (reader: any, length: number = -1): any => {

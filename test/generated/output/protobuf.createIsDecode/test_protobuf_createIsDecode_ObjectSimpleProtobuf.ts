@@ -6,7 +6,9 @@ export const test_protobuf_isDecode_ObjectSimpleProtobuf =
     _test_protobuf_isDecode("ObjectSimpleProtobuf")<ObjectSimpleProtobuf>(
         ObjectSimpleProtobuf,
     )({
-        isDecode: (input: Uint8Array): ObjectSimpleProtobuf | null => {
+        isDecode: (
+            input: Uint8Array,
+        ): typia.Resolved<ObjectSimpleProtobuf> | null => {
             const is = (input: any): input is ObjectSimpleProtobuf => {
                 const $io0 = (input: any): boolean =>
                     "boolean" === typeof input.bool &&
@@ -35,7 +37,9 @@ export const test_protobuf_isDecode_ObjectSimpleProtobuf =
                     "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            const decode = (input: Uint8Array): ObjectSimpleProtobuf => {
+            const decode = (
+                input: Uint8Array,
+            ): typia.Resolved<ObjectSimpleProtobuf> => {
                 const $Reader = (typia.protobuf.createIsDecode as any).Reader;
                 const $pdo0 = (reader: any, length: number = -1): any => {
                     length =

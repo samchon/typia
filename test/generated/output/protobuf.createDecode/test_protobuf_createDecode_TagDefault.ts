@@ -5,7 +5,7 @@ import { TagDefault } from "../../../structures/TagDefault";
 export const test_protobuf_decode_TagDefault = _test_protobuf_decode(
     "TagDefault",
 )<TagDefault>(TagDefault)({
-    decode: (input: Uint8Array): TagDefault => {
+    decode: (input: Uint8Array): typia.Resolved<TagDefault> => {
         const $Reader = (typia.protobuf.createDecode as any).Reader;
         const $pdo0 = (reader: any, length: number = -1): any => {
             length = length < 0 ? reader.size() : reader.index() + length;

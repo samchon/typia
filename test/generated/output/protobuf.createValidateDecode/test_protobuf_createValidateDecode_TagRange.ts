@@ -4,7 +4,9 @@ import { TagRange } from "../../../structures/TagRange";
 
 export const test_protobuf_validateDecode_TagRange =
     _test_protobuf_validateDecode("TagRange")<TagRange>(TagRange)({
-        validateDecode: (input: Uint8Array): typia.IValidation<TagRange> => {
+        validateDecode: (
+            input: Uint8Array,
+        ): typia.IValidation<typia.Resolved<TagRange>> => {
             const validate = (input: any): typia.IValidation<TagRange> => {
                 const errors = [] as any[];
                 const __is = (input: any): input is TagRange => {
@@ -459,7 +461,7 @@ export const test_protobuf_validateDecode_TagRange =
                     data: success ? input : undefined,
                 } as any;
             };
-            const decode = (input: Uint8Array): TagRange => {
+            const decode = (input: Uint8Array): typia.Resolved<TagRange> => {
                 const $Reader = (typia.protobuf.createValidateDecode as any)
                     .Reader;
                 const $pdo0 = (reader: any, length: number = -1): any => {

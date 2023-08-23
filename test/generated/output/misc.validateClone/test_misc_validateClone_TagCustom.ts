@@ -5,7 +5,7 @@ import { TagCustom } from "../../../structures/TagCustom";
 export const test_misc_validateClone_TagCustom = _test_misc_validateClone(
     "TagCustom",
 )<TagCustom>(TagCustom)((input) =>
-    ((input: any): typia.IValidation<typia.Primitive<TagCustom>> => {
+    ((input: any): typia.IValidation<typia.Resolved<TagCustom>> => {
         const validate = (input: any): typia.IValidation<TagCustom> => {
             const errors = [] as any[];
             const __is = (input: any): input is TagCustom => {
@@ -136,7 +136,7 @@ export const test_misc_validateClone_TagCustom = _test_misc_validateClone(
                 data: success ? input : undefined,
             } as any;
         };
-        const clone = (input: TagCustom): typia.Primitive<TagCustom> => {
+        const clone = (input: TagCustom): typia.Resolved<TagCustom> => {
             const $is_uuid = (typia.misc.validateClone as any).is_uuid;
             const $is_custom = (typia.misc.validateClone as any).is_custom;
             const $co0 = (input: any): any => ({

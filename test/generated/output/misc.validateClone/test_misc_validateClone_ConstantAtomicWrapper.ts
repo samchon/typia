@@ -8,7 +8,7 @@ export const test_misc_validateClone_ConstantAtomicWrapper =
     )((input) =>
         ((
             input: any,
-        ): typia.IValidation<typia.Primitive<ConstantAtomicWrapper>> => {
+        ): typia.IValidation<typia.Resolved<ConstantAtomicWrapper>> => {
             const validate = (
                 input: any,
             ): typia.IValidation<ConstantAtomicWrapper> => {
@@ -162,7 +162,7 @@ export const test_misc_validateClone_ConstantAtomicWrapper =
             };
             const clone = (
                 input: ConstantAtomicWrapper,
-            ): typia.Primitive<ConstantAtomicWrapper> => {
+            ): typia.Resolved<ConstantAtomicWrapper> => {
                 const $io0 = (input: any): boolean =>
                     "boolean" === typeof input.value;
                 const $io1 = (input: any): boolean =>

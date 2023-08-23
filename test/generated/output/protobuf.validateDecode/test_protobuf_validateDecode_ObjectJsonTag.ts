@@ -7,7 +7,9 @@ export const test_protobuf_validateDecode_ObjectJsonTag =
         ObjectJsonTag,
     )({
         validateDecode: (input) =>
-            ((input: Uint8Array): typia.IValidation<ObjectJsonTag> => {
+            ((
+                input: Uint8Array,
+            ): typia.IValidation<typia.Resolved<ObjectJsonTag>> => {
                 const validate = (
                     input: any,
                 ): typia.IValidation<ObjectJsonTag> => {
@@ -129,7 +131,9 @@ export const test_protobuf_validateDecode_ObjectJsonTag =
                         data: success ? input : undefined,
                     } as any;
                 };
-                const decode = (input: Uint8Array): ObjectJsonTag => {
+                const decode = (
+                    input: Uint8Array,
+                ): typia.Resolved<ObjectJsonTag> => {
                     const $Reader = (typia.protobuf.validateDecode as any)
                         .Reader;
                     const $pdo0 = (reader: any, length: number = -1): any => {

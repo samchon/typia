@@ -5,7 +5,7 @@ import { ArrayAny } from "../../../structures/ArrayAny";
 export const test_misc_assertClone_ArrayAny = _test_misc_assertClone(
     "ArrayAny",
 )<ArrayAny>(ArrayAny)((input) =>
-    ((input: any): typia.Primitive<ArrayAny> => {
+    ((input: any): typia.Resolved<ArrayAny> => {
         const assert = (input: any): ArrayAny => {
             const __is = (input: any): input is ArrayAny => {
                 const $io0 = (input: any): boolean =>
@@ -125,7 +125,7 @@ export const test_misc_assertClone_ArrayAny = _test_misc_assertClone(
                 })(input, "$input", true);
             return input;
         };
-        const clone = (input: ArrayAny): typia.Primitive<ArrayAny> => {
+        const clone = (input: ArrayAny): typia.Resolved<ArrayAny> => {
             const $any = (typia.misc.assertClone as any).any;
             const $co0 = (input: any): any => ({
                 anys: $any(input.anys),

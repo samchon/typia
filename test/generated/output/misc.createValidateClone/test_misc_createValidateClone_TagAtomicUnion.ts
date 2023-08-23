@@ -5,7 +5,7 @@ import { TagAtomicUnion } from "../../../structures/TagAtomicUnion";
 export const test_misc_validateClone_TagAtomicUnion = _test_misc_validateClone(
     "TagAtomicUnion",
 )<TagAtomicUnion>(TagAtomicUnion)(
-    (input: any): typia.IValidation<typia.Primitive<TagAtomicUnion>> => {
+    (input: any): typia.IValidation<typia.Resolved<TagAtomicUnion>> => {
         const validate = (input: any): typia.IValidation<TagAtomicUnion> => {
             const errors = [] as any[];
             const __is = (input: any): input is TagAtomicUnion => {
@@ -147,7 +147,7 @@ export const test_misc_validateClone_TagAtomicUnion = _test_misc_validateClone(
         };
         const clone = (
             input: TagAtomicUnion,
-        ): typia.Primitive<TagAtomicUnion> => {
+        ): typia.Resolved<TagAtomicUnion> => {
             const $io1 = (input: any): boolean =>
                 ("string" === typeof input.value &&
                     3 <= input.value.length &&

@@ -5,7 +5,7 @@ import { ArrayAtomicAlias } from "../../../structures/ArrayAtomicAlias";
 export const test_misc_clone_ArrayAtomicAlias = _test_misc_clone(
     "ArrayAtomicAlias",
 )<ArrayAtomicAlias>(ArrayAtomicAlias)(
-    (input: ArrayAtomicAlias): typia.Primitive<ArrayAtomicAlias> => {
+    (input: ArrayAtomicAlias): typia.Resolved<ArrayAtomicAlias> => {
         const $cp0 = (input: any) => input.map((elem: any) => elem as any);
         const $cp1 = (input: any) => input.map((elem: any) => elem as any);
         const $cp2 = (input: any) => input.map((elem: any) => elem as any);

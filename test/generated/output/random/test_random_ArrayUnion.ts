@@ -8,7 +8,7 @@ export const test_random_ArrayUnion = _test_random("ArrayUnion")<ArrayUnion>(
     random: () =>
         ((
             generator?: Partial<typia.IRandomGenerator>,
-        ): typia.Primitive<ArrayUnion> => {
+        ): typia.Resolved<ArrayUnion> => {
             const $generator = (typia.random as any).generator;
             const $pick = (typia.random as any).pick;
             return (generator?.array ?? $generator.array)(() =>

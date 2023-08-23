@@ -5,7 +5,7 @@ import { TagFormat } from "../../../structures/TagFormat";
 export const test_protobuf_isDecode_TagFormat = _test_protobuf_isDecode(
     "TagFormat",
 )<TagFormat>(TagFormat)({
-    isDecode: (input: Uint8Array): TagFormat | null => {
+    isDecode: (input: Uint8Array): typia.Resolved<TagFormat> | null => {
         const is = (input: any): input is TagFormat => {
             const $is_uuid = (typia.protobuf.createIsDecode as any).is_uuid;
             const $is_email = (typia.protobuf.createIsDecode as any).is_email;
@@ -35,7 +35,7 @@ export const test_protobuf_isDecode_TagFormat = _test_protobuf_isDecode(
                 "string" === typeof (input as any).custom
             );
         };
-        const decode = (input: Uint8Array): TagFormat => {
+        const decode = (input: Uint8Array): typia.Resolved<TagFormat> => {
             const $Reader = (typia.protobuf.createIsDecode as any).Reader;
             const $pdo0 = (reader: any, length: number = -1): any => {
                 length = length < 0 ? reader.size() : reader.index() + length;

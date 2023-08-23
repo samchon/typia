@@ -7,7 +7,7 @@ export const test_protobuf_decode_MapSimpleProtobufNullable =
         "MapSimpleProtobufNullable",
     )<MapSimpleProtobufNullable>(MapSimpleProtobufNullable)({
         decode: (input) =>
-            ((input: Uint8Array): MapSimpleProtobufNullable => {
+            ((input: Uint8Array): typia.Resolved<MapSimpleProtobufNullable> => {
                 const $Reader = (typia.protobuf.decode as any).Reader;
                 const $pdo0 = (reader: any, length: number = -1): any => {
                     length =

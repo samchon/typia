@@ -5,7 +5,7 @@ import { ObjectOptional } from "../../../structures/ObjectOptional";
 export const test_protobuf_isDecode_ObjectOptional = _test_protobuf_isDecode(
     "ObjectOptional",
 )<ObjectOptional>(ObjectOptional)({
-    isDecode: (input: Uint8Array): ObjectOptional | null => {
+    isDecode: (input: Uint8Array): typia.Resolved<ObjectOptional> | null => {
         const is = (input: any): input is ObjectOptional => {
             const $io0 = (input: any): boolean =>
                 (undefined === input.id || "string" === typeof input.id) &&
@@ -22,7 +22,7 @@ export const test_protobuf_isDecode_ObjectOptional = _test_protobuf_isDecode(
                 $io0(input)
             );
         };
-        const decode = (input: Uint8Array): ObjectOptional => {
+        const decode = (input: Uint8Array): typia.Resolved<ObjectOptional> => {
             const $Reader = (typia.protobuf.createIsDecode as any).Reader;
             const $pdo0 = (reader: any, length: number = -1): any => {
                 length = length < 0 ? reader.size() : reader.index() + length;

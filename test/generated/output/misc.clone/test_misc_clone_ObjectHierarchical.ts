@@ -5,7 +5,7 @@ import { ObjectHierarchical } from "../../../structures/ObjectHierarchical";
 export const test_misc_clone_ObjectHierarchical = _test_misc_clone(
     "ObjectHierarchical",
 )<ObjectHierarchical>(ObjectHierarchical)((input) =>
-    ((input: ObjectHierarchical): typia.Primitive<ObjectHierarchical> => {
+    ((input: ObjectHierarchical): typia.Resolved<ObjectHierarchical> => {
         const $io1 = (input: any): boolean =>
             "number" === typeof input.id &&
             "string" === typeof input.code &&

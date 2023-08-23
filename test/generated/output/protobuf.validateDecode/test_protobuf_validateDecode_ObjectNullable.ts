@@ -7,7 +7,9 @@ export const test_protobuf_validateDecode_ObjectNullable =
         ObjectNullable,
     )({
         validateDecode: (input) =>
-            ((input: Uint8Array): typia.IValidation<ObjectNullable> => {
+            ((
+                input: Uint8Array,
+            ): typia.IValidation<typia.Resolved<ObjectNullable>> => {
                 const validate = (
                     input: any,
                 ): typia.IValidation<ObjectNullable> => {
@@ -282,7 +284,9 @@ export const test_protobuf_validateDecode_ObjectNullable =
                         data: success ? input : undefined,
                     } as any;
                 };
-                const decode = (input: Uint8Array): ObjectNullable => {
+                const decode = (
+                    input: Uint8Array,
+                ): typia.Resolved<ObjectNullable> => {
                     const $Reader = (typia.protobuf.validateDecode as any)
                         .Reader;
                     const $pdo0 = (reader: any, length: number = -1): any => {

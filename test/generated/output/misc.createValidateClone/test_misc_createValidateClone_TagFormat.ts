@@ -5,7 +5,7 @@ import { TagFormat } from "../../../structures/TagFormat";
 export const test_misc_validateClone_TagFormat = _test_misc_validateClone(
     "TagFormat",
 )<TagFormat>(TagFormat)(
-    (input: any): typia.IValidation<typia.Primitive<TagFormat>> => {
+    (input: any): typia.IValidation<typia.Resolved<TagFormat>> => {
         const validate = (input: any): typia.IValidation<TagFormat> => {
             const errors = [] as any[];
             const __is = (input: any): input is TagFormat => {
@@ -185,7 +185,7 @@ export const test_misc_validateClone_TagFormat = _test_misc_validateClone(
                 data: success ? input : undefined,
             } as any;
         };
-        const clone = (input: TagFormat): typia.Primitive<TagFormat> => {
+        const clone = (input: TagFormat): typia.Resolved<TagFormat> => {
             const $is_uuid = (typia.misc.createValidateClone as any).is_uuid;
             const $is_email = (typia.misc.createValidateClone as any).is_email;
             const $is_url = (typia.misc.createValidateClone as any).is_url;

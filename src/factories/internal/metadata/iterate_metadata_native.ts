@@ -21,12 +21,6 @@ export const iterate_metadata_native =
             return true;
         }
 
-        const complicate = COMPLICATES.get(name);
-        if (complicate && validator(complicate)) {
-            ArrayUtil.set(meta.natives, complicate.name ?? name, (str) => str);
-            return true;
-        }
-
         for (const generic of GENERICS)
             if (
                 name.substring(0, generic.name.length) === generic.name &&
@@ -189,9 +183,6 @@ const SIMPLES: Map<string, IClassInfo> = new Map([
             })),
         },
     ],
-]);
-const COMPLICATES: Map<string, IClassInfo> = new Map([
-    [`'buffer'.global.Buffer`, getBinaryProps("Buffer")],
 ]);
 const GENERICS: Array<IClassInfo & { name: string }> = [
     "WeakMap",

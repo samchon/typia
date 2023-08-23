@@ -25,7 +25,7 @@ export namespace MiscIsCloneProgrammer {
                 ],
                 ts.factory.createUnionTypeNode([
                     ts.factory.createTypeReferenceNode(
-                        `typia.Primitive<${
+                        `typia.Resolved<${
                             name ??
                             TypeFactory.getFullName(project.checker)(type)
                         }>`,

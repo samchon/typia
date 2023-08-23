@@ -5,7 +5,7 @@ import { ArrayRepeatedUnion } from "../../../structures/ArrayRepeatedUnion";
 export const test_misc_assertClone_ArrayRepeatedUnion = _test_misc_assertClone(
     "ArrayRepeatedUnion",
 )<ArrayRepeatedUnion>(ArrayRepeatedUnion)((input) =>
-    ((input: any): typia.Primitive<ArrayRepeatedUnion> => {
+    ((input: any): typia.Resolved<ArrayRepeatedUnion> => {
         const assert = (input: any): ArrayRepeatedUnion => {
             const __is = (input: any): input is ArrayRepeatedUnion => {
                 const $ip0 = (input: any) => {
@@ -426,7 +426,7 @@ export const test_misc_assertClone_ArrayRepeatedUnion = _test_misc_assertClone(
         };
         const clone = (
             input: ArrayRepeatedUnion,
-        ): typia.Primitive<ArrayRepeatedUnion> => {
+        ): typia.Resolved<ArrayRepeatedUnion> => {
             const $io0 = (input: any): boolean =>
                 "object" === typeof input.scale &&
                 null !== input.scale &&

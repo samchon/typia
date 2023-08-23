@@ -6,7 +6,9 @@ export const test_protobuf_isDecode_ArrayHierarchicalPointer =
     _test_protobuf_isDecode(
         "ArrayHierarchicalPointer",
     )<ArrayHierarchicalPointer>(ArrayHierarchicalPointer)({
-        isDecode: (input: Uint8Array): ArrayHierarchicalPointer | null => {
+        isDecode: (
+            input: Uint8Array,
+        ): typia.Resolved<ArrayHierarchicalPointer> | null => {
             const is = (input: any): input is ArrayHierarchicalPointer => {
                 const $io0 = (input: any): boolean =>
                     Array.isArray(input.value) &&
@@ -72,7 +74,9 @@ export const test_protobuf_isDecode_ArrayHierarchicalPointer =
                     "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            const decode = (input: Uint8Array): ArrayHierarchicalPointer => {
+            const decode = (
+                input: Uint8Array,
+            ): typia.Resolved<ArrayHierarchicalPointer> => {
                 const $Reader = (typia.protobuf.createIsDecode as any).Reader;
                 const $pdo0 = (reader: any, length: number = -1): any => {
                     length =

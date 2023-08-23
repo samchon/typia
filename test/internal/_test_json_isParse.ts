@@ -15,6 +15,11 @@ export const _test_json_isParse =
         const parsed: Primitive<T> | null = parse(string);
 
         if (parsed === null || primitive_equal_to(expected, parsed) === false) {
+            console.log({
+                string,
+                expected,
+                parsed,
+            });
             throw new Error(
                 `Bug on typia.json.isParse(): failed to understand the ${name} type.`,
             );

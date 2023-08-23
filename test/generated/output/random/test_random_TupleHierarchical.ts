@@ -8,7 +8,7 @@ export const test_random_TupleHierarchical = _test_random(
     random: () =>
         ((
             generator?: Partial<typia.IRandomGenerator>,
-        ): typia.Primitive<TupleHierarchical> => {
+        ): typia.Resolved<TupleHierarchical> => {
             const $generator = (typia.random as any).generator;
             return [
                 (generator?.boolean ?? $generator.boolean)(),

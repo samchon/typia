@@ -5,7 +5,7 @@ import { ArrayAtomicAlias } from "../../../structures/ArrayAtomicAlias";
 export const test_misc_assertClone_ArrayAtomicAlias = _test_misc_assertClone(
     "ArrayAtomicAlias",
 )<ArrayAtomicAlias>(ArrayAtomicAlias)(
-    (input: any): typia.Primitive<ArrayAtomicAlias> => {
+    (input: any): typia.Resolved<ArrayAtomicAlias> => {
         const assert = (input: any): ArrayAtomicAlias => {
             const __is = (input: any): input is ArrayAtomicAlias => {
                 return (
@@ -118,7 +118,7 @@ export const test_misc_assertClone_ArrayAtomicAlias = _test_misc_assertClone(
         };
         const clone = (
             input: ArrayAtomicAlias,
-        ): typia.Primitive<ArrayAtomicAlias> => {
+        ): typia.Resolved<ArrayAtomicAlias> => {
             const $cp0 = (input: any) => input.map((elem: any) => elem as any);
             const $cp1 = (input: any) => input.map((elem: any) => elem as any);
             const $cp2 = (input: any) => input.map((elem: any) => elem as any);

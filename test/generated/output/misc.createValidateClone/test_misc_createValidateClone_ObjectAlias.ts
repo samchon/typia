@@ -5,7 +5,7 @@ import { ObjectAlias } from "../../../structures/ObjectAlias";
 export const test_misc_validateClone_ObjectAlias = _test_misc_validateClone(
     "ObjectAlias",
 )<ObjectAlias>(ObjectAlias)(
-    (input: any): typia.IValidation<typia.Primitive<ObjectAlias>> => {
+    (input: any): typia.IValidation<typia.Resolved<ObjectAlias>> => {
         const validate = (input: any): typia.IValidation<ObjectAlias> => {
             const errors = [] as any[];
             const __is = (input: any): input is ObjectAlias => {
@@ -138,7 +138,7 @@ export const test_misc_validateClone_ObjectAlias = _test_misc_validateClone(
                 data: success ? input : undefined,
             } as any;
         };
-        const clone = (input: ObjectAlias): typia.Primitive<ObjectAlias> => {
+        const clone = (input: ObjectAlias): typia.Resolved<ObjectAlias> => {
             const $cp0 = (input: any) =>
                 input.map((elem: any) =>
                     "object" === typeof elem && null !== elem

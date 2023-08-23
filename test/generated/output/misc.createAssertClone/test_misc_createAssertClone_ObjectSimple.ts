@@ -4,7 +4,7 @@ import { ObjectSimple } from "../../../structures/ObjectSimple";
 
 export const test_misc_assertClone_ObjectSimple = _test_misc_assertClone(
     "ObjectSimple",
-)<ObjectSimple>(ObjectSimple)((input: any): typia.Primitive<ObjectSimple> => {
+)<ObjectSimple>(ObjectSimple)((input: any): typia.Resolved<ObjectSimple> => {
     const assert = (input: any): ObjectSimple => {
         const __is = (input: any): input is ObjectSimple => {
             return (
@@ -167,7 +167,7 @@ export const test_misc_assertClone_ObjectSimple = _test_misc_assertClone(
             })(input, "$input", true);
         return input;
     };
-    const clone = (input: ObjectSimple): typia.Primitive<ObjectSimple> => {
+    const clone = (input: ObjectSimple): typia.Resolved<ObjectSimple> => {
         const $io1 = (input: any): boolean =>
             "number" === typeof input.x &&
             "number" === typeof input.y &&

@@ -20,11 +20,8 @@ export const test_validate_NativeUnion = _test_validate(
                 input.signed instanceof BigInt64Array) &&
             (input.float instanceof Float32Array ||
                 input.float instanceof Float64Array) &&
-            (input.buffer instanceof Buffer ||
-                input.buffer instanceof ArrayBuffer ||
-                input.buffer instanceof SharedArrayBuffer ||
-                input.buffer instanceof DataView) &&
-            (input.weak instanceof WeakSet || input.weak instanceof WeakMap);
+            (input.buffer instanceof ArrayBuffer ||
+                input.buffer instanceof SharedArrayBuffer);
         return (
             Array.isArray(input) &&
             input.every(
@@ -81,22 +78,12 @@ export const test_validate_NativeUnion = _test_validate(
                             expected: "(Float32Array | Float64Array)",
                             value: input.float,
                         }),
-                    input.buffer instanceof Buffer ||
-                        input.buffer instanceof ArrayBuffer ||
+                    input.buffer instanceof ArrayBuffer ||
                         input.buffer instanceof SharedArrayBuffer ||
-                        input.buffer instanceof DataView ||
                         $report(_exceptionable, {
                             path: _path + ".buffer",
-                            expected:
-                                "(ArrayBuffer | Buffer | DataView | SharedArrayBuffer)",
+                            expected: "(ArrayBuffer | SharedArrayBuffer)",
                             value: input.buffer,
-                        }),
-                    input.weak instanceof WeakSet ||
-                        input.weak instanceof WeakMap ||
-                        $report(_exceptionable, {
-                            path: _path + ".weak",
-                            expected: "(WeakMap | WeakSet)",
-                            value: input.weak,
                         }),
                 ].every((flag: boolean) => flag);
             return (

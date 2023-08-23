@@ -6,8 +6,12 @@ export const test_protobuf_assertDecode_MapSimpleProtobufNullable =
     _test_protobuf_assertDecode(
         "MapSimpleProtobufNullable",
     )<MapSimpleProtobufNullable>(MapSimpleProtobufNullable)({
-        assertDecode: (input: Uint8Array): MapSimpleProtobufNullable => {
-            const decode = (input: Uint8Array): MapSimpleProtobufNullable => {
+        assertDecode: (
+            input: Uint8Array,
+        ): typia.Resolved<MapSimpleProtobufNullable> => {
+            const decode = (
+                input: Uint8Array,
+            ): typia.Resolved<MapSimpleProtobufNullable> => {
                 const $Reader = (typia.protobuf.createAssertDecode as any)
                     .Reader;
                 const $pdo0 = (reader: any, length: number = -1): any => {

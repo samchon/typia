@@ -13,16 +13,12 @@ export interface NativeSimple {
     bigInt64Array: BigInt64Array;
     float32Array: Float32Array;
     float64Array: Float64Array;
-    buffer: Buffer;
     arrayBuffer: ArrayBuffer;
     sharedArrayBuffer: SharedArrayBuffer;
     dataView: DataView;
-    weakSet: WeakSet<any>;
-    weakMap: WeakMap<any, any>;
 }
 export namespace NativeSimple {
     export const BINARABLE = false;
-    export const PRIMITIVE = false;
 
     export function generate(): NativeSimple {
         return {
@@ -38,12 +34,9 @@ export namespace NativeSimple {
             bigInt64Array: new BigInt64Array(),
             float32Array: new Float32Array(),
             float64Array: new Float64Array(),
-            buffer: Buffer.alloc(0),
             arrayBuffer: new ArrayBuffer(0),
             sharedArrayBuffer: new SharedArrayBuffer(0),
             dataView: new DataView(new ArrayBuffer(0)),
-            weakSet: new WeakSet(),
-            weakMap: new WeakMap(),
         };
     }
 
@@ -99,10 +92,6 @@ export namespace NativeSimple {
             return ["$input.float64Array"];
         },
         (input) => {
-            input.buffer = new ArrayBuffer(0) as any;
-            return ["$input.buffer"];
-        },
-        (input) => {
             input.arrayBuffer = undefined! as any;
             return ["$input.arrayBuffer"];
         },
@@ -113,14 +102,6 @@ export namespace NativeSimple {
         (input) => {
             input.dataView = 0 as any;
             return ["$input.dataView"];
-        },
-        (input) => {
-            input.weakSet = new Set() as any;
-            return ["$input.weakSet"];
-        },
-        (input) => {
-            input.weakMap = new Map() as any;
-            return ["$input.weakMap"];
         },
     ];
 }

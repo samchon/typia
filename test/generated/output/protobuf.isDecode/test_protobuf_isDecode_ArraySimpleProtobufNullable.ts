@@ -7,7 +7,9 @@ export const test_protobuf_isDecode_ArraySimpleProtobufNullable =
         "ArraySimpleProtobufNullable",
     )<ArraySimpleProtobufNullable>(ArraySimpleProtobufNullable)({
         isDecode: (input) =>
-            ((input: Uint8Array): ArraySimpleProtobufNullable | null => {
+            ((
+                input: Uint8Array,
+            ): typia.Resolved<ArraySimpleProtobufNullable> | null => {
                 const is = (
                     input: any,
                 ): input is ArraySimpleProtobufNullable => {
@@ -91,7 +93,7 @@ export const test_protobuf_isDecode_ArraySimpleProtobufNullable =
                 };
                 const decode = (
                     input: Uint8Array,
-                ): ArraySimpleProtobufNullable => {
+                ): typia.Resolved<ArraySimpleProtobufNullable> => {
                     const $Reader = (typia.protobuf.isDecode as any).Reader;
                     const $pdo0 = (reader: any, length: number = -1): any => {
                         length =

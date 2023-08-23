@@ -5,7 +5,7 @@ import { ObjectInternal } from "../../../structures/ObjectInternal";
 export const test_misc_assertClone_ObjectInternal = _test_misc_assertClone(
     "ObjectInternal",
 )<ObjectInternal>(ObjectInternal)(
-    (input: any): typia.Primitive<ObjectInternal> => {
+    (input: any): typia.Resolved<ObjectInternal> => {
         const assert = (input: any): ObjectInternal => {
             const __is = (input: any): input is ObjectInternal => {
                 return (
@@ -58,7 +58,7 @@ export const test_misc_assertClone_ObjectInternal = _test_misc_assertClone(
         };
         const clone = (
             input: ObjectInternal,
-        ): typia.Primitive<ObjectInternal> => {
+        ): typia.Resolved<ObjectInternal> => {
             const $co0 = (input: any): any => ({
                 id: input.id as any,
                 name: input.name as any,

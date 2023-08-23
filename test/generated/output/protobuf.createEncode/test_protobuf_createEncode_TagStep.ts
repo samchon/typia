@@ -60,7 +60,7 @@ export const test_protobuf_encode_TagStep = _test_protobuf_encode(
     },
     message:
         'syntax = "proto3";\n\nmessage TagStep {\n    repeated TagStep.Type value = 1;\n    message Type {\n        required double exclusiveMinimum = 1;\n        required double minimum = 2;\n        required double range = 3;\n        required double multipleOf = 4;\n    }\n}',
-    decode: (input: Uint8Array): TagStep => {
+    decode: (input: Uint8Array): typia.Resolved<TagStep> => {
         const $Reader = (typia.protobuf.createDecode as any).Reader;
         const $pdo0 = (reader: any, length: number = -1): any => {
             length = length < 0 ? reader.size() : reader.index() + length;

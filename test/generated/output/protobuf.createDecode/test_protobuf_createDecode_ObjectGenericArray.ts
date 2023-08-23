@@ -5,7 +5,7 @@ import { ObjectGenericArray } from "../../../structures/ObjectGenericArray";
 export const test_protobuf_decode_ObjectGenericArray = _test_protobuf_decode(
     "ObjectGenericArray",
 )<ObjectGenericArray>(ObjectGenericArray)({
-    decode: (input: Uint8Array): ObjectGenericArray => {
+    decode: (input: Uint8Array): typia.Resolved<ObjectGenericArray> => {
         const $Reader = (typia.protobuf.createDecode as any).Reader;
         const $pdo0 = (reader: any, length: number = -1): any => {
             length = length < 0 ? reader.size() : reader.index() + length;

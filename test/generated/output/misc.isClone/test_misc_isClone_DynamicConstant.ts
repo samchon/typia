@@ -5,7 +5,7 @@ import { DynamicConstant } from "../../../structures/DynamicConstant";
 export const test_misc_isClone_DynamicConstant = _test_misc_isClone(
     "DynamicConstant",
 )<DynamicConstant>(DynamicConstant)((input) =>
-    ((input: any): typia.Primitive<DynamicConstant> | null => {
+    ((input: any): typia.Resolved<DynamicConstant> | null => {
         const is = (input: any): input is DynamicConstant => {
             return (
                 "object" === typeof input &&
@@ -24,7 +24,7 @@ export const test_misc_isClone_DynamicConstant = _test_misc_isClone(
         };
         const clone = (
             input: DynamicConstant,
-        ): typia.Primitive<DynamicConstant> => {
+        ): typia.Resolved<DynamicConstant> => {
             const $io1 = (input: any): boolean =>
                 "number" === typeof input.a &&
                 "number" === typeof input.b &&

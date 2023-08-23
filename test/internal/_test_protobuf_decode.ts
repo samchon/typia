@@ -1,3 +1,5 @@
+import typia from "typia";
+
 import { TestStructure } from "../helpers/TestStructure";
 import { protobuf_equal_to } from "../helpers/protobuf_equal_to";
 
@@ -5,14 +7,14 @@ export const _test_protobuf_decode =
     (name: string) =>
     <T extends object>(factory: TestStructure<T>) =>
     (functor: {
-        decode: (input: Uint8Array) => T;
+        decode: (input: Uint8Array) => typia.Resolved<T>;
         encode: (input: T) => Uint8Array;
     }) =>
     () => {
         const data: T = factory.generate();
         const encoded: Uint8Array = functor.encode(data);
-        const decoded: T = functor.decode(encoded);
-        const again: Uint8Array = functor.encode(decoded);
+        const decoded: typia.Resolved<T> = functor.decode(encoded);
+        const again: Uint8Array = functor.encode(decoded as T);
 
         const equal: boolean =
             protobuf_equal_to(name)(data, decoded) &&

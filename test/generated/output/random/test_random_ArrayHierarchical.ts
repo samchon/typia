@@ -8,7 +8,7 @@ export const test_random_ArrayHierarchical = _test_random(
     random: () =>
         ((
             generator?: Partial<typia.IRandomGenerator>,
-        ): typia.Primitive<ArrayHierarchical> => {
+        ): typia.Resolved<ArrayHierarchical> => {
             const $generator = (typia.random as any).generator;
             const $ro0 = (
                 _recursive: boolean = false,

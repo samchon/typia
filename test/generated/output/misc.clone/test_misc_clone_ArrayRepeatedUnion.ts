@@ -5,7 +5,7 @@ import { ArrayRepeatedUnion } from "../../../structures/ArrayRepeatedUnion";
 export const test_misc_clone_ArrayRepeatedUnion = _test_misc_clone(
     "ArrayRepeatedUnion",
 )<ArrayRepeatedUnion>(ArrayRepeatedUnion)((input) =>
-    ((input: ArrayRepeatedUnion): typia.Primitive<ArrayRepeatedUnion> => {
+    ((input: ArrayRepeatedUnion): typia.Resolved<ArrayRepeatedUnion> => {
         const $io0 = (input: any): boolean =>
             "object" === typeof input.scale &&
             null !== input.scale &&

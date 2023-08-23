@@ -7,10 +7,12 @@ export const test_protobuf_assertDecode_ObjectSimpleProtobufNullable =
         "ObjectSimpleProtobufNullable",
     )<ObjectSimpleProtobufNullable>(ObjectSimpleProtobufNullable)({
         assertDecode: (input) =>
-            ((input: Uint8Array): ObjectSimpleProtobufNullable => {
+            ((
+                input: Uint8Array,
+            ): typia.Resolved<ObjectSimpleProtobufNullable> => {
                 const decode = (
                     input: Uint8Array,
-                ): ObjectSimpleProtobufNullable => {
+                ): typia.Resolved<ObjectSimpleProtobufNullable> => {
                     const $Reader = (typia.protobuf.assertDecode as any).Reader;
                     const $pdo0 = (reader: any, length: number = -1): any => {
                         length =

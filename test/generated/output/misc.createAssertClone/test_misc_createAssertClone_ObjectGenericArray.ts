@@ -5,7 +5,7 @@ import { ObjectGenericArray } from "../../../structures/ObjectGenericArray";
 export const test_misc_assertClone_ObjectGenericArray = _test_misc_assertClone(
     "ObjectGenericArray",
 )<ObjectGenericArray>(ObjectGenericArray)(
-    (input: any): typia.Primitive<ObjectGenericArray> => {
+    (input: any): typia.Resolved<ObjectGenericArray> => {
         const assert = (input: any): ObjectGenericArray => {
             const __is = (input: any): input is ObjectGenericArray => {
                 const $io0 = (input: any): boolean =>
@@ -169,7 +169,7 @@ export const test_misc_assertClone_ObjectGenericArray = _test_misc_assertClone(
         };
         const clone = (
             input: ObjectGenericArray,
-        ): typia.Primitive<ObjectGenericArray> => {
+        ): typia.Resolved<ObjectGenericArray> => {
             const $io1 = (input: any): boolean =>
                 "number" === typeof input.page &&
                 "number" === typeof input.limit &&

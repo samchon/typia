@@ -5,7 +5,7 @@ import { TagTypeBigInt } from "../../../structures/TagTypeBigInt";
 export const test_protobuf_isDecode_TagTypeBigInt = _test_protobuf_isDecode(
     "TagTypeBigInt",
 )<TagTypeBigInt>(TagTypeBigInt)({
-    isDecode: (input: Uint8Array): TagTypeBigInt | null => {
+    isDecode: (input: Uint8Array): typia.Resolved<TagTypeBigInt> | null => {
         const is = (input: any): input is TagTypeBigInt => {
             return (
                 "object" === typeof input &&
@@ -15,7 +15,7 @@ export const test_protobuf_isDecode_TagTypeBigInt = _test_protobuf_isDecode(
                 BigInt(0) <= (input as any).uint64
             );
         };
-        const decode = (input: Uint8Array): TagTypeBigInt => {
+        const decode = (input: Uint8Array): typia.Resolved<TagTypeBigInt> => {
             const $Reader = (typia.protobuf.createIsDecode as any).Reader;
             const $pdo0 = (reader: any, length: number = -1): any => {
                 length = length < 0 ? reader.size() : reader.index() + length;

@@ -5,7 +5,6 @@ export type FunctionalObjectUnion = FunctionalObjectUnion.Union[];
 export namespace FunctionalObjectUnion {
     export const BINARABLE = false;
     export const JSONABLE = false;
-    export const PRIMITIVE = false;
 
     export type Union = IPoint | ILine | IPolyline | IPolygon;
     export interface IPoint {

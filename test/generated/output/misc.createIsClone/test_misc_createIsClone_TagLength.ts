@@ -4,7 +4,7 @@ import { TagLength } from "../../../structures/TagLength";
 
 export const test_misc_isClone_TagLength = _test_misc_isClone(
     "TagLength",
-)<TagLength>(TagLength)((input: any): typia.Primitive<TagLength> | null => {
+)<TagLength>(TagLength)((input: any): typia.Resolved<TagLength> | null => {
     const is = (input: any): input is TagLength => {
         const $io0 = (input: any): boolean =>
             Array.isArray(input.value) &&
@@ -27,7 +27,7 @@ export const test_misc_isClone_TagLength = _test_misc_isClone(
             19 >= input.equal.length;
         return "object" === typeof input && null !== input && $io0(input);
     };
-    const clone = (input: TagLength): typia.Primitive<TagLength> => {
+    const clone = (input: TagLength): typia.Resolved<TagLength> => {
         const $io1 = (input: any): boolean =>
             "string" === typeof input.fixed &&
             5 === input.fixed.length &&

@@ -25,7 +25,6 @@ export interface MapSimpleProtobufNullable {
 }
 export namespace MapSimpleProtobufNullable {
     export const ADDABLE = false;
-    export const PRIMITIVE = false;
     export const JSONABLE = false;
 
     export function generate(level: number = 0): MapSimpleProtobufNullable {

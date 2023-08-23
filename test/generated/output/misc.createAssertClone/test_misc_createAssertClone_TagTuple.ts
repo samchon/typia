@@ -4,7 +4,7 @@ import { TagTuple } from "../../../structures/TagTuple";
 
 export const test_misc_assertClone_TagTuple = _test_misc_assertClone(
     "TagTuple",
-)<TagTuple>(TagTuple)((input: any): typia.Primitive<TagTuple> => {
+)<TagTuple>(TagTuple)((input: any): typia.Resolved<TagTuple> => {
     const assert = (input: any): TagTuple => {
         const __is = (input: any): input is TagTuple => {
             const $io0 = (input: any): boolean =>
@@ -231,7 +231,7 @@ export const test_misc_assertClone_TagTuple = _test_misc_assertClone(
             })(input, "$input", true);
         return input;
     };
-    const clone = (input: TagTuple): typia.Primitive<TagTuple> => {
+    const clone = (input: TagTuple): typia.Resolved<TagTuple> => {
         const $cp0 = (input: any) => input.map((elem: any) => elem as any);
         const $cp1 = (input: any) => input.map((elem: any) => elem as any);
         const $co0 = (input: any): any => ({

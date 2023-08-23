@@ -5,7 +5,7 @@ import { ArrayMatrix } from "../../../structures/ArrayMatrix";
 export const test_misc_assertClone_ArrayMatrix = _test_misc_assertClone(
     "ArrayMatrix",
 )<ArrayMatrix>(ArrayMatrix)((input) =>
-    ((input: any): typia.Primitive<ArrayMatrix> => {
+    ((input: any): typia.Resolved<ArrayMatrix> => {
         const assert = (input: any): ArrayMatrix => {
             const __is = (input: any): input is ArrayMatrix => {
                 return (
@@ -114,7 +114,7 @@ export const test_misc_assertClone_ArrayMatrix = _test_misc_assertClone(
                 })(input, "$input", true);
             return input;
         };
-        const clone = (input: ArrayMatrix): typia.Primitive<ArrayMatrix> => {
+        const clone = (input: ArrayMatrix): typia.Resolved<ArrayMatrix> => {
             const $cp0 = (input: any) => input.map((elem: any) => elem as any);
             const $cp1 = (input: any) =>
                 input.map((elem: any) =>

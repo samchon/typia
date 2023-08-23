@@ -4,7 +4,7 @@ import { TagRange } from "../../../structures/TagRange";
 
 export const test_misc_assertClone_TagRange = _test_misc_assertClone(
     "TagRange",
-)<TagRange>(TagRange)((input: any): typia.Primitive<TagRange> => {
+)<TagRange>(TagRange)((input: any): typia.Resolved<TagRange> => {
     const assert = (input: any): TagRange => {
         const __is = (input: any): input is TagRange => {
             const $io0 = (input: any): boolean =>
@@ -401,7 +401,7 @@ export const test_misc_assertClone_TagRange = _test_misc_assertClone(
             })(input, "$input", true);
         return input;
     };
-    const clone = (input: TagRange): typia.Primitive<TagRange> => {
+    const clone = (input: TagRange): typia.Resolved<TagRange> => {
         const $io1 = (input: any): boolean =>
             "number" === typeof input.greater &&
             Math.floor(input.greater) === input.greater &&

@@ -7,7 +7,7 @@ export const test_random_ArrayRepeatedNullable = _test_random(
 )<ArrayRepeatedNullable>(ArrayRepeatedNullable)({
     random: (
         generator?: Partial<typia.IRandomGenerator>,
-    ): typia.Primitive<ArrayRepeatedNullable> => {
+    ): typia.Resolved<ArrayRepeatedNullable> => {
         const $generator = (typia.createRandom as any).generator;
         const $pick = (typia.createRandom as any).pick;
         const $ra0 = (

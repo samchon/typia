@@ -4,7 +4,7 @@ import { ArraySimple } from "../../../structures/ArraySimple";
 
 export const test_misc_assertClone_ArraySimple = _test_misc_assertClone(
     "ArraySimple",
-)<ArraySimple>(ArraySimple)((input: any): typia.Primitive<ArraySimple> => {
+)<ArraySimple>(ArraySimple)((input: any): typia.Resolved<ArraySimple> => {
     const assert = (input: any): ArraySimple => {
         const __is = (input: any): input is ArraySimple => {
             const $io0 = (input: any): boolean =>
@@ -142,7 +142,7 @@ export const test_misc_assertClone_ArraySimple = _test_misc_assertClone(
             })(input, "$input", true);
         return input;
     };
-    const clone = (input: ArraySimple): typia.Primitive<ArraySimple> => {
+    const clone = (input: ArraySimple): typia.Resolved<ArraySimple> => {
         const $io1 = (input: any): boolean =>
             "string" === typeof input.name &&
             "string" === typeof input.body &&

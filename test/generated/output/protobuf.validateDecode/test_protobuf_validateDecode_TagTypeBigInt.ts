@@ -7,7 +7,9 @@ export const test_protobuf_validateDecode_TagTypeBigInt =
         TagTypeBigInt,
     )({
         validateDecode: (input) =>
-            ((input: Uint8Array): typia.IValidation<TagTypeBigInt> => {
+            ((
+                input: Uint8Array,
+            ): typia.IValidation<typia.Resolved<TagTypeBigInt>> => {
                 const validate = (
                     input: any,
                 ): typia.IValidation<TagTypeBigInt> => {
@@ -80,7 +82,9 @@ export const test_protobuf_validateDecode_TagTypeBigInt =
                         data: success ? input : undefined,
                     } as any;
                 };
-                const decode = (input: Uint8Array): TagTypeBigInt => {
+                const decode = (
+                    input: Uint8Array,
+                ): typia.Resolved<TagTypeBigInt> => {
                     const $Reader = (typia.protobuf.validateDecode as any)
                         .Reader;
                     const $pdo0 = (reader: any, length: number = -1): any => {

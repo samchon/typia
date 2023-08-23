@@ -5,7 +5,7 @@ import { TagMatrix } from "../../../structures/TagMatrix";
 export const test_misc_assertClone_TagMatrix = _test_misc_assertClone(
     "TagMatrix",
 )<TagMatrix>(TagMatrix)((input) =>
-    ((input: any): typia.Primitive<TagMatrix> => {
+    ((input: any): typia.Resolved<TagMatrix> => {
         const assert = (input: any): TagMatrix => {
             const __is = (input: any): input is TagMatrix => {
                 const $is_uuid = (typia.misc.assertClone as any).is_uuid;
@@ -130,7 +130,7 @@ export const test_misc_assertClone_TagMatrix = _test_misc_assertClone(
                 })(input, "$input", true);
             return input;
         };
-        const clone = (input: TagMatrix): typia.Primitive<TagMatrix> => {
+        const clone = (input: TagMatrix): typia.Resolved<TagMatrix> => {
             const $is_uuid = (typia.misc.assertClone as any).is_uuid;
             const $cp0 = (input: any) => input.map((elem: any) => elem as any);
             const $cp1 = (input: any) =>

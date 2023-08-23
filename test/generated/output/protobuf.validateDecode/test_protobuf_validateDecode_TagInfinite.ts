@@ -5,7 +5,9 @@ import { TagInfinite } from "../../../structures/TagInfinite";
 export const test_protobuf_validateDecode_TagInfinite =
     _test_protobuf_validateDecode("TagInfinite")<TagInfinite>(TagInfinite)({
         validateDecode: (input) =>
-            ((input: Uint8Array): typia.IValidation<TagInfinite> => {
+            ((
+                input: Uint8Array,
+            ): typia.IValidation<typia.Resolved<TagInfinite>> => {
                 const validate = (
                     input: any,
                 ): typia.IValidation<TagInfinite> => {
@@ -162,7 +164,9 @@ export const test_protobuf_validateDecode_TagInfinite =
                         data: success ? input : undefined,
                     } as any;
                 };
-                const decode = (input: Uint8Array): TagInfinite => {
+                const decode = (
+                    input: Uint8Array,
+                ): typia.Resolved<TagInfinite> => {
                     const $Reader = (typia.protobuf.validateDecode as any)
                         .Reader;
                     const $pdo0 = (reader: any, length: number = -1): any => {

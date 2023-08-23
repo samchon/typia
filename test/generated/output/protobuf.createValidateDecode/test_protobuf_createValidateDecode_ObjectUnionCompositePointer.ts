@@ -8,7 +8,7 @@ export const test_protobuf_validateDecode_ObjectUnionCompositePointer =
     )<ObjectUnionCompositePointer>(ObjectUnionCompositePointer)({
         validateDecode: (
             input: Uint8Array,
-        ): typia.IValidation<ObjectUnionCompositePointer> => {
+        ): typia.IValidation<typia.Resolved<ObjectUnionCompositePointer>> => {
             const validate = (
                 input: any,
             ): typia.IValidation<ObjectUnionCompositePointer> => {
@@ -814,7 +814,9 @@ export const test_protobuf_validateDecode_ObjectUnionCompositePointer =
                     data: success ? input : undefined,
                 } as any;
             };
-            const decode = (input: Uint8Array): ObjectUnionCompositePointer => {
+            const decode = (
+                input: Uint8Array,
+            ): typia.Resolved<ObjectUnionCompositePointer> => {
                 const $Reader = (typia.protobuf.createValidateDecode as any)
                     .Reader;
                 const $pdo0 = (reader: any, length: number = -1): any => {

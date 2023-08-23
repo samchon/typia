@@ -6,7 +6,7 @@ export const test_protobuf_isDecode_TagNaN = _test_protobuf_isDecode(
     "TagNaN",
 )<TagNaN>(TagNaN)({
     isDecode: (input) =>
-        ((input: Uint8Array): TagNaN | null => {
+        ((input: Uint8Array): typia.Resolved<TagNaN> | null => {
             const is = (input: any): input is TagNaN => {
                 return (
                     "object" === typeof input &&
@@ -31,7 +31,7 @@ export const test_protobuf_isDecode_TagNaN = _test_protobuf_isDecode(
                     (input as any).typed <= 2147483647
                 );
             };
-            const decode = (input: Uint8Array): TagNaN => {
+            const decode = (input: Uint8Array): typia.Resolved<TagNaN> => {
                 const $Reader = (typia.protobuf.isDecode as any).Reader;
                 const $pdo0 = (reader: any, length: number = -1): any => {
                     length =

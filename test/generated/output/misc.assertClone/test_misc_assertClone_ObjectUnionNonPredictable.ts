@@ -6,7 +6,7 @@ export const test_misc_assertClone_ObjectUnionNonPredictable =
     _test_misc_assertClone(
         "ObjectUnionNonPredictable",
     )<ObjectUnionNonPredictable>(ObjectUnionNonPredictable)((input) =>
-        ((input: any): typia.Primitive<ObjectUnionNonPredictable> => {
+        ((input: any): typia.Resolved<ObjectUnionNonPredictable> => {
             const assert = (input: any): ObjectUnionNonPredictable => {
                 const __is = (
                     input: any,
@@ -292,7 +292,7 @@ export const test_misc_assertClone_ObjectUnionNonPredictable =
             };
             const clone = (
                 input: ObjectUnionNonPredictable,
-            ): typia.Primitive<ObjectUnionNonPredictable> => {
+            ): typia.Resolved<ObjectUnionNonPredictable> => {
                 const $io1 = (input: any): boolean =>
                     "object" === typeof input.value &&
                     null !== input.value &&

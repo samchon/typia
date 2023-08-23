@@ -6,7 +6,9 @@ export const test_protobuf_isDecode_ObjectGenericAlias =
     _test_protobuf_isDecode("ObjectGenericAlias")<ObjectGenericAlias>(
         ObjectGenericAlias,
     )({
-        isDecode: (input: Uint8Array): ObjectGenericAlias | null => {
+        isDecode: (
+            input: Uint8Array,
+        ): typia.Resolved<ObjectGenericAlias> | null => {
             const is = (input: any): input is ObjectGenericAlias => {
                 return (
                     "object" === typeof input &&
@@ -14,7 +16,9 @@ export const test_protobuf_isDecode_ObjectGenericAlias =
                     "string" === typeof (input as any).value
                 );
             };
-            const decode = (input: Uint8Array): ObjectGenericAlias => {
+            const decode = (
+                input: Uint8Array,
+            ): typia.Resolved<ObjectGenericAlias> => {
                 const $Reader = (typia.protobuf.createIsDecode as any).Reader;
                 const $pdo0 = (reader: any, length: number = -1): any => {
                     length =

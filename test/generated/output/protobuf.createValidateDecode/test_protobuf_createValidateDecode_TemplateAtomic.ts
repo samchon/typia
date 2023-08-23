@@ -8,7 +8,7 @@ export const test_protobuf_validateDecode_TemplateAtomic =
     )({
         validateDecode: (
             input: Uint8Array,
-        ): typia.IValidation<TemplateAtomic> => {
+        ): typia.IValidation<typia.Resolved<TemplateAtomic>> => {
             const validate = (
                 input: any,
             ): typia.IValidation<TemplateAtomic> => {
@@ -156,7 +156,9 @@ export const test_protobuf_validateDecode_TemplateAtomic =
                     data: success ? input : undefined,
                 } as any;
             };
-            const decode = (input: Uint8Array): TemplateAtomic => {
+            const decode = (
+                input: Uint8Array,
+            ): typia.Resolved<TemplateAtomic> => {
                 const $Reader = (typia.protobuf.createValidateDecode as any)
                     .Reader;
                 const $pdo0 = (reader: any, length: number = -1): any => {

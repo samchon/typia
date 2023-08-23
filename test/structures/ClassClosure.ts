@@ -3,7 +3,6 @@ import { TestRandomGenerator } from "../helpers/TestRandomGenerator";
 
 export type ClassClosure = ClassClosure.Something;
 export namespace ClassClosure {
-    export const PRIMITIVE = false;
     export const JSONABLE = false;
 
     export class Something {

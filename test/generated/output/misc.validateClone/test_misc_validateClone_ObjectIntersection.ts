@@ -8,7 +8,7 @@ export const test_misc_validateClone_ObjectIntersection =
     )((input) =>
         ((
             input: any,
-        ): typia.IValidation<typia.Primitive<ObjectIntersection>> => {
+        ): typia.IValidation<typia.Resolved<ObjectIntersection>> => {
             const validate = (
                 input: any,
             ): typia.IValidation<ObjectIntersection> => {
@@ -81,7 +81,7 @@ export const test_misc_validateClone_ObjectIntersection =
             };
             const clone = (
                 input: ObjectIntersection,
-            ): typia.Primitive<ObjectIntersection> => {
+            ): typia.Resolved<ObjectIntersection> => {
                 const $co0 = (input: any): any => ({
                     email: input.email as any,
                     name: input.name as any,
