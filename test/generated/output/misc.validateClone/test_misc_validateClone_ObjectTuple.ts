@@ -5,7 +5,7 @@ import { ObjectTuple } from "../../../structures/ObjectTuple";
 export const test_misc_validateClone_ObjectTuple = _test_misc_validateClone(
     "ObjectTuple",
 )<ObjectTuple>(ObjectTuple)((input) =>
-    ((input: any): typia.IValidation<typia.Primitive<ObjectTuple>> => {
+    ((input: any): typia.IValidation<typia.Resolved<ObjectTuple>> => {
         const validate = (input: any): typia.IValidation<ObjectTuple> => {
             const errors = [] as any[];
             const __is = (input: any): input is ObjectTuple => {
@@ -144,7 +144,7 @@ export const test_misc_validateClone_ObjectTuple = _test_misc_validateClone(
                 data: success ? input : undefined,
             } as any;
         };
-        const clone = (input: ObjectTuple): typia.Primitive<ObjectTuple> => {
+        const clone = (input: ObjectTuple): typia.Resolved<ObjectTuple> => {
             const $io0 = (input: any): boolean =>
                 "string" === typeof input.id &&
                 "string" === typeof input.code &&

@@ -5,7 +5,7 @@ import { ObjectOptional } from "../../../structures/ObjectOptional";
 export const test_misc_isClone_ObjectOptional = _test_misc_isClone(
     "ObjectOptional",
 )<ObjectOptional>(ObjectOptional)(
-    (input: any): typia.Primitive<ObjectOptional> | null => {
+    (input: any): typia.Resolved<ObjectOptional> | null => {
         const is = (input: any): input is ObjectOptional => {
             const $io0 = (input: any): boolean =>
                 (undefined === input.id || "string" === typeof input.id) &&
@@ -24,7 +24,7 @@ export const test_misc_isClone_ObjectOptional = _test_misc_isClone(
         };
         const clone = (
             input: ObjectOptional,
-        ): typia.Primitive<ObjectOptional> => {
+        ): typia.Resolved<ObjectOptional> => {
             const $co0 = (input: any): any => ({
                 id: input.id as any,
                 name: input.name as any,

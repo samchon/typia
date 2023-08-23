@@ -6,7 +6,7 @@ export const test_protobuf_decode_TemplateConstant = _test_protobuf_decode(
     "TemplateConstant",
 )<TemplateConstant>(TemplateConstant)({
     decode: (input) =>
-        ((input: Uint8Array): TemplateConstant => {
+        ((input: Uint8Array): typia.Resolved<TemplateConstant> => {
             const $Reader = (typia.protobuf.decode as any).Reader;
             const $pdo0 = (reader: any, length: number = -1): any => {
                 length = length < 0 ? reader.size() : reader.index() + length;

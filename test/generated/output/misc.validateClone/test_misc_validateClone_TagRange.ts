@@ -5,7 +5,7 @@ import { TagRange } from "../../../structures/TagRange";
 export const test_misc_validateClone_TagRange = _test_misc_validateClone(
     "TagRange",
 )<TagRange>(TagRange)((input) =>
-    ((input: any): typia.IValidation<typia.Primitive<TagRange>> => {
+    ((input: any): typia.IValidation<typia.Resolved<TagRange>> => {
         const validate = (input: any): typia.IValidation<TagRange> => {
             const errors = [] as any[];
             const __is = (input: any): input is TagRange => {
@@ -447,7 +447,7 @@ export const test_misc_validateClone_TagRange = _test_misc_validateClone(
                 data: success ? input : undefined,
             } as any;
         };
-        const clone = (input: TagRange): typia.Primitive<TagRange> => {
+        const clone = (input: TagRange): typia.Resolved<TagRange> => {
             const $io1 = (input: any): boolean =>
                 "number" === typeof input.greater &&
                 Math.floor(input.greater) === input.greater &&

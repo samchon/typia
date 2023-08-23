@@ -71,9 +71,6 @@
             "x-typia-optional": false,
             "$ref": "#/components/objects/Float64Array"
           },
-          "buffer": {
-            "$ref": "#/components/schemas/__type"
-          },
           "arrayBuffer": {
             "x-typia-required": true,
             "x-typia-optional": false,
@@ -88,12 +85,6 @@
             "x-typia-required": true,
             "x-typia-optional": false,
             "$ref": "#/components/objects/DataView"
-          },
-          "weakSet": {
-            "$ref": "#/components/schemas/NativeAlias.WEAKSET"
-          },
-          "weakMap": {
-            "$ref": "#/components/schemas/NativeAlias.WEAKMAP"
           }
         },
         "required": [
@@ -109,12 +100,9 @@
           "bigInt64Array",
           "float32Array",
           "float64Array",
-          "buffer",
           "arrayBuffer",
           "sharedArrayBuffer",
-          "dataView",
-          "weakSet",
-          "weakMap"
+          "dataView"
         ],
         "x-typia-jsDocTags": []
       },
@@ -173,35 +161,6 @@
         "$id": "#/components/objects/Float64Array",
         "properties": {}
       },
-      "__type": {
-        "$id": "#/components/schemas/__type",
-        "type": "object",
-        "properties": {
-          "type": {
-            "x-typia-required": true,
-            "x-typia-optional": false,
-            "type": "string",
-            "enum": [
-              "Buffer"
-            ]
-          },
-          "data": {
-            "x-typia-required": true,
-            "x-typia-optional": false,
-            "type": "array",
-            "items": {
-              "x-typia-required": true,
-              "x-typia-optional": false,
-              "type": "number"
-            }
-          }
-        },
-        "required": [
-          "type",
-          "data"
-        ],
-        "x-typia-jsDocTags": []
-      },
       "ArrayBuffer": {
         "type": "object",
         "$id": "#/components/objects/ArrayBuffer",
@@ -215,24 +174,6 @@
       "DataView": {
         "type": "object",
         "$id": "#/components/objects/DataView",
-        "properties": {}
-      },
-      "NativeAlias.WEAKSET": {
-        "$id": "#/components/schemas/NativeAlias.WEAKSET",
-        "$ref": "#/components/objects/WeakSet"
-      },
-      "WeakSet": {
-        "type": "object",
-        "$id": "#/components/objects/WeakSet",
-        "properties": {}
-      },
-      "NativeAlias.WEAKMAP": {
-        "$id": "#/components/schemas/NativeAlias.WEAKMAP",
-        "$ref": "#/components/objects/WeakMap"
-      },
-      "WeakMap": {
-        "type": "object",
-        "$id": "#/components/objects/WeakMap",
         "properties": {}
       }
     }

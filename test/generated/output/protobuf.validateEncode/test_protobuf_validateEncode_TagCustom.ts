@@ -193,7 +193,7 @@ export const test_protobuf_validateEncode_TagCustom =
             })(input),
         message:
             'syntax = "proto3";\n\nmessage TagCustom {\n    required string id = 1;\n    required string dollar = 2;\n    required string postfix = 3;\n    required double log = 4;\n}',
-        decode: (input: Uint8Array): TagCustom => {
+        decode: (input: Uint8Array): typia.Resolved<TagCustom> => {
             const $Reader = (typia.protobuf.createDecode as any).Reader;
             const $pdo0 = (reader: any, length: number = -1): any => {
                 length = length < 0 ? reader.size() : reader.index() + length;

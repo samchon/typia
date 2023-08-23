@@ -7,6 +7,7 @@ export type ToJsonTuple = [
 export namespace ToJsonTuple {
     export const BINARABLE = false;
     export const PRIMITIVE = false;
+    export const RESOLVABLE = false;
 
     export interface IToJson<T> {
         toJSON: () => T;

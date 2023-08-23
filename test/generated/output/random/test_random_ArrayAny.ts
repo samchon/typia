@@ -8,7 +8,7 @@ export const test_random_ArrayAny = _test_random("ArrayAny")<ArrayAny>(
     random: () =>
         ((
             generator?: Partial<typia.IRandomGenerator>,
-        ): typia.Primitive<ArrayAny> => {
+        ): typia.Resolved<ArrayAny> => {
             const $generator = (typia.random as any).generator;
             const $pick = (typia.random as any).pick;
             const $ro0 = (

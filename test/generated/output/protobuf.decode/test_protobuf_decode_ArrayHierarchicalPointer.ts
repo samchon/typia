@@ -7,7 +7,7 @@ export const test_protobuf_decode_ArrayHierarchicalPointer =
         ArrayHierarchicalPointer,
     )({
         decode: (input) =>
-            ((input: Uint8Array): ArrayHierarchicalPointer => {
+            ((input: Uint8Array): typia.Resolved<ArrayHierarchicalPointer> => {
                 const $Reader = (typia.protobuf.decode as any).Reader;
                 const $pdo0 = (reader: any, length: number = -1): any => {
                     length =

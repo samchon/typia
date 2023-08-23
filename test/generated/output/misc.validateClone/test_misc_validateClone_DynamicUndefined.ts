@@ -6,7 +6,7 @@ export const test_misc_validateClone_DynamicUndefined =
     _test_misc_validateClone("DynamicUndefined")<DynamicUndefined>(
         DynamicUndefined,
     )((input) =>
-        ((input: any): typia.IValidation<typia.Primitive<DynamicUndefined>> => {
+        ((input: any): typia.IValidation<typia.Resolved<DynamicUndefined>> => {
             const validate = (
                 input: any,
             ): typia.IValidation<DynamicUndefined> => {
@@ -108,7 +108,7 @@ export const test_misc_validateClone_DynamicUndefined =
             };
             const clone = (
                 input: DynamicUndefined,
-            ): typia.Primitive<DynamicUndefined> => {
+            ): typia.Resolved<DynamicUndefined> => {
                 const $join = (typia.misc.validateClone as any).join;
                 const $co0 = (input: any): any => {
                     const output = {} as any;

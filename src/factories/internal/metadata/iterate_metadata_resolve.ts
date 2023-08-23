@@ -1,7 +1,7 @@
 import ts from "typescript";
 
 import { Metadata } from "../../../schemas/metadata/Metadata";
-import { MetadataResolved } from "../../../schemas/metadata/MetadataResolved";
+import { MetadataEscaped } from "../../../schemas/metadata/MetadataEscaped";
 
 import { Writable } from "../../../typings/Writable";
 
@@ -22,25 +22,25 @@ export const iterate_metadata_resolve =
         resolved: boolean,
         aliased: boolean,
     ): boolean => {
-        if (options.resolve === false || resolved === true) return false;
+        if (options.escape === false || resolved === true) return false;
 
         const escaped: ts.Type | null = TypeFactory.resolve(checker)(type);
         if (escaped === null) return false;
 
-        if (meta.resolved === null) {
-            Writable(meta).resolved = MetadataResolved.create({
+        if (meta.escaped === null) {
+            Writable(meta).escaped = MetadataEscaped.create({
                 original: Metadata.initialize(),
                 returns: Metadata.initialize(),
             });
         }
         iterate_metadata(checker)(options)(collection)(
-            meta.resolved!.original,
+            meta.escaped!.original,
             type,
             true,
             aliased,
         );
         iterate_metadata(checker)(options)(collection)(
-            meta.resolved!.returns,
+            meta.escaped!.returns,
             escaped,
             true,
             aliased,

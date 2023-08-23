@@ -5,7 +5,7 @@ import { TagType } from "../../../structures/TagType";
 export const test_misc_assertClone_TagType = _test_misc_assertClone(
     "TagType",
 )<TagType>(TagType)((input) =>
-    ((input: any): typia.Primitive<TagType> => {
+    ((input: any): typia.Resolved<TagType> => {
         const assert = (input: any): TagType => {
             const __is = (input: any): input is TagType => {
                 const $io0 = (input: any): boolean =>
@@ -273,7 +273,7 @@ export const test_misc_assertClone_TagType = _test_misc_assertClone(
                 })(input, "$input", true);
             return input;
         };
-        const clone = (input: TagType): typia.Primitive<TagType> => {
+        const clone = (input: TagType): typia.Resolved<TagType> => {
             const $io1 = (input: any): boolean =>
                 "number" === typeof input.int &&
                 Math.floor(input.int) === input.int &&

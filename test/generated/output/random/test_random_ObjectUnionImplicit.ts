@@ -8,7 +8,7 @@ export const test_random_ObjectUnionImplicit = _test_random(
     random: () =>
         ((
             generator?: Partial<typia.IRandomGenerator>,
-        ): typia.Primitive<ObjectUnionImplicit> => {
+        ): typia.Resolved<ObjectUnionImplicit> => {
             const $generator = (typia.random as any).generator;
             const $pick = (typia.random as any).pick;
             const $ro0 = (

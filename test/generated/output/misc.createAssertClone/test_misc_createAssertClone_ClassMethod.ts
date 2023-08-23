@@ -4,7 +4,7 @@ import { ClassMethod } from "../../../structures/ClassMethod";
 
 export const test_misc_assertClone_ClassMethod = _test_misc_assertClone(
     "ClassMethod",
-)<ClassMethod>(ClassMethod)((input: any): typia.Primitive<ClassMethod> => {
+)<ClassMethod>(ClassMethod)((input: any): typia.Resolved<ClassMethod> => {
     const assert = (input: any): ClassMethod => {
         const __is = (input: any): input is ClassMethod => {
             return (
@@ -57,7 +57,7 @@ export const test_misc_assertClone_ClassMethod = _test_misc_assertClone(
             })(input, "$input", true);
         return input;
     };
-    const clone = (input: ClassMethod): typia.Primitive<ClassMethod> => {
+    const clone = (input: ClassMethod): typia.Resolved<ClassMethod> => {
         const $co0 = (input: any): any => ({
             name: input.name as any,
             age: input.age as any,

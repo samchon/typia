@@ -1,13 +1,14 @@
 import fs from "fs";
 import typia from "typia";
 
-import { ArrayRecursive } from "../structures/ArrayRecursive";
+import { SetUnion } from "../structures/SetUnion";
 
-const generator = typia.createRandom<ArrayRecursive>();
-fs.writeFileSync(__dirname + "/random.out.js", generator.toString(), "utf8");
+const factory = typia.createRandom<SetUnion>();
 
-const app = typia.metadata<[ArrayRecursive]>();
-console.log(
-    app.collection.objects.map((o) => [o.name, o.recursive]),
-    app.collection.arrays.map((a) => [a.name, a.recursive]),
-);
+fs.writeFileSync(__dirname + "/random.js", factory.toString(), "utf8");
+
+for (let i: number = 0; i < 1000; ++i) {
+    const data: SetUnion = factory();
+    typia.assert(data);
+    console.log(i + 1);
+}

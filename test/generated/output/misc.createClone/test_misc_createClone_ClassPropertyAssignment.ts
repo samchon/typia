@@ -7,7 +7,7 @@ export const test_misc_clone_ClassPropertyAssignment = _test_misc_clone(
 )<ClassPropertyAssignment>(ClassPropertyAssignment)(
     (
         input: ClassPropertyAssignment,
-    ): typia.Primitive<ClassPropertyAssignment> => {
+    ): typia.Resolved<ClassPropertyAssignment> => {
         const $co0 = (input: any): any => ({
             id: input.id as any,
             name: input.name as any,

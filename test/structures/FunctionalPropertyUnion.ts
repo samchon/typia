@@ -5,6 +5,7 @@ export namespace FunctionalPropertyUnion {
     export const BINARABLE = false;
     export const JSONABLE = false;
     export const PRIMITIVE = false;
+    export const RESOLVABLE = false;
 
     export interface IUnion {
         name: string;

@@ -5,7 +5,7 @@ import { TagArray } from "../../../structures/TagArray";
 export const test_protobuf_decode_TagArray = _test_protobuf_decode(
     "TagArray",
 )<TagArray>(TagArray)({
-    decode: (input: Uint8Array): TagArray => {
+    decode: (input: Uint8Array): typia.Resolved<TagArray> => {
         const $Reader = (typia.protobuf.createDecode as any).Reader;
         const $pdo0 = (reader: any, length: number = -1): any => {
             length = length < 0 ? reader.size() : reader.index() + length;

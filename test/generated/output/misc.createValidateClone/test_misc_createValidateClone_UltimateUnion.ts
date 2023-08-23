@@ -5,7 +5,7 @@ import { UltimateUnion } from "../../../structures/UltimateUnion";
 export const test_misc_validateClone_UltimateUnion = _test_misc_validateClone(
     "UltimateUnion",
 )<UltimateUnion>(UltimateUnion)(
-    (input: any): typia.IValidation<typia.Primitive<UltimateUnion>> => {
+    (input: any): typia.IValidation<typia.Resolved<UltimateUnion>> => {
         const validate = (input: any): typia.IValidation<UltimateUnion> => {
             const errors = [] as any[];
             const __is = (input: any): input is UltimateUnion => {
@@ -8055,9 +8055,7 @@ export const test_misc_validateClone_UltimateUnion = _test_misc_validateClone(
                 data: success ? input : undefined,
             } as any;
         };
-        const clone = (
-            input: UltimateUnion,
-        ): typia.Primitive<UltimateUnion> => {
+        const clone = (input: UltimateUnion): typia.Resolved<UltimateUnion> => {
             const $io1 = (input: any): boolean =>
                 Array.isArray(input["enum"]) &&
                 input["enum"].every((elem: any) => "boolean" === typeof elem) &&

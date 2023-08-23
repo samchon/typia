@@ -38,7 +38,7 @@ export const test_protobuf_isEncode_ObjectInternal = _test_protobuf_isEncode(
     },
     message:
         'syntax = "proto3";\n\nmessage ObjectInternal {\n    required string id = 1;\n    required string name = 2;\n}',
-    decode: (input: Uint8Array): ObjectInternal => {
+    decode: (input: Uint8Array): typia.Resolved<ObjectInternal> => {
         const $Reader = (typia.protobuf.createDecode as any).Reader;
         const $pdo0 = (reader: any, length: number = -1): any => {
             length = length < 0 ? reader.size() : reader.index() + length;

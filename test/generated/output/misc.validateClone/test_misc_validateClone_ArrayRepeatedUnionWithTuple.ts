@@ -8,7 +8,7 @@ export const test_misc_validateClone_ArrayRepeatedUnionWithTuple =
     )<ArrayRepeatedUnionWithTuple>(ArrayRepeatedUnionWithTuple)((input) =>
         ((
             input: any,
-        ): typia.IValidation<typia.Primitive<ArrayRepeatedUnionWithTuple>> => {
+        ): typia.IValidation<typia.Resolved<ArrayRepeatedUnionWithTuple>> => {
             const validate = (
                 input: any,
             ): typia.IValidation<ArrayRepeatedUnionWithTuple> => {
@@ -642,7 +642,7 @@ export const test_misc_validateClone_ArrayRepeatedUnionWithTuple =
             };
             const clone = (
                 input: ArrayRepeatedUnionWithTuple,
-            ): typia.Primitive<ArrayRepeatedUnionWithTuple> => {
+            ): typia.Resolved<ArrayRepeatedUnionWithTuple> => {
                 const $io0 = (input: any): boolean =>
                     "object" === typeof input.scale &&
                     null !== input.scale &&

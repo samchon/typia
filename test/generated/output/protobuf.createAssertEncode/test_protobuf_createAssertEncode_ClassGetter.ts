@@ -98,7 +98,7 @@ export const test_protobuf_assertEncode_ClassGetter =
         },
         message:
             'syntax = "proto3";\n\nmessage ClassGetter {\n    message Person {\n        required string id = 1;\n        required string name = 2;\n        optional bool dead = 3;\n    }\n}',
-        decode: (input: Uint8Array): ClassGetter => {
+        decode: (input: Uint8Array): typia.Resolved<ClassGetter> => {
             const $Reader = (typia.protobuf.createDecode as any).Reader;
             const $pdo0 = (reader: any, length: number = -1): any => {
                 length = length < 0 ? reader.size() : reader.index() + length;

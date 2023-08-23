@@ -6,8 +6,12 @@ export const test_protobuf_assertDecode_ObjectUnionExplicitPointer =
     _test_protobuf_assertDecode(
         "ObjectUnionExplicitPointer",
     )<ObjectUnionExplicitPointer>(ObjectUnionExplicitPointer)({
-        assertDecode: (input: Uint8Array): ObjectUnionExplicitPointer => {
-            const decode = (input: Uint8Array): ObjectUnionExplicitPointer => {
+        assertDecode: (
+            input: Uint8Array,
+        ): typia.Resolved<ObjectUnionExplicitPointer> => {
+            const decode = (
+                input: Uint8Array,
+            ): typia.Resolved<ObjectUnionExplicitPointer> => {
                 const $Reader = (typia.protobuf.createAssertDecode as any)
                     .Reader;
                 const $pdo0 = (reader: any, length: number = -1): any => {
@@ -1128,7 +1132,7 @@ export const test_protobuf_assertDecode_ObjectUnionExplicitPointer =
                 return input;
             };
             const output = decode(input);
-            return assert(output);
+            return assert(output) as any;
         },
         encode: (input: ObjectUnionExplicitPointer): Uint8Array => {
             const $throws = (typia.protobuf.createEncode as any).throws;

@@ -6,7 +6,7 @@ export const test_misc_assertClone_ObjectUnionComposite =
     _test_misc_assertClone("ObjectUnionComposite")<ObjectUnionComposite>(
         ObjectUnionComposite,
     )((input) =>
-        ((input: any): typia.Primitive<ObjectUnionComposite> => {
+        ((input: any): typia.Resolved<ObjectUnionComposite> => {
             const assert = (input: any): ObjectUnionComposite => {
                 const __is = (input: any): input is ObjectUnionComposite => {
                     const $io0 = (input: any): boolean =>
@@ -685,7 +685,7 @@ export const test_misc_assertClone_ObjectUnionComposite =
             };
             const clone = (
                 input: ObjectUnionComposite,
-            ): typia.Primitive<ObjectUnionComposite> => {
+            ): typia.Resolved<ObjectUnionComposite> => {
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.x && "number" === typeof input.y;
                 const $io1 = (input: any): boolean =>

@@ -4,7 +4,7 @@ import { AtomicUnion } from "../../../structures/AtomicUnion";
 
 export const test_misc_assertClone_AtomicUnion = _test_misc_assertClone(
     "AtomicUnion",
-)<AtomicUnion>(AtomicUnion)((input: any): typia.Primitive<AtomicUnion> => {
+)<AtomicUnion>(AtomicUnion)((input: any): typia.Resolved<AtomicUnion> => {
     const assert = (input: any): AtomicUnion => {
         const __is = (input: any): input is AtomicUnion => {
             return (
@@ -55,7 +55,7 @@ export const test_misc_assertClone_AtomicUnion = _test_misc_assertClone(
             })(input, "$input", true);
         return input;
     };
-    const clone = (input: AtomicUnion): typia.Primitive<AtomicUnion> => {
+    const clone = (input: AtomicUnion): typia.Resolved<AtomicUnion> => {
         const $cp0 = (input: any) => input.map((elem: any) => elem as any);
         return Array.isArray(input) ? $cp0(input) : (input as any);
     };

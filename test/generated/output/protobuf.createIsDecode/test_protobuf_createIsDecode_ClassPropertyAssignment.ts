@@ -6,7 +6,9 @@ export const test_protobuf_isDecode_ClassPropertyAssignment =
     _test_protobuf_isDecode("ClassPropertyAssignment")<ClassPropertyAssignment>(
         ClassPropertyAssignment,
     )({
-        isDecode: (input: Uint8Array): ClassPropertyAssignment | null => {
+        isDecode: (
+            input: Uint8Array,
+        ): typia.Resolved<ClassPropertyAssignment> | null => {
             const is = (input: any): input is ClassPropertyAssignment => {
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.id &&
@@ -19,7 +21,9 @@ export const test_protobuf_isDecode_ClassPropertyAssignment =
                     "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            const decode = (input: Uint8Array): ClassPropertyAssignment => {
+            const decode = (
+                input: Uint8Array,
+            ): typia.Resolved<ClassPropertyAssignment> => {
                 const $Reader = (typia.protobuf.createIsDecode as any).Reader;
                 const $pdo0 = (reader: any, length: number = -1): any => {
                     length =

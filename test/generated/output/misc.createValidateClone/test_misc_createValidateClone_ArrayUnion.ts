@@ -5,7 +5,7 @@ import { ArrayUnion } from "../../../structures/ArrayUnion";
 export const test_misc_validateClone_ArrayUnion = _test_misc_validateClone(
     "ArrayUnion",
 )<ArrayUnion>(ArrayUnion)(
-    (input: any): typia.IValidation<typia.Primitive<ArrayUnion>> => {
+    (input: any): typia.IValidation<typia.Resolved<ArrayUnion>> => {
         const validate = (input: any): typia.IValidation<ArrayUnion> => {
             const errors = [] as any[];
             const __is = (input: any): input is ArrayUnion => {
@@ -215,7 +215,7 @@ export const test_misc_validateClone_ArrayUnion = _test_misc_validateClone(
                 data: success ? input : undefined,
             } as any;
         };
-        const clone = (input: ArrayUnion): typia.Primitive<ArrayUnion> => {
+        const clone = (input: ArrayUnion): typia.Resolved<ArrayUnion> => {
             const $throws = (typia.misc.createValidateClone as any).throws;
             const $cp0 = (input: any) => {
                 const array = input;

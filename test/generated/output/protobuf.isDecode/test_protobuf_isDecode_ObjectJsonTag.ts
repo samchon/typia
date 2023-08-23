@@ -6,7 +6,7 @@ export const test_protobuf_isDecode_ObjectJsonTag = _test_protobuf_isDecode(
     "ObjectJsonTag",
 )<ObjectJsonTag>(ObjectJsonTag)({
     isDecode: (input) =>
-        ((input: Uint8Array): ObjectJsonTag | null => {
+        ((input: Uint8Array): typia.Resolved<ObjectJsonTag> | null => {
             const is = (input: any): input is ObjectJsonTag => {
                 const $is_custom = (typia.protobuf.isDecode as any).is_custom;
                 return (
@@ -30,7 +30,9 @@ export const test_protobuf_isDecode_ObjectJsonTag = _test_protobuf_isDecode(
                     "string" === typeof (input as any).complicate_title
                 );
             };
-            const decode = (input: Uint8Array): ObjectJsonTag => {
+            const decode = (
+                input: Uint8Array,
+            ): typia.Resolved<ObjectJsonTag> => {
                 const $Reader = (typia.protobuf.isDecode as any).Reader;
                 const $pdo0 = (reader: any, length: number = -1): any => {
                     length =

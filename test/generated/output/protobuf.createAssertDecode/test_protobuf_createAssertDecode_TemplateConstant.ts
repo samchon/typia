@@ -6,8 +6,10 @@ export const test_protobuf_assertDecode_TemplateConstant =
     _test_protobuf_assertDecode("TemplateConstant")<TemplateConstant>(
         TemplateConstant,
     )({
-        assertDecode: (input: Uint8Array): TemplateConstant => {
-            const decode = (input: Uint8Array): TemplateConstant => {
+        assertDecode: (input: Uint8Array): typia.Resolved<TemplateConstant> => {
+            const decode = (
+                input: Uint8Array,
+            ): typia.Resolved<TemplateConstant> => {
                 const $Reader = (typia.protobuf.createAssertDecode as any)
                     .Reader;
                 const $pdo0 = (reader: any, length: number = -1): any => {
@@ -210,7 +212,7 @@ export const test_protobuf_assertDecode_TemplateConstant =
                 return input;
             };
             const output = decode(input);
-            return assert(output);
+            return assert(output) as any;
         },
         encode: (input: TemplateConstant): Uint8Array => {
             const $Sizer = (typia.protobuf.createEncode as any).Sizer;

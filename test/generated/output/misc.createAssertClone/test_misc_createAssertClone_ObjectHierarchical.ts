@@ -5,7 +5,7 @@ import { ObjectHierarchical } from "../../../structures/ObjectHierarchical";
 export const test_misc_assertClone_ObjectHierarchical = _test_misc_assertClone(
     "ObjectHierarchical",
 )<ObjectHierarchical>(ObjectHierarchical)(
-    (input: any): typia.Primitive<ObjectHierarchical> => {
+    (input: any): typia.Resolved<ObjectHierarchical> => {
         const assert = (input: any): ObjectHierarchical => {
             const __is = (input: any): input is ObjectHierarchical => {
                 const $is_url = (typia.misc.createAssertClone as any).is_url;
@@ -520,7 +520,7 @@ export const test_misc_assertClone_ObjectHierarchical = _test_misc_assertClone(
         };
         const clone = (
             input: ObjectHierarchical,
-        ): typia.Primitive<ObjectHierarchical> => {
+        ): typia.Resolved<ObjectHierarchical> => {
             const $io1 = (input: any): boolean =>
                 "number" === typeof input.id &&
                 "string" === typeof input.code &&

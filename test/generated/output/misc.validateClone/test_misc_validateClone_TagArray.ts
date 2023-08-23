@@ -5,7 +5,7 @@ import { TagArray } from "../../../structures/TagArray";
 export const test_misc_validateClone_TagArray = _test_misc_validateClone(
     "TagArray",
 )<TagArray>(TagArray)((input) =>
-    ((input: any): typia.IValidation<typia.Primitive<TagArray>> => {
+    ((input: any): typia.IValidation<typia.Resolved<TagArray>> => {
         const validate = (input: any): typia.IValidation<TagArray> => {
             const errors = [] as any[];
             const __is = (input: any): input is TagArray => {
@@ -340,7 +340,7 @@ export const test_misc_validateClone_TagArray = _test_misc_validateClone(
                 data: success ? input : undefined,
             } as any;
         };
-        const clone = (input: TagArray): typia.Primitive<TagArray> => {
+        const clone = (input: TagArray): typia.Resolved<TagArray> => {
             const $io1 = (input: any): boolean =>
                 Array.isArray(input.items) &&
                 3 === input.items.length &&

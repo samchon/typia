@@ -7,8 +7,10 @@ export const test_protobuf_assertDecode_ObjectGenericAlias =
         ObjectGenericAlias,
     )({
         assertDecode: (input) =>
-            ((input: Uint8Array): ObjectGenericAlias => {
-                const decode = (input: Uint8Array): ObjectGenericAlias => {
+            ((input: Uint8Array): typia.Resolved<ObjectGenericAlias> => {
+                const decode = (
+                    input: Uint8Array,
+                ): typia.Resolved<ObjectGenericAlias> => {
                     const $Reader = (typia.protobuf.assertDecode as any).Reader;
                     const $pdo0 = (reader: any, length: number = -1): any => {
                         length =
@@ -81,7 +83,7 @@ export const test_protobuf_assertDecode_ObjectGenericAlias =
                     return input;
                 };
                 const output = decode(input);
-                return assert(output);
+                return assert(output) as any;
             })(input),
         encode: (input: ObjectGenericAlias): Uint8Array => {
             const $Sizer = (typia.protobuf.createEncode as any).Sizer;

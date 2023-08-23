@@ -26,7 +26,9 @@ import { wrap_metadata_rest_tuple } from "../internal/wrap_metadata_rest_tuple";
 export namespace MiscPruneProgrammer {
     export const write =
         (project: IProject) => (modulo: ts.LeftHandSideExpression) => {
-            const importer: FunctionImporter = new FunctionImporter();
+            const importer: FunctionImporter = new FunctionImporter(
+                modulo.getText(),
+            );
             return FeatureProgrammer.write(project)({
                 ...configure(project)(importer),
                 addition: (collection) => [
@@ -507,7 +509,7 @@ export namespace MiscPruneProgrammer {
         (type) => {
             const collection = new MetadataCollection();
             const meta = MetadataFactory.analyze(checker)({
-                resolve: false,
+                escape: false,
                 constant: true,
                 absorb: true,
             })(collection)(type);

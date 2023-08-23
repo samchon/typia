@@ -1,7 +1,6 @@
 import typia from "typia";
 
 import { TestStructure } from "../helpers/TestStructure";
-import { primitive_equal_to } from "../helpers/primitive_equal_to";
 import { _test_protobuf_encode } from "./_test_protobuf_encode";
 
 export const _test_protobuf_validateEncode =
@@ -10,7 +9,7 @@ export const _test_protobuf_validateEncode =
     (functor: {
         message: string;
         validateEncode: (input: T) => typia.IValidation<Uint8Array>;
-        decode: (input: Uint8Array) => T;
+        decode: (input: Uint8Array) => typia.Resolved<T>;
     }) =>
     () => {
         _test_protobuf_encode(name)(factory)({
@@ -60,21 +59,4 @@ export const _test_protobuf_validateEncode =
 interface ISpoiled {
     expected: string[];
     actual: string[];
-}
-
-function predicate<T>(data: any, optimized: string): boolean {
-    // SPECIAL CASE, UNDEFINED
-    if (
-        optimized === undefined &&
-        (data === undefined ||
-            typeof data === "function" ||
-            (data.toJSON && data.toJSON() === undefined))
-    )
-        return true;
-
-    // DO COMPARE
-    const parsed: T = JSON.parse(optimized);
-    const expected: T = JSON.parse(JSON.stringify(data));
-
-    return primitive_equal_to(parsed, expected);
 }

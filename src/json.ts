@@ -340,7 +340,7 @@ export function isStringify<T>(input: T): string | null;
  * `typia.json.isStringify()` is a combination function of {@link is} and
  * {@link stringify}. Therefore, it converts an input value to JSON
  * (JavaScript Object Notation) string, with type checking.
- *f
+ *
  * In such reason, when `input` value is not matched with the type `T`, it returns
  * `null` value. Otherwise, there's no problem on the `input` value, JSON string
  * would be returned.
@@ -430,8 +430,8 @@ Object.assign(validateStringify, Namespace.json.stringify("validateStringify"));
 /**
  * Creates a reusable {@link isParse} function.
  *
- * @danger You have to specify the generic argument `T`
- * @return Nothing until specifying the generic argument `T`
+ * @danger You must configure the generic argument `T`
+ * @returns Nothing until you configure the generic argument `T`
  * @throws compile error
  *
  * @author Jeongho Nam - https://github.com/samchon
@@ -459,8 +459,8 @@ Object.assign(createIsParse, isParse);
 /**
  * Creates a reusable {@link assertParse} function.
  *
- * @danger You have to specify the generic argument `T`
- * @return Nothing until specifying the generic argument `T`
+ * @danger You must configure the generic argument `T`
+ * @returns Nothing until you configure the generic argument `T`
  * @throws compile error
  *
  * @author Jeongho Nam - https://github.com/samchon
@@ -488,8 +488,8 @@ Object.assign(createAssertParse, assertParse);
 /**
  * Creates a reusable {@link validateParse} function.
  *
- * @danger You have to specify the generic argument `T`
- * @return Nothing until specifying the generic argument `T`
+ * @danger You must configure the generic argument `T`
+ * @returns Nothing until you configure the generic argument `T`
  * @throws compile error
  *
  * @author Jeongho Nam - https://github.com/samchon
@@ -521,8 +521,8 @@ Object.assign(createValidateParse, validateParse);
 /**
  * Creates a reusable {@link stringify} function.
  *
- * @danger You have to specify the generic argument `T`
- * @return Nothing until specifying the generic argument `T`
+ * @danger You must configure the generic argument `T`
+ * @returns Nothing until you configure the generic argument `T`
  * @throws compile error
  *
  * @author Jeongho Nam - https://github.com/samchon
@@ -550,8 +550,8 @@ Object.assign(createStringify, stringify);
 /**
  * Creates a reusable {@link assertStringify} function.
  *
- * @danger You have to specify the generic argument `T`
- * @return Nothing until specifying the generic argument `T`
+ * @danger You must configure the generic argument `T`
+ * @returns Nothing until you configure the generic argument `T`
  * @throws compile error
  *
  * @author Jeongho Nam - https://github.com/samchon
@@ -579,8 +579,8 @@ Object.assign(createAssertStringify, assertStringify);
 /**
  * Creates a reusable {@link isStringify} function.
  *
- * @danger You have to specify the generic argument `T`
- * @return Nothing until specifying the generic argument `T`
+ * @danger You must configure the generic argument `T`
+ * @returns Nothing until you configure the generic argument `T`
  * @throws compile error
  *
  * @author Jeongho Nam - https://github.com/samchon
@@ -608,8 +608,8 @@ Object.assign(createIsStringify, isStringify);
 /**
  * Creates a reusable {@link validateStringify} function.
  *
- * @danger You have to specify the generic argument `T`
- * @return Nothing until specifying the generic argument `T`
+ * @danger You must configure the generic argument `T`
+ * @returns Nothing until you configure the generic argument `T`
  * @throws compile error
  *
  * @author Jeongho Nam - https://github.com/samchon

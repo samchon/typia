@@ -5,7 +5,7 @@ import { ObjectUndefined } from "../../../structures/ObjectUndefined";
 export const test_misc_validateClone_ObjectUndefined = _test_misc_validateClone(
     "ObjectUndefined",
 )<ObjectUndefined>(ObjectUndefined)((input) =>
-    ((input: any): typia.IValidation<typia.Primitive<ObjectUndefined>> => {
+    ((input: any): typia.IValidation<typia.Resolved<ObjectUndefined>> => {
         const validate = (input: any): typia.IValidation<ObjectUndefined> => {
             const errors = [] as any[];
             const __is = (input: any): input is ObjectUndefined => {
@@ -192,7 +192,7 @@ export const test_misc_validateClone_ObjectUndefined = _test_misc_validateClone(
         };
         const clone = (
             input: ObjectUndefined,
-        ): typia.Primitive<ObjectUndefined> => {
+        ): typia.Resolved<ObjectUndefined> => {
             const $io1 = (input: any): boolean =>
                 "string" === typeof input.id && "string" === typeof input.name;
             const $any = (typia.misc.validateClone as any).any;

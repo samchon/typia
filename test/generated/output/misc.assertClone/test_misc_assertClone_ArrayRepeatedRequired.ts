@@ -6,7 +6,7 @@ export const test_misc_assertClone_ArrayRepeatedRequired =
     _test_misc_assertClone("ArrayRepeatedRequired")<ArrayRepeatedRequired>(
         ArrayRepeatedRequired,
     )((input) =>
-        ((input: any): typia.Primitive<ArrayRepeatedRequired> => {
+        ((input: any): typia.Resolved<ArrayRepeatedRequired> => {
             const assert = (input: any): ArrayRepeatedRequired => {
                 const __is = (input: any): input is ArrayRepeatedRequired => {
                     const $ia0 = (input: any): any =>
@@ -138,7 +138,7 @@ export const test_misc_assertClone_ArrayRepeatedRequired =
             };
             const clone = (
                 input: ArrayRepeatedRequired,
-            ): typia.Primitive<ArrayRepeatedRequired> => {
+            ): typia.Resolved<ArrayRepeatedRequired> => {
                 const $ia0 = (input: any): any =>
                     input.every(
                         (elem: any) =>

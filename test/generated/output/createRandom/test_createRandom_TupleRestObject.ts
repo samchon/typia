@@ -7,7 +7,7 @@ export const test_random_TupleRestObject = _test_random(
 )<TupleRestObject>(TupleRestObject)({
     random: (
         generator?: Partial<typia.IRandomGenerator>,
-    ): typia.Primitive<TupleRestObject> => {
+    ): typia.Resolved<TupleRestObject> => {
         const $generator = (typia.createRandom as any).generator;
         const $ro0 = (
             _recursive: boolean = false,

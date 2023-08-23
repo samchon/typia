@@ -6,7 +6,7 @@ export const test_protobuf_decode_TemplateAtomic = _test_protobuf_decode(
     "TemplateAtomic",
 )<TemplateAtomic>(TemplateAtomic)({
     decode: (input) =>
-        ((input: Uint8Array): TemplateAtomic => {
+        ((input: Uint8Array): typia.Resolved<TemplateAtomic> => {
             const $Reader = (typia.protobuf.decode as any).Reader;
             const $pdo0 = (reader: any, length: number = -1): any => {
                 length = length < 0 ? reader.size() : reader.index() + length;

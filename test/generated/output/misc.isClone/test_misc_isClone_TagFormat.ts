@@ -5,7 +5,7 @@ import { TagFormat } from "../../../structures/TagFormat";
 export const test_misc_isClone_TagFormat = _test_misc_isClone(
     "TagFormat",
 )<TagFormat>(TagFormat)((input) =>
-    ((input: any): typia.Primitive<TagFormat> | null => {
+    ((input: any): typia.Resolved<TagFormat> | null => {
         const is = (input: any): input is TagFormat => {
             const $is_uuid = (typia.misc.isClone as any).is_uuid;
             const $is_email = (typia.misc.isClone as any).is_email;
@@ -34,7 +34,7 @@ export const test_misc_isClone_TagFormat = _test_misc_isClone(
                 "string" === typeof (input as any).custom
             );
         };
-        const clone = (input: TagFormat): typia.Primitive<TagFormat> => {
+        const clone = (input: TagFormat): typia.Resolved<TagFormat> => {
             const $is_uuid = (typia.misc.isClone as any).is_uuid;
             const $is_email = (typia.misc.isClone as any).is_email;
             const $is_url = (typia.misc.isClone as any).is_url;

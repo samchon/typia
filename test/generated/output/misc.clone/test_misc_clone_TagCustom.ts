@@ -5,7 +5,7 @@ import { TagCustom } from "../../../structures/TagCustom";
 export const test_misc_clone_TagCustom = _test_misc_clone(
     "TagCustom",
 )<TagCustom>(TagCustom)((input) =>
-    ((input: TagCustom): typia.Primitive<TagCustom> => {
+    ((input: TagCustom): typia.Resolved<TagCustom> => {
         const $is_uuid = (typia.misc.clone as any).is_uuid;
         const $is_custom = (typia.misc.clone as any).is_custom;
         const $co0 = (input: any): any => ({

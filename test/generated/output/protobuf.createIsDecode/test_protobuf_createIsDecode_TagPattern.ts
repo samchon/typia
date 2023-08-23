@@ -5,7 +5,7 @@ import { TagPattern } from "../../../structures/TagPattern";
 export const test_protobuf_isDecode_TagPattern = _test_protobuf_isDecode(
     "TagPattern",
 )<TagPattern>(TagPattern)({
-    isDecode: (input: Uint8Array): TagPattern | null => {
+    isDecode: (input: Uint8Array): typia.Resolved<TagPattern> | null => {
         const is = (input: any): input is TagPattern => {
             return (
                 "object" === typeof input &&
@@ -28,7 +28,7 @@ export const test_protobuf_isDecode_TagPattern = _test_protobuf_isDecode(
                 ).test((input as any).ipv6)
             );
         };
-        const decode = (input: Uint8Array): TagPattern => {
+        const decode = (input: Uint8Array): typia.Resolved<TagPattern> => {
             const $Reader = (typia.protobuf.createIsDecode as any).Reader;
             const $pdo0 = (reader: any, length: number = -1): any => {
                 length = length < 0 ? reader.size() : reader.index() + length;

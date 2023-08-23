@@ -5,7 +5,7 @@ import { ArrayHierarchical } from "../../../structures/ArrayHierarchical";
 export const test_misc_assertClone_ArrayHierarchical = _test_misc_assertClone(
     "ArrayHierarchical",
 )<ArrayHierarchical>(ArrayHierarchical)(
-    (input: any): typia.Primitive<ArrayHierarchical> => {
+    (input: any): typia.Resolved<ArrayHierarchical> => {
         const assert = (input: any): ArrayHierarchical => {
             const __is = (input: any): input is ArrayHierarchical => {
                 const $io0 = (input: any): boolean =>
@@ -357,7 +357,7 @@ export const test_misc_assertClone_ArrayHierarchical = _test_misc_assertClone(
         };
         const clone = (
             input: ArrayHierarchical,
-        ): typia.Primitive<ArrayHierarchical> => {
+        ): typia.Resolved<ArrayHierarchical> => {
             const $io1 = (input: any): boolean =>
                 "number" === typeof input.time &&
                 "number" === typeof input.zone;

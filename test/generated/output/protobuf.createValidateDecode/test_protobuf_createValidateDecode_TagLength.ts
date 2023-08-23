@@ -4,7 +4,9 @@ import { TagLength } from "../../../structures/TagLength";
 
 export const test_protobuf_validateDecode_TagLength =
     _test_protobuf_validateDecode("TagLength")<TagLength>(TagLength)({
-        validateDecode: (input: Uint8Array): typia.IValidation<TagLength> => {
+        validateDecode: (
+            input: Uint8Array,
+        ): typia.IValidation<typia.Resolved<TagLength>> => {
             const validate = (input: any): typia.IValidation<TagLength> => {
                 const errors = [] as any[];
                 const __is = (input: any): input is TagLength => {
@@ -201,7 +203,7 @@ export const test_protobuf_validateDecode_TagLength =
                     data: success ? input : undefined,
                 } as any;
             };
-            const decode = (input: Uint8Array): TagLength => {
+            const decode = (input: Uint8Array): typia.Resolved<TagLength> => {
                 const $Reader = (typia.protobuf.createValidateDecode as any)
                     .Reader;
                 const $pdo0 = (reader: any, length: number = -1): any => {

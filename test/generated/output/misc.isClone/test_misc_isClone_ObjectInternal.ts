@@ -5,7 +5,7 @@ import { ObjectInternal } from "../../../structures/ObjectInternal";
 export const test_misc_isClone_ObjectInternal = _test_misc_isClone(
     "ObjectInternal",
 )<ObjectInternal>(ObjectInternal)((input) =>
-    ((input: any): typia.Primitive<ObjectInternal> | null => {
+    ((input: any): typia.Resolved<ObjectInternal> | null => {
         const is = (input: any): input is ObjectInternal => {
             return (
                 "object" === typeof input &&
@@ -16,7 +16,7 @@ export const test_misc_isClone_ObjectInternal = _test_misc_isClone(
         };
         const clone = (
             input: ObjectInternal,
-        ): typia.Primitive<ObjectInternal> => {
+        ): typia.Resolved<ObjectInternal> => {
             const $co0 = (input: any): any => ({
                 id: input.id as any,
                 name: input.name as any,

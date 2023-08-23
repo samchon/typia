@@ -5,7 +5,7 @@ import { ClassPropertyAssignment } from "../../../structures/ClassPropertyAssign
 export const test_misc_assertClone_ClassPropertyAssignment =
     _test_misc_assertClone("ClassPropertyAssignment")<ClassPropertyAssignment>(
         ClassPropertyAssignment,
-    )((input: any): typia.Primitive<ClassPropertyAssignment> => {
+    )((input: any): typia.Resolved<ClassPropertyAssignment> => {
         const assert = (input: any): ClassPropertyAssignment => {
             const __is = (input: any): input is ClassPropertyAssignment => {
                 const $io0 = (input: any): boolean =>
@@ -81,7 +81,7 @@ export const test_misc_assertClone_ClassPropertyAssignment =
         };
         const clone = (
             input: ClassPropertyAssignment,
-        ): typia.Primitive<ClassPropertyAssignment> => {
+        ): typia.Resolved<ClassPropertyAssignment> => {
             const $co0 = (input: any): any => ({
                 id: input.id as any,
                 name: input.name as any,

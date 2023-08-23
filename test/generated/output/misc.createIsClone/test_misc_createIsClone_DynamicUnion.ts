@@ -5,7 +5,7 @@ import { DynamicUnion } from "../../../structures/DynamicUnion";
 export const test_misc_isClone_DynamicUnion = _test_misc_isClone(
     "DynamicUnion",
 )<DynamicUnion>(DynamicUnion)(
-    (input: any): typia.Primitive<DynamicUnion> | null => {
+    (input: any): typia.Resolved<DynamicUnion> | null => {
         const is = (input: any): input is DynamicUnion => {
             const $join = (typia.misc.createIsClone as any).join;
             const $io0 = (input: any): boolean =>
@@ -39,7 +39,7 @@ export const test_misc_isClone_DynamicUnion = _test_misc_isClone(
                 $io0(input)
             );
         };
-        const clone = (input: DynamicUnion): typia.Primitive<DynamicUnion> => {
+        const clone = (input: DynamicUnion): typia.Resolved<DynamicUnion> => {
             const $join = (typia.misc.createIsClone as any).join;
             const $co0 = (input: any): any => {
                 const output = {} as any;

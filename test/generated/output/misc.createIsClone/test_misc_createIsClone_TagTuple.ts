@@ -4,7 +4,7 @@ import { TagTuple } from "../../../structures/TagTuple";
 
 export const test_misc_isClone_TagTuple = _test_misc_isClone(
     "TagTuple",
-)<TagTuple>(TagTuple)((input: any): typia.Primitive<TagTuple> | null => {
+)<TagTuple>(TagTuple)((input: any): typia.Resolved<TagTuple> | null => {
     const is = (input: any): input is TagTuple => {
         const $io0 = (input: any): boolean =>
             Array.isArray(input.tuple) &&
@@ -33,7 +33,7 @@ export const test_misc_isClone_TagTuple = _test_misc_isClone(
             );
         return "object" === typeof input && null !== input && $io0(input);
     };
-    const clone = (input: TagTuple): typia.Primitive<TagTuple> => {
+    const clone = (input: TagTuple): typia.Resolved<TagTuple> => {
         const $cp0 = (input: any) => input.map((elem: any) => elem as any);
         const $cp1 = (input: any) => input.map((elem: any) => elem as any);
         const $co0 = (input: any): any => ({

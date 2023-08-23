@@ -4,7 +4,7 @@ import { TagDefault } from "../../../structures/TagDefault";
 
 export const test_misc_clone_TagDefault = _test_misc_clone(
     "TagDefault",
-)<TagDefault>(TagDefault)((input: TagDefault): typia.Primitive<TagDefault> => {
+)<TagDefault>(TagDefault)((input: TagDefault): typia.Resolved<TagDefault> => {
     const $is_custom = (typia.misc.createClone as any).is_custom;
     const $co0 = (input: any): any => ({
         boolean: input.boolean as any,

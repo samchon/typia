@@ -6,8 +6,8 @@ export const test_protobuf_assertDecode_TagNaN = _test_protobuf_assertDecode(
     "TagNaN",
 )<TagNaN>(TagNaN)({
     assertDecode: (input) =>
-        ((input: Uint8Array): TagNaN => {
-            const decode = (input: Uint8Array): TagNaN => {
+        ((input: Uint8Array): typia.Resolved<TagNaN> => {
+            const decode = (input: Uint8Array): typia.Resolved<TagNaN> => {
                 const $Reader = (typia.protobuf.assertDecode as any).Reader;
                 const $pdo0 = (reader: any, length: number = -1): any => {
                     length =
@@ -197,7 +197,7 @@ export const test_protobuf_assertDecode_TagNaN = _test_protobuf_assertDecode(
                 return input;
             };
             const output = decode(input);
-            return assert(output);
+            return assert(output) as any;
         })(input),
     encode: (input: TagNaN): Uint8Array => {
         const $Sizer = (typia.protobuf.createEncode as any).Sizer;

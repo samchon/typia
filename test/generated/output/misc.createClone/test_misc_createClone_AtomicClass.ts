@@ -5,7 +5,7 @@ import { AtomicClass } from "../../../structures/AtomicClass";
 export const test_misc_clone_AtomicClass = _test_misc_clone(
     "AtomicClass",
 )<AtomicClass>(AtomicClass)(
-    (input: AtomicClass): typia.Primitive<AtomicClass> => {
+    (input: AtomicClass): typia.Resolved<AtomicClass> => {
         return Array.isArray(input) &&
             input.length === 9 &&
             ("boolean" === typeof input[0] || input[0] instanceof Boolean) &&

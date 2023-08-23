@@ -4,7 +4,7 @@ import { DynamicNever } from "../../../structures/DynamicNever";
 
 export const test_misc_assertClone_DynamicNever = _test_misc_assertClone(
     "DynamicNever",
-)<DynamicNever>(DynamicNever)((input: any): typia.Primitive<DynamicNever> => {
+)<DynamicNever>(DynamicNever)((input: any): typia.Resolved<DynamicNever> => {
     const assert = (input: any): DynamicNever => {
         const __is = (input: any): input is DynamicNever => {
             const $join = (typia.misc.createAssertClone as any).join;
@@ -76,7 +76,7 @@ export const test_misc_assertClone_DynamicNever = _test_misc_assertClone(
             })(input, "$input", true);
         return input;
     };
-    const clone = (input: DynamicNever): typia.Primitive<DynamicNever> => {
+    const clone = (input: DynamicNever): typia.Resolved<DynamicNever> => {
         const $join = (typia.misc.createAssertClone as any).join;
         const $co0 = (input: any): any => {
             const output = {} as any;

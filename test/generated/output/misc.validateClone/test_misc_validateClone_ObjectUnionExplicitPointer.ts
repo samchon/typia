@@ -8,7 +8,7 @@ export const test_misc_validateClone_ObjectUnionExplicitPointer =
     )<ObjectUnionExplicitPointer>(ObjectUnionExplicitPointer)((input) =>
         ((
             input: any,
-        ): typia.IValidation<typia.Primitive<ObjectUnionExplicitPointer>> => {
+        ): typia.IValidation<typia.Resolved<ObjectUnionExplicitPointer>> => {
             const validate = (
                 input: any,
             ): typia.IValidation<ObjectUnionExplicitPointer> => {
@@ -824,7 +824,7 @@ export const test_misc_validateClone_ObjectUnionExplicitPointer =
             };
             const clone = (
                 input: ObjectUnionExplicitPointer,
-            ): typia.Primitive<ObjectUnionExplicitPointer> => {
+            ): typia.Resolved<ObjectUnionExplicitPointer> => {
                 const $io1 = (input: any): boolean =>
                     "object" === typeof input.value &&
                     null !== input.value &&

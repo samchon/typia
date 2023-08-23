@@ -19,36 +19,17 @@ export const test_json_isStringify_NativeAlias = _test_json_isStringify(
             input.bigInt64Array instanceof BigInt64Array &&
             input.float32Array instanceof Float32Array &&
             input.float64Array instanceof Float64Array &&
-            input.buffer instanceof Buffer &&
             input.arrayBuffer instanceof ArrayBuffer &&
             input.sharedArrayBuffer instanceof SharedArrayBuffer &&
-            input.dataView instanceof DataView &&
-            input.weakSet instanceof WeakSet &&
-            input.weakMap instanceof WeakMap;
+            input.dataView instanceof DataView;
         return "object" === typeof input && null !== input && $io0(input);
     };
     const stringify = (input: NativeAlias): string => {
         const $string = (typia.json.createIsStringify as any).string;
-        const $throws = (typia.json.createIsStringify as any).throws;
-        const $number = (typia.json.createIsStringify as any).number;
         const $so0 = (input: any): any =>
             `{"date":${$string(
                 input.date.toJSON(),
-            )},"uint8Array":{},"uint8ClampedArray":{},"uint16Array":{},"uint32Array":{},"bigUint64Array":{},"int8Array":{},"int16Array":{},"int32Array":{},"bigInt64Array":{},"float32Array":{},"float64Array":{},"buffer":${$so1(
-                input.buffer.toJSON(),
-            )},"arrayBuffer":{},"sharedArrayBuffer":{},"dataView":{},"weakSet":{},"weakMap":{}}`;
-        const $so1 = (input: any): any =>
-            `{"type":${(() => {
-                if ("string" === typeof input.type) return $string(input.type);
-                if ("string" === typeof input.type)
-                    return '"' + input.type + '"';
-                $throws({
-                    expected: '"Buffer"',
-                    value: input.type,
-                });
-            })()},"data":${`[${input.data
-                .map((elem: any) => $number(elem))
-                .join(",")}]`}}`;
+            )},"uint8Array":{},"uint8ClampedArray":{},"uint16Array":{},"uint32Array":{},"bigUint64Array":{},"int8Array":{},"int16Array":{},"int32Array":{},"bigInt64Array":{},"float32Array":{},"float64Array":{},"arrayBuffer":{},"sharedArrayBuffer":{},"dataView":{}}`;
         return $so0(input);
     };
     return is(input) ? stringify(input) : null;

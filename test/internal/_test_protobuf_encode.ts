@@ -1,4 +1,5 @@
 import pjs from "protobufjs";
+import typia from "typia";
 
 import { TestStructure } from "../helpers/TestStructure";
 import { protobuf_equal_to } from "../helpers/protobuf_equal_to";
@@ -9,7 +10,7 @@ export const _test_protobuf_encode =
     (functor: {
         message: string;
         encode: (input: T) => Uint8Array;
-        decode: (input: Uint8Array) => T;
+        decode: (input: Uint8Array) => typia.Resolved<T>;
     }) =>
     () => {
         const data: T = factory.generate();
@@ -44,19 +45,19 @@ export const _test_protobuf_encode =
                     `Bug on typia.protobuf.encode(): invalid encoding happened on ${name} type.`,
                 );
             }
-        } else {
-            // COMPARE WITH DECODER
-            const decoded: T = functor.decode(result);
-            const again: Uint8Array = functor.encode(decoded);
-
-            if (
-                protobuf_equal_to(name)(data, decoded) === false ||
-                equal(result, again) === false
-            )
-                throw new Error(
-                    `Bug on typia.protobuf.encode(): failed to decode binary from encoded ${name} type.`,
-                );
         }
+
+        // COMPARE WITH DECODER
+        const decoded: typia.Resolved<T> = functor.decode(result);
+        const again: Uint8Array = functor.encode(decoded as T);
+
+        if (
+            protobuf_equal_to(name)(data, decoded) === false ||
+            equal(result, again) === false
+        )
+            throw new Error(
+                `Bug on typia.protobuf.encode(): failed to decode binary from encoded ${name} type.`,
+            );
     };
 
 const protobufJS =

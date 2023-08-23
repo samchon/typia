@@ -5,7 +5,7 @@ import { TagStep } from "../../../structures/TagStep";
 export const test_random_TagStep = _test_random("TagStep")<TagStep>(TagStep)({
     random: (
         generator?: Partial<typia.IRandomGenerator>,
-    ): typia.Primitive<TagStep> => {
+    ): typia.Resolved<TagStep> => {
         const $generator = (typia.createRandom as any).generator;
         const $ro0 = (
             _recursive: boolean = false,

@@ -6,7 +6,7 @@ export const test_protobuf_decode_TagStep = _test_protobuf_decode(
     "TagStep",
 )<TagStep>(TagStep)({
     decode: (input) =>
-        ((input: Uint8Array): TagStep => {
+        ((input: Uint8Array): typia.Resolved<TagStep> => {
             const $Reader = (typia.protobuf.decode as any).Reader;
             const $pdo0 = (reader: any, length: number = -1): any => {
                 length = length < 0 ? reader.size() : reader.index() + length;

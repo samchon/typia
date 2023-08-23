@@ -5,7 +5,7 @@ import { ObjectUndefined } from "../../../structures/ObjectUndefined";
 export const test_misc_assertClone_ObjectUndefined = _test_misc_assertClone(
     "ObjectUndefined",
 )<ObjectUndefined>(ObjectUndefined)((input) =>
-    ((input: any): typia.Primitive<ObjectUndefined> => {
+    ((input: any): typia.Resolved<ObjectUndefined> => {
         const assert = (input: any): ObjectUndefined => {
             const __is = (input: any): input is ObjectUndefined => {
                 const $io0 = (input: any): boolean =>
@@ -175,7 +175,7 @@ export const test_misc_assertClone_ObjectUndefined = _test_misc_assertClone(
         };
         const clone = (
             input: ObjectUndefined,
-        ): typia.Primitive<ObjectUndefined> => {
+        ): typia.Resolved<ObjectUndefined> => {
             const $io1 = (input: any): boolean =>
                 "string" === typeof input.id && "string" === typeof input.name;
             const $any = (typia.misc.assertClone as any).any;

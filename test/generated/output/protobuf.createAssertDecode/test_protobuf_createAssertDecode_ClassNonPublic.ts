@@ -6,8 +6,10 @@ export const test_protobuf_assertDecode_ClassNonPublic =
     _test_protobuf_assertDecode("ClassNonPublic")<ClassNonPublic>(
         ClassNonPublic,
     )({
-        assertDecode: (input: Uint8Array): ClassNonPublic => {
-            const decode = (input: Uint8Array): ClassNonPublic => {
+        assertDecode: (input: Uint8Array): typia.Resolved<ClassNonPublic> => {
+            const decode = (
+                input: Uint8Array,
+            ): typia.Resolved<ClassNonPublic> => {
                 const $Reader = (typia.protobuf.createAssertDecode as any)
                     .Reader;
                 const $pdo0 = (reader: any, length: number = -1): any => {
@@ -91,7 +93,7 @@ export const test_protobuf_assertDecode_ClassNonPublic =
                 return input;
             };
             const output = decode(input);
-            return assert(output);
+            return assert(output) as any;
         },
         encode: (input: ClassNonPublic): Uint8Array => {
             const $Sizer = (typia.protobuf.createEncode as any).Sizer;

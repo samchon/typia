@@ -5,7 +5,7 @@ import { ClassGetter } from "../../../structures/ClassGetter";
 export const test_misc_validateClone_ClassGetter = _test_misc_validateClone(
     "ClassGetter",
 )<ClassGetter>(ClassGetter)(
-    (input: any): typia.IValidation<typia.Primitive<ClassGetter>> => {
+    (input: any): typia.IValidation<typia.Resolved<ClassGetter>> => {
         const validate = (input: any): typia.IValidation<ClassGetter> => {
             const errors = [] as any[];
             const __is = (input: any): input is ClassGetter => {
@@ -75,7 +75,7 @@ export const test_misc_validateClone_ClassGetter = _test_misc_validateClone(
                 data: success ? input : undefined,
             } as any;
         };
-        const clone = (input: ClassGetter): typia.Primitive<ClassGetter> => {
+        const clone = (input: ClassGetter): typia.Resolved<ClassGetter> => {
             const $co0 = (input: any): any => ({
                 id: input.id as any,
                 name: input.name as any,

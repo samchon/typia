@@ -7,7 +7,7 @@ export const test_random_AtomicUnion = _test_random("AtomicUnion")<AtomicUnion>(
 )({
     random: (
         generator?: Partial<typia.IRandomGenerator>,
-    ): typia.Primitive<AtomicUnion> => {
+    ): typia.Resolved<AtomicUnion> => {
         const $generator = (typia.createRandom as any).generator;
         const $pick = (typia.createRandom as any).pick;
         return (generator?.array ?? $generator.array)(() =>

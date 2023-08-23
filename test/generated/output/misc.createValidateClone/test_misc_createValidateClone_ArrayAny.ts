@@ -5,7 +5,7 @@ import { ArrayAny } from "../../../structures/ArrayAny";
 export const test_misc_validateClone_ArrayAny = _test_misc_validateClone(
     "ArrayAny",
 )<ArrayAny>(ArrayAny)(
-    (input: any): typia.IValidation<typia.Primitive<ArrayAny>> => {
+    (input: any): typia.IValidation<typia.Resolved<ArrayAny>> => {
         const validate = (input: any): typia.IValidation<ArrayAny> => {
             const errors = [] as any[];
             const __is = (input: any): input is ArrayAny => {
@@ -136,7 +136,7 @@ export const test_misc_validateClone_ArrayAny = _test_misc_validateClone(
                 data: success ? input : undefined,
             } as any;
         };
-        const clone = (input: ArrayAny): typia.Primitive<ArrayAny> => {
+        const clone = (input: ArrayAny): typia.Resolved<ArrayAny> => {
             const $any = (typia.misc.createValidateClone as any).any;
             const $co0 = (input: any): any => ({
                 anys: $any(input.anys),

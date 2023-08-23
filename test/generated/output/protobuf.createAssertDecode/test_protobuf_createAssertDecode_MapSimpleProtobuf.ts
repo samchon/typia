@@ -6,8 +6,12 @@ export const test_protobuf_assertDecode_MapSimpleProtobuf =
     _test_protobuf_assertDecode("MapSimpleProtobuf")<MapSimpleProtobuf>(
         MapSimpleProtobuf,
     )({
-        assertDecode: (input: Uint8Array): MapSimpleProtobuf => {
-            const decode = (input: Uint8Array): MapSimpleProtobuf => {
+        assertDecode: (
+            input: Uint8Array,
+        ): typia.Resolved<MapSimpleProtobuf> => {
+            const decode = (
+                input: Uint8Array,
+            ): typia.Resolved<MapSimpleProtobuf> => {
                 const $Reader = (typia.protobuf.createAssertDecode as any)
                     .Reader;
                 const $pdo0 = (reader: any, length: number = -1): any => {
@@ -870,7 +874,7 @@ export const test_protobuf_assertDecode_MapSimpleProtobuf =
                 return input;
             };
             const output = decode(input);
-            return assert(output);
+            return assert(output) as any;
         },
         encode: (input: MapSimpleProtobuf): Uint8Array => {
             const $Sizer = (typia.protobuf.createEncode as any).Sizer;

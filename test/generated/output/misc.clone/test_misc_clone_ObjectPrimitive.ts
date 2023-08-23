@@ -5,7 +5,7 @@ import { ObjectPrimitive } from "../../../structures/ObjectPrimitive";
 export const test_misc_clone_ObjectPrimitive = _test_misc_clone(
     "ObjectPrimitive",
 )<ObjectPrimitive>(ObjectPrimitive)((input) =>
-    ((input: ObjectPrimitive): typia.Primitive<ObjectPrimitive> => {
+    ((input: ObjectPrimitive): typia.Resolved<ObjectPrimitive> => {
         const $io1 = (input: any): boolean =>
             "string" === typeof input.id &&
             "string" === typeof input.name &&

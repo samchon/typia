@@ -5,7 +5,7 @@ import { ObjectSimple } from "../../../structures/ObjectSimple";
 export const test_misc_validateClone_ObjectSimple = _test_misc_validateClone(
     "ObjectSimple",
 )<ObjectSimple>(ObjectSimple)((input) =>
-    ((input: any): typia.IValidation<typia.Primitive<ObjectSimple>> => {
+    ((input: any): typia.IValidation<typia.Resolved<ObjectSimple>> => {
         const validate = (input: any): typia.IValidation<ObjectSimple> => {
             const errors = [] as any[];
             const __is = (input: any): input is ObjectSimple => {
@@ -181,7 +181,7 @@ export const test_misc_validateClone_ObjectSimple = _test_misc_validateClone(
                 data: success ? input : undefined,
             } as any;
         };
-        const clone = (input: ObjectSimple): typia.Primitive<ObjectSimple> => {
+        const clone = (input: ObjectSimple): typia.Resolved<ObjectSimple> => {
             const $io1 = (input: any): boolean =>
                 "number" === typeof input.x &&
                 "number" === typeof input.y &&

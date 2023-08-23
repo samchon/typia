@@ -4,8 +4,10 @@ import { ObjectJsonTag } from "../../../structures/ObjectJsonTag";
 
 export const test_protobuf_assertDecode_ObjectJsonTag =
     _test_protobuf_assertDecode("ObjectJsonTag")<ObjectJsonTag>(ObjectJsonTag)({
-        assertDecode: (input: Uint8Array): ObjectJsonTag => {
-            const decode = (input: Uint8Array): ObjectJsonTag => {
+        assertDecode: (input: Uint8Array): typia.Resolved<ObjectJsonTag> => {
+            const decode = (
+                input: Uint8Array,
+            ): typia.Resolved<ObjectJsonTag> => {
                 const $Reader = (typia.protobuf.createAssertDecode as any)
                     .Reader;
                 const $pdo0 = (reader: any, length: number = -1): any => {
@@ -153,7 +155,7 @@ export const test_protobuf_assertDecode_ObjectJsonTag =
                 return input;
             };
             const output = decode(input);
-            return assert(output);
+            return assert(output) as any;
         },
         encode: (input: ObjectJsonTag): Uint8Array => {
             const $is_custom = (typia.protobuf.createEncode as any).is_custom;

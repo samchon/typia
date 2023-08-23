@@ -18,7 +18,9 @@ export namespace AssertProgrammer {
         (modulo: ts.LeftHandSideExpression) =>
         (equals: boolean) =>
         (type: ts.Type, name?: string) => {
-            const importer: FunctionImporter = new FunctionImporter();
+            const importer: FunctionImporter = new FunctionImporter(
+                modulo.getText(),
+            );
             const is = IsProgrammer.write(project)(modulo, true)(equals)(
                 type,
                 name ?? TypeFactory.getFullName(project.checker)(type),

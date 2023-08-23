@@ -5,7 +5,7 @@ import { ObjectPrimitive } from "../../../structures/ObjectPrimitive";
 export const test_misc_validateClone_ObjectPrimitive = _test_misc_validateClone(
     "ObjectPrimitive",
 )<ObjectPrimitive>(ObjectPrimitive)((input) =>
-    ((input: any): typia.IValidation<typia.Primitive<ObjectPrimitive>> => {
+    ((input: any): typia.IValidation<typia.Resolved<ObjectPrimitive>> => {
         const validate = (input: any): typia.IValidation<ObjectPrimitive> => {
             const errors = [] as any[];
             const __is = (input: any): input is ObjectPrimitive => {
@@ -197,7 +197,7 @@ export const test_misc_validateClone_ObjectPrimitive = _test_misc_validateClone(
         };
         const clone = (
             input: ObjectPrimitive,
-        ): typia.Primitive<ObjectPrimitive> => {
+        ): typia.Resolved<ObjectPrimitive> => {
             const $io1 = (input: any): boolean =>
                 "string" === typeof input.id &&
                 "string" === typeof input.name &&

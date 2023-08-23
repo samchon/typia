@@ -4,7 +4,9 @@ import { ClassGetter } from "../../../structures/ClassGetter";
 
 export const test_protobuf_validateDecode_ClassGetter =
     _test_protobuf_validateDecode("ClassGetter")<ClassGetter>(ClassGetter)({
-        validateDecode: (input: Uint8Array): typia.IValidation<ClassGetter> => {
+        validateDecode: (
+            input: Uint8Array,
+        ): typia.IValidation<typia.Resolved<ClassGetter>> => {
             const validate = (input: any): typia.IValidation<ClassGetter> => {
                 const errors = [] as any[];
                 const __is = (input: any): input is ClassGetter => {
@@ -77,7 +79,7 @@ export const test_protobuf_validateDecode_ClassGetter =
                     data: success ? input : undefined,
                 } as any;
             };
-            const decode = (input: Uint8Array): ClassGetter => {
+            const decode = (input: Uint8Array): typia.Resolved<ClassGetter> => {
                 const $Reader = (typia.protobuf.createValidateDecode as any)
                     .Reader;
                 const $pdo0 = (reader: any, length: number = -1): any => {

@@ -7,7 +7,9 @@ export const test_protobuf_isDecode_ObjectUnionCompositePointer =
         "ObjectUnionCompositePointer",
     )<ObjectUnionCompositePointer>(ObjectUnionCompositePointer)({
         isDecode: (input) =>
-            ((input: Uint8Array): ObjectUnionCompositePointer | null => {
+            ((
+                input: Uint8Array,
+            ): typia.Resolved<ObjectUnionCompositePointer> | null => {
                 const is = (
                     input: any,
                 ): input is ObjectUnionCompositePointer => {
@@ -166,7 +168,7 @@ export const test_protobuf_isDecode_ObjectUnionCompositePointer =
                 };
                 const decode = (
                     input: Uint8Array,
-                ): ObjectUnionCompositePointer => {
+                ): typia.Resolved<ObjectUnionCompositePointer> => {
                     const $Reader = (typia.protobuf.isDecode as any).Reader;
                     const $pdo0 = (reader: any, length: number = -1): any => {
                         length =

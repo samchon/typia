@@ -5,7 +5,7 @@ import { ObjectIntersection } from "../../../structures/ObjectIntersection";
 export const test_misc_assertClone_ObjectIntersection = _test_misc_assertClone(
     "ObjectIntersection",
 )<ObjectIntersection>(ObjectIntersection)((input) =>
-    ((input: any): typia.Primitive<ObjectIntersection> => {
+    ((input: any): typia.Resolved<ObjectIntersection> => {
         const assert = (input: any): ObjectIntersection => {
             const __is = (input: any): input is ObjectIntersection => {
                 return (
@@ -65,7 +65,7 @@ export const test_misc_assertClone_ObjectIntersection = _test_misc_assertClone(
         };
         const clone = (
             input: ObjectIntersection,
-        ): typia.Primitive<ObjectIntersection> => {
+        ): typia.Resolved<ObjectIntersection> => {
             const $co0 = (input: any): any => ({
                 email: input.email as any,
                 name: input.name as any,

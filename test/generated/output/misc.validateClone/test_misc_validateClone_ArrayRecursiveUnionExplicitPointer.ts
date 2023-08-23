@@ -10,7 +10,7 @@ export const test_misc_validateClone_ArrayRecursiveUnionExplicitPointer =
             ((
                 input: any,
             ): typia.IValidation<
-                typia.Primitive<ArrayRecursiveUnionExplicitPointer>
+                typia.Resolved<ArrayRecursiveUnionExplicitPointer>
             > => {
                 const validate = (
                     input: any,
@@ -586,7 +586,7 @@ export const test_misc_validateClone_ArrayRecursiveUnionExplicitPointer =
                 };
                 const clone = (
                     input: ArrayRecursiveUnionExplicitPointer,
-                ): typia.Primitive<ArrayRecursiveUnionExplicitPointer> => {
+                ): typia.Resolved<ArrayRecursiveUnionExplicitPointer> => {
                     const $io1 = (input: any): boolean =>
                         "object" === typeof input.value &&
                         null !== input.value &&

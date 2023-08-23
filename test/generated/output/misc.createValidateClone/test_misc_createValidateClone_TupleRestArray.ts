@@ -5,7 +5,7 @@ import { TupleRestArray } from "../../../structures/TupleRestArray";
 export const test_misc_validateClone_TupleRestArray = _test_misc_validateClone(
     "TupleRestArray",
 )<TupleRestArray>(TupleRestArray)(
-    (input: any): typia.IValidation<typia.Primitive<TupleRestArray>> => {
+    (input: any): typia.IValidation<typia.Resolved<TupleRestArray>> => {
         const validate = (input: any): typia.IValidation<TupleRestArray> => {
             const errors = [] as any[];
             const __is = (input: any): input is TupleRestArray => {
@@ -135,7 +135,7 @@ export const test_misc_validateClone_TupleRestArray = _test_misc_validateClone(
         };
         const clone = (
             input: TupleRestArray,
-        ): typia.Primitive<TupleRestArray> => {
+        ): typia.Resolved<TupleRestArray> => {
             const $cp0 = (input: any) => input.map((elem: any) => elem as any);
             const $cp1 = (input: any) =>
                 input.map((elem: any) =>

@@ -1,16 +1,17 @@
 /**
- * Primitive type.
+ * Primitive type of JSON.
  *
- * `Primitive` is a type of TMP (Type Meta Programming) type who converts its argument as a
- * primitive type.
+ * `Primitive<T>` is a TMP (Type Meta Programming) type which converts
+ * its argument as a primitive type within framework JSON.
  *
- * If the target argument is a built-in class who returns its origin primitive type through
- * the `valueOf()` method like the `String` or `Number`, its return type would be the
- * `string` or `number`.
+ * If the target argument is a built-in class which returns its origin primitive type
+ * through the `valueOf()` method like the `String` or `Number`, its return type would
+ * be the `string` or `number`. Otherwise, the built-in class does not have the
+ * `valueOf()` method, the return type would be an empty object (`{}`).
  *
- * Otherwise, the target argument is a type of custom class, all of its custom method would
- * be erased and its prototype would be changed to the primitive `object`. Therefore, return
- * type of the TMP type finally be the primitive object.
+ * Otherwise, the target argument is a type of custom class, all of its custom method
+ * would be erased and its prototype would be changed to the primitive `object`.
+ * Therefore, return type of the TMP type finally be the primitive object.
  *
  * In addition, if the target argument is a type of custom class and it has a special
  * method `toJSON()`, return type of this `Primitive` would be not `Primitive<Instance>`
@@ -23,6 +24,7 @@
  * `String`                | `string`
  * `Class`                 | `object`
  * `Class` with `toJSON()` | `Primitive<ReturnType<Class.toJSON>>`
+ * Native Class            | `{}`
  * Others                  | No change
  *
  * @template Instance Target argument type.
@@ -38,8 +40,12 @@ type Equal<X, Y> = X extends Y ? (Y extends X ? true : false) : false;
 
 type PrimitiveMain<Instance> = Instance extends [never]
     ? never // (special trick for jsonable | null) type
-    : ValueOf<Instance> extends boolean | number | bigint | string
+    : ValueOf<Instance> extends bigint
+    ? never
+    : ValueOf<Instance> extends boolean | number | string
     ? ValueOf<Instance>
+    : Instance extends Function
+    ? never
     : ValueOf<Instance> extends object
     ? Instance extends object
         ? Instance extends NativeClass
@@ -59,9 +65,7 @@ type PrimitiveObject<Instance extends object> = Instance extends Array<infer T>
         ? PrimitiveTuple<Instance>
         : PrimitiveMain<T>[]
     : {
-          [P in keyof Instance]: Instance[P] extends Function
-              ? never
-              : PrimitiveMain<Instance[P]>;
+          [P in keyof Instance]: PrimitiveMain<Instance[P]>;
       };
 
 type PrimitiveTuple<T extends readonly any[]> = T extends []
@@ -115,8 +119,8 @@ type IsTuple<T extends readonly any[] | { length: number }> = [T] extends [
     : false;
 
 type IsValueOf<Instance, Object extends IValueOf<any>> = Instance extends Object
-    ? Object extends IValueOf<infer Primitive>
-        ? Instance extends Primitive
+    ? Object extends IValueOf<infer U>
+        ? Instance extends U
             ? false
             : true // not Primitive, but Object
         : false // cannot be

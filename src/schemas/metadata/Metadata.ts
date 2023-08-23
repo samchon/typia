@@ -10,9 +10,9 @@ import { IMetadataDictionary } from "./IMetadataDictionary";
 import { MetadataAlias } from "./MetadataAlias";
 import { MetadataArray } from "./MetadataArray";
 import { MetadataConstant } from "./MetadataConstant";
+import { MetadataEscaped } from "./MetadataEscaped";
 import { MetadataObject } from "./MetadataObject";
 import { MetadataProperty } from "./MetadataProperty";
-import { MetadataResolved } from "./MetadataResolved";
 import { MetadataTuple } from "./MetadataTuple";
 
 export class Metadata {
@@ -22,7 +22,7 @@ export class Metadata {
     public nullable: boolean;
     public functional: boolean;
 
-    public resolved: MetadataResolved | null;
+    public escaped: MetadataEscaped | null;
     public atomics: Atomic.Literal[];
     public constants: MetadataConstant[];
     public templates: Metadata[][];
@@ -55,7 +55,7 @@ export class Metadata {
         this.nullable = props.nullable;
         this.functional = props.functional;
 
-        this.resolved = props.resolved;
+        this.escaped = props.escaped;
         this.atomics = props.atomics;
         this.constants = props.constants;
         this.templates = props.templates;
@@ -89,7 +89,7 @@ export class Metadata {
             optional: false,
             functional: false,
 
-            resolved: null,
+            escaped: null,
             constants: [],
             atomics: [],
             templates: [],
@@ -120,7 +120,7 @@ export class Metadata {
             templates: this.templates.map((tpl) =>
                 tpl.map((meta) => meta.toJSON()),
             ),
-            resolved: this.resolved ? this.resolved.toJSON() : null,
+            escaped: this.escaped ? this.escaped.toJSON() : null,
 
             rest: this.rest ? this.rest.toJSON() : null,
             arrays: this.arrays.map((array) => array.name),
@@ -209,8 +209,8 @@ export class Metadata {
             templates: meta.templates.map((tpl) =>
                 tpl.map((meta) => this._From(meta, dict)),
             ),
-            resolved: meta.resolved
-                ? MetadataResolved._From(meta.resolved, dict)
+            escaped: meta.escaped
+                ? MetadataEscaped._From(meta.escaped, dict)
                 : null,
 
             rest: meta.rest ? this._From(meta.rest, dict) : null,
@@ -271,7 +271,7 @@ export class Metadata {
     public size(): number {
         return (
             (this.any ? 1 : 0) +
-            (this.resolved ? 1 : 0) +
+            (this.escaped ? 1 : 0) +
             (this.functional ? 1 : 0) +
             (this.rest ? this.rest.size() : 0) +
             this.templates.length +
@@ -310,7 +310,7 @@ export class Metadata {
     public bucket(): number {
         return (
             (this.any ? 1 : 0) +
-            (this.resolved ? 1 : 0) +
+            (this.escaped ? 1 : 0) +
             (this.functional ? 1 : 0) +
             (this.templates.length ? 1 : 0) +
             (this.atomics.length ? 1 : 0) +
@@ -521,20 +521,17 @@ export namespace Metadata {
             optional: x.optional || y.optional,
             functional: x.functional || y.functional,
 
-            resolved:
-                x.resolved !== null && y.resolved !== null
+            escaped:
+                x.escaped !== null && y.escaped !== null
                     ? //? merge(x.resolved, y.resolved)
-                      MetadataResolved.create({
+                      MetadataEscaped.create({
                           original: merge(
-                              x.resolved.original,
-                              y.resolved.original,
+                              x.escaped.original,
+                              y.escaped.original,
                           ),
-                          returns: merge(
-                              x.resolved.returns,
-                              y.resolved.returns,
-                          ),
+                          returns: merge(x.escaped.returns, y.escaped.returns),
                       })
-                    : x.resolved ?? y.resolved,
+                    : x.escaped ?? y.escaped,
             atomics: [...new Set([...x.atomics, ...y.atomics])],
             constants: [...x.constants],
             templates: x.templates.slice(),
@@ -620,7 +617,7 @@ const getName = (metadata: Metadata): string => {
     for (const array of metadata.arrays) elements.push(array.name);
     for (const object of metadata.objects) elements.push(object.name);
     for (const alias of metadata.aliases) elements.push(alias.name);
-    if (metadata.resolved !== null) elements.push(metadata.resolved.getName());
+    if (metadata.escaped !== null) elements.push(metadata.escaped.getName());
 
     // RETURNS
     if (elements.length === 0) return "unknown";

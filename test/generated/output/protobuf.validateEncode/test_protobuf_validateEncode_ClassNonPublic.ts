@@ -99,7 +99,7 @@ export const test_protobuf_validateEncode_ClassNonPublic =
             })(input),
         message:
             'syntax = "proto3";\n\nmessage ClassNonPublic {\n    message Accessor {\n        required string implicit = 1;\n        required string shown = 2;\n    }\n}',
-        decode: (input: Uint8Array): ClassNonPublic => {
+        decode: (input: Uint8Array): typia.Resolved<ClassNonPublic> => {
             const $Reader = (typia.protobuf.createDecode as any).Reader;
             const $pdo0 = (reader: any, length: number = -1): any => {
                 length = length < 0 ? reader.size() : reader.index() + length;

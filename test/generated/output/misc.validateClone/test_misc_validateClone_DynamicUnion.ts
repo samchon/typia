@@ -5,7 +5,7 @@ import { DynamicUnion } from "../../../structures/DynamicUnion";
 export const test_misc_validateClone_DynamicUnion = _test_misc_validateClone(
     "DynamicUnion",
 )<DynamicUnion>(DynamicUnion)((input) =>
-    ((input: any): typia.IValidation<typia.Primitive<DynamicUnion>> => {
+    ((input: any): typia.IValidation<typia.Resolved<DynamicUnion>> => {
         const validate = (input: any): typia.IValidation<DynamicUnion> => {
             const errors = [] as any[];
             const __is = (input: any): input is DynamicUnion => {
@@ -137,7 +137,7 @@ export const test_misc_validateClone_DynamicUnion = _test_misc_validateClone(
                 data: success ? input : undefined,
             } as any;
         };
-        const clone = (input: DynamicUnion): typia.Primitive<DynamicUnion> => {
+        const clone = (input: DynamicUnion): typia.Resolved<DynamicUnion> => {
             const $join = (typia.misc.validateClone as any).join;
             const $co0 = (input: any): any => {
                 const output = {} as any;

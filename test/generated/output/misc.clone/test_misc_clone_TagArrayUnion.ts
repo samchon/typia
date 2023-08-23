@@ -5,7 +5,7 @@ import { TagArrayUnion } from "../../../structures/TagArrayUnion";
 export const test_misc_clone_TagArrayUnion = _test_misc_clone(
     "TagArrayUnion",
 )<TagArrayUnion>(TagArrayUnion)((input) =>
-    ((input: TagArrayUnion): typia.Primitive<TagArrayUnion> => {
+    ((input: TagArrayUnion): typia.Resolved<TagArrayUnion> => {
         const $is_uuid = (typia.misc.clone as any).is_uuid;
         const $cp0 = (input: any) =>
             input.map((elem: any) =>

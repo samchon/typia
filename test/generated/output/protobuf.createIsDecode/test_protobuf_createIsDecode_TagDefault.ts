@@ -5,7 +5,7 @@ import { TagDefault } from "../../../structures/TagDefault";
 export const test_protobuf_isDecode_TagDefault = _test_protobuf_isDecode(
     "TagDefault",
 )<TagDefault>(TagDefault)({
-    isDecode: (input: Uint8Array): TagDefault | null => {
+    isDecode: (input: Uint8Array): typia.Resolved<TagDefault> | null => {
         const is = (input: any): input is TagDefault => {
             const $is_custom = (typia.protobuf.createIsDecode as any).is_custom;
             const $io0 = (input: any): boolean =>
@@ -174,7 +174,7 @@ export const test_protobuf_isDecode_TagDefault = _test_protobuf_isDecode(
                         )));
             return "object" === typeof input && null !== input && $io0(input);
         };
-        const decode = (input: Uint8Array): TagDefault => {
+        const decode = (input: Uint8Array): typia.Resolved<TagDefault> => {
             const $Reader = (typia.protobuf.createIsDecode as any).Reader;
             const $pdo0 = (reader: any, length: number = -1): any => {
                 length = length < 0 ? reader.size() : reader.index() + length;

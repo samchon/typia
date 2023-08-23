@@ -7,7 +7,7 @@ export const test_random_DynamicNever = _test_random(
 )<DynamicNever>(DynamicNever)({
     random: (
         generator?: Partial<typia.IRandomGenerator>,
-    ): typia.Primitive<DynamicNever> => {
+    ): typia.Resolved<DynamicNever> => {
         const $generator = (typia.createRandom as any).generator;
         const $ro0 = (_recursive: boolean = false, _depth: number = 0): any => {
             const output = {} as any;

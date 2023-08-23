@@ -7,7 +7,7 @@ export const test_misc_clone_ArrayHierarchicalPointer = _test_misc_clone(
 )<ArrayHierarchicalPointer>(ArrayHierarchicalPointer)(
     (
         input: ArrayHierarchicalPointer,
-    ): typia.Primitive<ArrayHierarchicalPointer> => {
+    ): typia.Resolved<ArrayHierarchicalPointer> => {
         const $io1 = (input: any): boolean =>
             "number" === typeof input.id &&
             "number" === typeof input.serial &&

@@ -5,7 +5,7 @@ import { DynamicTemplate } from "../../../structures/DynamicTemplate";
 export const test_misc_validateClone_DynamicTemplate = _test_misc_validateClone(
     "DynamicTemplate",
 )<DynamicTemplate>(DynamicTemplate)(
-    (input: any): typia.IValidation<typia.Primitive<DynamicTemplate>> => {
+    (input: any): typia.IValidation<typia.Resolved<DynamicTemplate>> => {
         const validate = (input: any): typia.IValidation<DynamicTemplate> => {
             const errors = [] as any[];
             const __is = (input: any): input is DynamicTemplate => {
@@ -139,7 +139,7 @@ export const test_misc_validateClone_DynamicTemplate = _test_misc_validateClone(
         };
         const clone = (
             input: DynamicTemplate,
-        ): typia.Primitive<DynamicTemplate> => {
+        ): typia.Resolved<DynamicTemplate> => {
             const $join = (typia.misc.createValidateClone as any).join;
             const $co0 = (input: any): any => {
                 const output = {} as any;

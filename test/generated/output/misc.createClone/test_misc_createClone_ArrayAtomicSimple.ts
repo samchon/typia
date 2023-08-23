@@ -5,7 +5,7 @@ import { ArrayAtomicSimple } from "../../../structures/ArrayAtomicSimple";
 export const test_misc_clone_ArrayAtomicSimple = _test_misc_clone(
     "ArrayAtomicSimple",
 )<ArrayAtomicSimple>(ArrayAtomicSimple)(
-    (input: ArrayAtomicSimple): typia.Primitive<ArrayAtomicSimple> => {
+    (input: ArrayAtomicSimple): typia.Resolved<ArrayAtomicSimple> => {
         const $cp0 = (input: any) => input.map((elem: any) => elem as any);
         const $cp1 = (input: any) => input.map((elem: any) => elem as any);
         const $cp2 = (input: any) => input.map((elem: any) => elem as any);

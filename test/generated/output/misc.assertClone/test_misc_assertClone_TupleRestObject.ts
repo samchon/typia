@@ -5,7 +5,7 @@ import { TupleRestObject } from "../../../structures/TupleRestObject";
 export const test_misc_assertClone_TupleRestObject = _test_misc_assertClone(
     "TupleRestObject",
 )<TupleRestObject>(TupleRestObject)((input) =>
-    ((input: any): typia.Primitive<TupleRestObject> => {
+    ((input: any): typia.Resolved<TupleRestObject> => {
         const assert = (input: any): TupleRestObject => {
             const __is = (input: any): input is TupleRestObject => {
                 const $io0 = (input: any): boolean =>
@@ -118,7 +118,7 @@ export const test_misc_assertClone_TupleRestObject = _test_misc_assertClone(
         };
         const clone = (
             input: TupleRestObject,
-        ): typia.Primitive<TupleRestObject> => {
+        ): typia.Resolved<TupleRestObject> => {
             const $io0 = (input: any): boolean =>
                 "string" === typeof input.value;
             const $cp0 = (input: any) =>

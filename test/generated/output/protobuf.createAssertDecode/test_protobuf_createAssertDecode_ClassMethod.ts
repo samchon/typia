@@ -4,8 +4,8 @@ import { ClassMethod } from "../../../structures/ClassMethod";
 
 export const test_protobuf_assertDecode_ClassMethod =
     _test_protobuf_assertDecode("ClassMethod")<ClassMethod>(ClassMethod)({
-        assertDecode: (input: Uint8Array): ClassMethod => {
-            const decode = (input: Uint8Array): ClassMethod => {
+        assertDecode: (input: Uint8Array): typia.Resolved<ClassMethod> => {
+            const decode = (input: Uint8Array): typia.Resolved<ClassMethod> => {
                 const $Reader = (typia.protobuf.createAssertDecode as any)
                     .Reader;
                 const $pdo0 = (reader: any, length: number = -1): any => {
@@ -91,7 +91,7 @@ export const test_protobuf_assertDecode_ClassMethod =
                 return input;
             };
             const output = decode(input);
-            return assert(output);
+            return assert(output) as any;
         },
         encode: (input: ClassMethod): Uint8Array => {
             const $Sizer = (typia.protobuf.createEncode as any).Sizer;

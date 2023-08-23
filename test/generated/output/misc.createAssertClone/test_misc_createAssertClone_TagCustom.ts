@@ -4,7 +4,7 @@ import { TagCustom } from "../../../structures/TagCustom";
 
 export const test_misc_assertClone_TagCustom = _test_misc_assertClone(
     "TagCustom",
-)<TagCustom>(TagCustom)((input: any): typia.Primitive<TagCustom> => {
+)<TagCustom>(TagCustom)((input: any): typia.Resolved<TagCustom> => {
     const assert = (input: any): TagCustom => {
         const __is = (input: any): input is TagCustom => {
             const $is_uuid = (typia.misc.createAssertClone as any).is_uuid;
@@ -114,7 +114,7 @@ export const test_misc_assertClone_TagCustom = _test_misc_assertClone(
             })(input, "$input", true);
         return input;
     };
-    const clone = (input: TagCustom): typia.Primitive<TagCustom> => {
+    const clone = (input: TagCustom): typia.Resolved<TagCustom> => {
         const $is_uuid = (typia.misc.createAssertClone as any).is_uuid;
         const $is_custom = (typia.misc.createAssertClone as any).is_custom;
         const $co0 = (input: any): any => ({

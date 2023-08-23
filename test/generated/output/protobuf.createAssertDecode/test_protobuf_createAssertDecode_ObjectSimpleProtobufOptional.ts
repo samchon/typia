@@ -6,10 +6,12 @@ export const test_protobuf_assertDecode_ObjectSimpleProtobufOptional =
     _test_protobuf_assertDecode(
         "ObjectSimpleProtobufOptional",
     )<ObjectSimpleProtobufOptional>(ObjectSimpleProtobufOptional)({
-        assertDecode: (input: Uint8Array): ObjectSimpleProtobufOptional => {
+        assertDecode: (
+            input: Uint8Array,
+        ): typia.Resolved<ObjectSimpleProtobufOptional> => {
             const decode = (
                 input: Uint8Array,
-            ): ObjectSimpleProtobufOptional => {
+            ): typia.Resolved<ObjectSimpleProtobufOptional> => {
                 const $Reader = (typia.protobuf.createAssertDecode as any)
                     .Reader;
                 const $pdo0 = (reader: any, length: number = -1): any => {
@@ -264,7 +266,7 @@ export const test_protobuf_assertDecode_ObjectSimpleProtobufOptional =
                 return input;
             };
             const output = decode(input);
-            return assert(output);
+            return assert(output) as any;
         },
         encode: (input: ObjectSimpleProtobufOptional): Uint8Array => {
             const $Sizer = (typia.protobuf.createEncode as any).Sizer;

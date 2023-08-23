@@ -185,7 +185,7 @@ export const test_protobuf_assertEncode_TagAtomicUnion =
             })(input),
         message:
             'syntax = "proto3";\n\nmessage TagAtomicUnion {\n    repeated TagAtomicUnion.Type value = 1;\n    message Type {\n        oneof value {\n            double v1 = 1;\n            string v2 = 2;\n        }\n    }\n}',
-        decode: (input: Uint8Array): TagAtomicUnion => {
+        decode: (input: Uint8Array): typia.Resolved<TagAtomicUnion> => {
             const $Reader = (typia.protobuf.createDecode as any).Reader;
             const $pdo0 = (reader: any, length: number = -1): any => {
                 length = length < 0 ? reader.size() : reader.index() + length;

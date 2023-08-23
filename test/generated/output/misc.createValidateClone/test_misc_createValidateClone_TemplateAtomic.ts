@@ -5,7 +5,7 @@ import { TemplateAtomic } from "../../../structures/TemplateAtomic";
 export const test_misc_validateClone_TemplateAtomic = _test_misc_validateClone(
     "TemplateAtomic",
 )<TemplateAtomic>(TemplateAtomic)(
-    (input: any): typia.IValidation<typia.Primitive<TemplateAtomic>> => {
+    (input: any): typia.IValidation<typia.Resolved<TemplateAtomic>> => {
         const validate = (input: any): typia.IValidation<TemplateAtomic> => {
             const errors = [] as any[];
             const __is = (input: any): input is TemplateAtomic => {
@@ -143,7 +143,7 @@ export const test_misc_validateClone_TemplateAtomic = _test_misc_validateClone(
         };
         const clone = (
             input: TemplateAtomic,
-        ): typia.Primitive<TemplateAtomic> => {
+        ): typia.Resolved<TemplateAtomic> => {
             const $co0 = (input: any): any => ({
                 prefix: input.prefix as any,
                 postfix: input.postfix as any,

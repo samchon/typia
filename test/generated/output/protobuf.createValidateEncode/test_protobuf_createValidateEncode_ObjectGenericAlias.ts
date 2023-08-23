@@ -90,7 +90,7 @@ export const test_protobuf_validateEncode_ObjectGenericAlias =
         },
         message:
             'syntax = "proto3";\n\nmessage ObjectGenericAlias {\n    message Alias {\n        required string value = 1;\n    }\n}',
-        decode: (input: Uint8Array): ObjectGenericAlias => {
+        decode: (input: Uint8Array): typia.Resolved<ObjectGenericAlias> => {
             const $Reader = (typia.protobuf.createDecode as any).Reader;
             const $pdo0 = (reader: any, length: number = -1): any => {
                 length = length < 0 ? reader.size() : reader.index() + length;

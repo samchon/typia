@@ -8,7 +8,7 @@ export const test_protobuf_validateDecode_ObjectInternal =
     )({
         validateDecode: (
             input: Uint8Array,
-        ): typia.IValidation<ObjectInternal> => {
+        ): typia.IValidation<typia.Resolved<ObjectInternal>> => {
             const validate = (
                 input: any,
             ): typia.IValidation<ObjectInternal> => {
@@ -72,7 +72,9 @@ export const test_protobuf_validateDecode_ObjectInternal =
                     data: success ? input : undefined,
                 } as any;
             };
-            const decode = (input: Uint8Array): ObjectInternal => {
+            const decode = (
+                input: Uint8Array,
+            ): typia.Resolved<ObjectInternal> => {
                 const $Reader = (typia.protobuf.createValidateDecode as any)
                     .Reader;
                 const $pdo0 = (reader: any, length: number = -1): any => {

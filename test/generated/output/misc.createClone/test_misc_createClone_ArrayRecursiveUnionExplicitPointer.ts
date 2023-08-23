@@ -8,7 +8,7 @@ export const test_misc_clone_ArrayRecursiveUnionExplicitPointer =
     )<ArrayRecursiveUnionExplicitPointer>(ArrayRecursiveUnionExplicitPointer)(
         (
             input: ArrayRecursiveUnionExplicitPointer,
-        ): typia.Primitive<ArrayRecursiveUnionExplicitPointer> => {
+        ): typia.Resolved<ArrayRecursiveUnionExplicitPointer> => {
             const $io1 = (input: any): boolean =>
                 "object" === typeof input.value &&
                 null !== input.value &&

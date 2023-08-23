@@ -6,7 +6,7 @@ export const test_protobuf_isDecode_TagInfinite = _test_protobuf_isDecode(
     "TagInfinite",
 )<TagInfinite>(TagInfinite)({
     isDecode: (input) =>
-        ((input: Uint8Array): TagInfinite | null => {
+        ((input: Uint8Array): typia.Resolved<TagInfinite> | null => {
             const is = (input: any): input is TagInfinite => {
                 return (
                     "object" === typeof input &&
@@ -31,7 +31,7 @@ export const test_protobuf_isDecode_TagInfinite = _test_protobuf_isDecode(
                     (input as any).typed <= 2147483647
                 );
             };
-            const decode = (input: Uint8Array): TagInfinite => {
+            const decode = (input: Uint8Array): typia.Resolved<TagInfinite> => {
                 const $Reader = (typia.protobuf.isDecode as any).Reader;
                 const $pdo0 = (reader: any, length: number = -1): any => {
                     length =

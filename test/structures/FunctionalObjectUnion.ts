@@ -6,6 +6,7 @@ export namespace FunctionalObjectUnion {
     export const BINARABLE = false;
     export const JSONABLE = false;
     export const PRIMITIVE = false;
+    export const RESOLVABLE = false;
 
     export type Union = IPoint | ILine | IPolyline | IPolygon;
     export interface IPoint {

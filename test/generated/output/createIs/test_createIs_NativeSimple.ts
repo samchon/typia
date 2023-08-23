@@ -18,11 +18,8 @@ export const test_is_NativeSimple = _test_is("NativeSimple")<NativeSimple>(
         input.bigInt64Array instanceof BigInt64Array &&
         input.float32Array instanceof Float32Array &&
         input.float64Array instanceof Float64Array &&
-        input.buffer instanceof Buffer &&
         input.arrayBuffer instanceof ArrayBuffer &&
         input.sharedArrayBuffer instanceof SharedArrayBuffer &&
-        input.dataView instanceof DataView &&
-        input.weakSet instanceof WeakSet &&
-        input.weakMap instanceof WeakMap;
+        input.dataView instanceof DataView;
     return "object" === typeof input && null !== input && $io0(input);
 });

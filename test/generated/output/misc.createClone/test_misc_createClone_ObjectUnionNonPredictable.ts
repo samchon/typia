@@ -7,7 +7,7 @@ export const test_misc_clone_ObjectUnionNonPredictable = _test_misc_clone(
 )<ObjectUnionNonPredictable>(ObjectUnionNonPredictable)(
     (
         input: ObjectUnionNonPredictable,
-    ): typia.Primitive<ObjectUnionNonPredictable> => {
+    ): typia.Resolved<ObjectUnionNonPredictable> => {
         const $io1 = (input: any): boolean =>
             "object" === typeof input.value &&
             null !== input.value &&

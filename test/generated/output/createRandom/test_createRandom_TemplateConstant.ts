@@ -7,7 +7,7 @@ export const test_random_TemplateConstant = _test_random(
 )<TemplateConstant>(TemplateConstant)({
     random: (
         generator?: Partial<typia.IRandomGenerator>,
-    ): typia.Primitive<TemplateConstant> => {
+    ): typia.Resolved<TemplateConstant> => {
         const $generator = (typia.createRandom as any).generator;
         const $pick = (typia.createRandom as any).pick;
         const $ro0 = (

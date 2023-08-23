@@ -5,7 +5,7 @@ import { ObjectOptional } from "../../../structures/ObjectOptional";
 export const test_misc_validateClone_ObjectOptional = _test_misc_validateClone(
     "ObjectOptional",
 )<ObjectOptional>(ObjectOptional)((input) =>
-    ((input: any): typia.IValidation<typia.Primitive<ObjectOptional>> => {
+    ((input: any): typia.IValidation<typia.Resolved<ObjectOptional>> => {
         const validate = (input: any): typia.IValidation<ObjectOptional> => {
             const errors = [] as any[];
             const __is = (input: any): input is ObjectOptional => {
@@ -97,7 +97,7 @@ export const test_misc_validateClone_ObjectOptional = _test_misc_validateClone(
         };
         const clone = (
             input: ObjectOptional,
-        ): typia.Primitive<ObjectOptional> => {
+        ): typia.Resolved<ObjectOptional> => {
             const $co0 = (input: any): any => ({
                 id: input.id as any,
                 name: input.name as any,

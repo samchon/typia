@@ -5,7 +5,7 @@ import { ObjectSimple } from "../../../structures/ObjectSimple";
 export const test_protobuf_isDecode_ObjectSimple = _test_protobuf_isDecode(
     "ObjectSimple",
 )<ObjectSimple>(ObjectSimple)({
-    isDecode: (input: Uint8Array): ObjectSimple | null => {
+    isDecode: (input: Uint8Array): typia.Resolved<ObjectSimple> | null => {
         const is = (input: any): input is ObjectSimple => {
             return (
                 "object" === typeof input &&
@@ -44,7 +44,7 @@ export const test_protobuf_isDecode_ObjectSimple = _test_protobuf_isDecode(
                 Number.isFinite(((input as any).pivot as any).z)
             );
         };
-        const decode = (input: Uint8Array): ObjectSimple => {
+        const decode = (input: Uint8Array): typia.Resolved<ObjectSimple> => {
             const $Reader = (typia.protobuf.createIsDecode as any).Reader;
             const $pdo0 = (reader: any, length: number = -1): any => {
                 length = length < 0 ? reader.size() : reader.index() + length;

@@ -8,7 +8,7 @@ export const test_random_DynamicTree = _test_random("DynamicTree")<DynamicTree>(
     random: () =>
         ((
             generator?: Partial<typia.IRandomGenerator>,
-        ): typia.Primitive<DynamicTree> => {
+        ): typia.Resolved<DynamicTree> => {
             const $generator = (typia.random as any).generator;
             const $ro0 = (
                 _recursive: boolean = true,

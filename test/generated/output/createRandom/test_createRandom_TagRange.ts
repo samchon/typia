@@ -7,7 +7,7 @@ export const test_random_TagRange = _test_random("TagRange")<TagRange>(
 )({
     random: (
         generator?: Partial<typia.IRandomGenerator>,
-    ): typia.Primitive<TagRange> => {
+    ): typia.Resolved<TagRange> => {
         const $generator = (typia.createRandom as any).generator;
         const $ro0 = (
             _recursive: boolean = false,

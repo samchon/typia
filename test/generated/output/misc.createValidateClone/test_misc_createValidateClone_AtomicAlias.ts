@@ -5,7 +5,7 @@ import { AtomicAlias } from "../../../structures/AtomicAlias";
 export const test_misc_validateClone_AtomicAlias = _test_misc_validateClone(
     "AtomicAlias",
 )<AtomicAlias>(AtomicAlias)(
-    (input: any): typia.IValidation<typia.Primitive<AtomicAlias>> => {
+    (input: any): typia.IValidation<typia.Resolved<AtomicAlias>> => {
         const validate = (input: any): typia.IValidation<AtomicAlias> => {
             const errors = [] as any[];
             const __is = (input: any): input is AtomicAlias => {
@@ -76,7 +76,7 @@ export const test_misc_validateClone_AtomicAlias = _test_misc_validateClone(
                 data: success ? input : undefined,
             } as any;
         };
-        const clone = (input: AtomicAlias): typia.Primitive<AtomicAlias> => {
+        const clone = (input: AtomicAlias): typia.Resolved<AtomicAlias> => {
             return Array.isArray(input) &&
                 input.length === 3 &&
                 "boolean" === typeof input[0] &&

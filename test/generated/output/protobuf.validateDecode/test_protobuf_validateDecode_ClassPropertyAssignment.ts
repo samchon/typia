@@ -9,7 +9,7 @@ export const test_protobuf_validateDecode_ClassPropertyAssignment =
         validateDecode: (input) =>
             ((
                 input: Uint8Array,
-            ): typia.IValidation<ClassPropertyAssignment> => {
+            ): typia.IValidation<typia.Resolved<ClassPropertyAssignment>> => {
                 const validate = (
                     input: any,
                 ): typia.IValidation<ClassPropertyAssignment> => {
@@ -101,7 +101,9 @@ export const test_protobuf_validateDecode_ClassPropertyAssignment =
                         data: success ? input : undefined,
                     } as any;
                 };
-                const decode = (input: Uint8Array): ClassPropertyAssignment => {
+                const decode = (
+                    input: Uint8Array,
+                ): typia.Resolved<ClassPropertyAssignment> => {
                     const $Reader = (typia.protobuf.validateDecode as any)
                         .Reader;
                     const $pdo0 = (reader: any, length: number = -1): any => {

@@ -6,8 +6,12 @@ export const test_protobuf_assertDecode_ArrayHierarchicalPointer =
     _test_protobuf_assertDecode(
         "ArrayHierarchicalPointer",
     )<ArrayHierarchicalPointer>(ArrayHierarchicalPointer)({
-        assertDecode: (input: Uint8Array): ArrayHierarchicalPointer => {
-            const decode = (input: Uint8Array): ArrayHierarchicalPointer => {
+        assertDecode: (
+            input: Uint8Array,
+        ): typia.Resolved<ArrayHierarchicalPointer> => {
+            const decode = (
+                input: Uint8Array,
+            ): typia.Resolved<ArrayHierarchicalPointer> => {
                 const $Reader = (typia.protobuf.createAssertDecode as any)
                     .Reader;
                 const $pdo0 = (reader: any, length: number = -1): any => {
@@ -593,7 +597,7 @@ export const test_protobuf_assertDecode_ArrayHierarchicalPointer =
                 return input;
             };
             const output = decode(input);
-            return assert(output);
+            return assert(output) as any;
         },
         encode: (input: ArrayHierarchicalPointer): Uint8Array => {
             const $Sizer = (typia.protobuf.createEncode as any).Sizer;

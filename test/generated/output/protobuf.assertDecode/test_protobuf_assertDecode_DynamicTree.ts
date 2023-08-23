@@ -5,8 +5,10 @@ import { DynamicTree } from "../../../structures/DynamicTree";
 export const test_protobuf_assertDecode_DynamicTree =
     _test_protobuf_assertDecode("DynamicTree")<DynamicTree>(DynamicTree)({
         assertDecode: (input) =>
-            ((input: Uint8Array): DynamicTree => {
-                const decode = (input: Uint8Array): DynamicTree => {
+            ((input: Uint8Array): typia.Resolved<DynamicTree> => {
+                const decode = (
+                    input: Uint8Array,
+                ): typia.Resolved<DynamicTree> => {
                     const $Reader = (typia.protobuf.assertDecode as any).Reader;
                     const $pdo0 = (reader: any, length: number = -1): any => {
                         length =
@@ -196,7 +198,7 @@ export const test_protobuf_assertDecode_DynamicTree =
                     return input;
                 };
                 const output = decode(input);
-                return assert(output);
+                return assert(output) as any;
             })(input),
         encode: (input: DynamicTree): Uint8Array => {
             const $join = (typia.protobuf.createEncode as any).join;

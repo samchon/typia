@@ -2,7 +2,7 @@ import { Atomic } from "../../typings/Atomic";
 
 import { IMetadataConstant } from "./IMetadataConstant";
 import { IMetadataEntry } from "./IMetadataEntry";
-import { IMetadataResolved } from "./IMetadataResolved";
+import { IMetadataEscaped } from "./IMetadataEscaped";
 
 export interface IMetadata {
     any: boolean;
@@ -14,7 +14,7 @@ export interface IMetadata {
     atomics: Atomic.Literal[];
     constants: IMetadataConstant[];
     templates: IMetadata[][];
-    resolved: IMetadataResolved | null;
+    escaped: IMetadataEscaped | null;
 
     rest: IMetadata | null;
     arrays: string[];

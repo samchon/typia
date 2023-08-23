@@ -233,7 +233,7 @@ export const test_protobuf_assertEncode_TagLength = _test_protobuf_assertEncode(
     },
     message:
         'syntax = "proto3";\n\nmessage TagLength {\n    repeated TagLength.Type value = 1;\n    message Type {\n        required string fixed = 1;\n        required string minimum = 2;\n        required string maximum = 3;\n        required string minimum_and_maximum = 4;\n        required string equal = 5;\n    }\n}',
-    decode: (input: Uint8Array): TagLength => {
+    decode: (input: Uint8Array): typia.Resolved<TagLength> => {
         const $Reader = (typia.protobuf.createDecode as any).Reader;
         const $pdo0 = (reader: any, length: number = -1): any => {
             length = length < 0 ? reader.size() : reader.index() + length;

@@ -8,7 +8,7 @@ export const test_misc_validateClone_ConstantIntersection =
     )((input) =>
         ((
             input: any,
-        ): typia.IValidation<typia.Primitive<ConstantIntersection>> => {
+        ): typia.IValidation<typia.Resolved<ConstantIntersection>> => {
             const validate = (
                 input: any,
             ): typia.IValidation<ConstantIntersection> => {
@@ -81,7 +81,7 @@ export const test_misc_validateClone_ConstantIntersection =
             };
             const clone = (
                 input: ConstantIntersection,
-            ): typia.Primitive<ConstantIntersection> => {
+            ): typia.Resolved<ConstantIntersection> => {
                 return Array.isArray(input) &&
                     input.length === 3 &&
                     false === input[0] &&

@@ -1,19 +1,17 @@
-import { Primitive } from "typia/lib/Primitive";
+import { Resolved } from "typia";
 
 import { TestStructure } from "../helpers/TestStructure";
-import { primitive_clone } from "../helpers/primitive_clone";
-import { primitive_equal_to } from "../helpers/primitive_equal_to";
+import { resolved_equal_to } from "../helpers/resolved_equal_to";
 
 export const _test_misc_isClone =
     (name: string) =>
     <T>(factory: TestStructure<T>) =>
-    (clone: (input: T) => Primitive<T> | null) =>
+    (clone: (input: T) => Resolved<T> | null) =>
     () => {
         const data: T = factory.generate();
-        const replica: Primitive<T> = primitive_clone(data);
-        const cloned: Primitive<T> | null = clone(data);
+        const cloned: Resolved<T> | null = clone(data);
 
-        if (primitive_equal_to(replica, cloned) === false) {
+        if (resolved_equal_to(name)(data, cloned!) === false) {
             throw new Error(
                 `Bug on typia.isClone(): failed to understand the ${name} type.`,
             );

@@ -7,7 +7,7 @@ export const test_random_DynamicConstant = _test_random(
 )<DynamicConstant>(DynamicConstant)({
     random: (
         generator?: Partial<typia.IRandomGenerator>,
-    ): typia.Primitive<DynamicConstant> => {
+    ): typia.Resolved<DynamicConstant> => {
         const $generator = (typia.createRandom as any).generator;
         const $ro0 = (
             _recursive: boolean = false,

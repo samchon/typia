@@ -4,8 +4,10 @@ import { ObjectSimple } from "../../../structures/ObjectSimple";
 
 export const test_protobuf_assertDecode_ObjectSimple =
     _test_protobuf_assertDecode("ObjectSimple")<ObjectSimple>(ObjectSimple)({
-        assertDecode: (input: Uint8Array): ObjectSimple => {
-            const decode = (input: Uint8Array): ObjectSimple => {
+        assertDecode: (input: Uint8Array): typia.Resolved<ObjectSimple> => {
+            const decode = (
+                input: Uint8Array,
+            ): typia.Resolved<ObjectSimple> => {
                 const $Reader = (typia.protobuf.createAssertDecode as any)
                     .Reader;
                 const $pdo0 = (reader: any, length: number = -1): any => {
@@ -247,7 +249,7 @@ export const test_protobuf_assertDecode_ObjectSimple =
                 return input;
             };
             const output = decode(input);
-            return assert(output);
+            return assert(output) as any;
         },
         encode: (input: ObjectSimple): Uint8Array => {
             const $Sizer = (typia.protobuf.createEncode as any).Sizer;

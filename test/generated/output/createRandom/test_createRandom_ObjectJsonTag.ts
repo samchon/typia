@@ -7,7 +7,7 @@ export const test_random_ObjectJsonTag = _test_random(
 )<ObjectJsonTag>(ObjectJsonTag)({
     random: (
         generator?: Partial<typia.IRandomGenerator>,
-    ): typia.Primitive<ObjectJsonTag> => {
+    ): typia.Resolved<ObjectJsonTag> => {
         const $generator = (typia.createRandom as any).generator;
         const $ro0 = (
             _recursive: boolean = false,

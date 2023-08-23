@@ -8,7 +8,7 @@ export const test_protobuf_validateDecode_ClassNonPublic =
     )({
         validateDecode: (
             input: Uint8Array,
-        ): typia.IValidation<ClassNonPublic> => {
+        ): typia.IValidation<typia.Resolved<ClassNonPublic>> => {
             const validate = (
                 input: any,
             ): typia.IValidation<ClassNonPublic> => {
@@ -72,7 +72,9 @@ export const test_protobuf_validateDecode_ClassNonPublic =
                     data: success ? input : undefined,
                 } as any;
             };
-            const decode = (input: Uint8Array): ClassNonPublic => {
+            const decode = (
+                input: Uint8Array,
+            ): typia.Resolved<ClassNonPublic> => {
                 const $Reader = (typia.protobuf.createValidateDecode as any)
                     .Reader;
                 const $pdo0 = (reader: any, length: number = -1): any => {

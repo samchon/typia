@@ -5,9 +5,7 @@ import { ObjectPropertyNullable } from "../../../structures/ObjectPropertyNullab
 export const test_misc_clone_ObjectPropertyNullable = _test_misc_clone(
     "ObjectPropertyNullable",
 )<ObjectPropertyNullable>(ObjectPropertyNullable)(
-    (
-        input: ObjectPropertyNullable,
-    ): typia.Primitive<ObjectPropertyNullable> => {
+    (input: ObjectPropertyNullable): typia.Resolved<ObjectPropertyNullable> => {
         const $io0 = (input: any): boolean =>
             null === input.value || "boolean" === typeof input.value;
         const $io1 = (input: any): boolean =>

@@ -5,7 +5,7 @@ import { DynamicTree } from "../../../structures/DynamicTree";
 export const test_misc_validateClone_DynamicTree = _test_misc_validateClone(
     "DynamicTree",
 )<DynamicTree>(DynamicTree)((input) =>
-    ((input: any): typia.IValidation<typia.Primitive<DynamicTree>> => {
+    ((input: any): typia.IValidation<typia.Resolved<DynamicTree>> => {
         const validate = (input: any): typia.IValidation<DynamicTree> => {
             const errors = [] as any[];
             const __is = (input: any): input is DynamicTree => {
@@ -141,7 +141,7 @@ export const test_misc_validateClone_DynamicTree = _test_misc_validateClone(
                 data: success ? input : undefined,
             } as any;
         };
-        const clone = (input: DynamicTree): typia.Primitive<DynamicTree> => {
+        const clone = (input: DynamicTree): typia.Resolved<DynamicTree> => {
             const $io0 = (input: any): boolean =>
                 "string" === typeof input.id &&
                 "number" === typeof input.sequence &&

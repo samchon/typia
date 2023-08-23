@@ -6,7 +6,7 @@ export const test_protobuf_decode_TagFormat = _test_protobuf_decode(
     "TagFormat",
 )<TagFormat>(TagFormat)({
     decode: (input) =>
-        ((input: Uint8Array): TagFormat => {
+        ((input: Uint8Array): typia.Resolved<TagFormat> => {
             const $Reader = (typia.protobuf.decode as any).Reader;
             const $pdo0 = (reader: any, length: number = -1): any => {
                 length = length < 0 ? reader.size() : reader.index() + length;

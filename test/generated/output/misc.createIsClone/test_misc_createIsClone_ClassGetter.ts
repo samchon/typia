@@ -5,7 +5,7 @@ import { ClassGetter } from "../../../structures/ClassGetter";
 export const test_misc_isClone_ClassGetter = _test_misc_isClone(
     "ClassGetter",
 )<ClassGetter>(ClassGetter)(
-    (input: any): typia.Primitive<ClassGetter> | null => {
+    (input: any): typia.Resolved<ClassGetter> | null => {
         const is = (input: any): input is ClassGetter => {
             const $io0 = (input: any): boolean =>
                 "string" === typeof input.id &&
@@ -13,7 +13,7 @@ export const test_misc_isClone_ClassGetter = _test_misc_isClone(
                 (null === input.dead || "boolean" === typeof input.dead);
             return "object" === typeof input && null !== input && $io0(input);
         };
-        const clone = (input: ClassGetter): typia.Primitive<ClassGetter> => {
+        const clone = (input: ClassGetter): typia.Resolved<ClassGetter> => {
             const $co0 = (input: any): any => ({
                 id: input.id as any,
                 name: input.name as any,

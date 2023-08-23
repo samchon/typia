@@ -9,7 +9,9 @@ export const test_protobuf_validateDecode_ArrayRecursiveUnionExplicitPointer =
         validateDecode: (input) =>
             ((
                 input: Uint8Array,
-            ): typia.IValidation<ArrayRecursiveUnionExplicitPointer> => {
+            ): typia.IValidation<
+                typia.Resolved<ArrayRecursiveUnionExplicitPointer>
+            > => {
                 const validate = (
                     input: any,
                 ): typia.IValidation<ArrayRecursiveUnionExplicitPointer> => {
@@ -584,7 +586,7 @@ export const test_protobuf_validateDecode_ArrayRecursiveUnionExplicitPointer =
                 };
                 const decode = (
                     input: Uint8Array,
-                ): ArrayRecursiveUnionExplicitPointer => {
+                ): typia.Resolved<ArrayRecursiveUnionExplicitPointer> => {
                     const $Reader = (typia.protobuf.validateDecode as any)
                         .Reader;
                     const $pdo0 = (reader: any, length: number = -1): any => {

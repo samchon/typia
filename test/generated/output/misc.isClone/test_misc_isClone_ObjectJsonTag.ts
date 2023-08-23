@@ -5,7 +5,7 @@ import { ObjectJsonTag } from "../../../structures/ObjectJsonTag";
 export const test_misc_isClone_ObjectJsonTag = _test_misc_isClone(
     "ObjectJsonTag",
 )<ObjectJsonTag>(ObjectJsonTag)((input) =>
-    ((input: any): typia.Primitive<ObjectJsonTag> | null => {
+    ((input: any): typia.Resolved<ObjectJsonTag> | null => {
         const is = (input: any): input is ObjectJsonTag => {
             const $is_custom = (typia.misc.isClone as any).is_custom;
             return (
@@ -29,9 +29,7 @@ export const test_misc_isClone_ObjectJsonTag = _test_misc_isClone(
                 "string" === typeof (input as any).complicate_title
             );
         };
-        const clone = (
-            input: ObjectJsonTag,
-        ): typia.Primitive<ObjectJsonTag> => {
+        const clone = (input: ObjectJsonTag): typia.Resolved<ObjectJsonTag> => {
             const $is_custom = (typia.misc.isClone as any).is_custom;
             const $co0 = (input: any): any => ({
                 vulnerable: input.vulnerable as any,

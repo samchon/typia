@@ -5,7 +5,7 @@ import { TagObjectUnion } from "../../../structures/TagObjectUnion";
 export const test_misc_clone_TagObjectUnion = _test_misc_clone(
     "TagObjectUnion",
 )<TagObjectUnion>(TagObjectUnion)((input) =>
-    ((input: TagObjectUnion): typia.Primitive<TagObjectUnion> => {
+    ((input: TagObjectUnion): typia.Resolved<TagObjectUnion> => {
         const $io0 = (input: any): boolean =>
             "number" === typeof input.value && 3 <= input.value;
         const $io1 = (input: any): boolean =>

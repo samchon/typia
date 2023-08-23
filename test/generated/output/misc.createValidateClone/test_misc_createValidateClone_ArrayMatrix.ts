@@ -5,7 +5,7 @@ import { ArrayMatrix } from "../../../structures/ArrayMatrix";
 export const test_misc_validateClone_ArrayMatrix = _test_misc_validateClone(
     "ArrayMatrix",
 )<ArrayMatrix>(ArrayMatrix)(
-    (input: any): typia.IValidation<typia.Primitive<ArrayMatrix>> => {
+    (input: any): typia.IValidation<typia.Resolved<ArrayMatrix>> => {
         const validate = (input: any): typia.IValidation<ArrayMatrix> => {
             const errors = [] as any[];
             const __is = (input: any): input is ArrayMatrix => {
@@ -144,7 +144,7 @@ export const test_misc_validateClone_ArrayMatrix = _test_misc_validateClone(
                 data: success ? input : undefined,
             } as any;
         };
-        const clone = (input: ArrayMatrix): typia.Primitive<ArrayMatrix> => {
+        const clone = (input: ArrayMatrix): typia.Resolved<ArrayMatrix> => {
             const $cp0 = (input: any) => input.map((elem: any) => elem as any);
             const $cp1 = (input: any) =>
                 input.map((elem: any) =>

@@ -5,7 +5,7 @@ import { TemplateAtomic } from "../../../structures/TemplateAtomic";
 export const test_misc_assertClone_TemplateAtomic = _test_misc_assertClone(
     "TemplateAtomic",
 )<TemplateAtomic>(TemplateAtomic)(
-    (input: any): typia.Primitive<TemplateAtomic> => {
+    (input: any): typia.Resolved<TemplateAtomic> => {
         const assert = (input: any): TemplateAtomic => {
             const __is = (input: any): input is TemplateAtomic => {
                 const $io0 = (input: any): boolean =>
@@ -132,7 +132,7 @@ export const test_misc_assertClone_TemplateAtomic = _test_misc_assertClone(
         };
         const clone = (
             input: TemplateAtomic,
-        ): typia.Primitive<TemplateAtomic> => {
+        ): typia.Resolved<TemplateAtomic> => {
             const $co0 = (input: any): any => ({
                 prefix: input.prefix as any,
                 postfix: input.postfix as any,

@@ -5,7 +5,7 @@ import { ClassGetter } from "../../../structures/ClassGetter";
 export const test_misc_assertClone_ClassGetter = _test_misc_assertClone(
     "ClassGetter",
 )<ClassGetter>(ClassGetter)((input) =>
-    ((input: any): typia.Primitive<ClassGetter> => {
+    ((input: any): typia.Resolved<ClassGetter> => {
         const assert = (input: any): ClassGetter => {
             const __is = (input: any): input is ClassGetter => {
                 const $io0 = (input: any): boolean =>
@@ -64,7 +64,7 @@ export const test_misc_assertClone_ClassGetter = _test_misc_assertClone(
                 })(input, "$input", true);
             return input;
         };
-        const clone = (input: ClassGetter): typia.Primitive<ClassGetter> => {
+        const clone = (input: ClassGetter): typia.Resolved<ClassGetter> => {
             const $co0 = (input: any): any => ({
                 id: input.id as any,
                 name: input.name as any,

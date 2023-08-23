@@ -4,8 +4,8 @@ import { TagPattern } from "../../../structures/TagPattern";
 
 export const test_protobuf_assertDecode_TagPattern =
     _test_protobuf_assertDecode("TagPattern")<TagPattern>(TagPattern)({
-        assertDecode: (input: Uint8Array): TagPattern => {
-            const decode = (input: Uint8Array): TagPattern => {
+        assertDecode: (input: Uint8Array): typia.Resolved<TagPattern> => {
+            const decode = (input: Uint8Array): typia.Resolved<TagPattern> => {
                 const $Reader = (typia.protobuf.createAssertDecode as any)
                     .Reader;
                 const $pdo0 = (reader: any, length: number = -1): any => {
@@ -161,7 +161,7 @@ export const test_protobuf_assertDecode_TagPattern =
                 return input;
             };
             const output = decode(input);
-            return assert(output);
+            return assert(output) as any;
         },
         encode: (input: TagPattern): Uint8Array => {
             const $Sizer = (typia.protobuf.createEncode as any).Sizer;

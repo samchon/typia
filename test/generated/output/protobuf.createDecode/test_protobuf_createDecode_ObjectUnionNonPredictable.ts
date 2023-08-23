@@ -6,7 +6,9 @@ export const test_protobuf_decode_ObjectUnionNonPredictable =
     _test_protobuf_decode(
         "ObjectUnionNonPredictable",
     )<ObjectUnionNonPredictable>(ObjectUnionNonPredictable)({
-        decode: (input: Uint8Array): ObjectUnionNonPredictable => {
+        decode: (
+            input: Uint8Array,
+        ): typia.Resolved<ObjectUnionNonPredictable> => {
             const $Reader = (typia.protobuf.createDecode as any).Reader;
             const $pdo0 = (reader: any, length: number = -1): any => {
                 length = length < 0 ? reader.size() : reader.index() + length;

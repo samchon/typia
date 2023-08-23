@@ -5,7 +5,7 @@ import { DynamicSimple } from "../../../structures/DynamicSimple";
 export const test_misc_clone_DynamicSimple = _test_misc_clone(
     "DynamicSimple",
 )<DynamicSimple>(DynamicSimple)((input) =>
-    ((input: DynamicSimple): typia.Primitive<DynamicSimple> => {
+    ((input: DynamicSimple): typia.Resolved<DynamicSimple> => {
         const $io1 = (input: any): boolean =>
             Object.keys(input).every((key: any) => {
                 const value = input[key];

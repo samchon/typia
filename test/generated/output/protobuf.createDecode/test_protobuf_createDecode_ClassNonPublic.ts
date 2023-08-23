@@ -5,7 +5,7 @@ import { ClassNonPublic } from "../../../structures/ClassNonPublic";
 export const test_protobuf_decode_ClassNonPublic = _test_protobuf_decode(
     "ClassNonPublic",
 )<ClassNonPublic>(ClassNonPublic)({
-    decode: (input: Uint8Array): ClassNonPublic => {
+    decode: (input: Uint8Array): typia.Resolved<ClassNonPublic> => {
         const $Reader = (typia.protobuf.createDecode as any).Reader;
         const $pdo0 = (reader: any, length: number = -1): any => {
             length = length < 0 ? reader.size() : reader.index() + length;

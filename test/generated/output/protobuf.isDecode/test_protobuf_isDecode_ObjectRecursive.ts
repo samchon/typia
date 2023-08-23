@@ -6,7 +6,7 @@ export const test_protobuf_isDecode_ObjectRecursive = _test_protobuf_isDecode(
     "ObjectRecursive",
 )<ObjectRecursive>(ObjectRecursive)({
     isDecode: (input) =>
-        ((input: Uint8Array): ObjectRecursive | null => {
+        ((input: Uint8Array): typia.Resolved<ObjectRecursive> | null => {
             const is = (input: any): input is ObjectRecursive => {
                 const $io0 = (input: any): boolean =>
                     (null === input.parent ||
@@ -29,7 +29,9 @@ export const test_protobuf_isDecode_ObjectRecursive = _test_protobuf_isDecode(
                     "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            const decode = (input: Uint8Array): ObjectRecursive => {
+            const decode = (
+                input: Uint8Array,
+            ): typia.Resolved<ObjectRecursive> => {
                 const $Reader = (typia.protobuf.isDecode as any).Reader;
                 const $pdo0 = (reader: any, length: number = -1): any => {
                     length =

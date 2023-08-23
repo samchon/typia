@@ -5,7 +5,7 @@ import { TagLength } from "../../../structures/TagLength";
 export const test_misc_assertClone_TagLength = _test_misc_assertClone(
     "TagLength",
 )<TagLength>(TagLength)((input) =>
-    ((input: any): typia.Primitive<TagLength> => {
+    ((input: any): typia.Resolved<TagLength> => {
         const assert = (input: any): TagLength => {
             const __is = (input: any): input is TagLength => {
                 const $io0 = (input: any): boolean =>
@@ -174,7 +174,7 @@ export const test_misc_assertClone_TagLength = _test_misc_assertClone(
                 })(input, "$input", true);
             return input;
         };
-        const clone = (input: TagLength): typia.Primitive<TagLength> => {
+        const clone = (input: TagLength): typia.Resolved<TagLength> => {
             const $io1 = (input: any): boolean =>
                 "string" === typeof input.fixed &&
                 5 === input.fixed.length &&

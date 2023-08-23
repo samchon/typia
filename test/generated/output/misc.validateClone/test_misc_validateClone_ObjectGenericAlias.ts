@@ -8,7 +8,7 @@ export const test_misc_validateClone_ObjectGenericAlias =
     )((input) =>
         ((
             input: any,
-        ): typia.IValidation<typia.Primitive<ObjectGenericAlias>> => {
+        ): typia.IValidation<typia.Resolved<ObjectGenericAlias>> => {
             const validate = (
                 input: any,
             ): typia.IValidation<ObjectGenericAlias> => {
@@ -67,7 +67,7 @@ export const test_misc_validateClone_ObjectGenericAlias =
             };
             const clone = (
                 input: ObjectGenericAlias,
-            ): typia.Primitive<ObjectGenericAlias> => {
+            ): typia.Resolved<ObjectGenericAlias> => {
                 const $co0 = (input: any): any => ({
                     value: input.value as any,
                 });

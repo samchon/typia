@@ -3,8 +3,6 @@ import { TestRandomGenerator } from "../helpers/TestRandomGenerator";
 
 export type ClassGetter = ClassGetter.Person;
 export namespace ClassGetter {
-    export const PRIMITIVE = false;
-
     export class Person {
         public constructor(
             public readonly id: string,

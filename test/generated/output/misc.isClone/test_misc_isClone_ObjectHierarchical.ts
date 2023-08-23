@@ -5,7 +5,7 @@ import { ObjectHierarchical } from "../../../structures/ObjectHierarchical";
 export const test_misc_isClone_ObjectHierarchical = _test_misc_isClone(
     "ObjectHierarchical",
 )<ObjectHierarchical>(ObjectHierarchical)((input) =>
-    ((input: any): typia.Primitive<ObjectHierarchical> | null => {
+    ((input: any): typia.Resolved<ObjectHierarchical> | null => {
         const is = (input: any): input is ObjectHierarchical => {
             const $is_url = (typia.misc.isClone as any).is_url;
             const $is_ipv4 = (typia.misc.isClone as any).is_ipv4;
@@ -99,7 +99,7 @@ export const test_misc_isClone_ObjectHierarchical = _test_misc_isClone(
         };
         const clone = (
             input: ObjectHierarchical,
-        ): typia.Primitive<ObjectHierarchical> => {
+        ): typia.Resolved<ObjectHierarchical> => {
             const $io1 = (input: any): boolean =>
                 "number" === typeof input.id &&
                 "string" === typeof input.code &&

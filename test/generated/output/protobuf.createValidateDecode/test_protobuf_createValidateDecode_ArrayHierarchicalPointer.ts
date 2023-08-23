@@ -8,7 +8,7 @@ export const test_protobuf_validateDecode_ArrayHierarchicalPointer =
     )<ArrayHierarchicalPointer>(ArrayHierarchicalPointer)({
         validateDecode: (
             input: Uint8Array,
-        ): typia.IValidation<ArrayHierarchicalPointer> => {
+        ): typia.IValidation<typia.Resolved<ArrayHierarchicalPointer>> => {
             const validate = (
                 input: any,
             ): typia.IValidation<ArrayHierarchicalPointer> => {
@@ -433,7 +433,9 @@ export const test_protobuf_validateDecode_ArrayHierarchicalPointer =
                     data: success ? input : undefined,
                 } as any;
             };
-            const decode = (input: Uint8Array): ArrayHierarchicalPointer => {
+            const decode = (
+                input: Uint8Array,
+            ): typia.Resolved<ArrayHierarchicalPointer> => {
                 const $Reader = (typia.protobuf.createValidateDecode as any)
                     .Reader;
                 const $pdo0 = (reader: any, length: number = -1): any => {

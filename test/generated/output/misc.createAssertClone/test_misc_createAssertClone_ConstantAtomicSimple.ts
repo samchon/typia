@@ -5,7 +5,7 @@ import { ConstantAtomicSimple } from "../../../structures/ConstantAtomicSimple";
 export const test_misc_assertClone_ConstantAtomicSimple =
     _test_misc_assertClone("ConstantAtomicSimple")<ConstantAtomicSimple>(
         ConstantAtomicSimple,
-    )((input: any): typia.Primitive<ConstantAtomicSimple> => {
+    )((input: any): typia.Resolved<ConstantAtomicSimple> => {
         const assert = (input: any): ConstantAtomicSimple => {
             const __is = (input: any): input is ConstantAtomicSimple => {
                 return (
@@ -72,7 +72,7 @@ export const test_misc_assertClone_ConstantAtomicSimple =
         };
         const clone = (
             input: ConstantAtomicSimple,
-        ): typia.Primitive<ConstantAtomicSimple> => {
+        ): typia.Resolved<ConstantAtomicSimple> => {
             return Array.isArray(input) &&
                 input.length === 4 &&
                 false === input[0] &&

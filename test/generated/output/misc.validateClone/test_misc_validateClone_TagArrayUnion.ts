@@ -5,7 +5,7 @@ import { TagArrayUnion } from "../../../structures/TagArrayUnion";
 export const test_misc_validateClone_TagArrayUnion = _test_misc_validateClone(
     "TagArrayUnion",
 )<TagArrayUnion>(TagArrayUnion)((input) =>
-    ((input: any): typia.IValidation<typia.Primitive<TagArrayUnion>> => {
+    ((input: any): typia.IValidation<typia.Resolved<TagArrayUnion>> => {
         const validate = (input: any): typia.IValidation<TagArrayUnion> => {
             const errors = [] as any[];
             const __is = (input: any): input is TagArrayUnion => {
@@ -305,9 +305,7 @@ export const test_misc_validateClone_TagArrayUnion = _test_misc_validateClone(
                 data: success ? input : undefined,
             } as any;
         };
-        const clone = (
-            input: TagArrayUnion,
-        ): typia.Primitive<TagArrayUnion> => {
+        const clone = (input: TagArrayUnion): typia.Resolved<TagArrayUnion> => {
             const $is_uuid = (typia.misc.validateClone as any).is_uuid;
             const $cp0 = (input: any) =>
                 input.map((elem: any) =>

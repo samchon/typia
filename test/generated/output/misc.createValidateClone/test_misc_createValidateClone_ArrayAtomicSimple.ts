@@ -5,7 +5,7 @@ import { ArrayAtomicSimple } from "../../../structures/ArrayAtomicSimple";
 export const test_misc_validateClone_ArrayAtomicSimple =
     _test_misc_validateClone("ArrayAtomicSimple")<ArrayAtomicSimple>(
         ArrayAtomicSimple,
-    )((input: any): typia.IValidation<typia.Primitive<ArrayAtomicSimple>> => {
+    )((input: any): typia.IValidation<typia.Resolved<ArrayAtomicSimple>> => {
         const validate = (input: any): typia.IValidation<ArrayAtomicSimple> => {
             const errors = [] as any[];
             const __is = (input: any): input is ArrayAtomicSimple => {
@@ -144,7 +144,7 @@ export const test_misc_validateClone_ArrayAtomicSimple =
         };
         const clone = (
             input: ArrayAtomicSimple,
-        ): typia.Primitive<ArrayAtomicSimple> => {
+        ): typia.Resolved<ArrayAtomicSimple> => {
             const $cp0 = (input: any) => input.map((elem: any) => elem as any);
             const $cp1 = (input: any) => input.map((elem: any) => elem as any);
             const $cp2 = (input: any) => input.map((elem: any) => elem as any);

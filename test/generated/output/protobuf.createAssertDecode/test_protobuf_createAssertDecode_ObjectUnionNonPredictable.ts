@@ -6,8 +6,12 @@ export const test_protobuf_assertDecode_ObjectUnionNonPredictable =
     _test_protobuf_assertDecode(
         "ObjectUnionNonPredictable",
     )<ObjectUnionNonPredictable>(ObjectUnionNonPredictable)({
-        assertDecode: (input: Uint8Array): ObjectUnionNonPredictable => {
-            const decode = (input: Uint8Array): ObjectUnionNonPredictable => {
+        assertDecode: (
+            input: Uint8Array,
+        ): typia.Resolved<ObjectUnionNonPredictable> => {
+            const decode = (
+                input: Uint8Array,
+            ): typia.Resolved<ObjectUnionNonPredictable> => {
                 const $Reader = (typia.protobuf.createAssertDecode as any)
                     .Reader;
                 const $pdo0 = (reader: any, length: number = -1): any => {
@@ -489,7 +493,7 @@ export const test_protobuf_assertDecode_ObjectUnionNonPredictable =
                 return input;
             };
             const output = decode(input);
-            return assert(output);
+            return assert(output) as any;
         },
         encode: (input: ObjectUnionNonPredictable): Uint8Array => {
             const $throws = (typia.protobuf.createEncode as any).throws;

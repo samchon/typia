@@ -8,7 +8,7 @@ export const test_protobuf_validateDecode_ArrayRecursive =
     )({
         validateDecode: (
             input: Uint8Array,
-        ): typia.IValidation<ArrayRecursive> => {
+        ): typia.IValidation<typia.Resolved<ArrayRecursive>> => {
             const validate = (
                 input: any,
             ): typia.IValidation<ArrayRecursive> => {
@@ -184,7 +184,9 @@ export const test_protobuf_validateDecode_ArrayRecursive =
                     data: success ? input : undefined,
                 } as any;
             };
-            const decode = (input: Uint8Array): ArrayRecursive => {
+            const decode = (
+                input: Uint8Array,
+            ): typia.Resolved<ArrayRecursive> => {
                 const $Reader = (typia.protobuf.createValidateDecode as any)
                     .Reader;
                 const $pdo0 = (reader: any, length: number = -1): any => {

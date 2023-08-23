@@ -6,7 +6,7 @@ export const test_protobuf_isDecode_TagRangeBigInt = _test_protobuf_isDecode(
     "TagRangeBigInt",
 )<TagRangeBigInt>(TagRangeBigInt)({
     isDecode: (input) =>
-        ((input: Uint8Array): TagRangeBigInt | null => {
+        ((input: Uint8Array): typia.Resolved<TagRangeBigInt> | null => {
             const is = (input: any): input is TagRangeBigInt => {
                 const $io0 = (input: any): boolean =>
                     Array.isArray(input.value) &&
@@ -44,7 +44,9 @@ export const test_protobuf_isDecode_TagRangeBigInt = _test_protobuf_isDecode(
                     "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            const decode = (input: Uint8Array): TagRangeBigInt => {
+            const decode = (
+                input: Uint8Array,
+            ): typia.Resolved<TagRangeBigInt> => {
                 const $Reader = (typia.protobuf.isDecode as any).Reader;
                 const $pdo0 = (reader: any, length: number = -1): any => {
                     length =

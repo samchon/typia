@@ -9,7 +9,7 @@ export const test_protobuf_validateDecode_MapSimpleProtobufNullable =
         validateDecode: (input) =>
             ((
                 input: Uint8Array,
-            ): typia.IValidation<MapSimpleProtobufNullable> => {
+            ): typia.IValidation<typia.Resolved<MapSimpleProtobufNullable>> => {
                 const validate = (
                     input: any,
                 ): typia.IValidation<MapSimpleProtobufNullable> => {
@@ -960,7 +960,7 @@ export const test_protobuf_validateDecode_MapSimpleProtobufNullable =
                 };
                 const decode = (
                     input: Uint8Array,
-                ): MapSimpleProtobufNullable => {
+                ): typia.Resolved<MapSimpleProtobufNullable> => {
                     const $Reader = (typia.protobuf.validateDecode as any)
                         .Reader;
                     const $pdo0 = (reader: any, length: number = -1): any => {

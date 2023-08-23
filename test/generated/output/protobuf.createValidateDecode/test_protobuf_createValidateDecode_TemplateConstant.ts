@@ -8,7 +8,7 @@ export const test_protobuf_validateDecode_TemplateConstant =
     )({
         validateDecode: (
             input: Uint8Array,
-        ): typia.IValidation<TemplateConstant> => {
+        ): typia.IValidation<typia.Resolved<TemplateConstant>> => {
             const validate = (
                 input: any,
             ): typia.IValidation<TemplateConstant> => {
@@ -179,7 +179,9 @@ export const test_protobuf_validateDecode_TemplateConstant =
                     data: success ? input : undefined,
                 } as any;
             };
-            const decode = (input: Uint8Array): TemplateConstant => {
+            const decode = (
+                input: Uint8Array,
+            ): typia.Resolved<TemplateConstant> => {
                 const $Reader = (typia.protobuf.createValidateDecode as any)
                     .Reader;
                 const $pdo0 = (reader: any, length: number = -1): any => {

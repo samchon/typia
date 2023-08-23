@@ -11,8 +11,6 @@ export class ClassPropertyAssignment {
     public incremental = true;
 }
 export namespace ClassPropertyAssignment {
-    export const PRIMITIVE = false;
-
     export function generate(): ClassPropertyAssignment {
         return new ClassPropertyAssignment();
     }

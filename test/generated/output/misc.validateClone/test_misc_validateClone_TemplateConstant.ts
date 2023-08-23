@@ -6,7 +6,7 @@ export const test_misc_validateClone_TemplateConstant =
     _test_misc_validateClone("TemplateConstant")<TemplateConstant>(
         TemplateConstant,
     )((input) =>
-        ((input: any): typia.IValidation<typia.Primitive<TemplateConstant>> => {
+        ((input: any): typia.IValidation<typia.Resolved<TemplateConstant>> => {
             const validate = (
                 input: any,
             ): typia.IValidation<TemplateConstant> => {
@@ -179,7 +179,7 @@ export const test_misc_validateClone_TemplateConstant =
             };
             const clone = (
                 input: TemplateConstant,
-            ): typia.Primitive<TemplateConstant> => {
+            ): typia.Resolved<TemplateConstant> => {
                 const $io1 = (input: any): boolean =>
                     ("prefix_A" === input.prefix ||
                         "prefix_B" === input.prefix ||

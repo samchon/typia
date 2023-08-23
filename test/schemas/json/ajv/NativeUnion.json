@@ -110,14 +110,6 @@
           "buffer": {
             "oneOf": [
               {
-                "$ref": "#/components/schemas/__type"
-              },
-              {
-                "x-typia-required": true,
-                "x-typia-optional": false,
-                "$ref": "#/components/objects/DataView"
-              },
-              {
                 "x-typia-required": true,
                 "x-typia-optional": false,
                 "$ref": "#/components/objects/ArrayBuffer"
@@ -130,22 +122,6 @@
             ],
             "x-typia-required": true,
             "x-typia-optional": false
-          },
-          "weak": {
-            "oneOf": [
-              {
-                "x-typia-required": true,
-                "x-typia-optional": false,
-                "$ref": "#/components/objects/WeakSet"
-              },
-              {
-                "x-typia-required": true,
-                "x-typia-optional": false,
-                "$ref": "#/components/objects/WeakMap"
-              }
-            ],
-            "x-typia-required": true,
-            "x-typia-optional": false
           }
         },
         "required": [
@@ -153,8 +129,7 @@
           "unsigned",
           "signed",
           "float",
-          "buffer",
-          "weak"
+          "buffer"
         ],
         "x-typia-jsDocTags": []
       },
@@ -213,40 +188,6 @@
         "$id": "#/components/objects/Float64Array",
         "properties": {}
       },
-      "__type": {
-        "$id": "#/components/schemas/__type",
-        "type": "object",
-        "properties": {
-          "type": {
-            "x-typia-required": true,
-            "x-typia-optional": false,
-            "type": "string",
-            "enum": [
-              "Buffer"
-            ]
-          },
-          "data": {
-            "x-typia-required": true,
-            "x-typia-optional": false,
-            "type": "array",
-            "items": {
-              "x-typia-required": true,
-              "x-typia-optional": false,
-              "type": "number"
-            }
-          }
-        },
-        "required": [
-          "type",
-          "data"
-        ],
-        "x-typia-jsDocTags": []
-      },
-      "DataView": {
-        "type": "object",
-        "$id": "#/components/objects/DataView",
-        "properties": {}
-      },
       "ArrayBuffer": {
         "type": "object",
         "$id": "#/components/objects/ArrayBuffer",
@@ -255,16 +196,6 @@
       "SharedArrayBuffer": {
         "type": "object",
         "$id": "#/components/objects/SharedArrayBuffer",
-        "properties": {}
-      },
-      "WeakSet": {
-        "type": "object",
-        "$id": "#/components/objects/WeakSet",
-        "properties": {}
-      },
-      "WeakMap": {
-        "type": "object",
-        "$id": "#/components/objects/WeakMap",
         "properties": {}
       }
     }

@@ -8,7 +8,7 @@ export const test_misc_validateClone_ArrayRecursiveUnionImplicit =
     )<ArrayRecursiveUnionImplicit>(ArrayRecursiveUnionImplicit)(
         (
             input: any,
-        ): typia.IValidation<typia.Primitive<ArrayRecursiveUnionImplicit>> => {
+        ): typia.IValidation<typia.Resolved<ArrayRecursiveUnionImplicit>> => {
             const validate = (
                 input: any,
             ): typia.IValidation<ArrayRecursiveUnionImplicit> => {
@@ -538,7 +538,7 @@ export const test_misc_validateClone_ArrayRecursiveUnionImplicit =
             };
             const clone = (
                 input: ArrayRecursiveUnionImplicit,
-            ): typia.Primitive<ArrayRecursiveUnionImplicit> => {
+            ): typia.Resolved<ArrayRecursiveUnionImplicit> => {
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.id &&
                     "string" === typeof input.name &&

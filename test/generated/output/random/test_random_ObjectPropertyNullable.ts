@@ -8,7 +8,7 @@ export const test_random_ObjectPropertyNullable = _test_random(
     random: () =>
         ((
             generator?: Partial<typia.IRandomGenerator>,
-        ): typia.Primitive<ObjectPropertyNullable> => {
+        ): typia.Resolved<ObjectPropertyNullable> => {
             const $generator = (typia.random as any).generator;
             const $pick = (typia.random as any).pick;
             const $ro0 = (

@@ -5,7 +5,7 @@ import { AtomicIntersection } from "../../../structures/AtomicIntersection";
 export const test_misc_assertClone_AtomicIntersection = _test_misc_assertClone(
     "AtomicIntersection",
 )<AtomicIntersection>(AtomicIntersection)(
-    (input: any): typia.Primitive<AtomicIntersection> => {
+    (input: any): typia.Resolved<AtomicIntersection> => {
         const assert = (input: any): AtomicIntersection => {
             const __is = (input: any): input is AtomicIntersection => {
                 return (
@@ -67,7 +67,7 @@ export const test_misc_assertClone_AtomicIntersection = _test_misc_assertClone(
         };
         const clone = (
             input: AtomicIntersection,
-        ): typia.Primitive<AtomicIntersection> => {
+        ): typia.Resolved<AtomicIntersection> => {
             return Array.isArray(input) &&
                 input.length === 3 &&
                 "boolean" === typeof input[0] &&

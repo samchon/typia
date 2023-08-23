@@ -4,7 +4,9 @@ import { TagStep } from "../../../structures/TagStep";
 
 export const test_protobuf_validateDecode_TagStep =
     _test_protobuf_validateDecode("TagStep")<TagStep>(TagStep)({
-        validateDecode: (input: Uint8Array): typia.IValidation<TagStep> => {
+        validateDecode: (
+            input: Uint8Array,
+        ): typia.IValidation<typia.Resolved<TagStep>> => {
             const validate = (input: any): typia.IValidation<TagStep> => {
                 const errors = [] as any[];
                 const __is = (input: any): input is TagStep => {
@@ -215,7 +217,7 @@ export const test_protobuf_validateDecode_TagStep =
                     data: success ? input : undefined,
                 } as any;
             };
-            const decode = (input: Uint8Array): TagStep => {
+            const decode = (input: Uint8Array): typia.Resolved<TagStep> => {
                 const $Reader = (typia.protobuf.createValidateDecode as any)
                     .Reader;
                 const $pdo0 = (reader: any, length: number = -1): any => {

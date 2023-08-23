@@ -8,7 +8,7 @@ export const test_misc_validateClone_ArrayRepeatedNullable =
     )(
         (
             input: any,
-        ): typia.IValidation<typia.Primitive<ArrayRepeatedNullable>> => {
+        ): typia.IValidation<typia.Resolved<ArrayRepeatedNullable>> => {
             const validate = (
                 input: any,
             ): typia.IValidation<ArrayRepeatedNullable> => {
@@ -146,7 +146,7 @@ export const test_misc_validateClone_ArrayRepeatedNullable =
             };
             const clone = (
                 input: ArrayRepeatedNullable,
-            ): typia.Primitive<ArrayRepeatedNullable> => {
+            ): typia.Resolved<ArrayRepeatedNullable> => {
                 const $ia0 = (input: any): any =>
                     input.every(
                         (elem: any) =>

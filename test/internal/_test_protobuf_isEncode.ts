@@ -1,3 +1,5 @@
+import typia from "typia";
+
 import { TestStructure } from "../helpers/TestStructure";
 import { _test_protobuf_encode } from "./_test_protobuf_encode";
 
@@ -7,7 +9,7 @@ export const _test_protobuf_isEncode =
     (functor: {
         message: string;
         isEncode: (input: T) => Uint8Array | null;
-        decode: (input: Uint8Array) => T;
+        decode: (input: Uint8Array) => typia.Resolved<T>;
     }) =>
     () => {
         _test_protobuf_encode(name)(factory)({

@@ -6,7 +6,7 @@ export const test_protobuf_decode_ObjectSimpleProtobuf = _test_protobuf_decode(
     "ObjectSimpleProtobuf",
 )<ObjectSimpleProtobuf>(ObjectSimpleProtobuf)({
     decode: (input) =>
-        ((input: Uint8Array): ObjectSimpleProtobuf => {
+        ((input: Uint8Array): typia.Resolved<ObjectSimpleProtobuf> => {
             const $Reader = (typia.protobuf.decode as any).Reader;
             const $pdo0 = (reader: any, length: number = -1): any => {
                 length = length < 0 ? reader.size() : reader.index() + length;

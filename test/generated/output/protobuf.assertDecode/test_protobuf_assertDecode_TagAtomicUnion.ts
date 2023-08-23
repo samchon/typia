@@ -7,8 +7,10 @@ export const test_protobuf_assertDecode_TagAtomicUnion =
         TagAtomicUnion,
     )({
         assertDecode: (input) =>
-            ((input: Uint8Array): TagAtomicUnion => {
-                const decode = (input: Uint8Array): TagAtomicUnion => {
+            ((input: Uint8Array): typia.Resolved<TagAtomicUnion> => {
+                const decode = (
+                    input: Uint8Array,
+                ): typia.Resolved<TagAtomicUnion> => {
                     const $Reader = (typia.protobuf.assertDecode as any).Reader;
                     const $pdo0 = (reader: any, length: number = -1): any => {
                         length =
@@ -192,7 +194,7 @@ export const test_protobuf_assertDecode_TagAtomicUnion =
                     return input;
                 };
                 const output = decode(input);
-                return assert(output);
+                return assert(output) as any;
             })(input),
         encode: (input: TagAtomicUnion): Uint8Array => {
             const $throws = (typia.protobuf.createEncode as any).throws;

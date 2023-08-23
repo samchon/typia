@@ -318,8 +318,8 @@ const has_atomic =
             metadata.aliases.some((alias) =>
                 has_atomic(type)(visited)(alias.value),
             ) ||
-            (metadata.resolved !== null &&
-                has_atomic(type)(visited)(metadata.resolved.returns))
+            (metadata.escaped !== null &&
+                has_atomic(type)(visited)(metadata.escaped.returns))
         );
     };
 
@@ -341,8 +341,8 @@ const has_native =
             metadata.aliases.some((alias) =>
                 has_native(type)(visited)(alias.value),
             ) ||
-            (metadata.resolved !== null &&
-                has_native(type)(visited)(metadata.resolved.returns))
+            (metadata.escaped !== null &&
+                has_native(type)(visited)(metadata.escaped.returns))
         );
     };
 
@@ -358,7 +358,7 @@ const has_array =
             ) ||
             metadata.maps.some((map) => has_array(visited)(map.value)) ||
             metadata.aliases.some((alias) => has_array(visited)(alias.value)) ||
-            (metadata.resolved !== null &&
-                has_array(visited)(metadata.resolved.returns))
+            (metadata.escaped !== null &&
+                has_array(visited)(metadata.escaped.returns))
         );
     };

@@ -5,7 +5,7 @@ import { TagDefault } from "../../../structures/TagDefault";
 export const test_misc_isClone_TagDefault = _test_misc_isClone(
     "TagDefault",
 )<TagDefault>(TagDefault)((input) =>
-    ((input: any): typia.Primitive<TagDefault> | null => {
+    ((input: any): typia.Resolved<TagDefault> | null => {
         const is = (input: any): input is TagDefault => {
             const $is_custom = (typia.misc.isClone as any).is_custom;
             const $io0 = (input: any): boolean =>
@@ -174,7 +174,7 @@ export const test_misc_isClone_TagDefault = _test_misc_isClone(
                         )));
             return "object" === typeof input && null !== input && $io0(input);
         };
-        const clone = (input: TagDefault): typia.Primitive<TagDefault> => {
+        const clone = (input: TagDefault): typia.Resolved<TagDefault> => {
             const $is_custom = (typia.misc.isClone as any).is_custom;
             const $co0 = (input: any): any => ({
                 boolean: input.boolean as any,

@@ -24,7 +24,7 @@ export namespace MiscValidateCloneProgrammer {
                     ),
                 ],
                 ts.factory.createTypeReferenceNode(
-                    `typia.IValidation<typia.Primitive<${
+                    `typia.IValidation<typia.Resolved<${
                         name ?? TypeFactory.getFullName(project.checker)(type)
                     }>>`,
                 ),

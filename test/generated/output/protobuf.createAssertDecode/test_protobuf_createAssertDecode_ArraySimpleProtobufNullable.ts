@@ -6,8 +6,12 @@ export const test_protobuf_assertDecode_ArraySimpleProtobufNullable =
     _test_protobuf_assertDecode(
         "ArraySimpleProtobufNullable",
     )<ArraySimpleProtobufNullable>(ArraySimpleProtobufNullable)({
-        assertDecode: (input: Uint8Array): ArraySimpleProtobufNullable => {
-            const decode = (input: Uint8Array): ArraySimpleProtobufNullable => {
+        assertDecode: (
+            input: Uint8Array,
+        ): typia.Resolved<ArraySimpleProtobufNullable> => {
+            const decode = (
+                input: Uint8Array,
+            ): typia.Resolved<ArraySimpleProtobufNullable> => {
                 const $Reader = (typia.protobuf.createAssertDecode as any)
                     .Reader;
                 const $pdo0 = (reader: any, length: number = -1): any => {
@@ -594,7 +598,7 @@ export const test_protobuf_assertDecode_ArraySimpleProtobufNullable =
                 return input;
             };
             const output = decode(input);
-            return assert(output);
+            return assert(output) as any;
         },
         encode: (input: ArraySimpleProtobufNullable): Uint8Array => {
             const $Sizer = (typia.protobuf.createEncode as any).Sizer;

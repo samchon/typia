@@ -9,6 +9,7 @@ export namespace FunctionalTuple {
     export const BINARABLE = false;
     export const JSONABLE = false;
     export const PRIMITIVE = false;
+    export const RESOLVABLE = false;
 
     export type Functional = (...args: any[]) => any;
     export function generate(): FunctionalTuple {

@@ -5,8 +5,8 @@ import { TagCustom } from "../../../structures/TagCustom";
 export const test_protobuf_assertDecode_TagCustom = _test_protobuf_assertDecode(
     "TagCustom",
 )<TagCustom>(TagCustom)({
-    assertDecode: (input: Uint8Array): TagCustom => {
-        const decode = (input: Uint8Array): TagCustom => {
+    assertDecode: (input: Uint8Array): typia.Resolved<TagCustom> => {
+        const decode = (input: Uint8Array): typia.Resolved<TagCustom> => {
             const $Reader = (typia.protobuf.createAssertDecode as any).Reader;
             const $pdo0 = (reader: any, length: number = -1): any => {
                 length = length < 0 ? reader.size() : reader.index() + length;
@@ -160,7 +160,7 @@ export const test_protobuf_assertDecode_TagCustom = _test_protobuf_assertDecode(
             return input;
         };
         const output = decode(input);
-        return assert(output);
+        return assert(output) as any;
     },
     encode: (input: TagCustom): Uint8Array => {
         const $is_uuid = (typia.protobuf.createEncode as any).is_uuid;

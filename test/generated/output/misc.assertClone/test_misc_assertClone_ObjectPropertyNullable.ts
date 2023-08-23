@@ -6,7 +6,7 @@ export const test_misc_assertClone_ObjectPropertyNullable =
     _test_misc_assertClone("ObjectPropertyNullable")<ObjectPropertyNullable>(
         ObjectPropertyNullable,
     )((input) =>
-        ((input: any): typia.Primitive<ObjectPropertyNullable> => {
+        ((input: any): typia.Resolved<ObjectPropertyNullable> => {
             const assert = (input: any): ObjectPropertyNullable => {
                 const __is = (input: any): input is ObjectPropertyNullable => {
                     const $io0 = (input: any): boolean =>
@@ -389,7 +389,7 @@ export const test_misc_assertClone_ObjectPropertyNullable =
             };
             const clone = (
                 input: ObjectPropertyNullable,
-            ): typia.Primitive<ObjectPropertyNullable> => {
+            ): typia.Resolved<ObjectPropertyNullable> => {
                 const $io0 = (input: any): boolean =>
                     null === input.value || "boolean" === typeof input.value;
                 const $io1 = (input: any): boolean =>

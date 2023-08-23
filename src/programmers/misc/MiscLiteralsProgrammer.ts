@@ -15,7 +15,7 @@ import { ArrayUtil } from "../../utils/ArrayUtil";
 export namespace MiscLiteralsProgrammer {
     export const write = (project: IProject) => (type: ts.Type) => {
         const meta: Metadata = MetadataFactory.analyze(project.checker)({
-            resolve: true,
+            escape: true,
             constant: true,
             absorb: true,
             validate: (meta) => {

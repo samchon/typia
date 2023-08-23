@@ -8,7 +8,7 @@ export const test_misc_validateClone_ObjectUnionNonPredictable =
     )<ObjectUnionNonPredictable>(ObjectUnionNonPredictable)((input) =>
         ((
             input: any,
-        ): typia.IValidation<typia.Primitive<ObjectUnionNonPredictable>> => {
+        ): typia.IValidation<typia.Resolved<ObjectUnionNonPredictable>> => {
             const validate = (
                 input: any,
             ): typia.IValidation<ObjectUnionNonPredictable> => {
@@ -319,7 +319,7 @@ export const test_misc_validateClone_ObjectUnionNonPredictable =
             };
             const clone = (
                 input: ObjectUnionNonPredictable,
-            ): typia.Primitive<ObjectUnionNonPredictable> => {
+            ): typia.Resolved<ObjectUnionNonPredictable> => {
                 const $io1 = (input: any): boolean =>
                     "object" === typeof input.value &&
                     null !== input.value &&

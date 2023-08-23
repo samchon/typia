@@ -5,7 +5,7 @@ import { ObjectTuple } from "../../../structures/ObjectTuple";
 export const test_misc_assertClone_ObjectTuple = _test_misc_assertClone(
     "ObjectTuple",
 )<ObjectTuple>(ObjectTuple)((input) =>
-    ((input: any): typia.Primitive<ObjectTuple> => {
+    ((input: any): typia.Resolved<ObjectTuple> => {
         const assert = (input: any): ObjectTuple => {
             const __is = (input: any): input is ObjectTuple => {
                 const $io0 = (input: any): boolean =>
@@ -129,7 +129,7 @@ export const test_misc_assertClone_ObjectTuple = _test_misc_assertClone(
                 })(input, "$input", true);
             return input;
         };
-        const clone = (input: ObjectTuple): typia.Primitive<ObjectTuple> => {
+        const clone = (input: ObjectTuple): typia.Resolved<ObjectTuple> => {
             const $io0 = (input: any): boolean =>
                 "string" === typeof input.id &&
                 "string" === typeof input.code &&

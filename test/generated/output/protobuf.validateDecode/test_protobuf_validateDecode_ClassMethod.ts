@@ -5,7 +5,9 @@ import { ClassMethod } from "../../../structures/ClassMethod";
 export const test_protobuf_validateDecode_ClassMethod =
     _test_protobuf_validateDecode("ClassMethod")<ClassMethod>(ClassMethod)({
         validateDecode: (input) =>
-            ((input: Uint8Array): typia.IValidation<ClassMethod> => {
+            ((
+                input: Uint8Array,
+            ): typia.IValidation<typia.Resolved<ClassMethod>> => {
                 const validate = (
                     input: any,
                 ): typia.IValidation<ClassMethod> => {
@@ -72,7 +74,9 @@ export const test_protobuf_validateDecode_ClassMethod =
                         data: success ? input : undefined,
                     } as any;
                 };
-                const decode = (input: Uint8Array): ClassMethod => {
+                const decode = (
+                    input: Uint8Array,
+                ): typia.Resolved<ClassMethod> => {
                     const $Reader = (typia.protobuf.validateDecode as any)
                         .Reader;
                     const $pdo0 = (reader: any, length: number = -1): any => {

@@ -5,8 +5,8 @@ import { TagBigInt } from "../../../structures/TagBigInt";
 export const test_protobuf_assertDecode_TagBigInt = _test_protobuf_assertDecode(
     "TagBigInt",
 )<TagBigInt>(TagBigInt)({
-    assertDecode: (input: Uint8Array): TagBigInt => {
-        const decode = (input: Uint8Array): TagBigInt => {
+    assertDecode: (input: Uint8Array): typia.Resolved<TagBigInt> => {
+        const decode = (input: Uint8Array): typia.Resolved<TagBigInt> => {
             const $Reader = (typia.protobuf.createAssertDecode as any).Reader;
             const $pdo0 = (reader: any, length: number = -1): any => {
                 length = length < 0 ? reader.size() : reader.index() + length;
@@ -158,7 +158,7 @@ export const test_protobuf_assertDecode_TagBigInt = _test_protobuf_assertDecode(
             return input;
         };
         const output = decode(input);
-        return assert(output);
+        return assert(output) as any;
     },
     encode: (input: TagBigInt): Uint8Array => {
         const $Sizer = (typia.protobuf.createEncode as any).Sizer;

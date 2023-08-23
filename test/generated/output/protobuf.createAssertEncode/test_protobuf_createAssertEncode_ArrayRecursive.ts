@@ -234,7 +234,7 @@ export const test_protobuf_assertEncode_ArrayRecursive =
         },
         message:
             'syntax = "proto3";\n\nmessage ArrayRecursive {\n    message ICategory {\n        repeated ArrayRecursive.ICategory children = 1;\n        required double id = 2;\n        required string code = 3;\n        required double sequence = 4;\n        required ArrayRecursive.ITimestamp created_at = 5;\n    }\n\n    message ITimestamp {\n        required double time = 1;\n        required double zone = 2;\n    }\n}',
-        decode: (input: Uint8Array): ArrayRecursive => {
+        decode: (input: Uint8Array): typia.Resolved<ArrayRecursive> => {
             const $Reader = (typia.protobuf.createDecode as any).Reader;
             const $pdo0 = (reader: any, length: number = -1): any => {
                 length = length < 0 ? reader.size() : reader.index() + length;

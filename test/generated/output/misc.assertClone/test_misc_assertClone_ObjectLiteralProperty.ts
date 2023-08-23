@@ -6,7 +6,7 @@ export const test_misc_assertClone_ObjectLiteralProperty =
     _test_misc_assertClone("ObjectLiteralProperty")<ObjectLiteralProperty>(
         ObjectLiteralProperty,
     )((input) =>
-        ((input: any): typia.Primitive<ObjectLiteralProperty> => {
+        ((input: any): typia.Resolved<ObjectLiteralProperty> => {
             const assert = (input: any): ObjectLiteralProperty => {
                 const __is = (input: any): input is ObjectLiteralProperty => {
                     return (
@@ -80,7 +80,7 @@ export const test_misc_assertClone_ObjectLiteralProperty =
             };
             const clone = (
                 input: ObjectLiteralProperty,
-            ): typia.Primitive<ObjectLiteralProperty> => {
+            ): typia.Resolved<ObjectLiteralProperty> => {
                 const $co0 = (input: any): any => ({
                     "something-interesting-do-you-want?": input[
                         "something-interesting-do-you-want?"

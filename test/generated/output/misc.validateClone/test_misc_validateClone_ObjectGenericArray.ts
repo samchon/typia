@@ -8,7 +8,7 @@ export const test_misc_validateClone_ObjectGenericArray =
     )((input) =>
         ((
             input: any,
-        ): typia.IValidation<typia.Primitive<ObjectGenericArray>> => {
+        ): typia.IValidation<typia.Resolved<ObjectGenericArray>> => {
             const validate = (
                 input: any,
             ): typia.IValidation<ObjectGenericArray> => {
@@ -211,7 +211,7 @@ export const test_misc_validateClone_ObjectGenericArray =
             };
             const clone = (
                 input: ObjectGenericArray,
-            ): typia.Primitive<ObjectGenericArray> => {
+            ): typia.Resolved<ObjectGenericArray> => {
                 const $io1 = (input: any): boolean =>
                     "number" === typeof input.page &&
                     "number" === typeof input.limit &&

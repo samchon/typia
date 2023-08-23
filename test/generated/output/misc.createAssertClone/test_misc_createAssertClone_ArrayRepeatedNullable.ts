@@ -5,7 +5,7 @@ import { ArrayRepeatedNullable } from "../../../structures/ArrayRepeatedNullable
 export const test_misc_assertClone_ArrayRepeatedNullable =
     _test_misc_assertClone("ArrayRepeatedNullable")<ArrayRepeatedNullable>(
         ArrayRepeatedNullable,
-    )((input: any): typia.Primitive<ArrayRepeatedNullable> => {
+    )((input: any): typia.Resolved<ArrayRepeatedNullable> => {
         const assert = (input: any): ArrayRepeatedNullable => {
             const __is = (input: any): input is ArrayRepeatedNullable => {
                 const $ia0 = (input: any): any =>
@@ -119,7 +119,7 @@ export const test_misc_assertClone_ArrayRepeatedNullable =
         };
         const clone = (
             input: ArrayRepeatedNullable,
-        ): typia.Primitive<ArrayRepeatedNullable> => {
+        ): typia.Resolved<ArrayRepeatedNullable> => {
             const $ia0 = (input: any): any =>
                 input.every(
                     (elem: any) =>

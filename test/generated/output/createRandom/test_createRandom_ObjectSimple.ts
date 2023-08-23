@@ -7,7 +7,7 @@ export const test_random_ObjectSimple = _test_random(
 )<ObjectSimple>(ObjectSimple)({
     random: (
         generator?: Partial<typia.IRandomGenerator>,
-    ): typia.Primitive<ObjectSimple> => {
+    ): typia.Resolved<ObjectSimple> => {
         const $generator = (typia.createRandom as any).generator;
         const $ro0 = (
             _recursive: boolean = false,

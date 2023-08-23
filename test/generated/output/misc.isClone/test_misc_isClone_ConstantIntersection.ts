@@ -5,7 +5,7 @@ import { ConstantIntersection } from "../../../structures/ConstantIntersection";
 export const test_misc_isClone_ConstantIntersection = _test_misc_isClone(
     "ConstantIntersection",
 )<ConstantIntersection>(ConstantIntersection)((input) =>
-    ((input: any): typia.Primitive<ConstantIntersection> | null => {
+    ((input: any): typia.Resolved<ConstantIntersection> | null => {
         const is = (input: any): input is ConstantIntersection => {
             return (
                 Array.isArray(input) &&
@@ -17,7 +17,7 @@ export const test_misc_isClone_ConstantIntersection = _test_misc_isClone(
         };
         const clone = (
             input: ConstantIntersection,
-        ): typia.Primitive<ConstantIntersection> => {
+        ): typia.Resolved<ConstantIntersection> => {
             return Array.isArray(input) &&
                 input.length === 3 &&
                 false === input[0] &&

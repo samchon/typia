@@ -5,7 +5,7 @@ import { TagMatrix } from "../../../structures/TagMatrix";
 export const test_misc_validateClone_TagMatrix = _test_misc_validateClone(
     "TagMatrix",
 )<TagMatrix>(TagMatrix)(
-    (input: any): typia.IValidation<typia.Primitive<TagMatrix>> => {
+    (input: any): typia.IValidation<typia.Resolved<TagMatrix>> => {
         const validate = (input: any): typia.IValidation<TagMatrix> => {
             const errors = [] as any[];
             const __is = (input: any): input is TagMatrix => {
@@ -165,7 +165,7 @@ export const test_misc_validateClone_TagMatrix = _test_misc_validateClone(
                 data: success ? input : undefined,
             } as any;
         };
-        const clone = (input: TagMatrix): typia.Primitive<TagMatrix> => {
+        const clone = (input: TagMatrix): typia.Resolved<TagMatrix> => {
             const $is_uuid = (typia.misc.createValidateClone as any).is_uuid;
             const $cp0 = (input: any) => input.map((elem: any) => elem as any);
             const $cp1 = (input: any) =>

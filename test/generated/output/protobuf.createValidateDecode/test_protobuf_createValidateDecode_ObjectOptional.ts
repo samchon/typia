@@ -8,7 +8,7 @@ export const test_protobuf_validateDecode_ObjectOptional =
     )({
         validateDecode: (
             input: Uint8Array,
-        ): typia.IValidation<ObjectOptional> => {
+        ): typia.IValidation<typia.Resolved<ObjectOptional>> => {
             const validate = (
                 input: any,
             ): typia.IValidation<ObjectOptional> => {
@@ -101,7 +101,9 @@ export const test_protobuf_validateDecode_ObjectOptional =
                     data: success ? input : undefined,
                 } as any;
             };
-            const decode = (input: Uint8Array): ObjectOptional => {
+            const decode = (
+                input: Uint8Array,
+            ): typia.Resolved<ObjectOptional> => {
                 const $Reader = (typia.protobuf.createValidateDecode as any)
                     .Reader;
                 const $pdo0 = (reader: any, length: number = -1): any => {

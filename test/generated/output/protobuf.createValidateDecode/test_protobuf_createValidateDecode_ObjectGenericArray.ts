@@ -8,7 +8,7 @@ export const test_protobuf_validateDecode_ObjectGenericArray =
     )({
         validateDecode: (
             input: Uint8Array,
-        ): typia.IValidation<ObjectGenericArray> => {
+        ): typia.IValidation<typia.Resolved<ObjectGenericArray>> => {
             const validate = (
                 input: any,
             ): typia.IValidation<ObjectGenericArray> => {
@@ -209,7 +209,9 @@ export const test_protobuf_validateDecode_ObjectGenericArray =
                     data: success ? input : undefined,
                 } as any;
             };
-            const decode = (input: Uint8Array): ObjectGenericArray => {
+            const decode = (
+                input: Uint8Array,
+            ): typia.Resolved<ObjectGenericArray> => {
                 const $Reader = (typia.protobuf.createValidateDecode as any)
                     .Reader;
                 const $pdo0 = (reader: any, length: number = -1): any => {

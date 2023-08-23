@@ -20,12 +20,9 @@ export const test_json_assertStringify_NativeAlias = _test_json_assertStringify(
                 input.bigInt64Array instanceof BigInt64Array &&
                 input.float32Array instanceof Float32Array &&
                 input.float64Array instanceof Float64Array &&
-                input.buffer instanceof Buffer &&
                 input.arrayBuffer instanceof ArrayBuffer &&
                 input.sharedArrayBuffer instanceof SharedArrayBuffer &&
-                input.dataView instanceof DataView &&
-                input.weakSet instanceof WeakSet &&
-                input.weakMap instanceof WeakMap;
+                input.dataView instanceof DataView;
             return "object" === typeof input && null !== input && $io0(input);
         };
         if (false === __is(input))
@@ -112,12 +109,6 @@ export const test_json_assertStringify_NativeAlias = _test_json_assertStringify(
                             expected: "Float64Array",
                             value: input.float64Array,
                         })) &&
-                    (input.buffer instanceof Buffer ||
-                        $guard(_exceptionable, {
-                            path: _path + ".buffer",
-                            expected: "Buffer",
-                            value: input.buffer,
-                        })) &&
                     (input.arrayBuffer instanceof ArrayBuffer ||
                         $guard(_exceptionable, {
                             path: _path + ".arrayBuffer",
@@ -135,18 +126,6 @@ export const test_json_assertStringify_NativeAlias = _test_json_assertStringify(
                             path: _path + ".dataView",
                             expected: "DataView",
                             value: input.dataView,
-                        })) &&
-                    (input.weakSet instanceof WeakSet ||
-                        $guard(_exceptionable, {
-                            path: _path + ".weakSet",
-                            expected: "WeakSet",
-                            value: input.weakSet,
-                        })) &&
-                    (input.weakMap instanceof WeakMap ||
-                        $guard(_exceptionable, {
-                            path: _path + ".weakMap",
-                            expected: "WeakMap",
-                            value: input.weakMap,
                         }));
                 return (
                     ((("object" === typeof input && null !== input) ||
@@ -167,26 +146,10 @@ export const test_json_assertStringify_NativeAlias = _test_json_assertStringify(
     };
     const stringify = (input: NativeAlias): string => {
         const $string = (typia.json.createAssertStringify as any).string;
-        const $throws = (typia.json.createAssertStringify as any).throws;
-        const $number = (typia.json.createAssertStringify as any).number;
         const $so0 = (input: any): any =>
             `{"date":${$string(
                 input.date.toJSON(),
-            )},"uint8Array":{},"uint8ClampedArray":{},"uint16Array":{},"uint32Array":{},"bigUint64Array":{},"int8Array":{},"int16Array":{},"int32Array":{},"bigInt64Array":{},"float32Array":{},"float64Array":{},"buffer":${$so1(
-                input.buffer.toJSON(),
-            )},"arrayBuffer":{},"sharedArrayBuffer":{},"dataView":{},"weakSet":{},"weakMap":{}}`;
-        const $so1 = (input: any): any =>
-            `{"type":${(() => {
-                if ("string" === typeof input.type) return $string(input.type);
-                if ("string" === typeof input.type)
-                    return '"' + input.type + '"';
-                $throws({
-                    expected: '"Buffer"',
-                    value: input.type,
-                });
-            })()},"data":${`[${input.data
-                .map((elem: any) => $number(elem))
-                .join(",")}]`}}`;
+            )},"uint8Array":{},"uint8ClampedArray":{},"uint16Array":{},"uint32Array":{},"bigUint64Array":{},"int8Array":{},"int16Array":{},"int32Array":{},"bigInt64Array":{},"float32Array":{},"float64Array":{},"arrayBuffer":{},"sharedArrayBuffer":{},"dataView":{}}`;
         return $so0(input);
     };
     return stringify(assert(input));

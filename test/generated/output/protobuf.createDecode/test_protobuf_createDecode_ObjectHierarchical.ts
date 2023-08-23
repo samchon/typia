@@ -5,7 +5,7 @@ import { ObjectHierarchical } from "../../../structures/ObjectHierarchical";
 export const test_protobuf_decode_ObjectHierarchical = _test_protobuf_decode(
     "ObjectHierarchical",
 )<ObjectHierarchical>(ObjectHierarchical)({
-    decode: (input: Uint8Array): ObjectHierarchical => {
+    decode: (input: Uint8Array): typia.Resolved<ObjectHierarchical> => {
         const $Reader = (typia.protobuf.createDecode as any).Reader;
         const $pdo0 = (reader: any, length: number = -1): any => {
             length = length < 0 ? reader.size() : reader.index() + length;

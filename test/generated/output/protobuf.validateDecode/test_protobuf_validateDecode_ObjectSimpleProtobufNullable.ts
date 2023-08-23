@@ -9,7 +9,9 @@ export const test_protobuf_validateDecode_ObjectSimpleProtobufNullable =
         validateDecode: (input) =>
             ((
                 input: Uint8Array,
-            ): typia.IValidation<ObjectSimpleProtobufNullable> => {
+            ): typia.IValidation<
+                typia.Resolved<ObjectSimpleProtobufNullable>
+            > => {
                 const validate = (
                     input: any,
                 ): typia.IValidation<ObjectSimpleProtobufNullable> => {
@@ -218,7 +220,7 @@ export const test_protobuf_validateDecode_ObjectSimpleProtobufNullable =
                 };
                 const decode = (
                     input: Uint8Array,
-                ): ObjectSimpleProtobufNullable => {
+                ): typia.Resolved<ObjectSimpleProtobufNullable> => {
                     const $Reader = (typia.protobuf.validateDecode as any)
                         .Reader;
                     const $pdo0 = (reader: any, length: number = -1): any => {

@@ -5,7 +5,7 @@ import { ArrayRecursive } from "../../../structures/ArrayRecursive";
 export const test_misc_isClone_ArrayRecursive = _test_misc_isClone(
     "ArrayRecursive",
 )<ArrayRecursive>(ArrayRecursive)(
-    (input: any): typia.Primitive<ArrayRecursive> | null => {
+    (input: any): typia.Resolved<ArrayRecursive> | null => {
         const is = (input: any): input is ArrayRecursive => {
             const $io0 = (input: any): boolean =>
                 Array.isArray(input.children) &&
@@ -28,7 +28,7 @@ export const test_misc_isClone_ArrayRecursive = _test_misc_isClone(
         };
         const clone = (
             input: ArrayRecursive,
-        ): typia.Primitive<ArrayRecursive> => {
+        ): typia.Resolved<ArrayRecursive> => {
             const $io0 = (input: any): boolean =>
                 Array.isArray(input.children) &&
                 input.children.every(

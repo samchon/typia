@@ -8,7 +8,7 @@ export const test_random_TagMatrix = _test_random("TagMatrix")<TagMatrix>(
     random: () =>
         ((
             generator?: Partial<typia.IRandomGenerator>,
-        ): typia.Primitive<TagMatrix> => {
+        ): typia.Resolved<TagMatrix> => {
             const $generator = (typia.random as any).generator;
             const $ro0 = (
                 _recursive: boolean = false,

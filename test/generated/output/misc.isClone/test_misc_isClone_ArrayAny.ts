@@ -5,7 +5,7 @@ import { ArrayAny } from "../../../structures/ArrayAny";
 export const test_misc_isClone_ArrayAny = _test_misc_isClone(
     "ArrayAny",
 )<ArrayAny>(ArrayAny)((input) =>
-    ((input: any): typia.Primitive<ArrayAny> | null => {
+    ((input: any): typia.Resolved<ArrayAny> | null => {
         const is = (input: any): input is ArrayAny => {
             const $io0 = (input: any): boolean =>
                 Array.isArray(input.anys) &&
@@ -29,7 +29,7 @@ export const test_misc_isClone_ArrayAny = _test_misc_isClone(
                 Array.isArray(input.union);
             return "object" === typeof input && null !== input && $io0(input);
         };
-        const clone = (input: ArrayAny): typia.Primitive<ArrayAny> => {
+        const clone = (input: ArrayAny): typia.Resolved<ArrayAny> => {
             const $any = (typia.misc.isClone as any).any;
             const $co0 = (input: any): any => ({
                 anys: $any(input.anys),

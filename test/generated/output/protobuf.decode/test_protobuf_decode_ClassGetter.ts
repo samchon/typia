@@ -6,7 +6,7 @@ export const test_protobuf_decode_ClassGetter = _test_protobuf_decode(
     "ClassGetter",
 )<ClassGetter>(ClassGetter)({
     decode: (input) =>
-        ((input: Uint8Array): ClassGetter => {
+        ((input: Uint8Array): typia.Resolved<ClassGetter> => {
             const $Reader = (typia.protobuf.decode as any).Reader;
             const $pdo0 = (reader: any, length: number = -1): any => {
                 length = length < 0 ? reader.size() : reader.index() + length;

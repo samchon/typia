@@ -160,7 +160,7 @@ export const test_protobuf_validateEncode_TagBigInt =
         },
         message:
             'syntax = "proto3";\n\nmessage TagBigInt {\n    required int64 value = 1;\n    required int64 ranged = 2;\n    required int64 minimum = 3;\n    required int64 maximum = 4;\n    required int64 multipleOf = 5;\n}',
-        decode: (input: Uint8Array): TagBigInt => {
+        decode: (input: Uint8Array): typia.Resolved<TagBigInt> => {
             const $Reader = (typia.protobuf.createDecode as any).Reader;
             const $pdo0 = (reader: any, length: number = -1): any => {
                 length = length < 0 ? reader.size() : reader.index() + length;

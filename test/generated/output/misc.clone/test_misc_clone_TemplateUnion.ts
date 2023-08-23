@@ -5,7 +5,7 @@ import { TemplateUnion } from "../../../structures/TemplateUnion";
 export const test_misc_clone_TemplateUnion = _test_misc_clone(
     "TemplateUnion",
 )<TemplateUnion>(TemplateUnion)((input) =>
-    ((input: TemplateUnion): typia.Primitive<TemplateUnion> => {
+    ((input: TemplateUnion): typia.Resolved<TemplateUnion> => {
         const $io1 = (input: any): boolean =>
             "string" === typeof input.prefix &&
             (RegExp(/^prefix_(.*)/).test(input.prefix) ||

@@ -4,7 +4,7 @@ import { TagFormat } from "../../../structures/TagFormat";
 
 export const test_misc_assertClone_TagFormat = _test_misc_assertClone(
     "TagFormat",
-)<TagFormat>(TagFormat)((input: any): typia.Primitive<TagFormat> => {
+)<TagFormat>(TagFormat)((input: any): typia.Resolved<TagFormat> => {
     const assert = (input: any): TagFormat => {
         const __is = (input: any): input is TagFormat => {
             const $is_uuid = (typia.misc.createAssertClone as any).is_uuid;
@@ -163,7 +163,7 @@ export const test_misc_assertClone_TagFormat = _test_misc_assertClone(
             })(input, "$input", true);
         return input;
     };
-    const clone = (input: TagFormat): typia.Primitive<TagFormat> => {
+    const clone = (input: TagFormat): typia.Resolved<TagFormat> => {
         const $is_uuid = (typia.misc.createAssertClone as any).is_uuid;
         const $is_email = (typia.misc.createAssertClone as any).is_email;
         const $is_url = (typia.misc.createAssertClone as any).is_url;

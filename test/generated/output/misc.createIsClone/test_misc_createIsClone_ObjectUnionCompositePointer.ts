@@ -5,7 +5,7 @@ import { ObjectUnionCompositePointer } from "../../../structures/ObjectUnionComp
 export const test_misc_isClone_ObjectUnionCompositePointer = _test_misc_isClone(
     "ObjectUnionCompositePointer",
 )<ObjectUnionCompositePointer>(ObjectUnionCompositePointer)(
-    (input: any): typia.Primitive<ObjectUnionCompositePointer> | null => {
+    (input: any): typia.Resolved<ObjectUnionCompositePointer> | null => {
         const is = (input: any): input is ObjectUnionCompositePointer => {
             const $io0 = (input: any): boolean =>
                 Array.isArray(input.value) &&
@@ -147,7 +147,7 @@ export const test_misc_isClone_ObjectUnionCompositePointer = _test_misc_isClone(
         };
         const clone = (
             input: ObjectUnionCompositePointer,
-        ): typia.Primitive<ObjectUnionCompositePointer> => {
+        ): typia.Resolved<ObjectUnionCompositePointer> => {
             const $io1 = (input: any): boolean =>
                 "object" === typeof input.value &&
                 null !== input.value &&

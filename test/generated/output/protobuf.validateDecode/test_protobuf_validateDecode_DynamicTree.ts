@@ -5,7 +5,9 @@ import { DynamicTree } from "../../../structures/DynamicTree";
 export const test_protobuf_validateDecode_DynamicTree =
     _test_protobuf_validateDecode("DynamicTree")<DynamicTree>(DynamicTree)({
         validateDecode: (input) =>
-            ((input: Uint8Array): typia.IValidation<DynamicTree> => {
+            ((
+                input: Uint8Array,
+            ): typia.IValidation<typia.Resolved<DynamicTree>> => {
                 const validate = (
                     input: any,
                 ): typia.IValidation<DynamicTree> => {
@@ -168,7 +170,9 @@ export const test_protobuf_validateDecode_DynamicTree =
                         data: success ? input : undefined,
                     } as any;
                 };
-                const decode = (input: Uint8Array): DynamicTree => {
+                const decode = (
+                    input: Uint8Array,
+                ): typia.Resolved<DynamicTree> => {
                     const $Reader = (typia.protobuf.validateDecode as any)
                         .Reader;
                     const $pdo0 = (reader: any, length: number = -1): any => {

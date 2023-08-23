@@ -5,7 +5,7 @@ import { TagAtomicUnion } from "../../../structures/TagAtomicUnion";
 export const test_misc_isClone_TagAtomicUnion = _test_misc_isClone(
     "TagAtomicUnion",
 )<TagAtomicUnion>(TagAtomicUnion)((input) =>
-    ((input: any): typia.Primitive<TagAtomicUnion> | null => {
+    ((input: any): typia.Resolved<TagAtomicUnion> | null => {
         const is = (input: any): input is TagAtomicUnion => {
             const $io0 = (input: any): boolean =>
                 Array.isArray(input.value) &&
@@ -24,7 +24,7 @@ export const test_misc_isClone_TagAtomicUnion = _test_misc_isClone(
         };
         const clone = (
             input: TagAtomicUnion,
-        ): typia.Primitive<TagAtomicUnion> => {
+        ): typia.Resolved<TagAtomicUnion> => {
             const $io1 = (input: any): boolean =>
                 ("string" === typeof input.value &&
                     3 <= input.value.length &&

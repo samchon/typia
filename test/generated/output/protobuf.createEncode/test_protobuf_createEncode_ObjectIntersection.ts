@@ -30,7 +30,7 @@ export const test_protobuf_encode_ObjectIntersection = _test_protobuf_encode(
     },
     message:
         'syntax = "proto3";\n\nmessage ObjectIntersection {\n    required string email = 1;\n    required string name = 2;\n    required bool vulnerable = 3;\n}',
-    decode: (input: Uint8Array): ObjectIntersection => {
+    decode: (input: Uint8Array): typia.Resolved<ObjectIntersection> => {
         const $Reader = (typia.protobuf.createDecode as any).Reader;
         const $pdo0 = (reader: any, length: number = -1): any => {
             length = length < 0 ? reader.size() : reader.index() + length;

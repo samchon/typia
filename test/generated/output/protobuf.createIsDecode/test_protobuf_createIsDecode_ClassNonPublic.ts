@@ -5,7 +5,7 @@ import { ClassNonPublic } from "../../../structures/ClassNonPublic";
 export const test_protobuf_isDecode_ClassNonPublic = _test_protobuf_isDecode(
     "ClassNonPublic",
 )<ClassNonPublic>(ClassNonPublic)({
-    isDecode: (input: Uint8Array): ClassNonPublic | null => {
+    isDecode: (input: Uint8Array): typia.Resolved<ClassNonPublic> | null => {
         const is = (input: any): input is ClassNonPublic => {
             return (
                 "object" === typeof input &&
@@ -14,7 +14,7 @@ export const test_protobuf_isDecode_ClassNonPublic = _test_protobuf_isDecode(
                 "string" === typeof (input as any).shown
             );
         };
-        const decode = (input: Uint8Array): ClassNonPublic => {
+        const decode = (input: Uint8Array): typia.Resolved<ClassNonPublic> => {
             const $Reader = (typia.protobuf.createIsDecode as any).Reader;
             const $pdo0 = (reader: any, length: number = -1): any => {
                 length = length < 0 ? reader.size() : reader.index() + length;

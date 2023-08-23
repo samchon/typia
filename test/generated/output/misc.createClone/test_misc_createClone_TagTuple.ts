@@ -4,7 +4,7 @@ import { TagTuple } from "../../../structures/TagTuple";
 
 export const test_misc_clone_TagTuple = _test_misc_clone("TagTuple")<TagTuple>(
     TagTuple,
-)((input: TagTuple): typia.Primitive<TagTuple> => {
+)((input: TagTuple): typia.Resolved<TagTuple> => {
     const $cp0 = (input: any) => input.map((elem: any) => elem as any);
     const $cp1 = (input: any) => input.map((elem: any) => elem as any);
     const $co0 = (input: any): any => ({

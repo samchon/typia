@@ -5,7 +5,7 @@ import { ObjectDynamic } from "../../../structures/ObjectDynamic";
 export const test_misc_assertClone_ObjectDynamic = _test_misc_assertClone(
     "ObjectDynamic",
 )<ObjectDynamic>(ObjectDynamic)((input) =>
-    ((input: any): typia.Primitive<ObjectDynamic> => {
+    ((input: any): typia.Resolved<ObjectDynamic> => {
         const assert = (input: any): ObjectDynamic => {
             const __is = (input: any): input is ObjectDynamic => {
                 const $join = (typia.misc.assertClone as any).join;
@@ -79,9 +79,7 @@ export const test_misc_assertClone_ObjectDynamic = _test_misc_assertClone(
                 })(input, "$input", true);
             return input;
         };
-        const clone = (
-            input: ObjectDynamic,
-        ): typia.Primitive<ObjectDynamic> => {
+        const clone = (input: ObjectDynamic): typia.Resolved<ObjectDynamic> => {
             const $join = (typia.misc.assertClone as any).join;
             const $co0 = (input: any): any => {
                 const output = {} as any;

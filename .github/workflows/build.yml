@@ -17,5 +17,5 @@ jobs:
             ${{ runner.os }}-node-
       - run: npm install
       - run: npm run build
-      - run: npm run build:test
+      - run: npm run build:test:actions
       - run: npm run test

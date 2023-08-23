@@ -20,12 +20,9 @@ export const test_assert_NativeSimple = _test_assert(
                 input.bigInt64Array instanceof BigInt64Array &&
                 input.float32Array instanceof Float32Array &&
                 input.float64Array instanceof Float64Array &&
-                input.buffer instanceof Buffer &&
                 input.arrayBuffer instanceof ArrayBuffer &&
                 input.sharedArrayBuffer instanceof SharedArrayBuffer &&
-                input.dataView instanceof DataView &&
-                input.weakSet instanceof WeakSet &&
-                input.weakMap instanceof WeakMap;
+                input.dataView instanceof DataView;
             return "object" === typeof input && null !== input && $io0(input);
         };
         if (false === __is(input))
@@ -112,12 +109,6 @@ export const test_assert_NativeSimple = _test_assert(
                             expected: "Float64Array",
                             value: input.float64Array,
                         })) &&
-                    (input.buffer instanceof Buffer ||
-                        $guard(_exceptionable, {
-                            path: _path + ".buffer",
-                            expected: "Buffer",
-                            value: input.buffer,
-                        })) &&
                     (input.arrayBuffer instanceof ArrayBuffer ||
                         $guard(_exceptionable, {
                             path: _path + ".arrayBuffer",
@@ -135,18 +126,6 @@ export const test_assert_NativeSimple = _test_assert(
                             path: _path + ".dataView",
                             expected: "DataView",
                             value: input.dataView,
-                        })) &&
-                    (input.weakSet instanceof WeakSet ||
-                        $guard(_exceptionable, {
-                            path: _path + ".weakSet",
-                            expected: "WeakSet",
-                            value: input.weakSet,
-                        })) &&
-                    (input.weakMap instanceof WeakMap ||
-                        $guard(_exceptionable, {
-                            path: _path + ".weakMap",
-                            expected: "WeakMap",
-                            value: input.weakMap,
                         }));
                 return (
                     ((("object" === typeof input && null !== input) ||

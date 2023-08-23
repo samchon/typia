@@ -6,7 +6,7 @@ export const test_misc_assertClone_ObjectUnionCompositePointer =
     _test_misc_assertClone(
         "ObjectUnionCompositePointer",
     )<ObjectUnionCompositePointer>(ObjectUnionCompositePointer)(
-        (input: any): typia.Primitive<ObjectUnionCompositePointer> => {
+        (input: any): typia.Resolved<ObjectUnionCompositePointer> => {
             const assert = (input: any): ObjectUnionCompositePointer => {
                 const __is = (
                     input: any,
@@ -774,7 +774,7 @@ export const test_misc_assertClone_ObjectUnionCompositePointer =
             };
             const clone = (
                 input: ObjectUnionCompositePointer,
-            ): typia.Primitive<ObjectUnionCompositePointer> => {
+            ): typia.Resolved<ObjectUnionCompositePointer> => {
                 const $io1 = (input: any): boolean =>
                     "object" === typeof input.value &&
                     null !== input.value &&

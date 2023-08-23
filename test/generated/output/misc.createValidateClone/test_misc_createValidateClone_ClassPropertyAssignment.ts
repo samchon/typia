@@ -8,7 +8,7 @@ export const test_misc_validateClone_ClassPropertyAssignment =
     )<ClassPropertyAssignment>(ClassPropertyAssignment)(
         (
             input: any,
-        ): typia.IValidation<typia.Primitive<ClassPropertyAssignment>> => {
+        ): typia.IValidation<typia.Resolved<ClassPropertyAssignment>> => {
             const validate = (
                 input: any,
             ): typia.IValidation<ClassPropertyAssignment> => {
@@ -99,7 +99,7 @@ export const test_misc_validateClone_ClassPropertyAssignment =
             };
             const clone = (
                 input: ClassPropertyAssignment,
-            ): typia.Primitive<ClassPropertyAssignment> => {
+            ): typia.Resolved<ClassPropertyAssignment> => {
                 const $co0 = (input: any): any => ({
                     id: input.id as any,
                     name: input.name as any,

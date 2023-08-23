@@ -5,7 +5,7 @@ import { ClassGetter } from "../../../structures/ClassGetter";
 export const test_misc_clone_ClassGetter = _test_misc_clone(
     "ClassGetter",
 )<ClassGetter>(ClassGetter)((input) =>
-    ((input: ClassGetter): typia.Primitive<ClassGetter> => {
+    ((input: ClassGetter): typia.Resolved<ClassGetter> => {
         const $co0 = (input: any): any => ({
             id: input.id as any,
             name: input.name as any,

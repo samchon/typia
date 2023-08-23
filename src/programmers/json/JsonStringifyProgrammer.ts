@@ -42,7 +42,9 @@ export namespace JsonStringifyProgrammer {
 
     export const write =
         (project: IProject) => (modulo: ts.LeftHandSideExpression) => {
-            const importer: FunctionImporter = new FunctionImporter();
+            const importer: FunctionImporter = new FunctionImporter(
+                modulo.getText(),
+            );
             const config: FeatureProgrammer.IConfig =
                 configure(project)(importer);
 
@@ -186,14 +188,14 @@ export namespace JsonStringifyProgrammer {
             const unions: IUnion[] = [];
 
             // toJSON() METHOD
-            if (meta.resolved !== null)
+            if (meta.escaped !== null)
                 unions.push({
                     type: "resolved",
                     is: () => IsProgrammer.decode_to_json(false)(input),
                     value: () =>
                         decode_to_json(project)(config)(importer)(
                             input,
-                            meta.resolved!.returns,
+                            meta.escaped!.returns,
                             explore,
                         ),
                 });
@@ -931,7 +933,7 @@ export namespace JsonStringifyProgrammer {
         (type) => {
             const collection: MetadataCollection = new MetadataCollection();
             const meta: Metadata = MetadataFactory.analyze(checker)({
-                resolve: true,
+                escape: true,
                 constant: true,
                 absorb: true,
                 validate: (meta) => {

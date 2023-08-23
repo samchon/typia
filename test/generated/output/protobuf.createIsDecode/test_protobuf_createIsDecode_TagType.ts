@@ -5,7 +5,7 @@ import { TagType } from "../../../structures/TagType";
 export const test_protobuf_isDecode_TagType = _test_protobuf_isDecode(
     "TagType",
 )<TagType>(TagType)({
-    isDecode: (input: Uint8Array): TagType | null => {
+    isDecode: (input: Uint8Array): typia.Resolved<TagType> | null => {
         const is = (input: any): input is TagType => {
             const $io0 = (input: any): boolean =>
                 Array.isArray(input.value) &&
@@ -50,7 +50,7 @@ export const test_protobuf_isDecode_TagType = _test_protobuf_isDecode(
                 input.float <= 3.4028235e38;
             return "object" === typeof input && null !== input && $io0(input);
         };
-        const decode = (input: Uint8Array): TagType => {
+        const decode = (input: Uint8Array): typia.Resolved<TagType> => {
             const $Reader = (typia.protobuf.createIsDecode as any).Reader;
             const $pdo0 = (reader: any, length: number = -1): any => {
                 length = length < 0 ? reader.size() : reader.index() + length;

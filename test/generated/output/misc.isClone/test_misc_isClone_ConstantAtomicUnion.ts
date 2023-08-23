@@ -5,7 +5,7 @@ import { ConstantAtomicUnion } from "../../../structures/ConstantAtomicUnion";
 export const test_misc_isClone_ConstantAtomicUnion = _test_misc_isClone(
     "ConstantAtomicUnion",
 )<ConstantAtomicUnion>(ConstantAtomicUnion)((input) =>
-    ((input: any): typia.Primitive<ConstantAtomicUnion> | null => {
+    ((input: any): typia.Resolved<ConstantAtomicUnion> | null => {
         const is = (input: any): input is ConstantAtomicUnion => {
             const $io0 = (input: any): boolean => "key" === input.key;
             return (
@@ -27,7 +27,7 @@ export const test_misc_isClone_ConstantAtomicUnion = _test_misc_isClone(
         };
         const clone = (
             input: ConstantAtomicUnion,
-        ): typia.Primitive<ConstantAtomicUnion> => {
+        ): typia.Resolved<ConstantAtomicUnion> => {
             const $cp0 = (input: any) =>
                 input.map((elem: any) =>
                     "object" === typeof elem && null !== elem

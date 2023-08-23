@@ -6,7 +6,7 @@ export const test_protobuf_isDecode_ClassMethod = _test_protobuf_isDecode(
     "ClassMethod",
 )<ClassMethod>(ClassMethod)({
     isDecode: (input) =>
-        ((input: Uint8Array): ClassMethod | null => {
+        ((input: Uint8Array): typia.Resolved<ClassMethod> | null => {
             const is = (input: any): input is ClassMethod => {
                 return (
                     "object" === typeof input &&
@@ -16,7 +16,7 @@ export const test_protobuf_isDecode_ClassMethod = _test_protobuf_isDecode(
                     Number.isFinite((input as any).age)
                 );
             };
-            const decode = (input: Uint8Array): ClassMethod => {
+            const decode = (input: Uint8Array): typia.Resolved<ClassMethod> => {
                 const $Reader = (typia.protobuf.isDecode as any).Reader;
                 const $pdo0 = (reader: any, length: number = -1): any => {
                     length =

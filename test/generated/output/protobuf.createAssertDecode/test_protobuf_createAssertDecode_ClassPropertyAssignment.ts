@@ -6,8 +6,12 @@ export const test_protobuf_assertDecode_ClassPropertyAssignment =
     _test_protobuf_assertDecode(
         "ClassPropertyAssignment",
     )<ClassPropertyAssignment>(ClassPropertyAssignment)({
-        assertDecode: (input: Uint8Array): ClassPropertyAssignment => {
-            const decode = (input: Uint8Array): ClassPropertyAssignment => {
+        assertDecode: (
+            input: Uint8Array,
+        ): typia.Resolved<ClassPropertyAssignment> => {
+            const decode = (
+                input: Uint8Array,
+            ): typia.Resolved<ClassPropertyAssignment> => {
                 const $Reader = (typia.protobuf.createAssertDecode as any)
                     .Reader;
                 const $pdo0 = (reader: any, length: number = -1): any => {
@@ -131,7 +135,7 @@ export const test_protobuf_assertDecode_ClassPropertyAssignment =
                 return input;
             };
             const output = decode(input);
-            return assert(output);
+            return assert(output) as any;
         },
         encode: (input: ClassPropertyAssignment): Uint8Array => {
             const $Sizer = (typia.protobuf.createEncode as any).Sizer;

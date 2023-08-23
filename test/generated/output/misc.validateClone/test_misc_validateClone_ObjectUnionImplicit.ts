@@ -8,7 +8,7 @@ export const test_misc_validateClone_ObjectUnionImplicit =
     )((input) =>
         ((
             input: any,
-        ): typia.IValidation<typia.Primitive<ObjectUnionImplicit>> => {
+        ): typia.IValidation<typia.Resolved<ObjectUnionImplicit>> => {
             const validate = (
                 input: any,
             ): typia.IValidation<ObjectUnionImplicit> => {
@@ -737,7 +737,7 @@ export const test_misc_validateClone_ObjectUnionImplicit =
             };
             const clone = (
                 input: ObjectUnionImplicit,
-            ): typia.Primitive<ObjectUnionImplicit> => {
+            ): typia.Resolved<ObjectUnionImplicit> => {
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.x &&
                     "number" === typeof input.y &&

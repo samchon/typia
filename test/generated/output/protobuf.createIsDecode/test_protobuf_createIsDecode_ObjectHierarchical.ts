@@ -6,7 +6,9 @@ export const test_protobuf_isDecode_ObjectHierarchical =
     _test_protobuf_isDecode("ObjectHierarchical")<ObjectHierarchical>(
         ObjectHierarchical,
     )({
-        isDecode: (input: Uint8Array): ObjectHierarchical | null => {
+        isDecode: (
+            input: Uint8Array,
+        ): typia.Resolved<ObjectHierarchical> | null => {
             const is = (input: any): input is ObjectHierarchical => {
                 const $is_url = (typia.protobuf.createIsDecode as any).is_url;
                 const $is_ipv4 = (typia.protobuf.createIsDecode as any).is_ipv4;
@@ -102,7 +104,9 @@ export const test_protobuf_isDecode_ObjectHierarchical =
                     "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            const decode = (input: Uint8Array): ObjectHierarchical => {
+            const decode = (
+                input: Uint8Array,
+            ): typia.Resolved<ObjectHierarchical> => {
                 const $Reader = (typia.protobuf.createIsDecode as any).Reader;
                 const $pdo0 = (reader: any, length: number = -1): any => {
                     length =

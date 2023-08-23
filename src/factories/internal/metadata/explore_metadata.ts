@@ -30,9 +30,9 @@ export const explore_metadata =
             aliased,
         );
         emend_metadata_atomics(meta);
-        if (meta.resolved) {
-            emend_metadata_atomics(meta.resolved.original);
-            emend_metadata_atomics(meta.resolved.returns);
+        if (meta.escaped) {
+            emend_metadata_atomics(meta.escaped.original);
+            emend_metadata_atomics(meta.escaped.returns);
         }
         return meta;
     };

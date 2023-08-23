@@ -24,7 +24,7 @@ export namespace MiscAssertCloneProgrammer {
                     ),
                 ],
                 ts.factory.createTypeReferenceNode(
-                    `typia.Primitive<${
+                    `typia.Resolved<${
                         name ?? TypeFactory.getFullName(project.checker)(type)
                     }>`,
                 ),

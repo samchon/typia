@@ -7,7 +7,7 @@ export const test_random_ObjectUnionCompositePointer = _test_random(
 )<ObjectUnionCompositePointer>(ObjectUnionCompositePointer)({
     random: (
         generator?: Partial<typia.IRandomGenerator>,
-    ): typia.Primitive<ObjectUnionCompositePointer> => {
+    ): typia.Resolved<ObjectUnionCompositePointer> => {
         const $generator = (typia.createRandom as any).generator;
         const $pick = (typia.createRandom as any).pick;
         const $ro0 = (

@@ -5,7 +5,7 @@ import { TagType } from "../../../structures/TagType";
 export const test_misc_clone_TagType = _test_misc_clone("TagType")<TagType>(
     TagType,
 )((input) =>
-    ((input: TagType): typia.Primitive<TagType> => {
+    ((input: TagType): typia.Resolved<TagType> => {
         const $io1 = (input: any): boolean =>
             "number" === typeof input.int &&
             Math.floor(input.int) === input.int &&

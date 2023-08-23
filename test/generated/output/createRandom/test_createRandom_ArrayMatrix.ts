@@ -7,7 +7,7 @@ export const test_random_ArrayMatrix = _test_random("ArrayMatrix")<ArrayMatrix>(
 )({
     random: (
         generator?: Partial<typia.IRandomGenerator>,
-    ): typia.Primitive<ArrayMatrix> => {
+    ): typia.Resolved<ArrayMatrix> => {
         const $generator = (typia.createRandom as any).generator;
         return (generator?.array ?? $generator.array)(() =>
             (generator?.array ?? $generator.array)(() =>

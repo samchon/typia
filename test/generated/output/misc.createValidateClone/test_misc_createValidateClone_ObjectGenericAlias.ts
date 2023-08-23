@@ -5,7 +5,7 @@ import { ObjectGenericAlias } from "../../../structures/ObjectGenericAlias";
 export const test_misc_validateClone_ObjectGenericAlias =
     _test_misc_validateClone("ObjectGenericAlias")<ObjectGenericAlias>(
         ObjectGenericAlias,
-    )((input: any): typia.IValidation<typia.Primitive<ObjectGenericAlias>> => {
+    )((input: any): typia.IValidation<typia.Resolved<ObjectGenericAlias>> => {
         const validate = (
             input: any,
         ): typia.IValidation<ObjectGenericAlias> => {
@@ -64,7 +64,7 @@ export const test_misc_validateClone_ObjectGenericAlias =
         };
         const clone = (
             input: ObjectGenericAlias,
-        ): typia.Primitive<ObjectGenericAlias> => {
+        ): typia.Resolved<ObjectGenericAlias> => {
             const $co0 = (input: any): any => ({
                 value: input.value as any,
             });

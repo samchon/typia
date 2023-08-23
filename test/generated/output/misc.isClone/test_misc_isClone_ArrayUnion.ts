@@ -5,7 +5,7 @@ import { ArrayUnion } from "../../../structures/ArrayUnion";
 export const test_misc_isClone_ArrayUnion = _test_misc_isClone(
     "ArrayUnion",
 )<ArrayUnion>(ArrayUnion)((input) =>
-    ((input: any): typia.Primitive<ArrayUnion> | null => {
+    ((input: any): typia.Resolved<ArrayUnion> | null => {
         const is = (input: any): input is ArrayUnion => {
             const $ip0 = (input: any) => {
                 const array = input;
@@ -56,7 +56,7 @@ export const test_misc_isClone_ArrayUnion = _test_misc_isClone(
                 )
             );
         };
-        const clone = (input: ArrayUnion): typia.Primitive<ArrayUnion> => {
+        const clone = (input: ArrayUnion): typia.Resolved<ArrayUnion> => {
             const $throws = (typia.misc.isClone as any).throws;
             const $cp0 = (input: any) => {
                 const array = input;

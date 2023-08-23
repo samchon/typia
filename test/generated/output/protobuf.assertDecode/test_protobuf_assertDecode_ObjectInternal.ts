@@ -7,8 +7,10 @@ export const test_protobuf_assertDecode_ObjectInternal =
         ObjectInternal,
     )({
         assertDecode: (input) =>
-            ((input: Uint8Array): ObjectInternal => {
-                const decode = (input: Uint8Array): ObjectInternal => {
+            ((input: Uint8Array): typia.Resolved<ObjectInternal> => {
+                const decode = (
+                    input: Uint8Array,
+                ): typia.Resolved<ObjectInternal> => {
                     const $Reader = (typia.protobuf.assertDecode as any).Reader;
                     const $pdo0 = (reader: any, length: number = -1): any => {
                         length =
@@ -93,7 +95,7 @@ export const test_protobuf_assertDecode_ObjectInternal =
                     return input;
                 };
                 const output = decode(input);
-                return assert(output);
+                return assert(output) as any;
             })(input),
         encode: (input: ObjectInternal): Uint8Array => {
             const $Sizer = (typia.protobuf.createEncode as any).Sizer;
