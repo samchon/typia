@@ -1,10 +1,10 @@
-import { Atomic } from "../../typings/Atomic";
 import { ClassProperties } from "../../typings/ClassProperties";
 import { Writable } from "../../typings/Writable";
 
 import { ArrayUtil } from "../../utils/ArrayUtil";
 
 import { IMetadata } from "./IMetadata";
+import { IMetadataAtomic } from "./IMetadataAtomic";
 import { IMetadataCollection } from "./IMetadataCollection";
 import { IMetadataDictionary } from "./IMetadataDictionary";
 import { MetadataAlias } from "./MetadataAlias";
@@ -23,7 +23,7 @@ export class Metadata {
     public functional: boolean;
 
     public escaped: MetadataEscaped | null;
-    public atomics: Atomic.Literal[];
+    public atomics: IMetadataAtomic[];
     public constants: MetadataConstant[];
     public templates: Metadata[][];
 
@@ -115,7 +115,7 @@ export class Metadata {
             nullable: this.nullable,
             functional: this.functional,
 
-            atomics: this.atomics.slice(),
+            atomics: JSON.parse(JSON.stringify(this.atomics)),
             constants: JSON.parse(JSON.stringify(this.constants)),
             templates: this.templates.map((tpl) =>
                 tpl.map((meta) => meta.toJSON()),
@@ -205,7 +205,7 @@ export class Metadata {
             functional: meta.functional,
 
             constants: JSON.parse(JSON.stringify(meta.constants)),
-            atomics: meta.atomics.slice(),
+            atomics: JSON.parse(JSON.stringify(meta.atomics)),
             templates: meta.templates.map((tpl) =>
                 tpl.map((meta) => this._From(meta, dict)),
             ),
@@ -294,8 +294,8 @@ export class Metadata {
      */
     public binarySize(): number {
         return (
-            new Set([
-                ...this.atomics,
+            new Set<string>([
+                ...this.atomics.map((a) => a.type),
                 ...this.constants.map((c) => c.type),
                 ...(this.templates.length ? ["string"] : []),
             ]).size +
@@ -403,7 +403,7 @@ export namespace Metadata {
         //----
         // ATOMICS
         for (const atomic of x.atomics)
-            if (y.atomics.includes(atomic)) return true;
+            if (y.atomics.some((ya) => atomic.type === ya.type)) return true;
 
         // CONSTANTS
         for (const constant of x.constants) {
@@ -485,12 +485,16 @@ export namespace Metadata {
         // VALUES
         //----
         // ATOMICS
-        if (y.atomics.some((atomic) => x.atomics.includes(atomic) === false))
+        if (
+            y.atomics.some(
+                (ya) => x.atomics.some((xa) => xa.type === ya.type) === false,
+            )
+        )
             return false;
 
         // CONSTANTS
         for (const yc of y.constants) {
-            if (x.atomics.some((type) => yc.type === type)) continue;
+            if (x.atomics.some((atom) => yc.type === atom.type)) continue;
             const xc: MetadataConstant | undefined = x.constants.find(
                 (elem) => elem.type === yc.type,
             );
@@ -532,7 +536,12 @@ export namespace Metadata {
                           returns: merge(x.escaped.returns, y.escaped.returns),
                       })
                     : x.escaped ?? y.escaped,
-            atomics: [...new Set([...x.atomics, ...y.atomics])],
+            atomics: [
+                ...new Set([
+                    ...x.atomics.map((a) => a.type),
+                    ...y.atomics.map((a) => a.type),
+                ]),
+            ].map((type) => ({ type, tags: [] })),
             constants: [...x.constants],
             templates: x.templates.slice(),
 
@@ -584,8 +593,8 @@ const getName = (metadata: Metadata): string => {
     if (metadata.isRequired() === false) elements.push("undefined");
 
     // ATOMIC
-    for (const type of metadata.atomics) {
-        elements.push(type);
+    for (const atom of metadata.atomics) {
+        elements.push(atom.type);
     }
     for (const constant of metadata.constants)
         for (const value of constant.values)

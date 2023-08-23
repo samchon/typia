@@ -11,7 +11,7 @@ import { template_to_pattern } from "./template_to_pattern";
 export const metadata_to_pattern =
     (top: boolean) =>
     (meta: Metadata): string => {
-        if (meta.atomics.find((type) => type === "string") !== undefined)
+        if (meta.atomics.find((a) => a.type === "string") !== undefined)
             return "(.*)";
 
         const values: string[] = ArrayUtil.flat(
@@ -21,10 +21,10 @@ export const metadata_to_pattern =
                 return c.values.map((str) => PatternUtil.escape(str));
             }),
         );
-        for (const type of meta.atomics)
-            if (type === "number" || type === "bigint")
+        for (const a of meta.atomics)
+            if (a.type === "number" || a.type === "bigint")
                 values.push(PatternUtil.NUMBER);
-            else if (type === "boolean") values.push(PatternUtil.BOOLEAN);
+            else if (a.type === "boolean") values.push(PatternUtil.BOOLEAN);
         for (const childTpl of meta.templates)
             values.push("(" + template_to_pattern(false)(childTpl) + ")");
 

@@ -1,5 +1,6 @@
 import ts from "typescript";
 
+import { IMetadataAtomic } from "../schemas/metadata/IMetadataAtomic";
 import { IMetadataTag } from "../schemas/metadata/IMetadataTag";
 import { Metadata } from "../schemas/metadata/Metadata";
 
@@ -305,8 +306,9 @@ const has_atomic =
         return (
             metadata.atomics.find(
                 type === "number"
-                    ? (atom: string) => atom === type || atom === "bigint"
-                    : (atom: string) => atom === type,
+                    ? (atom: IMetadataAtomic) =>
+                          atom.type === type || atom.type === "bigint"
+                    : (atom: IMetadataAtomic) => atom.type === type,
             ) !== undefined ||
             metadata.arrays.some((array) =>
                 has_atomic(type)(visited)(array.value),

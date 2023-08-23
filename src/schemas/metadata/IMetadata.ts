@@ -1,5 +1,4 @@
-import { Atomic } from "../../typings/Atomic";
-
+import { IMetadataAtomic } from "./IMetadataAtomic";
 import { IMetadataConstant } from "./IMetadataConstant";
 import { IMetadataEntry } from "./IMetadataEntry";
 import { IMetadataEscaped } from "./IMetadataEscaped";
@@ -11,7 +10,7 @@ export interface IMetadata {
     nullable: boolean;
     functional: boolean;
 
-    atomics: Atomic.Literal[];
+    atomics: IMetadataAtomic[];
     constants: IMetadataConstant[];
     templates: IMetadata[][];
     escaped: IMetadataEscaped | null;

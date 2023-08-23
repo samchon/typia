@@ -14,9 +14,13 @@ export const application_default_string =
             const conditions: boolean[] = [];
 
             // OTHER ATOMIC TYPES
-            if (meta.atomics.find((t) => t === "number" || t === "bigint"))
+            if (
+                meta.atomics.find(
+                    (a) => a.type === "number" || a.type === "bigint",
+                )
+            )
                 conditions.push(Number.isNaN(Number(str)));
-            if (meta.atomics.find((t) => t === "boolean"))
+            if (meta.atomics.find((a) => a.type === "boolean"))
                 conditions.push(str !== "true" && str !== "false");
             for (const constant of meta.constants)
                 for (const value of constant.values)

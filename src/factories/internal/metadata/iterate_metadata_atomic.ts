@@ -19,7 +19,11 @@ export const iterate_metadata_atomic = (
     const filter = same(type);
     const check = (info: IAtomicInfo) => {
         if (filter(info.atomic) || filter(info.literal)) {
-            ArrayUtil.add(meta.atomics, info.name);
+            ArrayUtil.add(
+                meta.atomics,
+                { type: info.name, tags: [] },
+                (x, y) => x.type === y.type,
+            );
             return true;
         }
         return false;
