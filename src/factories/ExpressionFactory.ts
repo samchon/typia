@@ -1,5 +1,7 @@
 import ts from "typescript";
 
+import { RandomGenerator } from "../utils/RandomGenerator";
+
 export namespace ExpressionFactory {
     export const bigint = (value: number) =>
         ts.factory.createCallExpression(
@@ -112,4 +114,46 @@ export namespace ExpressionFactory {
                   undefined,
                   undefined,
               );
+
+    export const getEscapedText =
+        (printer: ts.Printer) =>
+        (input: ts.Expression): string =>
+            printer.printNode(
+                ts.EmitHint.Expression,
+                input,
+                input.getSourceFile(),
+            );
+
+    export const transpile =
+        (context: ts.TransformationContext) =>
+        (script: string) =>
+        (input: ts.Expression): ts.Expression => {
+            const file: ts.SourceFile = ts.createSourceFile(
+                `${RandomGenerator.uuid()}.ts`,
+                script,
+                ts.ScriptTarget.ESNext,
+                true,
+                ts.ScriptKind.TS,
+            );
+            const statement: ts.Statement | undefined = file.statements[0];
+            if (statement === undefined)
+                throw new Error(
+                    "Error on ExpressionFactory.transpile(): no statement exists.",
+                );
+            else if (!ts.isExpressionStatement(statement))
+                throw new Error(
+                    "Error on ExpressionFactory.transpile(): statement is not an expression statement.",
+                );
+
+            const visitor = (node: ts.Node): ts.Node => {
+                if (ts.isIdentifier(node) && node.text === "$input")
+                    return input;
+                return ts.visitEachChild(
+                    (ts.factory as any).cloneNode(node),
+                    visitor,
+                    context,
+                );
+            };
+            return visitor(statement.expression) as ts.Expression;
+        };
 }

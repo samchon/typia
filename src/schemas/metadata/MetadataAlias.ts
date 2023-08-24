@@ -2,14 +2,14 @@ import { ClassProperties } from "../../typings/ClassProperties";
 
 import { IJsDocTagInfo } from "./IJsDocTagInfo";
 import { IMetadataAlias } from "./IMetadataAlias";
-import { IMetadataTag } from "./IMetadataTag";
+import { IMetadataCommentTag } from "./IMetadataCommentTag";
 import { Metadata } from "./Metadata";
 
 export class MetadataAlias {
     public readonly name: string;
     public readonly value: Metadata;
     public readonly description: string | null;
-    public readonly tags: IMetadataTag[];
+    public readonly tags: IMetadataCommentTag[];
     public readonly jsDocTags: IJsDocTagInfo[];
     public readonly recursive: boolean;
     public readonly nullables: boolean[];

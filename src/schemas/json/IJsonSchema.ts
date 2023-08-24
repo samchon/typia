@@ -1,5 +1,5 @@
 import { IJsDocTagInfo } from "../metadata/IJsDocTagInfo";
-import { IMetadataTag } from "../metadata/IMetadataTag";
+import { IMetadataCommentTag } from "../metadata/IMetadataCommentTag";
 
 import { Atomic } from "../../typings/Atomic";
 
@@ -124,7 +124,7 @@ export namespace IJsonSchema {
         deprecated?: boolean;
         title?: string;
         description?: string;
-        "x-typia-metaTags"?: IMetadataTag[];
+        "x-typia-metaTags"?: IMetadataCommentTag[];
         "x-typia-jsDocTags"?: IJsDocTagInfo[];
         "x-typia-required"?: boolean;
         "x-typia-optional"?: boolean;

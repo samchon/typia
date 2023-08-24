@@ -1,13 +1,6 @@
-import { Atomic } from "../../typings/Atomic";
+import { IMetadataTypeTag } from "./IMetadataTypeTag";
 
 export interface IMetadataAtomic {
-    type: Atomic.Literal;
-    tags: IMetadataAtomic.Tag[][];
-}
-export namespace IMetadataAtomic {
-    export interface Tag {
-        kind: string;
-        value: any;
-        validate: string;
-    }
+    type: "boolean" | "bigint" | "number" | "string";
+    tags: IMetadataTypeTag[][];
 }

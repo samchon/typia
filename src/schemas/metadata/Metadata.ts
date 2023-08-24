@@ -1,3 +1,5 @@
+import { $clone } from "../../functional/$clone";
+
 import { ClassProperties } from "../../typings/ClassProperties";
 import { Writable } from "../../typings/Writable";
 
@@ -7,13 +9,16 @@ import { IMetadata } from "./IMetadata";
 import { IMetadataAtomic } from "./IMetadataAtomic";
 import { IMetadataCollection } from "./IMetadataCollection";
 import { IMetadataDictionary } from "./IMetadataDictionary";
+import { IMetadataTypeTag } from "./IMetadataTypeTag";
 import { MetadataAlias } from "./MetadataAlias";
 import { MetadataArray } from "./MetadataArray";
+import { MetadataArrayType } from "./MetadataArrayType";
 import { MetadataConstant } from "./MetadataConstant";
 import { MetadataEscaped } from "./MetadataEscaped";
 import { MetadataObject } from "./MetadataObject";
 import { MetadataProperty } from "./MetadataProperty";
 import { MetadataTuple } from "./MetadataTuple";
+import { MetadataTupleType } from "./MetadataTupleType";
 
 export class Metadata {
     public any: boolean;
@@ -115,16 +120,22 @@ export class Metadata {
             nullable: this.nullable,
             functional: this.functional,
 
-            atomics: JSON.parse(JSON.stringify(this.atomics)),
-            constants: JSON.parse(JSON.stringify(this.constants)),
+            atomics: $clone(this.atomics),
+            constants: $clone(this.constants),
             templates: this.templates.map((tpl) =>
                 tpl.map((meta) => meta.toJSON()),
             ),
             escaped: this.escaped ? this.escaped.toJSON() : null,
 
             rest: this.rest ? this.rest.toJSON() : null,
-            arrays: this.arrays.map((array) => array.name),
-            tuples: this.tuples.map((tuple) => tuple.name),
+            arrays: this.arrays.map((array) => ({
+                name: array.type.name,
+                tags: $clone(array.tags),
+            })),
+            tuples: this.tuples.map((tuple) => ({
+                name: tuple.type.name,
+                tags: $clone(tuple.tags),
+            })),
             objects: this.objects.map((obj) => obj.name),
             aliases: this.aliases.map((alias) => alias.name),
 
@@ -157,13 +168,13 @@ export class Metadata {
             arrays: new Map(
                 collection.arrays.map((arr) => [
                     arr.name,
-                    MetadataArray._From_without_value(arr),
+                    MetadataArrayType._From_without_value(arr),
                 ]),
             ),
             tuples: new Map(
                 collection.tuples.map((tpl) => [
                     tpl.name,
-                    MetadataTuple._From_without_elements(tpl),
+                    MetadataTupleType._From_without_elements(tpl),
                 ]),
             ),
         };
@@ -204,8 +215,8 @@ export class Metadata {
             nullable: meta.nullable,
             functional: meta.functional,
 
-            constants: JSON.parse(JSON.stringify(meta.constants)),
-            atomics: JSON.parse(JSON.stringify(meta.atomics)),
+            constants: $clone(meta.constants),
+            atomics: $clone(meta.atomics),
             templates: meta.templates.map((tpl) =>
                 tpl.map((meta) => this._From(meta, dict)),
             ),
@@ -214,21 +225,27 @@ export class Metadata {
                 : null,
 
             rest: meta.rest ? this._From(meta.rest, dict) : null,
-            arrays: meta.arrays.map((id) => {
-                const array = dict.arrays.get(id);
-                if (array === undefined)
+            arrays: meta.arrays.map((ref) => {
+                const type = dict.arrays.get(ref.name);
+                if (type === undefined)
                     throw new Error(
-                        `Error on Metadata.from(): failed to find array "${id}".`,
+                        `Error on Metadata.from(): failed to find array "${ref.name}".`,
                     );
-                return array;
+                return MetadataArray.create({
+                    type,
+                    tags: $clone(ref.tags),
+                });
             }),
-            tuples: meta.tuples.map((id) => {
-                const tuple = dict.tuples.get(id);
-                if (tuple === undefined)
+            tuples: meta.tuples.map((t) => {
+                const type = dict.tuples.get(t.name);
+                if (type === undefined)
                     throw new Error(
-                        `Error on Metadata.from(): failed to find tuple "${id}".`,
+                        `Error on Metadata.from(): failed to find tuple "${t.name}".`,
                     );
-                return tuple;
+                return MetadataTuple.create({
+                    type,
+                    tags: $clone(t.tags),
+                });
             }),
             objects: meta.objects.map((name) => {
                 const found = dict.objects.get(name);
@@ -440,7 +457,7 @@ export namespace Metadata {
             for (const ya of y.arrays)
                 if (
                     !x.arrays.some((xa) =>
-                        covers(xa.value, ya.value, level + 1),
+                        covers(xa.type.value, ya.type.value, level + 1),
                     )
                 ) {
                     return false;
@@ -449,14 +466,15 @@ export namespace Metadata {
             // TUPLES
             for (const yt of y.tuples)
                 if (
-                    yt.elements.length !== 0 &&
+                    yt.type.elements.length !== 0 &&
                     x.tuples.some(
                         (xt) =>
-                            xt.elements.length >= yt.elements.length &&
-                            xt.elements
-                                .slice(yt.elements.length)
+                            xt.type.elements.length >=
+                                yt.type.elements.length &&
+                            xt.type.elements
+                                .slice(yt.type.elements.length)
                                 .every((xv, i) =>
-                                    covers(xv, yt.elements[i]!, level + 1),
+                                    covers(xv, yt.type.elements[i]!, level + 1),
                                 ),
                     ) === false
                 )
@@ -527,8 +545,7 @@ export namespace Metadata {
 
             escaped:
                 x.escaped !== null && y.escaped !== null
-                    ? //? merge(x.resolved, y.resolved)
-                      MetadataEscaped.create({
+                    ? MetadataEscaped.create({
                           original: merge(
                               x.escaped.original,
                               y.escaped.original,
@@ -536,12 +553,11 @@ export namespace Metadata {
                           returns: merge(x.escaped.returns, y.escaped.returns),
                       })
                     : x.escaped ?? y.escaped,
-            atomics: [
-                ...new Set([
-                    ...x.atomics.map((a) => a.type),
-                    ...y.atomics.map((a) => a.type),
-                ]),
-            ].map((type) => ({ type, tags: [] })),
+            atomics: mergeTaggedTypes({
+                container: x.atomics,
+                equals: (x, y) => x.type === y.type,
+                getter: (x) => x.tags,
+            })(y.atomics),
             constants: [...x.constants],
             templates: x.templates.slice(),
 
@@ -549,8 +565,17 @@ export namespace Metadata {
                 x.rest !== null && y.rest !== null
                     ? merge(x.rest, y.rest)
                     : x.rest ?? y.rest,
-            arrays: x.arrays.slice(),
-            tuples: x.tuples.slice(),
+            // arrays: x.arrays.slice(),
+            arrays: mergeTaggedTypes({
+                container: x.arrays,
+                equals: (x, y) => x.type.name === y.type.name,
+                getter: (x) => x.tags,
+            })(y.arrays),
+            tuples: mergeTaggedTypes({
+                container: x.tuples,
+                equals: (x, y) => x.type.name === y.type.name,
+                getter: (x) => x.tags,
+            })(y.tuples),
             objects: x.objects.slice(),
             aliases: x.aliases.slice(),
 
@@ -570,10 +595,6 @@ export namespace Metadata {
             for (const value of constant.values)
                 ArrayUtil.add(target.values, value);
         }
-        for (const array of y.arrays)
-            ArrayUtil.set(output.arrays, array, (elem) => elem.name);
-        for (const tuple of y.tuples)
-            ArrayUtil.set(output.tuples, tuple, (elem) => elem.name);
         for (const obj of y.objects)
             ArrayUtil.set(output.objects, obj, (elem) => elem.name);
         for (const alias of y.aliases)
@@ -622,8 +643,8 @@ const getName = (metadata: Metadata): string => {
 
     // INSTANCES
     if (metadata.rest !== null) elements.push(`...${metadata.rest.getName()}`);
-    for (const tuple of metadata.tuples) elements.push(tuple.name);
-    for (const array of metadata.arrays) elements.push(array.name);
+    for (const tuple of metadata.tuples) elements.push(tuple.type.name);
+    for (const array of metadata.arrays) elements.push(array.type.name);
     for (const object of metadata.objects) elements.push(object.name);
     for (const alias of metadata.aliases) elements.push(alias.name);
     if (metadata.escaped !== null) elements.push(metadata.escaped.getName());
@@ -641,3 +662,38 @@ export namespace Metadata {
         value: Metadata;
     }
 }
+
+const mergeTaggedTypes =
+    <T>(props: {
+        container: T[];
+        equals: (x: T, y: T) => boolean;
+        getter: (x: T) => IMetadataTypeTag[][];
+    }) =>
+    (opposite: T[]) => {
+        const output: T[] = [...props.container];
+        for (const elem of opposite) {
+            const equal = props.container.find((x) => props.equals(x, elem));
+            if (equal === undefined) {
+                output.push(elem);
+                continue;
+            }
+
+            const matrix: string[][] = props
+                .getter(equal)
+                .map((tags) => tags.map((t) => t.name))
+                .sort();
+            for (const tags of props.getter(elem)) {
+                const names: string[] = tags.map((t) => t.name).sort();
+                if (
+                    matrix.some(
+                        (m) =>
+                            m.length === names.length &&
+                            m.every((s, i) => s === names[i]),
+                    )
+                )
+                    continue;
+                props.getter(equal).push(tags);
+            }
+        }
+        return output;
+    };

@@ -8,7 +8,7 @@ import { ProtobufFactory } from "../../factories/ProtobufFactory";
 import { StatementFactory } from "../../factories/StatementFactory";
 import { TypeFactory } from "../../factories/TypeFactory";
 
-import { IMetadataTag } from "../../schemas/metadata/IMetadataTag";
+import { IMetadataCommentTag } from "../../schemas/metadata/IMetadataCommentTag";
 import { Metadata } from "../../schemas/metadata/Metadata";
 import { MetadataArray } from "../../schemas/metadata/MetadataArray";
 import { MetadataObject } from "../../schemas/metadata/MetadataObject";
@@ -280,7 +280,7 @@ export namespace ProtobufDecodeProgrammer {
         (
             accessor: ts.ElementAccessExpression | ts.PropertyAccessExpression,
             meta: Metadata,
-            tags: IMetadataTag[],
+            tags: IMetadataCommentTag[],
         ): ts.CaseClause[] => {
             const clauses: ts.CaseClause[] = [];
             const emplace =
@@ -323,7 +323,7 @@ export namespace ProtobufDecodeProgrammer {
                 emplace(atomic)(decode_atomic(atomic, tags));
             if (meta.natives.length) emplace("bytes")(decode_bytes("bytes"));
             for (const array of meta.arrays)
-                emplace(`Array<${array.value.getName()}>`)(
+                emplace(`Array<${array.type.value.getName()}>`)(
                     decode_array(accessor, array, required, tags),
                 );
             for (const map of meta.maps)
@@ -350,7 +350,7 @@ export namespace ProtobufDecodeProgrammer {
 
     const decode_atomic = (
         atomic: Atomic.Literal,
-        tags: IMetadataTag[],
+        tags: IMetadataCommentTag[],
     ): ts.Expression => {
         if (atomic === "string") return decode_bytes("string");
         const method =
@@ -405,7 +405,7 @@ export namespace ProtobufDecodeProgrammer {
         accessor: ts.ElementAccessExpression | ts.PropertyAccessExpression,
         array: MetadataArray,
         required: boolean,
-        tags: IMetadataTag[],
+        tags: IMetadataCommentTag[],
     ): ts.Statement[] => {
         const statements: Array<ts.Expression | ts.Statement> = [];
         if (required === false)
@@ -421,13 +421,13 @@ export namespace ProtobufDecodeProgrammer {
                     ),
                 ),
             );
-        const atomics = ProtobufUtil.getAtomics(array.value);
+        const atomics = ProtobufUtil.getAtomics(array.type.value);
         const decoder = atomics.length
             ? () => decode_atomic(atomics[0]!, tags)
-            : array.value.natives.length
+            : array.type.value.natives.length
             ? () => decode_bytes("bytes")
-            : array.value.objects.length
-            ? () => decode_regular_object(false)(array.value.objects[0]!)
+            : array.type.value.objects.length
+            ? () => decode_regular_object(false)(array.type.value.objects[0]!)
             : null;
         if (decoder === null) throw new Error("Never reach here.");
         else if (atomics.length && atomics[0] !== "string") {
@@ -566,7 +566,7 @@ export namespace ProtobufDecodeProgrammer {
             accessor: ts.ElementAccessExpression | ts.PropertyAccessExpression,
             map: Metadata.Entry,
             required: boolean,
-            tags: IMetadataTag[],
+            tags: IMetadataCommentTag[],
         ): ts.Statement[] =>
             decode_entry(project)(importer)({
                 initializer: () =>
@@ -605,7 +605,7 @@ export namespace ProtobufDecodeProgrammer {
         (
             map: Metadata.Entry,
             required: boolean,
-            tags: IMetadataTag[],
+            tags: IMetadataCommentTag[],
         ): ts.Statement[] => {
             const statements: ts.Statement[] = [
                 ...(required

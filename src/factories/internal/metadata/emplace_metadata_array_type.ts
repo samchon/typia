@@ -1,7 +1,7 @@
 import ts from "typescript";
 
 import { Metadata } from "../../../schemas/metadata/Metadata";
-import { MetadataArray } from "../../../schemas/metadata/MetadataArray";
+import { MetadataArrayType } from "../../../schemas/metadata/MetadataArrayType";
 
 import { ArrayUtil } from "../../../utils/ArrayUtil";
 
@@ -9,11 +9,11 @@ import { MetadataCollection } from "../../MetadataCollection";
 import { MetadataFactory } from "../../MetadataFactory";
 import { explore_metadata } from "./explore_metadata";
 
-export const emplace_metadata_array =
+export const emplace_metadata_array_type =
     (checker: ts.TypeChecker) =>
     (options: MetadataFactory.IOptions) =>
     (collection: MetadataCollection) =>
-    (type: ts.Type, nullable: boolean): MetadataArray => {
+    (type: ts.Type, nullable: boolean): MetadataArrayType => {
         // CHECK EXISTENCE
         const [array, newbie, setValue] = collection.emplaceArray(
             checker,

@@ -1,55 +1,31 @@
+import { $clone } from "../../functional/$clone";
+
 import { ClassProperties } from "../../typings/ClassProperties";
 
 import { IMetadataArray } from "./IMetadataArray";
-import { Metadata } from "./Metadata";
+import { IMetadataTypeTag } from "./IMetadataTypeTag";
+import { MetadataArrayType } from "./MetadataArrayType";
 
 export class MetadataArray {
-    public readonly name: string;
-    public readonly value: Metadata;
-    public readonly nullables: boolean[];
-    public readonly recursive: boolean;
-    public readonly index: number | null;
+    public readonly type: MetadataArrayType;
+    public readonly tags: IMetadataTypeTag[][];
 
     /**
      * @hidden
      */
     private constructor(props: ClassProperties<MetadataArray>) {
-        this.name = props.name;
-        this.value = props.value;
-        this.index = props.index;
-        this.recursive = props.recursive;
-        this.nullables = props.nullables;
+        this.type = props.type;
+        this.tags = props.tags;
     }
 
-    /**
-     * @internal
-     */
-    public static _From_without_value(
-        props: Omit<IMetadataArray, "value">,
-    ): MetadataArray {
-        return this.create({
-            name: props.name,
-            value: null!,
-            index: props.index,
-            recursive: props.recursive,
-            nullables: props.nullables,
-        });
-    }
-
-    /**
-     * @internal
-     */
     public static create(props: ClassProperties<MetadataArray>): MetadataArray {
         return new MetadataArray(props);
     }
 
     public toJSON(): IMetadataArray {
         return {
-            name: this.name,
-            value: this.value.toJSON(),
-            nullables: this.nullables,
-            recursive: this.recursive,
-            index: this.index,
+            type: this.type.toJSON(),
+            tags: $clone(this.tags),
         };
     }
 }

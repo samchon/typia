@@ -31,7 +31,7 @@ export namespace IsProgrammer {
             }),
             atomist: () => (entry) => () =>
                 [
-                    entry.expression,
+                    ...(entry.expression ? [entry.expression] : []),
                     ...entry.tags.map((tag) => tag.expression),
                 ].reduce((x, y) => ts.factory.createLogicalAnd(x, y)),
             combiner: () => (type: "and" | "or") => {
