@@ -1,18 +1,15 @@
-import { $dictionary } from "./functional/$dictionary";
 import { Namespace } from "./functional/Namespace";
 
 import { IMetadataApplication } from "./schemas/metadata/IMetadataApplication";
 
-import { MapUtil } from "./utils/MapUtil";
-
-import { CustomValidatorMap } from "./CustomValidatorMap";
 import { IRandomGenerator } from "./IRandomGenerator";
 import { IValidation } from "./IValidation";
 import { Resolved } from "./Resolved";
 
 export * as json from "./json";
-export * as protobuf from "./protobuf";
 export * as misc from "./misc";
+export * as protobuf from "./protobuf";
+export * as tags from "./tags";
 
 export * from "./schemas/json/IJsonApplication";
 export * from "./schemas/json/IJsonComponents";
@@ -22,56 +19,6 @@ export * from "./IValidation";
 export * from "./Primitive";
 export * from "./Resolved";
 export * from "./TypeGuardError";
-
-/**
- * Custom validators.
- *
- * If you want to add a custom validation logic utilizing comment tags,
- * add a closure function with its tag and type name. Below example code
- * would helpful to understand how to use this instance.
- *
- * ```ts
- * typia.customValidators.insert("powerOf")("number")(
- *     (text: string) => {
- *         const denominator: number = Math.log(Number(text));
- *         return (value: number) => {
- *             value = Math.log(value) / denominator;
- *             return value === Math.floor(value);
- *         };
- *     }
- * );
- * typia.customValidators.insert("dollar")("string")(
- *     () => (value: string) => value.startsWith("$"),
- * );
- *
- * interface TagCustom {
- *    /**
- *     * @powerOf 10
- *     *\/
- *    powerOf: number;
- *
- *    /**
- *     * @dollar
- *     *\/
- *    dollar: string;
- * }
- * ```
- *
- * @author Jeongho Nam - https://github.com/samchon
- */
-export const customValidators: CustomValidatorMap = {
-    size: (name?: string) =>
-        name ? $dictionary.get(name)?.size ?? 0 : $dictionary.size,
-    has: (name) => (type) => $dictionary.get(name)?.has(type) ?? false,
-    get: (name) => (type) => $dictionary.get(name)?.get(type),
-    insert: (name) => (type) => (closure) => {
-        const internal = MapUtil.take($dictionary)(name, () => new Map());
-        if (internal.has(type)) return false;
-        internal.set(type, closure);
-        return true;
-    },
-    erase: (name) => (type) => $dictionary.get(name)?.delete(type) ?? false,
-};
 
 /* -----------------------------------------------------------
     BASIC VALIDATORS

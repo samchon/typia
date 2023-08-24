@@ -46,6 +46,7 @@ export const test_json_validateStringify_TagArray =
                         input.equal.every(
                             (elem: any) =>
                                 "number" === typeof elem &&
+                                Number.isFinite(elem) &&
                                 10 <= elem &&
                                 10 >= elem,
                         );
@@ -124,18 +125,18 @@ export const test_json_validateStringify_TagArray =
                             _exceptionable: boolean = true,
                         ): boolean =>
                             [
-                                (((Array.isArray(input.items) &&
-                                    (3 === input.items.length ||
-                                        $report(_exceptionable, {
-                                            path: _path + ".items",
-                                            expected: "Array.length (@items 3)",
-                                            value: input.items,
-                                        }))) ||
+                                ((Array.isArray(input.items) ||
                                     $report(_exceptionable, {
                                         path: _path + ".items",
                                         expected: "Array<string>",
                                         value: input.items,
                                     })) &&
+                                    (3 === input.items.length ||
+                                        $report(_exceptionable, {
+                                            path: _path + ".items",
+                                            expected: "Array.length (@items 3)",
+                                            value: input.items,
+                                        })) &&
                                     input.items
                                         .map(
                                             (elem: any, _index2: number) =>
@@ -170,19 +171,19 @@ export const test_json_validateStringify_TagArray =
                                         expected: "Array<string>",
                                         value: input.items,
                                     }),
-                                (((Array.isArray(input.minItems) &&
+                                ((Array.isArray(input.minItems) ||
+                                    $report(_exceptionable, {
+                                        path: _path + ".minItems",
+                                        expected: "Array<number>",
+                                        value: input.minItems,
+                                    })) &&
                                     (3 <= input.minItems.length ||
                                         $report(_exceptionable, {
                                             path: _path + ".minItems",
                                             expected:
                                                 "Array.length (@minItems 3)",
                                             value: input.minItems,
-                                        }))) ||
-                                    $report(_exceptionable, {
-                                        path: _path + ".minItems",
-                                        expected: "Array<number>",
-                                        value: input.minItems,
-                                    })) &&
+                                        })) &&
                                     input.minItems
                                         .map(
                                             (elem: any, _index3: number) =>
@@ -218,7 +219,12 @@ export const test_json_validateStringify_TagArray =
                                         expected: "Array<number>",
                                         value: input.minItems,
                                     }),
-                                (((Array.isArray(input.both) &&
+                                ((Array.isArray(input.both) ||
+                                    $report(_exceptionable, {
+                                        path: _path + ".both",
+                                        expected: "Array<string>",
+                                        value: input.both,
+                                    })) &&
                                     (3 <= input.both.length ||
                                         $report(_exceptionable, {
                                             path: _path + ".both",
@@ -232,12 +238,7 @@ export const test_json_validateStringify_TagArray =
                                             expected:
                                                 "Array.length (@maxItems 7)",
                                             value: input.both,
-                                        }))) ||
-                                    $report(_exceptionable, {
-                                        path: _path + ".both",
-                                        expected: "Array<string>",
-                                        value: input.both,
-                                    })) &&
+                                        })) &&
                                     input.both
                                         .map(
                                             (elem: any, _index4: number) =>
@@ -272,7 +273,12 @@ export const test_json_validateStringify_TagArray =
                                         expected: "Array<string>",
                                         value: input.both,
                                     }),
-                                (((Array.isArray(input.equal) &&
+                                ((Array.isArray(input.equal) ||
+                                    $report(_exceptionable, {
+                                        path: _path + ".equal",
+                                        expected: "Array<number>",
+                                        value: input.equal,
+                                    })) &&
                                     (10 <= input.equal.length ||
                                         $report(_exceptionable, {
                                             path: _path + ".equal",
@@ -286,16 +292,12 @@ export const test_json_validateStringify_TagArray =
                                             expected:
                                                 "Array.length (@maxItems 10)",
                                             value: input.equal,
-                                        }))) ||
-                                    $report(_exceptionable, {
-                                        path: _path + ".equal",
-                                        expected: "Array<number>",
-                                        value: input.equal,
-                                    })) &&
+                                        })) &&
                                     input.equal
                                         .map(
                                             (elem: any, _index5: number) =>
                                                 ("number" === typeof elem &&
+                                                    Number.isFinite(elem) &&
                                                     (10 <= elem ||
                                                         $report(
                                                             _exceptionable,

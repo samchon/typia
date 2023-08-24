@@ -5,13 +5,13 @@ import { NodeTransformer } from "./NodeTransformer";
 
 export namespace FileTransformer {
     export const transform =
-        (project: IProject) =>
+        (project: Omit<IProject, "context">) =>
         (context: ts.TransformationContext) =>
         (file: ts.SourceFile): ts.SourceFile => {
             if (file.isDeclarationFile) return file;
             return ts.visitEachChild(
                 file,
-                (node) => iterate_node(project)(context)(node),
+                (node) => iterate_node({ ...project, context })(context)(node),
                 context,
             );
         };

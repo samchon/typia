@@ -13,7 +13,7 @@ export const test_assert_FunctionalArrayUnion = _test_assert(
                 if (0 === input.length) return true;
                 const arrayPredicators = [
                     [
-                        (top: any): any =>
+                        (top: any[]): any =>
                             "number" === typeof top && Number.isFinite(top),
                         (entire: any[]): any =>
                             entire.every(
@@ -23,21 +23,21 @@ export const test_assert_FunctionalArrayUnion = _test_assert(
                             ),
                     ],
                     [
-                        (top: any): any => "string" === typeof top,
+                        (top: any[]): any => "string" === typeof top,
                         (entire: any[]): any =>
                             entire.every(
                                 (elem: any) => "string" === typeof elem,
                             ),
                     ],
                     [
-                        (top: any): any => "function" === typeof top,
+                        (top: any[]): any => "function" === typeof top,
                         (entire: any[]): any =>
                             entire.every(
                                 (elem: any) => "function" === typeof elem,
                             ),
                     ],
                     [
-                        (top: any): any => undefined !== top && null === top,
+                        (top: any[]): any => undefined !== top && null === top,
                         (entire: any[]): any =>
                             entire.every(
                                 (elem: any) =>
@@ -81,7 +81,7 @@ export const test_assert_FunctionalArrayUnion = _test_assert(
                     if (0 === input.length) return true;
                     const arrayPredicators = [
                         [
-                            (top: any): any =>
+                            (top: any[]): any =>
                                 "number" === typeof top && Number.isFinite(top),
                             (entire: any[]): any =>
                                 entire.every(
@@ -96,7 +96,7 @@ export const test_assert_FunctionalArrayUnion = _test_assert(
                                 ),
                         ],
                         [
-                            (top: any): any => "string" === typeof top,
+                            (top: any[]): any => "string" === typeof top,
                             (entire: any[]): any =>
                                 entire.every(
                                     (elem: any, _index7: number) =>
@@ -109,7 +109,7 @@ export const test_assert_FunctionalArrayUnion = _test_assert(
                                 ),
                         ],
                         [
-                            (top: any): any => "function" === typeof top,
+                            (top: any[]): any => "function" === typeof top,
                             (entire: any[]): any =>
                                 entire.every(
                                     (elem: any, _index8: number) =>
@@ -122,7 +122,7 @@ export const test_assert_FunctionalArrayUnion = _test_assert(
                                 ),
                         ],
                         [
-                            (top: any): any =>
+                            (top: any[]): any =>
                                 undefined !== top && null === top,
                             (entire: any[]): any =>
                                 entire.every(

@@ -22,7 +22,7 @@ export const test_misc_isClone_MapUnion = _test_misc_isClone(
                         if (0 === elem.size) return true;
                         const arrayPredicators = [
                             [
-                                (top: any): any =>
+                                (top: any[]): any =>
                                     "boolean" === typeof top[0] &&
                                     "number" === typeof top[1] &&
                                     Number.isFinite(top[1]),
@@ -37,7 +37,7 @@ export const test_misc_isClone_MapUnion = _test_misc_isClone(
                                     ),
                             ],
                             [
-                                (top: any): any =>
+                                (top: any[]): any =>
                                     "number" === typeof top[0] &&
                                     Number.isFinite(top[0]) &&
                                     "number" === typeof top[1] &&
@@ -54,7 +54,7 @@ export const test_misc_isClone_MapUnion = _test_misc_isClone(
                                     ),
                             ],
                             [
-                                (top: any): any =>
+                                (top: any[]): any =>
                                     "string" === typeof top[0] &&
                                     "number" === typeof top[1] &&
                                     Number.isFinite(top[1]),
@@ -69,7 +69,7 @@ export const test_misc_isClone_MapUnion = _test_misc_isClone(
                                     ),
                             ],
                             [
-                                (top: any): any =>
+                                (top: any[]): any =>
                                     Array.isArray(top[0]) &&
                                     top[0].every(
                                         (elem: any) =>
@@ -94,7 +94,7 @@ export const test_misc_isClone_MapUnion = _test_misc_isClone(
                                     ),
                             ],
                             [
-                                (top: any): any =>
+                                (top: any[]): any =>
                                     "object" === typeof top[0] &&
                                     null !== top[0] &&
                                     $io0(top[0]) &&
@@ -146,7 +146,7 @@ export const test_misc_isClone_MapUnion = _test_misc_isClone(
                           if (0 === elem.size) return new Map<any, any>();
                           const arrayPredicators = [
                               [
-                                  (top: any): any =>
+                                  (top: any[]): any =>
                                       "boolean" === typeof top[0] &&
                                       "number" === typeof top[1],
                                   (entire: any[]): any =>
@@ -165,7 +165,7 @@ export const test_misc_isClone_MapUnion = _test_misc_isClone(
                                       ),
                               ],
                               [
-                                  (top: any): any =>
+                                  (top: any[]): any =>
                                       "number" === typeof top[0] &&
                                       "number" === typeof top[1],
                                   (entire: any[]): any =>
@@ -184,7 +184,7 @@ export const test_misc_isClone_MapUnion = _test_misc_isClone(
                                       ),
                               ],
                               [
-                                  (top: any): any =>
+                                  (top: any[]): any =>
                                       "string" === typeof top[0] &&
                                       "number" === typeof top[1],
                                   (entire: any[]): any =>
@@ -203,7 +203,7 @@ export const test_misc_isClone_MapUnion = _test_misc_isClone(
                                       ),
                               ],
                               [
-                                  (top: any): any =>
+                                  (top: any[]): any =>
                                       Array.isArray(top[0]) &&
                                       top[0].every(
                                           (elem: any) =>
@@ -232,7 +232,7 @@ export const test_misc_isClone_MapUnion = _test_misc_isClone(
                                       ),
                               ],
                               [
-                                  (top: any): any =>
+                                  (top: any[]): any =>
                                       "object" === typeof top[0] &&
                                       null !== top[0] &&
                                       $io0(top[0]) &&

@@ -8,7 +8,6 @@ export const test_protobuf_encode_TagDefault = _test_protobuf_encode(
     encode: (input) =>
         ((input: TagDefault): Uint8Array => {
             const $throws = (typia.protobuf.encode as any).throws;
-            const $is_custom = (typia.protobuf.encode as any).is_custom;
             const $Sizer = (typia.protobuf.encode as any).Sizer;
             const $Writer = (typia.protobuf.encode as any).Writer;
             const encoder = (writer: any): any => {

@@ -16,6 +16,7 @@ export const test_assertEquals_TagTuple = _test_assertEquals(
             3 <= input.tuple[0].length &&
             7 >= input.tuple[0].length &&
             "number" === typeof input.tuple[1] &&
+            Number.isFinite(input.tuple[1]) &&
             3 <= input.tuple[1] &&
             7 >= input.tuple[1] &&
             Array.isArray(input.tuple[2]) &&
@@ -32,7 +33,10 @@ export const test_assertEquals_TagTuple = _test_assertEquals(
             7 >= input.tuple[3].length &&
             input.tuple[3].every(
                 (elem: any, _index2: number) =>
-                    "number" === typeof elem && 3 <= elem && 7 >= elem,
+                    "number" === typeof elem &&
+                    Number.isFinite(elem) &&
+                    3 <= elem &&
+                    7 >= elem,
             ) &&
             (1 === Object.keys(input).length ||
                 Object.keys(input).every((key: any) => {
@@ -89,6 +93,7 @@ export const test_assertEquals_TagTuple = _test_assertEquals(
                             value: input.tuple[0],
                         })) &&
                     (("number" === typeof input.tuple[1] &&
+                        Number.isFinite(input.tuple[1]) &&
                         (3 <= input.tuple[1] ||
                             $guard(_exceptionable, {
                                 path: _path + ".tuple[1]",
@@ -106,7 +111,12 @@ export const test_assertEquals_TagTuple = _test_assertEquals(
                             expected: "number",
                             value: input.tuple[1],
                         })) &&
-                    ((((Array.isArray(input.tuple[2]) &&
+                    (((Array.isArray(input.tuple[2]) ||
+                        $guard(_exceptionable, {
+                            path: _path + ".tuple[2]",
+                            expected: "Array<string>",
+                            value: input.tuple[2],
+                        })) &&
                         (3 <= input.tuple[2].length ||
                             $guard(_exceptionable, {
                                 path: _path + ".tuple[2]",
@@ -118,12 +128,7 @@ export const test_assertEquals_TagTuple = _test_assertEquals(
                                 path: _path + ".tuple[2]",
                                 expected: "Array.length (@maxItems 7)",
                                 value: input.tuple[2],
-                            }))) ||
-                        $guard(_exceptionable, {
-                            path: _path + ".tuple[2]",
-                            expected: "Array<string>",
-                            value: input.tuple[2],
-                        })) &&
+                            })) &&
                         input.tuple[2].every(
                             (elem: any, _index1: number) =>
                                 ("string" === typeof elem &&
@@ -158,7 +163,12 @@ export const test_assertEquals_TagTuple = _test_assertEquals(
                             expected: "Array<string>",
                             value: input.tuple[2],
                         })) &&
-                    ((((Array.isArray(input.tuple[3]) &&
+                    (((Array.isArray(input.tuple[3]) ||
+                        $guard(_exceptionable, {
+                            path: _path + ".tuple[3]",
+                            expected: "Array<number>",
+                            value: input.tuple[3],
+                        })) &&
                         (3 <= input.tuple[3].length ||
                             $guard(_exceptionable, {
                                 path: _path + ".tuple[3]",
@@ -170,15 +180,11 @@ export const test_assertEquals_TagTuple = _test_assertEquals(
                                 path: _path + ".tuple[3]",
                                 expected: "Array.length (@maxItems 7)",
                                 value: input.tuple[3],
-                            }))) ||
-                        $guard(_exceptionable, {
-                            path: _path + ".tuple[3]",
-                            expected: "Array<number>",
-                            value: input.tuple[3],
-                        })) &&
+                            })) &&
                         input.tuple[3].every(
                             (elem: any, _index2: number) =>
                                 ("number" === typeof elem &&
+                                    Number.isFinite(elem) &&
                                     (3 <= elem ||
                                         $guard(_exceptionable, {
                                             path:

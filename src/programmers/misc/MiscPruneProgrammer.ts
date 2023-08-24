@@ -8,10 +8,12 @@ import { StatementFactory } from "../../factories/StatementFactory";
 import { TypeFactory } from "../../factories/TypeFactory";
 
 import { IJsDocTagInfo } from "../../schemas/metadata/IJsDocTagInfo";
-import { IMetadataTag } from "../../schemas/metadata/IMetadataTag";
+import { IMetadataCommentTag } from "../../schemas/metadata/IMetadataCommentTag";
 import { Metadata } from "../../schemas/metadata/Metadata";
 import { MetadataArray } from "../../schemas/metadata/MetadataArray";
+import { MetadataArrayType } from "../../schemas/metadata/MetadataArrayType";
 import { MetadataTuple } from "../../schemas/metadata/MetadataTuple";
+import { MetadataTupleType } from "../../schemas/metadata/MetadataTupleType";
 
 import { IProject } from "../../transformers/IProject";
 
@@ -130,8 +132,8 @@ export namespace MiscPruneProgrammer {
             // LIST UP UNION TYPES
             //----
             // TUPLES
-            for (const tuple of meta.tuples.filter((t) =>
-                t.elements.some((e) => filter(e.rest ?? e)),
+            for (const tuple of meta.tuples.filter((tuple) =>
+                tuple.type.elements.some((e) => filter(e.rest ?? e)),
             ))
                 unions.push({
                     type: "tuple",
@@ -156,7 +158,7 @@ export namespace MiscPruneProgrammer {
                 });
 
             // ARRAYS
-            if (meta.arrays.filter((a) => filter(a.value)).length)
+            if (meta.arrays.filter((a) => filter(a.type.value)).length)
                 unions.push({
                     type: "array",
                     is: () => ExpressionFactory.isArray(input),
@@ -239,10 +241,12 @@ export namespace MiscPruneProgrammer {
             array: MetadataArray,
             explore: FeatureProgrammer.IExplore,
         ) =>
-            array.recursive
+            array.type.recursive
                 ? ts.factory.createCallExpression(
                       ts.factory.createIdentifier(
-                          importer.useLocal(`${config.prefix}a${array.index}`),
+                          importer.useLocal(
+                              `${config.prefix}a${array.type.index}`,
+                          ),
                       ),
                       undefined,
                       FeatureProgrammer.argumentsArray(config)({
@@ -251,14 +255,18 @@ export namespace MiscPruneProgrammer {
                           from: "array",
                       })(input),
                   )
-                : decode_array_inline(config)(importer)(input, array, explore);
+                : decode_array_inline(config)(importer)(
+                      input,
+                      array.type,
+                      explore,
+                  );
 
     const decode_array_inline =
         (config: FeatureProgrammer.IConfig) =>
         (importer: FunctionImporter) =>
         (
             input: ts.Expression,
-            array: MetadataArray,
+            array: MetadataArrayType,
             explore: FeatureProgrammer.IExplore,
         ): ts.Expression =>
             FeatureProgrammer.decode_array(config)(importer)(PruneJoiner.array)(
@@ -278,10 +286,12 @@ export namespace MiscPruneProgrammer {
             tuple: MetadataTuple,
             explore: FeatureProgrammer.IExplore,
         ): ts.Expression | ts.Block =>
-            tuple.recursive
+            tuple.type.recursive
                 ? ts.factory.createCallExpression(
                       ts.factory.createIdentifier(
-                          importer.useLocal(`${config.prefix}t${tuple.index}`),
+                          importer.useLocal(
+                              `${config.prefix}t${tuple.type.index}`,
+                          ),
                       ),
                       undefined,
                       FeatureProgrammer.argumentsArray(config)({
@@ -291,7 +301,7 @@ export namespace MiscPruneProgrammer {
                   )
                 : decode_tuple_inline(project)(config)(importer)(
                       input,
-                      tuple,
+                      tuple.type,
                       explore,
                   );
 
@@ -301,7 +311,7 @@ export namespace MiscPruneProgrammer {
         (importer: FunctionImporter) =>
         (
             input: ts.Expression,
-            tuple: MetadataTuple,
+            tuple: MetadataTupleType,
             explore: FeatureProgrammer.IExplore,
         ): ts.Block => {
             const children: ts.ConciseBody[] = tuple.elements
@@ -404,7 +414,7 @@ export namespace MiscPruneProgrammer {
                 input: ts.Expression,
                 elements: T[],
                 explore: FeatureProgrammer.IExplore,
-                tags: IMetadataTag[],
+                tags: IMetadataCommentTag[],
                 jsDocTags: IJsDocTagInfo[],
             ) => ts.ArrowFunction,
         ) =>
@@ -418,7 +428,7 @@ export namespace MiscPruneProgrammer {
                 (explore: FeatureProgrammer.IExplore) =>
                 (input: ts.Expression): ts.ArrowFunction =>
                     factory(parameters)(input, elements, explore, [], []);
-            if (elements.every((e) => e.recursive === false))
+            if (elements.every((e) => e.type.recursive === false))
                 ts.factory.createCallExpression(
                     arrow([])(explore)(input),
                     undefined,
@@ -434,7 +444,7 @@ export namespace MiscPruneProgrammer {
                 ts.factory.createIdentifier(
                     importer.emplaceUnion(
                         config.prefix,
-                        elements.map((e) => e.name).join(" | "),
+                        elements.map((e) => e.type.name).join(" | "),
                         () =>
                             arrow(
                                 FeatureProgrammer.parameterDeclarations(config)(
@@ -456,9 +466,9 @@ export namespace MiscPruneProgrammer {
         meta.any === false &&
         (meta.objects.length !== 0 ||
             meta.tuples.some((t) =>
-                t.elements.some((e) => filter(e.rest ?? e)),
+                t.type.elements.some((e) => filter(e.rest ?? e)),
             ) ||
-            meta.arrays.some((e) => filter(e.value)));
+            meta.arrays.some((e) => filter(e.type.value)));
 
     /* -----------------------------------------------------------
         CONFIGURATIONS

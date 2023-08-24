@@ -39,7 +39,10 @@ export const test_misc_isClone_TagArray = _test_misc_isClone(
                 10 >= input.equal.length &&
                 input.equal.every(
                     (elem: any) =>
-                        "number" === typeof elem && 10 <= elem && 10 >= elem,
+                        "number" === typeof elem &&
+                        Number.isFinite(elem) &&
+                        10 <= elem &&
+                        10 >= elem,
                 );
             return "object" === typeof input && null !== input && $io0(input);
         };

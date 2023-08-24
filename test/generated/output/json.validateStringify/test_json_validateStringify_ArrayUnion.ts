@@ -17,7 +17,8 @@ export const test_json_validateStringify_ArrayUnion =
                             if (0 === input.length) return true;
                             const arrayPredicators = [
                                 [
-                                    (top: any): any => "boolean" === typeof top,
+                                    (top: any[]): any =>
+                                        "boolean" === typeof top,
                                     (entire: any[]): any =>
                                         entire.every(
                                             (elem: any) =>
@@ -25,7 +26,7 @@ export const test_json_validateStringify_ArrayUnion =
                                         ),
                                 ],
                                 [
-                                    (top: any): any =>
+                                    (top: any[]): any =>
                                         "number" === typeof top &&
                                         Number.isFinite(top),
                                     (entire: any[]): any =>
@@ -36,7 +37,8 @@ export const test_json_validateStringify_ArrayUnion =
                                         ),
                                 ],
                                 [
-                                    (top: any): any => "string" === typeof top,
+                                    (top: any[]): any =>
+                                        "string" === typeof top,
                                     (entire: any[]): any =>
                                         entire.every(
                                             (elem: any) =>
@@ -87,7 +89,7 @@ export const test_json_validateStringify_ArrayUnion =
                                 if (0 === input.length) return true;
                                 const arrayPredicators = [
                                     [
-                                        (top: any): any =>
+                                        (top: any[]): any =>
                                             "boolean" === typeof top,
                                         (entire: any[]): any =>
                                             entire
@@ -115,7 +117,7 @@ export const test_json_validateStringify_ArrayUnion =
                                                 .every((flag: boolean) => flag),
                                     ],
                                     [
-                                        (top: any): any =>
+                                        (top: any[]): any =>
                                             "number" === typeof top &&
                                             Number.isFinite(top),
                                         (entire: any[]): any =>
@@ -147,7 +149,7 @@ export const test_json_validateStringify_ArrayUnion =
                                                 .every((flag: boolean) => flag),
                                     ],
                                     [
-                                        (top: any): any =>
+                                        (top: any[]): any =>
                                             "string" === typeof top,
                                         (entire: any[]): any =>
                                             entire
@@ -278,21 +280,21 @@ export const test_json_validateStringify_ArrayUnion =
                         if (0 === input.length) return "[]";
                         const arrayPredicators = [
                             [
-                                (top: any): any => "boolean" === typeof top,
+                                (top: any[]): any => "boolean" === typeof top,
                                 (entire: any[]): any =>
                                     `[${entire
                                         .map((elem: any) => elem)
                                         .join(",")}]`,
                             ],
                             [
-                                (top: any): any => "number" === typeof top,
+                                (top: any[]): any => "number" === typeof top,
                                 (entire: any[]): any =>
                                     `[${entire
                                         .map((elem: any) => $number(elem))
                                         .join(",")}]`,
                             ],
                             [
-                                (top: any): any => "string" === typeof top,
+                                (top: any[]): any => "string" === typeof top,
                                 (entire: any[]): any =>
                                     `[${entire
                                         .map((elem: any) => $string(elem))

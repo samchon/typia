@@ -8,30 +8,16 @@ export const test_protobuf_isEncode_ObjectJsonTag = _test_protobuf_isEncode(
     isEncode: (input) =>
         ((input: ObjectJsonTag): Uint8Array | null => {
             const is = (input: any): input is ObjectJsonTag => {
-                const $is_custom = (typia.protobuf.isEncode as any).is_custom;
                 return (
                     "object" === typeof input &&
                     null !== input &&
                     "string" === typeof (input as any).vulnerable &&
-                    $is_custom(
-                        "deprecated",
-                        "string",
-                        "",
-                        (input as any).vulnerable,
-                    ) &&
                     "string" === typeof (input as any).description &&
                     "string" === typeof (input as any).title &&
-                    $is_custom(
-                        "title",
-                        "string",
-                        "something",
-                        (input as any).title,
-                    ) &&
                     "string" === typeof (input as any).complicate_title
                 );
             };
             const encode = (input: ObjectJsonTag): Uint8Array => {
-                const $is_custom = (typia.protobuf.isEncode as any).is_custom;
                 const $Sizer = (typia.protobuf.isEncode as any).Sizer;
                 const $Writer = (typia.protobuf.isEncode as any).Writer;
                 const encoder = (writer: any): any => {

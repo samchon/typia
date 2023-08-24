@@ -5,7 +5,6 @@ import { TagDefault } from "../../../structures/TagDefault";
 export const test_misc_prune_TagDefault = _test_misc_prune(
     "TagDefault",
 )<TagDefault>(TagDefault)((input: TagDefault): void => {
-    const $is_custom = (typia.misc.createPrune as any).is_custom;
     const $po0 = (input: any): any => {
         for (const key of Object.keys(input)) {
             if (

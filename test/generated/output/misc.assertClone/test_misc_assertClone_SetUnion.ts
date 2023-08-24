@@ -24,7 +24,7 @@ export const test_misc_assertClone_SetUnion = _test_misc_assertClone(
                                 if (0 === elem.size) return true;
                                 const arrayPredicators = [
                                     [
-                                        (top: any): any =>
+                                        (top: any[]): any =>
                                             "boolean" === typeof top,
                                         (entire: any[]): any =>
                                             entire.every(
@@ -33,7 +33,7 @@ export const test_misc_assertClone_SetUnion = _test_misc_assertClone(
                                             ),
                                     ],
                                     [
-                                        (top: any): any =>
+                                        (top: any[]): any =>
                                             "number" === typeof top &&
                                             Number.isFinite(top),
                                         (entire: any[]): any =>
@@ -44,7 +44,7 @@ export const test_misc_assertClone_SetUnion = _test_misc_assertClone(
                                             ),
                                     ],
                                     [
-                                        (top: any): any =>
+                                        (top: any[]): any =>
                                             "string" === typeof top,
                                         (entire: any[]): any =>
                                             entire.every(
@@ -53,7 +53,7 @@ export const test_misc_assertClone_SetUnion = _test_misc_assertClone(
                                             ),
                                     ],
                                     [
-                                        (top: any): any =>
+                                        (top: any[]): any =>
                                             Array.isArray(top) &&
                                             top.every(
                                                 (elem: any) =>
@@ -75,7 +75,7 @@ export const test_misc_assertClone_SetUnion = _test_misc_assertClone(
                                             ),
                                     ],
                                     [
-                                        (top: any): any =>
+                                        (top: any[]): any =>
                                             "object" === typeof top &&
                                             null !== top &&
                                             $io0(top),
@@ -162,7 +162,7 @@ export const test_misc_assertClone_SetUnion = _test_misc_assertClone(
                                             if (0 === elem.size) return true;
                                             const arrayPredicators = [
                                                 [
-                                                    (top: any): any =>
+                                                    (top: any[]): any =>
                                                         "boolean" ===
                                                         typeof top,
                                                     (entire: any[]): any =>
@@ -188,7 +188,7 @@ export const test_misc_assertClone_SetUnion = _test_misc_assertClone(
                                                         ),
                                                 ],
                                                 [
-                                                    (top: any): any =>
+                                                    (top: any[]): any =>
                                                         "number" ===
                                                             typeof top &&
                                                         Number.isFinite(top),
@@ -218,7 +218,7 @@ export const test_misc_assertClone_SetUnion = _test_misc_assertClone(
                                                         ),
                                                 ],
                                                 [
-                                                    (top: any): any =>
+                                                    (top: any[]): any =>
                                                         "string" === typeof top,
                                                     (entire: any[]): any =>
                                                         entire.every(
@@ -243,7 +243,7 @@ export const test_misc_assertClone_SetUnion = _test_misc_assertClone(
                                                         ),
                                                 ],
                                                 [
-                                                    (top: any): any =>
+                                                    (top: any[]): any =>
                                                         Array.isArray(top) &&
                                                         top.every(
                                                             (
@@ -323,15 +323,11 @@ export const test_misc_assertClone_SetUnion = _test_misc_assertClone(
                                                         ),
                                                 ],
                                                 [
-                                                    (top: any): any =>
+                                                    (top: any[]): any =>
                                                         "object" ===
                                                             typeof top &&
                                                         null !== top &&
-                                                        $ao0(
-                                                            top,
-                                                            _path + "[0]",
-                                                            false,
-                                                        ),
+                                                        $ao0(top, _path, false),
                                                     (entire: any[]): any =>
                                                         entire.every(
                                                             (
@@ -438,7 +434,7 @@ export const test_misc_assertClone_SetUnion = _test_misc_assertClone(
                               if (0 === elem.size) return new Set<any>();
                               const arrayPredicators = [
                                   [
-                                      (top: any): any =>
+                                      (top: any[]): any =>
                                           "boolean" === typeof top,
                                       (entire: any[]): any =>
                                           new Set<any>(
@@ -448,7 +444,7 @@ export const test_misc_assertClone_SetUnion = _test_misc_assertClone(
                                           ),
                                   ],
                                   [
-                                      (top: any): any =>
+                                      (top: any[]): any =>
                                           "number" === typeof top,
                                       (entire: any[]): any =>
                                           new Set<any>(
@@ -458,7 +454,7 @@ export const test_misc_assertClone_SetUnion = _test_misc_assertClone(
                                           ),
                                   ],
                                   [
-                                      (top: any): any =>
+                                      (top: any[]): any =>
                                           "string" === typeof top,
                                       (entire: any[]): any =>
                                           new Set<any>(
@@ -468,7 +464,7 @@ export const test_misc_assertClone_SetUnion = _test_misc_assertClone(
                                           ),
                                   ],
                                   [
-                                      (top: any): any =>
+                                      (top: any[]): any =>
                                           Array.isArray(top) &&
                                           top.every(
                                               (elem: any) =>
@@ -484,7 +480,7 @@ export const test_misc_assertClone_SetUnion = _test_misc_assertClone(
                                           ),
                                   ],
                                   [
-                                      (top: any): any =>
+                                      (top: any[]): any =>
                                           "object" === typeof top &&
                                           null !== top &&
                                           $io0(top),

@@ -49,14 +49,14 @@ export const test_misc_isClone_ArrayRepeatedUnionWithTuple = _test_misc_isClone(
                 if (0 === input.length) return true;
                 const arrayPredicators = [
                     [
-                        (top: any): any => "string" === typeof top,
+                        (top: any[]): any => "string" === typeof top,
                         (entire: any[]): any =>
                             entire.every(
                                 (elem: any) => "string" === typeof elem,
                             ),
                     ],
                     [
-                        (top: any): any =>
+                        (top: any[]): any =>
                             null !== top &&
                             undefined !== top &&
                             (("number" === typeof top &&
@@ -66,7 +66,7 @@ export const test_misc_isClone_ArrayRepeatedUnionWithTuple = _test_misc_isClone(
                         (entire: any[]): any => $ia0(entire) || false,
                     ],
                     [
-                        (top: any): any =>
+                        (top: any[]): any =>
                             "object" === typeof top &&
                             null !== top &&
                             $io0(top),
@@ -184,12 +184,12 @@ export const test_misc_isClone_ArrayRepeatedUnionWithTuple = _test_misc_isClone(
                 if (0 === input.length) return [];
                 const arrayPredicators = [
                     [
-                        (top: any): any => "string" === typeof top,
+                        (top: any[]): any => "string" === typeof top,
                         (entire: any[]): any =>
                             entire.map((elem: any) => elem as any),
                     ],
                     [
-                        (top: any): any =>
+                        (top: any[]): any =>
                             null !== top &&
                             undefined !== top &&
                             ("number" === typeof top ||
@@ -198,7 +198,7 @@ export const test_misc_isClone_ArrayRepeatedUnionWithTuple = _test_misc_isClone(
                         (entire: any[]): any => $ca0(entire),
                     ],
                     [
-                        (top: any): any =>
+                        (top: any[]): any =>
                             "object" === typeof top &&
                             null !== top &&
                             $io0(top),
@@ -266,14 +266,14 @@ export const test_misc_isClone_ArrayRepeatedUnionWithTuple = _test_misc_isClone(
                 if (0 === input.length) return true;
                 const arrayPredicators = [
                     [
-                        (top: any): any => "string" === typeof top,
+                        (top: any[]): any => "string" === typeof top,
                         (entire: any[]): any =>
                             entire.every(
                                 (elem: any) => "string" === typeof elem,
                             ),
                     ],
                     [
-                        (top: any): any =>
+                        (top: any[]): any =>
                             null !== top &&
                             undefined !== top &&
                             ("number" === typeof top ||
@@ -282,7 +282,7 @@ export const test_misc_isClone_ArrayRepeatedUnionWithTuple = _test_misc_isClone(
                         (entire: any[]): any => $ia0(entire) || false,
                     ],
                     [
-                        (top: any): any =>
+                        (top: any[]): any =>
                             "object" === typeof top &&
                             null !== top &&
                             $io0(top),

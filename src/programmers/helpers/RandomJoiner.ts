@@ -4,7 +4,7 @@ import { StatementFactory } from "../../factories/StatementFactory";
 import { TypeFactory } from "../../factories/TypeFactory";
 
 import { ICommentTag } from "../../schemas/metadata/ICommentTag";
-import { IMetadataTag } from "../../schemas/metadata/IMetadataTag";
+import { IMetadataCommentTag } from "../../schemas/metadata/IMetadataCommentTag";
 import { Metadata } from "../../schemas/metadata/Metadata";
 import { MetadataObject } from "../../schemas/metadata/MetadataObject";
 import { MetadataProperty } from "../../schemas/metadata/MetadataProperty";
@@ -16,7 +16,7 @@ import { get_comment_tags } from "../internal/get_comment_tags";
 export namespace RandomJoiner {
     export type Decoder = (
         meta: Metadata,
-        tags: IMetadataTag[],
+        tags: IMetadataCommentTag[],
         comments: ICommentTag[],
     ) => ts.Expression;
 
@@ -27,7 +27,7 @@ export namespace RandomJoiner {
         (length: ts.Expression | undefined) =>
         (
             item: Metadata,
-            tags: IMetadataTag[],
+            tags: IMetadataCommentTag[],
             comments: ICommentTag[],
         ): ts.Expression => {
             const generator: ts.Expression = ts.factory.createCallExpression(
@@ -60,7 +60,11 @@ export namespace RandomJoiner {
 
     export const tuple =
         (decoder: Decoder) =>
-        (items: Metadata[], tags: IMetadataTag[], comments: ICommentTag[]) =>
+        (
+            items: Metadata[],
+            tags: IMetadataCommentTag[],
+            comments: ICommentTag[],
+        ) =>
             ts.factory.createArrayLiteralExpression(
                 items.map((i) => decoder(i.rest ?? i, tags, comments)),
                 true,

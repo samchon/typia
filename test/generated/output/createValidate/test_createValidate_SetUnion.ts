@@ -23,7 +23,7 @@ export const test_validate_SetUnion = _test_validate("SetUnion")<SetUnion>(
                         if (0 === elem.size) return true;
                         const arrayPredicators = [
                             [
-                                (top: any): any => "boolean" === typeof top,
+                                (top: any[]): any => "boolean" === typeof top,
                                 (entire: any[]): any =>
                                     entire.every(
                                         (elem: any) =>
@@ -31,7 +31,7 @@ export const test_validate_SetUnion = _test_validate("SetUnion")<SetUnion>(
                                     ),
                             ],
                             [
-                                (top: any): any =>
+                                (top: any[]): any =>
                                     "number" === typeof top &&
                                     Number.isFinite(top),
                                 (entire: any[]): any =>
@@ -42,14 +42,14 @@ export const test_validate_SetUnion = _test_validate("SetUnion")<SetUnion>(
                                     ),
                             ],
                             [
-                                (top: any): any => "string" === typeof top,
+                                (top: any[]): any => "string" === typeof top,
                                 (entire: any[]): any =>
                                     entire.every(
                                         (elem: any) => "string" === typeof elem,
                                     ),
                             ],
                             [
-                                (top: any): any =>
+                                (top: any[]): any =>
                                     Array.isArray(top) &&
                                     top.every(
                                         (elem: any) =>
@@ -68,7 +68,7 @@ export const test_validate_SetUnion = _test_validate("SetUnion")<SetUnion>(
                                     ),
                             ],
                             [
-                                (top: any): any =>
+                                (top: any[]): any =>
                                     "object" === typeof top &&
                                     null !== top &&
                                     $io0(top),
@@ -154,7 +154,7 @@ export const test_validate_SetUnion = _test_validate("SetUnion")<SetUnion>(
                                         if (0 === elem.size) return true;
                                         const arrayPredicators = [
                                             [
-                                                (top: any): any =>
+                                                (top: any[]): any =>
                                                     "boolean" === typeof top,
                                                 (entire: any[]): any =>
                                                     entire
@@ -184,7 +184,7 @@ export const test_validate_SetUnion = _test_validate("SetUnion")<SetUnion>(
                                                         ),
                                             ],
                                             [
-                                                (top: any): any =>
+                                                (top: any[]): any =>
                                                     "number" === typeof top &&
                                                     Number.isFinite(top),
                                                 (entire: any[]): any =>
@@ -218,7 +218,7 @@ export const test_validate_SetUnion = _test_validate("SetUnion")<SetUnion>(
                                                         ),
                                             ],
                                             [
-                                                (top: any): any =>
+                                                (top: any[]): any =>
                                                     "string" === typeof top,
                                                 (entire: any[]): any =>
                                                     entire
@@ -248,7 +248,7 @@ export const test_validate_SetUnion = _test_validate("SetUnion")<SetUnion>(
                                                         ),
                                             ],
                                             [
-                                                (top: any): any =>
+                                                (top: any[]): any =>
                                                     Array.isArray(top) &&
                                                     top
                                                         .map(
@@ -345,14 +345,10 @@ export const test_validate_SetUnion = _test_validate("SetUnion")<SetUnion>(
                                                         ),
                                             ],
                                             [
-                                                (top: any): any =>
+                                                (top: any[]): any =>
                                                     "object" === typeof top &&
                                                     null !== top &&
-                                                    $vo0(
-                                                        top,
-                                                        _path + "[0]",
-                                                        false,
-                                                    ),
+                                                    $vo0(top, _path, false),
                                                 (entire: any[]): any =>
                                                     entire
                                                         .map(

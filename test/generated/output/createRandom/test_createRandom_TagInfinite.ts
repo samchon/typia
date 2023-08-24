@@ -66,6 +66,7 @@ export const test_random_TagInfinite = _test_random("TagInfinite")<TagInfinite>(
                 "number" === typeof (input as any).value &&
                 Number.isFinite((input as any).value) &&
                 "number" === typeof (input as any).ranged &&
+                Number.isFinite((input as any).ranged) &&
                 0 <= (input as any).ranged &&
                 100 >= (input as any).ranged &&
                 "number" === typeof (input as any).minimum &&
@@ -75,6 +76,7 @@ export const test_random_TagInfinite = _test_random("TagInfinite")<TagInfinite>(
                 Number.isFinite((input as any).maximum) &&
                 100 >= (input as any).maximum &&
                 "number" === typeof (input as any).multipleOf &&
+                Number.isFinite((input as any).multipleOf) &&
                 0 === (input as any).multipleOf % 3 &&
                 "number" === typeof (input as any).typed &&
                 Number.isFinite((input as any).typed) &&
@@ -103,6 +105,7 @@ export const test_random_TagInfinite = _test_random("TagInfinite")<TagInfinite>(
                             value: input.value,
                         })) &&
                     (("number" === typeof input.ranged &&
+                        Number.isFinite(input.ranged) &&
                         (0 <= input.ranged ||
                             $guard(_exceptionable, {
                                 path: _path + ".ranged",
@@ -147,6 +150,7 @@ export const test_random_TagInfinite = _test_random("TagInfinite")<TagInfinite>(
                             value: input.maximum,
                         })) &&
                     (("number" === typeof input.multipleOf &&
+                        Number.isFinite(input.multipleOf) &&
                         (0 === input.multipleOf % 3 ||
                             $guard(_exceptionable, {
                                 path: _path + ".multipleOf",

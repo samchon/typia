@@ -46,9 +46,9 @@ const iterate =
         // SORT ARRAYS AND TUPLES
         if (meta.arrays.length > 1)
             meta.arrays.sort((x, y) =>
-                Metadata.covers(x.value, y.value)
+                Metadata.covers(x.type.value, y.type.value)
                     ? -1
-                    : Metadata.covers(y.value, x.value)
+                    : Metadata.covers(y.type.value, x.type.value)
                     ? 1
                     : 0,
             );

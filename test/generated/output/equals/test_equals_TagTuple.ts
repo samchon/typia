@@ -13,6 +13,7 @@ export const test_equals_TagTuple = _test_equals("TagTuple")<TagTuple>(
             3 <= input.tuple[0].length &&
             7 >= input.tuple[0].length &&
             "number" === typeof input.tuple[1] &&
+            Number.isFinite(input.tuple[1]) &&
             3 <= input.tuple[1] &&
             7 >= input.tuple[1] &&
             Array.isArray(input.tuple[2]) &&
@@ -29,7 +30,10 @@ export const test_equals_TagTuple = _test_equals("TagTuple")<TagTuple>(
             7 >= input.tuple[3].length &&
             input.tuple[3].every(
                 (elem: any, _index2: number) =>
-                    "number" === typeof elem && 3 <= elem && 7 >= elem,
+                    "number" === typeof elem &&
+                    Number.isFinite(elem) &&
+                    3 <= elem &&
+                    7 >= elem,
             ) &&
             (1 === Object.keys(input).length ||
                 Object.keys(input).every((key: any) => {

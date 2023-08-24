@@ -5872,7 +5872,7 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
                     else
                         $throws({
                             expected:
-                                "(IMetadataTag.IMaxItems | IMetadataTag.IMinItems | IMetadataTag.IItems | IMetadataTag.IMaxLength | IMetadataTag.IMinLength | IMetadataTag.ILength | IMetadataTag.IPattern | IMetadataTag.IFormat | IMetadataTag.IStep | IMetadataTag.IMultipleOf | IMetadataTag.IExclusiveMaximum | IMetadataTag.IExclusiveMinimum | IMetadataTag.IMaximum | IMetadataTag.IMinimum | IMetadataTag.INumberType)",
+                                "(IMetadataCommentTag.IMaxItems | IMetadataCommentTag.IMinItems | IMetadataCommentTag.IItems | IMetadataCommentTag.IMaxLength | IMetadataCommentTag.IMinLength | IMetadataCommentTag.ILength | IMetadataCommentTag.IPattern | IMetadataCommentTag.IFormat | IMetadataCommentTag.IStep | IMetadataCommentTag.IMultipleOf | IMetadataCommentTag.IExclusiveMaximum | IMetadataCommentTag.IExclusiveMinimum | IMetadataCommentTag.IMaximum | IMetadataCommentTag.IMinimum | IMetadataCommentTag.INumberType)",
                             value: input,
                         });
                 })();

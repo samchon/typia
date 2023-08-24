@@ -1,7 +1,7 @@
 import ts from "typescript";
 
 import { Metadata } from "../../../schemas/metadata/Metadata";
-import { MetadataTuple } from "../../../schemas/metadata/MetadataTuple";
+import { MetadataTupleType } from "../../../schemas/metadata/MetadataTupleType";
 
 import { Writable } from "../../../typings/Writable";
 
@@ -15,7 +15,7 @@ export const emplace_metadata_tuple =
     (checker: ts.TypeChecker) =>
     (options: MetadataFactory.IOptions) =>
     (collection: MetadataCollection) =>
-    (type: ts.TupleType, nullable: boolean): MetadataTuple => {
+    (type: ts.TupleType, nullable: boolean): MetadataTupleType => {
         // CHECK EXISTENCE
         const [tuple, newbie, closure] = collection.emplaceTuple(checker, type);
         ArrayUtil.add(tuple.nullables, nullable);

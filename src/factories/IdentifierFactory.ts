@@ -17,6 +17,21 @@ export namespace IdentifierFactory {
             : ts.factory.createPropertyAccessExpression(target, postfix);
     };
 
+    export const getName = (input: ts.Expression): string => {
+        const value: any = (input as any).escapedText?.toString();
+        if (typeof value === "string") return value;
+
+        if (ts.isPropertyAccessExpression(input))
+            return `${getName(
+                input.expression,
+            )}.${input.name.escapedText.toString()}`;
+        else if (ts.isElementAccessExpression(input))
+            return `${getName(input.expression)}[${getName(
+                input.argumentExpression,
+            )}]`;
+        return "uknown";
+    };
+
     export const postfix = (str: string): string =>
         Escaper.variable(str)
             ? `".${str}"`

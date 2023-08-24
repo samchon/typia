@@ -76,16 +76,20 @@ export const test_protobuf_assertDecode_TagStep = _test_protobuf_assertDecode(
                     );
                 const $io1 = (input: any): boolean =>
                     "number" === typeof input.exclusiveMinimum &&
+                    Number.isFinite(input.exclusiveMinimum) &&
                     0 === (input.exclusiveMinimum % 5) - 3 &&
                     3 < input.exclusiveMinimum &&
                     "number" === typeof input.minimum &&
+                    Number.isFinite(input.minimum) &&
                     0 === (input.minimum % 5) - 3 &&
                     3 <= input.minimum &&
                     "number" === typeof input.range &&
+                    Number.isFinite(input.range) &&
                     0 === (input.range % 5) - 0 &&
                     0 < input.range &&
                     100 > input.range &&
                     "number" === typeof input.multipleOf &&
+                    Number.isFinite(input.multipleOf) &&
                     0 === input.multipleOf % 5 &&
                     3 <= input.multipleOf &&
                     99 >= input.multipleOf;
@@ -147,6 +151,7 @@ export const test_protobuf_assertDecode_TagStep = _test_protobuf_assertDecode(
                         _exceptionable: boolean = true,
                     ): boolean =>
                         (("number" === typeof input.exclusiveMinimum &&
+                            Number.isFinite(input.exclusiveMinimum) &&
                             (0 === (input.exclusiveMinimum % 5) - 3 ||
                                 $guard(_exceptionable, {
                                     path: _path + ".exclusiveMinimum",
@@ -165,6 +170,7 @@ export const test_protobuf_assertDecode_TagStep = _test_protobuf_assertDecode(
                                 value: input.exclusiveMinimum,
                             })) &&
                         (("number" === typeof input.minimum &&
+                            Number.isFinite(input.minimum) &&
                             (0 === (input.minimum % 5) - 3 ||
                                 $guard(_exceptionable, {
                                     path: _path + ".minimum",
@@ -183,6 +189,7 @@ export const test_protobuf_assertDecode_TagStep = _test_protobuf_assertDecode(
                                 value: input.minimum,
                             })) &&
                         (("number" === typeof input.range &&
+                            Number.isFinite(input.range) &&
                             (0 === (input.range % 5) - 0 ||
                                 $guard(_exceptionable, {
                                     path: _path + ".range",
@@ -207,6 +214,7 @@ export const test_protobuf_assertDecode_TagStep = _test_protobuf_assertDecode(
                                 value: input.range,
                             })) &&
                         (("number" === typeof input.multipleOf &&
+                            Number.isFinite(input.multipleOf) &&
                             (0 === input.multipleOf % 5 ||
                                 $guard(_exceptionable, {
                                     path: _path + ".multipleOf",

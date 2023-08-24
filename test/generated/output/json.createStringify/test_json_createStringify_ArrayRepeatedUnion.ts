@@ -32,14 +32,14 @@ export const test_json_stringify_ArrayRepeatedUnion = _test_json_stringify(
             if (0 === input.length) return "[]";
             const arrayPredicators = [
                 [
-                    (top: any): any => "string" === typeof top,
+                    (top: any[]): any => "string" === typeof top,
                     (entire: any[]): any =>
                         `[${entire
                             .map((elem: any) => $string(elem))
                             .join(",")}]`,
                 ],
                 [
-                    (top: any): any =>
+                    (top: any[]): any =>
                         null !== top &&
                         undefined !== top &&
                         ("number" === typeof top ||
@@ -48,7 +48,7 @@ export const test_json_stringify_ArrayRepeatedUnion = _test_json_stringify(
                     (entire: any[]): any => $sa0(entire),
                 ],
                 [
-                    (top: any): any =>
+                    (top: any[]): any =>
                         "object" === typeof top && null !== top && $io0(top),
                     (entire: any[]): any =>
                         `[${entire.map((elem: any) => $so0(elem)).join(",")}]`,

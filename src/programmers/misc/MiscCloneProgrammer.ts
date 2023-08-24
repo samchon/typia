@@ -8,10 +8,12 @@ import { StatementFactory } from "../../factories/StatementFactory";
 import { TypeFactory } from "../../factories/TypeFactory";
 
 import { IJsDocTagInfo } from "../../schemas/metadata/IJsDocTagInfo";
-import { IMetadataTag } from "../../schemas/metadata/IMetadataTag";
+import { IMetadataCommentTag } from "../../schemas/metadata/IMetadataCommentTag";
 import { Metadata } from "../../schemas/metadata/Metadata";
 import { MetadataArray } from "../../schemas/metadata/MetadataArray";
+import { MetadataArrayType } from "../../schemas/metadata/MetadataArrayType";
 import { MetadataTuple } from "../../schemas/metadata/MetadataTuple";
+import { MetadataTupleType } from "../../schemas/metadata/MetadataTupleType";
 
 import { IProject } from "../../transformers/IProject";
 
@@ -120,8 +122,8 @@ export namespace MiscCloneProgrammer {
             // ANY TYPE
             if (
                 meta.any ||
-                meta.arrays.some((a) => a.value.any) ||
-                meta.tuples.some((t) => t.elements.every((e) => e.any))
+                meta.arrays.some((a) => a.type.value.any) ||
+                meta.tuples.some((t) => t.type.elements.every((e) => e.any))
             )
                 return ts.factory.createCallExpression(
                     importer.use("any"),
@@ -268,10 +270,12 @@ export namespace MiscCloneProgrammer {
             array: MetadataArray,
             explore: FeatureProgrammer.IExplore,
         ) =>
-            array.recursive
+            array.type.recursive
                 ? ts.factory.createCallExpression(
                       ts.factory.createIdentifier(
-                          importer.useLocal(`${config.prefix}a${array.index}`),
+                          importer.useLocal(
+                              `${config.prefix}a${array.type.index}`,
+                          ),
                       ),
                       undefined,
                       FeatureProgrammer.argumentsArray(config)({
@@ -280,14 +284,18 @@ export namespace MiscCloneProgrammer {
                           from: "array",
                       })(input),
                   )
-                : decode_array_inline(config)(importer)(input, array, explore);
+                : decode_array_inline(config)(importer)(
+                      input,
+                      array.type,
+                      explore,
+                  );
 
     const decode_array_inline =
         (config: FeatureProgrammer.IConfig) =>
         (importer: FunctionImporter) =>
         (
             input: ts.Expression,
-            array: MetadataArray,
+            array: MetadataArrayType,
             explore: FeatureProgrammer.IExplore,
         ) =>
             FeatureProgrammer.decode_array(config)(importer)(CloneJoiner.array)(
@@ -307,10 +315,12 @@ export namespace MiscCloneProgrammer {
             tuple: MetadataTuple,
             explore: FeatureProgrammer.IExplore,
         ): ts.Expression =>
-            tuple.recursive
+            tuple.type.recursive
                 ? ts.factory.createCallExpression(
                       ts.factory.createIdentifier(
-                          importer.useLocal(`${config.prefix}t${tuple.index}`),
+                          importer.useLocal(
+                              `${config.prefix}t${tuple.type.index}`,
+                          ),
                       ),
                       undefined,
                       FeatureProgrammer.argumentsArray(config)({
@@ -320,7 +330,7 @@ export namespace MiscCloneProgrammer {
                   )
                 : decode_tuple_inline(project)(config)(importer)(
                       input,
-                      tuple,
+                      tuple.type,
                       explore,
                   );
 
@@ -330,7 +340,7 @@ export namespace MiscCloneProgrammer {
         (importer: FunctionImporter) =>
         (
             input: ts.Expression,
-            tuple: MetadataTuple,
+            tuple: MetadataTupleType,
             explore: FeatureProgrammer.IExplore,
         ): ts.Expression => {
             const children: ts.Expression[] = tuple.elements
@@ -627,7 +637,7 @@ export namespace MiscCloneProgrammer {
                 input: ts.Expression,
                 elements: T[],
                 explore: FeatureProgrammer.IExplore,
-                tags: IMetadataTag[],
+                tags: IMetadataCommentTag[],
                 jsDocTags: IJsDocTagInfo[],
             ) => ts.ArrowFunction,
         ) =>
@@ -641,7 +651,7 @@ export namespace MiscCloneProgrammer {
                 (explore: FeatureProgrammer.IExplore) =>
                 (input: ts.Expression): ts.ArrowFunction =>
                     factory(parameters)(input, elements, explore, [], []);
-            if (elements.every((e) => e.recursive === false))
+            if (elements.every((e) => e.type.recursive === false))
                 ts.factory.createCallExpression(
                     arrow([])(explore)(input),
                     undefined,
@@ -657,7 +667,7 @@ export namespace MiscCloneProgrammer {
                 ts.factory.createIdentifier(
                     importer.emplaceUnion(
                         config.prefix,
-                        elements.map((e) => e.name).join(" | "),
+                        elements.map((e) => e.type.name).join(" | "),
                         () =>
                             arrow(
                                 FeatureProgrammer.parameterDeclarations(config)(

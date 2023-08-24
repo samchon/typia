@@ -42,14 +42,14 @@ export const test_json_stringify_ArrayRepeatedUnionWithTuple =
                 if (0 === input.length) return "[]";
                 const arrayPredicators = [
                     [
-                        (top: any): any => "string" === typeof top,
+                        (top: any[]): any => "string" === typeof top,
                         (entire: any[]): any =>
                             `[${entire
                                 .map((elem: any) => $string(elem))
                                 .join(",")}]`,
                     ],
                     [
-                        (top: any): any =>
+                        (top: any[]): any =>
                             null !== top &&
                             undefined !== top &&
                             ("number" === typeof top ||
@@ -58,7 +58,7 @@ export const test_json_stringify_ArrayRepeatedUnionWithTuple =
                         (entire: any[]): any => $sa0(entire),
                     ],
                     [
-                        (top: any): any =>
+                        (top: any[]): any =>
                             "object" === typeof top &&
                             null !== top &&
                             $io0(top),
@@ -124,14 +124,14 @@ export const test_json_stringify_ArrayRepeatedUnionWithTuple =
                 if (0 === input.length) return true;
                 const arrayPredicators = [
                     [
-                        (top: any): any => "string" === typeof top,
+                        (top: any[]): any => "string" === typeof top,
                         (entire: any[]): any =>
                             entire.every(
                                 (elem: any) => "string" === typeof elem,
                             ),
                     ],
                     [
-                        (top: any): any =>
+                        (top: any[]): any =>
                             null !== top &&
                             undefined !== top &&
                             ("number" === typeof top ||
@@ -140,7 +140,7 @@ export const test_json_stringify_ArrayRepeatedUnionWithTuple =
                         (entire: any[]): any => $ia0(entire) || false,
                     ],
                     [
-                        (top: any): any =>
+                        (top: any[]): any =>
                             "object" === typeof top &&
                             null !== top &&
                             $io0(top),

@@ -6,7 +6,6 @@ export const test_json_stringify_ObjectJsonTag = _test_json_stringify(
     "ObjectJsonTag",
 )<ObjectJsonTag>(ObjectJsonTag)((input: ObjectJsonTag): string => {
     const $string = (typia.json.createStringify as any).string;
-    const $is_custom = (typia.json.createStringify as any).is_custom;
     return `{"vulnerable":${$string(
         (input as any).vulnerable,
     )},"description":${$string((input as any).description)},"title":${$string(

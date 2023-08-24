@@ -7,30 +7,16 @@ export const test_misc_isClone_ObjectJsonTag = _test_misc_isClone(
 )<ObjectJsonTag>(ObjectJsonTag)(
     (input: any): typia.Resolved<ObjectJsonTag> | null => {
         const is = (input: any): input is ObjectJsonTag => {
-            const $is_custom = (typia.misc.createIsClone as any).is_custom;
             return (
                 "object" === typeof input &&
                 null !== input &&
                 "string" === typeof (input as any).vulnerable &&
-                $is_custom(
-                    "deprecated",
-                    "string",
-                    "",
-                    (input as any).vulnerable,
-                ) &&
                 "string" === typeof (input as any).description &&
                 "string" === typeof (input as any).title &&
-                $is_custom(
-                    "title",
-                    "string",
-                    "something",
-                    (input as any).title,
-                ) &&
                 "string" === typeof (input as any).complicate_title
             );
         };
         const clone = (input: ObjectJsonTag): typia.Resolved<ObjectJsonTag> => {
-            const $is_custom = (typia.misc.createIsClone as any).is_custom;
             const $co0 = (input: any): any => ({
                 vulnerable: input.vulnerable as any,
                 description: input.description as any,

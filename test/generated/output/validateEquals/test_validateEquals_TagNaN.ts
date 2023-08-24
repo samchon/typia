@@ -18,6 +18,7 @@ export const test_validateEquals_TagNaN = _test_validateEquals(
                 "number" === typeof input.value &&
                 Number.isFinite(input.value) &&
                 "number" === typeof input.ranged &&
+                Number.isFinite(input.ranged) &&
                 0 <= input.ranged &&
                 100 >= input.ranged &&
                 "number" === typeof input.minimum &&
@@ -27,6 +28,7 @@ export const test_validateEquals_TagNaN = _test_validateEquals(
                 Number.isFinite(input.maximum) &&
                 100 >= input.maximum &&
                 "number" === typeof input.multipleOf &&
+                Number.isFinite(input.multipleOf) &&
                 0 === input.multipleOf % 3 &&
                 "number" === typeof input.typed &&
                 Number.isFinite(input.typed) &&
@@ -76,6 +78,7 @@ export const test_validateEquals_TagNaN = _test_validateEquals(
                                 value: input.value,
                             }),
                         ("number" === typeof input.ranged &&
+                            Number.isFinite(input.ranged) &&
                             (0 <= input.ranged ||
                                 $report(_exceptionable, {
                                     path: _path + ".ranged",
@@ -120,6 +123,7 @@ export const test_validateEquals_TagNaN = _test_validateEquals(
                                 value: input.maximum,
                             }),
                         ("number" === typeof input.multipleOf &&
+                            Number.isFinite(input.multipleOf) &&
                             (0 === input.multipleOf % 3 ||
                                 $report(_exceptionable, {
                                     path: _path + ".multipleOf",

@@ -46,9 +46,9 @@ const is_date =
 
         return (
             meta.natives.some((name) => name === "Date") ||
-            meta.arrays.some((array) => is_date(visited)(array.value)) ||
+            meta.arrays.some((array) => is_date(visited)(array.type.value)) ||
             meta.tuples.some((tuple) =>
-                tuple.elements.some(is_date(visited)),
+                tuple.type.elements.some(is_date(visited)),
             ) ||
             meta.aliases.some((alias) => is_date(visited)(alias.value))
         );

@@ -9,7 +9,6 @@ export const test_json_stringify_TagDefault = _test_json_stringify(
         const $number = (typia.json.stringify as any).number;
         const $string = (typia.json.stringify as any).string;
         const $throws = (typia.json.stringify as any).throws;
-        const $is_custom = (typia.json.stringify as any).is_custom;
         const $so0 = (input: any): any =>
             `{"boolean":${input.boolean},"number":${$number(
                 input.number,

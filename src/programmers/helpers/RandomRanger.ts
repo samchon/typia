@@ -1,6 +1,6 @@
 import ts from "typescript";
 
-import { IMetadataTag } from "../../schemas/metadata/IMetadataTag";
+import { IMetadataCommentTag } from "../../schemas/metadata/IMetadataCommentTag";
 
 export namespace RandomRanger {
     export interface IDefaults {
@@ -13,7 +13,7 @@ export namespace RandomRanger {
         (coalesce: (method: string) => ts.Expression) =>
         (defs: IDefaults) =>
         (acc: length.IAccessors) =>
-        (tags: IMetadataTag[]): ts.Expression | undefined => {
+        (tags: IMetadataCommentTag[]): ts.Expression | undefined => {
             const props = {
                 fixed: getter(tags)(acc.fixed),
                 minimum: getter(tags)(acc.minimum),
@@ -40,16 +40,16 @@ export namespace RandomRanger {
         };
     export namespace length {
         export interface IAccessors {
-            minimum: IMetadataTag["kind"];
-            maximum: IMetadataTag["kind"];
-            fixed: IMetadataTag["kind"];
+            minimum: IMetadataCommentTag["kind"];
+            maximum: IMetadataCommentTag["kind"];
+            fixed: IMetadataCommentTag["kind"];
         }
     }
 
     export const number =
         (config: number.IConfig) =>
         (defs: IDefaults) =>
-        (tags: IMetadataTag[]): ts.Expression => {
+        (tags: IMetadataCommentTag[]): ts.Expression => {
             const range = {
                 minimum: {
                     value:
@@ -151,8 +151,8 @@ export namespace RandomRanger {
 }
 
 const getter =
-    (tags: IMetadataTag[]) =>
-    (kind: IMetadataTag["kind"]): number | undefined =>
+    (tags: IMetadataCommentTag[]) =>
+    (kind: IMetadataCommentTag["kind"]): number | undefined =>
         tags.find((t) => t.kind === kind)?.value as number | undefined;
 
 const stepper = (gap: number) => (range: IRange) => (s: number) => {

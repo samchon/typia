@@ -14,14 +14,14 @@ export const test_validate_ArrayRepeatedUnion = _test_validate(
                 if (0 === input.length) return true;
                 const arrayPredicators = [
                     [
-                        (top: any): any => "string" === typeof top,
+                        (top: any[]): any => "string" === typeof top,
                         (entire: any[]): any =>
                             entire.every(
                                 (elem: any) => "string" === typeof elem,
                             ),
                     ],
                     [
-                        (top: any): any =>
+                        (top: any[]): any =>
                             null !== top &&
                             undefined !== top &&
                             (("number" === typeof top &&
@@ -31,7 +31,7 @@ export const test_validate_ArrayRepeatedUnion = _test_validate(
                         (entire: any[]): any => $ia0(entire) || false,
                     ],
                     [
-                        (top: any): any =>
+                        (top: any[]): any =>
                             "object" === typeof top &&
                             null !== top &&
                             $io0(top),
@@ -123,7 +123,7 @@ export const test_validate_ArrayRepeatedUnion = _test_validate(
                     if (0 === input.length) return true;
                     const arrayPredicators = [
                         [
-                            (top: any): any => "string" === typeof top,
+                            (top: any[]): any => "string" === typeof top,
                             (entire: any[]): any =>
                                 entire
                                     .map(
@@ -139,7 +139,7 @@ export const test_validate_ArrayRepeatedUnion = _test_validate(
                                     .every((flag: boolean) => flag),
                         ],
                         [
-                            (top: any): any =>
+                            (top: any[]): any =>
                                 null !== top &&
                                 undefined !== top &&
                                 (("number" === typeof top &&
@@ -148,11 +148,11 @@ export const test_validate_ArrayRepeatedUnion = _test_validate(
                                     (Array.isArray(top) &&
                                         ($vp0(
                                             top,
-                                            _path + "[0]",
+                                            _path,
                                             false && _exceptionable,
                                         ) ||
                                             $report(_exceptionable, {
-                                                path: _path + "[0]",
+                                                path: _path,
                                                 expected:
                                                     "Array<string> | Array<ArrayRepeatedUnion> | Array<ArrayRepeatedUnion.IBox3D>",
                                                 value: top,
@@ -166,14 +166,10 @@ export const test_validate_ArrayRepeatedUnion = _test_validate(
                                 }),
                         ],
                         [
-                            (top: any): any =>
+                            (top: any[]): any =>
                                 "object" === typeof top &&
                                 null !== top &&
-                                $vo0(
-                                    top,
-                                    _path + "[0]",
-                                    false && _exceptionable,
-                                ),
+                                $vo0(top, _path, false && _exceptionable),
                             (entire: any[]): any =>
                                 entire
                                     .map(

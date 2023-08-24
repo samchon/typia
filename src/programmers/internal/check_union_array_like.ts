@@ -4,8 +4,9 @@ import { IdentifierFactory } from "../../factories/IdentifierFactory";
 import { StatementFactory } from "../../factories/StatementFactory";
 import { TypeFactory } from "../../factories/TypeFactory";
 
-import { IMetadataTag } from "../../schemas/metadata/IMetadataTag";
+import { IMetadataCommentTag } from "../../schemas/metadata/IMetadataCommentTag";
 import { MetadataArray } from "../../schemas/metadata/MetadataArray";
+import { MetadataArrayType } from "../../schemas/metadata/MetadataArrayType";
 import { MetadataTuple } from "../../schemas/metadata/MetadataTuple";
 
 import { CheckerProgrammer } from "../CheckerProgrammer";
@@ -25,7 +26,7 @@ export const check_union_array_like =
         input: ts.Expression,
         origins: Origin[],
         explore: FeatureProgrammer.IExplore,
-        tags: IMetadataTag[],
+        tags: IMetadataCommentTag[],
         jsDocTags: ts.JSDocTagInfo[],
     ): ts.ArrowFunction => {
         // ONLY ONE TYPE
@@ -66,7 +67,7 @@ export const check_union_array_like =
                         [
                             IdentifierFactory.parameter(
                                 "top",
-                                meta instanceof MetadataArray
+                                meta instanceof MetadataArrayType
                                     ? TypeFactory.keyword("any")
                                     : ts.factory.createTypeReferenceNode(
                                           "any[]",
@@ -82,7 +83,7 @@ export const check_union_array_like =
                                 ...explore,
                                 tracable: false,
                                 postfix:
-                                    meta instanceof MetadataArray
+                                    meta instanceof MetadataArrayType
                                         ? `"[0]"`
                                         : "",
                             },
@@ -300,7 +301,7 @@ export namespace check_union_array_like {
             front: ts.Expression,
             target: Element,
             explore: FeatureProgrammer.IExplore,
-            tags: IMetadataTag[],
+            tags: IMetadataCommentTag[],
             jsDocTags: ts.JSDocTagInfo[],
             container: ts.Expression,
         ): ts.Expression;

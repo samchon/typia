@@ -2,22 +2,21 @@ import ts from "typescript";
 
 import { ExpressionFactory } from "../../factories/ExpressionFactory";
 
-import { IJsDocTagInfo } from "../../schemas/metadata/IJsDocTagInfo";
-import { IMetadataTag } from "../../schemas/metadata/IMetadataTag";
+import { IMetadataCommentTag } from "../../schemas/metadata/IMetadataCommentTag";
+import { IMetadataTypeTag } from "../../schemas/metadata/IMetadataTypeTag";
 
-import { FunctionImporter } from "../helpers/FunctionImporeter";
+import { IProject } from "../../transformers/IProject";
+
 import { ICheckEntry } from "../helpers/ICheckEntry";
-import { check_custom } from "./check_custom";
 
 /**
  * @internal
  */
 export const check_bigint =
-    (importer: FunctionImporter) =>
-    (metaTags: IMetadataTag[]) =>
-    (jsDocTag: IJsDocTagInfo[]) =>
+    (project: IProject) =>
+    (matrix: IMetadataTypeTag[][], metaTags: IMetadataCommentTag[]) =>
     (input: ts.Expression): ICheckEntry => {
-        const entries: [IMetadataTag, ts.Expression][] = [];
+        const entries: [IMetadataCommentTag, ts.Expression][] = [];
         for (const tag of metaTags) {
             if (tag.kind === "type" && tag.value === "uint64")
                 entries.push([
@@ -95,16 +94,45 @@ export const check_bigint =
                 ]);
         }
         return {
-            expression: ts.factory.createStrictEquality(
+            expression: is_bigint(project)(matrix)(input),
+            tags: matrix.length
+                ? []
+                : entries.map(([tag, expression]) => ({
+                      expected: `bigint (@${tag.kind} ${tag.value})`,
+                      expression,
+                  })),
+        };
+    };
+
+const is_bigint =
+    (project: IProject) =>
+    (matrix: IMetadataTypeTag[][]) =>
+    (input: ts.Expression) => {
+        // BASIC TYPEOF EXPRESSION
+        const conditions: ts.Expression[] = [
+            ts.factory.createStrictEquality(
                 ts.factory.createStringLiteral("bigint"),
                 ts.factory.createTypeOfExpression(input),
             ),
-            tags: [
-                ...entries.map(([tag, expression]) => ({
-                    expected: `bigint (@${tag.kind} ${tag.value})`,
-                    expression,
-                })),
-                ...check_custom("bigint")(importer)(jsDocTag)(input),
-            ],
-        };
+        ];
+
+        // ADJUST TYPED TAGS
+        if (matrix.length) {
+            const logic: ts.Expression = matrix
+                .map((row) =>
+                    row
+                        .map((tag) =>
+                            ExpressionFactory.transpile(project.context)(
+                                tag.validate,
+                            )(input),
+                        )
+                        .reduce((a, b) => ts.factory.createLogicalAnd(a, b)),
+                )
+                .reduce((a, b) => ts.factory.createLogicalOr(a, b));
+            conditions.push(logic);
+        }
+
+        return conditions.length === 1
+            ? conditions[0]!
+            : conditions.reduce((x, y) => ts.factory.createLogicalAnd(x, y));
     };

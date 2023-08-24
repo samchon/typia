@@ -22,7 +22,7 @@ export const test_misc_isClone_SetUnion = _test_misc_isClone(
                         if (0 === elem.size) return true;
                         const arrayPredicators = [
                             [
-                                (top: any): any => "boolean" === typeof top,
+                                (top: any[]): any => "boolean" === typeof top,
                                 (entire: any[]): any =>
                                     entire.every(
                                         (elem: any) =>
@@ -30,7 +30,7 @@ export const test_misc_isClone_SetUnion = _test_misc_isClone(
                                     ),
                             ],
                             [
-                                (top: any): any =>
+                                (top: any[]): any =>
                                     "number" === typeof top &&
                                     Number.isFinite(top),
                                 (entire: any[]): any =>
@@ -41,14 +41,14 @@ export const test_misc_isClone_SetUnion = _test_misc_isClone(
                                     ),
                             ],
                             [
-                                (top: any): any => "string" === typeof top,
+                                (top: any[]): any => "string" === typeof top,
                                 (entire: any[]): any =>
                                     entire.every(
                                         (elem: any) => "string" === typeof elem,
                                     ),
                             ],
                             [
-                                (top: any): any =>
+                                (top: any[]): any =>
                                     Array.isArray(top) &&
                                     top.every(
                                         (elem: any) =>
@@ -67,7 +67,7 @@ export const test_misc_isClone_SetUnion = _test_misc_isClone(
                                     ),
                             ],
                             [
-                                (top: any): any =>
+                                (top: any[]): any =>
                                     "object" === typeof top &&
                                     null !== top &&
                                     $io0(top),
@@ -113,7 +113,7 @@ export const test_misc_isClone_SetUnion = _test_misc_isClone(
                           if (0 === elem.size) return new Set<any>();
                           const arrayPredicators = [
                               [
-                                  (top: any): any => "boolean" === typeof top,
+                                  (top: any[]): any => "boolean" === typeof top,
                                   (entire: any[]): any =>
                                       new Set<any>(
                                           entire.map(
@@ -122,7 +122,7 @@ export const test_misc_isClone_SetUnion = _test_misc_isClone(
                                       ),
                               ],
                               [
-                                  (top: any): any => "number" === typeof top,
+                                  (top: any[]): any => "number" === typeof top,
                                   (entire: any[]): any =>
                                       new Set<any>(
                                           entire.map(
@@ -131,7 +131,7 @@ export const test_misc_isClone_SetUnion = _test_misc_isClone(
                                       ),
                               ],
                               [
-                                  (top: any): any => "string" === typeof top,
+                                  (top: any[]): any => "string" === typeof top,
                                   (entire: any[]): any =>
                                       new Set<any>(
                                           entire.map(
@@ -140,7 +140,7 @@ export const test_misc_isClone_SetUnion = _test_misc_isClone(
                                       ),
                               ],
                               [
-                                  (top: any): any =>
+                                  (top: any[]): any =>
                                       Array.isArray(top) &&
                                       top.every(
                                           (elem: any) =>
@@ -156,7 +156,7 @@ export const test_misc_isClone_SetUnion = _test_misc_isClone(
                                       ),
                               ],
                               [
-                                  (top: any): any =>
+                                  (top: any[]): any =>
                                       "object" === typeof top &&
                                       null !== top &&
                                       $io0(top),

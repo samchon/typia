@@ -13,27 +13,12 @@ export const test_protobuf_validateEncode_ObjectJsonTag =
                 ): typia.IValidation<ObjectJsonTag> => {
                     const errors = [] as any[];
                     const __is = (input: any): input is ObjectJsonTag => {
-                        const $is_custom = (
-                            typia.protobuf.validateEncode as any
-                        ).is_custom;
                         return (
                             "object" === typeof input &&
                             null !== input &&
                             "string" === typeof (input as any).vulnerable &&
-                            $is_custom(
-                                "deprecated",
-                                "string",
-                                "",
-                                (input as any).vulnerable,
-                            ) &&
                             "string" === typeof (input as any).description &&
                             "string" === typeof (input as any).title &&
-                            $is_custom(
-                                "title",
-                                "string",
-                                "something",
-                                (input as any).title,
-                            ) &&
                             "string" === typeof (input as any).complicate_title
                         );
                     };
@@ -46,28 +31,13 @@ export const test_protobuf_validateEncode_ObjectJsonTag =
                             _path: string,
                             _exceptionable: boolean = true,
                         ): input is ObjectJsonTag => {
-                            const $is_custom = (
-                                typia.protobuf.validateEncode as any
-                            ).is_custom;
                             const $vo0 = (
                                 input: any,
                                 _path: string,
                                 _exceptionable: boolean = true,
                             ): boolean =>
                                 [
-                                    ("string" === typeof input.vulnerable &&
-                                        ($is_custom(
-                                            "deprecated",
-                                            "string",
-                                            "",
-                                            input.vulnerable,
-                                        ) ||
-                                            $report(_exceptionable, {
-                                                path: _path + ".vulnerable",
-                                                expected:
-                                                    "string (@deprecated)",
-                                                value: input.vulnerable,
-                                            }))) ||
+                                    "string" === typeof input.vulnerable ||
                                         $report(_exceptionable, {
                                             path: _path + ".vulnerable",
                                             expected: "string",
@@ -79,19 +49,7 @@ export const test_protobuf_validateEncode_ObjectJsonTag =
                                             expected: "string",
                                             value: input.description,
                                         }),
-                                    ("string" === typeof input.title &&
-                                        ($is_custom(
-                                            "title",
-                                            "string",
-                                            "something",
-                                            input.title,
-                                        ) ||
-                                            $report(_exceptionable, {
-                                                path: _path + ".title",
-                                                expected:
-                                                    "string (@title something)",
-                                                value: input.title,
-                                            }))) ||
+                                    "string" === typeof input.title ||
                                         $report(_exceptionable, {
                                             path: _path + ".title",
                                             expected: "string",
@@ -130,8 +88,6 @@ export const test_protobuf_validateEncode_ObjectJsonTag =
                     } as any;
                 };
                 const encode = (input: ObjectJsonTag): Uint8Array => {
-                    const $is_custom = (typia.protobuf.validateEncode as any)
-                        .is_custom;
                     const $Sizer = (typia.protobuf.validateEncode as any).Sizer;
                     const $Writer = (typia.protobuf.validateEncode as any)
                         .Writer;

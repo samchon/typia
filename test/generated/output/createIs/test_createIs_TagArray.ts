@@ -36,7 +36,10 @@ export const test_is_TagArray = _test_is("TagArray")<TagArray>(TagArray)(
             10 >= input.equal.length &&
             input.equal.every(
                 (elem: any) =>
-                    "number" === typeof elem && 10 <= elem && 10 >= elem,
+                    "number" === typeof elem &&
+                    Number.isFinite(elem) &&
+                    10 <= elem &&
+                    10 >= elem,
             );
         return "object" === typeof input && null !== input && $io0(input);
     },

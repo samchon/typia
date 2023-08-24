@@ -15,6 +15,7 @@ export const test_json_validateStringify_TagTuple =
                         3 <= input.tuple[0].length &&
                         7 >= input.tuple[0].length &&
                         "number" === typeof input.tuple[1] &&
+                        Number.isFinite(input.tuple[1]) &&
                         3 <= input.tuple[1] &&
                         7 >= input.tuple[1] &&
                         Array.isArray(input.tuple[2]) &&
@@ -32,6 +33,7 @@ export const test_json_validateStringify_TagTuple =
                         input.tuple[3].every(
                             (elem: any) =>
                                 "number" === typeof elem &&
+                                Number.isFinite(elem) &&
                                 3 <= elem &&
                                 7 >= elem,
                         );
@@ -92,6 +94,7 @@ export const test_json_validateStringify_TagTuple =
                                                 value: input.tuple[0],
                                             }),
                                         ("number" === typeof input.tuple[1] &&
+                                            Number.isFinite(input.tuple[1]) &&
                                             (3 <= input.tuple[1] ||
                                                 $report(_exceptionable, {
                                                     path: _path + ".tuple[1]",
@@ -111,7 +114,12 @@ export const test_json_validateStringify_TagTuple =
                                                 expected: "number",
                                                 value: input.tuple[1],
                                             }),
-                                        (((Array.isArray(input.tuple[2]) &&
+                                        ((Array.isArray(input.tuple[2]) ||
+                                            $report(_exceptionable, {
+                                                path: _path + ".tuple[2]",
+                                                expected: "Array<string>",
+                                                value: input.tuple[2],
+                                            })) &&
                                             (3 <= input.tuple[2].length ||
                                                 $report(_exceptionable, {
                                                     path: _path + ".tuple[2]",
@@ -125,12 +133,7 @@ export const test_json_validateStringify_TagTuple =
                                                     expected:
                                                         "Array.length (@maxItems 7)",
                                                     value: input.tuple[2],
-                                                }))) ||
-                                            $report(_exceptionable, {
-                                                path: _path + ".tuple[2]",
-                                                expected: "Array<string>",
-                                                value: input.tuple[2],
-                                            })) &&
+                                                })) &&
                                             input.tuple[2]
                                                 .map(
                                                     (
@@ -189,7 +192,12 @@ export const test_json_validateStringify_TagTuple =
                                                 expected: "Array<string>",
                                                 value: input.tuple[2],
                                             }),
-                                        (((Array.isArray(input.tuple[3]) &&
+                                        ((Array.isArray(input.tuple[3]) ||
+                                            $report(_exceptionable, {
+                                                path: _path + ".tuple[3]",
+                                                expected: "Array<number>",
+                                                value: input.tuple[3],
+                                            })) &&
                                             (3 <= input.tuple[3].length ||
                                                 $report(_exceptionable, {
                                                     path: _path + ".tuple[3]",
@@ -203,12 +211,7 @@ export const test_json_validateStringify_TagTuple =
                                                     expected:
                                                         "Array.length (@maxItems 7)",
                                                     value: input.tuple[3],
-                                                }))) ||
-                                            $report(_exceptionable, {
-                                                path: _path + ".tuple[3]",
-                                                expected: "Array<number>",
-                                                value: input.tuple[3],
-                                            })) &&
+                                                })) &&
                                             input.tuple[3]
                                                 .map(
                                                     (
@@ -217,6 +220,9 @@ export const test_json_validateStringify_TagTuple =
                                                     ) =>
                                                         ("number" ===
                                                             typeof elem &&
+                                                            Number.isFinite(
+                                                                elem,
+                                                            ) &&
                                                             (3 <= elem ||
                                                                 $report(
                                                                     _exceptionable,

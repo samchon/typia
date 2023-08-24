@@ -9,25 +9,12 @@ export const test_misc_validatePrune_ObjectJsonTag = _test_misc_validatePrune(
         const validate = (input: any): typia.IValidation<ObjectJsonTag> => {
             const errors = [] as any[];
             const __is = (input: any): input is ObjectJsonTag => {
-                const $is_custom = (typia.misc.validatePrune as any).is_custom;
                 return (
                     "object" === typeof input &&
                     null !== input &&
                     "string" === typeof (input as any).vulnerable &&
-                    $is_custom(
-                        "deprecated",
-                        "string",
-                        "",
-                        (input as any).vulnerable,
-                    ) &&
                     "string" === typeof (input as any).description &&
                     "string" === typeof (input as any).title &&
-                    $is_custom(
-                        "title",
-                        "string",
-                        "something",
-                        (input as any).title,
-                    ) &&
                     "string" === typeof (input as any).complicate_title
                 );
             };
@@ -40,26 +27,13 @@ export const test_misc_validatePrune_ObjectJsonTag = _test_misc_validatePrune(
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is ObjectJsonTag => {
-                    const $is_custom = (typia.misc.validatePrune as any)
-                        .is_custom;
                     const $vo0 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
                     ): boolean =>
                         [
-                            ("string" === typeof input.vulnerable &&
-                                ($is_custom(
-                                    "deprecated",
-                                    "string",
-                                    "",
-                                    input.vulnerable,
-                                ) ||
-                                    $report(_exceptionable, {
-                                        path: _path + ".vulnerable",
-                                        expected: "string (@deprecated)",
-                                        value: input.vulnerable,
-                                    }))) ||
+                            "string" === typeof input.vulnerable ||
                                 $report(_exceptionable, {
                                     path: _path + ".vulnerable",
                                     expected: "string",
@@ -71,18 +45,7 @@ export const test_misc_validatePrune_ObjectJsonTag = _test_misc_validatePrune(
                                     expected: "string",
                                     value: input.description,
                                 }),
-                            ("string" === typeof input.title &&
-                                ($is_custom(
-                                    "title",
-                                    "string",
-                                    "something",
-                                    input.title,
-                                ) ||
-                                    $report(_exceptionable, {
-                                        path: _path + ".title",
-                                        expected: "string (@title something)",
-                                        value: input.title,
-                                    }))) ||
+                            "string" === typeof input.title ||
                                 $report(_exceptionable, {
                                     path: _path + ".title",
                                     expected: "string",
@@ -119,7 +82,6 @@ export const test_misc_validatePrune_ObjectJsonTag = _test_misc_validatePrune(
             } as any;
         };
         const prune = (input: ObjectJsonTag): void => {
-            const $is_custom = (typia.misc.validatePrune as any).is_custom;
             const $po0 = (input: any): any => {
                 for (const key of Object.keys(input)) {
                     if (

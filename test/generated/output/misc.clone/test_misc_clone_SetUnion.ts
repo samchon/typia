@@ -21,7 +21,7 @@ export const test_misc_clone_SetUnion = _test_misc_clone("SetUnion")<SetUnion>(
                           if (0 === elem.size) return new Set<any>();
                           const arrayPredicators = [
                               [
-                                  (top: any): any => "boolean" === typeof top,
+                                  (top: any[]): any => "boolean" === typeof top,
                                   (entire: any[]): any =>
                                       new Set<any>(
                                           entire.map(
@@ -30,7 +30,7 @@ export const test_misc_clone_SetUnion = _test_misc_clone("SetUnion")<SetUnion>(
                                       ),
                               ],
                               [
-                                  (top: any): any => "number" === typeof top,
+                                  (top: any[]): any => "number" === typeof top,
                                   (entire: any[]): any =>
                                       new Set<any>(
                                           entire.map(
@@ -39,7 +39,7 @@ export const test_misc_clone_SetUnion = _test_misc_clone("SetUnion")<SetUnion>(
                                       ),
                               ],
                               [
-                                  (top: any): any => "string" === typeof top,
+                                  (top: any[]): any => "string" === typeof top,
                                   (entire: any[]): any =>
                                       new Set<any>(
                                           entire.map(
@@ -48,7 +48,7 @@ export const test_misc_clone_SetUnion = _test_misc_clone("SetUnion")<SetUnion>(
                                       ),
                               ],
                               [
-                                  (top: any): any =>
+                                  (top: any[]): any =>
                                       Array.isArray(top) &&
                                       top.every(
                                           (elem: any) =>
@@ -64,7 +64,7 @@ export const test_misc_clone_SetUnion = _test_misc_clone("SetUnion")<SetUnion>(
                                       ),
                               ],
                               [
-                                  (top: any): any =>
+                                  (top: any[]): any =>
                                       "object" === typeof top &&
                                       null !== top &&
                                       $io0(top),

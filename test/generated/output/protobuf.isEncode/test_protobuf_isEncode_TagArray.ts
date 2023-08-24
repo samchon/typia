@@ -45,6 +45,7 @@ export const test_protobuf_isEncode_TagArray = _test_protobuf_isEncode(
                     input.equal.every(
                         (elem: any) =>
                             "number" === typeof elem &&
+                            Number.isFinite(elem) &&
                             10 <= elem &&
                             10 >= elem,
                     );
