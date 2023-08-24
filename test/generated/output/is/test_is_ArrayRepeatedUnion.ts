@@ -12,12 +12,12 @@ export const test_is_ArrayRepeatedUnion = _test_is(
             if (0 === input.length) return true;
             const arrayPredicators = [
                 [
-                    (top: any): any => "string" === typeof top,
+                    (top: any[]): any => "string" === typeof top,
                     (entire: any[]): any =>
                         entire.every((elem: any) => "string" === typeof elem),
                 ],
                 [
-                    (top: any): any =>
+                    (top: any[]): any =>
                         null !== top &&
                         undefined !== top &&
                         (("number" === typeof top && Number.isFinite(top)) ||
@@ -26,7 +26,7 @@ export const test_is_ArrayRepeatedUnion = _test_is(
                     (entire: any[]): any => $ia0(entire) || false,
                 ],
                 [
-                    (top: any): any =>
+                    (top: any[]): any =>
                         "object" === typeof top && null !== top && $io0(top),
                     (entire: any[]): any =>
                         entire.every(

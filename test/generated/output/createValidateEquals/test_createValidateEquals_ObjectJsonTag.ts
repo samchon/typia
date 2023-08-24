@@ -11,16 +11,13 @@ export const test_validateEquals_ObjectJsonTag = _test_validateEquals(
             input: any,
             _exceptionable: boolean = true,
         ): input is ObjectJsonTag => {
-            const $is_custom = (typia.createValidateEquals as any).is_custom;
             const $io0 = (
                 input: any,
                 _exceptionable: boolean = true,
             ): boolean =>
                 "string" === typeof input.vulnerable &&
-                $is_custom("deprecated", "string", "", input.vulnerable) &&
                 "string" === typeof input.description &&
                 "string" === typeof input.title &&
-                $is_custom("title", "string", "something", input.title) &&
                 "string" === typeof input.complicate_title &&
                 (4 === Object.keys(input).length ||
                     Object.keys(input).every((key: any) => {
@@ -48,8 +45,6 @@ export const test_validateEquals_ObjectJsonTag = _test_validateEquals(
                 _path: string,
                 _exceptionable: boolean = true,
             ): input is ObjectJsonTag => {
-                const $is_custom = (typia.createValidateEquals as any)
-                    .is_custom;
                 const $join = (typia.createValidateEquals as any).join;
                 const $vo0 = (
                     input: any,
@@ -57,18 +52,7 @@ export const test_validateEquals_ObjectJsonTag = _test_validateEquals(
                     _exceptionable: boolean = true,
                 ): boolean =>
                     [
-                        ("string" === typeof input.vulnerable &&
-                            ($is_custom(
-                                "deprecated",
-                                "string",
-                                "",
-                                input.vulnerable,
-                            ) ||
-                                $report(_exceptionable, {
-                                    path: _path + ".vulnerable",
-                                    expected: "string (@deprecated)",
-                                    value: input.vulnerable,
-                                }))) ||
+                        "string" === typeof input.vulnerable ||
                             $report(_exceptionable, {
                                 path: _path + ".vulnerable",
                                 expected: "string",
@@ -80,18 +64,7 @@ export const test_validateEquals_ObjectJsonTag = _test_validateEquals(
                                 expected: "string",
                                 value: input.description,
                             }),
-                        ("string" === typeof input.title &&
-                            ($is_custom(
-                                "title",
-                                "string",
-                                "something",
-                                input.title,
-                            ) ||
-                                $report(_exceptionable, {
-                                    path: _path + ".title",
-                                    expected: "string (@title something)",
-                                    value: input.title,
-                                }))) ||
+                        "string" === typeof input.title ||
                             $report(_exceptionable, {
                                 path: _path + ".title",
                                 expected: "string",

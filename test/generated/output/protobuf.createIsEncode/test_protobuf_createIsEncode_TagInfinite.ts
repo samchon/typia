@@ -13,6 +13,7 @@ export const test_protobuf_isEncode_TagInfinite = _test_protobuf_isEncode(
                 "number" === typeof (input as any).value &&
                 Number.isFinite((input as any).value) &&
                 "number" === typeof (input as any).ranged &&
+                Number.isFinite((input as any).ranged) &&
                 0 <= (input as any).ranged &&
                 100 >= (input as any).ranged &&
                 "number" === typeof (input as any).minimum &&
@@ -22,6 +23,7 @@ export const test_protobuf_isEncode_TagInfinite = _test_protobuf_isEncode(
                 Number.isFinite((input as any).maximum) &&
                 100 >= (input as any).maximum &&
                 "number" === typeof (input as any).multipleOf &&
+                Number.isFinite((input as any).multipleOf) &&
                 0 === (input as any).multipleOf % 3 &&
                 "number" === typeof (input as any).typed &&
                 Number.isFinite((input as any).typed) &&

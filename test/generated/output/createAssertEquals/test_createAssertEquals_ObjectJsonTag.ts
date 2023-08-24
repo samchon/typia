@@ -9,13 +9,10 @@ export const test_assertEquals_ObjectJsonTag = _test_assertEquals(
         input: any,
         _exceptionable: boolean = true,
     ): input is ObjectJsonTag => {
-        const $is_custom = (typia.createAssertEquals as any).is_custom;
         const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
             "string" === typeof input.vulnerable &&
-            $is_custom("deprecated", "string", "", input.vulnerable) &&
             "string" === typeof input.description &&
             "string" === typeof input.title &&
-            $is_custom("title", "string", "something", input.title) &&
             "string" === typeof input.complicate_title &&
             (4 === Object.keys(input).length ||
                 Object.keys(input).every((key: any) => {
@@ -41,20 +38,13 @@ export const test_assertEquals_ObjectJsonTag = _test_assertEquals(
             _exceptionable: boolean = true,
         ): input is ObjectJsonTag => {
             const $guard = (typia.createAssertEquals as any).guard;
-            const $is_custom = (typia.createAssertEquals as any).is_custom;
             const $join = (typia.createAssertEquals as any).join;
             const $ao0 = (
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
             ): boolean =>
-                (("string" === typeof input.vulnerable &&
-                    ($is_custom("deprecated", "string", "", input.vulnerable) ||
-                        $guard(_exceptionable, {
-                            path: _path + ".vulnerable",
-                            expected: "string (@deprecated)",
-                            value: input.vulnerable,
-                        }))) ||
+                ("string" === typeof input.vulnerable ||
                     $guard(_exceptionable, {
                         path: _path + ".vulnerable",
                         expected: "string",
@@ -66,13 +56,7 @@ export const test_assertEquals_ObjectJsonTag = _test_assertEquals(
                         expected: "string",
                         value: input.description,
                     })) &&
-                (("string" === typeof input.title &&
-                    ($is_custom("title", "string", "something", input.title) ||
-                        $guard(_exceptionable, {
-                            path: _path + ".title",
-                            expected: "string (@title something)",
-                            value: input.title,
-                        }))) ||
+                ("string" === typeof input.title ||
                     $guard(_exceptionable, {
                         path: _path + ".title",
                         expected: "string",

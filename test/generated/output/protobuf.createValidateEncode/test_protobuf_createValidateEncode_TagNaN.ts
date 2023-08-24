@@ -14,6 +14,7 @@ export const test_protobuf_validateEncode_TagNaN =
                         "number" === typeof (input as any).value &&
                         Number.isFinite((input as any).value) &&
                         "number" === typeof (input as any).ranged &&
+                        Number.isFinite((input as any).ranged) &&
                         0 <= (input as any).ranged &&
                         100 >= (input as any).ranged &&
                         "number" === typeof (input as any).minimum &&
@@ -23,6 +24,7 @@ export const test_protobuf_validateEncode_TagNaN =
                         Number.isFinite((input as any).maximum) &&
                         100 >= (input as any).maximum &&
                         "number" === typeof (input as any).multipleOf &&
+                        Number.isFinite((input as any).multipleOf) &&
                         0 === (input as any).multipleOf % 3 &&
                         "number" === typeof (input as any).typed &&
                         Number.isFinite((input as any).typed) &&
@@ -55,6 +57,7 @@ export const test_protobuf_validateEncode_TagNaN =
                                         value: input.value,
                                     }),
                                 ("number" === typeof input.ranged &&
+                                    Number.isFinite(input.ranged) &&
                                     (0 <= input.ranged ||
                                         $report(_exceptionable, {
                                             path: _path + ".ranged",
@@ -99,6 +102,7 @@ export const test_protobuf_validateEncode_TagNaN =
                                         value: input.maximum,
                                     }),
                                 ("number" === typeof input.multipleOf &&
+                                    Number.isFinite(input.multipleOf) &&
                                     (0 === input.multipleOf % 3 ||
                                         $report(_exceptionable, {
                                             path: _path + ".multipleOf",

@@ -73,7 +73,7 @@ export namespace ArrayRepeatedUnionWithTuple {
         },
         (input) => {
             (input as any)[6][0][0][0] = typia.random<IPoint3D>();
-            return ["$input[6][0]"];
+            return ["$input[6]"];
         },
     ];
     export const BINARABLE = false;

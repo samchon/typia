@@ -46,22 +46,32 @@ export const test_json_validateStringify_TagMatrix =
                             _exceptionable: boolean = true,
                         ): boolean =>
                             [
-                                (((Array.isArray(input.matrix) &&
-                                    (3 === input.matrix.length ||
-                                        $report(_exceptionable, {
-                                            path: _path + ".matrix",
-                                            expected: "Array.length (@items 3)",
-                                            value: input.matrix,
-                                        }))) ||
+                                ((Array.isArray(input.matrix) ||
                                     $report(_exceptionable, {
                                         path: _path + ".matrix",
                                         expected: "Array<Array<string>>",
                                         value: input.matrix,
                                     })) &&
+                                    (3 === input.matrix.length ||
+                                        $report(_exceptionable, {
+                                            path: _path + ".matrix",
+                                            expected: "Array.length (@items 3)",
+                                            value: input.matrix,
+                                        })) &&
                                     input.matrix
                                         .map(
                                             (elem: any, _index1: number) =>
-                                                (((Array.isArray(elem) &&
+                                                ((Array.isArray(elem) ||
+                                                    $report(_exceptionable, {
+                                                        path:
+                                                            _path +
+                                                            ".matrix[" +
+                                                            _index1 +
+                                                            "]",
+                                                        expected:
+                                                            "Array<string>",
+                                                        value: elem,
+                                                    })) &&
                                                     (3 === elem.length ||
                                                         $report(
                                                             _exceptionable,
@@ -75,17 +85,7 @@ export const test_json_validateStringify_TagMatrix =
                                                                     "Array.length (@items 3)",
                                                                 value: elem,
                                                             },
-                                                        ))) ||
-                                                    $report(_exceptionable, {
-                                                        path:
-                                                            _path +
-                                                            ".matrix[" +
-                                                            _index1 +
-                                                            "]",
-                                                        expected:
-                                                            "Array<string>",
-                                                        value: elem,
-                                                    })) &&
+                                                        )) &&
                                                     elem
                                                         .map(
                                                             (

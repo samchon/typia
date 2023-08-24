@@ -1,11 +1,11 @@
 import { IMetadataAlias } from "./IMetadataAlias";
-import { IMetadataArray } from "./IMetadataArray";
+import { IMetadataArrayType } from "./IMetadataArrayType";
 import { IMetadataObject } from "./IMetadataObject";
-import { IMetadataTuple } from "./IMetadataTuple";
+import { IMetadataTupleType } from "./IMetadataTupleType";
 
 export interface IMetadataCollection {
     objects: IMetadataObject[];
     aliases: IMetadataAlias[];
-    arrays: IMetadataArray[];
-    tuples: IMetadataTuple[];
+    arrays: IMetadataArrayType[];
+    tuples: IMetadataTupleType[];
 }

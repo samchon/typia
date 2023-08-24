@@ -6,7 +6,6 @@ export const test_misc_prune_TagDefault = _test_misc_prune(
     "TagDefault",
 )<TagDefault>(TagDefault)((input) =>
     ((input: TagDefault): void => {
-        const $is_custom = (typia.misc.prune as any).is_custom;
         const $po0 = (input: any): any => {
             for (const key of Object.keys(input)) {
                 if (

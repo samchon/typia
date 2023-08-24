@@ -81,18 +81,18 @@ export const test_assertEquals_TagArrayUnion = _test_assertEquals(
                     _path: string,
                     _exceptionable: boolean = true,
                 ): boolean =>
-                    ((((Array.isArray(input.items) &&
-                        (3 === input.items.length ||
-                            $guard(_exceptionable, {
-                                path: _path + ".items",
-                                expected: "Array.length (@items 3)",
-                                value: input.items,
-                            }))) ||
+                    (((Array.isArray(input.items) ||
                         $guard(_exceptionable, {
                             path: _path + ".items",
                             expected: "Array<string>",
                             value: input.items,
                         })) &&
+                        (3 === input.items.length ||
+                            $guard(_exceptionable, {
+                                path: _path + ".items",
+                                expected: "Array.length (@items 3)",
+                                value: input.items,
+                            })) &&
                         input.items.every(
                             (elem: any, _index2: number) =>
                                 ("string" === typeof elem &&
@@ -117,18 +117,18 @@ export const test_assertEquals_TagArrayUnion = _test_assertEquals(
                             expected: "Array<string>",
                             value: input.items,
                         })) &&
-                    ((((Array.isArray(input.minItems) &&
-                        (3 <= input.minItems.length ||
-                            $guard(_exceptionable, {
-                                path: _path + ".minItems",
-                                expected: "Array.length (@minItems 3)",
-                                value: input.minItems,
-                            }))) ||
+                    (((Array.isArray(input.minItems) ||
                         $guard(_exceptionable, {
                             path: _path + ".minItems",
                             expected: "Array<number>",
                             value: input.minItems,
                         })) &&
+                        (3 <= input.minItems.length ||
+                            $guard(_exceptionable, {
+                                path: _path + ".minItems",
+                                expected: "Array.length (@minItems 3)",
+                                value: input.minItems,
+                            })) &&
                         input.minItems.every(
                             (elem: any, _index3: number) =>
                                 ("number" === typeof elem &&
@@ -154,18 +154,18 @@ export const test_assertEquals_TagArrayUnion = _test_assertEquals(
                             expected: "Array<number>",
                             value: input.minItems,
                         })) &&
-                    ((((Array.isArray(input.maxItems) &&
-                        (7 >= input.maxItems.length ||
-                            $guard(_exceptionable, {
-                                path: _path + ".maxItems",
-                                expected: "Array.length (@maxItems 7)",
-                                value: input.maxItems,
-                            }))) ||
+                    (((Array.isArray(input.maxItems) ||
                         $guard(_exceptionable, {
                             path: _path + ".maxItems",
                             expected: "Array<string | number>",
                             value: input.maxItems,
                         })) &&
+                        (7 >= input.maxItems.length ||
+                            $guard(_exceptionable, {
+                                path: _path + ".maxItems",
+                                expected: "Array.length (@maxItems 7)",
+                                value: input.maxItems,
+                            })) &&
                         input.maxItems.every(
                             (elem: any, _index4: number) =>
                                 ("string" === typeof elem &&
@@ -202,7 +202,12 @@ export const test_assertEquals_TagArrayUnion = _test_assertEquals(
                             expected: "Array<string | number>",
                             value: input.maxItems,
                         })) &&
-                    ((((Array.isArray(input.both) &&
+                    (((Array.isArray(input.both) ||
+                        $guard(_exceptionable, {
+                            path: _path + ".both",
+                            expected: "Array<string>",
+                            value: input.both,
+                        })) &&
                         (3 <= input.both.length ||
                             $guard(_exceptionable, {
                                 path: _path + ".both",
@@ -214,12 +219,7 @@ export const test_assertEquals_TagArrayUnion = _test_assertEquals(
                                 path: _path + ".both",
                                 expected: "Array.length (@maxItems 7)",
                                 value: input.both,
-                            }))) ||
-                        $guard(_exceptionable, {
-                            path: _path + ".both",
-                            expected: "Array<string>",
-                            value: input.both,
-                        })) &&
+                            })) &&
                         input.both.every(
                             (elem: any, _index5: number) =>
                                 ("string" === typeof elem &&

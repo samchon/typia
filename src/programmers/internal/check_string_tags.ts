@@ -2,7 +2,7 @@ import ts from "typescript";
 
 import { IdentifierFactory } from "../../factories/IdentifierFactory";
 
-import { IMetadataTag } from "../../schemas/metadata/IMetadataTag";
+import { IMetadataCommentTag } from "../../schemas/metadata/IMetadataCommentTag";
 
 import { FunctionImporter } from "../helpers/FunctionImporeter";
 import { ICheckEntry } from "../helpers/ICheckEntry";
@@ -12,9 +12,9 @@ import { ICheckEntry } from "../helpers/ICheckEntry";
  */
 export const check_string_tags =
     (importer: FunctionImporter) =>
-    (tagList: IMetadataTag[]) =>
+    (tagList: IMetadataCommentTag[]) =>
     (input: ts.Expression): ICheckEntry.ITag[] => {
-        const conditions: [IMetadataTag, ts.Expression][] = [];
+        const conditions: [IMetadataCommentTag, ts.Expression][] = [];
         for (const tag of tagList)
             if (tag.kind === "format")
                 conditions.push([

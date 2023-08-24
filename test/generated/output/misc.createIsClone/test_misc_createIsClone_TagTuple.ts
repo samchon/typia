@@ -13,6 +13,7 @@ export const test_misc_isClone_TagTuple = _test_misc_isClone(
             3 <= input.tuple[0].length &&
             7 >= input.tuple[0].length &&
             "number" === typeof input.tuple[1] &&
+            Number.isFinite(input.tuple[1]) &&
             3 <= input.tuple[1] &&
             7 >= input.tuple[1] &&
             Array.isArray(input.tuple[2]) &&
@@ -29,7 +30,10 @@ export const test_misc_isClone_TagTuple = _test_misc_isClone(
             7 >= input.tuple[3].length &&
             input.tuple[3].every(
                 (elem: any) =>
-                    "number" === typeof elem && 3 <= elem && 7 >= elem,
+                    "number" === typeof elem &&
+                    Number.isFinite(elem) &&
+                    3 <= elem &&
+                    7 >= elem,
             );
         return "object" === typeof input && null !== input && $io0(input);
     };

@@ -1,10 +1,10 @@
 import { writeFileSync } from "fs";
 import typia from "typia";
 
-import { ArrayRecursiveUnionImplicit } from "../structures/ArrayRecursiveUnionImplicit";
+import { TagArray } from "../structures/TagArray";
 
 writeFileSync(
     __dirname + "/is.union.js",
-    typia.createIs<ArrayRecursiveUnionImplicit>().toString(),
+    typia.createIs<TagArray>().toString(),
     "utf8",
 );

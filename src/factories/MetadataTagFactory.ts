@@ -1,17 +1,17 @@
 import ts from "typescript";
 
 import { IMetadataAtomic } from "../schemas/metadata/IMetadataAtomic";
-import { IMetadataTag } from "../schemas/metadata/IMetadataTag";
+import { IMetadataCommentTag } from "../schemas/metadata/IMetadataCommentTag";
 import { Metadata } from "../schemas/metadata/Metadata";
 
 export namespace MetadataTagFactory {
     export const generate =
         (metadata: Metadata) =>
         (tagList: ts.JSDocTagInfo[]) =>
-        (identifier: () => string): IMetadataTag[] => {
-            const output: IMetadataTag[] = [];
+        (identifier: () => string): IMetadataCommentTag[] => {
+            const output: IMetadataCommentTag[] = [];
             for (const tag of tagList) {
-                const elem: IMetadataTag | null = parse(
+                const elem: IMetadataCommentTag | null = parse(
                     identifier,
                     metadata,
                     tag,
@@ -26,8 +26,8 @@ export namespace MetadataTagFactory {
         identifier: () => string,
         metadata: Metadata,
         tag: ts.JSDocTagInfo,
-        output: IMetadataTag[],
-    ): IMetadataTag | null => {
+        output: IMetadataCommentTag[],
+    ): IMetadataCommentTag | null => {
         const closure = _PARSER[tag.name];
         if (closure === undefined) return null;
 
@@ -47,8 +47,8 @@ export namespace MetadataTagFactory {
             identifier: () => string,
             metadata: Metadata,
             text: string,
-            output: IMetadataTag[],
-        ) => IMetadataTag | null
+            output: IMetadataCommentTag[],
+        ) => IMetadataCommentTag | null
     > = {
         /* -----------------------------------------------------------
             ARRAY
@@ -179,7 +179,7 @@ export namespace MetadataTagFactory {
         // Ignore arbitrary @format values in the internal metadata,
         // these are currently only supported on the typia.application() API.
         format: (identifier, metadata, str, output) => {
-            const value: IMetadataTag.IFormat["value"] | undefined =
+            const value: IMetadataCommentTag.IFormat["value"] | undefined =
                 FORMATS.get(str);
             validate(
                 identifier,
@@ -243,7 +243,7 @@ const parse_number = (identifier: () => string, str: string): number => {
 };
 
 const LABEL = "Error on typia.MetadataTagFactory.generate()";
-const FORMATS: Map<string, IMetadataTag.IFormat["value"]> = new Map([
+const FORMATS: Map<string, IMetadataCommentTag.IFormat["value"]> = new Map([
     ["uuid", "uuid"],
     ["email", "email"],
     ["url", "url"],
@@ -264,10 +264,10 @@ const WRONG_TYPE = (
 const validate = (
     identifier: () => string,
     metadata: Metadata,
-    output: IMetadataTag[],
-    kind: IMetadataTag["kind"],
+    output: IMetadataCommentTag[],
+    kind: IMetadataCommentTag["kind"],
     type: "array" | "string" | "number" | "Date",
-    neighbors: IMetadataTag["kind"][],
+    neighbors: IMetadataCommentTag["kind"][],
 ): void => {
     // TYPE CHECKING
     if (type === "array") {
@@ -296,7 +296,6 @@ const validate = (
             );
 };
 
-// @todo: must block repeated array and tuple type
 const has_atomic =
     (type: "string" | "number" | "bigint") =>
     (visited: Set<Metadata>) =>
@@ -311,10 +310,10 @@ const has_atomic =
                     : (atom: IMetadataAtomic) => atom.type === type,
             ) !== undefined ||
             metadata.arrays.some((array) =>
-                has_atomic(type)(visited)(array.value),
+                has_atomic(type)(visited)(array.type.value),
             ) ||
             metadata.tuples.some((tuple) =>
-                tuple.elements.some(has_atomic(type)(visited)),
+                tuple.type.elements.some(has_atomic(type)(visited)),
             ) ||
             metadata.maps.some((map) => has_atomic(type)(visited)(map.value)) ||
             metadata.aliases.some((alias) =>
@@ -334,10 +333,10 @@ const has_native =
         return (
             metadata.natives.find((native) => native === type) !== undefined ||
             metadata.arrays.some((child) =>
-                has_native(type)(visited)(child.value),
+                has_native(type)(visited)(child.type.value),
             ) ||
             metadata.tuples.some((tuple) =>
-                tuple.elements.some(has_native(type)(visited)),
+                tuple.type.elements.some(has_native(type)(visited)),
             ) ||
             metadata.maps.some((map) => has_native(type)(visited)(map.value)) ||
             metadata.aliases.some((alias) =>
@@ -356,7 +355,7 @@ const has_array =
         return (
             metadata.arrays.length !== 0 ||
             metadata.tuples.some((tuple) =>
-                tuple.elements.some(has_array(visited)),
+                tuple.type.elements.some(has_array(visited)),
             ) ||
             metadata.maps.some((map) => has_array(visited)(map.value)) ||
             metadata.aliases.some((alias) => has_array(visited)(alias.value)) ||

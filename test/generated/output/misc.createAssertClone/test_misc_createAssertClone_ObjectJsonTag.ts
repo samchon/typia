@@ -7,25 +7,12 @@ export const test_misc_assertClone_ObjectJsonTag = _test_misc_assertClone(
 )<ObjectJsonTag>(ObjectJsonTag)((input: any): typia.Resolved<ObjectJsonTag> => {
     const assert = (input: any): ObjectJsonTag => {
         const __is = (input: any): input is ObjectJsonTag => {
-            const $is_custom = (typia.misc.createAssertClone as any).is_custom;
             return (
                 "object" === typeof input &&
                 null !== input &&
                 "string" === typeof (input as any).vulnerable &&
-                $is_custom(
-                    "deprecated",
-                    "string",
-                    "",
-                    (input as any).vulnerable,
-                ) &&
                 "string" === typeof (input as any).description &&
                 "string" === typeof (input as any).title &&
-                $is_custom(
-                    "title",
-                    "string",
-                    "something",
-                    (input as any).title,
-                ) &&
                 "string" === typeof (input as any).complicate_title
             );
         };
@@ -36,25 +23,12 @@ export const test_misc_assertClone_ObjectJsonTag = _test_misc_assertClone(
                 _exceptionable: boolean = true,
             ): input is ObjectJsonTag => {
                 const $guard = (typia.misc.createAssertClone as any).guard;
-                const $is_custom = (typia.misc.createAssertClone as any)
-                    .is_custom;
                 const $ao0 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): boolean =>
-                    (("string" === typeof input.vulnerable &&
-                        ($is_custom(
-                            "deprecated",
-                            "string",
-                            "",
-                            input.vulnerable,
-                        ) ||
-                            $guard(_exceptionable, {
-                                path: _path + ".vulnerable",
-                                expected: "string (@deprecated)",
-                                value: input.vulnerable,
-                            }))) ||
+                    ("string" === typeof input.vulnerable ||
                         $guard(_exceptionable, {
                             path: _path + ".vulnerable",
                             expected: "string",
@@ -66,18 +40,7 @@ export const test_misc_assertClone_ObjectJsonTag = _test_misc_assertClone(
                             expected: "string",
                             value: input.description,
                         })) &&
-                    (("string" === typeof input.title &&
-                        ($is_custom(
-                            "title",
-                            "string",
-                            "something",
-                            input.title,
-                        ) ||
-                            $guard(_exceptionable, {
-                                path: _path + ".title",
-                                expected: "string (@title something)",
-                                value: input.title,
-                            }))) ||
+                    ("string" === typeof input.title ||
                         $guard(_exceptionable, {
                             path: _path + ".title",
                             expected: "string",
@@ -107,7 +70,6 @@ export const test_misc_assertClone_ObjectJsonTag = _test_misc_assertClone(
         return input;
     };
     const clone = (input: ObjectJsonTag): typia.Resolved<ObjectJsonTag> => {
-        const $is_custom = (typia.misc.createAssertClone as any).is_custom;
         const $co0 = (input: any): any => ({
             vulnerable: input.vulnerable as any,
             description: input.description as any,

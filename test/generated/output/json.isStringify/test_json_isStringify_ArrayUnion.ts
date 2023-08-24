@@ -13,14 +13,14 @@ export const test_json_isStringify_ArrayUnion = _test_json_isStringify(
                 if (0 === input.length) return true;
                 const arrayPredicators = [
                     [
-                        (top: any): any => "boolean" === typeof top,
+                        (top: any[]): any => "boolean" === typeof top,
                         (entire: any[]): any =>
                             entire.every(
                                 (elem: any) => "boolean" === typeof elem,
                             ),
                     ],
                     [
-                        (top: any): any =>
+                        (top: any[]): any =>
                             "number" === typeof top && Number.isFinite(top),
                         (entire: any[]): any =>
                             entire.every(
@@ -30,7 +30,7 @@ export const test_json_isStringify_ArrayUnion = _test_json_isStringify(
                             ),
                     ],
                     [
-                        (top: any): any => "string" === typeof top,
+                        (top: any[]): any => "string" === typeof top,
                         (entire: any[]): any =>
                             entire.every(
                                 (elem: any) => "string" === typeof elem,
@@ -66,19 +66,19 @@ export const test_json_isStringify_ArrayUnion = _test_json_isStringify(
                 if (0 === input.length) return "[]";
                 const arrayPredicators = [
                     [
-                        (top: any): any => "boolean" === typeof top,
+                        (top: any[]): any => "boolean" === typeof top,
                         (entire: any[]): any =>
                             `[${entire.map((elem: any) => elem).join(",")}]`,
                     ],
                     [
-                        (top: any): any => "number" === typeof top,
+                        (top: any[]): any => "number" === typeof top,
                         (entire: any[]): any =>
                             `[${entire
                                 .map((elem: any) => $number(elem))
                                 .join(",")}]`,
                     ],
                     [
-                        (top: any): any => "string" === typeof top,
+                        (top: any[]): any => "string" === typeof top,
                         (entire: any[]): any =>
                             `[${entire
                                 .map((elem: any) => $string(elem))

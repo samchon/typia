@@ -1,7 +1,7 @@
 export type TagBase<
     Target extends "bigint" | "number" | "string" | "array",
     Kind extends string,
-    Value,
+    Value extends boolean | bigint | number | string,
     Validate extends
         | string
         | {

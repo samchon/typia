@@ -15,7 +15,7 @@ export const test_equals_FunctionalArrayUnion = _test_equals(
             if (0 === input.length) return true;
             const arrayPredicators = [
                 [
-                    (top: any): any =>
+                    (top: any[]): any =>
                         "number" === typeof top && Number.isFinite(top),
                     (entire: any[]): any =>
                         entire.every(
@@ -25,7 +25,7 @@ export const test_equals_FunctionalArrayUnion = _test_equals(
                         ),
                 ],
                 [
-                    (top: any): any => "string" === typeof top,
+                    (top: any[]): any => "string" === typeof top,
                     (entire: any[]): any =>
                         entire.every(
                             (elem: any, _index7: number) =>
@@ -33,7 +33,7 @@ export const test_equals_FunctionalArrayUnion = _test_equals(
                         ),
                 ],
                 [
-                    (top: any): any => "function" === typeof top,
+                    (top: any[]): any => "function" === typeof top,
                     (entire: any[]): any =>
                         entire.every(
                             (elem: any, _index8: number) =>
@@ -41,7 +41,7 @@ export const test_equals_FunctionalArrayUnion = _test_equals(
                         ),
                 ],
                 [
-                    (top: any): any => undefined !== top && null === top,
+                    (top: any[]): any => undefined !== top && null === top,
                     (entire: any[]): any =>
                         entire.every(
                             (elem: any, _index9: number) =>

@@ -58,12 +58,14 @@ export const test_assertEquals_TagRange = _test_assertEquals(
                 input.less_equal <= 2147483647 &&
                 7 >= input.less_equal &&
                 "number" === typeof input.greater_less &&
+                Number.isFinite(input.greater_less) &&
                 Math.floor(input.greater_less) === input.greater_less &&
                 -2147483648 <= input.greater_less &&
                 input.greater_less <= 2147483647 &&
                 3 < input.greater_less &&
                 7 > input.greater_less &&
                 "number" === typeof input.greater_equal_less &&
+                Number.isFinite(input.greater_equal_less) &&
                 Math.floor(input.greater_equal_less) ===
                     input.greater_equal_less &&
                 -2147483648 <= input.greater_equal_less &&
@@ -71,6 +73,7 @@ export const test_assertEquals_TagRange = _test_assertEquals(
                 3 <= input.greater_equal_less &&
                 7 > input.greater_equal_less &&
                 "number" === typeof input.greater_less_equal &&
+                Number.isFinite(input.greater_less_equal) &&
                 Math.floor(input.greater_less_equal) ===
                     input.greater_less_equal &&
                 -2147483648 <= input.greater_less_equal &&
@@ -78,6 +81,7 @@ export const test_assertEquals_TagRange = _test_assertEquals(
                 3 < input.greater_less_equal &&
                 7 >= input.greater_less_equal &&
                 "number" === typeof input.greater_equal_less_equal &&
+                Number.isFinite(input.greater_equal_less_equal) &&
                 Math.floor(input.greater_equal_less_equal) ===
                     input.greater_equal_less_equal &&
                 -2147483648 <= input.greater_equal_less_equal &&
@@ -85,6 +89,7 @@ export const test_assertEquals_TagRange = _test_assertEquals(
                 3 <= input.greater_equal_less_equal &&
                 7 >= input.greater_equal_less_equal &&
                 "number" === typeof input.equal &&
+                Number.isFinite(input.equal) &&
                 Math.floor(input.equal) === input.equal &&
                 -2147483648 <= input.equal &&
                 input.equal <= 2147483647 &&
@@ -281,6 +286,7 @@ export const test_assertEquals_TagRange = _test_assertEquals(
                             value: input.less_equal,
                         })) &&
                     (("number" === typeof input.greater_less &&
+                        Number.isFinite(input.greater_less) &&
                         (Math.floor(input.greater_less) ===
                             input.greater_less ||
                             $guard(_exceptionable, {
@@ -313,6 +319,7 @@ export const test_assertEquals_TagRange = _test_assertEquals(
                             value: input.greater_less,
                         })) &&
                     (("number" === typeof input.greater_equal_less &&
+                        Number.isFinite(input.greater_equal_less) &&
                         (Math.floor(input.greater_equal_less) ===
                             input.greater_equal_less ||
                             $guard(_exceptionable, {
@@ -345,6 +352,7 @@ export const test_assertEquals_TagRange = _test_assertEquals(
                             value: input.greater_equal_less,
                         })) &&
                     (("number" === typeof input.greater_less_equal &&
+                        Number.isFinite(input.greater_less_equal) &&
                         (Math.floor(input.greater_less_equal) ===
                             input.greater_less_equal ||
                             $guard(_exceptionable, {
@@ -377,6 +385,7 @@ export const test_assertEquals_TagRange = _test_assertEquals(
                             value: input.greater_less_equal,
                         })) &&
                     (("number" === typeof input.greater_equal_less_equal &&
+                        Number.isFinite(input.greater_equal_less_equal) &&
                         (Math.floor(input.greater_equal_less_equal) ===
                             input.greater_equal_less_equal ||
                             $guard(_exceptionable, {
@@ -409,6 +418,7 @@ export const test_assertEquals_TagRange = _test_assertEquals(
                             value: input.greater_equal_less_equal,
                         })) &&
                     (("number" === typeof input.equal &&
+                        Number.isFinite(input.equal) &&
                         (Math.floor(input.equal) === input.equal ||
                             $guard(_exceptionable, {
                                 path: _path + ".equal",

@@ -46,12 +46,12 @@ export const test_assert_InstanceUnion = _test_assert(
             if (0 === input.length) return true;
             const arrayPredicators = [
                 [
-                    (top: any): any => "boolean" === typeof top,
+                    (top: any[]): any => "boolean" === typeof top,
                     (entire: any[]): any =>
                         entire.every((elem: any) => "boolean" === typeof elem),
                 ],
                 [
-                    (top: any): any =>
+                    (top: any[]): any =>
                         "number" === typeof top && Number.isFinite(top),
                     (entire: any[]): any =>
                         entire.every(
@@ -61,7 +61,7 @@ export const test_assert_InstanceUnion = _test_assert(
                         ),
                 ],
                 [
-                    (top: any): any =>
+                    (top: any[]): any =>
                         "object" === typeof top && null !== top && $iu0(top),
                     (entire: any[]): any =>
                         entire.every(
@@ -341,7 +341,7 @@ export const test_assert_InstanceUnion = _test_assert(
                 if (0 === input.length) return true;
                 const arrayPredicators = [
                     [
-                        (top: any): any => "boolean" === typeof top,
+                        (top: any[]): any => "boolean" === typeof top,
                         (entire: any[]): any =>
                             entire.every(
                                 (elem: any, _index6: number) =>
@@ -354,7 +354,7 @@ export const test_assert_InstanceUnion = _test_assert(
                             ),
                     ],
                     [
-                        (top: any): any =>
+                        (top: any[]): any =>
                             "number" === typeof top && Number.isFinite(top),
                         (entire: any[]): any =>
                             entire.every(
@@ -369,10 +369,10 @@ export const test_assert_InstanceUnion = _test_assert(
                             ),
                     ],
                     [
-                        (top: any): any =>
+                        (top: any[]): any =>
                             "object" === typeof top &&
                             null !== top &&
-                            $au0(top, _path + "[0]", false && _exceptionable),
+                            $au0(top, _path, false && _exceptionable),
                         (entire: any[]): any =>
                             entire.every(
                                 (elem: any, _index8: number) =>

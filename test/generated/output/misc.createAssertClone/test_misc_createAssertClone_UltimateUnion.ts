@@ -1532,7 +1532,8 @@ export const test_misc_assertClone_UltimateUnion = _test_misc_assertClone(
                         ((Array.isArray(input["x-typia-metaTags"]) ||
                             $guard(_exceptionable, {
                                 path: _path + '["x-typia-metaTags"]',
-                                expected: "(Array<IMetadataTag> | undefined)",
+                                expected:
+                                    "(Array<IMetadataCommentTag> | undefined)",
                                 value: input["x-typia-metaTags"],
                             })) &&
                             input["x-typia-metaTags"].every(
@@ -1546,7 +1547,7 @@ export const test_misc_assertClone_UltimateUnion = _test_misc_assertClone(
                                                 _index4 +
                                                 "]",
                                             expected:
-                                                "(IMetadataTag.IExclusiveMaximum | IMetadataTag.IExclusiveMinimum | IMetadataTag.IFormat | IMetadataTag.IItems | IMetadataTag.ILength | IMetadataTag.IMaxItems | IMetadataTag.IMaxLength | IMetadataTag.IMaximum | IMetadataTag.IMinItems | IMetadataTag.IMinLength | IMetadataTag.IMinimum | IMetadataTag.IMultipleOf | IMetadataTag.INumberType | IMetadataTag.IPattern | IMetadataTag.IStep)",
+                                                "(IMetadataCommentTag.IExclusiveMaximum | IMetadataCommentTag.IExclusiveMinimum | IMetadataCommentTag.IFormat | IMetadataCommentTag.IItems | IMetadataCommentTag.ILength | IMetadataCommentTag.IMaxItems | IMetadataCommentTag.IMaxLength | IMetadataCommentTag.IMaximum | IMetadataCommentTag.IMinItems | IMetadataCommentTag.IMinLength | IMetadataCommentTag.IMinimum | IMetadataCommentTag.IMultipleOf | IMetadataCommentTag.INumberType | IMetadataCommentTag.IPattern | IMetadataCommentTag.IStep)",
                                             value: elem,
                                         })) &&
                                         $au1(
@@ -1564,13 +1565,14 @@ export const test_misc_assertClone_UltimateUnion = _test_misc_assertClone(
                                             _index4 +
                                             "]",
                                         expected:
-                                            "(IMetadataTag.IExclusiveMaximum | IMetadataTag.IExclusiveMinimum | IMetadataTag.IFormat | IMetadataTag.IItems | IMetadataTag.ILength | IMetadataTag.IMaxItems | IMetadataTag.IMaxLength | IMetadataTag.IMaximum | IMetadataTag.IMinItems | IMetadataTag.IMinLength | IMetadataTag.IMinimum | IMetadataTag.IMultipleOf | IMetadataTag.INumberType | IMetadataTag.IPattern | IMetadataTag.IStep)",
+                                            "(IMetadataCommentTag.IExclusiveMaximum | IMetadataCommentTag.IExclusiveMinimum | IMetadataCommentTag.IFormat | IMetadataCommentTag.IItems | IMetadataCommentTag.ILength | IMetadataCommentTag.IMaxItems | IMetadataCommentTag.IMaxLength | IMetadataCommentTag.IMaximum | IMetadataCommentTag.IMinItems | IMetadataCommentTag.IMinLength | IMetadataCommentTag.IMinimum | IMetadataCommentTag.IMultipleOf | IMetadataCommentTag.INumberType | IMetadataCommentTag.IPattern | IMetadataCommentTag.IStep)",
                                         value: elem,
                                     }),
                             )) ||
                         $guard(_exceptionable, {
                             path: _path + '["x-typia-metaTags"]',
-                            expected: "(Array<IMetadataTag> | undefined)",
+                            expected:
+                                "(Array<IMetadataCommentTag> | undefined)",
                             value: input["x-typia-metaTags"],
                         })) &&
                     (undefined === input["x-typia-jsDocTags"] ||
@@ -2056,7 +2058,8 @@ export const test_misc_assertClone_UltimateUnion = _test_misc_assertClone(
                         ((Array.isArray(input["x-typia-metaTags"]) ||
                             $guard(_exceptionable, {
                                 path: _path + '["x-typia-metaTags"]',
-                                expected: "(Array<IMetadataTag> | undefined)",
+                                expected:
+                                    "(Array<IMetadataCommentTag> | undefined)",
                                 value: input["x-typia-metaTags"],
                             })) &&
                             input["x-typia-metaTags"].every(
@@ -2070,7 +2073,7 @@ export const test_misc_assertClone_UltimateUnion = _test_misc_assertClone(
                                                 _index8 +
                                                 "]",
                                             expected:
-                                                "(IMetadataTag.IExclusiveMaximum | IMetadataTag.IExclusiveMinimum | IMetadataTag.IFormat | IMetadataTag.IItems | IMetadataTag.ILength | IMetadataTag.IMaxItems | IMetadataTag.IMaxLength | IMetadataTag.IMaximum | IMetadataTag.IMinItems | IMetadataTag.IMinLength | IMetadataTag.IMinimum | IMetadataTag.IMultipleOf | IMetadataTag.INumberType | IMetadataTag.IPattern | IMetadataTag.IStep)",
+                                                "(IMetadataCommentTag.IExclusiveMaximum | IMetadataCommentTag.IExclusiveMinimum | IMetadataCommentTag.IFormat | IMetadataCommentTag.IItems | IMetadataCommentTag.ILength | IMetadataCommentTag.IMaxItems | IMetadataCommentTag.IMaxLength | IMetadataCommentTag.IMaximum | IMetadataCommentTag.IMinItems | IMetadataCommentTag.IMinLength | IMetadataCommentTag.IMinimum | IMetadataCommentTag.IMultipleOf | IMetadataCommentTag.INumberType | IMetadataCommentTag.IPattern | IMetadataCommentTag.IStep)",
                                             value: elem,
                                         })) &&
                                         $au1(
@@ -2088,13 +2091,14 @@ export const test_misc_assertClone_UltimateUnion = _test_misc_assertClone(
                                             _index8 +
                                             "]",
                                         expected:
-                                            "(IMetadataTag.IExclusiveMaximum | IMetadataTag.IExclusiveMinimum | IMetadataTag.IFormat | IMetadataTag.IItems | IMetadataTag.ILength | IMetadataTag.IMaxItems | IMetadataTag.IMaxLength | IMetadataTag.IMaximum | IMetadataTag.IMinItems | IMetadataTag.IMinLength | IMetadataTag.IMinimum | IMetadataTag.IMultipleOf | IMetadataTag.INumberType | IMetadataTag.IPattern | IMetadataTag.IStep)",
+                                            "(IMetadataCommentTag.IExclusiveMaximum | IMetadataCommentTag.IExclusiveMinimum | IMetadataCommentTag.IFormat | IMetadataCommentTag.IItems | IMetadataCommentTag.ILength | IMetadataCommentTag.IMaxItems | IMetadataCommentTag.IMaxLength | IMetadataCommentTag.IMaximum | IMetadataCommentTag.IMinItems | IMetadataCommentTag.IMinLength | IMetadataCommentTag.IMinimum | IMetadataCommentTag.IMultipleOf | IMetadataCommentTag.INumberType | IMetadataCommentTag.IPattern | IMetadataCommentTag.IStep)",
                                         value: elem,
                                     }),
                             )) ||
                         $guard(_exceptionable, {
                             path: _path + '["x-typia-metaTags"]',
-                            expected: "(Array<IMetadataTag> | undefined)",
+                            expected:
+                                "(Array<IMetadataCommentTag> | undefined)",
                             value: input["x-typia-metaTags"],
                         })) &&
                     (undefined === input["x-typia-jsDocTags"] ||
@@ -2231,7 +2235,8 @@ export const test_misc_assertClone_UltimateUnion = _test_misc_assertClone(
                         ((Array.isArray(input["x-typia-metaTags"]) ||
                             $guard(_exceptionable, {
                                 path: _path + '["x-typia-metaTags"]',
-                                expected: "(Array<IMetadataTag> | undefined)",
+                                expected:
+                                    "(Array<IMetadataCommentTag> | undefined)",
                                 value: input["x-typia-metaTags"],
                             })) &&
                             input["x-typia-metaTags"].every(
@@ -2245,7 +2250,7 @@ export const test_misc_assertClone_UltimateUnion = _test_misc_assertClone(
                                                 _index11 +
                                                 "]",
                                             expected:
-                                                "(IMetadataTag.IExclusiveMaximum | IMetadataTag.IExclusiveMinimum | IMetadataTag.IFormat | IMetadataTag.IItems | IMetadataTag.ILength | IMetadataTag.IMaxItems | IMetadataTag.IMaxLength | IMetadataTag.IMaximum | IMetadataTag.IMinItems | IMetadataTag.IMinLength | IMetadataTag.IMinimum | IMetadataTag.IMultipleOf | IMetadataTag.INumberType | IMetadataTag.IPattern | IMetadataTag.IStep)",
+                                                "(IMetadataCommentTag.IExclusiveMaximum | IMetadataCommentTag.IExclusiveMinimum | IMetadataCommentTag.IFormat | IMetadataCommentTag.IItems | IMetadataCommentTag.ILength | IMetadataCommentTag.IMaxItems | IMetadataCommentTag.IMaxLength | IMetadataCommentTag.IMaximum | IMetadataCommentTag.IMinItems | IMetadataCommentTag.IMinLength | IMetadataCommentTag.IMinimum | IMetadataCommentTag.IMultipleOf | IMetadataCommentTag.INumberType | IMetadataCommentTag.IPattern | IMetadataCommentTag.IStep)",
                                             value: elem,
                                         })) &&
                                         $au1(
@@ -2263,13 +2268,14 @@ export const test_misc_assertClone_UltimateUnion = _test_misc_assertClone(
                                             _index11 +
                                             "]",
                                         expected:
-                                            "(IMetadataTag.IExclusiveMaximum | IMetadataTag.IExclusiveMinimum | IMetadataTag.IFormat | IMetadataTag.IItems | IMetadataTag.ILength | IMetadataTag.IMaxItems | IMetadataTag.IMaxLength | IMetadataTag.IMaximum | IMetadataTag.IMinItems | IMetadataTag.IMinLength | IMetadataTag.IMinimum | IMetadataTag.IMultipleOf | IMetadataTag.INumberType | IMetadataTag.IPattern | IMetadataTag.IStep)",
+                                            "(IMetadataCommentTag.IExclusiveMaximum | IMetadataCommentTag.IExclusiveMinimum | IMetadataCommentTag.IFormat | IMetadataCommentTag.IItems | IMetadataCommentTag.ILength | IMetadataCommentTag.IMaxItems | IMetadataCommentTag.IMaxLength | IMetadataCommentTag.IMaximum | IMetadataCommentTag.IMinItems | IMetadataCommentTag.IMinLength | IMetadataCommentTag.IMinimum | IMetadataCommentTag.IMultipleOf | IMetadataCommentTag.INumberType | IMetadataCommentTag.IPattern | IMetadataCommentTag.IStep)",
                                         value: elem,
                                     }),
                             )) ||
                         $guard(_exceptionable, {
                             path: _path + '["x-typia-metaTags"]',
-                            expected: "(Array<IMetadataTag> | undefined)",
+                            expected:
+                                "(Array<IMetadataCommentTag> | undefined)",
                             value: input["x-typia-metaTags"],
                         })) &&
                     (undefined === input["x-typia-jsDocTags"] ||
@@ -2386,7 +2392,8 @@ export const test_misc_assertClone_UltimateUnion = _test_misc_assertClone(
                         ((Array.isArray(input["x-typia-metaTags"]) ||
                             $guard(_exceptionable, {
                                 path: _path + '["x-typia-metaTags"]',
-                                expected: "(Array<IMetadataTag> | undefined)",
+                                expected:
+                                    "(Array<IMetadataCommentTag> | undefined)",
                                 value: input["x-typia-metaTags"],
                             })) &&
                             input["x-typia-metaTags"].every(
@@ -2400,7 +2407,7 @@ export const test_misc_assertClone_UltimateUnion = _test_misc_assertClone(
                                                 _index13 +
                                                 "]",
                                             expected:
-                                                "(IMetadataTag.IExclusiveMaximum | IMetadataTag.IExclusiveMinimum | IMetadataTag.IFormat | IMetadataTag.IItems | IMetadataTag.ILength | IMetadataTag.IMaxItems | IMetadataTag.IMaxLength | IMetadataTag.IMaximum | IMetadataTag.IMinItems | IMetadataTag.IMinLength | IMetadataTag.IMinimum | IMetadataTag.IMultipleOf | IMetadataTag.INumberType | IMetadataTag.IPattern | IMetadataTag.IStep)",
+                                                "(IMetadataCommentTag.IExclusiveMaximum | IMetadataCommentTag.IExclusiveMinimum | IMetadataCommentTag.IFormat | IMetadataCommentTag.IItems | IMetadataCommentTag.ILength | IMetadataCommentTag.IMaxItems | IMetadataCommentTag.IMaxLength | IMetadataCommentTag.IMaximum | IMetadataCommentTag.IMinItems | IMetadataCommentTag.IMinLength | IMetadataCommentTag.IMinimum | IMetadataCommentTag.IMultipleOf | IMetadataCommentTag.INumberType | IMetadataCommentTag.IPattern | IMetadataCommentTag.IStep)",
                                             value: elem,
                                         })) &&
                                         $au1(
@@ -2418,13 +2425,14 @@ export const test_misc_assertClone_UltimateUnion = _test_misc_assertClone(
                                             _index13 +
                                             "]",
                                         expected:
-                                            "(IMetadataTag.IExclusiveMaximum | IMetadataTag.IExclusiveMinimum | IMetadataTag.IFormat | IMetadataTag.IItems | IMetadataTag.ILength | IMetadataTag.IMaxItems | IMetadataTag.IMaxLength | IMetadataTag.IMaximum | IMetadataTag.IMinItems | IMetadataTag.IMinLength | IMetadataTag.IMinimum | IMetadataTag.IMultipleOf | IMetadataTag.INumberType | IMetadataTag.IPattern | IMetadataTag.IStep)",
+                                            "(IMetadataCommentTag.IExclusiveMaximum | IMetadataCommentTag.IExclusiveMinimum | IMetadataCommentTag.IFormat | IMetadataCommentTag.IItems | IMetadataCommentTag.ILength | IMetadataCommentTag.IMaxItems | IMetadataCommentTag.IMaxLength | IMetadataCommentTag.IMaximum | IMetadataCommentTag.IMinItems | IMetadataCommentTag.IMinLength | IMetadataCommentTag.IMinimum | IMetadataCommentTag.IMultipleOf | IMetadataCommentTag.INumberType | IMetadataCommentTag.IPattern | IMetadataCommentTag.IStep)",
                                         value: elem,
                                     }),
                             )) ||
                         $guard(_exceptionable, {
                             path: _path + '["x-typia-metaTags"]',
-                            expected: "(Array<IMetadataTag> | undefined)",
+                            expected:
+                                "(Array<IMetadataCommentTag> | undefined)",
                             value: input["x-typia-metaTags"],
                         })) &&
                     (undefined === input["x-typia-jsDocTags"] ||
@@ -2620,7 +2628,8 @@ export const test_misc_assertClone_UltimateUnion = _test_misc_assertClone(
                         ((Array.isArray(input["x-typia-metaTags"]) ||
                             $guard(_exceptionable, {
                                 path: _path + '["x-typia-metaTags"]',
-                                expected: "(Array<IMetadataTag> | undefined)",
+                                expected:
+                                    "(Array<IMetadataCommentTag> | undefined)",
                                 value: input["x-typia-metaTags"],
                             })) &&
                             input["x-typia-metaTags"].every(
@@ -2634,7 +2643,7 @@ export const test_misc_assertClone_UltimateUnion = _test_misc_assertClone(
                                                 _index15 +
                                                 "]",
                                             expected:
-                                                "(IMetadataTag.IExclusiveMaximum | IMetadataTag.IExclusiveMinimum | IMetadataTag.IFormat | IMetadataTag.IItems | IMetadataTag.ILength | IMetadataTag.IMaxItems | IMetadataTag.IMaxLength | IMetadataTag.IMaximum | IMetadataTag.IMinItems | IMetadataTag.IMinLength | IMetadataTag.IMinimum | IMetadataTag.IMultipleOf | IMetadataTag.INumberType | IMetadataTag.IPattern | IMetadataTag.IStep)",
+                                                "(IMetadataCommentTag.IExclusiveMaximum | IMetadataCommentTag.IExclusiveMinimum | IMetadataCommentTag.IFormat | IMetadataCommentTag.IItems | IMetadataCommentTag.ILength | IMetadataCommentTag.IMaxItems | IMetadataCommentTag.IMaxLength | IMetadataCommentTag.IMaximum | IMetadataCommentTag.IMinItems | IMetadataCommentTag.IMinLength | IMetadataCommentTag.IMinimum | IMetadataCommentTag.IMultipleOf | IMetadataCommentTag.INumberType | IMetadataCommentTag.IPattern | IMetadataCommentTag.IStep)",
                                             value: elem,
                                         })) &&
                                         $au1(
@@ -2652,13 +2661,14 @@ export const test_misc_assertClone_UltimateUnion = _test_misc_assertClone(
                                             _index15 +
                                             "]",
                                         expected:
-                                            "(IMetadataTag.IExclusiveMaximum | IMetadataTag.IExclusiveMinimum | IMetadataTag.IFormat | IMetadataTag.IItems | IMetadataTag.ILength | IMetadataTag.IMaxItems | IMetadataTag.IMaxLength | IMetadataTag.IMaximum | IMetadataTag.IMinItems | IMetadataTag.IMinLength | IMetadataTag.IMinimum | IMetadataTag.IMultipleOf | IMetadataTag.INumberType | IMetadataTag.IPattern | IMetadataTag.IStep)",
+                                            "(IMetadataCommentTag.IExclusiveMaximum | IMetadataCommentTag.IExclusiveMinimum | IMetadataCommentTag.IFormat | IMetadataCommentTag.IItems | IMetadataCommentTag.ILength | IMetadataCommentTag.IMaxItems | IMetadataCommentTag.IMaxLength | IMetadataCommentTag.IMaximum | IMetadataCommentTag.IMinItems | IMetadataCommentTag.IMinLength | IMetadataCommentTag.IMinimum | IMetadataCommentTag.IMultipleOf | IMetadataCommentTag.INumberType | IMetadataCommentTag.IPattern | IMetadataCommentTag.IStep)",
                                         value: elem,
                                     }),
                             )) ||
                         $guard(_exceptionable, {
                             path: _path + '["x-typia-metaTags"]',
-                            expected: "(Array<IMetadataTag> | undefined)",
+                            expected:
+                                "(Array<IMetadataCommentTag> | undefined)",
                             value: input["x-typia-metaTags"],
                         })) &&
                     (undefined === input["x-typia-jsDocTags"] ||
@@ -2814,7 +2824,8 @@ export const test_misc_assertClone_UltimateUnion = _test_misc_assertClone(
                         ((Array.isArray(input["x-typia-metaTags"]) ||
                             $guard(_exceptionable, {
                                 path: _path + '["x-typia-metaTags"]',
-                                expected: "(Array<IMetadataTag> | undefined)",
+                                expected:
+                                    "(Array<IMetadataCommentTag> | undefined)",
                                 value: input["x-typia-metaTags"],
                             })) &&
                             input["x-typia-metaTags"].every(
@@ -2828,7 +2839,7 @@ export const test_misc_assertClone_UltimateUnion = _test_misc_assertClone(
                                                 _index17 +
                                                 "]",
                                             expected:
-                                                "(IMetadataTag.IExclusiveMaximum | IMetadataTag.IExclusiveMinimum | IMetadataTag.IFormat | IMetadataTag.IItems | IMetadataTag.ILength | IMetadataTag.IMaxItems | IMetadataTag.IMaxLength | IMetadataTag.IMaximum | IMetadataTag.IMinItems | IMetadataTag.IMinLength | IMetadataTag.IMinimum | IMetadataTag.IMultipleOf | IMetadataTag.INumberType | IMetadataTag.IPattern | IMetadataTag.IStep)",
+                                                "(IMetadataCommentTag.IExclusiveMaximum | IMetadataCommentTag.IExclusiveMinimum | IMetadataCommentTag.IFormat | IMetadataCommentTag.IItems | IMetadataCommentTag.ILength | IMetadataCommentTag.IMaxItems | IMetadataCommentTag.IMaxLength | IMetadataCommentTag.IMaximum | IMetadataCommentTag.IMinItems | IMetadataCommentTag.IMinLength | IMetadataCommentTag.IMinimum | IMetadataCommentTag.IMultipleOf | IMetadataCommentTag.INumberType | IMetadataCommentTag.IPattern | IMetadataCommentTag.IStep)",
                                             value: elem,
                                         })) &&
                                         $au1(
@@ -2846,13 +2857,14 @@ export const test_misc_assertClone_UltimateUnion = _test_misc_assertClone(
                                             _index17 +
                                             "]",
                                         expected:
-                                            "(IMetadataTag.IExclusiveMaximum | IMetadataTag.IExclusiveMinimum | IMetadataTag.IFormat | IMetadataTag.IItems | IMetadataTag.ILength | IMetadataTag.IMaxItems | IMetadataTag.IMaxLength | IMetadataTag.IMaximum | IMetadataTag.IMinItems | IMetadataTag.IMinLength | IMetadataTag.IMinimum | IMetadataTag.IMultipleOf | IMetadataTag.INumberType | IMetadataTag.IPattern | IMetadataTag.IStep)",
+                                            "(IMetadataCommentTag.IExclusiveMaximum | IMetadataCommentTag.IExclusiveMinimum | IMetadataCommentTag.IFormat | IMetadataCommentTag.IItems | IMetadataCommentTag.ILength | IMetadataCommentTag.IMaxItems | IMetadataCommentTag.IMaxLength | IMetadataCommentTag.IMaximum | IMetadataCommentTag.IMinItems | IMetadataCommentTag.IMinLength | IMetadataCommentTag.IMinimum | IMetadataCommentTag.IMultipleOf | IMetadataCommentTag.INumberType | IMetadataCommentTag.IPattern | IMetadataCommentTag.IStep)",
                                         value: elem,
                                     }),
                             )) ||
                         $guard(_exceptionable, {
                             path: _path + '["x-typia-metaTags"]',
-                            expected: "(Array<IMetadataTag> | undefined)",
+                            expected:
+                                "(Array<IMetadataCommentTag> | undefined)",
                             value: input["x-typia-metaTags"],
                         })) &&
                     (undefined === input["x-typia-jsDocTags"] ||
@@ -3035,7 +3047,8 @@ export const test_misc_assertClone_UltimateUnion = _test_misc_assertClone(
                         ((Array.isArray(input["x-typia-metaTags"]) ||
                             $guard(_exceptionable, {
                                 path: _path + '["x-typia-metaTags"]',
-                                expected: "(Array<IMetadataTag> | undefined)",
+                                expected:
+                                    "(Array<IMetadataCommentTag> | undefined)",
                                 value: input["x-typia-metaTags"],
                             })) &&
                             input["x-typia-metaTags"].every(
@@ -3049,7 +3062,7 @@ export const test_misc_assertClone_UltimateUnion = _test_misc_assertClone(
                                                 _index19 +
                                                 "]",
                                             expected:
-                                                "(IMetadataTag.IExclusiveMaximum | IMetadataTag.IExclusiveMinimum | IMetadataTag.IFormat | IMetadataTag.IItems | IMetadataTag.ILength | IMetadataTag.IMaxItems | IMetadataTag.IMaxLength | IMetadataTag.IMaximum | IMetadataTag.IMinItems | IMetadataTag.IMinLength | IMetadataTag.IMinimum | IMetadataTag.IMultipleOf | IMetadataTag.INumberType | IMetadataTag.IPattern | IMetadataTag.IStep)",
+                                                "(IMetadataCommentTag.IExclusiveMaximum | IMetadataCommentTag.IExclusiveMinimum | IMetadataCommentTag.IFormat | IMetadataCommentTag.IItems | IMetadataCommentTag.ILength | IMetadataCommentTag.IMaxItems | IMetadataCommentTag.IMaxLength | IMetadataCommentTag.IMaximum | IMetadataCommentTag.IMinItems | IMetadataCommentTag.IMinLength | IMetadataCommentTag.IMinimum | IMetadataCommentTag.IMultipleOf | IMetadataCommentTag.INumberType | IMetadataCommentTag.IPattern | IMetadataCommentTag.IStep)",
                                             value: elem,
                                         })) &&
                                         $au1(
@@ -3067,13 +3080,14 @@ export const test_misc_assertClone_UltimateUnion = _test_misc_assertClone(
                                             _index19 +
                                             "]",
                                         expected:
-                                            "(IMetadataTag.IExclusiveMaximum | IMetadataTag.IExclusiveMinimum | IMetadataTag.IFormat | IMetadataTag.IItems | IMetadataTag.ILength | IMetadataTag.IMaxItems | IMetadataTag.IMaxLength | IMetadataTag.IMaximum | IMetadataTag.IMinItems | IMetadataTag.IMinLength | IMetadataTag.IMinimum | IMetadataTag.IMultipleOf | IMetadataTag.INumberType | IMetadataTag.IPattern | IMetadataTag.IStep)",
+                                            "(IMetadataCommentTag.IExclusiveMaximum | IMetadataCommentTag.IExclusiveMinimum | IMetadataCommentTag.IFormat | IMetadataCommentTag.IItems | IMetadataCommentTag.ILength | IMetadataCommentTag.IMaxItems | IMetadataCommentTag.IMaxLength | IMetadataCommentTag.IMaximum | IMetadataCommentTag.IMinItems | IMetadataCommentTag.IMinLength | IMetadataCommentTag.IMinimum | IMetadataCommentTag.IMultipleOf | IMetadataCommentTag.INumberType | IMetadataCommentTag.IPattern | IMetadataCommentTag.IStep)",
                                         value: elem,
                                     }),
                             )) ||
                         $guard(_exceptionable, {
                             path: _path + '["x-typia-metaTags"]',
-                            expected: "(Array<IMetadataTag> | undefined)",
+                            expected:
+                                "(Array<IMetadataCommentTag> | undefined)",
                             value: input["x-typia-metaTags"],
                         })) &&
                     (undefined === input["x-typia-jsDocTags"] ||
@@ -3273,7 +3287,8 @@ export const test_misc_assertClone_UltimateUnion = _test_misc_assertClone(
                         ((Array.isArray(input["x-typia-metaTags"]) ||
                             $guard(_exceptionable, {
                                 path: _path + '["x-typia-metaTags"]',
-                                expected: "(Array<IMetadataTag> | undefined)",
+                                expected:
+                                    "(Array<IMetadataCommentTag> | undefined)",
                                 value: input["x-typia-metaTags"],
                             })) &&
                             input["x-typia-metaTags"].every(
@@ -3287,7 +3302,7 @@ export const test_misc_assertClone_UltimateUnion = _test_misc_assertClone(
                                                 _index21 +
                                                 "]",
                                             expected:
-                                                "(IMetadataTag.IExclusiveMaximum | IMetadataTag.IExclusiveMinimum | IMetadataTag.IFormat | IMetadataTag.IItems | IMetadataTag.ILength | IMetadataTag.IMaxItems | IMetadataTag.IMaxLength | IMetadataTag.IMaximum | IMetadataTag.IMinItems | IMetadataTag.IMinLength | IMetadataTag.IMinimum | IMetadataTag.IMultipleOf | IMetadataTag.INumberType | IMetadataTag.IPattern | IMetadataTag.IStep)",
+                                                "(IMetadataCommentTag.IExclusiveMaximum | IMetadataCommentTag.IExclusiveMinimum | IMetadataCommentTag.IFormat | IMetadataCommentTag.IItems | IMetadataCommentTag.ILength | IMetadataCommentTag.IMaxItems | IMetadataCommentTag.IMaxLength | IMetadataCommentTag.IMaximum | IMetadataCommentTag.IMinItems | IMetadataCommentTag.IMinLength | IMetadataCommentTag.IMinimum | IMetadataCommentTag.IMultipleOf | IMetadataCommentTag.INumberType | IMetadataCommentTag.IPattern | IMetadataCommentTag.IStep)",
                                             value: elem,
                                         })) &&
                                         $au1(
@@ -3305,13 +3320,14 @@ export const test_misc_assertClone_UltimateUnion = _test_misc_assertClone(
                                             _index21 +
                                             "]",
                                         expected:
-                                            "(IMetadataTag.IExclusiveMaximum | IMetadataTag.IExclusiveMinimum | IMetadataTag.IFormat | IMetadataTag.IItems | IMetadataTag.ILength | IMetadataTag.IMaxItems | IMetadataTag.IMaxLength | IMetadataTag.IMaximum | IMetadataTag.IMinItems | IMetadataTag.IMinLength | IMetadataTag.IMinimum | IMetadataTag.IMultipleOf | IMetadataTag.INumberType | IMetadataTag.IPattern | IMetadataTag.IStep)",
+                                            "(IMetadataCommentTag.IExclusiveMaximum | IMetadataCommentTag.IExclusiveMinimum | IMetadataCommentTag.IFormat | IMetadataCommentTag.IItems | IMetadataCommentTag.ILength | IMetadataCommentTag.IMaxItems | IMetadataCommentTag.IMaxLength | IMetadataCommentTag.IMaximum | IMetadataCommentTag.IMinItems | IMetadataCommentTag.IMinLength | IMetadataCommentTag.IMinimum | IMetadataCommentTag.IMultipleOf | IMetadataCommentTag.INumberType | IMetadataCommentTag.IPattern | IMetadataCommentTag.IStep)",
                                         value: elem,
                                     }),
                             )) ||
                         $guard(_exceptionable, {
                             path: _path + '["x-typia-metaTags"]',
-                            expected: "(Array<IMetadataTag> | undefined)",
+                            expected:
+                                "(Array<IMetadataCommentTag> | undefined)",
                             value: input["x-typia-metaTags"],
                         })) &&
                     (undefined === input["x-typia-jsDocTags"] ||
@@ -3507,7 +3523,8 @@ export const test_misc_assertClone_UltimateUnion = _test_misc_assertClone(
                         ((Array.isArray(input["x-typia-metaTags"]) ||
                             $guard(_exceptionable, {
                                 path: _path + '["x-typia-metaTags"]',
-                                expected: "(Array<IMetadataTag> | undefined)",
+                                expected:
+                                    "(Array<IMetadataCommentTag> | undefined)",
                                 value: input["x-typia-metaTags"],
                             })) &&
                             input["x-typia-metaTags"].every(
@@ -3521,7 +3538,7 @@ export const test_misc_assertClone_UltimateUnion = _test_misc_assertClone(
                                                 _index24 +
                                                 "]",
                                             expected:
-                                                "(IMetadataTag.IExclusiveMaximum | IMetadataTag.IExclusiveMinimum | IMetadataTag.IFormat | IMetadataTag.IItems | IMetadataTag.ILength | IMetadataTag.IMaxItems | IMetadataTag.IMaxLength | IMetadataTag.IMaximum | IMetadataTag.IMinItems | IMetadataTag.IMinLength | IMetadataTag.IMinimum | IMetadataTag.IMultipleOf | IMetadataTag.INumberType | IMetadataTag.IPattern | IMetadataTag.IStep)",
+                                                "(IMetadataCommentTag.IExclusiveMaximum | IMetadataCommentTag.IExclusiveMinimum | IMetadataCommentTag.IFormat | IMetadataCommentTag.IItems | IMetadataCommentTag.ILength | IMetadataCommentTag.IMaxItems | IMetadataCommentTag.IMaxLength | IMetadataCommentTag.IMaximum | IMetadataCommentTag.IMinItems | IMetadataCommentTag.IMinLength | IMetadataCommentTag.IMinimum | IMetadataCommentTag.IMultipleOf | IMetadataCommentTag.INumberType | IMetadataCommentTag.IPattern | IMetadataCommentTag.IStep)",
                                             value: elem,
                                         })) &&
                                         $au1(
@@ -3539,13 +3556,14 @@ export const test_misc_assertClone_UltimateUnion = _test_misc_assertClone(
                                             _index24 +
                                             "]",
                                         expected:
-                                            "(IMetadataTag.IExclusiveMaximum | IMetadataTag.IExclusiveMinimum | IMetadataTag.IFormat | IMetadataTag.IItems | IMetadataTag.ILength | IMetadataTag.IMaxItems | IMetadataTag.IMaxLength | IMetadataTag.IMaximum | IMetadataTag.IMinItems | IMetadataTag.IMinLength | IMetadataTag.IMinimum | IMetadataTag.IMultipleOf | IMetadataTag.INumberType | IMetadataTag.IPattern | IMetadataTag.IStep)",
+                                            "(IMetadataCommentTag.IExclusiveMaximum | IMetadataCommentTag.IExclusiveMinimum | IMetadataCommentTag.IFormat | IMetadataCommentTag.IItems | IMetadataCommentTag.ILength | IMetadataCommentTag.IMaxItems | IMetadataCommentTag.IMaxLength | IMetadataCommentTag.IMaximum | IMetadataCommentTag.IMinItems | IMetadataCommentTag.IMinLength | IMetadataCommentTag.IMinimum | IMetadataCommentTag.IMultipleOf | IMetadataCommentTag.INumberType | IMetadataCommentTag.IPattern | IMetadataCommentTag.IStep)",
                                         value: elem,
                                     }),
                             )) ||
                         $guard(_exceptionable, {
                             path: _path + '["x-typia-metaTags"]',
-                            expected: "(Array<IMetadataTag> | undefined)",
+                            expected:
+                                "(Array<IMetadataCommentTag> | undefined)",
                             value: input["x-typia-metaTags"],
                         })) &&
                     (undefined === input["x-typia-jsDocTags"] ||
@@ -3677,7 +3695,8 @@ export const test_misc_assertClone_UltimateUnion = _test_misc_assertClone(
                         ((Array.isArray(input["x-typia-metaTags"]) ||
                             $guard(_exceptionable, {
                                 path: _path + '["x-typia-metaTags"]',
-                                expected: "(Array<IMetadataTag> | undefined)",
+                                expected:
+                                    "(Array<IMetadataCommentTag> | undefined)",
                                 value: input["x-typia-metaTags"],
                             })) &&
                             input["x-typia-metaTags"].every(
@@ -3691,7 +3710,7 @@ export const test_misc_assertClone_UltimateUnion = _test_misc_assertClone(
                                                 _index27 +
                                                 "]",
                                             expected:
-                                                "(IMetadataTag.IExclusiveMaximum | IMetadataTag.IExclusiveMinimum | IMetadataTag.IFormat | IMetadataTag.IItems | IMetadataTag.ILength | IMetadataTag.IMaxItems | IMetadataTag.IMaxLength | IMetadataTag.IMaximum | IMetadataTag.IMinItems | IMetadataTag.IMinLength | IMetadataTag.IMinimum | IMetadataTag.IMultipleOf | IMetadataTag.INumberType | IMetadataTag.IPattern | IMetadataTag.IStep)",
+                                                "(IMetadataCommentTag.IExclusiveMaximum | IMetadataCommentTag.IExclusiveMinimum | IMetadataCommentTag.IFormat | IMetadataCommentTag.IItems | IMetadataCommentTag.ILength | IMetadataCommentTag.IMaxItems | IMetadataCommentTag.IMaxLength | IMetadataCommentTag.IMaximum | IMetadataCommentTag.IMinItems | IMetadataCommentTag.IMinLength | IMetadataCommentTag.IMinimum | IMetadataCommentTag.IMultipleOf | IMetadataCommentTag.INumberType | IMetadataCommentTag.IPattern | IMetadataCommentTag.IStep)",
                                             value: elem,
                                         })) &&
                                         $au1(
@@ -3709,13 +3728,14 @@ export const test_misc_assertClone_UltimateUnion = _test_misc_assertClone(
                                             _index27 +
                                             "]",
                                         expected:
-                                            "(IMetadataTag.IExclusiveMaximum | IMetadataTag.IExclusiveMinimum | IMetadataTag.IFormat | IMetadataTag.IItems | IMetadataTag.ILength | IMetadataTag.IMaxItems | IMetadataTag.IMaxLength | IMetadataTag.IMaximum | IMetadataTag.IMinItems | IMetadataTag.IMinLength | IMetadataTag.IMinimum | IMetadataTag.IMultipleOf | IMetadataTag.INumberType | IMetadataTag.IPattern | IMetadataTag.IStep)",
+                                            "(IMetadataCommentTag.IExclusiveMaximum | IMetadataCommentTag.IExclusiveMinimum | IMetadataCommentTag.IFormat | IMetadataCommentTag.IItems | IMetadataCommentTag.ILength | IMetadataCommentTag.IMaxItems | IMetadataCommentTag.IMaxLength | IMetadataCommentTag.IMaximum | IMetadataCommentTag.IMinItems | IMetadataCommentTag.IMinLength | IMetadataCommentTag.IMinimum | IMetadataCommentTag.IMultipleOf | IMetadataCommentTag.INumberType | IMetadataCommentTag.IPattern | IMetadataCommentTag.IStep)",
                                         value: elem,
                                     }),
                             )) ||
                         $guard(_exceptionable, {
                             path: _path + '["x-typia-metaTags"]',
-                            expected: "(Array<IMetadataTag> | undefined)",
+                            expected:
+                                "(Array<IMetadataCommentTag> | undefined)",
                             value: input["x-typia-metaTags"],
                         })) &&
                     (undefined === input["x-typia-jsDocTags"] ||
@@ -3818,7 +3838,8 @@ export const test_misc_assertClone_UltimateUnion = _test_misc_assertClone(
                         ((Array.isArray(input["x-typia-metaTags"]) ||
                             $guard(_exceptionable, {
                                 path: _path + '["x-typia-metaTags"]',
-                                expected: "(Array<IMetadataTag> | undefined)",
+                                expected:
+                                    "(Array<IMetadataCommentTag> | undefined)",
                                 value: input["x-typia-metaTags"],
                             })) &&
                             input["x-typia-metaTags"].every(
@@ -3832,7 +3853,7 @@ export const test_misc_assertClone_UltimateUnion = _test_misc_assertClone(
                                                 _index29 +
                                                 "]",
                                             expected:
-                                                "(IMetadataTag.IExclusiveMaximum | IMetadataTag.IExclusiveMinimum | IMetadataTag.IFormat | IMetadataTag.IItems | IMetadataTag.ILength | IMetadataTag.IMaxItems | IMetadataTag.IMaxLength | IMetadataTag.IMaximum | IMetadataTag.IMinItems | IMetadataTag.IMinLength | IMetadataTag.IMinimum | IMetadataTag.IMultipleOf | IMetadataTag.INumberType | IMetadataTag.IPattern | IMetadataTag.IStep)",
+                                                "(IMetadataCommentTag.IExclusiveMaximum | IMetadataCommentTag.IExclusiveMinimum | IMetadataCommentTag.IFormat | IMetadataCommentTag.IItems | IMetadataCommentTag.ILength | IMetadataCommentTag.IMaxItems | IMetadataCommentTag.IMaxLength | IMetadataCommentTag.IMaximum | IMetadataCommentTag.IMinItems | IMetadataCommentTag.IMinLength | IMetadataCommentTag.IMinimum | IMetadataCommentTag.IMultipleOf | IMetadataCommentTag.INumberType | IMetadataCommentTag.IPattern | IMetadataCommentTag.IStep)",
                                             value: elem,
                                         })) &&
                                         $au1(
@@ -3850,13 +3871,14 @@ export const test_misc_assertClone_UltimateUnion = _test_misc_assertClone(
                                             _index29 +
                                             "]",
                                         expected:
-                                            "(IMetadataTag.IExclusiveMaximum | IMetadataTag.IExclusiveMinimum | IMetadataTag.IFormat | IMetadataTag.IItems | IMetadataTag.ILength | IMetadataTag.IMaxItems | IMetadataTag.IMaxLength | IMetadataTag.IMaximum | IMetadataTag.IMinItems | IMetadataTag.IMinLength | IMetadataTag.IMinimum | IMetadataTag.IMultipleOf | IMetadataTag.INumberType | IMetadataTag.IPattern | IMetadataTag.IStep)",
+                                            "(IMetadataCommentTag.IExclusiveMaximum | IMetadataCommentTag.IExclusiveMinimum | IMetadataCommentTag.IFormat | IMetadataCommentTag.IItems | IMetadataCommentTag.ILength | IMetadataCommentTag.IMaxItems | IMetadataCommentTag.IMaxLength | IMetadataCommentTag.IMaximum | IMetadataCommentTag.IMinItems | IMetadataCommentTag.IMinLength | IMetadataCommentTag.IMinimum | IMetadataCommentTag.IMultipleOf | IMetadataCommentTag.INumberType | IMetadataCommentTag.IPattern | IMetadataCommentTag.IStep)",
                                         value: elem,
                                     }),
                             )) ||
                         $guard(_exceptionable, {
                             path: _path + '["x-typia-metaTags"]',
-                            expected: "(Array<IMetadataTag> | undefined)",
+                            expected:
+                                "(Array<IMetadataCommentTag> | undefined)",
                             value: input["x-typia-metaTags"],
                         })) &&
                     (undefined === input["x-typia-jsDocTags"] ||
@@ -3959,7 +3981,8 @@ export const test_misc_assertClone_UltimateUnion = _test_misc_assertClone(
                         ((Array.isArray(input["x-typia-metaTags"]) ||
                             $guard(_exceptionable, {
                                 path: _path + '["x-typia-metaTags"]',
-                                expected: "(Array<IMetadataTag> | undefined)",
+                                expected:
+                                    "(Array<IMetadataCommentTag> | undefined)",
                                 value: input["x-typia-metaTags"],
                             })) &&
                             input["x-typia-metaTags"].every(
@@ -3973,7 +3996,7 @@ export const test_misc_assertClone_UltimateUnion = _test_misc_assertClone(
                                                 _index31 +
                                                 "]",
                                             expected:
-                                                "(IMetadataTag.IExclusiveMaximum | IMetadataTag.IExclusiveMinimum | IMetadataTag.IFormat | IMetadataTag.IItems | IMetadataTag.ILength | IMetadataTag.IMaxItems | IMetadataTag.IMaxLength | IMetadataTag.IMaximum | IMetadataTag.IMinItems | IMetadataTag.IMinLength | IMetadataTag.IMinimum | IMetadataTag.IMultipleOf | IMetadataTag.INumberType | IMetadataTag.IPattern | IMetadataTag.IStep)",
+                                                "(IMetadataCommentTag.IExclusiveMaximum | IMetadataCommentTag.IExclusiveMinimum | IMetadataCommentTag.IFormat | IMetadataCommentTag.IItems | IMetadataCommentTag.ILength | IMetadataCommentTag.IMaxItems | IMetadataCommentTag.IMaxLength | IMetadataCommentTag.IMaximum | IMetadataCommentTag.IMinItems | IMetadataCommentTag.IMinLength | IMetadataCommentTag.IMinimum | IMetadataCommentTag.IMultipleOf | IMetadataCommentTag.INumberType | IMetadataCommentTag.IPattern | IMetadataCommentTag.IStep)",
                                             value: elem,
                                         })) &&
                                         $au1(
@@ -3991,13 +4014,14 @@ export const test_misc_assertClone_UltimateUnion = _test_misc_assertClone(
                                             _index31 +
                                             "]",
                                         expected:
-                                            "(IMetadataTag.IExclusiveMaximum | IMetadataTag.IExclusiveMinimum | IMetadataTag.IFormat | IMetadataTag.IItems | IMetadataTag.ILength | IMetadataTag.IMaxItems | IMetadataTag.IMaxLength | IMetadataTag.IMaximum | IMetadataTag.IMinItems | IMetadataTag.IMinLength | IMetadataTag.IMinimum | IMetadataTag.IMultipleOf | IMetadataTag.INumberType | IMetadataTag.IPattern | IMetadataTag.IStep)",
+                                            "(IMetadataCommentTag.IExclusiveMaximum | IMetadataCommentTag.IExclusiveMinimum | IMetadataCommentTag.IFormat | IMetadataCommentTag.IItems | IMetadataCommentTag.ILength | IMetadataCommentTag.IMaxItems | IMetadataCommentTag.IMaxLength | IMetadataCommentTag.IMaximum | IMetadataCommentTag.IMinItems | IMetadataCommentTag.IMinLength | IMetadataCommentTag.IMinimum | IMetadataCommentTag.IMultipleOf | IMetadataCommentTag.INumberType | IMetadataCommentTag.IPattern | IMetadataCommentTag.IStep)",
                                         value: elem,
                                     }),
                             )) ||
                         $guard(_exceptionable, {
                             path: _path + '["x-typia-metaTags"]',
-                            expected: "(Array<IMetadataTag> | undefined)",
+                            expected:
+                                "(Array<IMetadataCommentTag> | undefined)",
                             value: input["x-typia-metaTags"],
                         })) &&
                     (undefined === input["x-typia-jsDocTags"] ||
@@ -4106,7 +4130,8 @@ export const test_misc_assertClone_UltimateUnion = _test_misc_assertClone(
                         ((Array.isArray(input["x-typia-metaTags"]) ||
                             $guard(_exceptionable, {
                                 path: _path + '["x-typia-metaTags"]',
-                                expected: "(Array<IMetadataTag> | undefined)",
+                                expected:
+                                    "(Array<IMetadataCommentTag> | undefined)",
                                 value: input["x-typia-metaTags"],
                             })) &&
                             input["x-typia-metaTags"].every(
@@ -4120,7 +4145,7 @@ export const test_misc_assertClone_UltimateUnion = _test_misc_assertClone(
                                                 _index33 +
                                                 "]",
                                             expected:
-                                                "(IMetadataTag.IExclusiveMaximum | IMetadataTag.IExclusiveMinimum | IMetadataTag.IFormat | IMetadataTag.IItems | IMetadataTag.ILength | IMetadataTag.IMaxItems | IMetadataTag.IMaxLength | IMetadataTag.IMaximum | IMetadataTag.IMinItems | IMetadataTag.IMinLength | IMetadataTag.IMinimum | IMetadataTag.IMultipleOf | IMetadataTag.INumberType | IMetadataTag.IPattern | IMetadataTag.IStep)",
+                                                "(IMetadataCommentTag.IExclusiveMaximum | IMetadataCommentTag.IExclusiveMinimum | IMetadataCommentTag.IFormat | IMetadataCommentTag.IItems | IMetadataCommentTag.ILength | IMetadataCommentTag.IMaxItems | IMetadataCommentTag.IMaxLength | IMetadataCommentTag.IMaximum | IMetadataCommentTag.IMinItems | IMetadataCommentTag.IMinLength | IMetadataCommentTag.IMinimum | IMetadataCommentTag.IMultipleOf | IMetadataCommentTag.INumberType | IMetadataCommentTag.IPattern | IMetadataCommentTag.IStep)",
                                             value: elem,
                                         })) &&
                                         $au1(
@@ -4138,13 +4163,14 @@ export const test_misc_assertClone_UltimateUnion = _test_misc_assertClone(
                                             _index33 +
                                             "]",
                                         expected:
-                                            "(IMetadataTag.IExclusiveMaximum | IMetadataTag.IExclusiveMinimum | IMetadataTag.IFormat | IMetadataTag.IItems | IMetadataTag.ILength | IMetadataTag.IMaxItems | IMetadataTag.IMaxLength | IMetadataTag.IMaximum | IMetadataTag.IMinItems | IMetadataTag.IMinLength | IMetadataTag.IMinimum | IMetadataTag.IMultipleOf | IMetadataTag.INumberType | IMetadataTag.IPattern | IMetadataTag.IStep)",
+                                            "(IMetadataCommentTag.IExclusiveMaximum | IMetadataCommentTag.IExclusiveMinimum | IMetadataCommentTag.IFormat | IMetadataCommentTag.IItems | IMetadataCommentTag.ILength | IMetadataCommentTag.IMaxItems | IMetadataCommentTag.IMaxLength | IMetadataCommentTag.IMaximum | IMetadataCommentTag.IMinItems | IMetadataCommentTag.IMinLength | IMetadataCommentTag.IMinimum | IMetadataCommentTag.IMultipleOf | IMetadataCommentTag.INumberType | IMetadataCommentTag.IPattern | IMetadataCommentTag.IStep)",
                                         value: elem,
                                     }),
                             )) ||
                         $guard(_exceptionable, {
                             path: _path + '["x-typia-metaTags"]',
-                            expected: "(Array<IMetadataTag> | undefined)",
+                            expected:
+                                "(Array<IMetadataCommentTag> | undefined)",
                             value: input["x-typia-metaTags"],
                         })) &&
                     (undefined === input["x-typia-jsDocTags"] ||
@@ -4587,7 +4613,8 @@ export const test_misc_assertClone_UltimateUnion = _test_misc_assertClone(
                         ((Array.isArray(input["x-typia-metaTags"]) ||
                             $guard(_exceptionable, {
                                 path: _path + '["x-typia-metaTags"]',
-                                expected: "(Array<IMetadataTag> | undefined)",
+                                expected:
+                                    "(Array<IMetadataCommentTag> | undefined)",
                                 value: input["x-typia-metaTags"],
                             })) &&
                             input["x-typia-metaTags"].every(
@@ -4601,7 +4628,7 @@ export const test_misc_assertClone_UltimateUnion = _test_misc_assertClone(
                                                 _index38 +
                                                 "]",
                                             expected:
-                                                "(IMetadataTag.IExclusiveMaximum | IMetadataTag.IExclusiveMinimum | IMetadataTag.IFormat | IMetadataTag.IItems | IMetadataTag.ILength | IMetadataTag.IMaxItems | IMetadataTag.IMaxLength | IMetadataTag.IMaximum | IMetadataTag.IMinItems | IMetadataTag.IMinLength | IMetadataTag.IMinimum | IMetadataTag.IMultipleOf | IMetadataTag.INumberType | IMetadataTag.IPattern | IMetadataTag.IStep)",
+                                                "(IMetadataCommentTag.IExclusiveMaximum | IMetadataCommentTag.IExclusiveMinimum | IMetadataCommentTag.IFormat | IMetadataCommentTag.IItems | IMetadataCommentTag.ILength | IMetadataCommentTag.IMaxItems | IMetadataCommentTag.IMaxLength | IMetadataCommentTag.IMaximum | IMetadataCommentTag.IMinItems | IMetadataCommentTag.IMinLength | IMetadataCommentTag.IMinimum | IMetadataCommentTag.IMultipleOf | IMetadataCommentTag.INumberType | IMetadataCommentTag.IPattern | IMetadataCommentTag.IStep)",
                                             value: elem,
                                         })) &&
                                         $au1(
@@ -4619,13 +4646,14 @@ export const test_misc_assertClone_UltimateUnion = _test_misc_assertClone(
                                             _index38 +
                                             "]",
                                         expected:
-                                            "(IMetadataTag.IExclusiveMaximum | IMetadataTag.IExclusiveMinimum | IMetadataTag.IFormat | IMetadataTag.IItems | IMetadataTag.ILength | IMetadataTag.IMaxItems | IMetadataTag.IMaxLength | IMetadataTag.IMaximum | IMetadataTag.IMinItems | IMetadataTag.IMinLength | IMetadataTag.IMinimum | IMetadataTag.IMultipleOf | IMetadataTag.INumberType | IMetadataTag.IPattern | IMetadataTag.IStep)",
+                                            "(IMetadataCommentTag.IExclusiveMaximum | IMetadataCommentTag.IExclusiveMinimum | IMetadataCommentTag.IFormat | IMetadataCommentTag.IItems | IMetadataCommentTag.ILength | IMetadataCommentTag.IMaxItems | IMetadataCommentTag.IMaxLength | IMetadataCommentTag.IMaximum | IMetadataCommentTag.IMinItems | IMetadataCommentTag.IMinLength | IMetadataCommentTag.IMinimum | IMetadataCommentTag.IMultipleOf | IMetadataCommentTag.INumberType | IMetadataCommentTag.IPattern | IMetadataCommentTag.IStep)",
                                         value: elem,
                                     }),
                             )) ||
                         $guard(_exceptionable, {
                             path: _path + '["x-typia-metaTags"]',
-                            expected: "(Array<IMetadataTag> | undefined)",
+                            expected:
+                                "(Array<IMetadataCommentTag> | undefined)",
                             value: input["x-typia-metaTags"],
                         })) &&
                     (undefined === input["x-typia-jsDocTags"] ||
@@ -4778,7 +4806,8 @@ export const test_misc_assertClone_UltimateUnion = _test_misc_assertClone(
                         ((Array.isArray(input["x-typia-metaTags"]) ||
                             $guard(_exceptionable, {
                                 path: _path + '["x-typia-metaTags"]',
-                                expected: "(Array<IMetadataTag> | undefined)",
+                                expected:
+                                    "(Array<IMetadataCommentTag> | undefined)",
                                 value: input["x-typia-metaTags"],
                             })) &&
                             input["x-typia-metaTags"].every(
@@ -4792,7 +4821,7 @@ export const test_misc_assertClone_UltimateUnion = _test_misc_assertClone(
                                                 _index41 +
                                                 "]",
                                             expected:
-                                                "(IMetadataTag.IExclusiveMaximum | IMetadataTag.IExclusiveMinimum | IMetadataTag.IFormat | IMetadataTag.IItems | IMetadataTag.ILength | IMetadataTag.IMaxItems | IMetadataTag.IMaxLength | IMetadataTag.IMaximum | IMetadataTag.IMinItems | IMetadataTag.IMinLength | IMetadataTag.IMinimum | IMetadataTag.IMultipleOf | IMetadataTag.INumberType | IMetadataTag.IPattern | IMetadataTag.IStep)",
+                                                "(IMetadataCommentTag.IExclusiveMaximum | IMetadataCommentTag.IExclusiveMinimum | IMetadataCommentTag.IFormat | IMetadataCommentTag.IItems | IMetadataCommentTag.ILength | IMetadataCommentTag.IMaxItems | IMetadataCommentTag.IMaxLength | IMetadataCommentTag.IMaximum | IMetadataCommentTag.IMinItems | IMetadataCommentTag.IMinLength | IMetadataCommentTag.IMinimum | IMetadataCommentTag.IMultipleOf | IMetadataCommentTag.INumberType | IMetadataCommentTag.IPattern | IMetadataCommentTag.IStep)",
                                             value: elem,
                                         })) &&
                                         $au1(
@@ -4810,13 +4839,14 @@ export const test_misc_assertClone_UltimateUnion = _test_misc_assertClone(
                                             _index41 +
                                             "]",
                                         expected:
-                                            "(IMetadataTag.IExclusiveMaximum | IMetadataTag.IExclusiveMinimum | IMetadataTag.IFormat | IMetadataTag.IItems | IMetadataTag.ILength | IMetadataTag.IMaxItems | IMetadataTag.IMaxLength | IMetadataTag.IMaximum | IMetadataTag.IMinItems | IMetadataTag.IMinLength | IMetadataTag.IMinimum | IMetadataTag.IMultipleOf | IMetadataTag.INumberType | IMetadataTag.IPattern | IMetadataTag.IStep)",
+                                            "(IMetadataCommentTag.IExclusiveMaximum | IMetadataCommentTag.IExclusiveMinimum | IMetadataCommentTag.IFormat | IMetadataCommentTag.IItems | IMetadataCommentTag.ILength | IMetadataCommentTag.IMaxItems | IMetadataCommentTag.IMaxLength | IMetadataCommentTag.IMaximum | IMetadataCommentTag.IMinItems | IMetadataCommentTag.IMinLength | IMetadataCommentTag.IMinimum | IMetadataCommentTag.IMultipleOf | IMetadataCommentTag.INumberType | IMetadataCommentTag.IPattern | IMetadataCommentTag.IStep)",
                                         value: elem,
                                     }),
                             )) ||
                         $guard(_exceptionable, {
                             path: _path + '["x-typia-metaTags"]',
-                            expected: "(Array<IMetadataTag> | undefined)",
+                            expected:
+                                "(Array<IMetadataCommentTag> | undefined)",
                             value: input["x-typia-metaTags"],
                         })) &&
                     (undefined === input["x-typia-jsDocTags"] ||
@@ -4967,7 +4997,8 @@ export const test_misc_assertClone_UltimateUnion = _test_misc_assertClone(
                         ((Array.isArray(input["x-typia-metaTags"]) ||
                             $guard(_exceptionable, {
                                 path: _path + '["x-typia-metaTags"]',
-                                expected: "(Array<IMetadataTag> | undefined)",
+                                expected:
+                                    "(Array<IMetadataCommentTag> | undefined)",
                                 value: input["x-typia-metaTags"],
                             })) &&
                             input["x-typia-metaTags"].every(
@@ -4981,7 +5012,7 @@ export const test_misc_assertClone_UltimateUnion = _test_misc_assertClone(
                                                 _index44 +
                                                 "]",
                                             expected:
-                                                "(IMetadataTag.IExclusiveMaximum | IMetadataTag.IExclusiveMinimum | IMetadataTag.IFormat | IMetadataTag.IItems | IMetadataTag.ILength | IMetadataTag.IMaxItems | IMetadataTag.IMaxLength | IMetadataTag.IMaximum | IMetadataTag.IMinItems | IMetadataTag.IMinLength | IMetadataTag.IMinimum | IMetadataTag.IMultipleOf | IMetadataTag.INumberType | IMetadataTag.IPattern | IMetadataTag.IStep)",
+                                                "(IMetadataCommentTag.IExclusiveMaximum | IMetadataCommentTag.IExclusiveMinimum | IMetadataCommentTag.IFormat | IMetadataCommentTag.IItems | IMetadataCommentTag.ILength | IMetadataCommentTag.IMaxItems | IMetadataCommentTag.IMaxLength | IMetadataCommentTag.IMaximum | IMetadataCommentTag.IMinItems | IMetadataCommentTag.IMinLength | IMetadataCommentTag.IMinimum | IMetadataCommentTag.IMultipleOf | IMetadataCommentTag.INumberType | IMetadataCommentTag.IPattern | IMetadataCommentTag.IStep)",
                                             value: elem,
                                         })) &&
                                         $au1(
@@ -4999,13 +5030,14 @@ export const test_misc_assertClone_UltimateUnion = _test_misc_assertClone(
                                             _index44 +
                                             "]",
                                         expected:
-                                            "(IMetadataTag.IExclusiveMaximum | IMetadataTag.IExclusiveMinimum | IMetadataTag.IFormat | IMetadataTag.IItems | IMetadataTag.ILength | IMetadataTag.IMaxItems | IMetadataTag.IMaxLength | IMetadataTag.IMaximum | IMetadataTag.IMinItems | IMetadataTag.IMinLength | IMetadataTag.IMinimum | IMetadataTag.IMultipleOf | IMetadataTag.INumberType | IMetadataTag.IPattern | IMetadataTag.IStep)",
+                                            "(IMetadataCommentTag.IExclusiveMaximum | IMetadataCommentTag.IExclusiveMinimum | IMetadataCommentTag.IFormat | IMetadataCommentTag.IItems | IMetadataCommentTag.ILength | IMetadataCommentTag.IMaxItems | IMetadataCommentTag.IMaxLength | IMetadataCommentTag.IMaximum | IMetadataCommentTag.IMinItems | IMetadataCommentTag.IMinLength | IMetadataCommentTag.IMinimum | IMetadataCommentTag.IMultipleOf | IMetadataCommentTag.INumberType | IMetadataCommentTag.IPattern | IMetadataCommentTag.IStep)",
                                         value: elem,
                                     }),
                             )) ||
                         $guard(_exceptionable, {
                             path: _path + '["x-typia-metaTags"]',
-                            expected: "(Array<IMetadataTag> | undefined)",
+                            expected:
+                                "(Array<IMetadataCommentTag> | undefined)",
                             value: input["x-typia-metaTags"],
                         })) &&
                     (undefined === input["x-typia-jsDocTags"] ||
@@ -5136,7 +5168,8 @@ export const test_misc_assertClone_UltimateUnion = _test_misc_assertClone(
                         ((Array.isArray(input["x-typia-metaTags"]) ||
                             $guard(_exceptionable, {
                                 path: _path + '["x-typia-metaTags"]',
-                                expected: "(Array<IMetadataTag> | undefined)",
+                                expected:
+                                    "(Array<IMetadataCommentTag> | undefined)",
                                 value: input["x-typia-metaTags"],
                             })) &&
                             input["x-typia-metaTags"].every(
@@ -5150,7 +5183,7 @@ export const test_misc_assertClone_UltimateUnion = _test_misc_assertClone(
                                                 _index46 +
                                                 "]",
                                             expected:
-                                                "(IMetadataTag.IExclusiveMaximum | IMetadataTag.IExclusiveMinimum | IMetadataTag.IFormat | IMetadataTag.IItems | IMetadataTag.ILength | IMetadataTag.IMaxItems | IMetadataTag.IMaxLength | IMetadataTag.IMaximum | IMetadataTag.IMinItems | IMetadataTag.IMinLength | IMetadataTag.IMinimum | IMetadataTag.IMultipleOf | IMetadataTag.INumberType | IMetadataTag.IPattern | IMetadataTag.IStep)",
+                                                "(IMetadataCommentTag.IExclusiveMaximum | IMetadataCommentTag.IExclusiveMinimum | IMetadataCommentTag.IFormat | IMetadataCommentTag.IItems | IMetadataCommentTag.ILength | IMetadataCommentTag.IMaxItems | IMetadataCommentTag.IMaxLength | IMetadataCommentTag.IMaximum | IMetadataCommentTag.IMinItems | IMetadataCommentTag.IMinLength | IMetadataCommentTag.IMinimum | IMetadataCommentTag.IMultipleOf | IMetadataCommentTag.INumberType | IMetadataCommentTag.IPattern | IMetadataCommentTag.IStep)",
                                             value: elem,
                                         })) &&
                                         $au1(
@@ -5168,13 +5201,14 @@ export const test_misc_assertClone_UltimateUnion = _test_misc_assertClone(
                                             _index46 +
                                             "]",
                                         expected:
-                                            "(IMetadataTag.IExclusiveMaximum | IMetadataTag.IExclusiveMinimum | IMetadataTag.IFormat | IMetadataTag.IItems | IMetadataTag.ILength | IMetadataTag.IMaxItems | IMetadataTag.IMaxLength | IMetadataTag.IMaximum | IMetadataTag.IMinItems | IMetadataTag.IMinLength | IMetadataTag.IMinimum | IMetadataTag.IMultipleOf | IMetadataTag.INumberType | IMetadataTag.IPattern | IMetadataTag.IStep)",
+                                            "(IMetadataCommentTag.IExclusiveMaximum | IMetadataCommentTag.IExclusiveMinimum | IMetadataCommentTag.IFormat | IMetadataCommentTag.IItems | IMetadataCommentTag.ILength | IMetadataCommentTag.IMaxItems | IMetadataCommentTag.IMaxLength | IMetadataCommentTag.IMaximum | IMetadataCommentTag.IMinItems | IMetadataCommentTag.IMinLength | IMetadataCommentTag.IMinimum | IMetadataCommentTag.IMultipleOf | IMetadataCommentTag.INumberType | IMetadataCommentTag.IPattern | IMetadataCommentTag.IStep)",
                                         value: elem,
                                     }),
                             )) ||
                         $guard(_exceptionable, {
                             path: _path + '["x-typia-metaTags"]',
-                            expected: "(Array<IMetadataTag> | undefined)",
+                            expected:
+                                "(Array<IMetadataCommentTag> | undefined)",
                             value: input["x-typia-metaTags"],
                         })) &&
                     (undefined === input["x-typia-jsDocTags"] ||
@@ -5384,7 +5418,8 @@ export const test_misc_assertClone_UltimateUnion = _test_misc_assertClone(
                         ((Array.isArray(input["x-typia-metaTags"]) ||
                             $guard(_exceptionable, {
                                 path: _path + '["x-typia-metaTags"]',
-                                expected: "(Array<IMetadataTag> | undefined)",
+                                expected:
+                                    "(Array<IMetadataCommentTag> | undefined)",
                                 value: input["x-typia-metaTags"],
                             })) &&
                             input["x-typia-metaTags"].every(
@@ -5398,7 +5433,7 @@ export const test_misc_assertClone_UltimateUnion = _test_misc_assertClone(
                                                 _index48 +
                                                 "]",
                                             expected:
-                                                "(IMetadataTag.IExclusiveMaximum | IMetadataTag.IExclusiveMinimum | IMetadataTag.IFormat | IMetadataTag.IItems | IMetadataTag.ILength | IMetadataTag.IMaxItems | IMetadataTag.IMaxLength | IMetadataTag.IMaximum | IMetadataTag.IMinItems | IMetadataTag.IMinLength | IMetadataTag.IMinimum | IMetadataTag.IMultipleOf | IMetadataTag.INumberType | IMetadataTag.IPattern | IMetadataTag.IStep)",
+                                                "(IMetadataCommentTag.IExclusiveMaximum | IMetadataCommentTag.IExclusiveMinimum | IMetadataCommentTag.IFormat | IMetadataCommentTag.IItems | IMetadataCommentTag.ILength | IMetadataCommentTag.IMaxItems | IMetadataCommentTag.IMaxLength | IMetadataCommentTag.IMaximum | IMetadataCommentTag.IMinItems | IMetadataCommentTag.IMinLength | IMetadataCommentTag.IMinimum | IMetadataCommentTag.IMultipleOf | IMetadataCommentTag.INumberType | IMetadataCommentTag.IPattern | IMetadataCommentTag.IStep)",
                                             value: elem,
                                         })) &&
                                         $au1(
@@ -5416,13 +5451,14 @@ export const test_misc_assertClone_UltimateUnion = _test_misc_assertClone(
                                             _index48 +
                                             "]",
                                         expected:
-                                            "(IMetadataTag.IExclusiveMaximum | IMetadataTag.IExclusiveMinimum | IMetadataTag.IFormat | IMetadataTag.IItems | IMetadataTag.ILength | IMetadataTag.IMaxItems | IMetadataTag.IMaxLength | IMetadataTag.IMaximum | IMetadataTag.IMinItems | IMetadataTag.IMinLength | IMetadataTag.IMinimum | IMetadataTag.IMultipleOf | IMetadataTag.INumberType | IMetadataTag.IPattern | IMetadataTag.IStep)",
+                                            "(IMetadataCommentTag.IExclusiveMaximum | IMetadataCommentTag.IExclusiveMinimum | IMetadataCommentTag.IFormat | IMetadataCommentTag.IItems | IMetadataCommentTag.ILength | IMetadataCommentTag.IMaxItems | IMetadataCommentTag.IMaxLength | IMetadataCommentTag.IMaximum | IMetadataCommentTag.IMinItems | IMetadataCommentTag.IMinLength | IMetadataCommentTag.IMinimum | IMetadataCommentTag.IMultipleOf | IMetadataCommentTag.INumberType | IMetadataCommentTag.IPattern | IMetadataCommentTag.IStep)",
                                         value: elem,
                                     }),
                             )) ||
                         $guard(_exceptionable, {
                             path: _path + '["x-typia-metaTags"]',
-                            expected: "(Array<IMetadataTag> | undefined)",
+                            expected:
+                                "(Array<IMetadataCommentTag> | undefined)",
                             value: input["x-typia-metaTags"],
                         })) &&
                     (undefined === input["x-typia-jsDocTags"] ||
@@ -5592,7 +5628,8 @@ export const test_misc_assertClone_UltimateUnion = _test_misc_assertClone(
                         ((Array.isArray(input["x-typia-metaTags"]) ||
                             $guard(_exceptionable, {
                                 path: _path + '["x-typia-metaTags"]',
-                                expected: "(Array<IMetadataTag> | undefined)",
+                                expected:
+                                    "(Array<IMetadataCommentTag> | undefined)",
                                 value: input["x-typia-metaTags"],
                             })) &&
                             input["x-typia-metaTags"].every(
@@ -5606,7 +5643,7 @@ export const test_misc_assertClone_UltimateUnion = _test_misc_assertClone(
                                                 _index50 +
                                                 "]",
                                             expected:
-                                                "(IMetadataTag.IExclusiveMaximum | IMetadataTag.IExclusiveMinimum | IMetadataTag.IFormat | IMetadataTag.IItems | IMetadataTag.ILength | IMetadataTag.IMaxItems | IMetadataTag.IMaxLength | IMetadataTag.IMaximum | IMetadataTag.IMinItems | IMetadataTag.IMinLength | IMetadataTag.IMinimum | IMetadataTag.IMultipleOf | IMetadataTag.INumberType | IMetadataTag.IPattern | IMetadataTag.IStep)",
+                                                "(IMetadataCommentTag.IExclusiveMaximum | IMetadataCommentTag.IExclusiveMinimum | IMetadataCommentTag.IFormat | IMetadataCommentTag.IItems | IMetadataCommentTag.ILength | IMetadataCommentTag.IMaxItems | IMetadataCommentTag.IMaxLength | IMetadataCommentTag.IMaximum | IMetadataCommentTag.IMinItems | IMetadataCommentTag.IMinLength | IMetadataCommentTag.IMinimum | IMetadataCommentTag.IMultipleOf | IMetadataCommentTag.INumberType | IMetadataCommentTag.IPattern | IMetadataCommentTag.IStep)",
                                             value: elem,
                                         })) &&
                                         $au1(
@@ -5624,13 +5661,14 @@ export const test_misc_assertClone_UltimateUnion = _test_misc_assertClone(
                                             _index50 +
                                             "]",
                                         expected:
-                                            "(IMetadataTag.IExclusiveMaximum | IMetadataTag.IExclusiveMinimum | IMetadataTag.IFormat | IMetadataTag.IItems | IMetadataTag.ILength | IMetadataTag.IMaxItems | IMetadataTag.IMaxLength | IMetadataTag.IMaximum | IMetadataTag.IMinItems | IMetadataTag.IMinLength | IMetadataTag.IMinimum | IMetadataTag.IMultipleOf | IMetadataTag.INumberType | IMetadataTag.IPattern | IMetadataTag.IStep)",
+                                            "(IMetadataCommentTag.IExclusiveMaximum | IMetadataCommentTag.IExclusiveMinimum | IMetadataCommentTag.IFormat | IMetadataCommentTag.IItems | IMetadataCommentTag.ILength | IMetadataCommentTag.IMaxItems | IMetadataCommentTag.IMaxLength | IMetadataCommentTag.IMaximum | IMetadataCommentTag.IMinItems | IMetadataCommentTag.IMinLength | IMetadataCommentTag.IMinimum | IMetadataCommentTag.IMultipleOf | IMetadataCommentTag.INumberType | IMetadataCommentTag.IPattern | IMetadataCommentTag.IStep)",
                                         value: elem,
                                     }),
                             )) ||
                         $guard(_exceptionable, {
                             path: _path + '["x-typia-metaTags"]',
-                            expected: "(Array<IMetadataTag> | undefined)",
+                            expected:
+                                "(Array<IMetadataCommentTag> | undefined)",
                             value: input["x-typia-metaTags"],
                         })) &&
                     (undefined === input["x-typia-jsDocTags"] ||
@@ -5827,7 +5865,8 @@ export const test_misc_assertClone_UltimateUnion = _test_misc_assertClone(
                         ((Array.isArray(input["x-typia-metaTags"]) ||
                             $guard(_exceptionable, {
                                 path: _path + '["x-typia-metaTags"]',
-                                expected: "(Array<IMetadataTag> | undefined)",
+                                expected:
+                                    "(Array<IMetadataCommentTag> | undefined)",
                                 value: input["x-typia-metaTags"],
                             })) &&
                             input["x-typia-metaTags"].every(
@@ -5841,7 +5880,7 @@ export const test_misc_assertClone_UltimateUnion = _test_misc_assertClone(
                                                 _index52 +
                                                 "]",
                                             expected:
-                                                "(IMetadataTag.IExclusiveMaximum | IMetadataTag.IExclusiveMinimum | IMetadataTag.IFormat | IMetadataTag.IItems | IMetadataTag.ILength | IMetadataTag.IMaxItems | IMetadataTag.IMaxLength | IMetadataTag.IMaximum | IMetadataTag.IMinItems | IMetadataTag.IMinLength | IMetadataTag.IMinimum | IMetadataTag.IMultipleOf | IMetadataTag.INumberType | IMetadataTag.IPattern | IMetadataTag.IStep)",
+                                                "(IMetadataCommentTag.IExclusiveMaximum | IMetadataCommentTag.IExclusiveMinimum | IMetadataCommentTag.IFormat | IMetadataCommentTag.IItems | IMetadataCommentTag.ILength | IMetadataCommentTag.IMaxItems | IMetadataCommentTag.IMaxLength | IMetadataCommentTag.IMaximum | IMetadataCommentTag.IMinItems | IMetadataCommentTag.IMinLength | IMetadataCommentTag.IMinimum | IMetadataCommentTag.IMultipleOf | IMetadataCommentTag.INumberType | IMetadataCommentTag.IPattern | IMetadataCommentTag.IStep)",
                                             value: elem,
                                         })) &&
                                         $au1(
@@ -5859,13 +5898,14 @@ export const test_misc_assertClone_UltimateUnion = _test_misc_assertClone(
                                             _index52 +
                                             "]",
                                         expected:
-                                            "(IMetadataTag.IExclusiveMaximum | IMetadataTag.IExclusiveMinimum | IMetadataTag.IFormat | IMetadataTag.IItems | IMetadataTag.ILength | IMetadataTag.IMaxItems | IMetadataTag.IMaxLength | IMetadataTag.IMaximum | IMetadataTag.IMinItems | IMetadataTag.IMinLength | IMetadataTag.IMinimum | IMetadataTag.IMultipleOf | IMetadataTag.INumberType | IMetadataTag.IPattern | IMetadataTag.IStep)",
+                                            "(IMetadataCommentTag.IExclusiveMaximum | IMetadataCommentTag.IExclusiveMinimum | IMetadataCommentTag.IFormat | IMetadataCommentTag.IItems | IMetadataCommentTag.ILength | IMetadataCommentTag.IMaxItems | IMetadataCommentTag.IMaxLength | IMetadataCommentTag.IMaximum | IMetadataCommentTag.IMinItems | IMetadataCommentTag.IMinLength | IMetadataCommentTag.IMinimum | IMetadataCommentTag.IMultipleOf | IMetadataCommentTag.INumberType | IMetadataCommentTag.IPattern | IMetadataCommentTag.IStep)",
                                         value: elem,
                                     }),
                             )) ||
                         $guard(_exceptionable, {
                             path: _path + '["x-typia-metaTags"]',
-                            expected: "(Array<IMetadataTag> | undefined)",
+                            expected:
+                                "(Array<IMetadataCommentTag> | undefined)",
                             value: input["x-typia-metaTags"],
                         })) &&
                     (undefined === input["x-typia-jsDocTags"] ||
@@ -6079,7 +6119,8 @@ export const test_misc_assertClone_UltimateUnion = _test_misc_assertClone(
                         ((Array.isArray(input["x-typia-metaTags"]) ||
                             $guard(_exceptionable, {
                                 path: _path + '["x-typia-metaTags"]',
-                                expected: "(Array<IMetadataTag> | undefined)",
+                                expected:
+                                    "(Array<IMetadataCommentTag> | undefined)",
                                 value: input["x-typia-metaTags"],
                             })) &&
                             input["x-typia-metaTags"].every(
@@ -6093,7 +6134,7 @@ export const test_misc_assertClone_UltimateUnion = _test_misc_assertClone(
                                                 _index54 +
                                                 "]",
                                             expected:
-                                                "(IMetadataTag.IExclusiveMaximum | IMetadataTag.IExclusiveMinimum | IMetadataTag.IFormat | IMetadataTag.IItems | IMetadataTag.ILength | IMetadataTag.IMaxItems | IMetadataTag.IMaxLength | IMetadataTag.IMaximum | IMetadataTag.IMinItems | IMetadataTag.IMinLength | IMetadataTag.IMinimum | IMetadataTag.IMultipleOf | IMetadataTag.INumberType | IMetadataTag.IPattern | IMetadataTag.IStep)",
+                                                "(IMetadataCommentTag.IExclusiveMaximum | IMetadataCommentTag.IExclusiveMinimum | IMetadataCommentTag.IFormat | IMetadataCommentTag.IItems | IMetadataCommentTag.ILength | IMetadataCommentTag.IMaxItems | IMetadataCommentTag.IMaxLength | IMetadataCommentTag.IMaximum | IMetadataCommentTag.IMinItems | IMetadataCommentTag.IMinLength | IMetadataCommentTag.IMinimum | IMetadataCommentTag.IMultipleOf | IMetadataCommentTag.INumberType | IMetadataCommentTag.IPattern | IMetadataCommentTag.IStep)",
                                             value: elem,
                                         })) &&
                                         $au1(
@@ -6111,13 +6152,14 @@ export const test_misc_assertClone_UltimateUnion = _test_misc_assertClone(
                                             _index54 +
                                             "]",
                                         expected:
-                                            "(IMetadataTag.IExclusiveMaximum | IMetadataTag.IExclusiveMinimum | IMetadataTag.IFormat | IMetadataTag.IItems | IMetadataTag.ILength | IMetadataTag.IMaxItems | IMetadataTag.IMaxLength | IMetadataTag.IMaximum | IMetadataTag.IMinItems | IMetadataTag.IMinLength | IMetadataTag.IMinimum | IMetadataTag.IMultipleOf | IMetadataTag.INumberType | IMetadataTag.IPattern | IMetadataTag.IStep)",
+                                            "(IMetadataCommentTag.IExclusiveMaximum | IMetadataCommentTag.IExclusiveMinimum | IMetadataCommentTag.IFormat | IMetadataCommentTag.IItems | IMetadataCommentTag.ILength | IMetadataCommentTag.IMaxItems | IMetadataCommentTag.IMaxLength | IMetadataCommentTag.IMaximum | IMetadataCommentTag.IMinItems | IMetadataCommentTag.IMinLength | IMetadataCommentTag.IMinimum | IMetadataCommentTag.IMultipleOf | IMetadataCommentTag.INumberType | IMetadataCommentTag.IPattern | IMetadataCommentTag.IStep)",
                                         value: elem,
                                     }),
                             )) ||
                         $guard(_exceptionable, {
                             path: _path + '["x-typia-metaTags"]',
-                            expected: "(Array<IMetadataTag> | undefined)",
+                            expected:
+                                "(Array<IMetadataCommentTag> | undefined)",
                             value: input["x-typia-metaTags"],
                         })) &&
                     (undefined === input["x-typia-jsDocTags"] ||
@@ -6327,7 +6369,8 @@ export const test_misc_assertClone_UltimateUnion = _test_misc_assertClone(
                         ((Array.isArray(input["x-typia-metaTags"]) ||
                             $guard(_exceptionable, {
                                 path: _path + '["x-typia-metaTags"]',
-                                expected: "(Array<IMetadataTag> | undefined)",
+                                expected:
+                                    "(Array<IMetadataCommentTag> | undefined)",
                                 value: input["x-typia-metaTags"],
                             })) &&
                             input["x-typia-metaTags"].every(
@@ -6341,7 +6384,7 @@ export const test_misc_assertClone_UltimateUnion = _test_misc_assertClone(
                                                 _index57 +
                                                 "]",
                                             expected:
-                                                "(IMetadataTag.IExclusiveMaximum | IMetadataTag.IExclusiveMinimum | IMetadataTag.IFormat | IMetadataTag.IItems | IMetadataTag.ILength | IMetadataTag.IMaxItems | IMetadataTag.IMaxLength | IMetadataTag.IMaximum | IMetadataTag.IMinItems | IMetadataTag.IMinLength | IMetadataTag.IMinimum | IMetadataTag.IMultipleOf | IMetadataTag.INumberType | IMetadataTag.IPattern | IMetadataTag.IStep)",
+                                                "(IMetadataCommentTag.IExclusiveMaximum | IMetadataCommentTag.IExclusiveMinimum | IMetadataCommentTag.IFormat | IMetadataCommentTag.IItems | IMetadataCommentTag.ILength | IMetadataCommentTag.IMaxItems | IMetadataCommentTag.IMaxLength | IMetadataCommentTag.IMaximum | IMetadataCommentTag.IMinItems | IMetadataCommentTag.IMinLength | IMetadataCommentTag.IMinimum | IMetadataCommentTag.IMultipleOf | IMetadataCommentTag.INumberType | IMetadataCommentTag.IPattern | IMetadataCommentTag.IStep)",
                                             value: elem,
                                         })) &&
                                         $au1(
@@ -6359,13 +6402,14 @@ export const test_misc_assertClone_UltimateUnion = _test_misc_assertClone(
                                             _index57 +
                                             "]",
                                         expected:
-                                            "(IMetadataTag.IExclusiveMaximum | IMetadataTag.IExclusiveMinimum | IMetadataTag.IFormat | IMetadataTag.IItems | IMetadataTag.ILength | IMetadataTag.IMaxItems | IMetadataTag.IMaxLength | IMetadataTag.IMaximum | IMetadataTag.IMinItems | IMetadataTag.IMinLength | IMetadataTag.IMinimum | IMetadataTag.IMultipleOf | IMetadataTag.INumberType | IMetadataTag.IPattern | IMetadataTag.IStep)",
+                                            "(IMetadataCommentTag.IExclusiveMaximum | IMetadataCommentTag.IExclusiveMinimum | IMetadataCommentTag.IFormat | IMetadataCommentTag.IItems | IMetadataCommentTag.ILength | IMetadataCommentTag.IMaxItems | IMetadataCommentTag.IMaxLength | IMetadataCommentTag.IMaximum | IMetadataCommentTag.IMinItems | IMetadataCommentTag.IMinLength | IMetadataCommentTag.IMinimum | IMetadataCommentTag.IMultipleOf | IMetadataCommentTag.INumberType | IMetadataCommentTag.IPattern | IMetadataCommentTag.IStep)",
                                         value: elem,
                                     }),
                             )) ||
                         $guard(_exceptionable, {
                             path: _path + '["x-typia-metaTags"]',
-                            expected: "(Array<IMetadataTag> | undefined)",
+                            expected:
+                                "(Array<IMetadataCommentTag> | undefined)",
                             value: input["x-typia-metaTags"],
                         })) &&
                     (undefined === input["x-typia-jsDocTags"] ||
@@ -6511,7 +6555,8 @@ export const test_misc_assertClone_UltimateUnion = _test_misc_assertClone(
                         ((Array.isArray(input["x-typia-metaTags"]) ||
                             $guard(_exceptionable, {
                                 path: _path + '["x-typia-metaTags"]',
-                                expected: "(Array<IMetadataTag> | undefined)",
+                                expected:
+                                    "(Array<IMetadataCommentTag> | undefined)",
                                 value: input["x-typia-metaTags"],
                             })) &&
                             input["x-typia-metaTags"].every(
@@ -6525,7 +6570,7 @@ export const test_misc_assertClone_UltimateUnion = _test_misc_assertClone(
                                                 _index60 +
                                                 "]",
                                             expected:
-                                                "(IMetadataTag.IExclusiveMaximum | IMetadataTag.IExclusiveMinimum | IMetadataTag.IFormat | IMetadataTag.IItems | IMetadataTag.ILength | IMetadataTag.IMaxItems | IMetadataTag.IMaxLength | IMetadataTag.IMaximum | IMetadataTag.IMinItems | IMetadataTag.IMinLength | IMetadataTag.IMinimum | IMetadataTag.IMultipleOf | IMetadataTag.INumberType | IMetadataTag.IPattern | IMetadataTag.IStep)",
+                                                "(IMetadataCommentTag.IExclusiveMaximum | IMetadataCommentTag.IExclusiveMinimum | IMetadataCommentTag.IFormat | IMetadataCommentTag.IItems | IMetadataCommentTag.ILength | IMetadataCommentTag.IMaxItems | IMetadataCommentTag.IMaxLength | IMetadataCommentTag.IMaximum | IMetadataCommentTag.IMinItems | IMetadataCommentTag.IMinLength | IMetadataCommentTag.IMinimum | IMetadataCommentTag.IMultipleOf | IMetadataCommentTag.INumberType | IMetadataCommentTag.IPattern | IMetadataCommentTag.IStep)",
                                             value: elem,
                                         })) &&
                                         $au1(
@@ -6543,13 +6588,14 @@ export const test_misc_assertClone_UltimateUnion = _test_misc_assertClone(
                                             _index60 +
                                             "]",
                                         expected:
-                                            "(IMetadataTag.IExclusiveMaximum | IMetadataTag.IExclusiveMinimum | IMetadataTag.IFormat | IMetadataTag.IItems | IMetadataTag.ILength | IMetadataTag.IMaxItems | IMetadataTag.IMaxLength | IMetadataTag.IMaximum | IMetadataTag.IMinItems | IMetadataTag.IMinLength | IMetadataTag.IMinimum | IMetadataTag.IMultipleOf | IMetadataTag.INumberType | IMetadataTag.IPattern | IMetadataTag.IStep)",
+                                            "(IMetadataCommentTag.IExclusiveMaximum | IMetadataCommentTag.IExclusiveMinimum | IMetadataCommentTag.IFormat | IMetadataCommentTag.IItems | IMetadataCommentTag.ILength | IMetadataCommentTag.IMaxItems | IMetadataCommentTag.IMaxLength | IMetadataCommentTag.IMaximum | IMetadataCommentTag.IMinItems | IMetadataCommentTag.IMinLength | IMetadataCommentTag.IMinimum | IMetadataCommentTag.IMultipleOf | IMetadataCommentTag.INumberType | IMetadataCommentTag.IPattern | IMetadataCommentTag.IStep)",
                                         value: elem,
                                     }),
                             )) ||
                         $guard(_exceptionable, {
                             path: _path + '["x-typia-metaTags"]',
-                            expected: "(Array<IMetadataTag> | undefined)",
+                            expected:
+                                "(Array<IMetadataCommentTag> | undefined)",
                             value: input["x-typia-metaTags"],
                         })) &&
                     (undefined === input["x-typia-jsDocTags"] ||
@@ -6666,7 +6712,8 @@ export const test_misc_assertClone_UltimateUnion = _test_misc_assertClone(
                         ((Array.isArray(input["x-typia-metaTags"]) ||
                             $guard(_exceptionable, {
                                 path: _path + '["x-typia-metaTags"]',
-                                expected: "(Array<IMetadataTag> | undefined)",
+                                expected:
+                                    "(Array<IMetadataCommentTag> | undefined)",
                                 value: input["x-typia-metaTags"],
                             })) &&
                             input["x-typia-metaTags"].every(
@@ -6680,7 +6727,7 @@ export const test_misc_assertClone_UltimateUnion = _test_misc_assertClone(
                                                 _index62 +
                                                 "]",
                                             expected:
-                                                "(IMetadataTag.IExclusiveMaximum | IMetadataTag.IExclusiveMinimum | IMetadataTag.IFormat | IMetadataTag.IItems | IMetadataTag.ILength | IMetadataTag.IMaxItems | IMetadataTag.IMaxLength | IMetadataTag.IMaximum | IMetadataTag.IMinItems | IMetadataTag.IMinLength | IMetadataTag.IMinimum | IMetadataTag.IMultipleOf | IMetadataTag.INumberType | IMetadataTag.IPattern | IMetadataTag.IStep)",
+                                                "(IMetadataCommentTag.IExclusiveMaximum | IMetadataCommentTag.IExclusiveMinimum | IMetadataCommentTag.IFormat | IMetadataCommentTag.IItems | IMetadataCommentTag.ILength | IMetadataCommentTag.IMaxItems | IMetadataCommentTag.IMaxLength | IMetadataCommentTag.IMaximum | IMetadataCommentTag.IMinItems | IMetadataCommentTag.IMinLength | IMetadataCommentTag.IMinimum | IMetadataCommentTag.IMultipleOf | IMetadataCommentTag.INumberType | IMetadataCommentTag.IPattern | IMetadataCommentTag.IStep)",
                                             value: elem,
                                         })) &&
                                         $au1(
@@ -6698,13 +6745,14 @@ export const test_misc_assertClone_UltimateUnion = _test_misc_assertClone(
                                             _index62 +
                                             "]",
                                         expected:
-                                            "(IMetadataTag.IExclusiveMaximum | IMetadataTag.IExclusiveMinimum | IMetadataTag.IFormat | IMetadataTag.IItems | IMetadataTag.ILength | IMetadataTag.IMaxItems | IMetadataTag.IMaxLength | IMetadataTag.IMaximum | IMetadataTag.IMinItems | IMetadataTag.IMinLength | IMetadataTag.IMinimum | IMetadataTag.IMultipleOf | IMetadataTag.INumberType | IMetadataTag.IPattern | IMetadataTag.IStep)",
+                                            "(IMetadataCommentTag.IExclusiveMaximum | IMetadataCommentTag.IExclusiveMinimum | IMetadataCommentTag.IFormat | IMetadataCommentTag.IItems | IMetadataCommentTag.ILength | IMetadataCommentTag.IMaxItems | IMetadataCommentTag.IMaxLength | IMetadataCommentTag.IMaximum | IMetadataCommentTag.IMinItems | IMetadataCommentTag.IMinLength | IMetadataCommentTag.IMinimum | IMetadataCommentTag.IMultipleOf | IMetadataCommentTag.INumberType | IMetadataCommentTag.IPattern | IMetadataCommentTag.IStep)",
                                         value: elem,
                                     }),
                             )) ||
                         $guard(_exceptionable, {
                             path: _path + '["x-typia-metaTags"]',
-                            expected: "(Array<IMetadataTag> | undefined)",
+                            expected:
+                                "(Array<IMetadataCommentTag> | undefined)",
                             value: input["x-typia-metaTags"],
                         })) &&
                     (undefined === input["x-typia-jsDocTags"] ||
@@ -6821,7 +6869,8 @@ export const test_misc_assertClone_UltimateUnion = _test_misc_assertClone(
                         ((Array.isArray(input["x-typia-metaTags"]) ||
                             $guard(_exceptionable, {
                                 path: _path + '["x-typia-metaTags"]',
-                                expected: "(Array<IMetadataTag> | undefined)",
+                                expected:
+                                    "(Array<IMetadataCommentTag> | undefined)",
                                 value: input["x-typia-metaTags"],
                             })) &&
                             input["x-typia-metaTags"].every(
@@ -6835,7 +6884,7 @@ export const test_misc_assertClone_UltimateUnion = _test_misc_assertClone(
                                                 _index64 +
                                                 "]",
                                             expected:
-                                                "(IMetadataTag.IExclusiveMaximum | IMetadataTag.IExclusiveMinimum | IMetadataTag.IFormat | IMetadataTag.IItems | IMetadataTag.ILength | IMetadataTag.IMaxItems | IMetadataTag.IMaxLength | IMetadataTag.IMaximum | IMetadataTag.IMinItems | IMetadataTag.IMinLength | IMetadataTag.IMinimum | IMetadataTag.IMultipleOf | IMetadataTag.INumberType | IMetadataTag.IPattern | IMetadataTag.IStep)",
+                                                "(IMetadataCommentTag.IExclusiveMaximum | IMetadataCommentTag.IExclusiveMinimum | IMetadataCommentTag.IFormat | IMetadataCommentTag.IItems | IMetadataCommentTag.ILength | IMetadataCommentTag.IMaxItems | IMetadataCommentTag.IMaxLength | IMetadataCommentTag.IMaximum | IMetadataCommentTag.IMinItems | IMetadataCommentTag.IMinLength | IMetadataCommentTag.IMinimum | IMetadataCommentTag.IMultipleOf | IMetadataCommentTag.INumberType | IMetadataCommentTag.IPattern | IMetadataCommentTag.IStep)",
                                             value: elem,
                                         })) &&
                                         $au1(
@@ -6853,13 +6902,14 @@ export const test_misc_assertClone_UltimateUnion = _test_misc_assertClone(
                                             _index64 +
                                             "]",
                                         expected:
-                                            "(IMetadataTag.IExclusiveMaximum | IMetadataTag.IExclusiveMinimum | IMetadataTag.IFormat | IMetadataTag.IItems | IMetadataTag.ILength | IMetadataTag.IMaxItems | IMetadataTag.IMaxLength | IMetadataTag.IMaximum | IMetadataTag.IMinItems | IMetadataTag.IMinLength | IMetadataTag.IMinimum | IMetadataTag.IMultipleOf | IMetadataTag.INumberType | IMetadataTag.IPattern | IMetadataTag.IStep)",
+                                            "(IMetadataCommentTag.IExclusiveMaximum | IMetadataCommentTag.IExclusiveMinimum | IMetadataCommentTag.IFormat | IMetadataCommentTag.IItems | IMetadataCommentTag.ILength | IMetadataCommentTag.IMaxItems | IMetadataCommentTag.IMaxLength | IMetadataCommentTag.IMaximum | IMetadataCommentTag.IMinItems | IMetadataCommentTag.IMinLength | IMetadataCommentTag.IMinimum | IMetadataCommentTag.IMultipleOf | IMetadataCommentTag.INumberType | IMetadataCommentTag.IPattern | IMetadataCommentTag.IStep)",
                                         value: elem,
                                     }),
                             )) ||
                         $guard(_exceptionable, {
                             path: _path + '["x-typia-metaTags"]',
-                            expected: "(Array<IMetadataTag> | undefined)",
+                            expected:
+                                "(Array<IMetadataCommentTag> | undefined)",
                             value: input["x-typia-metaTags"],
                         })) &&
                     (undefined === input["x-typia-jsDocTags"] ||
@@ -6982,7 +7032,8 @@ export const test_misc_assertClone_UltimateUnion = _test_misc_assertClone(
                         ((Array.isArray(input["x-typia-metaTags"]) ||
                             $guard(_exceptionable, {
                                 path: _path + '["x-typia-metaTags"]',
-                                expected: "(Array<IMetadataTag> | undefined)",
+                                expected:
+                                    "(Array<IMetadataCommentTag> | undefined)",
                                 value: input["x-typia-metaTags"],
                             })) &&
                             input["x-typia-metaTags"].every(
@@ -6996,7 +7047,7 @@ export const test_misc_assertClone_UltimateUnion = _test_misc_assertClone(
                                                 _index66 +
                                                 "]",
                                             expected:
-                                                "(IMetadataTag.IExclusiveMaximum | IMetadataTag.IExclusiveMinimum | IMetadataTag.IFormat | IMetadataTag.IItems | IMetadataTag.ILength | IMetadataTag.IMaxItems | IMetadataTag.IMaxLength | IMetadataTag.IMaximum | IMetadataTag.IMinItems | IMetadataTag.IMinLength | IMetadataTag.IMinimum | IMetadataTag.IMultipleOf | IMetadataTag.INumberType | IMetadataTag.IPattern | IMetadataTag.IStep)",
+                                                "(IMetadataCommentTag.IExclusiveMaximum | IMetadataCommentTag.IExclusiveMinimum | IMetadataCommentTag.IFormat | IMetadataCommentTag.IItems | IMetadataCommentTag.ILength | IMetadataCommentTag.IMaxItems | IMetadataCommentTag.IMaxLength | IMetadataCommentTag.IMaximum | IMetadataCommentTag.IMinItems | IMetadataCommentTag.IMinLength | IMetadataCommentTag.IMinimum | IMetadataCommentTag.IMultipleOf | IMetadataCommentTag.INumberType | IMetadataCommentTag.IPattern | IMetadataCommentTag.IStep)",
                                             value: elem,
                                         })) &&
                                         $au1(
@@ -7014,13 +7065,14 @@ export const test_misc_assertClone_UltimateUnion = _test_misc_assertClone(
                                             _index66 +
                                             "]",
                                         expected:
-                                            "(IMetadataTag.IExclusiveMaximum | IMetadataTag.IExclusiveMinimum | IMetadataTag.IFormat | IMetadataTag.IItems | IMetadataTag.ILength | IMetadataTag.IMaxItems | IMetadataTag.IMaxLength | IMetadataTag.IMaximum | IMetadataTag.IMinItems | IMetadataTag.IMinLength | IMetadataTag.IMinimum | IMetadataTag.IMultipleOf | IMetadataTag.INumberType | IMetadataTag.IPattern | IMetadataTag.IStep)",
+                                            "(IMetadataCommentTag.IExclusiveMaximum | IMetadataCommentTag.IExclusiveMinimum | IMetadataCommentTag.IFormat | IMetadataCommentTag.IItems | IMetadataCommentTag.ILength | IMetadataCommentTag.IMaxItems | IMetadataCommentTag.IMaxLength | IMetadataCommentTag.IMaximum | IMetadataCommentTag.IMinItems | IMetadataCommentTag.IMinLength | IMetadataCommentTag.IMinimum | IMetadataCommentTag.IMultipleOf | IMetadataCommentTag.INumberType | IMetadataCommentTag.IPattern | IMetadataCommentTag.IStep)",
                                         value: elem,
                                     }),
                             )) ||
                         $guard(_exceptionable, {
                             path: _path + '["x-typia-metaTags"]',
-                            expected: "(Array<IMetadataTag> | undefined)",
+                            expected:
+                                "(Array<IMetadataCommentTag> | undefined)",
                             value: input["x-typia-metaTags"],
                         })) &&
                     (undefined === input["x-typia-jsDocTags"] ||
@@ -7198,7 +7250,7 @@ export const test_misc_assertClone_UltimateUnion = _test_misc_assertClone(
                             return $guard(_exceptionable, {
                                 path: _path,
                                 expected:
-                                    "(IMetadataTag.IMaxItems | IMetadataTag.IMinItems | IMetadataTag.IItems | IMetadataTag.IMaxLength | IMetadataTag.IMinLength | IMetadataTag.ILength | IMetadataTag.IPattern | IMetadataTag.IFormat | IMetadataTag.IStep | IMetadataTag.IMultipleOf | IMetadataTag.IExclusiveMaximum | IMetadataTag.IExclusiveMinimum | IMetadataTag.IMaximum | IMetadataTag.IMinimum | IMetadataTag.INumberType)",
+                                    "(IMetadataCommentTag.IMaxItems | IMetadataCommentTag.IMinItems | IMetadataCommentTag.IItems | IMetadataCommentTag.IMaxLength | IMetadataCommentTag.IMinLength | IMetadataCommentTag.ILength | IMetadataCommentTag.IPattern | IMetadataCommentTag.IFormat | IMetadataCommentTag.IStep | IMetadataCommentTag.IMultipleOf | IMetadataCommentTag.IExclusiveMaximum | IMetadataCommentTag.IExclusiveMinimum | IMetadataCommentTag.IMaximum | IMetadataCommentTag.IMinimum | IMetadataCommentTag.INumberType)",
                                 value: input,
                             });
                     })();
@@ -9338,7 +9390,7 @@ export const test_misc_assertClone_UltimateUnion = _test_misc_assertClone(
                 else
                     $throws({
                         expected:
-                            "(IMetadataTag.IMaxItems | IMetadataTag.IMinItems | IMetadataTag.IItems | IMetadataTag.IMaxLength | IMetadataTag.IMinLength | IMetadataTag.ILength | IMetadataTag.IPattern | IMetadataTag.IFormat | IMetadataTag.IStep | IMetadataTag.IMultipleOf | IMetadataTag.IExclusiveMaximum | IMetadataTag.IExclusiveMinimum | IMetadataTag.IMaximum | IMetadataTag.IMinimum | IMetadataTag.INumberType)",
+                            "(IMetadataCommentTag.IMaxItems | IMetadataCommentTag.IMinItems | IMetadataCommentTag.IItems | IMetadataCommentTag.IMaxLength | IMetadataCommentTag.IMinLength | IMetadataCommentTag.ILength | IMetadataCommentTag.IPattern | IMetadataCommentTag.IFormat | IMetadataCommentTag.IStep | IMetadataCommentTag.IMultipleOf | IMetadataCommentTag.IExclusiveMaximum | IMetadataCommentTag.IExclusiveMinimum | IMetadataCommentTag.IMaximum | IMetadataCommentTag.IMinimum | IMetadataCommentTag.INumberType)",
                         value: input,
                     });
             })();

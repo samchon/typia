@@ -58,7 +58,8 @@ export namespace JsonApplicationTransformer {
                             throw new Error(NO_BIGIT);
                         else if (
                             meta.arrays.some(
-                                (array) => array.value.isRequired() === false,
+                                (array) =>
+                                    array.type.value.isRequired() === false,
                             )
                         )
                             throw new Error(NO_UNDEFINED_IN_ARRAY);

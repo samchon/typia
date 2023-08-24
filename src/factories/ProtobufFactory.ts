@@ -76,7 +76,7 @@ export namespace ProtobufFactory {
         // DO NOT ALLOW MULTI-DIMENTIONAL ARRAY
         else if (
             meta.arrays.length &&
-            meta.arrays.some((array) => !!array.value.arrays.length)
+            meta.arrays.some((array) => !!array.type.value.arrays.length)
         )
             throw notSupportedError({ method })("two dimenstional array type");
         // CHILD OF ARRAY TYPE MUST BE REQUIRED
@@ -84,15 +84,15 @@ export namespace ProtobufFactory {
             meta.arrays.length &&
             meta.arrays.some(
                 (array) =>
-                    array.value.isRequired() === false ||
-                    array.value.nullable === true,
+                    array.type.value.isRequired() === false ||
+                    array.type.value.nullable === true,
             )
         )
             throw notSupportedError({ method })("optional type in array");
         // UNION IN ARRAY
         else if (
             meta.arrays.length &&
-            meta.arrays.some((a) => a.value.size() > 1)
+            meta.arrays.some((a) => a.type.value.size() > 1)
         )
             throw notSupportedError({ method })("union type in array");
         // DO DYNAMIC OBJECT IN ARRAY
@@ -100,9 +100,9 @@ export namespace ProtobufFactory {
             meta.arrays.length &&
             meta.arrays.some(
                 (a) =>
-                    a.value.maps.length ||
-                    (a.value.objects.length &&
-                        a.value.objects.some(
+                    a.type.value.maps.length ||
+                    (a.type.value.objects.length &&
+                        a.type.value.objects.some(
                             (o) => ProtobufUtil.isStaticObject(o) === false,
                         )),
             )

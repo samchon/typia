@@ -24,7 +24,7 @@ export const test_json_validateStringify_SetUnion =
                                     if (0 === elem.size) return true;
                                     const arrayPredicators = [
                                         [
-                                            (top: any): any =>
+                                            (top: any[]): any =>
                                                 "boolean" === typeof top,
                                             (entire: any[]): any =>
                                                 entire.every(
@@ -34,7 +34,7 @@ export const test_json_validateStringify_SetUnion =
                                                 ),
                                         ],
                                         [
-                                            (top: any): any =>
+                                            (top: any[]): any =>
                                                 "number" === typeof top &&
                                                 Number.isFinite(top),
                                             (entire: any[]): any =>
@@ -46,7 +46,7 @@ export const test_json_validateStringify_SetUnion =
                                                 ),
                                         ],
                                         [
-                                            (top: any): any =>
+                                            (top: any[]): any =>
                                                 "string" === typeof top,
                                             (entire: any[]): any =>
                                                 entire.every(
@@ -56,7 +56,7 @@ export const test_json_validateStringify_SetUnion =
                                                 ),
                                         ],
                                         [
-                                            (top: any): any =>
+                                            (top: any[]): any =>
                                                 Array.isArray(top) &&
                                                 top.every(
                                                     (elem: any) =>
@@ -79,7 +79,7 @@ export const test_json_validateStringify_SetUnion =
                                                 ),
                                         ],
                                         [
-                                            (top: any): any =>
+                                            (top: any[]): any =>
                                                 "object" === typeof top &&
                                                 null !== top &&
                                                 $io0(top),
@@ -177,7 +177,7 @@ export const test_json_validateStringify_SetUnion =
                                                         return true;
                                                     const arrayPredicators = [
                                                         [
-                                                            (top: any): any =>
+                                                            (top: any[]): any =>
                                                                 "boolean" ===
                                                                 typeof top,
                                                             (
@@ -215,7 +215,7 @@ export const test_json_validateStringify_SetUnion =
                                                                     ),
                                                         ],
                                                         [
-                                                            (top: any): any =>
+                                                            (top: any[]): any =>
                                                                 "number" ===
                                                                     typeof top &&
                                                                 Number.isFinite(
@@ -259,7 +259,7 @@ export const test_json_validateStringify_SetUnion =
                                                                     ),
                                                         ],
                                                         [
-                                                            (top: any): any =>
+                                                            (top: any[]): any =>
                                                                 "string" ===
                                                                 typeof top,
                                                             (
@@ -297,7 +297,7 @@ export const test_json_validateStringify_SetUnion =
                                                                     ),
                                                         ],
                                                         [
-                                                            (top: any): any =>
+                                                            (top: any[]): any =>
                                                                 Array.isArray(
                                                                     top,
                                                                 ) &&
@@ -405,14 +405,13 @@ export const test_json_validateStringify_SetUnion =
                                                                     ),
                                                         ],
                                                         [
-                                                            (top: any): any =>
+                                                            (top: any[]): any =>
                                                                 "object" ===
                                                                     typeof top &&
                                                                 null !== top &&
                                                                 $vo0(
                                                                     top,
-                                                                    _path +
-                                                                        "[0]",
+                                                                    _path,
                                                                     false,
                                                                 ),
                                                             (

@@ -50,7 +50,10 @@ export const test_equals_TagArray = _test_equals("TagArray")<TagArray>(
             10 >= input.equal.length &&
             input.equal.every(
                 (elem: any, _index5: number) =>
-                    "number" === typeof elem && 10 <= elem && 10 >= elem,
+                    "number" === typeof elem &&
+                    Number.isFinite(elem) &&
+                    10 <= elem &&
+                    10 >= elem,
             ) &&
             (4 === Object.keys(input).length ||
                 Object.keys(input).every((key: any) => {

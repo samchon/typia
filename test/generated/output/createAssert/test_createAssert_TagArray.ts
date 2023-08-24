@@ -38,7 +38,10 @@ export const test_assert_TagArray = _test_assert("TagArray")<TagArray>(
             10 >= input.equal.length &&
             input.equal.every(
                 (elem: any) =>
-                    "number" === typeof elem && 10 <= elem && 10 >= elem,
+                    "number" === typeof elem &&
+                    Number.isFinite(elem) &&
+                    10 <= elem &&
+                    10 >= elem,
             );
         return "object" === typeof input && null !== input && $io0(input);
     };
@@ -90,18 +93,18 @@ export const test_assert_TagArray = _test_assert("TagArray")<TagArray>(
                 _path: string,
                 _exceptionable: boolean = true,
             ): boolean =>
-                ((((Array.isArray(input.items) &&
-                    (3 === input.items.length ||
-                        $guard(_exceptionable, {
-                            path: _path + ".items",
-                            expected: "Array.length (@items 3)",
-                            value: input.items,
-                        }))) ||
+                (((Array.isArray(input.items) ||
                     $guard(_exceptionable, {
                         path: _path + ".items",
                         expected: "Array<string>",
                         value: input.items,
                     })) &&
+                    (3 === input.items.length ||
+                        $guard(_exceptionable, {
+                            path: _path + ".items",
+                            expected: "Array.length (@items 3)",
+                            value: input.items,
+                        })) &&
                     input.items.every(
                         (elem: any, _index2: number) =>
                             ("string" === typeof elem &&
@@ -122,18 +125,18 @@ export const test_assert_TagArray = _test_assert("TagArray")<TagArray>(
                         expected: "Array<string>",
                         value: input.items,
                     })) &&
-                ((((Array.isArray(input.minItems) &&
-                    (3 <= input.minItems.length ||
-                        $guard(_exceptionable, {
-                            path: _path + ".minItems",
-                            expected: "Array.length (@minItems 3)",
-                            value: input.minItems,
-                        }))) ||
+                (((Array.isArray(input.minItems) ||
                     $guard(_exceptionable, {
                         path: _path + ".minItems",
                         expected: "Array<number>",
                         value: input.minItems,
                     })) &&
+                    (3 <= input.minItems.length ||
+                        $guard(_exceptionable, {
+                            path: _path + ".minItems",
+                            expected: "Array.length (@minItems 3)",
+                            value: input.minItems,
+                        })) &&
                     input.minItems.every(
                         (elem: any, _index3: number) =>
                             ("number" === typeof elem &&
@@ -159,7 +162,12 @@ export const test_assert_TagArray = _test_assert("TagArray")<TagArray>(
                         expected: "Array<number>",
                         value: input.minItems,
                     })) &&
-                ((((Array.isArray(input.both) &&
+                (((Array.isArray(input.both) ||
+                    $guard(_exceptionable, {
+                        path: _path + ".both",
+                        expected: "Array<string>",
+                        value: input.both,
+                    })) &&
                     (3 <= input.both.length ||
                         $guard(_exceptionable, {
                             path: _path + ".both",
@@ -171,12 +179,7 @@ export const test_assert_TagArray = _test_assert("TagArray")<TagArray>(
                             path: _path + ".both",
                             expected: "Array.length (@maxItems 7)",
                             value: input.both,
-                        }))) ||
-                    $guard(_exceptionable, {
-                        path: _path + ".both",
-                        expected: "Array<string>",
-                        value: input.both,
-                    })) &&
+                        })) &&
                     input.both.every(
                         (elem: any, _index4: number) =>
                             ("string" === typeof elem &&
@@ -197,7 +200,12 @@ export const test_assert_TagArray = _test_assert("TagArray")<TagArray>(
                         expected: "Array<string>",
                         value: input.both,
                     })) &&
-                ((((Array.isArray(input.equal) &&
+                (((Array.isArray(input.equal) ||
+                    $guard(_exceptionable, {
+                        path: _path + ".equal",
+                        expected: "Array<number>",
+                        value: input.equal,
+                    })) &&
                     (10 <= input.equal.length ||
                         $guard(_exceptionable, {
                             path: _path + ".equal",
@@ -209,15 +217,11 @@ export const test_assert_TagArray = _test_assert("TagArray")<TagArray>(
                             path: _path + ".equal",
                             expected: "Array.length (@maxItems 10)",
                             value: input.equal,
-                        }))) ||
-                    $guard(_exceptionable, {
-                        path: _path + ".equal",
-                        expected: "Array<number>",
-                        value: input.equal,
-                    })) &&
+                        })) &&
                     input.equal.every(
                         (elem: any, _index5: number) =>
                             ("number" === typeof elem &&
+                                Number.isFinite(elem) &&
                                 (10 <= elem ||
                                     $guard(_exceptionable, {
                                         path: _path + ".equal[" + _index5 + "]",

@@ -1,10 +1,7 @@
-import { IMetadata } from "./IMetadata";
+import { IMetadataArrayType } from "./IMetadataArrayType";
+import { IMetadataTypeTag } from "./IMetadataTypeTag";
 
 export interface IMetadataArray {
-    name: string;
-    value: IMetadata;
-
-    nullables: boolean[];
-    recursive: boolean;
-    index: number | null;
+    type: IMetadataArrayType;
+    tags: IMetadataTypeTag[][];
 }

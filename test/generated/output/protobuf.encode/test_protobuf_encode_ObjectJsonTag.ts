@@ -7,7 +7,6 @@ export const test_protobuf_encode_ObjectJsonTag = _test_protobuf_encode(
 )<ObjectJsonTag>(ObjectJsonTag)({
     encode: (input) =>
         ((input: ObjectJsonTag): Uint8Array => {
-            const $is_custom = (typia.protobuf.encode as any).is_custom;
             const $Sizer = (typia.protobuf.encode as any).Sizer;
             const $Writer = (typia.protobuf.encode as any).Writer;
             const encoder = (writer: any): any => {

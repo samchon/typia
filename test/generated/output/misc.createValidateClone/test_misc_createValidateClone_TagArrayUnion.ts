@@ -69,18 +69,18 @@ export const test_misc_validateClone_TagArrayUnion = _test_misc_validateClone(
                         _exceptionable: boolean = true,
                     ): boolean =>
                         [
-                            (((Array.isArray(input.items) &&
-                                (3 === input.items.length ||
-                                    $report(_exceptionable, {
-                                        path: _path + ".items",
-                                        expected: "Array.length (@items 3)",
-                                        value: input.items,
-                                    }))) ||
+                            ((Array.isArray(input.items) ||
                                 $report(_exceptionable, {
                                     path: _path + ".items",
                                     expected: "Array<string>",
                                     value: input.items,
                                 })) &&
+                                (3 === input.items.length ||
+                                    $report(_exceptionable, {
+                                        path: _path + ".items",
+                                        expected: "Array.length (@items 3)",
+                                        value: input.items,
+                                    })) &&
                                 input.items
                                     .map(
                                         (elem: any, _index2: number) =>
@@ -112,18 +112,18 @@ export const test_misc_validateClone_TagArrayUnion = _test_misc_validateClone(
                                     expected: "Array<string>",
                                     value: input.items,
                                 }),
-                            (((Array.isArray(input.minItems) &&
-                                (3 <= input.minItems.length ||
-                                    $report(_exceptionable, {
-                                        path: _path + ".minItems",
-                                        expected: "Array.length (@minItems 3)",
-                                        value: input.minItems,
-                                    }))) ||
+                            ((Array.isArray(input.minItems) ||
                                 $report(_exceptionable, {
                                     path: _path + ".minItems",
                                     expected: "Array<number>",
                                     value: input.minItems,
                                 })) &&
+                                (3 <= input.minItems.length ||
+                                    $report(_exceptionable, {
+                                        path: _path + ".minItems",
+                                        expected: "Array.length (@minItems 3)",
+                                        value: input.minItems,
+                                    })) &&
                                 input.minItems
                                     .map(
                                         (elem: any, _index3: number) =>
@@ -156,18 +156,18 @@ export const test_misc_validateClone_TagArrayUnion = _test_misc_validateClone(
                                     expected: "Array<number>",
                                     value: input.minItems,
                                 }),
-                            (((Array.isArray(input.maxItems) &&
-                                (7 >= input.maxItems.length ||
-                                    $report(_exceptionable, {
-                                        path: _path + ".maxItems",
-                                        expected: "Array.length (@maxItems 7)",
-                                        value: input.maxItems,
-                                    }))) ||
+                            ((Array.isArray(input.maxItems) ||
                                 $report(_exceptionable, {
                                     path: _path + ".maxItems",
                                     expected: "Array<string | number>",
                                     value: input.maxItems,
                                 })) &&
+                                (7 >= input.maxItems.length ||
+                                    $report(_exceptionable, {
+                                        path: _path + ".maxItems",
+                                        expected: "Array.length (@maxItems 7)",
+                                        value: input.maxItems,
+                                    })) &&
                                 input.maxItems
                                     .map(
                                         (elem: any, _index4: number) =>
@@ -212,7 +212,12 @@ export const test_misc_validateClone_TagArrayUnion = _test_misc_validateClone(
                                     expected: "Array<string | number>",
                                     value: input.maxItems,
                                 }),
-                            (((Array.isArray(input.both) &&
+                            ((Array.isArray(input.both) ||
+                                $report(_exceptionable, {
+                                    path: _path + ".both",
+                                    expected: "Array<string>",
+                                    value: input.both,
+                                })) &&
                                 (3 <= input.both.length ||
                                     $report(_exceptionable, {
                                         path: _path + ".both",
@@ -224,12 +229,7 @@ export const test_misc_validateClone_TagArrayUnion = _test_misc_validateClone(
                                         path: _path + ".both",
                                         expected: "Array.length (@maxItems 7)",
                                         value: input.both,
-                                    }))) ||
-                                $report(_exceptionable, {
-                                    path: _path + ".both",
-                                    expected: "Array<string>",
-                                    value: input.both,
-                                })) &&
+                                    })) &&
                                 input.both
                                     .map(
                                         (elem: any, _index5: number) =>

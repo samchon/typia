@@ -7,9 +7,9 @@ import { TypeFactory } from "../factories/TypeFactory";
 import { ValueFactory } from "../factories/ValueFactory";
 
 import { IJsDocTagInfo } from "../schemas/metadata/IJsDocTagInfo";
-import { IMetadataTag } from "../schemas/metadata/IMetadataTag";
+import { IMetadataCommentTag } from "../schemas/metadata/IMetadataCommentTag";
 import { Metadata } from "../schemas/metadata/Metadata";
-import { MetadataArray } from "../schemas/metadata/MetadataArray";
+import { MetadataArrayType } from "../schemas/metadata/MetadataArrayType";
 import { MetadataObject } from "../schemas/metadata/MetadataObject";
 
 import { IProject } from "../transformers/IProject";
@@ -195,7 +195,7 @@ export namespace FeatureProgrammer {
             input: ts.Expression,
             target: T,
             explore: IExplore,
-            metaTags: IMetadataTag[],
+            metaTags: IMetadataCommentTag[],
             jsDocTags: ts.JSDocTagInfo[],
         ): Output;
     }
@@ -349,7 +349,7 @@ export namespace FeatureProgrammer {
             combiner: (
                 input: ts.Expression,
                 arrow: ts.ArrowFunction,
-                metaTags: IMetadataTag[],
+                metaTags: IMetadataCommentTag[],
                 jsDocTags: ts.JSDocTagInfo[],
             ) => ts.Expression,
         ) => {
@@ -366,9 +366,9 @@ export namespace FeatureProgrammer {
 
             return (
                 input: ts.Expression,
-                array: MetadataArray,
+                array: MetadataArrayType,
                 explore: IExplore,
-                metaTags: IMetadataTag[],
+                metaTags: IMetadataCommentTag[],
                 jsDocTags: IJsDocTagInfo[],
             ) => {
                 const arrow: ts.ArrowFunction = ts.factory.createArrowFunction(

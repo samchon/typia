@@ -139,7 +139,7 @@
             "x-typia-optional": true,
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/IMetadataTag"
+              "$ref": "#/components/schemas/IMetadataCommentTag"
             }
           },
           "x-typia-jsDocTags": {
@@ -173,56 +173,56 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "IMetadataTag": {
+      "IMetadataCommentTag": {
         "oneOf": [
           {
-            "$ref": "#/components/schemas/IMetadataTag.INumberType"
+            "$ref": "#/components/schemas/IMetadataCommentTag.INumberType"
           },
           {
-            "$ref": "#/components/schemas/IMetadataTag.IMinimum"
+            "$ref": "#/components/schemas/IMetadataCommentTag.IMinimum"
           },
           {
-            "$ref": "#/components/schemas/IMetadataTag.IMaximum"
+            "$ref": "#/components/schemas/IMetadataCommentTag.IMaximum"
           },
           {
-            "$ref": "#/components/schemas/IMetadataTag.IExclusiveMinimum"
+            "$ref": "#/components/schemas/IMetadataCommentTag.IExclusiveMinimum"
           },
           {
-            "$ref": "#/components/schemas/IMetadataTag.IExclusiveMaximum"
+            "$ref": "#/components/schemas/IMetadataCommentTag.IExclusiveMaximum"
           },
           {
-            "$ref": "#/components/schemas/IMetadataTag.IMultipleOf"
+            "$ref": "#/components/schemas/IMetadataCommentTag.IMultipleOf"
           },
           {
-            "$ref": "#/components/schemas/IMetadataTag.IStep"
+            "$ref": "#/components/schemas/IMetadataCommentTag.IStep"
           },
           {
-            "$ref": "#/components/schemas/IMetadataTag.IFormat"
+            "$ref": "#/components/schemas/IMetadataCommentTag.IFormat"
           },
           {
-            "$ref": "#/components/schemas/IMetadataTag.IPattern"
+            "$ref": "#/components/schemas/IMetadataCommentTag.IPattern"
           },
           {
-            "$ref": "#/components/schemas/IMetadataTag.ILength"
+            "$ref": "#/components/schemas/IMetadataCommentTag.ILength"
           },
           {
-            "$ref": "#/components/schemas/IMetadataTag.IMinLength"
+            "$ref": "#/components/schemas/IMetadataCommentTag.IMinLength"
           },
           {
-            "$ref": "#/components/schemas/IMetadataTag.IMaxLength"
+            "$ref": "#/components/schemas/IMetadataCommentTag.IMaxLength"
           },
           {
-            "$ref": "#/components/schemas/IMetadataTag.IItems"
+            "$ref": "#/components/schemas/IMetadataCommentTag.IItems"
           },
           {
-            "$ref": "#/components/schemas/IMetadataTag.IMinItems"
+            "$ref": "#/components/schemas/IMetadataCommentTag.IMinItems"
           },
           {
-            "$ref": "#/components/schemas/IMetadataTag.IMaxItems"
+            "$ref": "#/components/schemas/IMetadataCommentTag.IMaxItems"
           }
         ]
       },
-      "IMetadataTag.INumberType": {
+      "IMetadataCommentTag.INumberType": {
         "type": "object",
         "properties": {
           "kind": {
@@ -255,7 +255,7 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "IMetadataTag.IMinimum": {
+      "IMetadataCommentTag.IMinimum": {
         "type": "object",
         "properties": {
           "kind": {
@@ -279,7 +279,7 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "IMetadataTag.IMaximum": {
+      "IMetadataCommentTag.IMaximum": {
         "type": "object",
         "properties": {
           "kind": {
@@ -303,7 +303,7 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "IMetadataTag.IExclusiveMinimum": {
+      "IMetadataCommentTag.IExclusiveMinimum": {
         "type": "object",
         "properties": {
           "kind": {
@@ -327,7 +327,7 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "IMetadataTag.IExclusiveMaximum": {
+      "IMetadataCommentTag.IExclusiveMaximum": {
         "type": "object",
         "properties": {
           "kind": {
@@ -351,7 +351,7 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "IMetadataTag.IMultipleOf": {
+      "IMetadataCommentTag.IMultipleOf": {
         "type": "object",
         "properties": {
           "kind": {
@@ -375,7 +375,7 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "IMetadataTag.IStep": {
+      "IMetadataCommentTag.IStep": {
         "type": "object",
         "properties": {
           "kind": {
@@ -399,7 +399,7 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "IMetadataTag.IFormat": {
+      "IMetadataCommentTag.IFormat": {
         "type": "object",
         "properties": {
           "kind": {
@@ -432,7 +432,7 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "IMetadataTag.IPattern": {
+      "IMetadataCommentTag.IPattern": {
         "type": "object",
         "properties": {
           "kind": {
@@ -456,7 +456,7 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "IMetadataTag.ILength": {
+      "IMetadataCommentTag.ILength": {
         "type": "object",
         "properties": {
           "kind": {
@@ -480,7 +480,7 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "IMetadataTag.IMinLength": {
+      "IMetadataCommentTag.IMinLength": {
         "type": "object",
         "properties": {
           "kind": {
@@ -504,7 +504,7 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "IMetadataTag.IMaxLength": {
+      "IMetadataCommentTag.IMaxLength": {
         "type": "object",
         "properties": {
           "kind": {
@@ -528,7 +528,7 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "IMetadataTag.IItems": {
+      "IMetadataCommentTag.IItems": {
         "type": "object",
         "properties": {
           "kind": {
@@ -552,7 +552,7 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "IMetadataTag.IMinItems": {
+      "IMetadataCommentTag.IMinItems": {
         "type": "object",
         "properties": {
           "kind": {
@@ -576,7 +576,7 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "IMetadataTag.IMaxItems": {
+      "IMetadataCommentTag.IMaxItems": {
         "type": "object",
         "properties": {
           "kind": {
@@ -696,7 +696,7 @@
             "x-typia-optional": true,
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/IMetadataTag"
+              "$ref": "#/components/schemas/IMetadataCommentTag"
             }
           },
           "x-typia-jsDocTags": {
@@ -782,7 +782,7 @@
             "x-typia-optional": true,
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/IMetadataTag"
+              "$ref": "#/components/schemas/IMetadataCommentTag"
             }
           },
           "x-typia-jsDocTags": {
@@ -858,7 +858,7 @@
             "x-typia-optional": true,
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/IMetadataTag"
+              "$ref": "#/components/schemas/IMetadataCommentTag"
             }
           },
           "x-typia-jsDocTags": {
@@ -1009,7 +1009,7 @@
             "x-typia-optional": true,
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/IMetadataTag"
+              "$ref": "#/components/schemas/IMetadataCommentTag"
             }
           },
           "x-typia-jsDocTags": {
@@ -1109,7 +1109,7 @@
             "x-typia-optional": true,
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/IMetadataTag"
+              "$ref": "#/components/schemas/IMetadataCommentTag"
             }
           },
           "x-typia-jsDocTags": {
@@ -1240,7 +1240,7 @@
             "x-typia-optional": true,
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/IMetadataTag"
+              "$ref": "#/components/schemas/IMetadataCommentTag"
             }
           },
           "x-typia-jsDocTags": {
@@ -1362,7 +1362,7 @@
             "x-typia-optional": true,
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/IMetadataTag"
+              "$ref": "#/components/schemas/IMetadataCommentTag"
             }
           },
           "x-typia-jsDocTags": {
@@ -1487,7 +1487,7 @@
             "x-typia-optional": true,
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/IMetadataTag"
+              "$ref": "#/components/schemas/IMetadataCommentTag"
             }
           },
           "x-typia-jsDocTags": {
@@ -1553,7 +1553,7 @@
             "x-typia-optional": true,
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/IMetadataTag"
+              "$ref": "#/components/schemas/IMetadataCommentTag"
             }
           },
           "x-typia-jsDocTags": {
@@ -1614,7 +1614,7 @@
             "x-typia-optional": true,
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/IMetadataTag"
+              "$ref": "#/components/schemas/IMetadataCommentTag"
             }
           },
           "x-typia-jsDocTags": {
@@ -1678,7 +1678,7 @@
             "x-typia-optional": true,
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/IMetadataTag"
+              "$ref": "#/components/schemas/IMetadataCommentTag"
             }
           },
           "x-typia-jsDocTags": {
@@ -1734,7 +1734,7 @@
             "x-typia-optional": true,
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/IMetadataTag"
+              "$ref": "#/components/schemas/IMetadataCommentTag"
             }
           },
           "x-typia-jsDocTags": {
@@ -2092,7 +2092,7 @@
             "x-typia-optional": true,
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/IMetadataTag"
+              "$ref": "#/components/schemas/IMetadataCommentTag"
             }
           },
           "x-typia-jsDocTags": {
@@ -2188,7 +2188,7 @@
             "x-typia-optional": true,
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/IMetadataTag"
+              "$ref": "#/components/schemas/IMetadataCommentTag"
             }
           },
           "x-typia-jsDocTags": {
@@ -2284,7 +2284,7 @@
             "x-typia-optional": true,
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/IMetadataTag"
+              "$ref": "#/components/schemas/IMetadataCommentTag"
             }
           },
           "x-typia-jsDocTags": {
@@ -2370,7 +2370,7 @@
             "x-typia-optional": true,
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/IMetadataTag"
+              "$ref": "#/components/schemas/IMetadataCommentTag"
             }
           },
           "x-typia-jsDocTags": {
@@ -2480,7 +2480,7 @@
             "x-typia-optional": true,
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/IMetadataTag"
+              "$ref": "#/components/schemas/IMetadataCommentTag"
             }
           },
           "x-typia-jsDocTags": {
@@ -2641,7 +2641,7 @@
             "x-typia-optional": true,
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/IMetadataTag"
+              "$ref": "#/components/schemas/IMetadataCommentTag"
             }
           },
           "x-typia-jsDocTags": {
@@ -2782,7 +2782,7 @@
             "x-typia-optional": true,
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/IMetadataTag"
+              "$ref": "#/components/schemas/IMetadataCommentTag"
             }
           },
           "x-typia-jsDocTags": {
@@ -2914,7 +2914,7 @@
             "x-typia-optional": true,
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/IMetadataTag"
+              "$ref": "#/components/schemas/IMetadataCommentTag"
             }
           },
           "x-typia-jsDocTags": {
@@ -3049,7 +3049,7 @@
             "x-typia-optional": true,
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/IMetadataTag"
+              "$ref": "#/components/schemas/IMetadataCommentTag"
             }
           },
           "x-typia-jsDocTags": {
@@ -3125,7 +3125,7 @@
             "x-typia-optional": true,
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/IMetadataTag"
+              "$ref": "#/components/schemas/IMetadataCommentTag"
             }
           },
           "x-typia-jsDocTags": {
@@ -3196,7 +3196,7 @@
             "x-typia-optional": true,
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/IMetadataTag"
+              "$ref": "#/components/schemas/IMetadataCommentTag"
             }
           },
           "x-typia-jsDocTags": {
@@ -3262,7 +3262,7 @@
             "x-typia-optional": true,
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/IMetadataTag"
+              "$ref": "#/components/schemas/IMetadataCommentTag"
             }
           },
           "x-typia-jsDocTags": {
@@ -3333,7 +3333,7 @@
             "x-typia-optional": true,
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/IMetadataTag"
+              "$ref": "#/components/schemas/IMetadataCommentTag"
             }
           },
           "x-typia-jsDocTags": {

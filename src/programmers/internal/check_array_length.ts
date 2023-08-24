@@ -1,12 +1,12 @@
 import ts from "typescript";
 
-import { IMetadataTag } from "../../schemas/metadata/IMetadataTag";
+import { IMetadataCommentTag } from "../../schemas/metadata/IMetadataCommentTag";
 
 /**
  * @internal
  */
 export const check_array_length =
-    (metaTags: IMetadataTag[]) => (input: ts.Expression) =>
+    (metaTags: IMetadataCommentTag[]) => (input: ts.Expression) =>
         metaTags
             .map((tag) => ({
                 tag,

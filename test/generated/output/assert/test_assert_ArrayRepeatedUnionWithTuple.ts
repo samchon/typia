@@ -49,14 +49,14 @@ export const test_assert_ArrayRepeatedUnionWithTuple = _test_assert(
                 if (0 === input.length) return true;
                 const arrayPredicators = [
                     [
-                        (top: any): any => "string" === typeof top,
+                        (top: any[]): any => "string" === typeof top,
                         (entire: any[]): any =>
                             entire.every(
                                 (elem: any) => "string" === typeof elem,
                             ),
                     ],
                     [
-                        (top: any): any =>
+                        (top: any[]): any =>
                             null !== top &&
                             undefined !== top &&
                             (("number" === typeof top &&
@@ -66,7 +66,7 @@ export const test_assert_ArrayRepeatedUnionWithTuple = _test_assert(
                         (entire: any[]): any => $ia0(entire) || false,
                     ],
                     [
-                        (top: any): any =>
+                        (top: any[]): any =>
                             "object" === typeof top &&
                             null !== top &&
                             $io0(top),
@@ -267,7 +267,7 @@ export const test_assert_ArrayRepeatedUnionWithTuple = _test_assert(
                     if (0 === input.length) return true;
                     const arrayPredicators = [
                         [
-                            (top: any): any => "string" === typeof top,
+                            (top: any[]): any => "string" === typeof top,
                             (entire: any[]): any =>
                                 entire.every(
                                     (elem: any, _index1: number) =>
@@ -280,7 +280,7 @@ export const test_assert_ArrayRepeatedUnionWithTuple = _test_assert(
                                 ),
                         ],
                         [
-                            (top: any): any =>
+                            (top: any[]): any =>
                                 null !== top &&
                                 undefined !== top &&
                                 (("number" === typeof top &&
@@ -289,11 +289,11 @@ export const test_assert_ArrayRepeatedUnionWithTuple = _test_assert(
                                     (Array.isArray(top) &&
                                         ($ap0(
                                             top,
-                                            _path + "[0]",
+                                            _path,
                                             false && _exceptionable,
                                         ) ||
                                             $guard(_exceptionable, {
-                                                path: _path + "[0]",
+                                                path: _path,
                                                 expected:
                                                     "[string, number, boolean] | [IBox3D, IPoint3D] | Array<string> | Array<ArrayRepeatedUnionWithTuple> | Array<ArrayRepeatedUnionWithTuple.IBox3D>",
                                                 value: top,
@@ -308,14 +308,10 @@ export const test_assert_ArrayRepeatedUnionWithTuple = _test_assert(
                                 }),
                         ],
                         [
-                            (top: any): any =>
+                            (top: any[]): any =>
                                 "object" === typeof top &&
                                 null !== top &&
-                                $ao0(
-                                    top,
-                                    _path + "[0]",
-                                    false && _exceptionable,
-                                ),
+                                $ao0(top, _path, false && _exceptionable),
                             (entire: any[]): any =>
                                 entire.every(
                                     (elem: any, _index2: number) =>

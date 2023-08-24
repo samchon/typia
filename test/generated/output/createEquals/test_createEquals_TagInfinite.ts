@@ -9,6 +9,7 @@ export const test_equals_TagInfinite = _test_equals("TagInfinite")<TagInfinite>(
         "number" === typeof input.value &&
         Number.isFinite(input.value) &&
         "number" === typeof input.ranged &&
+        Number.isFinite(input.ranged) &&
         0 <= input.ranged &&
         100 >= input.ranged &&
         "number" === typeof input.minimum &&
@@ -18,6 +19,7 @@ export const test_equals_TagInfinite = _test_equals("TagInfinite")<TagInfinite>(
         Number.isFinite(input.maximum) &&
         100 >= input.maximum &&
         "number" === typeof input.multipleOf &&
+        Number.isFinite(input.multipleOf) &&
         0 === input.multipleOf % 3 &&
         "number" === typeof input.typed &&
         Number.isFinite(input.typed) &&

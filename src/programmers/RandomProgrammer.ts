@@ -9,11 +9,13 @@ import { TemplateFactory } from "../factories/TemplateFactory";
 import { TypeFactory } from "../factories/TypeFactory";
 
 import { ICommentTag } from "../schemas/metadata/ICommentTag";
-import { IMetadataTag } from "../schemas/metadata/IMetadataTag";
+import { IMetadataCommentTag } from "../schemas/metadata/IMetadataCommentTag";
 import { Metadata } from "../schemas/metadata/Metadata";
 import { MetadataArray } from "../schemas/metadata/MetadataArray";
+import { MetadataArrayType } from "../schemas/metadata/MetadataArrayType";
 import { MetadataObject } from "../schemas/metadata/MetadataObject";
 import { MetadataTuple } from "../schemas/metadata/MetadataTuple";
+import { MetadataTupleType } from "../schemas/metadata/MetadataTupleType";
 
 import { IProject } from "../transformers/IProject";
 
@@ -225,7 +227,7 @@ export namespace RandomProgrammer {
         (explore: IExplore) =>
         (
             meta: Metadata,
-            tags: IMetadataTag[],
+            tags: IMetadataCommentTag[],
             comments: ICommentTag[],
         ): ts.Expression => {
             const expressions: ts.Expression[] = [];
@@ -343,7 +345,10 @@ export namespace RandomProgrammer {
 
     const decode_number =
         (importer: FunctionImporter) =>
-        (tags: IMetadataTag[], comments: ICommentTag[]): ts.Expression => {
+        (
+            tags: IMetadataCommentTag[],
+            comments: ICommentTag[],
+        ): ts.Expression => {
             const type = tags.find(
                 (t) =>
                     t.kind === "type" &&
@@ -391,7 +396,7 @@ export namespace RandomProgrammer {
 
     const decode_bigint =
         (importer: FunctionImporter) =>
-        (tags: IMetadataTag[], comments: ICommentTag[]): ts.Expression =>
+        (tags: IMetadataCommentTag[], comments: ICommentTag[]): ts.Expression =>
             random_custom(COALESCE(importer))("bigint")(comments)(
                 RandomRanger.number({
                     type: tags.find(
@@ -419,7 +424,7 @@ export namespace RandomProgrammer {
 
     const decode_string =
         (importer: FunctionImporter) =>
-        (tags: IMetadataTag[], comments: ICommentTag[]): ts.Expression =>
+        (tags: IMetadataCommentTag[], comments: ICommentTag[]): ts.Expression =>
             random_custom(COALESCE(importer))("string")(comments)(
                 (() => {
                     for (const t of tags)
@@ -458,7 +463,7 @@ export namespace RandomProgrammer {
         (explore: IExplore) =>
         (
             array: MetadataArray,
-            tags: IMetadataTag[],
+            tags: IMetadataCommentTag[],
             comments: ICommentTag[],
         ) => {
             const length: ts.Expression | undefined = RandomRanger.length(
@@ -472,10 +477,10 @@ export namespace RandomProgrammer {
                 minimum: "minItems",
                 maximum: "maxItems",
             })(tags);
-            if (array.recursive)
+            if (array.type.recursive)
                 return ts.factory.createCallExpression(
                     ts.factory.createIdentifier(
-                        importer.useLocal(PREFIX.array(array.index!)),
+                        importer.useLocal(PREFIX.array(array.type.index!)),
                     ),
                     undefined,
                     [
@@ -491,7 +496,7 @@ export namespace RandomProgrammer {
                 );
             const expr: ts.Expression = RandomJoiner.array(COALESCE(importer))(
                 decode(importer)(explore),
-            )(explore)(length)(array.value, tags, comments);
+            )(explore)(length)(array.type.value, tags, comments);
             return explore.recursive
                 ? ts.factory.createConditionalExpression(
                       ts.factory.createLogicalAnd(
@@ -514,13 +519,13 @@ export namespace RandomProgrammer {
         (explore: IExplore) =>
         (
             tuple: MetadataTuple,
-            tags: IMetadataTag[],
+            tags: IMetadataCommentTag[],
             comments: ICommentTag[],
         ): ts.Expression =>
-            tuple.recursive
+            tuple.type.recursive
                 ? ts.factory.createCallExpression(
                       ts.factory.createIdentifier(
-                          importer.useLocal(PREFIX.tuple(tuple.index!)),
+                          importer.useLocal(PREFIX.tuple(tuple.type.index!)),
                       ),
                       undefined,
                       [
@@ -534,7 +539,7 @@ export namespace RandomProgrammer {
                       ],
                   )
                 : RandomJoiner.tuple(decode(importer)(explore))(
-                      tuple.elements,
+                      tuple.type.elements,
                       tags,
                       comments,
                   );
@@ -573,18 +578,25 @@ export namespace RandomProgrammer {
     const decode_set =
         (importer: FunctionImporter) =>
         (explore: IExplore) =>
-        (meta: Metadata, tags: IMetadataTag[], comments: ICommentTag[]) =>
+        (
+            meta: Metadata,
+            tags: IMetadataCommentTag[],
+            comments: ICommentTag[],
+        ) =>
             ts.factory.createNewExpression(
                 ts.factory.createIdentifier("Set"),
                 undefined,
                 [
                     decode_array(importer)(explore)(
                         MetadataArray.create({
-                            value: meta,
-                            recursive: false,
-                            index: null,
-                            nullables: [],
-                            name: `Set<${meta.getName()}>`,
+                            tags: [],
+                            type: MetadataArrayType.create({
+                                value: meta,
+                                recursive: false,
+                                index: null,
+                                nullables: [],
+                                name: `Set<${meta.getName()}>`,
+                            }),
                         }),
                         tags,
                         comments,
@@ -595,32 +607,43 @@ export namespace RandomProgrammer {
     const decode_map =
         (importer: FunctionImporter) =>
         (explore: IExplore) =>
-        (m: Metadata.Entry, tags: IMetadataTag[], comments: ICommentTag[]) =>
+        (
+            m: Metadata.Entry,
+            tags: IMetadataCommentTag[],
+            comments: ICommentTag[],
+        ) =>
             ts.factory.createNewExpression(
                 ts.factory.createIdentifier("Map"),
                 undefined,
                 [
                     decode_array(importer)(explore)(
                         MetadataArray.create({
-                            name: `Map<${m.key.getName()}, ${m.value.getName()}>`,
-                            index: null,
-                            recursive: false,
-                            nullables: [],
-                            value: Metadata.create({
-                                ...Metadata.initialize(),
-                                tuples: [
-                                    (() => {
-                                        const tuple = MetadataTuple.create({
-                                            name: `[${m.key.getName()}, ${m.value.getName()}]`,
-                                            index: null,
-                                            recursive: false,
-                                            nullables: [],
-                                            elements: [m.key, m.value],
-                                        });
-                                        tuple.of_map = true;
-                                        return tuple;
-                                    })(),
-                                ],
+                            tags: [],
+                            type: MetadataArrayType.create({
+                                name: `Map<${m.key.getName()}, ${m.value.getName()}>`,
+                                index: null,
+                                recursive: false,
+                                nullables: [],
+                                value: Metadata.create({
+                                    ...Metadata.initialize(),
+                                    tuples: [
+                                        (() => {
+                                            const type =
+                                                MetadataTupleType.create({
+                                                    name: `[${m.key.getName()}, ${m.value.getName()}]`,
+                                                    index: null,
+                                                    recursive: false,
+                                                    nullables: [],
+                                                    elements: [m.key, m.value],
+                                                });
+                                            type.of_map = true;
+                                            return MetadataTuple.create({
+                                                type,
+                                                tags: [],
+                                            });
+                                        })(),
+                                    ],
+                                }),
                             }),
                         }),
                         tags,
@@ -633,7 +656,7 @@ export namespace RandomProgrammer {
         (importer: FunctionImporter) =>
         (
             type: string,
-            tags: IMetadataTag[],
+            tags: IMetadataCommentTag[],
             comments: ICommentTag[],
         ): ts.Expression => {
             if (type === "Boolean") return decode_boolean(importer);

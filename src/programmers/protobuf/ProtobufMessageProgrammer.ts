@@ -3,7 +3,7 @@ import ts from "typescript";
 import { MetadataCollection } from "../../factories/MetadataCollection";
 import { ProtobufFactory } from "../../factories/ProtobufFactory";
 
-import { IMetadataTag } from "../../schemas/metadata/IMetadataTag";
+import { IMetadataCommentTag } from "../../schemas/metadata/IMetadataCommentTag";
 import { Metadata } from "../../schemas/metadata/Metadata";
 import { MetadataObject } from "../../schemas/metadata/MetadataObject";
 
@@ -104,14 +104,14 @@ export namespace ProtobufMessageProgrammer {
     ----------------------------------------------------------- */
     const decode =
         (ptr: IPointer<number>) =>
-        (tags: IMetadataTag[]) =>
+        (tags: IMetadataCommentTag[]) =>
         (meta: Metadata): string => {
             const elements: Set<string> = new Set();
             if (meta.natives.length) elements.add("bytes");
             for (const atomic of ProtobufUtil.getAtomics(meta))
                 elements.add(decode_atomic(tags)(atomic));
             for (const array of meta.arrays)
-                elements.add(`repeated ${decode(ptr)(tags)(array.value)}`);
+                elements.add(`repeated ${decode(ptr)(tags)(array.type.value)}`);
             for (const obj of meta.objects)
                 elements.add(
                     is_dynamic_object(obj)
@@ -135,7 +135,7 @@ export namespace ProtobufMessageProgrammer {
         };
 
     const decode_atomic =
-        (tags: IMetadataTag[]) =>
+        (tags: IMetadataCommentTag[]) =>
         (literal: Atomic.Literal): string => {
             if (literal === "boolean") return "bool";
             else if (literal === "bigint")
@@ -146,7 +146,7 @@ export namespace ProtobufMessageProgrammer {
                     : "int64";
             else if (literal === "number") {
                 const type = tags.find((t) => t.kind === "type") as
-                    | IMetadataTag.INumberType
+                    | IMetadataCommentTag.INumberType
                     | undefined;
                 if (type?.value === undefined) return "double";
                 else if (type.value === "int") return "int32";
@@ -158,7 +158,7 @@ export namespace ProtobufMessageProgrammer {
 
     const decode_map =
         (ptr: IPointer<number>) =>
-        (tags: IMetadataTag[]) =>
+        (tags: IMetadataCommentTag[]) =>
         (prop: Metadata.Entry): string =>
             `map<${decode(ptr)([])(prop.key)}, ${decode(ptr)(tags)(
                 prop.value,

@@ -12,15 +12,15 @@ export const test_misc_clone_ArrayUnion = _test_misc_clone(
         if (0 === input.length) return [];
         const arrayPredicators = [
             [
-                (top: any): any => "boolean" === typeof top,
+                (top: any[]): any => "boolean" === typeof top,
                 (entire: any[]): any => entire.map((elem: any) => elem as any),
             ],
             [
-                (top: any): any => "number" === typeof top,
+                (top: any[]): any => "number" === typeof top,
                 (entire: any[]): any => entire.map((elem: any) => elem as any),
             ],
             [
-                (top: any): any => "string" === typeof top,
+                (top: any[]): any => "string" === typeof top,
                 (entire: any[]): any => entire.map((elem: any) => elem as any),
             ],
         ];

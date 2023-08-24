@@ -38,7 +38,10 @@ export const test_json_isStringify_TagArray = _test_json_isStringify(
             10 >= input.equal.length &&
             input.equal.every(
                 (elem: any) =>
-                    "number" === typeof elem && 10 <= elem && 10 >= elem,
+                    "number" === typeof elem &&
+                    Number.isFinite(elem) &&
+                    10 <= elem &&
+                    10 >= elem,
             );
         return "object" === typeof input && null !== input && $io0(input);
     };
