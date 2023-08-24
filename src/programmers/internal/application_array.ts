@@ -17,14 +17,15 @@ export const application_array =
         const schema: IJsonSchema.IArray = {
             ...attribute,
             type: "array",
-            items: application_schema(options)(false)(components)(array.value)(
-                attribute,
-            ),
+            items: application_schema(options)(false)(components)(
+                array.type.value,
+            )(attribute),
         };
 
-        // RANGE
+        // COMMENT TAGS
         for (const tag of attribute["x-typia-metaTags"] ?? [])
             if (tag.kind === "minItems") schema.minItems = tag.value;
             else if (tag.kind === "maxItems") schema.maxItems = tag.value;
+
         return schema;
     };

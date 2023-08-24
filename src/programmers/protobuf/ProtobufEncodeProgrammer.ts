@@ -7,7 +7,7 @@ import { ProtobufFactory } from "../../factories/ProtobufFactory";
 import { StatementFactory } from "../../factories/StatementFactory";
 import { TypeFactory } from "../../factories/TypeFactory";
 
-import { IMetadataTag } from "../../schemas/metadata/IMetadataTag";
+import { IMetadataCommentTag } from "../../schemas/metadata/IMetadataCommentTag";
 import { Metadata } from "../../schemas/metadata/Metadata";
 import { MetadataArray } from "../../schemas/metadata/MetadataArray";
 import { MetadataObject } from "../../schemas/metadata/MetadataObject";
@@ -205,7 +205,7 @@ export namespace ProtobufEncodeProgrammer {
             input: ts.Expression,
             meta: Metadata,
             explore: FeatureProgrammer.IExplore,
-            tags: IMetadataTag[],
+            tags: IMetadataCommentTag[],
         ): ts.Block => {
             const wrapper: (block: ts.Block) => ts.Block =
                 meta.isRequired() && meta.nullable === false
@@ -388,7 +388,7 @@ export namespace ProtobufEncodeProgrammer {
             input: ts.Expression,
             map: Metadata.Entry,
             explore: FeatureProgrammer.IExplore,
-            tags: IMetadataTag[],
+            tags: IMetadataCommentTag[],
         ): ts.Block => {
             const each: ts.Statement[] = [
                 ts.factory.createExpressionStatement(
@@ -442,7 +442,7 @@ export namespace ProtobufEncodeProgrammer {
             input: ts.Expression,
             object: MetadataObject,
             explore: FeatureProgrammer.IExplore,
-            tags: IMetadataTag[],
+            tags: IMetadataCommentTag[],
         ): ts.Block => {
             const top: MetadataProperty = object.properties[0]!;
             if (top.key.isSoleLiteral() === false)
@@ -502,9 +502,9 @@ export namespace ProtobufEncodeProgrammer {
             input: ts.Expression,
             array: MetadataArray,
             explore: FeatureProgrammer.IExplore,
-            tags: IMetadataTag[],
+            tags: IMetadataCommentTag[],
         ): ts.Block => {
-            const wire = get_standalone_wire(array.value, tags);
+            const wire = get_standalone_wire(array.type.value, tags);
             const forLoop = (index: number | null) =>
                 ts.factory.createForOfStatement(
                     undefined,
@@ -515,7 +515,7 @@ export namespace ProtobufEncodeProgrammer {
                     input,
                     decode(project)(importer)(index)(
                         ts.factory.createIdentifier("elem"),
-                        array.value,
+                        array.type.value,
                         explore,
                         tags,
                     ),
@@ -568,7 +568,7 @@ export namespace ProtobufEncodeProgrammer {
         (
             input: ts.Expression,
             atomic: Atomic.Literal,
-            tags: IMetadataTag[],
+            tags: IMetadataCommentTag[],
         ): ts.Block => {
             if (atomic === "string")
                 return decode_bytes("string")(index!)(input);
@@ -593,9 +593,9 @@ export namespace ProtobufEncodeProgrammer {
                     );
             if (atomic === "boolean") return out(ProtobufWire.VARIANT)("bool");
 
-            const type: IMetadataTag.INumberType | undefined = tags.find(
+            const type: IMetadataCommentTag.INumberType | undefined = tags.find(
                 (tag) => tag.kind === "type",
-            ) as IMetadataTag.INumberType | undefined;
+            ) as IMetadataCommentTag.INumberType | undefined;
             if (atomic === "bigint")
                 return out(ProtobufWire.VARIANT)(
                     type?.value === "uint64" ? "uint64" : "int64",
@@ -641,7 +641,7 @@ export namespace ProtobufEncodeProgrammer {
 
     const get_standalone_wire = (
         meta: Metadata,
-        tags: IMetadataTag[],
+        tags: IMetadataCommentTag[],
     ): ProtobufWire => {
         if (
             meta.arrays.length ||
@@ -655,9 +655,9 @@ export namespace ProtobufEncodeProgrammer {
         if (v === "string") return ProtobufWire.LEN;
         else if (v === "boolean" || v === "bigint") return ProtobufWire.VARIANT;
 
-        const type: IMetadataTag.INumberType | undefined = tags.find(
+        const type: IMetadataCommentTag.INumberType | undefined = tags.find(
             (t) => t.kind === "type",
-        ) as IMetadataTag.INumberType | undefined;
+        ) as IMetadataCommentTag.INumberType | undefined;
         if (type === undefined) return ProtobufWire.I64;
         else if (type.value === "float") return ProtobufWire.I32;
         return ProtobufWire.VARIANT;
@@ -675,7 +675,7 @@ export namespace ProtobufEncodeProgrammer {
             input: ts.Expression,
             targets: MetadataObject[],
             explore: FeatureProgrammer.IExplore,
-            tags: IMetadataTag[],
+            tags: IMetadataCommentTag[],
             indexes?: Map<MetadataObject, number>,
         ): ts.Block => {
             if (targets.length === 1)

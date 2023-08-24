@@ -1,7 +1,7 @@
 import ts from "typescript";
 
 export interface ICheckEntry {
-    expression: ts.Expression;
+    expression: ts.Expression | null;
     tags: ICheckEntry.ITag[];
 }
 export namespace ICheckEntry {

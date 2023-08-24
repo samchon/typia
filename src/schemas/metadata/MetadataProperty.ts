@@ -1,16 +1,16 @@
 import { ClassProperties } from "../../typings/ClassProperties";
 
 import { IJsDocTagInfo } from "./IJsDocTagInfo";
+import { IMetadataCommentTag } from "./IMetadataCommentTag";
 import { IMetadataDictionary } from "./IMetadataDictionary";
 import { IMetadataProperty } from "./IMetadataProperty";
-import { IMetadataTag } from "./IMetadataTag";
 import { Metadata } from "./Metadata";
 
 export class MetadataProperty {
     public readonly key: Metadata;
     public readonly value: Metadata;
     public readonly description: string | null;
-    public readonly tags: IMetadataTag[];
+    public readonly tags: IMetadataCommentTag[];
     public readonly jsDocTags: IJsDocTagInfo[];
 
     /* -----------------------------------------------------------

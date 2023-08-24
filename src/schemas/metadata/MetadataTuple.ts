@@ -1,45 +1,21 @@
+import { $clone } from "../../functional/$clone";
+
 import { ClassProperties } from "../../typings/ClassProperties";
 
 import { IMetadataTuple } from "./IMetadataTuple";
-import { Metadata } from "./Metadata";
+import { IMetadataTypeTag } from "./IMetadataTypeTag";
+import { MetadataTupleType } from "./MetadataTupleType";
 
 export class MetadataTuple {
-    public readonly name: string;
-    public readonly elements: Metadata[];
-
-    public readonly index: number | null;
-    public readonly recursive: boolean;
-    public readonly nullables: boolean[];
-
-    /**
-     * @internal
-     */
-    public of_map?: boolean;
+    public readonly type: MetadataTupleType;
+    public readonly tags: IMetadataTypeTag[][];
 
     /**
      * @internal
      */
     private constructor(props: ClassProperties<MetadataTuple>) {
-        this.name = props.name;
-        this.elements = props.elements;
-        this.index = props.index;
-        this.recursive = props.recursive;
-        this.nullables = props.nullables;
-    }
-
-    /**
-     * @internal
-     */
-    public static _From_without_elements(
-        props: Omit<IMetadataTuple, "elements">,
-    ): MetadataTuple {
-        return this.create({
-            name: props.name,
-            index: props.index,
-            elements: null!,
-            recursive: props.recursive,
-            nullables: props.nullables.slice(),
-        });
+        this.type = props.type;
+        this.tags = props.tags;
     }
 
     public static create(props: ClassProperties<MetadataTuple>): MetadataTuple {
@@ -48,11 +24,8 @@ export class MetadataTuple {
 
     public toJSON(): IMetadataTuple {
         return {
-            name: this.name,
-            index: this.index,
-            elements: this.elements.map((elem) => elem.toJSON()),
-            recursive: this.recursive,
-            nullables: this.nullables.slice(),
+            type: this.type.toJSON(),
+            tags: $clone(this.tags),
         };
     }
 }

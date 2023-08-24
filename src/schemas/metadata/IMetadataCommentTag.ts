@@ -1,24 +1,24 @@
-export type IMetadataTag =
+export type IMetadataCommentTag =
     // NUMBER
-    | IMetadataTag.INumberType
-    | IMetadataTag.IMinimum
-    | IMetadataTag.IMaximum
-    | IMetadataTag.IExclusiveMinimum
-    | IMetadataTag.IExclusiveMaximum
-    | IMetadataTag.IMultipleOf
-    | IMetadataTag.IStep
+    | IMetadataCommentTag.INumberType
+    | IMetadataCommentTag.IMinimum
+    | IMetadataCommentTag.IMaximum
+    | IMetadataCommentTag.IExclusiveMinimum
+    | IMetadataCommentTag.IExclusiveMaximum
+    | IMetadataCommentTag.IMultipleOf
+    | IMetadataCommentTag.IStep
     // STRING
-    | IMetadataTag.IFormat
-    | IMetadataTag.IPattern
-    | IMetadataTag.ILength
-    | IMetadataTag.IMinLength
-    | IMetadataTag.IMaxLength
+    | IMetadataCommentTag.IFormat
+    | IMetadataCommentTag.IPattern
+    | IMetadataCommentTag.ILength
+    | IMetadataCommentTag.IMinLength
+    | IMetadataCommentTag.IMaxLength
     // ARRAY
-    | IMetadataTag.IItems
-    | IMetadataTag.IMinItems
-    | IMetadataTag.IMaxItems;
+    | IMetadataCommentTag.IItems
+    | IMetadataCommentTag.IMinItems
+    | IMetadataCommentTag.IMaxItems;
 
-export namespace IMetadataTag {
+export namespace IMetadataCommentTag {
     /* -----------------------------------------------------------
         NUMBER
     ----------------------------------------------------------- */

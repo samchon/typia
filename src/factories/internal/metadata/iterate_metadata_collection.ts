@@ -1,10 +1,10 @@
 import { Metadata } from "../../../schemas/metadata/Metadata";
-import { MetadataArray } from "../../../schemas/metadata/MetadataArray";
+import { MetadataArrayType } from "../../../schemas/metadata/MetadataArrayType";
 import { MetadataObject } from "../../../schemas/metadata/MetadataObject";
-import { MetadataTuple } from "../../../schemas/metadata/MetadataTuple";
+import { MetadataTupleType } from "../../../schemas/metadata/MetadataTupleType";
 
 import { MetadataCollection } from "../../MetadataCollection";
-import { iterate_metadata_tag } from "./iterate_metadata_tag";
+import { iterate_metadata_comment_tags } from "./iterate_metadata_comment_tags";
 
 export const iterate_metadata_collection = (
     collection: MetadataCollection,
@@ -24,7 +24,7 @@ export const iterate_metadata_collection = (
             );
         }
     for (const obj of collection.objects()) {
-        iterate_metadata_tag(obj);
+        iterate_metadata_comment_tags(obj);
         if (obj.recursive === null) {
             const visited: Set<Metadata> = new Set();
             collection.setObjectRecursive(
@@ -39,22 +39,26 @@ export const iterate_metadata_collection = (
 
 const isArrayRecursive =
     (visited: Set<Metadata>) =>
-    (array: MetadataArray) =>
+    (array: MetadataArrayType) =>
     (meta: Metadata): boolean => {
         if (visited.has(meta)) return false;
         visited.add(meta);
 
         return (
             meta.arrays.some(
-                (a) => a === array || isArrayRecursive(visited)(array)(a.value),
+                (a) =>
+                    a.type === array ||
+                    isArrayRecursive(visited)(array)(a.type.value),
             ) ||
             meta.aliases.some((alias) =>
                 isArrayRecursive(visited)(array)(alias.value),
             ) ||
             meta.tuples.some(
                 (t) =>
-                    !t.recursive &&
-                    t.elements.some((e) => isArrayRecursive(visited)(array)(e)),
+                    !t.type.recursive &&
+                    t.type.elements.some((e) =>
+                        isArrayRecursive(visited)(array)(e),
+                    ),
             ) ||
             meta.maps.some((m) => isArrayRecursive(visited)(array)(m.value)) ||
             meta.sets.some((s) => isArrayRecursive(visited)(array)(s)) ||
@@ -66,7 +70,7 @@ const isArrayRecursive =
 
 const isTupleRecursive =
     (visited: Set<Metadata>) =>
-    (tuple: MetadataTuple) =>
+    (tuple: MetadataTupleType) =>
     (meta: Metadata): boolean => {
         if (visited.has(meta)) return false;
         visited.add(meta);
@@ -74,12 +78,15 @@ const isTupleRecursive =
         return (
             meta.tuples.some(
                 (t) =>
-                    t === tuple ||
-                    t.elements.some((e) => isTupleRecursive(visited)(tuple)(e)),
+                    t.type === tuple ||
+                    t.type.elements.some((e) =>
+                        isTupleRecursive(visited)(tuple)(e),
+                    ),
             ) ||
             meta.arrays.some(
                 (a) =>
-                    !a.recursive && isTupleRecursive(visited)(tuple)(a.value),
+                    !a.type.recursive &&
+                    isTupleRecursive(visited)(tuple)(a.type.value),
             ) ||
             meta.maps.some((m) => isTupleRecursive(visited)(tuple)(m.value)) ||
             meta.sets.some((s) => isTupleRecursive(visited)(tuple)(s)) ||
@@ -112,13 +119,13 @@ const isObjectRecursive =
             ) ||
             meta.arrays.some(
                 (array) =>
-                    !array.recursive &&
-                    isObjectRecursive(visited)(obj)(array.value),
+                    !array.type.recursive &&
+                    isObjectRecursive(visited)(obj)(array.type.value),
             ) ||
             meta.tuples.some(
                 (tuple) =>
-                    !tuple.recursive &&
-                    tuple.elements.some((elem) =>
+                    !tuple.type.recursive &&
+                    tuple.type.elements.some((elem) =>
                         isObjectRecursive(visited)(obj)(elem),
                     ),
             ) ||

@@ -1,5 +1,6 @@
 export namespace Atomic {
     export type Type = boolean | number | string | bigint;
+
     export type Literal =
         | "boolean"
         | "integer"

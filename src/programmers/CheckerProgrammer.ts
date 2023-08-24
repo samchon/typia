@@ -9,11 +9,14 @@ import { TypeFactory } from "../factories/TypeFactory";
 import { ValueFactory } from "../factories/ValueFactory";
 
 import { IJsDocTagInfo } from "../schemas/metadata/IJsDocTagInfo";
-import { IMetadataTag } from "../schemas/metadata/IMetadataTag";
+import { IMetadataCommentTag } from "../schemas/metadata/IMetadataCommentTag";
+import { IMetadataTypeTag } from "../schemas/metadata/IMetadataTypeTag";
 import { Metadata } from "../schemas/metadata/Metadata";
 import { MetadataArray } from "../schemas/metadata/MetadataArray";
+import { MetadataArrayType } from "../schemas/metadata/MetadataArrayType";
 import { MetadataObject } from "../schemas/metadata/MetadataObject";
 import { MetadataTuple } from "../schemas/metadata/MetadataTuple";
+import { MetadataTupleType } from "../schemas/metadata/MetadataTupleType";
 
 import { IProject } from "../transformers/IProject";
 
@@ -24,8 +27,8 @@ import { ICheckEntry } from "./helpers/ICheckEntry";
 import { IExpressionEntry } from "./helpers/IExpressionEntry";
 import { OptionPredicator } from "./helpers/OptionPredicator";
 import { UnionExplorer } from "./helpers/UnionExplorer";
-import { check_array } from "./internal/check_array";
 import { check_array_length } from "./internal/check_array_length";
+import { check_array_tags } from "./internal/check_array_tags";
 import { check_bigint } from "./internal/check_bigint";
 import { check_native } from "./internal/check_native";
 import { check_number } from "./internal/check_number";
@@ -148,6 +151,7 @@ export namespace CheckerProgrammer {
                                     from: "array",
                                     postfix: "",
                                 },
+                                [],
                                 [],
                                 [],
                             ),
@@ -292,7 +296,7 @@ export namespace CheckerProgrammer {
             input: ts.Expression,
             meta: Metadata,
             explore: IExplore,
-            metaTags: IMetadataTag[],
+            metaTags: IMetadataCommentTag[],
             jsDocTags: ts.JSDocTagInfo[],
         ): ts.Expression => {
             if (meta.any) return config.success;
@@ -360,23 +364,27 @@ export namespace CheckerProgrammer {
                 else if (atom.type === "number")
                     binaries.push({
                         expression: config.atomist(explore)(
-                            check_number(project, config.numeric)(importer)(
+                            check_number(project, config.numeric)(
+                                atom.tags,
                                 metaTags,
-                            )(jsDocTags)(input),
+                            )(input),
                         )(input),
                         combined: false,
                     });
                 else if (atom.type === "bigint")
                     binaries.push({
                         expression: config.atomist(explore)(
-                            check_bigint(importer)(metaTags)(jsDocTags)(input),
+                            check_bigint(project)(atom.tags, metaTags)(input),
                         )(input),
                         combined: false,
                     });
                 else if (atom.type === "string")
                     binaries.push({
                         expression: config.atomist(explore)(
-                            check_string(importer)(metaTags)(jsDocTags)(input),
+                            check_string(project)(importer)(
+                                atom.tags,
+                                metaTags,
+                            )(input),
                         )(input),
                         combined: false,
                     });
@@ -392,9 +400,7 @@ export namespace CheckerProgrammer {
                 if (AtomicPredicator.template(meta))
                     binaries.push({
                         expression: config.atomist(explore)(
-                            check_template(importer)(metaTags)(jsDocTags)(
-                                meta.templates,
-                            )(input),
+                            check_template(meta.templates)(input),
                         )(input),
                         combined: false,
                     });
@@ -476,13 +482,12 @@ export namespace CheckerProgrammer {
             // ARRAYS AND TUPLES
             if (meta.tuples.length + meta.arrays.length > 0) {
                 const install = prepare(
-                    config.atomist(explore)(
-                        check_array(importer)(
-                            meta.tuples.length === 0 ? metaTags : [],
-                        )(jsDocTags)(input),
-                    )(input),
+                    config.atomist(explore)({
+                        expression: ExpressionFactory.isArray(input),
+                        tags: [],
+                    })(input),
                     [...meta.tuples, ...meta.arrays]
-                        .map((elem) => elem.name)
+                        .map((elem) => elem.type.name)
                         .join(" | "),
                 );
                 if (meta.arrays.length === 0)
@@ -513,7 +518,7 @@ export namespace CheckerProgrammer {
                                 jsDocTags,
                             ),
                         );
-                else if (meta.arrays.some((elem) => elem.value.any))
+                else if (meta.arrays.some((elem) => elem.type.value.any))
                     install(null);
                 else if (meta.tuples.length === 0)
                     if (meta.arrays.length === 1)
@@ -669,14 +674,15 @@ export namespace CheckerProgrammer {
             input: ts.Expression,
             array: MetadataArray,
             explore: IExplore,
-            metaTags: IMetadataTag[],
+            metaTags: IMetadataCommentTag[],
             jsDocTags: IJsDocTagInfo[],
         ) => {
-            if (array.recursive === false)
+            if (array.type.recursive === false)
                 return decode_array_inline(project)(config)(importer)(
                     input,
-                    array,
+                    array.type,
                     explore,
+                    array.tags,
                     metaTags,
                     jsDocTags,
                 );
@@ -689,7 +695,9 @@ export namespace CheckerProgrammer {
             return ts.factory.createLogicalOr(
                 ts.factory.createCallExpression(
                     ts.factory.createIdentifier(
-                        importer.useLocal(`${config.prefix}a${array.index}`),
+                        importer.useLocal(
+                            `${config.prefix}a${array.type.index}`,
+                        ),
                     ),
                     undefined,
                     FeatureProgrammer.argumentsArray(config)({
@@ -698,7 +706,7 @@ export namespace CheckerProgrammer {
                         from: "array",
                     })(input),
                 ),
-                config.joiner.failure(input, array.name, explore),
+                config.joiner.failure(input, array.type.name, explore),
             );
         };
 
@@ -706,12 +714,34 @@ export namespace CheckerProgrammer {
         (project: IProject) =>
         (config: IConfig) =>
         (importer: FunctionImporter) =>
-            FeatureProgrammer.decode_array({
+        (
+            input: ts.Expression,
+            array: MetadataArrayType,
+            explore: IExplore,
+            matrix: IMetadataTypeTag[][],
+            metaTags: IMetadataCommentTag[],
+            jsDocTags: IJsDocTagInfo[],
+        ): ts.Expression => {
+            const tagger = check_array_tags(project)(matrix, metaTags)(input);
+            const main = FeatureProgrammer.decode_array({
                 prefix: config.prefix,
                 trace: config.trace,
                 path: config.path,
                 decoder: () => decode(project)(config)(importer),
-            })(importer)(config.joiner.array);
+            })(importer)(config.joiner.array)(
+                input,
+                array,
+                explore,
+                metaTags,
+                jsDocTags,
+            );
+            return tagger.expression === null && tagger.tags.length === 0
+                ? main
+                : ts.factory.createLogicalAnd(
+                      config.atomist(explore)(tagger)(input),
+                      main,
+                  );
+        };
 
     const decode_tuple =
         (project: IProject) =>
@@ -721,13 +751,13 @@ export namespace CheckerProgrammer {
             input: ts.Expression,
             tuple: MetadataTuple,
             explore: IExplore,
-            tagList: IMetadataTag[],
+            tagList: IMetadataCommentTag[],
             jsDocTags: ts.JSDocTagInfo[],
         ): ts.Expression => {
-            if (tuple.recursive === false)
+            if (tuple.type.recursive === false)
                 return decode_tuple_inline(project)(config)(importer)(
                     input,
-                    tuple,
+                    tuple.type,
                     explore,
                     tagList,
                     jsDocTags,
@@ -740,7 +770,9 @@ export namespace CheckerProgrammer {
             return ts.factory.createLogicalOr(
                 ts.factory.createCallExpression(
                     ts.factory.createIdentifier(
-                        importer.useLocal(`${config.prefix}t${tuple.index}`),
+                        importer.useLocal(
+                            `${config.prefix}t${tuple.type.index}`,
+                        ),
                     ),
                     undefined,
                     FeatureProgrammer.argumentsArray(config)({
@@ -748,7 +780,7 @@ export namespace CheckerProgrammer {
                         source: "function",
                     })(input),
                 ),
-                config.joiner.failure(input, tuple.name, explore),
+                config.joiner.failure(input, tuple.type.name, explore),
             );
         };
 
@@ -758,9 +790,9 @@ export namespace CheckerProgrammer {
         (importer: FunctionImporter) =>
         (
             input: ts.Expression,
-            tuple: MetadataTuple,
+            tuple: MetadataTupleType,
             explore: IExplore,
-            tagList: IMetadataTag[],
+            tagList: IMetadataCommentTag[],
             jsDocTags: ts.JSDocTagInfo[],
         ): ts.Expression => {
             const binaries: ts.Expression[] = tuple.elements
@@ -883,7 +915,7 @@ export namespace CheckerProgrammer {
             input: ts.Expression,
             sets: Metadata[],
             explore: IExplore,
-            tags: IMetadataTag[],
+            tags: IMetadataCommentTag[],
             jsDocTags: IJsDocTagInfo[],
         ): ts.Expression =>
             ts.factory.createCallExpression(
@@ -909,7 +941,7 @@ export namespace CheckerProgrammer {
             input: ts.Expression,
             maps: Metadata.Entry[],
             explore: IExplore,
-            tags: IMetadataTag[],
+            tags: IMetadataCommentTag[],
             jsDocTags: IJsDocTagInfo[],
         ): ts.Expression =>
             ts.factory.createCallExpression(
@@ -965,7 +997,7 @@ export namespace CheckerProgrammer {
             input: ts.Expression,
             tuples: MetadataTuple[],
             explore: IExplore,
-            tags: IMetadataTag[],
+            tags: IMetadataCommentTag[],
             jsDocTags: IJsDocTagInfo[],
         ): ts.Expression =>
             explore_array_like_union_types(config)(importer)(
@@ -989,7 +1021,7 @@ export namespace CheckerProgrammer {
             input: ts.Expression,
             arrays: MetadataArray[],
             explore: IExplore,
-            tags: IMetadataTag[],
+            tags: IMetadataCommentTag[],
             jsDocTags: IJsDocTagInfo[],
         ): ts.Expression =>
             explore_array_like_union_types(config)(importer)(
@@ -1013,7 +1045,7 @@ export namespace CheckerProgrammer {
             input: ts.Expression,
             elements: Array<MetadataArray | MetadataTuple>,
             explore: IExplore,
-            tags: IMetadataTag[],
+            tags: IMetadataCommentTag[],
             jsDocTags: IJsDocTagInfo[],
         ): ts.Expression =>
             explore_array_like_union_types(config)(importer)(
@@ -1072,7 +1104,7 @@ export namespace CheckerProgrammer {
                 input: ts.Expression,
                 elements: T[],
                 explore: IExplore,
-                tags: IMetadataTag[],
+                tags: IMetadataCommentTag[],
                 jsDocTags: IJsDocTagInfo[],
             ) => ts.ArrowFunction,
         ) =>
@@ -1080,7 +1112,7 @@ export namespace CheckerProgrammer {
             input: ts.Expression,
             elements: T[],
             explore: IExplore,
-            tags: IMetadataTag[],
+            tags: IMetadataCommentTag[],
             jsDocTags: IJsDocTagInfo[],
         ): ts.Expression => {
             const arrow =
@@ -1094,7 +1126,7 @@ export namespace CheckerProgrammer {
                         tags,
                         jsDocTags,
                     );
-            if (elements.every((e) => e.recursive === false))
+            if (elements.every((e) => e.type.recursive === false))
                 ts.factory.createCallExpression(
                     arrow([])(explore)(input),
                     undefined,
@@ -1110,7 +1142,7 @@ export namespace CheckerProgrammer {
                     ts.factory.createIdentifier(
                         importer.emplaceUnion(
                             config.prefix,
-                            elements.map((e) => e.name).join(" | "),
+                            elements.map((e) => e.type.name).join(" | "),
                             () =>
                                 arrow(
                                     FeatureProgrammer.parameterDeclarations(
@@ -1129,7 +1161,7 @@ export namespace CheckerProgrammer {
                 ),
                 config.joiner.failure(
                     input,
-                    elements.map((e) => e.name).join(" | "),
+                    elements.map((e) => e.type.name).join(" | "),
                     explore,
                 ),
             );

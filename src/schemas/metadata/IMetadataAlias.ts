@@ -1,6 +1,6 @@
 import { IJsDocTagInfo } from "./IJsDocTagInfo";
 import { IMetadata } from "./IMetadata";
-import { IMetadataTag } from "./IMetadataTag";
+import { IMetadataCommentTag } from "./IMetadataCommentTag";
 
 export interface IMetadataAlias {
     name: string;
@@ -8,7 +8,7 @@ export interface IMetadataAlias {
     nullables: boolean[];
 
     description: string | null;
-    tags: IMetadataTag[];
+    tags: IMetadataCommentTag[];
     jsDocTags: IJsDocTagInfo[];
     recursive: boolean;
 }

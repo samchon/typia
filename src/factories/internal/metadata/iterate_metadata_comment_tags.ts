@@ -6,7 +6,7 @@ import { Escaper } from "../../../utils/Escaper";
 
 import { MetadataTagFactory } from "../../MetadataTagFactory";
 
-export const iterate_metadata_tag = (obj: MetadataObject) => {
+export const iterate_metadata_comment_tags = (obj: MetadataObject) => {
     if (obj.tagged_ === true) return;
     obj.tagged_ = true;
 

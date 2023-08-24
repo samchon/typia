@@ -9,11 +9,13 @@ import { TypeFactory } from "../../factories/TypeFactory";
 import { ValueFactory } from "../../factories/ValueFactory";
 
 import { IJsDocTagInfo } from "../../schemas/metadata/IJsDocTagInfo";
-import { IMetadataTag } from "../../schemas/metadata/IMetadataTag";
+import { IMetadataCommentTag } from "../../schemas/metadata/IMetadataCommentTag";
 import { Metadata } from "../../schemas/metadata/Metadata";
 import { MetadataArray } from "../../schemas/metadata/MetadataArray";
+import { MetadataArrayType } from "../../schemas/metadata/MetadataArrayType";
 import { MetadataObject } from "../../schemas/metadata/MetadataObject";
 import { MetadataTuple } from "../../schemas/metadata/MetadataTuple";
+import { MetadataTupleType } from "../../schemas/metadata/MetadataTupleType";
 
 import { IProject } from "../../transformers/IProject";
 
@@ -315,7 +317,7 @@ export namespace JsonStringifyProgrammer {
 
             // TUPLES
             for (const tuple of meta.tuples) {
-                for (const child of tuple.elements)
+                for (const child of tuple.type.elements)
                     if (StringifyPredicator.undefindable(meta))
                         throw new Error(
                             `Error on typia.json.stringify(): tuple cannot contain undefined value - (${child.getName()}).`,
@@ -346,9 +348,9 @@ export namespace JsonStringifyProgrammer {
             // ARRAYS
             if (meta.arrays.length) {
                 for (const child of meta.arrays)
-                    if (StringifyPredicator.undefindable(child.value))
+                    if (StringifyPredicator.undefindable(child.type.value))
                         throw new Error(
-                            `Error on typia.json.stringify(): array cannot contain undefined value (${child.value.getName()}).`,
+                            `Error on typia.json.stringify(): array cannot contain undefined value (${child.type.value.getName()}).`,
                         );
                 const value: () => ts.Expression =
                     meta.arrays.length === 1
@@ -361,7 +363,7 @@ export namespace JsonStringifyProgrammer {
                                       from: "array",
                                   },
                               )
-                        : meta.arrays.some((elem) => elem.value.any)
+                        : meta.arrays.some((elem) => elem.type.value.any)
                         ? () =>
                               ts.factory.createCallExpression(
                                   ts.factory.createIdentifier("JSON.stringify"),
@@ -518,10 +520,12 @@ export namespace JsonStringifyProgrammer {
             array: MetadataArray,
             explore: FeatureProgrammer.IExplore,
         ) =>
-            array.recursive
+            array.type.recursive
                 ? ts.factory.createCallExpression(
                       ts.factory.createIdentifier(
-                          importer.useLocal(`${config.prefix}a${array.index}`),
+                          importer.useLocal(
+                              `${config.prefix}a${array.type.index}`,
+                          ),
                       ),
                       undefined,
                       FeatureProgrammer.argumentsArray(config)({
@@ -530,14 +534,18 @@ export namespace JsonStringifyProgrammer {
                           from: "array",
                       })(input),
                   )
-                : decode_array_inline(config)(importer)(input, array, explore);
+                : decode_array_inline(config)(importer)(
+                      input,
+                      array.type,
+                      explore,
+                  );
 
     const decode_array_inline =
         (config: FeatureProgrammer.IConfig) =>
         (importer: FunctionImporter) =>
         (
             input: ts.Expression,
-            array: MetadataArray,
+            array: MetadataArrayType,
             explore: FeatureProgrammer.IExplore,
         ) =>
             FeatureProgrammer.decode_array(config)(importer)(
@@ -553,10 +561,12 @@ export namespace JsonStringifyProgrammer {
             tuple: MetadataTuple,
             explore: FeatureProgrammer.IExplore,
         ): ts.Expression =>
-            tuple.recursive
+            tuple.type.recursive
                 ? ts.factory.createCallExpression(
                       ts.factory.createIdentifier(
-                          importer.useLocal(`${config.prefix}t${tuple.index}`),
+                          importer.useLocal(
+                              `${config.prefix}t${tuple.type.index}`,
+                          ),
                       ),
                       undefined,
                       FeatureProgrammer.argumentsArray(config)({
@@ -566,7 +576,7 @@ export namespace JsonStringifyProgrammer {
                   )
                 : decode_tuple_inline(project)(config)(importer)(
                       input,
-                      tuple,
+                      tuple.type,
                       explore,
                   );
 
@@ -576,7 +586,7 @@ export namespace JsonStringifyProgrammer {
         (importer: FunctionImporter) =>
         (
             input: ts.Expression,
-            tuple: MetadataTuple,
+            tuple: MetadataTupleType,
             explore: FeatureProgrammer.IExplore,
         ): ts.Expression => {
             const children: ts.Expression[] = tuple.elements
@@ -755,7 +765,7 @@ export namespace JsonStringifyProgrammer {
                 input: ts.Expression,
                 elements: T[],
                 explore: FeatureProgrammer.IExplore,
-                tags: IMetadataTag[],
+                tags: IMetadataCommentTag[],
                 jsDocTags: IJsDocTagInfo[],
             ) => ts.ArrowFunction,
         ) =>
@@ -769,7 +779,7 @@ export namespace JsonStringifyProgrammer {
                 (explore: FeatureProgrammer.IExplore) =>
                 (input: ts.Expression): ts.ArrowFunction =>
                     factory(parameters)(input, elements, explore, [], []);
-            if (elements.every((e) => e.recursive === false))
+            if (elements.every((e) => e.type.recursive === false))
                 ts.factory.createCallExpression(
                     arrow([])(explore)(input),
                     undefined,
@@ -785,7 +795,7 @@ export namespace JsonStringifyProgrammer {
                 ts.factory.createIdentifier(
                     importer.emplaceUnion(
                         config.prefix,
-                        elements.map((e) => e.name).join(" | "),
+                        elements.map((e) => e.type.name).join(" | "),
                         () =>
                             arrow(
                                 FeatureProgrammer.parameterDeclarations(config)(
@@ -947,7 +957,7 @@ export namespace JsonStringifyProgrammer {
                         throw new Error(NO_BIGINT);
                     else if (
                         meta.arrays.some(
-                            (array) => array.value.isRequired() === false,
+                            (array) => array.type.value.isRequired() === false,
                         )
                     )
                         throw new Error(NO_UNDEFINED_IN_ARRAY);

@@ -3,9 +3,9 @@ import ts from "typescript";
 import { IMetadataCollection } from "../schemas/metadata/IMetadataCollection";
 import { Metadata } from "../schemas/metadata/Metadata";
 import { MetadataAlias } from "../schemas/metadata/MetadataAlias";
-import { MetadataArray } from "../schemas/metadata/MetadataArray";
+import { MetadataArrayType } from "../schemas/metadata/MetadataArrayType";
 import { MetadataObject } from "../schemas/metadata/MetadataObject";
-import { MetadataTuple } from "../schemas/metadata/MetadataTuple";
+import { MetadataTupleType } from "../schemas/metadata/MetadataTupleType";
 
 import { Writable } from "../typings/Writable";
 
@@ -18,8 +18,8 @@ export class MetadataCollection {
     private readonly objects_: Map<ts.Type, MetadataObject>;
     private readonly object_unions_: Map<string, MetadataObject[]>;
     private readonly aliases_: Map<ts.Type, MetadataAlias>;
-    private readonly arrays_: Map<ts.Type, MetadataArray>;
-    private readonly tuples_: Map<ts.Type, MetadataTuple>;
+    private readonly arrays_: Map<ts.Type, MetadataArrayType>;
+    private readonly tuples_: Map<ts.Type, MetadataTupleType>;
 
     private readonly names_: Map<string, Map<ts.Type, string>>;
     private object_index_: number;
@@ -61,11 +61,11 @@ export class MetadataCollection {
         return [...this.object_unions_.values()];
     }
 
-    public arrays(): MetadataArray[] {
+    public arrays(): MetadataArrayType[] {
         return [...this.arrays_.values()];
     }
 
-    public tuples(): MetadataTuple[] {
+    public tuples(): MetadataTupleType[] {
         return [...this.tuples_.values()];
     }
 
@@ -159,12 +159,12 @@ export class MetadataCollection {
     public emplaceArray(
         checker: ts.TypeChecker,
         type: ts.Type,
-    ): [MetadataArray, boolean, (meta: Metadata) => void] {
+    ): [MetadataArrayType, boolean, (meta: Metadata) => void] {
         const oldbie = this.arrays_.get(type);
         if (oldbie !== undefined) return [oldbie, false, () => {}];
 
         const $id = this.getName(checker, type);
-        const array: MetadataArray = MetadataArray.create({
+        const array: MetadataArrayType = MetadataArrayType.create({
             name: $id,
             value: null!,
             index: null,
@@ -178,12 +178,12 @@ export class MetadataCollection {
     public emplaceTuple(
         checker: ts.TypeChecker,
         type: ts.TupleType,
-    ): [MetadataTuple, boolean, (elements: Metadata[]) => void] {
+    ): [MetadataTupleType, boolean, (elements: Metadata[]) => void] {
         const oldbie = this.tuples_.get(type);
         if (oldbie !== undefined) return [oldbie, false, () => {}];
 
         const $id = this.getName(checker, type);
-        const tuple: MetadataTuple = MetadataTuple.create({
+        const tuple: MetadataTupleType = MetadataTupleType.create({
             name: $id,
             elements: null!,
             index: null,
@@ -215,12 +215,18 @@ export class MetadataCollection {
     /**
      * @internal
      */
-    public setArrayRecursive(array: MetadataArray, recursive: boolean): void {
+    public setArrayRecursive(
+        array: MetadataArrayType,
+        recursive: boolean,
+    ): void {
         Writable(array).recursive = recursive;
         if (recursive) Writable(array).index = this.recursive_array_index_++;
     }
 
-    public setTupleRecursive(tuple: MetadataTuple, recursive: boolean): void {
+    public setTupleRecursive(
+        tuple: MetadataTupleType,
+        recursive: boolean,
+    ): void {
         Writable(tuple).recursive = recursive;
         if (recursive) Writable(tuple).index = this.recursive_tuple_index_++;
     }

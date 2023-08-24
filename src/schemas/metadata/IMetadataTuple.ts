@@ -1,10 +1,7 @@
-import { IMetadata } from "./IMetadata";
+import { IMetadataTupleType } from "./IMetadataTupleType";
+import { IMetadataTypeTag } from "./IMetadataTypeTag";
 
 export interface IMetadataTuple {
-    name: string;
-    elements: IMetadata[];
-
-    index: number | null;
-    recursive: boolean;
-    nullables: boolean[];
+    type: IMetadataTupleType;
+    tags: IMetadataTypeTag[][];
 }

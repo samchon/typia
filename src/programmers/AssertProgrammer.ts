@@ -33,7 +33,7 @@ export namespace AssertProgrammer {
                 equals,
                 atomist: (explore) => (tuple) => (input) =>
                     [
-                        tuple.expression,
+                        ...(tuple.expression ? [tuple.expression] : []),
                         ...tuple.tags.map((tag) =>
                             ts.factory.createLogicalOr(
                                 tag.expression,

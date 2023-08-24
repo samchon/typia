@@ -2,8 +2,6 @@ import ts from "typescript";
 
 import { Metadata } from "../../../schemas/metadata/Metadata";
 
-import { Atomic } from "../../../typings/Atomic";
-
 import { ArrayUtil } from "../../../utils/ArrayUtil";
 
 const same = (type: ts.Type | null) => {
@@ -57,7 +55,7 @@ const ATOMICS: IAtomicInfo[] = [
 ];
 
 interface IAtomicInfo {
-    name: Atomic.Literal;
+    name: "boolean" | "number" | "bigint" | "string";
     atomic: ts.TypeFlags;
     literal: ts.TypeFlags;
 }

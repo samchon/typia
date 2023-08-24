@@ -1,5 +1,5 @@
 import { IJsonSchema } from "../../schemas/json/IJsonSchema";
-import { IMetadataTag } from "../../schemas/metadata/IMetadataTag";
+import { IMetadataCommentTag } from "../../schemas/metadata/IMetadataCommentTag";
 import { Metadata } from "../../schemas/metadata/Metadata";
 
 import { application_default_string } from "./application_default_string";
@@ -40,5 +40,5 @@ export const application_string =
         return output;
     };
 
-const emendFormat = (tag: IMetadataTag.IFormat["value"]) =>
+const emendFormat = (tag: IMetadataCommentTag.IFormat["value"]) =>
     tag === "datetime" ? "date-time" : tag;
