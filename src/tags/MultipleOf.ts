@@ -4,7 +4,7 @@ export type MultipleOf<Fixed extends number | bigint> = {
         kind: "multipleOf";
         value: Fixed;
         validate: `$input % ${Fixed} === ${Fixed extends bigint
-            ? "bigint"
-            : "number"}`;
+            ? 0n
+            : 0}`;
     };
 };
