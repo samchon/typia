@@ -1,4 +1,5 @@
 import typia from "typia";
 
-type Intersection = typia.Primitive<number & { __x: string }>;
-console.log(typia.createIs<Intersection>().toString());
+type Intersection = { x: number } & Record<string, string>;
+
+console.log(typia.createClone<Intersection>().toString());

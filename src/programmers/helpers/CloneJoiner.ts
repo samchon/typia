@@ -1,5 +1,6 @@
 import ts from "typescript";
 
+import { IdentifierFactory } from "../../factories/IdentifierFactory";
 import { StatementFactory } from "../../factories/StatementFactory";
 import { TypeFactory } from "../../factories/TypeFactory";
 
@@ -35,30 +36,66 @@ export namespace CloneJoiner {
         const value = ts.factory.createIdentifier("value");
         const output = ts.factory.createIdentifier("output");
 
-        const statements: ts.Statement[] = dynamic.map((entry) =>
-            ts.factory.createIfStatement(
-                ts.factory.createCallExpression(
-                    ts.factory.createIdentifier(
-                        `RegExp(/${metadata_to_pattern(true)(
-                            entry.key,
-                        )}/).test`,
-                    ),
-                    undefined,
-                    [key],
-                ),
-                ts.factory.createBlock([
-                    ts.factory.createExpressionStatement(
-                        ts.factory.createBinaryExpression(
-                            ts.factory.createElementAccessExpression(
-                                output,
-                                key,
+        const statements: ts.Statement[] = [];
+        if (regular.length !== 0)
+            statements.push(
+                ts.factory.createIfStatement(
+                    ts.factory.createCallExpression(
+                        IdentifierFactory.access(
+                            ts.factory.createArrayLiteralExpression(
+                                regular.map((r) =>
+                                    ts.factory.createStringLiteral(
+                                        r.key.getSoleLiteral()!,
+                                    ),
+                                ),
                             ),
-                            ts.factory.createToken(ts.SyntaxKind.EqualsToken),
-                            entry.expression,
-                        ),
+                        )("some"),
+                        undefined,
+                        [
+                            ts.factory.createArrowFunction(
+                                undefined,
+                                undefined,
+                                [IdentifierFactory.parameter("regular")],
+                                undefined,
+                                undefined,
+                                ts.factory.createStrictEquality(
+                                    ts.factory.createIdentifier("regular"),
+                                    ts.factory.createIdentifier("key"),
+                                ),
+                            ),
+                        ],
                     ),
                     ts.factory.createContinueStatement(),
-                ]),
+                ),
+            );
+        statements.push(
+            ...dynamic.map((entry) =>
+                ts.factory.createIfStatement(
+                    ts.factory.createCallExpression(
+                        ts.factory.createIdentifier(
+                            `RegExp(/${metadata_to_pattern(true)(
+                                entry.key,
+                            )}/).test`,
+                        ),
+                        undefined,
+                        [key],
+                    ),
+                    ts.factory.createBlock([
+                        ts.factory.createExpressionStatement(
+                            ts.factory.createBinaryExpression(
+                                ts.factory.createElementAccessExpression(
+                                    output,
+                                    key,
+                                ),
+                                ts.factory.createToken(
+                                    ts.SyntaxKind.EqualsToken,
+                                ),
+                                entry.expression,
+                            ),
+                        ),
+                        ts.factory.createContinueStatement(),
+                    ]),
+                ),
             ),
         );
 
