@@ -51,7 +51,11 @@ export const iterate_metadata_intersection =
                 aliased,
             );
             return true;
-        }
+        } else if (
+            // ONLY OBJECT TYPES -> SPECIAL LOGIC FOR TS V5.2
+            children.every((c) => c.objects.length === 1 && c.size() === 1)
+        )
+            return false;
 
         // ABSORB TO ATOMIC (OR CONSTANT) TYPE
         const atomics: Metadata[] = children.filter(

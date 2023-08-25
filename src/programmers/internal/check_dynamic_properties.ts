@@ -111,8 +111,7 @@ const check_dynamic_property =
             );
 
         // GATHER CONDITIONS
-        if (props.equals === true && regular.length)
-            add(is_regular_property(regular), props.positive);
+        if (regular.length) add(is_regular_property(regular), props.positive);
         statements.push(
             StatementFactory.constant(
                 "value",
