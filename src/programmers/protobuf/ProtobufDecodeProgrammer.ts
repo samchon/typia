@@ -16,7 +16,7 @@ import { MetadataProperty } from "../../schemas/metadata/MetadataProperty";
 
 import { IProject } from "../../transformers/IProject";
 
-import { Atomic } from "../../typings/Atomic";
+import { ProtobufAtomic } from "../../typings/ProtobufAtomic";
 
 import { FunctionImporter } from "../helpers/FunctionImporeter";
 import { ProtobufUtil } from "../helpers/ProtobufUtil";
@@ -319,8 +319,8 @@ export namespace ProtobufDecodeProgrammer {
                     );
 
             const required: boolean = meta.isRequired() && !meta.nullable;
-            for (const atomic of ProtobufUtil.getAtomics(meta))
-                emplace(atomic)(decode_atomic(atomic, tags));
+            for (const atomic of ProtobufUtil.getAtomics(meta)(tags))
+                emplace(atomic)(decode_atomic(meta)(tags)(atomic));
             if (meta.natives.length) emplace("bytes")(decode_bytes("bytes"));
             for (const array of meta.arrays)
                 emplace(`Array<${array.type.value.getName()}>`)(
@@ -348,49 +348,98 @@ export namespace ProtobufDecodeProgrammer {
             return clauses;
         };
 
-    const decode_atomic = (
-        atomic: Atomic.Literal,
-        tags: IMetadataCommentTag[],
-    ): ts.Expression => {
-        if (atomic === "string") return decode_bytes("string");
-        const method =
-            atomic === "bigint"
-                ? tags.find((t) => t.kind === "type" && t.value === "uint64")
-                    ? "uint64"
-                    : "int64"
-                : atomic === "number"
-                ? (() => {
-                      const type = tags.find((t) => t.kind === "type");
-                      if (type === undefined) return "double";
-                      return type.value === "int" || type.value === "int32"
-                          ? "int32"
-                          : type.value === "uint" || type.value === "uint32"
-                          ? "uint32"
-                          : type.value === "int64"
-                          ? "int64"
-                          : type.value === "uint64"
-                          ? "uint64"
-                          : type.value === "float"
-                          ? "float"
-                          : "double";
-                  })()
-                : "bool";
-        const call = ts.factory.createCallExpression(
-            IdentifierFactory.access(ts.factory.createIdentifier("reader"))(
-                method,
-            ),
-            undefined,
-            undefined,
-        );
-        return atomic === "number" &&
-            (method === "int64" || method === "uint64")
-            ? ts.factory.createCallExpression(
-                  ts.factory.createIdentifier("Number"),
-                  undefined,
-                  [call],
-              )
-            : call;
-    };
+    const decode_atomic =
+        (meta: Metadata) =>
+        (commentTags: IMetadataCommentTag[]) =>
+        (atomic: ProtobufAtomic): ts.Expression => {
+            if (atomic === "string") return decode_bytes("string");
+
+            const call: ts.CallExpression = ts.factory.createCallExpression(
+                IdentifierFactory.access(ts.factory.createIdentifier("reader"))(
+                    atomic,
+                ),
+                undefined,
+                undefined,
+            );
+            if (atomic !== "int64") return call;
+
+            const onlyNumber: boolean =
+                meta.atomics.some((a) => a.type === "number") &&
+                meta.atomics.every(
+                    (a) =>
+                        a.type !== "bigint" &&
+                        !a.tags.every((row) =>
+                            row.some(
+                                (r) =>
+                                    r.kind === "type" && r.value === "uint64",
+                            ),
+                        ) &&
+                        !commentTags.some(
+                            (tag) =>
+                                tag.kind === "type" && tag.value === "uint64",
+                        ),
+                );
+            if (onlyNumber === false) return call;
+
+            const wrapper = ts.factory.createCallExpression(
+                ts.factory.createIdentifier("Number"),
+                undefined,
+                [call],
+            );
+            const values: bigint[] | undefined = meta.constants.find(
+                (c) => c.type === "bigint",
+            )?.values as bigint[] | undefined;
+            if (values === undefined) return wrapper;
+
+            return ExpressionFactory.selfCall(
+                ts.factory.createBlock(
+                    [
+                        StatementFactory.constant("value", call),
+                        ts.factory.createIfStatement(
+                            ts.factory.createCallExpression(
+                                ts.factory.createArrayLiteralExpression(
+                                    values.map((v) =>
+                                        ts.factory.createCallExpression(
+                                            ts.factory.createIdentifier(
+                                                "BigInt",
+                                            ),
+                                            undefined,
+                                            [
+                                                ts.factory.createBigIntLiteral(
+                                                    v.toString(),
+                                                ),
+                                            ],
+                                        ),
+                                    ),
+                                    true,
+                                ),
+                                undefined,
+                                [
+                                    ts.factory.createArrowFunction(
+                                        undefined,
+                                        undefined,
+                                        [IdentifierFactory.parameter("elem")],
+                                        undefined,
+                                        undefined,
+                                        ts.factory.createStrictEquality(
+                                            ts.factory.createIdentifier("elem"),
+                                            ts.factory.createIdentifier(
+                                                "value",
+                                            ),
+                                        ),
+                                    ),
+                                ],
+                            ),
+                            ts.factory.createReturnStatement(
+                                ts.factory.createIdentifier("value"),
+                            ),
+                        ),
+                        ts.factory.createReturnStatement(wrapper),
+                    ],
+                    true,
+                ),
+            );
+        };
 
     const decode_bytes = (method: "bytes" | "string"): ts.Expression =>
         ts.factory.createCallExpression(
@@ -421,9 +470,9 @@ export namespace ProtobufDecodeProgrammer {
                     ),
                 ),
             );
-        const atomics = ProtobufUtil.getAtomics(array.type.value);
+        const atomics = ProtobufUtil.getAtomics(array.type.value)(tags);
         const decoder = atomics.length
-            ? () => decode_atomic(atomics[0]!, tags)
+            ? () => decode_atomic(array.type.value)(tags)(atomics[0]!)
             : array.type.value.natives.length
             ? () => decode_bytes("bytes")
             : array.type.value.objects.length
