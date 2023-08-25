@@ -6,13 +6,13 @@ import { Writable } from "../../typings/Writable";
 import { ArrayUtil } from "../../utils/ArrayUtil";
 
 import { IMetadata } from "./IMetadata";
-import { IMetadataAtomic } from "./IMetadataAtomic";
 import { IMetadataCollection } from "./IMetadataCollection";
 import { IMetadataDictionary } from "./IMetadataDictionary";
 import { IMetadataTypeTag } from "./IMetadataTypeTag";
 import { MetadataAlias } from "./MetadataAlias";
 import { MetadataArray } from "./MetadataArray";
 import { MetadataArrayType } from "./MetadataArrayType";
+import { MetadataAtomic } from "./MetadataAtomic";
 import { MetadataConstant } from "./MetadataConstant";
 import { MetadataEscaped } from "./MetadataEscaped";
 import { MetadataObject } from "./MetadataObject";
@@ -28,7 +28,7 @@ export class Metadata {
     public functional: boolean;
 
     public escaped: MetadataEscaped | null;
-    public atomics: IMetadataAtomic[];
+    public atomics: MetadataAtomic[];
     public constants: MetadataConstant[];
     public templates: Metadata[][];
 
@@ -216,7 +216,9 @@ export class Metadata {
             functional: meta.functional,
 
             constants: $clone(meta.constants),
-            atomics: $clone(meta.atomics),
+            atomics: meta.atomics.map((a) =>
+                MetadataAtomic.create({ type: a.type, tags: a.tags }),
+            ),
             templates: meta.templates.map((tpl) =>
                 tpl.map((meta) => this._From(meta, dict)),
             ),
@@ -277,8 +279,7 @@ export class Metadata {
         ACCESSORS
     ----------------------------------------------------------- */
     public getName(): string {
-        this.name_ ??= getName(this);
-        return this.name_;
+        return (this.name_ ??= getName(this));
     }
 
     public empty(): boolean {
@@ -615,7 +616,7 @@ const getName = (metadata: Metadata): string => {
 
     // ATOMIC
     for (const atom of metadata.atomics) {
-        elements.push(atom.type);
+        elements.push(atom.getName());
     }
     for (const constant of metadata.constants)
         for (const value of constant.values)
@@ -644,7 +645,7 @@ const getName = (metadata: Metadata): string => {
     // INSTANCES
     if (metadata.rest !== null) elements.push(`...${metadata.rest.getName()}`);
     for (const tuple of metadata.tuples) elements.push(tuple.type.name);
-    for (const array of metadata.arrays) elements.push(array.type.name);
+    for (const array of metadata.arrays) elements.push(array.getName());
     for (const object of metadata.objects) elements.push(object.name);
     for (const alias of metadata.aliases) elements.push(alias.name);
     if (metadata.escaped !== null) elements.push(metadata.escaped.getName());

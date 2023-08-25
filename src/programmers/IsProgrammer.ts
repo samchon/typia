@@ -32,7 +32,21 @@ export namespace IsProgrammer {
             atomist: () => (entry) => () =>
                 [
                     ...(entry.expression ? [entry.expression] : []),
-                    ...entry.tags.map((tag) => tag.expression),
+                    ...(entry.conditions.length === 0
+                        ? []
+                        : [
+                              entry.conditions
+                                  .map((set) =>
+                                      set
+                                          .map((s) => s.expression)
+                                          .reduce((a, b) =>
+                                              ts.factory.createLogicalAnd(a, b),
+                                          ),
+                                  )
+                                  .reduce((a, b) =>
+                                      ts.factory.createLogicalOr(a, b),
+                                  ),
+                          ]),
                 ].reduce((x, y) => ts.factory.createLogicalAnd(x, y)),
             combiner: () => (type: "and" | "or") => {
                 const initial: ts.TrueLiteral | ts.FalseLiteral =

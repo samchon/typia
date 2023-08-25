@@ -3,7 +3,7 @@ import ts from "typescript";
 import { ExpressionFactory } from "../../factories/ExpressionFactory";
 
 import { IMetadataCommentTag } from "../../schemas/metadata/IMetadataCommentTag";
-import { IMetadataTypeTag } from "../../schemas/metadata/IMetadataTypeTag";
+import { MetadataAtomic } from "../../schemas/metadata/MetadataAtomic";
 
 import { IProject } from "../../transformers/IProject";
 
@@ -15,8 +15,99 @@ import { OptionPredicator } from "../helpers/OptionPredicator";
  */
 export const check_number =
     (project: IProject, numeric: boolean) =>
-    (matrix: IMetadataTypeTag[][], metaTags: IMetadataCommentTag[]) =>
+    (atomic: MetadataAtomic) =>
+    (metaTags: IMetadataCommentTag[]) =>
     (input: ts.Expression): ICheckEntry => {
+        const base = ts.factory.createStrictEquality(
+            ts.factory.createStringLiteral("number"),
+            ts.factory.createTypeOfExpression(input),
+        );
+        const addition: ts.Expression | null =
+            numeric === true
+                ? OptionPredicator.finite(project.options)
+                    ? ts.factory.createCallExpression(
+                          ts.factory.createIdentifier("Number.isFinite"),
+                          undefined,
+                          [input],
+                      )
+                    : OptionPredicator.numeric(project.options)
+                    ? ts.factory.createLogicalNot(
+                          ts.factory.createCallExpression(
+                              ts.factory.createIdentifier("Number.isNaN"),
+                              undefined,
+                              [input],
+                          ),
+                      )
+                    : null
+                : null;
+
+        const ofTypes: ICheckEntry.ICondition[][] =
+            check_numeric_type_tags(project)(atomic)(addition)(input);
+        const ofComment: ICheckEntry.ICondition[] =
+            check_numeric_comment_tags(metaTags)(addition)(input);
+        const conditions: ICheckEntry.ICondition[][] = ofTypes.length
+            ? ofComment.length
+                ? ofTypes.map((row) => [...row, ...ofComment])
+                : ofTypes
+            : ofComment.length
+            ? [ofComment]
+            : [];
+
+        return {
+            expected: atomic.getName(),
+            expression:
+                addition !== null && conditions.length === 0
+                    ? ts.factory.createLogicalAnd(base, addition)
+                    : base,
+            conditions,
+        };
+    };
+
+/**
+ * @internal
+ */
+const check_numeric_type_tags =
+    (project: IProject) =>
+    (atomic: MetadataAtomic) =>
+    (addition: ts.Expression | null) =>
+    (input: ts.Expression): ICheckEntry.ICondition[][] =>
+        atomic.tags.map((row) => [
+            ...(addition === null
+                ? []
+                : row.some((tag) => tag.kind === "type") ||
+                  row.some((tag) => tag.kind === "multipleOf") ||
+                  (row.some(
+                      (tag) =>
+                          tag.kind === "minimum" ||
+                          tag.kind === "exclusiveMinimum",
+                  ) &&
+                      row.some(
+                          (tag) =>
+                              tag.kind === "maximum" ||
+                              tag.kind === "exclusiveMaximum",
+                      ))
+                ? []
+                : [
+                      {
+                          expected: "number",
+                          expression: addition!,
+                      },
+                  ]),
+            ...row.map((tag) => ({
+                expected: `number & ${tag.name}`,
+                expression: ExpressionFactory.transpile(project.context)(
+                    tag.validate,
+                )(input),
+            })),
+        ]);
+
+/**
+ * @internal
+ */
+const check_numeric_comment_tags =
+    (metaTags: IMetadataCommentTag[]) =>
+    (addition: ts.Expression | null) =>
+    (input: ts.Expression): ICheckEntry.ICondition[] => {
         const entries: [IMetadataCommentTag, ts.Expression][] = [];
         for (const mt of metaTags)
             if (mt.kind === "type") {
@@ -187,99 +278,31 @@ export const check_number =
                     ),
                 ]);
 
-        return {
-            expression: is_number(project, numeric)(matrix, metaTags)(input),
-            tags: matrix.length
+        return [
+            ...(addition === null
                 ? []
-                : entries.map(([tag, expression]) => ({
-                      expected: `number (@${tag.kind} ${tag.value})`,
-                      expression,
-                  })),
-        };
-    };
-
-/**
- * @internal
- */
-const is_number =
-    (project: IProject, numeric: boolean) =>
-    (matrix: IMetadataTypeTag[][], metaTags: IMetadataCommentTag[]) =>
-    (input: ts.Expression) => {
-        // TYPEOF STATEMENT
-        const conditions: ts.Expression[] = [
-            ts.factory.createStrictEquality(
-                ts.factory.createStringLiteral("number"),
-                ts.factory.createTypeOfExpression(input),
-            ),
+                : metaTags.some((tag) => tag.kind === "type") ||
+                  metaTags.some((tag) => tag.kind === "multipleOf") ||
+                  (metaTags.some(
+                      (tag) =>
+                          tag.kind === "minimum" ||
+                          tag.kind === "exclusiveMinimum",
+                  ) &&
+                      metaTags.some(
+                          (tag) =>
+                              tag.kind === "maximum" ||
+                              tag.kind === "exclusiveMaximum",
+                      ))
+                ? []
+                : [
+                      {
+                          expected: "number",
+                          expression: addition,
+                      },
+                  ]),
+            ...entries.map(([tag, expression]) => ({
+                expression,
+                expected: `number (@${tag.kind})`,
+            })),
         ];
-
-        // CHECK FINITE AND NAN
-        const ranged: boolean =
-            !!metaTags.find(
-                (tag) =>
-                    tag.kind === "minimum" || tag.kind === "exclusiveMinimum",
-            ) &&
-            !!metaTags.find(
-                (tag) =>
-                    tag.kind === "maximum" || tag.kind === "exclusiveMaximum",
-            ) &&
-            !!metaTags.find((tag) => tag.kind === "type") &&
-            !matrix.every((row) => row.some((tag) => tag.kind === "type")) &&
-            !matrix.every(
-                (row) =>
-                    row.some(
-                        (tag) =>
-                            tag.kind === "minimum" ||
-                            tag.kind === "exclusiveMinimum",
-                    ) &&
-                    row.some(
-                        (tag) =>
-                            tag.kind === "maximum" ||
-                            tag.kind === "exclusiveMaximum",
-                    ),
-            );
-
-        if (numeric === true && ranged === false)
-            if (OptionPredicator.finite(project.options))
-                conditions.push(
-                    ts.factory.createCallExpression(
-                        ts.factory.createIdentifier("Number.isFinite"),
-                        undefined,
-                        [input],
-                    ),
-                );
-            else if (
-                OptionPredicator.numeric(project.options) &&
-                ranged === false
-            )
-                conditions.push(
-                    ts.factory.createLogicalNot(
-                        ts.factory.createCallExpression(
-                            ts.factory.createIdentifier("Number.isNaN"),
-                            undefined,
-                            [input],
-                        ),
-                    ),
-                );
-
-        // ADJUST TYPED TAGS
-        if (matrix.length) {
-            const logic: ts.Expression = matrix
-                .map((row) =>
-                    row
-                        .map((tag) =>
-                            ExpressionFactory.transpile(project.context)(
-                                tag.validate,
-                            )(input),
-                        )
-                        .reduce((a, b) => ts.factory.createLogicalAnd(a, b)),
-                )
-                .reduce((a, b) => ts.factory.createLogicalOr(a, b));
-            conditions.push(logic);
-        }
-
-        // COMBINATE
-        return conditions.length === 1
-            ? conditions[0]!
-            : conditions.reduce((x, y) => ts.factory.createLogicalAnd(x, y));
     };

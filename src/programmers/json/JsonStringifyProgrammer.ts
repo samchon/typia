@@ -12,7 +12,7 @@ import { IJsDocTagInfo } from "../../schemas/metadata/IJsDocTagInfo";
 import { IMetadataCommentTag } from "../../schemas/metadata/IMetadataCommentTag";
 import { Metadata } from "../../schemas/metadata/Metadata";
 import { MetadataArray } from "../../schemas/metadata/MetadataArray";
-import { MetadataArrayType } from "../../schemas/metadata/MetadataArrayType";
+import { MetadataAtomic } from "../../schemas/metadata/MetadataAtomic";
 import { MetadataObject } from "../../schemas/metadata/MetadataObject";
 import { MetadataTuple } from "../../schemas/metadata/MetadataTuple";
 import { MetadataTupleType } from "../../schemas/metadata/MetadataTupleType";
@@ -68,7 +68,7 @@ export namespace JsonStringifyProgrammer {
             collection
                 .arrays()
                 .filter((a) => a.recursive)
-                .map((array, i) =>
+                .map((type, i) =>
                     StatementFactory.constant(
                         `${config.prefix}a${i}`,
                         ts.factory.createArrowFunction(
@@ -81,7 +81,10 @@ export namespace JsonStringifyProgrammer {
                             undefined,
                             decode_array_inline(config)(importer)(
                                 ts.factory.createIdentifier("input"),
-                                array,
+                                MetadataArray.create({
+                                    type,
+                                    tags: [],
+                                }),
                                 {
                                     tracable: config.trace,
                                     source: "function",
@@ -215,7 +218,9 @@ export namespace JsonStringifyProgrammer {
             )
                 if (AtomicPredicator.template(meta)) {
                     const partial = Metadata.initialize();
-                    partial.atomics.push({ type: "string", tags: [] }),
+                    partial.atomics.push(
+                        MetadataAtomic.create({ type: "string", tags: [] }),
+                    ),
                         unions.push({
                             type: "template literal",
                             is: () =>
@@ -247,10 +252,12 @@ export namespace JsonStringifyProgrammer {
                                 input,
                                 (() => {
                                     const partial = Metadata.initialize();
-                                    partial.atomics.push({
-                                        type: constant.type,
-                                        tags: [],
-                                    });
+                                    partial.atomics.push(
+                                        MetadataAtomic.create({
+                                            type: constant.type,
+                                            tags: [],
+                                        }),
+                                    );
                                     return partial;
                                 })(),
                                 explore,
@@ -272,10 +279,12 @@ export namespace JsonStringifyProgrammer {
                                 input,
                                 (() => {
                                     const partial = Metadata.initialize();
-                                    partial.atomics.push({
-                                        type: "string",
-                                        tags: [],
-                                    });
+                                    partial.atomics.push(
+                                        MetadataAtomic.create({
+                                            type: "string",
+                                            tags: [],
+                                        }),
+                                    );
                                     return partial;
                                 })(),
                                 explore,
@@ -534,18 +543,14 @@ export namespace JsonStringifyProgrammer {
                           from: "array",
                       })(input),
                   )
-                : decode_array_inline(config)(importer)(
-                      input,
-                      array.type,
-                      explore,
-                  );
+                : decode_array_inline(config)(importer)(input, array, explore);
 
     const decode_array_inline =
         (config: FeatureProgrammer.IConfig) =>
         (importer: FunctionImporter) =>
         (
             input: ts.Expression,
-            array: MetadataArrayType,
+            array: MetadataArray,
             explore: FeatureProgrammer.IExplore,
         ) =>
             FeatureProgrammer.decode_array(config)(importer)(

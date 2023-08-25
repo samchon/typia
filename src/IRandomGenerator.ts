@@ -23,12 +23,13 @@ export interface IRandomGenerator {
 export namespace IRandomGenerator {
     export type CustomMap = {
         [Type in keyof Customizable]?: (
-            tags: ICommentTag[],
+            tags: ITypeTag[],
         ) => Customizable[Type] | undefined;
     };
 
-    export interface ICommentTag {
+    export interface ITypeTag {
         name: string;
-        value?: string;
+        kind: string;
+        value: any;
     }
 }

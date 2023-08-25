@@ -4,6 +4,7 @@ import { $clone } from "../../../functional/$clone";
 
 import { IMetadataTypeTag } from "../../../schemas/metadata/IMetadataTypeTag";
 import { Metadata } from "../../../schemas/metadata/Metadata";
+import { MetadataAtomic } from "../../../schemas/metadata/MetadataAtomic";
 
 import { ArrayUtil } from "../../../utils/ArrayUtil";
 
@@ -139,10 +140,10 @@ export const iterate_metadata_intersection =
         )
             ArrayUtil.add(
                 meta.atomics,
-                {
+                MetadataAtomic.create({
                     type: atomics.values().next().value as "string",
                     tags: [],
-                },
+                }),
                 (a, b) => a.type === b.type,
             );
         else if (target === "array") {
