@@ -118,14 +118,14 @@ export const iterate_metadata_type_tags =
             return true;
         });
 
-        const tagList: ITypedTag[] = filtered.map((obj) => {
+        const tagList: ITypeTag[] = filtered.map((obj) => {
             const find = (key: string): MetadataProperty =>
                 obj.properties[0]!.value.objects[0]!.properties.find(
                     (p) => p.key.getSoleLiteral() === key,
                 )!;
 
             const target = find("target").value.constants[0]!
-                .values as ITypedTag["target"];
+                .values as ITypeTag["target"];
             const kind: string = find("kind").value.constants[0]!
                 .values[0] as string;
             const value: boolean | bigint | number | string =
@@ -165,7 +165,7 @@ export const iterate_metadata_type_tags =
         }));
     };
 
-interface ITypedTag {
+interface ITypeTag {
     name: string;
     target: Array<"bigint" | "number" | "string" | "array">;
     kind: string;

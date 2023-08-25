@@ -3,7 +3,7 @@ import ts from "typescript";
 import { ExpressionFactory } from "../../factories/ExpressionFactory";
 
 import { IMetadataCommentTag } from "../../schemas/metadata/IMetadataCommentTag";
-import { IMetadataTypeTag } from "../../schemas/metadata/IMetadataTypeTag";
+import { MetadataAtomic } from "../../schemas/metadata/MetadataAtomic";
 
 import { IProject } from "../../transformers/IProject";
 
@@ -14,10 +14,52 @@ import { ICheckEntry } from "../helpers/ICheckEntry";
  */
 export const check_bigint =
     (project: IProject) =>
-    (matrix: IMetadataTypeTag[][], metaTags: IMetadataCommentTag[]) =>
+    (atomic: MetadataAtomic) =>
+    (metaTags: IMetadataCommentTag[]) =>
     (input: ts.Expression): ICheckEntry => {
+        const ofTypes: ICheckEntry.ICondition[][] =
+            check_bigint_type_tags(project)(atomic)(input);
+        const ofComment: ICheckEntry.ICondition[] =
+            check_bigint_comment_tags(metaTags)(input);
+        const sets: ICheckEntry.ICondition[][] = ofTypes.length
+            ? ofComment.length
+                ? ofTypes.map((row) => [...row, ...ofComment])
+                : ofTypes
+            : ofComment.length
+            ? [ofComment]
+            : [];
+
+        return {
+            expected: atomic.getName(),
+            expression: ts.factory.createStrictEquality(
+                ts.factory.createStringLiteral("bigint"),
+                ts.factory.createTypeOfExpression(input),
+            ),
+            conditions: sets,
+        };
+    };
+
+/**
+ * @internal
+ */
+const check_bigint_type_tags =
+    (project: IProject) =>
+    (atomic: MetadataAtomic) =>
+    (input: ts.Expression): ICheckEntry.ICondition[][] =>
+        atomic.tags.map((row) =>
+            row.map((tag) => ({
+                expected: `bigint & ${tag.name}`,
+                expression: ExpressionFactory.transpile(project.context)(
+                    tag.validate,
+                )(input),
+            })),
+        );
+
+const check_bigint_comment_tags =
+    (metaTags: IMetadataCommentTag[]) =>
+    (input: ts.Expression): ICheckEntry.ICondition[] => {
         const entries: [IMetadataCommentTag, ts.Expression][] = [];
-        for (const tag of metaTags) {
+        for (const tag of metaTags)
             if (tag.kind === "type" && tag.value === "uint64")
                 entries.push([
                     tag,
@@ -92,47 +134,9 @@ export const check_bigint =
                         input,
                     ),
                 ]);
-        }
-        return {
-            expression: is_bigint(project)(matrix)(input),
-            tags: matrix.length
-                ? []
-                : entries.map(([tag, expression]) => ({
-                      expected: `bigint (@${tag.kind} ${tag.value})`,
-                      expression,
-                  })),
-        };
-    };
 
-const is_bigint =
-    (project: IProject) =>
-    (matrix: IMetadataTypeTag[][]) =>
-    (input: ts.Expression) => {
-        // BASIC TYPEOF EXPRESSION
-        const conditions: ts.Expression[] = [
-            ts.factory.createStrictEquality(
-                ts.factory.createStringLiteral("bigint"),
-                ts.factory.createTypeOfExpression(input),
-            ),
-        ];
-
-        // ADJUST TYPED TAGS
-        if (matrix.length) {
-            const logic: ts.Expression = matrix
-                .map((row) =>
-                    row
-                        .map((tag) =>
-                            ExpressionFactory.transpile(project.context)(
-                                tag.validate,
-                            )(input),
-                        )
-                        .reduce((a, b) => ts.factory.createLogicalAnd(a, b)),
-                )
-                .reduce((a, b) => ts.factory.createLogicalOr(a, b));
-            conditions.push(logic);
-        }
-
-        return conditions.length === 1
-            ? conditions[0]!
-            : conditions.reduce((x, y) => ts.factory.createLogicalAnd(x, y));
+        return entries.map(([tag, expression]) => ({
+            expected: `bigint (@${tag.kind} ${tag.value})`,
+            expression,
+        }));
     };

@@ -3,6 +3,8 @@ import { IMetadataCommentTag } from "../metadata/IMetadataCommentTag";
 
 import { Atomic } from "../../typings/Atomic";
 
+import { Type } from "../../tags/Type";
+
 export type IJsonSchema = IJsonSchema.Known | IJsonSchema.IUnknown;
 export namespace IJsonSchema {
     export type Known =
@@ -36,14 +38,8 @@ export namespace IJsonSchema {
         default?: Atomic.Mapper[Literal];
     }
     export interface IString extends IAtomic<"string"> {
-        /**
-         * @type uint
-         */
-        minLength?: number;
-        /**
-         * @type uint
-         */
-        maxLength?: number;
+        minLength?: number & Type<"uint32">;
+        maxLength?: number & Type<"uint32">;
         pattern?: string;
         format?: string;
     }
@@ -55,20 +51,11 @@ export namespace IJsonSchema {
         multipleOf?: number;
     }
     export interface IInteger extends IAtomic<"integer"> {
-        /**
-         * @type int
-         */
-        minimum?: number;
-        /**
-         * @type int
-         */
-        maximum?: number;
+        minimum?: number & Type<"int32">;
+        maximum?: number & Type<"int32">;
         exclusiveMinimum?: boolean;
         exclusiveMaximum?: boolean;
-        /**
-         * @type int
-         */
-        multipleOf?: number;
+        multipleOf?: number & Type<"int32">;
     }
     export interface IBoolean extends IAtomic<"boolean"> {}
 
@@ -77,26 +64,14 @@ export namespace IJsonSchema {
     ----------------------------------------------------------- */
     export interface IArray extends ISignificant<"array"> {
         items: IJsonSchema;
-        /**
-         * @type uint
-         */
-        minItems?: number;
-        /**
-         * @type uint
-         */
-        maxItems?: number;
+        minItems?: number & Type<"uint32">;
+        maxItems?: number & Type<"uint32">;
         "x-typia-tuple"?: ITuple;
     }
     export interface ITuple extends ISignificant<"array"> {
         items: IJsonSchema[];
-        /**
-         * @type uint
-         */
-        minItems: number;
-        /**
-         * @type uint
-         */
-        maxItems?: number;
+        minItems: number & Type<"uint32">;
+        maxItems?: number & Type<"uint32">;
     }
     export interface IReference extends IAttribute {
         $ref: string;

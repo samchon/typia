@@ -9,7 +9,7 @@ import { ValueFactory } from "../factories/ValueFactory";
 import { IJsDocTagInfo } from "../schemas/metadata/IJsDocTagInfo";
 import { IMetadataCommentTag } from "../schemas/metadata/IMetadataCommentTag";
 import { Metadata } from "../schemas/metadata/Metadata";
-import { MetadataArrayType } from "../schemas/metadata/MetadataArrayType";
+import { MetadataArray } from "../schemas/metadata/MetadataArray";
 import { MetadataObject } from "../schemas/metadata/MetadataObject";
 
 import { IProject } from "../transformers/IProject";
@@ -366,7 +366,7 @@ export namespace FeatureProgrammer {
 
             return (
                 input: ts.Expression,
-                array: MetadataArrayType,
+                array: MetadataArray,
                 explore: IExplore,
                 metaTags: IMetadataCommentTag[],
                 jsDocTags: IJsDocTagInfo[],
@@ -385,7 +385,7 @@ export namespace FeatureProgrammer {
                     undefined,
                     config.decoder()(
                         ValueFactory.INPUT("elem"),
-                        array.value,
+                        array.type.value,
                         {
                             tracable: explore.tracable,
                             source: explore.source,
