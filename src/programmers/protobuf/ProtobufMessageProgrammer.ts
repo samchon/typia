@@ -9,8 +9,6 @@ import { MetadataObject } from "../../schemas/metadata/MetadataObject";
 
 import { IProject } from "../../transformers/IProject";
 
-import { Atomic } from "../../typings/Atomic";
-
 import { MapUtil } from "../../utils/MapUtil";
 import { NameEncoder } from "../../utils/NameEncoder";
 
@@ -108,8 +106,8 @@ export namespace ProtobufMessageProgrammer {
         (meta: Metadata): string => {
             const elements: Set<string> = new Set();
             if (meta.natives.length) elements.add("bytes");
-            for (const atomic of ProtobufUtil.getAtomics(meta))
-                elements.add(decode_atomic(tags)(atomic));
+            for (const atomic of ProtobufUtil.getAtomics(meta)(tags))
+                elements.add(atomic);
             for (const array of meta.arrays)
                 elements.add(`repeated ${decode(ptr)(tags)(array.type.value)}`);
             for (const obj of meta.objects)
@@ -132,28 +130,6 @@ export namespace ProtobufMessageProgrammer {
                       ),
                       "}",
                   ].join("\n");
-        };
-
-    const decode_atomic =
-        (tags: IMetadataCommentTag[]) =>
-        (literal: Atomic.Literal): string => {
-            if (literal === "boolean") return "bool";
-            else if (literal === "bigint")
-                return tags.find(
-                    (t) => t.kind === "type" && t.value === "uint64",
-                )
-                    ? "uint64"
-                    : "int64";
-            else if (literal === "number") {
-                const type = tags.find((t) => t.kind === "type") as
-                    | IMetadataCommentTag.INumberType
-                    | undefined;
-                if (type?.value === undefined) return "double";
-                else if (type.value === "int") return "int32";
-                else if (type.value === "uint") return "uint32";
-                else return type.value;
-            }
-            return literal;
         };
 
     const decode_map =

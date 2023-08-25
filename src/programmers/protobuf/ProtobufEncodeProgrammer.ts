@@ -15,7 +15,7 @@ import { MetadataProperty } from "../../schemas/metadata/MetadataProperty";
 
 import { IProject } from "../../transformers/IProject";
 
-import { Atomic } from "../../typings/Atomic";
+import { ProtobufAtomic } from "../../typings/ProtobufAtomic";
 
 import { FeatureProgrammer } from "../FeatureProgrammer";
 import { IsProgrammer } from "../IsProgrammer";
@@ -263,7 +263,7 @@ export namespace ProtobufEncodeProgrammer {
                           );
 
             // STARTS FROM ATOMIC TYPES
-            const unions: IUnion[] = ProtobufUtil.getAtomics(meta).map(
+            const unions: IUnion[] = ProtobufUtil.getAtomics(meta)(tags).map(
                 (type) => ({
                     type,
                     wire: () => null!,
@@ -272,7 +272,7 @@ export namespace ProtobufEncodeProgrammer {
                             ts.factory.createStringLiteral(type),
                             ts.factory.createTypeOfExpression(input),
                         ),
-                    value: (index) => decode_atomic(index!)(input, type, tags),
+                    value: (index) => decode_atomic(index!)(type)(input),
                 }),
             );
 
@@ -565,11 +565,8 @@ export namespace ProtobufEncodeProgrammer {
 
     const decode_atomic =
         (index: number | null) =>
-        (
-            input: ts.Expression,
-            atomic: Atomic.Literal,
-            tags: IMetadataCommentTag[],
-        ): ts.Block => {
+        (atomic: ProtobufAtomic) =>
+        (input: ts.Expression): ts.Block => {
             if (atomic === "string")
                 return decode_bytes("string")(index!)(input);
 
@@ -591,27 +588,16 @@ export namespace ProtobufEncodeProgrammer {
                         ),
                         true,
                     );
-            if (atomic === "boolean") return out(ProtobufWire.VARIANT)("bool");
-
-            const type: IMetadataCommentTag.INumberType | undefined = tags.find(
-                (tag) => tag.kind === "type",
-            ) as IMetadataCommentTag.INumberType | undefined;
-            if (atomic === "bigint")
-                return out(ProtobufWire.VARIANT)(
-                    type?.value === "uint64" ? "uint64" : "int64",
-                );
-            else if (type === undefined) return out(ProtobufWire.I64)("double");
-            else if (type.value === "float")
-                return out(ProtobufWire.I32)("float");
-            return out(ProtobufWire.VARIANT)(
-                type.value === "uint32" || type.value === "uint"
-                    ? "uint32"
-                    : type.value === "int32" || type.value === "int"
-                    ? "int32"
-                    : type.value === "int64"
-                    ? "int64"
-                    : "uint64",
-            );
+            if (atomic === "bool") return out(ProtobufWire.VARIANT)("bool");
+            else if (
+                atomic === "int32" ||
+                atomic === "uint32" ||
+                atomic === "int64" ||
+                atomic === "uint64"
+            )
+                return out(ProtobufWire.VARIANT)(atomic);
+            else if (atomic === "float") return out(ProtobufWire.I32)("float");
+            return out(ProtobufWire.I64)("double");
         };
 
     const decode_bytes =
@@ -651,16 +637,18 @@ export namespace ProtobufEncodeProgrammer {
         )
             return ProtobufWire.LEN;
 
-        const v = ProtobufUtil.getAtomics(meta)[0]!;
+        const v = ProtobufUtil.getAtomics(meta)(tags)[0]!;
         if (v === "string") return ProtobufWire.LEN;
-        else if (v === "boolean" || v === "bigint") return ProtobufWire.VARIANT;
-
-        const type: IMetadataCommentTag.INumberType | undefined = tags.find(
-            (t) => t.kind === "type",
-        ) as IMetadataCommentTag.INumberType | undefined;
-        if (type === undefined) return ProtobufWire.I64;
-        else if (type.value === "float") return ProtobufWire.I32;
-        return ProtobufWire.VARIANT;
+        else if (
+            v === "bool" ||
+            v === "int32" ||
+            v === "uint32" ||
+            v === "int64" ||
+            v === "uint64"
+        )
+            return ProtobufWire.VARIANT;
+        else if (v === "float") return ProtobufWire.I32;
+        return ProtobufWire.I64;
     };
 
     /* -----------------------------------------------------------
