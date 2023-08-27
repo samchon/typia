@@ -1,11 +1,13 @@
 import ts from "typescript";
 
 import { FileTransformer } from "./transformers/FileTransformer";
+import { IProject } from "./transformers/IProject";
 import { ITransformOptions } from "./transformers/ITransformOptions";
 
 export const transform = (
     program: ts.Program,
-    options?: ITransformOptions,
+    options: ITransformOptions | undefined,
+    extras: IProject["extras"],
 ): ts.TransformerFactory<ts.SourceFile> => {
     const compilerOptions: ts.CompilerOptions = program.getCompilerOptions();
     const strict: boolean =
@@ -21,7 +23,8 @@ export const transform = (
         compilerOptions,
         checker: program.getTypeChecker(),
         printer: ts.createPrinter(),
-        options: options || {},
+        options: options ?? {},
+        extras,
     });
 };
 export default transform;

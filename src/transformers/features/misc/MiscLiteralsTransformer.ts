@@ -23,6 +23,6 @@ export namespace MiscLiteralsTransformer {
 }
 
 const NOT_SPECIFIED =
-    "Error on typia.literals(): generic argument is not specified.";
+    "Error on typia.misc.literals(): generic argument is not specified.";
 const NO_GENERIC_ARGUMENT =
-    "Error on typia.literals(): non-specified generic argument.";
+    "Error on typia.misc.literals(): non-specified generic argument.";
