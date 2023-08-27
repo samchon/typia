@@ -15,7 +15,6 @@
 export function is<T>(input: unknown): input is T; // returns boolean
 export function assert<T>(input: unknown): T; // throws TypeGuardError
 export function validate<T>(input: unknown): IValidation<T>; // detailed
-export const customValidators: CustomValidatorMap; // for customization
 
 // JSON FUNCTIONS
 export namespace json {
@@ -81,7 +80,7 @@ Check out the document in the [website](https://typia.io/docs/):
     - [`is()` function](https://typia.io/docs/validators/is/)
     - [`assert()` function](https://typia.io/docs/validators/assert/)
     - [`validate()` function](https://typia.io/docs/validators/validate/)
-    - [Comment Tags](https://typia.io/docs/validators/tags/)
+    - [Custom Tags](https://typia.io/docs/validators/tags/)
   - Enhanced JSON
     - [`stringify()` functions](https://typia.io/docs/json/stringify/)
     - [`parse()` functions](https://typia.io/docs/json/parse/)

@@ -1,4 +1,5 @@
 import { Metadata } from "../../../schemas/metadata/Metadata";
+import { MetadataAtomic } from "../../../schemas/metadata/MetadataAtomic";
 
 import { ArrayUtil } from "../../../utils/ArrayUtil";
 
@@ -21,7 +22,11 @@ export const emend_metadata_atomics = (meta: Metadata) => {
             ArrayUtil.take(
                 meta.atomics,
                 (a) => a.type === "boolean",
-                () => ({ type: "boolean" as const, tags: [] }),
+                () =>
+                    MetadataAtomic.create({
+                        type: "boolean" as const,
+                        tags: [],
+                    }),
             );
         }
     }

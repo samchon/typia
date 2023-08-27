@@ -7,7 +7,6 @@ import { ArrayUtil } from "../../../utils/ArrayUtil";
 
 import { MetadataCollection } from "../../MetadataCollection";
 import { MetadataFactory } from "../../MetadataFactory";
-import { MetadataTagFactory } from "../../MetadataTagFactory";
 import { explore_metadata } from "./explore_metadata";
 
 export const emplace_metadata_alias =
@@ -31,10 +30,5 @@ export const emplace_metadata_alias =
             true,
         );
         closure(value);
-        alias.tags.push(
-            ...MetadataTagFactory.generate(value)(alias.jsDocTags)(
-                () => alias.name,
-            ),
-        );
         return alias;
     };

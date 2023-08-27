@@ -1,33 +1,33 @@
 import { ClassProperties } from "../../typings/ClassProperties";
 
-import { IMetadataArray } from "./IMetadataArray";
 import { IMetadataTypeTag } from "./IMetadataTypeTag";
-import { MetadataArrayType } from "./MetadataArrayType";
 
-export class MetadataArray {
-    public readonly type: MetadataArrayType;
+export class MetadataAtomic {
+    public readonly type: "boolean" | "bigint" | "number" | "string";
     public readonly tags: IMetadataTypeTag[][];
 
     private name_?: string;
 
     /**
-     * @hidden
+     * @internal
      */
-    private constructor(props: ClassProperties<MetadataArray>) {
+    private constructor(props: ClassProperties<MetadataAtomic>) {
         this.type = props.type;
         this.tags = props.tags;
     }
 
-    public static create(props: ClassProperties<MetadataArray>): MetadataArray {
-        return new MetadataArray(props);
+    public static create(
+        props: ClassProperties<MetadataAtomic>,
+    ): MetadataAtomic {
+        return new MetadataAtomic(props);
     }
 
     public getName(): string {
         return (this.name_ ??= (() => {
-            if (this.tags.length === 0) return this.type.name;
+            if (this.tags.length === 0) return this.type;
             else if (this.tags.length === 1) {
                 const str: string = [
-                    this.type.name,
+                    this.type,
                     ...this.tags[0]!.map((t) => t.name),
                 ].join(" & ");
                 return `(${str})`;
@@ -36,14 +36,7 @@ export class MetadataArray {
                 const str: string = row.map((t) => t.name).join(" & ");
                 return row.length === 1 ? str : `(${str})`;
             });
-            return `(${this.type.name} & (${rows.join(" | ")}))`;
+            return `(${this.type} & (${rows.join(" | ")}))`;
         })());
-    }
-
-    public toJSON(): IMetadataArray {
-        return {
-            type: this.type.toJSON(),
-            tags: this.tags.map((row) => row.slice()),
-        };
     }
 }

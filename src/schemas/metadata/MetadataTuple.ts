@@ -1,5 +1,3 @@
-import { $clone } from "../../functional/$clone";
-
 import { ClassProperties } from "../../typings/ClassProperties";
 
 import { IMetadataTuple } from "./IMetadataTuple";
@@ -11,13 +9,16 @@ export class MetadataTuple {
     public readonly tags: IMetadataTypeTag[][];
 
     /**
-     * @internal
+     * @hidden
      */
     private constructor(props: ClassProperties<MetadataTuple>) {
         this.type = props.type;
         this.tags = props.tags;
     }
 
+    /**
+     * @internal
+     */
     public static create(props: ClassProperties<MetadataTuple>): MetadataTuple {
         return new MetadataTuple(props);
     }
@@ -25,7 +26,7 @@ export class MetadataTuple {
     public toJSON(): IMetadataTuple {
         return {
             type: this.type.toJSON(),
-            tags: $clone(this.tags),
+            tags: this.tags.map((row) => row.slice()),
         };
     }
 }

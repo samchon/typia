@@ -1,5 +1,6 @@
 import ts from "typescript";
 
+import { ExpressionFactory } from "./ExpressionFactory";
 import { IdentifierFactory } from "./IdentifierFactory";
 
 export namespace LiteralFactory {
@@ -11,8 +12,11 @@ export namespace LiteralFactory {
         else if (typeof input === "string") return generate_string(input);
         else if (typeof input === "boolean") return generate_value(input);
         else if (typeof input === "number") return generate_value(input);
-        else if (typeof input === "bigint") return generate_value(input);
-        else throw new Error("Unknown type.");
+        else if (typeof input === "bigint") return generate_bigint(input);
+        else
+            throw new Error(
+                "Error on LiteralFactory.generate(): unknown type.",
+            );
     };
 
     const generate_object = (obj: object): ts.ObjectLiteralExpression =>
@@ -31,8 +35,11 @@ export namespace LiteralFactory {
     const generate_array = (array: any[]): ts.ArrayLiteralExpression =>
         ts.factory.createArrayLiteralExpression(array.map(generate), true);
 
-    const generate_value = (value: number | boolean | bigint): ts.Identifier =>
+    const generate_value = (value: number | boolean | bigint): ts.Expression =>
         ts.factory.createIdentifier(value.toString());
+
+    const generate_bigint = (value: bigint): ts.Expression =>
+        ExpressionFactory.bigint(value);
 
     const generate_string = (value: string): ts.StringLiteral =>
         ts.factory.createStringLiteral(value);

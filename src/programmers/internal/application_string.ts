@@ -1,6 +1,7 @@
 import { IJsonSchema } from "../../schemas/json/IJsonSchema";
-import { IMetadataCommentTag } from "../../schemas/metadata/IMetadataCommentTag";
+import { IMetadataTypeTag } from "../../schemas/metadata/IMetadataTypeTag";
 import { Metadata } from "../../schemas/metadata/Metadata";
+import { MetadataAtomic } from "../../schemas/metadata/MetadataAtomic";
 
 import { application_default_string } from "./application_default_string";
 
@@ -9,36 +10,41 @@ import { application_default_string } from "./application_default_string";
  */
 export const application_string =
     (meta: Metadata) =>
-    (attribute: IJsonSchema.IAttribute): IJsonSchema.IString => {
-        const output: IJsonSchema.IString = {
+    (atomic: MetadataAtomic) =>
+    (attribute: IJsonSchema.IAttribute): IJsonSchema.IString[] => {
+        // DEFAULT CONFIGURATION
+        const base: IJsonSchema.IString = {
             ...attribute,
             type: "string",
         };
+        const out = (schema: IJsonSchema.IString) => {
+            schema.default = application_default_string(meta)(attribute)(base);
+            return schema;
+        };
+        if (atomic.tags.length === 0) return [out(base)];
 
-        // FORMAT TAG OF METADATA
-        const formatJsdocTag = attribute["x-typia-jsDocTags"]?.find(
-            (tag) => tag.name === "format",
+        // CONSIDER TYPE TAGS
+        const union: IJsonSchema.IString[] = atomic.tags.map(
+            (row) => application_string_tags({ ...base })(row)!,
         );
-        if (formatJsdocTag?.text?.length)
-            output.format = formatJsdocTag?.text.map((t) => t.text).join(" ");
-
-        // REGULAR TAGS COMPATIBLE WITH JSON-SCHEMA
-        for (const tag of attribute["x-typia-metaTags"] ?? []) {
-            // RANGE
-            if (tag.kind === "minLength") output.minLength = tag.value;
-            else if (tag.kind === "maxLength") output.maxLength = tag.value;
-            // FORMAT AND PATTERN
-            else if (tag.kind === "format")
-                output.format = emendFormat(tag.value);
-            else if (tag.kind === "pattern") output.pattern = tag.value;
-        }
-
-        // DEFAULT CONFIGURATION
-        output.default = application_default_string(meta)(attribute)(output);
-
-        // RETURNS
-        return output;
+        const map: Map<string, IJsonSchema.IString> = new Map(
+            union.map((u) => [JSON.stringify(u), u]),
+        );
+        return [...map.values()].map((s) => out(s));
     };
 
-const emendFormat = (tag: IMetadataCommentTag.IFormat["value"]) =>
-    tag === "datetime" ? "date-time" : tag;
+const application_string_tags =
+    (schema: IJsonSchema.IString) =>
+    (row: IMetadataTypeTag[]): IJsonSchema.IString | null => {
+        for (const tag of row
+            .slice()
+            .sort((a, b) => a.kind.localeCompare(b.kind)))
+            if (tag.kind === "minLength" && typeof tag.value === "number")
+                schema.minLength = tag.value;
+            else if (tag.kind === "maxLength" && typeof tag.value === "number")
+                schema.maxLength = tag.value;
+            else if (tag.kind === "format" && typeof tag.value === "string")
+                schema.format = tag.value;
+            else if (tag.kind === "pattern") schema.pattern = tag.value;
+        return schema;
+    };

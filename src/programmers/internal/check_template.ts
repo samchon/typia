@@ -40,6 +40,22 @@ export const check_template =
             expression: conditions.reduce((x, y) =>
                 ts.factory.createLogicalAnd(x, y),
             ),
-            tags: [],
+            conditions: [],
+            expected: templates
+                .map(
+                    (tpl) =>
+                        "`" +
+                        tpl
+                            .map((child) =>
+                                child.isConstant() && child.size() === 1
+                                    ? child.constants[0]!.values[0]!
+                                    : `$\{${child.getName()}\}`,
+                            )
+                            .join("")
+                            .split("`")
+                            .join("\\`") +
+                        "`",
+                )
+                .join(" | "),
         };
     };

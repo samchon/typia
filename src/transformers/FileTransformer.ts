@@ -34,13 +34,13 @@ export namespace FileTransformer {
             } catch (exp) {
                 if (!(exp instanceof Error)) throw exp;
 
-                const file: ts.SourceFile = node.getSourceFile();
+                const file: ts.SourceFile | undefined = node.getSourceFile();
+                if (file === undefined) throw exp;
+
                 const { line, character } = file.getLineAndCharacterOfPosition(
                     node.pos,
                 );
-                exp.message += ` - ${file.fileName}:${line + 1}:${
-                    character + 1
-                }`;
+                console.error(`${file.fileName}:${line}:${character}:`, exp);
                 throw exp;
             }
         };

@@ -9,14 +9,6 @@ import { $any } from "./$any";
 import { $every } from "./$every";
 import { $guard } from "./$guard";
 import { $is_between } from "./$is_between";
-import { $is_custom } from "./$is_custom";
-import { $is_date } from "./$is_date";
-import { $is_datetime } from "./$is_datetime";
-import { $is_email } from "./$is_email";
-import { $is_ipv4 } from "./$is_ipv4";
-import { $is_ipv6 } from "./$is_ipv6";
-import { $is_url } from "./$is_url";
-import { $is_uuid } from "./$is_uuid";
 import { $join } from "./$join";
 import { $number } from "./$number";
 import { $report } from "./$report";
@@ -30,15 +22,7 @@ import { $tail } from "./$tail";
  */
 export namespace Namespace {
     export const is = () => ({
-        is_uuid: $is_uuid,
-        is_email: $is_email,
-        is_url: $is_url,
-        is_ipv4: $is_ipv4,
-        is_ipv6: $is_ipv6,
         is_between: $is_between,
-        is_date: $is_date,
-        is_datetime: $is_datetime,
-        is_custom: $is_custom,
     });
 
     export const assert = (method: string) => ({

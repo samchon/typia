@@ -4,7 +4,6 @@ import { IdentifierFactory } from "../../factories/IdentifierFactory";
 import { StatementFactory } from "../../factories/StatementFactory";
 import { TypeFactory } from "../../factories/TypeFactory";
 
-import { IMetadataCommentTag } from "../../schemas/metadata/IMetadataCommentTag";
 import { MetadataArray } from "../../schemas/metadata/MetadataArray";
 import { MetadataArrayType } from "../../schemas/metadata/MetadataArrayType";
 import { MetadataTuple } from "../../schemas/metadata/MetadataTuple";
@@ -26,8 +25,6 @@ export const check_union_array_like =
         input: ts.Expression,
         origins: Origin[],
         explore: FeatureProgrammer.IExplore,
-        tags: IMetadataCommentTag[],
-        jsDocTags: ts.JSDocTagInfo[],
     ): ts.ArrowFunction => {
         // ONLY ONE TYPE
         const targets: Array<Category> = origins.map(accessor.transform);
@@ -38,13 +35,7 @@ export const check_union_array_like =
                 parameters,
                 undefined,
                 undefined,
-                props.decoder(
-                    accessor.array(input),
-                    targets[0]!,
-                    explore,
-                    tags,
-                    jsDocTags,
-                ),
+                props.decoder(accessor.array(input), targets[0]!, explore),
             );
 
         const array = ts.factory.createIdentifier("array");
@@ -87,8 +78,6 @@ export const check_union_array_like =
                                         ? `"[0]"`
                                         : "",
                             },
-                            tags,
-                            jsDocTags,
                             array,
                         ),
                     ),
@@ -110,8 +99,6 @@ export const check_union_array_like =
                                 ...explore,
                                 tracable: true,
                             },
-                            tags,
-                            jsDocTags,
                         ),
                     ),
                 ],
@@ -301,8 +288,6 @@ export namespace check_union_array_like {
             front: ts.Expression,
             target: Element,
             explore: FeatureProgrammer.IExplore,
-            tags: IMetadataCommentTag[],
-            jsDocTags: ts.JSDocTagInfo[],
             container: ts.Expression,
         ): ts.Expression;
         decoder: UnionExplorer.Decoder<Category>;

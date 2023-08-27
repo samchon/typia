@@ -1,18 +1,16 @@
-import { $clone } from "../../functional/$clone";
-
 import { ClassProperties } from "../../typings/ClassProperties";
 import { Writable } from "../../typings/Writable";
 
 import { ArrayUtil } from "../../utils/ArrayUtil";
 
 import { IMetadata } from "./IMetadata";
-import { IMetadataAtomic } from "./IMetadataAtomic";
 import { IMetadataCollection } from "./IMetadataCollection";
 import { IMetadataDictionary } from "./IMetadataDictionary";
 import { IMetadataTypeTag } from "./IMetadataTypeTag";
 import { MetadataAlias } from "./MetadataAlias";
 import { MetadataArray } from "./MetadataArray";
 import { MetadataArrayType } from "./MetadataArrayType";
+import { MetadataAtomic } from "./MetadataAtomic";
 import { MetadataConstant } from "./MetadataConstant";
 import { MetadataEscaped } from "./MetadataEscaped";
 import { MetadataObject } from "./MetadataObject";
@@ -28,7 +26,7 @@ export class Metadata {
     public functional: boolean;
 
     public escaped: MetadataEscaped | null;
-    public atomics: IMetadataAtomic[];
+    public atomics: MetadataAtomic[];
     public constants: MetadataConstant[];
     public templates: Metadata[][];
 
@@ -120,8 +118,16 @@ export class Metadata {
             nullable: this.nullable,
             functional: this.functional,
 
-            atomics: $clone(this.atomics),
-            constants: $clone(this.constants),
+            atomics: this.atomics.map((a) =>
+                MetadataAtomic.create({
+                    type: a.type,
+                    tags: a.tags.map((r) => r.slice()),
+                }),
+            ),
+            constants: this.constants.map((c) => ({
+                type: c.type,
+                values: c.values.slice() as any,
+            })),
             templates: this.templates.map((tpl) =>
                 tpl.map((meta) => meta.toJSON()),
             ),
@@ -130,11 +136,11 @@ export class Metadata {
             rest: this.rest ? this.rest.toJSON() : null,
             arrays: this.arrays.map((array) => ({
                 name: array.type.name,
-                tags: $clone(array.tags),
+                tags: array.tags.map((r) => r.slice()),
             })),
             tuples: this.tuples.map((tuple) => ({
                 name: tuple.type.name,
-                tags: $clone(tuple.tags),
+                tags: tuple.tags.map((r) => r.slice()),
             })),
             objects: this.objects.map((obj) => obj.name),
             aliases: this.aliases.map((alias) => alias.name),
@@ -215,8 +221,10 @@ export class Metadata {
             nullable: meta.nullable,
             functional: meta.functional,
 
-            constants: $clone(meta.constants),
-            atomics: $clone(meta.atomics),
+            constants: meta.constants.slice(),
+            atomics: meta.atomics.map((a) =>
+                MetadataAtomic.create({ type: a.type, tags: a.tags }),
+            ),
             templates: meta.templates.map((tpl) =>
                 tpl.map((meta) => this._From(meta, dict)),
             ),
@@ -233,7 +241,7 @@ export class Metadata {
                     );
                 return MetadataArray.create({
                     type,
-                    tags: $clone(ref.tags),
+                    tags: ref.tags.map((row) => row.slice()),
                 });
             }),
             tuples: meta.tuples.map((t) => {
@@ -244,7 +252,7 @@ export class Metadata {
                     );
                 return MetadataTuple.create({
                     type,
-                    tags: $clone(t.tags),
+                    tags: t.tags.map((r) => r.slice()),
                 });
             }),
             objects: meta.objects.map((name) => {
@@ -277,8 +285,7 @@ export class Metadata {
         ACCESSORS
     ----------------------------------------------------------- */
     public getName(): string {
-        this.name_ ??= getName(this);
-        return this.name_;
+        return (this.name_ ??= getName(this));
     }
 
     public empty(): boolean {
@@ -303,24 +310,6 @@ export class Metadata {
             this.sets.length +
             this.objects.length +
             this.aliases.length
-        );
-    }
-
-    /**
-     * @internal
-     */
-    public binarySize(): number {
-        return (
-            new Set<string>([
-                ...this.atomics.map((a) => a.type),
-                ...this.constants.map((c) => c.type),
-                ...(this.templates.length ? ["string"] : []),
-            ]).size +
-            this.arrays.length +
-            this.tuples.length +
-            this.natives.length +
-            this.objects.length +
-            this.maps.length
         );
     }
 
@@ -359,13 +348,6 @@ export class Metadata {
         const emended: number =
             !!this.atomics.length && !!this.constants.length ? size - 1 : size;
         return emended > 1;
-    }
-
-    /**
-     * @internal
-     */
-    public isBinaryUnion(): boolean {
-        return this.binarySize() > 1;
     }
 
     /**
@@ -615,11 +597,15 @@ const getName = (metadata: Metadata): string => {
 
     // ATOMIC
     for (const atom of metadata.atomics) {
-        elements.push(atom.type);
+        elements.push(atom.getName());
     }
     for (const constant of metadata.constants)
         for (const value of constant.values)
-            elements.push(JSON.stringify(value));
+            elements.push(
+                constant.type === "string"
+                    ? JSON.stringify(value)
+                    : value.toString(),
+            );
     for (const template of metadata.templates)
         elements.push(
             "`" +
@@ -644,7 +630,7 @@ const getName = (metadata: Metadata): string => {
     // INSTANCES
     if (metadata.rest !== null) elements.push(`...${metadata.rest.getName()}`);
     for (const tuple of metadata.tuples) elements.push(tuple.type.name);
-    for (const array of metadata.arrays) elements.push(array.type.name);
+    for (const array of metadata.arrays) elements.push(array.getName());
     for (const object of metadata.objects) elements.push(object.name);
     for (const alias of metadata.aliases) elements.push(alias.name);
     if (metadata.escaped !== null) elements.push(metadata.escaped.getName());

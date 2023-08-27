@@ -7,6 +7,7 @@ export * from "./MaxLength";
 export * from "./Minimum";
 export * from "./MinItems";
 export * from "./MinLength";
+export * from "./MultipleOf";
 export * from "./Pattern";
 export * from "./TagBase";
 export * from "./Type";
