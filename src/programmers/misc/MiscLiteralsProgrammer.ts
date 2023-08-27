@@ -59,6 +59,6 @@ export namespace MiscLiteralsProgrammer {
 }
 
 enum ErrorMessages {
-    NO = "Error on typia.literals(): no literal type found.",
-    ONLY = "Error on typia.literals(): only literal type allowed.",
+    NO = "Error on typia.literals(): no constant literal type found.",
+    ONLY = "Error on typia.literals(): only constant literal types are allowed.",
 }

@@ -19,16 +19,19 @@ export namespace FileTransformer {
     const iterate_node =
         (project: IProject) =>
         (context: ts.TransformationContext) =>
-        (node: ts.Node): ts.Node =>
-            ts.visitEachChild(
-                try_transform_node(project)(node),
+        (node: ts.Node): ts.Node => {
+            const changed: ts.Node | null = try_transform_node(project)(node);
+
+            return ts.visitEachChild(
+                changed ?? node,
                 (child) => iterate_node(project)(context)(child),
                 context,
             );
+        };
 
     const try_transform_node =
         (project: IProject) =>
-        (node: ts.Node): ts.Node => {
+        (node: ts.Node): ts.Node | null => {
             try {
                 return NodeTransformer.transform(project)(node);
             } catch (exp) {
@@ -37,11 +40,14 @@ export namespace FileTransformer {
                 const file: ts.SourceFile | undefined = node.getSourceFile();
                 if (file === undefined) throw exp;
 
-                const { line, character } = file.getLineAndCharacterOfPosition(
-                    node.pos,
-                );
-                console.error(`${file.fileName}:${line}:${character}:`, exp);
-                throw exp;
+                const diagnostic = ts.createDiagnosticForNode(node, {
+                    key: exp.message,
+                    category: ts.DiagnosticCategory.Error,
+                    message: exp.message,
+                    code: 1,
+                });
+                project.extras.addDiagnostic(diagnostic);
+                return null;
             }
         };
 }
