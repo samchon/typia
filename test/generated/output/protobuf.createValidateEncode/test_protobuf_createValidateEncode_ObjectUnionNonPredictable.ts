@@ -558,7 +558,7 @@ export const test_protobuf_validateEncode_ObjectUnionNonPredictable =
                     const tag = reader.uint32();
                     switch (tag >>> 3) {
                         case 1:
-                            // boolean;
+                            // bool;
                             output.value = reader.bool();
                             break;
                         default:
@@ -596,7 +596,7 @@ export const test_protobuf_validateEncode_ObjectUnionNonPredictable =
                     const tag = reader.uint32();
                     switch (tag >>> 3) {
                         case 1:
-                            // number;
+                            // double;
                             output.value = reader.double();
                             break;
                         default:

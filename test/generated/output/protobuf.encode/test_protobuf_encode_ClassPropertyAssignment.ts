@@ -55,7 +55,7 @@ export const test_protobuf_encode_ClassPropertyAssignment =
                     const tag = reader.uint32();
                     switch (tag >>> 3) {
                         case 1:
-                            // number;
+                            // double;
                             output.id = reader.double();
                             break;
                         case 2:
@@ -67,11 +67,11 @@ export const test_protobuf_encode_ClassPropertyAssignment =
                             output.note = reader.string();
                             break;
                         case 4:
-                            // boolean;
+                            // bool;
                             output.editable = reader.bool();
                             break;
                         case 5:
-                            // boolean;
+                            // bool;
                             output.incremental = reader.bool();
                             break;
                         default:

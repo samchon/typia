@@ -100,7 +100,7 @@ export const test_protobuf_assertEncode_ClassMethod =
                             output.name = reader.string();
                             break;
                         case 2:
-                            // number;
+                            // double;
                             output.age = reader.double();
                             break;
                         default:

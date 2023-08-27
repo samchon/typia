@@ -18,7 +18,6 @@ export const test_protobuf_isEncode_ArraySimpleProtobuf =
                         input.int32.every(
                             (elem: any) =>
                                 "number" === typeof elem &&
-                                Number.isFinite(elem) &&
                                 Math.floor(elem) === elem &&
                                 -2147483648 <= elem &&
                                 elem <= 2147483647,
@@ -27,14 +26,13 @@ export const test_protobuf_isEncode_ArraySimpleProtobuf =
                         input.uint32.every(
                             (elem: any) =>
                                 "number" === typeof elem &&
-                                Number.isFinite(elem) &&
                                 Math.floor(elem) === elem &&
                                 0 <= elem &&
                                 elem <= 4294967295,
                         ) &&
                         Array.isArray(input.int64) &&
                         input.int64.every(
-                            (elem: any) => "bigint" === typeof elem,
+                            (elem: any) => "bigint" === typeof elem && true,
                         ) &&
                         Array.isArray(input.uint64) &&
                         input.uint64.every(
@@ -45,7 +43,6 @@ export const test_protobuf_isEncode_ArraySimpleProtobuf =
                         input.float.every(
                             (elem: any) =>
                                 "number" === typeof elem &&
-                                Number.isFinite(elem) &&
                                 -1.175494351e38 <= elem &&
                                 elem <= 3.4028235e38,
                         ) &&
@@ -53,7 +50,8 @@ export const test_protobuf_isEncode_ArraySimpleProtobuf =
                         input.double.every(
                             (elem: any) =>
                                 "number" === typeof elem &&
-                                Number.isFinite(elem),
+                                Number.isFinite(elem) &&
+                                true,
                         ) &&
                         Array.isArray(input.string) &&
                         input.string.every(
@@ -192,7 +190,7 @@ export const test_protobuf_isEncode_ArraySimpleProtobuf =
                             ) &&
                             Array.isArray(input.int64) &&
                             input.int64.every(
-                                (elem: any) => "bigint" === typeof elem,
+                                (elem: any) => "bigint" === typeof elem && true,
                             ) &&
                             Array.isArray(input.uint64) &&
                             input.uint64.every(
@@ -209,7 +207,7 @@ export const test_protobuf_isEncode_ArraySimpleProtobuf =
                             ) &&
                             Array.isArray(input.double) &&
                             input.double.every(
-                                (elem: any) => "number" === typeof elem,
+                                (elem: any) => "number" === typeof elem && true,
                             ) &&
                             Array.isArray(input.string) &&
                             input.string.every(
@@ -266,7 +264,7 @@ export const test_protobuf_isEncode_ArraySimpleProtobuf =
                             } else output.boolean.push(reader.bool());
                             break;
                         case 2:
-                            // type: Array<number>;
+                            // type: Array<(number & Type<"int32">)>;
                             if (2 === (tag & 7)) {
                                 const piece = reader.uint32() + reader.index();
                                 while (reader.index() < piece)
@@ -274,7 +272,7 @@ export const test_protobuf_isEncode_ArraySimpleProtobuf =
                             } else output.int32.push(reader.int32());
                             break;
                         case 3:
-                            // type: Array<number>;
+                            // type: Array<(number & Type<"uint32">)>;
                             if (2 === (tag & 7)) {
                                 const piece = reader.uint32() + reader.index();
                                 while (reader.index() < piece)
@@ -282,7 +280,7 @@ export const test_protobuf_isEncode_ArraySimpleProtobuf =
                             } else output.uint32.push(reader.uint32());
                             break;
                         case 4:
-                            // type: Array<bigint>;
+                            // type: Array<(bigint & Type<"int64">)>;
                             if (2 === (tag & 7)) {
                                 const piece = reader.uint32() + reader.index();
                                 while (reader.index() < piece)
@@ -290,7 +288,7 @@ export const test_protobuf_isEncode_ArraySimpleProtobuf =
                             } else output.int64.push(reader.int64());
                             break;
                         case 5:
-                            // type: Array<bigint>;
+                            // type: Array<(bigint & Type<"uint64">)>;
                             if (2 === (tag & 7)) {
                                 const piece = reader.uint32() + reader.index();
                                 while (reader.index() < piece)
@@ -298,7 +296,7 @@ export const test_protobuf_isEncode_ArraySimpleProtobuf =
                             } else output.uint64.push(reader.uint64());
                             break;
                         case 6:
-                            // type: Array<number>;
+                            // type: Array<(number & Type<"float">)>;
                             if (2 === (tag & 7)) {
                                 const piece = reader.uint32() + reader.index();
                                 while (reader.index() < piece)
@@ -306,7 +304,7 @@ export const test_protobuf_isEncode_ArraySimpleProtobuf =
                             } else output.float.push(reader.float());
                             break;
                         case 7:
-                            // type: Array<number>;
+                            // type: Array<(number & Type<"double">)>;
                             if (2 === (tag & 7)) {
                                 const piece = reader.uint32() + reader.index();
                                 while (reader.index() < piece)

@@ -26,7 +26,6 @@ export const test_is_MapSimpleProtobufNullable = _test_is(
                                 elem.length === 2 &&
                                 "string" === typeof elem[0] &&
                                 "number" === typeof elem[1] &&
-                                Number.isFinite(elem[1]) &&
                                 Math.floor(elem[1]) === elem[1] &&
                                 -2147483648 <= elem[1] &&
                                 elem[1] <= 2147483647,

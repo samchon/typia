@@ -587,11 +587,11 @@ export const test_protobuf_isEncode_ObjectUnionCompositePointer =
                     const tag = reader.uint32();
                     switch (tag >>> 3) {
                         case 1:
-                            // number;
+                            // double;
                             output.x = reader.double();
                             break;
                         case 2:
-                            // number;
+                            // double;
                             output.y = reader.double();
                             break;
                         default:
@@ -769,7 +769,7 @@ export const test_protobuf_isEncode_ObjectUnionCompositePointer =
                             output.centroid = $pdo2(reader, reader.uint32());
                             break;
                         case 2:
-                            // number;
+                            // double;
                             output.radius = reader.double();
                             break;
                         default:

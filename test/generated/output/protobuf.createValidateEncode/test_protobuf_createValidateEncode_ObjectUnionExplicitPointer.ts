@@ -1243,11 +1243,11 @@ export const test_protobuf_validateEncode_ObjectUnionExplicitPointer =
                     const tag = reader.uint32();
                     switch (tag >>> 3) {
                         case 1:
-                            // number;
+                            // double;
                             output.x = reader.double();
                             break;
                         case 2:
-                            // number;
+                            // double;
                             output.y = reader.double();
                             break;
                         case 3:
@@ -1300,11 +1300,11 @@ export const test_protobuf_validateEncode_ObjectUnionExplicitPointer =
                     const tag = reader.uint32();
                     switch (tag >>> 3) {
                         case 1:
-                            // number;
+                            // double;
                             output.x = reader.double();
                             break;
                         case 2:
-                            // number;
+                            // double;
                             output.y = reader.double();
                             break;
                         default:
@@ -1474,7 +1474,7 @@ export const test_protobuf_validateEncode_ObjectUnionExplicitPointer =
                             output.centroid = $pdo4(reader, reader.uint32());
                             break;
                         case 2:
-                            // number;
+                            // double;
                             output.radius = reader.double();
                             break;
                         case 3:

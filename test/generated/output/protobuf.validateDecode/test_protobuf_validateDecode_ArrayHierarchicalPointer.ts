@@ -504,11 +504,11 @@ export const test_protobuf_validateDecode_ArrayHierarchicalPointer =
                             const tag = reader.uint32();
                             switch (tag >>> 3) {
                                 case 1:
-                                    // number;
+                                    // double;
                                     output.id = reader.double();
                                     break;
                                 case 2:
-                                    // number;
+                                    // double;
                                     output.serial = reader.double();
                                     break;
                                 case 3:
@@ -548,11 +548,11 @@ export const test_protobuf_validateDecode_ArrayHierarchicalPointer =
                             const tag = reader.uint32();
                             switch (tag >>> 3) {
                                 case 1:
-                                    // number;
+                                    // double;
                                     output.time = reader.double();
                                     break;
                                 case 2:
-                                    // number;
+                                    // double;
                                     output.zone = reader.double();
                                     break;
                                 default:
@@ -578,7 +578,7 @@ export const test_protobuf_validateDecode_ArrayHierarchicalPointer =
                             const tag = reader.uint32();
                             switch (tag >>> 3) {
                                 case 1:
-                                    // number;
+                                    // double;
                                     output.id = reader.double();
                                     break;
                                 case 2:
@@ -586,7 +586,7 @@ export const test_protobuf_validateDecode_ArrayHierarchicalPointer =
                                     output.code = reader.string();
                                     break;
                                 case 3:
-                                    // number;
+                                    // double;
                                     output.sales = reader.double();
                                     break;
                                 case 4:
@@ -625,7 +625,7 @@ export const test_protobuf_validateDecode_ArrayHierarchicalPointer =
                             const tag = reader.uint32();
                             switch (tag >>> 3) {
                                 case 1:
-                                    // number;
+                                    // double;
                                     output.id = reader.double();
                                     break;
                                 case 2:
@@ -633,11 +633,11 @@ export const test_protobuf_validateDecode_ArrayHierarchicalPointer =
                                     output.name = reader.string();
                                     break;
                                 case 3:
-                                    // number;
+                                    // double;
                                     output.age = reader.double();
                                     break;
                                 case 4:
-                                    // number;
+                                    // double;
                                     output.grade = reader.double();
                                     break;
                                 case 5:

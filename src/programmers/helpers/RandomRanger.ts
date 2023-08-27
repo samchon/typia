@@ -1,6 +1,6 @@
 import ts from "typescript";
 
-import { IMetadataCommentTag } from "../../schemas/metadata/IMetadataCommentTag";
+import { IMetadataTypeTag } from "../../schemas/metadata/IMetadataTypeTag";
 
 export namespace RandomRanger {
     export interface IDefaults {
@@ -13,15 +13,12 @@ export namespace RandomRanger {
         (coalesce: (method: string) => ts.Expression) =>
         (defs: IDefaults) =>
         (acc: length.IAccessors) =>
-        (tags: IMetadataCommentTag[]): ts.Expression | undefined => {
+        (tags: IMetadataTypeTag[]): ts.Expression | undefined => {
             const props = {
-                fixed: getter(tags)(acc.fixed),
                 minimum: getter(tags)(acc.minimum),
                 maximum: getter(tags)(acc.maximum),
             };
-            if (props.fixed !== undefined)
-                return ts.factory.createNumericLiteral(props.fixed);
-            else if (props.minimum === undefined && props.maximum === undefined)
+            if (props.minimum === undefined && props.maximum === undefined)
                 return undefined;
 
             props.minimum ??= defs.minimum;
@@ -40,16 +37,15 @@ export namespace RandomRanger {
         };
     export namespace length {
         export interface IAccessors {
-            minimum: IMetadataCommentTag["kind"];
-            maximum: IMetadataCommentTag["kind"];
-            fixed: IMetadataCommentTag["kind"];
+            minimum: string;
+            maximum: string;
         }
     }
 
     export const number =
         (config: number.IConfig) =>
         (defs: IDefaults) =>
-        (tags: IMetadataCommentTag[]): ts.Expression => {
+        (tags: IMetadataTypeTag[]): ts.Expression => {
             const range = {
                 minimum: {
                     value:
@@ -63,30 +59,14 @@ export namespace RandomRanger {
                         getter(tags)("exclusiveMaximum"),
                     exclusive: getter(tags)("exclusiveMaximum") !== undefined,
                 },
-                step: getter(tags)("step"),
+                stepper: undefined,
                 multiply: getter(tags)("multipleOf"),
             };
-            if (Object.values(range).every((v) => v !== undefined))
-                return config.setter([]);
 
             //----
             // MULTIPLIERS
             //----
-            // STEP
-            if (range.step !== undefined) {
-                const { intercept, minimum, maximum } = stepper(defs.gap)(
-                    range,
-                )(range.step);
-                return ts.factory.createAdd(
-                    config.transform(intercept),
-                    ts.factory.createMultiply(
-                        config.transform(range.step),
-                        config.setter([minimum, maximum]),
-                    ),
-                );
-            }
-            // MULTIPLE-OF
-            else if (range.multiply !== undefined) {
+            if (range.multiply !== undefined) {
                 const { minimum, maximum } = multiplier(defs.gap)(range)(
                     range.multiply,
                 );
@@ -151,30 +131,15 @@ export namespace RandomRanger {
 }
 
 const getter =
-    (tags: IMetadataCommentTag[]) =>
-    (kind: IMetadataCommentTag["kind"]): number | undefined =>
-        tags.find((t) => t.kind === kind)?.value as number | undefined;
-
-const stepper = (gap: number) => (range: IRange) => (s: number) => {
-    const intercept: number = range.minimum.value!;
-    const minimum: number = range.minimum.exclusive ? 1 : 0;
-    if (range.maximum.value === undefined)
-        return {
-            intercept,
-            minimum,
-            maximum: gap,
-        };
-
-    const y: number = Math.floor(range.maximum.value - intercept) / s;
-    return {
-        intercept,
-        minimum,
-        maximum:
-            range.maximum.exclusive && intercept + y * s === range.maximum.value
-                ? y - 1
-                : y,
+    (tags: IMetadataTypeTag[]) =>
+    (kind: string): number | undefined => {
+        const value: bigint | number | undefined = tags.find(
+            (t) =>
+                t.kind === kind &&
+                (typeof t.value === "number" || typeof t.value === "bigint"),
+        )?.value;
+        return value !== undefined ? Number(value) : undefined;
     };
-};
 
 const multiplier = (gap: number) => (range: IRange) => (m: number) => {
     const minimum: number =

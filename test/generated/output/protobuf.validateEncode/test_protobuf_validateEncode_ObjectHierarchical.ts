@@ -13,10 +13,6 @@ export const test_protobuf_validateEncode_ObjectHierarchical =
                 ): typia.IValidation<ObjectHierarchical> => {
                     const errors = [] as any[];
                     const __is = (input: any): input is ObjectHierarchical => {
-                        const $is_url = (typia.protobuf.validateEncode as any)
-                            .is_url;
-                        const $is_ipv4 = (typia.protobuf.validateEncode as any)
-                            .is_ipv4;
                         const $io0 = (input: any): boolean =>
                             "number" === typeof input.id &&
                             Number.isFinite(input.id) &&
@@ -32,11 +28,17 @@ export const test_protobuf_validateEncode_ObjectHierarchical =
                                     null !== input.account &&
                                     $io4(input.account))) &&
                             "string" === typeof input.href &&
-                            $is_url(input.href) &&
+                            /^[a-zA-Z0-9]+:\/\/(?:www.)?[-a-zA-Z0-9@:%._+~#=]{1,256}.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_+.~#?&/=]*)$/.test(
+                                input.href,
+                            ) &&
                             "string" === typeof input.referrer &&
-                            $is_url(input.referrer) &&
+                            /^[a-zA-Z0-9]+:\/\/(?:www.)?[-a-zA-Z0-9@:%._+~#=]{1,256}.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_+.~#?&/=]*)$/.test(
+                                input.referrer,
+                            ) &&
                             "string" === typeof input.ip &&
-                            $is_ipv4(input.ip) &&
+                            /^(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/.test(
+                                input.ip,
+                            ) &&
                             "object" === typeof input.created_at &&
                             null !== input.created_at &&
                             "number" ===
@@ -130,12 +132,6 @@ export const test_protobuf_validateEncode_ObjectHierarchical =
                             _path: string,
                             _exceptionable: boolean = true,
                         ): input is ObjectHierarchical => {
-                            const $is_url = (
-                                typia.protobuf.validateEncode as any
-                            ).is_url;
-                            const $is_ipv4 = (
-                                typia.protobuf.validateEncode as any
-                            ).is_ipv4;
                             const $vo0 = (
                                 input: any,
                                 _path: string,
@@ -209,42 +205,48 @@ export const test_protobuf_validateEncode_ObjectHierarchical =
                                             value: input.account,
                                         }),
                                     ("string" === typeof input.href &&
-                                        ($is_url(input.href) ||
+                                        (/^[a-zA-Z0-9]+:\/\/(?:www.)?[-a-zA-Z0-9@:%._+~#=]{1,256}.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_+.~#?&/=]*)$/.test(
+                                            input.href,
+                                        ) ||
                                             $report(_exceptionable, {
                                                 path: _path + ".href",
                                                 expected:
-                                                    "string (@format url)",
+                                                    "string & Format<url>",
                                                 value: input.href,
                                             }))) ||
                                         $report(_exceptionable, {
                                             path: _path + ".href",
-                                            expected: "string",
+                                            expected: "(string & Format<url>)",
                                             value: input.href,
                                         }),
                                     ("string" === typeof input.referrer &&
-                                        ($is_url(input.referrer) ||
+                                        (/^[a-zA-Z0-9]+:\/\/(?:www.)?[-a-zA-Z0-9@:%._+~#=]{1,256}.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_+.~#?&/=]*)$/.test(
+                                            input.referrer,
+                                        ) ||
                                             $report(_exceptionable, {
                                                 path: _path + ".referrer",
                                                 expected:
-                                                    "string (@format url)",
+                                                    "string & Format<url>",
                                                 value: input.referrer,
                                             }))) ||
                                         $report(_exceptionable, {
                                             path: _path + ".referrer",
-                                            expected: "string",
+                                            expected: "(string & Format<url>)",
                                             value: input.referrer,
                                         }),
                                     ("string" === typeof input.ip &&
-                                        ($is_ipv4(input.ip) ||
+                                        (/^(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/.test(
+                                            input.ip,
+                                        ) ||
                                             $report(_exceptionable, {
                                                 path: _path + ".ip",
                                                 expected:
-                                                    "string (@format ipv4)",
+                                                    "string & Format<ipv4>",
                                                 value: input.ip,
                                             }))) ||
                                         $report(_exceptionable, {
                                             path: _path + ".ip",
-                                            expected: "string",
+                                            expected: "(string & Format<ipv4>)",
                                             value: input.ip,
                                         }),
                                     ((("object" === typeof input.created_at &&
@@ -588,10 +590,6 @@ export const test_protobuf_validateEncode_ObjectHierarchical =
                     } as any;
                 };
                 const encode = (input: ObjectHierarchical): Uint8Array => {
-                    const $is_url = (typia.protobuf.validateEncode as any)
-                        .is_url;
-                    const $is_ipv4 = (typia.protobuf.validateEncode as any)
-                        .is_ipv4;
                     const $Sizer = (typia.protobuf.validateEncode as any).Sizer;
                     const $Writer = (typia.protobuf.validateEncode as any)
                         .Writer;
@@ -822,7 +820,7 @@ export const test_protobuf_validateEncode_ObjectHierarchical =
                     const tag = reader.uint32();
                     switch (tag >>> 3) {
                         case 1:
-                            // number;
+                            // double;
                             output.id = reader.double();
                             break;
                         case 2:
@@ -875,7 +873,7 @@ export const test_protobuf_validateEncode_ObjectHierarchical =
                     const tag = reader.uint32();
                     switch (tag >>> 3) {
                         case 1:
-                            // number;
+                            // double;
                             output.id = reader.double();
                             break;
                         case 2:
@@ -887,15 +885,15 @@ export const test_protobuf_validateEncode_ObjectHierarchical =
                             output.name = reader.string();
                             break;
                         case 4:
-                            // number;
+                            // double;
                             output.sequence = reader.double();
                             break;
                         case 5:
-                            // boolean;
+                            // bool;
                             output.exclusive = reader.bool();
                             break;
                         case 6:
-                            // number;
+                            // double;
                             output.priority = reader.double();
                             break;
                         case 7:
@@ -919,11 +917,11 @@ export const test_protobuf_validateEncode_ObjectHierarchical =
                     const tag = reader.uint32();
                     switch (tag >>> 3) {
                         case 1:
-                            // number;
+                            // double;
                             output.time = reader.double();
                             break;
                         case 2:
-                            // number;
+                            // double;
                             output.zone = reader.double();
                             break;
                         default:
@@ -947,7 +945,7 @@ export const test_protobuf_validateEncode_ObjectHierarchical =
                     const tag = reader.uint32();
                     switch (tag >>> 3) {
                         case 1:
-                            // number;
+                            // double;
                             output.id = reader.double();
                             break;
                         case 2:
@@ -967,7 +965,7 @@ export const test_protobuf_validateEncode_ObjectHierarchical =
                             output.created_at = $pdo2(reader, reader.uint32());
                             break;
                         case 6:
-                            // boolean;
+                            // bool;
                             output.authorized = reader.bool();
                             break;
                         default:
@@ -988,7 +986,7 @@ export const test_protobuf_validateEncode_ObjectHierarchical =
                     const tag = reader.uint32();
                     switch (tag >>> 3) {
                         case 1:
-                            // number;
+                            // double;
                             output.id = reader.double();
                             break;
                         case 2:
@@ -1019,7 +1017,7 @@ export const test_protobuf_validateEncode_ObjectHierarchical =
                     const tag = reader.uint32();
                     switch (tag >>> 3) {
                         case 1:
-                            // number;
+                            // double;
                             output.id = reader.double();
                             break;
                         case 2:
@@ -1031,7 +1029,7 @@ export const test_protobuf_validateEncode_ObjectHierarchical =
                             output.name = reader.string();
                             break;
                         case 4:
-                            // number;
+                            // double;
                             output.grade = reader.double();
                             break;
                         case 5:

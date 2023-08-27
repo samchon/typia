@@ -24,8 +24,13 @@ export const test_random_ObjectSimpleProtobufNullable = _test_random(
                     () =>
                         (generator?.customs ?? $generator.customs)?.number?.([
                             {
-                                name: "type",
+                                target: "number",
+                                name: 'Type<"int32">',
+                                kind: "type",
                                 value: "int32",
+                                validate:
+                                    "Math.floor($input) === $input && -2147483648 <= $input && $input <= 2147483647",
+                                exclusive: true,
                             },
                         ]) ??
                         (generator?.integer ?? $generator.integer)(0, 100),
@@ -35,8 +40,13 @@ export const test_random_ObjectSimpleProtobufNullable = _test_random(
                     () =>
                         (generator?.customs ?? $generator.customs)?.number?.([
                             {
-                                name: "type",
+                                target: "number",
+                                name: 'Type<"uint32">',
+                                kind: "type",
                                 value: "uint32",
+                                validate:
+                                    "Math.floor($input) === $input && 0 <= $input && $input <= 4294967295",
+                                exclusive: true,
                             },
                         ]) ?? (generator?.integer ?? $generator.integer)(0, 10),
                 ])(),
@@ -56,8 +66,12 @@ export const test_random_ObjectSimpleProtobufNullable = _test_random(
                     () =>
                         (generator?.customs ?? $generator.customs)?.bigint?.([
                             {
-                                name: "type",
+                                target: "number",
+                                name: 'Type<"uint64">',
+                                kind: "type",
                                 value: "uint64",
+                                validate: "BigInt(0) <= $input",
+                                exclusive: true,
                             },
                         ]) ??
                         (generator?.bigint ?? $generator.bigint)(
@@ -70,17 +84,29 @@ export const test_random_ObjectSimpleProtobufNullable = _test_random(
                     () =>
                         (generator?.customs ?? $generator.customs)?.number?.([
                             {
-                                name: "type",
+                                target: "number",
+                                name: 'Type<"float">',
+                                kind: "type",
                                 value: "float",
+                                validate:
+                                    "-1.175494351e38 <= $input && $input <= 3.4028235e38",
+                                exclusive: true,
                             },
                         ]) ?? (generator?.number ?? $generator.number)(0, 100),
                 ])(),
                 double: $pick([
                     () => null,
                     () =>
-                        (generator?.customs ?? $generator.customs)?.number?.(
-                            [],
-                        ) ?? (generator?.number ?? $generator.number)(0, 100),
+                        (generator?.customs ?? $generator.customs)?.number?.([
+                            {
+                                target: "number",
+                                name: 'Type<"double">',
+                                kind: "type",
+                                value: "double",
+                                validate: "true",
+                                exclusive: true,
+                            },
+                        ]) ?? (generator?.number ?? $generator.number)(0, 100),
                 ])(),
                 string: $pick([
                     () => null,
@@ -110,13 +136,11 @@ export const test_random_ObjectSimpleProtobufNullable = _test_random(
                 (null === input.bool || "boolean" === typeof input.bool) &&
                 (null === input.int32 ||
                     ("number" === typeof input.int32 &&
-                        Number.isFinite(input.int32) &&
                         Math.floor(input.int32) === input.int32 &&
                         -2147483648 <= input.int32 &&
                         input.int32 <= 2147483647)) &&
                 (null === input.uint32 ||
                     ("number" === typeof input.uint32 &&
-                        Number.isFinite(input.uint32) &&
                         Math.floor(input.uint32) === input.uint32 &&
                         0 <= input.uint32 &&
                         input.uint32 <= 4294967295)) &&
@@ -126,12 +150,12 @@ export const test_random_ObjectSimpleProtobufNullable = _test_random(
                         BigInt(0) <= input.uint64)) &&
                 (null === input.float ||
                     ("number" === typeof input.float &&
-                        Number.isFinite(input.float) &&
                         -1.175494351e38 <= input.float &&
                         input.float <= 3.4028235e38)) &&
                 (null === input.double ||
                     ("number" === typeof input.double &&
-                        Number.isFinite(input.double))) &&
+                        Number.isFinite(input.double) &&
+                        true)) &&
                 (null === input.string || "string" === typeof input.string) &&
                 (null === input.bytes || input.bytes instanceof Uint8Array);
             return "object" === typeof input && null !== input && $io0(input);
@@ -157,49 +181,32 @@ export const test_random_ObjectSimpleProtobufNullable = _test_random(
                         })) &&
                     (null === input.int32 ||
                         ("number" === typeof input.int32 &&
-                            Number.isFinite(input.int32) &&
-                            (Math.floor(input.int32) === input.int32 ||
-                                $guard(_exceptionable, {
-                                    path: _path + ".int32",
-                                    expected: "number (@type int32)",
-                                    value: input.int32,
-                                })) &&
-                            ((-2147483648 <= input.int32 &&
+                            ((Math.floor(input.int32) === input.int32 &&
+                                -2147483648 <= input.int32 &&
                                 input.int32 <= 2147483647) ||
                                 $guard(_exceptionable, {
                                     path: _path + ".int32",
-                                    expected: "number (@type int32)",
+                                    expected: 'number & Type<"int32">',
                                     value: input.int32,
                                 }))) ||
                         $guard(_exceptionable, {
                             path: _path + ".int32",
-                            expected: "(null | number)",
+                            expected: '((number & Type<"int32">) | null)',
                             value: input.int32,
                         })) &&
                     (null === input.uint32 ||
                         ("number" === typeof input.uint32 &&
-                            Number.isFinite(input.uint32) &&
-                            (Math.floor(input.uint32) === input.uint32 ||
+                            ((Math.floor(input.uint32) === input.uint32 &&
+                                0 <= input.uint32 &&
+                                input.uint32 <= 4294967295) ||
                                 $guard(_exceptionable, {
                                     path: _path + ".uint32",
-                                    expected: "number (@type uint32)",
-                                    value: input.uint32,
-                                })) &&
-                            (0 <= input.uint32 ||
-                                $guard(_exceptionable, {
-                                    path: _path + ".uint32",
-                                    expected: "number (@type uint32)",
-                                    value: input.uint32,
-                                })) &&
-                            (input.uint32 <= 4294967295 ||
-                                $guard(_exceptionable, {
-                                    path: _path + ".uint32",
-                                    expected: "number (@type uint32)",
+                                    expected: 'number & Type<"uint32">',
                                     value: input.uint32,
                                 }))) ||
                         $guard(_exceptionable, {
                             path: _path + ".uint32",
-                            expected: "(null | number)",
+                            expected: '((number & Type<"uint32">) | null)',
                             value: input.uint32,
                         })) &&
                     (null === input.int64 ||
@@ -214,35 +221,45 @@ export const test_random_ObjectSimpleProtobufNullable = _test_random(
                             (BigInt(0) <= input.uint64 ||
                                 $guard(_exceptionable, {
                                     path: _path + ".uint64",
-                                    expected: "bigint (@type uint64)",
+                                    expected: 'bigint & Type<"uint64">',
                                     value: input.uint64,
                                 }))) ||
                         $guard(_exceptionable, {
                             path: _path + ".uint64",
-                            expected: "(bigint | null)",
+                            expected: '((bigint & Type<"uint64">) | null)',
                             value: input.uint64,
                         })) &&
                     (null === input.float ||
                         ("number" === typeof input.float &&
-                            Number.isFinite(input.float) &&
                             ((-1.175494351e38 <= input.float &&
                                 input.float <= 3.4028235e38) ||
                                 $guard(_exceptionable, {
                                     path: _path + ".float",
-                                    expected: "number (@type float)",
+                                    expected: 'number & Type<"float">',
                                     value: input.float,
                                 }))) ||
                         $guard(_exceptionable, {
                             path: _path + ".float",
-                            expected: "(null | number)",
+                            expected: '((number & Type<"float">) | null)',
                             value: input.float,
                         })) &&
                     (null === input.double ||
                         ("number" === typeof input.double &&
-                            Number.isFinite(input.double)) ||
+                            (Number.isFinite(input.double) ||
+                                $guard(_exceptionable, {
+                                    path: _path + ".double",
+                                    expected: "number",
+                                    value: input.double,
+                                })) &&
+                            (true ||
+                                $guard(_exceptionable, {
+                                    path: _path + ".double",
+                                    expected: 'number & Type<"double">',
+                                    value: input.double,
+                                }))) ||
                         $guard(_exceptionable, {
                             path: _path + ".double",
-                            expected: "(null | number)",
+                            expected: '((number & Type<"double">) | null)',
                             value: input.double,
                         })) &&
                     (null === input.string ||

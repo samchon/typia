@@ -3,13 +3,10 @@ import ts from "typescript";
 import { MetadataCollection } from "../../factories/MetadataCollection";
 import { ProtobufFactory } from "../../factories/ProtobufFactory";
 
-import { IMetadataCommentTag } from "../../schemas/metadata/IMetadataCommentTag";
 import { Metadata } from "../../schemas/metadata/Metadata";
 import { MetadataObject } from "../../schemas/metadata/MetadataObject";
 
 import { IProject } from "../../transformers/IProject";
-
-import { Atomic } from "../../typings/Atomic";
 
 import { MapUtil } from "../../utils/MapUtil";
 import { NameEncoder } from "../../utils/NameEncoder";
@@ -85,7 +82,7 @@ export namespace ProtobufMessageProgrammer {
         return obj.properties
             .map((prop) => {
                 const key: string = prop.key.getSoleLiteral()!;
-                const type: string = decode(ptr)(prop.tags)(prop.value);
+                const type: string = decode(ptr)(prop.value);
                 return type.indexOf("${name}") !== -1
                     ? type.replace("${name}", key)
                     : `${
@@ -104,22 +101,20 @@ export namespace ProtobufMessageProgrammer {
     ----------------------------------------------------------- */
     const decode =
         (ptr: IPointer<number>) =>
-        (tags: IMetadataCommentTag[]) =>
         (meta: Metadata): string => {
             const elements: Set<string> = new Set();
             if (meta.natives.length) elements.add("bytes");
             for (const atomic of ProtobufUtil.getAtomics(meta))
-                elements.add(decode_atomic(tags)(atomic));
+                elements.add(atomic);
             for (const array of meta.arrays)
-                elements.add(`repeated ${decode(ptr)(tags)(array.type.value)}`);
+                elements.add(`repeated ${decode(ptr)(array.type.value)}`);
             for (const obj of meta.objects)
                 elements.add(
                     is_dynamic_object(obj)
-                        ? decode_map(ptr)(tags)(obj.properties[0]!)
+                        ? decode_map(ptr)(obj.properties[0]!)
                         : NameEncoder.encode(obj.name),
                 );
-            for (const map of meta.maps)
-                elements.add(decode_map(ptr)(tags)(map));
+            for (const map of meta.maps) elements.add(decode_map(ptr)(map));
             return elements.size === 1
                 ? [...elements][0]!
                 : [
@@ -134,35 +129,10 @@ export namespace ProtobufMessageProgrammer {
                   ].join("\n");
         };
 
-    const decode_atomic =
-        (tags: IMetadataCommentTag[]) =>
-        (literal: Atomic.Literal): string => {
-            if (literal === "boolean") return "bool";
-            else if (literal === "bigint")
-                return tags.find(
-                    (t) => t.kind === "type" && t.value === "uint64",
-                )
-                    ? "uint64"
-                    : "int64";
-            else if (literal === "number") {
-                const type = tags.find((t) => t.kind === "type") as
-                    | IMetadataCommentTag.INumberType
-                    | undefined;
-                if (type?.value === undefined) return "double";
-                else if (type.value === "int") return "int32";
-                else if (type.value === "uint") return "uint32";
-                else return type.value;
-            }
-            return literal;
-        };
-
     const decode_map =
         (ptr: IPointer<number>) =>
-        (tags: IMetadataCommentTag[]) =>
         (prop: Metadata.Entry): string =>
-            `map<${decode(ptr)([])(prop.key)}, ${decode(ptr)(tags)(
-                prop.value,
-            )}>`;
+            `map<${decode(ptr)(prop.key)}, ${decode(ptr)(prop.value)}>`;
 }
 
 interface Hierarchy {

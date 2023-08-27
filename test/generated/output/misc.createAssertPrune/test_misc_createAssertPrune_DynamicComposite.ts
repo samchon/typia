@@ -12,6 +12,8 @@ export const test_misc_assertPrune_DynamicComposite = _test_misc_assertPrune(
                 "string" === typeof input.id &&
                 "string" === typeof input.name &&
                 Object.keys(input).every((key: any) => {
+                    if (["id", "name"].some((prop: any) => key === prop))
+                        return true;
                     const value = input[key];
                     if (undefined === value) return true;
                     if (
@@ -74,6 +76,10 @@ export const test_misc_assertPrune_DynamicComposite = _test_misc_assertPrune(
                         })) &&
                     (false === _exceptionable ||
                         Object.keys(input).every((key: any) => {
+                            if (
+                                ["id", "name"].some((prop: any) => key === prop)
+                            )
+                                return true;
                             const value = input[key];
                             if (undefined === value) return true;
                             if (

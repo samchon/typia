@@ -256,7 +256,7 @@ export const test_protobuf_validateDecode_ObjectPrimitive =
                                     );
                                     break;
                                 case 6:
-                                    // boolean;
+                                    // bool;
                                     output.secret = reader.bool();
                                     break;
                                 case 7:

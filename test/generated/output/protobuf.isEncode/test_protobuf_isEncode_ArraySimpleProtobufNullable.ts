@@ -22,7 +22,6 @@ export const test_protobuf_isEncode_ArraySimpleProtobufNullable =
                                 input.int32.every(
                                     (elem: any) =>
                                         "number" === typeof elem &&
-                                        Number.isFinite(elem) &&
                                         Math.floor(elem) === elem &&
                                         -2147483648 <= elem &&
                                         elem <= 2147483647,
@@ -32,7 +31,6 @@ export const test_protobuf_isEncode_ArraySimpleProtobufNullable =
                                 input.uint32.every(
                                     (elem: any) =>
                                         "number" === typeof elem &&
-                                        Number.isFinite(elem) &&
                                         Math.floor(elem) === elem &&
                                         0 <= elem &&
                                         elem <= 4294967295,
@@ -40,7 +38,8 @@ export const test_protobuf_isEncode_ArraySimpleProtobufNullable =
                         (null === input.int64 ||
                             (Array.isArray(input.int64) &&
                                 input.int64.every(
-                                    (elem: any) => "bigint" === typeof elem,
+                                    (elem: any) =>
+                                        "bigint" === typeof elem && true,
                                 ))) &&
                         (null === input.uint64 ||
                             (Array.isArray(input.uint64) &&
@@ -54,7 +53,6 @@ export const test_protobuf_isEncode_ArraySimpleProtobufNullable =
                                 input.float.every(
                                     (elem: any) =>
                                         "number" === typeof elem &&
-                                        Number.isFinite(elem) &&
                                         -1.175494351e38 <= elem &&
                                         elem <= 3.4028235e38,
                                 ))) &&
@@ -63,7 +61,8 @@ export const test_protobuf_isEncode_ArraySimpleProtobufNullable =
                                 input.double.every(
                                     (elem: any) =>
                                         "number" === typeof elem &&
-                                        Number.isFinite(elem),
+                                        Number.isFinite(elem) &&
+                                        true,
                                 ))) &&
                         (null === input.string ||
                             (Array.isArray(input.string) &&
@@ -232,7 +231,8 @@ export const test_protobuf_isEncode_ArraySimpleProtobufNullable =
                             (null === input.int64 ||
                                 (Array.isArray(input.int64) &&
                                     input.int64.every(
-                                        (elem: any) => "bigint" === typeof elem,
+                                        (elem: any) =>
+                                            "bigint" === typeof elem && true,
                                     ))) &&
                             (null === input.uint64 ||
                                 (Array.isArray(input.uint64) &&
@@ -252,7 +252,8 @@ export const test_protobuf_isEncode_ArraySimpleProtobufNullable =
                             (null === input.double ||
                                 (Array.isArray(input.double) &&
                                     input.double.every(
-                                        (elem: any) => "number" === typeof elem,
+                                        (elem: any) =>
+                                            "number" === typeof elem && true,
                                     ))) &&
                             (null === input.string ||
                                 (Array.isArray(input.string) &&
@@ -316,7 +317,7 @@ export const test_protobuf_isEncode_ArraySimpleProtobufNullable =
                             } else output.boolean.push(reader.bool());
                             break;
                         case 2:
-                            // type: Array<number>;
+                            // type: Array<(number & Type<"int32">)>;
                             output.int32 ??= [] as any[];
                             if (2 === (tag & 7)) {
                                 const piece = reader.uint32() + reader.index();
@@ -325,7 +326,7 @@ export const test_protobuf_isEncode_ArraySimpleProtobufNullable =
                             } else output.int32.push(reader.int32());
                             break;
                         case 3:
-                            // type: Array<number>;
+                            // type: Array<(number & Type<"uint32">)>;
                             output.uint32 ??= [] as any[];
                             if (2 === (tag & 7)) {
                                 const piece = reader.uint32() + reader.index();
@@ -334,7 +335,7 @@ export const test_protobuf_isEncode_ArraySimpleProtobufNullable =
                             } else output.uint32.push(reader.uint32());
                             break;
                         case 4:
-                            // type: Array<bigint>;
+                            // type: Array<(bigint & Type<"int64">)>;
                             output.int64 ??= [] as any[];
                             if (2 === (tag & 7)) {
                                 const piece = reader.uint32() + reader.index();
@@ -343,7 +344,7 @@ export const test_protobuf_isEncode_ArraySimpleProtobufNullable =
                             } else output.int64.push(reader.int64());
                             break;
                         case 5:
-                            // type: Array<bigint>;
+                            // type: Array<(bigint & Type<"uint64">)>;
                             output.uint64 ??= [] as any[];
                             if (2 === (tag & 7)) {
                                 const piece = reader.uint32() + reader.index();
@@ -352,7 +353,7 @@ export const test_protobuf_isEncode_ArraySimpleProtobufNullable =
                             } else output.uint64.push(reader.uint64());
                             break;
                         case 6:
-                            // type: Array<number>;
+                            // type: Array<(number & Type<"float">)>;
                             output.float ??= [] as any[];
                             if (2 === (tag & 7)) {
                                 const piece = reader.uint32() + reader.index();
@@ -361,7 +362,7 @@ export const test_protobuf_isEncode_ArraySimpleProtobufNullable =
                             } else output.float.push(reader.float());
                             break;
                         case 7:
-                            // type: Array<number>;
+                            // type: Array<(number & Type<"double">)>;
                             output.double ??= [] as any[];
                             if (2 === (tag & 7)) {
                                 const piece = reader.uint32() + reader.index();

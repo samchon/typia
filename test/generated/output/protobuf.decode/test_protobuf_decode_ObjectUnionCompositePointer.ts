@@ -92,11 +92,11 @@ export const test_protobuf_decode_ObjectUnionCompositePointer =
                         const tag = reader.uint32();
                         switch (tag >>> 3) {
                             case 1:
-                                // number;
+                                // double;
                                 output.x = reader.double();
                                 break;
                             case 2:
-                                // number;
+                                // double;
                                 output.y = reader.double();
                                 break;
                             default:
@@ -290,7 +290,7 @@ export const test_protobuf_decode_ObjectUnionCompositePointer =
                                 );
                                 break;
                             case 2:
-                                // number;
+                                // double;
                                 output.radius = reader.double();
                                 break;
                             default:

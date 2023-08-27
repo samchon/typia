@@ -24,7 +24,7 @@ export const test_protobuf_decode_ObjectHierarchical = _test_protobuf_decode(
                     const tag = reader.uint32();
                     switch (tag >>> 3) {
                         case 1:
-                            // number;
+                            // double;
                             output.id = reader.double();
                             break;
                         case 2:
@@ -77,7 +77,7 @@ export const test_protobuf_decode_ObjectHierarchical = _test_protobuf_decode(
                     const tag = reader.uint32();
                     switch (tag >>> 3) {
                         case 1:
-                            // number;
+                            // double;
                             output.id = reader.double();
                             break;
                         case 2:
@@ -89,15 +89,15 @@ export const test_protobuf_decode_ObjectHierarchical = _test_protobuf_decode(
                             output.name = reader.string();
                             break;
                         case 4:
-                            // number;
+                            // double;
                             output.sequence = reader.double();
                             break;
                         case 5:
-                            // boolean;
+                            // bool;
                             output.exclusive = reader.bool();
                             break;
                         case 6:
-                            // number;
+                            // double;
                             output.priority = reader.double();
                             break;
                         case 7:
@@ -121,11 +121,11 @@ export const test_protobuf_decode_ObjectHierarchical = _test_protobuf_decode(
                     const tag = reader.uint32();
                     switch (tag >>> 3) {
                         case 1:
-                            // number;
+                            // double;
                             output.time = reader.double();
                             break;
                         case 2:
-                            // number;
+                            // double;
                             output.zone = reader.double();
                             break;
                         default:
@@ -149,7 +149,7 @@ export const test_protobuf_decode_ObjectHierarchical = _test_protobuf_decode(
                     const tag = reader.uint32();
                     switch (tag >>> 3) {
                         case 1:
-                            // number;
+                            // double;
                             output.id = reader.double();
                             break;
                         case 2:
@@ -169,7 +169,7 @@ export const test_protobuf_decode_ObjectHierarchical = _test_protobuf_decode(
                             output.created_at = $pdo2(reader, reader.uint32());
                             break;
                         case 6:
-                            // boolean;
+                            // bool;
                             output.authorized = reader.bool();
                             break;
                         default:
@@ -190,7 +190,7 @@ export const test_protobuf_decode_ObjectHierarchical = _test_protobuf_decode(
                     const tag = reader.uint32();
                     switch (tag >>> 3) {
                         case 1:
-                            // number;
+                            // double;
                             output.id = reader.double();
                             break;
                         case 2:
@@ -221,7 +221,7 @@ export const test_protobuf_decode_ObjectHierarchical = _test_protobuf_decode(
                     const tag = reader.uint32();
                     switch (tag >>> 3) {
                         case 1:
-                            // number;
+                            // double;
                             output.id = reader.double();
                             break;
                         case 2:
@@ -233,7 +233,7 @@ export const test_protobuf_decode_ObjectHierarchical = _test_protobuf_decode(
                             output.name = reader.string();
                             break;
                         case 4:
-                            // number;
+                            // double;
                             output.grade = reader.double();
                             break;
                         case 5:
@@ -251,8 +251,6 @@ export const test_protobuf_decode_ObjectHierarchical = _test_protobuf_decode(
             return $pdo0(reader);
         })(input),
     encode: (input: ObjectHierarchical): Uint8Array => {
-        const $is_url = (typia.protobuf.createEncode as any).is_url;
-        const $is_ipv4 = (typia.protobuf.createEncode as any).is_ipv4;
         const $Sizer = (typia.protobuf.createEncode as any).Sizer;
         const $Writer = (typia.protobuf.createEncode as any).Writer;
         const encoder = (writer: any): any => {

@@ -32,7 +32,21 @@ export namespace IsProgrammer {
             atomist: () => (entry) => () =>
                 [
                     ...(entry.expression ? [entry.expression] : []),
-                    ...entry.tags.map((tag) => tag.expression),
+                    ...(entry.conditions.length === 0
+                        ? []
+                        : [
+                              entry.conditions
+                                  .map((set) =>
+                                      set
+                                          .map((s) => s.expression)
+                                          .reduce((a, b) =>
+                                              ts.factory.createLogicalAnd(a, b),
+                                          ),
+                                  )
+                                  .reduce((a, b) =>
+                                      ts.factory.createLogicalOr(a, b),
+                                  ),
+                          ]),
                 ].reduce((x, y) => ts.factory.createLogicalAnd(x, y)),
             combiner: () => (type: "and" | "or") => {
                 const initial: ts.TrueLiteral | ts.FalseLiteral =
@@ -119,52 +133,49 @@ export namespace IsProgrammer {
                 addition: () => importer.declare(modulo),
             };
 
-            config.decoder =
-                () => (input, target, explore, tags, jsDocTags) => {
+            config.decoder = () => (input, target, explore) => {
+                if (
+                    target.size() === 1 &&
+                    target.objects.length === 1 &&
+                    target.isRequired() === true &&
+                    target.nullable === false
+                ) {
+                    // ONLY WHEN OBJECT WITH SOME ATOMIC PROPERTIES
+                    const obj: MetadataObject = target.objects[0]!;
                     if (
-                        target.size() === 1 &&
-                        target.objects.length === 1 &&
-                        target.isRequired() === true &&
-                        target.nullable === false
-                    ) {
-                        // ONLY WHEN OBJECT WITH SOME ATOMIC PROPERTIES
-                        const obj: MetadataObject = target.objects[0]!;
-                        if (
-                            obj._Is_simple(explore.from === "top" ? 0 : 1) &&
-                            (equals === false ||
-                                OptionPredicator.undefined(project.options) ===
-                                    false)
-                        )
-                            return ts.factory.createLogicalAnd(
-                                ExpressionFactory.isObject({
-                                    checkNull: true,
-                                    checkArray: false,
-                                })(input),
-                                config.joiner.object(
+                        obj._Is_simple(explore.from === "top" ? 0 : 1) &&
+                        (equals === false ||
+                            OptionPredicator.undefined(project.options) ===
+                                false)
+                    )
+                        return ts.factory.createLogicalAnd(
+                            ExpressionFactory.isObject({
+                                checkNull: true,
+                                checkArray: false,
+                            })(input),
+                            config.joiner.object(
+                                ts.factory.createAsExpression(
+                                    input,
+                                    TypeFactory.keyword("any"),
+                                ),
+                                feature_object_entries(config as any)(importer)(
+                                    obj,
+                                )(
                                     ts.factory.createAsExpression(
                                         input,
                                         TypeFactory.keyword("any"),
                                     ),
-                                    feature_object_entries(config as any)(
-                                        importer,
-                                    )(obj)(
-                                        ts.factory.createAsExpression(
-                                            input,
-                                            TypeFactory.keyword("any"),
-                                        ),
-                                        "top",
-                                    ),
+                                    "top",
                                 ),
-                            );
-                    }
-                    return CheckerProgrammer.decode(project)(config)(importer)(
-                        input,
-                        target,
-                        explore,
-                        tags,
-                        jsDocTags,
-                    );
-                };
+                            ),
+                        );
+                }
+                return CheckerProgrammer.decode(project)(config)(importer)(
+                    input,
+                    target,
+                    explore,
+                );
+            };
 
             // GENERATE CHECKER
             return CheckerProgrammer.write(project)(config)(importer);

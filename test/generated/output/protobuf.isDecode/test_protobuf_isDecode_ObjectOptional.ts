@@ -53,7 +53,7 @@ export const test_protobuf_isDecode_ObjectOptional = _test_protobuf_isDecode(
                                 output.email = reader.string();
                                 break;
                             case 4:
-                                // number;
+                                // double;
                                 output.sequence = reader.double();
                                 break;
                             default:

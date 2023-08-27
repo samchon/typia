@@ -1,36 +1,17 @@
 import { RandomGenerator } from "typia/lib/utils/RandomGenerator";
 
+import typia from "../../src";
 import { Spoiler } from "../helpers/Spoiler";
 
 export interface ObjectSimpleProtobufNullable {
     bool: null | boolean;
-
-    /**
-     * @type int32
-     */
-    int32: null | number;
-
-    /**
-     * @type uint32
-     */
-    uint32: null | number;
-
+    int32: null | (number & typia.tags.Type<"int32">);
+    uint32: null | (number & typia.tags.Type<"uint32">);
     int64: null | bigint;
-
-    /**
-     * @type uint64
-     */
-    uint64: null | bigint;
-
-    /**
-     * @type float
-     */
-    float: null | number;
-
-    double: null | number;
-
+    uint64: null | (bigint & typia.tags.Type<"uint64">);
+    float: null | (number & typia.tags.Type<"float">);
+    double: null | (number & typia.tags.Type<"double">);
     string: null | string;
-
     bytes: null | Uint8Array;
 }
 export namespace ObjectSimpleProtobufNullable {

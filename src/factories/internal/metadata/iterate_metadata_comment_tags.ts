@@ -1,10 +1,8 @@
 import { MetadataObject } from "../../../schemas/metadata/MetadataObject";
 
-import { Writable } from "../../../typings/Writable";
-
 import { Escaper } from "../../../utils/Escaper";
 
-import { MetadataTagFactory } from "../../MetadataTagFactory";
+import { MetadataCommentTagFactory } from "../../MetadataCommentTagFactory";
 
 export const iterate_metadata_comment_tags = (obj: MetadataObject) => {
     if (obj.tagged_ === true) return;
@@ -20,12 +18,10 @@ export const iterate_metadata_comment_tags = (obj: MetadataObject) => {
                 ? key.slice(1, -1)
                 : null;
 
-        Writable(prop).tags = MetadataTagFactory.generate(prop.value)(
-            prop.jsDocTags,
-        )(
+        MetadataCommentTagFactory.analyze(
             variable !== null
                 ? () => `${obj.name}.${variable}`
                 : () => `${obj.name}[${key}]`,
-        );
+        )(prop.value)(prop.jsDocTags);
     }
 };

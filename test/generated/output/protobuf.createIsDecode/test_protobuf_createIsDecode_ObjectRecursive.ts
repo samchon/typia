@@ -46,7 +46,7 @@ export const test_protobuf_isDecode_ObjectRecursive = _test_protobuf_isDecode(
                             output.parent = $pdo0(reader, reader.uint32());
                             break;
                         case 2:
-                            // number;
+                            // double;
                             output.id = reader.double();
                             break;
                         case 3:
@@ -58,7 +58,7 @@ export const test_protobuf_isDecode_ObjectRecursive = _test_protobuf_isDecode(
                             output.name = reader.string();
                             break;
                         case 5:
-                            // number;
+                            // double;
                             output.sequence = reader.double();
                             break;
                         case 6:
@@ -82,11 +82,11 @@ export const test_protobuf_isDecode_ObjectRecursive = _test_protobuf_isDecode(
                     const tag = reader.uint32();
                     switch (tag >>> 3) {
                         case 1:
-                            // number;
+                            // double;
                             output.time = reader.double();
                             break;
                         case 2:
-                            // number;
+                            // double;
                             output.zone = reader.double();
                             break;
                         default:

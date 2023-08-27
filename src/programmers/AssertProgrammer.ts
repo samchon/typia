@@ -31,29 +31,65 @@ export namespace AssertProgrammer {
                 trace: true,
                 numeric: OptionPredicator.numeric(project.options),
                 equals,
-                atomist: (explore) => (tuple) => (input) =>
+                atomist: (explore) => (entry) => (input) =>
                     [
-                        ...(tuple.expression ? [tuple.expression] : []),
-                        ...tuple.tags.map((tag) =>
-                            ts.factory.createLogicalOr(
-                                tag.expression,
-                                create_guard_call(importer)(
-                                    explore.from === "top"
-                                        ? ts.factory.createTrue()
-                                        : ts.factory.createIdentifier(
-                                              "_exceptionable",
+                        ...(entry.expression ? [entry.expression] : []),
+                        ...(entry.conditions.length === 0
+                            ? []
+                            : entry.conditions.length === 1
+                            ? entry.conditions[0]!.map((cond) =>
+                                  ts.factory.createLogicalOr(
+                                      cond.expression,
+                                      create_guard_call(importer)(
+                                          explore.from === "top"
+                                              ? ts.factory.createTrue()
+                                              : ts.factory.createIdentifier(
+                                                    "_exceptionable",
+                                                ),
+                                      )(
+                                          ts.factory.createIdentifier(
+                                              explore.postfix
+                                                  ? `_path + ${explore.postfix}`
+                                                  : "_path",
                                           ),
-                                )(
-                                    ts.factory.createIdentifier(
-                                        explore.postfix
-                                            ? `_path + ${explore.postfix}`
-                                            : "_path",
-                                    ),
-                                    tag.expected,
-                                    input,
-                                ),
-                            ),
-                        ),
+                                          cond.expected,
+                                          input,
+                                      ),
+                                  ),
+                              )
+                            : [
+                                  ts.factory.createLogicalOr(
+                                      entry.conditions
+                                          .map((set) =>
+                                              set
+                                                  .map((s) => s.expression)
+                                                  .reduce((a, b) =>
+                                                      ts.factory.createLogicalAnd(
+                                                          a,
+                                                          b,
+                                                      ),
+                                                  ),
+                                          )
+                                          .reduce((a, b) =>
+                                              ts.factory.createLogicalOr(a, b),
+                                          ),
+                                      create_guard_call(importer)(
+                                          explore.from === "top"
+                                              ? ts.factory.createTrue()
+                                              : ts.factory.createIdentifier(
+                                                    "_exceptionable",
+                                                ),
+                                      )(
+                                          ts.factory.createIdentifier(
+                                              explore.postfix
+                                                  ? `_path + ${explore.postfix}`
+                                                  : "_path",
+                                          ),
+                                          entry.expected,
+                                          input,
+                                      ),
+                                  ),
+                              ]),
                     ].reduce((x, y) => ts.factory.createLogicalAnd(x, y)),
                 combiner: combiner(equals)(importer),
                 joiner: joiner(equals)(importer),

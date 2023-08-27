@@ -49,7 +49,6 @@ export const application_alias =
                         : undefined;
                 })(),
                 description: alias.description ?? undefined,
-                "x-typia-metaTags": alias.tags.length ? alias.tags : undefined,
                 "x-typia-jsDocTags": alias.jsDocTags.length
                     ? alias.jsDocTags
                     : undefined,

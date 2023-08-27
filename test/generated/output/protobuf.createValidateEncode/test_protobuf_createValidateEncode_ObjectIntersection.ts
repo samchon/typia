@@ -131,7 +131,7 @@ export const test_protobuf_validateEncode_ObjectIntersection =
                             output.name = reader.string();
                             break;
                         case 3:
-                            // boolean;
+                            // bool;
                             output.vulnerable = reader.bool();
                             break;
                         default:

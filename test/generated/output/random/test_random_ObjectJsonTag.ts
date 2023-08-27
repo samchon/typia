@@ -15,21 +15,14 @@ export const test_random_ObjectJsonTag = _test_random(
                 _depth: number = 0,
             ): any => ({
                 vulnerable:
-                    (generator?.customs ?? $generator.customs)?.string?.([
-                        {
-                            name: "deprecated",
-                        },
-                    ]) ?? (generator?.string ?? $generator.string)(),
+                    (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                    (generator?.string ?? $generator.string)(),
                 description:
                     (generator?.customs ?? $generator.customs)?.string?.([]) ??
                     (generator?.string ?? $generator.string)(),
                 title:
-                    (generator?.customs ?? $generator.customs)?.string?.([
-                        {
-                            name: "title",
-                            value: "something",
-                        },
-                    ]) ?? (generator?.string ?? $generator.string)(),
+                    (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                    (generator?.string ?? $generator.string)(),
                 complicate_title:
                     (generator?.customs ?? $generator.customs)?.string?.([]) ??
                     (generator?.string ?? $generator.string)(),

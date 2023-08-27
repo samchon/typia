@@ -51,8 +51,6 @@ export const test_json_stringify_ObjectHierarchical = _test_json_stringify(
             $io2(input.created_at);
         const $number = (typia.json.stringify as any).number;
         const $string = (typia.json.stringify as any).string;
-        const $is_url = (typia.json.stringify as any).is_url;
-        const $is_ipv4 = (typia.json.stringify as any).is_ipv4;
         const $so0 = (input: any): any =>
             `{"id":${$number(input.id)},"channel":${$so1(
                 input.channel,

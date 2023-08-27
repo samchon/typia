@@ -1,0 +1,113 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/schemas/TypeTagRange"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "TypeTagRange": {
+        "$id": "#/components/schemas/TypeTagRange",
+        "type": "object",
+        "properties": {
+          "value": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TypeTagRange.Type"
+            }
+          }
+        },
+        "required": [
+          "value"
+        ],
+        "x-typia-jsDocTags": []
+      },
+      "TypeTagRange.Type": {
+        "$id": "#/components/schemas/TypeTagRange.Type",
+        "type": "object",
+        "properties": {
+          "greater": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "integer",
+            "minimum": 3,
+            "exclusiveMinimum": true
+          },
+          "greater_equal": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "integer",
+            "minimum": 3
+          },
+          "less": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "integer",
+            "maximum": 7,
+            "exclusiveMaximum": true
+          },
+          "less_equal": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "integer",
+            "maximum": 7
+          },
+          "greater_less": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "integer",
+            "maximum": 7,
+            "exclusiveMaximum": true,
+            "minimum": 3,
+            "exclusiveMinimum": true
+          },
+          "greater_equal_less": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "integer",
+            "maximum": 7,
+            "exclusiveMaximum": true,
+            "minimum": 3
+          },
+          "greater_less_equal": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "integer",
+            "minimum": 3,
+            "exclusiveMinimum": true,
+            "maximum": 7
+          },
+          "greater_equal_less_equal": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "integer",
+            "maximum": 7,
+            "minimum": 3
+          },
+          "equal": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "integer",
+            "maximum": 10,
+            "minimum": 10
+          }
+        },
+        "required": [
+          "greater",
+          "greater_equal",
+          "less",
+          "less_equal",
+          "greater_less",
+          "greater_equal_less",
+          "greater_less_equal",
+          "greater_equal_less_equal",
+          "equal"
+        ],
+        "x-typia-jsDocTags": []
+      }
+    }
+  },
+  "purpose": "ajv"
+}

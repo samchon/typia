@@ -71,6 +71,22 @@ export namespace ProtobufFactory {
                 );
         }
         //----
+        // ATOMIC CASES
+        //----
+        else if (meta.atomics.length) {
+            const numbers = ProtobufUtil.getNumbers(meta);
+            const bigints = ProtobufUtil.getBigints(meta);
+
+            for (const type of ["int64", "uint64"])
+                if (
+                    numbers.some((n) => n === type) &&
+                    bigints.some((b) => b === type)
+                )
+                    throw notSupportedError({ method })(
+                        `${type} cannot be used in both number and bigint types. Recommend to remove from number type`,
+                    );
+        }
+        //----
         // ARRRAY CASES
         //----
         // DO NOT ALLOW MULTI-DIMENTIONAL ARRAY
@@ -182,7 +198,7 @@ export namespace ProtobufFactory {
             meta.objects.some(
                 (obj) =>
                     isDynamicObject(obj) &&
-                    obj.properties.some((p) => p.value.isBinaryUnion()),
+                    obj.properties.some((p) => ProtobufUtil.isUnion(p.value)),
             )
         )
             throw notSupportedError({ method })(
@@ -191,20 +207,18 @@ export namespace ProtobufFactory {
         //----
         // MAP CASES
         //----
-        // MAP TYPE, BUT PROPERTY KEY TYPE IS NOT STRING
-        // @todo -> need to allow other typed keys
+        // KEY TYPE ISUNION
         else if (
             meta.maps.length &&
-            meta.maps.some(
-                (m) =>
-                    m.key.isBinaryUnion() ||
-                    (m.key.atomics.find((v) => v.type === "string") ===
-                        undefined &&
-                        m.key.constants.find((c) => c.type === "string") ===
-                            undefined),
-            )
+            meta.maps.some((m) => ProtobufUtil.isUnion(m.key))
         )
-            throw notSupportedError({ method })("non-string key typed map");
+            throw notSupportedError({ method })("union key typed map");
+        // KEY TYPE IS NOT ATOMIC
+        else if (
+            meta.maps.length &&
+            meta.maps.some((m) => ProtobufUtil.getAtomics(m.key).length !== 1)
+        )
+            throw notSupportedError({ method })("non-atomic key typed map");
         // MAP TYPE, BUT PROPERTY KEY TYPE IS OPTIONAL
         else if (
             meta.maps.length &&
@@ -227,7 +241,7 @@ export namespace ProtobufFactory {
         // UNION IN MAP
         else if (
             meta.maps.length &&
-            meta.maps.some((m) => m.value.isBinaryUnion())
+            meta.maps.some((m) => ProtobufUtil.isUnion(m.value))
         )
             throw notSupportedError({ method })("union type in map");
     };

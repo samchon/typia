@@ -8,7 +8,6 @@ import { ProtobufFactory } from "../../factories/ProtobufFactory";
 import { StatementFactory } from "../../factories/StatementFactory";
 import { TypeFactory } from "../../factories/TypeFactory";
 
-import { IMetadataCommentTag } from "../../schemas/metadata/IMetadataCommentTag";
 import { Metadata } from "../../schemas/metadata/Metadata";
 import { MetadataArray } from "../../schemas/metadata/MetadataArray";
 import { MetadataObject } from "../../schemas/metadata/MetadataObject";
@@ -16,7 +15,7 @@ import { MetadataProperty } from "../../schemas/metadata/MetadataProperty";
 
 import { IProject } from "../../transformers/IProject";
 
-import { Atomic } from "../../typings/Atomic";
+import { ProtobufAtomic } from "../../typings/ProtobufAtomic";
 
 import { FunctionImporter } from "../helpers/FunctionImporeter";
 import { ProtobufUtil } from "../helpers/ProtobufUtil";
@@ -166,9 +165,8 @@ export namespace ProtobufDecodeProgrammer {
                             ts.factory.createIdentifier(props.output),
                         )(p.key.getSoleLiteral()!),
                         p.value,
-                        p.tags,
                     );
-                    i += p.value.binarySize();
+                    i += ProtobufUtil.size(p.value);
                     return clause;
                 })
                 .flat();
@@ -280,7 +278,6 @@ export namespace ProtobufDecodeProgrammer {
         (
             accessor: ts.ElementAccessExpression | ts.PropertyAccessExpression,
             meta: Metadata,
-            tags: IMetadataCommentTag[],
         ): ts.CaseClause[] => {
             const clauses: ts.CaseClause[] = [];
             const emplace =
@@ -320,20 +317,15 @@ export namespace ProtobufDecodeProgrammer {
 
             const required: boolean = meta.isRequired() && !meta.nullable;
             for (const atomic of ProtobufUtil.getAtomics(meta))
-                emplace(atomic)(decode_atomic(atomic, tags));
+                emplace(atomic)(decode_atomic(meta)(atomic));
             if (meta.natives.length) emplace("bytes")(decode_bytes("bytes"));
             for (const array of meta.arrays)
                 emplace(`Array<${array.type.value.getName()}>`)(
-                    decode_array(accessor, array, required, tags),
+                    decode_array(accessor, array, required),
                 );
             for (const map of meta.maps)
                 emplace(`Map<string, ${map.value.getName()}>`)(
-                    decode_map(project)(importer)(
-                        accessor,
-                        map,
-                        required,
-                        tags,
-                    ),
+                    decode_map(project)(importer)(accessor, map, required),
                 );
             for (const obj of meta.objects)
                 emplace(obj.name)(
@@ -348,49 +340,31 @@ export namespace ProtobufDecodeProgrammer {
             return clauses;
         };
 
-    const decode_atomic = (
-        atomic: Atomic.Literal,
-        tags: IMetadataCommentTag[],
-    ): ts.Expression => {
-        if (atomic === "string") return decode_bytes("string");
-        const method =
-            atomic === "bigint"
-                ? tags.find((t) => t.kind === "type" && t.value === "uint64")
-                    ? "uint64"
-                    : "int64"
-                : atomic === "number"
-                ? (() => {
-                      const type = tags.find((t) => t.kind === "type");
-                      if (type === undefined) return "double";
-                      return type.value === "int" || type.value === "int32"
-                          ? "int32"
-                          : type.value === "uint" || type.value === "uint32"
-                          ? "uint32"
-                          : type.value === "int64"
-                          ? "int64"
-                          : type.value === "uint64"
-                          ? "uint64"
-                          : type.value === "float"
-                          ? "float"
-                          : "double";
-                  })()
-                : "bool";
-        const call = ts.factory.createCallExpression(
-            IdentifierFactory.access(ts.factory.createIdentifier("reader"))(
-                method,
-            ),
-            undefined,
-            undefined,
-        );
-        return atomic === "number" &&
-            (method === "int64" || method === "uint64")
-            ? ts.factory.createCallExpression(
-                  ts.factory.createIdentifier("Number"),
-                  undefined,
-                  [call],
-              )
-            : call;
-    };
+    const decode_atomic =
+        (meta: Metadata) =>
+        (atomic: ProtobufAtomic): ts.Expression => {
+            if (atomic === "string") return decode_bytes("string");
+
+            const call: ts.CallExpression = ts.factory.createCallExpression(
+                IdentifierFactory.access(ts.factory.createIdentifier("reader"))(
+                    atomic,
+                ),
+                undefined,
+                undefined,
+            );
+            if (atomic !== "int64" && atomic !== "uint64") return call;
+
+            const isNumber: boolean = ProtobufUtil.getNumbers(meta).some(
+                (n) => n === atomic,
+            );
+            return isNumber
+                ? ts.factory.createCallExpression(
+                      ts.factory.createIdentifier("Number"),
+                      undefined,
+                      [call],
+                  )
+                : call;
+        };
 
     const decode_bytes = (method: "bytes" | "string"): ts.Expression =>
         ts.factory.createCallExpression(
@@ -405,7 +379,6 @@ export namespace ProtobufDecodeProgrammer {
         accessor: ts.ElementAccessExpression | ts.PropertyAccessExpression,
         array: MetadataArray,
         required: boolean,
-        tags: IMetadataCommentTag[],
     ): ts.Statement[] => {
         const statements: Array<ts.Expression | ts.Statement> = [];
         if (required === false)
@@ -423,7 +396,7 @@ export namespace ProtobufDecodeProgrammer {
             );
         const atomics = ProtobufUtil.getAtomics(array.type.value);
         const decoder = atomics.length
-            ? () => decode_atomic(atomics[0]!, tags)
+            ? () => decode_atomic(array.type.value)(atomics[0]!)
             : array.type.value.natives.length
             ? () => decode_bytes("bytes")
             : array.type.value.objects.length
@@ -556,7 +529,7 @@ export namespace ProtobufDecodeProgrammer {
                         ts.factory.createToken(ts.SyntaxKind.EqualsToken),
                         ts.factory.createIdentifier("entry.value"),
                     ),
-            })(top, required, top.tags);
+            })(top, required);
         };
 
     const decode_map =
@@ -566,7 +539,6 @@ export namespace ProtobufDecodeProgrammer {
             accessor: ts.ElementAccessExpression | ts.PropertyAccessExpression,
             map: Metadata.Entry,
             required: boolean,
-            tags: IMetadataCommentTag[],
         ): ts.Statement[] =>
             decode_entry(project)(importer)({
                 initializer: () =>
@@ -593,7 +565,7 @@ export namespace ProtobufDecodeProgrammer {
                             ts.factory.createIdentifier("entry.value"),
                         ],
                     ),
-            })(map, required, tags);
+            })(map, required);
 
     const decode_entry =
         (project: IProject) =>
@@ -602,11 +574,7 @@ export namespace ProtobufDecodeProgrammer {
             initializer: () => ts.Expression;
             setter: () => ts.Expression;
         }) =>
-        (
-            map: Metadata.Entry,
-            required: boolean,
-            tags: IMetadataCommentTag[],
-        ): ts.Statement[] => {
+        (map: Metadata.Entry, required: boolean): ts.Statement[] => {
             const statements: ts.Statement[] = [
                 ...(required
                     ? []
@@ -646,14 +614,12 @@ export namespace ProtobufDecodeProgrammer {
                         key: MetadataFactory.soleLiteral("key"),
                         value: map.key,
                         description: null,
-                        tags: [],
                         jsDocTags: [],
                     }),
                     MetadataProperty.create({
                         key: MetadataFactory.soleLiteral("value"),
                         value: map.value,
                         description: null,
-                        tags,
                         jsDocTags: [],
                     }),
                 ]),

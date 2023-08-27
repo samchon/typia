@@ -1,0 +1,40 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/schemas/TypeTagCustom"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "TypeTagCustom": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string",
+            "format": "uuid"
+          },
+          "dollar": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          },
+          "postfix": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          }
+        },
+        "nullable": false,
+        "required": [
+          "id",
+          "dollar",
+          "postfix"
+        ],
+        "x-typia-jsDocTags": []
+      }
+    }
+  },
+  "purpose": "swagger"
+}

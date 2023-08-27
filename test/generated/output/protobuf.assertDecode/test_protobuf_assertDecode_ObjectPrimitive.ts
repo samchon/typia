@@ -52,7 +52,7 @@ export const test_protobuf_assertDecode_ObjectPrimitive =
                                     );
                                     break;
                                 case 6:
-                                    // boolean;
+                                    // bool;
                                     output.secret = reader.bool();
                                     break;
                                 case 7:

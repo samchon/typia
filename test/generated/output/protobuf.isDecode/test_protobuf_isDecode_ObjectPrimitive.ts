@@ -76,7 +76,7 @@ export const test_protobuf_isDecode_ObjectPrimitive = _test_protobuf_isDecode(
                                 );
                                 break;
                             case 6:
-                                // boolean;
+                                // bool;
                                 output.secret = reader.bool();
                                 break;
                             case 7:

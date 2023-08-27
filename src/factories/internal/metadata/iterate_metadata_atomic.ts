@@ -1,6 +1,7 @@
 import ts from "typescript";
 
 import { Metadata } from "../../../schemas/metadata/Metadata";
+import { MetadataAtomic } from "../../../schemas/metadata/MetadataAtomic";
 
 import { ArrayUtil } from "../../../utils/ArrayUtil";
 
@@ -19,7 +20,7 @@ export const iterate_metadata_atomic = (
         if (filter(info.atomic) || filter(info.literal)) {
             ArrayUtil.add(
                 meta.atomics,
-                { type: info.name, tags: [] },
+                MetadataAtomic.create({ type: info.name, tags: [] }),
                 (x, y) => x.type === y.type,
             );
             return true;

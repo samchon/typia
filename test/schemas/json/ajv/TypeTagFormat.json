@@ -1,0 +1,70 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/schemas/TypeTagFormat"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "TypeTagFormat": {
+        "$id": "#/components/schemas/TypeTagFormat",
+        "type": "object",
+        "properties": {
+          "uuid": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string",
+            "format": "uuid"
+          },
+          "email": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string",
+            "format": "email"
+          },
+          "url": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string",
+            "format": "url"
+          },
+          "ipv4": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string",
+            "format": "ipv4"
+          },
+          "ipv6": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string",
+            "format": "ipv6"
+          },
+          "date": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string",
+            "format": "date"
+          },
+          "date_time": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "uuid",
+          "email",
+          "url",
+          "ipv4",
+          "ipv6",
+          "date",
+          "date_time"
+        ],
+        "x-typia-jsDocTags": []
+      }
+    }
+  },
+  "purpose": "ajv"
+}

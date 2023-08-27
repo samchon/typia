@@ -28,7 +28,7 @@ export const test_protobuf_assertDecode_ClassGetter =
                                 output.name = reader.string();
                                 break;
                             case 3:
-                                // boolean;
+                                // bool;
                                 output.dead = reader.bool();
                                 break;
                             default:

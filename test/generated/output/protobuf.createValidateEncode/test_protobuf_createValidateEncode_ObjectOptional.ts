@@ -172,7 +172,7 @@ export const test_protobuf_validateEncode_ObjectOptional =
                             output.email = reader.string();
                             break;
                         case 4:
-                            // number;
+                            // double;
                             output.sequence = reader.double();
                             break;
                         default:

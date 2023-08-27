@@ -29,31 +29,31 @@ export const test_protobuf_decode_ObjectSimpleProtobufOptional =
                         const tag = reader.uint32();
                         switch (tag >>> 3) {
                             case 1:
-                                // boolean;
+                                // bool;
                                 output.bool = reader.bool();
                                 break;
                             case 2:
-                                // number;
+                                // int32;
                                 output.int32 = reader.int32();
                                 break;
                             case 3:
-                                // number;
+                                // uint32;
                                 output.uint32 = reader.uint32();
                                 break;
                             case 4:
-                                // bigint;
+                                // int64;
                                 output.int64 = reader.int64();
                                 break;
                             case 5:
-                                // bigint;
+                                // uint64;
                                 output.uint64 = reader.uint64();
                                 break;
                             case 6:
-                                // number;
+                                // float;
                                 output.float = reader.float();
                                 break;
                             case 7:
-                                // number;
+                                // double;
                                 output.double = reader.double();
                                 break;
                             case 8:

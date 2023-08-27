@@ -1,35 +1,41 @@
 import ts from "typescript";
 
-import { IMetadataCommentTag } from "../../schemas/metadata/IMetadataCommentTag";
+import { ExpressionFactory } from "../../factories/ExpressionFactory";
+
+import { IMetadataTypeTag } from "../../schemas/metadata/IMetadataTypeTag";
+import { MetadataArray } from "../../schemas/metadata/MetadataArray";
+
+import { IProject } from "../../transformers/IProject";
+
+import { ICheckEntry } from "../helpers/ICheckEntry";
 
 /**
  * @internal
  */
 export const check_array_length =
-    (metaTags: IMetadataCommentTag[]) => (input: ts.Expression) =>
-        metaTags
-            .map((tag) => ({
-                tag,
-                expression:
-                    tag.kind === "items"
-                        ? ts.factory.createStrictEquality(
-                              ts.factory.createNumericLiteral(tag.value),
-                              input,
-                          )
-                        : tag.kind === "minItems"
-                        ? ts.factory.createLessThanEquals(
-                              ts.factory.createNumericLiteral(tag.value),
-                              input,
-                          )
-                        : tag.kind === "maxItems"
-                        ? ts.factory.createGreaterThanEquals(
-                              ts.factory.createNumericLiteral(tag.value),
-                              input,
-                          )
-                        : null!,
-            }))
-            .filter((tuple) => tuple.expression !== null)
-            .map(({ tag, expression }) => ({
-                expected: `Array.length (@${tag.kind} ${tag.value})`,
-                expression,
-            }));
+    (project: IProject) =>
+    (array: MetadataArray) =>
+    (input: ts.Expression): ICheckEntry => {
+        const conditions: ICheckEntry.ICondition[][] = check_string_type_tags(
+            project,
+        )(array.tags)(input);
+
+        return {
+            expected: array.getName(),
+            expression: null,
+            conditions,
+        };
+    };
+
+const check_string_type_tags =
+    (project: IProject) =>
+    (matrix: IMetadataTypeTag[][]) =>
+    (input: ts.Expression): ICheckEntry.ICondition[][] =>
+        matrix.map((row) =>
+            row.map((tag) => ({
+                expected: `Array<> & ${tag.name}`,
+                expression: ExpressionFactory.transpile(project.context)(
+                    tag.validate,
+                )(input),
+            })),
+        );

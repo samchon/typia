@@ -37,7 +37,6 @@ export const test_protobuf_validateEncode_MapSimpleProtobufNullable =
                                                 elem.length === 2 &&
                                                 "string" === typeof elem[0] &&
                                                 "number" === typeof elem[1] &&
-                                                Number.isFinite(elem[1]) &&
                                                 Math.floor(elem[1]) ===
                                                     elem[1] &&
                                                 -2147483648 <= elem[1] &&
@@ -228,7 +227,7 @@ export const test_protobuf_validateEncode_MapSimpleProtobufNullable =
                                             $report(_exceptionable, {
                                                 path: _path + ".int32",
                                                 expected:
-                                                    "(Map<string, number> | null)",
+                                                    '(Map<string, (number & Type<"int32">)> | null)',
                                                 value: input.int32,
                                             })) &&
                                             (() =>
@@ -250,7 +249,7 @@ export const test_protobuf_validateEncode_MapSimpleProtobufNullable =
                                                                             _index2 +
                                                                             "]",
                                                                         expected:
-                                                                            "[string, number]",
+                                                                            '[string, (number & Type<"int32">)]',
                                                                         value: elem,
                                                                     },
                                                                 )) &&
@@ -265,7 +264,7 @@ export const test_protobuf_validateEncode_MapSimpleProtobufNullable =
                                                                                 _index2 +
                                                                                 "]",
                                                                             expected:
-                                                                                "[string, number]",
+                                                                                '[string, (number & Type<"int32">)]',
                                                                             value: elem,
                                                                         },
                                                                     )) &&
@@ -287,28 +286,12 @@ export const test_protobuf_validateEncode_MapSimpleProtobufNullable =
                                                                         ),
                                                                     ("number" ===
                                                                         typeof elem[1] &&
-                                                                        Number.isFinite(
-                                                                            elem[1],
-                                                                        ) &&
-                                                                        (Math.floor(
+                                                                        ((Math.floor(
                                                                             elem[1],
                                                                         ) ===
-                                                                            elem[1] ||
-                                                                            $report(
-                                                                                _exceptionable,
-                                                                                {
-                                                                                    path:
-                                                                                        _path +
-                                                                                        ".int32[" +
-                                                                                        _index2 +
-                                                                                        "][1]",
-                                                                                    expected:
-                                                                                        "number (@type int32)",
-                                                                                    value: elem[1],
-                                                                                },
-                                                                            )) &&
-                                                                        ((-2147483648 <=
                                                                             elem[1] &&
+                                                                            -2147483648 <=
+                                                                                elem[1] &&
                                                                             elem[1] <=
                                                                                 2147483647) ||
                                                                             $report(
@@ -320,7 +303,7 @@ export const test_protobuf_validateEncode_MapSimpleProtobufNullable =
                                                                                         _index2 +
                                                                                         "][1]",
                                                                                     expected:
-                                                                                        "number (@type int32)",
+                                                                                        'number & Type<"int32">',
                                                                                     value: elem[1],
                                                                                 },
                                                                             ))) ||
@@ -333,7 +316,7 @@ export const test_protobuf_validateEncode_MapSimpleProtobufNullable =
                                                                                     _index2 +
                                                                                     "][1]",
                                                                                 expected:
-                                                                                    "number",
+                                                                                    '(number & Type<"int32">)',
                                                                                 value: elem[1],
                                                                             },
                                                                         ),
@@ -351,7 +334,7 @@ export const test_protobuf_validateEncode_MapSimpleProtobufNullable =
                                                                         _index2 +
                                                                         "]",
                                                                     expected:
-                                                                        "[string, number]",
+                                                                        '[string, (number & Type<"int32">)]',
                                                                     value: elem,
                                                                 },
                                                             ),
@@ -362,7 +345,7 @@ export const test_protobuf_validateEncode_MapSimpleProtobufNullable =
                                         $report(_exceptionable, {
                                             path: _path + ".int32",
                                             expected:
-                                                "(Map<string, number> | null)",
+                                                '(Map<string, (number & Type<"int32">)> | null)',
                                             value: input.int32,
                                         }),
                                     null === input.bigint ||
@@ -583,7 +566,7 @@ export const test_protobuf_validateEncode_MapSimpleProtobufNullable =
                                             $report(_exceptionable, {
                                                 path: _path + ".string",
                                                 expected:
-                                                    "(Map<string, string> | null)",
+                                                    "(Map<string, (string & MinLength<1>)> | null)",
                                                 value: input.string,
                                             })) &&
                                             (() =>
@@ -605,7 +588,7 @@ export const test_protobuf_validateEncode_MapSimpleProtobufNullable =
                                                                             _index5 +
                                                                             "]",
                                                                         expected:
-                                                                            "[string, string]",
+                                                                            "[string, (string & MinLength<1>)]",
                                                                         value: elem,
                                                                     },
                                                                 )) &&
@@ -620,7 +603,7 @@ export const test_protobuf_validateEncode_MapSimpleProtobufNullable =
                                                                                 _index5 +
                                                                                 "]",
                                                                             expected:
-                                                                                "[string, string]",
+                                                                                "[string, (string & MinLength<1>)]",
                                                                             value: elem,
                                                                         },
                                                                     )) &&
@@ -654,7 +637,7 @@ export const test_protobuf_validateEncode_MapSimpleProtobufNullable =
                                                                                         _index5 +
                                                                                         "][1]",
                                                                                     expected:
-                                                                                        "string (@minLength 1)",
+                                                                                        "string & MinLength<1>",
                                                                                     value: elem[1],
                                                                                 },
                                                                             ))) ||
@@ -667,7 +650,7 @@ export const test_protobuf_validateEncode_MapSimpleProtobufNullable =
                                                                                     _index5 +
                                                                                     "][1]",
                                                                                 expected:
-                                                                                    "string",
+                                                                                    "(string & MinLength<1>)",
                                                                                 value: elem[1],
                                                                             },
                                                                         ),
@@ -685,7 +668,7 @@ export const test_protobuf_validateEncode_MapSimpleProtobufNullable =
                                                                         _index5 +
                                                                         "]",
                                                                     expected:
-                                                                        "[string, string]",
+                                                                        "[string, (string & MinLength<1>)]",
                                                                     value: elem,
                                                                 },
                                                             ),
@@ -696,7 +679,7 @@ export const test_protobuf_validateEncode_MapSimpleProtobufNullable =
                                         $report(_exceptionable, {
                                             path: _path + ".string",
                                             expected:
-                                                "(Map<string, string> | null)",
+                                                "(Map<string, (string & MinLength<1>)> | null)",
                                             value: input.string,
                                         }),
                                     null === input.bytes ||
@@ -1181,7 +1164,7 @@ export const test_protobuf_validateEncode_MapSimpleProtobufNullable =
                                             entry.key = reader.string();
                                             break;
                                         case 2:
-                                            // boolean;
+                                            // bool;
                                             entry.value = reader.bool();
                                             break;
                                         default:
@@ -1193,7 +1176,7 @@ export const test_protobuf_validateEncode_MapSimpleProtobufNullable =
                             })();
                             break;
                         case 2:
-                            // type: Map<string, number>;
+                            // type: Map<string, (number & Type<"int32">)>;
                             (() => {
                                 output.int32 ??= new Map<any, any>();
                                 const piece = reader.uint32() + reader.index();
@@ -1209,7 +1192,7 @@ export const test_protobuf_validateEncode_MapSimpleProtobufNullable =
                                             entry.key = reader.string();
                                             break;
                                         case 2:
-                                            // number;
+                                            // int32;
                                             entry.value = reader.int32();
                                             break;
                                         default:
@@ -1237,7 +1220,7 @@ export const test_protobuf_validateEncode_MapSimpleProtobufNullable =
                                             entry.key = reader.string();
                                             break;
                                         case 2:
-                                            // bigint;
+                                            // int64;
                                             entry.value = reader.int64();
                                             break;
                                         default:
@@ -1265,7 +1248,7 @@ export const test_protobuf_validateEncode_MapSimpleProtobufNullable =
                                             entry.key = reader.string();
                                             break;
                                         case 2:
-                                            // number;
+                                            // double;
                                             entry.value = reader.double();
                                             break;
                                         default:
@@ -1277,7 +1260,7 @@ export const test_protobuf_validateEncode_MapSimpleProtobufNullable =
                             })();
                             break;
                         case 5:
-                            // type: Map<string, string>;
+                            // type: Map<string, (string & MinLength<1>)>;
                             (() => {
                                 output.string ??= new Map<any, any>();
                                 const piece = reader.uint32() + reader.index();

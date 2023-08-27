@@ -106,19 +106,19 @@ export const test_protobuf_encode_ObjectGenericArray = _test_protobuf_encode(
                 const tag = reader.uint32();
                 switch (tag >>> 3) {
                     case 1:
-                        // number;
+                        // double;
                         output.page = reader.double();
                         break;
                     case 2:
-                        // number;
+                        // double;
                         output.limit = reader.double();
                         break;
                     case 3:
-                        // number;
+                        // double;
                         output.total_count = reader.double();
                         break;
                     case 4:
-                        // number;
+                        // double;
                         output.total_pages = reader.double();
                         break;
                     default:
@@ -142,7 +142,7 @@ export const test_protobuf_encode_ObjectGenericArray = _test_protobuf_encode(
                         output.name = reader.string();
                         break;
                     case 2:
-                        // number;
+                        // double;
                         output.age = reader.double();
                         break;
                     default:

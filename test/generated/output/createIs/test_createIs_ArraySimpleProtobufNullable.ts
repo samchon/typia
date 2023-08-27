@@ -17,7 +17,6 @@ export const test_is_ArraySimpleProtobufNullable = _test_is(
                     input.int32.every(
                         (elem: any) =>
                             "number" === typeof elem &&
-                            Number.isFinite(elem) &&
                             Math.floor(elem) === elem &&
                             -2147483648 <= elem &&
                             elem <= 2147483647,
@@ -27,7 +26,6 @@ export const test_is_ArraySimpleProtobufNullable = _test_is(
                     input.uint32.every(
                         (elem: any) =>
                             "number" === typeof elem &&
-                            Number.isFinite(elem) &&
                             Math.floor(elem) === elem &&
                             0 <= elem &&
                             elem <= 4294967295,
@@ -35,7 +33,7 @@ export const test_is_ArraySimpleProtobufNullable = _test_is(
             (null === input.int64 ||
                 (Array.isArray(input.int64) &&
                     input.int64.every(
-                        (elem: any) => "bigint" === typeof elem,
+                        (elem: any) => "bigint" === typeof elem && true,
                     ))) &&
             (null === input.uint64 ||
                 (Array.isArray(input.uint64) &&
@@ -48,7 +46,6 @@ export const test_is_ArraySimpleProtobufNullable = _test_is(
                     input.float.every(
                         (elem: any) =>
                             "number" === typeof elem &&
-                            Number.isFinite(elem) &&
                             -1.175494351e38 <= elem &&
                             elem <= 3.4028235e38,
                     ))) &&
@@ -56,7 +53,9 @@ export const test_is_ArraySimpleProtobufNullable = _test_is(
                 (Array.isArray(input.double) &&
                     input.double.every(
                         (elem: any) =>
-                            "number" === typeof elem && Number.isFinite(elem),
+                            "number" === typeof elem &&
+                            Number.isFinite(elem) &&
+                            true,
                     ))) &&
             (null === input.string ||
                 (Array.isArray(input.string) &&

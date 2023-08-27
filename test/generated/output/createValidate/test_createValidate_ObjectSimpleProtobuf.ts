@@ -11,12 +11,10 @@ export const test_validate_ObjectSimpleProtobuf = _test_validate(
             const $io0 = (input: any): boolean =>
                 "boolean" === typeof input.bool &&
                 "number" === typeof input.int32 &&
-                Number.isFinite(input.int32) &&
                 Math.floor(input.int32) === input.int32 &&
                 -2147483648 <= input.int32 &&
                 input.int32 <= 2147483647 &&
                 "number" === typeof input.uint32 &&
-                Number.isFinite(input.uint32) &&
                 Math.floor(input.uint32) === input.uint32 &&
                 0 <= input.uint32 &&
                 input.uint32 <= 4294967295 &&
@@ -24,11 +22,11 @@ export const test_validate_ObjectSimpleProtobuf = _test_validate(
                 "bigint" === typeof input.uint64 &&
                 BigInt(0) <= input.uint64 &&
                 "number" === typeof input.float &&
-                Number.isFinite(input.float) &&
                 -1.175494351e38 <= input.float &&
                 input.float <= 3.4028235e38 &&
                 "number" === typeof input.double &&
                 Number.isFinite(input.double) &&
+                true &&
                 "string" === typeof input.string &&
                 input.bytes instanceof Uint8Array;
             return "object" === typeof input && null !== input && $io0(input);
@@ -53,48 +51,31 @@ export const test_validate_ObjectSimpleProtobuf = _test_validate(
                                 value: input.bool,
                             }),
                         ("number" === typeof input.int32 &&
-                            Number.isFinite(input.int32) &&
-                            (Math.floor(input.int32) === input.int32 ||
-                                $report(_exceptionable, {
-                                    path: _path + ".int32",
-                                    expected: "number (@type int32)",
-                                    value: input.int32,
-                                })) &&
-                            ((-2147483648 <= input.int32 &&
+                            ((Math.floor(input.int32) === input.int32 &&
+                                -2147483648 <= input.int32 &&
                                 input.int32 <= 2147483647) ||
                                 $report(_exceptionable, {
                                     path: _path + ".int32",
-                                    expected: "number (@type int32)",
+                                    expected: 'number & Type<"int32">',
                                     value: input.int32,
                                 }))) ||
                             $report(_exceptionable, {
                                 path: _path + ".int32",
-                                expected: "number",
+                                expected: '(number & Type<"int32">)',
                                 value: input.int32,
                             }),
                         ("number" === typeof input.uint32 &&
-                            Number.isFinite(input.uint32) &&
-                            (Math.floor(input.uint32) === input.uint32 ||
+                            ((Math.floor(input.uint32) === input.uint32 &&
+                                0 <= input.uint32 &&
+                                input.uint32 <= 4294967295) ||
                                 $report(_exceptionable, {
                                     path: _path + ".uint32",
-                                    expected: "number (@type uint32)",
-                                    value: input.uint32,
-                                })) &&
-                            (0 <= input.uint32 ||
-                                $report(_exceptionable, {
-                                    path: _path + ".uint32",
-                                    expected: "number (@type uint32)",
-                                    value: input.uint32,
-                                })) &&
-                            (input.uint32 <= 4294967295 ||
-                                $report(_exceptionable, {
-                                    path: _path + ".uint32",
-                                    expected: "number (@type uint32)",
+                                    expected: 'number & Type<"uint32">',
                                     value: input.uint32,
                                 }))) ||
                             $report(_exceptionable, {
                                 path: _path + ".uint32",
-                                expected: "number",
+                                expected: '(number & Type<"uint32">)',
                                 value: input.uint32,
                             }),
                         "bigint" === typeof input.int64 ||
@@ -107,33 +88,43 @@ export const test_validate_ObjectSimpleProtobuf = _test_validate(
                             (BigInt(0) <= input.uint64 ||
                                 $report(_exceptionable, {
                                     path: _path + ".uint64",
-                                    expected: "bigint (@type uint64)",
+                                    expected: 'bigint & Type<"uint64">',
                                     value: input.uint64,
                                 }))) ||
                             $report(_exceptionable, {
                                 path: _path + ".uint64",
-                                expected: "bigint",
+                                expected: '(bigint & Type<"uint64">)',
                                 value: input.uint64,
                             }),
                         ("number" === typeof input.float &&
-                            Number.isFinite(input.float) &&
                             ((-1.175494351e38 <= input.float &&
                                 input.float <= 3.4028235e38) ||
                                 $report(_exceptionable, {
                                     path: _path + ".float",
-                                    expected: "number (@type float)",
+                                    expected: 'number & Type<"float">',
                                     value: input.float,
                                 }))) ||
                             $report(_exceptionable, {
                                 path: _path + ".float",
-                                expected: "number",
+                                expected: '(number & Type<"float">)',
                                 value: input.float,
                             }),
                         ("number" === typeof input.double &&
-                            Number.isFinite(input.double)) ||
+                            (Number.isFinite(input.double) ||
+                                $report(_exceptionable, {
+                                    path: _path + ".double",
+                                    expected: "number",
+                                    value: input.double,
+                                })) &&
+                            (true ||
+                                $report(_exceptionable, {
+                                    path: _path + ".double",
+                                    expected: 'number & Type<"double">',
+                                    value: input.double,
+                                }))) ||
                             $report(_exceptionable, {
                                 path: _path + ".double",
-                                expected: "number",
+                                expected: '(number & Type<"double">)',
                                 value: input.double,
                             }),
                         "string" === typeof input.string ||

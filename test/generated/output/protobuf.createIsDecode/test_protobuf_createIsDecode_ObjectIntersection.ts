@@ -42,7 +42,7 @@ export const test_protobuf_isDecode_ObjectIntersection =
                                 output.name = reader.string();
                                 break;
                             case 3:
-                                // boolean;
+                                // bool;
                                 output.vulnerable = reader.bool();
                                 break;
                             default:

@@ -22,7 +22,7 @@ export const test_protobuf_decode_ClassMethod = _test_protobuf_decode(
                             output.name = reader.string();
                             break;
                         case 2:
-                            // number;
+                            // double;
                             output.age = reader.double();
                             break;
                         default:

@@ -318,7 +318,7 @@ export const test_protobuf_validateEncode_ObjectPrimitive =
                             output.files.push($pdo1(reader, reader.uint32()));
                             break;
                         case 6:
-                            // boolean;
+                            // bool;
                             output.secret = reader.bool();
                             break;
                         case 7:

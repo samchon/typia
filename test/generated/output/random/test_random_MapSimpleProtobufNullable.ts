@@ -50,12 +50,7 @@ export const test_random_MapSimpleProtobufNullable = _test_random(
                                       (
                                           generator?.customs ??
                                           $generator.customs
-                                      )?.string?.([
-                                          {
-                                              name: "type",
-                                              value: "int32",
-                                          },
-                                      ]) ??
+                                      )?.string?.([]) ??
                                           (
                                               generator?.string ??
                                               $generator.string
@@ -65,8 +60,13 @@ export const test_random_MapSimpleProtobufNullable = _test_random(
                                           $generator.customs
                                       )?.number?.([
                                           {
-                                              name: "type",
+                                              target: "number",
+                                              name: 'Type<"int32">',
+                                              kind: "type",
                                               value: "int32",
+                                              validate:
+                                                  "Math.floor($input) === $input && -2147483648 <= $input && $input <= 2147483647",
+                                              exclusive: true,
                                           },
                                       ]) ??
                                           (
@@ -144,28 +144,22 @@ export const test_random_MapSimpleProtobufNullable = _test_random(
                                       (
                                           generator?.customs ??
                                           $generator.customs
-                                      )?.string?.([
-                                          {
-                                              name: "minLength",
-                                              value: "1",
-                                          },
-                                      ]) ??
+                                      )?.string?.([]) ??
                                           (
                                               generator?.string ??
                                               $generator.string
-                                          )(
-                                              (
-                                                  generator?.integer ??
-                                                  $generator.integer
-                                              )(1, 25),
-                                          ),
+                                          )(),
                                       (
                                           generator?.customs ??
                                           $generator.customs
                                       )?.string?.([
                                           {
-                                              name: "minLength",
-                                              value: "1",
+                                              target: "string",
+                                              name: "MinLength<1>",
+                                              kind: "minLength",
+                                              value: 1,
+                                              validate: "1 <= $input.length",
+                                              exclusive: true,
                                           },
                                       ]) ??
                                           (
@@ -261,7 +255,6 @@ export const test_random_MapSimpleProtobufNullable = _test_random(
                                     elem.length === 2 &&
                                     "string" === typeof elem[0] &&
                                     "number" === typeof elem[1] &&
-                                    Number.isFinite(elem[1]) &&
                                     Math.floor(elem[1]) === elem[1] &&
                                     -2147483648 <= elem[1] &&
                                     elem[1] <= 2147483647,
@@ -404,7 +397,8 @@ export const test_random_MapSimpleProtobufNullable = _test_random(
                         ((input.int32 instanceof Map ||
                             $guard(_exceptionable, {
                                 path: _path + ".int32",
-                                expected: "(Map<string, number> | null)",
+                                expected:
+                                    '(Map<string, (number & Type<"int32">)> | null)',
                                 value: input.int32,
                             })) &&
                             (() =>
@@ -417,7 +411,8 @@ export const test_random_MapSimpleProtobufNullable = _test_random(
                                                     ".int32[" +
                                                     _index2 +
                                                     "]",
-                                                expected: "[string, number]",
+                                                expected:
+                                                    '[string, (number & Type<"int32">)]',
                                                 value: elem,
                                             })) &&
                                             (elem.length === 2 ||
@@ -428,7 +423,7 @@ export const test_random_MapSimpleProtobufNullable = _test_random(
                                                         _index2 +
                                                         "]",
                                                     expected:
-                                                        "[string, number]",
+                                                        '[string, (number & Type<"int32">)]',
                                                     value: elem,
                                                 })) &&
                                             ("string" === typeof elem[0] ||
@@ -442,20 +437,9 @@ export const test_random_MapSimpleProtobufNullable = _test_random(
                                                     value: elem[0],
                                                 })) &&
                                             (("number" === typeof elem[1] &&
-                                                Number.isFinite(elem[1]) &&
-                                                (Math.floor(elem[1]) ===
-                                                    elem[1] ||
-                                                    $guard(_exceptionable, {
-                                                        path:
-                                                            _path +
-                                                            ".int32[" +
-                                                            _index2 +
-                                                            "][1]",
-                                                        expected:
-                                                            "number (@type int32)",
-                                                        value: elem[1],
-                                                    })) &&
-                                                ((-2147483648 <= elem[1] &&
+                                                ((Math.floor(elem[1]) ===
+                                                    elem[1] &&
+                                                    -2147483648 <= elem[1] &&
                                                     elem[1] <= 2147483647) ||
                                                     $guard(_exceptionable, {
                                                         path:
@@ -464,7 +448,7 @@ export const test_random_MapSimpleProtobufNullable = _test_random(
                                                             _index2 +
                                                             "][1]",
                                                         expected:
-                                                            "number (@type int32)",
+                                                            'number & Type<"int32">',
                                                         value: elem[1],
                                                     }))) ||
                                                 $guard(_exceptionable, {
@@ -473,7 +457,8 @@ export const test_random_MapSimpleProtobufNullable = _test_random(
                                                         ".int32[" +
                                                         _index2 +
                                                         "][1]",
-                                                    expected: "number",
+                                                    expected:
+                                                        '(number & Type<"int32">)',
                                                     value: elem[1],
                                                 }))) ||
                                         $guard(_exceptionable, {
@@ -482,13 +467,15 @@ export const test_random_MapSimpleProtobufNullable = _test_random(
                                                 ".int32[" +
                                                 _index2 +
                                                 "]",
-                                            expected: "[string, number]",
+                                            expected:
+                                                '[string, (number & Type<"int32">)]',
                                             value: elem,
                                         }),
                                 ))()) ||
                         $guard(_exceptionable, {
                             path: _path + ".int32",
-                            expected: "(Map<string, number> | null)",
+                            expected:
+                                '(Map<string, (number & Type<"int32">)> | null)',
                             value: input.int32,
                         })) &&
                     (null === input.bigint ||
@@ -628,7 +615,8 @@ export const test_random_MapSimpleProtobufNullable = _test_random(
                         ((input.string instanceof Map ||
                             $guard(_exceptionable, {
                                 path: _path + ".string",
-                                expected: "(Map<string, string> | null)",
+                                expected:
+                                    "(Map<string, (string & MinLength<1>)> | null)",
                                 value: input.string,
                             })) &&
                             (() =>
@@ -641,7 +629,8 @@ export const test_random_MapSimpleProtobufNullable = _test_random(
                                                     ".string[" +
                                                     _index5 +
                                                     "]",
-                                                expected: "[string, string]",
+                                                expected:
+                                                    "[string, (string & MinLength<1>)]",
                                                 value: elem,
                                             })) &&
                                             (elem.length === 2 ||
@@ -652,7 +641,7 @@ export const test_random_MapSimpleProtobufNullable = _test_random(
                                                         _index5 +
                                                         "]",
                                                     expected:
-                                                        "[string, string]",
+                                                        "[string, (string & MinLength<1>)]",
                                                     value: elem,
                                                 })) &&
                                             ("string" === typeof elem[0] ||
@@ -674,7 +663,7 @@ export const test_random_MapSimpleProtobufNullable = _test_random(
                                                             _index5 +
                                                             "][1]",
                                                         expected:
-                                                            "string (@minLength 1)",
+                                                            "string & MinLength<1>",
                                                         value: elem[1],
                                                     }))) ||
                                                 $guard(_exceptionable, {
@@ -683,7 +672,8 @@ export const test_random_MapSimpleProtobufNullable = _test_random(
                                                         ".string[" +
                                                         _index5 +
                                                         "][1]",
-                                                    expected: "string",
+                                                    expected:
+                                                        "(string & MinLength<1>)",
                                                     value: elem[1],
                                                 }))) ||
                                         $guard(_exceptionable, {
@@ -692,13 +682,15 @@ export const test_random_MapSimpleProtobufNullable = _test_random(
                                                 ".string[" +
                                                 _index5 +
                                                 "]",
-                                            expected: "[string, string]",
+                                            expected:
+                                                "[string, (string & MinLength<1>)]",
                                             value: elem,
                                         }),
                                 ))()) ||
                         $guard(_exceptionable, {
                             path: _path + ".string",
-                            expected: "(Map<string, string> | null)",
+                            expected:
+                                "(Map<string, (string & MinLength<1>)> | null)",
                             value: input.string,
                         })) &&
                     (null === input.bytes ||

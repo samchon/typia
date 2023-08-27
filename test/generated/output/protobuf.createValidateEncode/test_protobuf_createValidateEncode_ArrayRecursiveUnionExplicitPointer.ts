@@ -910,7 +910,7 @@ export const test_protobuf_validateEncode_ArrayRecursiveUnionExplicitPointer =
                     const tag = reader.uint32();
                     switch (tag >>> 3) {
                         case 1:
-                            // number;
+                            // double;
                             output.id = reader.double();
                             break;
                         case 2:
@@ -955,7 +955,7 @@ export const test_protobuf_validateEncode_ArrayRecursiveUnionExplicitPointer =
                     const tag = reader.uint32();
                     switch (tag >>> 3) {
                         case 1:
-                            // number;
+                            // double;
                             output.id = reader.double();
                             break;
                         case 2:
@@ -967,11 +967,11 @@ export const test_protobuf_validateEncode_ArrayRecursiveUnionExplicitPointer =
                             output.path = reader.string();
                             break;
                         case 4:
-                            // number;
+                            // double;
                             output.width = reader.double();
                             break;
                         case 5:
-                            // number;
+                            // double;
                             output.height = reader.double();
                             break;
                         case 6:
@@ -979,7 +979,7 @@ export const test_protobuf_validateEncode_ArrayRecursiveUnionExplicitPointer =
                             output.url = reader.string();
                             break;
                         case 7:
-                            // number;
+                            // double;
                             output.size = reader.double();
                             break;
                         case 8:
@@ -1012,7 +1012,7 @@ export const test_protobuf_validateEncode_ArrayRecursiveUnionExplicitPointer =
                     const tag = reader.uint32();
                     switch (tag >>> 3) {
                         case 1:
-                            // number;
+                            // double;
                             output.id = reader.double();
                             break;
                         case 2:
@@ -1024,7 +1024,7 @@ export const test_protobuf_validateEncode_ArrayRecursiveUnionExplicitPointer =
                             output.path = reader.string();
                             break;
                         case 4:
-                            // number;
+                            // double;
                             output.size = reader.double();
                             break;
                         case 5:
@@ -1061,7 +1061,7 @@ export const test_protobuf_validateEncode_ArrayRecursiveUnionExplicitPointer =
                     const tag = reader.uint32();
                     switch (tag >>> 3) {
                         case 1:
-                            // number;
+                            // double;
                             output.id = reader.double();
                             break;
                         case 2:
@@ -1073,11 +1073,11 @@ export const test_protobuf_validateEncode_ArrayRecursiveUnionExplicitPointer =
                             output.path = reader.string();
                             break;
                         case 4:
-                            // number;
+                            // double;
                             output.size = reader.double();
                             break;
                         case 5:
-                            // number;
+                            // double;
                             output.count = reader.double();
                             break;
                         case 6:
@@ -1109,7 +1109,7 @@ export const test_protobuf_validateEncode_ArrayRecursiveUnionExplicitPointer =
                     const tag = reader.uint32();
                     switch (tag >>> 3) {
                         case 1:
-                            // number;
+                            // double;
                             output.id = reader.double();
                             break;
                         case 2:

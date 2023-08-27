@@ -13,6 +13,8 @@ export const test_misc_clone_DynamicComposite = _test_misc_clone(
                 name: input.name as any,
             } as any;
             for (const [key, value] of Object.entries(input)) {
+                if (["id", "name"].some((regular: any) => regular === key))
+                    continue;
                 if (RegExp(/^[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?$/).test(key)) {
                     output[key] = value as any;
                     continue;

@@ -109,7 +109,7 @@ export const test_protobuf_isEncode_DynamicTree = _test_protobuf_isEncode(
                         output.id = reader.string();
                         break;
                     case 2:
-                        // number;
+                        // double;
                         output.sequence = reader.double();
                         break;
                     case 3:

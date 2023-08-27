@@ -38,7 +38,7 @@ export const test_protobuf_decode_MapSimpleProtobuf = _test_protobuf_decode(
                                             entry.key = reader.string();
                                             break;
                                         case 2:
-                                            // boolean;
+                                            // bool;
                                             entry.value = reader.bool();
                                             break;
                                         default:
@@ -50,7 +50,7 @@ export const test_protobuf_decode_MapSimpleProtobuf = _test_protobuf_decode(
                             })();
                             break;
                         case 2:
-                            // type: Map<string, number>;
+                            // type: Map<string, (number & Type<"int32">)>;
                             (() => {
                                 const piece = reader.uint32() + reader.index();
                                 const entry = {
@@ -65,7 +65,7 @@ export const test_protobuf_decode_MapSimpleProtobuf = _test_protobuf_decode(
                                             entry.key = reader.string();
                                             break;
                                         case 2:
-                                            // number;
+                                            // int32;
                                             entry.value = reader.int32();
                                             break;
                                         default:
@@ -92,7 +92,7 @@ export const test_protobuf_decode_MapSimpleProtobuf = _test_protobuf_decode(
                                             entry.key = reader.string();
                                             break;
                                         case 2:
-                                            // bigint;
+                                            // int64;
                                             entry.value = reader.int64();
                                             break;
                                         default:
@@ -119,7 +119,7 @@ export const test_protobuf_decode_MapSimpleProtobuf = _test_protobuf_decode(
                                             entry.key = reader.string();
                                             break;
                                         case 2:
-                                            // number;
+                                            // double;
                                             entry.value = reader.double();
                                             break;
                                         default:
@@ -131,7 +131,7 @@ export const test_protobuf_decode_MapSimpleProtobuf = _test_protobuf_decode(
                             })();
                             break;
                         case 5:
-                            // type: Map<string, string>;
+                            // type: Map<string, (string & MinLength<1>)>;
                             (() => {
                                 const piece = reader.uint32() + reader.index();
                                 const entry = {

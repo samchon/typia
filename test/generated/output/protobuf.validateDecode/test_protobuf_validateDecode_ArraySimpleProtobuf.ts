@@ -24,7 +24,6 @@ export const test_protobuf_validateDecode_ArraySimpleProtobuf =
                             input.int32.every(
                                 (elem: any) =>
                                     "number" === typeof elem &&
-                                    Number.isFinite(elem) &&
                                     Math.floor(elem) === elem &&
                                     -2147483648 <= elem &&
                                     elem <= 2147483647,
@@ -33,14 +32,13 @@ export const test_protobuf_validateDecode_ArraySimpleProtobuf =
                             input.uint32.every(
                                 (elem: any) =>
                                     "number" === typeof elem &&
-                                    Number.isFinite(elem) &&
                                     Math.floor(elem) === elem &&
                                     0 <= elem &&
                                     elem <= 4294967295,
                             ) &&
                             Array.isArray(input.int64) &&
                             input.int64.every(
-                                (elem: any) => "bigint" === typeof elem,
+                                (elem: any) => "bigint" === typeof elem && true,
                             ) &&
                             Array.isArray(input.uint64) &&
                             input.uint64.every(
@@ -52,7 +50,6 @@ export const test_protobuf_validateDecode_ArraySimpleProtobuf =
                             input.float.every(
                                 (elem: any) =>
                                     "number" === typeof elem &&
-                                    Number.isFinite(elem) &&
                                     -1.175494351e38 <= elem &&
                                     elem <= 3.4028235e38,
                             ) &&
@@ -60,7 +57,8 @@ export const test_protobuf_validateDecode_ArraySimpleProtobuf =
                             input.double.every(
                                 (elem: any) =>
                                     "number" === typeof elem &&
-                                    Number.isFinite(elem),
+                                    Number.isFinite(elem) &&
+                                    true,
                             ) &&
                             Array.isArray(input.string) &&
                             input.string.every(
@@ -127,30 +125,18 @@ export const test_protobuf_validateDecode_ArraySimpleProtobuf =
                                     ((Array.isArray(input.int32) ||
                                         $report(_exceptionable, {
                                             path: _path + ".int32",
-                                            expected: "Array<number>",
+                                            expected:
+                                                'Array<number & Type<"int32">>',
                                             value: input.int32,
                                         })) &&
                                         input.int32
                                             .map(
                                                 (elem: any, _index2: number) =>
                                                     ("number" === typeof elem &&
-                                                        Number.isFinite(elem) &&
-                                                        (Math.floor(elem) ===
-                                                            elem ||
-                                                            $report(
-                                                                _exceptionable,
-                                                                {
-                                                                    path:
-                                                                        _path +
-                                                                        ".int32[" +
-                                                                        _index2 +
-                                                                        "]",
-                                                                    expected:
-                                                                        "number (@type int32)",
-                                                                    value: elem,
-                                                                },
-                                                            )) &&
-                                                        ((-2147483648 <= elem &&
+                                                        ((Math.floor(elem) ===
+                                                            elem &&
+                                                            -2147483648 <=
+                                                                elem &&
                                                             elem <=
                                                                 2147483647) ||
                                                             $report(
@@ -162,7 +148,7 @@ export const test_protobuf_validateDecode_ArraySimpleProtobuf =
                                                                         _index2 +
                                                                         "]",
                                                                     expected:
-                                                                        "number (@type int32)",
+                                                                        'number & Type<"int32">',
                                                                     value: elem,
                                                                 },
                                                             ))) ||
@@ -172,29 +158,34 @@ export const test_protobuf_validateDecode_ArraySimpleProtobuf =
                                                             ".int32[" +
                                                             _index2 +
                                                             "]",
-                                                        expected: "number",
+                                                        expected:
+                                                            '(number & Type<"int32">)',
                                                         value: elem,
                                                     }),
                                             )
                                             .every((flag: boolean) => flag)) ||
                                         $report(_exceptionable, {
                                             path: _path + ".int32",
-                                            expected: "Array<number>",
+                                            expected:
+                                                'Array<number & Type<"int32">>',
                                             value: input.int32,
                                         }),
                                     ((Array.isArray(input.uint32) ||
                                         $report(_exceptionable, {
                                             path: _path + ".uint32",
-                                            expected: "Array<number>",
+                                            expected:
+                                                'Array<number & Type<"uint32">>',
                                             value: input.uint32,
                                         })) &&
                                         input.uint32
                                             .map(
                                                 (elem: any, _index3: number) =>
                                                     ("number" === typeof elem &&
-                                                        Number.isFinite(elem) &&
-                                                        (Math.floor(elem) ===
-                                                            elem ||
+                                                        ((Math.floor(elem) ===
+                                                            elem &&
+                                                            0 <= elem &&
+                                                            elem <=
+                                                                4294967295) ||
                                                             $report(
                                                                 _exceptionable,
                                                                 {
@@ -204,35 +195,7 @@ export const test_protobuf_validateDecode_ArraySimpleProtobuf =
                                                                         _index3 +
                                                                         "]",
                                                                     expected:
-                                                                        "number (@type uint32)",
-                                                                    value: elem,
-                                                                },
-                                                            )) &&
-                                                        (0 <= elem ||
-                                                            $report(
-                                                                _exceptionable,
-                                                                {
-                                                                    path:
-                                                                        _path +
-                                                                        ".uint32[" +
-                                                                        _index3 +
-                                                                        "]",
-                                                                    expected:
-                                                                        "number (@type uint32)",
-                                                                    value: elem,
-                                                                },
-                                                            )) &&
-                                                        (elem <= 4294967295 ||
-                                                            $report(
-                                                                _exceptionable,
-                                                                {
-                                                                    path:
-                                                                        _path +
-                                                                        ".uint32[" +
-                                                                        _index3 +
-                                                                        "]",
-                                                                    expected:
-                                                                        "number (@type uint32)",
+                                                                        'number & Type<"uint32">',
                                                                     value: elem,
                                                                 },
                                                             ))) ||
@@ -242,46 +205,66 @@ export const test_protobuf_validateDecode_ArraySimpleProtobuf =
                                                             ".uint32[" +
                                                             _index3 +
                                                             "]",
-                                                        expected: "number",
+                                                        expected:
+                                                            '(number & Type<"uint32">)',
                                                         value: elem,
                                                     }),
                                             )
                                             .every((flag: boolean) => flag)) ||
                                         $report(_exceptionable, {
                                             path: _path + ".uint32",
-                                            expected: "Array<number>",
+                                            expected:
+                                                'Array<number & Type<"uint32">>',
                                             value: input.uint32,
                                         }),
                                     ((Array.isArray(input.int64) ||
                                         $report(_exceptionable, {
                                             path: _path + ".int64",
-                                            expected: "Array<bigint>",
+                                            expected:
+                                                'Array<bigint & Type<"int64">>',
                                             value: input.int64,
                                         })) &&
                                         input.int64
                                             .map(
                                                 (elem: any, _index4: number) =>
-                                                    "bigint" === typeof elem ||
+                                                    ("bigint" === typeof elem &&
+                                                        (true ||
+                                                            $report(
+                                                                _exceptionable,
+                                                                {
+                                                                    path:
+                                                                        _path +
+                                                                        ".int64[" +
+                                                                        _index4 +
+                                                                        "]",
+                                                                    expected:
+                                                                        'bigint & Type<"int64">',
+                                                                    value: elem,
+                                                                },
+                                                            ))) ||
                                                     $report(_exceptionable, {
                                                         path:
                                                             _path +
                                                             ".int64[" +
                                                             _index4 +
                                                             "]",
-                                                        expected: "bigint",
+                                                        expected:
+                                                            '(bigint & Type<"int64">)',
                                                         value: elem,
                                                     }),
                                             )
                                             .every((flag: boolean) => flag)) ||
                                         $report(_exceptionable, {
                                             path: _path + ".int64",
-                                            expected: "Array<bigint>",
+                                            expected:
+                                                'Array<bigint & Type<"int64">>',
                                             value: input.int64,
                                         }),
                                     ((Array.isArray(input.uint64) ||
                                         $report(_exceptionable, {
                                             path: _path + ".uint64",
-                                            expected: "Array<bigint>",
+                                            expected:
+                                                'Array<bigint & Type<"uint64">>',
                                             value: input.uint64,
                                         })) &&
                                         input.uint64
@@ -298,7 +281,7 @@ export const test_protobuf_validateDecode_ArraySimpleProtobuf =
                                                                         _index5 +
                                                                         "]",
                                                                     expected:
-                                                                        "bigint (@type uint64)",
+                                                                        'bigint & Type<"uint64">',
                                                                     value: elem,
                                                                 },
                                                             ))) ||
@@ -308,27 +291,29 @@ export const test_protobuf_validateDecode_ArraySimpleProtobuf =
                                                             ".uint64[" +
                                                             _index5 +
                                                             "]",
-                                                        expected: "bigint",
+                                                        expected:
+                                                            '(bigint & Type<"uint64">)',
                                                         value: elem,
                                                     }),
                                             )
                                             .every((flag: boolean) => flag)) ||
                                         $report(_exceptionable, {
                                             path: _path + ".uint64",
-                                            expected: "Array<bigint>",
+                                            expected:
+                                                'Array<bigint & Type<"uint64">>',
                                             value: input.uint64,
                                         }),
                                     ((Array.isArray(input.float) ||
                                         $report(_exceptionable, {
                                             path: _path + ".float",
-                                            expected: "Array<number>",
+                                            expected:
+                                                'Array<number & Type<"float">>',
                                             value: input.float,
                                         })) &&
                                         input.float
                                             .map(
                                                 (elem: any, _index6: number) =>
                                                     ("number" === typeof elem &&
-                                                        Number.isFinite(elem) &&
                                                         ((-1.175494351e38 <=
                                                             elem &&
                                                             elem <=
@@ -342,7 +327,7 @@ export const test_protobuf_validateDecode_ArraySimpleProtobuf =
                                                                         _index6 +
                                                                         "]",
                                                                     expected:
-                                                                        "number (@type float)",
+                                                                        'number & Type<"float">',
                                                                     value: elem,
                                                                 },
                                                             ))) ||
@@ -352,43 +337,75 @@ export const test_protobuf_validateDecode_ArraySimpleProtobuf =
                                                             ".float[" +
                                                             _index6 +
                                                             "]",
-                                                        expected: "number",
+                                                        expected:
+                                                            '(number & Type<"float">)',
                                                         value: elem,
                                                     }),
                                             )
                                             .every((flag: boolean) => flag)) ||
                                         $report(_exceptionable, {
                                             path: _path + ".float",
-                                            expected: "Array<number>",
+                                            expected:
+                                                'Array<number & Type<"float">>',
                                             value: input.float,
                                         }),
                                     ((Array.isArray(input.double) ||
                                         $report(_exceptionable, {
                                             path: _path + ".double",
-                                            expected: "Array<number>",
+                                            expected:
+                                                'Array<number & Type<"double">>',
                                             value: input.double,
                                         })) &&
                                         input.double
                                             .map(
                                                 (elem: any, _index7: number) =>
                                                     ("number" === typeof elem &&
-                                                        Number.isFinite(
+                                                        (Number.isFinite(
                                                             elem,
-                                                        )) ||
+                                                        ) ||
+                                                            $report(
+                                                                _exceptionable,
+                                                                {
+                                                                    path:
+                                                                        _path +
+                                                                        ".double[" +
+                                                                        _index7 +
+                                                                        "]",
+                                                                    expected:
+                                                                        "number",
+                                                                    value: elem,
+                                                                },
+                                                            )) &&
+                                                        (true ||
+                                                            $report(
+                                                                _exceptionable,
+                                                                {
+                                                                    path:
+                                                                        _path +
+                                                                        ".double[" +
+                                                                        _index7 +
+                                                                        "]",
+                                                                    expected:
+                                                                        'number & Type<"double">',
+                                                                    value: elem,
+                                                                },
+                                                            ))) ||
                                                     $report(_exceptionable, {
                                                         path:
                                                             _path +
                                                             ".double[" +
                                                             _index7 +
                                                             "]",
-                                                        expected: "number",
+                                                        expected:
+                                                            '(number & Type<"double">)',
                                                         value: elem,
                                                     }),
                                             )
                                             .every((flag: boolean) => flag)) ||
                                         $report(_exceptionable, {
                                             path: _path + ".double",
-                                            expected: "Array<number>",
+                                            expected:
+                                                'Array<number & Type<"double">>',
                                             value: input.double,
                                         }),
                                     ((Array.isArray(input.string) ||
@@ -557,7 +574,7 @@ export const test_protobuf_validateDecode_ArraySimpleProtobuf =
                                     } else output.boolean.push(reader.bool());
                                     break;
                                 case 2:
-                                    // type: Array<number>;
+                                    // type: Array<(number & Type<"int32">)>;
                                     if (2 === (tag & 7)) {
                                         const piece =
                                             reader.uint32() + reader.index();
@@ -566,7 +583,7 @@ export const test_protobuf_validateDecode_ArraySimpleProtobuf =
                                     } else output.int32.push(reader.int32());
                                     break;
                                 case 3:
-                                    // type: Array<number>;
+                                    // type: Array<(number & Type<"uint32">)>;
                                     if (2 === (tag & 7)) {
                                         const piece =
                                             reader.uint32() + reader.index();
@@ -575,7 +592,7 @@ export const test_protobuf_validateDecode_ArraySimpleProtobuf =
                                     } else output.uint32.push(reader.uint32());
                                     break;
                                 case 4:
-                                    // type: Array<bigint>;
+                                    // type: Array<(bigint & Type<"int64">)>;
                                     if (2 === (tag & 7)) {
                                         const piece =
                                             reader.uint32() + reader.index();
@@ -584,7 +601,7 @@ export const test_protobuf_validateDecode_ArraySimpleProtobuf =
                                     } else output.int64.push(reader.int64());
                                     break;
                                 case 5:
-                                    // type: Array<bigint>;
+                                    // type: Array<(bigint & Type<"uint64">)>;
                                     if (2 === (tag & 7)) {
                                         const piece =
                                             reader.uint32() + reader.index();
@@ -593,7 +610,7 @@ export const test_protobuf_validateDecode_ArraySimpleProtobuf =
                                     } else output.uint64.push(reader.uint64());
                                     break;
                                 case 6:
-                                    // type: Array<number>;
+                                    // type: Array<(number & Type<"float">)>;
                                     if (2 === (tag & 7)) {
                                         const piece =
                                             reader.uint32() + reader.index();
@@ -602,7 +619,7 @@ export const test_protobuf_validateDecode_ArraySimpleProtobuf =
                                     } else output.float.push(reader.float());
                                     break;
                                 case 7:
-                                    // type: Array<number>;
+                                    // type: Array<(number & Type<"double">)>;
                                     if (2 === (tag & 7)) {
                                         const piece =
                                             reader.uint32() + reader.index();
@@ -753,7 +770,7 @@ export const test_protobuf_validateDecode_ArraySimpleProtobuf =
                     ) &&
                     Array.isArray(input.int64) &&
                     input.int64.every(
-                        (elem: any) => "bigint" === typeof elem,
+                        (elem: any) => "bigint" === typeof elem && true,
                     ) &&
                     Array.isArray(input.uint64) &&
                     input.uint64.every(
@@ -769,7 +786,7 @@ export const test_protobuf_validateDecode_ArraySimpleProtobuf =
                     ) &&
                     Array.isArray(input.double) &&
                     input.double.every(
-                        (elem: any) => "number" === typeof elem,
+                        (elem: any) => "number" === typeof elem && true,
                     ) &&
                     Array.isArray(input.string) &&
                     input.string.every(

@@ -16,13 +16,11 @@ export const test_protobuf_isEncode_ObjectSimpleProtobufNullable =
                             "boolean" === typeof input.bool) &&
                         (null === input.int32 ||
                             ("number" === typeof input.int32 &&
-                                Number.isFinite(input.int32) &&
                                 Math.floor(input.int32) === input.int32 &&
                                 -2147483648 <= input.int32 &&
                                 input.int32 <= 2147483647)) &&
                         (null === input.uint32 ||
                             ("number" === typeof input.uint32 &&
-                                Number.isFinite(input.uint32) &&
                                 Math.floor(input.uint32) === input.uint32 &&
                                 0 <= input.uint32 &&
                                 input.uint32 <= 4294967295)) &&
@@ -33,12 +31,12 @@ export const test_protobuf_isEncode_ObjectSimpleProtobufNullable =
                                 BigInt(0) <= input.uint64)) &&
                         (null === input.float ||
                             ("number" === typeof input.float &&
-                                Number.isFinite(input.float) &&
                                 -1.175494351e38 <= input.float &&
                                 input.float <= 3.4028235e38)) &&
                         (null === input.double ||
                             ("number" === typeof input.double &&
-                                Number.isFinite(input.double))) &&
+                                Number.isFinite(input.double) &&
+                                true)) &&
                         (null === input.string ||
                             "string" === typeof input.string) &&
                         (null === input.bytes ||
@@ -135,31 +133,31 @@ export const test_protobuf_isEncode_ObjectSimpleProtobufNullable =
                     const tag = reader.uint32();
                     switch (tag >>> 3) {
                         case 1:
-                            // boolean;
+                            // bool;
                             output.bool = reader.bool();
                             break;
                         case 2:
-                            // number;
+                            // int32;
                             output.int32 = reader.int32();
                             break;
                         case 3:
-                            // number;
+                            // uint32;
                             output.uint32 = reader.uint32();
                             break;
                         case 4:
-                            // bigint;
+                            // int64;
                             output.int64 = reader.int64();
                             break;
                         case 5:
-                            // bigint;
+                            // uint64;
                             output.uint64 = reader.uint64();
                             break;
                         case 6:
-                            // number;
+                            // float;
                             output.float = reader.float();
                             break;
                         case 7:
-                            // number;
+                            // double;
                             output.double = reader.double();
                             break;
                         case 8:

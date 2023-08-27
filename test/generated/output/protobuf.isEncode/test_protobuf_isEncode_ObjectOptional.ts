@@ -91,7 +91,7 @@ export const test_protobuf_isEncode_ObjectOptional = _test_protobuf_isEncode(
                         output.email = reader.string();
                         break;
                     case 4:
-                        // number;
+                        // double;
                         output.sequence = reader.double();
                         break;
                     default:

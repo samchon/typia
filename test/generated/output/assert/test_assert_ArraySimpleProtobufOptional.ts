@@ -18,7 +18,6 @@ export const test_assert_ArraySimpleProtobufOptional = _test_assert(
                         input.int32.every(
                             (elem: any) =>
                                 "number" === typeof elem &&
-                                Number.isFinite(elem) &&
                                 Math.floor(elem) === elem &&
                                 -2147483648 <= elem &&
                                 elem <= 2147483647,
@@ -28,7 +27,6 @@ export const test_assert_ArraySimpleProtobufOptional = _test_assert(
                         input.uint32.every(
                             (elem: any) =>
                                 "number" === typeof elem &&
-                                Number.isFinite(elem) &&
                                 Math.floor(elem) === elem &&
                                 0 <= elem &&
                                 elem <= 4294967295,
@@ -36,7 +34,7 @@ export const test_assert_ArraySimpleProtobufOptional = _test_assert(
                 (undefined === input.int64 ||
                     (Array.isArray(input.int64) &&
                         input.int64.every(
-                            (elem: any) => "bigint" === typeof elem,
+                            (elem: any) => "bigint" === typeof elem && true,
                         ))) &&
                 (undefined === input.uint64 ||
                     (Array.isArray(input.uint64) &&
@@ -49,7 +47,6 @@ export const test_assert_ArraySimpleProtobufOptional = _test_assert(
                         input.float.every(
                             (elem: any) =>
                                 "number" === typeof elem &&
-                                Number.isFinite(elem) &&
                                 -1.175494351e38 <= elem &&
                                 elem <= 3.4028235e38,
                         ))) &&
@@ -58,7 +55,8 @@ export const test_assert_ArraySimpleProtobufOptional = _test_assert(
                         input.double.every(
                             (elem: any) =>
                                 "number" === typeof elem &&
-                                Number.isFinite(elem),
+                                Number.isFinite(elem) &&
+                                true,
                         ))) &&
                 (undefined === input.string ||
                     (Array.isArray(input.string) &&
@@ -124,25 +122,15 @@ export const test_assert_ArraySimpleProtobufOptional = _test_assert(
                         ((Array.isArray(input.int32) ||
                             $guard(_exceptionable, {
                                 path: _path + ".int32",
-                                expected: "(Array<number> | undefined)",
+                                expected:
+                                    '(Array<number & Type<"int32">> | undefined)',
                                 value: input.int32,
                             })) &&
                             input.int32.every(
                                 (elem: any, _index2: number) =>
                                     ("number" === typeof elem &&
-                                        Number.isFinite(elem) &&
-                                        (Math.floor(elem) === elem ||
-                                            $guard(_exceptionable, {
-                                                path:
-                                                    _path +
-                                                    ".int32[" +
-                                                    _index2 +
-                                                    "]",
-                                                expected:
-                                                    "number (@type int32)",
-                                                value: elem,
-                                            })) &&
-                                        ((-2147483648 <= elem &&
+                                        ((Math.floor(elem) === elem &&
+                                            -2147483648 <= elem &&
                                             elem <= 2147483647) ||
                                             $guard(_exceptionable, {
                                                 path:
@@ -151,32 +139,35 @@ export const test_assert_ArraySimpleProtobufOptional = _test_assert(
                                                     _index2 +
                                                     "]",
                                                 expected:
-                                                    "number (@type int32)",
+                                                    'number & Type<"int32">',
                                                 value: elem,
                                             }))) ||
                                     $guard(_exceptionable, {
                                         path: _path + ".int32[" + _index2 + "]",
-                                        expected: "number",
+                                        expected: '(number & Type<"int32">)',
                                         value: elem,
                                     }),
                             )) ||
                         $guard(_exceptionable, {
                             path: _path + ".int32",
-                            expected: "(Array<number> | undefined)",
+                            expected:
+                                '(Array<number & Type<"int32">> | undefined)',
                             value: input.int32,
                         })) &&
                     (undefined === input.uint32 ||
                         ((Array.isArray(input.uint32) ||
                             $guard(_exceptionable, {
                                 path: _path + ".uint32",
-                                expected: "(Array<number> | undefined)",
+                                expected:
+                                    '(Array<number & Type<"uint32">> | undefined)',
                                 value: input.uint32,
                             })) &&
                             input.uint32.every(
                                 (elem: any, _index3: number) =>
                                     ("number" === typeof elem &&
-                                        Number.isFinite(elem) &&
-                                        (Math.floor(elem) === elem ||
+                                        ((Math.floor(elem) === elem &&
+                                            0 <= elem &&
+                                            elem <= 4294967295) ||
                                             $guard(_exceptionable, {
                                                 path:
                                                     _path +
@@ -184,69 +175,62 @@ export const test_assert_ArraySimpleProtobufOptional = _test_assert(
                                                     _index3 +
                                                     "]",
                                                 expected:
-                                                    "number (@type uint32)",
-                                                value: elem,
-                                            })) &&
-                                        (0 <= elem ||
-                                            $guard(_exceptionable, {
-                                                path:
-                                                    _path +
-                                                    ".uint32[" +
-                                                    _index3 +
-                                                    "]",
-                                                expected:
-                                                    "number (@type uint32)",
-                                                value: elem,
-                                            })) &&
-                                        (elem <= 4294967295 ||
-                                            $guard(_exceptionable, {
-                                                path:
-                                                    _path +
-                                                    ".uint32[" +
-                                                    _index3 +
-                                                    "]",
-                                                expected:
-                                                    "number (@type uint32)",
+                                                    'number & Type<"uint32">',
                                                 value: elem,
                                             }))) ||
                                     $guard(_exceptionable, {
                                         path:
                                             _path + ".uint32[" + _index3 + "]",
-                                        expected: "number",
+                                        expected: '(number & Type<"uint32">)',
                                         value: elem,
                                     }),
                             )) ||
                         $guard(_exceptionable, {
                             path: _path + ".uint32",
-                            expected: "(Array<number> | undefined)",
+                            expected:
+                                '(Array<number & Type<"uint32">> | undefined)',
                             value: input.uint32,
                         })) &&
                     (undefined === input.int64 ||
                         ((Array.isArray(input.int64) ||
                             $guard(_exceptionable, {
                                 path: _path + ".int64",
-                                expected: "(Array<bigint> | undefined)",
+                                expected:
+                                    '(Array<bigint & Type<"int64">> | undefined)',
                                 value: input.int64,
                             })) &&
                             input.int64.every(
                                 (elem: any, _index4: number) =>
-                                    "bigint" === typeof elem ||
+                                    ("bigint" === typeof elem &&
+                                        (true ||
+                                            $guard(_exceptionable, {
+                                                path:
+                                                    _path +
+                                                    ".int64[" +
+                                                    _index4 +
+                                                    "]",
+                                                expected:
+                                                    'bigint & Type<"int64">',
+                                                value: elem,
+                                            }))) ||
                                     $guard(_exceptionable, {
                                         path: _path + ".int64[" + _index4 + "]",
-                                        expected: "bigint",
+                                        expected: '(bigint & Type<"int64">)',
                                         value: elem,
                                     }),
                             )) ||
                         $guard(_exceptionable, {
                             path: _path + ".int64",
-                            expected: "(Array<bigint> | undefined)",
+                            expected:
+                                '(Array<bigint & Type<"int64">> | undefined)',
                             value: input.int64,
                         })) &&
                     (undefined === input.uint64 ||
                         ((Array.isArray(input.uint64) ||
                             $guard(_exceptionable, {
                                 path: _path + ".uint64",
-                                expected: "(Array<bigint> | undefined)",
+                                expected:
+                                    '(Array<bigint & Type<"uint64">> | undefined)',
                                 value: input.uint64,
                             })) &&
                             input.uint64.every(
@@ -260,32 +244,33 @@ export const test_assert_ArraySimpleProtobufOptional = _test_assert(
                                                     _index5 +
                                                     "]",
                                                 expected:
-                                                    "bigint (@type uint64)",
+                                                    'bigint & Type<"uint64">',
                                                 value: elem,
                                             }))) ||
                                     $guard(_exceptionable, {
                                         path:
                                             _path + ".uint64[" + _index5 + "]",
-                                        expected: "bigint",
+                                        expected: '(bigint & Type<"uint64">)',
                                         value: elem,
                                     }),
                             )) ||
                         $guard(_exceptionable, {
                             path: _path + ".uint64",
-                            expected: "(Array<bigint> | undefined)",
+                            expected:
+                                '(Array<bigint & Type<"uint64">> | undefined)',
                             value: input.uint64,
                         })) &&
                     (undefined === input.float ||
                         ((Array.isArray(input.float) ||
                             $guard(_exceptionable, {
                                 path: _path + ".float",
-                                expected: "(Array<number> | undefined)",
+                                expected:
+                                    '(Array<number & Type<"float">> | undefined)',
                                 value: input.float,
                             })) &&
                             input.float.every(
                                 (elem: any, _index6: number) =>
                                     ("number" === typeof elem &&
-                                        Number.isFinite(elem) &&
                                         ((-1.175494351e38 <= elem &&
                                             elem <= 3.4028235e38) ||
                                             $guard(_exceptionable, {
@@ -295,41 +280,64 @@ export const test_assert_ArraySimpleProtobufOptional = _test_assert(
                                                     _index6 +
                                                     "]",
                                                 expected:
-                                                    "number (@type float)",
+                                                    'number & Type<"float">',
                                                 value: elem,
                                             }))) ||
                                     $guard(_exceptionable, {
                                         path: _path + ".float[" + _index6 + "]",
-                                        expected: "number",
+                                        expected: '(number & Type<"float">)',
                                         value: elem,
                                     }),
                             )) ||
                         $guard(_exceptionable, {
                             path: _path + ".float",
-                            expected: "(Array<number> | undefined)",
+                            expected:
+                                '(Array<number & Type<"float">> | undefined)',
                             value: input.float,
                         })) &&
                     (undefined === input.double ||
                         ((Array.isArray(input.double) ||
                             $guard(_exceptionable, {
                                 path: _path + ".double",
-                                expected: "(Array<number> | undefined)",
+                                expected:
+                                    '(Array<number & Type<"double">> | undefined)',
                                 value: input.double,
                             })) &&
                             input.double.every(
                                 (elem: any, _index7: number) =>
                                     ("number" === typeof elem &&
-                                        Number.isFinite(elem)) ||
+                                        (Number.isFinite(elem) ||
+                                            $guard(_exceptionable, {
+                                                path:
+                                                    _path +
+                                                    ".double[" +
+                                                    _index7 +
+                                                    "]",
+                                                expected: "number",
+                                                value: elem,
+                                            })) &&
+                                        (true ||
+                                            $guard(_exceptionable, {
+                                                path:
+                                                    _path +
+                                                    ".double[" +
+                                                    _index7 +
+                                                    "]",
+                                                expected:
+                                                    'number & Type<"double">',
+                                                value: elem,
+                                            }))) ||
                                     $guard(_exceptionable, {
                                         path:
                                             _path + ".double[" + _index7 + "]",
-                                        expected: "number",
+                                        expected: '(number & Type<"double">)',
                                         value: elem,
                                     }),
                             )) ||
                         $guard(_exceptionable, {
                             path: _path + ".double",
-                            expected: "(Array<number> | undefined)",
+                            expected:
+                                '(Array<number & Type<"double">> | undefined)',
                             value: input.double,
                         })) &&
                     (undefined === input.string ||
