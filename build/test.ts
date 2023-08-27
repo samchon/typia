@@ -145,6 +145,7 @@ async function main(): Promise<void> {
     await TestMessageGenerator.generate(structures);
 
     // FILL SCHEMA CONTENTS
+    await new Promise((resolve) => setTimeout(resolve, 1000));
     cp.execSync("npm run build:test", { stdio: "inherit" });
     await TestApplicationGenerator.schema();
     await TestMessageGenerator.schema();
@@ -158,6 +159,7 @@ async function main(): Promise<void> {
             "--output test/generated/output",
             "--project test/tsconfig.json",
         ].join(" "),
+        { stdio: "inherit" },
     );
     await __TypeRemover.remove(__dirname + "/../test/generated");
     cp.execSync("npm run prettier", { stdio: "inherit" });

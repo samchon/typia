@@ -6,8 +6,6 @@ import { StatementFactory } from "../factories/StatementFactory";
 import { TypeFactory } from "../factories/TypeFactory";
 import { ValueFactory } from "../factories/ValueFactory";
 
-import { IJsDocTagInfo } from "../schemas/metadata/IJsDocTagInfo";
-import { IMetadataCommentTag } from "../schemas/metadata/IMetadataCommentTag";
 import { Metadata } from "../schemas/metadata/Metadata";
 import { MetadataArray } from "../schemas/metadata/MetadataArray";
 import { MetadataObject } from "../schemas/metadata/MetadataObject";
@@ -191,13 +189,7 @@ export namespace FeatureProgrammer {
         T,
         Output extends ts.ConciseBody = ts.ConciseBody,
     > {
-        (
-            input: ts.Expression,
-            target: T,
-            explore: IExplore,
-            metaTags: IMetadataCommentTag[],
-            jsDocTags: ts.JSDocTagInfo[],
-        ): Output;
+        (input: ts.Expression, target: T, explore: IExplore): Output;
     }
 
     /* -----------------------------------------------------------
@@ -220,8 +212,6 @@ export namespace FeatureProgrammer {
                     from: "top",
                     postfix: '""',
                 },
-                [],
-                [],
             );
 
             // RETURNS THE OPTIMAL ARROW FUNCTION
@@ -324,18 +314,12 @@ export namespace FeatureProgrammer {
                 ),
                 TypeFactory.keyword("any"),
                 undefined,
-                explorer(
-                    input,
-                    meta,
-                    {
-                        tracable: config.path || config.trace,
-                        source: "function",
-                        from: "object",
-                        postfix: "",
-                    },
-                    [],
-                    [],
-                ),
+                explorer(input, meta, {
+                    tracable: config.path || config.trace,
+                    source: "function",
+                    from: "object",
+                    postfix: "",
+                }),
             );
     };
 
@@ -349,8 +333,6 @@ export namespace FeatureProgrammer {
             combiner: (
                 input: ts.Expression,
                 arrow: ts.ArrowFunction,
-                metaTags: IMetadataCommentTag[],
-                jsDocTags: ts.JSDocTagInfo[],
             ) => ts.Expression,
         ) => {
             const rand: string = importer.increment().toString();
@@ -368,8 +350,6 @@ export namespace FeatureProgrammer {
                 input: ts.Expression,
                 array: MetadataArray,
                 explore: IExplore,
-                metaTags: IMetadataCommentTag[],
-                jsDocTags: IJsDocTagInfo[],
             ) => {
                 const arrow: ts.ArrowFunction = ts.factory.createArrowFunction(
                     undefined,
@@ -394,11 +374,9 @@ export namespace FeatureProgrammer {
                                 explore.postfix,
                             )(rand),
                         },
-                        metaTags,
-                        jsDocTags,
                     ),
                 );
-                return combiner(input, arrow, metaTags, jsDocTags);
+                return combiner(input, arrow);
             };
         };
 

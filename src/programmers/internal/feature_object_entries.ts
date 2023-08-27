@@ -41,23 +41,17 @@ export const feature_object_entries =
                 input: propInput,
                 key: prop.key,
                 meta: prop.value,
-                expression: config.decoder()(
-                    propInput,
-                    prop.value,
-                    {
-                        tracable: config.path || config.trace,
-                        source: "function",
-                        from,
-                        postfix:
-                            sole !== null
-                                ? IdentifierFactory.postfix(sole)
-                                : (() => {
-                                      importer.use("join");
-                                      return `$join(key)`;
-                                  })(),
-                    },
-                    prop.tags,
-                    prop.jsDocTags,
-                ),
+                expression: config.decoder()(propInput, prop.value, {
+                    tracable: config.path || config.trace,
+                    source: "function",
+                    from,
+                    postfix:
+                        sole !== null
+                            ? IdentifierFactory.postfix(sole)
+                            : (() => {
+                                  importer.use("join");
+                                  return `$join(key)`;
+                              })(),
+                }),
             };
         });

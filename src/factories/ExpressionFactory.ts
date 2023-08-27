@@ -3,11 +3,11 @@ import ts from "typescript";
 import { RandomGenerator } from "../utils/RandomGenerator";
 
 export namespace ExpressionFactory {
-    export const bigint = (value: number) =>
+    export const bigint = (value: number | bigint) =>
         ts.factory.createCallExpression(
             ts.factory.createIdentifier("BigInt"),
             undefined,
-            [ts.factory.createNumericLiteral(value)],
+            [ts.factory.createIdentifier(value.toString())],
         );
 
     export const isRequired = (input: ts.Expression): ts.Expression =>

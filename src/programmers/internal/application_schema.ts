@@ -1,6 +1,7 @@
 import { IJsonComponents } from "../../schemas/json/IJsonComponents";
 import { IJsonSchema } from "../../schemas/json/IJsonSchema";
 import { Metadata } from "../../schemas/metadata/Metadata";
+import { MetadataAtomic } from "../../schemas/metadata/MetadataAtomic";
 
 import { AtomicPredicator } from "../helpers/AtomicPredicator";
 import { JsonApplicationProgrammer } from "../json/JsonApplicationProgrammer";
@@ -78,19 +79,20 @@ export const application_schema =
             else insert(application_constant(constant)(attribute));
         for (const a of meta.atomics)
             if (a.type === "bigint") throw new Error(NO_BIGINT);
-            else if (AtomicPredicator.atomic(meta)(a.type) === false) continue;
-            else
-                insert(
-                    a.type === "string"
-                        ? application_string(meta)(attribute)
-                        : a.type === "boolean"
-                        ? application_boolean(attribute)
-                        : application_number(attribute),
+            else if (a.type === "boolean")
+                insert(application_boolean(attribute));
+            else if (a.type === "number")
+                application_number(a)(attribute).forEach((s) => insert(s));
+            else if (a.type === "string")
+                application_string(meta)(a)(attribute).forEach((s) =>
+                    insert(s),
                 );
 
         // ARRAY
         for (const array of meta.arrays)
-            insert(application_array(options)(components)(array)(attribute));
+            application_array(options)(components)(array)(attribute).forEach(
+                (s) => insert(s),
+            );
 
         // TUPLE
         for (const tuple of meta.tuples)
@@ -98,15 +100,31 @@ export const application_schema =
 
         // NATIVES
         for (const native of meta.natives)
-            if (AtomicPredicator.native(native))
-                insert(
-                    native === "String"
-                        ? application_string(meta)(attribute)
-                        : native === "Boolean"
-                        ? application_boolean(attribute)
-                        : application_number(attribute),
-                );
-            else
+            if (AtomicPredicator.native(native)) {
+                const type: string = native.toLowerCase();
+                if (meta.atomics.some((a) => a.type === type)) continue;
+                else if (type === "bigint") throw new Error(NO_BIGINT);
+                else if (type === "boolean")
+                    insert(application_boolean(attribute));
+                else if (type === "number")
+                    insert(
+                        application_number(
+                            MetadataAtomic.create({
+                                type: "number",
+                                tags: [],
+                            }),
+                        )(attribute)[0]!,
+                    );
+                else if (type === "string")
+                    insert(
+                        application_string(meta)(
+                            MetadataAtomic.create({
+                                type: "string",
+                                tags: [],
+                            }),
+                        )(attribute)[0]!,
+                    );
+            } else
                 insert(
                     application_native(options)(components)(native)({
                         nullable: meta.nullable,

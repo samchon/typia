@@ -7,8 +7,6 @@ import { MetadataFactory } from "../../factories/MetadataFactory";
 import { StatementFactory } from "../../factories/StatementFactory";
 import { TypeFactory } from "../../factories/TypeFactory";
 
-import { IJsDocTagInfo } from "../../schemas/metadata/IJsDocTagInfo";
-import { IMetadataCommentTag } from "../../schemas/metadata/IMetadataCommentTag";
 import { Metadata } from "../../schemas/metadata/Metadata";
 import { MetadataArray } from "../../schemas/metadata/MetadataArray";
 import { MetadataTuple } from "../../schemas/metadata/MetadataTuple";
@@ -148,8 +146,6 @@ export namespace MiscPruneProgrammer {
                                 return partial;
                             })(),
                             explore,
-                            [],
-                            [],
                         ),
                     value: () =>
                         decode_tuple(project)(config)(importer)(
@@ -271,8 +267,6 @@ export namespace MiscPruneProgrammer {
                 input,
                 array,
                 explore,
-                [],
-                [],
             );
 
     const decode_tuple =
@@ -412,8 +406,6 @@ export namespace MiscPruneProgrammer {
                 input: ts.Expression,
                 elements: T[],
                 explore: FeatureProgrammer.IExplore,
-                tags: IMetadataCommentTag[],
-                jsDocTags: IJsDocTagInfo[],
             ) => ts.ArrowFunction,
         ) =>
         (
@@ -425,7 +417,7 @@ export namespace MiscPruneProgrammer {
                 (parameters: ts.ParameterDeclaration[]) =>
                 (explore: FeatureProgrammer.IExplore) =>
                 (input: ts.Expression): ts.ArrowFunction =>
-                    factory(parameters)(input, elements, explore, [], []);
+                    factory(parameters)(input, elements, explore);
             if (elements.every((e) => e.type.recursive === false))
                 ts.factory.createCallExpression(
                     arrow([])(explore)(input),

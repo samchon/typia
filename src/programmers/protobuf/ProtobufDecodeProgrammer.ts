@@ -8,7 +8,6 @@ import { ProtobufFactory } from "../../factories/ProtobufFactory";
 import { StatementFactory } from "../../factories/StatementFactory";
 import { TypeFactory } from "../../factories/TypeFactory";
 
-import { IMetadataCommentTag } from "../../schemas/metadata/IMetadataCommentTag";
 import { Metadata } from "../../schemas/metadata/Metadata";
 import { MetadataArray } from "../../schemas/metadata/MetadataArray";
 import { MetadataObject } from "../../schemas/metadata/MetadataObject";
@@ -166,9 +165,8 @@ export namespace ProtobufDecodeProgrammer {
                             ts.factory.createIdentifier(props.output),
                         )(p.key.getSoleLiteral()!),
                         p.value,
-                        p.tags,
                     );
-                    i += p.value.binarySize();
+                    i += ProtobufUtil.size(p.value);
                     return clause;
                 })
                 .flat();
@@ -280,7 +278,6 @@ export namespace ProtobufDecodeProgrammer {
         (
             accessor: ts.ElementAccessExpression | ts.PropertyAccessExpression,
             meta: Metadata,
-            tags: IMetadataCommentTag[],
         ): ts.CaseClause[] => {
             const clauses: ts.CaseClause[] = [];
             const emplace =
@@ -319,21 +316,16 @@ export namespace ProtobufDecodeProgrammer {
                     );
 
             const required: boolean = meta.isRequired() && !meta.nullable;
-            for (const atomic of ProtobufUtil.getAtomics(meta)(tags))
-                emplace(atomic)(decode_atomic(meta)(tags)(atomic));
+            for (const atomic of ProtobufUtil.getAtomics(meta))
+                emplace(atomic)(decode_atomic(meta)(atomic));
             if (meta.natives.length) emplace("bytes")(decode_bytes("bytes"));
             for (const array of meta.arrays)
                 emplace(`Array<${array.type.value.getName()}>`)(
-                    decode_array(accessor, array, required, tags),
+                    decode_array(accessor, array, required),
                 );
             for (const map of meta.maps)
                 emplace(`Map<string, ${map.value.getName()}>`)(
-                    decode_map(project)(importer)(
-                        accessor,
-                        map,
-                        required,
-                        tags,
-                    ),
+                    decode_map(project)(importer)(accessor, map, required),
                 );
             for (const obj of meta.objects)
                 emplace(obj.name)(
@@ -350,7 +342,6 @@ export namespace ProtobufDecodeProgrammer {
 
     const decode_atomic =
         (meta: Metadata) =>
-        (commentTags: IMetadataCommentTag[]) =>
         (atomic: ProtobufAtomic): ts.Expression => {
             if (atomic === "string") return decode_bytes("string");
 
@@ -361,84 +352,18 @@ export namespace ProtobufDecodeProgrammer {
                 undefined,
                 undefined,
             );
-            if (atomic !== "int64") return call;
+            if (atomic !== "int64" && atomic !== "uint64") return call;
 
-            const onlyNumber: boolean =
-                meta.atomics.some((a) => a.type === "number") &&
-                meta.atomics.every(
-                    (a) =>
-                        a.type !== "bigint" &&
-                        !a.tags.every((row) =>
-                            row.some(
-                                (r) =>
-                                    r.kind === "type" && r.value === "uint64",
-                            ),
-                        ) &&
-                        !commentTags.some(
-                            (tag) =>
-                                tag.kind === "type" && tag.value === "uint64",
-                        ),
-                );
-            if (onlyNumber === false) return call;
-
-            const wrapper = ts.factory.createCallExpression(
-                ts.factory.createIdentifier("Number"),
-                undefined,
-                [call],
+            const isNumber: boolean = ProtobufUtil.getNumbers(meta).some(
+                (n) => n === atomic,
             );
-            const values: bigint[] | undefined = meta.constants.find(
-                (c) => c.type === "bigint",
-            )?.values as bigint[] | undefined;
-            if (values === undefined) return wrapper;
-
-            return ExpressionFactory.selfCall(
-                ts.factory.createBlock(
-                    [
-                        StatementFactory.constant("value", call),
-                        ts.factory.createIfStatement(
-                            ts.factory.createCallExpression(
-                                ts.factory.createArrayLiteralExpression(
-                                    values.map((v) =>
-                                        ts.factory.createCallExpression(
-                                            ts.factory.createIdentifier(
-                                                "BigInt",
-                                            ),
-                                            undefined,
-                                            [
-                                                ts.factory.createBigIntLiteral(
-                                                    v.toString(),
-                                                ),
-                                            ],
-                                        ),
-                                    ),
-                                    true,
-                                ),
-                                undefined,
-                                [
-                                    ts.factory.createArrowFunction(
-                                        undefined,
-                                        undefined,
-                                        [IdentifierFactory.parameter("elem")],
-                                        undefined,
-                                        undefined,
-                                        ts.factory.createStrictEquality(
-                                            ts.factory.createIdentifier("elem"),
-                                            ts.factory.createIdentifier(
-                                                "value",
-                                            ),
-                                        ),
-                                    ),
-                                ],
-                            ),
-                            ts.factory.createReturnStatement(
-                                ts.factory.createIdentifier("value"),
-                            ),
-                        ),
-                        ts.factory.createReturnStatement(wrapper),
-                    ],
-                    true,
-                ),
-            );
+            return isNumber
+                ? ts.factory.createCallExpression(
+                      ts.factory.createIdentifier("Number"),
+                      undefined,
+                      [call],
+                  )
+                : call;
         };
 
     const decode_bytes = (method: "bytes" | "string"): ts.Expression =>
@@ -454,7 +379,6 @@ export namespace ProtobufDecodeProgrammer {
         accessor: ts.ElementAccessExpression | ts.PropertyAccessExpression,
         array: MetadataArray,
         required: boolean,
-        tags: IMetadataCommentTag[],
     ): ts.Statement[] => {
         const statements: Array<ts.Expression | ts.Statement> = [];
         if (required === false)
@@ -470,9 +394,9 @@ export namespace ProtobufDecodeProgrammer {
                     ),
                 ),
             );
-        const atomics = ProtobufUtil.getAtomics(array.type.value)(tags);
+        const atomics = ProtobufUtil.getAtomics(array.type.value);
         const decoder = atomics.length
-            ? () => decode_atomic(array.type.value)(tags)(atomics[0]!)
+            ? () => decode_atomic(array.type.value)(atomics[0]!)
             : array.type.value.natives.length
             ? () => decode_bytes("bytes")
             : array.type.value.objects.length
@@ -605,7 +529,7 @@ export namespace ProtobufDecodeProgrammer {
                         ts.factory.createToken(ts.SyntaxKind.EqualsToken),
                         ts.factory.createIdentifier("entry.value"),
                     ),
-            })(top, required, top.tags);
+            })(top, required);
         };
 
     const decode_map =
@@ -615,7 +539,6 @@ export namespace ProtobufDecodeProgrammer {
             accessor: ts.ElementAccessExpression | ts.PropertyAccessExpression,
             map: Metadata.Entry,
             required: boolean,
-            tags: IMetadataCommentTag[],
         ): ts.Statement[] =>
             decode_entry(project)(importer)({
                 initializer: () =>
@@ -642,7 +565,7 @@ export namespace ProtobufDecodeProgrammer {
                             ts.factory.createIdentifier("entry.value"),
                         ],
                     ),
-            })(map, required, tags);
+            })(map, required);
 
     const decode_entry =
         (project: IProject) =>
@@ -651,11 +574,7 @@ export namespace ProtobufDecodeProgrammer {
             initializer: () => ts.Expression;
             setter: () => ts.Expression;
         }) =>
-        (
-            map: Metadata.Entry,
-            required: boolean,
-            tags: IMetadataCommentTag[],
-        ): ts.Statement[] => {
+        (map: Metadata.Entry, required: boolean): ts.Statement[] => {
             const statements: ts.Statement[] = [
                 ...(required
                     ? []
@@ -695,14 +614,12 @@ export namespace ProtobufDecodeProgrammer {
                         key: MetadataFactory.soleLiteral("key"),
                         value: map.key,
                         description: null,
-                        tags: [],
                         jsDocTags: [],
                     }),
                     MetadataProperty.create({
                         key: MetadataFactory.soleLiteral("value"),
                         value: map.value,
                         description: null,
-                        tags,
                         jsDocTags: [],
                     }),
                 ]),

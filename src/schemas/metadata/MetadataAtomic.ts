@@ -36,7 +36,7 @@ export class MetadataAtomic {
                 const str: string = row.map((t) => t.name).join(" & ");
                 return row.length === 1 ? str : `(${str})`;
             });
-            return `(${[this.type, ...rows].join(" | ")})`;
+            return `(${this.type} & (${rows.join(" | ")}))`;
         })());
     }
 }

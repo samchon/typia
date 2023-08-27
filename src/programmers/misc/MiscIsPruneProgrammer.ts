@@ -1,15 +1,15 @@
 import ts from "typescript";
 
-import { IdentifierFactory } from "../factories/IdentifierFactory";
-import { StatementFactory } from "../factories/StatementFactory";
-import { TypeFactory } from "../factories/TypeFactory";
+import { IdentifierFactory } from "../../factories/IdentifierFactory";
+import { StatementFactory } from "../../factories/StatementFactory";
+import { TypeFactory } from "../../factories/TypeFactory";
 
-import { IProject } from "../transformers/IProject";
+import { IProject } from "../../transformers/IProject";
 
-import { IsProgrammer } from "./IsProgrammer";
-import { MiscPruneProgrammer } from "./misc/MiscPruneProgrammer";
+import { IsProgrammer } from "../IsProgrammer";
+import { MiscPruneProgrammer } from "./MiscPruneProgrammer";
 
-export namespace IsPruneProgrammer {
+export namespace MiscIsPruneProgrammer {
     export const write =
         (project: IProject) =>
         (modulo: ts.LeftHandSideExpression) =>

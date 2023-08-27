@@ -1,5 +1,3 @@
-import { $clone } from "../../functional/$clone";
-
 import { ClassProperties } from "../../typings/ClassProperties";
 
 import { IMetadataArray } from "./IMetadataArray";
@@ -38,14 +36,14 @@ export class MetadataArray {
                 const str: string = row.map((t) => t.name).join(" & ");
                 return row.length === 1 ? str : `(${str})`;
             });
-            return `(${[this.type.name, ...rows].join(" | ")})`;
+            return `(${this.type.name} & (${rows.join(" | ")}))`;
         })());
     }
 
     public toJSON(): IMetadataArray {
         return {
             type: this.type.toJSON(),
-            tags: $clone(this.tags),
+            tags: this.tags.map((row) => row.slice()),
         };
     }
 }

@@ -1,8 +1,9 @@
 import { TagBase } from "./TagBase";
 
-export type MaxItems<Size extends number> = TagBase<{
+export type MaxItems<Value extends number> = TagBase<{
     target: "array";
     kind: "maxItems";
-    value: Size;
-    validate: `$input.length <= ${Size}`;
+    value: Value;
+    validate: `$input.length <= ${Value}`;
+    exclusive: true;
 }>;

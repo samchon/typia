@@ -12,7 +12,6 @@
 export function is<T>(input: unknown): input is T; // returns boolean
 export function assert<T>(input: unknown): T; // throws TypeGuardError
 export function validate<T>(input: unknown): IValidation<T>; // detailed
-export const customValidators: CustomValidatorMap; // for customization
 
 // JSON FUNCTIONS
 export namespace json {

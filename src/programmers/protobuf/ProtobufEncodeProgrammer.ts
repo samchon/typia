@@ -3,11 +3,11 @@ import ts from "typescript";
 import { ExpressionFactory } from "../../factories/ExpressionFactory";
 import { IdentifierFactory } from "../../factories/IdentifierFactory";
 import { MetadataCollection } from "../../factories/MetadataCollection";
+import { NumericRangeFactory } from "../../factories/NumericRangeFactory";
 import { ProtobufFactory } from "../../factories/ProtobufFactory";
 import { StatementFactory } from "../../factories/StatementFactory";
 import { TypeFactory } from "../../factories/TypeFactory";
 
-import { IMetadataCommentTag } from "../../schemas/metadata/IMetadataCommentTag";
 import { Metadata } from "../../schemas/metadata/Metadata";
 import { MetadataArray } from "../../schemas/metadata/MetadataArray";
 import { MetadataObject } from "../../schemas/metadata/MetadataObject";
@@ -128,7 +128,6 @@ export namespace ProtobufEncodeProgrammer {
                     tracable: false,
                     postfix: "",
                 },
-                [],
             );
             return ts.factory.createArrowFunction(
                 undefined,
@@ -170,9 +169,8 @@ export namespace ProtobufEncodeProgrammer {
                         ),
                         p.value,
                         explore,
-                        p.tags,
                     );
-                    index += p.value.binarySize();
+                    index += ProtobufUtil.size(p.value);
                     return [
                         ts.factory.createExpressionStatement(
                             ts.factory.createIdentifier(
@@ -205,7 +203,6 @@ export namespace ProtobufEncodeProgrammer {
             input: ts.Expression,
             meta: Metadata,
             explore: FeatureProgrammer.IExplore,
-            tags: IMetadataCommentTag[],
         ): ts.Block => {
             const wrapper: (block: ts.Block) => ts.Block =
                 meta.isRequired() && meta.nullable === false
@@ -263,18 +260,47 @@ export namespace ProtobufEncodeProgrammer {
                           );
 
             // STARTS FROM ATOMIC TYPES
-            const unions: IUnion[] = ProtobufUtil.getAtomics(meta)(tags).map(
-                (type) => ({
-                    type,
-                    wire: () => null!,
-                    is: () =>
-                        ts.factory.createStrictEquality(
-                            ts.factory.createStringLiteral(type),
-                            ts.factory.createTypeOfExpression(input),
-                        ),
-                    value: (index) => decode_atomic(index!)(type)(input),
-                }),
-            );
+            const unions: IUnion[] = [];
+            const numbers = ProtobufUtil.getNumbers(meta);
+            const bigints = ProtobufUtil.getBigints(meta);
+
+            for (const atom of ProtobufUtil.getAtomics(meta))
+                if (atom === "bool")
+                    unions.push({
+                        type: "bool",
+                        is: () =>
+                            ts.factory.createStrictEquality(
+                                ts.factory.createStringLiteral("boolean"),
+                                ts.factory.createTypeOfExpression(input),
+                            ),
+                        value: (index) => decode_bool(index)(input),
+                    });
+                else if (
+                    atom === "int32" ||
+                    atom === "uint32" ||
+                    atom === "float" ||
+                    atom === "double"
+                )
+                    unions.push(decode_number(project)(numbers)(atom)(input));
+                else if (atom === "int64" || atom === "uint64")
+                    if (numbers.some((n) => n === atom))
+                        unions.push(
+                            decode_number(project)(numbers)(atom)(input),
+                        );
+                    else
+                        unions.push(
+                            decode_bigint(project)(bigints)(atom)(input),
+                        );
+                else if (atom === "string")
+                    unions.push({
+                        type: "string",
+                        is: () =>
+                            ts.factory.createStrictEquality(
+                                ts.factory.createStringLiteral("string"),
+                                ts.factory.createTypeOfExpression(input),
+                            ),
+                        value: (index) => decode_bytes("string")(index!)(input),
+                    });
 
             // CONSIDER BYTES
             if (meta.natives.length)
@@ -298,7 +324,6 @@ export namespace ProtobufEncodeProgrammer {
                                 ...explore,
                                 from: "array",
                             },
-                            tags,
                         ),
                 });
 
@@ -315,7 +340,6 @@ export namespace ProtobufEncodeProgrammer {
                                 ...explore,
                                 from: "array",
                             },
-                            tags,
                         ),
                 });
 
@@ -336,7 +360,6 @@ export namespace ProtobufEncodeProgrammer {
                                 ...explore,
                                 from: "object",
                             },
-                            tags,
                         ),
                 });
 
@@ -388,7 +411,6 @@ export namespace ProtobufEncodeProgrammer {
             input: ts.Expression,
             map: Metadata.Entry,
             explore: FeatureProgrammer.IExplore,
-            tags: IMetadataCommentTag[],
         ): ts.Block => {
             const each: ts.Statement[] = [
                 ts.factory.createExpressionStatement(
@@ -405,13 +427,11 @@ export namespace ProtobufEncodeProgrammer {
                     ts.factory.createIdentifier("key"),
                     map.key,
                     explore,
-                    [],
                 ).statements,
                 ...decode(project)(importer)(2)(
                     ts.factory.createIdentifier("value"),
                     map.value,
                     explore,
-                    tags,
                 ).statements,
                 ts.factory.createExpressionStatement(
                     ts.factory.createCallExpression(
@@ -442,7 +462,6 @@ export namespace ProtobufEncodeProgrammer {
             input: ts.Expression,
             object: MetadataObject,
             explore: FeatureProgrammer.IExplore,
-            tags: IMetadataCommentTag[],
         ): ts.Block => {
             const top: MetadataProperty = object.properties[0]!;
             if (top.key.isSoleLiteral() === false)
@@ -454,7 +473,6 @@ export namespace ProtobufEncodeProgrammer {
                     ),
                     top,
                     explore,
-                    tags,
                 );
             return ts.factory.createBlock(
                 [
@@ -502,9 +520,8 @@ export namespace ProtobufEncodeProgrammer {
             input: ts.Expression,
             array: MetadataArray,
             explore: FeatureProgrammer.IExplore,
-            tags: IMetadataCommentTag[],
         ): ts.Block => {
-            const wire = get_standalone_wire(array.type.value, tags);
+            const wire = get_standalone_wire(array.type.value);
             const forLoop = (index: number | null) =>
                 ts.factory.createForOfStatement(
                     undefined,
@@ -517,7 +534,6 @@ export namespace ProtobufEncodeProgrammer {
                         ts.factory.createIdentifier("elem"),
                         array.type.value,
                         explore,
-                        tags,
                     ),
                 );
             const length = (block: ts.Block) =>
@@ -563,42 +579,94 @@ export namespace ProtobufEncodeProgrammer {
             );
         };
 
-    const decode_atomic =
-        (index: number | null) =>
-        (atomic: ProtobufAtomic) =>
-        (input: ts.Expression): ts.Block => {
-            if (atomic === "string")
-                return decode_bytes("string")(index!)(input);
+    const decode_bool = (index: number | null) => (input: ts.Expression) =>
+        ts.factory.createBlock(
+            [
+                ...(index !== null
+                    ? [decode_tag(ProtobufWire.VARIANT)(index)]
+                    : []),
+                ts.factory.createCallExpression(
+                    IdentifierFactory.access(WRITER())("bool"),
+                    undefined,
+                    [input],
+                ),
+            ].map((exp) => ts.factory.createExpressionStatement(exp)),
+            true,
+        );
 
-            const out =
-                (wire: ProtobufWire) =>
-                (method: string): ts.Block =>
-                    ts.factory.createBlock(
-                        [
-                            ...(index !== null
-                                ? [decode_tag(wire)(index)]
-                                : []),
-                            ts.factory.createCallExpression(
-                                IdentifierFactory.access(WRITER())(method),
-                                undefined,
-                                [input],
-                            ),
-                        ].map((exp) =>
-                            ts.factory.createExpressionStatement(exp),
+    const decode_number =
+        (project: IProject) =>
+        (candidates: ProtobufAtomic.Numeric[]) =>
+        (type: ProtobufAtomic.Numeric) =>
+        (input: ts.Expression): IUnion => ({
+            type,
+            is: () =>
+                candidates.length === 1
+                    ? ts.factory.createStrictEquality(
+                          ts.factory.createStringLiteral("number"),
+                          ts.factory.createTypeOfExpression(input),
+                      )
+                    : ts.factory.createLogicalAnd(
+                          ts.factory.createStrictEquality(
+                              ts.factory.createStringLiteral("number"),
+                              ts.factory.createTypeOfExpression(input),
+                          ),
+                          NumericRangeFactory.number(project.context)(type)(
+                              input,
+                          ),
+                      ),
+            value: (index) =>
+                ts.factory.createBlock(
+                    [
+                        ...(index !== null
+                            ? [decode_tag(get_numeric_wire(type))(index)]
+                            : []),
+                        ts.factory.createCallExpression(
+                            IdentifierFactory.access(WRITER())(type),
+                            undefined,
+                            [input],
                         ),
-                        true,
-                    );
-            if (atomic === "bool") return out(ProtobufWire.VARIANT)("bool");
-            else if (
-                atomic === "int32" ||
-                atomic === "uint32" ||
-                atomic === "int64" ||
-                atomic === "uint64"
-            )
-                return out(ProtobufWire.VARIANT)(atomic);
-            else if (atomic === "float") return out(ProtobufWire.I32)("float");
-            return out(ProtobufWire.I64)("double");
-        };
+                    ].map((exp) => ts.factory.createExpressionStatement(exp)),
+                    true,
+                ),
+        });
+
+    const decode_bigint =
+        (project: IProject) =>
+        (candidates: ProtobufAtomic.BigNumeric[]) =>
+        (type: ProtobufAtomic.BigNumeric) =>
+        (input: ts.Expression): IUnion => ({
+            type,
+            is: () =>
+                candidates.length === 1
+                    ? ts.factory.createStrictEquality(
+                          ts.factory.createStringLiteral("bigint"),
+                          ts.factory.createTypeOfExpression(input),
+                      )
+                    : ts.factory.createLogicalAnd(
+                          ts.factory.createStrictEquality(
+                              ts.factory.createStringLiteral("bigint"),
+                              ts.factory.createTypeOfExpression(input),
+                          ),
+                          NumericRangeFactory.bigint(project.context)(type)(
+                              input,
+                          ),
+                      ),
+            value: (index) =>
+                ts.factory.createBlock(
+                    [
+                        ...(index !== null
+                            ? [decode_tag(ProtobufWire.VARIANT)(index)]
+                            : []),
+                        ts.factory.createCallExpression(
+                            IdentifierFactory.access(WRITER())(type),
+                            undefined,
+                            [input],
+                        ),
+                    ].map((exp) => ts.factory.createExpressionStatement(exp)),
+                    true,
+                ),
+        });
 
     const decode_bytes =
         (method: "bytes" | "string") =>
@@ -625,10 +693,7 @@ export namespace ProtobufEncodeProgrammer {
                 [ts.factory.createNumericLiteral((index << 3) | wire)],
             );
 
-    const get_standalone_wire = (
-        meta: Metadata,
-        tags: IMetadataCommentTag[],
-    ): ProtobufWire => {
+    const get_standalone_wire = (meta: Metadata): ProtobufWire => {
         if (
             meta.arrays.length ||
             meta.objects.length ||
@@ -637,7 +702,7 @@ export namespace ProtobufEncodeProgrammer {
         )
             return ProtobufWire.LEN;
 
-        const v = ProtobufUtil.getAtomics(meta)(tags)[0]!;
+        const v = ProtobufUtil.getAtomics(meta)[0]!;
         if (v === "string") return ProtobufWire.LEN;
         else if (
             v === "bool" ||
@@ -651,6 +716,13 @@ export namespace ProtobufEncodeProgrammer {
         return ProtobufWire.I64;
     };
 
+    const get_numeric_wire = (type: ProtobufAtomic.Numeric) =>
+        type === "double"
+            ? ProtobufWire.I64
+            : type === "float"
+            ? ProtobufWire.I32
+            : ProtobufWire.VARIANT;
+
     /* -----------------------------------------------------------
         EXPLORERS
     ----------------------------------------------------------- */
@@ -663,13 +735,12 @@ export namespace ProtobufEncodeProgrammer {
             input: ts.Expression,
             targets: MetadataObject[],
             explore: FeatureProgrammer.IExplore,
-            tags: IMetadataCommentTag[],
             indexes?: Map<MetadataObject, number>,
         ): ts.Block => {
             if (targets.length === 1)
                 return decode_object(project)(importer)(
                     indexes ? indexes.get(targets[0]!)! : index,
-                )(input, targets[0]!, explore, tags);
+                )(input, targets[0]!, explore);
 
             const expected: string = `(${targets
                 .map((t) => t.name)
@@ -688,7 +759,6 @@ export namespace ProtobufEncodeProgrammer {
                             i,
                             o,
                             e,
-                            tags,
                         ),
                     ),
                 )((expr) => expr)((value, expected) =>
@@ -716,8 +786,6 @@ export namespace ProtobufEncodeProgrammer {
                                   tracable: false,
                                   postfix: IdentifierFactory.postfix(key),
                               },
-                              tags,
-                              [],
                           )
                         : ExpressionFactory.isRequired(accessor);
                     return ts.factory.createIfStatement(
@@ -726,7 +794,7 @@ export namespace ProtobufEncodeProgrammer {
                             ExpressionFactory.selfCall(
                                 decode_object(project)(importer)(
                                     indexes!.get(spec.object)!,
-                                )(input, spec.object, explore, tags),
+                                )(input, spec.object, explore),
                             ),
                         ),
                         i === array.length - 1
@@ -739,8 +807,7 @@ export namespace ProtobufEncodeProgrammer {
                                               input,
                                               remained,
                                               explore,
-                                              tags,
-                                              indexes,
+                                              indexes!,
                                           ),
                                       ),
                                   )

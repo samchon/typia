@@ -61,7 +61,6 @@ export const emplace_metadata_object =
                     value,
                     description,
                     jsDocTags,
-                    tags: [],
                 });
                 obj.properties.push(property);
                 return property;

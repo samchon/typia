@@ -1,5 +1,3 @@
-import { $clone } from "../../functional/$clone";
-
 import { ClassProperties } from "../../typings/ClassProperties";
 
 import { IMetadataTuple } from "./IMetadataTuple";
@@ -28,7 +26,7 @@ export class MetadataTuple {
     public toJSON(): IMetadataTuple {
         return {
             type: this.type.toJSON(),
-            tags: $clone(this.tags),
+            tags: this.tags.map((row) => row.slice()),
         };
     }
 }
