@@ -24,7 +24,6 @@ export const test_protobuf_assertEncode_ArraySimpleProtobufNullable =
                                     input.int32.every(
                                         (elem: any) =>
                                             "number" === typeof elem &&
-                                            Number.isFinite(elem) &&
                                             Math.floor(elem) === elem &&
                                             -2147483648 <= elem &&
                                             elem <= 2147483647,
@@ -34,7 +33,6 @@ export const test_protobuf_assertEncode_ArraySimpleProtobufNullable =
                                     input.uint32.every(
                                         (elem: any) =>
                                             "number" === typeof elem &&
-                                            Number.isFinite(elem) &&
                                             Math.floor(elem) === elem &&
                                             0 <= elem &&
                                             elem <= 4294967295,
@@ -42,7 +40,8 @@ export const test_protobuf_assertEncode_ArraySimpleProtobufNullable =
                             (null === input.int64 ||
                                 (Array.isArray(input.int64) &&
                                     input.int64.every(
-                                        (elem: any) => "bigint" === typeof elem,
+                                        (elem: any) =>
+                                            "bigint" === typeof elem && true,
                                     ))) &&
                             (null === input.uint64 ||
                                 (Array.isArray(input.uint64) &&
@@ -56,7 +55,6 @@ export const test_protobuf_assertEncode_ArraySimpleProtobufNullable =
                                     input.float.every(
                                         (elem: any) =>
                                             "number" === typeof elem &&
-                                            Number.isFinite(elem) &&
                                             -1.175494351e38 <= elem &&
                                             elem <= 3.4028235e38,
                                     ))) &&
@@ -65,7 +63,8 @@ export const test_protobuf_assertEncode_ArraySimpleProtobufNullable =
                                     input.double.every(
                                         (elem: any) =>
                                             "number" === typeof elem &&
-                                            Number.isFinite(elem),
+                                            Number.isFinite(elem) &&
+                                            true,
                                     ))) &&
                             (null === input.string ||
                                 (Array.isArray(input.string) &&
@@ -134,26 +133,16 @@ export const test_protobuf_assertEncode_ArraySimpleProtobufNullable =
                                     ((Array.isArray(input.int32) ||
                                         $guard(_exceptionable, {
                                             path: _path + ".int32",
-                                            expected: "(Array<number> | null)",
+                                            expected:
+                                                '(Array<number & Type<"int32">> | null)',
                                             value: input.int32,
                                         })) &&
                                         input.int32.every(
                                             (elem: any, _index2: number) =>
                                                 ("number" === typeof elem &&
-                                                    Number.isFinite(elem) &&
-                                                    (Math.floor(elem) ===
-                                                        elem ||
-                                                        $guard(_exceptionable, {
-                                                            path:
-                                                                _path +
-                                                                ".int32[" +
-                                                                _index2 +
-                                                                "]",
-                                                            expected:
-                                                                "number (@type int32)",
-                                                            value: elem,
-                                                        })) &&
-                                                    ((-2147483648 <= elem &&
+                                                    ((Math.floor(elem) ===
+                                                        elem &&
+                                                        -2147483648 <= elem &&
                                                         elem <= 2147483647) ||
                                                         $guard(_exceptionable, {
                                                             path:
@@ -162,7 +151,7 @@ export const test_protobuf_assertEncode_ArraySimpleProtobufNullable =
                                                                 _index2 +
                                                                 "]",
                                                             expected:
-                                                                "number (@type int32)",
+                                                                'number & Type<"int32">',
                                                             value: elem,
                                                         }))) ||
                                                 $guard(_exceptionable, {
@@ -171,28 +160,32 @@ export const test_protobuf_assertEncode_ArraySimpleProtobufNullable =
                                                         ".int32[" +
                                                         _index2 +
                                                         "]",
-                                                    expected: "number",
+                                                    expected:
+                                                        '(number & Type<"int32">)',
                                                     value: elem,
                                                 }),
                                         )) ||
                                     $guard(_exceptionable, {
                                         path: _path + ".int32",
-                                        expected: "(Array<number> | null)",
+                                        expected:
+                                            '(Array<number & Type<"int32">> | null)',
                                         value: input.int32,
                                     })) &&
                                 (null === input.uint32 ||
                                     ((Array.isArray(input.uint32) ||
                                         $guard(_exceptionable, {
                                             path: _path + ".uint32",
-                                            expected: "(Array<number> | null)",
+                                            expected:
+                                                '(Array<number & Type<"uint32">> | null)',
                                             value: input.uint32,
                                         })) &&
                                         input.uint32.every(
                                             (elem: any, _index3: number) =>
                                                 ("number" === typeof elem &&
-                                                    Number.isFinite(elem) &&
-                                                    (Math.floor(elem) ===
-                                                        elem ||
+                                                    ((Math.floor(elem) ===
+                                                        elem &&
+                                                        0 <= elem &&
+                                                        elem <= 4294967295) ||
                                                         $guard(_exceptionable, {
                                                             path:
                                                                 _path +
@@ -200,29 +193,7 @@ export const test_protobuf_assertEncode_ArraySimpleProtobufNullable =
                                                                 _index3 +
                                                                 "]",
                                                             expected:
-                                                                "number (@type uint32)",
-                                                            value: elem,
-                                                        })) &&
-                                                    (0 <= elem ||
-                                                        $guard(_exceptionable, {
-                                                            path:
-                                                                _path +
-                                                                ".uint32[" +
-                                                                _index3 +
-                                                                "]",
-                                                            expected:
-                                                                "number (@type uint32)",
-                                                            value: elem,
-                                                        })) &&
-                                                    (elem <= 4294967295 ||
-                                                        $guard(_exceptionable, {
-                                                            path:
-                                                                _path +
-                                                                ".uint32[" +
-                                                                _index3 +
-                                                                "]",
-                                                            expected:
-                                                                "number (@type uint32)",
+                                                                'number & Type<"uint32">',
                                                             value: elem,
                                                         }))) ||
                                                 $guard(_exceptionable, {
@@ -231,45 +202,62 @@ export const test_protobuf_assertEncode_ArraySimpleProtobufNullable =
                                                         ".uint32[" +
                                                         _index3 +
                                                         "]",
-                                                    expected: "number",
+                                                    expected:
+                                                        '(number & Type<"uint32">)',
                                                     value: elem,
                                                 }),
                                         )) ||
                                     $guard(_exceptionable, {
                                         path: _path + ".uint32",
-                                        expected: "(Array<number> | null)",
+                                        expected:
+                                            '(Array<number & Type<"uint32">> | null)',
                                         value: input.uint32,
                                     })) &&
                                 (null === input.int64 ||
                                     ((Array.isArray(input.int64) ||
                                         $guard(_exceptionable, {
                                             path: _path + ".int64",
-                                            expected: "(Array<bigint> | null)",
+                                            expected:
+                                                '(Array<bigint & Type<"int64">> | null)',
                                             value: input.int64,
                                         })) &&
                                         input.int64.every(
                                             (elem: any, _index4: number) =>
-                                                "bigint" === typeof elem ||
+                                                ("bigint" === typeof elem &&
+                                                    (true ||
+                                                        $guard(_exceptionable, {
+                                                            path:
+                                                                _path +
+                                                                ".int64[" +
+                                                                _index4 +
+                                                                "]",
+                                                            expected:
+                                                                'bigint & Type<"int64">',
+                                                            value: elem,
+                                                        }))) ||
                                                 $guard(_exceptionable, {
                                                     path:
                                                         _path +
                                                         ".int64[" +
                                                         _index4 +
                                                         "]",
-                                                    expected: "bigint",
+                                                    expected:
+                                                        '(bigint & Type<"int64">)',
                                                     value: elem,
                                                 }),
                                         )) ||
                                     $guard(_exceptionable, {
                                         path: _path + ".int64",
-                                        expected: "(Array<bigint> | null)",
+                                        expected:
+                                            '(Array<bigint & Type<"int64">> | null)',
                                         value: input.int64,
                                     })) &&
                                 (null === input.uint64 ||
                                     ((Array.isArray(input.uint64) ||
                                         $guard(_exceptionable, {
                                             path: _path + ".uint64",
-                                            expected: "(Array<bigint> | null)",
+                                            expected:
+                                                '(Array<bigint & Type<"uint64">> | null)',
                                             value: input.uint64,
                                         })) &&
                                         input.uint64.every(
@@ -283,7 +271,7 @@ export const test_protobuf_assertEncode_ArraySimpleProtobufNullable =
                                                                 _index5 +
                                                                 "]",
                                                             expected:
-                                                                "bigint (@type uint64)",
+                                                                'bigint & Type<"uint64">',
                                                             value: elem,
                                                         }))) ||
                                                 $guard(_exceptionable, {
@@ -292,26 +280,28 @@ export const test_protobuf_assertEncode_ArraySimpleProtobufNullable =
                                                         ".uint64[" +
                                                         _index5 +
                                                         "]",
-                                                    expected: "bigint",
+                                                    expected:
+                                                        '(bigint & Type<"uint64">)',
                                                     value: elem,
                                                 }),
                                         )) ||
                                     $guard(_exceptionable, {
                                         path: _path + ".uint64",
-                                        expected: "(Array<bigint> | null)",
+                                        expected:
+                                            '(Array<bigint & Type<"uint64">> | null)',
                                         value: input.uint64,
                                     })) &&
                                 (null === input.float ||
                                     ((Array.isArray(input.float) ||
                                         $guard(_exceptionable, {
                                             path: _path + ".float",
-                                            expected: "(Array<number> | null)",
+                                            expected:
+                                                '(Array<number & Type<"float">> | null)',
                                             value: input.float,
                                         })) &&
                                         input.float.every(
                                             (elem: any, _index6: number) =>
                                                 ("number" === typeof elem &&
-                                                    Number.isFinite(elem) &&
                                                     ((-1.175494351e38 <= elem &&
                                                         elem <= 3.4028235e38) ||
                                                         $guard(_exceptionable, {
@@ -321,7 +311,7 @@ export const test_protobuf_assertEncode_ArraySimpleProtobufNullable =
                                                                 _index6 +
                                                                 "]",
                                                             expected:
-                                                                "number (@type float)",
+                                                                'number & Type<"float">',
                                                             value: elem,
                                                         }))) ||
                                                 $guard(_exceptionable, {
@@ -330,39 +320,64 @@ export const test_protobuf_assertEncode_ArraySimpleProtobufNullable =
                                                         ".float[" +
                                                         _index6 +
                                                         "]",
-                                                    expected: "number",
+                                                    expected:
+                                                        '(number & Type<"float">)',
                                                     value: elem,
                                                 }),
                                         )) ||
                                     $guard(_exceptionable, {
                                         path: _path + ".float",
-                                        expected: "(Array<number> | null)",
+                                        expected:
+                                            '(Array<number & Type<"float">> | null)',
                                         value: input.float,
                                     })) &&
                                 (null === input.double ||
                                     ((Array.isArray(input.double) ||
                                         $guard(_exceptionable, {
                                             path: _path + ".double",
-                                            expected: "(Array<number> | null)",
+                                            expected:
+                                                '(Array<number & Type<"double">> | null)',
                                             value: input.double,
                                         })) &&
                                         input.double.every(
                                             (elem: any, _index7: number) =>
                                                 ("number" === typeof elem &&
-                                                    Number.isFinite(elem)) ||
+                                                    (Number.isFinite(elem) ||
+                                                        $guard(_exceptionable, {
+                                                            path:
+                                                                _path +
+                                                                ".double[" +
+                                                                _index7 +
+                                                                "]",
+                                                            expected: "number",
+                                                            value: elem,
+                                                        })) &&
+                                                    (true ||
+                                                        $guard(_exceptionable, {
+                                                            path:
+                                                                _path +
+                                                                ".double[" +
+                                                                _index7 +
+                                                                "]",
+                                                            expected:
+                                                                'number & Type<"double">',
+                                                            value: elem,
+                                                        }))) ||
                                                 $guard(_exceptionable, {
                                                     path:
                                                         _path +
                                                         ".double[" +
                                                         _index7 +
                                                         "]",
-                                                    expected: "number",
+                                                    expected:
+                                                        '(number & Type<"double">)',
                                                     value: elem,
                                                 }),
                                         )) ||
                                     $guard(_exceptionable, {
                                         path: _path + ".double",
-                                        expected: "(Array<number> | null)",
+                                        expected:
+                                            '(Array<number & Type<"double">> | null)',
                                         value: input.double,
                                     })) &&
                                 (null === input.string ||
@@ -624,7 +639,8 @@ export const test_protobuf_assertEncode_ArraySimpleProtobufNullable =
                             (null === input.int64 ||
                                 (Array.isArray(input.int64) &&
                                     input.int64.every(
-                                        (elem: any) => "bigint" === typeof elem,
+                                        (elem: any) =>
+                                            "bigint" === typeof elem && true,
                                     ))) &&
                             (null === input.uint64 ||
                                 (Array.isArray(input.uint64) &&
@@ -644,7 +660,8 @@ export const test_protobuf_assertEncode_ArraySimpleProtobufNullable =
                             (null === input.double ||
                                 (Array.isArray(input.double) &&
                                     input.double.every(
-                                        (elem: any) => "number" === typeof elem,
+                                        (elem: any) =>
+                                            "number" === typeof elem && true,
                                     ))) &&
                             (null === input.string ||
                                 (Array.isArray(input.string) &&
@@ -708,7 +725,7 @@ export const test_protobuf_assertEncode_ArraySimpleProtobufNullable =
                             } else output.boolean.push(reader.bool());
                             break;
                         case 2:
-                            // type: Array<number>;
+                            // type: Array<(number & Type<"int32">)>;
                             output.int32 ??= [] as any[];
                             if (2 === (tag & 7)) {
                                 const piece = reader.uint32() + reader.index();
@@ -717,7 +734,7 @@ export const test_protobuf_assertEncode_ArraySimpleProtobufNullable =
                             } else output.int32.push(reader.int32());
                             break;
                         case 3:
-                            // type: Array<number>;
+                            // type: Array<(number & Type<"uint32">)>;
                             output.uint32 ??= [] as any[];
                             if (2 === (tag & 7)) {
                                 const piece = reader.uint32() + reader.index();
@@ -726,7 +743,7 @@ export const test_protobuf_assertEncode_ArraySimpleProtobufNullable =
                             } else output.uint32.push(reader.uint32());
                             break;
                         case 4:
-                            // type: Array<bigint>;
+                            // type: Array<(bigint & Type<"int64">)>;
                             output.int64 ??= [] as any[];
                             if (2 === (tag & 7)) {
                                 const piece = reader.uint32() + reader.index();
@@ -735,7 +752,7 @@ export const test_protobuf_assertEncode_ArraySimpleProtobufNullable =
                             } else output.int64.push(reader.int64());
                             break;
                         case 5:
-                            // type: Array<bigint>;
+                            // type: Array<(bigint & Type<"uint64">)>;
                             output.uint64 ??= [] as any[];
                             if (2 === (tag & 7)) {
                                 const piece = reader.uint32() + reader.index();
@@ -744,7 +761,7 @@ export const test_protobuf_assertEncode_ArraySimpleProtobufNullable =
                             } else output.uint64.push(reader.uint64());
                             break;
                         case 6:
-                            // type: Array<number>;
+                            // type: Array<(number & Type<"float">)>;
                             output.float ??= [] as any[];
                             if (2 === (tag & 7)) {
                                 const piece = reader.uint32() + reader.index();
@@ -753,7 +770,7 @@ export const test_protobuf_assertEncode_ArraySimpleProtobufNullable =
                             } else output.float.push(reader.float());
                             break;
                         case 7:
-                            // type: Array<number>;
+                            // type: Array<(number & Type<"double">)>;
                             output.double ??= [] as any[];
                             if (2 === (tag & 7)) {
                                 const piece = reader.uint32() + reader.index();

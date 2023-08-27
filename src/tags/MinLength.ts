@@ -1,8 +1,9 @@
 import { TagBase } from "./TagBase";
 
-export type MinLength<Fixed extends number> = TagBase<{
-    target: "array";
+export type MinLength<Value extends number> = TagBase<{
+    target: "string";
     kind: "minLength";
-    value: number;
-    validate: `${Fixed} <= $input.length`;
+    value: Value;
+    validate: `${Value} <= $input.length`;
+    exclusive: true;
 }>;

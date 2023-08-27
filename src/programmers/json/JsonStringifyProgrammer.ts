@@ -8,8 +8,6 @@ import { StatementFactory } from "../../factories/StatementFactory";
 import { TypeFactory } from "../../factories/TypeFactory";
 import { ValueFactory } from "../../factories/ValueFactory";
 
-import { IJsDocTagInfo } from "../../schemas/metadata/IJsDocTagInfo";
-import { IMetadataCommentTag } from "../../schemas/metadata/IMetadataCommentTag";
 import { Metadata } from "../../schemas/metadata/Metadata";
 import { MetadataArray } from "../../schemas/metadata/MetadataArray";
 import { MetadataAtomic } from "../../schemas/metadata/MetadataAtomic";
@@ -228,8 +226,6 @@ export namespace JsonStringifyProgrammer {
                                     input,
                                     partial,
                                     explore,
-                                    [],
-                                    [],
                                 ),
                             value: () =>
                                 decode_atomic(project)(importer)(
@@ -261,8 +257,6 @@ export namespace JsonStringifyProgrammer {
                                     return partial;
                                 })(),
                                 explore,
-                                [],
-                                [],
                             ),
                         value: () =>
                             decode_atomic(project)(importer)(
@@ -288,8 +282,6 @@ export namespace JsonStringifyProgrammer {
                                     return partial;
                                 })(),
                                 explore,
-                                [],
-                                [],
                             ),
                         value: () =>
                             decode_constant_string(project)(importer)(
@@ -313,8 +305,6 @@ export namespace JsonStringifyProgrammer {
                                     return partial;
                                 })(),
                                 explore,
-                                [],
-                                [],
                             ),
                         value: () =>
                             decode_atomic(project)(importer)(
@@ -342,8 +332,6 @@ export namespace JsonStringifyProgrammer {
                                 return partial;
                             })(),
                             explore,
-                            [],
-                            [],
                         ),
                     value: () =>
                         decode_tuple(project)(config)(importer)(
@@ -555,7 +543,7 @@ export namespace JsonStringifyProgrammer {
         ) =>
             FeatureProgrammer.decode_array(config)(importer)(
                 StringifyJoiner.array,
-            )(input, array, explore, [], []);
+            )(input, array, explore);
 
     const decode_tuple =
         (project: IProject) =>
@@ -770,8 +758,6 @@ export namespace JsonStringifyProgrammer {
                 input: ts.Expression,
                 elements: T[],
                 explore: FeatureProgrammer.IExplore,
-                tags: IMetadataCommentTag[],
-                jsDocTags: IJsDocTagInfo[],
             ) => ts.ArrowFunction,
         ) =>
         (
@@ -783,7 +769,7 @@ export namespace JsonStringifyProgrammer {
                 (parameters: ts.ParameterDeclaration[]) =>
                 (explore: FeatureProgrammer.IExplore) =>
                 (input: ts.Expression): ts.ArrowFunction =>
-                    factory(parameters)(input, elements, explore, [], []);
+                    factory(parameters)(input, elements, explore);
             if (elements.every((e) => e.type.recursive === false))
                 ts.factory.createCallExpression(
                     arrow([])(explore)(input),
@@ -926,8 +912,6 @@ export namespace JsonStringifyProgrammer {
                             input,
                             meta,
                             explore,
-                            [],
-                            [],
                         ),
                     decoder: () => decode_object(importer),
                     joiner: StringifyJoiner.object(importer),

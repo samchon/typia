@@ -1,26 +1,15 @@
 import { RandomGenerator } from "typia/lib/utils/RandomGenerator";
 
+import typia from "../../src";
 import { Spoiler } from "../helpers/Spoiler";
 
 export interface MapSimpleProtobuf {
     boolean: Map<string, boolean>;
-
-    /**
-     * @type int32
-     */
-    int32: Map<string, number>;
-
+    int32: Map<string, number & typia.tags.Type<"int32">>;
     bigint: Map<string, bigint>;
-
     double: Map<string, number>;
-
-    /**
-     * @minLength 1
-     */
-    string: Map<string, string>;
-
+    string: Map<string, string & typia.tags.MinLength<1>>;
     bytes: Map<string, Uint8Array>;
-
     objects: Map<string, MapSimpleProtobuf>;
 }
 export namespace MapSimpleProtobuf {

@@ -3,33 +3,21 @@ import ts from "typescript";
 import { StatementFactory } from "../../factories/StatementFactory";
 import { TypeFactory } from "../../factories/TypeFactory";
 
-import { ICommentTag } from "../../schemas/metadata/ICommentTag";
-import { IMetadataCommentTag } from "../../schemas/metadata/IMetadataCommentTag";
 import { Metadata } from "../../schemas/metadata/Metadata";
 import { MetadataObject } from "../../schemas/metadata/MetadataObject";
 import { MetadataProperty } from "../../schemas/metadata/MetadataProperty";
 
 import { Escaper } from "../../utils/Escaper";
 
-import { get_comment_tags } from "../internal/get_comment_tags";
-
 export namespace RandomJoiner {
-    export type Decoder = (
-        meta: Metadata,
-        tags: IMetadataCommentTag[],
-        comments: ICommentTag[],
-    ) => ts.Expression;
+    export type Decoder = (meta: Metadata) => ts.Expression;
 
     export const array =
         (coalesce: (method: string) => ts.Expression) =>
         (decoder: Decoder) =>
         (explore: IExplore) =>
         (length: ts.Expression | undefined) =>
-        (
-            item: Metadata,
-            tags: IMetadataCommentTag[],
-            comments: ICommentTag[],
-        ): ts.Expression => {
+        (item: Metadata): ts.Expression => {
             const generator: ts.Expression = ts.factory.createCallExpression(
                 coalesce("array"),
                 undefined,
@@ -40,7 +28,7 @@ export namespace RandomJoiner {
                         [],
                         undefined,
                         undefined,
-                        decoder(item, tags, comments),
+                        decoder(item),
                     ),
                     ...(length ? [length] : []),
                 ],
@@ -58,17 +46,11 @@ export namespace RandomJoiner {
             );
         };
 
-    export const tuple =
-        (decoder: Decoder) =>
-        (
-            items: Metadata[],
-            tags: IMetadataCommentTag[],
-            comments: ICommentTag[],
-        ) =>
-            ts.factory.createArrayLiteralExpression(
-                items.map((i) => decoder(i.rest ?? i, tags, comments)),
-                true,
-            );
+    export const tuple = (decoder: Decoder) => (elements: Metadata[]) =>
+        ts.factory.createArrayLiteralExpression(
+            elements.map((elem) => decoder(elem.rest ?? elem)),
+            true,
+        );
 
     export const object =
         (coalesce: (method: string) => ts.Expression) =>
@@ -92,11 +74,7 @@ export namespace RandomJoiner {
                             Escaper.variable(str)
                                 ? str
                                 : ts.factory.createStringLiteral(str),
-                            decoder(
-                                p.value,
-                                p.tags,
-                                get_comment_tags(false)(p.jsDocTags),
-                            ),
+                            decoder(p.value),
                         );
                     }),
                     true,
@@ -150,14 +128,10 @@ export namespace RandomJoiner {
                     ts.factory.createBinaryExpression(
                         ts.factory.createElementAccessExpression(
                             ts.factory.createIdentifier("output"),
-                            decoder(p.key, [], []),
+                            decoder(p.key),
                         ),
                         ts.factory.createToken(ts.SyntaxKind.EqualsToken),
-                        decoder(
-                            p.value,
-                            p.tags,
-                            get_comment_tags(false)(p.jsDocTags),
-                        ),
+                        decoder(p.value),
                     ),
                 ),
                 ts.factory.createCallExpression(

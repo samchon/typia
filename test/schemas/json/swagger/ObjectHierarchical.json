@@ -24,12 +24,6 @@
             "$ref": "#/components/schemas/ObjectHierarchical.IAccount.Nullable"
           },
           "href": {
-            "x-typia-metaTags": [
-              {
-                "kind": "format",
-                "value": "url"
-              }
-            ],
             "x-typia-jsDocTags": [
               {
                 "name": "format",
@@ -47,12 +41,6 @@
             "format": "url"
           },
           "referrer": {
-            "x-typia-metaTags": [
-              {
-                "kind": "format",
-                "value": "url"
-              }
-            ],
             "x-typia-jsDocTags": [
               {
                 "name": "format",
@@ -70,12 +58,6 @@
             "format": "url"
           },
           "ip": {
-            "x-typia-metaTags": [
-              {
-                "kind": "format",
-                "value": "ipv4"
-              }
-            ],
             "x-typia-jsDocTags": [
               {
                 "name": "format",

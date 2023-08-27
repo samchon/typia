@@ -34,7 +34,7 @@ export const test_protobuf_isDecode_ClassGetter = _test_protobuf_isDecode(
                             output.name = reader.string();
                             break;
                         case 3:
-                            // boolean;
+                            // bool;
                             output.dead = reader.bool();
                             break;
                         default:

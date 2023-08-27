@@ -49,8 +49,6 @@ export const test_misc_clone_ObjectHierarchical = _test_misc_clone(
             "object" === typeof input.created_at &&
             null !== input.created_at &&
             $io2(input.created_at);
-        const $is_url = (typia.misc.createClone as any).is_url;
-        const $is_ipv4 = (typia.misc.createClone as any).is_ipv4;
         const $cp0 = (input: any) => input.map((elem: any) => elem as any);
         const $co0 = (input: any): any => ({
             id: input.id as any,

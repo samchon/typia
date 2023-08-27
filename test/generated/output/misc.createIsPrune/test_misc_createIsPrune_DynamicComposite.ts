@@ -12,6 +12,8 @@ export const test_misc_isPrune_DynamicComposite = _test_misc_isPrune(
                 "string" === typeof input.id &&
                 "string" === typeof input.name &&
                 Object.keys(input).every((key: any) => {
+                    if (["id", "name"].some((prop: any) => key === prop))
+                        return true;
                     const value = input[key];
                     if (undefined === value) return true;
                     if (

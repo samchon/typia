@@ -1,26 +1,15 @@
 import { RandomGenerator } from "typia/lib/utils/RandomGenerator";
 
+import typia from "../../src";
 import { Spoiler } from "../helpers/Spoiler";
 
 export interface MapSimpleProtobufNullable {
     boolean: null | Map<string, boolean>;
-
-    /**
-     * @type int32
-     */
-    int32: null | Map<string, number>;
-
+    int32: null | Map<string, number & typia.tags.Type<"int32">>;
     bigint: null | Map<string, bigint>;
-
     double: null | Map<string, number>;
-
-    /**
-     * @minLength 1
-     */
-    string: null | Map<string, string>;
-
+    string: null | Map<string, string & typia.tags.MinLength<1>>;
     bytes: null | Map<string, Uint8Array>;
-
     objects: null | Map<string, MapSimpleProtobufNullable>;
 }
 export namespace MapSimpleProtobufNullable {

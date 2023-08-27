@@ -41,7 +41,7 @@ export const _test_assert =
                         });
             }
             throw new Error(
-                `Bug on typia.assert(): failed to detect error on the ${name} type.`,
+                `Bug on typia.assert(): failed to detect error on the ${name} type - ${expected}.`,
             );
         }
     };

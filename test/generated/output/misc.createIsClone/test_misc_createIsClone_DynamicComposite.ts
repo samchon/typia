@@ -12,6 +12,8 @@ export const test_misc_isClone_DynamicComposite = _test_misc_isClone(
                 "string" === typeof input.id &&
                 "string" === typeof input.name &&
                 Object.keys(input).every((key: any) => {
+                    if (["id", "name"].some((prop: any) => key === prop))
+                        return true;
                     const value = input[key];
                     if (undefined === value) return true;
                     if (
@@ -57,6 +59,8 @@ export const test_misc_isClone_DynamicComposite = _test_misc_isClone(
                     name: input.name as any,
                 } as any;
                 for (const [key, value] of Object.entries(input)) {
+                    if (["id", "name"].some((regular: any) => regular === key))
+                        continue;
                     if (
                         RegExp(/^[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?$/).test(
                             key,

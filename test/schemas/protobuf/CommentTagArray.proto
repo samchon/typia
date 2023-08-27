@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+message CommentTagArray {
+    repeated CommentTagArray.Type value = 1;
+    message Type {
+        repeated string items = 1;
+        repeated double minItems = 2;
+        repeated string both = 3;
+        repeated double equal = 4;
+    }
+}

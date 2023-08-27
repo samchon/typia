@@ -42,7 +42,7 @@ export const test_protobuf_decode_ObjectPrimitive = _test_protobuf_decode(
                         output.files.push($pdo1(reader, reader.uint32()));
                         break;
                     case 6:
-                        // boolean;
+                        // bool;
                         output.secret = reader.bool();
                         break;
                     case 7:

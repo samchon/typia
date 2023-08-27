@@ -69,9 +69,6 @@ export const application_object =
                         : undefined;
                 })(),
                 description: property.description ?? undefined,
-                "x-typia-metaTags": property.tags.length
-                    ? property.tags
-                    : undefined,
                 "x-typia-jsDocTags": property.jsDocTags.length
                     ? property.jsDocTags
                     : undefined,

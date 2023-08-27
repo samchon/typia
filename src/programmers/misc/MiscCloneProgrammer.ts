@@ -7,8 +7,6 @@ import { MetadataFactory } from "../../factories/MetadataFactory";
 import { StatementFactory } from "../../factories/StatementFactory";
 import { TypeFactory } from "../../factories/TypeFactory";
 
-import { IJsDocTagInfo } from "../../schemas/metadata/IJsDocTagInfo";
-import { IMetadataCommentTag } from "../../schemas/metadata/IMetadataCommentTag";
 import { Metadata } from "../../schemas/metadata/Metadata";
 import { MetadataArray } from "../../schemas/metadata/MetadataArray";
 import { MetadataTuple } from "../../schemas/metadata/MetadataTuple";
@@ -156,8 +154,6 @@ export namespace MiscCloneProgrammer {
                                 return partial;
                             })(),
                             explore,
-                            [],
-                            [],
                         ),
                     value: () =>
                         decode_tuple(project)(config)(importer)(
@@ -300,8 +296,6 @@ export namespace MiscCloneProgrammer {
                 input,
                 array,
                 explore,
-                [],
-                [],
             );
 
     const decode_tuple =
@@ -503,7 +497,7 @@ export namespace MiscCloneProgrammer {
                     success: ts.factory.createTrue(),
                     failure: (input, expected) =>
                         create_throw_error(importer)(expected)(input),
-                })([])(input, sets, explore, [], []),
+                })([])(input, sets, explore),
                 undefined,
                 undefined,
             );
@@ -532,8 +526,6 @@ export namespace MiscCloneProgrammer {
                                     ...explore,
                                     postfix: `${explore.postfix}[0]`,
                                 },
-                                [],
-                                [],
                             ),
                             func(
                                 ts.factory.createElementAccessExpression(
@@ -545,8 +537,6 @@ export namespace MiscCloneProgrammer {
                                     ...explore,
                                     postfix: `${explore.postfix}[1]`,
                                 },
-                                [],
-                                [],
                             ),
                         );
                     },
@@ -576,7 +566,7 @@ export namespace MiscCloneProgrammer {
                     success: ts.factory.createTrue(),
                     failure: (input, expected) =>
                         create_throw_error(importer)(expected)(input),
-                })([])(input, maps, explore, [], []),
+                })([])(input, maps, explore),
                 undefined,
                 undefined,
             );
@@ -635,8 +625,6 @@ export namespace MiscCloneProgrammer {
                 input: ts.Expression,
                 elements: T[],
                 explore: FeatureProgrammer.IExplore,
-                tags: IMetadataCommentTag[],
-                jsDocTags: IJsDocTagInfo[],
             ) => ts.ArrowFunction,
         ) =>
         (
@@ -648,7 +636,7 @@ export namespace MiscCloneProgrammer {
                 (parameters: ts.ParameterDeclaration[]) =>
                 (explore: FeatureProgrammer.IExplore) =>
                 (input: ts.Expression): ts.ArrowFunction =>
-                    factory(parameters)(input, elements, explore, [], []);
+                    factory(parameters)(input, elements, explore);
             if (elements.every((e) => e.type.recursive === false))
                 ts.factory.createCallExpression(
                     arrow([])(explore)(input),

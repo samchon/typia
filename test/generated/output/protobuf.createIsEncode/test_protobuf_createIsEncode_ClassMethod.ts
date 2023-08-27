@@ -55,7 +55,7 @@ export const test_protobuf_isEncode_ClassMethod = _test_protobuf_isEncode(
                         output.name = reader.string();
                         break;
                     case 2:
-                        // number;
+                        // double;
                         output.age = reader.double();
                         break;
                     default:

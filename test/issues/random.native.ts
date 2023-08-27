@@ -1,6 +1,5 @@
 import typia from "typia";
 
-import { NativeSimple } from "../structures/NativeSimple";
+import { AtomicClass } from "../structures/AtomicClass";
 
-const data = typia.random<NativeSimple>();
-typia.assert(data);
+const data = typia.random<AtomicClass>();

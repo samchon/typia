@@ -1,81 +1,87 @@
+import { IMetadataTypeTag } from "../../schemas/metadata/IMetadataTypeTag";
+import { MetadataAtomic } from "../../schemas/metadata/MetadataAtomic";
+
 import { IJsonSchema } from "../../module";
 import { application_default } from "./application_default";
+
+type Schema = IJsonSchema.INumber | IJsonSchema.IInteger;
 
 /**
  * @internal
  */
-export const application_number = (
-    attribute: IJsonSchema.IAttribute,
-): IJsonSchema.INumber | IJsonSchema.IInteger => {
-    const output: IJsonSchema.INumber | IJsonSchema.IInteger = {
-        ...attribute,
-        type: "number" as "number" | "integer",
+export const application_number =
+    (atomic: MetadataAtomic) =>
+    (attribute: IJsonSchema.IAttribute): Array<Schema> => {
+        // BASE CONFIGURATION
+        const base: Schema = {
+            ...attribute,
+            type: "number",
+        };
+        const out = (schema: Schema) => {
+            schema.default = application_default(attribute)((str) => {
+                const value: number = Number(str);
+                const conditions: boolean[] = [!Number.isNaN(value)];
+                if (schema.minimum !== undefined)
+                    if (schema.exclusiveMinimum === true)
+                        conditions.push(value > schema.minimum);
+                    else conditions.push(value >= schema.minimum);
+                if (schema.maximum !== undefined)
+                    if (schema.exclusiveMaximum === true)
+                        conditions.push(value < schema.maximum);
+                    else conditions.push(value <= schema.maximum);
+                if (schema.multipleOf !== undefined)
+                    conditions.push(value % schema.multipleOf === 0);
+                return conditions.every((cond) => cond);
+            })((str) => Number(str));
+            return schema;
+        };
+        if (atomic.tags.length === 0) return [out(base)];
+
+        // CONSIDER TYPE TAGS
+        const union: Schema[] = atomic.tags.map(
+            (row) => application_number_tags({ ...base })(row)!,
+        );
+        const map: Map<string, Schema> = new Map(
+            union.map((u) => [JSON.stringify(u), u]),
+        );
+        return [...map.values()].map((s) => out(s));
     };
-    for (const tag of attribute["x-typia-metaTags"] ?? []) {
-        // CHECK TYPE
-        if (tag.kind === "type") {
+
+const application_number_tags =
+    (schema: Schema) =>
+    (row: IMetadataTypeTag[]): Schema => {
+        for (const tag of row
+            .slice()
+            .sort((a, b) => a.kind.localeCompare(b.kind))) {
             if (
-                tag.value === "int" ||
-                tag.value === "uint" ||
-                tag.value === "int32" ||
-                tag.value === "uint32" ||
-                tag.value === "int64" ||
-                tag.value === "uint64"
-            )
-                output.type = "integer";
-        }
-        // RANGE TAG
-        else if (tag.kind === "minimum") output.minimum = tag.value;
-        else if (tag.kind === "maximum") output.maximum = tag.value;
-        else if (tag.kind === "exclusiveMinimum") {
-            output.minimum = tag.value;
-            output.exclusiveMinimum = true;
-        } else if (tag.kind === "exclusiveMaximum") {
-            output.maximum = tag.value;
-            output.exclusiveMaximum = true;
-        }
-        // MULTIPLE-OF
-        else if (tag.kind === "multipleOf") output.multipleOf = tag.value;
-    }
-
-    // WHEN UNSIGNED INT
-    if (
-        output.type === "integer" &&
-        (attribute["x-typia-metaTags"] ?? []).find(
-            (tag) =>
                 tag.kind === "type" &&
-                (tag.value === "uint" ||
+                (tag.value === "int32" ||
                     tag.value === "uint32" ||
-                    tag.value === "uint64"),
-        )
-    )
-        if (
-            output.minimum === undefined ||
-            (output.exclusiveMaximum !== true && output.minimum < 0)
-        )
-            output.minimum = 0;
-        else if (output.exclusiveMinimum === true && output.minimum < -1) {
-            output.maximum = 0;
-            delete output.exclusiveMinimum;
+                    tag.value === "int64" ||
+                    tag.value === "uint64")
+            )
+                schema.type = "integer";
+            else if (tag.kind === "minimum" && typeof tag.value === "number")
+                schema.minimum = tag.value;
+            else if (tag.kind === "maximum" && typeof tag.value === "number")
+                schema.maximum = tag.value;
+            else if (
+                tag.kind === "exclusiveMinimum" &&
+                typeof tag.value === "number"
+            ) {
+                schema.minimum = tag.value;
+                schema.exclusiveMinimum = true;
+            } else if (
+                tag.kind === "exclusiveMaximum" &&
+                typeof tag.value === "number"
+            ) {
+                schema.maximum = tag.value;
+                schema.exclusiveMaximum = true;
+            } else if (
+                tag.kind === "multipleOf" &&
+                typeof tag.value === "number"
+            )
+                schema.multipleOf = tag.value;
         }
-
-    // DEFAULT CONFIGURATION
-    output.default = application_default(attribute)((str) => {
-        const value: number = Number(str);
-        const conditions: boolean[] = [!Number.isNaN(value)];
-        if (output.minimum !== undefined)
-            if (output.exclusiveMinimum === true)
-                conditions.push(value > output.minimum);
-            else conditions.push(value >= output.minimum);
-        if (output.maximum !== undefined)
-            if (output.exclusiveMaximum === true)
-                conditions.push(value < output.maximum);
-            else conditions.push(value <= output.maximum);
-        if (output.multipleOf !== undefined)
-            conditions.push(value % output.multipleOf === 0);
-        return conditions.every((cond) => cond);
-    })((str) => Number(str));
-
-    // RETURNS
-    return output;
-};
+        return schema;
+    };

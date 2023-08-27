@@ -1,9 +1,9 @@
-import { IsPruneProgrammer } from "../../../programmers/IsPruneProgrammer";
+import { MiscIsPruneProgrammer } from "../../../programmers/misc/MiscIsPruneProgrammer";
 
 import { GenericTransformer } from "../../internal/GenericTransformer";
 
 export namespace MiscIsPruneTransformer {
     export const transform = GenericTransformer.scalar("isPrune")(
-        (project) => (modulo) => IsPruneProgrammer.write(project)(modulo),
+        (project) => (modulo) => MiscIsPruneProgrammer.write(project)(modulo),
     );
 }

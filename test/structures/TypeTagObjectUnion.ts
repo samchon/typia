@@ -1,5 +1,4 @@
-import typia from "typia";
-
+import typia from "../../src";
 import { Spoiler } from "../helpers/Spoiler";
 import { TestRandomGenerator } from "../helpers/TestRandomGenerator";
 

@@ -1,0 +1,63 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/schemas/TypeTagObjectUnion"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "TypeTagObjectUnion": {
+        "$id": "#/components/schemas/TypeTagObjectUnion",
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/TypeTagObjectUnion.Type"
+        }
+      },
+      "TypeTagObjectUnion.Type": {
+        "$id": "#/components/schemas/TypeTagObjectUnion.Type",
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/TypeTagObjectUnion.Numeric"
+          },
+          {
+            "$ref": "#/components/schemas/TypeTagObjectUnion.Literal"
+          }
+        ]
+      },
+      "TypeTagObjectUnion.Numeric": {
+        "$id": "#/components/schemas/TypeTagObjectUnion.Numeric",
+        "type": "object",
+        "properties": {
+          "value": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "number",
+            "minimum": 3
+          }
+        },
+        "required": [
+          "value"
+        ],
+        "x-typia-jsDocTags": []
+      },
+      "TypeTagObjectUnion.Literal": {
+        "$id": "#/components/schemas/TypeTagObjectUnion.Literal",
+        "type": "object",
+        "properties": {
+          "value": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string",
+            "maxLength": 7,
+            "minLength": 3
+          }
+        },
+        "required": [
+          "value"
+        ],
+        "x-typia-jsDocTags": []
+      }
+    }
+  },
+  "purpose": "ajv"
+}

@@ -1,11 +1,10 @@
-import typia from "typia";
-
+import typia from "../../src";
 import { Spoiler } from "../helpers/Spoiler";
 import { TestRandomGenerator } from "../helpers/TestRandomGenerator";
 
 export interface TypeTagTuple {
     tuple: [
-        string & typia.tags.MinLength<3> & typia.tags.MinLength<7>,
+        string & typia.tags.MinLength<3> & typia.tags.MaxLength<7>,
         number & typia.tags.Minimum<3> & typia.tags.Maximum<7>,
         Array<string & typia.tags.MinLength<1> & typia.tags.MaxLength<2>> &
             typia.tags.MinItems<3> &
@@ -53,10 +52,14 @@ export namespace TypeTagTuple {
         },
         (input) => {
             input.tuple[2] = TestRandomGenerator.array(() => "123", 3);
-            return ["$input.tuple[2]"];
+            return [
+                "$input.tuple[2][0]",
+                "$input.tuple[2][1]",
+                "$input.tuple[2][2]",
+            ];
         },
         (input) => {
-            input.tuple[3][0] = 2;
+            input.tuple[3][0] = 3;
             return ["$input.tuple[3][0]"];
         },
         (input) => {

@@ -1,4 +1,4 @@
-export type TagBase<Props extends TagBase.IProps<any, any, any, any>> = {
+export type TagBase<Props extends TagBase.IProps<any, any, any, any, any>> = {
     "typia.tag"?: Props;
 };
 export namespace TagBase {
@@ -11,10 +11,12 @@ export namespace TagBase {
             | {
                   [key in Target]?: string;
               },
+        Exclusive extends boolean | string[],
     > {
         target: Target;
         kind: Kind;
         value: Value;
         validate: Validate;
+        exclusive?: Exclusive | string[];
     }
 }

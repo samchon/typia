@@ -1,0 +1,651 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/schemas/CommentTagDefault"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "CommentTagDefault": {
+        "$id": "#/components/schemas/CommentTagDefault",
+        "type": "object",
+        "properties": {
+          "boolean": {
+            "x-typia-jsDocTags": [
+              {
+                "name": "default",
+                "text": [
+                  {
+                    "text": "false",
+                    "kind": "text"
+                  }
+                ]
+              }
+            ],
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "default": true,
+            "type": "boolean"
+          },
+          "number": {
+            "x-typia-jsDocTags": [
+              {
+                "name": "default",
+                "text": [
+                  {
+                    "text": "1",
+                    "kind": "text"
+                  }
+                ]
+              }
+            ],
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "number",
+            "default": 1
+          },
+          "string": {
+            "x-typia-jsDocTags": [
+              {
+                "name": "default",
+                "text": [
+                  {
+                    "text": "two",
+                    "kind": "text"
+                  }
+                ]
+              }
+            ],
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string",
+            "default": "two"
+          },
+          "text": {
+            "x-typia-jsDocTags": [
+              {
+                "name": "default",
+                "text": [
+                  {
+                    "text": "Very long text, can you understand it?",
+                    "kind": "text"
+                  }
+                ]
+              }
+            ],
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string",
+            "default": "Very long text, can you understand it?"
+          },
+          "template": {
+            "type": "string",
+            "x-typia-jsDocTags": [
+              {
+                "name": "default",
+                "text": [
+                  {
+                    "text": "prefix_A",
+                    "kind": "text"
+                  }
+                ]
+              }
+            ],
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "pattern": "^(prefix_(.*))",
+            "default": "prefix_A"
+          },
+          "boolean_and_number_and_string": {
+            "oneOf": [
+              {
+                "x-typia-jsDocTags": [
+                  {
+                    "name": "default",
+                    "text": [
+                      {
+                        "text": "false",
+                        "kind": "text"
+                      }
+                    ]
+                  },
+                  {
+                    "name": "default",
+                    "text": [
+                      {
+                        "text": "1",
+                        "kind": "text"
+                      }
+                    ]
+                  },
+                  {
+                    "name": "default",
+                    "text": [
+                      {
+                        "text": "two",
+                        "kind": "text"
+                      }
+                    ]
+                  }
+                ],
+                "x-typia-required": true,
+                "x-typia-optional": false,
+                "type": "string",
+                "default": "two"
+              },
+              {
+                "x-typia-jsDocTags": [
+                  {
+                    "name": "default",
+                    "text": [
+                      {
+                        "text": "false",
+                        "kind": "text"
+                      }
+                    ]
+                  },
+                  {
+                    "name": "default",
+                    "text": [
+                      {
+                        "text": "1",
+                        "kind": "text"
+                      }
+                    ]
+                  },
+                  {
+                    "name": "default",
+                    "text": [
+                      {
+                        "text": "two",
+                        "kind": "text"
+                      }
+                    ]
+                  }
+                ],
+                "x-typia-required": true,
+                "x-typia-optional": false,
+                "type": "number",
+                "default": 1
+              },
+              {
+                "x-typia-jsDocTags": [
+                  {
+                    "name": "default",
+                    "text": [
+                      {
+                        "text": "false",
+                        "kind": "text"
+                      }
+                    ]
+                  },
+                  {
+                    "name": "default",
+                    "text": [
+                      {
+                        "text": "1",
+                        "kind": "text"
+                      }
+                    ]
+                  },
+                  {
+                    "name": "default",
+                    "text": [
+                      {
+                        "text": "two",
+                        "kind": "text"
+                      }
+                    ]
+                  }
+                ],
+                "x-typia-required": true,
+                "x-typia-optional": false,
+                "default": true,
+                "type": "boolean"
+              }
+            ],
+            "x-typia-jsDocTags": [
+              {
+                "name": "default",
+                "text": [
+                  {
+                    "text": "false",
+                    "kind": "text"
+                  }
+                ]
+              },
+              {
+                "name": "default",
+                "text": [
+                  {
+                    "text": "1",
+                    "kind": "text"
+                  }
+                ]
+              },
+              {
+                "name": "default",
+                "text": [
+                  {
+                    "text": "two",
+                    "kind": "text"
+                  }
+                ]
+              }
+            ],
+            "x-typia-required": true,
+            "x-typia-optional": false
+          },
+          "union_but_boolean": {
+            "oneOf": [
+              {
+                "x-typia-jsDocTags": [
+                  {
+                    "name": "default",
+                    "text": [
+                      {
+                        "text": "false",
+                        "kind": "text"
+                      }
+                    ]
+                  }
+                ],
+                "x-typia-required": true,
+                "x-typia-optional": false,
+                "type": "string"
+              },
+              {
+                "x-typia-jsDocTags": [
+                  {
+                    "name": "default",
+                    "text": [
+                      {
+                        "text": "false",
+                        "kind": "text"
+                      }
+                    ]
+                  }
+                ],
+                "x-typia-required": true,
+                "x-typia-optional": false,
+                "type": "number"
+              },
+              {
+                "x-typia-jsDocTags": [
+                  {
+                    "name": "default",
+                    "text": [
+                      {
+                        "text": "false",
+                        "kind": "text"
+                      }
+                    ]
+                  }
+                ],
+                "x-typia-required": true,
+                "x-typia-optional": false,
+                "default": true,
+                "type": "boolean"
+              }
+            ],
+            "x-typia-jsDocTags": [
+              {
+                "name": "default",
+                "text": [
+                  {
+                    "text": "false",
+                    "kind": "text"
+                  }
+                ]
+              }
+            ],
+            "x-typia-required": true,
+            "x-typia-optional": false
+          },
+          "union_but_number": {
+            "oneOf": [
+              {
+                "x-typia-jsDocTags": [
+                  {
+                    "name": "default",
+                    "text": [
+                      {
+                        "text": "1",
+                        "kind": "text"
+                      }
+                    ]
+                  }
+                ],
+                "x-typia-required": true,
+                "x-typia-optional": false,
+                "type": "string"
+              },
+              {
+                "x-typia-jsDocTags": [
+                  {
+                    "name": "default",
+                    "text": [
+                      {
+                        "text": "1",
+                        "kind": "text"
+                      }
+                    ]
+                  }
+                ],
+                "x-typia-required": true,
+                "x-typia-optional": false,
+                "type": "number",
+                "default": 1
+              },
+              {
+                "x-typia-jsDocTags": [
+                  {
+                    "name": "default",
+                    "text": [
+                      {
+                        "text": "1",
+                        "kind": "text"
+                      }
+                    ]
+                  }
+                ],
+                "x-typia-required": true,
+                "x-typia-optional": false,
+                "type": "boolean"
+              }
+            ],
+            "x-typia-jsDocTags": [
+              {
+                "name": "default",
+                "text": [
+                  {
+                    "text": "1",
+                    "kind": "text"
+                  }
+                ]
+              }
+            ],
+            "x-typia-required": true,
+            "x-typia-optional": false
+          },
+          "union_but_string": {
+            "oneOf": [
+              {
+                "x-typia-jsDocTags": [
+                  {
+                    "name": "default",
+                    "text": [
+                      {
+                        "text": "two",
+                        "kind": "text"
+                      }
+                    ]
+                  }
+                ],
+                "x-typia-required": true,
+                "x-typia-optional": false,
+                "type": "string",
+                "default": "two"
+              },
+              {
+                "x-typia-jsDocTags": [
+                  {
+                    "name": "default",
+                    "text": [
+                      {
+                        "text": "two",
+                        "kind": "text"
+                      }
+                    ]
+                  }
+                ],
+                "x-typia-required": true,
+                "x-typia-optional": false,
+                "type": "number"
+              },
+              {
+                "x-typia-jsDocTags": [
+                  {
+                    "name": "default",
+                    "text": [
+                      {
+                        "text": "two",
+                        "kind": "text"
+                      }
+                    ]
+                  }
+                ],
+                "x-typia-required": true,
+                "x-typia-optional": false,
+                "type": "boolean"
+              }
+            ],
+            "x-typia-jsDocTags": [
+              {
+                "name": "default",
+                "text": [
+                  {
+                    "text": "two",
+                    "kind": "text"
+                  }
+                ]
+              }
+            ],
+            "x-typia-required": true,
+            "x-typia-optional": false
+          },
+          "vulnerable_range": {
+            "x-typia-jsDocTags": [
+              {
+                "name": "default",
+                "text": [
+                  {
+                    "text": "7",
+                    "kind": "text"
+                  }
+                ]
+              },
+              {
+                "name": "minimum",
+                "text": [
+                  {
+                    "text": "3",
+                    "kind": "text"
+                  }
+                ]
+              },
+              {
+                "name": "maximum",
+                "text": [
+                  {
+                    "text": "5",
+                    "kind": "text"
+                  }
+                ]
+              }
+            ],
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "number",
+            "maximum": 5,
+            "minimum": 3
+          },
+          "vulnerable_template": {
+            "type": "string",
+            "x-typia-jsDocTags": [
+              {
+                "name": "default",
+                "text": [
+                  {
+                    "text": "two",
+                    "kind": "text"
+                  }
+                ]
+              }
+            ],
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "pattern": "^(prefix_(.*))"
+          },
+          "boolean_and_number_and_template": {
+            "oneOf": [
+              {
+                "type": "string",
+                "x-typia-jsDocTags": [
+                  {
+                    "name": "default",
+                    "text": [
+                      {
+                        "text": "false",
+                        "kind": "text"
+                      }
+                    ]
+                  },
+                  {
+                    "name": "default",
+                    "text": [
+                      {
+                        "text": "1",
+                        "kind": "text"
+                      }
+                    ]
+                  },
+                  {
+                    "name": "default",
+                    "text": [
+                      {
+                        "text": "prefix_B",
+                        "kind": "text"
+                      }
+                    ]
+                  }
+                ],
+                "x-typia-required": true,
+                "x-typia-optional": false,
+                "pattern": "^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?|true|false|(prefix_(.*)))",
+                "default": "prefix_B"
+              },
+              {
+                "x-typia-jsDocTags": [
+                  {
+                    "name": "default",
+                    "text": [
+                      {
+                        "text": "false",
+                        "kind": "text"
+                      }
+                    ]
+                  },
+                  {
+                    "name": "default",
+                    "text": [
+                      {
+                        "text": "1",
+                        "kind": "text"
+                      }
+                    ]
+                  },
+                  {
+                    "name": "default",
+                    "text": [
+                      {
+                        "text": "prefix_B",
+                        "kind": "text"
+                      }
+                    ]
+                  }
+                ],
+                "x-typia-required": true,
+                "x-typia-optional": false,
+                "type": "number",
+                "default": 1
+              },
+              {
+                "x-typia-jsDocTags": [
+                  {
+                    "name": "default",
+                    "text": [
+                      {
+                        "text": "false",
+                        "kind": "text"
+                      }
+                    ]
+                  },
+                  {
+                    "name": "default",
+                    "text": [
+                      {
+                        "text": "1",
+                        "kind": "text"
+                      }
+                    ]
+                  },
+                  {
+                    "name": "default",
+                    "text": [
+                      {
+                        "text": "prefix_B",
+                        "kind": "text"
+                      }
+                    ]
+                  }
+                ],
+                "x-typia-required": true,
+                "x-typia-optional": false,
+                "default": true,
+                "type": "boolean"
+              }
+            ],
+            "x-typia-jsDocTags": [
+              {
+                "name": "default",
+                "text": [
+                  {
+                    "text": "false",
+                    "kind": "text"
+                  }
+                ]
+              },
+              {
+                "name": "default",
+                "text": [
+                  {
+                    "text": "1",
+                    "kind": "text"
+                  }
+                ]
+              },
+              {
+                "name": "default",
+                "text": [
+                  {
+                    "text": "prefix_B",
+                    "kind": "text"
+                  }
+                ]
+              }
+            ],
+            "x-typia-required": true,
+            "x-typia-optional": false
+          }
+        },
+        "required": [
+          "boolean",
+          "number",
+          "string",
+          "text",
+          "template",
+          "boolean_and_number_and_string",
+          "union_but_boolean",
+          "union_but_number",
+          "union_but_string",
+          "vulnerable_range",
+          "vulnerable_template",
+          "boolean_and_number_and_template"
+        ],
+        "x-typia-jsDocTags": []
+      }
+    }
+  },
+  "purpose": "ajv"
+}

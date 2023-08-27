@@ -277,15 +277,15 @@ export const test_protobuf_assertEncode_ObjectSimple =
                     const tag = reader.uint32();
                     switch (tag >>> 3) {
                         case 1:
-                            // number;
+                            // double;
                             output.x = reader.double();
                             break;
                         case 2:
-                            // number;
+                            // double;
                             output.y = reader.double();
                             break;
                         case 3:
-                            // number;
+                            // double;
                             output.z = reader.double();
                             break;
                         default:

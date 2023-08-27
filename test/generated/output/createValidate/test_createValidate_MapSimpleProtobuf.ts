@@ -26,7 +26,6 @@ export const test_validate_MapSimpleProtobuf = _test_validate(
                             elem.length === 2 &&
                             "string" === typeof elem[0] &&
                             "number" === typeof elem[1] &&
-                            Number.isFinite(elem[1]) &&
                             Math.floor(elem[1]) === elem[1] &&
                             -2147483648 <= elem[1] &&
                             elem[1] <= 2147483647,
@@ -180,7 +179,8 @@ export const test_validate_MapSimpleProtobuf = _test_validate(
                         ((input.int32 instanceof Map ||
                             $report(_exceptionable, {
                                 path: _path + ".int32",
-                                expected: "Map<string, number>",
+                                expected:
+                                    'Map<string, (number & Type<"int32">)>',
                                 value: input.int32,
                             })) &&
                             (() =>
@@ -195,7 +195,7 @@ export const test_validate_MapSimpleProtobuf = _test_validate(
                                                         _index2 +
                                                         "]",
                                                     expected:
-                                                        "[string, number]",
+                                                        '[string, (number & Type<"int32">)]',
                                                     value: elem,
                                                 })) &&
                                                 (elem.length === 2 ||
@@ -206,7 +206,7 @@ export const test_validate_MapSimpleProtobuf = _test_validate(
                                                             _index2 +
                                                             "]",
                                                         expected:
-                                                            "[string, number]",
+                                                            '[string, (number & Type<"int32">)]',
                                                         value: elem,
                                                     })) &&
                                                 [
@@ -227,26 +227,11 @@ export const test_validate_MapSimpleProtobuf = _test_validate(
                                                         ),
                                                     ("number" ===
                                                         typeof elem[1] &&
-                                                        Number.isFinite(
+                                                        ((Math.floor(
                                                             elem[1],
-                                                        ) &&
-                                                        (Math.floor(elem[1]) ===
-                                                            elem[1] ||
-                                                            $report(
-                                                                _exceptionable,
-                                                                {
-                                                                    path:
-                                                                        _path +
-                                                                        ".int32[" +
-                                                                        _index2 +
-                                                                        "][1]",
-                                                                    expected:
-                                                                        "number (@type int32)",
-                                                                    value: elem[1],
-                                                                },
-                                                            )) &&
-                                                        ((-2147483648 <=
-                                                            elem[1] &&
+                                                        ) === elem[1] &&
+                                                            -2147483648 <=
+                                                                elem[1] &&
                                                             elem[1] <=
                                                                 2147483647) ||
                                                             $report(
@@ -258,7 +243,7 @@ export const test_validate_MapSimpleProtobuf = _test_validate(
                                                                         _index2 +
                                                                         "][1]",
                                                                     expected:
-                                                                        "number (@type int32)",
+                                                                        'number & Type<"int32">',
                                                                     value: elem[1],
                                                                 },
                                                             ))) ||
@@ -271,7 +256,7 @@ export const test_validate_MapSimpleProtobuf = _test_validate(
                                                                     _index2 +
                                                                     "][1]",
                                                                 expected:
-                                                                    "number",
+                                                                    '(number & Type<"int32">)',
                                                                 value: elem[1],
                                                             },
                                                         ),
@@ -284,14 +269,16 @@ export const test_validate_MapSimpleProtobuf = _test_validate(
                                                     ".int32[" +
                                                     _index2 +
                                                     "]",
-                                                expected: "[string, number]",
+                                                expected:
+                                                    '[string, (number & Type<"int32">)]',
                                                 value: elem,
                                             }),
                                     )
                                     .every((flag: boolean) => flag))()) ||
                             $report(_exceptionable, {
                                 path: _path + ".int32",
-                                expected: "Map<string, number>",
+                                expected:
+                                    'Map<string, (number & Type<"int32">)>',
                                 value: input.int32,
                             }),
                         ((input.bigint instanceof Map ||
@@ -464,7 +451,8 @@ export const test_validate_MapSimpleProtobuf = _test_validate(
                         ((input.string instanceof Map ||
                             $report(_exceptionable, {
                                 path: _path + ".string",
-                                expected: "Map<string, string>",
+                                expected:
+                                    "Map<string, (string & MinLength<1>)>",
                                 value: input.string,
                             })) &&
                             (() =>
@@ -479,7 +467,7 @@ export const test_validate_MapSimpleProtobuf = _test_validate(
                                                         _index5 +
                                                         "]",
                                                     expected:
-                                                        "[string, string]",
+                                                        "[string, (string & MinLength<1>)]",
                                                     value: elem,
                                                 })) &&
                                                 (elem.length === 2 ||
@@ -490,7 +478,7 @@ export const test_validate_MapSimpleProtobuf = _test_validate(
                                                             _index5 +
                                                             "]",
                                                         expected:
-                                                            "[string, string]",
+                                                            "[string, (string & MinLength<1>)]",
                                                         value: elem,
                                                     })) &&
                                                 [
@@ -521,7 +509,7 @@ export const test_validate_MapSimpleProtobuf = _test_validate(
                                                                         _index5 +
                                                                         "][1]",
                                                                     expected:
-                                                                        "string (@minLength 1)",
+                                                                        "string & MinLength<1>",
                                                                     value: elem[1],
                                                                 },
                                                             ))) ||
@@ -534,7 +522,7 @@ export const test_validate_MapSimpleProtobuf = _test_validate(
                                                                     _index5 +
                                                                     "][1]",
                                                                 expected:
-                                                                    "string",
+                                                                    "(string & MinLength<1>)",
                                                                 value: elem[1],
                                                             },
                                                         ),
@@ -547,14 +535,16 @@ export const test_validate_MapSimpleProtobuf = _test_validate(
                                                     ".string[" +
                                                     _index5 +
                                                     "]",
-                                                expected: "[string, string]",
+                                                expected:
+                                                    "[string, (string & MinLength<1>)]",
                                                 value: elem,
                                             }),
                                     )
                                     .every((flag: boolean) => flag))()) ||
                             $report(_exceptionable, {
                                 path: _path + ".string",
-                                expected: "Map<string, string>",
+                                expected:
+                                    "Map<string, (string & MinLength<1>)>",
                                 value: input.string,
                             }),
                         ((input.bytes instanceof Map ||

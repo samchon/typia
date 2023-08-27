@@ -13,7 +13,6 @@ export const test_is_ArraySimpleProtobuf = _test_is(
             input.int32.every(
                 (elem: any) =>
                     "number" === typeof elem &&
-                    Number.isFinite(elem) &&
                     Math.floor(elem) === elem &&
                     -2147483648 <= elem &&
                     elem <= 2147483647,
@@ -22,13 +21,14 @@ export const test_is_ArraySimpleProtobuf = _test_is(
             input.uint32.every(
                 (elem: any) =>
                     "number" === typeof elem &&
-                    Number.isFinite(elem) &&
                     Math.floor(elem) === elem &&
                     0 <= elem &&
                     elem <= 4294967295,
             ) &&
             Array.isArray(input.int64) &&
-            input.int64.every((elem: any) => "bigint" === typeof elem) &&
+            input.int64.every(
+                (elem: any) => "bigint" === typeof elem && true,
+            ) &&
             Array.isArray(input.uint64) &&
             input.uint64.every(
                 (elem: any) => "bigint" === typeof elem && BigInt(0) <= elem,
@@ -37,14 +37,13 @@ export const test_is_ArraySimpleProtobuf = _test_is(
             input.float.every(
                 (elem: any) =>
                     "number" === typeof elem &&
-                    Number.isFinite(elem) &&
                     -1.175494351e38 <= elem &&
                     elem <= 3.4028235e38,
             ) &&
             Array.isArray(input.double) &&
             input.double.every(
                 (elem: any) =>
-                    "number" === typeof elem && Number.isFinite(elem),
+                    "number" === typeof elem && Number.isFinite(elem) && true,
             ) &&
             Array.isArray(input.string) &&
             input.string.every((elem: any) => "string" === typeof elem) &&

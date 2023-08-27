@@ -1,7 +1,5 @@
 import ts from "typescript";
 
-import { $clone } from "../../../functional/$clone";
-
 import { IMetadataTypeTag } from "../../../schemas/metadata/IMetadataTypeTag";
 import { Metadata } from "../../../schemas/metadata/Metadata";
 import { MetadataAtomic } from "../../../schemas/metadata/MetadataAtomic";
@@ -10,10 +8,10 @@ import { ArrayUtil } from "../../../utils/ArrayUtil";
 
 import { MetadataCollection } from "../../MetadataCollection";
 import { MetadataFactory } from "../../MetadataFactory";
+import { MetadataTypeTagFactory } from "../../MetadataTypeTagFactory";
 import { explore_metadata } from "./explore_metadata";
 import { iterate_metadata } from "./iterate_metadata";
 import { iterate_metadata_array } from "./iterate_metadata_array";
-import { iterate_metadata_type_tags } from "./iterate_metadata_type_tags";
 
 export const iterate_metadata_intersection =
     (checker: ts.TypeChecker) =>
@@ -127,7 +125,7 @@ export const iterate_metadata_intersection =
                                 elem,
                                 (a, b) => a === b,
                             );
-                    else meta.constants.push($clone(c));
+                    else meta.constants.push({ ...c });
                 }
             }
             return true;
@@ -164,9 +162,9 @@ export const iterate_metadata_intersection =
 
         // ASSIGN TAGS
         if (objects.length && target !== "boolean") {
-            const tags: IMetadataTypeTag[] = iterate_metadata_type_tags(target)(
-                objects.map((om) => om.objects).flat(),
-            );
+            const tags: IMetadataTypeTag[] = MetadataTypeTagFactory.analyze(
+                target,
+            )(objects.map((om) => om.objects).flat());
             if (tags.length)
                 if (target === "array") meta.arrays.at(-1)!.tags.push(tags);
                 else

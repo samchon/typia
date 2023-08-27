@@ -1,0 +1,94 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/schemas/TypeTagArrayUnion"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "TypeTagArrayUnion": {
+        "$id": "#/components/schemas/TypeTagArrayUnion",
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/TypeTagArrayUnion.Type"
+        }
+      },
+      "TypeTagArrayUnion.Type": {
+        "$id": "#/components/schemas/TypeTagArrayUnion.Type",
+        "type": "object",
+        "properties": {
+          "items": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "array",
+            "items": {
+              "x-typia-required": true,
+              "x-typia-optional": false,
+              "type": "string",
+              "format": "uuid"
+            },
+            "maxItems": 3,
+            "minItems": 3
+          },
+          "minItems": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "array",
+            "items": {
+              "x-typia-required": true,
+              "x-typia-optional": false,
+              "type": "number",
+              "minimum": 3
+            },
+            "minItems": 3
+          },
+          "maxItems": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "x-typia-required": true,
+                  "x-typia-optional": false,
+                  "type": "string",
+                  "maxLength": 7
+                },
+                {
+                  "x-typia-required": true,
+                  "x-typia-optional": false,
+                  "type": "number",
+                  "maximum": 7
+                }
+              ],
+              "x-typia-required": true,
+              "x-typia-optional": false
+            },
+            "maxItems": 7
+          },
+          "both": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "array",
+            "items": {
+              "x-typia-required": true,
+              "x-typia-optional": false,
+              "type": "string",
+              "format": "uuid"
+            },
+            "maxItems": 7,
+            "minItems": 3
+          }
+        },
+        "required": [
+          "items",
+          "minItems",
+          "maxItems",
+          "both"
+        ],
+        "x-typia-jsDocTags": []
+      }
+    }
+  },
+  "purpose": "ajv"
+}

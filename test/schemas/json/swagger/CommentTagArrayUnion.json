@@ -1,0 +1,216 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/schemas/CommentTagArrayUnion"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "CommentTagArrayUnion": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/CommentTagArrayUnion.Type"
+        }
+      },
+      "CommentTagArrayUnion.Type": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "x-typia-jsDocTags": [
+              {
+                "name": "items",
+                "text": [
+                  {
+                    "text": "3",
+                    "kind": "text"
+                  }
+                ]
+              }
+            ],
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "array",
+            "items": {
+              "x-typia-jsDocTags": [
+                {
+                  "name": "items",
+                  "text": [
+                    {
+                      "text": "3",
+                      "kind": "text"
+                    }
+                  ]
+                }
+              ],
+              "x-typia-required": true,
+              "x-typia-optional": false,
+              "type": "string"
+            },
+            "maxItems": 3,
+            "minItems": 3
+          },
+          "minItems": {
+            "x-typia-jsDocTags": [
+              {
+                "name": "minItems",
+                "text": [
+                  {
+                    "text": "3",
+                    "kind": "text"
+                  }
+                ]
+              }
+            ],
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "array",
+            "items": {
+              "x-typia-jsDocTags": [
+                {
+                  "name": "minItems",
+                  "text": [
+                    {
+                      "text": "3",
+                      "kind": "text"
+                    }
+                  ]
+                }
+              ],
+              "x-typia-required": true,
+              "x-typia-optional": false,
+              "type": "number"
+            },
+            "minItems": 3
+          },
+          "maxItems": {
+            "x-typia-jsDocTags": [
+              {
+                "name": "maxItems",
+                "text": [
+                  {
+                    "text": "7",
+                    "kind": "text"
+                  }
+                ]
+              }
+            ],
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "x-typia-jsDocTags": [
+                    {
+                      "name": "maxItems",
+                      "text": [
+                        {
+                          "text": "7",
+                          "kind": "text"
+                        }
+                      ]
+                    }
+                  ],
+                  "x-typia-required": true,
+                  "x-typia-optional": false,
+                  "type": "string"
+                },
+                {
+                  "x-typia-jsDocTags": [
+                    {
+                      "name": "maxItems",
+                      "text": [
+                        {
+                          "text": "7",
+                          "kind": "text"
+                        }
+                      ]
+                    }
+                  ],
+                  "x-typia-required": true,
+                  "x-typia-optional": false,
+                  "type": "number"
+                }
+              ],
+              "x-typia-jsDocTags": [
+                {
+                  "name": "maxItems",
+                  "text": [
+                    {
+                      "text": "7",
+                      "kind": "text"
+                    }
+                  ]
+                }
+              ],
+              "x-typia-required": true,
+              "x-typia-optional": false
+            },
+            "maxItems": 7
+          },
+          "both": {
+            "x-typia-jsDocTags": [
+              {
+                "name": "minItems",
+                "text": [
+                  {
+                    "text": "3",
+                    "kind": "text"
+                  }
+                ]
+              },
+              {
+                "name": "maxItems",
+                "text": [
+                  {
+                    "text": "7",
+                    "kind": "text"
+                  }
+                ]
+              }
+            ],
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "array",
+            "items": {
+              "x-typia-jsDocTags": [
+                {
+                  "name": "minItems",
+                  "text": [
+                    {
+                      "text": "3",
+                      "kind": "text"
+                    }
+                  ]
+                },
+                {
+                  "name": "maxItems",
+                  "text": [
+                    {
+                      "text": "7",
+                      "kind": "text"
+                    }
+                  ]
+                }
+              ],
+              "x-typia-required": true,
+              "x-typia-optional": false,
+              "type": "string"
+            },
+            "maxItems": 7,
+            "minItems": 3
+          }
+        },
+        "nullable": false,
+        "required": [
+          "items",
+          "minItems",
+          "maxItems",
+          "both"
+        ],
+        "x-typia-jsDocTags": []
+      }
+    }
+  },
+  "purpose": "swagger"
+}

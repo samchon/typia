@@ -1,0 +1,92 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/schemas/CommentTagObjectUnion"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "CommentTagObjectUnion": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/CommentTagObjectUnion.Type"
+        }
+      },
+      "CommentTagObjectUnion.Type": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/CommentTagObjectUnion.Numeric"
+          },
+          {
+            "$ref": "#/components/schemas/CommentTagObjectUnion.Literal"
+          }
+        ]
+      },
+      "CommentTagObjectUnion.Numeric": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "x-typia-jsDocTags": [
+              {
+                "name": "minimum",
+                "text": [
+                  {
+                    "text": "3",
+                    "kind": "text"
+                  }
+                ]
+              }
+            ],
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "number",
+            "minimum": 3
+          }
+        },
+        "nullable": false,
+        "required": [
+          "value"
+        ],
+        "x-typia-jsDocTags": []
+      },
+      "CommentTagObjectUnion.Literal": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "x-typia-jsDocTags": [
+              {
+                "name": "minLength",
+                "text": [
+                  {
+                    "text": "3",
+                    "kind": "text"
+                  }
+                ]
+              },
+              {
+                "name": "maxLength",
+                "text": [
+                  {
+                    "text": "7",
+                    "kind": "text"
+                  }
+                ]
+              }
+            ],
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string",
+            "maxLength": 7,
+            "minLength": 3
+          }
+        },
+        "nullable": false,
+        "required": [
+          "value"
+        ],
+        "x-typia-jsDocTags": []
+      }
+    }
+  },
+  "purpose": "swagger"
+}

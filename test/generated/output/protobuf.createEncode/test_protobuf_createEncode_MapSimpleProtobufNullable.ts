@@ -221,7 +221,7 @@ export const test_protobuf_encode_MapSimpleProtobufNullable =
                                             entry.key = reader.string();
                                             break;
                                         case 2:
-                                            // boolean;
+                                            // bool;
                                             entry.value = reader.bool();
                                             break;
                                         default:
@@ -233,7 +233,7 @@ export const test_protobuf_encode_MapSimpleProtobufNullable =
                             })();
                             break;
                         case 2:
-                            // type: Map<string, number>;
+                            // type: Map<string, (number & Type<"int32">)>;
                             (() => {
                                 output.int32 ??= new Map<any, any>();
                                 const piece = reader.uint32() + reader.index();
@@ -249,7 +249,7 @@ export const test_protobuf_encode_MapSimpleProtobufNullable =
                                             entry.key = reader.string();
                                             break;
                                         case 2:
-                                            // number;
+                                            // int32;
                                             entry.value = reader.int32();
                                             break;
                                         default:
@@ -277,7 +277,7 @@ export const test_protobuf_encode_MapSimpleProtobufNullable =
                                             entry.key = reader.string();
                                             break;
                                         case 2:
-                                            // bigint;
+                                            // int64;
                                             entry.value = reader.int64();
                                             break;
                                         default:
@@ -305,7 +305,7 @@ export const test_protobuf_encode_MapSimpleProtobufNullable =
                                             entry.key = reader.string();
                                             break;
                                         case 2:
-                                            // number;
+                                            // double;
                                             entry.value = reader.double();
                                             break;
                                         default:
@@ -317,7 +317,7 @@ export const test_protobuf_encode_MapSimpleProtobufNullable =
                             })();
                             break;
                         case 5:
-                            // type: Map<string, string>;
+                            // type: Map<string, (string & MinLength<1>)>;
                             (() => {
                                 output.string ??= new Map<any, any>();
                                 const piece = reader.uint32() + reader.index();

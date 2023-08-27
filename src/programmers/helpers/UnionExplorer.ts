@@ -3,7 +3,6 @@ import ts from "typescript";
 import { ExpressionFactory } from "../../factories/ExpressionFactory";
 import { IdentifierFactory } from "../../factories/IdentifierFactory";
 
-import { IMetadataCommentTag } from "../../schemas/metadata/IMetadataCommentTag";
 import { Metadata } from "../../schemas/metadata/Metadata";
 import { MetadataArray } from "../../schemas/metadata/MetadataArray";
 import { MetadataArrayType } from "../../schemas/metadata/MetadataArrayType";
@@ -21,8 +20,6 @@ export namespace UnionExplorer {
             input: ts.Expression,
             target: T,
             explore: FeatureProgrammer.IExplore,
-            tags: IMetadataCommentTag[],
-            jsDocTags: ts.JSDocTagInfo[],
         ): ts.Expression;
     }
     export type ObjectCombiner = Decoder<MetadataObject[]>;
@@ -36,18 +33,10 @@ export namespace UnionExplorer {
             input: ts.Expression,
             targets: MetadataObject[],
             explore: FeatureProgrammer.IExplore,
-            tags: IMetadataCommentTag[],
-            jsDocTags: ts.JSDocTagInfo[],
         ): ts.Expression => {
             // BREAKER
             if (targets.length === 1)
-                return config.objector.decoder()(
-                    input,
-                    targets[0]!,
-                    explore,
-                    tags,
-                    jsDocTags,
-                );
+                return config.objector.decoder()(input, targets[0]!, explore);
 
             const expected: string = `(${targets
                 .map((t) => t.name)
@@ -63,8 +52,6 @@ export namespace UnionExplorer {
                         ...explore,
                         tracable: false,
                     },
-                    tags,
-                    jsDocTags,
                 );
                 return config.objector.full
                     ? config.objector.full(condition)(input, expected, explore)
@@ -90,8 +77,6 @@ export namespace UnionExplorer {
                                   tracable: false,
                                   postfix: IdentifierFactory.postfix(key),
                               },
-                              tags,
-                              jsDocTags,
                           )
                         : (config.objector.required || ((exp) => exp))(
                               ExpressionFactory.isRequired(accessor),
@@ -103,8 +88,6 @@ export namespace UnionExplorer {
                                 input,
                                 spec.object,
                                 explore,
-                                tags,
-                                jsDocTags,
                             ),
                         ),
                         i === array.length - 1
@@ -114,8 +97,6 @@ export namespace UnionExplorer {
                                           input,
                                           remained,
                                           explore,
-                                          tags,
-                                          jsDocTags,
                                       ),
                                   )
                                 : config.objector.failure(

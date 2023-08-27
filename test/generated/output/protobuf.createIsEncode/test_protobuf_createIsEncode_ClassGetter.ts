@@ -63,7 +63,7 @@ export const test_protobuf_isEncode_ClassGetter = _test_protobuf_isEncode(
                         output.name = reader.string();
                         break;
                     case 3:
-                        // boolean;
+                        // bool;
                         output.dead = reader.bool();
                         break;
                     default:

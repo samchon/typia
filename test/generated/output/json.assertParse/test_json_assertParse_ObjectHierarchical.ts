@@ -8,8 +8,6 @@ export const test_json_assertParse_ObjectHierarchical = _test_json_assertParse(
     ((input: string): typia.Primitive<ObjectHierarchical> => {
         const assert = (input: any): ObjectHierarchical => {
             const __is = (input: any): input is ObjectHierarchical => {
-                const $is_url = (typia.json.assertParse as any).is_url;
-                const $is_ipv4 = (typia.json.assertParse as any).is_ipv4;
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.id &&
                     Number.isFinite(input.id) &&
@@ -25,11 +23,17 @@ export const test_json_assertParse_ObjectHierarchical = _test_json_assertParse(
                             null !== input.account &&
                             $io4(input.account))) &&
                     "string" === typeof input.href &&
-                    $is_url(input.href) &&
+                    /^[a-zA-Z0-9]+:\/\/(?:www.)?[-a-zA-Z0-9@:%._+~#=]{1,256}.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_+.~#?&/=]*)$/.test(
+                        input.href,
+                    ) &&
                     "string" === typeof input.referrer &&
-                    $is_url(input.referrer) &&
+                    /^[a-zA-Z0-9]+:\/\/(?:www.)?[-a-zA-Z0-9@:%._+~#=]{1,256}.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_+.~#?&/=]*)$/.test(
+                        input.referrer,
+                    ) &&
                     "string" === typeof input.ip &&
-                    $is_ipv4(input.ip) &&
+                    /^(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/.test(
+                        input.ip,
+                    ) &&
                     "object" === typeof input.created_at &&
                     null !== input.created_at &&
                     "number" === typeof (input.created_at as any).time &&
@@ -109,8 +113,6 @@ export const test_json_assertParse_ObjectHierarchical = _test_json_assertParse(
                     _exceptionable: boolean = true,
                 ): input is ObjectHierarchical => {
                     const $guard = (typia.json.assertParse as any).guard;
-                    const $is_url = (typia.json.assertParse as any).is_url;
-                    const $is_ipv4 = (typia.json.assertParse as any).is_ipv4;
                     const $ao0 = (
                         input: any,
                         _path: string,
@@ -180,39 +182,45 @@ export const test_json_assertParse_ObjectHierarchical = _test_json_assertParse(
                                 value: input.account,
                             })) &&
                         (("string" === typeof input.href &&
-                            ($is_url(input.href) ||
+                            (/^[a-zA-Z0-9]+:\/\/(?:www.)?[-a-zA-Z0-9@:%._+~#=]{1,256}.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_+.~#?&/=]*)$/.test(
+                                input.href,
+                            ) ||
                                 $guard(_exceptionable, {
                                     path: _path + ".href",
-                                    expected: "string (@format url)",
+                                    expected: "string & Format<url>",
                                     value: input.href,
                                 }))) ||
                             $guard(_exceptionable, {
                                 path: _path + ".href",
-                                expected: "string",
+                                expected: "(string & Format<url>)",
                                 value: input.href,
                             })) &&
                         (("string" === typeof input.referrer &&
-                            ($is_url(input.referrer) ||
+                            (/^[a-zA-Z0-9]+:\/\/(?:www.)?[-a-zA-Z0-9@:%._+~#=]{1,256}.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_+.~#?&/=]*)$/.test(
+                                input.referrer,
+                            ) ||
                                 $guard(_exceptionable, {
                                     path: _path + ".referrer",
-                                    expected: "string (@format url)",
+                                    expected: "string & Format<url>",
                                     value: input.referrer,
                                 }))) ||
                             $guard(_exceptionable, {
                                 path: _path + ".referrer",
-                                expected: "string",
+                                expected: "(string & Format<url>)",
                                 value: input.referrer,
                             })) &&
                         (("string" === typeof input.ip &&
-                            ($is_ipv4(input.ip) ||
+                            (/^(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/.test(
+                                input.ip,
+                            ) ||
                                 $guard(_exceptionable, {
                                     path: _path + ".ip",
-                                    expected: "string (@format ipv4)",
+                                    expected: "string & Format<ipv4>",
                                     value: input.ip,
                                 }))) ||
                             $guard(_exceptionable, {
                                 path: _path + ".ip",
-                                expected: "string",
+                                expected: "(string & Format<ipv4>)",
                                 value: input.ip,
                             })) &&
                         (((("object" === typeof input.created_at &&

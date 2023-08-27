@@ -28,7 +28,7 @@ export const test_protobuf_assertDecode_DynamicTree =
                                     output.id = reader.string();
                                     break;
                                 case 2:
-                                    // number;
+                                    // double;
                                     output.sequence = reader.double();
                                     break;
                                 case 3:

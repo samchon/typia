@@ -1,6 +1,6 @@
-import typia from "typia";
+import typia from "../../src";
 
-export interface TagCustom {
+export interface TypeTagTypeUnion {
     int32_or_uint32: number &
         (typia.tags.Type<"int32"> | typia.tags.Type<"uint32">);
     int32_or_int64: number &
@@ -29,4 +29,19 @@ export interface TagCustom {
             | typia.tags.Type<"double">
         );
 }
-export namespace TagCustom {}
+export namespace TypeTagTypeUnion {
+    export const JSONABLE = false;
+
+    export const generate = (): TypeTagTypeUnion => ({
+        int32_or_uint32: -1,
+        int32_or_int64: -120,
+        int32_or_uint64: -900,
+        int32_or_float: 3.141592,
+        int32_or_double: 2.718281828459045,
+        int64_or_uint64: -2,
+        int64_or_float: 0.1,
+        int64_or_double: 0.2,
+        float_or_double: 0.3,
+        everything: 0,
+    });
+}

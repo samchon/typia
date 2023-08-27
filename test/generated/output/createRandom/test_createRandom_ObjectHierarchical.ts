@@ -29,22 +29,37 @@ export const test_random_ObjectHierarchical = _test_random(
             href:
                 (generator?.customs ?? $generator.customs)?.string?.([
                     {
-                        name: "format",
+                        name: "Format<url>",
+                        target: "string",
+                        kind: "format",
                         value: "url",
+                        validate:
+                            "/^[a-zA-Z0-9]+:\\/\\/(?:www.)?[-a-zA-Z0-9@:%._+~#=]{1,256}.[a-zA-Z0-9()]{1,6}\\b(?:[-a-zA-Z0-9()@:%_+.~#?&/=]*)$/.test($input)",
+                        exclusive: true,
                     },
                 ]) ?? (generator?.url ?? $generator.url)(),
             referrer:
                 (generator?.customs ?? $generator.customs)?.string?.([
                     {
-                        name: "format",
+                        name: "Format<url>",
+                        target: "string",
+                        kind: "format",
                         value: "url",
+                        validate:
+                            "/^[a-zA-Z0-9]+:\\/\\/(?:www.)?[-a-zA-Z0-9@:%._+~#=]{1,256}.[a-zA-Z0-9()]{1,6}\\b(?:[-a-zA-Z0-9()@:%_+.~#?&/=]*)$/.test($input)",
+                        exclusive: true,
                     },
                 ]) ?? (generator?.url ?? $generator.url)(),
             ip:
                 (generator?.customs ?? $generator.customs)?.string?.([
                     {
-                        name: "format",
+                        name: "Format<ipv4>",
+                        target: "string",
+                        kind: "format",
                         value: "ipv4",
+                        validate:
+                            "/^(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/.test($input)",
+                        exclusive: true,
                     },
                 ]) ?? (generator?.ipv4 ?? $generator.ipv4)(),
             created_at: $ro2(_recursive, _recursive ? 1 + _depth : _depth),
@@ -134,8 +149,6 @@ export const test_random_ObjectHierarchical = _test_random(
     },
     assert: (input: any): ObjectHierarchical => {
         const __is = (input: any): input is ObjectHierarchical => {
-            const $is_url = (typia.createAssert as any).is_url;
-            const $is_ipv4 = (typia.createAssert as any).is_ipv4;
             const $io0 = (input: any): boolean =>
                 "number" === typeof input.id &&
                 Number.isFinite(input.id) &&
@@ -151,11 +164,17 @@ export const test_random_ObjectHierarchical = _test_random(
                         null !== input.account &&
                         $io4(input.account))) &&
                 "string" === typeof input.href &&
-                $is_url(input.href) &&
+                /^[a-zA-Z0-9]+:\/\/(?:www.)?[-a-zA-Z0-9@:%._+~#=]{1,256}.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_+.~#?&/=]*)$/.test(
+                    input.href,
+                ) &&
                 "string" === typeof input.referrer &&
-                $is_url(input.referrer) &&
+                /^[a-zA-Z0-9]+:\/\/(?:www.)?[-a-zA-Z0-9@:%._+~#=]{1,256}.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_+.~#?&/=]*)$/.test(
+                    input.referrer,
+                ) &&
                 "string" === typeof input.ip &&
-                $is_ipv4(input.ip) &&
+                /^(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/.test(
+                    input.ip,
+                ) &&
                 "object" === typeof input.created_at &&
                 null !== input.created_at &&
                 "number" === typeof (input.created_at as any).time &&
@@ -231,8 +250,6 @@ export const test_random_ObjectHierarchical = _test_random(
                 _exceptionable: boolean = true,
             ): input is ObjectHierarchical => {
                 const $guard = (typia.createAssert as any).guard;
-                const $is_url = (typia.createAssert as any).is_url;
-                const $is_ipv4 = (typia.createAssert as any).is_ipv4;
                 const $ao0 = (
                     input: any,
                     _path: string,
@@ -300,39 +317,45 @@ export const test_random_ObjectHierarchical = _test_random(
                             value: input.account,
                         })) &&
                     (("string" === typeof input.href &&
-                        ($is_url(input.href) ||
+                        (/^[a-zA-Z0-9]+:\/\/(?:www.)?[-a-zA-Z0-9@:%._+~#=]{1,256}.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_+.~#?&/=]*)$/.test(
+                            input.href,
+                        ) ||
                             $guard(_exceptionable, {
                                 path: _path + ".href",
-                                expected: "string (@format url)",
+                                expected: "string & Format<url>",
                                 value: input.href,
                             }))) ||
                         $guard(_exceptionable, {
                             path: _path + ".href",
-                            expected: "string",
+                            expected: "(string & Format<url>)",
                             value: input.href,
                         })) &&
                     (("string" === typeof input.referrer &&
-                        ($is_url(input.referrer) ||
+                        (/^[a-zA-Z0-9]+:\/\/(?:www.)?[-a-zA-Z0-9@:%._+~#=]{1,256}.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_+.~#?&/=]*)$/.test(
+                            input.referrer,
+                        ) ||
                             $guard(_exceptionable, {
                                 path: _path + ".referrer",
-                                expected: "string (@format url)",
+                                expected: "string & Format<url>",
                                 value: input.referrer,
                             }))) ||
                         $guard(_exceptionable, {
                             path: _path + ".referrer",
-                            expected: "string",
+                            expected: "(string & Format<url>)",
                             value: input.referrer,
                         })) &&
                     (("string" === typeof input.ip &&
-                        ($is_ipv4(input.ip) ||
+                        (/^(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/.test(
+                            input.ip,
+                        ) ||
                             $guard(_exceptionable, {
                                 path: _path + ".ip",
-                                expected: "string (@format ipv4)",
+                                expected: "string & Format<ipv4>",
                                 value: input.ip,
                             }))) ||
                         $guard(_exceptionable, {
                             path: _path + ".ip",
-                            expected: "string",
+                            expected: "(string & Format<ipv4>)",
                             value: input.ip,
                         })) &&
                     (((("object" === typeof input.created_at &&

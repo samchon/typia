@@ -1,5 +1,4 @@
-import typia from "typia";
-
+import typia from "../../src";
 import { IPointer } from "../helpers/IPointer";
 import { Spoiler } from "../helpers/Spoiler";
 import { TestRandomGenerator } from "../helpers/TestRandomGenerator";

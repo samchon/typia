@@ -10,13 +10,11 @@ export const test_is_ObjectSimpleProtobufOptional = _test_is(
             (undefined === input.bool || "boolean" === typeof input.bool) &&
             (undefined === input.int32 ||
                 ("number" === typeof input.int32 &&
-                    Number.isFinite(input.int32) &&
                     Math.floor(input.int32) === input.int32 &&
                     -2147483648 <= input.int32 &&
                     input.int32 <= 2147483647)) &&
             (undefined === input.uint32 ||
                 ("number" === typeof input.uint32 &&
-                    Number.isFinite(input.uint32) &&
                     Math.floor(input.uint32) === input.uint32 &&
                     0 <= input.uint32 &&
                     input.uint32 <= 4294967295)) &&
@@ -26,12 +24,12 @@ export const test_is_ObjectSimpleProtobufOptional = _test_is(
                     BigInt(0) <= input.uint64)) &&
             (undefined === input.float ||
                 ("number" === typeof input.float &&
-                    Number.isFinite(input.float) &&
                     -1.175494351e38 <= input.float &&
                     input.float <= 3.4028235e38)) &&
             (undefined === input.double ||
                 ("number" === typeof input.double &&
-                    Number.isFinite(input.double))) &&
+                    Number.isFinite(input.double) &&
+                    true)) &&
             (undefined === input.string || "string" === typeof input.string) &&
             (undefined === input.bytes || input.bytes instanceof Uint8Array);
         return (

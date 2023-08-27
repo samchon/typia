@@ -1,0 +1,59 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/schemas/TypeTagAtomicUnion"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "TypeTagAtomicUnion": {
+        "$id": "#/components/schemas/TypeTagAtomicUnion",
+        "type": "object",
+        "properties": {
+          "value": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TypeTagAtomicUnion.Type"
+            }
+          }
+        },
+        "required": [
+          "value"
+        ],
+        "x-typia-jsDocTags": []
+      },
+      "TypeTagAtomicUnion.Type": {
+        "$id": "#/components/schemas/TypeTagAtomicUnion.Type",
+        "type": "object",
+        "properties": {
+          "value": {
+            "oneOf": [
+              {
+                "x-typia-required": true,
+                "x-typia-optional": false,
+                "type": "number",
+                "minimum": 3
+              },
+              {
+                "x-typia-required": true,
+                "x-typia-optional": false,
+                "type": "string",
+                "maxLength": 7,
+                "minLength": 3
+              }
+            ],
+            "x-typia-required": true,
+            "x-typia-optional": false
+          }
+        },
+        "required": [
+          "value"
+        ],
+        "x-typia-jsDocTags": []
+      }
+    }
+  },
+  "purpose": "ajv"
+}

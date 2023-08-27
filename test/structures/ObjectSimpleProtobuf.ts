@@ -1,36 +1,17 @@
 import { RandomGenerator } from "typia/lib/utils/RandomGenerator";
 
+import typia from "../../src";
 import { Spoiler } from "../helpers/Spoiler";
 
 export interface ObjectSimpleProtobuf {
     bool: boolean;
-
-    /**
-     * @type int32
-     */
-    int32: number;
-
-    /**
-     * @type uint32
-     */
-    uint32: number;
-
+    int32: number & typia.tags.Type<"int32">;
+    uint32: number & typia.tags.Type<"uint32">;
     int64: bigint;
-
-    /**
-     * @type uint64
-     */
-    uint64: bigint;
-
-    /**
-     * @type float
-     */
-    float: number;
-
-    double: number;
-
+    uint64: bigint & typia.tags.Type<"uint64">;
+    float: number & typia.tags.Type<"float">;
+    double: number & typia.tags.Type<"double">;
     string: string;
-
     bytes: Uint8Array;
 }
 export namespace ObjectSimpleProtobuf {

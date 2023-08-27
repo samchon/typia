@@ -7,8 +7,6 @@ export const test_misc_isClone_ObjectHierarchical = _test_misc_isClone(
 )<ObjectHierarchical>(ObjectHierarchical)((input) =>
     ((input: any): typia.Resolved<ObjectHierarchical> | null => {
         const is = (input: any): input is ObjectHierarchical => {
-            const $is_url = (typia.misc.isClone as any).is_url;
-            const $is_ipv4 = (typia.misc.isClone as any).is_ipv4;
             const $io0 = (input: any): boolean =>
                 "number" === typeof input.id &&
                 Number.isFinite(input.id) &&
@@ -24,11 +22,17 @@ export const test_misc_isClone_ObjectHierarchical = _test_misc_isClone(
                         null !== input.account &&
                         $io4(input.account))) &&
                 "string" === typeof input.href &&
-                $is_url(input.href) &&
+                /^[a-zA-Z0-9]+:\/\/(?:www.)?[-a-zA-Z0-9@:%._+~#=]{1,256}.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_+.~#?&/=]*)$/.test(
+                    input.href,
+                ) &&
                 "string" === typeof input.referrer &&
-                $is_url(input.referrer) &&
+                /^[a-zA-Z0-9]+:\/\/(?:www.)?[-a-zA-Z0-9@:%._+~#=]{1,256}.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_+.~#?&/=]*)$/.test(
+                    input.referrer,
+                ) &&
                 "string" === typeof input.ip &&
-                $is_ipv4(input.ip) &&
+                /^(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/.test(
+                    input.ip,
+                ) &&
                 "object" === typeof input.created_at &&
                 null !== input.created_at &&
                 "number" === typeof (input.created_at as any).time &&
@@ -144,8 +148,6 @@ export const test_misc_isClone_ObjectHierarchical = _test_misc_isClone(
                 "object" === typeof input.created_at &&
                 null !== input.created_at &&
                 $io2(input.created_at);
-            const $is_url = (typia.misc.isClone as any).is_url;
-            const $is_ipv4 = (typia.misc.isClone as any).is_ipv4;
             const $cp0 = (input: any) => input.map((elem: any) => elem as any);
             const $co0 = (input: any): any => ({
                 id: input.id as any,
