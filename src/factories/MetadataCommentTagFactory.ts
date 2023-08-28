@@ -3,6 +3,9 @@ import ts from "typescript";
 import { IMetadataTypeTag } from "../schemas/metadata/IMetadataTypeTag";
 import { Metadata } from "../schemas/metadata/Metadata";
 
+import { Writable } from "../typings/Writable";
+
+import { MetadataFactory } from "./MetadataFactory";
 import { MetadataTypeTagFactory } from "./MetadataTypeTagFactory";
 
 /**
@@ -12,33 +15,60 @@ import { MetadataTypeTagFactory } from "./MetadataTypeTagFactory";
  */
 export namespace MetadataCommentTagFactory {
     export const analyze =
-        (identifier: () => string) =>
+        (errors: MetadataFactory.IError[]) =>
         (metadata: Metadata) =>
-        (commentList: ts.JSDocTagInfo[]) => {
+        (
+            commentList: ts.JSDocTagInfo[],
+            explore: MetadataFactory.IExplore,
+        ): void => {
+            // PREPARE MESSAGE CONTAINER
+            const messages: string[] = [];
+            const report = (msg: string) => {
+                messages.push(msg);
+                return null;
+            };
+            const validateReport =
+                (property: string | null) =>
+                (msg: string): false => {
+                    messages.push(
+                        `the property ${
+                            property === null
+                                ? `["typia.tag"]`
+                                : `["typia.tag.${property}"]`
+                        } ${msg}.`,
+                    );
+                    return false;
+                };
+
+            // VALIDATE AND CONSTRUCT COMMENT TAGS
             for (const comment of commentList) {
-                const tagger: TagRecord = parse(identifier)(comment);
+                const tagger: TagRecord | null = parse(report)(comment);
+                if (tagger === null) continue;
                 for (const [key, value] of Object.entries(tagger)) {
+                    const filtered: IMetadataTypeTag[] = value.filter(
+                        (v) => v.validate !== null,
+                    ) as IMetadataTypeTag[];
                     if (key === "array") {
-                        if (metadata.arrays.length === 0)
-                            throw new Error(
-                                `${LABEL}: ${
-                                    comment.name
-                                } requires array type, no on "${identifier()}".`,
+                        if (metadata.arrays.length === 0) {
+                            report(`requires array type`);
+                            continue;
+                        }
+                        for (const a of metadata.arrays) {
+                            Writable(a).tags = a.tags.filter((x) =>
+                                MetadataTypeTagFactory.validate(validateReport)(
+                                    "array",
+                                )([...x, ...filtered]),
                             );
-                        for (const a of metadata.arrays)
-                            for (const tags of a.tags ?? [])
-                                MetadataTypeTagFactory.validate("array")([
-                                    ...tags,
-                                    ...value,
-                                ]);
-                        for (const a of metadata.arrays)
-                            if (a.tags.length === 0) a.tags.push(value);
-                            else for (const tags of a.tags) tags.push(...value);
+                            if (a.tags.length === 0) a.tags.push(filtered);
+                            else
+                                for (const tags of a.tags)
+                                    tags.push(...filtered);
+                        }
                     } else {
                         const atomic = metadata.atomics.find(
                             (a) => a.type == key,
                         );
-                        if (atomic === undefined) {
+                        if (atomic === undefined)
                             if (key === "bigint" || key === "number") {
                                 const opposite =
                                     key === "bigint" ? "number" : "bigint";
@@ -55,63 +85,68 @@ export namespace MetadataCommentTagFactory {
                                 value[0]?.value === "date-time"
                             )
                                 continue;
-                            throw new Error(
-                                `${LABEL}: ${
-                                    comment.name
-                                } requires ${key} type, no on "${identifier()}".`,
+                            else report(`requires ${key} type`);
+                        else {
+                            Writable(atomic).tags = atomic.tags.filter((x) =>
+                                MetadataTypeTagFactory.validate(validateReport)(
+                                    key as "string",
+                                )([...x, ...filtered]),
                             );
+                            if (atomic.tags.length === 0)
+                                atomic.tags.push(filtered);
+                            else
+                                for (const tags of atomic.tags)
+                                    tags.push(...filtered);
                         }
-                        for (const tags of atomic.tags ?? [])
-                            MetadataTypeTagFactory.validate(key as "string")([
-                                ...tags,
-                                ...value,
-                            ]);
-
-                        if (atomic.tags.length === 0) atomic.tags.push(value);
-                        else
-                            for (const tags of atomic.tags) tags.push(...value);
                     }
                 }
             }
+
+            // DO REPORT
+            if (messages.length !== 0)
+                errors.push({
+                    name: "comment tag(s)",
+                    explore,
+                    messages,
+                });
         };
 
     const parse =
-        (identifier: () => string) =>
-        (comment: ts.JSDocTagInfo): TagRecord => {
+        (report: (msg: string) => null) =>
+        (comment: ts.JSDocTagInfo): TagRecord | null => {
             const parser = PARSER[comment.name];
             if (parser === undefined) return {};
 
             const text = (comment.text || [])[0]?.text;
-            if (text === undefined)
-                throw new Error(
-                    `${LABEL}: no comment tag value on ${identifier()}`,
-                );
-
-            return parser(identifier)(text);
+            if (text === undefined) return report(`no comment tag value`);
+            return parser(report)(text);
         };
 }
 
 type TagRecord = {
-    [P in Target]?: IMetadataTypeTag[];
+    [P in Target]?: NotDeterminedTypeTag[];
 };
 type Target = "bigint" | "number" | "string" | "array";
+type NotDeterminedTypeTag = Omit<IMetadataTypeTag, "validate"> & {
+    validate: string | null;
+};
 
 const PARSER: Record<
     string,
-    (identifier: () => string) => (text: string) => {
-        [P in Target]?: IMetadataTypeTag[];
+    (report: (msg: string) => null) => (text: string) => {
+        [P in Target]?: NotDeterminedTypeTag[];
     }
 > = {
     /* -----------------------------------------------------------
         ARRAY
     ----------------------------------------------------------- */
-    items: (identifier) => (Value) => ({
+    items: (report) => (Value) => ({
         array: [
             {
                 name: `MinItems<${Value}>`,
                 target: "array",
                 kind: "minItems",
-                value: parse_integer(identifier)(true)(Value),
+                value: parse_integer(report)(true)(Value),
                 validate: `${Value} <= $input.length`,
                 exclusive: true,
             },
@@ -119,31 +154,31 @@ const PARSER: Record<
                 name: `MaxItems<${Value}>`,
                 target: "array",
                 kind: "maxItems",
-                value: parse_integer(identifier)(true)(Value),
+                value: parse_integer(report)(true)(Value),
                 validate: `$input.length <= ${Value}`,
                 exclusive: true,
             },
         ],
     }),
-    minItems: (identifier) => (Value) => ({
+    minItems: (report) => (Value) => ({
         array: [
             {
                 name: `MinItems<${Value}>`,
                 target: "array",
                 kind: "minItems",
-                value: parse_integer(identifier)(true)(Value),
+                value: parse_integer(report)(true)(Value),
                 validate: `${Value} <= $input.length`,
                 exclusive: true,
             },
         ],
     }),
-    maxItems: (identifier) => (Value) => ({
+    maxItems: (report) => (Value) => ({
         array: [
             {
                 name: `MaxItems<${Value}>`,
                 target: "array",
                 kind: "maxItems",
-                value: parse_integer(identifier)(true)(Value),
+                value: parse_integer(report)(true)(Value),
                 validate: `$input.length <= ${Value}`,
                 exclusive: true,
             },
@@ -207,13 +242,13 @@ const PARSER: Record<
                     : [],
         };
     },
-    minimum: (identifier) => (Value) => ({
+    minimum: (report) => (Value) => ({
         number: [
             {
                 name: `Minimum<${Value}>`,
                 target: "number",
                 kind: "minimum",
-                value: parse_number(identifier)(Value),
+                value: parse_number(report)(Value),
                 validate: `${Value} <= $input`,
                 exclusive: ["minimum", "exclusiveMinimum"],
             },
@@ -223,19 +258,22 @@ const PARSER: Record<
                 name: `Minimum<${Value}n>`,
                 target: "bigint",
                 kind: "minimum",
-                value: BigInt(parse_integer(identifier)(false)(Value)),
+                value: (() => {
+                    const value = parse_integer(report)(false)(Value);
+                    return value === null ? null : BigInt(value);
+                })(),
                 validate: `${Value} <= $input`,
                 exclusive: ["minimum", "exclusiveMinimum"],
             },
         ],
     }),
-    maximum: (identifier) => (Value) => ({
+    maximum: (report) => (Value) => ({
         number: [
             {
                 name: `Maximum<${Value}>`,
                 target: "number",
                 kind: "maximum",
-                value: parse_number(identifier)(Value),
+                value: parse_number(report)(Value),
                 validate: `$input <= ${Value}`,
                 exclusive: ["maximum", "exclusiveMaximum"],
             },
@@ -245,19 +283,22 @@ const PARSER: Record<
                 name: `Maximum<${Value}n>`,
                 target: "bigint",
                 kind: "maximum",
-                value: BigInt(parse_integer(identifier)(false)(Value)),
+                value: (() => {
+                    const value = parse_integer(report)(false)(Value);
+                    return value === null ? null : BigInt(value);
+                })(),
                 validate: `$input <= ${Value}`,
                 exclusive: ["maximum", "exclusiveMaximum"],
             },
         ],
     }),
-    exclusiveMinimum: (identifier) => (Value) => ({
+    exclusiveMinimum: (report) => (Value) => ({
         number: [
             {
                 name: `ExclusiveMinimum<${Value}>`,
                 target: "number",
                 kind: "exclusiveMinimum",
-                value: parse_number(identifier)(Value),
+                value: parse_number(report)(Value),
                 validate: `${Value} < $input`,
                 exclusive: ["minimum", "exclusiveMinimum"],
             },
@@ -267,19 +308,22 @@ const PARSER: Record<
                 name: `ExclusiveMinimum<${Value}n>`,
                 target: "bigint",
                 kind: "exclusiveMinimum",
-                value: BigInt(parse_integer(identifier)(false)(Value)),
+                value: (() => {
+                    const value = parse_integer(report)(false)(Value);
+                    return value === null ? null : BigInt(value);
+                })(),
                 validate: `${Value} < $input`,
                 exclusive: ["minimum", "exclusiveMinimum"],
             },
         ],
     }),
-    exclusiveMaximum: (identifier) => (Value) => ({
+    exclusiveMaximum: (report) => (Value) => ({
         number: [
             {
                 name: `ExclusiveMaximum<${Value}>`,
                 target: "number",
                 kind: "exclusiveMaximum",
-                value: parse_number(identifier)(Value),
+                value: parse_number(report)(Value),
                 validate: `$input < ${Value}`,
                 exclusive: ["maximum", "exclusiveMaximum"],
             },
@@ -289,19 +333,22 @@ const PARSER: Record<
                 name: `ExclusiveMaximum<${Value}n>`,
                 target: "bigint",
                 kind: "exclusiveMaximum",
-                value: BigInt(parse_integer(identifier)(false)(Value)),
+                value: (() => {
+                    const value = parse_integer(report)(false)(Value);
+                    return value === null ? null : BigInt(value);
+                })(),
                 validate: `$input < ${Value}`,
                 exclusive: ["maximum", "exclusiveMaximum"],
             },
         ],
     }),
-    multipleOf: (identifier) => (Value) => ({
+    multipleOf: (report) => (Value) => ({
         number: [
             {
                 name: `MultipleOf<${Value}>`,
                 target: "number",
                 kind: "multipleOf",
-                value: parse_number(identifier)(Value),
+                value: parse_number(report)(Value),
                 validate: `$input % ${Value} === 0`,
                 exclusive: true,
             },
@@ -311,7 +358,10 @@ const PARSER: Record<
                 name: `MultipleOf<${Value}n>`,
                 target: "bigint",
                 kind: "multipleOf",
-                value: BigInt(parse_integer(identifier)(false)(Value)),
+                value: (() => {
+                    const value = parse_integer(report)(false)(Value);
+                    return value === null ? null : BigInt(value);
+                })(),
                 validate: `$input % ${Value}n === 0n`,
                 exclusive: true,
             },
@@ -349,13 +399,13 @@ const PARSER: Record<
             },
         ],
     }),
-    length: (identifier) => (Value) => ({
+    length: (report) => (Value) => ({
         string: [
             {
                 name: `MinLength<${Value}>`,
                 target: "string",
                 kind: "minLength",
-                value: parse_number(identifier)(Value),
+                value: parse_number(report)(Value),
                 validate: `${Value} <= $input.length`,
                 exclusive: true,
             },
@@ -363,31 +413,31 @@ const PARSER: Record<
                 name: `MaxLength<${Value}>`,
                 target: "string",
                 kind: "maxLength",
-                value: parse_number(identifier)(Value),
+                value: parse_number(report)(Value),
                 validate: `$input.length <= ${Value}`,
                 exclusive: true,
             },
         ],
     }),
-    minLength: (identifier) => (Value) => ({
+    minLength: (report) => (Value) => ({
         string: [
             {
                 name: `MinLength<${Value}>`,
                 target: "string",
                 kind: "minLength",
-                value: parse_number(identifier)(Value),
+                value: parse_number(report)(Value),
                 validate: `${Value} <= $input.length`,
                 exclusive: true,
             },
         ],
     }),
-    maxLength: (identifier) => (Value) => ({
+    maxLength: (report) => (Value) => ({
         string: [
             {
                 name: `MaxLength<${Value}>`,
                 target: "string",
                 kind: "maxLength",
-                value: parse_number(identifier)(Value),
+                value: parse_number(report)(Value),
                 validate: `$input.length <= ${Value}`,
                 exclusive: true,
             },
@@ -396,25 +446,22 @@ const PARSER: Record<
 };
 
 const parse_number =
-    (identifier: () => string) =>
-    (str: string): number => {
+    (report: (msg: string) => null) =>
+    (str: string): number | null => {
         const value: number = Number(str);
-        if (isNaN(value) === true)
-            throw new Error(`${LABEL}: invalid number on "${identifier()}".`);
+        if (isNaN(value) === true) return report(`invalid number`);
         return value;
     };
 
 const parse_integer =
-    (identifier: () => string) =>
+    (report: (msg: string) => null) =>
     (unsigned: boolean) =>
-    (str: string): number => {
-        const value: number = parse_number(identifier)(str);
-        if (Math.floor(value) !== value)
-            throw new Error(`${LABEL}: invalid integer on "${identifier()}".`);
+    (str: string): number | null => {
+        const value: number | null = parse_number(report)(str);
+        if (value === null) return null;
+        else if (Math.floor(value) !== value) return report(`invalid integer`);
         else if (unsigned === true && value < 0)
-            throw new Error(
-                `${LABEL}: invalid unsigned integer on "${identifier()}".`,
-            );
+            return report(`invalid unsigned integer`);
         return value;
     };
 
@@ -538,7 +585,6 @@ namespace IMetadataCommentTag {
     }
 }
 
-const LABEL = "Error on typia.MetadataCommentTagFactory.generate()";
 const FORMATS: Map<string, [IMetadataCommentTag.IFormat["value"], string]> =
     new Map([
         [

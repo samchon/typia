@@ -236,7 +236,7 @@ export class Metadata {
             arrays: meta.arrays.map((ref) => {
                 const type = dict.arrays.get(ref.name);
                 if (type === undefined)
-                    throw new Error(
+                    throw new RangeError(
                         `Error on Metadata.from(): failed to find array "${ref.name}".`,
                     );
                 return MetadataArray.create({
@@ -247,7 +247,7 @@ export class Metadata {
             tuples: meta.tuples.map((t) => {
                 const type = dict.tuples.get(t.name);
                 if (type === undefined)
-                    throw new Error(
+                    throw new RangeError(
                         `Error on Metadata.from(): failed to find tuple "${t.name}".`,
                     );
                 return MetadataTuple.create({
@@ -258,7 +258,7 @@ export class Metadata {
             objects: meta.objects.map((name) => {
                 const found = dict.objects.get(name);
                 if (found === undefined)
-                    throw new Error(
+                    throw new RangeError(
                         `Error on Metadata.from(): failed to find object "${name}".`,
                     );
                 return found;
@@ -266,7 +266,7 @@ export class Metadata {
             aliases: meta.aliases.map((alias) => {
                 const found = dict.aliases.get(alias);
                 if (found === undefined)
-                    throw new Error(
+                    throw new RangeError(
                         `Error on Metadata.from(): failed to find alias "${alias}".`,
                     );
                 return found;

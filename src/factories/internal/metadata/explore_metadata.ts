@@ -11,23 +11,17 @@ export const explore_metadata =
     (checker: ts.TypeChecker) =>
     (options: MetadataFactory.IOptions) =>
     (collection: MetadataCollection) =>
-    (
-        type: ts.Type | null,
-        parentResolved: boolean,
-        aliased: boolean = false,
-    ): Metadata => {
+    (errors: MetadataFactory.IError[]) =>
+    (type: ts.Type | null, explore: MetadataFactory.IExplore): Metadata => {
         // CONSTRUCT METADATA
-        const meta: Metadata = Metadata.initialize(parentResolved);
-        collection.entire_.add(meta);
-
+        const meta: Metadata = Metadata.initialize(explore.escaped);
         if (type === null) return meta;
 
         // ITERATE TYPESCRIPT TYPES
-        iterate_metadata(checker)(options)(collection)(
+        iterate_metadata(checker)(options)(collection)(errors)(
             meta,
             type,
-            parentResolved,
-            aliased,
+            explore,
         );
         emend_metadata_atomics(meta);
         if (meta.escaped) {

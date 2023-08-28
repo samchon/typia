@@ -15,7 +15,7 @@ export namespace PluginConfigurator {
             | comments.CommentObject
             | undefined;
         if (compilerOptions === undefined)
-            throw new Error(
+            throw new ReferenceError(
                 `${args.project} file does not have "compilerOptions" property.`,
             );
 
@@ -27,7 +27,7 @@ export namespace PluginConfigurator {
             if (plugins === undefined)
                 return (compilerOptions.plugins = [] as any);
             else if (!Array.isArray(plugins))
-                throw new Error(
+                throw new TypeError(
                     `"plugins" property of ${args.project} must be array type.`,
                 );
             return plugins;

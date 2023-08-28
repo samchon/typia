@@ -64,7 +64,7 @@ import { ProtobufValidateEncodeTransformer } from "./features/protobuf/ProtobufV
 export namespace CallExpressionTransformer {
     export const transform =
         (project: IProject) =>
-        (expression: ts.CallExpression): ts.Expression => {
+        (expression: ts.CallExpression): ts.Expression | null => {
             //----
             // VALIDATIONS
             //----
@@ -95,7 +95,10 @@ export namespace CallExpressionTransformer {
             if (functor === undefined) return expression;
 
             // RETURNS WITH TRANSFORMATION
-            return functor()(project)(expression.expression)(expression);
+            const result: ts.Expression | null = functor()(project)(
+                expression.expression,
+            )(expression);
+            return result ?? expression;
         };
 
     const isTarget = (location: string): boolean => {
@@ -126,7 +129,7 @@ type Task = (
     project: IProject,
 ) => (
     modulo: ts.LeftHandSideExpression,
-) => (expression: ts.CallExpression) => ts.Expression;
+) => (expression: ts.CallExpression) => ts.Expression | null;
 
 const FUNCTORS: Record<string, Record<string, () => Task>> = {
     module: {

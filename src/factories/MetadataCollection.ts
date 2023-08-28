@@ -26,11 +26,6 @@ export class MetadataCollection {
     private recursive_array_index_: number;
     private recursive_tuple_index_: number;
 
-    /**
-     * @internal
-     */
-    public readonly entire_: Set<Metadata> = new Set();
-
     public constructor(
         private readonly options?: Partial<MetadataCollection.IOptions>,
     ) {

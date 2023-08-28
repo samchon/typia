@@ -15,9 +15,14 @@ export const transform = (
             ? !!compilerOptions.strictNullChecks
             : !!compilerOptions.strict;
     if (strict === false)
-        throw new Error(
-            `Error on "tsconfig.json": typia requires \`compilerOptions.strictNullChecks\` to be true.`,
-        );
+        extras.addDiagnostic({
+            category: ts.DiagnosticCategory.Error,
+            code: "(typia)" as any,
+            file: undefined,
+            start: undefined,
+            length: undefined,
+            messageText: "strict mode is required.",
+        });
     return FileTransformer.transform({
         program,
         compilerOptions,

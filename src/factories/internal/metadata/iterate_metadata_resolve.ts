@@ -10,21 +10,20 @@ import { MetadataFactory } from "../../MetadataFactory";
 import { TypeFactory } from "../../TypeFactory";
 import { iterate_metadata } from "./iterate_metadata";
 
-// import { iterate_metadata_coalesce } from "./iterate_metadata_coalesce";
-
 export const iterate_metadata_resolve =
     (checker: ts.TypeChecker) =>
     (options: MetadataFactory.IOptions) =>
     (collection: MetadataCollection) =>
+    (errors: MetadataFactory.IError[]) =>
     (
         meta: Metadata,
         type: ts.Type,
-        resolved: boolean,
-        aliased: boolean,
+        explore: MetadataFactory.IExplore,
     ): boolean => {
-        if (options.escape === false || resolved === true) return false;
+        if (options.escape === false || explore.escaped === true) return false;
 
-        const escaped: ts.Type | null = TypeFactory.resolve(checker)(type);
+        const escaped: ts.Type | null =
+            TypeFactory.getReturnType(checker)(type)("toJSON");
         if (escaped === null) return false;
 
         if (meta.escaped === null) {
@@ -33,17 +32,21 @@ export const iterate_metadata_resolve =
                 returns: Metadata.initialize(),
             });
         }
-        iterate_metadata(checker)(options)(collection)(
+        iterate_metadata(checker)(options)(collection)(errors)(
             meta.escaped!.original,
             type,
-            true,
-            aliased,
+            {
+                ...explore,
+                escaped: true,
+            },
         );
-        iterate_metadata(checker)(options)(collection)(
+        iterate_metadata(checker)(options)(collection)(errors)(
             meta.escaped!.returns,
             escaped,
-            true,
-            aliased,
+            {
+                ...explore,
+                escaped: true,
+            },
         );
         return true;
     };
