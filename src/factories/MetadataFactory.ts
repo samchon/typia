@@ -126,6 +126,12 @@ export namespace MetadataFactory {
                 validateTuple(options)(visitor)(tuple.type, explore);
             for (const obj of meta.objects)
                 validateObject(options)(visitor)(obj);
+            for (const set of meta.sets)
+                validateMeta(options)(visitor)(set, explore);
+            for (const map of meta.maps) {
+                validateMeta(options)(visitor)(map.key, explore);
+                validateMeta(options)(visitor)(map.value, explore);
+            }
 
             if (options.escape === true && meta.escaped !== null)
                 validateMeta(options)(visitor)(meta.escaped.returns, {

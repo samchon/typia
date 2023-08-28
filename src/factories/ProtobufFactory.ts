@@ -53,7 +53,6 @@ export namespace ProtobufFactory {
                 meta.nullable === false;
             if (onlyObject === false)
                 insert("target type must be a sole and static object type");
-            return errors;
         }
 
         //----
@@ -70,17 +69,14 @@ export namespace ProtobufFactory {
         // PROHIBIT SET TYPE
         if (meta.sets.length) noSupport("Set type");
         // NATIVE TYPE, BUT NOT Uint8Array
-        if (meta.natives.length) {
-            const banned = meta.natives
-                .map((n) => [n, BANNED_NATIVE_TYPES.get(n)] as const)
-                .filter(([_n, b]) => b !== undefined)[0];
-            if (banned !== undefined)
-                noSupport(
-                    banned[1] === null
-                        ? `${banned[0]} type`
-                        : `does ${banned[0]} type. Use ${banned[1]} type instead.`,
-                );
-        }
+        if (meta.natives.length)
+            for (const native of meta.natives) {
+                if (native === "Uint8Array") continue;
+
+                const instead = BANNED_NATIVE_TYPES.get(native);
+                if (instead === undefined) noSupport(`${native} type`);
+                else noSupport(`${native} type. Use ${instead} type instead.`);
+            }
         //----
         // ATOMIC CASES
         //----
@@ -177,12 +173,12 @@ export namespace ProtobufFactory {
             meta.objects.some((obj) =>
                 obj.properties.some(
                     (p) =>
-                        p.key.isSoleLiteral() &&
-                        !Escaper.variable(p.key.getSoleLiteral()!),
+                        p.key.isSoleLiteral() === true &&
+                        Escaper.variable(p.key.getSoleLiteral()!) === false,
                 ),
             )
         )
-            throw noSupport(`object type with invalid static key name.`);
+            noSupport(`object type with invalid static key name.`);
         // DYNAMIC OBJECT, BUT PROPERTY VALUE TYPE IS ARRAY
         if (
             meta.objects.length &&
@@ -241,8 +237,7 @@ export namespace ProtobufFactory {
             meta.maps.length &&
             meta.maps.some((m) => ProtobufUtil.isUnion(m.value))
         )
-            noSupport("union type in map");
-
+            noSupport("union type in map value type");
         return errors;
     };
 }
@@ -272,4 +267,6 @@ const BANNED_NATIVE_TYPES: Map<string, string | null> = new Map([
         "ArrayBuffer",
         "SharedArrayBuffer",
     ].map((name) => [name, "Uint8Array"] as const),
+    ["WeakSet", "Array"],
+    ["WeakMap", "Map"],
 ]);

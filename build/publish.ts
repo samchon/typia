@@ -50,6 +50,7 @@ function main(): void {
     process.chdir(__dirname + "/..");
     execute("npm run build");
     execute("npm run build:test");
+    execute("npm run test:errors");
     execute("npm run test");
     publish(tag);
 

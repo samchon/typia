@@ -1,6 +1,6 @@
 {
   "name": "typia",
-  "version": "5.0.0-dev.20230828",
+  "version": "5.0.0-dev.20230829",
   "description": "Superfast runtime validators with only one line",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
@@ -18,6 +18,7 @@
     "build:test:actions": "rimraf bin && tsc -p test/tsconfig.actions.json",
     "build:test:issues": "rimraf bin && tsc -p test/tsconfig.issue.json",
     "build:benchmark": "rimraf measure && tsc -p benchmark/tsconfig.json",
+    "build:test:errors": "rimraf errors/bin && tsc -p errors/tsconfig.json",
     "build:test:prettier": "npm run build:test && prettier --write ./bin/**/*.js",
     "dev": "rimraf lib && tsc --watch",
     "dev:test": "rimraf bin && tsc -p test/tsconfig.json --watch",
@@ -28,6 +29,7 @@
     "issue": "node test/issue",
     "issue:generate": "ts-node src/executable/typia generate --input test/issues/generate/input --output test/issues/generate --project test/tsconfig.json",
     "test": "node bin/test",
+    "test:errors": "node errors",
     "test:manual": "node test/manual",
     "------------------------------------------------": "",
     "package:latest": "ts-node build/publish.ts latest",

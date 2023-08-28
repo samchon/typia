@@ -4,7 +4,9 @@ import { MetadataCollection } from "../../factories/MetadataCollection";
 import { ProtobufFactory } from "../../factories/ProtobufFactory";
 
 import { Metadata } from "../../schemas/metadata/Metadata";
+import { MetadataAtomic } from "../../schemas/metadata/MetadataAtomic";
 import { MetadataObject } from "../../schemas/metadata/MetadataObject";
+import { MetadataProperty } from "../../schemas/metadata/MetadataProperty";
 
 import { IProject } from "../../transformers/IProject";
 
@@ -111,7 +113,22 @@ export namespace ProtobufMessageProgrammer {
             for (const obj of meta.objects)
                 elements.add(
                     is_dynamic_object(obj)
-                        ? decode_map(ptr)(obj.properties[0]!)
+                        ? decode_map(ptr)(
+                              MetadataProperty.create({
+                                  ...obj.properties[0]!,
+                                  key: (() => {
+                                      const key: Metadata =
+                                          Metadata.initialize();
+                                      key.atomics.push(
+                                          MetadataAtomic.create({
+                                              type: "string",
+                                              tags: [],
+                                          }),
+                                      );
+                                      return key;
+                                  })(),
+                              }),
+                          )
                         : NameEncoder.encode(obj.name),
                 );
             for (const map of meta.maps) elements.add(decode_map(ptr)(map));

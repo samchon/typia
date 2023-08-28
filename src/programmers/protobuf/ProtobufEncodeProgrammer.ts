@@ -10,6 +10,7 @@ import { TypeFactory } from "../../factories/TypeFactory";
 
 import { Metadata } from "../../schemas/metadata/Metadata";
 import { MetadataArray } from "../../schemas/metadata/MetadataArray";
+import { MetadataAtomic } from "../../schemas/metadata/MetadataAtomic";
 import { MetadataObject } from "../../schemas/metadata/MetadataObject";
 import { MetadataProperty } from "../../schemas/metadata/MetadataProperty";
 
@@ -364,6 +365,7 @@ export namespace ProtobufEncodeProgrammer {
                 });
 
             // RETURNS
+            // if (unions.length === 0) console.log(meta.getName());
             if (unions.length === 1) return wrapper(unions[0]!.value(index));
             else
                 return wrapper(
@@ -471,7 +473,19 @@ export namespace ProtobufEncodeProgrammer {
                         [],
                         [input],
                     ),
-                    top,
+                    MetadataProperty.create({
+                        ...top,
+                        key: (() => {
+                            const key: Metadata = Metadata.initialize();
+                            key.atomics.push(
+                                MetadataAtomic.create({
+                                    type: "string",
+                                    tags: [],
+                                }),
+                            );
+                            return key;
+                        })(),
+                    }),
                     explore,
                 );
             return ts.factory.createBlock(
