@@ -17,7 +17,7 @@ export namespace ProtobufUtil {
         meta.objects.length +
         meta.maps.length;
 
-    export const isUnion = (meta: Metadata): boolean => meta.arrays.length > 1;
+    export const isUnion = (meta: Metadata): boolean => size(meta) > 1;
 
     export const getAtomics = (meta: Metadata): ProtobufAtomic[] => {
         const set: Set<ProtobufAtomic> = new Set();
