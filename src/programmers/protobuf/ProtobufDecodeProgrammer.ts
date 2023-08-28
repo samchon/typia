@@ -10,6 +10,7 @@ import { TypeFactory } from "../../factories/TypeFactory";
 
 import { Metadata } from "../../schemas/metadata/Metadata";
 import { MetadataArray } from "../../schemas/metadata/MetadataArray";
+import { MetadataAtomic } from "../../schemas/metadata/MetadataAtomic";
 import { MetadataObject } from "../../schemas/metadata/MetadataObject";
 import { MetadataProperty } from "../../schemas/metadata/MetadataProperty";
 
@@ -529,7 +530,22 @@ export namespace ProtobufDecodeProgrammer {
                         ts.factory.createToken(ts.SyntaxKind.EqualsToken),
                         ts.factory.createIdentifier("entry.value"),
                     ),
-            })(top, required);
+            })(
+                MetadataProperty.create({
+                    ...top,
+                    key: (() => {
+                        const key: Metadata = Metadata.initialize();
+                        key.atomics.push(
+                            MetadataAtomic.create({
+                                type: "string",
+                                tags: [],
+                            }),
+                        );
+                        return key;
+                    })(),
+                }),
+                required,
+            );
         };
 
     const decode_map =
