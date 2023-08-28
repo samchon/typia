@@ -18,6 +18,7 @@ export const emplace_metadata_object =
     (checker: ts.TypeChecker) =>
     (options: MetadataFactory.IOptions) =>
     (collection: MetadataCollection) =>
+    (errors: MetadataFactory.IError[]) =>
     (parent: ts.Type, nullable: boolean): MetadataObject => {
         // EMPLACE OBJECT
         const [obj, newbie] = collection.emplace(checker, parent);
@@ -99,7 +100,14 @@ export const emplace_metadata_object =
             const key: Metadata = MetadataHelper.literal_to_metadata(prop.name);
             const value: Metadata = explore_metadata(checker)(options)(
                 collection,
-            )(type, false);
+            )(errors)(type, {
+                top: false,
+                object: obj,
+                property: prop.name,
+                nested: null,
+                escaped: false,
+                aliased: false,
+            });
 
             // OPTIONAL, BUT CAN BE RQUIRED BY `Required<T>` TYPE
             if (node?.questionToken) Writable(value).optional = true;
@@ -111,10 +119,17 @@ export const emplace_metadata_object =
         //----
         for (const index of checker.getIndexInfosOfType(parent)) {
             // GET EXACT TYPE
-            const analyzer = (type: ts.Type) =>
-                explore_metadata(checker)(options)(collection)(type, false);
-            const key: Metadata = analyzer(index.keyType);
-            const value: Metadata = analyzer(index.type);
+            const analyzer = (type: ts.Type) => (property: {} | null) =>
+                explore_metadata(checker)(options)(collection)(errors)(type, {
+                    top: false,
+                    object: obj,
+                    property,
+                    nested: null,
+                    escaped: false,
+                    aliased: false,
+                });
+            const key: Metadata = analyzer(index.keyType)(null);
+            const value: Metadata = analyzer(index.type)({});
 
             // INSERT WITH REQUIRED CONFIGURATION
             insert(key)(value)(

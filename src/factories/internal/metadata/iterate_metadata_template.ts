@@ -11,7 +11,12 @@ export const iterate_metadata_template =
     (checker: ts.TypeChecker) =>
     (options: MetadataFactory.IOptions) =>
     (collection: MetadataCollection) =>
-    (meta: Metadata, type: ts.Type): boolean => {
+    (errors: MetadataFactory.IError[]) =>
+    (
+        meta: Metadata,
+        type: ts.Type,
+        explore: MetadataFactory.IExplore,
+    ): boolean => {
         const filter = (flag: ts.TypeFlags) => (type.getFlags() & flag) !== 0;
         if (!filter(ts.TypeFlags.TemplateLiteral)) return false;
 
@@ -26,9 +31,13 @@ export const iterate_metadata_template =
             const binded: ts.Type | undefined = template.types[i];
             if (binded)
                 row.push(
-                    explore_metadata(checker)(options)(collection)(
+                    explore_metadata(checker)(options)(collection)(errors)(
                         binded,
-                        false,
+                        {
+                            ...explore,
+                            escaped: false,
+                            aliased: false,
+                        },
                     ),
                 );
         });

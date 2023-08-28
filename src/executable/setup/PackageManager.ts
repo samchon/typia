@@ -15,7 +15,7 @@ export class PackageManager {
             "package.json",
         )(process.cwd());
         if (location === null)
-            throw new Error(`Unable to find "package.json" file`);
+            throw new URIError(`Unable to find "package.json" file`);
 
         return new PackageManager(
             location,

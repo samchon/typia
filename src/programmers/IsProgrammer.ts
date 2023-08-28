@@ -23,9 +23,9 @@ export namespace IsProgrammer {
         (options?: Partial<CONFIG.IOptions>) =>
         (importer: FunctionImporter): CheckerProgrammer.IConfig => ({
             prefix: "$i",
+            equals: !!options?.object,
             trace: false,
             path: false,
-            equals: !!options?.object,
             numeric: OptionPredicator.numeric({
                 numeric: options?.numeric,
             }),

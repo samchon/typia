@@ -3,6 +3,8 @@ import { IJsonComponents } from "../../schemas/json/IJsonComponents";
 import { IJsonSchema } from "../../schemas/json/IJsonSchema";
 import { Metadata } from "../../schemas/metadata/Metadata";
 
+import { TransformerError } from "../../transformers/TransformerError";
+
 import { application_schema } from "../internal/application_schema";
 
 export namespace JsonApplicationProgrammer {
@@ -35,9 +37,10 @@ export namespace JsonApplicationProgrammer {
                 schemas: metadatas.map((meta, i) => {
                     const schema: IJsonSchema | null = generator(meta)({});
                     if (schema === null)
-                        throw new Error(
-                            `Error on typia.application(): invalid type on argument - (${meta.getName()}, ${i})`,
-                        );
+                        throw new TransformerError({
+                            code: "typia.json.application",
+                            message: `invalid type on argument - (${meta.getName()}, ${i})`,
+                        });
                     return schema;
                 }),
                 components,

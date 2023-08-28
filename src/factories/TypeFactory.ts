@@ -1,11 +1,6 @@
 import ts from "typescript";
 
 export namespace TypeFactory {
-    export const resolve =
-        (checker: ts.TypeChecker) =>
-        (type: ts.Type): ts.Type | null =>
-            getReturnType(checker)(type)("toJSON");
-
     export const isFunction = (type: ts.Type): boolean =>
         getFunction(type) !== null;
 

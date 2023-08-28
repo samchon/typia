@@ -13,7 +13,12 @@ export const iterate_metadata_map =
     (checker: ts.TypeChecker) =>
     (options: MetadataFactory.IOptions) =>
     (collection: MetadataCollection) =>
-    (meta: Metadata, type: ts.Type): boolean => {
+    (errors: MetadataFactory.IError[]) =>
+    (
+        meta: Metadata,
+        type: ts.Type,
+        explore: MetadataFactory.IExplore,
+    ): boolean => {
         type = checker.getApparentType(type);
 
         const name = TypeFactory.getFullName(checker)(type, type.getSymbol());
@@ -29,10 +34,21 @@ export const iterate_metadata_map =
         ArrayUtil.set(
             meta.maps,
             {
-                key: explore_metadata(checker)(options)(collection)(key, false),
-                value: explore_metadata(checker)(options)(collection)(
+                key: explore_metadata(checker)(options)(collection)(errors)(
+                    key,
+                    {
+                        ...explore,
+                        escaped: false,
+                        aliased: false,
+                    },
+                ),
+                value: explore_metadata(checker)(options)(collection)(errors)(
                     value,
-                    false,
+                    {
+                        ...explore,
+                        escaped: false,
+                        aliased: false,
+                    },
                 ),
             },
             (elem) => `Map<${elem.key.getName()}, ${elem.value.getName()}>`,

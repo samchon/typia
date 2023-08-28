@@ -3,10 +3,30 @@ import { Metadata } from "../schemas/metadata/Metadata";
 import { MetadataObject } from "../schemas/metadata/MetadataObject";
 import { MetadataProperty } from "../schemas/metadata/MetadataProperty";
 
+import { MetadataFactory } from "./MetadataFactory";
+
 export namespace MetadataTypeTagFactory {
     export const analyze =
+        (errors: MetadataFactory.IError[]) =>
         (type: "bigint" | "number" | "string" | "array") =>
-        (objects: MetadataObject[]): IMetadataTypeTag[] => {
+        (
+            objects: MetadataObject[],
+            explore: MetadataFactory.IExplore,
+        ): IMetadataTypeTag[] => {
+            const messages: string[] = [];
+            const report =
+                (property: string | null) =>
+                (msg: string): false => {
+                    messages.push(
+                        `the property ${
+                            property === null
+                                ? `["typia.tag"]`
+                                : `["typia.tag.${property}"]`
+                        } ${msg}.`,
+                    );
+                    return false;
+                };
+
             //----
             // VALIDATION PROCESS
             //----
@@ -23,7 +43,7 @@ export namespace MetadataTypeTagFactory {
                 )
                     return false;
                 else if (top.value.optional === false)
-                    throw error(null)("must be optional object");
+                    return report(null)("must be optional object");
 
                 // CHECK LIST OF PROPERTIES
                 const tag: MetadataObject = top.value.objects[0]!;
@@ -31,19 +51,19 @@ export namespace MetadataTypeTagFactory {
                     .map((p) => p.key.getSoleLiteral()!)
                     .filter((str) => str !== null);
                 if (FIELDS.some((f) => !statics.includes(f)))
-                    throw error(null)(
+                    return report(null)(
                         `must have four properties - ${FIELDS.map(
                             (str) => `'${str}'`,
                         ).join(", ")}`,
                     );
 
-                tag.properties.forEach((p) => {
+                const each: boolean[] = tag.properties.map((p) => {
                     const key: string | null = p.key.getSoleLiteral();
-                    if (key === null) return;
-                    else if (FIELDS.includes(key) === false) return;
-                    validate_property(key, p.value);
+                    if (key === null) return true;
+                    else if (FIELDS.includes(key) === false) return true;
+                    return validate_property(report)(key, p.value);
                 });
-                return true;
+                return each.every((v) => v === true);
             });
             if (filtered.length === 0) return [];
 
@@ -51,25 +71,47 @@ export namespace MetadataTypeTagFactory {
             // CONSTRUCT TYPE TAGS
             //----
             // CREATE 1ST
-            const tagList: ITypeTag[] = filtered.map(create_metadata_type_tag);
-            const output: IMetadataTypeTag[] = tagList.map((tag) => ({
-                target: tag.target,
-                name: tag.name,
-                kind: tag.kind,
-                value: tag.value,
-                validate: tag.validate[type]!,
-                exclusive: tag.exclusive,
-            }));
-            validate(type)(output);
+            const tagList: Array<ITypeTag | null> = filtered.map(
+                create_metadata_type_tag(report),
+            );
+
+            const output: IMetadataTypeTag[] = [];
+            for (const tag of tagList)
+                if (tag !== null)
+                    output.push({
+                        target: tag.target.some((str) => str === type)
+                            ? type
+                            : null!,
+                        name: tag.name,
+                        kind: tag.kind,
+                        value: tag.value,
+                        validate: tag.validate[type]!,
+                        exclusive: tag.exclusive,
+                    });
+            validate(report)(type)(output);
+
+            if (messages.length > 0) {
+                errors.push({
+                    name: [type, ...objects.map((o) => o.name)].join(" & "),
+                    explore,
+                    messages,
+                });
+                return [];
+            }
             return output;
         };
 
     export const validate =
+        (report: (property: string | null) => (msg: string) => false) =>
         (type: "bigint" | "number" | "string" | "array") =>
-        (tagList: IMetadataTypeTag[]) => {
+        (tagList: IMetadataTypeTag[]): boolean => {
+            let success: boolean = true;
             for (const tag of tagList)
-                if (tag.target.includes(type))
-                    error(null)(`target must constains ${type} type - ${tag}`);
+                if (tag.target !== type) {
+                    success &&= report(null)(
+                        `target must constains ${type} type`,
+                    );
+                }
 
             tagList.forEach((tag, i) => {
                 if (tag.exclusive === false) return;
@@ -78,7 +120,7 @@ export namespace MetadataTypeTagFactory {
                         (opposite, j) => i !== j && opposite.kind === tag.kind,
                     );
                     if (some === true)
-                        throw error(null)(
+                        success &&= report(null)(
                             `kind '${tag.kind}' can't be duplicated`,
                         );
                 } else if (Array.isArray(tag.exclusive)) {
@@ -89,133 +131,147 @@ export namespace MetadataTypeTagFactory {
                             (tag.exclusive as string[]).includes(opposite.name),
                     );
                     if (some !== undefined)
-                        throw error(null)(
+                        success ??= report(null)(
                             `kind '${tag.kind}' can't be used with '${some.name}'`,
                         );
                 }
             });
+            return success;
         };
 
-    const validate_property = (key: string, value: Metadata) => {
-        if (
-            // TARGET
-            key === "target" &&
-            (value.constants.length !== 1 ||
-                value.constants[0]!.values.length !== value.size() ||
-                value.constants[0]!.values.some(
-                    (v) =>
-                        v !== "bigint" &&
-                        v !== "number" &&
-                        v !== "string" &&
-                        v !== "array",
-                ))
-        )
-            throw error(key)(
-                `must be one of 'bigint', 'number', 'string', 'array'`,
-            );
-        else if (
-            // KIND
-            key === "kind" &&
-            (value.size() !== 1 ||
-                value.constants.length !== 1 ||
-                value.constants[0]!.type !== "string" ||
-                value.constants[0]!.values.length !== 1)
-        )
-            throw error(key)("must be a string literal type");
-        else if (
-            // VALUE
-            key === "value" &&
-            (value.size() > 1 ||
-                (value.size() !== 0 &&
-                    (value.constants.length !== 1 ||
-                        value.constants[0]!.values.length !== 1)))
-        )
-            throw error(key)(
-                "must be a constant literal type or undefined value",
-            );
-        else if (key === "exclusive") get_exclusive(key)(value);
-        else if (key === "validate") {
-            //----
-            // VALIDATE
-            //----
-            // STRING CASE
-            const single: boolean =
-                value.size() === 1 &&
-                value.constants.length === 1 &&
-                value.constants[0]!.type === "string" &&
-                value.constants[0]!.values.length === 1;
-            if (single === true) return;
-
-            // RECORD<TARGET, STRING>
-            const target: string[] | undefined = value.objects[0]?.properties
-                .map((p) => p.key.getSoleLiteral()!)
-                .filter((str) => str !== null) as string[] | undefined;
-            if (target === undefined)
-                throw error("target")(
+    const validate_property =
+        (report: (property: string | null) => (msg: string) => false) =>
+        (key: string, value: Metadata): boolean => {
+            if (
+                // TARGET
+                key === "target" &&
+                (value.constants.length !== 1 ||
+                    value.constants[0]!.values.length !== value.size() ||
+                    value.constants[0]!.values.some(
+                        (v) =>
+                            v !== "bigint" &&
+                            v !== "number" &&
+                            v !== "string" &&
+                            v !== "array",
+                    ))
+            )
+                return report(key)(
                     `must be one of 'bigint', 'number', 'string', 'array'`,
                 );
-            const variadic: boolean =
-                value.size() === 1 &&
-                value.objects.length === 1 &&
-                value.objects[0]!.properties.every(
-                    (vp) =>
-                        vp.value.size() === 1 &&
-                        vp.value.isRequired() &&
-                        vp.value.nullable === false &&
-                        vp.value.constants.length === 1 &&
-                        vp.value.constants[0]!.type === "string" &&
-                        vp.value.constants[0]!.values.length === 1 &&
-                        target.includes(vp.key.getSoleLiteral()!),
+            else if (
+                // KIND
+                key === "kind" &&
+                (value.size() !== 1 ||
+                    value.constants.length !== 1 ||
+                    value.constants[0]!.type !== "string" ||
+                    value.constants[0]!.values.length !== 1)
+            )
+                return report(key)("must be a string literal type");
+            else if (
+                // VALUE
+                key === "value" &&
+                (value.size() > 1 ||
+                    (value.size() !== 0 &&
+                        (value.constants.length !== 1 ||
+                            value.constants[0]!.values.length !== 1)))
+            )
+                return report(key)(
+                    "must be a constant literal type or undefined value",
                 );
-            if (variadic === false)
-                throw error(key)(
-                    `must be a string literal type or Record<Target, string> type.`,
-                );
-        }
-    };
+            else if (key === "exclusive")
+                return get_exclusive(report)(key)(value) !== null;
+            else if (key === "validate") {
+                //----
+                // VALIDATE
+                //----
+                // STRING CASE
+                const single: boolean =
+                    value.size() === 1 &&
+                    value.constants.length === 1 &&
+                    value.constants[0]!.type === "string" &&
+                    value.constants[0]!.values.length === 1;
+                if (single === true) return true;
 
-    const create_metadata_type_tag = (obj: MetadataObject): ITypeTag => {
-        const find = (key: string): MetadataProperty | undefined =>
-            obj.properties[0]?.value.objects[0]?.properties.find(
-                (p) => p.key.getSoleLiteral() === key,
-            );
-
-        const target = find("target")!.value.constants[0]!
-            .values[0] as ITypeTag["target"];
-        const kind: string = find("kind")!.value.constants[0]!
-            .values[0] as string;
-        const value: boolean | bigint | number | string | undefined =
-            find("value")?.value.constants[0]?.values[0];
-        const exclusive: string[] | boolean | undefined = get_exclusive(
-            "exclusive",
-        )(find("exclusive")?.value);
-        const validate: Record<string, string> = (() => {
-            const validate = find("validate")!.value;
-            if (validate.constants.length)
-                return {
-                    [target]: validate.constants[0]!.values[0] as string,
-                };
-            return Object.fromEntries(
-                validate.objects[0]!.properties.map((p) => [
-                    p.key.getSoleLiteral()!,
-                    p.value.constants[0]!.values[0]! as string,
-                ]),
-            );
-        })();
-
-        return {
-            name: obj.name,
-            target,
-            kind,
-            value,
-            validate,
-            exclusive: exclusive ?? false,
+                // RECORD<TARGET, STRING>
+                const target: string[] | undefined =
+                    value.objects[0]?.properties
+                        .map((p) => p.key.getSoleLiteral()!)
+                        .filter((str) => str !== null) as string[] | undefined;
+                if (target === undefined)
+                    return report("target")(
+                        `must be one of 'bigint', 'number', 'string', 'array'`,
+                    );
+                const variadic: boolean =
+                    value.size() === 1 &&
+                    value.objects.length === 1 &&
+                    value.objects[0]!.properties.every(
+                        (vp) =>
+                            vp.value.size() === 1 &&
+                            vp.value.isRequired() &&
+                            vp.value.nullable === false &&
+                            vp.value.constants.length === 1 &&
+                            vp.value.constants[0]!.type === "string" &&
+                            vp.value.constants[0]!.values.length === 1 &&
+                            target.includes(vp.key.getSoleLiteral()!),
+                    );
+                if (variadic === false)
+                    return report(key)(
+                        `must be a string literal type or Record<Target, string> type.`,
+                    );
+            }
+            return true;
         };
-    };
+
+    const create_metadata_type_tag =
+        (report: (property: string | null) => (msg: string) => false) =>
+        (obj: MetadataObject): ITypeTag | null => {
+            const find = (key: string): MetadataProperty | undefined =>
+                obj.properties[0]?.value.objects[0]?.properties.find(
+                    (p) => p.key.getSoleLiteral() === key,
+                );
+
+            const target = find("target")!.value.constants[0]!
+                .values as ITypeTag["target"];
+            const kind: string = find("kind")!.value.constants[0]!
+                .values[0] as string;
+            const value: boolean | bigint | number | string | undefined =
+                find("value")?.value.constants[0]?.values[0];
+            const exclusive: string[] | boolean | null = get_exclusive(report)(
+                "exclusive",
+            )(find("exclusive")?.value);
+            if (exclusive === null) return null;
+
+            const validate: Record<string, string> = (() => {
+                const validate = find("validate")!.value;
+                if (validate.constants.length)
+                    return Object.fromEntries(
+                        target.map((t) => [
+                            t,
+                            validate.constants[0]!.values[0] as string,
+                        ]),
+                    );
+                return Object.fromEntries(
+                    validate.objects[0]!.properties.map((p) => [
+                        p.key.getSoleLiteral()!,
+                        p.value.constants[0]!.values[0]! as string,
+                    ]),
+                );
+            })();
+
+            return {
+                name: obj.name,
+                target,
+                kind,
+                value,
+                validate,
+                exclusive: exclusive ?? false,
+            };
+        };
 
     const get_exclusive =
+        (report: (property: string | null) => (msg: string) => false) =>
         (key: string) =>
-        (value: Metadata | undefined): boolean | string[] => {
+        (value: Metadata | undefined): boolean | string[] | null => {
             if (value === undefined) return false;
             else if (
                 value.size() === 1 &&
@@ -238,15 +294,16 @@ export namespace MetadataTypeTagFactory {
                 return value.tuples[0]!.type.elements.map(
                     (elem) => elem.constants[0]!.values[0]! as string,
                 );
-            throw error(key)(
+            report(key)(
                 "must a boolean literal type or a tuple of string literal types.",
             );
+            return null;
         };
 }
 
 interface ITypeTag {
     name: string;
-    target: "bigint" | "number" | "string" | "array";
+    target: Array<"bigint" | "number" | "string" | "array">;
     kind: string;
     value?: boolean | bigint | number | string;
     validate: Record<string, string>;
@@ -254,10 +311,3 @@ interface ITypeTag {
 }
 
 const FIELDS = ["target", "kind", "value", "validate"];
-
-const error = (property: string | null) => (msg: string) =>
-    new Error(
-        `Error on typia.MetadataFactory.analyze(): the property '${
-            property === null ? `["typia.tag"]` : `["typia.tag.${property}"]`
-        }' ${msg}.`,
-    );

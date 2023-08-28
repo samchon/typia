@@ -14,12 +14,17 @@ export const iterate_metadata_tuple =
     (checker: ts.TypeChecker) =>
     (options: MetadataFactory.IOptions) =>
     (collection: MetadataCollection) =>
-    (meta: Metadata, type: ts.TupleType): boolean => {
+    (errors: MetadataFactory.IError[]) =>
+    (
+        meta: Metadata,
+        type: ts.TupleType,
+        explore: MetadataFactory.IExplore,
+    ): boolean => {
         if (!checker.isTupleType(type)) return false;
 
         const tupleType: MetadataTupleType = emplace_metadata_tuple(checker)(
             options,
-        )(collection)(type, meta.nullable);
+        )(collection)(errors)(type, meta.nullable, explore);
         ArrayUtil.add(
             meta.tuples,
             MetadataTuple.create({

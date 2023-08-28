@@ -2,8 +2,8 @@ import ts from "typescript";
 
 import { ExpressionFactory } from "../../factories/ExpressionFactory";
 import { IdentifierFactory } from "../../factories/IdentifierFactory";
+import { JsonMetadataFactory } from "../../factories/JsonMetadataFactory";
 import { MetadataCollection } from "../../factories/MetadataCollection";
-import { MetadataFactory } from "../../factories/MetadataFactory";
 import { StatementFactory } from "../../factories/StatementFactory";
 import { TypeFactory } from "../../factories/TypeFactory";
 import { ValueFactory } from "../../factories/ValueFactory";
@@ -315,12 +315,7 @@ export namespace JsonStringifyProgrammer {
                     });
 
             // TUPLES
-            for (const tuple of meta.tuples) {
-                for (const child of tuple.type.elements)
-                    if (StringifyPredicator.undefindable(meta))
-                        throw new Error(
-                            `Error on typia.json.stringify(): tuple cannot contain undefined value - (${child.getName()}).`,
-                        );
+            for (const tuple of meta.tuples)
                 unions.push({
                     type: "tuple",
                     is: () =>
@@ -340,15 +335,9 @@ export namespace JsonStringifyProgrammer {
                             explore,
                         ),
                 });
-            }
 
             // ARRAYS
             if (meta.arrays.length) {
-                for (const child of meta.arrays)
-                    if (StringifyPredicator.undefindable(child.type.value))
-                        throw new Error(
-                            `Error on typia.json.stringify(): array cannot contain undefined value (${child.type.value.getName()}).`,
-                        );
                 const value: () => ts.Expression =
                     meta.arrays.length === 1
                         ? () =>
@@ -935,25 +924,11 @@ export namespace JsonStringifyProgrammer {
 
     const initializer: FeatureProgrammer.IConfig["initializer"] =
         ({ checker }) =>
-        (type) => {
-            const collection: MetadataCollection = new MetadataCollection();
-            const meta: Metadata = MetadataFactory.analyze(checker)({
-                escape: true,
-                constant: true,
-                absorb: true,
-                validate: (meta) => {
-                    if (meta.atomics.find((a) => a.type === "bigint"))
-                        throw new Error(NO_BIGINT);
-                    else if (
-                        meta.arrays.some(
-                            (array) => array.type.value.isRequired() === false,
-                        )
-                    )
-                        throw new Error(NO_UNDEFINED_IN_ARRAY);
-                },
-            })(collection)(type);
-            return [collection, meta];
-        };
+        (importer) =>
+        (type) =>
+            JsonMetadataFactory.analyze(`typia.json.${importer.method}`)(
+                checker,
+            )(type);
 
     const create_throw_error =
         (importer: FunctionImporter) =>
@@ -987,8 +962,3 @@ interface IUnion {
     is: () => ts.Expression;
     value: () => ts.Expression;
 }
-
-const NO_BIGINT =
-    "Error on typia.json.stringify(): does not allow bigint type.";
-const NO_UNDEFINED_IN_ARRAY =
-    "Error on typia.json.stringify(): does not allow undefined type in array.";

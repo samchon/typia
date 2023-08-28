@@ -20,7 +20,7 @@ export namespace TypiaProgrammer {
         props.output = path.resolve(props.output);
 
         if ((await is_directory(props.input)) === false)
-            throw new Error(
+            throw new URIError(
                 "Error on TypiaGenerator.generate(): input path is not a directory.",
             );
         else if (fs.existsSync(props.output) === false)
@@ -28,7 +28,7 @@ export namespace TypiaProgrammer {
         else if ((await is_directory(props.output)) === false) {
             const parent: string = path.join(props.output, "..");
             if ((await is_directory(parent)) === false)
-                throw new Error(
+                throw new URIError(
                     "Error on TypiaGenerator.generate(): output path is not a directory.",
                 );
             await fs.promises.mkdir(props.output);
@@ -56,6 +56,7 @@ export namespace TypiaProgrammer {
         );
 
         // DO TRANSFORM
+        const diagnostics: ts.Diagnostic[] = [];
         const result: ts.TransformationResult<ts.SourceFile> = ts.transform(
             program
                 .getSourceFiles()
@@ -73,10 +74,34 @@ export namespace TypiaProgrammer {
                             p.transform === "typia/lib/transform" ||
                             p.transform === "../src/transform.ts",
                     ) ?? {},
+                    {
+                        addDiagnostic: (diag) => diagnostics.push(diag),
+                    },
                 ),
             ],
             program.getCompilerOptions(),
         );
+
+        // TRACE ERRORS
+        for (const diag of diagnostics) {
+            const file: string = diag.file
+                ? path.relative(diag.file.fileName, process.cwd())
+                : "(unknown file)";
+            const category: string =
+                diag.category === ts.DiagnosticCategory.Warning
+                    ? "warning"
+                    : diag.category === ts.DiagnosticCategory.Error
+                    ? "error"
+                    : diag.category === ts.DiagnosticCategory.Suggestion
+                    ? "suggestion"
+                    : diag.category === ts.DiagnosticCategory.Message
+                    ? "message"
+                    : "unkown";
+            console.error(
+                `${file}:${diag.start}:${diag.length} - ${category} TS(${diag.code}): ${diag.messageText}`,
+            );
+        }
+        if (diagnostics.length) process.exit(-1);
 
         // ARCHIVE TRANSFORMED FILES
         const printer: ts.Printer = ts.createPrinter({

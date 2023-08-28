@@ -2,6 +2,7 @@ import ts from "typescript";
 
 import { IProject } from "./IProject";
 import { NodeTransformer } from "./NodeTransformer";
+import { TransformerError } from "./TransformerError";
 
 export namespace FileTransformer {
     export const transform =
@@ -21,7 +22,6 @@ export namespace FileTransformer {
         (context: ts.TransformationContext) =>
         (node: ts.Node): ts.Node => {
             const changed: ts.Node | null = try_transform_node(project)(node);
-
             return ts.visitEachChild(
                 changed ?? node,
                 (child) => iterate_node(project)(context)(child),
@@ -35,19 +35,25 @@ export namespace FileTransformer {
             try {
                 return NodeTransformer.transform(project)(node);
             } catch (exp) {
-                if (!(exp instanceof Error)) throw exp;
+                // ONLY ACCEPT TRANSFORMER-ERROR
+                if (!isTransformerError(exp)) throw exp;
 
-                const file: ts.SourceFile | undefined = node.getSourceFile();
-                if (file === undefined) throw exp;
-
+                // REPORT DIAGNOSTIC
                 const diagnostic = ts.createDiagnosticForNode(node, {
-                    key: exp.message,
+                    key: exp.code,
                     category: ts.DiagnosticCategory.Error,
                     message: exp.message,
-                    code: 1,
+                    code: `(${exp.code})` as any,
                 });
                 project.extras.addDiagnostic(diagnostic);
                 return null;
             }
         };
 }
+
+const isTransformerError = (error: any): error is TransformerError =>
+    typeof error === "object" &&
+    error !== null &&
+    error.constructor.name === "TransformerError" &&
+    typeof error.code === "string" &&
+    typeof error.message === "string";

@@ -10,15 +10,18 @@ export const iterate_metadata_union =
     (checker: ts.TypeChecker) =>
     (options: MetadataFactory.IOptions) =>
     (collection: MetadataCollection) =>
-    (meta: Metadata, type: ts.Type, parentResolved: boolean): boolean => {
+    (errors: MetadataFactory.IError[]) =>
+    (
+        meta: Metadata,
+        type: ts.Type,
+        explore: MetadataFactory.IExplore,
+    ): boolean => {
         if (!type.isUnion()) return false;
         type.types.forEach((t) =>
-            iterate_metadata(checker)(options)(collection)(
-                meta,
-                t,
-                parentResolved,
-                false,
-            ),
+            iterate_metadata(checker)(options)(collection)(errors)(meta, t, {
+                ...explore,
+                aliased: false,
+            }),
         );
         return true;
     };

@@ -1,6 +1,7 @@
 import ts from "typescript";
 
 import { IProject } from "../IProject";
+import { TransformerError } from "../TransformerError";
 
 export namespace GenericTransformer {
     export const scalar =
@@ -17,7 +18,10 @@ export namespace GenericTransformer {
         (expression: ts.CallExpression) => {
             // CHECK PARAMETER
             if (expression.arguments.length !== 1)
-                throw new Error(`Error on typia.${method}(): no input value.`);
+                throw new TransformerError({
+                    code: `typia.${method}`,
+                    message: `no input value.`,
+                });
 
             // GET TYPE INFO
             const [type, node, generic]: [ts.Type, ts.Node, boolean] =
@@ -37,9 +41,10 @@ export namespace GenericTransformer {
                           false,
                       ];
             if (type.isTypeParameter())
-                throw new Error(
-                    `Error on typia.${method}(): non-specified generic argument.`,
-                );
+                throw new TransformerError({
+                    code: `typia.${method}`,
+                    message: `non-specified generic argument.`,
+                });
 
             // DO TRANSFORM
             return ts.factory.createCallExpression(
@@ -68,18 +73,20 @@ export namespace GenericTransformer {
         (expression: ts.CallExpression) => {
             // CHECK GENERIC ARGUMENT EXISTENCE
             if (!expression.typeArguments?.[0])
-                throw new Error(
-                    `Error on typia.${method}(): generic argument is not specified.`,
-                );
+                throw new TransformerError({
+                    code: `typia.${method}`,
+                    message: `generic argument is not specified.`,
+                });
 
             // GET TYPE INFO
             const node: ts.TypeNode = expression.typeArguments[0];
             const type: ts.Type = project.checker.getTypeFromTypeNode(node);
 
             if (type.isTypeParameter())
-                throw new Error(
-                    `Error on typia.${method}(): non-specified generic argument.`,
-                );
+                throw new TransformerError({
+                    code: `typia.${method}`,
+                    message: `non-specified generic argument.`,
+                });
 
             // DO TRANSFORM
             return programmer(project)(modulo)(type, node.getFullText().trim());

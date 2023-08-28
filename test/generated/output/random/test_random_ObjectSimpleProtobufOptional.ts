@@ -66,7 +66,7 @@ export const test_random_ObjectSimpleProtobufOptional = _test_random(
                     () =>
                         (generator?.customs ?? $generator.customs)?.bigint?.([
                             {
-                                target: "number",
+                                target: "bigint",
                                 name: 'Type<"uint64">',
                                 kind: "type",
                                 value: "uint64",

@@ -97,7 +97,7 @@ export const test_random_ArraySimpleProtobufOptional = _test_random(
                                           $generator.customs
                                       )?.bigint?.([
                                           {
-                                              target: "number",
+                                              target: "bigint",
                                               name: 'Type<"int64">',
                                               kind: "type",
                                               value: "int64",
@@ -125,7 +125,7 @@ export const test_random_ArraySimpleProtobufOptional = _test_random(
                                           $generator.customs
                                       )?.bigint?.([
                                           {
-                                              target: "number",
+                                              target: "bigint",
                                               name: 'Type<"uint64">',
                                               kind: "type",
                                               value: "uint64",

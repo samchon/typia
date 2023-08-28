@@ -47,6 +47,8 @@ export namespace FeatureProgrammer {
          */
         initializer: (
             project: IProject,
+        ) => (
+            importer: FunctionImporter,
         ) => (type: ts.Type) => [MetadataCollection, Metadata];
 
         /**
@@ -200,7 +202,8 @@ export namespace FeatureProgrammer {
         (config: IConfig) =>
         (importer: FunctionImporter) =>
         (type: ts.Type, name?: string) => {
-            const [collection, meta] = config.initializer(project)(type);
+            const [collection, meta] =
+                config.initializer(project)(importer)(type);
 
             // ITERATE OVER ALL METADATA
             const output: ts.ConciseBody = config.decoder()(

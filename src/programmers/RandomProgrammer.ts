@@ -17,6 +17,7 @@ import { MetadataTuple } from "../schemas/metadata/MetadataTuple";
 import { MetadataTupleType } from "../schemas/metadata/MetadataTupleType";
 
 import { IProject } from "../transformers/IProject";
+import { TransformerError } from "../transformers/TransformerError";
 
 import { Escaper } from "../utils/Escaper";
 
@@ -36,23 +37,23 @@ export namespace RandomProgrammer {
             return (type: ts.Type, name?: string) => {
                 // INITIALIZE METADATA
                 const collection: MetadataCollection = new MetadataCollection();
-                const meta: Metadata = MetadataFactory.analyze(project.checker)(
-                    {
-                        escape: false,
-                        constant: true,
-                        absorb: true,
-                        validate: (meta) => {
-                            if (meta.natives.some((n) => n === "WeakSet"))
-                                throw new Error(
-                                    `Error on ${modulo.getText()}(): WeakSet is not supported.`,
-                                );
-                            else if (meta.natives.some((n) => n === "WeakMap"))
-                                throw new Error(
-                                    `Error on ${modulo.getText()}(): WeakMap is not supported.`,
-                                );
-                        },
+                const result = MetadataFactory.analyze(project.checker)({
+                    escape: false,
+                    constant: true,
+                    absorb: true,
+                    validate: (meta) => {
+                        const output: string[] = [];
+                        if (meta.natives.some((n) => n === "WeakSet"))
+                            output.push(`WeakSet is not supported.`);
+                        else if (meta.natives.some((n) => n === "WeakMap"))
+                            output.push(`WeakMap is not supported.`);
+                        return output;
                     },
-                )(collection)(type);
+                })(collection)(type);
+                if (result.success === false)
+                    throw TransformerError.from(`typia.${importer.method}`)(
+                        result.errors,
+                    );
 
                 // GENERATE FUNCTION
                 const functions = {
@@ -64,7 +65,7 @@ export namespace RandomProgrammer {
                 const output: ts.Expression = decode(importer)({
                     function: false,
                     recursive: false,
-                })(meta);
+                })(result.data);
 
                 return ts.factory.createArrowFunction(
                     undefined,

@@ -4,38 +4,39 @@ import { MetadataObject } from "../../../schemas/metadata/MetadataObject";
 import { MetadataTupleType } from "../../../schemas/metadata/MetadataTupleType";
 
 import { MetadataCollection } from "../../MetadataCollection";
+import { MetadataFactory } from "../../MetadataFactory";
 import { iterate_metadata_comment_tags } from "./iterate_metadata_comment_tags";
 
-export const iterate_metadata_collection = (
-    collection: MetadataCollection,
-): void => {
-    for (const array of collection.arrays())
-        if (array.recursive === null)
-            collection.setArrayRecursive(
-                array,
-                isArrayRecursive(new Set())(array)(array.value),
-            );
-    for (const tuple of collection.tuples())
-        if (tuple.recursive === null) {
-            const visited: Set<Metadata> = new Set();
-            collection.setTupleRecursive(
-                tuple,
-                tuple.elements.some(isTupleRecursive(visited)(tuple)),
-            );
+export const iterate_metadata_collection =
+    (errors: MetadataFactory.IError[]) =>
+    (collection: MetadataCollection): void => {
+        for (const array of collection.arrays())
+            if (array.recursive === null)
+                collection.setArrayRecursive(
+                    array,
+                    isArrayRecursive(new Set())(array)(array.value),
+                );
+        for (const tuple of collection.tuples())
+            if (tuple.recursive === null) {
+                const visited: Set<Metadata> = new Set();
+                collection.setTupleRecursive(
+                    tuple,
+                    tuple.elements.some(isTupleRecursive(visited)(tuple)),
+                );
+            }
+        for (const obj of collection.objects()) {
+            iterate_metadata_comment_tags(errors)(obj);
+            if (obj.recursive === null) {
+                const visited: Set<Metadata> = new Set();
+                collection.setObjectRecursive(
+                    obj,
+                    obj.properties.some((p) =>
+                        isObjectRecursive(visited)(obj)(p.value),
+                    ),
+                );
+            }
         }
-    for (const obj of collection.objects()) {
-        iterate_metadata_comment_tags(obj);
-        if (obj.recursive === null) {
-            const visited: Set<Metadata> = new Set();
-            collection.setObjectRecursive(
-                obj,
-                obj.properties.some((p) =>
-                    isObjectRecursive(visited)(obj)(p.value),
-                ),
-            );
-        }
-    }
-};
+    };
 
 const isArrayRecursive =
     (visited: Set<Metadata>) =>
