@@ -7,6 +7,7 @@ import { MetadataFactory } from "../../factories/MetadataFactory";
 import { Metadata } from "../../schemas/metadata/Metadata";
 
 import { IProject } from "../../transformers/IProject";
+import { TransformerError } from "../../transformers/TransformerError";
 
 import { Atomic } from "../../typings/Atomic";
 
@@ -14,7 +15,7 @@ import { ArrayUtil } from "../../utils/ArrayUtil";
 
 export namespace MiscLiteralsProgrammer {
     export const write = (project: IProject) => (type: ts.Type) => {
-        const meta: Metadata = MetadataFactory.analyze(project.checker)({
+        const result = MetadataFactory.analyze(project.checker)({
             escape: true,
             constant: true,
             absorb: true,
@@ -24,11 +25,15 @@ export namespace MiscLiteralsProgrammer {
                         .map((c) => c.values.length)
                         .reduce((a, b) => a + b, 0) +
                     meta.atomics.filter((a) => a.type === "boolean").length;
-                if (0 === length) throw new Error(ErrorMessages.NO);
-                else if (meta.size() !== length)
-                    throw new Error(ErrorMessages.ONLY);
+                if (0 === length) return [ErrorMessages.NO];
+                else if (meta.size() !== length) return [ErrorMessages.ONLY];
+                return [];
             },
         })(new MetadataCollection())(type);
+        if (result.success === false)
+            throw TransformerError.from(`typia.misc.literals`)(result.errors);
+
+        const meta: Metadata = result.data;
         const values: Set<Atomic.Type | null> = new Set([
             ...ArrayUtil.flat<Atomic.Type>(meta.constants.map((c) => c.values)),
             ...(meta.atomics.filter((a) => a.type === "boolean").length
@@ -59,6 +64,6 @@ export namespace MiscLiteralsProgrammer {
 }
 
 enum ErrorMessages {
-    NO = "Error on typia.literals(): no literal type found.",
-    ONLY = "Error on typia.literals(): only literal type allowed.",
+    NO = "no constant literal type found.",
+    ONLY = "only constant literal types are allowed.",
 }

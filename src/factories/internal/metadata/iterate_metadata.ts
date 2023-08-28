@@ -2,9 +2,9 @@ import ts from "typescript";
 
 import { Metadata } from "../../../schemas/metadata/Metadata";
 
-// import { ArrayUtil } from "../../../utils/ArrayUtil";
 import { MetadataCollection } from "../../MetadataCollection";
 import { MetadataFactory } from "../../MetadataFactory";
+import { TypeFactory } from "../../TypeFactory";
 import { iterate_metadata_alias } from "./iterate_metadata_alias";
 import { iterate_metadata_array } from "./iterate_metadata_array";
 import { iterate_metadata_atomic } from "./iterate_metadata_atomic";
@@ -24,39 +24,42 @@ export const iterate_metadata =
     (checker: ts.TypeChecker) =>
     (options: MetadataFactory.IOptions) =>
     (collection: MetadataCollection) =>
+    (errors: MetadataFactory.IError[]) =>
     (
         meta: Metadata,
         type: ts.Type,
-        resolved: boolean,
-        aliased: boolean,
+        explore: MetadataFactory.IExplore,
     ): void => {
-        if (type.isTypeParameter() === true)
-            throw new Error(
-                `Error on typia.MetadataFactory.generate(): non-specified generic argument on ${meta.getName()}.`,
-            );
+        if (type.isTypeParameter() === true) {
+            errors.push({
+                name: TypeFactory.getFullName(checker)(type),
+                explore: { ...explore },
+                messages: ["non-specified generic argument found."],
+            });
+            return;
+        }
         // CHECK SPECIAL CASES
-        if (
-            (aliased !== true &&
-                iterate_metadata_alias(checker)(options)(collection)(
+        else if (
+            (explore.aliased !== true &&
+                iterate_metadata_alias(checker)(options)(collection)(errors)(
                     meta,
                     type,
+                    explore,
                 )) ||
-            iterate_metadata_intersection(checker)(options)(collection)(
+            iterate_metadata_intersection(checker)(options)(collection)(errors)(
                 meta,
                 type,
-                resolved,
-                aliased,
+                explore,
             ) ||
-            iterate_metadata_union(checker)(options)(collection)(
+            iterate_metadata_union(checker)(options)(collection)(errors)(
                 meta,
                 type,
-                resolved,
+                explore,
             ) ||
-            iterate_metadata_resolve(checker)(options)(collection)(
+            iterate_metadata_resolve(checker)(options)(collection)(errors)(
                 meta,
                 type,
-                resolved,
-                aliased,
+                explore,
             )
         )
             return;
@@ -64,18 +67,35 @@ export const iterate_metadata =
         // ITERATE CASES
         iterate_metadata_coalesce(meta, type) ||
             iterate_metadata_constant(checker)(options)(meta, type) ||
-            iterate_metadata_template(checker)(options)(collection)(
+            iterate_metadata_template(checker)(options)(collection)(errors)(
                 meta,
                 type,
+                explore,
             ) ||
             iterate_metadata_atomic(meta, type) ||
-            iterate_metadata_tuple(checker)(options)(collection)(
+            iterate_metadata_tuple(checker)(options)(collection)(errors)(
                 meta,
                 type as ts.TupleType,
+                explore,
             ) ||
-            iterate_metadata_array(checker)(options)(collection)(meta, type) ||
+            iterate_metadata_array(checker)(options)(collection)(errors)(
+                meta,
+                type,
+                explore,
+            ) ||
             iterate_metadata_native(checker)(meta, type) ||
-            iterate_metadata_map(checker)(options)(collection)(meta, type) ||
-            iterate_metadata_set(checker)(options)(collection)(meta, type) ||
-            iterate_metadata_object(checker)(options)(collection)(meta, type);
+            iterate_metadata_map(checker)(options)(collection)(errors)(
+                meta,
+                type,
+                explore,
+            ) ||
+            iterate_metadata_set(checker)(options)(collection)(errors)(
+                meta,
+                type,
+                explore,
+            ) ||
+            iterate_metadata_object(checker)(options)(collection)(errors)(
+                meta,
+                type,
+            );
     };

@@ -13,6 +13,7 @@ import { MetadataTuple } from "../../schemas/metadata/MetadataTuple";
 import { MetadataTupleType } from "../../schemas/metadata/MetadataTupleType";
 
 import { IProject } from "../../transformers/IProject";
+import { TransformerError } from "../../transformers/TransformerError";
 
 import { FeatureProgrammer } from "../FeatureProgrammer";
 import { IsProgrammer } from "../IsProgrammer";
@@ -506,14 +507,19 @@ export namespace MiscPruneProgrammer {
 
     const initializer: FeatureProgrammer.IConfig["initializer"] =
         ({ checker }) =>
+        (importer) =>
         (type) => {
             const collection = new MetadataCollection();
-            const meta = MetadataFactory.analyze(checker)({
+            const result = MetadataFactory.analyze(checker)({
                 escape: false,
                 constant: true,
                 absorb: true,
             })(collection)(type);
-            return [collection, meta];
+            if (result.success === false)
+                throw TransformerError.from(`typia.misc.${importer.method}`)(
+                    result.errors,
+                );
+            return [collection, result.data];
         };
 
     const create_throw_error =

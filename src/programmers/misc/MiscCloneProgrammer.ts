@@ -13,6 +13,7 @@ import { MetadataTuple } from "../../schemas/metadata/MetadataTuple";
 import { MetadataTupleType } from "../../schemas/metadata/MetadataTupleType";
 
 import { IProject } from "../../transformers/IProject";
+import { TransformerError } from "../../transformers/TransformerError";
 
 import { FeatureProgrammer } from "../FeatureProgrammer";
 import { IsProgrammer } from "../IsProgrammer";
@@ -696,7 +697,7 @@ export namespace MiscCloneProgrammer {
                 prefix: PREFIX,
                 trace: false,
                 path: false,
-                initializer: initializer(importer.method),
+                initializer,
                 decoder: () => decode(project)(config)(importer),
                 objector: {
                     checker: () => IsProgrammer.decode(project)(importer),
@@ -720,27 +721,29 @@ export namespace MiscCloneProgrammer {
             return config;
         };
 
-    const initializer =
-        (method: string): FeatureProgrammer.IConfig["initializer"] =>
+    const initializer: FeatureProgrammer.IConfig["initializer"] =
         ({ checker }) =>
+        (importer) =>
         (type) => {
             const collection = new MetadataCollection();
-            const meta = MetadataFactory.analyze(checker)({
+            const result = MetadataFactory.analyze(checker)({
                 escape: false,
                 constant: true,
                 absorb: true,
                 validate: (meta) => {
+                    const output: string[] = [];
                     if (meta.natives.some((n) => n === "WeakSet"))
-                        throw new Error(
-                            `Error on ${method}(): WeakSet is not supported.`,
-                        );
+                        output.push("unable to clone WeakSet");
                     else if (meta.natives.some((n) => n === "WeakMap"))
-                        throw new Error(
-                            `Error on ${method}(): WeakMap is not supported.`,
-                        );
+                        output.push("unable to clone WeakMap");
+                    return output;
                 },
             })(collection)(type);
-            return [collection, meta];
+            if (result.success === false)
+                throw TransformerError.from(`typia.misc.${importer.method}`)(
+                    result.errors,
+                );
+            return [collection, result.data];
         };
 
     const create_throw_error =

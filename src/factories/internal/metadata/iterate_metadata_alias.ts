@@ -13,7 +13,12 @@ export const iterate_metadata_alias =
     (checker: ts.TypeChecker) =>
     (options: MetadataFactory.IOptions) =>
     (collection: MetadataCollection) =>
-    (meta: Metadata, type: ts.Type): boolean => {
+    (errors: MetadataFactory.IError[]) =>
+    (
+        meta: Metadata,
+        type: ts.Type,
+        explore: MetadataFactory.IExplore,
+    ): boolean => {
         if (options.absorb !== false || type.aliasSymbol === undefined)
             return false;
 
@@ -24,7 +29,7 @@ export const iterate_metadata_alias =
         // CONSTRUCT DEFINITION
         const alias: MetadataAlias = emplace_metadata_alias(checker)(options)(
             collection,
-        )(type, meta.nullable);
+        )(errors)(type, meta.nullable, explore);
         ArrayUtil.add(meta.aliases, alias, (elem) => elem.name === alias.name);
         return true;
     };

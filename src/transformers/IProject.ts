@@ -9,4 +9,7 @@ export interface IProject {
     printer: ts.Printer;
     options: ITransformOptions;
     context: ts.TransformationContext;
+    extras: {
+        addDiagnostic: (diag: ts.Diagnostic) => number;
+    };
 }

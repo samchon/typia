@@ -126,7 +126,7 @@ export namespace TypiaSetupWizard {
                 );
             if (fileList.length === 0) {
                 if (process.cwd() !== pack.directory)
-                    throw new Error(`Unable to find "tsconfig.json" file.`);
+                    throw new URIError(`Unable to find "tsconfig.json" file.`);
                 return null;
             } else if (fileList.length === 1) return fileList[0];
             return select("tsconfig")("TS Config File")(fileList);

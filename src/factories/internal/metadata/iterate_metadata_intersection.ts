@@ -17,11 +17,11 @@ export const iterate_metadata_intersection =
     (checker: ts.TypeChecker) =>
     (options: MetadataFactory.IOptions) =>
     (collection: MetadataCollection) =>
+    (errors: MetadataFactory.IError[]) =>
     (
         meta: Metadata,
         type: ts.Type,
-        resolved: boolean,
-        aliased: boolean,
+        explore: MetadataFactory.IExplore,
     ): boolean => {
         if (!type.isIntersection()) return false;
         else if (
@@ -36,25 +36,32 @@ export const iterate_metadata_intersection =
 
         // COSTRUCT FAKE METADATA LIST
         const fakeCollection: MetadataCollection = new MetadataCollection();
+        const fakeErrors: MetadataFactory.IError[] = [];
         const children: Metadata[] = [
             ...new Map(
                 type.types.map((t) => {
                     const m: Metadata = explore_metadata(checker)({
                         ...options,
                         absorb: true,
-                    })(fakeCollection)(t, resolved);
+                    })(fakeCollection)(fakeErrors)(t, {
+                        ...explore,
+                        aliased: false,
+                    });
                     return [m.getName(), m] as const;
                 }),
             ).values(),
         ];
+        if (fakeErrors.length) {
+            errors.push(...fakeErrors);
+            return true;
+        }
 
         // ONLY ONE CHILD AFTER REMOVING DUPLICATES
         if (children.length === 1) {
-            iterate_metadata(checker)(options)(collection)(
+            iterate_metadata(checker)(options)(collection)(errors)(
                 meta,
                 type.types[0]!,
-                resolved,
-                aliased,
+                explore,
             );
             return true;
         } else if (
@@ -102,9 +109,18 @@ export const iterate_metadata_intersection =
             atomics.size + arrays.size > 1 ||
             individuals.length + objects.length + constants.length !==
                 children.length
-        )
-            throw new Error(message(children));
-        else if (atomics.size === 0 && arrays.size === 0 && constants.length) {
+        ) {
+            errors.push({
+                name: children.map((c) => c.getName()).join(" & "),
+                explore: { ...explore },
+                messages: ["nonsensible intersection"],
+            });
+            return true;
+        } else if (
+            atomics.size === 0 &&
+            arrays.size === 0 &&
+            constants.length
+        ) {
             for (const m of constants) {
                 for (const tpl of m.templates)
                     ArrayUtil.add(
@@ -151,11 +167,16 @@ export const iterate_metadata_intersection =
         else if (target === "array") {
             const name: string = arrays.values().next().value;
             if (!meta.arrays.some((a) => a.type.name === name)) {
-                iterate_metadata_array(checker)(options)(collection)(
+                iterate_metadata_array(checker)(options)(collection)(errors)(
                     meta,
                     type.types[
                         individuals.find((i) => i[0].arrays.length === 1)![1]
                     ]!,
+                    {
+                        ...explore,
+                        aliased: false,
+                        escaped: false,
+                    },
                 );
             }
         }
@@ -163,8 +184,8 @@ export const iterate_metadata_intersection =
         // ASSIGN TAGS
         if (objects.length && target !== "boolean") {
             const tags: IMetadataTypeTag[] = MetadataTypeTagFactory.analyze(
-                target,
-            )(objects.map((om) => om.objects).flat());
+                errors,
+            )(target)(objects.map((om) => om.objects).flat(), explore);
             if (tags.length)
                 if (target === "array") meta.arrays.at(-1)!.tags.push(tags);
                 else
@@ -174,8 +195,3 @@ export const iterate_metadata_intersection =
         }
         return true;
     };
-
-const message = (children: Metadata[]) =>
-    `Error on typia.MetadataFactory.analyze(): nonsensible intersection type detected - ${children
-        .map((c) => c.getName())
-        .join(" & ")}.`;

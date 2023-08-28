@@ -137,11 +137,11 @@ export namespace ExpressionFactory {
             );
             const statement: ts.Statement | undefined = file.statements[0];
             if (statement === undefined)
-                throw new Error(
+                throw new ReferenceError(
                     "Error on ExpressionFactory.transpile(): no statement exists.",
                 );
             else if (!ts.isExpressionStatement(statement))
-                throw new Error(
+                throw new TypeError(
                     "Error on ExpressionFactory.transpile(): statement is not an expression statement.",
                 );
 

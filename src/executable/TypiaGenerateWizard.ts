@@ -64,7 +64,7 @@ export namespace TypiaGenerateWizard {
                     str.substring(str.length - 5) === ".json",
             );
             if (files.length === 0)
-                throw new Error(`Unable to find "tsconfig.json" file.`);
+                throw new URIError(`Unable to find "tsconfig.json" file.`);
             else if (files.length === 1) return files[0];
             return select("tsconfig")("TS Config File")(files);
         };

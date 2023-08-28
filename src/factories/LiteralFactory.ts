@@ -13,8 +13,9 @@ export namespace LiteralFactory {
         else if (typeof input === "boolean") return generate_value(input);
         else if (typeof input === "number") return generate_value(input);
         else if (typeof input === "bigint") return generate_bigint(input);
+        // unreachable code
         else
-            throw new Error(
+            throw new TypeError(
                 "Error on LiteralFactory.generate(): unknown type.",
             );
     };
