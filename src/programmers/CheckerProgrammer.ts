@@ -15,6 +15,7 @@ import { MetadataTuple } from "../schemas/metadata/MetadataTuple";
 import { MetadataTupleType } from "../schemas/metadata/MetadataTupleType";
 
 import { IProject } from "../transformers/IProject";
+import { TransformerError } from "../transformers/TransformerError";
 
 import { FeatureProgrammer } from "./FeatureProgrammer";
 import { AtomicPredicator } from "./helpers/AtomicPredicator";
@@ -208,15 +209,20 @@ export namespace CheckerProgrammer {
             prefix: config.prefix,
             initializer:
                 ({ checker }) =>
+                (importer) =>
                 (type) => {
                     const collection: MetadataCollection =
                         new MetadataCollection();
-                    const meta: Metadata = MetadataFactory.analyze(checker)({
+                    const result = MetadataFactory.analyze(checker)({
                         escape: false,
                         constant: true,
                         absorb: true,
                     })(collection)(type);
-                    return [collection, meta];
+                    if (result.success === false)
+                        throw TransformerError.from(`typia.${importer.method}`)(
+                            result.errors,
+                        );
+                    return [collection, result.data];
                 },
             addition: config.addition,
             decoder: () =>

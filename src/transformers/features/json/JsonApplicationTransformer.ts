@@ -1,5 +1,6 @@
 import ts from "typescript";
 
+import { JsonMetadataFactory } from "../../../factories/JsonMetadataFactory";
 import { LiteralFactory } from "../../../factories/LiteralFactory";
 import { MetadataCollection } from "../../../factories/MetadataCollection";
 import { MetadataFactory } from "../../../factories/MetadataFactory";
@@ -9,14 +10,20 @@ import { Metadata } from "../../../schemas/metadata/Metadata";
 
 import { JsonApplicationProgrammer } from "../../../programmers/json/JsonApplicationProgrammer";
 
+import { ValidationPipe } from "../../../typings/ValidationPipe";
+
 import { IProject } from "../../IProject";
+import { TransformerError } from "../../TransformerError";
 
 export namespace JsonApplicationTransformer {
     export const transform =
         ({ checker }: IProject) =>
         (expression: ts.CallExpression): ts.Expression => {
             if (!expression.typeArguments?.length)
-                throw new Error(NO_GENERIC_ARGUMENT);
+                throw new TransformerError({
+                    code: "typia.json.application",
+                    message: "no generic argument.",
+                });
 
             //----
             // GET ARGUMENTS
@@ -32,7 +39,10 @@ export namespace JsonApplicationTransformer {
                 checker.getTypeFromTypeNode(child as ts.TypeNode),
             );
             if (types.some((t) => t.isTypeParameter()))
-                throw new Error(GENERIC_ARGUMENT);
+                throw new TransformerError({
+                    code: "typia.json.application",
+                    message: "non-specified generic argument(s).",
+                });
 
             // ADDITIONAL PARAMETERS
             const purpose: "swagger" | "ajv" = get_parameter(
@@ -48,24 +58,25 @@ export namespace JsonApplicationTransformer {
             //----
             // METADATA
             const collection: MetadataCollection = new MetadataCollection();
-            const metadatas: Array<Metadata> = types.map((type) =>
-                MetadataFactory.analyze(checker)({
-                    escape: true,
-                    constant: true,
-                    absorb: false,
-                    validate: (meta) => {
-                        if (meta.atomics.find((atom) => atom.type === "bigint"))
-                            throw new Error(NO_BIGIT);
-                        else if (
-                            meta.arrays.some(
-                                (array) =>
-                                    array.type.value.isRequired() === false,
-                            )
-                        )
-                            throw new Error(NO_UNDEFINED_IN_ARRAY);
-                    },
-                })(collection)(type),
-            );
+            const results: ValidationPipe<Metadata, MetadataFactory.IError>[] =
+                types.map((type) =>
+                    MetadataFactory.analyze(checker)({
+                        escape: true,
+                        constant: true,
+                        absorb: false,
+                        validate: JsonMetadataFactory.validate,
+                    })(collection)(type),
+                );
+
+            // REPORT BUG IF REQUIRED
+            const metadatas: Metadata[] = [];
+            const errors: MetadataFactory.IError[] = [];
+            for (const r of results) {
+                if (r.success === false) errors.push(...r.errors);
+                else metadatas.push(r.data);
+            }
+            if (errors.length)
+                throw TransformerError.from("typia.json.application")(errors);
 
             // APPLICATION
             const app: IJsonApplication = JsonApplicationProgrammer.write({
@@ -88,25 +99,18 @@ export namespace JsonApplicationTransformer {
         // CHECK LITERAL TYPE
         const type: ts.Type = checker.getTypeFromTypeNode(node);
         if (!type.isLiteral())
-            throw new Error(
-                `Error on typia.application(): generic argument "${name}" must be constant.`,
-            );
+            throw new TransformerError({
+                code: "typia.json.application",
+                message: `generic argument "${name}" must be constant.`,
+            });
 
         // GET VALUE AND VALIDATE IT
         const value = type.value;
         if (typeof value !== "string" || predicator(value) === false)
-            throw new Error(
-                `Error on typia.application(): invalid value on generic argument "${name}".`,
-            );
+            throw new TransformerError({
+                code: "typia.json.application",
+                message: `invalid value on generic argument "${name}".`,
+            });
         return value as T;
     };
 }
-
-const NO_GENERIC_ARGUMENT =
-    "Error on typia.json.application(): no generic argument.";
-const GENERIC_ARGUMENT =
-    "Error on typia.json.application(): non-specified generic argument(s).";
-const NO_BIGIT =
-    "Error on typia.json.application(): does not allow bigint type.";
-const NO_UNDEFINED_IN_ARRAY =
-    "Error on typia.json.application(): does not allow undefined type in array.";

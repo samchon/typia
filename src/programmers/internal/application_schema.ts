@@ -9,10 +9,10 @@ import { application_alias } from "./application_alias";
 import { application_array } from "./application_array";
 import { application_boolean } from "./application_boolean";
 import { application_constant } from "./application_constant";
+import { application_escaped } from "./application_escaped";
 import { application_native } from "./application_native";
 import { application_number } from "./application_number";
 import { application_object } from "./application_object";
-import { application_resolved } from "./application_resolved";
 import { application_string } from "./application_string";
 import { application_templates } from "./application_templates";
 import { application_tuple } from "./application_tuple";
@@ -61,7 +61,7 @@ export const application_schema =
         // toJSON() METHOD
         if (meta.escaped !== null)
             union.push(
-                ...application_resolved(options)(blockNever)(components)(
+                ...application_escaped(options)(blockNever)(components)(
                     meta.escaped,
                 )(attribute),
             );
@@ -70,7 +70,7 @@ export const application_schema =
         if (meta.templates.length && AtomicPredicator.template(meta))
             insert(application_templates(meta)(attribute));
         for (const constant of meta.constants)
-            if (constant.type === "bigint") throw new Error(NO_BIGINT);
+            if (constant.type === "bigint") throw new TypeError(NO_BIGINT);
             else if (
                 (constant.type === "string" && meta.templates.length) ||
                 AtomicPredicator.constant(meta)(constant.type) === false
@@ -78,7 +78,7 @@ export const application_schema =
                 continue;
             else insert(application_constant(constant)(attribute));
         for (const a of meta.atomics)
-            if (a.type === "bigint") throw new Error(NO_BIGINT);
+            if (a.type === "bigint") throw new TypeError(NO_BIGINT);
             else if (a.type === "boolean")
                 insert(application_boolean(attribute));
             else if (a.type === "number")
@@ -103,7 +103,7 @@ export const application_schema =
             if (AtomicPredicator.native(native)) {
                 const type: string = native.toLowerCase();
                 if (meta.atomics.some((a) => a.type === type)) continue;
-                else if (type === "bigint") throw new Error(NO_BIGINT);
+                else if (type === "bigint") throw new TypeError(NO_BIGINT);
                 else if (type === "boolean")
                     insert(application_boolean(attribute));
                 else if (type === "number")

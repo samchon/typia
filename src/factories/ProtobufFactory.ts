@@ -5,6 +5,10 @@ import { MetadataObject } from "../schemas/metadata/MetadataObject";
 
 import { ProtobufUtil } from "../programmers/helpers/ProtobufUtil";
 
+import { TransformerError } from "../transformers/TransformerError";
+
+import { ValidationPipe } from "../typings/ValidationPipe";
+
 import { Escaper } from "../utils/Escaper";
 
 import { MetadataCollection } from "./MetadataCollection";
@@ -15,65 +19,72 @@ export namespace ProtobufFactory {
         (method: string) =>
         (checker: ts.TypeChecker) =>
         (collection: MetadataCollection) =>
-        (type: ts.Type) => {
+        (type: ts.Type): Metadata => {
             // COMPOSE METADATA WITH INDIVIDUAL VALIDATIONS
-            const top: Metadata = MetadataFactory.analyze(checker)({
-                escape: false,
-                constant: true,
-                absorb: true,
-                validate: validate(method),
-            })(collection)(type);
-
-            // TOP LEVEL TYPE MUST BE A SINGLE OBJECT
-            const onlyObject: boolean =
-                top.size() === 1 &&
-                top.objects.length === 1 &&
-                top.objects[0]!.properties.every((p) =>
-                    p.key.isSoleLiteral(),
-                ) &&
-                top.isRequired() === true &&
-                top.nullable === false;
-            if (onlyObject === false)
-                throw new Error(
-                    `${prefix(
-                        method,
-                    )} target type must be a sole and static object.`,
+            const result: ValidationPipe<Metadata, MetadataFactory.IError> =
+                MetadataFactory.analyze(checker)({
+                    escape: false,
+                    constant: true,
+                    absorb: true,
+                    validate,
+                })(collection)(type);
+            if (result.success === false)
+                throw TransformerError.from(`typia.protobuf.${method}`)(
+                    result.errors,
                 );
-
-            return top;
+            return result.data;
         };
 
-    const validate = (method: string) => (meta: Metadata) => {
+    const validate = (
+        meta: Metadata,
+        explore: MetadataFactory.IExplore,
+    ): string[] => {
+        const errors: string[] = [];
+        const insert = (msg: string) => errors.push(msg);
+
+        if (explore.top === true) {
+            const onlyObject: boolean =
+                meta.size() === 1 &&
+                meta.objects.length === 1 &&
+                meta.objects[0]!.properties.every((p) =>
+                    p.key.isSoleLiteral(),
+                ) &&
+                meta.isRequired() === true &&
+                meta.nullable === false;
+            if (onlyObject === false)
+                insert("target type must be a sole and static object type");
+            return errors;
+        }
+
         //----
         // NOT SUPPORTED TYPES
         //----
+        const noSupport = (msg: string) => insert(`does not support ${msg}`);
+
         // PROHIBIT ANY TYPE
-        if (meta.any) throw notSupportedError({ method })("any type");
+        if (meta.any) noSupport("any type");
         // PROHIBIT FUNCTIONAL TYPE
-        else if (meta.functional)
-            throw notSupportedError({ method })("functional type");
+        if (meta.functional) noSupport("functional type");
         // PROHIBIT TUPLE TYPE
-        else if (meta.tuples.length)
-            throw notSupportedError({ method })("tuple type");
+        if (meta.tuples.length) noSupport("tuple type");
         // PROHIBIT SET TYPE
-        else if (meta.sets.length)
-            throw notSupportedError({ method })("Set type");
+        if (meta.sets.length) noSupport("Set type");
         // NATIVE TYPE, BUT NOT Uint8Array
-        else if (meta.natives.length) {
+        if (meta.natives.length) {
             const banned = meta.natives
                 .map((n) => [n, BANNED_NATIVE_TYPES.get(n)] as const)
                 .filter(([_n, b]) => b !== undefined)[0];
             if (banned !== undefined)
-                throw notSupportedError({ method })(
+                noSupport(
                     banned[1] === null
-                        ? banned[0]
-                        : `${banned[0]}. Use ${banned[1]} instead.`,
+                        ? `${banned[0]} type`
+                        : `does ${banned[0]} type. Use ${banned[1]} type instead.`,
                 );
         }
         //----
         // ATOMIC CASES
         //----
-        else if (meta.atomics.length) {
+        if (meta.atomics.length) {
             const numbers = ProtobufUtil.getNumbers(meta);
             const bigints = ProtobufUtil.getBigints(meta);
 
@@ -82,21 +93,21 @@ export namespace ProtobufFactory {
                     numbers.some((n) => n === type) &&
                     bigints.some((b) => b === type)
                 )
-                    throw notSupportedError({ method })(
-                        `${type} cannot be used in both number and bigint types. Recommend to remove from number type`,
+                    insert(
+                        `tags.Type<"${type}"> cannot be used in both number and bigint types. Recommend to remove from number type`,
                     );
         }
         //----
         // ARRRAY CASES
         //----
         // DO NOT ALLOW MULTI-DIMENTIONAL ARRAY
-        else if (
+        if (
             meta.arrays.length &&
             meta.arrays.some((array) => !!array.type.value.arrays.length)
         )
-            throw notSupportedError({ method })("two dimenstional array type");
+            noSupport("over two dimenstional array type");
         // CHILD OF ARRAY TYPE MUST BE REQUIRED
-        else if (
+        if (
             meta.arrays.length &&
             meta.arrays.some(
                 (array) =>
@@ -104,15 +115,15 @@ export namespace ProtobufFactory {
                     array.type.value.nullable === true,
             )
         )
-            throw notSupportedError({ method })("optional type in array");
+            noSupport("optional type in array");
         // UNION IN ARRAY
-        else if (
+        if (
             meta.arrays.length &&
             meta.arrays.some((a) => a.type.value.size() > 1)
         )
-            throw notSupportedError({ method })("union type in array");
+            noSupport("union type in array");
         // DO DYNAMIC OBJECT IN ARRAY
-        else if (
+        if (
             meta.arrays.length &&
             meta.arrays.some(
                 (a) =>
@@ -123,21 +134,21 @@ export namespace ProtobufFactory {
                         )),
             )
         )
-            throw notSupportedError({ method })("dynamic object in array");
+            noSupport("dynamic object in array");
         // UNION WITH ARRAY
-        else if (meta.size() > 1 && meta.arrays.length)
-            throw notSupportedError({ method })("union type with array type");
+        if (meta.size() > 1 && meta.arrays.length)
+            noSupport("union type with array type");
         //----
         // OBJECT CASES
         //----
         // EMPTY PROPERTY
-        else if (
+        if (
             meta.objects.length &&
             meta.objects.some((obj) => obj.properties.length === 0)
         )
-            throw notSupportedError({ method })("empty object type");
+            noSupport("empty object type");
         // MULTIPLE DYNAMIC KEY TYPED PROPERTIES
-        else if (
+        if (
             meta.objects.length &&
             meta.objects.some(
                 (obj) =>
@@ -145,11 +156,11 @@ export namespace ProtobufFactory {
                         .length > 1,
             )
         )
-            throw notSupportedError({ method })(
+            noSupport(
                 "object type with multiple dynamic key typed properties. Keep only one.",
             );
         // STATIC AND DYNAMIC PROPERTIES ARE COMPATIBLE
-        else if (
+        if (
             meta.objects.length &&
             meta.objects.some(
                 (obj) =>
@@ -157,11 +168,11 @@ export namespace ProtobufFactory {
                     obj.properties.some((p) => !p.key.isSoleLiteral()),
             )
         )
-            throw notSupportedError({ method })(
+            noSupport(
                 "object type with mixed static and dynamic key typed properties. Keep statics or dynamic only.",
             );
         // STATIC PROPERTY, BUT INVALID KEY NAME
-        else if (
+        if (
             meta.objects.length &&
             meta.objects.some((obj) =>
                 obj.properties.some(
@@ -171,29 +182,23 @@ export namespace ProtobufFactory {
                 ),
             )
         )
-            throw notSupportedError({ method })(
-                `object type with invalid static key name.`,
-            );
+            throw noSupport(`object type with invalid static key name.`);
         // DYNAMIC OBJECT, BUT PROPERTY VALUE TYPE IS ARRAY
-        else if (
+        if (
             meta.objects.length &&
             isDynamicObject(meta.objects[0]!) &&
             meta.objects[0]!.properties.some((p) => !!p.value.arrays.length)
         )
-            throw notSupportedError({ method })(
-                "dynamic object with array value type",
-            );
+            noSupport("dynamic object with array value type");
         // UNION WITH DYNAMIC OBJECT
-        else if (
+        if (
             meta.size() > 1 &&
             meta.objects.length &&
             isDynamicObject(meta.objects[0]!)
         )
-            throw notSupportedError({ method })(
-                "union type with dynamic object type",
-            );
+            noSupport("union type with dynamic object type");
         // UNION IN DYNAMIC PROPERTY VALUE
-        else if (
+        if (
             meta.objects.length &&
             meta.objects.some(
                 (obj) =>
@@ -201,58 +206,46 @@ export namespace ProtobufFactory {
                     obj.properties.some((p) => ProtobufUtil.isUnion(p.value)),
             )
         )
-            throw notSupportedError({ method })(
-                "union type in dynamic property",
-            );
+            noSupport("union type in dynamic property");
         //----
         // MAP CASES
         //----
-        // KEY TYPE ISUNION
-        else if (
+        // KEY TYPE IS UNION
+        if (
             meta.maps.length &&
             meta.maps.some((m) => ProtobufUtil.isUnion(m.key))
         )
-            throw notSupportedError({ method })("union key typed map");
+            noSupport("union key typed map");
         // KEY TYPE IS NOT ATOMIC
-        else if (
+        if (
             meta.maps.length &&
             meta.maps.some((m) => ProtobufUtil.getAtomics(m.key).length !== 1)
         )
-            throw notSupportedError({ method })("non-atomic key typed map");
+            noSupport("non-atomic key typed map");
         // MAP TYPE, BUT PROPERTY KEY TYPE IS OPTIONAL
-        else if (
+        if (
             meta.maps.length &&
             meta.maps.some(
                 (m) => m.key.isRequired() === false || m.key.nullable,
             )
         )
-            throw notSupportedError({ method })("optional key typed map");
+            noSupport("optional key typed map");
         // MAP TYPE, BUT VALUE TYPE IS ARRAY
-        else if (
-            meta.maps.length &&
-            meta.maps.some((m) => !!m.value.arrays.length)
-        )
-            throw notSupportedError({ method })(
-                "map type with array value type",
-            );
+        if (meta.maps.length && meta.maps.some((m) => !!m.value.arrays.length))
+            noSupport("map type with array value type");
         // UNION WITH MAP
-        else if (meta.size() > 1 && meta.maps.length)
-            throw notSupportedError({ method })("union type with map type");
+        if (meta.size() > 1 && meta.maps.length)
+            noSupport("union type with map type");
         // UNION IN MAP
-        else if (
+        if (
             meta.maps.length &&
             meta.maps.some((m) => ProtobufUtil.isUnion(m.value))
         )
-            throw notSupportedError({ method })("union type in map");
+            noSupport("union type in map");
+
+        return errors;
     };
 }
-
-const prefix = (method: string) => `Error on ${method}():`;
-
-const notSupportedError = (p: { method: string }) => (title: string) =>
-    new Error(
-        `${prefix(p.method)}: protocol buffer does not support ${title}.`,
-    );
 
 const isDynamicObject = (obj: MetadataObject): boolean =>
     obj.properties[0]!.key.isSoleLiteral() === false;

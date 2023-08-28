@@ -1,6 +1,7 @@
 import ts from "typescript";
 
 import { IdentifierFactory } from "../../factories/IdentifierFactory";
+import { JsonMetadataFactory } from "../../factories/JsonMetadataFactory";
 import { StatementFactory } from "../../factories/StatementFactory";
 import { TypeFactory } from "../../factories/TypeFactory";
 
@@ -12,8 +13,11 @@ export namespace JsonAssertParseProgrammer {
     export const write =
         (project: IProject) =>
         (modulo: ts.LeftHandSideExpression) =>
-        (type: ts.Type, name?: string) =>
-            ts.factory.createArrowFunction(
+        (type: ts.Type, name?: string): ts.ArrowFunction => {
+            JsonMetadataFactory.analyze(`typia.json.${modulo.getText()}`)(
+                project.checker,
+            )(type);
+            return ts.factory.createArrowFunction(
                 undefined,
                 undefined,
                 [
@@ -63,4 +67,5 @@ export namespace JsonAssertParseProgrammer {
                     ),
                 ]),
             );
+        };
 }

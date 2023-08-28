@@ -13,7 +13,12 @@ export const emplace_metadata_alias =
     (checker: ts.TypeChecker) =>
     (options: MetadataFactory.IOptions) =>
     (collection: MetadataCollection) =>
-    (type: ts.Type, nullable: boolean): MetadataAlias => {
+    (errors: MetadataFactory.IError[]) =>
+    (
+        type: ts.Type,
+        nullable: boolean,
+        explore: MetadataFactory.IExplore,
+    ): MetadataAlias => {
         // CHECK EXISTENCE
         const [alias, newbie, closure] = collection.emplaceAlias(
             checker,
@@ -25,10 +30,12 @@ export const emplace_metadata_alias =
 
         // CONSTRUCT VALUE TYPE
         const value: Metadata = explore_metadata(checker)(options)(collection)(
-            type,
-            false,
-            true,
-        );
+            errors,
+        )(type, {
+            ...explore,
+            escaped: false,
+            aliased: true,
+        });
         closure(value);
         return alias;
     };

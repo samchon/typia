@@ -8,13 +8,17 @@ import { IMetadataApplication } from "../../../schemas/metadata/IMetadataApplica
 import { Metadata } from "../../../schemas/metadata/Metadata";
 
 import { IProject } from "../../IProject";
+import { TransformerError } from "../../TransformerError";
 
 export namespace MetadataTransformer {
     export const transform =
         ({ checker }: IProject) =>
         (expression: ts.CallExpression): ts.Expression => {
             if (!expression.typeArguments?.length)
-                throw new Error(NO_GENERIC_ARGUMENT);
+                throw new TransformerError({
+                    code: "typia.metadata",
+                    message: "no generic argument.",
+                });
 
             // VALIDATE TUPLE ARGUMENTS
             const top: ts.Node = expression.typeArguments[0]!;
@@ -27,17 +31,25 @@ export namespace MetadataTransformer {
                 checker.getTypeFromTypeNode(child as ts.TypeNode),
             );
             if (types.some((t) => t.isTypeParameter()))
-                throw new Error(GENERIC_ARGUMENT);
+                throw new TransformerError({
+                    code: "typia.metadata",
+                    message: "non-specified generic argument(s).",
+                });
 
             // METADATA
             const collection: MetadataCollection = new MetadataCollection();
-            const metadatas: Array<Metadata> = types.map((type) =>
-                MetadataFactory.analyze(checker)({
+            const metadatas: Array<Metadata> = types.map((type) => {
+                const result = MetadataFactory.analyze(checker)({
                     escape: true,
                     constant: true,
                     absorb: true,
-                })(collection)(type),
-            );
+                })(collection)(type);
+                if (result.success === false)
+                    throw TransformerError.from("typia.metadata")(
+                        result.errors,
+                    );
+                return result.data;
+            });
 
             // CONVERT TO PRIMITIVE TYPE
             const app: IMetadataApplication = {
@@ -47,7 +59,3 @@ export namespace MetadataTransformer {
             return LiteralFactory.generate(app);
         };
 }
-
-const NO_GENERIC_ARGUMENT = "Error on typia.metadata(): no generic argument.";
-const GENERIC_ARGUMENT =
-    "Error on typia.metadata(): non-specified generic argument(s).";
