@@ -60,13 +60,9 @@ export const test_random_MapSimpleProtobufNullable = _test_random(
                                           $generator.customs
                                       )?.number?.([
                                           {
-                                              target: "number",
                                               name: 'Type<"int32">',
                                               kind: "type",
                                               value: "int32",
-                                              validate:
-                                                  "Math.floor($input) === $input && -2147483648 <= $input && $input <= 2147483647",
-                                              exclusive: true,
                                           },
                                       ]) ??
                                           (
@@ -154,12 +150,9 @@ export const test_random_MapSimpleProtobufNullable = _test_random(
                                           $generator.customs
                                       )?.string?.([
                                           {
-                                              target: "string",
                                               name: "MinLength<1>",
                                               kind: "minLength",
                                               value: 1,
-                                              validate: "1 <= $input.length",
-                                              exclusive: true,
                                           },
                                       ]) ??
                                           (

@@ -2,7 +2,9 @@ import {
   compressToEncodedURIComponent,
   decompressFromEncodedURIComponent,
 } from "lz-string";
+import path from "path";
 import React, { useEffect, useState } from "react";
+import ts from "typescript";
 
 import { Compiler } from "../utils/Compiler";
 
@@ -33,7 +35,7 @@ const Playground = () => {
 
   const handleChange = (code: string | undefined) => {
     setSource(code ?? "");
-    const output = Compiler.compile(target)(code ?? "");
+    const output: Compiler.IOutput = Compiler.compile(target)(code ?? "");
     if (code?.length && output.type === "success" && code !== SCRIPT)
       window.history.replaceState(
         null,
@@ -107,7 +109,33 @@ const Playground = () => {
             output === null
               ? ""
               : output.type === "success"
-              ? output.content
+              ? output.diagnostics.length
+                ? output.diagnostics
+                    .map((diag) => {
+                      const file: string = "main.ts";
+                      const category: string =
+                        diag.category === ts.DiagnosticCategory.Warning
+                          ? "warning"
+                          : diag.category === ts.DiagnosticCategory.Error
+                          ? "error"
+                          : diag.category === ts.DiagnosticCategory.Suggestion
+                          ? "suggestion"
+                          : diag.category === ts.DiagnosticCategory.Message
+                          ? "message"
+                          : "unkown";
+                      const [line, pos] = diag.file
+                        ? (() => {
+                            const lines: string[] = diag
+                              .file!.text.substring(0, diag.start)
+                              .split("\n");
+                            if (lines.length === 0) return [0, 0];
+                            return [lines.length, lines.at(-1)!.length + 1];
+                          })()
+                        : [0, 0];
+                      return `${file}:${line}:${pos} - ${category} TS${diag.code}: ${diag.messageText}`;
+                    })
+                    .join("\n\n")
+                : output.content
               : output.error.message
           }
         />

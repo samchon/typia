@@ -30,36 +30,24 @@ export const test_random_ObjectHierarchical = _test_random(
                 (generator?.customs ?? $generator.customs)?.string?.([
                     {
                         name: "Format<url>",
-                        target: "string",
                         kind: "format",
                         value: "url",
-                        validate:
-                            "/^[a-zA-Z0-9]+:\\/\\/(?:www.)?[-a-zA-Z0-9@:%._+~#=]{1,256}.[a-zA-Z0-9()]{1,6}\\b(?:[-a-zA-Z0-9()@:%_+.~#?&/=]*)$/.test($input)",
-                        exclusive: true,
                     },
                 ]) ?? (generator?.url ?? $generator.url)(),
             referrer:
                 (generator?.customs ?? $generator.customs)?.string?.([
                     {
                         name: "Format<url>",
-                        target: "string",
                         kind: "format",
                         value: "url",
-                        validate:
-                            "/^[a-zA-Z0-9]+:\\/\\/(?:www.)?[-a-zA-Z0-9@:%._+~#=]{1,256}.[a-zA-Z0-9()]{1,6}\\b(?:[-a-zA-Z0-9()@:%_+.~#?&/=]*)$/.test($input)",
-                        exclusive: true,
                     },
                 ]) ?? (generator?.url ?? $generator.url)(),
             ip:
                 (generator?.customs ?? $generator.customs)?.string?.([
                     {
                         name: "Format<ipv4>",
-                        target: "string",
                         kind: "format",
                         value: "ipv4",
-                        validate:
-                            "/^(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/.test($input)",
-                        exclusive: true,
                     },
                 ]) ?? (generator?.ipv4 ?? $generator.ipv4)(),
             created_at: $ro2(_recursive, _recursive ? 1 + _depth : _depth),

@@ -23,20 +23,14 @@ export const test_random_TypeTagBigInt = _test_random(
                 ranged:
                     (generator?.customs ?? $generator.customs)?.bigint?.([
                         {
-                            target: "bigint",
                             name: "Minimum<0n>",
                             kind: "minimum",
                             value: BigInt(0),
-                            validate: "BigInt(0) <= $input",
-                            exclusive: ["minimum", "exclusiveMinimum"],
                         },
                         {
-                            target: "bigint",
                             name: "Maximum<100n>",
                             kind: "maximum",
                             value: BigInt(100),
-                            validate: "$input <= BigInt(100)",
-                            exclusive: ["maximum", "exclusiveMaximum"],
                         },
                     ]) ??
                     (generator?.bigint ?? $generator.bigint)(
@@ -46,12 +40,9 @@ export const test_random_TypeTagBigInt = _test_random(
                 minimum:
                     (generator?.customs ?? $generator.customs)?.bigint?.([
                         {
-                            target: "bigint",
                             name: "Minimum<0n>",
                             kind: "minimum",
                             value: BigInt(0),
-                            validate: "BigInt(0) <= $input",
-                            exclusive: ["minimum", "exclusiveMinimum"],
                         },
                     ]) ??
                     (generator?.bigint ?? $generator.bigint)(
@@ -61,12 +52,9 @@ export const test_random_TypeTagBigInt = _test_random(
                 maximum:
                     (generator?.customs ?? $generator.customs)?.bigint?.([
                         {
-                            target: "bigint",
                             name: "Maximum<100n>",
                             kind: "maximum",
                             value: BigInt(100),
-                            validate: "$input <= BigInt(100)",
-                            exclusive: ["maximum", "exclusiveMaximum"],
                         },
                     ]) ??
                     (generator?.bigint ?? $generator.bigint)(
@@ -76,12 +64,9 @@ export const test_random_TypeTagBigInt = _test_random(
                 multipleOf:
                     (generator?.customs ?? $generator.customs)?.bigint?.([
                         {
-                            target: "bigint",
                             name: "MultipleOf<3n>",
                             kind: "multipleOf",
                             value: BigInt(3),
-                            validate: "$input % BigInt(3) === BigInt(0)",
-                            exclusive: true,
                         },
                     ]) ??
                     BigInt(3) *

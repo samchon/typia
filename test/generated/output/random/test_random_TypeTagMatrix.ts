@@ -22,13 +22,9 @@ export const test_random_TypeTagMatrix = _test_random(
                                     generator?.customs ?? $generator.customs
                                 )?.string?.([
                                     {
-                                        target: "string",
                                         name: 'Format<"uuid">',
                                         kind: "format",
                                         value: "uuid",
-                                        validate:
-                                            "/^(?:[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}|00000000-0000-0000-0000-000000000000)$/i.test($input)",
-                                        exclusive: ["pattern"],
                                     },
                                 ]) ?? (generator?.uuid ?? $generator.uuid)(),
                             (generator?.integer ?? $generator.integer)(4, 4),

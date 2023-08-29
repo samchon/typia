@@ -28,19 +28,13 @@ export const test_random_CommentTagAtomicUnion = _test_random(
                         (generator?.customs ?? $generator.customs)?.string?.([
                             {
                                 name: "MinLength<3>",
-                                target: "string",
                                 kind: "minLength",
                                 value: 3,
-                                validate: "3 <= $input.length",
-                                exclusive: true,
                             },
                             {
                                 name: "MaxLength<7>",
-                                target: "string",
                                 kind: "maxLength",
                                 value: 7,
-                                validate: "$input.length <= 7",
-                                exclusive: true,
                             },
                         ]) ??
                         (generator?.string ?? $generator.string)(
@@ -50,11 +44,8 @@ export const test_random_CommentTagAtomicUnion = _test_random(
                         (generator?.customs ?? $generator.customs)?.number?.([
                             {
                                 name: "Minimum<3>",
-                                target: "number",
                                 kind: "minimum",
                                 value: 3,
-                                validate: "3 <= $input",
-                                exclusive: ["minimum", "exclusiveMinimum"],
                             },
                         ]) ?? (generator?.number ?? $generator.number)(3, 13),
                 ])(),

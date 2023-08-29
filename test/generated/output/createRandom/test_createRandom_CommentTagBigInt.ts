@@ -23,19 +23,13 @@ export const test_random_CommentTagBigInt = _test_random(
                 (generator?.customs ?? $generator.customs)?.bigint?.([
                     {
                         name: "Minimum<0n>",
-                        target: "bigint",
                         kind: "minimum",
                         value: BigInt(0),
-                        validate: "0 <= $input",
-                        exclusive: ["minimum", "exclusiveMinimum"],
                     },
                     {
                         name: "Maximum<100n>",
-                        target: "bigint",
                         kind: "maximum",
                         value: BigInt(100),
-                        validate: "$input <= 100",
-                        exclusive: ["maximum", "exclusiveMaximum"],
                     },
                 ]) ??
                 (generator?.bigint ?? $generator.bigint)(
@@ -46,11 +40,8 @@ export const test_random_CommentTagBigInt = _test_random(
                 (generator?.customs ?? $generator.customs)?.bigint?.([
                     {
                         name: "Minimum<0n>",
-                        target: "bigint",
                         kind: "minimum",
                         value: BigInt(0),
-                        validate: "0 <= $input",
-                        exclusive: ["minimum", "exclusiveMinimum"],
                     },
                 ]) ??
                 (generator?.bigint ?? $generator.bigint)(BigInt(0), BigInt(10)),
@@ -58,11 +49,8 @@ export const test_random_CommentTagBigInt = _test_random(
                 (generator?.customs ?? $generator.customs)?.bigint?.([
                     {
                         name: "Maximum<100n>",
-                        target: "bigint",
                         kind: "maximum",
                         value: BigInt(100),
-                        validate: "$input <= 100",
-                        exclusive: ["maximum", "exclusiveMaximum"],
                     },
                 ]) ??
                 (generator?.bigint ?? $generator.bigint)(
@@ -73,11 +61,8 @@ export const test_random_CommentTagBigInt = _test_random(
                 (generator?.customs ?? $generator.customs)?.bigint?.([
                     {
                         name: "MultipleOf<3n>",
-                        target: "bigint",
                         kind: "multipleOf",
                         value: BigInt(3),
-                        validate: "$input % 3n === 0n",
-                        exclusive: true,
                     },
                 ]) ??
                 BigInt(3) *

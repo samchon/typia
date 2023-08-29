@@ -17,82 +17,56 @@ export const test_random_CommentTagFormat = _test_random(
                 (generator?.customs ?? $generator.customs)?.string?.([
                     {
                         name: "Format<uuid>",
-                        target: "string",
                         kind: "format",
                         value: "uuid",
-                        validate:
-                            "/^(?:[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}|00000000-0000-0000-0000-000000000000)$/i.test($input)",
-                        exclusive: true,
                     },
                 ]) ?? (generator?.uuid ?? $generator.uuid)(),
             email:
                 (generator?.customs ?? $generator.customs)?.string?.([
                     {
                         name: "Format<email>",
-                        target: "string",
                         kind: "format",
                         value: "email",
-                        validate:
-                            '/^(([^<>()[\\]\\.,;:\\s@\\"]+(\\.[^<>()[\\]\\.,;:\\s@\\"]+)*)|(\\".+\\"))@(([^<>()[\\]\\.,;:\\s@\\"]+\\.)+[^<>()[\\]\\.,;:\\s@\\"]{2,})$/i.test($input)',
-                        exclusive: true,
                     },
                 ]) ?? (generator?.email ?? $generator.email)(),
             url:
                 (generator?.customs ?? $generator.customs)?.string?.([
                     {
                         name: "Format<url>",
-                        target: "string",
                         kind: "format",
                         value: "url",
-                        validate:
-                            "/^[a-zA-Z0-9]+:\\/\\/(?:www.)?[-a-zA-Z0-9@:%._+~#=]{1,256}.[a-zA-Z0-9()]{1,6}\\b(?:[-a-zA-Z0-9()@:%_+.~#?&/=]*)$/.test($input)",
-                        exclusive: true,
                     },
                 ]) ?? (generator?.url ?? $generator.url)(),
             ipv4:
                 (generator?.customs ?? $generator.customs)?.string?.([
                     {
                         name: "Format<ipv4>",
-                        target: "string",
                         kind: "format",
                         value: "ipv4",
-                        validate:
-                            "/^(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/.test($input)",
-                        exclusive: true,
                     },
                 ]) ?? (generator?.ipv4 ?? $generator.ipv4)(),
             ipv6:
                 (generator?.customs ?? $generator.customs)?.string?.([
                     {
                         name: "Format<ipv6>",
-                        target: "string",
                         kind: "format",
                         value: "ipv6",
-                        validate:
-                            "/^(([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,7}:|([0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,5}(:[0-9a-fA-F]{1,4}){1,2}|([0-9a-fA-F]{1,4}:){1,4}(:[0-9a-fA-F]{1,4}){1,3}|([0-9a-fA-F]{1,4}:){1,3}(:[0-9a-fA-F]{1,4}){1,4}|([0-9a-fA-F]{1,4}:){1,2}(:[0-9a-fA-F]{1,4}){1,5}|[0-9a-fA-F]{1,4}:((:[0-9a-fA-F]{1,4}){1,6})|:((:[0-9a-fA-F]{1,4}){1,7}|:)|fe80:(:[0-9a-fA-F]{0,4}){0,4}%[0-9a-zA-Z]{1,}|::(ffff(:0{1,4}){0,1}:){0,1}((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])|([0-9a-fA-F]{1,4}:){1,4}:((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9]))$/.test($input)",
-                        exclusive: true,
                     },
                 ]) ?? (generator?.ipv6 ?? $generator.ipv6)(),
             date:
                 (generator?.customs ?? $generator.customs)?.string?.([
                     {
                         name: "Format<date>",
-                        target: "string",
                         kind: "format",
                         value: "date",
-                        validate: "/^(\\d{4})-(\\d{2})-(\\d{2})$/.test($input)",
-                        exclusive: true,
                     },
                 ]) ?? (generator?.date ?? $generator.date)(),
             date_time:
                 (generator?.customs ?? $generator.customs)?.string?.([
                     {
                         name: "Format<date-time>",
-                        target: "string",
                         kind: "format",
                         value: "date-time",
-                        validate: "!isNaN(new Date($input).getTime())",
-                        exclusive: true,
                     },
                 ]) ?? (generator?.datetime ?? $generator.datetime)(),
             custom:

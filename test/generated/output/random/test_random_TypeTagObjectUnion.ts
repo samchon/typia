@@ -18,12 +18,9 @@ export const test_random_TypeTagObjectUnion = _test_random(
                 value:
                     (generator?.customs ?? $generator.customs)?.number?.([
                         {
-                            target: "number",
                             name: "Minimum<3>",
                             kind: "minimum",
                             value: 3,
-                            validate: "3 <= $input",
-                            exclusive: ["minimum", "exclusiveMinimum"],
                         },
                     ]) ?? (generator?.number ?? $generator.number)(3, 13),
             });
@@ -34,20 +31,14 @@ export const test_random_TypeTagObjectUnion = _test_random(
                 value:
                     (generator?.customs ?? $generator.customs)?.string?.([
                         {
-                            target: "string",
                             name: "MinLength<3>",
                             kind: "minLength",
                             value: 3,
-                            validate: "3 <= $input.length",
-                            exclusive: true,
                         },
                         {
-                            target: "string",
                             name: "MaxLength<7>",
                             kind: "maxLength",
                             value: 7,
-                            validate: "$input.length <= 7",
-                            exclusive: true,
                         },
                     ]) ??
                     (generator?.string ?? $generator.string)(

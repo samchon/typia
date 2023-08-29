@@ -12,22 +12,22 @@ export const test_protobuf_encode_ObjectOptional = _test_protobuf_encode(
             const encoder = (writer: any): any => {
                 const $peo0 = (input: any): any => {
                     // property "id";
-                    if (undefined != input.id && null != input.id) {
+                    if (undefined !== input.id) {
                         writer.uint32(10);
                         writer.string(input.id);
                     }
                     // property "name";
-                    if (undefined != input.name && null != input.name) {
+                    if (undefined !== input.name) {
                         writer.uint32(18);
                         writer.string(input.name);
                     }
                     // property "email";
-                    if (undefined != input.email && null != input.email) {
+                    if (undefined !== input.email) {
                         writer.uint32(26);
                         writer.string(input.email);
                     }
                     // property "sequence";
-                    if (undefined != input.sequence && null != input.sequence) {
+                    if (undefined !== input.sequence) {
                         writer.uint32(33);
                         writer.double(input.sequence);
                     }

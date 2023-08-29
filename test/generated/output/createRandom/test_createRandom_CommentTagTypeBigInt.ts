@@ -23,11 +23,8 @@ export const test_random_CommentTagTypeBigInt = _test_random(
                 (generator?.customs ?? $generator.customs)?.bigint?.([
                     {
                         name: "Type<uint64>",
-                        target: "bigint",
                         kind: "type",
                         value: "uint64",
-                        validate: "BigInt(0) <= $input",
-                        exclusive: true,
                     },
                 ]) ??
                 (generator?.bigint ?? $generator.bigint)(BigInt(0), BigInt(10)),

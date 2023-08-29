@@ -77,19 +77,13 @@ export const test_random_CommentTagDefault = _test_random(
                     (generator?.customs ?? $generator.customs)?.number?.([
                         {
                             name: "Minimum<3>",
-                            target: "number",
                             kind: "minimum",
                             value: 3,
-                            validate: "3 <= $input",
-                            exclusive: ["minimum", "exclusiveMinimum"],
                         },
                         {
                             name: "Maximum<5>",
-                            target: "number",
                             kind: "maximum",
                             value: 5,
-                            validate: "$input <= 5",
-                            exclusive: ["maximum", "exclusiveMaximum"],
                         },
                     ]) ?? (generator?.number ?? $generator.number)(3, 5),
                 vulnerable_template: `prefix_${

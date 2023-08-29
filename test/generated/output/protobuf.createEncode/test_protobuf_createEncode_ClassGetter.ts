@@ -17,7 +17,7 @@ export const test_protobuf_encode_ClassGetter = _test_protobuf_encode(
                 writer.uint32(18);
                 writer.string(input.name);
                 // property "dead";
-                if (null != input.dead) {
+                if (null !== input.dead) {
                     writer.uint32(24);
                     writer.bool(input.dead);
                 }

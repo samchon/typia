@@ -388,28 +388,23 @@ export class AttachmentFile {
     </Tab>
     <Tab>
 ```typescript filename="IBbsArticle.ts" showLineNumbers {9-14}
+import { tags } from "typia";
+
 export interface IBbsArticle {
     /**
      * Primary Key.
-     * 
-     * @format uuid
      */
-    id: string;
+    id: string & tags.Format<"uuid">;
 
     /**
      * List of attached files.
-     * 
-     * @minItems 1
      */
-    files: IAttachmentFile[] | null;
+    files: null | (IAttachmentFile[] & tags.MinItems<1>);
 
     /**
      * Title of the article.
-     * 
-     * @minLength 5
-     * @maxLength 100
      */
-    title: string | null;
+    title: null | (string & tags.MinLength<5> & tags.MaxLength<100>);
 
     /**
      * Main content body of the article.
@@ -418,35 +413,29 @@ export interface IBbsArticle {
 
     /**
      * Creation time of article.
-     * 
-     * @format date-time
      */
-    created_at: string;
+    created_at: string & tags.Format<"datetime">;
 }
 
 export interface IAttachmentFile {
     /**
      * File name.
-     * 
-     * @pattern ^[a-z0-9]+$
-     * @maxLength 255
      */
-    name: string | null;
+    name: 
+      | null 
+      | (string & tags.Pattern<"^[a-z0-9]+$"> & tags.MaxLength<255>);
 
     /**
      * File extension.
-     * 
-     * @pattern ^[a-z0-9]+$
-     * @maxLength 8
      */
-    extension: string | null;
+    extension: 
+      | null 
+      | (string & tags.Pattern<"^[a-z0-9]+$"> & tags.MaxLength<8>);
 
     /**
      * URL of the file.
-     * 
-     * @format uri
      */
-    url: string;
+    url: string & tags.Format<"uri">;
 }
 ```
     </Tab>

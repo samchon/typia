@@ -25,11 +25,8 @@ export const test_random_CommentTagRangeBigInt = _test_random(
                 (generator?.customs ?? $generator.customs)?.bigint?.([
                     {
                         name: "ExclusiveMinimum<3n>",
-                        target: "bigint",
                         kind: "exclusiveMinimum",
                         value: BigInt(3),
-                        validate: "3 < $input",
-                        exclusive: ["minimum", "exclusiveMinimum"],
                     },
                 ]) ??
                 (generator?.bigint ?? $generator.bigint)(BigInt(4), BigInt(14)),
@@ -37,11 +34,8 @@ export const test_random_CommentTagRangeBigInt = _test_random(
                 (generator?.customs ?? $generator.customs)?.bigint?.([
                     {
                         name: "Minimum<3n>",
-                        target: "bigint",
                         kind: "minimum",
                         value: BigInt(3),
-                        validate: "3 <= $input",
-                        exclusive: ["minimum", "exclusiveMinimum"],
                     },
                 ]) ??
                 (generator?.bigint ?? $generator.bigint)(BigInt(3), BigInt(13)),
@@ -49,11 +43,8 @@ export const test_random_CommentTagRangeBigInt = _test_random(
                 (generator?.customs ?? $generator.customs)?.bigint?.([
                     {
                         name: "ExclusiveMaximum<7n>",
-                        target: "bigint",
                         kind: "exclusiveMaximum",
                         value: BigInt(7),
-                        validate: "$input < 7",
-                        exclusive: ["maximum", "exclusiveMaximum"],
                     },
                 ]) ??
                 (generator?.bigint ?? $generator.bigint)(BigInt(-4), BigInt(6)),
@@ -61,11 +52,8 @@ export const test_random_CommentTagRangeBigInt = _test_random(
                 (generator?.customs ?? $generator.customs)?.bigint?.([
                     {
                         name: "Maximum<7n>",
-                        target: "bigint",
                         kind: "maximum",
                         value: BigInt(7),
-                        validate: "$input <= 7",
-                        exclusive: ["maximum", "exclusiveMaximum"],
                     },
                 ]) ??
                 (generator?.bigint ?? $generator.bigint)(BigInt(-3), BigInt(7)),
@@ -73,19 +61,13 @@ export const test_random_CommentTagRangeBigInt = _test_random(
                 (generator?.customs ?? $generator.customs)?.bigint?.([
                     {
                         name: "ExclusiveMinimum<3n>",
-                        target: "bigint",
                         kind: "exclusiveMinimum",
                         value: BigInt(3),
-                        validate: "3 < $input",
-                        exclusive: ["minimum", "exclusiveMinimum"],
                     },
                     {
                         name: "ExclusiveMaximum<7n>",
-                        target: "bigint",
                         kind: "exclusiveMaximum",
                         value: BigInt(7),
-                        validate: "$input < 7",
-                        exclusive: ["maximum", "exclusiveMaximum"],
                     },
                 ]) ??
                 (generator?.bigint ?? $generator.bigint)(BigInt(4), BigInt(6)),
@@ -93,19 +75,13 @@ export const test_random_CommentTagRangeBigInt = _test_random(
                 (generator?.customs ?? $generator.customs)?.bigint?.([
                     {
                         name: "Minimum<3n>",
-                        target: "bigint",
                         kind: "minimum",
                         value: BigInt(3),
-                        validate: "3 <= $input",
-                        exclusive: ["minimum", "exclusiveMinimum"],
                     },
                     {
                         name: "ExclusiveMaximum<7n>",
-                        target: "bigint",
                         kind: "exclusiveMaximum",
                         value: BigInt(7),
-                        validate: "$input < 7",
-                        exclusive: ["maximum", "exclusiveMaximum"],
                     },
                 ]) ??
                 (generator?.bigint ?? $generator.bigint)(BigInt(3), BigInt(6)),
@@ -113,19 +89,13 @@ export const test_random_CommentTagRangeBigInt = _test_random(
                 (generator?.customs ?? $generator.customs)?.bigint?.([
                     {
                         name: "ExclusiveMinimum<3n>",
-                        target: "bigint",
                         kind: "exclusiveMinimum",
                         value: BigInt(3),
-                        validate: "3 < $input",
-                        exclusive: ["minimum", "exclusiveMinimum"],
                     },
                     {
                         name: "Maximum<7n>",
-                        target: "bigint",
                         kind: "maximum",
                         value: BigInt(7),
-                        validate: "$input <= 7",
-                        exclusive: ["maximum", "exclusiveMaximum"],
                     },
                 ]) ??
                 (generator?.bigint ?? $generator.bigint)(BigInt(4), BigInt(7)),
@@ -133,19 +103,13 @@ export const test_random_CommentTagRangeBigInt = _test_random(
                 (generator?.customs ?? $generator.customs)?.bigint?.([
                     {
                         name: "Minimum<3n>",
-                        target: "bigint",
                         kind: "minimum",
                         value: BigInt(3),
-                        validate: "3 <= $input",
-                        exclusive: ["minimum", "exclusiveMinimum"],
                     },
                     {
                         name: "Maximum<7n>",
-                        target: "bigint",
                         kind: "maximum",
                         value: BigInt(7),
-                        validate: "$input <= 7",
-                        exclusive: ["maximum", "exclusiveMaximum"],
                     },
                 ]) ??
                 (generator?.bigint ?? $generator.bigint)(BigInt(3), BigInt(7)),
@@ -153,19 +117,13 @@ export const test_random_CommentTagRangeBigInt = _test_random(
                 (generator?.customs ?? $generator.customs)?.bigint?.([
                     {
                         name: "Minimum<10n>",
-                        target: "bigint",
                         kind: "minimum",
                         value: BigInt(10),
-                        validate: "10 <= $input",
-                        exclusive: ["minimum", "exclusiveMinimum"],
                     },
                     {
                         name: "Maximum<10n>",
-                        target: "bigint",
                         kind: "maximum",
                         value: BigInt(10),
-                        validate: "$input <= 10",
-                        exclusive: ["maximum", "exclusiveMaximum"],
                     },
                 ]) ??
                 (generator?.bigint ?? $generator.bigint)(

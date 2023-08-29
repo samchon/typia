@@ -85,7 +85,7 @@ export const test_protobuf_decode_ObjectRecursive = _test_protobuf_decode(
         const encoder = (writer: any): any => {
             const $peo0 = (input: any): any => {
                 // property "parent";
-                if (null != input.parent) {
+                if (null !== input.parent) {
                     // 1 -> ObjectRecursive.IDepartment;
                     writer.uint32(10);
                     writer.fork();

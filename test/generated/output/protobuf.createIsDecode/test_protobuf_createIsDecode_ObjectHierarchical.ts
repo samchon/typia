@@ -397,7 +397,7 @@ export const test_protobuf_isDecode_ObjectHierarchical =
                     $peo1(input.channel);
                     writer.ldelim();
                     // property "member";
-                    if (null != input.member) {
+                    if (null !== input.member) {
                         // 3 -> ObjectHierarchical.IMember;
                         writer.uint32(26);
                         writer.fork();
@@ -405,7 +405,7 @@ export const test_protobuf_isDecode_ObjectHierarchical =
                         writer.ldelim();
                     }
                     // property "account";
-                    if (null != input.account) {
+                    if (null !== input.account) {
                         // 4 -> ObjectHierarchical.IAccount;
                         writer.uint32(34);
                         writer.fork();
@@ -473,7 +473,7 @@ export const test_protobuf_isDecode_ObjectHierarchical =
                     $peo4(input.account);
                     writer.ldelim();
                     // property "enterprise";
-                    if (null != input.enterprise) {
+                    if (null !== input.enterprise) {
                         // 3 -> ObjectHierarchical.IEnterprise;
                         writer.uint32(26);
                         writer.fork();

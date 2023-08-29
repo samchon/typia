@@ -34,13 +34,9 @@ export const test_random_ArraySimpleProtobufNullable = _test_random(
                                       generator?.customs ?? $generator.customs
                                   )?.number?.([
                                       {
-                                          target: "number",
                                           name: 'Type<"int32">',
                                           kind: "type",
                                           value: "int32",
-                                          validate:
-                                              "Math.floor($input) === $input && -2147483648 <= $input && $input <= 2147483647",
-                                          exclusive: true,
                                       },
                                   ]) ??
                                   (generator?.integer ?? $generator.integer)(
@@ -62,13 +58,9 @@ export const test_random_ArraySimpleProtobufNullable = _test_random(
                                       generator?.customs ?? $generator.customs
                                   )?.number?.([
                                       {
-                                          target: "number",
                                           name: 'Type<"uint32">',
                                           kind: "type",
                                           value: "uint32",
-                                          validate:
-                                              "Math.floor($input) === $input && 0 <= $input && $input <= 4294967295",
-                                          exclusive: true,
                                       },
                                   ]) ??
                                   (generator?.integer ?? $generator.integer)(
@@ -90,12 +82,9 @@ export const test_random_ArraySimpleProtobufNullable = _test_random(
                                       generator?.customs ?? $generator.customs
                                   )?.bigint?.([
                                       {
-                                          target: "bigint",
                                           name: 'Type<"int64">',
                                           kind: "type",
                                           value: "int64",
-                                          validate: "true",
-                                          exclusive: true,
                                       },
                                   ]) ??
                                   (generator?.bigint ?? $generator.bigint)(
@@ -117,12 +106,9 @@ export const test_random_ArraySimpleProtobufNullable = _test_random(
                                       generator?.customs ?? $generator.customs
                                   )?.bigint?.([
                                       {
-                                          target: "bigint",
                                           name: 'Type<"uint64">',
                                           kind: "type",
                                           value: "uint64",
-                                          validate: "BigInt(0) <= $input",
-                                          exclusive: true,
                                       },
                                   ]) ??
                                   (generator?.bigint ?? $generator.bigint)(
@@ -144,13 +130,9 @@ export const test_random_ArraySimpleProtobufNullable = _test_random(
                                       generator?.customs ?? $generator.customs
                                   )?.number?.([
                                       {
-                                          target: "number",
                                           name: 'Type<"float">',
                                           kind: "type",
                                           value: "float",
-                                          validate:
-                                              "-1.175494351e38 <= $input && $input <= 3.4028235e38",
-                                          exclusive: true,
                                       },
                                   ]) ??
                                   (generator?.number ?? $generator.number)(
@@ -172,12 +154,9 @@ export const test_random_ArraySimpleProtobufNullable = _test_random(
                                       generator?.customs ?? $generator.customs
                                   )?.number?.([
                                       {
-                                          target: "number",
                                           name: 'Type<"double">',
                                           kind: "type",
                                           value: "double",
-                                          validate: "true",
-                                          exclusive: true,
                                       },
                                   ]) ??
                                   (generator?.number ?? $generator.number)(

@@ -282,13 +282,9 @@ export const test_random_UltimateUnion = _test_random(
                 () =>
                     (generator?.customs ?? $generator.customs)?.number?.([
                         {
-                            target: "number",
                             name: 'Type<"int32">',
                             kind: "type",
                             value: "int32",
-                            validate:
-                                "Math.floor($input) === $input && -2147483648 <= $input && $input <= 2147483647",
-                            exclusive: true,
                         },
                     ]) ?? (generator?.integer ?? $generator.integer)(0, 100),
             ])(),
@@ -297,13 +293,9 @@ export const test_random_UltimateUnion = _test_random(
                 () =>
                     (generator?.customs ?? $generator.customs)?.number?.([
                         {
-                            target: "number",
                             name: 'Type<"int32">',
                             kind: "type",
                             value: "int32",
-                            validate:
-                                "Math.floor($input) === $input && -2147483648 <= $input && $input <= 2147483647",
-                            exclusive: true,
                         },
                     ]) ?? (generator?.integer ?? $generator.integer)(0, 100),
             ])(),
@@ -320,13 +312,9 @@ export const test_random_UltimateUnion = _test_random(
                 () =>
                     (generator?.customs ?? $generator.customs)?.number?.([
                         {
-                            target: "number",
                             name: 'Type<"int32">',
                             kind: "type",
                             value: "int32",
-                            validate:
-                                "Math.floor($input) === $input && -2147483648 <= $input && $input <= 2147483647",
-                            exclusive: true,
                         },
                     ]) ?? (generator?.integer ?? $generator.integer)(0, 100),
             ])(),
@@ -463,13 +451,9 @@ export const test_random_UltimateUnion = _test_random(
                 () =>
                     (generator?.customs ?? $generator.customs)?.number?.([
                         {
-                            target: "number",
                             name: 'Type<"uint32">',
                             kind: "type",
                             value: "uint32",
-                            validate:
-                                "Math.floor($input) === $input && 0 <= $input && $input <= 4294967295",
-                            exclusive: true,
                         },
                     ]) ?? (generator?.integer ?? $generator.integer)(0, 10),
             ])(),
@@ -478,13 +462,9 @@ export const test_random_UltimateUnion = _test_random(
                 () =>
                     (generator?.customs ?? $generator.customs)?.number?.([
                         {
-                            target: "number",
                             name: 'Type<"uint32">',
                             kind: "type",
                             value: "uint32",
-                            validate:
-                                "Math.floor($input) === $input && 0 <= $input && $input <= 4294967295",
-                            exclusive: true,
                         },
                     ]) ?? (generator?.integer ?? $generator.integer)(0, 10),
             ])(),
@@ -571,13 +551,9 @@ export const test_random_UltimateUnion = _test_random(
                 () =>
                     (generator?.customs ?? $generator.customs)?.number?.([
                         {
-                            target: "number",
                             name: 'Type<"uint32">',
                             kind: "type",
                             value: "uint32",
-                            validate:
-                                "Math.floor($input) === $input && 0 <= $input && $input <= 4294967295",
-                            exclusive: true,
                         },
                     ]) ?? (generator?.integer ?? $generator.integer)(0, 10),
             ])(),
@@ -586,13 +562,9 @@ export const test_random_UltimateUnion = _test_random(
                 () =>
                     (generator?.customs ?? $generator.customs)?.number?.([
                         {
-                            target: "number",
                             name: 'Type<"uint32">',
                             kind: "type",
                             value: "uint32",
-                            validate:
-                                "Math.floor($input) === $input && 0 <= $input && $input <= 4294967295",
-                            exclusive: true,
                         },
                     ]) ?? (generator?.integer ?? $generator.integer)(0, 10),
             ])(),
@@ -687,13 +659,9 @@ export const test_random_UltimateUnion = _test_random(
             minItems:
                 (generator?.customs ?? $generator.customs)?.number?.([
                     {
-                        target: "number",
                         name: 'Type<"uint32">',
                         kind: "type",
                         value: "uint32",
-                        validate:
-                            "Math.floor($input) === $input && 0 <= $input && $input <= 4294967295",
-                        exclusive: true,
                     },
                 ]) ?? (generator?.integer ?? $generator.integer)(0, 10),
             maxItems: $pick([
@@ -701,13 +669,9 @@ export const test_random_UltimateUnion = _test_random(
                 () =>
                     (generator?.customs ?? $generator.customs)?.number?.([
                         {
-                            target: "number",
                             name: 'Type<"uint32">',
                             kind: "type",
                             value: "uint32",
-                            validate:
-                                "Math.floor($input) === $input && 0 <= $input && $input <= 4294967295",
-                            exclusive: true,
                         },
                     ]) ?? (generator?.integer ?? $generator.integer)(0, 10),
             ])(),
@@ -1400,13 +1364,9 @@ export const test_random_UltimateUnion = _test_random(
                 () =>
                     (generator?.customs ?? $generator.customs)?.number?.([
                         {
-                            target: "number",
                             name: 'Type<"int32">',
                             kind: "type",
                             value: "int32",
-                            validate:
-                                "Math.floor($input) === $input && -2147483648 <= $input && $input <= 2147483647",
-                            exclusive: true,
                         },
                     ]) ?? (generator?.integer ?? $generator.integer)(0, 100),
             ])(),
@@ -1415,13 +1375,9 @@ export const test_random_UltimateUnion = _test_random(
                 () =>
                     (generator?.customs ?? $generator.customs)?.number?.([
                         {
-                            target: "number",
                             name: 'Type<"int32">',
                             kind: "type",
                             value: "int32",
-                            validate:
-                                "Math.floor($input) === $input && -2147483648 <= $input && $input <= 2147483647",
-                            exclusive: true,
                         },
                     ]) ?? (generator?.integer ?? $generator.integer)(0, 100),
             ])(),
@@ -1438,13 +1394,9 @@ export const test_random_UltimateUnion = _test_random(
                 () =>
                     (generator?.customs ?? $generator.customs)?.number?.([
                         {
-                            target: "number",
                             name: 'Type<"int32">',
                             kind: "type",
                             value: "int32",
-                            validate:
-                                "Math.floor($input) === $input && -2147483648 <= $input && $input <= 2147483647",
-                            exclusive: true,
                         },
                     ]) ?? (generator?.integer ?? $generator.integer)(0, 100),
             ])(),
@@ -1601,13 +1553,9 @@ export const test_random_UltimateUnion = _test_random(
                 () =>
                     (generator?.customs ?? $generator.customs)?.number?.([
                         {
-                            target: "number",
                             name: 'Type<"uint32">',
                             kind: "type",
                             value: "uint32",
-                            validate:
-                                "Math.floor($input) === $input && 0 <= $input && $input <= 4294967295",
-                            exclusive: true,
                         },
                     ]) ?? (generator?.integer ?? $generator.integer)(0, 10),
             ])(),
@@ -1616,13 +1564,9 @@ export const test_random_UltimateUnion = _test_random(
                 () =>
                     (generator?.customs ?? $generator.customs)?.number?.([
                         {
-                            target: "number",
                             name: 'Type<"uint32">',
                             kind: "type",
                             value: "uint32",
-                            validate:
-                                "Math.floor($input) === $input && 0 <= $input && $input <= 4294967295",
-                            exclusive: true,
                         },
                     ]) ?? (generator?.integer ?? $generator.integer)(0, 10),
             ])(),
@@ -1719,13 +1663,9 @@ export const test_random_UltimateUnion = _test_random(
                 () =>
                     (generator?.customs ?? $generator.customs)?.number?.([
                         {
-                            target: "number",
                             name: 'Type<"uint32">',
                             kind: "type",
                             value: "uint32",
-                            validate:
-                                "Math.floor($input) === $input && 0 <= $input && $input <= 4294967295",
-                            exclusive: true,
                         },
                     ]) ?? (generator?.integer ?? $generator.integer)(0, 10),
             ])(),
@@ -1734,13 +1674,9 @@ export const test_random_UltimateUnion = _test_random(
                 () =>
                     (generator?.customs ?? $generator.customs)?.number?.([
                         {
-                            target: "number",
                             name: 'Type<"uint32">',
                             kind: "type",
                             value: "uint32",
-                            validate:
-                                "Math.floor($input) === $input && 0 <= $input && $input <= 4294967295",
-                            exclusive: true,
                         },
                     ]) ?? (generator?.integer ?? $generator.integer)(0, 10),
             ])(),
@@ -1823,13 +1759,9 @@ export const test_random_UltimateUnion = _test_random(
             minItems:
                 (generator?.customs ?? $generator.customs)?.number?.([
                     {
-                        target: "number",
                         name: 'Type<"uint32">',
                         kind: "type",
                         value: "uint32",
-                        validate:
-                            "Math.floor($input) === $input && 0 <= $input && $input <= 4294967295",
-                        exclusive: true,
                     },
                 ]) ?? (generator?.integer ?? $generator.integer)(0, 10),
             maxItems: $pick([
@@ -1837,13 +1769,9 @@ export const test_random_UltimateUnion = _test_random(
                 () =>
                     (generator?.customs ?? $generator.customs)?.number?.([
                         {
-                            target: "number",
                             name: 'Type<"uint32">',
                             kind: "type",
                             value: "uint32",
-                            validate:
-                                "Math.floor($input) === $input && 0 <= $input && $input <= 4294967295",
-                            exclusive: true,
                         },
                     ]) ?? (generator?.integer ?? $generator.integer)(0, 10),
             ])(),

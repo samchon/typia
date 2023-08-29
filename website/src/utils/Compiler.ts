@@ -36,6 +36,7 @@ export namespace Compiler {
       // COMPILATION
       //----
       const output = { value: "" };
+      const diagnostics: ts.Diagnostic[] = [];
 
       // CREATE PROGRAM
       const program = ts.createProgram(["main.ts"], OPTIONS, {
@@ -67,13 +68,25 @@ export namespace Compiler {
       try {
         if (target === "javascript") {
           program.emit(undefined, undefined, undefined, undefined, {
-            before: [transform(program)],
+            before: [
+              transform(
+                program,
+                {},
+                { addDiagnostic: (input) => diagnostics.push(input) },
+              ),
+            ],
           });
-          return { type: "success", content: output.value };
+          return { type: "success", content: output.value, diagnostics };
         } else {
           const result: ts.TransformationResult<ts.SourceFile> = ts.transform(
             source,
-            [transform(program, {})],
+            [
+              transform(
+                program,
+                {},
+                { addDiagnostic: (input) => diagnostics.push(input) },
+              ),
+            ],
             program.getCompilerOptions(),
           );
           const printer: ts.Printer = ts.createPrinter({
@@ -82,6 +95,7 @@ export namespace Compiler {
           return {
             type: "success",
             content: printer.printFile(result.transformed[0]),
+            diagnostics,
           };
         }
       } catch (err: unknown) {
@@ -93,6 +107,7 @@ export namespace Compiler {
   export interface ISuccessOutput {
     type: "success";
     content: string;
+    diagnostics: ts.Diagnostic[];
   }
   export interface IErrorOutput {
     type: "error";
@@ -100,7 +115,7 @@ export namespace Compiler {
   }
 
   export const OPTIONS: ts.CompilerOptions = {
-    target: ts.ScriptTarget.ES2015,
+    target: ts.ScriptTarget.ESNext,
     module: ts.ModuleKind.CommonJS,
     // lib: ["DOM", "ES2015"],
     esModuleInterop: true,

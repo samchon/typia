@@ -1169,7 +1169,7 @@ export const test_protobuf_validateDecode_MapSimpleProtobufNullable =
             const encoder = (writer: any): any => {
                 const $peo0 = (input: any): any => {
                     // property "boolean";
-                    if (null != input.boolean) {
+                    if (null !== input.boolean) {
                         for (const [key, value] of input.boolean) {
                             writer.uint32(10);
                             writer.fork();
@@ -1181,7 +1181,7 @@ export const test_protobuf_validateDecode_MapSimpleProtobufNullable =
                         }
                     }
                     // property "int32";
-                    if (null != input.int32) {
+                    if (null !== input.int32) {
                         for (const [key, value] of input.int32) {
                             writer.uint32(18);
                             writer.fork();
@@ -1193,7 +1193,7 @@ export const test_protobuf_validateDecode_MapSimpleProtobufNullable =
                         }
                     }
                     // property "bigint";
-                    if (null != input.bigint) {
+                    if (null !== input.bigint) {
                         for (const [key, value] of input.bigint) {
                             writer.uint32(26);
                             writer.fork();
@@ -1205,7 +1205,7 @@ export const test_protobuf_validateDecode_MapSimpleProtobufNullable =
                         }
                     }
                     // property "double";
-                    if (null != input.double) {
+                    if (null !== input.double) {
                         for (const [key, value] of input.double) {
                             writer.uint32(34);
                             writer.fork();
@@ -1217,7 +1217,7 @@ export const test_protobuf_validateDecode_MapSimpleProtobufNullable =
                         }
                     }
                     // property "string";
-                    if (null != input.string) {
+                    if (null !== input.string) {
                         for (const [key, value] of input.string) {
                             writer.uint32(42);
                             writer.fork();
@@ -1229,7 +1229,7 @@ export const test_protobuf_validateDecode_MapSimpleProtobufNullable =
                         }
                     }
                     // property "bytes";
-                    if (null != input.bytes) {
+                    if (null !== input.bytes) {
                         for (const [key, value] of input.bytes) {
                             writer.uint32(50);
                             writer.fork();
@@ -1241,7 +1241,7 @@ export const test_protobuf_validateDecode_MapSimpleProtobufNullable =
                         }
                     }
                     // property "objects";
-                    if (null != input.objects) {
+                    if (null !== input.objects) {
                         for (const [key, value] of input.objects) {
                             writer.uint32(58);
                             writer.fork();

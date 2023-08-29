@@ -17,35 +17,24 @@ export const test_random_TypeTagCustom = _test_random(
                 id:
                     (generator?.customs ?? $generator.customs)?.string?.([
                         {
-                            target: "string",
                             name: 'Format<"uuid">',
                             kind: "format",
                             value: "uuid",
-                            validate:
-                                "/^(?:[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}|00000000-0000-0000-0000-000000000000)$/i.test($input)",
-                            exclusive: ["pattern"],
                         },
                     ]) ?? (generator?.uuid ?? $generator.uuid)(),
                 dollar:
                     (generator?.customs ?? $generator.customs)?.string?.([
                         {
-                            target: "string",
                             name: "Dolloar",
                             kind: "dollar",
-                            validate:
-                                '$input[0] === "$" && !isNaN(Number($input.substring(1).split(",").join("")))',
-                            exclusive: false,
                         },
                     ]) ?? (generator?.string ?? $generator.string)(),
                 postfix:
                     (generator?.customs ?? $generator.customs)?.string?.([
                         {
-                            target: "string",
                             name: 'Postfix<"abcd">',
                             kind: "postfix",
                             value: "abcd",
-                            validate: '$input.endsWith("abcd")',
-                            exclusive: false,
                         },
                     ]) ?? (generator?.string ?? $generator.string)(),
             });

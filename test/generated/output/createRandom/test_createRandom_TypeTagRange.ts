@@ -24,221 +24,143 @@ export const test_random_TypeTagRange = _test_random(
             greater:
                 (generator?.customs ?? $generator.customs)?.number?.([
                     {
-                        target: "number",
                         name: 'Type<"int32">',
                         kind: "type",
                         value: "int32",
-                        validate:
-                            "Math.floor($input) === $input && -2147483648 <= $input && $input <= 2147483647",
-                        exclusive: true,
                     },
                     {
-                        target: "number",
                         name: "ExclusiveMinimum<3>",
                         kind: "exclusiveMinimum",
                         value: 3,
-                        validate: "3 < $input",
-                        exclusive: ["exclusiveMinimum", "minimum"],
                     },
                 ]) ?? (generator?.integer ?? $generator.integer)(4, 14),
             greater_equal:
                 (generator?.customs ?? $generator.customs)?.number?.([
                     {
-                        target: "number",
                         name: 'Type<"int32">',
                         kind: "type",
                         value: "int32",
-                        validate:
-                            "Math.floor($input) === $input && -2147483648 <= $input && $input <= 2147483647",
-                        exclusive: true,
                     },
                     {
-                        target: "number",
                         name: "Minimum<3>",
                         kind: "minimum",
                         value: 3,
-                        validate: "3 <= $input",
-                        exclusive: ["minimum", "exclusiveMinimum"],
                     },
                 ]) ?? (generator?.integer ?? $generator.integer)(3, 13),
             less:
                 (generator?.customs ?? $generator.customs)?.number?.([
                     {
-                        target: "number",
                         name: 'Type<"int32">',
                         kind: "type",
                         value: "int32",
-                        validate:
-                            "Math.floor($input) === $input && -2147483648 <= $input && $input <= 2147483647",
-                        exclusive: true,
                     },
                     {
-                        target: "number",
                         name: "ExclusiveMaximum<7>",
                         kind: "exclusiveMaximum",
                         value: 7,
-                        validate: "$input < 7",
-                        exclusive: ["exclusiveMaximum", "maximum"],
                     },
                 ]) ?? (generator?.integer ?? $generator.integer)(-4, 6),
             less_equal:
                 (generator?.customs ?? $generator.customs)?.number?.([
                     {
-                        target: "number",
                         name: 'Type<"int32">',
                         kind: "type",
                         value: "int32",
-                        validate:
-                            "Math.floor($input) === $input && -2147483648 <= $input && $input <= 2147483647",
-                        exclusive: true,
                     },
                     {
-                        target: "number",
                         name: "Maximum<7>",
                         kind: "maximum",
                         value: 7,
-                        validate: "$input <= 7",
-                        exclusive: ["maximum", "exclusiveMaximum"],
                     },
                 ]) ?? (generator?.integer ?? $generator.integer)(-3, 7),
             greater_less:
                 (generator?.customs ?? $generator.customs)?.number?.([
                     {
-                        target: "number",
                         name: 'Type<"int32">',
                         kind: "type",
                         value: "int32",
-                        validate:
-                            "Math.floor($input) === $input && -2147483648 <= $input && $input <= 2147483647",
-                        exclusive: true,
                     },
                     {
-                        target: "number",
                         name: "ExclusiveMinimum<3>",
                         kind: "exclusiveMinimum",
                         value: 3,
-                        validate: "3 < $input",
-                        exclusive: ["exclusiveMinimum", "minimum"],
                     },
                     {
-                        target: "number",
                         name: "ExclusiveMaximum<7>",
                         kind: "exclusiveMaximum",
                         value: 7,
-                        validate: "$input < 7",
-                        exclusive: ["exclusiveMaximum", "maximum"],
                     },
                 ]) ?? (generator?.integer ?? $generator.integer)(4, 6),
             greater_equal_less:
                 (generator?.customs ?? $generator.customs)?.number?.([
                     {
-                        target: "number",
                         name: 'Type<"int32">',
                         kind: "type",
                         value: "int32",
-                        validate:
-                            "Math.floor($input) === $input && -2147483648 <= $input && $input <= 2147483647",
-                        exclusive: true,
                     },
                     {
-                        target: "number",
                         name: "Minimum<3>",
                         kind: "minimum",
                         value: 3,
-                        validate: "3 <= $input",
-                        exclusive: ["minimum", "exclusiveMinimum"],
                     },
                     {
-                        target: "number",
                         name: "ExclusiveMaximum<7>",
                         kind: "exclusiveMaximum",
                         value: 7,
-                        validate: "$input < 7",
-                        exclusive: ["exclusiveMaximum", "maximum"],
                     },
                 ]) ?? (generator?.integer ?? $generator.integer)(3, 6),
             greater_less_equal:
                 (generator?.customs ?? $generator.customs)?.number?.([
                     {
-                        target: "number",
                         name: 'Type<"int32">',
                         kind: "type",
                         value: "int32",
-                        validate:
-                            "Math.floor($input) === $input && -2147483648 <= $input && $input <= 2147483647",
-                        exclusive: true,
                     },
                     {
-                        target: "number",
                         name: "ExclusiveMinimum<3>",
                         kind: "exclusiveMinimum",
                         value: 3,
-                        validate: "3 < $input",
-                        exclusive: ["exclusiveMinimum", "minimum"],
                     },
                     {
-                        target: "number",
                         name: "Maximum<7>",
                         kind: "maximum",
                         value: 7,
-                        validate: "$input <= 7",
-                        exclusive: ["maximum", "exclusiveMaximum"],
                     },
                 ]) ?? (generator?.integer ?? $generator.integer)(4, 7),
             greater_equal_less_equal:
                 (generator?.customs ?? $generator.customs)?.number?.([
                     {
-                        target: "number",
                         name: 'Type<"int32">',
                         kind: "type",
                         value: "int32",
-                        validate:
-                            "Math.floor($input) === $input && -2147483648 <= $input && $input <= 2147483647",
-                        exclusive: true,
                     },
                     {
-                        target: "number",
                         name: "Minimum<3>",
                         kind: "minimum",
                         value: 3,
-                        validate: "3 <= $input",
-                        exclusive: ["minimum", "exclusiveMinimum"],
                     },
                     {
-                        target: "number",
                         name: "Maximum<7>",
                         kind: "maximum",
                         value: 7,
-                        validate: "$input <= 7",
-                        exclusive: ["maximum", "exclusiveMaximum"],
                     },
                 ]) ?? (generator?.integer ?? $generator.integer)(3, 7),
             equal:
                 (generator?.customs ?? $generator.customs)?.number?.([
                     {
-                        target: "number",
                         name: 'Type<"int32">',
                         kind: "type",
                         value: "int32",
-                        validate:
-                            "Math.floor($input) === $input && -2147483648 <= $input && $input <= 2147483647",
-                        exclusive: true,
                     },
                     {
-                        target: "number",
                         name: "Minimum<10>",
                         kind: "minimum",
                         value: 10,
-                        validate: "10 <= $input",
-                        exclusive: ["minimum", "exclusiveMinimum"],
                     },
                     {
-                        target: "number",
                         name: "Maximum<10>",
                         kind: "maximum",
                         value: 10,
-                        validate: "$input <= 10",
-                        exclusive: ["maximum", "exclusiveMaximum"],
                     },
                 ]) ?? (generator?.integer ?? $generator.integer)(10, 10),
         });
