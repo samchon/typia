@@ -3,88 +3,131 @@ import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 
 ## Outline
-`typia` can use comment tags for type validation.
+`typia` can perform additional validation through [type tags](#type-tags) and [comment tags](#comment-tags).
 
-In TypeScript (and JavaScript), writing `@` character in comment is called "Comment Tag", and `typia` utilizes such comment tags for enhancing type validation logic. As you can see from below example code, `typia` analyzes `@tagName value` patterned comment tags, and generates optimal validation logic in the compilation level.
+When you need additional validation logic that is not supported in pure TypeScript type spec, you can use [type tags](#type-tags) and [comment tags](#comment-tags) for it. For example, if you define a type with intersection symbol like `number & typia.tags.Type<"uint32">` and validates it, `typia` will check the target numeric value is unsigned integer or not.
 
-Therefore, don't be afraid `typia` uses only pure TypeScript types for type validation schema. Don't be afraid about TypeScript does not support `integer` type. With those comment tags, you can express any type that exists in the world.
+Also, in TypeScript (and JavaScript), writing `@` character in comment is called [Comment Tag](#comment-tags) and `typia` utilizes such comment tags for enhancing type validation logic. As you can see from below example code, `typia` analyzes `@tagName value` patterned comment tags, and generates optimal validation logic in the compilation level.
+
+Therefore, don't be afraid `typia` uses only pure TypeScript types for type validation schema. Don't be afraid about TypeScript does not support `integer` type. With those [type tags](#type-tags) and [comment tags](#comment-tags), you can express every types in the world.
 
   - Q: How to validate integer type? TypeScript does not support it
-  - A: Write a comment tag `@type int` on the target property
+    - A1: Use type tag `number & typia.tags.Type<"int32">`
+    - A2: Write a comment tag `@type int32` on the target property
+  - Q: Type Tag vs Comment Tags, which one is better
+    - A1: Type Tag is recommended because it is much safer and generous
+    - A2: Comment Tag is designed for legacy JSDoc styled projects
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
     <Tab>
-```typescript copy filename="examples/src/is-comment-tags.ts" showLineNumbers {3}
-import typia from "typia";
+```typescript copy filename="is.tag.ts" showLineNumbers {3}
+import typia, { tags } from "typia";
 
-export const checkCommentTag = typia.createIs<CommentTag>();
+export const checkCustomTag = typia.createIs<CustomTag>();
 
-interface CommentTag {
+interface CustomTag {
     /**
-     * @type uint
+     * @type uint32
      */
     type: number;
 
-    /**
-     * @exclusiveMinimum 19
-     * @maximum 100
-     */
-    number?: number;
+    number?: number & tags.ExclusiveMinimum<19> & tags.Maximum<100>;
 
     /**
      * @minLength 3
      */
     string: string;
 
-    /**
-     * @pattern ^[a-z]+$
-     */
-    pattern: string;
+    pattern: string & tags.Format<"^[a-z]+$">;
 
     /**
-     * @format date-time
+     * Type tag can perform union type.
+     * 
+     * In here case, format can be oneof `ipv4` or `ipv6` format.
      */
-    format: string | null;
+    format: (string & (tags.Format<"ipv4"> | tags.Format<"ivp6">)) | null;
 
     /**
-     * In the Array case, possible to restrict its elements.
-     *
-     * @minItems 3
-     * @maxItems 100
-     * @format uuid
+     * In the Array case, only type tag can restrict element type.
      */
-    array: string[];
+    array: Array<string & tags.Format<"uuid">> 
+        & tags.MinItems<3> 
+        & tags.MaxItems<100>;
+
+    /**
+     * Also, only type tag can handle map type.
+     */
+    map: Map<
+        number & tags.Type<"uint32">, 
+        Array<string & tags.Format<"uuid">> & tags.MinItems<1>
+    >;
 }
 ```
     </Tab>
     <Tab>
-```javascript filename="examples/bin/is-comment-tags.js" showLineNumbers {3-24}
-import typia from "typia";
-
-export const checkCommentTag = (input) => {
-    const $is_datetime = typia.createIs.is_datetime;
-    const $is_uuid = typia.createIs.is_uuid;
-    const $io0 = (input) =>
-        "number" === typeof input.type &&
-        Math.floor(input.type) === input.type &&
-        0 <= input.type &&
-         input.type <= 4_294_967_295 &&
-        (undefined === input.number ||
-            ("number" === typeof input.number &&
-                19 < input.number &&
-                100 >= input.number)) &&
-        "string" === typeof input.string &&
-        3 <= input.string.length &&
-        "string" === typeof input.pattern &&
-        RegExp(/^[a-z]+$/).test(input.pattern) &&
-        (null === input.format ||
-            ("string" === typeof input.format && $is_datetime(input.format))) &&
-        Array.isArray(input.array) &&
-        3 <= input.array.length &&
-        100 >= input.array.length &&
-        input.array.every((elem) => "string" === typeof elem && $is_uuid(elem));
-    return "object" === typeof input && null !== input && $io0(input);
+```javascript filename="is.tag.js" showLineNumbers
+"use strict";
+var __importDefault =
+  (this && this.__importDefault) ||
+  function (mod) {
+    return mod && mod.__esModule ? mod : { default: mod };
+  };
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.checkCustomTag = void 0;
+const typia_1 = __importDefault(require("typia"));
+const checkCustomTag = (input) => {
+  const $io0 = (input) =>
+    "number" === typeof input.type &&
+    Math.floor(input.type) === input.type &&
+    0 <= input.type &&
+    input.type <= 4294967295 &&
+    (undefined === input.number ||
+      ("number" === typeof input.number &&
+        19 < input.number &&
+        input.number <= 100)) &&
+    "string" === typeof input.string &&
+    3 <= input.string.length &&
+    "string" === typeof input.pattern &&
+    !isNaN(new Date(input.pattern).getTime()) &&
+    (null === input.format ||
+      ("string" === typeof input.format &&
+        (/^(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/.test(
+          input.format,
+        ) ||
+          !isNaN(new Date(input.format).getTime())))) &&
+    Array.isArray(input.array) &&
+    3 <= input.array.length &&
+    input.array.length <= 100 &&
+    input.array.every(
+      (elem) =>
+        "string" === typeof elem &&
+        /^(?:[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}|00000000-0000-0000-0000-000000000000)$/i.test(
+          elem,
+        ),
+    ) &&
+    input.map instanceof Map &&
+    (() =>
+      [...input.map].every(
+        (elem) =>
+          Array.isArray(elem) &&
+          elem.length === 2 &&
+          "number" === typeof elem[0] &&
+          Math.floor(elem[0]) === elem[0] &&
+          0 <= elem[0] &&
+          elem[0] <= 4294967295 &&
+          Array.isArray(elem[1]) &&
+          1 <= elem[1].length &&
+          elem[1].every(
+            (elem) =>
+              "string" === typeof elem &&
+              /^(?:[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}|00000000-0000-0000-0000-000000000000)$/i.test(
+                elem,
+              ),
+          ),
+      ))();
+  return "object" === typeof input && null !== input && $io0(input);
 };
+exports.checkCustomTag = checkCustomTag;
 ```
     </Tab>
 </Tabs>
@@ -92,10 +135,175 @@ export const checkCommentTag = (input) => {
 
 
 
-## Supported Tags
-`typia` supports those comment tags.
+## Type Tags
+By using type tags, you can utilize additional validation logics.
 
-I think below list is not hard to understand.
+Just import one of type tags from `typia`, and combine it with target through intersection symbol like `number & typia.tags.Type<"uint32">` case. If you want to declare an union validation logic, combine `|` and bracket (`()`) symbols properly like below:
+
+  - `number & (Type<"uint32"> | Type<"double">)`
+    - `number` type can be both `uint32` and `double`
+  - `(number & Type<"int32">) | (bigint & Type<"uint64">)`
+    - `number` is `int32`
+    - `bigint` is `uint64`
+  - `(number & (Type<"int32">)| Type<"float">) | (bigint & Type<"uint64">)`
+    - `number` can be both `int32` and `float`
+    - `bigint` is `uint64`
+
+Here is the entire list of type tags that `typia` basically supports. 
+
+For reference, when you take a mistake that choosing different target type, TypeScript compiler would block it with compilation error message. Also, if you take a mistake that placing invalid argument on the type, it would also be blocked IDE and compiler. Therefore, have a confidence when using them. 
+
+  - number
+    - `number & Type<{keyword}>`
+      - `int32`
+      - `uint32`
+      - `uint64`
+      - `int64`
+      - `float`
+      - `double`
+    - `number & Minimum<{number}>`
+    - `number & Maximum<{number}>`
+    - `number & ExclusiveMaximum<{number}>`
+    - `number & ExclusiveMinimum<{number}>`
+    - `number & MultipleOf<{number}>`
+  - bigint
+   - `bigint & Type<{keyword}>`
+      - `int64`
+      - `uint64`
+    - `bigint & Minimum<{bigint}>`
+    - `bigint & Maximum<{bigint}>`
+    - `bigint & ExclusiveMaximum<{bigint}>`
+    - `bigint & ExclusiveMinimum<{bigint}>`
+    - `bigint & MultipleOf<{bigint}>`
+  - string
+    - `string & MinLength<{number}>`
+    - `string & MaxLength<{number}>`
+    - `string & Pattern<{regex}>`
+    - `string & Format<{keyword}>`
+      - `email`
+      - `uuid`
+      - `ipv4`
+      - `ipv6`
+      - `url`
+      - `date`: YYYY-MM-DD
+      - `date-time`: `Date.toISOString()`
+
+Also, if you need custom validation logic, just make it by yourself referencing [Customization](#customzation) section. It is easy to define. For such type safety and generous use case reasons even customization supporting, I recommend you to use type tags instead of [comment tags](#comment-tags), unless you are maintaining a legacy JSDoc styled project.
+
+<Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
+    <Tab>
+```typescript copy filename="is.tag.ts" showLineNumbers {3}
+import typia, { tags } from "typia";
+
+export const checkCustomTag = typia.createIs<CustomTag>();
+
+interface CustomTag {
+    type: number & tags.Type<"uint32">;
+
+    number?: number & tags.ExclusiveMinimum<19> & tags.Maximum<100>;
+
+    string: string & tags.MinLength<3>;
+
+    pattern: string & tags.Format<"^[a-z]+$">;
+
+    /**
+     * Type tag can perform union type.
+     * 
+     * In here case, format can be oneof `ipv4` or `ipv6` format.
+     */
+    format: (string & (tags.Format<"ipv4"> | tags.Format<"ivp6">)) | null;
+
+    /**
+     * In the Array case, only type tag can restrict element type.
+     */
+    array: Array<string & tags.Format<"uuid">> 
+        & tags.MinItems<3> 
+        & tags.MaxItems<100>;
+
+    /**
+     * Also, only type tag can handle map type.
+     */
+    map: Map<
+        number & tags.Type<"uint32">, 
+        Array<string & tags.Format<"uuid">> & tags.MinItems<1>
+    >;
+}
+```
+    </Tab>
+    <Tab>
+```javascript filename="is.tag.js" showLineNumbers
+"use strict";
+var __importDefault =
+    (this && this.__importDefault) ||
+    function (mod) {
+        return mod && mod.__esModule ? mod : { default: mod };
+    };
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.checkCustomTag = void 0;
+const typia_1 = __importDefault(require("typia"));
+const checkCustomTag = (input) => {
+    const $io0 = (input) =>
+        "number" === typeof input.type &&
+        Math.floor(input.type) === input.type &&
+        0 <= input.type &&
+        input.type <= 4294967295 &&
+        (undefined === input.number ||
+            ("number" === typeof input.number &&
+                19 < input.number &&
+                input.number <= 100)) &&
+        "string" === typeof input.string &&
+        3 <= input.string.length &&
+        "string" === typeof input.pattern &&
+        !isNaN(new Date(input.pattern).getTime()) &&
+        (null === input.format ||
+            ("string" === typeof input.format &&
+                (/^(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/.test(
+                    input.format,
+                ) ||
+                    !isNaN(new Date(input.format).getTime())))) &&
+        Array.isArray(input.array) &&
+        3 <= input.array.length &&
+        input.array.length <= 100 &&
+        input.array.every(
+            (elem) =>
+                "string" === typeof elem &&
+                /^(?:[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}|00000000-0000-0000-0000-000000000000)$/i.test(
+                    elem,
+                ),
+        ) &&
+        input.map instanceof Map &&
+        (() =>
+            [...input.map].every(
+                (elem) =>
+                    Array.isArray(elem) &&
+                    elem.length === 2 &&
+                    "number" === typeof elem[0] &&
+                    Math.floor(elem[0]) === elem[0] &&
+                    0 <= elem[0] &&
+                    elem[0] <= 4294967295 &&
+                    Array.isArray(elem[1]) &&
+                    1 <= elem[1].length &&
+                    elem[1].every(
+                        (elem) =>
+                            "string" === typeof elem &&
+                            /^(?:[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}|00000000-0000-0000-0000-000000000000)$/i.test(
+                                elem,
+                            ),
+                    ),
+            ))();
+    return "object" === typeof input && null !== input && $io0(input);
+};
+exports.checkCustomTag = checkCustomTag;
+```
+    </Tab>
+</Tabs>
+
+
+
+## Comment Tags
+`typia` supports those comment tags, too.
+
+Here is the entire list of comment tags that `typia` supports.
 
   - number
     - `@type {string}`
@@ -132,130 +340,335 @@ I think below list is not hard to understand.
     - `@minItems {number}`
     - `@maxItems {number}`
 
+By the way, I do not recommend this way, because it can't perform union numeric types, and can be used for only object property type. It can't be used standalone, and cannot be used for element type of `Array` and `Map` even when they're declared on object property. Also, When you declare `@type int32` statement, target `number` type be fixed as `int32` type, and never can have another numeric type by declaring union statements.
+
+Also, those comment tags are not type safe. If you take a mistake when writing a comment tag, it will not be detected by the compiler, and will cause an error at runtime. For example, if you write a mis-spelled keyword like `@type unit32`, the target `number` type would be `double` type, and you can identify it just by running the program (or visiting playground website).
+
+<br/>
+<Alert severity="warning">
+  <AlertTitle>
+    **Why supports comment tags?**
+  </AlertTitle>
+
+Despite these disadvantages, the reason for maintaining comment tags is as follows. 
+
+First, it is to support the legacy JSDoc style that had been used in the JS camp for a long time. If you had developed a legacy project and JSDoc being used, you can use it as is. 
+
+Second, to support [Prisma](../utilization/prisma). If a comment is created in the Prisma Schema through the `///` statement as shown below and a type is created, it is converted to a TS comment as it is. And since there is no way that union types, numeric `Array`s or `Map`s are used in Prisma (database) schema, these comment tags are surprisingly compatible with Prisma.
+
+</Alert>
+
+<Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
+    <Tab>
+```typescript copy filename="is.tag.ts" showLineNumbers {3}
+import typia from "typia";
+
+export const checkCustomTag = typia.createIs<CustomTag>();
+
+interface CustomTag {
+    /**
+     * @type uint32
+     */
+    type: number;
+
+    /**
+     * @exclusiveMinimum 19
+     * @maximum 100
+     */
+    number?: number;
+
+    /**
+     * @minLength 3
+     */
+    string: string;
+
+    /**
+     * @format /^[a-z]+$/
+     */
+    pattern: string;
+
+    // NO WAY WHEN COMMENT TAG
+    // /**
+    //  * Type tag can perform union type.
+    //  * 
+    //  * In here case, format can be oneof `ipv4` or `ipv6` format.
+    //  */
+    // format: (string & (tags.Format<"ipv4"> | tags.Format<"ivp6">)) | null;
+
+    // NO WAY WHEN COMMENT TAG
+    // /**
+    //  * In the Array case, only type tag can restrict element type.
+    //  */
+    // array: Array<string & tags.Format<"uuid">> 
+    //     & tags.MinItems<3> 
+    //     & tags.MaxItems<100>;
+
+    // NO WAY WHEN COMMENT TAG
+    // /**
+    //  * Also, only type tag can handle map type.
+    //  */
+    // map: Map<
+    //     number & tags.Type<"uint32">, 
+    //     Array<string & tags.Format<"uuid">> & tags.MinItems<1>
+    // >;
+}
+```
+    </Tab>
+    <Tab>
+```javascript filename="is.tag.js" showLineNumbers
+"use strict";
+var __importDefault =
+    (this && this.__importDefault) ||
+    function (mod) {
+        return mod && mod.__esModule ? mod : { default: mod };
+    };
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.checkCustomTag = void 0;
+const typia_1 = __importDefault(require("typia"));
+const checkCustomTag = (input) => {
+    const $io0 = (input) =>
+        "number" === typeof input.type &&
+        Math.floor(input.type) === input.type &&
+        0 <= input.type &&
+        input.type <= 4294967295 &&
+        (undefined === input.number ||
+            ("number" === typeof input.number &&
+                19 < input.number &&
+                input.number <= 100)) &&
+        "string" === typeof input.string &&
+        3 <= input.string.length &&
+        "string" === typeof input.pattern;
+    return "object" === typeof input && null !== input && $io0(input);
+};
+exports.checkCustomTag = checkCustomTag;
+```
+    </Tab>
+</Tabs>
+
 
 
 
 ## Customization
 <Tabs items={[
-    <code>typia</code>, 
-    <code>CustomValidatorMap.ts</code>, 
-    <code>Customizable.ts</code>
+    <code>TagBase.ts</code>,
+    <code>Minimum.ts</code>,
+    <code>Type.ts</code>,
+    <code>Pattern.ts</code>,
 ]}>
     <Tab>
-```typescript copy
-export function is<T>(input: unknown): input is T;
-export function assert<T>(input: unknown): T;
-export function validate<T>(input: unknown): IValidation<T>;
+```typescript filename="TagBase.ts" showLineNumbers copy
+export type TagBase<Props extends TagBase.IProps<any, any, any, any, any>> = {
+    /**
+     * This is a dummy property for compilation.
+     * 
+     * It does not mean anything in runtime.
+     */
+    "typia.tag"?: Props;
+};
+export namespace TagBase {
+    export interface IProps<
+        Target extends "bigint" | "number" | "string" | "array",
+        Kind extends string,
+        Value extends boolean | bigint | number | string | undefined,
+        Validate extends
+            | string
+            | {
+                  [key in Target]?: string;
+              },
+        Exclusive extends boolean | string[],
+    > {
+        /**
+         * Target type.
+         *
+         * If user tries to adapt this tag to a different type, it would be a compile
+         * error.
+         *
+         * For example, you've configured target type as `string`, but user adapted it
+         * onto a `number` type (`number & YourCustomTag<Value>`), then it would be
+         * blocked by TypeScript compiler.
+         */
+        target: Target;
 
-export const customValidators: CustomValidatorMap;
+        /**
+         * What kind of tag is this?
+         */
+        kind: Kind;
+
+        /**
+         * Value to be configured by user.
+         */
+        value: Value;
+
+        /**
+         * Validation code.
+         *
+         * This code would be inserted into the generated validation function.
+         * In here script, target variable name must be `$input`. The variable name
+         * `$input` would be transformed to the suitable when compilation.
+         *
+         * Also, If you've take a mistake on this script, compile error would be
+         * occured. So, define it with confidence. Compiler will block all your
+         * mistakes.
+         */
+        validate: Validate;
+
+        /**
+         * Exclusive option.
+         *
+         * If this property configured as `true`, same {@link kind} tag cannot be
+         * duplicated in the target type. Otherwise, if you've configured this property
+         * as string array, all of the {@link kind} value assigned tag cannot be
+         * compatible in the target type.
+         * 
+         * @default false
+         */
+        exclusive?: Exclusive | string[];
+    }
+}
 ```
     </Tab>
     <Tab>
-```typescript copy
-export interface CustomValidatorMap {
-    size(): number;
-    size(name: string): number;
-    
-    // Type: {number, bigint, string}
-    has: (name: string) => (type: keyof Customizable) => boolean;
-    get:
-        (name: string) => 
-        <Type extends keyof Customizable>(type: Type) => 
-            CustomValidatorMap.Closure<Type> | undefined;
-    erase: 
-        (name: string) => 
-        (type: keyof Customizable) => boolean;
-    insert: 
-        (name: string) => 
-        <Type extends keyof Customizable>(type: Type) => 
-        (closure: CustomValidatorMap.Closure<Type>) => boolean;
-}
-export namespace CustomValidatorMap {
-    export type Closure<Type extends keyof Customizable> = 
-        (text: string) => // tag name
-        (value: Customizable[Type]) => boolean; // instance value
-}
+```typescript filename="Minimum.ts" showLineNumbers copy
+import { TagBase } from "./TagBase";
+
+export type Minimum<Value extends number | bigint> = TagBase<{
+    target: Value extends number ? "number" : "bigint";
+    kind: "minimum";
+    value: Value;
+    validate: `${Numeric<Value>} <= $input`;
+    exclusive: ["minimum", "exclusiveMinimum"];
+}>;
+
+type Numeric<Value extends number | bigint> = Value extends number
+    ? Value
+    : `BigInt(${Value})`;
 ```
     </Tab>
     <Tab>
-```typescript copy
-export interface Customizable {
-    number: number;
-    string: string;
-    bigint: bigint;
-}
+```typescript filename="Type.ts" showLineNumbers copy
+import { TagBase } from "./TagBase";
+
+export type Type<
+    Value extends "int32" | "uint32" | "int64" | "uint64" | "float" | "double",
+> = TagBase<{
+    target: Value extends "int64" | "uint64" ? "bigint" | "number" : "number";
+    kind: "type";
+    value: Value;
+    validate: Value extends "int32"
+        ? `Math.floor($input) === $input && -2147483648 <= $input && $input <= 2147483647`
+        : Value extends "uint32"
+        ? `Math.floor($input) === $input && 0 <= $input && $input <= 4294967295`
+        : Value extends "int64"
+        ? {
+              number: `Math.floor($input) === $input && -9223372036854775808 <= $input && $input <= 9223372036854775807`;
+              bigint: `true`;
+          }
+        : Value extends "uint64"
+        ? {
+              number: `Math.floor($input) === $input && 0 <= $input && $input <= 18446744073709551615`;
+              bigint: `BigInt(0) <= $input`;
+          }
+        : Value extends "float"
+        ? `-1.175494351e38 <= $input && $input <= 3.4028235e38`
+        : `true`;
+    exclusive: true;
+}>;
+```
+    </Tab>
+    <Tab>
+```typescript filename="Pattern.ts" showLineNumbers copy
+import { TagBase } from "./TagBase";
+
+export type Pattern<Value extends string> = TagBase<{
+    target: "string";
+    kind: "pattern";
+    value: Value;
+    validate: `/${Value}/.test($input)`;
+}>;
 ```
     </Tab>
 </Tabs>
 
-You can add custom comment tags for type validation.
+Above types are supported by `typia` basically. 
 
-If you need addtional comment tag for type validation, just define it by yourself. Write your custom validation logic as a closure function, and register it through `typia.customValidationMap.insert()` function, following above `CustomValidatorMap` and `Customizable` types.
+If you make a custom type tag extending `typia.tags.TagBase<Props>` type, and utilize it on your type with intersection symbol like `number & Minimum<3>`, its validation logic `3 <= $input` would be inserted into the compiled JavaScript file.
 
-Note that, 1st parameter of `typia.customValidationMap.insert()` function means tag name, and 2nd parameter means instance type (`boolean|number|bigint|string`). Also, when defining closure currying function of validation logic, 1st parameter means tag name and 2nd means input value.
+Also, as you can see from the `typia.tags.TagBase<Props>` type, you have to specify which `target` type is the tag for, and need to define the tag can be compatible with others or not through `exclusive` options. If your custom tag has multiple `target` types, you can support all of those `target` types by defining `validate` property as `Record<Target, string>` type like `Type` tag case.
 
-If you're not familiar with functional programming, just read below example code:  
+In the Korean proverb, there's a word that, "it is much better to do it once than to hear it a hundred times". Let's see how custom type tag of `typia` can be defined and utilized through an example code. I'll define three custom tag types, `Postfix`, `Dollar` and `IsEven`.
+
+Here is the example code, and I think that it may easy to understand.
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
     <Tab>
-```typescript copy filename="examples/src/is-customization.ts" showLineNumbers {3}
-import typia from "typia";
+```typescript showLineNumbers copy filename="is.tag.custom.ts"
+import typia, { tags } from "typia";
 
-export const checkTagCustom = typia.createIs<TagCustom>();
+export const checkSomething = typia.createIs<Something>();
 
-typia.customValidators.insert("powerOf")("number")(
-    (text: string) => { // tag name
-        const denominator: number = Math.log(Number(text));
-        return (value: number) => { // input value
-            value = Math.log(value) / denominator;
-            return Math.abs(value - Math.floor(value)) < .000001;
-        };
-    }
-);
-typia.customValidators.insert("dollar")("string")(
-    () => (value: string) => value.startsWith("$"),
-);
+//----
+// DEFINE CUSTOM TYPE TAGS
+//----
+type Dollar = tags.TagBase<{
+    kind: "dollar";
+    target: "string";
+    value: undefined;
+    validate: `$input[0] === "$" && !isNaN(Number($input.substring(1).split(",").join("")))`;
+}>;
 
-interface TagCustom {
-   /**
-    * @powerOf 10
-    */
-   powerOf: number;
+type Postfix<Value extends string> = tags.TagBase<{
+    kind: "postfix";
+    target: "string";
+    value: Value;
+    validate: `$input.endsWith("${Value}")`;
+}>;
 
-   /**
-    * @dollar
-    */
-   dollar: string;
+type IsEven<Value extends number | bigint> = tags.TagBase<{
+    kind: "isEven";
+    target: Value extends number ? "number" : "bigint";
+    value: undefined;
+    validate: `$input % ${Numeric<2>} === ${Numeric<0>}`;
+}>;
+
+type Numeric<Value extends number | bigint> = Value extends number
+    ? Value
+    : `BigInt(${Value})`;
+
+//----
+// VALIDATION
+//----
+interface Something {
+    dollar: string & Dollar;
+    postfix: string & Postfix<"!!!">;
+    isEven: number & IsEven<number>;
 }
 ```
     </Tab>
     <Tab>
-```javascript filename="examples/bin/is-customization.js" showLineNumbers {3-12}
-import typia from "typia";
-
-export const checkTagCustom = (input) => {
-    const $is_custom = typia.createIs.is_custom;
+```javascript showLineNumbers filename="is.tag.custom.js"
+"use strict";
+var __importDefault =
+    (this && this.__importDefault) ||
+    function (mod) {
+        return mod && mod.__esModule ? mod : { default: mod };
+    };
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.checkSomething = void 0;
+const typia_1 = __importDefault(require("typia"));
+const checkSomething = (input) => {
     return (
-        "object" === typeof input && null !== input &&
-        "number" === typeof input.powerOf &&
-            $is_custom("powerOf", "number", "10", input.powerOf) &&
+        "object" === typeof input &&
+        null !== input &&
         "string" === typeof input.dollar &&
-            $is_custom("dollar", "string", "", input.dollar)
+        input.dollar[0] === "$" &&
+        !isNaN(Number(input.dollar.substring(1).split(",").join(""))) &&
+        "string" === typeof input.postfix &&
+        input.postfix.endsWith("!!!") &&
+        "number" === typeof input.isEven &&
+        input.isEven % 2 === 0
     );
 };
-
-typia.customValidators.insert("powerOf")("number")(
-    (text) => {
-        const denominator = Math.log(Number(text));
-        return (value) => {
-            value = Math.log(value) / denominator;
-            return Math.abs(value - Math.floor(value)) < 0.000001;
-        };
-    }
-);
-typia.customValidators.insert("dollar")("string")(
-    () => (value) => value.startsWith("$"),
-);
+exports.checkSomething = checkSomething;
 ```
     </Tab>
 </Tabs>

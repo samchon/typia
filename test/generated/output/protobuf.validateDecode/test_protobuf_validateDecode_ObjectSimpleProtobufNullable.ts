@@ -291,47 +291,47 @@ export const test_protobuf_validateDecode_ObjectSimpleProtobufNullable =
             const encoder = (writer: any): any => {
                 const $peo0 = (input: any): any => {
                     // property "bool";
-                    if (null != input.bool) {
+                    if (null !== input.bool) {
                         writer.uint32(8);
                         writer.bool(input.bool);
                     }
                     // property "int32";
-                    if (null != input.int32) {
+                    if (null !== input.int32) {
                         writer.uint32(16);
                         writer.int32(input.int32);
                     }
                     // property "uint32";
-                    if (null != input.uint32) {
+                    if (null !== input.uint32) {
                         writer.uint32(24);
                         writer.uint32(input.uint32);
                     }
                     // property "int64";
-                    if (null != input.int64) {
+                    if (null !== input.int64) {
                         writer.uint32(32);
                         writer.int64(input.int64);
                     }
                     // property "uint64";
-                    if (null != input.uint64) {
+                    if (null !== input.uint64) {
                         writer.uint32(40);
                         writer.uint64(input.uint64);
                     }
                     // property "float";
-                    if (null != input.float) {
+                    if (null !== input.float) {
                         writer.uint32(53);
                         writer.float(input.float);
                     }
                     // property "double";
-                    if (null != input.double) {
+                    if (null !== input.double) {
                         writer.uint32(57);
                         writer.double(input.double);
                     }
                     // property "string";
-                    if (null != input.string) {
+                    if (null !== input.string) {
                         writer.uint32(66);
                         writer.string(input.string);
                     }
                     // property "bytes";
-                    if (null != input.bytes) {
+                    if (null !== input.bytes) {
                         writer.uint32(74);
                         writer.bytes(input.bytes);
                     }

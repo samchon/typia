@@ -621,7 +621,7 @@ export const test_protobuf_assertDecode_ArraySimpleProtobufNullable =
             const encoder = (writer: any): any => {
                 const $peo0 = (input: any): any => {
                     // property "boolean";
-                    if (null != input.boolean) {
+                    if (null !== input.boolean) {
                         if (0 !== input.boolean.length) {
                             writer.uint32(10);
                             writer.fork();
@@ -632,7 +632,7 @@ export const test_protobuf_assertDecode_ArraySimpleProtobufNullable =
                         }
                     }
                     // property "int32";
-                    if (null != input.int32) {
+                    if (null !== input.int32) {
                         if (0 !== input.int32.length) {
                             writer.uint32(18);
                             writer.fork();
@@ -643,7 +643,7 @@ export const test_protobuf_assertDecode_ArraySimpleProtobufNullable =
                         }
                     }
                     // property "uint32";
-                    if (null != input.uint32) {
+                    if (null !== input.uint32) {
                         if (0 !== input.uint32.length) {
                             writer.uint32(26);
                             writer.fork();
@@ -654,7 +654,7 @@ export const test_protobuf_assertDecode_ArraySimpleProtobufNullable =
                         }
                     }
                     // property "int64";
-                    if (null != input.int64) {
+                    if (null !== input.int64) {
                         if (0 !== input.int64.length) {
                             writer.uint32(34);
                             writer.fork();
@@ -665,7 +665,7 @@ export const test_protobuf_assertDecode_ArraySimpleProtobufNullable =
                         }
                     }
                     // property "uint64";
-                    if (null != input.uint64) {
+                    if (null !== input.uint64) {
                         if (0 !== input.uint64.length) {
                             writer.uint32(42);
                             writer.fork();
@@ -676,7 +676,7 @@ export const test_protobuf_assertDecode_ArraySimpleProtobufNullable =
                         }
                     }
                     // property "float";
-                    if (null != input.float) {
+                    if (null !== input.float) {
                         if (0 !== input.float.length) {
                             writer.uint32(50);
                             writer.fork();
@@ -687,7 +687,7 @@ export const test_protobuf_assertDecode_ArraySimpleProtobufNullable =
                         }
                     }
                     // property "double";
-                    if (null != input.double) {
+                    if (null !== input.double) {
                         if (0 !== input.double.length) {
                             writer.uint32(58);
                             writer.fork();
@@ -698,7 +698,7 @@ export const test_protobuf_assertDecode_ArraySimpleProtobufNullable =
                         }
                     }
                     // property "string";
-                    if (null != input.string) {
+                    if (null !== input.string) {
                         if (0 !== input.string.length) {
                             for (const elem of input.string) {
                                 writer.uint32(66);
@@ -707,7 +707,7 @@ export const test_protobuf_assertDecode_ArraySimpleProtobufNullable =
                         }
                     }
                     // property "bytes";
-                    if (null != input.bytes) {
+                    if (null !== input.bytes) {
                         if (0 !== input.bytes.length) {
                             for (const elem of input.bytes) {
                                 writer.uint32(74);
@@ -716,7 +716,7 @@ export const test_protobuf_assertDecode_ArraySimpleProtobufNullable =
                         }
                     }
                     // property "object";
-                    if (null != input.object) {
+                    if (null !== input.object) {
                         if (0 !== input.object.length) {
                             for (const elem of input.object) {
                                 // 10 -> ArraySimpleProtobufNullable;

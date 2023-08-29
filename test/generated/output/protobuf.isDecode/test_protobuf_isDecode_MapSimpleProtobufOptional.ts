@@ -370,7 +370,7 @@ export const test_protobuf_isDecode_MapSimpleProtobufOptional =
             const encoder = (writer: any): any => {
                 const $peo0 = (input: any): any => {
                     // property "boolean";
-                    if (undefined != input.boolean && null != input.boolean) {
+                    if (undefined !== input.boolean) {
                         for (const [key, value] of input.boolean) {
                             writer.uint32(10);
                             writer.fork();
@@ -382,7 +382,7 @@ export const test_protobuf_isDecode_MapSimpleProtobufOptional =
                         }
                     }
                     // property "int32";
-                    if (undefined != input.int32 && null != input.int32) {
+                    if (undefined !== input.int32) {
                         for (const [key, value] of input.int32) {
                             writer.uint32(18);
                             writer.fork();
@@ -394,7 +394,7 @@ export const test_protobuf_isDecode_MapSimpleProtobufOptional =
                         }
                     }
                     // property "bigint";
-                    if (undefined != input.bigint && null != input.bigint) {
+                    if (undefined !== input.bigint) {
                         for (const [key, value] of input.bigint) {
                             writer.uint32(26);
                             writer.fork();
@@ -406,7 +406,7 @@ export const test_protobuf_isDecode_MapSimpleProtobufOptional =
                         }
                     }
                     // property "double";
-                    if (undefined != input.double && null != input.double) {
+                    if (undefined !== input.double) {
                         for (const [key, value] of input.double) {
                             writer.uint32(34);
                             writer.fork();
@@ -418,7 +418,7 @@ export const test_protobuf_isDecode_MapSimpleProtobufOptional =
                         }
                     }
                     // property "string";
-                    if (undefined != input.string && null != input.string) {
+                    if (undefined !== input.string) {
                         for (const [key, value] of input.string) {
                             writer.uint32(42);
                             writer.fork();
@@ -430,7 +430,7 @@ export const test_protobuf_isDecode_MapSimpleProtobufOptional =
                         }
                     }
                     // property "bytes";
-                    if (undefined != input.bytes && null != input.bytes) {
+                    if (undefined !== input.bytes) {
                         for (const [key, value] of input.bytes) {
                             writer.uint32(50);
                             writer.fork();
@@ -442,7 +442,7 @@ export const test_protobuf_isDecode_MapSimpleProtobufOptional =
                         }
                     }
                     // property "objects";
-                    if (undefined != input.objects && null != input.objects) {
+                    if (undefined !== input.objects) {
                         for (const [key, value] of input.objects) {
                             writer.uint32(58);
                             writer.fork();

@@ -25,19 +25,13 @@ export const test_random_CommentTagLength = _test_random(
                 (generator?.customs ?? $generator.customs)?.string?.([
                     {
                         name: "MinLength<5>",
-                        target: "string",
                         kind: "minLength",
                         value: 5,
-                        validate: "5 <= $input.length",
-                        exclusive: true,
                     },
                     {
                         name: "MaxLength<5>",
-                        target: "string",
                         kind: "maxLength",
                         value: 5,
-                        validate: "$input.length <= 5",
-                        exclusive: true,
                     },
                 ]) ??
                 (generator?.string ?? $generator.string)(
@@ -47,11 +41,8 @@ export const test_random_CommentTagLength = _test_random(
                 (generator?.customs ?? $generator.customs)?.string?.([
                     {
                         name: "MinLength<3>",
-                        target: "string",
                         kind: "minLength",
                         value: 3,
-                        validate: "3 <= $input.length",
-                        exclusive: true,
                     },
                 ]) ??
                 (generator?.string ?? $generator.string)(
@@ -61,11 +52,8 @@ export const test_random_CommentTagLength = _test_random(
                 (generator?.customs ?? $generator.customs)?.string?.([
                     {
                         name: "MaxLength<7>",
-                        target: "string",
                         kind: "maxLength",
                         value: 7,
-                        validate: "$input.length <= 7",
-                        exclusive: true,
                     },
                 ]) ??
                 (generator?.string ?? $generator.string)(
@@ -75,19 +63,13 @@ export const test_random_CommentTagLength = _test_random(
                 (generator?.customs ?? $generator.customs)?.string?.([
                     {
                         name: "MinLength<3>",
-                        target: "string",
                         kind: "minLength",
                         value: 3,
-                        validate: "3 <= $input.length",
-                        exclusive: true,
                     },
                     {
                         name: "MaxLength<7>",
-                        target: "string",
                         kind: "maxLength",
                         value: 7,
-                        validate: "$input.length <= 7",
-                        exclusive: true,
                     },
                 ]) ??
                 (generator?.string ?? $generator.string)(
@@ -97,19 +79,13 @@ export const test_random_CommentTagLength = _test_random(
                 (generator?.customs ?? $generator.customs)?.string?.([
                     {
                         name: "MinLength<10>",
-                        target: "string",
                         kind: "minLength",
                         value: 10,
-                        validate: "10 <= $input.length",
-                        exclusive: true,
                     },
                     {
                         name: "MaxLength<19>",
-                        target: "string",
                         kind: "maxLength",
                         value: 19,
-                        validate: "$input.length <= 19",
-                        exclusive: true,
                     },
                 ]) ??
                 (generator?.string ?? $generator.string)(

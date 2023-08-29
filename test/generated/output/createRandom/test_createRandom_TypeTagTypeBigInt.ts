@@ -22,12 +22,9 @@ export const test_random_TypeTagTypeBigInt = _test_random(
             uint64:
                 (generator?.customs ?? $generator.customs)?.bigint?.([
                     {
-                        target: "bigint",
                         name: 'Type<"uint64">',
                         kind: "type",
                         value: "uint64",
-                        validate: "BigInt(0) <= $input",
-                        exclusive: true,
                     },
                 ]) ??
                 (generator?.bigint ?? $generator.bigint)(BigInt(0), BigInt(10)),

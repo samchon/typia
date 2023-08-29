@@ -20,7 +20,7 @@
  * `BigInt`                | `bigint`
  * `String`                | `string`
  * `Class`                 | `interface`
- * Native Claas or Others  | No change
+ * Native Class or Others  | No change
  *
  * @template Instance Target argument type.
  * @author Jenogho Nam - https://github.com/samchon

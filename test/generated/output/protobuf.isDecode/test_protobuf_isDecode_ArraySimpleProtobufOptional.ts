@@ -223,7 +223,7 @@ export const test_protobuf_isDecode_ArraySimpleProtobufOptional =
             const encoder = (writer: any): any => {
                 const $peo0 = (input: any): any => {
                     // property "boolean";
-                    if (undefined != input.boolean && null != input.boolean) {
+                    if (undefined !== input.boolean) {
                         if (0 !== input.boolean.length) {
                             writer.uint32(10);
                             writer.fork();
@@ -234,7 +234,7 @@ export const test_protobuf_isDecode_ArraySimpleProtobufOptional =
                         }
                     }
                     // property "int32";
-                    if (undefined != input.int32 && null != input.int32) {
+                    if (undefined !== input.int32) {
                         if (0 !== input.int32.length) {
                             writer.uint32(18);
                             writer.fork();
@@ -245,7 +245,7 @@ export const test_protobuf_isDecode_ArraySimpleProtobufOptional =
                         }
                     }
                     // property "uint32";
-                    if (undefined != input.uint32 && null != input.uint32) {
+                    if (undefined !== input.uint32) {
                         if (0 !== input.uint32.length) {
                             writer.uint32(26);
                             writer.fork();
@@ -256,7 +256,7 @@ export const test_protobuf_isDecode_ArraySimpleProtobufOptional =
                         }
                     }
                     // property "int64";
-                    if (undefined != input.int64 && null != input.int64) {
+                    if (undefined !== input.int64) {
                         if (0 !== input.int64.length) {
                             writer.uint32(34);
                             writer.fork();
@@ -267,7 +267,7 @@ export const test_protobuf_isDecode_ArraySimpleProtobufOptional =
                         }
                     }
                     // property "uint64";
-                    if (undefined != input.uint64 && null != input.uint64) {
+                    if (undefined !== input.uint64) {
                         if (0 !== input.uint64.length) {
                             writer.uint32(42);
                             writer.fork();
@@ -278,7 +278,7 @@ export const test_protobuf_isDecode_ArraySimpleProtobufOptional =
                         }
                     }
                     // property "float";
-                    if (undefined != input.float && null != input.float) {
+                    if (undefined !== input.float) {
                         if (0 !== input.float.length) {
                             writer.uint32(50);
                             writer.fork();
@@ -289,7 +289,7 @@ export const test_protobuf_isDecode_ArraySimpleProtobufOptional =
                         }
                     }
                     // property "double";
-                    if (undefined != input.double && null != input.double) {
+                    if (undefined !== input.double) {
                         if (0 !== input.double.length) {
                             writer.uint32(58);
                             writer.fork();
@@ -300,7 +300,7 @@ export const test_protobuf_isDecode_ArraySimpleProtobufOptional =
                         }
                     }
                     // property "string";
-                    if (undefined != input.string && null != input.string) {
+                    if (undefined !== input.string) {
                         if (0 !== input.string.length) {
                             for (const elem of input.string) {
                                 writer.uint32(66);
@@ -309,7 +309,7 @@ export const test_protobuf_isDecode_ArraySimpleProtobufOptional =
                         }
                     }
                     // property "bytes";
-                    if (undefined != input.bytes && null != input.bytes) {
+                    if (undefined !== input.bytes) {
                         if (0 !== input.bytes.length) {
                             for (const elem of input.bytes) {
                                 writer.uint32(74);
@@ -318,7 +318,7 @@ export const test_protobuf_isDecode_ArraySimpleProtobufOptional =
                         }
                     }
                     // property "object";
-                    if (undefined != input.object && null != input.object) {
+                    if (undefined !== input.object) {
                         if (0 !== input.object.length) {
                             for (const elem of input.object) {
                                 // 10 -> ArraySimpleProtobufOptional;

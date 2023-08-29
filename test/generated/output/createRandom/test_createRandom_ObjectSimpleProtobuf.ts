@@ -17,25 +17,17 @@ export const test_random_ObjectSimpleProtobuf = _test_random(
             int32:
                 (generator?.customs ?? $generator.customs)?.number?.([
                     {
-                        target: "number",
                         name: 'Type<"int32">',
                         kind: "type",
                         value: "int32",
-                        validate:
-                            "Math.floor($input) === $input && -2147483648 <= $input && $input <= 2147483647",
-                        exclusive: true,
                     },
                 ]) ?? (generator?.integer ?? $generator.integer)(0, 100),
             uint32:
                 (generator?.customs ?? $generator.customs)?.number?.([
                     {
-                        target: "number",
                         name: 'Type<"uint32">',
                         kind: "type",
                         value: "uint32",
-                        validate:
-                            "Math.floor($input) === $input && 0 <= $input && $input <= 4294967295",
-                        exclusive: true,
                     },
                 ]) ?? (generator?.integer ?? $generator.integer)(0, 10),
             int64:
@@ -47,36 +39,26 @@ export const test_random_ObjectSimpleProtobuf = _test_random(
             uint64:
                 (generator?.customs ?? $generator.customs)?.bigint?.([
                     {
-                        target: "bigint",
                         name: 'Type<"uint64">',
                         kind: "type",
                         value: "uint64",
-                        validate: "BigInt(0) <= $input",
-                        exclusive: true,
                     },
                 ]) ??
                 (generator?.bigint ?? $generator.bigint)(BigInt(0), BigInt(10)),
             float:
                 (generator?.customs ?? $generator.customs)?.number?.([
                     {
-                        target: "number",
                         name: 'Type<"float">',
                         kind: "type",
                         value: "float",
-                        validate:
-                            "-1.175494351e38 <= $input && $input <= 3.4028235e38",
-                        exclusive: true,
                     },
                 ]) ?? (generator?.number ?? $generator.number)(0, 100),
             double:
                 (generator?.customs ?? $generator.customs)?.number?.([
                     {
-                        target: "number",
                         name: 'Type<"double">',
                         kind: "type",
                         value: "double",
-                        validate: "true",
-                        exclusive: true,
                     },
                 ]) ?? (generator?.number ?? $generator.number)(0, 100),
             string:

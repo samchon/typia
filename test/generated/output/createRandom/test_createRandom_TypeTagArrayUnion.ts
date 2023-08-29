@@ -18,13 +18,9 @@ export const test_random_TypeTagArrayUnion = _test_random(
                 () =>
                     (generator?.customs ?? $generator.customs)?.string?.([
                         {
-                            target: "string",
                             name: 'Format<"uuid">',
                             kind: "format",
                             value: "uuid",
-                            validate:
-                                "/^(?:[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}|00000000-0000-0000-0000-000000000000)$/i.test($input)",
-                            exclusive: ["pattern"],
                         },
                     ]) ?? (generator?.uuid ?? $generator.uuid)(),
                 (generator?.integer ?? $generator.integer)(3, 3),
@@ -33,12 +29,9 @@ export const test_random_TypeTagArrayUnion = _test_random(
                 () =>
                     (generator?.customs ?? $generator.customs)?.number?.([
                         {
-                            target: "number",
                             name: "Minimum<3>",
                             kind: "minimum",
                             value: 3,
-                            validate: "3 <= $input",
-                            exclusive: ["minimum", "exclusiveMinimum"],
                         },
                     ]) ?? (generator?.number ?? $generator.number)(3, 13),
                 (generator?.integer ?? $generator.integer)(3, 3),
@@ -51,12 +44,9 @@ export const test_random_TypeTagArrayUnion = _test_random(
                                 generator?.customs ?? $generator.customs
                             )?.string?.([
                                 {
-                                    target: "string",
                                     name: "MaxLength<7>",
                                     kind: "maxLength",
                                     value: 7,
-                                    validate: "$input.length <= 7",
-                                    exclusive: true,
                                 },
                             ]) ??
                             (generator?.string ?? $generator.string)(
@@ -70,12 +60,9 @@ export const test_random_TypeTagArrayUnion = _test_random(
                                 generator?.customs ?? $generator.customs
                             )?.number?.([
                                 {
-                                    target: "number",
                                     name: "Maximum<7>",
                                     kind: "maximum",
                                     value: 7,
-                                    validate: "$input <= 7",
-                                    exclusive: ["maximum", "exclusiveMaximum"],
                                 },
                             ]) ??
                             (generator?.number ?? $generator.number)(-3, 7),
@@ -86,13 +73,9 @@ export const test_random_TypeTagArrayUnion = _test_random(
                 () =>
                     (generator?.customs ?? $generator.customs)?.string?.([
                         {
-                            target: "string",
                             name: 'Format<"uuid">',
                             kind: "format",
                             value: "uuid",
-                            validate:
-                                "/^(?:[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}|00000000-0000-0000-0000-000000000000)$/i.test($input)",
-                            exclusive: ["pattern"],
                         },
                     ]) ?? (generator?.uuid ?? $generator.uuid)(),
                 (generator?.integer ?? $generator.integer)(3, 7),

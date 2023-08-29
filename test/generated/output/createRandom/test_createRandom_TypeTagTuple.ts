@@ -16,20 +16,14 @@ export const test_random_TypeTagTuple = _test_random(
             tuple: [
                 (generator?.customs ?? $generator.customs)?.string?.([
                     {
-                        target: "string",
                         name: "MinLength<3>",
                         kind: "minLength",
                         value: 3,
-                        validate: "3 <= $input.length",
-                        exclusive: true,
                     },
                     {
-                        target: "string",
                         name: "MaxLength<7>",
                         kind: "maxLength",
                         value: 7,
-                        validate: "$input.length <= 7",
-                        exclusive: true,
                     },
                 ]) ??
                     (generator?.string ?? $generator.string)(
@@ -37,40 +31,28 @@ export const test_random_TypeTagTuple = _test_random(
                     ),
                 (generator?.customs ?? $generator.customs)?.number?.([
                     {
-                        target: "number",
                         name: "Minimum<3>",
                         kind: "minimum",
                         value: 3,
-                        validate: "3 <= $input",
-                        exclusive: ["minimum", "exclusiveMinimum"],
                     },
                     {
-                        target: "number",
                         name: "Maximum<7>",
                         kind: "maximum",
                         value: 7,
-                        validate: "$input <= 7",
-                        exclusive: ["maximum", "exclusiveMaximum"],
                     },
                 ]) ?? (generator?.number ?? $generator.number)(3, 7),
                 (generator?.array ?? $generator.array)(
                     () =>
                         (generator?.customs ?? $generator.customs)?.string?.([
                             {
-                                target: "string",
                                 name: "MinLength<1>",
                                 kind: "minLength",
                                 value: 1,
-                                validate: "1 <= $input.length",
-                                exclusive: true,
                             },
                             {
-                                target: "string",
                                 name: "MaxLength<2>",
                                 kind: "maxLength",
                                 value: 2,
-                                validate: "$input.length <= 2",
-                                exclusive: true,
                             },
                         ]) ??
                         (generator?.string ?? $generator.string)(
@@ -82,20 +64,14 @@ export const test_random_TypeTagTuple = _test_random(
                     () =>
                         (generator?.customs ?? $generator.customs)?.number?.([
                             {
-                                target: "number",
                                 name: "Minimum<1>",
                                 kind: "minimum",
                                 value: 1,
-                                validate: "1 <= $input",
-                                exclusive: ["minimum", "exclusiveMinimum"],
                             },
                             {
-                                target: "number",
                                 name: "Maximum<2>",
                                 kind: "maximum",
                                 value: 2,
-                                validate: "$input <= 2",
-                                exclusive: ["maximum", "exclusiveMaximum"],
                             },
                         ]) ?? (generator?.number ?? $generator.number)(1, 2),
                     (generator?.integer ?? $generator.integer)(3, 7),

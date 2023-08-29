@@ -123,7 +123,7 @@ export const test_protobuf_assertDecode_ClassGetter =
                     writer.uint32(18);
                     writer.string(input.name);
                     // property "dead";
-                    if (null != input.dead) {
+                    if (null !== input.dead) {
                         writer.uint32(24);
                         writer.bool(input.dead);
                     }

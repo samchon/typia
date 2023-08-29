@@ -1,14 +1,26 @@
 syntax = "proto3";
 
-message ArraySimpleProtobuf {
-    repeated bool boolean = 1;
-    repeated int32 int32 = 2;
-    repeated uint32 uint32 = 3;
-    repeated int64 int64 = 4;
-    repeated int64 uint64 = 5;
-    repeated float float = 6;
-    repeated double double = 7;
-    repeated string string = 8;
-    repeated bytes bytes = 9;
-    repeated ArraySimpleProtobuf objects = 10;
+message TypeTagExample {
+    required int32 int32 = 1;
+    required uint32 uint32 = 2;
+    required uint64 uint64 = 3;
+    required int64 int64 = 4;
+    required float float = 5;
+    optional double double = 6;
+    optional string string = 7;
+    oneof uint32_or_double {
+        uint32 v8 = 8;
+        double v9 = 9;
+    }
+    oneof int32_or_uint64 {
+        int32 v10 = 10;
+        uint64 v11 = 11;
+    }
+    oneof int32_or_float_or_uint64 {
+        int32 v12 = 12;
+        uint64 v13 = 13;
+        float v14 = 14;
+    }
+    repeated uint64 uint64_array = 15;
+    map<int32, string> int32_map = 16;
 }

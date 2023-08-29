@@ -3,7 +3,6 @@ import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 
 ## `encode()` functions
-
 <Tabs items={[
     <code>typia</code>, 
     <code>TypeGuardError.ts</code>, 
@@ -53,13 +52,516 @@ export namespace IValidation {
     </Tab>
 </Tabs>
 
+Protocol Buffer Encoder.
+
+You can easily convert a JavaScript object to a binary data of Protocol Buffer, without any extra Protocol Buffer [Message Schema](./message) definition. `typia.protobuf.encode<T>()` function analyzes your type `T`, and generates a Protocol Buffer Message Schema internally. And then, it converts the `input` instance to the binary data of Protocol Buffer format.
+
+By the way, `typia.protobuf.encode<T>()` function does not validate the `input` value. It just believes user and `input` value, and converts to the Protocol Buffer binary data directly without any validation. By the way, if the `input` value was not validate, the encoded binary data never can be decoded. So, if you can't sure the `input` value type, you should use below functions instead.
+
+  - `typia.protobuf.isEncode<T>()`: [`typia.is<T>()`](../validators/is) + `typia.protobuf.encode<T>()`
+  - `typia.protobuf.assertEncode<T>()`: [`typia.assert<T>()`](../validators/assert) + `typia.protobuf.encode<T>()`
+  - `typia.protobuf.validateEncode<T>()`: [`typia.validate<T>()`](../validators/validate) + `typia.protobuf.encode<T>()`
+
+<br/>
+<Alert severity="success">
+    <AlertTitle> 
+        **AOT compliation** 
+    </AlertTitle>
+
+`typia.protobuf.encode<T>()` and other similar functions are still much faster than any other competitive libraries, even though they include type checking process. This is the power of AOT compilation, writing optimal dedicated code by analyzing TypeScript type, in the compilation level.
+
+</Alert>
+
+<Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
+    <Tab>
+```typescript copy filename="protobuf.encode.ts" showLineNumbers
+import typia, { tags } from "typia";
+
+interface ICustomer {
+    id: number & tags.Type<"int32">;
+    email: string & tags.Format<"email">;
+    name: string;
+    pet: null | ICat | IDog;
+    memo: null | Map<string, string>;
+    logins: Array<ICustomerLogin>;
+}
+interface ICat {
+    type: "cat";
+    name: string;
+    ribbon: boolean;
+}
+interface IDog {
+    type: "dog";
+    name: string;
+    hunt: boolean;
+}
+interface ICustomerLogin {
+    success: boolean;
+    href: string & tags.Format<"url">;
+    referrer: string & tags.Format<"url">;
+    ip: string & (tags.Format<"ipv4"> | tags.Format<"ipv6">);
+    time: string & tags.Format<"date-time">;
+}
+
+const customer: ICustomer = typia.random<ICustomer>();
+typia.protobuf.encode<ICustomer>(customer);
+```
+    </Tab>
+    <Tab>
+```typescript copy filename="protobuf.encode.js" showLineNumbers
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const typia_1 = __importDefault(require("typia"));
+const customer = (generator => {
+    const $generator = typia_1.default.random.generator;
+    const $pick = typia_1.default.random.pick;
+    const $ro0 = (_recursive = false, _depth = 0) => ({
+        id: (generator?.customs ?? $generator.customs)?.number?.([
+            {
+                name: "Type<\"int32\">",
+                kind: "type",
+                value: "int32",
+            }
+        ]) ?? (generator?.integer ?? $generator.integer)(0, 100),
+        email: (generator?.customs ?? $generator.customs)?.string?.([
+            {
+                name: "Format<\"email\">",
+                kind: "format",
+                value: "email",
+            }
+        ]) ?? (generator?.email ?? $generator.email)(),
+        name: (generator?.customs ?? $generator.customs)?.string?.([]) ?? (generator?.string ?? $generator.string)(),
+        pet: $pick([
+            () => null,
+            () => $ro1(_recursive, _recursive ? 1 + _depth : _depth),
+            () => $ro2(_recursive, _recursive ? 1 + _depth : _depth)
+        ])(),
+        memo: $pick([
+            () => null,
+            () => new Map((generator?.array ?? $generator.array)(() => [
+                (generator?.customs ?? $generator.customs)?.string?.([]) ?? (generator?.string ?? $generator.string)(),
+                (generator?.customs ?? $generator.customs)?.string?.([]) ?? (generator?.string ?? $generator.string)()
+            ]))
+        ])(),
+        logins: (generator?.array ?? $generator.array)(() => $ro3(_recursive, _recursive ? 1 + _depth : _depth))
+    });
+    const $ro1 = (_recursive = false, _depth = 0) => ({
+        type: "cat",
+        name: (generator?.customs ?? $generator.customs)?.string?.([]) ?? (generator?.string ?? $generator.string)(),
+        ribbon: (generator?.boolean ?? $generator.boolean)()
+    });
+    const $ro2 = (_recursive = false, _depth = 0) => ({
+        type: "dog",
+        name: (generator?.customs ?? $generator.customs)?.string?.([]) ?? (generator?.string ?? $generator.string)(),
+        hunt: (generator?.boolean ?? $generator.boolean)()
+    });
+    const $ro3 = (_recursive = false, _depth = 0) => ({
+        success: (generator?.boolean ?? $generator.boolean)(),
+        href: (generator?.customs ?? $generator.customs)?.string?.([
+            {
+                name: "Format<\"url\">",
+                kind: "format",
+                value: "url",
+            }
+        ]) ?? (generator?.url ?? $generator.url)(),
+        referrer: (generator?.customs ?? $generator.customs)?.string?.([
+            {
+                name: "Format<\"url\">",
+                kind: "format",
+                value: "url",
+            }
+        ]) ?? (generator?.url ?? $generator.url)(),
+        ip: $pick([
+            () => (generator?.customs ?? $generator.customs)?.string?.([
+                {
+                    name: "Format<\"ipv4\">",
+                    kind: "format",
+                    value: "ipv4",
+                }
+            ]) ?? (generator?.ipv4 ?? $generator.ipv4)(),
+            () => (generator?.customs ?? $generator.customs)?.string?.([
+                {
+                    name: "Format<\"ipv6\">",
+                    kind: "format",
+                    value: "ipv6",
+                }
+            ]) ?? (generator?.ipv6 ?? $generator.ipv6)()
+        ])(),
+        time: (generator?.customs ?? $generator.customs)?.string?.([
+            {
+                name: "Format<\"date-time\">",
+                kind: "format",
+                value: "date-time",
+            }
+        ]) ?? (generator?.datetime ?? $generator.datetime)()
+    });
+    return $ro0();
+})();
+(input => {
+    const $throws = typia_1.default.protobuf.encode.throws;
+    const $Sizer = typia_1.default.protobuf.encode.Sizer;
+    const $Writer = typia_1.default.protobuf.encode.Writer;
+    const encoder = writer => {
+        const $peo0 = input => {
+            // property "id";
+            writer.uint32(8);
+            writer.int32(input.id);
+            // property "email";
+            writer.uint32(18);
+            writer.string(input.email);
+            // property "name";
+            writer.uint32(26);
+            writer.string(input.name);
+            // property "pet";
+            if (null !== input.pet) {
+                if ("cat" === input.pet.type)
+                    return (() => {
+                        // 4 -> ICat;
+                        writer.uint32(34);
+                        writer.fork();
+                        $peo1(input.pet);
+                        writer.ldelim();
+                    })();
+                else if ("dog" === input.pet.type)
+                    return (() => {
+                        // 5 -> IDog;
+                        writer.uint32(42);
+                        writer.fork();
+                        $peo2(input.pet);
+                        writer.ldelim();
+                    })();
+                else
+                    $throws({
+                        expected: "(ICat | IDog)",
+                        value: input.pet
+                    });
+            }
+            // property "memo";
+            if (null !== input.memo) {
+                for (const [key, value] of input.memo) {
+                    writer.uint32(50);
+                    writer.fork();
+                    writer.uint32(10);
+                    writer.string(key);
+                    writer.uint32(18);
+                    writer.string(value);
+                    writer.ldelim();
+                }
+            }
+            // property "logins";
+            if (0 !== input.logins.length) {
+                for (const elem of input.logins) {
+                    // 7 -> ICustomerLogin;
+                    writer.uint32(58);
+                    writer.fork();
+                    $peo3(elem);
+                    writer.ldelim();
+                }
+            }
+        };
+        const $peo1 = input => {
+            // property "type";
+            writer.uint32(10);
+            writer.string(input.type);
+            // property "name";
+            writer.uint32(18);
+            writer.string(input.name);
+            // property "ribbon";
+            writer.uint32(24);
+            writer.bool(input.ribbon);
+        };
+        const $peo2 = input => {
+            // property "type";
+            writer.uint32(10);
+            writer.string(input.type);
+            // property "name";
+            writer.uint32(18);
+            writer.string(input.name);
+            // property "hunt";
+            writer.uint32(24);
+            writer.bool(input.hunt);
+        };
+        const $peo3 = input => {
+            // property "success";
+            writer.uint32(8);
+            writer.bool(input.success);
+            // property "href";
+            writer.uint32(18);
+            writer.string(input.href);
+            // property "referrer";
+            writer.uint32(26);
+            writer.string(input.referrer);
+            // property "ip";
+            writer.uint32(34);
+            writer.string(input.ip);
+            // property "time";
+            writer.uint32(42);
+            writer.string(input.time);
+        };
+        const $io1 = input => "cat" === input.type && "string" === typeof input.name && "boolean" === typeof input.ribbon;
+        const $io2 = input => "dog" === input.type && "string" === typeof input.name && "boolean" === typeof input.hunt;
+        const $io3 = input => "boolean" === typeof input.success && ("string" === typeof input.href && (/^[a-zA-Z0-9]+:/ / ( ?  : www.) ? [-a - zA - Z0 - 9, (),  % ._ + ~#] : )) && ("string" === typeof input.referrer && (/^[a-zA-Z0-9]+:/ / ( ?  : www.) ? [-a - zA - Z0 - 9, (),  % ._ + ~#] : )) && ("string" === typeof input.ip && (/^(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/.test(input.ip) || /^(([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,7}:|([0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,5}(:[0-9a-fA-F]{1,4}){1,2}|([0-9a-fA-F]{1,4}:){1,4}(:[0-9a-fA-F]{1,4}){1,3}|([0-9a-fA-F]{1,4}:){1,3}(:[0-9a-fA-F]{1,4}){1,4}|([0-9a-fA-F]{1,4}:){1,2}(:[0-9a-fA-F]{1,4}){1,5}|[0-9a-fA-F]{1,4}:((:[0-9a-fA-F]{1,4}){1,6})|:((:[0-9a-fA-F]{1,4}){1,7}|:)|fe80:(:[0-9a-fA-F]{0,4}){0,4}%[0-9a-zA-Z]{1,}|::(ffff(:0{1,4}){0,1}:){0,1}((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9]).){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])|([0-9a-fA-F]{1,4}:){1,4}:((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9]).){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9]))$/.test(input.ip))) && ("string" === typeof input.time && !isNaN(new Date(input.time).getTime()));
+        const $iu0 = input => (() => {
+            if ("cat" === input.type)
+                return $io1(input);
+            else if ("dog" === input.type)
+                return $io2(input);
+            else
+                return false;
+        })();
+        //ICustomer;
+        $peo0(input);
+        return writer;
+    };
+    const sizer = encoder(new $Sizer());
+    const writer = encoder(new $Writer(sizer));
+    return writer.buffer();
+})(customer);
+```
+    </Tab>
+</Tabs>
 
 
 
 ## Reusable Functions
+<Tabs items={[
+    <code>typia</code>, 
+    <code>TypeGuardError.ts</code>, 
+    <code>IValidation.ts</code>
+]}>
+    <Tab>
+```typescript
+export namespace protobuf {
+    export function encode<T>(): (buffer: Uint8Array) => T;
+    export function isEncode<T>(): (buffer: Uint8Array) => T | null;
+    export function assertEncode<T>(): (buffer: Uint8Array) => T;
+    export function validateEncode<T>(): (
+        buffer: Uint8Array
+    ) => IValidation<T>;
+}
+```
+    </Tab>
+    <Tab>
+```typescript copy
+export class TypeGuardError extends Error {
+    public readonly method: string;
+    public readonly path: string | undefined;
+    public readonly expected: string;
+    public readonly value: any;
+}
+```
+    </Tab>
+    <Tab>
+```typescript copy
+export type IValidation<T> =
+    | IValidation.ISuccess<T>
+    | IValidation.IFailure;
+export namespace IValidation {
+    export interface ISuccess<T> {
+        success: true;
+        data: T;
+    }
+    export interface IFailure {
+        success: false;
+        errors: IError[];
+    }
+    export interface IError {
+        path: string;
+        expected: string;
+        value: any;
+    }
+}
+```
+    </Tab>
+</Tabs>
+
+Reusable `typia.protobuf.encode<T>()` function generators.
+
+If you repeat to call `typia.protobuf.encode<T>()` function on the same type, size of JavaScript files would be larger because of duplicated AOT compilation. To prevent it, you can generate reusable function through `typia.protobuf.createEncode<T>()` function.
+
+Just look at the code below, then you may understand how to use it.
+
+<Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
+    <Tab>
+```typescript copy filename="protobuf.createEncode.ts" showLineNumbers
+import typia, { tags } from "typia";
+
+export const encode = typia.protobuf.createEncode<ICustomer>();
+
+interface ICustomer {
+    id: number & tags.Type<"int32">;
+    email: string & tags.Format<"email">;
+    name: string;
+    pet: null | ICat | IDog;
+    memo: null | Map<string, string>;
+    logins: Array<ICustomerLogin>;
+}
+interface ICat {
+    type: "cat";
+    name: string;
+    ribbon: boolean;
+}
+interface IDog {
+    type: "dog";
+    name: string;
+    hunt: boolean;
+}
+interface ICustomerLogin {
+    success: boolean;
+    href: string & tags.Format<"url">;
+    referrer: string & tags.Format<"url">;
+    ip: string & (tags.Format<"ipv4"> | tags.Format<"ipv6">);
+    time: string & tags.Format<"date-time">;
+}
+```
+    </Tab>
+    <Tab>
+```typescript copy filename="protobuf.createEncode.js" showLineNumbers
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.encode = void 0;
+const typia_1 = __importDefault(require("typia"));
+const encode = input => {
+    const $throws = typia_1.default.protobuf.createEncode.throws;
+    const $Sizer = typia_1.default.protobuf.createEncode.Sizer;
+    const $Writer = typia_1.default.protobuf.createEncode.Writer;
+    const encoder = writer => {
+        const $peo0 = input => {
+            // property "id";
+            writer.uint32(8);
+            writer.int32(input.id);
+            // property "email";
+            writer.uint32(18);
+            writer.string(input.email);
+            // property "name";
+            writer.uint32(26);
+            writer.string(input.name);
+            // property "pet";
+            if (null !== input.pet) {
+                if ("cat" === input.pet.type)
+                    return (() => {
+                        // 4 -> ICat;
+                        writer.uint32(34);
+                        writer.fork();
+                        $peo1(input.pet);
+                        writer.ldelim();
+                    })();
+                else if ("dog" === input.pet.type)
+                    return (() => {
+                        // 5 -> IDog;
+                        writer.uint32(42);
+                        writer.fork();
+                        $peo2(input.pet);
+                        writer.ldelim();
+                    })();
+                else
+                    $throws({
+                        expected: "(ICat | IDog)",
+                        value: input.pet
+                    });
+            }
+            // property "memo";
+            if (null !== input.memo) {
+                for (const [key, value] of input.memo) {
+                    writer.uint32(50);
+                    writer.fork();
+                    writer.uint32(10);
+                    writer.string(key);
+                    writer.uint32(18);
+                    writer.string(value);
+                    writer.ldelim();
+                }
+            }
+            // property "logins";
+            if (0 !== input.logins.length) {
+                for (const elem of input.logins) {
+                    // 7 -> ICustomerLogin;
+                    writer.uint32(58);
+                    writer.fork();
+                    $peo3(elem);
+                    writer.ldelim();
+                }
+            }
+        };
+        const $peo1 = input => {
+            // property "type";
+            writer.uint32(10);
+            writer.string(input.type);
+            // property "name";
+            writer.uint32(18);
+            writer.string(input.name);
+            // property "ribbon";
+            writer.uint32(24);
+            writer.bool(input.ribbon);
+        };
+        const $peo2 = input => {
+            // property "type";
+            writer.uint32(10);
+            writer.string(input.type);
+            // property "name";
+            writer.uint32(18);
+            writer.string(input.name);
+            // property "hunt";
+            writer.uint32(24);
+            writer.bool(input.hunt);
+        };
+        const $peo3 = input => {
+            // property "success";
+            writer.uint32(8);
+            writer.bool(input.success);
+            // property "href";
+            writer.uint32(18);
+            writer.string(input.href);
+            // property "referrer";
+            writer.uint32(26);
+            writer.string(input.referrer);
+            // property "ip";
+            writer.uint32(34);
+            writer.string(input.ip);
+            // property "time";
+            writer.uint32(42);
+            writer.string(input.time);
+        };
+        const $io1 = input => "cat" === input.type && "string" === typeof input.name && "boolean" === typeof input.ribbon;
+        const $io2 = input => "dog" === input.type && "string" === typeof input.name && "boolean" === typeof input.hunt;
+        const $io3 = input => "boolean" === typeof input.success && ("string" === typeof input.href && (/^[a-zA-Z0-9]+:/ / ( ?  : www.) ? [-a - zA - Z0 - 9, (),  % ._ + ~#] : )) && ("string" === typeof input.referrer && (/^[a-zA-Z0-9]+:/ / ( ?  : www.) ? [-a - zA - Z0 - 9, (),  % ._ + ~#] : )) && ("string" === typeof input.ip && (/^(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/.test(input.ip) || /^(([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,7}:|([0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,5}(:[0-9a-fA-F]{1,4}){1,2}|([0-9a-fA-F]{1,4}:){1,4}(:[0-9a-fA-F]{1,4}){1,3}|([0-9a-fA-F]{1,4}:){1,3}(:[0-9a-fA-F]{1,4}){1,4}|([0-9a-fA-F]{1,4}:){1,2}(:[0-9a-fA-F]{1,4}){1,5}|[0-9a-fA-F]{1,4}:((:[0-9a-fA-F]{1,4}){1,6})|:((:[0-9a-fA-F]{1,4}){1,7}|:)|fe80:(:[0-9a-fA-F]{0,4}){0,4}%[0-9a-zA-Z]{1,}|::(ffff(:0{1,4}){0,1}:){0,1}((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9]).){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])|([0-9a-fA-F]{1,4}:){1,4}:((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9]).){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9]))$/.test(input.ip))) && ("string" === typeof input.time && !isNaN(new Date(input.time).getTime()));
+        const $iu0 = input => (() => {
+            if ("cat" === input.type)
+                return $io1(input);
+            else if ("dog" === input.type)
+                return $io2(input);
+            else
+                return false;
+        })();
+        //ICustomer;
+        $peo0(input);
+        return writer;
+    };
+    const sizer = encoder(new $Sizer());
+    const writer = encoder(new $Writer(sizer));
+    return writer.buffer();
+};
+exports.encode = encode;
+```
+    </Tab>
+</Tabs>
 
 
 
 
+## References
+Protocol Buffer supports special numeric types like `int32` or `uint64` that are not supported in TypeScript. Also, types of Protocol Buffer cannot fully meet TypeScript type specs either, as expression power of TypeScript types are much stronger than Protocol Buffer.
 
-## Comment Tags
+To know how to define special numeric types like `uint64`, and to understand which TypeScript types are not supported in Protocol Buffer specs, it would better to read below documents. I recommend you to read them before using `typia.protobuf.encode<T>()` related functions.
+
+  - [Typia Guide Documents > Protocol Buffer > Message Schema](./message)
+    - [`message()` function](./message#message-function)
+    - [Type Tags](./message#type-tags)
+    - [Comment Tags](./message#comment-tags)
+    - [Restrictions](./message#restrictions)

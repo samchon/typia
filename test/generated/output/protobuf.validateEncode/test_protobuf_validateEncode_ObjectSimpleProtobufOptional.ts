@@ -222,71 +222,47 @@ export const test_protobuf_validateEncode_ObjectSimpleProtobufOptional =
                     const encoder = (writer: any): any => {
                         const $peo0 = (input: any): any => {
                             // property "bool";
-                            if (undefined != input.bool && null != input.bool) {
+                            if (undefined !== input.bool) {
                                 writer.uint32(8);
                                 writer.bool(input.bool);
                             }
                             // property "int32";
-                            if (
-                                undefined != input.int32 &&
-                                null != input.int32
-                            ) {
+                            if (undefined !== input.int32) {
                                 writer.uint32(16);
                                 writer.int32(input.int32);
                             }
                             // property "uint32";
-                            if (
-                                undefined != input.uint32 &&
-                                null != input.uint32
-                            ) {
+                            if (undefined !== input.uint32) {
                                 writer.uint32(24);
                                 writer.uint32(input.uint32);
                             }
                             // property "int64";
-                            if (
-                                undefined != input.int64 &&
-                                null != input.int64
-                            ) {
+                            if (undefined !== input.int64) {
                                 writer.uint32(32);
                                 writer.int64(input.int64);
                             }
                             // property "uint64";
-                            if (
-                                undefined != input.uint64 &&
-                                null != input.uint64
-                            ) {
+                            if (undefined !== input.uint64) {
                                 writer.uint32(40);
                                 writer.uint64(input.uint64);
                             }
                             // property "float";
-                            if (
-                                undefined != input.float &&
-                                null != input.float
-                            ) {
+                            if (undefined !== input.float) {
                                 writer.uint32(53);
                                 writer.float(input.float);
                             }
                             // property "double";
-                            if (
-                                undefined != input.double &&
-                                null != input.double
-                            ) {
+                            if (undefined !== input.double) {
                                 writer.uint32(57);
                                 writer.double(input.double);
                             }
                             // property "string";
-                            if (
-                                undefined != input.string &&
-                                null != input.string
-                            ) {
+                            if (undefined !== input.string) {
                                 writer.uint32(66);
                                 writer.string(input.string);
                             }
                             // property "bytes";
-                            if (
-                                undefined != input.bytes &&
-                                null != input.bytes
-                            ) {
+                            if (undefined !== input.bytes) {
                                 writer.uint32(74);
                                 writer.bytes(input.bytes);
                             }

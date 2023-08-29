@@ -25,20 +25,14 @@ export const test_random_TypeTagLength = _test_random(
                 fixed:
                     (generator?.customs ?? $generator.customs)?.string?.([
                         {
-                            target: "string",
                             name: "MinLength<5>",
                             kind: "minLength",
                             value: 5,
-                            validate: "5 <= $input.length",
-                            exclusive: true,
                         },
                         {
-                            target: "string",
                             name: "MaxLength<5>",
                             kind: "maxLength",
                             value: 5,
-                            validate: "$input.length <= 5",
-                            exclusive: true,
                         },
                     ]) ??
                     (generator?.string ?? $generator.string)(
@@ -47,12 +41,9 @@ export const test_random_TypeTagLength = _test_random(
                 minimum:
                     (generator?.customs ?? $generator.customs)?.string?.([
                         {
-                            target: "string",
                             name: "MinLength<3>",
                             kind: "minLength",
                             value: 3,
-                            validate: "3 <= $input.length",
-                            exclusive: true,
                         },
                     ]) ??
                     (generator?.string ?? $generator.string)(
@@ -61,12 +52,9 @@ export const test_random_TypeTagLength = _test_random(
                 maximum:
                     (generator?.customs ?? $generator.customs)?.string?.([
                         {
-                            target: "string",
                             name: "MaxLength<7>",
                             kind: "maxLength",
                             value: 7,
-                            validate: "$input.length <= 7",
-                            exclusive: true,
                         },
                     ]) ??
                     (generator?.string ?? $generator.string)(
@@ -75,20 +63,14 @@ export const test_random_TypeTagLength = _test_random(
                 minimum_and_maximum:
                     (generator?.customs ?? $generator.customs)?.string?.([
                         {
-                            target: "string",
                             name: "MinLength<3>",
                             kind: "minLength",
                             value: 3,
-                            validate: "3 <= $input.length",
-                            exclusive: true,
                         },
                         {
-                            target: "string",
                             name: "MaxLength<7>",
                             kind: "maxLength",
                             value: 7,
-                            validate: "$input.length <= 7",
-                            exclusive: true,
                         },
                     ]) ??
                     (generator?.string ?? $generator.string)(
@@ -97,20 +79,14 @@ export const test_random_TypeTagLength = _test_random(
                 equal:
                     (generator?.customs ?? $generator.customs)?.string?.([
                         {
-                            target: "string",
                             name: "MinLength<10>",
                             kind: "minLength",
                             value: 10,
-                            validate: "10 <= $input.length",
-                            exclusive: true,
                         },
                         {
-                            target: "string",
                             name: "MaxLength<19>",
                             kind: "maxLength",
                             value: 19,
-                            validate: "$input.length <= 19",
-                            exclusive: true,
                         },
                     ]) ??
                     (generator?.string ?? $generator.string)(

@@ -171,7 +171,7 @@ export const test_protobuf_validateEncode_ObjectRecursive =
                     const encoder = (writer: any): any => {
                         const $peo0 = (input: any): any => {
                             // property "parent";
-                            if (null != input.parent) {
+                            if (null !== input.parent) {
                                 // 1 -> ObjectRecursive.IDepartment;
                                 writer.uint32(10);
                                 writer.fork();

@@ -19,65 +19,46 @@ export const test_random_TypeTagNaN = _test_random("TypeTagNaN")<TypeTagNaN>(
             ranged:
                 (generator?.customs ?? $generator.customs)?.number?.([
                     {
-                        target: "number",
                         name: "Minimum<0>",
                         kind: "minimum",
                         value: 0,
-                        validate: "0 <= $input",
-                        exclusive: ["minimum", "exclusiveMinimum"],
                     },
                     {
-                        target: "number",
                         name: "Maximum<100>",
                         kind: "maximum",
                         value: 100,
-                        validate: "$input <= 100",
-                        exclusive: ["maximum", "exclusiveMaximum"],
                     },
                 ]) ?? (generator?.number ?? $generator.number)(0, 100),
             minimum:
                 (generator?.customs ?? $generator.customs)?.number?.([
                     {
-                        target: "number",
                         name: "Minimum<0>",
                         kind: "minimum",
                         value: 0,
-                        validate: "0 <= $input",
-                        exclusive: ["minimum", "exclusiveMinimum"],
                     },
                 ]) ?? (generator?.number ?? $generator.number)(0, 10),
             maximum:
                 (generator?.customs ?? $generator.customs)?.number?.([
                     {
-                        target: "number",
                         name: "Maximum<100>",
                         kind: "maximum",
                         value: 100,
-                        validate: "$input <= 100",
-                        exclusive: ["maximum", "exclusiveMaximum"],
                     },
                 ]) ?? (generator?.number ?? $generator.number)(90, 100),
             multipleOf:
                 (generator?.customs ?? $generator.customs)?.number?.([
                     {
-                        target: "number",
                         name: "MultipleOf<3>",
                         kind: "multipleOf",
                         value: 3,
-                        validate: "$input % 3 === 0",
-                        exclusive: true,
                     },
                 ]) ?? 3 * (generator?.integer ?? $generator.integer)(0, 10),
             typed:
                 (generator?.customs ?? $generator.customs)?.number?.([
                     {
-                        target: "number",
                         name: 'Type<"int32">',
                         kind: "type",
                         value: "int32",
-                        validate:
-                            "Math.floor($input) === $input && -2147483648 <= $input && $input <= 2147483647",
-                        exclusive: true,
                     },
                 ]) ?? (generator?.integer ?? $generator.integer)(0, 100),
         });

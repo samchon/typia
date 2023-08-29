@@ -208,19 +208,19 @@ export namespace ProtobufEncodeProgrammer {
             const wrapper: (block: ts.Block) => ts.Block =
                 meta.isRequired() && meta.nullable === false
                     ? (block) => block
-                    : meta.isRequired() === false && meta.nullable === false
+                    : meta.isRequired() === false && meta.nullable === true
                     ? (block) =>
                           ts.factory.createBlock(
                               [
                                   ts.factory.createIfStatement(
                                       ts.factory.createLogicalAnd(
-                                          ts.factory.createInequality(
+                                          ts.factory.createStrictInequality(
                                               ts.factory.createIdentifier(
                                                   "undefined",
                                               ),
                                               input,
                                           ),
-                                          ts.factory.createInequality(
+                                          ts.factory.createStrictInequality(
                                               ts.factory.createNull(),
                                               input,
                                           ),
@@ -235,7 +235,7 @@ export namespace ProtobufEncodeProgrammer {
                           ts.factory.createBlock(
                               [
                                   ts.factory.createIfStatement(
-                                      ts.factory.createInequality(
+                                      ts.factory.createStrictInequality(
                                           ts.factory.createIdentifier(
                                               "undefined",
                                           ),
@@ -250,7 +250,7 @@ export namespace ProtobufEncodeProgrammer {
                           ts.factory.createBlock(
                               [
                                   ts.factory.createIfStatement(
-                                      ts.factory.createInequality(
+                                      ts.factory.createStrictInequality(
                                           ts.factory.createNull(),
                                           input,
                                       ),

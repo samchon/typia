@@ -312,7 +312,7 @@ export const test_protobuf_validateEncode_ObjectNullable =
                             $peo2(input.manufacturer);
                             writer.ldelim();
                             // property "brand";
-                            if (null != input.brand) {
+                            if (null !== input.brand) {
                                 // 3 -> ObjectNullable.IBrand;
                                 writer.uint32(26);
                                 writer.fork();
@@ -320,7 +320,7 @@ export const test_protobuf_validateEncode_ObjectNullable =
                                 writer.ldelim();
                             }
                             // property "similar";
-                            if (null != input.similar) {
+                            if (null !== input.similar) {
                                 if ("brand" === input.similar.type)
                                     return (() => {
                                         // 4 -> ObjectNullable.IBrand;
