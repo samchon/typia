@@ -45,11 +45,11 @@ In the below example case, as `id` and `age` values are different with its defin
 
   - `errors[0]`
     - `path`: `input.id`
-    - `expected`: `string`
+    - `expected`: `string & Format<"uuid">`
     - `value`: 5
   - `errors[1]`
     - `path`: `input.age`
-    - `expected`: `number (@type int)`
+    - `expected`: `number & Format<"uint32">`
     - `value`: 20.75
 
 <br/>
@@ -69,7 +69,7 @@ Yeah, `typia` needs only pure TypeScript type. As `typia` is a compiler library,
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
     <Tab>
-```typescript copy filename="examples/src/validate.ts" showLineNumbers {3-7, 9}
+```typescript copy filename="examples/src/validate.ts" showLineNumbers
 import typia from "typia";
 
 const res: typia.IValidation<IMember> = typia.validate<IMember>({
@@ -81,96 +81,105 @@ const res: typia.IValidation<IMember> = typia.validate<IMember>({
 if (!res.success) console.log(res.errors);
 
 interface IMember {
-    /**
-     * @format uuid
-     */
-    id: string;
-
-    /**
-     * @format email
-     */
-    email: string;
-
-    /**
-     * @type int
-     * @exclusiveMinimum 19
-     * @maximum 100
-     */
-    age: number;
+    id: string & tags.Format<"uuid">;
+    email: string & tags.Format<"email">;
+    age: number 
+        & tags.Type<"uint32"> 
+        & tags.ExclusiveMinimum<19> 
+        & tags.Maximum<100>;
 }
 ```
     </Tab>
     <Tab>
-```javascript filename="examples/bin/validate.js" showLineNumbers {2-97, 99}
-import typia from "typia";
-
+```javascript filename="examples/bin/validate.js" showLineNumbers
+"use strict";
+var __importDefault =
+    (this && this.__importDefault) ||
+    function (mod) {
+        return mod && mod.__esModule ? mod : { default: mod };
+    };
+Object.defineProperty(exports, "__esModule", { value: true });
+const typia_1 = __importDefault(require("typia"));
 const res = ((input) => {
+    const errors = [];
     const __is = (input) => {
-        const $is_uuid = typia.validate.is_uuid;
-        const $is_email = typia.validate.is_email;
         return (
-            "object" === typeof input && null !== input &&
-            "string" === typeof input.id && $is_uuid(input.id) &&
-            "string" === typeof input.email && $is_email(input.email) &&
-            "number" === typeof input.age && 
-                parseInt(input.age) === input.age &&
-                19 < input.age && 100 >= input.age
+            "object" === typeof input &&
+            null !== input &&
+            "string" === typeof input.id &&
+            /^(?:[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}|00000000-0000-0000-0000-000000000000)$/i.test(
+                input.id,
+            ) &&
+            "string" === typeof input.email &&
+            /^(([^<>()[].,;:s@"]+(.[^<>()[].,;:s@"]+)*)|(".+"))@(([^<>()[].,;:s@"]+.)+[^<>()[].,;:s@"]{2,})$/i.test(
+                input.email,
+            ) &&
+            "number" === typeof input.age &&
+            Math.floor(input.age) === input.age &&
+            0 <= input.age &&
+            input.age <= 4294967295 &&
+            19 < input.age &&
+            input.age <= 100
         );
     };
-    const errors = [];
-    const $report = typia.validate.report(errors);
-    const $is_uuid = typia.validate.is_uuid;
-    const $is_email = typia.validate.is_email;
-    if (false === __is(input))
+    if (false === __is(input)) {
+        const $report = typia_1.default.validate.report(errors);
         ((input, _path, _exceptionable = true) => {
             const $vo0 = (input, _path, _exceptionable = true) =>
                 [
                     ("string" === typeof input.id &&
-                        ($is_uuid(input.id) ||
+                        (/^(?:[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}|00000000-0000-0000-0000-000000000000)$/i.test(
+                            input.id,
+                        ) ||
                             $report(_exceptionable, {
                                 path: _path + ".id",
-                                expected: "string (@format uuid)",
+                                expected: 'string & Format<"uuid">',
                                 value: input.id,
                             }))) ||
                         $report(_exceptionable, {
                             path: _path + ".id",
-                            expected: "string",
+                            expected: '(string & Format<"uuid">)',
                             value: input.id,
                         }),
                     ("string" === typeof input.email &&
-                        ($is_email(input.email) ||
+                        (/^(([^<>()[].,;:s@"]+(.[^<>()[].,;:s@"]+)*)|(".+"))@(([^<>()[].,;:s@"]+.)+[^<>()[].,;:s@"]{2,})$/i.test(
+                            input.email,
+                        ) ||
                             $report(_exceptionable, {
                                 path: _path + ".email",
-                                expected: "string (@format email)",
+                                expected: 'string & Format<"email">',
                                 value: input.email,
                             }))) ||
                         $report(_exceptionable, {
                             path: _path + ".email",
-                            expected: "string",
+                            expected: '(string & Format<"email">)',
                             value: input.email,
                         }),
                     ("number" === typeof input.age &&
-                        (parseInt(input.age) === input.age ||
+                        ((Math.floor(input.age) === input.age &&
+                            0 <= input.age &&
+                            input.age <= 4294967295) ||
                             $report(_exceptionable, {
                                 path: _path + ".age",
-                                expected: "number (@type int)",
+                                expected: 'number & Type<"uint32">',
                                 value: input.age,
                             })) &&
                         (19 < input.age ||
                             $report(_exceptionable, {
                                 path: _path + ".age",
-                                expected: "number (@exclusiveMinimum 19)",
+                                expected: "number & ExclusiveMinimum<19>",
                                 value: input.age,
                             })) &&
-                        (100 >= input.age ||
+                        (input.age <= 100 ||
                             $report(_exceptionable, {
                                 path: _path + ".age",
-                                expected: "number (@maximum 100)",
+                                expected: "number & Maximum<100>",
                                 value: input.age,
                             }))) ||
                         $report(_exceptionable, {
                             path: _path + ".age",
-                            expected: "number",
+                            expected:
+                                '(number & Type<"uint32"> & ExclusiveMinimum<19> & Maximum<100>)',
                             value: input.age,
                         }),
                 ].every((flag) => flag);
@@ -189,6 +198,7 @@ const res = ((input) => {
                 })
             );
         })(input, "$input", true);
+    }
     const success = 0 === errors.length;
     return {
         success,
@@ -196,8 +206,8 @@ const res = ((input) => {
         data: success ? input : undefined,
     };
 })({
-    id: 5, // wrong, must be string (uuid)
-    age: 20.75, // wrong, not integer
+    id: 5,
+    age: 20.75,
     email: "samchon.github@gmail.com",
 });
 if (!res.success) console.log(res.errors);
@@ -260,8 +270,8 @@ In the below example case, as `id` property is different with its type definitio
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
     <Tab>
-```typescript copy filename="examples/src/validateEquals.ts" showLineNumbers {3-8, 10}
-import typia from "typia";
+```typescript copy filename="examples/src/validateEquals.ts" showLineNumbers
+import typia, { tags } from "typia";
 
 const res: typia.IValidation<IMember> = typia.validateEquals<IMember>({
     age: 30,
@@ -273,41 +283,43 @@ const res: typia.IValidation<IMember> = typia.validateEquals<IMember>({
 if (!res.success) console.log(res.errors);
 
 interface IMember {
-    /**
-     * @format uuid
-     */
-    id: string;
-
-    /**
-     * @format email
-     */
-    email: string;
-
-    /**
-     * @type int
-     * @exclusiveMinimum 19
-     * @maximum 100
-     */
-    age: number;
+    id: string & tags.Format<"uuid">;
+    email: string & tags.Format<"email">;
+    age: number 
+        & tags.Type<"uint32"> 
+        & tags.ExclusiveMinimum<19> 
+        & tags.Maximum<100>;
 }
 ```
     </Tab>
     <Tab>
-```javascript filename="examples/bin/validateEquals.js" showLineNumbers {3-128, 130}
-import typia from "typia";
-
+```javascript filename="examples/bin/validateEquals.js" showLineNumbers
+"use strict";
+var __importDefault =
+    (this && this.__importDefault) ||
+    function (mod) {
+        return mod && mod.__esModule ? mod : { default: mod };
+    };
+Object.defineProperty(exports, "__esModule", { value: true });
+const typia_1 = __importDefault(require("typia"));
 const res = ((input) => {
+    const errors = [];
     const __is = (input, _exceptionable = true) => {
-        const $is_uuid = typia.validateEquals.is_uuid;
-        const $is_email = typia.validateEquals.is_email;
         const $io0 = (input, _exceptionable = true) =>
             "string" === typeof input.id &&
-            $is_uuid(input.id) &&
+            /^(?:[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}|00000000-0000-0000-0000-000000000000)$/i.test(
+                input.id,
+            ) &&
             "string" === typeof input.email &&
-            $is_email(input.email) &&
+            /^(([^<>()[].,;:s@"]+(.[^<>()[].,;:s@"]+)*)|(".+"))@(([^<>()[].,;:s@"]+.)+[^<>()[].,;:s@"]{2,})$/i.test(
+                input.email,
+            ) &&
             "number" === typeof input.age &&
-                parseInt(input.age) === input.age &&
-                19 < input.age && 100 >= input.age &&
+            Math.floor(input.age) === input.age &&
+            0 <= input.age &&
+            input.age <= 4294967295 &&
+            19 < input.age &&
+            input.age <= 100 &&
             (3 === Object.keys(input).length ||
                 Object.keys(input).every((key) => {
                     if (["id", "email", "age"].some((prop) => key === prop))
@@ -318,61 +330,65 @@ const res = ((input) => {
                 }));
         return "object" === typeof input && null !== input && $io0(input, true);
     };
-    const errors = [];
-    const $report = typia.validateEquals.report(errors);
-    const $is_uuid = typia.validateEquals.is_uuid;
-    const $is_email = typia.validateEquals.is_email;
-    const $join = typia.validateEquals.join;
-    if (false === __is(input))
+    if (false === __is(input)) {
+        const $report = typia_1.default.validateEquals.report(errors);
         ((input, _path, _exceptionable = true) => {
+            const $join = typia_1.default.validateEquals.join;
             const $vo0 = (input, _path, _exceptionable = true) =>
                 [
                     ("string" === typeof input.id &&
-                        ($is_uuid(input.id) ||
+                        (/^(?:[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}|00000000-0000-0000-0000-000000000000)$/i.test(
+                            input.id,
+                        ) ||
                             $report(_exceptionable, {
                                 path: _path + ".id",
-                                expected: "string (@format uuid)",
+                                expected: 'string & Format<"uuid">',
                                 value: input.id,
                             }))) ||
                         $report(_exceptionable, {
                             path: _path + ".id",
-                            expected: "string",
+                            expected: '(string & Format<"uuid">)',
                             value: input.id,
                         }),
                     ("string" === typeof input.email &&
-                        ($is_email(input.email) ||
+                        (/^(([^<>()[].,;:s@"]+(.[^<>()[].,;:s@"]+)*)|(".+"))@(([^<>()[].,;:s@"]+.)+[^<>()[].,;:s@"]{2,})$/i.test(
+                            input.email,
+                        ) ||
                             $report(_exceptionable, {
                                 path: _path + ".email",
-                                expected: "string (@format email)",
+                                expected: 'string & Format<"email">',
                                 value: input.email,
                             }))) ||
                         $report(_exceptionable, {
                             path: _path + ".email",
-                            expected: "string",
+                            expected: '(string & Format<"email">)',
                             value: input.email,
                         }),
                     ("number" === typeof input.age &&
-                        (parseInt(input.age) === input.age ||
+                        ((Math.floor(input.age) === input.age &&
+                            0 <= input.age &&
+                            input.age <= 4294967295) ||
                             $report(_exceptionable, {
                                 path: _path + ".age",
-                                expected: "number (@type int)",
+                                expected: 'number & Type<"uint32">',
                                 value: input.age,
                             })) &&
                         (19 < input.age ||
                             $report(_exceptionable, {
                                 path: _path + ".age",
-                                expected: "number (@exclusiveMinimum 19)",
+                                expected: "number & ExclusiveMinimum<19>",
                                 value: input.age,
                             })) &&
-                        (100 >= input.age ||
+                        (input.age <= 100 ||
                             $report(_exceptionable, {
                                 path: _path + ".age",
-                                expected: "number (@maximum 100)",
+                                expected: "number & Maximum<100>",
                                 value: input.age,
                             }))) ||
                         $report(_exceptionable, {
                             path: _path + ".age",
-                            expected: "number",
+                            expected:
+                                '(number & Type<"uint32"> & ExclusiveMinimum<19> & Maximum<100>)',
                             value: input.age,
                         }),
                     3 === Object.keys(input).length ||
@@ -410,6 +426,7 @@ const res = ((input) => {
                 })
             );
         })(input, "$input", true);
+    }
     const success = 0 === errors.length;
     return {
         success,
@@ -419,10 +436,9 @@ const res = ((input) => {
 })({
     age: 30,
     email: "samchon.github@gmail.com",
-    id: "something", // wrong, must be string (uuid)
+    id: "something",
     sex: 1, // extra property
 });
-
 if (!res.success) console.log(res.errors);
 ```
     </Tab>
@@ -474,105 +490,112 @@ Just look at the code below, then you may understand how to use it.
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
     <Tab>
-```typescript copy filename="examples/src/createValidate.ts" showLineNumbers {3}
-import typia from "typia";
+```typescript copy filename="examples/src/createValidate.ts" showLineNumbers
+import typia, { tags } from "typia";
 
 export const validateMember = typia.createValidate<IMember>();
 
 interface IMember {
-    /**
-     * @format uuid
-     */
-    id: string;
-
-    /**
-     * @format email
-     */
-    email: string;
-
-    /**
-     * @type int
-     * @exclusiveMinimum 19
-     * @maximum 100
-     */
-    age: number;
+    id: string & tags.Format<"uuid">;
+    email: string & tags.Format<"email">;
+    age: number 
+        & tags.Type<"uint32"> 
+        & tags.ExclusiveMinimum<19> 
+        & tags.Maximum<100>;
 }
 ```
     </Tab>
     <Tab>
-```javascript filename="examples/bin/createValidate.js" showLineNumbers {3-97}
-import typia from "typia";
-
-export const validateMember = (input) => {
+```javascript filename="examples/bin/createValidate.js" showLineNumbers
+"use strict";
+var __importDefault =
+    (this && this.__importDefault) ||
+    function (mod) {
+        return mod && mod.__esModule ? mod : { default: mod };
+    };
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.validateMember = void 0;
+const typia_1 = __importDefault(require("typia"));
+const validateMember = (input) => {
+    const errors = [];
     const __is = (input) => {
-        const $is_uuid = typia.createValidate.is_uuid;
-        const $is_email = typia.createValidate.is_email;
         return (
             "object" === typeof input &&
             null !== input &&
             "string" === typeof input.id &&
-            $is_uuid(input.id) &&
+            /^(?:[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}|00000000-0000-0000-0000-000000000000)$/i.test(
+                input.id,
+            ) &&
             "string" === typeof input.email &&
-            $is_email(input.email) &&
+            /^(([^<>()[].,;:s@"]+(.[^<>()[].,;:s@"]+)*)|(".+"))@(([^<>()[].,;:s@"]+.)+[^<>()[].,;:s@"]{2,})$/i.test(
+                input.email,
+            ) &&
             "number" === typeof input.age &&
-                parseInt(input.age) === input.age &&
-                19 < input.age && 100 >= input.age
+            Math.floor(input.age) === input.age &&
+            0 <= input.age &&
+            input.age <= 4294967295 &&
+            19 < input.age &&
+            input.age <= 100
         );
     };
-    const errors = [];
-    const $report = typia.createValidate.report(errors);
-    const $is_uuid = typia.createValidate.is_uuid;
-    const $is_email = typia.createValidate.is_email;
-    if (false === __is(input))
+    if (false === __is(input)) {
+        const $report = typia_1.default.createValidate.report(errors);
         ((input, _path, _exceptionable = true) => {
             const $vo0 = (input, _path, _exceptionable = true) =>
                 [
                     ("string" === typeof input.id &&
-                        ($is_uuid(input.id) ||
+                        (/^(?:[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}|00000000-0000-0000-0000-000000000000)$/i.test(
+                            input.id,
+                        ) ||
                             $report(_exceptionable, {
                                 path: _path + ".id",
-                                expected: "string (@format uuid)",
+                                expected: 'string & Format<"uuid">',
                                 value: input.id,
                             }))) ||
                         $report(_exceptionable, {
                             path: _path + ".id",
-                            expected: "string",
+                            expected: '(string & Format<"uuid">)',
                             value: input.id,
                         }),
                     ("string" === typeof input.email &&
-                        ($is_email(input.email) ||
+                        (/^(([^<>()[].,;:s@"]+(.[^<>()[].,;:s@"]+)*)|(".+"))@(([^<>()[].,;:s@"]+.)+[^<>()[].,;:s@"]{2,})$/i.test(
+                            input.email,
+                        ) ||
                             $report(_exceptionable, {
                                 path: _path + ".email",
-                                expected: "string (@format email)",
+                                expected: 'string & Format<"email">',
                                 value: input.email,
                             }))) ||
                         $report(_exceptionable, {
                             path: _path + ".email",
-                            expected: "string",
+                            expected: '(string & Format<"email">)',
                             value: input.email,
                         }),
                     ("number" === typeof input.age &&
-                        (parseInt(input.age) === input.age ||
+                        ((Math.floor(input.age) === input.age &&
+                            0 <= input.age &&
+                            input.age <= 4294967295) ||
                             $report(_exceptionable, {
                                 path: _path + ".age",
-                                expected: "number (@type int)",
+                                expected: 'number & Type<"uint32">',
                                 value: input.age,
                             })) &&
                         (19 < input.age ||
                             $report(_exceptionable, {
                                 path: _path + ".age",
-                                expected: "number (@exclusiveMinimum 19)",
+                                expected: "number & ExclusiveMinimum<19>",
                                 value: input.age,
                             })) &&
-                        (100 >= input.age ||
+                        (input.age <= 100 ||
                             $report(_exceptionable, {
                                 path: _path + ".age",
-                                expected: "number (@maximum 100)",
+                                expected: "number & Maximum<100>",
                                 value: input.age,
                             }))) ||
                         $report(_exceptionable, {
                             path: _path + ".age",
-                            expected: "number",
+                            expected:
+                                '(number & Type<"uint32"> & ExclusiveMinimum<19> & Maximum<100>)',
                             value: input.age,
                         }),
                 ].every((flag) => flag);
@@ -591,6 +614,7 @@ export const validateMember = (input) => {
                 })
             );
         })(input, "$input", true);
+    }
     const success = 0 === errors.length;
     return {
         success,
@@ -598,6 +622,7 @@ export const validateMember = (input) => {
         data: success ? input : undefined,
     };
 };
+exports.validateMember = validateMember;
 ```
     </Tab>
 </Tabs>
@@ -669,88 +694,163 @@ else {
 
 
 ## Customization
-You can enhance validation logic by using comment tags.
+You can enhance validation logic by special tags.
 
-Also, with the comment tags, you can add your custom validation logic, too.
+Also, with those tags, you can add your custom validation logic, too.
 
-If you want to know about such comment tags detaily, read below article:
+If you want to know about such special tags detaily, read below article:
 
-  - [Comment Tags](/docs/validators/tags/)
-    - [Outline](/docs/validators/tags/#outline)
-    - [Supported Tags](/docs/validators/tags/#supported-tags)
-    - [Customization](/docs/validators/tags/#customization)
+  - [Special Tags](./tags/)
+    - [Outline](./tags/#outline)
+    - [Type Tags](./tags/#type-tags)
+    - [Comment Tags](./tags/#comment-tags)
+    - [Customization](./tags/#customization)
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
     <Tab>
-```typescript copy filename="examples/src/is-comment-tags.ts" showLineNumbers {3}
-import typia from "typia";
+```typescript copy filename="examples/src/validate-custom-tags.ts" showLineNumbers
+import typia, { tags } from "typia";
 
-export const checkCommentTag = typia.createIs<CommentTag>();
+export const validateSomething = typia.createValidate<Something>();
 
-interface CommentTag {
-    /**
-     * @type int
-     */
-    type: number;
+//----
+// DEFINE CUSTOM TYPE TAGS
+//----
+type Dollar = tags.TagBase<{
+    kind: "dollar";
+    target: "string";
+    value: undefined;
+    validate: `$input[0] === "$" && !isNaN(Number($input.substring(1).split(",").join("")))`;
+}>;
 
-    /**
-     * @exclusiveMinimum 19
-     * @maximum 100
-     */
-    number?: number;
+type Postfix<Value extends string> = tags.TagBase<{
+    kind: "postfix";
+    target: "string";
+    value: Value;
+    validate: `$input.endsWith("${Value}")`;
+}>;
 
-    /**
-     * @minLength 3
-     */
-    string: string;
+type IsEven<Value extends number | bigint> = tags.TagBase<{
+    kind: "isEven";
+    target: Value extends number ? "number" : "bigint";
+    value: undefined;
+    validate: `$input % ${Numeric<2>} === ${Numeric<0>}`;
+}>;
 
-    /**
-     * @pattern ^[a-z]+$
-     */
-    pattern: string;
+type Numeric<Value extends number | bigint> = Value extends number
+    ? Value
+    : `BigInt(${Value})`;
 
-    /**
-     * @format date-time
-     */
-    format: string | null;
-
-    /**
-     * In the Array case, possible to restrict its elements.
-     *
-     * @minItems 3
-     * @maxItems 100
-     * @format uuid
-     */
-    array: string[];
+//----
+// VALIDATION
+//----
+interface Something {
+    dollar: string & Dollar;
+    postfix: string & Postfix<"!!!">;
+    isEven: number & IsEven<number>;
 }
 ```
     </Tab>
     <Tab>
-```javascript filename="examples/bin/is-comment-tags.js" showLineNumbers {3-24}
-import typia from "typia";
-
-export const checkCommentTag = (input) => {
-    const $is_datetime = typia.createIs.is_datetime;
-    const $is_uuid = typia.createIs.is_uuid;
-    const $io0 = (input) =>
-        "number" === typeof input.type &&
-        parseInt(input.type) === input.type &&
-        (undefined === input.number ||
-            ("number" === typeof input.number &&
-                19 < input.number &&
-                100 >= input.number)) &&
-        "string" === typeof input.string &&
-        3 <= input.string.length &&
-        "string" === typeof input.pattern &&
-        RegExp(/^[a-z]+$/).test(input.pattern) &&
-        (null === input.format ||
-            ("string" === typeof input.format && $is_datetime(input.format))) &&
-        Array.isArray(input.array) &&
-        3 <= input.array.length &&
-        100 >= input.array.length &&
-        input.array.every((elem) => "string" === typeof elem && $is_uuid(elem));
-    return "object" === typeof input && null !== input && $io0(input);
+```javascript filename="examples/bin/validate-custom-tags.js" showLineNumbers
+"use strict";
+var __importDefault =
+    (this && this.__importDefault) ||
+    function (mod) {
+        return mod && mod.__esModule ? mod : { default: mod };
+    };
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.validateSomething = void 0;
+const typia_1 = __importDefault(require("typia"));
+const validateSomething = (input) => {
+    const errors = [];
+    const __is = (input) => {
+        return (
+            "object" === typeof input &&
+            null !== input &&
+            "string" === typeof input.dollar &&
+            input.dollar[0] === "$" &&
+            !isNaN(Number(input.dollar.substring(1).split(",").join(""))) &&
+            "string" === typeof input.postfix &&
+            input.postfix.endsWith("!!!") &&
+            "number" === typeof input.isEven &&
+            input.isEven % 2 === 0
+        );
+    };
+    if (false === __is(input)) {
+        const $report = typia_1.default.createValidate.report(errors);
+        ((input, _path, _exceptionable = true) => {
+            const $vo0 = (input, _path, _exceptionable = true) =>
+                [
+                    ("string" === typeof input.dollar &&
+                        ((input.dollar[0] === "$" &&
+                            !isNaN(
+                                Number(
+                                    input.dollar
+                                        .substring(1)
+                                        .split(",")
+                                        .join(""),
+                                ),
+                            )) ||
+                            $report(_exceptionable, {
+                                path: _path + ".dollar",
+                                expected: "string & Dollar",
+                                value: input.dollar,
+                            }))) ||
+                        $report(_exceptionable, {
+                            path: _path + ".dollar",
+                            expected: "(string & Dollar)",
+                            value: input.dollar,
+                        }),
+                    ("string" === typeof input.postfix &&
+                        (input.postfix.endsWith("!!!") ||
+                            $report(_exceptionable, {
+                                path: _path + ".postfix",
+                                expected: 'string & Postfix<"!!!">',
+                                value: input.postfix,
+                            }))) ||
+                        $report(_exceptionable, {
+                            path: _path + ".postfix",
+                            expected: '(string & Postfix<"!!!">)',
+                            value: input.postfix,
+                        }),
+                    ("number" === typeof input.isEven &&
+                        (input.isEven % 2 === 0 ||
+                            $report(_exceptionable, {
+                                path: _path + ".isEven",
+                                expected: "number & IsEven<number>",
+                                value: input.isEven,
+                            }))) ||
+                        $report(_exceptionable, {
+                            path: _path + ".isEven",
+                            expected: "(number & IsEven<number>)",
+                            value: input.isEven,
+                        }),
+                ].every((flag) => flag);
+            return (
+                ((("object" === typeof input && null !== input) ||
+                    $report(true, {
+                        path: _path + "",
+                        expected: "Something",
+                        value: input,
+                    })) &&
+                    $vo0(input, _path + "", true)) ||
+                $report(true, {
+                    path: _path + "",
+                    expected: "Something",
+                    value: input,
+                })
+            );
+        })(input, "$input", true);
+    }
+    const success = 0 === errors.length;
+    return {
+        success,
+        errors,
+        data: success ? input : undefined,
+    };
 };
+exports.validateSomething = validateSomething;
 ```
     </Tab>
 </Tabs>

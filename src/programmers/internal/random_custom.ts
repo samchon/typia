@@ -24,6 +24,14 @@ export const random_custom =
                 ),
                 ts.factory.createToken(ts.SyntaxKind.QuestionDotToken),
                 undefined,
-                [LiteralFactory.generate(tags)],
+                [
+                    LiteralFactory.generate(
+                        tags.map((t) => ({
+                            name: t.name,
+                            kind: t.kind,
+                            value: t.value,
+                        })),
+                    ),
+                ],
             ),
         )(expression);

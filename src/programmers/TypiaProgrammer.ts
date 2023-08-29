@@ -97,8 +97,17 @@ export namespace TypiaProgrammer {
                     : diag.category === ts.DiagnosticCategory.Message
                     ? "message"
                     : "unkown";
+            const [line, pos] = diag.file
+                ? (() => {
+                      const lines: string[] = diag
+                          .file!.text.substring(0, diag.start)
+                          .split("\n");
+                      if (lines.length === 0) return [0, 0];
+                      return [lines.length, lines.at(-1)!.length + 1];
+                  })()
+                : [0, 0];
             console.error(
-                `${file}:${diag.start}:${diag.length} - ${category} TS(${diag.code}): ${diag.messageText}`,
+                `${file}:${line}:${pos} - ${category} TS${diag.code}: ${diag.messageText}`,
             );
         }
         if (diagnostics.length) process.exit(-1);

@@ -122,38 +122,23 @@ fs.writeFileSync(__dirname + "/../raw/RAW.ts", content, "utf8");
 //----
 fs.writeFileSync(
   __dirname + "/../raw/SCRIPT.ts",
-  `export const SCRIPT = \`import typia from "typia";
+  `export const SCRIPT = \`import typia, { tags } from "typia";
 
 interface IMember {
-    /** 
-     * @format uuid 
-     */ 
-    id: string;
-
-    /** 
-     * @format email 
-     */ 
-    email: string;
-
-    /**
-     * @type uint
-     * @minimum 20
-     * @exclusiveMaximum 100
-     */
-    age: number;
+    id: string & tags.Format<"uuid">;
+    email: string & tags.Format<"email">;
+    age: number 
+        & tags.Type<"uint32"> 
+        & tags.Minimum<20> 
+        & tags.ExclusiveMaximum<100>;
     parent: IMember | null;
     children: IMember[];
 }
 
 //----
-// IS
+// VALIDATION
 //----
 typia.createIs<IMember>();
-
-//----
-// EQUALS
-//----
-typia.createEquals<IMember>();
 
 //----
 // RANDOM
@@ -161,14 +146,14 @@ typia.createEquals<IMember>();
 typia.createRandom<IMember>();
 
 //----
-// ASSERT-STRINGIFY
+// JSON
 //----
-typia.createAssertStringify<IMember>();
+typia.json.createStringify<IMember>();
 
 //----
-// JSON SCHEMA
+// PROTOCOL BUFFER
 //----
-typia.application<[IMember], "ajv">();
+typia.protobuf.createEncode<IMember>();
 \``,
   "utf8",
 );

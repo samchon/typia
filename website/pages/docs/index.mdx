@@ -42,27 +42,33 @@ import Stack from '@mui/material/Stack';
 
 ```typescript copy
 // RUNTIME VALIDATORS
-export function is<T>(input: unknown | T): input is T; // returns boolean
-export function assert<T>(input: unknown | T): T; // throws TypeGuardError
-export function validate<T>(input: unknown | T): IValidation<T>; // detailed
-export const customValidators: CustomValidatorMap; // customizable
+export function is<T>(input: unknown): input is T; // returns boolean
+export function assert<T>(input: unknown): T; // throws TypeGuardError
+export function validate<T>(input: unknown): IValidation<T>; // detailed
 
-// ENHANCED JSON
-export function application<...Args>(): IJsonApplication; // JSON schema
-export function assertParse<T>(input: string): T; // type safe parser
-export function assertStringify<T>(input: T): string; // safe and faster
-    // +) isParse, validateParse 
-    // +) stringify, isStringify, validateStringify
+// JSON FUNCTIONS
+export namespace json {
+    export function application<T>(): IJsonApplication; // JSON schema
+    export function assertParse<T>(input: string): T; // type safe parser
+    export function assertStringify<T>(input: T): string; // safe and faster
+}
 
-// RANDOM DATA GENERATOR
-export function random<T>(g?: Partial<IRandomGenerator>): Primitive<T>;
+// PROTOCOL BUFFER
+export namespace protobuf {
+    export function message<T>(): string; // Protocol Buffer message
+    export function assertDecode<T>(buffer: Buffer): T; // safe decoder
+    export function assertEncode<T>(input: T): Uint8Array; // safe encoder
+}
+
+// RANDOM GENERATOR
+export function random<T>(g?: Partial<IRandomGenerator>): T;
 ```
 
-Typia is a transformer library, supporting those features:
+Typia is a transformer library supporting below features:
 
   - Super-fast Runtime Validators
-  - Safe JSON parse and fast stringify
-  - JSON schema generator
+  - Enhanced JSON functions
+  - Protocol Buffer encoder and decoder
   - Random data generator
 
 <br/>

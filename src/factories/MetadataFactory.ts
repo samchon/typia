@@ -193,8 +193,8 @@ export namespace MetadataFactory {
             for (const property of object.properties)
                 validateMeta(options)(visitor)(property.value, {
                     object,
-                    property: property.value.isSoleLiteral()
-                        ? property.value.getSoleLiteral()!
+                    property: property.key.isSoleLiteral()
+                        ? property.key.getSoleLiteral()!
                         : {},
                     nested: null,
                     top: false,
