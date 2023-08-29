@@ -31,8 +31,8 @@ Yeah, `typia` needs only pure TypeScript type. As `typia` is a compiler library,
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
     <Tab>
-```typescript copy filename="examples/src/is.ts" showLineNumbers {4-8, 10}
-import typia from "typia";
+```typescript copy filename="examples/src/is.ts" showLineNumbers
+import typia, { tags } from "typia";
 import { v4 } from "uuid";
 
 const matched: boolean = typia.is<IMember>({
@@ -44,50 +44,50 @@ const matched: boolean = typia.is<IMember>({
 console.log(matched); // true
 
 interface IMember {
-    /**
-     * @format uuid
-     */
-    id: string;
-    
-    /**
-     * @format email
-     */
-    email: string;
-
-    /**
-     * @type int
-     * @exclusiveMinimum 19
-     * @maximum 100
-     */
-    age: number;
+    id: string & tags.Format<"uuid">;
+    email: string & tags.Format<"email">;
+    age: number 
+        & tags.Type<"uint32"> 
+        & tags.ExclusiveMinimum<19> 
+        & tags.Maximum<100>;
 }
 ```
     </Tab>
     <Tab>
-```javascript filename="examples/bin/is.js" showLineNumbers {4-22, 24}
-import typia from "typia";
-import { v4 } from "uuid";
-
-const matched = (input => {
-    const $is_uuid = typia_1.default.is.is_uuid;
-    const $is_email = typia_1.default.is.is_email;
-    return "object" === typeof input && 
-        null !== input && 
-        (
-            "string" === typeof input.id && true === $is_uuid(input.id) && 
-            ("string" === typeof input.email && $is_email(input.email)) && 
-            (
-                "number" === typeof input.age && 
-                parseInt(input.age) === input.age && 
-                19 < input.age && 100 >= input.age
-            )
-        );
+```javascript filename="examples/bin/is.js" showLineNumbers
+"use strict";
+var __importDefault =
+    (this && this.__importDefault) ||
+    function (mod) {
+        return mod && mod.__esModule ? mod : { default: mod };
+    };
+Object.defineProperty(exports, "__esModule", { value: true });
+const typia_1 = __importDefault(require("typia"));
+const uuid_1 = require("uuid");
+const matched = ((input) => {
+    return (
+        "object" === typeof input &&
+        null !== input &&
+        "string" === typeof input.id &&
+        /^(?:[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}|00000000-0000-0000-0000-000000000000)$/i.test(
+            input.id,
+        ) &&
+        "string" === typeof input.email &&
+        /^(([^<>()[].,;:s@"]+(.[^<>()[].,;:s@"]+)*)|(".+"))@(([^<>()[].,;:s@"]+.)+[^<>()[].,;:s@"]{2,})$/i.test(
+            input.email,
+        ) &&
+        "number" === typeof input.age &&
+        Math.floor(input.age) === input.age &&
+        0 <= input.age &&
+        input.age <= 4294967295 &&
+        19 < input.age &&
+        input.age <= 100
+    );
 })({
     id: (0, uuid_1.v4)(),
-    email: "samchon.github@gmail.com",
+    email: "samchon.github@gmai19l.com",
     age: 30,
 });
-
 console.log(matched); // true
 ```
     </Tab>
@@ -110,8 +110,8 @@ If you want to prohibit those superfluous properties, you can use `typia.equals<
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
     <Tab>
-```typescript copy filename="examples/src/equals.ts" showLineNumbers {11, 13}
-import typia from "typia";
+```typescript copy filename="examples/src/equals.ts" showLineNumbers
+import typia, { tags } from "typia";
 import { v4 } from "uuid";
 
 const input: unknown = {
@@ -126,59 +126,68 @@ const equals: boolean = typia.equals<IMember>(input);
 console.log(is, equals); // true, false
 
 interface IMember {
-    /**
-     * @format uuid
-     */
-    id: string;
-
-    /**
-     * @format email
-     */
-    email: string;
-
-    /**
-     * @type int
-     * @exclusiveMinimum 19
-     * @maximum 100
-     */
-    age: number;
+    id: string & tags.Format<"uuid">;
+    email: string & tags.Format<"email">;
+    age: number 
+        & tags.Type<"uint32"> 
+        & tags.ExclusiveMinimum<19> 
+        & tags.Maximum<100>;
 }
 ```
     </Tab>
     <Tab>
-```javascript filename="examples/bin/equals.js" showLineNumbers {24-42, 44}
-import typia from "typia";
-import { v4 } from "uuid";
-
+```javascript filename="examples/bin/equals.js" showLineNumbers
+"use strict";
+var __importDefault =
+    (this && this.__importDefault) ||
+    function (mod) {
+        return mod && mod.__esModule ? mod : { default: mod };
+    };
+Object.defineProperty(exports, "__esModule", { value: true });
+const typia_1 = __importDefault(require("typia"));
+const uuid_1 = require("uuid");
 const input = {
-    id: v4(),
+    id: (0, uuid_1.v4)(),
     email: "samchon.github@gmail.com",
     age: 30,
     extra: "superfluous property", // extra
 };
-
 const is = ((input) => {
-    const $is_uuid = typia.is.is_uuid;
-    const $is_email = typia.is.is_email;
     return (
         "object" === typeof input &&
         null !== input &&
-        "string" === typeof input.id && $is_uuid(input.id) &&
-        "string" === typeof input.email && $is_email(input.email) &&
-        "number" === typeof input.age && 
-            parseInt(input.age) === input.age && 
-            19 < input.age && 100 >= input.age
+        "string" === typeof input.id &&
+        /^(?:[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}|00000000-0000-0000-0000-000000000000)$/i.test(
+            input.id,
+        ) &&
+        "string" === typeof input.email &&
+        /^(([^<>()[].,;:s@"]+(.[^<>()[].,;:s@"]+)*)|(".+"))@(([^<>()[].,;:s@"]+.)+[^<>()[].,;:s@"]{2,})$/i.test(
+            input.email,
+        ) &&
+        "number" === typeof input.age &&
+        Math.floor(input.age) === input.age &&
+        0 <= input.age &&
+        input.age <= 4294967295 &&
+        19 < input.age &&
+        input.age <= 100
     );
 })(input);
 const equals = ((input, _exceptionable = true) => {
-    const $is_uuid = typia.equals.is_uuid;
-    const $is_email = typia.equals.is_email;
     const $io0 = (input, _exceptionable = true) =>
-        "string" === typeof input.id && $is_uuid(input.id) &&
-        "string" === typeof input.email && $is_email(input.email) &&
-        "number" === typeof input.age && 
-            parseInt(input.age) === input.age && 
-            19 < input.age && 100 >= input.age
+        "string" === typeof input.id &&
+        /^(?:[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}|00000000-0000-0000-0000-000000000000)$/i.test(
+            input.id,
+        ) &&
+        "string" === typeof input.email &&
+        /^(([^<>()[].,;:s@"]+(.[^<>()[].,;:s@"]+)*)|(".+"))@(([^<>()[].,;:s@"]+.)+[^<>()[].,;:s@"]{2,})$/i.test(
+            input.email,
+        ) &&
+        "number" === typeof input.age &&
+        Math.floor(input.age) === input.age &&
+        0 <= input.age &&
+        input.age <= 4294967295 &&
+        19 < input.age &&
+        input.age <= 100 &&
         (3 === Object.keys(input).length ||
             Object.keys(input).every((key) => {
                 if (["id", "email", "age"].some((prop) => key === prop))
@@ -189,7 +198,6 @@ const equals = ((input, _exceptionable = true) => {
             }));
     return "object" === typeof input && null !== input && $io0(input, true);
 })(input);
-
 console.log(is, equals); // true, false
 ```
     </Tab>
@@ -212,47 +220,53 @@ Just look at the code below, then you may understand how to use it.
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
     <Tab>
-```typescript copy filename="examples/src/createIs.ts" showLineNumbers {3}
-import typia from "typia";
+```typescript copy filename="examples/src/createIs.ts" showLineNumbers
+import typia, { tags } from "typia";
 
 export const check = typia.createIs<IMember>();
 
 interface IMember {
-    /**
-     * @format uuid
-     */
-    id: string;
-
-    /**
-     * @format email
-     */
-    email: string;
-
-    /**
-     * @type int
-     * @exclusiveMinimum 19
-     * @maximum 100
-     */
-    age: number;
+    id: string & tags.Format<"uuid">;
+    email: string & tags.Format<"email">;
+    age: number 
+        & tags.Type<"uint32"> 
+        & tags.ExclusiveMinimum<19> 
+        & tags.Maximum<100>;
 }
 ```
     </Tab>
     <Tab>
-```javascript filename="examples/bin/createIs.js" showLineNumbers {3-13}
-import typia from "typia";
-
-export const check = (input) => {
-    const $is_uuid = typia.createIs.is_uuid;
-    const $is_email = typia.createIs.is_email;
+```javascript filename="examples/bin/createIs.js" showLineNumbers
+"use strict";
+var __importDefault =
+    (this && this.__importDefault) ||
+    function (mod) {
+        return mod && mod.__esModule ? mod : { default: mod };
+    };
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.check = void 0;
+const typia_1 = __importDefault(require("typia"));
+const check = (input) => {
     return (
-        "object" === typeof input && null !== input &&
-        "string" === typeof input.id && $is_uuid(input.id) &&
-        "string" === typeof input.email && $is_email(input.email) &&
-        "number" === typeof input.age && 
-            parseInt(input.age) === input.age && 
-            19 < input.age && 100 >= input.age
+        "object" === typeof input &&
+        null !== input &&
+        "string" === typeof input.id &&
+        /^(?:[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}|00000000-0000-0000-0000-000000000000)$/i.test(
+            input.id,
+        ) &&
+        "string" === typeof input.email &&
+        /^(([^<>()[].,;:s@"]+(.[^<>()[].,;:s@"]+)*)|(".+"))@(([^<>()[].,;:s@"]+.)+[^<>()[].,;:s@"]{2,})$/i.test(
+            input.email,
+        ) &&
+        "number" === typeof input.age &&
+        Math.floor(input.age) === input.age &&
+        0 <= input.age &&
+        input.age <= 4294967295 &&
+        19 < input.age &&
+        input.age <= 100
     );
 };
+exports.check = check;
 ```
     </Tab>
 </Tabs>
@@ -272,7 +286,7 @@ export function createEquals<T>(): (input: unknown) => input is T;
 
 When target `input` value is following the type `T`, therefore `true` value be returned, `typia.is<T>()` function automatically casts the `input` value to the type `T`. Therefore, you can utilize the `typia.is<T>()` function for safe type casting tool like below:
 
-```typescript copy filename="examples/src/is-cast.ts" showLineNumbers {6-7}
+```typescript copy filename="examples/src/is-cast.ts" showLineNumbers
 const input: unknown = {
     id: v4(),
     email: "samchon.github@gmail.com",
@@ -286,88 +300,88 @@ if (typia.is<IMember>(input)) // auto type casting
 
 
 ## Customization
-You can enhance validation logic by using comment tags.
+You can enhance validation logic by special tags.
 
-Also, with the comment tags, you can add your custom validation logic, too.
+Also, with those tags, you can add your custom validation logic, too.
 
-If you want to know about such comment tags detaily, read below article:
+If you want to know about such special tags detaily, read below article:
 
-  - [Comment Tags](/docs/validators/tags/)
-    - [Outline](/docs/validators/tags/#outline)
-    - [Supported Tags](/docs/validators/tags/#supported-tags)
-    - [Customization](/docs/validators/tags/#customization)
+  - [Special Tags](./tags/)
+    - [Outline](./tags/#outline)
+    - [Type Tags](./tags/#type-tags)
+    - [Comment Tags](./tags/#comment-tags)
+    - [Customization](./tags/#customization)
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
     <Tab>
-```typescript copy filename="examples/src/is-comment-tags.ts" showLineNumbers {3}
-import typia from "typia";
+```typescript copy filename="examples/src/is-custom-tags.ts" showLineNumbers
+import typia, { tags } from "typia";
 
-export const checkCommentTag = typia.createIs<CommentTag>();
+export const checkSomething = typia.createIs<Something>();
 
-interface CommentTag {
-    /**
-     * @type int
-     */
-    type: number;
+//----
+// DEFINE CUSTOM TYPE TAGS
+//----
+type Dollar = tags.TagBase<{
+    kind: "dollar";
+    target: "string";
+    value: undefined;
+    validate: `$input[0] === "$" && !isNaN(Number($input.substring(1).split(",").join("")))`;
+}>;
 
-    /**
-     * @exclusiveMinimum 19
-     * @maximum 100
-     */
-    number?: number;
+type Postfix<Value extends string> = tags.TagBase<{
+    kind: "postfix";
+    target: "string";
+    value: Value;
+    validate: `$input.endsWith("${Value}")`;
+}>;
 
-    /**
-     * @minLength 3
-     */
-    string: string;
+type IsEven<Value extends number | bigint> = tags.TagBase<{
+    kind: "isEven";
+    target: Value extends number ? "number" : "bigint";
+    value: undefined;
+    validate: `$input % ${Numeric<2>} === ${Numeric<0>}`;
+}>;
 
-    /**
-     * @pattern ^[a-z]+$
-     */
-    pattern: string;
+type Numeric<Value extends number | bigint> = Value extends number
+    ? Value
+    : `BigInt(${Value})`;
 
-    /**
-     * @format date-time
-     */
-    format: string | null;
-
-    /**
-     * In the Array case, possible to restrict its elements.
-     *
-     * @minItems 3
-     * @maxItems 100
-     * @format uuid
-     */
-    array: string[];
+//----
+// VALIDATION
+//----
+interface Something {
+    dollar: string & Dollar;
+    postfix: string & Postfix<"!!!">;
+    isEven: number & IsEven<number>;
 }
 ```
     </Tab>
     <Tab>
-```javascript filename="examples/bin/is-comment-tags.js" showLineNumbers {3-24}
-import typia from "typia";
-
-export const checkCommentTag = (input) => {
-    const $is_datetime = typia.createIs.is_datetime;
-    const $is_uuid = typia.createIs.is_uuid;
-    const $io0 = (input) =>
-        "number" === typeof input.type &&
-        parseInt(input.type) === input.type &&
-        (undefined === input.number ||
-            ("number" === typeof input.number &&
-                19 < input.number &&
-                100 >= input.number)) &&
-        "string" === typeof input.string &&
-        3 <= input.string.length &&
-        "string" === typeof input.pattern &&
-        RegExp(/^[a-z]+$/).test(input.pattern) &&
-        (null === input.format ||
-            ("string" === typeof input.format && $is_datetime(input.format))) &&
-        Array.isArray(input.array) &&
-        3 <= input.array.length &&
-        100 >= input.array.length &&
-        input.array.every((elem) => "string" === typeof elem && $is_uuid(elem));
-    return "object" === typeof input && null !== input && $io0(input);
+```javascript filename="examples/bin/is-comment-tags.js" showLineNumbers
+"use strict";
+var __importDefault =
+    (this && this.__importDefault) ||
+    function (mod) {
+        return mod && mod.__esModule ? mod : { default: mod };
+    };
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.checkSomething = void 0;
+const typia_1 = __importDefault(require("typia"));
+const checkSomething = (input) => {
+    return (
+        "object" === typeof input &&
+        null !== input &&
+        "string" === typeof input.dollar &&
+        input.dollar[0] === "$" &&
+        !isNaN(Number(input.dollar.substring(1).split(",").join(""))) &&
+        "string" === typeof input.postfix &&
+        input.postfix.endsWith("!!!") &&
+        "number" === typeof input.isEven &&
+        input.isEven % 2 === 0
+    );
 };
+exports.checkSomething = checkSomething;
 ```
     </Tab>
 </Tabs>

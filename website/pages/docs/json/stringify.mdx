@@ -10,10 +10,12 @@ import AlertTitle from '@mui/material/AlertTitle';
 ]}>
     <Tab>
 ```typescript copy
-export function stringify<T>(input: T): string;
-export function isStringify<T>(input: unknown | T): string | null;
-export function assertStringify<T>(input: unknown | T): string;
-export function validateStringify<T>(input: unknown | T): IValidation<string>;
+export namespace json {
+    export function stringify<T>(input: T): string;
+    export function isStringify<T>(input: unknown | T): string | null;
+    export function assertStringify<T>(input: unknown | T): string;
+    export function validateStringify<T>(input: unknown | T): IValidation<string>;
+}
 ```
     </Tab>
     <Tab>
@@ -50,15 +52,15 @@ export namespace IValidation {
     </Tab>
 </Tabs>
 
-You can boost up JSON serialization speed just by calling `typia.stringify<T>()` function. Also, you even can ensure type safety of JSON serialization by calling other functions like `typia.isStringify()` and `typia.assertStringify()` functions.
+You can boost up JSON serialization speed just by calling `typia.json.stringify<T>()` function. Also, you even can ensure type safety of JSON serialization by calling other functions like `typia.json.isStringify()` and `typia.json.assertStringify()` functions.
 
-As `typia.stringify<T>()` function writes dedicated JSON serialization code only for the target type `T`, its performance is much faster than native `JSON.stringify()` function. However, because of the dedicated optimal JSON serialization code, when wrong typed data comes, unexpected error be occured.
+As `typia.json.stringify<T>()` function writes dedicated JSON serialization code only for the target type `T`, its performance is much faster than native `JSON.stringify()` function. However, because of the dedicated optimal JSON serialization code, when wrong typed data comes, unexpected error be occured.
 
-Instead, `typia` supports type safe JSON serialization functions like `typia.isStringify()`. The `typia.isStringify()` is a combination function of `typia.is<T>()` and `typia.stringify<T>()` function. It checks whether the input value is valid for the target type `T` or not first, and operate JSON serialization later. If the input value is not matched with the type `T`, it returns `null` value.
+Instead, `typia` supports type safe JSON serialization functions like `typia.json.isStringify()`. The `typia.json.isStringify()` is a combination function of `typia.is<T>()` and `typia.json.stringify<T>()` function. It checks whether the input value is valid for the target type `T` or not first, and operate JSON serialization later. If the input value is not matched with the type `T`, it returns `null` value.
 
-  - `typia.isStringify()`: [`typia.is<T>()`](../validators/is) + `typia.stringify<T>()`
-  - `typia.assertStringify()`: [`typia.assert<T>()`](../validators/assert) + `typia.stringify<T>()`
-  - `typia.validateStringify()`: [`typia.validate<T>()`](../validators/validate) + `typia.stringify<T>()`
+  - `typia.json.isStringify()`: [`typia.is<T>()`](../validators/is) + `typia.json.stringify<T>()`
+  - `typia.json.assertStringify()`: [`typia.assert<T>()`](../validators/assert) + `typia.json.stringify<T>()`
+  - `typia.json.validateStringify()`: [`typia.validate<T>()`](../validators/validate) + `typia.json.stringify<T>()`
 
 <br/>
 <Alert severity="success">
@@ -66,75 +68,64 @@ Instead, `typia` supports type safe JSON serialization functions like `typia.isS
         **AOT compliation** 
     </AlertTitle>
 
-`typia.isStringify()` and other similar functions are still much faster than native `JSON.stringify()` function, even though they include type checking process. This is the power of AOT compilation, writing optimal dedicated code by analyzing TypeScript type, in the compilation level.
+`typia.json.isStringify()` and other similar functions are still much faster than native `JSON.stringify()` function, even though they include type checking process. This is the power of AOT compilation, writing optimal dedicated code by analyzing TypeScript type, in the compilation level.
 
 </Alert>
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
     <Tab>
-```typescript copy filename="examples/src/isStringify.ts" showLineNumbers {4, 6}
-import typia from "typia";
+```typescript copy filename="examples/src/isStringify.ts" showLineNumbers
+import typia, { tags } from "typia";
 
 const department: IDepartment = typia.random<IDepartment>();
-const json: string = typia.isStringify(department);
+const json: string | null = typia.json.isStringify(department);
 
 console.log(json); // not null, but string
 
 interface IDepartment {
-    /**
-     * @format uuid
-     */
-    id: string;
-
-    /**
-     * @minLength 3
-     */
-    name: string;
-
-    /**
-     * @type int
-     */
-    limit: number;
-
+    id: string & tags.Format<"uuid">;
+    name: string & tags.MinLength<3>;
+    limit: number & tags.Type<"int32">;
     clerks: IClerk[];
 }
 interface IClerk {
     name: string;
-
-    /**
-     * @exclusiveMinimum 19
-     * @maximum 100
-     */
-    age: number;
-
+    age: number 
+        & tags.Type<"uint32"> 
+        & tags.ExclusiveMinimum<19> 
+        & tags.Maximum<100>;
     authority: number;
-
-    /**
-     * @format date
-     */
-    joined_at: string;
+    joined_at: string & tags.Format<"date">;
 }
 ```
     </Tab>
     <Tab>
-```javascript filename="examples/bin/isStringify.js" showLineNumbers {63-98, 100}
-import typia from "typia";
-
+```javascript filename="examples/bin/isStringify.js" showLineNumbers
+"use strict";
+var __importDefault =
+    (this && this.__importDefault) ||
+    function (mod) {
+        return mod && mod.__esModule ? mod : { default: mod };
+    };
+Object.defineProperty(exports, "__esModule", { value: true });
+const typia_1 = __importDefault(require("typia"));
 const department = ((generator) => {
-    const $generator = typia.random.generator;
+    const $generator = typia_1.default.random.generator;
     const $ro0 = (_recursive = false, _depth = 0) => ({
         id:
             (generator?.customs ?? $generator.customs)?.string?.([
                 {
-                    name: "format",
+                    name: 'Format<"uuid">',
+                    kind: "format",
                     value: "uuid",
                 },
             ]) ?? (generator?.uuid ?? $generator.uuid)(),
         name:
             (generator?.customs ?? $generator.customs)?.string?.([
                 {
-                    name: "minLength",
-                    value: "3",
+                    name: "MinLength<3>",
+                    kind: "minLength",
+                    value: 3,
                 },
             ]) ??
             (generator?.string ?? $generator.string)(
@@ -143,10 +134,11 @@ const department = ((generator) => {
         limit:
             (generator?.customs ?? $generator.customs)?.number?.([
                 {
-                    name: "type",
-                    value: "uint",
+                    name: 'Type<"int32">',
+                    kind: "type",
+                    value: "int32",
                 },
-            ]) ?? (generator?.integer ?? $generator.integer)(0, 10),
+            ]) ?? (generator?.integer ?? $generator.integer)(0, 100),
         clerks: (generator?.array ?? $generator.array)(() =>
             $ro1(_recursive, _recursive ? 1 + _depth : _depth),
         ),
@@ -158,65 +150,97 @@ const department = ((generator) => {
         age:
             (generator?.customs ?? $generator.customs)?.number?.([
                 {
-                    name: "exclusiveMinimum",
-                    value: "19",
+                    name: 'Type<"uint32">',
+                    kind: "type",
+                    value: "uint32",
                 },
                 {
-                    name: "maximum",
-                    value: "100",
+                    name: "ExclusiveMinimum<19>",
+                    kind: "exclusiveMinimum",
+                    value: 19,
                 },
-            ]) ?? (generator?.number ?? $generator.number)(19, 100),
+                {
+                    name: "Maximum<100>",
+                    kind: "maximum",
+                    value: 100,
+                },
+            ]) ?? (generator?.integer ?? $generator.integer)(19, 100),
         authority:
             (generator?.customs ?? $generator.customs)?.number?.([]) ??
             (generator?.number ?? $generator.number)(0, 100),
         joined_at:
             (generator?.customs ?? $generator.customs)?.string?.([
                 {
-                    name: "format",
+                    name: 'Format<"date">',
+                    kind: "format",
                     value: "date",
                 },
             ]) ?? (generator?.date ?? $generator.date)(),
     });
     return $ro0();
 })();
-
 const json = ((input) => {
     const is = (input) => {
-        const $is_uuid = typia.isStringify.is_uuid;
-        const $is_date = typia.isStringify.is_date;
         const $io0 = (input) =>
-            "string" === typeof input.id && $is_uuid(input.id) &&
-            "string" === typeof input.name && 3 <= input.name.length &&
-            "number" === typeof input.limit && !Number.isNaN(input.limit) && parseInt(input.limit) === input.limit && 0 <= input.limit &&
-            Array.isArray(input.clerks) && input.clerks.every(
+            "string" === typeof input.id &&
+            /^(?:[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}|00000000-0000-0000-0000-000000000000)$/i.test(
+                input.id,
+            ) &&
+            "string" === typeof input.name &&
+            3 <= input.name.length &&
+            "number" === typeof input.limit &&
+            Math.floor(input.limit) === input.limit &&
+            -2147483648 <= input.limit &&
+            input.limit <= 2147483647 &&
+            Array.isArray(input.clerks) &&
+            input.clerks.every(
                 (elem) =>
                     "object" === typeof elem && null !== elem && $io1(elem),
             );
         const $io1 = (input) =>
             "string" === typeof input.name &&
-            "number" === typeof input.age && 19 < input.age && 100 >= input.age &&
-            "number" === typeof input.authority && !Number.isNaN(input.authority) &&
-            "string" === typeof input.joined_at && $is_date(input.joined_at);
+            "number" === typeof input.age &&
+            Math.floor(input.age) === input.age &&
+            0 <= input.age &&
+            input.age <= 4294967295 &&
+            19 < input.age &&
+            input.age <= 100 &&
+            "number" === typeof input.authority &&
+            !Number.isNaN(input.authority) &&
+            "string" === typeof input.joined_at &&
+            /^(d{4})-(d{2})-(d{2})$/.test(input.joined_at);
         return "object" === typeof input && null !== input && $io0(input);
     };
     const stringify = (input) => {
-        const $string = typia.isStringify.string;
-            $is_date(input.joined_at);
+        const $io1 = (input) =>
+            "string" === typeof input.name &&
+            "number" === typeof input.age &&
+            Math.floor(input.age) === input.age &&
+            0 <= input.age &&
+            input.age <= 4294967295 &&
+            19 < input.age &&
+            input.age <= 100 &&
+            "number" === typeof input.authority &&
+            "string" === typeof input.joined_at &&
+            /^(d{4})-(d{2})-(d{2})$/.test(input.joined_at);
+        const $string = typia_1.default.json.isStringify.string;
         const $so0 = (input) =>
-            `{"id":${'"' + input.id + '"'},"name":${$string(
-                input.name,
-            )},"limit":${input.limit},"clerks":${`[${input.clerks
-                .map((elem) => $so1(elem))
+            `{"id":${$string(input.id)},"name":${$string(input.name)},"limit":${
+                input.limit
+            },"clerks":${`[${input.clerks
+                .map(
+                    (elem) =>
+                        `{"name":${$string(elem.name)},"age":${
+                            elem.age
+                        },"authority":${elem.authority},"joined_at":${$string(
+                            elem.joined_at,
+                        )}}`,
+                )
                 .join(",")}]`}}`;
-        const $so1 = (input) =>
-            `{"name":${$string(input.name)},"age":${input.age},"authority":${
-                input.authority
-            },"joined_at":${'"' + input.joined_at + '"'}}`;
         return $so0(input);
     };
     return is(input) ? stringify(input) : null;
 })(department);
-
 console.log(json); // not null, but string
 ```
     </Tab>
@@ -233,10 +257,18 @@ console.log(json); // not null, but string
 ]}>
     <Tab>
 ```typescript copy
-export function createStringify<T>: (input: T) => string;
-export function createIsStringify<T>: (input: unknown | T) => string | null;
-export function createAssertStringify<T>: (input: unknown) => string;
-export function createValidateStringify<T>: (input: unknown) => IValidation<string>;
+export namespace json {
+    export function createStringify<T>: (input: T) => string;
+    export function createIsStringify<T>: (
+        input: unknown | T
+    ) => string | null;
+    export function createAssertStringify<T>: (
+        input: unknown | T
+    ) => string;
+    export function createValidateStringify<T>: (
+        input: unknown | T
+    ) => IValidation<string>;
+}
 ```
     </Tab>
     <Tab>
@@ -273,148 +305,155 @@ export namespace IValidation {
     </Tab>
 </Tabs>
 
-Reusable `typia.stringify<T>()` function generators.
+Reusable `typia.json.stringify<T>()` function generators.
 
-If you repeat to call `typia.stringify<T>()` function on the same type, size of JavaScript files would be larger because of duplicated AOT compilation. To prevent it, you can generate reusable function through `typia.createStringify<T>()` function.
+If you repeat to call `typia.json.stringify<T>()` function on the same type, size of JavaScript files would be larger because of duplicated AOT compilation. To prevent it, you can generate reusable function through `typia.json.createStringify<T>()` function.
 
 Just look at the code below, then you may understand how to use it.
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
     <Tab>
-```typescript copy filename="examples/src/createAssertStringify.ts" showLineNumbers {3}
-import typia from "typia";
+```typescript copy filename="examples/src/createAssertStringify.ts" showLineNumbers
+import typia, { tags } from "typia";
 
-export const assertDepartment = typia.createAssertStringify<IDepartment>();
+export const assertDepartment = typia.json.createAssertStringify<IDepartment>();
 
 interface IDepartment {
-    /**
-     * @format uuid
-     */
-    id: string;
-
-    /**
-     * @minLength 3
-     */
-    name: string;
-
-    /**
-     * @type int
-     */
-    limit: number;
-
+    id: string & tags.Format<"uuid">;
+    name: string & tags.MinLength<3>;
+    limit: number & tags.Type<"int32">;
     clerks: IClerk[];
 }
 interface IClerk {
     name: string;
-
-    /**
-     * @exclusiveMinimum 19
-     * @maximum 100
-     */
-    age: number;
-
+    age: number 
+        & tags.Type<"uint32"> 
+        & tags.ExclusiveMinimum<19> 
+        & tags.Maximum<100>;
     authority: number;
-
-    /**
-     * @format date
-     */
-    joined_at: string;
+    joined_at: string & tags.Format<"date">;
 }
 ```
     </Tab>
     <Tab>
-```javascript filename="examples/bin/createAssertStringify.js" showLineNumbers {3-163}
-import typia from "typia";
-
-export const assertDepartment = (input) => {
+```javascript filename="examples/bin/createAssertStringify.js" showLineNumbers
+"use strict";
+var __importDefault =
+    (this && this.__importDefault) ||
+    function (mod) {
+        return mod && mod.__esModule ? mod : { default: mod };
+    };
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.assertDepartment = void 0;
+const typia_1 = __importDefault(require("typia"));
+const assertDepartment = (input) => {
     const assert = (input) => {
-        const $guard = typia.createAssertStringify.guard;
-        const $is_uuid = typia.createAssertStringify.is_uuid;
-        const $is_date = typia.createAssertStringify.is_date;
         const __is = (input) => {
-            const $is_uuid = typia.createAssertStringify.is_uuid;
-            const $is_date = typia.createAssertStringify.is_date;
             const $io0 = (input) =>
-                "string" === typeof input.id && $is_uuid(input.id) &&
-                "string" === typeof input.name && 3 <= input.name.length &&
-                "number" === typeof input.limit && !Number.isNaN(input.limit) && parseInt(input.limit) === input.limit && 0 <= input.limit &&
-                Array.isArray(input.clerks) && input.clerks.every(
+                "string" === typeof input.id &&
+                /^(?:[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}|00000000-0000-0000-0000-000000000000)$/i.test(
+                    input.id,
+                ) &&
+                "string" === typeof input.name &&
+                3 <= input.name.length &&
+                "number" === typeof input.limit &&
+                Math.floor(input.limit) === input.limit &&
+                -2147483648 <= input.limit &&
+                input.limit <= 2147483647 &&
+                Array.isArray(input.clerks) &&
+                input.clerks.every(
                     (elem) =>
                         "object" === typeof elem && null !== elem && $io1(elem),
                 );
             const $io1 = (input) =>
                 "string" === typeof input.name &&
-                "number" === typeof input.age && 19 < input.age && 100 >= input.age &&
-                "number" === typeof input.authority && !Number.isNaN(input.authority) &&
-                "string" === typeof input.joined_at && $is_date(input.joined_at);
+                "number" === typeof input.age &&
+                Math.floor(input.age) === input.age &&
+                0 <= input.age &&
+                input.age <= 4294967295 &&
+                19 < input.age &&
+                input.age <= 100 &&
+                "number" === typeof input.authority &&
+                !Number.isNaN(input.authority) &&
+                "string" === typeof input.joined_at &&
+                /^(d{4})-(d{2})-(d{2})$/.test(input.joined_at);
             return "object" === typeof input && null !== input && $io0(input);
         };
         if (false === __is(input))
             ((input, _path, _exceptionable = true) => {
+                const $guard = typia_1.default.json.createAssertStringify.guard;
                 const $ao0 = (input, _path, _exceptionable = true) =>
                     (("string" === typeof input.id &&
-                        ($is_uuid(input.id) ||
+                        (/^(?:[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}|00000000-0000-0000-0000-000000000000)$/i.test(
+                            input.id,
+                        ) ||
                             $guard(_exceptionable, {
                                 path: _path + ".id",
-                                expected: "string (@format uuid)",
+                                expected: 'string & Format<"uuid">',
                                 value: input.id,
                             }))) ||
                         $guard(_exceptionable, {
                             path: _path + ".id",
-                            expected: "string",
+                            expected: '(string & Format<"uuid">)',
                             value: input.id,
                         })) &&
                     (("string" === typeof input.name &&
                         (3 <= input.name.length ||
                             $guard(_exceptionable, {
                                 path: _path + ".name",
-                                expected: "string (@minLength 3)",
+                                expected: "string & MinLength<3>",
                                 value: input.name,
                             }))) ||
                         $guard(_exceptionable, {
                             path: _path + ".name",
-                            expected: "string",
+                            expected: "(string & MinLength<3>)",
                             value: input.name,
                         })) &&
                     (("number" === typeof input.limit &&
-                        !Number.isNaN(input.limit) &&
-                        (parseInt(input.limit) === input.limit ||
+                        ((Math.floor(input.limit) === input.limit &&
+                            -2147483648 <= input.limit &&
+                            input.limit <= 2147483647) ||
                             $guard(_exceptionable, {
                                 path: _path + ".limit",
-                                expected: "number (@type int)",
-                                value: input.limit,
-                            })) &&
-                        (0 <= input.limit ||
-                            $guard(_exceptionable, {
-                                path: _path + ".limit",
-                                expected: "number (@type int)",
+                                expected: 'number & Type<"int32">',
                                 value: input.limit,
                             }))) ||
                         $guard(_exceptionable, {
                             path: _path + ".limit",
-                            expected: "number",
+                            expected: '(number & Type<"int32">)',
                             value: input.limit,
                         })) &&
-                    (Array.isArray(input.clerks) ||
+                    (((Array.isArray(input.clerks) ||
                         $guard(_exceptionable, {
                             path: _path + ".clerks",
                             expected: "Array<IClerk>",
                             value: input.clerks,
                         })) &&
-                    input.clerks.every(
-                        (elem, _index1) =>
-                            (("object" === typeof elem && null !== elem) ||
+                        input.clerks.every(
+                            (elem, _index1) =>
+                                ((("object" === typeof elem && null !== elem) ||
+                                    $guard(_exceptionable, {
+                                        path:
+                                            _path + ".clerks[" + _index1 + "]",
+                                        expected: "IClerk",
+                                        value: elem,
+                                    })) &&
+                                    $ao1(
+                                        elem,
+                                        _path + ".clerks[" + _index1 + "]",
+                                        true && _exceptionable,
+                                    )) ||
                                 $guard(_exceptionable, {
                                     path: _path + ".clerks[" + _index1 + "]",
                                     expected: "IClerk",
                                     value: elem,
-                                })) &&
-                            $ao1(
-                                elem,
-                                _path + ".clerks[" + _index1 + "]",
-                                true && _exceptionable,
-                            ),
-                    );
+                                }),
+                        )) ||
+                        $guard(_exceptionable, {
+                            path: _path + ".clerks",
+                            expected: "Array<IClerk>",
+                            value: input.clerks,
+                        }));
                 const $ao1 = (input, _path, _exceptionable = true) =>
                     ("string" === typeof input.name ||
                         $guard(_exceptionable, {
@@ -423,21 +462,30 @@ export const assertDepartment = (input) => {
                             value: input.name,
                         })) &&
                     (("number" === typeof input.age &&
+                        ((Math.floor(input.age) === input.age &&
+                            0 <= input.age &&
+                            input.age <= 4294967295) ||
+                            $guard(_exceptionable, {
+                                path: _path + ".age",
+                                expected: 'number & Type<"uint32">',
+                                value: input.age,
+                            })) &&
                         (19 < input.age ||
                             $guard(_exceptionable, {
                                 path: _path + ".age",
-                                expected: "number (@exclusiveMinimum 19)",
+                                expected: "number & ExclusiveMinimum<19>",
                                 value: input.age,
                             })) &&
-                        (100 >= input.age ||
+                        (input.age <= 100 ||
                             $guard(_exceptionable, {
                                 path: _path + ".age",
-                                expected: "number (@maximum 100)",
+                                expected: "number & Maximum<100>",
                                 value: input.age,
                             }))) ||
                         $guard(_exceptionable, {
                             path: _path + ".age",
-                            expected: "number",
+                            expected:
+                                '(number & Type<"uint32"> & ExclusiveMinimum<19> & Maximum<100>)',
                             value: input.age,
                         })) &&
                     (("number" === typeof input.authority &&
@@ -448,45 +496,65 @@ export const assertDepartment = (input) => {
                             value: input.authority,
                         })) &&
                     (("string" === typeof input.joined_at &&
-                        ($is_date(input.joined_at) ||
+                        (/^(d{4})-(d{2})-(d{2})$/.test(input.joined_at) ||
                             $guard(_exceptionable, {
                                 path: _path + ".joined_at",
-                                expected: "string (@format date)",
+                                expected: 'string & Format<"date">',
                                 value: input.joined_at,
                             }))) ||
                         $guard(_exceptionable, {
                             path: _path + ".joined_at",
-                            expected: "string",
+                            expected: '(string & Format<"date">)',
                             value: input.joined_at,
                         }));
                 return (
-                    (("object" === typeof input && null !== input) ||
+                    ((("object" === typeof input && null !== input) ||
                         $guard(true, {
                             path: _path + "",
                             expected: "IDepartment",
                             value: input,
                         })) &&
-                    $ao0(input, _path + "", true)
+                        $ao0(input, _path + "", true)) ||
+                    $guard(true, {
+                        path: _path + "",
+                        expected: "IDepartment",
+                        value: input,
+                    })
                 );
             })(input, "$input", true);
         return input;
     };
     const stringify = (input) => {
-        const $string = typia.createAssertStringify.string;
+        const $io1 = (input) =>
+            "string" === typeof input.name &&
+            "number" === typeof input.age &&
+            Math.floor(input.age) === input.age &&
+            0 <= input.age &&
+            input.age <= 4294967295 &&
+            19 < input.age &&
+            input.age <= 100 &&
+            "number" === typeof input.authority &&
+            "string" === typeof input.joined_at &&
+            /^(d{4})-(d{2})-(d{2})$/.test(input.joined_at);
+        const $string = typia_1.default.json.createAssertStringify.string;
         const $so0 = (input) =>
-            `{"id":${'"' + input.id + '"'},"name":${$string(
-                input.name,
-            )},"limit":${input.limit},"clerks":${`[${input.clerks
-                .map((elem) => $so1(elem))
+            `{"id":${$string(input.id)},"name":${$string(input.name)},"limit":${
+                input.limit
+            },"clerks":${`[${input.clerks
+                .map(
+                    (elem) =>
+                        `{"name":${$string(elem.name)},"age":${
+                            elem.age
+                        },"authority":${elem.authority},"joined_at":${$string(
+                            elem.joined_at,
+                        )}}`,
+                )
                 .join(",")}]`}}`;
-        const $so1 = (input) =>
-            `{"name":${$string(input.name)},"age":${input.age},"authority":${
-                input.authority
-            },"joined_at":${'"' + input.joined_at + '"'}}`;
         return $so0(input);
     };
     return stringify(assert(input));
 };
+exports.assertDepartment = assertDepartment;
 ```
     </Tab>
 </Tabs>

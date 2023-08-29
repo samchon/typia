@@ -1,7 +1,5 @@
 {
-    "message": "message() function",
-    "decode": "decode() functions",
+    "message": "Message Schema",
     "encode": "encode() functions",
-    "comment-tags": "Comment Tags",
-    "detour": "Detour Expression"
+    "decode": "decode() functions"
 }

@@ -20,14 +20,12 @@ export namespace FileTransformer {
     const iterate_node =
         (project: IProject) =>
         (context: ts.TransformationContext) =>
-        (node: ts.Node): ts.Node => {
-            const changed: ts.Node | null = try_transform_node(project)(node);
-            return ts.visitEachChild(
-                changed ?? node,
+        (node: ts.Node): ts.Node =>
+            ts.visitEachChild(
+                try_transform_node(project)(node) ?? node,
                 (child) => iterate_node(project)(context)(child),
                 context,
             );
-        };
 
     const try_transform_node =
         (project: IProject) =>

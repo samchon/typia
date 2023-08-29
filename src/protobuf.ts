@@ -75,17 +75,17 @@ export function message(): never {
  * For reference, as Protocol Buffer handles binary data directly, there's no way
  * when `input` binary data was not encoded from the `T` typed value. In that case,
  * unexpected behavior or internal error would be occured. Therefore, I recommend you
- * to encode binary data of Protocol Buffer from type safe encode function like below.
+ * to encode binary data of Protocol Buffer from type safe encode functions like below.
  * Use {@link encode} function only when you can ensure it.
  *
  *  - {@link assertEncode}
  *  - {@link isEncode}
  *  - {@link validateEncode}
  *
- * Also, `typia` is providing a type safe decoder like {@link assertDecode}, but it
- * is just for additional validation like whether a string value meets constant
- * restriction, or a numeric value is keepking its range limit, represented by
- * [comment tags](https://typia.io/docs/validators/tags). Thus, I repeat that,
+ * Also, `typia` is providing type safe decoders like {@link assertDecode}, but it
+ * is just for additional type validation like `number & Minimum<7>` or
+ * `string & Format<"uuid">` cases, that are represented by
+ * [custom tags](https://typia.io/docs/validators/tags). Thus, I repeat that,
  * you've to ensure the type safety when using decoder functions.
  *
  * @tempate Expected type of decoded value
@@ -105,17 +105,17 @@ export function decode(input: Uint8Array): never;
  * For reference, as Protocol Buffer handles binary data directly, there's no way
  * when `input` binary data was not encoded from the `T` typed value. In that case,
  * unexpected behavior or internal error would be occured. Therefore, I recommend you
- * to encode binary data of Protocol Buffer from type safe encode function like below.
+ * to encode binary data of Protocol Buffer from type safe encode functions like below.
  * Use {@link encode} function only when you can ensure it.
  *
  *  - {@link assertEncode}
  *  - {@link isEncode}
  *  - {@link validateEncode}
  *
- * Also, `typia` is providing a type safe decoder like {@link assertDecode}, but it
- * is just for additional validation like whether a string value meets constant
- * restriction, or a numeric value is keepking its range limit, represented by
- * [comment tags](https://typia.io/docs/validators/tags). Thus, I repeat that,
+ * Also, `typia` is providing type safe decoders like {@link assertDecode}, but it
+ * is just for additional type validation like `number & Minimum<7>` or
+ * `string & Format<"uuid">` cases, that are represented by
+ * [custom tags](https://typia.io/docs/validators/tags). Thus, I repeat that,
  * you've to ensure the type safety when using decoder functions.
  *
  * @tempate Expected type of decoded value
@@ -146,10 +146,10 @@ Object.assign(decode, Namespace.protobuf.decode("decode"));
  * {@link TypeGuardError} instead.
  *
  * However, note that, this validation is not always safe. It just performs additional
- * type checking like whether a string value meets constant restriction, or a
- * numeric value is keepking its range limit, represented by
- * [comment tags](https://typia.io/docs/validators/tags). Therefore, when using
- * decode functions, you have to ensure the type safety by yourself.
+ * type assertion like `number & Minimum<7>` or `string & Format<"uuid">` cases,
+ * that are represented by [custom tags](https://typia.io/docs/validators/tags).
+ * Therefore, when using `typia.protobuf.assertDecode<T>()` function, you have to
+ * ensure the type safety by yourself.
  *
  * In such type safety reason, I recommend you to use type safe encode functions.
  *
@@ -175,10 +175,10 @@ export function assertDecode(input: Uint8Array): never;
  * {@link TypeGuardError} instead.
  *
  * However, note that, this validation is not always safe. It just performs additional
- * type checking like whether a string value meets constant restriction, or a
- * numeric value is keepking its range limit, represented by
- * [comment tags](https://typia.io/docs/validators/tags). Therefore, when using
- * decode functions, you have to ensure the type safety by yourself.
+ * type assertion like `number & Minimum<7>` or `string & Format<"uuid">` cases,
+ * that are represented by [custom tags](https://typia.io/docs/validators/tags).
+ * Therefore, when using `typia.protobuf.assertDecode<T>()` function, you have to
+ * ensure the type safety by yourself.
  *
  * In such type safety reason, I recommend you to use type safe encode functions.
  *
@@ -215,10 +215,10 @@ Object.assign(assertDecode, Namespace.protobuf.decode("assertDecode"));
  * `null` value instead.
  *
  * However, note that, this validation is not always safe. It just performs additional
- * type checking like whether a string value meets constant restriction, or a
- * numeric value is keepking its range limit, represented by
- * [comment tags](https://typia.io/docs/validators/tags). Therefore, when using
- * decode functions, you have to ensure the type safety by yourself.
+ * type checking like `number & Minimum<7>` or `string & Format<"uuid">` cases,
+ * that are represented by [custom tags](https://typia.io/docs/validators/tags).
+ * Therefore, when using `typia.protobuf.isDecode<T>()` function, you have to
+ * ensure the type safety by yourself.
  *
  * In such type safety reason, I recommend you to use type safe encode functions.
  *
@@ -244,10 +244,10 @@ export function isDecode(input: Uint8Array): never;
  * `null` value instead.
  *
  * However, note that, this validation is not always safe. It just performs additional
- * type checking like whether a string value meets constant restriction, or a
- * numeric value is keepking its range limit, represented by
- * [comment tags](https://typia.io/docs/validators/tags). Therefore, when using
- * decode functions, you have to ensure the type safety by yourself.
+ * type checking like `number & Minimum<7>` or `string & Format<"uuid">` cases,
+ * that are represented by [custom tags](https://typia.io/docs/validators/tags).
+ * Therefore, when using `typia.protobuf.isDecode<T>()` function, you have to
+ * ensure the type safety by yourself.
  *
  * In such type safety reason, I recommend you to use type safe encode functions.
  *
@@ -285,10 +285,10 @@ Object.assign(isDecode, Namespace.protobuf.decode("isDecode"));
  * {@link IValidation.IFailure} value instead with detailed error reasons.
  *
  * However, note that, this validation is not always safe. It just performs additional
- * type checking like whether a string value meets constant restriction, or a
- * numeric value is keepking its range limit, represented by
- * [comment tags](https://typia.io/docs/validators/tags). Therefore, when using
- * decode functions, you have to ensure the type safety by yourself.
+ * type validation like `number & Minimum<7>` or `string & Format<"uuid">` cases,
+ * that are represented by [custom tags](https://typia.io/docs/validators/tags).
+ * Therefore, when using `typia.protobuf.validateDecode<T>()` function, you have to
+ * ensure the type safety by yourself.
  *
  * In such type safety reason, I recommend you to use type safe encode functions.
  *
@@ -315,10 +315,10 @@ export function validateDecode(input: Uint8Array): never;
  * {@link IValidation.IFailure} value instead with detailed error reasons.
  *
  * However, note that, this validation is not always safe. It just performs additional
- * type checking like whether a string value meets constant restriction, or a
- * numeric value is keepking its range limit, represented by
- * [comment tags](https://typia.io/docs/validators/tags). Therefore, when using
- * decode functions, you have to ensure the type safety by yourself.
+ * type validation like `number & Minimum<7>` or `string & Format<"uuid">` cases,
+ * that are represented by [custom tags](https://typia.io/docs/validators/tags).
+ * Therefore, when using `typia.protobuf.validateDecode<T>()` function, you have to
+ * ensure the type safety by yourself.
  *
  * In such type safety reason, I recommend you to use type safe encode functions.
  *
