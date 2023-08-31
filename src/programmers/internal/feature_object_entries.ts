@@ -45,13 +45,14 @@ export const feature_object_entries =
                     tracable: config.path || config.trace,
                     source: "function",
                     from,
-                    postfix:
-                        sole !== null
+                    postfix: config.trace
+                        ? sole !== null
                             ? IdentifierFactory.postfix(sole)
                             : (() => {
                                   importer.use("join");
                                   return `$join(key)`;
-                              })(),
+                              })()
+                        : "",
                 }),
             };
         });
