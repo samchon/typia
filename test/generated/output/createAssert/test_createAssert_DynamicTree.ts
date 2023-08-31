@@ -6,7 +6,6 @@ export const test_assert_DynamicTree = _test_assert("DynamicTree")<DynamicTree>(
     DynamicTree,
 )((input: any): DynamicTree => {
     const __is = (input: any): input is DynamicTree => {
-        const $join = (typia.createAssert as any).join;
         const $io0 = (input: any): boolean =>
             "string" === typeof input.id &&
             "number" === typeof input.sequence &&

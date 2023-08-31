@@ -8,7 +8,6 @@ export const test_json_assertParse_DynamicTree = _test_json_assertParse(
     ((input: string): typia.Primitive<DynamicTree> => {
         const assert = (input: any): DynamicTree => {
             const __is = (input: any): input is DynamicTree => {
-                const $join = (typia.json.assertParse as any).join;
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     "number" === typeof input.sequence &&

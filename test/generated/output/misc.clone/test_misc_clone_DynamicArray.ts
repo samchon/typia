@@ -17,7 +17,6 @@ export const test_misc_clone_DynamicArray = _test_misc_clone(
                     );
                 return true;
             });
-        const $join = (typia.misc.clone as any).join;
         const $cp0 = (input: any) => input.map((elem: any) => elem as any);
         const $co0 = (input: any): any => ({
             value:

@@ -7,7 +7,6 @@ export const test_json_isStringify_DynamicUnion = _test_json_isStringify(
 )<DynamicUnion>(DynamicUnion)((input) =>
     ((input: DynamicUnion): string | null => {
         const is = (input: any): input is DynamicUnion => {
-            const $join = (typia.json.isStringify as any).join;
             const $io0 = (input: any): boolean =>
                 Object.keys(input).every((key: any) => {
                     const value = input[key];
@@ -40,7 +39,6 @@ export const test_json_isStringify_DynamicUnion = _test_json_isStringify(
             );
         };
         const stringify = (input: DynamicUnion): string => {
-            const $join = (typia.json.isStringify as any).join;
             const $string = (typia.json.isStringify as any).string;
             const $number = (typia.json.isStringify as any).number;
             const $so0 = (input: any): any =>

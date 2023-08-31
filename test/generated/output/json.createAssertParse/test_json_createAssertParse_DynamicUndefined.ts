@@ -8,7 +8,6 @@ export const test_json_assertParse_DynamicUndefined = _test_json_assertParse(
     (input: string): typia.Primitive<DynamicUndefined> => {
         const assert = (input: any): DynamicUndefined => {
             const __is = (input: any): input is DynamicUndefined => {
-                const $join = (typia.json.createAssertParse as any).join;
                 const $io0 = (input: any): boolean =>
                     Object.keys(input).every((key: any) => {
                         const value = input[key];

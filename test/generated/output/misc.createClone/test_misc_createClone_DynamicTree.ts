@@ -25,7 +25,6 @@ export const test_misc_clone_DynamicTree = _test_misc_clone(
                     );
                 return true;
             });
-        const $join = (typia.misc.createClone as any).join;
         const $co0 = (input: any): any => ({
             id: input.id as any,
             sequence: input.sequence as any,

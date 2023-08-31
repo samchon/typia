@@ -6,7 +6,6 @@ export const test_json_isStringify_DynamicTree = _test_json_isStringify(
     "DynamicTree",
 )<DynamicTree>(DynamicTree)((input: DynamicTree): string | null => {
     const is = (input: any): input is DynamicTree => {
-        const $join = (typia.json.createIsStringify as any).join;
         const $io0 = (input: any): boolean =>
             "string" === typeof input.id &&
             "number" === typeof input.sequence &&
@@ -51,7 +50,6 @@ export const test_json_isStringify_DynamicTree = _test_json_isStringify(
             });
         const $string = (typia.json.createIsStringify as any).string;
         const $number = (typia.json.createIsStringify as any).number;
-        const $join = (typia.json.createIsStringify as any).join;
         const $so0 = (input: any): any =>
             `{"id":${$string(input.id)},"sequence":${$number(
                 input.sequence,

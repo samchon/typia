@@ -6,7 +6,6 @@ export const test_json_stringify_DynamicUnion = _test_json_stringify(
     "DynamicUnion",
 )<DynamicUnion>(DynamicUnion)((input) =>
     ((input: DynamicUnion): string => {
-        const $join = (typia.json.stringify as any).join;
         const $string = (typia.json.stringify as any).string;
         const $number = (typia.json.stringify as any).number;
         const $so0 = (input: any): any =>

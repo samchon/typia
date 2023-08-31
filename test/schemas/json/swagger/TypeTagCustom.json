@@ -24,13 +24,19 @@
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "string"
+          },
+          "powerOf": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "number"
           }
         },
         "nullable": false,
         "required": [
           "id",
           "dollar",
-          "postfix"
+          "postfix",
+          "powerOf"
         ],
         "x-typia-jsDocTags": []
       }

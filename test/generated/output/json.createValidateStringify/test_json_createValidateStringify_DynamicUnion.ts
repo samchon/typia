@@ -8,8 +8,6 @@ export const test_json_validateStringify_DynamicUnion =
             const validate = (input: any): typia.IValidation<DynamicUnion> => {
                 const errors = [] as any[];
                 const __is = (input: any): input is DynamicUnion => {
-                    const $join = (typia.json.createValidateStringify as any)
-                        .join;
                     const $io0 = (input: any): boolean =>
                         Object.keys(input).every((key: any) => {
                             const value = input[key];
@@ -156,7 +154,6 @@ export const test_json_validateStringify_DynamicUnion =
                 } as any;
             };
             const stringify = (input: DynamicUnion): string => {
-                const $join = (typia.json.createValidateStringify as any).join;
                 const $string = (typia.json.createValidateStringify as any)
                     .string;
                 const $number = (typia.json.createValidateStringify as any)

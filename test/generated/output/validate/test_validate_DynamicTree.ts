@@ -8,7 +8,6 @@ export const test_validate_DynamicTree = _test_validate(
     ((input: any): typia.IValidation<DynamicTree> => {
         const errors = [] as any[];
         const __is = (input: any): input is DynamicTree => {
-            const $join = (typia.validate as any).join;
             const $io0 = (input: any): boolean =>
                 "string" === typeof input.id &&
                 "number" === typeof input.sequence &&

@@ -8,7 +8,6 @@ export const test_misc_assertPrune_DynamicTemplate = _test_misc_assertPrune(
     ((input: any): DynamicTemplate => {
         const assert = (input: any): DynamicTemplate => {
             const __is = (input: any): input is DynamicTemplate => {
-                const $join = (typia.misc.assertPrune as any).join;
                 const $io0 = (input: any): boolean =>
                     Object.keys(input).every((key: any) => {
                         const value = input[key];
@@ -125,7 +124,6 @@ export const test_misc_assertPrune_DynamicTemplate = _test_misc_assertPrune(
             return input;
         };
         const prune = (input: DynamicTemplate): void => {
-            const $join = (typia.misc.assertPrune as any).join;
             const $po0 = (input: any): any => {
                 Object.entries(input).forEach(([key, value]: any) => {
                     if (undefined === value) return;

@@ -8,7 +8,6 @@ export const test_json_assertStringify_DynamicTree = _test_json_assertStringify(
     ((input: any): string => {
         const assert = (input: any): DynamicTree => {
             const __is = (input: any): input is DynamicTree => {
-                const $join = (typia.json.assertStringify as any).join;
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     "number" === typeof input.sequence &&
@@ -147,7 +146,6 @@ export const test_json_assertStringify_DynamicTree = _test_json_assertStringify(
                 });
             const $string = (typia.json.assertStringify as any).string;
             const $number = (typia.json.assertStringify as any).number;
-            const $join = (typia.json.assertStringify as any).join;
             const $so0 = (input: any): any =>
                 `{"id":${$string(input.id)},"sequence":${$number(
                     input.sequence,

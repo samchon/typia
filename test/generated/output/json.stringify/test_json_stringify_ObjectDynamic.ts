@@ -6,7 +6,6 @@ export const test_json_stringify_ObjectDynamic = _test_json_stringify(
     "ObjectDynamic",
 )<ObjectDynamic>(ObjectDynamic)((input) =>
     ((input: ObjectDynamic): string => {
-        const $join = (typia.json.stringify as any).join;
         const $string = (typia.json.stringify as any).string;
         const $number = (typia.json.stringify as any).number;
         const $throws = (typia.json.stringify as any).throws;

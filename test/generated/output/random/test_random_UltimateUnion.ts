@@ -2350,7 +2350,6 @@ export const test_random_UltimateUnion = _test_random(
         })(),
     assert: (input: any): UltimateUnion => {
         const __is = (input: any): input is UltimateUnion => {
-            const $join = (typia.createAssert as any).join;
             const $io0 = (input: any): boolean =>
                 Array.isArray(input.schemas) &&
                 input.schemas.every(

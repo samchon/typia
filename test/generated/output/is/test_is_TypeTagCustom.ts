@@ -19,7 +19,15 @@ export const test_is_TypeTagCustom = _test_is("TypeTagCustom")<TypeTagCustom>(
                 Number((input as any).dollar.substring(1).split(",").join("")),
             ) &&
             "string" === typeof (input as any).postfix &&
-            (input as any).postfix.endsWith("abcd")
+            (input as any).postfix.endsWith("abcd") &&
+            "number" === typeof (input as any).powerOf &&
+            Number.isFinite((input as any).powerOf) &&
+            (() => {
+                const denominator: number = Math.log(2);
+                const value: number =
+                    Math.log((input as any).powerOf) / denominator;
+                return Math.abs(value - Math.round(value)) < 1e-8;
+            })()
         );
     })(input),
 );

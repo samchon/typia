@@ -8,7 +8,6 @@ export const test_json_assertParse_DynamicComposite = _test_json_assertParse(
     ((input: string): typia.Primitive<DynamicComposite> => {
         const assert = (input: any): DynamicComposite => {
             const __is = (input: any): input is DynamicComposite => {
-                const $join = (typia.json.assertParse as any).join;
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     "string" === typeof input.name &&

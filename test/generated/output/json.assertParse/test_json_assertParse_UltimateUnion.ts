@@ -8,7 +8,6 @@ export const test_json_assertParse_UltimateUnion = _test_json_assertParse(
     ((input: string): typia.Primitive<UltimateUnion> => {
         const assert = (input: any): UltimateUnion => {
             const __is = (input: any): input is UltimateUnion => {
-                const $join = (typia.json.assertParse as any).join;
                 const $io0 = (input: any): boolean =>
                     Array.isArray(input.schemas) &&
                     input.schemas.every(

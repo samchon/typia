@@ -25,12 +25,18 @@
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "string"
+          },
+          "powerOf": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "number"
           }
         },
         "required": [
           "id",
           "dollar",
-          "postfix"
+          "postfix",
+          "powerOf"
         ],
         "x-typia-jsDocTags": []
       }

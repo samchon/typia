@@ -22,7 +22,15 @@ export const test_protobuf_isDecode_TypeTagCustom = _test_protobuf_isDecode(
                     ),
                 ) &&
                 "string" === typeof (input as any).postfix &&
-                (input as any).postfix.endsWith("abcd")
+                (input as any).postfix.endsWith("abcd") &&
+                "number" === typeof (input as any).powerOf &&
+                Number.isFinite((input as any).powerOf) &&
+                (() => {
+                    const denominator: number = Math.log(2);
+                    const value: number =
+                        Math.log((input as any).powerOf) / denominator;
+                    return Math.abs(value - Math.round(value)) < 1e-8;
+                })()
             );
         };
         const decode = (input: Uint8Array): typia.Resolved<TypeTagCustom> => {
@@ -33,6 +41,7 @@ export const test_protobuf_isDecode_TypeTagCustom = _test_protobuf_isDecode(
                     id: "" as any,
                     dollar: "" as any,
                     postfix: "" as any,
+                    powerOf: undefined as any,
                 };
                 while (reader.index() < length) {
                     const tag = reader.uint32();
@@ -48,6 +57,10 @@ export const test_protobuf_isDecode_TypeTagCustom = _test_protobuf_isDecode(
                         case 3:
                             // string;
                             output.postfix = reader.string();
+                            break;
+                        case 4:
+                            // double;
+                            output.powerOf = reader.double();
                             break;
                         default:
                             reader.skipType(tag & 7);
@@ -77,6 +90,9 @@ export const test_protobuf_isDecode_TypeTagCustom = _test_protobuf_isDecode(
                 // property "postfix";
                 writer.uint32(26);
                 writer.string(input.postfix);
+                // property "powerOf";
+                writer.uint32(33);
+                writer.double(input.powerOf);
             };
             //TypeTagCustom;
             $peo0(input);

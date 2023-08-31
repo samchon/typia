@@ -11,8 +11,6 @@ export const test_json_validateStringify_ObjectDynamic =
                 ): typia.IValidation<ObjectDynamic> => {
                     const errors = [] as any[];
                     const __is = (input: any): input is ObjectDynamic => {
-                        const $join = (typia.json.validateStringify as any)
-                            .join;
                         const $io0 = (input: any): boolean =>
                             Object.keys(input).every((key: any) => {
                                 const value = input[key];
@@ -109,7 +107,6 @@ export const test_json_validateStringify_ObjectDynamic =
                     } as any;
                 };
                 const stringify = (input: ObjectDynamic): string => {
-                    const $join = (typia.json.validateStringify as any).join;
                     const $string = (typia.json.validateStringify as any)
                         .string;
                     const $number = (typia.json.validateStringify as any)

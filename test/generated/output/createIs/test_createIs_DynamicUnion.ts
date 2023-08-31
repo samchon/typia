@@ -5,7 +5,6 @@ import { DynamicUnion } from "../../../structures/DynamicUnion";
 export const test_is_DynamicUnion = _test_is("DynamicUnion")<DynamicUnion>(
     DynamicUnion,
 )((input: any): input is DynamicUnion => {
-    const $join = (typia.createIs as any).join;
     const $io0 = (input: any): boolean =>
         Object.keys(input).every((key: any) => {
             const value = input[key];

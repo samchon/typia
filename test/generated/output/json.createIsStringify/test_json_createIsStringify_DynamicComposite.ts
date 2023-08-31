@@ -7,7 +7,6 @@ export const test_json_isStringify_DynamicComposite = _test_json_isStringify(
 )<DynamicComposite>(DynamicComposite)(
     (input: DynamicComposite): string | null => {
         const is = (input: any): input is DynamicComposite => {
-            const $join = (typia.json.createIsStringify as any).join;
             const $io0 = (input: any): boolean =>
                 "string" === typeof input.id &&
                 "string" === typeof input.name &&
@@ -51,7 +50,6 @@ export const test_json_isStringify_DynamicComposite = _test_json_isStringify(
         };
         const stringify = (input: DynamicComposite): string => {
             const $string = (typia.json.createIsStringify as any).string;
-            const $join = (typia.json.createIsStringify as any).join;
             const $number = (typia.json.createIsStringify as any).number;
             const $throws = (typia.json.createIsStringify as any).throws;
             const $tail = (typia.json.createIsStringify as any).tail;

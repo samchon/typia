@@ -14,6 +14,7 @@ export const test_protobuf_decode_TypeTagCustom = _test_protobuf_decode(
                     id: "" as any,
                     dollar: "" as any,
                     postfix: "" as any,
+                    powerOf: undefined as any,
                 };
                 while (reader.index() < length) {
                     const tag = reader.uint32();
@@ -29,6 +30,10 @@ export const test_protobuf_decode_TypeTagCustom = _test_protobuf_decode(
                         case 3:
                             // string;
                             output.postfix = reader.string();
+                            break;
+                        case 4:
+                            // double;
+                            output.powerOf = reader.double();
                             break;
                         default:
                             reader.skipType(tag & 7);
@@ -54,6 +59,9 @@ export const test_protobuf_decode_TypeTagCustom = _test_protobuf_decode(
                 // property "postfix";
                 writer.uint32(26);
                 writer.string(input.postfix);
+                // property "powerOf";
+                writer.uint32(33);
+                writer.double(input.powerOf);
             };
             //TypeTagCustom;
             $peo0(input);

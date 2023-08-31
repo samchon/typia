@@ -7,7 +7,6 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
 )<UltimateUnion>(UltimateUnion)((input) =>
     ((input: UltimateUnion): string | null => {
         const is = (input: any): input is UltimateUnion => {
-            const $join = (typia.json.isStringify as any).join;
             const $io0 = (input: any): boolean =>
                 Array.isArray(input.schemas) &&
                 input.schemas.every(
@@ -2103,7 +2102,6 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
             const $throws = (typia.json.isStringify as any).throws;
             const $number = (typia.json.isStringify as any).number;
             const $tail = (typia.json.isStringify as any).tail;
-            const $join = (typia.json.isStringify as any).join;
             const $so0 = (input: any): any =>
                 `{"schemas":${`[${input.schemas
                     .map((elem: any) => $su0(elem))

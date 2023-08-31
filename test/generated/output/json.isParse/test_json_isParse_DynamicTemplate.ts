@@ -7,7 +7,6 @@ export const test_json_isParse_DynamicTemplate = _test_json_isParse(
 )<DynamicTemplate>(DynamicTemplate)((input) =>
     ((input: any): typia.Primitive<DynamicTemplate> => {
         const is = (input: any): input is DynamicTemplate => {
-            const $join = (typia.json.isParse as any).join;
             const $io0 = (input: any): boolean =>
                 Object.keys(input).every((key: any) => {
                     const value = input[key];

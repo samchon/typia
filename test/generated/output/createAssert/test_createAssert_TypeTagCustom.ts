@@ -19,7 +19,15 @@ export const test_assert_TypeTagCustom = _test_assert(
                 Number((input as any).dollar.substring(1).split(",").join("")),
             ) &&
             "string" === typeof (input as any).postfix &&
-            (input as any).postfix.endsWith("abcd")
+            (input as any).postfix.endsWith("abcd") &&
+            "number" === typeof (input as any).powerOf &&
+            Number.isFinite((input as any).powerOf) &&
+            (() => {
+                const denominator: number = Math.log(2);
+                const value: number =
+                    Math.log((input as any).powerOf) / denominator;
+                return Math.abs(value - Math.round(value)) < 1e-8;
+            })()
         );
     };
     if (false === __is(input))
@@ -76,6 +84,29 @@ export const test_assert_TypeTagCustom = _test_assert(
                         path: _path + ".postfix",
                         expected: '(string & Postfix<"abcd">)',
                         value: input.postfix,
+                    })) &&
+                (("number" === typeof input.powerOf &&
+                    (Number.isFinite(input.powerOf) ||
+                        $guard(_exceptionable, {
+                            path: _path + ".powerOf",
+                            expected: "number",
+                            value: input.powerOf,
+                        })) &&
+                    ((() => {
+                        const denominator: number = Math.log(2);
+                        const value: number =
+                            Math.log(input.powerOf) / denominator;
+                        return Math.abs(value - Math.round(value)) < 1e-8;
+                    })() ||
+                        $guard(_exceptionable, {
+                            path: _path + ".powerOf",
+                            expected: "number & PowerOf<2>",
+                            value: input.powerOf,
+                        }))) ||
+                    $guard(_exceptionable, {
+                        path: _path + ".powerOf",
+                        expected: "(number & PowerOf<2>)",
+                        value: input.powerOf,
                     }));
             return (
                 ((("object" === typeof input && null !== input) ||

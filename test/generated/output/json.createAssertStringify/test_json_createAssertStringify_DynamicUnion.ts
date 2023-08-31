@@ -7,8 +7,6 @@ export const test_json_assertStringify_DynamicUnion =
         (input: any): string => {
             const assert = (input: any): DynamicUnion => {
                 const __is = (input: any): input is DynamicUnion => {
-                    const $join = (typia.json.createAssertStringify as any)
-                        .join;
                     const $io0 = (input: any): boolean =>
                         Object.keys(input).every((key: any) => {
                             const value = input[key];
@@ -127,7 +125,6 @@ export const test_json_assertStringify_DynamicUnion =
                 return input;
             };
             const stringify = (input: DynamicUnion): string => {
-                const $join = (typia.json.createAssertStringify as any).join;
                 const $string = (typia.json.createAssertStringify as any)
                     .string;
                 const $number = (typia.json.createAssertStringify as any)

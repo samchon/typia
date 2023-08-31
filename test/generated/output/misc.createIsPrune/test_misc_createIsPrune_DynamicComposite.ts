@@ -7,7 +7,6 @@ export const test_misc_isPrune_DynamicComposite = _test_misc_isPrune(
 )<DynamicComposite>(DynamicComposite)(
     (input: any): input is DynamicComposite => {
         const is = (input: any): input is DynamicComposite => {
-            const $join = (typia.misc.createIsPrune as any).join;
             const $io0 = (input: any): boolean =>
                 "string" === typeof input.id &&
                 "string" === typeof input.name &&
@@ -50,7 +49,6 @@ export const test_misc_isPrune_DynamicComposite = _test_misc_isPrune(
             return "object" === typeof input && null !== input && $io0(input);
         };
         const prune = (input: DynamicComposite): void => {
-            const $join = (typia.misc.createIsPrune as any).join;
             const $po0 = (input: any): any => {
                 Object.entries(input).forEach(([key, value]: any) => {
                     if (undefined === value) return;

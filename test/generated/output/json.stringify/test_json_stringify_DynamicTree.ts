@@ -27,7 +27,6 @@ export const test_json_stringify_DynamicTree = _test_json_stringify(
             });
         const $string = (typia.json.stringify as any).string;
         const $number = (typia.json.stringify as any).number;
-        const $join = (typia.json.stringify as any).join;
         const $so0 = (input: any): any =>
             `{"id":${$string(input.id)},"sequence":${$number(
                 input.sequence,

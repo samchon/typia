@@ -8,7 +8,6 @@ export const test_protobuf_assertEncode_DynamicTree =
             ((input: any): Uint8Array => {
                 const assert = (input: any): DynamicTree => {
                     const __is = (input: any): input is DynamicTree => {
-                        const $join = (typia.protobuf.assertEncode as any).join;
                         const $io0 = (input: any): boolean =>
                             "string" === typeof input.id &&
                             "number" === typeof input.sequence &&
@@ -131,7 +130,6 @@ export const test_protobuf_assertEncode_DynamicTree =
                     return input;
                 };
                 const encode = (input: DynamicTree): Uint8Array => {
-                    const $join = (typia.protobuf.assertEncode as any).join;
                     const $Sizer = (typia.protobuf.assertEncode as any).Sizer;
                     const $Writer = (typia.protobuf.assertEncode as any).Writer;
                     const encoder = (writer: any): any => {

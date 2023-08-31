@@ -6,7 +6,6 @@ export const test_is_DynamicComposite = _test_is(
     "DynamicComposite",
 )<DynamicComposite>(DynamicComposite)(
     (input: any): input is DynamicComposite => {
-        const $join = (typia.createIs as any).join;
         const $io0 = (input: any): boolean =>
             "string" === typeof input.id &&
             "string" === typeof input.name &&

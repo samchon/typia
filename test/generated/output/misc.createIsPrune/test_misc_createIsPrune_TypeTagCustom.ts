@@ -19,13 +19,26 @@ export const test_misc_isPrune_TypeTagCustom = _test_misc_isPrune(
                 Number((input as any).dollar.substring(1).split(",").join("")),
             ) &&
             "string" === typeof (input as any).postfix &&
-            (input as any).postfix.endsWith("abcd")
+            (input as any).postfix.endsWith("abcd") &&
+            "number" === typeof (input as any).powerOf &&
+            Number.isFinite((input as any).powerOf) &&
+            (() => {
+                const denominator: number = Math.log(2);
+                const value: number =
+                    Math.log((input as any).powerOf) / denominator;
+                return Math.abs(value - Math.round(value)) < 1e-8;
+            })()
         );
     };
     const prune = (input: TypeTagCustom): void => {
         const $po0 = (input: any): any => {
             for (const key of Object.keys(input)) {
-                if ("id" === key || "dollar" === key || "postfix" === key)
+                if (
+                    "id" === key ||
+                    "dollar" === key ||
+                    "postfix" === key ||
+                    "powerOf" === key
+                )
                     continue;
                 delete input[key];
             }

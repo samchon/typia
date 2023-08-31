@@ -10,6 +10,7 @@ export const test_misc_clone_TypeTagCustom = _test_misc_clone(
             id: input.id as any,
             dollar: input.dollar as any,
             postfix: input.postfix as any,
+            powerOf: input.powerOf as any,
         });
         return "object" === typeof input && null !== input
             ? $co0(input)

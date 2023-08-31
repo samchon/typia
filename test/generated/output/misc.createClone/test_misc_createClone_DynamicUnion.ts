@@ -6,7 +6,6 @@ export const test_misc_clone_DynamicUnion = _test_misc_clone(
     "DynamicUnion",
 )<DynamicUnion>(DynamicUnion)(
     (input: DynamicUnion): typia.Resolved<DynamicUnion> => {
-        const $join = (typia.misc.createClone as any).join;
         const $co0 = (input: any): any => {
             const output = {} as any;
             for (const [key, value] of Object.entries(input)) {

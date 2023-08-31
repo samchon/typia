@@ -7,7 +7,6 @@ export const test_protobuf_isDecode_DynamicTree = _test_protobuf_isDecode(
 )<DynamicTree>(DynamicTree)({
     isDecode: (input: Uint8Array): typia.Resolved<DynamicTree> | null => {
         const is = (input: any): input is DynamicTree => {
-            const $join = (typia.protobuf.createIsDecode as any).join;
             const $io0 = (input: any): boolean =>
                 "string" === typeof input.id &&
                 "number" === typeof input.sequence &&
@@ -95,7 +94,6 @@ export const test_protobuf_isDecode_DynamicTree = _test_protobuf_isDecode(
         return output;
     },
     encode: (input: DynamicTree): Uint8Array => {
-        const $join = (typia.protobuf.createEncode as any).join;
         const $Sizer = (typia.protobuf.createEncode as any).Sizer;
         const $Writer = (typia.protobuf.createEncode as any).Writer;
         const encoder = (writer: any): any => {

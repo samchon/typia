@@ -7,7 +7,6 @@ export const test_misc_isClone_UltimateUnion = _test_misc_isClone(
 )<UltimateUnion>(UltimateUnion)((input) =>
     ((input: any): typia.Resolved<UltimateUnion> | null => {
         const is = (input: any): input is UltimateUnion => {
-            const $join = (typia.misc.isClone as any).join;
             const $io0 = (input: any): boolean =>
                 Array.isArray(input.schemas) &&
                 input.schemas.every(
@@ -2099,7 +2098,6 @@ export const test_misc_isClone_UltimateUnion = _test_misc_isClone(
                             $io32(input)
                         );
                 })();
-            const $join = (typia.misc.isClone as any).join;
             const $throws = (typia.misc.isClone as any).throws;
             const $cp0 = (input: any) =>
                 input.map((elem: any) =>

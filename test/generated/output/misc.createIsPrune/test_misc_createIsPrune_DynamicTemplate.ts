@@ -6,7 +6,6 @@ export const test_misc_isPrune_DynamicTemplate = _test_misc_isPrune(
     "DynamicTemplate",
 )<DynamicTemplate>(DynamicTemplate)((input: any): input is DynamicTemplate => {
     const is = (input: any): input is DynamicTemplate => {
-        const $join = (typia.misc.createIsPrune as any).join;
         const $io0 = (input: any): boolean =>
             Object.keys(input).every((key: any) => {
                 const value = input[key];
@@ -37,7 +36,6 @@ export const test_misc_isPrune_DynamicTemplate = _test_misc_isPrune(
         );
     };
     const prune = (input: DynamicTemplate): void => {
-        const $join = (typia.misc.createIsPrune as any).join;
         const $po0 = (input: any): any => {
             Object.entries(input).forEach(([key, value]: any) => {
                 if (undefined === value) return;

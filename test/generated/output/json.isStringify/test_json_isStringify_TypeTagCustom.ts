@@ -22,14 +22,25 @@ export const test_json_isStringify_TypeTagCustom = _test_json_isStringify(
                     ),
                 ) &&
                 "string" === typeof (input as any).postfix &&
-                (input as any).postfix.endsWith("abcd")
+                (input as any).postfix.endsWith("abcd") &&
+                "number" === typeof (input as any).powerOf &&
+                Number.isFinite((input as any).powerOf) &&
+                (() => {
+                    const denominator: number = Math.log(2);
+                    const value: number =
+                        Math.log((input as any).powerOf) / denominator;
+                    return Math.abs(value - Math.round(value)) < 1e-8;
+                })()
             );
         };
         const stringify = (input: TypeTagCustom): string => {
             const $string = (typia.json.isStringify as any).string;
+            const $number = (typia.json.isStringify as any).number;
             return `{"id":${$string((input as any).id)},"dollar":${$string(
                 (input as any).dollar,
-            )},"postfix":${$string((input as any).postfix)}}`;
+            )},"postfix":${$string((input as any).postfix)},"powerOf":${$number(
+                (input as any).powerOf,
+            )}}`;
         };
         return is(input) ? stringify(input) : null;
     })(input),

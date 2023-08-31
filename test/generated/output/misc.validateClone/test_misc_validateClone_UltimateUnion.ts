@@ -9,7 +9,6 @@ export const test_misc_validateClone_UltimateUnion = _test_misc_validateClone(
         const validate = (input: any): typia.IValidation<UltimateUnion> => {
             const errors = [] as any[];
             const __is = (input: any): input is UltimateUnion => {
-                const $join = (typia.misc.validateClone as any).join;
                 const $io0 = (input: any): boolean =>
                     Array.isArray(input.schemas) &&
                     input.schemas.every(
@@ -6921,7 +6920,6 @@ export const test_misc_validateClone_UltimateUnion = _test_misc_validateClone(
                             $io32(input)
                         );
                 })();
-            const $join = (typia.misc.validateClone as any).join;
             const $throws = (typia.misc.validateClone as any).throws;
             const $cp0 = (input: any) =>
                 input.map((elem: any) =>

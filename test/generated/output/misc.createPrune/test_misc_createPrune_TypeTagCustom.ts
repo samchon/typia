@@ -7,7 +7,13 @@ export const test_misc_prune_TypeTagCustom = _test_misc_prune(
 )<TypeTagCustom>(TypeTagCustom)((input: TypeTagCustom): void => {
     const $po0 = (input: any): any => {
         for (const key of Object.keys(input)) {
-            if ("id" === key || "dollar" === key || "postfix" === key) continue;
+            if (
+                "id" === key ||
+                "dollar" === key ||
+                "postfix" === key ||
+                "powerOf" === key
+            )
+                continue;
             delete input[key];
         }
     };

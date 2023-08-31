@@ -8,7 +8,6 @@ export const test_validate_DynamicSimple = _test_validate(
     (input: any): typia.IValidation<DynamicSimple> => {
         const errors = [] as any[];
         const __is = (input: any): input is DynamicSimple => {
-            const $join = (typia.createValidate as any).join;
             const $io0 = (input: any): boolean =>
                 "object" === typeof input.value &&
                 null !== input.value &&

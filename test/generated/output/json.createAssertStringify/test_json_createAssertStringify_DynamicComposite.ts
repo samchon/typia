@@ -8,7 +8,6 @@ export const test_json_assertStringify_DynamicComposite =
     )((input: any): string => {
         const assert = (input: any): DynamicComposite => {
             const __is = (input: any): input is DynamicComposite => {
-                const $join = (typia.json.createAssertStringify as any).join;
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     "string" === typeof input.name &&
@@ -173,7 +172,6 @@ export const test_json_assertStringify_DynamicComposite =
         };
         const stringify = (input: DynamicComposite): string => {
             const $string = (typia.json.createAssertStringify as any).string;
-            const $join = (typia.json.createAssertStringify as any).join;
             const $number = (typia.json.createAssertStringify as any).number;
             const $throws = (typia.json.createAssertStringify as any).throws;
             const $tail = (typia.json.createAssertStringify as any).tail;

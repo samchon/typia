@@ -6,7 +6,6 @@ export const test_json_stringify_DynamicTemplate = _test_json_stringify(
     "DynamicTemplate",
 )<DynamicTemplate>(DynamicTemplate)((input) =>
     ((input: DynamicTemplate): string => {
-        const $join = (typia.json.stringify as any).join;
         const $string = (typia.json.stringify as any).string;
         const $number = (typia.json.stringify as any).number;
         const $so0 = (input: any): any =>

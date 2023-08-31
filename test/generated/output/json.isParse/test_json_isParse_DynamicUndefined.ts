@@ -7,7 +7,6 @@ export const test_json_isParse_DynamicUndefined = _test_json_isParse(
 )<DynamicUndefined>(DynamicUndefined)((input) =>
     ((input: any): typia.Primitive<DynamicUndefined> => {
         const is = (input: any): input is DynamicUndefined => {
-            const $join = (typia.json.isParse as any).join;
             const $io0 = (input: any): boolean =>
                 Object.keys(input).every((key: any) => {
                     const value = input[key];

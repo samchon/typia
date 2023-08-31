@@ -9,7 +9,6 @@ export const test_json_validateParse_DynamicTree = _test_json_validateParse(
         const validate = (input: any): typia.IValidation<DynamicTree> => {
             const errors = [] as any[];
             const __is = (input: any): input is DynamicTree => {
-                const $join = (typia.json.validateParse as any).join;
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     "number" === typeof input.sequence &&

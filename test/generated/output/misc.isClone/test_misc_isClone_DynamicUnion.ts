@@ -7,7 +7,6 @@ export const test_misc_isClone_DynamicUnion = _test_misc_isClone(
 )<DynamicUnion>(DynamicUnion)((input) =>
     ((input: any): typia.Resolved<DynamicUnion> | null => {
         const is = (input: any): input is DynamicUnion => {
-            const $join = (typia.misc.isClone as any).join;
             const $io0 = (input: any): boolean =>
                 Object.keys(input).every((key: any) => {
                     const value = input[key];
@@ -40,7 +39,6 @@ export const test_misc_isClone_DynamicUnion = _test_misc_isClone(
             );
         };
         const clone = (input: DynamicUnion): typia.Resolved<DynamicUnion> => {
-            const $join = (typia.misc.isClone as any).join;
             const $co0 = (input: any): any => {
                 const output = {} as any;
                 for (const [key, value] of Object.entries(input)) {
