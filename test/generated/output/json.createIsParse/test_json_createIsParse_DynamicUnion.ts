@@ -6,7 +6,6 @@ export const test_json_isParse_DynamicUnion = _test_json_isParse(
     "DynamicUnion",
 )<DynamicUnion>(DynamicUnion)((input: any): typia.Primitive<DynamicUnion> => {
     const is = (input: any): input is DynamicUnion => {
-        const $join = (typia.json.createIsParse as any).join;
         const $io0 = (input: any): boolean =>
             Object.keys(input).every((key: any) => {
                 const value = input[key];

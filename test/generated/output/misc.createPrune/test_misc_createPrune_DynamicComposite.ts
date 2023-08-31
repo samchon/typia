@@ -5,7 +5,6 @@ import { DynamicComposite } from "../../../structures/DynamicComposite";
 export const test_misc_prune_DynamicComposite = _test_misc_prune(
     "DynamicComposite",
 )<DynamicComposite>(DynamicComposite)((input: DynamicComposite): void => {
-    const $join = (typia.misc.createPrune as any).join;
     const $po0 = (input: any): any => {
         Object.entries(input).forEach(([key, value]: any) => {
             if (undefined === value) return;

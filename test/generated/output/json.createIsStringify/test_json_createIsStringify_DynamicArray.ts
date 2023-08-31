@@ -6,7 +6,6 @@ export const test_json_isStringify_DynamicArray = _test_json_isStringify(
     "DynamicArray",
 )<DynamicArray>(DynamicArray)((input: DynamicArray): string | null => {
     const is = (input: any): input is DynamicArray => {
-        const $join = (typia.json.createIsStringify as any).join;
         const $io0 = (input: any): boolean =>
             "object" === typeof input.value &&
             null !== input.value &&
@@ -37,7 +36,6 @@ export const test_json_isStringify_DynamicArray = _test_json_isStringify(
                     );
                 return true;
             });
-        const $join = (typia.json.createIsStringify as any).join;
         const $string = (typia.json.createIsStringify as any).string;
         const $so0 = (input: any): any => `{"value":${$so1(input.value)}}`;
         const $so1 = (input: any): any =>

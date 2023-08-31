@@ -6,7 +6,6 @@ export const test_is_UltimateUnion = _test_is("UltimateUnion")<UltimateUnion>(
     UltimateUnion,
 )((input) =>
     ((input: any): input is UltimateUnion => {
-        const $join = (typia.is as any).join;
         const $io0 = (input: any): boolean =>
             Array.isArray(input.schemas) &&
             input.schemas.every(

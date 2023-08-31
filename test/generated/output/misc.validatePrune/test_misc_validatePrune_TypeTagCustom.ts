@@ -27,7 +27,15 @@ export const test_misc_validatePrune_TypeTagCustom = _test_misc_validatePrune(
                         ),
                     ) &&
                     "string" === typeof (input as any).postfix &&
-                    (input as any).postfix.endsWith("abcd")
+                    (input as any).postfix.endsWith("abcd") &&
+                    "number" === typeof (input as any).powerOf &&
+                    Number.isFinite((input as any).powerOf) &&
+                    (() => {
+                        const denominator: number = Math.log(2);
+                        const value: number =
+                            Math.log((input as any).powerOf) / denominator;
+                        return Math.abs(value - Math.round(value)) < 1e-8;
+                    })()
                 );
             };
             if (false === __is(input)) {
@@ -91,6 +99,32 @@ export const test_misc_validatePrune_TypeTagCustom = _test_misc_validatePrune(
                                     expected: '(string & Postfix<"abcd">)',
                                     value: input.postfix,
                                 }),
+                            ("number" === typeof input.powerOf &&
+                                (Number.isFinite(input.powerOf) ||
+                                    $report(_exceptionable, {
+                                        path: _path + ".powerOf",
+                                        expected: "number",
+                                        value: input.powerOf,
+                                    })) &&
+                                ((() => {
+                                    const denominator: number = Math.log(2);
+                                    const value: number =
+                                        Math.log(input.powerOf) / denominator;
+                                    return (
+                                        Math.abs(value - Math.round(value)) <
+                                        1e-8
+                                    );
+                                })() ||
+                                    $report(_exceptionable, {
+                                        path: _path + ".powerOf",
+                                        expected: "number & PowerOf<2>",
+                                        value: input.powerOf,
+                                    }))) ||
+                                $report(_exceptionable, {
+                                    path: _path + ".powerOf",
+                                    expected: "(number & PowerOf<2>)",
+                                    value: input.powerOf,
+                                }),
                         ].every((flag: boolean) => flag);
                     return (
                         ((("object" === typeof input && null !== input) ||
@@ -118,7 +152,12 @@ export const test_misc_validatePrune_TypeTagCustom = _test_misc_validatePrune(
         const prune = (input: TypeTagCustom): void => {
             const $po0 = (input: any): any => {
                 for (const key of Object.keys(input)) {
-                    if ("id" === key || "dollar" === key || "postfix" === key)
+                    if (
+                        "id" === key ||
+                        "dollar" === key ||
+                        "postfix" === key ||
+                        "powerOf" === key
+                    )
                         continue;
                     delete input[key];
                 }

@@ -8,7 +8,6 @@ export const test_misc_assertPrune_DynamicComposite = _test_misc_assertPrune(
     ((input: any): DynamicComposite => {
         const assert = (input: any): DynamicComposite => {
             const __is = (input: any): input is DynamicComposite => {
-                const $join = (typia.misc.assertPrune as any).join;
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     "string" === typeof input.name &&
@@ -170,7 +169,6 @@ export const test_misc_assertPrune_DynamicComposite = _test_misc_assertPrune(
             return input;
         };
         const prune = (input: DynamicComposite): void => {
-            const $join = (typia.misc.assertPrune as any).join;
             const $po0 = (input: any): any => {
                 Object.entries(input).forEach(([key, value]: any) => {
                     if (undefined === value) return;

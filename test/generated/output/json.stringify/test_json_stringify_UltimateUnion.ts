@@ -1002,7 +1002,6 @@ export const test_json_stringify_UltimateUnion = _test_json_stringify(
         const $throws = (typia.json.stringify as any).throws;
         const $number = (typia.json.stringify as any).number;
         const $tail = (typia.json.stringify as any).tail;
-        const $join = (typia.json.stringify as any).join;
         const $so0 = (input: any): any =>
             `{"schemas":${`[${input.schemas
                 .map((elem: any) => $su0(elem))

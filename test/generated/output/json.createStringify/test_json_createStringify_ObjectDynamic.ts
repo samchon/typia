@@ -5,7 +5,6 @@ import { ObjectDynamic } from "../../../structures/ObjectDynamic";
 export const test_json_stringify_ObjectDynamic = _test_json_stringify(
     "ObjectDynamic",
 )<ObjectDynamic>(ObjectDynamic)((input: ObjectDynamic): string => {
-    const $join = (typia.json.createStringify as any).join;
     const $string = (typia.json.createStringify as any).string;
     const $number = (typia.json.createStringify as any).number;
     const $throws = (typia.json.createStringify as any).throws;

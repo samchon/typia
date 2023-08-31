@@ -9,7 +9,6 @@ export const test_misc_validatePrune_DynamicTemplate = _test_misc_validatePrune(
         const validate = (input: any): typia.IValidation<DynamicTemplate> => {
             const errors = [] as any[];
             const __is = (input: any): input is DynamicTemplate => {
-                const $join = (typia.misc.validatePrune as any).join;
                 const $io0 = (input: any): boolean =>
                     Object.keys(input).every((key: any) => {
                         const value = input[key];
@@ -138,7 +137,6 @@ export const test_misc_validatePrune_DynamicTemplate = _test_misc_validatePrune(
             } as any;
         };
         const prune = (input: DynamicTemplate): void => {
-            const $join = (typia.misc.validatePrune as any).join;
             const $po0 = (input: any): any => {
                 Object.entries(input).forEach(([key, value]: any) => {
                     if (undefined === value) return;

@@ -6,7 +6,6 @@ export const test_is_ObjectDynamic = _test_is("ObjectDynamic")<ObjectDynamic>(
     ObjectDynamic,
 )((input) =>
     ((input: any): input is ObjectDynamic => {
-        const $join = (typia.is as any).join;
         const $io0 = (input: any): boolean =>
             Object.keys(input).every((key: any) => {
                 const value = input[key];

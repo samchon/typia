@@ -5,7 +5,6 @@ import { DynamicUnion } from "../../../structures/DynamicUnion";
 export const test_misc_prune_DynamicUnion = _test_misc_prune(
     "DynamicUnion",
 )<DynamicUnion>(DynamicUnion)((input: DynamicUnion): void => {
-    const $join = (typia.misc.createPrune as any).join;
     const $po0 = (input: any): any => {
         Object.entries(input).forEach(([key, value]: any) => {
             if (undefined === value) return;

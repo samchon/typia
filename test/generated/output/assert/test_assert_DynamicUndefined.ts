@@ -7,7 +7,6 @@ export const test_assert_DynamicUndefined = _test_assert(
 )<DynamicUndefined>(DynamicUndefined)((input) =>
     ((input: any): DynamicUndefined => {
         const __is = (input: any): input is DynamicUndefined => {
-            const $join = (typia.assert as any).join;
             const $io0 = (input: any): boolean =>
                 Object.keys(input).every((key: any) => {
                     const value = input[key];

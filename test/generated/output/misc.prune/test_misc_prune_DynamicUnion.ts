@@ -6,7 +6,6 @@ export const test_misc_prune_DynamicUnion = _test_misc_prune(
     "DynamicUnion",
 )<DynamicUnion>(DynamicUnion)((input) =>
     ((input: DynamicUnion): void => {
-        const $join = (typia.misc.prune as any).join;
         const $po0 = (input: any): any => {
             Object.entries(input).forEach(([key, value]: any) => {
                 if (undefined === value) return;

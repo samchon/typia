@@ -9,7 +9,6 @@ export const test_json_validateParse_DynamicUnion = _test_json_validateParse(
         const validate = (input: any): typia.IValidation<DynamicUnion> => {
             const errors = [] as any[];
             const __is = (input: any): input is DynamicUnion => {
-                const $join = (typia.json.createValidateParse as any).join;
                 const $io0 = (input: any): boolean =>
                     Object.keys(input).every((key: any) => {
                         const value = input[key];

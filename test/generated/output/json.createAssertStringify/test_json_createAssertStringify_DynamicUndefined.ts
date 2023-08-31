@@ -8,7 +8,6 @@ export const test_json_assertStringify_DynamicUndefined =
     )((input: any): string => {
         const assert = (input: any): DynamicUndefined => {
             const __is = (input: any): input is DynamicUndefined => {
-                const $join = (typia.json.createAssertStringify as any).join;
                 const $io0 = (input: any): boolean =>
                     Object.keys(input).every((key: any) => {
                         const value = input[key];
@@ -80,7 +79,6 @@ export const test_json_assertStringify_DynamicUndefined =
             return input;
         };
         const stringify = (input: DynamicUndefined): string => {
-            const $join = (typia.json.createAssertStringify as any).join;
             const $so0 = (input: any): any =>
                 `{${Object.entries(input)
                     .map(([key, value]: [string, any]) => {

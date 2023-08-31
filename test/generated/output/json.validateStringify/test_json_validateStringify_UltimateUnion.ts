@@ -11,8 +11,6 @@ export const test_json_validateStringify_UltimateUnion =
                 ): typia.IValidation<UltimateUnion> => {
                     const errors = [] as any[];
                     const __is = (input: any): input is UltimateUnion => {
-                        const $join = (typia.json.validateStringify as any)
-                            .join;
                         const $io0 = (input: any): boolean =>
                             Array.isArray(input.schemas) &&
                             input.schemas.every(
@@ -7946,7 +7944,6 @@ export const test_json_validateStringify_UltimateUnion =
                     const $number = (typia.json.validateStringify as any)
                         .number;
                     const $tail = (typia.json.validateStringify as any).tail;
-                    const $join = (typia.json.validateStringify as any).join;
                     const $so0 = (input: any): any =>
                         `{"schemas":${`[${input.schemas
                             .map((elem: any) => $su0(elem))

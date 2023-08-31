@@ -7,7 +7,6 @@ export const test_json_isParse_DynamicComposite = _test_json_isParse(
 )<DynamicComposite>(DynamicComposite)((input) =>
     ((input: any): typia.Primitive<DynamicComposite> => {
         const is = (input: any): input is DynamicComposite => {
-            const $join = (typia.json.isParse as any).join;
             const $io0 = (input: any): boolean =>
                 "string" === typeof input.id &&
                 "string" === typeof input.name &&

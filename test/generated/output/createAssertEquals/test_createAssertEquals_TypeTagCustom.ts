@@ -19,10 +19,17 @@ export const test_assertEquals_TypeTagCustom = _test_assertEquals(
             !isNaN(Number(input.dollar.substring(1).split(",").join(""))) &&
             "string" === typeof input.postfix &&
             input.postfix.endsWith("abcd") &&
-            (3 === Object.keys(input).length ||
+            "number" === typeof input.powerOf &&
+            Number.isFinite(input.powerOf) &&
+            (() => {
+                const denominator: number = Math.log(2);
+                const value: number = Math.log(input.powerOf) / denominator;
+                return Math.abs(value - Math.round(value)) < 1e-8;
+            })() &&
+            (4 === Object.keys(input).length ||
                 Object.keys(input).every((key: any) => {
                     if (
-                        ["id", "dollar", "postfix"].some(
+                        ["id", "dollar", "postfix", "powerOf"].some(
                             (prop: any) => key === prop,
                         )
                     )
@@ -89,11 +96,34 @@ export const test_assertEquals_TypeTagCustom = _test_assertEquals(
                         expected: '(string & Postfix<"abcd">)',
                         value: input.postfix,
                     })) &&
-                (3 === Object.keys(input).length ||
+                (("number" === typeof input.powerOf &&
+                    (Number.isFinite(input.powerOf) ||
+                        $guard(_exceptionable, {
+                            path: _path + ".powerOf",
+                            expected: "number",
+                            value: input.powerOf,
+                        })) &&
+                    ((() => {
+                        const denominator: number = Math.log(2);
+                        const value: number =
+                            Math.log(input.powerOf) / denominator;
+                        return Math.abs(value - Math.round(value)) < 1e-8;
+                    })() ||
+                        $guard(_exceptionable, {
+                            path: _path + ".powerOf",
+                            expected: "number & PowerOf<2>",
+                            value: input.powerOf,
+                        }))) ||
+                    $guard(_exceptionable, {
+                        path: _path + ".powerOf",
+                        expected: "(number & PowerOf<2>)",
+                        value: input.powerOf,
+                    })) &&
+                (4 === Object.keys(input).length ||
                     false === _exceptionable ||
                     Object.keys(input).every((key: any) => {
                         if (
-                            ["id", "dollar", "postfix"].some(
+                            ["id", "dollar", "postfix", "powerOf"].some(
                                 (prop: any) => key === prop,
                             )
                         )

@@ -919,7 +919,6 @@ export const test_json_stringify_UltimateUnion = _test_json_stringify(
     const $throws = (typia.json.createStringify as any).throws;
     const $number = (typia.json.createStringify as any).number;
     const $tail = (typia.json.createStringify as any).tail;
-    const $join = (typia.json.createStringify as any).join;
     const $so0 = (input: any): any =>
         `{"schemas":${`[${input.schemas
             .map((elem: any) => $su0(elem))

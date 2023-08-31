@@ -8,7 +8,12 @@ export const test_misc_prune_TypeTagCustom = _test_misc_prune(
     ((input: TypeTagCustom): void => {
         const $po0 = (input: any): any => {
             for (const key of Object.keys(input)) {
-                if ("id" === key || "dollar" === key || "postfix" === key)
+                if (
+                    "id" === key ||
+                    "dollar" === key ||
+                    "postfix" === key ||
+                    "powerOf" === key
+                )
                     continue;
                 delete input[key];
             }

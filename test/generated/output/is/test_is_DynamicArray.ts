@@ -6,7 +6,6 @@ export const test_is_DynamicArray = _test_is("DynamicArray")<DynamicArray>(
     DynamicArray,
 )((input) =>
     ((input: any): input is DynamicArray => {
-        const $join = (typia.is as any).join;
         const $io0 = (input: any): boolean =>
             "object" === typeof input.value &&
             null !== input.value &&

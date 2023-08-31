@@ -22,7 +22,15 @@ export const test_misc_isClone_TypeTagCustom = _test_misc_isClone(
                     ),
                 ) &&
                 "string" === typeof (input as any).postfix &&
-                (input as any).postfix.endsWith("abcd")
+                (input as any).postfix.endsWith("abcd") &&
+                "number" === typeof (input as any).powerOf &&
+                Number.isFinite((input as any).powerOf) &&
+                (() => {
+                    const denominator: number = Math.log(2);
+                    const value: number =
+                        Math.log((input as any).powerOf) / denominator;
+                    return Math.abs(value - Math.round(value)) < 1e-8;
+                })()
             );
         };
         const clone = (input: TypeTagCustom): typia.Resolved<TypeTagCustom> => {
@@ -30,6 +38,7 @@ export const test_misc_isClone_TypeTagCustom = _test_misc_isClone(
                 id: input.id as any,
                 dollar: input.dollar as any,
                 postfix: input.postfix as any,
+                powerOf: input.powerOf as any,
             });
             return "object" === typeof input && null !== input
                 ? $co0(input)

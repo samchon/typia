@@ -14,7 +14,6 @@ export const test_json_validateParse_DynamicComposite =
             ): typia.IValidation<DynamicComposite> => {
                 const errors = [] as any[];
                 const __is = (input: any): input is DynamicComposite => {
-                    const $join = (typia.json.validateParse as any).join;
                     const $io0 = (input: any): boolean =>
                         "string" === typeof input.id &&
                         "string" === typeof input.name &&

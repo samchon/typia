@@ -6,7 +6,6 @@ export const test_assert_DynamicArray = _test_assert(
     "DynamicArray",
 )<DynamicArray>(DynamicArray)((input: any): DynamicArray => {
     const __is = (input: any): input is DynamicArray => {
-        const $join = (typia.createAssert as any).join;
         const $io0 = (input: any): boolean =>
             "object" === typeof input.value &&
             null !== input.value &&

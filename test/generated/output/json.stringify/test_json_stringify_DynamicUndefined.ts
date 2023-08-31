@@ -6,7 +6,6 @@ export const test_json_stringify_DynamicUndefined = _test_json_stringify(
     "DynamicUndefined",
 )<DynamicUndefined>(DynamicUndefined)((input) =>
     ((input: DynamicUndefined): string => {
-        const $join = (typia.json.stringify as any).join;
         const $so0 = (input: any): any =>
             `{${Object.entries(input)
                 .map(([key, value]: [string, any]) => {

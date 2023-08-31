@@ -7,7 +7,6 @@ export const test_protobuf_encode_DynamicTree = _test_protobuf_encode(
 )<DynamicTree>(DynamicTree)({
     encode: (input) =>
         ((input: DynamicTree): Uint8Array => {
-            const $join = (typia.protobuf.encode as any).join;
             const $Sizer = (typia.protobuf.encode as any).Sizer;
             const $Writer = (typia.protobuf.encode as any).Writer;
             const encoder = (writer: any): any => {

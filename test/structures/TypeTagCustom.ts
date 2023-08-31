@@ -9,6 +9,7 @@ export interface TypeTagCustom {
     id: string & typia.tags.Format<"uuid">;
     dollar: string & Dolloar;
     postfix: string & Postfix<"abcd">;
+    powerOf: number & PowerOf<2>;
 }
 export namespace TypeTagCustom {
     export function generate(): TypeTagCustom {
@@ -16,6 +17,7 @@ export namespace TypeTagCustom {
             id: v4(),
             dollar: "$" + RandomGenerator.integer(),
             postfix: RandomGenerator.string() + "abcd",
+            powerOf: 1024,
         };
     }
 
@@ -32,6 +34,10 @@ export namespace TypeTagCustom {
             input.postfix = RandomGenerator.string() + "dcba";
             return ["$input.postfix"];
         },
+        (input) => {
+            input.powerOf = 1000;
+            return ["$input.powerOf"];
+        },
     ];
 
     export const RANDOM: typia.IRandomGenerator = {
@@ -43,6 +49,14 @@ export namespace TypeTagCustom {
                 const postfix = tags.find((t) => t.kind === "postfix");
                 if (postfix !== undefined)
                     return RandomGenerator.string() + postfix.value;
+            },
+            number: (tags) => {
+                const powerOf = tags.find((t) => t.kind === "powerOf");
+                if (powerOf !== undefined)
+                    return Math.pow(
+                        Number(powerOf.value),
+                        RandomGenerator.integer(1, 10),
+                    );
             },
         },
     };
@@ -60,4 +74,15 @@ type Postfix<Value extends string> = typia.tags.TagBase<{
     target: "string";
     value: Value;
     validate: `$input.endsWith("${Value}")`;
+}>;
+
+type PowerOf<Value extends number> = typia.tags.TagBase<{
+    kind: "powerOf";
+    target: "number";
+    value: Value;
+    validate: `(() => {
+        const denominator: number = Math.log(${Value});
+        const value: number = Math.log($input) / denominator;
+        return Math.abs(value - Math.round(value)) < 0.00000001;
+    })()`;
 }>;

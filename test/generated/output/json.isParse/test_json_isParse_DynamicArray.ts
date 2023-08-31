@@ -7,7 +7,6 @@ export const test_json_isParse_DynamicArray = _test_json_isParse(
 )<DynamicArray>(DynamicArray)((input) =>
     ((input: any): typia.Primitive<DynamicArray> => {
         const is = (input: any): input is DynamicArray => {
-            const $join = (typia.json.isParse as any).join;
             const $io0 = (input: any): boolean =>
                 "object" === typeof input.value &&
                 null !== input.value &&

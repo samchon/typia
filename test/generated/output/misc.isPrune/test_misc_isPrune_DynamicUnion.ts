@@ -7,7 +7,6 @@ export const test_misc_isPrune_DynamicUnion = _test_misc_isPrune(
 )<DynamicUnion>(DynamicUnion)((input) =>
     ((input: any): input is DynamicUnion => {
         const is = (input: any): input is DynamicUnion => {
-            const $join = (typia.misc.isPrune as any).join;
             const $io0 = (input: any): boolean =>
                 Object.keys(input).every((key: any) => {
                     const value = input[key];
@@ -40,7 +39,6 @@ export const test_misc_isPrune_DynamicUnion = _test_misc_isPrune(
             );
         };
         const prune = (input: DynamicUnion): void => {
-            const $join = (typia.misc.isPrune as any).join;
             const $po0 = (input: any): any => {
                 Object.entries(input).forEach(([key, value]: any) => {
                     if (undefined === value) return;

@@ -9,7 +9,6 @@ export const test_json_assertStringify_DynamicTemplate =
         ((input: any): string => {
             const assert = (input: any): DynamicTemplate => {
                 const __is = (input: any): input is DynamicTemplate => {
-                    const $join = (typia.json.assertStringify as any).join;
                     const $io0 = (input: any): boolean =>
                         Object.keys(input).every((key: any) => {
                             const value = input[key];
@@ -127,7 +126,6 @@ export const test_json_assertStringify_DynamicTemplate =
                 return input;
             };
             const stringify = (input: DynamicTemplate): string => {
-                const $join = (typia.json.assertStringify as any).join;
                 const $string = (typia.json.assertStringify as any).string;
                 const $number = (typia.json.assertStringify as any).number;
                 const $so0 = (input: any): any =>

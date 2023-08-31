@@ -7,7 +7,6 @@ export const test_validate_DynamicArray = _test_validate(
 )<DynamicArray>(DynamicArray)((input: any): typia.IValidation<DynamicArray> => {
     const errors = [] as any[];
     const __is = (input: any): input is DynamicArray => {
-        const $join = (typia.createValidate as any).join;
         const $io0 = (input: any): boolean =>
             "object" === typeof input.value &&
             null !== input.value &&

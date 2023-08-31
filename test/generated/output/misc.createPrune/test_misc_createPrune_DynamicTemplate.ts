@@ -5,7 +5,6 @@ import { DynamicTemplate } from "../../../structures/DynamicTemplate";
 export const test_misc_prune_DynamicTemplate = _test_misc_prune(
     "DynamicTemplate",
 )<DynamicTemplate>(DynamicTemplate)((input: DynamicTemplate): void => {
-    const $join = (typia.misc.createPrune as any).join;
     const $po0 = (input: any): any => {
         Object.entries(input).forEach(([key, value]: any) => {
             if (undefined === value) return;

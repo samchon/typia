@@ -13,7 +13,6 @@ export const test_json_stringify_DynamicSimple = _test_json_stringify(
                 if (RegExp(/(.*)/).test(key)) return "number" === typeof value;
                 return true;
             });
-        const $join = (typia.json.stringify as any).join;
         const $number = (typia.json.stringify as any).number;
         const $so0 = (input: any): any => `{"value":${$so1(input.value)}}`;
         const $so1 = (input: any): any =>

@@ -35,7 +35,6 @@ export const test_random_DynamicSimple = _test_random(
     },
     assert: (input: any): DynamicSimple => {
         const __is = (input: any): input is DynamicSimple => {
-            const $join = (typia.createAssert as any).join;
             const $io0 = (input: any): boolean =>
                 "object" === typeof input.value &&
                 null !== input.value &&

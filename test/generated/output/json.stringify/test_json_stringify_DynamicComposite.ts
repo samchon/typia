@@ -7,7 +7,6 @@ export const test_json_stringify_DynamicComposite = _test_json_stringify(
 )<DynamicComposite>(DynamicComposite)((input) =>
     ((input: DynamicComposite): string => {
         const $string = (typia.json.stringify as any).string;
-        const $join = (typia.json.stringify as any).join;
         const $number = (typia.json.stringify as any).number;
         const $throws = (typia.json.stringify as any).throws;
         const $tail = (typia.json.stringify as any).tail;

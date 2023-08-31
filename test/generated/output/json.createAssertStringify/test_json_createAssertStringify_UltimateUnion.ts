@@ -7,8 +7,6 @@ export const test_json_assertStringify_UltimateUnion =
         (input: any): string => {
             const assert = (input: any): UltimateUnion => {
                 const __is = (input: any): input is UltimateUnion => {
-                    const $join = (typia.json.createAssertStringify as any)
-                        .join;
                     const $io0 = (input: any): boolean =>
                         Array.isArray(input.schemas) &&
                         input.schemas.every(
@@ -6794,7 +6792,6 @@ export const test_json_assertStringify_UltimateUnion =
                 const $number = (typia.json.createAssertStringify as any)
                     .number;
                 const $tail = (typia.json.createAssertStringify as any).tail;
-                const $join = (typia.json.createAssertStringify as any).join;
                 const $so0 = (input: any): any =>
                     `{"schemas":${`[${input.schemas
                         .map((elem: any) => $su0(elem))

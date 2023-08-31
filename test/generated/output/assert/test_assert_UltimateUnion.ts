@@ -7,7 +7,6 @@ export const test_assert_UltimateUnion = _test_assert(
 )<UltimateUnion>(UltimateUnion)((input) =>
     ((input: any): UltimateUnion => {
         const __is = (input: any): input is UltimateUnion => {
-            const $join = (typia.assert as any).join;
             const $io0 = (input: any): boolean =>
                 Array.isArray(input.schemas) &&
                 input.schemas.every(

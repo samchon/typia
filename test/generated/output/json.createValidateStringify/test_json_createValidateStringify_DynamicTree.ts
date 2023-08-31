@@ -8,8 +8,6 @@ export const test_json_validateStringify_DynamicTree =
             const validate = (input: any): typia.IValidation<DynamicTree> => {
                 const errors = [] as any[];
                 const __is = (input: any): input is DynamicTree => {
-                    const $join = (typia.json.createValidateStringify as any)
-                        .join;
                     const $io0 = (input: any): boolean =>
                         "string" === typeof input.id &&
                         "number" === typeof input.sequence &&
@@ -178,7 +176,6 @@ export const test_json_validateStringify_DynamicTree =
                     .string;
                 const $number = (typia.json.createValidateStringify as any)
                     .number;
-                const $join = (typia.json.createValidateStringify as any).join;
                 const $so0 = (input: any): any =>
                     `{"id":${$string(input.id)},"sequence":${$number(
                         input.sequence,

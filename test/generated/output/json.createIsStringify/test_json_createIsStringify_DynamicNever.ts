@@ -6,7 +6,6 @@ export const test_json_isStringify_DynamicNever = _test_json_isStringify(
     "DynamicNever",
 )<DynamicNever>(DynamicNever)((input: DynamicNever): string | null => {
     const is = (input: any): input is DynamicNever => {
-        const $join = (typia.json.createIsStringify as any).join;
         const $io0 = (input: any): boolean =>
             Object.keys(input).every((key: any) => {
                 const value = input[key];
@@ -23,7 +22,6 @@ export const test_json_isStringify_DynamicNever = _test_json_isStringify(
         );
     };
     const stringify = (input: DynamicNever): string => {
-        const $join = (typia.json.createIsStringify as any).join;
         const $so0 = (input: any): any =>
             `{${Object.entries(input)
                 .map(([key, value]: [string, any]) => {

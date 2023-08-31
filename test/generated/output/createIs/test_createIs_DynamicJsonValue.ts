@@ -6,7 +6,6 @@ export const test_is_DynamicJsonValue = _test_is(
     "DynamicJsonValue",
 )<DynamicJsonValue>(DynamicJsonValue)(
     (input: any): input is DynamicJsonValue => {
-        const $join = (typia.createIs as any).join;
         const $io0 = (input: any): boolean =>
             Object.keys(input).every((key: any) => {
                 const value = input[key];

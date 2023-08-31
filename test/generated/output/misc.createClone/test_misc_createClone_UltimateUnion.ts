@@ -998,7 +998,6 @@ export const test_misc_clone_UltimateUnion = _test_misc_clone(
                         $io32(input)
                     );
             })();
-        const $join = (typia.misc.createClone as any).join;
         const $throws = (typia.misc.createClone as any).throws;
         const $cp0 = (input: any) =>
             input.map((elem: any) =>

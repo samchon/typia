@@ -5,7 +5,6 @@ import { DynamicSimple } from "../../../structures/DynamicSimple";
 export const test_is_DynamicSimple = _test_is("DynamicSimple")<DynamicSimple>(
     DynamicSimple,
 )((input: any): input is DynamicSimple => {
-    const $join = (typia.createIs as any).join;
     const $io0 = (input: any): boolean =>
         "object" === typeof input.value &&
         null !== input.value &&

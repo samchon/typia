@@ -6,7 +6,6 @@ export const test_is_DynamicNever = _test_is("DynamicNever")<DynamicNever>(
     DynamicNever,
 )((input) =>
     ((input: any): input is DynamicNever => {
-        const $join = (typia.is as any).join;
         const $io0 = (input: any): boolean =>
             Object.keys(input).every((key: any) => {
                 const value = input[key];

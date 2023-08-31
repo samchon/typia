@@ -9,7 +9,6 @@ export const test_json_validateStringify_DynamicComposite =
         const validate = (input: any): typia.IValidation<DynamicComposite> => {
             const errors = [] as any[];
             const __is = (input: any): input is DynamicComposite => {
-                const $join = (typia.json.createValidateStringify as any).join;
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     "string" === typeof input.name &&
@@ -185,7 +184,6 @@ export const test_json_validateStringify_DynamicComposite =
         };
         const stringify = (input: DynamicComposite): string => {
             const $string = (typia.json.createValidateStringify as any).string;
-            const $join = (typia.json.createValidateStringify as any).join;
             const $number = (typia.json.createValidateStringify as any).number;
             const $throws = (typia.json.createValidateStringify as any).throws;
             const $tail = (typia.json.createValidateStringify as any).tail;

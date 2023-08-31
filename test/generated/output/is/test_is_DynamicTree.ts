@@ -6,7 +6,6 @@ export const test_is_DynamicTree = _test_is("DynamicTree")<DynamicTree>(
     DynamicTree,
 )((input) =>
     ((input: any): input is DynamicTree => {
-        const $join = (typia.is as any).join;
         const $io0 = (input: any): boolean =>
             "string" === typeof input.id &&
             "number" === typeof input.sequence &&

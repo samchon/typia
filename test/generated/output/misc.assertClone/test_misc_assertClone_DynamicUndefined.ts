@@ -8,7 +8,6 @@ export const test_misc_assertClone_DynamicUndefined = _test_misc_assertClone(
     ((input: any): typia.Resolved<DynamicUndefined> => {
         const assert = (input: any): DynamicUndefined => {
             const __is = (input: any): input is DynamicUndefined => {
-                const $join = (typia.misc.assertClone as any).join;
                 const $io0 = (input: any): boolean =>
                     Object.keys(input).every((key: any) => {
                         const value = input[key];
@@ -80,7 +79,6 @@ export const test_misc_assertClone_DynamicUndefined = _test_misc_assertClone(
         const clone = (
             input: DynamicUndefined,
         ): typia.Resolved<DynamicUndefined> => {
-            const $join = (typia.misc.assertClone as any).join;
             const $co0 = (input: any): any => {
                 const output = {} as any;
                 for (const [key, value] of Object.entries(input)) {

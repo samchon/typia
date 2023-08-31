@@ -13,7 +13,6 @@ export const test_misc_clone_DynamicSimple = _test_misc_clone(
                 if (RegExp(/(.*)/).test(key)) return "number" === typeof value;
                 return true;
             });
-        const $join = (typia.misc.clone as any).join;
         const $co0 = (input: any): any => ({
             value:
                 "object" === typeof input.value && null !== input.value

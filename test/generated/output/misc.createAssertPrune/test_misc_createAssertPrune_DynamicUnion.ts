@@ -7,7 +7,6 @@ export const test_misc_assertPrune_DynamicUnion = _test_misc_assertPrune(
 )<DynamicUnion>(DynamicUnion)((input: any): DynamicUnion => {
     const assert = (input: any): DynamicUnion => {
         const __is = (input: any): input is DynamicUnion => {
-            const $join = (typia.misc.createAssertPrune as any).join;
             const $io0 = (input: any): boolean =>
                 Object.keys(input).every((key: any) => {
                     const value = input[key];
@@ -123,7 +122,6 @@ export const test_misc_assertPrune_DynamicUnion = _test_misc_assertPrune(
         return input;
     };
     const prune = (input: DynamicUnion): void => {
-        const $join = (typia.misc.createAssertPrune as any).join;
         const $po0 = (input: any): any => {
             Object.entries(input).forEach(([key, value]: any) => {
                 if (undefined === value) return;
