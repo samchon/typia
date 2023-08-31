@@ -28,7 +28,7 @@
  * Others                  | No change
  *
  * @template Instance Target argument type.
- * @author Jenogho Nam - https://github.com/samchon
+ * @author Jeongho Nam - https://github.com/samchon
  * @author Kyungsu Kang - https://github.com/kakasoo
  * @author Michael - https://github.com/8471919
  */
