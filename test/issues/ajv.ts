@@ -25,7 +25,7 @@ const program = new Ajv({
         optimize: false,
     },
 });
-const is = program.compile(app.schemas[0]);
+const is = program.compile(app.schemas[0]!);
 fs.writeFileSync(
     __dirname + "/ajv.js",
     [

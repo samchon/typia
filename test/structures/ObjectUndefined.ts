@@ -46,27 +46,27 @@ export namespace ObjectUndefined {
 
     export const SPOILERS: Spoiler<ObjectUndefined>[] = [
         (input) => {
-            input[0].name = null!;
+            input[0]!.name = null!;
             return ["$input[0].name"];
         },
         (input) => {
-            input[0].professor = null!;
+            input[0]!.professor = null!;
             return ["$input[0].professor"];
         },
         (input) => {
-            input[0].classroom = {} as any;
+            input[0]!.classroom = {} as any;
             return ["$input[0].classroom.id", "$input[0].classroom.name"];
         },
         (input) => {
-            input[0].grade = null!;
+            input[0]!.grade = null!;
             return ["$input[0].grade"];
         },
         (input) => {
-            input[0].nothing = "undefined" as any;
+            input[0]!.nothing = "undefined" as any;
             return ["$input[0].nothing"];
         },
         (input) => {
-            (input[0] as any).never = "undefined" as any;
+            (input[0]! as any).never = "undefined" as any;
             return ["$input[0].never"];
         },
     ];

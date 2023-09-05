@@ -18,24 +18,24 @@ export const test_json_stringify_ArrayUnion = _test_json_stringify(
                     (top: any[]): any => "boolean" === typeof top,
                     (entire: any[]): any =>
                         `[${entire.map((elem: any) => elem).join(",")}]`,
-                ],
+                ] as const,
                 [
                     (top: any[]): any => "number" === typeof top,
                     (entire: any[]): any =>
                         `[${entire
                             .map((elem: any) => $number(elem))
                             .join(",")}]`,
-                ],
+                ] as const,
                 [
                     (top: any[]): any => "string" === typeof top,
                     (entire: any[]): any =>
                         `[${entire
                             .map((elem: any) => $string(elem))
                             .join(",")}]`,
-                ],
+                ] as const,
             ];
             const passed = arrayPredicators.filter((pred: any) => pred[0](top));
-            if (1 === passed.length) return passed[0][1](array);
+            if (1 === passed.length) return passed[0]![1](array);
             else if (1 < passed.length)
                 for (const pred of passed)
                     if (array.every((value: any) => true === pred[0](value)))

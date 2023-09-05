@@ -141,12 +141,12 @@ export namespace ObjectUnionExplicitPointer {
     export const SPOILERS: Spoiler<ObjectUnionExplicitPointer>[] = [
         (input) => {
             // point
-            input.value[0].value.type = "line";
+            input.value[0]!.value.type = "line";
             return ["$input.value[0].value.p1", "$input.value[0].value.p2"];
         },
         (input) => {
             // line
-            input.value[1].value.type = "circle";
+            input.value[1]!.value.type = "circle";
             return [
                 "$input.value[1].value.centroid",
                 "$input.value[1].value.radius",
@@ -154,27 +154,27 @@ export namespace ObjectUnionExplicitPointer {
         },
         (input) => {
             // triangle
-            input.value[2].value.type = "polyline";
+            input.value[2]!.value.type = "polyline";
             return ["$input.value[2].value.points"];
         },
         (input) => {
             // rectangle
-            input.value[3].value.type = "point";
+            input.value[3]!.value.type = "point";
             return ["$input.value[3].value.x", "$input.value[3].value.y"];
         },
         (input) => {
             // polyline
-            input.value[4].value.type = "line";
+            input.value[4]!.value.type = "line";
             return ["$input.value[4].value.p1", "$input.value[4].value.p2"];
         },
         (input) => {
             // polygon
-            input.value[5].value.type = "point";
+            input.value[5]!.value.type = "point";
             return ["$input.value[5].value.x", "$input.value[5].value.y"];
         },
         (input) => {
             // circle
-            input.value[6].value.type = "polyline";
+            input.value[6]!.value.type = "polyline";
             return ["$input.value[6].value.points"];
         },
     ];

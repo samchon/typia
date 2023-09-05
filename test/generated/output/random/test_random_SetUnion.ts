@@ -106,7 +106,7 @@ export const test_random_SetUnion = _test_random("SetUnion")<SetUnion>(
                                             (elem: any) =>
                                                 "boolean" === typeof elem,
                                         ),
-                                ],
+                                ] as const,
                                 [
                                     (top: any[]): any =>
                                         "number" === typeof top &&
@@ -117,7 +117,7 @@ export const test_random_SetUnion = _test_random("SetUnion")<SetUnion>(
                                                 "number" === typeof elem &&
                                                 Number.isFinite(elem),
                                         ),
-                                ],
+                                ] as const,
                                 [
                                     (top: any[]): any =>
                                         "string" === typeof top,
@@ -126,7 +126,7 @@ export const test_random_SetUnion = _test_random("SetUnion")<SetUnion>(
                                             (elem: any) =>
                                                 "string" === typeof elem,
                                         ),
-                                ],
+                                ] as const,
                                 [
                                     (top: any[]): any =>
                                         Array.isArray(top) &&
@@ -146,7 +146,7 @@ export const test_random_SetUnion = _test_random("SetUnion")<SetUnion>(
                                                         Number.isFinite(elem),
                                                 ),
                                         ),
-                                ],
+                                ] as const,
                                 [
                                     (top: any[]): any =>
                                         "object" === typeof top &&
@@ -159,12 +159,13 @@ export const test_random_SetUnion = _test_random("SetUnion")<SetUnion>(
                                                 null !== elem &&
                                                 $io0(elem),
                                         ),
-                                ],
+                                ] as const,
                             ];
                             const passed = arrayPredicators.filter(
                                 (pred: any) => pred[0](top),
                             );
-                            if (1 === passed.length) return passed[0][1](array);
+                            if (1 === passed.length)
+                                return passed[0]![1](array);
                             else if (1 < passed.length)
                                 for (const pred of passed)
                                     if (
@@ -255,7 +256,7 @@ export const test_random_SetUnion = _test_random("SetUnion")<SetUnion>(
                                                                 value: elem,
                                                             }),
                                                     ),
-                                            ],
+                                            ] as const,
                                             [
                                                 (top: any[]): any =>
                                                     "number" === typeof top &&
@@ -284,7 +285,7 @@ export const test_random_SetUnion = _test_random("SetUnion")<SetUnion>(
                                                                 value: elem,
                                                             }),
                                                     ),
-                                            ],
+                                            ] as const,
                                             [
                                                 (top: any[]): any =>
                                                     "string" === typeof top,
@@ -309,7 +310,7 @@ export const test_random_SetUnion = _test_random("SetUnion")<SetUnion>(
                                                                 value: elem,
                                                             }),
                                                     ),
-                                            ],
+                                            ] as const,
                                             [
                                                 (top: any[]): any =>
                                                     Array.isArray(top) &&
@@ -386,7 +387,7 @@ export const test_random_SetUnion = _test_random("SetUnion")<SetUnion>(
                                                                 value: elem,
                                                             }),
                                                     ),
-                                            ],
+                                            ] as const,
                                             [
                                                 (top: any[]): any =>
                                                     "object" === typeof top &&
@@ -437,13 +438,13 @@ export const test_random_SetUnion = _test_random("SetUnion")<SetUnion>(
                                                                 value: elem,
                                                             }),
                                                     ),
-                                            ],
+                                            ] as const,
                                         ];
                                         const passed = arrayPredicators.filter(
                                             (pred: any) => pred[0](top),
                                         );
                                         if (1 === passed.length)
-                                            return passed[0][1](array);
+                                            return passed[0]![1](array);
                                         else if (1 < passed.length)
                                             for (const pred of passed)
                                                 if (

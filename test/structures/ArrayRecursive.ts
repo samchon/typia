@@ -42,7 +42,7 @@ export namespace ArrayRecursive {
         const current: { value: ArrayRecursive } = { value: data };
         while (current.value.children.length)
             current.value =
-                current.value.children[current.value.children.length - 1];
+                current.value.children[current.value.children.length - 1]!;
         current.value.created_at.time = null!;
         return data;
     }
@@ -65,7 +65,7 @@ export namespace ArrayRecursive {
             return ["$input.created_at.time", "$input.created_at.zone"];
         },
         (input) => {
-            input.children[0].children[0].sequence = "number" as any;
+            input.children[0]!.children[0]!.sequence = "number" as any;
             return ["$input.children[0].children[0].sequence"];
         },
     ];

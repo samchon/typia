@@ -4,7 +4,7 @@ import os from "os";
 import { HorizontalBarChart } from "../../benchmark/internal/HorizontalBarChart";
 
 const svg = HorizontalBarChart.generate({
-    cpu: os.cpus()[0].model.trim(),
+    cpu: os.cpus()[0]!.model.trim(),
     memory: os.totalmem(),
     os: os.platform(),
     node: process.version,

@@ -25,7 +25,7 @@ export const test_json_validateParse_ArrayRepeatedUnion =
                                     entire.every(
                                         (elem: any) => "string" === typeof elem,
                                     ),
-                            ],
+                            ] as const,
                             [
                                 (top: any[]): any =>
                                     null !== top &&
@@ -36,7 +36,7 @@ export const test_json_validateParse_ArrayRepeatedUnion =
                                         (Array.isArray(top) &&
                                             ($ip0(top) || false))),
                                 (entire: any[]): any => $ia0(entire) || false,
-                            ],
+                            ] as const,
                             [
                                 (top: any[]): any =>
                                     "object" === typeof top &&
@@ -49,12 +49,12 @@ export const test_json_validateParse_ArrayRepeatedUnion =
                                             null !== elem &&
                                             $io0(elem),
                                     ),
-                            ],
+                            ] as const,
                         ];
                         const passed = arrayPredicators.filter((pred: any) =>
                             pred[0](top),
                         );
-                        if (1 === passed.length) return passed[0][1](array);
+                        if (1 === passed.length) return passed[0]![1](array);
                         else if (1 < passed.length)
                             for (const pred of passed)
                                 if (
@@ -155,7 +155,7 @@ export const test_json_validateParse_ArrayRepeatedUnion =
                                                     }),
                                             )
                                             .every((flag: boolean) => flag),
-                                ],
+                                ] as const,
                                 [
                                     (top: any[]): any =>
                                         null !== top &&
@@ -187,7 +187,7 @@ export const test_json_validateParse_ArrayRepeatedUnion =
                                                 "Array<ArrayRepeatedUnion>",
                                             value: entire,
                                         }),
-                                ],
+                                ] as const,
                                 [
                                     (top: any[]): any =>
                                         "object" === typeof top &&
@@ -238,12 +238,13 @@ export const test_json_validateParse_ArrayRepeatedUnion =
                                                     }),
                                             )
                                             .every((flag: boolean) => flag),
-                                ],
+                                ] as const,
                             ];
                             const passed = arrayPredicators.filter(
                                 (pred: any) => pred[0](top),
                             );
-                            if (1 === passed.length) return passed[0][1](array);
+                            if (1 === passed.length)
+                                return passed[0]![1](array);
                             else if (1 < passed.length)
                                 for (const pred of passed)
                                     if (

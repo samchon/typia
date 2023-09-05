@@ -57,55 +57,55 @@ export namespace TypeTagRangeBigInt {
 
     export const SPOILERS: Spoiler<TypeTagRangeBigInt>[] = [
         (input) => {
-            input.value[4].greater = BigInt(3);
+            input.value[4]!.greater = BigInt(3);
             return ["$input.value[4].greater"];
         },
         (input) => {
-            input.value[5].greater_equal = BigInt(2);
+            input.value[5]!.greater_equal = BigInt(2);
             return ["$input.value[5].greater_equal"];
         },
         (input) => {
-            input.value[6].less = BigInt(7);
+            input.value[6]!.less = BigInt(7);
             return ["$input.value[6].less"];
         },
         (input) => {
-            input.value[7].less_equal = BigInt(8);
+            input.value[7]!.less_equal = BigInt(8);
             return ["$input.value[7].less_equal"];
         },
         (input) => {
-            input.value[8].greater_less = BigInt(3);
+            input.value[8]!.greater_less = BigInt(3);
             return ["$input.value[8].greater_less"];
         },
         (input) => {
-            input.value[9].greater_less = BigInt(7);
+            input.value[9]!.greater_less = BigInt(7);
             return ["$input.value[9].greater_less"];
         },
         (input) => {
-            input.value[10].greater_equal_less = BigInt(2);
+            input.value[10]!.greater_equal_less = BigInt(2);
             return ["$input.value[10].greater_equal_less"];
         },
         (input) => {
-            input.value[11].greater_equal_less = BigInt(7);
+            input.value[11]!.greater_equal_less = BigInt(7);
             return ["$input.value[11].greater_equal_less"];
         },
         (input) => {
-            input.value[12].greater_less_equal = BigInt(3);
+            input.value[12]!.greater_less_equal = BigInt(3);
             return ["$input.value[12].greater_less_equal"];
         },
         (input) => {
-            input.value[13].greater_less_equal = BigInt(8);
+            input.value[13]!.greater_less_equal = BigInt(8);
             return ["$input.value[13].greater_less_equal"];
         },
         (input) => {
-            input.value[14].greater_equal_less_equal = BigInt(2);
+            input.value[14]!.greater_equal_less_equal = BigInt(2);
             return ["$input.value[14].greater_equal_less_equal"];
         },
         (input) => {
-            input.value[15].greater_equal_less_equal = BigInt(8);
+            input.value[15]!.greater_equal_less_equal = BigInt(8);
             return ["$input.value[15].greater_equal_less_equal"];
         },
         (input) => {
-            input.value[16].equal = BigInt(9);
+            input.value[16]!.equal = BigInt(9);
             return ["$input.value[16].equal"];
         },
     ];

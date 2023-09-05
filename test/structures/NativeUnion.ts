@@ -39,31 +39,31 @@ export namespace NativeUnion {
 
     export const SPOILERS: Spoiler<NativeUnion>[] = [
         (input) => {
-            input[0].date = {} as any;
+            input[0]!.date = {} as any;
             return ["$input[0].date"];
         },
         (input) => {
-            input[1].unsigned = [] as any;
+            input[1]!.unsigned = [] as any;
             return ["$input[1].unsigned"];
         },
         (input) => {
-            input[2].unsigned = new Int8Array() as any;
+            input[2]!.unsigned = new Int8Array() as any;
             return ["$input[2].unsigned"];
         },
         (input) => {
-            input[3].unsigned = null!;
+            input[3]!.unsigned = null!;
             return ["$input[3].unsigned"];
         },
         (input) => {
-            input[4].signed = new Uint8Array() as any;
+            input[4]!.signed = new Uint8Array() as any;
             return ["$input[4].signed"];
         },
         (input) => {
-            input[5].float = new Uint8Array() as any;
+            input[5]!.float = new Uint8Array() as any;
             return ["$input[5].float"];
         },
         (input) => {
-            input[6].buffer = new Uint8Array() as any;
+            input[6]!.buffer = new Uint8Array() as any;
             return ["$input[6].buffer"];
         },
     ];

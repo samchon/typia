@@ -45,19 +45,19 @@ export namespace ObjectPropertyNullable {
 
     export const SPOILERS: Spoiler<ObjectPropertyNullable>[] = [
         (input) => {
-            input[0][0].value = "boolean" as any;
+            input[0]![0]!.value = "boolean" as any;
             return ["$input[0][0].value"];
         },
         (input) => {
-            input[1][0].value = "number" as any;
+            input[1]![0]!.value = "number" as any;
             return ["$input[1][0].value"];
         },
         (input) => {
-            input[2][0].value = {} as any;
+            input[2]![0]!.value = {} as any;
             return ["$input[2][0].value"];
         },
         (input) => {
-            input[3][0].value = {} as any;
+            input[3]![0]!.value = {} as any;
             return [
                 "$input[3][0].value.id",
                 "$input[3][0].value.name",

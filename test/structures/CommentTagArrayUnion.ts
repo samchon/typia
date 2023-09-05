@@ -49,27 +49,27 @@ export namespace CommentTagArrayUnion {
 
     export const SPOILERS: Spoiler<CommentTagArrayUnion>[] = [
         (input) => {
-            input[1].items = TestRandomGenerator.array(() => v4(), 2);
+            input[1]!.items = TestRandomGenerator.array(() => v4(), 2);
             return ["$input[1].items"];
         },
         (input) => {
-            input[2].items = TestRandomGenerator.array(() => v4(), 7);
+            input[2]!.items = TestRandomGenerator.array(() => v4(), 7);
             return ["$input[2].items"];
         },
         (input) => {
-            input[4].minItems = TestRandomGenerator.array(() => 3, 2);
+            input[4]!.minItems = TestRandomGenerator.array(() => 3, 2);
             return ["$input[4].minItems"];
         },
         (input) => {
-            input[7].maxItems = TestRandomGenerator.array(() => 1, 8);
+            input[7]!.maxItems = TestRandomGenerator.array(() => 1, 8);
             return ["$input[7].maxItems"];
         },
         (input) => {
-            input[9].both = TestRandomGenerator.array(() => v4(), 2);
+            input[9]!.both = TestRandomGenerator.array(() => v4(), 2);
             return ["$input[9].both"];
         },
         (input) => {
-            input[10].both = TestRandomGenerator.array(() => v4(), 8);
+            input[10]!.both = TestRandomGenerator.array(() => v4(), 8);
             return ["$input[10].both"];
         },
     ];

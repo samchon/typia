@@ -65,12 +65,12 @@ const protobufJS =
     <T extends object>(data: T): Uint8Array => {
         const name: string = (() => {
             const getter = (str: string) =>
-                str.split("message ")[1].split(" {")[0];
+                str.split("message ")[1]!.split(" {")[0]!;
             const lines: string[] = message.split("\n").slice(2);
-            const title: string = getter(lines[0]);
-            return lines[1].indexOf("message") === -1
+            const title: string = getter(lines[0]!);
+            return lines[1]!.indexOf("message") === -1
                 ? title
-                : `${title}.${getter(lines[1])}`;
+                : `${title}.${getter(lines[1]!)}`;
         })();
         const result: pjs.IParserResult = pjs.parse(message, {
             keepCase: true,

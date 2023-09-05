@@ -26,7 +26,7 @@ export const test_assertEquals_TupleUnion = _test_assertEquals(
                             Number.isFinite(entire[0]) &&
                             "string" === typeof entire[1] &&
                             "boolean" === typeof entire[2],
-                    ],
+                    ] as const,
                     [
                         (top: any[]): any =>
                             top.length === 2 &&
@@ -38,11 +38,11 @@ export const test_assertEquals_TupleUnion = _test_assertEquals(
                             "boolean" === typeof entire[0] &&
                             "number" === typeof entire[1] &&
                             Number.isFinite(entire[1]),
-                    ],
+                    ] as const,
                     [
                         (top: any[]): any => top.length === 0,
                         (entire: any[]): any => entire.length === 0,
-                    ],
+                    ] as const,
                 ];
                 for (const pred of tuplePredicators)
                     if (pred[0](array)) return pred[1](array);
@@ -104,7 +104,7 @@ export const test_assertEquals_TupleUnion = _test_assertEquals(
                                         expected: "boolean",
                                         value: entire[2],
                                     })),
-                        ],
+                        ] as const,
                         [
                             (top: any[]): any =>
                                 top.length === 2 &&
@@ -131,7 +131,7 @@ export const test_assertEquals_TupleUnion = _test_assertEquals(
                                         expected: "number",
                                         value: entire[1],
                                     })),
-                        ],
+                        ] as const,
                         [
                             (top: any[]): any => top.length === 0,
                             (entire: any[]): any =>
@@ -141,7 +141,7 @@ export const test_assertEquals_TupleUnion = _test_assertEquals(
                                     expected: "[]",
                                     value: entire,
                                 }),
-                        ],
+                        ] as const,
                     ];
                     for (const pred of tuplePredicators)
                         if (pred[0](array)) return pred[1](array);

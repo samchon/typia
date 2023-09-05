@@ -53,7 +53,7 @@ export namespace ObjectPrimitive {
             return ["$input.files"];
         },
         (input) => {
-            input.files[0].created_at = [] as any;
+            input.files[0]!.created_at = [] as any;
             return ["$input.files[0].created_at"];
         },
     ];

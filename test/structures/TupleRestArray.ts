@@ -25,15 +25,15 @@ export namespace TupleRestArray {
             return ["$input[1]"];
         },
         (input) => {
-            input[2][0] = 0 as any;
+            input[2]![0] = 0 as any;
             return ["$input[2][0]"];
         },
         (input) => {
-            input[3][1] = false as any;
+            input[3]![1] = false as any;
             return ["$input[3][1]"];
         },
         (input) => {
-            input[4][2] = {} as any;
+            input[4]![2] = {} as any;
             return ["$input[4][2]"];
         },
     ];

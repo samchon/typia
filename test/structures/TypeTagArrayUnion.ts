@@ -43,7 +43,7 @@ export namespace TypeTagArrayUnion {
 
     export const SPOILERS: Spoiler<TypeTagArrayUnion>[] = [
         (input) => {
-            input[0].items = ["0", "1", "2"];
+            input[0]!.items = ["0", "1", "2"];
             return [
                 "$input[0].items[0]",
                 "$input[0].items[1]",
@@ -51,15 +51,15 @@ export namespace TypeTagArrayUnion {
             ];
         },
         (input) => {
-            input[1].items = TestRandomGenerator.array(() => v4(), 2);
+            input[1]!.items = TestRandomGenerator.array(() => v4(), 2);
             return ["$input[1].items"];
         },
         (input) => {
-            input[2].items = TestRandomGenerator.array(() => v4(), 7);
+            input[2]!.items = TestRandomGenerator.array(() => v4(), 7);
             return ["$input[2].items"];
         },
         (input) => {
-            input[3].minItems = [0, 1, 2];
+            input[3]!.minItems = [0, 1, 2];
             return [
                 "$input[3].minItems[0]",
                 "$input[3].minItems[1]",
@@ -67,23 +67,23 @@ export namespace TypeTagArrayUnion {
             ];
         },
         (input) => {
-            input[4].minItems = TestRandomGenerator.array(() => 3, 2);
+            input[4]!.minItems = TestRandomGenerator.array(() => 3, 2);
             return ["$input[4].minItems"];
         },
         (input) => {
-            input[5].maxItems = [8];
+            input[5]!.maxItems = [8];
             return ["$input[5].maxItems[0]"];
         },
         (input) => {
-            input[6].maxItems = ["12345678"];
+            input[6]!.maxItems = ["12345678"];
             return ["$input[6].maxItems[0]"];
         },
         (input) => {
-            input[7].maxItems = TestRandomGenerator.array(() => 1, 8);
+            input[7]!.maxItems = TestRandomGenerator.array(() => 1, 8);
             return ["$input[7].maxItems"];
         },
         (input) => {
-            input[8].both = ["0", "1", "2"];
+            input[8]!.both = ["0", "1", "2"];
             return [
                 "$input[8].both[0]",
                 "$input[8].both[1]",
@@ -91,11 +91,11 @@ export namespace TypeTagArrayUnion {
             ];
         },
         (input) => {
-            input[9].both = TestRandomGenerator.array(() => v4(), 2);
+            input[9]!.both = TestRandomGenerator.array(() => v4(), 2);
             return ["$input[9].both"];
         },
         (input) => {
-            input[10].both = TestRandomGenerator.array(() => v4(), 8);
+            input[10]!.both = TestRandomGenerator.array(() => v4(), 8);
             return ["$input[10].both"];
         },
     ];

@@ -12,7 +12,7 @@ export namespace UltimateUnion {
             typia.json.application<[ObjectUnionImplicit], "ajv">(),
             typia.json.application<[ArrayRecursiveUnionExplicit], "ajv">(),
         ];
-        output[0].schemas[0] = {
+        output[0]!.schemas[0] = {
             type: "number",
             nullable: false,
             enum: undefined,
@@ -22,7 +22,7 @@ export namespace UltimateUnion {
 
     export function trail(): typia.IJsonApplication[] {
         const input: typia.IJsonApplication[] = generate();
-        SPOILERS[0](input);
+        SPOILERS[0]!(input);
         return input;
     }
 
@@ -32,7 +32,7 @@ export namespace UltimateUnion {
                 const entries = Object.entries(
                     input[input.length - 1]!.components.schemas!,
                 );
-                return entries[entries.length - 1];
+                return entries[entries.length - 1]!;
             })();
             (schema as IJsonComponents.IObject).properties["sdafasdfsda"] = {
                 oneOf: {} as any,

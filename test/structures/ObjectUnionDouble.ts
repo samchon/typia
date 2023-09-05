@@ -62,19 +62,19 @@ export namespace ObjectUnionDouble {
 
     export const SPOILERS: Spoiler<ObjectUnionDouble>[] = [
         (input) => {
-            input[0].value = "string" as any;
+            input[0]!.value = "string" as any;
             return ["$input[0]"];
         },
         (input) => {
-            input[1].child.value.y = "string" as any;
+            input[1]!.child.value.y = "string" as any;
             return ["$input[1]"];
         },
         (input) => {
-            input[2].child.value.y = 0 as any;
+            input[2]!.child.value.y = 0 as any;
             return ["$input[2]"];
         },
         (input) => {
-            input[3].child.value.y = false as any;
+            input[3]!.child.value.y = false as any;
             return ["$input[3]"];
         },
     ];

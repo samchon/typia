@@ -141,7 +141,7 @@ export namespace HorizontalBarChart {
                     .attr("y", style.margin.top + 20 * i)
                     .attr("width", 10)
                     .attr("height", 10)
-                    .style("fill", style.colors[i]);
+                    .style("fill", style.colors[i]!);
                 svg.append("text")
                     .attr("x", style.width - style.margin.right + 10 + 25)
                     .attr("y", style.margin.top + 20 * i + 10)
@@ -175,11 +175,11 @@ export namespace HorizontalBarChart {
                         column,
                         category: d.label,
                         value:
-                            d.result[column] !== 0 &&
+                            d.result[column]! !== 0 &&
                             Object.values(d.result).filter((val) => val !== 0)
                                 .length === 1
                                 ? Number.POSITIVE_INFINITY
-                                : d.result[column],
+                                : d.result[column]!,
                     })),
                 );
 

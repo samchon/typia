@@ -32,7 +32,7 @@ export namespace TypeTagMatrix {
             return ["$input.matrix"];
         },
         (input) => {
-            input.matrix[0][0] = "invalid uuid";
+            input.matrix[0]![0] = "invalid uuid";
             return ["$input.matrix[0][0]"];
         },
     ];

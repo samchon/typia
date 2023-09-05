@@ -23,7 +23,7 @@ export namespace TupleOptional {
 
     export const SPOILERS: Spoiler<TupleOptional>[] = [
         (input) => {
-            input[0][0] = false as any;
+            input[0]![0] = false as any;
             return ["$input[0][0]"];
         },
         (input) => {
@@ -35,7 +35,7 @@ export namespace TupleOptional {
             return ["$input[0]"];
         },
         ...[0, 1, 2].map((i) => (input: TupleOptional) => {
-            input[0][i] = undefined!;
+            input[0]![i] = undefined!;
             return [`$input[0][${i}]`];
         }),
     ];

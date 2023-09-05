@@ -152,31 +152,31 @@ export namespace ArrayRecursiveUnionExplicit {
         // WRONG TYPES
         //----
         (input) => {
-            input[0].type = "directory";
+            input[0]!.type = "directory";
             return ["$input[0].children"];
         },
         (input) => {
-            input[1].type = "directory";
+            input[1]!.type = "directory";
             return ["$input[1].children"];
         },
         (input) => {
-            input[2].type = "text" as "file";
+            input[2]!.type = "text" as "file";
             return ["$input[2].type"];
         },
         (input) => {
-            input[3].type = "directory";
+            input[3]!.type = "directory";
             return ["$input[3].children"];
         },
         (input) => {
-            input[4].type = "text" as "file";
+            input[4]!.type = "text" as "file";
             return ["$input[4].type"];
         },
         (input) => {
-            input[5].type = "directory";
+            input[5]!.type = "directory";
             return ["$input[5].children"];
         },
         (input) => {
-            input[6].type = "file";
+            input[6]!.type = "file";
             return ["$input[6]"];
         },
 
@@ -217,15 +217,15 @@ export namespace ArrayRecursiveUnionExplicit {
         // WRONG PROPERTIES
         //----
         (input) => {
-            input[0].id = "uuid" as any;
+            input[0]!.id = "uuid" as any;
             return ["$input[0].id"];
         },
         (input) => {
-            input[1].name = 3 as any;
+            input[1]!.name = 3 as any;
             return ["$input[1].name"];
         },
         (input) => {
-            input[2].path = {} as any;
+            input[2]!.path = {} as any;
             return ["$input[2].path"];
         },
         (input) => {
@@ -239,13 +239,13 @@ export namespace ArrayRecursiveUnionExplicit {
             return ["$input[4]"];
         },
         (input) => {
-            input[5].type = {} as any;
+            input[5]!.type = {} as any;
             return ["$input[5].type"];
         },
         (input) => {
             (
                 input[6] as ArrayRecursiveUnionExplicit.IDirectory
-            ).children[0].path = [] as any;
+            ).children[0]!.path = [] as any;
             return ["$input[6].children[0].path"];
         },
     ];

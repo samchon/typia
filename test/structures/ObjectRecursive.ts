@@ -35,7 +35,7 @@ export namespace ObjectRecursive {
 
     export function trail(): ObjectRecursive {
         const data: ObjectRecursive = ObjectRecursive.generate();
-        SPOILERS[1](data);
+        SPOILERS[1]!(data);
         return data;
     }
 

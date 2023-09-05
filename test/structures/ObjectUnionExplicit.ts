@@ -119,37 +119,37 @@ export namespace ObjectUnionExplicit {
     export const SPOILERS: Spoiler<ObjectUnionExplicit>[] = [
         (input) => {
             // point
-            input[0].type = "line";
+            input[0]!.type = "line";
             return ["$input[0].p1", "$input[0].p2"];
         },
         (input) => {
             // line
-            input[1].type = "circle";
+            input[1]!.type = "circle";
             return ["$input[1].centroid", "$input[1].radius"];
         },
         (input) => {
             // triangle
-            input[2].type = "polyline";
+            input[2]!.type = "polyline";
             return ["$input[2].points"];
         },
         (input) => {
             // rectangle
-            input[3].type = "point";
+            input[3]!.type = "point";
             return ["$input[3].x", "$input[3].y"];
         },
         (input) => {
             // polyline
-            input[4].type = "line";
+            input[4]!.type = "line";
             return ["$input[4].p1", "$input[4].p2"];
         },
         (input) => {
             // polygon
-            input[5].type = "point";
+            input[5]!.type = "point";
             return ["$input[5].x", "$input[5].y"];
         },
         (input) => {
             // circle
-            input[6].type = "polyline";
+            input[6]!.type = "polyline";
             return ["$input[6].points"];
         },
     ];

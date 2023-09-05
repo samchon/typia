@@ -39,19 +39,19 @@ export namespace TemplateUnion {
 
     export const SPOILERS: Spoiler<TemplateUnion>[] = [
         (input) => {
-            input.value[0].prefix = "prefix-1" as any;
+            input.value[0]!.prefix = "prefix-1" as any;
             return ["$input.value[0].prefix"];
         },
         (input) => {
-            input.value[0].postfix = "first-postfix" as any;
+            input.value[0]!.postfix = "first-postfix" as any;
             return ["$input.value[0].postfix"];
         },
         (input) => {
-            input.value[0].middle = "the_middle_value" as any;
+            input.value[0]!.middle = "the_middle_value" as any;
             return ["$input.value[0].middle"];
         },
         (input) => {
-            input.value[0].mixed = "the_C_value" as any;
+            input.value[0]!.mixed = "the_C_value" as any;
             return ["$input.value[0].mixed"];
         },
     ];

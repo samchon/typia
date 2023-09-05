@@ -54,11 +54,11 @@ export namespace ObjectGenericArray {
             ];
         },
         (input) => {
-            input.data[0].name = null!;
+            input.data[0]!.name = null!;
             return ["$input.data[0].name"];
         },
         (input) => {
-            input.data[1].age = "one" as any;
+            input.data[1]!.age = "one" as any;
             return ["$input.data[1].age"];
         },
         (input) => {

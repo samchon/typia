@@ -18,7 +18,7 @@ export const test_misc_isClone_ArrayRepeatedUnion = _test_misc_isClone(
                             entire.every(
                                 (elem: any) => "string" === typeof elem,
                             ),
-                    ],
+                    ] as const,
                     [
                         (top: any[]): any =>
                             null !== top &&
@@ -28,7 +28,7 @@ export const test_misc_isClone_ArrayRepeatedUnion = _test_misc_isClone(
                                 "boolean" === typeof top ||
                                 (Array.isArray(top) && ($ip0(top) || false))),
                         (entire: any[]): any => $ia0(entire) || false,
-                    ],
+                    ] as const,
                     [
                         (top: any[]): any =>
                             "object" === typeof top &&
@@ -41,12 +41,12 @@ export const test_misc_isClone_ArrayRepeatedUnion = _test_misc_isClone(
                                     null !== elem &&
                                     $io0(elem),
                             ),
-                    ],
+                    ] as const,
                 ];
                 const passed = arrayPredicators.filter((pred: any) =>
                     pred[0](top),
                 );
-                if (1 === passed.length) return passed[0][1](array);
+                if (1 === passed.length) return passed[0]![1](array);
                 else if (1 < passed.length)
                     for (const pred of passed)
                         if (
@@ -135,7 +135,7 @@ export const test_misc_isClone_ArrayRepeatedUnion = _test_misc_isClone(
                         (top: any[]): any => "string" === typeof top,
                         (entire: any[]): any =>
                             entire.map((elem: any) => elem as any),
-                    ],
+                    ] as const,
                     [
                         (top: any[]): any =>
                             null !== top &&
@@ -144,7 +144,7 @@ export const test_misc_isClone_ArrayRepeatedUnion = _test_misc_isClone(
                                 "boolean" === typeof top ||
                                 (Array.isArray(top) && ($cp0(top) || false))),
                         (entire: any[]): any => $ca0(entire),
-                    ],
+                    ] as const,
                     [
                         (top: any[]): any =>
                             "object" === typeof top &&
@@ -156,12 +156,12 @@ export const test_misc_isClone_ArrayRepeatedUnion = _test_misc_isClone(
                                     ? $co0(elem)
                                     : (elem as any),
                             ),
-                    ],
+                    ] as const,
                 ];
                 const passed = arrayPredicators.filter((pred: any) =>
                     pred[0](top),
                 );
-                if (1 === passed.length) return passed[0][1](array);
+                if (1 === passed.length) return passed[0]![1](array);
                 else if (1 < passed.length)
                     for (const pred of passed)
                         if (
