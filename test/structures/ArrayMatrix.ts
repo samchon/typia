@@ -7,15 +7,15 @@ export namespace ArrayMatrix {
     }
     export const SPOILERS: Spoiler<ArrayMatrix>[] = [
         (input) => {
-            input[0][0][0] = "number" as any;
+            input[0]![0]![0] = "number" as any;
             return ["$input[0][0][0]"];
         },
         (input) => {
-            input[0][0] = "number[]" as any;
+            input[0]![0] = "number[]" as any;
             return ["$input[0][0]"];
         },
         (input) => {
-            input[0][0] = { length: 0 } as any;
+            input[0]![0] = { length: 0 } as any;
             return ["$input[0][0]"];
         },
     ];

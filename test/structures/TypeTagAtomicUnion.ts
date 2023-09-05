@@ -19,15 +19,15 @@ export namespace TypeTagAtomicUnion {
     }
     export const SPOILERS: Spoiler<TypeTagAtomicUnion>[] = [
         (input) => {
-            input.value[0].value = "12";
+            input.value[0]!.value = "12";
             return ["$input.value[0].value"];
         },
         (input) => {
-            input.value[1].value = "12345678";
+            input.value[1]!.value = "12345678";
             return ["$input.value[1].value"];
         },
         (input) => {
-            input.value[2].value = 2;
+            input.value[2]!.value = 2;
             return ["$input.value[2].value"];
         },
     ];

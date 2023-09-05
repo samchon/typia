@@ -31,7 +31,7 @@ export const test_misc_assertClone_SetUnion = _test_misc_assertClone(
                                                 (elem: any) =>
                                                     "boolean" === typeof elem,
                                             ),
-                                    ],
+                                    ] as const,
                                     [
                                         (top: any[]): any =>
                                             "number" === typeof top &&
@@ -42,7 +42,7 @@ export const test_misc_assertClone_SetUnion = _test_misc_assertClone(
                                                     "number" === typeof elem &&
                                                     Number.isFinite(elem),
                                             ),
-                                    ],
+                                    ] as const,
                                     [
                                         (top: any[]): any =>
                                             "string" === typeof top,
@@ -51,7 +51,7 @@ export const test_misc_assertClone_SetUnion = _test_misc_assertClone(
                                                 (elem: any) =>
                                                     "string" === typeof elem,
                                             ),
-                                    ],
+                                    ] as const,
                                     [
                                         (top: any[]): any =>
                                             Array.isArray(top) &&
@@ -73,7 +73,7 @@ export const test_misc_assertClone_SetUnion = _test_misc_assertClone(
                                                             ),
                                                     ),
                                             ),
-                                    ],
+                                    ] as const,
                                     [
                                         (top: any[]): any =>
                                             "object" === typeof top &&
@@ -86,13 +86,13 @@ export const test_misc_assertClone_SetUnion = _test_misc_assertClone(
                                                     null !== elem &&
                                                     $io0(elem),
                                             ),
-                                    ],
+                                    ] as const,
                                 ];
                                 const passed = arrayPredicators.filter(
                                     (pred: any) => pred[0](top),
                                 );
                                 if (1 === passed.length)
-                                    return passed[0][1](array);
+                                    return passed[0]![1](array);
                                 else if (1 < passed.length)
                                     for (const pred of passed)
                                         if (
@@ -186,7 +186,7 @@ export const test_misc_assertClone_SetUnion = _test_misc_assertClone(
                                                                     value: elem,
                                                                 }),
                                                         ),
-                                                ],
+                                                ] as const,
                                                 [
                                                     (top: any[]): any =>
                                                         "number" ===
@@ -216,7 +216,7 @@ export const test_misc_assertClone_SetUnion = _test_misc_assertClone(
                                                                     value: elem,
                                                                 }),
                                                         ),
-                                                ],
+                                                ] as const,
                                                 [
                                                     (top: any[]): any =>
                                                         "string" === typeof top,
@@ -241,7 +241,7 @@ export const test_misc_assertClone_SetUnion = _test_misc_assertClone(
                                                                     value: elem,
                                                                 }),
                                                         ),
-                                                ],
+                                                ] as const,
                                                 [
                                                     (top: any[]): any =>
                                                         Array.isArray(top) &&
@@ -321,7 +321,7 @@ export const test_misc_assertClone_SetUnion = _test_misc_assertClone(
                                                                     value: elem,
                                                                 }),
                                                         ),
-                                                ],
+                                                ] as const,
                                                 [
                                                     (top: any[]): any =>
                                                         "object" ===
@@ -376,14 +376,14 @@ export const test_misc_assertClone_SetUnion = _test_misc_assertClone(
                                                                     value: elem,
                                                                 }),
                                                         ),
-                                                ],
+                                                ] as const,
                                             ];
                                             const passed =
                                                 arrayPredicators.filter(
                                                     (pred: any) => pred[0](top),
                                                 );
                                             if (1 === passed.length)
-                                                return passed[0][1](array);
+                                                return passed[0]![1](array);
                                             else if (1 < passed.length)
                                                 for (const pred of passed)
                                                     if (
@@ -442,7 +442,7 @@ export const test_misc_assertClone_SetUnion = _test_misc_assertClone(
                                                   (elem: any) => elem as any,
                                               ),
                                           ),
-                                  ],
+                                  ] as const,
                                   [
                                       (top: any[]): any =>
                                           "number" === typeof top,
@@ -452,7 +452,7 @@ export const test_misc_assertClone_SetUnion = _test_misc_assertClone(
                                                   (elem: any) => elem as any,
                                               ),
                                           ),
-                                  ],
+                                  ] as const,
                                   [
                                       (top: any[]): any =>
                                           "string" === typeof top,
@@ -462,7 +462,7 @@ export const test_misc_assertClone_SetUnion = _test_misc_assertClone(
                                                   (elem: any) => elem as any,
                                               ),
                                           ),
-                                  ],
+                                  ] as const,
                                   [
                                       (top: any[]): any =>
                                           Array.isArray(top) &&
@@ -478,7 +478,7 @@ export const test_misc_assertClone_SetUnion = _test_misc_assertClone(
                                                       : (elem as any),
                                               ),
                                           ),
-                                  ],
+                                  ] as const,
                                   [
                                       (top: any[]): any =>
                                           "object" === typeof top &&
@@ -493,13 +493,13 @@ export const test_misc_assertClone_SetUnion = _test_misc_assertClone(
                                                       : (elem as any),
                                               ),
                                           ),
-                                  ],
+                                  ] as const,
                               ];
                               const passed = arrayPredicators.filter(
                                   (pred: any) => pred[0](top),
                               );
                               if (1 === passed.length)
-                                  return passed[0][1](array);
+                                  return passed[0]![1](array);
                               else if (1 < passed.length)
                                   for (const pred of passed)
                                       if (

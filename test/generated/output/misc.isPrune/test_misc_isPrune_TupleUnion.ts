@@ -23,7 +23,7 @@ export const test_misc_isPrune_TupleUnion = _test_misc_isPrune(
                             Number.isFinite(entire[0]) &&
                             "string" === typeof entire[1] &&
                             "boolean" === typeof entire[2],
-                    ],
+                    ] as const,
                     [
                         (top: any[]): any =>
                             top.length === 2 &&
@@ -35,11 +35,11 @@ export const test_misc_isPrune_TupleUnion = _test_misc_isPrune(
                             "boolean" === typeof entire[0] &&
                             "number" === typeof entire[1] &&
                             Number.isFinite(entire[1]),
-                    ],
+                    ] as const,
                     [
                         (top: any[]): any => top.length === 0,
                         (entire: any[]): any => entire.length === 0,
-                    ],
+                    ] as const,
                 ];
                 for (const pred of tuplePredicators)
                     if (pred[0](array)) return pred[1](array);

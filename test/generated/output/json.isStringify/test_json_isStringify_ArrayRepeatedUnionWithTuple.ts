@@ -24,7 +24,7 @@ export const test_json_isStringify_ArrayRepeatedUnionWithTuple =
                                 "number" === typeof entire[1] &&
                                 Number.isFinite(entire[1]) &&
                                 "boolean" === typeof entire[2],
-                        ],
+                        ] as const,
                         [
                             (top: any[]): any =>
                                 top.length === 2 &&
@@ -42,7 +42,7 @@ export const test_json_isStringify_ArrayRepeatedUnionWithTuple =
                                 "object" === typeof entire[1] &&
                                 null !== entire[1] &&
                                 $io1(entire[1]),
-                        ],
+                        ] as const,
                     ];
                     for (const pred of tuplePredicators)
                         if (pred[0](array)) return pred[1](array);
@@ -55,7 +55,7 @@ export const test_json_isStringify_ArrayRepeatedUnionWithTuple =
                                 entire.every(
                                     (elem: any) => "string" === typeof elem,
                                 ),
-                        ],
+                        ] as const,
                         [
                             (top: any[]): any =>
                                 null !== top &&
@@ -66,7 +66,7 @@ export const test_json_isStringify_ArrayRepeatedUnionWithTuple =
                                     (Array.isArray(top) &&
                                         ($ip0(top) || false))),
                             (entire: any[]): any => $ia0(entire) || false,
-                        ],
+                        ] as const,
                         [
                             (top: any[]): any =>
                                 "object" === typeof top &&
@@ -79,12 +79,12 @@ export const test_json_isStringify_ArrayRepeatedUnionWithTuple =
                                         null !== elem &&
                                         $io0(elem),
                                 ),
-                        ],
+                        ] as const,
                     ];
                     const passed = arrayPredicators.filter((pred: any) =>
                         pred[0](top),
                     );
-                    if (1 === passed.length) return passed[0][1](array);
+                    if (1 === passed.length) return passed[0]![1](array);
                     else if (1 < passed.length)
                         for (const pred of passed)
                             if (
@@ -194,7 +194,7 @@ export const test_json_isStringify_ArrayRepeatedUnionWithTuple =
                                 `[${entire
                                     .map((elem: any) => $string(elem))
                                     .join(",")}]`,
-                        ],
+                        ] as const,
                         [
                             (top: any[]): any =>
                                 null !== top &&
@@ -204,7 +204,7 @@ export const test_json_isStringify_ArrayRepeatedUnionWithTuple =
                                     (Array.isArray(top) &&
                                         ($ip1(top) || false))),
                             (entire: any[]): any => $sa0(entire),
-                        ],
+                        ] as const,
                         [
                             (top: any[]): any =>
                                 "object" === typeof top &&
@@ -214,12 +214,12 @@ export const test_json_isStringify_ArrayRepeatedUnionWithTuple =
                                 `[${entire
                                     .map((elem: any) => $so0(elem))
                                     .join(",")}]`,
-                        ],
+                        ] as const,
                     ];
                     const passed = arrayPredicators.filter((pred: any) =>
                         pred[0](top),
                     );
-                    if (1 === passed.length) return passed[0][1](array);
+                    if (1 === passed.length) return passed[0]![1](array);
                     else if (1 < passed.length)
                         for (const pred of passed)
                             if (
@@ -248,7 +248,7 @@ export const test_json_isStringify_ArrayRepeatedUnionWithTuple =
                                 "string" === typeof entire[0] &&
                                 "number" === typeof entire[1] &&
                                 "boolean" === typeof entire[2],
-                        ],
+                        ] as const,
                         [
                             (top: any[]): any =>
                                 top.length === 2 &&
@@ -266,7 +266,7 @@ export const test_json_isStringify_ArrayRepeatedUnionWithTuple =
                                 "object" === typeof entire[1] &&
                                 null !== entire[1] &&
                                 $io1(entire[1]),
-                        ],
+                        ] as const,
                     ];
                     for (const pred of tuplePredicators)
                         if (pred[0](array)) return pred[1](array);
@@ -279,7 +279,7 @@ export const test_json_isStringify_ArrayRepeatedUnionWithTuple =
                                 entire.every(
                                     (elem: any) => "string" === typeof elem,
                                 ),
-                        ],
+                        ] as const,
                         [
                             (top: any[]): any =>
                                 null !== top &&
@@ -289,7 +289,7 @@ export const test_json_isStringify_ArrayRepeatedUnionWithTuple =
                                     (Array.isArray(top) &&
                                         ($ip1(top) || false))),
                             (entire: any[]): any => $ia0(entire) || false,
-                        ],
+                        ] as const,
                         [
                             (top: any[]): any =>
                                 "object" === typeof top &&
@@ -302,12 +302,12 @@ export const test_json_isStringify_ArrayRepeatedUnionWithTuple =
                                         null !== elem &&
                                         $io0(elem),
                                 ),
-                        ],
+                        ] as const,
                     ];
                     const passed = arrayPredicators.filter((pred: any) =>
                         pred[0](top),
                     );
-                    if (1 === passed.length) return passed[0][1](array);
+                    if (1 === passed.length) return passed[0]![1](array);
                     else if (1 < passed.length)
                         for (const pred of passed)
                             if (

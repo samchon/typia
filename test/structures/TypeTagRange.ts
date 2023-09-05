@@ -68,55 +68,55 @@ export namespace TypeTagRange {
 
     export const SPOILERS: Spoiler<TypeTagRange>[] = [
         (input) => {
-            input.value[4].greater = 3;
+            input.value[4]!.greater = 3;
             return ["$input.value[4].greater"];
         },
         (input) => {
-            input.value[5].greater_equal = 2;
+            input.value[5]!.greater_equal = 2;
             return ["$input.value[5].greater_equal"];
         },
         (input) => {
-            input.value[6].less = 7;
+            input.value[6]!.less = 7;
             return ["$input.value[6].less"];
         },
         (input) => {
-            input.value[7].less_equal = 8;
+            input.value[7]!.less_equal = 8;
             return ["$input.value[7].less_equal"];
         },
         (input) => {
-            input.value[8].greater_less = 3;
+            input.value[8]!.greater_less = 3;
             return ["$input.value[8].greater_less"];
         },
         (input) => {
-            input.value[9].greater_less = 7;
+            input.value[9]!.greater_less = 7;
             return ["$input.value[9].greater_less"];
         },
         (input) => {
-            input.value[10].greater_equal_less = 2;
+            input.value[10]!.greater_equal_less = 2;
             return ["$input.value[10].greater_equal_less"];
         },
         (input) => {
-            input.value[11].greater_equal_less = 7;
+            input.value[11]!.greater_equal_less = 7;
             return ["$input.value[11].greater_equal_less"];
         },
         (input) => {
-            input.value[12].greater_less_equal = 3;
+            input.value[12]!.greater_less_equal = 3;
             return ["$input.value[12].greater_less_equal"];
         },
         (input) => {
-            input.value[13].greater_less_equal = 8;
+            input.value[13]!.greater_less_equal = 8;
             return ["$input.value[13].greater_less_equal"];
         },
         (input) => {
-            input.value[14].greater_equal_less_equal = 2;
+            input.value[14]!.greater_equal_less_equal = 2;
             return ["$input.value[14].greater_equal_less_equal"];
         },
         (input) => {
-            input.value[15].greater_equal_less_equal = 8;
+            input.value[15]!.greater_equal_less_equal = 8;
             return ["$input.value[15].greater_equal_less_equal"];
         },
         (input) => {
-            input.value[16].equal = 9;
+            input.value[16]!.equal = 9;
             return ["$input.value[16].equal"];
         },
     ];

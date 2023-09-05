@@ -58,7 +58,7 @@ const article = typia.metadata<[IBbsArticle]>().collection.objects[0];
 const file = typia.metadata<[IAttachmentFile]>().collection.objects[0];
 
 console.log(
-    article.description,
-    article.properties.map((p) => p.description),
-    file.properties.map((p) => p.description),
+    article?.description,
+    article?.properties.map((p) => p.description),
+    file?.properties.map((p) => p.description),
 );

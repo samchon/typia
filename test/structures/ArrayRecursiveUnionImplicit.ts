@@ -181,15 +181,15 @@ export namespace ArrayRecursiveUnionImplicit {
         // WRONG PROPERTIES
         //----
         (input) => {
-            input[0].id = "uuid" as any as number;
+            input[0]!.id = "uuid" as any as number;
             return ["$input[0].id"];
         },
         (input) => {
-            input[1].name = 3 as any as string;
+            input[1]!.name = 3 as any as string;
             return ["$input[1].name"];
         },
         (input) => {
-            input[2].path = {} as any as string;
+            input[2]!.path = {} as any as string;
             return ["$input[2].path"];
         },
         (input) => {
@@ -206,11 +206,11 @@ export namespace ArrayRecursiveUnionImplicit {
             return ["$input[4].name"];
         },
         (input) => {
-            input[5].path = [] as any as "directory";
+            input[5]!.path = [] as any as "directory";
             return ["$input[5].path"];
         },
         (input) => {
-            (input[6] as IDirectory).children[0].path = [] as any as string;
+            (input[6] as IDirectory).children[0]!.path = [] as any as string;
             return ["$input[6].children[0].path"];
         },
         (input) => {

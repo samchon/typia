@@ -92,7 +92,7 @@ export namespace DynamicImportIterator {
                 continue;
             else if (!(external[key] instanceof Function)) continue;
 
-            const closure: Closure<Arguments> = external[key];
+            const closure: Closure<Arguments> = external[key]!;
             const func = async () => {
                 if (options.wrapper !== undefined)
                     await options.wrapper(key, closure);

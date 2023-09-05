@@ -31,27 +31,27 @@ export namespace ObjectAlias {
 
     export const SPOILERS: Spoiler<ObjectAlias>[] = [
         (input) => {
-            input[0].id = {} as any;
+            input[0]!.id = {} as any;
             return ["$input[0].id"];
         },
         (input) => {
-            input[1].email = { value: "email" } as any;
+            input[1]!.email = { value: "email" } as any;
             return ["$input[1].email"];
         },
         (input) => {
-            input[2].name = null!;
+            input[2]!.name = null!;
             return ["$input[2].name"];
         },
         (input) => {
-            input[3].sex = 3 as 2;
+            input[3]!.sex = 3 as 2;
             return ["$input[3].sex"];
         },
         (input) => {
-            input[4].age = "old" as any;
+            input[4]!.age = "old" as any;
             return ["$input[4].age"];
         },
         (input) => {
-            input[5].dead = 1 as any;
+            input[5]!.dead = 1 as any;
             return ["$input[5].dead"];
         },
     ];

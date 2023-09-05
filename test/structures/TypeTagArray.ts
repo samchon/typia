@@ -41,7 +41,7 @@ export namespace TypeTagArray {
 
     export const SPOILERS: Spoiler<TypeTagArray>[] = [
         (input) => {
-            input.value[0].items = ["0", "1", "2"];
+            input.value[0]!.items = ["0", "1", "2"];
             return [
                 "$input.value[0].items[0]",
                 "$input.value[0].items[1]",
@@ -49,15 +49,15 @@ export namespace TypeTagArray {
             ];
         },
         (input) => {
-            input.value[1].items = TestRandomGenerator.array(() => v4(), 2);
+            input.value[1]!.items = TestRandomGenerator.array(() => v4(), 2);
             return ["$input.value[1].items"];
         },
         (input) => {
-            input.value[2].items = TestRandomGenerator.array(() => v4(), 7);
+            input.value[2]!.items = TestRandomGenerator.array(() => v4(), 7);
             return ["$input.value[2].items"];
         },
         (input) => {
-            input.value[3].minItems = [0, 1, 2];
+            input.value[3]!.minItems = [0, 1, 2];
             return [
                 "$input.value[3].minItems[0]",
                 "$input.value[3].minItems[1]",
@@ -65,11 +65,11 @@ export namespace TypeTagArray {
             ];
         },
         (input) => {
-            input.value[0].minItems = TestRandomGenerator.array(() => 3, 2);
+            input.value[0]!.minItems = TestRandomGenerator.array(() => 3, 2);
             return ["$input.value[0].minItems"];
         },
         (input) => {
-            input.value[1].both = ["0", "1", "2"];
+            input.value[1]!.both = ["0", "1", "2"];
             return [
                 "$input.value[1].both[0]",
                 "$input.value[1].both[1]",
@@ -77,19 +77,19 @@ export namespace TypeTagArray {
             ];
         },
         (input) => {
-            input.value[2].both = TestRandomGenerator.array(() => v4(), 2);
+            input.value[2]!.both = TestRandomGenerator.array(() => v4(), 2);
             return ["$input.value[2].both"];
         },
         (input) => {
-            input.value[3].both = TestRandomGenerator.array(() => v4(), 8);
+            input.value[3]!.both = TestRandomGenerator.array(() => v4(), 8);
             return ["$input.value[3].both"];
         },
         (input) => {
-            input.value[0].equal = TestRandomGenerator.array(() => 10, 9);
+            input.value[0]!.equal = TestRandomGenerator.array(() => 10, 9);
             return ["$input.value[0].equal"];
         },
         (input) => {
-            input.value[1].equal = [
+            input.value[1]!.equal = [
                 ...TestRandomGenerator.array(() => 10, 9),
                 9,
             ];

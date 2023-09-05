@@ -63,27 +63,27 @@ export namespace CommentTagLength {
 
     export const SPOILERS: Spoiler<CommentTagLength>[] = [
         (input) => {
-            input.value[0].fixed = "123456";
+            input.value[0]!.fixed = "123456";
             return ["$input.value[0].fixed"];
         },
         (input) => {
-            input.value[1].minimum = "12";
+            input.value[1]!.minimum = "12";
             return ["$input.value[1].minimum"];
         },
         (input) => {
-            input.value[2].maximum = "12345678";
+            input.value[2]!.maximum = "12345678";
             return ["$input.value[2].maximum"];
         },
         (input) => {
-            input.value[3].minimum_and_maximum = "12";
+            input.value[3]!.minimum_and_maximum = "12";
             return ["$input.value[3].minimum_and_maximum"];
         },
         (input) => {
-            input.value[4].minimum_and_maximum = "12345678";
+            input.value[4]!.minimum_and_maximum = "12345678";
             return ["$input.value[4].minimum_and_maximum"];
         },
         (input) => {
-            input.value[5].equal = "3";
+            input.value[5]!.equal = "3";
             return ["$input.value[5].equal"];
         },
     ];

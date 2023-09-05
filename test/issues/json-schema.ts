@@ -13,7 +13,7 @@ const data: ObjectArray = [
 ];
 const app = typia.json.application<[ObjectArray], "swagger">();
 const stringify = fast({
-    ...app.schemas[0],
+    ...app.schemas[0]!,
     ...app,
 });
 console.log(stringify(data));

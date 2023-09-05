@@ -35,19 +35,19 @@ export namespace ArraySimple {
 
     export const SPOILERS: Spoiler<ArraySimple>[] = [
         (input) => {
-            input[0].name = false as any;
+            input[0]!.name = false as any;
             return ["$input[0].name"];
         },
         (input) => {
-            input[0].email = ["a", "b"] as any;
+            input[0]!.email = ["a", "b"] as any;
             return ["$input[0].email"];
         },
         (input) => {
-            input[0].hobbies = false as any;
+            input[0]!.hobbies = false as any;
             return ["$input[0].hobbies"];
         },
         (input) => {
-            input[0].hobbies = [
+            input[0]!.hobbies = [
                 {
                     name: "name",
                     rank: "best" as any as number,
@@ -57,7 +57,7 @@ export namespace ArraySimple {
             return ["$input[0].hobbies[0].rank"];
         },
         (input) => {
-            input[0].hobbies = [
+            input[0]!.hobbies = [
                 {
                     name: "name",
                     rank: 3,

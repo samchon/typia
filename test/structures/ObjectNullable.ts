@@ -55,55 +55,55 @@ export namespace ObjectNullable {
 
     export const SPOILERS: Spoiler<ObjectNullable>[] = [
         (input) => {
-            input.value[0].name = undefined!;
+            input.value[0]!.name = undefined!;
             return [`$input.value[0].name`];
         },
         (input) => {
-            input.value[1].manufacturer.type = "something" as any;
+            input.value[1]!.manufacturer.type = "something" as any;
             return [`$input.value[1].manufacturer.type`];
         },
         (input) => {
-            input.value[2].manufacturer.name = undefined!;
+            input.value[2]!.manufacturer.name = undefined!;
             return [`$input.value[2].manufacturer.name`];
         },
         (input) => {
-            input.value[0].manufacturer = {} as any;
+            input.value[0]!.manufacturer = {} as any;
             return [
                 `$input.value[0].manufacturer.type`,
                 `$input.value[0].manufacturer.name`,
             ];
         },
         (input) => {
-            input.value[1].brand = {} as any;
+            input.value[1]!.brand = {} as any;
             return [`$input.value[1].brand.name`, `$input.value[1].brand.type`];
         },
         (input) => {
-            input.value[2].brand = {
+            input.value[2]!.brand = {
                 type: "brand",
                 name: undefined!,
             };
             return [`$input.value[2].brand.name`];
         },
         (input) => {
-            input.value[0].brand = {
+            input.value[0]!.brand = {
                 type: "something" as "brand",
                 name: "something",
             };
             return [`$input.value[0].brand.type`];
         },
         (input) => {
-            input.value[1].similar = undefined!;
+            input.value[1]!.similar = undefined!;
             return [`$input.value[1].similar`];
         },
         (input) => {
-            input.value[2].similar = {
+            input.value[2]!.similar = {
                 type: "manufacturer",
                 name: undefined!,
             };
             return [`$input.value[2].similar.name`];
         },
         (input) => {
-            input.value[0].similar = {} as any;
+            input.value[0]!.similar = {} as any;
             return [`$input.value[0].similar`];
         },
     ];

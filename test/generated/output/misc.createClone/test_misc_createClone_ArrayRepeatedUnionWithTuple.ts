@@ -44,7 +44,7 @@ export const test_misc_clone_ArrayRepeatedUnionWithTuple = _test_misc_clone(
                     (top: any[]): any => "string" === typeof top,
                     (entire: any[]): any =>
                         entire.map((elem: any) => elem as any),
-                ],
+                ] as const,
                 [
                     (top: any[]): any =>
                         null !== top &&
@@ -53,7 +53,7 @@ export const test_misc_clone_ArrayRepeatedUnionWithTuple = _test_misc_clone(
                             "boolean" === typeof top ||
                             (Array.isArray(top) && ($ip1(top) || false))),
                     (entire: any[]): any => $ca0(entire),
-                ],
+                ] as const,
                 [
                     (top: any[]): any =>
                         "object" === typeof top && null !== top && $io0(top),
@@ -63,10 +63,10 @@ export const test_misc_clone_ArrayRepeatedUnionWithTuple = _test_misc_clone(
                                 ? $co0(elem)
                                 : (elem as any),
                         ),
-                ],
+                ] as const,
             ];
             const passed = arrayPredicators.filter((pred: any) => pred[0](top));
-            if (1 === passed.length) return passed[0][1](array);
+            if (1 === passed.length) return passed[0]![1](array);
             else if (1 < passed.length)
                 for (const pred of passed)
                     if (array.every((value: any) => true === pred[0](value)))
@@ -91,7 +91,7 @@ export const test_misc_clone_ArrayRepeatedUnionWithTuple = _test_misc_clone(
                         "string" === typeof entire[0] &&
                         "number" === typeof entire[1] &&
                         "boolean" === typeof entire[2],
-                ],
+                ] as const,
                 [
                     (top: any[]): any =>
                         top.length === 2 &&
@@ -109,7 +109,7 @@ export const test_misc_clone_ArrayRepeatedUnionWithTuple = _test_misc_clone(
                         "object" === typeof entire[1] &&
                         null !== entire[1] &&
                         $io1(entire[1]),
-                ],
+                ] as const,
             ];
             for (const pred of tuplePredicators)
                 if (pred[0](array)) return pred[1](array);
@@ -120,7 +120,7 @@ export const test_misc_clone_ArrayRepeatedUnionWithTuple = _test_misc_clone(
                     (top: any[]): any => "string" === typeof top,
                     (entire: any[]): any =>
                         entire.every((elem: any) => "string" === typeof elem),
-                ],
+                ] as const,
                 [
                     (top: any[]): any =>
                         null !== top &&
@@ -129,7 +129,7 @@ export const test_misc_clone_ArrayRepeatedUnionWithTuple = _test_misc_clone(
                             "boolean" === typeof top ||
                             (Array.isArray(top) && ($ip1(top) || false))),
                     (entire: any[]): any => $ia0(entire) || false,
-                ],
+                ] as const,
                 [
                     (top: any[]): any =>
                         "object" === typeof top && null !== top && $io0(top),
@@ -140,10 +140,10 @@ export const test_misc_clone_ArrayRepeatedUnionWithTuple = _test_misc_clone(
                                 null !== elem &&
                                 $io0(elem),
                         ),
-                ],
+                ] as const,
             ];
             const passed = arrayPredicators.filter((pred: any) => pred[0](top));
-            if (1 === passed.length) return passed[0][1](array);
+            if (1 === passed.length) return passed[0]![1](array);
             else if (1 < passed.length)
                 for (const pred of passed)
                     if (array.every((value: any) => true === pred[0](value)))

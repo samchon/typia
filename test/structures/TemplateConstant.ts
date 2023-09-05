@@ -25,15 +25,15 @@ export namespace TemplateConstant {
 
     export const SPOILERS: Spoiler<TemplateConstant>[] = [
         (input) => {
-            input.value[0].prefix = "prefix_1" as any;
+            input.value[0]!.prefix = "prefix_1" as any;
             return ["$input.value[0].prefix"];
         },
         (input) => {
-            input.value[0].postfix = "first_postfix" as any;
+            input.value[0]!.postfix = "first_postfix" as any;
             return ["$input.value[0].postfix"];
         },
         (input) => {
-            input.value[0].combined = "the_first_value_with_label_1" as any;
+            input.value[0]!.combined = "the_first_value_with_label_1" as any;
             return ["$input.value[0].combined"];
         },
     ];

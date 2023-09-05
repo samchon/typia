@@ -63,27 +63,27 @@ export namespace TupleHierarchical {
             return ["$input[4][1][0]"];
         },
         (input) => {
-            input[4][1][0][0] = { value: "string" } as any;
+            input[4][1][0]![0] = { value: "string" } as any;
             return ["$input[4][1][0][0]"];
         },
         (input) => {
-            input[4][1][0][1] = "false" as any;
+            input[4][1][0]![1] = "false" as any;
             return ["$input[4][1][0][1]"];
         },
         (input) => {
-            input[4][1][0][2][0][0] = "number" as any;
+            input[4][1][0]![2][0]![0] = "number" as any;
             return ["$input[4][1][0][2][0][0]"];
         },
         (input) => {
-            input[4][1][0][2][0][1] = "number" as any;
+            input[4][1][0]![2][0]![1] = "number" as any;
             return ["$input[4][1][0][2][0][1]"];
         },
         (input) => {
-            input[4][1][0][2][0][2][0] = "false" as any;
+            input[4][1][0]![2][0]![2][0] = "false" as any;
             return ["$input[4][1][0][2][0][2][0]"];
         },
         (input) => {
-            input[4][1][0][2][0][2][1] = { value: "string" } as any;
+            input[4][1][0]![2][0]![2][1] = { value: "string" } as any;
             return ["$input[4][1][0][2][0][2][1]"];
         },
     ];

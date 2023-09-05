@@ -37,7 +37,7 @@ export const test_json_stringify_ArrayRepeatedUnion = _test_json_stringify(
                         `[${entire
                             .map((elem: any) => $string(elem))
                             .join(",")}]`,
-                ],
+                ] as const,
                 [
                     (top: any[]): any =>
                         null !== top &&
@@ -46,16 +46,16 @@ export const test_json_stringify_ArrayRepeatedUnion = _test_json_stringify(
                             "boolean" === typeof top ||
                             (Array.isArray(top) && ($sp0(top) || false))),
                     (entire: any[]): any => $sa0(entire),
-                ],
+                ] as const,
                 [
                     (top: any[]): any =>
                         "object" === typeof top && null !== top && $io0(top),
                     (entire: any[]): any =>
                         `[${entire.map((elem: any) => $so0(elem)).join(",")}]`,
-                ],
+                ] as const,
             ];
             const passed = arrayPredicators.filter((pred: any) => pred[0](top));
-            if (1 === passed.length) return passed[0][1](array);
+            if (1 === passed.length) return passed[0]![1](array);
             else if (1 < passed.length)
                 for (const pred of passed)
                     if (array.every((value: any) => true === pred[0](value)))

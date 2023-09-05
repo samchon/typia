@@ -18,7 +18,7 @@ export const test_misc_isClone_ArrayUnion = _test_misc_isClone(
                             entire.every(
                                 (elem: any) => "boolean" === typeof elem,
                             ),
-                    ],
+                    ] as const,
                     [
                         (top: any[]): any =>
                             "number" === typeof top && Number.isFinite(top),
@@ -28,19 +28,19 @@ export const test_misc_isClone_ArrayUnion = _test_misc_isClone(
                                     "number" === typeof elem &&
                                     Number.isFinite(elem),
                             ),
-                    ],
+                    ] as const,
                     [
                         (top: any[]): any => "string" === typeof top,
                         (entire: any[]): any =>
                             entire.every(
                                 (elem: any) => "string" === typeof elem,
                             ),
-                    ],
+                    ] as const,
                 ];
                 const passed = arrayPredicators.filter((pred: any) =>
                     pred[0](top),
                 );
-                if (1 === passed.length) return passed[0][1](array);
+                if (1 === passed.length) return passed[0]![1](array);
                 else if (1 < passed.length)
                     for (const pred of passed)
                         if (
@@ -67,22 +67,22 @@ export const test_misc_isClone_ArrayUnion = _test_misc_isClone(
                         (top: any[]): any => "boolean" === typeof top,
                         (entire: any[]): any =>
                             entire.map((elem: any) => elem as any),
-                    ],
+                    ] as const,
                     [
                         (top: any[]): any => "number" === typeof top,
                         (entire: any[]): any =>
                             entire.map((elem: any) => elem as any),
-                    ],
+                    ] as const,
                     [
                         (top: any[]): any => "string" === typeof top,
                         (entire: any[]): any =>
                             entire.map((elem: any) => elem as any),
-                    ],
+                    ] as const,
                 ];
                 const passed = arrayPredicators.filter((pred: any) =>
                     pred[0](top),
                 );
-                if (1 === passed.length) return passed[0][1](array);
+                if (1 === passed.length) return passed[0]![1](array);
                 else if (1 < passed.length)
                     for (const pred of passed)
                         if (

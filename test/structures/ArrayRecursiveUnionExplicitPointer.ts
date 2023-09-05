@@ -165,31 +165,31 @@ export namespace ArrayRecursiveUnionExplicitPointer {
         // WRONG TYPES
         //----
         (input) => {
-            input.value[0].value.type = "directory";
+            input.value[0]!.value.type = "directory";
             return ["$input.value[0].value.children"];
         },
         (input) => {
-            input.value[1].value.type = "directory";
+            input.value[1]!.value.type = "directory";
             return ["$input.value[1].value.children"];
         },
         (input) => {
-            input.value[2].value.type = "text" as "file";
+            input.value[2]!.value.type = "text" as "file";
             return ["$input.value[2].value.type"];
         },
         (input) => {
-            input.value[3].value.type = "directory";
+            input.value[3]!.value.type = "directory";
             return ["$input.value[3].value.children"];
         },
         (input) => {
-            input.value[4].value.type = "text" as "file";
+            input.value[4]!.value.type = "text" as "file";
             return ["$input.value[4].value.type"];
         },
         (input) => {
-            input.value[5].value.type = "directory";
+            input.value[5]!.value.type = "directory";
             return ["$input.value[5].value.children"];
         },
         (input) => {
-            input.value[6].value.type = "file";
+            input.value[6]!.value.type = "file";
             return ["$input.value[6].value"];
         },
 
@@ -198,19 +198,22 @@ export namespace ArrayRecursiveUnionExplicitPointer {
         //---
         (input) => {
             (
-                input.value[0].value as ArrayRecursiveUnionExplicitPointer.IFile
+                input.value[0]!
+                    .value as ArrayRecursiveUnionExplicitPointer.IFile
             ).extension = "txt";
             return ["$input.value[0].value.content"];
         },
         (input) => {
             (
-                input.value[1].value as ArrayRecursiveUnionExplicitPointer.IFile
+                input.value[1]!
+                    .value as ArrayRecursiveUnionExplicitPointer.IFile
             ).extension = "zip";
             return ["$input.value[1].value.count"];
         },
         (input) => {
             (
-                input.value[2].value as ArrayRecursiveUnionExplicitPointer.IFile
+                input.value[2]!
+                    .value as ArrayRecursiveUnionExplicitPointer.IFile
             ).extension = "jpg";
             return [
                 "$input.value[2].value.height",
@@ -220,7 +223,8 @@ export namespace ArrayRecursiveUnionExplicitPointer {
         },
         (input) => {
             (
-                input.value[3].value as ArrayRecursiveUnionExplicitPointer.IFile
+                input.value[3]!
+                    .value as ArrayRecursiveUnionExplicitPointer.IFile
             ).extension = "txt";
             return [
                 "$input.value[3].value.content",
@@ -229,7 +233,8 @@ export namespace ArrayRecursiveUnionExplicitPointer {
         },
         (input) => {
             (
-                input.value[4].value as ArrayRecursiveUnionExplicitPointer.IFile
+                input.value[4]!
+                    .value as ArrayRecursiveUnionExplicitPointer.IFile
             ).extension = "zip";
             return [
                 "$input.value[4].value.count",
@@ -238,7 +243,8 @@ export namespace ArrayRecursiveUnionExplicitPointer {
         },
         (input) => {
             (
-                input.value[5].value as ArrayRecursiveUnionExplicitPointer.IFile
+                input.value[5]!
+                    .value as ArrayRecursiveUnionExplicitPointer.IFile
             ).extension = "jpg";
             return [
                 "$input.value[5].value.width",
@@ -252,40 +258,40 @@ export namespace ArrayRecursiveUnionExplicitPointer {
         // WRONG PROPERTIES
         //----
         (input) => {
-            input.value[0].value.id = "uuid" as any;
+            input.value[0]!.value.id = "uuid" as any;
             return ["$input.value[0].value.id"];
         },
         (input) => {
-            input.value[1].value.name = 3 as any;
+            input.value[1]!.value.name = 3 as any;
             return ["$input.value[1].value.name"];
         },
         (input) => {
-            input.value[2].value.path = {} as any;
+            input.value[2]!.value.path = {} as any;
             return ["$input.value[2].value.path"];
         },
         (input) => {
             (
-                input.value[3]
+                input.value[3]!
                     .value as ArrayRecursiveUnionExplicitPointer.IShortcut
             ).target = [] as any;
             return ["$input.value[3].value.target.value"];
         },
         (input) => {
             (
-                input.value[4]
+                input.value[4]!
                     .value as ArrayRecursiveUnionExplicitPointer.IShortcut
             ).extension = null as any;
             return ["$input.value[4].value"];
         },
         (input) => {
-            input.value[5].value.type = {} as any;
+            input.value[5]!.value.type = {} as any;
             return ["$input.value[5].value.type"];
         },
         (input) => {
             (
-                input.value[6]
+                input.value[6]!
                     .value as ArrayRecursiveUnionExplicitPointer.IDirectory
-            ).children[0].value.path = [] as any;
+            ).children[0]!.value.path = [] as any;
             return ["$input.value[6].value.children[0].value.path"];
         },
     ];

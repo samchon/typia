@@ -26,19 +26,19 @@ export namespace ObjectUnionNonPredictable {
 
     export const SPOILERS: Spoiler<ObjectUnionNonPredictable>[] = [
         (input) => {
-            input.value[0].value.value.value.value = null!;
+            input.value[0]!.value.value.value.value = null!;
             return ["$input.value[0].value.value"];
         },
         (input) => {
-            input.value[1].value.value.value.value = undefined!;
+            input.value[1]!.value.value.value.value = undefined!;
             return ["$input.value[1].value.value"];
         },
         (input) => {
-            input.value[2].value.value.value.value = [] as any;
+            input.value[2]!.value.value.value.value = [] as any;
             return ["$input.value[2].value.value"];
         },
         (input) => {
-            input.value[3].value.value.value.value = {} as any;
+            input.value[3]!.value.value.value.value = {} as any;
             return ["$input.value[3].value.value"];
         },
     ];

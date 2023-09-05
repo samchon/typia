@@ -22,7 +22,7 @@ export const test_validateEquals_ArrayUnion = _test_validateEquals(
                             (elem: any, _index5: number) =>
                                 "boolean" === typeof elem,
                         ),
-                ],
+                ] as const,
                 [
                     (top: any[]): any =>
                         "number" === typeof top && Number.isFinite(top),
@@ -32,7 +32,7 @@ export const test_validateEquals_ArrayUnion = _test_validateEquals(
                                 "number" === typeof elem &&
                                 Number.isFinite(elem),
                         ),
-                ],
+                ] as const,
                 [
                     (top: any[]): any => "string" === typeof top,
                     (entire: any[]): any =>
@@ -40,10 +40,10 @@ export const test_validateEquals_ArrayUnion = _test_validateEquals(
                             (elem: any, _index7: number) =>
                                 "string" === typeof elem,
                         ),
-                ],
+                ] as const,
             ];
             const passed = arrayPredicators.filter((pred: any) => pred[0](top));
-            if (1 === passed.length) return passed[0][1](array);
+            if (1 === passed.length) return passed[0]![1](array);
             else if (1 < passed.length)
                 for (const pred of passed)
                     if (array.every((value: any) => true === pred[0](value)))
@@ -89,7 +89,7 @@ export const test_validateEquals_ArrayUnion = _test_validateEquals(
                                         }),
                                 )
                                 .every((flag: boolean) => flag),
-                    ],
+                    ] as const,
                     [
                         (top: any[]): any =>
                             "number" === typeof top && Number.isFinite(top),
@@ -106,7 +106,7 @@ export const test_validateEquals_ArrayUnion = _test_validateEquals(
                                         }),
                                 )
                                 .every((flag: boolean) => flag),
-                    ],
+                    ] as const,
                     [
                         (top: any[]): any => "string" === typeof top,
                         (entire: any[]): any =>
@@ -121,12 +121,12 @@ export const test_validateEquals_ArrayUnion = _test_validateEquals(
                                         }),
                                 )
                                 .every((flag: boolean) => flag),
-                    ],
+                    ] as const,
                 ];
                 const passed = arrayPredicators.filter((pred: any) =>
                     pred[0](top),
                 );
-                if (1 === passed.length) return passed[0][1](array);
+                if (1 === passed.length) return passed[0]![1](array);
                 else if (1 < passed.length)
                     for (const pred of passed)
                         if (

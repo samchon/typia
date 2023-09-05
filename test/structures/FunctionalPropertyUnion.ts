@@ -20,11 +20,11 @@ export namespace FunctionalPropertyUnion {
 
     export const SPOILERS: Spoiler<FunctionalPropertyUnion>[] = [
         (input) => {
-            input[0].closure = {} as any;
+            input[0]!.closure = {} as any;
             return ["$input[0].closure"];
         },
         (input) => {
-            input[1].closure = [] as any;
+            input[1]!.closure = [] as any;
             return ["$input[1].closure"];
         },
     ];

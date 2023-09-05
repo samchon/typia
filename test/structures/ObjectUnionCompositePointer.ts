@@ -115,41 +115,42 @@ export namespace ObjectUnionCompositePointer {
 
     export const SPOILERS: Spoiler<ObjectUnionCompositePointer>[] = [
         (input) => {
-            (input.value[0].value as ObjectUnionCompositePointer.IPoint).x =
+            (input.value[0]!.value as ObjectUnionCompositePointer.IPoint).x =
                 {} as any;
             return ["$input.value[0].value.x"];
         },
         (input) => {
-            (input.value[1].value as ObjectUnionCompositePointer.ILine).p2 =
+            (input.value[1]!.value as ObjectUnionCompositePointer.ILine).p2 =
                 {} as any;
             return ["$input.value[1].value.p2.x", "$input.value[1].value.p2.y"];
         },
         (input) => {
-            (input.value[2].value as ObjectUnionCompositePointer.ITriangle).p3 =
-                null!;
+            (
+                input.value[2]!.value as ObjectUnionCompositePointer.ITriangle
+            ).p3 = null!;
             return ["$input.value[2].value.p3"];
         },
         (input) => {
             (
-                input.value[3].value as ObjectUnionCompositePointer.IRectangle
+                input.value[3]!.value as ObjectUnionCompositePointer.IRectangle
             ).p4 = null!;
             return ["$input.value[3].value.p4"];
         },
         (input) => {
             (
-                input.value[4].value as ObjectUnionCompositePointer.IPolyline
+                input.value[4]!.value as ObjectUnionCompositePointer.IPolyline
             ).points = 3 as any;
             return ["$input.value[4].value.points"];
         },
         (input) => {
             (
-                input.value[5].value as ObjectUnionCompositePointer.IPolygon
+                input.value[5]!.value as ObjectUnionCompositePointer.IPolygon
             ).outer = {} as any;
             return ["$input.value[5].value.p1", "$input.value[5].value.p2"];
         },
         (input) => {
             (
-                input.value[6]
+                input.value[6]!
                     .value as ObjectUnionCompositePointer.IPointedShape
             ).outer = {
                 length: 0,
@@ -158,7 +159,7 @@ export namespace ObjectUnionCompositePointer {
         },
         (input) => {
             (
-                input.value[7].value as ObjectUnionCompositePointer.ICircle
+                input.value[7]!.value as ObjectUnionCompositePointer.ICircle
             ).radius = "string" as any;
             return ["$input.value[7].value.radius"];
         },
