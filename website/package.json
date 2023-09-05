@@ -30,8 +30,7 @@
     "nextra-theme-docs": "latest",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "typescript": "5.1.6",
-    "typia": "^5.0.1"
+    "typescript": "5.1.6"
   },
   "devDependencies": {
     "@trivago/prettier-plugin-sort-imports": "^4.1.1",
@@ -41,6 +40,7 @@
     "next-sitemap": "^4.0.7",
     "prettier": "^2.8.8",
     "rimraf": "^5.0.0",
-    "ts-node": "^10.9.1"
+    "ts-node": "^10.9.1",
+    "typia": "^5.0.2"
   }
 }
