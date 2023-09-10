@@ -5,5 +5,5 @@ import { ICollection } from "../../../../structures/ICollection";
 import { createFastifyCustomServerStringifyBenchmarkProgram } from "../createFastifyCustomServerStringifyBenchmarkProgram";
 
 createFastifyCustomServerStringifyBenchmarkProgram(
-    typia.createStringify<ICollection<ArrayRecursiveUnionExplicit>>(),
+    typia.json.createStringify<ICollection<ArrayRecursiveUnionExplicit>>(),
 );

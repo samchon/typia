@@ -60,7 +60,11 @@ export const test_json_stringify_ObjectHierarchical = _test_json_stringify(
                 null !== input.account ? $so4(input.account) : "null"
             },"href":${$string(input.href)},"referrer":${$string(
                 input.referrer,
-            )},"ip":${$string(input.ip)},"created_at":${`{"time":${$number(
+            )},"ip":${`[${$number(input.ip[0])},${$number(
+                input.ip[1],
+            )},${$number(input.ip[2])},${$number(
+                input.ip[3],
+            )}]`},"created_at":${`{"time":${$number(
                 (input.created_at as any).time,
             )},"zone":${$number((input.created_at as any).zone)}}`}}`;
         const $so1 = (input: any): any =>

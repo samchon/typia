@@ -14,12 +14,11 @@ var rootData = data;
 }
 var vErrors = null;
 var errors = 0;
-if(!(typeof data == "number")){
-validate10.errors = [{instancePath:instancePath,schemaPath:"#/type",keyword:"type",params:{type: "number"},message:"must be number"}];
-return false;
+if(!(validate11(data, {instancePath:instancePath,parentData:parentData,parentDataProperty:parentDataProperty,rootData:rootData}))){
+vErrors = vErrors === null ? validate11.errors : vErrors.concat(validate11.errors);
+errors = vErrors.length;
 }
-var _errs0 = errors;
-if(errors === 0){
+else {
 }
 validate10.errors = vErrors;
 return errors === 0;
@@ -1340,3 +1339,434 @@ if(errors === 0){
 validate0.errors = vErrors;
 return errors === 0;
 }
+
+
+
+function validate11(data, valCxt){
+"use strict"; /*# sourceURL="#/components/schemas/IPointer_lt_ObjectSimple.IBox3D_gt_" */;
+if(valCxt){
+var instancePath = valCxt.instancePath;
+var parentData = valCxt.parentData;
+var parentDataProperty = valCxt.parentDataProperty;
+var rootData = valCxt.rootData;
+}
+else {
+var instancePath = "";
+var parentData = undefined;
+var parentDataProperty = undefined;
+var rootData = data;
+}
+var vErrors = null;
+var errors = 0;
+var _errs0 = errors;
+if(errors === 0){
+if(data && typeof data == "object" && !Array.isArray(data)){
+var missing0;
+if((data.value === undefined) && (missing0 = "value")){
+validate11.errors = [{instancePath:instancePath,schemaPath:"#/required",keyword:"required",params:{missingProperty: missing0},message:"must have required property '"+missing0+"'"}];
+return false;
+}
+else {
+if(data.value !== undefined){
+var data0 = data.value;
+var _errs1 = errors;
+if(!(validate12(data0, {instancePath:instancePath+"/value",parentData:data,parentDataProperty:"value",rootData:rootData}))){
+vErrors = vErrors === null ? validate12.errors : vErrors.concat(validate12.errors);
+errors = vErrors.length;
+}
+else {
+}
+var valid0 = _errs1 === errors;
+}
+else {
+var valid0 = true;
+}
+if(valid0){
+}
+}
+}
+else {
+validate11.errors = [{instancePath:instancePath,schemaPath:"#/type",keyword:"type",params:{type: "object"},message:"must be object"}];
+return false;
+}
+if(errors === 0){
+}
+}
+validate11.errors = vErrors;
+return errors === 0;
+}
+
+
+
+function validate12(data, valCxt){
+"use strict"; /*# sourceURL="#/components/schemas/ObjectSimple.IBox3D" */;
+if(valCxt){
+var instancePath = valCxt.instancePath;
+var parentData = valCxt.parentData;
+var parentDataProperty = valCxt.parentDataProperty;
+var rootData = valCxt.rootData;
+}
+else {
+var instancePath = "";
+var parentData = undefined;
+var parentDataProperty = undefined;
+var rootData = data;
+}
+var vErrors = null;
+var errors = 0;
+var _errs0 = errors;
+if(errors === 0){
+if(data && typeof data == "object" && !Array.isArray(data)){
+var missing0;
+if(((((data.scale === undefined) && (missing0 = "scale")) || ((data.position === undefined) && (missing0 = "position"))) || ((data.rotate === undefined) && (missing0 = "rotate"))) || ((data.pivot === undefined) && (missing0 = "pivot"))){
+validate12.errors = [{instancePath:instancePath,schemaPath:"#/required",keyword:"required",params:{missingProperty: missing0},message:"must have required property '"+missing0+"'"}];
+return false;
+}
+else {
+if(data.scale !== undefined){
+var data0 = data.scale;
+var _errs1 = errors;
+var _errs2 = errors;
+var _errs3 = errors;
+if(errors === _errs2){
+if(data0 && typeof data0 == "object" && !Array.isArray(data0)){
+var missing1;
+if((((data0.x === undefined) && (missing1 = "x")) || ((data0.y === undefined) && (missing1 = "y"))) || ((data0.z === undefined) && (missing1 = "z"))){
+validate12.errors = [{instancePath:instancePath+"/scale",schemaPath:"#/components/schemas/ObjectSimple.IPoint3D/required",keyword:"required",params:{missingProperty: missing1},message:"must have required property '"+missing1+"'"}];
+return false;
+}
+else {
+if(data0.x !== undefined){
+var data1 = data0.x;
+var _errs4 = errors;
+if(!(typeof data1 == "number")){
+validate12.errors = [{instancePath:instancePath+"/scale/x",schemaPath:"#/components/schemas/ObjectSimple.IPoint3D/properties/x/type",keyword:"type",params:{type: "number"},message:"must be number"}];
+return false;
+}
+var _errs5 = errors;
+if(errors === _errs4){
+}
+var valid2 = _errs4 === errors;
+}
+else {
+var valid2 = true;
+}
+if(valid2){
+if(data0.y !== undefined){
+var data2 = data0.y;
+var _errs6 = errors;
+if(!(typeof data2 == "number")){
+validate12.errors = [{instancePath:instancePath+"/scale/y",schemaPath:"#/components/schemas/ObjectSimple.IPoint3D/properties/y/type",keyword:"type",params:{type: "number"},message:"must be number"}];
+return false;
+}
+var _errs7 = errors;
+if(errors === _errs6){
+}
+var valid2 = _errs6 === errors;
+}
+else {
+var valid2 = true;
+}
+if(valid2){
+if(data0.z !== undefined){
+var data3 = data0.z;
+var _errs8 = errors;
+if(!(typeof data3 == "number")){
+validate12.errors = [{instancePath:instancePath+"/scale/z",schemaPath:"#/components/schemas/ObjectSimple.IPoint3D/properties/z/type",keyword:"type",params:{type: "number"},message:"must be number"}];
+return false;
+}
+var _errs9 = errors;
+if(errors === _errs8){
+}
+var valid2 = _errs8 === errors;
+}
+else {
+var valid2 = true;
+}
+if(valid2){
+}
+}
+}
+}
+}
+else {
+validate12.errors = [{instancePath:instancePath+"/scale",schemaPath:"#/components/schemas/ObjectSimple.IPoint3D/type",keyword:"type",params:{type: "object"},message:"must be object"}];
+return false;
+}
+if(errors === _errs2){
+}
+}
+var valid1 = _errs2 === errors;
+if(valid1){
+}
+var valid0 = _errs1 === errors;
+}
+else {
+var valid0 = true;
+}
+if(valid0){
+if(data.position !== undefined){
+var data4 = data.position;
+var _errs10 = errors;
+var _errs11 = errors;
+var _errs12 = errors;
+if(errors === _errs11){
+if(data4 && typeof data4 == "object" && !Array.isArray(data4)){
+var missing2;
+if((((data4.x === undefined) && (missing2 = "x")) || ((data4.y === undefined) && (missing2 = "y"))) || ((data4.z === undefined) && (missing2 = "z"))){
+validate12.errors = [{instancePath:instancePath+"/position",schemaPath:"#/components/schemas/ObjectSimple.IPoint3D/required",keyword:"required",params:{missingProperty: missing2},message:"must have required property '"+missing2+"'"}];
+return false;
+}
+else {
+if(data4.x !== undefined){
+var data5 = data4.x;
+var _errs13 = errors;
+if(!(typeof data5 == "number")){
+validate12.errors = [{instancePath:instancePath+"/position/x",schemaPath:"#/components/schemas/ObjectSimple.IPoint3D/properties/x/type",keyword:"type",params:{type: "number"},message:"must be number"}];
+return false;
+}
+var _errs14 = errors;
+if(errors === _errs13){
+}
+var valid4 = _errs13 === errors;
+}
+else {
+var valid4 = true;
+}
+if(valid4){
+if(data4.y !== undefined){
+var data6 = data4.y;
+var _errs15 = errors;
+if(!(typeof data6 == "number")){
+validate12.errors = [{instancePath:instancePath+"/position/y",schemaPath:"#/components/schemas/ObjectSimple.IPoint3D/properties/y/type",keyword:"type",params:{type: "number"},message:"must be number"}];
+return false;
+}
+var _errs16 = errors;
+if(errors === _errs15){
+}
+var valid4 = _errs15 === errors;
+}
+else {
+var valid4 = true;
+}
+if(valid4){
+if(data4.z !== undefined){
+var data7 = data4.z;
+var _errs17 = errors;
+if(!(typeof data7 == "number")){
+validate12.errors = [{instancePath:instancePath+"/position/z",schemaPath:"#/components/schemas/ObjectSimple.IPoint3D/properties/z/type",keyword:"type",params:{type: "number"},message:"must be number"}];
+return false;
+}
+var _errs18 = errors;
+if(errors === _errs17){
+}
+var valid4 = _errs17 === errors;
+}
+else {
+var valid4 = true;
+}
+if(valid4){
+}
+}
+}
+}
+}
+else {
+validate12.errors = [{instancePath:instancePath+"/position",schemaPath:"#/components/schemas/ObjectSimple.IPoint3D/type",keyword:"type",params:{type: "object"},message:"must be object"}];
+return false;
+}
+if(errors === _errs11){
+}
+}
+var valid3 = _errs11 === errors;
+if(valid3){
+}
+var valid0 = _errs10 === errors;
+}
+else {
+var valid0 = true;
+}
+if(valid0){
+if(data.rotate !== undefined){
+var data8 = data.rotate;
+var _errs19 = errors;
+var _errs20 = errors;
+var _errs21 = errors;
+if(errors === _errs20){
+if(data8 && typeof data8 == "object" && !Array.isArray(data8)){
+var missing3;
+if((((data8.x === undefined) && (missing3 = "x")) || ((data8.y === undefined) && (missing3 = "y"))) || ((data8.z === undefined) && (missing3 = "z"))){
+validate12.errors = [{instancePath:instancePath+"/rotate",schemaPath:"#/components/schemas/ObjectSimple.IPoint3D/required",keyword:"required",params:{missingProperty: missing3},message:"must have required property '"+missing3+"'"}];
+return false;
+}
+else {
+if(data8.x !== undefined){
+var data9 = data8.x;
+var _errs22 = errors;
+if(!(typeof data9 == "number")){
+validate12.errors = [{instancePath:instancePath+"/rotate/x",schemaPath:"#/components/schemas/ObjectSimple.IPoint3D/properties/x/type",keyword:"type",params:{type: "number"},message:"must be number"}];
+return false;
+}
+var _errs23 = errors;
+if(errors === _errs22){
+}
+var valid6 = _errs22 === errors;
+}
+else {
+var valid6 = true;
+}
+if(valid6){
+if(data8.y !== undefined){
+var data10 = data8.y;
+var _errs24 = errors;
+if(!(typeof data10 == "number")){
+validate12.errors = [{instancePath:instancePath+"/rotate/y",schemaPath:"#/components/schemas/ObjectSimple.IPoint3D/properties/y/type",keyword:"type",params:{type: "number"},message:"must be number"}];
+return false;
+}
+var _errs25 = errors;
+if(errors === _errs24){
+}
+var valid6 = _errs24 === errors;
+}
+else {
+var valid6 = true;
+}
+if(valid6){
+if(data8.z !== undefined){
+var data11 = data8.z;
+var _errs26 = errors;
+if(!(typeof data11 == "number")){
+validate12.errors = [{instancePath:instancePath+"/rotate/z",schemaPath:"#/components/schemas/ObjectSimple.IPoint3D/properties/z/type",keyword:"type",params:{type: "number"},message:"must be number"}];
+return false;
+}
+var _errs27 = errors;
+if(errors === _errs26){
+}
+var valid6 = _errs26 === errors;
+}
+else {
+var valid6 = true;
+}
+if(valid6){
+}
+}
+}
+}
+}
+else {
+validate12.errors = [{instancePath:instancePath+"/rotate",schemaPath:"#/components/schemas/ObjectSimple.IPoint3D/type",keyword:"type",params:{type: "object"},message:"must be object"}];
+return false;
+}
+if(errors === _errs20){
+}
+}
+var valid5 = _errs20 === errors;
+if(valid5){
+}
+var valid0 = _errs19 === errors;
+}
+else {
+var valid0 = true;
+}
+if(valid0){
+if(data.pivot !== undefined){
+var data12 = data.pivot;
+var _errs28 = errors;
+var _errs29 = errors;
+var _errs30 = errors;
+if(errors === _errs29){
+if(data12 && typeof data12 == "object" && !Array.isArray(data12)){
+var missing4;
+if((((data12.x === undefined) && (missing4 = "x")) || ((data12.y === undefined) && (missing4 = "y"))) || ((data12.z === undefined) && (missing4 = "z"))){
+validate12.errors = [{instancePath:instancePath+"/pivot",schemaPath:"#/components/schemas/ObjectSimple.IPoint3D/required",keyword:"required",params:{missingProperty: missing4},message:"must have required property '"+missing4+"'"}];
+return false;
+}
+else {
+if(data12.x !== undefined){
+var data13 = data12.x;
+var _errs31 = errors;
+if(!(typeof data13 == "number")){
+validate12.errors = [{instancePath:instancePath+"/pivot/x",schemaPath:"#/components/schemas/ObjectSimple.IPoint3D/properties/x/type",keyword:"type",params:{type: "number"},message:"must be number"}];
+return false;
+}
+var _errs32 = errors;
+if(errors === _errs31){
+}
+var valid8 = _errs31 === errors;
+}
+else {
+var valid8 = true;
+}
+if(valid8){
+if(data12.y !== undefined){
+var data14 = data12.y;
+var _errs33 = errors;
+if(!(typeof data14 == "number")){
+validate12.errors = [{instancePath:instancePath+"/pivot/y",schemaPath:"#/components/schemas/ObjectSimple.IPoint3D/properties/y/type",keyword:"type",params:{type: "number"},message:"must be number"}];
+return false;
+}
+var _errs34 = errors;
+if(errors === _errs33){
+}
+var valid8 = _errs33 === errors;
+}
+else {
+var valid8 = true;
+}
+if(valid8){
+if(data12.z !== undefined){
+var data15 = data12.z;
+var _errs35 = errors;
+if(!(typeof data15 == "number")){
+validate12.errors = [{instancePath:instancePath+"/pivot/z",schemaPath:"#/components/schemas/ObjectSimple.IPoint3D/properties/z/type",keyword:"type",params:{type: "number"},message:"must be number"}];
+return false;
+}
+var _errs36 = errors;
+if(errors === _errs35){
+}
+var valid8 = _errs35 === errors;
+}
+else {
+var valid8 = true;
+}
+if(valid8){
+}
+}
+}
+}
+}
+else {
+validate12.errors = [{instancePath:instancePath+"/pivot",schemaPath:"#/components/schemas/ObjectSimple.IPoint3D/type",keyword:"type",params:{type: "object"},message:"must be object"}];
+return false;
+}
+if(errors === _errs29){
+}
+}
+var valid7 = _errs29 === errors;
+if(valid7){
+}
+var valid0 = _errs28 === errors;
+}
+else {
+var valid0 = true;
+}
+if(valid0){
+}
+}
+}
+}
+}
+}
+else {
+validate12.errors = [{instancePath:instancePath,schemaPath:"#/type",keyword:"type",params:{type: "object"},message:"must be object"}];
+return false;
+}
+if(errors === 0){
+}
+}
+validate12.errors = vErrors;
+return errors === 0;
+}
+
+
+

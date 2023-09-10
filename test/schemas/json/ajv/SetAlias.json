@@ -11,19 +11,19 @@
         "type": "object",
         "properties": {
           "booleans": {
-            "$ref": "#/components/schemas/SetAlias.SET<boolean>"
+            "$ref": "#/components/schemas/SetAlias.SET_lt_boolean_gt_"
           },
           "numbers": {
-            "$ref": "#/components/schemas/SetAlias.SET<number>"
+            "$ref": "#/components/schemas/SetAlias.SET_lt_number_gt_"
           },
           "strings": {
-            "$ref": "#/components/schemas/SetAlias._Set<string>"
+            "$ref": "#/components/schemas/SetAlias._Set_lt_string_gt_"
           },
           "arrays": {
-            "$ref": "#/components/schemas/SetAlias._Set<Array<number>>"
+            "$ref": "#/components/schemas/SetAlias._Set_lt_Array_lt_number_gt__gt_"
           },
           "objects": {
-            "$ref": "#/components/schemas/SetAlias.SET<SetAlias.Person>"
+            "$ref": "#/components/schemas/SetAlias.SET_lt_SetAlias.Person_gt_"
           }
         },
         "required": [
@@ -35,8 +35,8 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "SetAlias.SET<boolean>": {
-        "$id": "#/components/schemas/SetAlias.SET<boolean>",
+      "SetAlias.SET_lt_boolean_gt_": {
+        "$id": "#/components/schemas/SetAlias.SET_lt_boolean_gt_",
         "$ref": "#/components/objects/Set"
       },
       "Set": {
@@ -44,20 +44,20 @@
         "$id": "#/components/objects/Set",
         "properties": {}
       },
-      "SetAlias.SET<number>": {
-        "$id": "#/components/schemas/SetAlias.SET<number>",
+      "SetAlias.SET_lt_number_gt_": {
+        "$id": "#/components/schemas/SetAlias.SET_lt_number_gt_",
         "$ref": "#/components/objects/Set"
       },
-      "SetAlias._Set<string>": {
-        "$id": "#/components/schemas/SetAlias._Set<string>",
+      "SetAlias._Set_lt_string_gt_": {
+        "$id": "#/components/schemas/SetAlias._Set_lt_string_gt_",
         "$ref": "#/components/objects/Set"
       },
-      "SetAlias._Set<Array<number>>": {
-        "$id": "#/components/schemas/SetAlias._Set<Array<number>>",
+      "SetAlias._Set_lt_Array_lt_number_gt__gt_": {
+        "$id": "#/components/schemas/SetAlias._Set_lt_Array_lt_number_gt__gt_",
         "$ref": "#/components/objects/Set"
       },
-      "SetAlias.SET<SetAlias.Person>": {
-        "$id": "#/components/schemas/SetAlias.SET<SetAlias.Person>",
+      "SetAlias.SET_lt_SetAlias.Person_gt_": {
+        "$id": "#/components/schemas/SetAlias.SET_lt_SetAlias.Person_gt_",
         "$ref": "#/components/objects/Set"
       }
     }

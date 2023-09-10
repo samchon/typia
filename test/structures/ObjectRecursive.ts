@@ -3,6 +3,8 @@ import { TestRandomGenerator } from "../helpers/TestRandomGenerator";
 
 export type ObjectRecursive = ObjectRecursive.IDepartment;
 export namespace ObjectRecursive {
+    export const BINARABLE = false;
+
     export interface IDepartment {
         parent: IDepartment | null;
         id: number;

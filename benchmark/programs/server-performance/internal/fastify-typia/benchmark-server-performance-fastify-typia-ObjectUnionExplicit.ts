@@ -6,5 +6,5 @@ import { createFastifyCustomServerPerformanceBenchmarkProgram } from "../createF
 
 createFastifyCustomServerPerformanceBenchmarkProgram(
     typia.createAssert<ICollection<ObjectUnionExplicit>>(),
-    typia.createStringify<ICollection<ObjectUnionExplicit>>(),
+    typia.json.createStringify<ICollection<ObjectUnionExplicit>>(),
 );

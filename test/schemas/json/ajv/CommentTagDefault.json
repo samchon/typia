@@ -468,7 +468,31 @@
             "x-typia-optional": false,
             "type": "number",
             "maximum": 5,
-            "minimum": 3
+            "minimum": 3,
+            "x-typia-typeTags": [
+              {
+                "name": "Minimum<3>",
+                "target": "number",
+                "kind": "minimum",
+                "value": 3,
+                "validate": "3 <= $input",
+                "exclusive": [
+                  "minimum",
+                  "exclusiveMinimum"
+                ]
+              },
+              {
+                "name": "Maximum<5>",
+                "target": "number",
+                "kind": "maximum",
+                "value": 5,
+                "validate": "$input <= 5",
+                "exclusive": [
+                  "maximum",
+                  "exclusiveMaximum"
+                ]
+              }
+            ]
           },
           "vulnerable_template": {
             "type": "string",

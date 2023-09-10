@@ -44,7 +44,25 @@
             "x-typia-optional": false,
             "type": "string",
             "maxLength": 5,
-            "minLength": 5
+            "minLength": 5,
+            "x-typia-typeTags": [
+              {
+                "name": "MinLength<5>",
+                "target": "string",
+                "kind": "minLength",
+                "value": 5,
+                "validate": "5 <= $input.length",
+                "exclusive": true
+              },
+              {
+                "name": "MaxLength<5>",
+                "target": "string",
+                "kind": "maxLength",
+                "value": 5,
+                "validate": "$input.length <= 5",
+                "exclusive": true
+              }
+            ]
           },
           "minimum": {
             "x-typia-jsDocTags": [
@@ -61,7 +79,17 @@
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "string",
-            "minLength": 3
+            "minLength": 3,
+            "x-typia-typeTags": [
+              {
+                "name": "MinLength<3>",
+                "target": "string",
+                "kind": "minLength",
+                "value": 3,
+                "validate": "3 <= $input.length",
+                "exclusive": true
+              }
+            ]
           },
           "maximum": {
             "x-typia-jsDocTags": [
@@ -78,7 +106,17 @@
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "string",
-            "maxLength": 7
+            "maxLength": 7,
+            "x-typia-typeTags": [
+              {
+                "name": "MaxLength<7>",
+                "target": "string",
+                "kind": "maxLength",
+                "value": 7,
+                "validate": "$input.length <= 7",
+                "exclusive": true
+              }
+            ]
           },
           "minimum_and_maximum": {
             "x-typia-jsDocTags": [
@@ -105,7 +143,25 @@
             "x-typia-optional": false,
             "type": "string",
             "maxLength": 7,
-            "minLength": 3
+            "minLength": 3,
+            "x-typia-typeTags": [
+              {
+                "name": "MinLength<3>",
+                "target": "string",
+                "kind": "minLength",
+                "value": 3,
+                "validate": "3 <= $input.length",
+                "exclusive": true
+              },
+              {
+                "name": "MaxLength<7>",
+                "target": "string",
+                "kind": "maxLength",
+                "value": 7,
+                "validate": "$input.length <= 7",
+                "exclusive": true
+              }
+            ]
           },
           "equal": {
             "x-typia-jsDocTags": [
@@ -132,7 +188,25 @@
             "x-typia-optional": false,
             "type": "string",
             "maxLength": 19,
-            "minLength": 10
+            "minLength": 10,
+            "x-typia-typeTags": [
+              {
+                "name": "MinLength<10>",
+                "target": "string",
+                "kind": "minLength",
+                "value": 10,
+                "validate": "10 <= $input.length",
+                "exclusive": true
+              },
+              {
+                "name": "MaxLength<19>",
+                "target": "string",
+                "kind": "maxLength",
+                "value": 19,
+                "validate": "$input.length <= 19",
+                "exclusive": true
+              }
+            ]
           }
         },
         "required": [

@@ -4,14 +4,6 @@ import { TypeSystemPolicy } from "@sinclair/typebox/system";
 
 const Attribute = {
     description: Type.Optional(Type.String()),
-    "x-typia-metaTags": Type.Optional(
-        Type.Array(
-            Type.Object({
-                // @todo - must be specified, but too hard
-                kind: Type.String(),
-            }),
-        ),
-    ),
     "x-typia-jsDocTags": Type.Optional(
         Type.Array(
             Type.Object({

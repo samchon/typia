@@ -63,7 +63,25 @@
                 "x-typia-optional": false,
                 "type": "string",
                 "maxLength": 7,
-                "minLength": 3
+                "minLength": 3,
+                "x-typia-typeTags": [
+                  {
+                    "name": "MinLength<3>",
+                    "target": "string",
+                    "kind": "minLength",
+                    "value": 3,
+                    "validate": "3 <= $input.length",
+                    "exclusive": true
+                  },
+                  {
+                    "name": "MaxLength<7>",
+                    "target": "string",
+                    "kind": "maxLength",
+                    "value": 7,
+                    "validate": "$input.length <= 7",
+                    "exclusive": true
+                  }
+                ]
               },
               {
                 "x-typia-jsDocTags": [
@@ -98,7 +116,20 @@
                 "x-typia-required": true,
                 "x-typia-optional": false,
                 "type": "number",
-                "minimum": 3
+                "minimum": 3,
+                "x-typia-typeTags": [
+                  {
+                    "name": "Minimum<3>",
+                    "target": "number",
+                    "kind": "minimum",
+                    "value": 3,
+                    "validate": "3 <= $input",
+                    "exclusive": [
+                      "minimum",
+                      "exclusiveMinimum"
+                    ]
+                  }
+                ]
               }
             ],
             "x-typia-jsDocTags": [

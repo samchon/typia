@@ -4,5 +4,5 @@ import { ObjectUnionExplicit } from "../../../../test/structures/ObjectUnionExpl
 import { createAssertAjvBenchmarkProgram } from "./createAssertAjvBenchmarkProgram";
 
 createAssertAjvBenchmarkProgram(
-    typia.application<[ObjectUnionExplicit], "ajv">(),
+    typia.json.application<[ObjectUnionExplicit], "ajv">(),
 );

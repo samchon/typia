@@ -28,17 +28,17 @@ export const test_assertEquals_ObjectHierarchical = _test_assertEquals(
                         null !== input.account &&
                         $io4(input.account, true && _exceptionable))) &&
                 "string" === typeof input.href &&
-                /^[a-zA-Z0-9]+:\/\/(?:www.)?[-a-zA-Z0-9@:%._+~#=]{1,256}.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_+.~#?&/=]*)$/.test(
-                    input.href,
-                ) &&
                 "string" === typeof input.referrer &&
-                /^[a-zA-Z0-9]+:\/\/(?:www.)?[-a-zA-Z0-9@:%._+~#=]{1,256}.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_+.~#?&/=]*)$/.test(
-                    input.referrer,
-                ) &&
-                "string" === typeof input.ip &&
-                /^(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/.test(
-                    input.ip,
-                ) &&
+                Array.isArray(input.ip) &&
+                input.ip.length === 4 &&
+                "number" === typeof input.ip[0] &&
+                Number.isFinite(input.ip[0]) &&
+                "number" === typeof input.ip[1] &&
+                Number.isFinite(input.ip[1]) &&
+                "number" === typeof input.ip[2] &&
+                Number.isFinite(input.ip[2]) &&
+                "number" === typeof input.ip[3] &&
+                Number.isFinite(input.ip[3]) &&
                 "object" === typeof input.created_at &&
                 null !== input.created_at &&
                 $io2(input.created_at, true && _exceptionable) &&
@@ -280,46 +280,61 @@ export const test_assertEquals_ObjectHierarchical = _test_assertEquals(
                             expected: "(ObjectHierarchical.IAccount | null)",
                             value: input.account,
                         })) &&
-                    (("string" === typeof input.href &&
-                        (/^[a-zA-Z0-9]+:\/\/(?:www.)?[-a-zA-Z0-9@:%._+~#=]{1,256}.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_+.~#?&/=]*)$/.test(
-                            input.href,
-                        ) ||
-                            $guard(_exceptionable, {
-                                path: _path + ".href",
-                                expected: "string & Format<url>",
-                                value: input.href,
-                            }))) ||
+                    ("string" === typeof input.href ||
                         $guard(_exceptionable, {
                             path: _path + ".href",
-                            expected: "(string & Format<url>)",
+                            expected: "string",
                             value: input.href,
                         })) &&
-                    (("string" === typeof input.referrer &&
-                        (/^[a-zA-Z0-9]+:\/\/(?:www.)?[-a-zA-Z0-9@:%._+~#=]{1,256}.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_+.~#?&/=]*)$/.test(
-                            input.referrer,
-                        ) ||
-                            $guard(_exceptionable, {
-                                path: _path + ".referrer",
-                                expected: "string & Format<url>",
-                                value: input.referrer,
-                            }))) ||
+                    ("string" === typeof input.referrer ||
                         $guard(_exceptionable, {
                             path: _path + ".referrer",
-                            expected: "(string & Format<url>)",
+                            expected: "string",
                             value: input.referrer,
                         })) &&
-                    (("string" === typeof input.ip &&
-                        (/^(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/.test(
-                            input.ip,
-                        ) ||
+                    (((Array.isArray(input.ip) ||
+                        $guard(_exceptionable, {
+                            path: _path + ".ip",
+                            expected: "[number, number, number, number]",
+                            value: input.ip,
+                        })) &&
+                        (input.ip.length === 4 ||
                             $guard(_exceptionable, {
                                 path: _path + ".ip",
-                                expected: "string & Format<ipv4>",
+                                expected: "[number, number, number, number]",
                                 value: input.ip,
+                            })) &&
+                        (("number" === typeof input.ip[0] &&
+                            Number.isFinite(input.ip[0])) ||
+                            $guard(_exceptionable, {
+                                path: _path + ".ip[0]",
+                                expected: "number",
+                                value: input.ip[0],
+                            })) &&
+                        (("number" === typeof input.ip[1] &&
+                            Number.isFinite(input.ip[1])) ||
+                            $guard(_exceptionable, {
+                                path: _path + ".ip[1]",
+                                expected: "number",
+                                value: input.ip[1],
+                            })) &&
+                        (("number" === typeof input.ip[2] &&
+                            Number.isFinite(input.ip[2])) ||
+                            $guard(_exceptionable, {
+                                path: _path + ".ip[2]",
+                                expected: "number",
+                                value: input.ip[2],
+                            })) &&
+                        (("number" === typeof input.ip[3] &&
+                            Number.isFinite(input.ip[3])) ||
+                            $guard(_exceptionable, {
+                                path: _path + ".ip[3]",
+                                expected: "number",
+                                value: input.ip[3],
                             }))) ||
                         $guard(_exceptionable, {
                             path: _path + ".ip",
-                            expected: "(string & Format<ipv4>)",
+                            expected: "[number, number, number, number]",
                             value: input.ip,
                         })) &&
                     (((("object" === typeof input.created_at &&

@@ -21,17 +21,17 @@ export const test_is_ObjectHierarchical = _test_is(
                     null !== input.account &&
                     $io4(input.account))) &&
             "string" === typeof input.href &&
-            /^[a-zA-Z0-9]+:\/\/(?:www.)?[-a-zA-Z0-9@:%._+~#=]{1,256}.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_+.~#?&/=]*)$/.test(
-                input.href,
-            ) &&
             "string" === typeof input.referrer &&
-            /^[a-zA-Z0-9]+:\/\/(?:www.)?[-a-zA-Z0-9@:%._+~#=]{1,256}.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_+.~#?&/=]*)$/.test(
-                input.referrer,
-            ) &&
-            "string" === typeof input.ip &&
-            /^(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/.test(
-                input.ip,
-            ) &&
+            Array.isArray(input.ip) &&
+            input.ip.length === 4 &&
+            "number" === typeof input.ip[0] &&
+            Number.isFinite(input.ip[0]) &&
+            "number" === typeof input.ip[1] &&
+            Number.isFinite(input.ip[1]) &&
+            "number" === typeof input.ip[2] &&
+            Number.isFinite(input.ip[2]) &&
+            "number" === typeof input.ip[3] &&
+            Number.isFinite(input.ip[3]) &&
             "object" === typeof input.created_at &&
             null !== input.created_at &&
             "number" === typeof (input.created_at as any).time &&

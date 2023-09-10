@@ -25,7 +25,19 @@
               "x-typia-required": true,
               "x-typia-optional": false,
               "type": "string",
-              "format": "uuid"
+              "format": "uuid",
+              "x-typia-typeTags": [
+                {
+                  "target": "string",
+                  "name": "Format<\"uuid\">",
+                  "kind": "format",
+                  "value": "uuid",
+                  "validate": "/^(?:[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}|00000000-0000-0000-0000-000000000000)$/i.test($input)",
+                  "exclusive": [
+                    "pattern"
+                  ]
+                }
+              ]
             },
             "maxItems": 3,
             "minItems": 3
@@ -38,7 +50,20 @@
               "x-typia-required": true,
               "x-typia-optional": false,
               "type": "number",
-              "minimum": 3
+              "minimum": 3,
+              "x-typia-typeTags": [
+                {
+                  "target": "number",
+                  "name": "Minimum<3>",
+                  "kind": "minimum",
+                  "value": 3,
+                  "validate": "3 <= $input",
+                  "exclusive": [
+                    "minimum",
+                    "exclusiveMinimum"
+                  ]
+                }
+              ]
             },
             "minItems": 3
           },
@@ -52,13 +77,36 @@
                   "x-typia-required": true,
                   "x-typia-optional": false,
                   "type": "string",
-                  "maxLength": 7
+                  "maxLength": 7,
+                  "x-typia-typeTags": [
+                    {
+                      "target": "string",
+                      "name": "MaxLength<7>",
+                      "kind": "maxLength",
+                      "value": 7,
+                      "validate": "$input.length <= 7",
+                      "exclusive": true
+                    }
+                  ]
                 },
                 {
                   "x-typia-required": true,
                   "x-typia-optional": false,
                   "type": "number",
-                  "maximum": 7
+                  "maximum": 7,
+                  "x-typia-typeTags": [
+                    {
+                      "target": "number",
+                      "name": "Maximum<7>",
+                      "kind": "maximum",
+                      "value": 7,
+                      "validate": "$input <= 7",
+                      "exclusive": [
+                        "maximum",
+                        "exclusiveMaximum"
+                      ]
+                    }
+                  ]
                 }
               ],
               "x-typia-required": true,
@@ -74,7 +122,19 @@
               "x-typia-required": true,
               "x-typia-optional": false,
               "type": "string",
-              "format": "uuid"
+              "format": "uuid",
+              "x-typia-typeTags": [
+                {
+                  "target": "string",
+                  "name": "Format<\"uuid\">",
+                  "kind": "format",
+                  "value": "uuid",
+                  "validate": "/^(?:[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}|00000000-0000-0000-0000-000000000000)$/i.test($input)",
+                  "exclusive": [
+                    "pattern"
+                  ]
+                }
+              ]
             },
             "maxItems": 7,
             "minItems": 3

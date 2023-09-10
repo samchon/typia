@@ -3,26 +3,16 @@ import { TestRandomGenerator } from "../helpers/TestRandomGenerator";
 
 export type ObjectHierarchical = ObjectHierarchical.ICustomer;
 export namespace ObjectHierarchical {
+    export const BINARABLE = false;
+
     export interface ICustomer {
         id: number;
         channel: IChannel;
         member: IMember | null;
         account: IAccount | null;
-
-        /**
-         * @format url
-         */
         href: string;
-
-        /**
-         * @format url
-         */
         referrer: string;
-
-        /**
-         * @format ipv4
-         */
-        ip: string;
+        ip: [number, number, number, number];
         created_at: ITimestamp;
     }
     export interface IChannel {
@@ -100,7 +90,7 @@ export namespace ObjectHierarchical {
                 : null,
             href: "https://github.com/samchon/typia/blob/master/benchmark/data/recursive.ts",
             referrer: "https://github.com/samchon/typia",
-            ip: "127.0.0.1",
+            ip: [127, 0, 0, 1],
             created_at: generate_timestamp(),
         };
     }

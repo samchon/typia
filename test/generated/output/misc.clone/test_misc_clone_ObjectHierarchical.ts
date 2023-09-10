@@ -66,7 +66,20 @@ export const test_misc_clone_ObjectHierarchical = _test_misc_clone(
                     : (input.account as any),
             href: input.href as any,
             referrer: input.referrer as any,
-            ip: input.ip as any,
+            ip:
+                Array.isArray(input.ip) &&
+                input.ip.length === 4 &&
+                "number" === typeof input.ip[0] &&
+                "number" === typeof input.ip[1] &&
+                "number" === typeof input.ip[2] &&
+                "number" === typeof input.ip[3]
+                    ? ([
+                          input.ip[0] as any,
+                          input.ip[1] as any,
+                          input.ip[2] as any,
+                          input.ip[3] as any,
+                      ] as any)
+                    : (input.ip as any),
             created_at:
                 "object" === typeof input.created_at &&
                 null !== input.created_at

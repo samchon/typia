@@ -57,7 +57,9 @@ export namespace JsonApplicationTransformer {
             // GENERATORS
             //----
             // METADATA
-            const collection: MetadataCollection = new MetadataCollection();
+            const collection: MetadataCollection = new MetadataCollection({
+                replace: MetadataCollection.replace,
+            });
             const results: ValidationPipe<Metadata, MetadataFactory.IError>[] =
                 types.map((type) =>
                     MetadataFactory.analyze(checker)({

@@ -4,5 +4,5 @@ import { ObjectUnionExplicit } from "../../../../test/structures/ObjectUnionExpl
 import { createStringifyFastBenchmarkProgram } from "./createStringifyFastBenchmarkProgram";
 
 createStringifyFastBenchmarkProgram(
-    typia.application<[ObjectUnionExplicit], "ajv">(),
+    typia.json.application<[ObjectUnionExplicit], "ajv">(),
 );

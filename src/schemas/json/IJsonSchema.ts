@@ -1,4 +1,5 @@
 import { IJsDocTagInfo } from "../metadata/IJsDocTagInfo";
+import { IMetadataTypeTag } from "../metadata/IMetadataTypeTag";
 
 import { Atomic } from "../../typings/Atomic";
 
@@ -29,7 +30,7 @@ export namespace IJsonSchema {
     ----------------------------------------------------------- */
     export interface IEnumeration<
         Literal extends Exclude<Atomic.Literal, "bigint">,
-    > extends IAtomic<Literal> {
+    > extends Omit<IAtomic<Literal>, "x-typia-typeTags"> {
         enum: Array<Atomic.Mapper[Literal]>;
     }
     export interface IAtomic<Literal extends Exclude<Atomic.Literal, "bigint">>
@@ -41,6 +42,7 @@ export namespace IJsonSchema {
         maxLength?: number & Type<"uint32">;
         pattern?: string;
         format?: string;
+        "x-typia-typeTags"?: IMetadataTypeTag[];
     }
     export interface INumber extends IAtomic<"number"> {
         minimum?: number;
@@ -48,6 +50,7 @@ export namespace IJsonSchema {
         exclusiveMinimum?: boolean;
         exclusiveMaximum?: boolean;
         multipleOf?: number;
+        "x-typia-typeTags"?: IMetadataTypeTag[];
     }
     export interface IInteger extends IAtomic<"integer"> {
         minimum?: number & Type<"int32">;
@@ -55,6 +58,7 @@ export namespace IJsonSchema {
         exclusiveMinimum?: boolean;
         exclusiveMaximum?: boolean;
         multipleOf?: number & Type<"int32">;
+        "x-typia-typeTags"?: IMetadataTypeTag[];
     }
     export interface IBoolean extends IAtomic<"boolean"> {}
 

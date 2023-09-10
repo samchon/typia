@@ -21,7 +21,7 @@
             "type": "number"
           },
           "children": {
-            "$ref": "#/components/schemas/Record<string, DynamicTree>"
+            "$ref": "#/components/schemas/Record_lt_string_comma__space_DynamicTree_gt_"
           }
         },
         "required": [
@@ -31,8 +31,8 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "Record<string, DynamicTree>": {
-        "$id": "#/components/schemas/Record<string, DynamicTree>",
+      "Record_lt_string_comma__space_DynamicTree_gt_": {
+        "$id": "#/components/schemas/Record_lt_string_comma__space_DynamicTree_gt_",
         "type": "object",
         "properties": {},
         "x-typia-jsDocTags": [],

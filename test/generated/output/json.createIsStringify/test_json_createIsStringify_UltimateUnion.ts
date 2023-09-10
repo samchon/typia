@@ -18,19 +18,19 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
             "object" === typeof input.components &&
             null !== input.components &&
             false === Array.isArray(input.components) &&
-            $io16(input.components) &&
+            $io17(input.components) &&
             ("swagger" === input.purpose || "ajv" === input.purpose);
         const $io1 = (input: any): boolean =>
             Array.isArray(input["enum"]) &&
             input["enum"].every((elem: any) => "boolean" === typeof elem) &&
+            "boolean" === input.type &&
+            (undefined === input.title || "string" === typeof input.title) &&
             (undefined === input["default"] ||
                 "boolean" === typeof input["default"]) &&
-            "boolean" === input.type &&
             (undefined === input.nullable ||
                 "boolean" === typeof input.nullable) &&
             (undefined === input.deprecated ||
                 "boolean" === typeof input.deprecated) &&
-            (undefined === input.title || "string" === typeof input.title) &&
             (undefined === input.description ||
                 "string" === typeof input.description) &&
             (undefined === input["x-typia-jsDocTags"] ||
@@ -65,15 +65,15 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
                 (elem: any) =>
                     "number" === typeof elem && Number.isFinite(elem),
             ) &&
+            "number" === input.type &&
+            (undefined === input.title || "string" === typeof input.title) &&
             (undefined === input["default"] ||
                 ("number" === typeof input["default"] &&
                     Number.isFinite(input["default"]))) &&
-            "number" === input.type &&
             (undefined === input.nullable ||
                 "boolean" === typeof input.nullable) &&
             (undefined === input.deprecated ||
                 "boolean" === typeof input.deprecated) &&
-            (undefined === input.title || "string" === typeof input.title) &&
             (undefined === input.description ||
                 "string" === typeof input.description) &&
             (undefined === input["x-typia-jsDocTags"] ||
@@ -93,14 +93,14 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
         const $io5 = (input: any): boolean =>
             Array.isArray(input["enum"]) &&
             input["enum"].every((elem: any) => "string" === typeof elem) &&
+            "string" === input.type &&
+            (undefined === input.title || "string" === typeof input.title) &&
             (undefined === input["default"] ||
                 "string" === typeof input["default"]) &&
-            "string" === input.type &&
             (undefined === input.nullable ||
                 "boolean" === typeof input.nullable) &&
             (undefined === input.deprecated ||
                 "boolean" === typeof input.deprecated) &&
-            (undefined === input.title || "string" === typeof input.title) &&
             (undefined === input.description ||
                 "string" === typeof input.description) &&
             (undefined === input["x-typia-jsDocTags"] ||
@@ -162,6 +162,14 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
                     Math.floor(input.multipleOf) === input.multipleOf &&
                     -2147483648 <= input.multipleOf &&
                     input.multipleOf <= 2147483647)) &&
+            (undefined === input["x-typia-typeTags"] ||
+                (Array.isArray(input["x-typia-typeTags"]) &&
+                    input["x-typia-typeTags"].every(
+                        (elem: any) =>
+                            "object" === typeof elem &&
+                            null !== elem &&
+                            $io8(elem),
+                    ))) &&
             (undefined === input["default"] ||
                 ("number" === typeof input["default"] &&
                     Number.isFinite(input["default"]))) &&
@@ -188,6 +196,22 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
             (undefined === input["x-typia-rest"] ||
                 "boolean" === typeof input["x-typia-rest"]);
         const $io8 = (input: any): boolean =>
+            ("string" === input.target ||
+                "number" === input.target ||
+                "bigint" === input.target ||
+                "array" === input.target) &&
+            "string" === typeof input.name &&
+            "string" === typeof input.kind &&
+            true &&
+            "string" === typeof input.validate &&
+            null !== input.exclusive &&
+            undefined !== input.exclusive &&
+            ("boolean" === typeof input.exclusive ||
+                (Array.isArray(input.exclusive) &&
+                    input.exclusive.every(
+                        (elem: any) => "string" === typeof elem,
+                    )));
+        const $io9 = (input: any): boolean =>
             (undefined === input.minimum ||
                 ("number" === typeof input.minimum &&
                     Number.isFinite(input.minimum))) &&
@@ -201,6 +225,14 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
             (undefined === input.multipleOf ||
                 ("number" === typeof input.multipleOf &&
                     Number.isFinite(input.multipleOf))) &&
+            (undefined === input["x-typia-typeTags"] ||
+                (Array.isArray(input["x-typia-typeTags"]) &&
+                    input["x-typia-typeTags"].every(
+                        (elem: any) =>
+                            "object" === typeof elem &&
+                            null !== elem &&
+                            $io8(elem),
+                    ))) &&
             (undefined === input["default"] ||
                 ("number" === typeof input["default"] &&
                     Number.isFinite(input["default"]))) &&
@@ -226,7 +258,7 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
                 "boolean" === typeof input["x-typia-optional"]) &&
             (undefined === input["x-typia-rest"] ||
                 "boolean" === typeof input["x-typia-rest"]);
-        const $io9 = (input: any): boolean =>
+        const $io10 = (input: any): boolean =>
             (undefined === input.minLength ||
                 ("number" === typeof input.minLength &&
                     Math.floor(input.minLength) === input.minLength &&
@@ -240,6 +272,14 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
             (undefined === input.pattern ||
                 "string" === typeof input.pattern) &&
             (undefined === input.format || "string" === typeof input.format) &&
+            (undefined === input["x-typia-typeTags"] ||
+                (Array.isArray(input["x-typia-typeTags"]) &&
+                    input["x-typia-typeTags"].every(
+                        (elem: any) =>
+                            "object" === typeof elem &&
+                            null !== elem &&
+                            $io8(elem),
+                    ))) &&
             (undefined === input["default"] ||
                 "string" === typeof input["default"]) &&
             "string" === input.type &&
@@ -264,7 +304,7 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
                 "boolean" === typeof input["x-typia-optional"]) &&
             (undefined === input["x-typia-rest"] ||
                 "boolean" === typeof input["x-typia-rest"]);
-        const $io10 = (input: any): boolean =>
+        const $io11 = (input: any): boolean =>
             "object" === typeof input.items &&
             null !== input.items &&
             false === Array.isArray(input.items) &&
@@ -282,7 +322,7 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
             (undefined === input["x-typia-tuple"] ||
                 ("object" === typeof input["x-typia-tuple"] &&
                     null !== input["x-typia-tuple"] &&
-                    $io11(input["x-typia-tuple"]))) &&
+                    $io12(input["x-typia-tuple"]))) &&
             "array" === input.type &&
             (undefined === input.nullable ||
                 "boolean" === typeof input.nullable) &&
@@ -305,7 +345,7 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
                 "boolean" === typeof input["x-typia-optional"]) &&
             (undefined === input["x-typia-rest"] ||
                 "boolean" === typeof input["x-typia-rest"]);
-        const $io11 = (input: any): boolean =>
+        const $io12 = (input: any): boolean =>
             Array.isArray(input.items) &&
             input.items.every(
                 (elem: any) =>
@@ -345,7 +385,7 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
                 "boolean" === typeof input["x-typia-optional"]) &&
             (undefined === input["x-typia-rest"] ||
                 "boolean" === typeof input["x-typia-rest"]);
-        const $io12 = (input: any): boolean =>
+        const $io13 = (input: any): boolean =>
             Array.isArray(input.oneOf) &&
             input.oneOf.every(
                 (elem: any) =>
@@ -373,7 +413,7 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
                 "boolean" === typeof input["x-typia-optional"]) &&
             (undefined === input["x-typia-rest"] ||
                 "boolean" === typeof input["x-typia-rest"]);
-        const $io13 = (input: any): boolean =>
+        const $io14 = (input: any): boolean =>
             "string" === typeof input.$ref &&
             (undefined === input.deprecated ||
                 "boolean" === typeof input.deprecated) &&
@@ -394,7 +434,7 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
                 "boolean" === typeof input["x-typia-optional"]) &&
             (undefined === input["x-typia-rest"] ||
                 "boolean" === typeof input["x-typia-rest"]);
-        const $io14 = (input: any): boolean =>
+        const $io15 = (input: any): boolean =>
             "null" === input.type &&
             (undefined === input.deprecated ||
                 "boolean" === typeof input.deprecated) &&
@@ -415,7 +455,7 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
                 "boolean" === typeof input["x-typia-optional"]) &&
             (undefined === input["x-typia-rest"] ||
                 "boolean" === typeof input["x-typia-rest"]);
-        const $io15 = (input: any): boolean =>
+        const $io16 = (input: any): boolean =>
             null !== input.type &&
             undefined === input.type &&
             (undefined === input.deprecated ||
@@ -437,13 +477,13 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
                 "boolean" === typeof input["x-typia-optional"]) &&
             (undefined === input["x-typia-rest"] ||
                 "boolean" === typeof input["x-typia-rest"]);
-        const $io16 = (input: any): boolean =>
+        const $io17 = (input: any): boolean =>
             undefined === input.schemas ||
             ("object" === typeof input.schemas &&
                 null !== input.schemas &&
                 false === Array.isArray(input.schemas) &&
-                $io17(input.schemas));
-        const $io17 = (input: any): boolean =>
+                $io18(input.schemas));
+        const $io18 = (input: any): boolean =>
             Object.keys(input).every((key: any) => {
                 const value = input[key];
                 if (undefined === value) return true;
@@ -456,7 +496,7 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
                     );
                 return true;
             });
-        const $io18 = (input: any): boolean =>
+        const $io19 = (input: any): boolean =>
             (undefined === input.$id || "string" === typeof input.$id) &&
             "object" === input.type &&
             (undefined === input.nullable ||
@@ -464,12 +504,12 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
             "object" === typeof input.properties &&
             null !== input.properties &&
             false === Array.isArray(input.properties) &&
-            $io19(input.properties) &&
+            $io20(input.properties) &&
             (undefined === input.patternProperties ||
                 ("object" === typeof input.patternProperties &&
                     null !== input.patternProperties &&
                     false === Array.isArray(input.patternProperties) &&
-                    $io19(input.patternProperties))) &&
+                    $io20(input.patternProperties))) &&
             (undefined === input.additionalProperties ||
                 ("object" === typeof input.additionalProperties &&
                     null !== input.additionalProperties &&
@@ -495,14 +535,14 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
                     null !== input["x-typia-patternProperties"] &&
                     false ===
                         Array.isArray(input["x-typia-patternProperties"]) &&
-                    $io19(input["x-typia-patternProperties"]))) &&
+                    $io20(input["x-typia-patternProperties"]))) &&
             (undefined === input["x-typia-additionalProperties"] ||
                 ("object" === typeof input["x-typia-additionalProperties"] &&
                     null !== input["x-typia-additionalProperties"] &&
                     false ===
                         Array.isArray(input["x-typia-additionalProperties"]) &&
                     $iu0(input["x-typia-additionalProperties"])));
-        const $io19 = (input: any): boolean =>
+        const $io20 = (input: any): boolean =>
             Object.keys(input).every((key: any) => {
                 const value = input[key];
                 if (undefined === value) return true;
@@ -515,51 +555,17 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
                     );
                 return true;
             });
-        const $io20 = (input: any): boolean =>
-            Array.isArray(input["enum"]) &&
-            input["enum"].every((elem: any) => "boolean" === typeof elem) &&
-            (undefined === input["default"] ||
-                "boolean" === typeof input["default"]) &&
-            "boolean" === input.type &&
-            (undefined === input.nullable ||
-                "boolean" === typeof input.nullable) &&
-            (undefined === input.deprecated ||
-                "boolean" === typeof input.deprecated) &&
-            (undefined === input.title || "string" === typeof input.title) &&
-            (undefined === input.description ||
-                "string" === typeof input.description) &&
-            (undefined === input["x-typia-jsDocTags"] ||
-                (Array.isArray(input["x-typia-jsDocTags"]) &&
-                    input["x-typia-jsDocTags"].every(
-                        (elem: any) =>
-                            "object" === typeof elem &&
-                            null !== elem &&
-                            $io2(elem),
-                    ))) &&
-            (undefined === input["x-typia-required"] ||
-                "boolean" === typeof input["x-typia-required"]) &&
-            (undefined === input["x-typia-optional"] ||
-                "boolean" === typeof input["x-typia-optional"]) &&
-            (undefined === input["x-typia-rest"] ||
-                "boolean" === typeof input["x-typia-rest"]) &&
-            (undefined === input.$id || "string" === typeof input.$id) &&
-            (undefined === input.$recursiveAnchor ||
-                "boolean" === typeof input.$recursiveAnchor);
         const $io21 = (input: any): boolean =>
             Array.isArray(input["enum"]) &&
-            input["enum"].every(
-                (elem: any) =>
-                    "number" === typeof elem && Number.isFinite(elem),
-            ) &&
+            input["enum"].every((elem: any) => "boolean" === typeof elem) &&
+            "boolean" === input.type &&
+            (undefined === input.title || "string" === typeof input.title) &&
             (undefined === input["default"] ||
-                ("number" === typeof input["default"] &&
-                    Number.isFinite(input["default"]))) &&
-            "number" === input.type &&
+                "boolean" === typeof input["default"]) &&
             (undefined === input.nullable ||
                 "boolean" === typeof input.nullable) &&
             (undefined === input.deprecated ||
                 "boolean" === typeof input.deprecated) &&
-            (undefined === input.title || "string" === typeof input.title) &&
             (undefined === input.description ||
                 "string" === typeof input.description) &&
             (undefined === input["x-typia-jsDocTags"] ||
@@ -581,15 +587,19 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
                 "boolean" === typeof input.$recursiveAnchor);
         const $io22 = (input: any): boolean =>
             Array.isArray(input["enum"]) &&
-            input["enum"].every((elem: any) => "string" === typeof elem) &&
+            input["enum"].every(
+                (elem: any) =>
+                    "number" === typeof elem && Number.isFinite(elem),
+            ) &&
+            "number" === input.type &&
+            (undefined === input.title || "string" === typeof input.title) &&
             (undefined === input["default"] ||
-                "string" === typeof input["default"]) &&
-            "string" === input.type &&
+                ("number" === typeof input["default"] &&
+                    Number.isFinite(input["default"]))) &&
             (undefined === input.nullable ||
                 "boolean" === typeof input.nullable) &&
             (undefined === input.deprecated ||
                 "boolean" === typeof input.deprecated) &&
-            (undefined === input.title || "string" === typeof input.title) &&
             (undefined === input.description ||
                 "string" === typeof input.description) &&
             (undefined === input["x-typia-jsDocTags"] ||
@@ -610,14 +620,16 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
             (undefined === input.$recursiveAnchor ||
                 "boolean" === typeof input.$recursiveAnchor);
         const $io23 = (input: any): boolean =>
+            Array.isArray(input["enum"]) &&
+            input["enum"].every((elem: any) => "string" === typeof elem) &&
+            "string" === input.type &&
+            (undefined === input.title || "string" === typeof input.title) &&
             (undefined === input["default"] ||
-                "boolean" === typeof input["default"]) &&
-            "boolean" === input.type &&
+                "string" === typeof input["default"]) &&
             (undefined === input.nullable ||
                 "boolean" === typeof input.nullable) &&
             (undefined === input.deprecated ||
                 "boolean" === typeof input.deprecated) &&
-            (undefined === input.title || "string" === typeof input.title) &&
             (undefined === input.description ||
                 "string" === typeof input.description) &&
             (undefined === input["x-typia-jsDocTags"] ||
@@ -638,29 +650,9 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
             (undefined === input.$recursiveAnchor ||
                 "boolean" === typeof input.$recursiveAnchor);
         const $io24 = (input: any): boolean =>
-            (undefined === input.minimum ||
-                ("number" === typeof input.minimum &&
-                    Math.floor(input.minimum) === input.minimum &&
-                    -2147483648 <= input.minimum &&
-                    input.minimum <= 2147483647)) &&
-            (undefined === input.maximum ||
-                ("number" === typeof input.maximum &&
-                    Math.floor(input.maximum) === input.maximum &&
-                    -2147483648 <= input.maximum &&
-                    input.maximum <= 2147483647)) &&
-            (undefined === input.exclusiveMinimum ||
-                "boolean" === typeof input.exclusiveMinimum) &&
-            (undefined === input.exclusiveMaximum ||
-                "boolean" === typeof input.exclusiveMaximum) &&
-            (undefined === input.multipleOf ||
-                ("number" === typeof input.multipleOf &&
-                    Math.floor(input.multipleOf) === input.multipleOf &&
-                    -2147483648 <= input.multipleOf &&
-                    input.multipleOf <= 2147483647)) &&
             (undefined === input["default"] ||
-                ("number" === typeof input["default"] &&
-                    Number.isFinite(input["default"]))) &&
-            "integer" === input.type &&
+                "boolean" === typeof input["default"]) &&
+            "boolean" === input.type &&
             (undefined === input.nullable ||
                 "boolean" === typeof input.nullable) &&
             (undefined === input.deprecated ||
@@ -688,6 +680,62 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
         const $io25 = (input: any): boolean =>
             (undefined === input.minimum ||
                 ("number" === typeof input.minimum &&
+                    Math.floor(input.minimum) === input.minimum &&
+                    -2147483648 <= input.minimum &&
+                    input.minimum <= 2147483647)) &&
+            (undefined === input.maximum ||
+                ("number" === typeof input.maximum &&
+                    Math.floor(input.maximum) === input.maximum &&
+                    -2147483648 <= input.maximum &&
+                    input.maximum <= 2147483647)) &&
+            (undefined === input.exclusiveMinimum ||
+                "boolean" === typeof input.exclusiveMinimum) &&
+            (undefined === input.exclusiveMaximum ||
+                "boolean" === typeof input.exclusiveMaximum) &&
+            (undefined === input.multipleOf ||
+                ("number" === typeof input.multipleOf &&
+                    Math.floor(input.multipleOf) === input.multipleOf &&
+                    -2147483648 <= input.multipleOf &&
+                    input.multipleOf <= 2147483647)) &&
+            (undefined === input["x-typia-typeTags"] ||
+                (Array.isArray(input["x-typia-typeTags"]) &&
+                    input["x-typia-typeTags"].every(
+                        (elem: any) =>
+                            "object" === typeof elem &&
+                            null !== elem &&
+                            $io8(elem),
+                    ))) &&
+            (undefined === input["default"] ||
+                ("number" === typeof input["default"] &&
+                    Number.isFinite(input["default"]))) &&
+            "integer" === input.type &&
+            (undefined === input.nullable ||
+                "boolean" === typeof input.nullable) &&
+            (undefined === input.deprecated ||
+                "boolean" === typeof input.deprecated) &&
+            (undefined === input.title || "string" === typeof input.title) &&
+            (undefined === input.description ||
+                "string" === typeof input.description) &&
+            (undefined === input["x-typia-jsDocTags"] ||
+                (Array.isArray(input["x-typia-jsDocTags"]) &&
+                    input["x-typia-jsDocTags"].every(
+                        (elem: any) =>
+                            "object" === typeof elem &&
+                            null !== elem &&
+                            $io2(elem),
+                    ))) &&
+            (undefined === input["x-typia-required"] ||
+                "boolean" === typeof input["x-typia-required"]) &&
+            (undefined === input["x-typia-optional"] ||
+                "boolean" === typeof input["x-typia-optional"]) &&
+            (undefined === input["x-typia-rest"] ||
+                "boolean" === typeof input["x-typia-rest"]) &&
+            (undefined === input.$id || "string" === typeof input.$id) &&
+            (undefined === input.$recursiveAnchor ||
+                "boolean" === typeof input.$recursiveAnchor);
+        const $io26 = (input: any): boolean =>
+            (undefined === input.minimum ||
+                ("number" === typeof input.minimum &&
                     Number.isFinite(input.minimum))) &&
             (undefined === input.maximum ||
                 ("number" === typeof input.maximum &&
@@ -699,6 +747,14 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
             (undefined === input.multipleOf ||
                 ("number" === typeof input.multipleOf &&
                     Number.isFinite(input.multipleOf))) &&
+            (undefined === input["x-typia-typeTags"] ||
+                (Array.isArray(input["x-typia-typeTags"]) &&
+                    input["x-typia-typeTags"].every(
+                        (elem: any) =>
+                            "object" === typeof elem &&
+                            null !== elem &&
+                            $io8(elem),
+                    ))) &&
             (undefined === input["default"] ||
                 ("number" === typeof input["default"] &&
                     Number.isFinite(input["default"]))) &&
@@ -727,7 +783,7 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
             (undefined === input.$id || "string" === typeof input.$id) &&
             (undefined === input.$recursiveAnchor ||
                 "boolean" === typeof input.$recursiveAnchor);
-        const $io26 = (input: any): boolean =>
+        const $io27 = (input: any): boolean =>
             (undefined === input.minLength ||
                 ("number" === typeof input.minLength &&
                     Math.floor(input.minLength) === input.minLength &&
@@ -741,6 +797,14 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
             (undefined === input.pattern ||
                 "string" === typeof input.pattern) &&
             (undefined === input.format || "string" === typeof input.format) &&
+            (undefined === input["x-typia-typeTags"] ||
+                (Array.isArray(input["x-typia-typeTags"]) &&
+                    input["x-typia-typeTags"].every(
+                        (elem: any) =>
+                            "object" === typeof elem &&
+                            null !== elem &&
+                            $io8(elem),
+                    ))) &&
             (undefined === input["default"] ||
                 "string" === typeof input["default"]) &&
             "string" === input.type &&
@@ -768,7 +832,7 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
             (undefined === input.$id || "string" === typeof input.$id) &&
             (undefined === input.$recursiveAnchor ||
                 "boolean" === typeof input.$recursiveAnchor);
-        const $io27 = (input: any): boolean =>
+        const $io28 = (input: any): boolean =>
             "object" === typeof input.items &&
             null !== input.items &&
             false === Array.isArray(input.items) &&
@@ -786,7 +850,7 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
             (undefined === input["x-typia-tuple"] ||
                 ("object" === typeof input["x-typia-tuple"] &&
                     null !== input["x-typia-tuple"] &&
-                    $io11(input["x-typia-tuple"]))) &&
+                    $io12(input["x-typia-tuple"]))) &&
             "array" === input.type &&
             (undefined === input.nullable ||
                 "boolean" === typeof input.nullable) &&
@@ -812,7 +876,7 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
             (undefined === input.$id || "string" === typeof input.$id) &&
             (undefined === input.$recursiveAnchor ||
                 "boolean" === typeof input.$recursiveAnchor);
-        const $io28 = (input: any): boolean =>
+        const $io29 = (input: any): boolean =>
             Array.isArray(input.items) &&
             input.items.every(
                 (elem: any) =>
@@ -855,7 +919,7 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
             (undefined === input.$id || "string" === typeof input.$id) &&
             (undefined === input.$recursiveAnchor ||
                 "boolean" === typeof input.$recursiveAnchor);
-        const $io29 = (input: any): boolean =>
+        const $io30 = (input: any): boolean =>
             Array.isArray(input.oneOf) &&
             input.oneOf.every(
                 (elem: any) =>
@@ -886,7 +950,7 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
             (undefined === input.$id || "string" === typeof input.$id) &&
             (undefined === input.$recursiveAnchor ||
                 "boolean" === typeof input.$recursiveAnchor);
-        const $io30 = (input: any): boolean =>
+        const $io31 = (input: any): boolean =>
             "string" === typeof input.$ref &&
             (undefined === input.deprecated ||
                 "boolean" === typeof input.deprecated) &&
@@ -910,7 +974,7 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
             (undefined === input.$id || "string" === typeof input.$id) &&
             (undefined === input.$recursiveAnchor ||
                 "boolean" === typeof input.$recursiveAnchor);
-        const $io31 = (input: any): boolean =>
+        const $io32 = (input: any): boolean =>
             "null" === input.type &&
             (undefined === input.deprecated ||
                 "boolean" === typeof input.deprecated) &&
@@ -934,7 +998,7 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
             (undefined === input.$id || "string" === typeof input.$id) &&
             (undefined === input.$recursiveAnchor ||
                 "boolean" === typeof input.$recursiveAnchor);
-        const $io32 = (input: any): boolean =>
+        const $io33 = (input: any): boolean =>
             null !== input.type &&
             undefined === input.type &&
             (undefined === input.deprecated ||
@@ -968,7 +1032,7 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
                     false === Array.isArray(input.items) &&
                     $iu0(input.items)
                 )
-                    return $io10(input);
+                    return $io11(input);
                 else if (
                     Array.isArray(input.items) &&
                     input.items.every(
@@ -979,33 +1043,33 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
                             $iu0(elem),
                     )
                 )
-                    return $io11(input);
-                else if (undefined !== input.oneOf) return $io12(input);
-                else if (undefined !== input.$ref) return $io13(input);
-                else if ("null" === input.type) return $io14(input);
+                    return $io12(input);
+                else if (undefined !== input.oneOf) return $io13(input);
+                else if (undefined !== input.$ref) return $io14(input);
+                else if ("null" === input.type) return $io15(input);
                 else
                     return (() => {
                         if ($io5(input)) return $io5(input);
                         else if ($io4(input)) return $io4(input);
                         else if ($io1(input)) return $io1(input);
                         else if ($io6(input)) return $io6(input);
-                        else if ($io8(input)) return $io8(input);
                         else if ($io9(input)) return $io9(input);
-                        else if ($io15(input)) return $io15(input);
+                        else if ($io10(input)) return $io10(input);
+                        else if ($io16(input)) return $io16(input);
                         else return false;
                     })();
             })();
         const $iu1 = (input: any): any =>
             (() => {
-                if ("object" === input.type) return $io18(input);
-                else if ("integer" === input.type) return $io24(input);
+                if ("object" === input.type) return $io19(input);
+                else if ("integer" === input.type) return $io25(input);
                 else if (
                     "object" === typeof input.items &&
                     null !== input.items &&
                     false === Array.isArray(input.items) &&
                     $iu0(input.items)
                 )
-                    return $io27(input);
+                    return $io28(input);
                 else if (
                     Array.isArray(input.items) &&
                     input.items.every(
@@ -1016,19 +1080,19 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
                             $iu0(elem),
                     )
                 )
-                    return $io28(input);
-                else if (undefined !== input.oneOf) return $io29(input);
-                else if (undefined !== input.$ref) return $io30(input);
-                else if ("null" === input.type) return $io31(input);
+                    return $io29(input);
+                else if (undefined !== input.oneOf) return $io30(input);
+                else if (undefined !== input.$ref) return $io31(input);
+                else if ("null" === input.type) return $io32(input);
                 else
                     return (() => {
-                        if ($io22(input)) return $io22(input);
+                        if ($io23(input)) return $io23(input);
+                        else if ($io22(input)) return $io22(input);
                         else if ($io21(input)) return $io21(input);
-                        else if ($io20(input)) return $io20(input);
-                        else if ($io23(input)) return $io23(input);
-                        else if ($io25(input)) return $io25(input);
+                        else if ($io24(input)) return $io24(input);
                         else if ($io26(input)) return $io26(input);
-                        else if ($io32(input)) return $io32(input);
+                        else if ($io27(input)) return $io27(input);
+                        else if ($io33(input)) return $io33(input);
                         else return false;
                     })();
             })();
@@ -1044,14 +1108,14 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
         const $io1 = (input: any): boolean =>
             Array.isArray(input["enum"]) &&
             input["enum"].every((elem: any) => "boolean" === typeof elem) &&
+            "boolean" === input.type &&
+            (undefined === input.title || "string" === typeof input.title) &&
             (undefined === input["default"] ||
                 "boolean" === typeof input["default"]) &&
-            "boolean" === input.type &&
             (undefined === input.nullable ||
                 "boolean" === typeof input.nullable) &&
             (undefined === input.deprecated ||
                 "boolean" === typeof input.deprecated) &&
-            (undefined === input.title || "string" === typeof input.title) &&
             (undefined === input.description ||
                 "string" === typeof input.description) &&
             (undefined === input["x-typia-jsDocTags"] ||
@@ -1083,14 +1147,14 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
         const $io4 = (input: any): boolean =>
             Array.isArray(input["enum"]) &&
             input["enum"].every((elem: any) => "number" === typeof elem) &&
+            "number" === input.type &&
+            (undefined === input.title || "string" === typeof input.title) &&
             (undefined === input["default"] ||
                 "number" === typeof input["default"]) &&
-            "number" === input.type &&
             (undefined === input.nullable ||
                 "boolean" === typeof input.nullable) &&
             (undefined === input.deprecated ||
                 "boolean" === typeof input.deprecated) &&
-            (undefined === input.title || "string" === typeof input.title) &&
             (undefined === input.description ||
                 "string" === typeof input.description) &&
             (undefined === input["x-typia-jsDocTags"] ||
@@ -1110,14 +1174,14 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
         const $io5 = (input: any): boolean =>
             Array.isArray(input["enum"]) &&
             input["enum"].every((elem: any) => "string" === typeof elem) &&
+            "string" === input.type &&
+            (undefined === input.title || "string" === typeof input.title) &&
             (undefined === input["default"] ||
                 "string" === typeof input["default"]) &&
-            "string" === input.type &&
             (undefined === input.nullable ||
                 "boolean" === typeof input.nullable) &&
             (undefined === input.deprecated ||
                 "boolean" === typeof input.deprecated) &&
-            (undefined === input.title || "string" === typeof input.title) &&
             (undefined === input.description ||
                 "string" === typeof input.description) &&
             (undefined === input["x-typia-jsDocTags"] ||
@@ -1179,6 +1243,14 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
                     Math.floor(input.multipleOf) === input.multipleOf &&
                     -2147483648 <= input.multipleOf &&
                     input.multipleOf <= 2147483647)) &&
+            (undefined === input["x-typia-typeTags"] ||
+                (Array.isArray(input["x-typia-typeTags"]) &&
+                    input["x-typia-typeTags"].every(
+                        (elem: any) =>
+                            "object" === typeof elem &&
+                            null !== elem &&
+                            $io8(elem),
+                    ))) &&
             (undefined === input["default"] ||
                 "number" === typeof input["default"]) &&
             "integer" === input.type &&
@@ -1204,6 +1276,22 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
             (undefined === input["x-typia-rest"] ||
                 "boolean" === typeof input["x-typia-rest"]);
         const $io8 = (input: any): boolean =>
+            ("string" === input.target ||
+                "number" === input.target ||
+                "bigint" === input.target ||
+                "array" === input.target) &&
+            "string" === typeof input.name &&
+            "string" === typeof input.kind &&
+            true &&
+            "string" === typeof input.validate &&
+            null !== input.exclusive &&
+            undefined !== input.exclusive &&
+            ("boolean" === typeof input.exclusive ||
+                (Array.isArray(input.exclusive) &&
+                    input.exclusive.every(
+                        (elem: any) => "string" === typeof elem,
+                    )));
+        const $io9 = (input: any): boolean =>
             (undefined === input.minimum ||
                 "number" === typeof input.minimum) &&
             (undefined === input.maximum ||
@@ -1214,6 +1302,14 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
                 "boolean" === typeof input.exclusiveMaximum) &&
             (undefined === input.multipleOf ||
                 "number" === typeof input.multipleOf) &&
+            (undefined === input["x-typia-typeTags"] ||
+                (Array.isArray(input["x-typia-typeTags"]) &&
+                    input["x-typia-typeTags"].every(
+                        (elem: any) =>
+                            "object" === typeof elem &&
+                            null !== elem &&
+                            $io8(elem),
+                    ))) &&
             (undefined === input["default"] ||
                 "number" === typeof input["default"]) &&
             "number" === input.type &&
@@ -1238,7 +1334,7 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
                 "boolean" === typeof input["x-typia-optional"]) &&
             (undefined === input["x-typia-rest"] ||
                 "boolean" === typeof input["x-typia-rest"]);
-        const $io9 = (input: any): boolean =>
+        const $io10 = (input: any): boolean =>
             (undefined === input.minLength ||
                 ("number" === typeof input.minLength &&
                     Math.floor(input.minLength) === input.minLength &&
@@ -1252,6 +1348,14 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
             (undefined === input.pattern ||
                 "string" === typeof input.pattern) &&
             (undefined === input.format || "string" === typeof input.format) &&
+            (undefined === input["x-typia-typeTags"] ||
+                (Array.isArray(input["x-typia-typeTags"]) &&
+                    input["x-typia-typeTags"].every(
+                        (elem: any) =>
+                            "object" === typeof elem &&
+                            null !== elem &&
+                            $io8(elem),
+                    ))) &&
             (undefined === input["default"] ||
                 "string" === typeof input["default"]) &&
             "string" === input.type &&
@@ -1276,7 +1380,7 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
                 "boolean" === typeof input["x-typia-optional"]) &&
             (undefined === input["x-typia-rest"] ||
                 "boolean" === typeof input["x-typia-rest"]);
-        const $io10 = (input: any): boolean =>
+        const $io11 = (input: any): boolean =>
             "object" === typeof input.items &&
             null !== input.items &&
             false === Array.isArray(input.items) &&
@@ -1294,7 +1398,7 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
             (undefined === input["x-typia-tuple"] ||
                 ("object" === typeof input["x-typia-tuple"] &&
                     null !== input["x-typia-tuple"] &&
-                    $io11(input["x-typia-tuple"]))) &&
+                    $io12(input["x-typia-tuple"]))) &&
             "array" === input.type &&
             (undefined === input.nullable ||
                 "boolean" === typeof input.nullable) &&
@@ -1317,7 +1421,7 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
                 "boolean" === typeof input["x-typia-optional"]) &&
             (undefined === input["x-typia-rest"] ||
                 "boolean" === typeof input["x-typia-rest"]);
-        const $io11 = (input: any): boolean =>
+        const $io12 = (input: any): boolean =>
             Array.isArray(input.items) &&
             input.items.every(
                 (elem: any) =>
@@ -1357,7 +1461,7 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
                 "boolean" === typeof input["x-typia-optional"]) &&
             (undefined === input["x-typia-rest"] ||
                 "boolean" === typeof input["x-typia-rest"]);
-        const $io12 = (input: any): boolean =>
+        const $io13 = (input: any): boolean =>
             Array.isArray(input.oneOf) &&
             input.oneOf.every(
                 (elem: any) =>
@@ -1385,7 +1489,7 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
                 "boolean" === typeof input["x-typia-optional"]) &&
             (undefined === input["x-typia-rest"] ||
                 "boolean" === typeof input["x-typia-rest"]);
-        const $io13 = (input: any): boolean =>
+        const $io14 = (input: any): boolean =>
             "string" === typeof input.$ref &&
             (undefined === input.deprecated ||
                 "boolean" === typeof input.deprecated) &&
@@ -1406,7 +1510,7 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
                 "boolean" === typeof input["x-typia-optional"]) &&
             (undefined === input["x-typia-rest"] ||
                 "boolean" === typeof input["x-typia-rest"]);
-        const $io14 = (input: any): boolean =>
+        const $io15 = (input: any): boolean =>
             "null" === input.type &&
             (undefined === input.deprecated ||
                 "boolean" === typeof input.deprecated) &&
@@ -1427,7 +1531,7 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
                 "boolean" === typeof input["x-typia-optional"]) &&
             (undefined === input["x-typia-rest"] ||
                 "boolean" === typeof input["x-typia-rest"]);
-        const $io15 = (input: any): boolean =>
+        const $io16 = (input: any): boolean =>
             null !== input.type &&
             undefined === input.type &&
             (undefined === input.deprecated ||
@@ -1449,13 +1553,13 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
                 "boolean" === typeof input["x-typia-optional"]) &&
             (undefined === input["x-typia-rest"] ||
                 "boolean" === typeof input["x-typia-rest"]);
-        const $io16 = (input: any): boolean =>
+        const $io17 = (input: any): boolean =>
             undefined === input.schemas ||
             ("object" === typeof input.schemas &&
                 null !== input.schemas &&
                 false === Array.isArray(input.schemas) &&
-                $io17(input.schemas));
-        const $io17 = (input: any): boolean =>
+                $io18(input.schemas));
+        const $io18 = (input: any): boolean =>
             Object.keys(input).every((key: any) => {
                 const value = input[key];
                 if (undefined === value) return true;
@@ -1468,7 +1572,7 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
                     );
                 return true;
             });
-        const $io18 = (input: any): boolean =>
+        const $io19 = (input: any): boolean =>
             (undefined === input.$id || "string" === typeof input.$id) &&
             "object" === input.type &&
             (undefined === input.nullable ||
@@ -1476,12 +1580,12 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
             "object" === typeof input.properties &&
             null !== input.properties &&
             false === Array.isArray(input.properties) &&
-            $io19(input.properties) &&
+            $io20(input.properties) &&
             (undefined === input.patternProperties ||
                 ("object" === typeof input.patternProperties &&
                     null !== input.patternProperties &&
                     false === Array.isArray(input.patternProperties) &&
-                    $io19(input.patternProperties))) &&
+                    $io20(input.patternProperties))) &&
             (undefined === input.additionalProperties ||
                 ("object" === typeof input.additionalProperties &&
                     null !== input.additionalProperties &&
@@ -1507,14 +1611,14 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
                     null !== input["x-typia-patternProperties"] &&
                     false ===
                         Array.isArray(input["x-typia-patternProperties"]) &&
-                    $io19(input["x-typia-patternProperties"]))) &&
+                    $io20(input["x-typia-patternProperties"]))) &&
             (undefined === input["x-typia-additionalProperties"] ||
                 ("object" === typeof input["x-typia-additionalProperties"] &&
                     null !== input["x-typia-additionalProperties"] &&
                     false ===
                         Array.isArray(input["x-typia-additionalProperties"]) &&
                     $iu0(input["x-typia-additionalProperties"])));
-        const $io19 = (input: any): boolean =>
+        const $io20 = (input: any): boolean =>
             Object.keys(input).every((key: any) => {
                 const value = input[key];
                 if (undefined === value) return true;
@@ -1527,47 +1631,17 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
                     );
                 return true;
             });
-        const $io20 = (input: any): boolean =>
-            Array.isArray(input["enum"]) &&
-            input["enum"].every((elem: any) => "boolean" === typeof elem) &&
-            (undefined === input["default"] ||
-                "boolean" === typeof input["default"]) &&
-            "boolean" === input.type &&
-            (undefined === input.nullable ||
-                "boolean" === typeof input.nullable) &&
-            (undefined === input.deprecated ||
-                "boolean" === typeof input.deprecated) &&
-            (undefined === input.title || "string" === typeof input.title) &&
-            (undefined === input.description ||
-                "string" === typeof input.description) &&
-            (undefined === input["x-typia-jsDocTags"] ||
-                (Array.isArray(input["x-typia-jsDocTags"]) &&
-                    input["x-typia-jsDocTags"].every(
-                        (elem: any) =>
-                            "object" === typeof elem &&
-                            null !== elem &&
-                            $io2(elem),
-                    ))) &&
-            (undefined === input["x-typia-required"] ||
-                "boolean" === typeof input["x-typia-required"]) &&
-            (undefined === input["x-typia-optional"] ||
-                "boolean" === typeof input["x-typia-optional"]) &&
-            (undefined === input["x-typia-rest"] ||
-                "boolean" === typeof input["x-typia-rest"]) &&
-            (undefined === input.$id || "string" === typeof input.$id) &&
-            (undefined === input.$recursiveAnchor ||
-                "boolean" === typeof input.$recursiveAnchor);
         const $io21 = (input: any): boolean =>
             Array.isArray(input["enum"]) &&
-            input["enum"].every((elem: any) => "number" === typeof elem) &&
+            input["enum"].every((elem: any) => "boolean" === typeof elem) &&
+            "boolean" === input.type &&
+            (undefined === input.title || "string" === typeof input.title) &&
             (undefined === input["default"] ||
-                "number" === typeof input["default"]) &&
-            "number" === input.type &&
+                "boolean" === typeof input["default"]) &&
             (undefined === input.nullable ||
                 "boolean" === typeof input.nullable) &&
             (undefined === input.deprecated ||
                 "boolean" === typeof input.deprecated) &&
-            (undefined === input.title || "string" === typeof input.title) &&
             (undefined === input.description ||
                 "string" === typeof input.description) &&
             (undefined === input["x-typia-jsDocTags"] ||
@@ -1589,15 +1663,15 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
                 "boolean" === typeof input.$recursiveAnchor);
         const $io22 = (input: any): boolean =>
             Array.isArray(input["enum"]) &&
-            input["enum"].every((elem: any) => "string" === typeof elem) &&
+            input["enum"].every((elem: any) => "number" === typeof elem) &&
+            "number" === input.type &&
+            (undefined === input.title || "string" === typeof input.title) &&
             (undefined === input["default"] ||
-                "string" === typeof input["default"]) &&
-            "string" === input.type &&
+                "number" === typeof input["default"]) &&
             (undefined === input.nullable ||
                 "boolean" === typeof input.nullable) &&
             (undefined === input.deprecated ||
                 "boolean" === typeof input.deprecated) &&
-            (undefined === input.title || "string" === typeof input.title) &&
             (undefined === input.description ||
                 "string" === typeof input.description) &&
             (undefined === input["x-typia-jsDocTags"] ||
@@ -1618,14 +1692,16 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
             (undefined === input.$recursiveAnchor ||
                 "boolean" === typeof input.$recursiveAnchor);
         const $io23 = (input: any): boolean =>
+            Array.isArray(input["enum"]) &&
+            input["enum"].every((elem: any) => "string" === typeof elem) &&
+            "string" === input.type &&
+            (undefined === input.title || "string" === typeof input.title) &&
             (undefined === input["default"] ||
-                "boolean" === typeof input["default"]) &&
-            "boolean" === input.type &&
+                "string" === typeof input["default"]) &&
             (undefined === input.nullable ||
                 "boolean" === typeof input.nullable) &&
             (undefined === input.deprecated ||
                 "boolean" === typeof input.deprecated) &&
-            (undefined === input.title || "string" === typeof input.title) &&
             (undefined === input.description ||
                 "string" === typeof input.description) &&
             (undefined === input["x-typia-jsDocTags"] ||
@@ -1646,28 +1722,9 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
             (undefined === input.$recursiveAnchor ||
                 "boolean" === typeof input.$recursiveAnchor);
         const $io24 = (input: any): boolean =>
-            (undefined === input.minimum ||
-                ("number" === typeof input.minimum &&
-                    Math.floor(input.minimum) === input.minimum &&
-                    -2147483648 <= input.minimum &&
-                    input.minimum <= 2147483647)) &&
-            (undefined === input.maximum ||
-                ("number" === typeof input.maximum &&
-                    Math.floor(input.maximum) === input.maximum &&
-                    -2147483648 <= input.maximum &&
-                    input.maximum <= 2147483647)) &&
-            (undefined === input.exclusiveMinimum ||
-                "boolean" === typeof input.exclusiveMinimum) &&
-            (undefined === input.exclusiveMaximum ||
-                "boolean" === typeof input.exclusiveMaximum) &&
-            (undefined === input.multipleOf ||
-                ("number" === typeof input.multipleOf &&
-                    Math.floor(input.multipleOf) === input.multipleOf &&
-                    -2147483648 <= input.multipleOf &&
-                    input.multipleOf <= 2147483647)) &&
             (undefined === input["default"] ||
-                "number" === typeof input["default"]) &&
-            "integer" === input.type &&
+                "boolean" === typeof input["default"]) &&
+            "boolean" === input.type &&
             (undefined === input.nullable ||
                 "boolean" === typeof input.nullable) &&
             (undefined === input.deprecated ||
@@ -1694,6 +1751,61 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
                 "boolean" === typeof input.$recursiveAnchor);
         const $io25 = (input: any): boolean =>
             (undefined === input.minimum ||
+                ("number" === typeof input.minimum &&
+                    Math.floor(input.minimum) === input.minimum &&
+                    -2147483648 <= input.minimum &&
+                    input.minimum <= 2147483647)) &&
+            (undefined === input.maximum ||
+                ("number" === typeof input.maximum &&
+                    Math.floor(input.maximum) === input.maximum &&
+                    -2147483648 <= input.maximum &&
+                    input.maximum <= 2147483647)) &&
+            (undefined === input.exclusiveMinimum ||
+                "boolean" === typeof input.exclusiveMinimum) &&
+            (undefined === input.exclusiveMaximum ||
+                "boolean" === typeof input.exclusiveMaximum) &&
+            (undefined === input.multipleOf ||
+                ("number" === typeof input.multipleOf &&
+                    Math.floor(input.multipleOf) === input.multipleOf &&
+                    -2147483648 <= input.multipleOf &&
+                    input.multipleOf <= 2147483647)) &&
+            (undefined === input["x-typia-typeTags"] ||
+                (Array.isArray(input["x-typia-typeTags"]) &&
+                    input["x-typia-typeTags"].every(
+                        (elem: any) =>
+                            "object" === typeof elem &&
+                            null !== elem &&
+                            $io8(elem),
+                    ))) &&
+            (undefined === input["default"] ||
+                "number" === typeof input["default"]) &&
+            "integer" === input.type &&
+            (undefined === input.nullable ||
+                "boolean" === typeof input.nullable) &&
+            (undefined === input.deprecated ||
+                "boolean" === typeof input.deprecated) &&
+            (undefined === input.title || "string" === typeof input.title) &&
+            (undefined === input.description ||
+                "string" === typeof input.description) &&
+            (undefined === input["x-typia-jsDocTags"] ||
+                (Array.isArray(input["x-typia-jsDocTags"]) &&
+                    input["x-typia-jsDocTags"].every(
+                        (elem: any) =>
+                            "object" === typeof elem &&
+                            null !== elem &&
+                            $io2(elem),
+                    ))) &&
+            (undefined === input["x-typia-required"] ||
+                "boolean" === typeof input["x-typia-required"]) &&
+            (undefined === input["x-typia-optional"] ||
+                "boolean" === typeof input["x-typia-optional"]) &&
+            (undefined === input["x-typia-rest"] ||
+                "boolean" === typeof input["x-typia-rest"]) &&
+            (undefined === input.$id || "string" === typeof input.$id) &&
+            (undefined === input.$recursiveAnchor ||
+                "boolean" === typeof input.$recursiveAnchor);
+        const $io26 = (input: any): boolean =>
+            (undefined === input.minimum ||
                 "number" === typeof input.minimum) &&
             (undefined === input.maximum ||
                 "number" === typeof input.maximum) &&
@@ -1703,6 +1815,14 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
                 "boolean" === typeof input.exclusiveMaximum) &&
             (undefined === input.multipleOf ||
                 "number" === typeof input.multipleOf) &&
+            (undefined === input["x-typia-typeTags"] ||
+                (Array.isArray(input["x-typia-typeTags"]) &&
+                    input["x-typia-typeTags"].every(
+                        (elem: any) =>
+                            "object" === typeof elem &&
+                            null !== elem &&
+                            $io8(elem),
+                    ))) &&
             (undefined === input["default"] ||
                 "number" === typeof input["default"]) &&
             "number" === input.type &&
@@ -1730,7 +1850,7 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
             (undefined === input.$id || "string" === typeof input.$id) &&
             (undefined === input.$recursiveAnchor ||
                 "boolean" === typeof input.$recursiveAnchor);
-        const $io26 = (input: any): boolean =>
+        const $io27 = (input: any): boolean =>
             (undefined === input.minLength ||
                 ("number" === typeof input.minLength &&
                     Math.floor(input.minLength) === input.minLength &&
@@ -1744,6 +1864,14 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
             (undefined === input.pattern ||
                 "string" === typeof input.pattern) &&
             (undefined === input.format || "string" === typeof input.format) &&
+            (undefined === input["x-typia-typeTags"] ||
+                (Array.isArray(input["x-typia-typeTags"]) &&
+                    input["x-typia-typeTags"].every(
+                        (elem: any) =>
+                            "object" === typeof elem &&
+                            null !== elem &&
+                            $io8(elem),
+                    ))) &&
             (undefined === input["default"] ||
                 "string" === typeof input["default"]) &&
             "string" === input.type &&
@@ -1771,7 +1899,7 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
             (undefined === input.$id || "string" === typeof input.$id) &&
             (undefined === input.$recursiveAnchor ||
                 "boolean" === typeof input.$recursiveAnchor);
-        const $io27 = (input: any): boolean =>
+        const $io28 = (input: any): boolean =>
             "object" === typeof input.items &&
             null !== input.items &&
             false === Array.isArray(input.items) &&
@@ -1789,7 +1917,7 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
             (undefined === input["x-typia-tuple"] ||
                 ("object" === typeof input["x-typia-tuple"] &&
                     null !== input["x-typia-tuple"] &&
-                    $io11(input["x-typia-tuple"]))) &&
+                    $io12(input["x-typia-tuple"]))) &&
             "array" === input.type &&
             (undefined === input.nullable ||
                 "boolean" === typeof input.nullable) &&
@@ -1815,7 +1943,7 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
             (undefined === input.$id || "string" === typeof input.$id) &&
             (undefined === input.$recursiveAnchor ||
                 "boolean" === typeof input.$recursiveAnchor);
-        const $io28 = (input: any): boolean =>
+        const $io29 = (input: any): boolean =>
             Array.isArray(input.items) &&
             input.items.every(
                 (elem: any) =>
@@ -1858,7 +1986,7 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
             (undefined === input.$id || "string" === typeof input.$id) &&
             (undefined === input.$recursiveAnchor ||
                 "boolean" === typeof input.$recursiveAnchor);
-        const $io29 = (input: any): boolean =>
+        const $io30 = (input: any): boolean =>
             Array.isArray(input.oneOf) &&
             input.oneOf.every(
                 (elem: any) =>
@@ -1889,7 +2017,7 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
             (undefined === input.$id || "string" === typeof input.$id) &&
             (undefined === input.$recursiveAnchor ||
                 "boolean" === typeof input.$recursiveAnchor);
-        const $io30 = (input: any): boolean =>
+        const $io31 = (input: any): boolean =>
             "string" === typeof input.$ref &&
             (undefined === input.deprecated ||
                 "boolean" === typeof input.deprecated) &&
@@ -1913,7 +2041,7 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
             (undefined === input.$id || "string" === typeof input.$id) &&
             (undefined === input.$recursiveAnchor ||
                 "boolean" === typeof input.$recursiveAnchor);
-        const $io31 = (input: any): boolean =>
+        const $io32 = (input: any): boolean =>
             "null" === input.type &&
             (undefined === input.deprecated ||
                 "boolean" === typeof input.deprecated) &&
@@ -1937,7 +2065,7 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
             (undefined === input.$id || "string" === typeof input.$id) &&
             (undefined === input.$recursiveAnchor ||
                 "boolean" === typeof input.$recursiveAnchor);
-        const $io32 = (input: any): boolean =>
+        const $io33 = (input: any): boolean =>
             null !== input.type &&
             undefined === input.type &&
             (undefined === input.deprecated ||
@@ -1971,7 +2099,7 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
                     false === Array.isArray(input.items) &&
                     $iu0(input.items)
                 )
-                    return $io10(input);
+                    return $io11(input);
                 else if (
                     Array.isArray(input.items) &&
                     input.items.every(
@@ -1982,32 +2110,32 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
                             $iu0(elem),
                     )
                 )
-                    return $io11(input);
-                else if (undefined !== input.oneOf) return $io12(input);
-                else if (undefined !== input.$ref) return $io13(input);
-                else if ("null" === input.type) return $io14(input);
+                    return $io12(input);
+                else if (undefined !== input.oneOf) return $io13(input);
+                else if (undefined !== input.$ref) return $io14(input);
+                else if ("null" === input.type) return $io15(input);
                 else
                     return (
                         $io5(input) ||
                         $io4(input) ||
                         $io1(input) ||
                         $io6(input) ||
-                        $io8(input) ||
                         $io9(input) ||
-                        $io15(input)
+                        $io10(input) ||
+                        $io16(input)
                     );
             })();
         const $iu1 = (input: any): any =>
             (() => {
-                if ("object" === input.type) return $io18(input);
-                else if ("integer" === input.type) return $io24(input);
+                if ("object" === input.type) return $io19(input);
+                else if ("integer" === input.type) return $io25(input);
                 else if (
                     "object" === typeof input.items &&
                     null !== input.items &&
                     false === Array.isArray(input.items) &&
                     $iu0(input.items)
                 )
-                    return $io27(input);
+                    return $io28(input);
                 else if (
                     Array.isArray(input.items) &&
                     input.items.every(
@@ -2018,19 +2146,19 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
                             $iu0(elem),
                     )
                 )
-                    return $io28(input);
-                else if (undefined !== input.oneOf) return $io29(input);
-                else if (undefined !== input.$ref) return $io30(input);
-                else if ("null" === input.type) return $io31(input);
+                    return $io29(input);
+                else if (undefined !== input.oneOf) return $io30(input);
+                else if (undefined !== input.$ref) return $io31(input);
+                else if ("null" === input.type) return $io32(input);
                 else
                     return (
+                        $io23(input) ||
                         $io22(input) ||
                         $io21(input) ||
-                        $io20(input) ||
-                        $io23(input) ||
-                        $io25(input) ||
+                        $io24(input) ||
                         $io26(input) ||
-                        $io32(input)
+                        $io27(input) ||
+                        $io33(input)
                     );
             })();
         const $string = (typia.json.createIsStringify as any).string;
@@ -2040,7 +2168,7 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
         const $so0 = (input: any): any =>
             `{"schemas":${`[${input.schemas
                 .map((elem: any) => $su0(elem))
-                .join(",")}]`},"components":${$so16(
+                .join(",")}]`},"components":${$so17(
                 input.components,
             )},"purpose":${(() => {
                 if ("string" === typeof input.purpose)
@@ -2054,6 +2182,14 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
             })()}}`;
         const $so1 = (input: any): any =>
             `{${
+                undefined === input.title
+                    ? ""
+                    : `"title":${
+                          undefined !== input.title
+                              ? $string(input.title)
+                              : undefined
+                      },`
+            }${
                 undefined === input["default"]
                     ? ""
                     : `"default":${
@@ -2075,14 +2211,6 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
                     : `"deprecated":${
                           undefined !== input.deprecated
                               ? input.deprecated
-                              : undefined
-                      },`
-            }${
-                undefined === input.title
-                    ? ""
-                    : `"title":${
-                          undefined !== input.title
-                              ? $string(input.title)
                               : undefined
                       },`
             }${
@@ -2159,6 +2287,14 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
             }"name":${$string(input.name)}}`;
         const $so4 = (input: any): any =>
             `{${
+                undefined === input.title
+                    ? ""
+                    : `"title":${
+                          undefined !== input.title
+                              ? $string(input.title)
+                              : undefined
+                      },`
+            }${
                 undefined === input["default"]
                     ? ""
                     : `"default":${
@@ -2180,14 +2316,6 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
                     : `"deprecated":${
                           undefined !== input.deprecated
                               ? input.deprecated
-                              : undefined
-                      },`
-            }${
-                undefined === input.title
-                    ? ""
-                    : `"title":${
-                          undefined !== input.title
-                              ? $string(input.title)
                               : undefined
                       },`
             }${
@@ -2245,6 +2373,14 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
             })()}}`;
         const $so5 = (input: any): any =>
             `{${
+                undefined === input.title
+                    ? ""
+                    : `"title":${
+                          undefined !== input.title
+                              ? $string(input.title)
+                              : undefined
+                      },`
+            }${
                 undefined === input["default"]
                     ? ""
                     : `"default":${
@@ -2266,14 +2402,6 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
                     : `"deprecated":${
                           undefined !== input.deprecated
                               ? input.deprecated
-                              : undefined
-                      },`
-            }${
-                undefined === input.title
-                    ? ""
-                    : `"title":${
-                          undefined !== input.title
-                              ? $string(input.title)
                               : undefined
                       },`
             }${
@@ -2455,6 +2583,16 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
                               : undefined
                       },`
             }${
+                undefined === input["x-typia-typeTags"]
+                    ? ""
+                    : `"x-typia-typeTags":${
+                          undefined !== input["x-typia-typeTags"]
+                              ? `[${input["x-typia-typeTags"]
+                                    .map((elem: any) => $so8(elem))
+                                    .join(",")}]`
+                              : undefined
+                      },`
+            }${
                 undefined === input["default"]
                     ? ""
                     : `"default":${
@@ -2539,6 +2677,38 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
             })()}}`;
         const $so8 = (input: any): any =>
             `{${
+                undefined === input.value || "function" === typeof input.value
+                    ? ""
+                    : `"value":${
+                          undefined !== input.value
+                              ? JSON.stringify(input.value)
+                              : undefined
+                      },`
+            }"target":${(() => {
+                if ("string" === typeof input.target)
+                    return $string(input.target);
+                if ("string" === typeof input.target)
+                    return '"' + input.target + '"';
+                $throws({
+                    expected: '("array" | "bigint" | "number" | "string")',
+                    value: input.target,
+                });
+            })()},"name":${$string(input.name)},"kind":${$string(
+                input.kind,
+            )},"validate":${$string(input.validate)},"exclusive":${(() => {
+                if ("boolean" === typeof input.exclusive)
+                    return input.exclusive;
+                if (Array.isArray(input.exclusive))
+                    return `[${input.exclusive
+                        .map((elem: any) => $string(elem))
+                        .join(",")}]`;
+                $throws({
+                    expected: "(Array<string> | boolean)",
+                    value: input.exclusive,
+                });
+            })()}}`;
+        const $so9 = (input: any): any =>
+            `{${
                 undefined === input.minimum
                     ? ""
                     : `"minimum":${
@@ -2576,6 +2746,16 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
                     : `"multipleOf":${
                           undefined !== input.multipleOf
                               ? $number(input.multipleOf)
+                              : undefined
+                      },`
+            }${
+                undefined === input["x-typia-typeTags"]
+                    ? ""
+                    : `"x-typia-typeTags":${
+                          undefined !== input["x-typia-typeTags"]
+                              ? `[${input["x-typia-typeTags"]
+                                    .map((elem: any) => $so8(elem))
+                                    .join(",")}]`
                               : undefined
                       },`
             }${
@@ -2661,7 +2841,7 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
                     value: input.type,
                 });
             })()}}`;
-        const $so9 = (input: any): any =>
+        const $so10 = (input: any): any =>
             `{${
                 undefined === input.minLength
                     ? ""
@@ -2692,6 +2872,16 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
                     : `"format":${
                           undefined !== input.format
                               ? $string(input.format)
+                              : undefined
+                      },`
+            }${
+                undefined === input["x-typia-typeTags"]
+                    ? ""
+                    : `"x-typia-typeTags":${
+                          undefined !== input["x-typia-typeTags"]
+                              ? `[${input["x-typia-typeTags"]
+                                    .map((elem: any) => $so8(elem))
+                                    .join(",")}]`
                               : undefined
                       },`
             }${
@@ -2777,7 +2967,7 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
                     value: input.type,
                 });
             })()}}`;
-        const $so10 = (input: any): any =>
+        const $so11 = (input: any): any =>
             `{${
                 undefined === input.minItems
                     ? ""
@@ -2799,7 +2989,7 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
                     ? ""
                     : `"x-typia-tuple":${
                           undefined !== input["x-typia-tuple"]
-                              ? $so11(input["x-typia-tuple"])
+                              ? $so12(input["x-typia-tuple"])
                               : undefined
                       },`
             }${
@@ -2877,7 +3067,7 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
                     value: input.type,
                 });
             })()}}`;
-        const $so11 = (input: any): any =>
+        const $so12 = (input: any): any =>
             `{${
                 undefined === input.maxItems
                     ? ""
@@ -2965,7 +3155,7 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
                     value: input.type,
                 });
             })()}}`;
-        const $so12 = (input: any): any =>
+        const $so13 = (input: any): any =>
             `{${
                 undefined === input.deprecated
                     ? ""
@@ -3027,7 +3217,7 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
             }"oneOf":${`[${input.oneOf
                 .map((elem: any) => $su0(elem))
                 .join(",")}]`}}`;
-        const $so13 = (input: any): any =>
+        const $so14 = (input: any): any =>
             `{${
                 undefined === input.deprecated
                     ? ""
@@ -3087,7 +3277,7 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
                               : undefined
                       },`
             }"$ref":${$string(input.$ref)}}`;
-        const $so14 = (input: any): any =>
+        const $so15 = (input: any): any =>
             `{${
                 undefined === input.deprecated
                     ? ""
@@ -3155,7 +3345,7 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
                     value: input.type,
                 });
             })()}}`;
-        const $so15 = (input: any): any =>
+        const $so16 = (input: any): any =>
             `{${$tail(
                 `${
                     undefined === input.deprecated
@@ -3217,19 +3407,19 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
                           }`
                 }`,
             )}}`;
-        const $so16 = (input: any): any =>
+        const $so17 = (input: any): any =>
             `{${$tail(
                 `${
                     undefined === input.schemas
                         ? ""
                         : `"schemas":${
                               undefined !== input.schemas
-                                  ? $so17(input.schemas)
+                                  ? $so18(input.schemas)
                                   : undefined
                           }`
                 }`,
             )}}`;
-        const $so17 = (input: any): any =>
+        const $so18 = (input: any): any =>
             `{${Object.entries(input)
                 .map(([key, value]: [string, any]) => {
                     if (undefined === value) return "";
@@ -3237,7 +3427,7 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
                 })
                 .filter((str: any) => "" !== str)
                 .join(",")}}`;
-        const $so18 = (input: any): any =>
+        const $so19 = (input: any): any =>
             `{${
                 undefined === input.$id
                     ? ""
@@ -3259,7 +3449,7 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
                     ? ""
                     : `"patternProperties":${
                           undefined !== input.patternProperties
-                              ? $so19(input.patternProperties)
+                              ? $so20(input.patternProperties)
                               : undefined
                       },`
             }${
@@ -3303,7 +3493,7 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
                     ? ""
                     : `"x-typia-patternProperties":${
                           undefined !== input["x-typia-patternProperties"]
-                              ? $so19(input["x-typia-patternProperties"])
+                              ? $so20(input["x-typia-patternProperties"])
                               : undefined
                       },`
             }${
@@ -3322,8 +3512,8 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
                     expected: '"object"',
                     value: input.type,
                 });
-            })()},"properties":${$so19(input.properties)}}`;
-        const $so19 = (input: any): any =>
+            })()},"properties":${$so20(input.properties)}}`;
+        const $so20 = (input: any): any =>
             `{${Object.entries(input)
                 .map(([key, value]: [string, any]) => {
                     if (undefined === value) return "";
@@ -3331,8 +3521,16 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
                 })
                 .filter((str: any) => "" !== str)
                 .join(",")}}`;
-        const $so20 = (input: any): any =>
+        const $so21 = (input: any): any =>
             `{${
+                undefined === input.title
+                    ? ""
+                    : `"title":${
+                          undefined !== input.title
+                              ? $string(input.title)
+                              : undefined
+                      },`
+            }${
                 undefined === input["default"]
                     ? ""
                     : `"default":${
@@ -3354,14 +3552,6 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
                     : `"deprecated":${
                           undefined !== input.deprecated
                               ? input.deprecated
-                              : undefined
-                      },`
-            }${
-                undefined === input.title
-                    ? ""
-                    : `"title":${
-                          undefined !== input.title
-                              ? $string(input.title)
                               : undefined
                       },`
             }${
@@ -3433,8 +3623,16 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
                     value: input.type,
                 });
             })()}}`;
-        const $so21 = (input: any): any =>
+        const $so22 = (input: any): any =>
             `{${
+                undefined === input.title
+                    ? ""
+                    : `"title":${
+                          undefined !== input.title
+                              ? $string(input.title)
+                              : undefined
+                      },`
+            }${
                 undefined === input["default"]
                     ? ""
                     : `"default":${
@@ -3456,14 +3654,6 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
                     : `"deprecated":${
                           undefined !== input.deprecated
                               ? input.deprecated
-                              : undefined
-                      },`
-            }${
-                undefined === input.title
-                    ? ""
-                    : `"title":${
-                          undefined !== input.title
-                              ? $string(input.title)
                               : undefined
                       },`
             }${
@@ -3535,8 +3725,16 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
                     value: input.type,
                 });
             })()}}`;
-        const $so22 = (input: any): any =>
+        const $so23 = (input: any): any =>
             `{${
+                undefined === input.title
+                    ? ""
+                    : `"title":${
+                          undefined !== input.title
+                              ? $string(input.title)
+                              : undefined
+                      },`
+            }${
                 undefined === input["default"]
                     ? ""
                     : `"default":${
@@ -3558,14 +3756,6 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
                     : `"deprecated":${
                           undefined !== input.deprecated
                               ? input.deprecated
-                              : undefined
-                      },`
-            }${
-                undefined === input.title
-                    ? ""
-                    : `"title":${
-                          undefined !== input.title
-                              ? $string(input.title)
                               : undefined
                       },`
             }${
@@ -3637,7 +3827,7 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
                     value: input.type,
                 });
             })()}}`;
-        const $so23 = (input: any): any =>
+        const $so24 = (input: any): any =>
             `{${
                 undefined === input["default"]
                     ? ""
@@ -3737,7 +3927,7 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
                     value: input.type,
                 });
             })()}}`;
-        const $so24 = (input: any): any =>
+        const $so25 = (input: any): any =>
             `{${
                 undefined === input.minimum
                     ? ""
@@ -3776,6 +3966,16 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
                     : `"multipleOf":${
                           undefined !== input.multipleOf
                               ? $number(input.multipleOf)
+                              : undefined
+                      },`
+            }${
+                undefined === input["x-typia-typeTags"]
+                    ? ""
+                    : `"x-typia-typeTags":${
+                          undefined !== input["x-typia-typeTags"]
+                              ? `[${input["x-typia-typeTags"]
+                                    .map((elem: any) => $so8(elem))
+                                    .join(",")}]`
                               : undefined
                       },`
             }${
@@ -3877,7 +4077,7 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
                     value: input.type,
                 });
             })()}}`;
-        const $so25 = (input: any): any =>
+        const $so26 = (input: any): any =>
             `{${
                 undefined === input.minimum
                     ? ""
@@ -3916,6 +4116,16 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
                     : `"multipleOf":${
                           undefined !== input.multipleOf
                               ? $number(input.multipleOf)
+                              : undefined
+                      },`
+            }${
+                undefined === input["x-typia-typeTags"]
+                    ? ""
+                    : `"x-typia-typeTags":${
+                          undefined !== input["x-typia-typeTags"]
+                              ? `[${input["x-typia-typeTags"]
+                                    .map((elem: any) => $so8(elem))
+                                    .join(",")}]`
                               : undefined
                       },`
             }${
@@ -4017,7 +4227,7 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
                     value: input.type,
                 });
             })()}}`;
-        const $so26 = (input: any): any =>
+        const $so27 = (input: any): any =>
             `{${
                 undefined === input.minLength
                     ? ""
@@ -4048,6 +4258,16 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
                     : `"format":${
                           undefined !== input.format
                               ? $string(input.format)
+                              : undefined
+                      },`
+            }${
+                undefined === input["x-typia-typeTags"]
+                    ? ""
+                    : `"x-typia-typeTags":${
+                          undefined !== input["x-typia-typeTags"]
+                              ? `[${input["x-typia-typeTags"]
+                                    .map((elem: any) => $so8(elem))
+                                    .join(",")}]`
                               : undefined
                       },`
             }${
@@ -4149,7 +4369,7 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
                     value: input.type,
                 });
             })()}}`;
-        const $so27 = (input: any): any =>
+        const $so28 = (input: any): any =>
             `{${
                 undefined === input.minItems
                     ? ""
@@ -4171,7 +4391,7 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
                     ? ""
                     : `"x-typia-tuple":${
                           undefined !== input["x-typia-tuple"]
-                              ? $so11(input["x-typia-tuple"])
+                              ? $so12(input["x-typia-tuple"])
                               : undefined
                       },`
             }${
@@ -4265,7 +4485,7 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
                     value: input.type,
                 });
             })()}}`;
-        const $so28 = (input: any): any =>
+        const $so29 = (input: any): any =>
             `{${
                 undefined === input.maxItems
                     ? ""
@@ -4369,7 +4589,7 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
                     value: input.type,
                 });
             })()}}`;
-        const $so29 = (input: any): any =>
+        const $so30 = (input: any): any =>
             `{${
                 undefined === input.deprecated
                     ? ""
@@ -4447,7 +4667,7 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
             }"oneOf":${`[${input.oneOf
                 .map((elem: any) => $su0(elem))
                 .join(",")}]`}}`;
-        const $so30 = (input: any): any =>
+        const $so31 = (input: any): any =>
             `{${
                 undefined === input.deprecated
                     ? ""
@@ -4523,7 +4743,7 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
                               : undefined
                       },`
             }"$ref":${$string(input.$ref)}}`;
-        const $so31 = (input: any): any =>
+        const $so32 = (input: any): any =>
             `{${
                 undefined === input.deprecated
                     ? ""
@@ -4607,7 +4827,7 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
                     value: input.type,
                 });
             })()}}`;
-        const $so32 = (input: any): any =>
+        const $so33 = (input: any): any =>
             `{${$tail(
                 `${
                     undefined === input.deprecated
@@ -4694,7 +4914,7 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
                     false === Array.isArray(input.items) &&
                     $iu0(input.items)
                 )
-                    return $so10(input);
+                    return $so11(input);
                 else if (
                     Array.isArray(input.items) &&
                     input.items.every(
@@ -4705,19 +4925,19 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
                             $iu0(elem),
                     )
                 )
-                    return $so11(input);
-                else if (undefined !== input.oneOf) return $so12(input);
-                else if (undefined !== input.$ref) return $so13(input);
-                else if ("null" === input.type) return $so14(input);
+                    return $so12(input);
+                else if (undefined !== input.oneOf) return $so13(input);
+                else if (undefined !== input.$ref) return $so14(input);
+                else if ("null" === input.type) return $so15(input);
                 else
                     return (() => {
                         if ($io5(input)) return $so5(input);
                         else if ($io4(input)) return $so4(input);
                         else if ($io1(input)) return $so1(input);
                         else if ($io6(input)) return $so6(input);
-                        else if ($io8(input)) return $so8(input);
                         else if ($io9(input)) return $so9(input);
-                        else if ($io15(input)) return $so15(input);
+                        else if ($io10(input)) return $so10(input);
+                        else if ($io16(input)) return $so16(input);
                         else
                             $throws({
                                 expected:
@@ -4728,15 +4948,15 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
             })();
         const $su1 = (input: any): any =>
             (() => {
-                if ("object" === input.type) return $so18(input);
-                else if ("integer" === input.type) return $so24(input);
+                if ("object" === input.type) return $so19(input);
+                else if ("integer" === input.type) return $so25(input);
                 else if (
                     "object" === typeof input.items &&
                     null !== input.items &&
                     false === Array.isArray(input.items) &&
                     $iu0(input.items)
                 )
-                    return $so27(input);
+                    return $so28(input);
                 else if (
                     Array.isArray(input.items) &&
                     input.items.every(
@@ -4747,19 +4967,19 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
                             $iu0(elem),
                     )
                 )
-                    return $so28(input);
-                else if (undefined !== input.oneOf) return $so29(input);
-                else if (undefined !== input.$ref) return $so30(input);
-                else if ("null" === input.type) return $so31(input);
+                    return $so29(input);
+                else if (undefined !== input.oneOf) return $so30(input);
+                else if (undefined !== input.$ref) return $so31(input);
+                else if ("null" === input.type) return $so32(input);
                 else
                     return (() => {
-                        if ($io22(input)) return $so22(input);
+                        if ($io23(input)) return $so23(input);
+                        else if ($io22(input)) return $so22(input);
                         else if ($io21(input)) return $so21(input);
-                        else if ($io20(input)) return $so20(input);
-                        else if ($io23(input)) return $so23(input);
-                        else if ($io25(input)) return $so25(input);
+                        else if ($io24(input)) return $so24(input);
                         else if ($io26(input)) return $so26(input);
-                        else if ($io32(input)) return $so32(input);
+                        else if ($io27(input)) return $so27(input);
+                        else if ($io33(input)) return $so33(input);
                         else
                             $throws({
                                 expected:
