@@ -5,5 +5,5 @@ import { ICollection } from "../../../../structures/ICollection";
 import { createExpressServerStringifyBenchmarkProgram } from "../createExpressServerStringifyBenchmarkProgram";
 
 createExpressServerStringifyBenchmarkProgram(
-    typia.createStringify<ICollection<ObjectHierarchical>>(),
+    typia.json.createStringify<ICollection<ObjectHierarchical>>(),
 );

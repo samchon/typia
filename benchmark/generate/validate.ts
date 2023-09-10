@@ -64,7 +64,7 @@ const LIBRARIES = (category: string): BenchmarkProgrammer.ILibrary[] => [
                 `import { ${program} } from "./${program}";`,
                 ``,
                 `${program}(`,
-                `    typia.application<[${type}], "ajv">(),`,
+                `    typia.json.application<[${type}], "ajv">(),`,
                 `);`,
             ].join("\n");
         },

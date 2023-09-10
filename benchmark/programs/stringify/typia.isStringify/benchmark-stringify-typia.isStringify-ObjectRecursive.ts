@@ -3,4 +3,6 @@ import typia from "typia";
 import { ObjectRecursive } from "../../../../test/structures/ObjectRecursive";
 import { createStringifyBenchmarkProgram } from "../createStringifyBenchmarkProgram";
 
-createStringifyBenchmarkProgram(typia.createIsStringify<ObjectRecursive>());
+createStringifyBenchmarkProgram(
+    typia.json.createIsStringify<ObjectRecursive>(),
+);
