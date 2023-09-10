@@ -8,8 +8,8 @@ export const createAssertAjvBenchmarkProgram = (app: IJsonApplication) => {
         schemas: Object.values(app.components.schemas ?? {}),
         keywords: [
             "x-typia-tuple",
-            "x-typia-metaTags",
             "x-typia-jsDocTags",
+            "x-typia-typeTags",
             "x-typia-required",
             "x-typia-optional",
             "x-typia-rest",
@@ -18,11 +18,17 @@ export const createAssertAjvBenchmarkProgram = (app: IJsonApplication) => {
         strictNumbers: false,
         allErrors: false,
     });
-    const validate = program.compile(app.schemas[0]);
-    createAssertBenchmarkProgram((input) => {
-        const success: boolean = validate(input);
-        if (!success)
-            throw new Error(validate.errors?.[0].message ?? "unknown");
-        return input;
-    });
+    try {
+        const validate = program.compile(app.schemas[0]);
+        createAssertBenchmarkProgram((input) => {
+            const success: boolean = validate(input);
+            if (!success)
+                throw new Error(validate.errors?.[0].message ?? "unknown");
+            return input;
+        });
+    } catch {
+        createAssertBenchmarkProgram(() => {
+            new Error();
+        });
+    }
 };

@@ -14,8 +14,8 @@ export const createFastifyPureServerPerformanceBenchmarkProgram = async <T>(
             customOptions: {
                 keywords: [
                     "x-typia-tuple",
-                    "x-typia-metaTags",
                     "x-typia-jsDocTags",
+                    "x-typia-typeTags",
                     "x-typia-required",
                     "x-typia-optional",
                     "x-typia-rest",
