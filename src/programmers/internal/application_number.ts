@@ -48,7 +48,7 @@ export const application_number =
     };
 
 const application_number_tags =
-    (schema: Schema) =>
+    (base: Schema) =>
     (row: IMetadataTypeTag[]): Schema => {
         for (const tag of row
             .slice()
@@ -60,28 +60,29 @@ const application_number_tags =
                     tag.value === "int64" ||
                     tag.value === "uint64")
             )
-                schema.type = "integer";
+                base.type = "integer";
             else if (tag.kind === "minimum" && typeof tag.value === "number")
-                schema.minimum = tag.value;
+                base.minimum = tag.value;
             else if (tag.kind === "maximum" && typeof tag.value === "number")
-                schema.maximum = tag.value;
+                base.maximum = tag.value;
             else if (
                 tag.kind === "exclusiveMinimum" &&
                 typeof tag.value === "number"
             ) {
-                schema.minimum = tag.value;
-                schema.exclusiveMinimum = true;
+                base.minimum = tag.value;
+                base.exclusiveMinimum = true;
             } else if (
                 tag.kind === "exclusiveMaximum" &&
                 typeof tag.value === "number"
             ) {
-                schema.maximum = tag.value;
-                schema.exclusiveMaximum = true;
+                base.maximum = tag.value;
+                base.exclusiveMaximum = true;
             } else if (
                 tag.kind === "multipleOf" &&
                 typeof tag.value === "number"
             )
-                schema.multipleOf = tag.value;
+                base.multipleOf = tag.value;
         }
-        return schema;
+        base["x-typia-typeTags"] = row;
+        return base;
     };

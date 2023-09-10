@@ -15,7 +15,7 @@
             "x-typia-optional": false,
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/IPointer<ObjectUnionExplicitPointer.Shape>"
+              "$ref": "#/components/schemas/IPointer_lt_ObjectUnionExplicitPointer.Shape_gt_"
             }
           }
         },
@@ -24,8 +24,8 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "IPointer<ObjectUnionExplicitPointer.Shape>": {
-        "$id": "#/components/schemas/IPointer<ObjectUnionExplicitPointer.Shape>",
+      "IPointer_lt_ObjectUnionExplicitPointer.Shape_gt_": {
+        "$id": "#/components/schemas/IPointer_lt_ObjectUnionExplicitPointer.Shape_gt_",
         "type": "object",
         "properties": {
           "value": {
@@ -41,30 +41,30 @@
         "$id": "#/components/schemas/ObjectUnionExplicitPointer.Shape",
         "oneOf": [
           {
-            "$ref": "#/components/schemas/ObjectUnionExplicitPointer.Discriminator<\"point\", ObjectUnionExplicitPointer.IPoint>"
+            "$ref": "#/components/schemas/ObjectUnionExplicitPointer.Discriminator_lt__doublequote_point_doublequote__comma__space_ObjectUnionExplicitPointer.IPoint_gt_"
           },
           {
-            "$ref": "#/components/schemas/ObjectUnionExplicitPointer.Discriminator<\"line\", ObjectUnionExplicitPointer.ILine>"
+            "$ref": "#/components/schemas/ObjectUnionExplicitPointer.Discriminator_lt__doublequote_line_doublequote__comma__space_ObjectUnionExplicitPointer.ILine_gt_"
           },
           {
-            "$ref": "#/components/schemas/ObjectUnionExplicitPointer.Discriminator<\"triangle\", ObjectUnionExplicitPointer.ITriangle>"
+            "$ref": "#/components/schemas/ObjectUnionExplicitPointer.Discriminator_lt__doublequote_triangle_doublequote__comma__space_ObjectUnionExplicitPointer.ITriangle_gt_"
           },
           {
-            "$ref": "#/components/schemas/ObjectUnionExplicitPointer.Discriminator<\"rectangle\", ObjectUnionExplicitPointer.IRectangle>"
+            "$ref": "#/components/schemas/ObjectUnionExplicitPointer.Discriminator_lt__doublequote_rectangle_doublequote__comma__space_ObjectUnionExplicitPointer.IRectangle_gt_"
           },
           {
-            "$ref": "#/components/schemas/ObjectUnionExplicitPointer.Discriminator<\"polyline\", ObjectUnionExplicitPointer.IPolyline>"
+            "$ref": "#/components/schemas/ObjectUnionExplicitPointer.Discriminator_lt__doublequote_polyline_doublequote__comma__space_ObjectUnionExplicitPointer.IPolyline_gt_"
           },
           {
-            "$ref": "#/components/schemas/ObjectUnionExplicitPointer.Discriminator<\"polygon\", ObjectUnionExplicitPointer.IPolygon>"
+            "$ref": "#/components/schemas/ObjectUnionExplicitPointer.Discriminator_lt__doublequote_polygon_doublequote__comma__space_ObjectUnionExplicitPointer.IPolygon_gt_"
           },
           {
-            "$ref": "#/components/schemas/ObjectUnionExplicitPointer.Discriminator<\"circle\", ObjectUnionExplicitPointer.ICircle>"
+            "$ref": "#/components/schemas/ObjectUnionExplicitPointer.Discriminator_lt__doublequote_circle_doublequote__comma__space_ObjectUnionExplicitPointer.ICircle_gt_"
           }
         ]
       },
-      "ObjectUnionExplicitPointer.Discriminator<\"point\", ObjectUnionExplicitPointer.IPoint>": {
-        "$id": "#/components/schemas/ObjectUnionExplicitPointer.Discriminator<\"point\", ObjectUnionExplicitPointer.IPoint>",
+      "ObjectUnionExplicitPointer.Discriminator_lt__doublequote_point_doublequote__comma__space_ObjectUnionExplicitPointer.IPoint_gt_": {
+        "$id": "#/components/schemas/ObjectUnionExplicitPointer.Discriminator_lt__doublequote_point_doublequote__comma__space_ObjectUnionExplicitPointer.IPoint_gt_",
         "type": "object",
         "properties": {
           "x": {
@@ -93,8 +93,8 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "ObjectUnionExplicitPointer.Discriminator<\"line\", ObjectUnionExplicitPointer.ILine>": {
-        "$id": "#/components/schemas/ObjectUnionExplicitPointer.Discriminator<\"line\", ObjectUnionExplicitPointer.ILine>",
+      "ObjectUnionExplicitPointer.Discriminator_lt__doublequote_line_doublequote__comma__space_ObjectUnionExplicitPointer.ILine_gt_": {
+        "$id": "#/components/schemas/ObjectUnionExplicitPointer.Discriminator_lt__doublequote_line_doublequote__comma__space_ObjectUnionExplicitPointer.ILine_gt_",
         "type": "object",
         "properties": {
           "p1": {
@@ -140,8 +140,8 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "ObjectUnionExplicitPointer.Discriminator<\"triangle\", ObjectUnionExplicitPointer.ITriangle>": {
-        "$id": "#/components/schemas/ObjectUnionExplicitPointer.Discriminator<\"triangle\", ObjectUnionExplicitPointer.ITriangle>",
+      "ObjectUnionExplicitPointer.Discriminator_lt__doublequote_triangle_doublequote__comma__space_ObjectUnionExplicitPointer.ITriangle_gt_": {
+        "$id": "#/components/schemas/ObjectUnionExplicitPointer.Discriminator_lt__doublequote_triangle_doublequote__comma__space_ObjectUnionExplicitPointer.ITriangle_gt_",
         "type": "object",
         "properties": {
           "p1": {
@@ -170,8 +170,8 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "ObjectUnionExplicitPointer.Discriminator<\"rectangle\", ObjectUnionExplicitPointer.IRectangle>": {
-        "$id": "#/components/schemas/ObjectUnionExplicitPointer.Discriminator<\"rectangle\", ObjectUnionExplicitPointer.IRectangle>",
+      "ObjectUnionExplicitPointer.Discriminator_lt__doublequote_rectangle_doublequote__comma__space_ObjectUnionExplicitPointer.IRectangle_gt_": {
+        "$id": "#/components/schemas/ObjectUnionExplicitPointer.Discriminator_lt__doublequote_rectangle_doublequote__comma__space_ObjectUnionExplicitPointer.IRectangle_gt_",
         "type": "object",
         "properties": {
           "p1": {
@@ -204,8 +204,8 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "ObjectUnionExplicitPointer.Discriminator<\"polyline\", ObjectUnionExplicitPointer.IPolyline>": {
-        "$id": "#/components/schemas/ObjectUnionExplicitPointer.Discriminator<\"polyline\", ObjectUnionExplicitPointer.IPolyline>",
+      "ObjectUnionExplicitPointer.Discriminator_lt__doublequote_polyline_doublequote__comma__space_ObjectUnionExplicitPointer.IPolyline_gt_": {
+        "$id": "#/components/schemas/ObjectUnionExplicitPointer.Discriminator_lt__doublequote_polyline_doublequote__comma__space_ObjectUnionExplicitPointer.IPolyline_gt_",
         "type": "object",
         "properties": {
           "points": {
@@ -231,8 +231,8 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "ObjectUnionExplicitPointer.Discriminator<\"polygon\", ObjectUnionExplicitPointer.IPolygon>": {
-        "$id": "#/components/schemas/ObjectUnionExplicitPointer.Discriminator<\"polygon\", ObjectUnionExplicitPointer.IPolygon>",
+      "ObjectUnionExplicitPointer.Discriminator_lt__doublequote_polygon_doublequote__comma__space_ObjectUnionExplicitPointer.IPolygon_gt_": {
+        "$id": "#/components/schemas/ObjectUnionExplicitPointer.Discriminator_lt__doublequote_polygon_doublequote__comma__space_ObjectUnionExplicitPointer.IPolygon_gt_",
         "type": "object",
         "properties": {
           "outer": {
@@ -280,8 +280,8 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "ObjectUnionExplicitPointer.Discriminator<\"circle\", ObjectUnionExplicitPointer.ICircle>": {
-        "$id": "#/components/schemas/ObjectUnionExplicitPointer.Discriminator<\"circle\", ObjectUnionExplicitPointer.ICircle>",
+      "ObjectUnionExplicitPointer.Discriminator_lt__doublequote_circle_doublequote__comma__space_ObjectUnionExplicitPointer.ICircle_gt_": {
+        "$id": "#/components/schemas/ObjectUnionExplicitPointer.Discriminator_lt__doublequote_circle_doublequote__comma__space_ObjectUnionExplicitPointer.ICircle_gt_",
         "type": "object",
         "properties": {
           "centroid": {

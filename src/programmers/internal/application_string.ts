@@ -34,17 +34,18 @@ export const application_string =
     };
 
 const application_string_tags =
-    (schema: IJsonSchema.IString) =>
+    (base: IJsonSchema.IString) =>
     (row: IMetadataTypeTag[]): IJsonSchema.IString | null => {
         for (const tag of row
             .slice()
             .sort((a, b) => a.kind.localeCompare(b.kind)))
             if (tag.kind === "minLength" && typeof tag.value === "number")
-                schema.minLength = tag.value;
+                base.minLength = tag.value;
             else if (tag.kind === "maxLength" && typeof tag.value === "number")
-                schema.maxLength = tag.value;
+                base.maxLength = tag.value;
             else if (tag.kind === "format" && typeof tag.value === "string")
-                schema.format = tag.value;
-            else if (tag.kind === "pattern") schema.pattern = tag.value;
-        return schema;
+                base.format = tag.value;
+            else if (tag.kind === "pattern") base.pattern = tag.value;
+        base["x-typia-typeTags"] = row;
+        return base;
     };

@@ -6,5 +6,5 @@ import { createFastifyCustomServerPerformanceBenchmarkProgram } from "../createF
 
 createFastifyCustomServerPerformanceBenchmarkProgram(
     typia.createAssert<ICollection<ArrayRecursive>>(),
-    typia.createStringify<ICollection<ArrayRecursive>>(),
+    typia.json.createStringify<ICollection<ArrayRecursive>>(),
 );

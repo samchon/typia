@@ -23,7 +23,7 @@ const LIBRARIES: BenchmarkProgrammer.ILibrary[] = [
                     `import { createStringifyBenchmarkProgram } from "../createStringifyBenchmarkProgram";`,
                     ``,
                     `createStringifyBenchmarkProgram(`,
-                    `    typia.create${BenchmarkProgrammer.pascal(
+                    `    typia.json.create${BenchmarkProgrammer.pascal(
                         name.split(".")[1],
                     )}<${type}>()`,
                     `);`,
@@ -52,7 +52,7 @@ const LIBRARIES: BenchmarkProgrammer.ILibrary[] = [
                 `import { createStringifyFastBenchmarkProgram } from "./createStringifyFastBenchmarkProgram";`,
                 ``,
                 `createStringifyFastBenchmarkProgram(`,
-                `    typia.application<[${type}], "ajv">()`,
+                `    typia.json.application<[${type}], "ajv">()`,
                 `);`,
             ].join("\n"),
     },

@@ -2,15 +2,17 @@ import Ajv from "ajv";
 import fs from "fs";
 import typia from "typia";
 
-const app = typia.json.application<
-    [number, boolean, string?, number?],
-    "ajv"
->();
+import { IPointer } from "../helpers/IPointer";
+import { ObjectSimple } from "../structures/ObjectSimple";
+
+const app = typia.json.application<[IPointer<ObjectSimple>], "ajv">();
+fs.writeFileSync(__dirname + "/ajv.json", JSON.stringify(app, null, 4), "utf8");
+
 const program = new Ajv({
     schemas: Object.values(app.components.schemas ?? {}),
     keywords: [
         "x-typia-tuple",
-        "x-typia-metaTags",
+        "x-typia-typeTags",
         "x-typia-jsDocTags",
         "x-typia-required",
         "x-typia-optional",

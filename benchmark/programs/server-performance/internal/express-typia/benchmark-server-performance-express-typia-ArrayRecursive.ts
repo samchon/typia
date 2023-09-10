@@ -6,5 +6,5 @@ import { createExpressServerPerformanceBenchmarkProgram } from "../createExpress
 
 createExpressServerPerformanceBenchmarkProgram(
     typia.createAssert<ICollection<ArrayRecursive>>(),
-    typia.createStringify<ICollection<ArrayRecursive>>(),
+    typia.json.createStringify<ICollection<ArrayRecursive>>(),
 );

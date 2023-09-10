@@ -18,14 +18,56 @@
                   "x-typia-optional": false,
                   "type": "string",
                   "maxLength": 7,
-                  "minLength": 3
+                  "minLength": 3,
+                  "x-typia-typeTags": [
+                    {
+                      "target": "string",
+                      "name": "MinLength<3>",
+                      "kind": "minLength",
+                      "value": 3,
+                      "validate": "3 <= $input.length",
+                      "exclusive": true
+                    },
+                    {
+                      "target": "string",
+                      "name": "MaxLength<7>",
+                      "kind": "maxLength",
+                      "value": 7,
+                      "validate": "$input.length <= 7",
+                      "exclusive": true
+                    }
+                  ]
                 },
                 {
                   "x-typia-required": true,
                   "x-typia-optional": false,
                   "type": "number",
                   "maximum": 7,
-                  "minimum": 3
+                  "minimum": 3,
+                  "x-typia-typeTags": [
+                    {
+                      "target": "number",
+                      "name": "Minimum<3>",
+                      "kind": "minimum",
+                      "value": 3,
+                      "validate": "3 <= $input",
+                      "exclusive": [
+                        "minimum",
+                        "exclusiveMinimum"
+                      ]
+                    },
+                    {
+                      "target": "number",
+                      "name": "Maximum<7>",
+                      "kind": "maximum",
+                      "value": 7,
+                      "validate": "$input <= 7",
+                      "exclusive": [
+                        "maximum",
+                        "exclusiveMaximum"
+                      ]
+                    }
+                  ]
                 },
                 {
                   "x-typia-required": true,
@@ -36,7 +78,25 @@
                     "x-typia-optional": false,
                     "type": "string",
                     "maxLength": 2,
-                    "minLength": 1
+                    "minLength": 1,
+                    "x-typia-typeTags": [
+                      {
+                        "target": "string",
+                        "name": "MinLength<1>",
+                        "kind": "minLength",
+                        "value": 1,
+                        "validate": "1 <= $input.length",
+                        "exclusive": true
+                      },
+                      {
+                        "target": "string",
+                        "name": "MaxLength<2>",
+                        "kind": "maxLength",
+                        "value": 2,
+                        "validate": "$input.length <= 2",
+                        "exclusive": true
+                      }
+                    ]
                   },
                   "maxItems": 7,
                   "minItems": 3
@@ -50,7 +110,31 @@
                     "x-typia-optional": false,
                     "type": "number",
                     "maximum": 2,
-                    "minimum": 1
+                    "minimum": 1,
+                    "x-typia-typeTags": [
+                      {
+                        "target": "number",
+                        "name": "Minimum<1>",
+                        "kind": "minimum",
+                        "value": 1,
+                        "validate": "1 <= $input",
+                        "exclusive": [
+                          "minimum",
+                          "exclusiveMinimum"
+                        ]
+                      },
+                      {
+                        "target": "number",
+                        "name": "Maximum<2>",
+                        "kind": "maximum",
+                        "value": 2,
+                        "validate": "$input <= 2",
+                        "exclusive": [
+                          "maximum",
+                          "exclusiveMaximum"
+                        ]
+                      }
+                    ]
                   },
                   "maxItems": 7,
                   "minItems": 3
@@ -72,7 +156,25 @@
                   "x-typia-rest": false,
                   "type": "string",
                   "maxLength": 7,
-                  "minLength": 3
+                  "minLength": 3,
+                  "x-typia-typeTags": [
+                    {
+                      "target": "string",
+                      "name": "MinLength<3>",
+                      "kind": "minLength",
+                      "value": 3,
+                      "validate": "3 <= $input.length",
+                      "exclusive": true
+                    },
+                    {
+                      "target": "string",
+                      "name": "MaxLength<7>",
+                      "kind": "maxLength",
+                      "value": 7,
+                      "validate": "$input.length <= 7",
+                      "exclusive": true
+                    }
+                  ]
                 },
                 {
                   "x-typia-required": true,
@@ -80,7 +182,31 @@
                   "x-typia-rest": false,
                   "type": "number",
                   "maximum": 7,
-                  "minimum": 3
+                  "minimum": 3,
+                  "x-typia-typeTags": [
+                    {
+                      "target": "number",
+                      "name": "Minimum<3>",
+                      "kind": "minimum",
+                      "value": 3,
+                      "validate": "3 <= $input",
+                      "exclusive": [
+                        "minimum",
+                        "exclusiveMinimum"
+                      ]
+                    },
+                    {
+                      "target": "number",
+                      "name": "Maximum<7>",
+                      "kind": "maximum",
+                      "value": 7,
+                      "validate": "$input <= 7",
+                      "exclusive": [
+                        "maximum",
+                        "exclusiveMaximum"
+                      ]
+                    }
+                  ]
                 },
                 {
                   "x-typia-required": true,
@@ -93,7 +219,25 @@
                     "x-typia-rest": false,
                     "type": "string",
                     "maxLength": 2,
-                    "minLength": 1
+                    "minLength": 1,
+                    "x-typia-typeTags": [
+                      {
+                        "target": "string",
+                        "name": "MinLength<1>",
+                        "kind": "minLength",
+                        "value": 1,
+                        "validate": "1 <= $input.length",
+                        "exclusive": true
+                      },
+                      {
+                        "target": "string",
+                        "name": "MaxLength<2>",
+                        "kind": "maxLength",
+                        "value": 2,
+                        "validate": "$input.length <= 2",
+                        "exclusive": true
+                      }
+                    ]
                   },
                   "maxItems": 7,
                   "minItems": 3
@@ -109,7 +253,31 @@
                     "x-typia-rest": false,
                     "type": "number",
                     "maximum": 2,
-                    "minimum": 1
+                    "minimum": 1,
+                    "x-typia-typeTags": [
+                      {
+                        "target": "number",
+                        "name": "Minimum<1>",
+                        "kind": "minimum",
+                        "value": 1,
+                        "validate": "1 <= $input",
+                        "exclusive": [
+                          "minimum",
+                          "exclusiveMinimum"
+                        ]
+                      },
+                      {
+                        "target": "number",
+                        "name": "Maximum<2>",
+                        "kind": "maximum",
+                        "value": 2,
+                        "validate": "$input <= 2",
+                        "exclusive": [
+                          "maximum",
+                          "exclusiveMaximum"
+                        ]
+                      }
+                    ]
                   },
                   "maxItems": 7,
                   "minItems": 3

@@ -53,7 +53,28 @@
             "x-typia-optional": false,
             "type": "integer",
             "minimum": 3,
-            "exclusiveMinimum": true
+            "exclusiveMinimum": true,
+            "x-typia-typeTags": [
+              {
+                "name": "Type<int32>",
+                "target": "number",
+                "kind": "type",
+                "value": "int32",
+                "validate": "Math.floor($input) === $input && -2147483648 <= $input && $input <= 2147483647",
+                "exclusive": true
+              },
+              {
+                "name": "ExclusiveMinimum<3>",
+                "target": "number",
+                "kind": "exclusiveMinimum",
+                "value": 3,
+                "validate": "3 < $input",
+                "exclusive": [
+                  "minimum",
+                  "exclusiveMinimum"
+                ]
+              }
+            ]
           },
           "greater_equal": {
             "x-typia-jsDocTags": [
@@ -79,7 +100,28 @@
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "integer",
-            "minimum": 3
+            "minimum": 3,
+            "x-typia-typeTags": [
+              {
+                "name": "Type<int32>",
+                "target": "number",
+                "kind": "type",
+                "value": "int32",
+                "validate": "Math.floor($input) === $input && -2147483648 <= $input && $input <= 2147483647",
+                "exclusive": true
+              },
+              {
+                "name": "Minimum<3>",
+                "target": "number",
+                "kind": "minimum",
+                "value": 3,
+                "validate": "3 <= $input",
+                "exclusive": [
+                  "minimum",
+                  "exclusiveMinimum"
+                ]
+              }
+            ]
           },
           "less": {
             "x-typia-jsDocTags": [
@@ -106,7 +148,28 @@
             "x-typia-optional": false,
             "type": "integer",
             "maximum": 7,
-            "exclusiveMaximum": true
+            "exclusiveMaximum": true,
+            "x-typia-typeTags": [
+              {
+                "name": "Type<int32>",
+                "target": "number",
+                "kind": "type",
+                "value": "int32",
+                "validate": "Math.floor($input) === $input && -2147483648 <= $input && $input <= 2147483647",
+                "exclusive": true
+              },
+              {
+                "name": "ExclusiveMaximum<7>",
+                "target": "number",
+                "kind": "exclusiveMaximum",
+                "value": 7,
+                "validate": "$input < 7",
+                "exclusive": [
+                  "maximum",
+                  "exclusiveMaximum"
+                ]
+              }
+            ]
           },
           "less_equal": {
             "x-typia-jsDocTags": [
@@ -132,7 +195,28 @@
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "integer",
-            "maximum": 7
+            "maximum": 7,
+            "x-typia-typeTags": [
+              {
+                "name": "Type<int32>",
+                "target": "number",
+                "kind": "type",
+                "value": "int32",
+                "validate": "Math.floor($input) === $input && -2147483648 <= $input && $input <= 2147483647",
+                "exclusive": true
+              },
+              {
+                "name": "Maximum<7>",
+                "target": "number",
+                "kind": "maximum",
+                "value": 7,
+                "validate": "$input <= 7",
+                "exclusive": [
+                  "maximum",
+                  "exclusiveMaximum"
+                ]
+              }
+            ]
           },
           "greater_less": {
             "x-typia-jsDocTags": [
@@ -170,7 +254,39 @@
             "maximum": 7,
             "exclusiveMaximum": true,
             "minimum": 3,
-            "exclusiveMinimum": true
+            "exclusiveMinimum": true,
+            "x-typia-typeTags": [
+              {
+                "name": "Type<int32>",
+                "target": "number",
+                "kind": "type",
+                "value": "int32",
+                "validate": "Math.floor($input) === $input && -2147483648 <= $input && $input <= 2147483647",
+                "exclusive": true
+              },
+              {
+                "name": "ExclusiveMinimum<3>",
+                "target": "number",
+                "kind": "exclusiveMinimum",
+                "value": 3,
+                "validate": "3 < $input",
+                "exclusive": [
+                  "minimum",
+                  "exclusiveMinimum"
+                ]
+              },
+              {
+                "name": "ExclusiveMaximum<7>",
+                "target": "number",
+                "kind": "exclusiveMaximum",
+                "value": 7,
+                "validate": "$input < 7",
+                "exclusive": [
+                  "maximum",
+                  "exclusiveMaximum"
+                ]
+              }
+            ]
           },
           "greater_equal_less": {
             "x-typia-jsDocTags": [
@@ -207,7 +323,39 @@
             "type": "integer",
             "maximum": 7,
             "exclusiveMaximum": true,
-            "minimum": 3
+            "minimum": 3,
+            "x-typia-typeTags": [
+              {
+                "name": "Type<int32>",
+                "target": "number",
+                "kind": "type",
+                "value": "int32",
+                "validate": "Math.floor($input) === $input && -2147483648 <= $input && $input <= 2147483647",
+                "exclusive": true
+              },
+              {
+                "name": "Minimum<3>",
+                "target": "number",
+                "kind": "minimum",
+                "value": 3,
+                "validate": "3 <= $input",
+                "exclusive": [
+                  "minimum",
+                  "exclusiveMinimum"
+                ]
+              },
+              {
+                "name": "ExclusiveMaximum<7>",
+                "target": "number",
+                "kind": "exclusiveMaximum",
+                "value": 7,
+                "validate": "$input < 7",
+                "exclusive": [
+                  "maximum",
+                  "exclusiveMaximum"
+                ]
+              }
+            ]
           },
           "greater_less_equal": {
             "x-typia-jsDocTags": [
@@ -244,7 +392,39 @@
             "type": "integer",
             "minimum": 3,
             "exclusiveMinimum": true,
-            "maximum": 7
+            "maximum": 7,
+            "x-typia-typeTags": [
+              {
+                "name": "Type<int32>",
+                "target": "number",
+                "kind": "type",
+                "value": "int32",
+                "validate": "Math.floor($input) === $input && -2147483648 <= $input && $input <= 2147483647",
+                "exclusive": true
+              },
+              {
+                "name": "ExclusiveMinimum<3>",
+                "target": "number",
+                "kind": "exclusiveMinimum",
+                "value": 3,
+                "validate": "3 < $input",
+                "exclusive": [
+                  "minimum",
+                  "exclusiveMinimum"
+                ]
+              },
+              {
+                "name": "Maximum<7>",
+                "target": "number",
+                "kind": "maximum",
+                "value": 7,
+                "validate": "$input <= 7",
+                "exclusive": [
+                  "maximum",
+                  "exclusiveMaximum"
+                ]
+              }
+            ]
           },
           "greater_equal_less_equal": {
             "x-typia-jsDocTags": [
@@ -280,7 +460,39 @@
             "x-typia-optional": false,
             "type": "integer",
             "maximum": 7,
-            "minimum": 3
+            "minimum": 3,
+            "x-typia-typeTags": [
+              {
+                "name": "Type<int32>",
+                "target": "number",
+                "kind": "type",
+                "value": "int32",
+                "validate": "Math.floor($input) === $input && -2147483648 <= $input && $input <= 2147483647",
+                "exclusive": true
+              },
+              {
+                "name": "Minimum<3>",
+                "target": "number",
+                "kind": "minimum",
+                "value": 3,
+                "validate": "3 <= $input",
+                "exclusive": [
+                  "minimum",
+                  "exclusiveMinimum"
+                ]
+              },
+              {
+                "name": "Maximum<7>",
+                "target": "number",
+                "kind": "maximum",
+                "value": 7,
+                "validate": "$input <= 7",
+                "exclusive": [
+                  "maximum",
+                  "exclusiveMaximum"
+                ]
+              }
+            ]
           },
           "equal": {
             "x-typia-jsDocTags": [
@@ -316,7 +528,39 @@
             "x-typia-optional": false,
             "type": "integer",
             "maximum": 10,
-            "minimum": 10
+            "minimum": 10,
+            "x-typia-typeTags": [
+              {
+                "name": "Type<int32>",
+                "target": "number",
+                "kind": "type",
+                "value": "int32",
+                "validate": "Math.floor($input) === $input && -2147483648 <= $input && $input <= 2147483647",
+                "exclusive": true
+              },
+              {
+                "name": "Minimum<10>",
+                "target": "number",
+                "kind": "minimum",
+                "value": 10,
+                "validate": "10 <= $input",
+                "exclusive": [
+                  "minimum",
+                  "exclusiveMinimum"
+                ]
+              },
+              {
+                "name": "Maximum<10>",
+                "target": "number",
+                "kind": "maximum",
+                "value": 10,
+                "validate": "$input <= 10",
+                "exclusive": [
+                  "maximum",
+                  "exclusiveMaximum"
+                ]
+              }
+            ]
           }
         },
         "required": [

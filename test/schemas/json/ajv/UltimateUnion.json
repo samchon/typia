@@ -49,13 +49,13 @@
         "$id": "#/components/schemas/IJsonSchema",
         "oneOf": [
           {
-            "$ref": "#/components/schemas/IJsonSchema.IEnumeration<\"boolean\">"
+            "$ref": "#/components/schemas/IJsonSchema.IEnumeration_lt__doublequote_boolean_doublequote__gt_"
           },
           {
-            "$ref": "#/components/schemas/IJsonSchema.IEnumeration<\"number\">"
+            "$ref": "#/components/schemas/IJsonSchema.IEnumeration_lt__doublequote_number_doublequote__gt_"
           },
           {
-            "$ref": "#/components/schemas/IJsonSchema.IEnumeration<\"string\">"
+            "$ref": "#/components/schemas/IJsonSchema.IEnumeration_lt__doublequote_string_doublequote__gt_"
           },
           {
             "$ref": "#/components/schemas/IJsonSchema.IBoolean"
@@ -89,8 +89,8 @@
           }
         ]
       },
-      "IJsonSchema.IEnumeration<\"boolean\">": {
-        "$id": "#/components/schemas/IJsonSchema.IEnumeration<\"boolean\">",
+      "IJsonSchema.IEnumeration_lt__doublequote_boolean_doublequote__gt_": {
+        "$id": "#/components/schemas/IJsonSchema.IEnumeration_lt__doublequote_boolean_doublequote__gt_",
         "type": "object",
         "properties": {
           "enum": {
@@ -211,8 +211,8 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "IJsonSchema.IEnumeration<\"number\">": {
-        "$id": "#/components/schemas/IJsonSchema.IEnumeration<\"number\">",
+      "IJsonSchema.IEnumeration_lt__doublequote_number_doublequote__gt_": {
+        "$id": "#/components/schemas/IJsonSchema.IEnumeration_lt__doublequote_number_doublequote__gt_",
         "type": "object",
         "properties": {
           "enum": {
@@ -289,8 +289,8 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "IJsonSchema.IEnumeration<\"string\">": {
-        "$id": "#/components/schemas/IJsonSchema.IEnumeration<\"string\">",
+      "IJsonSchema.IEnumeration_lt__doublequote_string_doublequote__gt_": {
+        "$id": "#/components/schemas/IJsonSchema.IEnumeration_lt__doublequote_string_doublequote__gt_",
         "type": "object",
         "properties": {
           "enum": {
@@ -441,12 +441,32 @@
           "minimum": {
             "x-typia-required": false,
             "x-typia-optional": true,
-            "type": "integer"
+            "type": "integer",
+            "x-typia-typeTags": [
+              {
+                "target": "number",
+                "name": "Type<\"int32\">",
+                "kind": "type",
+                "value": "int32",
+                "validate": "Math.floor($input) === $input && -2147483648 <= $input && $input <= 2147483647",
+                "exclusive": true
+              }
+            ]
           },
           "maximum": {
             "x-typia-required": false,
             "x-typia-optional": true,
-            "type": "integer"
+            "type": "integer",
+            "x-typia-typeTags": [
+              {
+                "target": "number",
+                "name": "Type<\"int32\">",
+                "kind": "type",
+                "value": "int32",
+                "validate": "Math.floor($input) === $input && -2147483648 <= $input && $input <= 2147483647",
+                "exclusive": true
+              }
+            ]
           },
           "exclusiveMinimum": {
             "x-typia-required": false,
@@ -461,7 +481,25 @@
           "multipleOf": {
             "x-typia-required": false,
             "x-typia-optional": true,
-            "type": "integer"
+            "type": "integer",
+            "x-typia-typeTags": [
+              {
+                "target": "number",
+                "name": "Type<\"int32\">",
+                "kind": "type",
+                "value": "int32",
+                "validate": "Math.floor($input) === $input && -2147483648 <= $input && $input <= 2147483647",
+                "exclusive": true
+              }
+            ]
+          },
+          "x-typia-typeTags": {
+            "x-typia-required": false,
+            "x-typia-optional": true,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IMetadataTypeTag"
+            }
           },
           "default": {
             "x-typia-required": false,
@@ -526,6 +564,72 @@
         ],
         "x-typia-jsDocTags": []
       },
+      "IMetadataTypeTag": {
+        "$id": "#/components/schemas/IMetadataTypeTag",
+        "type": "object",
+        "properties": {
+          "target": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string",
+            "enum": [
+              "string",
+              "number",
+              "bigint",
+              "array"
+            ]
+          },
+          "name": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          },
+          "kind": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          },
+          "value": {
+            "x-typia-required": true,
+            "x-typia-optional": false
+          },
+          "validate": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          },
+          "exclusive": {
+            "oneOf": [
+              {
+                "x-typia-required": true,
+                "x-typia-optional": false,
+                "type": "boolean"
+              },
+              {
+                "x-typia-required": true,
+                "x-typia-optional": false,
+                "type": "array",
+                "items": {
+                  "x-typia-required": true,
+                  "x-typia-optional": false,
+                  "type": "string"
+                }
+              }
+            ],
+            "x-typia-required": true,
+            "x-typia-optional": false
+          }
+        },
+        "required": [
+          "target",
+          "name",
+          "kind",
+          "value",
+          "validate",
+          "exclusive"
+        ],
+        "x-typia-jsDocTags": []
+      },
       "IJsonSchema.INumber": {
         "$id": "#/components/schemas/IJsonSchema.INumber",
         "type": "object",
@@ -554,6 +658,14 @@
             "x-typia-required": false,
             "x-typia-optional": true,
             "type": "number"
+          },
+          "x-typia-typeTags": {
+            "x-typia-required": false,
+            "x-typia-optional": true,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IMetadataTypeTag"
+            }
           },
           "default": {
             "x-typia-required": false,
@@ -625,12 +737,32 @@
           "minLength": {
             "x-typia-required": false,
             "x-typia-optional": true,
-            "type": "integer"
+            "type": "integer",
+            "x-typia-typeTags": [
+              {
+                "target": "number",
+                "name": "Type<\"uint32\">",
+                "kind": "type",
+                "value": "uint32",
+                "validate": "Math.floor($input) === $input && 0 <= $input && $input <= 4294967295",
+                "exclusive": true
+              }
+            ]
           },
           "maxLength": {
             "x-typia-required": false,
             "x-typia-optional": true,
-            "type": "integer"
+            "type": "integer",
+            "x-typia-typeTags": [
+              {
+                "target": "number",
+                "name": "Type<\"uint32\">",
+                "kind": "type",
+                "value": "uint32",
+                "validate": "Math.floor($input) === $input && 0 <= $input && $input <= 4294967295",
+                "exclusive": true
+              }
+            ]
           },
           "pattern": {
             "x-typia-required": false,
@@ -641,6 +773,14 @@
             "x-typia-required": false,
             "x-typia-optional": true,
             "type": "string"
+          },
+          "x-typia-typeTags": {
+            "x-typia-required": false,
+            "x-typia-optional": true,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IMetadataTypeTag"
+            }
           },
           "default": {
             "x-typia-required": false,
@@ -715,12 +855,32 @@
           "minItems": {
             "x-typia-required": false,
             "x-typia-optional": true,
-            "type": "integer"
+            "type": "integer",
+            "x-typia-typeTags": [
+              {
+                "target": "number",
+                "name": "Type<\"uint32\">",
+                "kind": "type",
+                "value": "uint32",
+                "validate": "Math.floor($input) === $input && 0 <= $input && $input <= 4294967295",
+                "exclusive": true
+              }
+            ]
           },
           "maxItems": {
             "x-typia-required": false,
             "x-typia-optional": true,
-            "type": "integer"
+            "type": "integer",
+            "x-typia-typeTags": [
+              {
+                "target": "number",
+                "name": "Type<\"uint32\">",
+                "kind": "type",
+                "value": "uint32",
+                "validate": "Math.floor($input) === $input && 0 <= $input && $input <= 4294967295",
+                "exclusive": true
+              }
+            ]
           },
           "x-typia-tuple": {
             "$ref": "#/components/schemas/IJsonSchema.ITuple"
@@ -799,12 +959,32 @@
           "minItems": {
             "x-typia-required": true,
             "x-typia-optional": false,
-            "type": "integer"
+            "type": "integer",
+            "x-typia-typeTags": [
+              {
+                "target": "number",
+                "name": "Type<\"uint32\">",
+                "kind": "type",
+                "value": "uint32",
+                "validate": "Math.floor($input) === $input && 0 <= $input && $input <= 4294967295",
+                "exclusive": true
+              }
+            ]
           },
           "maxItems": {
             "x-typia-required": false,
             "x-typia-optional": true,
-            "type": "integer"
+            "type": "integer",
+            "x-typia-typeTags": [
+              {
+                "target": "number",
+                "name": "Type<\"uint32\">",
+                "kind": "type",
+                "value": "uint32",
+                "validate": "Math.floor($input) === $input && 0 <= $input && $input <= 4294967295",
+                "exclusive": true
+              }
+            ]
           },
           "type": {
             "x-typia-required": true,
@@ -1081,13 +1261,13 @@
         "type": "object",
         "properties": {
           "schemas": {
-            "$ref": "#/components/schemas/Record<string, IObject | IAlias>"
+            "$ref": "#/components/schemas/Record_lt_string_comma__space_IObject_space__or__space_IAlias_gt_"
           }
         },
         "x-typia-jsDocTags": []
       },
-      "Record<string, IObject | IAlias>": {
-        "$id": "#/components/schemas/Record<string, IObject | IAlias>",
+      "Record_lt_string_comma__space_IObject_space__or__space_IAlias_gt_": {
+        "$id": "#/components/schemas/Record_lt_string_comma__space_IObject_space__or__space_IAlias_gt_",
         "type": "object",
         "properties": {},
         "x-typia-jsDocTags": [],
@@ -1097,43 +1277,43 @@
               "$ref": "#/components/schemas/IJsonComponents.IObject"
             },
             {
-              "$ref": "#/components/schemas/IEnumeration<\"string\"> & { $id?: string | undefined; $recursiveAnchor?: boolean | undefined; }"
+              "$ref": "#/components/schemas/IEnumeration_lt__doublequote_string_doublequote__gt__space__and__space__blt__space__dollar_id?:_space_string_space__or__space_undefined;_space__dollar_recursiveAnchor?:_space_boolean_space__or__space_undefined;_space__bgt_"
             },
             {
-              "$ref": "#/components/schemas/IEnumeration<\"number\"> & { $id?: string | undefined; $recursiveAnchor?: boolean | undefined; }"
+              "$ref": "#/components/schemas/IEnumeration_lt__doublequote_number_doublequote__gt__space__and__space__blt__space__dollar_id?:_space_string_space__or__space_undefined;_space__dollar_recursiveAnchor?:_space_boolean_space__or__space_undefined;_space__bgt_"
             },
             {
-              "$ref": "#/components/schemas/IEnumeration<\"boolean\"> & { $id?: string | undefined; $recursiveAnchor?: boolean | undefined; }"
+              "$ref": "#/components/schemas/IEnumeration_lt__doublequote_boolean_doublequote__gt__space__and__space__blt__space__dollar_id?:_space_string_space__or__space_undefined;_space__dollar_recursiveAnchor?:_space_boolean_space__or__space_undefined;_space__bgt_"
             },
             {
-              "$ref": "#/components/schemas/IBoolean & { $id?: string | undefined; $recursiveAnchor?: boolean | undefined; }"
+              "$ref": "#/components/schemas/IBoolean_space__and__space__blt__space__dollar_id?:_space_string_space__or__space_undefined;_space__dollar_recursiveAnchor?:_space_boolean_space__or__space_undefined;_space__bgt_"
             },
             {
-              "$ref": "#/components/schemas/INumber & { $id?: string | undefined; $recursiveAnchor?: boolean | undefined; }"
+              "$ref": "#/components/schemas/INumber_space__and__space__blt__space__dollar_id?:_space_string_space__or__space_undefined;_space__dollar_recursiveAnchor?:_space_boolean_space__or__space_undefined;_space__bgt_"
             },
             {
-              "$ref": "#/components/schemas/IInteger & { $id?: string | undefined; $recursiveAnchor?: boolean | undefined; }"
+              "$ref": "#/components/schemas/IInteger_space__and__space__blt__space__dollar_id?:_space_string_space__or__space_undefined;_space__dollar_recursiveAnchor?:_space_boolean_space__or__space_undefined;_space__bgt_"
             },
             {
-              "$ref": "#/components/schemas/IString & { $id?: string | undefined; $recursiveAnchor?: boolean | undefined; }"
+              "$ref": "#/components/schemas/IString_space__and__space__blt__space__dollar_id?:_space_string_space__or__space_undefined;_space__dollar_recursiveAnchor?:_space_boolean_space__or__space_undefined;_space__bgt_"
             },
             {
-              "$ref": "#/components/schemas/IArray & { $id?: string | undefined; $recursiveAnchor?: boolean | undefined; }"
+              "$ref": "#/components/schemas/IArray_space__and__space__blt__space__dollar_id?:_space_string_space__or__space_undefined;_space__dollar_recursiveAnchor?:_space_boolean_space__or__space_undefined;_space__bgt_"
             },
             {
-              "$ref": "#/components/schemas/ITuple & { $id?: string | undefined; $recursiveAnchor?: boolean | undefined; }"
+              "$ref": "#/components/schemas/ITuple_space__and__space__blt__space__dollar_id?:_space_string_space__or__space_undefined;_space__dollar_recursiveAnchor?:_space_boolean_space__or__space_undefined;_space__bgt_"
             },
             {
-              "$ref": "#/components/schemas/IOneOf & { $id?: string | undefined; $recursiveAnchor?: boolean | undefined; }"
+              "$ref": "#/components/schemas/IOneOf_space__and__space__blt__space__dollar_id?:_space_string_space__or__space_undefined;_space__dollar_recursiveAnchor?:_space_boolean_space__or__space_undefined;_space__bgt_"
             },
             {
-              "$ref": "#/components/schemas/IReference & { $id?: string | undefined; $recursiveAnchor?: boolean | undefined; }"
+              "$ref": "#/components/schemas/IReference_space__and__space__blt__space__dollar_id?:_space_string_space__or__space_undefined;_space__dollar_recursiveAnchor?:_space_boolean_space__or__space_undefined;_space__bgt_"
             },
             {
-              "$ref": "#/components/schemas/IUnknown & { $id?: string | undefined; $recursiveAnchor?: boolean | undefined; }"
+              "$ref": "#/components/schemas/IUnknown_space__and__space__blt__space__dollar_id?:_space_string_space__or__space_undefined;_space__dollar_recursiveAnchor?:_space_boolean_space__or__space_undefined;_space__bgt_"
             },
             {
-              "$ref": "#/components/schemas/INullOnly & { $id?: string | undefined; $recursiveAnchor?: boolean | undefined; }"
+              "$ref": "#/components/schemas/INullOnly_space__and__space__blt__space__dollar_id?:_space_string_space__or__space_undefined;_space__dollar_recursiveAnchor?:_space_boolean_space__or__space_undefined;_space__bgt_"
             }
           ],
           "x-typia-required": true,
@@ -1164,21 +1344,21 @@
             "type": "boolean"
           },
           "properties": {
-            "$ref": "#/components/schemas/Record<string, IJsonSchema>"
+            "$ref": "#/components/schemas/Record_lt_string_comma__space_IJsonSchema_gt_"
           },
           "patternProperties": {
-            "$ref": "#/components/schemas/Record<string, IJsonSchema>"
+            "$ref": "#/components/schemas/Record_lt_string_comma__space_IJsonSchema_gt_"
           },
           "additionalProperties": {
             "oneOf": [
               {
-                "$ref": "#/components/schemas/IJsonSchema.IEnumeration<\"string\">"
+                "$ref": "#/components/schemas/IJsonSchema.IEnumeration_lt__doublequote_string_doublequote__gt_"
               },
               {
-                "$ref": "#/components/schemas/IJsonSchema.IEnumeration<\"number\">"
+                "$ref": "#/components/schemas/IJsonSchema.IEnumeration_lt__doublequote_number_doublequote__gt_"
               },
               {
-                "$ref": "#/components/schemas/IJsonSchema.IEnumeration<\"boolean\">"
+                "$ref": "#/components/schemas/IJsonSchema.IEnumeration_lt__doublequote_boolean_doublequote__gt_"
               },
               {
                 "$ref": "#/components/schemas/IJsonSchema.IBoolean"
@@ -1238,18 +1418,18 @@
             }
           },
           "x-typia-patternProperties": {
-            "$ref": "#/components/schemas/Record<string, IJsonSchema>"
+            "$ref": "#/components/schemas/Record_lt_string_comma__space_IJsonSchema_gt_"
           },
           "x-typia-additionalProperties": {
             "oneOf": [
               {
-                "$ref": "#/components/schemas/IJsonSchema.IEnumeration<\"string\">"
+                "$ref": "#/components/schemas/IJsonSchema.IEnumeration_lt__doublequote_string_doublequote__gt_"
               },
               {
-                "$ref": "#/components/schemas/IJsonSchema.IEnumeration<\"number\">"
+                "$ref": "#/components/schemas/IJsonSchema.IEnumeration_lt__doublequote_number_doublequote__gt_"
               },
               {
-                "$ref": "#/components/schemas/IJsonSchema.IEnumeration<\"boolean\">"
+                "$ref": "#/components/schemas/IJsonSchema.IEnumeration_lt__doublequote_boolean_doublequote__gt_"
               },
               {
                 "$ref": "#/components/schemas/IJsonSchema.IBoolean"
@@ -1292,8 +1472,8 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "Record<string, IJsonSchema>": {
-        "$id": "#/components/schemas/Record<string, IJsonSchema>",
+      "Record_lt_string_comma__space_IJsonSchema_gt_": {
+        "$id": "#/components/schemas/Record_lt_string_comma__space_IJsonSchema_gt_",
         "type": "object",
         "properties": {},
         "x-typia-jsDocTags": [],
@@ -1301,8 +1481,8 @@
           "$ref": "#/components/schemas/IJsonSchema"
         }
       },
-      "IEnumeration<\"string\"> & { $id?: string | undefined; $recursiveAnchor?: boolean | undefined; }": {
-        "$id": "#/components/schemas/IEnumeration<\"string\"> & { $id?: string | undefined; $recursiveAnchor?: boolean | undefined; }",
+      "IEnumeration_lt__doublequote_string_doublequote__gt__space__and__space__blt__space__dollar_id?:_space_string_space__or__space_undefined;_space__dollar_recursiveAnchor?:_space_boolean_space__or__space_undefined;_space__bgt_": {
+        "$id": "#/components/schemas/IEnumeration_lt__doublequote_string_doublequote__gt__space__and__space__blt__space__dollar_id?:_space_string_space__or__space_undefined;_space__dollar_recursiveAnchor?:_space_boolean_space__or__space_undefined;_space__bgt_",
         "type": "object",
         "properties": {
           "enum": {
@@ -1389,8 +1569,8 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "IEnumeration<\"number\"> & { $id?: string | undefined; $recursiveAnchor?: boolean | undefined; }": {
-        "$id": "#/components/schemas/IEnumeration<\"number\"> & { $id?: string | undefined; $recursiveAnchor?: boolean | undefined; }",
+      "IEnumeration_lt__doublequote_number_doublequote__gt__space__and__space__blt__space__dollar_id?:_space_string_space__or__space_undefined;_space__dollar_recursiveAnchor?:_space_boolean_space__or__space_undefined;_space__bgt_": {
+        "$id": "#/components/schemas/IEnumeration_lt__doublequote_number_doublequote__gt__space__and__space__blt__space__dollar_id?:_space_string_space__or__space_undefined;_space__dollar_recursiveAnchor?:_space_boolean_space__or__space_undefined;_space__bgt_",
         "type": "object",
         "properties": {
           "enum": {
@@ -1477,8 +1657,8 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "IEnumeration<\"boolean\"> & { $id?: string | undefined; $recursiveAnchor?: boolean | undefined; }": {
-        "$id": "#/components/schemas/IEnumeration<\"boolean\"> & { $id?: string | undefined; $recursiveAnchor?: boolean | undefined; }",
+      "IEnumeration_lt__doublequote_boolean_doublequote__gt__space__and__space__blt__space__dollar_id?:_space_string_space__or__space_undefined;_space__dollar_recursiveAnchor?:_space_boolean_space__or__space_undefined;_space__bgt_": {
+        "$id": "#/components/schemas/IEnumeration_lt__doublequote_boolean_doublequote__gt__space__and__space__blt__space__dollar_id?:_space_string_space__or__space_undefined;_space__dollar_recursiveAnchor?:_space_boolean_space__or__space_undefined;_space__bgt_",
         "type": "object",
         "properties": {
           "enum": {
@@ -1565,8 +1745,8 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "IBoolean & { $id?: string | undefined; $recursiveAnchor?: boolean | undefined; }": {
-        "$id": "#/components/schemas/IBoolean & { $id?: string | undefined; $recursiveAnchor?: boolean | undefined; }",
+      "IBoolean_space__and__space__blt__space__dollar_id?:_space_string_space__or__space_undefined;_space__dollar_recursiveAnchor?:_space_boolean_space__or__space_undefined;_space__bgt_": {
+        "$id": "#/components/schemas/IBoolean_space__and__space__blt__space__dollar_id?:_space_string_space__or__space_undefined;_space__dollar_recursiveAnchor?:_space_boolean_space__or__space_undefined;_space__bgt_",
         "type": "object",
         "properties": {
           "default": {
@@ -1642,8 +1822,8 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "INumber & { $id?: string | undefined; $recursiveAnchor?: boolean | undefined; }": {
-        "$id": "#/components/schemas/INumber & { $id?: string | undefined; $recursiveAnchor?: boolean | undefined; }",
+      "INumber_space__and__space__blt__space__dollar_id?:_space_string_space__or__space_undefined;_space__dollar_recursiveAnchor?:_space_boolean_space__or__space_undefined;_space__bgt_": {
+        "$id": "#/components/schemas/INumber_space__and__space__blt__space__dollar_id?:_space_string_space__or__space_undefined;_space__dollar_recursiveAnchor?:_space_boolean_space__or__space_undefined;_space__bgt_",
         "type": "object",
         "properties": {
           "minimum": {
@@ -1670,6 +1850,14 @@
             "x-typia-required": false,
             "x-typia-optional": true,
             "type": "number"
+          },
+          "x-typia-typeTags": {
+            "x-typia-required": false,
+            "x-typia-optional": true,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IMetadataTypeTag"
+            }
           },
           "default": {
             "x-typia-required": false,
@@ -1744,19 +1932,39 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "IInteger & { $id?: string | undefined; $recursiveAnchor?: boolean | undefined; }": {
-        "$id": "#/components/schemas/IInteger & { $id?: string | undefined; $recursiveAnchor?: boolean | undefined; }",
+      "IInteger_space__and__space__blt__space__dollar_id?:_space_string_space__or__space_undefined;_space__dollar_recursiveAnchor?:_space_boolean_space__or__space_undefined;_space__bgt_": {
+        "$id": "#/components/schemas/IInteger_space__and__space__blt__space__dollar_id?:_space_string_space__or__space_undefined;_space__dollar_recursiveAnchor?:_space_boolean_space__or__space_undefined;_space__bgt_",
         "type": "object",
         "properties": {
           "minimum": {
             "x-typia-required": false,
             "x-typia-optional": true,
-            "type": "integer"
+            "type": "integer",
+            "x-typia-typeTags": [
+              {
+                "target": "number",
+                "name": "Type<\"int32\">",
+                "kind": "type",
+                "value": "int32",
+                "validate": "Math.floor($input) === $input && -2147483648 <= $input && $input <= 2147483647",
+                "exclusive": true
+              }
+            ]
           },
           "maximum": {
             "x-typia-required": false,
             "x-typia-optional": true,
-            "type": "integer"
+            "type": "integer",
+            "x-typia-typeTags": [
+              {
+                "target": "number",
+                "name": "Type<\"int32\">",
+                "kind": "type",
+                "value": "int32",
+                "validate": "Math.floor($input) === $input && -2147483648 <= $input && $input <= 2147483647",
+                "exclusive": true
+              }
+            ]
           },
           "exclusiveMinimum": {
             "x-typia-required": false,
@@ -1771,7 +1979,25 @@
           "multipleOf": {
             "x-typia-required": false,
             "x-typia-optional": true,
-            "type": "integer"
+            "type": "integer",
+            "x-typia-typeTags": [
+              {
+                "target": "number",
+                "name": "Type<\"int32\">",
+                "kind": "type",
+                "value": "int32",
+                "validate": "Math.floor($input) === $input && -2147483648 <= $input && $input <= 2147483647",
+                "exclusive": true
+              }
+            ]
+          },
+          "x-typia-typeTags": {
+            "x-typia-required": false,
+            "x-typia-optional": true,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IMetadataTypeTag"
+            }
           },
           "default": {
             "x-typia-required": false,
@@ -1846,19 +2072,39 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "IString & { $id?: string | undefined; $recursiveAnchor?: boolean | undefined; }": {
-        "$id": "#/components/schemas/IString & { $id?: string | undefined; $recursiveAnchor?: boolean | undefined; }",
+      "IString_space__and__space__blt__space__dollar_id?:_space_string_space__or__space_undefined;_space__dollar_recursiveAnchor?:_space_boolean_space__or__space_undefined;_space__bgt_": {
+        "$id": "#/components/schemas/IString_space__and__space__blt__space__dollar_id?:_space_string_space__or__space_undefined;_space__dollar_recursiveAnchor?:_space_boolean_space__or__space_undefined;_space__bgt_",
         "type": "object",
         "properties": {
           "minLength": {
             "x-typia-required": false,
             "x-typia-optional": true,
-            "type": "integer"
+            "type": "integer",
+            "x-typia-typeTags": [
+              {
+                "target": "number",
+                "name": "Type<\"uint32\">",
+                "kind": "type",
+                "value": "uint32",
+                "validate": "Math.floor($input) === $input && 0 <= $input && $input <= 4294967295",
+                "exclusive": true
+              }
+            ]
           },
           "maxLength": {
             "x-typia-required": false,
             "x-typia-optional": true,
-            "type": "integer"
+            "type": "integer",
+            "x-typia-typeTags": [
+              {
+                "target": "number",
+                "name": "Type<\"uint32\">",
+                "kind": "type",
+                "value": "uint32",
+                "validate": "Math.floor($input) === $input && 0 <= $input && $input <= 4294967295",
+                "exclusive": true
+              }
+            ]
           },
           "pattern": {
             "x-typia-required": false,
@@ -1869,6 +2115,14 @@
             "x-typia-required": false,
             "x-typia-optional": true,
             "type": "string"
+          },
+          "x-typia-typeTags": {
+            "x-typia-required": false,
+            "x-typia-optional": true,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IMetadataTypeTag"
+            }
           },
           "default": {
             "x-typia-required": false,
@@ -1943,8 +2197,8 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "IArray & { $id?: string | undefined; $recursiveAnchor?: boolean | undefined; }": {
-        "$id": "#/components/schemas/IArray & { $id?: string | undefined; $recursiveAnchor?: boolean | undefined; }",
+      "IArray_space__and__space__blt__space__dollar_id?:_space_string_space__or__space_undefined;_space__dollar_recursiveAnchor?:_space_boolean_space__or__space_undefined;_space__bgt_": {
+        "$id": "#/components/schemas/IArray_space__and__space__blt__space__dollar_id?:_space_string_space__or__space_undefined;_space__dollar_recursiveAnchor?:_space_boolean_space__or__space_undefined;_space__bgt_",
         "type": "object",
         "properties": {
           "items": {
@@ -1953,12 +2207,32 @@
           "minItems": {
             "x-typia-required": false,
             "x-typia-optional": true,
-            "type": "integer"
+            "type": "integer",
+            "x-typia-typeTags": [
+              {
+                "target": "number",
+                "name": "Type<\"uint32\">",
+                "kind": "type",
+                "value": "uint32",
+                "validate": "Math.floor($input) === $input && 0 <= $input && $input <= 4294967295",
+                "exclusive": true
+              }
+            ]
           },
           "maxItems": {
             "x-typia-required": false,
             "x-typia-optional": true,
-            "type": "integer"
+            "type": "integer",
+            "x-typia-typeTags": [
+              {
+                "target": "number",
+                "name": "Type<\"uint32\">",
+                "kind": "type",
+                "value": "uint32",
+                "validate": "Math.floor($input) === $input && 0 <= $input && $input <= 4294967295",
+                "exclusive": true
+              }
+            ]
           },
           "x-typia-tuple": {
             "$ref": "#/components/schemas/IJsonSchema.ITuple"
@@ -2032,8 +2306,8 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "ITuple & { $id?: string | undefined; $recursiveAnchor?: boolean | undefined; }": {
-        "$id": "#/components/schemas/ITuple & { $id?: string | undefined; $recursiveAnchor?: boolean | undefined; }",
+      "ITuple_space__and__space__blt__space__dollar_id?:_space_string_space__or__space_undefined;_space__dollar_recursiveAnchor?:_space_boolean_space__or__space_undefined;_space__bgt_": {
+        "$id": "#/components/schemas/ITuple_space__and__space__blt__space__dollar_id?:_space_string_space__or__space_undefined;_space__dollar_recursiveAnchor?:_space_boolean_space__or__space_undefined;_space__bgt_",
         "type": "object",
         "properties": {
           "items": {
@@ -2047,12 +2321,32 @@
           "minItems": {
             "x-typia-required": true,
             "x-typia-optional": false,
-            "type": "integer"
+            "type": "integer",
+            "x-typia-typeTags": [
+              {
+                "target": "number",
+                "name": "Type<\"uint32\">",
+                "kind": "type",
+                "value": "uint32",
+                "validate": "Math.floor($input) === $input && 0 <= $input && $input <= 4294967295",
+                "exclusive": true
+              }
+            ]
           },
           "maxItems": {
             "x-typia-required": false,
             "x-typia-optional": true,
-            "type": "integer"
+            "type": "integer",
+            "x-typia-typeTags": [
+              {
+                "target": "number",
+                "name": "Type<\"uint32\">",
+                "kind": "type",
+                "value": "uint32",
+                "validate": "Math.floor($input) === $input && 0 <= $input && $input <= 4294967295",
+                "exclusive": true
+              }
+            ]
           },
           "type": {
             "x-typia-required": true,
@@ -2124,8 +2418,8 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "IOneOf & { $id?: string | undefined; $recursiveAnchor?: boolean | undefined; }": {
-        "$id": "#/components/schemas/IOneOf & { $id?: string | undefined; $recursiveAnchor?: boolean | undefined; }",
+      "IOneOf_space__and__space__blt__space__dollar_id?:_space_string_space__or__space_undefined;_space__dollar_recursiveAnchor?:_space_boolean_space__or__space_undefined;_space__bgt_": {
+        "$id": "#/components/schemas/IOneOf_space__and__space__blt__space__dollar_id?:_space_string_space__or__space_undefined;_space__dollar_recursiveAnchor?:_space_boolean_space__or__space_undefined;_space__bgt_",
         "type": "object",
         "properties": {
           "oneOf": {
@@ -2190,8 +2484,8 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "IReference & { $id?: string | undefined; $recursiveAnchor?: boolean | undefined; }": {
-        "$id": "#/components/schemas/IReference & { $id?: string | undefined; $recursiveAnchor?: boolean | undefined; }",
+      "IReference_space__and__space__blt__space__dollar_id?:_space_string_space__or__space_undefined;_space__dollar_recursiveAnchor?:_space_boolean_space__or__space_undefined;_space__bgt_": {
+        "$id": "#/components/schemas/IReference_space__and__space__blt__space__dollar_id?:_space_string_space__or__space_undefined;_space__dollar_recursiveAnchor?:_space_boolean_space__or__space_undefined;_space__bgt_",
         "type": "object",
         "properties": {
           "$ref": {
@@ -2253,8 +2547,8 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "IUnknown & { $id?: string | undefined; $recursiveAnchor?: boolean | undefined; }": {
-        "$id": "#/components/schemas/IUnknown & { $id?: string | undefined; $recursiveAnchor?: boolean | undefined; }",
+      "IUnknown_space__and__space__blt__space__dollar_id?:_space_string_space__or__space_undefined;_space__dollar_recursiveAnchor?:_space_boolean_space__or__space_undefined;_space__bgt_": {
+        "$id": "#/components/schemas/IUnknown_space__and__space__blt__space__dollar_id?:_space_string_space__or__space_undefined;_space__dollar_recursiveAnchor?:_space_boolean_space__or__space_undefined;_space__bgt_",
         "type": "object",
         "properties": {
           "deprecated": {
@@ -2308,8 +2602,8 @@
         },
         "x-typia-jsDocTags": []
       },
-      "INullOnly & { $id?: string | undefined; $recursiveAnchor?: boolean | undefined; }": {
-        "$id": "#/components/schemas/INullOnly & { $id?: string | undefined; $recursiveAnchor?: boolean | undefined; }",
+      "INullOnly_space__and__space__blt__space__dollar_id?:_space_string_space__or__space_undefined;_space__dollar_recursiveAnchor?:_space_boolean_space__or__space_undefined;_space__bgt_": {
+        "$id": "#/components/schemas/INullOnly_space__and__space__blt__space__dollar_id?:_space_string_space__or__space_undefined;_space__dollar_recursiveAnchor?:_space_boolean_space__or__space_undefined;_space__bgt_",
         "type": "object",
         "properties": {
           "type": {

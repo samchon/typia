@@ -4,5 +4,5 @@ import { ObjectHierarchical } from "../../../../test/structures/ObjectHierarchic
 import { createAssertAjvBenchmarkProgram } from "./createAssertAjvBenchmarkProgram";
 
 createAssertAjvBenchmarkProgram(
-    typia.application<[ObjectHierarchical], "ajv">(),
+    typia.json.application<[ObjectHierarchical], "ajv">(),
 );

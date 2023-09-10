@@ -11,13 +11,13 @@
         "items": {
           "oneOf": [
             {
-              "$ref": "#/components/schemas/AtomicIntersection.Wrapper<boolean>"
+              "$ref": "#/components/schemas/AtomicIntersection.Wrapper_lt_boolean_gt_"
             },
             {
-              "$ref": "#/components/schemas/AtomicIntersection.Wrapper<number>"
+              "$ref": "#/components/schemas/AtomicIntersection.Wrapper_lt_number_gt_"
             },
             {
-              "$ref": "#/components/schemas/AtomicIntersection.Wrapper<string>"
+              "$ref": "#/components/schemas/AtomicIntersection.Wrapper_lt_string_gt_"
             }
           ]
         },
@@ -27,26 +27,26 @@
           "type": "array",
           "items": [
             {
-              "$ref": "#/components/schemas/AtomicIntersection.Wrapper<boolean>"
+              "$ref": "#/components/schemas/AtomicIntersection.Wrapper_lt_boolean_gt_"
             },
             {
-              "$ref": "#/components/schemas/AtomicIntersection.Wrapper<number>"
+              "$ref": "#/components/schemas/AtomicIntersection.Wrapper_lt_number_gt_"
             },
             {
-              "$ref": "#/components/schemas/AtomicIntersection.Wrapper<string>"
+              "$ref": "#/components/schemas/AtomicIntersection.Wrapper_lt_string_gt_"
             }
           ],
           "minItems": 3,
           "maxItems": 3
         }
       },
-      "AtomicIntersection.Wrapper<boolean>": {
+      "AtomicIntersection.Wrapper_lt_boolean_gt_": {
         "type": "boolean"
       },
-      "AtomicIntersection.Wrapper<number>": {
+      "AtomicIntersection.Wrapper_lt_number_gt_": {
         "type": "number"
       },
-      "AtomicIntersection.Wrapper<string>": {
+      "AtomicIntersection.Wrapper_lt_string_gt_": {
         "type": "string"
       }
     }

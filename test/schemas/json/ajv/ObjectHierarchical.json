@@ -47,55 +47,47 @@
             "x-typia-optional": false
           },
           "href": {
-            "x-typia-jsDocTags": [
-              {
-                "name": "format",
-                "text": [
-                  {
-                    "text": "url",
-                    "kind": "text"
-                  }
-                ]
-              }
-            ],
             "x-typia-required": true,
             "x-typia-optional": false,
-            "type": "string",
-            "format": "url"
+            "type": "string"
           },
           "referrer": {
-            "x-typia-jsDocTags": [
-              {
-                "name": "format",
-                "text": [
-                  {
-                    "text": "url",
-                    "kind": "text"
-                  }
-                ]
-              }
-            ],
             "x-typia-required": true,
             "x-typia-optional": false,
-            "type": "string",
-            "format": "url"
+            "type": "string"
           },
           "ip": {
-            "x-typia-jsDocTags": [
+            "type": "array",
+            "items": [
               {
-                "name": "format",
-                "text": [
-                  {
-                    "text": "ipv4",
-                    "kind": "text"
-                  }
-                ]
+                "x-typia-required": true,
+                "x-typia-optional": false,
+                "x-typia-rest": false,
+                "type": "number"
+              },
+              {
+                "x-typia-required": true,
+                "x-typia-optional": false,
+                "x-typia-rest": false,
+                "type": "number"
+              },
+              {
+                "x-typia-required": true,
+                "x-typia-optional": false,
+                "x-typia-rest": false,
+                "type": "number"
+              },
+              {
+                "x-typia-required": true,
+                "x-typia-optional": false,
+                "x-typia-rest": false,
+                "type": "number"
               }
             ],
             "x-typia-required": true,
             "x-typia-optional": false,
-            "type": "string",
-            "format": "ipv4"
+            "minItems": 4,
+            "maxItems": 4
           },
           "created_at": {
             "$ref": "#/components/schemas/ObjectHierarchical.ITimestamp"

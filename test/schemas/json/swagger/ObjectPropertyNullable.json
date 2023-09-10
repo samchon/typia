@@ -13,25 +13,25 @@
             {
               "type": "array",
               "items": {
-                "$ref": "#/components/schemas/ObjectPropertyNullable.IPointer<boolean>"
+                "$ref": "#/components/schemas/ObjectPropertyNullable.IPointer_lt_boolean_gt_"
               }
             },
             {
               "type": "array",
               "items": {
-                "$ref": "#/components/schemas/ObjectPropertyNullable.IPointer<number>"
+                "$ref": "#/components/schemas/ObjectPropertyNullable.IPointer_lt_number_gt_"
               }
             },
             {
               "type": "array",
               "items": {
-                "$ref": "#/components/schemas/ObjectPropertyNullable.IPointer<string>"
+                "$ref": "#/components/schemas/ObjectPropertyNullable.IPointer_lt_string_gt_"
               }
             },
             {
               "type": "array",
               "items": {
-                "$ref": "#/components/schemas/ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>"
+                "$ref": "#/components/schemas/ObjectPropertyNullable.IPointer_lt_ObjectPropertyNullable.IMember_gt_"
               }
             }
           ]
@@ -47,7 +47,7 @@
               "x-typia-optional": false,
               "type": "array",
               "items": {
-                "$ref": "#/components/schemas/ObjectPropertyNullable.IPointer<boolean>"
+                "$ref": "#/components/schemas/ObjectPropertyNullable.IPointer_lt_boolean_gt_"
               }
             },
             {
@@ -56,7 +56,7 @@
               "x-typia-optional": false,
               "type": "array",
               "items": {
-                "$ref": "#/components/schemas/ObjectPropertyNullable.IPointer<number>"
+                "$ref": "#/components/schemas/ObjectPropertyNullable.IPointer_lt_number_gt_"
               }
             },
             {
@@ -65,7 +65,7 @@
               "x-typia-optional": false,
               "type": "array",
               "items": {
-                "$ref": "#/components/schemas/ObjectPropertyNullable.IPointer<string>"
+                "$ref": "#/components/schemas/ObjectPropertyNullable.IPointer_lt_string_gt_"
               }
             },
             {
@@ -74,7 +74,7 @@
               "x-typia-optional": false,
               "type": "array",
               "items": {
-                "$ref": "#/components/schemas/ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>"
+                "$ref": "#/components/schemas/ObjectPropertyNullable.IPointer_lt_ObjectPropertyNullable.IMember_gt_"
               }
             }
           ],
@@ -82,7 +82,7 @@
           "maxItems": 4
         }
       },
-      "ObjectPropertyNullable.IPointer<boolean>": {
+      "ObjectPropertyNullable.IPointer_lt_boolean_gt_": {
         "type": "object",
         "properties": {
           "value": {
@@ -98,7 +98,7 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "ObjectPropertyNullable.IPointer<number>": {
+      "ObjectPropertyNullable.IPointer_lt_number_gt_": {
         "type": "object",
         "properties": {
           "value": {
@@ -114,7 +114,7 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "ObjectPropertyNullable.IPointer<string>": {
+      "ObjectPropertyNullable.IPointer_lt_string_gt_": {
         "type": "object",
         "properties": {
           "value": {
@@ -130,7 +130,7 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>": {
+      "ObjectPropertyNullable.IPointer_lt_ObjectPropertyNullable.IMember_gt_": {
         "type": "object",
         "properties": {
           "value": {

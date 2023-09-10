@@ -11,13 +11,13 @@
         "items": {
           "oneOf": [
             {
-              "$ref": "#/components/schemas/ObjectGeneric.ISomething<boolean>"
+              "$ref": "#/components/schemas/ObjectGeneric.ISomething_lt_boolean_gt_"
             },
             {
-              "$ref": "#/components/schemas/ObjectGeneric.ISomething<number>"
+              "$ref": "#/components/schemas/ObjectGeneric.ISomething_lt_number_gt_"
             },
             {
-              "$ref": "#/components/schemas/ObjectGeneric.ISomething<string>"
+              "$ref": "#/components/schemas/ObjectGeneric.ISomething_lt_string_gt_"
             }
           ]
         },
@@ -27,20 +27,20 @@
           "type": "array",
           "items": [
             {
-              "$ref": "#/components/schemas/ObjectGeneric.ISomething<boolean>"
+              "$ref": "#/components/schemas/ObjectGeneric.ISomething_lt_boolean_gt_"
             },
             {
-              "$ref": "#/components/schemas/ObjectGeneric.ISomething<number>"
+              "$ref": "#/components/schemas/ObjectGeneric.ISomething_lt_number_gt_"
             },
             {
-              "$ref": "#/components/schemas/ObjectGeneric.ISomething<string>"
+              "$ref": "#/components/schemas/ObjectGeneric.ISomething_lt_string_gt_"
             }
           ],
           "minItems": 3,
           "maxItems": 3
         }
       },
-      "ObjectGeneric.ISomething<boolean>": {
+      "ObjectGeneric.ISomething_lt_boolean_gt_": {
         "type": "object",
         "properties": {
           "value": {
@@ -49,14 +49,14 @@
             "type": "boolean"
           },
           "child": {
-            "$ref": "#/components/schemas/ObjectGeneric.IChild<boolean, boolean>"
+            "$ref": "#/components/schemas/ObjectGeneric.IChild_lt_boolean_comma__space_boolean_gt_"
           },
           "elements": {
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/ObjectGeneric.IChild<boolean, boolean>"
+              "$ref": "#/components/schemas/ObjectGeneric.IChild_lt_boolean_comma__space_boolean_gt_"
             }
           }
         },
@@ -68,7 +68,7 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "ObjectGeneric.IChild<boolean, boolean>": {
+      "ObjectGeneric.IChild_lt_boolean_comma__space_boolean_gt_": {
         "type": "object",
         "properties": {
           "child_value": {
@@ -89,7 +89,7 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "ObjectGeneric.ISomething<number>": {
+      "ObjectGeneric.ISomething_lt_number_gt_": {
         "type": "object",
         "properties": {
           "value": {
@@ -98,14 +98,14 @@
             "type": "number"
           },
           "child": {
-            "$ref": "#/components/schemas/ObjectGeneric.IChild<number, number>"
+            "$ref": "#/components/schemas/ObjectGeneric.IChild_lt_number_comma__space_number_gt_"
           },
           "elements": {
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/ObjectGeneric.IChild<number, number>"
+              "$ref": "#/components/schemas/ObjectGeneric.IChild_lt_number_comma__space_number_gt_"
             }
           }
         },
@@ -117,7 +117,7 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "ObjectGeneric.IChild<number, number>": {
+      "ObjectGeneric.IChild_lt_number_comma__space_number_gt_": {
         "type": "object",
         "properties": {
           "child_value": {
@@ -138,7 +138,7 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "ObjectGeneric.ISomething<string>": {
+      "ObjectGeneric.ISomething_lt_string_gt_": {
         "type": "object",
         "properties": {
           "value": {
@@ -147,14 +147,14 @@
             "type": "string"
           },
           "child": {
-            "$ref": "#/components/schemas/ObjectGeneric.IChild<string, string>"
+            "$ref": "#/components/schemas/ObjectGeneric.IChild_lt_string_comma__space_string_gt_"
           },
           "elements": {
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/ObjectGeneric.IChild<string, string>"
+              "$ref": "#/components/schemas/ObjectGeneric.IChild_lt_string_comma__space_string_gt_"
             }
           }
         },
@@ -166,7 +166,7 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "ObjectGeneric.IChild<string, string>": {
+      "ObjectGeneric.IChild_lt_string_comma__space_string_gt_": {
         "type": "object",
         "properties": {
           "child_value": {

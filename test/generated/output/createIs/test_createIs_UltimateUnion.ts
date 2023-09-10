@@ -17,18 +17,18 @@ export const test_is_UltimateUnion = _test_is("UltimateUnion")<UltimateUnion>(
         "object" === typeof input.components &&
         null !== input.components &&
         false === Array.isArray(input.components) &&
-        $io16(input.components) &&
+        $io17(input.components) &&
         ("swagger" === input.purpose || "ajv" === input.purpose);
     const $io1 = (input: any): boolean =>
         Array.isArray(input["enum"]) &&
         input["enum"].every((elem: any) => "boolean" === typeof elem) &&
+        "boolean" === input.type &&
+        (undefined === input.title || "string" === typeof input.title) &&
         (undefined === input["default"] ||
             "boolean" === typeof input["default"]) &&
-        "boolean" === input.type &&
         (undefined === input.nullable || "boolean" === typeof input.nullable) &&
         (undefined === input.deprecated ||
             "boolean" === typeof input.deprecated) &&
-        (undefined === input.title || "string" === typeof input.title) &&
         (undefined === input.description ||
             "string" === typeof input.description) &&
         (undefined === input["x-typia-jsDocTags"] ||
@@ -58,14 +58,14 @@ export const test_is_UltimateUnion = _test_is("UltimateUnion")<UltimateUnion>(
         input["enum"].every(
             (elem: any) => "number" === typeof elem && Number.isFinite(elem),
         ) &&
+        "number" === input.type &&
+        (undefined === input.title || "string" === typeof input.title) &&
         (undefined === input["default"] ||
             ("number" === typeof input["default"] &&
                 Number.isFinite(input["default"]))) &&
-        "number" === input.type &&
         (undefined === input.nullable || "boolean" === typeof input.nullable) &&
         (undefined === input.deprecated ||
             "boolean" === typeof input.deprecated) &&
-        (undefined === input.title || "string" === typeof input.title) &&
         (undefined === input.description ||
             "string" === typeof input.description) &&
         (undefined === input["x-typia-jsDocTags"] ||
@@ -83,13 +83,13 @@ export const test_is_UltimateUnion = _test_is("UltimateUnion")<UltimateUnion>(
     const $io5 = (input: any): boolean =>
         Array.isArray(input["enum"]) &&
         input["enum"].every((elem: any) => "string" === typeof elem) &&
+        "string" === input.type &&
+        (undefined === input.title || "string" === typeof input.title) &&
         (undefined === input["default"] ||
             "string" === typeof input["default"]) &&
-        "string" === input.type &&
         (undefined === input.nullable || "boolean" === typeof input.nullable) &&
         (undefined === input.deprecated ||
             "boolean" === typeof input.deprecated) &&
-        (undefined === input.title || "string" === typeof input.title) &&
         (undefined === input.description ||
             "string" === typeof input.description) &&
         (undefined === input["x-typia-jsDocTags"] ||
@@ -146,6 +146,12 @@ export const test_is_UltimateUnion = _test_is("UltimateUnion")<UltimateUnion>(
                 Math.floor(input.multipleOf) === input.multipleOf &&
                 -2147483648 <= input.multipleOf &&
                 input.multipleOf <= 2147483647)) &&
+        (undefined === input["x-typia-typeTags"] ||
+            (Array.isArray(input["x-typia-typeTags"]) &&
+                input["x-typia-typeTags"].every(
+                    (elem: any) =>
+                        "object" === typeof elem && null !== elem && $io8(elem),
+                ))) &&
         (undefined === input["default"] ||
             ("number" === typeof input["default"] &&
                 Number.isFinite(input["default"]))) &&
@@ -169,6 +175,22 @@ export const test_is_UltimateUnion = _test_is("UltimateUnion")<UltimateUnion>(
         (undefined === input["x-typia-rest"] ||
             "boolean" === typeof input["x-typia-rest"]);
     const $io8 = (input: any): boolean =>
+        ("string" === input.target ||
+            "number" === input.target ||
+            "bigint" === input.target ||
+            "array" === input.target) &&
+        "string" === typeof input.name &&
+        "string" === typeof input.kind &&
+        true &&
+        "string" === typeof input.validate &&
+        null !== input.exclusive &&
+        undefined !== input.exclusive &&
+        ("boolean" === typeof input.exclusive ||
+            (Array.isArray(input.exclusive) &&
+                input.exclusive.every(
+                    (elem: any) => "string" === typeof elem,
+                )));
+    const $io9 = (input: any): boolean =>
         (undefined === input.minimum ||
             ("number" === typeof input.minimum &&
                 Number.isFinite(input.minimum))) &&
@@ -182,6 +204,12 @@ export const test_is_UltimateUnion = _test_is("UltimateUnion")<UltimateUnion>(
         (undefined === input.multipleOf ||
             ("number" === typeof input.multipleOf &&
                 Number.isFinite(input.multipleOf))) &&
+        (undefined === input["x-typia-typeTags"] ||
+            (Array.isArray(input["x-typia-typeTags"]) &&
+                input["x-typia-typeTags"].every(
+                    (elem: any) =>
+                        "object" === typeof elem && null !== elem && $io8(elem),
+                ))) &&
         (undefined === input["default"] ||
             ("number" === typeof input["default"] &&
                 Number.isFinite(input["default"]))) &&
@@ -204,7 +232,7 @@ export const test_is_UltimateUnion = _test_is("UltimateUnion")<UltimateUnion>(
             "boolean" === typeof input["x-typia-optional"]) &&
         (undefined === input["x-typia-rest"] ||
             "boolean" === typeof input["x-typia-rest"]);
-    const $io9 = (input: any): boolean =>
+    const $io10 = (input: any): boolean =>
         (undefined === input.minLength ||
             ("number" === typeof input.minLength &&
                 Math.floor(input.minLength) === input.minLength &&
@@ -217,6 +245,12 @@ export const test_is_UltimateUnion = _test_is("UltimateUnion")<UltimateUnion>(
                 input.maxLength <= 4294967295)) &&
         (undefined === input.pattern || "string" === typeof input.pattern) &&
         (undefined === input.format || "string" === typeof input.format) &&
+        (undefined === input["x-typia-typeTags"] ||
+            (Array.isArray(input["x-typia-typeTags"]) &&
+                input["x-typia-typeTags"].every(
+                    (elem: any) =>
+                        "object" === typeof elem && null !== elem && $io8(elem),
+                ))) &&
         (undefined === input["default"] ||
             "string" === typeof input["default"]) &&
         "string" === input.type &&
@@ -238,7 +272,7 @@ export const test_is_UltimateUnion = _test_is("UltimateUnion")<UltimateUnion>(
             "boolean" === typeof input["x-typia-optional"]) &&
         (undefined === input["x-typia-rest"] ||
             "boolean" === typeof input["x-typia-rest"]);
-    const $io10 = (input: any): boolean =>
+    const $io11 = (input: any): boolean =>
         "object" === typeof input.items &&
         null !== input.items &&
         false === Array.isArray(input.items) &&
@@ -256,7 +290,7 @@ export const test_is_UltimateUnion = _test_is("UltimateUnion")<UltimateUnion>(
         (undefined === input["x-typia-tuple"] ||
             ("object" === typeof input["x-typia-tuple"] &&
                 null !== input["x-typia-tuple"] &&
-                $io11(input["x-typia-tuple"]))) &&
+                $io12(input["x-typia-tuple"]))) &&
         "array" === input.type &&
         (undefined === input.nullable || "boolean" === typeof input.nullable) &&
         (undefined === input.deprecated ||
@@ -276,7 +310,7 @@ export const test_is_UltimateUnion = _test_is("UltimateUnion")<UltimateUnion>(
             "boolean" === typeof input["x-typia-optional"]) &&
         (undefined === input["x-typia-rest"] ||
             "boolean" === typeof input["x-typia-rest"]);
-    const $io11 = (input: any): boolean =>
+    const $io12 = (input: any): boolean =>
         Array.isArray(input.items) &&
         input.items.every(
             (elem: any) =>
@@ -313,7 +347,7 @@ export const test_is_UltimateUnion = _test_is("UltimateUnion")<UltimateUnion>(
             "boolean" === typeof input["x-typia-optional"]) &&
         (undefined === input["x-typia-rest"] ||
             "boolean" === typeof input["x-typia-rest"]);
-    const $io12 = (input: any): boolean =>
+    const $io13 = (input: any): boolean =>
         Array.isArray(input.oneOf) &&
         input.oneOf.every(
             (elem: any) =>
@@ -339,7 +373,7 @@ export const test_is_UltimateUnion = _test_is("UltimateUnion")<UltimateUnion>(
             "boolean" === typeof input["x-typia-optional"]) &&
         (undefined === input["x-typia-rest"] ||
             "boolean" === typeof input["x-typia-rest"]);
-    const $io13 = (input: any): boolean =>
+    const $io14 = (input: any): boolean =>
         "string" === typeof input.$ref &&
         (undefined === input.deprecated ||
             "boolean" === typeof input.deprecated) &&
@@ -358,7 +392,7 @@ export const test_is_UltimateUnion = _test_is("UltimateUnion")<UltimateUnion>(
             "boolean" === typeof input["x-typia-optional"]) &&
         (undefined === input["x-typia-rest"] ||
             "boolean" === typeof input["x-typia-rest"]);
-    const $io14 = (input: any): boolean =>
+    const $io15 = (input: any): boolean =>
         "null" === input.type &&
         (undefined === input.deprecated ||
             "boolean" === typeof input.deprecated) &&
@@ -377,7 +411,7 @@ export const test_is_UltimateUnion = _test_is("UltimateUnion")<UltimateUnion>(
             "boolean" === typeof input["x-typia-optional"]) &&
         (undefined === input["x-typia-rest"] ||
             "boolean" === typeof input["x-typia-rest"]);
-    const $io15 = (input: any): boolean =>
+    const $io16 = (input: any): boolean =>
         null !== input.type &&
         undefined === input.type &&
         (undefined === input.deprecated ||
@@ -397,13 +431,13 @@ export const test_is_UltimateUnion = _test_is("UltimateUnion")<UltimateUnion>(
             "boolean" === typeof input["x-typia-optional"]) &&
         (undefined === input["x-typia-rest"] ||
             "boolean" === typeof input["x-typia-rest"]);
-    const $io16 = (input: any): boolean =>
+    const $io17 = (input: any): boolean =>
         undefined === input.schemas ||
         ("object" === typeof input.schemas &&
             null !== input.schemas &&
             false === Array.isArray(input.schemas) &&
-            $io17(input.schemas));
-    const $io17 = (input: any): boolean =>
+            $io18(input.schemas));
+    const $io18 = (input: any): boolean =>
         Object.keys(input).every((key: any) => {
             const value = input[key];
             if (undefined === value) return true;
@@ -416,19 +450,19 @@ export const test_is_UltimateUnion = _test_is("UltimateUnion")<UltimateUnion>(
                 );
             return true;
         });
-    const $io18 = (input: any): boolean =>
+    const $io19 = (input: any): boolean =>
         (undefined === input.$id || "string" === typeof input.$id) &&
         "object" === input.type &&
         (undefined === input.nullable || "boolean" === typeof input.nullable) &&
         "object" === typeof input.properties &&
         null !== input.properties &&
         false === Array.isArray(input.properties) &&
-        $io19(input.properties) &&
+        $io20(input.properties) &&
         (undefined === input.patternProperties ||
             ("object" === typeof input.patternProperties &&
                 null !== input.patternProperties &&
                 false === Array.isArray(input.patternProperties) &&
-                $io19(input.patternProperties))) &&
+                $io20(input.patternProperties))) &&
         (undefined === input.additionalProperties ||
             ("object" === typeof input.additionalProperties &&
                 null !== input.additionalProperties &&
@@ -451,14 +485,14 @@ export const test_is_UltimateUnion = _test_is("UltimateUnion")<UltimateUnion>(
             ("object" === typeof input["x-typia-patternProperties"] &&
                 null !== input["x-typia-patternProperties"] &&
                 false === Array.isArray(input["x-typia-patternProperties"]) &&
-                $io19(input["x-typia-patternProperties"]))) &&
+                $io20(input["x-typia-patternProperties"]))) &&
         (undefined === input["x-typia-additionalProperties"] ||
             ("object" === typeof input["x-typia-additionalProperties"] &&
                 null !== input["x-typia-additionalProperties"] &&
                 false ===
                     Array.isArray(input["x-typia-additionalProperties"]) &&
                 $iu0(input["x-typia-additionalProperties"])));
-    const $io19 = (input: any): boolean =>
+    const $io20 = (input: any): boolean =>
         Object.keys(input).every((key: any) => {
             const value = input[key];
             if (undefined === value) return true;
@@ -471,46 +505,16 @@ export const test_is_UltimateUnion = _test_is("UltimateUnion")<UltimateUnion>(
                 );
             return true;
         });
-    const $io20 = (input: any): boolean =>
-        Array.isArray(input["enum"]) &&
-        input["enum"].every((elem: any) => "boolean" === typeof elem) &&
-        (undefined === input["default"] ||
-            "boolean" === typeof input["default"]) &&
-        "boolean" === input.type &&
-        (undefined === input.nullable || "boolean" === typeof input.nullable) &&
-        (undefined === input.deprecated ||
-            "boolean" === typeof input.deprecated) &&
-        (undefined === input.title || "string" === typeof input.title) &&
-        (undefined === input.description ||
-            "string" === typeof input.description) &&
-        (undefined === input["x-typia-jsDocTags"] ||
-            (Array.isArray(input["x-typia-jsDocTags"]) &&
-                input["x-typia-jsDocTags"].every(
-                    (elem: any) =>
-                        "object" === typeof elem && null !== elem && $io2(elem),
-                ))) &&
-        (undefined === input["x-typia-required"] ||
-            "boolean" === typeof input["x-typia-required"]) &&
-        (undefined === input["x-typia-optional"] ||
-            "boolean" === typeof input["x-typia-optional"]) &&
-        (undefined === input["x-typia-rest"] ||
-            "boolean" === typeof input["x-typia-rest"]) &&
-        (undefined === input.$id || "string" === typeof input.$id) &&
-        (undefined === input.$recursiveAnchor ||
-            "boolean" === typeof input.$recursiveAnchor);
     const $io21 = (input: any): boolean =>
         Array.isArray(input["enum"]) &&
-        input["enum"].every(
-            (elem: any) => "number" === typeof elem && Number.isFinite(elem),
-        ) &&
+        input["enum"].every((elem: any) => "boolean" === typeof elem) &&
+        "boolean" === input.type &&
+        (undefined === input.title || "string" === typeof input.title) &&
         (undefined === input["default"] ||
-            ("number" === typeof input["default"] &&
-                Number.isFinite(input["default"]))) &&
-        "number" === input.type &&
+            "boolean" === typeof input["default"]) &&
         (undefined === input.nullable || "boolean" === typeof input.nullable) &&
         (undefined === input.deprecated ||
             "boolean" === typeof input.deprecated) &&
-        (undefined === input.title || "string" === typeof input.title) &&
         (undefined === input.description ||
             "string" === typeof input.description) &&
         (undefined === input["x-typia-jsDocTags"] ||
@@ -530,14 +534,17 @@ export const test_is_UltimateUnion = _test_is("UltimateUnion")<UltimateUnion>(
             "boolean" === typeof input.$recursiveAnchor);
     const $io22 = (input: any): boolean =>
         Array.isArray(input["enum"]) &&
-        input["enum"].every((elem: any) => "string" === typeof elem) &&
+        input["enum"].every(
+            (elem: any) => "number" === typeof elem && Number.isFinite(elem),
+        ) &&
+        "number" === input.type &&
+        (undefined === input.title || "string" === typeof input.title) &&
         (undefined === input["default"] ||
-            "string" === typeof input["default"]) &&
-        "string" === input.type &&
+            ("number" === typeof input["default"] &&
+                Number.isFinite(input["default"]))) &&
         (undefined === input.nullable || "boolean" === typeof input.nullable) &&
         (undefined === input.deprecated ||
             "boolean" === typeof input.deprecated) &&
-        (undefined === input.title || "string" === typeof input.title) &&
         (undefined === input.description ||
             "string" === typeof input.description) &&
         (undefined === input["x-typia-jsDocTags"] ||
@@ -556,13 +563,15 @@ export const test_is_UltimateUnion = _test_is("UltimateUnion")<UltimateUnion>(
         (undefined === input.$recursiveAnchor ||
             "boolean" === typeof input.$recursiveAnchor);
     const $io23 = (input: any): boolean =>
+        Array.isArray(input["enum"]) &&
+        input["enum"].every((elem: any) => "string" === typeof elem) &&
+        "string" === input.type &&
+        (undefined === input.title || "string" === typeof input.title) &&
         (undefined === input["default"] ||
-            "boolean" === typeof input["default"]) &&
-        "boolean" === input.type &&
+            "string" === typeof input["default"]) &&
         (undefined === input.nullable || "boolean" === typeof input.nullable) &&
         (undefined === input.deprecated ||
             "boolean" === typeof input.deprecated) &&
-        (undefined === input.title || "string" === typeof input.title) &&
         (undefined === input.description ||
             "string" === typeof input.description) &&
         (undefined === input["x-typia-jsDocTags"] ||
@@ -581,29 +590,9 @@ export const test_is_UltimateUnion = _test_is("UltimateUnion")<UltimateUnion>(
         (undefined === input.$recursiveAnchor ||
             "boolean" === typeof input.$recursiveAnchor);
     const $io24 = (input: any): boolean =>
-        (undefined === input.minimum ||
-            ("number" === typeof input.minimum &&
-                Math.floor(input.minimum) === input.minimum &&
-                -2147483648 <= input.minimum &&
-                input.minimum <= 2147483647)) &&
-        (undefined === input.maximum ||
-            ("number" === typeof input.maximum &&
-                Math.floor(input.maximum) === input.maximum &&
-                -2147483648 <= input.maximum &&
-                input.maximum <= 2147483647)) &&
-        (undefined === input.exclusiveMinimum ||
-            "boolean" === typeof input.exclusiveMinimum) &&
-        (undefined === input.exclusiveMaximum ||
-            "boolean" === typeof input.exclusiveMaximum) &&
-        (undefined === input.multipleOf ||
-            ("number" === typeof input.multipleOf &&
-                Math.floor(input.multipleOf) === input.multipleOf &&
-                -2147483648 <= input.multipleOf &&
-                input.multipleOf <= 2147483647)) &&
         (undefined === input["default"] ||
-            ("number" === typeof input["default"] &&
-                Number.isFinite(input["default"]))) &&
-        "integer" === input.type &&
+            "boolean" === typeof input["default"]) &&
+        "boolean" === input.type &&
         (undefined === input.nullable || "boolean" === typeof input.nullable) &&
         (undefined === input.deprecated ||
             "boolean" === typeof input.deprecated) &&
@@ -628,6 +617,57 @@ export const test_is_UltimateUnion = _test_is("UltimateUnion")<UltimateUnion>(
     const $io25 = (input: any): boolean =>
         (undefined === input.minimum ||
             ("number" === typeof input.minimum &&
+                Math.floor(input.minimum) === input.minimum &&
+                -2147483648 <= input.minimum &&
+                input.minimum <= 2147483647)) &&
+        (undefined === input.maximum ||
+            ("number" === typeof input.maximum &&
+                Math.floor(input.maximum) === input.maximum &&
+                -2147483648 <= input.maximum &&
+                input.maximum <= 2147483647)) &&
+        (undefined === input.exclusiveMinimum ||
+            "boolean" === typeof input.exclusiveMinimum) &&
+        (undefined === input.exclusiveMaximum ||
+            "boolean" === typeof input.exclusiveMaximum) &&
+        (undefined === input.multipleOf ||
+            ("number" === typeof input.multipleOf &&
+                Math.floor(input.multipleOf) === input.multipleOf &&
+                -2147483648 <= input.multipleOf &&
+                input.multipleOf <= 2147483647)) &&
+        (undefined === input["x-typia-typeTags"] ||
+            (Array.isArray(input["x-typia-typeTags"]) &&
+                input["x-typia-typeTags"].every(
+                    (elem: any) =>
+                        "object" === typeof elem && null !== elem && $io8(elem),
+                ))) &&
+        (undefined === input["default"] ||
+            ("number" === typeof input["default"] &&
+                Number.isFinite(input["default"]))) &&
+        "integer" === input.type &&
+        (undefined === input.nullable || "boolean" === typeof input.nullable) &&
+        (undefined === input.deprecated ||
+            "boolean" === typeof input.deprecated) &&
+        (undefined === input.title || "string" === typeof input.title) &&
+        (undefined === input.description ||
+            "string" === typeof input.description) &&
+        (undefined === input["x-typia-jsDocTags"] ||
+            (Array.isArray(input["x-typia-jsDocTags"]) &&
+                input["x-typia-jsDocTags"].every(
+                    (elem: any) =>
+                        "object" === typeof elem && null !== elem && $io2(elem),
+                ))) &&
+        (undefined === input["x-typia-required"] ||
+            "boolean" === typeof input["x-typia-required"]) &&
+        (undefined === input["x-typia-optional"] ||
+            "boolean" === typeof input["x-typia-optional"]) &&
+        (undefined === input["x-typia-rest"] ||
+            "boolean" === typeof input["x-typia-rest"]) &&
+        (undefined === input.$id || "string" === typeof input.$id) &&
+        (undefined === input.$recursiveAnchor ||
+            "boolean" === typeof input.$recursiveAnchor);
+    const $io26 = (input: any): boolean =>
+        (undefined === input.minimum ||
+            ("number" === typeof input.minimum &&
                 Number.isFinite(input.minimum))) &&
         (undefined === input.maximum ||
             ("number" === typeof input.maximum &&
@@ -639,6 +679,12 @@ export const test_is_UltimateUnion = _test_is("UltimateUnion")<UltimateUnion>(
         (undefined === input.multipleOf ||
             ("number" === typeof input.multipleOf &&
                 Number.isFinite(input.multipleOf))) &&
+        (undefined === input["x-typia-typeTags"] ||
+            (Array.isArray(input["x-typia-typeTags"]) &&
+                input["x-typia-typeTags"].every(
+                    (elem: any) =>
+                        "object" === typeof elem && null !== elem && $io8(elem),
+                ))) &&
         (undefined === input["default"] ||
             ("number" === typeof input["default"] &&
                 Number.isFinite(input["default"]))) &&
@@ -664,7 +710,7 @@ export const test_is_UltimateUnion = _test_is("UltimateUnion")<UltimateUnion>(
         (undefined === input.$id || "string" === typeof input.$id) &&
         (undefined === input.$recursiveAnchor ||
             "boolean" === typeof input.$recursiveAnchor);
-    const $io26 = (input: any): boolean =>
+    const $io27 = (input: any): boolean =>
         (undefined === input.minLength ||
             ("number" === typeof input.minLength &&
                 Math.floor(input.minLength) === input.minLength &&
@@ -677,6 +723,12 @@ export const test_is_UltimateUnion = _test_is("UltimateUnion")<UltimateUnion>(
                 input.maxLength <= 4294967295)) &&
         (undefined === input.pattern || "string" === typeof input.pattern) &&
         (undefined === input.format || "string" === typeof input.format) &&
+        (undefined === input["x-typia-typeTags"] ||
+            (Array.isArray(input["x-typia-typeTags"]) &&
+                input["x-typia-typeTags"].every(
+                    (elem: any) =>
+                        "object" === typeof elem && null !== elem && $io8(elem),
+                ))) &&
         (undefined === input["default"] ||
             "string" === typeof input["default"]) &&
         "string" === input.type &&
@@ -701,7 +753,7 @@ export const test_is_UltimateUnion = _test_is("UltimateUnion")<UltimateUnion>(
         (undefined === input.$id || "string" === typeof input.$id) &&
         (undefined === input.$recursiveAnchor ||
             "boolean" === typeof input.$recursiveAnchor);
-    const $io27 = (input: any): boolean =>
+    const $io28 = (input: any): boolean =>
         "object" === typeof input.items &&
         null !== input.items &&
         false === Array.isArray(input.items) &&
@@ -719,7 +771,7 @@ export const test_is_UltimateUnion = _test_is("UltimateUnion")<UltimateUnion>(
         (undefined === input["x-typia-tuple"] ||
             ("object" === typeof input["x-typia-tuple"] &&
                 null !== input["x-typia-tuple"] &&
-                $io11(input["x-typia-tuple"]))) &&
+                $io12(input["x-typia-tuple"]))) &&
         "array" === input.type &&
         (undefined === input.nullable || "boolean" === typeof input.nullable) &&
         (undefined === input.deprecated ||
@@ -742,7 +794,7 @@ export const test_is_UltimateUnion = _test_is("UltimateUnion")<UltimateUnion>(
         (undefined === input.$id || "string" === typeof input.$id) &&
         (undefined === input.$recursiveAnchor ||
             "boolean" === typeof input.$recursiveAnchor);
-    const $io28 = (input: any): boolean =>
+    const $io29 = (input: any): boolean =>
         Array.isArray(input.items) &&
         input.items.every(
             (elem: any) =>
@@ -782,7 +834,7 @@ export const test_is_UltimateUnion = _test_is("UltimateUnion")<UltimateUnion>(
         (undefined === input.$id || "string" === typeof input.$id) &&
         (undefined === input.$recursiveAnchor ||
             "boolean" === typeof input.$recursiveAnchor);
-    const $io29 = (input: any): boolean =>
+    const $io30 = (input: any): boolean =>
         Array.isArray(input.oneOf) &&
         input.oneOf.every(
             (elem: any) =>
@@ -811,7 +863,7 @@ export const test_is_UltimateUnion = _test_is("UltimateUnion")<UltimateUnion>(
         (undefined === input.$id || "string" === typeof input.$id) &&
         (undefined === input.$recursiveAnchor ||
             "boolean" === typeof input.$recursiveAnchor);
-    const $io30 = (input: any): boolean =>
+    const $io31 = (input: any): boolean =>
         "string" === typeof input.$ref &&
         (undefined === input.deprecated ||
             "boolean" === typeof input.deprecated) &&
@@ -833,7 +885,7 @@ export const test_is_UltimateUnion = _test_is("UltimateUnion")<UltimateUnion>(
         (undefined === input.$id || "string" === typeof input.$id) &&
         (undefined === input.$recursiveAnchor ||
             "boolean" === typeof input.$recursiveAnchor);
-    const $io31 = (input: any): boolean =>
+    const $io32 = (input: any): boolean =>
         "null" === input.type &&
         (undefined === input.deprecated ||
             "boolean" === typeof input.deprecated) &&
@@ -855,7 +907,7 @@ export const test_is_UltimateUnion = _test_is("UltimateUnion")<UltimateUnion>(
         (undefined === input.$id || "string" === typeof input.$id) &&
         (undefined === input.$recursiveAnchor ||
             "boolean" === typeof input.$recursiveAnchor);
-    const $io32 = (input: any): boolean =>
+    const $io33 = (input: any): boolean =>
         null !== input.type &&
         undefined === input.type &&
         (undefined === input.deprecated ||
@@ -887,7 +939,7 @@ export const test_is_UltimateUnion = _test_is("UltimateUnion")<UltimateUnion>(
                 false === Array.isArray(input.items) &&
                 $iu0(input.items)
             )
-                return $io10(input);
+                return $io11(input);
             else if (
                 Array.isArray(input.items) &&
                 input.items.every(
@@ -898,33 +950,33 @@ export const test_is_UltimateUnion = _test_is("UltimateUnion")<UltimateUnion>(
                         $iu0(elem),
                 )
             )
-                return $io11(input);
-            else if (undefined !== input.oneOf) return $io12(input);
-            else if (undefined !== input.$ref) return $io13(input);
-            else if ("null" === input.type) return $io14(input);
+                return $io12(input);
+            else if (undefined !== input.oneOf) return $io13(input);
+            else if (undefined !== input.$ref) return $io14(input);
+            else if ("null" === input.type) return $io15(input);
             else
                 return (() => {
                     if ($io5(input)) return $io5(input);
                     else if ($io4(input)) return $io4(input);
                     else if ($io1(input)) return $io1(input);
                     else if ($io6(input)) return $io6(input);
-                    else if ($io8(input)) return $io8(input);
                     else if ($io9(input)) return $io9(input);
-                    else if ($io15(input)) return $io15(input);
+                    else if ($io10(input)) return $io10(input);
+                    else if ($io16(input)) return $io16(input);
                     else return false;
                 })();
         })();
     const $iu1 = (input: any): any =>
         (() => {
-            if ("object" === input.type) return $io18(input);
-            else if ("integer" === input.type) return $io24(input);
+            if ("object" === input.type) return $io19(input);
+            else if ("integer" === input.type) return $io25(input);
             else if (
                 "object" === typeof input.items &&
                 null !== input.items &&
                 false === Array.isArray(input.items) &&
                 $iu0(input.items)
             )
-                return $io27(input);
+                return $io28(input);
             else if (
                 Array.isArray(input.items) &&
                 input.items.every(
@@ -935,19 +987,19 @@ export const test_is_UltimateUnion = _test_is("UltimateUnion")<UltimateUnion>(
                         $iu0(elem),
                 )
             )
-                return $io28(input);
-            else if (undefined !== input.oneOf) return $io29(input);
-            else if (undefined !== input.$ref) return $io30(input);
-            else if ("null" === input.type) return $io31(input);
+                return $io29(input);
+            else if (undefined !== input.oneOf) return $io30(input);
+            else if (undefined !== input.$ref) return $io31(input);
+            else if ("null" === input.type) return $io32(input);
             else
                 return (() => {
-                    if ($io22(input)) return $io22(input);
+                    if ($io23(input)) return $io23(input);
+                    else if ($io22(input)) return $io22(input);
                     else if ($io21(input)) return $io21(input);
-                    else if ($io20(input)) return $io20(input);
-                    else if ($io23(input)) return $io23(input);
-                    else if ($io25(input)) return $io25(input);
+                    else if ($io24(input)) return $io24(input);
                     else if ($io26(input)) return $io26(input);
-                    else if ($io32(input)) return $io32(input);
+                    else if ($io27(input)) return $io27(input);
+                    else if ($io33(input)) return $io33(input);
                     else return false;
                 })();
         })();
