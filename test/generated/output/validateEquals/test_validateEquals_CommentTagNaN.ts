@@ -147,12 +147,12 @@ export const test_validateEquals_CommentTagNaN = _test_validateEquals(
                                 input.typed <= 2147483647) ||
                                 $report(_exceptionable, {
                                     path: _path + ".typed",
-                                    expected: "number & Type<int32>",
+                                    expected: 'number & Type<"int32">',
                                     value: input.typed,
                                 }))) ||
                             $report(_exceptionable, {
                                 path: _path + ".typed",
-                                expected: "(number & Type<int32>)",
+                                expected: '(number & Type<"int32">)',
                                 value: input.typed,
                             }),
                         6 === Object.keys(input).length ||

@@ -43,12 +43,12 @@ export const test_protobuf_assertEncode_CommentTagTypeBigInt =
                                     (BigInt(0) <= input.uint64 ||
                                         $guard(_exceptionable, {
                                             path: _path + ".uint64",
-                                            expected: "bigint & Type<uint64>",
+                                            expected: 'bigint & Type<"uint64">',
                                             value: input.uint64,
                                         }))) ||
                                     $guard(_exceptionable, {
                                         path: _path + ".uint64",
-                                        expected: "(bigint & Type<uint64>)",
+                                        expected: '(bigint & Type<"uint64">)',
                                         value: input.uint64,
                                     }));
                             return (

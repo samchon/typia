@@ -39,12 +39,12 @@ export const test_validate_CommentTagTypeBigInt = _test_validate(
                             (BigInt(0) <= input.uint64 ||
                                 $report(_exceptionable, {
                                     path: _path + ".uint64",
-                                    expected: "bigint & Type<uint64>",
+                                    expected: 'bigint & Type<"uint64">',
                                     value: input.uint64,
                                 }))) ||
                             $report(_exceptionable, {
                                 path: _path + ".uint64",
-                                expected: "(bigint & Type<uint64>)",
+                                expected: '(bigint & Type<"uint64">)',
                                 value: input.uint64,
                             }),
                     ].every((flag: boolean) => flag);

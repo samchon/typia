@@ -22,7 +22,7 @@ export const test_random_CommentTagTypeBigInt = _test_random(
             uint64:
                 (generator?.customs ?? $generator.customs)?.bigint?.([
                     {
-                        name: "Type<uint64>",
+                        name: 'Type<"uint64">',
                         kind: "type",
                         value: "uint64",
                     },
@@ -63,12 +63,12 @@ export const test_random_CommentTagTypeBigInt = _test_random(
                         (BigInt(0) <= input.uint64 ||
                             $guard(_exceptionable, {
                                 path: _path + ".uint64",
-                                expected: "bigint & Type<uint64>",
+                                expected: 'bigint & Type<"uint64">',
                                 value: input.uint64,
                             }))) ||
                         $guard(_exceptionable, {
                             path: _path + ".uint64",
-                            expected: "(bigint & Type<uint64>)",
+                            expected: '(bigint & Type<"uint64">)',
                             value: input.uint64,
                         }));
                 return (

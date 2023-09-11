@@ -63,12 +63,12 @@ export const test_misc_validatePrune_CommentTagFormat =
                                     ) ||
                                         $report(_exceptionable, {
                                             path: _path + ".uuid",
-                                            expected: "string & Format<uuid>",
+                                            expected: 'string & Format<"uuid">',
                                             value: input.uuid,
                                         }))) ||
                                     $report(_exceptionable, {
                                         path: _path + ".uuid",
-                                        expected: "(string & Format<uuid>)",
+                                        expected: '(string & Format<"uuid">)',
                                         value: input.uuid,
                                     }),
                                 ("string" === typeof input.email &&
@@ -77,12 +77,13 @@ export const test_misc_validatePrune_CommentTagFormat =
                                     ) ||
                                         $report(_exceptionable, {
                                             path: _path + ".email",
-                                            expected: "string & Format<email>",
+                                            expected:
+                                                'string & Format<"email">',
                                             value: input.email,
                                         }))) ||
                                     $report(_exceptionable, {
                                         path: _path + ".email",
-                                        expected: "(string & Format<email>)",
+                                        expected: '(string & Format<"email">)',
                                         value: input.email,
                                     }),
                                 ("string" === typeof input.url &&
@@ -91,12 +92,12 @@ export const test_misc_validatePrune_CommentTagFormat =
                                     ) ||
                                         $report(_exceptionable, {
                                             path: _path + ".url",
-                                            expected: "string & Format<url>",
+                                            expected: 'string & Format<"url">',
                                             value: input.url,
                                         }))) ||
                                     $report(_exceptionable, {
                                         path: _path + ".url",
-                                        expected: "(string & Format<url>)",
+                                        expected: '(string & Format<"url">)',
                                         value: input.url,
                                     }),
                                 ("string" === typeof input.ipv4 &&
@@ -105,12 +106,12 @@ export const test_misc_validatePrune_CommentTagFormat =
                                     ) ||
                                         $report(_exceptionable, {
                                             path: _path + ".ipv4",
-                                            expected: "string & Format<ipv4>",
+                                            expected: 'string & Format<"ipv4">',
                                             value: input.ipv4,
                                         }))) ||
                                     $report(_exceptionable, {
                                         path: _path + ".ipv4",
-                                        expected: "(string & Format<ipv4>)",
+                                        expected: '(string & Format<"ipv4">)',
                                         value: input.ipv4,
                                     }),
                                 ("string" === typeof input.ipv6 &&
@@ -119,12 +120,12 @@ export const test_misc_validatePrune_CommentTagFormat =
                                     ) ||
                                         $report(_exceptionable, {
                                             path: _path + ".ipv6",
-                                            expected: "string & Format<ipv6>",
+                                            expected: 'string & Format<"ipv6">',
                                             value: input.ipv6,
                                         }))) ||
                                     $report(_exceptionable, {
                                         path: _path + ".ipv6",
-                                        expected: "(string & Format<ipv6>)",
+                                        expected: '(string & Format<"ipv6">)',
                                         value: input.ipv6,
                                     }),
                                 ("string" === typeof input.date &&
@@ -133,12 +134,12 @@ export const test_misc_validatePrune_CommentTagFormat =
                                     ) ||
                                         $report(_exceptionable, {
                                             path: _path + ".date",
-                                            expected: "string & Format<date>",
+                                            expected: 'string & Format<"date">',
                                             value: input.date,
                                         }))) ||
                                     $report(_exceptionable, {
                                         path: _path + ".date",
-                                        expected: "(string & Format<date>)",
+                                        expected: '(string & Format<"date">)',
                                         value: input.date,
                                     }),
                                 ("string" === typeof input.date_time &&
@@ -148,13 +149,13 @@ export const test_misc_validatePrune_CommentTagFormat =
                                         $report(_exceptionable, {
                                             path: _path + ".date_time",
                                             expected:
-                                                "string & Format<date-time>",
+                                                'string & Format<"date-time">',
                                             value: input.date_time,
                                         }))) ||
                                     $report(_exceptionable, {
                                         path: _path + ".date_time",
                                         expected:
-                                            "(string & Format<date-time>)",
+                                            '(string & Format<"date-time">)',
                                         value: input.date_time,
                                     }),
                                 "string" === typeof input.custom ||

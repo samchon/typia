@@ -130,12 +130,12 @@ export const test_protobuf_validateDecode_CommentTagType =
                                         input.int <= 2147483647) ||
                                         $report(_exceptionable, {
                                             path: _path + ".int",
-                                            expected: "number & Type<int32>",
+                                            expected: 'number & Type<"int32">',
                                             value: input.int,
                                         }))) ||
                                     $report(_exceptionable, {
                                         path: _path + ".int",
-                                        expected: "(number & Type<int32>)",
+                                        expected: '(number & Type<"int32">)',
                                         value: input.int,
                                     }),
                                 ("number" === typeof input.uint &&
@@ -144,12 +144,12 @@ export const test_protobuf_validateDecode_CommentTagType =
                                         input.uint <= 4294967295) ||
                                         $report(_exceptionable, {
                                             path: _path + ".uint",
-                                            expected: "number & Type<uint32>",
+                                            expected: 'number & Type<"uint32">',
                                             value: input.uint,
                                         }))) ||
                                     $report(_exceptionable, {
                                         path: _path + ".uint",
-                                        expected: "(number & Type<uint32>)",
+                                        expected: '(number & Type<"uint32">)',
                                         value: input.uint,
                                     }),
                                 ("number" === typeof input.int32 &&
@@ -158,12 +158,12 @@ export const test_protobuf_validateDecode_CommentTagType =
                                         input.int32 <= 2147483647) ||
                                         $report(_exceptionable, {
                                             path: _path + ".int32",
-                                            expected: "number & Type<int32>",
+                                            expected: 'number & Type<"int32">',
                                             value: input.int32,
                                         }))) ||
                                     $report(_exceptionable, {
                                         path: _path + ".int32",
-                                        expected: "(number & Type<int32>)",
+                                        expected: '(number & Type<"int32">)',
                                         value: input.int32,
                                     }),
                                 ("number" === typeof input.uint32 &&
@@ -173,12 +173,12 @@ export const test_protobuf_validateDecode_CommentTagType =
                                         input.uint32 <= 4294967295) ||
                                         $report(_exceptionable, {
                                             path: _path + ".uint32",
-                                            expected: "number & Type<uint32>",
+                                            expected: 'number & Type<"uint32">',
                                             value: input.uint32,
                                         }))) ||
                                     $report(_exceptionable, {
                                         path: _path + ".uint32",
-                                        expected: "(number & Type<uint32>)",
+                                        expected: '(number & Type<"uint32">)',
                                         value: input.uint32,
                                     }),
                                 ("number" === typeof input.int64 &&
@@ -187,12 +187,12 @@ export const test_protobuf_validateDecode_CommentTagType =
                                         input.int64 <= 9223372036854776000) ||
                                         $report(_exceptionable, {
                                             path: _path + ".int64",
-                                            expected: "number & Type<int64>",
+                                            expected: 'number & Type<"int64">',
                                             value: input.int64,
                                         }))) ||
                                     $report(_exceptionable, {
                                         path: _path + ".int64",
-                                        expected: "(number & Type<int64>)",
+                                        expected: '(number & Type<"int64">)',
                                         value: input.int64,
                                     }),
                                 ("number" === typeof input.uint64 &&
@@ -202,12 +202,12 @@ export const test_protobuf_validateDecode_CommentTagType =
                                         input.uint64 <= 18446744073709552000) ||
                                         $report(_exceptionable, {
                                             path: _path + ".uint64",
-                                            expected: "number & Type<uint64>",
+                                            expected: 'number & Type<"uint64">',
                                             value: input.uint64,
                                         }))) ||
                                     $report(_exceptionable, {
                                         path: _path + ".uint64",
-                                        expected: "(number & Type<uint64>)",
+                                        expected: '(number & Type<"uint64">)',
                                         value: input.uint64,
                                     }),
                                 ("number" === typeof input.float &&
@@ -215,12 +215,12 @@ export const test_protobuf_validateDecode_CommentTagType =
                                         input.float <= 3.4028235e38) ||
                                         $report(_exceptionable, {
                                             path: _path + ".float",
-                                            expected: "number & Type<float>",
+                                            expected: 'number & Type<"float">',
                                             value: input.float,
                                         }))) ||
                                     $report(_exceptionable, {
                                         path: _path + ".float",
-                                        expected: "(number & Type<float>)",
+                                        expected: '(number & Type<"float">)',
                                         value: input.float,
                                     }),
                             ].every((flag: boolean) => flag);

@@ -124,12 +124,12 @@ export const test_protobuf_assertEncode_CommentTagNaN =
                                         input.typed <= 2147483647) ||
                                         $guard(_exceptionable, {
                                             path: _path + ".typed",
-                                            expected: "number & Type<int32>",
+                                            expected: 'number & Type<"int32">',
                                             value: input.typed,
                                         }))) ||
                                     $guard(_exceptionable, {
                                         path: _path + ".typed",
-                                        expected: "(number & Type<int32>)",
+                                        expected: '(number & Type<"int32">)',
                                         value: input.typed,
                                     }));
                             return (

@@ -57,7 +57,7 @@ export const test_random_CommentTagInfinite = _test_random(
                 typed:
                     (generator?.customs ?? $generator.customs)?.number?.([
                         {
-                            name: "Type<int32>",
+                            name: 'Type<"int32">',
                             kind: "type",
                             value: "int32",
                         },
@@ -180,12 +180,12 @@ export const test_random_CommentTagInfinite = _test_random(
                             input.typed <= 2147483647) ||
                             $guard(_exceptionable, {
                                 path: _path + ".typed",
-                                expected: "number & Type<int32>",
+                                expected: 'number & Type<"int32">',
                                 value: input.typed,
                             }))) ||
                         $guard(_exceptionable, {
                             path: _path + ".typed",
-                            expected: "(number & Type<int32>)",
+                            expected: '(number & Type<"int32">)',
                             value: input.typed,
                         }));
                 return (

@@ -205,7 +205,7 @@ const PARSER: Record<
         return {
             number: [
                 {
-                    name: `Type<${Value}>`,
+                    name: `Type<${JSON.stringify(Value)}>`,
                     target: "number",
                     kind: "type",
                     value: Value,
@@ -228,7 +228,7 @@ const PARSER: Record<
                 Value === "int64" || "uint64"
                     ? [
                           {
-                              name: `Type<${Value}>`,
+                              name: `Type<${JSON.stringify(Value)}>`,
                               target: "bigint",
                               kind: "type",
                               value: Value,
@@ -377,7 +377,7 @@ const PARSER: Record<
         return {
             string: [
                 {
-                    name: `Format<${matched[0]}>`,
+                    name: `Format<${JSON.stringify(matched[0])}>`,
                     target: "string",
                     kind: "format",
                     value: matched[0],
@@ -390,7 +390,7 @@ const PARSER: Record<
     pattern: () => (Value) => ({
         string: [
             {
-                name: `Pattern<${Value}>`,
+                name: `Pattern<${JSON.stringify(Value)}>`,
                 target: "string",
                 kind: "pattern",
                 value: Value,

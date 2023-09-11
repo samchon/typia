@@ -128,12 +128,12 @@ export const test_misc_validatePrune_CommentTagInfinite =
                                     input.typed <= 2147483647) ||
                                     $report(_exceptionable, {
                                         path: _path + ".typed",
-                                        expected: "number & Type<int32>",
+                                        expected: 'number & Type<"int32">',
                                         value: input.typed,
                                     }))) ||
                                 $report(_exceptionable, {
                                     path: _path + ".typed",
-                                    expected: "(number & Type<int32>)",
+                                    expected: '(number & Type<"int32">)',
                                     value: input.typed,
                                 }),
                         ].every((flag: boolean) => flag);
