@@ -51,12 +51,13 @@ export const test_protobuf_validateDecode_CommentTagTypeBigInt =
                                             $report(_exceptionable, {
                                                 path: _path + ".uint64",
                                                 expected:
-                                                    "bigint & Type<uint64>",
+                                                    'bigint & Type<"uint64">',
                                                 value: input.uint64,
                                             }))) ||
                                         $report(_exceptionable, {
                                             path: _path + ".uint64",
-                                            expected: "(bigint & Type<uint64>)",
+                                            expected:
+                                                '(bigint & Type<"uint64">)',
                                             value: input.uint64,
                                         }),
                                 ].every((flag: boolean) => flag);

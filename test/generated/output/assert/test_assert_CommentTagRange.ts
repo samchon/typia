@@ -122,7 +122,7 @@ export const test_assert_CommentTagRange = _test_assert(
                             input.greater <= 2147483647) ||
                             $guard(_exceptionable, {
                                 path: _path + ".greater",
-                                expected: "number & Type<int32>",
+                                expected: 'number & Type<"int32">',
                                 value: input.greater,
                             })) &&
                         (3 < input.greater ||
@@ -134,7 +134,7 @@ export const test_assert_CommentTagRange = _test_assert(
                         $guard(_exceptionable, {
                             path: _path + ".greater",
                             expected:
-                                "(number & Type<int32> & ExclusiveMinimum<3>)",
+                                '(number & Type<"int32"> & ExclusiveMinimum<3>)',
                             value: input.greater,
                         })) &&
                     (("number" === typeof input.greater_equal &&
@@ -144,7 +144,7 @@ export const test_assert_CommentTagRange = _test_assert(
                             input.greater_equal <= 2147483647) ||
                             $guard(_exceptionable, {
                                 path: _path + ".greater_equal",
-                                expected: "number & Type<int32>",
+                                expected: 'number & Type<"int32">',
                                 value: input.greater_equal,
                             })) &&
                         (3 <= input.greater_equal ||
@@ -155,7 +155,7 @@ export const test_assert_CommentTagRange = _test_assert(
                             }))) ||
                         $guard(_exceptionable, {
                             path: _path + ".greater_equal",
-                            expected: "(number & Type<int32> & Minimum<3>)",
+                            expected: '(number & Type<"int32"> & Minimum<3>)',
                             value: input.greater_equal,
                         })) &&
                     (("number" === typeof input.less &&
@@ -164,7 +164,7 @@ export const test_assert_CommentTagRange = _test_assert(
                             input.less <= 2147483647) ||
                             $guard(_exceptionable, {
                                 path: _path + ".less",
-                                expected: "number & Type<int32>",
+                                expected: 'number & Type<"int32">',
                                 value: input.less,
                             })) &&
                         (input.less < 7 ||
@@ -176,7 +176,7 @@ export const test_assert_CommentTagRange = _test_assert(
                         $guard(_exceptionable, {
                             path: _path + ".less",
                             expected:
-                                "(number & Type<int32> & ExclusiveMaximum<7>)",
+                                '(number & Type<"int32"> & ExclusiveMaximum<7>)',
                             value: input.less,
                         })) &&
                     (("number" === typeof input.less_equal &&
@@ -185,7 +185,7 @@ export const test_assert_CommentTagRange = _test_assert(
                             input.less_equal <= 2147483647) ||
                             $guard(_exceptionable, {
                                 path: _path + ".less_equal",
-                                expected: "number & Type<int32>",
+                                expected: 'number & Type<"int32">',
                                 value: input.less_equal,
                             })) &&
                         (input.less_equal <= 7 ||
@@ -196,7 +196,7 @@ export const test_assert_CommentTagRange = _test_assert(
                             }))) ||
                         $guard(_exceptionable, {
                             path: _path + ".less_equal",
-                            expected: "(number & Type<int32> & Maximum<7>)",
+                            expected: '(number & Type<"int32"> & Maximum<7>)',
                             value: input.less_equal,
                         })) &&
                     (("number" === typeof input.greater_less &&
@@ -206,7 +206,7 @@ export const test_assert_CommentTagRange = _test_assert(
                             input.greater_less <= 2147483647) ||
                             $guard(_exceptionable, {
                                 path: _path + ".greater_less",
-                                expected: "number & Type<int32>",
+                                expected: 'number & Type<"int32">',
                                 value: input.greater_less,
                             })) &&
                         (3 < input.greater_less ||
@@ -224,7 +224,7 @@ export const test_assert_CommentTagRange = _test_assert(
                         $guard(_exceptionable, {
                             path: _path + ".greater_less",
                             expected:
-                                "(number & Type<int32> & ExclusiveMinimum<3> & ExclusiveMaximum<7>)",
+                                '(number & Type<"int32"> & ExclusiveMinimum<3> & ExclusiveMaximum<7>)',
                             value: input.greater_less,
                         })) &&
                     (("number" === typeof input.greater_equal_less &&
@@ -234,7 +234,7 @@ export const test_assert_CommentTagRange = _test_assert(
                             input.greater_equal_less <= 2147483647) ||
                             $guard(_exceptionable, {
                                 path: _path + ".greater_equal_less",
-                                expected: "number & Type<int32>",
+                                expected: 'number & Type<"int32">',
                                 value: input.greater_equal_less,
                             })) &&
                         (3 <= input.greater_equal_less ||
@@ -252,7 +252,7 @@ export const test_assert_CommentTagRange = _test_assert(
                         $guard(_exceptionable, {
                             path: _path + ".greater_equal_less",
                             expected:
-                                "(number & Type<int32> & Minimum<3> & ExclusiveMaximum<7>)",
+                                '(number & Type<"int32"> & Minimum<3> & ExclusiveMaximum<7>)',
                             value: input.greater_equal_less,
                         })) &&
                     (("number" === typeof input.greater_less_equal &&
@@ -262,7 +262,7 @@ export const test_assert_CommentTagRange = _test_assert(
                             input.greater_less_equal <= 2147483647) ||
                             $guard(_exceptionable, {
                                 path: _path + ".greater_less_equal",
-                                expected: "number & Type<int32>",
+                                expected: 'number & Type<"int32">',
                                 value: input.greater_less_equal,
                             })) &&
                         (3 < input.greater_less_equal ||
@@ -280,7 +280,7 @@ export const test_assert_CommentTagRange = _test_assert(
                         $guard(_exceptionable, {
                             path: _path + ".greater_less_equal",
                             expected:
-                                "(number & Type<int32> & ExclusiveMinimum<3> & Maximum<7>)",
+                                '(number & Type<"int32"> & ExclusiveMinimum<3> & Maximum<7>)',
                             value: input.greater_less_equal,
                         })) &&
                     (("number" === typeof input.greater_equal_less_equal &&
@@ -290,7 +290,7 @@ export const test_assert_CommentTagRange = _test_assert(
                             input.greater_equal_less_equal <= 2147483647) ||
                             $guard(_exceptionable, {
                                 path: _path + ".greater_equal_less_equal",
-                                expected: "number & Type<int32>",
+                                expected: 'number & Type<"int32">',
                                 value: input.greater_equal_less_equal,
                             })) &&
                         (3 <= input.greater_equal_less_equal ||
@@ -308,7 +308,7 @@ export const test_assert_CommentTagRange = _test_assert(
                         $guard(_exceptionable, {
                             path: _path + ".greater_equal_less_equal",
                             expected:
-                                "(number & Type<int32> & Minimum<3> & Maximum<7>)",
+                                '(number & Type<"int32"> & Minimum<3> & Maximum<7>)',
                             value: input.greater_equal_less_equal,
                         })) &&
                     (("number" === typeof input.equal &&
@@ -317,7 +317,7 @@ export const test_assert_CommentTagRange = _test_assert(
                             input.equal <= 2147483647) ||
                             $guard(_exceptionable, {
                                 path: _path + ".equal",
-                                expected: "number & Type<int32>",
+                                expected: 'number & Type<"int32">',
                                 value: input.equal,
                             })) &&
                         (10 <= input.equal ||
@@ -335,7 +335,7 @@ export const test_assert_CommentTagRange = _test_assert(
                         $guard(_exceptionable, {
                             path: _path + ".equal",
                             expected:
-                                "(number & Type<int32> & Minimum<10> & Maximum<10>)",
+                                '(number & Type<"int32"> & Minimum<10> & Maximum<10>)',
                             value: input.equal,
                         }));
                 return (

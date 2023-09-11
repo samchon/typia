@@ -56,7 +56,7 @@
             "exclusiveMinimum": true,
             "x-typia-typeTags": [
               {
-                "name": "Type<int32>",
+                "name": "Type<\"int32\">",
                 "target": "number",
                 "kind": "type",
                 "value": "int32",
@@ -103,7 +103,7 @@
             "minimum": 3,
             "x-typia-typeTags": [
               {
-                "name": "Type<int32>",
+                "name": "Type<\"int32\">",
                 "target": "number",
                 "kind": "type",
                 "value": "int32",
@@ -151,7 +151,7 @@
             "exclusiveMaximum": true,
             "x-typia-typeTags": [
               {
-                "name": "Type<int32>",
+                "name": "Type<\"int32\">",
                 "target": "number",
                 "kind": "type",
                 "value": "int32",
@@ -198,7 +198,7 @@
             "maximum": 7,
             "x-typia-typeTags": [
               {
-                "name": "Type<int32>",
+                "name": "Type<\"int32\">",
                 "target": "number",
                 "kind": "type",
                 "value": "int32",
@@ -257,7 +257,7 @@
             "exclusiveMinimum": true,
             "x-typia-typeTags": [
               {
-                "name": "Type<int32>",
+                "name": "Type<\"int32\">",
                 "target": "number",
                 "kind": "type",
                 "value": "int32",
@@ -326,7 +326,7 @@
             "minimum": 3,
             "x-typia-typeTags": [
               {
-                "name": "Type<int32>",
+                "name": "Type<\"int32\">",
                 "target": "number",
                 "kind": "type",
                 "value": "int32",
@@ -395,7 +395,7 @@
             "maximum": 7,
             "x-typia-typeTags": [
               {
-                "name": "Type<int32>",
+                "name": "Type<\"int32\">",
                 "target": "number",
                 "kind": "type",
                 "value": "int32",
@@ -463,7 +463,7 @@
             "minimum": 3,
             "x-typia-typeTags": [
               {
-                "name": "Type<int32>",
+                "name": "Type<\"int32\">",
                 "target": "number",
                 "kind": "type",
                 "value": "int32",
@@ -531,7 +531,7 @@
             "minimum": 10,
             "x-typia-typeTags": [
               {
-                "name": "Type<int32>",
+                "name": "Type<\"int32\">",
                 "target": "number",
                 "kind": "type",
                 "value": "int32",

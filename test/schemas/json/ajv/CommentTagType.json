@@ -46,7 +46,7 @@
             "type": "integer",
             "x-typia-typeTags": [
               {
-                "name": "Type<int32>",
+                "name": "Type<\"int32\">",
                 "target": "number",
                 "kind": "type",
                 "value": "int32",
@@ -73,7 +73,7 @@
             "type": "integer",
             "x-typia-typeTags": [
               {
-                "name": "Type<uint32>",
+                "name": "Type<\"uint32\">",
                 "target": "number",
                 "kind": "type",
                 "value": "uint32",
@@ -99,7 +99,7 @@
             "type": "integer",
             "x-typia-typeTags": [
               {
-                "name": "Type<int32>",
+                "name": "Type<\"int32\">",
                 "target": "number",
                 "kind": "type",
                 "value": "int32",
@@ -125,7 +125,7 @@
             "type": "integer",
             "x-typia-typeTags": [
               {
-                "name": "Type<uint32>",
+                "name": "Type<\"uint32\">",
                 "target": "number",
                 "kind": "type",
                 "value": "uint32",
@@ -151,7 +151,7 @@
             "type": "integer",
             "x-typia-typeTags": [
               {
-                "name": "Type<int64>",
+                "name": "Type<\"int64\">",
                 "target": "number",
                 "kind": "type",
                 "value": "int64",
@@ -177,7 +177,7 @@
             "type": "integer",
             "x-typia-typeTags": [
               {
-                "name": "Type<uint64>",
+                "name": "Type<\"uint64\">",
                 "target": "number",
                 "kind": "type",
                 "value": "uint64",
@@ -203,7 +203,7 @@
             "type": "number",
             "x-typia-typeTags": [
               {
-                "name": "Type<float>",
+                "name": "Type<\"float\">",
                 "target": "number",
                 "kind": "type",
                 "value": "float",

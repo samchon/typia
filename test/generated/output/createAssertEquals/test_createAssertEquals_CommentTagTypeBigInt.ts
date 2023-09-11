@@ -54,12 +54,12 @@ export const test_assertEquals_CommentTagTypeBigInt = _test_assertEquals(
                         (BigInt(0) <= input.uint64 ||
                             $guard(_exceptionable, {
                                 path: _path + ".uint64",
-                                expected: "bigint & Type<uint64>",
+                                expected: 'bigint & Type<"uint64">',
                                 value: input.uint64,
                             }))) ||
                         $guard(_exceptionable, {
                             path: _path + ".uint64",
-                            expected: "(bigint & Type<uint64>)",
+                            expected: '(bigint & Type<"uint64">)',
                             value: input.uint64,
                         })) &&
                     (2 === Object.keys(input).length ||

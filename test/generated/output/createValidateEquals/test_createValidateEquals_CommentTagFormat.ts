@@ -83,12 +83,12 @@ export const test_validateEquals_CommentTagFormat = _test_validateEquals(
                             ) ||
                                 $report(_exceptionable, {
                                     path: _path + ".uuid",
-                                    expected: "string & Format<uuid>",
+                                    expected: 'string & Format<"uuid">',
                                     value: input.uuid,
                                 }))) ||
                             $report(_exceptionable, {
                                 path: _path + ".uuid",
-                                expected: "(string & Format<uuid>)",
+                                expected: '(string & Format<"uuid">)',
                                 value: input.uuid,
                             }),
                         ("string" === typeof input.email &&
@@ -97,12 +97,12 @@ export const test_validateEquals_CommentTagFormat = _test_validateEquals(
                             ) ||
                                 $report(_exceptionable, {
                                     path: _path + ".email",
-                                    expected: "string & Format<email>",
+                                    expected: 'string & Format<"email">',
                                     value: input.email,
                                 }))) ||
                             $report(_exceptionable, {
                                 path: _path + ".email",
-                                expected: "(string & Format<email>)",
+                                expected: '(string & Format<"email">)',
                                 value: input.email,
                             }),
                         ("string" === typeof input.url &&
@@ -111,12 +111,12 @@ export const test_validateEquals_CommentTagFormat = _test_validateEquals(
                             ) ||
                                 $report(_exceptionable, {
                                     path: _path + ".url",
-                                    expected: "string & Format<url>",
+                                    expected: 'string & Format<"url">',
                                     value: input.url,
                                 }))) ||
                             $report(_exceptionable, {
                                 path: _path + ".url",
-                                expected: "(string & Format<url>)",
+                                expected: '(string & Format<"url">)',
                                 value: input.url,
                             }),
                         ("string" === typeof input.ipv4 &&
@@ -125,12 +125,12 @@ export const test_validateEquals_CommentTagFormat = _test_validateEquals(
                             ) ||
                                 $report(_exceptionable, {
                                     path: _path + ".ipv4",
-                                    expected: "string & Format<ipv4>",
+                                    expected: 'string & Format<"ipv4">',
                                     value: input.ipv4,
                                 }))) ||
                             $report(_exceptionable, {
                                 path: _path + ".ipv4",
-                                expected: "(string & Format<ipv4>)",
+                                expected: '(string & Format<"ipv4">)',
                                 value: input.ipv4,
                             }),
                         ("string" === typeof input.ipv6 &&
@@ -139,36 +139,36 @@ export const test_validateEquals_CommentTagFormat = _test_validateEquals(
                             ) ||
                                 $report(_exceptionable, {
                                     path: _path + ".ipv6",
-                                    expected: "string & Format<ipv6>",
+                                    expected: 'string & Format<"ipv6">',
                                     value: input.ipv6,
                                 }))) ||
                             $report(_exceptionable, {
                                 path: _path + ".ipv6",
-                                expected: "(string & Format<ipv6>)",
+                                expected: '(string & Format<"ipv6">)',
                                 value: input.ipv6,
                             }),
                         ("string" === typeof input.date &&
                             (/^(\d{4})-(\d{2})-(\d{2})$/.test(input.date) ||
                                 $report(_exceptionable, {
                                     path: _path + ".date",
-                                    expected: "string & Format<date>",
+                                    expected: 'string & Format<"date">',
                                     value: input.date,
                                 }))) ||
                             $report(_exceptionable, {
                                 path: _path + ".date",
-                                expected: "(string & Format<date>)",
+                                expected: '(string & Format<"date">)',
                                 value: input.date,
                             }),
                         ("string" === typeof input.date_time &&
                             (!isNaN(new Date(input.date_time).getTime()) ||
                                 $report(_exceptionable, {
                                     path: _path + ".date_time",
-                                    expected: "string & Format<date-time>",
+                                    expected: 'string & Format<"date-time">',
                                     value: input.date_time,
                                 }))) ||
                             $report(_exceptionable, {
                                 path: _path + ".date_time",
-                                expected: "(string & Format<date-time>)",
+                                expected: '(string & Format<"date-time">)',
                                 value: input.date_time,
                             }),
                         "string" === typeof input.custom ||

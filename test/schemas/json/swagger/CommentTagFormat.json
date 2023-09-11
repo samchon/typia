@@ -28,7 +28,7 @@
             "format": "uuid",
             "x-typia-typeTags": [
               {
-                "name": "Format<uuid>",
+                "name": "Format<\"uuid\">",
                 "target": "string",
                 "kind": "format",
                 "value": "uuid",
@@ -56,7 +56,7 @@
             "format": "email",
             "x-typia-typeTags": [
               {
-                "name": "Format<email>",
+                "name": "Format<\"email\">",
                 "target": "string",
                 "kind": "format",
                 "value": "email",
@@ -84,7 +84,7 @@
             "format": "url",
             "x-typia-typeTags": [
               {
-                "name": "Format<url>",
+                "name": "Format<\"url\">",
                 "target": "string",
                 "kind": "format",
                 "value": "url",
@@ -112,7 +112,7 @@
             "format": "ipv4",
             "x-typia-typeTags": [
               {
-                "name": "Format<ipv4>",
+                "name": "Format<\"ipv4\">",
                 "target": "string",
                 "kind": "format",
                 "value": "ipv4",
@@ -140,7 +140,7 @@
             "format": "ipv6",
             "x-typia-typeTags": [
               {
-                "name": "Format<ipv6>",
+                "name": "Format<\"ipv6\">",
                 "target": "string",
                 "kind": "format",
                 "value": "ipv6",
@@ -168,7 +168,7 @@
             "format": "date",
             "x-typia-typeTags": [
               {
-                "name": "Format<date>",
+                "name": "Format<\"date\">",
                 "target": "string",
                 "kind": "format",
                 "value": "date",
@@ -196,7 +196,7 @@
             "format": "date-time",
             "x-typia-typeTags": [
               {
-                "name": "Format<date-time>",
+                "name": "Format<\"date-time\">",
                 "target": "string",
                 "kind": "format",
                 "value": "date-time",

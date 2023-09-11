@@ -56,12 +56,12 @@ export const test_validateEquals_CommentTagTypeBigInt = _test_validateEquals(
                             (BigInt(0) <= input.uint64 ||
                                 $report(_exceptionable, {
                                     path: _path + ".uint64",
-                                    expected: "bigint & Type<uint64>",
+                                    expected: 'bigint & Type<"uint64">',
                                     value: input.uint64,
                                 }))) ||
                             $report(_exceptionable, {
                                 path: _path + ".uint64",
-                                expected: "(bigint & Type<uint64>)",
+                                expected: '(bigint & Type<"uint64">)',
                                 value: input.uint64,
                             }),
                         2 === Object.keys(input).length ||

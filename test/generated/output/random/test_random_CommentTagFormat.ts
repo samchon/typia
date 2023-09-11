@@ -17,7 +17,7 @@ export const test_random_CommentTagFormat = _test_random(
                 uuid:
                     (generator?.customs ?? $generator.customs)?.string?.([
                         {
-                            name: "Format<uuid>",
+                            name: 'Format<"uuid">',
                             kind: "format",
                             value: "uuid",
                         },
@@ -25,7 +25,7 @@ export const test_random_CommentTagFormat = _test_random(
                 email:
                     (generator?.customs ?? $generator.customs)?.string?.([
                         {
-                            name: "Format<email>",
+                            name: 'Format<"email">',
                             kind: "format",
                             value: "email",
                         },
@@ -33,7 +33,7 @@ export const test_random_CommentTagFormat = _test_random(
                 url:
                     (generator?.customs ?? $generator.customs)?.string?.([
                         {
-                            name: "Format<url>",
+                            name: 'Format<"url">',
                             kind: "format",
                             value: "url",
                         },
@@ -41,7 +41,7 @@ export const test_random_CommentTagFormat = _test_random(
                 ipv4:
                     (generator?.customs ?? $generator.customs)?.string?.([
                         {
-                            name: "Format<ipv4>",
+                            name: 'Format<"ipv4">',
                             kind: "format",
                             value: "ipv4",
                         },
@@ -49,7 +49,7 @@ export const test_random_CommentTagFormat = _test_random(
                 ipv6:
                     (generator?.customs ?? $generator.customs)?.string?.([
                         {
-                            name: "Format<ipv6>",
+                            name: 'Format<"ipv6">',
                             kind: "format",
                             value: "ipv6",
                         },
@@ -57,7 +57,7 @@ export const test_random_CommentTagFormat = _test_random(
                 date:
                     (generator?.customs ?? $generator.customs)?.string?.([
                         {
-                            name: "Format<date>",
+                            name: 'Format<"date">',
                             kind: "format",
                             value: "date",
                         },
@@ -65,7 +65,7 @@ export const test_random_CommentTagFormat = _test_random(
                 date_time:
                     (generator?.customs ?? $generator.customs)?.string?.([
                         {
-                            name: "Format<date-time>",
+                            name: 'Format<"date-time">',
                             kind: "format",
                             value: "date-time",
                         },
@@ -126,12 +126,12 @@ export const test_random_CommentTagFormat = _test_random(
                         ) ||
                             $guard(_exceptionable, {
                                 path: _path + ".uuid",
-                                expected: "string & Format<uuid>",
+                                expected: 'string & Format<"uuid">',
                                 value: input.uuid,
                             }))) ||
                         $guard(_exceptionable, {
                             path: _path + ".uuid",
-                            expected: "(string & Format<uuid>)",
+                            expected: '(string & Format<"uuid">)',
                             value: input.uuid,
                         })) &&
                     (("string" === typeof input.email &&
@@ -140,12 +140,12 @@ export const test_random_CommentTagFormat = _test_random(
                         ) ||
                             $guard(_exceptionable, {
                                 path: _path + ".email",
-                                expected: "string & Format<email>",
+                                expected: 'string & Format<"email">',
                                 value: input.email,
                             }))) ||
                         $guard(_exceptionable, {
                             path: _path + ".email",
-                            expected: "(string & Format<email>)",
+                            expected: '(string & Format<"email">)',
                             value: input.email,
                         })) &&
                     (("string" === typeof input.url &&
@@ -154,12 +154,12 @@ export const test_random_CommentTagFormat = _test_random(
                         ) ||
                             $guard(_exceptionable, {
                                 path: _path + ".url",
-                                expected: "string & Format<url>",
+                                expected: 'string & Format<"url">',
                                 value: input.url,
                             }))) ||
                         $guard(_exceptionable, {
                             path: _path + ".url",
-                            expected: "(string & Format<url>)",
+                            expected: '(string & Format<"url">)',
                             value: input.url,
                         })) &&
                     (("string" === typeof input.ipv4 &&
@@ -168,12 +168,12 @@ export const test_random_CommentTagFormat = _test_random(
                         ) ||
                             $guard(_exceptionable, {
                                 path: _path + ".ipv4",
-                                expected: "string & Format<ipv4>",
+                                expected: 'string & Format<"ipv4">',
                                 value: input.ipv4,
                             }))) ||
                         $guard(_exceptionable, {
                             path: _path + ".ipv4",
-                            expected: "(string & Format<ipv4>)",
+                            expected: '(string & Format<"ipv4">)',
                             value: input.ipv4,
                         })) &&
                     (("string" === typeof input.ipv6 &&
@@ -182,36 +182,36 @@ export const test_random_CommentTagFormat = _test_random(
                         ) ||
                             $guard(_exceptionable, {
                                 path: _path + ".ipv6",
-                                expected: "string & Format<ipv6>",
+                                expected: 'string & Format<"ipv6">',
                                 value: input.ipv6,
                             }))) ||
                         $guard(_exceptionable, {
                             path: _path + ".ipv6",
-                            expected: "(string & Format<ipv6>)",
+                            expected: '(string & Format<"ipv6">)',
                             value: input.ipv6,
                         })) &&
                     (("string" === typeof input.date &&
                         (/^(\d{4})-(\d{2})-(\d{2})$/.test(input.date) ||
                             $guard(_exceptionable, {
                                 path: _path + ".date",
-                                expected: "string & Format<date>",
+                                expected: 'string & Format<"date">',
                                 value: input.date,
                             }))) ||
                         $guard(_exceptionable, {
                             path: _path + ".date",
-                            expected: "(string & Format<date>)",
+                            expected: '(string & Format<"date">)',
                             value: input.date,
                         })) &&
                     (("string" === typeof input.date_time &&
                         (!isNaN(new Date(input.date_time).getTime()) ||
                             $guard(_exceptionable, {
                                 path: _path + ".date_time",
-                                expected: "string & Format<date-time>",
+                                expected: 'string & Format<"date-time">',
                                 value: input.date_time,
                             }))) ||
                         $guard(_exceptionable, {
                             path: _path + ".date_time",
-                            expected: "(string & Format<date-time>)",
+                            expected: '(string & Format<"date-time">)',
                             value: input.date_time,
                         })) &&
                     ("string" === typeof input.custom ||

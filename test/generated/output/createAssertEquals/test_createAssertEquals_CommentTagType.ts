@@ -140,12 +140,12 @@ export const test_assertEquals_CommentTagType = _test_assertEquals(
                         input.int <= 2147483647) ||
                         $guard(_exceptionable, {
                             path: _path + ".int",
-                            expected: "number & Type<int32>",
+                            expected: 'number & Type<"int32">',
                             value: input.int,
                         }))) ||
                     $guard(_exceptionable, {
                         path: _path + ".int",
-                        expected: "(number & Type<int32>)",
+                        expected: '(number & Type<"int32">)',
                         value: input.int,
                     })) &&
                 (("number" === typeof input.uint &&
@@ -154,12 +154,12 @@ export const test_assertEquals_CommentTagType = _test_assertEquals(
                         input.uint <= 4294967295) ||
                         $guard(_exceptionable, {
                             path: _path + ".uint",
-                            expected: "number & Type<uint32>",
+                            expected: 'number & Type<"uint32">',
                             value: input.uint,
                         }))) ||
                     $guard(_exceptionable, {
                         path: _path + ".uint",
-                        expected: "(number & Type<uint32>)",
+                        expected: '(number & Type<"uint32">)',
                         value: input.uint,
                     })) &&
                 (("number" === typeof input.int32 &&
@@ -168,12 +168,12 @@ export const test_assertEquals_CommentTagType = _test_assertEquals(
                         input.int32 <= 2147483647) ||
                         $guard(_exceptionable, {
                             path: _path + ".int32",
-                            expected: "number & Type<int32>",
+                            expected: 'number & Type<"int32">',
                             value: input.int32,
                         }))) ||
                     $guard(_exceptionable, {
                         path: _path + ".int32",
-                        expected: "(number & Type<int32>)",
+                        expected: '(number & Type<"int32">)',
                         value: input.int32,
                     })) &&
                 (("number" === typeof input.uint32 &&
@@ -182,12 +182,12 @@ export const test_assertEquals_CommentTagType = _test_assertEquals(
                         input.uint32 <= 4294967295) ||
                         $guard(_exceptionable, {
                             path: _path + ".uint32",
-                            expected: "number & Type<uint32>",
+                            expected: 'number & Type<"uint32">',
                             value: input.uint32,
                         }))) ||
                     $guard(_exceptionable, {
                         path: _path + ".uint32",
-                        expected: "(number & Type<uint32>)",
+                        expected: '(number & Type<"uint32">)',
                         value: input.uint32,
                     })) &&
                 (("number" === typeof input.int64 &&
@@ -196,12 +196,12 @@ export const test_assertEquals_CommentTagType = _test_assertEquals(
                         input.int64 <= 9223372036854776000) ||
                         $guard(_exceptionable, {
                             path: _path + ".int64",
-                            expected: "number & Type<int64>",
+                            expected: 'number & Type<"int64">',
                             value: input.int64,
                         }))) ||
                     $guard(_exceptionable, {
                         path: _path + ".int64",
-                        expected: "(number & Type<int64>)",
+                        expected: '(number & Type<"int64">)',
                         value: input.int64,
                     })) &&
                 (("number" === typeof input.uint64 &&
@@ -210,12 +210,12 @@ export const test_assertEquals_CommentTagType = _test_assertEquals(
                         input.uint64 <= 18446744073709552000) ||
                         $guard(_exceptionable, {
                             path: _path + ".uint64",
-                            expected: "number & Type<uint64>",
+                            expected: 'number & Type<"uint64">',
                             value: input.uint64,
                         }))) ||
                     $guard(_exceptionable, {
                         path: _path + ".uint64",
-                        expected: "(number & Type<uint64>)",
+                        expected: '(number & Type<"uint64">)',
                         value: input.uint64,
                     })) &&
                 (("number" === typeof input.float &&
@@ -223,12 +223,12 @@ export const test_assertEquals_CommentTagType = _test_assertEquals(
                         input.float <= 3.4028235e38) ||
                         $guard(_exceptionable, {
                             path: _path + ".float",
-                            expected: "number & Type<float>",
+                            expected: 'number & Type<"float">',
                             value: input.float,
                         }))) ||
                     $guard(_exceptionable, {
                         path: _path + ".float",
-                        expected: "(number & Type<float>)",
+                        expected: '(number & Type<"float">)',
                         value: input.float,
                     })) &&
                 (7 === Object.keys(input).length ||
