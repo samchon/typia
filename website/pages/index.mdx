@@ -58,7 +58,7 @@ export namespace json {
 // PROTOCOL BUFFER
 export namespace protobuf {
     export function message<T>(): string; // Protocol Buffer message
-    export function assertDecode<T>(buffer: Buffer): T; // safe decoder
+    export function assertDecode<T>(buffer: Uint8Array): T; // safe decoder
     export function assertEncode<T>(input: T): Uint8Array; // safe encoder
 }
 
