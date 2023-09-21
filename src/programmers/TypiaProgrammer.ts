@@ -13,6 +13,14 @@ export namespace TypiaProgrammer {
         project: string;
     }
 
+    const is_supported_extension = (filename: string): boolean => {
+        return (
+            filename.endsWith(".ts") ||
+            filename.endsWith(".tsx") ||
+            filename.endsWith(".svelte")
+        );
+    };
+
     export const build = async (
         props: TypiaProgrammer.IProps,
     ): Promise<void> => {
@@ -156,8 +164,7 @@ export namespace TypiaProgrammer {
                 if (stat.isDirectory()) {
                     await gather(props)(container)(next)(path.join(to, file));
                     continue;
-                } else if (file.substring(file.length - 3) === ".ts")
-                    container.push(next);
+                } else if (is_supported_extension(file)) container.push(next);
             }
         };
 }
