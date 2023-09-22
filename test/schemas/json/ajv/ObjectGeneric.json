@@ -11,20 +11,20 @@
         "type": "array",
         "items": [
           {
-            "$ref": "#/components/schemas/ObjectGeneric.ISomething_lt_boolean_gt_"
+            "$ref": "#/components/schemas/ObjectGeneric.ISomethingboolean"
           },
           {
-            "$ref": "#/components/schemas/ObjectGeneric.ISomething_lt_number_gt_"
+            "$ref": "#/components/schemas/ObjectGeneric.ISomethingnumber"
           },
           {
-            "$ref": "#/components/schemas/ObjectGeneric.ISomething_lt_string_gt_"
+            "$ref": "#/components/schemas/ObjectGeneric.ISomethingstring"
           }
         ],
         "minItems": 3,
         "maxItems": 3
       },
-      "ObjectGeneric.ISomething_lt_boolean_gt_": {
-        "$id": "#/components/schemas/ObjectGeneric.ISomething_lt_boolean_gt_",
+      "ObjectGeneric.ISomethingboolean": {
+        "$id": "#/components/schemas/ObjectGeneric.ISomethingboolean",
         "type": "object",
         "properties": {
           "value": {
@@ -33,14 +33,14 @@
             "type": "boolean"
           },
           "child": {
-            "$ref": "#/components/schemas/ObjectGeneric.IChild_lt_boolean_comma__space_boolean_gt_"
+            "$ref": "#/components/schemas/ObjectGeneric.IChildbooleanboolean"
           },
           "elements": {
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/ObjectGeneric.IChild_lt_boolean_comma__space_boolean_gt_"
+              "$ref": "#/components/schemas/ObjectGeneric.IChildbooleanboolean"
             }
           }
         },
@@ -51,8 +51,8 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "ObjectGeneric.IChild_lt_boolean_comma__space_boolean_gt_": {
-        "$id": "#/components/schemas/ObjectGeneric.IChild_lt_boolean_comma__space_boolean_gt_",
+      "ObjectGeneric.IChildbooleanboolean": {
+        "$id": "#/components/schemas/ObjectGeneric.IChildbooleanboolean",
         "type": "object",
         "properties": {
           "child_value": {
@@ -72,8 +72,8 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "ObjectGeneric.ISomething_lt_number_gt_": {
-        "$id": "#/components/schemas/ObjectGeneric.ISomething_lt_number_gt_",
+      "ObjectGeneric.ISomethingnumber": {
+        "$id": "#/components/schemas/ObjectGeneric.ISomethingnumber",
         "type": "object",
         "properties": {
           "value": {
@@ -82,14 +82,14 @@
             "type": "number"
           },
           "child": {
-            "$ref": "#/components/schemas/ObjectGeneric.IChild_lt_number_comma__space_number_gt_"
+            "$ref": "#/components/schemas/ObjectGeneric.IChildnumbernumber"
           },
           "elements": {
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/ObjectGeneric.IChild_lt_number_comma__space_number_gt_"
+              "$ref": "#/components/schemas/ObjectGeneric.IChildnumbernumber"
             }
           }
         },
@@ -100,8 +100,8 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "ObjectGeneric.IChild_lt_number_comma__space_number_gt_": {
-        "$id": "#/components/schemas/ObjectGeneric.IChild_lt_number_comma__space_number_gt_",
+      "ObjectGeneric.IChildnumbernumber": {
+        "$id": "#/components/schemas/ObjectGeneric.IChildnumbernumber",
         "type": "object",
         "properties": {
           "child_value": {
@@ -121,8 +121,8 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "ObjectGeneric.ISomething_lt_string_gt_": {
-        "$id": "#/components/schemas/ObjectGeneric.ISomething_lt_string_gt_",
+      "ObjectGeneric.ISomethingstring": {
+        "$id": "#/components/schemas/ObjectGeneric.ISomethingstring",
         "type": "object",
         "properties": {
           "value": {
@@ -131,14 +131,14 @@
             "type": "string"
           },
           "child": {
-            "$ref": "#/components/schemas/ObjectGeneric.IChild_lt_string_comma__space_string_gt_"
+            "$ref": "#/components/schemas/ObjectGeneric.IChildstringstring"
           },
           "elements": {
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/ObjectGeneric.IChild_lt_string_comma__space_string_gt_"
+              "$ref": "#/components/schemas/ObjectGeneric.IChildstringstring"
             }
           }
         },
@@ -149,8 +149,8 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "ObjectGeneric.IChild_lt_string_comma__space_string_gt_": {
-        "$id": "#/components/schemas/ObjectGeneric.IChild_lt_string_comma__space_string_gt_",
+      "ObjectGeneric.IChildstringstring": {
+        "$id": "#/components/schemas/ObjectGeneric.IChildstringstring",
         "type": "object",
         "properties": {
           "child_value": {

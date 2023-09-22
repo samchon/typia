@@ -11,13 +11,13 @@
         "items": {
           "oneOf": [
             {
-              "$ref": "#/components/schemas/ConstantAtomicWrapper.IPointer_lt_boolean_gt_"
+              "$ref": "#/components/schemas/ConstantAtomicWrapper.IPointerboolean"
             },
             {
-              "$ref": "#/components/schemas/ConstantAtomicWrapper.IPointer_lt_number_gt_"
+              "$ref": "#/components/schemas/ConstantAtomicWrapper.IPointernumber"
             },
             {
-              "$ref": "#/components/schemas/ConstantAtomicWrapper.IPointer_lt_string_gt_"
+              "$ref": "#/components/schemas/ConstantAtomicWrapper.IPointerstring"
             }
           ]
         },
@@ -27,20 +27,20 @@
           "type": "array",
           "items": [
             {
-              "$ref": "#/components/schemas/ConstantAtomicWrapper.IPointer_lt_boolean_gt_"
+              "$ref": "#/components/schemas/ConstantAtomicWrapper.IPointerboolean"
             },
             {
-              "$ref": "#/components/schemas/ConstantAtomicWrapper.IPointer_lt_number_gt_"
+              "$ref": "#/components/schemas/ConstantAtomicWrapper.IPointernumber"
             },
             {
-              "$ref": "#/components/schemas/ConstantAtomicWrapper.IPointer_lt_string_gt_"
+              "$ref": "#/components/schemas/ConstantAtomicWrapper.IPointerstring"
             }
           ],
           "minItems": 3,
           "maxItems": 3
         }
       },
-      "ConstantAtomicWrapper.IPointer_lt_boolean_gt_": {
+      "ConstantAtomicWrapper.IPointerboolean": {
         "type": "object",
         "properties": {
           "value": {
@@ -55,7 +55,7 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "ConstantAtomicWrapper.IPointer_lt_number_gt_": {
+      "ConstantAtomicWrapper.IPointernumber": {
         "type": "object",
         "properties": {
           "value": {
@@ -70,7 +70,7 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "ConstantAtomicWrapper.IPointer_lt_string_gt_": {
+      "ConstantAtomicWrapper.IPointerstring": {
         "type": "object",
         "properties": {
           "value": {

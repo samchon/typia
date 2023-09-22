@@ -240,6 +240,11 @@ export namespace MetadataCollection {
     }
 
     export const replace = (str: string): string => {
+        let replaced: string = str;
+        for (const [before] of REPLACERS)
+            replaced = replaced.split(before).join("");
+        if (replaced.length !== 0) return replaced;
+
         for (const [before, after] of REPLACERS)
             str = str.split(before).join(after);
         return str;

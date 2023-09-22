@@ -14,7 +14,7 @@
             "x-typia-optional": false,
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/IPointer_lt_IPoint_space__or__space_ILine_space__or__space_ITriangle_space__or__space_IRectangle_space__or__space_IPolyline_space__or__space_IPolygon_space__or__space_IPointedShape_space__or__space_ICircle_gt_"
+              "$ref": "#/components/schemas/IPointerIPointILineITriangleIRectangleIPolylineIPolygonIPointedShapeICircle"
             }
           }
         },
@@ -24,7 +24,7 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "IPointer_lt_IPoint_space__or__space_ILine_space__or__space_ITriangle_space__or__space_IRectangle_space__or__space_IPolyline_space__or__space_IPolygon_space__or__space_IPointedShape_space__or__space_ICircle_gt_": {
+      "IPointerIPointILineITriangleIRectangleIPolylineIPolygonIPointedShapeICircle": {
         "type": "object",
         "properties": {
           "value": {

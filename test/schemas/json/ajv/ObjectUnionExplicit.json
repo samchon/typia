@@ -12,31 +12,31 @@
         "items": {
           "oneOf": [
             {
-              "$ref": "#/components/schemas/ObjectUnionExplicit.Discriminator_lt__doublequote_point_doublequote__comma__space_ObjectUnionExplicit.IPoint_gt_"
+              "$ref": "#/components/schemas/ObjectUnionExplicit.DiscriminatorpointObjectUnionExplicit.IPoint"
             },
             {
-              "$ref": "#/components/schemas/ObjectUnionExplicit.Discriminator_lt__doublequote_line_doublequote__comma__space_ObjectUnionExplicit.ILine_gt_"
+              "$ref": "#/components/schemas/ObjectUnionExplicit.DiscriminatorlineObjectUnionExplicit.ILine"
             },
             {
-              "$ref": "#/components/schemas/ObjectUnionExplicit.Discriminator_lt__doublequote_triangle_doublequote__comma__space_ObjectUnionExplicit.ITriangle_gt_"
+              "$ref": "#/components/schemas/ObjectUnionExplicit.DiscriminatortriangleObjectUnionExplicit.ITriangle"
             },
             {
-              "$ref": "#/components/schemas/ObjectUnionExplicit.Discriminator_lt__doublequote_rectangle_doublequote__comma__space_ObjectUnionExplicit.IRectangle_gt_"
+              "$ref": "#/components/schemas/ObjectUnionExplicit.DiscriminatorrectangleObjectUnionExplicit.IRectangle"
             },
             {
-              "$ref": "#/components/schemas/ObjectUnionExplicit.Discriminator_lt__doublequote_polyline_doublequote__comma__space_ObjectUnionExplicit.IPolyline_gt_"
+              "$ref": "#/components/schemas/ObjectUnionExplicit.DiscriminatorpolylineObjectUnionExplicit.IPolyline"
             },
             {
-              "$ref": "#/components/schemas/ObjectUnionExplicit.Discriminator_lt__doublequote_polygon_doublequote__comma__space_ObjectUnionExplicit.IPolygon_gt_"
+              "$ref": "#/components/schemas/ObjectUnionExplicit.DiscriminatorpolygonObjectUnionExplicit.IPolygon"
             },
             {
-              "$ref": "#/components/schemas/ObjectUnionExplicit.Discriminator_lt__doublequote_circle_doublequote__comma__space_ObjectUnionExplicit.ICircle_gt_"
+              "$ref": "#/components/schemas/ObjectUnionExplicit.DiscriminatorcircleObjectUnionExplicit.ICircle"
             }
           ]
         }
       },
-      "ObjectUnionExplicit.Discriminator_lt__doublequote_point_doublequote__comma__space_ObjectUnionExplicit.IPoint_gt_": {
-        "$id": "#/components/schemas/ObjectUnionExplicit.Discriminator_lt__doublequote_point_doublequote__comma__space_ObjectUnionExplicit.IPoint_gt_",
+      "ObjectUnionExplicit.DiscriminatorpointObjectUnionExplicit.IPoint": {
+        "$id": "#/components/schemas/ObjectUnionExplicit.DiscriminatorpointObjectUnionExplicit.IPoint",
         "type": "object",
         "properties": {
           "x": {
@@ -65,8 +65,8 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "ObjectUnionExplicit.Discriminator_lt__doublequote_line_doublequote__comma__space_ObjectUnionExplicit.ILine_gt_": {
-        "$id": "#/components/schemas/ObjectUnionExplicit.Discriminator_lt__doublequote_line_doublequote__comma__space_ObjectUnionExplicit.ILine_gt_",
+      "ObjectUnionExplicit.DiscriminatorlineObjectUnionExplicit.ILine": {
+        "$id": "#/components/schemas/ObjectUnionExplicit.DiscriminatorlineObjectUnionExplicit.ILine",
         "type": "object",
         "properties": {
           "p1": {
@@ -112,8 +112,8 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "ObjectUnionExplicit.Discriminator_lt__doublequote_triangle_doublequote__comma__space_ObjectUnionExplicit.ITriangle_gt_": {
-        "$id": "#/components/schemas/ObjectUnionExplicit.Discriminator_lt__doublequote_triangle_doublequote__comma__space_ObjectUnionExplicit.ITriangle_gt_",
+      "ObjectUnionExplicit.DiscriminatortriangleObjectUnionExplicit.ITriangle": {
+        "$id": "#/components/schemas/ObjectUnionExplicit.DiscriminatortriangleObjectUnionExplicit.ITriangle",
         "type": "object",
         "properties": {
           "p1": {
@@ -142,8 +142,8 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "ObjectUnionExplicit.Discriminator_lt__doublequote_rectangle_doublequote__comma__space_ObjectUnionExplicit.IRectangle_gt_": {
-        "$id": "#/components/schemas/ObjectUnionExplicit.Discriminator_lt__doublequote_rectangle_doublequote__comma__space_ObjectUnionExplicit.IRectangle_gt_",
+      "ObjectUnionExplicit.DiscriminatorrectangleObjectUnionExplicit.IRectangle": {
+        "$id": "#/components/schemas/ObjectUnionExplicit.DiscriminatorrectangleObjectUnionExplicit.IRectangle",
         "type": "object",
         "properties": {
           "p1": {
@@ -176,8 +176,8 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "ObjectUnionExplicit.Discriminator_lt__doublequote_polyline_doublequote__comma__space_ObjectUnionExplicit.IPolyline_gt_": {
-        "$id": "#/components/schemas/ObjectUnionExplicit.Discriminator_lt__doublequote_polyline_doublequote__comma__space_ObjectUnionExplicit.IPolyline_gt_",
+      "ObjectUnionExplicit.DiscriminatorpolylineObjectUnionExplicit.IPolyline": {
+        "$id": "#/components/schemas/ObjectUnionExplicit.DiscriminatorpolylineObjectUnionExplicit.IPolyline",
         "type": "object",
         "properties": {
           "points": {
@@ -203,8 +203,8 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "ObjectUnionExplicit.Discriminator_lt__doublequote_polygon_doublequote__comma__space_ObjectUnionExplicit.IPolygon_gt_": {
-        "$id": "#/components/schemas/ObjectUnionExplicit.Discriminator_lt__doublequote_polygon_doublequote__comma__space_ObjectUnionExplicit.IPolygon_gt_",
+      "ObjectUnionExplicit.DiscriminatorpolygonObjectUnionExplicit.IPolygon": {
+        "$id": "#/components/schemas/ObjectUnionExplicit.DiscriminatorpolygonObjectUnionExplicit.IPolygon",
         "type": "object",
         "properties": {
           "outer": {
@@ -252,8 +252,8 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "ObjectUnionExplicit.Discriminator_lt__doublequote_circle_doublequote__comma__space_ObjectUnionExplicit.ICircle_gt_": {
-        "$id": "#/components/schemas/ObjectUnionExplicit.Discriminator_lt__doublequote_circle_doublequote__comma__space_ObjectUnionExplicit.ICircle_gt_",
+      "ObjectUnionExplicit.DiscriminatorcircleObjectUnionExplicit.ICircle": {
+        "$id": "#/components/schemas/ObjectUnionExplicit.DiscriminatorcircleObjectUnionExplicit.ICircle",
         "type": "object",
         "properties": {
           "centroid": {
