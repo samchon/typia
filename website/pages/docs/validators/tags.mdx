@@ -602,46 +602,41 @@ Here is the example code, and I think that it may easy to understand.
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
     <Tab>
 ```typescript showLineNumbers copy filename="is.tag.custom.ts"
-import typia, { tags } from "typia";
+import typia from "typia";
 
-export const checkSomething = typia.createIs<Something>();
-
-//----
-// DEFINE CUSTOM TYPE TAGS
-//----
-type Dollar = tags.TagBase<{
+export const checkTagCustom = typia.createIs<TagCustom>();
+ 
+interface TagCustom {
+    id: string & typia.tags.Format<"uuid">;
+    dollar: string & Dolloar;
+    postfix: string & Postfix<"abcd">;
+    powerOf: number & PowerOf<2>;
+}
+ 
+type Dolloar = typia.tags.TagBase<{
     kind: "dollar";
     target: "string";
     value: undefined;
     validate: `$input[0] === "$" && !isNaN(Number($input.substring(1).split(",").join("")))`;
 }>;
-
-type Postfix<Value extends string> = tags.TagBase<{
+ 
+type Postfix<Value extends string> = typia.tags.TagBase<{
     kind: "postfix";
     target: "string";
     value: Value;
     validate: `$input.endsWith("${Value}")`;
 }>;
-
-type IsEven<Value extends number | bigint> = tags.TagBase<{
-    kind: "isEven";
-    target: Value extends number ? "number" : "bigint";
-    value: undefined;
-    validate: `$input % ${Numeric<2>} === ${Numeric<0>}`;
+ 
+type PowerOf<Value extends number> = typia.tags.TagBase<{
+    kind: "powerOf";
+    target: "number";
+    value: Value;
+    validate: `(() => {
+        const denominator: number = Math.log(${Value});
+        const value: number = Math.log($input) / denominator;
+        return Math.abs(value - Math.round(value)) < 0.00000001;
+    })()`;
 }>;
-
-type Numeric<Value extends number | bigint> = Value extends number
-    ? Value
-    : `BigInt(${Value})`;
-
-//----
-// VALIDATION
-//----
-interface Something {
-    dollar: string & Dollar;
-    postfix: string & Postfix<"!!!">;
-    isEven: number & IsEven<number>;
-}
 ```
     </Tab>
     <Tab>
@@ -653,22 +648,30 @@ var __importDefault =
         return mod && mod.__esModule ? mod : { default: mod };
     };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.checkSomething = void 0;
+exports.checkTagCustom = void 0;
 const typia_1 = __importDefault(require("typia"));
-const checkSomething = (input) => {
+const checkTagCustom = (input) => {
     return (
         "object" === typeof input &&
         null !== input &&
+        "string" === typeof input.id &&
+        /^(?:[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}|00000000-0000-0000-0000-000000000000)$/i.test(
+            input.id,
+        ) &&
         "string" === typeof input.dollar &&
         input.dollar[0] === "$" &&
         !isNaN(Number(input.dollar.substring(1).split(",").join(""))) &&
         "string" === typeof input.postfix &&
-        input.postfix.endsWith("!!!") &&
-        "number" === typeof input.isEven &&
-        input.isEven % 2 === 0
+        input.postfix.endsWith("abcd") &&
+        "number" === typeof input.powerOf &&
+        (() => {
+            const denominator = Math.log(2);
+            const value = Math.log(input.powerOf) / denominator;
+            return Math.abs(value - Math.round(value)) < 1e-8;
+        })()
     );
 };
-exports.checkSomething = checkSomething;
+exports.checkTagCustom = checkTagCustom;
 ```
     </Tab>
 </Tabs>

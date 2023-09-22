@@ -611,6 +611,7 @@ interface TagCustom {
     id: string & typia.tags.Format<"uuid">;
     dollar: string & Dolloar;
     postfix: string & Postfix<"abcd">;
+    powerOf: number & PowerOf<2>;
 }
 
 type Dolloar = typia.tags.TagBase<{
@@ -626,37 +627,56 @@ type Postfix<Value extends string> = typia.tags.TagBase<{
     value: Value;
     validate: `$input.endsWith("${Value}")`;
 }>;
+
+type PowerOf<Value extends number> = typia.tags.TagBase<{
+    kind: "powerOf";
+    target: "number";
+    value: Value;
+    validate: `(() => {
+        const denominator: number = Math.log(${Value});
+        const value: number = Math.log($input) / denominator;
+        return Math.abs(value - Math.round(value)) < 0.00000001;
+    })()`;
+}>;
 ```
     </Tab>
     <Tab>
 ```javascript filename="examples/bin/random-customization.js"
-import typia from "typia";
-import { RandomGenerator } from "typia/lib/utils/RandomGenerator";
-
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const typia_1 = __importDefault(require("typia"));
+const RandomGenerator_1 = require("typia/lib/utils/RandomGenerator");
 const data = (generator => {
-    const $generator = typia.random.generator;
+    const $generator = typia_1.default.random.generator;
     const $ro0 = (_recursive = false, _depth = 0) => ({
         id: (generator?.customs ?? $generator.customs)?.string?.([
             {
-                name: "format",
+                name: "Format<\"uuid\">",
+                kind: "format",
                 value: "uuid"
             }
         ]) ?? (generator?.uuid ?? $generator.uuid)(),
         dollar: (generator?.customs ?? $generator.customs)?.string?.([
             {
-                name: "dollar"
+                name: "Dolloar",
+                kind: "dollar"
             }
         ]) ?? (generator?.string ?? $generator.string)(),
         postfix: (generator?.customs ?? $generator.customs)?.string?.([
             {
-                name: "postfix",
+                name: "Postfix<\"abcd\">",
+                kind: "postfix",
                 value: "abcd"
             }
         ]) ?? (generator?.string ?? $generator.string)(),
-        power: (generator?.customs ?? $generator.customs)?.number?.([
+        powerOf: (generator?.customs ?? $generator.customs)?.number?.([
             {
-                name: "powerOf",
-                value: "10"
+                name: "PowerOf<2>",
+                kind: "powerOf",
+                value: 2
             }
         ]) ?? (generator?.number ?? $generator.number)(0, 100)
     });
@@ -664,20 +684,14 @@ const data = (generator => {
 })({
     customs: {
         string: (tags) => {
-            if (tags.find((t) => t.name === "dollar") !== undefined)
-                return "$" + RandomGenerator.integer();
-            const postfix = tags.find((t) => t.name === "postfix");
+            if (tags.find((t) => t.kind === "dollar") !== undefined)
+                return "$" + RandomGenerator_1.RandomGenerator.integer();
+            const postfix = tags.find((t) => t.kind === "postfix");
             if (postfix !== undefined)
-                return RandomGenerator.string() + postfix.value;
-        },
-        number: (tags) => {
-            const powerOf = tags.find((t) => t.name === "powerOf");
-            if (powerOf !== undefined)
-                return Math.pow(Number(powerOf.value), RandomGenerator.integer(1, 4));
+                return RandomGenerator_1.RandomGenerator.string() + postfix.value;
         },
     },
 });
-
 console.log(data);
 ```
     </Tab>
