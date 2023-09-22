@@ -14,7 +14,7 @@
             "x-typia-optional": false,
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/ObjectUnionNonPredictable.IWrapper_lt_ObjectUnionNonPredictable.IUnion_gt_"
+              "$ref": "#/components/schemas/ObjectUnionNonPredictable.IWrapperObjectUnionNonPredictable.IUnion"
             }
           }
         },
@@ -24,11 +24,11 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "ObjectUnionNonPredictable.IWrapper_lt_ObjectUnionNonPredictable.IUnion_gt_": {
+      "ObjectUnionNonPredictable.IWrapperObjectUnionNonPredictable.IUnion": {
         "type": "object",
         "properties": {
           "value": {
-            "$ref": "#/components/schemas/IPointer_lt_ObjectUnionNonPredictable.IUnion_gt_"
+            "$ref": "#/components/schemas/IPointerObjectUnionNonPredictable.IUnion"
           }
         },
         "nullable": false,
@@ -37,7 +37,7 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "IPointer_lt_ObjectUnionNonPredictable.IUnion_gt_": {
+      "IPointerObjectUnionNonPredictable.IUnion": {
         "type": "object",
         "properties": {
           "value": {
@@ -53,21 +53,21 @@
       "ObjectUnionNonPredictable.IUnion": {
         "oneOf": [
           {
-            "$ref": "#/components/schemas/ObjectUnionNonPredictable.IWrapper_lt_boolean_gt_"
+            "$ref": "#/components/schemas/ObjectUnionNonPredictable.IWrapperboolean"
           },
           {
-            "$ref": "#/components/schemas/ObjectUnionNonPredictable.IWrapper_lt_number_gt_"
+            "$ref": "#/components/schemas/ObjectUnionNonPredictable.IWrappernumber"
           },
           {
-            "$ref": "#/components/schemas/ObjectUnionNonPredictable.IWrapper_lt_string_gt_"
+            "$ref": "#/components/schemas/ObjectUnionNonPredictable.IWrapperstring"
           }
         ]
       },
-      "ObjectUnionNonPredictable.IWrapper_lt_boolean_gt_": {
+      "ObjectUnionNonPredictable.IWrapperboolean": {
         "type": "object",
         "properties": {
           "value": {
-            "$ref": "#/components/schemas/IPointer_lt_boolean_gt_"
+            "$ref": "#/components/schemas/IPointerboolean"
           }
         },
         "nullable": false,
@@ -76,7 +76,7 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "IPointer_lt_boolean_gt_": {
+      "IPointerboolean": {
         "type": "object",
         "properties": {
           "value": {
@@ -91,11 +91,11 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "ObjectUnionNonPredictable.IWrapper_lt_number_gt_": {
+      "ObjectUnionNonPredictable.IWrappernumber": {
         "type": "object",
         "properties": {
           "value": {
-            "$ref": "#/components/schemas/IPointer_lt_number_gt_"
+            "$ref": "#/components/schemas/IPointernumber"
           }
         },
         "nullable": false,
@@ -104,7 +104,7 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "IPointer_lt_number_gt_": {
+      "IPointernumber": {
         "type": "object",
         "properties": {
           "value": {
@@ -119,11 +119,11 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "ObjectUnionNonPredictable.IWrapper_lt_string_gt_": {
+      "ObjectUnionNonPredictable.IWrapperstring": {
         "type": "object",
         "properties": {
           "value": {
-            "$ref": "#/components/schemas/IPointer_lt_string_gt_"
+            "$ref": "#/components/schemas/IPointerstring"
           }
         },
         "nullable": false,
@@ -132,7 +132,7 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "IPointer_lt_string_gt_": {
+      "IPointerstring": {
         "type": "object",
         "properties": {
           "value": {

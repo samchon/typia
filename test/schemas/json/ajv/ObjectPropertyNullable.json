@@ -16,7 +16,7 @@
             "x-typia-optional": false,
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/ObjectPropertyNullable.IPointer_lt_boolean_gt_"
+              "$ref": "#/components/schemas/ObjectPropertyNullable.IPointerboolean"
             }
           },
           {
@@ -25,7 +25,7 @@
             "x-typia-optional": false,
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/ObjectPropertyNullable.IPointer_lt_number_gt_"
+              "$ref": "#/components/schemas/ObjectPropertyNullable.IPointernumber"
             }
           },
           {
@@ -34,7 +34,7 @@
             "x-typia-optional": false,
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/ObjectPropertyNullable.IPointer_lt_string_gt_"
+              "$ref": "#/components/schemas/ObjectPropertyNullable.IPointerstring"
             }
           },
           {
@@ -43,15 +43,15 @@
             "x-typia-optional": false,
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/ObjectPropertyNullable.IPointer_lt_ObjectPropertyNullable.IMember_gt_"
+              "$ref": "#/components/schemas/ObjectPropertyNullable.IPointerObjectPropertyNullable.IMember"
             }
           }
         ],
         "minItems": 4,
         "maxItems": 4
       },
-      "ObjectPropertyNullable.IPointer_lt_boolean_gt_": {
-        "$id": "#/components/schemas/ObjectPropertyNullable.IPointer_lt_boolean_gt_",
+      "ObjectPropertyNullable.IPointerboolean": {
+        "$id": "#/components/schemas/ObjectPropertyNullable.IPointerboolean",
         "type": "object",
         "properties": {
           "value": {
@@ -76,8 +76,8 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "ObjectPropertyNullable.IPointer_lt_number_gt_": {
-        "$id": "#/components/schemas/ObjectPropertyNullable.IPointer_lt_number_gt_",
+      "ObjectPropertyNullable.IPointernumber": {
+        "$id": "#/components/schemas/ObjectPropertyNullable.IPointernumber",
         "type": "object",
         "properties": {
           "value": {
@@ -102,8 +102,8 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "ObjectPropertyNullable.IPointer_lt_string_gt_": {
-        "$id": "#/components/schemas/ObjectPropertyNullable.IPointer_lt_string_gt_",
+      "ObjectPropertyNullable.IPointerstring": {
+        "$id": "#/components/schemas/ObjectPropertyNullable.IPointerstring",
         "type": "object",
         "properties": {
           "value": {
@@ -128,8 +128,8 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "ObjectPropertyNullable.IPointer_lt_ObjectPropertyNullable.IMember_gt_": {
-        "$id": "#/components/schemas/ObjectPropertyNullable.IPointer_lt_ObjectPropertyNullable.IMember_gt_",
+      "ObjectPropertyNullable.IPointerObjectPropertyNullable.IMember": {
+        "$id": "#/components/schemas/ObjectPropertyNullable.IPointerObjectPropertyNullable.IMember",
         "type": "object",
         "properties": {
           "value": {

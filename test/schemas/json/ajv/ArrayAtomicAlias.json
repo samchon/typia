@@ -11,34 +11,34 @@
         "type": "array",
         "items": [
           {
-            "$ref": "#/components/schemas/ArrayAtomicAlias.Alias_lt_boolean_gt_"
+            "$ref": "#/components/schemas/ArrayAtomicAlias.Aliasboolean"
           },
           {
-            "$ref": "#/components/schemas/ArrayAtomicAlias.Alias_lt_number_gt_"
+            "$ref": "#/components/schemas/ArrayAtomicAlias.Aliasnumber"
           },
           {
-            "$ref": "#/components/schemas/ArrayAtomicAlias.Alias_lt_string_gt_"
+            "$ref": "#/components/schemas/ArrayAtomicAlias.Aliasstring"
           }
         ],
         "minItems": 3,
         "maxItems": 3
       },
-      "ArrayAtomicAlias.Alias_lt_boolean_gt_": {
-        "$id": "#/components/schemas/ArrayAtomicAlias.Alias_lt_boolean_gt_",
+      "ArrayAtomicAlias.Aliasboolean": {
+        "$id": "#/components/schemas/ArrayAtomicAlias.Aliasboolean",
         "type": "array",
         "items": {
           "type": "boolean"
         }
       },
-      "ArrayAtomicAlias.Alias_lt_number_gt_": {
-        "$id": "#/components/schemas/ArrayAtomicAlias.Alias_lt_number_gt_",
+      "ArrayAtomicAlias.Aliasnumber": {
+        "$id": "#/components/schemas/ArrayAtomicAlias.Aliasnumber",
         "type": "array",
         "items": {
           "type": "number"
         }
       },
-      "ArrayAtomicAlias.Alias_lt_string_gt_": {
-        "$id": "#/components/schemas/ArrayAtomicAlias.Alias_lt_string_gt_",
+      "ArrayAtomicAlias.Aliasstring": {
+        "$id": "#/components/schemas/ArrayAtomicAlias.Aliasstring",
         "type": "array",
         "items": {
           "type": "string"
