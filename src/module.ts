@@ -6,6 +6,7 @@ import { IRandomGenerator } from "./IRandomGenerator";
 import { IValidation } from "./IValidation";
 import { Resolved } from "./Resolved";
 
+export * as http from "./http";
 export * as json from "./json";
 export * as misc from "./misc";
 export * as protobuf from "./protobuf";
