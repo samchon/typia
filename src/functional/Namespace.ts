@@ -5,6 +5,7 @@ import { TypeGuardError } from "../TypeGuardError";
 import { $ProtobufReader } from "./$ProtobufReader";
 import { $ProtobufSizer } from "./$ProtobufSizer";
 import { $ProtobufWriter } from "./$ProtobufWriter";
+import { $QueryReader } from "./$QueryReader";
 import { $any } from "./$any";
 import { $every } from "./$every";
 import { $guard } from "./$guard";
@@ -102,6 +103,10 @@ export namespace Namespace {
             strlen: $strlen,
             throws: $throws(method),
         });
+    }
+
+    export namespace http {
+        export const query = $QueryReader;
     }
 
     export namespace misc {
