@@ -13,7 +13,7 @@ export namespace HttpValidateQueryProgrammer {
     export const write =
         (project: IProject) =>
         (modulo: ts.LeftHandSideExpression) =>
-        (type: ts.Type, name?: string) =>
+        (type: ts.Type, name?: string): ts.ArrowFunction =>
             ts.factory.createArrowFunction(
                 undefined,
                 undefined,

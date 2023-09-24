@@ -24,7 +24,7 @@ import { Resolved } from "./Resolved";
  * For reference, Protocol Buffer has lots of restrictions, so that expression power
  * of Protocol Buffer is not enough strong to fully meet the TypeScript type specs.
  * In such reason, if you put a TypeScript type that is not compatible with Protocol
- * Buffer, this function would throw a compilation error.
+ * Buffer, this function would throw compilation errors.
  *
  *  - [Restrictions of Protocol Buffer](https://typia.io/docs/protobuf/message/#restrictions)
  *
@@ -45,7 +45,7 @@ export function message(): never;
  * For reference, Protocol Buffer has lots of restrictions, so that expression power
  * of Protocol Buffer is not enough strong to fully meet the TypeScript type specs.
  * In such reason, if you put a TypeScript type that is not compatible with Protocol
- * Buffer, this function would throw a compilation error.
+ * Buffer, this function would throw compilation errors.
  *
  * @template T Target type
  * @returns Protocol Buffer Message Schema.
@@ -88,7 +88,7 @@ export function message(): never {
  * [custom tags](https://typia.io/docs/validators/tags). Thus, I repeat that,
  * you've to ensure the type safety when using decoder functions.
  *
- * @tempate Expected type of decoded value
+ * @template T Expected type of decoded value
  * @param input Protobuf Buffer binary data
  * @returns Decoded value
  *
@@ -118,7 +118,7 @@ export function decode(input: Uint8Array): never;
  * [custom tags](https://typia.io/docs/validators/tags). Thus, I repeat that,
  * you've to ensure the type safety when using decoder functions.
  *
- * @tempate Expected type of decoded value
+ * @template T Expected type of decoded value
  * @param input Protobuf Buffer binary data
  * @returns Decoded value
  *
@@ -157,7 +157,7 @@ Object.assign(decode, Namespace.protobuf.decode("decode"));
  *  - {@link isEncode}
  *  - {@link validateEncode}
  *
- * @tempate Expected type of decoded value
+ * @template T Expected type of decoded value
  * @param input Protobuf Buffer binary data
  * @returns Decoded value
  *
@@ -186,7 +186,7 @@ export function assertDecode(input: Uint8Array): never;
  *  - {@link isEncode}
  *  - {@link validateEncode}
  *
- * @tempate Expected type of decoded value
+ * @template T Expected type of decoded value
  * @param input Protobuf Buffer binary data
  * @returns Decoded value
  *
@@ -200,7 +200,7 @@ export function assertDecode<T>(input: Uint8Array): Resolved<T>;
 export function assertDecode(): never {
     halt("assertDecode");
 }
-Object.assign(assertDecode, Namespace.assert("assertDecode"));
+Object.assign(assertDecode, Namespace.assert("protobuf.assertDecode"));
 Object.assign(assertDecode, Namespace.protobuf.decode("assertDecode"));
 
 /**
@@ -226,7 +226,7 @@ Object.assign(assertDecode, Namespace.protobuf.decode("assertDecode"));
  *  - {@link isEncode}
  *  - {@link validateEncode}
  *
- * @tempate Expected type of decoded value
+ * @template T Expected type of decoded value
  * @param input Protobuf Buffer binary data
  * @returns Decoded value
  *
@@ -255,7 +255,7 @@ export function isDecode(input: Uint8Array): never;
  *  - {@link isEncode}
  *  - {@link validateEncode}
  *
- * @tempate Expected type of decoded value
+ * @template T Expected type of decoded value
  * @param input Protobuf Buffer binary data
  * @returns Decoded value
  *
@@ -296,7 +296,7 @@ Object.assign(isDecode, Namespace.protobuf.decode("isDecode"));
  *  - {@link isEncode}
  *  - {@link validateEncode}
  *
- * @tempate Expected type of decoded value
+ * @template T Expected type of decoded value
  * @param input Protobuf Buffer binary data
  * @returns Decoded value
  *
@@ -326,7 +326,7 @@ export function validateDecode(input: Uint8Array): never;
  *  - {@link isEncode}
  *  - {@link validateEncode}
  *
- * @tempate Expected type of decoded value
+ * @template T Expected type of decoded value
  * @param input Protobuf Buffer binary data
  * @returns Decoded value
  *
@@ -362,8 +362,8 @@ Object.assign(validateDecode, Namespace.protobuf.decode("validateDecode"));
  *
  * By the way, you know what? Expression power of Protocol Buffer is not enough strong
  * to fully meet the TypeScript type specs. In such reason, if you put a TypeScript
- * type that is not compatible with Protocol Buffer, this function would throw a
- * compilation error.
+ * type that is not compatible with Protocol Buffer, this function would throw
+ * compilation errors.
  *
  *  - [Restrictions of Protocol Buffer](https://typia.io/docs/protobuf/message/#restrictions)
  *
@@ -403,8 +403,8 @@ Object.assign(encode, Namespace.protobuf.encode("encode"));
  *
  * By the way, you know what? Expression power of Protocol Buffer is not enough strong
  * to fully meet the TypeScript type specs. In such reason, if you put a TypeScript
- * type that is not compatible with Protocol Buffer, this function would throw a
- * compilation error.
+ * type that is not compatible with Protocol Buffer, this function would throw
+ * compilation errors.
  *
  *  - [Restrictions of Protocol Buffer](https://typia.io/docs/protobuf/message/#restrictions)
  *
@@ -436,8 +436,8 @@ export function assertEncode<T>(input: T): Uint8Array;
  *
  * By the way, you know what? Expression power of Protocol Buffer is not enough strong
  * to fully meet the TypeScript type specs. In such reason, if you put a TypeScript
- * type that is not compatible with Protocol Buffer, this function would throw a
- * compilation error.
+ * type that is not compatible with Protocol Buffer, this function would throw
+ * compilation errors.
  *
  *  - [Restrictions of Protocol Buffer](https://typia.io/docs/protobuf/message/#restrictions)
  *
@@ -455,7 +455,7 @@ export function assertEncode<T>(input: unknown): Uint8Array;
 export function assertEncode(): never {
     halt("assertEncode");
 }
-Object.assign(assertEncode, Namespace.assert("assertEncode"));
+Object.assign(assertEncode, Namespace.assert("protobuf.assertEncode"));
 Object.assign(assertEncode, Namespace.protobuf.encode("assertEncode"));
 
 /**
@@ -478,8 +478,8 @@ Object.assign(assertEncode, Namespace.protobuf.encode("assertEncode"));
  *
  * By the way, you know what? Expression power of Protocol Buffer is not enough strong
  * to fully meet the TypeScript type specs. In such reason, if you put a TypeScript
- * type that is not compatible with Protocol Buffer, this function would throw a
- * compilation error.
+ * type that is not compatible with Protocol Buffer, this function would throw
+ * compilation errors.
  *
  *  - [Restrictions of Protocol Buffer](https://typia.io/docs/protobuf/message/#restrictions)
  *
@@ -511,8 +511,8 @@ export function isEncode<T>(input: T): Uint8Array | null;
  *
  * By the way, you know what? Expression power of Protocol Buffer is not enough strong
  * to fully meet the TypeScript type specs. In such reason, if you put a TypeScript
- * type that is not compatible with Protocol Buffer, this function would throw a
- * compilation error.
+ * type that is not compatible with Protocol Buffer, this function would throw
+ * compilation errors.
  *
  *  - [Restrictions of Protocol Buffer](https://typia.io/docs/protobuf/message/#restrictions)
  *
@@ -554,8 +554,8 @@ Object.assign(isEncode, Namespace.protobuf.encode("isEncode"));
  *
  * By the way, you know what? Expression power of Protocol Buffer is not enough strong
  * to fully meet the TypeScript type specs. In such reason, if you put a TypeScript
- * type that is not compatible with Protocol Buffer, this function would throw a
- * compilation error.
+ * type that is not compatible with Protocol Buffer, this function would throw
+ * compilation errors.
  *
  *  - [Restrictions of Protocol Buffer](https://typia.io/docs/protobuf/message/#restrictions)
  *
@@ -588,8 +588,8 @@ export function validateEncode<T>(input: T): IValidation<Uint8Array>;
  *
  * By the way, you know what? Expression power of Protocol Buffer is not enough strong
  * to fully meet the TypeScript type specs. In such reason, if you put a TypeScript
- * type that is not compatible with Protocol Buffer, this function would throw a
- * compilation error.
+ * type that is not compatible with Protocol Buffer, this function would throw
+ * compilation errors.
  *
  *  - [Restrictions of Protocol Buffer](https://typia.io/docs/protobuf/message/#restrictions)
  *
@@ -699,7 +699,10 @@ export function createAssertDecode<T>(): (input: Uint8Array) => Resolved<T>;
 export function createAssertDecode<T>(): (input: Uint8Array) => Resolved<T> {
     halt("createAssertDecode");
 }
-Object.assign(createAssertDecode, Namespace.assert("createAssertDecode"));
+Object.assign(
+    createAssertDecode,
+    Namespace.assert("protobuf.createAssertDecode"),
+);
 Object.assign(
     createAssertDecode,
     Namespace.protobuf.decode("createAssertDecode"),
@@ -828,7 +831,10 @@ export function createAssertEncode<T>(): (input: T) => Uint8Array;
 export function createAssertEncode<T>(): (input: T) => Uint8Array {
     halt("createAssertEncode");
 }
-Object.assign(createAssertEncode, Namespace.assert("createAssertEncode"));
+Object.assign(
+    createAssertEncode,
+    Namespace.assert("protobuf.createAssertEncode"),
+);
 Object.assign(
     createAssertEncode,
     Namespace.protobuf.encode("createAssertEncode"),
