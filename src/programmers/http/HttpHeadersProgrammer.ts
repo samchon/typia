@@ -27,7 +27,7 @@ export namespace HttpHeadersProgrammer {
     export const write =
         (project: IProject) =>
         (modulo: ts.LeftHandSideExpression) =>
-        (type: ts.Type, name?: string) => {
+        (type: ts.Type, name?: string): ts.ArrowFunction => {
             // GET OBJECT TYPE
             const importer: FunctionImporter = new FunctionImporter(
                 modulo.getText(),

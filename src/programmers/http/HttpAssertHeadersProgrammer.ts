@@ -9,11 +9,11 @@ import { IProject } from "../../transformers/IProject";
 import { AssertProgrammer } from "../AssertProgrammer";
 import { HttpHeadersProgrammer } from "./HttpHeadersProgrammer";
 
-export namespace HttpAsserHeadersProgrammer {
+export namespace HttpAssertHeadersProgrammer {
     export const write =
         (project: IProject) =>
         (modulo: ts.LeftHandSideExpression) =>
-        (type: ts.Type, name?: string) =>
+        (type: ts.Type, name?: string): ts.ArrowFunction =>
             ts.factory.createArrowFunction(
                 undefined,
                 undefined,

@@ -15,10 +15,10 @@ import { AssertProgrammer } from "../AssertProgrammer";
 import { HttpMetadataUtil } from "../helpers/HttpMetadataUtil";
 
 export namespace HttpParameterProgrammer {
-    export const generate =
+    export const write =
         (project: IProject) =>
         (modulo: ts.LeftHandSideExpression) =>
-        (type: ts.Type, name?: string): ts.Expression => {
+        (type: ts.Type, name?: string): ts.ArrowFunction => {
             const result = MetadataFactory.analyze(project.checker)({
                 escape: false,
                 constant: true,

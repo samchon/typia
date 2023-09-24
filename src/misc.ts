@@ -130,7 +130,7 @@ export function assertClone<T>(input: unknown): Resolved<T>;
 export function assertClone(): never {
     halt("assertClone");
 }
-Object.assign(assertClone, Namespace.assert("assertClone"));
+Object.assign(assertClone, Namespace.assert("misc.assertClone"));
 Object.assign(assertClone, Namespace.misc.clone("assertClone"));
 
 /**
@@ -301,7 +301,7 @@ export function assertPrune<T>(input: unknown): T;
 export function assertPrune(): unknown {
     halt("assertPrune");
 }
-Object.assign(assertPrune, Namespace.assert("assertPrune"));
+Object.assign(assertPrune, Namespace.assert("misc.assertPrune"));
 Object.assign(assertPrune, Namespace.misc.prune("assertPrune"));
 
 /**
