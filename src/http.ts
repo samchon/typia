@@ -315,7 +315,7 @@ Object.assign(validateQuery, Namespace.validate());
 /**
  * > You must configure the generic argument `T`.
  *
- * Headers decoder.
+ * Headers decoder (for express and fastify).
  *
  * `typia.http.headers()` is a function decoding an header instance, with automatic
  * type casting to the expected type. When property type be defined as `boolean` or
@@ -369,7 +369,7 @@ Object.assign(validateQuery, Namespace.validate());
 export function headers(): never;
 
 /**
- * Headers decoder.
+ * Headers decoder (for express and fastify).
  *
  * `typia.http.headers()` is a function decoding an header instance, with automatic
  * type casting to the expected type. When property type be defined as `boolean` or
@@ -435,7 +435,7 @@ Object.assign(headers, Namespace.http.headers());
 /**
  * > You must configure the generic argument `T`.
  *
- * Headers decoder with type assertion.
+ * Headers decoder with type assertion (for express and fastify).
  *
  * `typia.http.assertHeaders()` is a function decoding an header instance, with
  * automatic type casting to the expected type. When property type be defined as
@@ -487,7 +487,7 @@ Object.assign(headers, Namespace.http.headers());
 export function assertHeaders(): never;
 
 /**
- * Headers decoder with type assertion.
+ * Headers decoder with type assertion (for express and fastify).
  *
  * `typia.http.assertHeaders()` is a function decoding an header instance, with
  * automatic type casting to the expected type. When property type be defined as
@@ -552,7 +552,7 @@ Object.assign(assertHeaders, Namespace.assert("http.assertHeaders"));
 /**
  * > You must configure the generic argument `T`.
  *
- * Headers decoder with type checking.
+ * Headers decoder with type checking (for express and fastify).
  *
  * `typia.http.isHeaders()` is a function decoding an header instance, with
  * automatic type casting to the expected type. When property type be defined as
@@ -605,7 +605,7 @@ export function isHeaders(): never;
 /**
  * > You must configure the generic argument `T`.
  *
- * Headers decoder with type checking.
+ * Headers decoder with type checking (for express and fastify).
  *
  * `typia.http.isHeaders()` is a function decoding an header instance, with
  * automatic type casting to the expected type. When property type be defined as
@@ -669,7 +669,7 @@ Object.assign(isHeaders, Namespace.is());
 /**
  * > You must configure the generic argument `T`.
  *
- * Headers decoder with type validation.
+ * Headers decoder with type validation (for express and fastify).
  *
  * `typia.http.validateHeaders()` is a function decoding an header instance, with
  * automatic type casting to the expected type. When property type be defined as
@@ -721,7 +721,7 @@ Object.assign(isHeaders, Namespace.is());
 export function validateHeaders(): never;
 
 /**
- * Headers decoder with type validation.
+ * Headers decoder with type validation (for express and fastify).
  *
  * `typia.http.validateHeaders()` is a function decoding an header instance, with
  * automatic type casting to the expected type. When property type be defined as
@@ -820,7 +820,9 @@ export function parameter(): never;
  * @param input Path parameter string
  * @returns Decoded path parameter value
  */
-export function parameter<T extends Atomic.Type>(input: string): Resolved<T>;
+export function parameter<T extends Atomic.Type | null>(
+    input: string,
+): Resolved<T>;
 
 /**
  * @internal
@@ -828,6 +830,7 @@ export function parameter<T extends Atomic.Type>(input: string): Resolved<T>;
 export function parameter(): never {
     halt("parameter");
 }
+Object.assign(parameter, Namespace.http.parameter());
 Object.assign(parameter, Namespace.assert("http.parameter"));
 
 /* -----------------------------------------------------------
@@ -1121,14 +1124,19 @@ export function createParameter(): never;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function createParameter<T extends Atomic.Type>(): (input: string) => T;
+export function createParameter<T extends Atomic.Type | null>(): (
+    input: string,
+) => T;
 
 /**
  * @internal
  */
-export function createParameter<T extends Atomic.Type>(): (input: string) => T {
+export function createParameter<T extends Atomic.Type | null>(): (
+    input: string,
+) => T {
     halt("createParameter");
 }
+Object.assign(createParameter, Namespace.http.parameter());
 Object.assign(createParameter, Namespace.assert("http.createParameter"));
 
 /**

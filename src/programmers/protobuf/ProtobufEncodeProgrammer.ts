@@ -365,7 +365,6 @@ export namespace ProtobufEncodeProgrammer {
                 });
 
             // RETURNS
-            // if (unions.length === 0) console.log(meta.getName());
             if (unions.length === 1) return wrapper(unions[0]!.value(index));
             else
                 return wrapper(

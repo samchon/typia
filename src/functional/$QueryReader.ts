@@ -13,10 +13,18 @@ export namespace $QueryReader {
             : (str as any); // wrong type
 
     export const number = (str: string | null): number | null | undefined =>
-        !!str?.length ? (str === "null" ? null : Number(str)) : undefined;
+        !!str?.length
+            ? str === "null"
+                ? null
+                : (toNumber(str) as any)
+            : undefined;
 
     export const bigint = (str: string | null): bigint | null | undefined =>
-        !!str?.length ? (str === "null" ? null : BigInt(str)) : undefined;
+        !!str?.length
+            ? str === "null"
+                ? null
+                : (toBigint(str) as any)
+            : undefined;
 
     export const string = (str: string | null): string | null | undefined =>
         str === null ? undefined : str === "null" ? null : str;
@@ -30,3 +38,16 @@ export namespace $QueryReader {
         return input;
     };
 }
+
+const toNumber = (str: string): number | string => {
+    const value: number = Number(str);
+    return isNaN(value) ? str : value;
+};
+
+const toBigint = (str: string): bigint | string => {
+    try {
+        return BigInt(str);
+    } catch {
+        return str;
+    }
+};

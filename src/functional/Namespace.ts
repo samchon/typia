@@ -3,6 +3,7 @@ import { RandomGenerator } from "../utils/RandomGenerator";
 import { IValidation } from "../IValidation";
 import { TypeGuardError } from "../TypeGuardError";
 import { $HeadersReader } from "./$HeadersReader";
+import { $ParameterReader } from "./$ParameterReader";
 import { $ProtobufReader } from "./$ProtobufReader";
 import { $ProtobufSizer } from "./$ProtobufSizer";
 import { $ProtobufWriter } from "./$ProtobufWriter";
@@ -109,6 +110,7 @@ export namespace Namespace {
     export namespace http {
         export const query = () => $QueryReader;
         export const headers = () => $HeadersReader;
+        export const parameter = () => $ParameterReader;
     }
 
     export namespace misc {

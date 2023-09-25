@@ -54,6 +54,8 @@ async function generate(
         else if (feat.jsonable && s.JSONABLE === false) continue;
         else if (feat.strict && s.ADDABLE === false) continue;
         else if (feat.module === "protobuf" && s.BINARABLE === false) continue;
+        else if (feat.query === true && s.QUERY !== true) continue;
+        else if (feat.headers === true && s.HEADERS !== true) continue;
         else if (feat.primitive && s.PRIMITIVE === false) continue;
         else if (feat.resolved && s.RESOLVABLE === false) continue;
         else if (
@@ -79,11 +81,14 @@ function script(
     struct: TestStructure<any>,
     create: boolean,
 ): string {
-    const prefix: string = `test_${feat.module ? `${feat.module}_` : ""}${
+    const common: string = `_test_${feat.module ? `${feat.module}_` : ""}${
         feat.method
     }`;
-    const common: string = `_${prefix}`;
-    const functor: string = `${prefix}_${struct.name}`;
+    const functor: string = `test_${feat.module ? `${feat.module}_` : ""}${
+        create
+            ? `create${feat.method[0].toUpperCase()}${feat.method.slice(1)}`
+            : feat.method
+    }_${struct.name}`;
     const symbol: string = [
         "typia",
         ...(feat.module ? [feat.module] : []),

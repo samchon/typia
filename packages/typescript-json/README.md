@@ -53,7 +53,7 @@ Typia is a transformer library supporting below features:
 ## Sponsors
 Thanks for your support.
 
-Your donation would encourage `typia` development.
+Your donation encourages `typia` development.
 
 [![Sponsers](https://opencollective.com/typia/badge.svg?avatarHeight=75&width=600)](https://opencollective.com/typia)
 

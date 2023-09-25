@@ -1,5 +1,6 @@
 import ts from "typescript";
 
+import { ExpressionFactory } from "../../factories/ExpressionFactory";
 import { IdentifierFactory } from "../../factories/IdentifierFactory";
 import { MetadataCollection } from "../../factories/MetadataCollection";
 import { MetadataFactory } from "../../factories/MetadataFactory";
@@ -7,7 +8,7 @@ import { StatementFactory } from "../../factories/StatementFactory";
 import { TypeFactory } from "../../factories/TypeFactory";
 
 import { Metadata } from "../../schemas/metadata/Metadata";
-import { MetadataArray } from "../../schemas/metadata/MetadataArray";
+import { MetadataArrayType } from "../../schemas/metadata/MetadataArrayType";
 import { MetadataObject } from "../../schemas/metadata/MetadataObject";
 import { MetadataProperty } from "../../schemas/metadata/MetadataProperty";
 
@@ -84,7 +85,7 @@ export namespace HttpHeadersProgrammer {
             if (meta.isRequired() === false) insert("headers cannot be null.");
         } else if (
             explore.nested !== null &&
-            explore.nested instanceof MetadataArray
+            explore.nested instanceof MetadataArrayType
         ) {
             const atomics = HttpMetadataUtil.atomics(meta);
             const expected: number =
@@ -125,17 +126,22 @@ export namespace HttpHeadersProgrammer {
             //----
             // ARRAY CASES
             //----
-            const isArray: boolean = meta.arrays.length > 1;
+            const isArray: boolean =
+                meta.arrays.length >= 1 || meta.tuples.length >= 1;
             // ARRAY TYPE MUST BE REQUIRED
             if (isArray && meta.isRequired() === false)
                 insert("optional type is not allowed when array.");
             // SET-COOKIE MUST BE ARRAY
-            if (explore.property === "set-cookie" && !isArray)
-                insert("set-cookie property must be array.");
+            if (
+                typeof explore.property === "string" &&
+                explore.property.toLowerCase() === "set-cookie" &&
+                !isArray
+            )
+                insert(`${explore.property} property must be array.`);
             // MUST BE SINGULAR CASE
             if (
                 typeof explore.property === "string" &&
-                SINGULAR.has(explore.property) &&
+                SINGULAR.has(explore.property.toLowerCase()) &&
                 isArray
             )
                 insert("property cannot be array.");
@@ -162,9 +168,7 @@ export namespace HttpHeadersProgrammer {
                                 optionals.push(
                                     prop.key.constants[0]!.values[0] as string,
                                 );
-                            return decode_regular_property(importer)(object)(
-                                prop,
-                            );
+                            return decode_regular_property(importer)(prop);
                         }),
                         true,
                     ),
@@ -181,13 +185,17 @@ export namespace HttpHeadersProgrammer {
                         ),
                     );
                 }),
-                ts.factory.createReturnStatement(output),
+                ts.factory.createReturnStatement(
+                    ts.factory.createAsExpression(
+                        output,
+                        TypeFactory.keyword("any"),
+                    ),
+                ),
             ];
         };
 
     const decode_regular_property =
         (importer: FunctionImporter) =>
-        (object: MetadataObject) =>
         (property: MetadataProperty): ts.PropertyAssignment => {
             const key: string = property.key.constants[0]!.values[0] as string;
             const value: Metadata = property.value;
@@ -197,27 +205,18 @@ export namespace HttpHeadersProgrammer {
                 ? [value.atomics[0]!.type, false]
                 : value.constants.length
                 ? [value.constants[0]!.type, false]
+                : value.templates.length
+                ? ["string", false]
                 : (() => {
-                      const meta =
+                      const meta: Metadata =
                           value.arrays[0]?.type.value ??
                           value.tuples[0]!.type.elements[0]!;
                       return meta.atomics.length
                           ? [meta.atomics[0]!.type, true]
+                          : meta.templates.length
+                          ? ["string", true]
                           : [meta.constants[0]!.type, true];
                   })();
-            if (isArray && SINGULAR.has(key))
-                throw new Error(
-                    ErrorMessages.property(importer)(object)(key)(
-                        `property "${key}" cannot be array.`,
-                    ),
-                );
-            else if (!isArray && key === "set-cookie")
-                throw new Error(
-                    ErrorMessages.property(importer)(object)(key)(
-                        `property "${key}" must be array.`,
-                    ),
-                );
-
             const accessor = IdentifierFactory.access(
                 ts.factory.createIdentifier("input"),
             )(key.toLowerCase());
@@ -252,7 +251,7 @@ export namespace HttpHeadersProgrammer {
         (key: string) =>
         (value: Metadata) =>
         (accessor: ts.Expression) => {
-            const expression = ts.factory.createCallChain(
+            const split: ts.CallChain = ts.factory.createCallChain(
                 ts.factory.createPropertyAccessChain(
                     ts.factory.createCallChain(
                         ts.factory.createPropertyAccessChain(
@@ -277,26 +276,26 @@ export namespace HttpHeadersProgrammer {
                 undefined,
                 [importer.use(type)],
             );
-            if (value.isRequired() === false) return expression;
-            return ts.factory.createBinaryExpression(
-                expression,
-                ts.factory.createToken(ts.SyntaxKind.QuestionQuestionToken),
-                ts.factory.createArrayLiteralExpression([], false),
+            return ts.factory.createConditionalExpression(
+                ExpressionFactory.isArray(accessor),
+                undefined,
+                ts.factory.createCallExpression(
+                    IdentifierFactory.access(accessor)("map"),
+                    undefined,
+                    [importer.use(type)],
+                ),
+                undefined,
+                value.isRequired() === false
+                    ? split
+                    : ts.factory.createBinaryExpression(
+                          split,
+                          ts.factory.createToken(
+                              ts.SyntaxKind.QuestionQuestionToken,
+                          ),
+                          ts.factory.createArrayLiteralExpression([], false),
+                      ),
             );
         };
-}
-
-namespace ErrorMessages {
-    export const object =
-        (importer: FunctionImporter) => (type: Metadata) => (message: string) =>
-            `Error on ${importer.method}<${type.getName()}>(): ${message}`;
-
-    export const property =
-        (importer: FunctionImporter) =>
-        (obj: MetadataObject) =>
-        (key: string) =>
-        (message: string) =>
-            `Error on ${importer.method}<${obj.name}>(): property "${key}" - ${message}`;
 }
 
 const SINGULAR: Set<string> = new Set([
