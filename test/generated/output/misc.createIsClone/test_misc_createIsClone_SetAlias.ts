@@ -2,7 +2,7 @@ import typia from "../../../../src";
 import { _test_misc_isClone } from "../../../internal/_test_misc_isClone";
 import { SetAlias } from "../../../structures/SetAlias";
 
-export const test_misc_isClone_SetAlias = _test_misc_isClone(
+export const test_misc_createIsClone_SetAlias = _test_misc_isClone(
     "SetAlias",
 )<SetAlias>(SetAlias)((input: any): typia.Resolved<SetAlias> | null => {
     const is = (input: any): input is SetAlias => {

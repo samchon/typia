@@ -2,7 +2,7 @@ import typia from "../../../../src";
 import { _test_equals } from "../../../internal/_test_equals";
 import { CommentTagType } from "../../../structures/CommentTagType";
 
-export const test_equals_CommentTagType = _test_equals(
+export const test_createEquals_CommentTagType = _test_equals(
     "CommentTagType",
 )<CommentTagType>(CommentTagType)(
     (input: any, _exceptionable: boolean = true): input is CommentTagType => {

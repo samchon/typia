@@ -2,7 +2,7 @@ import typia from "../../../../src";
 import { _test_misc_isClone } from "../../../internal/_test_misc_isClone";
 import { TypeTagAtomicUnion } from "../../../structures/TypeTagAtomicUnion";
 
-export const test_misc_isClone_TypeTagAtomicUnion = _test_misc_isClone(
+export const test_misc_createIsClone_TypeTagAtomicUnion = _test_misc_isClone(
     "TypeTagAtomicUnion",
 )<TypeTagAtomicUnion>(TypeTagAtomicUnion)(
     (input: any): typia.Resolved<TypeTagAtomicUnion> | null => {
@@ -14,22 +14,22 @@ export const test_misc_isClone_TypeTagAtomicUnion = _test_misc_isClone(
                         "object" === typeof elem && null !== elem && $io1(elem),
                 );
             const $io1 = (input: any): boolean =>
-                ("number" === typeof input.value &&
-                    Number.isFinite(input.value) &&
-                    3 <= input.value) ||
                 ("string" === typeof input.value &&
                     3 <= input.value.length &&
-                    input.value.length <= 7);
+                    input.value.length <= 7) ||
+                ("number" === typeof input.value &&
+                    Number.isFinite(input.value) &&
+                    3 <= input.value);
             return "object" === typeof input && null !== input && $io0(input);
         };
         const clone = (
             input: TypeTagAtomicUnion,
         ): typia.Resolved<TypeTagAtomicUnion> => {
             const $io1 = (input: any): boolean =>
-                ("number" === typeof input.value && 3 <= input.value) ||
                 ("string" === typeof input.value &&
                     3 <= input.value.length &&
-                    input.value.length <= 7);
+                    input.value.length <= 7) ||
+                ("number" === typeof input.value && 3 <= input.value);
             const $cp0 = (input: any) =>
                 input.map((elem: any) =>
                     "object" === typeof elem && null !== elem

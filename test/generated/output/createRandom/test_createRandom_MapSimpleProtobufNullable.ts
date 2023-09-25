@@ -2,7 +2,7 @@ import typia from "../../../../src";
 import { _test_random } from "../../../internal/_test_random";
 import { MapSimpleProtobufNullable } from "../../../structures/MapSimpleProtobufNullable";
 
-export const test_random_MapSimpleProtobufNullable = _test_random(
+export const test_createRandom_MapSimpleProtobufNullable = _test_random(
     "MapSimpleProtobufNullable",
 )<MapSimpleProtobufNullable>(MapSimpleProtobufNullable)({
     random: (

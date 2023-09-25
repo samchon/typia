@@ -2,7 +2,7 @@ import typia from "../../../../src";
 import { _test_json_stringify } from "../../../internal/_test_json_stringify";
 import { TypeTagTuple } from "../../../structures/TypeTagTuple";
 
-export const test_json_stringify_TypeTagTuple = _test_json_stringify(
+export const test_json_createStringify_TypeTagTuple = _test_json_stringify(
     "TypeTagTuple",
 )<TypeTagTuple>(TypeTagTuple)((input: TypeTagTuple): string => {
     const $string = (typia.json.createStringify as any).string;

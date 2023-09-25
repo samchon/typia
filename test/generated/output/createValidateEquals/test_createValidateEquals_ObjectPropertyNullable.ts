@@ -2,10 +2,10 @@ import typia from "../../../../src";
 import { _test_validateEquals } from "../../../internal/_test_validateEquals";
 import { ObjectPropertyNullable } from "../../../structures/ObjectPropertyNullable";
 
-export const test_validateEquals_ObjectPropertyNullable = _test_validateEquals(
-    "ObjectPropertyNullable",
-)<ObjectPropertyNullable>(ObjectPropertyNullable)(
-    (input: any): typia.IValidation<ObjectPropertyNullable> => {
+export const test_createValidateEquals_ObjectPropertyNullable =
+    _test_validateEquals("ObjectPropertyNullable")<ObjectPropertyNullable>(
+        ObjectPropertyNullable,
+    )((input: any): typia.IValidation<ObjectPropertyNullable> => {
         const errors = [] as any[];
         const __is = (
             input: any,
@@ -571,5 +571,4 @@ export const test_validateEquals_ObjectPropertyNullable = _test_validateEquals(
             errors,
             data: success ? input : undefined,
         } as any;
-    },
-);
+    });

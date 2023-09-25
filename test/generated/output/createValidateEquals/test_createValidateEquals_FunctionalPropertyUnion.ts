@@ -2,10 +2,10 @@ import typia from "../../../../src";
 import { _test_validateEquals } from "../../../internal/_test_validateEquals";
 import { FunctionalPropertyUnion } from "../../../structures/FunctionalPropertyUnion";
 
-export const test_validateEquals_FunctionalPropertyUnion = _test_validateEquals(
-    "FunctionalPropertyUnion",
-)<FunctionalPropertyUnion>(FunctionalPropertyUnion)(
-    (input: any): typia.IValidation<FunctionalPropertyUnion> => {
+export const test_createValidateEquals_FunctionalPropertyUnion =
+    _test_validateEquals("FunctionalPropertyUnion")<FunctionalPropertyUnion>(
+        FunctionalPropertyUnion,
+    )((input: any): typia.IValidation<FunctionalPropertyUnion> => {
         const errors = [] as any[];
         const __is = (
             input: any,
@@ -141,5 +141,4 @@ export const test_validateEquals_FunctionalPropertyUnion = _test_validateEquals(
             errors,
             data: success ? input : undefined,
         } as any;
-    },
-);
+    });

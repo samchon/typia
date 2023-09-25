@@ -2,10 +2,10 @@ import typia from "../../../../src";
 import { _test_json_assertParse } from "../../../internal/_test_json_assertParse";
 import { AtomicIntersection } from "../../../structures/AtomicIntersection";
 
-export const test_json_assertParse_AtomicIntersection = _test_json_assertParse(
-    "AtomicIntersection",
-)<AtomicIntersection>(AtomicIntersection)(
-    (input: string): typia.Primitive<AtomicIntersection> => {
+export const test_json_createAssertParse_AtomicIntersection =
+    _test_json_assertParse("AtomicIntersection")<AtomicIntersection>(
+        AtomicIntersection,
+    )((input: string): typia.Primitive<AtomicIntersection> => {
         const assert = (input: any): AtomicIntersection => {
             const __is = (input: any): input is AtomicIntersection => {
                 return (
@@ -67,5 +67,4 @@ export const test_json_assertParse_AtomicIntersection = _test_json_assertParse(
         };
         input = JSON.parse(input);
         return assert(input) as any;
-    },
-);
+    });

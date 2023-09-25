@@ -2,7 +2,7 @@ import typia from "../../../../src";
 import { _test_validateEquals } from "../../../internal/_test_validateEquals";
 import { TypeTagFormat } from "../../../structures/TypeTagFormat";
 
-export const test_validateEquals_TypeTagFormat = _test_validateEquals(
+export const test_createValidateEquals_TypeTagFormat = _test_validateEquals(
     "TypeTagFormat",
 )<TypeTagFormat>(TypeTagFormat)(
     (input: any): typia.IValidation<TypeTagFormat> => {

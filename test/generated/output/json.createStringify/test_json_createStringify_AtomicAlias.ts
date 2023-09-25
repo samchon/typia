@@ -2,7 +2,7 @@ import typia from "../../../../src";
 import { _test_json_stringify } from "../../../internal/_test_json_stringify";
 import { AtomicAlias } from "../../../structures/AtomicAlias";
 
-export const test_json_stringify_AtomicAlias = _test_json_stringify(
+export const test_json_createStringify_AtomicAlias = _test_json_stringify(
     "AtomicAlias",
 )<AtomicAlias>(AtomicAlias)((input: AtomicAlias): string => {
     const $number = (typia.json.createStringify as any).number;

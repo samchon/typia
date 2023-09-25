@@ -2,10 +2,10 @@ import typia from "../../../../src";
 import { _test_misc_assertClone } from "../../../internal/_test_misc_assertClone";
 import { CommentTagLength } from "../../../structures/CommentTagLength";
 
-export const test_misc_assertClone_CommentTagLength = _test_misc_assertClone(
-    "CommentTagLength",
-)<CommentTagLength>(CommentTagLength)(
-    (input: any): typia.Resolved<CommentTagLength> => {
+export const test_misc_createAssertClone_CommentTagLength =
+    _test_misc_assertClone("CommentTagLength")<CommentTagLength>(
+        CommentTagLength,
+    )((input: any): typia.Resolved<CommentTagLength> => {
         const assert = (input: any): CommentTagLength => {
             const __is = (input: any): input is CommentTagLength => {
                 const $io0 = (input: any): boolean =>
@@ -226,5 +226,4 @@ export const test_misc_assertClone_CommentTagLength = _test_misc_assertClone(
         assert(input);
         const output = clone(input);
         return output;
-    },
-);
+    });

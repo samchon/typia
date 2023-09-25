@@ -2,7 +2,7 @@ import typia from "../../../../src";
 import { _test_assertEquals } from "../../../internal/_test_assertEquals";
 import { ObjectGenericUnion } from "../../../structures/ObjectGenericUnion";
 
-export const test_assertEquals_ObjectGenericUnion = _test_assertEquals(
+export const test_createAssertEquals_ObjectGenericUnion = _test_assertEquals(
     "ObjectGenericUnion",
 )<ObjectGenericUnion>(ObjectGenericUnion)((input: any): ObjectGenericUnion => {
     const __is = (

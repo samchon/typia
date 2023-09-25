@@ -2,10 +2,10 @@ import typia from "../../../../src";
 import { _test_misc_isClone } from "../../../internal/_test_misc_isClone";
 import { ObjectPropertyNullable } from "../../../structures/ObjectPropertyNullable";
 
-export const test_misc_isClone_ObjectPropertyNullable = _test_misc_isClone(
-    "ObjectPropertyNullable",
-)<ObjectPropertyNullable>(ObjectPropertyNullable)(
-    (input: any): typia.Resolved<ObjectPropertyNullable> | null => {
+export const test_misc_createIsClone_ObjectPropertyNullable =
+    _test_misc_isClone("ObjectPropertyNullable")<ObjectPropertyNullable>(
+        ObjectPropertyNullable,
+    )((input: any): typia.Resolved<ObjectPropertyNullable> | null => {
         const is = (input: any): input is ObjectPropertyNullable => {
             const $io0 = (input: any): boolean =>
                 null === input.value || "boolean" === typeof input.value;
@@ -168,5 +168,4 @@ export const test_misc_isClone_ObjectPropertyNullable = _test_misc_isClone(
         if (!is(input)) return null;
         const output = clone(input);
         return output;
-    },
-);
+    });

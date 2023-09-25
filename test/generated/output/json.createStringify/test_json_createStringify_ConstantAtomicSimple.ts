@@ -2,10 +2,10 @@ import typia from "../../../../src";
 import { _test_json_stringify } from "../../../internal/_test_json_stringify";
 import { ConstantAtomicSimple } from "../../../structures/ConstantAtomicSimple";
 
-export const test_json_stringify_ConstantAtomicSimple = _test_json_stringify(
-    "ConstantAtomicSimple",
-)<ConstantAtomicSimple>(ConstantAtomicSimple)(
-    (input: ConstantAtomicSimple): string => {
+export const test_json_createStringify_ConstantAtomicSimple =
+    _test_json_stringify("ConstantAtomicSimple")<ConstantAtomicSimple>(
+        ConstantAtomicSimple,
+    )((input: ConstantAtomicSimple): string => {
         const $number = (typia.json.createStringify as any).number;
         const $string = (typia.json.createStringify as any).string;
         const $throws = (typia.json.createStringify as any).throws;
@@ -17,5 +17,4 @@ export const test_json_stringify_ConstantAtomicSimple = _test_json_stringify(
                 value: input[3],
             });
         })()}]`;
-    },
-);
+    });

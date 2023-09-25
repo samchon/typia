@@ -18,12 +18,12 @@ export const test_json_assertStringify_TypeTagAtomicUnion =
                                 $io1(elem),
                         );
                     const $io1 = (input: any): boolean =>
-                        ("number" === typeof input.value &&
-                            Number.isFinite(input.value) &&
-                            3 <= input.value) ||
                         ("string" === typeof input.value &&
                             3 <= input.value.length &&
-                            input.value.length <= 7);
+                            input.value.length <= 7) ||
+                        ("number" === typeof input.value &&
+                            Number.isFinite(input.value) &&
+                            3 <= input.value);
                     return (
                         "object" === typeof input &&
                         null !== input &&
@@ -91,19 +91,6 @@ export const test_json_assertStringify_TypeTagAtomicUnion =
                             _path: string,
                             _exceptionable: boolean = true,
                         ): boolean =>
-                            ("number" === typeof input.value &&
-                                (Number.isFinite(input.value) ||
-                                    $guard(_exceptionable, {
-                                        path: _path + ".value",
-                                        expected: "number",
-                                        value: input.value,
-                                    })) &&
-                                (3 <= input.value ||
-                                    $guard(_exceptionable, {
-                                        path: _path + ".value",
-                                        expected: "number & Minimum<3>",
-                                        value: input.value,
-                                    }))) ||
                             ("string" === typeof input.value &&
                                 (3 <= input.value.length ||
                                     $guard(_exceptionable, {
@@ -115,6 +102,19 @@ export const test_json_assertStringify_TypeTagAtomicUnion =
                                     $guard(_exceptionable, {
                                         path: _path + ".value",
                                         expected: "string & MaxLength<7>",
+                                        value: input.value,
+                                    }))) ||
+                            ("number" === typeof input.value &&
+                                (Number.isFinite(input.value) ||
+                                    $guard(_exceptionable, {
+                                        path: _path + ".value",
+                                        expected: "number",
+                                        value: input.value,
+                                    })) &&
+                                (3 <= input.value ||
+                                    $guard(_exceptionable, {
+                                        path: _path + ".value",
+                                        expected: "number & Minimum<3>",
                                         value: input.value,
                                     }))) ||
                             $guard(_exceptionable, {
@@ -142,12 +142,12 @@ export const test_json_assertStringify_TypeTagAtomicUnion =
             };
             const stringify = (input: TypeTagAtomicUnion): string => {
                 const $io1 = (input: any): boolean =>
-                    ("number" === typeof input.value && 3 <= input.value) ||
                     ("string" === typeof input.value &&
                         3 <= input.value.length &&
-                        input.value.length <= 7);
-                const $number = (typia.json.assertStringify as any).number;
+                        input.value.length <= 7) ||
+                    ("number" === typeof input.value && 3 <= input.value);
                 const $string = (typia.json.assertStringify as any).string;
+                const $number = (typia.json.assertStringify as any).number;
                 const $throws = (typia.json.assertStringify as any).throws;
                 const $so0 = (input: any): any =>
                     `{"value":${`[${input.value
@@ -155,14 +155,14 @@ export const test_json_assertStringify_TypeTagAtomicUnion =
                         .join(",")}]`}}`;
                 const $so1 = (input: any): any =>
                     `{"value":${(() => {
-                        if ("number" === typeof input.value && 3 <= input.value)
-                            return $number(input.value);
                         if (
                             "string" === typeof input.value &&
                             3 <= input.value.length &&
                             input.value.length <= 7
                         )
                             return $string(input.value);
+                        if ("number" === typeof input.value && 3 <= input.value)
+                            return $number(input.value);
                         $throws({
                             expected:
                                 "((number & Minimum<3>) | (string & MinLength<3> & MaxLength<7>))",

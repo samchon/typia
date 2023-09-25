@@ -12,6 +12,7 @@ import { IProject } from "../../transformers/IProject";
 import { TransformerError } from "../../transformers/TransformerError";
 
 import { AssertProgrammer } from "../AssertProgrammer";
+import { FunctionImporter } from "../helpers/FunctionImporeter";
 import { HttpMetadataUtil } from "../helpers/HttpMetadataUtil";
 
 export namespace HttpParameterProgrammer {
@@ -27,15 +28,37 @@ export namespace HttpParameterProgrammer {
             })(new MetadataCollection())(type);
             if (result.success === false)
                 throw TransformerError.from(modulo.getText())(result.errors);
-            const atomic = [...HttpMetadataUtil.atomics(result.data)][0]!;
 
-            const caster = CASTERS[atomic]!;
-            const assert = AssertProgrammer.write({
-                ...project,
-                options: {
-                    numeric: true,
-                },
-            })(modulo)(false)(type, name);
+            const atomic = [...HttpMetadataUtil.atomics(result.data)][0]!;
+            const importer: FunctionImporter = new FunctionImporter(
+                modulo.getText(),
+            );
+            const block: ts.Statement[] = [
+                StatementFactory.constant(
+                    "assert",
+                    AssertProgrammer.write({
+                        ...project,
+                        options: {
+                            numeric: true,
+                        },
+                    })(modulo)(false)(type, name),
+                ),
+                StatementFactory.constant(
+                    "value",
+                    ts.factory.createCallExpression(
+                        importer.use(atomic),
+                        undefined,
+                        [ts.factory.createIdentifier("input")],
+                    ),
+                ),
+                ts.factory.createReturnStatement(
+                    ts.factory.createCallExpression(
+                        ts.factory.createIdentifier("assert"),
+                        undefined,
+                        [ts.factory.createIdentifier("value")],
+                    ),
+                ),
+            ];
 
             return ts.factory.createArrowFunction(
                 undefined,
@@ -50,21 +73,10 @@ export namespace HttpParameterProgrammer {
                     name ?? TypeFactory.getFullName(project.checker)(type),
                 ),
                 undefined,
-                ts.factory.createBlock([
-                    StatementFactory.constant(
-                        "value",
-                        ts.factory.createCallExpression(
-                            caster(result.data.nullable),
-                            undefined,
-                            [],
-                        ),
-                    ),
-                    ts.factory.createReturnStatement(
-                        ts.factory.createCallExpression(assert, undefined, [
-                            ts.factory.createIdentifier("value"),
-                        ]),
-                    ),
-                ]),
+                ts.factory.createBlock(
+                    [...importer.declare(modulo), ...block],
+                    true,
+                ),
             );
         };
 
@@ -90,79 +102,3 @@ export namespace HttpParameterProgrammer {
         return errors;
     };
 }
-
-const CASTERS = {
-    boolean: (nullable: boolean) =>
-        createArrow(nullable)(
-            ts.factory.createConditionalExpression(
-                ts.factory.createLogicalOr(
-                    ts.factory.createStrictEquality(
-                        ts.factory.createStringLiteral("false"),
-                        ts.factory.createIdentifier("input"),
-                    ),
-                    ts.factory.createStrictEquality(
-                        ts.factory.createStringLiteral("0"),
-                        ts.factory.createIdentifier("input"),
-                    ),
-                ),
-                undefined,
-                ts.factory.createFalse(),
-                undefined,
-                ts.factory.createConditionalExpression(
-                    ts.factory.createLogicalOr(
-                        ts.factory.createStrictEquality(
-                            ts.factory.createStringLiteral("true"),
-                            ts.factory.createIdentifier("input"),
-                        ),
-                        ts.factory.createStrictEquality(
-                            ts.factory.createStringLiteral("1"),
-                            ts.factory.createIdentifier("input"),
-                        ),
-                    ),
-                    undefined,
-                    ts.factory.createTrue(),
-                    undefined,
-                    ts.factory.createIdentifier("input"),
-                ),
-            ),
-        ),
-    number: (nullable: boolean) =>
-        createArrow(nullable)(
-            ts.factory.createCallExpression(
-                ts.factory.createIdentifier("Number"),
-                undefined,
-                [ts.factory.createIdentifier("input")],
-            ),
-        ),
-    bigint: (nullable: boolean) =>
-        createArrow(nullable)(
-            ts.factory.createCallExpression(
-                ts.factory.createIdentifier("BigInt"),
-                undefined,
-                [ts.factory.createIdentifier("input")],
-            ),
-        ),
-    string: (nullable: boolean) =>
-        createArrow(nullable)(ts.factory.createIdentifier("input")),
-};
-
-const createArrow = (nullable: boolean) => (expr: ts.Expression) =>
-    ts.factory.createArrowFunction(
-        undefined,
-        undefined,
-        [IdentifierFactory.parameter("input")],
-        undefined,
-        undefined,
-        nullable
-            ? ts.factory.createConditionalExpression(
-                  ts.factory.createStrictEquality(
-                      ts.factory.createStringLiteral("null"),
-                      ts.factory.createIdentifier("input"),
-                  ),
-                  undefined,
-                  ts.factory.createNull(),
-                  undefined,
-                  expr,
-              )
-            : expr,
-    );

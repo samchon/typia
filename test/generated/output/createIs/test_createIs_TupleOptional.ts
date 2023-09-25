@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_is } from "../../../internal/_test_is";
 import { TupleOptional } from "../../../structures/TupleOptional";
 
-export const test_is_TupleOptional = _test_is("TupleOptional")<TupleOptional>(
-    TupleOptional,
-)((input: any): input is TupleOptional => {
+export const test_createIs_TupleOptional = _test_is(
+    "TupleOptional",
+)<TupleOptional>(TupleOptional)((input: any): input is TupleOptional => {
     return (
         Array.isArray(input) &&
         input.every(

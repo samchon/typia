@@ -2,7 +2,7 @@ import typia from "../../../../src";
 import { _test_json_assertParse } from "../../../internal/_test_json_assertParse";
 import { TypeTagFormat } from "../../../structures/TypeTagFormat";
 
-export const test_json_assertParse_TypeTagFormat = _test_json_assertParse(
+export const test_json_createAssertParse_TypeTagFormat = _test_json_assertParse(
     "TypeTagFormat",
 )<TypeTagFormat>(TypeTagFormat)(
     (input: string): typia.Primitive<TypeTagFormat> => {

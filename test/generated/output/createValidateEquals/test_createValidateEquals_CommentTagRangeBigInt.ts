@@ -2,10 +2,10 @@ import typia from "../../../../src";
 import { _test_validateEquals } from "../../../internal/_test_validateEquals";
 import { CommentTagRangeBigInt } from "../../../structures/CommentTagRangeBigInt";
 
-export const test_validateEquals_CommentTagRangeBigInt = _test_validateEquals(
-    "CommentTagRangeBigInt",
-)<CommentTagRangeBigInt>(CommentTagRangeBigInt)(
-    (input: any): typia.IValidation<CommentTagRangeBigInt> => {
+export const test_createValidateEquals_CommentTagRangeBigInt =
+    _test_validateEquals("CommentTagRangeBigInt")<CommentTagRangeBigInt>(
+        CommentTagRangeBigInt,
+    )((input: any): typia.IValidation<CommentTagRangeBigInt> => {
         const errors = [] as any[];
         const __is = (
             input: any,
@@ -360,5 +360,4 @@ export const test_validateEquals_CommentTagRangeBigInt = _test_validateEquals(
             errors,
             data: success ? input : undefined,
         } as any;
-    },
-);
+    });

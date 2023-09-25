@@ -8,6 +8,8 @@ export interface TestStructure<T> {
     SPOILERS?: Spoiler<T>[];
     ADDABLE?: boolean;
     BINARABLE?: boolean;
+    QUERY?: boolean;
+    HEADERS?: boolean;
     RESOLVABLE?: boolean;
     JSONABLE?: boolean;
     PRIMITIVE?: boolean;

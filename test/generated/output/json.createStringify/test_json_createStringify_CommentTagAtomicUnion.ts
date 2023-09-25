@@ -2,10 +2,10 @@ import typia from "../../../../src";
 import { _test_json_stringify } from "../../../internal/_test_json_stringify";
 import { CommentTagAtomicUnion } from "../../../structures/CommentTagAtomicUnion";
 
-export const test_json_stringify_CommentTagAtomicUnion = _test_json_stringify(
-    "CommentTagAtomicUnion",
-)<CommentTagAtomicUnion>(CommentTagAtomicUnion)(
-    (input: CommentTagAtomicUnion): string => {
+export const test_json_createStringify_CommentTagAtomicUnion =
+    _test_json_stringify("CommentTagAtomicUnion")<CommentTagAtomicUnion>(
+        CommentTagAtomicUnion,
+    )((input: CommentTagAtomicUnion): string => {
         const $io1 = (input: any): boolean =>
             ("string" === typeof input.value &&
                 3 <= input.value.length &&
@@ -35,5 +35,4 @@ export const test_json_stringify_CommentTagAtomicUnion = _test_json_stringify(
                 });
             })()}}`;
         return $so0(input);
-    },
-);
+    });

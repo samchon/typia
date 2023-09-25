@@ -2,7 +2,7 @@ import typia from "../../../../src";
 import { _test_equals } from "../../../internal/_test_equals";
 import { ObjectOptional } from "../../../structures/ObjectOptional";
 
-export const test_equals_ObjectOptional = _test_equals(
+export const test_createEquals_ObjectOptional = _test_equals(
     "ObjectOptional",
 )<ObjectOptional>(ObjectOptional)(
     (input: any, _exceptionable: boolean = true): input is ObjectOptional => {

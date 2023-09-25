@@ -2,10 +2,10 @@ import typia from "../../../../src";
 import { _test_json_stringify } from "../../../internal/_test_json_stringify";
 import { ClassPropertyAssignment } from "../../../structures/ClassPropertyAssignment";
 
-export const test_json_stringify_ClassPropertyAssignment = _test_json_stringify(
-    "ClassPropertyAssignment",
-)<ClassPropertyAssignment>(ClassPropertyAssignment)(
-    (input: ClassPropertyAssignment): string => {
+export const test_json_createStringify_ClassPropertyAssignment =
+    _test_json_stringify("ClassPropertyAssignment")<ClassPropertyAssignment>(
+        ClassPropertyAssignment,
+    )((input: ClassPropertyAssignment): string => {
         const $number = (typia.json.createStringify as any).number;
         const $string = (typia.json.createStringify as any).string;
         const $throws = (typia.json.createStringify as any).throws;
@@ -24,5 +24,4 @@ export const test_json_stringify_ClassPropertyAssignment = _test_json_stringify(
                 input.incremental
             }}`;
         return $so0(input);
-    },
-);
+    });

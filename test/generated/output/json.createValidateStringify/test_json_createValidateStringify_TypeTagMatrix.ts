@@ -2,7 +2,7 @@ import typia from "../../../../src";
 import { _test_json_validateStringify } from "../../../internal/_test_json_validateStringify";
 import { TypeTagMatrix } from "../../../structures/TypeTagMatrix";
 
-export const test_json_validateStringify_TypeTagMatrix =
+export const test_json_createValidateStringify_TypeTagMatrix =
     _test_json_validateStringify("TypeTagMatrix")<TypeTagMatrix>(TypeTagMatrix)(
         (input: TypeTagMatrix): typia.IValidation<string> => {
             const validate = (input: any): typia.IValidation<TypeTagMatrix> => {

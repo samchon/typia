@@ -2,10 +2,10 @@ import typia from "../../../../src";
 import { _test_validateEquals } from "../../../internal/_test_validateEquals";
 import { ToJsonAtomicSimple } from "../../../structures/ToJsonAtomicSimple";
 
-export const test_validateEquals_ToJsonAtomicSimple = _test_validateEquals(
-    "ToJsonAtomicSimple",
-)<ToJsonAtomicSimple>(ToJsonAtomicSimple)(
-    (input: any): typia.IValidation<ToJsonAtomicSimple> => {
+export const test_createValidateEquals_ToJsonAtomicSimple =
+    _test_validateEquals("ToJsonAtomicSimple")<ToJsonAtomicSimple>(
+        ToJsonAtomicSimple,
+    )((input: any): typia.IValidation<ToJsonAtomicSimple> => {
         const errors = [] as any[];
         const __is = (
             input: any,
@@ -243,5 +243,4 @@ export const test_validateEquals_ToJsonAtomicSimple = _test_validateEquals(
             errors,
             data: success ? input : undefined,
         } as any;
-    },
-);
+    });

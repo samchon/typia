@@ -2,7 +2,7 @@ import typia from "../../../../src";
 import { _test_validate } from "../../../internal/_test_validate";
 import { TypeTagRange } from "../../../structures/TypeTagRange";
 
-export const test_validate_TypeTagRange = _test_validate(
+export const test_createValidate_TypeTagRange = _test_validate(
     "TypeTagRange",
 )<TypeTagRange>(TypeTagRange)((input: any): typia.IValidation<TypeTagRange> => {
     const errors = [] as any[];

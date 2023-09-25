@@ -1,5 +1,3 @@
-import { TestStructure } from "../helpers/TestStructure";
-
 export const _test_misc_literals =
     (name: string) =>
     <T>(factory: () => readonly T[]) =>

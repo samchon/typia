@@ -2,7 +2,7 @@ import typia from "../../../../src";
 import { _test_json_isStringify } from "../../../internal/_test_json_isStringify";
 import { NativeUnion } from "../../../structures/NativeUnion";
 
-export const test_json_isStringify_NativeUnion = _test_json_isStringify(
+export const test_json_createIsStringify_NativeUnion = _test_json_isStringify(
     "NativeUnion",
 )<NativeUnion>(NativeUnion)((input: NativeUnion): string | null => {
     const is = (input: any): input is NativeUnion => {

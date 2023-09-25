@@ -2,10 +2,10 @@ import typia from "../../../../src";
 import { _test_validateEquals } from "../../../internal/_test_validateEquals";
 import { CommentTagObjectUnion } from "../../../structures/CommentTagObjectUnion";
 
-export const test_validateEquals_CommentTagObjectUnion = _test_validateEquals(
-    "CommentTagObjectUnion",
-)<CommentTagObjectUnion>(CommentTagObjectUnion)(
-    (input: any): typia.IValidation<CommentTagObjectUnion> => {
+export const test_createValidateEquals_CommentTagObjectUnion =
+    _test_validateEquals("CommentTagObjectUnion")<CommentTagObjectUnion>(
+        CommentTagObjectUnion,
+    )((input: any): typia.IValidation<CommentTagObjectUnion> => {
         const errors = [] as any[];
         const __is = (
             input: any,
@@ -249,5 +249,4 @@ export const test_validateEquals_CommentTagObjectUnion = _test_validateEquals(
             errors,
             data: success ? input : undefined,
         } as any;
-    },
-);
+    });

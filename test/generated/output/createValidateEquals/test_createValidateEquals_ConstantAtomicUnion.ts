@@ -2,10 +2,10 @@ import typia from "../../../../src";
 import { _test_validateEquals } from "../../../internal/_test_validateEquals";
 import { ConstantAtomicUnion } from "../../../structures/ConstantAtomicUnion";
 
-export const test_validateEquals_ConstantAtomicUnion = _test_validateEquals(
-    "ConstantAtomicUnion",
-)<ConstantAtomicUnion>(ConstantAtomicUnion)(
-    (input: any): typia.IValidation<ConstantAtomicUnion> => {
+export const test_createValidateEquals_ConstantAtomicUnion =
+    _test_validateEquals("ConstantAtomicUnion")<ConstantAtomicUnion>(
+        ConstantAtomicUnion,
+    )((input: any): typia.IValidation<ConstantAtomicUnion> => {
         const errors = [] as any[];
         const __is = (
             input: any,
@@ -146,5 +146,4 @@ export const test_validateEquals_ConstantAtomicUnion = _test_validateEquals(
             errors,
             data: success ? input : undefined,
         } as any;
-    },
-);
+    });

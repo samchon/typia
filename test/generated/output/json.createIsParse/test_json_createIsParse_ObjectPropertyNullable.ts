@@ -2,10 +2,10 @@ import typia from "../../../../src";
 import { _test_json_isParse } from "../../../internal/_test_json_isParse";
 import { ObjectPropertyNullable } from "../../../structures/ObjectPropertyNullable";
 
-export const test_json_isParse_ObjectPropertyNullable = _test_json_isParse(
-    "ObjectPropertyNullable",
-)<ObjectPropertyNullable>(ObjectPropertyNullable)(
-    (input: any): typia.Primitive<ObjectPropertyNullable> => {
+export const test_json_createIsParse_ObjectPropertyNullable =
+    _test_json_isParse("ObjectPropertyNullable")<ObjectPropertyNullable>(
+        ObjectPropertyNullable,
+    )((input: any): typia.Primitive<ObjectPropertyNullable> => {
         const is = (input: any): input is ObjectPropertyNullable => {
             const $io0 = (input: any): boolean =>
                 null === input.value || "boolean" === typeof input.value;
@@ -59,5 +59,4 @@ export const test_json_isParse_ObjectPropertyNullable = _test_json_isParse(
         };
         input = JSON.parse(input);
         return is(input) ? (input as any) : null;
-    },
-);
+    });

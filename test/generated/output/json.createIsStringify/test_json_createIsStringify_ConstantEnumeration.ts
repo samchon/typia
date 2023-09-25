@@ -2,10 +2,10 @@ import typia from "../../../../src";
 import { _test_json_isStringify } from "../../../internal/_test_json_isStringify";
 import { ConstantEnumeration } from "../../../structures/ConstantEnumeration";
 
-export const test_json_isStringify_ConstantEnumeration = _test_json_isStringify(
-    "ConstantEnumeration",
-)<ConstantEnumeration>(ConstantEnumeration)(
-    (input: ConstantEnumeration): string | null => {
+export const test_json_createIsStringify_ConstantEnumeration =
+    _test_json_isStringify("ConstantEnumeration")<ConstantEnumeration>(
+        ConstantEnumeration,
+    )((input: ConstantEnumeration): string | null => {
         const is = (input: any): input is ConstantEnumeration => {
             return (
                 Array.isArray(input) &&
@@ -38,5 +38,4 @@ export const test_json_isStringify_ConstantEnumeration = _test_json_isStringify(
                 .join(",")}]`;
         };
         return is(input) ? stringify(input) : null;
-    },
-);
+    });

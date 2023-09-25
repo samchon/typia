@@ -2,10 +2,10 @@ import typia from "../../../../src";
 import { _test_validateEquals } from "../../../internal/_test_validateEquals";
 import { TypeTagObjectUnion } from "../../../structures/TypeTagObjectUnion";
 
-export const test_validateEquals_TypeTagObjectUnion = _test_validateEquals(
-    "TypeTagObjectUnion",
-)<TypeTagObjectUnion>(TypeTagObjectUnion)(
-    (input: any): typia.IValidation<TypeTagObjectUnion> => {
+export const test_createValidateEquals_TypeTagObjectUnion =
+    _test_validateEquals("TypeTagObjectUnion")<TypeTagObjectUnion>(
+        TypeTagObjectUnion,
+    )((input: any): typia.IValidation<TypeTagObjectUnion> => {
         const errors = [] as any[];
         const __is = (
             input: any,
@@ -249,5 +249,4 @@ export const test_validateEquals_TypeTagObjectUnion = _test_validateEquals(
             errors,
             data: success ? input : undefined,
         } as any;
-    },
-);
+    });

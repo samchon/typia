@@ -2,10 +2,10 @@ import typia from "../../../../src";
 import { _test_json_isStringify } from "../../../internal/_test_json_isStringify";
 import { ObjectIntersection } from "../../../structures/ObjectIntersection";
 
-export const test_json_isStringify_ObjectIntersection = _test_json_isStringify(
-    "ObjectIntersection",
-)<ObjectIntersection>(ObjectIntersection)(
-    (input: ObjectIntersection): string | null => {
+export const test_json_createIsStringify_ObjectIntersection =
+    _test_json_isStringify("ObjectIntersection")<ObjectIntersection>(
+        ObjectIntersection,
+    )((input: ObjectIntersection): string | null => {
         const is = (input: any): input is ObjectIntersection => {
             return (
                 "object" === typeof input &&
@@ -22,5 +22,4 @@ export const test_json_isStringify_ObjectIntersection = _test_json_isStringify(
             )},"vulnerable":${(input as any).vulnerable}}`;
         };
         return is(input) ? stringify(input) : null;
-    },
-);
+    });

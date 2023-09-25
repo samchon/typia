@@ -2,10 +2,10 @@ import typia from "../../../../src";
 import { _test_misc_validatePrune } from "../../../internal/_test_misc_validatePrune";
 import { TupleRestAtomic } from "../../../structures/TupleRestAtomic";
 
-export const test_misc_validatePrune_TupleRestAtomic = _test_misc_validatePrune(
-    "TupleRestAtomic",
-)<TupleRestAtomic>(TupleRestAtomic)(
-    (input: any): typia.IValidation<TupleRestAtomic> => {
+export const test_misc_createValidatePrune_TupleRestAtomic =
+    _test_misc_validatePrune("TupleRestAtomic")<TupleRestAtomic>(
+        TupleRestAtomic,
+    )((input: any): typia.IValidation<TupleRestAtomic> => {
         const validate = (input: any): typia.IValidation<TupleRestAtomic> => {
             const errors = [] as any[];
             const __is = (input: any): input is TupleRestAtomic => {
@@ -97,5 +97,4 @@ export const test_misc_validatePrune_TupleRestAtomic = _test_misc_validatePrune(
         const output = validate(input);
         if (output.success) prune(input);
         return output;
-    },
-);
+    });

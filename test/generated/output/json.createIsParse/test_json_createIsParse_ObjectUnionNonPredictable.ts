@@ -2,10 +2,10 @@ import typia from "../../../../src";
 import { _test_json_isParse } from "../../../internal/_test_json_isParse";
 import { ObjectUnionNonPredictable } from "../../../structures/ObjectUnionNonPredictable";
 
-export const test_json_isParse_ObjectUnionNonPredictable = _test_json_isParse(
-    "ObjectUnionNonPredictable",
-)<ObjectUnionNonPredictable>(ObjectUnionNonPredictable)(
-    (input: any): typia.Primitive<ObjectUnionNonPredictable> => {
+export const test_json_createIsParse_ObjectUnionNonPredictable =
+    _test_json_isParse("ObjectUnionNonPredictable")<ObjectUnionNonPredictable>(
+        ObjectUnionNonPredictable,
+    )((input: any): typia.Primitive<ObjectUnionNonPredictable> => {
         const is = (input: any): input is ObjectUnionNonPredictable => {
             const $io0 = (input: any): boolean =>
                 Array.isArray(input.value) &&
@@ -45,5 +45,4 @@ export const test_json_isParse_ObjectUnionNonPredictable = _test_json_isParse(
         };
         input = JSON.parse(input);
         return is(input) ? (input as any) : null;
-    },
-);
+    });

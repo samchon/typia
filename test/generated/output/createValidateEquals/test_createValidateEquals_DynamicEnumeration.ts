@@ -2,10 +2,10 @@ import typia from "../../../../src";
 import { _test_validateEquals } from "../../../internal/_test_validateEquals";
 import { DynamicEnumeration } from "../../../structures/DynamicEnumeration";
 
-export const test_validateEquals_DynamicEnumeration = _test_validateEquals(
-    "DynamicEnumeration",
-)<DynamicEnumeration>(DynamicEnumeration)(
-    (input: any): typia.IValidation<DynamicEnumeration> => {
+export const test_createValidateEquals_DynamicEnumeration =
+    _test_validateEquals("DynamicEnumeration")<DynamicEnumeration>(
+        DynamicEnumeration,
+    )((input: any): typia.IValidation<DynamicEnumeration> => {
         const errors = [] as any[];
         const __is = (
             input: any,
@@ -247,5 +247,4 @@ export const test_validateEquals_DynamicEnumeration = _test_validateEquals(
             errors,
             data: success ? input : undefined,
         } as any;
-    },
-);
+    });

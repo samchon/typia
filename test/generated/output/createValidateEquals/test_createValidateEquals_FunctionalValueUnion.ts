@@ -2,10 +2,10 @@ import typia from "../../../../src";
 import { _test_validateEquals } from "../../../internal/_test_validateEquals";
 import { FunctionalValueUnion } from "../../../structures/FunctionalValueUnion";
 
-export const test_validateEquals_FunctionalValueUnion = _test_validateEquals(
-    "FunctionalValueUnion",
-)<FunctionalValueUnion>(FunctionalValueUnion)(
-    (input: any): typia.IValidation<FunctionalValueUnion> => {
+export const test_createValidateEquals_FunctionalValueUnion =
+    _test_validateEquals("FunctionalValueUnion")<FunctionalValueUnion>(
+        FunctionalValueUnion,
+    )((input: any): typia.IValidation<FunctionalValueUnion> => {
         const errors = [] as any[];
         const __is = (
             input: any,
@@ -75,5 +75,4 @@ export const test_validateEquals_FunctionalValueUnion = _test_validateEquals(
             errors,
             data: success ? input : undefined,
         } as any;
-    },
-);
+    });

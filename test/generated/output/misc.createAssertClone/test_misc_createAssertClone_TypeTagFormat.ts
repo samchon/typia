@@ -2,7 +2,7 @@ import typia from "../../../../src";
 import { _test_misc_assertClone } from "../../../internal/_test_misc_assertClone";
 import { TypeTagFormat } from "../../../structures/TypeTagFormat";
 
-export const test_misc_assertClone_TypeTagFormat = _test_misc_assertClone(
+export const test_misc_createAssertClone_TypeTagFormat = _test_misc_assertClone(
     "TypeTagFormat",
 )<TypeTagFormat>(TypeTagFormat)((input: any): typia.Resolved<TypeTagFormat> => {
     const assert = (input: any): TypeTagFormat => {

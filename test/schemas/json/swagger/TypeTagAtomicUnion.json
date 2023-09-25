@@ -32,25 +32,6 @@
               {
                 "x-typia-required": true,
                 "x-typia-optional": false,
-                "type": "number",
-                "minimum": 3,
-                "x-typia-typeTags": [
-                  {
-                    "target": "number",
-                    "name": "Minimum<3>",
-                    "kind": "minimum",
-                    "value": 3,
-                    "validate": "3 <= $input",
-                    "exclusive": [
-                      "minimum",
-                      "exclusiveMinimum"
-                    ]
-                  }
-                ]
-              },
-              {
-                "x-typia-required": true,
-                "x-typia-optional": false,
                 "type": "string",
                 "maxLength": 7,
                 "minLength": 3,
@@ -70,6 +51,25 @@
                     "value": 7,
                     "validate": "$input.length <= 7",
                     "exclusive": true
+                  }
+                ]
+              },
+              {
+                "x-typia-required": true,
+                "x-typia-optional": false,
+                "type": "number",
+                "minimum": 3,
+                "x-typia-typeTags": [
+                  {
+                    "target": "number",
+                    "name": "Minimum<3>",
+                    "kind": "minimum",
+                    "value": 3,
+                    "validate": "3 <= $input",
+                    "exclusive": [
+                      "minimum",
+                      "exclusiveMinimum"
+                    ]
                   }
                 ]
               }

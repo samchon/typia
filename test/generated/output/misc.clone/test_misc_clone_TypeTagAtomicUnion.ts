@@ -7,10 +7,10 @@ export const test_misc_clone_TypeTagAtomicUnion = _test_misc_clone(
 )<TypeTagAtomicUnion>(TypeTagAtomicUnion)((input) =>
     ((input: TypeTagAtomicUnion): typia.Resolved<TypeTagAtomicUnion> => {
         const $io1 = (input: any): boolean =>
-            ("number" === typeof input.value && 3 <= input.value) ||
             ("string" === typeof input.value &&
                 3 <= input.value.length &&
-                input.value.length <= 7);
+                input.value.length <= 7) ||
+            ("number" === typeof input.value && 3 <= input.value);
         const $cp0 = (input: any) =>
             input.map((elem: any) =>
                 "object" === typeof elem && null !== elem

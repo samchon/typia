@@ -2,10 +2,10 @@ import typia from "../../../../src";
 import { _test_validateEquals } from "../../../internal/_test_validateEquals";
 import { ObjectGenericAlias } from "../../../structures/ObjectGenericAlias";
 
-export const test_validateEquals_ObjectGenericAlias = _test_validateEquals(
-    "ObjectGenericAlias",
-)<ObjectGenericAlias>(ObjectGenericAlias)(
-    (input: any): typia.IValidation<ObjectGenericAlias> => {
+export const test_createValidateEquals_ObjectGenericAlias =
+    _test_validateEquals("ObjectGenericAlias")<ObjectGenericAlias>(
+        ObjectGenericAlias,
+    )((input: any): typia.IValidation<ObjectGenericAlias> => {
         const errors = [] as any[];
         const __is = (
             input: any,
@@ -90,5 +90,4 @@ export const test_validateEquals_ObjectGenericAlias = _test_validateEquals(
             errors,
             data: success ? input : undefined,
         } as any;
-    },
-);
+    });

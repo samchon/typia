@@ -2,8 +2,7 @@ import typia from "../../../src";
 import { _test_validateEquals } from "../../internal/_test_validateEquals";
 import { FunctionalArrayUnion } from "../../structures/FunctionalArrayUnion";
 
-export const test_validateEquals_FunctionalArrayUnion = _test_validateEquals(
-    "FunctionalArrayUnion",
-)<FunctionalArrayUnion>(FunctionalArrayUnion)(
-    typia.createValidateEquals<FunctionalArrayUnion>(),
-);
+export const test_createValidateEquals_FunctionalArrayUnion =
+    _test_validateEquals("FunctionalArrayUnion")<FunctionalArrayUnion>(
+        FunctionalArrayUnion,
+    )(typia.createValidateEquals<FunctionalArrayUnion>());

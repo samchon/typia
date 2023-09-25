@@ -2,10 +2,10 @@ import typia from "../../../../src";
 import { _test_json_isStringify } from "../../../internal/_test_json_isStringify";
 import { CommentTagDefault } from "../../../structures/CommentTagDefault";
 
-export const test_json_isStringify_CommentTagDefault = _test_json_isStringify(
-    "CommentTagDefault",
-)<CommentTagDefault>(CommentTagDefault)(
-    (input: CommentTagDefault): string | null => {
+export const test_json_createIsStringify_CommentTagDefault =
+    _test_json_isStringify("CommentTagDefault")<CommentTagDefault>(
+        CommentTagDefault,
+    )((input: CommentTagDefault): string | null => {
         const is = (input: any): input is CommentTagDefault => {
             const $io0 = (input: any): boolean =>
                 "boolean" === typeof input.boolean &&
@@ -134,5 +134,4 @@ export const test_json_isStringify_CommentTagDefault = _test_json_isStringify(
             return $so0(input);
         };
         return is(input) ? stringify(input) : null;
-    },
-);
+    });

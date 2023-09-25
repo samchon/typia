@@ -2,7 +2,7 @@ import typia from "../../../../src";
 import { _test_json_validateStringify } from "../../../internal/_test_json_validateStringify";
 import { TypeTagObjectUnion } from "../../../structures/TypeTagObjectUnion";
 
-export const test_json_validateStringify_TypeTagObjectUnion =
+export const test_json_createValidateStringify_TypeTagObjectUnion =
     _test_json_validateStringify("TypeTagObjectUnion")<TypeTagObjectUnion>(
         TypeTagObjectUnion,
     )((input: TypeTagObjectUnion): typia.IValidation<string> => {

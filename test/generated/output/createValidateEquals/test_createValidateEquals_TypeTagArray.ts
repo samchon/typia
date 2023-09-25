@@ -2,7 +2,7 @@ import typia from "../../../../src";
 import { _test_validateEquals } from "../../../internal/_test_validateEquals";
 import { TypeTagArray } from "../../../structures/TypeTagArray";
 
-export const test_validateEquals_TypeTagArray = _test_validateEquals(
+export const test_createValidateEquals_TypeTagArray = _test_validateEquals(
     "TypeTagArray",
 )<TypeTagArray>(TypeTagArray)((input: any): typia.IValidation<TypeTagArray> => {
     const errors = [] as any[];

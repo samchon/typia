@@ -2,7 +2,7 @@ import typia from "../../../../src";
 import { _test_is } from "../../../internal/_test_is";
 import { TypeTagTypeUnion } from "../../../structures/TypeTagTypeUnion";
 
-export const test_is_TypeTagTypeUnion = _test_is(
+export const test_createIs_TypeTagTypeUnion = _test_is(
     "TypeTagTypeUnion",
 )<TypeTagTypeUnion>(TypeTagTypeUnion)(
     (input: any): input is TypeTagTypeUnion => {

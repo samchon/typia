@@ -14,22 +14,22 @@ export const test_json_isStringify_TypeTagAtomicUnion = _test_json_isStringify(
                         "object" === typeof elem && null !== elem && $io1(elem),
                 );
             const $io1 = (input: any): boolean =>
-                ("number" === typeof input.value &&
-                    Number.isFinite(input.value) &&
-                    3 <= input.value) ||
                 ("string" === typeof input.value &&
                     3 <= input.value.length &&
-                    input.value.length <= 7);
+                    input.value.length <= 7) ||
+                ("number" === typeof input.value &&
+                    Number.isFinite(input.value) &&
+                    3 <= input.value);
             return "object" === typeof input && null !== input && $io0(input);
         };
         const stringify = (input: TypeTagAtomicUnion): string => {
             const $io1 = (input: any): boolean =>
-                ("number" === typeof input.value && 3 <= input.value) ||
                 ("string" === typeof input.value &&
                     3 <= input.value.length &&
-                    input.value.length <= 7);
-            const $number = (typia.json.isStringify as any).number;
+                    input.value.length <= 7) ||
+                ("number" === typeof input.value && 3 <= input.value);
             const $string = (typia.json.isStringify as any).string;
+            const $number = (typia.json.isStringify as any).number;
             const $throws = (typia.json.isStringify as any).throws;
             const $so0 = (input: any): any =>
                 `{"value":${`[${input.value
@@ -37,14 +37,14 @@ export const test_json_isStringify_TypeTagAtomicUnion = _test_json_isStringify(
                     .join(",")}]`}}`;
             const $so1 = (input: any): any =>
                 `{"value":${(() => {
-                    if ("number" === typeof input.value && 3 <= input.value)
-                        return $number(input.value);
                     if (
                         "string" === typeof input.value &&
                         3 <= input.value.length &&
                         input.value.length <= 7
                     )
                         return $string(input.value);
+                    if ("number" === typeof input.value && 3 <= input.value)
+                        return $number(input.value);
                     $throws({
                         expected:
                             "((number & Minimum<3>) | (string & MinLength<3> & MaxLength<7>))",

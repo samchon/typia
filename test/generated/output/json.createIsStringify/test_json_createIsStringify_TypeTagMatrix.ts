@@ -2,7 +2,7 @@ import typia from "../../../../src";
 import { _test_json_isStringify } from "../../../internal/_test_json_isStringify";
 import { TypeTagMatrix } from "../../../structures/TypeTagMatrix";
 
-export const test_json_isStringify_TypeTagMatrix = _test_json_isStringify(
+export const test_json_createIsStringify_TypeTagMatrix = _test_json_isStringify(
     "TypeTagMatrix",
 )<TypeTagMatrix>(TypeTagMatrix)((input: TypeTagMatrix): string | null => {
     const is = (input: any): input is TypeTagMatrix => {

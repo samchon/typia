@@ -2,10 +2,10 @@ import typia from "../../../../src";
 import { _test_validateEquals } from "../../../internal/_test_validateEquals";
 import { ObjectUnionComposite } from "../../../structures/ObjectUnionComposite";
 
-export const test_validateEquals_ObjectUnionComposite = _test_validateEquals(
-    "ObjectUnionComposite",
-)<ObjectUnionComposite>(ObjectUnionComposite)(
-    (input: any): typia.IValidation<ObjectUnionComposite> => {
+export const test_createValidateEquals_ObjectUnionComposite =
+    _test_validateEquals("ObjectUnionComposite")<ObjectUnionComposite>(
+        ObjectUnionComposite,
+    )((input: any): typia.IValidation<ObjectUnionComposite> => {
         const errors = [] as any[];
         const __is = (
             input: any,
@@ -900,5 +900,4 @@ export const test_validateEquals_ObjectUnionComposite = _test_validateEquals(
             errors,
             data: success ? input : undefined,
         } as any;
-    },
-);
+    });

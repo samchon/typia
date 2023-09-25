@@ -2,10 +2,10 @@ import typia from "../../../../src";
 import { _test_validateEquals } from "../../../internal/_test_validateEquals";
 import { TypeTagRangeBigInt } from "../../../structures/TypeTagRangeBigInt";
 
-export const test_validateEquals_TypeTagRangeBigInt = _test_validateEquals(
-    "TypeTagRangeBigInt",
-)<TypeTagRangeBigInt>(TypeTagRangeBigInt)(
-    (input: any): typia.IValidation<TypeTagRangeBigInt> => {
+export const test_createValidateEquals_TypeTagRangeBigInt =
+    _test_validateEquals("TypeTagRangeBigInt")<TypeTagRangeBigInt>(
+        TypeTagRangeBigInt,
+    )((input: any): typia.IValidation<TypeTagRangeBigInt> => {
         const errors = [] as any[];
         const __is = (
             input: any,
@@ -359,5 +359,4 @@ export const test_validateEquals_TypeTagRangeBigInt = _test_validateEquals(
             errors,
             data: success ? input : undefined,
         } as any;
-    },
-);
+    });

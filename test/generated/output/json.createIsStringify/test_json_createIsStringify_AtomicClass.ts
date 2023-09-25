@@ -2,7 +2,7 @@ import typia from "../../../../src";
 import { _test_json_isStringify } from "../../../internal/_test_json_isStringify";
 import { AtomicClass } from "../../../structures/AtomicClass";
 
-export const test_json_isStringify_AtomicClass = _test_json_isStringify(
+export const test_json_createIsStringify_AtomicClass = _test_json_isStringify(
     "AtomicClass",
 )<AtomicClass>(AtomicClass)((input: AtomicClass): string | null => {
     const is = (input: any): input is AtomicClass => {

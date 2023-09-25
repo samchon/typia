@@ -2,7 +2,7 @@ import typia from "../../../../src";
 import { _test_misc_isClone } from "../../../internal/_test_misc_isClone";
 import { ArrayAtomicSimple } from "../../../structures/ArrayAtomicSimple";
 
-export const test_misc_isClone_ArrayAtomicSimple = _test_misc_isClone(
+export const test_misc_createIsClone_ArrayAtomicSimple = _test_misc_isClone(
     "ArrayAtomicSimple",
 )<ArrayAtomicSimple>(ArrayAtomicSimple)(
     (input: any): typia.Resolved<ArrayAtomicSimple> | null => {

@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_is } from "../../../internal/_test_is";
 import { UltimateUnion } from "../../../structures/UltimateUnion";
 
-export const test_is_UltimateUnion = _test_is("UltimateUnion")<UltimateUnion>(
-    UltimateUnion,
-)((input: any): input is UltimateUnion => {
+export const test_createIs_UltimateUnion = _test_is(
+    "UltimateUnion",
+)<UltimateUnion>(UltimateUnion)((input: any): input is UltimateUnion => {
     const $io0 = (input: any): boolean =>
         Array.isArray(input.schemas) &&
         input.schemas.every(

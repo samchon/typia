@@ -2,10 +2,10 @@ import typia from "../../../../src";
 import { _test_json_isStringify } from "../../../internal/_test_json_isStringify";
 import { ObjectUnionImplicit } from "../../../structures/ObjectUnionImplicit";
 
-export const test_json_isStringify_ObjectUnionImplicit = _test_json_isStringify(
-    "ObjectUnionImplicit",
-)<ObjectUnionImplicit>(ObjectUnionImplicit)(
-    (input: ObjectUnionImplicit): string | null => {
+export const test_json_createIsStringify_ObjectUnionImplicit =
+    _test_json_isStringify("ObjectUnionImplicit")<ObjectUnionImplicit>(
+        ObjectUnionImplicit,
+    )((input: ObjectUnionImplicit): string | null => {
         const is = (input: any): input is ObjectUnionImplicit => {
             const $io0 = (input: any): boolean =>
                 "number" === typeof input.x &&
@@ -405,5 +405,4 @@ export const test_json_isStringify_ObjectUnionImplicit = _test_json_isStringify(
             return `[${input.map((elem: any) => $su0(elem)).join(",")}]`;
         };
         return is(input) ? stringify(input) : null;
-    },
-);
+    });

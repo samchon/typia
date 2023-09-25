@@ -2,7 +2,7 @@ import typia from "../../../../src";
 import { _test_misc_isClone } from "../../../internal/_test_misc_isClone";
 import { SetUnion } from "../../../structures/SetUnion";
 
-export const test_misc_isClone_SetUnion = _test_misc_isClone(
+export const test_misc_createIsClone_SetUnion = _test_misc_isClone(
     "SetUnion",
 )<SetUnion>(SetUnion)((input: any): typia.Resolved<SetUnion> | null => {
     const is = (input: any): input is SetUnion => {

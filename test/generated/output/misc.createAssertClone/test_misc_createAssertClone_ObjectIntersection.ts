@@ -2,10 +2,10 @@ import typia from "../../../../src";
 import { _test_misc_assertClone } from "../../../internal/_test_misc_assertClone";
 import { ObjectIntersection } from "../../../structures/ObjectIntersection";
 
-export const test_misc_assertClone_ObjectIntersection = _test_misc_assertClone(
-    "ObjectIntersection",
-)<ObjectIntersection>(ObjectIntersection)(
-    (input: any): typia.Resolved<ObjectIntersection> => {
+export const test_misc_createAssertClone_ObjectIntersection =
+    _test_misc_assertClone("ObjectIntersection")<ObjectIntersection>(
+        ObjectIntersection,
+    )((input: any): typia.Resolved<ObjectIntersection> => {
         const assert = (input: any): ObjectIntersection => {
             const __is = (input: any): input is ObjectIntersection => {
                 return (
@@ -78,5 +78,4 @@ export const test_misc_assertClone_ObjectIntersection = _test_misc_assertClone(
         assert(input);
         const output = clone(input);
         return output;
-    },
-);
+    });

@@ -2,7 +2,7 @@ import typia from "../../../../src";
 import { _test_json_validateStringify } from "../../../internal/_test_json_validateStringify";
 import { MapAlias } from "../../../structures/MapAlias";
 
-export const test_json_validateStringify_MapAlias =
+export const test_json_createValidateStringify_MapAlias =
     _test_json_validateStringify("MapAlias")<MapAlias>(MapAlias)(
         (input: MapAlias): typia.IValidation<string> => {
             const validate = (input: any): typia.IValidation<MapAlias> => {

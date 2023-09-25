@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_assert } from "../../../internal/_test_assert";
 import { TupleUnion } from "../../../structures/TupleUnion";
 
-export const test_assert_TupleUnion = _test_assert("TupleUnion")<TupleUnion>(
-    TupleUnion,
-)((input: any): TupleUnion => {
+export const test_createAssert_TupleUnion = _test_assert(
+    "TupleUnion",
+)<TupleUnion>(TupleUnion)((input: any): TupleUnion => {
     const __is = (input: any): input is TupleUnion => {
         const $ip0 = (input: any) => {
             const array = input;

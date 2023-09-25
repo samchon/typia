@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_is } from "../../../internal/_test_is";
 import { TypeTagRange } from "../../../structures/TypeTagRange";
 
-export const test_is_TypeTagRange = _test_is("TypeTagRange")<TypeTagRange>(
-    TypeTagRange,
-)((input: any): input is TypeTagRange => {
+export const test_createIs_TypeTagRange = _test_is(
+    "TypeTagRange",
+)<TypeTagRange>(TypeTagRange)((input: any): input is TypeTagRange => {
     const $io0 = (input: any): boolean =>
         Array.isArray(input.value) &&
         input.value.every(

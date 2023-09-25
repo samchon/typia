@@ -2,10 +2,10 @@ import typia from "../../../../src";
 import { _test_misc_assertClone } from "../../../internal/_test_misc_assertClone";
 import { ObjectHierarchical } from "../../../structures/ObjectHierarchical";
 
-export const test_misc_assertClone_ObjectHierarchical = _test_misc_assertClone(
-    "ObjectHierarchical",
-)<ObjectHierarchical>(ObjectHierarchical)(
-    (input: any): typia.Resolved<ObjectHierarchical> => {
+export const test_misc_createAssertClone_ObjectHierarchical =
+    _test_misc_assertClone("ObjectHierarchical")<ObjectHierarchical>(
+        ObjectHierarchical,
+    )((input: any): typia.Resolved<ObjectHierarchical> => {
         const assert = (input: any): ObjectHierarchical => {
             const __is = (input: any): input is ObjectHierarchical => {
                 const $io0 = (input: any): boolean =>
@@ -692,5 +692,4 @@ export const test_misc_assertClone_ObjectHierarchical = _test_misc_assertClone(
         assert(input);
         const output = clone(input);
         return output;
-    },
-);
+    });

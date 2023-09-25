@@ -2,7 +2,7 @@ import typia from "../../../../src";
 import { _test_is } from "../../../internal/_test_is";
 import { TypeTagRangeBigInt } from "../../../structures/TypeTagRangeBigInt";
 
-export const test_is_TypeTagRangeBigInt = _test_is(
+export const test_createIs_TypeTagRangeBigInt = _test_is(
     "TypeTagRangeBigInt",
 )<TypeTagRangeBigInt>(TypeTagRangeBigInt)(
     (input: any): input is TypeTagRangeBigInt => {

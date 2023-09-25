@@ -2,7 +2,7 @@ import typia from "../../../../src";
 import { _test_protobuf_assertDecode } from "../../../internal/_test_protobuf_assertDecode";
 import { TypeTagAtomicUnion } from "../../../structures/TypeTagAtomicUnion";
 
-export const test_protobuf_assertDecode_TypeTagAtomicUnion =
+export const test_protobuf_createAssertDecode_TypeTagAtomicUnion =
     _test_protobuf_assertDecode("TypeTagAtomicUnion")<TypeTagAtomicUnion>(
         TypeTagAtomicUnion,
     )({
@@ -74,12 +74,12 @@ export const test_protobuf_assertDecode_TypeTagAtomicUnion =
                                 $io1(elem),
                         );
                     const $io1 = (input: any): boolean =>
-                        ("number" === typeof input.value &&
-                            Number.isFinite(input.value) &&
-                            3 <= input.value) ||
                         ("string" === typeof input.value &&
                             3 <= input.value.length &&
-                            input.value.length <= 7);
+                            input.value.length <= 7) ||
+                        ("number" === typeof input.value &&
+                            Number.isFinite(input.value) &&
+                            3 <= input.value);
                     return (
                         "object" === typeof input &&
                         null !== input &&
@@ -148,19 +148,6 @@ export const test_protobuf_assertDecode_TypeTagAtomicUnion =
                             _path: string,
                             _exceptionable: boolean = true,
                         ): boolean =>
-                            ("number" === typeof input.value &&
-                                (Number.isFinite(input.value) ||
-                                    $guard(_exceptionable, {
-                                        path: _path + ".value",
-                                        expected: "number",
-                                        value: input.value,
-                                    })) &&
-                                (3 <= input.value ||
-                                    $guard(_exceptionable, {
-                                        path: _path + ".value",
-                                        expected: "number & Minimum<3>",
-                                        value: input.value,
-                                    }))) ||
                             ("string" === typeof input.value &&
                                 (3 <= input.value.length ||
                                     $guard(_exceptionable, {
@@ -172,6 +159,19 @@ export const test_protobuf_assertDecode_TypeTagAtomicUnion =
                                     $guard(_exceptionable, {
                                         path: _path + ".value",
                                         expected: "string & MaxLength<7>",
+                                        value: input.value,
+                                    }))) ||
+                            ("number" === typeof input.value &&
+                                (Number.isFinite(input.value) ||
+                                    $guard(_exceptionable, {
+                                        path: _path + ".value",
+                                        expected: "number",
+                                        value: input.value,
+                                    })) &&
+                                (3 <= input.value ||
+                                    $guard(_exceptionable, {
+                                        path: _path + ".value",
+                                        expected: "number & Minimum<3>",
                                         value: input.value,
                                     }))) ||
                             $guard(_exceptionable, {
@@ -233,10 +233,10 @@ export const test_protobuf_assertDecode_TypeTagAtomicUnion =
                         });
                 };
                 const $io1 = (input: any): boolean =>
-                    ("number" === typeof input.value && 3 <= input.value) ||
                     ("string" === typeof input.value &&
                         3 <= input.value.length &&
-                        input.value.length <= 7);
+                        input.value.length <= 7) ||
+                    ("number" === typeof input.value && 3 <= input.value);
                 //TypeTagAtomicUnion;
                 $peo0(input);
                 return writer;

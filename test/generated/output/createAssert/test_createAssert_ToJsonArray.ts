@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_assert } from "../../../internal/_test_assert";
 import { ToJsonArray } from "../../../structures/ToJsonArray";
 
-export const test_assert_ToJsonArray = _test_assert("ToJsonArray")<ToJsonArray>(
-    ToJsonArray,
-)((input: any): ToJsonArray => {
+export const test_createAssert_ToJsonArray = _test_assert(
+    "ToJsonArray",
+)<ToJsonArray>(ToJsonArray)((input: any): ToJsonArray => {
     const __is = (input: any): input is ToJsonArray => {
         const $io0 = (input: any): boolean =>
             "function" === typeof input.toJSON;

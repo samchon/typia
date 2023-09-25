@@ -2,10 +2,10 @@ import typia from "../../../../src";
 import { _test_validateEquals } from "../../../internal/_test_validateEquals";
 import { ObjectUnionExplicit } from "../../../structures/ObjectUnionExplicit";
 
-export const test_validateEquals_ObjectUnionExplicit = _test_validateEquals(
-    "ObjectUnionExplicit",
-)<ObjectUnionExplicit>(ObjectUnionExplicit)(
-    (input: any): typia.IValidation<ObjectUnionExplicit> => {
+export const test_createValidateEquals_ObjectUnionExplicit =
+    _test_validateEquals("ObjectUnionExplicit")<ObjectUnionExplicit>(
+        ObjectUnionExplicit,
+    )((input: any): typia.IValidation<ObjectUnionExplicit> => {
         const errors = [] as any[];
         const __is = (
             input: any,
@@ -952,5 +952,4 @@ export const test_validateEquals_ObjectUnionExplicit = _test_validateEquals(
             errors,
             data: success ? input : undefined,
         } as any;
-    },
-);
+    });

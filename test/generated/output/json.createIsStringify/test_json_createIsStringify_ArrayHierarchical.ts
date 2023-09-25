@@ -2,10 +2,10 @@ import typia from "../../../../src";
 import { _test_json_isStringify } from "../../../internal/_test_json_isStringify";
 import { ArrayHierarchical } from "../../../structures/ArrayHierarchical";
 
-export const test_json_isStringify_ArrayHierarchical = _test_json_isStringify(
-    "ArrayHierarchical",
-)<ArrayHierarchical>(ArrayHierarchical)(
-    (input: ArrayHierarchical): string | null => {
+export const test_json_createIsStringify_ArrayHierarchical =
+    _test_json_isStringify("ArrayHierarchical")<ArrayHierarchical>(
+        ArrayHierarchical,
+    )((input: ArrayHierarchical): string | null => {
         const is = (input: any): input is ArrayHierarchical => {
             const $io0 = (input: any): boolean =>
                 "number" === typeof input.id &&
@@ -124,5 +124,4 @@ export const test_json_isStringify_ArrayHierarchical = _test_json_isStringify(
             return `[${input.map((elem: any) => $so0(elem)).join(",")}]`;
         };
         return is(input) ? stringify(input) : null;
-    },
-);
+    });

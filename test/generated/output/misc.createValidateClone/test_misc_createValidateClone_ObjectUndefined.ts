@@ -2,10 +2,10 @@ import typia from "../../../../src";
 import { _test_misc_validateClone } from "../../../internal/_test_misc_validateClone";
 import { ObjectUndefined } from "../../../structures/ObjectUndefined";
 
-export const test_misc_validateClone_ObjectUndefined = _test_misc_validateClone(
-    "ObjectUndefined",
-)<ObjectUndefined>(ObjectUndefined)(
-    (input: any): typia.IValidation<typia.Resolved<ObjectUndefined>> => {
+export const test_misc_createValidateClone_ObjectUndefined =
+    _test_misc_validateClone("ObjectUndefined")<ObjectUndefined>(
+        ObjectUndefined,
+    )((input: any): typia.IValidation<typia.Resolved<ObjectUndefined>> => {
         const validate = (input: any): typia.IValidation<ObjectUndefined> => {
             const errors = [] as any[];
             const __is = (input: any): input is ObjectUndefined => {
@@ -224,5 +224,4 @@ export const test_misc_validateClone_ObjectUndefined = _test_misc_validateClone(
         const output = validate(input) as any;
         if (output.success) output.data = clone(input);
         return output;
-    },
-);
+    });

@@ -2,7 +2,7 @@ import typia from "../../../../src";
 import { _test_is } from "../../../internal/_test_is";
 import { CommentTagType } from "../../../structures/CommentTagType";
 
-export const test_is_CommentTagType = _test_is(
+export const test_createIs_CommentTagType = _test_is(
     "CommentTagType",
 )<CommentTagType>(CommentTagType)((input: any): input is CommentTagType => {
     const $io0 = (input: any): boolean =>

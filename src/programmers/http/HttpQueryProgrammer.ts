@@ -7,7 +7,7 @@ import { StatementFactory } from "../../factories/StatementFactory";
 import { TypeFactory } from "../../factories/TypeFactory";
 
 import { Metadata } from "../../schemas/metadata/Metadata";
-import { MetadataArray } from "../../schemas/metadata/MetadataArray";
+import { MetadataArrayType } from "../../schemas/metadata/MetadataArrayType";
 import { MetadataObject } from "../../schemas/metadata/MetadataObject";
 import { MetadataProperty } from "../../schemas/metadata/MetadataProperty";
 
@@ -86,7 +86,7 @@ export namespace HttpQueryProgrammer {
                 insert("query parameters cannot be undefined.");
         } else if (
             explore.nested !== null &&
-            explore.nested instanceof MetadataArray
+            explore.nested instanceof MetadataArrayType
         ) {
             const atomics = HttpMetadataUtil.atomics(meta);
             const expected: number =
@@ -126,7 +126,7 @@ export namespace HttpQueryProgrammer {
             // ARRAY CASES
             //----
             const isArray: boolean =
-                meta.arrays.length > 1 || meta.tuples.length > 1;
+                meta.arrays.length >= 1 || meta.tuples.length >= 1;
             // ARRAY TYPE MUST BE REQUIRED
             if (isArray && meta.isRequired() === false)
                 insert("optional type is not allowed when array.");
@@ -143,12 +143,22 @@ export namespace HttpQueryProgrammer {
             const input: ts.Identifier = ts.factory.createIdentifier("input");
             const output: ts.Identifier = ts.factory.createIdentifier("output");
             const optionals: string[] = [];
+
             return [
                 ts.factory.createExpressionStatement(
-                    ts.factory.createCallExpression(
-                        importer.use("params"),
-                        undefined,
-                        [input],
+                    ts.factory.createBinaryExpression(
+                        input,
+                        ts.factory.createToken(ts.SyntaxKind.EqualsToken),
+                        ts.factory.createAsExpression(
+                            ts.factory.createCallExpression(
+                                importer.use("params"),
+                                undefined,
+                                [input],
+                            ),
+                            ts.factory.createTypeReferenceNode(
+                                "URLSearchParams",
+                            ),
+                        ),
                     ),
                 ),
                 StatementFactory.constant(
@@ -181,7 +191,12 @@ export namespace HttpQueryProgrammer {
                         ),
                     );
                 }),
-                ts.factory.createReturnStatement(output),
+                ts.factory.createReturnStatement(
+                    ts.factory.createAsExpression(
+                        output,
+                        TypeFactory.keyword("any"),
+                    ),
+                ),
             ];
         };
 
@@ -196,12 +211,16 @@ export namespace HttpQueryProgrammer {
                 ? [value.atomics[0]!.type, false]
                 : value.constants.length
                 ? [value.constants[0]!.type, false]
+                : value.templates.length
+                ? ["string", false]
                 : (() => {
                       const meta =
                           value.arrays[0]?.type.value ??
                           value.tuples[0]!.type.elements[0]!;
                       return meta.atomics.length
                           ? [meta.atomics[0]!.type, true]
+                          : meta.templates.length
+                          ? ["string", true]
                           : [meta.constants[0]!.type, true];
                   })();
             return ts.factory.createPropertyAssignment(

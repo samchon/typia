@@ -2,7 +2,7 @@ import typia from "../../../../src";
 import { _test_json_stringify } from "../../../internal/_test_json_stringify";
 import { AtomicUnion } from "../../../structures/AtomicUnion";
 
-export const test_json_stringify_AtomicUnion = _test_json_stringify(
+export const test_json_createStringify_AtomicUnion = _test_json_stringify(
     "AtomicUnion",
 )<AtomicUnion>(AtomicUnion)((input: AtomicUnion): string => {
     const $string = (typia.json.createStringify as any).string;

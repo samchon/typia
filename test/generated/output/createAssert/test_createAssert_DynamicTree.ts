@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_assert } from "../../../internal/_test_assert";
 import { DynamicTree } from "../../../structures/DynamicTree";
 
-export const test_assert_DynamicTree = _test_assert("DynamicTree")<DynamicTree>(
-    DynamicTree,
-)((input: any): DynamicTree => {
+export const test_createAssert_DynamicTree = _test_assert(
+    "DynamicTree",
+)<DynamicTree>(DynamicTree)((input: any): DynamicTree => {
     const __is = (input: any): input is DynamicTree => {
         const $io0 = (input: any): boolean =>
             "string" === typeof input.id &&

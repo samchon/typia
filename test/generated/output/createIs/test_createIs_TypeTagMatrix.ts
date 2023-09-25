@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_is } from "../../../internal/_test_is";
 import { TypeTagMatrix } from "../../../structures/TypeTagMatrix";
 
-export const test_is_TypeTagMatrix = _test_is("TypeTagMatrix")<TypeTagMatrix>(
-    TypeTagMatrix,
-)((input: any): input is TypeTagMatrix => {
+export const test_createIs_TypeTagMatrix = _test_is(
+    "TypeTagMatrix",
+)<TypeTagMatrix>(TypeTagMatrix)((input: any): input is TypeTagMatrix => {
     const $io0 = (input: any): boolean =>
         Array.isArray(input.matrix) &&
         3 <= input.matrix.length &&

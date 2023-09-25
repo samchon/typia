@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_assert } from "../../../internal/_test_assert";
 import { ClassGetter } from "../../../structures/ClassGetter";
 
-export const test_assert_ClassGetter = _test_assert("ClassGetter")<ClassGetter>(
-    ClassGetter,
-)((input: any): ClassGetter => {
+export const test_createAssert_ClassGetter = _test_assert(
+    "ClassGetter",
+)<ClassGetter>(ClassGetter)((input: any): ClassGetter => {
     const __is = (input: any): input is ClassGetter => {
         const $io0 = (input: any): boolean =>
             "string" === typeof input.id &&

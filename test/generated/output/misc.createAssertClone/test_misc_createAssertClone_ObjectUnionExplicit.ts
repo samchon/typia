@@ -2,10 +2,10 @@ import typia from "../../../../src";
 import { _test_misc_assertClone } from "../../../internal/_test_misc_assertClone";
 import { ObjectUnionExplicit } from "../../../structures/ObjectUnionExplicit";
 
-export const test_misc_assertClone_ObjectUnionExplicit = _test_misc_assertClone(
-    "ObjectUnionExplicit",
-)<ObjectUnionExplicit>(ObjectUnionExplicit)(
-    (input: any): typia.Resolved<ObjectUnionExplicit> => {
+export const test_misc_createAssertClone_ObjectUnionExplicit =
+    _test_misc_assertClone("ObjectUnionExplicit")<ObjectUnionExplicit>(
+        ObjectUnionExplicit,
+    )((input: any): typia.Resolved<ObjectUnionExplicit> => {
         const assert = (input: any): ObjectUnionExplicit => {
             const __is = (input: any): input is ObjectUnionExplicit => {
                 const $io0 = (input: any): boolean =>
@@ -857,5 +857,4 @@ export const test_misc_assertClone_ObjectUnionExplicit = _test_misc_assertClone(
         assert(input);
         const output = clone(input);
         return output;
-    },
-);
+    });

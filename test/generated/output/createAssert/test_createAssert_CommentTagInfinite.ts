@@ -2,7 +2,7 @@ import typia from "../../../../src";
 import { _test_assert } from "../../../internal/_test_assert";
 import { CommentTagInfinite } from "../../../structures/CommentTagInfinite";
 
-export const test_assert_CommentTagInfinite = _test_assert(
+export const test_createAssert_CommentTagInfinite = _test_assert(
     "CommentTagInfinite",
 )<CommentTagInfinite>(CommentTagInfinite)((input: any): CommentTagInfinite => {
     const __is = (input: any): input is CommentTagInfinite => {

@@ -21,12 +21,12 @@ export const test_json_validateStringify_TypeTagAtomicUnion =
                                 $io1(elem),
                         );
                     const $io1 = (input: any): boolean =>
-                        ("number" === typeof input.value &&
-                            Number.isFinite(input.value) &&
-                            3 <= input.value) ||
                         ("string" === typeof input.value &&
                             3 <= input.value.length &&
-                            input.value.length <= 7);
+                            input.value.length <= 7) ||
+                        ("number" === typeof input.value &&
+                            Number.isFinite(input.value) &&
+                            3 <= input.value);
                     return (
                         "object" === typeof input &&
                         null !== input &&
@@ -103,32 +103,30 @@ export const test_json_validateStringify_TypeTagAtomicUnion =
                             _exceptionable: boolean = true,
                         ): boolean =>
                             [
-                                ("number" === typeof input.value &&
-                                    (Number.isFinite(input.value) ||
+                                ("string" === typeof input.value &&
+                                    (3 <= input.value.length ||
                                         $report(_exceptionable, {
                                             path: _path + ".value",
-                                            expected: "number",
+                                            expected: "string & MinLength<3>",
                                             value: input.value,
                                         })) &&
-                                    (3 <= input.value ||
+                                    (input.value.length <= 7 ||
                                         $report(_exceptionable, {
                                             path: _path + ".value",
-                                            expected: "number & Minimum<3>",
+                                            expected: "string & MaxLength<7>",
                                             value: input.value,
                                         }))) ||
-                                    ("string" === typeof input.value &&
-                                        (3 <= input.value.length ||
+                                    ("number" === typeof input.value &&
+                                        (Number.isFinite(input.value) ||
                                             $report(_exceptionable, {
                                                 path: _path + ".value",
-                                                expected:
-                                                    "string & MinLength<3>",
+                                                expected: "number",
                                                 value: input.value,
                                             })) &&
-                                        (input.value.length <= 7 ||
+                                        (3 <= input.value ||
                                             $report(_exceptionable, {
                                                 path: _path + ".value",
-                                                expected:
-                                                    "string & MaxLength<7>",
+                                                expected: "number & Minimum<3>",
                                                 value: input.value,
                                             }))) ||
                                     $report(_exceptionable, {
@@ -163,12 +161,12 @@ export const test_json_validateStringify_TypeTagAtomicUnion =
             };
             const stringify = (input: TypeTagAtomicUnion): string => {
                 const $io1 = (input: any): boolean =>
-                    ("number" === typeof input.value && 3 <= input.value) ||
                     ("string" === typeof input.value &&
                         3 <= input.value.length &&
-                        input.value.length <= 7);
-                const $number = (typia.json.validateStringify as any).number;
+                        input.value.length <= 7) ||
+                    ("number" === typeof input.value && 3 <= input.value);
                 const $string = (typia.json.validateStringify as any).string;
+                const $number = (typia.json.validateStringify as any).number;
                 const $throws = (typia.json.validateStringify as any).throws;
                 const $so0 = (input: any): any =>
                     `{"value":${`[${input.value
@@ -176,14 +174,14 @@ export const test_json_validateStringify_TypeTagAtomicUnion =
                         .join(",")}]`}}`;
                 const $so1 = (input: any): any =>
                     `{"value":${(() => {
-                        if ("number" === typeof input.value && 3 <= input.value)
-                            return $number(input.value);
                         if (
                             "string" === typeof input.value &&
                             3 <= input.value.length &&
                             input.value.length <= 7
                         )
                             return $string(input.value);
+                        if ("number" === typeof input.value && 3 <= input.value)
+                            return $number(input.value);
                         $throws({
                             expected:
                                 "((number & Minimum<3>) | (string & MinLength<3> & MaxLength<7>))",

@@ -2,10 +2,10 @@ import typia from "../../../../src";
 import { _test_misc_assertClone } from "../../../internal/_test_misc_assertClone";
 import { ObjectGenericAlias } from "../../../structures/ObjectGenericAlias";
 
-export const test_misc_assertClone_ObjectGenericAlias = _test_misc_assertClone(
-    "ObjectGenericAlias",
-)<ObjectGenericAlias>(ObjectGenericAlias)(
-    (input: any): typia.Resolved<ObjectGenericAlias> => {
+export const test_misc_createAssertClone_ObjectGenericAlias =
+    _test_misc_assertClone("ObjectGenericAlias")<ObjectGenericAlias>(
+        ObjectGenericAlias,
+    )((input: any): typia.Resolved<ObjectGenericAlias> => {
         const assert = (input: any): ObjectGenericAlias => {
             const __is = (input: any): input is ObjectGenericAlias => {
                 return (
@@ -62,5 +62,4 @@ export const test_misc_assertClone_ObjectGenericAlias = _test_misc_assertClone(
         assert(input);
         const output = clone(input);
         return output;
-    },
-);
+    });

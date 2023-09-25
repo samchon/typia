@@ -2,7 +2,7 @@ import typia from "../../../../src";
 import { _test_json_stringify } from "../../../internal/_test_json_stringify";
 import { MapAlias } from "../../../structures/MapAlias";
 
-export const test_json_stringify_MapAlias = _test_json_stringify(
+export const test_json_createStringify_MapAlias = _test_json_stringify(
     "MapAlias",
 )<MapAlias>(MapAlias)((input: MapAlias): string => {
     const $io1 = (input: any): boolean =>

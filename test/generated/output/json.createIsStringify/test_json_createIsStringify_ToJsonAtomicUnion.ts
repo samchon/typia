@@ -2,10 +2,10 @@ import typia from "../../../../src";
 import { _test_json_isStringify } from "../../../internal/_test_json_isStringify";
 import { ToJsonAtomicUnion } from "../../../structures/ToJsonAtomicUnion";
 
-export const test_json_isStringify_ToJsonAtomicUnion = _test_json_isStringify(
-    "ToJsonAtomicUnion",
-)<ToJsonAtomicUnion>(ToJsonAtomicUnion)(
-    (input: ToJsonAtomicUnion): string | null => {
+export const test_json_createIsStringify_ToJsonAtomicUnion =
+    _test_json_isStringify("ToJsonAtomicUnion")<ToJsonAtomicUnion>(
+        ToJsonAtomicUnion,
+    )((input: ToJsonAtomicUnion): string | null => {
         const is = (input: any): input is ToJsonAtomicUnion => {
             const $io0 = (input: any): boolean => true;
             return (
@@ -41,5 +41,4 @@ export const test_json_isStringify_ToJsonAtomicUnion = _test_json_isStringify(
                 .join(",")}]`;
         };
         return is(input) ? stringify(input) : null;
-    },
-);
+    });

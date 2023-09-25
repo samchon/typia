@@ -2,10 +2,10 @@ import typia from "../../../../src";
 import { _test_misc_validateClone } from "../../../internal/_test_misc_validateClone";
 import { CommentTagArray } from "../../../structures/CommentTagArray";
 
-export const test_misc_validateClone_CommentTagArray = _test_misc_validateClone(
-    "CommentTagArray",
-)<CommentTagArray>(CommentTagArray)(
-    (input: any): typia.IValidation<typia.Resolved<CommentTagArray>> => {
+export const test_misc_createValidateClone_CommentTagArray =
+    _test_misc_validateClone("CommentTagArray")<CommentTagArray>(
+        CommentTagArray,
+    )((input: any): typia.IValidation<typia.Resolved<CommentTagArray>> => {
         const validate = (input: any): typia.IValidation<CommentTagArray> => {
             const errors = [] as any[];
             const __is = (input: any): input is CommentTagArray => {
@@ -344,5 +344,4 @@ export const test_misc_validateClone_CommentTagArray = _test_misc_validateClone(
         const output = validate(input) as any;
         if (output.success) output.data = clone(input);
         return output;
-    },
-);
+    });

@@ -2,10 +2,10 @@ import typia from "../../../../src";
 import { _test_json_isStringify } from "../../../internal/_test_json_isStringify";
 import { DynamicEnumeration } from "../../../structures/DynamicEnumeration";
 
-export const test_json_isStringify_DynamicEnumeration = _test_json_isStringify(
-    "DynamicEnumeration",
-)<DynamicEnumeration>(DynamicEnumeration)(
-    (input: DynamicEnumeration): string | null => {
+export const test_json_createIsStringify_DynamicEnumeration =
+    _test_json_isStringify("DynamicEnumeration")<DynamicEnumeration>(
+        DynamicEnumeration,
+    )((input: DynamicEnumeration): string | null => {
         const is = (input: any): input is DynamicEnumeration => {
             const $io0 = (input: any): boolean =>
                 "object" === typeof input.value &&
@@ -131,5 +131,4 @@ export const test_json_isStringify_DynamicEnumeration = _test_json_isStringify(
             return $so0(input);
         };
         return is(input) ? stringify(input) : null;
-    },
-);
+    });

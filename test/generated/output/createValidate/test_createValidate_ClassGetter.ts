@@ -2,7 +2,7 @@ import typia from "../../../../src";
 import { _test_validate } from "../../../internal/_test_validate";
 import { ClassGetter } from "../../../structures/ClassGetter";
 
-export const test_validate_ClassGetter = _test_validate(
+export const test_createValidate_ClassGetter = _test_validate(
     "ClassGetter",
 )<ClassGetter>(ClassGetter)((input: any): typia.IValidation<ClassGetter> => {
     const errors = [] as any[];

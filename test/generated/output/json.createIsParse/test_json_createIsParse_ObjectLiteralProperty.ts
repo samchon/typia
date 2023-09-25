@@ -2,7 +2,7 @@ import typia from "../../../../src";
 import { _test_json_isParse } from "../../../internal/_test_json_isParse";
 import { ObjectLiteralProperty } from "../../../structures/ObjectLiteralProperty";
 
-export const test_json_isParse_ObjectLiteralProperty = _test_json_isParse(
+export const test_json_createIsParse_ObjectLiteralProperty = _test_json_isParse(
     "ObjectLiteralProperty",
 )<ObjectLiteralProperty>(ObjectLiteralProperty)(
     (input: any): typia.Primitive<ObjectLiteralProperty> => {

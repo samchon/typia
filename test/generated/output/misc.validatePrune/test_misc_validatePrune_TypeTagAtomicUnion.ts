@@ -21,12 +21,12 @@ export const test_misc_validatePrune_TypeTagAtomicUnion =
                                 $io1(elem),
                         );
                     const $io1 = (input: any): boolean =>
-                        ("number" === typeof input.value &&
-                            Number.isFinite(input.value) &&
-                            3 <= input.value) ||
                         ("string" === typeof input.value &&
                             3 <= input.value.length &&
-                            input.value.length <= 7);
+                            input.value.length <= 7) ||
+                        ("number" === typeof input.value &&
+                            Number.isFinite(input.value) &&
+                            3 <= input.value);
                     return (
                         "object" === typeof input &&
                         null !== input &&
@@ -103,32 +103,30 @@ export const test_misc_validatePrune_TypeTagAtomicUnion =
                             _exceptionable: boolean = true,
                         ): boolean =>
                             [
-                                ("number" === typeof input.value &&
-                                    (Number.isFinite(input.value) ||
+                                ("string" === typeof input.value &&
+                                    (3 <= input.value.length ||
                                         $report(_exceptionable, {
                                             path: _path + ".value",
-                                            expected: "number",
+                                            expected: "string & MinLength<3>",
                                             value: input.value,
                                         })) &&
-                                    (3 <= input.value ||
+                                    (input.value.length <= 7 ||
                                         $report(_exceptionable, {
                                             path: _path + ".value",
-                                            expected: "number & Minimum<3>",
+                                            expected: "string & MaxLength<7>",
                                             value: input.value,
                                         }))) ||
-                                    ("string" === typeof input.value &&
-                                        (3 <= input.value.length ||
+                                    ("number" === typeof input.value &&
+                                        (Number.isFinite(input.value) ||
                                             $report(_exceptionable, {
                                                 path: _path + ".value",
-                                                expected:
-                                                    "string & MinLength<3>",
+                                                expected: "number",
                                                 value: input.value,
                                             })) &&
-                                        (input.value.length <= 7 ||
+                                        (3 <= input.value ||
                                             $report(_exceptionable, {
                                                 path: _path + ".value",
-                                                expected:
-                                                    "string & MaxLength<7>",
+                                                expected: "number & Minimum<3>",
                                                 value: input.value,
                                             }))) ||
                                     $report(_exceptionable, {
@@ -163,10 +161,10 @@ export const test_misc_validatePrune_TypeTagAtomicUnion =
             };
             const prune = (input: TypeTagAtomicUnion): void => {
                 const $io1 = (input: any): boolean =>
-                    ("number" === typeof input.value && 3 <= input.value) ||
                     ("string" === typeof input.value &&
                         3 <= input.value.length &&
-                        input.value.length <= 7);
+                        input.value.length <= 7) ||
+                    ("number" === typeof input.value && 3 <= input.value);
                 const $pp0 = (input: any) =>
                     input.forEach((elem: any) => {
                         if ("object" === typeof elem && null !== elem)

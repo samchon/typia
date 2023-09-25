@@ -2,10 +2,10 @@ import typia from "../../../../src";
 import { _test_misc_isPrune } from "../../../internal/_test_misc_isPrune";
 import { ObjectPropertyNullable } from "../../../structures/ObjectPropertyNullable";
 
-export const test_misc_isPrune_ObjectPropertyNullable = _test_misc_isPrune(
-    "ObjectPropertyNullable",
-)<ObjectPropertyNullable>(ObjectPropertyNullable)(
-    (input: any): input is ObjectPropertyNullable => {
+export const test_misc_createIsPrune_ObjectPropertyNullable =
+    _test_misc_isPrune("ObjectPropertyNullable")<ObjectPropertyNullable>(
+        ObjectPropertyNullable,
+    )((input: any): input is ObjectPropertyNullable => {
         const is = (input: any): input is ObjectPropertyNullable => {
             const $io0 = (input: any): boolean =>
                 null === input.value || "boolean" === typeof input.value;
@@ -167,5 +167,4 @@ export const test_misc_isPrune_ObjectPropertyNullable = _test_misc_isPrune(
         if (!is(input)) return false;
         prune(input);
         return true;
-    },
-);
+    });

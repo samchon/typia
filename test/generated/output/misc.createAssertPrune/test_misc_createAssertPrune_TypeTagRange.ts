@@ -2,7 +2,7 @@ import typia from "../../../../src";
 import { _test_misc_assertPrune } from "../../../internal/_test_misc_assertPrune";
 import { TypeTagRange } from "../../../structures/TypeTagRange";
 
-export const test_misc_assertPrune_TypeTagRange = _test_misc_assertPrune(
+export const test_misc_createAssertPrune_TypeTagRange = _test_misc_assertPrune(
     "TypeTagRange",
 )<TypeTagRange>(TypeTagRange)((input: any): TypeTagRange => {
     const assert = (input: any): TypeTagRange => {

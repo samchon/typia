@@ -2,10 +2,10 @@ import typia from "../../../../src";
 import { _test_misc_validatePrune } from "../../../internal/_test_misc_validatePrune";
 import { CommentTagRange } from "../../../structures/CommentTagRange";
 
-export const test_misc_validatePrune_CommentTagRange = _test_misc_validatePrune(
-    "CommentTagRange",
-)<CommentTagRange>(CommentTagRange)(
-    (input: any): typia.IValidation<CommentTagRange> => {
+export const test_misc_createValidatePrune_CommentTagRange =
+    _test_misc_validatePrune("CommentTagRange")<CommentTagRange>(
+        CommentTagRange,
+    )((input: any): typia.IValidation<CommentTagRange> => {
         const validate = (input: any): typia.IValidation<CommentTagRange> => {
             const errors = [] as any[];
             const __is = (input: any): input is CommentTagRange => {
@@ -492,5 +492,4 @@ export const test_misc_validatePrune_CommentTagRange = _test_misc_validatePrune(
         const output = validate(input);
         if (output.success) prune(input);
         return output;
-    },
-);
+    });

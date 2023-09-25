@@ -2,10 +2,10 @@ import typia from "../../../../src";
 import { _test_json_isParse } from "../../../internal/_test_json_isParse";
 import { ArrayHierarchicalPointer } from "../../../structures/ArrayHierarchicalPointer";
 
-export const test_json_isParse_ArrayHierarchicalPointer = _test_json_isParse(
-    "ArrayHierarchicalPointer",
-)<ArrayHierarchicalPointer>(ArrayHierarchicalPointer)(
-    (input: any): typia.Primitive<ArrayHierarchicalPointer> => {
+export const test_json_createIsParse_ArrayHierarchicalPointer =
+    _test_json_isParse("ArrayHierarchicalPointer")<ArrayHierarchicalPointer>(
+        ArrayHierarchicalPointer,
+    )((input: any): typia.Primitive<ArrayHierarchicalPointer> => {
         const is = (input: any): input is ArrayHierarchicalPointer => {
             const $io0 = (input: any): boolean =>
                 Array.isArray(input.value) &&
@@ -65,5 +65,4 @@ export const test_json_isParse_ArrayHierarchicalPointer = _test_json_isParse(
         };
         input = JSON.parse(input);
         return is(input) ? (input as any) : null;
-    },
-);
+    });

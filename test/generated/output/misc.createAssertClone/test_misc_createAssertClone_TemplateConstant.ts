@@ -2,10 +2,10 @@ import typia from "../../../../src";
 import { _test_misc_assertClone } from "../../../internal/_test_misc_assertClone";
 import { TemplateConstant } from "../../../structures/TemplateConstant";
 
-export const test_misc_assertClone_TemplateConstant = _test_misc_assertClone(
-    "TemplateConstant",
-)<TemplateConstant>(TemplateConstant)(
-    (input: any): typia.Resolved<TemplateConstant> => {
+export const test_misc_createAssertClone_TemplateConstant =
+    _test_misc_assertClone("TemplateConstant")<TemplateConstant>(
+        TemplateConstant,
+    )((input: any): typia.Resolved<TemplateConstant> => {
         const assert = (input: any): TemplateConstant => {
             const __is = (input: any): input is TemplateConstant => {
                 const $io0 = (input: any): boolean =>
@@ -180,5 +180,4 @@ export const test_misc_assertClone_TemplateConstant = _test_misc_assertClone(
         assert(input);
         const output = clone(input);
         return output;
-    },
-);
+    });
