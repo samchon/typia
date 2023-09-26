@@ -17,7 +17,7 @@ import { CreateHttpIsHeadersTransformer } from "./features/http/CreateHttpIsHead
 import { CreateHttpIsQueryTransformer } from "./features/http/CreateHttpIsQueryTransformer";
 import { CreateHttpParameterTransformer } from "./features/http/CreateHttpParameterTransformer";
 import { CreateHttpQueryTransformer } from "./features/http/CreateHttpQueryTransformer";
-import { CreateHttpValidateHeadersTransformer } from "./features/http/CreateHttpValidateHeadersTransformer copy";
+import { CreateHttpValidateHeadersTransformer } from "./features/http/CreateHttpValidateHeadersTransformer";
 import { CreateHttpValidateQueryTransformer } from "./features/http/CreateHttpValidateQueryTransformer";
 import { HttpAssertHeadersTransformer } from "./features/http/HttpAssertHeadersTransformer";
 import { HttpAssertQueryTransformer } from "./features/http/HttpAssertQueryTransformer";
