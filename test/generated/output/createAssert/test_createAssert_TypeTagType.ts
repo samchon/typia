@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_assert } from "../../../internal/_test_assert";
 import { TypeTagType } from "../../../structures/TypeTagType";
 
-export const test_assert_TypeTagType = _test_assert("TypeTagType")<TypeTagType>(
-    TypeTagType,
-)((input: any): TypeTagType => {
+export const test_createAssert_TypeTagType = _test_assert(
+    "TypeTagType",
+)<TypeTagType>(TypeTagType)((input: any): TypeTagType => {
     const __is = (input: any): input is TypeTagType => {
         const $io0 = (input: any): boolean =>
             Array.isArray(input.value) &&

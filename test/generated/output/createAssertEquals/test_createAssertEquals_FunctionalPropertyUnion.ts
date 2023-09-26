@@ -2,10 +2,10 @@ import typia from "../../../../src";
 import { _test_assertEquals } from "../../../internal/_test_assertEquals";
 import { FunctionalPropertyUnion } from "../../../structures/FunctionalPropertyUnion";
 
-export const test_assertEquals_FunctionalPropertyUnion = _test_assertEquals(
-    "FunctionalPropertyUnion",
-)<FunctionalPropertyUnion>(FunctionalPropertyUnion)(
-    (input: any): FunctionalPropertyUnion => {
+export const test_createAssertEquals_FunctionalPropertyUnion =
+    _test_assertEquals("FunctionalPropertyUnion")<FunctionalPropertyUnion>(
+        FunctionalPropertyUnion,
+    )((input: any): FunctionalPropertyUnion => {
         const __is = (
             input: any,
             _exceptionable: boolean = true,
@@ -125,5 +125,4 @@ export const test_assertEquals_FunctionalPropertyUnion = _test_assertEquals(
                 );
             })(input, "$input", true);
         return input;
-    },
-);
+    });

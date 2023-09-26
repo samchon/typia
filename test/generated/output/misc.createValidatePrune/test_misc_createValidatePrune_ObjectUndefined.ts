@@ -2,10 +2,10 @@ import typia from "../../../../src";
 import { _test_misc_validatePrune } from "../../../internal/_test_misc_validatePrune";
 import { ObjectUndefined } from "../../../structures/ObjectUndefined";
 
-export const test_misc_validatePrune_ObjectUndefined = _test_misc_validatePrune(
-    "ObjectUndefined",
-)<ObjectUndefined>(ObjectUndefined)(
-    (input: any): typia.IValidation<ObjectUndefined> => {
+export const test_misc_createValidatePrune_ObjectUndefined =
+    _test_misc_validatePrune("ObjectUndefined")<ObjectUndefined>(
+        ObjectUndefined,
+    )((input: any): typia.IValidation<ObjectUndefined> => {
         const validate = (input: any): typia.IValidation<ObjectUndefined> => {
             const errors = [] as any[];
             const __is = (input: any): input is ObjectUndefined => {
@@ -228,5 +228,4 @@ export const test_misc_validatePrune_ObjectUndefined = _test_misc_validatePrune(
         const output = validate(input);
         if (output.success) prune(input);
         return output;
-    },
-);
+    });

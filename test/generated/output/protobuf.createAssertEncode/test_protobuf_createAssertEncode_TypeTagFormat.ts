@@ -2,7 +2,7 @@ import typia from "../../../../src";
 import { _test_protobuf_assertEncode } from "../../../internal/_test_protobuf_assertEncode";
 import { TypeTagFormat } from "../../../structures/TypeTagFormat";
 
-export const test_protobuf_assertEncode_TypeTagFormat =
+export const test_protobuf_createAssertEncode_TypeTagFormat =
     _test_protobuf_assertEncode("TypeTagFormat")<TypeTagFormat>(TypeTagFormat)({
         assertEncode: (input: any): Uint8Array => {
             const assert = (input: any): TypeTagFormat => {

@@ -11,34 +11,34 @@
         "type": "array",
         "items": [
           {
-            "$ref": "#/components/schemas/ConstantIntersection.Wrapper_lt_false_gt_"
+            "$ref": "#/components/schemas/ConstantIntersection.Wrapperfalse"
           },
           {
-            "$ref": "#/components/schemas/ConstantIntersection.Wrapper_lt_1_gt_"
+            "$ref": "#/components/schemas/ConstantIntersection.Wrapper1"
           },
           {
-            "$ref": "#/components/schemas/ConstantIntersection.Wrapper_lt__doublequote_two_doublequote__gt_"
+            "$ref": "#/components/schemas/ConstantIntersection.Wrappertwo"
           }
         ],
         "minItems": 3,
         "maxItems": 3
       },
-      "ConstantIntersection.Wrapper_lt_false_gt_": {
-        "$id": "#/components/schemas/ConstantIntersection.Wrapper_lt_false_gt_",
+      "ConstantIntersection.Wrapperfalse": {
+        "$id": "#/components/schemas/ConstantIntersection.Wrapperfalse",
         "type": "boolean",
         "enum": [
           false
         ]
       },
-      "ConstantIntersection.Wrapper_lt_1_gt_": {
-        "$id": "#/components/schemas/ConstantIntersection.Wrapper_lt_1_gt_",
+      "ConstantIntersection.Wrapper1": {
+        "$id": "#/components/schemas/ConstantIntersection.Wrapper1",
         "type": "number",
         "enum": [
           1
         ]
       },
-      "ConstantIntersection.Wrapper_lt__doublequote_two_doublequote__gt_": {
-        "$id": "#/components/schemas/ConstantIntersection.Wrapper_lt__doublequote_two_doublequote__gt_",
+      "ConstantIntersection.Wrappertwo": {
+        "$id": "#/components/schemas/ConstantIntersection.Wrappertwo",
         "type": "string",
         "enum": [
           "two"

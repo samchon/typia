@@ -2,10 +2,10 @@ import typia from "../../../../src";
 import { _test_json_validateParse } from "../../../internal/_test_json_validateParse";
 import { TupleRestAtomic } from "../../../structures/TupleRestAtomic";
 
-export const test_json_validateParse_TupleRestAtomic = _test_json_validateParse(
-    "TupleRestAtomic",
-)<TupleRestAtomic>(TupleRestAtomic)(
-    (input: string): typia.IValidation<typia.Primitive<TupleRestAtomic>> => {
+export const test_json_createValidateParse_TupleRestAtomic =
+    _test_json_validateParse("TupleRestAtomic")<TupleRestAtomic>(
+        TupleRestAtomic,
+    )((input: string): typia.IValidation<typia.Primitive<TupleRestAtomic>> => {
         const validate = (input: any): typia.IValidation<TupleRestAtomic> => {
             const errors = [] as any[];
             const __is = (input: any): input is TupleRestAtomic => {
@@ -95,5 +95,4 @@ export const test_json_validateParse_TupleRestAtomic = _test_json_validateParse(
         };
         const output = JSON.parse(input);
         return validate(output) as any;
-    },
-);
+    });

@@ -2,10 +2,10 @@ import typia from "../../../../src";
 import { _test_validateEquals } from "../../../internal/_test_validateEquals";
 import { ClassPropertyAssignment } from "../../../structures/ClassPropertyAssignment";
 
-export const test_validateEquals_ClassPropertyAssignment = _test_validateEquals(
-    "ClassPropertyAssignment",
-)<ClassPropertyAssignment>(ClassPropertyAssignment)(
-    (input: any): typia.IValidation<ClassPropertyAssignment> => {
+export const test_createValidateEquals_ClassPropertyAssignment =
+    _test_validateEquals("ClassPropertyAssignment")<ClassPropertyAssignment>(
+        ClassPropertyAssignment,
+    )((input: any): typia.IValidation<ClassPropertyAssignment> => {
         const errors = [] as any[];
         const __is = (
             input: any,
@@ -132,5 +132,4 @@ export const test_validateEquals_ClassPropertyAssignment = _test_validateEquals(
             errors,
             data: success ? input : undefined,
         } as any;
-    },
-);
+    });

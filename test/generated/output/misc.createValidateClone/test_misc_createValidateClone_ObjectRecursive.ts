@@ -2,10 +2,10 @@ import typia from "../../../../src";
 import { _test_misc_validateClone } from "../../../internal/_test_misc_validateClone";
 import { ObjectRecursive } from "../../../structures/ObjectRecursive";
 
-export const test_misc_validateClone_ObjectRecursive = _test_misc_validateClone(
-    "ObjectRecursive",
-)<ObjectRecursive>(ObjectRecursive)(
-    (input: any): typia.IValidation<typia.Resolved<ObjectRecursive>> => {
+export const test_misc_createValidateClone_ObjectRecursive =
+    _test_misc_validateClone("ObjectRecursive")<ObjectRecursive>(
+        ObjectRecursive,
+    )((input: any): typia.IValidation<typia.Resolved<ObjectRecursive>> => {
         const validate = (input: any): typia.IValidation<ObjectRecursive> => {
             const errors = [] as any[];
             const __is = (input: any): input is ObjectRecursive => {
@@ -197,5 +197,4 @@ export const test_misc_validateClone_ObjectRecursive = _test_misc_validateClone(
         const output = validate(input) as any;
         if (output.success) output.data = clone(input);
         return output;
-    },
-);
+    });

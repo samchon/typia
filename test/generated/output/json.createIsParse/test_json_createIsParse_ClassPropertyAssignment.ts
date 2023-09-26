@@ -2,10 +2,10 @@ import typia from "../../../../src";
 import { _test_json_isParse } from "../../../internal/_test_json_isParse";
 import { ClassPropertyAssignment } from "../../../structures/ClassPropertyAssignment";
 
-export const test_json_isParse_ClassPropertyAssignment = _test_json_isParse(
-    "ClassPropertyAssignment",
-)<ClassPropertyAssignment>(ClassPropertyAssignment)(
-    (input: any): typia.Primitive<ClassPropertyAssignment> => {
+export const test_json_createIsParse_ClassPropertyAssignment =
+    _test_json_isParse("ClassPropertyAssignment")<ClassPropertyAssignment>(
+        ClassPropertyAssignment,
+    )((input: any): typia.Primitive<ClassPropertyAssignment> => {
         const is = (input: any): input is ClassPropertyAssignment => {
             const $io0 = (input: any): boolean =>
                 "number" === typeof input.id &&
@@ -18,5 +18,4 @@ export const test_json_isParse_ClassPropertyAssignment = _test_json_isParse(
         };
         input = JSON.parse(input);
         return is(input) ? (input as any) : null;
-    },
-);
+    });

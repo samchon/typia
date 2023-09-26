@@ -2,7 +2,7 @@ import typia from "../../../../src";
 import { _test_json_validateParse } from "../../../internal/_test_json_validateParse";
 import { TypeTagArrayUnion } from "../../../structures/TypeTagArrayUnion";
 
-export const test_json_validateParse_TypeTagArrayUnion =
+export const test_json_createValidateParse_TypeTagArrayUnion =
     _test_json_validateParse("TypeTagArrayUnion")<TypeTagArrayUnion>(
         TypeTagArrayUnion,
     )(

@@ -2,7 +2,7 @@ import typia from "../../../../src";
 import { _test_equals } from "../../../internal/_test_equals";
 import { CommentTagBigInt } from "../../../structures/CommentTagBigInt";
 
-export const test_equals_CommentTagBigInt = _test_equals(
+export const test_createEquals_CommentTagBigInt = _test_equals(
     "CommentTagBigInt",
 )<CommentTagBigInt>(CommentTagBigInt)(
     (input: any, _exceptionable: boolean = true): input is CommentTagBigInt => {

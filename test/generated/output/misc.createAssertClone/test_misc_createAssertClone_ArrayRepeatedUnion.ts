@@ -2,10 +2,10 @@ import typia from "../../../../src";
 import { _test_misc_assertClone } from "../../../internal/_test_misc_assertClone";
 import { ArrayRepeatedUnion } from "../../../structures/ArrayRepeatedUnion";
 
-export const test_misc_assertClone_ArrayRepeatedUnion = _test_misc_assertClone(
-    "ArrayRepeatedUnion",
-)<ArrayRepeatedUnion>(ArrayRepeatedUnion)(
-    (input: any): typia.Resolved<ArrayRepeatedUnion> => {
+export const test_misc_createAssertClone_ArrayRepeatedUnion =
+    _test_misc_assertClone("ArrayRepeatedUnion")<ArrayRepeatedUnion>(
+        ArrayRepeatedUnion,
+    )((input: any): typia.Resolved<ArrayRepeatedUnion> => {
         const assert = (input: any): ArrayRepeatedUnion => {
             const __is = (input: any): input is ArrayRepeatedUnion => {
                 const $ip0 = (input: any) => {
@@ -522,5 +522,4 @@ export const test_misc_assertClone_ArrayRepeatedUnion = _test_misc_assertClone(
         assert(input);
         const output = clone(input);
         return output;
-    },
-);
+    });

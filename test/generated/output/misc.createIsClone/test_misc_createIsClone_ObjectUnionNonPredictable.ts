@@ -2,10 +2,10 @@ import typia from "../../../../src";
 import { _test_misc_isClone } from "../../../internal/_test_misc_isClone";
 import { ObjectUnionNonPredictable } from "../../../structures/ObjectUnionNonPredictable";
 
-export const test_misc_isClone_ObjectUnionNonPredictable = _test_misc_isClone(
-    "ObjectUnionNonPredictable",
-)<ObjectUnionNonPredictable>(ObjectUnionNonPredictable)(
-    (input: any): typia.Resolved<ObjectUnionNonPredictable> | null => {
+export const test_misc_createIsClone_ObjectUnionNonPredictable =
+    _test_misc_isClone("ObjectUnionNonPredictable")<ObjectUnionNonPredictable>(
+        ObjectUnionNonPredictable,
+    )((input: any): typia.Resolved<ObjectUnionNonPredictable> | null => {
         const is = (input: any): input is ObjectUnionNonPredictable => {
             const $io0 = (input: any): boolean =>
                 Array.isArray(input.value) &&
@@ -144,5 +144,4 @@ export const test_misc_isClone_ObjectUnionNonPredictable = _test_misc_isClone(
         if (!is(input)) return null;
         const output = clone(input);
         return output;
-    },
-);
+    });

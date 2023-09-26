@@ -2,10 +2,10 @@ import typia from "../../../../src";
 import { _test_json_isStringify } from "../../../internal/_test_json_isStringify";
 import { CommentTagLength } from "../../../structures/CommentTagLength";
 
-export const test_json_isStringify_CommentTagLength = _test_json_isStringify(
-    "CommentTagLength",
-)<CommentTagLength>(CommentTagLength)(
-    (input: CommentTagLength): string | null => {
+export const test_json_createIsStringify_CommentTagLength =
+    _test_json_isStringify("CommentTagLength")<CommentTagLength>(
+        CommentTagLength,
+    )((input: CommentTagLength): string | null => {
         const is = (input: any): input is CommentTagLength => {
             const $io0 = (input: any): boolean =>
                 Array.isArray(input.value) &&
@@ -63,5 +63,4 @@ export const test_json_isStringify_CommentTagLength = _test_json_isStringify(
             return $so0(input);
         };
         return is(input) ? stringify(input) : null;
-    },
-);
+    });

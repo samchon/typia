@@ -2,10 +2,10 @@ import typia from "../../../../src";
 import { _test_json_isStringify } from "../../../internal/_test_json_isStringify";
 import { DynamicComposite } from "../../../structures/DynamicComposite";
 
-export const test_json_isStringify_DynamicComposite = _test_json_isStringify(
-    "DynamicComposite",
-)<DynamicComposite>(DynamicComposite)(
-    (input: DynamicComposite): string | null => {
+export const test_json_createIsStringify_DynamicComposite =
+    _test_json_isStringify("DynamicComposite")<DynamicComposite>(
+        DynamicComposite,
+    )((input: DynamicComposite): string | null => {
         const is = (input: any): input is DynamicComposite => {
             const $io0 = (input: any): boolean =>
                 "string" === typeof input.id &&
@@ -113,5 +113,4 @@ export const test_json_isStringify_DynamicComposite = _test_json_isStringify(
             return $so0(input);
         };
         return is(input) ? stringify(input) : null;
-    },
-);
+    });

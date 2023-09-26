@@ -2,15 +2,15 @@ import typia from "../../../../src";
 import { _test_misc_clone } from "../../../internal/_test_misc_clone";
 import { TypeTagAtomicUnion } from "../../../structures/TypeTagAtomicUnion";
 
-export const test_misc_clone_TypeTagAtomicUnion = _test_misc_clone(
+export const test_misc_createClone_TypeTagAtomicUnion = _test_misc_clone(
     "TypeTagAtomicUnion",
 )<TypeTagAtomicUnion>(TypeTagAtomicUnion)(
     (input: TypeTagAtomicUnion): typia.Resolved<TypeTagAtomicUnion> => {
         const $io1 = (input: any): boolean =>
-            ("number" === typeof input.value && 3 <= input.value) ||
             ("string" === typeof input.value &&
                 3 <= input.value.length &&
-                input.value.length <= 7);
+                input.value.length <= 7) ||
+            ("number" === typeof input.value && 3 <= input.value);
         const $cp0 = (input: any) =>
             input.map((elem: any) =>
                 "object" === typeof elem && null !== elem

@@ -2,7 +2,7 @@ import typia from "../../../../src";
 import { _test_json_isParse } from "../../../internal/_test_json_isParse";
 import { TypeTagArray } from "../../../structures/TypeTagArray";
 
-export const test_json_isParse_TypeTagArray = _test_json_isParse(
+export const test_json_createIsParse_TypeTagArray = _test_json_isParse(
     "TypeTagArray",
 )<TypeTagArray>(TypeTagArray)((input: any): typia.Primitive<TypeTagArray> => {
     const is = (input: any): input is TypeTagArray => {

@@ -2,7 +2,7 @@ import typia from "../../../../src";
 import { _test_json_isStringify } from "../../../internal/_test_json_isStringify";
 import { DynamicSimple } from "../../../structures/DynamicSimple";
 
-export const test_json_isStringify_DynamicSimple = _test_json_isStringify(
+export const test_json_createIsStringify_DynamicSimple = _test_json_isStringify(
     "DynamicSimple",
 )<DynamicSimple>(DynamicSimple)((input: DynamicSimple): string | null => {
     const is = (input: any): input is DynamicSimple => {

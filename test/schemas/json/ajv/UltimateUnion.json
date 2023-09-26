@@ -49,13 +49,13 @@
         "$id": "#/components/schemas/IJsonSchema",
         "oneOf": [
           {
-            "$ref": "#/components/schemas/IJsonSchema.IEnumeration_lt__doublequote_boolean_doublequote__gt_"
+            "$ref": "#/components/schemas/IJsonSchema.IEnumerationboolean"
           },
           {
-            "$ref": "#/components/schemas/IJsonSchema.IEnumeration_lt__doublequote_number_doublequote__gt_"
+            "$ref": "#/components/schemas/IJsonSchema.IEnumerationnumber"
           },
           {
-            "$ref": "#/components/schemas/IJsonSchema.IEnumeration_lt__doublequote_string_doublequote__gt_"
+            "$ref": "#/components/schemas/IJsonSchema.IEnumerationstring"
           },
           {
             "$ref": "#/components/schemas/IJsonSchema.IBoolean"
@@ -89,8 +89,8 @@
           }
         ]
       },
-      "IJsonSchema.IEnumeration_lt__doublequote_boolean_doublequote__gt_": {
-        "$id": "#/components/schemas/IJsonSchema.IEnumeration_lt__doublequote_boolean_doublequote__gt_",
+      "IJsonSchema.IEnumerationboolean": {
+        "$id": "#/components/schemas/IJsonSchema.IEnumerationboolean",
         "type": "object",
         "properties": {
           "enum": {
@@ -211,8 +211,8 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "IJsonSchema.IEnumeration_lt__doublequote_number_doublequote__gt_": {
-        "$id": "#/components/schemas/IJsonSchema.IEnumeration_lt__doublequote_number_doublequote__gt_",
+      "IJsonSchema.IEnumerationnumber": {
+        "$id": "#/components/schemas/IJsonSchema.IEnumerationnumber",
         "type": "object",
         "properties": {
           "enum": {
@@ -289,8 +289,8 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "IJsonSchema.IEnumeration_lt__doublequote_string_doublequote__gt_": {
-        "$id": "#/components/schemas/IJsonSchema.IEnumeration_lt__doublequote_string_doublequote__gt_",
+      "IJsonSchema.IEnumerationstring": {
+        "$id": "#/components/schemas/IJsonSchema.IEnumerationstring",
         "type": "object",
         "properties": {
           "enum": {
@@ -1261,13 +1261,13 @@
         "type": "object",
         "properties": {
           "schemas": {
-            "$ref": "#/components/schemas/Record_lt_string_comma__space_IObject_space__or__space_IAlias_gt_"
+            "$ref": "#/components/schemas/RecordstringIObjectIAlias"
           }
         },
         "x-typia-jsDocTags": []
       },
-      "Record_lt_string_comma__space_IObject_space__or__space_IAlias_gt_": {
-        "$id": "#/components/schemas/Record_lt_string_comma__space_IObject_space__or__space_IAlias_gt_",
+      "RecordstringIObjectIAlias": {
+        "$id": "#/components/schemas/RecordstringIObjectIAlias",
         "type": "object",
         "properties": {},
         "x-typia-jsDocTags": [],
@@ -1277,43 +1277,43 @@
               "$ref": "#/components/schemas/IJsonComponents.IObject"
             },
             {
-              "$ref": "#/components/schemas/IEnumeration_lt__doublequote_string_doublequote__gt__space__and__space__blt__space__dollar_id?:_space_string_space__or__space_undefined;_space__dollar_recursiveAnchor?:_space_boolean_space__or__space_undefined;_space__bgt_"
+              "$ref": "#/components/schemas/IEnumerationstringid?:stringundefined;recursiveAnchor?:booleanundefined;"
             },
             {
-              "$ref": "#/components/schemas/IEnumeration_lt__doublequote_number_doublequote__gt__space__and__space__blt__space__dollar_id?:_space_string_space__or__space_undefined;_space__dollar_recursiveAnchor?:_space_boolean_space__or__space_undefined;_space__bgt_"
+              "$ref": "#/components/schemas/IEnumerationnumberid?:stringundefined;recursiveAnchor?:booleanundefined;"
             },
             {
-              "$ref": "#/components/schemas/IEnumeration_lt__doublequote_boolean_doublequote__gt__space__and__space__blt__space__dollar_id?:_space_string_space__or__space_undefined;_space__dollar_recursiveAnchor?:_space_boolean_space__or__space_undefined;_space__bgt_"
+              "$ref": "#/components/schemas/IEnumerationbooleanid?:stringundefined;recursiveAnchor?:booleanundefined;"
             },
             {
-              "$ref": "#/components/schemas/IBoolean_space__and__space__blt__space__dollar_id?:_space_string_space__or__space_undefined;_space__dollar_recursiveAnchor?:_space_boolean_space__or__space_undefined;_space__bgt_"
+              "$ref": "#/components/schemas/IBooleanid?:stringundefined;recursiveAnchor?:booleanundefined;"
             },
             {
-              "$ref": "#/components/schemas/INumber_space__and__space__blt__space__dollar_id?:_space_string_space__or__space_undefined;_space__dollar_recursiveAnchor?:_space_boolean_space__or__space_undefined;_space__bgt_"
+              "$ref": "#/components/schemas/INumberid?:stringundefined;recursiveAnchor?:booleanundefined;"
             },
             {
-              "$ref": "#/components/schemas/IInteger_space__and__space__blt__space__dollar_id?:_space_string_space__or__space_undefined;_space__dollar_recursiveAnchor?:_space_boolean_space__or__space_undefined;_space__bgt_"
+              "$ref": "#/components/schemas/IIntegerid?:stringundefined;recursiveAnchor?:booleanundefined;"
             },
             {
-              "$ref": "#/components/schemas/IString_space__and__space__blt__space__dollar_id?:_space_string_space__or__space_undefined;_space__dollar_recursiveAnchor?:_space_boolean_space__or__space_undefined;_space__bgt_"
+              "$ref": "#/components/schemas/IStringid?:stringundefined;recursiveAnchor?:booleanundefined;"
             },
             {
-              "$ref": "#/components/schemas/IArray_space__and__space__blt__space__dollar_id?:_space_string_space__or__space_undefined;_space__dollar_recursiveAnchor?:_space_boolean_space__or__space_undefined;_space__bgt_"
+              "$ref": "#/components/schemas/IArrayid?:stringundefined;recursiveAnchor?:booleanundefined;"
             },
             {
-              "$ref": "#/components/schemas/ITuple_space__and__space__blt__space__dollar_id?:_space_string_space__or__space_undefined;_space__dollar_recursiveAnchor?:_space_boolean_space__or__space_undefined;_space__bgt_"
+              "$ref": "#/components/schemas/ITupleid?:stringundefined;recursiveAnchor?:booleanundefined;"
             },
             {
-              "$ref": "#/components/schemas/IOneOf_space__and__space__blt__space__dollar_id?:_space_string_space__or__space_undefined;_space__dollar_recursiveAnchor?:_space_boolean_space__or__space_undefined;_space__bgt_"
+              "$ref": "#/components/schemas/IOneOfid?:stringundefined;recursiveAnchor?:booleanundefined;"
             },
             {
-              "$ref": "#/components/schemas/IReference_space__and__space__blt__space__dollar_id?:_space_string_space__or__space_undefined;_space__dollar_recursiveAnchor?:_space_boolean_space__or__space_undefined;_space__bgt_"
+              "$ref": "#/components/schemas/IReferenceid?:stringundefined;recursiveAnchor?:booleanundefined;"
             },
             {
-              "$ref": "#/components/schemas/IUnknown_space__and__space__blt__space__dollar_id?:_space_string_space__or__space_undefined;_space__dollar_recursiveAnchor?:_space_boolean_space__or__space_undefined;_space__bgt_"
+              "$ref": "#/components/schemas/IUnknownid?:stringundefined;recursiveAnchor?:booleanundefined;"
             },
             {
-              "$ref": "#/components/schemas/INullOnly_space__and__space__blt__space__dollar_id?:_space_string_space__or__space_undefined;_space__dollar_recursiveAnchor?:_space_boolean_space__or__space_undefined;_space__bgt_"
+              "$ref": "#/components/schemas/INullOnlyid?:stringundefined;recursiveAnchor?:booleanundefined;"
             }
           ],
           "x-typia-required": true,
@@ -1344,21 +1344,21 @@
             "type": "boolean"
           },
           "properties": {
-            "$ref": "#/components/schemas/Record_lt_string_comma__space_IJsonSchema_gt_"
+            "$ref": "#/components/schemas/RecordstringIJsonSchema"
           },
           "patternProperties": {
-            "$ref": "#/components/schemas/Record_lt_string_comma__space_IJsonSchema_gt_"
+            "$ref": "#/components/schemas/RecordstringIJsonSchema"
           },
           "additionalProperties": {
             "oneOf": [
               {
-                "$ref": "#/components/schemas/IJsonSchema.IEnumeration_lt__doublequote_string_doublequote__gt_"
+                "$ref": "#/components/schemas/IJsonSchema.IEnumerationstring"
               },
               {
-                "$ref": "#/components/schemas/IJsonSchema.IEnumeration_lt__doublequote_number_doublequote__gt_"
+                "$ref": "#/components/schemas/IJsonSchema.IEnumerationnumber"
               },
               {
-                "$ref": "#/components/schemas/IJsonSchema.IEnumeration_lt__doublequote_boolean_doublequote__gt_"
+                "$ref": "#/components/schemas/IJsonSchema.IEnumerationboolean"
               },
               {
                 "$ref": "#/components/schemas/IJsonSchema.IBoolean"
@@ -1418,18 +1418,18 @@
             }
           },
           "x-typia-patternProperties": {
-            "$ref": "#/components/schemas/Record_lt_string_comma__space_IJsonSchema_gt_"
+            "$ref": "#/components/schemas/RecordstringIJsonSchema"
           },
           "x-typia-additionalProperties": {
             "oneOf": [
               {
-                "$ref": "#/components/schemas/IJsonSchema.IEnumeration_lt__doublequote_string_doublequote__gt_"
+                "$ref": "#/components/schemas/IJsonSchema.IEnumerationstring"
               },
               {
-                "$ref": "#/components/schemas/IJsonSchema.IEnumeration_lt__doublequote_number_doublequote__gt_"
+                "$ref": "#/components/schemas/IJsonSchema.IEnumerationnumber"
               },
               {
-                "$ref": "#/components/schemas/IJsonSchema.IEnumeration_lt__doublequote_boolean_doublequote__gt_"
+                "$ref": "#/components/schemas/IJsonSchema.IEnumerationboolean"
               },
               {
                 "$ref": "#/components/schemas/IJsonSchema.IBoolean"
@@ -1472,8 +1472,8 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "Record_lt_string_comma__space_IJsonSchema_gt_": {
-        "$id": "#/components/schemas/Record_lt_string_comma__space_IJsonSchema_gt_",
+      "RecordstringIJsonSchema": {
+        "$id": "#/components/schemas/RecordstringIJsonSchema",
         "type": "object",
         "properties": {},
         "x-typia-jsDocTags": [],
@@ -1481,8 +1481,8 @@
           "$ref": "#/components/schemas/IJsonSchema"
         }
       },
-      "IEnumeration_lt__doublequote_string_doublequote__gt__space__and__space__blt__space__dollar_id?:_space_string_space__or__space_undefined;_space__dollar_recursiveAnchor?:_space_boolean_space__or__space_undefined;_space__bgt_": {
-        "$id": "#/components/schemas/IEnumeration_lt__doublequote_string_doublequote__gt__space__and__space__blt__space__dollar_id?:_space_string_space__or__space_undefined;_space__dollar_recursiveAnchor?:_space_boolean_space__or__space_undefined;_space__bgt_",
+      "IEnumerationstringid?:stringundefined;recursiveAnchor?:booleanundefined;": {
+        "$id": "#/components/schemas/IEnumerationstringid?:stringundefined;recursiveAnchor?:booleanundefined;",
         "type": "object",
         "properties": {
           "enum": {
@@ -1569,8 +1569,8 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "IEnumeration_lt__doublequote_number_doublequote__gt__space__and__space__blt__space__dollar_id?:_space_string_space__or__space_undefined;_space__dollar_recursiveAnchor?:_space_boolean_space__or__space_undefined;_space__bgt_": {
-        "$id": "#/components/schemas/IEnumeration_lt__doublequote_number_doublequote__gt__space__and__space__blt__space__dollar_id?:_space_string_space__or__space_undefined;_space__dollar_recursiveAnchor?:_space_boolean_space__or__space_undefined;_space__bgt_",
+      "IEnumerationnumberid?:stringundefined;recursiveAnchor?:booleanundefined;": {
+        "$id": "#/components/schemas/IEnumerationnumberid?:stringundefined;recursiveAnchor?:booleanundefined;",
         "type": "object",
         "properties": {
           "enum": {
@@ -1657,8 +1657,8 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "IEnumeration_lt__doublequote_boolean_doublequote__gt__space__and__space__blt__space__dollar_id?:_space_string_space__or__space_undefined;_space__dollar_recursiveAnchor?:_space_boolean_space__or__space_undefined;_space__bgt_": {
-        "$id": "#/components/schemas/IEnumeration_lt__doublequote_boolean_doublequote__gt__space__and__space__blt__space__dollar_id?:_space_string_space__or__space_undefined;_space__dollar_recursiveAnchor?:_space_boolean_space__or__space_undefined;_space__bgt_",
+      "IEnumerationbooleanid?:stringundefined;recursiveAnchor?:booleanundefined;": {
+        "$id": "#/components/schemas/IEnumerationbooleanid?:stringundefined;recursiveAnchor?:booleanundefined;",
         "type": "object",
         "properties": {
           "enum": {
@@ -1745,8 +1745,8 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "IBoolean_space__and__space__blt__space__dollar_id?:_space_string_space__or__space_undefined;_space__dollar_recursiveAnchor?:_space_boolean_space__or__space_undefined;_space__bgt_": {
-        "$id": "#/components/schemas/IBoolean_space__and__space__blt__space__dollar_id?:_space_string_space__or__space_undefined;_space__dollar_recursiveAnchor?:_space_boolean_space__or__space_undefined;_space__bgt_",
+      "IBooleanid?:stringundefined;recursiveAnchor?:booleanundefined;": {
+        "$id": "#/components/schemas/IBooleanid?:stringundefined;recursiveAnchor?:booleanundefined;",
         "type": "object",
         "properties": {
           "default": {
@@ -1822,8 +1822,8 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "INumber_space__and__space__blt__space__dollar_id?:_space_string_space__or__space_undefined;_space__dollar_recursiveAnchor?:_space_boolean_space__or__space_undefined;_space__bgt_": {
-        "$id": "#/components/schemas/INumber_space__and__space__blt__space__dollar_id?:_space_string_space__or__space_undefined;_space__dollar_recursiveAnchor?:_space_boolean_space__or__space_undefined;_space__bgt_",
+      "INumberid?:stringundefined;recursiveAnchor?:booleanundefined;": {
+        "$id": "#/components/schemas/INumberid?:stringundefined;recursiveAnchor?:booleanundefined;",
         "type": "object",
         "properties": {
           "minimum": {
@@ -1932,8 +1932,8 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "IInteger_space__and__space__blt__space__dollar_id?:_space_string_space__or__space_undefined;_space__dollar_recursiveAnchor?:_space_boolean_space__or__space_undefined;_space__bgt_": {
-        "$id": "#/components/schemas/IInteger_space__and__space__blt__space__dollar_id?:_space_string_space__or__space_undefined;_space__dollar_recursiveAnchor?:_space_boolean_space__or__space_undefined;_space__bgt_",
+      "IIntegerid?:stringundefined;recursiveAnchor?:booleanundefined;": {
+        "$id": "#/components/schemas/IIntegerid?:stringundefined;recursiveAnchor?:booleanundefined;",
         "type": "object",
         "properties": {
           "minimum": {
@@ -2072,8 +2072,8 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "IString_space__and__space__blt__space__dollar_id?:_space_string_space__or__space_undefined;_space__dollar_recursiveAnchor?:_space_boolean_space__or__space_undefined;_space__bgt_": {
-        "$id": "#/components/schemas/IString_space__and__space__blt__space__dollar_id?:_space_string_space__or__space_undefined;_space__dollar_recursiveAnchor?:_space_boolean_space__or__space_undefined;_space__bgt_",
+      "IStringid?:stringundefined;recursiveAnchor?:booleanundefined;": {
+        "$id": "#/components/schemas/IStringid?:stringundefined;recursiveAnchor?:booleanundefined;",
         "type": "object",
         "properties": {
           "minLength": {
@@ -2197,8 +2197,8 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "IArray_space__and__space__blt__space__dollar_id?:_space_string_space__or__space_undefined;_space__dollar_recursiveAnchor?:_space_boolean_space__or__space_undefined;_space__bgt_": {
-        "$id": "#/components/schemas/IArray_space__and__space__blt__space__dollar_id?:_space_string_space__or__space_undefined;_space__dollar_recursiveAnchor?:_space_boolean_space__or__space_undefined;_space__bgt_",
+      "IArrayid?:stringundefined;recursiveAnchor?:booleanundefined;": {
+        "$id": "#/components/schemas/IArrayid?:stringundefined;recursiveAnchor?:booleanundefined;",
         "type": "object",
         "properties": {
           "items": {
@@ -2306,8 +2306,8 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "ITuple_space__and__space__blt__space__dollar_id?:_space_string_space__or__space_undefined;_space__dollar_recursiveAnchor?:_space_boolean_space__or__space_undefined;_space__bgt_": {
-        "$id": "#/components/schemas/ITuple_space__and__space__blt__space__dollar_id?:_space_string_space__or__space_undefined;_space__dollar_recursiveAnchor?:_space_boolean_space__or__space_undefined;_space__bgt_",
+      "ITupleid?:stringundefined;recursiveAnchor?:booleanundefined;": {
+        "$id": "#/components/schemas/ITupleid?:stringundefined;recursiveAnchor?:booleanundefined;",
         "type": "object",
         "properties": {
           "items": {
@@ -2418,8 +2418,8 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "IOneOf_space__and__space__blt__space__dollar_id?:_space_string_space__or__space_undefined;_space__dollar_recursiveAnchor?:_space_boolean_space__or__space_undefined;_space__bgt_": {
-        "$id": "#/components/schemas/IOneOf_space__and__space__blt__space__dollar_id?:_space_string_space__or__space_undefined;_space__dollar_recursiveAnchor?:_space_boolean_space__or__space_undefined;_space__bgt_",
+      "IOneOfid?:stringundefined;recursiveAnchor?:booleanundefined;": {
+        "$id": "#/components/schemas/IOneOfid?:stringundefined;recursiveAnchor?:booleanundefined;",
         "type": "object",
         "properties": {
           "oneOf": {
@@ -2484,8 +2484,8 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "IReference_space__and__space__blt__space__dollar_id?:_space_string_space__or__space_undefined;_space__dollar_recursiveAnchor?:_space_boolean_space__or__space_undefined;_space__bgt_": {
-        "$id": "#/components/schemas/IReference_space__and__space__blt__space__dollar_id?:_space_string_space__or__space_undefined;_space__dollar_recursiveAnchor?:_space_boolean_space__or__space_undefined;_space__bgt_",
+      "IReferenceid?:stringundefined;recursiveAnchor?:booleanundefined;": {
+        "$id": "#/components/schemas/IReferenceid?:stringundefined;recursiveAnchor?:booleanundefined;",
         "type": "object",
         "properties": {
           "$ref": {
@@ -2547,8 +2547,8 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "IUnknown_space__and__space__blt__space__dollar_id?:_space_string_space__or__space_undefined;_space__dollar_recursiveAnchor?:_space_boolean_space__or__space_undefined;_space__bgt_": {
-        "$id": "#/components/schemas/IUnknown_space__and__space__blt__space__dollar_id?:_space_string_space__or__space_undefined;_space__dollar_recursiveAnchor?:_space_boolean_space__or__space_undefined;_space__bgt_",
+      "IUnknownid?:stringundefined;recursiveAnchor?:booleanundefined;": {
+        "$id": "#/components/schemas/IUnknownid?:stringundefined;recursiveAnchor?:booleanundefined;",
         "type": "object",
         "properties": {
           "deprecated": {
@@ -2602,8 +2602,8 @@
         },
         "x-typia-jsDocTags": []
       },
-      "INullOnly_space__and__space__blt__space__dollar_id?:_space_string_space__or__space_undefined;_space__dollar_recursiveAnchor?:_space_boolean_space__or__space_undefined;_space__bgt_": {
-        "$id": "#/components/schemas/INullOnly_space__and__space__blt__space__dollar_id?:_space_string_space__or__space_undefined;_space__dollar_recursiveAnchor?:_space_boolean_space__or__space_undefined;_space__bgt_",
+      "INullOnlyid?:stringundefined;recursiveAnchor?:booleanundefined;": {
+        "$id": "#/components/schemas/INullOnlyid?:stringundefined;recursiveAnchor?:booleanundefined;",
         "type": "object",
         "properties": {
           "type": {

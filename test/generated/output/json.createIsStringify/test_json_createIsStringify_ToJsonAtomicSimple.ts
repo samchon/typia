@@ -2,10 +2,10 @@ import typia from "../../../../src";
 import { _test_json_isStringify } from "../../../internal/_test_json_isStringify";
 import { ToJsonAtomicSimple } from "../../../structures/ToJsonAtomicSimple";
 
-export const test_json_isStringify_ToJsonAtomicSimple = _test_json_isStringify(
-    "ToJsonAtomicSimple",
-)<ToJsonAtomicSimple>(ToJsonAtomicSimple)(
-    (input: ToJsonAtomicSimple): string | null => {
+export const test_json_createIsStringify_ToJsonAtomicSimple =
+    _test_json_isStringify("ToJsonAtomicSimple")<ToJsonAtomicSimple>(
+        ToJsonAtomicSimple,
+    )((input: ToJsonAtomicSimple): string | null => {
         const is = (input: any): input is ToJsonAtomicSimple => {
             const $io0 = (input: any): boolean => true;
             const $io1 = (input: any): boolean => true;
@@ -32,5 +32,4 @@ export const test_json_isStringify_ToJsonAtomicSimple = _test_json_isStringify(
             )},${$string(input[2].toJSON())}]`;
         };
         return is(input) ? stringify(input) : null;
-    },
-);
+    });

@@ -2,7 +2,7 @@ import typia from "../../../../src";
 import { _test_misc_validatePrune } from "../../../internal/_test_misc_validatePrune";
 import { ConstantAtomicWrapper } from "../../../structures/ConstantAtomicWrapper";
 
-export const test_misc_validatePrune_ConstantAtomicWrapper =
+export const test_misc_createValidatePrune_ConstantAtomicWrapper =
     _test_misc_validatePrune("ConstantAtomicWrapper")<ConstantAtomicWrapper>(
         ConstantAtomicWrapper,
     )((input: any): typia.IValidation<ConstantAtomicWrapper> => {

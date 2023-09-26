@@ -2,10 +2,10 @@ import typia from "../../../../src";
 import { _test_json_isStringify } from "../../../internal/_test_json_isStringify";
 import { TypeTagArrayUnion } from "../../../structures/TypeTagArrayUnion";
 
-export const test_json_isStringify_TypeTagArrayUnion = _test_json_isStringify(
-    "TypeTagArrayUnion",
-)<TypeTagArrayUnion>(TypeTagArrayUnion)(
-    (input: TypeTagArrayUnion): string | null => {
+export const test_json_createIsStringify_TypeTagArrayUnion =
+    _test_json_isStringify("TypeTagArrayUnion")<TypeTagArrayUnion>(
+        TypeTagArrayUnion,
+    )((input: TypeTagArrayUnion): string | null => {
         const is = (input: any): input is TypeTagArrayUnion => {
             const $io0 = (input: any): boolean =>
                 Array.isArray(input.items) &&
@@ -82,5 +82,4 @@ export const test_json_isStringify_TypeTagArrayUnion = _test_json_isStringify(
             return `[${input.map((elem: any) => $so0(elem)).join(",")}]`;
         };
         return is(input) ? stringify(input) : null;
-    },
-);
+    });

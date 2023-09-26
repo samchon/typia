@@ -2,7 +2,7 @@ import typia from "../../../../src";
 import { _test_json_isStringify } from "../../../internal/_test_json_isStringify";
 import { ObjectJsonTag } from "../../../structures/ObjectJsonTag";
 
-export const test_json_isStringify_ObjectJsonTag = _test_json_isStringify(
+export const test_json_createIsStringify_ObjectJsonTag = _test_json_isStringify(
     "ObjectJsonTag",
 )<ObjectJsonTag>(ObjectJsonTag)((input: ObjectJsonTag): string | null => {
     const is = (input: any): input is ObjectJsonTag => {

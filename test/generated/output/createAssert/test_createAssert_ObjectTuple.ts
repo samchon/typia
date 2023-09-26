@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_assert } from "../../../internal/_test_assert";
 import { ObjectTuple } from "../../../structures/ObjectTuple";
 
-export const test_assert_ObjectTuple = _test_assert("ObjectTuple")<ObjectTuple>(
-    ObjectTuple,
-)((input: any): ObjectTuple => {
+export const test_createAssert_ObjectTuple = _test_assert(
+    "ObjectTuple",
+)<ObjectTuple>(ObjectTuple)((input: any): ObjectTuple => {
     const __is = (input: any): input is ObjectTuple => {
         const $io0 = (input: any): boolean =>
             "string" === typeof input.id &&

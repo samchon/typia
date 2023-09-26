@@ -2,10 +2,10 @@ import typia from "../../../../src";
 import { _test_json_validateParse } from "../../../internal/_test_json_validateParse";
 import { CommentTagArray } from "../../../structures/CommentTagArray";
 
-export const test_json_validateParse_CommentTagArray = _test_json_validateParse(
-    "CommentTagArray",
-)<CommentTagArray>(CommentTagArray)(
-    (input: string): typia.IValidation<typia.Primitive<CommentTagArray>> => {
+export const test_json_createValidateParse_CommentTagArray =
+    _test_json_validateParse("CommentTagArray")<CommentTagArray>(
+        CommentTagArray,
+    )((input: string): typia.IValidation<typia.Primitive<CommentTagArray>> => {
         const validate = (input: any): typia.IValidation<CommentTagArray> => {
             const errors = [] as any[];
             const __is = (input: any): input is CommentTagArray => {
@@ -293,5 +293,4 @@ export const test_json_validateParse_CommentTagArray = _test_json_validateParse(
         };
         const output = JSON.parse(input);
         return validate(output) as any;
-    },
-);
+    });

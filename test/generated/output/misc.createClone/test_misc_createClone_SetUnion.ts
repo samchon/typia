@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_misc_clone } from "../../../internal/_test_misc_clone";
 import { SetUnion } from "../../../structures/SetUnion";
 
-export const test_misc_clone_SetUnion = _test_misc_clone("SetUnion")<SetUnion>(
-    SetUnion,
-)((input: SetUnion): typia.Resolved<SetUnion> => {
+export const test_misc_createClone_SetUnion = _test_misc_clone(
+    "SetUnion",
+)<SetUnion>(SetUnion)((input: SetUnion): typia.Resolved<SetUnion> => {
     const $io0 = (input: any): boolean =>
         "string" === typeof input.id &&
         "string" === typeof input.name &&

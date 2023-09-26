@@ -2,10 +2,10 @@ import typia from "../../../../src";
 import { _test_misc_assertClone } from "../../../internal/_test_misc_assertClone";
 import { ObjectGenericArray } from "../../../structures/ObjectGenericArray";
 
-export const test_misc_assertClone_ObjectGenericArray = _test_misc_assertClone(
-    "ObjectGenericArray",
-)<ObjectGenericArray>(ObjectGenericArray)(
-    (input: any): typia.Resolved<ObjectGenericArray> => {
+export const test_misc_createAssertClone_ObjectGenericArray =
+    _test_misc_assertClone("ObjectGenericArray")<ObjectGenericArray>(
+        ObjectGenericArray,
+    )((input: any): typia.Resolved<ObjectGenericArray> => {
         const assert = (input: any): ObjectGenericArray => {
             const __is = (input: any): input is ObjectGenericArray => {
                 const $io0 = (input: any): boolean =>
@@ -210,5 +210,4 @@ export const test_misc_assertClone_ObjectGenericArray = _test_misc_assertClone(
         assert(input);
         const output = clone(input);
         return output;
-    },
-);
+    });

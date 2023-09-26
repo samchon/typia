@@ -2,7 +2,7 @@ import typia from "../../../../src";
 import { _test_assert } from "../../../internal/_test_assert";
 import { ObjectOptional } from "../../../structures/ObjectOptional";
 
-export const test_assert_ObjectOptional = _test_assert(
+export const test_createAssert_ObjectOptional = _test_assert(
     "ObjectOptional",
 )<ObjectOptional>(ObjectOptional)((input: any): ObjectOptional => {
     const __is = (input: any): input is ObjectOptional => {

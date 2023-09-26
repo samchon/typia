@@ -2,10 +2,10 @@ import typia from "../../../../src";
 import { _test_misc_assertClone } from "../../../internal/_test_misc_assertClone";
 import { TypeTagObjectUnion } from "../../../structures/TypeTagObjectUnion";
 
-export const test_misc_assertClone_TypeTagObjectUnion = _test_misc_assertClone(
-    "TypeTagObjectUnion",
-)<TypeTagObjectUnion>(TypeTagObjectUnion)(
-    (input: any): typia.Resolved<TypeTagObjectUnion> => {
+export const test_misc_createAssertClone_TypeTagObjectUnion =
+    _test_misc_assertClone("TypeTagObjectUnion")<TypeTagObjectUnion>(
+        TypeTagObjectUnion,
+    )((input: any): typia.Resolved<TypeTagObjectUnion> => {
         const assert = (input: any): TypeTagObjectUnion => {
             const __is = (input: any): input is TypeTagObjectUnion => {
                 const $io0 = (input: any): boolean =>
@@ -228,5 +228,4 @@ export const test_misc_assertClone_TypeTagObjectUnion = _test_misc_assertClone(
         assert(input);
         const output = clone(input);
         return output;
-    },
-);
+    });

@@ -2,10 +2,10 @@ import typia from "../../../../src";
 import { _test_misc_validateClone } from "../../../internal/_test_misc_validateClone";
 import { DynamicTemplate } from "../../../structures/DynamicTemplate";
 
-export const test_misc_validateClone_DynamicTemplate = _test_misc_validateClone(
-    "DynamicTemplate",
-)<DynamicTemplate>(DynamicTemplate)(
-    (input: any): typia.IValidation<typia.Resolved<DynamicTemplate>> => {
+export const test_misc_createValidateClone_DynamicTemplate =
+    _test_misc_validateClone("DynamicTemplate")<DynamicTemplate>(
+        DynamicTemplate,
+    )((input: any): typia.IValidation<typia.Resolved<DynamicTemplate>> => {
         const validate = (input: any): typia.IValidation<DynamicTemplate> => {
             const errors = [] as any[];
             const __is = (input: any): input is DynamicTemplate => {
@@ -176,5 +176,4 @@ export const test_misc_validateClone_DynamicTemplate = _test_misc_validateClone(
         const output = validate(input) as any;
         if (output.success) output.data = clone(input);
         return output;
-    },
-);
+    });

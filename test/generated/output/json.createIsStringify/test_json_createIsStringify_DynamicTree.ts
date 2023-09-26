@@ -2,7 +2,7 @@ import typia from "../../../../src";
 import { _test_json_isStringify } from "../../../internal/_test_json_isStringify";
 import { DynamicTree } from "../../../structures/DynamicTree";
 
-export const test_json_isStringify_DynamicTree = _test_json_isStringify(
+export const test_json_createIsStringify_DynamicTree = _test_json_isStringify(
     "DynamicTree",
 )<DynamicTree>(DynamicTree)((input: DynamicTree): string | null => {
     const is = (input: any): input is DynamicTree => {

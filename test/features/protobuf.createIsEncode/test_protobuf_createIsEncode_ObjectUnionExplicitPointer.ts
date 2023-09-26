@@ -2,7 +2,7 @@ import typia from "../../../src";
 import { _test_protobuf_isEncode } from "../../internal/_test_protobuf_isEncode";
 import { ObjectUnionExplicitPointer } from "../../structures/ObjectUnionExplicitPointer";
 
-export const test_protobuf_isEncode_ObjectUnionExplicitPointer =
+export const test_protobuf_createIsEncode_ObjectUnionExplicitPointer =
     _test_protobuf_isEncode(
         "ObjectUnionExplicitPointer",
     )<ObjectUnionExplicitPointer>(ObjectUnionExplicitPointer)({

@@ -2,10 +2,10 @@ import typia from "../../../../src";
 import { _test_json_assertParse } from "../../../internal/_test_json_assertParse";
 import { CommentTagLength } from "../../../structures/CommentTagLength";
 
-export const test_json_assertParse_CommentTagLength = _test_json_assertParse(
-    "CommentTagLength",
-)<CommentTagLength>(CommentTagLength)(
-    (input: string): typia.Primitive<CommentTagLength> => {
+export const test_json_createAssertParse_CommentTagLength =
+    _test_json_assertParse("CommentTagLength")<CommentTagLength>(
+        CommentTagLength,
+    )((input: string): typia.Primitive<CommentTagLength> => {
         const assert = (input: any): CommentTagLength => {
             const __is = (input: any): input is CommentTagLength => {
                 const $io0 = (input: any): boolean =>
@@ -186,5 +186,4 @@ export const test_json_assertParse_CommentTagLength = _test_json_assertParse(
         };
         input = JSON.parse(input);
         return assert(input) as any;
-    },
-);
+    });

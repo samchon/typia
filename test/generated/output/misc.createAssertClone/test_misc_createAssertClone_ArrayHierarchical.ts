@@ -2,10 +2,10 @@ import typia from "../../../../src";
 import { _test_misc_assertClone } from "../../../internal/_test_misc_assertClone";
 import { ArrayHierarchical } from "../../../structures/ArrayHierarchical";
 
-export const test_misc_assertClone_ArrayHierarchical = _test_misc_assertClone(
-    "ArrayHierarchical",
-)<ArrayHierarchical>(ArrayHierarchical)(
-    (input: any): typia.Resolved<ArrayHierarchical> => {
+export const test_misc_createAssertClone_ArrayHierarchical =
+    _test_misc_assertClone("ArrayHierarchical")<ArrayHierarchical>(
+        ArrayHierarchical,
+    )((input: any): typia.Resolved<ArrayHierarchical> => {
         const assert = (input: any): ArrayHierarchical => {
             const __is = (input: any): input is ArrayHierarchical => {
                 const $io0 = (input: any): boolean =>
@@ -445,5 +445,4 @@ export const test_misc_assertClone_ArrayHierarchical = _test_misc_assertClone(
         assert(input);
         const output = clone(input);
         return output;
-    },
-);
+    });

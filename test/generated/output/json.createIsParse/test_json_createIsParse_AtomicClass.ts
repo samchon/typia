@@ -2,7 +2,7 @@ import typia from "../../../../src";
 import { _test_json_isParse } from "../../../internal/_test_json_isParse";
 import { AtomicClass } from "../../../structures/AtomicClass";
 
-export const test_json_isParse_AtomicClass = _test_json_isParse(
+export const test_json_createIsParse_AtomicClass = _test_json_isParse(
     "AtomicClass",
 )<AtomicClass>(AtomicClass)((input: any): typia.Primitive<AtomicClass> => {
     const is = (input: any): input is AtomicClass => {

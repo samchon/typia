@@ -2,7 +2,7 @@ import typia from "../../../../src";
 import { _test_json_validateStringify } from "../../../internal/_test_json_validateStringify";
 import { ObjectUnionImplicit } from "../../../structures/ObjectUnionImplicit";
 
-export const test_json_validateStringify_ObjectUnionImplicit =
+export const test_json_createValidateStringify_ObjectUnionImplicit =
     _test_json_validateStringify("ObjectUnionImplicit")<ObjectUnionImplicit>(
         ObjectUnionImplicit,
     )((input: ObjectUnionImplicit): typia.IValidation<string> => {

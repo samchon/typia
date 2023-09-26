@@ -2,7 +2,7 @@ import typia from "../../../../src";
 import { _test_json_validateStringify } from "../../../internal/_test_json_validateStringify";
 import { ClassGetter } from "../../../structures/ClassGetter";
 
-export const test_json_validateStringify_ClassGetter =
+export const test_json_createValidateStringify_ClassGetter =
     _test_json_validateStringify("ClassGetter")<ClassGetter>(ClassGetter)(
         (input: ClassGetter): typia.IValidation<string> => {
             const validate = (input: any): typia.IValidation<ClassGetter> => {

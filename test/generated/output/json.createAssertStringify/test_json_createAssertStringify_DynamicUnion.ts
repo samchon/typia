@@ -2,7 +2,7 @@ import typia from "../../../../src";
 import { _test_json_assertStringify } from "../../../internal/_test_json_assertStringify";
 import { DynamicUnion } from "../../../structures/DynamicUnion";
 
-export const test_json_assertStringify_DynamicUnion =
+export const test_json_createAssertStringify_DynamicUnion =
     _test_json_assertStringify("DynamicUnion")<DynamicUnion>(DynamicUnion)(
         (input: any): string => {
             const assert = (input: any): DynamicUnion => {

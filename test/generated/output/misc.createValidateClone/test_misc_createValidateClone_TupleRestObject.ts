@@ -2,10 +2,10 @@ import typia from "../../../../src";
 import { _test_misc_validateClone } from "../../../internal/_test_misc_validateClone";
 import { TupleRestObject } from "../../../structures/TupleRestObject";
 
-export const test_misc_validateClone_TupleRestObject = _test_misc_validateClone(
-    "TupleRestObject",
-)<TupleRestObject>(TupleRestObject)(
-    (input: any): typia.IValidation<typia.Resolved<TupleRestObject>> => {
+export const test_misc_createValidateClone_TupleRestObject =
+    _test_misc_validateClone("TupleRestObject")<TupleRestObject>(
+        TupleRestObject,
+    )((input: any): typia.IValidation<typia.Resolved<TupleRestObject>> => {
         const validate = (input: any): typia.IValidation<TupleRestObject> => {
             const errors = [] as any[];
             const __is = (input: any): input is TupleRestObject => {
@@ -171,5 +171,4 @@ export const test_misc_validateClone_TupleRestObject = _test_misc_validateClone(
         const output = validate(input) as any;
         if (output.success) output.data = clone(input);
         return output;
-    },
-);
+    });

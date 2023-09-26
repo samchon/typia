@@ -2,10 +2,10 @@ import typia from "../../../../src";
 import { _test_misc_validatePrune } from "../../../internal/_test_misc_validatePrune";
 import { ObjectPrimitive } from "../../../structures/ObjectPrimitive";
 
-export const test_misc_validatePrune_ObjectPrimitive = _test_misc_validatePrune(
-    "ObjectPrimitive",
-)<ObjectPrimitive>(ObjectPrimitive)(
-    (input: any): typia.IValidation<ObjectPrimitive> => {
+export const test_misc_createValidatePrune_ObjectPrimitive =
+    _test_misc_validatePrune("ObjectPrimitive")<ObjectPrimitive>(
+        ObjectPrimitive,
+    )((input: any): typia.IValidation<ObjectPrimitive> => {
         const validate = (input: any): typia.IValidation<ObjectPrimitive> => {
             const errors = [] as any[];
             const __is = (input: any): input is ObjectPrimitive => {
@@ -240,5 +240,4 @@ export const test_misc_validatePrune_ObjectPrimitive = _test_misc_validatePrune(
         const output = validate(input);
         if (output.success) prune(input);
         return output;
-    },
-);
+    });

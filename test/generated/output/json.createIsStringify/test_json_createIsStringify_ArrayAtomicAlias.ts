@@ -2,10 +2,10 @@ import typia from "../../../../src";
 import { _test_json_isStringify } from "../../../internal/_test_json_isStringify";
 import { ArrayAtomicAlias } from "../../../structures/ArrayAtomicAlias";
 
-export const test_json_isStringify_ArrayAtomicAlias = _test_json_isStringify(
-    "ArrayAtomicAlias",
-)<ArrayAtomicAlias>(ArrayAtomicAlias)(
-    (input: ArrayAtomicAlias): string | null => {
+export const test_json_createIsStringify_ArrayAtomicAlias =
+    _test_json_isStringify("ArrayAtomicAlias")<ArrayAtomicAlias>(
+        ArrayAtomicAlias,
+    )((input: ArrayAtomicAlias): string | null => {
         const is = (input: any): input is ArrayAtomicAlias => {
             return (
                 Array.isArray(input) &&
@@ -33,5 +33,4 @@ export const test_json_isStringify_ArrayAtomicAlias = _test_json_isStringify(
                 .join(",")}]`}]`;
         };
         return is(input) ? stringify(input) : null;
-    },
-);
+    });

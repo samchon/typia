@@ -2,10 +2,10 @@ import typia from "../../../../src";
 import { _test_json_assertParse } from "../../../internal/_test_json_assertParse";
 import { TemplateConstant } from "../../../structures/TemplateConstant";
 
-export const test_json_assertParse_TemplateConstant = _test_json_assertParse(
-    "TemplateConstant",
-)<TemplateConstant>(TemplateConstant)(
-    (input: string): typia.Primitive<TemplateConstant> => {
+export const test_json_createAssertParse_TemplateConstant =
+    _test_json_assertParse("TemplateConstant")<TemplateConstant>(
+        TemplateConstant,
+    )((input: string): typia.Primitive<TemplateConstant> => {
         const assert = (input: any): TemplateConstant => {
             const __is = (input: any): input is TemplateConstant => {
                 const $io0 = (input: any): boolean =>
@@ -140,5 +140,4 @@ export const test_json_assertParse_TemplateConstant = _test_json_assertParse(
         };
         input = JSON.parse(input);
         return assert(input) as any;
-    },
-);
+    });

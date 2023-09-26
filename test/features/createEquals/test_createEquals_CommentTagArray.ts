@@ -2,6 +2,6 @@ import typia from "../../../src";
 import { _test_equals } from "../../internal/_test_equals";
 import { CommentTagArray } from "../../structures/CommentTagArray";
 
-export const test_equals_CommentTagArray = _test_equals(
+export const test_createEquals_CommentTagArray = _test_equals(
     "CommentTagArray",
 )<CommentTagArray>(CommentTagArray)(typia.createEquals<CommentTagArray>());

@@ -2,7 +2,7 @@ import typia from "../../../../src";
 import { _test_assert } from "../../../internal/_test_assert";
 import { CommentTagPattern } from "../../../structures/CommentTagPattern";
 
-export const test_assert_CommentTagPattern = _test_assert(
+export const test_createAssert_CommentTagPattern = _test_assert(
     "CommentTagPattern",
 )<CommentTagPattern>(CommentTagPattern)((input: any): CommentTagPattern => {
     const __is = (input: any): input is CommentTagPattern => {

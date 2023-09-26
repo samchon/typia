@@ -2,7 +2,7 @@ import typia from "../../../../src";
 import { _test_misc_validateClone } from "../../../internal/_test_misc_validateClone";
 import { TypeTagAtomicUnion } from "../../../structures/TypeTagAtomicUnion";
 
-export const test_misc_validateClone_TypeTagAtomicUnion =
+export const test_misc_createValidateClone_TypeTagAtomicUnion =
     _test_misc_validateClone("TypeTagAtomicUnion")<TypeTagAtomicUnion>(
         TypeTagAtomicUnion,
     )((input: any): typia.IValidation<typia.Resolved<TypeTagAtomicUnion>> => {
@@ -20,12 +20,12 @@ export const test_misc_validateClone_TypeTagAtomicUnion =
                             $io1(elem),
                     );
                 const $io1 = (input: any): boolean =>
-                    ("number" === typeof input.value &&
-                        Number.isFinite(input.value) &&
-                        3 <= input.value) ||
                     ("string" === typeof input.value &&
                         3 <= input.value.length &&
-                        input.value.length <= 7);
+                        input.value.length <= 7) ||
+                    ("number" === typeof input.value &&
+                        Number.isFinite(input.value) &&
+                        3 <= input.value);
                 return (
                     "object" === typeof input && null !== input && $io0(input)
                 );
@@ -98,30 +98,30 @@ export const test_misc_validateClone_TypeTagAtomicUnion =
                         _exceptionable: boolean = true,
                     ): boolean =>
                         [
-                            ("number" === typeof input.value &&
-                                (Number.isFinite(input.value) ||
+                            ("string" === typeof input.value &&
+                                (3 <= input.value.length ||
                                     $report(_exceptionable, {
                                         path: _path + ".value",
-                                        expected: "number",
+                                        expected: "string & MinLength<3>",
                                         value: input.value,
                                     })) &&
-                                (3 <= input.value ||
+                                (input.value.length <= 7 ||
                                     $report(_exceptionable, {
                                         path: _path + ".value",
-                                        expected: "number & Minimum<3>",
+                                        expected: "string & MaxLength<7>",
                                         value: input.value,
                                     }))) ||
-                                ("string" === typeof input.value &&
-                                    (3 <= input.value.length ||
+                                ("number" === typeof input.value &&
+                                    (Number.isFinite(input.value) ||
                                         $report(_exceptionable, {
                                             path: _path + ".value",
-                                            expected: "string & MinLength<3>",
+                                            expected: "number",
                                             value: input.value,
                                         })) &&
-                                    (input.value.length <= 7 ||
+                                    (3 <= input.value ||
                                         $report(_exceptionable, {
                                             path: _path + ".value",
-                                            expected: "string & MaxLength<7>",
+                                            expected: "number & Minimum<3>",
                                             value: input.value,
                                         }))) ||
                                 $report(_exceptionable, {
@@ -158,10 +158,10 @@ export const test_misc_validateClone_TypeTagAtomicUnion =
             input: TypeTagAtomicUnion,
         ): typia.Resolved<TypeTagAtomicUnion> => {
             const $io1 = (input: any): boolean =>
-                ("number" === typeof input.value && 3 <= input.value) ||
                 ("string" === typeof input.value &&
                     3 <= input.value.length &&
-                    input.value.length <= 7);
+                    input.value.length <= 7) ||
+                ("number" === typeof input.value && 3 <= input.value);
             const $cp0 = (input: any) =>
                 input.map((elem: any) =>
                     "object" === typeof elem && null !== elem

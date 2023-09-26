@@ -2,7 +2,7 @@ import typia from "../../../../src";
 import { _test_json_stringify } from "../../../internal/_test_json_stringify";
 import { DynamicUnion } from "../../../structures/DynamicUnion";
 
-export const test_json_stringify_DynamicUnion = _test_json_stringify(
+export const test_json_createStringify_DynamicUnion = _test_json_stringify(
     "DynamicUnion",
 )<DynamicUnion>(DynamicUnion)((input: DynamicUnion): string => {
     const $string = (typia.json.createStringify as any).string;

@@ -2,10 +2,10 @@ import typia from "../../../../src";
 import { _test_misc_isClone } from "../../../internal/_test_misc_isClone";
 import { ConstantConstEnumeration } from "../../../structures/ConstantConstEnumeration";
 
-export const test_misc_isClone_ConstantConstEnumeration = _test_misc_isClone(
-    "ConstantConstEnumeration",
-)<ConstantConstEnumeration>(ConstantConstEnumeration)(
-    (input: any): typia.Resolved<ConstantConstEnumeration> | null => {
+export const test_misc_createIsClone_ConstantConstEnumeration =
+    _test_misc_isClone("ConstantConstEnumeration")<ConstantConstEnumeration>(
+        ConstantConstEnumeration,
+    )((input: any): typia.Resolved<ConstantConstEnumeration> | null => {
         const is = (input: any): input is ConstantConstEnumeration => {
             return (
                 Array.isArray(input) &&
@@ -28,5 +28,4 @@ export const test_misc_isClone_ConstantConstEnumeration = _test_misc_isClone(
         if (!is(input)) return null;
         const output = clone(input);
         return output;
-    },
-);
+    });

@@ -2,10 +2,10 @@ import typia from "../../../../src";
 import { _test_misc_validatePrune } from "../../../internal/_test_misc_validatePrune";
 import { TypeTagInfinite } from "../../../structures/TypeTagInfinite";
 
-export const test_misc_validatePrune_TypeTagInfinite = _test_misc_validatePrune(
-    "TypeTagInfinite",
-)<TypeTagInfinite>(TypeTagInfinite)(
-    (input: any): typia.IValidation<TypeTagInfinite> => {
+export const test_misc_createValidatePrune_TypeTagInfinite =
+    _test_misc_validatePrune("TypeTagInfinite")<TypeTagInfinite>(
+        TypeTagInfinite,
+    )((input: any): typia.IValidation<TypeTagInfinite> => {
         const validate = (input: any): typia.IValidation<TypeTagInfinite> => {
             const errors = [] as any[];
             const __is = (input: any): input is TypeTagInfinite => {
@@ -178,5 +178,4 @@ export const test_misc_validatePrune_TypeTagInfinite = _test_misc_validatePrune(
         const output = validate(input);
         if (output.success) prune(input);
         return output;
-    },
-);
+    });

@@ -2,10 +2,10 @@ import typia from "../../../../src";
 import { _test_json_validateParse } from "../../../internal/_test_json_validateParse";
 import { ObjectRecursive } from "../../../structures/ObjectRecursive";
 
-export const test_json_validateParse_ObjectRecursive = _test_json_validateParse(
-    "ObjectRecursive",
-)<ObjectRecursive>(ObjectRecursive)(
-    (input: string): typia.IValidation<typia.Primitive<ObjectRecursive>> => {
+export const test_json_createValidateParse_ObjectRecursive =
+    _test_json_validateParse("ObjectRecursive")<ObjectRecursive>(
+        ObjectRecursive,
+    )((input: string): typia.IValidation<typia.Primitive<ObjectRecursive>> => {
         const validate = (input: any): typia.IValidation<ObjectRecursive> => {
             const errors = [] as any[];
             const __is = (input: any): input is ObjectRecursive => {
@@ -155,5 +155,4 @@ export const test_json_validateParse_ObjectRecursive = _test_json_validateParse(
         };
         const output = JSON.parse(input);
         return validate(output) as any;
-    },
-);
+    });

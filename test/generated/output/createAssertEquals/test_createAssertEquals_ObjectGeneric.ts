@@ -2,7 +2,7 @@ import typia from "../../../../src";
 import { _test_assertEquals } from "../../../internal/_test_assertEquals";
 import { ObjectGeneric } from "../../../structures/ObjectGeneric";
 
-export const test_assertEquals_ObjectGeneric = _test_assertEquals(
+export const test_createAssertEquals_ObjectGeneric = _test_assertEquals(
     "ObjectGeneric",
 )<ObjectGeneric>(ObjectGeneric)((input: any): ObjectGeneric => {
     const __is = (

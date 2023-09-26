@@ -2,10 +2,10 @@ import typia from "../../../../src";
 import { _test_json_stringify } from "../../../internal/_test_json_stringify";
 import { CommentTagArrayUnion } from "../../../structures/CommentTagArrayUnion";
 
-export const test_json_stringify_CommentTagArrayUnion = _test_json_stringify(
-    "CommentTagArrayUnion",
-)<CommentTagArrayUnion>(CommentTagArrayUnion)(
-    (input: CommentTagArrayUnion): string => {
+export const test_json_createStringify_CommentTagArrayUnion =
+    _test_json_stringify("CommentTagArrayUnion")<CommentTagArrayUnion>(
+        CommentTagArrayUnion,
+    )((input: CommentTagArrayUnion): string => {
         const $string = (typia.json.createStringify as any).string;
         const $number = (typia.json.createStringify as any).number;
         const $throws = (typia.json.createStringify as any).throws;
@@ -29,5 +29,4 @@ export const test_json_stringify_CommentTagArrayUnion = _test_json_stringify(
                 .map((elem: any) => $string(elem))
                 .join(",")}]`}}`;
         return `[${input.map((elem: any) => $so0(elem)).join(",")}]`;
-    },
-);
+    });

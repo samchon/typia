@@ -2,10 +2,10 @@ import typia from "../../../../src";
 import { _test_misc_isPrune } from "../../../internal/_test_misc_isPrune";
 import { ObjectUnionNonPredictable } from "../../../structures/ObjectUnionNonPredictable";
 
-export const test_misc_isPrune_ObjectUnionNonPredictable = _test_misc_isPrune(
-    "ObjectUnionNonPredictable",
-)<ObjectUnionNonPredictable>(ObjectUnionNonPredictable)(
-    (input: any): input is ObjectUnionNonPredictable => {
+export const test_misc_createIsPrune_ObjectUnionNonPredictable =
+    _test_misc_isPrune("ObjectUnionNonPredictable")<ObjectUnionNonPredictable>(
+        ObjectUnionNonPredictable,
+    )((input: any): input is ObjectUnionNonPredictable => {
         const is = (input: any): input is ObjectUnionNonPredictable => {
             const $io0 = (input: any): boolean =>
                 Array.isArray(input.value) &&
@@ -159,5 +159,4 @@ export const test_misc_isPrune_ObjectUnionNonPredictable = _test_misc_isPrune(
         if (!is(input)) return false;
         prune(input);
         return true;
-    },
-);
+    });

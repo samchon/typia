@@ -14,20 +14,20 @@ export const test_misc_isPrune_TypeTagAtomicUnion = _test_misc_isPrune(
                         "object" === typeof elem && null !== elem && $io1(elem),
                 );
             const $io1 = (input: any): boolean =>
-                ("number" === typeof input.value &&
-                    Number.isFinite(input.value) &&
-                    3 <= input.value) ||
                 ("string" === typeof input.value &&
                     3 <= input.value.length &&
-                    input.value.length <= 7);
+                    input.value.length <= 7) ||
+                ("number" === typeof input.value &&
+                    Number.isFinite(input.value) &&
+                    3 <= input.value);
             return "object" === typeof input && null !== input && $io0(input);
         };
         const prune = (input: TypeTagAtomicUnion): void => {
             const $io1 = (input: any): boolean =>
-                ("number" === typeof input.value && 3 <= input.value) ||
                 ("string" === typeof input.value &&
                     3 <= input.value.length &&
-                    input.value.length <= 7);
+                    input.value.length <= 7) ||
+                ("number" === typeof input.value && 3 <= input.value);
             const $pp0 = (input: any) =>
                 input.forEach((elem: any) => {
                     if ("object" === typeof elem && null !== elem) $po1(elem);

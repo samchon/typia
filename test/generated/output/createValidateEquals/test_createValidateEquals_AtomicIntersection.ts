@@ -2,10 +2,10 @@ import typia from "../../../../src";
 import { _test_validateEquals } from "../../../internal/_test_validateEquals";
 import { AtomicIntersection } from "../../../structures/AtomicIntersection";
 
-export const test_validateEquals_AtomicIntersection = _test_validateEquals(
-    "AtomicIntersection",
-)<AtomicIntersection>(AtomicIntersection)(
-    (input: any): typia.IValidation<AtomicIntersection> => {
+export const test_createValidateEquals_AtomicIntersection =
+    _test_validateEquals("AtomicIntersection")<AtomicIntersection>(
+        AtomicIntersection,
+    )((input: any): typia.IValidation<AtomicIntersection> => {
         const errors = [] as any[];
         const __is = (
             input: any,
@@ -75,5 +75,4 @@ export const test_validateEquals_AtomicIntersection = _test_validateEquals(
             errors,
             data: success ? input : undefined,
         } as any;
-    },
-);
+    });

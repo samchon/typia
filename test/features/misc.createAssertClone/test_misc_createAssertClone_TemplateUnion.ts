@@ -2,6 +2,6 @@ import typia from "../../../src";
 import { _test_misc_assertClone } from "../../internal/_test_misc_assertClone";
 import { TemplateUnion } from "../../structures/TemplateUnion";
 
-export const test_misc_assertClone_TemplateUnion = _test_misc_assertClone(
+export const test_misc_createAssertClone_TemplateUnion = _test_misc_assertClone(
     "TemplateUnion",
 )<TemplateUnion>(TemplateUnion)(typia.misc.createAssertClone<TemplateUnion>());

@@ -10,19 +10,19 @@
         "type": "object",
         "properties": {
           "boolean": {
-            "$ref": "#/components/schemas/MapAlias.MAP_lt_boolean_comma__space_number_gt_"
+            "$ref": "#/components/schemas/MapAlias.MAPbooleannumber"
           },
           "number": {
-            "$ref": "#/components/schemas/MapAlias.MAP_lt_number_comma__space_number_gt_"
+            "$ref": "#/components/schemas/MapAlias.MAPnumbernumber"
           },
           "strings": {
-            "$ref": "#/components/schemas/MapAlias._Map_lt_string_comma__space_number_gt_"
+            "$ref": "#/components/schemas/MapAlias._Mapstringnumber"
           },
           "arrays": {
-            "$ref": "#/components/schemas/MapAlias._Map_lt_Array_lt_number_gt__comma__space_number_gt_"
+            "$ref": "#/components/schemas/MapAlias._MapArraynumbernumber"
           },
           "objects": {
-            "$ref": "#/components/schemas/MapAlias.MAP_lt_MapAlias.Person_comma__space_number_gt_"
+            "$ref": "#/components/schemas/MapAlias.MAPMapAlias.Personnumber"
           }
         },
         "nullable": false,
@@ -35,7 +35,7 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "MapAlias.MAP_lt_boolean_comma__space_number_gt_": {
+      "MapAlias.MAPbooleannumber": {
         "$ref": "#/components/objects/Map"
       },
       "Map": {
@@ -43,16 +43,16 @@
         "properties": {},
         "nullable": false
       },
-      "MapAlias.MAP_lt_number_comma__space_number_gt_": {
+      "MapAlias.MAPnumbernumber": {
         "$ref": "#/components/objects/Map"
       },
-      "MapAlias._Map_lt_string_comma__space_number_gt_": {
+      "MapAlias._Mapstringnumber": {
         "$ref": "#/components/objects/Map"
       },
-      "MapAlias._Map_lt_Array_lt_number_gt__comma__space_number_gt_": {
+      "MapAlias._MapArraynumbernumber": {
         "$ref": "#/components/objects/Map"
       },
-      "MapAlias.MAP_lt_MapAlias.Person_comma__space_number_gt_": {
+      "MapAlias.MAPMapAlias.Personnumber": {
         "$ref": "#/components/objects/Map"
       }
     }

@@ -2,10 +2,10 @@ import typia from "../../../../src";
 import { _test_json_stringify } from "../../../internal/_test_json_stringify";
 import { DynamicEnumeration } from "../../../structures/DynamicEnumeration";
 
-export const test_json_stringify_DynamicEnumeration = _test_json_stringify(
-    "DynamicEnumeration",
-)<DynamicEnumeration>(DynamicEnumeration)(
-    (input: DynamicEnumeration): string => {
+export const test_json_createStringify_DynamicEnumeration =
+    _test_json_stringify("DynamicEnumeration")<DynamicEnumeration>(
+        DynamicEnumeration,
+    )((input: DynamicEnumeration): string => {
         const $io1 = (input: any): boolean =>
             (undefined === input.ar || "string" === typeof input.ar) &&
             (undefined === input["zh-Hans"] ||
@@ -107,5 +107,4 @@ export const test_json_stringify_DynamicEnumeration = _test_json_stringify(
                 }`,
             )}}`;
         return $so0(input);
-    },
-);
+    });

@@ -2,10 +2,10 @@ import typia from "../../../../src";
 import { _test_misc_assertClone } from "../../../internal/_test_misc_assertClone";
 import { CommentTagDefault } from "../../../structures/CommentTagDefault";
 
-export const test_misc_assertClone_CommentTagDefault = _test_misc_assertClone(
-    "CommentTagDefault",
-)<CommentTagDefault>(CommentTagDefault)(
-    (input: any): typia.Resolved<CommentTagDefault> => {
+export const test_misc_createAssertClone_CommentTagDefault =
+    _test_misc_assertClone("CommentTagDefault")<CommentTagDefault>(
+        CommentTagDefault,
+    )((input: any): typia.Resolved<CommentTagDefault> => {
         const assert = (input: any): CommentTagDefault => {
             const __is = (input: any): input is CommentTagDefault => {
                 const $io0 = (input: any): boolean =>
@@ -249,5 +249,4 @@ export const test_misc_assertClone_CommentTagDefault = _test_misc_assertClone(
         assert(input);
         const output = clone(input);
         return output;
-    },
-);
+    });

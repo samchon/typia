@@ -2,7 +2,7 @@ import typia from "../../../../src";
 import { _test_json_stringify } from "../../../internal/_test_json_stringify";
 import { ObjectAlias } from "../../../structures/ObjectAlias";
 
-export const test_json_stringify_ObjectAlias = _test_json_stringify(
+export const test_json_createStringify_ObjectAlias = _test_json_stringify(
     "ObjectAlias",
 )<ObjectAlias>(ObjectAlias)((input: ObjectAlias): string => {
     const $string = (typia.json.createStringify as any).string;

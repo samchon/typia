@@ -2,7 +2,7 @@ import typia from "../../../src";
 import { _test_json_validateStringify } from "../../internal/_test_json_validateStringify";
 import { SetAlias } from "../../structures/SetAlias";
 
-export const test_json_validateStringify_SetAlias =
+export const test_json_createValidateStringify_SetAlias =
     _test_json_validateStringify("SetAlias")<SetAlias>(SetAlias)(
         typia.json.createValidateStringify<SetAlias>(),
     );

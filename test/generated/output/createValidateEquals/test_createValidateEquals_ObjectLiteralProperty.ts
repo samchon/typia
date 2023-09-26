@@ -2,10 +2,10 @@ import typia from "../../../../src";
 import { _test_validateEquals } from "../../../internal/_test_validateEquals";
 import { ObjectLiteralProperty } from "../../../structures/ObjectLiteralProperty";
 
-export const test_validateEquals_ObjectLiteralProperty = _test_validateEquals(
-    "ObjectLiteralProperty",
-)<ObjectLiteralProperty>(ObjectLiteralProperty)(
-    (input: any): typia.IValidation<ObjectLiteralProperty> => {
+export const test_createValidateEquals_ObjectLiteralProperty =
+    _test_validateEquals("ObjectLiteralProperty")<ObjectLiteralProperty>(
+        ObjectLiteralProperty,
+    )((input: any): typia.IValidation<ObjectLiteralProperty> => {
         const errors = [] as any[];
         const __is = (
             input: any,
@@ -114,5 +114,4 @@ export const test_validateEquals_ObjectLiteralProperty = _test_validateEquals(
             errors,
             data: success ? input : undefined,
         } as any;
-    },
-);
+    });

@@ -2,7 +2,7 @@ import typia from "../../../../src";
 import { _test_json_stringify } from "../../../internal/_test_json_stringify";
 import { ObjectSimple } from "../../../structures/ObjectSimple";
 
-export const test_json_stringify_ObjectSimple = _test_json_stringify(
+export const test_json_createStringify_ObjectSimple = _test_json_stringify(
     "ObjectSimple",
 )<ObjectSimple>(ObjectSimple)((input: ObjectSimple): string => {
     const $io1 = (input: any): boolean =>

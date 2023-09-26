@@ -2,7 +2,7 @@ import typia from "../../../../src";
 import { _test_misc_assertClone } from "../../../internal/_test_misc_assertClone";
 import { ObjectTuple } from "../../../structures/ObjectTuple";
 
-export const test_misc_assertClone_ObjectTuple = _test_misc_assertClone(
+export const test_misc_createAssertClone_ObjectTuple = _test_misc_assertClone(
     "ObjectTuple",
 )<ObjectTuple>(ObjectTuple)((input: any): typia.Resolved<ObjectTuple> => {
     const assert = (input: any): ObjectTuple => {

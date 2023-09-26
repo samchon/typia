@@ -2,10 +2,10 @@ import typia from "../../../../src";
 import { _test_validateEquals } from "../../../internal/_test_validateEquals";
 import { FunctionalProperty } from "../../../structures/FunctionalProperty";
 
-export const test_validateEquals_FunctionalProperty = _test_validateEquals(
-    "FunctionalProperty",
-)<FunctionalProperty>(FunctionalProperty)(
-    (input: any): typia.IValidation<FunctionalProperty> => {
+export const test_createValidateEquals_FunctionalProperty =
+    _test_validateEquals("FunctionalProperty")<FunctionalProperty>(
+        FunctionalProperty,
+    )((input: any): typia.IValidation<FunctionalProperty> => {
         const errors = [] as any[];
         const __is = (
             input: any,
@@ -101,5 +101,4 @@ export const test_validateEquals_FunctionalProperty = _test_validateEquals(
             errors,
             data: success ? input : undefined,
         } as any;
-    },
-);
+    });

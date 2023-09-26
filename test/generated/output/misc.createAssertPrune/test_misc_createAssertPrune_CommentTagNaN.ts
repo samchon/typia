@@ -2,7 +2,7 @@ import typia from "../../../../src";
 import { _test_misc_assertPrune } from "../../../internal/_test_misc_assertPrune";
 import { CommentTagNaN } from "../../../structures/CommentTagNaN";
 
-export const test_misc_assertPrune_CommentTagNaN = _test_misc_assertPrune(
+export const test_misc_createAssertPrune_CommentTagNaN = _test_misc_assertPrune(
     "CommentTagNaN",
 )<CommentTagNaN>(CommentTagNaN)((input: any): CommentTagNaN => {
     const assert = (input: any): CommentTagNaN => {

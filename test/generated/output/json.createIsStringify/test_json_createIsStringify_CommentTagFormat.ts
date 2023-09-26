@@ -2,10 +2,10 @@ import typia from "../../../../src";
 import { _test_json_isStringify } from "../../../internal/_test_json_isStringify";
 import { CommentTagFormat } from "../../../structures/CommentTagFormat";
 
-export const test_json_isStringify_CommentTagFormat = _test_json_isStringify(
-    "CommentTagFormat",
-)<CommentTagFormat>(CommentTagFormat)(
-    (input: CommentTagFormat): string | null => {
+export const test_json_createIsStringify_CommentTagFormat =
+    _test_json_isStringify("CommentTagFormat")<CommentTagFormat>(
+        CommentTagFormat,
+    )((input: CommentTagFormat): string | null => {
         const is = (input: any): input is CommentTagFormat => {
             return (
                 "object" === typeof input &&
@@ -50,5 +50,4 @@ export const test_json_isStringify_CommentTagFormat = _test_json_isStringify(
             )},"custom":${$string((input as any).custom)}}`;
         };
         return is(input) ? stringify(input) : null;
-    },
-);
+    });

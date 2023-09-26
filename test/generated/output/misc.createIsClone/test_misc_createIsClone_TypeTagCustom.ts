@@ -2,7 +2,7 @@ import typia from "../../../../src";
 import { _test_misc_isClone } from "../../../internal/_test_misc_isClone";
 import { TypeTagCustom } from "../../../structures/TypeTagCustom";
 
-export const test_misc_isClone_TypeTagCustom = _test_misc_isClone(
+export const test_misc_createIsClone_TypeTagCustom = _test_misc_isClone(
     "TypeTagCustom",
 )<TypeTagCustom>(TypeTagCustom)(
     (input: any): typia.Resolved<TypeTagCustom> | null => {

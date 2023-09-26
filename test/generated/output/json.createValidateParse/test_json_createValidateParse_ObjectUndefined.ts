@@ -2,10 +2,10 @@ import typia from "../../../../src";
 import { _test_json_validateParse } from "../../../internal/_test_json_validateParse";
 import { ObjectUndefined } from "../../../structures/ObjectUndefined";
 
-export const test_json_validateParse_ObjectUndefined = _test_json_validateParse(
-    "ObjectUndefined",
-)<ObjectUndefined>(ObjectUndefined)(
-    (input: string): typia.IValidation<typia.Primitive<ObjectUndefined>> => {
+export const test_json_createValidateParse_ObjectUndefined =
+    _test_json_validateParse("ObjectUndefined")<ObjectUndefined>(
+        ObjectUndefined,
+    )((input: string): typia.IValidation<typia.Primitive<ObjectUndefined>> => {
         const validate = (input: any): typia.IValidation<ObjectUndefined> => {
             const errors = [] as any[];
             const __is = (input: any): input is ObjectUndefined => {
@@ -192,5 +192,4 @@ export const test_json_validateParse_ObjectUndefined = _test_json_validateParse(
         };
         const output = JSON.parse(input);
         return validate(output) as any;
-    },
-);
+    });

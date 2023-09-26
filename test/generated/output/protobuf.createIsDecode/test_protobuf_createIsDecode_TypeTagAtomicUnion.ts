@@ -2,7 +2,7 @@ import typia from "../../../../src";
 import { _test_protobuf_isDecode } from "../../../internal/_test_protobuf_isDecode";
 import { TypeTagAtomicUnion } from "../../../structures/TypeTagAtomicUnion";
 
-export const test_protobuf_isDecode_TypeTagAtomicUnion =
+export const test_protobuf_createIsDecode_TypeTagAtomicUnion =
     _test_protobuf_isDecode("TypeTagAtomicUnion")<TypeTagAtomicUnion>(
         TypeTagAtomicUnion,
     )({
@@ -19,12 +19,12 @@ export const test_protobuf_isDecode_TypeTagAtomicUnion =
                             $io1(elem),
                     );
                 const $io1 = (input: any): boolean =>
-                    ("number" === typeof input.value &&
-                        Number.isFinite(input.value) &&
-                        3 <= input.value) ||
                     ("string" === typeof input.value &&
                         3 <= input.value.length &&
-                        input.value.length <= 7);
+                        input.value.length <= 7) ||
+                    ("number" === typeof input.value &&
+                        Number.isFinite(input.value) &&
+                        3 <= input.value);
                 return (
                     "object" === typeof input && null !== input && $io0(input)
                 );
@@ -119,10 +119,10 @@ export const test_protobuf_isDecode_TypeTagAtomicUnion =
                         });
                 };
                 const $io1 = (input: any): boolean =>
-                    ("number" === typeof input.value && 3 <= input.value) ||
                     ("string" === typeof input.value &&
                         3 <= input.value.length &&
-                        input.value.length <= 7);
+                        input.value.length <= 7) ||
+                    ("number" === typeof input.value && 3 <= input.value);
                 //TypeTagAtomicUnion;
                 $peo0(input);
                 return writer;

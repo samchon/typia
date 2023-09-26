@@ -2,10 +2,10 @@ import typia from "../../../../src";
 import { _test_json_validateParse } from "../../../internal/_test_json_validateParse";
 import { DynamicTemplate } from "../../../structures/DynamicTemplate";
 
-export const test_json_validateParse_DynamicTemplate = _test_json_validateParse(
-    "DynamicTemplate",
-)<DynamicTemplate>(DynamicTemplate)(
-    (input: string): typia.IValidation<typia.Primitive<DynamicTemplate>> => {
+export const test_json_createValidateParse_DynamicTemplate =
+    _test_json_validateParse("DynamicTemplate")<DynamicTemplate>(
+        DynamicTemplate,
+    )((input: string): typia.IValidation<typia.Primitive<DynamicTemplate>> => {
         const validate = (input: any): typia.IValidation<DynamicTemplate> => {
             const errors = [] as any[];
             const __is = (input: any): input is DynamicTemplate => {
@@ -138,5 +138,4 @@ export const test_json_validateParse_DynamicTemplate = _test_json_validateParse(
         };
         const output = JSON.parse(input);
         return validate(output) as any;
-    },
-);
+    });

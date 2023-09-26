@@ -2,10 +2,10 @@ import typia from "../../../../src";
 import { _test_json_stringify } from "../../../internal/_test_json_stringify";
 import { ArrayRepeatedNullable } from "../../../structures/ArrayRepeatedNullable";
 
-export const test_json_stringify_ArrayRepeatedNullable = _test_json_stringify(
-    "ArrayRepeatedNullable",
-)<ArrayRepeatedNullable>(ArrayRepeatedNullable)(
-    (input: ArrayRepeatedNullable): string => {
+export const test_json_createStringify_ArrayRepeatedNullable =
+    _test_json_stringify("ArrayRepeatedNullable")<ArrayRepeatedNullable>(
+        ArrayRepeatedNullable,
+    )((input: ArrayRepeatedNullable): string => {
         const $ia0 = (input: any): any =>
             input.every(
                 (elem: any) =>
@@ -50,5 +50,4 @@ export const test_json_stringify_ArrayRepeatedNullable = _test_json_stringify(
                   });
               })()
             : "null";
-    },
-);
+    });

@@ -2,10 +2,10 @@ import typia from "../../../../src";
 import { _test_json_stringify } from "../../../internal/_test_json_stringify";
 import { ObjectPropertyNullable } from "../../../structures/ObjectPropertyNullable";
 
-export const test_json_stringify_ObjectPropertyNullable = _test_json_stringify(
-    "ObjectPropertyNullable",
-)<ObjectPropertyNullable>(ObjectPropertyNullable)(
-    (input: ObjectPropertyNullable): string => {
+export const test_json_createStringify_ObjectPropertyNullable =
+    _test_json_stringify("ObjectPropertyNullable")<ObjectPropertyNullable>(
+        ObjectPropertyNullable,
+    )((input: ObjectPropertyNullable): string => {
         const $io4 = (input: any): boolean =>
             "string" === typeof input.id &&
             (null === input.name || "string" === typeof input.name) &&
@@ -57,5 +57,4 @@ export const test_json_stringify_ObjectPropertyNullable = _test_json_stringify(
             .join(",")}]`},${`[${input[3]
             .map((elem: any) => $so3(elem))
             .join(",")}]`}]`;
-    },
-);
+    });

@@ -2,7 +2,7 @@ import typia from "../../../../src";
 import { _test_misc_prune } from "../../../internal/_test_misc_prune";
 import { TypeTagLength } from "../../../structures/TypeTagLength";
 
-export const test_misc_prune_TypeTagLength = _test_misc_prune(
+export const test_misc_createPrune_TypeTagLength = _test_misc_prune(
     "TypeTagLength",
 )<TypeTagLength>(TypeTagLength)((input: TypeTagLength): void => {
     const $io1 = (input: any): boolean =>

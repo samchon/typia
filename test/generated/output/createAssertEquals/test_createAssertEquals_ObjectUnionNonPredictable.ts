@@ -2,10 +2,10 @@ import typia from "../../../../src";
 import { _test_assertEquals } from "../../../internal/_test_assertEquals";
 import { ObjectUnionNonPredictable } from "../../../structures/ObjectUnionNonPredictable";
 
-export const test_assertEquals_ObjectUnionNonPredictable = _test_assertEquals(
-    "ObjectUnionNonPredictable",
-)<ObjectUnionNonPredictable>(ObjectUnionNonPredictable)(
-    (input: any): ObjectUnionNonPredictable => {
+export const test_createAssertEquals_ObjectUnionNonPredictable =
+    _test_assertEquals("ObjectUnionNonPredictable")<ObjectUnionNonPredictable>(
+        ObjectUnionNonPredictable,
+    )((input: any): ObjectUnionNonPredictable => {
         const __is = (
             input: any,
             _exceptionable: boolean = true,
@@ -506,5 +506,4 @@ export const test_assertEquals_ObjectUnionNonPredictable = _test_assertEquals(
                 );
             })(input, "$input", true);
         return input;
-    },
-);
+    });

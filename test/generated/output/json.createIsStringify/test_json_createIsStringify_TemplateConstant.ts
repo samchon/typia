@@ -2,10 +2,10 @@ import typia from "../../../../src";
 import { _test_json_isStringify } from "../../../internal/_test_json_isStringify";
 import { TemplateConstant } from "../../../structures/TemplateConstant";
 
-export const test_json_isStringify_TemplateConstant = _test_json_isStringify(
-    "TemplateConstant",
-)<TemplateConstant>(TemplateConstant)(
-    (input: TemplateConstant): string | null => {
+export const test_json_createIsStringify_TemplateConstant =
+    _test_json_isStringify("TemplateConstant")<TemplateConstant>(
+        TemplateConstant,
+    )((input: TemplateConstant): string | null => {
         const is = (input: any): input is TemplateConstant => {
             const $io0 = (input: any): boolean =>
                 Array.isArray(input.value) &&
@@ -87,5 +87,4 @@ export const test_json_isStringify_TemplateConstant = _test_json_isStringify(
             return $so0(input);
         };
         return is(input) ? stringify(input) : null;
-    },
-);
+    });

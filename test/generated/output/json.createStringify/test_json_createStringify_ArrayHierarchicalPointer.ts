@@ -2,7 +2,7 @@ import typia from "../../../../src";
 import { _test_json_stringify } from "../../../internal/_test_json_stringify";
 import { ArrayHierarchicalPointer } from "../../../structures/ArrayHierarchicalPointer";
 
-export const test_json_stringify_ArrayHierarchicalPointer =
+export const test_json_createStringify_ArrayHierarchicalPointer =
     _test_json_stringify("ArrayHierarchicalPointer")<ArrayHierarchicalPointer>(
         ArrayHierarchicalPointer,
     )((input: ArrayHierarchicalPointer): string => {

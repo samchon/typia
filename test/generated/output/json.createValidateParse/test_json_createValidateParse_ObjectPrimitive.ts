@@ -2,10 +2,10 @@ import typia from "../../../../src";
 import { _test_json_validateParse } from "../../../internal/_test_json_validateParse";
 import { ObjectPrimitive } from "../../../structures/ObjectPrimitive";
 
-export const test_json_validateParse_ObjectPrimitive = _test_json_validateParse(
-    "ObjectPrimitive",
-)<ObjectPrimitive>(ObjectPrimitive)(
-    (input: string): typia.IValidation<typia.Primitive<ObjectPrimitive>> => {
+export const test_json_createValidateParse_ObjectPrimitive =
+    _test_json_validateParse("ObjectPrimitive")<ObjectPrimitive>(
+        ObjectPrimitive,
+    )((input: string): typia.IValidation<typia.Primitive<ObjectPrimitive>> => {
         const validate = (input: any): typia.IValidation<ObjectPrimitive> => {
             const errors = [] as any[];
             const __is = (input: any): input is ObjectPrimitive => {
@@ -197,5 +197,4 @@ export const test_json_validateParse_ObjectPrimitive = _test_json_validateParse(
         };
         const output = JSON.parse(input);
         return validate(output) as any;
-    },
-);
+    });

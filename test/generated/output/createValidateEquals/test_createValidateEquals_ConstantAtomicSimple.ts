@@ -2,10 +2,10 @@ import typia from "../../../../src";
 import { _test_validateEquals } from "../../../internal/_test_validateEquals";
 import { ConstantAtomicSimple } from "../../../structures/ConstantAtomicSimple";
 
-export const test_validateEquals_ConstantAtomicSimple = _test_validateEquals(
-    "ConstantAtomicSimple",
-)<ConstantAtomicSimple>(ConstantAtomicSimple)(
-    (input: any): typia.IValidation<ConstantAtomicSimple> => {
+export const test_createValidateEquals_ConstantAtomicSimple =
+    _test_validateEquals("ConstantAtomicSimple")<ConstantAtomicSimple>(
+        ConstantAtomicSimple,
+    )((input: any): typia.IValidation<ConstantAtomicSimple> => {
         const errors = [] as any[];
         const __is = (
             input: any,
@@ -80,5 +80,4 @@ export const test_validateEquals_ConstantAtomicSimple = _test_validateEquals(
             errors,
             data: success ? input : undefined,
         } as any;
-    },
-);
+    });

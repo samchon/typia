@@ -2,7 +2,7 @@ import typia from "../../../../src";
 import { _test_json_isStringify } from "../../../internal/_test_json_isStringify";
 import { TypeTagRange } from "../../../structures/TypeTagRange";
 
-export const test_json_isStringify_TypeTagRange = _test_json_isStringify(
+export const test_json_createIsStringify_TypeTagRange = _test_json_isStringify(
     "TypeTagRange",
 )<TypeTagRange>(TypeTagRange)((input: TypeTagRange): string | null => {
     const is = (input: any): input is TypeTagRange => {

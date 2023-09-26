@@ -21,6 +21,8 @@ const validate = (directory) => {
         if (x !== y) {
             console.error(
                 `Bug on ${directory}/${file}, succeeded to transform invalid code.`,
+                x,
+                y,
             );
             return false;
         }

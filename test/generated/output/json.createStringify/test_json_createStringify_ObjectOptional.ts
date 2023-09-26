@@ -2,7 +2,7 @@ import typia from "../../../../src";
 import { _test_json_stringify } from "../../../internal/_test_json_stringify";
 import { ObjectOptional } from "../../../structures/ObjectOptional";
 
-export const test_json_stringify_ObjectOptional = _test_json_stringify(
+export const test_json_createStringify_ObjectOptional = _test_json_stringify(
     "ObjectOptional",
 )<ObjectOptional>(ObjectOptional)((input: ObjectOptional): string => {
     const $string = (typia.json.createStringify as any).string;

@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_validate } from "../../../internal/_test_validate";
 import { MapAlias } from "../../../structures/MapAlias";
 
-export const test_validate_MapAlias = _test_validate("MapAlias")<MapAlias>(
-    MapAlias,
-)((input: any): typia.IValidation<MapAlias> => {
+export const test_createValidate_MapAlias = _test_validate(
+    "MapAlias",
+)<MapAlias>(MapAlias)((input: any): typia.IValidation<MapAlias> => {
     const errors = [] as any[];
     const __is = (input: any): input is MapAlias => {
         const $io0 = (input: any): boolean =>

@@ -2,7 +2,7 @@ import typia from "../../../../src";
 import { _test_json_assertParse } from "../../../internal/_test_json_assertParse";
 import { ObjectTuple } from "../../../structures/ObjectTuple";
 
-export const test_json_assertParse_ObjectTuple = _test_json_assertParse(
+export const test_json_createAssertParse_ObjectTuple = _test_json_assertParse(
     "ObjectTuple",
 )<ObjectTuple>(ObjectTuple)((input: string): typia.Primitive<ObjectTuple> => {
     const assert = (input: any): ObjectTuple => {

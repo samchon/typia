@@ -2,7 +2,7 @@ import typia from "../../../../src";
 import { _test_is } from "../../../internal/_test_is";
 import { ArrayRecursive } from "../../../structures/ArrayRecursive";
 
-export const test_is_ArrayRecursive = _test_is(
+export const test_createIs_ArrayRecursive = _test_is(
     "ArrayRecursive",
 )<ArrayRecursive>(ArrayRecursive)((input: any): input is ArrayRecursive => {
     const $io0 = (input: any): boolean =>

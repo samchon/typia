@@ -2,10 +2,10 @@ import typia from "../../../../src";
 import { _test_json_assertParse } from "../../../internal/_test_json_assertParse";
 import { TypeTagArrayUnion } from "../../../structures/TypeTagArrayUnion";
 
-export const test_json_assertParse_TypeTagArrayUnion = _test_json_assertParse(
-    "TypeTagArrayUnion",
-)<TypeTagArrayUnion>(TypeTagArrayUnion)(
-    (input: string): typia.Primitive<TypeTagArrayUnion> => {
+export const test_json_createAssertParse_TypeTagArrayUnion =
+    _test_json_assertParse("TypeTagArrayUnion")<TypeTagArrayUnion>(
+        TypeTagArrayUnion,
+    )((input: string): typia.Primitive<TypeTagArrayUnion> => {
         const assert = (input: any): TypeTagArrayUnion => {
             const __is = (input: any): input is TypeTagArrayUnion => {
                 const $io0 = (input: any): boolean =>
@@ -317,5 +317,4 @@ export const test_json_assertParse_TypeTagArrayUnion = _test_json_assertParse(
         };
         input = JSON.parse(input);
         return assert(input) as any;
-    },
-);
+    });

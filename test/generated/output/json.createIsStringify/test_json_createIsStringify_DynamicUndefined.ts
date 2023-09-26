@@ -2,10 +2,10 @@ import typia from "../../../../src";
 import { _test_json_isStringify } from "../../../internal/_test_json_isStringify";
 import { DynamicUndefined } from "../../../structures/DynamicUndefined";
 
-export const test_json_isStringify_DynamicUndefined = _test_json_isStringify(
-    "DynamicUndefined",
-)<DynamicUndefined>(DynamicUndefined)(
-    (input: DynamicUndefined): string | null => {
+export const test_json_createIsStringify_DynamicUndefined =
+    _test_json_isStringify("DynamicUndefined")<DynamicUndefined>(
+        DynamicUndefined,
+    )((input: DynamicUndefined): string | null => {
         const is = (input: any): input is DynamicUndefined => {
             const $io0 = (input: any): boolean =>
                 Object.keys(input).every((key: any) => {
@@ -34,5 +34,4 @@ export const test_json_isStringify_DynamicUndefined = _test_json_isStringify(
             return $so0(input);
         };
         return is(input) ? stringify(input) : null;
-    },
-);
+    });

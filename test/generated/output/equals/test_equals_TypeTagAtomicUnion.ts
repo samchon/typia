@@ -26,12 +26,12 @@ export const test_equals_TypeTagAtomicUnion = _test_equals(
                     return false;
                 }));
         const $io1 = (input: any, _exceptionable: boolean = true): boolean =>
-            (("number" === typeof input.value &&
-                Number.isFinite(input.value) &&
-                3 <= input.value) ||
-                ("string" === typeof input.value &&
-                    3 <= input.value.length &&
-                    input.value.length <= 7)) &&
+            (("string" === typeof input.value &&
+                3 <= input.value.length &&
+                input.value.length <= 7) ||
+                ("number" === typeof input.value &&
+                    Number.isFinite(input.value) &&
+                    3 <= input.value)) &&
             (1 === Object.keys(input).length ||
                 Object.keys(input).every((key: any) => {
                     if (["value"].some((prop: any) => key === prop))

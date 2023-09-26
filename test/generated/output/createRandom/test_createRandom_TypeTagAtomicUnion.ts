@@ -2,7 +2,7 @@ import typia from "../../../../src";
 import { _test_random } from "../../../internal/_test_random";
 import { TypeTagAtomicUnion } from "../../../structures/TypeTagAtomicUnion";
 
-export const test_random_TypeTagAtomicUnion = _test_random(
+export const test_createRandom_TypeTagAtomicUnion = _test_random(
     "TypeTagAtomicUnion",
 )<TypeTagAtomicUnion>(TypeTagAtomicUnion)({
     random: (
@@ -24,14 +24,6 @@ export const test_random_TypeTagAtomicUnion = _test_random(
         ): any => ({
             value: $pick([
                 () =>
-                    (generator?.customs ?? $generator.customs)?.number?.([
-                        {
-                            name: "Minimum<3>",
-                            kind: "minimum",
-                            value: 3,
-                        },
-                    ]) ?? (generator?.number ?? $generator.number)(3, 13),
-                () =>
                     (generator?.customs ?? $generator.customs)?.string?.([
                         {
                             name: "MinLength<3>",
@@ -47,6 +39,14 @@ export const test_random_TypeTagAtomicUnion = _test_random(
                     (generator?.string ?? $generator.string)(
                         (generator?.integer ?? $generator.integer)(3, 7),
                     ),
+                () =>
+                    (generator?.customs ?? $generator.customs)?.number?.([
+                        {
+                            name: "Minimum<3>",
+                            kind: "minimum",
+                            value: 3,
+                        },
+                    ]) ?? (generator?.number ?? $generator.number)(3, 13),
             ])(),
         });
         return $ro0();
@@ -60,12 +60,12 @@ export const test_random_TypeTagAtomicUnion = _test_random(
                         "object" === typeof elem && null !== elem && $io1(elem),
                 );
             const $io1 = (input: any): boolean =>
-                ("number" === typeof input.value &&
-                    Number.isFinite(input.value) &&
-                    3 <= input.value) ||
                 ("string" === typeof input.value &&
                     3 <= input.value.length &&
-                    input.value.length <= 7);
+                    input.value.length <= 7) ||
+                ("number" === typeof input.value &&
+                    Number.isFinite(input.value) &&
+                    3 <= input.value);
             return "object" === typeof input && null !== input && $io0(input);
         };
         if (false === __is(input))
@@ -115,19 +115,6 @@ export const test_random_TypeTagAtomicUnion = _test_random(
                     _path: string,
                     _exceptionable: boolean = true,
                 ): boolean =>
-                    ("number" === typeof input.value &&
-                        (Number.isFinite(input.value) ||
-                            $guard(_exceptionable, {
-                                path: _path + ".value",
-                                expected: "number",
-                                value: input.value,
-                            })) &&
-                        (3 <= input.value ||
-                            $guard(_exceptionable, {
-                                path: _path + ".value",
-                                expected: "number & Minimum<3>",
-                                value: input.value,
-                            }))) ||
                     ("string" === typeof input.value &&
                         (3 <= input.value.length ||
                             $guard(_exceptionable, {
@@ -139,6 +126,19 @@ export const test_random_TypeTagAtomicUnion = _test_random(
                             $guard(_exceptionable, {
                                 path: _path + ".value",
                                 expected: "string & MaxLength<7>",
+                                value: input.value,
+                            }))) ||
+                    ("number" === typeof input.value &&
+                        (Number.isFinite(input.value) ||
+                            $guard(_exceptionable, {
+                                path: _path + ".value",
+                                expected: "number",
+                                value: input.value,
+                            })) &&
+                        (3 <= input.value ||
+                            $guard(_exceptionable, {
+                                path: _path + ".value",
+                                expected: "number & Minimum<3>",
                                 value: input.value,
                             }))) ||
                     $guard(_exceptionable, {

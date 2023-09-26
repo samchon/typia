@@ -2,7 +2,7 @@ import typia from "../../../../src";
 import { _test_misc_assertClone } from "../../../internal/_test_misc_assertClone";
 import { NativeUnion } from "../../../structures/NativeUnion";
 
-export const test_misc_assertClone_NativeUnion = _test_misc_assertClone(
+export const test_misc_createAssertClone_NativeUnion = _test_misc_assertClone(
     "NativeUnion",
 )<NativeUnion>(NativeUnion)((input: any): typia.Resolved<NativeUnion> => {
     const assert = (input: any): NativeUnion => {

@@ -2,10 +2,10 @@ import typia from "../../../../src";
 import { _test_misc_isPrune } from "../../../internal/_test_misc_isPrune";
 import { ClassPropertyAssignment } from "../../../structures/ClassPropertyAssignment";
 
-export const test_misc_isPrune_ClassPropertyAssignment = _test_misc_isPrune(
-    "ClassPropertyAssignment",
-)<ClassPropertyAssignment>(ClassPropertyAssignment)(
-    (input: any): input is ClassPropertyAssignment => {
+export const test_misc_createIsPrune_ClassPropertyAssignment =
+    _test_misc_isPrune("ClassPropertyAssignment")<ClassPropertyAssignment>(
+        ClassPropertyAssignment,
+    )((input: any): input is ClassPropertyAssignment => {
         const is = (input: any): input is ClassPropertyAssignment => {
             const $io0 = (input: any): boolean =>
                 "number" === typeof input.id &&
@@ -35,5 +35,4 @@ export const test_misc_isPrune_ClassPropertyAssignment = _test_misc_isPrune(
         if (!is(input)) return false;
         prune(input);
         return true;
-    },
-);
+    });

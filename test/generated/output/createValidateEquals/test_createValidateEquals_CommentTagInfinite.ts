@@ -2,10 +2,10 @@ import typia from "../../../../src";
 import { _test_validateEquals } from "../../../internal/_test_validateEquals";
 import { CommentTagInfinite } from "../../../structures/CommentTagInfinite";
 
-export const test_validateEquals_CommentTagInfinite = _test_validateEquals(
-    "CommentTagInfinite",
-)<CommentTagInfinite>(CommentTagInfinite)(
-    (input: any): typia.IValidation<CommentTagInfinite> => {
+export const test_createValidateEquals_CommentTagInfinite =
+    _test_validateEquals("CommentTagInfinite")<CommentTagInfinite>(
+        CommentTagInfinite,
+    )((input: any): typia.IValidation<CommentTagInfinite> => {
         const errors = [] as any[];
         const __is = (
             input: any,
@@ -202,5 +202,4 @@ export const test_validateEquals_CommentTagInfinite = _test_validateEquals(
             errors,
             data: success ? input : undefined,
         } as any;
-    },
-);
+    });

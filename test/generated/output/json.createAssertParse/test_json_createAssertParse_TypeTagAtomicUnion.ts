@@ -2,10 +2,10 @@ import typia from "../../../../src";
 import { _test_json_assertParse } from "../../../internal/_test_json_assertParse";
 import { TypeTagAtomicUnion } from "../../../structures/TypeTagAtomicUnion";
 
-export const test_json_assertParse_TypeTagAtomicUnion = _test_json_assertParse(
-    "TypeTagAtomicUnion",
-)<TypeTagAtomicUnion>(TypeTagAtomicUnion)(
-    (input: string): typia.Primitive<TypeTagAtomicUnion> => {
+export const test_json_createAssertParse_TypeTagAtomicUnion =
+    _test_json_assertParse("TypeTagAtomicUnion")<TypeTagAtomicUnion>(
+        TypeTagAtomicUnion,
+    )((input: string): typia.Primitive<TypeTagAtomicUnion> => {
         const assert = (input: any): TypeTagAtomicUnion => {
             const __is = (input: any): input is TypeTagAtomicUnion => {
                 const $io0 = (input: any): boolean =>
@@ -17,12 +17,12 @@ export const test_json_assertParse_TypeTagAtomicUnion = _test_json_assertParse(
                             $io1(elem),
                     );
                 const $io1 = (input: any): boolean =>
-                    ("number" === typeof input.value &&
-                        Number.isFinite(input.value) &&
-                        3 <= input.value) ||
                     ("string" === typeof input.value &&
                         3 <= input.value.length &&
-                        input.value.length <= 7);
+                        input.value.length <= 7) ||
+                    ("number" === typeof input.value &&
+                        Number.isFinite(input.value) &&
+                        3 <= input.value);
                 return (
                     "object" === typeof input && null !== input && $io0(input)
                 );
@@ -79,19 +79,6 @@ export const test_json_assertParse_TypeTagAtomicUnion = _test_json_assertParse(
                         _path: string,
                         _exceptionable: boolean = true,
                     ): boolean =>
-                        ("number" === typeof input.value &&
-                            (Number.isFinite(input.value) ||
-                                $guard(_exceptionable, {
-                                    path: _path + ".value",
-                                    expected: "number",
-                                    value: input.value,
-                                })) &&
-                            (3 <= input.value ||
-                                $guard(_exceptionable, {
-                                    path: _path + ".value",
-                                    expected: "number & Minimum<3>",
-                                    value: input.value,
-                                }))) ||
                         ("string" === typeof input.value &&
                             (3 <= input.value.length ||
                                 $guard(_exceptionable, {
@@ -103,6 +90,19 @@ export const test_json_assertParse_TypeTagAtomicUnion = _test_json_assertParse(
                                 $guard(_exceptionable, {
                                     path: _path + ".value",
                                     expected: "string & MaxLength<7>",
+                                    value: input.value,
+                                }))) ||
+                        ("number" === typeof input.value &&
+                            (Number.isFinite(input.value) ||
+                                $guard(_exceptionable, {
+                                    path: _path + ".value",
+                                    expected: "number",
+                                    value: input.value,
+                                })) &&
+                            (3 <= input.value ||
+                                $guard(_exceptionable, {
+                                    path: _path + ".value",
+                                    expected: "number & Minimum<3>",
                                     value: input.value,
                                 }))) ||
                         $guard(_exceptionable, {
@@ -130,5 +130,4 @@ export const test_json_assertParse_TypeTagAtomicUnion = _test_json_assertParse(
         };
         input = JSON.parse(input);
         return assert(input) as any;
-    },
-);
+    });

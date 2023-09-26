@@ -2,10 +2,10 @@ import typia from "../../../../src";
 import { _test_misc_isClone } from "../../../internal/_test_misc_isClone";
 import { ClassPropertyAssignment } from "../../../structures/ClassPropertyAssignment";
 
-export const test_misc_isClone_ClassPropertyAssignment = _test_misc_isClone(
-    "ClassPropertyAssignment",
-)<ClassPropertyAssignment>(ClassPropertyAssignment)(
-    (input: any): typia.Resolved<ClassPropertyAssignment> | null => {
+export const test_misc_createIsClone_ClassPropertyAssignment =
+    _test_misc_isClone("ClassPropertyAssignment")<ClassPropertyAssignment>(
+        ClassPropertyAssignment,
+    )((input: any): typia.Resolved<ClassPropertyAssignment> | null => {
         const is = (input: any): input is ClassPropertyAssignment => {
             const $io0 = (input: any): boolean =>
                 "number" === typeof input.id &&
@@ -33,5 +33,4 @@ export const test_misc_isClone_ClassPropertyAssignment = _test_misc_isClone(
         if (!is(input)) return null;
         const output = clone(input);
         return output;
-    },
-);
+    });

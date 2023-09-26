@@ -34,12 +34,12 @@ export const test_validateEquals_TypeTagAtomicUnion = _test_validateEquals(
                 input: any,
                 _exceptionable: boolean = true,
             ): boolean =>
-                (("number" === typeof input.value &&
-                    Number.isFinite(input.value) &&
-                    3 <= input.value) ||
-                    ("string" === typeof input.value &&
-                        3 <= input.value.length &&
-                        input.value.length <= 7)) &&
+                (("string" === typeof input.value &&
+                    3 <= input.value.length &&
+                    input.value.length <= 7) ||
+                    ("number" === typeof input.value &&
+                        Number.isFinite(input.value) &&
+                        3 <= input.value)) &&
                 (1 === Object.keys(input).length ||
                     Object.keys(input).every((key: any) => {
                         if (["value"].some((prop: any) => key === prop))
@@ -137,30 +137,30 @@ export const test_validateEquals_TypeTagAtomicUnion = _test_validateEquals(
                     _exceptionable: boolean = true,
                 ): boolean =>
                     [
-                        ("number" === typeof input.value &&
-                            (Number.isFinite(input.value) ||
+                        ("string" === typeof input.value &&
+                            (3 <= input.value.length ||
                                 $report(_exceptionable, {
                                     path: _path + ".value",
-                                    expected: "number",
+                                    expected: "string & MinLength<3>",
                                     value: input.value,
                                 })) &&
-                            (3 <= input.value ||
+                            (input.value.length <= 7 ||
                                 $report(_exceptionable, {
                                     path: _path + ".value",
-                                    expected: "number & Minimum<3>",
+                                    expected: "string & MaxLength<7>",
                                     value: input.value,
                                 }))) ||
-                            ("string" === typeof input.value &&
-                                (3 <= input.value.length ||
+                            ("number" === typeof input.value &&
+                                (Number.isFinite(input.value) ||
                                     $report(_exceptionable, {
                                         path: _path + ".value",
-                                        expected: "string & MinLength<3>",
+                                        expected: "number",
                                         value: input.value,
                                     })) &&
-                                (input.value.length <= 7 ||
+                                (3 <= input.value ||
                                     $report(_exceptionable, {
                                         path: _path + ".value",
-                                        expected: "string & MaxLength<7>",
+                                        expected: "number & Minimum<3>",
                                         value: input.value,
                                     }))) ||
                             $report(_exceptionable, {
