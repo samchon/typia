@@ -3,9 +3,13 @@ import { TestValidator } from "../../helpers/TestValidator";
 
 export const test_http_createParameter_boolean_nullable = () => {
     const decoder = typia.http.createParameter<boolean | null>();
-    const value: boolean | null = decoder("false");
 
-    TestValidator.equals("parameter<boolean | null>(boolean)")(value)(false);
+    TestValidator.equals("parameter<boolean | null>(boolean)")(
+        decoder("false"),
+    )(false);
+    TestValidator.equals("parameter<boolean | null>(boolean)")(decoder("1"))(
+        true,
+    );
     TestValidator.equals("parameter<boolean | null>(null)")(decoder("null"));
 
     TestValidator.error("parameter<boolean | null>(string)")(() =>

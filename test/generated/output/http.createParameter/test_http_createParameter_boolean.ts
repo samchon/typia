@@ -29,8 +29,10 @@ export const test_http_createParameter_boolean = () => {
         const value = $boolean(input);
         return assert(value);
     };
-    const value: boolean = decoder("false");
-    TestValidator.equals("parameter<boolean>(boolean)")(value)(false);
+    TestValidator.equals("parameter<boolean>(boolean)")(decoder("false"))(
+        false,
+    );
+    TestValidator.equals("parameter<boolean>(boolean)")(decoder("1"))(true);
     TestValidator.error("parameter<boolean>(null)")(() => decoder("null"));
     TestValidator.error("parameter<boolean>(string)")(() => decoder("one"));
     TestValidator.error("parameter<boolean>(number)")(() =>

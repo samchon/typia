@@ -2,35 +2,66 @@ import typia from "../../../../src";
 import { TestValidator } from "../../../helpers/TestValidator";
 
 export const test_http_parameter_boolean_nullable = () => {
-    const value: boolean | null = ((input: string): boolean | null => {
-        const $boolean = (typia.http.parameter as any).boolean;
-        const assert = (input: any): boolean | null => {
-            const __is = (input: any): input is boolean | null => {
-                return null === input || "boolean" === typeof input;
+    TestValidator.equals("parameter<boolean | null>(boolean)")(
+        ((input: string): boolean | null => {
+            const $boolean = (typia.http.parameter as any).boolean;
+            const assert = (input: any): boolean | null => {
+                const __is = (input: any): input is boolean | null => {
+                    return null === input || "boolean" === typeof input;
+                };
+                if (false === __is(input))
+                    ((
+                        input: any,
+                        _path: string,
+                        _exceptionable: boolean = true,
+                    ): input is boolean | null => {
+                        const $guard = (typia.http.parameter as any).guard;
+                        return (
+                            null === input ||
+                            "boolean" === typeof input ||
+                            $guard(true, {
+                                path: _path + "",
+                                expected: "(boolean | null)",
+                                value: input,
+                            })
+                        );
+                    })(input, "$input", true);
+                return input;
             };
-            if (false === __is(input))
-                ((
-                    input: any,
-                    _path: string,
-                    _exceptionable: boolean = true,
-                ): input is boolean | null => {
-                    const $guard = (typia.http.parameter as any).guard;
-                    return (
-                        null === input ||
-                        "boolean" === typeof input ||
-                        $guard(true, {
-                            path: _path + "",
-                            expected: "(boolean | null)",
-                            value: input,
-                        })
-                    );
-                })(input, "$input", true);
-            return input;
-        };
-        const value = $boolean(input);
-        return assert(value);
-    })("false");
-    TestValidator.equals("parameter<boolean | null>(boolean)")(value)(false);
+            const value = $boolean(input);
+            return assert(value);
+        })("false"),
+    )(false);
+    TestValidator.equals("parameter<boolean | null>(1)")(
+        ((input: string): boolean | null => {
+            const $boolean = (typia.http.parameter as any).boolean;
+            const assert = (input: any): boolean | null => {
+                const __is = (input: any): input is boolean | null => {
+                    return null === input || "boolean" === typeof input;
+                };
+                if (false === __is(input))
+                    ((
+                        input: any,
+                        _path: string,
+                        _exceptionable: boolean = true,
+                    ): input is boolean | null => {
+                        const $guard = (typia.http.parameter as any).guard;
+                        return (
+                            null === input ||
+                            "boolean" === typeof input ||
+                            $guard(true, {
+                                path: _path + "",
+                                expected: "(boolean | null)",
+                                value: input,
+                            })
+                        );
+                    })(input, "$input", true);
+                return input;
+            };
+            const value = $boolean(input);
+            return assert(value);
+        })("1"),
+    )(true);
     TestValidator.equals("parameter<boolean | null>(null)")(
         ((input: string): boolean | null => {
             const $boolean = (typia.http.parameter as any).boolean;
