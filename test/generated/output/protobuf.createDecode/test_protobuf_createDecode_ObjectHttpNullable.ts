@@ -19,6 +19,7 @@ export const test_protobuf_createDecode_ObjectHttpNullable =
                     constantBigint: null as any,
                     constantNumber: null as any,
                     constantString: null as any,
+                    nullableArray: null as any,
                 };
                 while (reader.index() < length) {
                     const tag = reader.uint32();
@@ -54,6 +55,15 @@ export const test_protobuf_createDecode_ObjectHttpNullable =
                         case 8:
                             // string;
                             output.constantString = reader.string();
+                            break;
+                        case 9:
+                            // type: Array<number>;
+                            output.nullableArray ??= [] as any[];
+                            if (2 === (tag & 7)) {
+                                const piece = reader.uint32() + reader.index();
+                                while (reader.index() < piece)
+                                    output.nullableArray.push(reader.double());
+                            } else output.nullableArray.push(reader.double());
                             break;
                         default:
                             reader.skipType(tag & 7);
@@ -109,6 +119,17 @@ export const test_protobuf_createDecode_ObjectHttpNullable =
                     if (null !== input.constantString) {
                         writer.uint32(66);
                         writer.string(input.constantString);
+                    }
+                    // property "nullableArray";
+                    if (null !== input.nullableArray) {
+                        if (0 !== input.nullableArray.length) {
+                            writer.uint32(74);
+                            writer.fork();
+                            for (const elem of input.nullableArray) {
+                                writer.double(elem);
+                            }
+                            writer.ldelim();
+                        }
                     }
                 };
                 //ObjectHttpNullable;

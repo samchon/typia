@@ -6,9 +6,15 @@ interface IPointer<T> {
 type IArray<Key extends string> = {
     [P in Key]: string[];
 };
+interface ISomething {
+    something: boolean;
+    sOmething: bigint;
+    soMething: number;
+    somEthing: string;
+}
 
+typia.http.createHeaders<ISomething>();
 typia.http.createHeaders<IPointer<number | string>>();
-typia.http.createHeaders<IPointer<number[] | undefined>>();
 typia.http.createHeaders<IPointer<number[][]>>();
 typia.http.createHeaders<IPointer<[string, string]>>();
 typia.http.createHeaders<IPointer<number | null>>();

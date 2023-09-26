@@ -38,7 +38,14 @@ export const test_http_createValidateQuery_ObjectHttpNullable =
                         (null === input.constantString ||
                             "three" === input.constantString ||
                             "two" === input.constantString ||
-                            "one" === input.constantString);
+                            "one" === input.constantString) &&
+                        (null === input.nullableArray ||
+                            (Array.isArray(input.nullableArray) &&
+                                input.nullableArray.every(
+                                    (elem: any) =>
+                                        "number" === typeof elem &&
+                                        Number.isFinite(elem),
+                                )));
                     return (
                         "object" === typeof input &&
                         null !== input &&
@@ -136,6 +143,36 @@ export const test_http_createValidateQuery_ObjectHttpNullable =
                                             '("one" | "three" | "two" | null)',
                                         value: input.constantString,
                                     }),
+                                null === input.nullableArray ||
+                                    ((Array.isArray(input.nullableArray) ||
+                                        $report(_exceptionable, {
+                                            path: _path + ".nullableArray",
+                                            expected: "(Array<number> | null)",
+                                            value: input.nullableArray,
+                                        })) &&
+                                        input.nullableArray
+                                            .map(
+                                                (elem: any, _index1: number) =>
+                                                    ("number" === typeof elem &&
+                                                        Number.isFinite(
+                                                            elem,
+                                                        )) ||
+                                                    $report(_exceptionable, {
+                                                        path:
+                                                            _path +
+                                                            ".nullableArray[" +
+                                                            _index1 +
+                                                            "]",
+                                                        expected: "number",
+                                                        value: elem,
+                                                    }),
+                                            )
+                                            .every((flag: boolean) => flag)) ||
+                                    $report(_exceptionable, {
+                                        path: _path + ".nullableArray",
+                                        expected: "(Array<number> | null)",
+                                        value: input.nullableArray,
+                                    }),
                             ].every((flag: boolean) => flag);
                         return (
                             ((("object" === typeof input && null !== input) ||
@@ -169,6 +206,7 @@ export const test_http_createValidateQuery_ObjectHttpNullable =
                 const $bigint = (typia.http.createValidateQuery as any).bigint;
                 const $number = (typia.http.createValidateQuery as any).number;
                 const $string = (typia.http.createValidateQuery as any).string;
+                const $array = (typia.http.createValidateQuery as any).array;
                 input = $params(input) as URLSearchParams;
                 const output = {
                     boolean: $boolean(input.get("boolean")),
@@ -179,6 +217,12 @@ export const test_http_createValidateQuery_ObjectHttpNullable =
                     constantBigint: $bigint(input.get("constantBigint")),
                     constantNumber: $number(input.get("constantNumber")),
                     constantString: $string(input.get("constantString")),
+                    nullableArray: $array(
+                        input
+                            .getAll("nullableArray")
+                            .map((elem: any) => $number(elem)),
+                        null,
+                    ),
                 };
                 return output as any;
             };

@@ -15,7 +15,8 @@ export const test_misc_createPrune_ObjectHttpNullable = _test_misc_prune(
                 "constantBoolean" === key ||
                 "constantBigint" === key ||
                 "constantNumber" === key ||
-                "constantString" === key
+                "constantString" === key ||
+                "nullableArray" === key
             )
                 continue;
             delete input[key];

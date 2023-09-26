@@ -1,3 +1,5 @@
+import { RandomGenerator } from "typia/lib/utils/RandomGenerator";
+
 import { tags } from "../../src";
 import { Spoiler } from "../helpers/Spoiler";
 
@@ -11,6 +13,8 @@ export interface ObjectHttpNullable {
     constantBigint: 1n | 2n | 3n | null;
     constantNumber: 1 | 2 | 3 | null;
     constantString: "one" | "two" | "three" | null;
+
+    nullableArray: number[] | null;
 }
 export namespace ObjectHttpNullable {
     export const HEADERS = false;
@@ -29,6 +33,10 @@ export namespace ObjectHttpNullable {
             constantBigint: 2n,
             constantNumber: null,
             constantString: "three",
+
+            nullableArray: RandomGenerator.array(() =>
+                RandomGenerator.number(),
+            ),
         };
     }
 
@@ -68,6 +76,10 @@ export namespace ObjectHttpNullable {
         (input) => {
             input.constantString = undefined!;
             return ["$input.constantString"];
+        },
+        (input) => {
+            input.nullableArray = [1, 2, "one", "two"] as any;
+            return ["$input.nullableArray[2]", "$input.nullableArray[3]"];
         },
     ];
 }

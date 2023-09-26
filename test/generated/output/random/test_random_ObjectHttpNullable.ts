@@ -67,6 +67,20 @@ export const test_random_ObjectHttpNullable = _test_random(
                     () => "two",
                     () => "one",
                 ])(),
+                nullableArray: $pick([
+                    () => null,
+                    () =>
+                        (generator?.array ?? $generator.array)(
+                            () =>
+                                (
+                                    generator?.customs ?? $generator.customs
+                                )?.number?.([]) ??
+                                (generator?.number ?? $generator.number)(
+                                    0,
+                                    100,
+                                ),
+                        ),
+                ])(),
             });
             return $ro0();
         })(),
@@ -94,7 +108,14 @@ export const test_random_ObjectHttpNullable = _test_random(
                 (null === input.constantString ||
                     "three" === input.constantString ||
                     "two" === input.constantString ||
-                    "one" === input.constantString);
+                    "one" === input.constantString) &&
+                (null === input.nullableArray ||
+                    (Array.isArray(input.nullableArray) &&
+                        input.nullableArray.every(
+                            (elem: any) =>
+                                "number" === typeof elem &&
+                                Number.isFinite(elem),
+                        )));
             return "object" === typeof input && null !== input && $io0(input);
         };
         if (false === __is(input))
@@ -182,6 +203,32 @@ export const test_random_ObjectHttpNullable = _test_random(
                             path: _path + ".constantString",
                             expected: '("one" | "three" | "two" | null)',
                             value: input.constantString,
+                        })) &&
+                    (null === input.nullableArray ||
+                        ((Array.isArray(input.nullableArray) ||
+                            $guard(_exceptionable, {
+                                path: _path + ".nullableArray",
+                                expected: "(Array<number> | null)",
+                                value: input.nullableArray,
+                            })) &&
+                            input.nullableArray.every(
+                                (elem: any, _index1: number) =>
+                                    ("number" === typeof elem &&
+                                        Number.isFinite(elem)) ||
+                                    $guard(_exceptionable, {
+                                        path:
+                                            _path +
+                                            ".nullableArray[" +
+                                            _index1 +
+                                            "]",
+                                        expected: "number",
+                                        value: elem,
+                                    }),
+                            )) ||
+                        $guard(_exceptionable, {
+                            path: _path + ".nullableArray",
+                            expected: "(Array<number> | null)",
+                            value: input.nullableArray,
                         }));
                 return (
                     ((("object" === typeof input && null !== input) ||

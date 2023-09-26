@@ -88,6 +88,9 @@ export namespace HttpQueryProgrammer {
             explore.nested !== null &&
             explore.nested instanceof MetadataArrayType
         ) {
+            //----
+            // ARRAY
+            //----
             const atomics = HttpMetadataUtil.atomics(meta);
             const expected: number =
                 meta.atomics.length +
@@ -96,9 +99,6 @@ export namespace HttpQueryProgrammer {
                     .map((c) => c.values.length)
                     .reduce((a, b) => a + b, 0);
             if (atomics.size > 1) insert("union type is not allowed in array.");
-            if (meta.nullable) insert("nullable type is not allowed in array.");
-            if (meta.isRequired() === false)
-                insert("optional type is not allowed in array.");
             if (meta.size() !== expected)
                 insert("only atomic or constant types are allowed in array.");
         } else if (explore.object && explore.property !== null) {
@@ -121,18 +121,6 @@ export namespace HttpQueryProgrammer {
                 meta.natives.length
             )
                 insert("nested object type is not allowed.");
-
-            //----
-            // ARRAY CASES
-            //----
-            const isArray: boolean =
-                meta.arrays.length >= 1 || meta.tuples.length >= 1;
-            // ARRAY TYPE MUST BE REQUIRED
-            if (isArray && meta.isRequired() === false)
-                insert("optional type is not allowed when array.");
-            // SET-COOKIE MUST BE ARRAY
-            if (explore.property === "set-cookie" && !isArray)
-                insert("set-cookie property must be array.");
         }
         return errors;
     };
@@ -142,7 +130,6 @@ export namespace HttpQueryProgrammer {
         (object: MetadataObject): ts.Statement[] => {
             const input: ts.Identifier = ts.factory.createIdentifier("input");
             const output: ts.Identifier = ts.factory.createIdentifier("output");
-            const optionals: string[] = [];
 
             return [
                 ts.factory.createExpressionStatement(
@@ -164,33 +151,12 @@ export namespace HttpQueryProgrammer {
                 StatementFactory.constant(
                     "output",
                     ts.factory.createObjectLiteralExpression(
-                        object.properties.map((prop) => {
-                            if (
-                                !prop.value.isRequired() &&
-                                prop.value.arrays.length +
-                                    prop.value.tuples.length >
-                                    0
-                            )
-                                optionals.push(
-                                    prop.key.constants[0]!.values[0] as string,
-                                );
-                            return decode_regular_property(importer)(prop);
-                        }),
+                        object.properties.map((prop) =>
+                            decode_regular_property(importer)(prop),
+                        ),
                         true,
                     ),
                 ),
-                ...optionals.map((key) => {
-                    const access = IdentifierFactory.access(output)(key);
-                    return ts.factory.createIfStatement(
-                        ts.factory.createStrictEquality(
-                            ts.factory.createNumericLiteral(0),
-                            IdentifierFactory.access(access)("length"),
-                        ),
-                        ts.factory.createExpressionStatement(
-                            ts.factory.createDeleteExpression(access),
-                        ),
-                    );
-                }),
                 ts.factory.createReturnStatement(
                     ts.factory.createAsExpression(
                         output,
@@ -228,27 +194,31 @@ export namespace HttpQueryProgrammer {
                     ? key
                     : ts.factory.createStringLiteral(key),
                 isArray
-                    ? ts.factory.createCallExpression(
-                          IdentifierFactory.access(
-                              ts.factory.createCallExpression(
-                                  ts.factory.createIdentifier("input.getAll"),
-                                  undefined,
-                                  [ts.factory.createStringLiteral(key)],
-                              ),
-                          )("map"),
-                          undefined,
-                          [
-                              ts.factory.createArrowFunction(
-                                  undefined,
-                                  undefined,
-                                  [IdentifierFactory.parameter("elem")],
-                                  undefined,
-                                  undefined,
-                                  decode_value(importer)(type)(false)(
-                                      ts.factory.createIdentifier("elem"),
+                    ? decode_array(importer)(value)(
+                          ts.factory.createCallExpression(
+                              IdentifierFactory.access(
+                                  ts.factory.createCallExpression(
+                                      ts.factory.createIdentifier(
+                                          "input.getAll",
+                                      ),
+                                      undefined,
+                                      [ts.factory.createStringLiteral(key)],
                                   ),
-                              ),
-                          ],
+                              )("map"),
+                              undefined,
+                              [
+                                  ts.factory.createArrowFunction(
+                                      undefined,
+                                      undefined,
+                                      [IdentifierFactory.parameter("elem")],
+                                      undefined,
+                                      undefined,
+                                      decode_value(importer)(type)(false)(
+                                          ts.factory.createIdentifier("elem"),
+                                      ),
+                                  ),
+                              ],
+                          ),
                       )
                     : decode_value(importer)(type)(
                           value.nullable === false &&
@@ -283,4 +253,21 @@ export namespace HttpQueryProgrammer {
                   )
                 : call;
         };
+
+    const decode_array =
+        (importer: FunctionImporter) =>
+        (value: Metadata) =>
+        (expression: ts.Expression): ts.Expression =>
+            value.nullable || value.isRequired() === false
+                ? ts.factory.createCallExpression(
+                      importer.use("array"),
+                      undefined,
+                      [
+                          expression,
+                          value.nullable
+                              ? ts.factory.createNull()
+                              : ts.factory.createIdentifier("undefined"),
+                      ],
+                  )
+                : expression;
 }

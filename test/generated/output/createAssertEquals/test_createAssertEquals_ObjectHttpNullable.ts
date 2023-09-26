@@ -31,7 +31,13 @@ export const test_createAssertEquals_ObjectHttpNullable = _test_assertEquals(
                 "three" === input.constantString ||
                 "two" === input.constantString ||
                 "one" === input.constantString) &&
-            (8 === Object.keys(input).length ||
+            (null === input.nullableArray ||
+                (Array.isArray(input.nullableArray) &&
+                    input.nullableArray.every(
+                        (elem: any, _index1: number) =>
+                            "number" === typeof elem && Number.isFinite(elem),
+                    ))) &&
+            (9 === Object.keys(input).length ||
                 Object.keys(input).every((key: any) => {
                     if (
                         [
@@ -43,6 +49,7 @@ export const test_createAssertEquals_ObjectHttpNullable = _test_assertEquals(
                             "constantBigint",
                             "constantNumber",
                             "constantString",
+                            "nullableArray",
                         ].some((prop: any) => key === prop)
                     )
                         return true;
@@ -139,7 +146,33 @@ export const test_createAssertEquals_ObjectHttpNullable = _test_assertEquals(
                         expected: '("one" | "three" | "two" | null)',
                         value: input.constantString,
                     })) &&
-                (8 === Object.keys(input).length ||
+                (null === input.nullableArray ||
+                    ((Array.isArray(input.nullableArray) ||
+                        $guard(_exceptionable, {
+                            path: _path + ".nullableArray",
+                            expected: "(Array<number> | null)",
+                            value: input.nullableArray,
+                        })) &&
+                        input.nullableArray.every(
+                            (elem: any, _index1: number) =>
+                                ("number" === typeof elem &&
+                                    Number.isFinite(elem)) ||
+                                $guard(_exceptionable, {
+                                    path:
+                                        _path +
+                                        ".nullableArray[" +
+                                        _index1 +
+                                        "]",
+                                    expected: "number",
+                                    value: elem,
+                                }),
+                        )) ||
+                    $guard(_exceptionable, {
+                        path: _path + ".nullableArray",
+                        expected: "(Array<number> | null)",
+                        value: input.nullableArray,
+                    })) &&
+                (9 === Object.keys(input).length ||
                     false === _exceptionable ||
                     Object.keys(input).every((key: any) => {
                         if (
@@ -152,6 +185,7 @@ export const test_createAssertEquals_ObjectHttpNullable = _test_assertEquals(
                                 "constantBigint",
                                 "constantNumber",
                                 "constantString",
+                                "nullableArray",
                             ].some((prop: any) => key === prop)
                         )
                             return true;

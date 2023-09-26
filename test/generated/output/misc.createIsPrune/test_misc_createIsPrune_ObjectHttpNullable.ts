@@ -29,7 +29,14 @@ export const test_misc_createIsPrune_ObjectHttpNullable = _test_misc_isPrune(
                 (null === input.constantString ||
                     "three" === input.constantString ||
                     "two" === input.constantString ||
-                    "one" === input.constantString);
+                    "one" === input.constantString) &&
+                (null === input.nullableArray ||
+                    (Array.isArray(input.nullableArray) &&
+                        input.nullableArray.every(
+                            (elem: any) =>
+                                "number" === typeof elem &&
+                                Number.isFinite(elem),
+                        )));
             return "object" === typeof input && null !== input && $io0(input);
         };
         const prune = (input: ObjectHttpNullable): void => {
@@ -43,7 +50,8 @@ export const test_misc_createIsPrune_ObjectHttpNullable = _test_misc_isPrune(
                         "constantBoolean" === key ||
                         "constantBigint" === key ||
                         "constantNumber" === key ||
-                        "constantString" === key
+                        "constantString" === key ||
+                        "nullableArray" === key
                     )
                         continue;
                     delete input[key];

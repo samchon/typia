@@ -37,6 +37,9 @@ export namespace $QueryReader {
         }
         return input;
     };
+
+    export const array = (input: any[], alternative: null | undefined) =>
+        input.length ? input : alternative;
 }
 
 const toNumber = (str: string): number | string => {

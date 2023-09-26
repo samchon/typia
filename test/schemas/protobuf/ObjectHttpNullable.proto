@@ -9,4 +9,5 @@ message ObjectHttpNullable {
     optional uint64 constantBigint = 6;
     optional int32 constantNumber = 7;
     optional string constantString = 8;
+    repeated double nullableArray = 9;
 }

@@ -32,7 +32,14 @@ export const test_misc_assertPrune_ObjectHttpNullable = _test_misc_assertPrune(
                     (null === input.constantString ||
                         "three" === input.constantString ||
                         "two" === input.constantString ||
-                        "one" === input.constantString);
+                        "one" === input.constantString) &&
+                    (null === input.nullableArray ||
+                        (Array.isArray(input.nullableArray) &&
+                            input.nullableArray.every(
+                                (elem: any) =>
+                                    "number" === typeof elem &&
+                                    Number.isFinite(elem),
+                            )));
                 return (
                     "object" === typeof input && null !== input && $io0(input)
                 );
@@ -122,6 +129,32 @@ export const test_misc_assertPrune_ObjectHttpNullable = _test_misc_assertPrune(
                                 path: _path + ".constantString",
                                 expected: '("one" | "three" | "two" | null)',
                                 value: input.constantString,
+                            })) &&
+                        (null === input.nullableArray ||
+                            ((Array.isArray(input.nullableArray) ||
+                                $guard(_exceptionable, {
+                                    path: _path + ".nullableArray",
+                                    expected: "(Array<number> | null)",
+                                    value: input.nullableArray,
+                                })) &&
+                                input.nullableArray.every(
+                                    (elem: any, _index1: number) =>
+                                        ("number" === typeof elem &&
+                                            Number.isFinite(elem)) ||
+                                        $guard(_exceptionable, {
+                                            path:
+                                                _path +
+                                                ".nullableArray[" +
+                                                _index1 +
+                                                "]",
+                                            expected: "number",
+                                            value: elem,
+                                        }),
+                                )) ||
+                            $guard(_exceptionable, {
+                                path: _path + ".nullableArray",
+                                expected: "(Array<number> | null)",
+                                value: input.nullableArray,
                             }));
                     return (
                         ((("object" === typeof input && null !== input) ||
@@ -151,7 +184,8 @@ export const test_misc_assertPrune_ObjectHttpNullable = _test_misc_assertPrune(
                         "constantBoolean" === key ||
                         "constantBigint" === key ||
                         "constantNumber" === key ||
-                        "constantString" === key
+                        "constantString" === key ||
+                        "nullableArray" === key
                     )
                         continue;
                     delete input[key];

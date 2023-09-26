@@ -14,6 +14,7 @@ export const test_http_createAssertQuery_ObjectHttpNullable =
             const $bigint = (typia.http.createAssertQuery as any).bigint;
             const $number = (typia.http.createAssertQuery as any).number;
             const $string = (typia.http.createAssertQuery as any).string;
+            const $array = (typia.http.createAssertQuery as any).array;
             input = $params(input) as URLSearchParams;
             const output = {
                 boolean: $boolean(input.get("boolean")),
@@ -24,6 +25,12 @@ export const test_http_createAssertQuery_ObjectHttpNullable =
                 constantBigint: $bigint(input.get("constantBigint")),
                 constantNumber: $number(input.get("constantNumber")),
                 constantString: $string(input.get("constantString")),
+                nullableArray: $array(
+                    input
+                        .getAll("nullableArray")
+                        .map((elem: any) => $number(elem)),
+                    null,
+                ),
             };
             return output as any;
         };
@@ -53,7 +60,14 @@ export const test_http_createAssertQuery_ObjectHttpNullable =
                     (null === input.constantString ||
                         "three" === input.constantString ||
                         "two" === input.constantString ||
-                        "one" === input.constantString);
+                        "one" === input.constantString) &&
+                    (null === input.nullableArray ||
+                        (Array.isArray(input.nullableArray) &&
+                            input.nullableArray.every(
+                                (elem: any) =>
+                                    "number" === typeof elem &&
+                                    Number.isFinite(elem),
+                            )));
                 return (
                     "object" === typeof input && null !== input && $io0(input)
                 );
@@ -143,6 +157,32 @@ export const test_http_createAssertQuery_ObjectHttpNullable =
                                 path: _path + ".constantString",
                                 expected: '("one" | "three" | "two" | null)',
                                 value: input.constantString,
+                            })) &&
+                        (null === input.nullableArray ||
+                            ((Array.isArray(input.nullableArray) ||
+                                $guard(_exceptionable, {
+                                    path: _path + ".nullableArray",
+                                    expected: "(Array<number> | null)",
+                                    value: input.nullableArray,
+                                })) &&
+                                input.nullableArray.every(
+                                    (elem: any, _index1: number) =>
+                                        ("number" === typeof elem &&
+                                            Number.isFinite(elem)) ||
+                                        $guard(_exceptionable, {
+                                            path:
+                                                _path +
+                                                ".nullableArray[" +
+                                                _index1 +
+                                                "]",
+                                            expected: "number",
+                                            value: elem,
+                                        }),
+                                )) ||
+                            $guard(_exceptionable, {
+                                path: _path + ".nullableArray",
+                                expected: "(Array<number> | null)",
+                                value: input.nullableArray,
                             }));
                     return (
                         ((("object" === typeof input && null !== input) ||

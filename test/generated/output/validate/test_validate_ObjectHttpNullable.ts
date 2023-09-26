@@ -30,7 +30,14 @@ export const test_validate_ObjectHttpNullable = _test_validate(
                 (null === input.constantString ||
                     "three" === input.constantString ||
                     "two" === input.constantString ||
-                    "one" === input.constantString);
+                    "one" === input.constantString) &&
+                (null === input.nullableArray ||
+                    (Array.isArray(input.nullableArray) &&
+                        input.nullableArray.every(
+                            (elem: any) =>
+                                "number" === typeof elem &&
+                                Number.isFinite(elem),
+                        )));
             return "object" === typeof input && null !== input && $io0(input);
         };
         if (false === __is(input)) {
@@ -119,6 +126,34 @@ export const test_validate_ObjectHttpNullable = _test_validate(
                                 path: _path + ".constantString",
                                 expected: '("one" | "three" | "two" | null)',
                                 value: input.constantString,
+                            }),
+                        null === input.nullableArray ||
+                            ((Array.isArray(input.nullableArray) ||
+                                $report(_exceptionable, {
+                                    path: _path + ".nullableArray",
+                                    expected: "(Array<number> | null)",
+                                    value: input.nullableArray,
+                                })) &&
+                                input.nullableArray
+                                    .map(
+                                        (elem: any, _index1: number) =>
+                                            ("number" === typeof elem &&
+                                                Number.isFinite(elem)) ||
+                                            $report(_exceptionable, {
+                                                path:
+                                                    _path +
+                                                    ".nullableArray[" +
+                                                    _index1 +
+                                                    "]",
+                                                expected: "number",
+                                                value: elem,
+                                            }),
+                                    )
+                                    .every((flag: boolean) => flag)) ||
+                            $report(_exceptionable, {
+                                path: _path + ".nullableArray",
+                                expected: "(Array<number> | null)",
+                                value: input.nullableArray,
                             }),
                     ].every((flag: boolean) => flag);
                 return (

@@ -37,7 +37,14 @@ export const test_createValidateEquals_ObjectHttpNullable =
                     "three" === input.constantString ||
                     "two" === input.constantString ||
                     "one" === input.constantString) &&
-                (8 === Object.keys(input).length ||
+                (null === input.nullableArray ||
+                    (Array.isArray(input.nullableArray) &&
+                        input.nullableArray.every(
+                            (elem: any, _index1: number) =>
+                                "number" === typeof elem &&
+                                Number.isFinite(elem),
+                        ))) &&
+                (9 === Object.keys(input).length ||
                     Object.keys(input).every((key: any) => {
                         if (
                             [
@@ -49,6 +56,7 @@ export const test_createValidateEquals_ObjectHttpNullable =
                                 "constantBigint",
                                 "constantNumber",
                                 "constantString",
+                                "nullableArray",
                             ].some((prop: any) => key === prop)
                         )
                             return true;
@@ -148,7 +156,35 @@ export const test_createValidateEquals_ObjectHttpNullable =
                                 expected: '("one" | "three" | "two" | null)',
                                 value: input.constantString,
                             }),
-                        8 === Object.keys(input).length ||
+                        null === input.nullableArray ||
+                            ((Array.isArray(input.nullableArray) ||
+                                $report(_exceptionable, {
+                                    path: _path + ".nullableArray",
+                                    expected: "(Array<number> | null)",
+                                    value: input.nullableArray,
+                                })) &&
+                                input.nullableArray
+                                    .map(
+                                        (elem: any, _index1: number) =>
+                                            ("number" === typeof elem &&
+                                                Number.isFinite(elem)) ||
+                                            $report(_exceptionable, {
+                                                path:
+                                                    _path +
+                                                    ".nullableArray[" +
+                                                    _index1 +
+                                                    "]",
+                                                expected: "number",
+                                                value: elem,
+                                            }),
+                                    )
+                                    .every((flag: boolean) => flag)) ||
+                            $report(_exceptionable, {
+                                path: _path + ".nullableArray",
+                                expected: "(Array<number> | null)",
+                                value: input.nullableArray,
+                            }),
+                        9 === Object.keys(input).length ||
                             false === _exceptionable ||
                             Object.keys(input)
                                 .map((key: any) => {
@@ -162,6 +198,7 @@ export const test_createValidateEquals_ObjectHttpNullable =
                                             "constantBigint",
                                             "constantNumber",
                                             "constantString",
+                                            "nullableArray",
                                         ].some((prop: any) => key === prop)
                                     )
                                         return true;

@@ -34,7 +34,14 @@ export const test_protobuf_assertEncode_ObjectHttpNullable =
                             (null === input.constantString ||
                                 "three" === input.constantString ||
                                 "two" === input.constantString ||
-                                "one" === input.constantString);
+                                "one" === input.constantString) &&
+                            (null === input.nullableArray ||
+                                (Array.isArray(input.nullableArray) &&
+                                    input.nullableArray.every(
+                                        (elem: any) =>
+                                            "number" === typeof elem &&
+                                            Number.isFinite(elem),
+                                    )));
                         return (
                             "object" === typeof input &&
                             null !== input &&
@@ -129,6 +136,32 @@ export const test_protobuf_assertEncode_ObjectHttpNullable =
                                         expected:
                                             '("one" | "three" | "two" | null)',
                                         value: input.constantString,
+                                    })) &&
+                                (null === input.nullableArray ||
+                                    ((Array.isArray(input.nullableArray) ||
+                                        $guard(_exceptionable, {
+                                            path: _path + ".nullableArray",
+                                            expected: "(Array<number> | null)",
+                                            value: input.nullableArray,
+                                        })) &&
+                                        input.nullableArray.every(
+                                            (elem: any, _index1: number) =>
+                                                ("number" === typeof elem &&
+                                                    Number.isFinite(elem)) ||
+                                                $guard(_exceptionable, {
+                                                    path:
+                                                        _path +
+                                                        ".nullableArray[" +
+                                                        _index1 +
+                                                        "]",
+                                                    expected: "number",
+                                                    value: elem,
+                                                }),
+                                        )) ||
+                                    $guard(_exceptionable, {
+                                        path: _path + ".nullableArray",
+                                        expected: "(Array<number> | null)",
+                                        value: input.nullableArray,
                                     }));
                             return (
                                 ((("object" === typeof input &&
@@ -193,6 +226,17 @@ export const test_protobuf_assertEncode_ObjectHttpNullable =
                                 writer.uint32(66);
                                 writer.string(input.constantString);
                             }
+                            // property "nullableArray";
+                            if (null !== input.nullableArray) {
+                                if (0 !== input.nullableArray.length) {
+                                    writer.uint32(74);
+                                    writer.fork();
+                                    for (const elem of input.nullableArray) {
+                                        writer.double(elem);
+                                    }
+                                    writer.ldelim();
+                                }
+                            }
                         };
                         //ObjectHttpNullable;
                         $peo0(input);
@@ -205,7 +249,7 @@ export const test_protobuf_assertEncode_ObjectHttpNullable =
                 return encode(assert(input));
             })(input),
         message:
-            'syntax = "proto3";\n\nmessage ObjectHttpNullable {\n    optional bool boolean = 1;\n    optional int64 bigint = 2;\n    optional double number = 3;\n    optional string string = 4;\n    optional bool constantBoolean = 5;\n    optional uint64 constantBigint = 6;\n    optional int32 constantNumber = 7;\n    optional string constantString = 8;\n}',
+            'syntax = "proto3";\n\nmessage ObjectHttpNullable {\n    optional bool boolean = 1;\n    optional int64 bigint = 2;\n    optional double number = 3;\n    optional string string = 4;\n    optional bool constantBoolean = 5;\n    optional uint64 constantBigint = 6;\n    optional int32 constantNumber = 7;\n    optional string constantString = 8;\n    repeated double nullableArray = 9;\n}',
         decode: (input: Uint8Array): typia.Resolved<ObjectHttpNullable> => {
             const $Reader = (typia.protobuf.createDecode as any).Reader;
             const $pdo0 = (reader: any, length: number = -1): any => {
@@ -219,6 +263,7 @@ export const test_protobuf_assertEncode_ObjectHttpNullable =
                     constantBigint: null as any,
                     constantNumber: null as any,
                     constantString: null as any,
+                    nullableArray: null as any,
                 };
                 while (reader.index() < length) {
                     const tag = reader.uint32();
@@ -254,6 +299,15 @@ export const test_protobuf_assertEncode_ObjectHttpNullable =
                         case 8:
                             // string;
                             output.constantString = reader.string();
+                            break;
+                        case 9:
+                            // type: Array<number>;
+                            output.nullableArray ??= [] as any[];
+                            if (2 === (tag & 7)) {
+                                const piece = reader.uint32() + reader.index();
+                                while (reader.index() < piece)
+                                    output.nullableArray.push(reader.double());
+                            } else output.nullableArray.push(reader.double());
                             break;
                         default:
                             reader.skipType(tag & 7);

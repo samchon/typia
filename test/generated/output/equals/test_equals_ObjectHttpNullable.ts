@@ -31,7 +31,13 @@ export const test_equals_ObjectHttpNullable = _test_equals(
                 "three" === input.constantString ||
                 "two" === input.constantString ||
                 "one" === input.constantString) &&
-            (8 === Object.keys(input).length ||
+            (null === input.nullableArray ||
+                (Array.isArray(input.nullableArray) &&
+                    input.nullableArray.every(
+                        (elem: any, _index1: number) =>
+                            "number" === typeof elem && Number.isFinite(elem),
+                    ))) &&
+            (9 === Object.keys(input).length ||
                 Object.keys(input).every((key: any) => {
                     if (
                         [
@@ -43,6 +49,7 @@ export const test_equals_ObjectHttpNullable = _test_equals(
                             "constantBigint",
                             "constantNumber",
                             "constantString",
+                            "nullableArray",
                         ].some((prop: any) => key === prop)
                     )
                         return true;
