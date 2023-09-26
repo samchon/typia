@@ -18,6 +18,7 @@ import { TransformerError } from "../../transformers/TransformerError";
 import { Atomic } from "../../typings/Atomic";
 
 import { Escaper } from "../../utils/Escaper";
+import { MapUtil } from "../../utils/MapUtil";
 
 import { FunctionImporter } from "../helpers/FunctionImporeter";
 import { HttpMetadataUtil } from "../helpers/HttpMetadataUtil";
@@ -87,6 +88,9 @@ export namespace HttpHeadersProgrammer {
             explore.nested !== null &&
             explore.nested instanceof MetadataArrayType
         ) {
+            //----
+            // ARRAY
+            //----
             const atomics = HttpMetadataUtil.atomics(meta);
             const expected: number =
                 meta.atomics.length +
@@ -95,11 +99,12 @@ export namespace HttpHeadersProgrammer {
                     .map((c) => c.values.length)
                     .reduce((a, b) => a + b, 0);
             if (atomics.size > 1) insert("union type is not allowed in array.");
-            if (meta.nullable) insert("nullable type is not allowed in array.");
-            if (meta.isRequired() === false)
-                insert("optional type is not allowed.");
             if (meta.size() !== expected)
                 insert("only atomic or constant types are allowed in array.");
+            if (meta.nullable === true)
+                insert("nullable type is not allowed in array.");
+            if (meta.isRequired() === false)
+                insert("optional type is not allowed in array.");
         } else if (explore.object && explore.property !== null) {
             //----
             // COMMON
@@ -121,30 +126,44 @@ export namespace HttpHeadersProgrammer {
             )
                 insert("nested object type is not allowed.");
             // DO NOT ALLOW NULLABLE
-            if (meta.nullable) insert("nullable type is not allowed.");
+            if (meta.nullable === true) insert("nullable type is not allowed.");
 
             //----
-            // ARRAY CASES
+            // SPECIAL KEY NAMES
             //----
             const isArray: boolean =
                 meta.arrays.length >= 1 || meta.tuples.length >= 1;
-            // ARRAY TYPE MUST BE REQUIRED
-            if (isArray && meta.isRequired() === false)
-                insert("optional type is not allowed when array.");
             // SET-COOKIE MUST BE ARRAY
             if (
                 typeof explore.property === "string" &&
                 explore.property.toLowerCase() === "set-cookie" &&
-                !isArray
+                isArray === false
             )
                 insert(`${explore.property} property must be array.`);
             // MUST BE SINGULAR CASE
             if (
                 typeof explore.property === "string" &&
                 SINGULAR.has(explore.property.toLowerCase()) &&
-                isArray
+                isArray === true
             )
                 insert("property cannot be array.");
+        } else if (explore.object && explore.property === null) {
+            const counter: Map<string, Set<string>> = new Map();
+            for (const prop of explore.object.properties) {
+                const key: string | null = prop.key.getSoleLiteral();
+                if (key === null) continue;
+
+                MapUtil.take(counter)(key.toLowerCase(), () => new Set()).add(
+                    key,
+                );
+            }
+            for (const [key, set] of counter)
+                if (set.size > 1)
+                    insert(
+                        `duplicated keys when converting to lowercase letters: [${[
+                            ...set,
+                        ].join(", ")}] -> ${key}`,
+                    );
         }
         return errors;
     };
