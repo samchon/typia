@@ -1,9 +1,9 @@
 export namespace $ParameterReader {
     export const boolean = (value: string) =>
         value !== "null"
-            ? value === "true"
+            ? value === "true" || value === "1"
                 ? true
-                : value === "false"
+                : value === "false" || value === "0"
                 ? false
                 : value
             : null;
