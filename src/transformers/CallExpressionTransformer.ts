@@ -10,6 +10,24 @@ import { CreateValidateTransformer } from "./features/CreateValidateTransformer"
 import { IsTransformer } from "./features/IsTransformer";
 import { RandomTransformer } from "./features/RandomTransformer";
 import { ValidateTransformer } from "./features/ValidateTransformer";
+import { CreateHttpAssertHeadersTransformer } from "./features/http/CreateHttpAssertHeadersTransformer";
+import { CreateHttpAssertQueryTransformer } from "./features/http/CreateHttpAssertQueryTransformer";
+import { CreateHttpHeadersTransformer } from "./features/http/CreateHttpHeadersTransformer";
+import { CreateHttpIsHeadersTransformer } from "./features/http/CreateHttpIsHeadersTransformer";
+import { CreateHttpIsQueryTransformer } from "./features/http/CreateHttpIsQueryTransformer";
+import { CreateHttpParameterTransformer } from "./features/http/CreateHttpParameterTransformer";
+import { CreateHttpQueryTransformer } from "./features/http/CreateHttpQueryTransformer";
+import { CreateHttpValidateHeadersTransformer } from "./features/http/CreateHttpValidateHeadersTransformer";
+import { CreateHttpValidateQueryTransformer } from "./features/http/CreateHttpValidateQueryTransformer";
+import { HttpAssertHeadersTransformer } from "./features/http/HttpAssertHeadersTransformer";
+import { HttpAssertQueryTransformer } from "./features/http/HttpAssertQueryTransformer";
+import { HttpHeadersTransformer } from "./features/http/HttpHeadersTransformer";
+import { HttpIsHeadersTransformer } from "./features/http/HttpIsHeadersTransformer";
+import { HttpIsQueryTransformer } from "./features/http/HttpIsQueryTransformer";
+import { HttpParameterTransformer } from "./features/http/HttpParameterTransformer";
+import { HttpQueryTransformer } from "./features/http/HttpQueryTransformer";
+import { HttpValidateHeadersTransformer } from "./features/http/HttpValidateHeadersTransformer";
+import { HttpValidateQueryTransformer } from "./features/http/HttpValidateQueryTransformer";
 import { JsonApplicationTransformer } from "./features/json/JsonApplicationTransformer";
 import { JsonAssertParseTransformer } from "./features/json/JsonAssertParseTransformer";
 import { JsonAssertStringifyTransformer } from "./features/json/JsonAssertStringifyTransformer";
@@ -157,6 +175,34 @@ const FUNCTORS: Record<string, Record<string, () => Task>> = {
         createEquals: () => CreateIsTransformer.transform(true),
         createValidateEquals: () => CreateValidateTransformer.transform(true),
         createRandom: () => CreateRandomTransformer.transform,
+    },
+    http: {
+        // HEADERS
+        headers: () => HttpHeadersTransformer.transform,
+        isHeaders: () => HttpIsHeadersTransformer.transform,
+        assertHeaders: () => HttpAssertHeadersTransformer.transform,
+        validateHeaders: () => HttpValidateHeadersTransformer.transform,
+
+        // PARAMETER
+        parameter: () => HttpParameterTransformer.transform,
+
+        // QUERY
+        query: () => HttpQueryTransformer.transform,
+        isQuery: () => HttpIsQueryTransformer.transform,
+        assertQuery: () => HttpAssertQueryTransformer.transform,
+        validateQuery: () => HttpValidateQueryTransformer.transform,
+
+        // FACTORIES
+        createHeaders: () => CreateHttpHeadersTransformer.transform,
+        createIsHeaders: () => CreateHttpIsHeadersTransformer.transform,
+        createAssertHeaders: () => CreateHttpAssertHeadersTransformer.transform,
+        createValidateHeaders: () =>
+            CreateHttpValidateHeadersTransformer.transform,
+        createParameter: () => CreateHttpParameterTransformer.transform,
+        createQuery: () => CreateHttpQueryTransformer.transform,
+        createIsQuery: () => CreateHttpIsQueryTransformer.transform,
+        createAssertQuery: () => CreateHttpAssertQueryTransformer.transform,
+        createValidateQuery: () => CreateHttpValidateQueryTransformer.transform,
     },
     json: {
         // SCHEMA

@@ -3,6 +3,8 @@ export interface TestFeature {
     method: string;
     creatable: boolean;
     spoilable: boolean;
+    query?: true;
+    headers?: true;
     jsonable?: true;
     primitive?: true;
     resolved?: true;
@@ -265,6 +267,74 @@ export namespace TestFeature {
             creatable: true,
             spoilable: true,
             jsonable: true,
+        },
+
+        //----
+        // HTTP
+        //----
+        {
+            module: "http",
+            method: "query",
+            creatable: true,
+            query: true,
+            resolved: true,
+            spoilable: false,
+        },
+        {
+            module: "http",
+            method: "assertQuery",
+            creatable: true,
+            query: true,
+            resolved: true,
+            spoilable: true,
+        },
+        {
+            module: "http",
+            method: "isQuery",
+            creatable: true,
+            query: true,
+            resolved: true,
+            spoilable: true,
+        },
+        {
+            module: "http",
+            method: "validateQuery",
+            creatable: true,
+            query: true,
+            resolved: true,
+            spoilable: true,
+        },
+        {
+            module: "http",
+            method: "headers",
+            creatable: true,
+            headers: true,
+            resolved: true,
+            spoilable: false,
+        },
+        {
+            module: "http",
+            method: "assertHeaders",
+            creatable: true,
+            headers: true,
+            resolved: true,
+            spoilable: true,
+        },
+        {
+            module: "http",
+            method: "isHeaders",
+            creatable: true,
+            headers: true,
+            resolved: true,
+            spoilable: true,
+        },
+        {
+            module: "http",
+            method: "validateHeaders",
+            creatable: true,
+            headers: true,
+            resolved: true,
+            spoilable: true,
         },
 
         //----

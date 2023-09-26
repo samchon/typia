@@ -190,6 +190,30 @@ export namespace MetadataFactory {
             if (visitor.objects.has(object)) return;
             visitor.objects.add(object);
 
+            if (options.validate) {
+                const explore: IExplore = {
+                    object,
+                    top: false,
+                    property: null,
+                    nested: null,
+                    escaped: false,
+                    aliased: false,
+                };
+                const errors: string[] = options.validate(
+                    Metadata.create({
+                        ...Metadata.initialize(),
+                        objects: [object],
+                    }),
+                    explore,
+                );
+                if (errors.length)
+                    visitor.errors.push({
+                        name: object.name,
+                        explore,
+                        messages: [...new Set(errors)],
+                    });
+            }
+
             for (const property of object.properties)
                 validateMeta(options)(visitor)(property.value, {
                     object,

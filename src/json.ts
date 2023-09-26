@@ -121,7 +121,7 @@ export function assertParse<T>(input: string): Primitive<T>;
 export function assertParse<T>(): Primitive<T> {
     halt("assertParse");
 }
-Object.assign(assertParse, Namespace.assert("assertParse"));
+Object.assign(assertParse, Namespace.assert("json.assertParse"));
 
 /**
  * > You must configure the generic argument `T`.
@@ -308,7 +308,7 @@ export function assertStringify<T>(input: T): unknown;
 export function assertStringify(): string {
     halt("assertStringify");
 }
-Object.assign(assertStringify, Namespace.assert("assertStringify"));
+Object.assign(assertStringify, Namespace.assert("json.assertStringify"));
 Object.assign(assertStringify, Namespace.json.stringify("assertStringify"));
 
 /**
