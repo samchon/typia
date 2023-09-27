@@ -26,8 +26,9 @@ export namespace IJsonComponents {
         "x-typia-additionalProperties"?: IJsonSchema;
     }
 
-    export type IAlias = IJsonSchema & {
+    export type IAlias = IJsonSchema & IIdentified;
+    interface IIdentified {
         $id?: string;
         $recursiveAnchor?: boolean;
-    };
+    }
 }
