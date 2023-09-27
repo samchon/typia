@@ -12,13 +12,11 @@ export const test_misc_createPrune_CommentTagDefault = _test_misc_prune(
                 "number" === key ||
                 "string" === key ||
                 "text" === key ||
-                "template" === key ||
                 "boolean_and_number_and_string" === key ||
                 "union_but_boolean" === key ||
                 "union_but_number" === key ||
                 "union_but_string" === key ||
                 "vulnerable_range" === key ||
-                "vulnerable_template" === key ||
                 "boolean_and_number_and_template" === key
             )
                 continue;

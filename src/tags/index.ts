@@ -1,3 +1,4 @@
+export * from "./Default";
 export * from "./ExclusiveMaximum";
 export * from "./ExclusiveMinimum";
 export * from "./Format";

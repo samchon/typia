@@ -21,8 +21,6 @@ export const test_protobuf_validateDecode_CommentTagDefault =
                             Number.isFinite(input.number) &&
                             "string" === typeof input.string &&
                             "string" === typeof input.text &&
-                            "string" === typeof input.template &&
-                            RegExp(/^prefix_(.*)/).test(input.template) &&
                             ("string" ===
                                 typeof input.boolean_and_number_and_string ||
                                 ("number" ===
@@ -47,10 +45,6 @@ export const test_protobuf_validateDecode_CommentTagDefault =
                             "number" === typeof input.vulnerable_range &&
                             3 <= input.vulnerable_range &&
                             input.vulnerable_range <= 5 &&
-                            "string" === typeof input.vulnerable_template &&
-                            RegExp(/^prefix_(.*)/).test(
-                                input.vulnerable_template,
-                            ) &&
                             null !== input.boolean_and_number_and_template &&
                             undefined !==
                                 input.boolean_and_number_and_template &&
@@ -111,15 +105,6 @@ export const test_protobuf_validateDecode_CommentTagDefault =
                                             path: _path + ".text",
                                             expected: "string",
                                             value: input.text,
-                                        }),
-                                    ("string" === typeof input.template &&
-                                        RegExp(/^prefix_(.*)/).test(
-                                            input.template,
-                                        )) ||
-                                        $report(_exceptionable, {
-                                            path: _path + ".template",
-                                            expected: "`prefix_${string}`",
-                                            value: input.template,
                                         }),
                                     "string" ===
                                         typeof input.boolean_and_number_and_string ||
@@ -205,17 +190,6 @@ export const test_protobuf_validateDecode_CommentTagDefault =
                                                 "(number & Minimum<3> & Maximum<5>)",
                                             value: input.vulnerable_range,
                                         }),
-                                    ("string" ===
-                                        typeof input.vulnerable_template &&
-                                        RegExp(/^prefix_(.*)/).test(
-                                            input.vulnerable_template,
-                                        )) ||
-                                        $report(_exceptionable, {
-                                            path:
-                                                _path + ".vulnerable_template",
-                                            expected: "`prefix_${string}`",
-                                            value: input.vulnerable_template,
-                                        }),
                                     (null !==
                                         input.boolean_and_number_and_template ||
                                         $report(_exceptionable, {
@@ -296,13 +270,11 @@ export const test_protobuf_validateDecode_CommentTagDefault =
                             number: undefined as any,
                             string: "" as any,
                             text: "" as any,
-                            template: undefined as any,
                             boolean_and_number_and_string: "" as any,
                             union_but_boolean: "" as any,
                             union_but_number: "" as any,
                             union_but_string: "" as any,
                             vulnerable_range: undefined as any,
-                            vulnerable_template: undefined as any,
                             boolean_and_number_and_template: undefined as any,
                         };
                         while (reader.index() < length) {
@@ -325,80 +297,71 @@ export const test_protobuf_validateDecode_CommentTagDefault =
                                     output.text = reader.string();
                                     break;
                                 case 5:
-                                    // string;
-                                    output.template = reader.string();
-                                    break;
-                                case 6:
                                     // bool;
                                     output.boolean_and_number_and_string =
                                         reader.bool();
                                     break;
-                                case 7:
+                                case 6:
                                     // double;
                                     output.boolean_and_number_and_string =
                                         reader.double();
                                     break;
-                                case 8:
+                                case 7:
                                     // string;
                                     output.boolean_and_number_and_string =
                                         reader.string();
                                     break;
-                                case 9:
+                                case 8:
                                     // bool;
                                     output.union_but_boolean = reader.bool();
                                     break;
-                                case 10:
+                                case 9:
                                     // double;
                                     output.union_but_boolean = reader.double();
                                     break;
-                                case 11:
+                                case 10:
                                     // string;
                                     output.union_but_boolean = reader.string();
                                     break;
-                                case 12:
+                                case 11:
                                     // bool;
                                     output.union_but_number = reader.bool();
                                     break;
-                                case 13:
+                                case 12:
                                     // double;
                                     output.union_but_number = reader.double();
                                     break;
-                                case 14:
+                                case 13:
                                     // string;
                                     output.union_but_number = reader.string();
                                     break;
-                                case 15:
+                                case 14:
                                     // bool;
                                     output.union_but_string = reader.bool();
                                     break;
-                                case 16:
+                                case 15:
                                     // double;
                                     output.union_but_string = reader.double();
                                     break;
-                                case 17:
+                                case 16:
                                     // string;
                                     output.union_but_string = reader.string();
                                     break;
-                                case 18:
+                                case 17:
                                     // double;
                                     output.vulnerable_range = reader.double();
                                     break;
-                                case 19:
-                                    // string;
-                                    output.vulnerable_template =
-                                        reader.string();
-                                    break;
-                                case 20:
+                                case 18:
                                     // bool;
                                     output.boolean_and_number_and_template =
                                         reader.bool();
                                     break;
-                                case 21:
+                                case 19:
                                     // double;
                                     output.boolean_and_number_and_template =
                                         reader.double();
                                     break;
-                                case 22:
+                                case 20:
                                     // string;
                                     output.boolean_and_number_and_template =
                                         reader.string();
@@ -434,24 +397,21 @@ export const test_protobuf_validateDecode_CommentTagDefault =
                     // property "text";
                     writer.uint32(34);
                     writer.string(input.text);
-                    // property "template";
-                    writer.uint32(42);
-                    writer.string(input.template);
                     // property "boolean_and_number_and_string";
                     if (
                         "boolean" === typeof input.boolean_and_number_and_string
                     ) {
-                        writer.uint32(48);
+                        writer.uint32(40);
                         writer.bool(input.boolean_and_number_and_string);
                     } else if (
                         "number" === typeof input.boolean_and_number_and_string
                     ) {
-                        writer.uint32(57);
+                        writer.uint32(49);
                         writer.double(input.boolean_and_number_and_string);
                     } else if (
                         "string" === typeof input.boolean_and_number_and_string
                     ) {
-                        writer.uint32(66);
+                        writer.uint32(58);
                         writer.string(input.boolean_and_number_and_string);
                     } else
                         $throws({
@@ -460,13 +420,13 @@ export const test_protobuf_validateDecode_CommentTagDefault =
                         });
                     // property "union_but_boolean";
                     if ("boolean" === typeof input.union_but_boolean) {
-                        writer.uint32(72);
+                        writer.uint32(64);
                         writer.bool(input.union_but_boolean);
                     } else if ("number" === typeof input.union_but_boolean) {
-                        writer.uint32(81);
+                        writer.uint32(73);
                         writer.double(input.union_but_boolean);
                     } else if ("string" === typeof input.union_but_boolean) {
-                        writer.uint32(90);
+                        writer.uint32(82);
                         writer.string(input.union_but_boolean);
                     } else
                         $throws({
@@ -475,13 +435,13 @@ export const test_protobuf_validateDecode_CommentTagDefault =
                         });
                     // property "union_but_number";
                     if ("boolean" === typeof input.union_but_number) {
-                        writer.uint32(96);
+                        writer.uint32(88);
                         writer.bool(input.union_but_number);
                     } else if ("number" === typeof input.union_but_number) {
-                        writer.uint32(105);
+                        writer.uint32(97);
                         writer.double(input.union_but_number);
                     } else if ("string" === typeof input.union_but_number) {
-                        writer.uint32(114);
+                        writer.uint32(106);
                         writer.string(input.union_but_number);
                     } else
                         $throws({
@@ -490,13 +450,13 @@ export const test_protobuf_validateDecode_CommentTagDefault =
                         });
                     // property "union_but_string";
                     if ("boolean" === typeof input.union_but_string) {
-                        writer.uint32(120);
+                        writer.uint32(112);
                         writer.bool(input.union_but_string);
                     } else if ("number" === typeof input.union_but_string) {
-                        writer.uint32(129);
+                        writer.uint32(121);
                         writer.double(input.union_but_string);
                     } else if ("string" === typeof input.union_but_string) {
-                        writer.uint32(138);
+                        writer.uint32(130);
                         writer.string(input.union_but_string);
                     } else
                         $throws({
@@ -504,29 +464,26 @@ export const test_protobuf_validateDecode_CommentTagDefault =
                             value: input.union_but_string,
                         });
                     // property "vulnerable_range";
-                    writer.uint32(145);
+                    writer.uint32(137);
                     writer.double(input.vulnerable_range);
-                    // property "vulnerable_template";
-                    writer.uint32(154);
-                    writer.string(input.vulnerable_template);
                     // property "boolean_and_number_and_template";
                     if (
                         "boolean" ===
                         typeof input.boolean_and_number_and_template
                     ) {
-                        writer.uint32(160);
+                        writer.uint32(144);
                         writer.bool(input.boolean_and_number_and_template);
                     } else if (
                         "number" ===
                         typeof input.boolean_and_number_and_template
                     ) {
-                        writer.uint32(169);
+                        writer.uint32(153);
                         writer.double(input.boolean_and_number_and_template);
                     } else if (
                         "string" ===
                         typeof input.boolean_and_number_and_template
                     ) {
-                        writer.uint32(178);
+                        writer.uint32(162);
                         writer.string(input.boolean_and_number_and_template);
                     } else
                         $throws({

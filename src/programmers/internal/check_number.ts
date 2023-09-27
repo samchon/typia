@@ -60,46 +60,49 @@ const check_numeric_type_tags =
     (atomic: MetadataAtomic) =>
     (addition: ts.Expression | null) =>
     (input: ts.Expression): ICheckEntry.ICondition[][] =>
-        atomic.tags.map((row) => [
-            ...(addition === null
-                ? []
-                : row.some(
-                      (tag) =>
-                          tag.kind === "type" &&
-                          (tag.value === "int32" ||
-                              tag.value === "uint32" ||
-                              tag.value === "int64" ||
-                              tag.value === "uint64" ||
-                              tag.value === "float"),
-                  ) ||
-                  row.some(
-                      (tag) =>
-                          tag.kind === "multipleOf" &&
-                          typeof tag.value === "number",
-                  ) ||
-                  (row.some(
-                      (tag) =>
-                          (tag.kind === "minimum" ||
-                              tag.kind === "exclusiveMinimum") &&
-                          typeof tag.value === "number",
-                  ) &&
+        atomic.tags
+            .map((row) => row.filter((tag) => !!tag.validate))
+            .filter((row) => !!row.length)
+            .map((row) => [
+                ...(addition === null
+                    ? []
+                    : row.some(
+                          (tag) =>
+                              tag.kind === "type" &&
+                              (tag.value === "int32" ||
+                                  tag.value === "uint32" ||
+                                  tag.value === "int64" ||
+                                  tag.value === "uint64" ||
+                                  tag.value === "float"),
+                      ) ||
                       row.some(
                           (tag) =>
-                              (tag.kind === "maximum" ||
-                                  tag.kind === "exclusiveMaximum") &&
+                              tag.kind === "multipleOf" &&
                               typeof tag.value === "number",
-                      ))
-                ? []
-                : [
-                      {
-                          expected: "number",
-                          expression: addition!,
-                      },
-                  ]),
-            ...row.map((tag) => ({
-                expected: `number & ${tag.name}`,
-                expression: ExpressionFactory.transpile(project.context)(
-                    tag.validate,
-                )(input),
-            })),
-        ]);
+                      ) ||
+                      (row.some(
+                          (tag) =>
+                              (tag.kind === "minimum" ||
+                                  tag.kind === "exclusiveMinimum") &&
+                              typeof tag.value === "number",
+                      ) &&
+                          row.some(
+                              (tag) =>
+                                  (tag.kind === "maximum" ||
+                                      tag.kind === "exclusiveMaximum") &&
+                                  typeof tag.value === "number",
+                          ))
+                    ? []
+                    : [
+                          {
+                              expected: "number",
+                              expression: addition!,
+                          },
+                      ]),
+                ...row.map((tag) => ({
+                    expected: `number & ${tag.name}`,
+                    expression: ExpressionFactory.transpile(project.context)(
+                        tag.validate!,
+                    )(input),
+                })),
+            ]);

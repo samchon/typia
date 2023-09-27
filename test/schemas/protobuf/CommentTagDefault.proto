@@ -5,32 +5,30 @@ message CommentTagDefault {
     required double number = 2;
     required string string = 3;
     required string text = 4;
-    required string template = 5;
     oneof boolean_and_number_and_string {
-        bool v6 = 6;
-        double v7 = 7;
-        string v8 = 8;
+        bool v5 = 5;
+        double v6 = 6;
+        string v7 = 7;
     }
     oneof union_but_boolean {
-        bool v9 = 9;
-        double v10 = 10;
-        string v11 = 11;
+        bool v8 = 8;
+        double v9 = 9;
+        string v10 = 10;
     }
     oneof union_but_number {
-        bool v12 = 12;
-        double v13 = 13;
-        string v14 = 14;
+        bool v11 = 11;
+        double v12 = 12;
+        string v13 = 13;
     }
     oneof union_but_string {
-        bool v15 = 15;
-        double v16 = 16;
-        string v17 = 17;
+        bool v14 = 14;
+        double v15 = 15;
+        string v16 = 16;
     }
-    required double vulnerable_range = 18;
-    required string vulnerable_template = 19;
+    required double vulnerable_range = 17;
     oneof boolean_and_number_and_template {
-        bool v20 = 20;
-        double v21 = 21;
-        string v22 = 22;
+        bool v18 = 18;
+        double v19 = 19;
+        string v20 = 20;
     }
 }

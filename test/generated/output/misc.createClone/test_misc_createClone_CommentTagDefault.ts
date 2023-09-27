@@ -11,14 +11,12 @@ export const test_misc_createClone_CommentTagDefault = _test_misc_clone(
             number: input.number as any,
             string: input.string as any,
             text: input.text as any,
-            template: input.template as any,
             boolean_and_number_and_string:
                 input.boolean_and_number_and_string as any,
             union_but_boolean: input.union_but_boolean as any,
             union_but_number: input.union_but_number as any,
             union_but_string: input.union_but_string as any,
             vulnerable_range: input.vulnerable_range as any,
-            vulnerable_template: input.vulnerable_template as any,
             boolean_and_number_and_template:
                 input.boolean_and_number_and_template as any,
         });

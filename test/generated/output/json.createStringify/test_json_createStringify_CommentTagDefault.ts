@@ -13,8 +13,6 @@ export const test_json_createStringify_CommentTagDefault = _test_json_stringify(
             input.number,
         )},"string":${$string(input.string)},"text":${$string(
             input.text,
-        )},"template":${$string(
-            input.template,
         )},"boolean_and_number_and_string":${(() => {
             if ("string" === typeof input.boolean_and_number_and_string)
                 return $string(input.boolean_and_number_and_string);
@@ -61,8 +59,6 @@ export const test_json_createStringify_CommentTagDefault = _test_json_stringify(
             });
         })()},"vulnerable_range":${$number(
             input.vulnerable_range,
-        )},"vulnerable_template":${$string(
-            input.vulnerable_template,
         )},"boolean_and_number_and_template":${(() => {
             if ("string" === typeof input.boolean_and_number_and_template)
                 return $string(input.boolean_and_number_and_template);

@@ -19,8 +19,6 @@ export const test_assertEquals_CommentTagDefault = _test_assertEquals(
                 Number.isFinite(input.number) &&
                 "string" === typeof input.string &&
                 "string" === typeof input.text &&
-                "string" === typeof input.template &&
-                RegExp(/^prefix_(.*)/).test(input.template) &&
                 ("string" === typeof input.boolean_and_number_and_string ||
                     ("number" === typeof input.boolean_and_number_and_string &&
                         Number.isFinite(input.boolean_and_number_and_string)) ||
@@ -40,8 +38,6 @@ export const test_assertEquals_CommentTagDefault = _test_assertEquals(
                 "number" === typeof input.vulnerable_range &&
                 3 <= input.vulnerable_range &&
                 input.vulnerable_range <= 5 &&
-                "string" === typeof input.vulnerable_template &&
-                RegExp(/^prefix_(.*)/).test(input.vulnerable_template) &&
                 null !== input.boolean_and_number_and_template &&
                 undefined !== input.boolean_and_number_and_template &&
                 (("number" === typeof input.boolean_and_number_and_template &&
@@ -53,7 +49,7 @@ export const test_assertEquals_CommentTagDefault = _test_assertEquals(
                         RegExp(/^prefix_(.*)/).test(
                             input.boolean_and_number_and_template,
                         ))) &&
-                (12 === Object.keys(input).length ||
+                (10 === Object.keys(input).length ||
                     Object.keys(input).every((key: any) => {
                         if (
                             [
@@ -61,13 +57,11 @@ export const test_assertEquals_CommentTagDefault = _test_assertEquals(
                                 "number",
                                 "string",
                                 "text",
-                                "template",
                                 "boolean_and_number_and_string",
                                 "union_but_boolean",
                                 "union_but_number",
                                 "union_but_string",
                                 "vulnerable_range",
-                                "vulnerable_template",
                                 "boolean_and_number_and_template",
                             ].some((prop: any) => key === prop)
                         )
@@ -117,13 +111,6 @@ export const test_assertEquals_CommentTagDefault = _test_assertEquals(
                             path: _path + ".text",
                             expected: "string",
                             value: input.text,
-                        })) &&
-                    (("string" === typeof input.template &&
-                        RegExp(/^prefix_(.*)/).test(input.template)) ||
-                        $guard(_exceptionable, {
-                            path: _path + ".template",
-                            expected: "`prefix_${string}`",
-                            value: input.template,
                         })) &&
                     ("string" === typeof input.boolean_and_number_and_string ||
                         ("number" ===
@@ -183,15 +170,6 @@ export const test_assertEquals_CommentTagDefault = _test_assertEquals(
                             expected: "(number & Minimum<3> & Maximum<5>)",
                             value: input.vulnerable_range,
                         })) &&
-                    (("string" === typeof input.vulnerable_template &&
-                        RegExp(/^prefix_(.*)/).test(
-                            input.vulnerable_template,
-                        )) ||
-                        $guard(_exceptionable, {
-                            path: _path + ".vulnerable_template",
-                            expected: "`prefix_${string}`",
-                            value: input.vulnerable_template,
-                        })) &&
                     (null !== input.boolean_and_number_and_template ||
                         $guard(_exceptionable, {
                             path: _path + ".boolean_and_number_and_template",
@@ -221,7 +199,7 @@ export const test_assertEquals_CommentTagDefault = _test_assertEquals(
                             expected: "(`prefix_${string}` | boolean | number)",
                             value: input.boolean_and_number_and_template,
                         })) &&
-                    (12 === Object.keys(input).length ||
+                    (10 === Object.keys(input).length ||
                         false === _exceptionable ||
                         Object.keys(input).every((key: any) => {
                             if (
@@ -230,13 +208,11 @@ export const test_assertEquals_CommentTagDefault = _test_assertEquals(
                                     "number",
                                     "string",
                                     "text",
-                                    "template",
                                     "boolean_and_number_and_string",
                                     "union_but_boolean",
                                     "union_but_number",
                                     "union_but_string",
                                     "vulnerable_range",
-                                    "vulnerable_template",
                                     "boolean_and_number_and_template",
                                 ].some((prop: any) => key === prop)
                             )

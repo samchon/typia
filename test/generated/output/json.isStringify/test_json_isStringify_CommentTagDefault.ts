@@ -13,8 +13,6 @@ export const test_json_isStringify_CommentTagDefault = _test_json_isStringify(
                 Number.isFinite(input.number) &&
                 "string" === typeof input.string &&
                 "string" === typeof input.text &&
-                "string" === typeof input.template &&
-                RegExp(/^prefix_(.*)/).test(input.template) &&
                 ("string" === typeof input.boolean_and_number_and_string ||
                     ("number" === typeof input.boolean_and_number_and_string &&
                         Number.isFinite(input.boolean_and_number_and_string)) ||
@@ -34,8 +32,6 @@ export const test_json_isStringify_CommentTagDefault = _test_json_isStringify(
                 "number" === typeof input.vulnerable_range &&
                 3 <= input.vulnerable_range &&
                 input.vulnerable_range <= 5 &&
-                "string" === typeof input.vulnerable_template &&
-                RegExp(/^prefix_(.*)/).test(input.vulnerable_template) &&
                 null !== input.boolean_and_number_and_template &&
                 undefined !== input.boolean_and_number_and_template &&
                 (("number" === typeof input.boolean_and_number_and_template &&
@@ -58,8 +54,6 @@ export const test_json_isStringify_CommentTagDefault = _test_json_isStringify(
                     input.number,
                 )},"string":${$string(input.string)},"text":${$string(
                     input.text,
-                )},"template":${$string(
-                    input.template,
                 )},"boolean_and_number_and_string":${(() => {
                     if ("string" === typeof input.boolean_and_number_and_string)
                         return $string(input.boolean_and_number_and_string);
@@ -108,8 +102,6 @@ export const test_json_isStringify_CommentTagDefault = _test_json_isStringify(
                     });
                 })()},"vulnerable_range":${$number(
                     input.vulnerable_range,
-                )},"vulnerable_template":${$string(
-                    input.vulnerable_template,
                 )},"boolean_and_number_and_template":${(() => {
                     if (
                         "string" ===

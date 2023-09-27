@@ -123,6 +123,14 @@ export const test_json_createIsParse_UltimateUnion = _test_json_isParse(
                 (undefined === input["x-typia-rest"] ||
                     "boolean" === typeof input["x-typia-rest"]);
             const $io6 = (input: any): boolean =>
+                (undefined === input["x-typia-typeTags"] ||
+                    (Array.isArray(input["x-typia-typeTags"]) &&
+                        input["x-typia-typeTags"].every(
+                            (elem: any) =>
+                                "object" === typeof elem &&
+                                null !== elem &&
+                                $io7(elem),
+                        ))) &&
                 (undefined === input["default"] ||
                     "boolean" === typeof input["default"]) &&
                 "boolean" === input.type &&
@@ -149,6 +157,24 @@ export const test_json_createIsParse_UltimateUnion = _test_json_isParse(
                 (undefined === input["x-typia-rest"] ||
                     "boolean" === typeof input["x-typia-rest"]);
             const $io7 = (input: any): boolean =>
+                ("string" === input.target ||
+                    "number" === input.target ||
+                    "bigint" === input.target ||
+                    "boolean" === input.target ||
+                    "array" === input.target) &&
+                "string" === typeof input.name &&
+                "string" === typeof input.kind &&
+                true &&
+                (undefined === input.validate ||
+                    "string" === typeof input.validate) &&
+                null !== input.exclusive &&
+                undefined !== input.exclusive &&
+                ("boolean" === typeof input.exclusive ||
+                    (Array.isArray(input.exclusive) &&
+                        input.exclusive.every(
+                            (elem: any) => "string" === typeof elem,
+                        )));
+            const $io8 = (input: any): boolean =>
                 (undefined === input.minimum ||
                     ("number" === typeof input.minimum &&
                         Math.floor(input.minimum) === input.minimum &&
@@ -174,7 +200,7 @@ export const test_json_createIsParse_UltimateUnion = _test_json_isParse(
                             (elem: any) =>
                                 "object" === typeof elem &&
                                 null !== elem &&
-                                $io8(elem),
+                                $io7(elem),
                         ))) &&
                 (undefined === input["default"] ||
                     ("number" === typeof input["default"] &&
@@ -202,22 +228,6 @@ export const test_json_createIsParse_UltimateUnion = _test_json_isParse(
                     "boolean" === typeof input["x-typia-optional"]) &&
                 (undefined === input["x-typia-rest"] ||
                     "boolean" === typeof input["x-typia-rest"]);
-            const $io8 = (input: any): boolean =>
-                ("string" === input.target ||
-                    "number" === input.target ||
-                    "bigint" === input.target ||
-                    "array" === input.target) &&
-                "string" === typeof input.name &&
-                "string" === typeof input.kind &&
-                true &&
-                "string" === typeof input.validate &&
-                null !== input.exclusive &&
-                undefined !== input.exclusive &&
-                ("boolean" === typeof input.exclusive ||
-                    (Array.isArray(input.exclusive) &&
-                        input.exclusive.every(
-                            (elem: any) => "string" === typeof elem,
-                        )));
             const $io9 = (input: any): boolean =>
                 (undefined === input.minimum ||
                     ("number" === typeof input.minimum &&
@@ -238,7 +248,7 @@ export const test_json_createIsParse_UltimateUnion = _test_json_isParse(
                             (elem: any) =>
                                 "object" === typeof elem &&
                                 null !== elem &&
-                                $io8(elem),
+                                $io7(elem),
                         ))) &&
                 (undefined === input["default"] ||
                     ("number" === typeof input["default"] &&
@@ -287,7 +297,7 @@ export const test_json_createIsParse_UltimateUnion = _test_json_isParse(
                             (elem: any) =>
                                 "object" === typeof elem &&
                                 null !== elem &&
-                                $io8(elem),
+                                $io7(elem),
                         ))) &&
                 (undefined === input["default"] ||
                     "string" === typeof input["default"]) &&
@@ -672,6 +682,14 @@ export const test_json_createIsParse_UltimateUnion = _test_json_isParse(
                 (undefined === input.$recursiveAnchor ||
                     "boolean" === typeof input.$recursiveAnchor);
             const $io24 = (input: any): boolean =>
+                (undefined === input["x-typia-typeTags"] ||
+                    (Array.isArray(input["x-typia-typeTags"]) &&
+                        input["x-typia-typeTags"].every(
+                            (elem: any) =>
+                                "object" === typeof elem &&
+                                null !== elem &&
+                                $io7(elem),
+                        ))) &&
                 (undefined === input["default"] ||
                     "boolean" === typeof input["default"]) &&
                 "boolean" === input.type &&
@@ -726,7 +744,7 @@ export const test_json_createIsParse_UltimateUnion = _test_json_isParse(
                             (elem: any) =>
                                 "object" === typeof elem &&
                                 null !== elem &&
-                                $io8(elem),
+                                $io7(elem),
                         ))) &&
                 (undefined === input["default"] ||
                     ("number" === typeof input["default"] &&
@@ -777,7 +795,7 @@ export const test_json_createIsParse_UltimateUnion = _test_json_isParse(
                             (elem: any) =>
                                 "object" === typeof elem &&
                                 null !== elem &&
-                                $io8(elem),
+                                $io7(elem),
                         ))) &&
                 (undefined === input["default"] ||
                     ("number" === typeof input["default"] &&
@@ -829,7 +847,7 @@ export const test_json_createIsParse_UltimateUnion = _test_json_isParse(
                             (elem: any) =>
                                 "object" === typeof elem &&
                                 null !== elem &&
-                                $io8(elem),
+                                $io7(elem),
                         ))) &&
                 (undefined === input["default"] ||
                     "string" === typeof input["default"]) &&
@@ -1058,7 +1076,7 @@ export const test_json_createIsParse_UltimateUnion = _test_json_isParse(
                     "boolean" === typeof input.$recursiveAnchor);
             const $iu0 = (input: any): any =>
                 (() => {
-                    if ("integer" === input.type) return $io7(input);
+                    if ("integer" === input.type) return $io8(input);
                     else if (
                         "object" === typeof input.items &&
                         null !== input.items &&

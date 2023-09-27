@@ -24,10 +24,6 @@ export const test_createRandom_CommentTagDefault = _test_random(
             text:
                 (generator?.customs ?? $generator.customs)?.string?.([]) ??
                 (generator?.string ?? $generator.string)(),
-            template: `prefix_${
-                (generator?.customs ?? $generator.customs)?.string?.([]) ??
-                (generator?.string ?? $generator.string)()
-            }`,
             boolean_and_number_and_string: $pick([
                 () =>
                     (generator?.customs ?? $generator.customs)?.string?.([]) ??
@@ -77,10 +73,6 @@ export const test_createRandom_CommentTagDefault = _test_random(
                         value: 5,
                     },
                 ]) ?? (generator?.number ?? $generator.number)(3, 5),
-            vulnerable_template: `prefix_${
-                (generator?.customs ?? $generator.customs)?.string?.([]) ??
-                (generator?.string ?? $generator.string)()
-            }`,
             boolean_and_number_and_template: $pick([
                 () =>
                     `prefix_${
@@ -104,8 +96,6 @@ export const test_createRandom_CommentTagDefault = _test_random(
                 Number.isFinite(input.number) &&
                 "string" === typeof input.string &&
                 "string" === typeof input.text &&
-                "string" === typeof input.template &&
-                RegExp(/^prefix_(.*)/).test(input.template) &&
                 ("string" === typeof input.boolean_and_number_and_string ||
                     ("number" === typeof input.boolean_and_number_and_string &&
                         Number.isFinite(input.boolean_and_number_and_string)) ||
@@ -125,8 +115,6 @@ export const test_createRandom_CommentTagDefault = _test_random(
                 "number" === typeof input.vulnerable_range &&
                 3 <= input.vulnerable_range &&
                 input.vulnerable_range <= 5 &&
-                "string" === typeof input.vulnerable_template &&
-                RegExp(/^prefix_(.*)/).test(input.vulnerable_template) &&
                 null !== input.boolean_and_number_and_template &&
                 undefined !== input.boolean_and_number_and_template &&
                 (("number" === typeof input.boolean_and_number_and_template &&
@@ -176,13 +164,6 @@ export const test_createRandom_CommentTagDefault = _test_random(
                             path: _path + ".text",
                             expected: "string",
                             value: input.text,
-                        })) &&
-                    (("string" === typeof input.template &&
-                        RegExp(/^prefix_(.*)/).test(input.template)) ||
-                        $guard(_exceptionable, {
-                            path: _path + ".template",
-                            expected: "`prefix_${string}`",
-                            value: input.template,
                         })) &&
                     ("string" === typeof input.boolean_and_number_and_string ||
                         ("number" ===
@@ -241,15 +222,6 @@ export const test_createRandom_CommentTagDefault = _test_random(
                             path: _path + ".vulnerable_range",
                             expected: "(number & Minimum<3> & Maximum<5>)",
                             value: input.vulnerable_range,
-                        })) &&
-                    (("string" === typeof input.vulnerable_template &&
-                        RegExp(/^prefix_(.*)/).test(
-                            input.vulnerable_template,
-                        )) ||
-                        $guard(_exceptionable, {
-                            path: _path + ".vulnerable_template",
-                            expected: "`prefix_${string}`",
-                            value: input.vulnerable_template,
                         })) &&
                     (null !== input.boolean_and_number_and_template ||
                         $guard(_exceptionable, {

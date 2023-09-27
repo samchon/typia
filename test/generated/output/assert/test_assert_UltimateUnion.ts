@@ -123,6 +123,14 @@ export const test_assert_UltimateUnion = _test_assert(
                 (undefined === input["x-typia-rest"] ||
                     "boolean" === typeof input["x-typia-rest"]);
             const $io6 = (input: any): boolean =>
+                (undefined === input["x-typia-typeTags"] ||
+                    (Array.isArray(input["x-typia-typeTags"]) &&
+                        input["x-typia-typeTags"].every(
+                            (elem: any) =>
+                                "object" === typeof elem &&
+                                null !== elem &&
+                                $io7(elem),
+                        ))) &&
                 (undefined === input["default"] ||
                     "boolean" === typeof input["default"]) &&
                 "boolean" === input.type &&
@@ -149,6 +157,24 @@ export const test_assert_UltimateUnion = _test_assert(
                 (undefined === input["x-typia-rest"] ||
                     "boolean" === typeof input["x-typia-rest"]);
             const $io7 = (input: any): boolean =>
+                ("string" === input.target ||
+                    "number" === input.target ||
+                    "bigint" === input.target ||
+                    "boolean" === input.target ||
+                    "array" === input.target) &&
+                "string" === typeof input.name &&
+                "string" === typeof input.kind &&
+                true &&
+                (undefined === input.validate ||
+                    "string" === typeof input.validate) &&
+                null !== input.exclusive &&
+                undefined !== input.exclusive &&
+                ("boolean" === typeof input.exclusive ||
+                    (Array.isArray(input.exclusive) &&
+                        input.exclusive.every(
+                            (elem: any) => "string" === typeof elem,
+                        )));
+            const $io8 = (input: any): boolean =>
                 (undefined === input.minimum ||
                     ("number" === typeof input.minimum &&
                         Math.floor(input.minimum) === input.minimum &&
@@ -174,7 +200,7 @@ export const test_assert_UltimateUnion = _test_assert(
                             (elem: any) =>
                                 "object" === typeof elem &&
                                 null !== elem &&
-                                $io8(elem),
+                                $io7(elem),
                         ))) &&
                 (undefined === input["default"] ||
                     ("number" === typeof input["default"] &&
@@ -202,22 +228,6 @@ export const test_assert_UltimateUnion = _test_assert(
                     "boolean" === typeof input["x-typia-optional"]) &&
                 (undefined === input["x-typia-rest"] ||
                     "boolean" === typeof input["x-typia-rest"]);
-            const $io8 = (input: any): boolean =>
-                ("string" === input.target ||
-                    "number" === input.target ||
-                    "bigint" === input.target ||
-                    "array" === input.target) &&
-                "string" === typeof input.name &&
-                "string" === typeof input.kind &&
-                true &&
-                "string" === typeof input.validate &&
-                null !== input.exclusive &&
-                undefined !== input.exclusive &&
-                ("boolean" === typeof input.exclusive ||
-                    (Array.isArray(input.exclusive) &&
-                        input.exclusive.every(
-                            (elem: any) => "string" === typeof elem,
-                        )));
             const $io9 = (input: any): boolean =>
                 (undefined === input.minimum ||
                     ("number" === typeof input.minimum &&
@@ -238,7 +248,7 @@ export const test_assert_UltimateUnion = _test_assert(
                             (elem: any) =>
                                 "object" === typeof elem &&
                                 null !== elem &&
-                                $io8(elem),
+                                $io7(elem),
                         ))) &&
                 (undefined === input["default"] ||
                     ("number" === typeof input["default"] &&
@@ -287,7 +297,7 @@ export const test_assert_UltimateUnion = _test_assert(
                             (elem: any) =>
                                 "object" === typeof elem &&
                                 null !== elem &&
-                                $io8(elem),
+                                $io7(elem),
                         ))) &&
                 (undefined === input["default"] ||
                     "string" === typeof input["default"]) &&
@@ -672,6 +682,14 @@ export const test_assert_UltimateUnion = _test_assert(
                 (undefined === input.$recursiveAnchor ||
                     "boolean" === typeof input.$recursiveAnchor);
             const $io24 = (input: any): boolean =>
+                (undefined === input["x-typia-typeTags"] ||
+                    (Array.isArray(input["x-typia-typeTags"]) &&
+                        input["x-typia-typeTags"].every(
+                            (elem: any) =>
+                                "object" === typeof elem &&
+                                null !== elem &&
+                                $io7(elem),
+                        ))) &&
                 (undefined === input["default"] ||
                     "boolean" === typeof input["default"]) &&
                 "boolean" === input.type &&
@@ -726,7 +744,7 @@ export const test_assert_UltimateUnion = _test_assert(
                             (elem: any) =>
                                 "object" === typeof elem &&
                                 null !== elem &&
-                                $io8(elem),
+                                $io7(elem),
                         ))) &&
                 (undefined === input["default"] ||
                     ("number" === typeof input["default"] &&
@@ -777,7 +795,7 @@ export const test_assert_UltimateUnion = _test_assert(
                             (elem: any) =>
                                 "object" === typeof elem &&
                                 null !== elem &&
-                                $io8(elem),
+                                $io7(elem),
                         ))) &&
                 (undefined === input["default"] ||
                     ("number" === typeof input["default"] &&
@@ -829,7 +847,7 @@ export const test_assert_UltimateUnion = _test_assert(
                             (elem: any) =>
                                 "object" === typeof elem &&
                                 null !== elem &&
-                                $io8(elem),
+                                $io7(elem),
                         ))) &&
                 (undefined === input["default"] ||
                     "string" === typeof input["default"]) &&
@@ -1058,7 +1076,7 @@ export const test_assert_UltimateUnion = _test_assert(
                     "boolean" === typeof input.$recursiveAnchor);
             const $iu0 = (input: any): any =>
                 (() => {
-                    if ("integer" === input.type) return $io7(input);
+                    if ("integer" === input.type) return $io8(input);
                     else if (
                         "object" === typeof input.items &&
                         null !== input.items &&
@@ -1673,6 +1691,50 @@ export const test_assert_UltimateUnion = _test_assert(
                     _path: string,
                     _exceptionable: boolean = true,
                 ): boolean =>
+                    (undefined === input["x-typia-typeTags"] ||
+                        ((Array.isArray(input["x-typia-typeTags"]) ||
+                            $guard(_exceptionable, {
+                                path: _path + '["x-typia-typeTags"]',
+                                expected:
+                                    "(Array<IMetadataTypeTag> | undefined)",
+                                value: input["x-typia-typeTags"],
+                            })) &&
+                            input["x-typia-typeTags"].every(
+                                (elem: any, _index10: number) =>
+                                    ((("object" === typeof elem &&
+                                        null !== elem) ||
+                                        $guard(_exceptionable, {
+                                            path:
+                                                _path +
+                                                '["x-typia-typeTags"][' +
+                                                _index10 +
+                                                "]",
+                                            expected: "IMetadataTypeTag",
+                                            value: elem,
+                                        })) &&
+                                        $ao7(
+                                            elem,
+                                            _path +
+                                                '["x-typia-typeTags"][' +
+                                                _index10 +
+                                                "]",
+                                            true && _exceptionable,
+                                        )) ||
+                                    $guard(_exceptionable, {
+                                        path:
+                                            _path +
+                                            '["x-typia-typeTags"][' +
+                                            _index10 +
+                                            "]",
+                                        expected: "IMetadataTypeTag",
+                                        value: elem,
+                                    }),
+                            )) ||
+                        $guard(_exceptionable, {
+                            path: _path + '["x-typia-typeTags"]',
+                            expected: "(Array<IMetadataTypeTag> | undefined)",
+                            value: input["x-typia-typeTags"],
+                        })) &&
                     (undefined === input["default"] ||
                         "boolean" === typeof input["default"] ||
                         $guard(_exceptionable, {
@@ -1722,14 +1784,14 @@ export const test_assert_UltimateUnion = _test_assert(
                                 value: input["x-typia-jsDocTags"],
                             })) &&
                             input["x-typia-jsDocTags"].every(
-                                (elem: any, _index10: number) =>
+                                (elem: any, _index11: number) =>
                                     ((("object" === typeof elem &&
                                         null !== elem) ||
                                         $guard(_exceptionable, {
                                             path:
                                                 _path +
                                                 '["x-typia-jsDocTags"][' +
-                                                _index10 +
+                                                _index11 +
                                                 "]",
                                             expected: "IJsDocTagInfo",
                                             value: elem,
@@ -1738,7 +1800,7 @@ export const test_assert_UltimateUnion = _test_assert(
                                             elem,
                                             _path +
                                                 '["x-typia-jsDocTags"][' +
-                                                _index10 +
+                                                _index11 +
                                                 "]",
                                             true && _exceptionable,
                                         )) ||
@@ -1746,7 +1808,7 @@ export const test_assert_UltimateUnion = _test_assert(
                                         path:
                                             _path +
                                             '["x-typia-jsDocTags"][' +
-                                            _index10 +
+                                            _index11 +
                                             "]",
                                         expected: "IJsDocTagInfo",
                                         value: elem,
@@ -1779,6 +1841,79 @@ export const test_assert_UltimateUnion = _test_assert(
                             value: input["x-typia-rest"],
                         }));
                 const $ao7 = (
+                    input: any,
+                    _path: string,
+                    _exceptionable: boolean = true,
+                ): boolean =>
+                    ("string" === input.target ||
+                        "number" === input.target ||
+                        "bigint" === input.target ||
+                        "boolean" === input.target ||
+                        "array" === input.target ||
+                        $guard(_exceptionable, {
+                            path: _path + ".target",
+                            expected:
+                                '("array" | "bigint" | "boolean" | "number" | "string")',
+                            value: input.target,
+                        })) &&
+                    ("string" === typeof input.name ||
+                        $guard(_exceptionable, {
+                            path: _path + ".name",
+                            expected: "string",
+                            value: input.name,
+                        })) &&
+                    ("string" === typeof input.kind ||
+                        $guard(_exceptionable, {
+                            path: _path + ".kind",
+                            expected: "string",
+                            value: input.kind,
+                        })) &&
+                    true &&
+                    (undefined === input.validate ||
+                        "string" === typeof input.validate ||
+                        $guard(_exceptionable, {
+                            path: _path + ".validate",
+                            expected: "(string | undefined)",
+                            value: input.validate,
+                        })) &&
+                    (null !== input.exclusive ||
+                        $guard(_exceptionable, {
+                            path: _path + ".exclusive",
+                            expected: "(Array<string> | boolean)",
+                            value: input.exclusive,
+                        })) &&
+                    (undefined !== input.exclusive ||
+                        $guard(_exceptionable, {
+                            path: _path + ".exclusive",
+                            expected: "(Array<string> | boolean)",
+                            value: input.exclusive,
+                        })) &&
+                    ("boolean" === typeof input.exclusive ||
+                        ((Array.isArray(input.exclusive) ||
+                            $guard(_exceptionable, {
+                                path: _path + ".exclusive",
+                                expected: "(Array<string> | boolean)",
+                                value: input.exclusive,
+                            })) &&
+                            input.exclusive.every(
+                                (elem: any, _index12: number) =>
+                                    "string" === typeof elem ||
+                                    $guard(_exceptionable, {
+                                        path:
+                                            _path +
+                                            ".exclusive[" +
+                                            _index12 +
+                                            "]",
+                                        expected: "string",
+                                        value: elem,
+                                    }),
+                            )) ||
+                        $guard(_exceptionable, {
+                            path: _path + ".exclusive",
+                            expected: "(Array<string> | boolean)",
+                            value: input.exclusive,
+                        }));
+                const $ao8 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
@@ -1852,23 +1987,23 @@ export const test_assert_UltimateUnion = _test_assert(
                                 value: input["x-typia-typeTags"],
                             })) &&
                             input["x-typia-typeTags"].every(
-                                (elem: any, _index11: number) =>
+                                (elem: any, _index13: number) =>
                                     ((("object" === typeof elem &&
                                         null !== elem) ||
                                         $guard(_exceptionable, {
                                             path:
                                                 _path +
                                                 '["x-typia-typeTags"][' +
-                                                _index11 +
+                                                _index13 +
                                                 "]",
                                             expected: "IMetadataTypeTag",
                                             value: elem,
                                         })) &&
-                                        $ao8(
+                                        $ao7(
                                             elem,
                                             _path +
                                                 '["x-typia-typeTags"][' +
-                                                _index11 +
+                                                _index13 +
                                                 "]",
                                             true && _exceptionable,
                                         )) ||
@@ -1876,7 +2011,7 @@ export const test_assert_UltimateUnion = _test_assert(
                                         path:
                                             _path +
                                             '["x-typia-typeTags"][' +
-                                            _index11 +
+                                            _index13 +
                                             "]",
                                         expected: "IMetadataTypeTag",
                                         value: elem,
@@ -1937,14 +2072,14 @@ export const test_assert_UltimateUnion = _test_assert(
                                 value: input["x-typia-jsDocTags"],
                             })) &&
                             input["x-typia-jsDocTags"].every(
-                                (elem: any, _index12: number) =>
+                                (elem: any, _index14: number) =>
                                     ((("object" === typeof elem &&
                                         null !== elem) ||
                                         $guard(_exceptionable, {
                                             path:
                                                 _path +
                                                 '["x-typia-jsDocTags"][' +
-                                                _index12 +
+                                                _index14 +
                                                 "]",
                                             expected: "IJsDocTagInfo",
                                             value: elem,
@@ -1953,7 +2088,7 @@ export const test_assert_UltimateUnion = _test_assert(
                                             elem,
                                             _path +
                                                 '["x-typia-jsDocTags"][' +
-                                                _index12 +
+                                                _index14 +
                                                 "]",
                                             true && _exceptionable,
                                         )) ||
@@ -1961,7 +2096,7 @@ export const test_assert_UltimateUnion = _test_assert(
                                         path:
                                             _path +
                                             '["x-typia-jsDocTags"][' +
-                                            _index12 +
+                                            _index14 +
                                             "]",
                                         expected: "IJsDocTagInfo",
                                         value: elem,
@@ -1992,77 +2127,6 @@ export const test_assert_UltimateUnion = _test_assert(
                             path: _path + '["x-typia-rest"]',
                             expected: "(boolean | undefined)",
                             value: input["x-typia-rest"],
-                        }));
-                const $ao8 = (
-                    input: any,
-                    _path: string,
-                    _exceptionable: boolean = true,
-                ): boolean =>
-                    ("string" === input.target ||
-                        "number" === input.target ||
-                        "bigint" === input.target ||
-                        "array" === input.target ||
-                        $guard(_exceptionable, {
-                            path: _path + ".target",
-                            expected:
-                                '("array" | "bigint" | "number" | "string")',
-                            value: input.target,
-                        })) &&
-                    ("string" === typeof input.name ||
-                        $guard(_exceptionable, {
-                            path: _path + ".name",
-                            expected: "string",
-                            value: input.name,
-                        })) &&
-                    ("string" === typeof input.kind ||
-                        $guard(_exceptionable, {
-                            path: _path + ".kind",
-                            expected: "string",
-                            value: input.kind,
-                        })) &&
-                    true &&
-                    ("string" === typeof input.validate ||
-                        $guard(_exceptionable, {
-                            path: _path + ".validate",
-                            expected: "string",
-                            value: input.validate,
-                        })) &&
-                    (null !== input.exclusive ||
-                        $guard(_exceptionable, {
-                            path: _path + ".exclusive",
-                            expected: "(Array<string> | boolean)",
-                            value: input.exclusive,
-                        })) &&
-                    (undefined !== input.exclusive ||
-                        $guard(_exceptionable, {
-                            path: _path + ".exclusive",
-                            expected: "(Array<string> | boolean)",
-                            value: input.exclusive,
-                        })) &&
-                    ("boolean" === typeof input.exclusive ||
-                        ((Array.isArray(input.exclusive) ||
-                            $guard(_exceptionable, {
-                                path: _path + ".exclusive",
-                                expected: "(Array<string> | boolean)",
-                                value: input.exclusive,
-                            })) &&
-                            input.exclusive.every(
-                                (elem: any, _index13: number) =>
-                                    "string" === typeof elem ||
-                                    $guard(_exceptionable, {
-                                        path:
-                                            _path +
-                                            ".exclusive[" +
-                                            _index13 +
-                                            "]",
-                                        expected: "string",
-                                        value: elem,
-                                    }),
-                            )) ||
-                        $guard(_exceptionable, {
-                            path: _path + ".exclusive",
-                            expected: "(Array<string> | boolean)",
-                            value: input.exclusive,
                         }));
                 const $ao9 = (
                     input: any,
@@ -2116,23 +2180,23 @@ export const test_assert_UltimateUnion = _test_assert(
                                 value: input["x-typia-typeTags"],
                             })) &&
                             input["x-typia-typeTags"].every(
-                                (elem: any, _index14: number) =>
+                                (elem: any, _index15: number) =>
                                     ((("object" === typeof elem &&
                                         null !== elem) ||
                                         $guard(_exceptionable, {
                                             path:
                                                 _path +
                                                 '["x-typia-typeTags"][' +
-                                                _index14 +
+                                                _index15 +
                                                 "]",
                                             expected: "IMetadataTypeTag",
                                             value: elem,
                                         })) &&
-                                        $ao8(
+                                        $ao7(
                                             elem,
                                             _path +
                                                 '["x-typia-typeTags"][' +
-                                                _index14 +
+                                                _index15 +
                                                 "]",
                                             true && _exceptionable,
                                         )) ||
@@ -2140,7 +2204,7 @@ export const test_assert_UltimateUnion = _test_assert(
                                         path:
                                             _path +
                                             '["x-typia-typeTags"][' +
-                                            _index14 +
+                                            _index15 +
                                             "]",
                                         expected: "IMetadataTypeTag",
                                         value: elem,
@@ -2201,14 +2265,14 @@ export const test_assert_UltimateUnion = _test_assert(
                                 value: input["x-typia-jsDocTags"],
                             })) &&
                             input["x-typia-jsDocTags"].every(
-                                (elem: any, _index15: number) =>
+                                (elem: any, _index16: number) =>
                                     ((("object" === typeof elem &&
                                         null !== elem) ||
                                         $guard(_exceptionable, {
                                             path:
                                                 _path +
                                                 '["x-typia-jsDocTags"][' +
-                                                _index15 +
+                                                _index16 +
                                                 "]",
                                             expected: "IJsDocTagInfo",
                                             value: elem,
@@ -2217,7 +2281,7 @@ export const test_assert_UltimateUnion = _test_assert(
                                             elem,
                                             _path +
                                                 '["x-typia-jsDocTags"][' +
-                                                _index15 +
+                                                _index16 +
                                                 "]",
                                             true && _exceptionable,
                                         )) ||
@@ -2225,7 +2289,7 @@ export const test_assert_UltimateUnion = _test_assert(
                                         path:
                                             _path +
                                             '["x-typia-jsDocTags"][' +
-                                            _index15 +
+                                            _index16 +
                                             "]",
                                         expected: "IJsDocTagInfo",
                                         value: elem,
@@ -2315,23 +2379,23 @@ export const test_assert_UltimateUnion = _test_assert(
                                 value: input["x-typia-typeTags"],
                             })) &&
                             input["x-typia-typeTags"].every(
-                                (elem: any, _index16: number) =>
+                                (elem: any, _index17: number) =>
                                     ((("object" === typeof elem &&
                                         null !== elem) ||
                                         $guard(_exceptionable, {
                                             path:
                                                 _path +
                                                 '["x-typia-typeTags"][' +
-                                                _index16 +
+                                                _index17 +
                                                 "]",
                                             expected: "IMetadataTypeTag",
                                             value: elem,
                                         })) &&
-                                        $ao8(
+                                        $ao7(
                                             elem,
                                             _path +
                                                 '["x-typia-typeTags"][' +
-                                                _index16 +
+                                                _index17 +
                                                 "]",
                                             true && _exceptionable,
                                         )) ||
@@ -2339,7 +2403,7 @@ export const test_assert_UltimateUnion = _test_assert(
                                         path:
                                             _path +
                                             '["x-typia-typeTags"][' +
-                                            _index16 +
+                                            _index17 +
                                             "]",
                                         expected: "IMetadataTypeTag",
                                         value: elem,
@@ -2399,14 +2463,14 @@ export const test_assert_UltimateUnion = _test_assert(
                                 value: input["x-typia-jsDocTags"],
                             })) &&
                             input["x-typia-jsDocTags"].every(
-                                (elem: any, _index17: number) =>
+                                (elem: any, _index18: number) =>
                                     ((("object" === typeof elem &&
                                         null !== elem) ||
                                         $guard(_exceptionable, {
                                             path:
                                                 _path +
                                                 '["x-typia-jsDocTags"][' +
-                                                _index17 +
+                                                _index18 +
                                                 "]",
                                             expected: "IJsDocTagInfo",
                                             value: elem,
@@ -2415,7 +2479,7 @@ export const test_assert_UltimateUnion = _test_assert(
                                             elem,
                                             _path +
                                                 '["x-typia-jsDocTags"][' +
-                                                _index17 +
+                                                _index18 +
                                                 "]",
                                             true && _exceptionable,
                                         )) ||
@@ -2423,7 +2487,7 @@ export const test_assert_UltimateUnion = _test_assert(
                                         path:
                                             _path +
                                             '["x-typia-jsDocTags"][' +
-                                            _index17 +
+                                            _index18 +
                                             "]",
                                         expected: "IJsDocTagInfo",
                                         value: elem,
@@ -2570,14 +2634,14 @@ export const test_assert_UltimateUnion = _test_assert(
                                 value: input["x-typia-jsDocTags"],
                             })) &&
                             input["x-typia-jsDocTags"].every(
-                                (elem: any, _index18: number) =>
+                                (elem: any, _index19: number) =>
                                     ((("object" === typeof elem &&
                                         null !== elem) ||
                                         $guard(_exceptionable, {
                                             path:
                                                 _path +
                                                 '["x-typia-jsDocTags"][' +
-                                                _index18 +
+                                                _index19 +
                                                 "]",
                                             expected: "IJsDocTagInfo",
                                             value: elem,
@@ -2586,7 +2650,7 @@ export const test_assert_UltimateUnion = _test_assert(
                                             elem,
                                             _path +
                                                 '["x-typia-jsDocTags"][' +
-                                                _index18 +
+                                                _index19 +
                                                 "]",
                                             true && _exceptionable,
                                         )) ||
@@ -2594,7 +2658,7 @@ export const test_assert_UltimateUnion = _test_assert(
                                         path:
                                             _path +
                                             '["x-typia-jsDocTags"][' +
-                                            _index18 +
+                                            _index19 +
                                             "]",
                                         expected: "IJsDocTagInfo",
                                         value: elem,
@@ -2638,24 +2702,24 @@ export const test_assert_UltimateUnion = _test_assert(
                             value: input.items,
                         })) &&
                         input.items.every(
-                            (elem: any, _index19: number) =>
+                            (elem: any, _index20: number) =>
                                 ((("object" === typeof elem &&
                                     null !== elem &&
                                     false === Array.isArray(elem)) ||
                                     $guard(_exceptionable, {
                                         path:
-                                            _path + ".items[" + _index19 + "]",
+                                            _path + ".items[" + _index20 + "]",
                                         expected:
                                             '(IJsonSchema.IArray | IJsonSchema.IBoolean | IJsonSchema.IEnumeration<"boolean"> | IJsonSchema.IEnumeration<"number"> | IJsonSchema.IEnumeration<"string"> | IJsonSchema.IInteger | IJsonSchema.INullOnly | IJsonSchema.INumber | IJsonSchema.IOneOf | IJsonSchema.IReference | IJsonSchema.IString | IJsonSchema.ITuple | IJsonSchema.IUnknown)',
                                         value: elem,
                                     })) &&
                                     $au0(
                                         elem,
-                                        _path + ".items[" + _index19 + "]",
+                                        _path + ".items[" + _index20 + "]",
                                         true && _exceptionable,
                                     )) ||
                                 $guard(_exceptionable, {
-                                    path: _path + ".items[" + _index19 + "]",
+                                    path: _path + ".items[" + _index20 + "]",
                                     expected:
                                         '(IJsonSchema.IArray | IJsonSchema.IBoolean | IJsonSchema.IEnumeration<"boolean"> | IJsonSchema.IEnumeration<"number"> | IJsonSchema.IEnumeration<"string"> | IJsonSchema.IInteger | IJsonSchema.INullOnly | IJsonSchema.INumber | IJsonSchema.IOneOf | IJsonSchema.IReference | IJsonSchema.IString | IJsonSchema.ITuple | IJsonSchema.IUnknown)',
                                     value: elem,
@@ -2737,14 +2801,14 @@ export const test_assert_UltimateUnion = _test_assert(
                                 value: input["x-typia-jsDocTags"],
                             })) &&
                             input["x-typia-jsDocTags"].every(
-                                (elem: any, _index20: number) =>
+                                (elem: any, _index21: number) =>
                                     ((("object" === typeof elem &&
                                         null !== elem) ||
                                         $guard(_exceptionable, {
                                             path:
                                                 _path +
                                                 '["x-typia-jsDocTags"][' +
-                                                _index20 +
+                                                _index21 +
                                                 "]",
                                             expected: "IJsDocTagInfo",
                                             value: elem,
@@ -2753,7 +2817,7 @@ export const test_assert_UltimateUnion = _test_assert(
                                             elem,
                                             _path +
                                                 '["x-typia-jsDocTags"][' +
-                                                _index20 +
+                                                _index21 +
                                                 "]",
                                             true && _exceptionable,
                                         )) ||
@@ -2761,7 +2825,7 @@ export const test_assert_UltimateUnion = _test_assert(
                                         path:
                                             _path +
                                             '["x-typia-jsDocTags"][' +
-                                            _index20 +
+                                            _index21 +
                                             "]",
                                         expected: "IJsDocTagInfo",
                                         value: elem,
@@ -2805,24 +2869,24 @@ export const test_assert_UltimateUnion = _test_assert(
                             value: input.oneOf,
                         })) &&
                         input.oneOf.every(
-                            (elem: any, _index21: number) =>
+                            (elem: any, _index22: number) =>
                                 ((("object" === typeof elem &&
                                     null !== elem &&
                                     false === Array.isArray(elem)) ||
                                     $guard(_exceptionable, {
                                         path:
-                                            _path + ".oneOf[" + _index21 + "]",
+                                            _path + ".oneOf[" + _index22 + "]",
                                         expected:
                                             '(IJsonSchema.IArray | IJsonSchema.IBoolean | IJsonSchema.IEnumeration<"boolean"> | IJsonSchema.IEnumeration<"number"> | IJsonSchema.IEnumeration<"string"> | IJsonSchema.IInteger | IJsonSchema.INullOnly | IJsonSchema.INumber | IJsonSchema.IOneOf | IJsonSchema.IReference | IJsonSchema.IString | IJsonSchema.ITuple | IJsonSchema.IUnknown)',
                                         value: elem,
                                     })) &&
                                     $au0(
                                         elem,
-                                        _path + ".oneOf[" + _index21 + "]",
+                                        _path + ".oneOf[" + _index22 + "]",
                                         true && _exceptionable,
                                     )) ||
                                 $guard(_exceptionable, {
-                                    path: _path + ".oneOf[" + _index21 + "]",
+                                    path: _path + ".oneOf[" + _index22 + "]",
                                     expected:
                                         '(IJsonSchema.IArray | IJsonSchema.IBoolean | IJsonSchema.IEnumeration<"boolean"> | IJsonSchema.IEnumeration<"number"> | IJsonSchema.IEnumeration<"string"> | IJsonSchema.IInteger | IJsonSchema.INullOnly | IJsonSchema.INumber | IJsonSchema.IOneOf | IJsonSchema.IReference | IJsonSchema.IString | IJsonSchema.ITuple | IJsonSchema.IUnknown)',
                                     value: elem,
@@ -2832,102 +2896,6 @@ export const test_assert_UltimateUnion = _test_assert(
                             path: _path + ".oneOf",
                             expected: "Array<IJsonSchema>",
                             value: input.oneOf,
-                        })) &&
-                    (undefined === input.deprecated ||
-                        "boolean" === typeof input.deprecated ||
-                        $guard(_exceptionable, {
-                            path: _path + ".deprecated",
-                            expected: "(boolean | undefined)",
-                            value: input.deprecated,
-                        })) &&
-                    (undefined === input.title ||
-                        "string" === typeof input.title ||
-                        $guard(_exceptionable, {
-                            path: _path + ".title",
-                            expected: "(string | undefined)",
-                            value: input.title,
-                        })) &&
-                    (undefined === input.description ||
-                        "string" === typeof input.description ||
-                        $guard(_exceptionable, {
-                            path: _path + ".description",
-                            expected: "(string | undefined)",
-                            value: input.description,
-                        })) &&
-                    (undefined === input["x-typia-jsDocTags"] ||
-                        ((Array.isArray(input["x-typia-jsDocTags"]) ||
-                            $guard(_exceptionable, {
-                                path: _path + '["x-typia-jsDocTags"]',
-                                expected: "(Array<IJsDocTagInfo> | undefined)",
-                                value: input["x-typia-jsDocTags"],
-                            })) &&
-                            input["x-typia-jsDocTags"].every(
-                                (elem: any, _index22: number) =>
-                                    ((("object" === typeof elem &&
-                                        null !== elem) ||
-                                        $guard(_exceptionable, {
-                                            path:
-                                                _path +
-                                                '["x-typia-jsDocTags"][' +
-                                                _index22 +
-                                                "]",
-                                            expected: "IJsDocTagInfo",
-                                            value: elem,
-                                        })) &&
-                                        $ao2(
-                                            elem,
-                                            _path +
-                                                '["x-typia-jsDocTags"][' +
-                                                _index22 +
-                                                "]",
-                                            true && _exceptionable,
-                                        )) ||
-                                    $guard(_exceptionable, {
-                                        path:
-                                            _path +
-                                            '["x-typia-jsDocTags"][' +
-                                            _index22 +
-                                            "]",
-                                        expected: "IJsDocTagInfo",
-                                        value: elem,
-                                    }),
-                            )) ||
-                        $guard(_exceptionable, {
-                            path: _path + '["x-typia-jsDocTags"]',
-                            expected: "(Array<IJsDocTagInfo> | undefined)",
-                            value: input["x-typia-jsDocTags"],
-                        })) &&
-                    (undefined === input["x-typia-required"] ||
-                        "boolean" === typeof input["x-typia-required"] ||
-                        $guard(_exceptionable, {
-                            path: _path + '["x-typia-required"]',
-                            expected: "(boolean | undefined)",
-                            value: input["x-typia-required"],
-                        })) &&
-                    (undefined === input["x-typia-optional"] ||
-                        "boolean" === typeof input["x-typia-optional"] ||
-                        $guard(_exceptionable, {
-                            path: _path + '["x-typia-optional"]',
-                            expected: "(boolean | undefined)",
-                            value: input["x-typia-optional"],
-                        })) &&
-                    (undefined === input["x-typia-rest"] ||
-                        "boolean" === typeof input["x-typia-rest"] ||
-                        $guard(_exceptionable, {
-                            path: _path + '["x-typia-rest"]',
-                            expected: "(boolean | undefined)",
-                            value: input["x-typia-rest"],
-                        }));
-                const $ao14 = (
-                    input: any,
-                    _path: string,
-                    _exceptionable: boolean = true,
-                ): boolean =>
-                    ("string" === typeof input.$ref ||
-                        $guard(_exceptionable, {
-                            path: _path + ".$ref",
-                            expected: "string",
-                            value: input.$ref,
                         })) &&
                     (undefined === input.deprecated ||
                         "boolean" === typeof input.deprecated ||
@@ -3014,16 +2982,16 @@ export const test_assert_UltimateUnion = _test_assert(
                             expected: "(boolean | undefined)",
                             value: input["x-typia-rest"],
                         }));
-                const $ao15 = (
+                const $ao14 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): boolean =>
-                    ("null" === input.type ||
+                    ("string" === typeof input.$ref ||
                         $guard(_exceptionable, {
-                            path: _path + ".type",
-                            expected: '"null"',
-                            value: input.type,
+                            path: _path + ".$ref",
+                            expected: "string",
+                            value: input.$ref,
                         })) &&
                     (undefined === input.deprecated ||
                         "boolean" === typeof input.deprecated ||
@@ -3110,21 +3078,15 @@ export const test_assert_UltimateUnion = _test_assert(
                             expected: "(boolean | undefined)",
                             value: input["x-typia-rest"],
                         }));
-                const $ao16 = (
+                const $ao15 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): boolean =>
-                    (null !== input.type ||
+                    ("null" === input.type ||
                         $guard(_exceptionable, {
                             path: _path + ".type",
-                            expected: "undefined",
-                            value: input.type,
-                        })) &&
-                    (undefined === input.type ||
-                        $guard(_exceptionable, {
-                            path: _path + ".type",
-                            expected: "undefined",
+                            expected: '"null"',
                             value: input.type,
                         })) &&
                     (undefined === input.deprecated ||
@@ -3181,6 +3143,108 @@ export const test_assert_UltimateUnion = _test_assert(
                                             _path +
                                             '["x-typia-jsDocTags"][' +
                                             _index25 +
+                                            "]",
+                                        expected: "IJsDocTagInfo",
+                                        value: elem,
+                                    }),
+                            )) ||
+                        $guard(_exceptionable, {
+                            path: _path + '["x-typia-jsDocTags"]',
+                            expected: "(Array<IJsDocTagInfo> | undefined)",
+                            value: input["x-typia-jsDocTags"],
+                        })) &&
+                    (undefined === input["x-typia-required"] ||
+                        "boolean" === typeof input["x-typia-required"] ||
+                        $guard(_exceptionable, {
+                            path: _path + '["x-typia-required"]',
+                            expected: "(boolean | undefined)",
+                            value: input["x-typia-required"],
+                        })) &&
+                    (undefined === input["x-typia-optional"] ||
+                        "boolean" === typeof input["x-typia-optional"] ||
+                        $guard(_exceptionable, {
+                            path: _path + '["x-typia-optional"]',
+                            expected: "(boolean | undefined)",
+                            value: input["x-typia-optional"],
+                        })) &&
+                    (undefined === input["x-typia-rest"] ||
+                        "boolean" === typeof input["x-typia-rest"] ||
+                        $guard(_exceptionable, {
+                            path: _path + '["x-typia-rest"]',
+                            expected: "(boolean | undefined)",
+                            value: input["x-typia-rest"],
+                        }));
+                const $ao16 = (
+                    input: any,
+                    _path: string,
+                    _exceptionable: boolean = true,
+                ): boolean =>
+                    (null !== input.type ||
+                        $guard(_exceptionable, {
+                            path: _path + ".type",
+                            expected: "undefined",
+                            value: input.type,
+                        })) &&
+                    (undefined === input.type ||
+                        $guard(_exceptionable, {
+                            path: _path + ".type",
+                            expected: "undefined",
+                            value: input.type,
+                        })) &&
+                    (undefined === input.deprecated ||
+                        "boolean" === typeof input.deprecated ||
+                        $guard(_exceptionable, {
+                            path: _path + ".deprecated",
+                            expected: "(boolean | undefined)",
+                            value: input.deprecated,
+                        })) &&
+                    (undefined === input.title ||
+                        "string" === typeof input.title ||
+                        $guard(_exceptionable, {
+                            path: _path + ".title",
+                            expected: "(string | undefined)",
+                            value: input.title,
+                        })) &&
+                    (undefined === input.description ||
+                        "string" === typeof input.description ||
+                        $guard(_exceptionable, {
+                            path: _path + ".description",
+                            expected: "(string | undefined)",
+                            value: input.description,
+                        })) &&
+                    (undefined === input["x-typia-jsDocTags"] ||
+                        ((Array.isArray(input["x-typia-jsDocTags"]) ||
+                            $guard(_exceptionable, {
+                                path: _path + '["x-typia-jsDocTags"]',
+                                expected: "(Array<IJsDocTagInfo> | undefined)",
+                                value: input["x-typia-jsDocTags"],
+                            })) &&
+                            input["x-typia-jsDocTags"].every(
+                                (elem: any, _index26: number) =>
+                                    ((("object" === typeof elem &&
+                                        null !== elem) ||
+                                        $guard(_exceptionable, {
+                                            path:
+                                                _path +
+                                                '["x-typia-jsDocTags"][' +
+                                                _index26 +
+                                                "]",
+                                            expected: "IJsDocTagInfo",
+                                            value: elem,
+                                        })) &&
+                                        $ao2(
+                                            elem,
+                                            _path +
+                                                '["x-typia-jsDocTags"][' +
+                                                _index26 +
+                                                "]",
+                                            true && _exceptionable,
+                                        )) ||
+                                    $guard(_exceptionable, {
+                                        path:
+                                            _path +
+                                            '["x-typia-jsDocTags"][' +
+                                            _index26 +
                                             "]",
                                         expected: "IJsDocTagInfo",
                                         value: elem,
@@ -3366,13 +3430,13 @@ export const test_assert_UltimateUnion = _test_assert(
                                 value: input.required,
                             })) &&
                             input.required.every(
-                                (elem: any, _index26: number) =>
+                                (elem: any, _index27: number) =>
                                     "string" === typeof elem ||
                                     $guard(_exceptionable, {
                                         path:
                                             _path +
                                             ".required[" +
-                                            _index26 +
+                                            _index27 +
                                             "]",
                                         expected: "string",
                                         value: elem,
@@ -3398,14 +3462,14 @@ export const test_assert_UltimateUnion = _test_assert(
                                 value: input["x-typia-jsDocTags"],
                             })) &&
                             input["x-typia-jsDocTags"].every(
-                                (elem: any, _index27: number) =>
+                                (elem: any, _index28: number) =>
                                     ((("object" === typeof elem &&
                                         null !== elem) ||
                                         $guard(_exceptionable, {
                                             path:
                                                 _path +
                                                 '["x-typia-jsDocTags"][' +
-                                                _index27 +
+                                                _index28 +
                                                 "]",
                                             expected: "IJsDocTagInfo",
                                             value: elem,
@@ -3414,7 +3478,7 @@ export const test_assert_UltimateUnion = _test_assert(
                                             elem,
                                             _path +
                                                 '["x-typia-jsDocTags"][' +
-                                                _index27 +
+                                                _index28 +
                                                 "]",
                                             true && _exceptionable,
                                         )) ||
@@ -3422,7 +3486,7 @@ export const test_assert_UltimateUnion = _test_assert(
                                         path:
                                             _path +
                                             '["x-typia-jsDocTags"][' +
-                                            _index27 +
+                                            _index28 +
                                             "]",
                                         expected: "IJsDocTagInfo",
                                         value: elem,
@@ -3530,10 +3594,10 @@ export const test_assert_UltimateUnion = _test_assert(
                             value: input["enum"],
                         })) &&
                         input["enum"].every(
-                            (elem: any, _index28: number) =>
+                            (elem: any, _index29: number) =>
                                 "boolean" === typeof elem ||
                                 $guard(_exceptionable, {
-                                    path: _path + '["enum"][' + _index28 + "]",
+                                    path: _path + '["enum"][' + _index29 + "]",
                                     expected: "boolean",
                                     value: elem,
                                 }),
@@ -3592,14 +3656,14 @@ export const test_assert_UltimateUnion = _test_assert(
                                 value: input["x-typia-jsDocTags"],
                             })) &&
                             input["x-typia-jsDocTags"].every(
-                                (elem: any, _index29: number) =>
+                                (elem: any, _index30: number) =>
                                     ((("object" === typeof elem &&
                                         null !== elem) ||
                                         $guard(_exceptionable, {
                                             path:
                                                 _path +
                                                 '["x-typia-jsDocTags"][' +
-                                                _index29 +
+                                                _index30 +
                                                 "]",
                                             expected: "IJsDocTagInfo",
                                             value: elem,
@@ -3608,7 +3672,7 @@ export const test_assert_UltimateUnion = _test_assert(
                                             elem,
                                             _path +
                                                 '["x-typia-jsDocTags"][' +
-                                                _index29 +
+                                                _index30 +
                                                 "]",
                                             true && _exceptionable,
                                         )) ||
@@ -3616,7 +3680,7 @@ export const test_assert_UltimateUnion = _test_assert(
                                         path:
                                             _path +
                                             '["x-typia-jsDocTags"][' +
-                                            _index29 +
+                                            _index30 +
                                             "]",
                                         expected: "IJsDocTagInfo",
                                         value: elem,
@@ -3674,11 +3738,11 @@ export const test_assert_UltimateUnion = _test_assert(
                             value: input["enum"],
                         })) &&
                         input["enum"].every(
-                            (elem: any, _index30: number) =>
+                            (elem: any, _index31: number) =>
                                 ("number" === typeof elem &&
                                     Number.isFinite(elem)) ||
                                 $guard(_exceptionable, {
-                                    path: _path + '["enum"][' + _index30 + "]",
+                                    path: _path + '["enum"][' + _index31 + "]",
                                     expected: "number",
                                     value: elem,
                                 }),
@@ -3738,14 +3802,14 @@ export const test_assert_UltimateUnion = _test_assert(
                                 value: input["x-typia-jsDocTags"],
                             })) &&
                             input["x-typia-jsDocTags"].every(
-                                (elem: any, _index31: number) =>
+                                (elem: any, _index32: number) =>
                                     ((("object" === typeof elem &&
                                         null !== elem) ||
                                         $guard(_exceptionable, {
                                             path:
                                                 _path +
                                                 '["x-typia-jsDocTags"][' +
-                                                _index31 +
+                                                _index32 +
                                                 "]",
                                             expected: "IJsDocTagInfo",
                                             value: elem,
@@ -3754,7 +3818,7 @@ export const test_assert_UltimateUnion = _test_assert(
                                             elem,
                                             _path +
                                                 '["x-typia-jsDocTags"][' +
-                                                _index31 +
+                                                _index32 +
                                                 "]",
                                             true && _exceptionable,
                                         )) ||
@@ -3762,7 +3826,7 @@ export const test_assert_UltimateUnion = _test_assert(
                                         path:
                                             _path +
                                             '["x-typia-jsDocTags"][' +
-                                            _index31 +
+                                            _index32 +
                                             "]",
                                         expected: "IJsDocTagInfo",
                                         value: elem,
@@ -3820,10 +3884,10 @@ export const test_assert_UltimateUnion = _test_assert(
                             value: input["enum"],
                         })) &&
                         input["enum"].every(
-                            (elem: any, _index32: number) =>
+                            (elem: any, _index33: number) =>
                                 "string" === typeof elem ||
                                 $guard(_exceptionable, {
-                                    path: _path + '["enum"][' + _index32 + "]",
+                                    path: _path + '["enum"][' + _index33 + "]",
                                     expected: "string",
                                     value: elem,
                                 }),
@@ -3882,14 +3946,14 @@ export const test_assert_UltimateUnion = _test_assert(
                                 value: input["x-typia-jsDocTags"],
                             })) &&
                             input["x-typia-jsDocTags"].every(
-                                (elem: any, _index33: number) =>
+                                (elem: any, _index34: number) =>
                                     ((("object" === typeof elem &&
                                         null !== elem) ||
                                         $guard(_exceptionable, {
                                             path:
                                                 _path +
                                                 '["x-typia-jsDocTags"][' +
-                                                _index33 +
+                                                _index34 +
                                                 "]",
                                             expected: "IJsDocTagInfo",
                                             value: elem,
@@ -3898,7 +3962,7 @@ export const test_assert_UltimateUnion = _test_assert(
                                             elem,
                                             _path +
                                                 '["x-typia-jsDocTags"][' +
-                                                _index33 +
+                                                _index34 +
                                                 "]",
                                             true && _exceptionable,
                                         )) ||
@@ -3906,7 +3970,7 @@ export const test_assert_UltimateUnion = _test_assert(
                                         path:
                                             _path +
                                             '["x-typia-jsDocTags"][' +
-                                            _index33 +
+                                            _index34 +
                                             "]",
                                         expected: "IJsDocTagInfo",
                                         value: elem,
@@ -3957,6 +4021,50 @@ export const test_assert_UltimateUnion = _test_assert(
                     _path: string,
                     _exceptionable: boolean = true,
                 ): boolean =>
+                    (undefined === input["x-typia-typeTags"] ||
+                        ((Array.isArray(input["x-typia-typeTags"]) ||
+                            $guard(_exceptionable, {
+                                path: _path + '["x-typia-typeTags"]',
+                                expected:
+                                    "(Array<IMetadataTypeTag> | undefined)",
+                                value: input["x-typia-typeTags"],
+                            })) &&
+                            input["x-typia-typeTags"].every(
+                                (elem: any, _index35: number) =>
+                                    ((("object" === typeof elem &&
+                                        null !== elem) ||
+                                        $guard(_exceptionable, {
+                                            path:
+                                                _path +
+                                                '["x-typia-typeTags"][' +
+                                                _index35 +
+                                                "]",
+                                            expected: "IMetadataTypeTag",
+                                            value: elem,
+                                        })) &&
+                                        $ao7(
+                                            elem,
+                                            _path +
+                                                '["x-typia-typeTags"][' +
+                                                _index35 +
+                                                "]",
+                                            true && _exceptionable,
+                                        )) ||
+                                    $guard(_exceptionable, {
+                                        path:
+                                            _path +
+                                            '["x-typia-typeTags"][' +
+                                            _index35 +
+                                            "]",
+                                        expected: "IMetadataTypeTag",
+                                        value: elem,
+                                    }),
+                            )) ||
+                        $guard(_exceptionable, {
+                            path: _path + '["x-typia-typeTags"]',
+                            expected: "(Array<IMetadataTypeTag> | undefined)",
+                            value: input["x-typia-typeTags"],
+                        })) &&
                     (undefined === input["default"] ||
                         "boolean" === typeof input["default"] ||
                         $guard(_exceptionable, {
@@ -4006,14 +4114,14 @@ export const test_assert_UltimateUnion = _test_assert(
                                 value: input["x-typia-jsDocTags"],
                             })) &&
                             input["x-typia-jsDocTags"].every(
-                                (elem: any, _index34: number) =>
+                                (elem: any, _index36: number) =>
                                     ((("object" === typeof elem &&
                                         null !== elem) ||
                                         $guard(_exceptionable, {
                                             path:
                                                 _path +
                                                 '["x-typia-jsDocTags"][' +
-                                                _index34 +
+                                                _index36 +
                                                 "]",
                                             expected: "IJsDocTagInfo",
                                             value: elem,
@@ -4022,7 +4130,7 @@ export const test_assert_UltimateUnion = _test_assert(
                                             elem,
                                             _path +
                                                 '["x-typia-jsDocTags"][' +
-                                                _index34 +
+                                                _index36 +
                                                 "]",
                                             true && _exceptionable,
                                         )) ||
@@ -4030,7 +4138,7 @@ export const test_assert_UltimateUnion = _test_assert(
                                         path:
                                             _path +
                                             '["x-typia-jsDocTags"][' +
-                                            _index34 +
+                                            _index36 +
                                             "]",
                                         expected: "IJsDocTagInfo",
                                         value: elem,
@@ -4150,213 +4258,6 @@ export const test_assert_UltimateUnion = _test_assert(
                                 value: input["x-typia-typeTags"],
                             })) &&
                             input["x-typia-typeTags"].every(
-                                (elem: any, _index35: number) =>
-                                    ((("object" === typeof elem &&
-                                        null !== elem) ||
-                                        $guard(_exceptionable, {
-                                            path:
-                                                _path +
-                                                '["x-typia-typeTags"][' +
-                                                _index35 +
-                                                "]",
-                                            expected: "IMetadataTypeTag",
-                                            value: elem,
-                                        })) &&
-                                        $ao8(
-                                            elem,
-                                            _path +
-                                                '["x-typia-typeTags"][' +
-                                                _index35 +
-                                                "]",
-                                            true && _exceptionable,
-                                        )) ||
-                                    $guard(_exceptionable, {
-                                        path:
-                                            _path +
-                                            '["x-typia-typeTags"][' +
-                                            _index35 +
-                                            "]",
-                                        expected: "IMetadataTypeTag",
-                                        value: elem,
-                                    }),
-                            )) ||
-                        $guard(_exceptionable, {
-                            path: _path + '["x-typia-typeTags"]',
-                            expected: "(Array<IMetadataTypeTag> | undefined)",
-                            value: input["x-typia-typeTags"],
-                        })) &&
-                    (undefined === input["default"] ||
-                        ("number" === typeof input["default"] &&
-                            Number.isFinite(input["default"])) ||
-                        $guard(_exceptionable, {
-                            path: _path + '["default"]',
-                            expected: "(number | undefined)",
-                            value: input["default"],
-                        })) &&
-                    ("integer" === input.type ||
-                        $guard(_exceptionable, {
-                            path: _path + ".type",
-                            expected: '"integer"',
-                            value: input.type,
-                        })) &&
-                    (undefined === input.nullable ||
-                        "boolean" === typeof input.nullable ||
-                        $guard(_exceptionable, {
-                            path: _path + ".nullable",
-                            expected: "(boolean | undefined)",
-                            value: input.nullable,
-                        })) &&
-                    (undefined === input.deprecated ||
-                        "boolean" === typeof input.deprecated ||
-                        $guard(_exceptionable, {
-                            path: _path + ".deprecated",
-                            expected: "(boolean | undefined)",
-                            value: input.deprecated,
-                        })) &&
-                    (undefined === input.title ||
-                        "string" === typeof input.title ||
-                        $guard(_exceptionable, {
-                            path: _path + ".title",
-                            expected: "(string | undefined)",
-                            value: input.title,
-                        })) &&
-                    (undefined === input.description ||
-                        "string" === typeof input.description ||
-                        $guard(_exceptionable, {
-                            path: _path + ".description",
-                            expected: "(string | undefined)",
-                            value: input.description,
-                        })) &&
-                    (undefined === input["x-typia-jsDocTags"] ||
-                        ((Array.isArray(input["x-typia-jsDocTags"]) ||
-                            $guard(_exceptionable, {
-                                path: _path + '["x-typia-jsDocTags"]',
-                                expected: "(Array<IJsDocTagInfo> | undefined)",
-                                value: input["x-typia-jsDocTags"],
-                            })) &&
-                            input["x-typia-jsDocTags"].every(
-                                (elem: any, _index36: number) =>
-                                    ((("object" === typeof elem &&
-                                        null !== elem) ||
-                                        $guard(_exceptionable, {
-                                            path:
-                                                _path +
-                                                '["x-typia-jsDocTags"][' +
-                                                _index36 +
-                                                "]",
-                                            expected: "IJsDocTagInfo",
-                                            value: elem,
-                                        })) &&
-                                        $ao2(
-                                            elem,
-                                            _path +
-                                                '["x-typia-jsDocTags"][' +
-                                                _index36 +
-                                                "]",
-                                            true && _exceptionable,
-                                        )) ||
-                                    $guard(_exceptionable, {
-                                        path:
-                                            _path +
-                                            '["x-typia-jsDocTags"][' +
-                                            _index36 +
-                                            "]",
-                                        expected: "IJsDocTagInfo",
-                                        value: elem,
-                                    }),
-                            )) ||
-                        $guard(_exceptionable, {
-                            path: _path + '["x-typia-jsDocTags"]',
-                            expected: "(Array<IJsDocTagInfo> | undefined)",
-                            value: input["x-typia-jsDocTags"],
-                        })) &&
-                    (undefined === input["x-typia-required"] ||
-                        "boolean" === typeof input["x-typia-required"] ||
-                        $guard(_exceptionable, {
-                            path: _path + '["x-typia-required"]',
-                            expected: "(boolean | undefined)",
-                            value: input["x-typia-required"],
-                        })) &&
-                    (undefined === input["x-typia-optional"] ||
-                        "boolean" === typeof input["x-typia-optional"] ||
-                        $guard(_exceptionable, {
-                            path: _path + '["x-typia-optional"]',
-                            expected: "(boolean | undefined)",
-                            value: input["x-typia-optional"],
-                        })) &&
-                    (undefined === input["x-typia-rest"] ||
-                        "boolean" === typeof input["x-typia-rest"] ||
-                        $guard(_exceptionable, {
-                            path: _path + '["x-typia-rest"]',
-                            expected: "(boolean | undefined)",
-                            value: input["x-typia-rest"],
-                        })) &&
-                    (undefined === input.$id ||
-                        "string" === typeof input.$id ||
-                        $guard(_exceptionable, {
-                            path: _path + ".$id",
-                            expected: "(string | undefined)",
-                            value: input.$id,
-                        })) &&
-                    (undefined === input.$recursiveAnchor ||
-                        "boolean" === typeof input.$recursiveAnchor ||
-                        $guard(_exceptionable, {
-                            path: _path + ".$recursiveAnchor",
-                            expected: "(boolean | undefined)",
-                            value: input.$recursiveAnchor,
-                        }));
-                const $ao26 = (
-                    input: any,
-                    _path: string,
-                    _exceptionable: boolean = true,
-                ): boolean =>
-                    (undefined === input.minimum ||
-                        ("number" === typeof input.minimum &&
-                            Number.isFinite(input.minimum)) ||
-                        $guard(_exceptionable, {
-                            path: _path + ".minimum",
-                            expected: "(number | undefined)",
-                            value: input.minimum,
-                        })) &&
-                    (undefined === input.maximum ||
-                        ("number" === typeof input.maximum &&
-                            Number.isFinite(input.maximum)) ||
-                        $guard(_exceptionable, {
-                            path: _path + ".maximum",
-                            expected: "(number | undefined)",
-                            value: input.maximum,
-                        })) &&
-                    (undefined === input.exclusiveMinimum ||
-                        "boolean" === typeof input.exclusiveMinimum ||
-                        $guard(_exceptionable, {
-                            path: _path + ".exclusiveMinimum",
-                            expected: "(boolean | undefined)",
-                            value: input.exclusiveMinimum,
-                        })) &&
-                    (undefined === input.exclusiveMaximum ||
-                        "boolean" === typeof input.exclusiveMaximum ||
-                        $guard(_exceptionable, {
-                            path: _path + ".exclusiveMaximum",
-                            expected: "(boolean | undefined)",
-                            value: input.exclusiveMaximum,
-                        })) &&
-                    (undefined === input.multipleOf ||
-                        ("number" === typeof input.multipleOf &&
-                            Number.isFinite(input.multipleOf)) ||
-                        $guard(_exceptionable, {
-                            path: _path + ".multipleOf",
-                            expected: "(number | undefined)",
-                            value: input.multipleOf,
-                        })) &&
-                    (undefined === input["x-typia-typeTags"] ||
-                        ((Array.isArray(input["x-typia-typeTags"]) ||
-                            $guard(_exceptionable, {
-                                path: _path + '["x-typia-typeTags"]',
-                                expected:
-                                    "(Array<IMetadataTypeTag> | undefined)",
-                                value: input["x-typia-typeTags"],
-                            })) &&
-                            input["x-typia-typeTags"].every(
                                 (elem: any, _index37: number) =>
                                     ((("object" === typeof elem &&
                                         null !== elem) ||
@@ -4369,7 +4270,7 @@ export const test_assert_UltimateUnion = _test_assert(
                                             expected: "IMetadataTypeTag",
                                             value: elem,
                                         })) &&
-                                        $ao8(
+                                        $ao7(
                                             elem,
                                             _path +
                                                 '["x-typia-typeTags"][' +
@@ -4400,10 +4301,10 @@ export const test_assert_UltimateUnion = _test_assert(
                             expected: "(number | undefined)",
                             value: input["default"],
                         })) &&
-                    ("number" === input.type ||
+                    ("integer" === input.type ||
                         $guard(_exceptionable, {
                             path: _path + ".type",
-                            expected: '"number"',
+                            expected: '"integer"',
                             value: input.type,
                         })) &&
                     (undefined === input.nullable ||
@@ -4512,54 +4413,48 @@ export const test_assert_UltimateUnion = _test_assert(
                             expected: "(boolean | undefined)",
                             value: input.$recursiveAnchor,
                         }));
-                const $ao27 = (
+                const $ao26 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): boolean =>
-                    (undefined === input.minLength ||
-                        ("number" === typeof input.minLength &&
-                            ((Math.floor(input.minLength) === input.minLength &&
-                                0 <= input.minLength &&
-                                input.minLength <= 4294967295) ||
-                                $guard(_exceptionable, {
-                                    path: _path + ".minLength",
-                                    expected: 'number & Type<"uint32">',
-                                    value: input.minLength,
-                                }))) ||
+                    (undefined === input.minimum ||
+                        ("number" === typeof input.minimum &&
+                            Number.isFinite(input.minimum)) ||
                         $guard(_exceptionable, {
-                            path: _path + ".minLength",
-                            expected: '((number & Type<"uint32">) | undefined)',
-                            value: input.minLength,
+                            path: _path + ".minimum",
+                            expected: "(number | undefined)",
+                            value: input.minimum,
                         })) &&
-                    (undefined === input.maxLength ||
-                        ("number" === typeof input.maxLength &&
-                            ((Math.floor(input.maxLength) === input.maxLength &&
-                                0 <= input.maxLength &&
-                                input.maxLength <= 4294967295) ||
-                                $guard(_exceptionable, {
-                                    path: _path + ".maxLength",
-                                    expected: 'number & Type<"uint32">',
-                                    value: input.maxLength,
-                                }))) ||
+                    (undefined === input.maximum ||
+                        ("number" === typeof input.maximum &&
+                            Number.isFinite(input.maximum)) ||
                         $guard(_exceptionable, {
-                            path: _path + ".maxLength",
-                            expected: '((number & Type<"uint32">) | undefined)',
-                            value: input.maxLength,
+                            path: _path + ".maximum",
+                            expected: "(number | undefined)",
+                            value: input.maximum,
                         })) &&
-                    (undefined === input.pattern ||
-                        "string" === typeof input.pattern ||
+                    (undefined === input.exclusiveMinimum ||
+                        "boolean" === typeof input.exclusiveMinimum ||
                         $guard(_exceptionable, {
-                            path: _path + ".pattern",
-                            expected: "(string | undefined)",
-                            value: input.pattern,
+                            path: _path + ".exclusiveMinimum",
+                            expected: "(boolean | undefined)",
+                            value: input.exclusiveMinimum,
                         })) &&
-                    (undefined === input.format ||
-                        "string" === typeof input.format ||
+                    (undefined === input.exclusiveMaximum ||
+                        "boolean" === typeof input.exclusiveMaximum ||
                         $guard(_exceptionable, {
-                            path: _path + ".format",
-                            expected: "(string | undefined)",
-                            value: input.format,
+                            path: _path + ".exclusiveMaximum",
+                            expected: "(boolean | undefined)",
+                            value: input.exclusiveMaximum,
+                        })) &&
+                    (undefined === input.multipleOf ||
+                        ("number" === typeof input.multipleOf &&
+                            Number.isFinite(input.multipleOf)) ||
+                        $guard(_exceptionable, {
+                            path: _path + ".multipleOf",
+                            expected: "(number | undefined)",
+                            value: input.multipleOf,
                         })) &&
                     (undefined === input["x-typia-typeTags"] ||
                         ((Array.isArray(input["x-typia-typeTags"]) ||
@@ -4582,7 +4477,7 @@ export const test_assert_UltimateUnion = _test_assert(
                                             expected: "IMetadataTypeTag",
                                             value: elem,
                                         })) &&
-                                        $ao8(
+                                        $ao7(
                                             elem,
                                             _path +
                                                 '["x-typia-typeTags"][' +
@@ -4606,16 +4501,17 @@ export const test_assert_UltimateUnion = _test_assert(
                             value: input["x-typia-typeTags"],
                         })) &&
                     (undefined === input["default"] ||
-                        "string" === typeof input["default"] ||
+                        ("number" === typeof input["default"] &&
+                            Number.isFinite(input["default"])) ||
                         $guard(_exceptionable, {
                             path: _path + '["default"]',
-                            expected: "(string | undefined)",
+                            expected: "(number | undefined)",
                             value: input["default"],
                         })) &&
-                    ("string" === input.type ||
+                    ("number" === input.type ||
                         $guard(_exceptionable, {
                             path: _path + ".type",
-                            expected: '"string"',
+                            expected: '"number"',
                             value: input.type,
                         })) &&
                     (undefined === input.nullable ||
@@ -4679,6 +4575,218 @@ export const test_assert_UltimateUnion = _test_assert(
                                             _path +
                                             '["x-typia-jsDocTags"][' +
                                             _index40 +
+                                            "]",
+                                        expected: "IJsDocTagInfo",
+                                        value: elem,
+                                    }),
+                            )) ||
+                        $guard(_exceptionable, {
+                            path: _path + '["x-typia-jsDocTags"]',
+                            expected: "(Array<IJsDocTagInfo> | undefined)",
+                            value: input["x-typia-jsDocTags"],
+                        })) &&
+                    (undefined === input["x-typia-required"] ||
+                        "boolean" === typeof input["x-typia-required"] ||
+                        $guard(_exceptionable, {
+                            path: _path + '["x-typia-required"]',
+                            expected: "(boolean | undefined)",
+                            value: input["x-typia-required"],
+                        })) &&
+                    (undefined === input["x-typia-optional"] ||
+                        "boolean" === typeof input["x-typia-optional"] ||
+                        $guard(_exceptionable, {
+                            path: _path + '["x-typia-optional"]',
+                            expected: "(boolean | undefined)",
+                            value: input["x-typia-optional"],
+                        })) &&
+                    (undefined === input["x-typia-rest"] ||
+                        "boolean" === typeof input["x-typia-rest"] ||
+                        $guard(_exceptionable, {
+                            path: _path + '["x-typia-rest"]',
+                            expected: "(boolean | undefined)",
+                            value: input["x-typia-rest"],
+                        })) &&
+                    (undefined === input.$id ||
+                        "string" === typeof input.$id ||
+                        $guard(_exceptionable, {
+                            path: _path + ".$id",
+                            expected: "(string | undefined)",
+                            value: input.$id,
+                        })) &&
+                    (undefined === input.$recursiveAnchor ||
+                        "boolean" === typeof input.$recursiveAnchor ||
+                        $guard(_exceptionable, {
+                            path: _path + ".$recursiveAnchor",
+                            expected: "(boolean | undefined)",
+                            value: input.$recursiveAnchor,
+                        }));
+                const $ao27 = (
+                    input: any,
+                    _path: string,
+                    _exceptionable: boolean = true,
+                ): boolean =>
+                    (undefined === input.minLength ||
+                        ("number" === typeof input.minLength &&
+                            ((Math.floor(input.minLength) === input.minLength &&
+                                0 <= input.minLength &&
+                                input.minLength <= 4294967295) ||
+                                $guard(_exceptionable, {
+                                    path: _path + ".minLength",
+                                    expected: 'number & Type<"uint32">',
+                                    value: input.minLength,
+                                }))) ||
+                        $guard(_exceptionable, {
+                            path: _path + ".minLength",
+                            expected: '((number & Type<"uint32">) | undefined)',
+                            value: input.minLength,
+                        })) &&
+                    (undefined === input.maxLength ||
+                        ("number" === typeof input.maxLength &&
+                            ((Math.floor(input.maxLength) === input.maxLength &&
+                                0 <= input.maxLength &&
+                                input.maxLength <= 4294967295) ||
+                                $guard(_exceptionable, {
+                                    path: _path + ".maxLength",
+                                    expected: 'number & Type<"uint32">',
+                                    value: input.maxLength,
+                                }))) ||
+                        $guard(_exceptionable, {
+                            path: _path + ".maxLength",
+                            expected: '((number & Type<"uint32">) | undefined)',
+                            value: input.maxLength,
+                        })) &&
+                    (undefined === input.pattern ||
+                        "string" === typeof input.pattern ||
+                        $guard(_exceptionable, {
+                            path: _path + ".pattern",
+                            expected: "(string | undefined)",
+                            value: input.pattern,
+                        })) &&
+                    (undefined === input.format ||
+                        "string" === typeof input.format ||
+                        $guard(_exceptionable, {
+                            path: _path + ".format",
+                            expected: "(string | undefined)",
+                            value: input.format,
+                        })) &&
+                    (undefined === input["x-typia-typeTags"] ||
+                        ((Array.isArray(input["x-typia-typeTags"]) ||
+                            $guard(_exceptionable, {
+                                path: _path + '["x-typia-typeTags"]',
+                                expected:
+                                    "(Array<IMetadataTypeTag> | undefined)",
+                                value: input["x-typia-typeTags"],
+                            })) &&
+                            input["x-typia-typeTags"].every(
+                                (elem: any, _index41: number) =>
+                                    ((("object" === typeof elem &&
+                                        null !== elem) ||
+                                        $guard(_exceptionable, {
+                                            path:
+                                                _path +
+                                                '["x-typia-typeTags"][' +
+                                                _index41 +
+                                                "]",
+                                            expected: "IMetadataTypeTag",
+                                            value: elem,
+                                        })) &&
+                                        $ao7(
+                                            elem,
+                                            _path +
+                                                '["x-typia-typeTags"][' +
+                                                _index41 +
+                                                "]",
+                                            true && _exceptionable,
+                                        )) ||
+                                    $guard(_exceptionable, {
+                                        path:
+                                            _path +
+                                            '["x-typia-typeTags"][' +
+                                            _index41 +
+                                            "]",
+                                        expected: "IMetadataTypeTag",
+                                        value: elem,
+                                    }),
+                            )) ||
+                        $guard(_exceptionable, {
+                            path: _path + '["x-typia-typeTags"]',
+                            expected: "(Array<IMetadataTypeTag> | undefined)",
+                            value: input["x-typia-typeTags"],
+                        })) &&
+                    (undefined === input["default"] ||
+                        "string" === typeof input["default"] ||
+                        $guard(_exceptionable, {
+                            path: _path + '["default"]',
+                            expected: "(string | undefined)",
+                            value: input["default"],
+                        })) &&
+                    ("string" === input.type ||
+                        $guard(_exceptionable, {
+                            path: _path + ".type",
+                            expected: '"string"',
+                            value: input.type,
+                        })) &&
+                    (undefined === input.nullable ||
+                        "boolean" === typeof input.nullable ||
+                        $guard(_exceptionable, {
+                            path: _path + ".nullable",
+                            expected: "(boolean | undefined)",
+                            value: input.nullable,
+                        })) &&
+                    (undefined === input.deprecated ||
+                        "boolean" === typeof input.deprecated ||
+                        $guard(_exceptionable, {
+                            path: _path + ".deprecated",
+                            expected: "(boolean | undefined)",
+                            value: input.deprecated,
+                        })) &&
+                    (undefined === input.title ||
+                        "string" === typeof input.title ||
+                        $guard(_exceptionable, {
+                            path: _path + ".title",
+                            expected: "(string | undefined)",
+                            value: input.title,
+                        })) &&
+                    (undefined === input.description ||
+                        "string" === typeof input.description ||
+                        $guard(_exceptionable, {
+                            path: _path + ".description",
+                            expected: "(string | undefined)",
+                            value: input.description,
+                        })) &&
+                    (undefined === input["x-typia-jsDocTags"] ||
+                        ((Array.isArray(input["x-typia-jsDocTags"]) ||
+                            $guard(_exceptionable, {
+                                path: _path + '["x-typia-jsDocTags"]',
+                                expected: "(Array<IJsDocTagInfo> | undefined)",
+                                value: input["x-typia-jsDocTags"],
+                            })) &&
+                            input["x-typia-jsDocTags"].every(
+                                (elem: any, _index42: number) =>
+                                    ((("object" === typeof elem &&
+                                        null !== elem) ||
+                                        $guard(_exceptionable, {
+                                            path:
+                                                _path +
+                                                '["x-typia-jsDocTags"][' +
+                                                _index42 +
+                                                "]",
+                                            expected: "IJsDocTagInfo",
+                                            value: elem,
+                                        })) &&
+                                        $ao2(
+                                            elem,
+                                            _path +
+                                                '["x-typia-jsDocTags"][' +
+                                                _index42 +
+                                                "]",
+                                            true && _exceptionable,
+                                        )) ||
+                                    $guard(_exceptionable, {
+                                        path:
+                                            _path +
+                                            '["x-typia-jsDocTags"][' +
+                                            _index42 +
                                             "]",
                                         expected: "IJsDocTagInfo",
                                         value: elem,
@@ -4839,187 +4947,6 @@ export const test_assert_UltimateUnion = _test_assert(
                                 value: input["x-typia-jsDocTags"],
                             })) &&
                             input["x-typia-jsDocTags"].every(
-                                (elem: any, _index41: number) =>
-                                    ((("object" === typeof elem &&
-                                        null !== elem) ||
-                                        $guard(_exceptionable, {
-                                            path:
-                                                _path +
-                                                '["x-typia-jsDocTags"][' +
-                                                _index41 +
-                                                "]",
-                                            expected: "IJsDocTagInfo",
-                                            value: elem,
-                                        })) &&
-                                        $ao2(
-                                            elem,
-                                            _path +
-                                                '["x-typia-jsDocTags"][' +
-                                                _index41 +
-                                                "]",
-                                            true && _exceptionable,
-                                        )) ||
-                                    $guard(_exceptionable, {
-                                        path:
-                                            _path +
-                                            '["x-typia-jsDocTags"][' +
-                                            _index41 +
-                                            "]",
-                                        expected: "IJsDocTagInfo",
-                                        value: elem,
-                                    }),
-                            )) ||
-                        $guard(_exceptionable, {
-                            path: _path + '["x-typia-jsDocTags"]',
-                            expected: "(Array<IJsDocTagInfo> | undefined)",
-                            value: input["x-typia-jsDocTags"],
-                        })) &&
-                    (undefined === input["x-typia-required"] ||
-                        "boolean" === typeof input["x-typia-required"] ||
-                        $guard(_exceptionable, {
-                            path: _path + '["x-typia-required"]',
-                            expected: "(boolean | undefined)",
-                            value: input["x-typia-required"],
-                        })) &&
-                    (undefined === input["x-typia-optional"] ||
-                        "boolean" === typeof input["x-typia-optional"] ||
-                        $guard(_exceptionable, {
-                            path: _path + '["x-typia-optional"]',
-                            expected: "(boolean | undefined)",
-                            value: input["x-typia-optional"],
-                        })) &&
-                    (undefined === input["x-typia-rest"] ||
-                        "boolean" === typeof input["x-typia-rest"] ||
-                        $guard(_exceptionable, {
-                            path: _path + '["x-typia-rest"]',
-                            expected: "(boolean | undefined)",
-                            value: input["x-typia-rest"],
-                        })) &&
-                    (undefined === input.$id ||
-                        "string" === typeof input.$id ||
-                        $guard(_exceptionable, {
-                            path: _path + ".$id",
-                            expected: "(string | undefined)",
-                            value: input.$id,
-                        })) &&
-                    (undefined === input.$recursiveAnchor ||
-                        "boolean" === typeof input.$recursiveAnchor ||
-                        $guard(_exceptionable, {
-                            path: _path + ".$recursiveAnchor",
-                            expected: "(boolean | undefined)",
-                            value: input.$recursiveAnchor,
-                        }));
-                const $ao29 = (
-                    input: any,
-                    _path: string,
-                    _exceptionable: boolean = true,
-                ): boolean =>
-                    (((Array.isArray(input.items) ||
-                        $guard(_exceptionable, {
-                            path: _path + ".items",
-                            expected: "Array<IJsonSchema>",
-                            value: input.items,
-                        })) &&
-                        input.items.every(
-                            (elem: any, _index42: number) =>
-                                ((("object" === typeof elem &&
-                                    null !== elem &&
-                                    false === Array.isArray(elem)) ||
-                                    $guard(_exceptionable, {
-                                        path:
-                                            _path + ".items[" + _index42 + "]",
-                                        expected:
-                                            '(IJsonSchema.IArray | IJsonSchema.IBoolean | IJsonSchema.IEnumeration<"boolean"> | IJsonSchema.IEnumeration<"number"> | IJsonSchema.IEnumeration<"string"> | IJsonSchema.IInteger | IJsonSchema.INullOnly | IJsonSchema.INumber | IJsonSchema.IOneOf | IJsonSchema.IReference | IJsonSchema.IString | IJsonSchema.ITuple | IJsonSchema.IUnknown)',
-                                        value: elem,
-                                    })) &&
-                                    $au0(
-                                        elem,
-                                        _path + ".items[" + _index42 + "]",
-                                        true && _exceptionable,
-                                    )) ||
-                                $guard(_exceptionable, {
-                                    path: _path + ".items[" + _index42 + "]",
-                                    expected:
-                                        '(IJsonSchema.IArray | IJsonSchema.IBoolean | IJsonSchema.IEnumeration<"boolean"> | IJsonSchema.IEnumeration<"number"> | IJsonSchema.IEnumeration<"string"> | IJsonSchema.IInteger | IJsonSchema.INullOnly | IJsonSchema.INumber | IJsonSchema.IOneOf | IJsonSchema.IReference | IJsonSchema.IString | IJsonSchema.ITuple | IJsonSchema.IUnknown)',
-                                    value: elem,
-                                }),
-                        )) ||
-                        $guard(_exceptionable, {
-                            path: _path + ".items",
-                            expected: "Array<IJsonSchema>",
-                            value: input.items,
-                        })) &&
-                    (("number" === typeof input.minItems &&
-                        ((Math.floor(input.minItems) === input.minItems &&
-                            0 <= input.minItems &&
-                            input.minItems <= 4294967295) ||
-                            $guard(_exceptionable, {
-                                path: _path + ".minItems",
-                                expected: 'number & Type<"uint32">',
-                                value: input.minItems,
-                            }))) ||
-                        $guard(_exceptionable, {
-                            path: _path + ".minItems",
-                            expected: '(number & Type<"uint32">)',
-                            value: input.minItems,
-                        })) &&
-                    (undefined === input.maxItems ||
-                        ("number" === typeof input.maxItems &&
-                            ((Math.floor(input.maxItems) === input.maxItems &&
-                                0 <= input.maxItems &&
-                                input.maxItems <= 4294967295) ||
-                                $guard(_exceptionable, {
-                                    path: _path + ".maxItems",
-                                    expected: 'number & Type<"uint32">',
-                                    value: input.maxItems,
-                                }))) ||
-                        $guard(_exceptionable, {
-                            path: _path + ".maxItems",
-                            expected: '((number & Type<"uint32">) | undefined)',
-                            value: input.maxItems,
-                        })) &&
-                    ("array" === input.type ||
-                        $guard(_exceptionable, {
-                            path: _path + ".type",
-                            expected: '"array"',
-                            value: input.type,
-                        })) &&
-                    (undefined === input.nullable ||
-                        "boolean" === typeof input.nullable ||
-                        $guard(_exceptionable, {
-                            path: _path + ".nullable",
-                            expected: "(boolean | undefined)",
-                            value: input.nullable,
-                        })) &&
-                    (undefined === input.deprecated ||
-                        "boolean" === typeof input.deprecated ||
-                        $guard(_exceptionable, {
-                            path: _path + ".deprecated",
-                            expected: "(boolean | undefined)",
-                            value: input.deprecated,
-                        })) &&
-                    (undefined === input.title ||
-                        "string" === typeof input.title ||
-                        $guard(_exceptionable, {
-                            path: _path + ".title",
-                            expected: "(string | undefined)",
-                            value: input.title,
-                        })) &&
-                    (undefined === input.description ||
-                        "string" === typeof input.description ||
-                        $guard(_exceptionable, {
-                            path: _path + ".description",
-                            expected: "(string | undefined)",
-                            value: input.description,
-                        })) &&
-                    (undefined === input["x-typia-jsDocTags"] ||
-                        ((Array.isArray(input["x-typia-jsDocTags"]) ||
-                            $guard(_exceptionable, {
-                                path: _path + '["x-typia-jsDocTags"]',
-                                expected: "(Array<IJsDocTagInfo> | undefined)",
-                                value: input["x-typia-jsDocTags"],
-                            })) &&
-                            input["x-typia-jsDocTags"].every(
                                 (elem: any, _index43: number) =>
                                     ((("object" === typeof elem &&
                                         null !== elem) ||
@@ -5090,45 +5017,87 @@ export const test_assert_UltimateUnion = _test_assert(
                             expected: "(boolean | undefined)",
                             value: input.$recursiveAnchor,
                         }));
-                const $ao30 = (
+                const $ao29 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): boolean =>
-                    (((Array.isArray(input.oneOf) ||
+                    (((Array.isArray(input.items) ||
                         $guard(_exceptionable, {
-                            path: _path + ".oneOf",
+                            path: _path + ".items",
                             expected: "Array<IJsonSchema>",
-                            value: input.oneOf,
+                            value: input.items,
                         })) &&
-                        input.oneOf.every(
+                        input.items.every(
                             (elem: any, _index44: number) =>
                                 ((("object" === typeof elem &&
                                     null !== elem &&
                                     false === Array.isArray(elem)) ||
                                     $guard(_exceptionable, {
                                         path:
-                                            _path + ".oneOf[" + _index44 + "]",
+                                            _path + ".items[" + _index44 + "]",
                                         expected:
                                             '(IJsonSchema.IArray | IJsonSchema.IBoolean | IJsonSchema.IEnumeration<"boolean"> | IJsonSchema.IEnumeration<"number"> | IJsonSchema.IEnumeration<"string"> | IJsonSchema.IInteger | IJsonSchema.INullOnly | IJsonSchema.INumber | IJsonSchema.IOneOf | IJsonSchema.IReference | IJsonSchema.IString | IJsonSchema.ITuple | IJsonSchema.IUnknown)',
                                         value: elem,
                                     })) &&
                                     $au0(
                                         elem,
-                                        _path + ".oneOf[" + _index44 + "]",
+                                        _path + ".items[" + _index44 + "]",
                                         true && _exceptionable,
                                     )) ||
                                 $guard(_exceptionable, {
-                                    path: _path + ".oneOf[" + _index44 + "]",
+                                    path: _path + ".items[" + _index44 + "]",
                                     expected:
                                         '(IJsonSchema.IArray | IJsonSchema.IBoolean | IJsonSchema.IEnumeration<"boolean"> | IJsonSchema.IEnumeration<"number"> | IJsonSchema.IEnumeration<"string"> | IJsonSchema.IInteger | IJsonSchema.INullOnly | IJsonSchema.INumber | IJsonSchema.IOneOf | IJsonSchema.IReference | IJsonSchema.IString | IJsonSchema.ITuple | IJsonSchema.IUnknown)',
                                     value: elem,
                                 }),
                         )) ||
                         $guard(_exceptionable, {
-                            path: _path + ".oneOf",
+                            path: _path + ".items",
                             expected: "Array<IJsonSchema>",
-                            value: input.oneOf,
+                            value: input.items,
+                        })) &&
+                    (("number" === typeof input.minItems &&
+                        ((Math.floor(input.minItems) === input.minItems &&
+                            0 <= input.minItems &&
+                            input.minItems <= 4294967295) ||
+                            $guard(_exceptionable, {
+                                path: _path + ".minItems",
+                                expected: 'number & Type<"uint32">',
+                                value: input.minItems,
+                            }))) ||
+                        $guard(_exceptionable, {
+                            path: _path + ".minItems",
+                            expected: '(number & Type<"uint32">)',
+                            value: input.minItems,
+                        })) &&
+                    (undefined === input.maxItems ||
+                        ("number" === typeof input.maxItems &&
+                            ((Math.floor(input.maxItems) === input.maxItems &&
+                                0 <= input.maxItems &&
+                                input.maxItems <= 4294967295) ||
+                                $guard(_exceptionable, {
+                                    path: _path + ".maxItems",
+                                    expected: 'number & Type<"uint32">',
+                                    value: input.maxItems,
+                                }))) ||
+                        $guard(_exceptionable, {
+                            path: _path + ".maxItems",
+                            expected: '((number & Type<"uint32">) | undefined)',
+                            value: input.maxItems,
+                        })) &&
+                    ("array" === input.type ||
+                        $guard(_exceptionable, {
+                            path: _path + ".type",
+                            expected: '"array"',
+                            value: input.type,
+                        })) &&
+                    (undefined === input.nullable ||
+                        "boolean" === typeof input.nullable ||
+                        $guard(_exceptionable, {
+                            path: _path + ".nullable",
+                            expected: "(boolean | undefined)",
+                            value: input.nullable,
                         })) &&
                     (undefined === input.deprecated ||
                         "boolean" === typeof input.deprecated ||
@@ -5229,126 +5198,45 @@ export const test_assert_UltimateUnion = _test_assert(
                             expected: "(boolean | undefined)",
                             value: input.$recursiveAnchor,
                         }));
-                const $ao31 = (
+                const $ao30 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): boolean =>
-                    ("string" === typeof input.$ref ||
+                    (((Array.isArray(input.oneOf) ||
                         $guard(_exceptionable, {
-                            path: _path + ".$ref",
-                            expected: "string",
-                            value: input.$ref,
+                            path: _path + ".oneOf",
+                            expected: "Array<IJsonSchema>",
+                            value: input.oneOf,
                         })) &&
-                    (undefined === input.deprecated ||
-                        "boolean" === typeof input.deprecated ||
-                        $guard(_exceptionable, {
-                            path: _path + ".deprecated",
-                            expected: "(boolean | undefined)",
-                            value: input.deprecated,
-                        })) &&
-                    (undefined === input.title ||
-                        "string" === typeof input.title ||
-                        $guard(_exceptionable, {
-                            path: _path + ".title",
-                            expected: "(string | undefined)",
-                            value: input.title,
-                        })) &&
-                    (undefined === input.description ||
-                        "string" === typeof input.description ||
-                        $guard(_exceptionable, {
-                            path: _path + ".description",
-                            expected: "(string | undefined)",
-                            value: input.description,
-                        })) &&
-                    (undefined === input["x-typia-jsDocTags"] ||
-                        ((Array.isArray(input["x-typia-jsDocTags"]) ||
-                            $guard(_exceptionable, {
-                                path: _path + '["x-typia-jsDocTags"]',
-                                expected: "(Array<IJsDocTagInfo> | undefined)",
-                                value: input["x-typia-jsDocTags"],
-                            })) &&
-                            input["x-typia-jsDocTags"].every(
-                                (elem: any, _index46: number) =>
-                                    ((("object" === typeof elem &&
-                                        null !== elem) ||
-                                        $guard(_exceptionable, {
-                                            path:
-                                                _path +
-                                                '["x-typia-jsDocTags"][' +
-                                                _index46 +
-                                                "]",
-                                            expected: "IJsDocTagInfo",
-                                            value: elem,
-                                        })) &&
-                                        $ao2(
-                                            elem,
-                                            _path +
-                                                '["x-typia-jsDocTags"][' +
-                                                _index46 +
-                                                "]",
-                                            true && _exceptionable,
-                                        )) ||
+                        input.oneOf.every(
+                            (elem: any, _index46: number) =>
+                                ((("object" === typeof elem &&
+                                    null !== elem &&
+                                    false === Array.isArray(elem)) ||
                                     $guard(_exceptionable, {
                                         path:
-                                            _path +
-                                            '["x-typia-jsDocTags"][' +
-                                            _index46 +
-                                            "]",
-                                        expected: "IJsDocTagInfo",
+                                            _path + ".oneOf[" + _index46 + "]",
+                                        expected:
+                                            '(IJsonSchema.IArray | IJsonSchema.IBoolean | IJsonSchema.IEnumeration<"boolean"> | IJsonSchema.IEnumeration<"number"> | IJsonSchema.IEnumeration<"string"> | IJsonSchema.IInteger | IJsonSchema.INullOnly | IJsonSchema.INumber | IJsonSchema.IOneOf | IJsonSchema.IReference | IJsonSchema.IString | IJsonSchema.ITuple | IJsonSchema.IUnknown)',
                                         value: elem,
-                                    }),
-                            )) ||
+                                    })) &&
+                                    $au0(
+                                        elem,
+                                        _path + ".oneOf[" + _index46 + "]",
+                                        true && _exceptionable,
+                                    )) ||
+                                $guard(_exceptionable, {
+                                    path: _path + ".oneOf[" + _index46 + "]",
+                                    expected:
+                                        '(IJsonSchema.IArray | IJsonSchema.IBoolean | IJsonSchema.IEnumeration<"boolean"> | IJsonSchema.IEnumeration<"number"> | IJsonSchema.IEnumeration<"string"> | IJsonSchema.IInteger | IJsonSchema.INullOnly | IJsonSchema.INumber | IJsonSchema.IOneOf | IJsonSchema.IReference | IJsonSchema.IString | IJsonSchema.ITuple | IJsonSchema.IUnknown)',
+                                    value: elem,
+                                }),
+                        )) ||
                         $guard(_exceptionable, {
-                            path: _path + '["x-typia-jsDocTags"]',
-                            expected: "(Array<IJsDocTagInfo> | undefined)",
-                            value: input["x-typia-jsDocTags"],
-                        })) &&
-                    (undefined === input["x-typia-required"] ||
-                        "boolean" === typeof input["x-typia-required"] ||
-                        $guard(_exceptionable, {
-                            path: _path + '["x-typia-required"]',
-                            expected: "(boolean | undefined)",
-                            value: input["x-typia-required"],
-                        })) &&
-                    (undefined === input["x-typia-optional"] ||
-                        "boolean" === typeof input["x-typia-optional"] ||
-                        $guard(_exceptionable, {
-                            path: _path + '["x-typia-optional"]',
-                            expected: "(boolean | undefined)",
-                            value: input["x-typia-optional"],
-                        })) &&
-                    (undefined === input["x-typia-rest"] ||
-                        "boolean" === typeof input["x-typia-rest"] ||
-                        $guard(_exceptionable, {
-                            path: _path + '["x-typia-rest"]',
-                            expected: "(boolean | undefined)",
-                            value: input["x-typia-rest"],
-                        })) &&
-                    (undefined === input.$id ||
-                        "string" === typeof input.$id ||
-                        $guard(_exceptionable, {
-                            path: _path + ".$id",
-                            expected: "(string | undefined)",
-                            value: input.$id,
-                        })) &&
-                    (undefined === input.$recursiveAnchor ||
-                        "boolean" === typeof input.$recursiveAnchor ||
-                        $guard(_exceptionable, {
-                            path: _path + ".$recursiveAnchor",
-                            expected: "(boolean | undefined)",
-                            value: input.$recursiveAnchor,
-                        }));
-                const $ao32 = (
-                    input: any,
-                    _path: string,
-                    _exceptionable: boolean = true,
-                ): boolean =>
-                    ("null" === input.type ||
-                        $guard(_exceptionable, {
-                            path: _path + ".type",
-                            expected: '"null"',
-                            value: input.type,
+                            path: _path + ".oneOf",
+                            expected: "Array<IJsonSchema>",
+                            value: input.oneOf,
                         })) &&
                     (undefined === input.deprecated ||
                         "boolean" === typeof input.deprecated ||
@@ -5449,22 +5337,16 @@ export const test_assert_UltimateUnion = _test_assert(
                             expected: "(boolean | undefined)",
                             value: input.$recursiveAnchor,
                         }));
-                const $ao33 = (
+                const $ao31 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): boolean =>
-                    (null !== input.type ||
+                    ("string" === typeof input.$ref ||
                         $guard(_exceptionable, {
-                            path: _path + ".type",
-                            expected: "undefined",
-                            value: input.type,
-                        })) &&
-                    (undefined === input.type ||
-                        $guard(_exceptionable, {
-                            path: _path + ".type",
-                            expected: "undefined",
-                            value: input.type,
+                            path: _path + ".$ref",
+                            expected: "string",
+                            value: input.$ref,
                         })) &&
                     (undefined === input.deprecated ||
                         "boolean" === typeof input.deprecated ||
@@ -5565,6 +5447,232 @@ export const test_assert_UltimateUnion = _test_assert(
                             expected: "(boolean | undefined)",
                             value: input.$recursiveAnchor,
                         }));
+                const $ao32 = (
+                    input: any,
+                    _path: string,
+                    _exceptionable: boolean = true,
+                ): boolean =>
+                    ("null" === input.type ||
+                        $guard(_exceptionable, {
+                            path: _path + ".type",
+                            expected: '"null"',
+                            value: input.type,
+                        })) &&
+                    (undefined === input.deprecated ||
+                        "boolean" === typeof input.deprecated ||
+                        $guard(_exceptionable, {
+                            path: _path + ".deprecated",
+                            expected: "(boolean | undefined)",
+                            value: input.deprecated,
+                        })) &&
+                    (undefined === input.title ||
+                        "string" === typeof input.title ||
+                        $guard(_exceptionable, {
+                            path: _path + ".title",
+                            expected: "(string | undefined)",
+                            value: input.title,
+                        })) &&
+                    (undefined === input.description ||
+                        "string" === typeof input.description ||
+                        $guard(_exceptionable, {
+                            path: _path + ".description",
+                            expected: "(string | undefined)",
+                            value: input.description,
+                        })) &&
+                    (undefined === input["x-typia-jsDocTags"] ||
+                        ((Array.isArray(input["x-typia-jsDocTags"]) ||
+                            $guard(_exceptionable, {
+                                path: _path + '["x-typia-jsDocTags"]',
+                                expected: "(Array<IJsDocTagInfo> | undefined)",
+                                value: input["x-typia-jsDocTags"],
+                            })) &&
+                            input["x-typia-jsDocTags"].every(
+                                (elem: any, _index49: number) =>
+                                    ((("object" === typeof elem &&
+                                        null !== elem) ||
+                                        $guard(_exceptionable, {
+                                            path:
+                                                _path +
+                                                '["x-typia-jsDocTags"][' +
+                                                _index49 +
+                                                "]",
+                                            expected: "IJsDocTagInfo",
+                                            value: elem,
+                                        })) &&
+                                        $ao2(
+                                            elem,
+                                            _path +
+                                                '["x-typia-jsDocTags"][' +
+                                                _index49 +
+                                                "]",
+                                            true && _exceptionable,
+                                        )) ||
+                                    $guard(_exceptionable, {
+                                        path:
+                                            _path +
+                                            '["x-typia-jsDocTags"][' +
+                                            _index49 +
+                                            "]",
+                                        expected: "IJsDocTagInfo",
+                                        value: elem,
+                                    }),
+                            )) ||
+                        $guard(_exceptionable, {
+                            path: _path + '["x-typia-jsDocTags"]',
+                            expected: "(Array<IJsDocTagInfo> | undefined)",
+                            value: input["x-typia-jsDocTags"],
+                        })) &&
+                    (undefined === input["x-typia-required"] ||
+                        "boolean" === typeof input["x-typia-required"] ||
+                        $guard(_exceptionable, {
+                            path: _path + '["x-typia-required"]',
+                            expected: "(boolean | undefined)",
+                            value: input["x-typia-required"],
+                        })) &&
+                    (undefined === input["x-typia-optional"] ||
+                        "boolean" === typeof input["x-typia-optional"] ||
+                        $guard(_exceptionable, {
+                            path: _path + '["x-typia-optional"]',
+                            expected: "(boolean | undefined)",
+                            value: input["x-typia-optional"],
+                        })) &&
+                    (undefined === input["x-typia-rest"] ||
+                        "boolean" === typeof input["x-typia-rest"] ||
+                        $guard(_exceptionable, {
+                            path: _path + '["x-typia-rest"]',
+                            expected: "(boolean | undefined)",
+                            value: input["x-typia-rest"],
+                        })) &&
+                    (undefined === input.$id ||
+                        "string" === typeof input.$id ||
+                        $guard(_exceptionable, {
+                            path: _path + ".$id",
+                            expected: "(string | undefined)",
+                            value: input.$id,
+                        })) &&
+                    (undefined === input.$recursiveAnchor ||
+                        "boolean" === typeof input.$recursiveAnchor ||
+                        $guard(_exceptionable, {
+                            path: _path + ".$recursiveAnchor",
+                            expected: "(boolean | undefined)",
+                            value: input.$recursiveAnchor,
+                        }));
+                const $ao33 = (
+                    input: any,
+                    _path: string,
+                    _exceptionable: boolean = true,
+                ): boolean =>
+                    (null !== input.type ||
+                        $guard(_exceptionable, {
+                            path: _path + ".type",
+                            expected: "undefined",
+                            value: input.type,
+                        })) &&
+                    (undefined === input.type ||
+                        $guard(_exceptionable, {
+                            path: _path + ".type",
+                            expected: "undefined",
+                            value: input.type,
+                        })) &&
+                    (undefined === input.deprecated ||
+                        "boolean" === typeof input.deprecated ||
+                        $guard(_exceptionable, {
+                            path: _path + ".deprecated",
+                            expected: "(boolean | undefined)",
+                            value: input.deprecated,
+                        })) &&
+                    (undefined === input.title ||
+                        "string" === typeof input.title ||
+                        $guard(_exceptionable, {
+                            path: _path + ".title",
+                            expected: "(string | undefined)",
+                            value: input.title,
+                        })) &&
+                    (undefined === input.description ||
+                        "string" === typeof input.description ||
+                        $guard(_exceptionable, {
+                            path: _path + ".description",
+                            expected: "(string | undefined)",
+                            value: input.description,
+                        })) &&
+                    (undefined === input["x-typia-jsDocTags"] ||
+                        ((Array.isArray(input["x-typia-jsDocTags"]) ||
+                            $guard(_exceptionable, {
+                                path: _path + '["x-typia-jsDocTags"]',
+                                expected: "(Array<IJsDocTagInfo> | undefined)",
+                                value: input["x-typia-jsDocTags"],
+                            })) &&
+                            input["x-typia-jsDocTags"].every(
+                                (elem: any, _index50: number) =>
+                                    ((("object" === typeof elem &&
+                                        null !== elem) ||
+                                        $guard(_exceptionable, {
+                                            path:
+                                                _path +
+                                                '["x-typia-jsDocTags"][' +
+                                                _index50 +
+                                                "]",
+                                            expected: "IJsDocTagInfo",
+                                            value: elem,
+                                        })) &&
+                                        $ao2(
+                                            elem,
+                                            _path +
+                                                '["x-typia-jsDocTags"][' +
+                                                _index50 +
+                                                "]",
+                                            true && _exceptionable,
+                                        )) ||
+                                    $guard(_exceptionable, {
+                                        path:
+                                            _path +
+                                            '["x-typia-jsDocTags"][' +
+                                            _index50 +
+                                            "]",
+                                        expected: "IJsDocTagInfo",
+                                        value: elem,
+                                    }),
+                            )) ||
+                        $guard(_exceptionable, {
+                            path: _path + '["x-typia-jsDocTags"]',
+                            expected: "(Array<IJsDocTagInfo> | undefined)",
+                            value: input["x-typia-jsDocTags"],
+                        })) &&
+                    (undefined === input["x-typia-required"] ||
+                        "boolean" === typeof input["x-typia-required"] ||
+                        $guard(_exceptionable, {
+                            path: _path + '["x-typia-required"]',
+                            expected: "(boolean | undefined)",
+                            value: input["x-typia-required"],
+                        })) &&
+                    (undefined === input["x-typia-optional"] ||
+                        "boolean" === typeof input["x-typia-optional"] ||
+                        $guard(_exceptionable, {
+                            path: _path + '["x-typia-optional"]',
+                            expected: "(boolean | undefined)",
+                            value: input["x-typia-optional"],
+                        })) &&
+                    (undefined === input["x-typia-rest"] ||
+                        "boolean" === typeof input["x-typia-rest"] ||
+                        $guard(_exceptionable, {
+                            path: _path + '["x-typia-rest"]',
+                            expected: "(boolean | undefined)",
+                            value: input["x-typia-rest"],
+                        })) &&
+                    (undefined === input.$id ||
+                        "string" === typeof input.$id ||
+                        $guard(_exceptionable, {
+                            path: _path + ".$id",
+                            expected: "(string | undefined)",
+                            value: input.$id,
+                        })) &&
+                    (undefined === input.$recursiveAnchor ||
+                        "boolean" === typeof input.$recursiveAnchor ||
+                        $guard(_exceptionable, {
+                            path: _path + ".$recursiveAnchor",
+                            expected: "(boolean | undefined)",
+                            value: input.$recursiveAnchor,
+                        }));
                 const $au0 = (
                     input: any,
                     _path: string,
@@ -5572,7 +5680,7 @@ export const test_assert_UltimateUnion = _test_assert(
                 ): any =>
                     (() => {
                         if ("integer" === input.type)
-                            return $ao7(input, _path, true && _exceptionable);
+                            return $ao8(input, _path, true && _exceptionable);
                         else if (
                             "object" === typeof input.items &&
                             null !== input.items &&
@@ -5587,13 +5695,13 @@ export const test_assert_UltimateUnion = _test_assert(
                         else if (
                             Array.isArray(input.items) &&
                             input.items.every(
-                                (elem: any, _index49: number) =>
+                                (elem: any, _index51: number) =>
                                     "object" === typeof elem &&
                                     null !== elem &&
                                     false === Array.isArray(elem) &&
                                     $au0(
                                         elem,
-                                        _path + ".items[" + _index49 + "]",
+                                        _path + ".items[" + _index51 + "]",
                                         false && _exceptionable,
                                     ),
                             )
@@ -5646,13 +5754,13 @@ export const test_assert_UltimateUnion = _test_assert(
                         else if (
                             Array.isArray(input.items) &&
                             input.items.every(
-                                (elem: any, _index50: number) =>
+                                (elem: any, _index52: number) =>
                                     "object" === typeof elem &&
                                     null !== elem &&
                                     false === Array.isArray(elem) &&
                                     $au0(
                                         elem,
-                                        _path + ".items[" + _index50 + "]",
+                                        _path + ".items[" + _index52 + "]",
                                         false && _exceptionable,
                                     ),
                             )

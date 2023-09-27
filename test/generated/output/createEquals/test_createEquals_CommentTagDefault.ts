@@ -15,8 +15,6 @@ export const test_createEquals_CommentTagDefault = _test_equals(
             Number.isFinite(input.number) &&
             "string" === typeof input.string &&
             "string" === typeof input.text &&
-            "string" === typeof input.template &&
-            RegExp(/^prefix_(.*)/).test(input.template) &&
             ("string" === typeof input.boolean_and_number_and_string ||
                 ("number" === typeof input.boolean_and_number_and_string &&
                     Number.isFinite(input.boolean_and_number_and_string)) ||
@@ -36,8 +34,6 @@ export const test_createEquals_CommentTagDefault = _test_equals(
             "number" === typeof input.vulnerable_range &&
             3 <= input.vulnerable_range &&
             input.vulnerable_range <= 5 &&
-            "string" === typeof input.vulnerable_template &&
-            RegExp(/^prefix_(.*)/).test(input.vulnerable_template) &&
             null !== input.boolean_and_number_and_template &&
             undefined !== input.boolean_and_number_and_template &&
             (("number" === typeof input.boolean_and_number_and_template &&
@@ -47,7 +43,7 @@ export const test_createEquals_CommentTagDefault = _test_equals(
                     RegExp(/^prefix_(.*)/).test(
                         input.boolean_and_number_and_template,
                     ))) &&
-            (12 === Object.keys(input).length ||
+            (10 === Object.keys(input).length ||
                 Object.keys(input).every((key: any) => {
                     if (
                         [
@@ -55,13 +51,11 @@ export const test_createEquals_CommentTagDefault = _test_equals(
                             "number",
                             "string",
                             "text",
-                            "template",
                             "boolean_and_number_and_string",
                             "union_but_boolean",
                             "union_but_number",
                             "union_but_string",
                             "vulnerable_range",
-                            "vulnerable_template",
                             "boolean_and_number_and_template",
                         ].some((prop: any) => key === prop)
                     )

@@ -8,7 +8,7 @@ import { MetadataFactory } from "./MetadataFactory";
 export namespace MetadataTypeTagFactory {
     export const analyze =
         (errors: MetadataFactory.IError[]) =>
-        (type: "bigint" | "number" | "string" | "array") =>
+        (type: "boolean" | "bigint" | "number" | "string" | "array") =>
         (
             objects: MetadataObject[],
             explore: MetadataFactory.IExplore,
@@ -50,9 +50,9 @@ export namespace MetadataTypeTagFactory {
                 const statics: string[] = tag.properties
                     .map((p) => p.key.getSoleLiteral()!)
                     .filter((str) => str !== null);
-                if (FIELDS.some((f) => !statics.includes(f)))
+                if (ESSENTIAL_FIELDS.some((f) => !statics.includes(f)))
                     return report(null)(
-                        `must have four properties - ${FIELDS.map(
+                        `must have at least three properties - ${ESSENTIAL_FIELDS.map(
                             (str) => `'${str}'`,
                         ).join(", ")}`,
                     );
@@ -103,7 +103,7 @@ export namespace MetadataTypeTagFactory {
 
     export const validate =
         (report: (property: string | null) => (msg: string) => false) =>
-        (type: "bigint" | "number" | "string" | "array") =>
+        (type: "boolean" | "bigint" | "number" | "string" | "array") =>
         (tagList: IMetadataTypeTag[]): boolean => {
             let success: boolean = true;
             for (const tag of tagList)
@@ -149,6 +149,7 @@ export namespace MetadataTypeTagFactory {
                     value.constants[0]!.values.length !== value.size() ||
                     value.constants[0]!.values.some(
                         (v) =>
+                            v !== "boolean" &&
                             v !== "bigint" &&
                             v !== "number" &&
                             v !== "string" &&
@@ -156,7 +157,7 @@ export namespace MetadataTypeTagFactory {
                     ))
             )
                 return report(key)(
-                    `must be one of 'bigint', 'number', 'string', 'array'`,
+                    `must be one of 'boolean', 'bigint', 'number', 'string', 'array'`,
                 );
             else if (
                 // KIND
@@ -184,13 +185,22 @@ export namespace MetadataTypeTagFactory {
                 //----
                 // VALIDATE
                 //----
+                // UNDEFINED CASE
+                if (
+                    value.size() === 0 &&
+                    value.isRequired() === false &&
+                    value.nullable === false
+                )
+                    return true;
+
                 // STRING CASE
-                const single: boolean =
+                if (
                     value.size() === 1 &&
                     value.constants.length === 1 &&
                     value.constants[0]!.type === "string" &&
-                    value.constants[0]!.values.length === 1;
-                if (single === true) return true;
+                    (value.constants[0]!.values.length === 1) === true
+                )
+                    return true;
 
                 // RECORD<TARGET, STRING>
                 const target: string[] | undefined =
@@ -199,7 +209,7 @@ export namespace MetadataTypeTagFactory {
                         .filter((str) => str !== null) as string[] | undefined;
                 if (target === undefined)
                     return report("target")(
-                        `must be one of 'bigint', 'number', 'string', 'array'`,
+                        `must be one of 'boolean', 'bigint', 'number', 'string', 'array'`,
                     );
                 const variadic: boolean =
                     value.size() === 1 &&
@@ -242,8 +252,9 @@ export namespace MetadataTypeTagFactory {
             if (exclusive === null) return null;
 
             const validate: Record<string, string> = (() => {
-                const validate = find("validate")!.value;
-                if (validate.constants.length)
+                const validate = find("validate")?.value;
+                if (!validate || validate.size() === 0) return {};
+                else if (validate.constants.length)
                     return Object.fromEntries(
                         target.map((t) => [
                             t,
@@ -310,4 +321,5 @@ interface ITypeTag {
     exclusive: boolean | string[];
 }
 
-const FIELDS = ["target", "kind", "value", "validate"];
+const ESSENTIAL_FIELDS = ["target", "kind", "value"];
+const FIELDS = [...ESSENTIAL_FIELDS, "validate", "exclusive"];

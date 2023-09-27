@@ -1,5 +1,7 @@
 import { Atomic } from "../../typings/Atomic";
 
+import { IMetadataTypeTag } from "./IMetadataTypeTag";
+
 export type IMetadataConstant =
     | IMetadataConstant.IBase<"boolean", boolean>
     | IMetadataConstant.IBase<"number", number>
@@ -12,5 +14,12 @@ export namespace IMetadataConstant {
     > {
         type: Type;
         values: Value[];
+
+        /**
+         * @internal
+         */
+        tags?: Type extends "boolean"
+            ? IMetadataTypeTag[][] | undefined
+            : never;
     }
 }
