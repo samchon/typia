@@ -31,11 +31,14 @@ const check_string_type_tags =
     (project: IProject) =>
     (matrix: IMetadataTypeTag[][]) =>
     (input: ts.Expression): ICheckEntry.ICondition[][] =>
-        matrix.map((row) =>
-            row.map((tag) => ({
-                expected: `Array<> & ${tag.name}`,
-                expression: ExpressionFactory.transpile(project.context)(
-                    tag.validate,
-                )(input),
-            })),
-        );
+        matrix
+            .map((row) => row.filter((tag) => !!tag.validate))
+            .filter((row) => !!row.length)
+            .map((row) =>
+                row.map((tag) => ({
+                    expected: `Array<> & ${tag.name}`,
+                    expression: ExpressionFactory.transpile(project.context)(
+                        tag.validate!,
+                    )(input),
+                })),
+            );

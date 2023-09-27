@@ -14,8 +14,6 @@ export const test_json_createAssertStringify_CommentTagDefault =
                     Number.isFinite(input.number) &&
                     "string" === typeof input.string &&
                     "string" === typeof input.text &&
-                    "string" === typeof input.template &&
-                    RegExp(/^prefix_(.*)/).test(input.template) &&
                     ("string" === typeof input.boolean_and_number_and_string ||
                         ("number" ===
                             typeof input.boolean_and_number_and_string &&
@@ -39,8 +37,6 @@ export const test_json_createAssertStringify_CommentTagDefault =
                     "number" === typeof input.vulnerable_range &&
                     3 <= input.vulnerable_range &&
                     input.vulnerable_range <= 5 &&
-                    "string" === typeof input.vulnerable_template &&
-                    RegExp(/^prefix_(.*)/).test(input.vulnerable_template) &&
                     null !== input.boolean_and_number_and_template &&
                     undefined !== input.boolean_and_number_and_template &&
                     (("number" ===
@@ -96,13 +92,6 @@ export const test_json_createAssertStringify_CommentTagDefault =
                                 path: _path + ".text",
                                 expected: "string",
                                 value: input.text,
-                            })) &&
-                        (("string" === typeof input.template &&
-                            RegExp(/^prefix_(.*)/).test(input.template)) ||
-                            $guard(_exceptionable, {
-                                path: _path + ".template",
-                                expected: "`prefix_${string}`",
-                                value: input.template,
                             })) &&
                         ("string" ===
                             typeof input.boolean_and_number_and_string ||
@@ -162,15 +151,6 @@ export const test_json_createAssertStringify_CommentTagDefault =
                                 path: _path + ".vulnerable_range",
                                 expected: "(number & Minimum<3> & Maximum<5>)",
                                 value: input.vulnerable_range,
-                            })) &&
-                        (("string" === typeof input.vulnerable_template &&
-                            RegExp(/^prefix_(.*)/).test(
-                                input.vulnerable_template,
-                            )) ||
-                            $guard(_exceptionable, {
-                                path: _path + ".vulnerable_template",
-                                expected: "`prefix_${string}`",
-                                value: input.vulnerable_template,
                             })) &&
                         (null !== input.boolean_and_number_and_template ||
                             $guard(_exceptionable, {
@@ -233,8 +213,6 @@ export const test_json_createAssertStringify_CommentTagDefault =
                     input.number,
                 )},"string":${$string(input.string)},"text":${$string(
                     input.text,
-                )},"template":${$string(
-                    input.template,
                 )},"boolean_and_number_and_string":${(() => {
                     if ("string" === typeof input.boolean_and_number_and_string)
                         return $string(input.boolean_and_number_and_string);
@@ -283,8 +261,6 @@ export const test_json_createAssertStringify_CommentTagDefault =
                     });
                 })()},"vulnerable_range":${$number(
                     input.vulnerable_range,
-                )},"vulnerable_template":${$string(
-                    input.vulnerable_template,
                 )},"boolean_and_number_and_template":${(() => {
                     if (
                         "string" ===

@@ -18,7 +18,8 @@ export const application_string =
             type: "string",
         };
         const out = (schema: IJsonSchema.IString) => {
-            schema.default = application_default_string(meta)(attribute)(base);
+            schema.default ??=
+                application_default_string(meta)(attribute)(base);
             return schema;
         };
         if (atomic.tags.length === 0) return [out(base)];
@@ -46,6 +47,8 @@ const application_string_tags =
             else if (tag.kind === "format" && typeof tag.value === "string")
                 base.format = tag.value;
             else if (tag.kind === "pattern") base.pattern = tag.value;
+            else if (tag.kind === "default" && typeof tag.value === "string")
+                base.default = tag.value;
         base["x-typia-typeTags"] = row;
         return base;
     };

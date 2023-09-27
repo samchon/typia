@@ -368,6 +368,14 @@
       "IJsonSchema.IBoolean": {
         "type": "object",
         "properties": {
+          "x-typia-typeTags": {
+            "x-typia-required": false,
+            "x-typia-optional": true,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IMetadataTypeTag"
+            }
+          },
           "default": {
             "x-typia-required": false,
             "x-typia-optional": true,
@@ -429,6 +437,72 @@
         "nullable": false,
         "required": [
           "type"
+        ],
+        "x-typia-jsDocTags": []
+      },
+      "IMetadataTypeTag": {
+        "type": "object",
+        "properties": {
+          "target": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string",
+            "enum": [
+              "string",
+              "number",
+              "bigint",
+              "boolean",
+              "array"
+            ]
+          },
+          "name": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          },
+          "kind": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          },
+          "value": {
+            "x-typia-required": true,
+            "x-typia-optional": false
+          },
+          "validate": {
+            "x-typia-required": false,
+            "x-typia-optional": false,
+            "type": "string"
+          },
+          "exclusive": {
+            "oneOf": [
+              {
+                "x-typia-required": true,
+                "x-typia-optional": false,
+                "type": "boolean"
+              },
+              {
+                "x-typia-required": true,
+                "x-typia-optional": false,
+                "type": "array",
+                "items": {
+                  "x-typia-required": true,
+                  "x-typia-optional": false,
+                  "type": "string"
+                }
+              }
+            ],
+            "x-typia-required": true,
+            "x-typia-optional": false
+          }
+        },
+        "nullable": false,
+        "required": [
+          "target",
+          "name",
+          "kind",
+          "value",
+          "exclusive"
         ],
         "x-typia-jsDocTags": []
       },
@@ -559,72 +633,6 @@
         "nullable": false,
         "required": [
           "type"
-        ],
-        "x-typia-jsDocTags": []
-      },
-      "IMetadataTypeTag": {
-        "type": "object",
-        "properties": {
-          "target": {
-            "x-typia-required": true,
-            "x-typia-optional": false,
-            "type": "string",
-            "enum": [
-              "string",
-              "number",
-              "bigint",
-              "array"
-            ]
-          },
-          "name": {
-            "x-typia-required": true,
-            "x-typia-optional": false,
-            "type": "string"
-          },
-          "kind": {
-            "x-typia-required": true,
-            "x-typia-optional": false,
-            "type": "string"
-          },
-          "value": {
-            "x-typia-required": true,
-            "x-typia-optional": false
-          },
-          "validate": {
-            "x-typia-required": true,
-            "x-typia-optional": false,
-            "type": "string"
-          },
-          "exclusive": {
-            "oneOf": [
-              {
-                "x-typia-required": true,
-                "x-typia-optional": false,
-                "type": "boolean"
-              },
-              {
-                "x-typia-required": true,
-                "x-typia-optional": false,
-                "type": "array",
-                "items": {
-                  "x-typia-required": true,
-                  "x-typia-optional": false,
-                  "type": "string"
-                }
-              }
-            ],
-            "x-typia-required": true,
-            "x-typia-optional": false
-          }
-        },
-        "nullable": false,
-        "required": [
-          "target",
-          "name",
-          "kind",
-          "value",
-          "validate",
-          "exclusive"
         ],
         "x-typia-jsDocTags": []
       },
@@ -1797,6 +1805,14 @@
       "IBooleanIIdentified": {
         "type": "object",
         "properties": {
+          "x-typia-typeTags": {
+            "x-typia-required": false,
+            "x-typia-optional": true,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IMetadataTypeTag"
+            }
+          },
           "default": {
             "x-typia-required": false,
             "x-typia-optional": true,

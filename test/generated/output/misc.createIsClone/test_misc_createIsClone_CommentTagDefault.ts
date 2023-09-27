@@ -13,8 +13,6 @@ export const test_misc_createIsClone_CommentTagDefault = _test_misc_isClone(
                 Number.isFinite(input.number) &&
                 "string" === typeof input.string &&
                 "string" === typeof input.text &&
-                "string" === typeof input.template &&
-                RegExp(/^prefix_(.*)/).test(input.template) &&
                 ("string" === typeof input.boolean_and_number_and_string ||
                     ("number" === typeof input.boolean_and_number_and_string &&
                         Number.isFinite(input.boolean_and_number_and_string)) ||
@@ -34,8 +32,6 @@ export const test_misc_createIsClone_CommentTagDefault = _test_misc_isClone(
                 "number" === typeof input.vulnerable_range &&
                 3 <= input.vulnerable_range &&
                 input.vulnerable_range <= 5 &&
-                "string" === typeof input.vulnerable_template &&
-                RegExp(/^prefix_(.*)/).test(input.vulnerable_template) &&
                 null !== input.boolean_and_number_and_template &&
                 undefined !== input.boolean_and_number_and_template &&
                 (("number" === typeof input.boolean_and_number_and_template &&
@@ -57,14 +53,12 @@ export const test_misc_createIsClone_CommentTagDefault = _test_misc_isClone(
                 number: input.number as any,
                 string: input.string as any,
                 text: input.text as any,
-                template: input.template as any,
                 boolean_and_number_and_string:
                     input.boolean_and_number_and_string as any,
                 union_but_boolean: input.union_but_boolean as any,
                 union_but_number: input.union_but_number as any,
                 union_but_string: input.union_but_string as any,
                 vulnerable_range: input.vulnerable_range as any,
-                vulnerable_template: input.vulnerable_template as any,
                 boolean_and_number_and_template:
                     input.boolean_and_number_and_template as any,
             });

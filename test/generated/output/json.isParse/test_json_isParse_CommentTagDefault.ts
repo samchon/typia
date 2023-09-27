@@ -13,8 +13,6 @@ export const test_json_isParse_CommentTagDefault = _test_json_isParse(
                 Number.isFinite(input.number) &&
                 "string" === typeof input.string &&
                 "string" === typeof input.text &&
-                "string" === typeof input.template &&
-                RegExp(/^prefix_(.*)/).test(input.template) &&
                 ("string" === typeof input.boolean_and_number_and_string ||
                     ("number" === typeof input.boolean_and_number_and_string &&
                         Number.isFinite(input.boolean_and_number_and_string)) ||
@@ -34,8 +32,6 @@ export const test_json_isParse_CommentTagDefault = _test_json_isParse(
                 "number" === typeof input.vulnerable_range &&
                 3 <= input.vulnerable_range &&
                 input.vulnerable_range <= 5 &&
-                "string" === typeof input.vulnerable_template &&
-                RegExp(/^prefix_(.*)/).test(input.vulnerable_template) &&
                 null !== input.boolean_and_number_and_template &&
                 undefined !== input.boolean_and_number_and_template &&
                 (("number" === typeof input.boolean_and_number_and_template &&

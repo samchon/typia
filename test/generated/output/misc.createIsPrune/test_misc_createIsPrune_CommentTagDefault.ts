@@ -13,8 +13,6 @@ export const test_misc_createIsPrune_CommentTagDefault = _test_misc_isPrune(
                 Number.isFinite(input.number) &&
                 "string" === typeof input.string &&
                 "string" === typeof input.text &&
-                "string" === typeof input.template &&
-                RegExp(/^prefix_(.*)/).test(input.template) &&
                 ("string" === typeof input.boolean_and_number_and_string ||
                     ("number" === typeof input.boolean_and_number_and_string &&
                         Number.isFinite(input.boolean_and_number_and_string)) ||
@@ -34,8 +32,6 @@ export const test_misc_createIsPrune_CommentTagDefault = _test_misc_isPrune(
                 "number" === typeof input.vulnerable_range &&
                 3 <= input.vulnerable_range &&
                 input.vulnerable_range <= 5 &&
-                "string" === typeof input.vulnerable_template &&
-                RegExp(/^prefix_(.*)/).test(input.vulnerable_template) &&
                 null !== input.boolean_and_number_and_template &&
                 undefined !== input.boolean_and_number_and_template &&
                 (("number" === typeof input.boolean_and_number_and_template &&
@@ -57,13 +53,11 @@ export const test_misc_createIsPrune_CommentTagDefault = _test_misc_isPrune(
                         "number" === key ||
                         "string" === key ||
                         "text" === key ||
-                        "template" === key ||
                         "boolean_and_number_and_string" === key ||
                         "union_but_boolean" === key ||
                         "union_but_number" === key ||
                         "union_but_string" === key ||
                         "vulnerable_range" === key ||
-                        "vulnerable_template" === key ||
                         "boolean_and_number_and_template" === key
                     )
                         continue;

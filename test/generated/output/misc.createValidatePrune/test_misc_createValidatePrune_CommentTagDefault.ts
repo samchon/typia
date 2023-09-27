@@ -15,8 +15,6 @@ export const test_misc_createValidatePrune_CommentTagDefault =
                     Number.isFinite(input.number) &&
                     "string" === typeof input.string &&
                     "string" === typeof input.text &&
-                    "string" === typeof input.template &&
-                    RegExp(/^prefix_(.*)/).test(input.template) &&
                     ("string" === typeof input.boolean_and_number_and_string ||
                         ("number" ===
                             typeof input.boolean_and_number_and_string &&
@@ -40,8 +38,6 @@ export const test_misc_createValidatePrune_CommentTagDefault =
                     "number" === typeof input.vulnerable_range &&
                     3 <= input.vulnerable_range &&
                     input.vulnerable_range <= 5 &&
-                    "string" === typeof input.vulnerable_template &&
-                    RegExp(/^prefix_(.*)/).test(input.vulnerable_template) &&
                     null !== input.boolean_and_number_and_template &&
                     undefined !== input.boolean_and_number_and_template &&
                     (("number" ===
@@ -99,13 +95,6 @@ export const test_misc_createValidatePrune_CommentTagDefault =
                                     path: _path + ".text",
                                     expected: "string",
                                     value: input.text,
-                                }),
-                            ("string" === typeof input.template &&
-                                RegExp(/^prefix_(.*)/).test(input.template)) ||
-                                $report(_exceptionable, {
-                                    path: _path + ".template",
-                                    expected: "`prefix_${string}`",
-                                    value: input.template,
                                 }),
                             "string" ===
                                 typeof input.boolean_and_number_and_string ||
@@ -168,15 +157,6 @@ export const test_misc_createValidatePrune_CommentTagDefault =
                                     expected:
                                         "(number & Minimum<3> & Maximum<5>)",
                                     value: input.vulnerable_range,
-                                }),
-                            ("string" === typeof input.vulnerable_template &&
-                                RegExp(/^prefix_(.*)/).test(
-                                    input.vulnerable_template,
-                                )) ||
-                                $report(_exceptionable, {
-                                    path: _path + ".vulnerable_template",
-                                    expected: "`prefix_${string}`",
-                                    value: input.vulnerable_template,
                                 }),
                             (null !== input.boolean_and_number_and_template ||
                                 $report(_exceptionable, {
@@ -249,13 +229,11 @@ export const test_misc_createValidatePrune_CommentTagDefault =
                         "number" === key ||
                         "string" === key ||
                         "text" === key ||
-                        "template" === key ||
                         "boolean_and_number_and_string" === key ||
                         "union_but_boolean" === key ||
                         "union_but_number" === key ||
                         "union_but_string" === key ||
                         "vulnerable_range" === key ||
-                        "vulnerable_template" === key ||
                         "boolean_and_number_and_template" === key
                     )
                         continue;

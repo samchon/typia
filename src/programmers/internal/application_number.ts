@@ -18,7 +18,7 @@ export const application_number =
             type: "number",
         };
         const out = (schema: Schema) => {
-            schema.default = application_default(attribute)((str) => {
+            schema.default ??= application_default(attribute)((str) => {
                 const value: number = Number(str);
                 const conditions: boolean[] = [!Number.isNaN(value)];
                 if (schema.minimum !== undefined)
@@ -82,6 +82,8 @@ const application_number_tags =
                 typeof tag.value === "number"
             )
                 base.multipleOf = tag.value;
+            else if (tag.kind === "default" && typeof tag.value === "number")
+                base.default = tag.value;
         }
         base["x-typia-typeTags"] = row;
         return base;
