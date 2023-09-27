@@ -44,6 +44,7 @@ export class Metadata {
     /** @internal */ private parent_resolved_: boolean = false;
     /** @internal */ public union_index?: number;
     /** @internal */ public fixed_?: number | null;
+    /** @internal */ public boolean_literal_intersected_?: boolean;
 
     /* -----------------------------------------------------------
         CONSTRUCTORS

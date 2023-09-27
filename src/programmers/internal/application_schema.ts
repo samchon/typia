@@ -80,13 +80,11 @@ export const application_schema =
         for (const a of meta.atomics)
             if (a.type === "bigint") throw new TypeError(NO_BIGINT);
             else if (a.type === "boolean")
-                insert(application_boolean(attribute));
+                application_boolean(a)(attribute).forEach(insert);
             else if (a.type === "number")
-                application_number(a)(attribute).forEach((s) => insert(s));
+                application_number(a)(attribute).forEach(insert);
             else if (a.type === "string")
-                application_string(meta)(a)(attribute).forEach((s) =>
-                    insert(s),
-                );
+                application_string(meta)(a)(attribute).forEach(insert);
 
         // ARRAY
         for (const array of meta.arrays)
@@ -105,7 +103,14 @@ export const application_schema =
                 if (meta.atomics.some((a) => a.type === type)) continue;
                 else if (type === "bigint") throw new TypeError(NO_BIGINT);
                 else if (type === "boolean")
-                    insert(application_boolean(attribute));
+                    insert(
+                        application_boolean(
+                            MetadataAtomic.create({
+                                type: "boolean",
+                                tags: [],
+                            }),
+                        )(attribute)[0]!,
+                    );
                 else if (type === "number")
                     insert(
                         application_number(

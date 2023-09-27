@@ -26,5 +26,5 @@ export type Format<
         : Value extends "date"
         ? `/^(\\d{4})-(\\d{2})-(\\d{2})$/.test($input)`
         : `!isNaN(new Date($input).getTime())`;
-    exclusive: ["pattern"];
+    exclusive: ["format", "pattern"];
 }>;

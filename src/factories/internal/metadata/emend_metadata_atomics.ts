@@ -18,16 +18,17 @@ export const emend_metadata_atomics = (meta: Metadata) => {
             (c) => c.type === "boolean",
         );
         if (index !== -1 && meta.constants[index]!.values.length === 2) {
-            meta.constants.splice(index, 1);
+            const temp = meta.constants.splice(index, 1)[0]!;
             ArrayUtil.take(
                 meta.atomics,
                 (a) => a.type === "boolean",
                 () =>
                     MetadataAtomic.create({
                         type: "boolean" as const,
-                        tags: [],
+                        tags: temp.tags ?? [],
                     }),
             );
+            temp.tags = undefined;
         }
     }
 

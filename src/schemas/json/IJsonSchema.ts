@@ -60,7 +60,9 @@ export namespace IJsonSchema {
         multipleOf?: number & Type<"int32">;
         "x-typia-typeTags"?: IMetadataTypeTag[];
     }
-    export interface IBoolean extends IAtomic<"boolean"> {}
+    export interface IBoolean extends IAtomic<"boolean"> {
+        "x-typia-typeTags"?: IMetadataTypeTag[];
+    }
 
     /* -----------------------------------------------------------
         OBJECTS

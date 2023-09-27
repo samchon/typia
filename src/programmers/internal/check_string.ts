@@ -35,11 +35,14 @@ const check_string_type_tags =
     (project: IProject) =>
     (atomic: MetadataAtomic) =>
     (input: ts.Expression): ICheckEntry.ICondition[][] =>
-        atomic.tags.map((row) =>
-            row.map((tag) => ({
-                expected: `string & ${tag.name}`,
-                expression: ExpressionFactory.transpile(project.context)(
-                    tag.validate,
-                )(input),
-            })),
-        );
+        atomic.tags
+            .map((row) => row.filter((tag) => !!tag.validate))
+            .filter((row) => !!row.length)
+            .map((row) =>
+                row.map((tag) => ({
+                    expected: `string & ${tag.name}`,
+                    expression: ExpressionFactory.transpile(project.context)(
+                        tag.validate!,
+                    )(input),
+                })),
+            );
