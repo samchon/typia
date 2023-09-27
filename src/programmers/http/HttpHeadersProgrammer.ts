@@ -71,7 +71,7 @@ export namespace HttpHeadersProgrammer {
             );
         };
 
-    const validate = (
+    export const validate = (
         meta: Metadata,
         explore: MetadataFactory.IExplore,
     ): string[] => {
