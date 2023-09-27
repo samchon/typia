@@ -8,7 +8,7 @@ export type TagBase<Props extends TagBase.IProps<any, any, any, any, any>> = {
 };
 export namespace TagBase {
     export interface IProps<
-        Target extends "bigint" | "number" | "string" | "array",
+        Target extends "boolean" | "bigint" | "number" | "string" | "array",
         Kind extends string,
         Value extends boolean | bigint | number | string | undefined,
         Validate extends
@@ -51,7 +51,7 @@ export namespace TagBase {
          * occured. So, define it with confidence. Compiler will block all your
          * mistakes.
          */
-        validate: Validate;
+        validate?: Validate;
 
         /**
          * Exclusive option.

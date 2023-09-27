@@ -1,5 +1,6 @@
 import ts from "typescript";
 
+import { IMetadataConstant } from "../../../schemas/metadata/IMetadataConstant";
 import { IMetadataTypeTag } from "../../../schemas/metadata/IMetadataTypeTag";
 import { Metadata } from "../../../schemas/metadata/Metadata";
 import { MetadataAtomic } from "../../../schemas/metadata/MetadataAtomic";
@@ -70,21 +71,53 @@ export const iterate_metadata_intersection =
         )
             return false;
 
+        // CONSIDER BOOLEAN TYPE CASE
+        const booleanLiteral: boolean | null = (() => {
+            const found = children.find(
+                (c) =>
+                    c.size() === 1 &&
+                    c.constants.length === 1 &&
+                    c.constants[0]!.type === "boolean",
+            )?.constants[0]?.values[0];
+            if (found === undefined) return null;
+            return children.every(
+                (c) =>
+                    c.atomics.length === 0 ||
+                    c.atomics.every((a) => a.type !== "boolean"),
+            )
+                ? (found as boolean)
+                : null;
+        })();
+        if (
+            booleanLiteral !== null &&
+            meta.boolean_literal_intersected_ === true
+        ) {
+            (
+                meta.constants.find((c) => c.type === "boolean")!
+                    .values as boolean[]
+            ).push(booleanLiteral);
+            return true;
+        }
+
         // VALIDATE EACH TYPES
         const individuals: (readonly [Metadata, number])[] = children
             .map((child, i) => [child, i] as const)
             .filter(
                 ([c]) =>
                     c.size() === 1 &&
-                    (c.atomics.length === 1 || c.arrays.length === 1),
+                    (c.atomics.length === 1 ||
+                        (c.constants.length === 1 &&
+                            c.constants[0]!.type === "boolean") ||
+                        c.arrays.length === 1),
             );
         const constants: Metadata[] = children.filter(
             (m) =>
                 m.size() ===
-                m.constants
-                    .map((c) => c.values.length)
-                    .reduce((a, b) => a + b, 0) +
-                    m.templates.length,
+                    m.constants
+                        .map((c) => c.values.length)
+                        .reduce((a, b) => a + b, 0) +
+                        m.templates.length &&
+                !(m.size() === 1 && m.constants[0]!.type === "boolean"),
         );
         const objects: Metadata[] = children.filter(
             (c) =>
@@ -98,7 +131,14 @@ export const iterate_metadata_intersection =
         );
         const atomics: Set<"boolean" | "bigint" | "number" | "string"> =
             new Set(
-                individuals.map(([c]) => c.atomics.map((a) => a.type)).flat(),
+                individuals
+                    .map(([c]) => [
+                        ...c.atomics.map((a) => a.type),
+                        ...c.constants
+                            .filter((l) => l.type === "boolean")
+                            .map((l) => l.type),
+                    ])
+                    .flat(),
             );
         const arrays: Set<string> = new Set(
             individuals.map(([c]) => c.arrays.map((a) => a.type.name)).flat(),
@@ -149,21 +189,35 @@ export const iterate_metadata_intersection =
 
         // RE-GENERATE TYPE
         const target: "boolean" | "bigint" | "number" | "string" | "array" =
-            atomics.size ? atomics.values().next().value : "array";
+            booleanLiteral
+                ? "boolean"
+                : atomics.size
+                ? atomics.values().next().value
+                : "array";
         if (
             target === "boolean" ||
             target === "bigint" ||
             target === "number" ||
             target === "string"
         )
-            ArrayUtil.add(
-                meta.atomics,
-                MetadataAtomic.create({
-                    type: atomics.values().next().value as "string",
-                    tags: [],
-                }),
-                (a, b) => a.type === b.type,
-            );
+            if (booleanLiteral === null)
+                ArrayUtil.add(
+                    meta.atomics,
+                    MetadataAtomic.create({
+                        type: atomics.values().next().value as "string",
+                        tags: [],
+                    }),
+                    (a, b) => a.type === b.type,
+                );
+            else
+                ArrayUtil.take<IMetadataConstant>(
+                    meta.constants,
+                    (x) => x.type === "boolean",
+                    () => ({
+                        type: "boolean",
+                        values: [booleanLiteral],
+                    }),
+                );
         else if (target === "array") {
             const name: string = arrays.values().next().value;
             if (!meta.arrays.some((a) => a.type.name === name)) {
@@ -182,16 +236,24 @@ export const iterate_metadata_intersection =
         }
 
         // ASSIGN TAGS
-        if (objects.length && target !== "boolean") {
+        if (objects.length) {
             const tags: IMetadataTypeTag[] = MetadataTypeTagFactory.analyze(
                 errors,
             )(target)(objects.map((om) => om.objects).flat(), explore);
             if (tags.length)
                 if (target === "array") meta.arrays.at(-1)!.tags.push(tags);
-                else
+                else if (booleanLiteral === null)
                     meta.atomics
                         .find((a) => a.type === target)!
                         .tags.push(tags);
+                else {
+                    const constant: IMetadataConstant = meta.constants.find(
+                        (c) => c.type === "boolean",
+                    )!;
+                    constant.tags ??= [];
+                    constant.tags.push(tags);
+                }
         }
+        if (booleanLiteral !== null) meta.boolean_literal_intersected_ = true;
         return true;
     };
