@@ -1275,43 +1275,43 @@
               "$ref": "#/components/schemas/IJsonComponents.IObject"
             },
             {
-              "$ref": "#/components/schemas/IEnumerationstringid?:stringundefined;recursiveAnchor?:booleanundefined;"
+              "$ref": "#/components/schemas/IEnumerationstringIIdentified"
             },
             {
-              "$ref": "#/components/schemas/IEnumerationnumberid?:stringundefined;recursiveAnchor?:booleanundefined;"
+              "$ref": "#/components/schemas/IEnumerationnumberIIdentified"
             },
             {
-              "$ref": "#/components/schemas/IEnumerationbooleanid?:stringundefined;recursiveAnchor?:booleanundefined;"
+              "$ref": "#/components/schemas/IEnumerationbooleanIIdentified"
             },
             {
-              "$ref": "#/components/schemas/IBooleanid?:stringundefined;recursiveAnchor?:booleanundefined;"
+              "$ref": "#/components/schemas/IBooleanIIdentified"
             },
             {
-              "$ref": "#/components/schemas/INumberid?:stringundefined;recursiveAnchor?:booleanundefined;"
+              "$ref": "#/components/schemas/INumberIIdentified"
             },
             {
-              "$ref": "#/components/schemas/IIntegerid?:stringundefined;recursiveAnchor?:booleanundefined;"
+              "$ref": "#/components/schemas/IIntegerIIdentified"
             },
             {
-              "$ref": "#/components/schemas/IStringid?:stringundefined;recursiveAnchor?:booleanundefined;"
+              "$ref": "#/components/schemas/IStringIIdentified"
             },
             {
-              "$ref": "#/components/schemas/IArrayid?:stringundefined;recursiveAnchor?:booleanundefined;"
+              "$ref": "#/components/schemas/IArrayIIdentified"
             },
             {
-              "$ref": "#/components/schemas/ITupleid?:stringundefined;recursiveAnchor?:booleanundefined;"
+              "$ref": "#/components/schemas/ITupleIIdentified"
             },
             {
-              "$ref": "#/components/schemas/IOneOfid?:stringundefined;recursiveAnchor?:booleanundefined;"
+              "$ref": "#/components/schemas/IOneOfIIdentified"
             },
             {
-              "$ref": "#/components/schemas/IReferenceid?:stringundefined;recursiveAnchor?:booleanundefined;"
+              "$ref": "#/components/schemas/IReferenceIIdentified"
             },
             {
-              "$ref": "#/components/schemas/IUnknownid?:stringundefined;recursiveAnchor?:booleanundefined;"
+              "$ref": "#/components/schemas/IUnknownIIdentified"
             },
             {
-              "$ref": "#/components/schemas/INullOnlyid?:stringundefined;recursiveAnchor?:booleanundefined;"
+              "$ref": "#/components/schemas/INullOnlyIIdentified"
             }
           ],
           "x-typia-required": true,
@@ -1323,43 +1323,43 @@
               "$ref": "#/components/schemas/IJsonComponents.IObject"
             },
             {
-              "$ref": "#/components/schemas/IEnumerationstringid?:stringundefined;recursiveAnchor?:booleanundefined;"
+              "$ref": "#/components/schemas/IEnumerationstringIIdentified"
             },
             {
-              "$ref": "#/components/schemas/IEnumerationnumberid?:stringundefined;recursiveAnchor?:booleanundefined;"
+              "$ref": "#/components/schemas/IEnumerationnumberIIdentified"
             },
             {
-              "$ref": "#/components/schemas/IEnumerationbooleanid?:stringundefined;recursiveAnchor?:booleanundefined;"
+              "$ref": "#/components/schemas/IEnumerationbooleanIIdentified"
             },
             {
-              "$ref": "#/components/schemas/IBooleanid?:stringundefined;recursiveAnchor?:booleanundefined;"
+              "$ref": "#/components/schemas/IBooleanIIdentified"
             },
             {
-              "$ref": "#/components/schemas/INumberid?:stringundefined;recursiveAnchor?:booleanundefined;"
+              "$ref": "#/components/schemas/INumberIIdentified"
             },
             {
-              "$ref": "#/components/schemas/IIntegerid?:stringundefined;recursiveAnchor?:booleanundefined;"
+              "$ref": "#/components/schemas/IIntegerIIdentified"
             },
             {
-              "$ref": "#/components/schemas/IStringid?:stringundefined;recursiveAnchor?:booleanundefined;"
+              "$ref": "#/components/schemas/IStringIIdentified"
             },
             {
-              "$ref": "#/components/schemas/IArrayid?:stringundefined;recursiveAnchor?:booleanundefined;"
+              "$ref": "#/components/schemas/IArrayIIdentified"
             },
             {
-              "$ref": "#/components/schemas/ITupleid?:stringundefined;recursiveAnchor?:booleanundefined;"
+              "$ref": "#/components/schemas/ITupleIIdentified"
             },
             {
-              "$ref": "#/components/schemas/IOneOfid?:stringundefined;recursiveAnchor?:booleanundefined;"
+              "$ref": "#/components/schemas/IOneOfIIdentified"
             },
             {
-              "$ref": "#/components/schemas/IReferenceid?:stringundefined;recursiveAnchor?:booleanundefined;"
+              "$ref": "#/components/schemas/IReferenceIIdentified"
             },
             {
-              "$ref": "#/components/schemas/IUnknownid?:stringundefined;recursiveAnchor?:booleanundefined;"
+              "$ref": "#/components/schemas/IUnknownIIdentified"
             },
             {
-              "$ref": "#/components/schemas/INullOnlyid?:stringundefined;recursiveAnchor?:booleanundefined;"
+              "$ref": "#/components/schemas/INullOnlyIIdentified"
             }
           ],
           "x-typia-required": true,
@@ -1530,7 +1530,7 @@
           "$ref": "#/components/schemas/IJsonSchema"
         }
       },
-      "IEnumerationstringid?:stringundefined;recursiveAnchor?:booleanundefined;": {
+      "IEnumerationstringIIdentified": {
         "type": "object",
         "properties": {
           "enum": {
@@ -1618,7 +1618,7 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "IEnumerationnumberid?:stringundefined;recursiveAnchor?:booleanundefined;": {
+      "IEnumerationnumberIIdentified": {
         "type": "object",
         "properties": {
           "enum": {
@@ -1706,7 +1706,7 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "IEnumerationbooleanid?:stringundefined;recursiveAnchor?:booleanundefined;": {
+      "IEnumerationbooleanIIdentified": {
         "type": "object",
         "properties": {
           "enum": {
@@ -1794,7 +1794,7 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "IBooleanid?:stringundefined;recursiveAnchor?:booleanundefined;": {
+      "IBooleanIIdentified": {
         "type": "object",
         "properties": {
           "default": {
@@ -1871,7 +1871,7 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "INumberid?:stringundefined;recursiveAnchor?:booleanundefined;": {
+      "INumberIIdentified": {
         "type": "object",
         "properties": {
           "minimum": {
@@ -1981,7 +1981,7 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "IIntegerid?:stringundefined;recursiveAnchor?:booleanundefined;": {
+      "IIntegerIIdentified": {
         "type": "object",
         "properties": {
           "minimum": {
@@ -2121,7 +2121,7 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "IStringid?:stringundefined;recursiveAnchor?:booleanundefined;": {
+      "IStringIIdentified": {
         "type": "object",
         "properties": {
           "minLength": {
@@ -2246,7 +2246,7 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "IArrayid?:stringundefined;recursiveAnchor?:booleanundefined;": {
+      "IArrayIIdentified": {
         "type": "object",
         "properties": {
           "items": {
@@ -2355,7 +2355,7 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "ITupleid?:stringundefined;recursiveAnchor?:booleanundefined;": {
+      "ITupleIIdentified": {
         "type": "object",
         "properties": {
           "items": {
@@ -2467,7 +2467,7 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "IOneOfid?:stringundefined;recursiveAnchor?:booleanundefined;": {
+      "IOneOfIIdentified": {
         "type": "object",
         "properties": {
           "oneOf": {
@@ -2533,7 +2533,7 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "IReferenceid?:stringundefined;recursiveAnchor?:booleanundefined;": {
+      "IReferenceIIdentified": {
         "type": "object",
         "properties": {
           "$ref": {
@@ -2596,7 +2596,7 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "IUnknownid?:stringundefined;recursiveAnchor?:booleanundefined;": {
+      "IUnknownIIdentified": {
         "type": "object",
         "properties": {
           "deprecated": {
@@ -2651,7 +2651,7 @@
         "nullable": false,
         "x-typia-jsDocTags": []
       },
-      "INullOnlyid?:stringundefined;recursiveAnchor?:booleanundefined;": {
+      "INullOnlyIIdentified": {
         "type": "object",
         "properties": {
           "type": {

@@ -271,4 +271,7 @@ const REPLACERS: [string, string][] = [
     ["'", "_singlequote_"],
     ['"', "_doublequote_"],
     [" ", "_space_"],
+    ["?", "_question_"],
+    [":", "_colon_"],
+    [";", "_semicolon_"],
 ];

@@ -80,7 +80,7 @@ export namespace HttpParameterProgrammer {
             );
         };
 
-    const validate = (meta: Metadata): string[] => {
+    export const validate = (meta: Metadata): string[] => {
         const errors: string[] = [];
         const insert = (msg: string) => errors.push(msg);
 
