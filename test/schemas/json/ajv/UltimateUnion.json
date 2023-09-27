@@ -1277,43 +1277,43 @@
               "$ref": "#/components/schemas/IJsonComponents.IObject"
             },
             {
-              "$ref": "#/components/schemas/IEnumerationstringid?:stringundefined;recursiveAnchor?:booleanundefined;"
+              "$ref": "#/components/schemas/IEnumerationstringIIdentified"
             },
             {
-              "$ref": "#/components/schemas/IEnumerationnumberid?:stringundefined;recursiveAnchor?:booleanundefined;"
+              "$ref": "#/components/schemas/IEnumerationnumberIIdentified"
             },
             {
-              "$ref": "#/components/schemas/IEnumerationbooleanid?:stringundefined;recursiveAnchor?:booleanundefined;"
+              "$ref": "#/components/schemas/IEnumerationbooleanIIdentified"
             },
             {
-              "$ref": "#/components/schemas/IBooleanid?:stringundefined;recursiveAnchor?:booleanundefined;"
+              "$ref": "#/components/schemas/IBooleanIIdentified"
             },
             {
-              "$ref": "#/components/schemas/INumberid?:stringundefined;recursiveAnchor?:booleanundefined;"
+              "$ref": "#/components/schemas/INumberIIdentified"
             },
             {
-              "$ref": "#/components/schemas/IIntegerid?:stringundefined;recursiveAnchor?:booleanundefined;"
+              "$ref": "#/components/schemas/IIntegerIIdentified"
             },
             {
-              "$ref": "#/components/schemas/IStringid?:stringundefined;recursiveAnchor?:booleanundefined;"
+              "$ref": "#/components/schemas/IStringIIdentified"
             },
             {
-              "$ref": "#/components/schemas/IArrayid?:stringundefined;recursiveAnchor?:booleanundefined;"
+              "$ref": "#/components/schemas/IArrayIIdentified"
             },
             {
-              "$ref": "#/components/schemas/ITupleid?:stringundefined;recursiveAnchor?:booleanundefined;"
+              "$ref": "#/components/schemas/ITupleIIdentified"
             },
             {
-              "$ref": "#/components/schemas/IOneOfid?:stringundefined;recursiveAnchor?:booleanundefined;"
+              "$ref": "#/components/schemas/IOneOfIIdentified"
             },
             {
-              "$ref": "#/components/schemas/IReferenceid?:stringundefined;recursiveAnchor?:booleanundefined;"
+              "$ref": "#/components/schemas/IReferenceIIdentified"
             },
             {
-              "$ref": "#/components/schemas/IUnknownid?:stringundefined;recursiveAnchor?:booleanundefined;"
+              "$ref": "#/components/schemas/IUnknownIIdentified"
             },
             {
-              "$ref": "#/components/schemas/INullOnlyid?:stringundefined;recursiveAnchor?:booleanundefined;"
+              "$ref": "#/components/schemas/INullOnlyIIdentified"
             }
           ],
           "x-typia-required": true,
@@ -1481,8 +1481,8 @@
           "$ref": "#/components/schemas/IJsonSchema"
         }
       },
-      "IEnumerationstringid?:stringundefined;recursiveAnchor?:booleanundefined;": {
-        "$id": "#/components/schemas/IEnumerationstringid?:stringundefined;recursiveAnchor?:booleanundefined;",
+      "IEnumerationstringIIdentified": {
+        "$id": "#/components/schemas/IEnumerationstringIIdentified",
         "type": "object",
         "properties": {
           "enum": {
@@ -1569,8 +1569,8 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "IEnumerationnumberid?:stringundefined;recursiveAnchor?:booleanundefined;": {
-        "$id": "#/components/schemas/IEnumerationnumberid?:stringundefined;recursiveAnchor?:booleanundefined;",
+      "IEnumerationnumberIIdentified": {
+        "$id": "#/components/schemas/IEnumerationnumberIIdentified",
         "type": "object",
         "properties": {
           "enum": {
@@ -1657,8 +1657,8 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "IEnumerationbooleanid?:stringundefined;recursiveAnchor?:booleanundefined;": {
-        "$id": "#/components/schemas/IEnumerationbooleanid?:stringundefined;recursiveAnchor?:booleanundefined;",
+      "IEnumerationbooleanIIdentified": {
+        "$id": "#/components/schemas/IEnumerationbooleanIIdentified",
         "type": "object",
         "properties": {
           "enum": {
@@ -1745,8 +1745,8 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "IBooleanid?:stringundefined;recursiveAnchor?:booleanundefined;": {
-        "$id": "#/components/schemas/IBooleanid?:stringundefined;recursiveAnchor?:booleanundefined;",
+      "IBooleanIIdentified": {
+        "$id": "#/components/schemas/IBooleanIIdentified",
         "type": "object",
         "properties": {
           "default": {
@@ -1822,8 +1822,8 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "INumberid?:stringundefined;recursiveAnchor?:booleanundefined;": {
-        "$id": "#/components/schemas/INumberid?:stringundefined;recursiveAnchor?:booleanundefined;",
+      "INumberIIdentified": {
+        "$id": "#/components/schemas/INumberIIdentified",
         "type": "object",
         "properties": {
           "minimum": {
@@ -1932,8 +1932,8 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "IIntegerid?:stringundefined;recursiveAnchor?:booleanundefined;": {
-        "$id": "#/components/schemas/IIntegerid?:stringundefined;recursiveAnchor?:booleanundefined;",
+      "IIntegerIIdentified": {
+        "$id": "#/components/schemas/IIntegerIIdentified",
         "type": "object",
         "properties": {
           "minimum": {
@@ -2072,8 +2072,8 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "IStringid?:stringundefined;recursiveAnchor?:booleanundefined;": {
-        "$id": "#/components/schemas/IStringid?:stringundefined;recursiveAnchor?:booleanundefined;",
+      "IStringIIdentified": {
+        "$id": "#/components/schemas/IStringIIdentified",
         "type": "object",
         "properties": {
           "minLength": {
@@ -2197,8 +2197,8 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "IArrayid?:stringundefined;recursiveAnchor?:booleanundefined;": {
-        "$id": "#/components/schemas/IArrayid?:stringundefined;recursiveAnchor?:booleanundefined;",
+      "IArrayIIdentified": {
+        "$id": "#/components/schemas/IArrayIIdentified",
         "type": "object",
         "properties": {
           "items": {
@@ -2306,8 +2306,8 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "ITupleid?:stringundefined;recursiveAnchor?:booleanundefined;": {
-        "$id": "#/components/schemas/ITupleid?:stringundefined;recursiveAnchor?:booleanundefined;",
+      "ITupleIIdentified": {
+        "$id": "#/components/schemas/ITupleIIdentified",
         "type": "object",
         "properties": {
           "items": {
@@ -2418,8 +2418,8 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "IOneOfid?:stringundefined;recursiveAnchor?:booleanundefined;": {
-        "$id": "#/components/schemas/IOneOfid?:stringundefined;recursiveAnchor?:booleanundefined;",
+      "IOneOfIIdentified": {
+        "$id": "#/components/schemas/IOneOfIIdentified",
         "type": "object",
         "properties": {
           "oneOf": {
@@ -2484,8 +2484,8 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "IReferenceid?:stringundefined;recursiveAnchor?:booleanundefined;": {
-        "$id": "#/components/schemas/IReferenceid?:stringundefined;recursiveAnchor?:booleanundefined;",
+      "IReferenceIIdentified": {
+        "$id": "#/components/schemas/IReferenceIIdentified",
         "type": "object",
         "properties": {
           "$ref": {
@@ -2547,8 +2547,8 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "IUnknownid?:stringundefined;recursiveAnchor?:booleanundefined;": {
-        "$id": "#/components/schemas/IUnknownid?:stringundefined;recursiveAnchor?:booleanundefined;",
+      "IUnknownIIdentified": {
+        "$id": "#/components/schemas/IUnknownIIdentified",
         "type": "object",
         "properties": {
           "deprecated": {
@@ -2602,8 +2602,8 @@
         },
         "x-typia-jsDocTags": []
       },
-      "INullOnlyid?:stringundefined;recursiveAnchor?:booleanundefined;": {
-        "$id": "#/components/schemas/INullOnlyid?:stringundefined;recursiveAnchor?:booleanundefined;",
+      "INullOnlyIIdentified": {
+        "$id": "#/components/schemas/INullOnlyIIdentified",
         "type": "object",
         "properties": {
           "type": {
