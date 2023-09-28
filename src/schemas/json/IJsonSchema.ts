@@ -68,7 +68,7 @@ export namespace IJsonSchema {
         OBJECTS
     ----------------------------------------------------------- */
     export interface IArray extends ISignificant<"array"> {
-        items: IJsonSchema;
+        items: IJsonSchema[];
         minItems?: number & Type<"uint32">;
         maxItems?: number & Type<"uint32">;
         "x-typia-tuple"?: ITuple;
