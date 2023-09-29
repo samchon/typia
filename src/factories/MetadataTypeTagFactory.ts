@@ -316,7 +316,7 @@ interface ITypeTag {
     name: string;
     target: Array<"bigint" | "number" | "string" | "array">;
     kind: string;
-    value?: boolean | bigint | number | string;
+    value?: undefined | boolean | bigint | number | string;
     validate: Record<string, string>;
     exclusive: boolean | string[];
 }

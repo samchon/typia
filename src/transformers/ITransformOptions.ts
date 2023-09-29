@@ -15,7 +15,7 @@ export interface ITransformOptions {
      *
      * @default false
      */
-    finite?: boolean;
+    finite?: undefined | boolean;
 
     /**
      * Whether to validate finite number or not.
@@ -34,7 +34,7 @@ export interface ITransformOptions {
      *
      * @default false
      */
-    numeric?: boolean;
+    numeric?: undefined | boolean;
 
     /**
      * Whether to validate functional type or not.
@@ -43,7 +43,7 @@ export interface ITransformOptions {
      *
      * @default false
      */
-    functional?: boolean;
+    functional?: undefined | boolean;
 
     /**
      * Whether to check undefined value or not.
@@ -58,5 +58,5 @@ export interface ITransformOptions {
      *
      * @default true
      */
-    undefined?: boolean;
+    undefined?: undefined | boolean;
 }

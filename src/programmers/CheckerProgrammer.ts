@@ -67,22 +67,24 @@ export namespace CheckerProgrammer {
                 entries: IExpressionEntry[],
             ): ts.Expression;
             array(input: ts.Expression, arrow: ts.ArrowFunction): ts.Expression;
-            tuple?(exprs: ts.Expression[]): ts.Expression;
+            tuple?: undefined | ((exprs: ts.Expression[]) => ts.Expression);
 
             failure(
                 value: ts.Expression,
                 expected: string,
-                explore?: FeatureProgrammer.IExplore,
+                explore?: undefined | FeatureProgrammer.IExplore,
             ): ts.Expression;
             is?(expression: ts.Expression): ts.Expression;
             required?(exp: ts.Expression): ts.Expression;
-            full?: (
-                condition: ts.Expression,
-            ) => (
-                input: ts.Expression,
-                expected: string,
-                explore: IExplore,
-            ) => ts.Expression;
+            full?:
+                | undefined
+                | ((
+                      condition: ts.Expression,
+                  ) => (
+                      input: ts.Expression,
+                      expected: string,
+                      explore: IExplore,
+                  ) => ts.Expression);
         }
     }
     export type IExplore = FeatureProgrammer.IExplore;

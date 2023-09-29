@@ -168,6 +168,6 @@ interface IRange {
     maximum: IScalar;
 }
 interface IScalar {
-    value?: number;
+    value?: undefined | number;
     exclusive: boolean;
 }

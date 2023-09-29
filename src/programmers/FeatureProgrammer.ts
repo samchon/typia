@@ -40,7 +40,9 @@ export namespace FeatureProgrammer {
          */
         trace: boolean;
 
-        addition?(collection: MetadataCollection): ts.Statement[];
+        addition?:
+            | undefined
+            | ((collection: MetadataCollection) => ts.Statement[]);
 
         /**
          * Initializer of metadata.
@@ -68,8 +70,8 @@ export namespace FeatureProgrammer {
     }
     export namespace IConfig {
         export interface ITypes {
-            input: (type: ts.Type, name?: string) => ts.TypeNode;
-            output: (type: ts.Type, name?: string) => ts.TypeNode;
+            input: (type: ts.Type, name?: undefined | string) => ts.TypeNode;
+            output: (type: ts.Type, name?: undefined | string) => ts.TypeNode;
         }
 
         export interface IObjector<
@@ -113,7 +115,7 @@ export namespace FeatureProgrammer {
             failure(
                 value: ts.Expression,
                 expected: string,
-                explore?: IExplore,
+                explore?: undefined | IExplore,
             ): ts.Statement;
 
             /**
@@ -129,7 +131,7 @@ export namespace FeatureProgrammer {
              * @returns Transformed expression
              * @deprecated
              */
-            is?(exp: ts.Expression): ts.Expression;
+            is?: undefined | ((exp: ts.Expression) => ts.Expression);
 
             /**
              * Transformer of non-undefined type checking by discrimination.
@@ -146,7 +148,7 @@ export namespace FeatureProgrammer {
              * @returns Transformed expression
              * @deprecated
              */
-            required?(exp: ts.Expression): ts.Expression;
+            required?: undefined | ((exp: ts.Expression) => ts.Expression);
 
             /**
              * Conditon wrapper when unable to specify any object type.
@@ -158,22 +160,28 @@ export namespace FeatureProgrammer {
              * @param condition Current condition
              * @returns A function wrapped current condition
              */
-            full?: (
-                condition: ts.Expression,
-            ) => (
-                input: ts.Expression,
-                expected: string,
-                explore: IExplore,
-            ) => ts.Expression;
+            full?:
+                | undefined
+                | ((
+                      condition: ts.Expression,
+                  ) => (
+                      input: ts.Expression,
+                      expected: string,
+                      explore: IExplore,
+                  ) => ts.Expression);
 
             /**
              * Return type.
              */
-            type?: ts.TypeNode;
+            type?: undefined | ts.TypeNode;
         }
         export interface IGenerator {
-            objects?(): (col: MetadataCollection) => ts.VariableStatement[];
-            unions?(): (col: MetadataCollection) => ts.VariableStatement[];
+            objects?:
+                | undefined
+                | (() => (col: MetadataCollection) => ts.VariableStatement[]);
+            unions?:
+                | undefined
+                | (() => (col: MetadataCollection) => ts.VariableStatement[]);
             arrays(): (col: MetadataCollection) => ts.VariableStatement[];
             tuples(): (col: MetadataCollection) => ts.VariableStatement[];
         }
@@ -184,7 +192,7 @@ export namespace FeatureProgrammer {
         source: "top" | "function";
         from: "top" | "array" | "object";
         postfix: string;
-        start?: number;
+        start?: undefined | number;
     }
 
     export interface Decoder<
