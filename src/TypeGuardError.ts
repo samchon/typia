@@ -28,9 +28,9 @@ export class TypeGuardError extends Error {
 export namespace TypeGuardError {
     export interface IProps {
         method: string;
-        path?: string;
+        path?: undefined | string;
         expected: string;
         value: any;
-        message?: string;
+        message?: undefined | string;
     }
 }

@@ -108,12 +108,12 @@ export const test_misc_assertPrune_ObjectUnionImplicit = _test_misc_assertPrune(
                         ("number" === typeof input.area &&
                             Number.isFinite(input.area)));
                 const $io6 = (input: any): boolean =>
+                    "number" === typeof input.radius &&
+                    Number.isFinite(input.radius) &&
                     (undefined === input.centroid ||
                         ("object" === typeof input.centroid &&
                             null !== input.centroid &&
                             $io0(input.centroid))) &&
-                    "number" === typeof input.radius &&
-                    Number.isFinite(input.radius) &&
                     (null === input.area ||
                         undefined === input.area ||
                         ("number" === typeof input.area &&
@@ -550,6 +550,13 @@ export const test_misc_assertPrune_ObjectUnionImplicit = _test_misc_assertPrune(
                         _path: string,
                         _exceptionable: boolean = true,
                     ): boolean =>
+                        (("number" === typeof input.radius &&
+                            Number.isFinite(input.radius)) ||
+                            $guard(_exceptionable, {
+                                path: _path + ".radius",
+                                expected: "number",
+                                value: input.radius,
+                            })) &&
                         (undefined === input.centroid ||
                             ((("object" === typeof input.centroid &&
                                 null !== input.centroid) ||
@@ -569,13 +576,6 @@ export const test_misc_assertPrune_ObjectUnionImplicit = _test_misc_assertPrune(
                                 expected:
                                     "(ObjectUnionImplicit.IPoint | undefined)",
                                 value: input.centroid,
-                            })) &&
-                        (("number" === typeof input.radius &&
-                            Number.isFinite(input.radius)) ||
-                            $guard(_exceptionable, {
-                                path: _path + ".radius",
-                                expected: "number",
-                                value: input.radius,
                             })) &&
                         (null === input.area ||
                             undefined === input.area ||
@@ -762,11 +762,11 @@ export const test_misc_assertPrune_ObjectUnionImplicit = _test_misc_assertPrune(
                     undefined === input.area ||
                     "number" === typeof input.area);
             const $io6 = (input: any): boolean =>
+                "number" === typeof input.radius &&
                 (undefined === input.centroid ||
                     ("object" === typeof input.centroid &&
                         null !== input.centroid &&
                         $io0(input.centroid))) &&
-                "number" === typeof input.radius &&
                 (null === input.area ||
                     undefined === input.area ||
                     "number" === typeof input.area);
@@ -872,8 +872,8 @@ export const test_misc_assertPrune_ObjectUnionImplicit = _test_misc_assertPrune(
                     $po0(input.centroid);
                 for (const key of Object.keys(input)) {
                     if (
-                        "centroid" === key ||
                         "radius" === key ||
+                        "centroid" === key ||
                         "area" === key
                     )
                         continue;

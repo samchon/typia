@@ -91,11 +91,11 @@ export const test_misc_createPrune_ObjectUnionImplicit = _test_misc_prune(
                 undefined === input.area ||
                 "number" === typeof input.area);
         const $io6 = (input: any): boolean =>
+            "number" === typeof input.radius &&
             (undefined === input.centroid ||
                 ("object" === typeof input.centroid &&
                     null !== input.centroid &&
                     $io0(input.centroid))) &&
-            "number" === typeof input.radius &&
             (null === input.area ||
                 undefined === input.area ||
                 "number" === typeof input.area);
@@ -197,7 +197,7 @@ export const test_misc_createPrune_ObjectUnionImplicit = _test_misc_prune(
             if ("object" === typeof input.centroid && null !== input.centroid)
                 $po0(input.centroid);
             for (const key of Object.keys(input)) {
-                if ("centroid" === key || "radius" === key || "area" === key)
+                if ("radius" === key || "centroid" === key || "area" === key)
                     continue;
                 delete input[key];
             }

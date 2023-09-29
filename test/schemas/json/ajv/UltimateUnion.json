@@ -177,7 +177,7 @@
             "type": "string"
           },
           "text": {
-            "x-typia-required": false,
+            "x-typia-required": true,
             "x-typia-optional": true,
             "type": "array",
             "items": {

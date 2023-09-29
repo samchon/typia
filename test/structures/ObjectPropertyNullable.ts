@@ -13,8 +13,8 @@ export namespace ObjectPropertyNullable {
     export interface IMember {
         id: string;
         name: string | null;
-        grade?: number;
-        serial?: number | null;
+        grade?: undefined | number;
+        serial?: undefined | number | null;
         activated: boolean | null;
     }
 

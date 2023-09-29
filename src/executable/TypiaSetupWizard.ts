@@ -87,11 +87,15 @@ export namespace TypiaSetupWizard {
                         name: name,
                         message: message,
                         choices: choices,
-                        filter,
+                        ...(filter
+                            ? {
+                                  filter,
+                              }
+                            : {}),
                     })
                 )[name];
             };
-        const configure = async () => {
+        const configure = async (): Promise<string | null> => {
             const fileList: string[] = await (
                 await fs.promises.readdir(process.cwd())
             )
@@ -113,7 +117,7 @@ export namespace TypiaSetupWizard {
                 if (process.cwd() !== pack.directory)
                     throw new URIError(`Unable to find "tsconfig.json" file.`);
                 return null;
-            } else if (fileList.length === 1) return fileList[0];
+            } else if (fileList.length === 1) return fileList[0]!;
             return select("tsconfig")("TS Config File")(fileList);
         };
 

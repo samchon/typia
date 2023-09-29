@@ -15,7 +15,7 @@ const app = typia.json.application<[ObjectArray], "swagger">();
 const stringify = fast({
     ...app.schemas[0]!,
     ...app,
-});
+} as any);
 console.log(stringify(data));
 
 console.log(

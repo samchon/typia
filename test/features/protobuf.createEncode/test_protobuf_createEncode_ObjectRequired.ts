@@ -1,0 +1,11 @@
+import typia from "../../../src";
+import { _test_protobuf_encode } from "../../internal/_test_protobuf_encode";
+import { ObjectRequired } from "../../structures/ObjectRequired";
+
+export const test_protobuf_createEncode_ObjectRequired = _test_protobuf_encode(
+    "ObjectRequired",
+)<ObjectRequired>(ObjectRequired)({
+    encode: typia.protobuf.createEncode<ObjectRequired>(),
+    message: typia.protobuf.message<ObjectRequired>(),
+    decode: typia.protobuf.createDecode<ObjectRequired>(),
+});

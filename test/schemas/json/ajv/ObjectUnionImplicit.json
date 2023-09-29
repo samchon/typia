@@ -338,13 +338,13 @@
         "$id": "#/components/schemas/ObjectUnionImplicit.ICircle",
         "type": "object",
         "properties": {
-          "centroid": {
-            "$ref": "#/components/schemas/ObjectUnionImplicit.IPoint"
-          },
           "radius": {
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "number"
+          },
+          "centroid": {
+            "$ref": "#/components/schemas/ObjectUnionImplicit.IPoint"
           },
           "area": {
             "oneOf": [

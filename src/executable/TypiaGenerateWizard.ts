@@ -55,7 +55,7 @@ export namespace TypiaGenerateWizard {
                     })
                 )[name];
             };
-        const configure = async () => {
+        const configure = async (): Promise<string> => {
             const files: string[] = await (
                 await fs.promises.readdir(process.cwd())
             ).filter(
@@ -65,7 +65,7 @@ export namespace TypiaGenerateWizard {
             );
             if (files.length === 0)
                 throw new URIError(`Unable to find "tsconfig.json" file.`);
-            else if (files.length === 1) return files[0];
+            else if (files.length === 1) return files[0]!;
             return select("tsconfig")("TS Config File")(files);
         };
 

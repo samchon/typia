@@ -179,12 +179,12 @@ export const test_createEquals_ObjectUnionImplicit = _test_equals(
                     return false;
                 }));
         const $io6 = (input: any, _exceptionable: boolean = true): boolean =>
+            "number" === typeof input.radius &&
+            Number.isFinite(input.radius) &&
             (undefined === input.centroid ||
                 ("object" === typeof input.centroid &&
                     null !== input.centroid &&
                     $io0(input.centroid, true && _exceptionable))) &&
-            "number" === typeof input.radius &&
-            Number.isFinite(input.radius) &&
             (null === input.area ||
                 undefined === input.area ||
                 ("number" === typeof input.area &&
@@ -192,7 +192,7 @@ export const test_createEquals_ObjectUnionImplicit = _test_equals(
             (1 === Object.keys(input).length ||
                 Object.keys(input).every((key: any) => {
                     if (
-                        ["centroid", "radius", "area"].some(
+                        ["radius", "centroid", "area"].some(
                             (prop: any) => key === prop,
                         )
                     )
