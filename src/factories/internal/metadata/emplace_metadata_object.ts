@@ -13,6 +13,7 @@ import { MetadataCollection } from "../../MetadataCollection";
 import { MetadataFactory } from "../../MetadataFactory";
 import { MetadataHelper } from "./MetadataHelper";
 import { explore_metadata } from "./explore_metadata";
+import { iterate_metadata_coalesce } from "./iterate_metadata_coalesce";
 
 export const emplace_metadata_object =
     (checker: ts.TypeChecker) =>
@@ -81,17 +82,12 @@ export const emplace_metadata_object =
 
             // CHECK NODE IS A FORMAL PROPERTY
             const [node, type] = (() => {
-                const node = (prop.getDeclarations() ?? [])[0] as
+                const node = prop.getDeclarations()?.[0] as
                     | ts.PropertyDeclaration
                     | undefined;
                 const type: ts.Type | undefined = node
                     ? checker.getTypeOfSymbolAtLocation(prop, node)
-                    : "getTypeOfPropertyOfType" in checker
-                    ? (checker as any).getTypeOfPropertyOfType(
-                          parent,
-                          prop.name,
-                      )
-                    : undefined;
+                    : checker.getTypeOfPropertyOfType(parent, prop.name);
                 return [node, type];
             })();
             if ((node && pred(node) === false) || type === undefined) continue;
@@ -110,7 +106,21 @@ export const emplace_metadata_object =
             });
 
             // OPTIONAL, BUT CAN BE RQUIRED BY `Required<T>` TYPE
-            if (node?.questionToken) Writable(value).optional = true;
+            if (node?.questionToken) {
+                const valueType = checker.getTypeOfPropertyOfType(
+                    parent,
+                    prop.name,
+                );
+                if (valueType === undefined || isOptional(valueType) === true)
+                    Writable(value).optional = true;
+            } else if (!!node && value.isRequired() === true) {
+                const valueType = checker.getTypeOfPropertyOfType(
+                    parent,
+                    prop.name,
+                );
+                if (valueType && isOptional(valueType) === true)
+                    Writable(value).optional = true;
+            }
             insert(key)(value)(prop);
         }
 
@@ -148,3 +158,15 @@ const isProperty = (node: ts.Declaration) =>
     ts.isPropertyAssignment(node) ||
     ts.isPropertySignature(node) ||
     ts.isTypeLiteralNode(node);
+
+const isOptional = (type: ts.Type): boolean => {
+    const meta: Metadata = Metadata.initialize();
+    iterate_optional_coalesce(meta, type);
+    return !meta.isRequired();
+};
+
+const iterate_optional_coalesce = (meta: Metadata, type: ts.Type): void => {
+    if (type.isUnionOrIntersection())
+        type.types.forEach((child) => iterate_optional_coalesce(meta, child));
+    else iterate_metadata_coalesce(meta, type);
+};

@@ -157,6 +157,6 @@ const join =
     };
 
 interface ISuperfluous {
-    additionalProperties?: [Metadata, IJsonSchema];
+    additionalProperties?: undefined | [Metadata, IJsonSchema];
     patternProperties: Record<string, [Metadata, IJsonSchema]>;
 }

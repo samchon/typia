@@ -36,11 +36,11 @@ export namespace check_object {
         equals: boolean;
         assert: boolean;
         undefined: boolean;
-        halt?: (exp: ts.Expression) => ts.Expression;
+        halt?: undefined | ((exp: ts.Expression) => ts.Expression);
         reduce: (a: ts.Expression, b: ts.Expression) => ts.Expression;
         positive: ts.Expression;
         superfluous: (value: ts.Expression) => ts.Expression;
-        entries?: ts.Identifier;
+        entries?: undefined | ts.Identifier;
     }
 }
 
