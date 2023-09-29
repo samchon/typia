@@ -3,32 +3,34 @@ import { IJsDocTagInfo } from "../metadata/IJsDocTagInfo";
 import { IJsonSchema } from "./IJsonSchema";
 
 export interface IJsonComponents {
-    schemas?: Record<string, IJsonComponents.IObject | IJsonComponents.IAlias>;
+    schemas?:
+        | undefined
+        | Record<string, IJsonComponents.IObject | IJsonComponents.IAlias>;
 }
 export namespace IJsonComponents {
     export interface IObject {
-        $id?: string;
+        $id?: undefined | string;
         type: "object";
 
         /**
          * Only when swagger mode.
          */
-        nullable?: boolean;
+        nullable?: undefined | boolean;
 
         properties: Record<string, IJsonSchema>;
-        patternProperties?: Record<string, IJsonSchema>;
-        additionalProperties?: IJsonSchema;
+        patternProperties?: undefined | Record<string, IJsonSchema>;
+        additionalProperties?: undefined | IJsonSchema;
 
-        required?: string[];
-        description?: string;
-        "x-typia-jsDocTags"?: IJsDocTagInfo[];
-        "x-typia-patternProperties"?: Record<string, IJsonSchema>;
-        "x-typia-additionalProperties"?: IJsonSchema;
+        required?: undefined | string[];
+        description?: undefined | string;
+        "x-typia-jsDocTags"?: undefined | IJsDocTagInfo[];
+        "x-typia-patternProperties"?: undefined | Record<string, IJsonSchema>;
+        "x-typia-additionalProperties"?: undefined | IJsonSchema;
     }
 
     export type IAlias = IJsonSchema & IIdentified;
     interface IIdentified {
-        $id?: string;
-        $recursiveAnchor?: boolean;
+        $id?: undefined | string;
+        $recursiveAnchor?: undefined | boolean;
     }
 }

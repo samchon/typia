@@ -4,7 +4,7 @@ import { IMetadataProperty } from "./IMetadataProperty";
 export interface IMetadataObject {
     name: string;
     properties: IMetadataProperty[];
-    description?: string;
+    description?: undefined | string;
     jsDocTags: IJsDocTagInfo[];
 
     index: number;

@@ -114,12 +114,12 @@ export const test_misc_validateClone_ObjectUnionImplicit =
                             ("number" === typeof input.area &&
                                 Number.isFinite(input.area)));
                     const $io6 = (input: any): boolean =>
+                        "number" === typeof input.radius &&
+                        Number.isFinite(input.radius) &&
                         (undefined === input.centroid ||
                             ("object" === typeof input.centroid &&
                                 null !== input.centroid &&
                                 $io0(input.centroid))) &&
-                        "number" === typeof input.radius &&
-                        Number.isFinite(input.radius) &&
                         (null === input.area ||
                             undefined === input.area ||
                             ("number" === typeof input.area &&
@@ -595,6 +595,13 @@ export const test_misc_validateClone_ObjectUnionImplicit =
                             _exceptionable: boolean = true,
                         ): boolean =>
                             [
+                                ("number" === typeof input.radius &&
+                                    Number.isFinite(input.radius)) ||
+                                    $report(_exceptionable, {
+                                        path: _path + ".radius",
+                                        expected: "number",
+                                        value: input.radius,
+                                    }),
                                 undefined === input.centroid ||
                                     ((("object" === typeof input.centroid &&
                                         null !== input.centroid) ||
@@ -614,13 +621,6 @@ export const test_misc_validateClone_ObjectUnionImplicit =
                                         expected:
                                             "(ObjectUnionImplicit.IPoint | undefined)",
                                         value: input.centroid,
-                                    }),
-                                ("number" === typeof input.radius &&
-                                    Number.isFinite(input.radius)) ||
-                                    $report(_exceptionable, {
-                                        path: _path + ".radius",
-                                        expected: "number",
-                                        value: input.radius,
                                     }),
                                 null === input.area ||
                                     undefined === input.area ||
@@ -825,11 +825,11 @@ export const test_misc_validateClone_ObjectUnionImplicit =
                         undefined === input.area ||
                         "number" === typeof input.area);
                 const $io6 = (input: any): boolean =>
+                    "number" === typeof input.radius &&
                     (undefined === input.centroid ||
                         ("object" === typeof input.centroid &&
                             null !== input.centroid &&
                             $io0(input.centroid))) &&
-                    "number" === typeof input.radius &&
                     (null === input.area ||
                         undefined === input.area ||
                         "number" === typeof input.area);
@@ -923,12 +923,12 @@ export const test_misc_validateClone_ObjectUnionImplicit =
                     area: input.area as any,
                 });
                 const $co6 = (input: any): any => ({
+                    radius: input.radius as any,
                     centroid:
                         "object" === typeof input.centroid &&
                         null !== input.centroid
                             ? $co0(input.centroid)
                             : (input.centroid as any),
-                    radius: input.radius as any,
                     area: input.area as any,
                 });
                 const $cu0 = (input: any): any =>

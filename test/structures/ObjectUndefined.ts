@@ -6,8 +6,8 @@ export namespace ObjectUndefined {
 
     export interface ILecture {
         name: string;
-        professor?: string | number;
-        classroom?: IClassroom;
+        professor?: undefined | string | number;
+        classroom?: undefined | IClassroom;
         grade: number | undefined;
         nothing: undefined;
         unknown: unknown;

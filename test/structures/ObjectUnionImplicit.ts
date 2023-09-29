@@ -14,44 +14,44 @@ export namespace ObjectUnionImplicit {
     export interface IPoint {
         x: number;
         y: number;
-        slope?: number | null;
+        slope?: undefined | number | null;
     }
     export interface ILine {
         p1: IPoint;
         p2: IPoint;
-        width?: number | null;
-        distance?: number | null;
+        width?: undefined | number | null;
+        distance?: undefined | number | null;
     }
     export interface ITriangle {
         p1: IPoint;
         p2: IPoint;
         p3: IPoint;
-        width?: number | null;
-        height?: number | null;
-        area?: number | null;
+        width?: undefined | number | null;
+        height?: undefined | number | null;
+        area?: undefined | number | null;
     }
     export interface IRectangle {
         p1: IPoint;
         p2: IPoint;
         p3: IPoint;
         p4: IPoint;
-        width?: number | null;
-        height?: number | null;
-        area?: number | null;
+        width?: undefined | number | null;
+        height?: undefined | number | null;
+        area?: undefined | number | null;
     }
     export interface IPolyline {
         points: IPoint[];
-        length?: number | null;
+        length?: undefined | number | null;
     }
     export interface IPolygon {
         outer: IPolyline;
-        inner?: IPolyline[];
-        area?: number | null;
+        inner?: undefined | IPolyline[];
+        area?: undefined | number | null;
     }
     export interface ICircle {
-        centroid?: IPoint;
         radius: number;
-        area?: number | null;
+        centroid?: undefined | IPoint;
+        area?: undefined | number | null;
     }
 
     export function generate(): ObjectUnionImplicit {

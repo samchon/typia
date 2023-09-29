@@ -109,12 +109,12 @@ export const test_json_assertStringify_ObjectUnionImplicit =
                             ("number" === typeof input.area &&
                                 Number.isFinite(input.area)));
                     const $io6 = (input: any): boolean =>
+                        "number" === typeof input.radius &&
+                        Number.isFinite(input.radius) &&
                         (undefined === input.centroid ||
                             ("object" === typeof input.centroid &&
                                 null !== input.centroid &&
                                 $io0(input.centroid))) &&
-                        "number" === typeof input.radius &&
-                        Number.isFinite(input.radius) &&
                         (null === input.area ||
                             undefined === input.area ||
                             ("number" === typeof input.area &&
@@ -565,6 +565,13 @@ export const test_json_assertStringify_ObjectUnionImplicit =
                             _path: string,
                             _exceptionable: boolean = true,
                         ): boolean =>
+                            (("number" === typeof input.radius &&
+                                Number.isFinite(input.radius)) ||
+                                $guard(_exceptionable, {
+                                    path: _path + ".radius",
+                                    expected: "number",
+                                    value: input.radius,
+                                })) &&
                             (undefined === input.centroid ||
                                 ((("object" === typeof input.centroid &&
                                     null !== input.centroid) ||
@@ -584,13 +591,6 @@ export const test_json_assertStringify_ObjectUnionImplicit =
                                     expected:
                                         "(ObjectUnionImplicit.IPoint | undefined)",
                                     value: input.centroid,
-                                })) &&
-                            (("number" === typeof input.radius &&
-                                Number.isFinite(input.radius)) ||
-                                $guard(_exceptionable, {
-                                    path: _path + ".radius",
-                                    expected: "number",
-                                    value: input.radius,
                                 })) &&
                             (null === input.area ||
                                 undefined === input.area ||
@@ -780,11 +780,11 @@ export const test_json_assertStringify_ObjectUnionImplicit =
                         undefined === input.area ||
                         "number" === typeof input.area);
                 const $io6 = (input: any): boolean =>
+                    "number" === typeof input.radius &&
                     (undefined === input.centroid ||
                         ("object" === typeof input.centroid &&
                             null !== input.centroid &&
                             $io0(input.centroid))) &&
-                    "number" === typeof input.radius &&
                     (null === input.area ||
                         undefined === input.area ||
                         "number" === typeof input.area);

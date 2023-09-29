@@ -105,12 +105,12 @@ export const test_misc_isPrune_ObjectUnionImplicit = _test_misc_isPrune(
                     ("number" === typeof input.area &&
                         Number.isFinite(input.area)));
             const $io6 = (input: any): boolean =>
+                "number" === typeof input.radius &&
+                Number.isFinite(input.radius) &&
                 (undefined === input.centroid ||
                     ("object" === typeof input.centroid &&
                         null !== input.centroid &&
                         $io0(input.centroid))) &&
-                "number" === typeof input.radius &&
-                Number.isFinite(input.radius) &&
                 (null === input.area ||
                     undefined === input.area ||
                     ("number" === typeof input.area &&
@@ -222,11 +222,11 @@ export const test_misc_isPrune_ObjectUnionImplicit = _test_misc_isPrune(
                     undefined === input.area ||
                     "number" === typeof input.area);
             const $io6 = (input: any): boolean =>
+                "number" === typeof input.radius &&
                 (undefined === input.centroid ||
                     ("object" === typeof input.centroid &&
                         null !== input.centroid &&
                         $io0(input.centroid))) &&
-                "number" === typeof input.radius &&
                 (null === input.area ||
                     undefined === input.area ||
                     "number" === typeof input.area);
@@ -332,8 +332,8 @@ export const test_misc_isPrune_ObjectUnionImplicit = _test_misc_isPrune(
                     $po0(input.centroid);
                 for (const key of Object.keys(input)) {
                     if (
-                        "centroid" === key ||
                         "radius" === key ||
+                        "centroid" === key ||
                         "area" === key
                     )
                         continue;

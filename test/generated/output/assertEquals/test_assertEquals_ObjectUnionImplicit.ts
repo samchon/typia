@@ -209,12 +209,12 @@ export const test_assertEquals_ObjectUnionImplicit = _test_assertEquals(
                 input: any,
                 _exceptionable: boolean = true,
             ): boolean =>
+                "number" === typeof input.radius &&
+                Number.isFinite(input.radius) &&
                 (undefined === input.centroid ||
                     ("object" === typeof input.centroid &&
                         null !== input.centroid &&
                         $io0(input.centroid, true && _exceptionable))) &&
-                "number" === typeof input.radius &&
-                Number.isFinite(input.radius) &&
                 (null === input.area ||
                     undefined === input.area ||
                     ("number" === typeof input.area &&
@@ -222,7 +222,7 @@ export const test_assertEquals_ObjectUnionImplicit = _test_assertEquals(
                 (1 === Object.keys(input).length ||
                     Object.keys(input).every((key: any) => {
                         if (
-                            ["centroid", "radius", "area"].some(
+                            ["radius", "centroid", "area"].some(
                                 (prop: any) => key === prop,
                             )
                         )
@@ -761,6 +761,13 @@ export const test_assertEquals_ObjectUnionImplicit = _test_assertEquals(
                     _path: string,
                     _exceptionable: boolean = true,
                 ): boolean =>
+                    (("number" === typeof input.radius &&
+                        Number.isFinite(input.radius)) ||
+                        $guard(_exceptionable, {
+                            path: _path + ".radius",
+                            expected: "number",
+                            value: input.radius,
+                        })) &&
                     (undefined === input.centroid ||
                         ((("object" === typeof input.centroid &&
                             null !== input.centroid) ||
@@ -781,13 +788,6 @@ export const test_assertEquals_ObjectUnionImplicit = _test_assertEquals(
                                 "(ObjectUnionImplicit.IPoint | undefined)",
                             value: input.centroid,
                         })) &&
-                    (("number" === typeof input.radius &&
-                        Number.isFinite(input.radius)) ||
-                        $guard(_exceptionable, {
-                            path: _path + ".radius",
-                            expected: "number",
-                            value: input.radius,
-                        })) &&
                     (null === input.area ||
                         undefined === input.area ||
                         ("number" === typeof input.area &&
@@ -801,7 +801,7 @@ export const test_assertEquals_ObjectUnionImplicit = _test_assertEquals(
                         false === _exceptionable ||
                         Object.keys(input).every((key: any) => {
                             if (
-                                ["centroid", "radius", "area"].some(
+                                ["radius", "centroid", "area"].some(
                                     (prop: any) => key === prop,
                                 )
                             )

@@ -105,12 +105,12 @@ export const test_json_isStringify_ObjectUnionImplicit = _test_json_isStringify(
                     ("number" === typeof input.area &&
                         Number.isFinite(input.area)));
             const $io6 = (input: any): boolean =>
+                "number" === typeof input.radius &&
+                Number.isFinite(input.radius) &&
                 (undefined === input.centroid ||
                     ("object" === typeof input.centroid &&
                         null !== input.centroid &&
                         $io0(input.centroid))) &&
-                "number" === typeof input.radius &&
-                Number.isFinite(input.radius) &&
                 (null === input.area ||
                     undefined === input.area ||
                     ("number" === typeof input.area &&
@@ -222,11 +222,11 @@ export const test_json_isStringify_ObjectUnionImplicit = _test_json_isStringify(
                     undefined === input.area ||
                     "number" === typeof input.area);
             const $io6 = (input: any): boolean =>
+                "number" === typeof input.radius &&
                 (undefined === input.centroid ||
                     ("object" === typeof input.centroid &&
                         null !== input.centroid &&
                         $io0(input.centroid))) &&
-                "number" === typeof input.radius &&
                 (null === input.area ||
                     undefined === input.area ||
                     "number" === typeof input.area);

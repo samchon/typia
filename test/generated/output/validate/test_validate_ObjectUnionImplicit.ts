@@ -106,12 +106,12 @@ export const test_validate_ObjectUnionImplicit = _test_validate(
                     ("number" === typeof input.area &&
                         Number.isFinite(input.area)));
             const $io6 = (input: any): boolean =>
+                "number" === typeof input.radius &&
+                Number.isFinite(input.radius) &&
                 (undefined === input.centroid ||
                     ("object" === typeof input.centroid &&
                         null !== input.centroid &&
                         $io0(input.centroid))) &&
-                "number" === typeof input.radius &&
-                Number.isFinite(input.radius) &&
                 (null === input.area ||
                     undefined === input.area ||
                     ("number" === typeof input.area &&
@@ -561,6 +561,13 @@ export const test_validate_ObjectUnionImplicit = _test_validate(
                     _exceptionable: boolean = true,
                 ): boolean =>
                     [
+                        ("number" === typeof input.radius &&
+                            Number.isFinite(input.radius)) ||
+                            $report(_exceptionable, {
+                                path: _path + ".radius",
+                                expected: "number",
+                                value: input.radius,
+                            }),
                         undefined === input.centroid ||
                             ((("object" === typeof input.centroid &&
                                 null !== input.centroid) ||
@@ -580,13 +587,6 @@ export const test_validate_ObjectUnionImplicit = _test_validate(
                                 expected:
                                     "(ObjectUnionImplicit.IPoint | undefined)",
                                 value: input.centroid,
-                            }),
-                        ("number" === typeof input.radius &&
-                            Number.isFinite(input.radius)) ||
-                            $report(_exceptionable, {
-                                path: _path + ".radius",
-                                expected: "number",
-                                value: input.radius,
                             }),
                         null === input.area ||
                             undefined === input.area ||

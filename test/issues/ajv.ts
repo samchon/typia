@@ -9,7 +9,7 @@ const app = typia.json.application<[IPointer<ObjectSimple>], "ajv">();
 fs.writeFileSync(__dirname + "/ajv.json", JSON.stringify(app, null, 4), "utf8");
 
 const program = new Ajv({
-    schemas: Object.values(app.components.schemas ?? {}),
+    schemas: Object.values(app.components.schemas ?? {}) as any,
     keywords: [
         "x-typia-tuple",
         "x-typia-typeTags",
