@@ -85,6 +85,7 @@
   },
   "devDependencies": {
     "@fastify/type-provider-typebox": "^3.5.0",
+    "@sinclair/typebox": "^0.31.17",
     "@trivago/prettier-plugin-sort-imports": "^3.3.0",
     "@typegoose/typegoose": "^10.1.1",
     "@types/autocannon": "^7.9.0",
