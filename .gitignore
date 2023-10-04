@@ -1,8 +1,8 @@
 bin/
-issues/
 lib/
 measure/
 node_modules/
+/issues/
 
 packages/typescript-json/src/
 package-lock.json
