@@ -1,10 +1,7 @@
 import typia, { IJsonApplication, IJsonComponents } from "typia";
 
 interface IQuery {
-    required: string;
     nonRequired: string | undefined;
-    optional?: string;
-    none?: string | undefined;
 }
 
 const app: IJsonApplication = typia.json.application<[Partial<IQuery>]>();

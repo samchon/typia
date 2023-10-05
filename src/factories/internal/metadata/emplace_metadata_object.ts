@@ -104,23 +104,8 @@ export const emplace_metadata_object =
                 escaped: false,
                 aliased: false,
             });
-
-            // OPTIONAL, BUT CAN BE RQUIRED BY `Required<T>` TYPE
-            if (node?.questionToken) {
-                const valueType = checker.getTypeOfPropertyOfType(
-                    parent,
-                    prop.name,
-                );
-                if (valueType === undefined || isOptional(valueType) === true)
-                    Writable(value).optional = true;
-            } else if (!!node && value.isRequired() === true) {
-                const valueType = checker.getTypeOfPropertyOfType(
-                    parent,
-                    prop.name,
-                );
-                if (valueType && isOptional(valueType) === true)
-                    Writable(value).optional = true;
-            }
+            Writable(value).optional =
+                (prop.flags & ts.SymbolFlags.Optional) !== 0;
             insert(key)(value)(prop);
         }
 
@@ -149,7 +134,6 @@ export const emplace_metadata_object =
                 (doc) => doc.name !== "default",
             );
         }
-
         return obj;
     };
 
@@ -158,12 +142,6 @@ const isProperty = (node: ts.Declaration) =>
     ts.isPropertyAssignment(node) ||
     ts.isPropertySignature(node) ||
     ts.isTypeLiteralNode(node);
-
-const isOptional = (type: ts.Type): boolean => {
-    const meta: Metadata = Metadata.initialize();
-    iterate_optional_coalesce(meta, type);
-    return !meta.isRequired();
-};
 
 const iterate_optional_coalesce = (meta: Metadata, type: ts.Type): void => {
     if (type.isUnionOrIntersection())
