@@ -1,8 +1,8 @@
-import typia from "typia";
-
-import { _test_json_application } from "../../../internal/_test_json_application";
+import typia from "typia"
 import { ToJsonUnion } from "../../../structures/ToJsonUnion";
+import { _test_json_application } from "../../../internal/_test_json_application";
 
-export const test_json_application_ajv_ToJsonUnion = _test_json_application(
-    "ajv",
-)("ToJsonUnion")(typia.json.application<[ToJsonUnion], "ajv">());
+export const test_json_application_ajv_ToJsonUnion = 
+    _test_json_application("ajv")("ToJsonUnion")(
+        typia.json.application<[ToJsonUnion], "ajv">(),
+    );

@@ -10,9 +10,9 @@
 import { Namespace } from "./functional/Namespace";
 
 import { Atomic } from "./typings/Atomic";
+import { Resolved } from "./typings/Resolved";
 
 import { IValidation } from "./IValidation";
-import { Resolved } from "./Resolved";
 
 /**
  * > You must configure the generic argument `T`.

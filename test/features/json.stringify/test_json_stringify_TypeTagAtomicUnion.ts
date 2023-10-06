@@ -1,9 +1,10 @@
 import typia from "../../../src";
+
 import { _test_json_stringify } from "../../internal/_test_json_stringify";
 import { TypeTagAtomicUnion } from "../../structures/TypeTagAtomicUnion";
 
 export const test_json_stringify_TypeTagAtomicUnion = _test_json_stringify(
     "TypeTagAtomicUnion",
-)<TypeTagAtomicUnion>(TypeTagAtomicUnion)((input) =>
-    typia.json.stringify<TypeTagAtomicUnion>(input),
-);
+)<TypeTagAtomicUnion>(
+    TypeTagAtomicUnion
+)((input) => typia.json.stringify<TypeTagAtomicUnion>(input));

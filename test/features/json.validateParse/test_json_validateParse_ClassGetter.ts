@@ -1,9 +1,10 @@
 import typia from "../../../src";
+
 import { _test_json_validateParse } from "../../internal/_test_json_validateParse";
 import { ClassGetter } from "../../structures/ClassGetter";
 
 export const test_json_validateParse_ClassGetter = _test_json_validateParse(
     "ClassGetter",
-)<ClassGetter>(ClassGetter)((input) =>
-    typia.json.validateParse<ClassGetter>(input),
-);
+)<ClassGetter>(
+    ClassGetter
+)((input) => typia.json.validateParse<ClassGetter>(input));

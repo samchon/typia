@@ -1,11 +1,12 @@
 import typia from "../../../src";
+
 import { _test_protobuf_isEncode } from "../../internal/_test_protobuf_isEncode";
 import { CommentTagRange } from "../../structures/CommentTagRange";
 
-export const test_protobuf_isEncode_CommentTagRange = _test_protobuf_isEncode(
+export const test_protobuf_createIsEncode_CommentTagRange = _test_protobuf_isEncode(
     "CommentTagRange",
 )<CommentTagRange>(CommentTagRange)({
-    isEncode: (input) => typia.protobuf.isEncode<CommentTagRange>(input),
-    message: typia.protobuf.message<CommentTagRange>(),
+    encode: (input) => typia.protobuf.isEncode<CommentTagRange>(input),
     decode: typia.protobuf.createDecode<CommentTagRange>(),
+    message: typia.protobuf.message<CommentTagRange>(),
 });

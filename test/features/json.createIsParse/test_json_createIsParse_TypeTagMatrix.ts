@@ -1,7 +1,10 @@
 import typia from "../../../src";
+
 import { _test_json_isParse } from "../../internal/_test_json_isParse";
 import { TypeTagMatrix } from "../../structures/TypeTagMatrix";
 
 export const test_json_createIsParse_TypeTagMatrix = _test_json_isParse(
     "TypeTagMatrix",
-)<TypeTagMatrix>(TypeTagMatrix)(typia.json.createIsParse<TypeTagMatrix>());
+)<TypeTagMatrix>(
+    TypeTagMatrix
+)(typia.json.createIsParse<TypeTagMatrix>());

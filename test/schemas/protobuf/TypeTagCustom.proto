@@ -1,8 +1,0 @@
-syntax = "proto3";
-
-message TypeTagCustom {
-    required string id = 1;
-    required string dollar = 2;
-    required string postfix = 3;
-    required double powerOf = 4;
-}

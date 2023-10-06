@@ -1,13 +1,12 @@
 import typia from "../../../src";
+
 import { _test_protobuf_isEncode } from "../../internal/_test_protobuf_isEncode";
 import { ArrayRecursiveUnionExplicitPointer } from "../../structures/ArrayRecursiveUnionExplicitPointer";
 
-export const test_protobuf_isEncode_ArrayRecursiveUnionExplicitPointer =
-    _test_protobuf_isEncode(
-        "ArrayRecursiveUnionExplicitPointer",
-    )<ArrayRecursiveUnionExplicitPointer>(ArrayRecursiveUnionExplicitPointer)({
-        isEncode: (input) =>
-            typia.protobuf.isEncode<ArrayRecursiveUnionExplicitPointer>(input),
-        message: typia.protobuf.message<ArrayRecursiveUnionExplicitPointer>(),
-        decode: typia.protobuf.createDecode<ArrayRecursiveUnionExplicitPointer>(),
-    });
+export const test_protobuf_createIsEncode_ArrayRecursiveUnionExplicitPointer = _test_protobuf_isEncode(
+    "ArrayRecursiveUnionExplicitPointer",
+)<ArrayRecursiveUnionExplicitPointer>(ArrayRecursiveUnionExplicitPointer)({
+    encode: (input) => typia.protobuf.isEncode<ArrayRecursiveUnionExplicitPointer>(input),
+    decode: typia.protobuf.createDecode<ArrayRecursiveUnionExplicitPointer>(),
+    message: typia.protobuf.message<ArrayRecursiveUnionExplicitPointer>(),
+});

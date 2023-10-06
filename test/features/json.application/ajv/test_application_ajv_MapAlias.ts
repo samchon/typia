@@ -1,8 +1,8 @@
-import typia from "typia";
-
-import { _test_json_application } from "../../../internal/_test_json_application";
+import typia from "typia"
 import { MapAlias } from "../../../structures/MapAlias";
+import { _test_json_application } from "../../../internal/_test_json_application";
 
-export const test_json_application_ajv_MapAlias = _test_json_application("ajv")(
-    "MapAlias",
-)(typia.json.application<[MapAlias], "ajv">());
+export const test_json_application_ajv_MapAlias = 
+    _test_json_application("ajv")("MapAlias")(
+        typia.json.application<[MapAlias], "ajv">(),
+    );

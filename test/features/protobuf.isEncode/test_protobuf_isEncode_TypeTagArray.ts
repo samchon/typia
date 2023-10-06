@@ -1,11 +1,12 @@
 import typia from "../../../src";
+
 import { _test_protobuf_isEncode } from "../../internal/_test_protobuf_isEncode";
 import { TypeTagArray } from "../../structures/TypeTagArray";
 
-export const test_protobuf_isEncode_TypeTagArray = _test_protobuf_isEncode(
+export const test_protobuf_createIsEncode_TypeTagArray = _test_protobuf_isEncode(
     "TypeTagArray",
 )<TypeTagArray>(TypeTagArray)({
-    isEncode: (input) => typia.protobuf.isEncode<TypeTagArray>(input),
-    message: typia.protobuf.message<TypeTagArray>(),
+    encode: (input) => typia.protobuf.isEncode<TypeTagArray>(input),
     decode: typia.protobuf.createDecode<TypeTagArray>(),
+    message: typia.protobuf.message<TypeTagArray>(),
 });

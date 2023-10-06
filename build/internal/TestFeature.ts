@@ -1,3 +1,10 @@
+import { StringUtil } from "../utils/StringUtil";
+
+import { write_notation } from "../writers/write_notation";
+import { write_protobuf_decode } from "../writers/write_protobuf_decode";
+import { write_protobuf_encode } from "../writers/write_protobuf_encode";
+import { write_random } from "../writers/write_random";
+
 export interface TestFeature {
     module: string | null;
     method: string;
@@ -10,11 +17,7 @@ export interface TestFeature {
     resolved?: true;
     strict?: true;
     explicit?: true;
-    random?: true;
-    opposite?: Array<{
-        name: string;
-        method: string;
-    }>;
+    programmer?: (create: boolean) => (structure: string) => string;
 }
 export namespace TestFeature {
     export const DATA: TestFeature[] = [
@@ -70,14 +73,8 @@ export namespace TestFeature {
             method: "random",
             creatable: true,
             spoilable: false,
-            random: true,
             resolved: true,
-            opposite: [
-                {
-                    name: "assert",
-                    method: "typia.createAssert",
-                },
-            ],
+            programmer: write_random,
         },
 
         //----
@@ -90,16 +87,7 @@ export namespace TestFeature {
             creatable: true,
             spoilable: false,
             resolved: true,
-            opposite: [
-                {
-                    name: "message",
-                    method: "typia.protobuf.message",
-                },
-                {
-                    name: "decode",
-                    method: "typia.protobuf.createDecode",
-                },
-            ],
+            programmer: write_protobuf_encode("encode"),
         },
         {
             module: "protobuf",
@@ -107,16 +95,7 @@ export namespace TestFeature {
             creatable: true,
             spoilable: true,
             resolved: true,
-            opposite: [
-                {
-                    name: "message",
-                    method: "typia.protobuf.message",
-                },
-                {
-                    name: "decode",
-                    method: "typia.protobuf.createDecode",
-                },
-            ],
+            programmer: write_protobuf_encode("isEncode"),
         },
         {
             module: "protobuf",
@@ -124,16 +103,7 @@ export namespace TestFeature {
             creatable: true,
             spoilable: true,
             resolved: true,
-            opposite: [
-                {
-                    name: "message",
-                    method: "typia.protobuf.message",
-                },
-                {
-                    name: "decode",
-                    method: "typia.protobuf.createDecode",
-                },
-            ],
+            programmer: write_protobuf_encode("assertEncode"),
         },
         {
             module: "protobuf",
@@ -141,16 +111,7 @@ export namespace TestFeature {
             creatable: true,
             spoilable: true,
             resolved: true,
-            opposite: [
-                {
-                    name: "message",
-                    method: "typia.protobuf.message",
-                },
-                {
-                    name: "decode",
-                    method: "typia.protobuf.createDecode",
-                },
-            ],
+            programmer: write_protobuf_encode("validateEncode"),
         },
         // DECODERS
         {
@@ -159,12 +120,7 @@ export namespace TestFeature {
             creatable: true,
             spoilable: false,
             resolved: true,
-            opposite: [
-                {
-                    name: "encode",
-                    method: "typia.protobuf.createEncode",
-                },
-            ],
+            programmer: write_protobuf_decode("decode"),
         },
         {
             module: "protobuf",
@@ -172,12 +128,7 @@ export namespace TestFeature {
             creatable: true,
             spoilable: true,
             resolved: true,
-            opposite: [
-                {
-                    name: "encode",
-                    method: "typia.protobuf.createEncode",
-                },
-            ],
+            programmer: write_protobuf_decode("isDecode"),
         },
         {
             module: "protobuf",
@@ -185,12 +136,7 @@ export namespace TestFeature {
             creatable: true,
             spoilable: true,
             resolved: true,
-            opposite: [
-                {
-                    name: "encode",
-                    method: "typia.protobuf.createEncode",
-                },
-            ],
+            programmer: write_protobuf_decode("assertDecode"),
         },
         {
             module: "protobuf",
@@ -198,12 +144,7 @@ export namespace TestFeature {
             creatable: true,
             spoilable: true,
             resolved: true,
-            opposite: [
-                {
-                    name: "encode",
-                    method: "typia.protobuf.createEncode",
-                },
-            ],
+            programmer: write_protobuf_decode("validateDecode"),
         },
 
         //----
@@ -336,6 +277,24 @@ export namespace TestFeature {
             resolved: true,
             spoilable: true,
         },
+
+        //----
+        // NOTATIONS
+        //----
+        ...["camel", "pascal", "snake"]
+            .map((method) =>
+                ([null, "assert", "is", "validate"] as const).map((mode) => ({
+                    module: "notation",
+                    method,
+                    creatable: true,
+                    spoilable: false,
+                    programmer: write_notation({
+                        method,
+                        mode,
+                    }),
+                })),
+            )
+            .flat(),
 
         //----
         // MISCELLANEOUS

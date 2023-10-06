@@ -2,13 +2,15 @@ import { Namespace } from "./functional/Namespace";
 
 import { IMetadataApplication } from "./schemas/metadata/IMetadataApplication";
 
+import { Resolved } from "./typings/Resolved";
+
 import { IRandomGenerator } from "./IRandomGenerator";
 import { IValidation } from "./IValidation";
-import { Resolved } from "./Resolved";
 
 export * as http from "./http";
 export * as json from "./json";
 export * as misc from "./misc";
+export * as notations from "./notations";
 export * as protobuf from "./protobuf";
 export * as tags from "./tags";
 
@@ -17,9 +19,13 @@ export * from "./schemas/json/IJsonComponents";
 export * from "./schemas/json/IJsonSchema";
 export * from "./IRandomGenerator";
 export * from "./IValidation";
-export * from "./Primitive";
-export * from "./Resolved";
 export * from "./TypeGuardError";
+
+export * from "./typings/Primitive";
+export * from "./typings/Resolved";
+export * from "./typings/CamelCase";
+export * from "./typings/PascalCase";
+export * from "./typings/SnakeCase";
 
 /* -----------------------------------------------------------
     BASIC VALIDATORS

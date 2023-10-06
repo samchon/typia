@@ -1,11 +1,12 @@
 import typia from "../../../src";
+
 import { _test_protobuf_isEncode } from "../../internal/_test_protobuf_isEncode";
 import { CommentTagNaN } from "../../structures/CommentTagNaN";
 
-export const test_protobuf_isEncode_CommentTagNaN = _test_protobuf_isEncode(
+export const test_protobuf_createIsEncode_CommentTagNaN = _test_protobuf_isEncode(
     "CommentTagNaN",
 )<CommentTagNaN>(CommentTagNaN)({
-    isEncode: (input) => typia.protobuf.isEncode<CommentTagNaN>(input),
-    message: typia.protobuf.message<CommentTagNaN>(),
+    encode: (input) => typia.protobuf.isEncode<CommentTagNaN>(input),
     decode: typia.protobuf.createDecode<CommentTagNaN>(),
+    message: typia.protobuf.message<CommentTagNaN>(),
 });

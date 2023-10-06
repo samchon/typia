@@ -7,12 +7,12 @@ export const _test_protobuf_assertDecode =
     (name: string) =>
     <T extends object>(factory: TestStructure<T>) =>
     (functor: {
-        assertDecode: (input: Uint8Array) => typia.Resolved<T>;
+        decode: (input: Uint8Array) => typia.Resolved<T>;
         encode: (input: T) => Uint8Array;
     }) =>
     () => {
         _test_protobuf_decode(name)(factory)({
-            decode: functor.assertDecode,
+            decode: functor.decode,
             encode: functor.encode,
         })();
     };

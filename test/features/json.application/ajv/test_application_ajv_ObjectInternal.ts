@@ -1,8 +1,8 @@
-import typia from "typia";
-
-import { _test_json_application } from "../../../internal/_test_json_application";
+import typia from "typia"
 import { ObjectInternal } from "../../../structures/ObjectInternal";
+import { _test_json_application } from "../../../internal/_test_json_application";
 
-export const test_json_application_ajv_ObjectInternal = _test_json_application(
-    "ajv",
-)("ObjectInternal")(typia.json.application<[ObjectInternal], "ajv">());
+export const test_json_application_ajv_ObjectInternal = 
+    _test_json_application("ajv")("ObjectInternal")(
+        typia.json.application<[ObjectInternal], "ajv">(),
+    );

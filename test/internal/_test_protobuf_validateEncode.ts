@@ -8,7 +8,7 @@ export const _test_protobuf_validateEncode =
     <T extends object>(factory: TestStructure<T>) =>
     (functor: {
         message: string;
-        validateEncode: (input: T) => typia.IValidation<Uint8Array>;
+        encode: (input: T) => typia.IValidation<Uint8Array>;
         decode: (input: Uint8Array) => typia.Resolved<T>;
     }) =>
     () => {
@@ -17,18 +17,17 @@ export const _test_protobuf_validateEncode =
             decode: functor.decode,
             encode: (input: T) => {
                 const result: typia.IValidation<Uint8Array> =
-                    functor.validateEncode(input);
+                    functor.encode(input);
                 if (!result.success) throw new Error();
                 return result.data;
             },
-        });
+        })();
 
         const wrong: ISpoiled[] = [];
         for (const spoil of factory.SPOILERS ?? []) {
             const elem: T = factory.generate();
             const expected: string[] = spoil(elem);
-            const valid: typia.IValidation<Uint8Array> =
-                functor.validateEncode(elem);
+            const valid: typia.IValidation<Uint8Array> = functor.encode(elem);
 
             if (valid.success === true)
                 throw new Error(

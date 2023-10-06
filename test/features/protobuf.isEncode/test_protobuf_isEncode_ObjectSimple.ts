@@ -1,11 +1,12 @@
 import typia from "../../../src";
+
 import { _test_protobuf_isEncode } from "../../internal/_test_protobuf_isEncode";
 import { ObjectSimple } from "../../structures/ObjectSimple";
 
-export const test_protobuf_isEncode_ObjectSimple = _test_protobuf_isEncode(
+export const test_protobuf_createIsEncode_ObjectSimple = _test_protobuf_isEncode(
     "ObjectSimple",
 )<ObjectSimple>(ObjectSimple)({
-    isEncode: (input) => typia.protobuf.isEncode<ObjectSimple>(input),
-    message: typia.protobuf.message<ObjectSimple>(),
+    encode: (input) => typia.protobuf.isEncode<ObjectSimple>(input),
     decode: typia.protobuf.createDecode<ObjectSimple>(),
+    message: typia.protobuf.message<ObjectSimple>(),
 });
