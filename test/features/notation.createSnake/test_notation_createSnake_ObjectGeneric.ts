@@ -1,12 +1,11 @@
 import typia from "../../../src";
-
 import { _test_notation_validateGeneral } from "../../internal/_test_notation_validateGeneral";
 import { ObjectGeneric } from "../../structures/ObjectGeneric";
 
 export const test_notation_createValidateSnake_ObjectGeneric =
     _test_notation_validateGeneral("ObjectGeneric")<ObjectGeneric>(
-        ObjectGeneric
+        ObjectGeneric,
     )<typia.SnakeCase<ObjectGeneric>>({
-        convert: (input) => typia.notations.validateSnake<ObjectGeneric>(input),
+        convert: typia.notations.createValidateSnake<ObjectGeneric>(),
         assert: typia.createAssert<typia.SnakeCase<ObjectGeneric>>(),
     });

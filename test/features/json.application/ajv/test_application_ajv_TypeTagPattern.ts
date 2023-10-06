@@ -1,8 +1,8 @@
-import typia from "typia"
-import { TypeTagPattern } from "../../../structures/TypeTagPattern";
-import { _test_json_application } from "../../../internal/_test_json_application";
+import typia from "typia";
 
-export const test_json_application_ajv_TypeTagPattern = 
-    _test_json_application("ajv")("TypeTagPattern")(
-        typia.json.application<[TypeTagPattern], "ajv">(),
-    );
+import { _test_json_application } from "../../../internal/_test_json_application";
+import { TypeTagPattern } from "../../../structures/TypeTagPattern";
+
+export const test_json_application_ajv_TypeTagPattern = _test_json_application(
+    "ajv",
+)("TypeTagPattern")(typia.json.application<[TypeTagPattern], "ajv">());

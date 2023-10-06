@@ -1,8 +1,8 @@
-import typia from "typia"
-import { ArrayAny } from "../../../structures/ArrayAny";
-import { _test_json_application } from "../../../internal/_test_json_application";
+import typia from "typia";
 
-export const test_json_application_ajv_ArrayAny = 
-    _test_json_application("ajv")("ArrayAny")(
-        typia.json.application<[ArrayAny], "ajv">(),
-    );
+import { _test_json_application } from "../../../internal/_test_json_application";
+import { ArrayAny } from "../../../structures/ArrayAny";
+
+export const test_json_application_ajv_ArrayAny = _test_json_application("ajv")(
+    "ArrayAny",
+)(typia.json.application<[ArrayAny], "ajv">());

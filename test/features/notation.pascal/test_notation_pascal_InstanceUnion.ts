@@ -1,12 +1,12 @@
 import typia from "../../../src";
-
 import { _test_notation_validateGeneral } from "../../internal/_test_notation_validateGeneral";
 import { InstanceUnion } from "../../structures/InstanceUnion";
 
 export const test_notation_validatePascal_InstanceUnion =
     _test_notation_validateGeneral("InstanceUnion")<InstanceUnion>(
-        InstanceUnion
+        InstanceUnion,
     )<typia.PascalCase<InstanceUnion>>({
-        convert: typia.notations.createValidatePascal<InstanceUnion>(),
+        convert: (input) =>
+            typia.notations.validatePascal<InstanceUnion>(input),
         assert: typia.createAssert<typia.PascalCase<InstanceUnion>>(),
     });

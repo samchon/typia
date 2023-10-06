@@ -1,8 +1,9 @@
-import typia from "typia"
-import { CommentTagObjectUnion } from "../../../structures/CommentTagObjectUnion";
-import { _test_json_application } from "../../../internal/_test_json_application";
+import typia from "typia";
 
-export const test_json_application_ajv_CommentTagObjectUnion = 
+import { _test_json_application } from "../../../internal/_test_json_application";
+import { CommentTagObjectUnion } from "../../../structures/CommentTagObjectUnion";
+
+export const test_json_application_ajv_CommentTagObjectUnion =
     _test_json_application("ajv")("CommentTagObjectUnion")(
         typia.json.application<[CommentTagObjectUnion], "ajv">(),
     );

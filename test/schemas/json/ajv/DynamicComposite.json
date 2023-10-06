@@ -1,0 +1,76 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/schemas/DynamicComposite"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "DynamicComposite": {
+        "$id": "#/components/schemas/DynamicComposite",
+        "type": "object",
+        "properties": {
+          "id": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          },
+          "name": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "name"
+        ],
+        "x-typia-jsDocTags": [],
+        "patternProperties": {
+          "^[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?$": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "number"
+          },
+          "^(prefix_(.*))": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          },
+          "((.*)_postfix)$": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          },
+          "^(value_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$": {
+            "oneOf": [
+              {
+                "x-typia-required": true,
+                "x-typia-optional": false,
+                "type": "string"
+              },
+              {
+                "x-typia-required": true,
+                "x-typia-optional": false,
+                "type": "number"
+              },
+              {
+                "x-typia-required": true,
+                "x-typia-optional": false,
+                "type": "boolean"
+              }
+            ],
+            "x-typia-required": true,
+            "x-typia-optional": false
+          },
+          "^(between_(.*)_and_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "boolean"
+          }
+        }
+      }
+    }
+  },
+  "purpose": "ajv"
+}

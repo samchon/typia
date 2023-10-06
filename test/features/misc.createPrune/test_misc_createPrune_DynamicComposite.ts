@@ -1,10 +1,9 @@
 import typia from "../../../src";
-
 import { _test_misc_prune } from "../../internal/_test_misc_prune";
 import { DynamicComposite } from "../../structures/DynamicComposite";
 
 export const test_misc_createPrune_DynamicComposite = _test_misc_prune(
     "DynamicComposite",
-)<DynamicComposite>(
-    DynamicComposite
-)(typia.misc.createPrune<DynamicComposite>());
+)<DynamicComposite>(DynamicComposite)(
+    typia.misc.createPrune<DynamicComposite>(),
+);

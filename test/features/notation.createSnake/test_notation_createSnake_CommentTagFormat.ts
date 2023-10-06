@@ -1,12 +1,11 @@
 import typia from "../../../src";
-
 import { _test_notation_validateGeneral } from "../../internal/_test_notation_validateGeneral";
 import { CommentTagFormat } from "../../structures/CommentTagFormat";
 
 export const test_notation_createValidateSnake_CommentTagFormat =
     _test_notation_validateGeneral("CommentTagFormat")<CommentTagFormat>(
-        CommentTagFormat
+        CommentTagFormat,
     )<typia.SnakeCase<CommentTagFormat>>({
-        convert: (input) => typia.notations.validateSnake<CommentTagFormat>(input),
+        convert: typia.notations.createValidateSnake<CommentTagFormat>(),
         assert: typia.createAssert<typia.SnakeCase<CommentTagFormat>>(),
     });

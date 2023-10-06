@@ -1,0 +1,33 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/schemas/ObjectInternal"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "ObjectInternal": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          },
+          "name": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          }
+        },
+        "nullable": false,
+        "required": [
+          "id",
+          "name"
+        ],
+        "x-typia-jsDocTags": []
+      }
+    }
+  },
+  "purpose": "swagger"
+}

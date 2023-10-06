@@ -1,10 +1,9 @@
 import typia from "../../../src";
-
 import { _test_misc_isPrune } from "../../internal/_test_misc_isPrune";
 import { TypeTagLength } from "../../structures/TypeTagLength";
 
 export const test_misc_isPrune_TypeTagLength = _test_misc_isPrune(
     "TypeTagLength",
-)<TypeTagLength>(
-    TypeTagLength
-)((input) => typia.misc.isPrune<TypeTagLength>(input));
+)<TypeTagLength>(TypeTagLength)((input) =>
+    typia.misc.isPrune<TypeTagLength>(input),
+);

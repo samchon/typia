@@ -1,12 +1,11 @@
 import typia from "../../../src";
-
 import { _test_notation_validateGeneral } from "../../internal/_test_notation_validateGeneral";
 import { UltimateUnion } from "../../structures/UltimateUnion";
 
 export const test_notation_createValidatePascal_UltimateUnion =
     _test_notation_validateGeneral("UltimateUnion")<UltimateUnion>(
-        UltimateUnion
+        UltimateUnion,
     )<typia.PascalCase<UltimateUnion>>({
-        convert: (input) => typia.notations.validatePascal<UltimateUnion>(input),
+        convert: typia.notations.createValidatePascal<UltimateUnion>(),
         assert: typia.createAssert<typia.PascalCase<UltimateUnion>>(),
     });

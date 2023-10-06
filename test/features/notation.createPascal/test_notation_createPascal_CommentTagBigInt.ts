@@ -1,12 +1,11 @@
 import typia from "../../../src";
-
 import { _test_notation_validateGeneral } from "../../internal/_test_notation_validateGeneral";
 import { CommentTagBigInt } from "../../structures/CommentTagBigInt";
 
 export const test_notation_createValidatePascal_CommentTagBigInt =
     _test_notation_validateGeneral("CommentTagBigInt")<CommentTagBigInt>(
-        CommentTagBigInt
+        CommentTagBigInt,
     )<typia.PascalCase<CommentTagBigInt>>({
-        convert: (input) => typia.notations.validatePascal<CommentTagBigInt>(input),
+        convert: typia.notations.createValidatePascal<CommentTagBigInt>(),
         assert: typia.createAssert<typia.PascalCase<CommentTagBigInt>>(),
     });

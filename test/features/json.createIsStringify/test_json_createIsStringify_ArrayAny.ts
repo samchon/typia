@@ -1,10 +1,7 @@
 import typia from "../../../src";
-
 import { _test_json_isStringify } from "../../internal/_test_json_isStringify";
 import { ArrayAny } from "../../structures/ArrayAny";
 
 export const test_json_createIsStringify_ArrayAny = _test_json_isStringify(
     "ArrayAny",
-)<ArrayAny>(
-    ArrayAny
-)(typia.json.createIsStringify<ArrayAny>());
+)<ArrayAny>(ArrayAny)(typia.json.createIsStringify<ArrayAny>());

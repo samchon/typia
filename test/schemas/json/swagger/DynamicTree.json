@@ -1,0 +1,49 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/schemas/DynamicTree"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "DynamicTree": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          },
+          "sequence": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "number"
+          },
+          "children": {
+            "$ref": "#/components/schemas/RecordstringDynamicTree"
+          }
+        },
+        "nullable": false,
+        "required": [
+          "id",
+          "sequence",
+          "children"
+        ],
+        "x-typia-jsDocTags": []
+      },
+      "RecordstringDynamicTree": {
+        "type": "object",
+        "properties": {},
+        "nullable": false,
+        "x-typia-jsDocTags": [],
+        "x-typia-additionalProperties": {
+          "$ref": "#/components/schemas/DynamicTree"
+        },
+        "additionalProperties": {
+          "$ref": "#/components/schemas/DynamicTree"
+        }
+      }
+    }
+  },
+  "purpose": "swagger"
+}

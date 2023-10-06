@@ -1,10 +1,7 @@
 import typia from "../../../src";
-
 import { _test_json_isParse } from "../../internal/_test_json_isParse";
 import { ObjectNullable } from "../../structures/ObjectNullable";
 
 export const test_json_createIsParse_ObjectNullable = _test_json_isParse(
     "ObjectNullable",
-)<ObjectNullable>(
-    ObjectNullable
-)(typia.json.createIsParse<ObjectNullable>());
+)<ObjectNullable>(ObjectNullable)(typia.json.createIsParse<ObjectNullable>());

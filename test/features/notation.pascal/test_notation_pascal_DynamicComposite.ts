@@ -1,12 +1,12 @@
 import typia from "../../../src";
-
 import { _test_notation_validateGeneral } from "../../internal/_test_notation_validateGeneral";
 import { DynamicComposite } from "../../structures/DynamicComposite";
 
 export const test_notation_validatePascal_DynamicComposite =
     _test_notation_validateGeneral("DynamicComposite")<DynamicComposite>(
-        DynamicComposite
+        DynamicComposite,
     )<typia.PascalCase<DynamicComposite>>({
-        convert: typia.notations.createValidatePascal<DynamicComposite>(),
+        convert: (input) =>
+            typia.notations.validatePascal<DynamicComposite>(input),
         assert: typia.createAssert<typia.PascalCase<DynamicComposite>>(),
     });

@@ -1,8 +1,9 @@
-import typia from "typia"
-import { TypeTagArrayUnion } from "../../../structures/TypeTagArrayUnion";
-import { _test_json_application } from "../../../internal/_test_json_application";
+import typia from "typia";
 
-export const test_json_application_ajv_TypeTagArrayUnion = 
+import { _test_json_application } from "../../../internal/_test_json_application";
+import { TypeTagArrayUnion } from "../../../structures/TypeTagArrayUnion";
+
+export const test_json_application_ajv_TypeTagArrayUnion =
     _test_json_application("ajv")("TypeTagArrayUnion")(
         typia.json.application<[TypeTagArrayUnion], "ajv">(),
     );

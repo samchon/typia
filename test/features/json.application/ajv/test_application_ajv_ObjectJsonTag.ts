@@ -1,8 +1,8 @@
-import typia from "typia"
-import { ObjectJsonTag } from "../../../structures/ObjectJsonTag";
-import { _test_json_application } from "../../../internal/_test_json_application";
+import typia from "typia";
 
-export const test_json_application_ajv_ObjectJsonTag = 
-    _test_json_application("ajv")("ObjectJsonTag")(
-        typia.json.application<[ObjectJsonTag], "ajv">(),
-    );
+import { _test_json_application } from "../../../internal/_test_json_application";
+import { ObjectJsonTag } from "../../../structures/ObjectJsonTag";
+
+export const test_json_application_ajv_ObjectJsonTag = _test_json_application(
+    "ajv",
+)("ObjectJsonTag")(typia.json.application<[ObjectJsonTag], "ajv">());

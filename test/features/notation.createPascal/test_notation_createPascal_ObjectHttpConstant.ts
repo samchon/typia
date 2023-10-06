@@ -1,12 +1,11 @@
 import typia from "../../../src";
-
 import { _test_notation_validateGeneral } from "../../internal/_test_notation_validateGeneral";
 import { ObjectHttpConstant } from "../../structures/ObjectHttpConstant";
 
 export const test_notation_createValidatePascal_ObjectHttpConstant =
     _test_notation_validateGeneral("ObjectHttpConstant")<ObjectHttpConstant>(
-        ObjectHttpConstant
+        ObjectHttpConstant,
     )<typia.PascalCase<ObjectHttpConstant>>({
-        convert: (input) => typia.notations.validatePascal<ObjectHttpConstant>(input),
+        convert: typia.notations.createValidatePascal<ObjectHttpConstant>(),
         assert: typia.createAssert<typia.PascalCase<ObjectHttpConstant>>(),
     });

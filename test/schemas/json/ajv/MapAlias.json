@@ -1,0 +1,66 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/schemas/MapAlias"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "MapAlias": {
+        "$id": "#/components/schemas/MapAlias",
+        "type": "object",
+        "properties": {
+          "boolean": {
+            "$ref": "#/components/schemas/MapAlias.MAPbooleannumber"
+          },
+          "number": {
+            "$ref": "#/components/schemas/MapAlias.MAPnumbernumber"
+          },
+          "strings": {
+            "$ref": "#/components/schemas/MapAlias._Mapstringnumber"
+          },
+          "arrays": {
+            "$ref": "#/components/schemas/MapAlias._MapArraynumbernumber"
+          },
+          "objects": {
+            "$ref": "#/components/schemas/MapAlias.MAPMapAlias.Personnumber"
+          }
+        },
+        "required": [
+          "boolean",
+          "number",
+          "strings",
+          "arrays",
+          "objects"
+        ],
+        "x-typia-jsDocTags": []
+      },
+      "MapAlias.MAPbooleannumber": {
+        "$id": "#/components/schemas/MapAlias.MAPbooleannumber",
+        "$ref": "#/components/objects/Map"
+      },
+      "Map": {
+        "type": "object",
+        "$id": "#/components/objects/Map",
+        "properties": {}
+      },
+      "MapAlias.MAPnumbernumber": {
+        "$id": "#/components/schemas/MapAlias.MAPnumbernumber",
+        "$ref": "#/components/objects/Map"
+      },
+      "MapAlias._Mapstringnumber": {
+        "$id": "#/components/schemas/MapAlias._Mapstringnumber",
+        "$ref": "#/components/objects/Map"
+      },
+      "MapAlias._MapArraynumbernumber": {
+        "$id": "#/components/schemas/MapAlias._MapArraynumbernumber",
+        "$ref": "#/components/objects/Map"
+      },
+      "MapAlias.MAPMapAlias.Personnumber": {
+        "$id": "#/components/schemas/MapAlias.MAPMapAlias.Personnumber",
+        "$ref": "#/components/objects/Map"
+      }
+    }
+  },
+  "purpose": "ajv"
+}

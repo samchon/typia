@@ -1,12 +1,12 @@
 import typia from "../../../src";
-
 import { _test_notation_validateGeneral } from "../../internal/_test_notation_validateGeneral";
 import { FunctionalValue } from "../../structures/FunctionalValue";
 
 export const test_notation_validatePascal_FunctionalValue =
     _test_notation_validateGeneral("FunctionalValue")<FunctionalValue>(
-        FunctionalValue
+        FunctionalValue,
     )<typia.PascalCase<FunctionalValue>>({
-        convert: typia.notations.createValidatePascal<FunctionalValue>(),
+        convert: (input) =>
+            typia.notations.validatePascal<FunctionalValue>(input),
         assert: typia.createAssert<typia.PascalCase<FunctionalValue>>(),
     });

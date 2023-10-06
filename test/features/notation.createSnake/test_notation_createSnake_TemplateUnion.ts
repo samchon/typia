@@ -1,12 +1,11 @@
 import typia from "../../../src";
-
 import { _test_notation_validateGeneral } from "../../internal/_test_notation_validateGeneral";
 import { TemplateUnion } from "../../structures/TemplateUnion";
 
 export const test_notation_createValidateSnake_TemplateUnion =
     _test_notation_validateGeneral("TemplateUnion")<TemplateUnion>(
-        TemplateUnion
+        TemplateUnion,
     )<typia.SnakeCase<TemplateUnion>>({
-        convert: (input) => typia.notations.validateSnake<TemplateUnion>(input),
+        convert: typia.notations.createValidateSnake<TemplateUnion>(),
         assert: typia.createAssert<typia.SnakeCase<TemplateUnion>>(),
     });

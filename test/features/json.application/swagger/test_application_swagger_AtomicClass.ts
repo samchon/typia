@@ -1,8 +1,8 @@
-import typia from "typia"
-import { AtomicClass } from "../../../structures/AtomicClass";
-import { _test_json_application } from "../../../internal/_test_json_application";
+import typia from "typia";
 
-export const test_json_application_swagger_AtomicClass = 
-    _test_json_application("swagger")("AtomicClass")(
-        typia.json.application<[AtomicClass], "swagger">(),
-    );
+import { _test_json_application } from "../../../internal/_test_json_application";
+import { AtomicClass } from "../../../structures/AtomicClass";
+
+export const test_json_application_swagger_AtomicClass = _test_json_application(
+    "swagger",
+)("AtomicClass")(typia.json.application<[AtomicClass], "swagger">());

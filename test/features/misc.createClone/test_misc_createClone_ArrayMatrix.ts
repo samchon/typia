@@ -1,10 +1,7 @@
 import typia from "../../../src";
-
 import { _test_misc_clone } from "../../internal/_test_misc_clone";
 import { ArrayMatrix } from "../../structures/ArrayMatrix";
 
 export const test_misc_createClone_ArrayMatrix = _test_misc_clone(
     "ArrayMatrix",
-)<ArrayMatrix>(
-    ArrayMatrix
-)(typia.misc.createClone<ArrayMatrix>());
+)<ArrayMatrix>(ArrayMatrix)(typia.misc.createClone<ArrayMatrix>());

@@ -1,12 +1,11 @@
 import typia from "../../../src";
-
 import { _test_notation_validateGeneral } from "../../internal/_test_notation_validateGeneral";
 import { ObjectPartial } from "../../structures/ObjectPartial";
 
 export const test_notation_createValidatePascal_ObjectPartial =
     _test_notation_validateGeneral("ObjectPartial")<ObjectPartial>(
-        ObjectPartial
+        ObjectPartial,
     )<typia.PascalCase<ObjectPartial>>({
-        convert: (input) => typia.notations.validatePascal<ObjectPartial>(input),
+        convert: typia.notations.createValidatePascal<ObjectPartial>(),
         assert: typia.createAssert<typia.PascalCase<ObjectPartial>>(),
     });

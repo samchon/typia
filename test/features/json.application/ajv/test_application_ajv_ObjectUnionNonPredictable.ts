@@ -1,8 +1,9 @@
-import typia from "typia"
-import { ObjectUnionNonPredictable } from "../../../structures/ObjectUnionNonPredictable";
-import { _test_json_application } from "../../../internal/_test_json_application";
+import typia from "typia";
 
-export const test_json_application_ajv_ObjectUnionNonPredictable = 
+import { _test_json_application } from "../../../internal/_test_json_application";
+import { ObjectUnionNonPredictable } from "../../../structures/ObjectUnionNonPredictable";
+
+export const test_json_application_ajv_ObjectUnionNonPredictable =
     _test_json_application("ajv")("ObjectUnionNonPredictable")(
         typia.json.application<[ObjectUnionNonPredictable], "ajv">(),
     );

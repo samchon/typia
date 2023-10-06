@@ -1,8 +1,9 @@
-import typia from "typia"
-import { CommentTagPattern } from "../../../structures/CommentTagPattern";
-import { _test_json_application } from "../../../internal/_test_json_application";
+import typia from "typia";
 
-export const test_json_application_ajv_CommentTagPattern = 
+import { _test_json_application } from "../../../internal/_test_json_application";
+import { CommentTagPattern } from "../../../structures/CommentTagPattern";
+
+export const test_json_application_ajv_CommentTagPattern =
     _test_json_application("ajv")("CommentTagPattern")(
         typia.json.application<[CommentTagPattern], "ajv">(),
     );

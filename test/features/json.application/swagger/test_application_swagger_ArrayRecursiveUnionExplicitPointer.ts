@@ -1,8 +1,12 @@
-import typia from "typia"
-import { ArrayRecursiveUnionExplicitPointer } from "../../../structures/ArrayRecursiveUnionExplicitPointer";
-import { _test_json_application } from "../../../internal/_test_json_application";
+import typia from "typia";
 
-export const test_json_application_swagger_ArrayRecursiveUnionExplicitPointer = 
+import { _test_json_application } from "../../../internal/_test_json_application";
+import { ArrayRecursiveUnionExplicitPointer } from "../../../structures/ArrayRecursiveUnionExplicitPointer";
+
+export const test_json_application_swagger_ArrayRecursiveUnionExplicitPointer =
     _test_json_application("swagger")("ArrayRecursiveUnionExplicitPointer")(
-        typia.json.application<[ArrayRecursiveUnionExplicitPointer], "swagger">(),
+        typia.json.application<
+            [ArrayRecursiveUnionExplicitPointer],
+            "swagger"
+        >(),
     );

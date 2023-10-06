@@ -1,8 +1,8 @@
-import typia from "typia"
-import { TupleRestArray } from "../../../structures/TupleRestArray";
-import { _test_json_application } from "../../../internal/_test_json_application";
+import typia from "typia";
 
-export const test_json_application_ajv_TupleRestArray = 
-    _test_json_application("ajv")("TupleRestArray")(
-        typia.json.application<[TupleRestArray], "ajv">(),
-    );
+import { _test_json_application } from "../../../internal/_test_json_application";
+import { TupleRestArray } from "../../../structures/TupleRestArray";
+
+export const test_json_application_ajv_TupleRestArray = _test_json_application(
+    "ajv",
+)("TupleRestArray")(typia.json.application<[TupleRestArray], "ajv">());

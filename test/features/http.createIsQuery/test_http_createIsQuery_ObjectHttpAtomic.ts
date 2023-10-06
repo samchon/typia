@@ -1,10 +1,9 @@
 import typia from "../../../src";
-
 import { _test_http_isQuery } from "../../internal/_test_http_isQuery";
 import { ObjectHttpAtomic } from "../../structures/ObjectHttpAtomic";
 
 export const test_http_createIsQuery_ObjectHttpAtomic = _test_http_isQuery(
     "ObjectHttpAtomic",
-)<ObjectHttpAtomic>(
-    ObjectHttpAtomic
-)(typia.http.createIsQuery<ObjectHttpAtomic>());
+)<ObjectHttpAtomic>(ObjectHttpAtomic)(
+    typia.http.createIsQuery<ObjectHttpAtomic>(),
+);

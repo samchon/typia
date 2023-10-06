@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+message ObjectGenericArray {
+    required ObjectGenericArray.IPagination pagination = 1;
+    repeated ObjectGenericArray.IPerson data = 2;
+    message IPagination {
+        required double page = 1;
+        required double limit = 2;
+        required double total_count = 3;
+        required double total_pages = 4;
+    }
+
+    message IPerson {
+        required string name = 1;
+        required double age = 2;
+    }
+}

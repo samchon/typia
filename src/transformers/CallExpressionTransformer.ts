@@ -64,6 +64,10 @@ import { MiscPruneTransformer } from "./features/misc/MiscPruneTransformer";
 import { MiscValidateCloneTransformer } from "./features/misc/MiscValidateCloneTransformer";
 import { MiscValidatePruneTransformer } from "./features/misc/MiscValidatePruneTransformer";
 import { NotationAssertGeneralTransformer } from "./features/notations/NotationAssertGeneralTransformer";
+import { NotationCreateAssertGeneralTransformer } from "./features/notations/NotationCreateAssertGeneralTransformer";
+import { NotationCreateGeneralTransformer } from "./features/notations/NotationCreateGeneralTransformer";
+import { NotationCreateIsGeneralTransformer } from "./features/notations/NotationCreateIsGeneralTransformer";
+import { NotationCreateValidateGeneralTransformer } from "./features/notations/NotationCreateValidateGeneralTransformer";
 import { NotationGeneralTransformer } from "./features/notations/NotationGeneralTransformer";
 import { NotationIsGeneralTransformer } from "./features/notations/NotationIsGeneralTransformer";
 import { NotationValidateGeneralTransformer } from "./features/notations/NotationValidateGeneralTransformer";
@@ -331,33 +335,45 @@ const FUNCTORS: Record<string, Record<string, () => Task>> = {
 
         // FACTORIES
         createCamel: () =>
-            NotationGeneralTransformer.transform(NamingConvention.camel),
+            NotationCreateGeneralTransformer.transform(NamingConvention.camel),
         createAssertCamel: () =>
-            NotationAssertGeneralTransformer.transform(NamingConvention.camel),
+            NotationCreateAssertGeneralTransformer.transform(
+                NamingConvention.camel,
+            ),
         createIsCamel: () =>
-            NotationIsGeneralTransformer.transform(NamingConvention.camel),
+            NotationCreateIsGeneralTransformer.transform(
+                NamingConvention.camel,
+            ),
         createValidateCamel: () =>
-            NotationValidateGeneralTransformer.transform(
+            NotationCreateValidateGeneralTransformer.transform(
                 NamingConvention.camel,
             ),
         createPascal: () =>
-            NotationGeneralTransformer.transform(NamingConvention.pascal),
+            NotationCreateGeneralTransformer.transform(NamingConvention.pascal),
         createAssertPascal: () =>
-            NotationAssertGeneralTransformer.transform(NamingConvention.pascal),
+            NotationCreateAssertGeneralTransformer.transform(
+                NamingConvention.pascal,
+            ),
         createIsPascal: () =>
-            NotationIsGeneralTransformer.transform(NamingConvention.pascal),
+            NotationCreateIsGeneralTransformer.transform(
+                NamingConvention.pascal,
+            ),
         createValidatePascal: () =>
-            NotationValidateGeneralTransformer.transform(
+            NotationCreateValidateGeneralTransformer.transform(
                 NamingConvention.pascal,
             ),
         createSnake: () =>
-            NotationGeneralTransformer.transform(NamingConvention.snake),
+            NotationCreateGeneralTransformer.transform(NamingConvention.snake),
         createAssertSnake: () =>
-            NotationAssertGeneralTransformer.transform(NamingConvention.snake),
+            NotationCreateAssertGeneralTransformer.transform(
+                NamingConvention.snake,
+            ),
         createIsSnake: () =>
-            NotationIsGeneralTransformer.transform(NamingConvention.snake),
+            NotationCreateIsGeneralTransformer.transform(
+                NamingConvention.snake,
+            ),
         createValidateSnake: () =>
-            NotationValidateGeneralTransformer.transform(
+            NotationCreateValidateGeneralTransformer.transform(
                 NamingConvention.snake,
             ),
     },

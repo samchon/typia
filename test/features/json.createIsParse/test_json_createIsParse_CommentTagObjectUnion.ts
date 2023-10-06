@@ -1,10 +1,9 @@
 import typia from "../../../src";
-
 import { _test_json_isParse } from "../../internal/_test_json_isParse";
 import { CommentTagObjectUnion } from "../../structures/CommentTagObjectUnion";
 
 export const test_json_createIsParse_CommentTagObjectUnion = _test_json_isParse(
     "CommentTagObjectUnion",
-)<CommentTagObjectUnion>(
-    CommentTagObjectUnion
-)(typia.json.createIsParse<CommentTagObjectUnion>());
+)<CommentTagObjectUnion>(CommentTagObjectUnion)(
+    typia.json.createIsParse<CommentTagObjectUnion>(),
+);

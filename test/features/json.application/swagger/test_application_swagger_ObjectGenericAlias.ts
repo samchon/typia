@@ -1,8 +1,9 @@
-import typia from "typia"
-import { ObjectGenericAlias } from "../../../structures/ObjectGenericAlias";
-import { _test_json_application } from "../../../internal/_test_json_application";
+import typia from "typia";
 
-export const test_json_application_swagger_ObjectGenericAlias = 
+import { _test_json_application } from "../../../internal/_test_json_application";
+import { ObjectGenericAlias } from "../../../structures/ObjectGenericAlias";
+
+export const test_json_application_swagger_ObjectGenericAlias =
     _test_json_application("swagger")("ObjectGenericAlias")(
         typia.json.application<[ObjectGenericAlias], "swagger">(),
     );

@@ -1,8 +1,9 @@
-import typia from "typia"
-import { ObjectDynamic } from "../../../structures/ObjectDynamic";
-import { _test_json_application } from "../../../internal/_test_json_application";
+import typia from "typia";
 
-export const test_json_application_swagger_ObjectDynamic = 
+import { _test_json_application } from "../../../internal/_test_json_application";
+import { ObjectDynamic } from "../../../structures/ObjectDynamic";
+
+export const test_json_application_swagger_ObjectDynamic =
     _test_json_application("swagger")("ObjectDynamic")(
         typia.json.application<[ObjectDynamic], "swagger">(),
     );

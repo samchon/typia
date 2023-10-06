@@ -1,8 +1,8 @@
-import typia from "typia"
-import { TypeTagType } from "../../../structures/TypeTagType";
-import { _test_json_application } from "../../../internal/_test_json_application";
+import typia from "typia";
 
-export const test_json_application_swagger_TypeTagType = 
-    _test_json_application("swagger")("TypeTagType")(
-        typia.json.application<[TypeTagType], "swagger">(),
-    );
+import { _test_json_application } from "../../../internal/_test_json_application";
+import { TypeTagType } from "../../../structures/TypeTagType";
+
+export const test_json_application_swagger_TypeTagType = _test_json_application(
+    "swagger",
+)("TypeTagType")(typia.json.application<[TypeTagType], "swagger">());

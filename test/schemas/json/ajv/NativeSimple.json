@@ -1,0 +1,182 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/schemas/NativeSimple"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "NativeSimple": {
+        "$id": "#/components/schemas/NativeSimple",
+        "type": "object",
+        "properties": {
+          "date": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string",
+            "format": "date-time"
+          },
+          "uint8Array": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "$ref": "#/components/objects/Uint8Array"
+          },
+          "uint8ClampedArray": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "$ref": "#/components/objects/Uint8ClampedArray"
+          },
+          "uint16Array": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "$ref": "#/components/objects/Uint16Array"
+          },
+          "uint32Array": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "$ref": "#/components/objects/Uint32Array"
+          },
+          "bigUint64Array": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "$ref": "#/components/objects/BigUint64Array"
+          },
+          "int8Array": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "$ref": "#/components/objects/Int8Array"
+          },
+          "int16Array": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "$ref": "#/components/objects/Int16Array"
+          },
+          "int32Array": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "$ref": "#/components/objects/Int32Array"
+          },
+          "bigInt64Array": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "$ref": "#/components/objects/BigInt64Array"
+          },
+          "float32Array": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "$ref": "#/components/objects/Float32Array"
+          },
+          "float64Array": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "$ref": "#/components/objects/Float64Array"
+          },
+          "arrayBuffer": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "$ref": "#/components/objects/ArrayBuffer"
+          },
+          "sharedArrayBuffer": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "$ref": "#/components/objects/SharedArrayBuffer"
+          },
+          "dataView": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "$ref": "#/components/objects/DataView"
+          }
+        },
+        "required": [
+          "date",
+          "uint8Array",
+          "uint8ClampedArray",
+          "uint16Array",
+          "uint32Array",
+          "bigUint64Array",
+          "int8Array",
+          "int16Array",
+          "int32Array",
+          "bigInt64Array",
+          "float32Array",
+          "float64Array",
+          "arrayBuffer",
+          "sharedArrayBuffer",
+          "dataView"
+        ],
+        "x-typia-jsDocTags": []
+      },
+      "Uint8Array": {
+        "type": "object",
+        "$id": "#/components/objects/Uint8Array",
+        "properties": {}
+      },
+      "Uint8ClampedArray": {
+        "type": "object",
+        "$id": "#/components/objects/Uint8ClampedArray",
+        "properties": {}
+      },
+      "Uint16Array": {
+        "type": "object",
+        "$id": "#/components/objects/Uint16Array",
+        "properties": {}
+      },
+      "Uint32Array": {
+        "type": "object",
+        "$id": "#/components/objects/Uint32Array",
+        "properties": {}
+      },
+      "BigUint64Array": {
+        "type": "object",
+        "$id": "#/components/objects/BigUint64Array",
+        "properties": {}
+      },
+      "Int8Array": {
+        "type": "object",
+        "$id": "#/components/objects/Int8Array",
+        "properties": {}
+      },
+      "Int16Array": {
+        "type": "object",
+        "$id": "#/components/objects/Int16Array",
+        "properties": {}
+      },
+      "Int32Array": {
+        "type": "object",
+        "$id": "#/components/objects/Int32Array",
+        "properties": {}
+      },
+      "BigInt64Array": {
+        "type": "object",
+        "$id": "#/components/objects/BigInt64Array",
+        "properties": {}
+      },
+      "Float32Array": {
+        "type": "object",
+        "$id": "#/components/objects/Float32Array",
+        "properties": {}
+      },
+      "Float64Array": {
+        "type": "object",
+        "$id": "#/components/objects/Float64Array",
+        "properties": {}
+      },
+      "ArrayBuffer": {
+        "type": "object",
+        "$id": "#/components/objects/ArrayBuffer",
+        "properties": {}
+      },
+      "SharedArrayBuffer": {
+        "type": "object",
+        "$id": "#/components/objects/SharedArrayBuffer",
+        "properties": {}
+      },
+      "DataView": {
+        "type": "object",
+        "$id": "#/components/objects/DataView",
+        "properties": {}
+      }
+    }
+  },
+  "purpose": "ajv"
+}

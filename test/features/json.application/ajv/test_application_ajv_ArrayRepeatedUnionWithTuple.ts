@@ -1,8 +1,9 @@
-import typia from "typia"
-import { ArrayRepeatedUnionWithTuple } from "../../../structures/ArrayRepeatedUnionWithTuple";
-import { _test_json_application } from "../../../internal/_test_json_application";
+import typia from "typia";
 
-export const test_json_application_ajv_ArrayRepeatedUnionWithTuple = 
+import { _test_json_application } from "../../../internal/_test_json_application";
+import { ArrayRepeatedUnionWithTuple } from "../../../structures/ArrayRepeatedUnionWithTuple";
+
+export const test_json_application_ajv_ArrayRepeatedUnionWithTuple =
     _test_json_application("ajv")("ArrayRepeatedUnionWithTuple")(
         typia.json.application<[ArrayRepeatedUnionWithTuple], "ajv">(),
     );

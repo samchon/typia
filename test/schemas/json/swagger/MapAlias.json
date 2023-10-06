@@ -1,0 +1,61 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/schemas/MapAlias"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "MapAlias": {
+        "type": "object",
+        "properties": {
+          "boolean": {
+            "$ref": "#/components/schemas/MapAlias.MAPbooleannumber"
+          },
+          "number": {
+            "$ref": "#/components/schemas/MapAlias.MAPnumbernumber"
+          },
+          "strings": {
+            "$ref": "#/components/schemas/MapAlias._Mapstringnumber"
+          },
+          "arrays": {
+            "$ref": "#/components/schemas/MapAlias._MapArraynumbernumber"
+          },
+          "objects": {
+            "$ref": "#/components/schemas/MapAlias.MAPMapAlias.Personnumber"
+          }
+        },
+        "nullable": false,
+        "required": [
+          "boolean",
+          "number",
+          "strings",
+          "arrays",
+          "objects"
+        ],
+        "x-typia-jsDocTags": []
+      },
+      "MapAlias.MAPbooleannumber": {
+        "$ref": "#/components/objects/Map"
+      },
+      "Map": {
+        "type": "object",
+        "properties": {},
+        "nullable": false
+      },
+      "MapAlias.MAPnumbernumber": {
+        "$ref": "#/components/objects/Map"
+      },
+      "MapAlias._Mapstringnumber": {
+        "$ref": "#/components/objects/Map"
+      },
+      "MapAlias._MapArraynumbernumber": {
+        "$ref": "#/components/objects/Map"
+      },
+      "MapAlias.MAPMapAlias.Personnumber": {
+        "$ref": "#/components/objects/Map"
+      }
+    }
+  },
+  "purpose": "swagger"
+}

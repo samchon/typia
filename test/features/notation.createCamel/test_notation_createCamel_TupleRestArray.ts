@@ -1,12 +1,11 @@
 import typia from "../../../src";
-
 import { _test_notation_validateGeneral } from "../../internal/_test_notation_validateGeneral";
 import { TupleRestArray } from "../../structures/TupleRestArray";
 
 export const test_notation_createValidateCamel_TupleRestArray =
     _test_notation_validateGeneral("TupleRestArray")<TupleRestArray>(
-        TupleRestArray
+        TupleRestArray,
     )<typia.CamelCase<TupleRestArray>>({
-        convert: (input) => typia.notations.validateCamel<TupleRestArray>(input),
+        convert: typia.notations.createValidateCamel<TupleRestArray>(),
         assert: typia.createAssert<typia.CamelCase<TupleRestArray>>(),
     });

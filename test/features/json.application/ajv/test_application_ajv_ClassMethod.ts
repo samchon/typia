@@ -1,8 +1,8 @@
-import typia from "typia"
-import { ClassMethod } from "../../../structures/ClassMethod";
-import { _test_json_application } from "../../../internal/_test_json_application";
+import typia from "typia";
 
-export const test_json_application_ajv_ClassMethod = 
-    _test_json_application("ajv")("ClassMethod")(
-        typia.json.application<[ClassMethod], "ajv">(),
-    );
+import { _test_json_application } from "../../../internal/_test_json_application";
+import { ClassMethod } from "../../../structures/ClassMethod";
+
+export const test_json_application_ajv_ClassMethod = _test_json_application(
+    "ajv",
+)("ClassMethod")(typia.json.application<[ClassMethod], "ajv">());

@@ -1,0 +1,56 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/schemas/SetSimple"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "SetSimple": {
+        "type": "object",
+        "properties": {
+          "booleans": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "$ref": "#/components/objects/Set"
+          },
+          "numbers": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "$ref": "#/components/objects/Set"
+          },
+          "strings": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "$ref": "#/components/objects/Set"
+          },
+          "arrays": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "$ref": "#/components/objects/Set"
+          },
+          "objects": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "$ref": "#/components/objects/Set"
+          }
+        },
+        "nullable": false,
+        "required": [
+          "booleans",
+          "numbers",
+          "strings",
+          "arrays",
+          "objects"
+        ],
+        "x-typia-jsDocTags": []
+      },
+      "Set": {
+        "type": "object",
+        "properties": {},
+        "nullable": false
+      }
+    }
+  },
+  "purpose": "swagger"
+}

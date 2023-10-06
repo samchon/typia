@@ -1,8 +1,8 @@
-import typia from "typia"
-import { CommentTagType } from "../../../structures/CommentTagType";
-import { _test_json_application } from "../../../internal/_test_json_application";
+import typia from "typia";
 
-export const test_json_application_ajv_CommentTagType = 
-    _test_json_application("ajv")("CommentTagType")(
-        typia.json.application<[CommentTagType], "ajv">(),
-    );
+import { _test_json_application } from "../../../internal/_test_json_application";
+import { CommentTagType } from "../../../structures/CommentTagType";
+
+export const test_json_application_ajv_CommentTagType = _test_json_application(
+    "ajv",
+)("CommentTagType")(typia.json.application<[CommentTagType], "ajv">());
