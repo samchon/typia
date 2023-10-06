@@ -3,7 +3,7 @@ import { JsonIsParseProgrammer } from "../../../programmers/json/JsonIsParseProg
 import { GenericTransformer } from "../../internal/GenericTransformer";
 
 export namespace JsonIsParseTransformer {
-    export const transform = GenericTransformer.scalar("isParse")(
+    export const transform = GenericTransformer.scalar("json.isParse")(
         (project) => (modulo) => JsonIsParseProgrammer.write(project)(modulo),
     );
 }

@@ -3,7 +3,7 @@ import { MiscAssertCloneProgrammer } from "../../../programmers/misc/MiscAssertC
 import { GenericTransformer } from "../../internal/GenericTransformer";
 
 export namespace MiscAssertCloneTransformer {
-    export const transform = GenericTransformer.scalar("assertClone")(
+    export const transform = GenericTransformer.scalar("misc.assertClone")(
         (project) => (modulo) =>
             MiscAssertCloneProgrammer.write(project)(modulo),
     );

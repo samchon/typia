@@ -126,6 +126,13 @@ export namespace Namespace {
         });
     }
 
+    export namespace notations {
+        export const base = (method: string) => ({
+            ...is(),
+            throws: $throws(`notations.${method}`),
+        });
+    }
+
     export const random = () => ({
         generator: RandomGenerator,
         pick: RandomGenerator.pick,
