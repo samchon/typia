@@ -39,5 +39,5 @@ const file = (p: IProps) => (create: boolean) =>
     ["test", "notation", method(p)(create)].join("_");
 const functor = (p: IProps) => (create: boolean) => (structure: string) =>
     create
-        ? `(input) => typia.notations.${method(p)(false)}<${structure}>(input)`
-        : `typia.notations.${method(p)(true)}<${structure}>()`;
+        ? `typia.notations.${method(p)(true)}<${structure}>()`
+        : `(input) => typia.notations.${method(p)(false)}<${structure}>(input)`;
