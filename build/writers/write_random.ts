@@ -17,5 +17,5 @@ export const test_${method(
 const method = (create: boolean) => (create ? "createRandom" : "random");
 const functor = (create: boolean) => (structure: string) =>
     create
-        ? `typia.createRandom<${structure}>()`
-        : `() => typia.random<${structure}>()`;
+        ? `typia.createRandom<${structure}>((${structure} as any).RANDOM)`
+        : `() => typia.random<${structure}>((${structure} as any).RANDOM)`;

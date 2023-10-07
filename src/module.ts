@@ -2,10 +2,9 @@ import { Namespace } from "./functional/Namespace";
 
 import { IMetadataApplication } from "./schemas/metadata/IMetadataApplication";
 
-import { Resolved } from "./typings/Resolved";
-
 import { IRandomGenerator } from "./IRandomGenerator";
 import { IValidation } from "./IValidation";
+import { Resolved } from "./Resolved";
 
 export * as http from "./http";
 export * as json from "./json";
@@ -21,11 +20,11 @@ export * from "./IRandomGenerator";
 export * from "./IValidation";
 export * from "./TypeGuardError";
 
-export * from "./typings/Primitive";
-export * from "./typings/Resolved";
-export * from "./typings/CamelCase";
-export * from "./typings/PascalCase";
-export * from "./typings/SnakeCase";
+export * from "./Primitive";
+export * from "./Resolved";
+export * from "./CamelCase";
+export * from "./PascalCase";
+export * from "./SnakeCase";
 
 /* -----------------------------------------------------------
     BASIC VALIDATORS

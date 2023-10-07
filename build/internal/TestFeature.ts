@@ -287,6 +287,7 @@ export namespace TestFeature {
                     module: "notation",
                     method,
                     creatable: true,
+                    resolved: true as const,
                     spoilable: false,
                     programmer: write_notation({
                         method,

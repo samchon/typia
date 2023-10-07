@@ -1,8 +1,7 @@
 import { Namespace } from "./functional/Namespace";
 
-import { Resolved } from "./typings/Resolved";
-
 import { IValidation } from "./IValidation";
+import { Resolved } from "./Resolved";
 
 /* ===========================================================
     PROTOCOL BUFFER
