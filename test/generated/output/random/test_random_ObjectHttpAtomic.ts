@@ -29,7 +29,7 @@ export const test_random_ObjectHttpAtomic = _test_random(
                     (generator?.string ?? $generator.string)(),
             });
             return $ro0();
-        })(),
+        })((ObjectHttpAtomic as any).RANDOM),
     assert: (input: any): ObjectHttpAtomic => {
         const __is = (input: any): input is ObjectHttpAtomic => {
             return (

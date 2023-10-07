@@ -83,7 +83,7 @@ export const test_random_MapAlias = _test_random("MapAlias")<MapAlias>(
                     (generator?.number ?? $generator.number)(0, 100),
             });
             return $ro0();
-        })(),
+        })((MapAlias as any).RANDOM),
     assert: (input: any): MapAlias => {
         const __is = (input: any): input is MapAlias => {
             const $io0 = (input: any): boolean =>

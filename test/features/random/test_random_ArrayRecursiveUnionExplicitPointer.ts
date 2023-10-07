@@ -5,6 +5,9 @@ import { ArrayRecursiveUnionExplicitPointer } from "../../structures/ArrayRecurs
 export const test_random_ArrayRecursiveUnionExplicitPointer = _test_random(
     "ArrayRecursiveUnionExplicitPointer",
 )<ArrayRecursiveUnionExplicitPointer>(ArrayRecursiveUnionExplicitPointer)({
-    random: () => typia.random<ArrayRecursiveUnionExplicitPointer>(),
+    random: () =>
+        typia.random<ArrayRecursiveUnionExplicitPointer>(
+            (ArrayRecursiveUnionExplicitPointer as any).RANDOM,
+        ),
     assert: typia.createAssert<ArrayRecursiveUnionExplicitPointer>(),
 });

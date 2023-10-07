@@ -80,7 +80,7 @@ export const test_random_TypeTagType = _test_random("TypeTagType")<TypeTagType>(
                     ]) ?? (generator?.number ?? $generator.number)(0, 100),
             });
             return $ro0();
-        })(),
+        })((TypeTagType as any).RANDOM),
     assert: (input: any): TypeTagType => {
         const __is = (input: any): input is TypeTagType => {
             const $io0 = (input: any): boolean =>

@@ -82,7 +82,7 @@ export const test_random_ArrayHierarchical = _test_random(
                 ),
             });
             return (generator?.array ?? $generator.array)(() => $ro0());
-        })(),
+        })((ArrayHierarchical as any).RANDOM),
     assert: (input: any): ArrayHierarchical => {
         const __is = (input: any): input is ArrayHierarchical => {
             const $io0 = (input: any): boolean =>

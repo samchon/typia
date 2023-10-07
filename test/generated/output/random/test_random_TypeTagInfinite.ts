@@ -64,7 +64,7 @@ export const test_random_TypeTagInfinite = _test_random(
                     ]) ?? (generator?.integer ?? $generator.integer)(0, 100),
             });
             return $ro0();
-        })(),
+        })((TypeTagInfinite as any).RANDOM),
     assert: (input: any): TypeTagInfinite => {
         const __is = (input: any): input is TypeTagInfinite => {
             return (

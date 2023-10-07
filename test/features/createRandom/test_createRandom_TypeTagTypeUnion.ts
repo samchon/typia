@@ -5,6 +5,8 @@ import { TypeTagTypeUnion } from "../../structures/TypeTagTypeUnion";
 export const test_createRandom_TypeTagTypeUnion = _test_random(
     "TypeTagTypeUnion",
 )<TypeTagTypeUnion>(TypeTagTypeUnion)({
-    random: typia.createRandom<TypeTagTypeUnion>(),
+    random: typia.createRandom<TypeTagTypeUnion>(
+        (TypeTagTypeUnion as any).RANDOM,
+    ),
     assert: typia.createAssert<TypeTagTypeUnion>(),
 });

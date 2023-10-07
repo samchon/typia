@@ -59,7 +59,7 @@ export const test_random_ArrayRepeatedOptional = _test_random(
                     (generator?.number ?? $generator.number)(0, 100),
                 () => $ra0(generator?.length ?? $generator.length, true, 0),
             ])();
-        })(),
+        })((ArrayRepeatedOptional as any).RANDOM),
     assert: (input: any): ArrayRepeatedOptional => {
         const __is = (input: any): input is ArrayRepeatedOptional => {
             const $ia0 = (input: any): any =>

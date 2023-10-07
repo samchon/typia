@@ -128,7 +128,7 @@ export const test_random_ObjectHierarchical = _test_random(
                 created_at: $ro2(_recursive, _recursive ? 1 + _depth : _depth),
             });
             return $ro0();
-        })(),
+        })((ObjectHierarchical as any).RANDOM),
     assert: (input: any): ObjectHierarchical => {
         const __is = (input: any): input is ObjectHierarchical => {
             const $io0 = (input: any): boolean =>

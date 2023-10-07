@@ -6,7 +6,9 @@ export const test_createRandom_ArrayHierarchicalPointer = _test_random(
     "ArrayHierarchicalPointer",
 )<ArrayHierarchicalPointer>(ArrayHierarchicalPointer)({
     random: (
-        generator?: Partial<typia.IRandomGenerator>,
+        generator: Partial<typia.IRandomGenerator> = (
+            ArrayHierarchicalPointer as any
+        ).RANDOM,
     ): typia.Resolved<ArrayHierarchicalPointer> => {
         const $generator = (typia.createRandom as any).generator;
         const $ro0 = (

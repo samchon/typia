@@ -90,7 +90,7 @@ export const test_random_ArrayHierarchicalPointer = _test_random(
                 ),
             });
             return $ro0();
-        })(),
+        })((ArrayHierarchicalPointer as any).RANDOM),
     assert: (input: any): ArrayHierarchicalPointer => {
         const __is = (input: any): input is ArrayHierarchicalPointer => {
             const $io0 = (input: any): boolean =>

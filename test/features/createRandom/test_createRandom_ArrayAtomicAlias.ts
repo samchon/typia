@@ -5,6 +5,8 @@ import { ArrayAtomicAlias } from "../../structures/ArrayAtomicAlias";
 export const test_createRandom_ArrayAtomicAlias = _test_random(
     "ArrayAtomicAlias",
 )<ArrayAtomicAlias>(ArrayAtomicAlias)({
-    random: typia.createRandom<ArrayAtomicAlias>(),
+    random: typia.createRandom<ArrayAtomicAlias>(
+        (ArrayAtomicAlias as any).RANDOM,
+    ),
     assert: typia.createAssert<ArrayAtomicAlias>(),
 });

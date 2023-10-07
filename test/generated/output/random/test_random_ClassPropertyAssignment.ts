@@ -25,7 +25,7 @@ export const test_random_ClassPropertyAssignment = _test_random(
                 incremental: (generator?.boolean ?? $generator.boolean)(),
             });
             return $ro0();
-        })(),
+        })((ClassPropertyAssignment as any).RANDOM),
     assert: (input: any): ClassPropertyAssignment => {
         const __is = (input: any): input is ClassPropertyAssignment => {
             const $io0 = (input: any): boolean =>

@@ -105,7 +105,7 @@ export const test_random_ObjectUnionCompositePointer = _test_random(
                     (generator?.number ?? $generator.number)(0, 100),
             });
             return $ro0();
-        })(),
+        })((ObjectUnionCompositePointer as any).RANDOM),
     assert: (input: any): ObjectUnionCompositePointer => {
         const __is = (input: any): input is ObjectUnionCompositePointer => {
             const $io0 = (input: any): boolean =>

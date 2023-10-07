@@ -27,4 +27,5 @@ export namespace ObjectInternal {
             return ["$input.id"];
         },
     ];
+    export const RESOLVABLE: boolean = false;
 }

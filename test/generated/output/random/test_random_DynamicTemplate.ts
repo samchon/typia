@@ -83,7 +83,7 @@ export const test_random_DynamicTemplate = _test_random(
                 return output;
             };
             return $ro0();
-        })(),
+        })((DynamicTemplate as any).RANDOM),
     assert: (input: any): DynamicTemplate => {
         const __is = (input: any): input is DynamicTemplate => {
             const $io0 = (input: any): boolean =>

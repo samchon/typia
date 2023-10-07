@@ -19,8 +19,9 @@ export namespace NamingConvention {
         for (let i: number = 0; i < indexes.length; i++) {
             const first: number = i === 0 ? 0 : indexes[i - 1]!;
             const last: number = indexes[i]!;
+
             ret += str.substring(first, last).toLowerCase();
-            if (i !== indexes.length - 1) ret += "_";
+            ret += "_";
         }
         ret += str.substring(indexes[indexes.length - 1]!).toLowerCase();
         return ret;
@@ -61,23 +62,30 @@ export namespace NamingConvention {
             if (ch !== "_") continue;
 
             const last = indexes[indexes.length - 1];
-            if (last === undefined) indexes.push([i, 1]);
-            else if (last[0] + last[1] === i) ++last[1];
+            if (last === undefined || last[0] + last[1] !== i)
+                indexes.push([i, 1]);
+            else ++last[1];
         }
         if (indexes.length === 0) return str;
 
         let ret: string = "";
         for (let i: number = 0; i < indexes.length; i++) {
             const [first] = indexes[i]!;
-            if (i === 0 && first === 0) ret += "_";
+            if (i === 0)
+                if (first === 0) ret += "_";
+                else ret += str.substring(0, first);
             else {
-                const line: string = str.substring(0, first);
-                if (line.length)
-                    ret += StringUtil.capitalize(str.substring(0, first));
+                const [prevFirst, prevLength] = indexes[i - 1]!;
+                const piece: string = str.substring(
+                    prevFirst + prevLength,
+                    first,
+                );
+                if (piece.length) ret += StringUtil.capitalize(piece);
             }
         }
-        const last: string = str.substring(indexes[indexes.length - 1]![0]!);
-        if (last.length) ret += StringUtil.capitalize(last);
+        const last = indexes[indexes.length - 1]!;
+        const piece: string = str.substring(last[0] + last[1]);
+        if (last.length) ret += StringUtil.capitalize(piece);
         return ret;
     };
 }

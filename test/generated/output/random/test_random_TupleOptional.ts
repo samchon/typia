@@ -34,7 +34,7 @@ export const test_random_TupleOptional = _test_random(
                         ) ?? (generator?.string ?? $generator.string)(),
                 ])(),
             ]);
-        })(),
+        })((TupleOptional as any).RANDOM),
     assert: (input: any): TupleOptional => {
         const __is = (input: any): input is TupleOptional => {
             return (

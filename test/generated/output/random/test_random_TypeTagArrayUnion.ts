@@ -83,7 +83,7 @@ export const test_random_TypeTagArrayUnion = _test_random(
                 ),
             });
             return (generator?.array ?? $generator.array)(() => $ro0());
-        })(),
+        })((TypeTagArrayUnion as any).RANDOM),
     assert: (input: any): TypeTagArrayUnion => {
         const __is = (input: any): input is TypeTagArrayUnion => {
             const $io0 = (input: any): boolean =>

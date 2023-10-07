@@ -6,7 +6,8 @@ export const test_createRandom_ObjectHttpTypeTag = _test_random(
     "ObjectHttpTypeTag",
 )<ObjectHttpTypeTag>(ObjectHttpTypeTag)({
     random: (
-        generator?: Partial<typia.IRandomGenerator>,
+        generator: Partial<typia.IRandomGenerator> = (ObjectHttpTypeTag as any)
+            .RANDOM,
     ): typia.Resolved<ObjectHttpTypeTag> => {
         const $generator = (typia.createRandom as any).generator;
         const $ro0 = (

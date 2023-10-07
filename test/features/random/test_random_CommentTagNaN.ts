@@ -5,6 +5,6 @@ import { CommentTagNaN } from "../../structures/CommentTagNaN";
 export const test_random_CommentTagNaN = _test_random(
     "CommentTagNaN",
 )<CommentTagNaN>(CommentTagNaN)({
-    random: () => typia.random<CommentTagNaN>(),
+    random: () => typia.random<CommentTagNaN>((CommentTagNaN as any).RANDOM),
     assert: typia.createAssert<CommentTagNaN>(),
 });

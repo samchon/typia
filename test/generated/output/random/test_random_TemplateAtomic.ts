@@ -64,7 +64,7 @@ export const test_random_TemplateAtomic = _test_random(
                 }`,
             });
             return $ro0();
-        })(),
+        })((TemplateAtomic as any).RANDOM),
     assert: (input: any): TemplateAtomic => {
         const __is = (input: any): input is TemplateAtomic => {
             const $io0 = (input: any): boolean =>

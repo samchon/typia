@@ -2,9 +2,8 @@ import { Namespace } from "./functional/Namespace";
 
 import { IJsonApplication } from "./schemas/json/IJsonApplication";
 
-import { Primitive } from "./typings/Primitive";
-
 import { IValidation } from "./IValidation";
+import { Primitive } from "./Primitive";
 
 /* ===========================================================
     JSON

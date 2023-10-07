@@ -5,6 +5,6 @@ import { InstanceUnion } from "../../structures/InstanceUnion";
 export const test_random_InstanceUnion = _test_random(
     "InstanceUnion",
 )<InstanceUnion>(InstanceUnion)({
-    random: () => typia.random<InstanceUnion>(),
+    random: () => typia.random<InstanceUnion>((InstanceUnion as any).RANDOM),
     assert: typia.createAssert<InstanceUnion>(),
 });

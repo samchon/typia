@@ -6,7 +6,8 @@ export const test_createRandom_UltimateUnion = _test_random(
     "UltimateUnion",
 )<UltimateUnion>(UltimateUnion)({
     random: (
-        generator?: Partial<typia.IRandomGenerator>,
+        generator: Partial<typia.IRandomGenerator> = (UltimateUnion as any)
+            .RANDOM,
     ): typia.Resolved<UltimateUnion> => {
         const $generator = (typia.createRandom as any).generator;
         const $pick = (typia.createRandom as any).pick;

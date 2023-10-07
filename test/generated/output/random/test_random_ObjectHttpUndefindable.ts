@@ -65,7 +65,7 @@ export const test_random_ObjectHttpUndefindable = _test_random(
                 ])(),
             });
             return $ro0();
-        })(),
+        })((ObjectHttpUndefindable as any).RANDOM),
     assert: (input: any): ObjectHttpUndefindable => {
         const __is = (input: any): input is ObjectHttpUndefindable => {
             const $io0 = (input: any): boolean =>

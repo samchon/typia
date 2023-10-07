@@ -94,7 +94,7 @@ export const test_random_TypeTagLength = _test_random(
                     ),
             });
             return $ro0();
-        })(),
+        })((TypeTagLength as any).RANDOM),
     assert: (input: any): TypeTagLength => {
         const __is = (input: any): input is TypeTagLength => {
             const $io0 = (input: any): boolean =>

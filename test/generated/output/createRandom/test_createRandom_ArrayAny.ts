@@ -6,7 +6,7 @@ export const test_createRandom_ArrayAny = _test_random("ArrayAny")<ArrayAny>(
     ArrayAny,
 )({
     random: (
-        generator?: Partial<typia.IRandomGenerator>,
+        generator: Partial<typia.IRandomGenerator> = (ArrayAny as any).RANDOM,
     ): typia.Resolved<ArrayAny> => {
         const $generator = (typia.createRandom as any).generator;
         const $pick = (typia.createRandom as any).pick;

@@ -51,7 +51,7 @@ export const test_random_ObjectHttpCommentTag = _test_random(
                 ),
             });
             return $ro0();
-        })(),
+        })((ObjectHttpCommentTag as any).RANDOM),
     assert: (input: any): ObjectHttpCommentTag => {
         const __is = (input: any): input is ObjectHttpCommentTag => {
             const $io0 = (input: any): boolean =>

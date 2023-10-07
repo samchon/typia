@@ -5,6 +5,6 @@ import { MapUnion } from "../../structures/MapUnion";
 export const test_createRandom_MapUnion = _test_random("MapUnion")<MapUnion>(
     MapUnion,
 )({
-    random: typia.createRandom<MapUnion>(),
+    random: typia.createRandom<MapUnion>((MapUnion as any).RANDOM),
     assert: typia.createAssert<MapUnion>(),
 });

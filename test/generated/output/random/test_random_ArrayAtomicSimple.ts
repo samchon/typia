@@ -27,7 +27,7 @@ export const test_random_ArrayAtomicSimple = _test_random(
                         ) ?? (generator?.string ?? $generator.string)(),
                 ),
             ];
-        })(),
+        })((ArrayAtomicSimple as any).RANDOM),
     assert: (input: any): ArrayAtomicSimple => {
         const __is = (input: any): input is ArrayAtomicSimple => {
             return (

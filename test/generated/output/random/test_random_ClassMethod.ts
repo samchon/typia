@@ -22,7 +22,7 @@ export const test_random_ClassMethod = _test_random("ClassMethod")<ClassMethod>(
                     (generator?.number ?? $generator.number)(0, 100),
             });
             return $ro0();
-        })(),
+        })((ClassMethod as any).RANDOM),
     assert: (input: any): ClassMethod => {
         const __is = (input: any): input is ClassMethod => {
             return (

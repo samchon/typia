@@ -6,7 +6,9 @@ export const test_createRandom_ConstantIntersection = _test_random(
     "ConstantIntersection",
 )<ConstantIntersection>(ConstantIntersection)({
     random: (
-        generator?: Partial<typia.IRandomGenerator>,
+        generator: Partial<typia.IRandomGenerator> = (
+            ConstantIntersection as any
+        ).RANDOM,
     ): typia.Resolved<ConstantIntersection> => {
         return [false, 1, "two"];
     },

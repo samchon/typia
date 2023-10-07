@@ -7,7 +7,9 @@ export const test_createRandom_ArrayRecursiveUnionExplicitPointer =
         "ArrayRecursiveUnionExplicitPointer",
     )<ArrayRecursiveUnionExplicitPointer>(ArrayRecursiveUnionExplicitPointer)({
         random: (
-            generator?: Partial<typia.IRandomGenerator>,
+            generator: Partial<typia.IRandomGenerator> = (
+                ArrayRecursiveUnionExplicitPointer as any
+            ).RANDOM,
         ): typia.Resolved<ArrayRecursiveUnionExplicitPointer> => {
             const $generator = (typia.createRandom as any).generator;
             const $pick = (typia.createRandom as any).pick;

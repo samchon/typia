@@ -5,6 +5,9 @@ import { ObjectHttpUndefindable } from "../../structures/ObjectHttpUndefindable"
 export const test_random_ObjectHttpUndefindable = _test_random(
     "ObjectHttpUndefindable",
 )<ObjectHttpUndefindable>(ObjectHttpUndefindable)({
-    random: () => typia.random<ObjectHttpUndefindable>(),
+    random: () =>
+        typia.random<ObjectHttpUndefindable>(
+            (ObjectHttpUndefindable as any).RANDOM,
+        ),
     assert: typia.createAssert<ObjectHttpUndefindable>(),
 });

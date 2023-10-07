@@ -5,6 +5,7 @@ import { CommentTagLength } from "../../structures/CommentTagLength";
 export const test_random_CommentTagLength = _test_random(
     "CommentTagLength",
 )<CommentTagLength>(CommentTagLength)({
-    random: () => typia.random<CommentTagLength>(),
+    random: () =>
+        typia.random<CommentTagLength>((CommentTagLength as any).RANDOM),
     assert: typia.createAssert<CommentTagLength>(),
 });

@@ -5,6 +5,9 @@ import { ObjectUnionCompositePointer } from "../../structures/ObjectUnionComposi
 export const test_random_ObjectUnionCompositePointer = _test_random(
     "ObjectUnionCompositePointer",
 )<ObjectUnionCompositePointer>(ObjectUnionCompositePointer)({
-    random: () => typia.random<ObjectUnionCompositePointer>(),
+    random: () =>
+        typia.random<ObjectUnionCompositePointer>(
+            (ObjectUnionCompositePointer as any).RANDOM,
+        ),
     assert: typia.createAssert<ObjectUnionCompositePointer>(),
 });

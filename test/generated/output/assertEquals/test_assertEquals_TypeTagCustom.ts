@@ -85,12 +85,12 @@ export const test_assertEquals_TypeTagCustom = _test_assertEquals(
                             )) ||
                             $guard(_exceptionable, {
                                 path: _path + ".dollar",
-                                expected: "string & Dolloar",
+                                expected: "string & Dollar",
                                 value: input.dollar,
                             }))) ||
                         $guard(_exceptionable, {
                             path: _path + ".dollar",
-                            expected: "(string & Dolloar)",
+                            expected: "(string & Dollar)",
                             value: input.dollar,
                         })) &&
                     (("string" === typeof input.postfix &&

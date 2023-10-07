@@ -5,6 +5,8 @@ import { ObjectGenericArray } from "../../structures/ObjectGenericArray";
 export const test_createRandom_ObjectGenericArray = _test_random(
     "ObjectGenericArray",
 )<ObjectGenericArray>(ObjectGenericArray)({
-    random: typia.createRandom<ObjectGenericArray>(),
+    random: typia.createRandom<ObjectGenericArray>(
+        (ObjectGenericArray as any).RANDOM,
+    ),
     assert: typia.createAssert<ObjectGenericArray>(),
 });

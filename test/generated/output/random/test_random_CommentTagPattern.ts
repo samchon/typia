@@ -60,7 +60,7 @@ export const test_random_CommentTagPattern = _test_random(
                     ),
             });
             return $ro0();
-        })(),
+        })((CommentTagPattern as any).RANDOM),
     assert: (input: any): CommentTagPattern => {
         const __is = (input: any): input is CommentTagPattern => {
             return (

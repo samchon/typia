@@ -34,7 +34,7 @@ export const test_random_ObjectSimple = _test_random(
                     (generator?.number ?? $generator.number)(0, 100),
             });
             return $ro0();
-        })(),
+        })((ObjectSimple as any).RANDOM),
     assert: (input: any): ObjectSimple => {
         const __is = (input: any): input is ObjectSimple => {
             return (

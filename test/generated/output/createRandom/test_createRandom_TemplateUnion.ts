@@ -6,7 +6,8 @@ export const test_createRandom_TemplateUnion = _test_random(
     "TemplateUnion",
 )<TemplateUnion>(TemplateUnion)({
     random: (
-        generator?: Partial<typia.IRandomGenerator>,
+        generator: Partial<typia.IRandomGenerator> = (TemplateUnion as any)
+            .RANDOM,
     ): typia.Resolved<TemplateUnion> => {
         const $generator = (typia.createRandom as any).generator;
         const $pick = (typia.createRandom as any).pick;

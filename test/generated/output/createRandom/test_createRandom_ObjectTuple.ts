@@ -6,7 +6,8 @@ export const test_createRandom_ObjectTuple = _test_random(
     "ObjectTuple",
 )<ObjectTuple>(ObjectTuple)({
     random: (
-        generator?: Partial<typia.IRandomGenerator>,
+        generator: Partial<typia.IRandomGenerator> = (ObjectTuple as any)
+            .RANDOM,
     ): typia.Resolved<ObjectTuple> => {
         const $generator = (typia.createRandom as any).generator;
         const $ro0 = (

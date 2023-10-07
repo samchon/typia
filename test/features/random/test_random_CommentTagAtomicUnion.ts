@@ -5,6 +5,9 @@ import { CommentTagAtomicUnion } from "../../structures/CommentTagAtomicUnion";
 export const test_random_CommentTagAtomicUnion = _test_random(
     "CommentTagAtomicUnion",
 )<CommentTagAtomicUnion>(CommentTagAtomicUnion)({
-    random: () => typia.random<CommentTagAtomicUnion>(),
+    random: () =>
+        typia.random<CommentTagAtomicUnion>(
+            (CommentTagAtomicUnion as any).RANDOM,
+        ),
     assert: typia.createAssert<CommentTagAtomicUnion>(),
 });

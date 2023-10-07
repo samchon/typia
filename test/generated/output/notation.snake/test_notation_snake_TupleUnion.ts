@@ -250,9 +250,27 @@ export const test_notation_validateSnake_TupleUnion =
                 const general = (
                     input: TupleUnion,
                 ): typia.SnakeCase<TupleUnion> => {
-                    const $any = (typia.notations.validateSnake as any).any;
                     const $cp0 = (input: any) =>
-                        input.map((elem: any) => $any(elem));
+                        input.map((elem: any) =>
+                            Array.isArray(elem) &&
+                            elem.length === 3 &&
+                            "number" === typeof elem[0] &&
+                            "string" === typeof elem[1] &&
+                            "boolean" === typeof elem[2]
+                                ? ([
+                                      elem[0] as any,
+                                      elem[1] as any,
+                                      elem[2] as any,
+                                  ] as any)
+                                : Array.isArray(elem) &&
+                                  elem.length === 2 &&
+                                  "boolean" === typeof elem[0] &&
+                                  "number" === typeof elem[1]
+                                ? ([elem[0] as any, elem[1] as any] as any)
+                                : Array.isArray(elem) && elem.length === 0
+                                ? ([] as any)
+                                : (elem as any),
+                        );
                     return Array.isArray(input) ? $cp0(input) : (input as any);
                 };
                 const output = validate(input) as any;

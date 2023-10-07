@@ -1,4 +1,4 @@
-import { Primitive } from "../typings/Primitive";
+import { Primitive } from "../Primitive";
 
 export const $clone = <T>(value: T): Primitive<T> =>
     JSON.parse(JSON.stringify(value));

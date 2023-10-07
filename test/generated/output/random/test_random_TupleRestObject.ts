@@ -24,7 +24,7 @@ export const test_random_TupleRestObject = _test_random(
                     (generator?.number ?? $generator.number)(0, 100),
                 $ro0(),
             ];
-        })(),
+        })((TupleRestObject as any).RANDOM),
     assert: (input: any): TupleRestObject => {
         const __is = (input: any): input is TupleRestObject => {
             const $io0 = (input: any): boolean =>

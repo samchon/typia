@@ -28,7 +28,7 @@ export const test_random_DynamicNever = _test_random(
                 return output;
             };
             return $ro0();
-        })(),
+        })((DynamicNever as any).RANDOM),
     assert: (input: any): DynamicNever => {
         const __is = (input: any): input is DynamicNever => {
             const $io0 = (input: any): boolean =>

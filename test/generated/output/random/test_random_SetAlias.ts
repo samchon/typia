@@ -72,7 +72,7 @@ export const test_random_SetAlias = _test_random("SetAlias")<SetAlias>(
                     (generator?.number ?? $generator.number)(0, 100),
             });
             return $ro0();
-        })(),
+        })((SetAlias as any).RANDOM),
     assert: (input: any): SetAlias => {
         const __is = (input: any): input is SetAlias => {
             const $io0 = (input: any): boolean =>

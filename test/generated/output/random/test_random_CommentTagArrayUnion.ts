@@ -57,7 +57,7 @@ export const test_random_CommentTagArrayUnion = _test_random(
                 ),
             });
             return (generator?.array ?? $generator.array)(() => $ro0());
-        })(),
+        })((CommentTagArrayUnion as any).RANDOM),
     assert: (input: any): CommentTagArrayUnion => {
         const __is = (input: any): input is CommentTagArrayUnion => {
             const $io0 = (input: any): boolean =>

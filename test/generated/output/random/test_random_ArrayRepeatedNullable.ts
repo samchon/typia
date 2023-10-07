@@ -59,7 +59,7 @@ export const test_random_ArrayRepeatedNullable = _test_random(
                     (generator?.number ?? $generator.number)(0, 100),
                 () => $ra0(generator?.length ?? $generator.length, true, 0),
             ])();
-        })(),
+        })((ArrayRepeatedNullable as any).RANDOM),
     assert: (input: any): ArrayRepeatedNullable => {
         const __is = (input: any): input is ArrayRepeatedNullable => {
             const $ia0 = (input: any): any =>

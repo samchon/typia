@@ -85,7 +85,7 @@ export const test_random_ObjectPartial = _test_random(
                 ])(),
             });
             return $ro0();
-        })(),
+        })((ObjectPartial as any).RANDOM),
     assert: (input: any): ObjectPartial => {
         const __is = (input: any): input is ObjectPartial => {
             const $io0 = (input: any): boolean =>

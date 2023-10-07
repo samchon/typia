@@ -2440,7 +2440,7 @@ export const test_random_UltimateUnion = _test_random(
                 ])(),
             });
             return (generator?.array ?? $generator.array)(() => $ro0());
-        })(),
+        })((UltimateUnion as any).RANDOM),
     assert: (input: any): UltimateUnion => {
         const __is = (input: any): input is UltimateUnion => {
             const $io0 = (input: any): boolean =>

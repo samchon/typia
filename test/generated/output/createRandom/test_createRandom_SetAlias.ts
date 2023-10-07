@@ -6,7 +6,7 @@ export const test_createRandom_SetAlias = _test_random("SetAlias")<SetAlias>(
     SetAlias,
 )({
     random: (
-        generator?: Partial<typia.IRandomGenerator>,
+        generator: Partial<typia.IRandomGenerator> = (SetAlias as any).RANDOM,
     ): typia.Resolved<SetAlias> => {
         const $generator = (typia.createRandom as any).generator;
         const $ro0 = (

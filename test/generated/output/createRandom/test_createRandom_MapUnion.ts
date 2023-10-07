@@ -6,7 +6,7 @@ export const test_createRandom_MapUnion = _test_random("MapUnion")<MapUnion>(
     MapUnion,
 )({
     random: (
-        generator?: Partial<typia.IRandomGenerator>,
+        generator: Partial<typia.IRandomGenerator> = (MapUnion as any).RANDOM,
     ): typia.Resolved<MapUnion> => {
         const $generator = (typia.createRandom as any).generator;
         const $pick = (typia.createRandom as any).pick;

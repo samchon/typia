@@ -21,7 +21,7 @@ export const test_random_TupleRestArray = _test_random(
                         ) ?? (generator?.string ?? $generator.string)(),
                 ),
             ];
-        })(),
+        })((TupleRestArray as any).RANDOM),
     assert: (input: any): TupleRestArray => {
         const __is = (input: any): input is TupleRestArray => {
             return (

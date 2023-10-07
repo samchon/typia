@@ -5,6 +5,8 @@ import { ObjectUnionDouble } from "../../structures/ObjectUnionDouble";
 export const test_createRandom_ObjectUnionDouble = _test_random(
     "ObjectUnionDouble",
 )<ObjectUnionDouble>(ObjectUnionDouble)({
-    random: typia.createRandom<ObjectUnionDouble>(),
+    random: typia.createRandom<ObjectUnionDouble>(
+        (ObjectUnionDouble as any).RANDOM,
+    ),
     assert: typia.createAssert<ObjectUnionDouble>(),
 });

@@ -121,7 +121,7 @@ export const test_random_ObjectUnionExplicitPointer = _test_random(
                 type: "circle",
             });
             return $ro0();
-        })(),
+        })((ObjectUnionExplicitPointer as any).RANDOM),
     assert: (input: any): ObjectUnionExplicitPointer => {
         const __is = (input: any): input is ObjectUnionExplicitPointer => {
             const $io0 = (input: any): boolean =>

@@ -111,7 +111,7 @@ export const test_random_ObjectSimpleProtobufNullable = _test_random(
                 ])(),
             });
             return $ro0();
-        })(),
+        })((ObjectSimpleProtobufNullable as any).RANDOM),
     assert: (input: any): ObjectSimpleProtobufNullable => {
         const __is = (input: any): input is ObjectSimpleProtobufNullable => {
             const $io0 = (input: any): boolean =>

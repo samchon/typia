@@ -166,7 +166,7 @@ export const test_random_TypeTagRange = _test_random(
                     ]) ?? (generator?.integer ?? $generator.integer)(10, 10),
             });
             return $ro0();
-        })(),
+        })((TypeTagRange as any).RANDOM),
     assert: (input: any): TypeTagRange => {
         const __is = (input: any): input is TypeTagRange => {
             const $io0 = (input: any): boolean =>

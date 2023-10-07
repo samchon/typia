@@ -5,6 +5,8 @@ import { MapSimpleProtobufNullable } from "../../structures/MapSimpleProtobufNul
 export const test_createRandom_MapSimpleProtobufNullable = _test_random(
     "MapSimpleProtobufNullable",
 )<MapSimpleProtobufNullable>(MapSimpleProtobufNullable)({
-    random: typia.createRandom<MapSimpleProtobufNullable>(),
+    random: typia.createRandom<MapSimpleProtobufNullable>(
+        (MapSimpleProtobufNullable as any).RANDOM,
+    ),
     assert: typia.createAssert<MapSimpleProtobufNullable>(),
 });

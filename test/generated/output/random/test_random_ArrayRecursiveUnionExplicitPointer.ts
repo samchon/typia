@@ -144,7 +144,7 @@ export const test_random_ArrayRecursiveUnionExplicitPointer = _test_random(
                 extension: "lnk",
             });
             return $ro0();
-        })(),
+        })((ArrayRecursiveUnionExplicitPointer as any).RANDOM),
     assert: (input: any): ArrayRecursiveUnionExplicitPointer => {
         const __is = (
             input: any,

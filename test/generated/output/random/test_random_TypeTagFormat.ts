@@ -72,7 +72,7 @@ export const test_random_TypeTagFormat = _test_random(
                     ]) ?? (generator?.datetime ?? $generator.datetime)(),
             });
             return $ro0();
-        })(),
+        })((TypeTagFormat as any).RANDOM),
     assert: (input: any): TypeTagFormat => {
         const __is = (input: any): input is TypeTagFormat => {
             return (

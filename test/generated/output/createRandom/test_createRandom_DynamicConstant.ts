@@ -6,7 +6,8 @@ export const test_createRandom_DynamicConstant = _test_random(
     "DynamicConstant",
 )<DynamicConstant>(DynamicConstant)({
     random: (
-        generator?: Partial<typia.IRandomGenerator>,
+        generator: Partial<typia.IRandomGenerator> = (DynamicConstant as any)
+            .RANDOM,
     ): typia.Resolved<DynamicConstant> => {
         const $generator = (typia.createRandom as any).generator;
         const $ro0 = (

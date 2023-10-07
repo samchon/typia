@@ -6,7 +6,8 @@ export const test_createRandom_TypeTagObjectUnion = _test_random(
     "TypeTagObjectUnion",
 )<TypeTagObjectUnion>(TypeTagObjectUnion)({
     random: (
-        generator?: Partial<typia.IRandomGenerator>,
+        generator: Partial<typia.IRandomGenerator> = (TypeTagObjectUnion as any)
+            .RANDOM,
     ): typia.Resolved<TypeTagObjectUnion> => {
         const $generator = (typia.createRandom as any).generator;
         const $pick = (typia.createRandom as any).pick;

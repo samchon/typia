@@ -5,6 +5,9 @@ import { ArrayHierarchicalPointer } from "../../structures/ArrayHierarchicalPoin
 export const test_random_ArrayHierarchicalPointer = _test_random(
     "ArrayHierarchicalPointer",
 )<ArrayHierarchicalPointer>(ArrayHierarchicalPointer)({
-    random: () => typia.random<ArrayHierarchicalPointer>(),
+    random: () =>
+        typia.random<ArrayHierarchicalPointer>(
+            (ArrayHierarchicalPointer as any).RANDOM,
+        ),
     assert: typia.createAssert<ArrayHierarchicalPointer>(),
 });

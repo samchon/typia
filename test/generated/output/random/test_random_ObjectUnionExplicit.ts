@@ -109,7 +109,7 @@ export const test_random_ObjectUnionExplicit = _test_random(
                     () => $ro8(),
                 ])(),
             );
-        })(),
+        })((ObjectUnionExplicit as any).RANDOM),
     assert: (input: any): ObjectUnionExplicit => {
         const __is = (input: any): input is ObjectUnionExplicit => {
             const $io0 = (input: any): boolean =>

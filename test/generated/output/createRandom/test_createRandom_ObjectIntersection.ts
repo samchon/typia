@@ -6,7 +6,8 @@ export const test_createRandom_ObjectIntersection = _test_random(
     "ObjectIntersection",
 )<ObjectIntersection>(ObjectIntersection)({
     random: (
-        generator?: Partial<typia.IRandomGenerator>,
+        generator: Partial<typia.IRandomGenerator> = (ObjectIntersection as any)
+            .RANDOM,
     ): typia.Resolved<ObjectIntersection> => {
         const $generator = (typia.createRandom as any).generator;
         const $ro0 = (

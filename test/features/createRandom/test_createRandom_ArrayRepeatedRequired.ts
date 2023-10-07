@@ -5,6 +5,8 @@ import { ArrayRepeatedRequired } from "../../structures/ArrayRepeatedRequired";
 export const test_createRandom_ArrayRepeatedRequired = _test_random(
     "ArrayRepeatedRequired",
 )<ArrayRepeatedRequired>(ArrayRepeatedRequired)({
-    random: typia.createRandom<ArrayRepeatedRequired>(),
+    random: typia.createRandom<ArrayRepeatedRequired>(
+        (ArrayRepeatedRequired as any).RANDOM,
+    ),
     assert: typia.createAssert<ArrayRepeatedRequired>(),
 });

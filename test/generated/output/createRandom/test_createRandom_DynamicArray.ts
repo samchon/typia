@@ -6,7 +6,8 @@ export const test_createRandom_DynamicArray = _test_random(
     "DynamicArray",
 )<DynamicArray>(DynamicArray)({
     random: (
-        generator?: Partial<typia.IRandomGenerator>,
+        generator: Partial<typia.IRandomGenerator> = (DynamicArray as any)
+            .RANDOM,
     ): typia.Resolved<DynamicArray> => {
         const $generator = (typia.createRandom as any).generator;
         const $ro0 = (

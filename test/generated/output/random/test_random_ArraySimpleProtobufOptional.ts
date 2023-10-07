@@ -229,7 +229,7 @@ export const test_random_ArraySimpleProtobufOptional = _test_random(
                 ])(),
             });
             return $ro0();
-        })(),
+        })((ArraySimpleProtobufOptional as any).RANDOM),
     assert: (input: any): ArraySimpleProtobufOptional => {
         const __is = (input: any): input is ArraySimpleProtobufOptional => {
             const $io0 = (input: any): boolean =>

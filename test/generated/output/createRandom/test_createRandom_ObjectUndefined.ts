@@ -6,7 +6,8 @@ export const test_createRandom_ObjectUndefined = _test_random(
     "ObjectUndefined",
 )<ObjectUndefined>(ObjectUndefined)({
     random: (
-        generator?: Partial<typia.IRandomGenerator>,
+        generator: Partial<typia.IRandomGenerator> = (ObjectUndefined as any)
+            .RANDOM,
     ): typia.Resolved<ObjectUndefined> => {
         const $generator = (typia.createRandom as any).generator;
         const $pick = (typia.createRandom as any).pick;

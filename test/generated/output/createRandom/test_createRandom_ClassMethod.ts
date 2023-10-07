@@ -6,7 +6,8 @@ export const test_createRandom_ClassMethod = _test_random(
     "ClassMethod",
 )<ClassMethod>(ClassMethod)({
     random: (
-        generator?: Partial<typia.IRandomGenerator>,
+        generator: Partial<typia.IRandomGenerator> = (ClassMethod as any)
+            .RANDOM,
     ): typia.Resolved<ClassMethod> => {
         const $generator = (typia.createRandom as any).generator;
         const $ro0 = (

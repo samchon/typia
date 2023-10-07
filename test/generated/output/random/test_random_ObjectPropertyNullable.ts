@@ -93,7 +93,7 @@ export const test_random_ObjectPropertyNullable = _test_random(
                 (generator?.array ?? $generator.array)(() => $ro2()),
                 (generator?.array ?? $generator.array)(() => $ro3()),
             ];
-        })(),
+        })((ObjectPropertyNullable as any).RANDOM),
     assert: (input: any): ObjectPropertyNullable => {
         const __is = (input: any): input is ObjectPropertyNullable => {
             const $io0 = (input: any): boolean =>

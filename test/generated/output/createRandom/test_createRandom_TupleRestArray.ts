@@ -6,7 +6,8 @@ export const test_createRandom_TupleRestArray = _test_random(
     "TupleRestArray",
 )<TupleRestArray>(TupleRestArray)({
     random: (
-        generator?: Partial<typia.IRandomGenerator>,
+        generator: Partial<typia.IRandomGenerator> = (TupleRestArray as any)
+            .RANDOM,
     ): typia.Resolved<TupleRestArray> => {
         const $generator = (typia.createRandom as any).generator;
         return [

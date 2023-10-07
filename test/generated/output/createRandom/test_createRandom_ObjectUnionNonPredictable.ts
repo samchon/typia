@@ -6,7 +6,9 @@ export const test_createRandom_ObjectUnionNonPredictable = _test_random(
     "ObjectUnionNonPredictable",
 )<ObjectUnionNonPredictable>(ObjectUnionNonPredictable)({
     random: (
-        generator?: Partial<typia.IRandomGenerator>,
+        generator: Partial<typia.IRandomGenerator> = (
+            ObjectUnionNonPredictable as any
+        ).RANDOM,
     ): typia.Resolved<ObjectUnionNonPredictable> => {
         const $generator = (typia.createRandom as any).generator;
         const $pick = (typia.createRandom as any).pick;

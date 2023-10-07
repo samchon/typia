@@ -45,7 +45,7 @@ export const test_random_ArrayRecursive = _test_random(
                     (generator?.number ?? $generator.number)(0, 100),
             });
             return $ro0();
-        })(),
+        })((ArrayRecursive as any).RANDOM),
     assert: (input: any): ArrayRecursive => {
         const __is = (input: any): input is ArrayRecursive => {
             const $io0 = (input: any): boolean =>

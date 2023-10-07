@@ -27,7 +27,7 @@ export const test_random_ArrayAtomicAlias = _test_random(
                         ) ?? (generator?.string ?? $generator.string)(),
                 ),
             ];
-        })(),
+        })((ArrayAtomicAlias as any).RANDOM),
     assert: (input: any): ArrayAtomicAlias => {
         const __is = (input: any): input is ArrayAtomicAlias => {
             return (

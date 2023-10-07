@@ -6,7 +6,9 @@ export const test_createRandom_ClassPropertyAssignment = _test_random(
     "ClassPropertyAssignment",
 )<ClassPropertyAssignment>(ClassPropertyAssignment)({
     random: (
-        generator?: Partial<typia.IRandomGenerator>,
+        generator: Partial<typia.IRandomGenerator> = (
+            ClassPropertyAssignment as any
+        ).RANDOM,
     ): typia.Resolved<ClassPropertyAssignment> => {
         const $generator = (typia.createRandom as any).generator;
         const $ro0 = (

@@ -118,7 +118,7 @@ export const test_random_DynamicComposite = _test_random(
                 return output;
             };
             return $ro0();
-        })(),
+        })((DynamicComposite as any).RANDOM),
     assert: (input: any): DynamicComposite => {
         const __is = (input: any): input is DynamicComposite => {
             const $io0 = (input: any): boolean =>
