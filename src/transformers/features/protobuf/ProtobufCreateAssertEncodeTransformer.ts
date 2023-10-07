@@ -2,7 +2,7 @@ import { ProtobufAssertEncodeProgrammer } from "../../../programmers/protobuf/Pr
 
 import { GenericTransformer } from "../../internal/GenericTransformer";
 
-export namespace CreateProtobufAssertEncodeTransformer {
+export namespace ProtobufCreateAssertEncodeTransformer {
     export const transform = GenericTransformer.factory(
         "protobuf.createAssertEncode",
     )(

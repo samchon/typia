@@ -1,6 +1,8 @@
 import path from "path";
 import ts from "typescript";
 
+import { NamingConvention } from "../utils/NamingConvention";
+
 import { IProject } from "./IProject";
 import { AssertTransformer } from "./features/AssertTransformer";
 import { CreateAssertTransformer } from "./features/CreateAssertTransformer";
@@ -61,16 +63,24 @@ import { MiscLiteralsTransformer } from "./features/misc/MiscLiteralsTransformer
 import { MiscPruneTransformer } from "./features/misc/MiscPruneTransformer";
 import { MiscValidateCloneTransformer } from "./features/misc/MiscValidateCloneTransformer";
 import { MiscValidatePruneTransformer } from "./features/misc/MiscValidatePruneTransformer";
-import { CreateProtobufAssertDecodeTransformer } from "./features/protobuf/CreateProtobufAssertDecodeTransformer";
-import { CreateProtobufAssertEncodeTransformer } from "./features/protobuf/CreateProtobufAssertEncodeTransformer";
-import { CreateProtobufDecodeTransformer } from "./features/protobuf/CreateProtobufDecodeTransformer";
-import { CreateProtobufEncodeTransformer } from "./features/protobuf/CreateProtobufEncodeTransformer";
-import { CreateProtobufIsDecodeTransformer } from "./features/protobuf/CreateProtobufIsDecodeTransformer";
-import { CreateProtobufIsEncodeTransformer } from "./features/protobuf/CreateProtobufIsEncodeTransformer";
-import { CreateProtobufValidateDecodeTransformer } from "./features/protobuf/CreateProtobufValidateDecodeTransformer";
-import { CreateProtobufValidateEncodeTransformer } from "./features/protobuf/CreateProtobufValidateEncodeTransformer";
+import { NotationAssertGeneralTransformer } from "./features/notations/NotationAssertGeneralTransformer";
+import { NotationCreateAssertGeneralTransformer } from "./features/notations/NotationCreateAssertGeneralTransformer";
+import { NotationCreateGeneralTransformer } from "./features/notations/NotationCreateGeneralTransformer";
+import { NotationCreateIsGeneralTransformer } from "./features/notations/NotationCreateIsGeneralTransformer";
+import { NotationCreateValidateGeneralTransformer } from "./features/notations/NotationCreateValidateGeneralTransformer";
+import { NotationGeneralTransformer } from "./features/notations/NotationGeneralTransformer";
+import { NotationIsGeneralTransformer } from "./features/notations/NotationIsGeneralTransformer";
+import { NotationValidateGeneralTransformer } from "./features/notations/NotationValidateGeneralTransformer";
 import { ProtobufAssertDecodeTransformer } from "./features/protobuf/ProtobufAssertDecodeTransformer";
 import { ProtobufAssertEncodeTransformer } from "./features/protobuf/ProtobufAssertEncodeTransformer";
+import { ProtobufCreateAssertDecodeTransformer } from "./features/protobuf/ProtobufCreateAssertDecodeTransformer";
+import { ProtobufCreateAssertEncodeTransformer } from "./features/protobuf/ProtobufCreateAssertEncodeTransformer";
+import { ProtobufCreateDecodeTransformer } from "./features/protobuf/ProtobufCreateDecodeTransformer";
+import { ProtobufCreateEncodeTransformer } from "./features/protobuf/ProtobufCreateEncodeTransformer";
+import { ProtobufCreateIsDecodeTransformer } from "./features/protobuf/ProtobufCreateIsDecodeTransformer";
+import { ProtobufCreateIsEncodeTransformer } from "./features/protobuf/ProtobufCreateIsEncodeTransformer";
+import { ProtobufCreateValidateDecodeTransformer } from "./features/protobuf/ProtobufCreateValidateDecodeTransformer";
+import { ProtobufCreateValidateEncodeTransformer } from "./features/protobuf/ProtobufCreateValidateEncodeTransformer";
 import { ProtobufDecodeTransformer } from "./features/protobuf/ProtobufDecodeTransformer";
 import { ProtobufEncodeTransformer } from "./features/protobuf/ProtobufEncodeTransformer";
 import { ProtobufIsDecodeTransformer } from "./features/protobuf/ProtobufIsDecodeTransformer";
@@ -247,18 +257,18 @@ const FUNCTORS: Record<string, Record<string, () => Task>> = {
         validateDecode: () => ProtobufValidateDecodeTransformer.transform,
 
         // FACTORIES
-        createEncode: () => CreateProtobufEncodeTransformer.transform,
+        createEncode: () => ProtobufCreateEncodeTransformer.transform,
         createAssertEncode: () =>
-            CreateProtobufAssertEncodeTransformer.transform,
-        createIsEncode: () => CreateProtobufIsEncodeTransformer.transform,
+            ProtobufCreateAssertEncodeTransformer.transform,
+        createIsEncode: () => ProtobufCreateIsEncodeTransformer.transform,
         createValidateEncode: () =>
-            CreateProtobufValidateEncodeTransformer.transform,
-        createDecode: () => CreateProtobufDecodeTransformer.transform,
+            ProtobufCreateValidateEncodeTransformer.transform,
+        createDecode: () => ProtobufCreateDecodeTransformer.transform,
         createAssertDecode: () =>
-            CreateProtobufAssertDecodeTransformer.transform,
-        createIsDecode: () => CreateProtobufIsDecodeTransformer.transform,
+            ProtobufCreateAssertDecodeTransformer.transform,
+        createIsDecode: () => ProtobufCreateIsDecodeTransformer.transform,
         createValidateDecode: () =>
-            CreateProtobufValidateDecodeTransformer.transform,
+            ProtobufCreateValidateDecodeTransformer.transform,
     },
     misc: {
         literals: () => (project) => () =>
@@ -285,5 +295,86 @@ const FUNCTORS: Record<string, Record<string, () => Task>> = {
         createAssertPrune: () => MiscCreateAssertPruneTransformer.transform,
         createIsPrune: () => MiscCreateIsPruneTransformer.transform,
         createValidatePrune: () => MiscCreateValidatePruneTransformer.transform,
+    },
+    notations: {
+        // CAMEL
+        camel: () =>
+            NotationGeneralTransformer.transform(NamingConvention.camel),
+        assertCamel: () =>
+            NotationAssertGeneralTransformer.transform(NamingConvention.camel),
+        isCamel: () =>
+            NotationIsGeneralTransformer.transform(NamingConvention.camel),
+        validateCamel: () =>
+            NotationValidateGeneralTransformer.transform(
+                NamingConvention.camel,
+            ),
+
+        // PASCAL
+        pascal: () =>
+            NotationGeneralTransformer.transform(NamingConvention.pascal),
+        assertPascal: () =>
+            NotationAssertGeneralTransformer.transform(NamingConvention.pascal),
+        isPascal: () =>
+            NotationIsGeneralTransformer.transform(NamingConvention.pascal),
+        validatePascal: () =>
+            NotationValidateGeneralTransformer.transform(
+                NamingConvention.pascal,
+            ),
+
+        // SNAKE
+        snake: () =>
+            NotationGeneralTransformer.transform(NamingConvention.snake),
+        assertSnake: () =>
+            NotationAssertGeneralTransformer.transform(NamingConvention.snake),
+        isSnake: () =>
+            NotationIsGeneralTransformer.transform(NamingConvention.snake),
+        validateSnake: () =>
+            NotationValidateGeneralTransformer.transform(
+                NamingConvention.snake,
+            ),
+
+        // FACTORIES
+        createCamel: () =>
+            NotationCreateGeneralTransformer.transform(NamingConvention.camel),
+        createAssertCamel: () =>
+            NotationCreateAssertGeneralTransformer.transform(
+                NamingConvention.camel,
+            ),
+        createIsCamel: () =>
+            NotationCreateIsGeneralTransformer.transform(
+                NamingConvention.camel,
+            ),
+        createValidateCamel: () =>
+            NotationCreateValidateGeneralTransformer.transform(
+                NamingConvention.camel,
+            ),
+        createPascal: () =>
+            NotationCreateGeneralTransformer.transform(NamingConvention.pascal),
+        createAssertPascal: () =>
+            NotationCreateAssertGeneralTransformer.transform(
+                NamingConvention.pascal,
+            ),
+        createIsPascal: () =>
+            NotationCreateIsGeneralTransformer.transform(
+                NamingConvention.pascal,
+            ),
+        createValidatePascal: () =>
+            NotationCreateValidateGeneralTransformer.transform(
+                NamingConvention.pascal,
+            ),
+        createSnake: () =>
+            NotationCreateGeneralTransformer.transform(NamingConvention.snake),
+        createAssertSnake: () =>
+            NotationCreateAssertGeneralTransformer.transform(
+                NamingConvention.snake,
+            ),
+        createIsSnake: () =>
+            NotationCreateIsGeneralTransformer.transform(
+                NamingConvention.snake,
+            ),
+        createValidateSnake: () =>
+            NotationCreateValidateGeneralTransformer.transform(
+                NamingConvention.snake,
+            ),
     },
 };
