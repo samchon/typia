@@ -6,7 +6,7 @@ export const test_protobuf_createAssertEncode_ObjectGenericUnion =
     _test_protobuf_assertEncode("ObjectGenericUnion")<ObjectGenericUnion>(
         ObjectGenericUnion,
     )({
-        assertEncode: typia.protobuf.createAssertEncode<ObjectGenericUnion>(),
-        message: typia.protobuf.message<ObjectGenericUnion>(),
+        encode: typia.protobuf.createAssertEncode<ObjectGenericUnion>(),
         decode: typia.protobuf.createDecode<ObjectGenericUnion>(),
+        message: typia.protobuf.message<ObjectGenericUnion>(),
     });

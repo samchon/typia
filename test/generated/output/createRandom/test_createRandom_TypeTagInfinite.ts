@@ -6,7 +6,8 @@ export const test_createRandom_TypeTagInfinite = _test_random(
     "TypeTagInfinite",
 )<TypeTagInfinite>(TypeTagInfinite)({
     random: (
-        generator?: Partial<typia.IRandomGenerator>,
+        generator: Partial<typia.IRandomGenerator> = (TypeTagInfinite as any)
+            .RANDOM,
     ): typia.Resolved<TypeTagInfinite> => {
         const $generator = (typia.createRandom as any).generator;
         const $ro0 = (

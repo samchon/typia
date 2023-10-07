@@ -4,7 +4,7 @@ import { DynamicTree } from "../../../structures/DynamicTree";
 
 export const test_protobuf_createValidateDecode_DynamicTree =
     _test_protobuf_validateDecode("DynamicTree")<DynamicTree>(DynamicTree)({
-        validateDecode: (
+        decode: (
             input: Uint8Array,
         ): typia.IValidation<typia.Resolved<DynamicTree>> => {
             const validate = (input: any): typia.IValidation<DynamicTree> => {

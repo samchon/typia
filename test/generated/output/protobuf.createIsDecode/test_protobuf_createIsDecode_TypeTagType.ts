@@ -5,7 +5,7 @@ import { TypeTagType } from "../../../structures/TypeTagType";
 export const test_protobuf_createIsDecode_TypeTagType = _test_protobuf_isDecode(
     "TypeTagType",
 )<TypeTagType>(TypeTagType)({
-    isDecode: (input: Uint8Array): typia.Resolved<TypeTagType> | null => {
+    decode: (input: Uint8Array): typia.Resolved<TypeTagType> | null => {
         const is = (input: any): input is TypeTagType => {
             const $io0 = (input: any): boolean =>
                 Array.isArray(input.value) &&

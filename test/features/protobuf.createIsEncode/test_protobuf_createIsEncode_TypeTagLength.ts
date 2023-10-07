@@ -4,7 +4,7 @@ import { TypeTagLength } from "../../structures/TypeTagLength";
 
 export const test_protobuf_createIsEncode_TypeTagLength =
     _test_protobuf_isEncode("TypeTagLength")<TypeTagLength>(TypeTagLength)({
-        isEncode: typia.protobuf.createIsEncode<TypeTagLength>(),
-        message: typia.protobuf.message<TypeTagLength>(),
+        encode: typia.protobuf.createIsEncode<TypeTagLength>(),
         decode: typia.protobuf.createDecode<TypeTagLength>(),
+        message: typia.protobuf.message<TypeTagLength>(),
     });

@@ -6,7 +6,7 @@ export const test_protobuf_createAssertDecode_ObjectUnionNonPredictable =
     _test_protobuf_assertDecode(
         "ObjectUnionNonPredictable",
     )<ObjectUnionNonPredictable>(ObjectUnionNonPredictable)({
-        assertDecode: (
+        decode: (
             input: Uint8Array,
         ): typia.Resolved<ObjectUnionNonPredictable> => {
             const decode = (

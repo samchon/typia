@@ -6,6 +6,6 @@ export const test_protobuf_createEncode_TemplateAtomic = _test_protobuf_encode(
     "TemplateAtomic",
 )<TemplateAtomic>(TemplateAtomic)({
     encode: typia.protobuf.createEncode<TemplateAtomic>(),
-    message: typia.protobuf.message<TemplateAtomic>(),
     decode: typia.protobuf.createDecode<TemplateAtomic>(),
+    message: typia.protobuf.message<TemplateAtomic>(),
 });

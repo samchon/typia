@@ -6,7 +6,7 @@ export const test_protobuf_createIsEncode_ObjectGenericUnion =
     _test_protobuf_isEncode("ObjectGenericUnion")<ObjectGenericUnion>(
         ObjectGenericUnion,
     )({
-        isEncode: typia.protobuf.createIsEncode<ObjectGenericUnion>(),
-        message: typia.protobuf.message<ObjectGenericUnion>(),
+        encode: typia.protobuf.createIsEncode<ObjectGenericUnion>(),
         decode: typia.protobuf.createDecode<ObjectGenericUnion>(),
+        message: typia.protobuf.message<ObjectGenericUnion>(),
     });

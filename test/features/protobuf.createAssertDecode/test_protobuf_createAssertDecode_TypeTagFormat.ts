@@ -4,6 +4,6 @@ import { TypeTagFormat } from "../../structures/TypeTagFormat";
 
 export const test_protobuf_createAssertDecode_TypeTagFormat =
     _test_protobuf_assertDecode("TypeTagFormat")<TypeTagFormat>(TypeTagFormat)({
-        assertDecode: typia.protobuf.createAssertDecode<TypeTagFormat>(),
+        decode: typia.protobuf.createAssertDecode<TypeTagFormat>(),
         encode: typia.protobuf.createEncode<TypeTagFormat>(),
     });

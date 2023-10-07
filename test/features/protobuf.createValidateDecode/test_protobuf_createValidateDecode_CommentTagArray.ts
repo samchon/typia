@@ -6,6 +6,6 @@ export const test_protobuf_createValidateDecode_CommentTagArray =
     _test_protobuf_validateDecode("CommentTagArray")<CommentTagArray>(
         CommentTagArray,
     )({
-        validateDecode: typia.protobuf.createValidateDecode<CommentTagArray>(),
+        decode: typia.protobuf.createValidateDecode<CommentTagArray>(),
         encode: typia.protobuf.createEncode<CommentTagArray>(),
     });

@@ -17,7 +17,7 @@ export const test_random_AtomicSimple = _test_random(
                 (generator?.customs ?? $generator.customs)?.string?.([]) ??
                     (generator?.string ?? $generator.string)(),
             ];
-        })(),
+        })((AtomicSimple as any).RANDOM),
     assert: (input: any): AtomicSimple => {
         const __is = (input: any): input is AtomicSimple => {
             return (

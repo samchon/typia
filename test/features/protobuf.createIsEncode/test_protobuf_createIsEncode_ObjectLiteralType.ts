@@ -6,7 +6,7 @@ export const test_protobuf_createIsEncode_ObjectLiteralType =
     _test_protobuf_isEncode("ObjectLiteralType")<ObjectLiteralType>(
         ObjectLiteralType,
     )({
-        isEncode: typia.protobuf.createIsEncode<ObjectLiteralType>(),
-        message: typia.protobuf.message<ObjectLiteralType>(),
+        encode: typia.protobuf.createIsEncode<ObjectLiteralType>(),
         decode: typia.protobuf.createDecode<ObjectLiteralType>(),
+        message: typia.protobuf.message<ObjectLiteralType>(),
     });

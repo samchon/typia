@@ -6,7 +6,7 @@ export const test_protobuf_createValidateDecode_TypeTagDefault =
     _test_protobuf_validateDecode("TypeTagDefault")<TypeTagDefault>(
         TypeTagDefault,
     )({
-        validateDecode: (
+        decode: (
             input: Uint8Array,
         ): typia.IValidation<typia.Resolved<TypeTagDefault>> => {
             const validate = (

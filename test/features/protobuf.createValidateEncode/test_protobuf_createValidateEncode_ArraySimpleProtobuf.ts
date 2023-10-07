@@ -6,8 +6,7 @@ export const test_protobuf_createValidateEncode_ArraySimpleProtobuf =
     _test_protobuf_validateEncode("ArraySimpleProtobuf")<ArraySimpleProtobuf>(
         ArraySimpleProtobuf,
     )({
-        validateEncode:
-            typia.protobuf.createValidateEncode<ArraySimpleProtobuf>(),
-        message: typia.protobuf.message<ArraySimpleProtobuf>(),
+        encode: typia.protobuf.createValidateEncode<ArraySimpleProtobuf>(),
         decode: typia.protobuf.createDecode<ArraySimpleProtobuf>(),
+        message: typia.protobuf.message<ArraySimpleProtobuf>(),
     });

@@ -5,6 +5,6 @@ import { MapSimple } from "../../structures/MapSimple";
 export const test_random_MapSimple = _test_random("MapSimple")<MapSimple>(
     MapSimple,
 )({
-    random: () => typia.random<MapSimple>(),
+    random: () => typia.random<MapSimple>((MapSimple as any).RANDOM),
     assert: typia.createAssert<MapSimple>(),
 });

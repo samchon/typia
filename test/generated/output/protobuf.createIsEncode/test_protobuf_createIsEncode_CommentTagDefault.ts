@@ -6,7 +6,7 @@ export const test_protobuf_createIsEncode_CommentTagDefault =
     _test_protobuf_isEncode("CommentTagDefault")<CommentTagDefault>(
         CommentTagDefault,
     )({
-        isEncode: (input: CommentTagDefault): Uint8Array | null => {
+        encode: (input: CommentTagDefault): Uint8Array | null => {
             const is = (input: any): input is CommentTagDefault => {
                 const $io0 = (input: any): boolean =>
                     "boolean" === typeof input.boolean &&
@@ -189,8 +189,6 @@ export const test_protobuf_createIsEncode_CommentTagDefault =
             };
             return is(input) ? encode(input) : null;
         },
-        message:
-            'syntax = "proto3";\n\nmessage CommentTagDefault {\n    required bool boolean = 1;\n    required double number = 2;\n    required string string = 3;\n    required string text = 4;\n    oneof boolean_and_number_and_string {\n        bool v5 = 5;\n        double v6 = 6;\n        string v7 = 7;\n    }\n    oneof union_but_boolean {\n        bool v8 = 8;\n        double v9 = 9;\n        string v10 = 10;\n    }\n    oneof union_but_number {\n        bool v11 = 11;\n        double v12 = 12;\n        string v13 = 13;\n    }\n    oneof union_but_string {\n        bool v14 = 14;\n        double v15 = 15;\n        string v16 = 16;\n    }\n    required double vulnerable_range = 17;\n    oneof boolean_and_number_and_template {\n        bool v18 = 18;\n        double v19 = 19;\n        string v20 = 20;\n    }\n}',
         decode: (input: Uint8Array): typia.Resolved<CommentTagDefault> => {
             const $Reader = (typia.protobuf.createDecode as any).Reader;
             const $pdo0 = (reader: any, length: number = -1): any => {
@@ -306,4 +304,6 @@ export const test_protobuf_createIsEncode_CommentTagDefault =
             const reader = new $Reader(input);
             return $pdo0(reader);
         },
+        message:
+            'syntax = "proto3";\n\nmessage CommentTagDefault {\n    required bool boolean = 1;\n    required double number = 2;\n    required string string = 3;\n    required string text = 4;\n    oneof boolean_and_number_and_string {\n        bool v5 = 5;\n        double v6 = 6;\n        string v7 = 7;\n    }\n    oneof union_but_boolean {\n        bool v8 = 8;\n        double v9 = 9;\n        string v10 = 10;\n    }\n    oneof union_but_number {\n        bool v11 = 11;\n        double v12 = 12;\n        string v13 = 13;\n    }\n    oneof union_but_string {\n        bool v14 = 14;\n        double v15 = 15;\n        string v16 = 16;\n    }\n    required double vulnerable_range = 17;\n    oneof boolean_and_number_and_template {\n        bool v18 = 18;\n        double v19 = 19;\n        string v20 = 20;\n    }\n}',
     });

@@ -87,12 +87,12 @@ export const test_createValidateEquals_TypeTagCustom = _test_validateEquals(
                                 )) ||
                                 $report(_exceptionable, {
                                     path: _path + ".dollar",
-                                    expected: "string & Dolloar",
+                                    expected: "string & Dollar",
                                     value: input.dollar,
                                 }))) ||
                             $report(_exceptionable, {
                                 path: _path + ".dollar",
-                                expected: "(string & Dolloar)",
+                                expected: "(string & Dollar)",
                                 value: input.dollar,
                             }),
                         ("string" === typeof input.postfix &&

@@ -19,7 +19,7 @@ export const test_random_ObjectGenericAlias = _test_random(
                     (generator?.string ?? $generator.string)(),
             });
             return $ro0();
-        })(),
+        })((ObjectGenericAlias as any).RANDOM),
     assert: (input: any): ObjectGenericAlias => {
         const __is = (input: any): input is ObjectGenericAlias => {
             return (

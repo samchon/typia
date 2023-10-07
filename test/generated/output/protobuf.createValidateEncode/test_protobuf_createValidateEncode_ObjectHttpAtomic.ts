@@ -6,9 +6,7 @@ export const test_protobuf_createValidateEncode_ObjectHttpAtomic =
     _test_protobuf_validateEncode("ObjectHttpAtomic")<ObjectHttpAtomic>(
         ObjectHttpAtomic,
     )({
-        validateEncode: (
-            input: ObjectHttpAtomic,
-        ): typia.IValidation<Uint8Array> => {
+        encode: (input: ObjectHttpAtomic): typia.IValidation<Uint8Array> => {
             const validate = (
                 input: any,
             ): typia.IValidation<ObjectHttpAtomic> => {
@@ -120,8 +118,6 @@ export const test_protobuf_createValidateEncode_ObjectHttpAtomic =
             if (output.success) output.data = encode(input);
             return output;
         },
-        message:
-            'syntax = "proto3";\n\nmessage ObjectHttpAtomic {\n    required bool boolean = 1;\n    required int64 bigint = 2;\n    required double number = 3;\n    required string string = 4;\n}',
         decode: (input: Uint8Array): typia.Resolved<ObjectHttpAtomic> => {
             const $Reader = (typia.protobuf.createDecode as any).Reader;
             const $pdo0 = (reader: any, length: number = -1): any => {
@@ -161,4 +157,6 @@ export const test_protobuf_createValidateEncode_ObjectHttpAtomic =
             const reader = new $Reader(input);
             return $pdo0(reader);
         },
+        message:
+            'syntax = "proto3";\n\nmessage ObjectHttpAtomic {\n    required bool boolean = 1;\n    required int64 bigint = 2;\n    required double number = 3;\n    required string string = 4;\n}',
     });

@@ -6,7 +6,7 @@ export const test_protobuf_createIsEncode_ArraySimpleProtobuf =
     _test_protobuf_isEncode("ArraySimpleProtobuf")<ArraySimpleProtobuf>(
         ArraySimpleProtobuf,
     )({
-        isEncode: typia.protobuf.createIsEncode<ArraySimpleProtobuf>(),
-        message: typia.protobuf.message<ArraySimpleProtobuf>(),
+        encode: typia.protobuf.createIsEncode<ArraySimpleProtobuf>(),
         decode: typia.protobuf.createDecode<ArraySimpleProtobuf>(),
+        message: typia.protobuf.message<ArraySimpleProtobuf>(),
     });

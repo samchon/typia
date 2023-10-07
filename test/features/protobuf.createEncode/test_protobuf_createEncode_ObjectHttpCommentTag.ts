@@ -7,6 +7,6 @@ export const test_protobuf_createEncode_ObjectHttpCommentTag =
         ObjectHttpCommentTag,
     )({
         encode: typia.protobuf.createEncode<ObjectHttpCommentTag>(),
-        message: typia.protobuf.message<ObjectHttpCommentTag>(),
         decode: typia.protobuf.createDecode<ObjectHttpCommentTag>(),
+        message: typia.protobuf.message<ObjectHttpCommentTag>(),
     });

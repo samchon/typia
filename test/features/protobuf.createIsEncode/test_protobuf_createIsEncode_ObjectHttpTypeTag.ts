@@ -6,7 +6,7 @@ export const test_protobuf_createIsEncode_ObjectHttpTypeTag =
     _test_protobuf_isEncode("ObjectHttpTypeTag")<ObjectHttpTypeTag>(
         ObjectHttpTypeTag,
     )({
-        isEncode: typia.protobuf.createIsEncode<ObjectHttpTypeTag>(),
-        message: typia.protobuf.message<ObjectHttpTypeTag>(),
+        encode: typia.protobuf.createIsEncode<ObjectHttpTypeTag>(),
         decode: typia.protobuf.createDecode<ObjectHttpTypeTag>(),
+        message: typia.protobuf.message<ObjectHttpTypeTag>(),
     });

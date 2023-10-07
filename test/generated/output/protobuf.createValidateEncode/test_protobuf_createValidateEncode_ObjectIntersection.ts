@@ -6,9 +6,7 @@ export const test_protobuf_createValidateEncode_ObjectIntersection =
     _test_protobuf_validateEncode("ObjectIntersection")<ObjectIntersection>(
         ObjectIntersection,
     )({
-        validateEncode: (
-            input: ObjectIntersection,
-        ): typia.IValidation<Uint8Array> => {
+        encode: (input: ObjectIntersection): typia.IValidation<Uint8Array> => {
             const validate = (
                 input: any,
             ): typia.IValidation<ObjectIntersection> => {
@@ -108,8 +106,6 @@ export const test_protobuf_createValidateEncode_ObjectIntersection =
             if (output.success) output.data = encode(input);
             return output;
         },
-        message:
-            'syntax = "proto3";\n\nmessage ObjectIntersection {\n    required string email = 1;\n    required string name = 2;\n    required bool vulnerable = 3;\n}',
         decode: (input: Uint8Array): typia.Resolved<ObjectIntersection> => {
             const $Reader = (typia.protobuf.createDecode as any).Reader;
             const $pdo0 = (reader: any, length: number = -1): any => {
@@ -144,4 +140,6 @@ export const test_protobuf_createValidateEncode_ObjectIntersection =
             const reader = new $Reader(input);
             return $pdo0(reader);
         },
+        message:
+            'syntax = "proto3";\n\nmessage ObjectIntersection {\n    required string email = 1;\n    required string name = 2;\n    required bool vulnerable = 3;\n}',
     });

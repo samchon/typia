@@ -4,7 +4,7 @@ import { CommentTagNaN } from "../../../structures/CommentTagNaN";
 
 export const test_protobuf_createIsDecode_CommentTagNaN =
     _test_protobuf_isDecode("CommentTagNaN")<CommentTagNaN>(CommentTagNaN)({
-        isDecode: (input: Uint8Array): typia.Resolved<CommentTagNaN> | null => {
+        decode: (input: Uint8Array): typia.Resolved<CommentTagNaN> | null => {
             const is = (input: any): input is CommentTagNaN => {
                 return (
                     "object" === typeof input &&

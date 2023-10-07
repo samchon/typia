@@ -6,9 +6,7 @@ export const test_protobuf_createAssertDecode_CommentTagDefault =
     _test_protobuf_assertDecode("CommentTagDefault")<CommentTagDefault>(
         CommentTagDefault,
     )({
-        assertDecode: (
-            input: Uint8Array,
-        ): typia.Resolved<CommentTagDefault> => {
+        decode: (input: Uint8Array): typia.Resolved<CommentTagDefault> => {
             const decode = (
                 input: Uint8Array,
             ): typia.Resolved<CommentTagDefault> => {

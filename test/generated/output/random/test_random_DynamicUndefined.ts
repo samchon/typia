@@ -28,7 +28,7 @@ export const test_random_DynamicUndefined = _test_random(
                 return output;
             };
             return $ro0();
-        })(),
+        })((DynamicUndefined as any).RANDOM),
     assert: (input: any): DynamicUndefined => {
         const __is = (input: any): input is DynamicUndefined => {
             const $io0 = (input: any): boolean =>

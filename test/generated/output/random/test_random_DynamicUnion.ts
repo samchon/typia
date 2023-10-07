@@ -85,7 +85,7 @@ export const test_random_DynamicUnion = _test_random(
                 return output;
             };
             return $ro0();
-        })(),
+        })((DynamicUnion as any).RANDOM),
     assert: (input: any): DynamicUnion => {
         const __is = (input: any): input is DynamicUnion => {
             const $io0 = (input: any): boolean =>

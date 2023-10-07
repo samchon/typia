@@ -6,7 +6,7 @@ export const test_protobuf_createValidateDecode_ClassNonPublic =
     _test_protobuf_validateDecode("ClassNonPublic")<ClassNonPublic>(
         ClassNonPublic,
     )({
-        validateDecode: (
+        decode: (
             input: Uint8Array,
         ): typia.IValidation<typia.Resolved<ClassNonPublic>> => {
             const validate = (

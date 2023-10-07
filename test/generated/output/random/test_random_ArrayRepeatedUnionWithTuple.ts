@@ -159,7 +159,7 @@ export const test_random_ArrayRepeatedUnionWithTuple = _test_random(
                 ],
                 () => [$ro0(), $ro1()],
             ])();
-        })(),
+        })((ArrayRepeatedUnionWithTuple as any).RANDOM),
     assert: (input: any): ArrayRepeatedUnionWithTuple => {
         const __is = (input: any): input is ArrayRepeatedUnionWithTuple => {
             const $ip0 = (input: any) => {

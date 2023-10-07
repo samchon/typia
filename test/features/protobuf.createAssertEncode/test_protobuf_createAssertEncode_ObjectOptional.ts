@@ -6,7 +6,7 @@ export const test_protobuf_createAssertEncode_ObjectOptional =
     _test_protobuf_assertEncode("ObjectOptional")<ObjectOptional>(
         ObjectOptional,
     )({
-        assertEncode: typia.protobuf.createAssertEncode<ObjectOptional>(),
-        message: typia.protobuf.message<ObjectOptional>(),
+        encode: typia.protobuf.createAssertEncode<ObjectOptional>(),
         decode: typia.protobuf.createDecode<ObjectOptional>(),
+        message: typia.protobuf.message<ObjectOptional>(),
     });

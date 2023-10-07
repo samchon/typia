@@ -5,6 +5,7 @@ import { ObjectHttpAtomic } from "../../structures/ObjectHttpAtomic";
 export const test_random_ObjectHttpAtomic = _test_random(
     "ObjectHttpAtomic",
 )<ObjectHttpAtomic>(ObjectHttpAtomic)({
-    random: () => typia.random<ObjectHttpAtomic>(),
+    random: () =>
+        typia.random<ObjectHttpAtomic>((ObjectHttpAtomic as any).RANDOM),
     assert: typia.createAssert<ObjectHttpAtomic>(),
 });

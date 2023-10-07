@@ -6,6 +6,6 @@ export const test_protobuf_createAssertDecode_TemplateAtomic =
     _test_protobuf_assertDecode("TemplateAtomic")<TemplateAtomic>(
         TemplateAtomic,
     )({
-        assertDecode: typia.protobuf.createAssertDecode<TemplateAtomic>(),
+        decode: typia.protobuf.createAssertDecode<TemplateAtomic>(),
         encode: typia.protobuf.createEncode<TemplateAtomic>(),
     });

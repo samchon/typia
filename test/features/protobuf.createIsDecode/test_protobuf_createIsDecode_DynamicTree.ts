@@ -5,6 +5,6 @@ import { DynamicTree } from "../../structures/DynamicTree";
 export const test_protobuf_createIsDecode_DynamicTree = _test_protobuf_isDecode(
     "DynamicTree",
 )<DynamicTree>(DynamicTree)({
-    isDecode: typia.protobuf.createIsDecode<DynamicTree>(),
+    decode: typia.protobuf.createIsDecode<DynamicTree>(),
     encode: typia.protobuf.createEncode<DynamicTree>(),
 });

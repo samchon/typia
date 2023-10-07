@@ -6,7 +6,7 @@ export const test_protobuf_createAssertEncode_ObjectHttpAtomic =
     _test_protobuf_assertEncode("ObjectHttpAtomic")<ObjectHttpAtomic>(
         ObjectHttpAtomic,
     )({
-        assertEncode: typia.protobuf.createAssertEncode<ObjectHttpAtomic>(),
-        message: typia.protobuf.message<ObjectHttpAtomic>(),
+        encode: typia.protobuf.createAssertEncode<ObjectHttpAtomic>(),
         decode: typia.protobuf.createDecode<ObjectHttpAtomic>(),
+        message: typia.protobuf.message<ObjectHttpAtomic>(),
     });

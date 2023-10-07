@@ -6,7 +6,9 @@ export const test_createRandom_ObjectLiteralProperty = _test_random(
     "ObjectLiteralProperty",
 )<ObjectLiteralProperty>(ObjectLiteralProperty)({
     random: (
-        generator?: Partial<typia.IRandomGenerator>,
+        generator: Partial<typia.IRandomGenerator> = (
+            ObjectLiteralProperty as any
+        ).RANDOM,
     ): typia.Resolved<ObjectLiteralProperty> => {
         const $generator = (typia.createRandom as any).generator;
         const $ro0 = (

@@ -7,6 +7,6 @@ export const test_protobuf_createEncode_ObjectPartialAndRequired =
         ObjectPartialAndRequired,
     )({
         encode: typia.protobuf.createEncode<ObjectPartialAndRequired>(),
-        message: typia.protobuf.message<ObjectPartialAndRequired>(),
         decode: typia.protobuf.createDecode<ObjectPartialAndRequired>(),
+        message: typia.protobuf.message<ObjectPartialAndRequired>(),
     });

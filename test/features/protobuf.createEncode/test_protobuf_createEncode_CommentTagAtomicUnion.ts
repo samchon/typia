@@ -7,6 +7,6 @@ export const test_protobuf_createEncode_CommentTagAtomicUnion =
         CommentTagAtomicUnion,
     )({
         encode: typia.protobuf.createEncode<CommentTagAtomicUnion>(),
-        message: typia.protobuf.message<CommentTagAtomicUnion>(),
         decode: typia.protobuf.createDecode<CommentTagAtomicUnion>(),
+        message: typia.protobuf.message<CommentTagAtomicUnion>(),
     });

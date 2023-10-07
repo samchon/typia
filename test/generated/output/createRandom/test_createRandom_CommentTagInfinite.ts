@@ -6,7 +6,8 @@ export const test_createRandom_CommentTagInfinite = _test_random(
     "CommentTagInfinite",
 )<CommentTagInfinite>(CommentTagInfinite)({
     random: (
-        generator?: Partial<typia.IRandomGenerator>,
+        generator: Partial<typia.IRandomGenerator> = (CommentTagInfinite as any)
+            .RANDOM,
     ): typia.Resolved<CommentTagInfinite> => {
         const $generator = (typia.createRandom as any).generator;
         const $ro0 = (

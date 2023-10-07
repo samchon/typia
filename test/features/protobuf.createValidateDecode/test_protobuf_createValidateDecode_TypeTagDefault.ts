@@ -6,6 +6,6 @@ export const test_protobuf_createValidateDecode_TypeTagDefault =
     _test_protobuf_validateDecode("TypeTagDefault")<TypeTagDefault>(
         TypeTagDefault,
     )({
-        validateDecode: typia.protobuf.createValidateDecode<TypeTagDefault>(),
+        decode: typia.protobuf.createValidateDecode<TypeTagDefault>(),
         encode: typia.protobuf.createEncode<TypeTagDefault>(),
     });

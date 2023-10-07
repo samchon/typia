@@ -6,7 +6,9 @@ export const test_createRandom_ConstantAtomicWrapper = _test_random(
     "ConstantAtomicWrapper",
 )<ConstantAtomicWrapper>(ConstantAtomicWrapper)({
     random: (
-        generator?: Partial<typia.IRandomGenerator>,
+        generator: Partial<typia.IRandomGenerator> = (
+            ConstantAtomicWrapper as any
+        ).RANDOM,
     ): typia.Resolved<ConstantAtomicWrapper> => {
         const $generator = (typia.createRandom as any).generator;
         const $ro0 = (

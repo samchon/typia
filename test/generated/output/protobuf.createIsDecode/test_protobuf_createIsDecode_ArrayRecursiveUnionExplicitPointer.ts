@@ -6,7 +6,7 @@ export const test_protobuf_createIsDecode_ArrayRecursiveUnionExplicitPointer =
     _test_protobuf_isDecode(
         "ArrayRecursiveUnionExplicitPointer",
     )<ArrayRecursiveUnionExplicitPointer>(ArrayRecursiveUnionExplicitPointer)({
-        isDecode: (
+        decode: (
             input: Uint8Array,
         ): typia.Resolved<ArrayRecursiveUnionExplicitPointer> | null => {
             const is = (

@@ -6,7 +6,7 @@ export const test_protobuf_createIsEncode_CommentTagLength =
     _test_protobuf_isEncode("CommentTagLength")<CommentTagLength>(
         CommentTagLength,
     )({
-        isEncode: typia.protobuf.createIsEncode<CommentTagLength>(),
-        message: typia.protobuf.message<CommentTagLength>(),
+        encode: typia.protobuf.createIsEncode<CommentTagLength>(),
         decode: typia.protobuf.createDecode<CommentTagLength>(),
+        message: typia.protobuf.message<CommentTagLength>(),
     });

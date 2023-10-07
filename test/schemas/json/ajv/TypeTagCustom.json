@@ -36,7 +36,7 @@
             "x-typia-typeTags": [
               {
                 "target": "string",
-                "name": "Dolloar",
+                "name": "Dollar",
                 "kind": "dollar",
                 "validate": "$input[0] === \"$\" && !isNaN(Number($input.substring(1).split(\",\").join(\"\")))",
                 "exclusive": false

@@ -6,7 +6,6 @@ export const test_protobuf_createAssertDecode_ObjectHttpUndefindable =
     _test_protobuf_assertDecode(
         "ObjectHttpUndefindable",
     )<ObjectHttpUndefindable>(ObjectHttpUndefindable)({
-        assertDecode:
-            typia.protobuf.createAssertDecode<ObjectHttpUndefindable>(),
+        decode: typia.protobuf.createAssertDecode<ObjectHttpUndefindable>(),
         encode: typia.protobuf.createEncode<ObjectHttpUndefindable>(),
     });

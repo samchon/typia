@@ -6,6 +6,6 @@ export const test_protobuf_createAssertDecode_CommentTagRange =
     _test_protobuf_assertDecode("CommentTagRange")<CommentTagRange>(
         CommentTagRange,
     )({
-        assertDecode: typia.protobuf.createAssertDecode<CommentTagRange>(),
+        decode: typia.protobuf.createAssertDecode<CommentTagRange>(),
         encode: typia.protobuf.createEncode<CommentTagRange>(),
     });

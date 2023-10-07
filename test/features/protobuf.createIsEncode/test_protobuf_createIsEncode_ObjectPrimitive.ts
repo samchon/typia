@@ -6,7 +6,7 @@ export const test_protobuf_createIsEncode_ObjectPrimitive =
     _test_protobuf_isEncode("ObjectPrimitive")<ObjectPrimitive>(
         ObjectPrimitive,
     )({
-        isEncode: typia.protobuf.createIsEncode<ObjectPrimitive>(),
-        message: typia.protobuf.message<ObjectPrimitive>(),
+        encode: typia.protobuf.createIsEncode<ObjectPrimitive>(),
         decode: typia.protobuf.createDecode<ObjectPrimitive>(),
+        message: typia.protobuf.message<ObjectPrimitive>(),
     });

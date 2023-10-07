@@ -6,7 +6,8 @@ export const test_createRandom_TupleOptional = _test_random(
     "TupleOptional",
 )<TupleOptional>(TupleOptional)({
     random: (
-        generator?: Partial<typia.IRandomGenerator>,
+        generator: Partial<typia.IRandomGenerator> = (TupleOptional as any)
+            .RANDOM,
     ): typia.Resolved<TupleOptional> => {
         const $generator = (typia.createRandom as any).generator;
         const $pick = (typia.createRandom as any).pick;

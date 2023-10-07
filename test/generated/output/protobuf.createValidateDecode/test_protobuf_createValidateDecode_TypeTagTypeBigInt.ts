@@ -6,7 +6,7 @@ export const test_protobuf_createValidateDecode_TypeTagTypeBigInt =
     _test_protobuf_validateDecode("TypeTagTypeBigInt")<TypeTagTypeBigInt>(
         TypeTagTypeBigInt,
     )({
-        validateDecode: (
+        decode: (
             input: Uint8Array,
         ): typia.IValidation<typia.Resolved<TypeTagTypeBigInt>> => {
             const validate = (

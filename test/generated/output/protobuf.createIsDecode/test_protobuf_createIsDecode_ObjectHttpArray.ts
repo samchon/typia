@@ -6,9 +6,7 @@ export const test_protobuf_createIsDecode_ObjectHttpArray =
     _test_protobuf_isDecode("ObjectHttpArray")<ObjectHttpArray>(
         ObjectHttpArray,
     )({
-        isDecode: (
-            input: Uint8Array,
-        ): typia.Resolved<ObjectHttpArray> | null => {
+        decode: (input: Uint8Array): typia.Resolved<ObjectHttpArray> | null => {
             const is = (input: any): input is ObjectHttpArray => {
                 const $io0 = (input: any): boolean =>
                     Array.isArray(input.booleans) &&

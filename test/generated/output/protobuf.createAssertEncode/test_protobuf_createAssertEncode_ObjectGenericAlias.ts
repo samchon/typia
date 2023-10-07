@@ -6,7 +6,7 @@ export const test_protobuf_createAssertEncode_ObjectGenericAlias =
     _test_protobuf_assertEncode("ObjectGenericAlias")<ObjectGenericAlias>(
         ObjectGenericAlias,
     )({
-        assertEncode: (input: any): Uint8Array => {
+        encode: (input: any): Uint8Array => {
             const assert = (input: any): ObjectGenericAlias => {
                 const __is = (input: any): input is ObjectGenericAlias => {
                     return (
@@ -72,8 +72,6 @@ export const test_protobuf_createAssertEncode_ObjectGenericAlias =
             };
             return encode(assert(input));
         },
-        message:
-            'syntax = "proto3";\n\nmessage ObjectGenericAlias {\n    message Alias {\n        required string value = 1;\n    }\n}',
         decode: (input: Uint8Array): typia.Resolved<ObjectGenericAlias> => {
             const $Reader = (typia.protobuf.createDecode as any).Reader;
             const $pdo0 = (reader: any, length: number = -1): any => {
@@ -98,4 +96,6 @@ export const test_protobuf_createAssertEncode_ObjectGenericAlias =
             const reader = new $Reader(input);
             return $pdo0(reader);
         },
+        message:
+            'syntax = "proto3";\n\nmessage ObjectGenericAlias {\n    message Alias {\n        required string value = 1;\n    }\n}',
     });

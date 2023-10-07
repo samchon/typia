@@ -6,8 +6,7 @@ export const test_protobuf_createAssertEncode_ArrayRecursiveUnionExplicitPointer
     _test_protobuf_assertEncode(
         "ArrayRecursiveUnionExplicitPointer",
     )<ArrayRecursiveUnionExplicitPointer>(ArrayRecursiveUnionExplicitPointer)({
-        assertEncode:
-            typia.protobuf.createAssertEncode<ArrayRecursiveUnionExplicitPointer>(),
-        message: typia.protobuf.message<ArrayRecursiveUnionExplicitPointer>(),
+        encode: typia.protobuf.createAssertEncode<ArrayRecursiveUnionExplicitPointer>(),
         decode: typia.protobuf.createDecode<ArrayRecursiveUnionExplicitPointer>(),
+        message: typia.protobuf.message<ArrayRecursiveUnionExplicitPointer>(),
     });

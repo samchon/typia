@@ -6,7 +6,7 @@ export const test_protobuf_createAssertDecode_ObjectHttpAtomic =
     _test_protobuf_assertDecode("ObjectHttpAtomic")<ObjectHttpAtomic>(
         ObjectHttpAtomic,
     )({
-        assertDecode: (input: Uint8Array): typia.Resolved<ObjectHttpAtomic> => {
+        decode: (input: Uint8Array): typia.Resolved<ObjectHttpAtomic> => {
             const decode = (
                 input: Uint8Array,
             ): typia.Resolved<ObjectHttpAtomic> => {

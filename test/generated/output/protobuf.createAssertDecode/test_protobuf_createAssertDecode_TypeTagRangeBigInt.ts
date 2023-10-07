@@ -6,9 +6,7 @@ export const test_protobuf_createAssertDecode_TypeTagRangeBigInt =
     _test_protobuf_assertDecode("TypeTagRangeBigInt")<TypeTagRangeBigInt>(
         TypeTagRangeBigInt,
     )({
-        assertDecode: (
-            input: Uint8Array,
-        ): typia.Resolved<TypeTagRangeBigInt> => {
+        decode: (input: Uint8Array): typia.Resolved<TypeTagRangeBigInt> => {
             const decode = (
                 input: Uint8Array,
             ): typia.Resolved<TypeTagRangeBigInt> => {

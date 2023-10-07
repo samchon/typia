@@ -6,6 +6,6 @@ export const test_protobuf_createAssertDecode_MapSimpleProtobuf =
     _test_protobuf_assertDecode("MapSimpleProtobuf")<MapSimpleProtobuf>(
         MapSimpleProtobuf,
     )({
-        assertDecode: typia.protobuf.createAssertDecode<MapSimpleProtobuf>(),
+        decode: typia.protobuf.createAssertDecode<MapSimpleProtobuf>(),
         encode: typia.protobuf.createEncode<MapSimpleProtobuf>(),
     });

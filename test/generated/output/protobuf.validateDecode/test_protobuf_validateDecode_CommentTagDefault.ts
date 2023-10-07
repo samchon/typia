@@ -2,11 +2,11 @@ import typia from "../../../../src";
 import { _test_protobuf_validateDecode } from "../../../internal/_test_protobuf_validateDecode";
 import { CommentTagDefault } from "../../../structures/CommentTagDefault";
 
-export const test_protobuf_validateDecode_CommentTagDefault =
+export const test_protobuf_createValidateDecode_CommentTagDefault =
     _test_protobuf_validateDecode("CommentTagDefault")<CommentTagDefault>(
         CommentTagDefault,
     )({
-        validateDecode: (input) =>
+        decode: (input) =>
             ((
                 input: Uint8Array,
             ): typia.IValidation<typia.Resolved<CommentTagDefault>> => {

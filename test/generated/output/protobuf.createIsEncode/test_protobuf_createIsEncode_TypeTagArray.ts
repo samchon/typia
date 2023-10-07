@@ -4,7 +4,7 @@ import { TypeTagArray } from "../../../structures/TypeTagArray";
 
 export const test_protobuf_createIsEncode_TypeTagArray =
     _test_protobuf_isEncode("TypeTagArray")<TypeTagArray>(TypeTagArray)({
-        isEncode: (input: TypeTagArray): Uint8Array | null => {
+        encode: (input: TypeTagArray): Uint8Array | null => {
             const is = (input: any): input is TypeTagArray => {
                 const $io0 = (input: any): boolean =>
                     Array.isArray(input.value) &&
@@ -152,8 +152,6 @@ export const test_protobuf_createIsEncode_TypeTagArray =
             };
             return is(input) ? encode(input) : null;
         },
-        message:
-            'syntax = "proto3";\n\nmessage TypeTagArray {\n    repeated TypeTagArray.Type value = 1;\n    message Type {\n        repeated string items = 1;\n        repeated double minItems = 2;\n        repeated string both = 3;\n        repeated double equal = 4;\n    }\n}',
         decode: (input: Uint8Array): typia.Resolved<TypeTagArray> => {
             const $Reader = (typia.protobuf.createDecode as any).Reader;
             const $pdo0 = (reader: any, length: number = -1): any => {
@@ -220,4 +218,6 @@ export const test_protobuf_createIsEncode_TypeTagArray =
             const reader = new $Reader(input);
             return $pdo0(reader);
         },
+        message:
+            'syntax = "proto3";\n\nmessage TypeTagArray {\n    repeated TypeTagArray.Type value = 1;\n    message Type {\n        repeated string items = 1;\n        repeated double minItems = 2;\n        repeated string both = 3;\n        repeated double equal = 4;\n    }\n}',
     });

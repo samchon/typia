@@ -51,7 +51,7 @@ export const test_random_CommentTagAtomicUnion = _test_random(
                 ])(),
             });
             return $ro0();
-        })(),
+        })((CommentTagAtomicUnion as any).RANDOM),
     assert: (input: any): CommentTagAtomicUnion => {
         const __is = (input: any): input is CommentTagAtomicUnion => {
             const $io0 = (input: any): boolean =>

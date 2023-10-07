@@ -2,11 +2,11 @@ import typia from "../../../../src";
 import { _test_protobuf_validateEncode } from "../../../internal/_test_protobuf_validateEncode";
 import { MapSimpleProtobufOptional } from "../../../structures/MapSimpleProtobufOptional";
 
-export const test_protobuf_validateEncode_MapSimpleProtobufOptional =
+export const test_protobuf_createValidateEncode_MapSimpleProtobufOptional =
     _test_protobuf_validateEncode(
         "MapSimpleProtobufOptional",
     )<MapSimpleProtobufOptional>(MapSimpleProtobufOptional)({
-        validateEncode: (input) =>
+        encode: (input) =>
             ((
                 input: MapSimpleProtobufOptional,
             ): typia.IValidation<Uint8Array> => {
@@ -1137,8 +1137,6 @@ export const test_protobuf_validateEncode_MapSimpleProtobufOptional =
                 if (output.success) output.data = encode(input);
                 return output;
             })(input),
-        message:
-            'syntax = "proto3";\n\nmessage MapSimpleProtobufOptional {\n    map<string, bool> boolean = 1;\n    map<string, int32> int32 = 2;\n    map<string, int64> bigint = 3;\n    map<string, double> double = 4;\n    map<string, string> string = 5;\n    map<string, bytes> bytes = 6;\n    map<string, MapSimpleProtobufOptional> objects = 7;\n}',
         decode: (
             input: Uint8Array,
         ): typia.Resolved<MapSimpleProtobufOptional> => {
@@ -1366,4 +1364,6 @@ export const test_protobuf_validateEncode_MapSimpleProtobufOptional =
             const reader = new $Reader(input);
             return $pdo0(reader);
         },
+        message:
+            'syntax = "proto3";\n\nmessage MapSimpleProtobufOptional {\n    map<string, bool> boolean = 1;\n    map<string, int32> int32 = 2;\n    map<string, int64> bigint = 3;\n    map<string, double> double = 4;\n    map<string, string> string = 5;\n    map<string, bytes> bytes = 6;\n    map<string, MapSimpleProtobufOptional> objects = 7;\n}',
     });

@@ -75,7 +75,7 @@ export const test_random_ArrayAny = _test_random("ArrayAny")<ArrayAny>(
                 ),
             });
             return $ro0();
-        })(),
+        })((ArrayAny as any).RANDOM),
     assert: (input: any): ArrayAny => {
         const __is = (input: any): input is ArrayAny => {
             const $io0 = (input: any): boolean =>

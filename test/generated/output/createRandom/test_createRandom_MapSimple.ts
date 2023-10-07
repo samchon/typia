@@ -6,7 +6,7 @@ export const test_createRandom_MapSimple = _test_random("MapSimple")<MapSimple>(
     MapSimple,
 )({
     random: (
-        generator?: Partial<typia.IRandomGenerator>,
+        generator: Partial<typia.IRandomGenerator> = (MapSimple as any).RANDOM,
     ): typia.Resolved<MapSimple> => {
         const $generator = (typia.createRandom as any).generator;
         const $ro0 = (

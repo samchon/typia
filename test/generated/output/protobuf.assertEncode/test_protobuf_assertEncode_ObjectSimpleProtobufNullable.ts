@@ -2,11 +2,11 @@ import typia from "../../../../src";
 import { _test_protobuf_assertEncode } from "../../../internal/_test_protobuf_assertEncode";
 import { ObjectSimpleProtobufNullable } from "../../../structures/ObjectSimpleProtobufNullable";
 
-export const test_protobuf_assertEncode_ObjectSimpleProtobufNullable =
+export const test_protobuf_createAssertEncode_ObjectSimpleProtobufNullable =
     _test_protobuf_assertEncode(
         "ObjectSimpleProtobufNullable",
     )<ObjectSimpleProtobufNullable>(ObjectSimpleProtobufNullable)({
-        assertEncode: (input) =>
+        encode: (input) =>
             ((input: any): Uint8Array => {
                 const assert = (input: any): ObjectSimpleProtobufNullable => {
                     const __is = (
@@ -259,8 +259,6 @@ export const test_protobuf_assertEncode_ObjectSimpleProtobufNullable =
                 };
                 return encode(assert(input));
             })(input),
-        message:
-            'syntax = "proto3";\n\nmessage ObjectSimpleProtobufNullable {\n    optional bool bool = 1;\n    optional int32 int32 = 2;\n    optional uint32 uint32 = 3;\n    optional int64 int64 = 4;\n    optional uint64 uint64 = 5;\n    optional float float = 6;\n    optional double double = 7;\n    optional string string = 8;\n    optional bytes bytes = 9;\n}',
         decode: (
             input: Uint8Array,
         ): typia.Resolved<ObjectSimpleProtobufNullable> => {
@@ -327,4 +325,6 @@ export const test_protobuf_assertEncode_ObjectSimpleProtobufNullable =
             const reader = new $Reader(input);
             return $pdo0(reader);
         },
+        message:
+            'syntax = "proto3";\n\nmessage ObjectSimpleProtobufNullable {\n    optional bool bool = 1;\n    optional int32 int32 = 2;\n    optional uint32 uint32 = 3;\n    optional int64 int64 = 4;\n    optional uint64 uint64 = 5;\n    optional float float = 6;\n    optional double double = 7;\n    optional string string = 8;\n    optional bytes bytes = 9;\n}',
     });

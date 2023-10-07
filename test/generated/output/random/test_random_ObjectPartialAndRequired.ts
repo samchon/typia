@@ -54,7 +54,7 @@ export const test_random_ObjectPartialAndRequired = _test_random(
                         : [],
             });
             return $ro0();
-        })(),
+        })((ObjectPartialAndRequired as any).RANDOM),
     assert: (input: any): ObjectPartialAndRequired => {
         const __is = (input: any): input is ObjectPartialAndRequired => {
             const $io0 = (input: any): boolean =>

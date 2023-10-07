@@ -2,11 +2,11 @@ import typia from "../../../../src";
 import { _test_protobuf_assertEncode } from "../../../internal/_test_protobuf_assertEncode";
 import { CommentTagRangeBigInt } from "../../../structures/CommentTagRangeBigInt";
 
-export const test_protobuf_assertEncode_CommentTagRangeBigInt =
+export const test_protobuf_createAssertEncode_CommentTagRangeBigInt =
     _test_protobuf_assertEncode("CommentTagRangeBigInt")<CommentTagRangeBigInt>(
         CommentTagRangeBigInt,
     )({
-        assertEncode: (input) =>
+        encode: (input) =>
             ((input: any): Uint8Array => {
                 const assert = (input: any): CommentTagRangeBigInt => {
                     const __is = (
@@ -372,8 +372,6 @@ export const test_protobuf_assertEncode_CommentTagRangeBigInt =
                 };
                 return encode(assert(input));
             })(input),
-        message:
-            'syntax = "proto3";\n\nmessage CommentTagRangeBigInt {\n    repeated CommentTagRangeBigInt.Type value = 1;\n    message Type {\n        required int64 greater = 1;\n        required int64 greater_equal = 2;\n        required int64 less = 3;\n        required int64 less_equal = 4;\n        required int64 greater_less = 5;\n        required int64 greater_equal_less = 6;\n        required int64 greater_less_equal = 7;\n        required int64 greater_equal_less_equal = 8;\n        required int64 equal = 9;\n    }\n}',
         decode: (input: Uint8Array): typia.Resolved<CommentTagRangeBigInt> => {
             const $Reader = (typia.protobuf.createDecode as any).Reader;
             const $pdo0 = (reader: any, length: number = -1): any => {
@@ -457,4 +455,6 @@ export const test_protobuf_assertEncode_CommentTagRangeBigInt =
             const reader = new $Reader(input);
             return $pdo0(reader);
         },
+        message:
+            'syntax = "proto3";\n\nmessage CommentTagRangeBigInt {\n    repeated CommentTagRangeBigInt.Type value = 1;\n    message Type {\n        required int64 greater = 1;\n        required int64 greater_equal = 2;\n        required int64 less = 3;\n        required int64 less_equal = 4;\n        required int64 greater_less = 5;\n        required int64 greater_equal_less = 6;\n        required int64 greater_less_equal = 7;\n        required int64 greater_equal_less_equal = 8;\n        required int64 equal = 9;\n    }\n}',
     });

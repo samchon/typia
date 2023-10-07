@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_protobuf_assertDecode } from "../../../internal/_test_protobuf_assertDecode";
 import { TypeTagNaN } from "../../../structures/TypeTagNaN";
 
-export const test_protobuf_assertDecode_TypeTagNaN =
+export const test_protobuf_createAssertDecode_TypeTagNaN =
     _test_protobuf_assertDecode("TypeTagNaN")<TypeTagNaN>(TypeTagNaN)({
-        assertDecode: (input) =>
+        decode: (input) =>
             ((input: Uint8Array): typia.Resolved<TypeTagNaN> => {
                 const decode = (
                     input: Uint8Array,

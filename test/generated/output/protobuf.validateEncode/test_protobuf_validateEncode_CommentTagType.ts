@@ -2,11 +2,11 @@ import typia from "../../../../src";
 import { _test_protobuf_validateEncode } from "../../../internal/_test_protobuf_validateEncode";
 import { CommentTagType } from "../../../structures/CommentTagType";
 
-export const test_protobuf_validateEncode_CommentTagType =
+export const test_protobuf_createValidateEncode_CommentTagType =
     _test_protobuf_validateEncode("CommentTagType")<CommentTagType>(
         CommentTagType,
     )({
-        validateEncode: (input) =>
+        encode: (input) =>
             ((input: CommentTagType): typia.IValidation<Uint8Array> => {
                 const validate = (
                     input: any,
@@ -354,8 +354,6 @@ export const test_protobuf_validateEncode_CommentTagType =
                 if (output.success) output.data = encode(input);
                 return output;
             })(input),
-        message:
-            'syntax = "proto3";\n\nmessage CommentTagType {\n    repeated CommentTagType.Type value = 1;\n    message Type {\n        required int32 int = 1;\n        required uint32 uint = 2;\n        required int32 int32 = 3;\n        required uint32 uint32 = 4;\n        required int64 int64 = 5;\n        required uint64 uint64 = 6;\n        required float float = 7;\n    }\n}',
         decode: (input: Uint8Array): typia.Resolved<CommentTagType> => {
             const $Reader = (typia.protobuf.createDecode as any).Reader;
             const $pdo0 = (reader: any, length: number = -1): any => {
@@ -429,4 +427,6 @@ export const test_protobuf_validateEncode_CommentTagType =
             const reader = new $Reader(input);
             return $pdo0(reader);
         },
+        message:
+            'syntax = "proto3";\n\nmessage CommentTagType {\n    repeated CommentTagType.Type value = 1;\n    message Type {\n        required int32 int = 1;\n        required uint32 uint = 2;\n        required int32 int32 = 3;\n        required uint32 uint32 = 4;\n        required int64 int64 = 5;\n        required uint64 uint64 = 6;\n        required float float = 7;\n    }\n}',
     });

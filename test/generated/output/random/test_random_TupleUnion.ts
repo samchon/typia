@@ -31,7 +31,7 @@ export const test_random_TupleUnion = _test_random("TupleUnion")<TupleUnion>(
                     () => [],
                 ])(),
             );
-        })(),
+        })((TupleUnion as any).RANDOM),
     assert: (input: any): TupleUnion => {
         const __is = (input: any): input is TupleUnion => {
             const $ip0 = (input: any) => {

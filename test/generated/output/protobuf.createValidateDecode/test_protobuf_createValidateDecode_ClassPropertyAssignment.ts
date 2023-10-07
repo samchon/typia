@@ -6,7 +6,7 @@ export const test_protobuf_createValidateDecode_ClassPropertyAssignment =
     _test_protobuf_validateDecode(
         "ClassPropertyAssignment",
     )<ClassPropertyAssignment>(ClassPropertyAssignment)({
-        validateDecode: (
+        decode: (
             input: Uint8Array,
         ): typia.IValidation<typia.Resolved<ClassPropertyAssignment>> => {
             const validate = (

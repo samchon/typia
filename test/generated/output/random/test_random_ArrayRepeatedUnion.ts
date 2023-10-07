@@ -119,7 +119,7 @@ export const test_random_ArrayRepeatedUnion = _test_random(
                 () => $ra0(generator?.length ?? $generator.length, true, 0),
                 () => (generator?.array ?? $generator.array)(() => $ro0()),
             ])();
-        })(),
+        })((ArrayRepeatedUnion as any).RANDOM),
     assert: (input: any): ArrayRepeatedUnion => {
         const __is = (input: any): input is ArrayRepeatedUnion => {
             const $ip0 = (input: any) => {

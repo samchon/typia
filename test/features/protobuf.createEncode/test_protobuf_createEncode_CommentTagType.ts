@@ -6,6 +6,6 @@ export const test_protobuf_createEncode_CommentTagType = _test_protobuf_encode(
     "CommentTagType",
 )<CommentTagType>(CommentTagType)({
     encode: typia.protobuf.createEncode<CommentTagType>(),
-    message: typia.protobuf.message<CommentTagType>(),
     decode: typia.protobuf.createDecode<CommentTagType>(),
+    message: typia.protobuf.message<CommentTagType>(),
 });

@@ -51,8 +51,6 @@ export const test_protobuf_createEncode_TypeTagAtomicUnion =
             const writer = encoder(new $Writer(sizer));
             return writer.buffer();
         },
-        message:
-            'syntax = "proto3";\n\nmessage TypeTagAtomicUnion {\n    repeated TypeTagAtomicUnion.Type value = 1;\n    message Type {\n        oneof value {\n            double v1 = 1;\n            string v2 = 2;\n        }\n    }\n}',
         decode: (input: Uint8Array): typia.Resolved<TypeTagAtomicUnion> => {
             const $Reader = (typia.protobuf.createDecode as any).Reader;
             const $pdo0 = (reader: any, length: number = -1): any => {
@@ -100,4 +98,6 @@ export const test_protobuf_createEncode_TypeTagAtomicUnion =
             const reader = new $Reader(input);
             return $pdo0(reader);
         },
+        message:
+            'syntax = "proto3";\n\nmessage TypeTagAtomicUnion {\n    repeated TypeTagAtomicUnion.Type value = 1;\n    message Type {\n        oneof value {\n            double v1 = 1;\n            string v2 = 2;\n        }\n    }\n}',
     });

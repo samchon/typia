@@ -6,7 +6,7 @@ export const test_protobuf_createAssertEncode_ObjectGenericArray =
     _test_protobuf_assertEncode("ObjectGenericArray")<ObjectGenericArray>(
         ObjectGenericArray,
     )({
-        assertEncode: typia.protobuf.createAssertEncode<ObjectGenericArray>(),
-        message: typia.protobuf.message<ObjectGenericArray>(),
+        encode: typia.protobuf.createAssertEncode<ObjectGenericArray>(),
         decode: typia.protobuf.createDecode<ObjectGenericArray>(),
+        message: typia.protobuf.message<ObjectGenericArray>(),
     });

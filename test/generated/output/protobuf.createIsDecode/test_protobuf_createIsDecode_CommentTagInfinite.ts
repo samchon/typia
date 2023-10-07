@@ -6,7 +6,7 @@ export const test_protobuf_createIsDecode_CommentTagInfinite =
     _test_protobuf_isDecode("CommentTagInfinite")<CommentTagInfinite>(
         CommentTagInfinite,
     )({
-        isDecode: (
+        decode: (
             input: Uint8Array,
         ): typia.Resolved<CommentTagInfinite> | null => {
             const is = (input: any): input is CommentTagInfinite => {

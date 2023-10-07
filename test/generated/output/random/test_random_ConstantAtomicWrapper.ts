@@ -33,7 +33,7 @@ export const test_random_ConstantAtomicWrapper = _test_random(
                     (generator?.string ?? $generator.string)(),
             });
             return [$ro0(), $ro1(), $ro2()];
-        })(),
+        })((ConstantAtomicWrapper as any).RANDOM),
     assert: (input: any): ConstantAtomicWrapper => {
         const __is = (input: any): input is ConstantAtomicWrapper => {
             const $io0 = (input: any): boolean =>

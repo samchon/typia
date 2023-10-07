@@ -4,7 +4,7 @@ import { ObjectSimple } from "../../../structures/ObjectSimple";
 
 export const test_protobuf_createAssertDecode_ObjectSimple =
     _test_protobuf_assertDecode("ObjectSimple")<ObjectSimple>(ObjectSimple)({
-        assertDecode: (input: Uint8Array): typia.Resolved<ObjectSimple> => {
+        decode: (input: Uint8Array): typia.Resolved<ObjectSimple> => {
             const decode = (
                 input: Uint8Array,
             ): typia.Resolved<ObjectSimple> => {

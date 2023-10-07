@@ -6,7 +6,7 @@ export const test_protobuf_createIsDecode_CommentTagLength =
     _test_protobuf_isDecode("CommentTagLength")<CommentTagLength>(
         CommentTagLength,
     )({
-        isDecode: (
+        decode: (
             input: Uint8Array,
         ): typia.Resolved<CommentTagLength> | null => {
             const is = (input: any): input is CommentTagLength => {

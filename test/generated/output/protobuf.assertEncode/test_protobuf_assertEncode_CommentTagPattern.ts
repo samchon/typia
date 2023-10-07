@@ -2,11 +2,11 @@ import typia from "../../../../src";
 import { _test_protobuf_assertEncode } from "../../../internal/_test_protobuf_assertEncode";
 import { CommentTagPattern } from "../../../structures/CommentTagPattern";
 
-export const test_protobuf_assertEncode_CommentTagPattern =
+export const test_protobuf_createAssertEncode_CommentTagPattern =
     _test_protobuf_assertEncode("CommentTagPattern")<CommentTagPattern>(
         CommentTagPattern,
     )({
-        assertEncode: (input) =>
+        encode: (input) =>
             ((input: any): Uint8Array => {
                 const assert = (input: any): CommentTagPattern => {
                     const __is = (input: any): input is CommentTagPattern => {
@@ -154,8 +154,6 @@ export const test_protobuf_assertEncode_CommentTagPattern =
                 };
                 return encode(assert(input));
             })(input),
-        message:
-            'syntax = "proto3";\n\nmessage CommentTagPattern {\n    required string uuid = 1;\n    required string email = 2;\n    required string ipv4 = 3;\n    required string ipv6 = 4;\n}',
         decode: (input: Uint8Array): typia.Resolved<CommentTagPattern> => {
             const $Reader = (typia.protobuf.createDecode as any).Reader;
             const $pdo0 = (reader: any, length: number = -1): any => {
@@ -195,4 +193,6 @@ export const test_protobuf_assertEncode_CommentTagPattern =
             const reader = new $Reader(input);
             return $pdo0(reader);
         },
+        message:
+            'syntax = "proto3";\n\nmessage CommentTagPattern {\n    required string uuid = 1;\n    required string email = 2;\n    required string ipv4 = 3;\n    required string ipv6 = 4;\n}',
     });

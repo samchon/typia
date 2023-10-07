@@ -22,7 +22,7 @@ export const test_random_ClassNonPublic = _test_random(
                     (generator?.string ?? $generator.string)(),
             });
             return $ro0();
-        })(),
+        })((ClassNonPublic as any).RANDOM),
     assert: (input: any): ClassNonPublic => {
         const __is = (input: any): input is ClassNonPublic => {
             return (

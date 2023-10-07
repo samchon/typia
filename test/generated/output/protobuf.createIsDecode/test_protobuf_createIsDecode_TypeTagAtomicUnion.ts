@@ -6,7 +6,7 @@ export const test_protobuf_createIsDecode_TypeTagAtomicUnion =
     _test_protobuf_isDecode("TypeTagAtomicUnion")<TypeTagAtomicUnion>(
         TypeTagAtomicUnion,
     )({
-        isDecode: (
+        decode: (
             input: Uint8Array,
         ): typia.Resolved<TypeTagAtomicUnion> | null => {
             const is = (input: any): input is TypeTagAtomicUnion => {

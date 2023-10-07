@@ -6,7 +6,7 @@ export const test_protobuf_createAssertEncode_ClassPropertyAssignment =
     _test_protobuf_assertEncode(
         "ClassPropertyAssignment",
     )<ClassPropertyAssignment>(ClassPropertyAssignment)({
-        assertEncode: (input: any): Uint8Array => {
+        encode: (input: any): Uint8Array => {
             const assert = (input: any): ClassPropertyAssignment => {
                 const __is = (input: any): input is ClassPropertyAssignment => {
                     const $io0 = (input: any): boolean =>
@@ -116,8 +116,6 @@ export const test_protobuf_createAssertEncode_ClassPropertyAssignment =
             };
             return encode(assert(input));
         },
-        message:
-            'syntax = "proto3";\n\nmessage ClassPropertyAssignment {\n    required double id = 1;\n    required string name = 2;\n    required string note = 3;\n    required bool editable = 4;\n    required bool incremental = 5;\n}',
         decode: (
             input: Uint8Array,
         ): typia.Resolved<ClassPropertyAssignment> => {
@@ -164,4 +162,6 @@ export const test_protobuf_createAssertEncode_ClassPropertyAssignment =
             const reader = new $Reader(input);
             return $pdo0(reader);
         },
+        message:
+            'syntax = "proto3";\n\nmessage ClassPropertyAssignment {\n    required double id = 1;\n    required string name = 2;\n    required string note = 3;\n    required bool editable = 4;\n    required bool incremental = 5;\n}',
     });

@@ -6,9 +6,7 @@ export const test_protobuf_createValidateEncode_ObjectGenericAlias =
     _test_protobuf_validateEncode("ObjectGenericAlias")<ObjectGenericAlias>(
         ObjectGenericAlias,
     )({
-        validateEncode: (
-            input: ObjectGenericAlias,
-        ): typia.IValidation<Uint8Array> => {
+        encode: (input: ObjectGenericAlias): typia.IValidation<Uint8Array> => {
             const validate = (
                 input: any,
             ): typia.IValidation<ObjectGenericAlias> => {
@@ -88,8 +86,6 @@ export const test_protobuf_createValidateEncode_ObjectGenericAlias =
             if (output.success) output.data = encode(input);
             return output;
         },
-        message:
-            'syntax = "proto3";\n\nmessage ObjectGenericAlias {\n    message Alias {\n        required string value = 1;\n    }\n}',
         decode: (input: Uint8Array): typia.Resolved<ObjectGenericAlias> => {
             const $Reader = (typia.protobuf.createDecode as any).Reader;
             const $pdo0 = (reader: any, length: number = -1): any => {
@@ -114,4 +110,6 @@ export const test_protobuf_createValidateEncode_ObjectGenericAlias =
             const reader = new $Reader(input);
             return $pdo0(reader);
         },
+        message:
+            'syntax = "proto3";\n\nmessage ObjectGenericAlias {\n    message Alias {\n        required string value = 1;\n    }\n}',
     });

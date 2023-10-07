@@ -20,7 +20,7 @@ export const test_random_ConstantEnumeration = _test_random(
                     () => "Four",
                 ])(),
             );
-        })(),
+        })((ConstantEnumeration as any).RANDOM),
     assert: (input: any): ConstantEnumeration => {
         const __is = (input: any): input is ConstantEnumeration => {
             return (

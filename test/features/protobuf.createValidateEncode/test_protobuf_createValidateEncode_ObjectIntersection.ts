@@ -6,8 +6,7 @@ export const test_protobuf_createValidateEncode_ObjectIntersection =
     _test_protobuf_validateEncode("ObjectIntersection")<ObjectIntersection>(
         ObjectIntersection,
     )({
-        validateEncode:
-            typia.protobuf.createValidateEncode<ObjectIntersection>(),
-        message: typia.protobuf.message<ObjectIntersection>(),
+        encode: typia.protobuf.createValidateEncode<ObjectIntersection>(),
         decode: typia.protobuf.createDecode<ObjectIntersection>(),
+        message: typia.protobuf.message<ObjectIntersection>(),
     });

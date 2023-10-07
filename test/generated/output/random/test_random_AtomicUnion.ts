@@ -25,7 +25,7 @@ export const test_random_AtomicUnion = _test_random("AtomicUnion")<AtomicUnion>(
                     () => (generator?.boolean ?? $generator.boolean)(),
                 ])(),
             );
-        })(),
+        })((AtomicUnion as any).RANDOM),
     assert: (input: any): AtomicUnion => {
         const __is = (input: any): input is AtomicUnion => {
             return (

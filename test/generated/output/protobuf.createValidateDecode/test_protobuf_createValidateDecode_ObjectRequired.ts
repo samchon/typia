@@ -6,7 +6,7 @@ export const test_protobuf_createValidateDecode_ObjectRequired =
     _test_protobuf_validateDecode("ObjectRequired")<ObjectRequired>(
         ObjectRequired,
     )({
-        validateDecode: (
+        decode: (
             input: Uint8Array,
         ): typia.IValidation<typia.Resolved<ObjectRequired>> => {
             const validate = (

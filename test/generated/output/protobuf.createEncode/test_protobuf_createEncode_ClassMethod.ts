@@ -25,8 +25,6 @@ export const test_protobuf_createEncode_ClassMethod = _test_protobuf_encode(
         const writer = encoder(new $Writer(sizer));
         return writer.buffer();
     },
-    message:
-        'syntax = "proto3";\n\nmessage ClassMethod {\n    message Animal {\n        required string name = 1;\n        required double age = 2;\n    }\n}',
     decode: (input: Uint8Array): typia.Resolved<ClassMethod> => {
         const $Reader = (typia.protobuf.createDecode as any).Reader;
         const $pdo0 = (reader: any, length: number = -1): any => {
@@ -56,4 +54,6 @@ export const test_protobuf_createEncode_ClassMethod = _test_protobuf_encode(
         const reader = new $Reader(input);
         return $pdo0(reader);
     },
+    message:
+        'syntax = "proto3";\n\nmessage ClassMethod {\n    message Animal {\n        required string name = 1;\n        required double age = 2;\n    }\n}',
 });

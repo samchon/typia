@@ -21,7 +21,7 @@ export const test_random_ArrayMatrix = _test_random("ArrayMatrix")<ArrayMatrix>(
                     ),
                 ),
             );
-        })(),
+        })((ArrayMatrix as any).RANDOM),
     assert: (input: any): ArrayMatrix => {
         const __is = (input: any): input is ArrayMatrix => {
             return (

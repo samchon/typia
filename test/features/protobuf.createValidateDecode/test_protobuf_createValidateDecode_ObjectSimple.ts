@@ -4,6 +4,6 @@ import { ObjectSimple } from "../../structures/ObjectSimple";
 
 export const test_protobuf_createValidateDecode_ObjectSimple =
     _test_protobuf_validateDecode("ObjectSimple")<ObjectSimple>(ObjectSimple)({
-        validateDecode: typia.protobuf.createValidateDecode<ObjectSimple>(),
+        decode: typia.protobuf.createValidateDecode<ObjectSimple>(),
         encode: typia.protobuf.createEncode<ObjectSimple>(),
     });

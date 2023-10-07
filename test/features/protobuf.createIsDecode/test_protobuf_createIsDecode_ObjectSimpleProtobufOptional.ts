@@ -6,6 +6,6 @@ export const test_protobuf_createIsDecode_ObjectSimpleProtobufOptional =
     _test_protobuf_isDecode(
         "ObjectSimpleProtobufOptional",
     )<ObjectSimpleProtobufOptional>(ObjectSimpleProtobufOptional)({
-        isDecode: typia.protobuf.createIsDecode<ObjectSimpleProtobufOptional>(),
+        decode: typia.protobuf.createIsDecode<ObjectSimpleProtobufOptional>(),
         encode: typia.protobuf.createEncode<ObjectSimpleProtobufOptional>(),
     });

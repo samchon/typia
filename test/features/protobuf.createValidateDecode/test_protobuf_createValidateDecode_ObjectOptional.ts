@@ -6,6 +6,6 @@ export const test_protobuf_createValidateDecode_ObjectOptional =
     _test_protobuf_validateDecode("ObjectOptional")<ObjectOptional>(
         ObjectOptional,
     )({
-        validateDecode: typia.protobuf.createValidateDecode<ObjectOptional>(),
+        decode: typia.protobuf.createValidateDecode<ObjectOptional>(),
         encode: typia.protobuf.createEncode<ObjectOptional>(),
     });

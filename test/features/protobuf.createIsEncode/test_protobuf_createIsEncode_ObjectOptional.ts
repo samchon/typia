@@ -4,7 +4,7 @@ import { ObjectOptional } from "../../structures/ObjectOptional";
 
 export const test_protobuf_createIsEncode_ObjectOptional =
     _test_protobuf_isEncode("ObjectOptional")<ObjectOptional>(ObjectOptional)({
-        isEncode: typia.protobuf.createIsEncode<ObjectOptional>(),
-        message: typia.protobuf.message<ObjectOptional>(),
+        encode: typia.protobuf.createIsEncode<ObjectOptional>(),
         decode: typia.protobuf.createDecode<ObjectOptional>(),
+        message: typia.protobuf.message<ObjectOptional>(),
     });

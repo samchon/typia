@@ -6,7 +6,7 @@ export const test_protobuf_createValidateDecode_ObjectHttpAtomic =
     _test_protobuf_validateDecode("ObjectHttpAtomic")<ObjectHttpAtomic>(
         ObjectHttpAtomic,
     )({
-        validateDecode: (
+        decode: (
             input: Uint8Array,
         ): typia.IValidation<typia.Resolved<ObjectHttpAtomic>> => {
             const validate = (

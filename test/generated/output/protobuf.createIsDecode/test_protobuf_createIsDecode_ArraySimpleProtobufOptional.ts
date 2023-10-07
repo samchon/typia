@@ -6,7 +6,7 @@ export const test_protobuf_createIsDecode_ArraySimpleProtobufOptional =
     _test_protobuf_isDecode(
         "ArraySimpleProtobufOptional",
     )<ArraySimpleProtobufOptional>(ArraySimpleProtobufOptional)({
-        isDecode: (
+        decode: (
             input: Uint8Array,
         ): typia.Resolved<ArraySimpleProtobufOptional> | null => {
             const is = (input: any): input is ArraySimpleProtobufOptional => {

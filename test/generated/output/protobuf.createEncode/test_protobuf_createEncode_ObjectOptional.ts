@@ -39,8 +39,6 @@ export const test_protobuf_createEncode_ObjectOptional = _test_protobuf_encode(
         const writer = encoder(new $Writer(sizer));
         return writer.buffer();
     },
-    message:
-        'syntax = "proto3";\n\nmessage ObjectOptional {\n    optional string id = 1;\n    optional string name = 2;\n    optional string email = 3;\n    optional double sequence = 4;\n}',
     decode: (input: Uint8Array): typia.Resolved<ObjectOptional> => {
         const $Reader = (typia.protobuf.createDecode as any).Reader;
         const $pdo0 = (reader: any, length: number = -1): any => {
@@ -80,4 +78,6 @@ export const test_protobuf_createEncode_ObjectOptional = _test_protobuf_encode(
         const reader = new $Reader(input);
         return $pdo0(reader);
     },
+    message:
+        'syntax = "proto3";\n\nmessage ObjectOptional {\n    optional string id = 1;\n    optional string name = 2;\n    optional string email = 3;\n    optional double sequence = 4;\n}',
 });

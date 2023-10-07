@@ -79,12 +79,12 @@ export const test_misc_validatePrune_TypeTagCustom = _test_misc_validatePrune(
                                     )) ||
                                     $report(_exceptionable, {
                                         path: _path + ".dollar",
-                                        expected: "string & Dolloar",
+                                        expected: "string & Dollar",
                                         value: input.dollar,
                                     }))) ||
                                 $report(_exceptionable, {
                                     path: _path + ".dollar",
-                                    expected: "(string & Dolloar)",
+                                    expected: "(string & Dollar)",
                                     value: input.dollar,
                                 }),
                             ("string" === typeof input.postfix &&

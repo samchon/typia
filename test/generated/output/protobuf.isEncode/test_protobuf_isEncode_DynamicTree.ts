@@ -2,10 +2,10 @@ import typia from "../../../../src";
 import { _test_protobuf_isEncode } from "../../../internal/_test_protobuf_isEncode";
 import { DynamicTree } from "../../../structures/DynamicTree";
 
-export const test_protobuf_isEncode_DynamicTree = _test_protobuf_isEncode(
+export const test_protobuf_createIsEncode_DynamicTree = _test_protobuf_isEncode(
     "DynamicTree",
 )<DynamicTree>(DynamicTree)({
-    isEncode: (input) =>
+    encode: (input) =>
         ((input: DynamicTree): Uint8Array | null => {
             const is = (input: any): input is DynamicTree => {
                 const $io0 = (input: any): boolean =>
@@ -88,8 +88,6 @@ export const test_protobuf_isEncode_DynamicTree = _test_protobuf_isEncode(
             };
             return is(input) ? encode(input) : null;
         })(input),
-    message:
-        'syntax = "proto3";\n\nmessage DynamicTree {\n    required string id = 1;\n    required double sequence = 2;\n    map<string, DynamicTree> children = 3;\n}',
     decode: (input: Uint8Array): typia.Resolved<DynamicTree> => {
         const $Reader = (typia.protobuf.createDecode as any).Reader;
         const $pdo0 = (reader: any, length: number = -1): any => {
@@ -150,4 +148,6 @@ export const test_protobuf_isEncode_DynamicTree = _test_protobuf_isEncode(
         const reader = new $Reader(input);
         return $pdo0(reader);
     },
+    message:
+        'syntax = "proto3";\n\nmessage DynamicTree {\n    required string id = 1;\n    required double sequence = 2;\n    map<string, DynamicTree> children = 3;\n}',
 });

@@ -6,7 +6,7 @@ export const test_protobuf_createIsDecode_ObjectHttpTypeTag =
     _test_protobuf_isDecode("ObjectHttpTypeTag")<ObjectHttpTypeTag>(
         ObjectHttpTypeTag,
     )({
-        isDecode: (
+        decode: (
             input: Uint8Array,
         ): typia.Resolved<ObjectHttpTypeTag> | null => {
             const is = (input: any): input is ObjectHttpTypeTag => {

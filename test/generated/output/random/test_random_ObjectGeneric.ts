@@ -74,7 +74,7 @@ export const test_random_ObjectGeneric = _test_random(
                     (generator?.string ?? $generator.string)(),
             });
             return [$ro0(), $ro2(), $ro4()];
-        })(),
+        })((ObjectGeneric as any).RANDOM),
     assert: (input: any): ObjectGeneric => {
         const __is = (input: any): input is ObjectGeneric => {
             const $io0 = (input: any): boolean =>

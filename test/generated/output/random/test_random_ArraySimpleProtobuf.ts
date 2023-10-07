@@ -187,7 +187,7 @@ export const test_random_ArraySimpleProtobuf = _test_random(
                         : [],
             });
             return $ro0();
-        })(),
+        })((ArraySimpleProtobuf as any).RANDOM),
     assert: (input: any): ArraySimpleProtobuf => {
         const __is = (input: any): input is ArraySimpleProtobuf => {
             const $io0 = (input: any): boolean =>

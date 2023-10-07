@@ -6,6 +6,6 @@ export const test_protobuf_createAssertDecode_ObjectGenericAlias =
     _test_protobuf_assertDecode("ObjectGenericAlias")<ObjectGenericAlias>(
         ObjectGenericAlias,
     )({
-        assertDecode: typia.protobuf.createAssertDecode<ObjectGenericAlias>(),
+        decode: typia.protobuf.createAssertDecode<ObjectGenericAlias>(),
         encode: typia.protobuf.createEncode<ObjectGenericAlias>(),
     });

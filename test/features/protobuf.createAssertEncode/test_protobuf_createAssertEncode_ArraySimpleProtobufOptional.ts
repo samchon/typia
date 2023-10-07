@@ -6,8 +6,7 @@ export const test_protobuf_createAssertEncode_ArraySimpleProtobufOptional =
     _test_protobuf_assertEncode(
         "ArraySimpleProtobufOptional",
     )<ArraySimpleProtobufOptional>(ArraySimpleProtobufOptional)({
-        assertEncode:
-            typia.protobuf.createAssertEncode<ArraySimpleProtobufOptional>(),
-        message: typia.protobuf.message<ArraySimpleProtobufOptional>(),
+        encode: typia.protobuf.createAssertEncode<ArraySimpleProtobufOptional>(),
         decode: typia.protobuf.createDecode<ArraySimpleProtobufOptional>(),
+        message: typia.protobuf.message<ArraySimpleProtobufOptional>(),
     });

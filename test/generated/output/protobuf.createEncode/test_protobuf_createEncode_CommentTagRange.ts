@@ -112,8 +112,6 @@ export const test_protobuf_createEncode_CommentTagRange = _test_protobuf_encode(
         const writer = encoder(new $Writer(sizer));
         return writer.buffer();
     },
-    message:
-        'syntax = "proto3";\n\nmessage CommentTagRange {\n    repeated CommentTagRange.Type value = 1;\n    message Type {\n        required int32 greater = 1;\n        required int32 greater_equal = 2;\n        required int32 less = 3;\n        required int32 less_equal = 4;\n        required int32 greater_less = 5;\n        required int32 greater_equal_less = 6;\n        required int32 greater_less_equal = 7;\n        required int32 greater_equal_less_equal = 8;\n        required int32 equal = 9;\n    }\n}',
     decode: (input: Uint8Array): typia.Resolved<CommentTagRange> => {
         const $Reader = (typia.protobuf.createDecode as any).Reader;
         const $pdo0 = (reader: any, length: number = -1): any => {
@@ -197,4 +195,6 @@ export const test_protobuf_createEncode_CommentTagRange = _test_protobuf_encode(
         const reader = new $Reader(input);
         return $pdo0(reader);
     },
+    message:
+        'syntax = "proto3";\n\nmessage CommentTagRange {\n    repeated CommentTagRange.Type value = 1;\n    message Type {\n        required int32 greater = 1;\n        required int32 greater_equal = 2;\n        required int32 less = 3;\n        required int32 less_equal = 4;\n        required int32 greater_less = 5;\n        required int32 greater_equal_less = 6;\n        required int32 greater_less_equal = 7;\n        required int32 greater_equal_less_equal = 8;\n        required int32 equal = 9;\n    }\n}',
 });

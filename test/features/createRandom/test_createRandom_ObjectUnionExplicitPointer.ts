@@ -5,6 +5,8 @@ import { ObjectUnionExplicitPointer } from "../../structures/ObjectUnionExplicit
 export const test_createRandom_ObjectUnionExplicitPointer = _test_random(
     "ObjectUnionExplicitPointer",
 )<ObjectUnionExplicitPointer>(ObjectUnionExplicitPointer)({
-    random: typia.createRandom<ObjectUnionExplicitPointer>(),
+    random: typia.createRandom<ObjectUnionExplicitPointer>(
+        (ObjectUnionExplicitPointer as any).RANDOM,
+    ),
     assert: typia.createAssert<ObjectUnionExplicitPointer>(),
 });

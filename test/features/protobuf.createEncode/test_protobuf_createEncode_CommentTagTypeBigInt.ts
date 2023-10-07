@@ -7,6 +7,6 @@ export const test_protobuf_createEncode_CommentTagTypeBigInt =
         CommentTagTypeBigInt,
     )({
         encode: typia.protobuf.createEncode<CommentTagTypeBigInt>(),
-        message: typia.protobuf.message<CommentTagTypeBigInt>(),
         decode: typia.protobuf.createDecode<CommentTagTypeBigInt>(),
+        message: typia.protobuf.message<CommentTagTypeBigInt>(),
     });

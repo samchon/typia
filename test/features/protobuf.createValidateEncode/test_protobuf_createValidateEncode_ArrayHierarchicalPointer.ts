@@ -6,8 +6,7 @@ export const test_protobuf_createValidateEncode_ArrayHierarchicalPointer =
     _test_protobuf_validateEncode(
         "ArrayHierarchicalPointer",
     )<ArrayHierarchicalPointer>(ArrayHierarchicalPointer)({
-        validateEncode:
-            typia.protobuf.createValidateEncode<ArrayHierarchicalPointer>(),
-        message: typia.protobuf.message<ArrayHierarchicalPointer>(),
+        encode: typia.protobuf.createValidateEncode<ArrayHierarchicalPointer>(),
         decode: typia.protobuf.createDecode<ArrayHierarchicalPointer>(),
+        message: typia.protobuf.message<ArrayHierarchicalPointer>(),
     });

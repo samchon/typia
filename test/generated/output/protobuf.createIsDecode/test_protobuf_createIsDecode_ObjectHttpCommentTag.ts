@@ -6,7 +6,7 @@ export const test_protobuf_createIsDecode_ObjectHttpCommentTag =
     _test_protobuf_isDecode("ObjectHttpCommentTag")<ObjectHttpCommentTag>(
         ObjectHttpCommentTag,
     )({
-        isDecode: (
+        decode: (
             input: Uint8Array,
         ): typia.Resolved<ObjectHttpCommentTag> | null => {
             const is = (input: any): input is ObjectHttpCommentTag => {

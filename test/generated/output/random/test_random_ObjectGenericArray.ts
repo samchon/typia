@@ -48,7 +48,7 @@ export const test_random_ObjectGenericArray = _test_random(
                     (generator?.number ?? $generator.number)(0, 100),
             });
             return $ro0();
-        })(),
+        })((ObjectGenericArray as any).RANDOM),
     assert: (input: any): ObjectGenericArray => {
         const __is = (input: any): input is ObjectGenericArray => {
             const $io0 = (input: any): boolean =>

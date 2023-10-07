@@ -6,7 +6,7 @@ export const test_protobuf_createValidateEncode_ObjectJsonTag =
     _test_protobuf_validateEncode("ObjectJsonTag")<ObjectJsonTag>(
         ObjectJsonTag,
     )({
-        validateEncode: typia.protobuf.createValidateEncode<ObjectJsonTag>(),
-        message: typia.protobuf.message<ObjectJsonTag>(),
+        encode: typia.protobuf.createValidateEncode<ObjectJsonTag>(),
         decode: typia.protobuf.createDecode<ObjectJsonTag>(),
+        message: typia.protobuf.message<ObjectJsonTag>(),
     });

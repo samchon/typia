@@ -5,6 +5,9 @@ import { ArraySimpleProtobufNullable } from "../../structures/ArraySimpleProtobu
 export const test_random_ArraySimpleProtobufNullable = _test_random(
     "ArraySimpleProtobufNullable",
 )<ArraySimpleProtobufNullable>(ArraySimpleProtobufNullable)({
-    random: () => typia.random<ArraySimpleProtobufNullable>(),
+    random: () =>
+        typia.random<ArraySimpleProtobufNullable>(
+            (ArraySimpleProtobufNullable as any).RANDOM,
+        ),
     assert: typia.createAssert<ArraySimpleProtobufNullable>(),
 });

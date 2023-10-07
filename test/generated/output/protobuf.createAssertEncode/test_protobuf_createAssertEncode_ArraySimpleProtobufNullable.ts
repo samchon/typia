@@ -6,7 +6,7 @@ export const test_protobuf_createAssertEncode_ArraySimpleProtobufNullable =
     _test_protobuf_assertEncode(
         "ArraySimpleProtobufNullable",
     )<ArraySimpleProtobufNullable>(ArraySimpleProtobufNullable)({
-        assertEncode: (input: any): Uint8Array => {
+        encode: (input: any): Uint8Array => {
             const assert = (input: any): ArraySimpleProtobufNullable => {
                 const __is = (
                     input: any,
@@ -683,8 +683,6 @@ export const test_protobuf_createAssertEncode_ArraySimpleProtobufNullable =
             };
             return encode(assert(input));
         },
-        message:
-            'syntax = "proto3";\n\nmessage ArraySimpleProtobufNullable {\n    repeated bool boolean = 1;\n    repeated int32 int32 = 2;\n    repeated uint32 uint32 = 3;\n    repeated int64 int64 = 4;\n    repeated uint64 uint64 = 5;\n    repeated float float = 6;\n    repeated double double = 7;\n    repeated string string = 8;\n    repeated bytes bytes = 9;\n    repeated ArraySimpleProtobufNullable object = 10;\n}',
         decode: (
             input: Uint8Array,
         ): typia.Resolved<ArraySimpleProtobufNullable> => {
@@ -794,4 +792,6 @@ export const test_protobuf_createAssertEncode_ArraySimpleProtobufNullable =
             const reader = new $Reader(input);
             return $pdo0(reader);
         },
+        message:
+            'syntax = "proto3";\n\nmessage ArraySimpleProtobufNullable {\n    repeated bool boolean = 1;\n    repeated int32 int32 = 2;\n    repeated uint32 uint32 = 3;\n    repeated int64 int64 = 4;\n    repeated uint64 uint64 = 5;\n    repeated float float = 6;\n    repeated double double = 7;\n    repeated string string = 8;\n    repeated bytes bytes = 9;\n    repeated ArraySimpleProtobufNullable object = 10;\n}',
     });

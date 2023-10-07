@@ -2,11 +2,11 @@ import typia from "../../../../src";
 import { _test_protobuf_validateEncode } from "../../../internal/_test_protobuf_validateEncode";
 import { ObjectHttpArray } from "../../../structures/ObjectHttpArray";
 
-export const test_protobuf_validateEncode_ObjectHttpArray =
+export const test_protobuf_createValidateEncode_ObjectHttpArray =
     _test_protobuf_validateEncode("ObjectHttpArray")<ObjectHttpArray>(
         ObjectHttpArray,
     )({
-        validateEncode: (input) =>
+        encode: (input) =>
             ((input: ObjectHttpArray): typia.IValidation<Uint8Array> => {
                 const validate = (
                     input: any,
@@ -283,8 +283,6 @@ export const test_protobuf_validateEncode_ObjectHttpArray =
                 if (output.success) output.data = encode(input);
                 return output;
             })(input),
-        message:
-            'syntax = "proto3";\n\nmessage ObjectHttpArray {\n    repeated bool booleans = 1;\n    repeated int64 bigints = 2;\n    repeated double numbers = 3;\n    repeated string strings = 4;\n    repeated string templates = 5;\n}',
         decode: (input: Uint8Array): typia.Resolved<ObjectHttpArray> => {
             const $Reader = (typia.protobuf.createDecode as any).Reader;
             const $pdo0 = (reader: any, length: number = -1): any => {
@@ -341,4 +339,6 @@ export const test_protobuf_validateEncode_ObjectHttpArray =
             const reader = new $Reader(input);
             return $pdo0(reader);
         },
+        message:
+            'syntax = "proto3";\n\nmessage ObjectHttpArray {\n    repeated bool booleans = 1;\n    repeated int64 bigints = 2;\n    repeated double numbers = 3;\n    repeated string strings = 4;\n    repeated string templates = 5;\n}',
     });

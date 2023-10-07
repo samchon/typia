@@ -2,11 +2,11 @@ import typia from "../../../../src";
 import { _test_protobuf_validateEncode } from "../../../internal/_test_protobuf_validateEncode";
 import { TypeTagCustom } from "../../../structures/TypeTagCustom";
 
-export const test_protobuf_validateEncode_TypeTagCustom =
+export const test_protobuf_createValidateEncode_TypeTagCustom =
     _test_protobuf_validateEncode("TypeTagCustom")<TypeTagCustom>(
         TypeTagCustom,
     )({
-        validateEncode: (input) =>
+        encode: (input) =>
             ((input: TypeTagCustom): typia.IValidation<Uint8Array> => {
                 const validate = (
                     input: any,
@@ -88,12 +88,12 @@ export const test_protobuf_validateEncode_TypeTagCustom =
                                             )) ||
                                             $report(_exceptionable, {
                                                 path: _path + ".dollar",
-                                                expected: "string & Dolloar",
+                                                expected: "string & Dollar",
                                                 value: input.dollar,
                                             }))) ||
                                         $report(_exceptionable, {
                                             path: _path + ".dollar",
-                                            expected: "(string & Dolloar)",
+                                            expected: "(string & Dollar)",
                                             value: input.dollar,
                                         }),
                                     ("string" === typeof input.postfix &&
@@ -195,8 +195,6 @@ export const test_protobuf_validateEncode_TypeTagCustom =
                 if (output.success) output.data = encode(input);
                 return output;
             })(input),
-        message:
-            'syntax = "proto3";\n\nmessage TypeTagCustom {\n    required string id = 1;\n    required string dollar = 2;\n    required string postfix = 3;\n    required double powerOf = 4;\n}',
         decode: (input: Uint8Array): typia.Resolved<TypeTagCustom> => {
             const $Reader = (typia.protobuf.createDecode as any).Reader;
             const $pdo0 = (reader: any, length: number = -1): any => {
@@ -236,4 +234,6 @@ export const test_protobuf_validateEncode_TypeTagCustom =
             const reader = new $Reader(input);
             return $pdo0(reader);
         },
+        message:
+            'syntax = "proto3";\n\nmessage TypeTagCustom {\n    required string id = 1;\n    required string dollar = 2;\n    required string postfix = 3;\n    required double powerOf = 4;\n}',
     });

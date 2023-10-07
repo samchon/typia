@@ -4,6 +4,6 @@ import { TemplateAtomic } from "../../structures/TemplateAtomic";
 
 export const test_protobuf_createIsDecode_TemplateAtomic =
     _test_protobuf_isDecode("TemplateAtomic")<TemplateAtomic>(TemplateAtomic)({
-        isDecode: typia.protobuf.createIsDecode<TemplateAtomic>(),
+        decode: typia.protobuf.createIsDecode<TemplateAtomic>(),
         encode: typia.protobuf.createEncode<TemplateAtomic>(),
     });

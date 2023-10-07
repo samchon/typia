@@ -6,7 +6,7 @@ export const test_protobuf_createIsDecode_ObjectHttpConstant =
     _test_protobuf_isDecode("ObjectHttpConstant")<ObjectHttpConstant>(
         ObjectHttpConstant,
     )({
-        isDecode: (
+        decode: (
             input: Uint8Array,
         ): typia.Resolved<ObjectHttpConstant> | null => {
             const is = (input: any): input is ObjectHttpConstant => {

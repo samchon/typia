@@ -6,7 +6,7 @@ export const test_protobuf_createAssertEncode_ObjectPartialAndRequired =
     _test_protobuf_assertEncode(
         "ObjectPartialAndRequired",
     )<ObjectPartialAndRequired>(ObjectPartialAndRequired)({
-        assertEncode: (input: any): Uint8Array => {
+        encode: (input: any): Uint8Array => {
             const assert = (input: any): ObjectPartialAndRequired => {
                 const __is = (
                     input: any,
@@ -197,8 +197,6 @@ export const test_protobuf_createAssertEncode_ObjectPartialAndRequired =
             };
             return encode(assert(input));
         },
-        message:
-            'syntax = "proto3";\n\nmessage ObjectPartialAndRequired {\n    optional string string = 1;\n    optional double number = 2;\n    optional bool boolean = 3;\n    optional ObjectPartialAndRequired object = 4;\n    repeated double array = 5;\n}',
         decode: (
             input: Uint8Array,
         ): typia.Resolved<ObjectPartialAndRequired> => {
@@ -249,4 +247,6 @@ export const test_protobuf_createAssertEncode_ObjectPartialAndRequired =
             const reader = new $Reader(input);
             return $pdo0(reader);
         },
+        message:
+            'syntax = "proto3";\n\nmessage ObjectPartialAndRequired {\n    optional string string = 1;\n    optional double number = 2;\n    optional bool boolean = 3;\n    optional ObjectPartialAndRequired object = 4;\n    repeated double array = 5;\n}',
     });

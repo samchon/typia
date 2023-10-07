@@ -6,7 +6,7 @@ export const test_protobuf_createIsDecode_ObjectGenericAlias =
     _test_protobuf_isDecode("ObjectGenericAlias")<ObjectGenericAlias>(
         ObjectGenericAlias,
     )({
-        isDecode: (
+        decode: (
             input: Uint8Array,
         ): typia.Resolved<ObjectGenericAlias> | null => {
             const is = (input: any): input is ObjectGenericAlias => {

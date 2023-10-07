@@ -7,6 +7,6 @@ export const test_protobuf_createEncode_ObjectGenericUnion =
         ObjectGenericUnion,
     )({
         encode: typia.protobuf.createEncode<ObjectGenericUnion>(),
-        message: typia.protobuf.message<ObjectGenericUnion>(),
         decode: typia.protobuf.createDecode<ObjectGenericUnion>(),
+        message: typia.protobuf.message<ObjectGenericUnion>(),
     });

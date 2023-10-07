@@ -35,8 +35,6 @@ export const test_protobuf_createEncode_ObjectHttpConstant =
             const writer = encoder(new $Writer(sizer));
             return writer.buffer();
         },
-        message:
-            'syntax = "proto3";\n\nmessage ObjectHttpConstant {\n    required bool boolean = 1;\n    required uint64 bigint = 2;\n    required int32 number = 3;\n    required string string = 4;\n    required string template = 5;\n}',
         decode: (input: Uint8Array): typia.Resolved<ObjectHttpConstant> => {
             const $Reader = (typia.protobuf.createDecode as any).Reader;
             const $pdo0 = (reader: any, length: number = -1): any => {
@@ -81,4 +79,6 @@ export const test_protobuf_createEncode_ObjectHttpConstant =
             const reader = new $Reader(input);
             return $pdo0(reader);
         },
+        message:
+            'syntax = "proto3";\n\nmessage ObjectHttpConstant {\n    required bool boolean = 1;\n    required uint64 bigint = 2;\n    required int32 number = 3;\n    required string string = 4;\n    required string template = 5;\n}',
     });

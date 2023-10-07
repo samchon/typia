@@ -6,6 +6,6 @@ export const test_protobuf_createIsDecode_ObjectHttpTypeTag =
     _test_protobuf_isDecode("ObjectHttpTypeTag")<ObjectHttpTypeTag>(
         ObjectHttpTypeTag,
     )({
-        isDecode: typia.protobuf.createIsDecode<ObjectHttpTypeTag>(),
+        decode: typia.protobuf.createIsDecode<ObjectHttpTypeTag>(),
         encode: typia.protobuf.createEncode<ObjectHttpTypeTag>(),
     });

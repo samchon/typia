@@ -6,6 +6,6 @@ export const test_protobuf_createValidateDecode_ObjectHttpArray =
     _test_protobuf_validateDecode("ObjectHttpArray")<ObjectHttpArray>(
         ObjectHttpArray,
     )({
-        validateDecode: typia.protobuf.createValidateDecode<ObjectHttpArray>(),
+        decode: typia.protobuf.createValidateDecode<ObjectHttpArray>(),
         encode: typia.protobuf.createEncode<ObjectHttpArray>(),
     });

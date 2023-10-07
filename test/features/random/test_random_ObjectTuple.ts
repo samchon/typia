@@ -5,6 +5,6 @@ import { ObjectTuple } from "../../structures/ObjectTuple";
 export const test_random_ObjectTuple = _test_random("ObjectTuple")<ObjectTuple>(
     ObjectTuple,
 )({
-    random: () => typia.random<ObjectTuple>(),
+    random: () => typia.random<ObjectTuple>((ObjectTuple as any).RANDOM),
     assert: typia.createAssert<ObjectTuple>(),
 });

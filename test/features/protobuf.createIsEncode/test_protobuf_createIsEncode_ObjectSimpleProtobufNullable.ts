@@ -6,7 +6,7 @@ export const test_protobuf_createIsEncode_ObjectSimpleProtobufNullable =
     _test_protobuf_isEncode(
         "ObjectSimpleProtobufNullable",
     )<ObjectSimpleProtobufNullable>(ObjectSimpleProtobufNullable)({
-        isEncode: typia.protobuf.createIsEncode<ObjectSimpleProtobufNullable>(),
-        message: typia.protobuf.message<ObjectSimpleProtobufNullable>(),
+        encode: typia.protobuf.createIsEncode<ObjectSimpleProtobufNullable>(),
         decode: typia.protobuf.createDecode<ObjectSimpleProtobufNullable>(),
+        message: typia.protobuf.message<ObjectSimpleProtobufNullable>(),
     });

@@ -4,9 +4,7 @@ import { ObjectOptional } from "../../../structures/ObjectOptional";
 
 export const test_protobuf_createIsDecode_ObjectOptional =
     _test_protobuf_isDecode("ObjectOptional")<ObjectOptional>(ObjectOptional)({
-        isDecode: (
-            input: Uint8Array,
-        ): typia.Resolved<ObjectOptional> | null => {
+        decode: (input: Uint8Array): typia.Resolved<ObjectOptional> | null => {
             const is = (input: any): input is ObjectOptional => {
                 const $io0 = (input: any): boolean =>
                     (undefined === input.id || "string" === typeof input.id) &&

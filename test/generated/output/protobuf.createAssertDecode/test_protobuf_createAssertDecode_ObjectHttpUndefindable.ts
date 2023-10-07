@@ -6,9 +6,7 @@ export const test_protobuf_createAssertDecode_ObjectHttpUndefindable =
     _test_protobuf_assertDecode(
         "ObjectHttpUndefindable",
     )<ObjectHttpUndefindable>(ObjectHttpUndefindable)({
-        assertDecode: (
-            input: Uint8Array,
-        ): typia.Resolved<ObjectHttpUndefindable> => {
+        decode: (input: Uint8Array): typia.Resolved<ObjectHttpUndefindable> => {
             const decode = (
                 input: Uint8Array,
             ): typia.Resolved<ObjectHttpUndefindable> => {

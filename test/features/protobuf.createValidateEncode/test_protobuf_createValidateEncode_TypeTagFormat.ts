@@ -6,7 +6,7 @@ export const test_protobuf_createValidateEncode_TypeTagFormat =
     _test_protobuf_validateEncode("TypeTagFormat")<TypeTagFormat>(
         TypeTagFormat,
     )({
-        validateEncode: typia.protobuf.createValidateEncode<TypeTagFormat>(),
-        message: typia.protobuf.message<TypeTagFormat>(),
+        encode: typia.protobuf.createValidateEncode<TypeTagFormat>(),
         decode: typia.protobuf.createDecode<TypeTagFormat>(),
+        message: typia.protobuf.message<TypeTagFormat>(),
     });

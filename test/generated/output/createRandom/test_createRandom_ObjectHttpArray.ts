@@ -6,7 +6,8 @@ export const test_createRandom_ObjectHttpArray = _test_random(
     "ObjectHttpArray",
 )<ObjectHttpArray>(ObjectHttpArray)({
     random: (
-        generator?: Partial<typia.IRandomGenerator>,
+        generator: Partial<typia.IRandomGenerator> = (ObjectHttpArray as any)
+            .RANDOM,
     ): typia.Resolved<ObjectHttpArray> => {
         const $generator = (typia.createRandom as any).generator;
         const $ro0 = (

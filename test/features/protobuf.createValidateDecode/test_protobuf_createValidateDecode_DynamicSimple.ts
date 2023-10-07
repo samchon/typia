@@ -6,6 +6,6 @@ export const test_protobuf_createValidateDecode_DynamicSimple =
     _test_protobuf_validateDecode("DynamicSimple")<DynamicSimple>(
         DynamicSimple,
     )({
-        validateDecode: typia.protobuf.createValidateDecode<DynamicSimple>(),
+        decode: typia.protobuf.createValidateDecode<DynamicSimple>(),
         encode: typia.protobuf.createEncode<DynamicSimple>(),
     });

@@ -6,7 +6,7 @@ export const test_protobuf_createValidateDecode_ObjectUnionCompositePointer =
     _test_protobuf_validateDecode(
         "ObjectUnionCompositePointer",
     )<ObjectUnionCompositePointer>(ObjectUnionCompositePointer)({
-        validateDecode: (
+        decode: (
             input: Uint8Array,
         ): typia.IValidation<typia.Resolved<ObjectUnionCompositePointer>> => {
             const validate = (

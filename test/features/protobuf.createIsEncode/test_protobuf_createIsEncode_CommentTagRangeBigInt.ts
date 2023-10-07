@@ -6,7 +6,7 @@ export const test_protobuf_createIsEncode_CommentTagRangeBigInt =
     _test_protobuf_isEncode("CommentTagRangeBigInt")<CommentTagRangeBigInt>(
         CommentTagRangeBigInt,
     )({
-        isEncode: typia.protobuf.createIsEncode<CommentTagRangeBigInt>(),
-        message: typia.protobuf.message<CommentTagRangeBigInt>(),
+        encode: typia.protobuf.createIsEncode<CommentTagRangeBigInt>(),
         decode: typia.protobuf.createDecode<CommentTagRangeBigInt>(),
+        message: typia.protobuf.message<CommentTagRangeBigInt>(),
     });

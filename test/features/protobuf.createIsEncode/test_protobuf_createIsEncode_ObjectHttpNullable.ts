@@ -6,7 +6,7 @@ export const test_protobuf_createIsEncode_ObjectHttpNullable =
     _test_protobuf_isEncode("ObjectHttpNullable")<ObjectHttpNullable>(
         ObjectHttpNullable,
     )({
-        isEncode: typia.protobuf.createIsEncode<ObjectHttpNullable>(),
-        message: typia.protobuf.message<ObjectHttpNullable>(),
+        encode: typia.protobuf.createIsEncode<ObjectHttpNullable>(),
         decode: typia.protobuf.createDecode<ObjectHttpNullable>(),
+        message: typia.protobuf.message<ObjectHttpNullable>(),
     });

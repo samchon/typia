@@ -2,11 +2,11 @@ import typia from "../../../../src";
 import { _test_protobuf_isDecode } from "../../../internal/_test_protobuf_isDecode";
 import { ObjectIntersection } from "../../../structures/ObjectIntersection";
 
-export const test_protobuf_isDecode_ObjectIntersection =
+export const test_protobuf_createIsDecode_ObjectIntersection =
     _test_protobuf_isDecode("ObjectIntersection")<ObjectIntersection>(
         ObjectIntersection,
     )({
-        isDecode: (input) =>
+        decode: (input) =>
             ((input: Uint8Array): typia.Resolved<ObjectIntersection> | null => {
                 const is = (input: any): input is ObjectIntersection => {
                     return (

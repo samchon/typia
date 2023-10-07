@@ -6,8 +6,7 @@ export const test_protobuf_createValidateEncode_CommentTagDefault =
     _test_protobuf_validateEncode("CommentTagDefault")<CommentTagDefault>(
         CommentTagDefault,
     )({
-        validateEncode:
-            typia.protobuf.createValidateEncode<CommentTagDefault>(),
-        message: typia.protobuf.message<CommentTagDefault>(),
+        encode: typia.protobuf.createValidateEncode<CommentTagDefault>(),
         decode: typia.protobuf.createDecode<CommentTagDefault>(),
+        message: typia.protobuf.message<CommentTagDefault>(),
     });

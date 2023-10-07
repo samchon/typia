@@ -6,7 +6,9 @@ export const test_createRandom_CommentTagObjectUnion = _test_random(
     "CommentTagObjectUnion",
 )<CommentTagObjectUnion>(CommentTagObjectUnion)({
     random: (
-        generator?: Partial<typia.IRandomGenerator>,
+        generator: Partial<typia.IRandomGenerator> = (
+            CommentTagObjectUnion as any
+        ).RANDOM,
     ): typia.Resolved<CommentTagObjectUnion> => {
         const $generator = (typia.createRandom as any).generator;
         const $pick = (typia.createRandom as any).pick;

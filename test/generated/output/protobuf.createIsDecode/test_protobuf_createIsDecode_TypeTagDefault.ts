@@ -4,9 +4,7 @@ import { TypeTagDefault } from "../../../structures/TypeTagDefault";
 
 export const test_protobuf_createIsDecode_TypeTagDefault =
     _test_protobuf_isDecode("TypeTagDefault")<TypeTagDefault>(TypeTagDefault)({
-        isDecode: (
-            input: Uint8Array,
-        ): typia.Resolved<TypeTagDefault> | null => {
+        decode: (input: Uint8Array): typia.Resolved<TypeTagDefault> | null => {
             const is = (input: any): input is TypeTagDefault => {
                 const $io0 = (input: any): boolean =>
                     "boolean" === typeof input.boolean &&

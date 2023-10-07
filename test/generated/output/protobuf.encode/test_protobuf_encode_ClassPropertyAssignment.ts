@@ -2,7 +2,7 @@ import typia from "../../../../src";
 import { _test_protobuf_encode } from "../../../internal/_test_protobuf_encode";
 import { ClassPropertyAssignment } from "../../../structures/ClassPropertyAssignment";
 
-export const test_protobuf_encode_ClassPropertyAssignment =
+export const test_protobuf_createEncode_ClassPropertyAssignment =
     _test_protobuf_encode("ClassPropertyAssignment")<ClassPropertyAssignment>(
         ClassPropertyAssignment,
     )({
@@ -36,8 +36,6 @@ export const test_protobuf_encode_ClassPropertyAssignment =
                 const writer = encoder(new $Writer(sizer));
                 return writer.buffer();
             })(input),
-        message:
-            'syntax = "proto3";\n\nmessage ClassPropertyAssignment {\n    required double id = 1;\n    required string name = 2;\n    required string note = 3;\n    required bool editable = 4;\n    required bool incremental = 5;\n}',
         decode: (
             input: Uint8Array,
         ): typia.Resolved<ClassPropertyAssignment> => {
@@ -84,4 +82,6 @@ export const test_protobuf_encode_ClassPropertyAssignment =
             const reader = new $Reader(input);
             return $pdo0(reader);
         },
+        message:
+            'syntax = "proto3";\n\nmessage ClassPropertyAssignment {\n    required double id = 1;\n    required string name = 2;\n    required string note = 3;\n    required bool editable = 4;\n    required bool incremental = 5;\n}',
     });

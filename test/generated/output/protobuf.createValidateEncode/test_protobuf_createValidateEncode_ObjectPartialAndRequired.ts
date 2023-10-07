@@ -6,7 +6,7 @@ export const test_protobuf_createValidateEncode_ObjectPartialAndRequired =
     _test_protobuf_validateEncode(
         "ObjectPartialAndRequired",
     )<ObjectPartialAndRequired>(ObjectPartialAndRequired)({
-        validateEncode: (
+        encode: (
             input: ObjectPartialAndRequired,
         ): typia.IValidation<Uint8Array> => {
             const validate = (
@@ -215,8 +215,6 @@ export const test_protobuf_createValidateEncode_ObjectPartialAndRequired =
             if (output.success) output.data = encode(input);
             return output;
         },
-        message:
-            'syntax = "proto3";\n\nmessage ObjectPartialAndRequired {\n    optional string string = 1;\n    optional double number = 2;\n    optional bool boolean = 3;\n    optional ObjectPartialAndRequired object = 4;\n    repeated double array = 5;\n}',
         decode: (
             input: Uint8Array,
         ): typia.Resolved<ObjectPartialAndRequired> => {
@@ -267,4 +265,6 @@ export const test_protobuf_createValidateEncode_ObjectPartialAndRequired =
             const reader = new $Reader(input);
             return $pdo0(reader);
         },
+        message:
+            'syntax = "proto3";\n\nmessage ObjectPartialAndRequired {\n    optional string string = 1;\n    optional double number = 2;\n    optional bool boolean = 3;\n    optional ObjectPartialAndRequired object = 4;\n    repeated double array = 5;\n}',
     });

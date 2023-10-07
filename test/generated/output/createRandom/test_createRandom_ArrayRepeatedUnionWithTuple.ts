@@ -6,7 +6,9 @@ export const test_createRandom_ArrayRepeatedUnionWithTuple = _test_random(
     "ArrayRepeatedUnionWithTuple",
 )<ArrayRepeatedUnionWithTuple>(ArrayRepeatedUnionWithTuple)({
     random: (
-        generator?: Partial<typia.IRandomGenerator>,
+        generator: Partial<typia.IRandomGenerator> = (
+            ArrayRepeatedUnionWithTuple as any
+        ).RANDOM,
     ): typia.Resolved<ArrayRepeatedUnionWithTuple> => {
         const $generator = (typia.createRandom as any).generator;
         const $pick = (typia.createRandom as any).pick;

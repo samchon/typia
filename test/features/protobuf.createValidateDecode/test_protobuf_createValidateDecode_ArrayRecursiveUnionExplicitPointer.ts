@@ -6,7 +6,6 @@ export const test_protobuf_createValidateDecode_ArrayRecursiveUnionExplicitPoint
     _test_protobuf_validateDecode(
         "ArrayRecursiveUnionExplicitPointer",
     )<ArrayRecursiveUnionExplicitPointer>(ArrayRecursiveUnionExplicitPointer)({
-        validateDecode:
-            typia.protobuf.createValidateDecode<ArrayRecursiveUnionExplicitPointer>(),
+        decode: typia.protobuf.createValidateDecode<ArrayRecursiveUnionExplicitPointer>(),
         encode: typia.protobuf.createEncode<ArrayRecursiveUnionExplicitPointer>(),
     });

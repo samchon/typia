@@ -6,7 +6,7 @@ export const test_protobuf_createAssertDecode_ClassNonPublic =
     _test_protobuf_assertDecode("ClassNonPublic")<ClassNonPublic>(
         ClassNonPublic,
     )({
-        assertDecode: (input: Uint8Array): typia.Resolved<ClassNonPublic> => {
+        decode: (input: Uint8Array): typia.Resolved<ClassNonPublic> => {
             const decode = (
                 input: Uint8Array,
             ): typia.Resolved<ClassNonPublic> => {

@@ -6,7 +6,7 @@ export const test_protobuf_createValidateDecode_CommentTagDefault =
     _test_protobuf_validateDecode("CommentTagDefault")<CommentTagDefault>(
         CommentTagDefault,
     )({
-        validateDecode: (
+        decode: (
             input: Uint8Array,
         ): typia.IValidation<typia.Resolved<CommentTagDefault>> => {
             const validate = (

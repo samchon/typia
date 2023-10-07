@@ -5,6 +5,6 @@ import { DynamicTree } from "../../structures/DynamicTree";
 export const test_createRandom_DynamicTree = _test_random(
     "DynamicTree",
 )<DynamicTree>(DynamicTree)({
-    random: typia.createRandom<DynamicTree>(),
+    random: typia.createRandom<DynamicTree>((DynamicTree as any).RANDOM),
     assert: typia.createAssert<DynamicTree>(),
 });

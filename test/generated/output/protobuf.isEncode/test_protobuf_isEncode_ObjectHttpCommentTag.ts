@@ -2,11 +2,11 @@ import typia from "../../../../src";
 import { _test_protobuf_isEncode } from "../../../internal/_test_protobuf_isEncode";
 import { ObjectHttpCommentTag } from "../../../structures/ObjectHttpCommentTag";
 
-export const test_protobuf_isEncode_ObjectHttpCommentTag =
+export const test_protobuf_createIsEncode_ObjectHttpCommentTag =
     _test_protobuf_isEncode("ObjectHttpCommentTag")<ObjectHttpCommentTag>(
         ObjectHttpCommentTag,
     )({
-        isEncode: (input) =>
+        encode: (input) =>
             ((input: ObjectHttpCommentTag): Uint8Array | null => {
                 const is = (input: any): input is ObjectHttpCommentTag => {
                     const $io0 = (input: any): boolean =>
@@ -68,8 +68,6 @@ export const test_protobuf_isEncode_ObjectHttpCommentTag =
                 };
                 return is(input) ? encode(input) : null;
             })(input),
-        message:
-            'syntax = "proto3";\n\nmessage ObjectHttpCommentTag {\n    required int32 int = 1;\n    required uint64 uint64 = 2;\n    required string uuid = 3;\n    repeated double items = 4;\n}',
         decode: (input: Uint8Array): typia.Resolved<ObjectHttpCommentTag> => {
             const $Reader = (typia.protobuf.createDecode as any).Reader;
             const $pdo0 = (reader: any, length: number = -1): any => {
@@ -113,4 +111,6 @@ export const test_protobuf_isEncode_ObjectHttpCommentTag =
             const reader = new $Reader(input);
             return $pdo0(reader);
         },
+        message:
+            'syntax = "proto3";\n\nmessage ObjectHttpCommentTag {\n    required int32 int = 1;\n    required uint64 uint64 = 2;\n    required string uuid = 3;\n    repeated double items = 4;\n}',
     });

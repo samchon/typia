@@ -4,7 +4,7 @@ import { ClassMethod } from "../../../structures/ClassMethod";
 
 export const test_protobuf_createValidateDecode_ClassMethod =
     _test_protobuf_validateDecode("ClassMethod")<ClassMethod>(ClassMethod)({
-        validateDecode: (
+        decode: (
             input: Uint8Array,
         ): typia.IValidation<typia.Resolved<ClassMethod>> => {
             const validate = (input: any): typia.IValidation<ClassMethod> => {

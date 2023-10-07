@@ -5,6 +5,8 @@ import { ObjectHttpConstant } from "../../structures/ObjectHttpConstant";
 export const test_createRandom_ObjectHttpConstant = _test_random(
     "ObjectHttpConstant",
 )<ObjectHttpConstant>(ObjectHttpConstant)({
-    random: typia.createRandom<ObjectHttpConstant>(),
+    random: typia.createRandom<ObjectHttpConstant>(
+        (ObjectHttpConstant as any).RANDOM,
+    ),
     assert: typia.createAssert<ObjectHttpConstant>(),
 });

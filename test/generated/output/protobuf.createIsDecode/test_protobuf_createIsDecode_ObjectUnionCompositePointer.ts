@@ -6,7 +6,7 @@ export const test_protobuf_createIsDecode_ObjectUnionCompositePointer =
     _test_protobuf_isDecode(
         "ObjectUnionCompositePointer",
     )<ObjectUnionCompositePointer>(ObjectUnionCompositePointer)({
-        isDecode: (
+        decode: (
             input: Uint8Array,
         ): typia.Resolved<ObjectUnionCompositePointer> | null => {
             const is = (input: any): input is ObjectUnionCompositePointer => {

@@ -6,7 +6,7 @@ export const test_protobuf_createAssertDecode_ObjectPartialAndRequired =
     _test_protobuf_assertDecode(
         "ObjectPartialAndRequired",
     )<ObjectPartialAndRequired>(ObjectPartialAndRequired)({
-        assertDecode: (
+        decode: (
             input: Uint8Array,
         ): typia.Resolved<ObjectPartialAndRequired> => {
             const decode = (

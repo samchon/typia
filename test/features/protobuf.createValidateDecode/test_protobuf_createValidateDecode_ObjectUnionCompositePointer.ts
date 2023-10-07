@@ -6,7 +6,6 @@ export const test_protobuf_createValidateDecode_ObjectUnionCompositePointer =
     _test_protobuf_validateDecode(
         "ObjectUnionCompositePointer",
     )<ObjectUnionCompositePointer>(ObjectUnionCompositePointer)({
-        validateDecode:
-            typia.protobuf.createValidateDecode<ObjectUnionCompositePointer>(),
+        decode: typia.protobuf.createValidateDecode<ObjectUnionCompositePointer>(),
         encode: typia.protobuf.createEncode<ObjectUnionCompositePointer>(),
     });

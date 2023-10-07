@@ -456,8 +456,10 @@ export namespace MiscPruneProgrammer {
     const filter = (meta: Metadata): boolean =>
         meta.any === false &&
         (meta.objects.length !== 0 ||
-            meta.tuples.some((t) =>
-                t.type.elements.some((e) => filter(e.rest ?? e)),
+            meta.tuples.some(
+                (t) =>
+                    !!t.type.elements.length &&
+                    t.type.elements.some((e) => filter(e.rest ?? e)),
             ) ||
             meta.arrays.some((e) => filter(e.type.value)));
 

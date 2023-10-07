@@ -6,6 +6,6 @@ export const test_protobuf_createValidateDecode_TemplateUnion =
     _test_protobuf_validateDecode("TemplateUnion")<TemplateUnion>(
         TemplateUnion,
     )({
-        validateDecode: typia.protobuf.createValidateDecode<TemplateUnion>(),
+        decode: typia.protobuf.createValidateDecode<TemplateUnion>(),
         encode: typia.protobuf.createEncode<TemplateUnion>(),
     });

@@ -4,7 +4,7 @@ import { TypeTagFormat } from "../../structures/TypeTagFormat";
 
 export const test_protobuf_createIsEncode_TypeTagFormat =
     _test_protobuf_isEncode("TypeTagFormat")<TypeTagFormat>(TypeTagFormat)({
-        isEncode: typia.protobuf.createIsEncode<TypeTagFormat>(),
-        message: typia.protobuf.message<TypeTagFormat>(),
+        encode: typia.protobuf.createIsEncode<TypeTagFormat>(),
         decode: typia.protobuf.createDecode<TypeTagFormat>(),
+        message: typia.protobuf.message<TypeTagFormat>(),
     });

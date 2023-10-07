@@ -2,11 +2,11 @@ import typia from "../../../../src";
 import { _test_protobuf_assertDecode } from "../../../internal/_test_protobuf_assertDecode";
 import { ObjectIntersection } from "../../../structures/ObjectIntersection";
 
-export const test_protobuf_assertDecode_ObjectIntersection =
+export const test_protobuf_createAssertDecode_ObjectIntersection =
     _test_protobuf_assertDecode("ObjectIntersection")<ObjectIntersection>(
         ObjectIntersection,
     )({
-        assertDecode: (input) =>
+        decode: (input) =>
             ((input: Uint8Array): typia.Resolved<ObjectIntersection> => {
                 const decode = (
                     input: Uint8Array,

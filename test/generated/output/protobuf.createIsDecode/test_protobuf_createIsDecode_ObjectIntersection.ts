@@ -6,7 +6,7 @@ export const test_protobuf_createIsDecode_ObjectIntersection =
     _test_protobuf_isDecode("ObjectIntersection")<ObjectIntersection>(
         ObjectIntersection,
     )({
-        isDecode: (
+        decode: (
             input: Uint8Array,
         ): typia.Resolved<ObjectIntersection> | null => {
             const is = (input: any): input is ObjectIntersection => {

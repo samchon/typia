@@ -51,7 +51,7 @@ export const test_random_TypeTagAtomicUnion = _test_random(
                 ])(),
             });
             return $ro0();
-        })(),
+        })((TypeTagAtomicUnion as any).RANDOM),
     assert: (input: any): TypeTagAtomicUnion => {
         const __is = (input: any): input is TypeTagAtomicUnion => {
             const $io0 = (input: any): boolean =>

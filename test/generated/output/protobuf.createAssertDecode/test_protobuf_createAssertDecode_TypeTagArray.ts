@@ -4,7 +4,7 @@ import { TypeTagArray } from "../../../structures/TypeTagArray";
 
 export const test_protobuf_createAssertDecode_TypeTagArray =
     _test_protobuf_assertDecode("TypeTagArray")<TypeTagArray>(TypeTagArray)({
-        assertDecode: (input: Uint8Array): typia.Resolved<TypeTagArray> => {
+        decode: (input: Uint8Array): typia.Resolved<TypeTagArray> => {
             const decode = (
                 input: Uint8Array,
             ): typia.Resolved<TypeTagArray> => {

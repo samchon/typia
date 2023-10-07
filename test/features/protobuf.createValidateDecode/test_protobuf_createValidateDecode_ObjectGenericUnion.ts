@@ -6,7 +6,6 @@ export const test_protobuf_createValidateDecode_ObjectGenericUnion =
     _test_protobuf_validateDecode("ObjectGenericUnion")<ObjectGenericUnion>(
         ObjectGenericUnion,
     )({
-        validateDecode:
-            typia.protobuf.createValidateDecode<ObjectGenericUnion>(),
+        decode: typia.protobuf.createValidateDecode<ObjectGenericUnion>(),
         encode: typia.protobuf.createEncode<ObjectGenericUnion>(),
     });

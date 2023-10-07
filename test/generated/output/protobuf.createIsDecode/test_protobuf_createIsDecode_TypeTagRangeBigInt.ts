@@ -6,7 +6,7 @@ export const test_protobuf_createIsDecode_TypeTagRangeBigInt =
     _test_protobuf_isDecode("TypeTagRangeBigInt")<TypeTagRangeBigInt>(
         TypeTagRangeBigInt,
     )({
-        isDecode: (
+        decode: (
             input: Uint8Array,
         ): typia.Resolved<TypeTagRangeBigInt> | null => {
             const is = (input: any): input is TypeTagRangeBigInt => {

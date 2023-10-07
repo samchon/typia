@@ -5,6 +5,6 @@ import { ArrayMatrix } from "../../structures/ArrayMatrix";
 export const test_random_ArrayMatrix = _test_random("ArrayMatrix")<ArrayMatrix>(
     ArrayMatrix,
 )({
-    random: () => typia.random<ArrayMatrix>(),
+    random: () => typia.random<ArrayMatrix>((ArrayMatrix as any).RANDOM),
     assert: typia.createAssert<ArrayMatrix>(),
 });

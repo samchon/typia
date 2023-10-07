@@ -157,7 +157,7 @@ export const test_random_CommentTagRangeBigInt = _test_random(
                     ),
             });
             return $ro0();
-        })(),
+        })((CommentTagRangeBigInt as any).RANDOM),
     assert: (input: any): CommentTagRangeBigInt => {
         const __is = (input: any): input is CommentTagRangeBigInt => {
             const $io0 = (input: any): boolean =>

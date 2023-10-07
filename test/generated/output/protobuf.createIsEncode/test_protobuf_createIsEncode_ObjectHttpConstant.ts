@@ -6,7 +6,7 @@ export const test_protobuf_createIsEncode_ObjectHttpConstant =
     _test_protobuf_isEncode("ObjectHttpConstant")<ObjectHttpConstant>(
         ObjectHttpConstant,
     )({
-        isEncode: (input: ObjectHttpConstant): Uint8Array | null => {
+        encode: (input: ObjectHttpConstant): Uint8Array | null => {
             const is = (input: any): input is ObjectHttpConstant => {
                 const $io0 = (input: any): boolean =>
                     false === input.boolean &&
@@ -53,8 +53,6 @@ export const test_protobuf_createIsEncode_ObjectHttpConstant =
             };
             return is(input) ? encode(input) : null;
         },
-        message:
-            'syntax = "proto3";\n\nmessage ObjectHttpConstant {\n    required bool boolean = 1;\n    required uint64 bigint = 2;\n    required int32 number = 3;\n    required string string = 4;\n    required string template = 5;\n}',
         decode: (input: Uint8Array): typia.Resolved<ObjectHttpConstant> => {
             const $Reader = (typia.protobuf.createDecode as any).Reader;
             const $pdo0 = (reader: any, length: number = -1): any => {
@@ -99,4 +97,6 @@ export const test_protobuf_createIsEncode_ObjectHttpConstant =
             const reader = new $Reader(input);
             return $pdo0(reader);
         },
+        message:
+            'syntax = "proto3";\n\nmessage ObjectHttpConstant {\n    required bool boolean = 1;\n    required uint64 bigint = 2;\n    required int32 number = 3;\n    required string string = 4;\n    required string template = 5;\n}',
     });

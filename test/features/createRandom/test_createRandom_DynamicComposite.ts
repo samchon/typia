@@ -5,6 +5,8 @@ import { DynamicComposite } from "../../structures/DynamicComposite";
 export const test_createRandom_DynamicComposite = _test_random(
     "DynamicComposite",
 )<DynamicComposite>(DynamicComposite)({
-    random: typia.createRandom<DynamicComposite>(),
+    random: typia.createRandom<DynamicComposite>(
+        (DynamicComposite as any).RANDOM,
+    ),
     assert: typia.createAssert<DynamicComposite>(),
 });

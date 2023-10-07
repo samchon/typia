@@ -4,7 +4,7 @@ import { TypeTagLength } from "../../../structures/TypeTagLength";
 
 export const test_protobuf_createIsEncode_TypeTagLength =
     _test_protobuf_isEncode("TypeTagLength")<TypeTagLength>(TypeTagLength)({
-        isEncode: (input: TypeTagLength): Uint8Array | null => {
+        encode: (input: TypeTagLength): Uint8Array | null => {
             const is = (input: any): input is TypeTagLength => {
                 const $io0 = (input: any): boolean =>
                     Array.isArray(input.value) &&
@@ -89,8 +89,6 @@ export const test_protobuf_createIsEncode_TypeTagLength =
             };
             return is(input) ? encode(input) : null;
         },
-        message:
-            'syntax = "proto3";\n\nmessage TypeTagLength {\n    repeated TypeTagLength.Type value = 1;\n    message Type {\n        required string fixed = 1;\n        required string minimum = 2;\n        required string maximum = 3;\n        required string minimum_and_maximum = 4;\n        required string equal = 5;\n    }\n}',
         decode: (input: Uint8Array): typia.Resolved<TypeTagLength> => {
             const $Reader = (typia.protobuf.createDecode as any).Reader;
             const $pdo0 = (reader: any, length: number = -1): any => {
@@ -154,4 +152,6 @@ export const test_protobuf_createIsEncode_TypeTagLength =
             const reader = new $Reader(input);
             return $pdo0(reader);
         },
+        message:
+            'syntax = "proto3";\n\nmessage TypeTagLength {\n    repeated TypeTagLength.Type value = 1;\n    message Type {\n        required string fixed = 1;\n        required string minimum = 2;\n        required string maximum = 3;\n        required string minimum_and_maximum = 4;\n        required string equal = 5;\n    }\n}',
     });

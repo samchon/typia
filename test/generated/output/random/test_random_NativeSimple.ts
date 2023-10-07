@@ -122,7 +122,7 @@ export const test_random_NativeSimple = _test_random(
                 ),
             });
             return $ro0();
-        })(),
+        })((NativeSimple as any).RANDOM),
     assert: (input: any): NativeSimple => {
         const __is = (input: any): input is NativeSimple => {
             const $io0 = (input: any): boolean =>

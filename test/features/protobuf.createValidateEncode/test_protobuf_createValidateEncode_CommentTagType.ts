@@ -6,7 +6,7 @@ export const test_protobuf_createValidateEncode_CommentTagType =
     _test_protobuf_validateEncode("CommentTagType")<CommentTagType>(
         CommentTagType,
     )({
-        validateEncode: typia.protobuf.createValidateEncode<CommentTagType>(),
-        message: typia.protobuf.message<CommentTagType>(),
+        encode: typia.protobuf.createValidateEncode<CommentTagType>(),
         decode: typia.protobuf.createDecode<CommentTagType>(),
+        message: typia.protobuf.message<CommentTagType>(),
     });

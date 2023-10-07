@@ -4,9 +4,7 @@ import { ObjectRequired } from "../../../structures/ObjectRequired";
 
 export const test_protobuf_createIsDecode_ObjectRequired =
     _test_protobuf_isDecode("ObjectRequired")<ObjectRequired>(ObjectRequired)({
-        isDecode: (
-            input: Uint8Array,
-        ): typia.Resolved<ObjectRequired> | null => {
+        decode: (input: Uint8Array): typia.Resolved<ObjectRequired> | null => {
             const is = (input: any): input is ObjectRequired => {
                 const $io0 = (input: any): boolean =>
                     "boolean" === typeof input.boolean &&

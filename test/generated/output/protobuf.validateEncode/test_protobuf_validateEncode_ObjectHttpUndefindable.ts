@@ -2,11 +2,11 @@ import typia from "../../../../src";
 import { _test_protobuf_validateEncode } from "../../../internal/_test_protobuf_validateEncode";
 import { ObjectHttpUndefindable } from "../../../structures/ObjectHttpUndefindable";
 
-export const test_protobuf_validateEncode_ObjectHttpUndefindable =
+export const test_protobuf_createValidateEncode_ObjectHttpUndefindable =
     _test_protobuf_validateEncode(
         "ObjectHttpUndefindable",
     )<ObjectHttpUndefindable>(ObjectHttpUndefindable)({
-        validateEncode: (input) =>
+        encode: (input) =>
             ((input: ObjectHttpUndefindable): typia.IValidation<Uint8Array> => {
                 const validate = (
                     input: any,
@@ -210,8 +210,6 @@ export const test_protobuf_validateEncode_ObjectHttpUndefindable =
                 if (output.success) output.data = encode(input);
                 return output;
             })(input),
-        message:
-            'syntax = "proto3";\n\nmessage ObjectHttpUndefindable {\n    optional bool boolean = 1;\n    optional int64 bigint = 2;\n    optional double number = 3;\n    optional string string = 4;\n    optional bool constantBoolean = 5;\n    optional uint64 constantBigint = 6;\n    optional int32 constantNumber = 7;\n    optional string constantString = 8;\n}',
         decode: (input: Uint8Array): typia.Resolved<ObjectHttpUndefindable> => {
             const $Reader = (typia.protobuf.createDecode as any).Reader;
             const $pdo0 = (reader: any, length: number = -1): any => {
@@ -271,4 +269,6 @@ export const test_protobuf_validateEncode_ObjectHttpUndefindable =
             const reader = new $Reader(input);
             return $pdo0(reader);
         },
+        message:
+            'syntax = "proto3";\n\nmessage ObjectHttpUndefindable {\n    optional bool boolean = 1;\n    optional int64 bigint = 2;\n    optional double number = 3;\n    optional string string = 4;\n    optional bool constantBoolean = 5;\n    optional uint64 constantBigint = 6;\n    optional int32 constantNumber = 7;\n    optional string constantString = 8;\n}',
     });

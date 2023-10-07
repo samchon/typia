@@ -5,7 +5,7 @@ import { TypeTagNaN } from "../../../structures/TypeTagNaN";
 export const test_protobuf_createIsDecode_TypeTagNaN = _test_protobuf_isDecode(
     "TypeTagNaN",
 )<TypeTagNaN>(TypeTagNaN)({
-    isDecode: (input: Uint8Array): typia.Resolved<TypeTagNaN> | null => {
+    decode: (input: Uint8Array): typia.Resolved<TypeTagNaN> | null => {
         const is = (input: any): input is TypeTagNaN => {
             return (
                 "object" === typeof input &&

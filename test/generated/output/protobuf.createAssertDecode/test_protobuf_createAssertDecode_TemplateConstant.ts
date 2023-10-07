@@ -6,7 +6,7 @@ export const test_protobuf_createAssertDecode_TemplateConstant =
     _test_protobuf_assertDecode("TemplateConstant")<TemplateConstant>(
         TemplateConstant,
     )({
-        assertDecode: (input: Uint8Array): typia.Resolved<TemplateConstant> => {
+        decode: (input: Uint8Array): typia.Resolved<TemplateConstant> => {
             const decode = (
                 input: Uint8Array,
             ): typia.Resolved<TemplateConstant> => {

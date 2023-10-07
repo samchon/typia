@@ -3226,9 +3226,4 @@ const validate = (obj: IJsonComponents.IObject) => (expected: Property[]) => {
         expected.sort((a, b) => a[0].localeCompare(b[0])),
     )(result.sort((a, b) => a[0].localeCompare(b[0])));
 };
-interface IProperty {
-    key: string;
-    required: boolean;
-    optional: boolean;
-}
 type Property = [string, boolean, boolean];

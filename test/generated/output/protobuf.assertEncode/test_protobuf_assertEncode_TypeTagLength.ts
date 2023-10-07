@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_protobuf_assertEncode } from "../../../internal/_test_protobuf_assertEncode";
 import { TypeTagLength } from "../../../structures/TypeTagLength";
 
-export const test_protobuf_assertEncode_TypeTagLength =
+export const test_protobuf_createAssertEncode_TypeTagLength =
     _test_protobuf_assertEncode("TypeTagLength")<TypeTagLength>(TypeTagLength)({
-        assertEncode: (input) =>
+        encode: (input) =>
             ((input: any): Uint8Array => {
                 const assert = (input: any): TypeTagLength => {
                     const __is = (input: any): input is TypeTagLength => {
@@ -256,8 +256,6 @@ export const test_protobuf_assertEncode_TypeTagLength =
                 };
                 return encode(assert(input));
             })(input),
-        message:
-            'syntax = "proto3";\n\nmessage TypeTagLength {\n    repeated TypeTagLength.Type value = 1;\n    message Type {\n        required string fixed = 1;\n        required string minimum = 2;\n        required string maximum = 3;\n        required string minimum_and_maximum = 4;\n        required string equal = 5;\n    }\n}',
         decode: (input: Uint8Array): typia.Resolved<TypeTagLength> => {
             const $Reader = (typia.protobuf.createDecode as any).Reader;
             const $pdo0 = (reader: any, length: number = -1): any => {
@@ -321,4 +319,6 @@ export const test_protobuf_assertEncode_TypeTagLength =
             const reader = new $Reader(input);
             return $pdo0(reader);
         },
+        message:
+            'syntax = "proto3";\n\nmessage TypeTagLength {\n    repeated TypeTagLength.Type value = 1;\n    message Type {\n        required string fixed = 1;\n        required string minimum = 2;\n        required string maximum = 3;\n        required string minimum_and_maximum = 4;\n        required string equal = 5;\n    }\n}',
     });

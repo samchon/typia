@@ -3,7 +3,7 @@ import { JsonAssertStringifyProgrammer } from "../../../programmers/json/JsonAss
 import { GenericTransformer } from "../../internal/GenericTransformer";
 
 export namespace JsonAssertStringifyTransformer {
-    export const transform = GenericTransformer.scalar("assertStringify")(
+    export const transform = GenericTransformer.scalar("json.assertStringify")(
         (project) => (modulo) =>
             JsonAssertStringifyProgrammer.write(project)(modulo),
     );

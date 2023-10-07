@@ -7,6 +7,6 @@ export const test_protobuf_createEncode_ObjectHttpUndefindable =
         ObjectHttpUndefindable,
     )({
         encode: typia.protobuf.createEncode<ObjectHttpUndefindable>(),
-        message: typia.protobuf.message<ObjectHttpUndefindable>(),
         decode: typia.protobuf.createDecode<ObjectHttpUndefindable>(),
+        message: typia.protobuf.message<ObjectHttpUndefindable>(),
     });

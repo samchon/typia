@@ -6,7 +6,7 @@ export const test_protobuf_createValidateDecode_TypeTagInfinite =
     _test_protobuf_validateDecode("TypeTagInfinite")<TypeTagInfinite>(
         TypeTagInfinite,
     )({
-        validateDecode: (
+        decode: (
             input: Uint8Array,
         ): typia.IValidation<typia.Resolved<TypeTagInfinite>> => {
             const validate = (

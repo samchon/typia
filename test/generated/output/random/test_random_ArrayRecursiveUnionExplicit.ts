@@ -164,7 +164,7 @@ export const test_random_ArrayRecursiveUnionExplicit = _test_random(
                     () => $ro4(),
                 ])(),
             );
-        })(),
+        })((ArrayRecursiveUnionExplicit as any).RANDOM),
     assert: (input: any): ArrayRecursiveUnionExplicit => {
         const __is = (input: any): input is ArrayRecursiveUnionExplicit => {
             const $io0 = (input: any): boolean =>

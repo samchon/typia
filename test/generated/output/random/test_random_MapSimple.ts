@@ -83,7 +83,7 @@ export const test_random_MapSimple = _test_random("MapSimple")<MapSimple>(
                     (generator?.number ?? $generator.number)(0, 100),
             });
             return $ro0();
-        })(),
+        })((MapSimple as any).RANDOM),
     assert: (input: any): MapSimple => {
         const __is = (input: any): input is MapSimple => {
             const $io0 = (input: any): boolean =>

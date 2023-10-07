@@ -6,6 +6,6 @@ export const test_protobuf_createAssertDecode_TypeTagTypeUnion =
     _test_protobuf_assertDecode("TypeTagTypeUnion")<TypeTagTypeUnion>(
         TypeTagTypeUnion,
     )({
-        assertDecode: typia.protobuf.createAssertDecode<TypeTagTypeUnion>(),
+        decode: typia.protobuf.createAssertDecode<TypeTagTypeUnion>(),
         encode: typia.protobuf.createEncode<TypeTagTypeUnion>(),
     });

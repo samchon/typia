@@ -2,7 +2,7 @@ import typia from "../../../../src";
 import { _test_protobuf_encode } from "../../../internal/_test_protobuf_encode";
 import { ObjectSimpleProtobufNullable } from "../../../structures/ObjectSimpleProtobufNullable";
 
-export const test_protobuf_encode_ObjectSimpleProtobufNullable =
+export const test_protobuf_createEncode_ObjectSimpleProtobufNullable =
     _test_protobuf_encode(
         "ObjectSimpleProtobufNullable",
     )<ObjectSimpleProtobufNullable>(ObjectSimpleProtobufNullable)({
@@ -66,8 +66,6 @@ export const test_protobuf_encode_ObjectSimpleProtobufNullable =
                 const writer = encoder(new $Writer(sizer));
                 return writer.buffer();
             })(input),
-        message:
-            'syntax = "proto3";\n\nmessage ObjectSimpleProtobufNullable {\n    optional bool bool = 1;\n    optional int32 int32 = 2;\n    optional uint32 uint32 = 3;\n    optional int64 int64 = 4;\n    optional uint64 uint64 = 5;\n    optional float float = 6;\n    optional double double = 7;\n    optional string string = 8;\n    optional bytes bytes = 9;\n}',
         decode: (
             input: Uint8Array,
         ): typia.Resolved<ObjectSimpleProtobufNullable> => {
@@ -134,4 +132,6 @@ export const test_protobuf_encode_ObjectSimpleProtobufNullable =
             const reader = new $Reader(input);
             return $pdo0(reader);
         },
+        message:
+            'syntax = "proto3";\n\nmessage ObjectSimpleProtobufNullable {\n    optional bool bool = 1;\n    optional int32 int32 = 2;\n    optional uint32 uint32 = 3;\n    optional int64 int64 = 4;\n    optional uint64 uint64 = 5;\n    optional float float = 6;\n    optional double double = 7;\n    optional string string = 8;\n    optional bytes bytes = 9;\n}',
     });

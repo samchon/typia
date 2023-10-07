@@ -6,7 +6,7 @@ export const test_protobuf_createIsEncode_CommentTagArray =
     _test_protobuf_isEncode("CommentTagArray")<CommentTagArray>(
         CommentTagArray,
     )({
-        isEncode: typia.protobuf.createIsEncode<CommentTagArray>(),
-        message: typia.protobuf.message<CommentTagArray>(),
+        encode: typia.protobuf.createIsEncode<CommentTagArray>(),
         decode: typia.protobuf.createDecode<CommentTagArray>(),
+        message: typia.protobuf.message<CommentTagArray>(),
     });

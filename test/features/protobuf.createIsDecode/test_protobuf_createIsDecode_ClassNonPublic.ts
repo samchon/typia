@@ -4,6 +4,6 @@ import { ClassNonPublic } from "../../structures/ClassNonPublic";
 
 export const test_protobuf_createIsDecode_ClassNonPublic =
     _test_protobuf_isDecode("ClassNonPublic")<ClassNonPublic>(ClassNonPublic)({
-        isDecode: typia.protobuf.createIsDecode<ClassNonPublic>(),
+        decode: typia.protobuf.createIsDecode<ClassNonPublic>(),
         encode: typia.protobuf.createEncode<ClassNonPublic>(),
     });

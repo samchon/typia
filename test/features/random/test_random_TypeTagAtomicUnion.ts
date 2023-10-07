@@ -5,6 +5,7 @@ import { TypeTagAtomicUnion } from "../../structures/TypeTagAtomicUnion";
 export const test_random_TypeTagAtomicUnion = _test_random(
     "TypeTagAtomicUnion",
 )<TypeTagAtomicUnion>(TypeTagAtomicUnion)({
-    random: () => typia.random<TypeTagAtomicUnion>(),
+    random: () =>
+        typia.random<TypeTagAtomicUnion>((TypeTagAtomicUnion as any).RANDOM),
     assert: typia.createAssert<TypeTagAtomicUnion>(),
 });

@@ -6,7 +6,9 @@ export const test_createRandom_ObjectHttpCommentTag = _test_random(
     "ObjectHttpCommentTag",
 )<ObjectHttpCommentTag>(ObjectHttpCommentTag)({
     random: (
-        generator?: Partial<typia.IRandomGenerator>,
+        generator: Partial<typia.IRandomGenerator> = (
+            ObjectHttpCommentTag as any
+        ).RANDOM,
     ): typia.Resolved<ObjectHttpCommentTag> => {
         const $generator = (typia.createRandom as any).generator;
         const $ro0 = (

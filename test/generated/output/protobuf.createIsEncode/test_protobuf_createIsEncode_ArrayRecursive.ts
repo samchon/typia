@@ -4,7 +4,7 @@ import { ArrayRecursive } from "../../../structures/ArrayRecursive";
 
 export const test_protobuf_createIsEncode_ArrayRecursive =
     _test_protobuf_isEncode("ArrayRecursive")<ArrayRecursive>(ArrayRecursive)({
-        isEncode: (input: ArrayRecursive): Uint8Array | null => {
+        encode: (input: ArrayRecursive): Uint8Array | null => {
             const is = (input: any): input is ArrayRecursive => {
                 const $io0 = (input: any): boolean =>
                     Array.isArray(input.children) &&
@@ -95,8 +95,6 @@ export const test_protobuf_createIsEncode_ArrayRecursive =
             };
             return is(input) ? encode(input) : null;
         },
-        message:
-            'syntax = "proto3";\n\nmessage ArrayRecursive {\n    message ICategory {\n        repeated ArrayRecursive.ICategory children = 1;\n        required double id = 2;\n        required string code = 3;\n        required double sequence = 4;\n        required ArrayRecursive.ITimestamp created_at = 5;\n    }\n\n    message ITimestamp {\n        required double time = 1;\n        required double zone = 2;\n    }\n}',
         decode: (input: Uint8Array): typia.Resolved<ArrayRecursive> => {
             const $Reader = (typia.protobuf.createDecode as any).Reader;
             const $pdo0 = (reader: any, length: number = -1): any => {
@@ -167,4 +165,6 @@ export const test_protobuf_createIsEncode_ArrayRecursive =
             const reader = new $Reader(input);
             return $pdo0(reader);
         },
+        message:
+            'syntax = "proto3";\n\nmessage ArrayRecursive {\n    message ICategory {\n        repeated ArrayRecursive.ICategory children = 1;\n        required double id = 2;\n        required string code = 3;\n        required double sequence = 4;\n        required ArrayRecursive.ITimestamp created_at = 5;\n    }\n\n    message ITimestamp {\n        required double time = 1;\n        required double zone = 2;\n    }\n}',
     });

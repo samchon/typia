@@ -4,9 +4,7 @@ import { ClassNonPublic } from "../../../structures/ClassNonPublic";
 
 export const test_protobuf_createIsDecode_ClassNonPublic =
     _test_protobuf_isDecode("ClassNonPublic")<ClassNonPublic>(ClassNonPublic)({
-        isDecode: (
-            input: Uint8Array,
-        ): typia.Resolved<ClassNonPublic> | null => {
+        decode: (input: Uint8Array): typia.Resolved<ClassNonPublic> | null => {
             const is = (input: any): input is ClassNonPublic => {
                 return (
                     "object" === typeof input &&

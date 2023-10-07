@@ -6,7 +6,8 @@ export const test_createRandom_ArraySimple = _test_random(
     "ArraySimple",
 )<ArraySimple>(ArraySimple)({
     random: (
-        generator?: Partial<typia.IRandomGenerator>,
+        generator: Partial<typia.IRandomGenerator> = (ArraySimple as any)
+            .RANDOM,
     ): typia.Resolved<ArraySimple> => {
         const $generator = (typia.createRandom as any).generator;
         const $ro0 = (

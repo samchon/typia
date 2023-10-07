@@ -6,9 +6,7 @@ export const test_protobuf_createAssertDecode_ObjectIntersection =
     _test_protobuf_assertDecode("ObjectIntersection")<ObjectIntersection>(
         ObjectIntersection,
     )({
-        assertDecode: (
-            input: Uint8Array,
-        ): typia.Resolved<ObjectIntersection> => {
+        decode: (input: Uint8Array): typia.Resolved<ObjectIntersection> => {
             const decode = (
                 input: Uint8Array,
             ): typia.Resolved<ObjectIntersection> => {

@@ -6,7 +6,7 @@ export const test_protobuf_createValidateDecode_ArrayRecursive =
     _test_protobuf_validateDecode("ArrayRecursive")<ArrayRecursive>(
         ArrayRecursive,
     )({
-        validateDecode: (
+        decode: (
             input: Uint8Array,
         ): typia.IValidation<typia.Resolved<ArrayRecursive>> => {
             const validate = (

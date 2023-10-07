@@ -6,7 +6,7 @@ export const test_createRandom_ArrayUnion = _test_random(
     "ArrayUnion",
 )<ArrayUnion>(ArrayUnion)({
     random: (
-        generator?: Partial<typia.IRandomGenerator>,
+        generator: Partial<typia.IRandomGenerator> = (ArrayUnion as any).RANDOM,
     ): typia.Resolved<ArrayUnion> => {
         const $generator = (typia.createRandom as any).generator;
         const $pick = (typia.createRandom as any).pick;

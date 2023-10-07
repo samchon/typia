@@ -2,11 +2,11 @@ import typia from "../../../../src";
 import { _test_protobuf_isEncode } from "../../../internal/_test_protobuf_isEncode";
 import { ObjectIntersection } from "../../../structures/ObjectIntersection";
 
-export const test_protobuf_isEncode_ObjectIntersection =
+export const test_protobuf_createIsEncode_ObjectIntersection =
     _test_protobuf_isEncode("ObjectIntersection")<ObjectIntersection>(
         ObjectIntersection,
     )({
-        isEncode: (input) =>
+        encode: (input) =>
             ((input: ObjectIntersection): Uint8Array | null => {
                 const is = (input: any): input is ObjectIntersection => {
                     return (
@@ -42,8 +42,6 @@ export const test_protobuf_isEncode_ObjectIntersection =
                 };
                 return is(input) ? encode(input) : null;
             })(input),
-        message:
-            'syntax = "proto3";\n\nmessage ObjectIntersection {\n    required string email = 1;\n    required string name = 2;\n    required bool vulnerable = 3;\n}',
         decode: (input: Uint8Array): typia.Resolved<ObjectIntersection> => {
             const $Reader = (typia.protobuf.createDecode as any).Reader;
             const $pdo0 = (reader: any, length: number = -1): any => {
@@ -78,4 +76,6 @@ export const test_protobuf_isEncode_ObjectIntersection =
             const reader = new $Reader(input);
             return $pdo0(reader);
         },
+        message:
+            'syntax = "proto3";\n\nmessage ObjectIntersection {\n    required string email = 1;\n    required string name = 2;\n    required bool vulnerable = 3;\n}',
     });

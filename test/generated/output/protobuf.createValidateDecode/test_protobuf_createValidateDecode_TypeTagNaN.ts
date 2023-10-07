@@ -4,7 +4,7 @@ import { TypeTagNaN } from "../../../structures/TypeTagNaN";
 
 export const test_protobuf_createValidateDecode_TypeTagNaN =
     _test_protobuf_validateDecode("TypeTagNaN")<TypeTagNaN>(TypeTagNaN)({
-        validateDecode: (
+        decode: (
             input: Uint8Array,
         ): typia.IValidation<typia.Resolved<TypeTagNaN>> => {
             const validate = (input: any): typia.IValidation<TypeTagNaN> => {

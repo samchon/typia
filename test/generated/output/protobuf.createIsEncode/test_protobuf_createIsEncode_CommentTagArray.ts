@@ -6,7 +6,7 @@ export const test_protobuf_createIsEncode_CommentTagArray =
     _test_protobuf_isEncode("CommentTagArray")<CommentTagArray>(
         CommentTagArray,
     )({
-        isEncode: (input: CommentTagArray): Uint8Array | null => {
+        encode: (input: CommentTagArray): Uint8Array | null => {
             const is = (input: any): input is CommentTagArray => {
                 const $io0 = (input: any): boolean =>
                     Array.isArray(input.value) &&
@@ -128,8 +128,6 @@ export const test_protobuf_createIsEncode_CommentTagArray =
             };
             return is(input) ? encode(input) : null;
         },
-        message:
-            'syntax = "proto3";\n\nmessage CommentTagArray {\n    repeated CommentTagArray.Type value = 1;\n    message Type {\n        repeated string items = 1;\n        repeated double minItems = 2;\n        repeated string both = 3;\n        repeated double equal = 4;\n    }\n}',
         decode: (input: Uint8Array): typia.Resolved<CommentTagArray> => {
             const $Reader = (typia.protobuf.createDecode as any).Reader;
             const $pdo0 = (reader: any, length: number = -1): any => {
@@ -196,4 +194,6 @@ export const test_protobuf_createIsEncode_CommentTagArray =
             const reader = new $Reader(input);
             return $pdo0(reader);
         },
+        message:
+            'syntax = "proto3";\n\nmessage CommentTagArray {\n    repeated CommentTagArray.Type value = 1;\n    message Type {\n        repeated string items = 1;\n        repeated double minItems = 2;\n        repeated string both = 3;\n        repeated double equal = 4;\n    }\n}',
     });

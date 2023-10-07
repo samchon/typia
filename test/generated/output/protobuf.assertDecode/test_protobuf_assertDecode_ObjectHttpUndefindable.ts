@@ -2,11 +2,11 @@ import typia from "../../../../src";
 import { _test_protobuf_assertDecode } from "../../../internal/_test_protobuf_assertDecode";
 import { ObjectHttpUndefindable } from "../../../structures/ObjectHttpUndefindable";
 
-export const test_protobuf_assertDecode_ObjectHttpUndefindable =
+export const test_protobuf_createAssertDecode_ObjectHttpUndefindable =
     _test_protobuf_assertDecode(
         "ObjectHttpUndefindable",
     )<ObjectHttpUndefindable>(ObjectHttpUndefindable)({
-        assertDecode: (input) =>
+        decode: (input) =>
             ((input: Uint8Array): typia.Resolved<ObjectHttpUndefindable> => {
                 const decode = (
                     input: Uint8Array,

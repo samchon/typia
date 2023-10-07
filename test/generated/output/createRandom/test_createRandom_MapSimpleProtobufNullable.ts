@@ -6,7 +6,9 @@ export const test_createRandom_MapSimpleProtobufNullable = _test_random(
     "MapSimpleProtobufNullable",
 )<MapSimpleProtobufNullable>(MapSimpleProtobufNullable)({
     random: (
-        generator?: Partial<typia.IRandomGenerator>,
+        generator: Partial<typia.IRandomGenerator> = (
+            MapSimpleProtobufNullable as any
+        ).RANDOM,
     ): typia.Resolved<MapSimpleProtobufNullable> => {
         const $generator = (typia.createRandom as any).generator;
         const $pick = (typia.createRandom as any).pick;

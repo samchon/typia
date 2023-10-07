@@ -6,7 +6,7 @@ export const test_protobuf_createValidateDecode_ObjectHttpArray =
     _test_protobuf_validateDecode("ObjectHttpArray")<ObjectHttpArray>(
         ObjectHttpArray,
     )({
-        validateDecode: (
+        decode: (
             input: Uint8Array,
         ): typia.IValidation<typia.Resolved<ObjectHttpArray>> => {
             const validate = (

@@ -6,6 +6,6 @@ export const test_protobuf_createAssertDecode_ObjectRequired =
     _test_protobuf_assertDecode("ObjectRequired")<ObjectRequired>(
         ObjectRequired,
     )({
-        assertDecode: typia.protobuf.createAssertDecode<ObjectRequired>(),
+        decode: typia.protobuf.createAssertDecode<ObjectRequired>(),
         encode: typia.protobuf.createEncode<ObjectRequired>(),
     });

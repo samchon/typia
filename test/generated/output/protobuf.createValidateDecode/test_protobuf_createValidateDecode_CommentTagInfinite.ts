@@ -6,7 +6,7 @@ export const test_protobuf_createValidateDecode_CommentTagInfinite =
     _test_protobuf_validateDecode("CommentTagInfinite")<CommentTagInfinite>(
         CommentTagInfinite,
     )({
-        validateDecode: (
+        decode: (
             input: Uint8Array,
         ): typia.IValidation<typia.Resolved<CommentTagInfinite>> => {
             const validate = (

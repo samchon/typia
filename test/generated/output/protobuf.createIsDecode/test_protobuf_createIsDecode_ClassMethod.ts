@@ -5,7 +5,7 @@ import { ClassMethod } from "../../../structures/ClassMethod";
 export const test_protobuf_createIsDecode_ClassMethod = _test_protobuf_isDecode(
     "ClassMethod",
 )<ClassMethod>(ClassMethod)({
-    isDecode: (input: Uint8Array): typia.Resolved<ClassMethod> | null => {
+    decode: (input: Uint8Array): typia.Resolved<ClassMethod> | null => {
         const is = (input: any): input is ClassMethod => {
             return (
                 "object" === typeof input &&

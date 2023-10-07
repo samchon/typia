@@ -2,7 +2,7 @@ import typia from "../../../../src";
 import { _test_protobuf_encode } from "../../../internal/_test_protobuf_encode";
 import { TypeTagFormat } from "../../../structures/TypeTagFormat";
 
-export const test_protobuf_encode_TypeTagFormat = _test_protobuf_encode(
+export const test_protobuf_createEncode_TypeTagFormat = _test_protobuf_encode(
     "TypeTagFormat",
 )<TypeTagFormat>(TypeTagFormat)({
     encode: (input) =>
@@ -41,8 +41,6 @@ export const test_protobuf_encode_TypeTagFormat = _test_protobuf_encode(
             const writer = encoder(new $Writer(sizer));
             return writer.buffer();
         })(input),
-    message:
-        'syntax = "proto3";\n\nmessage TypeTagFormat {\n    required string uuid = 1;\n    required string email = 2;\n    required string url = 3;\n    required string ipv4 = 4;\n    required string ipv6 = 5;\n    required string date = 6;\n    required string date_time = 7;\n}',
     decode: (input: Uint8Array): typia.Resolved<TypeTagFormat> => {
         const $Reader = (typia.protobuf.createDecode as any).Reader;
         const $pdo0 = (reader: any, length: number = -1): any => {
@@ -97,4 +95,6 @@ export const test_protobuf_encode_TypeTagFormat = _test_protobuf_encode(
         const reader = new $Reader(input);
         return $pdo0(reader);
     },
+    message:
+        'syntax = "proto3";\n\nmessage TypeTagFormat {\n    required string uuid = 1;\n    required string email = 2;\n    required string url = 3;\n    required string ipv4 = 4;\n    required string ipv6 = 5;\n    required string date = 6;\n    required string date_time = 7;\n}',
 });

@@ -7,6 +7,6 @@ export const test_protobuf_createEncode_ObjectSimpleProtobuf =
         ObjectSimpleProtobuf,
     )({
         encode: typia.protobuf.createEncode<ObjectSimpleProtobuf>(),
-        message: typia.protobuf.message<ObjectSimpleProtobuf>(),
         decode: typia.protobuf.createDecode<ObjectSimpleProtobuf>(),
+        message: typia.protobuf.message<ObjectSimpleProtobuf>(),
     });

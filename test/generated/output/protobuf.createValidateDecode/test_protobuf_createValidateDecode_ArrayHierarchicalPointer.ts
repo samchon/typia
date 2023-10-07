@@ -6,7 +6,7 @@ export const test_protobuf_createValidateDecode_ArrayHierarchicalPointer =
     _test_protobuf_validateDecode(
         "ArrayHierarchicalPointer",
     )<ArrayHierarchicalPointer>(ArrayHierarchicalPointer)({
-        validateDecode: (
+        decode: (
             input: Uint8Array,
         ): typia.IValidation<typia.Resolved<ArrayHierarchicalPointer>> => {
             const validate = (

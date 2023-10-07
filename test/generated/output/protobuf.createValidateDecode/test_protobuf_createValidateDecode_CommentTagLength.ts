@@ -6,7 +6,7 @@ export const test_protobuf_createValidateDecode_CommentTagLength =
     _test_protobuf_validateDecode("CommentTagLength")<CommentTagLength>(
         CommentTagLength,
     )({
-        validateDecode: (
+        decode: (
             input: Uint8Array,
         ): typia.IValidation<typia.Resolved<CommentTagLength>> => {
             const validate = (

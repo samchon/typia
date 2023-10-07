@@ -60,7 +60,7 @@ export const test_random_TypeTagPattern = _test_random(
                     ),
             });
             return $ro0();
-        })(),
+        })((TypeTagPattern as any).RANDOM),
     assert: (input: any): TypeTagPattern => {
         const __is = (input: any): input is TypeTagPattern => {
             return (

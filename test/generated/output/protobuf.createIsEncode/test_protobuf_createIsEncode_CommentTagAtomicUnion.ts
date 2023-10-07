@@ -6,7 +6,7 @@ export const test_protobuf_createIsEncode_CommentTagAtomicUnion =
     _test_protobuf_isEncode("CommentTagAtomicUnion")<CommentTagAtomicUnion>(
         CommentTagAtomicUnion,
     )({
-        isEncode: (input: CommentTagAtomicUnion): Uint8Array | null => {
+        encode: (input: CommentTagAtomicUnion): Uint8Array | null => {
             const is = (input: any): input is CommentTagAtomicUnion => {
                 const $io0 = (input: any): boolean =>
                     Array.isArray(input.value) &&
@@ -74,8 +74,6 @@ export const test_protobuf_createIsEncode_CommentTagAtomicUnion =
             };
             return is(input) ? encode(input) : null;
         },
-        message:
-            'syntax = "proto3";\n\nmessage CommentTagAtomicUnion {\n    repeated CommentTagAtomicUnion.Type value = 1;\n    message Type {\n        oneof value {\n            double v1 = 1;\n            string v2 = 2;\n        }\n    }\n}',
         decode: (input: Uint8Array): typia.Resolved<CommentTagAtomicUnion> => {
             const $Reader = (typia.protobuf.createDecode as any).Reader;
             const $pdo0 = (reader: any, length: number = -1): any => {
@@ -123,4 +121,6 @@ export const test_protobuf_createIsEncode_CommentTagAtomicUnion =
             const reader = new $Reader(input);
             return $pdo0(reader);
         },
+        message:
+            'syntax = "proto3";\n\nmessage CommentTagAtomicUnion {\n    repeated CommentTagAtomicUnion.Type value = 1;\n    message Type {\n        oneof value {\n            double v1 = 1;\n            string v2 = 2;\n        }\n    }\n}',
     });

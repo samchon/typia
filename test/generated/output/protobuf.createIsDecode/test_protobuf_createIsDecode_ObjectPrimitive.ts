@@ -6,9 +6,7 @@ export const test_protobuf_createIsDecode_ObjectPrimitive =
     _test_protobuf_isDecode("ObjectPrimitive")<ObjectPrimitive>(
         ObjectPrimitive,
     )({
-        isDecode: (
-            input: Uint8Array,
-        ): typia.Resolved<ObjectPrimitive> | null => {
+        decode: (input: Uint8Array): typia.Resolved<ObjectPrimitive> | null => {
             const is = (input: any): input is ObjectPrimitive => {
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.id &&

@@ -64,7 +64,7 @@ export const test_random_CommentTagInfinite = _test_random(
                     ]) ?? (generator?.integer ?? $generator.integer)(0, 100),
             });
             return $ro0();
-        })(),
+        })((CommentTagInfinite as any).RANDOM),
     assert: (input: any): CommentTagInfinite => {
         const __is = (input: any): input is CommentTagInfinite => {
             return (

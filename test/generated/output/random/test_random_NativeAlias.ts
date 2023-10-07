@@ -122,7 +122,7 @@ export const test_random_NativeAlias = _test_random("NativeAlias")<NativeAlias>(
                 ),
             });
             return $ro0();
-        })(),
+        })((NativeAlias as any).RANDOM),
     assert: (input: any): NativeAlias => {
         const __is = (input: any): input is NativeAlias => {
             const $io0 = (input: any): boolean =>

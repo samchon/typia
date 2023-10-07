@@ -6,7 +6,6 @@ export const test_protobuf_createValidateDecode_ObjectHttpUndefindable =
     _test_protobuf_validateDecode(
         "ObjectHttpUndefindable",
     )<ObjectHttpUndefindable>(ObjectHttpUndefindable)({
-        validateDecode:
-            typia.protobuf.createValidateDecode<ObjectHttpUndefindable>(),
+        decode: typia.protobuf.createValidateDecode<ObjectHttpUndefindable>(),
         encode: typia.protobuf.createEncode<ObjectHttpUndefindable>(),
     });

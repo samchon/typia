@@ -4,7 +4,7 @@ import { CommentTagNaN } from "../../../structures/CommentTagNaN";
 
 export const test_protobuf_createAssertDecode_CommentTagNaN =
     _test_protobuf_assertDecode("CommentTagNaN")<CommentTagNaN>(CommentTagNaN)({
-        assertDecode: (input: Uint8Array): typia.Resolved<CommentTagNaN> => {
+        decode: (input: Uint8Array): typia.Resolved<CommentTagNaN> => {
             const decode = (
                 input: Uint8Array,
             ): typia.Resolved<CommentTagNaN> => {

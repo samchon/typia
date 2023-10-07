@@ -6,6 +6,6 @@ export const test_protobuf_createEncode_TypeTagDefault = _test_protobuf_encode(
     "TypeTagDefault",
 )<TypeTagDefault>(TypeTagDefault)({
     encode: typia.protobuf.createEncode<TypeTagDefault>(),
-    message: typia.protobuf.message<TypeTagDefault>(),
     decode: typia.protobuf.createDecode<TypeTagDefault>(),
+    message: typia.protobuf.message<TypeTagDefault>(),
 });

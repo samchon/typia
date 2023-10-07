@@ -4,6 +4,6 @@ import { TypeTagBigInt } from "../../structures/TypeTagBigInt";
 
 export const test_protobuf_createAssertDecode_TypeTagBigInt =
     _test_protobuf_assertDecode("TypeTagBigInt")<TypeTagBigInt>(TypeTagBigInt)({
-        assertDecode: typia.protobuf.createAssertDecode<TypeTagBigInt>(),
+        decode: typia.protobuf.createAssertDecode<TypeTagBigInt>(),
         encode: typia.protobuf.createEncode<TypeTagBigInt>(),
     });

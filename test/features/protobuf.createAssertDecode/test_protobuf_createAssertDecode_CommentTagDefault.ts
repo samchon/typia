@@ -6,6 +6,6 @@ export const test_protobuf_createAssertDecode_CommentTagDefault =
     _test_protobuf_assertDecode("CommentTagDefault")<CommentTagDefault>(
         CommentTagDefault,
     )({
-        assertDecode: typia.protobuf.createAssertDecode<CommentTagDefault>(),
+        decode: typia.protobuf.createAssertDecode<CommentTagDefault>(),
         encode: typia.protobuf.createEncode<CommentTagDefault>(),
     });

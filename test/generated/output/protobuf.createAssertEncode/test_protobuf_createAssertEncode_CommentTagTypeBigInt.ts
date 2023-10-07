@@ -6,7 +6,7 @@ export const test_protobuf_createAssertEncode_CommentTagTypeBigInt =
     _test_protobuf_assertEncode("CommentTagTypeBigInt")<CommentTagTypeBigInt>(
         CommentTagTypeBigInt,
     )({
-        assertEncode: (input: any): Uint8Array => {
+        encode: (input: any): Uint8Array => {
             const assert = (input: any): CommentTagTypeBigInt => {
                 const __is = (input: any): input is CommentTagTypeBigInt => {
                     return (
@@ -89,8 +89,6 @@ export const test_protobuf_createAssertEncode_CommentTagTypeBigInt =
             };
             return encode(assert(input));
         },
-        message:
-            'syntax = "proto3";\n\nmessage CommentTagTypeBigInt {\n    required int64 in64 = 1;\n    required uint64 uint64 = 2;\n}',
         decode: (input: Uint8Array): typia.Resolved<CommentTagTypeBigInt> => {
             const $Reader = (typia.protobuf.createDecode as any).Reader;
             const $pdo0 = (reader: any, length: number = -1): any => {
@@ -120,4 +118,6 @@ export const test_protobuf_createAssertEncode_CommentTagTypeBigInt =
             const reader = new $Reader(input);
             return $pdo0(reader);
         },
+        message:
+            'syntax = "proto3";\n\nmessage CommentTagTypeBigInt {\n    required int64 in64 = 1;\n    required uint64 uint64 = 2;\n}',
     });

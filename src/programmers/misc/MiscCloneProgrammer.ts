@@ -124,7 +124,11 @@ export namespace MiscCloneProgrammer {
             if (
                 meta.any ||
                 meta.arrays.some((a) => a.type.value.any) ||
-                meta.tuples.some((t) => t.type.elements.every((e) => e.any))
+                meta.tuples.some(
+                    (t) =>
+                        !!t.type.elements.length &&
+                        t.type.elements.every((e) => e.any),
+                )
             )
                 return ts.factory.createCallExpression(
                     importer.use("any"),
@@ -142,6 +146,18 @@ export namespace MiscCloneProgrammer {
             //----
             // LIST UP UNION TYPES
             //----
+            // FUNCTIONAL
+            if (meta.functional)
+                unions.push({
+                    type: "functional",
+                    is: () =>
+                        ts.factory.createStrictEquality(
+                            ts.factory.createStringLiteral("function"),
+                            ts.factory.createTypeOfExpression(input),
+                        ),
+                    value: () => ts.factory.createIdentifier("undefined"),
+                });
+
             // TUPLES
             for (const tuple of meta.tuples)
                 unions.push({

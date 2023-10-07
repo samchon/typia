@@ -4,7 +4,7 @@ import { ObjectPartial } from "../../../structures/ObjectPartial";
 
 export const test_protobuf_createAssertDecode_ObjectPartial =
     _test_protobuf_assertDecode("ObjectPartial")<ObjectPartial>(ObjectPartial)({
-        assertDecode: (input: Uint8Array): typia.Resolved<ObjectPartial> => {
+        decode: (input: Uint8Array): typia.Resolved<ObjectPartial> => {
             const decode = (
                 input: Uint8Array,
             ): typia.Resolved<ObjectPartial> => {

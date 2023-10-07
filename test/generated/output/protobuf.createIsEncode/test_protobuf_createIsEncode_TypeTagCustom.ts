@@ -4,7 +4,7 @@ import { TypeTagCustom } from "../../../structures/TypeTagCustom";
 
 export const test_protobuf_createIsEncode_TypeTagCustom =
     _test_protobuf_isEncode("TypeTagCustom")<TypeTagCustom>(TypeTagCustom)({
-        isEncode: (input: TypeTagCustom): Uint8Array | null => {
+        encode: (input: TypeTagCustom): Uint8Array | null => {
             const is = (input: any): input is TypeTagCustom => {
                 return (
                     "object" === typeof input &&
@@ -63,8 +63,6 @@ export const test_protobuf_createIsEncode_TypeTagCustom =
             };
             return is(input) ? encode(input) : null;
         },
-        message:
-            'syntax = "proto3";\n\nmessage TypeTagCustom {\n    required string id = 1;\n    required string dollar = 2;\n    required string postfix = 3;\n    required double powerOf = 4;\n}',
         decode: (input: Uint8Array): typia.Resolved<TypeTagCustom> => {
             const $Reader = (typia.protobuf.createDecode as any).Reader;
             const $pdo0 = (reader: any, length: number = -1): any => {
@@ -104,4 +102,6 @@ export const test_protobuf_createIsEncode_TypeTagCustom =
             const reader = new $Reader(input);
             return $pdo0(reader);
         },
+        message:
+            'syntax = "proto3";\n\nmessage TypeTagCustom {\n    required string id = 1;\n    required string dollar = 2;\n    required string postfix = 3;\n    required double powerOf = 4;\n}',
     });

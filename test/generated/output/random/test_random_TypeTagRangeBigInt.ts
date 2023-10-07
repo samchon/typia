@@ -157,7 +157,7 @@ export const test_random_TypeTagRangeBigInt = _test_random(
                     ),
             });
             return $ro0();
-        })(),
+        })((TypeTagRangeBigInt as any).RANDOM),
     assert: (input: any): TypeTagRangeBigInt => {
         const __is = (input: any): input is TypeTagRangeBigInt => {
             const $io0 = (input: any): boolean =>

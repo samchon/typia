@@ -6,8 +6,7 @@ export const test_protobuf_createValidateEncode_MapSimpleProtobufOptional =
     _test_protobuf_validateEncode(
         "MapSimpleProtobufOptional",
     )<MapSimpleProtobufOptional>(MapSimpleProtobufOptional)({
-        validateEncode:
-            typia.protobuf.createValidateEncode<MapSimpleProtobufOptional>(),
-        message: typia.protobuf.message<MapSimpleProtobufOptional>(),
+        encode: typia.protobuf.createValidateEncode<MapSimpleProtobufOptional>(),
         decode: typia.protobuf.createDecode<MapSimpleProtobufOptional>(),
+        message: typia.protobuf.message<MapSimpleProtobufOptional>(),
     });

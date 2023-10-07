@@ -6,6 +6,6 @@ export const test_protobuf_createIsDecode_TypeTagAtomicUnion =
     _test_protobuf_isDecode("TypeTagAtomicUnion")<TypeTagAtomicUnion>(
         TypeTagAtomicUnion,
     )({
-        isDecode: typia.protobuf.createIsDecode<TypeTagAtomicUnion>(),
+        decode: typia.protobuf.createIsDecode<TypeTagAtomicUnion>(),
         encode: typia.protobuf.createEncode<TypeTagAtomicUnion>(),
     });

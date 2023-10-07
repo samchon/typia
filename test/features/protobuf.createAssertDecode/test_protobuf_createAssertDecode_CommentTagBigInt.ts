@@ -6,6 +6,6 @@ export const test_protobuf_createAssertDecode_CommentTagBigInt =
     _test_protobuf_assertDecode("CommentTagBigInt")<CommentTagBigInt>(
         CommentTagBigInt,
     )({
-        assertDecode: typia.protobuf.createAssertDecode<CommentTagBigInt>(),
+        decode: typia.protobuf.createAssertDecode<CommentTagBigInt>(),
         encode: typia.protobuf.createEncode<CommentTagBigInt>(),
     });

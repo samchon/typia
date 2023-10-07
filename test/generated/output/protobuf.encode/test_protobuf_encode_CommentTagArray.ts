@@ -2,7 +2,7 @@ import typia from "../../../../src";
 import { _test_protobuf_encode } from "../../../internal/_test_protobuf_encode";
 import { CommentTagArray } from "../../../structures/CommentTagArray";
 
-export const test_protobuf_encode_CommentTagArray = _test_protobuf_encode(
+export const test_protobuf_createEncode_CommentTagArray = _test_protobuf_encode(
     "CommentTagArray",
 )<CommentTagArray>(CommentTagArray)({
     encode: (input) =>
@@ -84,8 +84,6 @@ export const test_protobuf_encode_CommentTagArray = _test_protobuf_encode(
             const writer = encoder(new $Writer(sizer));
             return writer.buffer();
         })(input),
-    message:
-        'syntax = "proto3";\n\nmessage CommentTagArray {\n    repeated CommentTagArray.Type value = 1;\n    message Type {\n        repeated string items = 1;\n        repeated double minItems = 2;\n        repeated string both = 3;\n        repeated double equal = 4;\n    }\n}',
     decode: (input: Uint8Array): typia.Resolved<CommentTagArray> => {
         const $Reader = (typia.protobuf.createDecode as any).Reader;
         const $pdo0 = (reader: any, length: number = -1): any => {
@@ -152,4 +150,6 @@ export const test_protobuf_encode_CommentTagArray = _test_protobuf_encode(
         const reader = new $Reader(input);
         return $pdo0(reader);
     },
+    message:
+        'syntax = "proto3";\n\nmessage CommentTagArray {\n    repeated CommentTagArray.Type value = 1;\n    message Type {\n        repeated string items = 1;\n        repeated double minItems = 2;\n        repeated string both = 3;\n        repeated double equal = 4;\n    }\n}',
 });

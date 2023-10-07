@@ -5,6 +5,6 @@ import { SetAlias } from "../../structures/SetAlias";
 export const test_createRandom_SetAlias = _test_random("SetAlias")<SetAlias>(
     SetAlias,
 )({
-    random: typia.createRandom<SetAlias>(),
+    random: typia.createRandom<SetAlias>((SetAlias as any).RANDOM),
     assert: typia.createAssert<SetAlias>(),
 });

@@ -6,6 +6,6 @@ export const test_protobuf_createAssertDecode_ObjectLiteralType =
     _test_protobuf_assertDecode("ObjectLiteralType")<ObjectLiteralType>(
         ObjectLiteralType,
     )({
-        assertDecode: typia.protobuf.createAssertDecode<ObjectLiteralType>(),
+        decode: typia.protobuf.createAssertDecode<ObjectLiteralType>(),
         encode: typia.protobuf.createEncode<ObjectLiteralType>(),
     });

@@ -94,7 +94,7 @@ export const test_random_CommentTagLength = _test_random(
                     ),
             });
             return $ro0();
-        })(),
+        })((CommentTagLength as any).RANDOM),
     assert: (input: any): CommentTagLength => {
         const __is = (input: any): input is CommentTagLength => {
             const $io0 = (input: any): boolean =>

@@ -6,7 +6,8 @@ export const test_createRandom_CommentTagFormat = _test_random(
     "CommentTagFormat",
 )<CommentTagFormat>(CommentTagFormat)({
     random: (
-        generator?: Partial<typia.IRandomGenerator>,
+        generator: Partial<typia.IRandomGenerator> = (CommentTagFormat as any)
+            .RANDOM,
     ): typia.Resolved<CommentTagFormat> => {
         const $generator = (typia.createRandom as any).generator;
         const $ro0 = (

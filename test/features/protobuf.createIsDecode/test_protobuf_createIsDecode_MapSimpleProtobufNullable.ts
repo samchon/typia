@@ -6,6 +6,6 @@ export const test_protobuf_createIsDecode_MapSimpleProtobufNullable =
     _test_protobuf_isDecode(
         "MapSimpleProtobufNullable",
     )<MapSimpleProtobufNullable>(MapSimpleProtobufNullable)({
-        isDecode: typia.protobuf.createIsDecode<MapSimpleProtobufNullable>(),
+        decode: typia.protobuf.createIsDecode<MapSimpleProtobufNullable>(),
         encode: typia.protobuf.createEncode<MapSimpleProtobufNullable>(),
     });

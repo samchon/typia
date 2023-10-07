@@ -2,11 +2,11 @@ import typia from "../../../../src";
 import { _test_protobuf_assertEncode } from "../../../internal/_test_protobuf_assertEncode";
 import { TypeTagAtomicUnion } from "../../../structures/TypeTagAtomicUnion";
 
-export const test_protobuf_assertEncode_TypeTagAtomicUnion =
+export const test_protobuf_createAssertEncode_TypeTagAtomicUnion =
     _test_protobuf_assertEncode("TypeTagAtomicUnion")<TypeTagAtomicUnion>(
         TypeTagAtomicUnion,
     )({
-        assertEncode: (input) =>
+        encode: (input) =>
             ((input: any): Uint8Array => {
                 const assert = (input: any): TypeTagAtomicUnion => {
                     const __is = (input: any): input is TypeTagAtomicUnion => {
@@ -192,8 +192,6 @@ export const test_protobuf_assertEncode_TypeTagAtomicUnion =
                 };
                 return encode(assert(input));
             })(input),
-        message:
-            'syntax = "proto3";\n\nmessage TypeTagAtomicUnion {\n    repeated TypeTagAtomicUnion.Type value = 1;\n    message Type {\n        oneof value {\n            double v1 = 1;\n            string v2 = 2;\n        }\n    }\n}',
         decode: (input: Uint8Array): typia.Resolved<TypeTagAtomicUnion> => {
             const $Reader = (typia.protobuf.createDecode as any).Reader;
             const $pdo0 = (reader: any, length: number = -1): any => {
@@ -241,4 +239,6 @@ export const test_protobuf_assertEncode_TypeTagAtomicUnion =
             const reader = new $Reader(input);
             return $pdo0(reader);
         },
+        message:
+            'syntax = "proto3";\n\nmessage TypeTagAtomicUnion {\n    repeated TypeTagAtomicUnion.Type value = 1;\n    message Type {\n        oneof value {\n            double v1 = 1;\n            string v2 = 2;\n        }\n    }\n}',
     });

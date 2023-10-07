@@ -6,7 +6,7 @@ export const test_protobuf_createValidateEncode_TypeTagCustom =
     _test_protobuf_validateEncode("TypeTagCustom")<TypeTagCustom>(
         TypeTagCustom,
     )({
-        validateEncode: typia.protobuf.createValidateEncode<TypeTagCustom>(),
-        message: typia.protobuf.message<TypeTagCustom>(),
+        encode: typia.protobuf.createValidateEncode<TypeTagCustom>(),
         decode: typia.protobuf.createDecode<TypeTagCustom>(),
+        message: typia.protobuf.message<TypeTagCustom>(),
     });

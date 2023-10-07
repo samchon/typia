@@ -6,7 +6,7 @@ export const test_protobuf_createIsDecode_CommentTagDefault =
     _test_protobuf_isDecode("CommentTagDefault")<CommentTagDefault>(
         CommentTagDefault,
     )({
-        isDecode: (
+        decode: (
             input: Uint8Array,
         ): typia.Resolved<CommentTagDefault> | null => {
             const is = (input: any): input is CommentTagDefault => {

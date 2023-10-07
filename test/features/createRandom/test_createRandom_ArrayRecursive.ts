@@ -5,6 +5,6 @@ import { ArrayRecursive } from "../../structures/ArrayRecursive";
 export const test_createRandom_ArrayRecursive = _test_random(
     "ArrayRecursive",
 )<ArrayRecursive>(ArrayRecursive)({
-    random: typia.createRandom<ArrayRecursive>(),
+    random: typia.createRandom<ArrayRecursive>((ArrayRecursive as any).RANDOM),
     assert: typia.createAssert<ArrayRecursive>(),
 });

@@ -48,7 +48,7 @@ export const test_random_TypeTagObjectUnion = _test_random(
             return (generator?.array ?? $generator.array)(() =>
                 $pick([() => $ro1(), () => $ro0()])(),
             );
-        })(),
+        })((TypeTagObjectUnion as any).RANDOM),
     assert: (input: any): TypeTagObjectUnion => {
         const __is = (input: any): input is TypeTagObjectUnion => {
             const $io0 = (input: any): boolean =>

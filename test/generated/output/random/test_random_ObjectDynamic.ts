@@ -44,7 +44,7 @@ export const test_random_ObjectDynamic = _test_random(
                 return output;
             };
             return $ro0();
-        })(),
+        })((ObjectDynamic as any).RANDOM),
     assert: (input: any): ObjectDynamic => {
         const __is = (input: any): input is ObjectDynamic => {
             const $io0 = (input: any): boolean =>

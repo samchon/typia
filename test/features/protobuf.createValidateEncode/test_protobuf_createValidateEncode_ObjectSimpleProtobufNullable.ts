@@ -6,8 +6,7 @@ export const test_protobuf_createValidateEncode_ObjectSimpleProtobufNullable =
     _test_protobuf_validateEncode(
         "ObjectSimpleProtobufNullable",
     )<ObjectSimpleProtobufNullable>(ObjectSimpleProtobufNullable)({
-        validateEncode:
-            typia.protobuf.createValidateEncode<ObjectSimpleProtobufNullable>(),
-        message: typia.protobuf.message<ObjectSimpleProtobufNullable>(),
+        encode: typia.protobuf.createValidateEncode<ObjectSimpleProtobufNullable>(),
         decode: typia.protobuf.createDecode<ObjectSimpleProtobufNullable>(),
+        message: typia.protobuf.message<ObjectSimpleProtobufNullable>(),
     });

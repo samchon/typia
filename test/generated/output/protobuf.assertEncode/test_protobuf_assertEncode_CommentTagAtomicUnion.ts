@@ -2,11 +2,11 @@ import typia from "../../../../src";
 import { _test_protobuf_assertEncode } from "../../../internal/_test_protobuf_assertEncode";
 import { CommentTagAtomicUnion } from "../../../structures/CommentTagAtomicUnion";
 
-export const test_protobuf_assertEncode_CommentTagAtomicUnion =
+export const test_protobuf_createAssertEncode_CommentTagAtomicUnion =
     _test_protobuf_assertEncode("CommentTagAtomicUnion")<CommentTagAtomicUnion>(
         CommentTagAtomicUnion,
     )({
-        assertEncode: (input) =>
+        encode: (input) =>
             ((input: any): Uint8Array => {
                 const assert = (input: any): CommentTagAtomicUnion => {
                     const __is = (
@@ -195,8 +195,6 @@ export const test_protobuf_assertEncode_CommentTagAtomicUnion =
                 };
                 return encode(assert(input));
             })(input),
-        message:
-            'syntax = "proto3";\n\nmessage CommentTagAtomicUnion {\n    repeated CommentTagAtomicUnion.Type value = 1;\n    message Type {\n        oneof value {\n            double v1 = 1;\n            string v2 = 2;\n        }\n    }\n}',
         decode: (input: Uint8Array): typia.Resolved<CommentTagAtomicUnion> => {
             const $Reader = (typia.protobuf.createDecode as any).Reader;
             const $pdo0 = (reader: any, length: number = -1): any => {
@@ -244,4 +242,6 @@ export const test_protobuf_assertEncode_CommentTagAtomicUnion =
             const reader = new $Reader(input);
             return $pdo0(reader);
         },
+        message:
+            'syntax = "proto3";\n\nmessage CommentTagAtomicUnion {\n    repeated CommentTagAtomicUnion.Type value = 1;\n    message Type {\n        oneof value {\n            double v1 = 1;\n            string v2 = 2;\n        }\n    }\n}',
     });

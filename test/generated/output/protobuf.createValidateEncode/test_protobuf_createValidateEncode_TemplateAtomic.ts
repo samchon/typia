@@ -6,9 +6,7 @@ export const test_protobuf_createValidateEncode_TemplateAtomic =
     _test_protobuf_validateEncode("TemplateAtomic")<TemplateAtomic>(
         TemplateAtomic,
     )({
-        validateEncode: (
-            input: TemplateAtomic,
-        ): typia.IValidation<Uint8Array> => {
+        encode: (input: TemplateAtomic): typia.IValidation<Uint8Array> => {
             const validate = (
                 input: any,
             ): typia.IValidation<TemplateAtomic> => {
@@ -200,8 +198,6 @@ export const test_protobuf_createValidateEncode_TemplateAtomic =
             if (output.success) output.data = encode(input);
             return output;
         },
-        message:
-            'syntax = "proto3";\n\nmessage TemplateAtomic {\n    required string prefix = 1;\n    required string postfix = 2;\n    required string middle_string = 3;\n    required string middle_string_empty = 4;\n    required string middle_numeric = 5;\n    required string middle_boolean = 6;\n    required string ipv4 = 7;\n    required string email = 8;\n}',
         decode: (input: Uint8Array): typia.Resolved<TemplateAtomic> => {
             const $Reader = (typia.protobuf.createDecode as any).Reader;
             const $pdo0 = (reader: any, length: number = -1): any => {
@@ -261,4 +257,6 @@ export const test_protobuf_createValidateEncode_TemplateAtomic =
             const reader = new $Reader(input);
             return $pdo0(reader);
         },
+        message:
+            'syntax = "proto3";\n\nmessage TemplateAtomic {\n    required string prefix = 1;\n    required string postfix = 2;\n    required string middle_string = 3;\n    required string middle_string_empty = 4;\n    required string middle_numeric = 5;\n    required string middle_boolean = 6;\n    required string ipv4 = 7;\n    required string email = 8;\n}',
     });

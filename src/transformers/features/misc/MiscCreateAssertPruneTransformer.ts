@@ -3,7 +3,9 @@ import { MiscAssertPruneProgrammer } from "../../../programmers/misc/MiscAssertP
 import { GenericTransformer } from "../../internal/GenericTransformer";
 
 export namespace MiscCreateAssertPruneTransformer {
-    export const transform = GenericTransformer.factory("createAssertPrune")(
+    export const transform = GenericTransformer.factory(
+        "misc.createAssertPrune",
+    )(
         (project) => (modulo) =>
             MiscAssertPruneProgrammer.write(project)(modulo),
     );

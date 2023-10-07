@@ -38,7 +38,7 @@ export const test_random_ArrayUnion = _test_random("ArrayUnion")<ArrayUnion>(
                         ),
                 ])(),
             );
-        })(),
+        })((ArrayUnion as any).RANDOM),
     assert: (input: any): ArrayUnion => {
         const __is = (input: any): input is ArrayUnion => {
             const $ip0 = (input: any) => {

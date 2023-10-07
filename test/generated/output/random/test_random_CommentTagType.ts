@@ -80,7 +80,7 @@ export const test_random_CommentTagType = _test_random(
                     ]) ?? (generator?.number ?? $generator.number)(0, 100),
             });
             return $ro0();
-        })(),
+        })((CommentTagType as any).RANDOM),
     assert: (input: any): CommentTagType => {
         const __is = (input: any): input is CommentTagType => {
             const $io0 = (input: any): boolean =>

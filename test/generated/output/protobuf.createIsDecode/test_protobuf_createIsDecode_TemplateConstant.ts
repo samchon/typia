@@ -6,7 +6,7 @@ export const test_protobuf_createIsDecode_TemplateConstant =
     _test_protobuf_isDecode("TemplateConstant")<TemplateConstant>(
         TemplateConstant,
     )({
-        isDecode: (
+        decode: (
             input: Uint8Array,
         ): typia.Resolved<TemplateConstant> | null => {
             const is = (input: any): input is TemplateConstant => {

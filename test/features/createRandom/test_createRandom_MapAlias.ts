@@ -5,6 +5,6 @@ import { MapAlias } from "../../structures/MapAlias";
 export const test_createRandom_MapAlias = _test_random("MapAlias")<MapAlias>(
     MapAlias,
 )({
-    random: typia.createRandom<MapAlias>(),
+    random: typia.createRandom<MapAlias>((MapAlias as any).RANDOM),
     assert: typia.createAssert<MapAlias>(),
 });

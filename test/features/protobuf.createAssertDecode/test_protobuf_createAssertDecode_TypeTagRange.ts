@@ -4,6 +4,6 @@ import { TypeTagRange } from "../../structures/TypeTagRange";
 
 export const test_protobuf_createAssertDecode_TypeTagRange =
     _test_protobuf_assertDecode("TypeTagRange")<TypeTagRange>(TypeTagRange)({
-        assertDecode: typia.protobuf.createAssertDecode<TypeTagRange>(),
+        decode: typia.protobuf.createAssertDecode<TypeTagRange>(),
         encode: typia.protobuf.createEncode<TypeTagRange>(),
     });

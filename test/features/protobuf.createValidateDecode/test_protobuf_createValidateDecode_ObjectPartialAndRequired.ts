@@ -6,7 +6,6 @@ export const test_protobuf_createValidateDecode_ObjectPartialAndRequired =
     _test_protobuf_validateDecode(
         "ObjectPartialAndRequired",
     )<ObjectPartialAndRequired>(ObjectPartialAndRequired)({
-        validateDecode:
-            typia.protobuf.createValidateDecode<ObjectPartialAndRequired>(),
+        decode: typia.protobuf.createValidateDecode<ObjectPartialAndRequired>(),
         encode: typia.protobuf.createEncode<ObjectPartialAndRequired>(),
     });

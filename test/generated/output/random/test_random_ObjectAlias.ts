@@ -48,7 +48,7 @@ export const test_random_ObjectAlias = _test_random("ObjectAlias")<ObjectAlias>(
                 ])(),
             });
             return (generator?.array ?? $generator.array)(() => $ro0());
-        })(),
+        })((ObjectAlias as any).RANDOM),
     assert: (input: any): ObjectAlias => {
         const __is = (input: any): input is ObjectAlias => {
             const $io0 = (input: any): boolean =>

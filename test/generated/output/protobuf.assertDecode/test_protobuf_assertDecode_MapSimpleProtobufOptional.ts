@@ -2,11 +2,11 @@ import typia from "../../../../src";
 import { _test_protobuf_assertDecode } from "../../../internal/_test_protobuf_assertDecode";
 import { MapSimpleProtobufOptional } from "../../../structures/MapSimpleProtobufOptional";
 
-export const test_protobuf_assertDecode_MapSimpleProtobufOptional =
+export const test_protobuf_createAssertDecode_MapSimpleProtobufOptional =
     _test_protobuf_assertDecode(
         "MapSimpleProtobufOptional",
     )<MapSimpleProtobufOptional>(MapSimpleProtobufOptional)({
-        assertDecode: (input) =>
+        decode: (input) =>
             ((input: Uint8Array): typia.Resolved<MapSimpleProtobufOptional> => {
                 const decode = (
                     input: Uint8Array,

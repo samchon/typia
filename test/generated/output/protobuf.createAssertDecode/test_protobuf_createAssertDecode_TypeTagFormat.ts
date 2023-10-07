@@ -4,7 +4,7 @@ import { TypeTagFormat } from "../../../structures/TypeTagFormat";
 
 export const test_protobuf_createAssertDecode_TypeTagFormat =
     _test_protobuf_assertDecode("TypeTagFormat")<TypeTagFormat>(TypeTagFormat)({
-        assertDecode: (input: Uint8Array): typia.Resolved<TypeTagFormat> => {
+        decode: (input: Uint8Array): typia.Resolved<TypeTagFormat> => {
             const decode = (
                 input: Uint8Array,
             ): typia.Resolved<TypeTagFormat> => {
