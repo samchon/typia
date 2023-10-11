@@ -33,8 +33,16 @@ export namespace TypiaSetupWizard {
 
         // SETUP TRANSFORMER
         await pack.save((data) => {
-            // COMPOSE POSTINSTALL COMMAND
+            // COMPOSE PREPARE COMMAND
             data.scripts ??= {};
+            if (
+                typeof data.scripts.prepare === "string" &&
+                data.scripts.prepare.trim().length
+            ) {
+                if (data.scripts.prepare.indexOf("ts-patch install") === -1)
+                    data.scripts.prepare =
+                        "ts-patch install && " + data.scripts.prepare;
+            } else data.scripts.prepare = "ts-patch install";
 
             // FOR OLDER VERSIONS
             if (typeof data.scripts.postinstall === "string") {
@@ -46,16 +54,6 @@ export namespace TypiaSetupWizard {
                 if (data.scripts.postinstall.length === 0)
                     delete data.scripts.postinstall;
             }
-
-            // THE PREPARE SCRIPT
-            if (
-                typeof data.scripts.prepare === "string" &&
-                data.scripts.prepare.trim().length
-            ) {
-                if (data.scripts.prepare.indexOf("ts-patch install") === -1)
-                    data.scripts.prepare =
-                        "ts-patch install && " + data.scripts.prepare;
-            } else data.scripts.prepare = "ts-patch install";
         });
         CommandExecutor.run(`${pack.manager} run prepare`);
 
