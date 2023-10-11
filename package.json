@@ -135,7 +135,7 @@
     "zod": "^3.19.1"
   },
   "stackblitzs": {
-    "startCommand": "npm run postinstall && npm run build && npm run build:test && npm run test"
+    "startCommand": "npm run prepare && npm run build && npm run build:test && npm run test"
   },
   "files": [
     "LICENSE",
