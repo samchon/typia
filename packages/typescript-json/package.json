@@ -1,6 +1,6 @@
 {
   "name": "typescript-json",
-  "version": "5.2.1-dev.20231011",
+  "version": "5.2.1",
   "description": "Superfast runtime validators with only one line",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
