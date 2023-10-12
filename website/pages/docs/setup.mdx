@@ -208,7 +208,7 @@ As `typia` generates optimal operation code through transformation, you've to co
 ```json filename="package.json" copy showLineNumbers {2-4}
 {
   "scripts": {
-    "postinstall": "ts-patch install"
+    "prepare": "ts-patch install"
   },
   "dependencies": {
     "typia": "^4.1.8"
@@ -224,25 +224,25 @@ As `typia` generates optimal operation code through transformation, you've to co
 <Tabs items={['npm', 'pnpm', 'yarn']}>
     <Tab>
 ```bash filename="Terminal" copy showLineNumbers
-npm run postinstall
+npm run prepare
 ```
     </Tab>
     <Tab>
 ```bash filename="Terminal" copy showLineNumbers
-pnpm postinstall
+pnpm prepare
 ```
     </Tab>
     <Tab>
 ```bash filename="Terminal" copy showLineNumbers
 # YARN BERRY IS NOT SUPPORTED
-yarn postinstall
+yarn prepare
 ```
     </Tab>
 </Tabs>
 
-At last, open `package.json` file and configure `npm run postinstall` command like above.
+At last, open `package.json` file and configure `npm run prepare` command like above.
 
-Of course, you've to run the `npm run postinstall` command after the configuration. 
+Of course, you've to run the `npm run prepare` command after the configuration. 
 
 For reference, [`ts-patch`](https://github.com/nonara/ts-patch) is an helper library of TypeScript compiler that supporting custom transformations by plugins. From now on, whenever you run `tsc` command, your `typia` function call statements would be transformed to the optimal operation codes in the compiled JavaScript files.
 

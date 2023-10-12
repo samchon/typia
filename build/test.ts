@@ -6,6 +6,7 @@ import { TestFeature } from "./internal/TestFeature";
 import { TestMessageGenerator } from "./internal/TestMessageGenerator";
 import { TestStructure } from "./internal/TestStructure";
 import { __TypeRemover } from "./internal/__TypeRemover";
+import { write_common } from "./writers/write_common";
 
 const emit = process.emit;
 (process as any).emit = function (name: string, ...args: any[]) {
@@ -81,52 +82,11 @@ function script(
     struct: TestStructure<any>,
     create: boolean,
 ): string {
-    const common: string = `_test_${feat.module ? `${feat.module}_` : ""}${
-        feat.method
-    }`;
-    const functor: string = `test_${feat.module ? `${feat.module}_` : ""}${
-        create
-            ? `create${feat.method[0].toUpperCase()}${feat.method.slice(1)}`
-            : feat.method
-    }_${struct.name}`;
-    const symbol: string = [
-        "typia",
-        ...(feat.module ? [feat.module] : []),
+    if (feat.programmer) return feat.programmer(create)(struct.name);
+    return write_common({
+        module: feat.module,
         method,
-    ].join(".");
-
-    const call: string = create
-        ? `${symbol}<${struct.name}>(${
-              feat.random && struct.RANDOM ? `${struct.name}.RANDOM` : ""
-          })`
-        : feat.random === true
-        ? `() => ${symbol}<${struct.name}>(${
-              struct.RANDOM ? `${struct.name}.RANDOM` : ""
-          })`
-        : `(input) => ${symbol}<${struct.name}>(input)`;
-    const body: string = feat.opposite?.length
-        ? [
-              "{",
-              `    ${feat.method}: ${call},`,
-              ...feat.opposite.map(
-                  (o) => `    ${o.name}: ${o.method}<${struct.name}>(),`,
-              ),
-              "}",
-          ].join("\n")
-        : `\n    ${call},\n`;
-
-    const elements: Array<string | null> = [
-        `import typia from "../../../src";`,
-        "",
-        `import { ${struct.name} } from "../../structures/${struct.name}";`,
-        `import { ${common} } from "../../internal/${common}";`,
-        "",
-        `export const ${functor} = ${common}(`,
-        `    "${struct.name}",`,
-        `)<${struct.name}>(${struct.name})(${body});`,
-        "",
-    ];
-    return elements.filter((e) => e !== null).join("\n");
+    })(create)(struct.name);
 }
 
 async function main(): Promise<void> {

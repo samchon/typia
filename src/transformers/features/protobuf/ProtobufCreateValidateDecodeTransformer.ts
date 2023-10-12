@@ -2,7 +2,7 @@ import { ProtobufValidateDecodeProgrammer } from "../../../programmers/protobuf/
 
 import { GenericTransformer } from "../../internal/GenericTransformer";
 
-export namespace CreateProtobufValidateDecodeTransformer {
+export namespace ProtobufCreateValidateDecodeTransformer {
     export const transform = GenericTransformer.factory(
         "protobuf.createValidateDecode",
     )(

@@ -4,7 +4,7 @@ import { GenericTransformer } from "../../internal/GenericTransformer";
 
 export namespace JsonCreateValidateStringifyTransformer {
     export const transform = GenericTransformer.factory(
-        "createValidateStringify",
+        "json.createValidateStringify",
     )(
         (project) => (modulo) =>
             JsonValidateStringifyProgrammer.write(project)(modulo),

@@ -22,7 +22,7 @@
  * `Class`                 | `interface`
  * Native Class or Others  | No change
  *
- * @template Instance Target argument type.
+ * @template T Target argument type.
  * @author Jeongho Nam - https://github.com/samchon
  * @author Kyungsu Kang - https://github.com/kakasoo
  */
@@ -32,27 +32,27 @@ export type Resolved<T> = Equal<T, ResolvedMain<T>> extends true
 
 type Equal<X, Y> = X extends Y ? (Y extends X ? true : false) : false;
 
-type ResolvedMain<Instance> = Instance extends [never]
+type ResolvedMain<T> = T extends [never]
     ? never // (special trick for jsonable | null) type
-    : ValueOf<Instance> extends boolean | number | bigint | string
-    ? ValueOf<Instance>
-    : Instance extends Function
+    : ValueOf<T> extends boolean | number | bigint | string
+    ? ValueOf<T>
+    : T extends Function
     ? never
-    : Instance extends object
-    ? ResolvedObject<Instance>
-    : ValueOf<Instance>;
+    : T extends object
+    ? ResolvedObject<T>
+    : ValueOf<T>;
 
-type ResolvedObject<Instance extends object> = Instance extends Array<infer T>
-    ? IsTuple<Instance> extends true
-        ? ResolvedTuple<Instance>
-        : ResolvedMain<T>[]
-    : Instance extends Set<infer U>
+type ResolvedObject<T extends object> = T extends Array<infer U>
+    ? IsTuple<T> extends true
+        ? ResolvedTuple<T>
+        : ResolvedMain<U>[]
+    : T extends Set<infer U>
     ? Set<ResolvedMain<U>>
-    : Instance extends Map<infer K, infer V>
+    : T extends Map<infer K, infer V>
     ? Map<ResolvedMain<K>, ResolvedMain<V>>
-    : Instance extends WeakSet<any> | WeakMap<any, any>
+    : T extends WeakSet<any> | WeakMap<any, any>
     ? never
-    : Instance extends
+    : T extends
           | Date
           | Uint8Array
           | Uint8ClampedArray
@@ -68,9 +68,9 @@ type ResolvedObject<Instance extends object> = Instance extends Array<infer T>
           | ArrayBuffer
           | SharedArrayBuffer
           | DataView
-    ? Instance
+    ? T
     : {
-          [P in keyof Instance]: ResolvedMain<Instance[P]>;
+          [P in keyof T]: ResolvedMain<T[P]>;
       };
 
 type ResolvedTuple<T extends readonly any[]> = T extends []
@@ -85,14 +85,6 @@ type ResolvedTuple<T extends readonly any[]> = T extends []
     ? [ResolvedMain<F>?, ...ResolvedTuple<Rest>]
     : [];
 
-type ValueOf<Instance> = IsValueOf<Instance, Boolean> extends true
-    ? boolean
-    : IsValueOf<Instance, Number> extends true
-    ? number
-    : IsValueOf<Instance, String> extends true
-    ? string
-    : Instance;
-
 type IsTuple<T extends readonly any[] | { length: number }> = [T] extends [
     never,
 ]
@@ -102,6 +94,14 @@ type IsTuple<T extends readonly any[] | { length: number }> = [T] extends [
         ? false
         : true
     : false;
+
+type ValueOf<Instance> = IsValueOf<Instance, Boolean> extends true
+    ? boolean
+    : IsValueOf<Instance, Number> extends true
+    ? number
+    : IsValueOf<Instance, String> extends true
+    ? string
+    : Instance;
 
 type IsValueOf<Instance, Object extends IValueOf<any>> = Instance extends Object
     ? Object extends IValueOf<infer Primitive>

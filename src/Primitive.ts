@@ -27,7 +27,7 @@
  * Native Class            | `{}`
  * Others                  | No change
  *
- * @template Instance Target argument type.
+ * @template T Target argument type.
  * @author Jeongho Nam - https://github.com/samchon
  * @author Kyungsu Kang - https://github.com/kakasoo
  * @author Michael - https://github.com/8471919

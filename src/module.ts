@@ -9,6 +9,7 @@ import { Resolved } from "./Resolved";
 export * as http from "./http";
 export * as json from "./json";
 export * as misc from "./misc";
+export * as notations from "./notations";
 export * as protobuf from "./protobuf";
 export * as tags from "./tags";
 
@@ -17,9 +18,13 @@ export * from "./schemas/json/IJsonComponents";
 export * from "./schemas/json/IJsonSchema";
 export * from "./IRandomGenerator";
 export * from "./IValidation";
+export * from "./TypeGuardError";
+
 export * from "./Primitive";
 export * from "./Resolved";
-export * from "./TypeGuardError";
+export * from "./CamelCase";
+export * from "./PascalCase";
+export * from "./SnakeCase";
 
 /* -----------------------------------------------------------
     BASIC VALIDATORS

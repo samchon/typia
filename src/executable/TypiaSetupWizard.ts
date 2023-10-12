@@ -33,29 +33,29 @@ export namespace TypiaSetupWizard {
 
         // SETUP TRANSFORMER
         await pack.save((data) => {
-            // COMPOSE POSTINSTALL COMMAND
+            // COMPOSE PREPARE COMMAND
             data.scripts ??= {};
             if (
-                typeof data.scripts.postinstall === "string" &&
-                data.scripts.postinstall.trim().length
+                typeof data.scripts.prepare === "string" &&
+                data.scripts.prepare.trim().length
             ) {
-                if (data.scripts.postinstall.indexOf("ts-patch install") === -1)
-                    data.scripts.postinstall =
-                        "ts-patch install && " + data.scripts.postinstall;
-            } else data.scripts.postinstall = "ts-patch install";
+                if (data.scripts.prepare.indexOf("ts-patch install") === -1)
+                    data.scripts.prepare =
+                        "ts-patch install && " + data.scripts.prepare;
+            } else data.scripts.prepare = "ts-patch install";
 
             // FOR OLDER VERSIONS
-            if (typeof data.scripts.prepare === "string") {
-                data.scripts.prepare = data.scripts.prepare
+            if (typeof data.scripts.postinstall === "string") {
+                data.scripts.postinstall = data.scripts.postinstall
                     .split("&&")
                     .map((str) => str.trim())
                     .filter((str) => str.indexOf("ts-patch install") === -1)
                     .join(" && ");
-                if (data.scripts.prepare.length === 0)
-                    delete data.scripts.prepare;
+                if (data.scripts.postinstall.length === 0)
+                    delete data.scripts.postinstall;
             }
         });
-        CommandExecutor.run(`${pack.manager} run postinstall`);
+        CommandExecutor.run(`${pack.manager} run prepare`);
 
         // CONFIGURE TYPIA
         await PluginConfigurator.configure(args);
