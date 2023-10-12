@@ -20,6 +20,7 @@ export interface NativeAlias {
 export namespace NativeAlias {
     export const ADDABLE = false;
     export const BINARABLE = false;
+    export const JSONABLE = false;
     export const PRIMITIVE = false;
 
     export type DATE = Date;
