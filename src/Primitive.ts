@@ -24,7 +24,7 @@
  * `String`                | `string`
  * `Class`                 | `object`
  * `Class` with `toJSON()` | `Primitive<ReturnType<Class.toJSON>>`
- * Native Class            | `{}`
+ * Native Class            | never
  * Others                  | No change
  *
  * @template T Target argument type.
