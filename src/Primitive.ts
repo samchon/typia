@@ -49,7 +49,7 @@ type PrimitiveMain<Instance> = Instance extends [never]
     : ValueOf<Instance> extends object
     ? Instance extends object
         ? Instance extends NativeClass
-            ? {}
+            ? never
             : Instance extends IJsonable<infer Raw>
             ? ValueOf<Raw> extends object
                 ? Raw extends object

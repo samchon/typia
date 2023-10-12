@@ -28,4 +28,4 @@ export namespace AtomicPredicator {
         !ArrayUtil.has(meta.atomics, (a) => a.type === "string");
 }
 
-const LIKE = new Set(["boolean", "number", "string"]);
+const LIKE = new Set(["boolean", "bigint", "number", "string"]);

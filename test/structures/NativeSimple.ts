@@ -20,6 +20,7 @@ export interface NativeSimple {
 export namespace NativeSimple {
     export const ADDABLE = false;
     export const BINARABLE = false;
+    export const JSONABLE = false;
     export const PRIMITIVE = false;
 
     export function generate(): NativeSimple {
