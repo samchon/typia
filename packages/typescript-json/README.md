@@ -90,7 +90,7 @@ Check out the document in the [website](https://typia.io/docs/):
     - [`decode()` functions](https://typia.io/docs/protobuf/decode/)
     - [`encode()` functions](https://typia.io/docs/protobuf/encode/)
   - [Random Generator](https://typia.io/docs/random/)
-  - [Miscellaneous](https://typia.io/docs/miscellaneous/)
+  - [Miscellaneous](https://typia.io/docs/misc/)
 
 ### 🔗 Appendix
   - Utillization Cases
