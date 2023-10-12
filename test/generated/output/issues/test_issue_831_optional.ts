@@ -75,6 +75,7 @@ export const test_issue_831_optional = () => {
                         },
                     },
                     nullable: false,
+                    description: "Make all properties in T optional",
                     "x-typia-jsDocTags": [],
                 },
                 RequiredIQuery: {
@@ -103,6 +104,7 @@ export const test_issue_831_optional = () => {
                     },
                     nullable: false,
                     required: ["required", "optional"],
+                    description: "Make all properties in T required",
                     "x-typia-jsDocTags": [],
                 },
             },

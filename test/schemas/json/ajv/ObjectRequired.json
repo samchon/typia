@@ -57,6 +57,7 @@
           "array",
           "object"
         ],
+        "description": "Make all properties in T required",
         "x-typia-jsDocTags": []
       },
       "ObjectRequired.IBase": {
