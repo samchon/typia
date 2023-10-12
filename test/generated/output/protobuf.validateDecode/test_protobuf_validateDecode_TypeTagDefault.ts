@@ -2,11 +2,11 @@ import typia from "../../../../src";
 import { _test_protobuf_validateDecode } from "../../../internal/_test_protobuf_validateDecode";
 import { TypeTagDefault } from "../../../structures/TypeTagDefault";
 
-export const test_protobuf_validateDecode_TypeTagDefault =
+export const test_protobuf_createValidateDecode_TypeTagDefault =
     _test_protobuf_validateDecode("TypeTagDefault")<TypeTagDefault>(
         TypeTagDefault,
     )({
-        validateDecode: (input) =>
+        decode: (input) =>
             ((
                 input: Uint8Array,
             ): typia.IValidation<typia.Resolved<TypeTagDefault>> => {

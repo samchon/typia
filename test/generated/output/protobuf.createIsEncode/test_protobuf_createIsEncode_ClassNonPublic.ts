@@ -4,7 +4,7 @@ import { ClassNonPublic } from "../../../structures/ClassNonPublic";
 
 export const test_protobuf_createIsEncode_ClassNonPublic =
     _test_protobuf_isEncode("ClassNonPublic")<ClassNonPublic>(ClassNonPublic)({
-        isEncode: (input: ClassNonPublic): Uint8Array | null => {
+        encode: (input: ClassNonPublic): Uint8Array | null => {
             const is = (input: any): input is ClassNonPublic => {
                 return (
                     "object" === typeof input &&
@@ -35,8 +35,6 @@ export const test_protobuf_createIsEncode_ClassNonPublic =
             };
             return is(input) ? encode(input) : null;
         },
-        message:
-            'syntax = "proto3";\n\nmessage ClassNonPublic {\n    message Accessor {\n        required string implicit = 1;\n        required string shown = 2;\n    }\n}',
         decode: (input: Uint8Array): typia.Resolved<ClassNonPublic> => {
             const $Reader = (typia.protobuf.createDecode as any).Reader;
             const $pdo0 = (reader: any, length: number = -1): any => {
@@ -66,4 +64,6 @@ export const test_protobuf_createIsEncode_ClassNonPublic =
             const reader = new $Reader(input);
             return $pdo0(reader);
         },
+        message:
+            'syntax = "proto3";\n\nmessage ClassNonPublic {\n    message Accessor {\n        required string implicit = 1;\n        required string shown = 2;\n    }\n}',
     });

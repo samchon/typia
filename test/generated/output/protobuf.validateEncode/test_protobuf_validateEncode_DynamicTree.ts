@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_protobuf_validateEncode } from "../../../internal/_test_protobuf_validateEncode";
 import { DynamicTree } from "../../../structures/DynamicTree";
 
-export const test_protobuf_validateEncode_DynamicTree =
+export const test_protobuf_createValidateEncode_DynamicTree =
     _test_protobuf_validateEncode("DynamicTree")<DynamicTree>(DynamicTree)({
-        validateEncode: (input) =>
+        encode: (input) =>
             ((input: DynamicTree): typia.IValidation<Uint8Array> => {
                 const validate = (
                     input: any,
@@ -225,8 +225,6 @@ export const test_protobuf_validateEncode_DynamicTree =
                 if (output.success) output.data = encode(input);
                 return output;
             })(input),
-        message:
-            'syntax = "proto3";\n\nmessage DynamicTree {\n    required string id = 1;\n    required double sequence = 2;\n    map<string, DynamicTree> children = 3;\n}',
         decode: (input: Uint8Array): typia.Resolved<DynamicTree> => {
             const $Reader = (typia.protobuf.createDecode as any).Reader;
             const $pdo0 = (reader: any, length: number = -1): any => {
@@ -287,4 +285,6 @@ export const test_protobuf_validateEncode_DynamicTree =
             const reader = new $Reader(input);
             return $pdo0(reader);
         },
+        message:
+            'syntax = "proto3";\n\nmessage DynamicTree {\n    required string id = 1;\n    required double sequence = 2;\n    map<string, DynamicTree> children = 3;\n}',
     });

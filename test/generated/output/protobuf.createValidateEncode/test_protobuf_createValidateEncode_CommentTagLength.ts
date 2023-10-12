@@ -6,9 +6,7 @@ export const test_protobuf_createValidateEncode_CommentTagLength =
     _test_protobuf_validateEncode("CommentTagLength")<CommentTagLength>(
         CommentTagLength,
     )({
-        validateEncode: (
-            input: CommentTagLength,
-        ): typia.IValidation<Uint8Array> => {
+        encode: (input: CommentTagLength): typia.IValidation<Uint8Array> => {
             const validate = (
                 input: any,
             ): typia.IValidation<CommentTagLength> => {
@@ -281,8 +279,6 @@ export const test_protobuf_createValidateEncode_CommentTagLength =
             if (output.success) output.data = encode(input);
             return output;
         },
-        message:
-            'syntax = "proto3";\n\nmessage CommentTagLength {\n    repeated CommentTagLength.Type value = 1;\n    message Type {\n        required string fixed = 1;\n        required string minimum = 2;\n        required string maximum = 3;\n        required string minimum_and_maximum = 4;\n        required string equal = 5;\n    }\n}',
         decode: (input: Uint8Array): typia.Resolved<CommentTagLength> => {
             const $Reader = (typia.protobuf.createDecode as any).Reader;
             const $pdo0 = (reader: any, length: number = -1): any => {
@@ -346,4 +342,6 @@ export const test_protobuf_createValidateEncode_CommentTagLength =
             const reader = new $Reader(input);
             return $pdo0(reader);
         },
+        message:
+            'syntax = "proto3";\n\nmessage CommentTagLength {\n    repeated CommentTagLength.Type value = 1;\n    message Type {\n        required string fixed = 1;\n        required string minimum = 2;\n        required string maximum = 3;\n        required string minimum_and_maximum = 4;\n        required string equal = 5;\n    }\n}',
     });

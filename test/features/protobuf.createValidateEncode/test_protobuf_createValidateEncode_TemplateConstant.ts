@@ -6,7 +6,7 @@ export const test_protobuf_createValidateEncode_TemplateConstant =
     _test_protobuf_validateEncode("TemplateConstant")<TemplateConstant>(
         TemplateConstant,
     )({
-        validateEncode: typia.protobuf.createValidateEncode<TemplateConstant>(),
-        message: typia.protobuf.message<TemplateConstant>(),
+        encode: typia.protobuf.createValidateEncode<TemplateConstant>(),
         decode: typia.protobuf.createDecode<TemplateConstant>(),
+        message: typia.protobuf.message<TemplateConstant>(),
     });

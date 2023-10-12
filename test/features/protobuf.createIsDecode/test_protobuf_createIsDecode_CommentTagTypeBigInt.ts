@@ -6,6 +6,6 @@ export const test_protobuf_createIsDecode_CommentTagTypeBigInt =
     _test_protobuf_isDecode("CommentTagTypeBigInt")<CommentTagTypeBigInt>(
         CommentTagTypeBigInt,
     )({
-        isDecode: typia.protobuf.createIsDecode<CommentTagTypeBigInt>(),
+        decode: typia.protobuf.createIsDecode<CommentTagTypeBigInt>(),
         encode: typia.protobuf.createEncode<CommentTagTypeBigInt>(),
     });

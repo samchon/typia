@@ -2,11 +2,11 @@ import typia from "../../../../src";
 import { _test_protobuf_validateDecode } from "../../../internal/_test_protobuf_validateDecode";
 import { ClassNonPublic } from "../../../structures/ClassNonPublic";
 
-export const test_protobuf_validateDecode_ClassNonPublic =
+export const test_protobuf_createValidateDecode_ClassNonPublic =
     _test_protobuf_validateDecode("ClassNonPublic")<ClassNonPublic>(
         ClassNonPublic,
     )({
-        validateDecode: (input) =>
+        decode: (input) =>
             ((
                 input: Uint8Array,
             ): typia.IValidation<typia.Resolved<ClassNonPublic>> => {

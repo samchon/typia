@@ -6,6 +6,6 @@ export const test_protobuf_createIsDecode_CommentTagFormat =
     _test_protobuf_isDecode("CommentTagFormat")<CommentTagFormat>(
         CommentTagFormat,
     )({
-        isDecode: typia.protobuf.createIsDecode<CommentTagFormat>(),
+        decode: typia.protobuf.createIsDecode<CommentTagFormat>(),
         encode: typia.protobuf.createEncode<CommentTagFormat>(),
     });

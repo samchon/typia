@@ -6,7 +6,7 @@ export const test_protobuf_createIsDecode_ClassPropertyAssignment =
     _test_protobuf_isDecode("ClassPropertyAssignment")<ClassPropertyAssignment>(
         ClassPropertyAssignment,
     )({
-        isDecode: (
+        decode: (
             input: Uint8Array,
         ): typia.Resolved<ClassPropertyAssignment> | null => {
             const is = (input: any): input is ClassPropertyAssignment => {

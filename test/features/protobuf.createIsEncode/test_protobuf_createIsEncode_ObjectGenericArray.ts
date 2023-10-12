@@ -6,7 +6,7 @@ export const test_protobuf_createIsEncode_ObjectGenericArray =
     _test_protobuf_isEncode("ObjectGenericArray")<ObjectGenericArray>(
         ObjectGenericArray,
     )({
-        isEncode: typia.protobuf.createIsEncode<ObjectGenericArray>(),
-        message: typia.protobuf.message<ObjectGenericArray>(),
+        encode: typia.protobuf.createIsEncode<ObjectGenericArray>(),
         decode: typia.protobuf.createDecode<ObjectGenericArray>(),
+        message: typia.protobuf.message<ObjectGenericArray>(),
     });

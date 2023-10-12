@@ -6,7 +6,7 @@ export const test_protobuf_createValidateEncode_CommentTagRange =
     _test_protobuf_validateEncode("CommentTagRange")<CommentTagRange>(
         CommentTagRange,
     )({
-        validateEncode: typia.protobuf.createValidateEncode<CommentTagRange>(),
-        message: typia.protobuf.message<CommentTagRange>(),
+        encode: typia.protobuf.createValidateEncode<CommentTagRange>(),
         decode: typia.protobuf.createDecode<CommentTagRange>(),
+        message: typia.protobuf.message<CommentTagRange>(),
     });

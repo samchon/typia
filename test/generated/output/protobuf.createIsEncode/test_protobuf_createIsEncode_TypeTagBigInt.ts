@@ -4,7 +4,7 @@ import { TypeTagBigInt } from "../../../structures/TypeTagBigInt";
 
 export const test_protobuf_createIsEncode_TypeTagBigInt =
     _test_protobuf_isEncode("TypeTagBigInt")<TypeTagBigInt>(TypeTagBigInt)({
-        isEncode: (input: TypeTagBigInt): Uint8Array | null => {
+        encode: (input: TypeTagBigInt): Uint8Array | null => {
             const is = (input: any): input is TypeTagBigInt => {
                 return (
                     "object" === typeof input &&
@@ -52,8 +52,6 @@ export const test_protobuf_createIsEncode_TypeTagBigInt =
             };
             return is(input) ? encode(input) : null;
         },
-        message:
-            'syntax = "proto3";\n\nmessage TypeTagBigInt {\n    required int64 value = 1;\n    required int64 ranged = 2;\n    required int64 minimum = 3;\n    required int64 maximum = 4;\n    required int64 multipleOf = 5;\n}',
         decode: (input: Uint8Array): typia.Resolved<TypeTagBigInt> => {
             const $Reader = (typia.protobuf.createDecode as any).Reader;
             const $pdo0 = (reader: any, length: number = -1): any => {
@@ -98,4 +96,6 @@ export const test_protobuf_createIsEncode_TypeTagBigInt =
             const reader = new $Reader(input);
             return $pdo0(reader);
         },
+        message:
+            'syntax = "proto3";\n\nmessage TypeTagBigInt {\n    required int64 value = 1;\n    required int64 ranged = 2;\n    required int64 minimum = 3;\n    required int64 maximum = 4;\n    required int64 multipleOf = 5;\n}',
     });

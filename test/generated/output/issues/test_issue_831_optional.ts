@@ -75,6 +75,7 @@ export const test_issue_831_optional = () => {
                         },
                     },
                     nullable: false,
+                    description: "Make all properties in T optional",
                     "x-typia-jsDocTags": [],
                 },
                 RequiredIQuery: {
@@ -103,6 +104,7 @@ export const test_issue_831_optional = () => {
                     },
                     nullable: false,
                     required: ["required", "optional"],
+                    description: "Make all properties in T required",
                     "x-typia-jsDocTags": [],
                 },
             },
@@ -3226,9 +3228,4 @@ const validate = (obj: IJsonComponents.IObject) => (expected: Property[]) => {
         expected.sort((a, b) => a[0].localeCompare(b[0])),
     )(result.sort((a, b) => a[0].localeCompare(b[0])));
 };
-interface IProperty {
-    key: string;
-    required: boolean;
-    optional: boolean;
-}
 type Property = [string, boolean, boolean];

@@ -6,9 +6,7 @@ export const test_protobuf_createAssertDecode_MapSimpleProtobuf =
     _test_protobuf_assertDecode("MapSimpleProtobuf")<MapSimpleProtobuf>(
         MapSimpleProtobuf,
     )({
-        assertDecode: (
-            input: Uint8Array,
-        ): typia.Resolved<MapSimpleProtobuf> => {
+        decode: (input: Uint8Array): typia.Resolved<MapSimpleProtobuf> => {
             const decode = (
                 input: Uint8Array,
             ): typia.Resolved<MapSimpleProtobuf> => {

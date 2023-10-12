@@ -5,7 +5,7 @@ import { TypeTagNaN } from "../../../structures/TypeTagNaN";
 export const test_protobuf_createIsEncode_TypeTagNaN = _test_protobuf_isEncode(
     "TypeTagNaN",
 )<TypeTagNaN>(TypeTagNaN)({
-    isEncode: (input: TypeTagNaN): Uint8Array | null => {
+    encode: (input: TypeTagNaN): Uint8Array | null => {
         const is = (input: any): input is TypeTagNaN => {
             return (
                 "object" === typeof input &&
@@ -63,8 +63,6 @@ export const test_protobuf_createIsEncode_TypeTagNaN = _test_protobuf_isEncode(
         };
         return is(input) ? encode(input) : null;
     },
-    message:
-        'syntax = "proto3";\n\nmessage TypeTagNaN {\n    required double value = 1;\n    required double ranged = 2;\n    required double minimum = 3;\n    required double maximum = 4;\n    required double multipleOf = 5;\n    required int32 typed = 6;\n}',
     decode: (input: Uint8Array): typia.Resolved<TypeTagNaN> => {
         const $Reader = (typia.protobuf.createDecode as any).Reader;
         const $pdo0 = (reader: any, length: number = -1): any => {
@@ -114,4 +112,6 @@ export const test_protobuf_createIsEncode_TypeTagNaN = _test_protobuf_isEncode(
         const reader = new $Reader(input);
         return $pdo0(reader);
     },
+    message:
+        'syntax = "proto3";\n\nmessage TypeTagNaN {\n    required double value = 1;\n    required double ranged = 2;\n    required double minimum = 3;\n    required double maximum = 4;\n    required double multipleOf = 5;\n    required int32 typed = 6;\n}',
 });

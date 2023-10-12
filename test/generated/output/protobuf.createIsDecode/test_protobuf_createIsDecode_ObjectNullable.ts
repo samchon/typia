@@ -4,9 +4,7 @@ import { ObjectNullable } from "../../../structures/ObjectNullable";
 
 export const test_protobuf_createIsDecode_ObjectNullable =
     _test_protobuf_isDecode("ObjectNullable")<ObjectNullable>(ObjectNullable)({
-        isDecode: (
-            input: Uint8Array,
-        ): typia.Resolved<ObjectNullable> | null => {
+        decode: (input: Uint8Array): typia.Resolved<ObjectNullable> | null => {
             const is = (input: any): input is ObjectNullable => {
                 const $io0 = (input: any): boolean =>
                     Array.isArray(input.value) &&

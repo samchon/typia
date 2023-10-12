@@ -98,7 +98,7 @@ export const test_random_CommentTagDefault = _test_random(
                 ])(),
             });
             return $ro0();
-        })(),
+        })((CommentTagDefault as any).RANDOM),
     assert: (input: any): CommentTagDefault => {
         const __is = (input: any): input is CommentTagDefault => {
             const $io0 = (input: any): boolean =>

@@ -6,7 +6,8 @@ export const test_createRandom_TypeTagRange = _test_random(
     "TypeTagRange",
 )<TypeTagRange>(TypeTagRange)({
     random: (
-        generator?: Partial<typia.IRandomGenerator>,
+        generator: Partial<typia.IRandomGenerator> = (TypeTagRange as any)
+            .RANDOM,
     ): typia.Resolved<TypeTagRange> => {
         const $generator = (typia.createRandom as any).generator;
         const $ro0 = (

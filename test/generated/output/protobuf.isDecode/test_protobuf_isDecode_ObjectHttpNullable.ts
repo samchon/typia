@@ -2,11 +2,11 @@ import typia from "../../../../src";
 import { _test_protobuf_isDecode } from "../../../internal/_test_protobuf_isDecode";
 import { ObjectHttpNullable } from "../../../structures/ObjectHttpNullable";
 
-export const test_protobuf_isDecode_ObjectHttpNullable =
+export const test_protobuf_createIsDecode_ObjectHttpNullable =
     _test_protobuf_isDecode("ObjectHttpNullable")<ObjectHttpNullable>(
         ObjectHttpNullable,
     )({
-        isDecode: (input) =>
+        decode: (input) =>
             ((input: Uint8Array): typia.Resolved<ObjectHttpNullable> | null => {
                 const is = (input: any): input is ObjectHttpNullable => {
                     const $io0 = (input: any): boolean =>

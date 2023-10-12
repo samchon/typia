@@ -225,7 +225,7 @@ export const test_random_MapSimpleProtobufOptional = _test_random(
                 ])(),
             });
             return $ro0();
-        })(),
+        })((MapSimpleProtobufOptional as any).RANDOM),
     assert: (input: any): MapSimpleProtobufOptional => {
         const __is = (input: any): input is MapSimpleProtobufOptional => {
             const $io0 = (input: any): boolean =>

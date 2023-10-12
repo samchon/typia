@@ -4,6 +4,6 @@ import { ObjectSimple } from "../../structures/ObjectSimple";
 
 export const test_protobuf_createIsDecode_ObjectSimple =
     _test_protobuf_isDecode("ObjectSimple")<ObjectSimple>(ObjectSimple)({
-        isDecode: typia.protobuf.createIsDecode<ObjectSimple>(),
+        decode: typia.protobuf.createIsDecode<ObjectSimple>(),
         encode: typia.protobuf.createEncode<ObjectSimple>(),
     });

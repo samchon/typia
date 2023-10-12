@@ -6,7 +6,7 @@ export const test_protobuf_createValidateDecode_ObjectHttpConstant =
     _test_protobuf_validateDecode("ObjectHttpConstant")<ObjectHttpConstant>(
         ObjectHttpConstant,
     )({
-        validateDecode: (
+        decode: (
             input: Uint8Array,
         ): typia.IValidation<typia.Resolved<ObjectHttpConstant>> => {
             const validate = (

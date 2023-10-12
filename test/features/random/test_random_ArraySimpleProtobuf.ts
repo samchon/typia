@@ -5,6 +5,7 @@ import { ArraySimpleProtobuf } from "../../structures/ArraySimpleProtobuf";
 export const test_random_ArraySimpleProtobuf = _test_random(
     "ArraySimpleProtobuf",
 )<ArraySimpleProtobuf>(ArraySimpleProtobuf)({
-    random: () => typia.random<ArraySimpleProtobuf>(),
+    random: () =>
+        typia.random<ArraySimpleProtobuf>((ArraySimpleProtobuf as any).RANDOM),
     assert: typia.createAssert<ArraySimpleProtobuf>(),
 });

@@ -2,11 +2,11 @@ import typia from "../../../../src";
 import { _test_protobuf_assertEncode } from "../../../internal/_test_protobuf_assertEncode";
 import { ObjectOptional } from "../../../structures/ObjectOptional";
 
-export const test_protobuf_assertEncode_ObjectOptional =
+export const test_protobuf_createAssertEncode_ObjectOptional =
     _test_protobuf_assertEncode("ObjectOptional")<ObjectOptional>(
         ObjectOptional,
     )({
-        assertEncode: (input) =>
+        encode: (input) =>
             ((input: any): Uint8Array => {
                 const assert = (input: any): ObjectOptional => {
                     const __is = (input: any): input is ObjectOptional => {
@@ -124,8 +124,6 @@ export const test_protobuf_assertEncode_ObjectOptional =
                 };
                 return encode(assert(input));
             })(input),
-        message:
-            'syntax = "proto3";\n\nmessage ObjectOptional {\n    optional string id = 1;\n    optional string name = 2;\n    optional string email = 3;\n    optional double sequence = 4;\n}',
         decode: (input: Uint8Array): typia.Resolved<ObjectOptional> => {
             const $Reader = (typia.protobuf.createDecode as any).Reader;
             const $pdo0 = (reader: any, length: number = -1): any => {
@@ -165,4 +163,6 @@ export const test_protobuf_assertEncode_ObjectOptional =
             const reader = new $Reader(input);
             return $pdo0(reader);
         },
+        message:
+            'syntax = "proto3";\n\nmessage ObjectOptional {\n    optional string id = 1;\n    optional string name = 2;\n    optional string email = 3;\n    optional double sequence = 4;\n}',
     });

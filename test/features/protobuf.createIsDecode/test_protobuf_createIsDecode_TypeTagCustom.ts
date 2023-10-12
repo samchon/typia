@@ -4,6 +4,6 @@ import { TypeTagCustom } from "../../structures/TypeTagCustom";
 
 export const test_protobuf_createIsDecode_TypeTagCustom =
     _test_protobuf_isDecode("TypeTagCustom")<TypeTagCustom>(TypeTagCustom)({
-        isDecode: typia.protobuf.createIsDecode<TypeTagCustom>(),
+        decode: typia.protobuf.createIsDecode<TypeTagCustom>(),
         encode: typia.protobuf.createEncode<TypeTagCustom>(),
     });

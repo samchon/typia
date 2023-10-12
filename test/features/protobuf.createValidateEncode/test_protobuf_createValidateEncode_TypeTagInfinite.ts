@@ -6,7 +6,7 @@ export const test_protobuf_createValidateEncode_TypeTagInfinite =
     _test_protobuf_validateEncode("TypeTagInfinite")<TypeTagInfinite>(
         TypeTagInfinite,
     )({
-        validateEncode: typia.protobuf.createValidateEncode<TypeTagInfinite>(),
-        message: typia.protobuf.message<TypeTagInfinite>(),
+        encode: typia.protobuf.createValidateEncode<TypeTagInfinite>(),
         decode: typia.protobuf.createDecode<TypeTagInfinite>(),
+        message: typia.protobuf.message<TypeTagInfinite>(),
     });

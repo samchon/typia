@@ -4,7 +4,7 @@ import { ObjectSimple } from "../../../structures/ObjectSimple";
 
 export const test_protobuf_createIsDecode_ObjectSimple =
     _test_protobuf_isDecode("ObjectSimple")<ObjectSimple>(ObjectSimple)({
-        isDecode: (input: Uint8Array): typia.Resolved<ObjectSimple> | null => {
+        decode: (input: Uint8Array): typia.Resolved<ObjectSimple> | null => {
             const is = (input: any): input is ObjectSimple => {
                 return (
                     "object" === typeof input &&

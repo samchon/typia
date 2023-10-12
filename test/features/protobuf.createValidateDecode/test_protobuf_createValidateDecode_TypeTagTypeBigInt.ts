@@ -6,7 +6,6 @@ export const test_protobuf_createValidateDecode_TypeTagTypeBigInt =
     _test_protobuf_validateDecode("TypeTagTypeBigInt")<TypeTagTypeBigInt>(
         TypeTagTypeBigInt,
     )({
-        validateDecode:
-            typia.protobuf.createValidateDecode<TypeTagTypeBigInt>(),
+        decode: typia.protobuf.createValidateDecode<TypeTagTypeBigInt>(),
         encode: typia.protobuf.createEncode<TypeTagTypeBigInt>(),
     });

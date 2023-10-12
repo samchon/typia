@@ -6,7 +6,6 @@ export const test_protobuf_createValidateDecode_ObjectUnionNonPredictable =
     _test_protobuf_validateDecode(
         "ObjectUnionNonPredictable",
     )<ObjectUnionNonPredictable>(ObjectUnionNonPredictable)({
-        validateDecode:
-            typia.protobuf.createValidateDecode<ObjectUnionNonPredictable>(),
+        decode: typia.protobuf.createValidateDecode<ObjectUnionNonPredictable>(),
         encode: typia.protobuf.createEncode<ObjectUnionNonPredictable>(),
     });

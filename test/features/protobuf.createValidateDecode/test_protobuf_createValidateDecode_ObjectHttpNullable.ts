@@ -6,7 +6,6 @@ export const test_protobuf_createValidateDecode_ObjectHttpNullable =
     _test_protobuf_validateDecode("ObjectHttpNullable")<ObjectHttpNullable>(
         ObjectHttpNullable,
     )({
-        validateDecode:
-            typia.protobuf.createValidateDecode<ObjectHttpNullable>(),
+        decode: typia.protobuf.createValidateDecode<ObjectHttpNullable>(),
         encode: typia.protobuf.createEncode<ObjectHttpNullable>(),
     });

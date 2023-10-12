@@ -60,7 +60,7 @@ export const test_random_AtomicClass = _test_random("AtomicClass")<AtomicClass>(
                         ) ?? (generator?.string ?? $generator.string)(),
                 ])(),
             ];
-        })(),
+        })((AtomicClass as any).RANDOM),
     assert: (input: any): AtomicClass => {
         const __is = (input: any): input is AtomicClass => {
             return (

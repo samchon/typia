@@ -60,8 +60,6 @@ export const test_protobuf_createEncode_ObjectHttpArray = _test_protobuf_encode(
         const writer = encoder(new $Writer(sizer));
         return writer.buffer();
     },
-    message:
-        'syntax = "proto3";\n\nmessage ObjectHttpArray {\n    repeated bool booleans = 1;\n    repeated int64 bigints = 2;\n    repeated double numbers = 3;\n    repeated string strings = 4;\n    repeated string templates = 5;\n}',
     decode: (input: Uint8Array): typia.Resolved<ObjectHttpArray> => {
         const $Reader = (typia.protobuf.createDecode as any).Reader;
         const $pdo0 = (reader: any, length: number = -1): any => {
@@ -118,4 +116,6 @@ export const test_protobuf_createEncode_ObjectHttpArray = _test_protobuf_encode(
         const reader = new $Reader(input);
         return $pdo0(reader);
     },
+    message:
+        'syntax = "proto3";\n\nmessage ObjectHttpArray {\n    repeated bool booleans = 1;\n    repeated int64 bigints = 2;\n    repeated double numbers = 3;\n    repeated string strings = 4;\n    repeated string templates = 5;\n}',
 });

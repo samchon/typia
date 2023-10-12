@@ -4,6 +4,6 @@ import { DynamicSimple } from "../../structures/DynamicSimple";
 
 export const test_protobuf_createIsDecode_DynamicSimple =
     _test_protobuf_isDecode("DynamicSimple")<DynamicSimple>(DynamicSimple)({
-        isDecode: typia.protobuf.createIsDecode<DynamicSimple>(),
+        decode: typia.protobuf.createIsDecode<DynamicSimple>(),
         encode: typia.protobuf.createEncode<DynamicSimple>(),
     });

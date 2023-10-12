@@ -54,7 +54,7 @@ export const test_random_ObjectPrimitive = _test_random(
                     (generator?.string ?? $generator.string)(),
             });
             return $ro0();
-        })(),
+        })((ObjectPrimitive as any).RANDOM),
     assert: (input: any): ObjectPrimitive => {
         const __is = (input: any): input is ObjectPrimitive => {
             const $io0 = (input: any): boolean =>

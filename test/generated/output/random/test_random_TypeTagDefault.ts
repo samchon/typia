@@ -120,7 +120,7 @@ export const test_random_TypeTagDefault = _test_random(
                 ])(),
             });
             return $ro0();
-        })(),
+        })((TypeTagDefault as any).RANDOM),
     assert: (input: any): TypeTagDefault => {
         const __is = (input: any): input is TypeTagDefault => {
             const $io0 = (input: any): boolean =>

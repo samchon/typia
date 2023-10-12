@@ -5,6 +5,6 @@ import { NativeUnion } from "../../structures/NativeUnion";
 export const test_createRandom_NativeUnion = _test_random(
     "NativeUnion",
 )<NativeUnion>(NativeUnion)({
-    random: typia.createRandom<NativeUnion>(),
+    random: typia.createRandom<NativeUnion>((NativeUnion as any).RANDOM),
     assert: typia.createAssert<NativeUnion>(),
 });

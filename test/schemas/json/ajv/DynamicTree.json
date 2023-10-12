@@ -35,6 +35,7 @@
         "$id": "#/components/schemas/RecordstringDynamicTree",
         "type": "object",
         "properties": {},
+        "description": "Construct a type with a set of properties K of type T",
         "x-typia-jsDocTags": [],
         "additionalProperties": {
           "$ref": "#/components/schemas/DynamicTree"

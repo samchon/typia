@@ -6,7 +6,7 @@ export const test_createRandom_SetSimple = _test_random("SetSimple")<SetSimple>(
     SetSimple,
 )({
     random: (
-        generator?: Partial<typia.IRandomGenerator>,
+        generator: Partial<typia.IRandomGenerator> = (SetSimple as any).RANDOM,
     ): typia.Resolved<SetSimple> => {
         const $generator = (typia.createRandom as any).generator;
         const $ro0 = (

@@ -5,6 +5,9 @@ import { CommentTagRangeBigInt } from "../../structures/CommentTagRangeBigInt";
 export const test_random_CommentTagRangeBigInt = _test_random(
     "CommentTagRangeBigInt",
 )<CommentTagRangeBigInt>(CommentTagRangeBigInt)({
-    random: () => typia.random<CommentTagRangeBigInt>(),
+    random: () =>
+        typia.random<CommentTagRangeBigInt>(
+            (CommentTagRangeBigInt as any).RANDOM,
+        ),
     assert: typia.createAssert<CommentTagRangeBigInt>(),
 });

@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_protobuf_assertDecode } from "../../../internal/_test_protobuf_assertDecode";
 import { TypeTagLength } from "../../../structures/TypeTagLength";
 
-export const test_protobuf_assertDecode_TypeTagLength =
+export const test_protobuf_createAssertDecode_TypeTagLength =
     _test_protobuf_assertDecode("TypeTagLength")<TypeTagLength>(TypeTagLength)({
-        assertDecode: (input) =>
+        decode: (input) =>
             ((input: Uint8Array): typia.Resolved<TypeTagLength> => {
                 const decode = (
                     input: Uint8Array,

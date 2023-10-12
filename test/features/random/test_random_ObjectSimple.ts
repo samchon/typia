@@ -5,6 +5,6 @@ import { ObjectSimple } from "../../structures/ObjectSimple";
 export const test_random_ObjectSimple = _test_random(
     "ObjectSimple",
 )<ObjectSimple>(ObjectSimple)({
-    random: () => typia.random<ObjectSimple>(),
+    random: () => typia.random<ObjectSimple>((ObjectSimple as any).RANDOM),
     assert: typia.createAssert<ObjectSimple>(),
 });

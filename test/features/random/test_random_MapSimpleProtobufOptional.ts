@@ -5,6 +5,9 @@ import { MapSimpleProtobufOptional } from "../../structures/MapSimpleProtobufOpt
 export const test_random_MapSimpleProtobufOptional = _test_random(
     "MapSimpleProtobufOptional",
 )<MapSimpleProtobufOptional>(MapSimpleProtobufOptional)({
-    random: () => typia.random<MapSimpleProtobufOptional>(),
+    random: () =>
+        typia.random<MapSimpleProtobufOptional>(
+            (MapSimpleProtobufOptional as any).RANDOM,
+        ),
     assert: typia.createAssert<MapSimpleProtobufOptional>(),
 });

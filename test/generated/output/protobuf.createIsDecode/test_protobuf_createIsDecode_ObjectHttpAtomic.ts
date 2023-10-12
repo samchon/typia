@@ -6,7 +6,7 @@ export const test_protobuf_createIsDecode_ObjectHttpAtomic =
     _test_protobuf_isDecode("ObjectHttpAtomic")<ObjectHttpAtomic>(
         ObjectHttpAtomic,
     )({
-        isDecode: (
+        decode: (
             input: Uint8Array,
         ): typia.Resolved<ObjectHttpAtomic> | null => {
             const is = (input: any): input is ObjectHttpAtomic => {

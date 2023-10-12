@@ -4,7 +4,7 @@ import { TypeTagRange } from "../../../structures/TypeTagRange";
 
 export const test_protobuf_createValidateDecode_TypeTagRange =
     _test_protobuf_validateDecode("TypeTagRange")<TypeTagRange>(TypeTagRange)({
-        validateDecode: (
+        decode: (
             input: Uint8Array,
         ): typia.IValidation<typia.Resolved<TypeTagRange>> => {
             const validate = (input: any): typia.IValidation<TypeTagRange> => {

@@ -81,7 +81,7 @@ export const test_random_ObjectRequired = _test_random(
                 ])(),
             });
             return $ro0();
-        })(),
+        })((ObjectRequired as any).RANDOM),
     assert: (input: any): ObjectRequired => {
         const __is = (input: any): input is ObjectRequired => {
             const $io0 = (input: any): boolean =>

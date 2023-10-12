@@ -5,6 +5,6 @@ import { CommentTagType } from "../../structures/CommentTagType";
 export const test_createRandom_CommentTagType = _test_random(
     "CommentTagType",
 )<CommentTagType>(CommentTagType)({
-    random: typia.createRandom<CommentTagType>(),
+    random: typia.createRandom<CommentTagType>((CommentTagType as any).RANDOM),
     assert: typia.createAssert<CommentTagType>(),
 });

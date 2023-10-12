@@ -6,7 +6,7 @@ export const test_protobuf_createValidateDecode_TemplateAtomic =
     _test_protobuf_validateDecode("TemplateAtomic")<TemplateAtomic>(
         TemplateAtomic,
     )({
-        validateDecode: (
+        decode: (
             input: Uint8Array,
         ): typia.IValidation<typia.Resolved<TemplateAtomic>> => {
             const validate = (

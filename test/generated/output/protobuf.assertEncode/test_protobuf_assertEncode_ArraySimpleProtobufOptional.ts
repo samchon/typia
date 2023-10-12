@@ -2,11 +2,11 @@ import typia from "../../../../src";
 import { _test_protobuf_assertEncode } from "../../../internal/_test_protobuf_assertEncode";
 import { ArraySimpleProtobufOptional } from "../../../structures/ArraySimpleProtobufOptional";
 
-export const test_protobuf_assertEncode_ArraySimpleProtobufOptional =
+export const test_protobuf_createAssertEncode_ArraySimpleProtobufOptional =
     _test_protobuf_assertEncode(
         "ArraySimpleProtobufOptional",
     )<ArraySimpleProtobufOptional>(ArraySimpleProtobufOptional)({
-        assertEncode: (input) =>
+        encode: (input) =>
             ((input: any): Uint8Array => {
                 const assert = (input: any): ArraySimpleProtobufOptional => {
                     const __is = (
@@ -702,8 +702,6 @@ export const test_protobuf_assertEncode_ArraySimpleProtobufOptional =
                 };
                 return encode(assert(input));
             })(input),
-        message:
-            'syntax = "proto3";\n\nmessage ArraySimpleProtobufOptional {\n    repeated bool boolean = 1;\n    repeated int32 int32 = 2;\n    repeated uint32 uint32 = 3;\n    repeated int64 int64 = 4;\n    repeated uint64 uint64 = 5;\n    repeated float float = 6;\n    repeated double double = 7;\n    repeated string string = 8;\n    repeated bytes bytes = 9;\n    repeated ArraySimpleProtobufOptional object = 10;\n}',
         decode: (
             input: Uint8Array,
         ): typia.Resolved<ArraySimpleProtobufOptional> => {
@@ -813,4 +811,6 @@ export const test_protobuf_assertEncode_ArraySimpleProtobufOptional =
             const reader = new $Reader(input);
             return $pdo0(reader);
         },
+        message:
+            'syntax = "proto3";\n\nmessage ArraySimpleProtobufOptional {\n    repeated bool boolean = 1;\n    repeated int32 int32 = 2;\n    repeated uint32 uint32 = 3;\n    repeated int64 int64 = 4;\n    repeated uint64 uint64 = 5;\n    repeated float float = 6;\n    repeated double double = 7;\n    repeated string string = 8;\n    repeated bytes bytes = 9;\n    repeated ArraySimpleProtobufOptional object = 10;\n}',
     });

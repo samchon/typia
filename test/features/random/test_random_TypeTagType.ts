@@ -5,6 +5,6 @@ import { TypeTagType } from "../../structures/TypeTagType";
 export const test_random_TypeTagType = _test_random("TypeTagType")<TypeTagType>(
     TypeTagType,
 )({
-    random: () => typia.random<TypeTagType>(),
+    random: () => typia.random<TypeTagType>((TypeTagType as any).RANDOM),
     assert: typia.createAssert<TypeTagType>(),
 });

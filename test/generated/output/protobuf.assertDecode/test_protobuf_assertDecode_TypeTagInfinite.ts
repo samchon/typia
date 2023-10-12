@@ -2,11 +2,11 @@ import typia from "../../../../src";
 import { _test_protobuf_assertDecode } from "../../../internal/_test_protobuf_assertDecode";
 import { TypeTagInfinite } from "../../../structures/TypeTagInfinite";
 
-export const test_protobuf_assertDecode_TypeTagInfinite =
+export const test_protobuf_createAssertDecode_TypeTagInfinite =
     _test_protobuf_assertDecode("TypeTagInfinite")<TypeTagInfinite>(
         TypeTagInfinite,
     )({
-        assertDecode: (input) =>
+        decode: (input) =>
             ((input: Uint8Array): typia.Resolved<TypeTagInfinite> => {
                 const decode = (
                     input: Uint8Array,

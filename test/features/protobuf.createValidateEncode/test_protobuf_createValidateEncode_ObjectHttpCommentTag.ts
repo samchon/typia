@@ -6,8 +6,7 @@ export const test_protobuf_createValidateEncode_ObjectHttpCommentTag =
     _test_protobuf_validateEncode("ObjectHttpCommentTag")<ObjectHttpCommentTag>(
         ObjectHttpCommentTag,
     )({
-        validateEncode:
-            typia.protobuf.createValidateEncode<ObjectHttpCommentTag>(),
-        message: typia.protobuf.message<ObjectHttpCommentTag>(),
+        encode: typia.protobuf.createValidateEncode<ObjectHttpCommentTag>(),
         decode: typia.protobuf.createDecode<ObjectHttpCommentTag>(),
+        message: typia.protobuf.message<ObjectHttpCommentTag>(),
     });

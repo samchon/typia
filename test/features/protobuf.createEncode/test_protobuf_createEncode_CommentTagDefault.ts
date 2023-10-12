@@ -7,6 +7,6 @@ export const test_protobuf_createEncode_CommentTagDefault =
         CommentTagDefault,
     )({
         encode: typia.protobuf.createEncode<CommentTagDefault>(),
-        message: typia.protobuf.message<CommentTagDefault>(),
         decode: typia.protobuf.createDecode<CommentTagDefault>(),
+        message: typia.protobuf.message<CommentTagDefault>(),
     });

@@ -48,7 +48,7 @@ export const test_random_CommentTagObjectUnion = _test_random(
             return (generator?.array ?? $generator.array)(() =>
                 $pick([() => $ro1(), () => $ro0()])(),
             );
-        })(),
+        })((CommentTagObjectUnion as any).RANDOM),
     assert: (input: any): CommentTagObjectUnion => {
         const __is = (input: any): input is CommentTagObjectUnion => {
             const $io0 = (input: any): boolean =>

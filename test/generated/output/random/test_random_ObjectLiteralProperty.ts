@@ -22,7 +22,7 @@ export const test_random_ObjectLiteralProperty = _test_random(
                     (generator?.string ?? $generator.string)(),
             });
             return $ro0();
-        })(),
+        })((ObjectLiteralProperty as any).RANDOM),
     assert: (input: any): ObjectLiteralProperty => {
         const __is = (input: any): input is ObjectLiteralProperty => {
             return (

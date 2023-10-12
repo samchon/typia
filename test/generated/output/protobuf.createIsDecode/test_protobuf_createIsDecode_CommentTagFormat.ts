@@ -6,7 +6,7 @@ export const test_protobuf_createIsDecode_CommentTagFormat =
     _test_protobuf_isDecode("CommentTagFormat")<CommentTagFormat>(
         CommentTagFormat,
     )({
-        isDecode: (
+        decode: (
             input: Uint8Array,
         ): typia.Resolved<CommentTagFormat> | null => {
             const is = (input: any): input is CommentTagFormat => {

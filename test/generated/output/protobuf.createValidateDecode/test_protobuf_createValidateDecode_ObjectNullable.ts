@@ -6,7 +6,7 @@ export const test_protobuf_createValidateDecode_ObjectNullable =
     _test_protobuf_validateDecode("ObjectNullable")<ObjectNullable>(
         ObjectNullable,
     )({
-        validateDecode: (
+        decode: (
             input: Uint8Array,
         ): typia.IValidation<typia.Resolved<ObjectNullable>> => {
             const validate = (

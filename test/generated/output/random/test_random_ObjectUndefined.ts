@@ -56,7 +56,7 @@ export const test_random_ObjectUndefined = _test_random(
                     (generator?.string ?? $generator.string)(),
             });
             return (generator?.array ?? $generator.array)(() => $ro0());
-        })(),
+        })((ObjectUndefined as any).RANDOM),
     assert: (input: any): ObjectUndefined => {
         const __is = (input: any): input is ObjectUndefined => {
             const $io0 = (input: any): boolean =>

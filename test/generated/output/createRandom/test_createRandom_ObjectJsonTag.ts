@@ -6,7 +6,8 @@ export const test_createRandom_ObjectJsonTag = _test_random(
     "ObjectJsonTag",
 )<ObjectJsonTag>(ObjectJsonTag)({
     random: (
-        generator?: Partial<typia.IRandomGenerator>,
+        generator: Partial<typia.IRandomGenerator> = (ObjectJsonTag as any)
+            .RANDOM,
     ): typia.Resolved<ObjectJsonTag> => {
         const $generator = (typia.createRandom as any).generator;
         const $ro0 = (

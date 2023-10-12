@@ -6,7 +6,7 @@ export const test_protobuf_createValidateDecode_MapSimpleProtobufOptional =
     _test_protobuf_validateDecode(
         "MapSimpleProtobufOptional",
     )<MapSimpleProtobufOptional>(MapSimpleProtobufOptional)({
-        validateDecode: (
+        decode: (
             input: Uint8Array,
         ): typia.IValidation<typia.Resolved<MapSimpleProtobufOptional>> => {
             const validate = (

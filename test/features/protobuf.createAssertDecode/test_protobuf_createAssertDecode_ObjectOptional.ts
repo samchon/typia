@@ -6,6 +6,6 @@ export const test_protobuf_createAssertDecode_ObjectOptional =
     _test_protobuf_assertDecode("ObjectOptional")<ObjectOptional>(
         ObjectOptional,
     )({
-        assertDecode: typia.protobuf.createAssertDecode<ObjectOptional>(),
+        decode: typia.protobuf.createAssertDecode<ObjectOptional>(),
         encode: typia.protobuf.createEncode<ObjectOptional>(),
     });

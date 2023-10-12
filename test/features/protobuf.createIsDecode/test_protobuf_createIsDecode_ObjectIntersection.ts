@@ -6,6 +6,6 @@ export const test_protobuf_createIsDecode_ObjectIntersection =
     _test_protobuf_isDecode("ObjectIntersection")<ObjectIntersection>(
         ObjectIntersection,
     )({
-        isDecode: typia.protobuf.createIsDecode<ObjectIntersection>(),
+        decode: typia.protobuf.createIsDecode<ObjectIntersection>(),
         encode: typia.protobuf.createEncode<ObjectIntersection>(),
     });

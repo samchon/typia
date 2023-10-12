@@ -75,7 +75,7 @@ export const test_random_CommentTagFormat = _test_random(
                     (generator?.string ?? $generator.string)(),
             });
             return $ro0();
-        })(),
+        })((CommentTagFormat as any).RANDOM),
     assert: (input: any): CommentTagFormat => {
         const __is = (input: any): input is CommentTagFormat => {
             return (

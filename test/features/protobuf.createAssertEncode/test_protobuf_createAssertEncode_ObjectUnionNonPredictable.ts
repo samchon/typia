@@ -6,8 +6,7 @@ export const test_protobuf_createAssertEncode_ObjectUnionNonPredictable =
     _test_protobuf_assertEncode(
         "ObjectUnionNonPredictable",
     )<ObjectUnionNonPredictable>(ObjectUnionNonPredictable)({
-        assertEncode:
-            typia.protobuf.createAssertEncode<ObjectUnionNonPredictable>(),
-        message: typia.protobuf.message<ObjectUnionNonPredictable>(),
+        encode: typia.protobuf.createAssertEncode<ObjectUnionNonPredictable>(),
         decode: typia.protobuf.createDecode<ObjectUnionNonPredictable>(),
+        message: typia.protobuf.message<ObjectUnionNonPredictable>(),
     });

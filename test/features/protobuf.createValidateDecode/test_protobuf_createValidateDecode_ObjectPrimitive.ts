@@ -6,6 +6,6 @@ export const test_protobuf_createValidateDecode_ObjectPrimitive =
     _test_protobuf_validateDecode("ObjectPrimitive")<ObjectPrimitive>(
         ObjectPrimitive,
     )({
-        validateDecode: typia.protobuf.createValidateDecode<ObjectPrimitive>(),
+        decode: typia.protobuf.createValidateDecode<ObjectPrimitive>(),
         encode: typia.protobuf.createEncode<ObjectPrimitive>(),
     });

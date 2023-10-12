@@ -6,7 +6,7 @@ export const test_protobuf_createAssertDecode_CommentTagLength =
     _test_protobuf_assertDecode("CommentTagLength")<CommentTagLength>(
         CommentTagLength,
     )({
-        assertDecode: (input: Uint8Array): typia.Resolved<CommentTagLength> => {
+        decode: (input: Uint8Array): typia.Resolved<CommentTagLength> => {
             const decode = (
                 input: Uint8Array,
             ): typia.Resolved<CommentTagLength> => {

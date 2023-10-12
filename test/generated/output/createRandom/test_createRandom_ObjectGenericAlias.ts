@@ -6,7 +6,8 @@ export const test_createRandom_ObjectGenericAlias = _test_random(
     "ObjectGenericAlias",
 )<ObjectGenericAlias>(ObjectGenericAlias)({
     random: (
-        generator?: Partial<typia.IRandomGenerator>,
+        generator: Partial<typia.IRandomGenerator> = (ObjectGenericAlias as any)
+            .RANDOM,
     ): typia.Resolved<ObjectGenericAlias> => {
         const $generator = (typia.createRandom as any).generator;
         const $ro0 = (

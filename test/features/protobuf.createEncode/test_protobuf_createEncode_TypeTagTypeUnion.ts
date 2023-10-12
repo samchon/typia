@@ -7,6 +7,6 @@ export const test_protobuf_createEncode_TypeTagTypeUnion =
         TypeTagTypeUnion,
     )({
         encode: typia.protobuf.createEncode<TypeTagTypeUnion>(),
-        message: typia.protobuf.message<TypeTagTypeUnion>(),
         decode: typia.protobuf.createDecode<TypeTagTypeUnion>(),
+        message: typia.protobuf.message<TypeTagTypeUnion>(),
     });

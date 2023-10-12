@@ -2,11 +2,11 @@ import typia from "../../../../src";
 import { _test_protobuf_assertEncode } from "../../../internal/_test_protobuf_assertEncode";
 import { CommentTagFormat } from "../../../structures/CommentTagFormat";
 
-export const test_protobuf_assertEncode_CommentTagFormat =
+export const test_protobuf_createAssertEncode_CommentTagFormat =
     _test_protobuf_assertEncode("CommentTagFormat")<CommentTagFormat>(
         CommentTagFormat,
     )({
-        assertEncode: (input) =>
+        encode: (input) =>
             ((input: any): Uint8Array => {
                 const assert = (input: any): CommentTagFormat => {
                     const __is = (input: any): input is CommentTagFormat => {
@@ -222,8 +222,6 @@ export const test_protobuf_assertEncode_CommentTagFormat =
                 };
                 return encode(assert(input));
             })(input),
-        message:
-            'syntax = "proto3";\n\nmessage CommentTagFormat {\n    required string uuid = 1;\n    required string email = 2;\n    required string url = 3;\n    required string ipv4 = 4;\n    required string ipv6 = 5;\n    required string date = 6;\n    required string date_time = 7;\n    required string custom = 8;\n}',
         decode: (input: Uint8Array): typia.Resolved<CommentTagFormat> => {
             const $Reader = (typia.protobuf.createDecode as any).Reader;
             const $pdo0 = (reader: any, length: number = -1): any => {
@@ -283,4 +281,6 @@ export const test_protobuf_assertEncode_CommentTagFormat =
             const reader = new $Reader(input);
             return $pdo0(reader);
         },
+        message:
+            'syntax = "proto3";\n\nmessage CommentTagFormat {\n    required string uuid = 1;\n    required string email = 2;\n    required string url = 3;\n    required string ipv4 = 4;\n    required string ipv6 = 5;\n    required string date = 6;\n    required string date_time = 7;\n    required string custom = 8;\n}',
     });

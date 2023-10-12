@@ -6,7 +6,8 @@ export const test_createRandom_DynamicEnumeration = _test_random(
     "DynamicEnumeration",
 )<DynamicEnumeration>(DynamicEnumeration)({
     random: (
-        generator?: Partial<typia.IRandomGenerator>,
+        generator: Partial<typia.IRandomGenerator> = (DynamicEnumeration as any)
+            .RANDOM,
     ): typia.Resolved<DynamicEnumeration> => {
         const $generator = (typia.createRandom as any).generator;
         const $pick = (typia.createRandom as any).pick;

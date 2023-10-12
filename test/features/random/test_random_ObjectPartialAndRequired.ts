@@ -5,6 +5,9 @@ import { ObjectPartialAndRequired } from "../../structures/ObjectPartialAndRequi
 export const test_random_ObjectPartialAndRequired = _test_random(
     "ObjectPartialAndRequired",
 )<ObjectPartialAndRequired>(ObjectPartialAndRequired)({
-    random: () => typia.random<ObjectPartialAndRequired>(),
+    random: () =>
+        typia.random<ObjectPartialAndRequired>(
+            (ObjectPartialAndRequired as any).RANDOM,
+        ),
     assert: typia.createAssert<ObjectPartialAndRequired>(),
 });

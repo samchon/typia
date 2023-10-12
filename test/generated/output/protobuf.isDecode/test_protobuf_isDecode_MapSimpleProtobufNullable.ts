@@ -2,11 +2,11 @@ import typia from "../../../../src";
 import { _test_protobuf_isDecode } from "../../../internal/_test_protobuf_isDecode";
 import { MapSimpleProtobufNullable } from "../../../structures/MapSimpleProtobufNullable";
 
-export const test_protobuf_isDecode_MapSimpleProtobufNullable =
+export const test_protobuf_createIsDecode_MapSimpleProtobufNullable =
     _test_protobuf_isDecode(
         "MapSimpleProtobufNullable",
     )<MapSimpleProtobufNullable>(MapSimpleProtobufNullable)({
-        isDecode: (input) =>
+        decode: (input) =>
             ((
                 input: Uint8Array,
             ): typia.Resolved<MapSimpleProtobufNullable> | null => {

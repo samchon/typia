@@ -113,7 +113,7 @@ export const test_random_MapUnion = _test_random("MapUnion")<MapUnion>(
                         ),
                 ])(),
             );
-        })(),
+        })((MapUnion as any).RANDOM),
     assert: (input: any): MapUnion => {
         const __is = (input: any): input is MapUnion => {
             const $io0 = (input: any): boolean =>

@@ -6,7 +6,7 @@ export const test_protobuf_createValidateEncode_ObjectHttpCommentTag =
     _test_protobuf_validateEncode("ObjectHttpCommentTag")<ObjectHttpCommentTag>(
         ObjectHttpCommentTag,
     )({
-        validateEncode: (
+        encode: (
             input: ObjectHttpCommentTag,
         ): typia.IValidation<Uint8Array> => {
             const validate = (
@@ -197,8 +197,6 @@ export const test_protobuf_createValidateEncode_ObjectHttpCommentTag =
             if (output.success) output.data = encode(input);
             return output;
         },
-        message:
-            'syntax = "proto3";\n\nmessage ObjectHttpCommentTag {\n    required int32 int = 1;\n    required uint64 uint64 = 2;\n    required string uuid = 3;\n    repeated double items = 4;\n}',
         decode: (input: Uint8Array): typia.Resolved<ObjectHttpCommentTag> => {
             const $Reader = (typia.protobuf.createDecode as any).Reader;
             const $pdo0 = (reader: any, length: number = -1): any => {
@@ -242,4 +240,6 @@ export const test_protobuf_createValidateEncode_ObjectHttpCommentTag =
             const reader = new $Reader(input);
             return $pdo0(reader);
         },
+        message:
+            'syntax = "proto3";\n\nmessage ObjectHttpCommentTag {\n    required int32 int = 1;\n    required uint64 uint64 = 2;\n    required string uuid = 3;\n    repeated double items = 4;\n}',
     });

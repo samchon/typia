@@ -65,7 +65,7 @@ export const test_random_TupleHierarchical = _test_random(
                     ]),
                 ],
             ];
-        })(),
+        })((TupleHierarchical as any).RANDOM),
     assert: (input: any): TupleHierarchical => {
         const __is = (input: any): input is TupleHierarchical => {
             return (

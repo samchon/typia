@@ -6,7 +6,7 @@ export const test_protobuf_createIsEncode_TypeTagRangeBigInt =
     _test_protobuf_isEncode("TypeTagRangeBigInt")<TypeTagRangeBigInt>(
         TypeTagRangeBigInt,
     )({
-        isEncode: typia.protobuf.createIsEncode<TypeTagRangeBigInt>(),
-        message: typia.protobuf.message<TypeTagRangeBigInt>(),
+        encode: typia.protobuf.createIsEncode<TypeTagRangeBigInt>(),
         decode: typia.protobuf.createDecode<TypeTagRangeBigInt>(),
+        message: typia.protobuf.message<TypeTagRangeBigInt>(),
     });

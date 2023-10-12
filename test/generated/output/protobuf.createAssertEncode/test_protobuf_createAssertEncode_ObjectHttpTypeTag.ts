@@ -6,7 +6,7 @@ export const test_protobuf_createAssertEncode_ObjectHttpTypeTag =
     _test_protobuf_assertEncode("ObjectHttpTypeTag")<ObjectHttpTypeTag>(
         ObjectHttpTypeTag,
     )({
-        assertEncode: (input: any): Uint8Array => {
+        encode: (input: any): Uint8Array => {
             const assert = (input: any): ObjectHttpTypeTag => {
                 const __is = (input: any): input is ObjectHttpTypeTag => {
                     const $io0 = (input: any): boolean =>
@@ -279,8 +279,6 @@ export const test_protobuf_createAssertEncode_ObjectHttpTypeTag =
             };
             return encode(assert(input));
         },
-        message:
-            'syntax = "proto3";\n\nmessage ObjectHttpTypeTag {\n    required int32 int32 = 1;\n    required uint64 uint64 = 2;\n    required string uuid = 3;\n    repeated double range = 4;\n    repeated string length = 5;\n}',
         decode: (input: Uint8Array): typia.Resolved<ObjectHttpTypeTag> => {
             const $Reader = (typia.protobuf.createDecode as any).Reader;
             const $pdo0 = (reader: any, length: number = -1): any => {
@@ -329,4 +327,6 @@ export const test_protobuf_createAssertEncode_ObjectHttpTypeTag =
             const reader = new $Reader(input);
             return $pdo0(reader);
         },
+        message:
+            'syntax = "proto3";\n\nmessage ObjectHttpTypeTag {\n    required int32 int32 = 1;\n    required uint64 uint64 = 2;\n    required string uuid = 3;\n    repeated double range = 4;\n    repeated string length = 5;\n}',
     });

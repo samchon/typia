@@ -93,7 +93,7 @@ export const test_random_ObjectUnionComposite = _test_random(
                     () => $ro7(),
                 ])(),
             );
-        })(),
+        })((ObjectUnionComposite as any).RANDOM),
     assert: (input: any): ObjectUnionComposite => {
         const __is = (input: any): input is ObjectUnionComposite => {
             const $io0 = (input: any): boolean =>

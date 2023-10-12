@@ -6,6 +6,6 @@ export const test_protobuf_createIsDecode_TypeTagInfinite =
     _test_protobuf_isDecode("TypeTagInfinite")<TypeTagInfinite>(
         TypeTagInfinite,
     )({
-        isDecode: typia.protobuf.createIsDecode<TypeTagInfinite>(),
+        decode: typia.protobuf.createIsDecode<TypeTagInfinite>(),
         encode: typia.protobuf.createEncode<TypeTagInfinite>(),
     });

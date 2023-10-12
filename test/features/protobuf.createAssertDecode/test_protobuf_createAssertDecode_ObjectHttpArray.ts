@@ -6,6 +6,6 @@ export const test_protobuf_createAssertDecode_ObjectHttpArray =
     _test_protobuf_assertDecode("ObjectHttpArray")<ObjectHttpArray>(
         ObjectHttpArray,
     )({
-        assertDecode: typia.protobuf.createAssertDecode<ObjectHttpArray>(),
+        decode: typia.protobuf.createAssertDecode<ObjectHttpArray>(),
         encode: typia.protobuf.createEncode<ObjectHttpArray>(),
     });

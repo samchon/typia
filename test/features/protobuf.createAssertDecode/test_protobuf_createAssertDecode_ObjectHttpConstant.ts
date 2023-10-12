@@ -6,6 +6,6 @@ export const test_protobuf_createAssertDecode_ObjectHttpConstant =
     _test_protobuf_assertDecode("ObjectHttpConstant")<ObjectHttpConstant>(
         ObjectHttpConstant,
     )({
-        assertDecode: typia.protobuf.createAssertDecode<ObjectHttpConstant>(),
+        decode: typia.protobuf.createAssertDecode<ObjectHttpConstant>(),
         encode: typia.protobuf.createEncode<ObjectHttpConstant>(),
     });

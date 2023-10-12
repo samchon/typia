@@ -117,9 +117,14 @@ export class MetadataCollection {
             name: $id,
             properties: [],
             description:
+                (type.aliasSymbol &&
+                    CommentFactory.description(type.aliasSymbol)) ??
                 (type.symbol && CommentFactory.description(type.symbol)) ??
                 undefined,
-            jsDocTags: type.symbol?.getJsDocTags() ?? [],
+            jsDocTags:
+                type.aliasSymbol?.getJsDocTags() ??
+                type.symbol?.getJsDocTags() ??
+                [],
             validated: false,
             index: this.object_index_++,
             recursive: null!,

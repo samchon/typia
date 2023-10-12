@@ -6,7 +6,7 @@ export const test_protobuf_createValidateDecode_ObjectOptional =
     _test_protobuf_validateDecode("ObjectOptional")<ObjectOptional>(
         ObjectOptional,
     )({
-        validateDecode: (
+        decode: (
             input: Uint8Array,
         ): typia.IValidation<typia.Resolved<ObjectOptional>> => {
             const validate = (

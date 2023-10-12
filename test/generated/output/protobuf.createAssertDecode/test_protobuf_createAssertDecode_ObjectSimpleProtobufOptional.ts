@@ -6,7 +6,7 @@ export const test_protobuf_createAssertDecode_ObjectSimpleProtobufOptional =
     _test_protobuf_assertDecode(
         "ObjectSimpleProtobufOptional",
     )<ObjectSimpleProtobufOptional>(ObjectSimpleProtobufOptional)({
-        assertDecode: (
+        decode: (
             input: Uint8Array,
         ): typia.Resolved<ObjectSimpleProtobufOptional> => {
             const decode = (

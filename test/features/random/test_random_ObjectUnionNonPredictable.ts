@@ -5,6 +5,9 @@ import { ObjectUnionNonPredictable } from "../../structures/ObjectUnionNonPredic
 export const test_random_ObjectUnionNonPredictable = _test_random(
     "ObjectUnionNonPredictable",
 )<ObjectUnionNonPredictable>(ObjectUnionNonPredictable)({
-    random: () => typia.random<ObjectUnionNonPredictable>(),
+    random: () =>
+        typia.random<ObjectUnionNonPredictable>(
+            (ObjectUnionNonPredictable as any).RANDOM,
+        ),
     assert: typia.createAssert<ObjectUnionNonPredictable>(),
 });

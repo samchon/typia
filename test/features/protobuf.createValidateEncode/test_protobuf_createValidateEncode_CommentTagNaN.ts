@@ -6,7 +6,7 @@ export const test_protobuf_createValidateEncode_CommentTagNaN =
     _test_protobuf_validateEncode("CommentTagNaN")<CommentTagNaN>(
         CommentTagNaN,
     )({
-        validateEncode: typia.protobuf.createValidateEncode<CommentTagNaN>(),
-        message: typia.protobuf.message<CommentTagNaN>(),
+        encode: typia.protobuf.createValidateEncode<CommentTagNaN>(),
         decode: typia.protobuf.createDecode<CommentTagNaN>(),
+        message: typia.protobuf.message<CommentTagNaN>(),
     });

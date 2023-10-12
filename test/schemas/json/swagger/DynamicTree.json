@@ -35,6 +35,7 @@
         "type": "object",
         "properties": {},
         "nullable": false,
+        "description": "Construct a type with a set of properties K of type T",
         "x-typia-jsDocTags": [],
         "x-typia-additionalProperties": {
           "$ref": "#/components/schemas/DynamicTree"

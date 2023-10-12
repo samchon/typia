@@ -7,6 +7,6 @@ export const test_protobuf_createEncode_CommentTagPattern =
         CommentTagPattern,
     )({
         encode: typia.protobuf.createEncode<CommentTagPattern>(),
-        message: typia.protobuf.message<CommentTagPattern>(),
         decode: typia.protobuf.createDecode<CommentTagPattern>(),
+        message: typia.protobuf.message<CommentTagPattern>(),
     });

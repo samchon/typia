@@ -6,7 +6,7 @@ export const test_protobuf_createIsDecode_TypeTagTypeBigInt =
     _test_protobuf_isDecode("TypeTagTypeBigInt")<TypeTagTypeBigInt>(
         TypeTagTypeBigInt,
     )({
-        isDecode: (
+        decode: (
             input: Uint8Array,
         ): typia.Resolved<TypeTagTypeBigInt> | null => {
             const is = (input: any): input is TypeTagTypeBigInt => {

@@ -4,7 +4,7 @@ import { ObjectOptional } from "../../../structures/ObjectOptional";
 
 export const test_protobuf_createIsEncode_ObjectOptional =
     _test_protobuf_isEncode("ObjectOptional")<ObjectOptional>(ObjectOptional)({
-        isEncode: (input: ObjectOptional): Uint8Array | null => {
+        encode: (input: ObjectOptional): Uint8Array | null => {
             const is = (input: any): input is ObjectOptional => {
                 const $io0 = (input: any): boolean =>
                     (undefined === input.id || "string" === typeof input.id) &&
@@ -58,8 +58,6 @@ export const test_protobuf_createIsEncode_ObjectOptional =
             };
             return is(input) ? encode(input) : null;
         },
-        message:
-            'syntax = "proto3";\n\nmessage ObjectOptional {\n    optional string id = 1;\n    optional string name = 2;\n    optional string email = 3;\n    optional double sequence = 4;\n}',
         decode: (input: Uint8Array): typia.Resolved<ObjectOptional> => {
             const $Reader = (typia.protobuf.createDecode as any).Reader;
             const $pdo0 = (reader: any, length: number = -1): any => {
@@ -99,4 +97,6 @@ export const test_protobuf_createIsEncode_ObjectOptional =
             const reader = new $Reader(input);
             return $pdo0(reader);
         },
+        message:
+            'syntax = "proto3";\n\nmessage ObjectOptional {\n    optional string id = 1;\n    optional string name = 2;\n    optional string email = 3;\n    optional double sequence = 4;\n}',
     });

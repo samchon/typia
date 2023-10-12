@@ -2,11 +2,11 @@ import typia from "../../../../src";
 import { _test_protobuf_isEncode } from "../../../internal/_test_protobuf_isEncode";
 import { ArrayHierarchicalPointer } from "../../../structures/ArrayHierarchicalPointer";
 
-export const test_protobuf_isEncode_ArrayHierarchicalPointer =
+export const test_protobuf_createIsEncode_ArrayHierarchicalPointer =
     _test_protobuf_isEncode(
         "ArrayHierarchicalPointer",
     )<ArrayHierarchicalPointer>(ArrayHierarchicalPointer)({
-        isEncode: (input) =>
+        encode: (input) =>
             ((input: ArrayHierarchicalPointer): Uint8Array | null => {
                 const is = (input: any): input is ArrayHierarchicalPointer => {
                     const $io0 = (input: any): boolean =>
@@ -226,8 +226,6 @@ export const test_protobuf_isEncode_ArrayHierarchicalPointer =
                 };
                 return is(input) ? encode(input) : null;
             })(input),
-        message:
-            'syntax = "proto3";\n\nmessage ArrayHierarchicalPointer {\n    repeated ArrayHierarchicalPointer.ICompany value = 1;\n    message ICompany {\n        required double id = 1;\n        required double serial = 2;\n        required string name = 3;\n        required ArrayHierarchicalPointer.ITimestamp established_at = 4;\n        repeated ArrayHierarchicalPointer.IDepartment departments = 5;\n    }\n\n    message ITimestamp {\n        required double time = 1;\n        required double zone = 2;\n    }\n\n    message IDepartment {\n        required double id = 1;\n        required string code = 2;\n        required double sales = 3;\n        required ArrayHierarchicalPointer.ITimestamp created_at = 4;\n        repeated ArrayHierarchicalPointer.IEmployee employees = 5;\n    }\n\n    message IEmployee {\n        required double id = 1;\n        required string name = 2;\n        required double age = 3;\n        required double grade = 4;\n        required ArrayHierarchicalPointer.ITimestamp employeed_at = 5;\n    }\n}',
         decode: (
             input: Uint8Array,
         ): typia.Resolved<ArrayHierarchicalPointer> => {
@@ -405,4 +403,6 @@ export const test_protobuf_isEncode_ArrayHierarchicalPointer =
             const reader = new $Reader(input);
             return $pdo0(reader);
         },
+        message:
+            'syntax = "proto3";\n\nmessage ArrayHierarchicalPointer {\n    repeated ArrayHierarchicalPointer.ICompany value = 1;\n    message ICompany {\n        required double id = 1;\n        required double serial = 2;\n        required string name = 3;\n        required ArrayHierarchicalPointer.ITimestamp established_at = 4;\n        repeated ArrayHierarchicalPointer.IDepartment departments = 5;\n    }\n\n    message ITimestamp {\n        required double time = 1;\n        required double zone = 2;\n    }\n\n    message IDepartment {\n        required double id = 1;\n        required string code = 2;\n        required double sales = 3;\n        required ArrayHierarchicalPointer.ITimestamp created_at = 4;\n        repeated ArrayHierarchicalPointer.IEmployee employees = 5;\n    }\n\n    message IEmployee {\n        required double id = 1;\n        required string name = 2;\n        required double age = 3;\n        required double grade = 4;\n        required ArrayHierarchicalPointer.ITimestamp employeed_at = 5;\n    }\n}',
     });

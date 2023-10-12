@@ -5,7 +5,7 @@ import { TypeTagType } from "../../structures/TypeTagType";
 export const test_protobuf_createIsEncode_TypeTagType = _test_protobuf_isEncode(
     "TypeTagType",
 )<TypeTagType>(TypeTagType)({
-    isEncode: typia.protobuf.createIsEncode<TypeTagType>(),
-    message: typia.protobuf.message<TypeTagType>(),
+    encode: typia.protobuf.createIsEncode<TypeTagType>(),
     decode: typia.protobuf.createDecode<TypeTagType>(),
+    message: typia.protobuf.message<TypeTagType>(),
 });

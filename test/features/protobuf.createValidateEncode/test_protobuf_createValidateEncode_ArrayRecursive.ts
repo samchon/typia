@@ -6,7 +6,7 @@ export const test_protobuf_createValidateEncode_ArrayRecursive =
     _test_protobuf_validateEncode("ArrayRecursive")<ArrayRecursive>(
         ArrayRecursive,
     )({
-        validateEncode: typia.protobuf.createValidateEncode<ArrayRecursive>(),
-        message: typia.protobuf.message<ArrayRecursive>(),
+        encode: typia.protobuf.createValidateEncode<ArrayRecursive>(),
         decode: typia.protobuf.createDecode<ArrayRecursive>(),
+        message: typia.protobuf.message<ArrayRecursive>(),
     });

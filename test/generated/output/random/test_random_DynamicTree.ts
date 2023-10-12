@@ -42,7 +42,7 @@ export const test_random_DynamicTree = _test_random("DynamicTree")<DynamicTree>(
                 return output;
             };
             return $ro0();
-        })(),
+        })((DynamicTree as any).RANDOM),
     assert: (input: any): DynamicTree => {
         const __is = (input: any): input is DynamicTree => {
             const $io0 = (input: any): boolean =>

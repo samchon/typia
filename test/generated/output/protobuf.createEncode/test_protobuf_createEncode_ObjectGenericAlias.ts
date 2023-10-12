@@ -23,8 +23,6 @@ export const test_protobuf_createEncode_ObjectGenericAlias =
             const writer = encoder(new $Writer(sizer));
             return writer.buffer();
         },
-        message:
-            'syntax = "proto3";\n\nmessage ObjectGenericAlias {\n    message Alias {\n        required string value = 1;\n    }\n}',
         decode: (input: Uint8Array): typia.Resolved<ObjectGenericAlias> => {
             const $Reader = (typia.protobuf.createDecode as any).Reader;
             const $pdo0 = (reader: any, length: number = -1): any => {
@@ -49,4 +47,6 @@ export const test_protobuf_createEncode_ObjectGenericAlias =
             const reader = new $Reader(input);
             return $pdo0(reader);
         },
+        message:
+            'syntax = "proto3";\n\nmessage ObjectGenericAlias {\n    message Alias {\n        required string value = 1;\n    }\n}',
     });

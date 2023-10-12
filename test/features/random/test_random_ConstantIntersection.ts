@@ -5,6 +5,9 @@ import { ConstantIntersection } from "../../structures/ConstantIntersection";
 export const test_random_ConstantIntersection = _test_random(
     "ConstantIntersection",
 )<ConstantIntersection>(ConstantIntersection)({
-    random: () => typia.random<ConstantIntersection>(),
+    random: () =>
+        typia.random<ConstantIntersection>(
+            (ConstantIntersection as any).RANDOM,
+        ),
     assert: typia.createAssert<ConstantIntersection>(),
 });

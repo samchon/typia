@@ -6,7 +6,8 @@ export const test_createRandom_CommentTagBigInt = _test_random(
     "CommentTagBigInt",
 )<CommentTagBigInt>(CommentTagBigInt)({
     random: (
-        generator?: Partial<typia.IRandomGenerator>,
+        generator: Partial<typia.IRandomGenerator> = (CommentTagBigInt as any)
+            .RANDOM,
     ): typia.Resolved<CommentTagBigInt> => {
         const $generator = (typia.createRandom as any).generator;
         const $ro0 = (

@@ -6,7 +6,6 @@ export const test_protobuf_createValidateDecode_MapSimpleProtobufNullable =
     _test_protobuf_validateDecode(
         "MapSimpleProtobufNullable",
     )<MapSimpleProtobufNullable>(MapSimpleProtobufNullable)({
-        validateDecode:
-            typia.protobuf.createValidateDecode<MapSimpleProtobufNullable>(),
+        decode: typia.protobuf.createValidateDecode<MapSimpleProtobufNullable>(),
         encode: typia.protobuf.createEncode<MapSimpleProtobufNullable>(),
     });

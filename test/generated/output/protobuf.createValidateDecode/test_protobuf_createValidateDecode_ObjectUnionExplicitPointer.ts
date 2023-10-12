@@ -6,7 +6,7 @@ export const test_protobuf_createValidateDecode_ObjectUnionExplicitPointer =
     _test_protobuf_validateDecode(
         "ObjectUnionExplicitPointer",
     )<ObjectUnionExplicitPointer>(ObjectUnionExplicitPointer)({
-        validateDecode: (
+        decode: (
             input: Uint8Array,
         ): typia.IValidation<typia.Resolved<ObjectUnionExplicitPointer>> => {
             const validate = (

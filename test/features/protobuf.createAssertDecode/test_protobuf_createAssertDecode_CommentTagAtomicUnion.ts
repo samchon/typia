@@ -6,7 +6,6 @@ export const test_protobuf_createAssertDecode_CommentTagAtomicUnion =
     _test_protobuf_assertDecode("CommentTagAtomicUnion")<CommentTagAtomicUnion>(
         CommentTagAtomicUnion,
     )({
-        assertDecode:
-            typia.protobuf.createAssertDecode<CommentTagAtomicUnion>(),
+        decode: typia.protobuf.createAssertDecode<CommentTagAtomicUnion>(),
         encode: typia.protobuf.createEncode<CommentTagAtomicUnion>(),
     });

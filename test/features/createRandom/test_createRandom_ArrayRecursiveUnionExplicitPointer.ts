@@ -6,6 +6,8 @@ export const test_createRandom_ArrayRecursiveUnionExplicitPointer =
     _test_random(
         "ArrayRecursiveUnionExplicitPointer",
     )<ArrayRecursiveUnionExplicitPointer>(ArrayRecursiveUnionExplicitPointer)({
-        random: typia.createRandom<ArrayRecursiveUnionExplicitPointer>(),
+        random: typia.createRandom<ArrayRecursiveUnionExplicitPointer>(
+            (ArrayRecursiveUnionExplicitPointer as any).RANDOM,
+        ),
         assert: typia.createAssert<ArrayRecursiveUnionExplicitPointer>(),
     });

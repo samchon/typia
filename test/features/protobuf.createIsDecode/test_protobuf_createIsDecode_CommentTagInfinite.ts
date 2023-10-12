@@ -6,6 +6,6 @@ export const test_protobuf_createIsDecode_CommentTagInfinite =
     _test_protobuf_isDecode("CommentTagInfinite")<CommentTagInfinite>(
         CommentTagInfinite,
     )({
-        isDecode: typia.protobuf.createIsDecode<CommentTagInfinite>(),
+        decode: typia.protobuf.createIsDecode<CommentTagInfinite>(),
         encode: typia.protobuf.createEncode<CommentTagInfinite>(),
     });

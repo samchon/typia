@@ -4,7 +4,7 @@ import { TypeTagCustom } from "../../../structures/TypeTagCustom";
 
 export const test_protobuf_createAssertDecode_TypeTagCustom =
     _test_protobuf_assertDecode("TypeTagCustom")<TypeTagCustom>(TypeTagCustom)({
-        assertDecode: (input: Uint8Array): typia.Resolved<TypeTagCustom> => {
+        decode: (input: Uint8Array): typia.Resolved<TypeTagCustom> => {
             const decode = (
                 input: Uint8Array,
             ): typia.Resolved<TypeTagCustom> => {
@@ -119,12 +119,12 @@ export const test_protobuf_createAssertDecode_TypeTagCustom =
                                     )) ||
                                     $guard(_exceptionable, {
                                         path: _path + ".dollar",
-                                        expected: "string & Dolloar",
+                                        expected: "string & Dollar",
                                         value: input.dollar,
                                     }))) ||
                                 $guard(_exceptionable, {
                                     path: _path + ".dollar",
-                                    expected: "(string & Dolloar)",
+                                    expected: "(string & Dollar)",
                                     value: input.dollar,
                                 })) &&
                             (("string" === typeof input.postfix &&

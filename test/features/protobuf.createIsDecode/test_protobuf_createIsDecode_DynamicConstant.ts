@@ -6,6 +6,6 @@ export const test_protobuf_createIsDecode_DynamicConstant =
     _test_protobuf_isDecode("DynamicConstant")<DynamicConstant>(
         DynamicConstant,
     )({
-        isDecode: typia.protobuf.createIsDecode<DynamicConstant>(),
+        decode: typia.protobuf.createIsDecode<DynamicConstant>(),
         encode: typia.protobuf.createEncode<DynamicConstant>(),
     });

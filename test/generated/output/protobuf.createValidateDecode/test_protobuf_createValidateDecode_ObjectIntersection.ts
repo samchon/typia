@@ -6,7 +6,7 @@ export const test_protobuf_createValidateDecode_ObjectIntersection =
     _test_protobuf_validateDecode("ObjectIntersection")<ObjectIntersection>(
         ObjectIntersection,
     )({
-        validateDecode: (
+        decode: (
             input: Uint8Array,
         ): typia.IValidation<typia.Resolved<ObjectIntersection>> => {
             const validate = (

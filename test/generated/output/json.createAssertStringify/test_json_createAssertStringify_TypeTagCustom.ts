@@ -75,12 +75,12 @@ export const test_json_createAssertStringify_TypeTagCustom =
                                     )) ||
                                     $guard(_exceptionable, {
                                         path: _path + ".dollar",
-                                        expected: "string & Dolloar",
+                                        expected: "string & Dollar",
                                         value: input.dollar,
                                     }))) ||
                                 $guard(_exceptionable, {
                                     path: _path + ".dollar",
-                                    expected: "(string & Dolloar)",
+                                    expected: "(string & Dollar)",
                                     value: input.dollar,
                                 })) &&
                             (("string" === typeof input.postfix &&

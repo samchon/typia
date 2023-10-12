@@ -46,7 +46,7 @@ export const test_random_TemplateConstant = _test_random(
                 ])(),
             });
             return $ro0();
-        })(),
+        })((TemplateConstant as any).RANDOM),
     assert: (input: any): TemplateConstant => {
         const __is = (input: any): input is TemplateConstant => {
             const $io0 = (input: any): boolean =>

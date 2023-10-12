@@ -6,8 +6,7 @@ export const test_protobuf_createAssertEncode_MapSimpleProtobufOptional =
     _test_protobuf_assertEncode(
         "MapSimpleProtobufOptional",
     )<MapSimpleProtobufOptional>(MapSimpleProtobufOptional)({
-        assertEncode:
-            typia.protobuf.createAssertEncode<MapSimpleProtobufOptional>(),
-        message: typia.protobuf.message<MapSimpleProtobufOptional>(),
+        encode: typia.protobuf.createAssertEncode<MapSimpleProtobufOptional>(),
         decode: typia.protobuf.createDecode<MapSimpleProtobufOptional>(),
+        message: typia.protobuf.message<MapSimpleProtobufOptional>(),
     });

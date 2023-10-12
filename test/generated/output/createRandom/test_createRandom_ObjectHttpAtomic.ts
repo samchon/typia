@@ -6,7 +6,8 @@ export const test_createRandom_ObjectHttpAtomic = _test_random(
     "ObjectHttpAtomic",
 )<ObjectHttpAtomic>(ObjectHttpAtomic)({
     random: (
-        generator?: Partial<typia.IRandomGenerator>,
+        generator: Partial<typia.IRandomGenerator> = (ObjectHttpAtomic as any)
+            .RANDOM,
     ): typia.Resolved<ObjectHttpAtomic> => {
         const $generator = (typia.createRandom as any).generator;
         const $ro0 = (

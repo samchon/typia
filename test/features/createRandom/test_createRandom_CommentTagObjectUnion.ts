@@ -5,6 +5,8 @@ import { CommentTagObjectUnion } from "../../structures/CommentTagObjectUnion";
 export const test_createRandom_CommentTagObjectUnion = _test_random(
     "CommentTagObjectUnion",
 )<CommentTagObjectUnion>(CommentTagObjectUnion)({
-    random: typia.createRandom<CommentTagObjectUnion>(),
+    random: typia.createRandom<CommentTagObjectUnion>(
+        (CommentTagObjectUnion as any).RANDOM,
+    ),
     assert: typia.createAssert<CommentTagObjectUnion>(),
 });

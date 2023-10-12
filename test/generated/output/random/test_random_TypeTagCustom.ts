@@ -25,7 +25,7 @@ export const test_random_TypeTagCustom = _test_random(
                 dollar:
                     (generator?.customs ?? $generator.customs)?.string?.([
                         {
-                            name: "Dolloar",
+                            name: "Dollar",
                             kind: "dollar",
                         },
                     ]) ?? (generator?.string ?? $generator.string)(),
@@ -47,7 +47,7 @@ export const test_random_TypeTagCustom = _test_random(
                     ]) ?? (generator?.number ?? $generator.number)(0, 100),
             });
             return $ro0();
-        })(TypeTagCustom.RANDOM),
+        })((TypeTagCustom as any).RANDOM),
     assert: (input: any): TypeTagCustom => {
         const __is = (input: any): input is TypeTagCustom => {
             return (
@@ -114,12 +114,12 @@ export const test_random_TypeTagCustom = _test_random(
                             )) ||
                             $guard(_exceptionable, {
                                 path: _path + ".dollar",
-                                expected: "string & Dolloar",
+                                expected: "string & Dollar",
                                 value: input.dollar,
                             }))) ||
                         $guard(_exceptionable, {
                             path: _path + ".dollar",
-                            expected: "(string & Dolloar)",
+                            expected: "(string & Dollar)",
                             value: input.dollar,
                         })) &&
                     (("string" === typeof input.postfix &&

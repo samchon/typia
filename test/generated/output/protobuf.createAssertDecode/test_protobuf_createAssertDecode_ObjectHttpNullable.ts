@@ -6,9 +6,7 @@ export const test_protobuf_createAssertDecode_ObjectHttpNullable =
     _test_protobuf_assertDecode("ObjectHttpNullable")<ObjectHttpNullable>(
         ObjectHttpNullable,
     )({
-        assertDecode: (
-            input: Uint8Array,
-        ): typia.Resolved<ObjectHttpNullable> => {
+        decode: (input: Uint8Array): typia.Resolved<ObjectHttpNullable> => {
             const decode = (
                 input: Uint8Array,
             ): typia.Resolved<ObjectHttpNullable> => {

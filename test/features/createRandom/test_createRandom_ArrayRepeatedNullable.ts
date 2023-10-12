@@ -5,6 +5,8 @@ import { ArrayRepeatedNullable } from "../../structures/ArrayRepeatedNullable";
 export const test_createRandom_ArrayRepeatedNullable = _test_random(
     "ArrayRepeatedNullable",
 )<ArrayRepeatedNullable>(ArrayRepeatedNullable)({
-    random: typia.createRandom<ArrayRepeatedNullable>(),
+    random: typia.createRandom<ArrayRepeatedNullable>(
+        (ArrayRepeatedNullable as any).RANDOM,
+    ),
     assert: typia.createAssert<ArrayRepeatedNullable>(),
 });

@@ -6,6 +6,6 @@ export const test_protobuf_createValidateDecode_CommentTagLength =
     _test_protobuf_validateDecode("CommentTagLength")<CommentTagLength>(
         CommentTagLength,
     )({
-        validateDecode: typia.protobuf.createValidateDecode<CommentTagLength>(),
+        decode: typia.protobuf.createValidateDecode<CommentTagLength>(),
         encode: typia.protobuf.createEncode<CommentTagLength>(),
     });

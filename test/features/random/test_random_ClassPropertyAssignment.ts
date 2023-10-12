@@ -5,6 +5,9 @@ import { ClassPropertyAssignment } from "../../structures/ClassPropertyAssignmen
 export const test_random_ClassPropertyAssignment = _test_random(
     "ClassPropertyAssignment",
 )<ClassPropertyAssignment>(ClassPropertyAssignment)({
-    random: () => typia.random<ClassPropertyAssignment>(),
+    random: () =>
+        typia.random<ClassPropertyAssignment>(
+            (ClassPropertyAssignment as any).RANDOM,
+        ),
     assert: typia.createAssert<ClassPropertyAssignment>(),
 });

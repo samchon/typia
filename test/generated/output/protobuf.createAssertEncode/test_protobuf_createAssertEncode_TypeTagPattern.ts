@@ -6,7 +6,7 @@ export const test_protobuf_createAssertEncode_TypeTagPattern =
     _test_protobuf_assertEncode("TypeTagPattern")<TypeTagPattern>(
         TypeTagPattern,
     )({
-        assertEncode: (input: any): Uint8Array => {
+        encode: (input: any): Uint8Array => {
             const assert = (input: any): TypeTagPattern => {
                 const __is = (input: any): input is TypeTagPattern => {
                     return (
@@ -154,8 +154,6 @@ export const test_protobuf_createAssertEncode_TypeTagPattern =
             };
             return encode(assert(input));
         },
-        message:
-            'syntax = "proto3";\n\nmessage TypeTagPattern {\n    required string uuid = 1;\n    required string email = 2;\n    required string ipv4 = 3;\n    required string ipv6 = 4;\n}',
         decode: (input: Uint8Array): typia.Resolved<TypeTagPattern> => {
             const $Reader = (typia.protobuf.createDecode as any).Reader;
             const $pdo0 = (reader: any, length: number = -1): any => {
@@ -195,4 +193,6 @@ export const test_protobuf_createAssertEncode_TypeTagPattern =
             const reader = new $Reader(input);
             return $pdo0(reader);
         },
+        message:
+            'syntax = "proto3";\n\nmessage TypeTagPattern {\n    required string uuid = 1;\n    required string email = 2;\n    required string ipv4 = 3;\n    required string ipv6 = 4;\n}',
     });

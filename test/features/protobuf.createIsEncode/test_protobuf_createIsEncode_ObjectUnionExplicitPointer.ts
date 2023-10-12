@@ -6,7 +6,7 @@ export const test_protobuf_createIsEncode_ObjectUnionExplicitPointer =
     _test_protobuf_isEncode(
         "ObjectUnionExplicitPointer",
     )<ObjectUnionExplicitPointer>(ObjectUnionExplicitPointer)({
-        isEncode: typia.protobuf.createIsEncode<ObjectUnionExplicitPointer>(),
-        message: typia.protobuf.message<ObjectUnionExplicitPointer>(),
+        encode: typia.protobuf.createIsEncode<ObjectUnionExplicitPointer>(),
         decode: typia.protobuf.createDecode<ObjectUnionExplicitPointer>(),
+        message: typia.protobuf.message<ObjectUnionExplicitPointer>(),
     });

@@ -6,7 +6,9 @@ export const test_createRandom_ObjectSimpleProtobufOptional = _test_random(
     "ObjectSimpleProtobufOptional",
 )<ObjectSimpleProtobufOptional>(ObjectSimpleProtobufOptional)({
     random: (
-        generator?: Partial<typia.IRandomGenerator>,
+        generator: Partial<typia.IRandomGenerator> = (
+            ObjectSimpleProtobufOptional as any
+        ).RANDOM,
     ): typia.Resolved<ObjectSimpleProtobufOptional> => {
         const $generator = (typia.createRandom as any).generator;
         const $pick = (typia.createRandom as any).pick;

@@ -17,7 +17,7 @@ export const test_random_TupleRestAtomic = _test_random(
                 (generator?.customs ?? $generator.customs)?.string?.([]) ??
                     (generator?.string ?? $generator.string)(),
             ];
-        })(),
+        })((TupleRestAtomic as any).RANDOM),
     assert: (input: any): TupleRestAtomic => {
         const __is = (input: any): input is TupleRestAtomic => {
             return (

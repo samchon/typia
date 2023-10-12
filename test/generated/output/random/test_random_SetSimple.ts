@@ -72,7 +72,7 @@ export const test_random_SetSimple = _test_random("SetSimple")<SetSimple>(
                     (generator?.number ?? $generator.number)(0, 100),
             });
             return $ro0();
-        })(),
+        })((SetSimple as any).RANDOM),
     assert: (input: any): SetSimple => {
         const __is = (input: any): input is SetSimple => {
             const $io0 = (input: any): boolean =>

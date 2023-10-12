@@ -5,6 +5,7 @@ import { CommentTagFormat } from "../../structures/CommentTagFormat";
 export const test_random_CommentTagFormat = _test_random(
     "CommentTagFormat",
 )<CommentTagFormat>(CommentTagFormat)({
-    random: () => typia.random<CommentTagFormat>(),
+    random: () =>
+        typia.random<CommentTagFormat>((CommentTagFormat as any).RANDOM),
     assert: typia.createAssert<CommentTagFormat>(),
 });

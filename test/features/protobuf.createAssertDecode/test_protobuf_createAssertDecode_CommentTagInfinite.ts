@@ -6,6 +6,6 @@ export const test_protobuf_createAssertDecode_CommentTagInfinite =
     _test_protobuf_assertDecode("CommentTagInfinite")<CommentTagInfinite>(
         CommentTagInfinite,
     )({
-        assertDecode: typia.protobuf.createAssertDecode<CommentTagInfinite>(),
+        decode: typia.protobuf.createAssertDecode<CommentTagInfinite>(),
         encode: typia.protobuf.createEncode<CommentTagInfinite>(),
     });

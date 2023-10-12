@@ -6,7 +6,7 @@ export const test_protobuf_createValidateDecode_ObjectPartial =
     _test_protobuf_validateDecode("ObjectPartial")<ObjectPartial>(
         ObjectPartial,
     )({
-        validateDecode: (
+        decode: (
             input: Uint8Array,
         ): typia.IValidation<typia.Resolved<ObjectPartial>> => {
             const validate = (input: any): typia.IValidation<ObjectPartial> => {

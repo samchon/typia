@@ -6,7 +6,7 @@ export const test_protobuf_createAssertEncode_ObjectHttpCommentTag =
     _test_protobuf_assertEncode("ObjectHttpCommentTag")<ObjectHttpCommentTag>(
         ObjectHttpCommentTag,
     )({
-        assertEncode: typia.protobuf.createAssertEncode<ObjectHttpCommentTag>(),
-        message: typia.protobuf.message<ObjectHttpCommentTag>(),
+        encode: typia.protobuf.createAssertEncode<ObjectHttpCommentTag>(),
         decode: typia.protobuf.createDecode<ObjectHttpCommentTag>(),
+        message: typia.protobuf.message<ObjectHttpCommentTag>(),
     });

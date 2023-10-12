@@ -5,6 +5,9 @@ import { ArrayRepeatedUnionWithTuple } from "../../structures/ArrayRepeatedUnion
 export const test_random_ArrayRepeatedUnionWithTuple = _test_random(
     "ArrayRepeatedUnionWithTuple",
 )<ArrayRepeatedUnionWithTuple>(ArrayRepeatedUnionWithTuple)({
-    random: () => typia.random<ArrayRepeatedUnionWithTuple>(),
+    random: () =>
+        typia.random<ArrayRepeatedUnionWithTuple>(
+            (ArrayRepeatedUnionWithTuple as any).RANDOM,
+        ),
     assert: typia.createAssert<ArrayRepeatedUnionWithTuple>(),
 });

@@ -5,6 +5,8 @@ import { CommentTagInfinite } from "../../structures/CommentTagInfinite";
 export const test_createRandom_CommentTagInfinite = _test_random(
     "CommentTagInfinite",
 )<CommentTagInfinite>(CommentTagInfinite)({
-    random: typia.createRandom<CommentTagInfinite>(),
+    random: typia.createRandom<CommentTagInfinite>(
+        (CommentTagInfinite as any).RANDOM,
+    ),
     assert: typia.createAssert<CommentTagInfinite>(),
 });

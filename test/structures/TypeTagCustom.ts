@@ -7,7 +7,7 @@ import { Spoiler } from "../helpers/Spoiler";
 
 export interface TypeTagCustom {
     id: string & typia.tags.Format<"uuid">;
-    dollar: string & Dolloar;
+    dollar: string & Dollar;
     postfix: string & Postfix<"abcd">;
     powerOf: number & PowerOf<2>;
 }
@@ -62,7 +62,7 @@ export namespace TypeTagCustom {
     };
 }
 
-type Dolloar = typia.tags.TagBase<{
+type Dollar = typia.tags.TagBase<{
     kind: "dollar";
     target: "string";
     value: undefined;

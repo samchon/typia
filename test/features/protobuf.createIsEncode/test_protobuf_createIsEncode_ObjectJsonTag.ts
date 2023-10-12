@@ -4,7 +4,7 @@ import { ObjectJsonTag } from "../../structures/ObjectJsonTag";
 
 export const test_protobuf_createIsEncode_ObjectJsonTag =
     _test_protobuf_isEncode("ObjectJsonTag")<ObjectJsonTag>(ObjectJsonTag)({
-        isEncode: typia.protobuf.createIsEncode<ObjectJsonTag>(),
-        message: typia.protobuf.message<ObjectJsonTag>(),
+        encode: typia.protobuf.createIsEncode<ObjectJsonTag>(),
         decode: typia.protobuf.createDecode<ObjectJsonTag>(),
+        message: typia.protobuf.message<ObjectJsonTag>(),
     });

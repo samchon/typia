@@ -2,11 +2,11 @@ import typia from "../../../../src";
 import { _test_protobuf_assertDecode } from "../../../internal/_test_protobuf_assertDecode";
 import { TemplateConstant } from "../../../structures/TemplateConstant";
 
-export const test_protobuf_assertDecode_TemplateConstant =
+export const test_protobuf_createAssertDecode_TemplateConstant =
     _test_protobuf_assertDecode("TemplateConstant")<TemplateConstant>(
         TemplateConstant,
     )({
-        assertDecode: (input) =>
+        decode: (input) =>
             ((input: Uint8Array): typia.Resolved<TemplateConstant> => {
                 const decode = (
                     input: Uint8Array,

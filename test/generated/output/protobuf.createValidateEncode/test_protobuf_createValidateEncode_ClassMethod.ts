@@ -4,7 +4,7 @@ import { ClassMethod } from "../../../structures/ClassMethod";
 
 export const test_protobuf_createValidateEncode_ClassMethod =
     _test_protobuf_validateEncode("ClassMethod")<ClassMethod>(ClassMethod)({
-        validateEncode: (input: ClassMethod): typia.IValidation<Uint8Array> => {
+        encode: (input: ClassMethod): typia.IValidation<Uint8Array> => {
             const validate = (input: any): typia.IValidation<ClassMethod> => {
                 const errors = [] as any[];
                 const __is = (input: any): input is ClassMethod => {
@@ -94,8 +94,6 @@ export const test_protobuf_createValidateEncode_ClassMethod =
             if (output.success) output.data = encode(input);
             return output;
         },
-        message:
-            'syntax = "proto3";\n\nmessage ClassMethod {\n    message Animal {\n        required string name = 1;\n        required double age = 2;\n    }\n}',
         decode: (input: Uint8Array): typia.Resolved<ClassMethod> => {
             const $Reader = (typia.protobuf.createDecode as any).Reader;
             const $pdo0 = (reader: any, length: number = -1): any => {
@@ -125,4 +123,6 @@ export const test_protobuf_createValidateEncode_ClassMethod =
             const reader = new $Reader(input);
             return $pdo0(reader);
         },
+        message:
+            'syntax = "proto3";\n\nmessage ClassMethod {\n    message Animal {\n        required string name = 1;\n        required double age = 2;\n    }\n}',
     });

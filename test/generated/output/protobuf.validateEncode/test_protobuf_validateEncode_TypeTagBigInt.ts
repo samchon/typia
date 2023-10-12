@@ -2,11 +2,11 @@ import typia from "../../../../src";
 import { _test_protobuf_validateEncode } from "../../../internal/_test_protobuf_validateEncode";
 import { TypeTagBigInt } from "../../../structures/TypeTagBigInt";
 
-export const test_protobuf_validateEncode_TypeTagBigInt =
+export const test_protobuf_createValidateEncode_TypeTagBigInt =
     _test_protobuf_validateEncode("TypeTagBigInt")<TypeTagBigInt>(
         TypeTagBigInt,
     )({
-        validateEncode: (input) =>
+        encode: (input) =>
             ((input: TypeTagBigInt): typia.IValidation<Uint8Array> => {
                 const validate = (
                     input: any,
@@ -171,8 +171,6 @@ export const test_protobuf_validateEncode_TypeTagBigInt =
                 if (output.success) output.data = encode(input);
                 return output;
             })(input),
-        message:
-            'syntax = "proto3";\n\nmessage TypeTagBigInt {\n    required int64 value = 1;\n    required int64 ranged = 2;\n    required int64 minimum = 3;\n    required int64 maximum = 4;\n    required int64 multipleOf = 5;\n}',
         decode: (input: Uint8Array): typia.Resolved<TypeTagBigInt> => {
             const $Reader = (typia.protobuf.createDecode as any).Reader;
             const $pdo0 = (reader: any, length: number = -1): any => {
@@ -217,4 +215,6 @@ export const test_protobuf_validateEncode_TypeTagBigInt =
             const reader = new $Reader(input);
             return $pdo0(reader);
         },
+        message:
+            'syntax = "proto3";\n\nmessage TypeTagBigInt {\n    required int64 value = 1;\n    required int64 ranged = 2;\n    required int64 minimum = 3;\n    required int64 maximum = 4;\n    required int64 multipleOf = 5;\n}',
     });

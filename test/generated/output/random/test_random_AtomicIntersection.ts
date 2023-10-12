@@ -17,7 +17,7 @@ export const test_random_AtomicIntersection = _test_random(
                 (generator?.customs ?? $generator.customs)?.string?.([]) ??
                     (generator?.string ?? $generator.string)(),
             ];
-        })(),
+        })((AtomicIntersection as any).RANDOM),
     assert: (input: any): AtomicIntersection => {
         const __is = (input: any): input is AtomicIntersection => {
             return (

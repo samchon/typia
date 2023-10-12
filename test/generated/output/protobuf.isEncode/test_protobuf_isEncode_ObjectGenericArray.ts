@@ -2,11 +2,11 @@ import typia from "../../../../src";
 import { _test_protobuf_isEncode } from "../../../internal/_test_protobuf_isEncode";
 import { ObjectGenericArray } from "../../../structures/ObjectGenericArray";
 
-export const test_protobuf_isEncode_ObjectGenericArray =
+export const test_protobuf_createIsEncode_ObjectGenericArray =
     _test_protobuf_isEncode("ObjectGenericArray")<ObjectGenericArray>(
         ObjectGenericArray,
     )({
-        isEncode: (input) =>
+        encode: (input) =>
             ((input: ObjectGenericArray): Uint8Array | null => {
                 const is = (input: any): input is ObjectGenericArray => {
                     const $io0 = (input: any): boolean =>
@@ -105,8 +105,6 @@ export const test_protobuf_isEncode_ObjectGenericArray =
                 };
                 return is(input) ? encode(input) : null;
             })(input),
-        message:
-            'syntax = "proto3";\n\nmessage ObjectGenericArray {\n    required ObjectGenericArray.IPagination pagination = 1;\n    repeated ObjectGenericArray.IPerson data = 2;\n    message IPagination {\n        required double page = 1;\n        required double limit = 2;\n        required double total_count = 3;\n        required double total_pages = 4;\n    }\n\n    message IPerson {\n        required string name = 1;\n        required double age = 2;\n    }\n}',
         decode: (input: Uint8Array): typia.Resolved<ObjectGenericArray> => {
             const $Reader = (typia.protobuf.createDecode as any).Reader;
             const $pdo0 = (reader: any, length: number = -1): any => {
@@ -194,4 +192,6 @@ export const test_protobuf_isEncode_ObjectGenericArray =
             const reader = new $Reader(input);
             return $pdo0(reader);
         },
+        message:
+            'syntax = "proto3";\n\nmessage ObjectGenericArray {\n    required ObjectGenericArray.IPagination pagination = 1;\n    repeated ObjectGenericArray.IPerson data = 2;\n    message IPagination {\n        required double page = 1;\n        required double limit = 2;\n        required double total_count = 3;\n        required double total_pages = 4;\n    }\n\n    message IPerson {\n        required string name = 1;\n        required double age = 2;\n    }\n}',
     });

@@ -2,11 +2,11 @@ import typia from "../../../../src";
 import { _test_protobuf_validateEncode } from "../../../internal/_test_protobuf_validateEncode";
 import { ArrayRecursive } from "../../../structures/ArrayRecursive";
 
-export const test_protobuf_validateEncode_ArrayRecursive =
+export const test_protobuf_createValidateEncode_ArrayRecursive =
     _test_protobuf_validateEncode("ArrayRecursive")<ArrayRecursive>(
         ArrayRecursive,
     )({
-        validateEncode: (input) =>
+        encode: (input) =>
             ((input: ArrayRecursive): typia.IValidation<Uint8Array> => {
                 const validate = (
                     input: any,
@@ -262,8 +262,6 @@ export const test_protobuf_validateEncode_ArrayRecursive =
                 if (output.success) output.data = encode(input);
                 return output;
             })(input),
-        message:
-            'syntax = "proto3";\n\nmessage ArrayRecursive {\n    message ICategory {\n        repeated ArrayRecursive.ICategory children = 1;\n        required double id = 2;\n        required string code = 3;\n        required double sequence = 4;\n        required ArrayRecursive.ITimestamp created_at = 5;\n    }\n\n    message ITimestamp {\n        required double time = 1;\n        required double zone = 2;\n    }\n}',
         decode: (input: Uint8Array): typia.Resolved<ArrayRecursive> => {
             const $Reader = (typia.protobuf.createDecode as any).Reader;
             const $pdo0 = (reader: any, length: number = -1): any => {
@@ -334,4 +332,6 @@ export const test_protobuf_validateEncode_ArrayRecursive =
             const reader = new $Reader(input);
             return $pdo0(reader);
         },
+        message:
+            'syntax = "proto3";\n\nmessage ArrayRecursive {\n    message ICategory {\n        repeated ArrayRecursive.ICategory children = 1;\n        required double id = 2;\n        required string code = 3;\n        required double sequence = 4;\n        required ArrayRecursive.ITimestamp created_at = 5;\n    }\n\n    message ITimestamp {\n        required double time = 1;\n        required double zone = 2;\n    }\n}',
     });

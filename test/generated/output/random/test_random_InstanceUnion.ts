@@ -197,7 +197,7 @@ export const test_random_InstanceUnion = _test_random(
                         ),
                 ])(),
             );
-        })(),
+        })((InstanceUnion as any).RANDOM),
     assert: (input: any): InstanceUnion => {
         const __is = (input: any): input is InstanceUnion => {
             const $ip0 = (input: any) => {

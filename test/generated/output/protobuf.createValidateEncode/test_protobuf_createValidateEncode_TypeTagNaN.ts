@@ -4,7 +4,7 @@ import { TypeTagNaN } from "../../../structures/TypeTagNaN";
 
 export const test_protobuf_createValidateEncode_TypeTagNaN =
     _test_protobuf_validateEncode("TypeTagNaN")<TypeTagNaN>(TypeTagNaN)({
-        validateEncode: (input: TypeTagNaN): typia.IValidation<Uint8Array> => {
+        encode: (input: TypeTagNaN): typia.IValidation<Uint8Array> => {
             const validate = (input: any): typia.IValidation<TypeTagNaN> => {
                 const errors = [] as any[];
                 const __is = (input: any): input is TypeTagNaN => {
@@ -196,8 +196,6 @@ export const test_protobuf_createValidateEncode_TypeTagNaN =
             if (output.success) output.data = encode(input);
             return output;
         },
-        message:
-            'syntax = "proto3";\n\nmessage TypeTagNaN {\n    required double value = 1;\n    required double ranged = 2;\n    required double minimum = 3;\n    required double maximum = 4;\n    required double multipleOf = 5;\n    required int32 typed = 6;\n}',
         decode: (input: Uint8Array): typia.Resolved<TypeTagNaN> => {
             const $Reader = (typia.protobuf.createDecode as any).Reader;
             const $pdo0 = (reader: any, length: number = -1): any => {
@@ -247,4 +245,6 @@ export const test_protobuf_createValidateEncode_TypeTagNaN =
             const reader = new $Reader(input);
             return $pdo0(reader);
         },
+        message:
+            'syntax = "proto3";\n\nmessage TypeTagNaN {\n    required double value = 1;\n    required double ranged = 2;\n    required double minimum = 3;\n    required double maximum = 4;\n    required double multipleOf = 5;\n    required int32 typed = 6;\n}',
     });

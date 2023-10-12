@@ -6,9 +6,7 @@ export const test_protobuf_createIsDecode_CommentTagRange =
     _test_protobuf_isDecode("CommentTagRange")<CommentTagRange>(
         CommentTagRange,
     )({
-        isDecode: (
-            input: Uint8Array,
-        ): typia.Resolved<CommentTagRange> | null => {
+        decode: (input: Uint8Array): typia.Resolved<CommentTagRange> | null => {
             const is = (input: any): input is CommentTagRange => {
                 const $io0 = (input: any): boolean =>
                     Array.isArray(input.value) &&

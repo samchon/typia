@@ -83,7 +83,7 @@ export const test_random_ObjectHttpNullable = _test_random(
                 ])(),
             });
             return $ro0();
-        })(),
+        })((ObjectHttpNullable as any).RANDOM),
     assert: (input: any): ObjectHttpNullable => {
         const __is = (input: any): input is ObjectHttpNullable => {
             const $io0 = (input: any): boolean =>

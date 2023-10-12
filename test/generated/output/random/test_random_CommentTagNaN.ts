@@ -64,7 +64,7 @@ export const test_random_CommentTagNaN = _test_random(
                     ]) ?? (generator?.integer ?? $generator.integer)(0, 100),
             });
             return $ro0();
-        })(),
+        })((CommentTagNaN as any).RANDOM),
     assert: (input: any): CommentTagNaN => {
         const __is = (input: any): input is CommentTagNaN => {
             return (

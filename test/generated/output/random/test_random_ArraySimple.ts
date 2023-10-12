@@ -39,7 +39,7 @@ export const test_random_ArraySimple = _test_random("ArraySimple")<ArraySimple>(
                     (generator?.number ?? $generator.number)(0, 100),
             });
             return (generator?.array ?? $generator.array)(() => $ro0());
-        })(),
+        })((ArraySimple as any).RANDOM),
     assert: (input: any): ArraySimple => {
         const __is = (input: any): input is ArraySimple => {
             const $io0 = (input: any): boolean =>

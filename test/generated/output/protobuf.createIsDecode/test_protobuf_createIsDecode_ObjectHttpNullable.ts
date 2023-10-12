@@ -6,7 +6,7 @@ export const test_protobuf_createIsDecode_ObjectHttpNullable =
     _test_protobuf_isDecode("ObjectHttpNullable")<ObjectHttpNullable>(
         ObjectHttpNullable,
     )({
-        isDecode: (
+        decode: (
             input: Uint8Array,
         ): typia.Resolved<ObjectHttpNullable> | null => {
             const is = (input: any): input is ObjectHttpNullable => {

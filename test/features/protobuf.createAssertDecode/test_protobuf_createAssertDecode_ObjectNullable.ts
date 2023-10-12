@@ -6,6 +6,6 @@ export const test_protobuf_createAssertDecode_ObjectNullable =
     _test_protobuf_assertDecode("ObjectNullable")<ObjectNullable>(
         ObjectNullable,
     )({
-        assertDecode: typia.protobuf.createAssertDecode<ObjectNullable>(),
+        decode: typia.protobuf.createAssertDecode<ObjectNullable>(),
         encode: typia.protobuf.createEncode<ObjectNullable>(),
     });

@@ -34,7 +34,7 @@ export const test_random_TypeTagTypeBigInt = _test_random(
                     ),
             });
             return $ro0();
-        })(),
+        })((TypeTagTypeBigInt as any).RANDOM),
     assert: (input: any): TypeTagTypeBigInt => {
         const __is = (input: any): input is TypeTagTypeBigInt => {
             return (

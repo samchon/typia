@@ -23,7 +23,7 @@ export const test_random_ObjectIntersection = _test_random(
                 vulnerable: (generator?.boolean ?? $generator.boolean)(),
             });
             return $ro0();
-        })(),
+        })((ObjectIntersection as any).RANDOM),
     assert: (input: any): ObjectIntersection => {
         const __is = (input: any): input is ObjectIntersection => {
             return (

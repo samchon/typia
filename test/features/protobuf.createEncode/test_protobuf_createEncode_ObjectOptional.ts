@@ -6,6 +6,6 @@ export const test_protobuf_createEncode_ObjectOptional = _test_protobuf_encode(
     "ObjectOptional",
 )<ObjectOptional>(ObjectOptional)({
     encode: typia.protobuf.createEncode<ObjectOptional>(),
-    message: typia.protobuf.message<ObjectOptional>(),
     decode: typia.protobuf.createDecode<ObjectOptional>(),
+    message: typia.protobuf.message<ObjectOptional>(),
 });

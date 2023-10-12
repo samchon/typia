@@ -6,7 +6,7 @@ export const test_protobuf_createAssertDecode_ObjectSimpleProtobufNullable =
     _test_protobuf_assertDecode(
         "ObjectSimpleProtobufNullable",
     )<ObjectSimpleProtobufNullable>(ObjectSimpleProtobufNullable)({
-        assertDecode: (
+        decode: (
             input: Uint8Array,
         ): typia.Resolved<ObjectSimpleProtobufNullable> => {
             const decode = (

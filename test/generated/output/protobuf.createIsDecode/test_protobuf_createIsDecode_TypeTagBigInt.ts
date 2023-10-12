@@ -4,7 +4,7 @@ import { TypeTagBigInt } from "../../../structures/TypeTagBigInt";
 
 export const test_protobuf_createIsDecode_TypeTagBigInt =
     _test_protobuf_isDecode("TypeTagBigInt")<TypeTagBigInt>(TypeTagBigInt)({
-        isDecode: (input: Uint8Array): typia.Resolved<TypeTagBigInt> | null => {
+        decode: (input: Uint8Array): typia.Resolved<TypeTagBigInt> | null => {
             const is = (input: any): input is TypeTagBigInt => {
                 return (
                     "object" === typeof input &&

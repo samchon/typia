@@ -7,6 +7,6 @@ export const test_protobuf_createEncode_ObjectHttpNullable =
         ObjectHttpNullable,
     )({
         encode: typia.protobuf.createEncode<ObjectHttpNullable>(),
-        message: typia.protobuf.message<ObjectHttpNullable>(),
         decode: typia.protobuf.createDecode<ObjectHttpNullable>(),
+        message: typia.protobuf.message<ObjectHttpNullable>(),
     });

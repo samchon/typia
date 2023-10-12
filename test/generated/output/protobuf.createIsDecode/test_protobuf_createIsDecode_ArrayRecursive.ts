@@ -4,9 +4,7 @@ import { ArrayRecursive } from "../../../structures/ArrayRecursive";
 
 export const test_protobuf_createIsDecode_ArrayRecursive =
     _test_protobuf_isDecode("ArrayRecursive")<ArrayRecursive>(ArrayRecursive)({
-        isDecode: (
-            input: Uint8Array,
-        ): typia.Resolved<ArrayRecursive> | null => {
+        decode: (input: Uint8Array): typia.Resolved<ArrayRecursive> | null => {
             const is = (input: any): input is ArrayRecursive => {
                 const $io0 = (input: any): boolean =>
                     Array.isArray(input.children) &&

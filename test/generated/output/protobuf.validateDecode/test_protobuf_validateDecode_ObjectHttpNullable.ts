@@ -2,11 +2,11 @@ import typia from "../../../../src";
 import { _test_protobuf_validateDecode } from "../../../internal/_test_protobuf_validateDecode";
 import { ObjectHttpNullable } from "../../../structures/ObjectHttpNullable";
 
-export const test_protobuf_validateDecode_ObjectHttpNullable =
+export const test_protobuf_createValidateDecode_ObjectHttpNullable =
     _test_protobuf_validateDecode("ObjectHttpNullable")<ObjectHttpNullable>(
         ObjectHttpNullable,
     )({
-        validateDecode: (input) =>
+        decode: (input) =>
             ((
                 input: Uint8Array,
             ): typia.IValidation<typia.Resolved<ObjectHttpNullable>> => {

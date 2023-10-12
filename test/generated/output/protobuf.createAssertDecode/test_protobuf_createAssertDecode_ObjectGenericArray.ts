@@ -6,9 +6,7 @@ export const test_protobuf_createAssertDecode_ObjectGenericArray =
     _test_protobuf_assertDecode("ObjectGenericArray")<ObjectGenericArray>(
         ObjectGenericArray,
     )({
-        assertDecode: (
-            input: Uint8Array,
-        ): typia.Resolved<ObjectGenericArray> => {
+        decode: (input: Uint8Array): typia.Resolved<ObjectGenericArray> => {
             const decode = (
                 input: Uint8Array,
             ): typia.Resolved<ObjectGenericArray> => {

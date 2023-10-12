@@ -4,7 +4,7 @@ import { TypeTagCustom } from "../../../structures/TypeTagCustom";
 
 export const test_protobuf_createAssertEncode_TypeTagCustom =
     _test_protobuf_assertEncode("TypeTagCustom")<TypeTagCustom>(TypeTagCustom)({
-        assertEncode: (input: any): Uint8Array => {
+        encode: (input: any): Uint8Array => {
             const assert = (input: any): TypeTagCustom => {
                 const __is = (input: any): input is TypeTagCustom => {
                     return (
@@ -76,12 +76,12 @@ export const test_protobuf_createAssertEncode_TypeTagCustom =
                                     )) ||
                                     $guard(_exceptionable, {
                                         path: _path + ".dollar",
-                                        expected: "string & Dolloar",
+                                        expected: "string & Dollar",
                                         value: input.dollar,
                                     }))) ||
                                 $guard(_exceptionable, {
                                     path: _path + ".dollar",
-                                    expected: "(string & Dolloar)",
+                                    expected: "(string & Dollar)",
                                     value: input.dollar,
                                 })) &&
                             (("string" === typeof input.postfix &&
@@ -168,8 +168,6 @@ export const test_protobuf_createAssertEncode_TypeTagCustom =
             };
             return encode(assert(input));
         },
-        message:
-            'syntax = "proto3";\n\nmessage TypeTagCustom {\n    required string id = 1;\n    required string dollar = 2;\n    required string postfix = 3;\n    required double powerOf = 4;\n}',
         decode: (input: Uint8Array): typia.Resolved<TypeTagCustom> => {
             const $Reader = (typia.protobuf.createDecode as any).Reader;
             const $pdo0 = (reader: any, length: number = -1): any => {
@@ -209,4 +207,6 @@ export const test_protobuf_createAssertEncode_TypeTagCustom =
             const reader = new $Reader(input);
             return $pdo0(reader);
         },
+        message:
+            'syntax = "proto3";\n\nmessage TypeTagCustom {\n    required string id = 1;\n    required string dollar = 2;\n    required string postfix = 3;\n    required double powerOf = 4;\n}',
     });

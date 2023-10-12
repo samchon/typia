@@ -71,12 +71,12 @@ export const test_misc_createAssertPrune_TypeTagCustom = _test_misc_assertPrune(
                             )) ||
                             $guard(_exceptionable, {
                                 path: _path + ".dollar",
-                                expected: "string & Dolloar",
+                                expected: "string & Dollar",
                                 value: input.dollar,
                             }))) ||
                         $guard(_exceptionable, {
                             path: _path + ".dollar",
-                            expected: "(string & Dolloar)",
+                            expected: "(string & Dollar)",
                             value: input.dollar,
                         })) &&
                     (("string" === typeof input.postfix &&

@@ -6,8 +6,7 @@ export const test_protobuf_createAssertEncode_CommentTagRangeBigInt =
     _test_protobuf_assertEncode("CommentTagRangeBigInt")<CommentTagRangeBigInt>(
         CommentTagRangeBigInt,
     )({
-        assertEncode:
-            typia.protobuf.createAssertEncode<CommentTagRangeBigInt>(),
-        message: typia.protobuf.message<CommentTagRangeBigInt>(),
+        encode: typia.protobuf.createAssertEncode<CommentTagRangeBigInt>(),
         decode: typia.protobuf.createDecode<CommentTagRangeBigInt>(),
+        message: typia.protobuf.message<CommentTagRangeBigInt>(),
     });

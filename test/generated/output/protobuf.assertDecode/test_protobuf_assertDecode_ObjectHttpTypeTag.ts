@@ -2,11 +2,11 @@ import typia from "../../../../src";
 import { _test_protobuf_assertDecode } from "../../../internal/_test_protobuf_assertDecode";
 import { ObjectHttpTypeTag } from "../../../structures/ObjectHttpTypeTag";
 
-export const test_protobuf_assertDecode_ObjectHttpTypeTag =
+export const test_protobuf_createAssertDecode_ObjectHttpTypeTag =
     _test_protobuf_assertDecode("ObjectHttpTypeTag")<ObjectHttpTypeTag>(
         ObjectHttpTypeTag,
     )({
-        assertDecode: (input) =>
+        decode: (input) =>
             ((input: Uint8Array): typia.Resolved<ObjectHttpTypeTag> => {
                 const decode = (
                     input: Uint8Array,

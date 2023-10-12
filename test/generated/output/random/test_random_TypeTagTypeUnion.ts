@@ -240,7 +240,7 @@ export const test_random_TypeTagTypeUnion = _test_random(
                 ])(),
             });
             return $ro0();
-        })(),
+        })((TypeTagTypeUnion as any).RANDOM),
     assert: (input: any): TypeTagTypeUnion => {
         const __is = (input: any): input is TypeTagTypeUnion => {
             const $io0 = (input: any): boolean =>

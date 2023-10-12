@@ -6,7 +6,8 @@ export const test_createRandom_TypeTagCustom = _test_random(
     "TypeTagCustom",
 )<TypeTagCustom>(TypeTagCustom)({
     random: (
-        generator: Partial<typia.IRandomGenerator> = TypeTagCustom.RANDOM,
+        generator: Partial<typia.IRandomGenerator> = (TypeTagCustom as any)
+            .RANDOM,
     ): typia.Resolved<TypeTagCustom> => {
         const $generator = (typia.createRandom as any).generator;
         const $ro0 = (
@@ -24,7 +25,7 @@ export const test_createRandom_TypeTagCustom = _test_random(
             dollar:
                 (generator?.customs ?? $generator.customs)?.string?.([
                     {
-                        name: "Dolloar",
+                        name: "Dollar",
                         kind: "dollar",
                     },
                 ]) ?? (generator?.string ?? $generator.string)(),
@@ -113,12 +114,12 @@ export const test_createRandom_TypeTagCustom = _test_random(
                             )) ||
                             $guard(_exceptionable, {
                                 path: _path + ".dollar",
-                                expected: "string & Dolloar",
+                                expected: "string & Dollar",
                                 value: input.dollar,
                             }))) ||
                         $guard(_exceptionable, {
                             path: _path + ".dollar",
-                            expected: "(string & Dolloar)",
+                            expected: "(string & Dollar)",
                             value: input.dollar,
                         })) &&
                     (("string" === typeof input.postfix &&

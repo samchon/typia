@@ -2,7 +2,7 @@ import typia from "../../../../src";
 import { _test_protobuf_encode } from "../../../internal/_test_protobuf_encode";
 import { ObjectSimple } from "../../../structures/ObjectSimple";
 
-export const test_protobuf_encode_ObjectSimple = _test_protobuf_encode(
+export const test_protobuf_createEncode_ObjectSimple = _test_protobuf_encode(
     "ObjectSimple",
 )<ObjectSimple>(ObjectSimple)({
     encode: (input) =>
@@ -59,8 +59,6 @@ export const test_protobuf_encode_ObjectSimple = _test_protobuf_encode(
             const writer = encoder(new $Writer(sizer));
             return writer.buffer();
         })(input),
-    message:
-        'syntax = "proto3";\n\nmessage ObjectSimple {\n    message IBox3D {\n        required ObjectSimple.IPoint3D scale = 1;\n        required ObjectSimple.IPoint3D position = 2;\n        required ObjectSimple.IPoint3D rotate = 3;\n        required ObjectSimple.IPoint3D pivot = 4;\n    }\n\n    message IPoint3D {\n        required double x = 1;\n        required double y = 2;\n        required double z = 3;\n    }\n}',
     decode: (input: Uint8Array): typia.Resolved<ObjectSimple> => {
         const $Reader = (typia.protobuf.createDecode as any).Reader;
         const $pdo0 = (reader: any, length: number = -1): any => {
@@ -129,4 +127,6 @@ export const test_protobuf_encode_ObjectSimple = _test_protobuf_encode(
         const reader = new $Reader(input);
         return $pdo0(reader);
     },
+    message:
+        'syntax = "proto3";\n\nmessage ObjectSimple {\n    message IBox3D {\n        required ObjectSimple.IPoint3D scale = 1;\n        required ObjectSimple.IPoint3D position = 2;\n        required ObjectSimple.IPoint3D rotate = 3;\n        required ObjectSimple.IPoint3D pivot = 4;\n    }\n\n    message IPoint3D {\n        required double x = 1;\n        required double y = 2;\n        required double z = 3;\n    }\n}',
 });

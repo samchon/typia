@@ -4,6 +4,6 @@ import { ArrayRecursive } from "../../structures/ArrayRecursive";
 
 export const test_protobuf_createIsDecode_ArrayRecursive =
     _test_protobuf_isDecode("ArrayRecursive")<ArrayRecursive>(ArrayRecursive)({
-        isDecode: typia.protobuf.createIsDecode<ArrayRecursive>(),
+        decode: typia.protobuf.createIsDecode<ArrayRecursive>(),
         encode: typia.protobuf.createEncode<ArrayRecursive>(),
     });

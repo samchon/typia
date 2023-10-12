@@ -4,6 +4,6 @@ import { TypeTagLength } from "../../structures/TypeTagLength";
 
 export const test_protobuf_createAssertDecode_TypeTagLength =
     _test_protobuf_assertDecode("TypeTagLength")<TypeTagLength>(TypeTagLength)({
-        assertDecode: typia.protobuf.createAssertDecode<TypeTagLength>(),
+        decode: typia.protobuf.createAssertDecode<TypeTagLength>(),
         encode: typia.protobuf.createEncode<TypeTagLength>(),
     });

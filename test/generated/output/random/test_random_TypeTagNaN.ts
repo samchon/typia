@@ -64,7 +64,7 @@ export const test_random_TypeTagNaN = _test_random("TypeTagNaN")<TypeTagNaN>(
                     ]) ?? (generator?.integer ?? $generator.integer)(0, 100),
             });
             return $ro0();
-        })(),
+        })((TypeTagNaN as any).RANDOM),
     assert: (input: any): TypeTagNaN => {
         const __is = (input: any): input is TypeTagNaN => {
             return (

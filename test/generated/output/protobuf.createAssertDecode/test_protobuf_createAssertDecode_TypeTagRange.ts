@@ -4,7 +4,7 @@ import { TypeTagRange } from "../../../structures/TypeTagRange";
 
 export const test_protobuf_createAssertDecode_TypeTagRange =
     _test_protobuf_assertDecode("TypeTagRange")<TypeTagRange>(TypeTagRange)({
-        assertDecode: (input: Uint8Array): typia.Resolved<TypeTagRange> => {
+        decode: (input: Uint8Array): typia.Resolved<TypeTagRange> => {
             const decode = (
                 input: Uint8Array,
             ): typia.Resolved<TypeTagRange> => {

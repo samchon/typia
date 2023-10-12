@@ -2,11 +2,11 @@ import typia from "../../../../src";
 import { _test_protobuf_validateEncode } from "../../../internal/_test_protobuf_validateEncode";
 import { ObjectPrimitive } from "../../../structures/ObjectPrimitive";
 
-export const test_protobuf_validateEncode_ObjectPrimitive =
+export const test_protobuf_createValidateEncode_ObjectPrimitive =
     _test_protobuf_validateEncode("ObjectPrimitive")<ObjectPrimitive>(
         ObjectPrimitive,
     )({
-        validateEncode: (input) =>
+        encode: (input) =>
             ((input: ObjectPrimitive): typia.IValidation<Uint8Array> => {
                 const validate = (
                     input: any,
@@ -279,8 +279,6 @@ export const test_protobuf_validateEncode_ObjectPrimitive =
                 if (output.success) output.data = encode(input);
                 return output;
             })(input),
-        message:
-            'syntax = "proto3";\n\nmessage ObjectPrimitive {\n    message IArticle {\n        required string id = 1;\n        required string extension = 2;\n        required string title = 3;\n        required string body = 4;\n        repeated ObjectPrimitive.IFile files = 5;\n        required bool secret = 6;\n        required string created_at = 7;\n    }\n\n    message IFile {\n        required string id = 1;\n        required string name = 2;\n        required string extension = 3;\n        required string url = 4;\n        required string created_at = 5;\n    }\n}',
         decode: (input: Uint8Array): typia.Resolved<ObjectPrimitive> => {
             const $Reader = (typia.protobuf.createDecode as any).Reader;
             const $pdo0 = (reader: any, length: number = -1): any => {
@@ -374,4 +372,6 @@ export const test_protobuf_validateEncode_ObjectPrimitive =
             const reader = new $Reader(input);
             return $pdo0(reader);
         },
+        message:
+            'syntax = "proto3";\n\nmessage ObjectPrimitive {\n    message IArticle {\n        required string id = 1;\n        required string extension = 2;\n        required string title = 3;\n        required string body = 4;\n        repeated ObjectPrimitive.IFile files = 5;\n        required bool secret = 6;\n        required string created_at = 7;\n    }\n\n    message IFile {\n        required string id = 1;\n        required string name = 2;\n        required string extension = 3;\n        required string url = 4;\n        required string created_at = 5;\n    }\n}',
     });

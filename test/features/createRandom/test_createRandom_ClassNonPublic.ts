@@ -5,6 +5,6 @@ import { ClassNonPublic } from "../../structures/ClassNonPublic";
 export const test_createRandom_ClassNonPublic = _test_random(
     "ClassNonPublic",
 )<ClassNonPublic>(ClassNonPublic)({
-    random: typia.createRandom<ClassNonPublic>(),
+    random: typia.createRandom<ClassNonPublic>((ClassNonPublic as any).RANDOM),
     assert: typia.createAssert<ClassNonPublic>(),
 });

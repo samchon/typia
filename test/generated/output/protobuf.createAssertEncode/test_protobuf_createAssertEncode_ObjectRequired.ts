@@ -6,7 +6,7 @@ export const test_protobuf_createAssertEncode_ObjectRequired =
     _test_protobuf_assertEncode("ObjectRequired")<ObjectRequired>(
         ObjectRequired,
     )({
-        assertEncode: (input: any): Uint8Array => {
+        encode: (input: any): Uint8Array => {
             const assert = (input: any): ObjectRequired => {
                 const __is = (input: any): input is ObjectRequired => {
                     const $io0 = (input: any): boolean =>
@@ -322,8 +322,6 @@ export const test_protobuf_createAssertEncode_ObjectRequired =
             };
             return encode(assert(input));
         },
-        message:
-            'syntax = "proto3";\n\nmessage Required_lt_ObjectRequired {\n    message IBase_gt_ {\n        required bool boolean = 1;\n        required double number = 2;\n        required string string = 3;\n        repeated double array = 4;\n        optional ObjectRequired.IBase object = 5;\n    }\n}\n\nmessage ObjectRequired {\n    message IBase {\n        optional bool boolean = 1;\n        optional double number = 2;\n        optional string string = 3;\n        repeated double array = 4;\n        optional ObjectRequired.IBase object = 5;\n    }\n}',
         decode: (input: Uint8Array): typia.Resolved<ObjectRequired> => {
             const $Reader = (typia.protobuf.createDecode as any).Reader;
             const $pdo0 = (reader: any, length: number = -1): any => {
@@ -416,4 +414,6 @@ export const test_protobuf_createAssertEncode_ObjectRequired =
             const reader = new $Reader(input);
             return $pdo0(reader);
         },
+        message:
+            'syntax = "proto3";\n\nmessage Required_lt_ObjectRequired {\n    message IBase_gt_ {\n        required bool boolean = 1;\n        required double number = 2;\n        required string string = 3;\n        repeated double array = 4;\n        optional ObjectRequired.IBase object = 5;\n    }\n}\n\nmessage ObjectRequired {\n    message IBase {\n        optional bool boolean = 1;\n        optional double number = 2;\n        optional string string = 3;\n        repeated double array = 4;\n        optional ObjectRequired.IBase object = 5;\n    }\n}',
     });

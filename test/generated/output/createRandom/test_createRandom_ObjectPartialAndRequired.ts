@@ -6,7 +6,9 @@ export const test_createRandom_ObjectPartialAndRequired = _test_random(
     "ObjectPartialAndRequired",
 )<ObjectPartialAndRequired>(ObjectPartialAndRequired)({
     random: (
-        generator?: Partial<typia.IRandomGenerator>,
+        generator: Partial<typia.IRandomGenerator> = (
+            ObjectPartialAndRequired as any
+        ).RANDOM,
     ): typia.Resolved<ObjectPartialAndRequired> => {
         const $generator = (typia.createRandom as any).generator;
         const $pick = (typia.createRandom as any).pick;

@@ -5,6 +5,9 @@ import { ObjectSimpleProtobufOptional } from "../../structures/ObjectSimpleProto
 export const test_random_ObjectSimpleProtobufOptional = _test_random(
     "ObjectSimpleProtobufOptional",
 )<ObjectSimpleProtobufOptional>(ObjectSimpleProtobufOptional)({
-    random: () => typia.random<ObjectSimpleProtobufOptional>(),
+    random: () =>
+        typia.random<ObjectSimpleProtobufOptional>(
+            (ObjectSimpleProtobufOptional as any).RANDOM,
+        ),
     assert: typia.createAssert<ObjectSimpleProtobufOptional>(),
 });

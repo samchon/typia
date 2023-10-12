@@ -50,7 +50,7 @@ export const test_random_ObjectHttpArray = _test_random(
                 ),
             });
             return $ro0();
-        })(),
+        })((ObjectHttpArray as any).RANDOM),
     assert: (input: any): ObjectHttpArray => {
         const __is = (input: any): input is ObjectHttpArray => {
             const $io0 = (input: any): boolean =>

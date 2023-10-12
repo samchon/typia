@@ -5,6 +5,8 @@ import { CommentTagArray } from "../../structures/CommentTagArray";
 export const test_createRandom_CommentTagArray = _test_random(
     "CommentTagArray",
 )<CommentTagArray>(CommentTagArray)({
-    random: typia.createRandom<CommentTagArray>(),
+    random: typia.createRandom<CommentTagArray>(
+        (CommentTagArray as any).RANDOM,
+    ),
     assert: typia.createAssert<CommentTagArray>(),
 });

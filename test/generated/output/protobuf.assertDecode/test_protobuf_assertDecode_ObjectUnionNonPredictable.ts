@@ -2,11 +2,11 @@ import typia from "../../../../src";
 import { _test_protobuf_assertDecode } from "../../../internal/_test_protobuf_assertDecode";
 import { ObjectUnionNonPredictable } from "../../../structures/ObjectUnionNonPredictable";
 
-export const test_protobuf_assertDecode_ObjectUnionNonPredictable =
+export const test_protobuf_createAssertDecode_ObjectUnionNonPredictable =
     _test_protobuf_assertDecode(
         "ObjectUnionNonPredictable",
     )<ObjectUnionNonPredictable>(ObjectUnionNonPredictable)({
-        assertDecode: (input) =>
+        decode: (input) =>
             ((input: Uint8Array): typia.Resolved<ObjectUnionNonPredictable> => {
                 const decode = (
                     input: Uint8Array,

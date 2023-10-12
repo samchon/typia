@@ -2,11 +2,11 @@ import typia from "../../../../src";
 import { _test_protobuf_validateDecode } from "../../../internal/_test_protobuf_validateDecode";
 import { ArraySimpleProtobuf } from "../../../structures/ArraySimpleProtobuf";
 
-export const test_protobuf_validateDecode_ArraySimpleProtobuf =
+export const test_protobuf_createValidateDecode_ArraySimpleProtobuf =
     _test_protobuf_validateDecode("ArraySimpleProtobuf")<ArraySimpleProtobuf>(
         ArraySimpleProtobuf,
     )({
-        validateDecode: (input) =>
+        decode: (input) =>
             ((
                 input: Uint8Array,
             ): typia.IValidation<typia.Resolved<ArraySimpleProtobuf>> => {

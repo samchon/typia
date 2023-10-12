@@ -121,7 +121,7 @@ export const test_random_DynamicJsonValue = _test_random(
                 () => $ra0(generator?.length ?? $generator.length, true, 0),
                 () => $ro0(),
             ])();
-        })(),
+        })((DynamicJsonValue as any).RANDOM),
     assert: (input: any): DynamicJsonValue => {
         const __is = (input: any): input is DynamicJsonValue => {
             const $io0 = (input: any): boolean =>

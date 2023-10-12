@@ -6,7 +6,9 @@ export const test_createRandom_ObjectUnionExplicit = _test_random(
     "ObjectUnionExplicit",
 )<ObjectUnionExplicit>(ObjectUnionExplicit)({
     random: (
-        generator?: Partial<typia.IRandomGenerator>,
+        generator: Partial<typia.IRandomGenerator> = (
+            ObjectUnionExplicit as any
+        ).RANDOM,
     ): typia.Resolved<ObjectUnionExplicit> => {
         const $generator = (typia.createRandom as any).generator;
         const $pick = (typia.createRandom as any).pick;

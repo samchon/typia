@@ -76,7 +76,7 @@ export const test_random_ObjectUnionNonPredictable = _test_random(
                     (generator?.string ?? $generator.string)(),
             });
             return $ro0();
-        })(),
+        })((ObjectUnionNonPredictable as any).RANDOM),
     assert: (input: any): ObjectUnionNonPredictable => {
         const __is = (input: any): input is ObjectUnionNonPredictable => {
             const $io0 = (input: any): boolean =>

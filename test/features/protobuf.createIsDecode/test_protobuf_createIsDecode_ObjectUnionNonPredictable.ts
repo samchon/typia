@@ -6,6 +6,6 @@ export const test_protobuf_createIsDecode_ObjectUnionNonPredictable =
     _test_protobuf_isDecode(
         "ObjectUnionNonPredictable",
     )<ObjectUnionNonPredictable>(ObjectUnionNonPredictable)({
-        isDecode: typia.protobuf.createIsDecode<ObjectUnionNonPredictable>(),
+        decode: typia.protobuf.createIsDecode<ObjectUnionNonPredictable>(),
         encode: typia.protobuf.createEncode<ObjectUnionNonPredictable>(),
     });

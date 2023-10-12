@@ -6,9 +6,7 @@ export const test_protobuf_createValidateEncode_ObjectNullable =
     _test_protobuf_validateEncode("ObjectNullable")<ObjectNullable>(
         ObjectNullable,
     )({
-        validateEncode: (
-            input: ObjectNullable,
-        ): typia.IValidation<Uint8Array> => {
+        encode: (input: ObjectNullable): typia.IValidation<Uint8Array> => {
             const validate = (
                 input: any,
             ): typia.IValidation<ObjectNullable> => {
@@ -395,8 +393,6 @@ export const test_protobuf_createValidateEncode_ObjectNullable =
             if (output.success) output.data = encode(input);
             return output;
         },
-        message:
-            'syntax = "proto3";\n\nmessage ObjectNullable {\n    repeated ObjectNullable.IProduct value = 1;\n    message IProduct {\n        required string name = 1;\n        required ObjectNullable.IManufacturer manufacturer = 2;\n        optional ObjectNullable.IBrand brand = 3;\n        oneof similar {\n            ObjectNullable.IBrand v4 = 4;\n            ObjectNullable.IManufacturer v5 = 5;\n        }\n    }\n\n    message IManufacturer {\n        required string type = 1;\n        required string name = 2;\n    }\n\n    message IBrand {\n        required string type = 1;\n        required string name = 2;\n    }\n}',
         decode: (input: Uint8Array): typia.Resolved<ObjectNullable> => {
             const $Reader = (typia.protobuf.createDecode as any).Reader;
             const $pdo0 = (reader: any, length: number = -1): any => {
@@ -510,4 +506,6 @@ export const test_protobuf_createValidateEncode_ObjectNullable =
             const reader = new $Reader(input);
             return $pdo0(reader);
         },
+        message:
+            'syntax = "proto3";\n\nmessage ObjectNullable {\n    repeated ObjectNullable.IProduct value = 1;\n    message IProduct {\n        required string name = 1;\n        required ObjectNullable.IManufacturer manufacturer = 2;\n        optional ObjectNullable.IBrand brand = 3;\n        oneof similar {\n            ObjectNullable.IBrand v4 = 4;\n            ObjectNullable.IManufacturer v5 = 5;\n        }\n    }\n\n    message IManufacturer {\n        required string type = 1;\n        required string name = 2;\n    }\n\n    message IBrand {\n        required string type = 1;\n        required string name = 2;\n    }\n}',
     });

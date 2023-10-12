@@ -166,7 +166,7 @@ export const test_random_CommentTagRange = _test_random(
                     ]) ?? (generator?.integer ?? $generator.integer)(10, 10),
             });
             return $ro0();
-        })(),
+        })((CommentTagRange as any).RANDOM),
     assert: (input: any): CommentTagRange => {
         const __is = (input: any): input is CommentTagRange => {
             const $io0 = (input: any): boolean =>

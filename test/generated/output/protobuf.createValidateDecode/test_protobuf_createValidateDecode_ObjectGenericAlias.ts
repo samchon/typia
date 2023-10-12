@@ -6,7 +6,7 @@ export const test_protobuf_createValidateDecode_ObjectGenericAlias =
     _test_protobuf_validateDecode("ObjectGenericAlias")<ObjectGenericAlias>(
         ObjectGenericAlias,
     )({
-        validateDecode: (
+        decode: (
             input: Uint8Array,
         ): typia.IValidation<typia.Resolved<ObjectGenericAlias>> => {
             const validate = (

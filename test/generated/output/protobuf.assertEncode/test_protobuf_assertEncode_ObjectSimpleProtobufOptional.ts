@@ -2,11 +2,11 @@ import typia from "../../../../src";
 import { _test_protobuf_assertEncode } from "../../../internal/_test_protobuf_assertEncode";
 import { ObjectSimpleProtobufOptional } from "../../../structures/ObjectSimpleProtobufOptional";
 
-export const test_protobuf_assertEncode_ObjectSimpleProtobufOptional =
+export const test_protobuf_createAssertEncode_ObjectSimpleProtobufOptional =
     _test_protobuf_assertEncode(
         "ObjectSimpleProtobufOptional",
     )<ObjectSimpleProtobufOptional>(ObjectSimpleProtobufOptional)({
-        assertEncode: (input) =>
+        encode: (input) =>
             ((input: any): Uint8Array => {
                 const assert = (input: any): ObjectSimpleProtobufOptional => {
                     const __is = (
@@ -261,8 +261,6 @@ export const test_protobuf_assertEncode_ObjectSimpleProtobufOptional =
                 };
                 return encode(assert(input));
             })(input),
-        message:
-            'syntax = "proto3";\n\nmessage ObjectSimpleProtobufOptional {\n    optional bool bool = 1;\n    optional int32 int32 = 2;\n    optional uint32 uint32 = 3;\n    optional int64 int64 = 4;\n    optional uint64 uint64 = 5;\n    optional float float = 6;\n    optional double double = 7;\n    optional string string = 8;\n    optional bytes bytes = 9;\n}',
         decode: (
             input: Uint8Array,
         ): typia.Resolved<ObjectSimpleProtobufOptional> => {
@@ -329,4 +327,6 @@ export const test_protobuf_assertEncode_ObjectSimpleProtobufOptional =
             const reader = new $Reader(input);
             return $pdo0(reader);
         },
+        message:
+            'syntax = "proto3";\n\nmessage ObjectSimpleProtobufOptional {\n    optional bool bool = 1;\n    optional int32 int32 = 2;\n    optional uint32 uint32 = 3;\n    optional int64 int64 = 4;\n    optional uint64 uint64 = 5;\n    optional float float = 6;\n    optional double double = 7;\n    optional string string = 8;\n    optional bytes bytes = 9;\n}',
     });

@@ -4,7 +4,7 @@ import { TemplateAtomic } from "../../../structures/TemplateAtomic";
 
 export const test_protobuf_createIsEncode_TemplateAtomic =
     _test_protobuf_isEncode("TemplateAtomic")<TemplateAtomic>(TemplateAtomic)({
-        isEncode: (input: TemplateAtomic): Uint8Array | null => {
+        encode: (input: TemplateAtomic): Uint8Array | null => {
             const is = (input: any): input is TemplateAtomic => {
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.prefix &&
@@ -73,8 +73,6 @@ export const test_protobuf_createIsEncode_TemplateAtomic =
             };
             return is(input) ? encode(input) : null;
         },
-        message:
-            'syntax = "proto3";\n\nmessage TemplateAtomic {\n    required string prefix = 1;\n    required string postfix = 2;\n    required string middle_string = 3;\n    required string middle_string_empty = 4;\n    required string middle_numeric = 5;\n    required string middle_boolean = 6;\n    required string ipv4 = 7;\n    required string email = 8;\n}',
         decode: (input: Uint8Array): typia.Resolved<TemplateAtomic> => {
             const $Reader = (typia.protobuf.createDecode as any).Reader;
             const $pdo0 = (reader: any, length: number = -1): any => {
@@ -134,4 +132,6 @@ export const test_protobuf_createIsEncode_TemplateAtomic =
             const reader = new $Reader(input);
             return $pdo0(reader);
         },
+        message:
+            'syntax = "proto3";\n\nmessage TemplateAtomic {\n    required string prefix = 1;\n    required string postfix = 2;\n    required string middle_string = 3;\n    required string middle_string_empty = 4;\n    required string middle_numeric = 5;\n    required string middle_boolean = 6;\n    required string ipv4 = 7;\n    required string email = 8;\n}',
     });

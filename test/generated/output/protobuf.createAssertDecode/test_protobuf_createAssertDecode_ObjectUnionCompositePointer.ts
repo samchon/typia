@@ -6,7 +6,7 @@ export const test_protobuf_createAssertDecode_ObjectUnionCompositePointer =
     _test_protobuf_assertDecode(
         "ObjectUnionCompositePointer",
     )<ObjectUnionCompositePointer>(ObjectUnionCompositePointer)({
-        assertDecode: (
+        decode: (
             input: Uint8Array,
         ): typia.Resolved<ObjectUnionCompositePointer> => {
             const decode = (

@@ -2,11 +2,11 @@ import typia from "../../../../src";
 import { _test_protobuf_assertDecode } from "../../../internal/_test_protobuf_assertDecode";
 import { CommentTagAtomicUnion } from "../../../structures/CommentTagAtomicUnion";
 
-export const test_protobuf_assertDecode_CommentTagAtomicUnion =
+export const test_protobuf_createAssertDecode_CommentTagAtomicUnion =
     _test_protobuf_assertDecode("CommentTagAtomicUnion")<CommentTagAtomicUnion>(
         CommentTagAtomicUnion,
     )({
-        assertDecode: (input) =>
+        decode: (input) =>
             ((input: Uint8Array): typia.Resolved<CommentTagAtomicUnion> => {
                 const decode = (
                     input: Uint8Array,

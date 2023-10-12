@@ -2,11 +2,11 @@ import typia from "../../../../src";
 import { _test_protobuf_validateDecode } from "../../../internal/_test_protobuf_validateDecode";
 import { ObjectRequired } from "../../../structures/ObjectRequired";
 
-export const test_protobuf_validateDecode_ObjectRequired =
+export const test_protobuf_createValidateDecode_ObjectRequired =
     _test_protobuf_validateDecode("ObjectRequired")<ObjectRequired>(
         ObjectRequired,
     )({
-        validateDecode: (input) =>
+        decode: (input) =>
             ((
                 input: Uint8Array,
             ): typia.IValidation<typia.Resolved<ObjectRequired>> => {

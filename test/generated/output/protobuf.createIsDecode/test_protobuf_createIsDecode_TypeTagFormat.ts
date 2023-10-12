@@ -4,7 +4,7 @@ import { TypeTagFormat } from "../../../structures/TypeTagFormat";
 
 export const test_protobuf_createIsDecode_TypeTagFormat =
     _test_protobuf_isDecode("TypeTagFormat")<TypeTagFormat>(TypeTagFormat)({
-        isDecode: (input: Uint8Array): typia.Resolved<TypeTagFormat> | null => {
+        decode: (input: Uint8Array): typia.Resolved<TypeTagFormat> | null => {
             const is = (input: any): input is TypeTagFormat => {
                 return (
                     "object" === typeof input &&

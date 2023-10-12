@@ -2,11 +2,11 @@ import typia from "../../../../src";
 import { _test_protobuf_validateEncode } from "../../../internal/_test_protobuf_validateEncode";
 import { ArraySimpleProtobufNullable } from "../../../structures/ArraySimpleProtobufNullable";
 
-export const test_protobuf_validateEncode_ArraySimpleProtobufNullable =
+export const test_protobuf_createValidateEncode_ArraySimpleProtobufNullable =
     _test_protobuf_validateEncode(
         "ArraySimpleProtobufNullable",
     )<ArraySimpleProtobufNullable>(ArraySimpleProtobufNullable)({
-        validateEncode: (input) =>
+        encode: (input) =>
             ((
                 input: ArraySimpleProtobufNullable,
             ): typia.IValidation<Uint8Array> => {
@@ -861,8 +861,6 @@ export const test_protobuf_validateEncode_ArraySimpleProtobufNullable =
                 if (output.success) output.data = encode(input);
                 return output;
             })(input),
-        message:
-            'syntax = "proto3";\n\nmessage ArraySimpleProtobufNullable {\n    repeated bool boolean = 1;\n    repeated int32 int32 = 2;\n    repeated uint32 uint32 = 3;\n    repeated int64 int64 = 4;\n    repeated uint64 uint64 = 5;\n    repeated float float = 6;\n    repeated double double = 7;\n    repeated string string = 8;\n    repeated bytes bytes = 9;\n    repeated ArraySimpleProtobufNullable object = 10;\n}',
         decode: (
             input: Uint8Array,
         ): typia.Resolved<ArraySimpleProtobufNullable> => {
@@ -972,4 +970,6 @@ export const test_protobuf_validateEncode_ArraySimpleProtobufNullable =
             const reader = new $Reader(input);
             return $pdo0(reader);
         },
+        message:
+            'syntax = "proto3";\n\nmessage ArraySimpleProtobufNullable {\n    repeated bool boolean = 1;\n    repeated int32 int32 = 2;\n    repeated uint32 uint32 = 3;\n    repeated int64 int64 = 4;\n    repeated uint64 uint64 = 5;\n    repeated float float = 6;\n    repeated double double = 7;\n    repeated string string = 8;\n    repeated bytes bytes = 9;\n    repeated ArraySimpleProtobufNullable object = 10;\n}',
     });

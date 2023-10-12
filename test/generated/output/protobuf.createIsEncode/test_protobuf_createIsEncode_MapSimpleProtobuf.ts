@@ -6,7 +6,7 @@ export const test_protobuf_createIsEncode_MapSimpleProtobuf =
     _test_protobuf_isEncode("MapSimpleProtobuf")<MapSimpleProtobuf>(
         MapSimpleProtobuf,
     )({
-        isEncode: (input: MapSimpleProtobuf): Uint8Array | null => {
+        encode: (input: MapSimpleProtobuf): Uint8Array | null => {
             const is = (input: any): input is MapSimpleProtobuf => {
                 const $io0 = (input: any): boolean =>
                     input.boolean instanceof Map &&
@@ -242,8 +242,6 @@ export const test_protobuf_createIsEncode_MapSimpleProtobuf =
             };
             return is(input) ? encode(input) : null;
         },
-        message:
-            'syntax = "proto3";\n\nmessage MapSimpleProtobuf {\n    map<string, bool> boolean = 1;\n    map<string, int32> int32 = 2;\n    map<string, int64> bigint = 3;\n    map<string, double> double = 4;\n    map<string, string> string = 5;\n    map<string, bytes> bytes = 6;\n    map<string, MapSimpleProtobuf> objects = 7;\n}',
         decode: (input: Uint8Array): typia.Resolved<MapSimpleProtobuf> => {
             const $Reader = (typia.protobuf.createDecode as any).Reader;
             const $pdo0 = (reader: any, length: number = -1): any => {
@@ -462,4 +460,6 @@ export const test_protobuf_createIsEncode_MapSimpleProtobuf =
             const reader = new $Reader(input);
             return $pdo0(reader);
         },
+        message:
+            'syntax = "proto3";\n\nmessage MapSimpleProtobuf {\n    map<string, bool> boolean = 1;\n    map<string, int32> int32 = 2;\n    map<string, int64> bigint = 3;\n    map<string, double> double = 4;\n    map<string, string> string = 5;\n    map<string, bytes> bytes = 6;\n    map<string, MapSimpleProtobuf> objects = 7;\n}',
     });

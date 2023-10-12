@@ -4,6 +4,6 @@ import { CommentTagNaN } from "../../structures/CommentTagNaN";
 
 export const test_protobuf_createIsDecode_CommentTagNaN =
     _test_protobuf_isDecode("CommentTagNaN")<CommentTagNaN>(CommentTagNaN)({
-        isDecode: typia.protobuf.createIsDecode<CommentTagNaN>(),
+        decode: typia.protobuf.createIsDecode<CommentTagNaN>(),
         encode: typia.protobuf.createEncode<CommentTagNaN>(),
     });

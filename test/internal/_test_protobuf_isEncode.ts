@@ -8,7 +8,7 @@ export const _test_protobuf_isEncode =
     <T extends object>(factory: TestStructure<T>) =>
     (functor: {
         message: string;
-        isEncode: (input: T) => Uint8Array | null;
+        encode: (input: T) => Uint8Array | null;
         decode: (input: Uint8Array) => typia.Resolved<T>;
     }) =>
     () => {
@@ -16,16 +16,19 @@ export const _test_protobuf_isEncode =
             message: functor.message,
             decode: functor.decode,
             encode: (input) => {
-                const binary: Uint8Array | null = functor.isEncode(input);
-                if (binary === null) throw new Error();
+                const binary: Uint8Array | null = functor.encode(input);
+                if (binary === null)
+                    throw new Error(
+                        `Bug on typia.json.isEncode(): failed to understand the ${name} type.`,
+                    );
                 return binary;
             },
-        });
+        })();
         for (const spoil of factory.SPOILERS ?? []) {
             const elem: T = factory.generate();
             spoil(elem);
 
-            if (functor.isEncode(elem) !== null)
+            if (functor.encode(elem) !== null)
                 throw new Error(
                     `Bug on typia.json.isEncode(): failed to detect error on the ${name} type.`,
                 );

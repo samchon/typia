@@ -6,9 +6,7 @@ export const test_protobuf_createIsDecode_TypeTagInfinite =
     _test_protobuf_isDecode("TypeTagInfinite")<TypeTagInfinite>(
         TypeTagInfinite,
     )({
-        isDecode: (
-            input: Uint8Array,
-        ): typia.Resolved<TypeTagInfinite> | null => {
+        decode: (input: Uint8Array): typia.Resolved<TypeTagInfinite> | null => {
             const is = (input: any): input is TypeTagInfinite => {
                 return (
                     "object" === typeof input &&

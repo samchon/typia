@@ -6,7 +6,7 @@ export const test_protobuf_createValidateEncode_CommentTagBigInt =
     _test_protobuf_validateEncode("CommentTagBigInt")<CommentTagBigInt>(
         CommentTagBigInt,
     )({
-        validateEncode: typia.protobuf.createValidateEncode<CommentTagBigInt>(),
-        message: typia.protobuf.message<CommentTagBigInt>(),
+        encode: typia.protobuf.createValidateEncode<CommentTagBigInt>(),
         decode: typia.protobuf.createDecode<CommentTagBigInt>(),
+        message: typia.protobuf.message<CommentTagBigInt>(),
     });

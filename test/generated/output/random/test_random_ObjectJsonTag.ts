@@ -28,7 +28,7 @@ export const test_random_ObjectJsonTag = _test_random(
                     (generator?.string ?? $generator.string)(),
             });
             return $ro0();
-        })(),
+        })((ObjectJsonTag as any).RANDOM),
     assert: (input: any): ObjectJsonTag => {
         const __is = (input: any): input is ObjectJsonTag => {
             return (

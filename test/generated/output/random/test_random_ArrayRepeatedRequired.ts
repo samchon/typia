@@ -57,7 +57,7 @@ export const test_random_ArrayRepeatedRequired = _test_random(
                     (generator?.number ?? $generator.number)(0, 100),
                 () => $ra0(generator?.length ?? $generator.length, true, 0),
             ])();
-        })(),
+        })((ArrayRepeatedRequired as any).RANDOM),
     assert: (input: any): ArrayRepeatedRequired => {
         const __is = (input: any): input is ArrayRepeatedRequired => {
             const $ia0 = (input: any): any =>

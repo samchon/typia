@@ -45,7 +45,7 @@ export const test_random_ObjectOptional = _test_random(
                 ])(),
             });
             return $ro0();
-        })(),
+        })((ObjectOptional as any).RANDOM),
     assert: (input: any): ObjectOptional => {
         const __is = (input: any): input is ObjectOptional => {
             const $io0 = (input: any): boolean =>

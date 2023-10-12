@@ -5,6 +5,8 @@ import { ObjectLiteralType } from "../../structures/ObjectLiteralType";
 export const test_createRandom_ObjectLiteralType = _test_random(
     "ObjectLiteralType",
 )<ObjectLiteralType>(ObjectLiteralType)({
-    random: typia.createRandom<ObjectLiteralType>(),
+    random: typia.createRandom<ObjectLiteralType>(
+        (ObjectLiteralType as any).RANDOM,
+    ),
     assert: typia.createAssert<ObjectLiteralType>(),
 });

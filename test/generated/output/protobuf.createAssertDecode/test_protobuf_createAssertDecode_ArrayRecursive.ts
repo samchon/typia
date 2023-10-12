@@ -6,7 +6,7 @@ export const test_protobuf_createAssertDecode_ArrayRecursive =
     _test_protobuf_assertDecode("ArrayRecursive")<ArrayRecursive>(
         ArrayRecursive,
     )({
-        assertDecode: (input: Uint8Array): typia.Resolved<ArrayRecursive> => {
+        decode: (input: Uint8Array): typia.Resolved<ArrayRecursive> => {
             const decode = (
                 input: Uint8Array,
             ): typia.Resolved<ArrayRecursive> => {

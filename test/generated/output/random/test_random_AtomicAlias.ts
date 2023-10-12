@@ -17,7 +17,7 @@ export const test_random_AtomicAlias = _test_random("AtomicAlias")<AtomicAlias>(
                 (generator?.customs ?? $generator.customs)?.string?.([]) ??
                     (generator?.string ?? $generator.string)(),
             ];
-        })(),
+        })((AtomicAlias as any).RANDOM),
     assert: (input: any): AtomicAlias => {
         const __is = (input: any): input is AtomicAlias => {
             return (

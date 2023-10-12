@@ -6,7 +6,7 @@ export const test_protobuf_createIsDecode_MapSimpleProtobufOptional =
     _test_protobuf_isDecode(
         "MapSimpleProtobufOptional",
     )<MapSimpleProtobufOptional>(MapSimpleProtobufOptional)({
-        isDecode: (
+        decode: (
             input: Uint8Array,
         ): typia.Resolved<MapSimpleProtobufOptional> | null => {
             const is = (input: any): input is MapSimpleProtobufOptional => {

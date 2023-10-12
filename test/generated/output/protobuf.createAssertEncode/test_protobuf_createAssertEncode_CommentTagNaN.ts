@@ -4,7 +4,7 @@ import { CommentTagNaN } from "../../../structures/CommentTagNaN";
 
 export const test_protobuf_createAssertEncode_CommentTagNaN =
     _test_protobuf_assertEncode("CommentTagNaN")<CommentTagNaN>(CommentTagNaN)({
-        assertEncode: (input: any): Uint8Array => {
+        encode: (input: any): Uint8Array => {
             const assert = (input: any): CommentTagNaN => {
                 const __is = (input: any): input is CommentTagNaN => {
                     return (
@@ -184,8 +184,6 @@ export const test_protobuf_createAssertEncode_CommentTagNaN =
             };
             return encode(assert(input));
         },
-        message:
-            'syntax = "proto3";\n\nmessage CommentTagNaN {\n    required double value = 1;\n    required double ranged = 2;\n    required double minimum = 3;\n    required double maximum = 4;\n    required double multipleOf = 5;\n    required int32 typed = 6;\n}',
         decode: (input: Uint8Array): typia.Resolved<CommentTagNaN> => {
             const $Reader = (typia.protobuf.createDecode as any).Reader;
             const $pdo0 = (reader: any, length: number = -1): any => {
@@ -235,4 +233,6 @@ export const test_protobuf_createAssertEncode_CommentTagNaN =
             const reader = new $Reader(input);
             return $pdo0(reader);
         },
+        message:
+            'syntax = "proto3";\n\nmessage CommentTagNaN {\n    required double value = 1;\n    required double ranged = 2;\n    required double minimum = 3;\n    required double maximum = 4;\n    required double multipleOf = 5;\n    required int32 typed = 6;\n}',
     });

@@ -6,7 +6,7 @@ export const test_protobuf_createValidateEncode_CommentTagLength =
     _test_protobuf_validateEncode("CommentTagLength")<CommentTagLength>(
         CommentTagLength,
     )({
-        validateEncode: typia.protobuf.createValidateEncode<CommentTagLength>(),
-        message: typia.protobuf.message<CommentTagLength>(),
+        encode: typia.protobuf.createValidateEncode<CommentTagLength>(),
         decode: typia.protobuf.createDecode<CommentTagLength>(),
+        message: typia.protobuf.message<CommentTagLength>(),
     });

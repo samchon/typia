@@ -6,7 +6,7 @@ export const test_protobuf_createIsEncode_ObjectHttpConstant =
     _test_protobuf_isEncode("ObjectHttpConstant")<ObjectHttpConstant>(
         ObjectHttpConstant,
     )({
-        isEncode: typia.protobuf.createIsEncode<ObjectHttpConstant>(),
-        message: typia.protobuf.message<ObjectHttpConstant>(),
+        encode: typia.protobuf.createIsEncode<ObjectHttpConstant>(),
         decode: typia.protobuf.createDecode<ObjectHttpConstant>(),
+        message: typia.protobuf.message<ObjectHttpConstant>(),
     });

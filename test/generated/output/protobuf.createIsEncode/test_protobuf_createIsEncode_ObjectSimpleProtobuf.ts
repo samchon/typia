@@ -6,7 +6,7 @@ export const test_protobuf_createIsEncode_ObjectSimpleProtobuf =
     _test_protobuf_isEncode("ObjectSimpleProtobuf")<ObjectSimpleProtobuf>(
         ObjectSimpleProtobuf,
     )({
-        isEncode: (input: ObjectSimpleProtobuf): Uint8Array | null => {
+        encode: (input: ObjectSimpleProtobuf): Uint8Array | null => {
             const is = (input: any): input is ObjectSimpleProtobuf => {
                 const $io0 = (input: any): boolean =>
                     "boolean" === typeof input.bool &&
@@ -76,8 +76,6 @@ export const test_protobuf_createIsEncode_ObjectSimpleProtobuf =
             };
             return is(input) ? encode(input) : null;
         },
-        message:
-            'syntax = "proto3";\n\nmessage ObjectSimpleProtobuf {\n    required bool bool = 1;\n    required int32 int32 = 2;\n    required uint32 uint32 = 3;\n    required int64 int64 = 4;\n    required uint64 uint64 = 5;\n    required float float = 6;\n    required double double = 7;\n    required string string = 8;\n    required bytes bytes = 9;\n}',
         decode: (input: Uint8Array): typia.Resolved<ObjectSimpleProtobuf> => {
             const $Reader = (typia.protobuf.createDecode as any).Reader;
             const $pdo0 = (reader: any, length: number = -1): any => {
@@ -142,4 +140,6 @@ export const test_protobuf_createIsEncode_ObjectSimpleProtobuf =
             const reader = new $Reader(input);
             return $pdo0(reader);
         },
+        message:
+            'syntax = "proto3";\n\nmessage ObjectSimpleProtobuf {\n    required bool bool = 1;\n    required int32 int32 = 2;\n    required uint32 uint32 = 3;\n    required int64 int64 = 4;\n    required uint64 uint64 = 5;\n    required float float = 6;\n    required double double = 7;\n    required string string = 8;\n    required bytes bytes = 9;\n}',
     });

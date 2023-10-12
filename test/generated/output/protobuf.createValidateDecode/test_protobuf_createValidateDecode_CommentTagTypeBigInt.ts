@@ -6,7 +6,7 @@ export const test_protobuf_createValidateDecode_CommentTagTypeBigInt =
     _test_protobuf_validateDecode("CommentTagTypeBigInt")<CommentTagTypeBigInt>(
         CommentTagTypeBigInt,
     )({
-        validateDecode: (
+        decode: (
             input: Uint8Array,
         ): typia.IValidation<typia.Resolved<CommentTagTypeBigInt>> => {
             const validate = (

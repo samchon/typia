@@ -2,11 +2,11 @@ import typia from "../../../../src";
 import { _test_protobuf_assertDecode } from "../../../internal/_test_protobuf_assertDecode";
 import { CommentTagType } from "../../../structures/CommentTagType";
 
-export const test_protobuf_assertDecode_CommentTagType =
+export const test_protobuf_createAssertDecode_CommentTagType =
     _test_protobuf_assertDecode("CommentTagType")<CommentTagType>(
         CommentTagType,
     )({
-        assertDecode: (input) =>
+        decode: (input) =>
             ((input: Uint8Array): typia.Resolved<CommentTagType> => {
                 const decode = (
                     input: Uint8Array,

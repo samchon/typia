@@ -6,7 +6,7 @@ export const test_protobuf_createIsEncode_MapSimpleProtobufOptional =
     _test_protobuf_isEncode(
         "MapSimpleProtobufOptional",
     )<MapSimpleProtobufOptional>(MapSimpleProtobufOptional)({
-        isEncode: typia.protobuf.createIsEncode<MapSimpleProtobufOptional>(),
-        message: typia.protobuf.message<MapSimpleProtobufOptional>(),
+        encode: typia.protobuf.createIsEncode<MapSimpleProtobufOptional>(),
         decode: typia.protobuf.createDecode<MapSimpleProtobufOptional>(),
+        message: typia.protobuf.message<MapSimpleProtobufOptional>(),
     });

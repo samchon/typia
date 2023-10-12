@@ -4,7 +4,7 @@ import { TypeTagCustom } from "../../structures/TypeTagCustom";
 
 export const test_protobuf_createAssertEncode_TypeTagCustom =
     _test_protobuf_assertEncode("TypeTagCustom")<TypeTagCustom>(TypeTagCustom)({
-        assertEncode: typia.protobuf.createAssertEncode<TypeTagCustom>(),
-        message: typia.protobuf.message<TypeTagCustom>(),
+        encode: typia.protobuf.createAssertEncode<TypeTagCustom>(),
         decode: typia.protobuf.createDecode<TypeTagCustom>(),
+        message: typia.protobuf.message<TypeTagCustom>(),
     });

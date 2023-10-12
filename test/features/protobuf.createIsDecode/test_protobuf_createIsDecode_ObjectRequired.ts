@@ -4,6 +4,6 @@ import { ObjectRequired } from "../../structures/ObjectRequired";
 
 export const test_protobuf_createIsDecode_ObjectRequired =
     _test_protobuf_isDecode("ObjectRequired")<ObjectRequired>(ObjectRequired)({
-        isDecode: typia.protobuf.createIsDecode<ObjectRequired>(),
+        decode: typia.protobuf.createIsDecode<ObjectRequired>(),
         encode: typia.protobuf.createEncode<ObjectRequired>(),
     });

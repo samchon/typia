@@ -2,11 +2,11 @@ import typia from "../../../../src";
 import { _test_protobuf_assertDecode } from "../../../internal/_test_protobuf_assertDecode";
 import { CommentTagRangeBigInt } from "../../../structures/CommentTagRangeBigInt";
 
-export const test_protobuf_assertDecode_CommentTagRangeBigInt =
+export const test_protobuf_createAssertDecode_CommentTagRangeBigInt =
     _test_protobuf_assertDecode("CommentTagRangeBigInt")<CommentTagRangeBigInt>(
         CommentTagRangeBigInt,
     )({
-        assertDecode: (input) =>
+        decode: (input) =>
             ((input: Uint8Array): typia.Resolved<CommentTagRangeBigInt> => {
                 const decode = (
                     input: Uint8Array,

@@ -39,7 +39,7 @@ export const test_random_ObjectTuple = _test_random("ObjectTuple")<ObjectTuple>(
                     (generator?.string ?? $generator.string)(),
             });
             return [$ro0(), $ro1()];
-        })(),
+        })((ObjectTuple as any).RANDOM),
     assert: (input: any): ObjectTuple => {
         const __is = (input: any): input is ObjectTuple => {
             const $io0 = (input: any): boolean =>

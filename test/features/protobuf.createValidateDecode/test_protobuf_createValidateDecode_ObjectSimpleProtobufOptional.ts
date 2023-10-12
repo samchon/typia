@@ -6,7 +6,6 @@ export const test_protobuf_createValidateDecode_ObjectSimpleProtobufOptional =
     _test_protobuf_validateDecode(
         "ObjectSimpleProtobufOptional",
     )<ObjectSimpleProtobufOptional>(ObjectSimpleProtobufOptional)({
-        validateDecode:
-            typia.protobuf.createValidateDecode<ObjectSimpleProtobufOptional>(),
+        decode: typia.protobuf.createValidateDecode<ObjectSimpleProtobufOptional>(),
         encode: typia.protobuf.createEncode<ObjectSimpleProtobufOptional>(),
     });

@@ -6,6 +6,6 @@ export const test_protobuf_createIsDecode_ObjectPartialAndRequired =
     _test_protobuf_isDecode(
         "ObjectPartialAndRequired",
     )<ObjectPartialAndRequired>(ObjectPartialAndRequired)({
-        isDecode: typia.protobuf.createIsDecode<ObjectPartialAndRequired>(),
+        decode: typia.protobuf.createIsDecode<ObjectPartialAndRequired>(),
         encode: typia.protobuf.createEncode<ObjectPartialAndRequired>(),
     });

@@ -6,7 +6,7 @@ export const test_createRandom_SetUnion = _test_random("SetUnion")<SetUnion>(
     SetUnion,
 )({
     random: (
-        generator?: Partial<typia.IRandomGenerator>,
+        generator: Partial<typia.IRandomGenerator> = (SetUnion as any).RANDOM,
     ): typia.Resolved<SetUnion> => {
         const $generator = (typia.createRandom as any).generator;
         const $pick = (typia.createRandom as any).pick;

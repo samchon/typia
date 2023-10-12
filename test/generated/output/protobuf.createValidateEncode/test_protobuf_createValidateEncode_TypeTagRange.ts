@@ -4,9 +4,7 @@ import { TypeTagRange } from "../../../structures/TypeTagRange";
 
 export const test_protobuf_createValidateEncode_TypeTagRange =
     _test_protobuf_validateEncode("TypeTagRange")<TypeTagRange>(TypeTagRange)({
-        validateEncode: (
-            input: TypeTagRange,
-        ): typia.IValidation<Uint8Array> => {
+        encode: (input: TypeTagRange): typia.IValidation<Uint8Array> => {
             const validate = (input: any): typia.IValidation<TypeTagRange> => {
                 const errors = [] as any[];
                 const __is = (input: any): input is TypeTagRange => {
@@ -532,8 +530,6 @@ export const test_protobuf_createValidateEncode_TypeTagRange =
             if (output.success) output.data = encode(input);
             return output;
         },
-        message:
-            'syntax = "proto3";\n\nmessage TypeTagRange {\n    repeated TypeTagRange.Type value = 1;\n    message Type {\n        required int32 greater = 1;\n        required int32 greater_equal = 2;\n        required int32 less = 3;\n        required int32 less_equal = 4;\n        required int32 greater_less = 5;\n        required int32 greater_equal_less = 6;\n        required int32 greater_less_equal = 7;\n        required int32 greater_equal_less_equal = 8;\n        required int32 equal = 9;\n    }\n}',
         decode: (input: Uint8Array): typia.Resolved<TypeTagRange> => {
             const $Reader = (typia.protobuf.createDecode as any).Reader;
             const $pdo0 = (reader: any, length: number = -1): any => {
@@ -617,4 +613,6 @@ export const test_protobuf_createValidateEncode_TypeTagRange =
             const reader = new $Reader(input);
             return $pdo0(reader);
         },
+        message:
+            'syntax = "proto3";\n\nmessage TypeTagRange {\n    repeated TypeTagRange.Type value = 1;\n    message Type {\n        required int32 greater = 1;\n        required int32 greater_equal = 2;\n        required int32 less = 3;\n        required int32 less_equal = 4;\n        required int32 greater_less = 5;\n        required int32 greater_equal_less = 6;\n        required int32 greater_less_equal = 7;\n        required int32 greater_equal_less_equal = 8;\n        required int32 equal = 9;\n    }\n}',
     });

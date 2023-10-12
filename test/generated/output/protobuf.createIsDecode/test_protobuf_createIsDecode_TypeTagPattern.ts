@@ -4,9 +4,7 @@ import { TypeTagPattern } from "../../../structures/TypeTagPattern";
 
 export const test_protobuf_createIsDecode_TypeTagPattern =
     _test_protobuf_isDecode("TypeTagPattern")<TypeTagPattern>(TypeTagPattern)({
-        isDecode: (
-            input: Uint8Array,
-        ): typia.Resolved<TypeTagPattern> | null => {
+        decode: (input: Uint8Array): typia.Resolved<TypeTagPattern> | null => {
             const is = (input: any): input is TypeTagPattern => {
                 return (
                     "object" === typeof input &&

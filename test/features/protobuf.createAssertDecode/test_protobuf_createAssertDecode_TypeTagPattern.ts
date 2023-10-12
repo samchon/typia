@@ -6,6 +6,6 @@ export const test_protobuf_createAssertDecode_TypeTagPattern =
     _test_protobuf_assertDecode("TypeTagPattern")<TypeTagPattern>(
         TypeTagPattern,
     )({
-        assertDecode: typia.protobuf.createAssertDecode<TypeTagPattern>(),
+        decode: typia.protobuf.createAssertDecode<TypeTagPattern>(),
         encode: typia.protobuf.createEncode<TypeTagPattern>(),
     });

@@ -4,7 +4,7 @@ import { ClassMethod } from "../../../structures/ClassMethod";
 
 export const test_protobuf_createAssertDecode_ClassMethod =
     _test_protobuf_assertDecode("ClassMethod")<ClassMethod>(ClassMethod)({
-        assertDecode: (input: Uint8Array): typia.Resolved<ClassMethod> => {
+        decode: (input: Uint8Array): typia.Resolved<ClassMethod> => {
             const decode = (input: Uint8Array): typia.Resolved<ClassMethod> => {
                 const $Reader = (typia.protobuf.createAssertDecode as any)
                     .Reader;

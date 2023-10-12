@@ -6,7 +6,7 @@ export const test_protobuf_createAssertEncode_TemplateConstant =
     _test_protobuf_assertEncode("TemplateConstant")<TemplateConstant>(
         TemplateConstant,
     )({
-        assertEncode: (input: any): Uint8Array => {
+        encode: (input: any): Uint8Array => {
             const assert = (input: any): TemplateConstant => {
                 const __is = (input: any): input is TemplateConstant => {
                     const $io0 = (input: any): boolean =>
@@ -205,8 +205,6 @@ export const test_protobuf_createAssertEncode_TemplateConstant =
             };
             return encode(assert(input));
         },
-        message:
-            'syntax = "proto3";\n\nmessage TemplateConstant {\n    repeated TemplateConstant.Type value = 1;\n    message Type {\n        required string prefix = 1;\n        required string postfix = 2;\n        required string combined = 3;\n    }\n}',
         decode: (input: Uint8Array): typia.Resolved<TemplateConstant> => {
             const $Reader = (typia.protobuf.createDecode as any).Reader;
             const $pdo0 = (reader: any, length: number = -1): any => {
@@ -260,4 +258,6 @@ export const test_protobuf_createAssertEncode_TemplateConstant =
             const reader = new $Reader(input);
             return $pdo0(reader);
         },
+        message:
+            'syntax = "proto3";\n\nmessage TemplateConstant {\n    repeated TemplateConstant.Type value = 1;\n    message Type {\n        required string prefix = 1;\n        required string postfix = 2;\n        required string combined = 3;\n    }\n}',
     });

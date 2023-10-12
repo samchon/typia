@@ -6,7 +6,7 @@ export const test_protobuf_createValidateDecode_TypeTagFormat =
     _test_protobuf_validateDecode("TypeTagFormat")<TypeTagFormat>(
         TypeTagFormat,
     )({
-        validateDecode: (
+        decode: (
             input: Uint8Array,
         ): typia.IValidation<typia.Resolved<TypeTagFormat>> => {
             const validate = (input: any): typia.IValidation<TypeTagFormat> => {

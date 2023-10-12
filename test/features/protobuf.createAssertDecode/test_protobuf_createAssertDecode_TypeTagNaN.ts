@@ -4,6 +4,6 @@ import { TypeTagNaN } from "../../structures/TypeTagNaN";
 
 export const test_protobuf_createAssertDecode_TypeTagNaN =
     _test_protobuf_assertDecode("TypeTagNaN")<TypeTagNaN>(TypeTagNaN)({
-        assertDecode: typia.protobuf.createAssertDecode<TypeTagNaN>(),
+        decode: typia.protobuf.createAssertDecode<TypeTagNaN>(),
         encode: typia.protobuf.createEncode<TypeTagNaN>(),
     });

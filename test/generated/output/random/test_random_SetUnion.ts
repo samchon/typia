@@ -80,7 +80,7 @@ export const test_random_SetUnion = _test_random("SetUnion")<SetUnion>(
                         ),
                 ])(),
             );
-        })(),
+        })((SetUnion as any).RANDOM),
     assert: (input: any): SetUnion => {
         const __is = (input: any): input is SetUnion => {
             const $io0 = (input: any): boolean =>

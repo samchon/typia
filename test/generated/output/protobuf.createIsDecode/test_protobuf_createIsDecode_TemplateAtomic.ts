@@ -4,9 +4,7 @@ import { TemplateAtomic } from "../../../structures/TemplateAtomic";
 
 export const test_protobuf_createIsDecode_TemplateAtomic =
     _test_protobuf_isDecode("TemplateAtomic")<TemplateAtomic>(TemplateAtomic)({
-        isDecode: (
-            input: Uint8Array,
-        ): typia.Resolved<TemplateAtomic> | null => {
+        decode: (input: Uint8Array): typia.Resolved<TemplateAtomic> | null => {
             const is = (input: any): input is TemplateAtomic => {
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.prefix &&

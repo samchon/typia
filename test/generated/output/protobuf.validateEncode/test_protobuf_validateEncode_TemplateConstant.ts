@@ -2,11 +2,11 @@ import typia from "../../../../src";
 import { _test_protobuf_validateEncode } from "../../../internal/_test_protobuf_validateEncode";
 import { TemplateConstant } from "../../../structures/TemplateConstant";
 
-export const test_protobuf_validateEncode_TemplateConstant =
+export const test_protobuf_createValidateEncode_TemplateConstant =
     _test_protobuf_validateEncode("TemplateConstant")<TemplateConstant>(
         TemplateConstant,
     )({
-        validateEncode: (input) =>
+        encode: (input) =>
             ((input: TemplateConstant): typia.IValidation<Uint8Array> => {
                 const validate = (
                     input: any,
@@ -241,8 +241,6 @@ export const test_protobuf_validateEncode_TemplateConstant =
                 if (output.success) output.data = encode(input);
                 return output;
             })(input),
-        message:
-            'syntax = "proto3";\n\nmessage TemplateConstant {\n    repeated TemplateConstant.Type value = 1;\n    message Type {\n        required string prefix = 1;\n        required string postfix = 2;\n        required string combined = 3;\n    }\n}',
         decode: (input: Uint8Array): typia.Resolved<TemplateConstant> => {
             const $Reader = (typia.protobuf.createDecode as any).Reader;
             const $pdo0 = (reader: any, length: number = -1): any => {
@@ -296,4 +294,6 @@ export const test_protobuf_validateEncode_TemplateConstant =
             const reader = new $Reader(input);
             return $pdo0(reader);
         },
+        message:
+            'syntax = "proto3";\n\nmessage TemplateConstant {\n    repeated TemplateConstant.Type value = 1;\n    message Type {\n        required string prefix = 1;\n        required string postfix = 2;\n        required string combined = 3;\n    }\n}',
     });

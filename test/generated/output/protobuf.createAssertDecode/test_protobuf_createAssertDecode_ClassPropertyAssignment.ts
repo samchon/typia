@@ -6,7 +6,7 @@ export const test_protobuf_createAssertDecode_ClassPropertyAssignment =
     _test_protobuf_assertDecode(
         "ClassPropertyAssignment",
     )<ClassPropertyAssignment>(ClassPropertyAssignment)({
-        assertDecode: (
+        decode: (
             input: Uint8Array,
         ): typia.Resolved<ClassPropertyAssignment> => {
             const decode = (

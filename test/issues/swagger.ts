@@ -1,17 +1,31 @@
-import typia, { IJsonApplication, IJsonComponents } from "typia";
+import typia from "typia";
 
-interface IQuery {
-    nonRequired: string | undefined;
+/**
+ * Some description.
+ *
+ * @title something
+ */
+interface Interface {
+    value: number;
 }
 
-const app: IJsonApplication = typia.json.application<[Partial<IQuery>]>();
-const query: IJsonComponents.IObject = app.components.schemas
-    ?.PartialIQuery as IJsonComponents.IObject;
+/**
+ * Some description.
+ *
+ * @title something
+ */
+interface Type {
+    value: number;
+}
 
-console.log(
-    Object.entries(query.properties).map(([key, value]) => [
-        key,
-        value["x-typia-required"],
-        value["x-typia-optional"],
-    ]),
-);
+const app = typia.json.application<[Interface, Type]>();
+console.log({
+    interface: {
+        description: app.components.schemas?.Interface?.description,
+        tags: app.components.schemas?.Interface?.["x-typia-jsDocTags"],
+    },
+    type: {
+        description: app.components.schemas?.Type?.description,
+        tags: app.components.schemas?.Type?.["x-typia-jsDocTags"],
+    },
+});

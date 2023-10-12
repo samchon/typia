@@ -4,7 +4,7 @@ import { TypeTagArray } from "../../structures/TypeTagArray";
 
 export const test_protobuf_createValidateEncode_TypeTagArray =
     _test_protobuf_validateEncode("TypeTagArray")<TypeTagArray>(TypeTagArray)({
-        validateEncode: typia.protobuf.createValidateEncode<TypeTagArray>(),
-        message: typia.protobuf.message<TypeTagArray>(),
+        encode: typia.protobuf.createValidateEncode<TypeTagArray>(),
         decode: typia.protobuf.createDecode<TypeTagArray>(),
+        message: typia.protobuf.message<TypeTagArray>(),
     });

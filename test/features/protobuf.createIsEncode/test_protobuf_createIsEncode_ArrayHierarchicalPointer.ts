@@ -6,7 +6,7 @@ export const test_protobuf_createIsEncode_ArrayHierarchicalPointer =
     _test_protobuf_isEncode(
         "ArrayHierarchicalPointer",
     )<ArrayHierarchicalPointer>(ArrayHierarchicalPointer)({
-        isEncode: typia.protobuf.createIsEncode<ArrayHierarchicalPointer>(),
-        message: typia.protobuf.message<ArrayHierarchicalPointer>(),
+        encode: typia.protobuf.createIsEncode<ArrayHierarchicalPointer>(),
         decode: typia.protobuf.createDecode<ArrayHierarchicalPointer>(),
+        message: typia.protobuf.message<ArrayHierarchicalPointer>(),
     });

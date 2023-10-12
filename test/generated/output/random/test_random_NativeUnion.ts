@@ -160,7 +160,7 @@ export const test_random_NativeUnion = _test_random("NativeUnion")<NativeUnion>(
                 ])(),
             });
             return (generator?.array ?? $generator.array)(() => $ro0());
-        })(),
+        })((NativeUnion as any).RANDOM),
     assert: (input: any): NativeUnion => {
         const __is = (input: any): input is NativeUnion => {
             const $io0 = (input: any): boolean =>

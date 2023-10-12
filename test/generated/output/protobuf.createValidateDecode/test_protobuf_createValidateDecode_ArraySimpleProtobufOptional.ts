@@ -6,7 +6,7 @@ export const test_protobuf_createValidateDecode_ArraySimpleProtobufOptional =
     _test_protobuf_validateDecode(
         "ArraySimpleProtobufOptional",
     )<ArraySimpleProtobufOptional>(ArraySimpleProtobufOptional)({
-        validateDecode: (
+        decode: (
             input: Uint8Array,
         ): typia.IValidation<typia.Resolved<ArraySimpleProtobufOptional>> => {
             const validate = (

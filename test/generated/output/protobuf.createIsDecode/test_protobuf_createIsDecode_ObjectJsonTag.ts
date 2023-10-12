@@ -4,7 +4,7 @@ import { ObjectJsonTag } from "../../../structures/ObjectJsonTag";
 
 export const test_protobuf_createIsDecode_ObjectJsonTag =
     _test_protobuf_isDecode("ObjectJsonTag")<ObjectJsonTag>(ObjectJsonTag)({
-        isDecode: (input: Uint8Array): typia.Resolved<ObjectJsonTag> | null => {
+        decode: (input: Uint8Array): typia.Resolved<ObjectJsonTag> | null => {
             const is = (input: any): input is ObjectJsonTag => {
                 return (
                     "object" === typeof input &&

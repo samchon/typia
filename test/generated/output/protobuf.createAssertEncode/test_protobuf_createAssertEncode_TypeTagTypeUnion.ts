@@ -6,7 +6,7 @@ export const test_protobuf_createAssertEncode_TypeTagTypeUnion =
     _test_protobuf_assertEncode("TypeTagTypeUnion")<TypeTagTypeUnion>(
         TypeTagTypeUnion,
     )({
-        assertEncode: (input: any): Uint8Array => {
+        encode: (input: any): Uint8Array => {
             const assert = (input: any): TypeTagTypeUnion => {
                 const __is = (input: any): input is TypeTagTypeUnion => {
                     const $io0 = (input: any): boolean =>
@@ -639,8 +639,6 @@ export const test_protobuf_createAssertEncode_TypeTagTypeUnion =
             };
             return encode(assert(input));
         },
-        message:
-            'syntax = "proto3";\n\nmessage TypeTagTypeUnion {\n    oneof int32_or_uint32 {\n        int32 v1 = 1;\n        uint32 v2 = 2;\n    }\n    oneof int32_or_int64 {\n        int32 v3 = 3;\n        int64 v4 = 4;\n    }\n    oneof int32_or_uint64 {\n        int32 v5 = 5;\n        uint64 v6 = 6;\n    }\n    oneof int32_or_float {\n        int32 v7 = 7;\n        float v8 = 8;\n    }\n    oneof int32_or_double {\n        int32 v9 = 9;\n        double v10 = 10;\n    }\n    oneof int64_or_uint64 {\n        int64 v11 = 11;\n        uint64 v12 = 12;\n    }\n    oneof int64_or_float {\n        int64 v13 = 13;\n        float v14 = 14;\n    }\n    oneof int64_or_double {\n        int64 v15 = 15;\n        double v16 = 16;\n    }\n    oneof float_or_double {\n        float v17 = 17;\n        double v18 = 18;\n    }\n    oneof everything {\n        int32 v19 = 19;\n        uint32 v20 = 20;\n        int64 v21 = 21;\n        uint64 v22 = 22;\n        float v23 = 23;\n        double v24 = 24;\n    }\n}',
         decode: (input: Uint8Array): typia.Resolved<TypeTagTypeUnion> => {
             const $Reader = (typia.protobuf.createDecode as any).Reader;
             const $pdo0 = (reader: any, length: number = -1): any => {
@@ -766,4 +764,6 @@ export const test_protobuf_createAssertEncode_TypeTagTypeUnion =
             const reader = new $Reader(input);
             return $pdo0(reader);
         },
+        message:
+            'syntax = "proto3";\n\nmessage TypeTagTypeUnion {\n    oneof int32_or_uint32 {\n        int32 v1 = 1;\n        uint32 v2 = 2;\n    }\n    oneof int32_or_int64 {\n        int32 v3 = 3;\n        int64 v4 = 4;\n    }\n    oneof int32_or_uint64 {\n        int32 v5 = 5;\n        uint64 v6 = 6;\n    }\n    oneof int32_or_float {\n        int32 v7 = 7;\n        float v8 = 8;\n    }\n    oneof int32_or_double {\n        int32 v9 = 9;\n        double v10 = 10;\n    }\n    oneof int64_or_uint64 {\n        int64 v11 = 11;\n        uint64 v12 = 12;\n    }\n    oneof int64_or_float {\n        int64 v13 = 13;\n        float v14 = 14;\n    }\n    oneof int64_or_double {\n        int64 v15 = 15;\n        double v16 = 16;\n    }\n    oneof float_or_double {\n        float v17 = 17;\n        double v18 = 18;\n    }\n    oneof everything {\n        int32 v19 = 19;\n        uint32 v20 = 20;\n        int64 v21 = 21;\n        uint64 v22 = 22;\n        float v23 = 23;\n        double v24 = 24;\n    }\n}',
     });

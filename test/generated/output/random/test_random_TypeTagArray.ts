@@ -73,7 +73,7 @@ export const test_random_TypeTagArray = _test_random(
                 ),
             });
             return $ro0();
-        })(),
+        })((TypeTagArray as any).RANDOM),
     assert: (input: any): TypeTagArray => {
         const __is = (input: any): input is TypeTagArray => {
             const $io0 = (input: any): boolean =>

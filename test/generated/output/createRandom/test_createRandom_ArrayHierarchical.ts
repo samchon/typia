@@ -6,7 +6,8 @@ export const test_createRandom_ArrayHierarchical = _test_random(
     "ArrayHierarchical",
 )<ArrayHierarchical>(ArrayHierarchical)({
     random: (
-        generator?: Partial<typia.IRandomGenerator>,
+        generator: Partial<typia.IRandomGenerator> = (ArrayHierarchical as any)
+            .RANDOM,
     ): typia.Resolved<ArrayHierarchical> => {
         const $generator = (typia.createRandom as any).generator;
         const $ro0 = (

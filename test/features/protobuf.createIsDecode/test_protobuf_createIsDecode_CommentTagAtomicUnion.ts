@@ -6,6 +6,6 @@ export const test_protobuf_createIsDecode_CommentTagAtomicUnion =
     _test_protobuf_isDecode("CommentTagAtomicUnion")<CommentTagAtomicUnion>(
         CommentTagAtomicUnion,
     )({
-        isDecode: typia.protobuf.createIsDecode<CommentTagAtomicUnion>(),
+        decode: typia.protobuf.createIsDecode<CommentTagAtomicUnion>(),
         encode: typia.protobuf.createEncode<CommentTagAtomicUnion>(),
     });

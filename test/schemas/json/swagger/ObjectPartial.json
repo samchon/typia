@@ -39,6 +39,7 @@
           }
         },
         "nullable": false,
+        "description": "Make all properties in T optional",
         "x-typia-jsDocTags": []
       },
       "ObjectPartial.IBase.Nullable": {

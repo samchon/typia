@@ -5,6 +5,6 @@ import { TupleOptional } from "../../structures/TupleOptional";
 export const test_createRandom_TupleOptional = _test_random(
     "TupleOptional",
 )<TupleOptional>(TupleOptional)({
-    random: typia.createRandom<TupleOptional>(),
+    random: typia.createRandom<TupleOptional>((TupleOptional as any).RANDOM),
     assert: typia.createAssert<TupleOptional>(),
 });

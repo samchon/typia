@@ -6,7 +6,7 @@ export const test_protobuf_createIsDecode_ObjectHttpUndefindable =
     _test_protobuf_isDecode("ObjectHttpUndefindable")<ObjectHttpUndefindable>(
         ObjectHttpUndefindable,
     )({
-        isDecode: (
+        decode: (
             input: Uint8Array,
         ): typia.Resolved<ObjectHttpUndefindable> | null => {
             const is = (input: any): input is ObjectHttpUndefindable => {

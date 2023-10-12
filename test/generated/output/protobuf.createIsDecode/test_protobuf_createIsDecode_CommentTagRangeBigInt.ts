@@ -6,7 +6,7 @@ export const test_protobuf_createIsDecode_CommentTagRangeBigInt =
     _test_protobuf_isDecode("CommentTagRangeBigInt")<CommentTagRangeBigInt>(
         CommentTagRangeBigInt,
     )({
-        isDecode: (
+        decode: (
             input: Uint8Array,
         ): typia.Resolved<CommentTagRangeBigInt> | null => {
             const is = (input: any): input is CommentTagRangeBigInt => {

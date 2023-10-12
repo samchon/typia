@@ -45,7 +45,7 @@ export const test_random_ObjectRecursive = _test_random(
                     (generator?.number ?? $generator.number)(0, 100),
             });
             return $ro0();
-        })(),
+        })((ObjectRecursive as any).RANDOM),
     assert: (input: any): ObjectRecursive => {
         const __is = (input: any): input is ObjectRecursive => {
             const $io0 = (input: any): boolean =>

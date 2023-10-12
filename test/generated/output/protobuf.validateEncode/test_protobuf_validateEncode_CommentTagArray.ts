@@ -2,11 +2,11 @@ import typia from "../../../../src";
 import { _test_protobuf_validateEncode } from "../../../internal/_test_protobuf_validateEncode";
 import { CommentTagArray } from "../../../structures/CommentTagArray";
 
-export const test_protobuf_validateEncode_CommentTagArray =
+export const test_protobuf_createValidateEncode_CommentTagArray =
     _test_protobuf_validateEncode("CommentTagArray")<CommentTagArray>(
         CommentTagArray,
     )({
-        validateEncode: (input) =>
+        encode: (input) =>
             ((input: CommentTagArray): typia.IValidation<Uint8Array> => {
                 const validate = (
                     input: any,
@@ -409,8 +409,6 @@ export const test_protobuf_validateEncode_CommentTagArray =
                 if (output.success) output.data = encode(input);
                 return output;
             })(input),
-        message:
-            'syntax = "proto3";\n\nmessage CommentTagArray {\n    repeated CommentTagArray.Type value = 1;\n    message Type {\n        repeated string items = 1;\n        repeated double minItems = 2;\n        repeated string both = 3;\n        repeated double equal = 4;\n    }\n}',
         decode: (input: Uint8Array): typia.Resolved<CommentTagArray> => {
             const $Reader = (typia.protobuf.createDecode as any).Reader;
             const $pdo0 = (reader: any, length: number = -1): any => {
@@ -477,4 +475,6 @@ export const test_protobuf_validateEncode_CommentTagArray =
             const reader = new $Reader(input);
             return $pdo0(reader);
         },
+        message:
+            'syntax = "proto3";\n\nmessage CommentTagArray {\n    repeated CommentTagArray.Type value = 1;\n    message Type {\n        repeated string items = 1;\n        repeated double minItems = 2;\n        repeated string both = 3;\n        repeated double equal = 4;\n    }\n}',
     });

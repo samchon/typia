@@ -6,6 +6,6 @@ export const test_protobuf_createIsDecode_CommentTagRange =
     _test_protobuf_isDecode("CommentTagRange")<CommentTagRange>(
         CommentTagRange,
     )({
-        isDecode: typia.protobuf.createIsDecode<CommentTagRange>(),
+        decode: typia.protobuf.createIsDecode<CommentTagRange>(),
         encode: typia.protobuf.createEncode<CommentTagRange>(),
     });

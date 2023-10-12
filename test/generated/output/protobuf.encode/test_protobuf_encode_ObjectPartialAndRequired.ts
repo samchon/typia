@@ -2,7 +2,7 @@ import typia from "../../../../src";
 import { _test_protobuf_encode } from "../../../internal/_test_protobuf_encode";
 import { ObjectPartialAndRequired } from "../../../structures/ObjectPartialAndRequired";
 
-export const test_protobuf_encode_ObjectPartialAndRequired =
+export const test_protobuf_createEncode_ObjectPartialAndRequired =
     _test_protobuf_encode("ObjectPartialAndRequired")<ObjectPartialAndRequired>(
         ObjectPartialAndRequired,
     )({
@@ -68,8 +68,6 @@ export const test_protobuf_encode_ObjectPartialAndRequired =
                 const writer = encoder(new $Writer(sizer));
                 return writer.buffer();
             })(input),
-        message:
-            'syntax = "proto3";\n\nmessage ObjectPartialAndRequired {\n    optional string string = 1;\n    optional double number = 2;\n    optional bool boolean = 3;\n    optional ObjectPartialAndRequired object = 4;\n    repeated double array = 5;\n}',
         decode: (
             input: Uint8Array,
         ): typia.Resolved<ObjectPartialAndRequired> => {
@@ -120,4 +118,6 @@ export const test_protobuf_encode_ObjectPartialAndRequired =
             const reader = new $Reader(input);
             return $pdo0(reader);
         },
+        message:
+            'syntax = "proto3";\n\nmessage ObjectPartialAndRequired {\n    optional string string = 1;\n    optional double number = 2;\n    optional bool boolean = 3;\n    optional ObjectPartialAndRequired object = 4;\n    repeated double array = 5;\n}',
     });

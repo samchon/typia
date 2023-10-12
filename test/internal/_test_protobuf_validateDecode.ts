@@ -6,15 +6,13 @@ export const _test_protobuf_validateDecode =
     (name: string) =>
     <T extends object>(factory: { generate(): T }) =>
     (functor: {
-        validateDecode: (
-            input: Uint8Array,
-        ) => typia.IValidation<typia.Resolved<T>>;
+        decode: (input: Uint8Array) => typia.IValidation<typia.Resolved<T>>;
         encode: (input: T) => Uint8Array;
     }) =>
     () => {
         _test_protobuf_decode(name)(factory)({
             decode: (input) => {
-                const result = functor.validateDecode(input);
+                const result = functor.decode(input);
                 if (!result.success) throw new Error();
                 return result.data;
             },

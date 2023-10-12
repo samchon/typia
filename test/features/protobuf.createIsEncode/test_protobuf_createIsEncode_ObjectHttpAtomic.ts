@@ -6,7 +6,7 @@ export const test_protobuf_createIsEncode_ObjectHttpAtomic =
     _test_protobuf_isEncode("ObjectHttpAtomic")<ObjectHttpAtomic>(
         ObjectHttpAtomic,
     )({
-        isEncode: typia.protobuf.createIsEncode<ObjectHttpAtomic>(),
-        message: typia.protobuf.message<ObjectHttpAtomic>(),
+        encode: typia.protobuf.createIsEncode<ObjectHttpAtomic>(),
         decode: typia.protobuf.createDecode<ObjectHttpAtomic>(),
+        message: typia.protobuf.message<ObjectHttpAtomic>(),
     });

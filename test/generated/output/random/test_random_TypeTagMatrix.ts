@@ -33,7 +33,7 @@ export const test_random_TypeTagMatrix = _test_random(
                 ),
             });
             return $ro0();
-        })(),
+        })((TypeTagMatrix as any).RANDOM),
     assert: (input: any): TypeTagMatrix => {
         const __is = (input: any): input is TypeTagMatrix => {
             const $io0 = (input: any): boolean =>

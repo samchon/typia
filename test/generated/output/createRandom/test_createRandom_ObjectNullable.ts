@@ -6,7 +6,8 @@ export const test_createRandom_ObjectNullable = _test_random(
     "ObjectNullable",
 )<ObjectNullable>(ObjectNullable)({
     random: (
-        generator?: Partial<typia.IRandomGenerator>,
+        generator: Partial<typia.IRandomGenerator> = (ObjectNullable as any)
+            .RANDOM,
     ): typia.Resolved<ObjectNullable> => {
         const $generator = (typia.createRandom as any).generator;
         const $pick = (typia.createRandom as any).pick;

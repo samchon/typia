@@ -6,9 +6,7 @@ export const test_protobuf_createValidateEncode_TypeTagFormat =
     _test_protobuf_validateEncode("TypeTagFormat")<TypeTagFormat>(
         TypeTagFormat,
     )({
-        validateEncode: (
-            input: TypeTagFormat,
-        ): typia.IValidation<Uint8Array> => {
+        encode: (input: TypeTagFormat): typia.IValidation<Uint8Array> => {
             const validate = (input: any): typia.IValidation<TypeTagFormat> => {
                 const errors = [] as any[];
                 const __is = (input: any): input is TypeTagFormat => {
@@ -222,8 +220,6 @@ export const test_protobuf_createValidateEncode_TypeTagFormat =
             if (output.success) output.data = encode(input);
             return output;
         },
-        message:
-            'syntax = "proto3";\n\nmessage TypeTagFormat {\n    required string uuid = 1;\n    required string email = 2;\n    required string url = 3;\n    required string ipv4 = 4;\n    required string ipv6 = 5;\n    required string date = 6;\n    required string date_time = 7;\n}',
         decode: (input: Uint8Array): typia.Resolved<TypeTagFormat> => {
             const $Reader = (typia.protobuf.createDecode as any).Reader;
             const $pdo0 = (reader: any, length: number = -1): any => {
@@ -278,4 +274,6 @@ export const test_protobuf_createValidateEncode_TypeTagFormat =
             const reader = new $Reader(input);
             return $pdo0(reader);
         },
+        message:
+            'syntax = "proto3";\n\nmessage TypeTagFormat {\n    required string uuid = 1;\n    required string email = 2;\n    required string url = 3;\n    required string ipv4 = 4;\n    required string ipv6 = 5;\n    required string date = 6;\n    required string date_time = 7;\n}',
     });

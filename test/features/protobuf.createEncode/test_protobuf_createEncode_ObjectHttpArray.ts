@@ -6,6 +6,6 @@ export const test_protobuf_createEncode_ObjectHttpArray = _test_protobuf_encode(
     "ObjectHttpArray",
 )<ObjectHttpArray>(ObjectHttpArray)({
     encode: typia.protobuf.createEncode<ObjectHttpArray>(),
-    message: typia.protobuf.message<ObjectHttpArray>(),
     decode: typia.protobuf.createDecode<ObjectHttpArray>(),
+    message: typia.protobuf.message<ObjectHttpArray>(),
 });

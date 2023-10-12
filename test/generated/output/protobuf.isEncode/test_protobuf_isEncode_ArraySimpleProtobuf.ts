@@ -2,11 +2,11 @@ import typia from "../../../../src";
 import { _test_protobuf_isEncode } from "../../../internal/_test_protobuf_isEncode";
 import { ArraySimpleProtobuf } from "../../../structures/ArraySimpleProtobuf";
 
-export const test_protobuf_isEncode_ArraySimpleProtobuf =
+export const test_protobuf_createIsEncode_ArraySimpleProtobuf =
     _test_protobuf_isEncode("ArraySimpleProtobuf")<ArraySimpleProtobuf>(
         ArraySimpleProtobuf,
     )({
-        isEncode: (input) =>
+        encode: (input) =>
             ((input: ArraySimpleProtobuf): Uint8Array | null => {
                 const is = (input: any): input is ArraySimpleProtobuf => {
                     const $io0 = (input: any): boolean =>
@@ -234,8 +234,6 @@ export const test_protobuf_isEncode_ArraySimpleProtobuf =
                 };
                 return is(input) ? encode(input) : null;
             })(input),
-        message:
-            'syntax = "proto3";\n\nmessage ArraySimpleProtobuf {\n    repeated bool boolean = 1;\n    repeated int32 int32 = 2;\n    repeated uint32 uint32 = 3;\n    repeated int64 int64 = 4;\n    repeated uint64 uint64 = 5;\n    repeated float float = 6;\n    repeated double double = 7;\n    repeated string string = 8;\n    repeated bytes bytes = 9;\n    repeated ArraySimpleProtobuf object = 10;\n}',
         decode: (input: Uint8Array): typia.Resolved<ArraySimpleProtobuf> => {
             const $Reader = (typia.protobuf.createDecode as any).Reader;
             const $pdo0 = (reader: any, length: number = -1): any => {
@@ -333,4 +331,6 @@ export const test_protobuf_isEncode_ArraySimpleProtobuf =
             const reader = new $Reader(input);
             return $pdo0(reader);
         },
+        message:
+            'syntax = "proto3";\n\nmessage ArraySimpleProtobuf {\n    repeated bool boolean = 1;\n    repeated int32 int32 = 2;\n    repeated uint32 uint32 = 3;\n    repeated int64 int64 = 4;\n    repeated uint64 uint64 = 5;\n    repeated float float = 6;\n    repeated double double = 7;\n    repeated string string = 8;\n    repeated bytes bytes = 9;\n    repeated ArraySimpleProtobuf object = 10;\n}',
     });

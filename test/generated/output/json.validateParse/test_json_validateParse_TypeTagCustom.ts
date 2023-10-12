@@ -79,12 +79,12 @@ export const test_json_validateParse_TypeTagCustom = _test_json_validateParse(
                                     )) ||
                                     $report(_exceptionable, {
                                         path: _path + ".dollar",
-                                        expected: "string & Dolloar",
+                                        expected: "string & Dollar",
                                         value: input.dollar,
                                     }))) ||
                                 $report(_exceptionable, {
                                     path: _path + ".dollar",
-                                    expected: "(string & Dolloar)",
+                                    expected: "(string & Dollar)",
                                     value: input.dollar,
                                 }),
                             ("string" === typeof input.postfix &&

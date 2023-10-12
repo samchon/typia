@@ -2,7 +2,7 @@ import typia from "../../../../src";
 import { _test_protobuf_encode } from "../../../internal/_test_protobuf_encode";
 import { ObjectHttpUndefindable } from "../../../structures/ObjectHttpUndefindable";
 
-export const test_protobuf_encode_ObjectHttpUndefindable =
+export const test_protobuf_createEncode_ObjectHttpUndefindable =
     _test_protobuf_encode("ObjectHttpUndefindable")<ObjectHttpUndefindable>(
         ObjectHttpUndefindable,
     )({
@@ -61,8 +61,6 @@ export const test_protobuf_encode_ObjectHttpUndefindable =
                 const writer = encoder(new $Writer(sizer));
                 return writer.buffer();
             })(input),
-        message:
-            'syntax = "proto3";\n\nmessage ObjectHttpUndefindable {\n    optional bool boolean = 1;\n    optional int64 bigint = 2;\n    optional double number = 3;\n    optional string string = 4;\n    optional bool constantBoolean = 5;\n    optional uint64 constantBigint = 6;\n    optional int32 constantNumber = 7;\n    optional string constantString = 8;\n}',
         decode: (input: Uint8Array): typia.Resolved<ObjectHttpUndefindable> => {
             const $Reader = (typia.protobuf.createDecode as any).Reader;
             const $pdo0 = (reader: any, length: number = -1): any => {
@@ -122,4 +120,6 @@ export const test_protobuf_encode_ObjectHttpUndefindable =
             const reader = new $Reader(input);
             return $pdo0(reader);
         },
+        message:
+            'syntax = "proto3";\n\nmessage ObjectHttpUndefindable {\n    optional bool boolean = 1;\n    optional int64 bigint = 2;\n    optional double number = 3;\n    optional string string = 4;\n    optional bool constantBoolean = 5;\n    optional uint64 constantBigint = 6;\n    optional int32 constantNumber = 7;\n    optional string constantString = 8;\n}',
     });

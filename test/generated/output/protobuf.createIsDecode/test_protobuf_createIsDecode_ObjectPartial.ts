@@ -4,7 +4,7 @@ import { ObjectPartial } from "../../../structures/ObjectPartial";
 
 export const test_protobuf_createIsDecode_ObjectPartial =
     _test_protobuf_isDecode("ObjectPartial")<ObjectPartial>(ObjectPartial)({
-        isDecode: (input: Uint8Array): typia.Resolved<ObjectPartial> | null => {
+        decode: (input: Uint8Array): typia.Resolved<ObjectPartial> | null => {
             const is = (input: any): input is ObjectPartial => {
                 const $io0 = (input: any): boolean =>
                     (undefined === input.boolean ||

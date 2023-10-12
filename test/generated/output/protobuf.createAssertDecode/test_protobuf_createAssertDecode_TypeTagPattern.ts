@@ -6,7 +6,7 @@ export const test_protobuf_createAssertDecode_TypeTagPattern =
     _test_protobuf_assertDecode("TypeTagPattern")<TypeTagPattern>(
         TypeTagPattern,
     )({
-        assertDecode: (input: Uint8Array): typia.Resolved<TypeTagPattern> => {
+        decode: (input: Uint8Array): typia.Resolved<TypeTagPattern> => {
             const decode = (
                 input: Uint8Array,
             ): typia.Resolved<TypeTagPattern> => {

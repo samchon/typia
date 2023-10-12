@@ -2,9 +2,9 @@ import typia from "../../../../src";
 import { _test_protobuf_assertEncode } from "../../../internal/_test_protobuf_assertEncode";
 import { ClassMethod } from "../../../structures/ClassMethod";
 
-export const test_protobuf_assertEncode_ClassMethod =
+export const test_protobuf_createAssertEncode_ClassMethod =
     _test_protobuf_assertEncode("ClassMethod")<ClassMethod>(ClassMethod)({
-        assertEncode: (input) =>
+        encode: (input) =>
             ((input: any): Uint8Array => {
                 const assert = (input: any): ClassMethod => {
                     const __is = (input: any): input is ClassMethod => {
@@ -82,8 +82,6 @@ export const test_protobuf_assertEncode_ClassMethod =
                 };
                 return encode(assert(input));
             })(input),
-        message:
-            'syntax = "proto3";\n\nmessage ClassMethod {\n    message Animal {\n        required string name = 1;\n        required double age = 2;\n    }\n}',
         decode: (input: Uint8Array): typia.Resolved<ClassMethod> => {
             const $Reader = (typia.protobuf.createDecode as any).Reader;
             const $pdo0 = (reader: any, length: number = -1): any => {
@@ -113,4 +111,6 @@ export const test_protobuf_assertEncode_ClassMethod =
             const reader = new $Reader(input);
             return $pdo0(reader);
         },
+        message:
+            'syntax = "proto3";\n\nmessage ClassMethod {\n    message Animal {\n        required string name = 1;\n        required double age = 2;\n    }\n}',
     });

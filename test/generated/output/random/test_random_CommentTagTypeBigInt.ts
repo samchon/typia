@@ -34,7 +34,7 @@ export const test_random_CommentTagTypeBigInt = _test_random(
                     ),
             });
             return $ro0();
-        })(),
+        })((CommentTagTypeBigInt as any).RANDOM),
     assert: (input: any): CommentTagTypeBigInt => {
         const __is = (input: any): input is CommentTagTypeBigInt => {
             return (

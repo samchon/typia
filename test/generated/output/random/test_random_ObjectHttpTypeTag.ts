@@ -79,7 +79,7 @@ export const test_random_ObjectHttpTypeTag = _test_random(
                 ),
             });
             return $ro0();
-        })(),
+        })((ObjectHttpTypeTag as any).RANDOM),
     assert: (input: any): ObjectHttpTypeTag => {
         const __is = (input: any): input is ObjectHttpTypeTag => {
             const $io0 = (input: any): boolean =>

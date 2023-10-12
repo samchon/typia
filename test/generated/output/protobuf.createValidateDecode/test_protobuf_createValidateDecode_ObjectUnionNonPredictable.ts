@@ -6,7 +6,7 @@ export const test_protobuf_createValidateDecode_ObjectUnionNonPredictable =
     _test_protobuf_validateDecode(
         "ObjectUnionNonPredictable",
     )<ObjectUnionNonPredictable>(ObjectUnionNonPredictable)({
-        validateDecode: (
+        decode: (
             input: Uint8Array,
         ): typia.IValidation<typia.Resolved<ObjectUnionNonPredictable>> => {
             const validate = (

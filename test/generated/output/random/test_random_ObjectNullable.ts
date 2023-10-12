@@ -59,7 +59,7 @@ export const test_random_ObjectNullable = _test_random(
                     (generator?.string ?? $generator.string)(),
             });
             return $ro0();
-        })(),
+        })((ObjectNullable as any).RANDOM),
     assert: (input: any): ObjectNullable => {
         const __is = (input: any): input is ObjectNullable => {
             const $io0 = (input: any): boolean =>

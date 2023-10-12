@@ -75,7 +75,7 @@ export const test_random_ObjectSimpleProtobuf = _test_random(
                 ),
             });
             return $ro0();
-        })(),
+        })((ObjectSimpleProtobuf as any).RANDOM),
     assert: (input: any): ObjectSimpleProtobuf => {
         const __is = (input: any): input is ObjectSimpleProtobuf => {
             const $io0 = (input: any): boolean =>

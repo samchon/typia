@@ -29,7 +29,7 @@ export const test_random_ObjectHttpConstant = _test_random(
                 }`,
             });
             return $ro0();
-        })(),
+        })((ObjectHttpConstant as any).RANDOM),
     assert: (input: any): ObjectHttpConstant => {
         const __is = (input: any): input is ObjectHttpConstant => {
             const $io0 = (input: any): boolean =>

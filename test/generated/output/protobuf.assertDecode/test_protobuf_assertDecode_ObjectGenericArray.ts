@@ -2,11 +2,11 @@ import typia from "../../../../src";
 import { _test_protobuf_assertDecode } from "../../../internal/_test_protobuf_assertDecode";
 import { ObjectGenericArray } from "../../../structures/ObjectGenericArray";
 
-export const test_protobuf_assertDecode_ObjectGenericArray =
+export const test_protobuf_createAssertDecode_ObjectGenericArray =
     _test_protobuf_assertDecode("ObjectGenericArray")<ObjectGenericArray>(
         ObjectGenericArray,
     )({
-        assertDecode: (input) =>
+        decode: (input) =>
             ((input: Uint8Array): typia.Resolved<ObjectGenericArray> => {
                 const decode = (
                     input: Uint8Array,

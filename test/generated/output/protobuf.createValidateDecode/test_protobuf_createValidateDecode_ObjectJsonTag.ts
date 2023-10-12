@@ -6,7 +6,7 @@ export const test_protobuf_createValidateDecode_ObjectJsonTag =
     _test_protobuf_validateDecode("ObjectJsonTag")<ObjectJsonTag>(
         ObjectJsonTag,
     )({
-        validateDecode: (
+        decode: (
             input: Uint8Array,
         ): typia.IValidation<typia.Resolved<ObjectJsonTag>> => {
             const validate = (input: any): typia.IValidation<ObjectJsonTag> => {

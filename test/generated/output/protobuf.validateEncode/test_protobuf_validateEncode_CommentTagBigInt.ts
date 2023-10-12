@@ -2,11 +2,11 @@ import typia from "../../../../src";
 import { _test_protobuf_validateEncode } from "../../../internal/_test_protobuf_validateEncode";
 import { CommentTagBigInt } from "../../../structures/CommentTagBigInt";
 
-export const test_protobuf_validateEncode_CommentTagBigInt =
+export const test_protobuf_createValidateEncode_CommentTagBigInt =
     _test_protobuf_validateEncode("CommentTagBigInt")<CommentTagBigInt>(
         CommentTagBigInt,
     )({
-        validateEncode: (input) =>
+        encode: (input) =>
             ((input: CommentTagBigInt): typia.IValidation<Uint8Array> => {
                 const validate = (
                     input: any,
@@ -170,8 +170,6 @@ export const test_protobuf_validateEncode_CommentTagBigInt =
                 if (output.success) output.data = encode(input);
                 return output;
             })(input),
-        message:
-            'syntax = "proto3";\n\nmessage CommentTagBigInt {\n    required int64 value = 1;\n    required int64 ranged = 2;\n    required int64 minimum = 3;\n    required int64 maximum = 4;\n    required int64 multipleOf = 5;\n}',
         decode: (input: Uint8Array): typia.Resolved<CommentTagBigInt> => {
             const $Reader = (typia.protobuf.createDecode as any).Reader;
             const $pdo0 = (reader: any, length: number = -1): any => {
@@ -216,4 +214,6 @@ export const test_protobuf_validateEncode_CommentTagBigInt =
             const reader = new $Reader(input);
             return $pdo0(reader);
         },
+        message:
+            'syntax = "proto3";\n\nmessage CommentTagBigInt {\n    required int64 value = 1;\n    required int64 ranged = 2;\n    required int64 minimum = 3;\n    required int64 maximum = 4;\n    required int64 multipleOf = 5;\n}',
     });

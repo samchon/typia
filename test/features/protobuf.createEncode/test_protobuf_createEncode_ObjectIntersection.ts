@@ -7,6 +7,6 @@ export const test_protobuf_createEncode_ObjectIntersection =
         ObjectIntersection,
     )({
         encode: typia.protobuf.createEncode<ObjectIntersection>(),
-        message: typia.protobuf.message<ObjectIntersection>(),
         decode: typia.protobuf.createDecode<ObjectIntersection>(),
+        message: typia.protobuf.message<ObjectIntersection>(),
     });

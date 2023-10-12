@@ -40,4 +40,5 @@ export namespace ClassGetter {
             return ["$input.dead"];
         },
     ];
+    export const RESOLVABLE: boolean = false;
 }

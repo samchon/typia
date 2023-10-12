@@ -6,8 +6,7 @@ export const test_protobuf_createValidateEncode_TypeTagAtomicUnion =
     _test_protobuf_validateEncode("TypeTagAtomicUnion")<TypeTagAtomicUnion>(
         TypeTagAtomicUnion,
     )({
-        validateEncode:
-            typia.protobuf.createValidateEncode<TypeTagAtomicUnion>(),
-        message: typia.protobuf.message<TypeTagAtomicUnion>(),
+        encode: typia.protobuf.createValidateEncode<TypeTagAtomicUnion>(),
         decode: typia.protobuf.createDecode<TypeTagAtomicUnion>(),
+        message: typia.protobuf.message<TypeTagAtomicUnion>(),
     });
