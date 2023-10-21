@@ -12,9 +12,9 @@ import AlertTitle from '@mui/material/AlertTitle';
 ```typescript copy
 export namespace json {
     export function stringify<T>(input: T): string;
-    export function isStringify<T>(input: unknown | T): string | null;
-    export function assertStringify<T>(input: unknown | T): string;
-    export function validateStringify<T>(input: unknown | T): IValidation<string>;
+    export function isStringify<T>(input: T | unknown): string | null;
+    export function assertStringify<T>(input: T | unknown): string;
+    export function validateStringify<T>(input: T | unknown): IValidation<string>;
 }
 ```
     </Tab>
@@ -260,13 +260,13 @@ console.log(json); // not null, but string
 export namespace json {
     export function createStringify<T>: (input: T) => string;
     export function createIsStringify<T>: (
-        input: unknown | T
+        input: T | unknown
     ) => string | null;
     export function createAssertStringify<T>: (
-        input: unknown | T
+        input: T | unknown
     ) => string;
     export function createValidateStringify<T>: (
-        input: unknown | T
+        input: T | unknown
     ) => IValidation<string>;
 }
 ```
