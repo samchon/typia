@@ -2,7 +2,10 @@ import { Tabs, Tab } from 'nextra-theme-docs'
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 
-## `clone()` functions
+
+
+## `misc` module
+### `clone()` functions
 <Tabs items={[
     <code>typia</code>, 
     <code>TypeGuardError.ts</code>, 
@@ -10,24 +13,24 @@ import AlertTitle from '@mui/material/AlertTitle';
     <code>Resolved.ts</code>
 ]}>
     <Tab>
-```typescript copy
+```typescript showLineNumbers
 export namespace misc {
     export function clone<T>(input: T): T;
-    export function isClone<T>(input: unknown): Resolved<T> | null;
-    export function assertClone<T>(input: unknown): Resolved<T>;
-    export function validateClone<T>(input: unknown): IValidation<Resolved<T>>;
+    export function assertClone<T>(input: T | unknown): Resolved<T>;
+    export function isClone<T>(input: T | unknown): Resolved<T> | null;
+    export function validateClone<T>(input: T | unknown): IValidation<Resolved<T>>;
 
     export function createClone<T>(): (input: T) => Resolved<T>;
-    export function createIsClone<T>(): (input: unknown) => Resolved<T> | null;
-    export function createAssertClone<T>(): (input: unknown) => Resolved<T>;
+    export function createAssertClone<T>(): (input: T | unknown) => Resolved<T>;
+    export function createIsClone<T>(): (input: T | unknown) => Resolved<T> | null;
     export function createValidateClone<T>(): (
-        input: unknown
+        input: T | unknown
     ) => IValidation<Resolved<T>>;
 }
 ```
     </Tab>
     <Tab>
-```typescript copy
+```typescript showLineNumbers
 export class TypeGuardError extends Error {
     public readonly method: string;
     public readonly path: string | undefined;
@@ -37,7 +40,7 @@ export class TypeGuardError extends Error {
 ```
     </Tab>
     <Tab>
-```typescript copy
+```typescript showLineNumbers
 export type IValidation<T> =
     | IValidation.ISuccess<T>
     | IValidation.IFailure;
@@ -59,7 +62,7 @@ export namespace IValidation {
 ```
     </Tab>
     <Tab>
-```typescript copy filename="typia/Resolved.ts"
+```typescript showLineNumbers
 /**
  * Resolved type erased every methods.
  *
@@ -180,13 +183,13 @@ interface IValueOf<T> {
     </Tab>
 </Tabs>
 
-Deep copy function.
+Deep copy functions.
 
 When you want to copy an instance, just call `typia.misc.clone()` function. It would perform deep copy including nested objects, so you can get a new instance with same values. Also, if you want type safe deep copy function, you can use `typia.misc.isClone()`, `typia.misc.assertClone()` or `typia.misc.validateClone()` functions instead.
 
-  - `typia.misc.isClone()`: [`typia.misc.is<T>()`](../validators/is) + `typia.misc.clone<T>()`
-  - `typia.misc.assertClone()`: [`typia.misc.assert<T>()`](../validators/assert) + `typia.misc.clone<T>()`
-  - `typia.misc.validateClone()`: [`typia.misc.validate<T>()`](../validators/validate) + `typia.misc.clone<T>()`
+  - `typia.misc.assertClone()`: [`typia.assert<T>()`](../validators/assert) + `typia.misc.clone<T>()`
+  - `typia.misc.isClone()`: [`typia.is<T>()`](../validators/is) + `typia.misc.clone<T>()`
+  - `typia.misc.validateClone()`: [`typia.validate<T>()`](../validators/validate) + `typia.misc.clone<T>()`
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
     <Tab>
@@ -405,30 +408,27 @@ console.log(cloned);
     </Tab>
 </Tabs>
 
-
-
-
-## `prune()` functions
+### `prune()` functions
 <Tabs items={[
     <code>typia</code>, 
     <code>TypeGuardError.ts</code>, 
     <code>IValidation.ts</code>
 ]}>
     <Tab>
-```typescript copy
+```typescript showLineNumbers
 export function prune<T>(input: T): void;
-export function isPrune<T>(input: unknown): T | null;
-export function assertPrune<T>(input: unknown): T;
-export function validatePrune<T>(input: unknown): IValidation<T>;
+export function assertPrune<T>(input: T | unknown): T;
+export function isPrune<T>(input: T | unknown): T | null;
+export function validatePrune<T>(input: T | unknown): IValidation<T>;
 
 export function createPrune<T>(): (input: T) => void;
-export function createIsPrune<T>(): (input: unknown) => T | null;
-export function createAssertPrune<T>(): (input: unknown) => T;
-export function createValidatePrune<T>(): (input: unknown) => IValidation<T>;
+export function createAssertPrune<T>(): (input: T | unknown) => T;
+export function createIsPrune<T>(): (input: T | unknown) => T | null;
+export function createValidatePrune<T>(): (input: T | unknown) => IValidation<T>;
 ```
     </Tab>
     <Tab>
-```typescript copy
+```typescript showLineNumbers
 export class TypeGuardError extends Error {
     public readonly method: string;
     public readonly path: string | undefined;
@@ -438,7 +438,7 @@ export class TypeGuardError extends Error {
 ```
     </Tab>
     <Tab>
-```typescript copy
+```typescript showLineNumbers
 export type IValidation<T> =
     | IValidation.ISuccess<T>
     | IValidation.IFailure;
@@ -465,9 +465,9 @@ Deep prune functions.
 
 When you want to remove every extra properties that are not defined in the type including nested objects, you can use `typia.misc.prune<T>()` function. Also, if you want to perform type safe pruning, you can use `typia.misc.isPrune<T>()`, `typia.misc.assertPrune<T>()` or `typia.misc.validatePrune<T>()` functions instead.
 
-  - `typia.misc.isPrune()`: [`typia.misc.is<T>()`](../validators/is) + `typia.misc.prune<T>()`
-  - `typia.misc.assertPrune()`: [`typia.misc.assert<T>()`](../validators/assert) + `typia.misc.prune<T>()`
-  - `typia.misc.validatePrune()`: [`typia.misc.validate<T>()`](../validators/validate) + `typia.misc.prune<T>()`
+  - `typia.misc.isPrune()`: [`typia.is<T>()`](../validators/is) + `typia.misc.prune<T>()`
+  - `typia.misc.assertPrune()`: [`typia.assert<T>()`](../validators/assert) + `typia.misc.prune<T>()`
+  - `typia.misc.validatePrune()`: [`typia.validate<T>()`](../validators/validate) + `typia.misc.prune<T>()`
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
     <Tab>
@@ -694,10 +694,7 @@ console.log(pruned);
     </Tab>
 </Tabs>
 
-
-
-
-## `literals()` function
+### `literals()` function
 ```typescript filename="typia"
 export namespace misc {
     export function literals<T extends Atomic.Type | null>(): T[];
@@ -738,3 +735,1087 @@ const typia_1 = __importDefault(require("typia"));
 ```
     </Tab>
 </Tabs>
+
+
+
+
+## `notations` module
+### `camel()` functions
+<Tabs items={[
+    <code>typia</code>, 
+    <code>TypeGuardError.ts</code>, 
+    <code>IValidation.ts</code>,
+    <code>PascalCase.ts</code>
+]}>
+    <Tab>
+```typescript showLineNumbers
+export namespace notations {
+    export function camel<T>(input: T): CamelCase<T>;
+    export function assertCamel<T>(input: T | unknown): CamelCase<T>;
+    export function isCamel<T>(input: T | unknown): CamelCase<T> | null;
+    export function validateCamel<T>(input: T | unknown): IValidation<CamelCase<T>>;
+
+    export function createCamel<T>(): (input: T) => CamelCase<T>;
+    export function createAssertCamel<T>(): (input: T | unknown) => CamelCase<T>;
+    export function createIsCamel<T>(): (input: T | unknown) => CamelCase<T> | null;
+    export function createValidateCamel<T>(): (
+        input: T | unknown
+    ) => IValidation<CamelCase<T>>;
+}
+```
+    </Tab>
+    <Tab>
+```typescript showLineNumbers
+export class TypeGuardError extends Error {
+    public readonly method: string;
+    public readonly path: string | undefined;
+    public readonly expected: string;
+    public readonly value: any;
+}
+```
+    </Tab>
+    <Tab>
+```typescript showLineNumbers
+export type IValidation<T> =
+    | IValidation.ISuccess<T>
+    | IValidation.IFailure;
+export namespace IValidation {
+    export interface ISuccess<T> {
+        success: true;
+        data: T;
+    }
+    export interface IFailure {
+        success: false;
+        errors: IError[];
+    }
+    export interface IError {
+        path: string;
+        expected: string;
+        value: any;
+    }
+}
+```
+    </Tab>
+    <Tab>
+```typescript showLineNumbers
+/**
+ * Camel case type.
+ *
+ * `CamelCase` type is a type that all keys of an object are camelized.
+ *
+ * It also erase every method properties like {@link Resolved} type.
+ *
+ * @template T Target type to be camelized
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export type CamelCase<T> = Equal<T, CamelizeMain<T>> extends true
+    ? T
+    : CamelizeMain<T>;
+
+/* -----------------------------------------------------------
+    OBJECT CONVERSION
+----------------------------------------------------------- */
+type Equal<X, Y> = X extends Y ? (Y extends X ? true : false) : false;
+
+type CamelizeMain<T> = T extends [never]
+    ? never // special trick for (jsonable | null) type
+    : T extends { valueOf(): boolean | bigint | number | string }
+    ? ValueOf<T>
+    : T extends Function
+    ? never
+    : T extends object
+    ? CamelizeObject<T>
+    : T;
+
+type CamelizeObject<T extends object> = T extends Array<infer U>
+    ? IsTuple<T> extends true
+        ? CamelizeTuple<T>
+        : CamelizeMain<U>[]
+    : T extends Set<infer U>
+    ? Set<CamelizeMain<U>>
+    : T extends Map<infer K, infer V>
+    ? Map<CamelizeMain<K>, CamelizeMain<V>>
+    : T extends WeakSet<any> | WeakMap<any, any>
+    ? never
+    : T extends
+          | Date
+          | Uint8Array
+          | Uint8ClampedArray
+          | Uint16Array
+          | Uint32Array
+          | BigUint64Array
+          | Int8Array
+          | Int16Array
+          | Int32Array
+          | BigInt64Array
+          | Float32Array
+          | Float64Array
+          | ArrayBuffer
+          | SharedArrayBuffer
+          | DataView
+    ? T
+    : {
+          [Key in keyof T as CamelizeString<Key & string>]: CamelizeMain<
+              T[Key]
+          >;
+      };
+
+/* -----------------------------------------------------------
+    SPECIAL CASES
+----------------------------------------------------------- */
+type IsTuple<T extends readonly any[] | { length: number }> = [T] extends [
+    never,
+]
+    ? false
+    : T extends readonly any[]
+    ? number extends T["length"]
+        ? false
+        : true
+    : false;
+type CamelizeTuple<T extends readonly any[]> = T extends []
+    ? []
+    : T extends [infer F]
+    ? [CamelizeMain<F>]
+    : T extends [infer F, ...infer Rest extends readonly any[]]
+    ? [CamelizeMain<F>, ...CamelizeTuple<Rest>]
+    : T extends [(infer F)?]
+    ? [CamelizeMain<F>?]
+    : T extends [(infer F)?, ...infer Rest extends readonly any[]]
+    ? [CamelizeMain<F>?, ...CamelizeTuple<Rest>]
+    : [];
+
+type ValueOf<Instance> = IsValueOf<Instance, Boolean> extends true
+    ? boolean
+    : IsValueOf<Instance, Number> extends true
+    ? number
+    : IsValueOf<Instance, String> extends true
+    ? string
+    : Instance;
+
+type IsValueOf<Instance, Object extends IValueOf<any>> = Instance extends Object
+    ? Object extends IValueOf<infer Primitive>
+        ? Instance extends Primitive
+            ? false
+            : true // not Primitive, but Object
+        : false // cannot be
+    : false;
+
+interface IValueOf<T> {
+    valueOf(): T;
+}
+
+/* -----------------------------------------------------------
+    STRING CONVERTER
+----------------------------------------------------------- */
+type CamelizeString<Key extends string> = Key extends `${infer F}${infer R}`
+    ? `${Lowercase<F>}${CamelizeStringRepeatedly<R>}`
+    : Key;
+type CamelizeStringRepeatedly<Key extends string> =
+    Key extends `${infer F}_${infer R}`
+        ? `${F}${Capitalize<CamelizeStringRepeatedly<R>>}`
+        : Key;
+```
+    </Tab>
+</Tabs>
+
+Camel case converters.
+
+Convert every property names of nested objects to be camel case notation.
+
+When you need type safe functions, you can utilize below them.
+
+  - `typia.notations.assertCamel<T>()`: [`typia.assert<T>()`](../validators/assert) + `typia.notations.camel<T>()`
+  - `typia.notations.isCamel<T>`: [`typia.is<T>()`](../validators/is) + `typia.notations.camel<T>()`
+  - `typia.notations.validateCamel<T>`: [`typia.validate<T>()`](../validators/validate) + `typia.notations.camel<T>()`
+
+### `pascal()` functions
+<Tabs items={[
+    <code>typia</code>, 
+    <code>TypeGuardError.ts</code>, 
+    <code>IValidation.ts</code>,
+    <code>CamelCase.ts</code>
+]}>
+    <Tab>
+```typescript showLineNumbers
+export namespace notations {
+    export function pascal<T>(input: T): PascalCase<T>;
+    export function assertPascal<T>(input: T | unknown): PascalCase<T>;
+    export function isPascal<T>(input: T | unknown): PascalCase<T> | null;
+    export function validatePascal<T>(input: T | unknown): IValidation<PascalCase<T>>;
+
+    export function createPascal<T>(): (input: T) => PascalCase<T>;
+    export function createAssertPascal<T>(): (input: T | unknown) => PascalCase<T>;
+    export function createIsPascal<T>(): (input: T | unknown) => PascalCase<T> | null;
+    export function createValidatePascal<T>(): (
+        input: T | unknown
+    ) => IValidation<PascalCase<T>>;
+}
+```
+    </Tab>
+    <Tab>
+```typescript showLineNumbers
+export class TypeGuardError extends Error {
+    public readonly method: string;
+    public readonly path: string | undefined;
+    public readonly expected: string;
+    public readonly value: any;
+}
+```
+    </Tab>
+    <Tab>
+```typescript showLineNumbers
+export type IValidation<T> =
+    | IValidation.ISuccess<T>
+    | IValidation.IFailure;
+export namespace IValidation {
+    export interface ISuccess<T> {
+        success: true;
+        data: T;
+    }
+    export interface IFailure {
+        success: false;
+        errors: IError[];
+    }
+    export interface IError {
+        path: string;
+        expected: string;
+        value: any;
+    }
+}
+```
+    </Tab>
+    <Tab>
+```typescript showLineNumbers
+/**
+ * Pascal case type.
+ *
+ * `PascalCase` type is a type that all keys of an object are pascalized.
+ *
+ * It also erase every method properties like {@link Resolved} type.
+ *
+ * @template T Target type to be pascalized
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export type PascalCase<T> = Equal<T, PascalizeMain<T>> extends true
+    ? T
+    : PascalizeMain<T>;
+
+/* -----------------------------------------------------------
+    OBJECT CONVERSION
+----------------------------------------------------------- */
+type Equal<X, Y> = X extends Y ? (Y extends X ? true : false) : false;
+
+type PascalizeMain<T> = T extends [never]
+    ? never // special trick for (jsonable | null) type
+    : T extends { valueOf(): boolean | bigint | number | string }
+    ? ValueOf<T>
+    : T extends Function
+    ? never
+    : T extends object
+    ? PascalizeObject<T>
+    : T;
+
+type PascalizeObject<T extends object> = T extends Array<infer U>
+    ? IsTuple<T> extends true
+        ? PascalizeTuple<T>
+        : PascalizeMain<U>[]
+    : T extends Set<infer U>
+    ? Set<PascalizeMain<U>>
+    : T extends Map<infer K, infer V>
+    ? Map<PascalizeMain<K>, PascalizeMain<V>>
+    : T extends WeakSet<any> | WeakMap<any, any>
+    ? never
+    : T extends
+          | Date
+          | Uint8Array
+          | Uint8ClampedArray
+          | Uint16Array
+          | Uint32Array
+          | BigUint64Array
+          | Int8Array
+          | Int16Array
+          | Int32Array
+          | BigInt64Array
+          | Float32Array
+          | Float64Array
+          | ArrayBuffer
+          | SharedArrayBuffer
+          | DataView
+    ? T
+    : {
+          [Key in keyof T as PascalizeString<Key & string>]: PascalizeMain<
+              T[Key]
+          >;
+      };
+
+/* -----------------------------------------------------------
+    SPECIAL CASES
+----------------------------------------------------------- */
+type IsTuple<T extends readonly any[] | { length: number }> = [T] extends [
+    never,
+]
+    ? false
+    : T extends readonly any[]
+    ? number extends T["length"]
+        ? false
+        : true
+    : false;
+type PascalizeTuple<T extends readonly any[]> = T extends []
+    ? []
+    : T extends [infer F]
+    ? [PascalizeMain<F>]
+    : T extends [infer F, ...infer Rest extends readonly any[]]
+    ? [PascalizeMain<F>, ...PascalizeTuple<Rest>]
+    : T extends [(infer F)?]
+    ? [PascalizeMain<F>?]
+    : T extends [(infer F)?, ...infer Rest extends readonly any[]]
+    ? [PascalizeMain<F>?, ...PascalizeTuple<Rest>]
+    : [];
+
+type ValueOf<Instance> = IsValueOf<Instance, Boolean> extends true
+    ? boolean
+    : IsValueOf<Instance, Number> extends true
+    ? number
+    : IsValueOf<Instance, String> extends true
+    ? string
+    : Instance;
+
+type IsValueOf<Instance, Object extends IValueOf<any>> = Instance extends Object
+    ? Object extends IValueOf<infer Primitive>
+        ? Instance extends Primitive
+            ? false
+            : true // not Primitive, but Object
+        : false // cannot be
+    : false;
+
+interface IValueOf<T> {
+    valueOf(): T;
+}
+
+/* -----------------------------------------------------------
+    STRING CONVERTER
+----------------------------------------------------------- */
+type PascalizeString<Key extends string> = Key extends `${infer F}${infer R}`
+    ? `${Uppercase<F>}${PascalizeStringRepeatedly<R>}`
+    : Key;
+type PascalizeStringRepeatedly<Key extends string> =
+    Key extends `${infer F}_${infer R}`
+        ? `${F}${Capitalize<PascalizeStringRepeatedly<R>>}`
+        : Key;
+```
+    </Tab>
+</Tabs>
+
+Pascal case converters.
+
+Convert every property names of nested objects to be pascal case notation.
+
+When you need type safe functions, you can utilize below them.
+
+  - `typia.notations.assertPascal<T>()`: [`typia.assert<T>()`](../validators/assert) + `typia.notations.pascal<T>()`
+  - `typia.notations.isPascal<T>`: [`typia.is<T>()`](../validators/is) + `typia.notations.pascal<T>()`
+  - `typia.notations.validatePascal<T>`: [`typia.validate<T>()`](../validators/validate) + `typia.notations.pascal<T>()`
+
+### `snake()` functions
+<Tabs items={[
+    <code>typia</code>, 
+    <code>TypeGuardError.ts</code>, 
+    <code>IValidation.ts</code>,
+    <code>SnakeCase.ts</code>
+]}>
+    <Tab>
+```typescript showLineNumbers
+export namespace notations {
+    export function snake<T>(input: T): SnakeCase<T>;
+    export function assertSnake<T>(input: T | unknown): SnakeCase<T>;
+    export function isSnake<T>(input: T | unknown): SnakeCase<T> | null;
+    export function validateSnake<T>(input: T | unknown): IValidation<SnakeCase<T>>;
+
+    export function createSnake<T>(): (input: T) => SnakeCase<T>;
+    export function createAssertSnake<T>(): (input: T | unknown) => SnakeCase<T>;
+    export function createIsSnake<T>(): (input: T | unknown) => SnakeCase<T> | null;
+    export function createValidateSnake<T>(): (
+        input: T | unknown
+    ) => IValidation<SnakeCase<T>>;
+}
+```
+    </Tab>
+    <Tab>
+```typescript showLineNumbers
+export class TypeGuardError extends Error {
+    public readonly method: string;
+    public readonly path: string | undefined;
+    public readonly expected: string;
+    public readonly value: any;
+}
+```
+    </Tab>
+    <Tab>
+```typescript showLineNumbers
+export type IValidation<T> =
+    | IValidation.ISuccess<T>
+    | IValidation.IFailure;
+export namespace IValidation {
+    export interface ISuccess<T> {
+        success: true;
+        data: T;
+    }
+    export interface IFailure {
+        success: false;
+        errors: IError[];
+    }
+    export interface IError {
+        path: string;
+        expected: string;
+        value: any;
+    }
+}
+```
+    </Tab>
+    <Tab>
+```typescript showLineNumbers
+/**
+ * Snake case type.
+ *
+ * `SnakeCase` type is a type that all keys of an object are converted to snake case.
+ *
+ * It also erase every method properties like {@link Resolved} type.
+ *
+ * @template T Target type to be snake cased
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export type SnakeCase<T> = Equal<T, SnakageMain<T>> extends true
+    ? T
+    : SnakageMain<T>;
+
+/* -----------------------------------------------------------
+    OBJECT CONVERSION
+----------------------------------------------------------- */
+type Equal<X, Y> = X extends Y ? (Y extends X ? true : false) : false;
+
+type SnakageMain<T> = T extends [never]
+    ? never // special trick for (jsonable | null) type
+    : T extends { valueOf(): boolean | bigint | number | string }
+    ? ValueOf<T>
+    : T extends Function
+    ? never
+    : T extends object
+    ? SnakageObject<T>
+    : T;
+
+type SnakageObject<T extends object> = T extends Array<infer U>
+    ? IsTuple<T> extends true
+        ? SnakageTuple<T>
+        : SnakageMain<U>[]
+    : T extends Set<infer U>
+    ? Set<SnakageMain<U>>
+    : T extends Map<infer K, infer V>
+    ? Map<SnakageMain<K>, SnakageMain<V>>
+    : T extends WeakSet<any> | WeakMap<any, any>
+    ? never
+    : T extends
+          | Date
+          | Uint8Array
+          | Uint8ClampedArray
+          | Uint16Array
+          | Uint32Array
+          | BigUint64Array
+          | Int8Array
+          | Int16Array
+          | Int32Array
+          | BigInt64Array
+          | Float32Array
+          | Float64Array
+          | ArrayBuffer
+          | SharedArrayBuffer
+          | DataView
+    ? T
+    : {
+          [Key in keyof T as SnakageString<Key & string>]: SnakageMain<T[Key]>;
+      };
+
+/* -----------------------------------------------------------
+    SPECIAL CASES
+----------------------------------------------------------- */
+type IsTuple<T extends readonly any[] | { length: number }> = [T] extends [
+    never,
+]
+    ? false
+    : T extends readonly any[]
+    ? number extends T["length"]
+        ? false
+        : true
+    : false;
+type SnakageTuple<T extends readonly any[]> = T extends []
+    ? []
+    : T extends [infer F]
+    ? [SnakageMain<F>]
+    : T extends [infer F, ...infer Rest extends readonly any[]]
+    ? [SnakageMain<F>, ...SnakageTuple<Rest>]
+    : T extends [(infer F)?]
+    ? [SnakageMain<F>?]
+    : T extends [(infer F)?, ...infer Rest extends readonly any[]]
+    ? [SnakageMain<F>?, ...SnakageTuple<Rest>]
+    : [];
+
+type ValueOf<Instance> = IsValueOf<Instance, Boolean> extends true
+    ? boolean
+    : IsValueOf<Instance, Number> extends true
+    ? number
+    : IsValueOf<Instance, String> extends true
+    ? string
+    : Instance;
+
+type IsValueOf<Instance, Object extends IValueOf<any>> = Instance extends Object
+    ? Object extends IValueOf<infer Primitive>
+        ? Instance extends Primitive
+            ? false
+            : true // not Primitive, but Object
+        : false // cannot be
+    : false;
+
+interface IValueOf<T> {
+    valueOf(): T;
+}
+
+/* -----------------------------------------------------------
+    STRING CONVERTER
+----------------------------------------------------------- */
+type SnakageString<Key extends string> = Key extends `${infer _}`
+    ? SnakageStringRepeatedly<Key, "">
+    : Key;
+type SnakageStringRepeatedly<
+    S extends string,
+    Previous extends string,
+> = S extends `${infer First}${infer Second}${infer Rest}`
+    ? `${Underscore<Previous, First>}${Lowercase<First>}${Underscore<
+          First,
+          Second
+      >}${Lowercase<Second>}${SnakageStringRepeatedly<Rest, Second>}`
+    : S extends `${infer First}`
+    ? `${Underscore<Previous, First>}${Lowercase<First>}`
+    : "";
+type Underscore<First extends string, Second extends string> = First extends
+    | UpperAlphabetic
+    | ""
+    | "_"
+    ? ""
+    : Second extends UpperAlphabetic
+    ? "_"
+    : "";
+type UpperAlphabetic =
+    | "A"
+    | "B"
+    | "C"
+    | "D"
+    | "E"
+    | "F"
+    | "G"
+    | "H"
+    | "I"
+    | "J"
+    | "K"
+    | "L"
+    | "M"
+    | "N"
+    | "O"
+    | "P"
+    | "Q"
+    | "R"
+    | "S"
+    | "T"
+    | "U"
+    | "V"
+    | "W"
+    | "X"
+    | "Y"
+    | "Z";
+```
+    </Tab>
+</Tabs>
+
+Snake case converters.
+
+Convert every property names of nested objects to be snake case notation.
+
+When you need type safe functions, you can utilize below them.
+
+  - `typia.notations.assertSnake<T>()`: [`typia.assert<T>()`](../validators/assert) + `typia.notations.snake<T>()`
+  - `typia.notations.isSnake<T>`: [`typia.is<T>()`](../validators/is) + `typia.notations.snake<T>()`
+  - `typia.notations.validateSnake<T>`: [`typia.validate<T>()`](../validators/validate) + `typia.notations.snake<T>()`
+
+## `http` module
+<br/>
+<Alert severity="success">
+    <AlertTitle> 
+        **Nestia Supporting** 
+    </AlertTitle>
+
+`http` module has been designed to support the [nestia](https://github.com/samchon/nestia) project.
+
+  - `query()` functions -> [`@TypedQuery()`](https://nestia.io/docs/core/TypedQuery/)
+  - `headers()` functions -> [`@TypedHeaders()`](https://nestia.io/docs/core/TypedHeaders/)
+  - `parameter()` function -> [`@TypedParam()`](https://nestia.io/docs/core/TypedParam/)
+
+</Alert>
+
+### `query()` functions
+<Tabs items={[
+    <code>typia</code>, 
+    <code>TypeGuardError.ts</code>, 
+    <code>IValidation.ts</code>,
+    <code>Resolved.ts</code>
+]}>
+    <Tab>
+```typescript showLineNumbers
+export namespace http {
+    export function query<T extends object>(input: Query): Resolved<T>;
+    export function assertQuery<T extends object>(input: Query): Resolved<T>;
+    export function isQuery<T extends object>(input: Query): Resolved<T> | null;
+    export function validateQuery<T extends object>(
+        input: Query
+    ): IValidation<Resolved<T>>;
+
+    export function createQuery<T extends object>(): (input: Query) => Resolved<T>;
+    export function createAssertQuery<T extends object>(): (
+        input: Query
+    ) => Resolved<T>;
+    export function createIsQuery<T extends object>(): (
+        input: Query
+    ) => Resolved<T> | null;
+    export function createValidateQuery<T extends object>(): (
+        input: Query
+    ) => IValidation<Resolved<T>>;
+}
+type Query = string | URLSearchParams;
+```
+    </Tab>
+    <Tab>
+```typescript showLineNumbers
+export class TypeGuardError extends Error {
+    public readonly method: string;
+    public readonly path: string | undefined;
+    public readonly expected: string;
+    public readonly value: any;
+}
+```
+    </Tab>
+    <Tab>
+```typescript showLineNumbers
+export type IValidation<T> =
+    | IValidation.ISuccess<T>
+    | IValidation.IFailure;
+export namespace IValidation {
+    export interface ISuccess<T> {
+        success: true;
+        data: T;
+    }
+    export interface IFailure {
+        success: false;
+        errors: IError[];
+    }
+    export interface IError {
+        path: string;
+        expected: string;
+        value: any;
+    }
+}
+```
+    </Tab>
+    <Tab>
+```typescript showLineNumbers
+/**
+ * Resolved type erased every methods.
+ *
+ * `Resolved` is a type of TMP (Type Meta Programming) type which converts
+ * its argument as a resolved type that erased every method properties.
+ *
+ * If the target argument is a built-in class which returns its origin primitive type
+ * through the `valueOf()` method like the `String` or `Number`, its return type would
+ * be the `string` or `number`. Otherwise, the built-in class does not have the
+ * `valueOf()` method, the return type would be same with the target argument.
+ *
+ * Otherwise, the target argument is a type of custom class, all of its custom methods
+ * would be erased and its prototype would be changed to the primitive `object`.
+ * Therefore, return type of the TMP type finally be the resolved object.
+ *
+ * Before                  | After
+ * ------------------------|----------------------------------------
+ * `Boolean`               | `boolean`
+ * `Number`                | `number`
+ * `BigInt`                | `bigint`
+ * `String`                | `string`
+ * `Class`                 | `interface`
+ * Native Class or Others  | No change
+ *
+ * @template Instance Target argument type.
+ * @author Jeongho Nam - https://github.com/samchon
+ * @author Kyungsu Kang - https://github.com/kakasoo
+ */
+export type Resolved<T> = Equal<T, ResolvedMain<T>> extends true
+    ? T
+    : ResolvedMain<T>;
+
+type Equal<X, Y> = X extends Y ? (Y extends X ? true : false) : false;
+
+type ResolvedMain<Instance> = Instance extends [never]
+    ? never // (special trick for jsonable | null) type
+    : ValueOf<Instance> extends boolean | number | bigint | string
+    ? ValueOf<Instance>
+    : Instance extends Function
+    ? never
+    : Instance extends object
+    ? ResolvedObject<Instance>
+    : ValueOf<Instance>;
+
+type ResolvedObject<Instance extends object> = Instance extends Array<infer T>
+    ? IsTuple<Instance> extends true
+        ? ResolvedTuple<Instance>
+        : ResolvedMain<T>[]
+    : Instance extends Set<infer U>
+    ? Set<ResolvedMain<U>>
+    : Instance extends Map<infer K, infer V>
+    ? Map<ResolvedMain<K>, ResolvedMain<V>>
+    : Instance extends WeakSet<any> | WeakMap<any, any>
+    ? never
+    : Instance extends
+          | Date
+          | Uint8Array
+          | Uint8ClampedArray
+          | Uint16Array
+          | Uint32Array
+          | BigUint64Array
+          | Int8Array
+          | Int16Array
+          | Int32Array
+          | BigInt64Array
+          | Float32Array
+          | Float64Array
+          | ArrayBuffer
+          | SharedArrayBuffer
+          | DataView
+    ? Instance
+    : {
+          [P in keyof Instance]: ResolvedMain<Instance[P]>;
+      };
+
+type ResolvedTuple<T extends readonly any[]> = T extends []
+    ? []
+    : T extends [infer F]
+    ? [ResolvedMain<F>]
+    : T extends [infer F, ...infer Rest extends readonly any[]]
+    ? [ResolvedMain<F>, ...ResolvedTuple<Rest>]
+    : T extends [(infer F)?]
+    ? [ResolvedMain<F>?]
+    : T extends [(infer F)?, ...infer Rest extends readonly any[]]
+    ? [ResolvedMain<F>?, ...ResolvedTuple<Rest>]
+    : [];
+
+type ValueOf<Instance> = IsValueOf<Instance, Boolean> extends true
+    ? boolean
+    : IsValueOf<Instance, Number> extends true
+    ? number
+    : IsValueOf<Instance, String> extends true
+    ? string
+    : Instance;
+
+type IsTuple<T extends readonly any[] | { length: number }> = [T] extends [
+    never,
+]
+    ? false
+    : T extends readonly any[]
+    ? number extends T["length"]
+        ? false
+        : true
+    : false;
+
+type IsValueOf<Instance, Object extends IValueOf<any>> = Instance extends Object
+    ? Object extends IValueOf<infer Primitive>
+        ? Instance extends Primitive
+            ? false
+            : true // not Primitive, but Object
+        : false // cannot be
+    : false;
+
+interface IValueOf<T> {
+    valueOf(): T;
+}
+```
+    </Tab>
+</Tabs>
+
+URL query decoder functions.
+
+`typia.http.query<T>()` is a function decoding a query string or an `URLSearchParams` instance, with automatic type casting to the expected type. When property type be defined as boolean or number type, `typia.http.query<T>()` will cast the value to the expected type when decoding.
+
+By the way, as URL query is not enough to express complex data structures, `typia.http.query<T>()` function has some limitations. If target type `T` is not following those restrictions, compilation errors would be occured.
+
+  1. Type T must be an object type
+  2. Do not allow dynamic property
+  3. Only boolean, bigint, number, string or their array types are allowed
+  4. By the way, union type never be not allowed
+
+Also, `typia.http.query<T>()` function does not perform validation about the decoded value. Therefore, if you can't sure that input data is following the `T` type, it would better to call one of below functions intead.
+
+  - `typia.http.assertQuery<T>()`: [`typia.assert<T>()`](../validators/assert) + `typia.http.query<T>()`
+  - `typia.http.isQuery<T>()`: [`typia.is<T>()`](../validators/is) + `typia.http.query<T>()`
+  - `typia.http.validateQuery<T>()`: [`typia.validate<T>()`](../validators/validate) + `typia.http.query<T>()`
+
+### `headers()` functions
+<Tabs items={[
+    <code>typia</code>, 
+    <code>TypeGuardError.ts</code>, 
+    <code>IValidation.ts</code>,
+    <code>Resolved.ts</code>
+]}>
+    <Tab>
+```typescript showLineNumbers
+export namespace http {
+    export function headers<T extends object>(input: Headers): Resolved<T>;
+    export function assertHeaders<T extends object>(input: Headers): Resolved<T>;
+    export function isHeaders<T extends object>(input: Headers): Resolved<T> | null;
+    export function validateHeaders<T extends object>(
+        input: Headers
+    ): IValidation<Resolved<T>>;
+
+    export function createHeaders<T extends object>(): (
+        input: Headers
+    ) => Resolved<T>;
+    export function createAssertHeaders<T extends object>(): (
+        input: Headers
+    ) => Resolved<T>;
+    export function createIsHeaders<T extends object>(): (
+        input: Headers
+    ) => Resolved<T> | null;
+    export function createValidateHeaders<T extends object>(): (
+        input: Headers
+    ) => IValidation<Resolved<T>>;
+}
+type Headers = Record<string, string | string[] | undefined>;
+```
+    </Tab>
+    <Tab>
+```typescript showLineNumbers
+export class TypeGuardError extends Error {
+    public readonly method: string;
+    public readonly path: string | undefined;
+    public readonly expected: string;
+    public readonly value: any;
+}
+```
+    </Tab>
+    <Tab>
+```typescript showLineNumbers
+export type IValidation<T> =
+    | IValidation.ISuccess<T>
+    | IValidation.IFailure;
+export namespace IValidation {
+    export interface ISuccess<T> {
+        success: true;
+        data: T;
+    }
+    export interface IFailure {
+        success: false;
+        errors: IError[];
+    }
+    export interface IError {
+        path: string;
+        expected: string;
+        value: any;
+    }
+}
+```
+    </Tab>
+    <Tab>
+```typescript showLineNumbers
+/**
+ * Resolved type erased every methods.
+ *
+ * `Resolved` is a type of TMP (Type Meta Programming) type which converts
+ * its argument as a resolved type that erased every method properties.
+ *
+ * If the target argument is a built-in class which returns its origin primitive type
+ * through the `valueOf()` method like the `String` or `Number`, its return type would
+ * be the `string` or `number`. Otherwise, the built-in class does not have the
+ * `valueOf()` method, the return type would be same with the target argument.
+ *
+ * Otherwise, the target argument is a type of custom class, all of its custom methods
+ * would be erased and its prototype would be changed to the primitive `object`.
+ * Therefore, return type of the TMP type finally be the resolved object.
+ *
+ * Before                  | After
+ * ------------------------|----------------------------------------
+ * `Boolean`               | `boolean`
+ * `Number`                | `number`
+ * `BigInt`                | `bigint`
+ * `String`                | `string`
+ * `Class`                 | `interface`
+ * Native Class or Others  | No change
+ *
+ * @template Instance Target argument type.
+ * @author Jeongho Nam - https://github.com/samchon
+ * @author Kyungsu Kang - https://github.com/kakasoo
+ */
+export type Resolved<T> = Equal<T, ResolvedMain<T>> extends true
+    ? T
+    : ResolvedMain<T>;
+
+type Equal<X, Y> = X extends Y ? (Y extends X ? true : false) : false;
+
+type ResolvedMain<Instance> = Instance extends [never]
+    ? never // (special trick for jsonable | null) type
+    : ValueOf<Instance> extends boolean | number | bigint | string
+    ? ValueOf<Instance>
+    : Instance extends Function
+    ? never
+    : Instance extends object
+    ? ResolvedObject<Instance>
+    : ValueOf<Instance>;
+
+type ResolvedObject<Instance extends object> = Instance extends Array<infer T>
+    ? IsTuple<Instance> extends true
+        ? ResolvedTuple<Instance>
+        : ResolvedMain<T>[]
+    : Instance extends Set<infer U>
+    ? Set<ResolvedMain<U>>
+    : Instance extends Map<infer K, infer V>
+    ? Map<ResolvedMain<K>, ResolvedMain<V>>
+    : Instance extends WeakSet<any> | WeakMap<any, any>
+    ? never
+    : Instance extends
+          | Date
+          | Uint8Array
+          | Uint8ClampedArray
+          | Uint16Array
+          | Uint32Array
+          | BigUint64Array
+          | Int8Array
+          | Int16Array
+          | Int32Array
+          | BigInt64Array
+          | Float32Array
+          | Float64Array
+          | ArrayBuffer
+          | SharedArrayBuffer
+          | DataView
+    ? Instance
+    : {
+          [P in keyof Instance]: ResolvedMain<Instance[P]>;
+      };
+
+type ResolvedTuple<T extends readonly any[]> = T extends []
+    ? []
+    : T extends [infer F]
+    ? [ResolvedMain<F>]
+    : T extends [infer F, ...infer Rest extends readonly any[]]
+    ? [ResolvedMain<F>, ...ResolvedTuple<Rest>]
+    : T extends [(infer F)?]
+    ? [ResolvedMain<F>?]
+    : T extends [(infer F)?, ...infer Rest extends readonly any[]]
+    ? [ResolvedMain<F>?, ...ResolvedTuple<Rest>]
+    : [];
+
+type ValueOf<Instance> = IsValueOf<Instance, Boolean> extends true
+    ? boolean
+    : IsValueOf<Instance, Number> extends true
+    ? number
+    : IsValueOf<Instance, String> extends true
+    ? string
+    : Instance;
+
+type IsTuple<T extends readonly any[] | { length: number }> = [T] extends [
+    never,
+]
+    ? false
+    : T extends readonly any[]
+    ? number extends T["length"]
+        ? false
+        : true
+    : false;
+
+type IsValueOf<Instance, Object extends IValueOf<any>> = Instance extends Object
+    ? Object extends IValueOf<infer Primitive>
+        ? Instance extends Primitive
+            ? false
+            : true // not Primitive, but Object
+        : false // cannot be
+    : false;
+
+interface IValueOf<T> {
+    valueOf(): T;
+}
+```
+    </Tab>
+</Tabs>
+
+Headers decoder (for express and fastify).
+
+`typia.http.headers<t>()` is a function decoding an header instance, with automatic type casting to the expected type. When property type be defined as boolean or number type, `typia.http.headers<t>()` will cast the value to the expected type.
+
+By the way, as HTTP headers are not enough to express complex data structures, `typia.http.headers<t>()` function has some limitations. If target type `T` is not following those restrictions, compilation errors would be occured.
+
+  1. Type T must be an object type
+  2. Do not allow dynamic property
+  3. Property key must be lower case
+  4. Property value cannot be null, but undefined is possible
+  5. Only boolean, bigint, number, string or their array types are allowed
+  6. By the way, union type never be not allowed
+  7. Property set-cookie must be array type
+  8. Those properties cannot be array type
+    - age
+    - authorization
+    - content-length
+    - content-type
+    - etag
+    - expires
+    - from
+    - host
+    - if-modified-since
+    - if-unmodified-since
+    - last-modified
+    - location
+    - max-forwards
+    - proxy-authorization
+    - referer
+    - retry-after
+    - server
+    - user-agent
+
+Also, `typia.http.headers<t>()` function does not perform validation about the decoded value. Therefore, if you can't sure that input data is following the `T` type, it would better to call one of below functions intead.
+
+  - `typia.http.assertHeaders<T>()`: [`typia.assert<T>()`](../validators/assert) + `typia.http.headers<T>()`
+  - `typia.http.isHeaders<T>()`: [`typia.is<T>()`](../validators/is) + `typia.http.headers<T>()`
+  - `typia.http.validateHeaders<T>()`: [`typia.validate<T>()`](../validators/validate) + `typia.http.headers<T>()`
+
+### `parameter()` functions
+<Tabs items={[
+    <code>typia</code>, 
+    <code>TypeGuardError.ts</code>, 
+]}>
+    <Tab>
+```typescript showLineNumbers
+export namespace http {
+    export function parameter<T extends Atomic.Type | null>(input: string): T;
+    export function createParameter<T extends Atomic.Type | null>(): (
+        input: string
+    ) => T;
+}
+```
+    </Tab>
+    <Tab>
+```typescript showLineNumbers
+export class TypeGuardError extends Error {
+    public readonly method: string;
+    public readonly path: string | undefined;
+    public readonly expected: string;
+    public readonly value: any;
+}
+```
+    </Tab>
+</Tabs>
+
+URL path parameter decoder.
+
+`typia.http.parameter<T>()` is a function decoding a path parameter, with automatic type casting to the expected type. When type T has beeen defined as boolean or number `type, typia.http.parameter<T>()` will cast the value to the expected type.
+
+Also, `typia.http.parameter<T>()` performs type assertion to the decoded value by combining with assert function. Therefore, when the decoded value is not following the `T` type, `TypeGuardError` would be thrown.
