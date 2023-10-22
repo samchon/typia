@@ -13,7 +13,7 @@ import AlertTitle from '@mui/material/AlertTitle';
     <code>Resolved.ts</code>
 ]}>
     <Tab>
-```typescript showLineNumbers
+```typescript
 export namespace misc {
     export function clone<T>(input: T): T;
     export function assertClone<T>(input: T | unknown): Resolved<T>;
@@ -30,7 +30,7 @@ export namespace misc {
 ```
     </Tab>
     <Tab>
-```typescript showLineNumbers
+```typescript
 export class TypeGuardError extends Error {
     public readonly method: string;
     public readonly path: string | undefined;
@@ -40,7 +40,7 @@ export class TypeGuardError extends Error {
 ```
     </Tab>
     <Tab>
-```typescript showLineNumbers
+```typescript
 export type IValidation<T> =
     | IValidation.ISuccess<T>
     | IValidation.IFailure;
@@ -62,7 +62,7 @@ export namespace IValidation {
 ```
     </Tab>
     <Tab>
-```typescript showLineNumbers
+```typescript
 /**
  * Resolved type erased every methods.
  *
@@ -415,7 +415,7 @@ console.log(cloned);
     <code>IValidation.ts</code>
 ]}>
     <Tab>
-```typescript showLineNumbers
+```typescript
 export function prune<T>(input: T): void;
 export function assertPrune<T>(input: T | unknown): T;
 export function isPrune<T>(input: T | unknown): T | null;
@@ -428,7 +428,7 @@ export function createValidatePrune<T>(): (input: T | unknown) => IValidation<T>
 ```
     </Tab>
     <Tab>
-```typescript showLineNumbers
+```typescript
 export class TypeGuardError extends Error {
     public readonly method: string;
     public readonly path: string | undefined;
@@ -438,7 +438,7 @@ export class TypeGuardError extends Error {
 ```
     </Tab>
     <Tab>
-```typescript showLineNumbers
+```typescript
 export type IValidation<T> =
     | IValidation.ISuccess<T>
     | IValidation.IFailure;
@@ -695,13 +695,11 @@ console.log(pruned);
 </Tabs>
 
 ### `literals()` function
-```typescript filename="typia"
+```typescript
 export namespace misc {
-    export function literals<T extends Atomic.Type | null>(): T[];
-}
-
-export namespace Atomic {
-    export type Type = boolean | number | string | bigint;
+    export function literals<
+        T extends boolean | number | string | bigint | null
+    >(): T[];
 }
 ```
 
@@ -711,14 +709,14 @@ When you call `typia.misc.literals<T>()` function with union literal type, it re
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
     <Tab>
-```typescript showLineNumbers
+```typescript filename="examples/src/literals.ts" showLineNumbers
 import typia from "typia";
 
 typia.misc.literals<"A" | "B" | "C" | 1 | 2n>();
 ```
     </Tab>
     <Tab>
-```javascript showLineNumbers
+```javascript filename="examples/bin/literals.js" showLineNumbers
 "use strict";
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
@@ -748,7 +746,7 @@ const typia_1 = __importDefault(require("typia"));
     <code>PascalCase.ts</code>
 ]}>
     <Tab>
-```typescript showLineNumbers
+```typescript
 export namespace notations {
     export function camel<T>(input: T): CamelCase<T>;
     export function assertCamel<T>(input: T | unknown): CamelCase<T>;
@@ -765,7 +763,7 @@ export namespace notations {
 ```
     </Tab>
     <Tab>
-```typescript showLineNumbers
+```typescript
 export class TypeGuardError extends Error {
     public readonly method: string;
     public readonly path: string | undefined;
@@ -775,7 +773,7 @@ export class TypeGuardError extends Error {
 ```
     </Tab>
     <Tab>
-```typescript showLineNumbers
+```typescript
 export type IValidation<T> =
     | IValidation.ISuccess<T>
     | IValidation.IFailure;
@@ -797,7 +795,7 @@ export namespace IValidation {
 ```
     </Tab>
     <Tab>
-```typescript showLineNumbers
+```typescript
 /**
  * Camel case type.
  *
@@ -928,6 +926,38 @@ When you need type safe functions, you can utilize below them.
   - `typia.notations.isCamel<T>`: [`typia.is<T>()`](../validators/is) + `typia.notations.camel<T>()`
   - `typia.notations.validateCamel<T>`: [`typia.validate<T>()`](../validators/validate) + `typia.notations.camel<T>()`
 
+<Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
+    <Tab>
+```typescript filename="examples/src/camel.ts" showLineNumbers {}
+import typia from "typia";
+
+interface IPerson {
+    is_my_name_samchon?: boolean;
+    HelloTheNewWorld: string;
+    ToHTML: string;
+}
+typia.notations.createCamel<IPerson>();
+```
+    </Tab>
+    <Tab>
+```javascript filename="examples/bin/camel.js" showLineNumbers {}
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const typia_1 = __importDefault(require("typia"));
+input => {
+    const $co0 = input => ({
+        isMyNameSamchon: input.is_my_name_samchon,
+        helloTheNewWorld: input.HelloTheNewWorld,
+        toHTML: input.ToHTML
+    });
+    return "object" === typeof input && null !== input ? $co0(input) : input;
+};
+```
+    </Tab>
+</Tabs>
+
 ### `pascal()` functions
 <Tabs items={[
     <code>typia</code>, 
@@ -936,7 +966,7 @@ When you need type safe functions, you can utilize below them.
     <code>CamelCase.ts</code>
 ]}>
     <Tab>
-```typescript showLineNumbers
+```typescript
 export namespace notations {
     export function pascal<T>(input: T): PascalCase<T>;
     export function assertPascal<T>(input: T | unknown): PascalCase<T>;
@@ -953,7 +983,7 @@ export namespace notations {
 ```
     </Tab>
     <Tab>
-```typescript showLineNumbers
+```typescript
 export class TypeGuardError extends Error {
     public readonly method: string;
     public readonly path: string | undefined;
@@ -963,7 +993,7 @@ export class TypeGuardError extends Error {
 ```
     </Tab>
     <Tab>
-```typescript showLineNumbers
+```typescript
 export type IValidation<T> =
     | IValidation.ISuccess<T>
     | IValidation.IFailure;
@@ -985,7 +1015,7 @@ export namespace IValidation {
 ```
     </Tab>
     <Tab>
-```typescript showLineNumbers
+```typescript
 /**
  * Pascal case type.
  *
@@ -1116,6 +1146,39 @@ When you need type safe functions, you can utilize below them.
   - `typia.notations.isPascal<T>`: [`typia.is<T>()`](../validators/is) + `typia.notations.pascal<T>()`
   - `typia.notations.validatePascal<T>`: [`typia.validate<T>()`](../validators/validate) + `typia.notations.pascal<T>()`
 
+<Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
+    <Tab>
+```typescript filename="examples/src/pascal.ts" showLineNumbers {}
+import typia from "typia";
+
+interface IPerson {
+    is_my_name_samchon?: boolean;
+    helloTheNewWorld: string;
+    toHTML: string;
+}
+typia.notations.createPascal<IPerson>();
+```
+    </Tab>
+    <Tab>
+```javascript filename="examples/bin/pascal.js" showLineNumbers {}
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const typia_1 = __importDefault(require("typia"));
+input => {
+    const $co0 = input => ({
+        IsMyNameSamchon: input.is_my_name_samchon,
+        HelloTheNewWorld: input.helloTheNewWorld,
+        ToHTML: input.toHTML
+    });
+    return "object" === typeof input && null !== input ? $co0(input) : input;
+};
+```
+    </Tab>
+</Tabs>
+
 ### `snake()` functions
 <Tabs items={[
     <code>typia</code>, 
@@ -1124,7 +1187,7 @@ When you need type safe functions, you can utilize below them.
     <code>SnakeCase.ts</code>
 ]}>
     <Tab>
-```typescript showLineNumbers
+```typescript
 export namespace notations {
     export function snake<T>(input: T): SnakeCase<T>;
     export function assertSnake<T>(input: T | unknown): SnakeCase<T>;
@@ -1141,7 +1204,7 @@ export namespace notations {
 ```
     </Tab>
     <Tab>
-```typescript showLineNumbers
+```typescript
 export class TypeGuardError extends Error {
     public readonly method: string;
     public readonly path: string | undefined;
@@ -1151,7 +1214,7 @@ export class TypeGuardError extends Error {
 ```
     </Tab>
     <Tab>
-```typescript showLineNumbers
+```typescript
 export type IValidation<T> =
     | IValidation.ISuccess<T>
     | IValidation.IFailure;
@@ -1173,7 +1236,7 @@ export namespace IValidation {
 ```
     </Tab>
     <Tab>
-```typescript showLineNumbers
+```typescript
 /**
  * Snake case type.
  *
@@ -1344,6 +1407,39 @@ When you need type safe functions, you can utilize below them.
   - `typia.notations.isSnake<T>`: [`typia.is<T>()`](../validators/is) + `typia.notations.snake<T>()`
   - `typia.notations.validateSnake<T>`: [`typia.validate<T>()`](../validators/validate) + `typia.notations.snake<T>()`
 
+<Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
+    <Tab>
+```typescript filename="examples/src/snake.ts" showLineNumbers {}
+import typia from "typia";
+
+interface IPerson {
+    isMyNameSamchon?: boolean;
+    HelloTheNewWorld: string;
+    ToHTML: string;
+}
+typia.notations.createSnake<IPerson>();
+```
+    </Tab>
+    <Tab>
+```javascript filename="examples/bin/snake.js" showLineNumbers {}
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const typia_1 = __importDefault(require("typia"));
+input => {
+    const $co0 = input => ({
+        is_my_name_samchon: input.isMyNameSamchon,
+        hello_the_new_world: input.HelloTheNewWorld,
+        to_html: input.ToHTML
+    });
+    return "object" === typeof input && null !== input ? $co0(input) : input;
+};
+```
+    </Tab>
+</Tabs>
+
 ## `http` module
 <br/>
 <Alert severity="success">
@@ -1367,7 +1463,7 @@ When you need type safe functions, you can utilize below them.
     <code>Resolved.ts</code>
 ]}>
     <Tab>
-```typescript showLineNumbers
+```typescript
 export namespace http {
     export function query<T extends object>(input: Query): Resolved<T>;
     export function assertQuery<T extends object>(input: Query): Resolved<T>;
@@ -1391,7 +1487,7 @@ type Query = string | URLSearchParams;
 ```
     </Tab>
     <Tab>
-```typescript showLineNumbers
+```typescript
 export class TypeGuardError extends Error {
     public readonly method: string;
     public readonly path: string | undefined;
@@ -1401,7 +1497,7 @@ export class TypeGuardError extends Error {
 ```
     </Tab>
     <Tab>
-```typescript showLineNumbers
+```typescript
 export type IValidation<T> =
     | IValidation.ISuccess<T>
     | IValidation.IFailure;
@@ -1423,7 +1519,7 @@ export namespace IValidation {
 ```
     </Tab>
     <Tab>
-```typescript showLineNumbers
+```typescript
 /**
  * Resolved type erased every methods.
  *
@@ -1561,6 +1657,49 @@ Also, `typia.http.query<T>()` function does not perform validation about the dec
   - `typia.http.isQuery<T>()`: [`typia.is<T>()`](../validators/is) + `typia.http.query<T>()`
   - `typia.http.validateQuery<T>()`: [`typia.validate<T>()`](../validators/validate) + `typia.http.query<T>()`
 
+<Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
+    <Tab>
+```typescript filename="examples/src/query.ts" showLineNumbers {}
+import typia from "typia";
+
+interface IQuery {
+    limit?: number;
+    enforce: boolean;
+    values?: string[];
+    atomic: string | null;
+    indexes: number[];
+}
+typia.http.createQuery<IQuery>();
+```
+    </Tab>
+    <Tab>
+```javascript filename="examples/bin/query.js" showLineNumbers {}
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const typia_1 = __importDefault(require("typia"));
+input => {
+    const $params = typia_1.default.http.createQuery.params;
+    const $number = typia_1.default.http.createQuery.number;
+    const $boolean = typia_1.default.http.createQuery.boolean;
+    const $string = typia_1.default.http.createQuery.string;
+    const $array = typia_1.default.http.createQuery.array;
+    input = $params(input);
+    const output = {
+        limit: $number(input.get("limit")) ?? undefined,
+        enforce: $boolean(input.get("enforce")),
+        values: $array(input.getAll("values").map(elem => $string(elem)), undefined),
+        atomic: $string(input.get("atomic")),
+        indexes: input.getAll("indexes").map(elem => $number(elem))
+    };
+    return output;
+};
+```
+    </Tab>
+</Tabs>
+
 ### `headers()` functions
 <Tabs items={[
     <code>typia</code>, 
@@ -1569,7 +1708,7 @@ Also, `typia.http.query<T>()` function does not perform validation about the dec
     <code>Resolved.ts</code>
 ]}>
     <Tab>
-```typescript showLineNumbers
+```typescript
 export namespace http {
     export function headers<T extends object>(input: Headers): Resolved<T>;
     export function assertHeaders<T extends object>(input: Headers): Resolved<T>;
@@ -1595,7 +1734,7 @@ type Headers = Record<string, string | string[] | undefined>;
 ```
     </Tab>
     <Tab>
-```typescript showLineNumbers
+```typescript
 export class TypeGuardError extends Error {
     public readonly method: string;
     public readonly path: string | undefined;
@@ -1605,7 +1744,7 @@ export class TypeGuardError extends Error {
 ```
     </Tab>
     <Tab>
-```typescript showLineNumbers
+```typescript
 export type IValidation<T> =
     | IValidation.ISuccess<T>
     | IValidation.IFailure;
@@ -1627,7 +1766,7 @@ export namespace IValidation {
 ```
     </Tab>
     <Tab>
-```typescript showLineNumbers
+```typescript
 /**
  * Resolved type erased every methods.
  *
@@ -1787,13 +1926,55 @@ Also, `typia.http.headers<t>()` function does not perform validation about the d
   - `typia.http.isHeaders<T>()`: [`typia.is<T>()`](../validators/is) + `typia.http.headers<T>()`
   - `typia.http.validateHeaders<T>()`: [`typia.validate<T>()`](../validators/validate) + `typia.http.headers<T>()`
 
+<Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
+    <Tab>
+```typescript filename="examples/src/headers.ts" showLineNumbers {}
+import typia from "typia";
+
+interface IHeaders {
+    "x-Category": "x" | "y" | "z";
+    "x-MEMO"?: string;
+    "x-nAmE"?: string;
+    "x-ValUes": number[];
+    "x-FlAgS": boolean[];
+    "X-Descriptions": string[];
+}
+typia.http.createHeaders<IHeaders>();
+```
+    </Tab>
+    <Tab>
+```javascript filename="examples/bin/headers.js" showLineNumbers {}
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const typia_1 = __importDefault(require("typia"));
+input => {
+    const $number = typia_1.default.http.createHeaders.number;
+    const $boolean = typia_1.default.http.createHeaders.boolean;
+    const $string = typia_1.default.http.createHeaders.string;
+    const output = {
+        "x-Category": input["x-category"],
+        "x-MEMO": input["x-memo"],
+        "x-nAmE": input["x-name"],
+        "x-ValUes": Array.isArray(input["x-values"]) ? input["x-values"].map($number) : input["x-values"]?.split(", ")?.map($number) ?? [],
+        "x-FlAgS": Array.isArray(input["x-flags"]) ? input["x-flags"].map($boolean) : input["x-flags"]?.split(", ")?.map($boolean) ?? [],
+        "X-Descriptions": Array.isArray(input["x-descriptions"]) ? input["x-descriptions"].map($string) : input["x-descriptions"]?.split(", ")?.map($string) ?? []
+    };
+    return output;
+};
+```
+    </Tab>
+</Tabs>
+
 ### `parameter()` functions
 <Tabs items={[
     <code>typia</code>, 
     <code>TypeGuardError.ts</code>, 
 ]}>
     <Tab>
-```typescript showLineNumbers
+```typescript
 export namespace http {
     export function parameter<T extends Atomic.Type | null>(input: string): T;
     export function createParameter<T extends Atomic.Type | null>(): (
@@ -1803,7 +1984,7 @@ export namespace http {
 ```
     </Tab>
     <Tab>
-```typescript showLineNumbers
+```typescript
 export class TypeGuardError extends Error {
     public readonly method: string;
     public readonly path: string | undefined;
@@ -1819,3 +2000,72 @@ URL path parameter decoder.
 `typia.http.parameter<T>()` is a function decoding a path parameter, with automatic type casting to the expected type. When type T has beeen defined as boolean or number `type, typia.http.parameter<T>()` will cast the value to the expected type.
 
 Also, `typia.http.parameter<T>()` performs type assertion to the decoded value by combining with assert function. Therefore, when the decoded value is not following the `T` type, `TypeGuardError` would be thrown.
+
+<Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
+    <Tab>
+```typescript filename="examples/src/parameter.ts" showLineNumbers {}
+import typia, { tags } from "typia";
+
+typia.http.createParameter<string & tags.Format<"uuid">>();
+typia.http.createParameter<number & tags.Type<"uint32">>();
+```
+    </Tab>
+    <Tab>
+```javascript filename="examples/bin/parameter.js" showLineNumbers {}
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const typia_1 = __importDefault(require("typia"));
+input => {
+    const $string = typia_1.default.http.createParameter.string;
+    const assert = input => {
+        const __is = input => {
+            return "string" === typeof input && /^(?:[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}|00000000-0000-0000-0000-000000000000)$/i.test(input);
+        };
+        if (false === __is(input))
+            ((input, _path, _exceptionable = true) => {
+                const $guard = typia_1.default.http.createParameter.guard;
+                return "string" === typeof input && (/^(?:[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}|00000000-0000-0000-0000-000000000000)$/i.test(input) || $guard(true, {
+                    path: _path + "",
+                    expected: "string & Format<\"uuid\">",
+                    value: input
+                })) || $guard(true, {
+                    path: _path + "",
+                    expected: "(string & Format<\"uuid\">)",
+                    value: input
+                });
+            })(input, "$input", true);
+        return input;
+    };
+    const value = $string(input);
+    return assert(value);
+};
+input => {
+    const $number = typia_1.default.http.createParameter.number;
+    const assert = input => {
+        const __is = input => {
+            return "number" === typeof input && (Math.floor(input) === input && 0 <= input && input <= 4294967295);
+        };
+        if (false === __is(input))
+            ((input, _path, _exceptionable = true) => {
+                const $guard = typia_1.default.http.createParameter.guard;
+                return "number" === typeof input && (Math.floor(input) === input && 0 <= input && input <= 4294967295 || $guard(true, {
+                    path: _path + "",
+                    expected: "number & Type<\"uint32\">",
+                    value: input
+                })) || $guard(true, {
+                    path: _path + "",
+                    expected: "(number & Type<\"uint32\">)",
+                    value: input
+                });
+            })(input, "$input", true);
+        return input;
+    };
+    const value = $number(input);
+    return assert(value);
+};
+```
+    </Tab>
+</Tabs>
