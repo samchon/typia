@@ -3,17 +3,20 @@ import ts from "typescript";
 import { IdentifierFactory } from "../../factories/IdentifierFactory";
 import { StatementFactory } from "../../factories/StatementFactory";
 
+import { IProject } from "../../transformers/IProject";
+
 import { FunctionImporter } from "../helpers/FunctionImporeter";
 import { IExpressionEntry } from "../helpers/IExpressionEntry";
+import { check_dynamic_key } from "./check_dynamic_key";
 import { check_everything } from "./check_everything";
 import { check_object } from "./check_object";
-import { metadata_to_pattern } from "./metadata_to_pattern";
 
 /**
  * @internal
  */
 export const check_dynamic_properties =
     (props: check_object.IProps) =>
+    (project: IProject) =>
     (importer: FunctionImporter) =>
     (
         input: ts.Expression,
@@ -64,7 +67,11 @@ export const check_dynamic_properties =
                       undefined,
                       [input],
                   ),
-                  check_dynamic_property(props)(input, regular, dynamic),
+                  check_dynamic_property(props)(project)(importer)(
+                      input,
+                      regular,
+                      dynamic,
+                  ),
               ])
             : ts.factory.createCallExpression(
                   IdentifierFactory.access(
@@ -75,7 +82,13 @@ export const check_dynamic_properties =
                       ),
                   )(props.assert ? "every" : "map"),
                   undefined,
-                  [check_dynamic_property(props)(input, regular, dynamic)],
+                  [
+                      check_dynamic_property(props)(project)(importer)(
+                          input,
+                          regular,
+                          dynamic,
+                      ),
+                  ],
               );
         const right: ts.Expression = (props.halt || ((elem) => elem))(
             props.assert ? criteria : check_everything(criteria),
@@ -89,6 +102,8 @@ export const check_dynamic_properties =
 
 const check_dynamic_property =
     (props: check_object.IProps) =>
+    (project: IProject) =>
+    (importer: FunctionImporter) =>
     (
         input: ts.Expression,
         regular: IExpressionEntry<ts.Expression>[],
@@ -129,15 +144,7 @@ const check_dynamic_property =
 
         for (const entry of dynamic)
             add(
-                ts.factory.createCallExpression(
-                    ts.factory.createIdentifier(
-                        `RegExp(/${metadata_to_pattern(true)(
-                            entry.key,
-                        )}/).test`,
-                    ),
-                    undefined,
-                    [key],
-                ),
+                check_dynamic_key(project)(importer)(key, entry.key),
                 entry.expression,
             );
 

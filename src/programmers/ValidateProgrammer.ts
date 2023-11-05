@@ -97,8 +97,8 @@ export namespace ValidateProgrammer {
                                       ),
                                   ]),
                         ].reduce((x, y) => ts.factory.createLogicalAnd(x, y)),
-                    combiner: combine(equals)(importer),
-                    joiner: joiner(equals)(importer),
+                    combiner: combine(equals)(project)(importer),
+                    joiner: joiner(equals)(project)(importer),
                     success: ts.factory.createTrue(),
                     addition: () => importer.declare(modulo),
                 },
@@ -195,13 +195,14 @@ export namespace ValidateProgrammer {
 
 const combine =
     (equals: boolean) =>
+    (project: IProject) =>
     (importer: FunctionImporter): CheckerProgrammer.IConfig.Combiner =>
     (explore: CheckerProgrammer.IExplore) => {
         if (explore.tracable === false)
             return IsProgrammer.configure({
-                object: validate_object(equals)(importer),
+                object: validate_object(equals)(project)(importer),
                 numeric: true,
-            })(importer).combiner(explore);
+            })(project)(importer).combiner(explore);
 
         const path: string = explore.postfix
             ? `_path + ${explore.postfix}`
@@ -240,40 +241,42 @@ const combine =
                   );
     };
 
-const validate_object = (equals: boolean) => (importer: FunctionImporter) =>
-    check_object({
-        equals,
-        undefined: true,
-        assert: false,
-        reduce: ts.factory.createLogicalAnd,
-        positive: ts.factory.createTrue(),
-        superfluous: (value) =>
-            create_report_call()(
-                ts.factory.createAdd(
-                    ts.factory.createIdentifier("_path"),
-                    ts.factory.createCallExpression(
-                        importer.use("join"),
-                        undefined,
-                        [ts.factory.createIdentifier("key")],
+const validate_object =
+    (equals: boolean) => (project: IProject) => (importer: FunctionImporter) =>
+        check_object({
+            equals,
+            undefined: true,
+            assert: false,
+            reduce: ts.factory.createLogicalAnd,
+            positive: ts.factory.createTrue(),
+            superfluous: (value) =>
+                create_report_call()(
+                    ts.factory.createAdd(
+                        ts.factory.createIdentifier("_path"),
+                        ts.factory.createCallExpression(
+                            importer.use("join"),
+                            undefined,
+                            [ts.factory.createIdentifier("key")],
+                        ),
                     ),
+                    "undefined",
+                    value,
                 ),
-                "undefined",
-                value,
-            ),
-        halt: (expr) =>
-            ts.factory.createLogicalOr(
-                ts.factory.createStrictEquality(
-                    ts.factory.createFalse(),
-                    ts.factory.createIdentifier("_exceptionable"),
+            halt: (expr) =>
+                ts.factory.createLogicalOr(
+                    ts.factory.createStrictEquality(
+                        ts.factory.createFalse(),
+                        ts.factory.createIdentifier("_exceptionable"),
+                    ),
+                    expr,
                 ),
-                expr,
-            ),
-    })(importer);
+        })(project)(importer);
 
 const joiner =
     (equals: boolean) =>
+    (project: IProject) =>
     (importer: FunctionImporter): CheckerProgrammer.IConfig.IJoiner => ({
-        object: validate_object(equals)(importer),
+        object: validate_object(equals)(project)(importer),
         array: (input, arrow) =>
             check_everything(
                 ts.factory.createCallExpression(

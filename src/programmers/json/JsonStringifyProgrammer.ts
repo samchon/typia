@@ -905,7 +905,7 @@ export namespace JsonStringifyProgrammer {
                     decoder: () => decode_object(importer),
                     joiner: StringifyJoiner.object(importer),
                     unionizer: decode_union_object(
-                        IsProgrammer.decode_object(importer),
+                        IsProgrammer.decode_object(project)(importer),
                     )(decode_object(importer))((exp) => exp)(
                         (value, expected) =>
                             create_throw_error(importer)(expected)(value),

@@ -91,8 +91,8 @@ export namespace AssertProgrammer {
                                   ),
                               ]),
                     ].reduce((x, y) => ts.factory.createLogicalAnd(x, y)),
-                combiner: combiner(equals)(importer),
-                joiner: joiner(equals)(importer),
+                combiner: combiner(equals)(project)(importer),
+                joiner: joiner(equals)(project)(importer),
                 success: ts.factory.createTrue(),
                 addition: () => importer.declare(modulo),
             })(importer)(type, name);
@@ -148,13 +148,14 @@ export namespace AssertProgrammer {
 
     const combiner =
         (equals: boolean) =>
+        (project: IProject) =>
         (importer: FunctionImporter): CheckerProgrammer.IConfig.Combiner =>
         (explore: CheckerProgrammer.IExplore) => {
             if (explore.tracable === false)
                 return IsProgrammer.configure({
-                    object: assert_object(equals)(importer),
+                    object: assert_object(equals)(project)(importer),
                     numeric: true,
-                })(importer).combiner(explore);
+                })(project)(importer).combiner(explore);
 
             const path: string = explore.postfix
                 ? `_path + ${explore.postfix}`
@@ -219,40 +220,44 @@ export namespace AssertProgrammer {
             //   })();
         };
 
-    const assert_object = (equals: boolean) => (importer: FunctionImporter) =>
-        check_object({
-            equals,
-            assert: true,
-            undefined: true,
-            reduce: ts.factory.createLogicalAnd,
-            positive: ts.factory.createTrue(),
-            superfluous: (value) =>
-                create_guard_call(importer)()(
-                    ts.factory.createAdd(
-                        ts.factory.createIdentifier("_path"),
-                        ts.factory.createCallExpression(
-                            importer.use("join"),
-                            undefined,
-                            [ts.factory.createIdentifier("key")],
+    const assert_object =
+        (equals: boolean) =>
+        (project: IProject) =>
+        (importer: FunctionImporter) =>
+            check_object({
+                equals,
+                assert: true,
+                undefined: true,
+                reduce: ts.factory.createLogicalAnd,
+                positive: ts.factory.createTrue(),
+                superfluous: (value) =>
+                    create_guard_call(importer)()(
+                        ts.factory.createAdd(
+                            ts.factory.createIdentifier("_path"),
+                            ts.factory.createCallExpression(
+                                importer.use("join"),
+                                undefined,
+                                [ts.factory.createIdentifier("key")],
+                            ),
                         ),
+                        "undefined",
+                        value,
                     ),
-                    "undefined",
-                    value,
-                ),
-            halt: (expr) =>
-                ts.factory.createLogicalOr(
-                    ts.factory.createStrictEquality(
-                        ts.factory.createFalse(),
-                        ts.factory.createIdentifier("_exceptionable"),
+                halt: (expr) =>
+                    ts.factory.createLogicalOr(
+                        ts.factory.createStrictEquality(
+                            ts.factory.createFalse(),
+                            ts.factory.createIdentifier("_exceptionable"),
+                        ),
+                        expr,
                     ),
-                    expr,
-                ),
-        })(importer);
+            })(project)(importer);
 
     const joiner =
         (equals: boolean) =>
+        (project: IProject) =>
         (importer: FunctionImporter): CheckerProgrammer.IConfig.IJoiner => ({
-            object: assert_object(equals)(importer),
+            object: assert_object(equals)(project)(importer),
             array: (input, arrow) =>
                 ts.factory.createCallExpression(
                     IdentifierFactory.access(input)("every"),
