@@ -11,7 +11,7 @@ export const test_json_createAssertStringify_ObjectDynamic =
                         Object.keys(input).every((key: any) => {
                             const value = input[key];
                             if (undefined === value) return true;
-                            if (RegExp(/(.*)/).test(key))
+                            if (true)
                                 return (
                                     "string" === typeof value ||
                                     ("number" === typeof value &&
@@ -46,7 +46,7 @@ export const test_json_createAssertStringify_ObjectDynamic =
                             Object.keys(input).every((key: any) => {
                                 const value = input[key];
                                 if (undefined === value) return true;
-                                if (RegExp(/(.*)/).test(key))
+                                if (true)
                                     return (
                                         "string" === typeof value ||
                                         ("number" === typeof value &&

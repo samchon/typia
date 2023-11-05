@@ -12,7 +12,7 @@ export const test_validate_ObjectDynamic = _test_validate(
                 Object.keys(input).every((key: any) => {
                     const value = input[key];
                     if (undefined === value) return true;
-                    if (RegExp(/(.*)/).test(key))
+                    if (true)
                         return (
                             "string" === typeof value ||
                             ("number" === typeof value &&
@@ -47,7 +47,7 @@ export const test_validate_ObjectDynamic = _test_validate(
                                 .map((key: any) => {
                                     const value = input[key];
                                     if (undefined === value) return true;
-                                    if (RegExp(/(.*)/).test(key))
+                                    if (true)
                                         return (
                                             "string" === typeof value ||
                                             ("number" === typeof value &&

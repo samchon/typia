@@ -10,8 +10,7 @@ export const test_json_createIsStringify_DynamicNever = _test_json_isStringify(
             Object.keys(input).every((key: any) => {
                 const value = input[key];
                 if (undefined === value) return true;
-                if (RegExp(/(.*)/).test(key))
-                    return null !== value && undefined === value;
+                if (true) return null !== value && undefined === value;
                 return true;
             });
         return (

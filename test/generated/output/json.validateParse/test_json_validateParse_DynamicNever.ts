@@ -13,8 +13,7 @@ export const test_json_validateParse_DynamicNever = _test_json_validateParse(
                     Object.keys(input).every((key: any) => {
                         const value = input[key];
                         if (undefined === value) return true;
-                        if (RegExp(/(.*)/).test(key))
-                            return null !== value && undefined === value;
+                        if (true) return null !== value && undefined === value;
                         return true;
                     });
                 return (
@@ -45,7 +44,7 @@ export const test_json_validateParse_DynamicNever = _test_json_validateParse(
                                     .map((key: any) => {
                                         const value = input[key];
                                         if (undefined === value) return true;
-                                        if (RegExp(/(.*)/).test(key))
+                                        if (true)
                                             return (
                                                 (null !== value ||
                                                     $report(_exceptionable, {

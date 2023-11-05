@@ -12,7 +12,7 @@ export const test_json_createValidateParse_DynamicNever =
                         Object.keys(input).every((key: any) => {
                             const value = input[key];
                             if (undefined === value) return true;
-                            if (RegExp(/(.*)/).test(key))
+                            if (true)
                                 return null !== value && undefined === value;
                             return true;
                         });
@@ -46,7 +46,7 @@ export const test_json_createValidateParse_DynamicNever =
                                             const value = input[key];
                                             if (undefined === value)
                                                 return true;
-                                            if (RegExp(/(.*)/).test(key))
+                                            if (true)
                                                 return (
                                                     (null !== value ||
                                                         $report(

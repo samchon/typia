@@ -25,7 +25,7 @@ export const test_notation_validateSnake_DynamicTree =
                             Object.keys(input).every((key: any) => {
                                 const value = input[key];
                                 if (undefined === value) return true;
-                                if (RegExp(/(.*)/).test(key))
+                                if (true)
                                     return (
                                         "object" === typeof value &&
                                         null !== value &&
@@ -103,7 +103,7 @@ export const test_notation_validateSnake_DynamicTree =
                                                 const value = input[key];
                                                 if (undefined === value)
                                                     return true;
-                                                if (RegExp(/(.*)/).test(key))
+                                                if (true)
                                                     return (
                                                         ((("object" ===
                                                             typeof value &&
@@ -182,7 +182,7 @@ export const test_notation_validateSnake_DynamicTree =
                         Object.keys(input).every((key: any) => {
                             const value = input[key];
                             if (undefined === value) return true;
-                            if (RegExp(/(.*)/).test(key))
+                            if (true)
                                 return (
                                     "object" === typeof value &&
                                     null !== value &&
@@ -236,7 +236,7 @@ export const test_notation_validateSnake_DynamicTree =
                     Object.keys(input).every((key: any) => {
                         const value = input[key];
                         if (undefined === value) return true;
-                        if (RegExp(/(.*)/).test(key))
+                        if (true)
                             return (
                                 "object" === typeof value &&
                                 null !== value &&
@@ -301,7 +301,7 @@ export const test_notation_validateSnake_DynamicTree =
                         Object.keys(input).every((key: any) => {
                             const value = input[key];
                             if (undefined === value) return true;
-                            if (RegExp(/(.*)/).test(key))
+                            if (true)
                                 return (
                                     ((("object" === typeof value &&
                                         null !== value) ||
