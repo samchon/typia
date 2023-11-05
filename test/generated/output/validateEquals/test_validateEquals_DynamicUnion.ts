@@ -20,18 +20,24 @@ export const test_validateEquals_DynamicUnion = _test_validateEquals(
                     const value = input[key];
                     if (undefined === value) return true;
                     if (
-                        RegExp(/^[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?$/).test(
-                            key,
-                        )
+                        "number" === typeof Number(key) &&
+                        Number.isFinite(Number(key))
                     )
                         return "string" === typeof value;
-                    if (RegExp(/^(prefix_(.*))/).test(key))
-                        return "string" === typeof value;
-                    if (RegExp(/((.*)_postfix)$/).test(key))
+                    if (
+                        "string" === typeof key &&
+                        RegExp(/^prefix_(.*)/).test(key)
+                    )
                         return "string" === typeof value;
                     if (
+                        "string" === typeof key &&
+                        RegExp(/(.*)_postfix$/).test(key)
+                    )
+                        return "string" === typeof value;
+                    if (
+                        "string" === typeof key &&
                         RegExp(
-                            /^(value_between_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?_and_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
+                            /^value_between_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?_and_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?$/,
                         ).test(key)
                     )
                         return (
@@ -66,9 +72,8 @@ export const test_validateEquals_DynamicUnion = _test_validateEquals(
                                     const value = input[key];
                                     if (undefined === value) return true;
                                     if (
-                                        RegExp(
-                                            /^[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?$/,
-                                        ).test(key)
+                                        "number" === typeof Number(key) &&
+                                        Number.isFinite(Number(key))
                                     )
                                         return (
                                             "string" === typeof value ||
@@ -78,16 +83,10 @@ export const test_validateEquals_DynamicUnion = _test_validateEquals(
                                                 value: value,
                                             })
                                         );
-                                    if (RegExp(/^(prefix_(.*))/).test(key))
-                                        return (
-                                            "string" === typeof value ||
-                                            $report(_exceptionable, {
-                                                path: _path + $join(key),
-                                                expected: "string",
-                                                value: value,
-                                            })
-                                        );
-                                    if (RegExp(/((.*)_postfix)$/).test(key))
+                                    if (
+                                        "string" === typeof key &&
+                                        RegExp(/^prefix_(.*)/).test(key)
+                                    )
                                         return (
                                             "string" === typeof value ||
                                             $report(_exceptionable, {
@@ -97,8 +96,21 @@ export const test_validateEquals_DynamicUnion = _test_validateEquals(
                                             })
                                         );
                                     if (
+                                        "string" === typeof key &&
+                                        RegExp(/(.*)_postfix$/).test(key)
+                                    )
+                                        return (
+                                            "string" === typeof value ||
+                                            $report(_exceptionable, {
+                                                path: _path + $join(key),
+                                                expected: "string",
+                                                value: value,
+                                            })
+                                        );
+                                    if (
+                                        "string" === typeof key &&
                                         RegExp(
-                                            /^(value_between_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?_and_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
+                                            /^value_between_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?_and_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?$/,
                                         ).test(key)
                                     )
                                         return (

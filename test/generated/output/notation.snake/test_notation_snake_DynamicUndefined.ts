@@ -19,7 +19,7 @@ export const test_notation_validateSnake_DynamicUndefined =
                             Object.keys(input).every((key: any) => {
                                 const value = input[key];
                                 if (undefined === value) return true;
-                                if (RegExp(/(.*)/).test(key))
+                                if (true)
                                     return (
                                         null !== value && undefined === value
                                     );
@@ -55,7 +55,7 @@ export const test_notation_validateSnake_DynamicUndefined =
                                                 const value = input[key];
                                                 if (undefined === value)
                                                     return true;
-                                                if (RegExp(/(.*)/).test(key))
+                                                if (true)
                                                     return (
                                                         (null !== value ||
                                                             $report(
@@ -144,8 +144,7 @@ export const test_notation_validateSnake_DynamicUndefined =
                     Object.keys(input).every((key: any) => {
                         const value = input[key];
                         if (undefined === value) return true;
-                        if (RegExp(/(.*)/).test(key))
-                            return null !== value && undefined === value;
+                        if (true) return null !== value && undefined === value;
                         return true;
                     });
                 return (
@@ -172,7 +171,7 @@ export const test_notation_validateSnake_DynamicUndefined =
                         Object.keys(input).every((key: any) => {
                             const value = input[key];
                             if (undefined === value) return true;
-                            if (RegExp(/(.*)/).test(key))
+                            if (true)
                                 return (
                                     (null !== value ||
                                         $guard(_exceptionable, {

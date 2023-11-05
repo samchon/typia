@@ -16,7 +16,7 @@ export const test_misc_isClone_DynamicArray = _test_misc_isClone(
                 Object.keys(input).every((key: any) => {
                     const value = input[key];
                     if (undefined === value) return true;
-                    if (RegExp(/(.*)/).test(key))
+                    if (true)
                         return (
                             Array.isArray(value) &&
                             value.every((elem: any) => "string" === typeof elem)
@@ -30,7 +30,7 @@ export const test_misc_isClone_DynamicArray = _test_misc_isClone(
                 Object.keys(input).every((key: any) => {
                     const value = input[key];
                     if (undefined === value) return true;
-                    if (RegExp(/(.*)/).test(key))
+                    if (true)
                         return (
                             Array.isArray(value) &&
                             value.every((elem: any) => "string" === typeof elem)

@@ -13,8 +13,7 @@ export const test_misc_validateClone_DynamicNever = _test_misc_validateClone(
                     Object.keys(input).every((key: any) => {
                         const value = input[key];
                         if (undefined === value) return true;
-                        if (RegExp(/(.*)/).test(key))
-                            return null !== value && undefined === value;
+                        if (true) return null !== value && undefined === value;
                         return true;
                     });
                 return (
@@ -45,7 +44,7 @@ export const test_misc_validateClone_DynamicNever = _test_misc_validateClone(
                                     .map((key: any) => {
                                         const value = input[key];
                                         if (undefined === value) return true;
-                                        if (RegExp(/(.*)/).test(key))
+                                        if (true)
                                             return (
                                                 (null !== value ||
                                                     $report(_exceptionable, {

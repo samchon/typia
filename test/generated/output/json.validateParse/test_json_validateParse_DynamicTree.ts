@@ -21,7 +21,7 @@ export const test_json_validateParse_DynamicTree = _test_json_validateParse(
                     Object.keys(input).every((key: any) => {
                         const value = input[key];
                         if (undefined === value) return true;
-                        if (RegExp(/(.*)/).test(key))
+                        if (true)
                             return (
                                 "object" === typeof value &&
                                 null !== value &&
@@ -92,7 +92,7 @@ export const test_json_validateParse_DynamicTree = _test_json_validateParse(
                                     .map((key: any) => {
                                         const value = input[key];
                                         if (undefined === value) return true;
-                                        if (RegExp(/(.*)/).test(key))
+                                        if (true)
                                             return (
                                                 ((("object" === typeof value &&
                                                     null !== value) ||

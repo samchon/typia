@@ -519,7 +519,7 @@ export const test_misc_validateClone_UltimateUnion = _test_misc_validateClone(
                     Object.keys(input).every((key: any) => {
                         const value = input[key];
                         if (undefined === value) return true;
-                        if (RegExp(/(.*)/).test(key))
+                        if (true)
                             return (
                                 "object" === typeof value &&
                                 null !== value &&
@@ -586,7 +586,7 @@ export const test_misc_validateClone_UltimateUnion = _test_misc_validateClone(
                     Object.keys(input).every((key: any) => {
                         const value = input[key];
                         if (undefined === value) return true;
-                        if (RegExp(/(.*)/).test(key))
+                        if (true)
                             return (
                                 "object" === typeof value &&
                                 null !== value &&
@@ -3581,7 +3581,7 @@ export const test_misc_validateClone_UltimateUnion = _test_misc_validateClone(
                                     .map((key: any) => {
                                         const value = input[key];
                                         if (undefined === value) return true;
-                                        if (RegExp(/(.*)/).test(key))
+                                        if (true)
                                             return (
                                                 ((("object" === typeof value &&
                                                     null !== value &&
@@ -3869,7 +3869,7 @@ export const test_misc_validateClone_UltimateUnion = _test_misc_validateClone(
                                     .map((key: any) => {
                                         const value = input[key];
                                         if (undefined === value) return true;
-                                        if (RegExp(/(.*)/).test(key))
+                                        if (true)
                                             return (
                                                 ((("object" === typeof value &&
                                                     null !== value &&
@@ -6931,7 +6931,7 @@ export const test_misc_validateClone_UltimateUnion = _test_misc_validateClone(
                 Object.keys(input).every((key: any) => {
                     const value = input[key];
                     if (undefined === value) return true;
-                    if (RegExp(/(.*)/).test(key))
+                    if (true)
                         return (
                             "object" === typeof value &&
                             null !== value &&
@@ -6993,7 +6993,7 @@ export const test_misc_validateClone_UltimateUnion = _test_misc_validateClone(
                 Object.keys(input).every((key: any) => {
                     const value = input[key];
                     if (undefined === value) return true;
-                    if (RegExp(/(.*)/).test(key))
+                    if (true)
                         return (
                             "object" === typeof value &&
                             null !== value &&

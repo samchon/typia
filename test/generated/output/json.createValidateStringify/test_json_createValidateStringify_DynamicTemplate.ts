@@ -13,13 +13,20 @@ export const test_json_createValidateStringify_DynamicTemplate =
                     Object.keys(input).every((key: any) => {
                         const value = input[key];
                         if (undefined === value) return true;
-                        if (RegExp(/^(prefix_(.*))/).test(key))
-                            return "string" === typeof value;
-                        if (RegExp(/((.*)_postfix)$/).test(key))
+                        if (
+                            "string" === typeof key &&
+                            RegExp(/^prefix_(.*)/).test(key)
+                        )
                             return "string" === typeof value;
                         if (
+                            "string" === typeof key &&
+                            RegExp(/(.*)_postfix$/).test(key)
+                        )
+                            return "string" === typeof value;
+                        if (
+                            "string" === typeof key &&
                             RegExp(
-                                /^(value_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
+                                /^value_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?$/,
                             ).test(key)
                         )
                             return (
@@ -27,8 +34,9 @@ export const test_json_createValidateStringify_DynamicTemplate =
                                 Number.isFinite(value)
                             );
                         if (
+                            "string" === typeof key &&
                             RegExp(
-                                /^(between_(.*)_and_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
+                                /^between_(.*)_and_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?$/,
                             ).test(key)
                         )
                             return "boolean" === typeof value;
@@ -63,16 +71,10 @@ export const test_json_createValidateStringify_DynamicTemplate =
                                     .map((key: any) => {
                                         const value = input[key];
                                         if (undefined === value) return true;
-                                        if (RegExp(/^(prefix_(.*))/).test(key))
-                                            return (
-                                                "string" === typeof value ||
-                                                $report(_exceptionable, {
-                                                    path: _path + $join(key),
-                                                    expected: "string",
-                                                    value: value,
-                                                })
-                                            );
-                                        if (RegExp(/((.*)_postfix)$/).test(key))
+                                        if (
+                                            "string" === typeof key &&
+                                            RegExp(/^prefix_(.*)/).test(key)
+                                        )
                                             return (
                                                 "string" === typeof value ||
                                                 $report(_exceptionable, {
@@ -82,8 +84,21 @@ export const test_json_createValidateStringify_DynamicTemplate =
                                                 })
                                             );
                                         if (
+                                            "string" === typeof key &&
+                                            RegExp(/(.*)_postfix$/).test(key)
+                                        )
+                                            return (
+                                                "string" === typeof value ||
+                                                $report(_exceptionable, {
+                                                    path: _path + $join(key),
+                                                    expected: "string",
+                                                    value: value,
+                                                })
+                                            );
+                                        if (
+                                            "string" === typeof key &&
                                             RegExp(
-                                                /^(value_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
+                                                /^value_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?$/,
                                             ).test(key)
                                         )
                                             return (
@@ -96,8 +111,9 @@ export const test_json_createValidateStringify_DynamicTemplate =
                                                 })
                                             );
                                         if (
+                                            "string" === typeof key &&
                                             RegExp(
-                                                /^(between_(.*)_and_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
+                                                /^between_(.*)_and_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?$/,
                                             ).test(key)
                                         )
                                             return (

@@ -658,7 +658,7 @@ export namespace NotationGeneralProgrammer {
                     decoder: () => decode_object(importer),
                     joiner: NotationJoiner.object(rename),
                     unionizer: decode_union_object(
-                        IsProgrammer.decode_object(importer),
+                        IsProgrammer.decode_object(project)(importer),
                     )(decode_object(importer))((exp) => exp)(
                         (input, expected) =>
                             create_throw_error(importer)(expected)(input),

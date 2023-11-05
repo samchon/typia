@@ -21,6 +21,7 @@ import { feature_object_entries } from "./internal/feature_object_entries";
 export namespace IsProgrammer {
     export const configure =
         (options?: Partial<CONFIG.IOptions>) =>
+        (project: IProject) =>
         (importer: FunctionImporter): CheckerProgrammer.IConfig => ({
             prefix: "$i",
             equals: !!options?.object,
@@ -79,7 +80,7 @@ export namespace IsProgrammer {
                         reduce: ts.factory.createLogicalAnd,
                         positive: ts.factory.createTrue(),
                         superfluous: () => ts.factory.createFalse(),
-                    })(importer),
+                    })(project)(importer),
                 array: (input, arrow) =>
                     ts.factory.createCallExpression(
                         IdentifierFactory.access(input)("every"),
@@ -126,9 +127,9 @@ export namespace IsProgrammer {
                         reduce: ts.factory.createLogicalAnd,
                         positive: ts.factory.createTrue(),
                         superfluous: () => ts.factory.createFalse(),
-                    })(importer),
+                    })(project)(importer),
                     numeric: OptionPredicator.numeric(project.options),
-                })(importer),
+                })(project)(importer),
                 trace: equals,
                 addition: () => importer.declare(modulo),
             };
@@ -185,7 +186,7 @@ export namespace IsProgrammer {
         (project: IProject) =>
         (importer: FunctionImporter) =>
         (collection: MetadataCollection) => {
-            const config = configure()(importer);
+            const config = configure()(project)(importer);
             const objects =
                 CheckerProgrammer.write_object_functions(project)(config)(
                     importer,
@@ -223,10 +224,15 @@ export namespace IsProgrammer {
         DECODERS
     ----------------------------------------------------------- */
     export const decode = (project: IProject) => (importer: FunctionImporter) =>
-        CheckerProgrammer.decode(project)(configure()(importer))(importer);
+        CheckerProgrammer.decode(project)(configure()(project)(importer))(
+            importer,
+        );
 
-    export const decode_object = (importer: FunctionImporter) =>
-        CheckerProgrammer.decode_object(configure()(importer))(importer);
+    export const decode_object =
+        (project: IProject) => (importer: FunctionImporter) =>
+            CheckerProgrammer.decode_object(configure()(project)(importer))(
+                importer,
+            );
 
     export const decode_to_json =
         (checkNull: boolean) =>

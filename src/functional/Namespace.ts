@@ -18,6 +18,7 @@ import { $join } from "./$join";
 import { $number } from "./$number";
 import { $report } from "./$report";
 import { $rest } from "./$rest";
+import { $is_bigint_string } from "./$stoll";
 import { $string } from "./$string";
 import { $strlen } from "./$strlen";
 import { $tail } from "./$tail";
@@ -28,6 +29,7 @@ import { $tail } from "./$tail";
 export namespace Namespace {
     export const is = () => ({
         is_between: $is_between,
+        is_bigint_string: $is_bigint_string,
     });
 
     export const assert = (method: string) => ({
@@ -97,11 +99,13 @@ export namespace Namespace {
 
     export namespace protobuf {
         export const decode = (method: string) => ({
+            ...is(),
             Reader: $ProtobufReader,
             throws: $throws(`protobuf.${method}`),
         });
 
         export const encode = (method: string) => ({
+            ...is(),
             Sizer: $ProtobufSizer,
             Writer: $ProtobufWriter,
             strlen: $strlen,

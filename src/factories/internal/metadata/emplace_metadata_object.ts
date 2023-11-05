@@ -126,6 +126,34 @@ export const emplace_metadata_object =
             const key: Metadata = analyzer(index.keyType)(null);
             const value: Metadata = analyzer(index.type)({});
 
+            if (
+                key.atomics.length +
+                    key.constants
+                        .map((c) => c.values.length)
+                        .reduce((a, b) => a + b, 0) +
+                    key.templates.length +
+                    key.natives.filter(
+                        (type) =>
+                            type === "Boolean" ||
+                            type === "BigInt" ||
+                            type === "Number" ||
+                            type === "String",
+                    ).length !==
+                key.size()
+            )
+                errors.push({
+                    name: key.getName(),
+                    explore: {
+                        top: false,
+                        object: obj,
+                        property: "[key]",
+                        nested: null,
+                        escaped: false,
+                        aliased: false,
+                    },
+                    messages: [],
+                });
+
             // INSERT WITH REQUIRED CONFIGURATION
             insert(key)(value)(
                 index.declaration?.parent

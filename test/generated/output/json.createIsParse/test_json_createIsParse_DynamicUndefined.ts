@@ -11,8 +11,7 @@ export const test_json_createIsParse_DynamicUndefined = _test_json_isParse(
                 Object.keys(input).every((key: any) => {
                     const value = input[key];
                     if (undefined === value) return true;
-                    if (RegExp(/(.*)/).test(key))
-                        return null !== value && undefined === value;
+                    if (true) return null !== value && undefined === value;
                     return true;
                 });
             return (

@@ -16,7 +16,7 @@ export const test_misc_createIsClone_DynamicSimple = _test_misc_isClone(
                 Object.keys(input).every((key: any) => {
                     const value = input[key];
                     if (undefined === value) return true;
-                    if (RegExp(/(.*)/).test(key))
+                    if (true)
                         return (
                             "number" === typeof value && Number.isFinite(value)
                         );
@@ -29,8 +29,7 @@ export const test_misc_createIsClone_DynamicSimple = _test_misc_isClone(
                 Object.keys(input).every((key: any) => {
                     const value = input[key];
                     if (undefined === value) return true;
-                    if (RegExp(/(.*)/).test(key))
-                        return "number" === typeof value;
+                    if (true) return "number" === typeof value;
                     return true;
                 });
             const $co0 = (input: any): any => ({
