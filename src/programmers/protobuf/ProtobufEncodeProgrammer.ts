@@ -765,7 +765,7 @@ export namespace ProtobufEncodeProgrammer {
 
             if (specList.length === 0) {
                 const condition: ts.Expression = decode_union_object(
-                    IsProgrammer.decode_object(importer),
+                    IsProgrammer.decode_object(project)(importer),
                 )((i, o, e) =>
                     ExpressionFactory.selfCall(
                         decode_object(project)(importer)(indexes!.get(o)!)(
