@@ -60,6 +60,7 @@ export namespace Compiler {
         getNewLine: () => "\n",
         getCanonicalFileName: (file) => file,
         useCaseSensitiveFileNames: () => false,
+        jsDocParsingMode: ts.JSDocParsingMode.ParseAll,
       });
       (window as any).checker = program.getTypeChecker();
       (window as any).source = source;
