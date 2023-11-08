@@ -386,11 +386,7 @@ export namespace NotationGeneralProgrammer {
                     ts.factory.createCallExpression(
                         IdentifierFactory.access(input)("slice"),
                         undefined,
-                        [
-                            ts.factory.createNumericLiteral(
-                                tuple.elements.length - 1,
-                            ),
-                        ],
+                        [ExpressionFactory.number(tuple.elements.length - 1)],
                     ),
                     wrap_metadata_rest_tuple(tuple.elements.at(-1)!.rest!),
                     {

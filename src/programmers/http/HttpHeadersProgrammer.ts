@@ -196,7 +196,7 @@ export namespace HttpHeadersProgrammer {
                     const access = IdentifierFactory.access(output)(key);
                     return ts.factory.createIfStatement(
                         ts.factory.createStrictEquality(
-                            ts.factory.createNumericLiteral(0),
+                            ExpressionFactory.number(0),
                             IdentifierFactory.access(access)("length"),
                         ),
                         ts.factory.createExpressionStatement(

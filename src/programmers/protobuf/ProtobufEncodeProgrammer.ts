@@ -554,7 +554,7 @@ export namespace ProtobufEncodeProgrammer {
                     [
                         ts.factory.createIfStatement(
                             ts.factory.createStrictInequality(
-                                ts.factory.createNumericLiteral(0),
+                                ExpressionFactory.number(0),
                                 IdentifierFactory.access(input)("length"),
                             ),
                             block,
@@ -703,7 +703,7 @@ export namespace ProtobufEncodeProgrammer {
             ts.factory.createCallExpression(
                 IdentifierFactory.access(WRITER())("uint32"),
                 undefined,
-                [ts.factory.createNumericLiteral((index << 3) | wire)],
+                [ExpressionFactory.number((index << 3) | wire)],
             );
 
     const get_standalone_wire = (meta: Metadata): ProtobufWire => {

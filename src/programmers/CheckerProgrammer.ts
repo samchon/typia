@@ -779,7 +779,7 @@ export namespace CheckerProgrammer {
                               IdentifierFactory.access(input)("slice"),
                               undefined,
                               [
-                                  ts.factory.createNumericLiteral(
+                                  ExpressionFactory.number(
                                       tuple.elements.length - 1,
                                   ),
                               ],
@@ -809,7 +809,7 @@ export namespace CheckerProgrammer {
                                       expression:
                                           ts.factory.createStrictEquality(
                                               arrayLength,
-                                              ts.factory.createNumericLiteral(
+                                              ExpressionFactory.number(
                                                   tuple.elements.length,
                                               ),
                                           ),
@@ -820,7 +820,7 @@ export namespace CheckerProgrammer {
                                       combined: false,
                                       expression: ts.factory.createLogicalAnd(
                                           ts.factory.createLessThanEquals(
-                                              ts.factory.createNumericLiteral(
+                                              ExpressionFactory.number(
                                                   tuple.elements.filter(
                                                       (t) =>
                                                           t.optional === false,
@@ -829,7 +829,7 @@ export namespace CheckerProgrammer {
                                               arrayLength,
                                           ),
                                           ts.factory.createGreaterThanEquals(
-                                              ts.factory.createNumericLiteral(
+                                              ExpressionFactory.number(
                                                   tuple.elements.length,
                                               ),
                                               arrayLength,

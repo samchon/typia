@@ -1,5 +1,6 @@
 import ts from "typescript";
 
+import { ExpressionFactory } from "../../factories/ExpressionFactory";
 import { IdentifierFactory } from "../../factories/IdentifierFactory";
 import { StatementFactory } from "../../factories/StatementFactory";
 import { TypeFactory } from "../../factories/TypeFactory";
@@ -159,7 +160,7 @@ export const check_union_array_like =
                 StatementFactory.constant("top", accessor.front(input)),
                 ts.factory.createIfStatement(
                     ts.factory.createStrictEquality(
-                        ts.factory.createNumericLiteral(0),
+                        ExpressionFactory.number(0),
                         accessor.size(input),
                     ),
                     ts.isReturnStatement(props.empty)
@@ -198,7 +199,7 @@ export const check_union_array_like =
                 ),
                 ts.factory.createIfStatement(
                     ts.factory.createStrictEquality(
-                        ts.factory.createNumericLiteral(1),
+                        ExpressionFactory.number(1),
                         ts.factory.createIdentifier("passed.length"),
                     ),
                     ts.factory.createReturnStatement(
@@ -215,7 +216,7 @@ export const check_union_array_like =
                     ),
                     ts.factory.createIfStatement(
                         ts.factory.createLessThan(
-                            ts.factory.createNumericLiteral(1),
+                            ExpressionFactory.number(1),
                             ts.factory.createIdentifier("passed.length"),
                         ),
                         iterate("pred")(ts.factory.createIdentifier("passed"))(
