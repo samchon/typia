@@ -1,5 +1,7 @@
 import ts from "typescript";
 
+import { ExpressionFactory } from "../../factories/ExpressionFactory";
+
 import { IMetadataTypeTag } from "../../schemas/metadata/IMetadataTypeTag";
 
 export namespace RandomRanger {
@@ -30,8 +32,8 @@ export namespace RandomRanger {
                 coalesce("integer"),
                 undefined,
                 [
-                    ts.factory.createNumericLiteral(props.minimum),
-                    ts.factory.createNumericLiteral(props.maximum),
+                    ExpressionFactory.number(props.minimum),
+                    ExpressionFactory.number(props.maximum),
                 ],
             );
         };

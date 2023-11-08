@@ -1,5 +1,6 @@
 import ts from "typescript";
 
+import { ExpressionFactory } from "../factories/ExpressionFactory";
 import { IdentifierFactory } from "../factories/IdentifierFactory";
 import { StatementFactory } from "../factories/StatementFactory";
 import { TypeFactory } from "../factories/TypeFactory";
@@ -176,7 +177,7 @@ export namespace ValidateProgrammer {
                         StatementFactory.constant(
                             "success",
                             ts.factory.createStrictEquality(
-                                ts.factory.createNumericLiteral(0),
+                                ExpressionFactory.number(0),
                                 ts.factory.createIdentifier("errors.length"),
                             ),
                         ),

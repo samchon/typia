@@ -123,7 +123,7 @@ export namespace RandomProgrammer {
                             IdentifierFactory.parameter(
                                 "_depth",
                                 TypeFactory.keyword("number"),
-                                ts.factory.createNumericLiteral(0),
+                                ExpressionFactory.number(0),
                             ),
                         ],
                         TypeFactory.keyword("any"),
@@ -163,7 +163,7 @@ export namespace RandomProgrammer {
                                 IdentifierFactory.parameter(
                                     "_depth",
                                     TypeFactory.keyword("number"),
-                                    ts.factory.createNumericLiteral(0),
+                                    ExpressionFactory.number(0),
                                 ),
                             ],
                             TypeFactory.keyword("any"),
@@ -204,7 +204,7 @@ export namespace RandomProgrammer {
                                 IdentifierFactory.parameter(
                                     "_depth",
                                     TypeFactory.keyword("number"),
-                                    ts.factory.createNumericLiteral(0),
+                                    ExpressionFactory.number(0),
                                 ),
                             ],
                             TypeFactory.keyword("any"),
@@ -312,7 +312,7 @@ export namespace RandomProgrammer {
         typeof value === "boolean"
             ? ts.factory.createIdentifier(value.toString())
             : typeof value === "number"
-            ? ts.factory.createNumericLiteral(value)
+            ? ExpressionFactory.number(value)
             : typeof value === "string"
             ? ts.factory.createStringLiteral(value)
             : ExpressionFactory.bigint(Number(value));
@@ -346,8 +346,7 @@ export namespace RandomProgrammer {
                 return random_custom(COALESCE(importer))("number")(tags)(
                     RandomRanger.number({
                         type,
-                        transform: (value) =>
-                            ts.factory.createNumericLiteral(value),
+                        transform: (value) => ExpressionFactory.number(value),
                         setter: (args) =>
                             ts.factory.createCallExpression(
                                 type !== "double" || multiply !== undefined
@@ -355,7 +354,7 @@ export namespace RandomProgrammer {
                                     : COALESCE(importer)("number"),
                                 undefined,
                                 args.map((val) =>
-                                    ts.factory.createNumericLiteral(val),
+                                    ExpressionFactory.number(val),
                                 ),
                             ),
                     })({
@@ -469,10 +468,10 @@ export namespace RandomProgrammer {
                             ts.factory.createTrue(),
                             explore.recursive
                                 ? ts.factory.createAdd(
-                                      ts.factory.createNumericLiteral(1),
+                                      ExpressionFactory.number(1),
                                       ts.factory.createIdentifier("_depth"),
                                   )
-                                : ts.factory.createNumericLiteral(0),
+                                : ExpressionFactory.number(0),
                         ],
                     ),
                 );
@@ -485,7 +484,7 @@ export namespace RandomProgrammer {
                           ts.factory.createLogicalAnd(
                               ts.factory.createIdentifier("_recursive"),
                               ts.factory.createLessThan(
-                                  ts.factory.createNumericLiteral(5),
+                                  ExpressionFactory.number(5),
                                   ts.factory.createIdentifier("_depth"),
                               ),
                           ),
@@ -512,10 +511,10 @@ export namespace RandomProgrammer {
                           ts.factory.createTrue(),
                           explore.recursive
                               ? ts.factory.createAdd(
-                                    ts.factory.createNumericLiteral(1),
+                                    ExpressionFactory.number(1),
                                     ts.factory.createIdentifier("_depth"),
                                 )
-                              : ts.factory.createNumericLiteral(0),
+                              : ExpressionFactory.number(0),
                       ],
                   )
                 : RandomJoiner.tuple(decode(importer)(explore))(
@@ -540,7 +539,7 @@ export namespace RandomProgrammer {
                               ts.factory.createIdentifier("_recursive"),
                               undefined,
                               ts.factory.createAdd(
-                                  ts.factory.createNumericLiteral(1),
+                                  ExpressionFactory.number(1),
                                   ts.factory.createIdentifier("_depth"),
                               ),
                               undefined,
@@ -716,7 +715,7 @@ export namespace RandomProgrammer {
             const literal =
                 type === "BigInt64Array" || type === "BigUint64Array"
                     ? ExpressionFactory.bigint
-                    : ts.factory.createNumericLiteral;
+                    : ExpressionFactory.number;
             return ts.factory.createNewExpression(
                 ts.factory.createIdentifier(type),
                 [],
@@ -812,10 +811,10 @@ export namespace RandomProgrammer {
                                                           ),
                                                           undefined,
                                                           [
-                                                              ts.factory.createNumericLiteral(
+                                                              ExpressionFactory.number(
                                                                   0,
                                                               ),
-                                                              ts.factory.createNumericLiteral(
+                                                              ExpressionFactory.number(
                                                                   255,
                                                               ),
                                                           ],
@@ -826,7 +825,7 @@ export namespace RandomProgrammer {
                                                   ),
                                               ],
                                           ),
-                                          ts.factory.createNumericLiteral(0),
+                                          ExpressionFactory.number(0),
                                       ],
                                   ),
                               ),

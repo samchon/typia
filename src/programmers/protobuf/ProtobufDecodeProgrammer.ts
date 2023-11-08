@@ -93,7 +93,7 @@ export namespace ProtobufDecodeProgrammer {
                     IdentifierFactory.parameter(
                         "length",
                         TypeFactory.keyword("number"),
-                        ts.factory.createNumericLiteral(-1),
+                        ExpressionFactory.number(-1),
                     ),
                 ],
                 TypeFactory.keyword("any"),
@@ -109,7 +109,7 @@ export namespace ProtobufDecodeProgrammer {
                                 ts.factory.createConditionalExpression(
                                     ts.factory.createLessThan(
                                         ts.factory.createIdentifier("length"),
-                                        ts.factory.createNumericLiteral(0),
+                                        ExpressionFactory.number(0),
                                     ),
                                     undefined,
                                     ts.factory.createCallExpression(
@@ -200,7 +200,7 @@ export namespace ProtobufDecodeProgrammer {
                         ts.factory.createSwitchStatement(
                             ts.factory.createUnsignedRightShift(
                                 ts.factory.createIdentifier(props.tag),
-                                ts.factory.createNumericLiteral(3),
+                                ExpressionFactory.number(3),
                             ),
                             ts.factory.createCaseBlock([
                                 ...clauses,
@@ -216,9 +216,7 @@ export namespace ProtobufDecodeProgrammer {
                                                     ts.factory.createIdentifier(
                                                         props.tag,
                                                     ),
-                                                    ts.factory.createNumericLiteral(
-                                                        7,
-                                                    ),
+                                                    ExpressionFactory.number(7),
                                                 ),
                                             ],
                                         ),
@@ -285,7 +283,7 @@ export namespace ProtobufDecodeProgrammer {
                 (name: string) => (v: ts.Expression | ts.Statement[]) =>
                     clauses.push(
                         ts.factory.createCaseClause(
-                            ts.factory.createNumericLiteral(index++),
+                            ExpressionFactory.number(index++),
                             Array.isArray(v)
                                 ? [
                                       ts.factory.createExpressionStatement(
@@ -408,10 +406,10 @@ export namespace ProtobufDecodeProgrammer {
             statements.push(
                 ts.factory.createIfStatement(
                     ts.factory.createStrictEquality(
-                        ts.factory.createNumericLiteral(2),
+                        ExpressionFactory.number(2),
                         ts.factory.createBitwiseAnd(
                             ts.factory.createIdentifier("tag"),
-                            ts.factory.createNumericLiteral(7),
+                            ExpressionFactory.number(7),
                         ),
                     ),
                     ts.factory.createBlock(

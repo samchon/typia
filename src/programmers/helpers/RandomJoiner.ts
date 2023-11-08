@@ -1,5 +1,6 @@
 import ts from "typescript";
 
+import { ExpressionFactory } from "../../factories/ExpressionFactory";
 import { StatementFactory } from "../../factories/StatementFactory";
 import { TypeFactory } from "../../factories/TypeFactory";
 
@@ -36,7 +37,7 @@ export namespace RandomJoiner {
             if (explore.recursive === false) return generator;
             return ts.factory.createConditionalExpression(
                 ts.factory.createGreaterThanEquals(
-                    ts.factory.createNumericLiteral(5),
+                    ExpressionFactory.number(5),
                     ts.factory.createIdentifier("_depth"),
                 ),
                 undefined,
@@ -99,7 +100,7 @@ export namespace RandomJoiner {
                         ? [
                               ts.factory.createIfStatement(
                                   ts.factory.createGreaterThanEquals(
-                                      ts.factory.createNumericLiteral(5),
+                                      ExpressionFactory.number(5),
                                       ts.factory.createIdentifier("_depth"),
                                   ),
                                   ts.factory.createBlock(properties, true),
@@ -137,10 +138,7 @@ export namespace RandomJoiner {
                 ts.factory.createCallExpression(
                     coalesce("integer"),
                     undefined,
-                    [
-                        ts.factory.createNumericLiteral(0),
-                        ts.factory.createNumericLiteral(3),
-                    ],
+                    [ExpressionFactory.number(0), ExpressionFactory.number(3)],
                 ),
             ]);
 }

@@ -1,5 +1,6 @@
 import ts from "typescript";
 
+import { ExpressionFactory } from "../../factories/ExpressionFactory";
 import { IdentifierFactory } from "../../factories/IdentifierFactory";
 import { StatementFactory } from "../../factories/StatementFactory";
 
@@ -35,7 +36,7 @@ export const check_dynamic_properties =
                 ? props.undefined === true ||
                   regular.every((r) => r.meta.isRequired())
                     ? ts.factory.createStrictEquality(
-                          ts.factory.createNumericLiteral(
+                          ExpressionFactory.number(
                               regular.filter((r) => r.meta.isRequired()).length,
                           ),
                           length,
@@ -45,11 +46,11 @@ export const check_dynamic_properties =
                           [],
                           [
                               length,
-                              ts.factory.createNumericLiteral(
+                              ExpressionFactory.number(
                                   regular.filter((r) => r.meta.isRequired())
                                       .length,
                               ),
-                              ts.factory.createNumericLiteral(regular.length),
+                              ExpressionFactory.number(regular.length),
                           ],
                       )
                 : null;
