@@ -3,6 +3,14 @@ import ts from "typescript";
 import { RandomGenerator } from "../utils/RandomGenerator";
 
 export namespace ExpressionFactory {
+    export const number = (value: number) =>
+        value < 0
+            ? ts.factory.createPrefixUnaryExpression(
+                  ts.SyntaxKind.MinusToken,
+                  ts.factory.createNumericLiteral(Math.abs(value)),
+              )
+            : ts.factory.createNumericLiteral(value);
+
     export const bigint = (value: number | bigint) =>
         ts.factory.createCallExpression(
             ts.factory.createIdentifier("BigInt"),

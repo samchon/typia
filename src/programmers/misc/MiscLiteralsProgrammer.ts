@@ -51,7 +51,7 @@ export namespace MiscLiteralsProgrammer {
                             ? ts.factory.createTrue()
                             : ts.factory.createFalse()
                         : typeof v === "number"
-                        ? ts.factory.createNumericLiteral(v)
+                        ? ExpressionFactory.number(v)
                         : typeof v === "bigint"
                         ? ExpressionFactory.bigint(Number(v))
                         : ts.factory.createStringLiteral(v),
