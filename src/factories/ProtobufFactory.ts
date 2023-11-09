@@ -17,12 +17,15 @@ import { MetadataFactory } from "./MetadataFactory";
 export namespace ProtobufFactory {
     export const metadata =
         (method: string) =>
-        (checker: ts.TypeChecker) =>
+        (checker: ts.TypeChecker, context?: ts.TransformationContext) =>
         (collection: MetadataCollection) =>
         (type: ts.Type): Metadata => {
             // COMPOSE METADATA WITH INDIVIDUAL VALIDATIONS
             const result: ValidationPipe<Metadata, MetadataFactory.IError> =
-                MetadataFactory.analyze(checker)({
+                MetadataFactory.analyze(
+                    checker,
+                    context,
+                )({
                     escape: false,
                     constant: true,
                     absorb: true,

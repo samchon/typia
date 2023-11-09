@@ -12,7 +12,7 @@ import { TransformerError } from "../../TransformerError";
 
 export namespace MetadataTransformer {
     export const transform =
-        ({ checker }: IProject) =>
+        (project: IProject) =>
         (expression: ts.CallExpression): ts.Expression => {
             if (!expression.typeArguments?.length)
                 throw new TransformerError({
@@ -28,7 +28,7 @@ export namespace MetadataTransformer {
 
             // GET TYPES
             const types: ts.Type[] = top.elements.map((child) =>
-                checker.getTypeFromTypeNode(child as ts.TypeNode),
+                project.checker.getTypeFromTypeNode(child as ts.TypeNode),
             );
             if (types.some((t) => t.isTypeParameter()))
                 throw new TransformerError({
@@ -39,7 +39,10 @@ export namespace MetadataTransformer {
             // METADATA
             const collection: MetadataCollection = new MetadataCollection();
             const metadatas: Array<Metadata> = types.map((type) => {
-                const result = MetadataFactory.analyze(checker)({
+                const result = MetadataFactory.analyze(
+                    project.checker,
+                    project.context,
+                )({
                     escape: true,
                     constant: true,
                     absorb: true,

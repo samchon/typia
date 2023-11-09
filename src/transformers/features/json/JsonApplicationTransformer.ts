@@ -17,7 +17,7 @@ import { TransformerError } from "../../TransformerError";
 
 export namespace JsonApplicationTransformer {
     export const transform =
-        ({ checker }: IProject) =>
+        (project: IProject) =>
         (expression: ts.CallExpression): ts.Expression => {
             if (!expression.typeArguments?.length)
                 throw new TransformerError({
@@ -36,7 +36,7 @@ export namespace JsonApplicationTransformer {
 
             // GET TYPES
             const types: ts.Type[] = top.elements.map((child) =>
-                checker.getTypeFromTypeNode(child as ts.TypeNode),
+                project.checker.getTypeFromTypeNode(child as ts.TypeNode),
             );
             if (types.some((t) => t.isTypeParameter()))
                 throw new TransformerError({
@@ -46,7 +46,7 @@ export namespace JsonApplicationTransformer {
 
             // ADDITIONAL PARAMETERS
             const purpose: "swagger" | "ajv" = get_parameter(
-                checker,
+                project.checker,
                 "Purpose",
                 expression.typeArguments[1],
                 (str) => str === "swagger" || str === "ajv",
@@ -62,7 +62,10 @@ export namespace JsonApplicationTransformer {
             });
             const results: ValidationPipe<Metadata, MetadataFactory.IError>[] =
                 types.map((type) =>
-                    MetadataFactory.analyze(checker)({
+                    MetadataFactory.analyze(
+                        project.checker,
+                        project.context,
+                    )({
                         escape: true,
                         constant: true,
                         absorb: false,

@@ -16,6 +16,7 @@ export namespace JsonIsParseProgrammer {
         (type: ts.Type, name?: string): ts.ArrowFunction => {
             JsonMetadataFactory.analyze(`typia.json.${modulo.getText()}`)(
                 project.checker,
+                project.context,
             )(type);
             return ts.factory.createArrowFunction(
                 undefined,

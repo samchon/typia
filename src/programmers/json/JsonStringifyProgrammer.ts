@@ -919,11 +919,10 @@ export namespace JsonStringifyProgrammer {
         };
 
     const initializer: FeatureProgrammer.IConfig["initializer"] =
-        ({ checker }) =>
-        (importer) =>
-        (type) =>
+        (project) => (importer) => (type) =>
             JsonMetadataFactory.analyze(`typia.json.${importer.method}`)(
-                checker,
+                project.checker,
+                project.context,
             )(type);
 
     const create_throw_error =
