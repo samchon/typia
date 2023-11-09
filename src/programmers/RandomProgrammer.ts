@@ -37,7 +37,10 @@ export namespace RandomProgrammer {
             return (type: ts.Type, name?: string) => {
                 // INITIALIZE METADATA
                 const collection: MetadataCollection = new MetadataCollection();
-                const result = MetadataFactory.analyze(project.checker)({
+                const result = MetadataFactory.analyze(
+                    project.checker,
+                    project.context,
+                )({
                     escape: false,
                     constant: true,
                     absorb: true,

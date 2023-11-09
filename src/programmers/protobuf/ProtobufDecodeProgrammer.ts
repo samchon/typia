@@ -32,6 +32,7 @@ export namespace ProtobufDecodeProgrammer {
             const collection: MetadataCollection = new MetadataCollection();
             const meta: Metadata = ProtobufFactory.metadata(modulo.getText())(
                 project.checker,
+                project.context,
             )(collection)(type);
 
             const functors = collection

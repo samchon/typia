@@ -35,6 +35,7 @@ export namespace ProtobufEncodeProgrammer {
             const collection = new MetadataCollection();
             const meta: Metadata = ProtobufFactory.metadata(modulo.getText())(
                 project.checker,
+                project.context,
             )(collection)(type);
 
             const callEncoder =
@@ -282,16 +283,11 @@ export namespace ProtobufEncodeProgrammer {
                     atom === "float" ||
                     atom === "double"
                 )
-                    unions.push(decode_number(project)(numbers)(atom)(input));
+                    unions.push(decode_number(numbers)(atom)(input));
                 else if (atom === "int64" || atom === "uint64")
                     if (numbers.some((n) => n === atom))
-                        unions.push(
-                            decode_number(project)(numbers)(atom)(input),
-                        );
-                    else
-                        unions.push(
-                            decode_bigint(project)(bigints)(atom)(input),
-                        );
+                        unions.push(decode_number(numbers)(atom)(input));
+                    else unions.push(decode_bigint(bigints)(atom)(input));
                 else if (atom === "string")
                     unions.push({
                         type: "string",
@@ -608,7 +604,6 @@ export namespace ProtobufEncodeProgrammer {
         );
 
     const decode_number =
-        (project: IProject) =>
         (candidates: ProtobufAtomic.Numeric[]) =>
         (type: ProtobufAtomic.Numeric) =>
         (input: ts.Expression): IUnion => ({
@@ -624,9 +619,7 @@ export namespace ProtobufEncodeProgrammer {
                               ts.factory.createStringLiteral("number"),
                               ts.factory.createTypeOfExpression(input),
                           ),
-                          NumericRangeFactory.number(project.context)(type)(
-                              input,
-                          ),
+                          NumericRangeFactory.number(type)(input),
                       ),
             value: (index) =>
                 ts.factory.createBlock(
@@ -645,7 +638,6 @@ export namespace ProtobufEncodeProgrammer {
         });
 
     const decode_bigint =
-        (project: IProject) =>
         (candidates: ProtobufAtomic.BigNumeric[]) =>
         (type: ProtobufAtomic.BigNumeric) =>
         (input: ts.Expression): IUnion => ({
@@ -661,9 +653,7 @@ export namespace ProtobufEncodeProgrammer {
                               ts.factory.createStringLiteral("bigint"),
                               ts.factory.createTypeOfExpression(input),
                           ),
-                          NumericRangeFactory.bigint(project.context)(type)(
-                              input,
-                          ),
+                          NumericRangeFactory.bigint(type)(input),
                       ),
             value: (index) =>
                 ts.factory.createBlock(

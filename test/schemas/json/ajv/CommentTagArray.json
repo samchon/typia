@@ -60,7 +60,25 @@
               "type": "string"
             },
             "maxItems": 3,
-            "minItems": 3
+            "minItems": 3,
+            "x-typia-typeTags": [
+              {
+                "target": "array",
+                "name": "MinItems<3>",
+                "kind": "minItems",
+                "value": 3,
+                "validate": "3 <= $input.length",
+                "exclusive": true
+              },
+              {
+                "target": "array",
+                "name": "MaxItems<3>",
+                "kind": "maxItems",
+                "value": 3,
+                "validate": "$input.length <= 3",
+                "exclusive": true
+              }
+            ]
           },
           "minItems": {
             "x-typia-jsDocTags": [
@@ -93,7 +111,17 @@
               "x-typia-optional": false,
               "type": "number"
             },
-            "minItems": 3
+            "minItems": 3,
+            "x-typia-typeTags": [
+              {
+                "target": "array",
+                "name": "MinItems<3>",
+                "kind": "minItems",
+                "value": 3,
+                "validate": "3 <= $input.length",
+                "exclusive": true
+              }
+            ]
           },
           "both": {
             "x-typia-jsDocTags": [
@@ -145,7 +173,25 @@
               "type": "string"
             },
             "maxItems": 7,
-            "minItems": 3
+            "minItems": 3,
+            "x-typia-typeTags": [
+              {
+                "target": "array",
+                "name": "MinItems<3>",
+                "kind": "minItems",
+                "value": 3,
+                "validate": "3 <= $input.length",
+                "exclusive": true
+              },
+              {
+                "target": "array",
+                "name": "MaxItems<7>",
+                "kind": "maxItems",
+                "value": 7,
+                "validate": "$input.length <= 7",
+                "exclusive": true
+              }
+            ]
           },
           "equal": {
             "x-typia-jsDocTags": [
@@ -197,7 +243,25 @@
               "type": "number"
             },
             "maxItems": 10,
-            "minItems": 10
+            "minItems": 10,
+            "x-typia-typeTags": [
+              {
+                "target": "array",
+                "name": "MinItems<10>",
+                "kind": "minItems",
+                "value": 10,
+                "validate": "10 <= $input.length",
+                "exclusive": true
+              },
+              {
+                "target": "array",
+                "name": "MaxItems<10>",
+                "kind": "maxItems",
+                "value": 10,
+                "validate": "$input.length <= 10",
+                "exclusive": true
+              }
+            ]
           }
         },
         "required": [

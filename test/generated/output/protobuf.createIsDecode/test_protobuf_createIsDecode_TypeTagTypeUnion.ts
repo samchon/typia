@@ -278,8 +278,8 @@ export const test_protobuf_createIsDecode_TypeTagTypeUnion =
                         "number" === typeof input.int32_or_int64 &&
                         Math.floor(input.int32_or_int64) ===
                             input.int32_or_int64 &&
-                        -9223372036854776000 <= input.int32_or_int64 &&
-                        input.int32_or_int64 <= 9223372036854776000
+                        -9223372036854775808 <= input.int32_or_int64 &&
+                        input.int32_or_int64 <= 9223372036854775807
                     ) {
                         writer.uint32(32);
                         writer.int64(input.int32_or_int64);
@@ -304,7 +304,7 @@ export const test_protobuf_createIsDecode_TypeTagTypeUnion =
                         Math.floor(input.int32_or_uint64) ===
                             input.int32_or_uint64 &&
                         0 <= input.int32_or_uint64 &&
-                        input.int32_or_uint64 <= 18446744073709552000
+                        input.int32_or_uint64 <= 18446744073709551615
                     ) {
                         writer.uint32(48);
                         writer.uint64(input.int32_or_uint64);
@@ -364,8 +364,8 @@ export const test_protobuf_createIsDecode_TypeTagTypeUnion =
                         "number" === typeof input.int64_or_uint64 &&
                         Math.floor(input.int64_or_uint64) ===
                             input.int64_or_uint64 &&
-                        -9223372036854776000 <= input.int64_or_uint64 &&
-                        input.int64_or_uint64 <= 9223372036854776000
+                        -9223372036854775808 <= input.int64_or_uint64 &&
+                        input.int64_or_uint64 <= 9223372036854775807
                     ) {
                         writer.uint32(88);
                         writer.int64(input.int64_or_uint64);
@@ -374,7 +374,7 @@ export const test_protobuf_createIsDecode_TypeTagTypeUnion =
                         Math.floor(input.int64_or_uint64) ===
                             input.int64_or_uint64 &&
                         0 <= input.int64_or_uint64 &&
-                        input.int64_or_uint64 <= 18446744073709552000
+                        input.int64_or_uint64 <= 18446744073709551615
                     ) {
                         writer.uint32(96);
                         writer.uint64(input.int64_or_uint64);
@@ -389,8 +389,8 @@ export const test_protobuf_createIsDecode_TypeTagTypeUnion =
                         "number" === typeof input.int64_or_float &&
                         Math.floor(input.int64_or_float) ===
                             input.int64_or_float &&
-                        -9223372036854776000 <= input.int64_or_float &&
-                        input.int64_or_float <= 9223372036854776000
+                        -9223372036854775808 <= input.int64_or_float &&
+                        input.int64_or_float <= 9223372036854775807
                     ) {
                         writer.uint32(104);
                         writer.int64(input.int64_or_float);
@@ -412,8 +412,8 @@ export const test_protobuf_createIsDecode_TypeTagTypeUnion =
                         "number" === typeof input.int64_or_double &&
                         Math.floor(input.int64_or_double) ===
                             input.int64_or_double &&
-                        -9223372036854776000 <= input.int64_or_double &&
-                        input.int64_or_double <= 9223372036854776000
+                        -9223372036854775808 <= input.int64_or_double &&
+                        input.int64_or_double <= 9223372036854775807
                     ) {
                         writer.uint32(120);
                         writer.int64(input.int64_or_double);
@@ -469,8 +469,8 @@ export const test_protobuf_createIsDecode_TypeTagTypeUnion =
                     } else if (
                         "number" === typeof input.everything &&
                         Math.floor(input.everything) === input.everything &&
-                        -9223372036854776000 <= input.everything &&
-                        input.everything <= 9223372036854776000
+                        -9223372036854775808 <= input.everything &&
+                        input.everything <= 9223372036854775807
                     ) {
                         writer.uint32(168);
                         writer.int64(input.everything);
@@ -478,7 +478,7 @@ export const test_protobuf_createIsDecode_TypeTagTypeUnion =
                         "number" === typeof input.everything &&
                         Math.floor(input.everything) === input.everything &&
                         0 <= input.everything &&
-                        input.everything <= 18446744073709552000
+                        input.everything <= 18446744073709551615
                     ) {
                         writer.uint32(176);
                         writer.uint64(input.everything);

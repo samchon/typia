@@ -37,10 +37,46 @@
                 ]
               },
               "maxItems": 4,
-              "minItems": 4
+              "minItems": 4,
+              "x-typia-typeTags": [
+                {
+                  "target": "array",
+                  "name": "MinItems<4>",
+                  "kind": "minItems",
+                  "value": 4,
+                  "validate": "4 <= $input.length",
+                  "exclusive": true
+                },
+                {
+                  "target": "array",
+                  "name": "MaxItems<4>",
+                  "kind": "maxItems",
+                  "value": 4,
+                  "validate": "$input.length <= 4",
+                  "exclusive": true
+                }
+              ]
             },
             "maxItems": 3,
-            "minItems": 3
+            "minItems": 3,
+            "x-typia-typeTags": [
+              {
+                "target": "array",
+                "name": "MinItems<3>",
+                "kind": "minItems",
+                "value": 3,
+                "validate": "3 <= $input.length",
+                "exclusive": true
+              },
+              {
+                "target": "array",
+                "name": "MaxItems<3>",
+                "kind": "maxItems",
+                "value": 3,
+                "validate": "$input.length <= 3",
+                "exclusive": true
+              }
+            ]
           }
         },
         "nullable": false,

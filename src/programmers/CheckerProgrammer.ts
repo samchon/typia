@@ -209,23 +209,22 @@ export namespace CheckerProgrammer {
             trace: config.trace,
             path: config.path,
             prefix: config.prefix,
-            initializer:
-                ({ checker }) =>
-                (importer) =>
-                (type) => {
-                    const collection: MetadataCollection =
-                        new MetadataCollection();
-                    const result = MetadataFactory.analyze(checker)({
-                        escape: false,
-                        constant: true,
-                        absorb: true,
-                    })(collection)(type);
-                    if (result.success === false)
-                        throw TransformerError.from(`typia.${importer.method}`)(
-                            result.errors,
-                        );
-                    return [collection, result.data];
-                },
+            initializer: (project) => (importer) => (type) => {
+                const collection: MetadataCollection = new MetadataCollection();
+                const result = MetadataFactory.analyze(
+                    project.checker,
+                    project.context,
+                )({
+                    escape: false,
+                    constant: true,
+                    absorb: true,
+                })(collection)(type);
+                if (result.success === false)
+                    throw TransformerError.from(`typia.${importer.method}`)(
+                        result.errors,
+                    );
+                return [collection, result.data];
+            },
             addition: config.addition,
             decoder: () =>
                 config.decoder?.() ?? decode(project)(config)(importer),

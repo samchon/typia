@@ -17,7 +17,6 @@ export const check_string =
     (input: ts.Expression): ICheckEntry => {
         const conditions: ICheckEntry.ICondition[][] =
             check_string_type_tags(project)(atomic)(input);
-
         return {
             expected: atomic.getName(),
             expression: ts.factory.createStrictEquality(

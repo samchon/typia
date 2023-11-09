@@ -452,8 +452,8 @@
             "minimum": 3,
             "x-typia-typeTags": [
               {
-                "name": "Minimum<3>",
                 "target": "number",
+                "name": "Minimum<3>",
                 "kind": "minimum",
                 "value": 3,
                 "validate": "3 <= $input",
@@ -463,8 +463,8 @@
                 ]
               },
               {
-                "name": "Maximum<5>",
                 "target": "number",
+                "name": "Maximum<5>",
                 "kind": "maximum",
                 "value": 5,
                 "validate": "$input <= 5",
