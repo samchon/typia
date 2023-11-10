@@ -40,8 +40,11 @@ const check_string_type_tags =
             .map((row) =>
                 row.map((tag) => ({
                     expected: `string & ${tag.name}`,
-                    expression: ExpressionFactory.transpile(project.context)(
-                        tag.validate!,
+                    expression: (
+                        tag.predicate ??
+                        ExpressionFactory.transpile(project.context)(
+                            tag.validate!,
+                        )
                     )(input),
                 })),
             );
