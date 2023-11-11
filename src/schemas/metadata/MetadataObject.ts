@@ -57,7 +57,7 @@ export class MetadataObject {
     public static _From_without_properties(
         obj: IMetadataObject,
     ): MetadataObject {
-        return this.create({
+        return MetadataObject.create({
             name: obj.name,
             properties: [],
             description: obj.description,

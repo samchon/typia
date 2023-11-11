@@ -11,7 +11,7 @@ export interface IWrapper {
     compute: (x: number, y: number) => number;
 }
 
-const article = typia.metadata<[IWrapper]>().collection.objects[0];
+const article = typia.reflect.metadata<[IWrapper]>().components.objects[0];
 
 console.log(
     article?.properties.find((p) => p.key.constants[0]?.values[0] === "compute")

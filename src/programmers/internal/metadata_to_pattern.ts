@@ -18,7 +18,9 @@ export const metadata_to_pattern =
             meta.constants.map((c) => {
                 if (c.type !== "string")
                     return c.values.map((v) => v.toString());
-                return c.values.map((str) => PatternUtil.escape(str));
+                return (c.values as string[]).map((str) =>
+                    PatternUtil.escape(str),
+                );
             }),
         );
         for (const a of meta.atomics)

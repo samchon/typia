@@ -19,13 +19,13 @@ export class MetadataEscaped {
     /**
      * @internal
      */
-    public static _From(
+    public static from(
         props: IMetadataEscaped,
         dict: IMetadataDictionary,
     ): MetadataEscaped {
-        return this.create({
-            original: Metadata._From(props.original, dict),
-            returns: Metadata._From(props.returns, dict),
+        return MetadataEscaped.create({
+            original: Metadata.from(props.original, dict),
+            returns: Metadata.from(props.returns, dict),
         });
     }
 

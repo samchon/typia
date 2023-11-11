@@ -1,7 +1,5 @@
 import { Namespace } from "./functional/Namespace";
 
-import { IMetadataApplication } from "./schemas/metadata/IMetadataApplication";
-
 import { IRandomGenerator } from "./IRandomGenerator";
 import { IValidation } from "./IValidation";
 import { Resolved } from "./Resolved";
@@ -11,6 +9,7 @@ export * as json from "./json";
 export * as misc from "./misc";
 export * as notations from "./notations";
 export * as protobuf from "./protobuf";
+export * as reflect from "./reflect";
 export * as tags from "./tags";
 
 export * from "./schemas/json/IJsonApplication";
@@ -424,23 +423,6 @@ export function random(): never {
     halt("random");
 }
 Object.assign(random, Namespace.random());
-
-/**
- * @internal
- */
-export function metadata(): never;
-
-/**
- * @internal
- */
-export function metadata<Types extends unknown[]>(): IMetadataApplication;
-
-/**
- * @internal
- */
-export function metadata(): never {
-    halt("metadata");
-}
 
 /* -----------------------------------------------------------
     FACTORY FUNCTIONS

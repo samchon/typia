@@ -54,8 +54,8 @@ export interface IAttachmentFile {
     url: string;
 }
 
-const article = typia.metadata<[IBbsArticle]>().collection.objects[0];
-const file = typia.metadata<[IAttachmentFile]>().collection.objects[0];
+const article = typia.reflect.metadata<[IBbsArticle]>().components.objects[0];
+const file = typia.reflect.metadata<[IAttachmentFile]>().components.objects[0];
 
 console.log(
     article?.description,

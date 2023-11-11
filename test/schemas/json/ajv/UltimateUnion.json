@@ -108,6 +108,11 @@
             "x-typia-optional": true,
             "type": "boolean"
           },
+          "description": {
+            "x-typia-required": false,
+            "x-typia-optional": true,
+            "type": "string"
+          },
           "type": {
             "x-typia-required": true,
             "x-typia-optional": false,
@@ -128,11 +133,6 @@
             "type": "boolean"
           },
           "title": {
-            "x-typia-required": false,
-            "x-typia-optional": true,
-            "type": "string"
-          },
-          "description": {
             "x-typia-required": false,
             "x-typia-optional": true,
             "type": "string"
@@ -230,6 +230,11 @@
             "x-typia-optional": true,
             "type": "number"
           },
+          "description": {
+            "x-typia-required": false,
+            "x-typia-optional": true,
+            "type": "string"
+          },
           "type": {
             "x-typia-required": true,
             "x-typia-optional": false,
@@ -250,11 +255,6 @@
             "type": "boolean"
           },
           "title": {
-            "x-typia-required": false,
-            "x-typia-optional": true,
-            "type": "string"
-          },
-          "description": {
             "x-typia-required": false,
             "x-typia-optional": true,
             "type": "string"
@@ -308,6 +308,11 @@
             "x-typia-optional": true,
             "type": "string"
           },
+          "description": {
+            "x-typia-required": false,
+            "x-typia-optional": true,
+            "type": "string"
+          },
           "type": {
             "x-typia-required": true,
             "x-typia-optional": false,
@@ -328,11 +333,6 @@
             "type": "boolean"
           },
           "title": {
-            "x-typia-required": false,
-            "x-typia-optional": true,
-            "type": "string"
-          },
-          "description": {
             "x-typia-required": false,
             "x-typia-optional": true,
             "type": "string"
@@ -1518,6 +1518,11 @@
             "x-typia-optional": true,
             "type": "string"
           },
+          "description": {
+            "x-typia-required": false,
+            "x-typia-optional": true,
+            "type": "string"
+          },
           "type": {
             "x-typia-required": true,
             "x-typia-optional": false,
@@ -1538,11 +1543,6 @@
             "type": "boolean"
           },
           "title": {
-            "x-typia-required": false,
-            "x-typia-optional": true,
-            "type": "string"
-          },
-          "description": {
             "x-typia-required": false,
             "x-typia-optional": true,
             "type": "string"
@@ -1606,6 +1606,11 @@
             "x-typia-optional": true,
             "type": "number"
           },
+          "description": {
+            "x-typia-required": false,
+            "x-typia-optional": true,
+            "type": "string"
+          },
           "type": {
             "x-typia-required": true,
             "x-typia-optional": false,
@@ -1626,11 +1631,6 @@
             "type": "boolean"
           },
           "title": {
-            "x-typia-required": false,
-            "x-typia-optional": true,
-            "type": "string"
-          },
-          "description": {
             "x-typia-required": false,
             "x-typia-optional": true,
             "type": "string"
@@ -1694,6 +1694,11 @@
             "x-typia-optional": true,
             "type": "boolean"
           },
+          "description": {
+            "x-typia-required": false,
+            "x-typia-optional": true,
+            "type": "string"
+          },
           "type": {
             "x-typia-required": true,
             "x-typia-optional": false,
@@ -1714,11 +1719,6 @@
             "type": "boolean"
           },
           "title": {
-            "x-typia-required": false,
-            "x-typia-optional": true,
-            "type": "string"
-          },
-          "description": {
             "x-typia-required": false,
             "x-typia-optional": true,
             "type": "string"
