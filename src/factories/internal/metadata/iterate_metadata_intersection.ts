@@ -1,9 +1,9 @@
 import ts from "typescript";
 
-import { IMetadataConstant } from "../../../schemas/metadata/IMetadataConstant";
 import { IMetadataTypeTag } from "../../../schemas/metadata/IMetadataTypeTag";
 import { Metadata } from "../../../schemas/metadata/Metadata";
 import { MetadataAtomic } from "../../../schemas/metadata/MetadataAtomic";
+import { MetadataConstant } from "../../../schemas/metadata/MetadataConstant";
 
 import { ArrayUtil } from "../../../utils/ArrayUtil";
 
@@ -181,7 +181,7 @@ export const iterate_metadata_intersection =
                                 elem,
                                 (a, b) => a === b,
                             );
-                    else meta.constants.push({ ...c });
+                    else meta.constants.push(MetadataConstant.create(c));
                 }
             }
             return true;
@@ -210,13 +210,14 @@ export const iterate_metadata_intersection =
                     (a, b) => a.type === b.type,
                 );
             else
-                ArrayUtil.take<IMetadataConstant>(
+                ArrayUtil.take<MetadataConstant>(
                     meta.constants,
                     (x) => x.type === "boolean",
-                    () => ({
-                        type: "boolean",
-                        values: [booleanLiteral],
-                    }),
+                    () =>
+                        MetadataConstant.create({
+                            type: "boolean",
+                            values: [booleanLiteral],
+                        }),
                 );
         else if (target === "array") {
             const name: string = arrays.values().next().value;
@@ -247,7 +248,7 @@ export const iterate_metadata_intersection =
                         .find((a) => a.type === target)!
                         .tags.push(tags);
                 else {
-                    const constant: IMetadataConstant = meta.constants.find(
+                    const constant: MetadataConstant = meta.constants.find(
                         (c) => c.type === "boolean",
                     )!;
                     constant.tags ??= [];

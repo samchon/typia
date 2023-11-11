@@ -3,6 +3,7 @@ import ts from "typescript";
 import { Metadata } from "../schemas/metadata/Metadata";
 import { MetadataAlias } from "../schemas/metadata/MetadataAlias";
 import { MetadataArrayType } from "../schemas/metadata/MetadataArrayType";
+import { MetadataConstant } from "../schemas/metadata/MetadataConstant";
 import { MetadataObject } from "../schemas/metadata/MetadataObject";
 import { MetadataTupleType } from "../schemas/metadata/MetadataTupleType";
 import { explore_metadata } from "./internal/metadata/explore_metadata";
@@ -79,10 +80,12 @@ export namespace MetadataFactory {
      */
     export const soleLiteral = (value: string): Metadata => {
         const meta: Metadata = Metadata.initialize();
-        meta.constants.push({
-            values: [value],
-            type: "string",
-        });
+        meta.constants.push(
+            MetadataConstant.from({
+                values: [value],
+                type: "string",
+            }),
+        );
         return meta;
     };
 

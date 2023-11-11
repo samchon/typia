@@ -26,10 +26,11 @@ export const iterate_metadata_constant =
             const constant: MetadataConstant = ArrayUtil.take(
                 meta.constants,
                 (elem) => elem.type === typeof value,
-                () => ({
-                    type: typeof value as "number",
-                    values: [],
-                }),
+                () =>
+                    MetadataConstant.create({
+                        type: typeof value as "number",
+                        values: [],
+                    }),
             );
             ArrayUtil.add(
                 constant.values as Array<any>,
@@ -42,10 +43,11 @@ export const iterate_metadata_constant =
             const constant: MetadataConstant = ArrayUtil.take(
                 meta.constants,
                 (elem) => elem.type === "boolean",
-                () => ({
-                    type: "boolean",
-                    values: [],
-                }),
+                () =>
+                    MetadataConstant.create({
+                        type: "boolean",
+                        values: [],
+                    }),
             );
             ArrayUtil.add(
                 constant.values as boolean[],
