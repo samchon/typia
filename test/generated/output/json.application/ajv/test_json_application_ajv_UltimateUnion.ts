@@ -443,15 +443,6 @@ export const test_json_application_ajv_UltimateUnion = _test_json_application(
                         "x-typia-optional": false,
                         type: "string",
                     },
-                    value: {
-                        "x-typia-required": true,
-                        "x-typia-optional": false,
-                    },
-                    validate: {
-                        "x-typia-required": false,
-                        "x-typia-optional": false,
-                        type: "string",
-                    },
                     exclusive: {
                         oneOf: [
                             {
@@ -473,8 +464,17 @@ export const test_json_application_ajv_UltimateUnion = _test_json_application(
                         "x-typia-required": true,
                         "x-typia-optional": false,
                     },
+                    value: {
+                        "x-typia-required": true,
+                        "x-typia-optional": true,
+                    },
+                    validate: {
+                        "x-typia-required": false,
+                        "x-typia-optional": true,
+                        type: "string",
+                    },
                 },
-                required: ["target", "name", "kind", "value", "exclusive"],
+                required: ["target", "name", "kind", "exclusive"],
                 "x-typia-jsDocTags": [],
             },
             "IJsonSchema.IInteger": {

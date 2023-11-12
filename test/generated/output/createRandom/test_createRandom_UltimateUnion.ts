@@ -298,13 +298,6 @@ export const test_createRandom_UltimateUnion = _test_random(
             kind:
                 (generator?.customs ?? $generator.customs)?.string?.([]) ??
                 (generator?.string ?? $generator.string)(),
-            value: "any type used...",
-            validate: $pick([
-                () => undefined,
-                () =>
-                    (generator?.customs ?? $generator.customs)?.string?.([]) ??
-                    (generator?.string ?? $generator.string)(),
-            ])(),
             exclusive: $pick([
                 () => (generator?.boolean ?? $generator.boolean)(),
                 () =>
@@ -315,6 +308,13 @@ export const test_createRandom_UltimateUnion = _test_random(
                             )?.string?.([]) ??
                             (generator?.string ?? $generator.string)(),
                     ),
+            ])(),
+            value: $pick([() => "any type used...", () => undefined])(),
+            validate: $pick([
+                () => undefined,
+                () =>
+                    (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                    (generator?.string ?? $generator.string)(),
             ])(),
         });
         const $ro8 = (
@@ -2320,16 +2320,16 @@ export const test_createRandom_UltimateUnion = _test_random(
                     "array" === input.target) &&
                 "string" === typeof input.name &&
                 "string" === typeof input.kind &&
-                true &&
-                (undefined === input.validate ||
-                    "string" === typeof input.validate) &&
                 null !== input.exclusive &&
                 undefined !== input.exclusive &&
                 ("boolean" === typeof input.exclusive ||
                     (Array.isArray(input.exclusive) &&
                         input.exclusive.every(
                             (elem: any) => "string" === typeof elem,
-                        )));
+                        ))) &&
+                true &&
+                (undefined === input.validate ||
+                    "string" === typeof input.validate);
             const $io8 = (input: any): boolean =>
                 (undefined === input.minimum ||
                     ("number" === typeof input.minimum &&
@@ -4040,14 +4040,6 @@ export const test_createRandom_UltimateUnion = _test_random(
                             expected: "string",
                             value: input.kind,
                         })) &&
-                    true &&
-                    (undefined === input.validate ||
-                        "string" === typeof input.validate ||
-                        $guard(_exceptionable, {
-                            path: _path + ".validate",
-                            expected: "(string | undefined)",
-                            value: input.validate,
-                        })) &&
                     (null !== input.exclusive ||
                         $guard(_exceptionable, {
                             path: _path + ".exclusive",
@@ -4084,6 +4076,14 @@ export const test_createRandom_UltimateUnion = _test_random(
                             path: _path + ".exclusive",
                             expected: "(Array<string> | boolean)",
                             value: input.exclusive,
+                        })) &&
+                    true &&
+                    (undefined === input.validate ||
+                        "string" === typeof input.validate ||
+                        $guard(_exceptionable, {
+                            path: _path + ".validate",
+                            expected: "(string | undefined)",
+                            value: input.validate,
                         }));
                 const $ao8 = (
                     input: any,

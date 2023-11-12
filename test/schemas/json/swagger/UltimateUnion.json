@@ -465,15 +465,6 @@
             "x-typia-optional": false,
             "type": "string"
           },
-          "value": {
-            "x-typia-required": true,
-            "x-typia-optional": false
-          },
-          "validate": {
-            "x-typia-required": false,
-            "x-typia-optional": false,
-            "type": "string"
-          },
           "exclusive": {
             "oneOf": [
               {
@@ -494,6 +485,15 @@
             ],
             "x-typia-required": true,
             "x-typia-optional": false
+          },
+          "value": {
+            "x-typia-required": true,
+            "x-typia-optional": true
+          },
+          "validate": {
+            "x-typia-required": false,
+            "x-typia-optional": true,
+            "type": "string"
           }
         },
         "nullable": false,
@@ -501,7 +501,6 @@
           "target",
           "name",
           "kind",
-          "value",
           "exclusive"
         ],
         "x-typia-jsDocTags": []

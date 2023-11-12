@@ -170,16 +170,16 @@ export const test_json_createAssertStringify_UltimateUnion =
                             "array" === input.target) &&
                         "string" === typeof input.name &&
                         "string" === typeof input.kind &&
-                        true &&
-                        (undefined === input.validate ||
-                            "string" === typeof input.validate) &&
                         null !== input.exclusive &&
                         undefined !== input.exclusive &&
                         ("boolean" === typeof input.exclusive ||
                             (Array.isArray(input.exclusive) &&
                                 input.exclusive.every(
                                     (elem: any) => "string" === typeof elem,
-                                )));
+                                ))) &&
+                        true &&
+                        (undefined === input.validate ||
+                            "string" === typeof input.validate);
                     const $io8 = (input: any): boolean =>
                         (undefined === input.minimum ||
                             ("number" === typeof input.minimum &&
@@ -1978,14 +1978,6 @@ export const test_json_createAssertStringify_UltimateUnion =
                                     expected: "string",
                                     value: input.kind,
                                 })) &&
-                            true &&
-                            (undefined === input.validate ||
-                                "string" === typeof input.validate ||
-                                $guard(_exceptionable, {
-                                    path: _path + ".validate",
-                                    expected: "(string | undefined)",
-                                    value: input.validate,
-                                })) &&
                             (null !== input.exclusive ||
                                 $guard(_exceptionable, {
                                     path: _path + ".exclusive",
@@ -2022,6 +2014,14 @@ export const test_json_createAssertStringify_UltimateUnion =
                                     path: _path + ".exclusive",
                                     expected: "(Array<string> | boolean)",
                                     value: input.exclusive,
+                                })) &&
+                            true &&
+                            (undefined === input.validate ||
+                                "string" === typeof input.validate ||
+                                $guard(_exceptionable, {
+                                    path: _path + ".validate",
+                                    expected: "(string | undefined)",
+                                    value: input.validate,
                                 }));
                         const $ao8 = (
                             input: any,
@@ -6507,16 +6507,16 @@ export const test_json_createAssertStringify_UltimateUnion =
                         "array" === input.target) &&
                     "string" === typeof input.name &&
                     "string" === typeof input.kind &&
-                    true &&
-                    (undefined === input.validate ||
-                        "string" === typeof input.validate) &&
                     null !== input.exclusive &&
                     undefined !== input.exclusive &&
                     ("boolean" === typeof input.exclusive ||
                         (Array.isArray(input.exclusive) &&
                             input.exclusive.every(
                                 (elem: any) => "string" === typeof elem,
-                            )));
+                            ))) &&
+                    true &&
+                    (undefined === input.validate ||
+                        "string" === typeof input.validate);
                 const $io8 = (input: any): boolean =>
                     (undefined === input.minimum ||
                         ("number" === typeof input.minimum &&

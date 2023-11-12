@@ -171,16 +171,16 @@ export const test_misc_createValidateClone_UltimateUnion =
                             "array" === input.target) &&
                         "string" === typeof input.name &&
                         "string" === typeof input.kind &&
-                        true &&
-                        (undefined === input.validate ||
-                            "string" === typeof input.validate) &&
                         null !== input.exclusive &&
                         undefined !== input.exclusive &&
                         ("boolean" === typeof input.exclusive ||
                             (Array.isArray(input.exclusive) &&
                                 input.exclusive.every(
                                     (elem: any) => "string" === typeof elem,
-                                )));
+                                ))) &&
+                        true &&
+                        (undefined === input.validate ||
+                            "string" === typeof input.validate);
                     const $io8 = (input: any): boolean =>
                         (undefined === input.minimum ||
                             ("number" === typeof input.minimum &&
@@ -2076,14 +2076,6 @@ export const test_misc_createValidateClone_UltimateUnion =
                                         expected: "string",
                                         value: input.kind,
                                     }),
-                                true,
-                                undefined === input.validate ||
-                                    "string" === typeof input.validate ||
-                                    $report(_exceptionable, {
-                                        path: _path + ".validate",
-                                        expected: "(string | undefined)",
-                                        value: input.validate,
-                                    }),
                                 (null !== input.exclusive ||
                                     $report(_exceptionable, {
                                         path: _path + ".exclusive",
@@ -2136,6 +2128,14 @@ export const test_misc_createValidateClone_UltimateUnion =
                                                 "(Array<string> | boolean)",
                                             value: input.exclusive,
                                         })),
+                                true,
+                                undefined === input.validate ||
+                                    "string" === typeof input.validate ||
+                                    $report(_exceptionable, {
+                                        path: _path + ".validate",
+                                        expected: "(string | undefined)",
+                                        value: input.validate,
+                                    }),
                             ].every((flag: boolean) => flag);
                         const $vo8 = (
                             input: any,
@@ -7183,16 +7183,16 @@ export const test_misc_createValidateClone_UltimateUnion =
                         "array" === input.target) &&
                     "string" === typeof input.name &&
                     "string" === typeof input.kind &&
-                    true &&
-                    (undefined === input.validate ||
-                        "string" === typeof input.validate) &&
                     null !== input.exclusive &&
                     undefined !== input.exclusive &&
                     ("boolean" === typeof input.exclusive ||
                         (Array.isArray(input.exclusive) &&
                             input.exclusive.every(
                                 (elem: any) => "string" === typeof elem,
-                            )));
+                            ))) &&
+                    true &&
+                    (undefined === input.validate ||
+                        "string" === typeof input.validate);
                 const $io8 = (input: any): boolean =>
                     (undefined === input.minimum ||
                         ("number" === typeof input.minimum &&
@@ -8329,11 +8329,11 @@ export const test_misc_createValidateClone_UltimateUnion =
                     target: input.target as any,
                     name: input.name as any,
                     kind: input.kind as any,
-                    value: $any(input.value),
-                    validate: input.validate as any,
                     exclusive: Array.isArray(input.exclusive)
                         ? $cp6(input.exclusive)
                         : (input.exclusive as any),
+                    value: $any(input.value),
+                    validate: input.validate as any,
                 });
                 const $co8 = (input: any): any => ({
                     minimum: input.minimum as any,

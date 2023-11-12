@@ -3056,6 +3056,65 @@
                 {
                   "type": "string",
                   "values": [
+                    "exclusive"
+                  ]
+                }
+              ],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "value": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": false,
+              "functional": false,
+              "atomics": [
+                {
+                  "type": "boolean",
+                  "tags": []
+                }
+              ],
+              "constants": [],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [
+                {
+                  "name": "Array<string>",
+                  "tags": []
+                }
+              ],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "description": null,
+            "jsDocTags": []
+          },
+          {
+            "key": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": false,
+              "functional": false,
+              "atomics": [],
+              "constants": [
+                {
+                  "type": "string",
+                  "values": [
                     "value"
                   ]
                 }
@@ -3074,7 +3133,7 @@
             "value": {
               "any": true,
               "required": true,
-              "optional": false,
+              "optional": true,
               "nullable": false,
               "functional": false,
               "atomics": [],
@@ -3123,7 +3182,7 @@
             "value": {
               "any": false,
               "required": false,
-              "optional": false,
+              "optional": true,
               "nullable": false,
               "functional": false,
               "atomics": [
@@ -3137,65 +3196,6 @@
               "escaped": null,
               "rest": null,
               "arrays": [],
-              "tuples": [],
-              "objects": [],
-              "aliases": [],
-              "natives": [],
-              "sets": [],
-              "maps": []
-            },
-            "description": null,
-            "jsDocTags": []
-          },
-          {
-            "key": {
-              "any": false,
-              "required": true,
-              "optional": false,
-              "nullable": false,
-              "functional": false,
-              "atomics": [],
-              "constants": [
-                {
-                  "type": "string",
-                  "values": [
-                    "exclusive"
-                  ]
-                }
-              ],
-              "templates": [],
-              "escaped": null,
-              "rest": null,
-              "arrays": [],
-              "tuples": [],
-              "objects": [],
-              "aliases": [],
-              "natives": [],
-              "sets": [],
-              "maps": []
-            },
-            "value": {
-              "any": false,
-              "required": true,
-              "optional": false,
-              "nullable": false,
-              "functional": false,
-              "atomics": [
-                {
-                  "type": "boolean",
-                  "tags": []
-                }
-              ],
-              "constants": [],
-              "templates": [],
-              "escaped": null,
-              "rest": null,
-              "arrays": [
-                {
-                  "name": "Array<string>",
-                  "tags": []
-                }
-              ],
               "tuples": [],
               "objects": [],
               "aliases": [],
