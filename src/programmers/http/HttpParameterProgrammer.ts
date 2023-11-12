@@ -20,7 +20,10 @@ export namespace HttpParameterProgrammer {
         (project: IProject) =>
         (modulo: ts.LeftHandSideExpression) =>
         (type: ts.Type, name?: string): ts.ArrowFunction => {
-            const result = MetadataFactory.analyze(project.checker)({
+            const result = MetadataFactory.analyze(
+                project.checker,
+                project.context,
+            )({
                 escape: false,
                 constant: true,
                 absorb: true,

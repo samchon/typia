@@ -133,9 +133,7 @@ export namespace ExpressionFactory {
             );
 
     export const transpile =
-        (context: ts.TransformationContext) =>
-        (script: string) =>
-        (input: ts.Expression): ts.Expression => {
+        (context: ts.TransformationContext) => (script: string) => {
             const file: ts.SourceFile = ts.createSourceFile(
                 `${RandomGenerator.uuid()}.ts`,
                 script,
@@ -152,16 +150,17 @@ export namespace ExpressionFactory {
                 throw new TypeError(
                     "Error on ExpressionFactory.transpile(): statement is not an expression statement.",
                 );
-
-            const visitor = (node: ts.Node): ts.Node => {
-                if (ts.isIdentifier(node) && node.text === "$input")
-                    return input;
-                return ts.visitEachChild(
-                    (ts.factory as any).cloneNode(node),
-                    visitor,
-                    context,
-                );
+            return (input: ts.Expression): ts.Expression => {
+                const visitor = (node: ts.Node): ts.Node => {
+                    if (ts.isIdentifier(node) && node.text === "$input")
+                        return input;
+                    return ts.visitEachChild(
+                        (ts.factory as any).cloneNode(node),
+                        visitor,
+                        context,
+                    );
+                };
+                return visitor(statement.expression) as ts.Expression;
             };
-            return visitor(statement.expression) as ts.Expression;
         };
 }

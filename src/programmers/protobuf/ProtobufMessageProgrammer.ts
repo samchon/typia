@@ -16,27 +16,27 @@ import { NameEncoder } from "../../utils/NameEncoder";
 import { ProtobufUtil } from "../helpers/ProtobufUtil";
 
 export namespace ProtobufMessageProgrammer {
-    export const write =
-        ({ checker }: IProject) =>
-        (type: ts.Type) => {
-            // PARSE TARGET TYPE
-            const collection: MetadataCollection = new MetadataCollection();
-            ProtobufFactory.metadata("message")(checker)(collection)(type);
+    export const write = (project: IProject) => (type: ts.Type) => {
+        // PARSE TARGET TYPE
+        const collection: MetadataCollection = new MetadataCollection();
+        ProtobufFactory.metadata("message")(project.checker, project.context)(
+            collection,
+        )(type);
 
-            // STRINGIFY
-            const hierarchies: Map<string, Hierarchy> = new Map();
-            for (const obj of collection.objects())
-                if (is_dynamic_object(obj) === false) emplace(hierarchies)(obj);
+        // STRINGIFY
+        const hierarchies: Map<string, Hierarchy> = new Map();
+        for (const obj of collection.objects())
+            if (is_dynamic_object(obj) === false) emplace(hierarchies)(obj);
 
-            const content: string =
-                `syntax = "proto3";\n\n` +
-                [...hierarchies.values()]
-                    .map((hier) => write_hierarchy(hier))
-                    .join("\n\n");
+        const content: string =
+            `syntax = "proto3";\n\n` +
+            [...hierarchies.values()]
+                .map((hier) => write_hierarchy(hier))
+                .join("\n\n");
 
-            // RETURNS
-            return ts.factory.createStringLiteral(content);
-        };
+        // RETURNS
+        return ts.factory.createStringLiteral(content);
+    };
 
     const emplace = (dict: Map<string, Hierarchy>) => (obj: MetadataObject) => {
         const accessors: string[] = obj.name.split(".");

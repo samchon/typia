@@ -11,6 +11,7 @@ import { iterate_metadata_sort } from "./internal/metadata/iterate_metadata_sort
 
 import { ValidationPipe } from "../typings/ValidationPipe";
 
+import { ExpressionFactory } from "./ExpressionFactory";
 import { MetadataCollection } from "./MetadataCollection";
 
 export namespace MetadataFactory {
@@ -40,7 +41,7 @@ export namespace MetadataFactory {
     }
 
     export const analyze =
-        (checker: ts.TypeChecker) =>
+        (checker: ts.TypeChecker, context?: ts.TransformationContext) =>
         (options: IOptions) =>
         (collection: MetadataCollection) =>
         (type: ts.Type | null): ValidationPipe<Metadata, IError> => {
@@ -59,7 +60,9 @@ export namespace MetadataFactory {
             iterate_metadata_sort(collection)(meta);
 
             if (options.validate)
-                errors.push(...validate(options)(options.validate)(meta));
+                errors.push(
+                    ...validate(context)(options)(options.validate)(meta),
+                );
             return errors.length
                 ? {
                       success: false,
@@ -84,6 +87,7 @@ export namespace MetadataFactory {
     };
 
     const validate =
+        (context?: ts.TransformationContext) =>
         (options: IOptions) =>
         (functor: Validator) =>
         (meta: Metadata): IError[] => {
@@ -95,7 +99,7 @@ export namespace MetadataFactory {
                 tuples: new Set(),
                 aliases: new Set(),
             };
-            validateMeta(options)(visitor)(meta, {
+            validateMeta(context)(options)(visitor)(meta, {
                 object: null,
                 property: null,
                 nested: null,
@@ -107,47 +111,70 @@ export namespace MetadataFactory {
         };
 
     const validateMeta =
+        (context?: ts.TransformationContext) =>
         (options: IOptions) =>
         (visitor: IValidationVisitor) =>
         (meta: Metadata, explore: IExplore) => {
-            const result: Set<string> = new Set(visitor.functor(meta, explore));
-            if (result.size)
+            const result: string[] = [];
+            if (context !== undefined)
+                for (const atomic of meta.atomics)
+                    for (const row of atomic.tags)
+                        for (const tag of row.filter(
+                            (t) =>
+                                t.validate !== undefined &&
+                                t.predicate === undefined,
+                        ))
+                            try {
+                                tag.predicate = ExpressionFactory.transpile(
+                                    context,
+                                )(tag.validate!);
+                            } catch {
+                                result.push(
+                                    `Unable to transpile type tag script: ${JSON.stringify(
+                                        tag.validate,
+                                    )}`,
+                                );
+                                tag.predicate = () => ts.factory.createTrue();
+                            }
+            result.push(...visitor.functor(meta, explore));
+            if (result.length)
                 visitor.errors.push({
                     name: meta.getName(),
                     explore: { ...explore },
-                    messages: [...result],
+                    messages: [...new Set(result)],
                 });
 
             for (const alias of meta.aliases)
-                validateAlias(options)(visitor)(alias, explore);
+                validateAlias(context)(options)(visitor)(alias, explore);
             for (const array of meta.arrays)
-                validateArray(options)(visitor)(array.type, explore);
+                validateArray(context)(options)(visitor)(array.type, explore);
             for (const tuple of meta.tuples)
-                validateTuple(options)(visitor)(tuple.type, explore);
+                validateTuple(context)(options)(visitor)(tuple.type, explore);
             for (const obj of meta.objects)
-                validateObject(options)(visitor)(obj);
+                validateObject(context)(options)(visitor)(obj);
             for (const set of meta.sets)
-                validateMeta(options)(visitor)(set, explore);
+                validateMeta(context)(options)(visitor)(set, explore);
             for (const map of meta.maps) {
-                validateMeta(options)(visitor)(map.key, explore);
-                validateMeta(options)(visitor)(map.value, explore);
+                validateMeta(context)(options)(visitor)(map.key, explore);
+                validateMeta(context)(options)(visitor)(map.value, explore);
             }
 
             if (options.escape === true && meta.escaped !== null)
-                validateMeta(options)(visitor)(meta.escaped.returns, {
+                validateMeta(context)(options)(visitor)(meta.escaped.returns, {
                     ...explore,
                     escaped: true,
                 });
         };
 
     const validateAlias =
+        (context?: ts.TransformationContext) =>
         (options: IOptions) =>
         (visitor: IValidationVisitor) =>
         (alias: MetadataAlias, explore: IExplore) => {
             if (visitor.aliases.has(alias)) return;
             visitor.aliases.add(alias);
 
-            validateMeta(options)(visitor)(alias.value, {
+            validateMeta(context)(options)(visitor)(alias.value, {
                 ...explore,
                 nested: alias,
                 aliased: true,
@@ -155,13 +182,14 @@ export namespace MetadataFactory {
         };
 
     const validateArray =
+        (context?: ts.TransformationContext) =>
         (options: IOptions) =>
         (visitor: IValidationVisitor) =>
         (array: MetadataArrayType, explore: IExplore) => {
             if (visitor.arrays.has(array)) return;
             visitor.arrays.add(array);
 
-            validateMeta(options)(visitor)(array.value, {
+            validateMeta(context)(options)(visitor)(array.value, {
                 ...explore,
                 nested: array,
                 top: false,
@@ -169,6 +197,7 @@ export namespace MetadataFactory {
         };
 
     const validateTuple =
+        (context?: ts.TransformationContext) =>
         (options: IOptions) =>
         (visitor: IValidationVisitor) =>
         (tuple: MetadataTupleType, explore: IExplore) => {
@@ -176,7 +205,7 @@ export namespace MetadataFactory {
             visitor.tuples.add(tuple);
 
             for (const elem of tuple.elements)
-                validateMeta(options)(visitor)(elem, {
+                validateMeta(context)(options)(visitor)(elem, {
                     ...explore,
                     nested: tuple,
                     top: false,
@@ -184,6 +213,7 @@ export namespace MetadataFactory {
         };
 
     const validateObject =
+        (context?: ts.TransformationContext) =>
         (options: IOptions) =>
         (visitor: IValidationVisitor) =>
         (object: MetadataObject) => {
@@ -215,7 +245,7 @@ export namespace MetadataFactory {
             }
 
             for (const property of object.properties)
-                validateMeta(options)(visitor)(property.value, {
+                validateMeta(context)(options)(visitor)(property.value, {
                     object,
                     property: property.key.isSoleLiteral()
                         ? property.key.getSoleLiteral()!

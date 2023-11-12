@@ -49,5 +49,13 @@ const application_array_tags =
                 schema.minItems = tag.value;
             else if (tag.kind === "maxItems" && typeof tag.value === "number")
                 schema.maxItems = tag.value;
+        schema["x-typia-typeTags"] = row.map((tag) => ({
+            target: tag.target,
+            name: tag.name,
+            kind: tag.kind,
+            value: tag.value,
+            validate: tag.validate,
+            exclusive: tag.exclusive,
+        }));
         return schema;
     };

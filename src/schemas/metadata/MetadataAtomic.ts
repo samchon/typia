@@ -1,5 +1,6 @@
 import { ClassProperties } from "../../typings/ClassProperties";
 
+import { IMetadataAtomic } from "./IMetadataAtomic";
 import { IMetadataTypeTag } from "./IMetadataTypeTag";
 
 export class MetadataAtomic {
@@ -38,5 +39,21 @@ export class MetadataAtomic {
             });
             return `(${this.type} & (${rows.join(" | ")}))`;
         })());
+    }
+
+    public toJSON(): IMetadataAtomic {
+        return {
+            type: this.type,
+            tags: this.tags.map((row) =>
+                row.map((tag) => ({
+                    target: tag.target,
+                    name: tag.name,
+                    kind: tag.kind,
+                    value: tag.value,
+                    validate: tag.validate,
+                    exclusive: tag.exclusive,
+                })),
+            ),
+        };
     }
 }

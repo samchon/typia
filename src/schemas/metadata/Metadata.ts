@@ -119,12 +119,7 @@ export class Metadata {
             nullable: this.nullable,
             functional: this.functional,
 
-            atomics: this.atomics.map((a) =>
-                MetadataAtomic.create({
-                    type: a.type,
-                    tags: a.tags.map((r) => r.slice()),
-                }),
-            ),
+            atomics: this.atomics.map((a) => a.toJSON()),
             constants: this.constants.map((c) => ({
                 type: c.type,
                 values: c.values.slice() as any,

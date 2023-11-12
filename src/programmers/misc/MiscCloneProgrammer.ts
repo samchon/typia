@@ -734,11 +734,12 @@ export namespace MiscCloneProgrammer {
         };
 
     const initializer: FeatureProgrammer.IConfig["initializer"] =
-        ({ checker }) =>
-        (importer) =>
-        (type) => {
+        (project) => (importer) => (type) => {
             const collection = new MetadataCollection();
-            const result = MetadataFactory.analyze(checker)({
+            const result = MetadataFactory.analyze(
+                project.checker,
+                project.context,
+            )({
                 escape: false,
                 constant: true,
                 absorb: true,
