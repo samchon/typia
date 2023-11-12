@@ -37,7 +37,7 @@ export class MetadataObject {
         this.index = props.index;
         this.validated = props.validated;
         this.recursive = props.recursive;
-        this.nullables = [];
+        this.nullables = props.nullables.slice();
 
         this.tagged_ = false;
     }
