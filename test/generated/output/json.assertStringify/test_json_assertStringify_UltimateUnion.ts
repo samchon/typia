@@ -371,6 +371,14 @@ export const test_json_assertStringify_UltimateUnion =
                                 ("object" === typeof input["x-typia-tuple"] &&
                                     null !== input["x-typia-tuple"] &&
                                     $io12(input["x-typia-tuple"]))) &&
+                            (undefined === input["x-typia-typeTags"] ||
+                                (Array.isArray(input["x-typia-typeTags"]) &&
+                                    input["x-typia-typeTags"].every(
+                                        (elem: any) =>
+                                            "object" === typeof elem &&
+                                            null !== elem &&
+                                            $io7(elem),
+                                    ))) &&
                             "array" === input.type &&
                             (undefined === input.nullable ||
                                 "boolean" === typeof input.nullable) &&
@@ -992,6 +1000,14 @@ export const test_json_assertStringify_UltimateUnion =
                                 ("object" === typeof input["x-typia-tuple"] &&
                                     null !== input["x-typia-tuple"] &&
                                     $io12(input["x-typia-tuple"]))) &&
+                            (undefined === input["x-typia-typeTags"] ||
+                                (Array.isArray(input["x-typia-typeTags"]) &&
+                                    input["x-typia-typeTags"].every(
+                                        (elem: any) =>
+                                            "object" === typeof elem &&
+                                            null !== elem &&
+                                            $io7(elem),
+                                    ))) &&
                             "array" === input.type &&
                             (undefined === input.nullable ||
                                 "boolean" === typeof input.nullable) &&
@@ -2880,6 +2896,56 @@ export const test_json_assertStringify_UltimateUnion =
                                             "(IJsonSchema.ITuple | undefined)",
                                         value: input["x-typia-tuple"],
                                     })) &&
+                                (undefined === input["x-typia-typeTags"] ||
+                                    ((Array.isArray(
+                                        input["x-typia-typeTags"],
+                                    ) ||
+                                        $guard(_exceptionable, {
+                                            path:
+                                                _path + '["x-typia-typeTags"]',
+                                            expected:
+                                                "(Array<IMetadataTypeTag> | undefined)",
+                                            value: input["x-typia-typeTags"],
+                                        })) &&
+                                        input["x-typia-typeTags"].every(
+                                            (elem: any, _index19: number) =>
+                                                ((("object" === typeof elem &&
+                                                    null !== elem) ||
+                                                    $guard(_exceptionable, {
+                                                        path:
+                                                            _path +
+                                                            '["x-typia-typeTags"][' +
+                                                            _index19 +
+                                                            "]",
+                                                        expected:
+                                                            "IMetadataTypeTag",
+                                                        value: elem,
+                                                    })) &&
+                                                    $ao7(
+                                                        elem,
+                                                        _path +
+                                                            '["x-typia-typeTags"][' +
+                                                            _index19 +
+                                                            "]",
+                                                        true && _exceptionable,
+                                                    )) ||
+                                                $guard(_exceptionable, {
+                                                    path:
+                                                        _path +
+                                                        '["x-typia-typeTags"][' +
+                                                        _index19 +
+                                                        "]",
+                                                    expected:
+                                                        "IMetadataTypeTag",
+                                                    value: elem,
+                                                }),
+                                        )) ||
+                                    $guard(_exceptionable, {
+                                        path: _path + '["x-typia-typeTags"]',
+                                        expected:
+                                            "(Array<IMetadataTypeTag> | undefined)",
+                                        value: input["x-typia-typeTags"],
+                                    })) &&
                                 ("array" === input.type ||
                                     $guard(_exceptionable, {
                                         path: _path + ".type",
@@ -2926,14 +2992,14 @@ export const test_json_assertStringify_UltimateUnion =
                                             value: input["x-typia-jsDocTags"],
                                         })) &&
                                         input["x-typia-jsDocTags"].every(
-                                            (elem: any, _index19: number) =>
+                                            (elem: any, _index20: number) =>
                                                 ((("object" === typeof elem &&
                                                     null !== elem) ||
                                                     $guard(_exceptionable, {
                                                         path:
                                                             _path +
                                                             '["x-typia-jsDocTags"][' +
-                                                            _index19 +
+                                                            _index20 +
                                                             "]",
                                                         expected:
                                                             "IJsDocTagInfo",
@@ -2943,7 +3009,7 @@ export const test_json_assertStringify_UltimateUnion =
                                                         elem,
                                                         _path +
                                                             '["x-typia-jsDocTags"][' +
-                                                            _index19 +
+                                                            _index20 +
                                                             "]",
                                                         true && _exceptionable,
                                                     )) ||
@@ -2951,7 +3017,7 @@ export const test_json_assertStringify_UltimateUnion =
                                                     path:
                                                         _path +
                                                         '["x-typia-jsDocTags"][' +
-                                                        _index19 +
+                                                        _index20 +
                                                         "]",
                                                     expected: "IJsDocTagInfo",
                                                     value: elem,
@@ -2999,7 +3065,7 @@ export const test_json_assertStringify_UltimateUnion =
                                         value: input.items,
                                     })) &&
                                     input.items.every(
-                                        (elem: any, _index20: number) =>
+                                        (elem: any, _index21: number) =>
                                             ((("object" === typeof elem &&
                                                 null !== elem &&
                                                 false ===
@@ -3008,7 +3074,7 @@ export const test_json_assertStringify_UltimateUnion =
                                                     path:
                                                         _path +
                                                         ".items[" +
-                                                        _index20 +
+                                                        _index21 +
                                                         "]",
                                                     expected:
                                                         '(IJsonSchema.IArray | IJsonSchema.IBoolean | IJsonSchema.IEnumeration<"boolean"> | IJsonSchema.IEnumeration<"number"> | IJsonSchema.IEnumeration<"string"> | IJsonSchema.IInteger | IJsonSchema.INullOnly | IJsonSchema.INumber | IJsonSchema.IOneOf | IJsonSchema.IReference | IJsonSchema.IString | IJsonSchema.ITuple | IJsonSchema.IUnknown)',
@@ -3018,7 +3084,7 @@ export const test_json_assertStringify_UltimateUnion =
                                                     elem,
                                                     _path +
                                                         ".items[" +
-                                                        _index20 +
+                                                        _index21 +
                                                         "]",
                                                     true && _exceptionable,
                                                 )) ||
@@ -3026,7 +3092,7 @@ export const test_json_assertStringify_UltimateUnion =
                                                 path:
                                                     _path +
                                                     ".items[" +
-                                                    _index20 +
+                                                    _index21 +
                                                     "]",
                                                 expected:
                                                     '(IJsonSchema.IArray | IJsonSchema.IBoolean | IJsonSchema.IEnumeration<"boolean"> | IJsonSchema.IEnumeration<"number"> | IJsonSchema.IEnumeration<"string"> | IJsonSchema.IInteger | IJsonSchema.INullOnly | IJsonSchema.INumber | IJsonSchema.IOneOf | IJsonSchema.IReference | IJsonSchema.IString | IJsonSchema.ITuple | IJsonSchema.IUnknown)',
@@ -3117,14 +3183,14 @@ export const test_json_assertStringify_UltimateUnion =
                                             value: input["x-typia-jsDocTags"],
                                         })) &&
                                         input["x-typia-jsDocTags"].every(
-                                            (elem: any, _index21: number) =>
+                                            (elem: any, _index22: number) =>
                                                 ((("object" === typeof elem &&
                                                     null !== elem) ||
                                                     $guard(_exceptionable, {
                                                         path:
                                                             _path +
                                                             '["x-typia-jsDocTags"][' +
-                                                            _index21 +
+                                                            _index22 +
                                                             "]",
                                                         expected:
                                                             "IJsDocTagInfo",
@@ -3134,7 +3200,7 @@ export const test_json_assertStringify_UltimateUnion =
                                                         elem,
                                                         _path +
                                                             '["x-typia-jsDocTags"][' +
-                                                            _index21 +
+                                                            _index22 +
                                                             "]",
                                                         true && _exceptionable,
                                                     )) ||
@@ -3142,7 +3208,7 @@ export const test_json_assertStringify_UltimateUnion =
                                                     path:
                                                         _path +
                                                         '["x-typia-jsDocTags"][' +
-                                                        _index21 +
+                                                        _index22 +
                                                         "]",
                                                     expected: "IJsDocTagInfo",
                                                     value: elem,
@@ -3190,7 +3256,7 @@ export const test_json_assertStringify_UltimateUnion =
                                         value: input.oneOf,
                                     })) &&
                                     input.oneOf.every(
-                                        (elem: any, _index22: number) =>
+                                        (elem: any, _index23: number) =>
                                             ((("object" === typeof elem &&
                                                 null !== elem &&
                                                 false ===
@@ -3199,7 +3265,7 @@ export const test_json_assertStringify_UltimateUnion =
                                                     path:
                                                         _path +
                                                         ".oneOf[" +
-                                                        _index22 +
+                                                        _index23 +
                                                         "]",
                                                     expected:
                                                         '(IJsonSchema.IArray | IJsonSchema.IBoolean | IJsonSchema.IEnumeration<"boolean"> | IJsonSchema.IEnumeration<"number"> | IJsonSchema.IEnumeration<"string"> | IJsonSchema.IInteger | IJsonSchema.INullOnly | IJsonSchema.INumber | IJsonSchema.IOneOf | IJsonSchema.IReference | IJsonSchema.IString | IJsonSchema.ITuple | IJsonSchema.IUnknown)',
@@ -3209,7 +3275,7 @@ export const test_json_assertStringify_UltimateUnion =
                                                     elem,
                                                     _path +
                                                         ".oneOf[" +
-                                                        _index22 +
+                                                        _index23 +
                                                         "]",
                                                     true && _exceptionable,
                                                 )) ||
@@ -3217,7 +3283,7 @@ export const test_json_assertStringify_UltimateUnion =
                                                 path:
                                                     _path +
                                                     ".oneOf[" +
-                                                    _index22 +
+                                                    _index23 +
                                                     "]",
                                                 expected:
                                                     '(IJsonSchema.IArray | IJsonSchema.IBoolean | IJsonSchema.IEnumeration<"boolean"> | IJsonSchema.IEnumeration<"number"> | IJsonSchema.IEnumeration<"string"> | IJsonSchema.IInteger | IJsonSchema.INullOnly | IJsonSchema.INumber | IJsonSchema.IOneOf | IJsonSchema.IReference | IJsonSchema.IString | IJsonSchema.ITuple | IJsonSchema.IUnknown)',
@@ -3228,111 +3294,6 @@ export const test_json_assertStringify_UltimateUnion =
                                         path: _path + ".oneOf",
                                         expected: "Array<IJsonSchema>",
                                         value: input.oneOf,
-                                    })) &&
-                                (undefined === input.deprecated ||
-                                    "boolean" === typeof input.deprecated ||
-                                    $guard(_exceptionable, {
-                                        path: _path + ".deprecated",
-                                        expected: "(boolean | undefined)",
-                                        value: input.deprecated,
-                                    })) &&
-                                (undefined === input.title ||
-                                    "string" === typeof input.title ||
-                                    $guard(_exceptionable, {
-                                        path: _path + ".title",
-                                        expected: "(string | undefined)",
-                                        value: input.title,
-                                    })) &&
-                                (undefined === input.description ||
-                                    "string" === typeof input.description ||
-                                    $guard(_exceptionable, {
-                                        path: _path + ".description",
-                                        expected: "(string | undefined)",
-                                        value: input.description,
-                                    })) &&
-                                (undefined === input["x-typia-jsDocTags"] ||
-                                    ((Array.isArray(
-                                        input["x-typia-jsDocTags"],
-                                    ) ||
-                                        $guard(_exceptionable, {
-                                            path:
-                                                _path + '["x-typia-jsDocTags"]',
-                                            expected:
-                                                "(Array<IJsDocTagInfo> | undefined)",
-                                            value: input["x-typia-jsDocTags"],
-                                        })) &&
-                                        input["x-typia-jsDocTags"].every(
-                                            (elem: any, _index23: number) =>
-                                                ((("object" === typeof elem &&
-                                                    null !== elem) ||
-                                                    $guard(_exceptionable, {
-                                                        path:
-                                                            _path +
-                                                            '["x-typia-jsDocTags"][' +
-                                                            _index23 +
-                                                            "]",
-                                                        expected:
-                                                            "IJsDocTagInfo",
-                                                        value: elem,
-                                                    })) &&
-                                                    $ao2(
-                                                        elem,
-                                                        _path +
-                                                            '["x-typia-jsDocTags"][' +
-                                                            _index23 +
-                                                            "]",
-                                                        true && _exceptionable,
-                                                    )) ||
-                                                $guard(_exceptionable, {
-                                                    path:
-                                                        _path +
-                                                        '["x-typia-jsDocTags"][' +
-                                                        _index23 +
-                                                        "]",
-                                                    expected: "IJsDocTagInfo",
-                                                    value: elem,
-                                                }),
-                                        )) ||
-                                    $guard(_exceptionable, {
-                                        path: _path + '["x-typia-jsDocTags"]',
-                                        expected:
-                                            "(Array<IJsDocTagInfo> | undefined)",
-                                        value: input["x-typia-jsDocTags"],
-                                    })) &&
-                                (undefined === input["x-typia-required"] ||
-                                    "boolean" ===
-                                        typeof input["x-typia-required"] ||
-                                    $guard(_exceptionable, {
-                                        path: _path + '["x-typia-required"]',
-                                        expected: "(boolean | undefined)",
-                                        value: input["x-typia-required"],
-                                    })) &&
-                                (undefined === input["x-typia-optional"] ||
-                                    "boolean" ===
-                                        typeof input["x-typia-optional"] ||
-                                    $guard(_exceptionable, {
-                                        path: _path + '["x-typia-optional"]',
-                                        expected: "(boolean | undefined)",
-                                        value: input["x-typia-optional"],
-                                    })) &&
-                                (undefined === input["x-typia-rest"] ||
-                                    "boolean" ===
-                                        typeof input["x-typia-rest"] ||
-                                    $guard(_exceptionable, {
-                                        path: _path + '["x-typia-rest"]',
-                                        expected: "(boolean | undefined)",
-                                        value: input["x-typia-rest"],
-                                    }));
-                            const $ao14 = (
-                                input: any,
-                                _path: string,
-                                _exceptionable: boolean = true,
-                            ): boolean =>
-                                ("string" === typeof input.$ref ||
-                                    $guard(_exceptionable, {
-                                        path: _path + ".$ref",
-                                        expected: "string",
-                                        value: input.$ref,
                                     })) &&
                                 (undefined === input.deprecated ||
                                     "boolean" === typeof input.deprecated ||
@@ -3428,16 +3389,16 @@ export const test_json_assertStringify_UltimateUnion =
                                         expected: "(boolean | undefined)",
                                         value: input["x-typia-rest"],
                                     }));
-                            const $ao15 = (
+                            const $ao14 = (
                                 input: any,
                                 _path: string,
                                 _exceptionable: boolean = true,
                             ): boolean =>
-                                ("null" === input.type ||
+                                ("string" === typeof input.$ref ||
                                     $guard(_exceptionable, {
-                                        path: _path + ".type",
-                                        expected: '"null"',
-                                        value: input.type,
+                                        path: _path + ".$ref",
+                                        expected: "string",
+                                        value: input.$ref,
                                     })) &&
                                 (undefined === input.deprecated ||
                                     "boolean" === typeof input.deprecated ||
@@ -3533,21 +3494,15 @@ export const test_json_assertStringify_UltimateUnion =
                                         expected: "(boolean | undefined)",
                                         value: input["x-typia-rest"],
                                     }));
-                            const $ao16 = (
+                            const $ao15 = (
                                 input: any,
                                 _path: string,
                                 _exceptionable: boolean = true,
                             ): boolean =>
-                                (null !== input.type ||
+                                ("null" === input.type ||
                                     $guard(_exceptionable, {
                                         path: _path + ".type",
-                                        expected: "undefined",
-                                        value: input.type,
-                                    })) &&
-                                (undefined === input.type ||
-                                    $guard(_exceptionable, {
-                                        path: _path + ".type",
-                                        expected: "undefined",
+                                        expected: '"null"',
                                         value: input.type,
                                     })) &&
                                 (undefined === input.deprecated ||
@@ -3609,6 +3564,117 @@ export const test_json_assertStringify_UltimateUnion =
                                                         _path +
                                                         '["x-typia-jsDocTags"][' +
                                                         _index26 +
+                                                        "]",
+                                                    expected: "IJsDocTagInfo",
+                                                    value: elem,
+                                                }),
+                                        )) ||
+                                    $guard(_exceptionable, {
+                                        path: _path + '["x-typia-jsDocTags"]',
+                                        expected:
+                                            "(Array<IJsDocTagInfo> | undefined)",
+                                        value: input["x-typia-jsDocTags"],
+                                    })) &&
+                                (undefined === input["x-typia-required"] ||
+                                    "boolean" ===
+                                        typeof input["x-typia-required"] ||
+                                    $guard(_exceptionable, {
+                                        path: _path + '["x-typia-required"]',
+                                        expected: "(boolean | undefined)",
+                                        value: input["x-typia-required"],
+                                    })) &&
+                                (undefined === input["x-typia-optional"] ||
+                                    "boolean" ===
+                                        typeof input["x-typia-optional"] ||
+                                    $guard(_exceptionable, {
+                                        path: _path + '["x-typia-optional"]',
+                                        expected: "(boolean | undefined)",
+                                        value: input["x-typia-optional"],
+                                    })) &&
+                                (undefined === input["x-typia-rest"] ||
+                                    "boolean" ===
+                                        typeof input["x-typia-rest"] ||
+                                    $guard(_exceptionable, {
+                                        path: _path + '["x-typia-rest"]',
+                                        expected: "(boolean | undefined)",
+                                        value: input["x-typia-rest"],
+                                    }));
+                            const $ao16 = (
+                                input: any,
+                                _path: string,
+                                _exceptionable: boolean = true,
+                            ): boolean =>
+                                (null !== input.type ||
+                                    $guard(_exceptionable, {
+                                        path: _path + ".type",
+                                        expected: "undefined",
+                                        value: input.type,
+                                    })) &&
+                                (undefined === input.type ||
+                                    $guard(_exceptionable, {
+                                        path: _path + ".type",
+                                        expected: "undefined",
+                                        value: input.type,
+                                    })) &&
+                                (undefined === input.deprecated ||
+                                    "boolean" === typeof input.deprecated ||
+                                    $guard(_exceptionable, {
+                                        path: _path + ".deprecated",
+                                        expected: "(boolean | undefined)",
+                                        value: input.deprecated,
+                                    })) &&
+                                (undefined === input.title ||
+                                    "string" === typeof input.title ||
+                                    $guard(_exceptionable, {
+                                        path: _path + ".title",
+                                        expected: "(string | undefined)",
+                                        value: input.title,
+                                    })) &&
+                                (undefined === input.description ||
+                                    "string" === typeof input.description ||
+                                    $guard(_exceptionable, {
+                                        path: _path + ".description",
+                                        expected: "(string | undefined)",
+                                        value: input.description,
+                                    })) &&
+                                (undefined === input["x-typia-jsDocTags"] ||
+                                    ((Array.isArray(
+                                        input["x-typia-jsDocTags"],
+                                    ) ||
+                                        $guard(_exceptionable, {
+                                            path:
+                                                _path + '["x-typia-jsDocTags"]',
+                                            expected:
+                                                "(Array<IJsDocTagInfo> | undefined)",
+                                            value: input["x-typia-jsDocTags"],
+                                        })) &&
+                                        input["x-typia-jsDocTags"].every(
+                                            (elem: any, _index27: number) =>
+                                                ((("object" === typeof elem &&
+                                                    null !== elem) ||
+                                                    $guard(_exceptionable, {
+                                                        path:
+                                                            _path +
+                                                            '["x-typia-jsDocTags"][' +
+                                                            _index27 +
+                                                            "]",
+                                                        expected:
+                                                            "IJsDocTagInfo",
+                                                        value: elem,
+                                                    })) &&
+                                                    $ao2(
+                                                        elem,
+                                                        _path +
+                                                            '["x-typia-jsDocTags"][' +
+                                                            _index27 +
+                                                            "]",
+                                                        true && _exceptionable,
+                                                    )) ||
+                                                $guard(_exceptionable, {
+                                                    path:
+                                                        _path +
+                                                        '["x-typia-jsDocTags"][' +
+                                                        _index27 +
                                                         "]",
                                                     expected: "IJsDocTagInfo",
                                                     value: elem,
@@ -3809,13 +3875,13 @@ export const test_json_assertStringify_UltimateUnion =
                                             value: input.required,
                                         })) &&
                                         input.required.every(
-                                            (elem: any, _index27: number) =>
+                                            (elem: any, _index28: number) =>
                                                 "string" === typeof elem ||
                                                 $guard(_exceptionable, {
                                                     path:
                                                         _path +
                                                         ".required[" +
-                                                        _index27 +
+                                                        _index28 +
                                                         "]",
                                                     expected: "string",
                                                     value: elem,
@@ -3845,14 +3911,14 @@ export const test_json_assertStringify_UltimateUnion =
                                             value: input["x-typia-jsDocTags"],
                                         })) &&
                                         input["x-typia-jsDocTags"].every(
-                                            (elem: any, _index28: number) =>
+                                            (elem: any, _index29: number) =>
                                                 ((("object" === typeof elem &&
                                                     null !== elem) ||
                                                     $guard(_exceptionable, {
                                                         path:
                                                             _path +
                                                             '["x-typia-jsDocTags"][' +
-                                                            _index28 +
+                                                            _index29 +
                                                             "]",
                                                         expected:
                                                             "IJsDocTagInfo",
@@ -3862,7 +3928,7 @@ export const test_json_assertStringify_UltimateUnion =
                                                         elem,
                                                         _path +
                                                             '["x-typia-jsDocTags"][' +
-                                                            _index28 +
+                                                            _index29 +
                                                             "]",
                                                         true && _exceptionable,
                                                     )) ||
@@ -3870,7 +3936,7 @@ export const test_json_assertStringify_UltimateUnion =
                                                     path:
                                                         _path +
                                                         '["x-typia-jsDocTags"][' +
-                                                        _index28 +
+                                                        _index29 +
                                                         "]",
                                                     expected: "IJsDocTagInfo",
                                                     value: elem,
@@ -4015,13 +4081,13 @@ export const test_json_assertStringify_UltimateUnion =
                                         value: input["enum"],
                                     })) &&
                                     input["enum"].every(
-                                        (elem: any, _index29: number) =>
+                                        (elem: any, _index30: number) =>
                                             "boolean" === typeof elem ||
                                             $guard(_exceptionable, {
                                                 path:
                                                     _path +
                                                     '["enum"][' +
-                                                    _index29 +
+                                                    _index30 +
                                                     "]",
                                                 expected: "boolean",
                                                 value: elem,
@@ -4085,14 +4151,14 @@ export const test_json_assertStringify_UltimateUnion =
                                             value: input["x-typia-jsDocTags"],
                                         })) &&
                                         input["x-typia-jsDocTags"].every(
-                                            (elem: any, _index30: number) =>
+                                            (elem: any, _index31: number) =>
                                                 ((("object" === typeof elem &&
                                                     null !== elem) ||
                                                     $guard(_exceptionable, {
                                                         path:
                                                             _path +
                                                             '["x-typia-jsDocTags"][' +
-                                                            _index30 +
+                                                            _index31 +
                                                             "]",
                                                         expected:
                                                             "IJsDocTagInfo",
@@ -4102,7 +4168,7 @@ export const test_json_assertStringify_UltimateUnion =
                                                         elem,
                                                         _path +
                                                             '["x-typia-jsDocTags"][' +
-                                                            _index30 +
+                                                            _index31 +
                                                             "]",
                                                         true && _exceptionable,
                                                     )) ||
@@ -4110,7 +4176,7 @@ export const test_json_assertStringify_UltimateUnion =
                                                     path:
                                                         _path +
                                                         '["x-typia-jsDocTags"][' +
-                                                        _index30 +
+                                                        _index31 +
                                                         "]",
                                                     expected: "IJsDocTagInfo",
                                                     value: elem,
@@ -4173,14 +4239,14 @@ export const test_json_assertStringify_UltimateUnion =
                                         value: input["enum"],
                                     })) &&
                                     input["enum"].every(
-                                        (elem: any, _index31: number) =>
+                                        (elem: any, _index32: number) =>
                                             ("number" === typeof elem &&
                                                 Number.isFinite(elem)) ||
                                             $guard(_exceptionable, {
                                                 path:
                                                     _path +
                                                     '["enum"][' +
-                                                    _index31 +
+                                                    _index32 +
                                                     "]",
                                                 expected: "number",
                                                 value: elem,
@@ -4245,14 +4311,14 @@ export const test_json_assertStringify_UltimateUnion =
                                             value: input["x-typia-jsDocTags"],
                                         })) &&
                                         input["x-typia-jsDocTags"].every(
-                                            (elem: any, _index32: number) =>
+                                            (elem: any, _index33: number) =>
                                                 ((("object" === typeof elem &&
                                                     null !== elem) ||
                                                     $guard(_exceptionable, {
                                                         path:
                                                             _path +
                                                             '["x-typia-jsDocTags"][' +
-                                                            _index32 +
+                                                            _index33 +
                                                             "]",
                                                         expected:
                                                             "IJsDocTagInfo",
@@ -4262,7 +4328,7 @@ export const test_json_assertStringify_UltimateUnion =
                                                         elem,
                                                         _path +
                                                             '["x-typia-jsDocTags"][' +
-                                                            _index32 +
+                                                            _index33 +
                                                             "]",
                                                         true && _exceptionable,
                                                     )) ||
@@ -4270,7 +4336,7 @@ export const test_json_assertStringify_UltimateUnion =
                                                     path:
                                                         _path +
                                                         '["x-typia-jsDocTags"][' +
-                                                        _index32 +
+                                                        _index33 +
                                                         "]",
                                                     expected: "IJsDocTagInfo",
                                                     value: elem,
@@ -4333,13 +4399,13 @@ export const test_json_assertStringify_UltimateUnion =
                                         value: input["enum"],
                                     })) &&
                                     input["enum"].every(
-                                        (elem: any, _index33: number) =>
+                                        (elem: any, _index34: number) =>
                                             "string" === typeof elem ||
                                             $guard(_exceptionable, {
                                                 path:
                                                     _path +
                                                     '["enum"][' +
-                                                    _index33 +
+                                                    _index34 +
                                                     "]",
                                                 expected: "string",
                                                 value: elem,
@@ -4403,14 +4469,14 @@ export const test_json_assertStringify_UltimateUnion =
                                             value: input["x-typia-jsDocTags"],
                                         })) &&
                                         input["x-typia-jsDocTags"].every(
-                                            (elem: any, _index34: number) =>
+                                            (elem: any, _index35: number) =>
                                                 ((("object" === typeof elem &&
                                                     null !== elem) ||
                                                     $guard(_exceptionable, {
                                                         path:
                                                             _path +
                                                             '["x-typia-jsDocTags"][' +
-                                                            _index34 +
+                                                            _index35 +
                                                             "]",
                                                         expected:
                                                             "IJsDocTagInfo",
@@ -4420,7 +4486,7 @@ export const test_json_assertStringify_UltimateUnion =
                                                         elem,
                                                         _path +
                                                             '["x-typia-jsDocTags"][' +
-                                                            _index34 +
+                                                            _index35 +
                                                             "]",
                                                         true && _exceptionable,
                                                     )) ||
@@ -4428,7 +4494,7 @@ export const test_json_assertStringify_UltimateUnion =
                                                     path:
                                                         _path +
                                                         '["x-typia-jsDocTags"][' +
-                                                        _index34 +
+                                                        _index35 +
                                                         "]",
                                                     expected: "IJsDocTagInfo",
                                                     value: elem,
@@ -4496,14 +4562,14 @@ export const test_json_assertStringify_UltimateUnion =
                                             value: input["x-typia-typeTags"],
                                         })) &&
                                         input["x-typia-typeTags"].every(
-                                            (elem: any, _index35: number) =>
+                                            (elem: any, _index36: number) =>
                                                 ((("object" === typeof elem &&
                                                     null !== elem) ||
                                                     $guard(_exceptionable, {
                                                         path:
                                                             _path +
                                                             '["x-typia-typeTags"][' +
-                                                            _index35 +
+                                                            _index36 +
                                                             "]",
                                                         expected:
                                                             "IMetadataTypeTag",
@@ -4513,7 +4579,7 @@ export const test_json_assertStringify_UltimateUnion =
                                                         elem,
                                                         _path +
                                                             '["x-typia-typeTags"][' +
-                                                            _index35 +
+                                                            _index36 +
                                                             "]",
                                                         true && _exceptionable,
                                                     )) ||
@@ -4521,7 +4587,7 @@ export const test_json_assertStringify_UltimateUnion =
                                                     path:
                                                         _path +
                                                         '["x-typia-typeTags"][' +
-                                                        _index35 +
+                                                        _index36 +
                                                         "]",
                                                     expected:
                                                         "IMetadataTypeTag",
@@ -4587,14 +4653,14 @@ export const test_json_assertStringify_UltimateUnion =
                                             value: input["x-typia-jsDocTags"],
                                         })) &&
                                         input["x-typia-jsDocTags"].every(
-                                            (elem: any, _index36: number) =>
+                                            (elem: any, _index37: number) =>
                                                 ((("object" === typeof elem &&
                                                     null !== elem) ||
                                                     $guard(_exceptionable, {
                                                         path:
                                                             _path +
                                                             '["x-typia-jsDocTags"][' +
-                                                            _index36 +
+                                                            _index37 +
                                                             "]",
                                                         expected:
                                                             "IJsDocTagInfo",
@@ -4604,7 +4670,7 @@ export const test_json_assertStringify_UltimateUnion =
                                                         elem,
                                                         _path +
                                                             '["x-typia-jsDocTags"][' +
-                                                            _index36 +
+                                                            _index37 +
                                                             "]",
                                                         true && _exceptionable,
                                                     )) ||
@@ -4612,7 +4678,7 @@ export const test_json_assertStringify_UltimateUnion =
                                                     path:
                                                         _path +
                                                         '["x-typia-jsDocTags"][' +
-                                                        _index36 +
+                                                        _index37 +
                                                         "]",
                                                     expected: "IJsDocTagInfo",
                                                     value: elem,
@@ -4750,14 +4816,14 @@ export const test_json_assertStringify_UltimateUnion =
                                             value: input["x-typia-typeTags"],
                                         })) &&
                                         input["x-typia-typeTags"].every(
-                                            (elem: any, _index37: number) =>
+                                            (elem: any, _index38: number) =>
                                                 ((("object" === typeof elem &&
                                                     null !== elem) ||
                                                     $guard(_exceptionable, {
                                                         path:
                                                             _path +
                                                             '["x-typia-typeTags"][' +
-                                                            _index37 +
+                                                            _index38 +
                                                             "]",
                                                         expected:
                                                             "IMetadataTypeTag",
@@ -4767,7 +4833,7 @@ export const test_json_assertStringify_UltimateUnion =
                                                         elem,
                                                         _path +
                                                             '["x-typia-typeTags"][' +
-                                                            _index37 +
+                                                            _index38 +
                                                             "]",
                                                         true && _exceptionable,
                                                     )) ||
@@ -4775,7 +4841,7 @@ export const test_json_assertStringify_UltimateUnion =
                                                     path:
                                                         _path +
                                                         '["x-typia-typeTags"][' +
-                                                        _index37 +
+                                                        _index38 +
                                                         "]",
                                                     expected:
                                                         "IMetadataTypeTag",
@@ -4842,14 +4908,14 @@ export const test_json_assertStringify_UltimateUnion =
                                             value: input["x-typia-jsDocTags"],
                                         })) &&
                                         input["x-typia-jsDocTags"].every(
-                                            (elem: any, _index38: number) =>
+                                            (elem: any, _index39: number) =>
                                                 ((("object" === typeof elem &&
                                                     null !== elem) ||
                                                     $guard(_exceptionable, {
                                                         path:
                                                             _path +
                                                             '["x-typia-jsDocTags"][' +
-                                                            _index38 +
+                                                            _index39 +
                                                             "]",
                                                         expected:
                                                             "IJsDocTagInfo",
@@ -4859,7 +4925,7 @@ export const test_json_assertStringify_UltimateUnion =
                                                         elem,
                                                         _path +
                                                             '["x-typia-jsDocTags"][' +
-                                                            _index38 +
+                                                            _index39 +
                                                             "]",
                                                         true && _exceptionable,
                                                     )) ||
@@ -4867,7 +4933,7 @@ export const test_json_assertStringify_UltimateUnion =
                                                     path:
                                                         _path +
                                                         '["x-typia-jsDocTags"][' +
-                                                        _index38 +
+                                                        _index39 +
                                                         "]",
                                                     expected: "IJsDocTagInfo",
                                                     value: elem,
@@ -4975,14 +5041,14 @@ export const test_json_assertStringify_UltimateUnion =
                                             value: input["x-typia-typeTags"],
                                         })) &&
                                         input["x-typia-typeTags"].every(
-                                            (elem: any, _index39: number) =>
+                                            (elem: any, _index40: number) =>
                                                 ((("object" === typeof elem &&
                                                     null !== elem) ||
                                                     $guard(_exceptionable, {
                                                         path:
                                                             _path +
                                                             '["x-typia-typeTags"][' +
-                                                            _index39 +
+                                                            _index40 +
                                                             "]",
                                                         expected:
                                                             "IMetadataTypeTag",
@@ -4992,7 +5058,7 @@ export const test_json_assertStringify_UltimateUnion =
                                                         elem,
                                                         _path +
                                                             '["x-typia-typeTags"][' +
-                                                            _index39 +
+                                                            _index40 +
                                                             "]",
                                                         true && _exceptionable,
                                                     )) ||
@@ -5000,7 +5066,7 @@ export const test_json_assertStringify_UltimateUnion =
                                                     path:
                                                         _path +
                                                         '["x-typia-typeTags"][' +
-                                                        _index39 +
+                                                        _index40 +
                                                         "]",
                                                     expected:
                                                         "IMetadataTypeTag",
@@ -5067,14 +5133,14 @@ export const test_json_assertStringify_UltimateUnion =
                                             value: input["x-typia-jsDocTags"],
                                         })) &&
                                         input["x-typia-jsDocTags"].every(
-                                            (elem: any, _index40: number) =>
+                                            (elem: any, _index41: number) =>
                                                 ((("object" === typeof elem &&
                                                     null !== elem) ||
                                                     $guard(_exceptionable, {
                                                         path:
                                                             _path +
                                                             '["x-typia-jsDocTags"][' +
-                                                            _index40 +
+                                                            _index41 +
                                                             "]",
                                                         expected:
                                                             "IJsDocTagInfo",
@@ -5084,7 +5150,7 @@ export const test_json_assertStringify_UltimateUnion =
                                                         elem,
                                                         _path +
                                                             '["x-typia-jsDocTags"][' +
-                                                            _index40 +
+                                                            _index41 +
                                                             "]",
                                                         true && _exceptionable,
                                                     )) ||
@@ -5092,7 +5158,7 @@ export const test_json_assertStringify_UltimateUnion =
                                                     path:
                                                         _path +
                                                         '["x-typia-jsDocTags"][' +
-                                                        _index40 +
+                                                        _index41 +
                                                         "]",
                                                     expected: "IJsDocTagInfo",
                                                     value: elem,
@@ -5210,14 +5276,14 @@ export const test_json_assertStringify_UltimateUnion =
                                             value: input["x-typia-typeTags"],
                                         })) &&
                                         input["x-typia-typeTags"].every(
-                                            (elem: any, _index41: number) =>
+                                            (elem: any, _index42: number) =>
                                                 ((("object" === typeof elem &&
                                                     null !== elem) ||
                                                     $guard(_exceptionable, {
                                                         path:
                                                             _path +
                                                             '["x-typia-typeTags"][' +
-                                                            _index41 +
+                                                            _index42 +
                                                             "]",
                                                         expected:
                                                             "IMetadataTypeTag",
@@ -5227,7 +5293,7 @@ export const test_json_assertStringify_UltimateUnion =
                                                         elem,
                                                         _path +
                                                             '["x-typia-typeTags"][' +
-                                                            _index41 +
+                                                            _index42 +
                                                             "]",
                                                         true && _exceptionable,
                                                     )) ||
@@ -5235,7 +5301,7 @@ export const test_json_assertStringify_UltimateUnion =
                                                     path:
                                                         _path +
                                                         '["x-typia-typeTags"][' +
-                                                        _index41 +
+                                                        _index42 +
                                                         "]",
                                                     expected:
                                                         "IMetadataTypeTag",
@@ -5301,14 +5367,14 @@ export const test_json_assertStringify_UltimateUnion =
                                             value: input["x-typia-jsDocTags"],
                                         })) &&
                                         input["x-typia-jsDocTags"].every(
-                                            (elem: any, _index42: number) =>
+                                            (elem: any, _index43: number) =>
                                                 ((("object" === typeof elem &&
                                                     null !== elem) ||
                                                     $guard(_exceptionable, {
                                                         path:
                                                             _path +
                                                             '["x-typia-jsDocTags"][' +
-                                                            _index42 +
+                                                            _index43 +
                                                             "]",
                                                         expected:
                                                             "IJsDocTagInfo",
@@ -5318,7 +5384,7 @@ export const test_json_assertStringify_UltimateUnion =
                                                         elem,
                                                         _path +
                                                             '["x-typia-jsDocTags"][' +
-                                                            _index42 +
+                                                            _index43 +
                                                             "]",
                                                         true && _exceptionable,
                                                     )) ||
@@ -5326,7 +5392,7 @@ export const test_json_assertStringify_UltimateUnion =
                                                     path:
                                                         _path +
                                                         '["x-typia-jsDocTags"][' +
-                                                        _index42 +
+                                                        _index43 +
                                                         "]",
                                                     expected: "IJsDocTagInfo",
                                                     value: elem,
@@ -5459,211 +5525,55 @@ export const test_json_assertStringify_UltimateUnion =
                                             "(IJsonSchema.ITuple | undefined)",
                                         value: input["x-typia-tuple"],
                                     })) &&
-                                ("array" === input.type ||
-                                    $guard(_exceptionable, {
-                                        path: _path + ".type",
-                                        expected: '"array"',
-                                        value: input.type,
-                                    })) &&
-                                (undefined === input.nullable ||
-                                    "boolean" === typeof input.nullable ||
-                                    $guard(_exceptionable, {
-                                        path: _path + ".nullable",
-                                        expected: "(boolean | undefined)",
-                                        value: input.nullable,
-                                    })) &&
-                                (undefined === input.deprecated ||
-                                    "boolean" === typeof input.deprecated ||
-                                    $guard(_exceptionable, {
-                                        path: _path + ".deprecated",
-                                        expected: "(boolean | undefined)",
-                                        value: input.deprecated,
-                                    })) &&
-                                (undefined === input.title ||
-                                    "string" === typeof input.title ||
-                                    $guard(_exceptionable, {
-                                        path: _path + ".title",
-                                        expected: "(string | undefined)",
-                                        value: input.title,
-                                    })) &&
-                                (undefined === input.description ||
-                                    "string" === typeof input.description ||
-                                    $guard(_exceptionable, {
-                                        path: _path + ".description",
-                                        expected: "(string | undefined)",
-                                        value: input.description,
-                                    })) &&
-                                (undefined === input["x-typia-jsDocTags"] ||
+                                (undefined === input["x-typia-typeTags"] ||
                                     ((Array.isArray(
-                                        input["x-typia-jsDocTags"],
+                                        input["x-typia-typeTags"],
                                     ) ||
                                         $guard(_exceptionable, {
                                             path:
-                                                _path + '["x-typia-jsDocTags"]',
+                                                _path + '["x-typia-typeTags"]',
                                             expected:
-                                                "(Array<IJsDocTagInfo> | undefined)",
-                                            value: input["x-typia-jsDocTags"],
+                                                "(Array<IMetadataTypeTag> | undefined)",
+                                            value: input["x-typia-typeTags"],
                                         })) &&
-                                        input["x-typia-jsDocTags"].every(
-                                            (elem: any, _index43: number) =>
+                                        input["x-typia-typeTags"].every(
+                                            (elem: any, _index44: number) =>
                                                 ((("object" === typeof elem &&
                                                     null !== elem) ||
                                                     $guard(_exceptionable, {
                                                         path:
                                                             _path +
-                                                            '["x-typia-jsDocTags"][' +
-                                                            _index43 +
+                                                            '["x-typia-typeTags"][' +
+                                                            _index44 +
                                                             "]",
                                                         expected:
-                                                            "IJsDocTagInfo",
+                                                            "IMetadataTypeTag",
                                                         value: elem,
                                                     })) &&
-                                                    $ao2(
+                                                    $ao7(
                                                         elem,
                                                         _path +
-                                                            '["x-typia-jsDocTags"][' +
-                                                            _index43 +
+                                                            '["x-typia-typeTags"][' +
+                                                            _index44 +
                                                             "]",
                                                         true && _exceptionable,
                                                     )) ||
                                                 $guard(_exceptionable, {
                                                     path:
                                                         _path +
-                                                        '["x-typia-jsDocTags"][' +
-                                                        _index43 +
+                                                        '["x-typia-typeTags"][' +
+                                                        _index44 +
                                                         "]",
-                                                    expected: "IJsDocTagInfo",
+                                                    expected:
+                                                        "IMetadataTypeTag",
                                                     value: elem,
                                                 }),
                                         )) ||
                                     $guard(_exceptionable, {
-                                        path: _path + '["x-typia-jsDocTags"]',
+                                        path: _path + '["x-typia-typeTags"]',
                                         expected:
-                                            "(Array<IJsDocTagInfo> | undefined)",
-                                        value: input["x-typia-jsDocTags"],
-                                    })) &&
-                                (undefined === input["x-typia-required"] ||
-                                    "boolean" ===
-                                        typeof input["x-typia-required"] ||
-                                    $guard(_exceptionable, {
-                                        path: _path + '["x-typia-required"]',
-                                        expected: "(boolean | undefined)",
-                                        value: input["x-typia-required"],
-                                    })) &&
-                                (undefined === input["x-typia-optional"] ||
-                                    "boolean" ===
-                                        typeof input["x-typia-optional"] ||
-                                    $guard(_exceptionable, {
-                                        path: _path + '["x-typia-optional"]',
-                                        expected: "(boolean | undefined)",
-                                        value: input["x-typia-optional"],
-                                    })) &&
-                                (undefined === input["x-typia-rest"] ||
-                                    "boolean" ===
-                                        typeof input["x-typia-rest"] ||
-                                    $guard(_exceptionable, {
-                                        path: _path + '["x-typia-rest"]',
-                                        expected: "(boolean | undefined)",
-                                        value: input["x-typia-rest"],
-                                    })) &&
-                                (undefined === input.$id ||
-                                    "string" === typeof input.$id ||
-                                    $guard(_exceptionable, {
-                                        path: _path + ".$id",
-                                        expected: "(string | undefined)",
-                                        value: input.$id,
-                                    })) &&
-                                (undefined === input.$recursiveAnchor ||
-                                    "boolean" ===
-                                        typeof input.$recursiveAnchor ||
-                                    $guard(_exceptionable, {
-                                        path: _path + ".$recursiveAnchor",
-                                        expected: "(boolean | undefined)",
-                                        value: input.$recursiveAnchor,
-                                    }));
-                            const $ao29 = (
-                                input: any,
-                                _path: string,
-                                _exceptionable: boolean = true,
-                            ): boolean =>
-                                (((Array.isArray(input.items) ||
-                                    $guard(_exceptionable, {
-                                        path: _path + ".items",
-                                        expected: "Array<IJsonSchema>",
-                                        value: input.items,
-                                    })) &&
-                                    input.items.every(
-                                        (elem: any, _index44: number) =>
-                                            ((("object" === typeof elem &&
-                                                null !== elem &&
-                                                false ===
-                                                    Array.isArray(elem)) ||
-                                                $guard(_exceptionable, {
-                                                    path:
-                                                        _path +
-                                                        ".items[" +
-                                                        _index44 +
-                                                        "]",
-                                                    expected:
-                                                        '(IJsonSchema.IArray | IJsonSchema.IBoolean | IJsonSchema.IEnumeration<"boolean"> | IJsonSchema.IEnumeration<"number"> | IJsonSchema.IEnumeration<"string"> | IJsonSchema.IInteger | IJsonSchema.INullOnly | IJsonSchema.INumber | IJsonSchema.IOneOf | IJsonSchema.IReference | IJsonSchema.IString | IJsonSchema.ITuple | IJsonSchema.IUnknown)',
-                                                    value: elem,
-                                                })) &&
-                                                $au0(
-                                                    elem,
-                                                    _path +
-                                                        ".items[" +
-                                                        _index44 +
-                                                        "]",
-                                                    true && _exceptionable,
-                                                )) ||
-                                            $guard(_exceptionable, {
-                                                path:
-                                                    _path +
-                                                    ".items[" +
-                                                    _index44 +
-                                                    "]",
-                                                expected:
-                                                    '(IJsonSchema.IArray | IJsonSchema.IBoolean | IJsonSchema.IEnumeration<"boolean"> | IJsonSchema.IEnumeration<"number"> | IJsonSchema.IEnumeration<"string"> | IJsonSchema.IInteger | IJsonSchema.INullOnly | IJsonSchema.INumber | IJsonSchema.IOneOf | IJsonSchema.IReference | IJsonSchema.IString | IJsonSchema.ITuple | IJsonSchema.IUnknown)',
-                                                value: elem,
-                                            }),
-                                    )) ||
-                                    $guard(_exceptionable, {
-                                        path: _path + ".items",
-                                        expected: "Array<IJsonSchema>",
-                                        value: input.items,
-                                    })) &&
-                                (("number" === typeof input.minItems &&
-                                    ((Math.floor(input.minItems) ===
-                                        input.minItems &&
-                                        0 <= input.minItems &&
-                                        input.minItems <= 4294967295) ||
-                                        $guard(_exceptionable, {
-                                            path: _path + ".minItems",
-                                            expected: 'number & Type<"uint32">',
-                                            value: input.minItems,
-                                        }))) ||
-                                    $guard(_exceptionable, {
-                                        path: _path + ".minItems",
-                                        expected: '(number & Type<"uint32">)',
-                                        value: input.minItems,
-                                    })) &&
-                                (undefined === input.maxItems ||
-                                    ("number" === typeof input.maxItems &&
-                                        ((Math.floor(input.maxItems) ===
-                                            input.maxItems &&
-                                            0 <= input.maxItems &&
-                                            input.maxItems <= 4294967295) ||
-                                            $guard(_exceptionable, {
-                                                path: _path + ".maxItems",
-                                                expected:
-                                                    'number & Type<"uint32">',
-                                                value: input.maxItems,
-                                            }))) ||
-                                    $guard(_exceptionable, {
-                                        path: _path + ".maxItems",
-                                        expected:
-                                            '((number & Type<"uint32">) | undefined)',
-                                        value: input.maxItems,
+                                            "(Array<IMetadataTypeTag> | undefined)",
+                                        value: input["x-typia-typeTags"],
                                     })) &&
                                 ("array" === input.type ||
                                     $guard(_exceptionable, {
@@ -5787,18 +5697,18 @@ export const test_json_assertStringify_UltimateUnion =
                                         expected: "(boolean | undefined)",
                                         value: input.$recursiveAnchor,
                                     }));
-                            const $ao30 = (
+                            const $ao29 = (
                                 input: any,
                                 _path: string,
                                 _exceptionable: boolean = true,
                             ): boolean =>
-                                (((Array.isArray(input.oneOf) ||
+                                (((Array.isArray(input.items) ||
                                     $guard(_exceptionable, {
-                                        path: _path + ".oneOf",
+                                        path: _path + ".items",
                                         expected: "Array<IJsonSchema>",
-                                        value: input.oneOf,
+                                        value: input.items,
                                     })) &&
-                                    input.oneOf.every(
+                                    input.items.every(
                                         (elem: any, _index46: number) =>
                                             ((("object" === typeof elem &&
                                                 null !== elem &&
@@ -5807,7 +5717,7 @@ export const test_json_assertStringify_UltimateUnion =
                                                 $guard(_exceptionable, {
                                                     path:
                                                         _path +
-                                                        ".oneOf[" +
+                                                        ".items[" +
                                                         _index46 +
                                                         "]",
                                                     expected:
@@ -5817,7 +5727,7 @@ export const test_json_assertStringify_UltimateUnion =
                                                 $au0(
                                                     elem,
                                                     _path +
-                                                        ".oneOf[" +
+                                                        ".items[" +
                                                         _index46 +
                                                         "]",
                                                     true && _exceptionable,
@@ -5825,7 +5735,7 @@ export const test_json_assertStringify_UltimateUnion =
                                             $guard(_exceptionable, {
                                                 path:
                                                     _path +
-                                                    ".oneOf[" +
+                                                    ".items[" +
                                                     _index46 +
                                                     "]",
                                                 expected:
@@ -5834,9 +5744,55 @@ export const test_json_assertStringify_UltimateUnion =
                                             }),
                                     )) ||
                                     $guard(_exceptionable, {
-                                        path: _path + ".oneOf",
+                                        path: _path + ".items",
                                         expected: "Array<IJsonSchema>",
-                                        value: input.oneOf,
+                                        value: input.items,
+                                    })) &&
+                                (("number" === typeof input.minItems &&
+                                    ((Math.floor(input.minItems) ===
+                                        input.minItems &&
+                                        0 <= input.minItems &&
+                                        input.minItems <= 4294967295) ||
+                                        $guard(_exceptionable, {
+                                            path: _path + ".minItems",
+                                            expected: 'number & Type<"uint32">',
+                                            value: input.minItems,
+                                        }))) ||
+                                    $guard(_exceptionable, {
+                                        path: _path + ".minItems",
+                                        expected: '(number & Type<"uint32">)',
+                                        value: input.minItems,
+                                    })) &&
+                                (undefined === input.maxItems ||
+                                    ("number" === typeof input.maxItems &&
+                                        ((Math.floor(input.maxItems) ===
+                                            input.maxItems &&
+                                            0 <= input.maxItems &&
+                                            input.maxItems <= 4294967295) ||
+                                            $guard(_exceptionable, {
+                                                path: _path + ".maxItems",
+                                                expected:
+                                                    'number & Type<"uint32">',
+                                                value: input.maxItems,
+                                            }))) ||
+                                    $guard(_exceptionable, {
+                                        path: _path + ".maxItems",
+                                        expected:
+                                            '((number & Type<"uint32">) | undefined)',
+                                        value: input.maxItems,
+                                    })) &&
+                                ("array" === input.type ||
+                                    $guard(_exceptionable, {
+                                        path: _path + ".type",
+                                        expected: '"array"',
+                                        value: input.type,
+                                    })) &&
+                                (undefined === input.nullable ||
+                                    "boolean" === typeof input.nullable ||
+                                    $guard(_exceptionable, {
+                                        path: _path + ".nullable",
+                                        expected: "(boolean | undefined)",
+                                        value: input.nullable,
                                     })) &&
                                 (undefined === input.deprecated ||
                                     "boolean" === typeof input.deprecated ||
@@ -5947,136 +5903,56 @@ export const test_json_assertStringify_UltimateUnion =
                                         expected: "(boolean | undefined)",
                                         value: input.$recursiveAnchor,
                                     }));
-                            const $ao31 = (
+                            const $ao30 = (
                                 input: any,
                                 _path: string,
                                 _exceptionable: boolean = true,
                             ): boolean =>
-                                ("string" === typeof input.$ref ||
+                                (((Array.isArray(input.oneOf) ||
                                     $guard(_exceptionable, {
-                                        path: _path + ".$ref",
-                                        expected: "string",
-                                        value: input.$ref,
+                                        path: _path + ".oneOf",
+                                        expected: "Array<IJsonSchema>",
+                                        value: input.oneOf,
                                     })) &&
-                                (undefined === input.deprecated ||
-                                    "boolean" === typeof input.deprecated ||
-                                    $guard(_exceptionable, {
-                                        path: _path + ".deprecated",
-                                        expected: "(boolean | undefined)",
-                                        value: input.deprecated,
-                                    })) &&
-                                (undefined === input.title ||
-                                    "string" === typeof input.title ||
-                                    $guard(_exceptionable, {
-                                        path: _path + ".title",
-                                        expected: "(string | undefined)",
-                                        value: input.title,
-                                    })) &&
-                                (undefined === input.description ||
-                                    "string" === typeof input.description ||
-                                    $guard(_exceptionable, {
-                                        path: _path + ".description",
-                                        expected: "(string | undefined)",
-                                        value: input.description,
-                                    })) &&
-                                (undefined === input["x-typia-jsDocTags"] ||
-                                    ((Array.isArray(
-                                        input["x-typia-jsDocTags"],
-                                    ) ||
-                                        $guard(_exceptionable, {
-                                            path:
-                                                _path + '["x-typia-jsDocTags"]',
-                                            expected:
-                                                "(Array<IJsDocTagInfo> | undefined)",
-                                            value: input["x-typia-jsDocTags"],
-                                        })) &&
-                                        input["x-typia-jsDocTags"].every(
-                                            (elem: any, _index48: number) =>
-                                                ((("object" === typeof elem &&
-                                                    null !== elem) ||
-                                                    $guard(_exceptionable, {
-                                                        path:
-                                                            _path +
-                                                            '["x-typia-jsDocTags"][' +
-                                                            _index48 +
-                                                            "]",
-                                                        expected:
-                                                            "IJsDocTagInfo",
-                                                        value: elem,
-                                                    })) &&
-                                                    $ao2(
-                                                        elem,
-                                                        _path +
-                                                            '["x-typia-jsDocTags"][' +
-                                                            _index48 +
-                                                            "]",
-                                                        true && _exceptionable,
-                                                    )) ||
+                                    input.oneOf.every(
+                                        (elem: any, _index48: number) =>
+                                            ((("object" === typeof elem &&
+                                                null !== elem &&
+                                                false ===
+                                                    Array.isArray(elem)) ||
                                                 $guard(_exceptionable, {
                                                     path:
                                                         _path +
-                                                        '["x-typia-jsDocTags"][' +
+                                                        ".oneOf[" +
                                                         _index48 +
                                                         "]",
-                                                    expected: "IJsDocTagInfo",
+                                                    expected:
+                                                        '(IJsonSchema.IArray | IJsonSchema.IBoolean | IJsonSchema.IEnumeration<"boolean"> | IJsonSchema.IEnumeration<"number"> | IJsonSchema.IEnumeration<"string"> | IJsonSchema.IInteger | IJsonSchema.INullOnly | IJsonSchema.INumber | IJsonSchema.IOneOf | IJsonSchema.IReference | IJsonSchema.IString | IJsonSchema.ITuple | IJsonSchema.IUnknown)',
                                                     value: elem,
-                                                }),
-                                        )) ||
+                                                })) &&
+                                                $au0(
+                                                    elem,
+                                                    _path +
+                                                        ".oneOf[" +
+                                                        _index48 +
+                                                        "]",
+                                                    true && _exceptionable,
+                                                )) ||
+                                            $guard(_exceptionable, {
+                                                path:
+                                                    _path +
+                                                    ".oneOf[" +
+                                                    _index48 +
+                                                    "]",
+                                                expected:
+                                                    '(IJsonSchema.IArray | IJsonSchema.IBoolean | IJsonSchema.IEnumeration<"boolean"> | IJsonSchema.IEnumeration<"number"> | IJsonSchema.IEnumeration<"string"> | IJsonSchema.IInteger | IJsonSchema.INullOnly | IJsonSchema.INumber | IJsonSchema.IOneOf | IJsonSchema.IReference | IJsonSchema.IString | IJsonSchema.ITuple | IJsonSchema.IUnknown)',
+                                                value: elem,
+                                            }),
+                                    )) ||
                                     $guard(_exceptionable, {
-                                        path: _path + '["x-typia-jsDocTags"]',
-                                        expected:
-                                            "(Array<IJsDocTagInfo> | undefined)",
-                                        value: input["x-typia-jsDocTags"],
-                                    })) &&
-                                (undefined === input["x-typia-required"] ||
-                                    "boolean" ===
-                                        typeof input["x-typia-required"] ||
-                                    $guard(_exceptionable, {
-                                        path: _path + '["x-typia-required"]',
-                                        expected: "(boolean | undefined)",
-                                        value: input["x-typia-required"],
-                                    })) &&
-                                (undefined === input["x-typia-optional"] ||
-                                    "boolean" ===
-                                        typeof input["x-typia-optional"] ||
-                                    $guard(_exceptionable, {
-                                        path: _path + '["x-typia-optional"]',
-                                        expected: "(boolean | undefined)",
-                                        value: input["x-typia-optional"],
-                                    })) &&
-                                (undefined === input["x-typia-rest"] ||
-                                    "boolean" ===
-                                        typeof input["x-typia-rest"] ||
-                                    $guard(_exceptionable, {
-                                        path: _path + '["x-typia-rest"]',
-                                        expected: "(boolean | undefined)",
-                                        value: input["x-typia-rest"],
-                                    })) &&
-                                (undefined === input.$id ||
-                                    "string" === typeof input.$id ||
-                                    $guard(_exceptionable, {
-                                        path: _path + ".$id",
-                                        expected: "(string | undefined)",
-                                        value: input.$id,
-                                    })) &&
-                                (undefined === input.$recursiveAnchor ||
-                                    "boolean" ===
-                                        typeof input.$recursiveAnchor ||
-                                    $guard(_exceptionable, {
-                                        path: _path + ".$recursiveAnchor",
-                                        expected: "(boolean | undefined)",
-                                        value: input.$recursiveAnchor,
-                                    }));
-                            const $ao32 = (
-                                input: any,
-                                _path: string,
-                                _exceptionable: boolean = true,
-                            ): boolean =>
-                                ("null" === input.type ||
-                                    $guard(_exceptionable, {
-                                        path: _path + ".type",
-                                        expected: '"null"',
-                                        value: input.type,
+                                        path: _path + ".oneOf",
+                                        expected: "Array<IJsonSchema>",
+                                        value: input.oneOf,
                                     })) &&
                                 (undefined === input.deprecated ||
                                     "boolean" === typeof input.deprecated ||
@@ -6187,22 +6063,16 @@ export const test_json_assertStringify_UltimateUnion =
                                         expected: "(boolean | undefined)",
                                         value: input.$recursiveAnchor,
                                     }));
-                            const $ao33 = (
+                            const $ao31 = (
                                 input: any,
                                 _path: string,
                                 _exceptionable: boolean = true,
                             ): boolean =>
-                                (null !== input.type ||
+                                ("string" === typeof input.$ref ||
                                     $guard(_exceptionable, {
-                                        path: _path + ".type",
-                                        expected: "undefined",
-                                        value: input.type,
-                                    })) &&
-                                (undefined === input.type ||
-                                    $guard(_exceptionable, {
-                                        path: _path + ".type",
-                                        expected: "undefined",
-                                        value: input.type,
+                                        path: _path + ".$ref",
+                                        expected: "string",
+                                        value: input.$ref,
                                     })) &&
                                 (undefined === input.deprecated ||
                                     "boolean" === typeof input.deprecated ||
@@ -6313,6 +6183,252 @@ export const test_json_assertStringify_UltimateUnion =
                                         expected: "(boolean | undefined)",
                                         value: input.$recursiveAnchor,
                                     }));
+                            const $ao32 = (
+                                input: any,
+                                _path: string,
+                                _exceptionable: boolean = true,
+                            ): boolean =>
+                                ("null" === input.type ||
+                                    $guard(_exceptionable, {
+                                        path: _path + ".type",
+                                        expected: '"null"',
+                                        value: input.type,
+                                    })) &&
+                                (undefined === input.deprecated ||
+                                    "boolean" === typeof input.deprecated ||
+                                    $guard(_exceptionable, {
+                                        path: _path + ".deprecated",
+                                        expected: "(boolean | undefined)",
+                                        value: input.deprecated,
+                                    })) &&
+                                (undefined === input.title ||
+                                    "string" === typeof input.title ||
+                                    $guard(_exceptionable, {
+                                        path: _path + ".title",
+                                        expected: "(string | undefined)",
+                                        value: input.title,
+                                    })) &&
+                                (undefined === input.description ||
+                                    "string" === typeof input.description ||
+                                    $guard(_exceptionable, {
+                                        path: _path + ".description",
+                                        expected: "(string | undefined)",
+                                        value: input.description,
+                                    })) &&
+                                (undefined === input["x-typia-jsDocTags"] ||
+                                    ((Array.isArray(
+                                        input["x-typia-jsDocTags"],
+                                    ) ||
+                                        $guard(_exceptionable, {
+                                            path:
+                                                _path + '["x-typia-jsDocTags"]',
+                                            expected:
+                                                "(Array<IJsDocTagInfo> | undefined)",
+                                            value: input["x-typia-jsDocTags"],
+                                        })) &&
+                                        input["x-typia-jsDocTags"].every(
+                                            (elem: any, _index51: number) =>
+                                                ((("object" === typeof elem &&
+                                                    null !== elem) ||
+                                                    $guard(_exceptionable, {
+                                                        path:
+                                                            _path +
+                                                            '["x-typia-jsDocTags"][' +
+                                                            _index51 +
+                                                            "]",
+                                                        expected:
+                                                            "IJsDocTagInfo",
+                                                        value: elem,
+                                                    })) &&
+                                                    $ao2(
+                                                        elem,
+                                                        _path +
+                                                            '["x-typia-jsDocTags"][' +
+                                                            _index51 +
+                                                            "]",
+                                                        true && _exceptionable,
+                                                    )) ||
+                                                $guard(_exceptionable, {
+                                                    path:
+                                                        _path +
+                                                        '["x-typia-jsDocTags"][' +
+                                                        _index51 +
+                                                        "]",
+                                                    expected: "IJsDocTagInfo",
+                                                    value: elem,
+                                                }),
+                                        )) ||
+                                    $guard(_exceptionable, {
+                                        path: _path + '["x-typia-jsDocTags"]',
+                                        expected:
+                                            "(Array<IJsDocTagInfo> | undefined)",
+                                        value: input["x-typia-jsDocTags"],
+                                    })) &&
+                                (undefined === input["x-typia-required"] ||
+                                    "boolean" ===
+                                        typeof input["x-typia-required"] ||
+                                    $guard(_exceptionable, {
+                                        path: _path + '["x-typia-required"]',
+                                        expected: "(boolean | undefined)",
+                                        value: input["x-typia-required"],
+                                    })) &&
+                                (undefined === input["x-typia-optional"] ||
+                                    "boolean" ===
+                                        typeof input["x-typia-optional"] ||
+                                    $guard(_exceptionable, {
+                                        path: _path + '["x-typia-optional"]',
+                                        expected: "(boolean | undefined)",
+                                        value: input["x-typia-optional"],
+                                    })) &&
+                                (undefined === input["x-typia-rest"] ||
+                                    "boolean" ===
+                                        typeof input["x-typia-rest"] ||
+                                    $guard(_exceptionable, {
+                                        path: _path + '["x-typia-rest"]',
+                                        expected: "(boolean | undefined)",
+                                        value: input["x-typia-rest"],
+                                    })) &&
+                                (undefined === input.$id ||
+                                    "string" === typeof input.$id ||
+                                    $guard(_exceptionable, {
+                                        path: _path + ".$id",
+                                        expected: "(string | undefined)",
+                                        value: input.$id,
+                                    })) &&
+                                (undefined === input.$recursiveAnchor ||
+                                    "boolean" ===
+                                        typeof input.$recursiveAnchor ||
+                                    $guard(_exceptionable, {
+                                        path: _path + ".$recursiveAnchor",
+                                        expected: "(boolean | undefined)",
+                                        value: input.$recursiveAnchor,
+                                    }));
+                            const $ao33 = (
+                                input: any,
+                                _path: string,
+                                _exceptionable: boolean = true,
+                            ): boolean =>
+                                (null !== input.type ||
+                                    $guard(_exceptionable, {
+                                        path: _path + ".type",
+                                        expected: "undefined",
+                                        value: input.type,
+                                    })) &&
+                                (undefined === input.type ||
+                                    $guard(_exceptionable, {
+                                        path: _path + ".type",
+                                        expected: "undefined",
+                                        value: input.type,
+                                    })) &&
+                                (undefined === input.deprecated ||
+                                    "boolean" === typeof input.deprecated ||
+                                    $guard(_exceptionable, {
+                                        path: _path + ".deprecated",
+                                        expected: "(boolean | undefined)",
+                                        value: input.deprecated,
+                                    })) &&
+                                (undefined === input.title ||
+                                    "string" === typeof input.title ||
+                                    $guard(_exceptionable, {
+                                        path: _path + ".title",
+                                        expected: "(string | undefined)",
+                                        value: input.title,
+                                    })) &&
+                                (undefined === input.description ||
+                                    "string" === typeof input.description ||
+                                    $guard(_exceptionable, {
+                                        path: _path + ".description",
+                                        expected: "(string | undefined)",
+                                        value: input.description,
+                                    })) &&
+                                (undefined === input["x-typia-jsDocTags"] ||
+                                    ((Array.isArray(
+                                        input["x-typia-jsDocTags"],
+                                    ) ||
+                                        $guard(_exceptionable, {
+                                            path:
+                                                _path + '["x-typia-jsDocTags"]',
+                                            expected:
+                                                "(Array<IJsDocTagInfo> | undefined)",
+                                            value: input["x-typia-jsDocTags"],
+                                        })) &&
+                                        input["x-typia-jsDocTags"].every(
+                                            (elem: any, _index52: number) =>
+                                                ((("object" === typeof elem &&
+                                                    null !== elem) ||
+                                                    $guard(_exceptionable, {
+                                                        path:
+                                                            _path +
+                                                            '["x-typia-jsDocTags"][' +
+                                                            _index52 +
+                                                            "]",
+                                                        expected:
+                                                            "IJsDocTagInfo",
+                                                        value: elem,
+                                                    })) &&
+                                                    $ao2(
+                                                        elem,
+                                                        _path +
+                                                            '["x-typia-jsDocTags"][' +
+                                                            _index52 +
+                                                            "]",
+                                                        true && _exceptionable,
+                                                    )) ||
+                                                $guard(_exceptionable, {
+                                                    path:
+                                                        _path +
+                                                        '["x-typia-jsDocTags"][' +
+                                                        _index52 +
+                                                        "]",
+                                                    expected: "IJsDocTagInfo",
+                                                    value: elem,
+                                                }),
+                                        )) ||
+                                    $guard(_exceptionable, {
+                                        path: _path + '["x-typia-jsDocTags"]',
+                                        expected:
+                                            "(Array<IJsDocTagInfo> | undefined)",
+                                        value: input["x-typia-jsDocTags"],
+                                    })) &&
+                                (undefined === input["x-typia-required"] ||
+                                    "boolean" ===
+                                        typeof input["x-typia-required"] ||
+                                    $guard(_exceptionable, {
+                                        path: _path + '["x-typia-required"]',
+                                        expected: "(boolean | undefined)",
+                                        value: input["x-typia-required"],
+                                    })) &&
+                                (undefined === input["x-typia-optional"] ||
+                                    "boolean" ===
+                                        typeof input["x-typia-optional"] ||
+                                    $guard(_exceptionable, {
+                                        path: _path + '["x-typia-optional"]',
+                                        expected: "(boolean | undefined)",
+                                        value: input["x-typia-optional"],
+                                    })) &&
+                                (undefined === input["x-typia-rest"] ||
+                                    "boolean" ===
+                                        typeof input["x-typia-rest"] ||
+                                    $guard(_exceptionable, {
+                                        path: _path + '["x-typia-rest"]',
+                                        expected: "(boolean | undefined)",
+                                        value: input["x-typia-rest"],
+                                    })) &&
+                                (undefined === input.$id ||
+                                    "string" === typeof input.$id ||
+                                    $guard(_exceptionable, {
+                                        path: _path + ".$id",
+                                        expected: "(string | undefined)",
+                                        value: input.$id,
+                                    })) &&
+                                (undefined === input.$recursiveAnchor ||
+                                    "boolean" ===
+                                        typeof input.$recursiveAnchor ||
+                                    $guard(_exceptionable, {
+                                        path: _path + ".$recursiveAnchor",
+                                        expected: "(boolean | undefined)",
+                                        value: input.$recursiveAnchor,
+                                    }));
                             const $au0 = (
                                 input: any,
                                 _path: string,
@@ -6343,7 +6459,7 @@ export const test_json_assertStringify_UltimateUnion =
                                     else if (
                                         Array.isArray(input.items) &&
                                         input.items.every(
-                                            (elem: any, _index51: number) =>
+                                            (elem: any, _index53: number) =>
                                                 "object" === typeof elem &&
                                                 null !== elem &&
                                                 false === Array.isArray(elem) &&
@@ -6351,7 +6467,7 @@ export const test_json_assertStringify_UltimateUnion =
                                                     elem,
                                                     _path +
                                                         ".items[" +
-                                                        _index51 +
+                                                        _index53 +
                                                         "]",
                                                     false && _exceptionable,
                                                 ),
@@ -6461,7 +6577,7 @@ export const test_json_assertStringify_UltimateUnion =
                                     else if (
                                         Array.isArray(input.items) &&
                                         input.items.every(
-                                            (elem: any, _index52: number) =>
+                                            (elem: any, _index54: number) =>
                                                 "object" === typeof elem &&
                                                 null !== elem &&
                                                 false === Array.isArray(elem) &&
@@ -6469,7 +6585,7 @@ export const test_json_assertStringify_UltimateUnion =
                                                     elem,
                                                     _path +
                                                         ".items[" +
-                                                        _index52 +
+                                                        _index54 +
                                                         "]",
                                                     false && _exceptionable,
                                                 ),
@@ -6908,6 +7024,14 @@ export const test_json_assertStringify_UltimateUnion =
                             ("object" === typeof input["x-typia-tuple"] &&
                                 null !== input["x-typia-tuple"] &&
                                 $io12(input["x-typia-tuple"]))) &&
+                        (undefined === input["x-typia-typeTags"] ||
+                            (Array.isArray(input["x-typia-typeTags"]) &&
+                                input["x-typia-typeTags"].every(
+                                    (elem: any) =>
+                                        "object" === typeof elem &&
+                                        null !== elem &&
+                                        $io7(elem),
+                                ))) &&
                         "array" === input.type &&
                         (undefined === input.nullable ||
                             "boolean" === typeof input.nullable) &&
@@ -7475,6 +7599,14 @@ export const test_json_assertStringify_UltimateUnion =
                             ("object" === typeof input["x-typia-tuple"] &&
                                 null !== input["x-typia-tuple"] &&
                                 $io12(input["x-typia-tuple"]))) &&
+                        (undefined === input["x-typia-typeTags"] ||
+                            (Array.isArray(input["x-typia-typeTags"]) &&
+                                input["x-typia-typeTags"].every(
+                                    (elem: any) =>
+                                        "object" === typeof elem &&
+                                        null !== elem &&
+                                        $io7(elem),
+                                ))) &&
                         "array" === input.type &&
                         (undefined === input.nullable ||
                             "boolean" === typeof input.nullable) &&
@@ -8591,6 +8723,16 @@ export const test_json_assertStringify_UltimateUnion =
                                 : `"x-typia-tuple":${
                                       undefined !== input["x-typia-tuple"]
                                           ? $so12(input["x-typia-tuple"])
+                                          : undefined
+                                  },`
+                        }${
+                            undefined === input["x-typia-typeTags"]
+                                ? ""
+                                : `"x-typia-typeTags":${
+                                      undefined !== input["x-typia-typeTags"]
+                                          ? `[${input["x-typia-typeTags"]
+                                                .map((elem: any) => $so7(elem))
+                                                .join(",")}]`
                                           : undefined
                                   },`
                         }${
@@ -10031,6 +10173,16 @@ export const test_json_assertStringify_UltimateUnion =
                                 : `"x-typia-tuple":${
                                       undefined !== input["x-typia-tuple"]
                                           ? $so12(input["x-typia-tuple"])
+                                          : undefined
+                                  },`
+                        }${
+                            undefined === input["x-typia-typeTags"]
+                                ? ""
+                                : `"x-typia-typeTags":${
+                                      undefined !== input["x-typia-typeTags"]
+                                          ? `[${input["x-typia-typeTags"]
+                                                .map((elem: any) => $so7(elem))
+                                                .join(",")}]`
                                           : undefined
                                   },`
                         }${

@@ -101,8 +101,11 @@ const check_numeric_type_tags =
                       ]),
                 ...row.map((tag) => ({
                     expected: `number & ${tag.name}`,
-                    expression: ExpressionFactory.transpile(project.context)(
-                        tag.validate!,
+                    expression: (
+                        tag.predicate ??
+                        ExpressionFactory.transpile(project.context)(
+                            tag.validate!,
+                        )
                     )(input),
                 })),
             ]);

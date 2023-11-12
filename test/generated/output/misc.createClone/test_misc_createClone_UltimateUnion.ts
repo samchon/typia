@@ -310,6 +310,14 @@ export const test_misc_createClone_UltimateUnion = _test_misc_clone(
                 ("object" === typeof input["x-typia-tuple"] &&
                     null !== input["x-typia-tuple"] &&
                     $io12(input["x-typia-tuple"]))) &&
+            (undefined === input["x-typia-typeTags"] ||
+                (Array.isArray(input["x-typia-typeTags"]) &&
+                    input["x-typia-typeTags"].every(
+                        (elem: any) =>
+                            "object" === typeof elem &&
+                            null !== elem &&
+                            $io7(elem),
+                    ))) &&
             "array" === input.type &&
             (undefined === input.nullable ||
                 "boolean" === typeof input.nullable) &&
@@ -837,6 +845,14 @@ export const test_misc_createClone_UltimateUnion = _test_misc_clone(
                 ("object" === typeof input["x-typia-tuple"] &&
                     null !== input["x-typia-tuple"] &&
                     $io12(input["x-typia-tuple"]))) &&
+            (undefined === input["x-typia-typeTags"] ||
+                (Array.isArray(input["x-typia-typeTags"]) &&
+                    input["x-typia-typeTags"].every(
+                        (elem: any) =>
+                            "object" === typeof elem &&
+                            null !== elem &&
+                            $io7(elem),
+                    ))) &&
             "array" === input.type &&
             (undefined === input.nullable ||
                 "boolean" === typeof input.nullable) &&
@@ -1291,6 +1307,9 @@ export const test_misc_createClone_UltimateUnion = _test_misc_clone(
                 null !== input["x-typia-tuple"]
                     ? $co12(input["x-typia-tuple"])
                     : (input["x-typia-tuple"] as any),
+            "x-typia-typeTags": Array.isArray(input["x-typia-typeTags"])
+                ? $cp7(input["x-typia-typeTags"])
+                : (input["x-typia-typeTags"] as any),
             type: input.type as any,
             nullable: input.nullable as any,
             deprecated: input.deprecated as any,
@@ -1599,6 +1618,9 @@ export const test_misc_createClone_UltimateUnion = _test_misc_clone(
                 null !== input["x-typia-tuple"]
                     ? $co12(input["x-typia-tuple"])
                     : (input["x-typia-tuple"] as any),
+            "x-typia-typeTags": Array.isArray(input["x-typia-typeTags"])
+                ? $cp7(input["x-typia-typeTags"])
+                : (input["x-typia-typeTags"] as any),
             type: input.type as any,
             nullable: input.nullable as any,
             deprecated: input.deprecated as any,

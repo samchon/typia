@@ -893,6 +893,14 @@
           "x-typia-tuple": {
             "$ref": "#/components/schemas/IJsonSchema.ITuple"
           },
+          "x-typia-typeTags": {
+            "x-typia-required": false,
+            "x-typia-optional": true,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IMetadataTypeTag"
+            }
+          },
           "type": {
             "x-typia-required": true,
             "x-typia-optional": false,
@@ -2254,6 +2262,14 @@
           },
           "x-typia-tuple": {
             "$ref": "#/components/schemas/IJsonSchema.ITuple"
+          },
+          "x-typia-typeTags": {
+            "x-typia-required": false,
+            "x-typia-optional": true,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IMetadataTypeTag"
+            }
           },
           "type": {
             "x-typia-required": true,

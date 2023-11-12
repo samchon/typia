@@ -333,6 +333,14 @@ export const test_is_UltimateUnion = _test_is("UltimateUnion")<UltimateUnion>(
                 ("object" === typeof input["x-typia-tuple"] &&
                     null !== input["x-typia-tuple"] &&
                     $io12(input["x-typia-tuple"]))) &&
+            (undefined === input["x-typia-typeTags"] ||
+                (Array.isArray(input["x-typia-typeTags"]) &&
+                    input["x-typia-typeTags"].every(
+                        (elem: any) =>
+                            "object" === typeof elem &&
+                            null !== elem &&
+                            $io7(elem),
+                    ))) &&
             "array" === input.type &&
             (undefined === input.nullable ||
                 "boolean" === typeof input.nullable) &&
@@ -869,6 +877,14 @@ export const test_is_UltimateUnion = _test_is("UltimateUnion")<UltimateUnion>(
                 ("object" === typeof input["x-typia-tuple"] &&
                     null !== input["x-typia-tuple"] &&
                     $io12(input["x-typia-tuple"]))) &&
+            (undefined === input["x-typia-typeTags"] ||
+                (Array.isArray(input["x-typia-typeTags"]) &&
+                    input["x-typia-typeTags"].every(
+                        (elem: any) =>
+                            "object" === typeof elem &&
+                            null !== elem &&
+                            $io7(elem),
+                    ))) &&
             "array" === input.type &&
             (undefined === input.nullable ||
                 "boolean" === typeof input.nullable) &&

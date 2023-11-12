@@ -33,7 +33,10 @@ export namespace HttpQueryProgrammer {
                 modulo.getText(),
             );
             const collection: MetadataCollection = new MetadataCollection();
-            const result = MetadataFactory.analyze(project.checker)({
+            const result = MetadataFactory.analyze(
+                project.checker,
+                project.context,
+            )({
                 escape: false,
                 constant: true,
                 absorb: true,

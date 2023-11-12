@@ -12,10 +12,13 @@ import { MetadataFactory } from "./MetadataFactory";
 export namespace JsonMetadataFactory {
     export const analyze =
         (method: string) =>
-        (checker: ts.TypeChecker) =>
+        (checker: ts.TypeChecker, context?: ts.TransformationContext) =>
         (type: ts.Type): [MetadataCollection, Metadata] => {
             const collection = new MetadataCollection();
-            const result = MetadataFactory.analyze(checker)({
+            const result = MetadataFactory.analyze(
+                checker,
+                context,
+            )({
                 escape: true,
                 constant: true,
                 absorb: true,

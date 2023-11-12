@@ -85,6 +85,13 @@ const application_number_tags =
             else if (tag.kind === "default" && typeof tag.value === "number")
                 base.default = tag.value;
         }
-        base["x-typia-typeTags"] = row;
+        base["x-typia-typeTags"] = row.map((tag) => ({
+            target: tag.target,
+            name: tag.name,
+            kind: tag.kind,
+            value: tag.value,
+            validate: tag.validate,
+            exclusive: tag.exclusive,
+        }));
         return base;
     };

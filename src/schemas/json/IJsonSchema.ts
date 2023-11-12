@@ -72,6 +72,7 @@ export namespace IJsonSchema {
         minItems?: undefined | (number & Type<"uint32">);
         maxItems?: undefined | (number & Type<"uint32">);
         "x-typia-tuple"?: undefined | ITuple;
+        "x-typia-typeTags"?: undefined | IMetadataTypeTag[];
     }
     export interface ITuple extends ISignificant<"array"> {
         items: IJsonSchema[];

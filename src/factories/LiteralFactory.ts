@@ -14,6 +14,8 @@ export namespace LiteralFactory {
         else if (typeof input === "number") return generate_value(input);
         else if (typeof input === "bigint") return generate_bigint(input);
         // unreachable code
+        else if (typeof input === "function")
+            return ts.factory.createIdentifier("undefined");
         else
             throw new TypeError(
                 "Error on LiteralFactory.generate(): unknown type.",

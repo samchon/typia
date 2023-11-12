@@ -49,6 +49,13 @@ const application_string_tags =
             else if (tag.kind === "pattern") base.pattern = tag.value;
             else if (tag.kind === "default" && typeof tag.value === "string")
                 base.default = tag.value;
-        base["x-typia-typeTags"] = row;
+        base["x-typia-typeTags"] = row.map((tag) => ({
+            target: tag.target,
+            name: tag.name,
+            kind: tag.kind,
+            value: tag.value,
+            validate: tag.validate,
+            exclusive: tag.exclusive,
+        }));
         return base;
     };

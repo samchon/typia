@@ -46,8 +46,8 @@
             "minimum": 3,
             "x-typia-typeTags": [
               {
-                "name": "Minimum<3>",
                 "target": "number",
+                "name": "Minimum<3>",
                 "kind": "minimum",
                 "value": 3,
                 "validate": "3 <= $input",
@@ -96,16 +96,16 @@
             "minLength": 3,
             "x-typia-typeTags": [
               {
-                "name": "MinLength<3>",
                 "target": "string",
+                "name": "MinLength<3>",
                 "kind": "minLength",
                 "value": 3,
                 "validate": "3 <= $input.length",
                 "exclusive": true
               },
               {
-                "name": "MaxLength<7>",
                 "target": "string",
+                "name": "MaxLength<7>",
                 "kind": "maxLength",
                 "value": 7,
                 "validate": "$input.length <= 7",
