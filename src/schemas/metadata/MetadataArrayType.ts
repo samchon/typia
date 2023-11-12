@@ -27,7 +27,7 @@ export class MetadataArrayType {
     public static _From_without_value(
         props: Omit<IMetadataArrayType, "value">,
     ): MetadataArrayType {
-        return this.create({
+        return MetadataArrayType.create({
             name: props.name,
             value: null!,
             index: props.index,

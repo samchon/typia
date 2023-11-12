@@ -169,16 +169,16 @@ export const test_misc_assertClone_UltimateUnion = _test_misc_assertClone(
                         "array" === input.target) &&
                     "string" === typeof input.name &&
                     "string" === typeof input.kind &&
-                    true &&
-                    (undefined === input.validate ||
-                        "string" === typeof input.validate) &&
                     null !== input.exclusive &&
                     undefined !== input.exclusive &&
                     ("boolean" === typeof input.exclusive ||
                         (Array.isArray(input.exclusive) &&
                             input.exclusive.every(
                                 (elem: any) => "string" === typeof elem,
-                            )));
+                            ))) &&
+                    true &&
+                    (undefined === input.validate ||
+                        "string" === typeof input.validate);
                 const $io8 = (input: any): boolean =>
                     (undefined === input.minimum ||
                         ("number" === typeof input.minimum &&
@@ -1932,14 +1932,6 @@ export const test_misc_assertClone_UltimateUnion = _test_misc_assertClone(
                                 expected: "string",
                                 value: input.kind,
                             })) &&
-                        true &&
-                        (undefined === input.validate ||
-                            "string" === typeof input.validate ||
-                            $guard(_exceptionable, {
-                                path: _path + ".validate",
-                                expected: "(string | undefined)",
-                                value: input.validate,
-                            })) &&
                         (null !== input.exclusive ||
                             $guard(_exceptionable, {
                                 path: _path + ".exclusive",
@@ -1976,6 +1968,14 @@ export const test_misc_assertClone_UltimateUnion = _test_misc_assertClone(
                                 path: _path + ".exclusive",
                                 expected: "(Array<string> | boolean)",
                                 value: input.exclusive,
+                            })) &&
+                        true &&
+                        (undefined === input.validate ||
+                            "string" === typeof input.validate ||
+                            $guard(_exceptionable, {
+                                path: _path + ".validate",
+                                expected: "(string | undefined)",
+                                value: input.validate,
                             }));
                     const $ao8 = (
                         input: any,
@@ -6322,16 +6322,16 @@ export const test_misc_assertClone_UltimateUnion = _test_misc_assertClone(
                     "array" === input.target) &&
                 "string" === typeof input.name &&
                 "string" === typeof input.kind &&
-                true &&
-                (undefined === input.validate ||
-                    "string" === typeof input.validate) &&
                 null !== input.exclusive &&
                 undefined !== input.exclusive &&
                 ("boolean" === typeof input.exclusive ||
                     (Array.isArray(input.exclusive) &&
                         input.exclusive.every(
                             (elem: any) => "string" === typeof elem,
-                        )));
+                        ))) &&
+                true &&
+                (undefined === input.validate ||
+                    "string" === typeof input.validate);
             const $io8 = (input: any): boolean =>
                 (undefined === input.minimum ||
                     ("number" === typeof input.minimum &&
@@ -7433,11 +7433,11 @@ export const test_misc_assertClone_UltimateUnion = _test_misc_assertClone(
                 target: input.target as any,
                 name: input.name as any,
                 kind: input.kind as any,
-                value: $any(input.value),
-                validate: input.validate as any,
                 exclusive: Array.isArray(input.exclusive)
                     ? $cp6(input.exclusive)
                     : (input.exclusive as any),
+                value: $any(input.value),
+                validate: input.validate as any,
             });
             const $co8 = (input: any): any => ({
                 minimum: input.minimum as any,

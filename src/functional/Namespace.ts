@@ -12,6 +12,7 @@ import { $QueryReader } from "./$QueryReader";
 import { $any } from "./$any";
 import { $convention } from "./$convention";
 import { $every } from "./$every";
+import { $from } from "./$from";
 import { $guard } from "./$guard";
 import { $is_between } from "./$is_between";
 import { $join } from "./$join";
@@ -110,6 +111,12 @@ export namespace Namespace {
             Writer: $ProtobufWriter,
             strlen: $strlen,
             throws: $throws(method),
+        });
+    }
+
+    export namespace reflect {
+        export const metadata = () => ({
+            from: $from,
         });
     }
 

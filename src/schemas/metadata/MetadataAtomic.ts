@@ -23,6 +23,27 @@ export class MetadataAtomic {
         return new MetadataAtomic(props);
     }
 
+    public static from(json: IMetadataAtomic): MetadataAtomic {
+        return MetadataAtomic.create({
+            type: json.type,
+            tags: json.tags.map((row) =>
+                row.map((tag) => ({
+                    target: tag.target,
+                    name: tag.name,
+                    kind: tag.kind,
+                    value:
+                        typeof tag.value === "object" &&
+                        tag.value?.type === "bigint" &&
+                        typeof tag.value.value === "string"
+                            ? BigInt(tag.value.value)
+                            : tag.value,
+                    validate: tag.validate,
+                    exclusive: tag.exclusive,
+                })),
+            ),
+        });
+    }
+
     public getName(): string {
         return (this.name_ ??= (() => {
             if (this.tags.length === 0) return this.type;
@@ -49,7 +70,13 @@ export class MetadataAtomic {
                     target: tag.target,
                     name: tag.name,
                     kind: tag.kind,
-                    value: tag.value,
+                    value:
+                        typeof tag.value === "bigint"
+                            ? {
+                                  type: "bigint",
+                                  value: tag.value.toString(),
+                              }
+                            : tag.value,
                     validate: tag.validate,
                     exclusive: tag.exclusive,
                 })),

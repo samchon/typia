@@ -45,7 +45,6 @@ import { JsonIsStringifyTransformer } from "./features/json/JsonIsStringifyTrans
 import { JsonStringifyTransformer } from "./features/json/JsonStringifyTransformer";
 import { JsonValidateParseTransformer } from "./features/json/JsonValidateParseTransformer";
 import { JsonValidateStringifyTransformer } from "./features/json/JsonValidateStringifyTransformer";
-import { MetadataTransformer } from "./features/misc/MetadataTransformer";
 import { MiscAssertCloneTransformer } from "./features/misc/MiscAssertCloneTransformer";
 import { MiscAssertPruneTransformer } from "./features/misc/MiscAssertPruneTransformer";
 import { MiscCloneTransformer } from "./features/misc/MiscCloneTransformer";
@@ -88,6 +87,7 @@ import { ProtobufIsEncodeTransformer } from "./features/protobuf/ProtobufIsEncod
 import { ProtobufMessageTransformer } from "./features/protobuf/ProtobufMessageTransformer";
 import { ProtobufValidateDecodeTransformer } from "./features/protobuf/ProtobufValidateDecodeTransformer";
 import { ProtobufValidateEncodeTransformer } from "./features/protobuf/ProtobufValidateEncodeTransformer";
+import { ReflectMetadataTransformer } from "./features/reflect/ReflectMetadataTransformer";
 
 export namespace CallExpressionTransformer {
     export const transform =
@@ -174,7 +174,7 @@ const FUNCTORS: Record<string, Record<string, () => Task>> = {
 
         // RANDOM + INTERNAL
         random: () => RandomTransformer.transform,
-        metadata: () => (P) => () => MetadataTransformer.transform(P),
+        metadata: () => ReflectMetadataTransformer.transform,
 
         // FACTORIES
         createAssert: () => CreateAssertTransformer.transform(false),
@@ -269,6 +269,9 @@ const FUNCTORS: Record<string, Record<string, () => Task>> = {
         createIsDecode: () => ProtobufCreateIsDecodeTransformer.transform,
         createValidateDecode: () =>
             ProtobufCreateValidateDecodeTransformer.transform,
+    },
+    reflect: {
+        metadata: () => ReflectMetadataTransformer.transform,
     },
     misc: {
         literals: () => (project) => () =>

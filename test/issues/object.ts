@@ -8,9 +8,9 @@ interface Something {
     nullable: Something | null;
 }
 
-const app = typia.metadata<[Something]>();
+const app = typia.reflect.metadata<[Something]>();
 console.log(
-    app.collection.objects[0]?.properties.map((p) => ({
+    app.components.objects[0]?.properties.map((p) => ({
         name: p.key.constants[0]?.values[0],
         optional: p.value.optional,
         required: p.value.required,

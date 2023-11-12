@@ -1,22 +1,17 @@
 import { ClassProperties } from "../../typings/ClassProperties";
-import { Writable } from "../../typings/Writable";
 
 import { ArrayUtil } from "../../utils/ArrayUtil";
 
 import { IMetadata } from "./IMetadata";
-import { IMetadataCollection } from "./IMetadataCollection";
 import { IMetadataDictionary } from "./IMetadataDictionary";
 import { IMetadataTypeTag } from "./IMetadataTypeTag";
 import { MetadataAlias } from "./MetadataAlias";
 import { MetadataArray } from "./MetadataArray";
-import { MetadataArrayType } from "./MetadataArrayType";
 import { MetadataAtomic } from "./MetadataAtomic";
 import { MetadataConstant } from "./MetadataConstant";
 import { MetadataEscaped } from "./MetadataEscaped";
 import { MetadataObject } from "./MetadataObject";
-import { MetadataProperty } from "./MetadataProperty";
 import { MetadataTuple } from "./MetadataTuple";
-import { MetadataTupleType } from "./MetadataTupleType";
 
 export class Metadata {
     public any: boolean;
@@ -86,7 +81,7 @@ export class Metadata {
      * @internal
      */
     public static initialize(parentResolved: boolean = false): Metadata {
-        const meta: Metadata = this.create({
+        const meta: Metadata = Metadata.create({
             any: false,
             nullable: false,
             required: true,
@@ -120,10 +115,7 @@ export class Metadata {
             functional: this.functional,
 
             atomics: this.atomics.map((a) => a.toJSON()),
-            constants: this.constants.map((c) => ({
-                type: c.type,
-                values: c.values.slice() as any,
-            })),
+            constants: this.constants.map((c) => c.toJSON()),
             templates: this.templates.map((tpl) =>
                 tpl.map((meta) => meta.toJSON()),
             ),
@@ -150,85 +142,24 @@ export class Metadata {
         };
     }
 
-    public static from(
-        meta: IMetadata,
-        collection: IMetadataCollection,
-    ): Metadata {
-        const dict: IMetadataDictionary = {
-            objects: new Map(
-                collection.objects.map((obj) => [
-                    obj.name,
-                    MetadataObject._From_without_properties(obj),
-                ]),
-            ),
-            aliases: new Map(
-                collection.aliases.map((alias) => [
-                    alias.name,
-                    MetadataAlias._From_without_value(alias),
-                ]),
-            ),
-            arrays: new Map(
-                collection.arrays.map((arr) => [
-                    arr.name,
-                    MetadataArrayType._From_without_value(arr),
-                ]),
-            ),
-            tuples: new Map(
-                collection.tuples.map((tpl) => [
-                    tpl.name,
-                    MetadataTupleType._From_without_elements(tpl),
-                ]),
-            ),
-        };
-
-        for (const obj of collection.objects) {
-            const initialized = dict.objects.get(obj.name)!;
-            initialized.properties.push(
-                ...obj.properties.map((prop) =>
-                    MetadataProperty._From(prop, dict),
-                ),
-            );
-        }
-        for (const alias of collection.aliases)
-            Writable(dict.aliases.get(alias.name)!).value = this._From(
-                alias.value,
-                dict,
-            );
-        for (const array of collection.arrays)
-            Writable(dict.arrays.get(array.name)!).value = this._From(
-                array.value,
-                dict,
-            );
-        for (const tuple of collection.tuples)
-            Writable(dict.tuples.get(tuple.name)!).elements =
-                tuple.elements.map((elem) => this._From(elem, dict));
-
-        return this._From(meta, dict);
-    }
-
-    /**
-     * @internal
-     */
-    public static _From(meta: IMetadata, dict: IMetadataDictionary): Metadata {
-        return this.create({
+    public static from(meta: IMetadata, dict: IMetadataDictionary): Metadata {
+        return Metadata.create({
             any: meta.any,
             required: meta.required,
             optional: meta.optional,
             nullable: meta.nullable,
             functional: meta.functional,
 
-            constants: meta.constants.slice(),
-            atomics: meta.atomics.map((a) =>
-                MetadataAtomic.create({ type: a.type, tags: a.tags }),
-            ),
+            constants: meta.constants.map(MetadataConstant.from),
+            atomics: meta.atomics.map(MetadataAtomic.from),
             templates: meta.templates.map((tpl) =>
-                tpl.map((meta) => this._From(meta, dict)),
+                tpl.map((meta) => this.from(meta, dict)),
             ),
             escaped: meta.escaped
-                ? MetadataEscaped._From(meta.escaped, dict)
+                ? MetadataEscaped.from(meta.escaped, dict)
                 : null,
 
-            rest: meta.rest ? this._From(meta.rest, dict) : null,
+            rest: meta.rest ? this.from(meta.rest, dict) : null,
             arrays: meta.arrays.map((ref) => {
                 const type = dict.arrays.get(ref.name);
                 if (type === undefined)
@@ -269,10 +200,10 @@ export class Metadata {
             }),
 
             natives: meta.natives.slice(),
-            sets: meta.sets.map((meta) => this._From(meta, dict)),
+            sets: meta.sets.map((meta) => this.from(meta, dict)),
             maps: meta.maps.map((entry) => ({
-                key: this._From(entry.key, dict),
-                value: this._From(entry.value, dict),
+                key: this.from(entry.key, dict),
+                value: this.from(entry.value, dict),
             })),
         });
     }
@@ -565,10 +496,11 @@ export namespace Metadata {
             const target: MetadataConstant = ArrayUtil.take(
                 output.constants,
                 (elem) => elem.type === constant.type,
-                () => ({
-                    type: constant.type,
-                    values: [],
-                }),
+                () =>
+                    MetadataConstant.create({
+                        type: constant.type,
+                        values: [],
+                    }),
             );
             for (const value of constant.values)
                 ArrayUtil.add(target.values, value);

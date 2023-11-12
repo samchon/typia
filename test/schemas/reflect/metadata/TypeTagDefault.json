@@ -1,0 +1,739 @@
+{
+  "metadatas": [
+    {
+      "any": false,
+      "required": true,
+      "optional": false,
+      "nullable": false,
+      "functional": false,
+      "atomics": [],
+      "constants": [],
+      "templates": [],
+      "escaped": null,
+      "rest": null,
+      "arrays": [],
+      "tuples": [],
+      "objects": [
+        "TypeTagDefault"
+      ],
+      "aliases": [],
+      "natives": [],
+      "sets": [],
+      "maps": []
+    }
+  ],
+  "components": {
+    "objects": [
+      {
+        "name": "TypeTagDefault",
+        "properties": [
+          {
+            "key": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": false,
+              "functional": false,
+              "atomics": [],
+              "constants": [
+                {
+                  "type": "string",
+                  "values": [
+                    "boolean"
+                  ]
+                }
+              ],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "value": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": false,
+              "functional": false,
+              "atomics": [
+                {
+                  "type": "boolean",
+                  "tags": [
+                    [
+                      {
+                        "target": "boolean",
+                        "name": "Default<false>",
+                        "kind": "default",
+                        "value": false,
+                        "exclusive": true
+                      }
+                    ]
+                  ]
+                }
+              ],
+              "constants": [],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "description": null,
+            "jsDocTags": []
+          },
+          {
+            "key": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": false,
+              "functional": false,
+              "atomics": [],
+              "constants": [
+                {
+                  "type": "string",
+                  "values": [
+                    "number"
+                  ]
+                }
+              ],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "value": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": false,
+              "functional": false,
+              "atomics": [
+                {
+                  "type": "number",
+                  "tags": [
+                    [
+                      {
+                        "target": "number",
+                        "name": "Default<1>",
+                        "kind": "default",
+                        "value": 1,
+                        "exclusive": true
+                      }
+                    ]
+                  ]
+                }
+              ],
+              "constants": [],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "description": null,
+            "jsDocTags": []
+          },
+          {
+            "key": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": false,
+              "functional": false,
+              "atomics": [],
+              "constants": [
+                {
+                  "type": "string",
+                  "values": [
+                    "string"
+                  ]
+                }
+              ],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "value": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": false,
+              "functional": false,
+              "atomics": [
+                {
+                  "type": "string",
+                  "tags": [
+                    [
+                      {
+                        "target": "string",
+                        "name": "Default<\"two\">",
+                        "kind": "default",
+                        "value": "two",
+                        "exclusive": true
+                      }
+                    ]
+                  ]
+                }
+              ],
+              "constants": [],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "description": null,
+            "jsDocTags": []
+          },
+          {
+            "key": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": false,
+              "functional": false,
+              "atomics": [],
+              "constants": [
+                {
+                  "type": "string",
+                  "values": [
+                    "text"
+                  ]
+                }
+              ],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "value": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": false,
+              "functional": false,
+              "atomics": [
+                {
+                  "type": "string",
+                  "tags": [
+                    [
+                      {
+                        "target": "string",
+                        "name": "Default<\"Very long text, can you understand it?\">",
+                        "kind": "default",
+                        "value": "Very long text, can you understand it?",
+                        "exclusive": true
+                      }
+                    ]
+                  ]
+                }
+              ],
+              "constants": [],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "description": null,
+            "jsDocTags": []
+          },
+          {
+            "key": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": false,
+              "functional": false,
+              "atomics": [],
+              "constants": [
+                {
+                  "type": "string",
+                  "values": [
+                    "boolean_and_number_and_string"
+                  ]
+                }
+              ],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "value": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": false,
+              "functional": false,
+              "atomics": [
+                {
+                  "type": "number",
+                  "tags": [
+                    [
+                      {
+                        "target": "number",
+                        "name": "Default<1>",
+                        "kind": "default",
+                        "value": 1,
+                        "exclusive": true
+                      }
+                    ]
+                  ]
+                },
+                {
+                  "type": "string",
+                  "tags": [
+                    [
+                      {
+                        "target": "string",
+                        "name": "Default<\"two\">",
+                        "kind": "default",
+                        "value": "two",
+                        "exclusive": true
+                      }
+                    ]
+                  ]
+                },
+                {
+                  "type": "boolean",
+                  "tags": [
+                    [
+                      {
+                        "target": "boolean",
+                        "name": "Default<false>",
+                        "kind": "default",
+                        "value": false,
+                        "exclusive": true
+                      }
+                    ]
+                  ]
+                }
+              ],
+              "constants": [],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "description": null,
+            "jsDocTags": []
+          },
+          {
+            "key": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": false,
+              "functional": false,
+              "atomics": [],
+              "constants": [
+                {
+                  "type": "string",
+                  "values": [
+                    "union_but_boolean"
+                  ]
+                }
+              ],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "value": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": false,
+              "functional": false,
+              "atomics": [
+                {
+                  "type": "string",
+                  "tags": []
+                },
+                {
+                  "type": "number",
+                  "tags": []
+                },
+                {
+                  "type": "boolean",
+                  "tags": [
+                    [
+                      {
+                        "target": "boolean",
+                        "name": "Default<false>",
+                        "kind": "default",
+                        "value": false,
+                        "exclusive": true
+                      }
+                    ]
+                  ]
+                }
+              ],
+              "constants": [],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "description": null,
+            "jsDocTags": []
+          },
+          {
+            "key": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": false,
+              "functional": false,
+              "atomics": [],
+              "constants": [
+                {
+                  "type": "string",
+                  "values": [
+                    "union_but_number"
+                  ]
+                }
+              ],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "value": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": false,
+              "functional": false,
+              "atomics": [
+                {
+                  "type": "string",
+                  "tags": []
+                },
+                {
+                  "type": "number",
+                  "tags": [
+                    [
+                      {
+                        "target": "number",
+                        "name": "Default<1>",
+                        "kind": "default",
+                        "value": 1,
+                        "exclusive": true
+                      }
+                    ]
+                  ]
+                },
+                {
+                  "type": "boolean",
+                  "tags": []
+                }
+              ],
+              "constants": [],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "description": null,
+            "jsDocTags": []
+          },
+          {
+            "key": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": false,
+              "functional": false,
+              "atomics": [],
+              "constants": [
+                {
+                  "type": "string",
+                  "values": [
+                    "union_but_string"
+                  ]
+                }
+              ],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "value": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": false,
+              "functional": false,
+              "atomics": [
+                {
+                  "type": "number",
+                  "tags": []
+                },
+                {
+                  "type": "string",
+                  "tags": [
+                    [
+                      {
+                        "target": "string",
+                        "name": "Default<\"two\">",
+                        "kind": "default",
+                        "value": "two",
+                        "exclusive": true
+                      }
+                    ]
+                  ]
+                },
+                {
+                  "type": "boolean",
+                  "tags": []
+                }
+              ],
+              "constants": [],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "description": null,
+            "jsDocTags": []
+          },
+          {
+            "key": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": false,
+              "functional": false,
+              "atomics": [],
+              "constants": [
+                {
+                  "type": "string",
+                  "values": [
+                    "boolean_and_number_and_template"
+                  ]
+                }
+              ],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "value": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": false,
+              "functional": false,
+              "atomics": [
+                {
+                  "type": "number",
+                  "tags": [
+                    [
+                      {
+                        "target": "number",
+                        "name": "Default<2>",
+                        "kind": "default",
+                        "value": 2,
+                        "exclusive": true
+                      }
+                    ]
+                  ]
+                },
+                {
+                  "type": "boolean",
+                  "tags": [
+                    [
+                      {
+                        "target": "boolean",
+                        "name": "Default<false>",
+                        "kind": "default",
+                        "value": false,
+                        "exclusive": true
+                      }
+                    ]
+                  ]
+                }
+              ],
+              "constants": [],
+              "templates": [
+                [
+                  {
+                    "any": false,
+                    "required": true,
+                    "optional": false,
+                    "nullable": false,
+                    "functional": false,
+                    "atomics": [],
+                    "constants": [
+                      {
+                        "type": "string",
+                        "values": [
+                          "prefix_"
+                        ]
+                      }
+                    ],
+                    "templates": [],
+                    "escaped": null,
+                    "rest": null,
+                    "arrays": [],
+                    "tuples": [],
+                    "objects": [],
+                    "aliases": [],
+                    "natives": [],
+                    "sets": [],
+                    "maps": []
+                  },
+                  {
+                    "any": false,
+                    "required": true,
+                    "optional": false,
+                    "nullable": false,
+                    "functional": false,
+                    "atomics": [
+                      {
+                        "type": "string",
+                        "tags": []
+                      }
+                    ],
+                    "constants": [],
+                    "templates": [],
+                    "escaped": null,
+                    "rest": null,
+                    "arrays": [],
+                    "tuples": [],
+                    "objects": [],
+                    "aliases": [],
+                    "natives": [],
+                    "sets": [],
+                    "maps": []
+                  }
+                ]
+              ],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "description": null,
+            "jsDocTags": []
+          }
+        ],
+        "jsDocTags": [],
+        "index": 0,
+        "validated": false,
+        "recursive": false,
+        "nullables": [
+          false
+        ]
+      }
+    ],
+    "aliases": [],
+    "arrays": [],
+    "tuples": []
+  }
+}

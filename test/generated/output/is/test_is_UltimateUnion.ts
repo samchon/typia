@@ -158,16 +158,16 @@ export const test_is_UltimateUnion = _test_is("UltimateUnion")<UltimateUnion>(
                 "array" === input.target) &&
             "string" === typeof input.name &&
             "string" === typeof input.kind &&
-            true &&
-            (undefined === input.validate ||
-                "string" === typeof input.validate) &&
             null !== input.exclusive &&
             undefined !== input.exclusive &&
             ("boolean" === typeof input.exclusive ||
                 (Array.isArray(input.exclusive) &&
                     input.exclusive.every(
                         (elem: any) => "string" === typeof elem,
-                    )));
+                    ))) &&
+            true &&
+            (undefined === input.validate ||
+                "string" === typeof input.validate);
         const $io8 = (input: any): boolean =>
             (undefined === input.minimum ||
                 ("number" === typeof input.minimum &&

@@ -165,16 +165,16 @@ export const test_createValidate_UltimateUnion = _test_validate(
                     "array" === input.target) &&
                 "string" === typeof input.name &&
                 "string" === typeof input.kind &&
-                true &&
-                (undefined === input.validate ||
-                    "string" === typeof input.validate) &&
                 null !== input.exclusive &&
                 undefined !== input.exclusive &&
                 ("boolean" === typeof input.exclusive ||
                     (Array.isArray(input.exclusive) &&
                         input.exclusive.every(
                             (elem: any) => "string" === typeof elem,
-                        )));
+                        ))) &&
+                true &&
+                (undefined === input.validate ||
+                    "string" === typeof input.validate);
             const $io8 = (input: any): boolean =>
                 (undefined === input.minimum ||
                     ("number" === typeof input.minimum &&
@@ -1956,14 +1956,6 @@ export const test_createValidate_UltimateUnion = _test_validate(
                                 expected: "string",
                                 value: input.kind,
                             }),
-                        true,
-                        undefined === input.validate ||
-                            "string" === typeof input.validate ||
-                            $report(_exceptionable, {
-                                path: _path + ".validate",
-                                expected: "(string | undefined)",
-                                value: input.validate,
-                            }),
                         (null !== input.exclusive ||
                             $report(_exceptionable, {
                                 path: _path + ".exclusive",
@@ -2003,6 +1995,14 @@ export const test_createValidate_UltimateUnion = _test_validate(
                                     expected: "(Array<string> | boolean)",
                                     value: input.exclusive,
                                 })),
+                        true,
+                        undefined === input.validate ||
+                            "string" === typeof input.validate ||
+                            $report(_exceptionable, {
+                                path: _path + ".validate",
+                                expected: "(string | undefined)",
+                                value: input.validate,
+                            }),
                     ].every((flag: boolean) => flag);
                 const $vo8 = (
                     input: any,

@@ -6,17 +6,17 @@ import { primitive_equal_to } from "../helpers/primitive_equal_to";
 export const _test_json_application =
     (purpose: "ajv" | "swagger") =>
     (name: string) =>
-    (generated: IJsonApplication) => {
-        const expected: IJsonApplication = JSON.parse(
+    (app: IJsonApplication) => {
+        const actual: IJsonApplication = JSON.parse(
             fs.readFileSync(
                 `${__dirname}/../../../test/schemas/json/${purpose}/${name}.json`,
                 "utf8",
             ),
         );
-        sort(generated);
-        sort(expected);
+        sort(app);
+        sort(actual);
 
-        if (primitive_equal_to(generated, expected) === false)
+        if (primitive_equal_to(app, actual) === false)
             throw new Error(
                 `Bug on typia.json.application<${name}, "${purpose}">(): failed to understand the ${name} type.`,
             );

@@ -5,9 +5,9 @@ interface ISomething {
 }
 type P = Partial<ISomething> & { next: string };
 
-const app = typia.metadata<[P]>();
+const app = typia.reflect.metadata<[P]>();
 console.log(
-    app.collection.objects[0]?.properties.map((p) => ({
+    app.components.objects[0]?.properties.map((p) => ({
         name: p.key.constants[0]?.values[0],
         optional: p.value.optional,
         required: p.value.required,

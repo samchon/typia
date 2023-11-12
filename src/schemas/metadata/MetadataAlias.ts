@@ -38,7 +38,7 @@ export class MetadataAlias {
      * @internal
      */
     public static _From_without_value(props: Omit<IMetadataAlias, "value">) {
-        return this.create({
+        return MetadataAlias.create({
             name: props.name,
             value: null!,
             description: props.description,

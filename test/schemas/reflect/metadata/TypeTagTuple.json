@@ -1,0 +1,396 @@
+{
+  "metadatas": [
+    {
+      "any": false,
+      "required": true,
+      "optional": false,
+      "nullable": false,
+      "functional": false,
+      "atomics": [],
+      "constants": [],
+      "templates": [],
+      "escaped": null,
+      "rest": null,
+      "arrays": [],
+      "tuples": [],
+      "objects": [
+        "TypeTagTuple"
+      ],
+      "aliases": [],
+      "natives": [],
+      "sets": [],
+      "maps": []
+    }
+  ],
+  "components": {
+    "objects": [
+      {
+        "name": "TypeTagTuple",
+        "properties": [
+          {
+            "key": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": false,
+              "functional": false,
+              "atomics": [],
+              "constants": [
+                {
+                  "type": "string",
+                  "values": [
+                    "tuple"
+                  ]
+                }
+              ],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "value": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": false,
+              "functional": false,
+              "atomics": [],
+              "constants": [],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [
+                {
+                  "name": "[string & MinLength<3> & MaxLength<7>, number & Minimum<3> & Maximum<7>, (string & MinLength<1> & MaxLength<2>)[] & MinItems<...> & MaxItems<...>, (number & ... 1 more ... & Maximum<...>)[] & ... 1 more ... & MaxItems<...>]",
+                  "tags": []
+                }
+              ],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "description": null,
+            "jsDocTags": []
+          }
+        ],
+        "jsDocTags": [],
+        "index": 0,
+        "validated": false,
+        "recursive": false,
+        "nullables": [
+          false
+        ]
+      }
+    ],
+    "aliases": [],
+    "arrays": [
+      {
+        "name": "Array<string & MinLength<1> & MaxLength<2>>",
+        "value": {
+          "any": false,
+          "required": true,
+          "optional": false,
+          "nullable": false,
+          "functional": false,
+          "atomics": [
+            {
+              "type": "string",
+              "tags": [
+                [
+                  {
+                    "target": "string",
+                    "name": "MinLength<1>",
+                    "kind": "minLength",
+                    "value": 1,
+                    "validate": "1 <= $input.length",
+                    "exclusive": true
+                  },
+                  {
+                    "target": "string",
+                    "name": "MaxLength<2>",
+                    "kind": "maxLength",
+                    "value": 2,
+                    "validate": "$input.length <= 2",
+                    "exclusive": true
+                  }
+                ]
+              ]
+            }
+          ],
+          "constants": [],
+          "templates": [],
+          "escaped": null,
+          "rest": null,
+          "arrays": [],
+          "tuples": [],
+          "objects": [],
+          "aliases": [],
+          "natives": [],
+          "sets": [],
+          "maps": []
+        },
+        "nullables": [
+          false
+        ],
+        "recursive": false,
+        "index": null
+      },
+      {
+        "name": "Array<number & Minimum<1> & Maximum<2>>",
+        "value": {
+          "any": false,
+          "required": true,
+          "optional": false,
+          "nullable": false,
+          "functional": false,
+          "atomics": [
+            {
+              "type": "number",
+              "tags": [
+                [
+                  {
+                    "target": "number",
+                    "name": "Minimum<1>",
+                    "kind": "minimum",
+                    "value": 1,
+                    "validate": "1 <= $input",
+                    "exclusive": [
+                      "minimum",
+                      "exclusiveMinimum"
+                    ]
+                  },
+                  {
+                    "target": "number",
+                    "name": "Maximum<2>",
+                    "kind": "maximum",
+                    "value": 2,
+                    "validate": "$input <= 2",
+                    "exclusive": [
+                      "maximum",
+                      "exclusiveMaximum"
+                    ]
+                  }
+                ]
+              ]
+            }
+          ],
+          "constants": [],
+          "templates": [],
+          "escaped": null,
+          "rest": null,
+          "arrays": [],
+          "tuples": [],
+          "objects": [],
+          "aliases": [],
+          "natives": [],
+          "sets": [],
+          "maps": []
+        },
+        "nullables": [
+          false
+        ],
+        "recursive": false,
+        "index": null
+      }
+    ],
+    "tuples": [
+      {
+        "name": "[string & MinLength<3> & MaxLength<7>, number & Minimum<3> & Maximum<7>, (string & MinLength<1> & MaxLength<2>)[] & MinItems<...> & MaxItems<...>, (number & ... 1 more ... & Maximum<...>)[] & ... 1 more ... & MaxItems<...>]",
+        "index": null,
+        "elements": [
+          {
+            "any": false,
+            "required": true,
+            "optional": false,
+            "nullable": false,
+            "functional": false,
+            "atomics": [
+              {
+                "type": "string",
+                "tags": [
+                  [
+                    {
+                      "target": "string",
+                      "name": "MinLength<3>",
+                      "kind": "minLength",
+                      "value": 3,
+                      "validate": "3 <= $input.length",
+                      "exclusive": true
+                    },
+                    {
+                      "target": "string",
+                      "name": "MaxLength<7>",
+                      "kind": "maxLength",
+                      "value": 7,
+                      "validate": "$input.length <= 7",
+                      "exclusive": true
+                    }
+                  ]
+                ]
+              }
+            ],
+            "constants": [],
+            "templates": [],
+            "escaped": null,
+            "rest": null,
+            "arrays": [],
+            "tuples": [],
+            "objects": [],
+            "aliases": [],
+            "natives": [],
+            "sets": [],
+            "maps": []
+          },
+          {
+            "any": false,
+            "required": true,
+            "optional": false,
+            "nullable": false,
+            "functional": false,
+            "atomics": [
+              {
+                "type": "number",
+                "tags": [
+                  [
+                    {
+                      "target": "number",
+                      "name": "Minimum<3>",
+                      "kind": "minimum",
+                      "value": 3,
+                      "validate": "3 <= $input",
+                      "exclusive": [
+                        "minimum",
+                        "exclusiveMinimum"
+                      ]
+                    },
+                    {
+                      "target": "number",
+                      "name": "Maximum<7>",
+                      "kind": "maximum",
+                      "value": 7,
+                      "validate": "$input <= 7",
+                      "exclusive": [
+                        "maximum",
+                        "exclusiveMaximum"
+                      ]
+                    }
+                  ]
+                ]
+              }
+            ],
+            "constants": [],
+            "templates": [],
+            "escaped": null,
+            "rest": null,
+            "arrays": [],
+            "tuples": [],
+            "objects": [],
+            "aliases": [],
+            "natives": [],
+            "sets": [],
+            "maps": []
+          },
+          {
+            "any": false,
+            "required": true,
+            "optional": false,
+            "nullable": false,
+            "functional": false,
+            "atomics": [],
+            "constants": [],
+            "templates": [],
+            "escaped": null,
+            "rest": null,
+            "arrays": [
+              {
+                "name": "Array<string & MinLength<1> & MaxLength<2>>",
+                "tags": [
+                  [
+                    {
+                      "target": "array",
+                      "name": "MinItems<3>",
+                      "kind": "minItems",
+                      "value": 3,
+                      "validate": "3 <= $input.length",
+                      "exclusive": true
+                    },
+                    {
+                      "target": "array",
+                      "name": "MaxItems<7>",
+                      "kind": "maxItems",
+                      "value": 7,
+                      "validate": "$input.length <= 7",
+                      "exclusive": true
+                    }
+                  ]
+                ]
+              }
+            ],
+            "tuples": [],
+            "objects": [],
+            "aliases": [],
+            "natives": [],
+            "sets": [],
+            "maps": []
+          },
+          {
+            "any": false,
+            "required": true,
+            "optional": false,
+            "nullable": false,
+            "functional": false,
+            "atomics": [],
+            "constants": [],
+            "templates": [],
+            "escaped": null,
+            "rest": null,
+            "arrays": [
+              {
+                "name": "Array<number & Minimum<1> & Maximum<2>>",
+                "tags": [
+                  [
+                    {
+                      "target": "array",
+                      "name": "MinItems<3>",
+                      "kind": "minItems",
+                      "value": 3,
+                      "validate": "3 <= $input.length",
+                      "exclusive": true
+                    },
+                    {
+                      "target": "array",
+                      "name": "MaxItems<7>",
+                      "kind": "maxItems",
+                      "value": 7,
+                      "validate": "$input.length <= 7",
+                      "exclusive": true
+                    }
+                  ]
+                ]
+              }
+            ],
+            "tuples": [],
+            "objects": [],
+            "aliases": [],
+            "natives": [],
+            "sets": [],
+            "maps": []
+          }
+        ],
+        "recursive": false,
+        "nullables": [
+          false
+        ]
+      }
+    ]
+  }
+}

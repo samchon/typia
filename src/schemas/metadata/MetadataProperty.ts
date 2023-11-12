@@ -36,13 +36,10 @@ export class MetadataProperty {
     /**
      * @internal
      */
-    public static _From(
-        property: IMetadataProperty,
-        dict: IMetadataDictionary,
-    ) {
-        return this.create({
-            key: Metadata._From(property.key, dict),
-            value: Metadata._From(property.value, dict),
+    public static from(property: IMetadataProperty, dict: IMetadataDictionary) {
+        return MetadataProperty.create({
+            key: Metadata.from(property.key, dict),
+            value: Metadata.from(property.value, dict),
             description: property.description,
             jsDocTags: property.jsDocTags.slice(),
         });

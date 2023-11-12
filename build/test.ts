@@ -1,9 +1,10 @@
 import cp from "child_process";
 import fs from "fs";
 
-import { TestApplicationGenerator } from "./internal/TestApplicationGenerator";
 import { TestFeature } from "./internal/TestFeature";
-import { TestMessageGenerator } from "./internal/TestMessageGenerator";
+import { TestJsonApplicationGenerator } from "./internal/TestJsonApplicationGenerator";
+import { TestProtobufMessageGenerator } from "./internal/TestProtobufMessageGenerator";
+import { TestReflectMetadataGenerator } from "./internal/TestReflectMetadataGenerator";
 import { TestStructure } from "./internal/TestStructure";
 import { __TypeRemover } from "./internal/__TypeRemover";
 import { write_common } from "./writers/write_common";
@@ -106,14 +107,16 @@ async function main(): Promise<void> {
     if (fs.existsSync(schemas)) cp.execSync(`npx rimraf ${schemas}`);
     await fs.promises.mkdir(schemas, { recursive: true });
 
-    await TestApplicationGenerator.generate(structures);
-    await TestMessageGenerator.generate(structures);
+    await TestJsonApplicationGenerator.generate(structures);
+    await TestProtobufMessageGenerator.generate(structures);
+    await TestReflectMetadataGenerator.generate(structures);
 
     // FILL SCHEMA CONTENTS
     await new Promise((resolve) => setTimeout(resolve, 1000));
     cp.execSync("npm run build:test", { stdio: "inherit" });
-    await TestApplicationGenerator.schema();
-    await TestMessageGenerator.schema();
+    await TestJsonApplicationGenerator.schemas();
+    await TestProtobufMessageGenerator.schemas();
+    await TestReflectMetadataGenerator.schemas();
 
     // GENERATE TRANSFORMED FEATURES
     cp.execSync("npx rimraf test/generated");
