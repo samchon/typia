@@ -33,7 +33,7 @@ export class MetadataTupleType {
     public static _From_without_elements(
         props: Omit<IMetadataTupleType, "elements">,
     ): MetadataTupleType {
-        return this.create({
+        return MetadataTupleType.create({
             name: props.name,
             index: props.index,
             elements: null!,

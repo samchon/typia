@@ -3,7 +3,7 @@ import { IMetadataArrayType } from "./IMetadataArrayType";
 import { IMetadataObject } from "./IMetadataObject";
 import { IMetadataTupleType } from "./IMetadataTupleType";
 
-export interface IMetadataCollection {
+export interface IMetadataComponents {
     objects: IMetadataObject[];
     aliases: IMetadataAlias[];
     arrays: IMetadataArrayType[];

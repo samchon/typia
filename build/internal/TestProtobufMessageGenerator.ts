@@ -3,7 +3,7 @@ import fs from "fs";
 
 import { TestStructure } from "./TestStructure";
 
-export namespace TestMessageGenerator {
+export namespace TestProtobufMessageGenerator {
     export async function generate(
         structures: TestStructure<any>[],
     ): Promise<void> {
@@ -30,7 +30,7 @@ export namespace TestMessageGenerator {
         }
     }
 
-    export async function schema(): Promise<void> {
+    export async function schemas(): Promise<void> {
         const path: string = `${__dirname}/../../test/features/protobuf.message`;
         const protobuf: string = `${path}/../../schemas/protobuf`;
         await mkdir(protobuf);

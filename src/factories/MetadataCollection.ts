@@ -1,6 +1,6 @@
 import ts from "typescript";
 
-import { IMetadataCollection } from "../schemas/metadata/IMetadataCollection";
+import { IMetadataComponents } from "../schemas/metadata/IMetadataComponents";
 import { Metadata } from "../schemas/metadata/Metadata";
 import { MetadataAlias } from "../schemas/metadata/MetadataAlias";
 import { MetadataArrayType } from "../schemas/metadata/MetadataArrayType";
@@ -230,7 +230,7 @@ export class MetadataCollection {
         if (recursive) Writable(tuple).index = this.recursive_tuple_index_++;
     }
 
-    public toJSON(): IMetadataCollection {
+    public toJSON(): IMetadataComponents {
         return {
             objects: this.objects().map((o) => o.toJSON()),
             aliases: this.aliases().map((d) => d.toJSON()),

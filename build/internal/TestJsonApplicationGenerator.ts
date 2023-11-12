@@ -3,13 +3,13 @@ import fs from "fs";
 
 import { TestStructure } from "./TestStructure";
 
-export namespace TestApplicationGenerator {
+export namespace TestJsonApplicationGenerator {
     export async function generate(
         structures: TestStructure<any>[],
     ): Promise<void> {
-        const path: string = `${__dirname}/../../test/features/json.application`;
-        if (fs.existsSync(path)) cp.execSync("npx rimraf " + path);
-        await fs.promises.mkdir(path);
+        const location: string = `${__dirname}/../../test/features/json.application`;
+        if (fs.existsSync(location)) cp.execSync("npx rimraf " + location);
+        await fs.promises.mkdir(location);
 
         await application(structures, "ajv");
         await application(structures, "swagger");
@@ -26,7 +26,7 @@ export namespace TestApplicationGenerator {
             if (s.JSONABLE === false) continue;
 
             const content: string[] = [
-                `import typia from "typia"`,
+                `import typia from "../../../../src";`,
                 `import { ${s.name} } from "../../../structures/${s.name}";`,
                 `import { _test_json_application } from "../../../internal/_test_json_application";`,
                 "",
@@ -36,16 +36,16 @@ export namespace TestApplicationGenerator {
                 `    );`,
             ];
             await fs.promises.writeFile(
-                `${__dirname}/../../test/features/json.application/${purpose}/test_application_${purpose}_${s.name}.ts`,
+                `${__dirname}/../../test/features/json.application/${purpose}/test_json_application_${purpose}_${s.name}.ts`,
                 content.join("\n"),
                 "utf8",
             );
         }
     }
 
-    export async function schema(): Promise<void> {
-        const schemas: string = `${__dirname}/../../test/schemas/json`;
-        await mkdir(schemas);
+    export async function schemas(): Promise<void> {
+        const location: string = `${__dirname}/../../test/schemas/json`;
+        await mkdir(location);
 
         await iterate("ajv");
         await iterate("swagger");
@@ -69,7 +69,7 @@ export namespace TestApplicationGenerator {
             if (file.substring(file.length - 3) !== ".ts") continue;
 
             const name: string = file.substring(
-                `test_application_${type}_`.length,
+                `test_json_application_${type}_`.length,
                 file.length - 3,
             );
             const location: string =
@@ -78,7 +78,9 @@ export namespace TestApplicationGenerator {
                     0,
                     -3,
                 )}.js`;
-            const schema: object = getSchema(fs.readFileSync(location, "utf8"));
+            const schema: object = getSchema(
+                await fs.promises.readFile(location, "utf8"),
+            );
             await fs.promises.writeFile(
                 `${schemaPath}/${name}.json`,
                 JSON.stringify(schema, null, 2),

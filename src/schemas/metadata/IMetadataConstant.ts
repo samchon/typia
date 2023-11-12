@@ -6,7 +6,7 @@ export type IMetadataConstant =
     | IMetadataConstant.IBase<"boolean", boolean>
     | IMetadataConstant.IBase<"number", number>
     | IMetadataConstant.IBase<"string", string>
-    | IMetadataConstant.IBase<"bigint", bigint>;
+    | IMetadataConstant.IBase<"bigint", string>;
 export namespace IMetadataConstant {
     export interface IBase<
         Type extends Atomic.Literal,
