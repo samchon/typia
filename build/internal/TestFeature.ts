@@ -39,6 +39,12 @@ export namespace TestFeature {
         },
         {
             module: null,
+            method: "assertGuard",
+            creatable: true,
+            spoilable: true,
+        },
+        {
+            module: null,
             method: "validate",
             creatable: true,
             spoilable: true,
@@ -55,6 +61,13 @@ export namespace TestFeature {
         {
             module: null,
             method: "assertEquals",
+            creatable: true,
+            spoilable: false,
+            strict: true,
+        },
+        {
+            module: null,
+            method: "assertGuardEquals",
             creatable: true,
             spoilable: false,
             strict: true,
