@@ -3,10 +3,9 @@ import { HttpValidateQueryProgrammer } from "../../../programmers/http/HttpValid
 import { GenericTransformer } from "../../internal/GenericTransformer";
 
 export namespace CreateHttpValidateQueryTransformer {
-    export const transform = GenericTransformer.factory(
-        "http.createValidateQuery",
-    )(
-        (project) => (modulo) =>
-            HttpValidateQueryProgrammer.write(project)(modulo),
-    );
+  export const transform = GenericTransformer.factory(
+    "http.createValidateQuery",
+  )(
+    (project) => (modulo) => HttpValidateQueryProgrammer.write(project)(modulo),
+  );
 }

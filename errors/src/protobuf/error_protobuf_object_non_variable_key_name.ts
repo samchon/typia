@@ -1,11 +1,11 @@
 import typia from "typia";
 
 interface IPointer<T> {
-    value: T;
+  value: T;
 }
 interface Something {
-    id: string;
-    "something-strange": boolean;
+  id: string;
+  "something-strange": boolean;
 }
 
 // MESSAGE

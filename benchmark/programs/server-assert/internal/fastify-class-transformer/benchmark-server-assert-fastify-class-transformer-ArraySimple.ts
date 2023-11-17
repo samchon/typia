@@ -8,8 +8,8 @@ import { createFastifyCustomServerAssertBenchmarkProgram } from "../createFastif
 
 const schema = ClassValidatorCollection(ClassValidatorArraySimple);
 createFastifyCustomServerAssertBenchmarkProgram<ArraySimple>((input) => {
-    const output = plainToInstance(schema, input);
-    const result = validateSync(output);
-    if (result.length > 0) throw new Error(result[0].toString());
-    return output;
+  const output = plainToInstance(schema, input);
+  const result = validateSync(output);
+  if (result.length > 0) throw new Error(result[0].toString());
+  return output;
 });

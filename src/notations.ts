@@ -39,7 +39,7 @@ export function camel<T>(input: T): CamelCase<T>;
  * @internal
  */
 export function camel(): never {
-    return halt("camel");
+  return halt("camel");
 }
 Object.assign(camel, Namespace.notations.camel("camel"));
 
@@ -75,7 +75,7 @@ export function assertCamel<T>(input: unknown): CamelCase<T>;
  * @internal
  */
 export function assertCamel(): never {
-    return halt("assertCamel");
+  return halt("assertCamel");
 }
 Object.assign(assertCamel, Namespace.notations.camel("assertCamel"));
 Object.assign(assertCamel, Namespace.assert("notations.assertCamel"));
@@ -112,7 +112,7 @@ export function isCamel<T>(input: unknown): CamelCase<T> | null;
  * @internal
  */
 export function isCamel(): never {
-    return halt("isCamel");
+  return halt("isCamel");
 }
 Object.assign(isCamel, Namespace.notations.camel("isCamel"));
 Object.assign(isCamel, Namespace.is());
@@ -153,7 +153,7 @@ export function validateCamel<T>(input: unknown): IValidation<CamelCase<T>>;
  * @internal
  */
 export function validateCamel(): never {
-    return halt("validateCamel");
+  return halt("validateCamel");
 }
 Object.assign(validateCamel, Namespace.notations.camel("validateCamel"));
 Object.assign(validateCamel, Namespace.validate());
@@ -186,7 +186,7 @@ export function pascal<T>(input: T): PascalCase<T>;
  * @internal
  */
 export function pascal(): never {
-    return halt("pascal");
+  return halt("pascal");
 }
 Object.assign(pascal, Namespace.notations.pascal("pascal"));
 
@@ -222,7 +222,7 @@ export function assertPascal<T>(input: unknown): PascalCase<T>;
  * @internal
  */
 export function assertPascal(): never {
-    return halt("assertPascal");
+  return halt("assertPascal");
 }
 Object.assign(assertPascal, Namespace.notations.pascal("assertPascal"));
 Object.assign(assertPascal, Namespace.assert("notations.assertPascal"));
@@ -259,7 +259,7 @@ export function isPascal<T>(input: unknown): PascalCase<T> | null;
  * @internal
  */
 export function isPascal(): never {
-    return halt("isPascal");
+  return halt("isPascal");
 }
 Object.assign(isPascal, Namespace.notations.pascal("isPascal"));
 Object.assign(isPascal, Namespace.is());
@@ -300,7 +300,7 @@ export function validatePascal<T>(input: unknown): IValidation<PascalCase<T>>;
  * @internal
  */
 export function validatePascal(): never {
-    return halt("validatePascal");
+  return halt("validatePascal");
 }
 Object.assign(validatePascal, Namespace.notations.pascal("validatePascal"));
 Object.assign(validatePascal, Namespace.validate());
@@ -333,7 +333,7 @@ export function snake<T>(input: T): SnakeCase<T>;
  * @internal
  */
 export function snake(): never {
-    return halt("snake");
+  return halt("snake");
 }
 Object.assign(snake, Namespace.notations.snake("snake"));
 
@@ -369,7 +369,7 @@ export function assertSnake<T>(input: unknown): SnakeCase<T>;
  * @internal
  */
 export function assertSnake(): never {
-    return halt("assertSnake");
+  return halt("assertSnake");
 }
 Object.assign(assertSnake, Namespace.notations.snake("assertSnake"));
 Object.assign(assertSnake, Namespace.assert("notations.assertSnake"));
@@ -406,7 +406,7 @@ export function isSnake<T>(input: unknown): SnakeCase<T> | null;
  * @internal
  */
 export function isSnake(): never {
-    return halt("isSnake");
+  return halt("isSnake");
 }
 Object.assign(isSnake, Namespace.notations.snake("isSnake"));
 Object.assign(isSnake, Namespace.is());
@@ -447,7 +447,7 @@ export function validateSnake<T>(input: unknown): IValidation<SnakeCase<T>>;
  * @internal
  */
 export function validateSnake(): never {
-    return halt("validateSnake");
+  return halt("validateSnake");
 }
 Object.assign(validateSnake, Namespace.notations.snake("validateSnake"));
 Object.assign(validateSnake, Namespace.validate());
@@ -480,7 +480,7 @@ export function createCamel<T>(): (input: T) => CamelCase<T>;
  * @internal
  */
 export function createCamel(): never {
-    halt("createCamel");
+  halt("createCamel");
 }
 Object.assign(createCamel, Namespace.notations.camel("createCamel"));
 
@@ -509,15 +509,15 @@ export function createAssertCamel<T>(): (input: T) => CamelCase<T>;
  * @internal
  */
 export function createAssertCamel(): never {
-    halt("createAssertCamel");
+  halt("createAssertCamel");
 }
 Object.assign(
-    createAssertCamel,
-    Namespace.notations.camel("createAssertCamel"),
+  createAssertCamel,
+  Namespace.notations.camel("createAssertCamel"),
 );
 Object.assign(
-    createAssertCamel,
-    Namespace.assert("notations.createAssertCamel"),
+  createAssertCamel,
+  Namespace.assert("notations.createAssertCamel"),
 );
 
 /**
@@ -545,7 +545,7 @@ export function createIsCamel<T>(): (input: T) => CamelCase<T> | null;
  * @internal
  */
 export function createIsCamel(): never {
-    halt("createIsCamel");
+  halt("createIsCamel");
 }
 Object.assign(createIsCamel, Namespace.notations.camel("createIsCamel"));
 Object.assign(createIsCamel, Namespace.is());
@@ -570,18 +570,18 @@ export function createValidateCamel(): never;
  * @author Jeongho Nam - https://github.com/samchon
  */
 export function createValidateCamel<T>(): (
-    input: T,
+  input: T,
 ) => IValidation<CamelCase<T>>;
 
 /**
  * @internal
  */
 export function createValidateCamel(): never {
-    halt("createValidateCamel");
+  halt("createValidateCamel");
 }
 Object.assign(
-    createValidateCamel,
-    Namespace.notations.camel("createValidateCamel"),
+  createValidateCamel,
+  Namespace.notations.camel("createValidateCamel"),
 );
 Object.assign(createValidateCamel, Namespace.validate());
 
@@ -610,7 +610,7 @@ export function createPascal<T>(): (input: T) => PascalCase<T>;
  * @internal
  */
 export function createPascal(): never {
-    halt("createPascal");
+  halt("createPascal");
 }
 Object.assign(createPascal, Namespace.notations.pascal("createPascal"));
 
@@ -639,15 +639,15 @@ export function createAssertPascal<T>(): (input: T) => PascalCase<T>;
  * @internal
  */
 export function createAssertPascal(): never {
-    halt("createAssertPascal");
+  halt("createAssertPascal");
 }
 Object.assign(
-    createAssertPascal,
-    Namespace.notations.pascal("createAssertPascal"),
+  createAssertPascal,
+  Namespace.notations.pascal("createAssertPascal"),
 );
 Object.assign(
-    createAssertPascal,
-    Namespace.assert("notations.createAssertPascal"),
+  createAssertPascal,
+  Namespace.assert("notations.createAssertPascal"),
 );
 
 /**
@@ -675,7 +675,7 @@ export function createIsPascal<T>(): (input: T) => PascalCase<T> | null;
  * @internal
  */
 export function createIsPascal(): never {
-    halt("createIsPascal");
+  halt("createIsPascal");
 }
 Object.assign(createIsPascal, Namespace.notations.pascal("createIsPascal"));
 Object.assign(createIsPascal, Namespace.is());
@@ -700,18 +700,18 @@ export function createValidatePascal(): never;
  * @author Jeongho Nam - https://github.com/samchon
  */
 export function createValidatePascal<T>(): (
-    input: T,
+  input: T,
 ) => IValidation<PascalCase<T>>;
 
 /**
  * @internal
  */
 export function createValidatePascal(): never {
-    halt("createValidatePascal");
+  halt("createValidatePascal");
 }
 Object.assign(
-    createValidatePascal,
-    Namespace.notations.pascal("createValidatePascal"),
+  createValidatePascal,
+  Namespace.notations.pascal("createValidatePascal"),
 );
 Object.assign(createValidatePascal, Namespace.validate());
 
@@ -740,7 +740,7 @@ export function createSnake<T>(): (input: T) => SnakeCase<T>;
  * @internal
  */
 export function createSnake(): never {
-    halt("createSnake");
+  halt("createSnake");
 }
 Object.assign(createSnake, Namespace.notations.snake("createSnake"));
 
@@ -769,15 +769,15 @@ export function createAssertSnake<T>(): (input: T) => SnakeCase<T>;
  * @internal
  */
 export function createAssertSnake(): never {
-    halt("createAssertSnake");
+  halt("createAssertSnake");
 }
 Object.assign(
-    createAssertSnake,
-    Namespace.notations.snake("createAssertSnake"),
+  createAssertSnake,
+  Namespace.notations.snake("createAssertSnake"),
 );
 Object.assign(
-    createAssertSnake,
-    Namespace.assert("notations.createAssertSnake"),
+  createAssertSnake,
+  Namespace.assert("notations.createAssertSnake"),
 );
 
 /**
@@ -805,7 +805,7 @@ export function createIsSnake<T>(): (input: T) => SnakeCase<T> | null;
  * @internal
  */
 export function createIsSnake(): never {
-    halt("createIsSnake");
+  halt("createIsSnake");
 }
 Object.assign(createIsSnake, Namespace.notations.snake("createIsSnake"));
 Object.assign(createIsSnake, Namespace.is());
@@ -830,18 +830,18 @@ export function createValidateSnake(): never;
  * @author Jeongho Nam - https://github.com/samchon
  */
 export function createValidateSnake<T>(): (
-    input: T,
+  input: T,
 ) => IValidation<SnakeCase<T>>;
 
 /**
  * @internal
  */
 export function createValidateSnake(): never {
-    halt("createValidateSnake");
+  halt("createValidateSnake");
 }
 Object.assign(
-    createValidateSnake,
-    Namespace.notations.snake("createValidateSnake"),
+  createValidateSnake,
+  Namespace.notations.snake("createValidateSnake"),
 );
 Object.assign(createValidateSnake, Namespace.validate());
 
@@ -849,7 +849,7 @@ Object.assign(createValidateSnake, Namespace.validate());
  * @internal
  */
 function halt(name: string): never {
-    throw new Error(
-        `Error on typia.notations.${name}(): no transform has been configured. Read and follow https://typia.io/docs/setup please.`,
-    );
+  throw new Error(
+    `Error on typia.notations.${name}(): no transform has been configured. Read and follow https://typia.io/docs/setup please.`,
+  );
 }

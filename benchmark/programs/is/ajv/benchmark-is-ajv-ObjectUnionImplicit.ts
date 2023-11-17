@@ -4,5 +4,5 @@ import { ObjectUnionImplicit } from "../../../../test/structures/ObjectUnionImpl
 import { createIsAjvBenchmarkProgram } from "./createIsAjvBenchmarkProgram";
 
 createIsAjvBenchmarkProgram(
-    typia.json.application<[ObjectUnionImplicit], "ajv">(),
+  typia.json.application<[ObjectUnionImplicit], "ajv">(),
 );

@@ -1,3 +1,3 @@
 export interface ICollection<T> {
-    data: T[];
+  data: T[];
 }

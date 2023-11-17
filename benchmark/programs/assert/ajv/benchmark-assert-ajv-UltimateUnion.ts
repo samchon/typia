@@ -4,5 +4,5 @@ import { UltimateUnion } from "../../../../test/structures/UltimateUnion";
 import { createAssertAjvBenchmarkProgram } from "./createAssertAjvBenchmarkProgram";
 
 createAssertAjvBenchmarkProgram(
-    typia.json.application<[UltimateUnion], "ajv">(),
+  typia.json.application<[UltimateUnion], "ajv">(),
 );

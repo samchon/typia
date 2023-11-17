@@ -5,6 +5,6 @@ import { ICollection } from "../../../../structures/ICollection";
 import { createExpressServerPerformanceBenchmarkProgram } from "../createExpressServerPerformanceBenchmarkProgram";
 
 createExpressServerPerformanceBenchmarkProgram(
-    typia.createAssert<ICollection<ObjectRecursive>>(),
-    typia.json.createStringify<ICollection<ObjectRecursive>>(),
+  typia.createAssert<ICollection<ObjectRecursive>>(),
+  typia.json.createStringify<ICollection<ObjectRecursive>>(),
 );

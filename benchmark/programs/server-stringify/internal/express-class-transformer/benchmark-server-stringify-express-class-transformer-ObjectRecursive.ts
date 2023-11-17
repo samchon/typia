@@ -7,5 +7,5 @@ import { createExpressServerStringifyBenchmarkProgram } from "../createExpressSe
 
 const schema = ClassValidatorCollection(ClassValidatorObjectRecursive);
 createExpressServerStringifyBenchmarkProgram<ObjectRecursive>((input) =>
-    JSON.stringify(instanceToPlain(plainToInstance(schema, input))),
+  JSON.stringify(instanceToPlain(plainToInstance(schema, input))),
 );

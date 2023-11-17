@@ -4,5 +4,5 @@ import { ArrayRecursive } from "../../../../test/structures/ArrayRecursive";
 import { createStringifyBenchmarkProgram } from "../createStringifyBenchmarkProgram";
 
 createStringifyBenchmarkProgram(
-    typia.json.createAssertStringify<ArrayRecursive>(),
+  typia.json.createAssertStringify<ArrayRecursive>(),
 );

@@ -2,5 +2,5 @@ import { ClassValidatorArrayHierarchical } from "../../../structures/class-valid
 import { createStringifyClassTransformerBenchmarkProgram } from "./createStringifyClassTransformerBenchmarkProgram";
 
 createStringifyClassTransformerBenchmarkProgram(
-    ClassValidatorArrayHierarchical,
+  ClassValidatorArrayHierarchical,
 );

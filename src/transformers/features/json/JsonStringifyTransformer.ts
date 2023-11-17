@@ -3,7 +3,7 @@ import { JsonStringifyProgrammer } from "../../../programmers/json/JsonStringify
 import { GenericTransformer } from "../../internal/GenericTransformer";
 
 export namespace JsonStringifyTransformer {
-    export const transform = GenericTransformer.scalar("json.stringify")(
-        (project) => (modulo) => JsonStringifyProgrammer.write(project)(modulo),
-    );
+  export const transform = GenericTransformer.scalar("json.stringify")(
+    (project) => (modulo) => JsonStringifyProgrammer.write(project)(modulo),
+  );
 }

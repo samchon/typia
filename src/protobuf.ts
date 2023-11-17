@@ -58,7 +58,7 @@ export function message<T>(): string;
  * @internal
  */
 export function message(): never {
-    halt("message");
+  halt("message");
 }
 
 /* -----------------------------------------------------------
@@ -130,7 +130,7 @@ export function decode<T>(input: Uint8Array): Resolved<T>;
  * @internal
  */
 export function decode(): never {
-    halt("decode");
+  halt("decode");
 }
 Object.assign(decode, Namespace.protobuf.decode("decode"));
 
@@ -198,7 +198,7 @@ export function assertDecode<T>(input: Uint8Array): Resolved<T>;
  * @internal
  */
 export function assertDecode(): never {
-    halt("assertDecode");
+  halt("assertDecode");
 }
 Object.assign(assertDecode, Namespace.assert("protobuf.assertDecode"));
 Object.assign(assertDecode, Namespace.protobuf.decode("assertDecode"));
@@ -267,7 +267,7 @@ export function isDecode<T>(input: Uint8Array): Resolved<T> | null;
  * @internal
  */
 export function isDecode(): never {
-    halt("isDecode");
+  halt("isDecode");
 }
 Object.assign(isDecode, Namespace.is());
 Object.assign(isDecode, Namespace.protobuf.decode("isDecode"));
@@ -338,7 +338,7 @@ export function validateDecode<T>(input: Uint8Array): IValidation<Resolved<T>>;
  * @internal
  */
 export function validateDecode(): never {
-    halt("validateDecode");
+  halt("validateDecode");
 }
 Object.assign(validateDecode, Namespace.validate());
 Object.assign(validateDecode, Namespace.protobuf.decode("validateDecode"));
@@ -379,7 +379,7 @@ export function encode<T>(input: T): Uint8Array;
  * @internal
  */
 export function encode(): never {
-    halt("encode");
+  halt("encode");
 }
 Object.assign(encode, Namespace.protobuf.encode("encode"));
 
@@ -453,7 +453,7 @@ export function assertEncode<T>(input: unknown): Uint8Array;
  * @internal
  */
 export function assertEncode(): never {
-    halt("assertEncode");
+  halt("assertEncode");
 }
 Object.assign(assertEncode, Namespace.assert("protobuf.assertEncode"));
 Object.assign(assertEncode, Namespace.protobuf.encode("assertEncode"));
@@ -528,7 +528,7 @@ export function isEncode<T>(input: unknown): Uint8Array | null;
  * @internal
  */
 export function isEncode(): never {
-    halt("isEncode");
+  halt("isEncode");
 }
 Object.assign(isEncode, Namespace.is());
 Object.assign(isEncode, Namespace.protobuf.encode("isEncode"));
@@ -605,7 +605,7 @@ export function validateEncode<T>(input: unknown): IValidation<Uint8Array>;
  * @internal
  */
 export function validateEncode(): never {
-    halt("validateEncode");
+  halt("validateEncode");
 }
 Object.assign(validateEncode, Namespace.validate());
 Object.assign(validateEncode, Namespace.protobuf.encode("validateEncode"));
@@ -638,7 +638,7 @@ export function createDecode<T>(): (input: Uint8Array) => Resolved<T>;
  * @internal
  */
 export function createDecode<T>(): (input: Uint8Array) => Resolved<T> {
-    halt("createDecode");
+  halt("createDecode");
 }
 Object.assign(createDecode, Namespace.protobuf.decode("createDecode"));
 
@@ -667,7 +667,7 @@ export function createIsDecode<T>(): (input: Uint8Array) => Resolved<T> | null;
  * @internal
  */
 export function createIsDecode<T>(): (input: Uint8Array) => Resolved<T> | null {
-    halt("createIsDecode");
+  halt("createIsDecode");
 }
 Object.assign(createIsDecode, Namespace.is());
 Object.assign(createIsDecode, Namespace.protobuf.decode("createIsDecode"));
@@ -697,15 +697,15 @@ export function createAssertDecode<T>(): (input: Uint8Array) => Resolved<T>;
  * @internal
  */
 export function createAssertDecode<T>(): (input: Uint8Array) => Resolved<T> {
-    halt("createAssertDecode");
+  halt("createAssertDecode");
 }
 Object.assign(
-    createAssertDecode,
-    Namespace.assert("protobuf.createAssertDecode"),
+  createAssertDecode,
+  Namespace.assert("protobuf.createAssertDecode"),
 );
 Object.assign(
-    createAssertDecode,
-    Namespace.protobuf.decode("createAssertDecode"),
+  createAssertDecode,
+  Namespace.protobuf.decode("createAssertDecode"),
 );
 
 /**
@@ -728,21 +728,21 @@ export function createValidateDecode(): never;
  * @author Jeongho Nam - https://github.com/samchon
  */
 export function createValidateDecode<T>(): (
-    input: Uint8Array,
+  input: Uint8Array,
 ) => IValidation<Resolved<T>>;
 
 /**
  * @internal
  */
 export function createValidateDecode<T>(): (
-    input: Uint8Array,
+  input: Uint8Array,
 ) => IValidation<Resolved<T>> {
-    halt("createValidateDecode");
+  halt("createValidateDecode");
 }
 Object.assign(createValidateDecode, Namespace.validate());
 Object.assign(
-    createValidateDecode,
-    Namespace.protobuf.decode("createValidateDecode"),
+  createValidateDecode,
+  Namespace.protobuf.decode("createValidateDecode"),
 );
 
 /**
@@ -770,7 +770,7 @@ export function createEncode<T>(): (input: T) => Uint8Array;
  * @internal
  */
 export function createEncode<T>(): (input: T) => Uint8Array {
-    halt("createEncode");
+  halt("createEncode");
 }
 Object.assign(createEncode, Namespace.protobuf.encode("createEncode"));
 
@@ -799,7 +799,7 @@ export function createIsEncode<T>(): (input: T) => Uint8Array | null;
  * @internal
  */
 export function createIsEncode<T>(): (input: T) => Uint8Array | null {
-    halt("createIsEncode");
+  halt("createIsEncode");
 }
 Object.assign(createIsEncode, Namespace.is());
 Object.assign(createIsEncode, Namespace.protobuf.encode("createIsEncode"));
@@ -829,15 +829,15 @@ export function createAssertEncode<T>(): (input: T) => Uint8Array;
  * @internal
  */
 export function createAssertEncode<T>(): (input: T) => Uint8Array {
-    halt("createAssertEncode");
+  halt("createAssertEncode");
 }
 Object.assign(
-    createAssertEncode,
-    Namespace.assert("protobuf.createAssertEncode"),
+  createAssertEncode,
+  Namespace.assert("protobuf.createAssertEncode"),
 );
 Object.assign(
-    createAssertEncode,
-    Namespace.protobuf.encode("createAssertEncode"),
+  createAssertEncode,
+  Namespace.protobuf.encode("createAssertEncode"),
 );
 
 /**
@@ -860,28 +860,28 @@ export function createValidateEncode(): never;
  * @author Jeongho Nam - https://github.com/samchon
  */
 export function createValidateEncode<T>(): (
-    input: T,
+  input: T,
 ) => IValidation<Uint8Array>;
 
 /**
  * @internal
  */
 export function createValidateEncode<T>(): (
-    input: T,
+  input: T,
 ) => IValidation<Uint8Array> {
-    halt("createValidateEncode");
+  halt("createValidateEncode");
 }
 Object.assign(createValidateEncode, Namespace.validate());
 Object.assign(
-    createValidateEncode,
-    Namespace.protobuf.encode("createValidateEncode"),
+  createValidateEncode,
+  Namespace.protobuf.encode("createValidateEncode"),
 );
 
 /**
  * @internal
  */
 function halt(name: string): never {
-    throw new Error(
-        `Error on typia.protobuf.${name}(): no transform has been configured. Read and follow https://typia.io/docs/setup please.`,
-    );
+  throw new Error(
+    `Error on typia.protobuf.${name}(): no transform has been configured. Read and follow https://typia.io/docs/setup please.`,
+  );
 }

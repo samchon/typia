@@ -1,7 +1,7 @@
 import typia from "typia";
 
 interface IPointer<T> {
-    value: T;
+  value: T;
 }
 
 /* -----------------------------------------------------------
@@ -67,7 +67,7 @@ typia.json.createAssertParse<Uint8ClampedArray[]>();
 typia.json.createAssertParse<Record<string, Uint8ClampedArray>>();
 typia.json.createAssertParse<IPointer<Uint8ClampedArray>>();
 typia.json.createAssertParse<
-    IPointer<[Uint8ClampedArray, Uint8ClampedArray]>
+  IPointer<[Uint8ClampedArray, Uint8ClampedArray]>
 >();
 typia.json.createAssertParse<IPointer<Uint8ClampedArray[]>>();
 typia.json.createAssertParse<IPointer<Record<string, Uint8ClampedArray>>>();
@@ -432,7 +432,7 @@ typia.json.createAssertParse<SharedArrayBuffer[]>();
 typia.json.createAssertParse<Record<string, SharedArrayBuffer>>();
 typia.json.createAssertParse<IPointer<SharedArrayBuffer>>();
 typia.json.createAssertParse<
-    IPointer<[SharedArrayBuffer, SharedArrayBuffer]>
+  IPointer<[SharedArrayBuffer, SharedArrayBuffer]>
 >();
 typia.json.createAssertParse<IPointer<SharedArrayBuffer[]>>();
 typia.json.createAssertParse<IPointer<Record<string, SharedArrayBuffer>>>();

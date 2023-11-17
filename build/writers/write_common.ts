@@ -1,28 +1,28 @@
 import { StringUtil } from "../utils/StringUtil";
 
 export const write_common =
-    (p: IProps) => (create: boolean) => (structure: string) =>
-        `import typia from "../../../src";
+  (p: IProps) => (create: boolean) => (structure: string) =>
+    `import typia from "../../../src";
 
 import { _${file({
-            ...p,
-            method: p.method.startsWith("create")
-                ? StringUtil.localize(p.method.replace("create", ""))
-                : p.method,
-        })} } from "../../internal/_${file({
-            ...p,
-            method: p.method.startsWith("create")
-                ? StringUtil.localize(p.method.replace("create", ""))
-                : p.method,
-        })}";
+      ...p,
+      method: p.method.startsWith("create")
+        ? StringUtil.localize(p.method.replace("create", ""))
+        : p.method,
+    })} } from "../../internal/_${file({
+      ...p,
+      method: p.method.startsWith("create")
+        ? StringUtil.localize(p.method.replace("create", ""))
+        : p.method,
+    })}";
 import { ${structure} } from "../../structures/${structure}";
 
 export const ${file(p)}_${structure} = _${file({
-            ...p,
-            method: p.method.startsWith("create")
-                ? StringUtil.localize(p.method.replace("create", ""))
-                : p.method,
-        })}(
+      ...p,
+      method: p.method.startsWith("create")
+        ? StringUtil.localize(p.method.replace("create", ""))
+        : p.method,
+    })}(
     "${structure}",
 )<${structure}>(
     ${structure}
@@ -31,13 +31,13 @@ export const ${file(p)}_${structure} = _${file({
 
 const file = (p: IProps) => "test_" + method(p).replace(".", "_");
 const method = (p: IProps) =>
-    [p.module, p.method].filter((str) => !!str).join(".");
+  [p.module, p.method].filter((str) => !!str).join(".");
 const functor = (p: IProps) => (create: boolean) => (structure: string) =>
-    create
-        ? `typia.${method(p)}<${structure}>()`
-        : `(input) => typia.${method(p)}<${structure}>(input)`;
+  create
+    ? `typia.${method(p)}<${structure}>()`
+    : `(input) => typia.${method(p)}<${structure}>(input)`;
 
 interface IProps {
-    module: string | null;
-    method: string;
+  module: string | null;
+  method: string;
 }

@@ -5,5 +5,5 @@ import { ICollection } from "../../../../structures/ICollection";
 import { createFastifyPureServerPerformanceBenchmarkProgram } from "../createFastifyPureServerPerformanceBenchmarkProgram";
 
 createFastifyPureServerPerformanceBenchmarkProgram(
-    typia.json.application<[ICollection<ArraySimple>], "ajv">(),
+  typia.json.application<[ICollection<ArraySimple>], "ajv">(),
 );

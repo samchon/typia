@@ -4,5 +4,5 @@ import { ObjectRecursive } from "../../../../test/structures/ObjectRecursive";
 import { createStringifyBenchmarkProgram } from "../createStringifyBenchmarkProgram";
 
 createStringifyBenchmarkProgram(
-    typia.json.createAssertStringify<ObjectRecursive>(),
+  typia.json.createAssertStringify<ObjectRecursive>(),
 );

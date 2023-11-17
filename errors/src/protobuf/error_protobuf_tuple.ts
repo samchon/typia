@@ -1,13 +1,13 @@
 import typia from "typia";
 
 interface IPointer<T> {
-    value: T;
+  value: T;
 }
 interface Something {
-    a: number;
+  a: number;
 }
 interface Nothing {
-    b: string;
+  b: string;
 }
 
 // MESSAGE

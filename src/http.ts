@@ -81,14 +81,14 @@ export function query(): never;
  * @author Jeongho Nam - https://github.com/samchon
  */
 export function query<T extends object>(
-    input: string | URLSearchParams,
+  input: string | URLSearchParams,
 ): Resolved<T>;
 
 /**
  * @internal
  */
 export function query(): never {
-    halt("query");
+  halt("query");
 }
 Object.assign(query, Namespace.http.query());
 
@@ -153,14 +153,14 @@ export function assertQuery(): never;
  * @author Jeongho Nam - https://github.com/samchon
  */
 export function assertQuery<T extends object>(
-    input: string | URLSearchParams,
+  input: string | URLSearchParams,
 ): Resolved<T>;
 
 /**
  * @internal
  */
 export function assertQuery(): never {
-    halt("assertQuery");
+  halt("assertQuery");
 }
 Object.assign(assertQuery, Namespace.http.query());
 Object.assign(assertQuery, Namespace.assert("http.assertQuery"));
@@ -224,14 +224,14 @@ export function isQuery(): never;
  * @author Jeongho Nam - https://github.com/samchon
  */
 export function isQuery<T extends object>(
-    input: string | URLSearchParams,
+  input: string | URLSearchParams,
 ): Resolved<T> | null;
 
 /**
  * @internal
  */
 export function isQuery(): never {
-    halt("isQuery");
+  halt("isQuery");
 }
 Object.assign(isQuery, Namespace.http.query());
 Object.assign(isQuery, Namespace.is());
@@ -297,14 +297,14 @@ export function validateQuery(): never;
  * @author Jeongho Nam - https://github.com/samchon
  */
 export function validateQuery<T extends object>(
-    input: string | URLSearchParams,
+  input: string | URLSearchParams,
 ): IValidation<Resolved<T>>;
 
 /**
  * @internal
  */
 export function validateQuery(): never {
-    halt("validateQuery");
+  halt("validateQuery");
 }
 Object.assign(validateQuery, Namespace.http.query());
 Object.assign(validateQuery, Namespace.validate());
@@ -421,14 +421,14 @@ export function headers(): never;
  * @author Jeongho Nam - https://github.com/samchon
  */
 export function headers<T extends object>(
-    input: Record<string, string | string[] | undefined>,
+  input: Record<string, string | string[] | undefined>,
 ): Resolved<T>;
 
 /**
  * @internal
  */
 export function headers(): never {
-    halt("headers");
+  halt("headers");
 }
 Object.assign(headers, Namespace.http.headers());
 
@@ -537,14 +537,14 @@ export function assertHeaders(): never;
  * @author Jeongho Nam - https://github.com/samchon
  */
 export function assertHeaders<T extends object>(
-    input: Record<string, string | string[] | undefined>,
+  input: Record<string, string | string[] | undefined>,
 ): Resolved<T>;
 
 /**
  * @internal
  */
 export function assertHeaders(): never {
-    halt("assertHeaders");
+  halt("assertHeaders");
 }
 Object.assign(assertHeaders, Namespace.http.headers());
 Object.assign(assertHeaders, Namespace.assert("http.assertHeaders"));
@@ -654,14 +654,14 @@ export function isHeaders(): never;
  * @author Jeongho Nam - https://github.com/samchon
  */
 export function isHeaders<T extends object>(
-    input: Record<string, string | string[] | undefined>,
+  input: Record<string, string | string[] | undefined>,
 ): Resolved<T> | null;
 
 /**
  * @internal
  */
 export function isHeaders(): never {
-    halt("isHeaders");
+  halt("isHeaders");
 }
 Object.assign(isHeaders, Namespace.http.headers());
 Object.assign(isHeaders, Namespace.is());
@@ -771,14 +771,14 @@ export function validateHeaders(): never;
  * @author Jeongho Nam - https://github.com/samchon
  */
 export function validateHeaders<T extends object>(
-    input: Record<string, string | string[] | undefined>,
+  input: Record<string, string | string[] | undefined>,
 ): IValidation<Resolved<T>>;
 
 /**
  * @internal
  */
 export function validateHeaders(): never {
-    halt("validateHeaders");
+  halt("validateHeaders");
 }
 Object.assign(validateHeaders, Namespace.http.headers());
 Object.assign(validateHeaders, Namespace.validate());
@@ -821,14 +821,14 @@ export function parameter(): never;
  * @returns Decoded path parameter value
  */
 export function parameter<T extends Atomic.Type | null>(
-    input: string,
+  input: string,
 ): Resolved<T>;
 
 /**
  * @internal
  */
 export function parameter(): never {
-    halt("parameter");
+  halt("parameter");
 }
 Object.assign(parameter, Namespace.http.parameter());
 Object.assign(parameter, Namespace.assert("http.parameter"));
@@ -856,14 +856,14 @@ export function createQuery(): never;
  * @author Jeongho Nam - https://github.com/samchon
  */
 export function createQuery<T extends object>(): (
-    input: string | URLSearchParams,
+  input: string | URLSearchParams,
 ) => T;
 
 /**
  * @internal
  */
 export function createQuery<T>(): (input: string | URLSearchParams) => T {
-    halt("createQuery");
+  halt("createQuery");
 }
 Object.assign(createQuery, Namespace.http.query());
 
@@ -887,14 +887,14 @@ export function createAssertQuery(): never;
  * @author Jeongho Nam - https://github.com/samchon
  */
 export function createAssertQuery<T extends object>(): (
-    input: string | URLSearchParams,
+  input: string | URLSearchParams,
 ) => T;
 
 /**
  * @internal
  */
 export function createAssertQuery<T>(): (input: string | URLSearchParams) => T {
-    halt("createAssertQuery");
+  halt("createAssertQuery");
 }
 Object.assign(createAssertQuery, Namespace.http.query());
 Object.assign(createAssertQuery, Namespace.assert("http.createAssertQuery"));
@@ -919,16 +919,16 @@ export function createIsQuery(): never;
  * @author Jeongho Nam - https://github.com/samchon
  */
 export function createIsQuery<T extends object>(): (
-    input: string | URLSearchParams,
+  input: string | URLSearchParams,
 ) => T | null;
 
 /**
  * @internal
  */
 export function createIsQuery<T>(): (
-    input: string | URLSearchParams,
+  input: string | URLSearchParams,
 ) => T | null {
-    halt("createIsQuery");
+  halt("createIsQuery");
 }
 Object.assign(createIsQuery, Namespace.http.query());
 Object.assign(createIsQuery, Namespace.is());
@@ -953,16 +953,16 @@ export function createValidateQuery(): never;
  * @author Jeongho Nam - https://github.com/samchon
  */
 export function createValidateQuery<T extends object>(): (
-    input: string | URLSearchParams,
+  input: string | URLSearchParams,
 ) => IValidation<Resolved<T>>;
 
 /**
  * @internal
  */
 export function createValidateQuery<T>(): (
-    input: string | URLSearchParams,
+  input: string | URLSearchParams,
 ) => IValidation<Resolved<T>> {
-    halt("createValidateQuery");
+  halt("createValidateQuery");
 }
 Object.assign(createValidateQuery, Namespace.http.query());
 Object.assign(createValidateQuery, Namespace.validate());
@@ -987,16 +987,16 @@ export function createHeaders(): never;
  * @author Jeongho Nam - https://github.com/samchon
  */
 export function createHeaders<T extends object>(): (
-    input: Record<string, string | string[] | undefined>,
+  input: Record<string, string | string[] | undefined>,
 ) => T;
 
 /**
  * @internal
  */
 export function createHeaders<T>(): (
-    input: Record<string, string | string[] | undefined>,
+  input: Record<string, string | string[] | undefined>,
 ) => T {
-    halt("createHeaders");
+  halt("createHeaders");
 }
 Object.assign(createHeaders, Namespace.http.headers());
 
@@ -1020,21 +1020,21 @@ export function createAssertHeaders(): never;
  * @author Jeongho Nam - https://github.com/samchon
  */
 export function createAssertHeaders<T extends object>(): (
-    input: Record<string, string | string[] | undefined>,
+  input: Record<string, string | string[] | undefined>,
 ) => T;
 
 /**
  * @internal
  */
 export function createAssertHeaders<T>(): (
-    input: Record<string, string | string[] | undefined>,
+  input: Record<string, string | string[] | undefined>,
 ) => T {
-    halt("createAssertHeaders");
+  halt("createAssertHeaders");
 }
 Object.assign(createAssertHeaders, Namespace.http.headers());
 Object.assign(
-    createAssertHeaders,
-    Namespace.assert("http.createAssertHeaders"),
+  createAssertHeaders,
+  Namespace.assert("http.createAssertHeaders"),
 );
 
 /**
@@ -1057,16 +1057,16 @@ export function createIsHeaders(): never;
  * @author Jeongho Nam - https://github.com/samchon
  */
 export function createIsHeaders<T extends object>(): (
-    input: Record<string, string | string[] | undefined>,
+  input: Record<string, string | string[] | undefined>,
 ) => T | null;
 
 /**
  * @internal
  */
 export function createIsHeaders<T>(): (
-    input: Record<string, string | string[] | undefined>,
+  input: Record<string, string | string[] | undefined>,
 ) => T | null {
-    halt("createIsHeaders");
+  halt("createIsHeaders");
 }
 Object.assign(createIsHeaders, Namespace.http.headers());
 Object.assign(createIsHeaders, Namespace.is());
@@ -1091,16 +1091,16 @@ export function createValidateHeaders(): never;
  * @author Jeongho Nam - https://github.com/samchon
  */
 export function createValidateHeaders<T extends object>(): (
-    input: Record<string, string | string[] | undefined>,
+  input: Record<string, string | string[] | undefined>,
 ) => IValidation<Resolved<T>>;
 
 /**
  * @internal
  */
 export function createValidateHeaders<T>(): (
-    input: Record<string, string | string[] | undefined>,
+  input: Record<string, string | string[] | undefined>,
 ) => IValidation<Resolved<T>> {
-    halt("createValidateHeaders");
+  halt("createValidateHeaders");
 }
 Object.assign(createValidateHeaders, Namespace.http.headers());
 Object.assign(createValidateHeaders, Namespace.validate());
@@ -1125,16 +1125,16 @@ export function createParameter(): never;
  * @author Jeongho Nam - https://github.com/samchon
  */
 export function createParameter<T extends Atomic.Type | null>(): (
-    input: string,
+  input: string,
 ) => T;
 
 /**
  * @internal
  */
 export function createParameter<T extends Atomic.Type | null>(): (
-    input: string,
+  input: string,
 ) => T {
-    halt("createParameter");
+  halt("createParameter");
 }
 Object.assign(createParameter, Namespace.http.parameter());
 Object.assign(createParameter, Namespace.assert("http.createParameter"));
@@ -1143,7 +1143,7 @@ Object.assign(createParameter, Namespace.assert("http.createParameter"));
  * @internal
  */
 function halt(name: string): never {
-    throw new Error(
-        `Error on typia.http.${name}(): no transform has been configured. Read and follow https://typia.misc.io/docs/setup please.`,
-    );
+  throw new Error(
+    `Error on typia.http.${name}(): no transform has been configured. Read and follow https://typia.misc.io/docs/setup please.`,
+  );
 }
