@@ -3,6 +3,6 @@ import { _test_misc_validatePrune } from "../../internal/_test_misc_validatePrun
 import { ObjectHttpUndefindable } from "../../structures/ObjectHttpUndefindable";
 
 export const test_misc_validatePrune_ObjectHttpUndefindable =
-    _test_misc_validatePrune("ObjectHttpUndefindable")<ObjectHttpUndefindable>(
-        ObjectHttpUndefindable,
-    )((input) => typia.misc.validatePrune<ObjectHttpUndefindable>(input));
+  _test_misc_validatePrune("ObjectHttpUndefindable")<ObjectHttpUndefindable>(
+    ObjectHttpUndefindable,
+  )((input) => typia.misc.validatePrune<ObjectHttpUndefindable>(input));

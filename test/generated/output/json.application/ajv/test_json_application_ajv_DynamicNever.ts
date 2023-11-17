@@ -3,22 +3,22 @@ import { _test_json_application } from "../../../../internal/_test_json_applicat
 import { DynamicNever } from "../../../../structures/DynamicNever";
 
 export const test_json_application_ajv_DynamicNever = _test_json_application(
-    "ajv",
+  "ajv",
 )("DynamicNever")({
-    schemas: [
-        {
-            $ref: "#/components/schemas/DynamicNever",
-        },
-    ],
-    components: {
-        schemas: {
-            DynamicNever: {
-                $id: "#/components/schemas/DynamicNever",
-                type: "object",
-                properties: {},
-                "x-typia-jsDocTags": [],
-            },
-        },
+  schemas: [
+    {
+      $ref: "#/components/schemas/DynamicNever",
     },
-    purpose: "ajv",
+  ],
+  components: {
+    schemas: {
+      DynamicNever: {
+        $id: "#/components/schemas/DynamicNever",
+        type: "object",
+        properties: {},
+        "x-typia-jsDocTags": [],
+      },
+    },
+  },
+  purpose: "ajv",
 });

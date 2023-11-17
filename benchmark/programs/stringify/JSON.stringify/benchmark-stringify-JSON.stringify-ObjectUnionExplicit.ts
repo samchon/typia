@@ -2,5 +2,5 @@ import { ObjectUnionExplicit } from "../../../../test/structures/ObjectUnionExpl
 import { createStringifyBenchmarkProgram } from "../createStringifyBenchmarkProgram";
 
 createStringifyBenchmarkProgram((value: ObjectUnionExplicit) =>
-    JSON.stringify(value),
+  JSON.stringify(value),
 );

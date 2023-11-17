@@ -3,6 +3,6 @@ import { _test_misc_validatePrune } from "../../internal/_test_misc_validatePrun
 import { ObjectIntersection } from "../../structures/ObjectIntersection";
 
 export const test_misc_createValidatePrune_ObjectIntersection =
-    _test_misc_validatePrune("ObjectIntersection")<ObjectIntersection>(
-        ObjectIntersection,
-    )(typia.misc.createValidatePrune<ObjectIntersection>());
+  _test_misc_validatePrune("ObjectIntersection")<ObjectIntersection>(
+    ObjectIntersection,
+  )(typia.misc.createValidatePrune<ObjectIntersection>());

@@ -3,5 +3,5 @@ import { _test_is } from "../../internal/_test_is";
 import { ObjectClosure } from "../../structures/ObjectClosure";
 
 export const test_createIs_ObjectClosure = _test_is(
-    "ObjectClosure",
+  "ObjectClosure",
 )<ObjectClosure>(ObjectClosure)(typia.createIs<ObjectClosure>());

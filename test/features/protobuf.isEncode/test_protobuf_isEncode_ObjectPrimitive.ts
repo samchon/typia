@@ -3,10 +3,8 @@ import { _test_protobuf_isEncode } from "../../internal/_test_protobuf_isEncode"
 import { ObjectPrimitive } from "../../structures/ObjectPrimitive";
 
 export const test_protobuf_createIsEncode_ObjectPrimitive =
-    _test_protobuf_isEncode("ObjectPrimitive")<ObjectPrimitive>(
-        ObjectPrimitive,
-    )({
-        encode: (input) => typia.protobuf.isEncode<ObjectPrimitive>(input),
-        decode: typia.protobuf.createDecode<ObjectPrimitive>(),
-        message: typia.protobuf.message<ObjectPrimitive>(),
-    });
+  _test_protobuf_isEncode("ObjectPrimitive")<ObjectPrimitive>(ObjectPrimitive)({
+    encode: (input) => typia.protobuf.isEncode<ObjectPrimitive>(input),
+    decode: typia.protobuf.createDecode<ObjectPrimitive>(),
+    message: typia.protobuf.message<ObjectPrimitive>(),
+  });

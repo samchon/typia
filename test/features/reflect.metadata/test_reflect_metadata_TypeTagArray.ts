@@ -3,5 +3,5 @@ import { _test_reflect_metadata } from "../../internal/_test_reflect_metadata";
 import { TypeTagArray } from "../../structures/TypeTagArray";
 
 export const test_reflect_metadata_TypeTagArray = _test_reflect_metadata(
-    "TypeTagArray",
+  "TypeTagArray",
 )(typia.reflect.metadata<[TypeTagArray]>());

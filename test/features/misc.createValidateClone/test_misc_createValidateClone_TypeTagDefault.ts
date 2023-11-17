@@ -3,6 +3,6 @@ import { _test_misc_validateClone } from "../../internal/_test_misc_validateClon
 import { TypeTagDefault } from "../../structures/TypeTagDefault";
 
 export const test_misc_createValidateClone_TypeTagDefault =
-    _test_misc_validateClone("TypeTagDefault")<TypeTagDefault>(TypeTagDefault)(
-        typia.misc.createValidateClone<TypeTagDefault>(),
-    );
+  _test_misc_validateClone("TypeTagDefault")<TypeTagDefault>(TypeTagDefault)(
+    typia.misc.createValidateClone<TypeTagDefault>(),
+  );

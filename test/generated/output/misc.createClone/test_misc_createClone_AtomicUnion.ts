@@ -3,10 +3,10 @@ import { _test_misc_clone } from "../../../internal/_test_misc_clone";
 import { AtomicUnion } from "../../../structures/AtomicUnion";
 
 export const test_misc_createClone_AtomicUnion = _test_misc_clone(
-    "AtomicUnion",
+  "AtomicUnion",
 )<AtomicUnion>(AtomicUnion)(
-    (input: AtomicUnion): typia.Resolved<AtomicUnion> => {
-        const $cp0 = (input: any) => input.map((elem: any) => elem as any);
-        return Array.isArray(input) ? $cp0(input) : (input as any);
-    },
+  (input: AtomicUnion): typia.Resolved<AtomicUnion> => {
+    const $cp0 = (input: any) => input.map((elem: any) => elem as any);
+    return Array.isArray(input) ? $cp0(input) : (input as any);
+  },
 );

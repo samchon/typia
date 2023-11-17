@@ -3,7 +3,7 @@ import { _test_misc_validateClone } from "../../internal/_test_misc_validateClon
 import { TypeTagType } from "../../structures/TypeTagType";
 
 export const test_misc_validateClone_TypeTagType = _test_misc_validateClone(
-    "TypeTagType",
+  "TypeTagType",
 )<TypeTagType>(TypeTagType)((input) =>
-    typia.misc.validateClone<TypeTagType>(input),
+  typia.misc.validateClone<TypeTagType>(input),
 );

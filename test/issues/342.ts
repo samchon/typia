@@ -1,13 +1,13 @@
 import typia from "typia";
 
 interface ISomething {
-    anys: any[];
-    numbers: number[];
-    strings: string[];
-    undefindable: any[] | undefined;
-    nullables: any[] | null;
-    both: any[] | undefined | null;
-    union: Array<any | number | null | undefined>;
+  anys: any[];
+  numbers: number[];
+  strings: string[];
+  undefindable: any[] | undefined;
+  nullables: any[] | null;
+  both: any[] | undefined | null;
+  union: Array<any | number | null | undefined>;
 }
 
 typia.json.createStringify<ISomething>();

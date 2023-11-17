@@ -3,12 +3,10 @@ import { _test_notation_validateGeneral } from "../../internal/_test_notation_va
 import { ConstantIntersection } from "../../structures/ConstantIntersection";
 
 export const test_notation_validateSnake_ConstantIntersection =
-    _test_notation_validateGeneral(
-        "ConstantIntersection",
-    )<ConstantIntersection>(ConstantIntersection)<
-        typia.SnakeCase<ConstantIntersection>
-    >({
-        convert: (input) =>
-            typia.notations.validateSnake<ConstantIntersection>(input),
-        assert: typia.createAssert<typia.SnakeCase<ConstantIntersection>>(),
-    });
+  _test_notation_validateGeneral("ConstantIntersection")<ConstantIntersection>(
+    ConstantIntersection,
+  )<typia.SnakeCase<ConstantIntersection>>({
+    convert: (input) =>
+      typia.notations.validateSnake<ConstantIntersection>(input),
+    assert: typia.createAssert<typia.SnakeCase<ConstantIntersection>>(),
+  });

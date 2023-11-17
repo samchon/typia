@@ -7,5 +7,5 @@ import { createFastifyCustomServerStringifyBenchmarkProgram } from "../createFas
 
 const schema = ClassValidatorCollection(ClassValidatorArraySimple);
 createFastifyCustomServerStringifyBenchmarkProgram<ArraySimple>((input) =>
-    JSON.stringify(instanceToPlain(plainToInstance(schema, input))),
+  JSON.stringify(instanceToPlain(plainToInstance(schema, input))),
 );

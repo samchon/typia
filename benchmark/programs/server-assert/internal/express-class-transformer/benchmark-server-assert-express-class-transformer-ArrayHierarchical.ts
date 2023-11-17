@@ -8,8 +8,8 @@ import { createExpressServerAssertBenchmarkProgram } from "../createExpressServe
 
 const schema = ClassValidatorCollection(ClassValidatorArrayHierarchical);
 createExpressServerAssertBenchmarkProgram<ArrayHierarchical>((input) => {
-    const output = plainToInstance(schema, input);
-    const result = validateSync(output);
-    if (result.length > 0) throw new Error(result[0].toString());
-    return output;
+  const output = plainToInstance(schema, input);
+  const result = validateSync(output);
+  if (result.length > 0) throw new Error(result[0].toString());
+  return output;
 });

@@ -3,7 +3,7 @@ import { _test_misc_validatePrune } from "../../internal/_test_misc_validatePrun
 import { CommentTagRange } from "../../structures/CommentTagRange";
 
 export const test_misc_validatePrune_CommentTagRange = _test_misc_validatePrune(
-    "CommentTagRange",
+  "CommentTagRange",
 )<CommentTagRange>(CommentTagRange)((input) =>
-    typia.misc.validatePrune<CommentTagRange>(input),
+  typia.misc.validatePrune<CommentTagRange>(input),
 );

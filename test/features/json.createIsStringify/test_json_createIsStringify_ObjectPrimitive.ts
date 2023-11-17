@@ -3,6 +3,6 @@ import { _test_json_isStringify } from "../../internal/_test_json_isStringify";
 import { ObjectPrimitive } from "../../structures/ObjectPrimitive";
 
 export const test_json_createIsStringify_ObjectPrimitive =
-    _test_json_isStringify("ObjectPrimitive")<ObjectPrimitive>(ObjectPrimitive)(
-        typia.json.createIsStringify<ObjectPrimitive>(),
-    );
+  _test_json_isStringify("ObjectPrimitive")<ObjectPrimitive>(ObjectPrimitive)(
+    typia.json.createIsStringify<ObjectPrimitive>(),
+  );

@@ -3,8 +3,8 @@ import { _test_json_stringify } from "../../internal/_test_json_stringify";
 import { ObjectUnionExplicitPointer } from "../../structures/ObjectUnionExplicitPointer";
 
 export const test_json_stringify_ObjectUnionExplicitPointer =
-    _test_json_stringify(
-        "ObjectUnionExplicitPointer",
-    )<ObjectUnionExplicitPointer>(ObjectUnionExplicitPointer)((input) =>
-        typia.json.stringify<ObjectUnionExplicitPointer>(input),
-    );
+  _test_json_stringify(
+    "ObjectUnionExplicitPointer",
+  )<ObjectUnionExplicitPointer>(ObjectUnionExplicitPointer)((input) =>
+    typia.json.stringify<ObjectUnionExplicitPointer>(input),
+  );

@@ -3,44 +3,44 @@ import { _test_json_application } from "../../../../internal/_test_json_applicat
 import { ArrayUnion } from "../../../../structures/ArrayUnion";
 
 export const test_json_application_swagger_ArrayUnion = _test_json_application(
-    "swagger",
+  "swagger",
 )("ArrayUnion")({
-    schemas: [
-        {
-            $ref: "#/components/schemas/ArrayUnion",
-        },
-    ],
-    components: {
-        schemas: {
-            ArrayUnion: {
-                type: "array",
-                items: {
-                    $ref: "#/components/schemas/ArrayUnion.IUnion",
-                },
-            },
-            "ArrayUnion.IUnion": {
-                oneOf: [
-                    {
-                        type: "array",
-                        items: {
-                            type: "boolean",
-                        },
-                    },
-                    {
-                        type: "array",
-                        items: {
-                            type: "number",
-                        },
-                    },
-                    {
-                        type: "array",
-                        items: {
-                            type: "string",
-                        },
-                    },
-                ],
-            },
-        },
+  schemas: [
+    {
+      $ref: "#/components/schemas/ArrayUnion",
     },
-    purpose: "swagger",
+  ],
+  components: {
+    schemas: {
+      ArrayUnion: {
+        type: "array",
+        items: {
+          $ref: "#/components/schemas/ArrayUnion.IUnion",
+        },
+      },
+      "ArrayUnion.IUnion": {
+        oneOf: [
+          {
+            type: "array",
+            items: {
+              type: "boolean",
+            },
+          },
+          {
+            type: "array",
+            items: {
+              type: "number",
+            },
+          },
+          {
+            type: "array",
+            items: {
+              type: "string",
+            },
+          },
+        ],
+      },
+    },
+  },
+  purpose: "swagger",
 });

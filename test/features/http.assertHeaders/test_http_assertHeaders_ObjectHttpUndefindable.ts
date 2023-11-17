@@ -3,6 +3,6 @@ import { _test_http_assertHeaders } from "../../internal/_test_http_assertHeader
 import { ObjectHttpUndefindable } from "../../structures/ObjectHttpUndefindable";
 
 export const test_http_assertHeaders_ObjectHttpUndefindable =
-    _test_http_assertHeaders("ObjectHttpUndefindable")<ObjectHttpUndefindable>(
-        ObjectHttpUndefindable,
-    )((input) => typia.http.assertHeaders<ObjectHttpUndefindable>(input));
+  _test_http_assertHeaders("ObjectHttpUndefindable")<ObjectHttpUndefindable>(
+    ObjectHttpUndefindable,
+  )((input) => typia.http.assertHeaders<ObjectHttpUndefindable>(input));

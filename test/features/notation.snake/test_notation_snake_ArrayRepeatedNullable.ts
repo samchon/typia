@@ -3,12 +3,12 @@ import { _test_notation_validateGeneral } from "../../internal/_test_notation_va
 import { ArrayRepeatedNullable } from "../../structures/ArrayRepeatedNullable";
 
 export const test_notation_validateSnake_ArrayRepeatedNullable =
-    _test_notation_validateGeneral(
-        "ArrayRepeatedNullable",
-    )<ArrayRepeatedNullable>(ArrayRepeatedNullable)<
-        typia.SnakeCase<ArrayRepeatedNullable>
-    >({
-        convert: (input) =>
-            typia.notations.validateSnake<ArrayRepeatedNullable>(input),
-        assert: typia.createAssert<typia.SnakeCase<ArrayRepeatedNullable>>(),
-    });
+  _test_notation_validateGeneral(
+    "ArrayRepeatedNullable",
+  )<ArrayRepeatedNullable>(ArrayRepeatedNullable)<
+    typia.SnakeCase<ArrayRepeatedNullable>
+  >({
+    convert: (input) =>
+      typia.notations.validateSnake<ArrayRepeatedNullable>(input),
+    assert: typia.createAssert<typia.SnakeCase<ArrayRepeatedNullable>>(),
+  });

@@ -3,10 +3,10 @@ import { ProtobufAssertDecodeProgrammer } from "../../../programmers/protobuf/Pr
 import { GenericTransformer } from "../../internal/GenericTransformer";
 
 export namespace ProtobufCreateAssertDecodeTransformer {
-    export const transform = GenericTransformer.factory(
-        "protobuf.createAssertDecode",
-    )(
-        (project) => (modulo) =>
-            ProtobufAssertDecodeProgrammer.write(project)(modulo),
-    );
+  export const transform = GenericTransformer.factory(
+    "protobuf.createAssertDecode",
+  )(
+    (project) => (modulo) =>
+      ProtobufAssertDecodeProgrammer.write(project)(modulo),
+  );
 }

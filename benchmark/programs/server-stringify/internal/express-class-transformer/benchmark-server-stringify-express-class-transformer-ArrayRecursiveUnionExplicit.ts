@@ -6,8 +6,8 @@ import { ClassValidatorCollection } from "../../../../structures/class-validator
 import { createExpressServerStringifyBenchmarkProgram } from "../createExpressServerStringifyBenchmarkProgram";
 
 const schema = ClassValidatorCollection(
-    ClassValidatorArrayRecursiveUnionExplicit,
+  ClassValidatorArrayRecursiveUnionExplicit,
 );
 createExpressServerStringifyBenchmarkProgram<ArrayRecursiveUnionExplicit>(
-    (input) => JSON.stringify(instanceToPlain(plainToInstance(schema, input))),
+  (input) => JSON.stringify(instanceToPlain(plainToInstance(schema, input))),
 );

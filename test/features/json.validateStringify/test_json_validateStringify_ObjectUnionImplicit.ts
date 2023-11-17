@@ -3,6 +3,6 @@ import { _test_json_validateStringify } from "../../internal/_test_json_validate
 import { ObjectUnionImplicit } from "../../structures/ObjectUnionImplicit";
 
 export const test_json_validateStringify_ObjectUnionImplicit =
-    _test_json_validateStringify("ObjectUnionImplicit")<ObjectUnionImplicit>(
-        ObjectUnionImplicit,
-    )((input) => typia.json.validateStringify<ObjectUnionImplicit>(input));
+  _test_json_validateStringify("ObjectUnionImplicit")<ObjectUnionImplicit>(
+    ObjectUnionImplicit,
+  )((input) => typia.json.validateStringify<ObjectUnionImplicit>(input));

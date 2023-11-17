@@ -3,7 +3,7 @@ import { _test_json_validateParse } from "../../internal/_test_json_validatePars
 import { ObjectTuple } from "../../structures/ObjectTuple";
 
 export const test_json_validateParse_ObjectTuple = _test_json_validateParse(
-    "ObjectTuple",
+  "ObjectTuple",
 )<ObjectTuple>(ObjectTuple)((input) =>
-    typia.json.validateParse<ObjectTuple>(input),
+  typia.json.validateParse<ObjectTuple>(input),
 );

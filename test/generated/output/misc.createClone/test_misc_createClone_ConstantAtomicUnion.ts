@@ -3,18 +3,16 @@ import { _test_misc_clone } from "../../../internal/_test_misc_clone";
 import { ConstantAtomicUnion } from "../../../structures/ConstantAtomicUnion";
 
 export const test_misc_createClone_ConstantAtomicUnion = _test_misc_clone(
-    "ConstantAtomicUnion",
+  "ConstantAtomicUnion",
 )<ConstantAtomicUnion>(ConstantAtomicUnion)(
-    (input: ConstantAtomicUnion): typia.Resolved<ConstantAtomicUnion> => {
-        const $cp0 = (input: any) =>
-            input.map((elem: any) =>
-                "object" === typeof elem && null !== elem
-                    ? $co0(elem)
-                    : (elem as any),
-            );
-        const $co0 = (input: any): any => ({
-            key: input.key as any,
-        });
-        return Array.isArray(input) ? $cp0(input) : (input as any);
-    },
+  (input: ConstantAtomicUnion): typia.Resolved<ConstantAtomicUnion> => {
+    const $cp0 = (input: any) =>
+      input.map((elem: any) =>
+        "object" === typeof elem && null !== elem ? $co0(elem) : (elem as any),
+      );
+    const $co0 = (input: any): any => ({
+      key: input.key as any,
+    });
+    return Array.isArray(input) ? $cp0(input) : (input as any);
+  },
 );

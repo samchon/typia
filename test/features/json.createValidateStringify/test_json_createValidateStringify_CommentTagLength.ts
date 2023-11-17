@@ -3,6 +3,6 @@ import { _test_json_validateStringify } from "../../internal/_test_json_validate
 import { CommentTagLength } from "../../structures/CommentTagLength";
 
 export const test_json_createValidateStringify_CommentTagLength =
-    _test_json_validateStringify("CommentTagLength")<CommentTagLength>(
-        CommentTagLength,
-    )(typia.json.createValidateStringify<CommentTagLength>());
+  _test_json_validateStringify("CommentTagLength")<CommentTagLength>(
+    CommentTagLength,
+  )(typia.json.createValidateStringify<CommentTagLength>());

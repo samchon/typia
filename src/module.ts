@@ -82,7 +82,7 @@ export function assert<T>(input: unknown): T;
  * @internal
  */
 export function assert(): never {
-    halt("assert");
+  halt("assert");
 }
 Object.assign(assert, Namespace.assert("assert"));
 
@@ -142,7 +142,7 @@ export function assertGuard<T>(input: unknown): asserts input is T;
  * @internal
  */
 export function assertGuard(): never {
-    halt("assertGuard");
+  halt("assertGuard");
 }
 Object.assign(assertGuard, Namespace.assert("assertGuard"));
 
@@ -198,7 +198,7 @@ export function is<T>(input: unknown): input is T;
  * @internal
  */
 export function is(): never {
-    halt("is");
+  halt("is");
 }
 Object.assign(is, Namespace.assert("is"));
 
@@ -256,7 +256,7 @@ export function validate<T>(input: unknown): IValidation<T>;
  * @internal
  */
 export function validate(): never {
-    halt("validate");
+  halt("validate");
 }
 Object.assign(validate, Namespace.validate());
 
@@ -317,7 +317,7 @@ export function assertEquals<T>(input: unknown): T;
  * @internal
  */
 export function assertEquals(): never {
-    halt("assertEquals");
+  halt("assertEquals");
 }
 Object.assign(assertEquals, Namespace.assert("assertEquals"));
 
@@ -383,7 +383,7 @@ export function assertGuardEquals<T>(input: unknown): asserts input is T;
  * @internal
  */
 export function assertGuardEquals(): never {
-    halt("assertGuardEquals");
+  halt("assertGuardEquals");
 }
 Object.assign(assertGuardEquals, Namespace.assert("assertGuardEquals"));
 
@@ -441,7 +441,7 @@ export function equals<T>(input: unknown): input is T;
  * @internal
  */
 export function equals(): never {
-    halt("equals");
+  halt("equals");
 }
 Object.assign(equals, Namespace.is());
 
@@ -501,7 +501,7 @@ export function validateEquals<T>(input: unknown): IValidation<T>;
  * @internal
  */
 export function validateEquals(): never {
-    halt("validateEquals");
+  halt("validateEquals");
 }
 Object.assign(validateEquals, Namespace.validate());
 
@@ -550,7 +550,7 @@ export function random<T>(generator?: Partial<IRandomGenerator>): Resolved<T>;
  * @internal
  */
 export function random(): never {
-    halt("random");
+  halt("random");
 }
 Object.assign(random, Namespace.random());
 
@@ -582,7 +582,7 @@ export function createAssert<T>(): (input: unknown) => T;
  * @internal
  */
 export function createAssert<T>(): (input: unknown) => T {
-    halt("createAssert");
+  halt("createAssert");
 }
 Object.assign(createAssert, assert);
 
@@ -641,7 +641,7 @@ export function createAssertGuard<T>(): (input: unknown) => AssertionGuard<T>;
  * @internal
  */
 export function createAssertGuard<T>(): (input: unknown) => AssertionGuard<T> {
-    halt("createAssertGuard");
+  halt("createAssertGuard");
 }
 Object.assign(createAssertGuard, assertGuard);
 
@@ -670,7 +670,7 @@ export function createIs<T>(): (input: unknown) => input is T;
  * @internal
  */
 export function createIs<T>(): (input: unknown) => input is T {
-    halt("createIs");
+  halt("createIs");
 }
 Object.assign(createIs, is);
 
@@ -699,7 +699,7 @@ export function createValidate<T>(): (input: unknown) => IValidation<T>;
  * @internal
  */
 export function createValidate(): (input: unknown) => IValidation {
-    halt("createValidate");
+  halt("createValidate");
 }
 Object.assign(createValidate, validate);
 
@@ -728,7 +728,7 @@ export function createAssertEquals<T>(): (input: unknown) => T;
  * @internal
  */
 export function createAssertEquals<T>(): (input: unknown) => T {
-    halt("createAssertEquals");
+  halt("createAssertEquals");
 }
 Object.assign(createAssertEquals, assertEquals);
 
@@ -782,16 +782,16 @@ export function createAssertGuardEquals(): never;
  * @author Jeongho Nam - https://github.com/samchon
  */
 export function createAssertGuardEquals<T>(): (
-    input: unknown,
+  input: unknown,
 ) => AssertionGuard<T>;
 
 /**
  * @internal
  */
 export function createAssertGuardEquals<T>(): (
-    input: unknown,
+  input: unknown,
 ) => AssertionGuard<T> {
-    halt("createAssertGuardEquals");
+  halt("createAssertGuardEquals");
 }
 Object.assign(createAssertGuardEquals, assertGuardEquals);
 
@@ -820,7 +820,7 @@ export function createEquals<T>(): (input: unknown) => input is T;
  * @internal
  */
 export function createEquals<T>(): (input: unknown) => input is T {
-    halt("createEquals");
+  halt("createEquals");
 }
 Object.assign(createEquals, equals);
 
@@ -849,7 +849,7 @@ export function createValidateEquals<T>(): (input: unknown) => IValidation<T>;
  * @internal
  */
 export function createValidateEquals(): (input: unknown) => IValidation {
-    halt("createValidateEquals");
+  halt("createValidateEquals");
 }
 Object.assign(createValidateEquals, validateEquals);
 
@@ -875,14 +875,14 @@ export function createRandom(generator?: Partial<IRandomGenerator>): never;
  * @author Jeongho Nam - https://github.com/samchon
  */
 export function createRandom<T>(
-    generator?: Partial<IRandomGenerator>,
+  generator?: Partial<IRandomGenerator>,
 ): () => Resolved<T>;
 
 /**
  * @internal
  */
 export function createRandom(): never {
-    halt("createRandom");
+  halt("createRandom");
 }
 Object.assign(createRandom, random);
 
@@ -890,7 +890,7 @@ Object.assign(createRandom, random);
  * @internal
  */
 function halt(name: string): never {
-    throw new Error(
-        `Error on typia.${name}(): no transform has been configured. Read and follow https://typia.io/docs/setup please.`,
-    );
+  throw new Error(
+    `Error on typia.${name}(): no transform has been configured. Read and follow https://typia.io/docs/setup please.`,
+  );
 }

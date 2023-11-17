@@ -3,11 +3,11 @@ import { _test_protobuf_validateEncode } from "../../internal/_test_protobuf_val
 import { CommentTagRangeBigInt } from "../../structures/CommentTagRangeBigInt";
 
 export const test_protobuf_createValidateEncode_CommentTagRangeBigInt =
-    _test_protobuf_validateEncode(
-        "CommentTagRangeBigInt",
-    )<CommentTagRangeBigInt>(CommentTagRangeBigInt)({
-        encode: (input) =>
-            typia.protobuf.validateEncode<CommentTagRangeBigInt>(input),
-        decode: typia.protobuf.createDecode<CommentTagRangeBigInt>(),
-        message: typia.protobuf.message<CommentTagRangeBigInt>(),
-    });
+  _test_protobuf_validateEncode("CommentTagRangeBigInt")<CommentTagRangeBigInt>(
+    CommentTagRangeBigInt,
+  )({
+    encode: (input) =>
+      typia.protobuf.validateEncode<CommentTagRangeBigInt>(input),
+    decode: typia.protobuf.createDecode<CommentTagRangeBigInt>(),
+    message: typia.protobuf.message<CommentTagRangeBigInt>(),
+  });

@@ -3,7 +3,7 @@ import { _test_json_assertStringify } from "../../internal/_test_json_assertStri
 import { ToJsonUnion } from "../../structures/ToJsonUnion";
 
 export const test_json_assertStringify_ToJsonUnion = _test_json_assertStringify(
-    "ToJsonUnion",
+  "ToJsonUnion",
 )<ToJsonUnion>(ToJsonUnion)((input) =>
-    typia.json.assertStringify<ToJsonUnion>(input),
+  typia.json.assertStringify<ToJsonUnion>(input),
 );

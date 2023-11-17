@@ -3,7 +3,7 @@ import { _test_misc_validatePrune } from "../../internal/_test_misc_validatePrun
 import { ObjectGeneric } from "../../structures/ObjectGeneric";
 
 export const test_misc_validatePrune_ObjectGeneric = _test_misc_validatePrune(
-    "ObjectGeneric",
+  "ObjectGeneric",
 )<ObjectGeneric>(ObjectGeneric)((input) =>
-    typia.misc.validatePrune<ObjectGeneric>(input),
+  typia.misc.validatePrune<ObjectGeneric>(input),
 );

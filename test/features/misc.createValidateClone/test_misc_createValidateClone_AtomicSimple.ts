@@ -3,6 +3,6 @@ import { _test_misc_validateClone } from "../../internal/_test_misc_validateClon
 import { AtomicSimple } from "../../structures/AtomicSimple";
 
 export const test_misc_createValidateClone_AtomicSimple =
-    _test_misc_validateClone("AtomicSimple")<AtomicSimple>(AtomicSimple)(
-        typia.misc.createValidateClone<AtomicSimple>(),
-    );
+  _test_misc_validateClone("AtomicSimple")<AtomicSimple>(AtomicSimple)(
+    typia.misc.createValidateClone<AtomicSimple>(),
+  );

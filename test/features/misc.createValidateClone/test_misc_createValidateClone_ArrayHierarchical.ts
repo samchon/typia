@@ -3,6 +3,6 @@ import { _test_misc_validateClone } from "../../internal/_test_misc_validateClon
 import { ArrayHierarchical } from "../../structures/ArrayHierarchical";
 
 export const test_misc_createValidateClone_ArrayHierarchical =
-    _test_misc_validateClone("ArrayHierarchical")<ArrayHierarchical>(
-        ArrayHierarchical,
-    )(typia.misc.createValidateClone<ArrayHierarchical>());
+  _test_misc_validateClone("ArrayHierarchical")<ArrayHierarchical>(
+    ArrayHierarchical,
+  )(typia.misc.createValidateClone<ArrayHierarchical>());

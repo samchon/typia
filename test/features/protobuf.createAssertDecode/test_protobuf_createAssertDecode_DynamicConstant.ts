@@ -3,9 +3,9 @@ import { _test_protobuf_assertDecode } from "../../internal/_test_protobuf_asser
 import { DynamicConstant } from "../../structures/DynamicConstant";
 
 export const test_protobuf_createAssertDecode_DynamicConstant =
-    _test_protobuf_assertDecode("DynamicConstant")<DynamicConstant>(
-        DynamicConstant,
-    )({
-        decode: typia.protobuf.createAssertDecode<DynamicConstant>(),
-        encode: typia.protobuf.createEncode<DynamicConstant>(),
-    });
+  _test_protobuf_assertDecode("DynamicConstant")<DynamicConstant>(
+    DynamicConstant,
+  )({
+    decode: typia.protobuf.createAssertDecode<DynamicConstant>(),
+    encode: typia.protobuf.createEncode<DynamicConstant>(),
+  });

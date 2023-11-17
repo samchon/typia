@@ -3,9 +3,9 @@ import { _test_random } from "../../internal/_test_random";
 import { TypeTagObjectUnion } from "../../structures/TypeTagObjectUnion";
 
 export const test_random_TypeTagObjectUnion = _test_random(
-    "TypeTagObjectUnion",
+  "TypeTagObjectUnion",
 )<TypeTagObjectUnion>(TypeTagObjectUnion)({
-    random: () =>
-        typia.random<TypeTagObjectUnion>((TypeTagObjectUnion as any).RANDOM),
-    assert: typia.createAssert<TypeTagObjectUnion>(),
+  random: () =>
+    typia.random<TypeTagObjectUnion>((TypeTagObjectUnion as any).RANDOM),
+  assert: typia.createAssert<TypeTagObjectUnion>(),
 });

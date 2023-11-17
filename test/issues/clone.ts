@@ -11,8 +11,8 @@ const data: SetUnion = SetUnion.generate();
 const cloned: SetUnion = factory(data);
 
 console.log({
-    data,
-    cloned,
-    equals: resolved_equal_to("SetUnion")(data, cloned),
+  data,
+  cloned,
+  equals: resolved_equal_to("SetUnion")(data, cloned),
 });
 typia.assert(cloned);

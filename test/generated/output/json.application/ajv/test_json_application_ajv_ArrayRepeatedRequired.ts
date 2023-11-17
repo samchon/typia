@@ -3,32 +3,32 @@ import { _test_json_application } from "../../../../internal/_test_json_applicat
 import { ArrayRepeatedRequired } from "../../../../structures/ArrayRepeatedRequired";
 
 export const test_json_application_ajv_ArrayRepeatedRequired =
-    _test_json_application("ajv")("ArrayRepeatedRequired")({
-        schemas: [
+  _test_json_application("ajv")("ArrayRepeatedRequired")({
+    schemas: [
+      {
+        $ref: "#/components/schemas/ArrayRepeatedRequired",
+      },
+    ],
+    components: {
+      schemas: {
+        ArrayRepeatedRequired: {
+          $id: "#/components/schemas/ArrayRepeatedRequired",
+          oneOf: [
             {
+              type: "string",
+            },
+            {
+              type: "number",
+            },
+            {
+              type: "array",
+              items: {
                 $ref: "#/components/schemas/ArrayRepeatedRequired",
+              },
             },
-        ],
-        components: {
-            schemas: {
-                ArrayRepeatedRequired: {
-                    $id: "#/components/schemas/ArrayRepeatedRequired",
-                    oneOf: [
-                        {
-                            type: "string",
-                        },
-                        {
-                            type: "number",
-                        },
-                        {
-                            type: "array",
-                            items: {
-                                $ref: "#/components/schemas/ArrayRepeatedRequired",
-                            },
-                        },
-                    ],
-                },
-            },
+          ],
         },
-        purpose: "ajv",
-    });
+      },
+    },
+    purpose: "ajv",
+  });

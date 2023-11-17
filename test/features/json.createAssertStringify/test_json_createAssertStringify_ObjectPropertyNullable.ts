@@ -3,8 +3,6 @@ import { _test_json_assertStringify } from "../../internal/_test_json_assertStri
 import { ObjectPropertyNullable } from "../../structures/ObjectPropertyNullable";
 
 export const test_json_createAssertStringify_ObjectPropertyNullable =
-    _test_json_assertStringify(
-        "ObjectPropertyNullable",
-    )<ObjectPropertyNullable>(ObjectPropertyNullable)(
-        typia.json.createAssertStringify<ObjectPropertyNullable>(),
-    );
+  _test_json_assertStringify("ObjectPropertyNullable")<ObjectPropertyNullable>(
+    ObjectPropertyNullable,
+  )(typia.json.createAssertStringify<ObjectPropertyNullable>());

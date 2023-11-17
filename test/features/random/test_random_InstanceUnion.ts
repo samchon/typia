@@ -3,8 +3,8 @@ import { _test_random } from "../../internal/_test_random";
 import { InstanceUnion } from "../../structures/InstanceUnion";
 
 export const test_random_InstanceUnion = _test_random(
-    "InstanceUnion",
+  "InstanceUnion",
 )<InstanceUnion>(InstanceUnion)({
-    random: () => typia.random<InstanceUnion>((InstanceUnion as any).RANDOM),
-    assert: typia.createAssert<InstanceUnion>(),
+  random: () => typia.random<InstanceUnion>((InstanceUnion as any).RANDOM),
+  assert: typia.createAssert<InstanceUnion>(),
 });

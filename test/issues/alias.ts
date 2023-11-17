@@ -1,16 +1,16 @@
 import typia from "typia";
 
 type IReviewArtcle = {
-    id: string;
-    title: string;
-    body: string;
-    score: number;
+  id: string;
+  title: string;
+  body: string;
+  score: number;
 };
 type IQuestionArticle = {
-    id: string;
-    title: string;
-    body: string;
-    secret: boolean;
+  id: string;
+  title: string;
+  body: string;
+  secret: boolean;
 };
 type IArticle = IReviewArtcle | IQuestionArticle;
 

@@ -52,7 +52,7 @@ export function literals<T extends Atomic.Type | null>(): T[];
  * @internal
  */
 export function literals(): never {
-    halt("literals");
+  halt("literals");
 }
 
 /* -----------------------------------------------------------
@@ -82,7 +82,7 @@ export function clone<T>(input: T): Resolved<T>;
  * @internal
  */
 export function clone(): never {
-    halt("clone");
+  halt("clone");
 }
 Object.assign(clone, Namespace.misc.clone("clone"));
 
@@ -128,7 +128,7 @@ export function assertClone<T>(input: unknown): Resolved<T>;
  * @internal
  */
 export function assertClone(): never {
-    halt("assertClone");
+  halt("assertClone");
 }
 Object.assign(assertClone, Namespace.assert("misc.assertClone"));
 Object.assign(assertClone, Namespace.misc.clone("assertClone"));
@@ -175,7 +175,7 @@ export function isClone<T>(input: unknown): Resolved<T> | null;
  * @internal
  */
 export function isClone(): never {
-    halt("isClone");
+  halt("isClone");
 }
 Object.assign(isClone, Namespace.is());
 Object.assign(isClone, Namespace.misc.clone("isClone"));
@@ -220,7 +220,7 @@ export function validateClone<T>(input: unknown): IValidation<Resolved<T>>;
  * @internal
  */
 export function validateClone(): never {
-    halt("validateClone");
+  halt("validateClone");
 }
 Object.assign(validateClone, Namespace.validate());
 Object.assign(validateClone, Namespace.misc.clone("validateClone"));
@@ -255,7 +255,7 @@ export function prune<T extends object>(input: T): void;
  * @internal
  */
 export function prune(): never {
-    halt("prune");
+  halt("prune");
 }
 Object.assign(prune, Namespace.misc.prune("prune"));
 
@@ -299,7 +299,7 @@ export function assertPrune<T>(input: unknown): T;
  * @internal
  */
 export function assertPrune(): unknown {
-    halt("assertPrune");
+  halt("assertPrune");
 }
 Object.assign(assertPrune, Namespace.assert("misc.assertPrune"));
 Object.assign(assertPrune, Namespace.misc.prune("assertPrune"));
@@ -346,7 +346,7 @@ export function isPrune<T>(input: unknown): input is T;
  * @internal
  */
 export function isPrune(): never {
-    halt("isPrune");
+  halt("isPrune");
 }
 Object.assign(isPrune, Namespace.is());
 Object.assign(isPrune, Namespace.misc.prune("isPrune"));
@@ -395,7 +395,7 @@ export function validatePrune<T>(input: unknown): IValidation<T>;
  * @internal
  */
 export function validatePrune<T>(): IValidation<T> {
-    halt("validatePrune");
+  halt("validatePrune");
 }
 Object.assign(validatePrune, Namespace.misc.prune("validatePrune"));
 Object.assign(validatePrune, Namespace.validate());
@@ -428,7 +428,7 @@ export function createClone<T>(): (input: T) => Resolved<T>;
  * @internal
  */
 export function createClone(): never {
-    halt("createClone");
+  halt("createClone");
 }
 Object.assign(createClone, clone);
 
@@ -457,7 +457,7 @@ export function createAssertClone<T>(): (input: unknown) => Resolved<T>;
  * @internal
  */
 export function createAssertClone(): never {
-    halt("createAssertClone");
+  halt("createAssertClone");
 }
 Object.assign(createAssertClone, assertClone);
 
@@ -486,7 +486,7 @@ export function createIsClone<T>(): (input: unknown) => Resolved<T> | null;
  * @internal
  */
 export function createIsClone(): never {
-    halt("createIsClone");
+  halt("createIsClone");
 }
 Object.assign(createIsClone, isClone);
 
@@ -510,14 +510,14 @@ export function createValidateClone(): never;
  * @author Jeongho Nam - https://github.com/samchon
  */
 export function createValidateClone<T>(): (
-    input: unknown,
+  input: unknown,
 ) => IValidation<Resolved<T>>;
 
 /**
  * @internal
  */
 export function createValidateClone(): never {
-    halt("createValidateClone");
+  halt("createValidateClone");
 }
 Object.assign(createValidateClone, validateClone);
 
@@ -546,7 +546,7 @@ export function createPrune<T extends object>(): (input: T) => void;
  * @internal
  */
 export function createPrune<T extends object>(): (input: T) => void {
-    halt("createPrune");
+  halt("createPrune");
 }
 Object.assign(createPrune, prune);
 
@@ -575,7 +575,7 @@ export function createAssertPrune<T extends object>(): (input: T) => T;
  * @internal
  */
 export function createAssertPrune<T extends object>(): (input: T) => T {
-    halt("createAssertPrune");
+  halt("createAssertPrune");
 }
 Object.assign(createAssertPrune, assertPrune);
 
@@ -604,7 +604,7 @@ export function createIsPrune<T extends object>(): (input: T) => input is T;
  * @internal
  */
 export function createIsPrune<T extends object>(): (input: T) => input is T {
-    halt("createIsPrune");
+  halt("createIsPrune");
 }
 Object.assign(createIsPrune, isPrune);
 
@@ -628,16 +628,16 @@ export function createValidatePrune(): never;
  * @author Jeongho Nam - https://github.com/samchon
  */
 export function createValidatePrune<T extends object>(): (
-    input: T,
+  input: T,
 ) => IValidation<T>;
 
 /**
  * @internal
  */
 export function createValidatePrune<T extends object>(): (
-    input: T,
+  input: T,
 ) => IValidation<T> {
-    halt("createValidatePrune");
+  halt("createValidatePrune");
 }
 Object.assign(createValidatePrune, validatePrune);
 
@@ -645,7 +645,7 @@ Object.assign(createValidatePrune, validatePrune);
  * @internal
  */
 function halt(name: string): never {
-    throw new Error(
-        `Error on typia.misc.${name}(): no transform has been configured. Read and follow https://typia.misc.io/docs/setup please.`,
-    );
+  throw new Error(
+    `Error on typia.misc.${name}(): no transform has been configured. Read and follow https://typia.misc.io/docs/setup please.`,
+  );
 }

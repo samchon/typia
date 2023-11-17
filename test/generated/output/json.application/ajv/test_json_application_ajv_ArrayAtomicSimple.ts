@@ -3,59 +3,59 @@ import { _test_json_application } from "../../../../internal/_test_json_applicat
 import { ArrayAtomicSimple } from "../../../../structures/ArrayAtomicSimple";
 
 export const test_json_application_ajv_ArrayAtomicSimple =
-    _test_json_application("ajv")("ArrayAtomicSimple")({
-        schemas: [
+  _test_json_application("ajv")("ArrayAtomicSimple")({
+    schemas: [
+      {
+        $ref: "#/components/schemas/ArrayAtomicSimple",
+      },
+    ],
+    components: {
+      schemas: {
+        ArrayAtomicSimple: {
+          $id: "#/components/schemas/ArrayAtomicSimple",
+          type: "array",
+          items: [
             {
-                $ref: "#/components/schemas/ArrayAtomicSimple",
+              "x-typia-rest": false,
+              "x-typia-required": true,
+              "x-typia-optional": false,
+              type: "array",
+              items: {
+                "x-typia-rest": false,
+                "x-typia-required": true,
+                "x-typia-optional": false,
+                type: "boolean",
+              },
             },
-        ],
-        components: {
-            schemas: {
-                ArrayAtomicSimple: {
-                    $id: "#/components/schemas/ArrayAtomicSimple",
-                    type: "array",
-                    items: [
-                        {
-                            "x-typia-rest": false,
-                            "x-typia-required": true,
-                            "x-typia-optional": false,
-                            type: "array",
-                            items: {
-                                "x-typia-rest": false,
-                                "x-typia-required": true,
-                                "x-typia-optional": false,
-                                type: "boolean",
-                            },
-                        },
-                        {
-                            "x-typia-rest": false,
-                            "x-typia-required": true,
-                            "x-typia-optional": false,
-                            type: "array",
-                            items: {
-                                "x-typia-rest": false,
-                                "x-typia-required": true,
-                                "x-typia-optional": false,
-                                type: "number",
-                            },
-                        },
-                        {
-                            "x-typia-rest": false,
-                            "x-typia-required": true,
-                            "x-typia-optional": false,
-                            type: "array",
-                            items: {
-                                "x-typia-rest": false,
-                                "x-typia-required": true,
-                                "x-typia-optional": false,
-                                type: "string",
-                            },
-                        },
-                    ],
-                    minItems: 3,
-                    maxItems: 3,
-                },
+            {
+              "x-typia-rest": false,
+              "x-typia-required": true,
+              "x-typia-optional": false,
+              type: "array",
+              items: {
+                "x-typia-rest": false,
+                "x-typia-required": true,
+                "x-typia-optional": false,
+                type: "number",
+              },
             },
+            {
+              "x-typia-rest": false,
+              "x-typia-required": true,
+              "x-typia-optional": false,
+              type: "array",
+              items: {
+                "x-typia-rest": false,
+                "x-typia-required": true,
+                "x-typia-optional": false,
+                type: "string",
+              },
+            },
+          ],
+          minItems: 3,
+          maxItems: 3,
         },
-        purpose: "ajv",
-    });
+      },
+    },
+    purpose: "ajv",
+  });

@@ -2,5 +2,5 @@ import { __TypeboxArrayRecursiveUnionImplicit } from "../../../structures/typebo
 import { createValidateErrorTypeboxBenchmarkProgram } from "./createValidateErrorTypeboxBenchmarkProgram";
 
 createValidateErrorTypeboxBenchmarkProgram(
-    __TypeboxArrayRecursiveUnionImplicit,
+  __TypeboxArrayRecursiveUnionImplicit,
 );

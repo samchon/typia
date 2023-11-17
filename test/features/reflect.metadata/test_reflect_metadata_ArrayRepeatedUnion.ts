@@ -3,5 +3,5 @@ import { _test_reflect_metadata } from "../../internal/_test_reflect_metadata";
 import { ArrayRepeatedUnion } from "../../structures/ArrayRepeatedUnion";
 
 export const test_reflect_metadata_ArrayRepeatedUnion = _test_reflect_metadata(
-    "ArrayRepeatedUnion",
+  "ArrayRepeatedUnion",
 )(typia.reflect.metadata<[ArrayRepeatedUnion]>());

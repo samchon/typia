@@ -3,33 +3,33 @@ import { TestRandomGenerator } from "../helpers/TestRandomGenerator";
 
 export type ClassClosure = ClassClosure.Something;
 export namespace ClassClosure {
-    export const BINARABLE = false;
-    export const JSONABLE = false;
-    export const PRIMITIVE = false;
-    export const RESOLVABLE = false;
+  export const BINARABLE = false;
+  export const JSONABLE = false;
+  export const PRIMITIVE = false;
+  export const RESOLVABLE = false;
 
-    export class Something {
-        public constructor(public readonly id: string) {}
-        public readonly type: "something" = "something" as const;
-        public readonly closure: () => string = () => `${this.type}:${this.id}`;
-    }
+  export class Something {
+    public constructor(public readonly id: string) {}
+    public readonly type: "something" = "something" as const;
+    public readonly closure: () => string = () => `${this.type}:${this.id}`;
+  }
 
-    export function generate(): ClassClosure {
-        return new Something(TestRandomGenerator.string());
-    }
+  export function generate(): ClassClosure {
+    return new Something(TestRandomGenerator.string());
+  }
 
-    export const SPOILERS: Spoiler<ClassClosure>[] = [
-        (input) => {
-            (input as any).id = 3;
-            return ["$input.id"];
-        },
-        (input) => {
-            (input as any).type = null;
-            return ["$input.type"];
-        },
-        (input) => {
-            (input as any).closure = null;
-            return ["$input.closure"];
-        },
-    ];
+  export const SPOILERS: Spoiler<ClassClosure>[] = [
+    (input) => {
+      (input as any).id = 3;
+      return ["$input.id"];
+    },
+    (input) => {
+      (input as any).type = null;
+      return ["$input.type"];
+    },
+    (input) => {
+      (input as any).closure = null;
+      return ["$input.closure"];
+    },
+  ];
 }

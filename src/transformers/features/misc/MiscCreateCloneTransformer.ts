@@ -3,7 +3,7 @@ import { MiscCloneProgrammer } from "../../../programmers/misc/MiscCloneProgramm
 import { GenericTransformer } from "../../internal/GenericTransformer";
 
 export namespace MiscCreateCloneTransformer {
-    export const transform = GenericTransformer.factory("misc.createClone")(
-        (project) => (modulo) => MiscCloneProgrammer.write(project)(modulo),
-    );
+  export const transform = GenericTransformer.factory("misc.createClone")(
+    (project) => (modulo) => MiscCloneProgrammer.write(project)(modulo),
+  );
 }

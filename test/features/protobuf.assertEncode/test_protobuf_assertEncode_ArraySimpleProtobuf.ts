@@ -3,11 +3,10 @@ import { _test_protobuf_assertEncode } from "../../internal/_test_protobuf_asser
 import { ArraySimpleProtobuf } from "../../structures/ArraySimpleProtobuf";
 
 export const test_protobuf_createAssertEncode_ArraySimpleProtobuf =
-    _test_protobuf_assertEncode("ArraySimpleProtobuf")<ArraySimpleProtobuf>(
-        ArraySimpleProtobuf,
-    )({
-        encode: (input) =>
-            typia.protobuf.assertEncode<ArraySimpleProtobuf>(input),
-        decode: typia.protobuf.createDecode<ArraySimpleProtobuf>(),
-        message: typia.protobuf.message<ArraySimpleProtobuf>(),
-    });
+  _test_protobuf_assertEncode("ArraySimpleProtobuf")<ArraySimpleProtobuf>(
+    ArraySimpleProtobuf,
+  )({
+    encode: (input) => typia.protobuf.assertEncode<ArraySimpleProtobuf>(input),
+    decode: typia.protobuf.createDecode<ArraySimpleProtobuf>(),
+    message: typia.protobuf.message<ArraySimpleProtobuf>(),
+  });

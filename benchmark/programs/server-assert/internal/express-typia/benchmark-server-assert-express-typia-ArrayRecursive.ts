@@ -5,5 +5,5 @@ import { ICollection } from "../../../../structures/ICollection";
 import { createExpressServerAssertBenchmarkProgram } from "../createExpressServerAssertBenchmarkProgram";
 
 createExpressServerAssertBenchmarkProgram(
-    typia.createAssert<ICollection<ArrayRecursive>>(),
+  typia.createAssert<ICollection<ArrayRecursive>>(),
 );

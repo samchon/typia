@@ -3,7 +3,7 @@ import { _test_json_assertStringify } from "../../internal/_test_json_assertStri
 import { ClassMethod } from "../../structures/ClassMethod";
 
 export const test_json_assertStringify_ClassMethod = _test_json_assertStringify(
-    "ClassMethod",
+  "ClassMethod",
 )<ClassMethod>(ClassMethod)((input) =>
-    typia.json.assertStringify<ClassMethod>(input),
+  typia.json.assertStringify<ClassMethod>(input),
 );

@@ -3,10 +3,7 @@ import { ProtobufIsEncodeProgrammer } from "../../../programmers/protobuf/Protob
 import { GenericTransformer } from "../../internal/GenericTransformer";
 
 export namespace ProtobufCreateIsEncodeTransformer {
-    export const transform = GenericTransformer.factory(
-        "protobuf.createIsEncode",
-    )(
-        (project) => (modulo) =>
-            ProtobufIsEncodeProgrammer.write(project)(modulo),
-    );
+  export const transform = GenericTransformer.factory(
+    "protobuf.createIsEncode",
+  )((project) => (modulo) => ProtobufIsEncodeProgrammer.write(project)(modulo));
 }

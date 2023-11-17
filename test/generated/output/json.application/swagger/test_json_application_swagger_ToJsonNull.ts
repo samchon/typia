@@ -3,15 +3,15 @@ import { _test_json_application } from "../../../../internal/_test_json_applicat
 import { ToJsonNull } from "../../../../structures/ToJsonNull";
 
 export const test_json_application_swagger_ToJsonNull = _test_json_application(
-    "swagger",
+  "swagger",
 )("ToJsonNull")({
-    schemas: [
-        {
-            type: "null",
-        },
-    ],
-    components: {
-        schemas: {},
+  schemas: [
+    {
+      type: "null",
     },
-    purpose: "swagger",
+  ],
+  components: {
+    schemas: {},
+  },
+  purpose: "swagger",
 });

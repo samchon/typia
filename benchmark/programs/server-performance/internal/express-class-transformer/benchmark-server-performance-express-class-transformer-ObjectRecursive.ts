@@ -8,11 +8,11 @@ import { createExpressServerPerformanceBenchmarkProgram } from "../createExpress
 
 const schema = ClassValidatorCollection(ClassValidatorObjectRecursive);
 createExpressServerPerformanceBenchmarkProgram<ObjectRecursive, any>(
-    (input) => {
-        const output = plainToInstance(schema, input);
-        const result = validateSync(output);
-        if (result.length > 0) throw new Error(result[0].toString());
-        return output;
-    },
-    (input) => JSON.stringify(instanceToPlain(schema)),
+  (input) => {
+    const output = plainToInstance(schema, input);
+    const result = validateSync(output);
+    if (result.length > 0) throw new Error(result[0].toString());
+    return output;
+  },
+  (input) => JSON.stringify(instanceToPlain(schema)),
 );

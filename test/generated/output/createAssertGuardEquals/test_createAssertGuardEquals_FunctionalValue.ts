@@ -3,29 +3,29 @@ import { _test_assertGuardEquals } from "../../../internal/_test_assertGuardEqua
 import { FunctionalValue } from "../../../structures/FunctionalValue";
 
 export const test_createAssertGuardEquals_FunctionalValue =
-    _test_assertGuardEquals("FunctionalValue")<FunctionalValue>(
-        FunctionalValue,
-    )((input: any): asserts input is FunctionalValue => {
-        const __is = (
-            input: any,
-            _exceptionable: boolean = true,
+  _test_assertGuardEquals("FunctionalValue")<FunctionalValue>(FunctionalValue)(
+    (input: any): asserts input is FunctionalValue => {
+      const __is = (
+        input: any,
+        _exceptionable: boolean = true,
+      ): input is FunctionalValue => {
+        return "function" === typeof input;
+      };
+      if (false === __is(input))
+        ((
+          input: any,
+          _path: string,
+          _exceptionable: boolean = true,
         ): input is FunctionalValue => {
-            return "function" === typeof input;
-        };
-        if (false === __is(input))
-            ((
-                input: any,
-                _path: string,
-                _exceptionable: boolean = true,
-            ): input is FunctionalValue => {
-                const $guard = (typia.createAssertGuardEquals as any).guard;
-                return (
-                    "function" === typeof input ||
-                    $guard(true, {
-                        path: _path + "",
-                        expected: "unknown",
-                        value: input,
-                    })
-                );
-            })(input, "$input", true);
-    });
+          const $guard = (typia.createAssertGuardEquals as any).guard;
+          return (
+            "function" === typeof input ||
+            $guard(true, {
+              path: _path + "",
+              expected: "unknown",
+              value: input,
+            })
+          );
+        })(input, "$input", true);
+    },
+  );

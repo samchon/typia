@@ -3,6 +3,6 @@ import { _test_json_validateStringify } from "../../internal/_test_json_validate
 import { ArrayRecursive } from "../../structures/ArrayRecursive";
 
 export const test_json_createValidateStringify_ArrayRecursive =
-    _test_json_validateStringify("ArrayRecursive")<ArrayRecursive>(
-        ArrayRecursive,
-    )(typia.json.createValidateStringify<ArrayRecursive>());
+  _test_json_validateStringify("ArrayRecursive")<ArrayRecursive>(
+    ArrayRecursive,
+  )(typia.json.createValidateStringify<ArrayRecursive>());

@@ -3,7 +3,7 @@ import { _test_misc_validatePrune } from "../../internal/_test_misc_validatePrun
 import { TupleRestObject } from "../../structures/TupleRestObject";
 
 export const test_misc_validatePrune_TupleRestObject = _test_misc_validatePrune(
-    "TupleRestObject",
+  "TupleRestObject",
 )<TupleRestObject>(TupleRestObject)((input) =>
-    typia.misc.validatePrune<TupleRestObject>(input),
+  typia.misc.validatePrune<TupleRestObject>(input),
 );

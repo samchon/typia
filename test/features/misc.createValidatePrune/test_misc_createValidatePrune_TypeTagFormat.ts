@@ -3,6 +3,6 @@ import { _test_misc_validatePrune } from "../../internal/_test_misc_validatePrun
 import { TypeTagFormat } from "../../structures/TypeTagFormat";
 
 export const test_misc_createValidatePrune_TypeTagFormat =
-    _test_misc_validatePrune("TypeTagFormat")<TypeTagFormat>(TypeTagFormat)(
-        typia.misc.createValidatePrune<TypeTagFormat>(),
-    );
+  _test_misc_validatePrune("TypeTagFormat")<TypeTagFormat>(TypeTagFormat)(
+    typia.misc.createValidatePrune<TypeTagFormat>(),
+  );

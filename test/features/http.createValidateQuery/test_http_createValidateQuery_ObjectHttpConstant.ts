@@ -3,6 +3,6 @@ import { _test_http_validateQuery } from "../../internal/_test_http_validateQuer
 import { ObjectHttpConstant } from "../../structures/ObjectHttpConstant";
 
 export const test_http_createValidateQuery_ObjectHttpConstant =
-    _test_http_validateQuery("ObjectHttpConstant")<ObjectHttpConstant>(
-        ObjectHttpConstant,
-    )(typia.http.createValidateQuery<ObjectHttpConstant>());
+  _test_http_validateQuery("ObjectHttpConstant")<ObjectHttpConstant>(
+    ObjectHttpConstant,
+  )(typia.http.createValidateQuery<ObjectHttpConstant>());

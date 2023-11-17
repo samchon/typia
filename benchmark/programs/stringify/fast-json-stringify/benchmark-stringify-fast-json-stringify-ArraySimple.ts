@@ -4,5 +4,5 @@ import { ArraySimple } from "../../../../test/structures/ArraySimple";
 import { createStringifyFastBenchmarkProgram } from "./createStringifyFastBenchmarkProgram";
 
 createStringifyFastBenchmarkProgram(
-    typia.json.application<[ArraySimple], "ajv">(),
+  typia.json.application<[ArraySimple], "ajv">(),
 );

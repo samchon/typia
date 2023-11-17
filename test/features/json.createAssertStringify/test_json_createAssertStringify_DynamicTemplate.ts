@@ -3,6 +3,6 @@ import { _test_json_assertStringify } from "../../internal/_test_json_assertStri
 import { DynamicTemplate } from "../../structures/DynamicTemplate";
 
 export const test_json_createAssertStringify_DynamicTemplate =
-    _test_json_assertStringify("DynamicTemplate")<DynamicTemplate>(
-        DynamicTemplate,
-    )(typia.json.createAssertStringify<DynamicTemplate>());
+  _test_json_assertStringify("DynamicTemplate")<DynamicTemplate>(
+    DynamicTemplate,
+  )(typia.json.createAssertStringify<DynamicTemplate>());

@@ -1,19 +1,19 @@
 import typia from "typia";
 
 type DeepPartial<T> = T extends object
-    ? {
-          [P in keyof T]?: DeepPartial<T[P]>;
-      }
-    : T;
+  ? {
+      [P in keyof T]?: DeepPartial<T[P]>;
+    }
+  : T;
 
 const invalidInput = { child: "wrong" };
 
 declare class TestChildClass {
-    a: string;
+  a: string;
 }
 
 declare class TestClass {
-    child: TestChildClass;
+  child: TestChildClass;
 }
 
 const res4 = typia.validateEquals<TestClass>(invalidInput);

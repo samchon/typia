@@ -3,7 +3,7 @@ import { _test_http_assertHeaders } from "../../internal/_test_http_assertHeader
 import { ObjectHttpArray } from "../../structures/ObjectHttpArray";
 
 export const test_http_assertHeaders_ObjectHttpArray = _test_http_assertHeaders(
-    "ObjectHttpArray",
+  "ObjectHttpArray",
 )<ObjectHttpArray>(ObjectHttpArray)((input) =>
-    typia.http.assertHeaders<ObjectHttpArray>(input),
+  typia.http.assertHeaders<ObjectHttpArray>(input),
 );

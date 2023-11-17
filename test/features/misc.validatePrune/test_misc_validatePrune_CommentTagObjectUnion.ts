@@ -3,6 +3,6 @@ import { _test_misc_validatePrune } from "../../internal/_test_misc_validatePrun
 import { CommentTagObjectUnion } from "../../structures/CommentTagObjectUnion";
 
 export const test_misc_validatePrune_CommentTagObjectUnion =
-    _test_misc_validatePrune("CommentTagObjectUnion")<CommentTagObjectUnion>(
-        CommentTagObjectUnion,
-    )((input) => typia.misc.validatePrune<CommentTagObjectUnion>(input));
+  _test_misc_validatePrune("CommentTagObjectUnion")<CommentTagObjectUnion>(
+    CommentTagObjectUnion,
+  )((input) => typia.misc.validatePrune<CommentTagObjectUnion>(input));

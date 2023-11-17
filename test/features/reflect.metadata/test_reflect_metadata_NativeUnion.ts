@@ -3,5 +3,5 @@ import { _test_reflect_metadata } from "../../internal/_test_reflect_metadata";
 import { NativeUnion } from "../../structures/NativeUnion";
 
 export const test_reflect_metadata_NativeUnion = _test_reflect_metadata(
-    "NativeUnion",
+  "NativeUnion",
 )(typia.reflect.metadata<[NativeUnion]>());

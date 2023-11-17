@@ -1,17 +1,17 @@
 import typia from "typia";
 
 interface IPointer<T> {
-    value: T;
+  value: T;
 }
 interface Something {
-    id: string;
+  id: string;
 }
 
 // MESSAGE
 typia.protobuf.message<IPointer<Map<number | bigint, string>>>();
 typia.protobuf.message<IPointer<Map<number | bigint, Something>>>();
 typia.protobuf.message<
-    IPointer<Map<number | bigint, Record<string, number>>>
+  IPointer<Map<number | bigint, Record<string, number>>>
 >();
 typia.protobuf.message<IPointer<Map<number | bigint, Something[]>>>();
 
@@ -19,7 +19,7 @@ typia.protobuf.message<IPointer<Map<number | bigint, Something[]>>>();
 typia.protobuf.createDecode<IPointer<Map<number | bigint, string>>>();
 typia.protobuf.createDecode<IPointer<Map<number | bigint, Something>>>();
 typia.protobuf.createDecode<
-    IPointer<Map<number | bigint, Record<string, number>>>
+  IPointer<Map<number | bigint, Record<string, number>>>
 >();
 typia.protobuf.createDecode<IPointer<Map<number | bigint, Something[]>>>();
 
@@ -27,6 +27,6 @@ typia.protobuf.createDecode<IPointer<Map<number | bigint, Something[]>>>();
 typia.protobuf.createEncode<IPointer<Map<number | bigint, string>>>();
 typia.protobuf.createEncode<IPointer<Map<number | bigint, Something>>>();
 typia.protobuf.createEncode<
-    IPointer<Map<number | bigint, Record<string, number>>>
+  IPointer<Map<number | bigint, Record<string, number>>>
 >();
 typia.protobuf.createEncode<IPointer<Map<number | bigint, Something[]>>>();

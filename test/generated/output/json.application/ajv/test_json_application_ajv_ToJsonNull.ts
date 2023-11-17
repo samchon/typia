@@ -3,15 +3,15 @@ import { _test_json_application } from "../../../../internal/_test_json_applicat
 import { ToJsonNull } from "../../../../structures/ToJsonNull";
 
 export const test_json_application_ajv_ToJsonNull = _test_json_application(
-    "ajv",
+  "ajv",
 )("ToJsonNull")({
-    schemas: [
-        {
-            type: "null",
-        },
-    ],
-    components: {
-        schemas: {},
+  schemas: [
+    {
+      type: "null",
     },
-    purpose: "ajv",
+  ],
+  components: {
+    schemas: {},
+  },
+  purpose: "ajv",
 });

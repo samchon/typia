@@ -3,5 +3,5 @@ import { _test_protobuf_message } from "../../internal/_test_protobuf_message";
 import { DynamicSimple } from "../../structures/DynamicSimple";
 
 export const test_protobuf_message_DynamicSimple = _test_protobuf_message(
-    "DynamicSimple",
+  "DynamicSimple",
 )(typia.protobuf.message<DynamicSimple>());

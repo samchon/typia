@@ -3,7 +3,7 @@ import { _test_misc_validateClone } from "../../internal/_test_misc_validateClon
 import { ObjectDynamic } from "../../structures/ObjectDynamic";
 
 export const test_misc_validateClone_ObjectDynamic = _test_misc_validateClone(
-    "ObjectDynamic",
+  "ObjectDynamic",
 )<ObjectDynamic>(ObjectDynamic)((input) =>
-    typia.misc.validateClone<ObjectDynamic>(input),
+  typia.misc.validateClone<ObjectDynamic>(input),
 );

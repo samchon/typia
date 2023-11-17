@@ -3,6 +3,6 @@ import { _test_json_validateStringify } from "../../internal/_test_json_validate
 import { ConstantAtomicSimple } from "../../structures/ConstantAtomicSimple";
 
 export const test_json_validateStringify_ConstantAtomicSimple =
-    _test_json_validateStringify("ConstantAtomicSimple")<ConstantAtomicSimple>(
-        ConstantAtomicSimple,
-    )((input) => typia.json.validateStringify<ConstantAtomicSimple>(input));
+  _test_json_validateStringify("ConstantAtomicSimple")<ConstantAtomicSimple>(
+    ConstantAtomicSimple,
+  )((input) => typia.json.validateStringify<ConstantAtomicSimple>(input));

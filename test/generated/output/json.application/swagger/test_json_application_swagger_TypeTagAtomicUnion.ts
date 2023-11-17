@@ -3,89 +3,86 @@ import { _test_json_application } from "../../../../internal/_test_json_applicat
 import { TypeTagAtomicUnion } from "../../../../structures/TypeTagAtomicUnion";
 
 export const test_json_application_swagger_TypeTagAtomicUnion =
-    _test_json_application("swagger")("TypeTagAtomicUnion")({
-        schemas: [
-            {
-                $ref: "#/components/schemas/TypeTagAtomicUnion",
+  _test_json_application("swagger")("TypeTagAtomicUnion")({
+    schemas: [
+      {
+        $ref: "#/components/schemas/TypeTagAtomicUnion",
+      },
+    ],
+    components: {
+      schemas: {
+        TypeTagAtomicUnion: {
+          type: "object",
+          properties: {
+            value: {
+              "x-typia-required": true,
+              "x-typia-optional": false,
+              type: "array",
+              items: {
+                $ref: "#/components/schemas/TypeTagAtomicUnion.Type",
+              },
             },
-        ],
-        components: {
-            schemas: {
-                TypeTagAtomicUnion: {
-                    type: "object",
-                    properties: {
-                        value: {
-                            "x-typia-required": true,
-                            "x-typia-optional": false,
-                            type: "array",
-                            items: {
-                                $ref: "#/components/schemas/TypeTagAtomicUnion.Type",
-                            },
-                        },
-                    },
-                    nullable: false,
-                    required: ["value"],
-                    "x-typia-jsDocTags": [],
-                },
-                "TypeTagAtomicUnion.Type": {
-                    type: "object",
-                    properties: {
-                        value: {
-                            oneOf: [
-                                {
-                                    "x-typia-required": true,
-                                    "x-typia-optional": false,
-                                    type: "string",
-                                    maxLength: 7,
-                                    minLength: 3,
-                                    "x-typia-typeTags": [
-                                        {
-                                            target: "string",
-                                            name: "MinLength<3>",
-                                            kind: "minLength",
-                                            value: 3,
-                                            validate: "3 <= $input.length",
-                                            exclusive: true,
-                                        },
-                                        {
-                                            target: "string",
-                                            name: "MaxLength<7>",
-                                            kind: "maxLength",
-                                            value: 7,
-                                            validate: "$input.length <= 7",
-                                            exclusive: true,
-                                        },
-                                    ],
-                                },
-                                {
-                                    "x-typia-required": true,
-                                    "x-typia-optional": false,
-                                    type: "number",
-                                    minimum: 3,
-                                    "x-typia-typeTags": [
-                                        {
-                                            target: "number",
-                                            name: "Minimum<3>",
-                                            kind: "minimum",
-                                            value: 3,
-                                            validate: "3 <= $input",
-                                            exclusive: [
-                                                "minimum",
-                                                "exclusiveMinimum",
-                                            ],
-                                        },
-                                    ],
-                                },
-                            ],
-                            "x-typia-required": true,
-                            "x-typia-optional": false,
-                        },
-                    },
-                    nullable: false,
-                    required: ["value"],
-                    "x-typia-jsDocTags": [],
-                },
-            },
+          },
+          nullable: false,
+          required: ["value"],
+          "x-typia-jsDocTags": [],
         },
-        purpose: "swagger",
-    });
+        "TypeTagAtomicUnion.Type": {
+          type: "object",
+          properties: {
+            value: {
+              oneOf: [
+                {
+                  "x-typia-required": true,
+                  "x-typia-optional": false,
+                  type: "string",
+                  maxLength: 7,
+                  minLength: 3,
+                  "x-typia-typeTags": [
+                    {
+                      target: "string",
+                      name: "MinLength<3>",
+                      kind: "minLength",
+                      value: 3,
+                      validate: "3 <= $input.length",
+                      exclusive: true,
+                    },
+                    {
+                      target: "string",
+                      name: "MaxLength<7>",
+                      kind: "maxLength",
+                      value: 7,
+                      validate: "$input.length <= 7",
+                      exclusive: true,
+                    },
+                  ],
+                },
+                {
+                  "x-typia-required": true,
+                  "x-typia-optional": false,
+                  type: "number",
+                  minimum: 3,
+                  "x-typia-typeTags": [
+                    {
+                      target: "number",
+                      name: "Minimum<3>",
+                      kind: "minimum",
+                      value: 3,
+                      validate: "3 <= $input",
+                      exclusive: ["minimum", "exclusiveMinimum"],
+                    },
+                  ],
+                },
+              ],
+              "x-typia-required": true,
+              "x-typia-optional": false,
+            },
+          },
+          nullable: false,
+          required: ["value"],
+          "x-typia-jsDocTags": [],
+        },
+      },
+    },
+    purpose: "swagger",
+  });

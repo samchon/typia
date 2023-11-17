@@ -3,33 +3,33 @@ import { _test_json_application } from "../../../../internal/_test_json_applicat
 import { ObjectInternal } from "../../../../structures/ObjectInternal";
 
 export const test_json_application_swagger_ObjectInternal =
-    _test_json_application("swagger")("ObjectInternal")({
-        schemas: [
-            {
-                $ref: "#/components/schemas/ObjectInternal",
+  _test_json_application("swagger")("ObjectInternal")({
+    schemas: [
+      {
+        $ref: "#/components/schemas/ObjectInternal",
+      },
+    ],
+    components: {
+      schemas: {
+        ObjectInternal: {
+          type: "object",
+          properties: {
+            id: {
+              "x-typia-required": true,
+              "x-typia-optional": false,
+              type: "string",
             },
-        ],
-        components: {
-            schemas: {
-                ObjectInternal: {
-                    type: "object",
-                    properties: {
-                        id: {
-                            "x-typia-required": true,
-                            "x-typia-optional": false,
-                            type: "string",
-                        },
-                        name: {
-                            "x-typia-required": true,
-                            "x-typia-optional": false,
-                            type: "string",
-                        },
-                    },
-                    nullable: false,
-                    required: ["id", "name"],
-                    "x-typia-jsDocTags": [],
-                },
+            name: {
+              "x-typia-required": true,
+              "x-typia-optional": false,
+              type: "string",
             },
+          },
+          nullable: false,
+          required: ["id", "name"],
+          "x-typia-jsDocTags": [],
         },
-        purpose: "swagger",
-    });
+      },
+    },
+    purpose: "swagger",
+  });

@@ -3,7 +3,7 @@ import { _test_protobuf_assertDecode } from "../../internal/_test_protobuf_asser
 import { DynamicTree } from "../../structures/DynamicTree";
 
 export const test_protobuf_createAssertDecode_DynamicTree =
-    _test_protobuf_assertDecode("DynamicTree")<DynamicTree>(DynamicTree)({
-        decode: typia.protobuf.createAssertDecode<DynamicTree>(),
-        encode: typia.protobuf.createEncode<DynamicTree>(),
-    });
+  _test_protobuf_assertDecode("DynamicTree")<DynamicTree>(DynamicTree)({
+    decode: typia.protobuf.createAssertDecode<DynamicTree>(),
+    encode: typia.protobuf.createEncode<DynamicTree>(),
+  });

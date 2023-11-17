@@ -1,19 +1,19 @@
 import typia from "typia";
 
 namespace Userspace {
-    interface User {
-        id: string;
-        name: string;
-    }
+  interface User {
+    id: string;
+    name: string;
+  }
 
-    export type UserType1 = Pick<User, "id">;
-    export type UserType2 = Pick<User, "id"> & Pick<User, "name">;
+  export type UserType1 = Pick<User, "id">;
+  export type UserType2 = Pick<User, "id"> & Pick<User, "name">;
 
-    export interface UserType3 extends Pick<User, "id" | "name"> {}
-    export interface UserType4 {
-        id: number;
-        name: string;
-    }
+  export interface UserType3 extends Pick<User, "id" | "name"> {}
+  export interface UserType4 {
+    id: number;
+    name: string;
+  }
 }
 
 typia.createIs<Userspace.UserType1>();

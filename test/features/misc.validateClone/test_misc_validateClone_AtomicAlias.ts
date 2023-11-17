@@ -3,7 +3,7 @@ import { _test_misc_validateClone } from "../../internal/_test_misc_validateClon
 import { AtomicAlias } from "../../structures/AtomicAlias";
 
 export const test_misc_validateClone_AtomicAlias = _test_misc_validateClone(
-    "AtomicAlias",
+  "AtomicAlias",
 )<AtomicAlias>(AtomicAlias)((input) =>
-    typia.misc.validateClone<AtomicAlias>(input),
+  typia.misc.validateClone<AtomicAlias>(input),
 );

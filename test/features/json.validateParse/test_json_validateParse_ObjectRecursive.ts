@@ -3,7 +3,7 @@ import { _test_json_validateParse } from "../../internal/_test_json_validatePars
 import { ObjectRecursive } from "../../structures/ObjectRecursive";
 
 export const test_json_validateParse_ObjectRecursive = _test_json_validateParse(
-    "ObjectRecursive",
+  "ObjectRecursive",
 )<ObjectRecursive>(ObjectRecursive)((input) =>
-    typia.json.validateParse<ObjectRecursive>(input),
+  typia.json.validateParse<ObjectRecursive>(input),
 );

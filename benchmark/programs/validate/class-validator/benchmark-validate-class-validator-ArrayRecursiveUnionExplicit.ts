@@ -2,5 +2,5 @@ import { ClassValidatorArrayRecursiveUnionExplicit } from "../../../structures/c
 import { createValidateClassValidatorBenchmarkProgram } from "./createValidateClassValidatorBenchmarkProgram";
 
 createValidateClassValidatorBenchmarkProgram(
-    ClassValidatorArrayRecursiveUnionExplicit,
+  ClassValidatorArrayRecursiveUnionExplicit,
 );

@@ -3,7 +3,7 @@ import { _test_misc_validateClone } from "../../internal/_test_misc_validateClon
 import { ArraySimple } from "../../structures/ArraySimple";
 
 export const test_misc_validateClone_ArraySimple = _test_misc_validateClone(
-    "ArraySimple",
+  "ArraySimple",
 )<ArraySimple>(ArraySimple)((input) =>
-    typia.misc.validateClone<ArraySimple>(input),
+  typia.misc.validateClone<ArraySimple>(input),
 );

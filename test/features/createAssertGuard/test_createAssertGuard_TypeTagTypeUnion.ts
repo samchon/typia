@@ -3,7 +3,7 @@ import { _test_assertGuard } from "../../internal/_test_assertGuard";
 import { TypeTagTypeUnion } from "../../structures/TypeTagTypeUnion";
 
 export const test_createAssertGuard_TypeTagTypeUnion = _test_assertGuard(
-    "TypeTagTypeUnion",
+  "TypeTagTypeUnion",
 )<TypeTagTypeUnion>(TypeTagTypeUnion)(
-    typia.createAssertGuard<TypeTagTypeUnion>(),
+  typia.createAssertGuard<TypeTagTypeUnion>(),
 );

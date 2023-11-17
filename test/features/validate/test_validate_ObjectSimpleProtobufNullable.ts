@@ -3,7 +3,7 @@ import { _test_validate } from "../../internal/_test_validate";
 import { ObjectSimpleProtobufNullable } from "../../structures/ObjectSimpleProtobufNullable";
 
 export const test_validate_ObjectSimpleProtobufNullable = _test_validate(
-    "ObjectSimpleProtobufNullable",
+  "ObjectSimpleProtobufNullable",
 )<ObjectSimpleProtobufNullable>(ObjectSimpleProtobufNullable)((input) =>
-    typia.validate<ObjectSimpleProtobufNullable>(input),
+  typia.validate<ObjectSimpleProtobufNullable>(input),
 );

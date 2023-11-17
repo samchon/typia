@@ -3,7 +3,7 @@ import { _test_misc_prune } from "../../../internal/_test_misc_prune";
 import { AtomicUnion } from "../../../structures/AtomicUnion";
 
 export const test_misc_prune_AtomicUnion = _test_misc_prune(
-    "AtomicUnion",
+  "AtomicUnion",
 )<AtomicUnion>(AtomicUnion)((input) =>
-    ((input: AtomicUnion): void => {})(input),
+  ((input: AtomicUnion): void => {})(input),
 );

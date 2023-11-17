@@ -3,14 +3,11 @@ import { _test_notation_validateGeneral } from "../../internal/_test_notation_va
 import { ArrayRepeatedUnionWithTuple } from "../../structures/ArrayRepeatedUnionWithTuple";
 
 export const test_notation_createValidateCamel_ArrayRepeatedUnionWithTuple =
-    _test_notation_validateGeneral(
-        "ArrayRepeatedUnionWithTuple",
-    )<ArrayRepeatedUnionWithTuple>(ArrayRepeatedUnionWithTuple)<
-        typia.CamelCase<ArrayRepeatedUnionWithTuple>
-    >({
-        convert:
-            typia.notations.createValidateCamel<ArrayRepeatedUnionWithTuple>(),
-        assert: typia.createAssert<
-            typia.CamelCase<ArrayRepeatedUnionWithTuple>
-        >(),
-    });
+  _test_notation_validateGeneral(
+    "ArrayRepeatedUnionWithTuple",
+  )<ArrayRepeatedUnionWithTuple>(ArrayRepeatedUnionWithTuple)<
+    typia.CamelCase<ArrayRepeatedUnionWithTuple>
+  >({
+    convert: typia.notations.createValidateCamel<ArrayRepeatedUnionWithTuple>(),
+    assert: typia.createAssert<typia.CamelCase<ArrayRepeatedUnionWithTuple>>(),
+  });

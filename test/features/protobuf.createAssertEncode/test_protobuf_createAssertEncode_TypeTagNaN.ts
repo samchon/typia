@@ -3,8 +3,8 @@ import { _test_protobuf_assertEncode } from "../../internal/_test_protobuf_asser
 import { TypeTagNaN } from "../../structures/TypeTagNaN";
 
 export const test_protobuf_createAssertEncode_TypeTagNaN =
-    _test_protobuf_assertEncode("TypeTagNaN")<TypeTagNaN>(TypeTagNaN)({
-        encode: typia.protobuf.createAssertEncode<TypeTagNaN>(),
-        decode: typia.protobuf.createDecode<TypeTagNaN>(),
-        message: typia.protobuf.message<TypeTagNaN>(),
-    });
+  _test_protobuf_assertEncode("TypeTagNaN")<TypeTagNaN>(TypeTagNaN)({
+    encode: typia.protobuf.createAssertEncode<TypeTagNaN>(),
+    decode: typia.protobuf.createDecode<TypeTagNaN>(),
+    message: typia.protobuf.message<TypeTagNaN>(),
+  });

@@ -3,10 +3,9 @@ import { _test_protobuf_validateDecode } from "../../internal/_test_protobuf_val
 import { DynamicConstant } from "../../structures/DynamicConstant";
 
 export const test_protobuf_createValidateDecode_DynamicConstant =
-    _test_protobuf_validateDecode("DynamicConstant")<DynamicConstant>(
-        DynamicConstant,
-    )({
-        decode: (input) =>
-            typia.protobuf.validateDecode<DynamicConstant>(input),
-        encode: typia.protobuf.createEncode<DynamicConstant>(),
-    });
+  _test_protobuf_validateDecode("DynamicConstant")<DynamicConstant>(
+    DynamicConstant,
+  )({
+    decode: (input) => typia.protobuf.validateDecode<DynamicConstant>(input),
+    encode: typia.protobuf.createEncode<DynamicConstant>(),
+  });

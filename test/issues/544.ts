@@ -1,11 +1,11 @@
 import typia from "typia";
 
 interface ISomething {
-    /**
-     * @type uint
-     * @minimum 1
-     */
-    numeric: number;
+  /**
+   * @type uint
+   * @minimum 1
+   */
+  numeric: number;
 }
 
 const app = typia.json.application<[ISomething], "ajv">();

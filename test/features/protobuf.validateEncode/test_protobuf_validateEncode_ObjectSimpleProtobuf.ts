@@ -3,11 +3,11 @@ import { _test_protobuf_validateEncode } from "../../internal/_test_protobuf_val
 import { ObjectSimpleProtobuf } from "../../structures/ObjectSimpleProtobuf";
 
 export const test_protobuf_createValidateEncode_ObjectSimpleProtobuf =
-    _test_protobuf_validateEncode("ObjectSimpleProtobuf")<ObjectSimpleProtobuf>(
-        ObjectSimpleProtobuf,
-    )({
-        encode: (input) =>
-            typia.protobuf.validateEncode<ObjectSimpleProtobuf>(input),
-        decode: typia.protobuf.createDecode<ObjectSimpleProtobuf>(),
-        message: typia.protobuf.message<ObjectSimpleProtobuf>(),
-    });
+  _test_protobuf_validateEncode("ObjectSimpleProtobuf")<ObjectSimpleProtobuf>(
+    ObjectSimpleProtobuf,
+  )({
+    encode: (input) =>
+      typia.protobuf.validateEncode<ObjectSimpleProtobuf>(input),
+    decode: typia.protobuf.createDecode<ObjectSimpleProtobuf>(),
+    message: typia.protobuf.message<ObjectSimpleProtobuf>(),
+  });

@@ -3,6 +3,6 @@ import { _test_json_validateParse } from "../../internal/_test_json_validatePars
 import { TypeTagObjectUnion } from "../../structures/TypeTagObjectUnion";
 
 export const test_json_createValidateParse_TypeTagObjectUnion =
-    _test_json_validateParse("TypeTagObjectUnion")<TypeTagObjectUnion>(
-        TypeTagObjectUnion,
-    )(typia.json.createValidateParse<TypeTagObjectUnion>());
+  _test_json_validateParse("TypeTagObjectUnion")<TypeTagObjectUnion>(
+    TypeTagObjectUnion,
+  )(typia.json.createValidateParse<TypeTagObjectUnion>());

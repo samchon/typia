@@ -3,5 +3,5 @@ import { _test_reflect_metadata } from "../../internal/_test_reflect_metadata";
 import { AtomicSimple } from "../../structures/AtomicSimple";
 
 export const test_reflect_metadata_AtomicSimple = _test_reflect_metadata(
-    "AtomicSimple",
+  "AtomicSimple",
 )(typia.reflect.metadata<[AtomicSimple]>());

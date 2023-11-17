@@ -5,6 +5,6 @@ import { ICollection } from "../../../../structures/ICollection";
 import { createExpressServerPerformanceBenchmarkProgram } from "../createExpressServerPerformanceBenchmarkProgram";
 
 createExpressServerPerformanceBenchmarkProgram(
-    typia.createAssert<ICollection<ObjectHierarchical>>(),
-    typia.json.createStringify<ICollection<ObjectHierarchical>>(),
+  typia.createAssert<ICollection<ObjectHierarchical>>(),
+  typia.json.createStringify<ICollection<ObjectHierarchical>>(),
 );

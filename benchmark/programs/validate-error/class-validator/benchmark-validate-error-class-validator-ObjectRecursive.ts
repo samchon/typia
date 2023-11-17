@@ -2,5 +2,5 @@ import { ClassValidatorObjectRecursive } from "../../../structures/class-validat
 import { createValidateErrorClassValidatorBenchmarkProgram } from "./createValidateErrorClassValidatorBenchmarkProgram";
 
 createValidateErrorClassValidatorBenchmarkProgram(
-    ClassValidatorObjectRecursive,
+  ClassValidatorObjectRecursive,
 );

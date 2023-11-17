@@ -3,8 +3,6 @@ import { _test_json_validateStringify } from "../../internal/_test_json_validate
 import { CommentTagObjectUnion } from "../../structures/CommentTagObjectUnion";
 
 export const test_json_validateStringify_CommentTagObjectUnion =
-    _test_json_validateStringify(
-        "CommentTagObjectUnion",
-    )<CommentTagObjectUnion>(CommentTagObjectUnion)((input) =>
-        typia.json.validateStringify<CommentTagObjectUnion>(input),
-    );
+  _test_json_validateStringify("CommentTagObjectUnion")<CommentTagObjectUnion>(
+    CommentTagObjectUnion,
+  )((input) => typia.json.validateStringify<CommentTagObjectUnion>(input));

@@ -3,7 +3,7 @@ import { _test_assertGuard } from "../../internal/_test_assertGuard";
 import { TypeTagTypeBigInt } from "../../structures/TypeTagTypeBigInt";
 
 export const test_assertGuard_TypeTagTypeBigInt = _test_assertGuard(
-    "TypeTagTypeBigInt",
+  "TypeTagTypeBigInt",
 )<TypeTagTypeBigInt>(TypeTagTypeBigInt)((input) =>
-    typia.assertGuard<TypeTagTypeBigInt>(input),
+  typia.assertGuard<TypeTagTypeBigInt>(input),
 );

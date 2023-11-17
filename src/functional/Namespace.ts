@@ -28,148 +28,147 @@ import { $tail } from "./$tail";
  * @internal
  */
 export namespace Namespace {
-    export const is = () => ({
-        is_between: $is_between,
-        is_bigint_string: $is_bigint_string,
+  export const is = () => ({
+    is_between: $is_between,
+    is_bigint_string: $is_bigint_string,
+  });
+
+  export const assert = (method: string) => ({
+    ...is(),
+    join: $join,
+    every: $every,
+    guard: $guard(`typia.${method}`),
+    predicate: (
+      matched: boolean,
+      exceptionable: boolean,
+      closure: () => Omit<TypeGuardError.IProps, "method">,
+    ): boolean => {
+      if (matched === false && exceptionable === true)
+        throw new TypeGuardError({
+          ...closure(),
+          method: `typia.${method}`,
+        });
+      return matched;
+    },
+  });
+
+  export const validate = () => ({
+    ...is(),
+    join: $join,
+    report: $report,
+    predicate:
+      (res: IValidation) =>
+      (
+        matched: boolean,
+        exceptionable: boolean,
+        closure: () => IValidation.IError,
+      ) => {
+        // CHECK FAILURE
+        if (matched === false && exceptionable === true)
+          (() => {
+            res.success &&= false;
+            const errorList = (res as IValidation.IFailure).errors;
+
+            // TRACE ERROR
+            const error = closure();
+            if (errorList.length) {
+              const last = errorList[errorList.length - 1]!.path;
+              if (
+                last.length >= error.path.length &&
+                last.substring(0, error.path.length) === error.path
+              )
+                return;
+            }
+            errorList.push(error);
+            return;
+          })();
+        return matched;
+      },
+  });
+
+  export namespace json {
+    export const stringify = (method: string) => ({
+      ...is(),
+      number: $number,
+      string: $string,
+      tail: $tail,
+      rest: $rest,
+      throws: $throws(`json.${method}`),
+    });
+  }
+
+  export namespace protobuf {
+    export const decode = (method: string) => ({
+      ...is(),
+      Reader: $ProtobufReader,
+      throws: $throws(`protobuf.${method}`),
     });
 
-    export const assert = (method: string) => ({
-        ...is(),
-        join: $join,
-        every: $every,
-        guard: $guard(`typia.${method}`),
-        predicate: (
-            matched: boolean,
-            exceptionable: boolean,
-            closure: () => Omit<TypeGuardError.IProps, "method">,
-        ): boolean => {
-            if (matched === false && exceptionable === true)
-                throw new TypeGuardError({
-                    ...closure(),
-                    method: `typia.${method}`,
-                });
-            return matched;
-        },
+    export const encode = (method: string) => ({
+      ...is(),
+      Sizer: $ProtobufSizer,
+      Writer: $ProtobufWriter,
+      strlen: $strlen,
+      throws: $throws(method),
+    });
+  }
+
+  export namespace reflect {
+    export const metadata = () => ({
+      from: $from,
+    });
+  }
+
+  export namespace http {
+    export const query = () => $QueryReader;
+    export const headers = () => $HeadersReader;
+    export const parameter = () => $ParameterReader;
+  }
+
+  export namespace misc {
+    export const clone = (method: string) => ({
+      ...is(),
+      throws: $throws(`misc.${method}`),
+      any: $any,
     });
 
-    export const validate = () => ({
-        ...is(),
-        join: $join,
-        report: $report,
-        predicate:
-            (res: IValidation) =>
-            (
-                matched: boolean,
-                exceptionable: boolean,
-                closure: () => IValidation.IError,
-            ) => {
-                // CHECK FAILURE
-                if (matched === false && exceptionable === true)
-                    (() => {
-                        res.success &&= false;
-                        const errorList = (res as IValidation.IFailure).errors;
+    export const prune = (method: string) => ({
+      ...is(),
+      throws: $throws(`misc.${method}`),
+    });
+  }
 
-                        // TRACE ERROR
-                        const error = closure();
-                        if (errorList.length) {
-                            const last = errorList[errorList.length - 1]!.path;
-                            if (
-                                last.length >= error.path.length &&
-                                last.substring(0, error.path.length) ===
-                                    error.path
-                            )
-                                return;
-                        }
-                        errorList.push(error);
-                        return;
-                    })();
-                return matched;
-            },
+  export namespace notations {
+    export const camel = (method: string) => ({
+      ...base(method),
+      any: $convention(NamingConvention.camel),
+    });
+    export const pascal = (method: string) => ({
+      ...base(method),
+      any: $convention(NamingConvention.pascal),
+    });
+    export const snake = (method: string) => ({
+      ...base(method),
+      any: $convention(NamingConvention.snake),
     });
 
-    export namespace json {
-        export const stringify = (method: string) => ({
-            ...is(),
-            number: $number,
-            string: $string,
-            tail: $tail,
-            rest: $rest,
-            throws: $throws(`json.${method}`),
-        });
-    }
-
-    export namespace protobuf {
-        export const decode = (method: string) => ({
-            ...is(),
-            Reader: $ProtobufReader,
-            throws: $throws(`protobuf.${method}`),
-        });
-
-        export const encode = (method: string) => ({
-            ...is(),
-            Sizer: $ProtobufSizer,
-            Writer: $ProtobufWriter,
-            strlen: $strlen,
-            throws: $throws(method),
-        });
-    }
-
-    export namespace reflect {
-        export const metadata = () => ({
-            from: $from,
-        });
-    }
-
-    export namespace http {
-        export const query = () => $QueryReader;
-        export const headers = () => $HeadersReader;
-        export const parameter = () => $ParameterReader;
-    }
-
-    export namespace misc {
-        export const clone = (method: string) => ({
-            ...is(),
-            throws: $throws(`misc.${method}`),
-            any: $any,
-        });
-
-        export const prune = (method: string) => ({
-            ...is(),
-            throws: $throws(`misc.${method}`),
-        });
-    }
-
-    export namespace notations {
-        export const camel = (method: string) => ({
-            ...base(method),
-            any: $convention(NamingConvention.camel),
-        });
-        export const pascal = (method: string) => ({
-            ...base(method),
-            any: $convention(NamingConvention.pascal),
-        });
-        export const snake = (method: string) => ({
-            ...base(method),
-            any: $convention(NamingConvention.snake),
-        });
-
-        const base = (method: string) => ({
-            ...is(),
-            throws: $throws(`notations.${method}`),
-        });
-    }
-
-    export const random = () => ({
-        generator: RandomGenerator,
-        pick: RandomGenerator.pick,
+    const base = (method: string) => ({
+      ...is(),
+      throws: $throws(`notations.${method}`),
     });
+  }
 
-    const $throws =
-        (method: string) =>
-        (props: Pick<TypeGuardError.IProps, "expected" | "value">) => {
-            throw new TypeGuardError({
-                ...props,
-                method: `typia.${method}`,
-            });
-        };
+  export const random = () => ({
+    generator: RandomGenerator,
+    pick: RandomGenerator.pick,
+  });
+
+  const $throws =
+    (method: string) =>
+    (props: Pick<TypeGuardError.IProps, "expected" | "value">) => {
+      throw new TypeGuardError({
+        ...props,
+        method: `typia.${method}`,
+      });
+    };
 }

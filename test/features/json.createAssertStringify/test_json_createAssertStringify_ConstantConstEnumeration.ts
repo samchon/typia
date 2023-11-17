@@ -3,8 +3,8 @@ import { _test_json_assertStringify } from "../../internal/_test_json_assertStri
 import { ConstantConstEnumeration } from "../../structures/ConstantConstEnumeration";
 
 export const test_json_createAssertStringify_ConstantConstEnumeration =
-    _test_json_assertStringify(
-        "ConstantConstEnumeration",
-    )<ConstantConstEnumeration>(ConstantConstEnumeration)(
-        typia.json.createAssertStringify<ConstantConstEnumeration>(),
-    );
+  _test_json_assertStringify(
+    "ConstantConstEnumeration",
+  )<ConstantConstEnumeration>(ConstantConstEnumeration)(
+    typia.json.createAssertStringify<ConstantConstEnumeration>(),
+  );

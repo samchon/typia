@@ -3,7 +3,7 @@ import { _test_misc_validateClone } from "../../internal/_test_misc_validateClon
 import { ObjectNullable } from "../../structures/ObjectNullable";
 
 export const test_misc_validateClone_ObjectNullable = _test_misc_validateClone(
-    "ObjectNullable",
+  "ObjectNullable",
 )<ObjectNullable>(ObjectNullable)((input) =>
-    typia.misc.validateClone<ObjectNullable>(input),
+  typia.misc.validateClone<ObjectNullable>(input),
 );

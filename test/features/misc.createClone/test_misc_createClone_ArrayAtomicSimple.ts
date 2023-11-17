@@ -3,7 +3,7 @@ import { _test_misc_clone } from "../../internal/_test_misc_clone";
 import { ArrayAtomicSimple } from "../../structures/ArrayAtomicSimple";
 
 export const test_misc_createClone_ArrayAtomicSimple = _test_misc_clone(
-    "ArrayAtomicSimple",
+  "ArrayAtomicSimple",
 )<ArrayAtomicSimple>(ArrayAtomicSimple)(
-    typia.misc.createClone<ArrayAtomicSimple>(),
+  typia.misc.createClone<ArrayAtomicSimple>(),
 );

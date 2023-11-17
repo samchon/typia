@@ -3,38 +3,38 @@ import { _test_json_application } from "../../../../internal/_test_json_applicat
 import { AtomicUnion } from "../../../../structures/AtomicUnion";
 
 export const test_json_application_swagger_AtomicUnion = _test_json_application(
-    "swagger",
+  "swagger",
 )("AtomicUnion")({
-    schemas: [
-        {
-            $ref: "#/components/schemas/AtomicUnion",
-        },
-    ],
-    components: {
-        schemas: {
-            AtomicUnion: {
-                type: "array",
-                items: {
-                    $ref: "#/components/schemas/AtomicUnion.Union",
-                },
-            },
-            "AtomicUnion.Union": {
-                oneOf: [
-                    {
-                        type: "string",
-                        nullable: true,
-                    },
-                    {
-                        type: "number",
-                        nullable: true,
-                    },
-                    {
-                        type: "boolean",
-                        nullable: true,
-                    },
-                ],
-            },
-        },
+  schemas: [
+    {
+      $ref: "#/components/schemas/AtomicUnion",
     },
-    purpose: "swagger",
+  ],
+  components: {
+    schemas: {
+      AtomicUnion: {
+        type: "array",
+        items: {
+          $ref: "#/components/schemas/AtomicUnion.Union",
+        },
+      },
+      "AtomicUnion.Union": {
+        oneOf: [
+          {
+            type: "string",
+            nullable: true,
+          },
+          {
+            type: "number",
+            nullable: true,
+          },
+          {
+            type: "boolean",
+            nullable: true,
+          },
+        ],
+      },
+    },
+  },
+  purpose: "swagger",
 });

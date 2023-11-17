@@ -3,7 +3,7 @@ import { _test_misc_validateClone } from "../../internal/_test_misc_validateClon
 import { TupleRestAtomic } from "../../structures/TupleRestAtomic";
 
 export const test_misc_validateClone_TupleRestAtomic = _test_misc_validateClone(
-    "TupleRestAtomic",
+  "TupleRestAtomic",
 )<TupleRestAtomic>(TupleRestAtomic)((input) =>
-    typia.misc.validateClone<TupleRestAtomic>(input),
+  typia.misc.validateClone<TupleRestAtomic>(input),
 );

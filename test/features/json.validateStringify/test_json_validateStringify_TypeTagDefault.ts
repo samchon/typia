@@ -3,6 +3,6 @@ import { _test_json_validateStringify } from "../../internal/_test_json_validate
 import { TypeTagDefault } from "../../structures/TypeTagDefault";
 
 export const test_json_validateStringify_TypeTagDefault =
-    _test_json_validateStringify("TypeTagDefault")<TypeTagDefault>(
-        TypeTagDefault,
-    )((input) => typia.json.validateStringify<TypeTagDefault>(input));
+  _test_json_validateStringify("TypeTagDefault")<TypeTagDefault>(
+    TypeTagDefault,
+  )((input) => typia.json.validateStringify<TypeTagDefault>(input));

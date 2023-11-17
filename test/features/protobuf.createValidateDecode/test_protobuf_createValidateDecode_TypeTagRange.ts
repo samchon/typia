@@ -3,7 +3,7 @@ import { _test_protobuf_validateDecode } from "../../internal/_test_protobuf_val
 import { TypeTagRange } from "../../structures/TypeTagRange";
 
 export const test_protobuf_createValidateDecode_TypeTagRange =
-    _test_protobuf_validateDecode("TypeTagRange")<TypeTagRange>(TypeTagRange)({
-        decode: typia.protobuf.createValidateDecode<TypeTagRange>(),
-        encode: typia.protobuf.createEncode<TypeTagRange>(),
-    });
+  _test_protobuf_validateDecode("TypeTagRange")<TypeTagRange>(TypeTagRange)({
+    decode: typia.protobuf.createValidateDecode<TypeTagRange>(),
+    encode: typia.protobuf.createEncode<TypeTagRange>(),
+  });

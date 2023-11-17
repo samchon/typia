@@ -5,6 +5,6 @@ import { ICollection } from "../../../../structures/ICollection";
 import { createFastifyCustomServerPerformanceBenchmarkProgram } from "../createFastifyCustomServerPerformanceBenchmarkProgram";
 
 createFastifyCustomServerPerformanceBenchmarkProgram(
-    typia.createAssert<ICollection<ArrayRecursive>>(),
-    typia.json.createStringify<ICollection<ArrayRecursive>>(),
+  typia.createAssert<ICollection<ArrayRecursive>>(),
+  typia.json.createStringify<ICollection<ArrayRecursive>>(),
 );

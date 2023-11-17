@@ -3,6 +3,6 @@ import { _test_json_validateParse } from "../../internal/_test_json_validatePars
 import { AtomicSimple } from "../../structures/AtomicSimple";
 
 export const test_json_createValidateParse_AtomicSimple =
-    _test_json_validateParse("AtomicSimple")<AtomicSimple>(AtomicSimple)(
-        typia.json.createValidateParse<AtomicSimple>(),
-    );
+  _test_json_validateParse("AtomicSimple")<AtomicSimple>(AtomicSimple)(
+    typia.json.createValidateParse<AtomicSimple>(),
+  );
