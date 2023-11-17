@@ -16,12 +16,16 @@ export namespace AssertProgrammer {
     export const write =
         (project: IProject) =>
         (modulo: ts.LeftHandSideExpression) =>
-        (equals: boolean) =>
+        (props: boolean | { equals: boolean; guard: boolean }) =>
         (type: ts.Type, name?: string) => {
+            // TO SUPPORT LEGACY FEATURE
+            if (typeof props === "boolean")
+                props = { equals: props, guard: false };
+
             const importer: FunctionImporter = new FunctionImporter(
                 modulo.getText(),
             );
-            const is = IsProgrammer.write(project)(modulo, true)(equals)(
+            const is = IsProgrammer.write(project)(modulo, true)(props.equals)(
                 type,
                 name ?? TypeFactory.getFullName(project.checker)(type),
             );
@@ -30,7 +34,7 @@ export namespace AssertProgrammer {
                 path: true,
                 trace: true,
                 numeric: OptionPredicator.numeric(project.options),
-                equals,
+                equals: props.equals,
                 atomist: (explore) => (entry) => (input) =>
                     [
                         ...(entry.expression ? [entry.expression] : []),
@@ -91,8 +95,8 @@ export namespace AssertProgrammer {
                                   ),
                               ]),
                     ].reduce((x, y) => ts.factory.createLogicalAnd(x, y)),
-                combiner: combiner(equals)(project)(importer),
-                joiner: joiner(equals)(project)(importer),
+                combiner: combiner(props.equals)(project)(importer),
+                joiner: joiner(props.equals)(project)(importer),
                 success: ts.factory.createTrue(),
                 addition: () => importer.declare(modulo),
             })(importer)(type, name);
@@ -106,9 +110,21 @@ export namespace AssertProgrammer {
                         TypeFactory.keyword("any"),
                     ),
                 ],
-                ts.factory.createTypeReferenceNode(
-                    name ?? TypeFactory.getFullName(project.checker)(type),
-                ),
+                props.guard
+                    ? ts.factory.createTypePredicateNode(
+                          ts.factory.createToken(ts.SyntaxKind.AssertsKeyword),
+                          ts.factory.createIdentifier("input"),
+                          ts.factory.createTypeReferenceNode(
+                              name ??
+                                  TypeFactory.getFullName(project.checker)(
+                                      type,
+                                  ),
+                          ),
+                      )
+                    : ts.factory.createTypeReferenceNode(
+                          name ??
+                              TypeFactory.getFullName(project.checker)(type),
+                      ),
                 undefined,
                 ts.factory.createBlock(
                     [
@@ -137,9 +153,13 @@ export namespace AssertProgrammer {
                             ),
                             undefined,
                         ),
-                        ts.factory.createReturnStatement(
-                            ts.factory.createIdentifier(`input`),
-                        ),
+                        ...(props.guard === false
+                            ? [
+                                  ts.factory.createReturnStatement(
+                                      ts.factory.createIdentifier(`input`),
+                                  ),
+                              ]
+                            : []),
                     ],
                     true,
                 ),

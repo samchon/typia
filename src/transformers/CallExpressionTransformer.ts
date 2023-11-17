@@ -162,13 +162,20 @@ type Task = (
 const FUNCTORS: Record<string, Record<string, () => Task>> = {
     module: {
         // BASIC
-        assert: () => AssertTransformer.transform(false),
-        assertType: () => AssertTransformer.transform(false),
+        assert: () =>
+            AssertTransformer.transform({ equals: false, guard: false }),
+        assertGuard: () =>
+            AssertTransformer.transform({ equals: false, guard: true }),
+        assertType: () =>
+            AssertTransformer.transform({ equals: false, guard: false }),
         is: () => IsTransformer.transform(false),
         validate: () => ValidateTransformer.transform(false),
 
         // STRICT
-        assertEquals: () => AssertTransformer.transform(true),
+        assertEquals: () =>
+            AssertTransformer.transform({ equals: true, guard: false }),
+        assertGuardEquals: () =>
+            AssertTransformer.transform({ equals: true, guard: true }),
         equals: () => IsTransformer.transform(true),
         validateEquals: () => ValidateTransformer.transform(true),
 
@@ -177,11 +184,18 @@ const FUNCTORS: Record<string, Record<string, () => Task>> = {
         metadata: () => ReflectMetadataTransformer.transform,
 
         // FACTORIES
-        createAssert: () => CreateAssertTransformer.transform(false),
-        createAssertType: () => CreateAssertTransformer.transform(false),
+        createAssert: () =>
+            CreateAssertTransformer.transform({ equals: false, guard: false }),
+        createAssertGuard: () =>
+            CreateAssertTransformer.transform({ equals: false, guard: true }),
+        createAssertType: () =>
+            CreateAssertTransformer.transform({ equals: false, guard: false }),
         createIs: () => CreateIsTransformer.transform(false),
         createValidate: () => CreateValidateTransformer.transform(false),
-        createAssertEquals: () => CreateAssertTransformer.transform(true),
+        createAssertEquals: () =>
+            CreateAssertTransformer.transform({ equals: true, guard: false }),
+        createAssertGuardEquals: () =>
+            CreateAssertTransformer.transform({ equals: true, guard: true }),
         createEquals: () => CreateIsTransformer.transform(true),
         createValidateEquals: () => CreateValidateTransformer.transform(true),
         createRandom: () => CreateRandomTransformer.transform,

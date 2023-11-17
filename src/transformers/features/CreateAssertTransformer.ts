@@ -3,11 +3,17 @@ import { AssertProgrammer } from "../../programmers/AssertProgrammer";
 import { GenericTransformer } from "../internal/GenericTransformer";
 
 export namespace CreateAssertTransformer {
-    export const transform = (equals: boolean) =>
+    export const transform = (props: { equals: boolean; guard: boolean }) =>
         GenericTransformer.factory(
-            equals ? "createAssertEquals" : "createAssert",
+            props.equals
+                ? props.guard
+                    ? "createAssertGuardEquals"
+                    : "createAssertEquals"
+                : props.guard
+                ? "createAssertGuard"
+                : "createAssert",
         )(
             (project) => (modulo) =>
-                AssertProgrammer.write(project)(modulo)(equals),
+                AssertProgrammer.write(project)(modulo)(props),
         );
 }
