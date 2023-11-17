@@ -93,7 +93,7 @@ Object.assign(assert, Namespace.assert("assert"));
  * reason, if the parametric value is not following the type `T`. Otherwise, the
  * value is following the type `T`, nothing would be returned, but the input value
  * would be automatically casted to the type `T`. This is the concept of
- * "assertion guard" of a value type.
+ * "Assertion Guard" of a value type.
  *
  * If what you want is not asserting but just knowing whether the parametric value is
  * following the type `T` or not, you can choose the {@link is} function instead.
@@ -119,7 +119,7 @@ export function assertGuard<T>(input: T): asserts input is T;
  * reason, if the parametric value is not following the type `T`. Otherwise, the
  * value is following the type `T`, nothing would be returned, but the input value
  * would be automatically casted to the type `T`. This is the concept of
- * "assertion guard" of a value type.
+ * "Assertion Guard" of a value type.
  *
  * If what you want is not asserting but just knowing whether the parametric value is
  * following the type `T` or not, you can choose the {@link is} function instead.
@@ -330,7 +330,7 @@ Object.assign(assertEquals, Namespace.assert("assertEquals"));
  *
  * Otherwise, the value is following the type `T` without any superfluous property,
  * nothing would be returned, but the input value would be automatically casted to
- * the type `T`. This is the concept of "assertion guard" of a value type.
+ * the type `T`. This is the concept of "Assertion Guard" of a value type.
  *
  * If what you want is not asserting but just knowing whether the parametric value is
  * following the type `T` or not, you can choose the {@link equals} function instead.
@@ -359,7 +359,7 @@ export function assertGuardEquals<T>(input: T): asserts input is T;
  *
  * Otherwise, the value is following the type `T` without any superfluous property,
  * nothing would be returned, but the input value would be automatically casted to
- * the type `T`. This is the concept of "assertion guard" of a value type.
+ * the type `T`. This is the concept of "Assertion Guard" of a value type.
  *
  * If what you want is not asserting but just knowing whether the parametric value is
  * following the type `T` or not, you can choose the {@link equals} function instead.
