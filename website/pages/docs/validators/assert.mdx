@@ -8,13 +8,13 @@ import AlertTitle from '@mui/material/AlertTitle';
     <code>TypeGuardError.ts</code>,
 ]}>
     <Tab>
-```typescript copy
+```typescript
 export function assert<T>(input: T): T;
 export function assert<T>(input: unknown): T;
 ```
     </Tab>
     <Tab>
-```typescript copy
+```typescript
 export class TypeGuardError extends Error {
     public readonly method: string;
     public readonly path: string | undefined;
@@ -198,13 +198,13 @@ const uuid_1 = require("uuid");
     <code>TypeGuardError.ts</code>,
 ]}>
     <Tab>
-```typescript copy
+```typescript
 export function assertEquals<T>(input: T): T;
 export function assertEquals<T>(input: unknown): T;
 ```
     </Tab>
     <Tab>
-```typescript copy
+```typescript
 export class TypeGuardError extends Error {
     public readonly method: string;
     public readonly path: string | undefined;
@@ -369,25 +369,90 @@ const uuid_1 = require("uuid");
 
 
 
-## Reusable functions
+## `assertGuard()` functions
 <Tabs items={[
     <code>typia</code>, 
     <code>TypeGuardError.ts</code>,
 ]}>
     <Tab>
-```typescript copy
-export function createAssert<T>(): (input: unknown) => T;
-export function createAssertEquals<T>(): (input: unknown) => T;
+```typescript
+export function assertGurad<T>(input: T): asserts inut is T;
+export function assertGuard<T>(input: unknown): asserts input is T;
+
+export function assertGuardEquals<T>(input: T): asserts inut is T;
+export function assertGuardEquals<T>(input: unknown): asserts input is T;
 ```
     </Tab>
     <Tab>
-```typescript copy
+```typescript
 export class TypeGuardError extends Error {
     public readonly method: string;
     public readonly path: string | undefined;
     public readonly expected: string;
     public readonly value: any;
 }
+```
+    </Tab>
+</Tabs>
+
+Assertion guard of a value type.
+
+`typia.assertGuard<T>()` is similar with [`typia.assert<T>()`](#assert-function) throwing a `TypeGuardError` when wrong type. 
+
+However, [`typia.assert<T>()`](#assert-function) returns the paramteric input value itself when there's no type problem on the parametric input value, whereas the `typia.assertGuard<T>()` function returns nothing. Instead, the parametric input value would be automatically cased to the type `T`. This is the concept of "Assertion Guard" of a value type.
+
+Such similarities and differences of `typia.assertGuard<T>()` and [`typia.assert<T>()`](#assert-function) functions are the same in the case of `typia.assertGuardEquals<T>()` and [`typia.assertEquals<T>()`](#assertequals-function) functions. If there's no type problem on the `typia.assertGuardEquals<T>()` function, it also performs the "Assertion Guard".
+
+Look at the below code, then you may understand what the "Assertion Guard" means.
+
+```typescript showLineNumbers filename="examples/src/assertGuard.ts"
+import typia from "typia";
+
+interface IPoint {
+    x: number;
+    y: number;
+}
+const input: unknown = { x: 1, y: 2 };
+
+// PERFORM THE ASSERTION GUARD
+typia.assertGuard<IPoint>(input);
+
+// FROM NOW ON, "input" IS THE "IPoint" TYPE
+input.x; // OK
+input.y; // OK
+```
+
+
+
+
+## Reusable functions
+<Tabs items={[
+    <code>typia</code>, 
+    <code>TypeGuardError.ts</code>,
+    <code>AssertionGuard.ts</code>,
+]}>
+    <Tab>
+```typescript
+export function createAssert<T>(): (input: unknown) => T;
+export function createAssertEquals<T>(): (input: unknown) => T;
+
+export function createAssertGuard<T>(): AssertionGuard<T>;
+export function createAssertGuardEquals<T>(): AssertionGuard<T>;
+```
+    </Tab>
+    <Tab>
+```typescript
+export class TypeGuardError extends Error {
+    public readonly method: string;
+    public readonly path: string | undefined;
+    public readonly expected: string;
+    public readonly value: any;
+}
+```
+    </Tab>
+    <Tab>
+```typescript
+export type AssertionGuard<T> = (input: unknown) => asserts input is T;
 ```
     </Tab>
 </Tabs>
@@ -524,6 +589,95 @@ const assertMember = (input) => {
     return input;
 };
 exports.assertMember = assertMember;
+```
+    </Tab>
+</Tabs>
+
+<Alert severity="warning">
+    <AlertTitle>
+        **Explicity of Assertion Guard** 
+    </AlertTitle>
+
+Be careful when using `typia.createAssertGuard<T>()` or `typia.createAssertGuardEquals<T>()` functions. 
+
+When calling those functions, you've to declare the variable type explicit on the caller variable. If you don't do it, so that the caller variables come the implicit function type, TypeScript compiler throws an error like below. This is a special limitation of TypeScript compiler about the "Assertion Guard".
+
+```typescript showLineNumbers filename="examples/src/createAssertGuard.ts"
+import typia, { AssertionGuard } from "typia";
+
+//MUST DECLARE THE VARIABLE TYPE
+const explicit: AssertionGuard<number> = typia.createAssertGuard<number>();
+
+// IF NOT, COMPILATION ERROR BE OCCURED
+const implicit = typia.createAssertGuard<number>();
+```
+
+```bash
+Assertions require every name in the call target to be declared with an explicit type annotation.
+```
+
+</Alert>
+
+
+
+
+## Restrictions
+`typia.assert<T>()` function does not check `function` and user-defined `class` types. 
+
+It validates only the primitive properties. Therefore, `typia.assert<T>()` function does not perform the `instanceof ClassName` for user-defined classes. If you want to validate the user-defined class type in addition to the property types, do it by yourself. Also, `typia.assert<T>()` function does not validate the function type either, unless configuring `functional` property of `plugin` option in the `tsconfig.json` file.
+
+```json filename="tsconfig.json"
+{
+  "compilerOptions": {
+    "plugins": [
+      {
+        "transform": "typia/lib/transform",
+        "functional": true
+      }
+    ]
+  }
+}
+```
+
+By the way, there're some exception cases. 
+
+If JS native class type like `Date`, `Uint8Array`, or `Map<Key, T>` being utilized, `typia.assert<T>()` function validates them. Especially about the `Set<T>`, and `Map<Key, T>` class cases, `typia.assert<T>()` function validates all of their contained element types, too.
+
+Therefore, the `instanceof` statement does not be used only for the user-defined classes.
+
+<Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
+    <Tab>
+```typescript copy filename="examples/src/is-map.ts" showLineNumbers
+import typia from "typia";
+
+typia.createIs<Map<string, boolean | number | string>>();
+```
+    </Tab>
+    <Tab>
+```javascript filename="examples/bin/is-map.js" showLineNumbers
+"use strict";
+var __importDefault =
+    (this && this.__importDefault) ||
+    function (mod) {
+        return mod && mod.__esModule ? mod : { default: mod };
+    };
+Object.defineProperty(exports, "__esModule", { value: true });
+const typia_1 = __importDefault(require("typia"));
+(input) => {
+    return (
+        input instanceof Map &&
+        (() =>
+            [...input].every(
+                (elem) =>
+                    Array.isArray(elem) &&
+                    elem.length === 2 &&
+                    "string" === typeof elem[0] &&
+                    ("string" === typeof elem[1] ||
+                        "number" === typeof elem[1] ||
+                        "boolean" === typeof elem[1]),
+            ))()
+    );
+};
 ```
     </Tab>
 </Tabs>
