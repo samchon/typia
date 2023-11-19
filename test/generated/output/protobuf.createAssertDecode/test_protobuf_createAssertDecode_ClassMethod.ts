@@ -12,7 +12,7 @@ export const test_protobuf_createAssertDecode_ClassMethod =
           const output = {
             name: "" as any,
             age: undefined as any,
-          };
+          } as any;
           while (reader.index() < length) {
             const tag = reader.uint32();
             switch (tag >>> 3) {

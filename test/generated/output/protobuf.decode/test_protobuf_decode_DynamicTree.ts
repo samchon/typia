@@ -14,7 +14,7 @@ export const test_protobuf_createDecode_DynamicTree = _test_protobuf_decode(
           id: "" as any,
           sequence: undefined as any,
           children: {} as any,
-        };
+        } as any;
         while (reader.index() < length) {
           const tag = reader.uint32();
           switch (tag >>> 3) {
@@ -33,7 +33,7 @@ export const test_protobuf_createDecode_DynamicTree = _test_protobuf_decode(
                 const entry = {
                   key: "" as any,
                   value: undefined as any,
-                };
+                } as any;
                 while (reader.index() < piece) {
                   const kind = reader.uint32();
                   switch (kind >>> 3) {

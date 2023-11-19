@@ -308,7 +308,7 @@ export const test_protobuf_createValidateEncode_TypeTagDefault =
           union_but_number: "" as any,
           union_but_string: "" as any,
           boolean_and_number_and_template: undefined as any,
-        };
+        } as any;
         while (reader.index() < length) {
           const tag = reader.uint32();
           switch (tag >>> 3) {

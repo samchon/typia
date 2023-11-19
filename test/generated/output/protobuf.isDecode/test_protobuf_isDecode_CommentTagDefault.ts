@@ -62,7 +62,7 @@ export const test_protobuf_createIsDecode_CommentTagDefault =
               union_but_string: "" as any,
               vulnerable_range: undefined as any,
               boolean_and_number_and_template: undefined as any,
-            };
+            } as any;
             while (reader.index() < length) {
               const tag = reader.uint32();
               switch (tag >>> 3) {

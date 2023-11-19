@@ -173,7 +173,7 @@ export const test_protobuf_createAssertEncode_TypeTagAtomicUnion =
         length = length < 0 ? reader.size() : reader.index() + length;
         const output = {
           value: [] as any,
-        };
+        } as any;
         while (reader.index() < length) {
           const tag = reader.uint32();
           switch (tag >>> 3) {
@@ -192,7 +192,7 @@ export const test_protobuf_createAssertEncode_TypeTagAtomicUnion =
         length = length < 0 ? reader.size() : reader.index() + length;
         const output = {
           value: "" as any,
-        };
+        } as any;
         while (reader.index() < length) {
           const tag = reader.uint32();
           switch (tag >>> 3) {

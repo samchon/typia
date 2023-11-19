@@ -12,7 +12,7 @@ export const test_protobuf_createDecode_CommentTagRange = _test_protobuf_decode(
         length = length < 0 ? reader.size() : reader.index() + length;
         const output = {
           value: [] as any,
-        };
+        } as any;
         while (reader.index() < length) {
           const tag = reader.uint32();
           switch (tag >>> 3) {
@@ -39,7 +39,7 @@ export const test_protobuf_createDecode_CommentTagRange = _test_protobuf_decode(
           greater_less_equal: undefined as any,
           greater_equal_less_equal: undefined as any,
           equal: undefined as any,
-        };
+        } as any;
         while (reader.index() < length) {
           const tag = reader.uint32();
           switch (tag >>> 3) {

@@ -306,7 +306,7 @@ export const test_protobuf_createValidateEncode_CommentTagType =
         length = length < 0 ? reader.size() : reader.index() + length;
         const output = {
           value: [] as any,
-        };
+        } as any;
         while (reader.index() < length) {
           const tag = reader.uint32();
           switch (tag >>> 3) {
@@ -331,7 +331,7 @@ export const test_protobuf_createValidateEncode_CommentTagType =
           int64: undefined as any,
           uint64: undefined as any,
           float: undefined as any,
-        };
+        } as any;
         while (reader.index() < length) {
           const tag = reader.uint32();
           switch (tag >>> 3) {

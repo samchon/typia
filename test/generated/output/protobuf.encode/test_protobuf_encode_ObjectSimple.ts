@@ -68,7 +68,7 @@ export const test_protobuf_createEncode_ObjectSimple = _test_protobuf_encode(
         position: undefined as any,
         rotate: undefined as any,
         pivot: undefined as any,
-      };
+      } as any;
       while (reader.index() < length) {
         const tag = reader.uint32();
         switch (tag >>> 3) {
@@ -101,7 +101,7 @@ export const test_protobuf_createEncode_ObjectSimple = _test_protobuf_encode(
         x: undefined as any,
         y: undefined as any,
         z: undefined as any,
-      };
+      } as any;
       while (reader.index() < length) {
         const tag = reader.uint32();
         switch (tag >>> 3) {

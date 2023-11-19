@@ -32,7 +32,7 @@ export const test_protobuf_createIsDecode_ObjectHttpConstant =
               number: undefined as any,
               string: undefined as any,
               template: undefined as any,
-            };
+            } as any;
             while (reader.index() < length) {
               const tag = reader.uint32();
               switch (tag >>> 3) {

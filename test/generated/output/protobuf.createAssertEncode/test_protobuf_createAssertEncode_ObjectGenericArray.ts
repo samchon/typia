@@ -225,7 +225,7 @@ export const test_protobuf_createAssertEncode_ObjectGenericArray =
         const output = {
           pagination: undefined as any,
           data: [] as any,
-        };
+        } as any;
         while (reader.index() < length) {
           const tag = reader.uint32();
           switch (tag >>> 3) {
@@ -251,7 +251,7 @@ export const test_protobuf_createAssertEncode_ObjectGenericArray =
           limit: undefined as any,
           total_count: undefined as any,
           total_pages: undefined as any,
-        };
+        } as any;
         while (reader.index() < length) {
           const tag = reader.uint32();
           switch (tag >>> 3) {
@@ -283,7 +283,7 @@ export const test_protobuf_createAssertEncode_ObjectGenericArray =
         const output = {
           name: "" as any,
           age: undefined as any,
-        };
+        } as any;
         while (reader.index() < length) {
           const tag = reader.uint32();
           switch (tag >>> 3) {

@@ -142,7 +142,7 @@ export const test_protobuf_createIsEncode_ObjectRequired =
           string: "" as any,
           array: [] as any,
           object: null as any,
-        };
+        } as any;
         while (reader.index() < length) {
           const tag = reader.uint32();
           switch (tag >>> 3) {
@@ -179,13 +179,7 @@ export const test_protobuf_createIsEncode_ObjectRequired =
       };
       const $pdo1 = (reader: any, length: number = -1): any => {
         length = length < 0 ? reader.size() : reader.index() + length;
-        const output = {
-          boolean: undefined as any,
-          number: undefined as any,
-          string: undefined as any,
-          array: undefined as any,
-          object: null as any,
-        };
+        const output = {} as any;
         while (reader.index() < length) {
           const tag = reader.uint32();
           switch (tag >>> 3) {

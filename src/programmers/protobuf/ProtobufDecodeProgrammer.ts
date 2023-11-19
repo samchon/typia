@@ -165,14 +165,25 @@ export namespace ProtobufDecodeProgrammer {
       return [
         StatementFactory.constant(
           props.output,
-          ts.factory.createObjectLiteralExpression(
-            properties.map((p) =>
-              ts.factory.createPropertyAssignment(
-                IdentifierFactory.identifier(p.key.getSoleLiteral()!),
-                write_property_default_value(p.value),
-              ),
+          ts.factory.createAsExpression(
+            ts.factory.createObjectLiteralExpression(
+              properties
+                .filter(
+                  (p) =>
+                    !(
+                      project.compilerOptions.exactOptionalPropertyTypes ===
+                        true && p.value.optional === true
+                    ),
+                )
+                .map((p) =>
+                  ts.factory.createPropertyAssignment(
+                    IdentifierFactory.identifier(p.key.getSoleLiteral()!),
+                    write_property_default_value(p.value),
+                  ),
+                ),
+              true,
             ),
-            true,
+            TypeFactory.keyword("any"),
           ),
         ),
         ts.factory.createWhileStatement(

@@ -222,7 +222,7 @@ export const test_protobuf_createValidateEncode_TypeTagFormat =
           ipv6: "" as any,
           date: "" as any,
           date_time: "" as any,
-        };
+        } as any;
         while (reader.index() < length) {
           const tag = reader.uint32();
           switch (tag >>> 3) {

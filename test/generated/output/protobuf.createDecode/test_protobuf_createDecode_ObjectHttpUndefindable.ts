@@ -19,7 +19,7 @@ export const test_protobuf_createDecode_ObjectHttpUndefindable =
           constantBigint: undefined as any,
           constantNumber: undefined as any,
           constantString: undefined as any,
-        };
+        } as any;
         while (reader.index() < length) {
           const tag = reader.uint32();
           switch (tag >>> 3) {

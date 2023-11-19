@@ -86,7 +86,7 @@ export const test_protobuf_createEncode_ObjectHttpNullable =
           constantNumber: null as any,
           constantString: null as any,
           nullableArray: null as any,
-        };
+        } as any;
         while (reader.index() < length) {
           const tag = reader.uint32();
           switch (tag >>> 3) {

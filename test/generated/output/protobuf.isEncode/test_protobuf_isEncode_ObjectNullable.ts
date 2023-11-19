@@ -154,7 +154,7 @@ export const test_protobuf_createIsEncode_ObjectNullable =
         length = length < 0 ? reader.size() : reader.index() + length;
         const output = {
           value: [] as any,
-        };
+        } as any;
         while (reader.index() < length) {
           const tag = reader.uint32();
           switch (tag >>> 3) {
@@ -176,7 +176,7 @@ export const test_protobuf_createIsEncode_ObjectNullable =
           manufacturer: undefined as any,
           brand: null as any,
           similar: null as any,
-        };
+        } as any;
         while (reader.index() < length) {
           const tag = reader.uint32();
           switch (tag >>> 3) {
@@ -212,7 +212,7 @@ export const test_protobuf_createIsEncode_ObjectNullable =
         const output = {
           type: undefined as any,
           name: "" as any,
-        };
+        } as any;
         while (reader.index() < length) {
           const tag = reader.uint32();
           switch (tag >>> 3) {
@@ -236,7 +236,7 @@ export const test_protobuf_createIsEncode_ObjectNullable =
         const output = {
           type: undefined as any,
           name: "" as any,
-        };
+        } as any;
         while (reader.index() < length) {
           const tag = reader.uint32();
           switch (tag >>> 3) {

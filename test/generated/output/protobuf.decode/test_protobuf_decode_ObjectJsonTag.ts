@@ -15,7 +15,7 @@ export const test_protobuf_createDecode_ObjectJsonTag = _test_protobuf_decode(
           description: "" as any,
           title: "" as any,
           complicate_title: "" as any,
-        };
+        } as any;
         while (reader.index() < length) {
           const tag = reader.uint32();
           switch (tag >>> 3) {

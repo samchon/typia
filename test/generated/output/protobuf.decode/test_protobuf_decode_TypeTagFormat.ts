@@ -18,7 +18,7 @@ export const test_protobuf_createDecode_TypeTagFormat = _test_protobuf_decode(
           ipv6: "" as any,
           date: "" as any,
           date_time: "" as any,
-        };
+        } as any;
         while (reader.index() < length) {
           const tag = reader.uint32();
           switch (tag >>> 3) {

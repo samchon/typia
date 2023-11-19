@@ -46,7 +46,7 @@ export const test_protobuf_createIsEncode_CommentTagTypeBigInt =
         const output = {
           in64: undefined as any,
           uint64: undefined as any,
-        };
+        } as any;
         while (reader.index() < length) {
           const tag = reader.uint32();
           switch (tag >>> 3) {

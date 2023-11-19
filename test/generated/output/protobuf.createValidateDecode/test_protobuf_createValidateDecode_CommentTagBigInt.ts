@@ -136,7 +136,7 @@ export const test_protobuf_createValidateDecode_CommentTagBigInt =
             minimum: undefined as any,
             maximum: undefined as any,
             multipleOf: undefined as any,
-          };
+          } as any;
           while (reader.index() < length) {
             const tag = reader.uint32();
             switch (tag >>> 3) {

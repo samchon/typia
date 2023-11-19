@@ -651,7 +651,7 @@ export const test_protobuf_createValidateDecode_ObjectUnionExplicitPointer =
             length = length < 0 ? reader.size() : reader.index() + length;
             const output = {
               value: [] as any,
-            };
+            } as any;
             while (reader.index() < length) {
               const tag = reader.uint32();
               switch (tag >>> 3) {
@@ -670,7 +670,7 @@ export const test_protobuf_createValidateDecode_ObjectUnionExplicitPointer =
             length = length < 0 ? reader.size() : reader.index() + length;
             const output = {
               value: undefined as any,
-            };
+            } as any;
             while (reader.index() < length) {
               const tag = reader.uint32();
               switch (tag >>> 3) {
@@ -715,7 +715,7 @@ export const test_protobuf_createValidateDecode_ObjectUnionExplicitPointer =
               x: undefined as any,
               y: undefined as any,
               type: undefined as any,
-            };
+            } as any;
             while (reader.index() < length) {
               const tag = reader.uint32();
               switch (tag >>> 3) {
@@ -744,7 +744,7 @@ export const test_protobuf_createValidateDecode_ObjectUnionExplicitPointer =
               p1: undefined as any,
               p2: undefined as any,
               type: undefined as any,
-            };
+            } as any;
             while (reader.index() < length) {
               const tag = reader.uint32();
               switch (tag >>> 3) {
@@ -772,7 +772,7 @@ export const test_protobuf_createValidateDecode_ObjectUnionExplicitPointer =
             const output = {
               x: undefined as any,
               y: undefined as any,
-            };
+            } as any;
             while (reader.index() < length) {
               const tag = reader.uint32();
               switch (tag >>> 3) {
@@ -798,7 +798,7 @@ export const test_protobuf_createValidateDecode_ObjectUnionExplicitPointer =
               p2: undefined as any,
               p3: undefined as any,
               type: undefined as any,
-            };
+            } as any;
             while (reader.index() < length) {
               const tag = reader.uint32();
               switch (tag >>> 3) {
@@ -833,7 +833,7 @@ export const test_protobuf_createValidateDecode_ObjectUnionExplicitPointer =
               p3: undefined as any,
               p4: undefined as any,
               type: undefined as any,
-            };
+            } as any;
             while (reader.index() < length) {
               const tag = reader.uint32();
               switch (tag >>> 3) {
@@ -869,7 +869,7 @@ export const test_protobuf_createValidateDecode_ObjectUnionExplicitPointer =
             const output = {
               points: [] as any,
               type: undefined as any,
-            };
+            } as any;
             while (reader.index() < length) {
               const tag = reader.uint32();
               switch (tag >>> 3) {
@@ -894,7 +894,7 @@ export const test_protobuf_createValidateDecode_ObjectUnionExplicitPointer =
               outer: undefined as any,
               inner: [] as any,
               type: undefined as any,
-            };
+            } as any;
             while (reader.index() < length) {
               const tag = reader.uint32();
               switch (tag >>> 3) {
@@ -921,7 +921,7 @@ export const test_protobuf_createValidateDecode_ObjectUnionExplicitPointer =
             length = length < 0 ? reader.size() : reader.index() + length;
             const output = {
               points: [] as any,
-            };
+            } as any;
             while (reader.index() < length) {
               const tag = reader.uint32();
               switch (tag >>> 3) {
@@ -942,7 +942,7 @@ export const test_protobuf_createValidateDecode_ObjectUnionExplicitPointer =
               centroid: undefined as any,
               radius: undefined as any,
               type: undefined as any,
-            };
+            } as any;
             while (reader.index() < length) {
               const tag = reader.uint32();
               switch (tag >>> 3) {

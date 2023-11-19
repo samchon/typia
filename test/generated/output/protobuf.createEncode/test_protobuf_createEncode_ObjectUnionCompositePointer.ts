@@ -336,7 +336,7 @@ export const test_protobuf_createEncode_ObjectUnionCompositePointer =
         length = length < 0 ? reader.size() : reader.index() + length;
         const output = {
           value: [] as any,
-        };
+        } as any;
         while (reader.index() < length) {
           const tag = reader.uint32();
           switch (tag >>> 3) {
@@ -355,7 +355,7 @@ export const test_protobuf_createEncode_ObjectUnionCompositePointer =
         length = length < 0 ? reader.size() : reader.index() + length;
         const output = {
           value: undefined as any,
-        };
+        } as any;
         while (reader.index() < length) {
           const tag = reader.uint32();
           switch (tag >>> 3) {
@@ -403,7 +403,7 @@ export const test_protobuf_createEncode_ObjectUnionCompositePointer =
         const output = {
           x: undefined as any,
           y: undefined as any,
-        };
+        } as any;
         while (reader.index() < length) {
           const tag = reader.uint32();
           switch (tag >>> 3) {
@@ -427,7 +427,7 @@ export const test_protobuf_createEncode_ObjectUnionCompositePointer =
         const output = {
           p1: undefined as any,
           p2: undefined as any,
-        };
+        } as any;
         while (reader.index() < length) {
           const tag = reader.uint32();
           switch (tag >>> 3) {
@@ -452,7 +452,7 @@ export const test_protobuf_createEncode_ObjectUnionCompositePointer =
           p1: undefined as any,
           p2: undefined as any,
           p3: undefined as any,
-        };
+        } as any;
         while (reader.index() < length) {
           const tag = reader.uint32();
           switch (tag >>> 3) {
@@ -482,7 +482,7 @@ export const test_protobuf_createEncode_ObjectUnionCompositePointer =
           p2: undefined as any,
           p3: undefined as any,
           p4: undefined as any,
-        };
+        } as any;
         while (reader.index() < length) {
           const tag = reader.uint32();
           switch (tag >>> 3) {
@@ -513,7 +513,7 @@ export const test_protobuf_createEncode_ObjectUnionCompositePointer =
         length = length < 0 ? reader.size() : reader.index() + length;
         const output = {
           points: [] as any,
-        };
+        } as any;
         while (reader.index() < length) {
           const tag = reader.uint32();
           switch (tag >>> 3) {
@@ -533,7 +533,7 @@ export const test_protobuf_createEncode_ObjectUnionCompositePointer =
         const output = {
           outer: undefined as any,
           inner: [] as any,
-        };
+        } as any;
         while (reader.index() < length) {
           const tag = reader.uint32();
           switch (tag >>> 3) {
@@ -557,7 +557,7 @@ export const test_protobuf_createEncode_ObjectUnionCompositePointer =
         const output = {
           outer: [] as any,
           inner: undefined as any,
-        };
+        } as any;
         while (reader.index() < length) {
           const tag = reader.uint32();
           switch (tag >>> 3) {
@@ -581,7 +581,7 @@ export const test_protobuf_createEncode_ObjectUnionCompositePointer =
         const output = {
           centroid: undefined as any,
           radius: undefined as any,
-        };
+        } as any;
         while (reader.index() < length) {
           const tag = reader.uint32();
           switch (tag >>> 3) {

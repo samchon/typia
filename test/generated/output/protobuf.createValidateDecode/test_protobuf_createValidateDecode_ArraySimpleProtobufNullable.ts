@@ -421,7 +421,7 @@ export const test_protobuf_createValidateDecode_ArraySimpleProtobufNullable =
             string: null as any,
             bytes: null as any,
             object: null as any,
-          };
+          } as any;
           while (reader.index() < length) {
             const tag = reader.uint32();
             switch (tag >>> 3) {

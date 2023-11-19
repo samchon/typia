@@ -208,7 +208,7 @@ export const test_protobuf_createValidateEncode_CommentTagInfinite =
           maximum: undefined as any,
           multipleOf: undefined as any,
           typed: undefined as any,
-        };
+        } as any;
         while (reader.index() < length) {
           const tag = reader.uint32();
           switch (tag >>> 3) {

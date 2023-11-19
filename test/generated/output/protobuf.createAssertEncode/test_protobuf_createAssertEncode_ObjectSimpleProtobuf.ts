@@ -213,7 +213,7 @@ export const test_protobuf_createAssertEncode_ObjectSimpleProtobuf =
           double: undefined as any,
           string: "" as any,
           bytes: new Uint8Array() as any,
-        };
+        } as any;
         while (reader.index() < length) {
           const tag = reader.uint32();
           switch (tag >>> 3) {

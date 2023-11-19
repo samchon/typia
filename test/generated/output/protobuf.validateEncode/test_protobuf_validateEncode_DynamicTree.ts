@@ -196,7 +196,7 @@ export const test_protobuf_createValidateEncode_DynamicTree =
           id: "" as any,
           sequence: undefined as any,
           children: {} as any,
-        };
+        } as any;
         while (reader.index() < length) {
           const tag = reader.uint32();
           switch (tag >>> 3) {
@@ -215,7 +215,7 @@ export const test_protobuf_createValidateEncode_DynamicTree =
                 const entry = {
                   key: "" as any,
                   value: undefined as any,
-                };
+                } as any;
                 while (reader.index() < piece) {
                   const kind = reader.uint32();
                   switch (kind >>> 3) {

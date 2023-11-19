@@ -45,7 +45,7 @@ export const test_protobuf_createIsEncode_ClassMethod = _test_protobuf_isEncode(
       const output = {
         name: "" as any,
         age: undefined as any,
-      };
+      } as any;
       while (reader.index() < length) {
         const tag = reader.uint32();
         switch (tag >>> 3) {

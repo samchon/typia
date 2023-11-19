@@ -193,7 +193,7 @@ export const test_protobuf_createValidateDecode_ObjectHttpArray =
               numbers: [] as any,
               strings: [] as any,
               templates: [] as any,
-            };
+            } as any;
             while (reader.index() < length) {
               const tag = reader.uint32();
               switch (tag >>> 3) {

@@ -69,12 +69,9 @@ export const test_protobuf_createEncode_ObjectPartialAndRequired =
       const $pdo0 = (reader: any, length: number = -1): any => {
         length = length < 0 ? reader.size() : reader.index() + length;
         const output = {
-          string: undefined as any,
-          number: undefined as any,
-          boolean: undefined as any,
           object: null as any,
           array: [] as any,
-        };
+        } as any;
         while (reader.index() < length) {
           const tag = reader.uint32();
           switch (tag >>> 3) {

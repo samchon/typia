@@ -260,7 +260,7 @@ export const test_protobuf_createValidateEncode_ObjectPrimitive =
           files: [] as any,
           secret: undefined as any,
           created_at: "" as any,
-        };
+        } as any;
         while (reader.index() < length) {
           const tag = reader.uint32();
           switch (tag >>> 3) {
@@ -307,7 +307,7 @@ export const test_protobuf_createValidateEncode_ObjectPrimitive =
           extension: "" as any,
           url: "" as any,
           created_at: "" as any,
-        };
+        } as any;
         while (reader.index() < length) {
           const tag = reader.uint32();
           switch (tag >>> 3) {
