@@ -13,15 +13,7 @@ export const test_protobuf_createAssertDecode_MapSimpleProtobufOptional =
         const $Reader = (typia.protobuf.createAssertDecode as any).Reader;
         const $pdo0 = (reader: any, length: number = -1): any => {
           length = length < 0 ? reader.size() : reader.index() + length;
-          const output = {
-            boolean: undefined as any,
-            int32: undefined as any,
-            bigint: undefined as any,
-            double: undefined as any,
-            string: undefined as any,
-            bytes: undefined as any,
-            objects: undefined as any,
-          };
+          const output = {} as any;
           while (reader.index() < length) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -33,7 +25,7 @@ export const test_protobuf_createAssertDecode_MapSimpleProtobufOptional =
                   const entry = {
                     key: "" as any,
                     value: undefined as any,
-                  };
+                  } as any;
                   while (reader.index() < piece) {
                     const kind = reader.uint32();
                     switch (kind >>> 3) {
@@ -61,7 +53,7 @@ export const test_protobuf_createAssertDecode_MapSimpleProtobufOptional =
                   const entry = {
                     key: "" as any,
                     value: undefined as any,
-                  };
+                  } as any;
                   while (reader.index() < piece) {
                     const kind = reader.uint32();
                     switch (kind >>> 3) {
@@ -89,7 +81,7 @@ export const test_protobuf_createAssertDecode_MapSimpleProtobufOptional =
                   const entry = {
                     key: "" as any,
                     value: undefined as any,
-                  };
+                  } as any;
                   while (reader.index() < piece) {
                     const kind = reader.uint32();
                     switch (kind >>> 3) {
@@ -117,7 +109,7 @@ export const test_protobuf_createAssertDecode_MapSimpleProtobufOptional =
                   const entry = {
                     key: "" as any,
                     value: undefined as any,
-                  };
+                  } as any;
                   while (reader.index() < piece) {
                     const kind = reader.uint32();
                     switch (kind >>> 3) {
@@ -145,7 +137,7 @@ export const test_protobuf_createAssertDecode_MapSimpleProtobufOptional =
                   const entry = {
                     key: "" as any,
                     value: "" as any,
-                  };
+                  } as any;
                   while (reader.index() < piece) {
                     const kind = reader.uint32();
                     switch (kind >>> 3) {
@@ -173,7 +165,7 @@ export const test_protobuf_createAssertDecode_MapSimpleProtobufOptional =
                   const entry = {
                     key: "" as any,
                     value: new Uint8Array() as any,
-                  };
+                  } as any;
                   while (reader.index() < piece) {
                     const kind = reader.uint32();
                     switch (kind >>> 3) {
@@ -201,7 +193,7 @@ export const test_protobuf_createAssertDecode_MapSimpleProtobufOptional =
                   const entry = {
                     key: "" as any,
                     value: undefined as any,
-                  };
+                  } as any;
                   while (reader.index() < piece) {
                     const kind = reader.uint32();
                     switch (kind >>> 3) {

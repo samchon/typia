@@ -134,7 +134,7 @@ export const test_protobuf_createValidateEncode_ClassPropertyAssignment =
           note: undefined as any,
           editable: undefined as any,
           incremental: undefined as any,
-        };
+        } as any;
         while (reader.index() < length) {
           const tag = reader.uint32();
           switch (tag >>> 3) {

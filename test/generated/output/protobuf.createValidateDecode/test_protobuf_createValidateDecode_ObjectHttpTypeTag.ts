@@ -225,7 +225,7 @@ export const test_protobuf_createValidateDecode_ObjectHttpTypeTag =
             uuid: "" as any,
             range: [] as any,
             length: [] as any,
-          };
+          } as any;
           while (reader.index() < length) {
             const tag = reader.uint32();
             switch (tag >>> 3) {

@@ -175,7 +175,7 @@ export const test_protobuf_createEncode_MapSimpleProtobuf =
           string: new Map() as any,
           bytes: new Map() as any,
           objects: new Map() as any,
-        };
+        } as any;
         while (reader.index() < length) {
           const tag = reader.uint32();
           switch (tag >>> 3) {
@@ -186,7 +186,7 @@ export const test_protobuf_createEncode_MapSimpleProtobuf =
                 const entry = {
                   key: "" as any,
                   value: undefined as any,
-                };
+                } as any;
                 while (reader.index() < piece) {
                   const kind = reader.uint32();
                   switch (kind >>> 3) {
@@ -213,7 +213,7 @@ export const test_protobuf_createEncode_MapSimpleProtobuf =
                 const entry = {
                   key: "" as any,
                   value: undefined as any,
-                };
+                } as any;
                 while (reader.index() < piece) {
                   const kind = reader.uint32();
                   switch (kind >>> 3) {
@@ -240,7 +240,7 @@ export const test_protobuf_createEncode_MapSimpleProtobuf =
                 const entry = {
                   key: "" as any,
                   value: undefined as any,
-                };
+                } as any;
                 while (reader.index() < piece) {
                   const kind = reader.uint32();
                   switch (kind >>> 3) {
@@ -267,7 +267,7 @@ export const test_protobuf_createEncode_MapSimpleProtobuf =
                 const entry = {
                   key: "" as any,
                   value: undefined as any,
-                };
+                } as any;
                 while (reader.index() < piece) {
                   const kind = reader.uint32();
                   switch (kind >>> 3) {
@@ -294,7 +294,7 @@ export const test_protobuf_createEncode_MapSimpleProtobuf =
                 const entry = {
                   key: "" as any,
                   value: "" as any,
-                };
+                } as any;
                 while (reader.index() < piece) {
                   const kind = reader.uint32();
                   switch (kind >>> 3) {
@@ -321,7 +321,7 @@ export const test_protobuf_createEncode_MapSimpleProtobuf =
                 const entry = {
                   key: "" as any,
                   value: new Uint8Array() as any,
-                };
+                } as any;
                 while (reader.index() < piece) {
                   const kind = reader.uint32();
                   switch (kind >>> 3) {
@@ -348,7 +348,7 @@ export const test_protobuf_createEncode_MapSimpleProtobuf =
                 const entry = {
                   key: "" as any,
                   value: undefined as any,
-                };
+                } as any;
                 while (reader.index() < piece) {
                   const kind = reader.uint32();
                   switch (kind >>> 3) {

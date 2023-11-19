@@ -12,7 +12,7 @@ export const test_protobuf_createDecode_ObjectNullable = _test_protobuf_decode(
         length = length < 0 ? reader.size() : reader.index() + length;
         const output = {
           value: [] as any,
-        };
+        } as any;
         while (reader.index() < length) {
           const tag = reader.uint32();
           switch (tag >>> 3) {
@@ -34,7 +34,7 @@ export const test_protobuf_createDecode_ObjectNullable = _test_protobuf_decode(
           manufacturer: undefined as any,
           brand: null as any,
           similar: null as any,
-        };
+        } as any;
         while (reader.index() < length) {
           const tag = reader.uint32();
           switch (tag >>> 3) {
@@ -70,7 +70,7 @@ export const test_protobuf_createDecode_ObjectNullable = _test_protobuf_decode(
         const output = {
           type: undefined as any,
           name: "" as any,
-        };
+        } as any;
         while (reader.index() < length) {
           const tag = reader.uint32();
           switch (tag >>> 3) {
@@ -94,7 +94,7 @@ export const test_protobuf_createDecode_ObjectNullable = _test_protobuf_decode(
         const output = {
           type: undefined as any,
           name: "" as any,
-        };
+        } as any;
         while (reader.index() < length) {
           const tag = reader.uint32();
           switch (tag >>> 3) {

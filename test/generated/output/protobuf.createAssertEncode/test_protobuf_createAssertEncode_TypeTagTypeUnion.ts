@@ -548,7 +548,7 @@ export const test_protobuf_createAssertEncode_TypeTagTypeUnion =
           int64_or_double: undefined as any,
           float_or_double: undefined as any,
           everything: undefined as any,
-        };
+        } as any;
         while (reader.index() < length) {
           const tag = reader.uint32();
           switch (tag >>> 3) {

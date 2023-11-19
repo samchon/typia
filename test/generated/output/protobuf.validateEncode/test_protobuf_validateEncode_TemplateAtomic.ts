@@ -190,7 +190,7 @@ export const test_protobuf_createValidateEncode_TemplateAtomic =
           middle_boolean: undefined as any,
           ipv4: undefined as any,
           email: undefined as any,
-        };
+        } as any;
         while (reader.index() < length) {
           const tag = reader.uint32();
           switch (tag >>> 3) {

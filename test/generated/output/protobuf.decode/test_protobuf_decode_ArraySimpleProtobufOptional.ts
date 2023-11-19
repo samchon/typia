@@ -11,18 +11,7 @@ export const test_protobuf_createDecode_ArraySimpleProtobufOptional =
         const $Reader = (typia.protobuf.decode as any).Reader;
         const $pdo0 = (reader: any, length: number = -1): any => {
           length = length < 0 ? reader.size() : reader.index() + length;
-          const output = {
-            boolean: undefined as any,
-            int32: undefined as any,
-            uint32: undefined as any,
-            int64: undefined as any,
-            uint64: undefined as any,
-            float: undefined as any,
-            double: undefined as any,
-            string: undefined as any,
-            bytes: undefined as any,
-            object: undefined as any,
-          };
+          const output = {} as any;
           while (reader.index() < length) {
             const tag = reader.uint32();
             switch (tag >>> 3) {

@@ -10,12 +10,7 @@ export const test_protobuf_createAssertDecode_ObjectOptional =
           const $Reader = (typia.protobuf.createAssertDecode as any).Reader;
           const $pdo0 = (reader: any, length: number = -1): any => {
             length = length < 0 ? reader.size() : reader.index() + length;
-            const output = {
-              id: undefined as any,
-              name: undefined as any,
-              email: undefined as any,
-              sequence: undefined as any,
-            };
+            const output = {} as any;
             while (reader.index() < length) {
               const tag = reader.uint32();
               switch (tag >>> 3) {

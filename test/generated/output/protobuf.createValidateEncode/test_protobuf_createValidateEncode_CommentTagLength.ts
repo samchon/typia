@@ -253,7 +253,7 @@ export const test_protobuf_createValidateEncode_CommentTagLength =
         length = length < 0 ? reader.size() : reader.index() + length;
         const output = {
           value: [] as any,
-        };
+        } as any;
         while (reader.index() < length) {
           const tag = reader.uint32();
           switch (tag >>> 3) {
@@ -276,7 +276,7 @@ export const test_protobuf_createValidateEncode_CommentTagLength =
           maximum: "" as any,
           minimum_and_maximum: "" as any,
           equal: "" as any,
-        };
+        } as any;
         while (reader.index() < length) {
           const tag = reader.uint32();
           switch (tag >>> 3) {

@@ -174,7 +174,7 @@ export const test_protobuf_createValidateEncode_TypeTagPattern =
           email: "" as any,
           ipv4: "" as any,
           ipv6: "" as any,
-        };
+        } as any;
         while (reader.index() < length) {
           const tag = reader.uint32();
           switch (tag >>> 3) {

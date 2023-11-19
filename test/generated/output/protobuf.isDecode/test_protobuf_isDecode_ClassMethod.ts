@@ -23,7 +23,7 @@ export const test_protobuf_createIsDecode_ClassMethod = _test_protobuf_isDecode(
           const output = {
             name: "" as any,
             age: undefined as any,
-          };
+          } as any;
           while (reader.index() < length) {
             const tag = reader.uint32();
             switch (tag >>> 3) {

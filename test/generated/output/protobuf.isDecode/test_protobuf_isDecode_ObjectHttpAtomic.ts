@@ -30,7 +30,7 @@ export const test_protobuf_createIsDecode_ObjectHttpAtomic =
               bigint: undefined as any,
               number: undefined as any,
               string: "" as any,
-            };
+            } as any;
             while (reader.index() < length) {
               const tag = reader.uint32();
               switch (tag >>> 3) {

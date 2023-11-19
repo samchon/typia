@@ -153,7 +153,7 @@ export const test_protobuf_createEncode_ArrayHierarchicalPointer =
         length = length < 0 ? reader.size() : reader.index() + length;
         const output = {
           value: [] as any,
-        };
+        } as any;
         while (reader.index() < length) {
           const tag = reader.uint32();
           switch (tag >>> 3) {
@@ -176,7 +176,7 @@ export const test_protobuf_createEncode_ArrayHierarchicalPointer =
           name: "" as any,
           established_at: undefined as any,
           departments: [] as any,
-        };
+        } as any;
         while (reader.index() < length) {
           const tag = reader.uint32();
           switch (tag >>> 3) {
@@ -212,7 +212,7 @@ export const test_protobuf_createEncode_ArrayHierarchicalPointer =
         const output = {
           time: undefined as any,
           zone: undefined as any,
-        };
+        } as any;
         while (reader.index() < length) {
           const tag = reader.uint32();
           switch (tag >>> 3) {
@@ -239,7 +239,7 @@ export const test_protobuf_createEncode_ArrayHierarchicalPointer =
           sales: undefined as any,
           created_at: undefined as any,
           employees: [] as any,
-        };
+        } as any;
         while (reader.index() < length) {
           const tag = reader.uint32();
           switch (tag >>> 3) {
@@ -278,7 +278,7 @@ export const test_protobuf_createEncode_ArrayHierarchicalPointer =
           age: undefined as any,
           grade: undefined as any,
           employeed_at: undefined as any,
-        };
+        } as any;
         while (reader.index() < length) {
           const tag = reader.uint32();
           switch (tag >>> 3) {

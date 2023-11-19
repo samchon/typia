@@ -33,7 +33,7 @@ export const test_protobuf_createEncode_ClassNonPublic = _test_protobuf_encode(
       const output = {
         implicit: "" as any,
         shown: "" as any,
-      };
+      } as any;
       while (reader.index() < length) {
         const tag = reader.uint32();
         switch (tag >>> 3) {

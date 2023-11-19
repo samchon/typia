@@ -76,7 +76,7 @@ export const test_protobuf_createIsDecode_ArraySimpleProtobuf =
               string: [] as any,
               bytes: [] as any,
               object: [] as any,
-            };
+            } as any;
             while (reader.index() < length) {
               const tag = reader.uint32();
               switch (tag >>> 3) {

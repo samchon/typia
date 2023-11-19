@@ -15,7 +15,7 @@ export const test_protobuf_createDecode_ArrayRecursiveUnionExplicitPointer =
           length = length < 0 ? reader.size() : reader.index() + length;
           const output = {
             value: [] as any,
-          };
+          } as any;
           while (reader.index() < length) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -34,7 +34,7 @@ export const test_protobuf_createDecode_ArrayRecursiveUnionExplicitPointer =
           length = length < 0 ? reader.size() : reader.index() + length;
           const output = {
             value: undefined as any,
-          };
+          } as any;
           while (reader.index() < length) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -73,7 +73,7 @@ export const test_protobuf_createDecode_ArrayRecursiveUnionExplicitPointer =
             path: "" as any,
             children: [] as any,
             type: undefined as any,
-          };
+          } as any;
           while (reader.index() < length) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -116,7 +116,7 @@ export const test_protobuf_createDecode_ArrayRecursiveUnionExplicitPointer =
             size: undefined as any,
             type: undefined as any,
             extension: undefined as any,
-          };
+          } as any;
           while (reader.index() < length) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -173,7 +173,7 @@ export const test_protobuf_createDecode_ArrayRecursiveUnionExplicitPointer =
             content: "" as any,
             type: undefined as any,
             extension: undefined as any,
-          };
+          } as any;
           while (reader.index() < length) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -222,7 +222,7 @@ export const test_protobuf_createDecode_ArrayRecursiveUnionExplicitPointer =
             count: undefined as any,
             type: undefined as any,
             extension: undefined as any,
-          };
+          } as any;
           while (reader.index() < length) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -270,7 +270,7 @@ export const test_protobuf_createDecode_ArrayRecursiveUnionExplicitPointer =
             target: undefined as any,
             type: undefined as any,
             extension: undefined as any,
-          };
+          } as any;
           while (reader.index() < length) {
             const tag = reader.uint32();
             switch (tag >>> 3) {

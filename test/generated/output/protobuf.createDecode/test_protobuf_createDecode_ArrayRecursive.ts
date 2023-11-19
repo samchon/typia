@@ -15,7 +15,7 @@ export const test_protobuf_createDecode_ArrayRecursive = _test_protobuf_decode(
         code: "" as any,
         sequence: undefined as any,
         created_at: undefined as any,
-      };
+      } as any;
       while (reader.index() < length) {
         const tag = reader.uint32();
         switch (tag >>> 3) {
@@ -51,7 +51,7 @@ export const test_protobuf_createDecode_ArrayRecursive = _test_protobuf_decode(
       const output = {
         time: undefined as any,
         zone: undefined as any,
-      };
+      } as any;
       while (reader.index() < length) {
         const tag = reader.uint32();
         switch (tag >>> 3) {

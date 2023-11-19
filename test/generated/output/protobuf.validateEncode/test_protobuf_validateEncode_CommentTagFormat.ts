@@ -235,7 +235,7 @@ export const test_protobuf_createValidateEncode_CommentTagFormat =
           date: "" as any,
           date_time: "" as any,
           custom: "" as any,
-        };
+        } as any;
         while (reader.index() < length) {
           const tag = reader.uint32();
           switch (tag >>> 3) {

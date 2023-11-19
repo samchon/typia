@@ -41,7 +41,7 @@ export const test_protobuf_createEncode_TypeTagCustom = _test_protobuf_encode(
         dollar: "" as any,
         postfix: "" as any,
         powerOf: undefined as any,
-      };
+      } as any;
       while (reader.index() < length) {
         const tag = reader.uint32();
         switch (tag >>> 3) {

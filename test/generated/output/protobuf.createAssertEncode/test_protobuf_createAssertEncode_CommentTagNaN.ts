@@ -190,7 +190,7 @@ export const test_protobuf_createAssertEncode_CommentTagNaN =
           maximum: undefined as any,
           multipleOf: undefined as any,
           typed: undefined as any,
-        };
+        } as any;
         while (reader.index() < length) {
           const tag = reader.uint32();
           switch (tag >>> 3) {

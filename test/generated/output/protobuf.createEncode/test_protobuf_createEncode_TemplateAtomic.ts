@@ -56,7 +56,7 @@ export const test_protobuf_createEncode_TemplateAtomic = _test_protobuf_encode(
         middle_boolean: undefined as any,
         ipv4: undefined as any,
         email: undefined as any,
-      };
+      } as any;
       while (reader.index() < length) {
         const tag = reader.uint32();
         switch (tag >>> 3) {
