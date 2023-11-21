@@ -3,8 +3,8 @@ import { ProtobufAssertDecodeProgrammer } from "../../../programmers/protobuf/Pr
 import { GenericTransformer } from "../../internal/GenericTransformer";
 
 export namespace ProtobufAssertDecodeTransformer {
-    export const transform = GenericTransformer.scalar("protobuf.assertDecode")(
-        (project) => (modulo) =>
-            ProtobufAssertDecodeProgrammer.write(project)(modulo),
-    );
+  export const transform = GenericTransformer.scalar("protobuf.assertDecode")(
+    (project) => (modulo) =>
+      ProtobufAssertDecodeProgrammer.write(project)(modulo),
+  );
 }

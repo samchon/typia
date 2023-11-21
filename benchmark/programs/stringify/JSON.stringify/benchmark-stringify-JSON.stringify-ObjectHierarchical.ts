@@ -2,5 +2,5 @@ import { ObjectHierarchical } from "../../../../test/structures/ObjectHierarchic
 import { createStringifyBenchmarkProgram } from "../createStringifyBenchmarkProgram";
 
 createStringifyBenchmarkProgram((value: ObjectHierarchical) =>
-    JSON.stringify(value),
+  JSON.stringify(value),
 );

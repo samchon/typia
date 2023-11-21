@@ -1,10 +1,10 @@
 import typia from "typia";
 
 interface IPointer<T> {
-    value: T;
+  value: T;
 }
 type IArray<Key extends string> = {
-    [P in Key]: string[];
+  [P in Key]: string[];
 };
 
 typia.http.createQuery<IPointer<number | string>>();

@@ -2,5 +2,5 @@ import { ArrayRecursiveUnionExplicit } from "../../../../test/structures/ArrayRe
 import { createStringifyBenchmarkProgram } from "../createStringifyBenchmarkProgram";
 
 createStringifyBenchmarkProgram((value: ArrayRecursiveUnionExplicit) =>
-    JSON.stringify(value),
+  JSON.stringify(value),
 );

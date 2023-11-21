@@ -1,7 +1,7 @@
 import { IMetadata } from "./IMetadata";
-import { IMetadataCollection } from "./IMetadataCollection";
+import { IMetadataComponents } from "./IMetadataComponents";
 
 export interface IMetadataApplication {
-    metadatas: IMetadata[];
-    collection: IMetadataCollection;
+  metadatas: IMetadata[];
+  components: IMetadataComponents;
 }

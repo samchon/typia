@@ -4,5 +4,5 @@ import { ArrayHierarchical } from "../../../../test/structures/ArrayHierarchical
 import { createStringifyBenchmarkProgram } from "../createStringifyBenchmarkProgram";
 
 createStringifyBenchmarkProgram(
-    typia.json.createAssertStringify<ArrayHierarchical>(),
+  typia.json.createAssertStringify<ArrayHierarchical>(),
 );

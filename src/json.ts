@@ -61,15 +61,15 @@ export function application(): never;
  * @author Jeongho Nam - https://github.com/samchon
  */
 export function application<
-    Types extends unknown[],
-    Purpose extends "ajv" | "swagger" = "swagger",
+  Types extends unknown[],
+  Purpose extends "ajv" | "swagger" = "swagger",
 >(): IJsonApplication;
 
 /**
  * @internal
  */
 export function application(): never {
-    halt("application");
+  halt("application");
 }
 
 /* -----------------------------------------------------------
@@ -119,7 +119,7 @@ export function assertParse<T>(input: string): Primitive<T>;
  * @internal
  */
 export function assertParse<T>(): Primitive<T> {
-    halt("assertParse");
+  halt("assertParse");
 }
 Object.assign(assertParse, Namespace.assert("json.assertParse"));
 
@@ -167,7 +167,7 @@ export function isParse<T>(input: string): Primitive<T> | null;
  * @internal
  */
 export function isParse<T>(): Primitive<T> | null {
-    halt("isParse");
+  halt("isParse");
 }
 Object.assign(isParse, Namespace.is());
 
@@ -217,7 +217,7 @@ export function validateParse<T>(input: string): IValidation<Primitive<T>>;
  * @internal
  */
 export function validateParse<T>(): IValidation<Primitive<T>> {
-    halt("validateParse");
+  halt("validateParse");
 }
 Object.assign(validateParse, Namespace.validate());
 
@@ -252,7 +252,7 @@ export function stringify<T>(input: T): string;
  * @internal
  */
 export function stringify(): never {
-    halt("stringify");
+  halt("stringify");
 }
 Object.assign(stringify, Namespace.json.stringify("stringify"));
 
@@ -306,7 +306,7 @@ export function assertStringify<T>(input: T): unknown;
  * @internal
  */
 export function assertStringify(): string {
-    halt("assertStringify");
+  halt("assertStringify");
 }
 Object.assign(assertStringify, Namespace.assert("json.assertStringify"));
 Object.assign(assertStringify, Namespace.json.stringify("assertStringify"));
@@ -361,7 +361,7 @@ export function isStringify<T>(input: unknown): string | null;
  * @internal
  */
 export function isStringify(): string | null {
-    halt("isStringify");
+  halt("isStringify");
 }
 
 Object.assign(isStringify, Namespace.is());
@@ -419,7 +419,7 @@ export function validateStringify<T>(input: unknown): IValidation<string>;
  * @internal
  */
 export function validateStringify(): IValidation<string> {
-    halt("validateStringify");
+  halt("validateStringify");
 }
 Object.assign(validateStringify, Namespace.validate());
 Object.assign(validateStringify, Namespace.json.stringify("validateStringify"));
@@ -452,7 +452,7 @@ export function createIsParse<T>(): (input: string) => Primitive<T> | null;
  * @internal
  */
 export function createIsParse<T>(): (input: string) => Primitive<T> | null {
-    halt("createIsParse");
+  halt("createIsParse");
 }
 Object.assign(createIsParse, isParse);
 
@@ -481,7 +481,7 @@ export function createAssertParse<T>(): (input: string) => Primitive<T>;
  * @internal
  */
 export function createAssertParse<T>(): (input: string) => Primitive<T> {
-    halt("createAssertParse");
+  halt("createAssertParse");
 }
 Object.assign(createAssertParse, assertParse);
 
@@ -505,16 +505,16 @@ export function createValidateParse(): never;
  * @author Jeongho Nam - https://github.com/samchon
  */
 export function createValidateParse<T>(): (
-    input: string,
+  input: string,
 ) => IValidation<Primitive<T>>;
 
 /**
  * @internal
  */
 export function createValidateParse<T>(): (
-    input: string,
+  input: string,
 ) => IValidation<Primitive<T>> {
-    halt("createValidateParse");
+  halt("createValidateParse");
 }
 Object.assign(createValidateParse, validateParse);
 
@@ -543,7 +543,7 @@ export function createStringify<T>(): (input: T) => string;
  * @internal
  */
 export function createStringify<T>(): (input: T) => string {
-    halt("createStringify");
+  halt("createStringify");
 }
 Object.assign(createStringify, stringify);
 
@@ -572,7 +572,7 @@ export function createAssertStringify<T>(): (input: unknown) => string;
  * @internal
  */
 export function createAssertStringify(): (input: unknown) => string {
-    halt("createAssertStringify");
+  halt("createAssertStringify");
 }
 Object.assign(createAssertStringify, assertStringify);
 
@@ -601,7 +601,7 @@ export function createIsStringify<T>(): (input: unknown) => string | null;
  * @internal
  */
 export function createIsStringify(): (input: unknown) => string | null {
-    halt("createIsStringify");
+  halt("createIsStringify");
 }
 Object.assign(createIsStringify, isStringify);
 
@@ -625,16 +625,16 @@ export function createValidateStringify(): never;
  * @author Jeongho Nam - https://github.com/samchon
  */
 export function createValidateStringify<T>(): (
-    input: unknown,
+  input: unknown,
 ) => IValidation<string>;
 
 /**
  * @internal
  */
 export function createValidateStringify(): (
-    input: unknown,
+  input: unknown,
 ) => IValidation<string> {
-    halt("createValidateStringify");
+  halt("createValidateStringify");
 }
 Object.assign(createValidateStringify, validateStringify);
 
@@ -642,7 +642,7 @@ Object.assign(createValidateStringify, validateStringify);
  * @internal
  */
 function halt(name: string): never {
-    throw new Error(
-        `Error on typia.json.${name}(): no transform has been configured. Read and follow https://typia.json.io/docs/setup please.`,
-    );
+  throw new Error(
+    `Error on typia.json.${name}(): no transform has been configured. Read and follow https://typia.json.io/docs/setup please.`,
+  );
 }

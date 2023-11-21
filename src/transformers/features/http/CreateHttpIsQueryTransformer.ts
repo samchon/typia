@@ -3,7 +3,7 @@ import { HttpIsQueryProgrammer } from "../../../programmers/http/HttpIsQueryProg
 import { GenericTransformer } from "../../internal/GenericTransformer";
 
 export namespace CreateHttpIsQueryTransformer {
-    export const transform = GenericTransformer.factory("http.createIsQuery")(
-        (project) => (modulo) => HttpIsQueryProgrammer.write(project)(modulo),
-    );
+  export const transform = GenericTransformer.factory("http.createIsQuery")(
+    (project) => (modulo) => HttpIsQueryProgrammer.write(project)(modulo),
+  );
 }

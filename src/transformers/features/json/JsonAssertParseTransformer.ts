@@ -3,8 +3,7 @@ import { JsonAssertParseProgrammer } from "../../../programmers/json/JsonAssertP
 import { GenericTransformer } from "../../internal/GenericTransformer";
 
 export namespace JsonAssertParseTransformer {
-    export const transform = GenericTransformer.scalar("json.assertParse")(
-        (project) => (modulo) =>
-            JsonAssertParseProgrammer.write(project)(modulo),
-    );
+  export const transform = GenericTransformer.scalar("json.assertParse")(
+    (project) => (modulo) => JsonAssertParseProgrammer.write(project)(modulo),
+  );
 }

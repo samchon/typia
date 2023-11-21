@@ -2,5 +2,5 @@ import { ClassValidatorArrayRecursiveUnionExplicit } from "../../../structures/c
 import { createStringifyClassTransformerBenchmarkProgram } from "./createStringifyClassTransformerBenchmarkProgram";
 
 createStringifyClassTransformerBenchmarkProgram(
-    ClassValidatorArrayRecursiveUnionExplicit,
+  ClassValidatorArrayRecursiveUnionExplicit,
 );

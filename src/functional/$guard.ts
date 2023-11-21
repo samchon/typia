@@ -22,14 +22,14 @@ import { TypeGuardError } from "../TypeGuardError";
  * @internal
  */
 export const $guard =
-    (method: string) =>
-    (exceptionable: boolean, props: Omit<TypeGuardError.IProps, "method">) => {
-        if (exceptionable === true)
-            throw new TypeGuardError({
-                method,
-                path: props.path,
-                expected: props.expected,
-                value: props.value,
-            });
-        return false;
-    };
+  (method: string) =>
+  (exceptionable: boolean, props: Omit<TypeGuardError.IProps, "method">) => {
+    if (exceptionable === true)
+      throw new TypeGuardError({
+        method,
+        path: props.path,
+        expected: props.expected,
+        value: props.value,
+      });
+    return false;
+  };

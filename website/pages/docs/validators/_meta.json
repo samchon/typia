@@ -1,6 +1,6 @@
 {
-    "is": "is() function",
     "assert": "assert() function",
+    "is": "is() function",
     "validate": "validate() function",
     "tags": "Special Tags"
 }

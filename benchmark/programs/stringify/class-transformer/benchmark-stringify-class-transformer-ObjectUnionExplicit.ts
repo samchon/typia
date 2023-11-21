@@ -2,5 +2,5 @@ import { ClassValidatorObjectUnionExplicit } from "../../../structures/class-val
 import { createStringifyClassTransformerBenchmarkProgram } from "./createStringifyClassTransformerBenchmarkProgram";
 
 createStringifyClassTransformerBenchmarkProgram(
-    ClassValidatorObjectUnionExplicit,
+  ClassValidatorObjectUnionExplicit,
 );

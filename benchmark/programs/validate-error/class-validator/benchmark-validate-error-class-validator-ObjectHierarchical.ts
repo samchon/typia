@@ -2,5 +2,5 @@ import { ClassValidatorObjectHierarchical } from "../../../structures/class-vali
 import { createValidateErrorClassValidatorBenchmarkProgram } from "./createValidateErrorClassValidatorBenchmarkProgram";
 
 createValidateErrorClassValidatorBenchmarkProgram(
-    ClassValidatorObjectHierarchical,
+  ClassValidatorObjectHierarchical,
 );

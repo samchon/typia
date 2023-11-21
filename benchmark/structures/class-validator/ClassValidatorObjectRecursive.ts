@@ -6,32 +6,32 @@ import { ObjectRecursive } from "../../../test/structures/ObjectRecursive";
 import { ClassValidatorTimestamp } from "./ClassValidatorTimestamp";
 
 export class ClassValidatorObjectRecursive {
-    @cv.IsOptional()
-    @cv.ValidateNested({ each: true })
-    @cv.IsObject()
-    @tr.Type(() => ClassValidatorObjectRecursive)
-    public parent!: ClassValidatorObjectRecursive | null;
+  @cv.IsOptional()
+  @cv.ValidateNested({ each: true })
+  @cv.IsObject()
+  @tr.Type(() => ClassValidatorObjectRecursive)
+  public parent!: ClassValidatorObjectRecursive | null;
 
-    @cv.IsNumber()
-    public id!: number;
+  @cv.IsNumber()
+  public id!: number;
 
-    @cv.IsString()
-    public code!: string;
+  @cv.IsString()
+  public code!: string;
 
-    @cv.IsString()
-    public name!: string;
+  @cv.IsString()
+  public name!: string;
 
-    @cv.IsNumber()
-    public sequence!: number;
+  @cv.IsNumber()
+  public sequence!: number;
 
-    @cv.ValidateNested()
-    @cv.IsObject()
-    @tr.Type(() => ClassValidatorTimestamp)
-    public created_at!: ClassValidatorTimestamp;
+  @cv.ValidateNested()
+  @cv.IsObject()
+  @tr.Type(() => ClassValidatorTimestamp)
+  public created_at!: ClassValidatorTimestamp;
 }
 export namespace ClassValidatorObjectRecursive {
-    export const transform = (input: ObjectRecursive) =>
-        tr.plainToInstance(ClassValidatorObjectRecursive, input);
-    export const validate = (input: ObjectRecursive) =>
-        cv.validateSync(transform(input));
+  export const transform = (input: ObjectRecursive) =>
+    tr.plainToInstance(ClassValidatorObjectRecursive, input);
+  export const validate = (input: ObjectRecursive) =>
+    cv.validateSync(transform(input));
 }

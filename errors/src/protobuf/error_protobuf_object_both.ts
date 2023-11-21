@@ -1,12 +1,12 @@
 import typia from "typia";
 
 interface IPointer<T> {
-    value: T;
+  value: T;
 }
 type Something = {
-    id: string;
+  id: string;
 } & {
-    [key: string]: number;
+  [key: string]: number;
 };
 
 // MESSAGE

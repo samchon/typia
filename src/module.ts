@@ -1,7 +1,6 @@
 import { Namespace } from "./functional/Namespace";
 
-import { IMetadataApplication } from "./schemas/metadata/IMetadataApplication";
-
+import { AssertionGuard } from "./AssertionGuard";
 import { IRandomGenerator } from "./IRandomGenerator";
 import { IValidation } from "./IValidation";
 import { Resolved } from "./Resolved";
@@ -11,11 +10,13 @@ export * as json from "./json";
 export * as misc from "./misc";
 export * as notations from "./notations";
 export * as protobuf from "./protobuf";
+export * as reflect from "./reflect";
 export * as tags from "./tags";
 
 export * from "./schemas/json/IJsonApplication";
 export * from "./schemas/json/IJsonComponents";
 export * from "./schemas/json/IJsonSchema";
+export * from "./AssertionGuard";
 export * from "./IRandomGenerator";
 export * from "./IValidation";
 export * from "./TypeGuardError";
@@ -39,6 +40,8 @@ export * from "./SnakeCase";
  * If what you want is not asserting but just knowing whether the parametric value is
  * following the type `T` or not, you can choose the {@link is} function instead.
  * Otherwise you want to know all the errors, {@link validate} is the way to go.
+ * Also, if you want to automatically cast the parametric value to the type `T`
+ * when no problem (perform the assertion guard of type).
  *
  * On the other and, if you don't want to allow any superfluous property that is not
  * enrolled to the type `T`, you can use {@link assertEquals} function instead.
@@ -79,9 +82,69 @@ export function assert<T>(input: unknown): T;
  * @internal
  */
 export function assert(): never {
-    halt("assert");
+  halt("assert");
 }
 Object.assign(assert, Namespace.assert("assert"));
+
+/**
+ * Assertion guard of a value type.
+ *
+ * Asserts a parametric value type and throws a {@link TypeGuardError} with detailed
+ * reason, if the parametric value is not following the type `T`. Otherwise, the
+ * value is following the type `T`, nothing would be returned, but the input value
+ * would be automatically casted to the type `T`. This is the concept of
+ * "Assertion Guard" of a value type.
+ *
+ * If what you want is not asserting but just knowing whether the parametric value is
+ * following the type `T` or not, you can choose the {@link is} function instead.
+ * Otherwise you want to know all the errors, {@link validate} is the way to go.
+ * Also, if you want to returns the parametric value when no problem, you can use
+ * {@link assert} function instead.
+ *
+ * On the other and, if you don't want to allow any superfluous property that is not
+ * enrolled to the type `T`, you can use {@link assertGuardEquals} function instead.
+ *
+ * @template T Type of the input value
+ * @param input A value to be asserted
+ * @throws A {@link TypeGuardError} instance with detailed reason
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export function assertGuard<T>(input: T): asserts input is T;
+
+/**
+ * Assertion guard of a value type.
+ *
+ * Asserts a parametric value type and throws a {@link TypeGuardError} with detailed
+ * reason, if the parametric value is not following the type `T`. Otherwise, the
+ * value is following the type `T`, nothing would be returned, but the input value
+ * would be automatically casted to the type `T`. This is the concept of
+ * "Assertion Guard" of a value type.
+ *
+ * If what you want is not asserting but just knowing whether the parametric value is
+ * following the type `T` or not, you can choose the {@link is} function instead.
+ * Otherwise you want to know all the errors, {@link validate} is the way to go.
+ * Also, if you want to returns the parametric value when no problem, you can use
+ * {@link assert} function instead.
+ *
+ * On the other and, if you don't want to allow any superfluous property that is not
+ * enrolled to the type `T`, you can use {@link assertGuardEquals} function instead.
+ *
+ * @template T Type of the input value
+ * @param input A value to be asserted
+ * @throws A {@link TypeGuardError} instance with detailed reason
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export function assertGuard<T>(input: unknown): asserts input is T;
+
+/**
+ * @internal
+ */
+export function assertGuard(): never {
+  halt("assertGuard");
+}
+Object.assign(assertGuard, Namespace.assert("assertGuard"));
 
 /**
  * Tests a value type.
@@ -135,7 +198,7 @@ export function is<T>(input: unknown): input is T;
  * @internal
  */
 export function is(): never {
-    halt("is");
+  halt("is");
 }
 Object.assign(is, Namespace.assert("is"));
 
@@ -193,7 +256,7 @@ export function validate<T>(input: unknown): IValidation<T>;
  * @internal
  */
 export function validate(): never {
-    halt("validate");
+  halt("validate");
 }
 Object.assign(validate, Namespace.validate());
 
@@ -254,9 +317,75 @@ export function assertEquals<T>(input: unknown): T;
  * @internal
  */
 export function assertEquals(): never {
-    halt("assertEquals");
+  halt("assertEquals");
 }
 Object.assign(assertEquals, Namespace.assert("assertEquals"));
+
+/**
+ * Assertion guard of a type with equality.
+ *
+ * Asserts a parametric value type and throws a {@link TypeGuardError} with detailed
+ * reason, if the parametric value is not following the type `T` or some superfluous
+ * property that is not listed on the type `T` has been found.
+ *
+ * Otherwise, the value is following the type `T` without any superfluous property,
+ * nothing would be returned, but the input value would be automatically casted to
+ * the type `T`. This is the concept of "Assertion Guard" of a value type.
+ *
+ * If what you want is not asserting but just knowing whether the parametric value is
+ * following the type `T` or not, you can choose the {@link equals} function instead.
+ * Otherwise, you want to know all the errors, {@link validateEquals} is the way to go.
+ * Also, if you want to returns the parametric value when no problem, you can use
+ * {@link assert} function instead.
+ *
+ * On the other hand, if you want to allow superfluous property that is not enrolled
+ * to the type `T`, you can use {@link assertEquals} function instead.
+ *
+ * @template T Type of the input value
+ * @param input A value to be asserted
+ * @returns Parametric input value casted as `T`
+ * @throws A {@link TypeGuardError} instance with detailed reason
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export function assertGuardEquals<T>(input: T): asserts input is T;
+
+/**
+ * Assertion guard of a type with equality.
+ *
+ * Asserts a parametric value type and throws a {@link TypeGuardError} with detailed
+ * reason, if the parametric value is not following the type `T` or some superfluous
+ * property that is not listed on the type `T` has been found.
+ *
+ * Otherwise, the value is following the type `T` without any superfluous property,
+ * nothing would be returned, but the input value would be automatically casted to
+ * the type `T`. This is the concept of "Assertion Guard" of a value type.
+ *
+ * If what you want is not asserting but just knowing whether the parametric value is
+ * following the type `T` or not, you can choose the {@link equals} function instead.
+ * Otherwise, you want to know all the errors, {@link validateEquals} is the way to go.
+ * Also, if you want to returns the parametric value when no problem, you can use
+ * {@link assertEquals} function instead.
+ *
+ * On the other hand, if you want to allow superfluous property that is not enrolled
+ * to the type `T`, you can use {@link assertGuard} function instead.
+ *
+ * @template T Type of the input value
+ * @param input A value to be asserted
+ * @returns Parametric input value casted as `T`
+ * @throws A {@link TypeGuardError} instance with detailed reason
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export function assertGuardEquals<T>(input: unknown): asserts input is T;
+
+/**
+ * @internal
+ */
+export function assertGuardEquals(): never {
+  halt("assertGuardEquals");
+}
+Object.assign(assertGuardEquals, Namespace.assert("assertGuardEquals"));
 
 /**
  * Tests equality between a value and its type.
@@ -312,7 +441,7 @@ export function equals<T>(input: unknown): input is T;
  * @internal
  */
 export function equals(): never {
-    halt("equals");
+  halt("equals");
 }
 Object.assign(equals, Namespace.is());
 
@@ -372,7 +501,7 @@ export function validateEquals<T>(input: unknown): IValidation<T>;
  * @internal
  */
 export function validateEquals(): never {
-    halt("validateEquals");
+  halt("validateEquals");
 }
 Object.assign(validateEquals, Namespace.validate());
 
@@ -421,26 +550,9 @@ export function random<T>(generator?: Partial<IRandomGenerator>): Resolved<T>;
  * @internal
  */
 export function random(): never {
-    halt("random");
+  halt("random");
 }
 Object.assign(random, Namespace.random());
-
-/**
- * @internal
- */
-export function metadata(): never;
-
-/**
- * @internal
- */
-export function metadata<Types extends unknown[]>(): IMetadataApplication;
-
-/**
- * @internal
- */
-export function metadata(): never {
-    halt("metadata");
-}
 
 /* -----------------------------------------------------------
     FACTORY FUNCTIONS
@@ -470,9 +582,68 @@ export function createAssert<T>(): (input: unknown) => T;
  * @internal
  */
 export function createAssert<T>(): (input: unknown) => T {
-    halt("createAssert");
+  halt("createAssert");
 }
 Object.assign(createAssert, assert);
+
+/**
+ * Creates a reusable {@link assertGuard} function.
+ *
+ * Note that, you've to declare the variable type of the factory function caller
+ * like below. If you don't declare the variable type, compilation error be thrown.
+ * This is the special rule of the TypeScript compiler.
+ *
+ * ```typescript
+ * // MUST DECLARE THE VARIABLE TYPE
+ * const func: typia.AssertionGuard<number> = typia.createAssertGuard<number>();
+ *
+ * // IF NOT, COMPILATION ERROR BE OCCURED
+ * const func = typia.createAssertGuard<number>();
+ * ```
+ *
+ * > *Assertions require every name in the call target to be declared with an*
+ * > *explicit type annotation.*
+ *
+ * @danger You must configure the generic argument `T`
+ * @returns Nothing until you configure the generic argument `T`
+ * @throws compile error
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export function createAssertGuard(): never;
+
+/**
+ * Creates a reusable {@link assertGuard} function.
+ *
+ * Note that, you've to declare the variable type of the factory function caller
+ * like below. If you don't declare the variable type, compilation error be thrown.
+ * This is the special rule of the TypeScript compiler.
+ *
+ * ```typescript
+ * // MUST DECLARE THE VARIABLE TYPE
+ * const func: typia.AssertionGuard<number> = typia.createAssertGuard<number>();
+ *
+ * // IF NOT, COMPILATION ERROR BE OCCURED
+ * const func = typia.createAssertGuard<number>();
+ * ```
+ *
+ * > *Assertions require every name in the call target to be declared with an*
+ * > *explicit type annotation.*
+ *
+ * @returns Nothing until you configure the generic argument `T`
+ * @throws compile error
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export function createAssertGuard<T>(): (input: unknown) => AssertionGuard<T>;
+
+/**
+ * @internal
+ */
+export function createAssertGuard<T>(): (input: unknown) => AssertionGuard<T> {
+  halt("createAssertGuard");
+}
+Object.assign(createAssertGuard, assertGuard);
 
 /**
  * Creates a reusable {@link is} function.
@@ -499,7 +670,7 @@ export function createIs<T>(): (input: unknown) => input is T;
  * @internal
  */
 export function createIs<T>(): (input: unknown) => input is T {
-    halt("createIs");
+  halt("createIs");
 }
 Object.assign(createIs, is);
 
@@ -528,7 +699,7 @@ export function createValidate<T>(): (input: unknown) => IValidation<T>;
  * @internal
  */
 export function createValidate(): (input: unknown) => IValidation {
-    halt("createValidate");
+  halt("createValidate");
 }
 Object.assign(createValidate, validate);
 
@@ -557,9 +728,72 @@ export function createAssertEquals<T>(): (input: unknown) => T;
  * @internal
  */
 export function createAssertEquals<T>(): (input: unknown) => T {
-    halt("createAssertEquals");
+  halt("createAssertEquals");
 }
 Object.assign(createAssertEquals, assertEquals);
+
+/**
+ * Creates a reusable {@link assertGuardEquals} function.
+ *
+ * Note that, you've to declare the variable type of the factory function caller
+ * like below. If you don't declare the variable type, compilation error be thrown.
+ * This is the special rule of the TypeScript compiler.
+ *
+ * ```typescript
+ * // MUST DECLARE THE VARIABLE TYPE
+ * const func: typia.AssertionGuard<number> = typia.createAssertGuardEquals<number>();
+ *
+ * // IF NOT, COMPILATION ERROR BE OCCURED
+ * const func = typia.createAssertGuardEquals<number>();
+ * ```
+ *
+ * > *Assertions require every name in the call target to be declared with an*
+ * > *explicit type annotation.*
+ *
+ * @danger You must configure the generic argument `T`
+ * @returns Nothing until you configure the generic argument `T`
+ * @throws compile error
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export function createAssertGuardEquals(): never;
+
+/**
+ * Creates a reusable {@link assertGuardEquals} function.
+ *
+ * Note that, you've to declare the variable type of the factory function caller
+ * like below. If you don't declare the variable type, compilation error be thrown.
+ * This is the special rule of the TypeScript compiler.
+ *
+ * ```typescript
+ * // MUST DECLARE THE VARIABLE TYPE
+ * const func: typia.AssertionGuard<number> = typia.createAssertGuardEquals<number>();
+ *
+ * // IF NOT, COMPILATION ERROR BE OCCURED
+ * const func = typia.createAssertGuardEquals<number>();
+ * ```
+ *
+ * > *Assertions require every name in the call target to be declared with an*
+ * > *explicit type annotation.*
+ *
+ * @returns Nothing until you configure the generic argument `T`
+ * @throws compile error
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export function createAssertGuardEquals<T>(): (
+  input: unknown,
+) => AssertionGuard<T>;
+
+/**
+ * @internal
+ */
+export function createAssertGuardEquals<T>(): (
+  input: unknown,
+) => AssertionGuard<T> {
+  halt("createAssertGuardEquals");
+}
+Object.assign(createAssertGuardEquals, assertGuardEquals);
 
 /**
  * Creates a reusable {@link equals} function.
@@ -586,7 +820,7 @@ export function createEquals<T>(): (input: unknown) => input is T;
  * @internal
  */
 export function createEquals<T>(): (input: unknown) => input is T {
-    halt("createEquals");
+  halt("createEquals");
 }
 Object.assign(createEquals, equals);
 
@@ -615,7 +849,7 @@ export function createValidateEquals<T>(): (input: unknown) => IValidation<T>;
  * @internal
  */
 export function createValidateEquals(): (input: unknown) => IValidation {
-    halt("createValidateEquals");
+  halt("createValidateEquals");
 }
 Object.assign(createValidateEquals, validateEquals);
 
@@ -641,14 +875,14 @@ export function createRandom(generator?: Partial<IRandomGenerator>): never;
  * @author Jeongho Nam - https://github.com/samchon
  */
 export function createRandom<T>(
-    generator?: Partial<IRandomGenerator>,
+  generator?: Partial<IRandomGenerator>,
 ): () => Resolved<T>;
 
 /**
  * @internal
  */
 export function createRandom(): never {
-    halt("createRandom");
+  halt("createRandom");
 }
 Object.assign(createRandom, random);
 
@@ -656,7 +890,7 @@ Object.assign(createRandom, random);
  * @internal
  */
 function halt(name: string): never {
-    throw new Error(
-        `Error on typia.${name}(): no transform has been configured. Read and follow https://typia.io/docs/setup please.`,
-    );
+  throw new Error(
+    `Error on typia.${name}(): no transform has been configured. Read and follow https://typia.io/docs/setup please.`,
+  );
 }

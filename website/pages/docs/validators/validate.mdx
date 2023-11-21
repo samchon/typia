@@ -630,6 +630,70 @@ exports.validateMember = validateMember;
 
 
 
+## Restrictions
+`typia.validate<T>()` function does not check `function` and user-defined `class` types. 
+
+It validates only the primitive properties. Therefore, `typia.validate<T>()` function does not perform the `instanceof ClassName` for user-defined classes. If you want to validate the user-defined class type in addition to the property types, do it by yourself. Also, `typia.validate<T>()` function does not validate the function type either, unless configuring `functional` property of `plugin` option in the `tsconfig.json` file.
+
+```json filename="tsconfig.json"
+{
+  "compilerOptions": {
+    "plugins": [
+      {
+        "transform": "typia/lib/transform",
+        "functional": true
+      }
+    ]
+  }
+}
+```
+
+By the way, there're some exception cases. 
+
+If JS native class type like `Date`, `Uint8Array`, or `Map<Key, T>` being utilized, `typia.validate<T>()` function validates them. Especially about the `Set<T>`, and `Map<Key, T>` class cases, `typia.validate<T>()` function validates all of their contained element types, too.
+
+Therefore, the `instanceof` statement does not be used only for the user-defined classes.
+
+<Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
+    <Tab>
+```typescript copy filename="examples/src/is-map.ts" showLineNumbers
+import typia from "typia";
+
+typia.createIs<Map<string, boolean | number | string>>();
+```
+    </Tab>
+    <Tab>
+```javascript filename="examples/bin/is-map.js" showLineNumbers
+"use strict";
+var __importDefault =
+    (this && this.__importDefault) ||
+    function (mod) {
+        return mod && mod.__esModule ? mod : { default: mod };
+    };
+Object.defineProperty(exports, "__esModule", { value: true });
+const typia_1 = __importDefault(require("typia"));
+(input) => {
+    return (
+        input instanceof Map &&
+        (() =>
+            [...input].every(
+                (elem) =>
+                    Array.isArray(elem) &&
+                    elem.length === 2 &&
+                    "string" === typeof elem[0] &&
+                    ("string" === typeof elem[1] ||
+                        "number" === typeof elem[1] ||
+                        "boolean" === typeof elem[1]),
+            ))()
+    );
+};
+```
+    </Tab>
+</Tabs>
+
+
+
+
 ## Discriminated Union
 <Tabs items={[
         <code>typia</code>, 

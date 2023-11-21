@@ -5,16 +5,16 @@ import { TypeCompiler } from "@sinclair/typebox/compiler";
 import { createAssertErrorBenchmarkProgram } from "../createAssertErrorBenchmarkProgram";
 
 export const createAssertErrorTypeboxBenchmarkProgram = <S extends TSchema>(
-    schema: S,
+  schema: S,
 ) => {
-    const array = Type.Array(schema);
-    const program = TypeCompiler.Compile(array);
+  const array = Type.Array(schema);
+  const program = TypeCompiler.Compile(array);
 
-    return createAssertErrorBenchmarkProgram((input) => {
-        if (program.Check(input) === false) {
-            const first = program.Errors(input).First();
-            if (first) throw first;
-        }
-        return input;
-    });
+  return createAssertErrorBenchmarkProgram((input) => {
+    if (program.Check(input) === false) {
+      const first = program.Errors(input).First();
+      if (first) throw first;
+    }
+    return input;
+  });
 };

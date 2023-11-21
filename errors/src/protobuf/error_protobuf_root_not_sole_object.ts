@@ -1,14 +1,14 @@
 import typia from "typia";
 
 interface Cat {
-    type: "cat";
-    name: string;
-    ribbon: boolean;
+  type: "cat";
+  name: string;
+  ribbon: boolean;
 }
 interface Dog {
-    type: "dog";
-    name: string;
-    hunt: boolean;
+  type: "dog";
+  name: string;
+  hunt: boolean;
 }
 
 //----

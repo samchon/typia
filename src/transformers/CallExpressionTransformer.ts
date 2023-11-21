@@ -45,7 +45,6 @@ import { JsonIsStringifyTransformer } from "./features/json/JsonIsStringifyTrans
 import { JsonStringifyTransformer } from "./features/json/JsonStringifyTransformer";
 import { JsonValidateParseTransformer } from "./features/json/JsonValidateParseTransformer";
 import { JsonValidateStringifyTransformer } from "./features/json/JsonValidateStringifyTransformer";
-import { MetadataTransformer } from "./features/misc/MetadataTransformer";
 import { MiscAssertCloneTransformer } from "./features/misc/MiscAssertCloneTransformer";
 import { MiscAssertPruneTransformer } from "./features/misc/MiscAssertPruneTransformer";
 import { MiscCloneTransformer } from "./features/misc/MiscCloneTransformer";
@@ -88,293 +87,273 @@ import { ProtobufIsEncodeTransformer } from "./features/protobuf/ProtobufIsEncod
 import { ProtobufMessageTransformer } from "./features/protobuf/ProtobufMessageTransformer";
 import { ProtobufValidateDecodeTransformer } from "./features/protobuf/ProtobufValidateDecodeTransformer";
 import { ProtobufValidateEncodeTransformer } from "./features/protobuf/ProtobufValidateEncodeTransformer";
+import { ReflectMetadataTransformer } from "./features/reflect/ReflectMetadataTransformer";
 
 export namespace CallExpressionTransformer {
-    export const transform =
-        (project: IProject) =>
-        (expression: ts.CallExpression): ts.Expression | null => {
-            //----
-            // VALIDATIONS
-            //----
-            // SIGNATURE DECLARATION
-            const declaration: ts.Declaration | undefined =
-                project.checker.getResolvedSignature(expression)?.declaration;
-            if (!declaration) return expression;
+  export const transform =
+    (project: IProject) =>
+    (expression: ts.CallExpression): ts.Expression | null => {
+      //----
+      // VALIDATIONS
+      //----
+      // SIGNATURE DECLARATION
+      const declaration: ts.Declaration | undefined =
+        project.checker.getResolvedSignature(expression)?.declaration;
+      if (!declaration) return expression;
 
-            // FILE PATH
-            const location: string = path.resolve(
-                declaration.getSourceFile().fileName,
-            );
-            if (isTarget(location) === false) return expression;
+      // FILE PATH
+      const location: string = path.resolve(
+        declaration.getSourceFile().fileName,
+      );
+      if (isTarget(location) === false) return expression;
 
-            //----
-            // TRANSFORMATION
-            //----
-            // FUNCTION NAME
-            const module: string = location
-                .split(path.sep)
-                .at(-1)!
-                .split(".")[0]!;
-            const { name } =
-                project.checker.getTypeAtLocation(declaration).symbol;
+      //----
+      // TRANSFORMATION
+      //----
+      // FUNCTION NAME
+      const module: string = location.split(path.sep).at(-1)!.split(".")[0]!;
+      const { name } = project.checker.getTypeAtLocation(declaration).symbol;
 
-            // FIND TRANSFORMER
-            const functor: (() => Task) | undefined = FUNCTORS[module]?.[name];
-            if (functor === undefined) return expression;
+      // FIND TRANSFORMER
+      const functor: (() => Task) | undefined = FUNCTORS[module]?.[name];
+      if (functor === undefined) return expression;
 
-            // RETURNS WITH TRANSFORMATION
-            const result: ts.Expression | null = functor()(project)(
-                expression.expression,
-            )(expression);
-            return result ?? expression;
-        };
-
-    const isTarget = (location: string): boolean => {
-        const files: string[] = Object.keys(FUNCTORS);
-        return files.some(
-            (f) =>
-                location.includes(
-                    path.join("node_modules", "typia", "lib", `${f}.d.ts`),
-                ) ||
-                location ===
-                    path.resolve(path.join(__dirname, "..", `${f}.ts`)) ||
-                location ===
-                    path.resolve(
-                        path.join(
-                            __dirname,
-                            "..",
-                            "..",
-                            "..",
-                            "src",
-                            `${f}.ts`,
-                        ),
-                    ),
-        );
+      // RETURNS WITH TRANSFORMATION
+      const result: ts.Expression | null = functor()(project)(
+        expression.expression,
+      )(expression);
+      return result ?? expression;
     };
+
+  const isTarget = (location: string): boolean => {
+    const files: string[] = Object.keys(FUNCTORS);
+    return files.some(
+      (f) =>
+        location.includes(
+          path.join("node_modules", "typia", "lib", `${f}.d.ts`),
+        ) ||
+        location === path.resolve(path.join(__dirname, "..", `${f}.ts`)) ||
+        location ===
+          path.resolve(
+            path.join(__dirname, "..", "..", "..", "src", `${f}.ts`),
+          ),
+    );
+  };
 }
 
 type Task = (
-    project: IProject,
+  project: IProject,
 ) => (
-    modulo: ts.LeftHandSideExpression,
+  modulo: ts.LeftHandSideExpression,
 ) => (expression: ts.CallExpression) => ts.Expression | null;
 
 const FUNCTORS: Record<string, Record<string, () => Task>> = {
-    module: {
-        // BASIC
-        assert: () => AssertTransformer.transform(false),
-        assertType: () => AssertTransformer.transform(false),
-        is: () => IsTransformer.transform(false),
-        validate: () => ValidateTransformer.transform(false),
+  module: {
+    // BASIC
+    assert: () => AssertTransformer.transform({ equals: false, guard: false }),
+    assertGuard: () =>
+      AssertTransformer.transform({ equals: false, guard: true }),
+    assertType: () =>
+      AssertTransformer.transform({ equals: false, guard: false }),
+    is: () => IsTransformer.transform(false),
+    validate: () => ValidateTransformer.transform(false),
 
-        // STRICT
-        assertEquals: () => AssertTransformer.transform(true),
-        equals: () => IsTransformer.transform(true),
-        validateEquals: () => ValidateTransformer.transform(true),
+    // STRICT
+    assertEquals: () =>
+      AssertTransformer.transform({ equals: true, guard: false }),
+    assertGuardEquals: () =>
+      AssertTransformer.transform({ equals: true, guard: true }),
+    equals: () => IsTransformer.transform(true),
+    validateEquals: () => ValidateTransformer.transform(true),
 
-        // RANDOM + INTERNAL
-        random: () => RandomTransformer.transform,
-        metadata: () => (P) => () => MetadataTransformer.transform(P),
+    // RANDOM + INTERNAL
+    random: () => RandomTransformer.transform,
+    metadata: () => ReflectMetadataTransformer.transform,
 
-        // FACTORIES
-        createAssert: () => CreateAssertTransformer.transform(false),
-        createAssertType: () => CreateAssertTransformer.transform(false),
-        createIs: () => CreateIsTransformer.transform(false),
-        createValidate: () => CreateValidateTransformer.transform(false),
-        createAssertEquals: () => CreateAssertTransformer.transform(true),
-        createEquals: () => CreateIsTransformer.transform(true),
-        createValidateEquals: () => CreateValidateTransformer.transform(true),
-        createRandom: () => CreateRandomTransformer.transform,
-    },
-    http: {
-        // HEADERS
-        headers: () => HttpHeadersTransformer.transform,
-        isHeaders: () => HttpIsHeadersTransformer.transform,
-        assertHeaders: () => HttpAssertHeadersTransformer.transform,
-        validateHeaders: () => HttpValidateHeadersTransformer.transform,
+    // FACTORIES
+    createAssert: () =>
+      CreateAssertTransformer.transform({ equals: false, guard: false }),
+    createAssertGuard: () =>
+      CreateAssertTransformer.transform({ equals: false, guard: true }),
+    createAssertType: () =>
+      CreateAssertTransformer.transform({ equals: false, guard: false }),
+    createIs: () => CreateIsTransformer.transform(false),
+    createValidate: () => CreateValidateTransformer.transform(false),
+    createAssertEquals: () =>
+      CreateAssertTransformer.transform({ equals: true, guard: false }),
+    createAssertGuardEquals: () =>
+      CreateAssertTransformer.transform({ equals: true, guard: true }),
+    createEquals: () => CreateIsTransformer.transform(true),
+    createValidateEquals: () => CreateValidateTransformer.transform(true),
+    createRandom: () => CreateRandomTransformer.transform,
+  },
+  http: {
+    // HEADERS
+    headers: () => HttpHeadersTransformer.transform,
+    isHeaders: () => HttpIsHeadersTransformer.transform,
+    assertHeaders: () => HttpAssertHeadersTransformer.transform,
+    validateHeaders: () => HttpValidateHeadersTransformer.transform,
 
-        // PARAMETER
-        parameter: () => HttpParameterTransformer.transform,
+    // PARAMETER
+    parameter: () => HttpParameterTransformer.transform,
 
-        // QUERY
-        query: () => HttpQueryTransformer.transform,
-        isQuery: () => HttpIsQueryTransformer.transform,
-        assertQuery: () => HttpAssertQueryTransformer.transform,
-        validateQuery: () => HttpValidateQueryTransformer.transform,
+    // QUERY
+    query: () => HttpQueryTransformer.transform,
+    isQuery: () => HttpIsQueryTransformer.transform,
+    assertQuery: () => HttpAssertQueryTransformer.transform,
+    validateQuery: () => HttpValidateQueryTransformer.transform,
 
-        // FACTORIES
-        createHeaders: () => CreateHttpHeadersTransformer.transform,
-        createIsHeaders: () => CreateHttpIsHeadersTransformer.transform,
-        createAssertHeaders: () => CreateHttpAssertHeadersTransformer.transform,
-        createValidateHeaders: () =>
-            CreateHttpValidateHeadersTransformer.transform,
-        createParameter: () => CreateHttpParameterTransformer.transform,
-        createQuery: () => CreateHttpQueryTransformer.transform,
-        createIsQuery: () => CreateHttpIsQueryTransformer.transform,
-        createAssertQuery: () => CreateHttpAssertQueryTransformer.transform,
-        createValidateQuery: () => CreateHttpValidateQueryTransformer.transform,
-    },
-    json: {
-        // SCHEMA
-        application: () => (P) => () => JsonApplicationTransformer.transform(P),
+    // FACTORIES
+    createHeaders: () => CreateHttpHeadersTransformer.transform,
+    createIsHeaders: () => CreateHttpIsHeadersTransformer.transform,
+    createAssertHeaders: () => CreateHttpAssertHeadersTransformer.transform,
+    createValidateHeaders: () => CreateHttpValidateHeadersTransformer.transform,
+    createParameter: () => CreateHttpParameterTransformer.transform,
+    createQuery: () => CreateHttpQueryTransformer.transform,
+    createIsQuery: () => CreateHttpIsQueryTransformer.transform,
+    createAssertQuery: () => CreateHttpAssertQueryTransformer.transform,
+    createValidateQuery: () => CreateHttpValidateQueryTransformer.transform,
+  },
+  json: {
+    // SCHEMA
+    application: () => (P) => () => JsonApplicationTransformer.transform(P),
 
-        // PARSER
-        isParse: () => JsonIsParseTransformer.transform,
-        assertParse: () => JsonAssertParseTransformer.transform,
-        validateParse: () => JsonValidateParseTransformer.transform,
+    // PARSER
+    isParse: () => JsonIsParseTransformer.transform,
+    assertParse: () => JsonAssertParseTransformer.transform,
+    validateParse: () => JsonValidateParseTransformer.transform,
 
-        // STRINGIFY
-        stringify: () => JsonStringifyTransformer.transform,
-        assertStringify: () => JsonAssertStringifyTransformer.transform,
-        isStringify: () => JsonIsStringifyTransformer.transform,
-        validateStringify: () => JsonValidateStringifyTransformer.transform,
+    // STRINGIFY
+    stringify: () => JsonStringifyTransformer.transform,
+    assertStringify: () => JsonAssertStringifyTransformer.transform,
+    isStringify: () => JsonIsStringifyTransformer.transform,
+    validateStringify: () => JsonValidateStringifyTransformer.transform,
 
-        // FACTORIES
-        createIsParse: () => JsonCreateIsParseTransformer.transform,
-        createAssertParse: () => JsonCreateAssertParseTransformer.transform,
-        createValidateParse: () => JsonCreateValidateParseTransformer.transform,
-        createStringify: () => JsonCreateStringifyTransformer.transform,
-        createAssertStringify: () =>
-            JsonCreateAssertStringifyTransformer.transform,
-        createIsStringify: () => JsonCreateIsStringifyTransformer.transform,
-        createValidateStringify: () =>
-            JsonCreateValidateStringifyTransformer.transform,
-    },
-    protobuf: {
-        // SCHEMA
-        message: () => ProtobufMessageTransformer.transform,
+    // FACTORIES
+    createIsParse: () => JsonCreateIsParseTransformer.transform,
+    createAssertParse: () => JsonCreateAssertParseTransformer.transform,
+    createValidateParse: () => JsonCreateValidateParseTransformer.transform,
+    createStringify: () => JsonCreateStringifyTransformer.transform,
+    createAssertStringify: () => JsonCreateAssertStringifyTransformer.transform,
+    createIsStringify: () => JsonCreateIsStringifyTransformer.transform,
+    createValidateStringify: () =>
+      JsonCreateValidateStringifyTransformer.transform,
+  },
+  protobuf: {
+    // SCHEMA
+    message: () => ProtobufMessageTransformer.transform,
 
-        // ENCODE
-        encode: () => ProtobufEncodeTransformer.transform,
-        assertEncode: () => ProtobufAssertEncodeTransformer.transform,
-        isEncode: () => ProtobufIsEncodeTransformer.transform,
-        validateEncode: () => ProtobufValidateEncodeTransformer.transform,
+    // ENCODE
+    encode: () => ProtobufEncodeTransformer.transform,
+    assertEncode: () => ProtobufAssertEncodeTransformer.transform,
+    isEncode: () => ProtobufIsEncodeTransformer.transform,
+    validateEncode: () => ProtobufValidateEncodeTransformer.transform,
 
-        // DECODE
-        decode: () => ProtobufDecodeTransformer.transform,
-        assertDecode: () => ProtobufAssertDecodeTransformer.transform,
-        isDecode: () => ProtobufIsDecodeTransformer.transform,
-        validateDecode: () => ProtobufValidateDecodeTransformer.transform,
+    // DECODE
+    decode: () => ProtobufDecodeTransformer.transform,
+    assertDecode: () => ProtobufAssertDecodeTransformer.transform,
+    isDecode: () => ProtobufIsDecodeTransformer.transform,
+    validateDecode: () => ProtobufValidateDecodeTransformer.transform,
 
-        // FACTORIES
-        createEncode: () => ProtobufCreateEncodeTransformer.transform,
-        createAssertEncode: () =>
-            ProtobufCreateAssertEncodeTransformer.transform,
-        createIsEncode: () => ProtobufCreateIsEncodeTransformer.transform,
-        createValidateEncode: () =>
-            ProtobufCreateValidateEncodeTransformer.transform,
-        createDecode: () => ProtobufCreateDecodeTransformer.transform,
-        createAssertDecode: () =>
-            ProtobufCreateAssertDecodeTransformer.transform,
-        createIsDecode: () => ProtobufCreateIsDecodeTransformer.transform,
-        createValidateDecode: () =>
-            ProtobufCreateValidateDecodeTransformer.transform,
-    },
-    misc: {
-        literals: () => (project) => () =>
-            MiscLiteralsTransformer.transform(project),
+    // FACTORIES
+    createEncode: () => ProtobufCreateEncodeTransformer.transform,
+    createAssertEncode: () => ProtobufCreateAssertEncodeTransformer.transform,
+    createIsEncode: () => ProtobufCreateIsEncodeTransformer.transform,
+    createValidateEncode: () =>
+      ProtobufCreateValidateEncodeTransformer.transform,
+    createDecode: () => ProtobufCreateDecodeTransformer.transform,
+    createAssertDecode: () => ProtobufCreateAssertDecodeTransformer.transform,
+    createIsDecode: () => ProtobufCreateIsDecodeTransformer.transform,
+    createValidateDecode: () =>
+      ProtobufCreateValidateDecodeTransformer.transform,
+  },
+  reflect: {
+    metadata: () => ReflectMetadataTransformer.transform,
+  },
+  misc: {
+    literals: () => (project) => () =>
+      MiscLiteralsTransformer.transform(project),
 
-        // CLONE
-        clone: () => MiscCloneTransformer.transform,
-        assertClone: () => MiscAssertCloneTransformer.transform,
-        isClone: () => MiscIsCloneTransformer.transform,
-        validateClone: () => MiscValidateCloneTransformer.transform,
+    // CLONE
+    clone: () => MiscCloneTransformer.transform,
+    assertClone: () => MiscAssertCloneTransformer.transform,
+    isClone: () => MiscIsCloneTransformer.transform,
+    validateClone: () => MiscValidateCloneTransformer.transform,
 
-        // PRUNE
-        prune: () => MiscPruneTransformer.transform,
-        assertPrune: () => MiscAssertPruneTransformer.transform,
-        isPrune: () => MiscIsPruneTransformer.transform,
-        validatePrune: () => MiscValidatePruneTransformer.transform,
+    // PRUNE
+    prune: () => MiscPruneTransformer.transform,
+    assertPrune: () => MiscAssertPruneTransformer.transform,
+    isPrune: () => MiscIsPruneTransformer.transform,
+    validatePrune: () => MiscValidatePruneTransformer.transform,
 
-        // FACTORIES
-        createClone: () => MiscCreateCloneTransformer.transform,
-        createAssertClone: () => MiscCreateAssertCloneTransformer.transform,
-        createIsClone: () => MiscCreateIsCloneTransformer.transform,
-        createValidateClone: () => MiscCreateValidateCloneTransformer.transform,
-        createPrune: () => MiscCreatePruneTransformer.transform,
-        createAssertPrune: () => MiscCreateAssertPruneTransformer.transform,
-        createIsPrune: () => MiscCreateIsPruneTransformer.transform,
-        createValidatePrune: () => MiscCreateValidatePruneTransformer.transform,
-    },
-    notations: {
-        // CAMEL
-        camel: () =>
-            NotationGeneralTransformer.transform(NamingConvention.camel),
-        assertCamel: () =>
-            NotationAssertGeneralTransformer.transform(NamingConvention.camel),
-        isCamel: () =>
-            NotationIsGeneralTransformer.transform(NamingConvention.camel),
-        validateCamel: () =>
-            NotationValidateGeneralTransformer.transform(
-                NamingConvention.camel,
-            ),
+    // FACTORIES
+    createClone: () => MiscCreateCloneTransformer.transform,
+    createAssertClone: () => MiscCreateAssertCloneTransformer.transform,
+    createIsClone: () => MiscCreateIsCloneTransformer.transform,
+    createValidateClone: () => MiscCreateValidateCloneTransformer.transform,
+    createPrune: () => MiscCreatePruneTransformer.transform,
+    createAssertPrune: () => MiscCreateAssertPruneTransformer.transform,
+    createIsPrune: () => MiscCreateIsPruneTransformer.transform,
+    createValidatePrune: () => MiscCreateValidatePruneTransformer.transform,
+  },
+  notations: {
+    // CAMEL
+    camel: () => NotationGeneralTransformer.transform(NamingConvention.camel),
+    assertCamel: () =>
+      NotationAssertGeneralTransformer.transform(NamingConvention.camel),
+    isCamel: () =>
+      NotationIsGeneralTransformer.transform(NamingConvention.camel),
+    validateCamel: () =>
+      NotationValidateGeneralTransformer.transform(NamingConvention.camel),
 
-        // PASCAL
-        pascal: () =>
-            NotationGeneralTransformer.transform(NamingConvention.pascal),
-        assertPascal: () =>
-            NotationAssertGeneralTransformer.transform(NamingConvention.pascal),
-        isPascal: () =>
-            NotationIsGeneralTransformer.transform(NamingConvention.pascal),
-        validatePascal: () =>
-            NotationValidateGeneralTransformer.transform(
-                NamingConvention.pascal,
-            ),
+    // PASCAL
+    pascal: () => NotationGeneralTransformer.transform(NamingConvention.pascal),
+    assertPascal: () =>
+      NotationAssertGeneralTransformer.transform(NamingConvention.pascal),
+    isPascal: () =>
+      NotationIsGeneralTransformer.transform(NamingConvention.pascal),
+    validatePascal: () =>
+      NotationValidateGeneralTransformer.transform(NamingConvention.pascal),
 
-        // SNAKE
-        snake: () =>
-            NotationGeneralTransformer.transform(NamingConvention.snake),
-        assertSnake: () =>
-            NotationAssertGeneralTransformer.transform(NamingConvention.snake),
-        isSnake: () =>
-            NotationIsGeneralTransformer.transform(NamingConvention.snake),
-        validateSnake: () =>
-            NotationValidateGeneralTransformer.transform(
-                NamingConvention.snake,
-            ),
+    // SNAKE
+    snake: () => NotationGeneralTransformer.transform(NamingConvention.snake),
+    assertSnake: () =>
+      NotationAssertGeneralTransformer.transform(NamingConvention.snake),
+    isSnake: () =>
+      NotationIsGeneralTransformer.transform(NamingConvention.snake),
+    validateSnake: () =>
+      NotationValidateGeneralTransformer.transform(NamingConvention.snake),
 
-        // FACTORIES
-        createCamel: () =>
-            NotationCreateGeneralTransformer.transform(NamingConvention.camel),
-        createAssertCamel: () =>
-            NotationCreateAssertGeneralTransformer.transform(
-                NamingConvention.camel,
-            ),
-        createIsCamel: () =>
-            NotationCreateIsGeneralTransformer.transform(
-                NamingConvention.camel,
-            ),
-        createValidateCamel: () =>
-            NotationCreateValidateGeneralTransformer.transform(
-                NamingConvention.camel,
-            ),
-        createPascal: () =>
-            NotationCreateGeneralTransformer.transform(NamingConvention.pascal),
-        createAssertPascal: () =>
-            NotationCreateAssertGeneralTransformer.transform(
-                NamingConvention.pascal,
-            ),
-        createIsPascal: () =>
-            NotationCreateIsGeneralTransformer.transform(
-                NamingConvention.pascal,
-            ),
-        createValidatePascal: () =>
-            NotationCreateValidateGeneralTransformer.transform(
-                NamingConvention.pascal,
-            ),
-        createSnake: () =>
-            NotationCreateGeneralTransformer.transform(NamingConvention.snake),
-        createAssertSnake: () =>
-            NotationCreateAssertGeneralTransformer.transform(
-                NamingConvention.snake,
-            ),
-        createIsSnake: () =>
-            NotationCreateIsGeneralTransformer.transform(
-                NamingConvention.snake,
-            ),
-        createValidateSnake: () =>
-            NotationCreateValidateGeneralTransformer.transform(
-                NamingConvention.snake,
-            ),
-    },
+    // FACTORIES
+    createCamel: () =>
+      NotationCreateGeneralTransformer.transform(NamingConvention.camel),
+    createAssertCamel: () =>
+      NotationCreateAssertGeneralTransformer.transform(NamingConvention.camel),
+    createIsCamel: () =>
+      NotationCreateIsGeneralTransformer.transform(NamingConvention.camel),
+    createValidateCamel: () =>
+      NotationCreateValidateGeneralTransformer.transform(
+        NamingConvention.camel,
+      ),
+    createPascal: () =>
+      NotationCreateGeneralTransformer.transform(NamingConvention.pascal),
+    createAssertPascal: () =>
+      NotationCreateAssertGeneralTransformer.transform(NamingConvention.pascal),
+    createIsPascal: () =>
+      NotationCreateIsGeneralTransformer.transform(NamingConvention.pascal),
+    createValidatePascal: () =>
+      NotationCreateValidateGeneralTransformer.transform(
+        NamingConvention.pascal,
+      ),
+    createSnake: () =>
+      NotationCreateGeneralTransformer.transform(NamingConvention.snake),
+    createAssertSnake: () =>
+      NotationCreateAssertGeneralTransformer.transform(NamingConvention.snake),
+    createIsSnake: () =>
+      NotationCreateIsGeneralTransformer.transform(NamingConvention.snake),
+    createValidateSnake: () =>
+      NotationCreateValidateGeneralTransformer.transform(
+        NamingConvention.snake,
+      ),
+  },
 };
