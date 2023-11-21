@@ -3,7 +3,7 @@ import { _test_protobuf_assertDecode } from "../../internal/_test_protobuf_asser
 import { TypeTagArray } from "../../structures/TypeTagArray";
 
 export const test_protobuf_createAssertDecode_TypeTagArray =
-    _test_protobuf_assertDecode("TypeTagArray")<TypeTagArray>(TypeTagArray)({
-        decode: (input) => typia.protobuf.assertDecode<TypeTagArray>(input),
-        encode: typia.protobuf.createEncode<TypeTagArray>(),
-    });
+  _test_protobuf_assertDecode("TypeTagArray")<TypeTagArray>(TypeTagArray)({
+    decode: (input) => typia.protobuf.assertDecode<TypeTagArray>(input),
+    encode: typia.protobuf.createEncode<TypeTagArray>(),
+  });

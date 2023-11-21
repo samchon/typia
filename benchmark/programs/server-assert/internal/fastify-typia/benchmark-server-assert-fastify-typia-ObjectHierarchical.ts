@@ -5,5 +5,5 @@ import { ICollection } from "../../../../structures/ICollection";
 import { createFastifyCustomServerAssertBenchmarkProgram } from "../createFastifyCustomServerAssertBenchmarkProgram";
 
 createFastifyCustomServerAssertBenchmarkProgram(
-    typia.createAssert<ICollection<ObjectHierarchical>>(),
+  typia.createAssert<ICollection<ObjectHierarchical>>(),
 );

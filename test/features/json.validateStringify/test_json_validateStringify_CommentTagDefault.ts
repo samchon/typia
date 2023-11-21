@@ -3,6 +3,6 @@ import { _test_json_validateStringify } from "../../internal/_test_json_validate
 import { CommentTagDefault } from "../../structures/CommentTagDefault";
 
 export const test_json_validateStringify_CommentTagDefault =
-    _test_json_validateStringify("CommentTagDefault")<CommentTagDefault>(
-        CommentTagDefault,
-    )((input) => typia.json.validateStringify<CommentTagDefault>(input));
+  _test_json_validateStringify("CommentTagDefault")<CommentTagDefault>(
+    CommentTagDefault,
+  )((input) => typia.json.validateStringify<CommentTagDefault>(input));

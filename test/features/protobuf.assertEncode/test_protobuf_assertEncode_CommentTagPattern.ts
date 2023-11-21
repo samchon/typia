@@ -3,11 +3,10 @@ import { _test_protobuf_assertEncode } from "../../internal/_test_protobuf_asser
 import { CommentTagPattern } from "../../structures/CommentTagPattern";
 
 export const test_protobuf_createAssertEncode_CommentTagPattern =
-    _test_protobuf_assertEncode("CommentTagPattern")<CommentTagPattern>(
-        CommentTagPattern,
-    )({
-        encode: (input) =>
-            typia.protobuf.assertEncode<CommentTagPattern>(input),
-        decode: typia.protobuf.createDecode<CommentTagPattern>(),
-        message: typia.protobuf.message<CommentTagPattern>(),
-    });
+  _test_protobuf_assertEncode("CommentTagPattern")<CommentTagPattern>(
+    CommentTagPattern,
+  )({
+    encode: (input) => typia.protobuf.assertEncode<CommentTagPattern>(input),
+    decode: typia.protobuf.createDecode<CommentTagPattern>(),
+    message: typia.protobuf.message<CommentTagPattern>(),
+  });

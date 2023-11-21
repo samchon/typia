@@ -10,6 +10,6 @@ const writer = new Writer();
 writer.double(1.0);
 
 console.log({
-    tyipa: Buffer.from(typiaWriter.buffer()),
-    google: Buffer.from(writer.finish()),
+  tyipa: Buffer.from(typiaWriter.buffer()),
+  google: Buffer.from(writer.finish()),
 });

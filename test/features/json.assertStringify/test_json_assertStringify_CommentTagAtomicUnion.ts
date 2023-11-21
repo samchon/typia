@@ -3,6 +3,6 @@ import { _test_json_assertStringify } from "../../internal/_test_json_assertStri
 import { CommentTagAtomicUnion } from "../../structures/CommentTagAtomicUnion";
 
 export const test_json_assertStringify_CommentTagAtomicUnion =
-    _test_json_assertStringify("CommentTagAtomicUnion")<CommentTagAtomicUnion>(
-        CommentTagAtomicUnion,
-    )((input) => typia.json.assertStringify<CommentTagAtomicUnion>(input));
+  _test_json_assertStringify("CommentTagAtomicUnion")<CommentTagAtomicUnion>(
+    CommentTagAtomicUnion,
+  )((input) => typia.json.assertStringify<CommentTagAtomicUnion>(input));

@@ -7,22 +7,22 @@ import { TypeboxObjectUnionExplicit } from "../../benchmark/structures/typebox/T
 import { TypeboxObjectUnionImplicit } from "../../benchmark/structures/typebox/TypeboxObjectUnionImplicit";
 
 function trace(name: string, code: string): void {
-    console.log("//---------------------------------------------------");
-    console.log("// " + name);
-    console.log("//---------------------------------------------------");
-    console.log(`function ${name}() {`);
-    console.log(code);
-    console.log(`}\n\n`);
+  console.log("//---------------------------------------------------");
+  console.log("// " + name);
+  console.log("//---------------------------------------------------");
+  console.log(`function ${name}() {`);
+  console.log(code);
+  console.log(`}\n\n`);
 }
 
 trace("TypeboxArrayRecursive", TypeboxArrayRecursive.Code());
 trace(
-    "TypeboxArrayRecursiveUnionExplicit",
-    TypeboxArrayRecursiveUnionExplicit.Code(),
+  "TypeboxArrayRecursiveUnionExplicit",
+  TypeboxArrayRecursiveUnionExplicit.Code(),
 );
 trace(
-    "TypeboxArrayRecursiveUnionImplicit",
-    TypeboxArrayRecursiveUnionImplicit.Code(),
+  "TypeboxArrayRecursiveUnionImplicit",
+  TypeboxArrayRecursiveUnionImplicit.Code(),
 );
 trace("TypeboxObjectHierarchical", TypeboxObjectHierarchical.Code());
 trace("TypeboxObjectRecursive", TypeboxObjectRecursive.Code());

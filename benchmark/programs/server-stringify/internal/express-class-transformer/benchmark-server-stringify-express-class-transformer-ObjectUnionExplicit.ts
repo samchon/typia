@@ -7,5 +7,5 @@ import { createExpressServerStringifyBenchmarkProgram } from "../createExpressSe
 
 const schema = ClassValidatorCollection(ClassValidatorObjectUnionExplicit);
 createExpressServerStringifyBenchmarkProgram<ObjectUnionExplicit>((input) =>
-    JSON.stringify(instanceToPlain(plainToInstance(schema, input))),
+  JSON.stringify(instanceToPlain(plainToInstance(schema, input))),
 );

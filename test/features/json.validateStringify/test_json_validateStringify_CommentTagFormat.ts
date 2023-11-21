@@ -3,6 +3,6 @@ import { _test_json_validateStringify } from "../../internal/_test_json_validate
 import { CommentTagFormat } from "../../structures/CommentTagFormat";
 
 export const test_json_validateStringify_CommentTagFormat =
-    _test_json_validateStringify("CommentTagFormat")<CommentTagFormat>(
-        CommentTagFormat,
-    )((input) => typia.json.validateStringify<CommentTagFormat>(input));
+  _test_json_validateStringify("CommentTagFormat")<CommentTagFormat>(
+    CommentTagFormat,
+  )((input) => typia.json.validateStringify<CommentTagFormat>(input));

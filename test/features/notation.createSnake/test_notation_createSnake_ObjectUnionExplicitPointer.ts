@@ -3,14 +3,11 @@ import { _test_notation_validateGeneral } from "../../internal/_test_notation_va
 import { ObjectUnionExplicitPointer } from "../../structures/ObjectUnionExplicitPointer";
 
 export const test_notation_createValidateSnake_ObjectUnionExplicitPointer =
-    _test_notation_validateGeneral(
-        "ObjectUnionExplicitPointer",
-    )<ObjectUnionExplicitPointer>(ObjectUnionExplicitPointer)<
-        typia.SnakeCase<ObjectUnionExplicitPointer>
-    >({
-        convert:
-            typia.notations.createValidateSnake<ObjectUnionExplicitPointer>(),
-        assert: typia.createAssert<
-            typia.SnakeCase<ObjectUnionExplicitPointer>
-        >(),
-    });
+  _test_notation_validateGeneral(
+    "ObjectUnionExplicitPointer",
+  )<ObjectUnionExplicitPointer>(ObjectUnionExplicitPointer)<
+    typia.SnakeCase<ObjectUnionExplicitPointer>
+  >({
+    convert: typia.notations.createValidateSnake<ObjectUnionExplicitPointer>(),
+    assert: typia.createAssert<typia.SnakeCase<ObjectUnionExplicitPointer>>(),
+  });

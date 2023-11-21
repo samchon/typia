@@ -3,9 +3,9 @@ import { _test_notation_validateGeneral } from "../../internal/_test_notation_va
 import { AtomicClass } from "../../structures/AtomicClass";
 
 export const test_notation_validatePascal_AtomicClass =
-    _test_notation_validateGeneral("AtomicClass")<AtomicClass>(AtomicClass)<
-        typia.PascalCase<AtomicClass>
-    >({
-        convert: (input) => typia.notations.validatePascal<AtomicClass>(input),
-        assert: typia.createAssert<typia.PascalCase<AtomicClass>>(),
-    });
+  _test_notation_validateGeneral("AtomicClass")<AtomicClass>(AtomicClass)<
+    typia.PascalCase<AtomicClass>
+  >({
+    convert: (input) => typia.notations.validatePascal<AtomicClass>(input),
+    assert: typia.createAssert<typia.PascalCase<AtomicClass>>(),
+  });

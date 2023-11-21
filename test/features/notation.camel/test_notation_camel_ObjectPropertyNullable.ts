@@ -3,12 +3,12 @@ import { _test_notation_validateGeneral } from "../../internal/_test_notation_va
 import { ObjectPropertyNullable } from "../../structures/ObjectPropertyNullable";
 
 export const test_notation_validateCamel_ObjectPropertyNullable =
-    _test_notation_validateGeneral(
-        "ObjectPropertyNullable",
-    )<ObjectPropertyNullable>(ObjectPropertyNullable)<
-        typia.CamelCase<ObjectPropertyNullable>
-    >({
-        convert: (input) =>
-            typia.notations.validateCamel<ObjectPropertyNullable>(input),
-        assert: typia.createAssert<typia.CamelCase<ObjectPropertyNullable>>(),
-    });
+  _test_notation_validateGeneral(
+    "ObjectPropertyNullable",
+  )<ObjectPropertyNullable>(ObjectPropertyNullable)<
+    typia.CamelCase<ObjectPropertyNullable>
+  >({
+    convert: (input) =>
+      typia.notations.validateCamel<ObjectPropertyNullable>(input),
+    assert: typia.createAssert<typia.CamelCase<ObjectPropertyNullable>>(),
+  });

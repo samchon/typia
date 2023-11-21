@@ -3,12 +3,10 @@ import { _test_notation_validateGeneral } from "../../internal/_test_notation_va
 import { CommentTagArrayUnion } from "../../structures/CommentTagArrayUnion";
 
 export const test_notation_validateCamel_CommentTagArrayUnion =
-    _test_notation_validateGeneral(
-        "CommentTagArrayUnion",
-    )<CommentTagArrayUnion>(CommentTagArrayUnion)<
-        typia.CamelCase<CommentTagArrayUnion>
-    >({
-        convert: (input) =>
-            typia.notations.validateCamel<CommentTagArrayUnion>(input),
-        assert: typia.createAssert<typia.CamelCase<CommentTagArrayUnion>>(),
-    });
+  _test_notation_validateGeneral("CommentTagArrayUnion")<CommentTagArrayUnion>(
+    CommentTagArrayUnion,
+  )<typia.CamelCase<CommentTagArrayUnion>>({
+    convert: (input) =>
+      typia.notations.validateCamel<CommentTagArrayUnion>(input),
+    assert: typia.createAssert<typia.CamelCase<CommentTagArrayUnion>>(),
+  });

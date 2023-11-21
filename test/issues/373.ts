@@ -1,8 +1,8 @@
 import typia from "typia";
 
 interface Foo {
-    bar: number;
-    baz: (quz: number) => number;
+  bar: number;
+  baz: (quz: number) => number;
 }
 
 console.log(typia.is<Foo>({ bar: 2 })); // compiles

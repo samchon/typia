@@ -1,32 +1,32 @@
 import typia from "typia";
 
 interface ISomething {
-    /**
-     * @type int
-     */
-    int: number;
+  /**
+   * @type int
+   */
+  int: number;
 
-    /**
-     * @type uint
-     */
-    uint: number;
+  /**
+   * @type uint
+   */
+  uint: number;
 
-    /**
-     * @type int32
-     */
-    int32: number;
+  /**
+   * @type int32
+   */
+  int32: number;
 
-    /**
-     * @type uint32
-     */
-    uint32: number;
+  /**
+   * @type uint32
+   */
+  uint32: number;
 
-    int64: bigint;
+  int64: bigint;
 
-    /**
-     * @type uint64
-     */
-    uint64: bigint;
+  /**
+   * @type uint64
+   */
+  uint64: bigint;
 }
 
 console.log(typia.createIs<ISomething>().toString());

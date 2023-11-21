@@ -3,9 +3,9 @@ import { _test_protobuf_assertDecode } from "../../internal/_test_protobuf_asser
 import { ObjectOptional } from "../../structures/ObjectOptional";
 
 export const test_protobuf_createAssertDecode_ObjectOptional =
-    _test_protobuf_assertDecode("ObjectOptional")<ObjectOptional>(
-        ObjectOptional,
-    )({
-        decode: typia.protobuf.createAssertDecode<ObjectOptional>(),
-        encode: typia.protobuf.createEncode<ObjectOptional>(),
-    });
+  _test_protobuf_assertDecode("ObjectOptional")<ObjectOptional>(ObjectOptional)(
+    {
+      decode: typia.protobuf.createAssertDecode<ObjectOptional>(),
+      encode: typia.protobuf.createEncode<ObjectOptional>(),
+    },
+  );

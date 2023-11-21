@@ -47,16 +47,16 @@
             "minLength": 5,
             "x-typia-typeTags": [
               {
-                "name": "MinLength<5>",
                 "target": "string",
+                "name": "MinLength<5>",
                 "kind": "minLength",
                 "value": 5,
                 "validate": "5 <= $input.length",
                 "exclusive": true
               },
               {
-                "name": "MaxLength<5>",
                 "target": "string",
+                "name": "MaxLength<5>",
                 "kind": "maxLength",
                 "value": 5,
                 "validate": "$input.length <= 5",
@@ -82,8 +82,8 @@
             "minLength": 3,
             "x-typia-typeTags": [
               {
-                "name": "MinLength<3>",
                 "target": "string",
+                "name": "MinLength<3>",
                 "kind": "minLength",
                 "value": 3,
                 "validate": "3 <= $input.length",
@@ -109,8 +109,8 @@
             "maxLength": 7,
             "x-typia-typeTags": [
               {
-                "name": "MaxLength<7>",
                 "target": "string",
+                "name": "MaxLength<7>",
                 "kind": "maxLength",
                 "value": 7,
                 "validate": "$input.length <= 7",
@@ -146,16 +146,16 @@
             "minLength": 3,
             "x-typia-typeTags": [
               {
-                "name": "MinLength<3>",
                 "target": "string",
+                "name": "MinLength<3>",
                 "kind": "minLength",
                 "value": 3,
                 "validate": "3 <= $input.length",
                 "exclusive": true
               },
               {
-                "name": "MaxLength<7>",
                 "target": "string",
+                "name": "MaxLength<7>",
                 "kind": "maxLength",
                 "value": 7,
                 "validate": "$input.length <= 7",
@@ -191,16 +191,16 @@
             "minLength": 10,
             "x-typia-typeTags": [
               {
-                "name": "MinLength<10>",
                 "target": "string",
+                "name": "MinLength<10>",
                 "kind": "minLength",
                 "value": 10,
                 "validate": "10 <= $input.length",
                 "exclusive": true
               },
               {
-                "name": "MaxLength<19>",
                 "target": "string",
+                "name": "MaxLength<19>",
                 "kind": "maxLength",
                 "value": 19,
                 "validate": "$input.length <= 19",

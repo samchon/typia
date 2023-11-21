@@ -8,7 +8,7 @@ type JsonValue = string | number | boolean | JsonObject | JsonArray | null;
 const factory = typia.json.createAssertStringify<JsonValue>();
 
 fs.writeFileSync(
-    __dirname + "/nestia-346-stringify.out.js",
-    factory.toString(),
-    "utf8",
+  __dirname + "/nestia-346-stringify.out.js",
+  factory.toString(),
+  "utf8",
 );

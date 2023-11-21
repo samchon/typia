@@ -4,15 +4,15 @@ import { ClassValidatorArrayRecursiveUnionExplicit } from "../../benchmark/struc
 import { ArrayRecursiveUnionExplicit } from "../structures/ArrayRecursiveUnionExplicit";
 
 console.log(
-    ClassValidatorArrayRecursiveUnionExplicit.validate(
-        ArrayRecursiveUnionExplicit.generate(),
-    ),
+  ClassValidatorArrayRecursiveUnionExplicit.validate(
+    ArrayRecursiveUnionExplicit.generate(),
+  ),
 );
 
 console.log(
-    ClassValidatorArrayRecursiveUnionExplicit.transform(
-        ArrayRecursiveUnionExplicit.trail(),
-    )
-        .map((i) => validateSync(i))
-        .flat(),
+  ClassValidatorArrayRecursiveUnionExplicit.transform(
+    ArrayRecursiveUnionExplicit.trail(),
+  )
+    .map((i) => validateSync(i))
+    .flat(),
 );

@@ -3,6 +3,6 @@ import { _test_http_validateHeaders } from "../../internal/_test_http_validateHe
 import { ObjectHttpCommentTag } from "../../structures/ObjectHttpCommentTag";
 
 export const test_http_validateHeaders_ObjectHttpCommentTag =
-    _test_http_validateHeaders("ObjectHttpCommentTag")<ObjectHttpCommentTag>(
-        ObjectHttpCommentTag,
-    )((input) => typia.http.validateHeaders<ObjectHttpCommentTag>(input));
+  _test_http_validateHeaders("ObjectHttpCommentTag")<ObjectHttpCommentTag>(
+    ObjectHttpCommentTag,
+  )((input) => typia.http.validateHeaders<ObjectHttpCommentTag>(input));

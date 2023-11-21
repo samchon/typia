@@ -3,8 +3,8 @@ import { _test_random } from "../../internal/_test_random";
 import { NativeAlias } from "../../structures/NativeAlias";
 
 export const test_random_NativeAlias = _test_random("NativeAlias")<NativeAlias>(
-    NativeAlias,
+  NativeAlias,
 )({
-    random: () => typia.random<NativeAlias>((NativeAlias as any).RANDOM),
-    assert: typia.createAssert<NativeAlias>(),
+  random: () => typia.random<NativeAlias>((NativeAlias as any).RANDOM),
+  assert: typia.createAssert<NativeAlias>(),
 });

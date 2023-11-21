@@ -3,7 +3,7 @@ import { _test_misc_validateClone } from "../../internal/_test_misc_validateClon
 import { ArrayUnion } from "../../structures/ArrayUnion";
 
 export const test_misc_validateClone_ArrayUnion = _test_misc_validateClone(
-    "ArrayUnion",
+  "ArrayUnion",
 )<ArrayUnion>(ArrayUnion)((input) =>
-    typia.misc.validateClone<ArrayUnion>(input),
+  typia.misc.validateClone<ArrayUnion>(input),
 );

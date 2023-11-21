@@ -3,7 +3,7 @@ import { _test_misc_validateClone } from "../../internal/_test_misc_validateClon
 import { ObjectRecursive } from "../../structures/ObjectRecursive";
 
 export const test_misc_validateClone_ObjectRecursive = _test_misc_validateClone(
-    "ObjectRecursive",
+  "ObjectRecursive",
 )<ObjectRecursive>(ObjectRecursive)((input) =>
-    typia.misc.validateClone<ObjectRecursive>(input),
+  typia.misc.validateClone<ObjectRecursive>(input),
 );

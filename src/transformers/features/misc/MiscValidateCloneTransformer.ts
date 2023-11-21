@@ -3,8 +3,7 @@ import { MiscValidateCloneProgrammer } from "../../../programmers/misc/MiscValid
 import { GenericTransformer } from "../../internal/GenericTransformer";
 
 export namespace MiscValidateCloneTransformer {
-    export const transform = GenericTransformer.scalar("misc.validatClone")(
-        (project) => (modulo) =>
-            MiscValidateCloneProgrammer.write(project)(modulo),
-    );
+  export const transform = GenericTransformer.scalar("misc.validatClone")(
+    (project) => (modulo) => MiscValidateCloneProgrammer.write(project)(modulo),
+  );
 }

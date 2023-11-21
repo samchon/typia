@@ -1,16 +1,16 @@
 import typia from "typia";
 
 interface IPointer<T> {
-    value: T;
+  value: T;
 }
 type IArray<Key extends string> = {
-    [P in Key]: string[];
+  [P in Key]: string[];
 };
 interface ISomething {
-    something: boolean;
-    sOmething: bigint;
-    soMething: number;
-    somEthing: string;
+  something: boolean;
+  sOmething: bigint;
+  soMething: number;
+  somEthing: string;
 }
 
 typia.http.createHeaders<ISomething>();
@@ -21,7 +21,7 @@ typia.http.createHeaders<IPointer<number | null>>();
 typia.http.createHeaders<IPointer<IPointer<number>>>();
 
 typia.http.createHeaders<{
-    "set-cookie": string;
+  "set-cookie": string;
 }>();
 typia.http.createHeaders<IArray<"age">>();
 typia.http.createHeaders<IArray<"authorization">>();

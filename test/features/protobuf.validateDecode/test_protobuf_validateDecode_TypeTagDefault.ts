@@ -3,9 +3,9 @@ import { _test_protobuf_validateDecode } from "../../internal/_test_protobuf_val
 import { TypeTagDefault } from "../../structures/TypeTagDefault";
 
 export const test_protobuf_createValidateDecode_TypeTagDefault =
-    _test_protobuf_validateDecode("TypeTagDefault")<TypeTagDefault>(
-        TypeTagDefault,
-    )({
-        decode: (input) => typia.protobuf.validateDecode<TypeTagDefault>(input),
-        encode: typia.protobuf.createEncode<TypeTagDefault>(),
-    });
+  _test_protobuf_validateDecode("TypeTagDefault")<TypeTagDefault>(
+    TypeTagDefault,
+  )({
+    decode: (input) => typia.protobuf.validateDecode<TypeTagDefault>(input),
+    encode: typia.protobuf.createEncode<TypeTagDefault>(),
+  });

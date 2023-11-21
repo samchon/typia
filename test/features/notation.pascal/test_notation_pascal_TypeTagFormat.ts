@@ -3,10 +3,9 @@ import { _test_notation_validateGeneral } from "../../internal/_test_notation_va
 import { TypeTagFormat } from "../../structures/TypeTagFormat";
 
 export const test_notation_validatePascal_TypeTagFormat =
-    _test_notation_validateGeneral("TypeTagFormat")<TypeTagFormat>(
-        TypeTagFormat,
-    )<typia.PascalCase<TypeTagFormat>>({
-        convert: (input) =>
-            typia.notations.validatePascal<TypeTagFormat>(input),
-        assert: typia.createAssert<typia.PascalCase<TypeTagFormat>>(),
-    });
+  _test_notation_validateGeneral("TypeTagFormat")<TypeTagFormat>(TypeTagFormat)<
+    typia.PascalCase<TypeTagFormat>
+  >({
+    convert: (input) => typia.notations.validatePascal<TypeTagFormat>(input),
+    assert: typia.createAssert<typia.PascalCase<TypeTagFormat>>(),
+  });

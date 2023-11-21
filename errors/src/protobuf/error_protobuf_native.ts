@@ -1,7 +1,7 @@
 import typia from "typia";
 
 interface IPointer<T> {
-    value: T;
+  value: T;
 }
 
 // MESSAGE

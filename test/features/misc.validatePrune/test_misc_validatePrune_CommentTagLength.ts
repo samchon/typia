@@ -3,6 +3,6 @@ import { _test_misc_validatePrune } from "../../internal/_test_misc_validatePrun
 import { CommentTagLength } from "../../structures/CommentTagLength";
 
 export const test_misc_validatePrune_CommentTagLength =
-    _test_misc_validatePrune("CommentTagLength")<CommentTagLength>(
-        CommentTagLength,
-    )((input) => typia.misc.validatePrune<CommentTagLength>(input));
+  _test_misc_validatePrune("CommentTagLength")<CommentTagLength>(
+    CommentTagLength,
+  )((input) => typia.misc.validatePrune<CommentTagLength>(input));

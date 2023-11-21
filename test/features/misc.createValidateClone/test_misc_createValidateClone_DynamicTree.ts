@@ -3,6 +3,6 @@ import { _test_misc_validateClone } from "../../internal/_test_misc_validateClon
 import { DynamicTree } from "../../structures/DynamicTree";
 
 export const test_misc_createValidateClone_DynamicTree =
-    _test_misc_validateClone("DynamicTree")<DynamicTree>(DynamicTree)(
-        typia.misc.createValidateClone<DynamicTree>(),
-    );
+  _test_misc_validateClone("DynamicTree")<DynamicTree>(DynamicTree)(
+    typia.misc.createValidateClone<DynamicTree>(),
+  );

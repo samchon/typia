@@ -3,6 +3,6 @@ import { _test_misc_validatePrune } from "../../internal/_test_misc_validatePrun
 import { CommentTagPattern } from "../../structures/CommentTagPattern";
 
 export const test_misc_createValidatePrune_CommentTagPattern =
-    _test_misc_validatePrune("CommentTagPattern")<CommentTagPattern>(
-        CommentTagPattern,
-    )(typia.misc.createValidatePrune<CommentTagPattern>());
+  _test_misc_validatePrune("CommentTagPattern")<CommentTagPattern>(
+    CommentTagPattern,
+  )(typia.misc.createValidatePrune<CommentTagPattern>());

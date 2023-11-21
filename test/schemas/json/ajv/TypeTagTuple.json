@@ -103,7 +103,25 @@
                   ]
                 },
                 "maxItems": 7,
-                "minItems": 3
+                "minItems": 3,
+                "x-typia-typeTags": [
+                  {
+                    "target": "array",
+                    "name": "MinItems<3>",
+                    "kind": "minItems",
+                    "value": 3,
+                    "validate": "3 <= $input.length",
+                    "exclusive": true
+                  },
+                  {
+                    "target": "array",
+                    "name": "MaxItems<7>",
+                    "kind": "maxItems",
+                    "value": 7,
+                    "validate": "$input.length <= 7",
+                    "exclusive": true
+                  }
+                ]
               },
               {
                 "x-typia-required": true,
@@ -143,7 +161,25 @@
                   ]
                 },
                 "maxItems": 7,
-                "minItems": 3
+                "minItems": 3,
+                "x-typia-typeTags": [
+                  {
+                    "target": "array",
+                    "name": "MinItems<3>",
+                    "kind": "minItems",
+                    "value": 3,
+                    "validate": "3 <= $input.length",
+                    "exclusive": true
+                  },
+                  {
+                    "target": "array",
+                    "name": "MaxItems<7>",
+                    "kind": "maxItems",
+                    "value": 7,
+                    "validate": "$input.length <= 7",
+                    "exclusive": true
+                  }
+                ]
               }
             ],
             "x-typia-required": true,

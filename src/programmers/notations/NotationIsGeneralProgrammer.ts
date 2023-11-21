@@ -10,70 +10,62 @@ import { IsProgrammer } from "../IsProgrammer";
 import { NotationGeneralProgrammer } from "./NotationGeneralProgrammer";
 
 export namespace NotationIsGeneralProgrammer {
-    export const write =
-        (rename: (str: string) => string) =>
-        (project: IProject) =>
-        (modulo: ts.LeftHandSideExpression) =>
-        (type: ts.Type, name?: string) =>
-            ts.factory.createArrowFunction(
+  export const write =
+    (rename: (str: string) => string) =>
+    (project: IProject) =>
+    (modulo: ts.LeftHandSideExpression) =>
+    (type: ts.Type, name?: string) =>
+      ts.factory.createArrowFunction(
+        undefined,
+        undefined,
+        [IdentifierFactory.parameter("input", TypeFactory.keyword("any"))],
+        ts.factory.createUnionTypeNode([
+          ts.factory.createTypeReferenceNode(
+            NotationGeneralProgrammer.returnType(rename)(
+              name ?? TypeFactory.getFullName(project.checker)(type),
+            ),
+          ),
+          ts.factory.createLiteralTypeNode(ts.factory.createNull()),
+        ]),
+        undefined,
+        ts.factory.createBlock([
+          StatementFactory.constant(
+            "is",
+            IsProgrammer.write(project)(modulo)(false)(type, name),
+          ),
+          StatementFactory.constant(
+            "general",
+            NotationGeneralProgrammer.write(rename)({
+              ...project,
+              options: {
+                ...project.options,
+                functional: false,
+                numeric: false,
+              },
+            })(modulo)(type, name),
+          ),
+          ts.factory.createIfStatement(
+            ts.factory.createPrefixUnaryExpression(
+              ts.SyntaxKind.ExclamationToken,
+              ts.factory.createCallExpression(
+                ts.factory.createIdentifier("is"),
                 undefined,
-                undefined,
-                [
-                    IdentifierFactory.parameter(
-                        "input",
-                        TypeFactory.keyword("any"),
-                    ),
-                ],
-                ts.factory.createUnionTypeNode([
-                    ts.factory.createTypeReferenceNode(
-                        NotationGeneralProgrammer.returnType(rename)(
-                            name ??
-                                TypeFactory.getFullName(project.checker)(type),
-                        ),
-                    ),
-                    ts.factory.createLiteralTypeNode(ts.factory.createNull()),
-                ]),
-                undefined,
-                ts.factory.createBlock([
-                    StatementFactory.constant(
-                        "is",
-                        IsProgrammer.write(project)(modulo)(false)(type, name),
-                    ),
-                    StatementFactory.constant(
-                        "general",
-                        NotationGeneralProgrammer.write(rename)({
-                            ...project,
-                            options: {
-                                ...project.options,
-                                functional: false,
-                                numeric: false,
-                            },
-                        })(modulo)(type, name),
-                    ),
-                    ts.factory.createIfStatement(
-                        ts.factory.createPrefixUnaryExpression(
-                            ts.SyntaxKind.ExclamationToken,
-                            ts.factory.createCallExpression(
-                                ts.factory.createIdentifier("is"),
-                                undefined,
-                                [ts.factory.createIdentifier("input")],
-                            ),
-                        ),
-                        ts.factory.createReturnStatement(
-                            ts.factory.createNull(),
-                        ),
-                    ),
-                    StatementFactory.constant(
-                        "output",
-                        ts.factory.createCallExpression(
-                            ts.factory.createIdentifier("general"),
-                            undefined,
-                            [ts.factory.createIdentifier("input")],
-                        ),
-                    ),
-                    ts.factory.createReturnStatement(
-                        ts.factory.createIdentifier("output"),
-                    ),
-                ]),
-            );
+                [ts.factory.createIdentifier("input")],
+              ),
+            ),
+            ts.factory.createReturnStatement(ts.factory.createNull()),
+          ),
+          StatementFactory.constant(
+            "output",
+            ts.factory.createCallExpression(
+              ts.factory.createIdentifier("general"),
+              undefined,
+              [ts.factory.createIdentifier("input")],
+            ),
+          ),
+          ts.factory.createReturnStatement(
+            ts.factory.createIdentifier("output"),
+          ),
+        ]),
+      );
 }

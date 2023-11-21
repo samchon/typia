@@ -4,5 +4,5 @@ import { ObjectSimple } from "../../../../test/structures/ObjectSimple";
 import { createAssertAjvBenchmarkProgram } from "./createAssertAjvBenchmarkProgram";
 
 createAssertAjvBenchmarkProgram(
-    typia.json.application<[ObjectSimple], "ajv">(),
+  typia.json.application<[ObjectSimple], "ajv">(),
 );

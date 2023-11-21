@@ -3,6 +3,6 @@ import { _test_misc_validatePrune } from "../../internal/_test_misc_validatePrun
 import { TypeTagArrayUnion } from "../../structures/TypeTagArrayUnion";
 
 export const test_misc_createValidatePrune_TypeTagArrayUnion =
-    _test_misc_validatePrune("TypeTagArrayUnion")<TypeTagArrayUnion>(
-        TypeTagArrayUnion,
-    )(typia.misc.createValidatePrune<TypeTagArrayUnion>());
+  _test_misc_validatePrune("TypeTagArrayUnion")<TypeTagArrayUnion>(
+    TypeTagArrayUnion,
+  )(typia.misc.createValidatePrune<TypeTagArrayUnion>());

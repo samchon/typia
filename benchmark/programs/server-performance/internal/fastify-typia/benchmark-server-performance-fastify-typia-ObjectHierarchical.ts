@@ -5,6 +5,6 @@ import { ICollection } from "../../../../structures/ICollection";
 import { createFastifyCustomServerPerformanceBenchmarkProgram } from "../createFastifyCustomServerPerformanceBenchmarkProgram";
 
 createFastifyCustomServerPerformanceBenchmarkProgram(
-    typia.createAssert<ICollection<ObjectHierarchical>>(),
-    typia.json.createStringify<ICollection<ObjectHierarchical>>(),
+  typia.createAssert<ICollection<ObjectHierarchical>>(),
+  typia.json.createStringify<ICollection<ObjectHierarchical>>(),
 );

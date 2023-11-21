@@ -3,6 +3,6 @@ import { _test_misc_validateClone } from "../../internal/_test_misc_validateClon
 import { ArrayMatrix } from "../../structures/ArrayMatrix";
 
 export const test_misc_createValidateClone_ArrayMatrix =
-    _test_misc_validateClone("ArrayMatrix")<ArrayMatrix>(ArrayMatrix)(
-        typia.misc.createValidateClone<ArrayMatrix>(),
-    );
+  _test_misc_validateClone("ArrayMatrix")<ArrayMatrix>(ArrayMatrix)(
+    typia.misc.createValidateClone<ArrayMatrix>(),
+  );

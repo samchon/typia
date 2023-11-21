@@ -3,7 +3,7 @@ import { _test_json_validateParse } from "../../internal/_test_json_validatePars
 import { TypeTagDefault } from "../../structures/TypeTagDefault";
 
 export const test_json_validateParse_TypeTagDefault = _test_json_validateParse(
-    "TypeTagDefault",
+  "TypeTagDefault",
 )<TypeTagDefault>(TypeTagDefault)((input) =>
-    typia.json.validateParse<TypeTagDefault>(input),
+  typia.json.validateParse<TypeTagDefault>(input),
 );

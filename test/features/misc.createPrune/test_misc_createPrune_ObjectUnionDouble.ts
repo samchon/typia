@@ -3,7 +3,7 @@ import { _test_misc_prune } from "../../internal/_test_misc_prune";
 import { ObjectUnionDouble } from "../../structures/ObjectUnionDouble";
 
 export const test_misc_createPrune_ObjectUnionDouble = _test_misc_prune(
-    "ObjectUnionDouble",
+  "ObjectUnionDouble",
 )<ObjectUnionDouble>(ObjectUnionDouble)(
-    typia.misc.createPrune<ObjectUnionDouble>(),
+  typia.misc.createPrune<ObjectUnionDouble>(),
 );

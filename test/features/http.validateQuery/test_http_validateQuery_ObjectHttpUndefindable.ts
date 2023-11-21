@@ -3,6 +3,6 @@ import { _test_http_validateQuery } from "../../internal/_test_http_validateQuer
 import { ObjectHttpUndefindable } from "../../structures/ObjectHttpUndefindable";
 
 export const test_http_validateQuery_ObjectHttpUndefindable =
-    _test_http_validateQuery("ObjectHttpUndefindable")<ObjectHttpUndefindable>(
-        ObjectHttpUndefindable,
-    )((input) => typia.http.validateQuery<ObjectHttpUndefindable>(input));
+  _test_http_validateQuery("ObjectHttpUndefindable")<ObjectHttpUndefindable>(
+    ObjectHttpUndefindable,
+  )((input) => typia.http.validateQuery<ObjectHttpUndefindable>(input));

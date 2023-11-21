@@ -3,7 +3,7 @@ import { _test_is } from "../../internal/_test_is";
 import { ObjectHttpTypeTag } from "../../structures/ObjectHttpTypeTag";
 
 export const test_is_ObjectHttpTypeTag = _test_is(
-    "ObjectHttpTypeTag",
+  "ObjectHttpTypeTag",
 )<ObjectHttpTypeTag>(ObjectHttpTypeTag)((input) =>
-    typia.is<ObjectHttpTypeTag>(input),
+  typia.is<ObjectHttpTypeTag>(input),
 );

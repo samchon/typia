@@ -3,6 +3,6 @@ import { _test_misc_validateClone } from "../../internal/_test_misc_validateClon
 import { CommentTagLength } from "../../structures/CommentTagLength";
 
 export const test_misc_validateClone_CommentTagLength =
-    _test_misc_validateClone("CommentTagLength")<CommentTagLength>(
-        CommentTagLength,
-    )((input) => typia.misc.validateClone<CommentTagLength>(input));
+  _test_misc_validateClone("CommentTagLength")<CommentTagLength>(
+    CommentTagLength,
+  )((input) => typia.misc.validateClone<CommentTagLength>(input));

@@ -3,7 +3,7 @@ import { HttpHeadersProgrammer } from "../../../programmers/http/HttpHeadersProg
 import { GenericTransformer } from "../../internal/GenericTransformer";
 
 export namespace HttpHeadersTransformer {
-    export const transform = GenericTransformer.scalar("http.headers")(
-        (project) => (modulo) => HttpHeadersProgrammer.write(project)(modulo),
-    );
+  export const transform = GenericTransformer.scalar("http.headers")(
+    (project) => (modulo) => HttpHeadersProgrammer.write(project)(modulo),
+  );
 }

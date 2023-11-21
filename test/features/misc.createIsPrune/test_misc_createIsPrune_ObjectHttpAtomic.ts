@@ -3,7 +3,7 @@ import { _test_misc_isPrune } from "../../internal/_test_misc_isPrune";
 import { ObjectHttpAtomic } from "../../structures/ObjectHttpAtomic";
 
 export const test_misc_createIsPrune_ObjectHttpAtomic = _test_misc_isPrune(
-    "ObjectHttpAtomic",
+  "ObjectHttpAtomic",
 )<ObjectHttpAtomic>(ObjectHttpAtomic)(
-    typia.misc.createIsPrune<ObjectHttpAtomic>(),
+  typia.misc.createIsPrune<ObjectHttpAtomic>(),
 );

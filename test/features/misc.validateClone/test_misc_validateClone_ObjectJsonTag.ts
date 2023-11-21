@@ -3,7 +3,7 @@ import { _test_misc_validateClone } from "../../internal/_test_misc_validateClon
 import { ObjectJsonTag } from "../../structures/ObjectJsonTag";
 
 export const test_misc_validateClone_ObjectJsonTag = _test_misc_validateClone(
-    "ObjectJsonTag",
+  "ObjectJsonTag",
 )<ObjectJsonTag>(ObjectJsonTag)((input) =>
-    typia.misc.validateClone<ObjectJsonTag>(input),
+  typia.misc.validateClone<ObjectJsonTag>(input),
 );

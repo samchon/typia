@@ -3,7 +3,7 @@ import { _test_misc_validateClone } from "../../internal/_test_misc_validateClon
 import { CommentTagType } from "../../structures/CommentTagType";
 
 export const test_misc_validateClone_CommentTagType = _test_misc_validateClone(
-    "CommentTagType",
+  "CommentTagType",
 )<CommentTagType>(CommentTagType)((input) =>
-    typia.misc.validateClone<CommentTagType>(input),
+  typia.misc.validateClone<CommentTagType>(input),
 );

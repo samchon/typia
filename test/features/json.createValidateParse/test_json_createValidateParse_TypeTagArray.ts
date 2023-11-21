@@ -3,6 +3,6 @@ import { _test_json_validateParse } from "../../internal/_test_json_validatePars
 import { TypeTagArray } from "../../structures/TypeTagArray";
 
 export const test_json_createValidateParse_TypeTagArray =
-    _test_json_validateParse("TypeTagArray")<TypeTagArray>(TypeTagArray)(
-        typia.json.createValidateParse<TypeTagArray>(),
-    );
+  _test_json_validateParse("TypeTagArray")<TypeTagArray>(TypeTagArray)(
+    typia.json.createValidateParse<TypeTagArray>(),
+  );

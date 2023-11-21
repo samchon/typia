@@ -3,14 +3,11 @@ import { _test_notation_validateGeneral } from "../../internal/_test_notation_va
 import { ArrayRecursiveUnionExplicit } from "../../structures/ArrayRecursiveUnionExplicit";
 
 export const test_notation_createValidateCamel_ArrayRecursiveUnionExplicit =
-    _test_notation_validateGeneral(
-        "ArrayRecursiveUnionExplicit",
-    )<ArrayRecursiveUnionExplicit>(ArrayRecursiveUnionExplicit)<
-        typia.CamelCase<ArrayRecursiveUnionExplicit>
-    >({
-        convert:
-            typia.notations.createValidateCamel<ArrayRecursiveUnionExplicit>(),
-        assert: typia.createAssert<
-            typia.CamelCase<ArrayRecursiveUnionExplicit>
-        >(),
-    });
+  _test_notation_validateGeneral(
+    "ArrayRecursiveUnionExplicit",
+  )<ArrayRecursiveUnionExplicit>(ArrayRecursiveUnionExplicit)<
+    typia.CamelCase<ArrayRecursiveUnionExplicit>
+  >({
+    convert: typia.notations.createValidateCamel<ArrayRecursiveUnionExplicit>(),
+    assert: typia.createAssert<typia.CamelCase<ArrayRecursiveUnionExplicit>>(),
+  });

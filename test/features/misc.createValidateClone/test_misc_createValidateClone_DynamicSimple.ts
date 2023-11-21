@@ -3,6 +3,6 @@ import { _test_misc_validateClone } from "../../internal/_test_misc_validateClon
 import { DynamicSimple } from "../../structures/DynamicSimple";
 
 export const test_misc_createValidateClone_DynamicSimple =
-    _test_misc_validateClone("DynamicSimple")<DynamicSimple>(DynamicSimple)(
-        typia.misc.createValidateClone<DynamicSimple>(),
-    );
+  _test_misc_validateClone("DynamicSimple")<DynamicSimple>(DynamicSimple)(
+    typia.misc.createValidateClone<DynamicSimple>(),
+  );

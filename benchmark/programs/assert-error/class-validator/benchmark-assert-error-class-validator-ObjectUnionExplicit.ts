@@ -2,5 +2,5 @@ import { ClassValidatorObjectUnionExplicit } from "../../../structures/class-val
 import { createAssertErrorClassValidatorBenchmarkProgram } from "./createAssertErrorClassValidatorBenchmarkProgram";
 
 createAssertErrorClassValidatorBenchmarkProgram(
-    ClassValidatorObjectUnionExplicit,
+  ClassValidatorObjectUnionExplicit,
 );

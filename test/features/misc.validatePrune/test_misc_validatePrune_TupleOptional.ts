@@ -3,7 +3,7 @@ import { _test_misc_validatePrune } from "../../internal/_test_misc_validatePrun
 import { TupleOptional } from "../../structures/TupleOptional";
 
 export const test_misc_validatePrune_TupleOptional = _test_misc_validatePrune(
-    "TupleOptional",
+  "TupleOptional",
 )<TupleOptional>(TupleOptional)((input) =>
-    typia.misc.validatePrune<TupleOptional>(input),
+  typia.misc.validatePrune<TupleOptional>(input),
 );

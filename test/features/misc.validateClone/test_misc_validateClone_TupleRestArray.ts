@@ -3,7 +3,7 @@ import { _test_misc_validateClone } from "../../internal/_test_misc_validateClon
 import { TupleRestArray } from "../../structures/TupleRestArray";
 
 export const test_misc_validateClone_TupleRestArray = _test_misc_validateClone(
-    "TupleRestArray",
+  "TupleRestArray",
 )<TupleRestArray>(TupleRestArray)((input) =>
-    typia.misc.validateClone<TupleRestArray>(input),
+  typia.misc.validateClone<TupleRestArray>(input),
 );

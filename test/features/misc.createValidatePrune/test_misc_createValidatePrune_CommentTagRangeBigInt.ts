@@ -3,6 +3,6 @@ import { _test_misc_validatePrune } from "../../internal/_test_misc_validatePrun
 import { CommentTagRangeBigInt } from "../../structures/CommentTagRangeBigInt";
 
 export const test_misc_createValidatePrune_CommentTagRangeBigInt =
-    _test_misc_validatePrune("CommentTagRangeBigInt")<CommentTagRangeBigInt>(
-        CommentTagRangeBigInt,
-    )(typia.misc.createValidatePrune<CommentTagRangeBigInt>());
+  _test_misc_validatePrune("CommentTagRangeBigInt")<CommentTagRangeBigInt>(
+    CommentTagRangeBigInt,
+  )(typia.misc.createValidatePrune<CommentTagRangeBigInt>());

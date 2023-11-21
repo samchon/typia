@@ -3,7 +3,7 @@ import { _test_misc_prune } from "../../internal/_test_misc_prune";
 import { TypeTagArrayUnion } from "../../structures/TypeTagArrayUnion";
 
 export const test_misc_createPrune_TypeTagArrayUnion = _test_misc_prune(
-    "TypeTagArrayUnion",
+  "TypeTagArrayUnion",
 )<TypeTagArrayUnion>(TypeTagArrayUnion)(
-    typia.misc.createPrune<TypeTagArrayUnion>(),
+  typia.misc.createPrune<TypeTagArrayUnion>(),
 );

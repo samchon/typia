@@ -3,10 +3,10 @@ import { _test_protobuf_validateDecode } from "../../internal/_test_protobuf_val
 import { MapSimpleProtobufNullable } from "../../structures/MapSimpleProtobufNullable";
 
 export const test_protobuf_createValidateDecode_MapSimpleProtobufNullable =
-    _test_protobuf_validateDecode(
-        "MapSimpleProtobufNullable",
-    )<MapSimpleProtobufNullable>(MapSimpleProtobufNullable)({
-        decode: (input) =>
-            typia.protobuf.validateDecode<MapSimpleProtobufNullable>(input),
-        encode: typia.protobuf.createEncode<MapSimpleProtobufNullable>(),
-    });
+  _test_protobuf_validateDecode(
+    "MapSimpleProtobufNullable",
+  )<MapSimpleProtobufNullable>(MapSimpleProtobufNullable)({
+    decode: (input) =>
+      typia.protobuf.validateDecode<MapSimpleProtobufNullable>(input),
+    encode: typia.protobuf.createEncode<MapSimpleProtobufNullable>(),
+  });

@@ -3,6 +3,6 @@ import { _test_misc_validatePrune } from "../../internal/_test_misc_validatePrun
 import { CommentTagNaN } from "../../structures/CommentTagNaN";
 
 export const test_misc_createValidatePrune_CommentTagNaN =
-    _test_misc_validatePrune("CommentTagNaN")<CommentTagNaN>(CommentTagNaN)(
-        typia.misc.createValidatePrune<CommentTagNaN>(),
-    );
+  _test_misc_validatePrune("CommentTagNaN")<CommentTagNaN>(CommentTagNaN)(
+    typia.misc.createValidatePrune<CommentTagNaN>(),
+  );

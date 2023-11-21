@@ -3,11 +3,11 @@ import { _test_notation_validateGeneral } from "../../internal/_test_notation_va
 import { CommentTagRangeBigInt } from "../../structures/CommentTagRangeBigInt";
 
 export const test_notation_createValidateSnake_CommentTagRangeBigInt =
-    _test_notation_validateGeneral(
-        "CommentTagRangeBigInt",
-    )<CommentTagRangeBigInt>(CommentTagRangeBigInt)<
-        typia.SnakeCase<CommentTagRangeBigInt>
-    >({
-        convert: typia.notations.createValidateSnake<CommentTagRangeBigInt>(),
-        assert: typia.createAssert<typia.SnakeCase<CommentTagRangeBigInt>>(),
-    });
+  _test_notation_validateGeneral(
+    "CommentTagRangeBigInt",
+  )<CommentTagRangeBigInt>(CommentTagRangeBigInt)<
+    typia.SnakeCase<CommentTagRangeBigInt>
+  >({
+    convert: typia.notations.createValidateSnake<CommentTagRangeBigInt>(),
+    assert: typia.createAssert<typia.SnakeCase<CommentTagRangeBigInt>>(),
+  });

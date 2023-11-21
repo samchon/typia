@@ -2,9 +2,9 @@ import typia from "typia";
 
 type MyNumber = number;
 interface Base {
-    a: string;
-    b: MyNumber;
-    c: boolean;
+  a: string;
+  b: MyNumber;
+  c: boolean;
 }
 type OmitB = Omit<Base, "b">;
 type OnlyA = Pick<Base, "a">;

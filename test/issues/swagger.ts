@@ -6,7 +6,7 @@ import typia from "typia";
  * @title something
  */
 interface Interface {
-    value: number;
+  value: number;
 }
 
 /**
@@ -15,17 +15,17 @@ interface Interface {
  * @title something
  */
 interface Type {
-    value: number;
+  value: number;
 }
 
 const app = typia.json.application<[Interface, Type]>();
 console.log({
-    interface: {
-        description: app.components.schemas?.Interface?.description,
-        tags: app.components.schemas?.Interface?.["x-typia-jsDocTags"],
-    },
-    type: {
-        description: app.components.schemas?.Type?.description,
-        tags: app.components.schemas?.Type?.["x-typia-jsDocTags"],
-    },
+  interface: {
+    description: app.components.schemas?.Interface?.description,
+    tags: app.components.schemas?.Interface?.["x-typia-jsDocTags"],
+  },
+  type: {
+    description: app.components.schemas?.Type?.description,
+    tags: app.components.schemas?.Type?.["x-typia-jsDocTags"],
+  },
 });

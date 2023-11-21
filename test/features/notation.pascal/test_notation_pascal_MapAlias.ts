@@ -3,9 +3,9 @@ import { _test_notation_validateGeneral } from "../../internal/_test_notation_va
 import { MapAlias } from "../../structures/MapAlias";
 
 export const test_notation_validatePascal_MapAlias =
-    _test_notation_validateGeneral("MapAlias")<MapAlias>(MapAlias)<
-        typia.PascalCase<MapAlias>
-    >({
-        convert: (input) => typia.notations.validatePascal<MapAlias>(input),
-        assert: typia.createAssert<typia.PascalCase<MapAlias>>(),
-    });
+  _test_notation_validateGeneral("MapAlias")<MapAlias>(MapAlias)<
+    typia.PascalCase<MapAlias>
+  >({
+    convert: (input) => typia.notations.validatePascal<MapAlias>(input),
+    assert: typia.createAssert<typia.PascalCase<MapAlias>>(),
+  });

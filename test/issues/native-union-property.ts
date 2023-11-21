@@ -1,12 +1,12 @@
 import typia from "typia";
 
 type A = {
-    createdAt: Date;
-    value: number;
+  createdAt: Date;
+  value: number;
 };
 type B = {
-    createdAt: Date;
-    value: string;
+  createdAt: Date;
+  value: string;
 };
 type AB = A | B;
 

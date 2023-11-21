@@ -3,9 +3,9 @@ import { _test_notation_validateGeneral } from "../../internal/_test_notation_va
 import { ClassNonPublic } from "../../structures/ClassNonPublic";
 
 export const test_notation_createValidateSnake_ClassNonPublic =
-    _test_notation_validateGeneral("ClassNonPublic")<ClassNonPublic>(
-        ClassNonPublic,
-    )<typia.SnakeCase<ClassNonPublic>>({
-        convert: typia.notations.createValidateSnake<ClassNonPublic>(),
-        assert: typia.createAssert<typia.SnakeCase<ClassNonPublic>>(),
-    });
+  _test_notation_validateGeneral("ClassNonPublic")<ClassNonPublic>(
+    ClassNonPublic,
+  )<typia.SnakeCase<ClassNonPublic>>({
+    convert: typia.notations.createValidateSnake<ClassNonPublic>(),
+    assert: typia.createAssert<typia.SnakeCase<ClassNonPublic>>(),
+  });

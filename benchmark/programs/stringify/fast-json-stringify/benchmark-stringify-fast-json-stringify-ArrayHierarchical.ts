@@ -4,5 +4,5 @@ import { ArrayHierarchical } from "../../../../test/structures/ArrayHierarchical
 import { createStringifyFastBenchmarkProgram } from "./createStringifyFastBenchmarkProgram";
 
 createStringifyFastBenchmarkProgram(
-    typia.json.application<[ArrayHierarchical], "ajv">(),
+  typia.json.application<[ArrayHierarchical], "ajv">(),
 );

@@ -3,9 +3,9 @@ import { _test_protobuf_assertDecode } from "../../internal/_test_protobuf_asser
 import { CommentTagTypeBigInt } from "../../structures/CommentTagTypeBigInt";
 
 export const test_protobuf_createAssertDecode_CommentTagTypeBigInt =
-    _test_protobuf_assertDecode("CommentTagTypeBigInt")<CommentTagTypeBigInt>(
-        CommentTagTypeBigInt,
-    )({
-        decode: typia.protobuf.createAssertDecode<CommentTagTypeBigInt>(),
-        encode: typia.protobuf.createEncode<CommentTagTypeBigInt>(),
-    });
+  _test_protobuf_assertDecode("CommentTagTypeBigInt")<CommentTagTypeBigInt>(
+    CommentTagTypeBigInt,
+  )({
+    decode: typia.protobuf.createAssertDecode<CommentTagTypeBigInt>(),
+    encode: typia.protobuf.createEncode<CommentTagTypeBigInt>(),
+  });

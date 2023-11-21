@@ -3,9 +3,9 @@ import { _test_notation_validateGeneral } from "../../internal/_test_notation_va
 import { TypeTagLength } from "../../structures/TypeTagLength";
 
 export const test_notation_validateCamel_TypeTagLength =
-    _test_notation_validateGeneral("TypeTagLength")<TypeTagLength>(
-        TypeTagLength,
-    )<typia.CamelCase<TypeTagLength>>({
-        convert: (input) => typia.notations.validateCamel<TypeTagLength>(input),
-        assert: typia.createAssert<typia.CamelCase<TypeTagLength>>(),
-    });
+  _test_notation_validateGeneral("TypeTagLength")<TypeTagLength>(TypeTagLength)<
+    typia.CamelCase<TypeTagLength>
+  >({
+    convert: (input) => typia.notations.validateCamel<TypeTagLength>(input),
+    assert: typia.createAssert<typia.CamelCase<TypeTagLength>>(),
+  });

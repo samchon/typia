@@ -13,32 +13,33 @@ import { ICheckEntry } from "../helpers/ICheckEntry";
  * @internal
  */
 export const check_array_length =
-    (project: IProject) =>
-    (array: MetadataArray) =>
-    (input: ts.Expression): ICheckEntry => {
-        const conditions: ICheckEntry.ICondition[][] = check_string_type_tags(
-            project,
-        )(array.tags)(input);
+  (project: IProject) =>
+  (array: MetadataArray) =>
+  (input: ts.Expression): ICheckEntry => {
+    const conditions: ICheckEntry.ICondition[][] = check_string_type_tags(
+      project,
+    )(array.tags)(input);
 
-        return {
-            expected: array.getName(),
-            expression: null,
-            conditions,
-        };
+    return {
+      expected: array.getName(),
+      expression: null,
+      conditions,
     };
+  };
 
 const check_string_type_tags =
-    (project: IProject) =>
-    (matrix: IMetadataTypeTag[][]) =>
-    (input: ts.Expression): ICheckEntry.ICondition[][] =>
-        matrix
-            .map((row) => row.filter((tag) => !!tag.validate))
-            .filter((row) => !!row.length)
-            .map((row) =>
-                row.map((tag) => ({
-                    expected: `Array<> & ${tag.name}`,
-                    expression: ExpressionFactory.transpile(project.context)(
-                        tag.validate!,
-                    )(input),
-                })),
-            );
+  (project: IProject) =>
+  (matrix: IMetadataTypeTag[][]) =>
+  (input: ts.Expression): ICheckEntry.ICondition[][] =>
+    matrix
+      .map((row) => row.filter((tag) => !!tag.validate))
+      .filter((row) => !!row.length)
+      .map((row) =>
+        row.map((tag) => ({
+          expected: `Array<> & ${tag.name}`,
+          expression: (
+            tag.predicate ??
+            ExpressionFactory.transpile(project.context)(tag.validate!)
+          )(input),
+        })),
+      );

@@ -7,13 +7,13 @@ import { ClassValidatorCollection } from "../../../../structures/class-validator
 import { createExpressServerAssertBenchmarkProgram } from "../createExpressServerAssertBenchmarkProgram";
 
 const schema = ClassValidatorCollection(
-    ClassValidatorArrayRecursiveUnionExplicit,
+  ClassValidatorArrayRecursiveUnionExplicit,
 );
 createExpressServerAssertBenchmarkProgram<ArrayRecursiveUnionExplicit>(
-    (input) => {
-        const output = plainToInstance(schema, input);
-        const result = validateSync(output);
-        if (result.length > 0) throw new Error(result[0].toString());
-        return output;
-    },
+  (input) => {
+    const output = plainToInstance(schema, input);
+    const result = validateSync(output);
+    if (result.length > 0) throw new Error(result[0].toString());
+    return output;
+  },
 );

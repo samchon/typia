@@ -3,7 +3,7 @@ import { _test_assertEquals } from "../../internal/_test_assertEquals";
 import { FunctionalValueUnion } from "../../structures/FunctionalValueUnion";
 
 export const test_createAssertEquals_FunctionalValueUnion = _test_assertEquals(
-    "FunctionalValueUnion",
+  "FunctionalValueUnion",
 )<FunctionalValueUnion>(FunctionalValueUnion)(
-    typia.createAssertEquals<FunctionalValueUnion>(),
+  typia.createAssertEquals<FunctionalValueUnion>(),
 );

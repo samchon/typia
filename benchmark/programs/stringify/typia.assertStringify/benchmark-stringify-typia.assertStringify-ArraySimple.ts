@@ -4,5 +4,5 @@ import { ArraySimple } from "../../../../test/structures/ArraySimple";
 import { createStringifyBenchmarkProgram } from "../createStringifyBenchmarkProgram";
 
 createStringifyBenchmarkProgram(
-    typia.json.createAssertStringify<ArraySimple>(),
+  typia.json.createAssertStringify<ArraySimple>(),
 );

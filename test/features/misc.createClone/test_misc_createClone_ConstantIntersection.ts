@@ -3,7 +3,7 @@ import { _test_misc_clone } from "../../internal/_test_misc_clone";
 import { ConstantIntersection } from "../../structures/ConstantIntersection";
 
 export const test_misc_createClone_ConstantIntersection = _test_misc_clone(
-    "ConstantIntersection",
+  "ConstantIntersection",
 )<ConstantIntersection>(ConstantIntersection)(
-    typia.misc.createClone<ConstantIntersection>(),
+  typia.misc.createClone<ConstantIntersection>(),
 );

@@ -1,3 +1,3 @@
 export interface IPointer<T> {
-    value: T;
+  value: T;
 }

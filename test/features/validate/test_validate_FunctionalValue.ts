@@ -3,7 +3,7 @@ import { _test_validate } from "../../internal/_test_validate";
 import { FunctionalValue } from "../../structures/FunctionalValue";
 
 export const test_validate_FunctionalValue = _test_validate(
-    "FunctionalValue",
+  "FunctionalValue",
 )<FunctionalValue>(FunctionalValue)((input) =>
-    typia.validate<FunctionalValue>(input),
+  typia.validate<FunctionalValue>(input),
 );

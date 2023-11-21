@@ -3,7 +3,7 @@ import { _test_misc_validatePrune } from "../../internal/_test_misc_validatePrun
 import { TemplateUnion } from "../../structures/TemplateUnion";
 
 export const test_misc_validatePrune_TemplateUnion = _test_misc_validatePrune(
-    "TemplateUnion",
+  "TemplateUnion",
 )<TemplateUnion>(TemplateUnion)((input) =>
-    typia.misc.validatePrune<TemplateUnion>(input),
+  typia.misc.validatePrune<TemplateUnion>(input),
 );

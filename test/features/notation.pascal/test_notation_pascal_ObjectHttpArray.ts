@@ -3,10 +3,9 @@ import { _test_notation_validateGeneral } from "../../internal/_test_notation_va
 import { ObjectHttpArray } from "../../structures/ObjectHttpArray";
 
 export const test_notation_validatePascal_ObjectHttpArray =
-    _test_notation_validateGeneral("ObjectHttpArray")<ObjectHttpArray>(
-        ObjectHttpArray,
-    )<typia.PascalCase<ObjectHttpArray>>({
-        convert: (input) =>
-            typia.notations.validatePascal<ObjectHttpArray>(input),
-        assert: typia.createAssert<typia.PascalCase<ObjectHttpArray>>(),
-    });
+  _test_notation_validateGeneral("ObjectHttpArray")<ObjectHttpArray>(
+    ObjectHttpArray,
+  )<typia.PascalCase<ObjectHttpArray>>({
+    convert: (input) => typia.notations.validatePascal<ObjectHttpArray>(input),
+    assert: typia.createAssert<typia.PascalCase<ObjectHttpArray>>(),
+  });

@@ -3,6 +3,6 @@ import { _test_json_validateStringify } from "../../internal/_test_json_validate
 import { ToJsonAtomicSimple } from "../../structures/ToJsonAtomicSimple";
 
 export const test_json_validateStringify_ToJsonAtomicSimple =
-    _test_json_validateStringify("ToJsonAtomicSimple")<ToJsonAtomicSimple>(
-        ToJsonAtomicSimple,
-    )((input) => typia.json.validateStringify<ToJsonAtomicSimple>(input));
+  _test_json_validateStringify("ToJsonAtomicSimple")<ToJsonAtomicSimple>(
+    ToJsonAtomicSimple,
+  )((input) => typia.json.validateStringify<ToJsonAtomicSimple>(input));

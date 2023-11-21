@@ -3,6 +3,6 @@ import { _test_misc_validateClone } from "../../internal/_test_misc_validateClon
 import { ObjectGenericAlias } from "../../structures/ObjectGenericAlias";
 
 export const test_misc_createValidateClone_ObjectGenericAlias =
-    _test_misc_validateClone("ObjectGenericAlias")<ObjectGenericAlias>(
-        ObjectGenericAlias,
-    )(typia.misc.createValidateClone<ObjectGenericAlias>());
+  _test_misc_validateClone("ObjectGenericAlias")<ObjectGenericAlias>(
+    ObjectGenericAlias,
+  )(typia.misc.createValidateClone<ObjectGenericAlias>());

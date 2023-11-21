@@ -3,10 +3,10 @@ import { _test_protobuf_validateDecode } from "../../internal/_test_protobuf_val
 import { ObjectHttpCommentTag } from "../../structures/ObjectHttpCommentTag";
 
 export const test_protobuf_createValidateDecode_ObjectHttpCommentTag =
-    _test_protobuf_validateDecode("ObjectHttpCommentTag")<ObjectHttpCommentTag>(
-        ObjectHttpCommentTag,
-    )({
-        decode: (input) =>
-            typia.protobuf.validateDecode<ObjectHttpCommentTag>(input),
-        encode: typia.protobuf.createEncode<ObjectHttpCommentTag>(),
-    });
+  _test_protobuf_validateDecode("ObjectHttpCommentTag")<ObjectHttpCommentTag>(
+    ObjectHttpCommentTag,
+  )({
+    decode: (input) =>
+      typia.protobuf.validateDecode<ObjectHttpCommentTag>(input),
+    encode: typia.protobuf.createEncode<ObjectHttpCommentTag>(),
+  });

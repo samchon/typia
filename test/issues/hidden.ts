@@ -1,17 +1,17 @@
 import typia from "typia";
 
 interface ISomething {
-    id: string;
+  id: string;
 
-    /**
-     * @hidden
-     */
-    authority: number;
+  /**
+   * @hidden
+   */
+  authority: number;
 }
 const app: typia.IJsonApplication = typia.json.application<
-    [ISomething],
-    "ajv"
+  [ISomething],
+  "ajv"
 >();
 const object: typia.IJsonComponents.IObject = (app.components.schemas ?? {})
-    .ISomething as typia.IJsonComponents.IObject;
+  .ISomething as typia.IJsonComponents.IObject;
 console.log(Object.keys(object.properties)); // ["id"]

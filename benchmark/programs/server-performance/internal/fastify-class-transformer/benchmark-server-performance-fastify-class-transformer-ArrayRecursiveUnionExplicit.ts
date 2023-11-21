@@ -7,17 +7,17 @@ import { ClassValidatorCollection } from "../../../../structures/class-validator
 import { createFastifyCustomServerPerformanceBenchmarkProgram } from "../createFastifyCustomServerPerformanceBenchmarkProgram";
 
 const schema = ClassValidatorCollection(
-    ClassValidatorArrayRecursiveUnionExplicit,
+  ClassValidatorArrayRecursiveUnionExplicit,
 );
 createFastifyCustomServerPerformanceBenchmarkProgram<
-    ArrayRecursiveUnionExplicit,
-    any
+  ArrayRecursiveUnionExplicit,
+  any
 >(
-    (input) => {
-        const output = plainToInstance(schema, input);
-        const result = validateSync(output);
-        if (result.length > 0) throw new Error(result[0].toString());
-        return output;
-    },
-    (input) => JSON.stringify(instanceToPlain(input)),
+  (input) => {
+    const output = plainToInstance(schema, input);
+    const result = validateSync(output);
+    if (result.length > 0) throw new Error(result[0].toString());
+    return output;
+  },
+  (input) => JSON.stringify(instanceToPlain(input)),
 );

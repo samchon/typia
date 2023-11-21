@@ -3,7 +3,7 @@ import { _test_assert } from "../../internal/_test_assert";
 import { CommentTagArrayUnion } from "../../structures/CommentTagArrayUnion";
 
 export const test_assert_CommentTagArrayUnion = _test_assert(
-    "CommentTagArrayUnion",
+  "CommentTagArrayUnion",
 )<CommentTagArrayUnion>(CommentTagArrayUnion)((input) =>
-    typia.assert<CommentTagArrayUnion>(input),
+  typia.assert<CommentTagArrayUnion>(input),
 );

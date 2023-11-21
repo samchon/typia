@@ -3,6 +3,6 @@ import { _test_json_assertStringify } from "../../internal/_test_json_assertStri
 import { TypeTagObjectUnion } from "../../structures/TypeTagObjectUnion";
 
 export const test_json_createAssertStringify_TypeTagObjectUnion =
-    _test_json_assertStringify("TypeTagObjectUnion")<TypeTagObjectUnion>(
-        TypeTagObjectUnion,
-    )(typia.json.createAssertStringify<TypeTagObjectUnion>());
+  _test_json_assertStringify("TypeTagObjectUnion")<TypeTagObjectUnion>(
+    TypeTagObjectUnion,
+  )(typia.json.createAssertStringify<TypeTagObjectUnion>());

@@ -1,7 +1,7 @@
 import { ArrayHierarchicalPointer } from "../structures/ArrayHierarchicalPointer";
 
 console.log(
-    ArrayHierarchicalPointer,
-    (ArrayHierarchicalPointer as any).name,
-    ArrayHierarchicalPointer.constructor.name,
+  ArrayHierarchicalPointer,
+  (ArrayHierarchicalPointer as any).name,
+  ArrayHierarchicalPointer.constructor.name,
 );

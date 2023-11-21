@@ -1,17 +1,17 @@
 import typia from "typia";
 
 type DeepPartial<T> = T extends object
-    ? {
-          [P in keyof T]?: DeepPartial<T[P]>;
-      }
-    : T;
+  ? {
+      [P in keyof T]?: DeepPartial<T[P]>;
+    }
+  : T;
 
 const input = { a: "valid" };
 
 console.log("Works with interface:");
 
 interface TestInterface {
-    a: string;
+  a: string;
 }
 
 const res = typia.validateEquals<TestInterface>(input);
@@ -30,7 +30,7 @@ console.log("");
 console.log("Does not work with declare class:");
 
 declare class TestClass {
-    a: string;
+  a: string;
 }
 
 const res4 = typia.validateEquals<TestClass>(input);

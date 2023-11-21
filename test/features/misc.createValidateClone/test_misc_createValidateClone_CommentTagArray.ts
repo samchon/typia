@@ -3,6 +3,6 @@ import { _test_misc_validateClone } from "../../internal/_test_misc_validateClon
 import { CommentTagArray } from "../../structures/CommentTagArray";
 
 export const test_misc_createValidateClone_CommentTagArray =
-    _test_misc_validateClone("CommentTagArray")<CommentTagArray>(
-        CommentTagArray,
-    )(typia.misc.createValidateClone<CommentTagArray>());
+  _test_misc_validateClone("CommentTagArray")<CommentTagArray>(CommentTagArray)(
+    typia.misc.createValidateClone<CommentTagArray>(),
+  );

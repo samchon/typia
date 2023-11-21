@@ -3,16 +3,16 @@ import { TypeCompiler } from "@sinclair/typebox/compiler";
 import { TypeSystemPolicy } from "@sinclair/typebox/system";
 
 const Point3D = Type.Object({
-    x: Type.Number(),
-    y: Type.Number(),
-    z: Type.Number(),
+  x: Type.Number(),
+  y: Type.Number(),
+  z: Type.Number(),
 });
 
 const Box3D = Type.Object({
-    scale: Point3D,
-    position: Point3D,
-    rotate: Point3D,
-    pivot: Point3D,
+  scale: Point3D,
+  position: Point3D,
+  rotate: Point3D,
+  pivot: Point3D,
 });
 
 TypeSystemPolicy.AllowArrayObject = true;

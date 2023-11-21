@@ -5,5 +5,5 @@ import { ICollection } from "../../../../structures/ICollection";
 import { createFastifyPureServerAssertBenchmarkProgram } from "../createFastifyPureServerAssertBenchmarkProgram";
 
 createFastifyPureServerAssertBenchmarkProgram(
-    typia.json.application<[ICollection<ObjectHierarchical>], "ajv">(),
+  typia.json.application<[ICollection<ObjectHierarchical>], "ajv">(),
 );

@@ -3,6 +3,6 @@ import { _test_json_assertStringify } from "../../internal/_test_json_assertStri
 import { ObjectOptional } from "../../structures/ObjectOptional";
 
 export const test_json_createAssertStringify_ObjectOptional =
-    _test_json_assertStringify("ObjectOptional")<ObjectOptional>(
-        ObjectOptional,
-    )(typia.json.createAssertStringify<ObjectOptional>());
+  _test_json_assertStringify("ObjectOptional")<ObjectOptional>(ObjectOptional)(
+    typia.json.createAssertStringify<ObjectOptional>(),
+  );

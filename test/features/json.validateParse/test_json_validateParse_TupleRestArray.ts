@@ -3,7 +3,7 @@ import { _test_json_validateParse } from "../../internal/_test_json_validatePars
 import { TupleRestArray } from "../../structures/TupleRestArray";
 
 export const test_json_validateParse_TupleRestArray = _test_json_validateParse(
-    "TupleRestArray",
+  "TupleRestArray",
 )<TupleRestArray>(TupleRestArray)((input) =>
-    typia.json.validateParse<TupleRestArray>(input),
+  typia.json.validateParse<TupleRestArray>(input),
 );

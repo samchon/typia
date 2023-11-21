@@ -6,25 +6,25 @@ import { ObjectSimple } from "../structures/ObjectSimple";
 
 type ObjectArray = Array<ObjectSimple | null>;
 const data: ObjectArray = [
-    null,
-    ObjectSimple.generate(),
-    ObjectSimple.generate(),
-    ObjectSimple.generate(),
+  null,
+  ObjectSimple.generate(),
+  ObjectSimple.generate(),
+  ObjectSimple.generate(),
 ];
 const app = typia.json.application<[ObjectArray], "swagger">();
 const stringify = fast({
-    ...app.schemas[0]!,
-    ...app,
+  ...app.schemas[0]!,
+  ...app,
 } as any);
 console.log(stringify(data));
 
 console.log(
-    new ajv().compile(typia.json.application<[ObjectArray], "ajv">())([
-        ...data,
-        {},
-    ]),
-    new ajv().compile(typia.json.application<[ObjectArray], "swagger">())([
-        ...data,
-        {},
-    ]),
+  new ajv().compile(typia.json.application<[ObjectArray], "ajv">())([
+    ...data,
+    {},
+  ]),
+  new ajv().compile(typia.json.application<[ObjectArray], "swagger">())([
+    ...data,
+    {},
+  ]),
 );

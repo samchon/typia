@@ -3,7 +3,7 @@ import { _test_misc_validatePrune } from "../../internal/_test_misc_validatePrun
 import { TypeTagArray } from "../../structures/TypeTagArray";
 
 export const test_misc_validatePrune_TypeTagArray = _test_misc_validatePrune(
-    "TypeTagArray",
+  "TypeTagArray",
 )<TypeTagArray>(TypeTagArray)((input) =>
-    typia.misc.validatePrune<TypeTagArray>(input),
+  typia.misc.validatePrune<TypeTagArray>(input),
 );

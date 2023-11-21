@@ -3,7 +3,7 @@ import { _test_assertEquals } from "../../internal/_test_assertEquals";
 import { ObjectOptional } from "../../structures/ObjectOptional";
 
 export const test_assertEquals_ObjectOptional = _test_assertEquals(
-    "ObjectOptional",
+  "ObjectOptional",
 )<ObjectOptional>(ObjectOptional)((input) =>
-    typia.assertEquals<ObjectOptional>(input),
+  typia.assertEquals<ObjectOptional>(input),
 );

@@ -3,9 +3,9 @@ import { _test_notation_validateGeneral } from "../../internal/_test_notation_va
 import { ArraySimple } from "../../structures/ArraySimple";
 
 export const test_notation_validateSnake_ArraySimple =
-    _test_notation_validateGeneral("ArraySimple")<ArraySimple>(ArraySimple)<
-        typia.SnakeCase<ArraySimple>
-    >({
-        convert: (input) => typia.notations.validateSnake<ArraySimple>(input),
-        assert: typia.createAssert<typia.SnakeCase<ArraySimple>>(),
-    });
+  _test_notation_validateGeneral("ArraySimple")<ArraySimple>(ArraySimple)<
+    typia.SnakeCase<ArraySimple>
+  >({
+    convert: (input) => typia.notations.validateSnake<ArraySimple>(input),
+    assert: typia.createAssert<typia.SnakeCase<ArraySimple>>(),
+  });

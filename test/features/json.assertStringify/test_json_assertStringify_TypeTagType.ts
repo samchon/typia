@@ -3,7 +3,7 @@ import { _test_json_assertStringify } from "../../internal/_test_json_assertStri
 import { TypeTagType } from "../../structures/TypeTagType";
 
 export const test_json_assertStringify_TypeTagType = _test_json_assertStringify(
-    "TypeTagType",
+  "TypeTagType",
 )<TypeTagType>(TypeTagType)((input) =>
-    typia.json.assertStringify<TypeTagType>(input),
+  typia.json.assertStringify<TypeTagType>(input),
 );
