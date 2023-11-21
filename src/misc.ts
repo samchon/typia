@@ -645,7 +645,7 @@ Object.assign(createValidatePrune, validatePrune);
  * @internal
  */
 function halt(name: string): never {
-  throw new Error(
-    `Error on typia.misc.${name}(): no transform has been configured. Read and follow https://typia.misc.io/docs/setup please.`,
-  );
+    throw new Error(
+        `Error on typia.misc.${name}(): no transform has been configured. Read and follow https://typia.io/docs/setup please.`,
+    );
 }
