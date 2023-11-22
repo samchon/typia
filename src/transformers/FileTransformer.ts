@@ -1,30 +1,38 @@
 import ts from "typescript";
 
+import { Singleton } from "../utils/Singleton";
+
 import { IProject } from "./IProject";
 import { NodeTransformer } from "./NodeTransformer";
 import { TransformerError } from "./TransformerError";
 
 export namespace FileTransformer {
   export const transform =
-    (project: Omit<IProject, "context">) =>
+    (environments: Omit<IProject, "context">) =>
     (context: ts.TransformationContext) =>
     (file: ts.SourceFile): ts.SourceFile => {
       if (file.isDeclarationFile) return file;
+
+      const project: IProject = {
+        ...environments,
+        context,
+      };
+      checkJsDocParsingMode.get(project, file);
+
       return ts.visitEachChild(
         file,
-        (node) => iterate_node({ ...project, context })(context)(node),
+        (node) => iterate_node(project)(node),
         context,
       );
     };
 
   const iterate_node =
     (project: IProject) =>
-    (context: ts.TransformationContext) =>
     (node: ts.Node): ts.Node =>
       ts.visitEachChild(
         try_transform_node(project)(node) ?? node,
-        (child) => iterate_node(project)(context)(child),
-        context,
+        (child) => iterate_node(project)(child),
+        project.context,
       );
 
   const try_transform_node =
@@ -55,3 +63,29 @@ const isTransformerError = (error: any): error is TransformerError =>
   error.constructor.name === "TransformerError" &&
   typeof error.code === "string" &&
   typeof error.message === "string";
+
+const checkJsDocParsingMode = new Singleton(
+  (project: IProject, file: ts.SourceFile) => {
+    if (
+      typeof file.jsDocParsingMode === "number" &&
+      file.jsDocParsingMode !== 0
+    ) {
+      project.extras.addDiagnostic(
+        ts.createDiagnosticForNode(file, {
+          code: `(typia setup)` as any,
+          key: "jsDocParsingMode",
+          category: ts.DiagnosticCategory.Warning,
+          message: [
+            `Run "npx typia setup" or "npx ts-patch install" command again.`,
+            ``,
+            `Since TypeScript v5.3 update, "tsc" no more parses JSDoc comments. Therefore, "typia" also cannot utilize those JSDoc comments, and it would damage some features of "typia" like "comment tags" or "JSON schema" generator.`,
+            ``,
+            `To solve this problem, run "npx typia setup" or "ts-patch install" command again to hack the TypeScript compiler to revive the JSDoc parsing.`,
+            ``,
+            `  - reference: https://github.com/microsoft/TypeScript/pull/55739`,
+          ].join("\n"),
+        }),
+      );
+    }
+  },
+);
