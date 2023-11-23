@@ -1,5 +1,6 @@
 import fs from "fs";
 
+import { TypiaPatchWizard } from "./TypiaPatchWizard";
 import { ArgumentParser } from "./setup/ArgumentParser";
 import { CommandExecutor } from "./setup/CommandExecutor";
 import { PackageManager } from "./setup/PackageManager";
@@ -38,9 +39,20 @@ export namespace TypiaSetupWizard {
         typeof data.scripts.prepare === "string" &&
         data.scripts.prepare.trim().length
       ) {
-        if (data.scripts.prepare.indexOf("ts-patch install") === -1)
+        if (
+          data.scripts.prepare.indexOf("ts-patch install") === -1 &&
+          data.scripts.prepare.indexOf("typia patch") === -1
+        )
+          data.scripts.prepare =
+            "ts-patch install && typia patch && " + data.scripts.prepare;
+        else if (data.scripts.prepare.indexOf("ts-patch install") === -1)
           data.scripts.prepare = "ts-patch install && " + data.scripts.prepare;
-      } else data.scripts.prepare = "ts-patch install";
+        else if (data.scripts.prepare.indexOf("typia patch") === -1)
+          data.scripts.prepare = data.scripts.prepare.replace(
+            "ts-patch install",
+            "ts-patch install && typia patch",
+          );
+      } else data.scripts.prepare = "ts-patch install && typia patch";
 
       // FOR OLDER VERSIONS
       if (typeof data.scripts.postinstall === "string") {
@@ -53,6 +65,7 @@ export namespace TypiaSetupWizard {
           delete data.scripts.postinstall;
       }
     });
+    await TypiaPatchWizard.patch();
     CommandExecutor.run(`${pack.manager} run prepare`);
 
     // CONFIGURE TYPIA
