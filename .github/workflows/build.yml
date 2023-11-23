@@ -15,8 +15,13 @@ jobs:
           key: ${{ runner.os }}-node-${{ hashFiles('**/package.json') }}
           restore-keys: |
             ${{ runner.os }}-node-
-      - run: npm install
-      - run: npm run build
-      - run: npm run build:test:actions
-      - run: npm run test:errors
-      - run: npm run test
+
+      - name: Build
+        run: npm install && npm run build
+      - name: Test
+        working-directory: ./packages/test
+        run: npm install && npm run build:actions && npm start
+      - name: Errors
+        working-directory: ./packages/errors
+        run: npm install && npm start
+

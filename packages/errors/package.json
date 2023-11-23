@@ -1,0 +1,40 @@
+{
+  "private": true,
+  "name": "@typia/errors",
+  "version": "0.1.0",
+  "description": "Test program of typia generated errors",
+  "main": "index.js",
+  "scripts": {
+    "-----------------------SETUP-----------------------": "",
+    "preinstall": "node build/preinstall.js",
+    "postinstall": "ts-patch install && npm run setup",
+    "setup": "node build/setup.js",
+    "-----------------------BUILD-----------------------": "",
+    "build": "rimraf bin && tsc",
+    "prettier": "prettier ./src/**/*.ts --write",
+    "-----------------------START-----------------------": "",
+    "start": "node index"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/samchon/typia"
+  },
+  "keywords": [
+    "typia",
+    "test",
+    "error"
+  ],
+  "author": "Jeongho Nam",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/samchon/typia/issues"
+  },
+  "homepage": "https://github.com/samchon/typia#readme",
+  "devDependencies": {
+    "ts-patch": "^3.0.2",
+    "typescript": "5.2.2"
+  },
+  "dependencies": {
+    "typia": "file:D:\\github\\samchon\\typia/typia-5.3.0-dev.20231122.tgz"
+  }
+}

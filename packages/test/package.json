@@ -1,0 +1,54 @@
+{
+  "private": true,
+  "name": "@typia/test",
+  "version": "0.1.0",
+  "description": "Test program for typia",
+  "main": "bin/index.js",
+  "scripts": {
+    "-----------------------SETUP-----------------------": "",
+    "preinstall": "node build/preinstall.js",
+    "postinstall": "ts-patch install && npm run setup",
+    "setup": "node build/setup.js",
+    "-----------------------BUILD-----------------------": "",
+    "build": "rimraf bin && tsc",
+    "build:actions": "rimraf bin && tsc -p tsconfig.actions.json",
+    "prettier": "prettier ./src/**/*.ts --write",
+    "template": "ts-node --project build/tsconfig.json build/template.ts",
+    "-----------------------START-----------------------": "",
+    "start": "node bin"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/samchon/typia"
+  },
+  "keywords": [
+    "typia",
+    "test"
+  ],
+  "author": "Jeongho Nam",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/samchon/typia/issues"
+  },
+  "homepage": "https://github.com/samchon/typia#readme",
+  "devDependencies": {
+    "@trivago/prettier-plugin-sort-imports": "^3.3.0",
+    "@types/cli": "^0.11.25",
+    "@types/node": "^20.9.4",
+    "@types/uuid": "^9.0.7",
+    "prettier": "^2.6.2",
+    "ts-node": "^10.9.1",
+    "ts-patch": "^3.0.2",
+    "typescript": "5.2.2"
+  },
+  "dependencies": {
+    "cli": "^1.0.1",
+    "protobufjs": "^7.2.5",
+    "randexp": "^0.5.3",
+    "source-map-support": "^0.5.21",
+    "suppress-warnings": "^1.0.2",
+    "tstl": "^2.5.13",
+    "uuid": "^9.0.1",
+    "typia": "file:D:\\github\\samchon\\typia/typia-5.3.0-dev.20231122.tgz"
+  }
+}
