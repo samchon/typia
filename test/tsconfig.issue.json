@@ -1,8 +1,0 @@
-{
-  "extends": "./tsconfig.json",  
-  "compilerOptions": {
-    "outDir": "../issues",
-    // "exactOptionalPropertyTypes": true,
-  },
-  "include": ["./issues", "../src"]
-}
