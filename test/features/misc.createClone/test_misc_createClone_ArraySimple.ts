@@ -1,7 +1,0 @@
-import typia from "../../../src";
-import { _test_misc_clone } from "../../internal/_test_misc_clone";
-import { ArraySimple } from "../../structures/ArraySimple";
-
-export const test_misc_createClone_ArraySimple = _test_misc_clone(
-  "ArraySimple",
-)<ArraySimple>(ArraySimple)(typia.misc.createClone<ArraySimple>());

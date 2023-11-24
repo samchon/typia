@@ -1,0 +1,78 @@
+{
+  "private": true,
+  "name": "@typia/benchmark",
+  "version": "0.1.0",
+  "description": "Benchmark program of typia performance",
+  "main": "bin/index.js",
+  "scripts": {
+    "build": "rimraf bin && tsc",
+    "build:actions": "rimraf bin && tsc -p tsconfig.actions.json",
+    "prepare": "ts-patch install && typia patch",
+    "prettier": "prettier ./src/**/*.ts --write",
+    "start": "node bin",
+    "template": "ts-node src/template && npm run prettier && npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/samchon/typia"
+  },
+  "keywords": [
+    "typia",
+    "test"
+  ],
+  "author": "Jeongho Nam",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/samchon/typia/issues"
+  },
+  "homepage": "https://github.com/samchon/typia#readme",
+  "devDependencies": {
+    "@fastify/type-provider-typebox": "^3.5.0",
+    "@sinclair/typebox": "^0.31.17",
+    "@trivago/prettier-plugin-sort-imports": "^3.3.0",
+    "@typegoose/typegoose": "^10.1.1",
+    "@types/autocannon": "^7.9.0",
+    "@types/benchmark": "^2.1.2",
+    "@types/d3": "^7.4.0",
+    "@types/express": "^4.17.14",
+    "@types/node": "^18.15.12",
+    "@types/physical-cpu-count": "^2.0.0",
+    "@types/uuid": "^8.3.4",
+    "@typescript-eslint/eslint-plugin": "^5.59.11",
+    "@typescript-eslint/parser": "^5.59.11",
+    "ajv": "^8.12.0",
+    "autocannon": "^7.10.0",
+    "benchmark": "^2.1.4",
+    "body-parser": "^1.20.2",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.14.0",
+    "d3": "^5.16.0",
+    "eslint-plugin-deprecation": "^1.4.1",
+    "express": "^4.18.2",
+    "fast-json-stringify": "^5.8.0",
+    "fastify": "^4.9.2",
+    "io-ts": "^2.2.19",
+    "jsdom": "^21.1.1",
+    "physical-cpu-count": "^2.0.0",
+    "prettier": "^2.6.2",
+    "reflect-metadata": "^0.1.13",
+    "rimraf": "^3.0.2",
+    "source-map-support": "^0.5.21",
+    "suppress-warnings": "^1.0.2",
+    "tgrid": "^0.8.7",
+    "ts-node": "^10.9.1",
+    "ts-patch": "^3.0.2",
+    "tstl": "^2.5.13",
+    "typescript": "5.2.2",
+    "uuid": "^8.3.2",
+    "zod": "^3.19.1"
+  },
+  "dependencies": {
+    "randexp": "^0.5.3",
+    "source-map-support": "^0.5.21",
+    "suppress-warnings": "^1.0.2",
+    "tstl": "^2.5.13",
+    "typia": "D:\\github\\samchon\\typia\\typia-5.3.0-dev.20231123.tgz",
+    "uuid": "^9.0.1"
+  }
+}

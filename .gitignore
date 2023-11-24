@@ -1,12 +1,9 @@
 bin/
 lib/
-measure/
 node_modules/
-/issues/
 
 packages/typescript-json/src/
 package-lock.json
 
-protoc.exe
-test/schemas/protobuf/references
 *.log
+*.tgz

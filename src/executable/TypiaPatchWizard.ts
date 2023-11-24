@@ -21,7 +21,7 @@ export namespace TypiaPatchWizard {
   export const patch = async (): Promise<void> => {
     const location: string = require.resolve("typescript/lib/tsc.js");
     const content: string = await fs.promises.readFile(location, "utf8");
-    if (content.indexOf(TO) === -1) return;
+    if (content.indexOf(FROM) === -1) return;
 
     await fs.promises.writeFile(location, content.replace(FROM, TO), "utf8");
   };
