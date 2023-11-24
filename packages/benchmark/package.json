@@ -5,17 +5,12 @@
   "description": "Benchmark program of typia performance",
   "main": "bin/index.js",
   "scripts": {
-    "-----------------------SETUP-----------------------": "",
-    "preinstall": "node build/preinstall.js",
-    "postinstall": "ts-patch install && npm run setup",
-    "setup": "node build/setup.js",
-    "-----------------------BUILD-----------------------": "",
     "build": "rimraf bin && tsc",
     "build:actions": "rimraf bin && tsc -p tsconfig.actions.json",
+    "prepare": "ts-patch install",
     "prettier": "prettier ./src/**/*.ts --write",
-    "template": "ts-node src/template && npm run prettier && npm run build",
-    "-----------------------START-----------------------": "",
-    "start": "node bin"
+    "start": "node bin",
+    "template": "ts-node src/template && npm run prettier && npm run build"
   },
   "repository": {
     "type": "git",
@@ -77,7 +72,7 @@
     "source-map-support": "^0.5.21",
     "suppress-warnings": "^1.0.2",
     "tstl": "^2.5.13",
-    "typia": "file:D:\\github\\samchon\\typia/typia-5.3.0-dev.20231122.tgz",
+    "typia": "D:\\github\\samchon\\typia\\typia-5.3.0-dev.20231122.tgz",
     "uuid": "^9.0.1"
   }
 }

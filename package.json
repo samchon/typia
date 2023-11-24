@@ -8,15 +8,18 @@
     "typia": "./lib/executable/typia.js"
   },
   "scripts": {
+    "test": "npm run package:tgz",
+    "-------------------------------------------------": "",
     "build": "rimraf lib && tsc --removeComments --declaration false && tsc --emitDeclarationOnly",
     "dev": "rimraf lib && tsc --watch",
     "eslint": "eslint ./**/*.ts",
     "eslint:fix": "eslint ./**/*.ts --fix",
     "prettier": "prettier src --write",
     "------------------------------------------------": "",
-    "package:latest": "ts-node build/publish.ts latest",
-    "package:next": "ts-node build/publish.ts next",
-    "package:patch": "ts-node build/publish.ts patch",
+    "package:latest": "ts-node deploy latest",
+    "package:next": "ts-node deploy next",
+    "package:patch": "ts-node deploy patch",
+    "package:tgz": "ts-node deploy tgz",
     "package:deprecate": "npm deprecate typescript-json \"Renamed to typia\""
   },
   "repository": {
@@ -73,6 +76,7 @@
     "@typescript-eslint/parser": "^5.59.11",
     "prettier": "^2.6.2",
     "rimraf": "^5.0.5",
+    "ts-node": "^10.9.1",
     "typescript": "^5.3.2"
   },
   "stackblitzs": {
