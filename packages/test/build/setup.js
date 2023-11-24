@@ -42,7 +42,7 @@ const main = async () => {
 
   const composer = JSON.parse(fs.readFileSync(`${TEST}/package.json`, "utf8"));
   composer.dependencies ??= {};
-  composer.dependencies.typia = `file:${ROOT}/typia-${version}.tgz`;
+  composer.dependencies.typia = `${ROOT}/typia-${version}.tgz`;
 
   await fs.promises.writeFile(
     `${TEST}/package.json`,
