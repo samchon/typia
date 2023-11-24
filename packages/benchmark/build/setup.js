@@ -5,11 +5,11 @@ const path = require("path");
 const ROOT = path.resolve(`${__dirname}/../../..`);
 const TEST = path.resolve(`${__dirname}/..`);
 
-const execute = (command, cwd) => {
-  console.log(command);
+const execute = (command, root) => {
+  console.log(`\n${root ? "typia" : "@typia/benchmark"} > ${command}`);
   cp.execSync(command, {
-    stdio: "ignore",
-    cwd,
+    stdio: "inherit",
+    cwd: root ? ROOT : TEST,
   });
 };
 
@@ -29,8 +29,8 @@ const main = async () => {
   const { version } = JSON.parse(
     await fs.promises.readFile(`${ROOT}/package.json`, "utf8"),
   );
-  execute("npm run build", ROOT);
-  execute("npm pack", ROOT);
+  execute("npm run build", true);
+  execute("npm pack", true);
 
   //----
   // INSTALL TYPIA
@@ -38,7 +38,7 @@ const main = async () => {
   title("Install Typia");
 
   if (fs.existsSync(`${TEST}/node_modules/typia`))
-    execute("npm uninstall typia", TEST);
+    execute("npm uninstall typia", false);
 
   const composer = JSON.parse(fs.readFileSync(`${TEST}/package.json`, "utf8"));
   composer.dependencies ??= {};
@@ -48,7 +48,7 @@ const main = async () => {
     `${TEST}/package.json`,
     JSON.stringify(composer, null, 2),
   );
-  execute("npm install --ignore-scripts", TEST);
+  execute("npm install --ignore-scripts", false);
 };
 main().catch((exp) => {
   console.error(exp);

@@ -24,7 +24,7 @@ jobs:
       - name: Test Compilation Error Cases
         working-directory: ./packages/errors
         run: npm install && npm start
-      - name: Build Benchmark Program
+      - name: Check Benchmark Program
         working-directory: ./packages/benchmark
         run: npm install && npm run build
 
