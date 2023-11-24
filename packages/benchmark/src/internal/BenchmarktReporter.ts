@@ -134,9 +134,7 @@ export namespace BenchmarkReporter {
 
   async function get_package_version(): Promise<string> {
     const content: string = await fs.promises.readFile(
-      EXTENSION === "ts"
-        ? __dirname + "/../../package.json"
-        : __dirname + "/../../../package.json",
+      __dirname + "/../../../../package.json",
       "utf8",
     );
     const data: { version: string } = JSON.parse(content);
