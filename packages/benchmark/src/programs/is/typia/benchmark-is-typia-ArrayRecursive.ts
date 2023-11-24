@@ -1,6 +1,6 @@
 import typia from "typia";
 
-import { ArrayRecursive } from "../../../../test/structures/ArrayRecursive";
+import { ArrayRecursive } from "../../../structures/pure/ArrayRecursive";
 import { createIsBenchmarkProgram } from "../createIsBenchmarkProgram";
 
 createIsBenchmarkProgram(typia.createIs<ArrayRecursive>());

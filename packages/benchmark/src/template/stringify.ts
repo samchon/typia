@@ -19,11 +19,11 @@ const LIBRARIES: BenchmarkProgrammer.ILibrary[] = [
         [
           `import typia from "typia";`,
           ``,
-          `import { ${type} } from "../../../../test/structures/${type}";`,
+          `import { ${type} } from "../../../structures/pure/${type}";`,
           `import { createStringifyBenchmarkProgram } from "../createStringifyBenchmarkProgram";`,
           ``,
           `createStringifyBenchmarkProgram(`,
-          `    typia.json.create${BenchmarkProgrammer.pascal(
+          `  typia.json.create${BenchmarkProgrammer.pascal(
             name.split(".")[1],
           )}<${type}>()`,
           `);`,
@@ -34,11 +34,11 @@ const LIBRARIES: BenchmarkProgrammer.ILibrary[] = [
     name: "JSON.stringify",
     body: (type) =>
       [
-        `import { ${type} } from "../../../../test/structures/${type}";`,
+        `import { ${type} } from "../../../structures/pure/${type}";`,
         `import { createStringifyBenchmarkProgram } from "../createStringifyBenchmarkProgram";`,
         ``,
         `createStringifyBenchmarkProgram(`,
-        `    (value: ${type}) => JSON.stringify(value)`,
+        `  (value: ${type}) => JSON.stringify(value)`,
         `)`,
       ].join("\n"),
   },
@@ -48,7 +48,7 @@ const LIBRARIES: BenchmarkProgrammer.ILibrary[] = [
       [
         `import typia from "typia";`,
         ``,
-        `import { ${type} } from "../../../../test/structures/${type}";`,
+        `import { ${type} } from "../../../structures/pure/${type}";`,
         `import { createStringifyFastBenchmarkProgram } from "./createStringifyFastBenchmarkProgram";`,
         ``,
         `createStringifyFastBenchmarkProgram(`,

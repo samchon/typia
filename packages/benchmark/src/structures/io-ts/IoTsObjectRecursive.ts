@@ -1,6 +1,6 @@
 import * as t from "io-ts";
 
-import { ObjectRecursive } from "../../../test/structures/ObjectRecursive";
+import { ObjectRecursive } from "../../structures/pure/ObjectRecursive";
 
 const Timestamp = t.type({
   time: t.number,

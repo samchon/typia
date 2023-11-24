@@ -18,11 +18,11 @@ const LIBRARIES: BenchmarkProgrammer.ILibrary[] = [
       [
         `import typia from "typia";`,
         ``,
-        `import { ${type} } from "../../../../test/structures/${type}";`,
+        `import { ${type} } from "../../../structures/pure/${type}";`,
         `import { createOptimizerBenchmarkProgram } from "../createOptimizerBenchmarkProgram";`,
         ``,
         `createOptimizerBenchmarkProgram(`,
-        `    typia.createIs<${type}>()`,
+        `  typia.createIs<${type}>()`,
         `);`,
       ].join("\n"),
   },

@@ -12,7 +12,6 @@ const FEATURES: string[] = [
 ];
 
 const CLIENTS: BenchmarkProgrammer.ILibrary[] = [
-  "express (pure)",
   "express (typia)",
   "express (class-transformer)",
   "fastify (pure)",
@@ -22,12 +21,12 @@ const CLIENTS: BenchmarkProgrammer.ILibrary[] = [
   name,
   body: (type: string) =>
     [
-      `import { createClientStringifyBenchmarkProgram } from "../createClientStringifyBenchmarkProgram";`,
+      `import { createClientPerformanceBenchmarkProgram } from "../createClientPerformanceBenchmarkProgram";`,
       ``,
-      `createClientStringifyBenchmarkProgram(`,
-      `    __dirname + "/../internal/${BenchmarkProgrammer.emend(
+      `createClientPerformanceBenchmarkProgram(`,
+      `  __dirname + "/../internal/${BenchmarkProgrammer.emend(
         name,
-      )}/benchmark-server-stringify-${BenchmarkProgrammer.emend(
+      )}/benchmark-server-performance-${BenchmarkProgrammer.emend(
         name,
       )}-${type}" + __filename.substr(-3)`,
       `);`,
@@ -36,26 +35,18 @@ const CLIENTS: BenchmarkProgrammer.ILibrary[] = [
 
 const SERVERS: BenchmarkProgrammer.ILibrary[] = [
   {
-    name: "express (pure)",
-    body: () =>
-      [
-        `import { createExpressServerStringifyBenchmarkProgram } from "../createExpressServerStringifyBenchmarkProgram";`,
-        ``,
-        `createExpressServerStringifyBenchmarkProgram(JSON.stringify);`,
-      ].join("\n"),
-  },
-  {
     name: "express (typia)",
     body: (type: string) =>
       [
         `import typia from "typia";`,
         ``,
         `import { ICollection } from "../../../../structures/ICollection";`,
-        `import { ${type} } from "../../../../../test/structures/${type}";`,
-        `import { createExpressServerStringifyBenchmarkProgram } from "../createExpressServerStringifyBenchmarkProgram";`,
+        `import { ${type} } from "../../../../structures/pure/${type}";`,
+        `import { createExpressServerPerformanceBenchmarkProgram } from "../createExpressServerPerformanceBenchmarkProgram";`,
         ``,
-        `createExpressServerStringifyBenchmarkProgram(`,
-        `    typia.json.createStringify<ICollection<${type}>>(),`,
+        `createExpressServerPerformanceBenchmarkProgram(`,
+        `  typia.createAssert<ICollection<${type}>>(),`,
+        `  typia.json.createStringify<ICollection<${type}>>(),`,
         `);`,
       ].join("\n"),
   },
@@ -65,19 +56,23 @@ const SERVERS: BenchmarkProgrammer.ILibrary[] = [
       const schema = `ClassValidator${BenchmarkProgrammer.pascal(type)}`;
       return [
         `import { instanceToPlain, plainToInstance } from "class-transformer";`,
+        `import { validateSync } from "class-validator";`,
         ``,
-        `import { ${type} } from "../../../../../test/structures/${type}";`,
+        `import { ${type} } from "../../../../structures/pure/${type}";`,
         `import { ClassValidatorCollection } from "../../../../structures/class-validator/ClassValidatorCollection";`,
         `import { ${schema} } from "../../../../structures/class-validator/${schema}";`,
-        `import { createExpressServerStringifyBenchmarkProgram } from "../createExpressServerStringifyBenchmarkProgram";`,
+        `import { createExpressServerPerformanceBenchmarkProgram } from "../createExpressServerPerformanceBenchmarkProgram";`,
         ``,
         `const schema = ClassValidatorCollection(${schema});`,
-        `createExpressServerStringifyBenchmarkProgram<${type}>(`,
-        `    (input) => JSON.stringify(`,
-        `        instanceToPlain(`,
-        `            plainToInstance(schema, input),`,
-        `        ),`,
-        `    ),`,
+        `createExpressServerPerformanceBenchmarkProgram<${type}, any>(`,
+        `  (input) => {`,
+        `    const output = plainToInstance(schema, input);`,
+        `    const result = validateSync(output);`,
+        `    if (result.length > 0)`,
+        `      throw new Error(result[0].toString());`,
+        `    return output;`,
+        `  },`,
+        `  (input) => JSON.stringify(instanceToPlain(schema)),`,
         `);`,
       ].join("\n");
     },
@@ -89,10 +84,10 @@ const SERVERS: BenchmarkProgrammer.ILibrary[] = [
         `import typia from "typia";`,
         ``,
         `import { ICollection } from "../../../../structures/ICollection";`,
-        `import { ${type} } from "../../../../../test/structures/${type}";`,
-        `import { createFastifyPureServerStringifyBenchmarkProgram } from "../createFastifyPureServerStringifyBenchmarkProgram";`,
+        `import { ${type} } from "../../../../structures/pure/${type}";`,
+        `import { createFastifyPureServerPerformanceBenchmarkProgram } from "../createFastifyPureServerPerformanceBenchmarkProgram";`,
         ``,
-        `createFastifyPureServerStringifyBenchmarkProgram(`,
+        `createFastifyPureServerPerformanceBenchmarkProgram(`,
         `   typia.json.application<[ICollection<${type}>], "ajv">()`,
         `);`,
       ].join("\n"),
@@ -104,11 +99,12 @@ const SERVERS: BenchmarkProgrammer.ILibrary[] = [
         `import typia from "typia";`,
         ``,
         `import { ICollection } from "../../../../structures/ICollection";`,
-        `import { ${type} } from "../../../../../test/structures/${type}";`,
-        `import { createFastifyCustomServerStringifyBenchmarkProgram } from "../createFastifyCustomServerStringifyBenchmarkProgram";`,
+        `import { ${type} } from "../../../../structures/pure/${type}";`,
+        `import { createFastifyCustomServerPerformanceBenchmarkProgram } from "../createFastifyCustomServerPerformanceBenchmarkProgram";`,
         ``,
-        `createFastifyCustomServerStringifyBenchmarkProgram(`,
-        `    typia.json.createStringify<ICollection<${type}>>(),`,
+        `createFastifyCustomServerPerformanceBenchmarkProgram(`,
+        `  typia.createAssert<ICollection<${type}>>(),`,
+        `  typia.json.createStringify<ICollection<${type}>>(),`,
         `);`,
       ].join("\n"),
   },
@@ -118,19 +114,23 @@ const SERVERS: BenchmarkProgrammer.ILibrary[] = [
       const schema = `ClassValidator${BenchmarkProgrammer.pascal(type)}`;
       return [
         `import { instanceToPlain, plainToInstance } from "class-transformer";`,
+        `import { validateSync } from "class-validator";`,
         ``,
-        `import { ${type} } from "../../../../../test/structures/${type}";`,
+        `import { ${type} } from "../../../../structures/pure/${type}";`,
         `import { ClassValidatorCollection } from "../../../../structures/class-validator/ClassValidatorCollection";`,
         `import { ${schema} } from "../../../../structures/class-validator/${schema}";`,
-        `import { createFastifyCustomServerStringifyBenchmarkProgram } from "../createFastifyCustomServerStringifyBenchmarkProgram";`,
+        `import { createFastifyCustomServerPerformanceBenchmarkProgram } from "../createFastifyCustomServerPerformanceBenchmarkProgram";`,
         ``,
         `const schema = ClassValidatorCollection(${schema});`,
-        `createFastifyCustomServerStringifyBenchmarkProgram<${type}>(`,
-        `    (input) => JSON.stringify(`,
-        `        instanceToPlain(`,
-        `            plainToInstance(schema, input),`,
-        `        ),`,
-        `    ),`,
+        `createFastifyCustomServerPerformanceBenchmarkProgram<${type}, any>(`,
+        `  (input) => {`,
+        `    const output = plainToInstance(schema, input);`,
+        `    const result = validateSync(output);`,
+        `      if (result.length > 0)`,
+        `        throw new Error(result[0].toString());`,
+        `      return output;`,
+        `  },`,
+        `  (input) => JSON.stringify(instanceToPlain(input)),`,
         `);`,
       ].join("\n");
     },
@@ -138,12 +138,12 @@ const SERVERS: BenchmarkProgrammer.ILibrary[] = [
 ];
 
 BenchmarkProgrammer.generate({
-  name: "server-stringify",
+  name: "server-performance",
   features: FEATURES,
   libraries: CLIENTS,
 });
 BenchmarkProgrammer.generate({
-  name: "server-stringify/internal",
+  name: "server-performance/internal",
   features: FEATURES,
   libraries: SERVERS,
 });

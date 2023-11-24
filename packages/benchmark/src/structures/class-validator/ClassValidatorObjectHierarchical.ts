@@ -2,7 +2,7 @@ import * as tr from "class-transformer";
 import * as cv from "class-validator";
 import "reflect-metadata";
 
-import { ObjectHierarchical } from "../../../test/structures/ObjectHierarchical";
+import { ObjectHierarchical } from "../../structures/pure/ObjectHierarchical";
 import { ClassValidatorTimestamp } from "./ClassValidatorTimestamp";
 
 class Channel {

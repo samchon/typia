@@ -2,7 +2,7 @@ import * as tr from "class-transformer";
 import * as cv from "class-validator";
 import "reflect-metadata";
 
-import { ArrayHierarchical } from "../../../test/structures/ArrayHierarchical";
+import { ArrayHierarchical } from "../../structures/pure/ArrayHierarchical";
 import { ClassValidatorTimestamp } from "./ClassValidatorTimestamp";
 
 class Employee {

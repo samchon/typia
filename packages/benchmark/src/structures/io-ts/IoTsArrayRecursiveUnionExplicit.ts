@@ -1,6 +1,6 @@
 import * as t from "io-ts";
 
-import { ArrayRecursiveUnionExplicit } from "../../../test/structures/ArrayRecursiveUnionExplicit";
+import { ArrayRecursiveUnionExplicit } from "../../structures/pure/ArrayRecursiveUnionExplicit";
 
 const ImageFile = t.type({
   id: t.number,

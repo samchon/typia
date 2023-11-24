@@ -1,9 +1,9 @@
 import { instanceToPlain, plainToInstance } from "class-transformer";
 import { validateSync } from "class-validator";
 
-import { ObjectUnionExplicit } from "../../../../../test/structures/ObjectUnionExplicit";
 import { ClassValidatorCollection } from "../../../../structures/class-validator/ClassValidatorCollection";
 import { ClassValidatorObjectUnionExplicit } from "../../../../structures/class-validator/ClassValidatorObjectUnionExplicit";
+import { ObjectUnionExplicit } from "../../../../structures/pure/ObjectUnionExplicit";
 import { createFastifyCustomServerPerformanceBenchmarkProgram } from "../createFastifyCustomServerPerformanceBenchmarkProgram";
 
 const schema = ClassValidatorCollection(ClassValidatorObjectUnionExplicit);

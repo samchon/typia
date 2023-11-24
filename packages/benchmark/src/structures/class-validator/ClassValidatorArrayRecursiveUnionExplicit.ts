@@ -2,7 +2,7 @@ import * as tr from "class-transformer";
 import * as cv from "class-validator";
 import "reflect-metadata";
 
-import { ArrayRecursiveUnionExplicit } from "../../../test/structures/ArrayRecursiveUnionExplicit";
+import { ArrayRecursiveUnionExplicit } from "../../structures/pure/ArrayRecursiveUnionExplicit";
 
 export class ClassValidatorArrayRecursiveUnionExplicit {
   @cv.IsNumber()

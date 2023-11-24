@@ -1,5 +1,4 @@
 import * as d3 from "d3";
-
 import { ArrayUtil } from "typia/lib/utils/ArrayUtil";
 
 import { BenchmarkStream } from "./BenhmarkStream";

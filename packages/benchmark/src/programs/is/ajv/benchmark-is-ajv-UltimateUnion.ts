@@ -1,6 +1,6 @@
 import typia from "typia";
 
-import { UltimateUnion } from "../../../../test/structures/UltimateUnion";
+import { UltimateUnion } from "../../../structures/pure/UltimateUnion";
 import { createIsAjvBenchmarkProgram } from "./createIsAjvBenchmarkProgram";
 
 createIsAjvBenchmarkProgram(typia.json.application<[UltimateUnion], "ajv">());

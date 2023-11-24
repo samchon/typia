@@ -16,12 +16,15 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-
 
-      - name: Build
+      - name: Build Main Program
         run: npm install && npm run build
-      - name: Test
+      - name: Test Automation Program
         working-directory: ./packages/test
         run: npm install && npm run build:actions && npm start
-      - name: Errors
+      - name: Test Compilation Error Cases
         working-directory: ./packages/errors
         run: npm install && npm start
+      - name: Build Benchmark Program
+        working-directory: ./packages/benchmark
+        run: npm install && npm run build
 

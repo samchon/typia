@@ -2,7 +2,7 @@ import * as tr from "class-transformer";
 import * as cv from "class-validator";
 import "reflect-metadata";
 
-import { ArrayRecursive } from "../../../test/structures/ArrayRecursive";
+import { ArrayRecursive } from "../../structures/pure/ArrayRecursive";
 import { ClassValidatorTimestamp } from "./ClassValidatorTimestamp";
 
 export class ClassValidatorArrayRecursive {

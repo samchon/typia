@@ -2,7 +2,7 @@ import * as tr from "class-transformer";
 import * as cv from "class-validator";
 import "reflect-metadata";
 
-import { ObjectUnionImplicit } from "../../../test/structures/ObjectUnionImplicit";
+import { ObjectUnionImplicit } from "../../structures/pure/ObjectUnionImplicit";
 
 class Point {
   @cv.IsNumber()

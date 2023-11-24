@@ -2,7 +2,7 @@ import * as tr from "class-transformer";
 import * as cv from "class-validator";
 import "reflect-metadata";
 
-import { ObjectRecursive } from "../../../test/structures/ObjectRecursive";
+import { ObjectRecursive } from "../../structures/pure/ObjectRecursive";
 import { ClassValidatorTimestamp } from "./ClassValidatorTimestamp";
 
 export class ClassValidatorObjectRecursive {

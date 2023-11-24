@@ -22,11 +22,11 @@ const LIBRARIES = (category: string): BenchmarkProgrammer.ILibrary[] => [
       return [
         `import typia from "typia";`,
         ``,
-        `import { ${type} } from "../../../../test/structures/${type}";`,
+        `import { ${type} } from "../../../structures/pure/${type}";`,
         `import { ${program} } from "../${program}";`,
         ``,
         `${program}(`,
-        `    typia.create${BenchmarkProgrammer.pascal(category).replace(
+        `  typia.create${BenchmarkProgrammer.pascal(category).replace(
           "Error",
           "",
         )}<${BenchmarkProgrammer.pascal(type)}[]>()`,
@@ -74,6 +74,11 @@ async function main(): Promise<void> {
   await BenchmarkProgrammer.generate({
     name: "assert-error",
     libraries: LIBRARIES("assert-error"),
+    features: FEATURES,
+  });
+  await BenchmarkProgrammer.generate({
+    name: "validate-error",
+    libraries: LIBRARIES("validate-error"),
     features: FEATURES,
   });
 }

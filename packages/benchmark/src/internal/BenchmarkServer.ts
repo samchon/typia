@@ -2,19 +2,19 @@ import fs from "fs";
 import tgrid from "tgrid";
 import { Driver } from "tgrid/components/Driver";
 
-import { Spoiler } from "../../test/helpers/Spoiler";
-import { ArrayHierarchical } from "../../test/structures/ArrayHierarchical";
-import { ArrayRecursive } from "../../test/structures/ArrayRecursive";
-import { ArrayRecursiveUnionExplicit } from "../../test/structures/ArrayRecursiveUnionExplicit";
-import { ArrayRecursiveUnionImplicit } from "../../test/structures/ArrayRecursiveUnionImplicit";
-import { ArraySimple } from "../../test/structures/ArraySimple";
-import { ObjectHierarchical } from "../../test/structures/ObjectHierarchical";
-import { ObjectRecursive } from "../../test/structures/ObjectRecursive";
-import { ObjectSimple } from "../../test/structures/ObjectSimple";
-import { ObjectUnionExplicit } from "../../test/structures/ObjectUnionExplicit";
-import { ObjectUnionImplicit } from "../../test/structures/ObjectUnionImplicit";
-import { UltimateUnion } from "../../test/structures/UltimateUnion";
 import { IBenchmarkProgram } from "../programs/IBenchmarkProgram";
+import { Spoiler } from "../structures/Spoiler";
+import { ArrayHierarchical } from "../structures/pure/ArrayHierarchical";
+import { ArrayRecursive } from "../structures/pure/ArrayRecursive";
+import { ArrayRecursiveUnionExplicit } from "../structures/pure/ArrayRecursiveUnionExplicit";
+import { ArrayRecursiveUnionImplicit } from "../structures/pure/ArrayRecursiveUnionImplicit";
+import { ArraySimple } from "../structures/pure/ArraySimple";
+import { ObjectHierarchical } from "../structures/pure/ObjectHierarchical";
+import { ObjectRecursive } from "../structures/pure/ObjectRecursive";
+import { ObjectSimple } from "../structures/pure/ObjectSimple";
+import { ObjectUnionExplicit } from "../structures/pure/ObjectUnionExplicit";
+import { ObjectUnionImplicit } from "../structures/pure/ObjectUnionImplicit";
+import { UltimateUnion } from "../structures/pure/UltimateUnion";
 
 const EXTENSION = __filename.substr(-2);
 

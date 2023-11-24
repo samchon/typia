@@ -1,6 +1,6 @@
 import typia from "typia";
 
-import { ArrayRecursiveUnionImplicit } from "../../../../test/structures/ArrayRecursiveUnionImplicit";
+import { ArrayRecursiveUnionImplicit } from "../../../structures/pure/ArrayRecursiveUnionImplicit";
 import { createIsAjvBenchmarkProgram } from "./createIsAjvBenchmarkProgram";
 
 createIsAjvBenchmarkProgram(

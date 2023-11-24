@@ -1,6 +1,6 @@
 import typia from "typia";
 
-import { ObjectUnionImplicit } from "../../../../test/structures/ObjectUnionImplicit";
+import { ObjectUnionImplicit } from "../../../structures/pure/ObjectUnionImplicit";
 import { createAssertAjvBenchmarkProgram } from "./createAssertAjvBenchmarkProgram";
 
 createAssertAjvBenchmarkProgram(

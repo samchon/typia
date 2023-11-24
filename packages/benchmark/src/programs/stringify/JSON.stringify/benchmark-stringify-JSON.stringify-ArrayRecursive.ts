@@ -1,4 +1,4 @@
-import { ArrayRecursive } from "../../../../test/structures/ArrayRecursive";
+import { ArrayRecursive } from "../../../structures/pure/ArrayRecursive";
 import { createStringifyBenchmarkProgram } from "../createStringifyBenchmarkProgram";
 
 createStringifyBenchmarkProgram((value: ArrayRecursive) =>

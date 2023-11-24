@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-import { ArrayRecursiveUnionExplicit } from "../../../test/structures/ArrayRecursiveUnionExplicit";
+import { ArrayRecursiveUnionExplicit } from "../../structures/pure/ArrayRecursiveUnionExplicit";
 
 const ImageFile = z.object({
   id: z.number(),

@@ -1,6 +1,6 @@
 import typia from "typia";
 
-import { ObjectHierarchical } from "../../../../test/structures/ObjectHierarchical";
+import { ObjectHierarchical } from "../../../structures/pure/ObjectHierarchical";
 import { createAssertErrorBenchmarkProgram } from "../createAssertErrorBenchmarkProgram";
 
 createAssertErrorBenchmarkProgram(typia.createAssert<ObjectHierarchical[]>());

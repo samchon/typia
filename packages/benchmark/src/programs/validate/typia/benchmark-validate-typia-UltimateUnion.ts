@@ -1,6 +1,6 @@
 import typia from "typia";
 
-import { UltimateUnion } from "../../../../test/structures/UltimateUnion";
+import { UltimateUnion } from "../../../structures/pure/UltimateUnion";
 import { createValidateBenchmarkProgram } from "../createValidateBenchmarkProgram";
 
 createValidateBenchmarkProgram(typia.createValidate<UltimateUnion>());

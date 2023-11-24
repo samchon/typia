@@ -2,7 +2,7 @@ import * as tr from "class-transformer";
 import * as cv from "class-validator";
 import "reflect-metadata";
 
-import { ObjectSimple } from "../../../test/structures/ObjectSimple";
+import { ObjectSimple } from "../../structures/pure/ObjectSimple";
 
 class Point3D {
   @cv.IsNumber()

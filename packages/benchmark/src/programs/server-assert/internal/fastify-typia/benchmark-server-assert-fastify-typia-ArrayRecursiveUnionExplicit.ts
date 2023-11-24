@@ -1,7 +1,7 @@
 import typia from "typia";
 
-import { ArrayRecursiveUnionExplicit } from "../../../../../test/structures/ArrayRecursiveUnionExplicit";
 import { ICollection } from "../../../../structures/ICollection";
+import { ArrayRecursiveUnionExplicit } from "../../../../structures/pure/ArrayRecursiveUnionExplicit";
 import { createFastifyCustomServerAssertBenchmarkProgram } from "../createFastifyCustomServerAssertBenchmarkProgram";
 
 createFastifyCustomServerAssertBenchmarkProgram(

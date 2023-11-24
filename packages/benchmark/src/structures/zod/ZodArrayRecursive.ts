@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-import { ArrayRecursive } from "../../../test/structures/ArrayRecursive";
+import { ArrayRecursive } from "../../structures/pure/ArrayRecursive";
 
 const Timestamp = z.object({
   time: z.number(),
