@@ -17,8 +17,7 @@
     "package:latest": "ts-node build/publish.ts latest",
     "package:next": "ts-node build/publish.ts next",
     "package:patch": "ts-node build/publish.ts patch",
-    "package:deprecate": "npm deprecate typescript-json \"Renamed to typia\"",
-    "prepare": "ts-patch install"
+    "package:deprecate": "npm deprecate typescript-json \"Renamed to typia\""
   },
   "repository": {
     "type": "git",
@@ -77,7 +76,7 @@
     "typescript": "^5.3.2"
   },
   "stackblitzs": {
-    "startCommand": "npm run prepare && npm run build:test:actions && npm run build:test && npm run test"
+    "startCommand": "npm install && npm run build && cd packages/test && npm install && npm run build:actions && npm start"
   },
   "files": [
     "LICENSE",
