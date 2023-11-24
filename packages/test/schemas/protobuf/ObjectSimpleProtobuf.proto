@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+message ObjectSimpleProtobuf {
+    required bool bool = 1;
+    required int32 int32 = 2;
+    required uint32 uint32 = 3;
+    required int64 int64 = 4;
+    required uint64 uint64 = 5;
+    required float float = 6;
+    required double double = 7;
+    required string string = 8;
+    required bytes bytes = 9;
+}

@@ -1,0 +1,314 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/schemas/ObjectGenericUnion"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "ObjectGenericUnion": {
+        "$id": "#/components/schemas/ObjectGenericUnion",
+        "type": "object",
+        "properties": {
+          "value": {
+            "$ref": "#/components/schemas/ObjectGenericUnion.ISaleEntireArticle"
+          }
+        },
+        "required": [
+          "value"
+        ],
+        "x-typia-jsDocTags": []
+      },
+      "ObjectGenericUnion.ISaleEntireArticle": {
+        "$id": "#/components/schemas/ObjectGenericUnion.ISaleEntireArticle",
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/ObjectGenericUnion.ISaleQuestion"
+          },
+          {
+            "$ref": "#/components/schemas/ObjectGenericUnion.ISaleReview"
+          }
+        ]
+      },
+      "ObjectGenericUnion.ISaleQuestion": {
+        "$id": "#/components/schemas/ObjectGenericUnion.ISaleQuestion",
+        "type": "object",
+        "properties": {
+          "writer": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          },
+          "answer": {
+            "oneOf": [
+              {
+                "x-typia-required": true,
+                "x-typia-optional": false,
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/ObjectGenericUnion.ISaleAnswer"
+              }
+            ],
+            "x-typia-required": true,
+            "x-typia-optional": false
+          },
+          "id": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          },
+          "hit": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "number"
+          },
+          "contents": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ObjectGenericUnion.ISaleArticle.IContent"
+            }
+          },
+          "created_at": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          }
+        },
+        "required": [
+          "writer",
+          "answer",
+          "id",
+          "hit",
+          "contents",
+          "created_at"
+        ],
+        "x-typia-jsDocTags": []
+      },
+      "ObjectGenericUnion.ISaleAnswer": {
+        "$id": "#/components/schemas/ObjectGenericUnion.ISaleAnswer",
+        "type": "object",
+        "properties": {
+          "id": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          },
+          "hit": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "number"
+          },
+          "contents": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ObjectGenericUnion.ISaleArticle.IContent"
+            }
+          },
+          "created_at": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "hit",
+          "contents",
+          "created_at"
+        ],
+        "x-typia-jsDocTags": []
+      },
+      "ObjectGenericUnion.ISaleArticle.IContent": {
+        "$id": "#/components/schemas/ObjectGenericUnion.ISaleArticle.IContent",
+        "type": "object",
+        "properties": {
+          "id": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          },
+          "created_at": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          },
+          "title": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          },
+          "body": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          },
+          "files": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ObjectGenericUnion.IAttachmentFile"
+            }
+          }
+        },
+        "required": [
+          "id",
+          "created_at",
+          "title",
+          "body",
+          "files"
+        ],
+        "x-typia-jsDocTags": []
+      },
+      "ObjectGenericUnion.IAttachmentFile": {
+        "$id": "#/components/schemas/ObjectGenericUnion.IAttachmentFile",
+        "type": "object",
+        "properties": {
+          "name": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          },
+          "extension": {
+            "oneOf": [
+              {
+                "x-typia-required": true,
+                "x-typia-optional": false,
+                "type": "null"
+              },
+              {
+                "x-typia-required": true,
+                "x-typia-optional": false,
+                "type": "string"
+              }
+            ],
+            "x-typia-required": true,
+            "x-typia-optional": false
+          },
+          "url": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "extension",
+          "url"
+        ],
+        "x-typia-jsDocTags": []
+      },
+      "ObjectGenericUnion.ISaleReview": {
+        "$id": "#/components/schemas/ObjectGenericUnion.ISaleReview",
+        "type": "object",
+        "properties": {
+          "writer": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          },
+          "answer": {
+            "oneOf": [
+              {
+                "x-typia-required": true,
+                "x-typia-optional": false,
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/ObjectGenericUnion.ISaleAnswer"
+              }
+            ],
+            "x-typia-required": true,
+            "x-typia-optional": false
+          },
+          "id": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          },
+          "hit": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "number"
+          },
+          "contents": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ObjectGenericUnion.ISaleReview.IContent"
+            }
+          },
+          "created_at": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          }
+        },
+        "required": [
+          "writer",
+          "answer",
+          "id",
+          "hit",
+          "contents",
+          "created_at"
+        ],
+        "x-typia-jsDocTags": []
+      },
+      "ObjectGenericUnion.ISaleReview.IContent": {
+        "$id": "#/components/schemas/ObjectGenericUnion.ISaleReview.IContent",
+        "type": "object",
+        "properties": {
+          "score": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "number"
+          },
+          "id": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          },
+          "created_at": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          },
+          "title": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          },
+          "body": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          },
+          "files": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ObjectGenericUnion.IAttachmentFile"
+            }
+          }
+        },
+        "required": [
+          "score",
+          "id",
+          "created_at",
+          "title",
+          "body",
+          "files"
+        ],
+        "x-typia-jsDocTags": []
+      }
+    }
+  },
+  "purpose": "ajv"
+}

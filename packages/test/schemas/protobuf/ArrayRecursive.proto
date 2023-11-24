@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+message ArrayRecursive {
+    message ICategory {
+        repeated ArrayRecursive.ICategory children = 1;
+        required double id = 2;
+        required string code = 3;
+        required double sequence = 4;
+        required ArrayRecursive.ITimestamp created_at = 5;
+    }
+
+    message ITimestamp {
+        required double time = 1;
+        required double zone = 2;
+    }
+}

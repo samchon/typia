@@ -1,0 +1,157 @@
+{
+  "metadatas": [
+    {
+      "any": false,
+      "required": true,
+      "optional": false,
+      "nullable": false,
+      "functional": false,
+      "atomics": [],
+      "constants": [],
+      "templates": [],
+      "escaped": null,
+      "rest": null,
+      "arrays": [],
+      "tuples": [
+        {
+          "name": "FunctionalTupleUnion",
+          "tags": []
+        }
+      ],
+      "objects": [],
+      "aliases": [],
+      "natives": [],
+      "sets": [],
+      "maps": []
+    }
+  ],
+  "components": {
+    "objects": [],
+    "aliases": [],
+    "arrays": [],
+    "tuples": [
+      {
+        "name": "FunctionalTupleUnion",
+        "index": null,
+        "elements": [
+          {
+            "any": false,
+            "required": true,
+            "optional": false,
+            "nullable": true,
+            "functional": true,
+            "atomics": [
+              {
+                "type": "string",
+                "tags": []
+              },
+              {
+                "type": "number",
+                "tags": []
+              }
+            ],
+            "constants": [],
+            "templates": [],
+            "escaped": null,
+            "rest": null,
+            "arrays": [],
+            "tuples": [],
+            "objects": [],
+            "aliases": [],
+            "natives": [],
+            "sets": [],
+            "maps": []
+          },
+          {
+            "any": false,
+            "required": true,
+            "optional": false,
+            "nullable": true,
+            "functional": true,
+            "atomics": [
+              {
+                "type": "string",
+                "tags": []
+              },
+              {
+                "type": "number",
+                "tags": []
+              }
+            ],
+            "constants": [],
+            "templates": [],
+            "escaped": null,
+            "rest": null,
+            "arrays": [],
+            "tuples": [],
+            "objects": [],
+            "aliases": [],
+            "natives": [],
+            "sets": [],
+            "maps": []
+          },
+          {
+            "any": false,
+            "required": true,
+            "optional": false,
+            "nullable": true,
+            "functional": true,
+            "atomics": [
+              {
+                "type": "string",
+                "tags": []
+              },
+              {
+                "type": "number",
+                "tags": []
+              }
+            ],
+            "constants": [],
+            "templates": [],
+            "escaped": null,
+            "rest": null,
+            "arrays": [],
+            "tuples": [],
+            "objects": [],
+            "aliases": [],
+            "natives": [],
+            "sets": [],
+            "maps": []
+          },
+          {
+            "any": false,
+            "required": true,
+            "optional": false,
+            "nullable": true,
+            "functional": true,
+            "atomics": [
+              {
+                "type": "string",
+                "tags": []
+              },
+              {
+                "type": "number",
+                "tags": []
+              }
+            ],
+            "constants": [],
+            "templates": [],
+            "escaped": null,
+            "rest": null,
+            "arrays": [],
+            "tuples": [],
+            "objects": [],
+            "aliases": [],
+            "natives": [],
+            "sets": [],
+            "maps": []
+          }
+        ],
+        "recursive": false,
+        "nullables": [
+          false
+        ]
+      }
+    ]
+  }
+}

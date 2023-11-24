@@ -1,0 +1,11 @@
+{
+  "schemas": [
+    {
+      "type": "null"
+    }
+  ],
+  "components": {
+    "schemas": {}
+  },
+  "purpose": "ajv"
+}

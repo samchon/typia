@@ -1,0 +1,24 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/schemas/ArrayMatrix"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "ArrayMatrix": {
+        "type": "array",
+        "items": {
+          "type": "array",
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "number"
+            }
+          }
+        }
+      }
+    }
+  },
+  "purpose": "swagger"
+}

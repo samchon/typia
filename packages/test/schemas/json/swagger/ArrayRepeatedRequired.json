@@ -1,0 +1,28 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/schemas/ArrayRepeatedRequired"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "ArrayRepeatedRequired": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "number"
+          },
+          {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ArrayRepeatedRequired"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "purpose": "swagger"
+}

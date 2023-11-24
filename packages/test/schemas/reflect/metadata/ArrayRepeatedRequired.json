@@ -1,0 +1,85 @@
+{
+  "metadatas": [
+    {
+      "any": false,
+      "required": true,
+      "optional": false,
+      "nullable": false,
+      "functional": false,
+      "atomics": [
+        {
+          "type": "string",
+          "tags": []
+        },
+        {
+          "type": "number",
+          "tags": []
+        }
+      ],
+      "constants": [],
+      "templates": [],
+      "escaped": null,
+      "rest": null,
+      "arrays": [
+        {
+          "name": "Array<ArrayRepeatedRequired>",
+          "tags": []
+        }
+      ],
+      "tuples": [],
+      "objects": [],
+      "aliases": [],
+      "natives": [],
+      "sets": [],
+      "maps": []
+    }
+  ],
+  "components": {
+    "objects": [],
+    "aliases": [],
+    "arrays": [
+      {
+        "name": "Array<ArrayRepeatedRequired>",
+        "value": {
+          "any": false,
+          "required": true,
+          "optional": false,
+          "nullable": false,
+          "functional": false,
+          "atomics": [
+            {
+              "type": "string",
+              "tags": []
+            },
+            {
+              "type": "number",
+              "tags": []
+            }
+          ],
+          "constants": [],
+          "templates": [],
+          "escaped": null,
+          "rest": null,
+          "arrays": [
+            {
+              "name": "Array<ArrayRepeatedRequired>",
+              "tags": []
+            }
+          ],
+          "tuples": [],
+          "objects": [],
+          "aliases": [],
+          "natives": [],
+          "sets": [],
+          "maps": []
+        },
+        "nullables": [
+          false
+        ],
+        "recursive": true,
+        "index": 0
+      }
+    ],
+    "tuples": []
+  }
+}
