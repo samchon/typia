@@ -372,6 +372,26 @@ export default defineConfig({
 ```
 
 
+### Vite inside a monorepo
+If you are using a monorepo, you should adapt the `vite.config.ts` 
+to include typescript files from your other packages to be able to import them.
+
+```typescript {11} filename="vite.config.ts" copy showLineNumbers
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+import typescript from "rollup-plugin-typescript2";
+
+// https://vitejs.dev/config/
+export default defineConfig({
+  esbuild: false,
+  plugins: [
+    react(),
+    typescript(
+       include: ['../../**/*.ts+(|x)']
+    )
+  ]
+});
+```
 
 
 ## Webpack
