@@ -7,7 +7,7 @@
   "scripts": {
     "build": "rimraf bin && tsc",
     "build:actions": "rimraf bin && tsc -p tsconfig.actions.json",
-    "prepare": "ts-patch install",
+    "prepare": "ts-patch install && typia patch",
     "prettier": "prettier ./src/**/*.ts --write",
     "setup": "node build/setup.js",
     "start": "node bin",
@@ -36,7 +36,7 @@
     "rimraf": "^5.0.5",
     "ts-node": "^10.9.1",
     "ts-patch": "^3.0.2",
-    "typescript": "5.2.2"
+    "typescript": "^5.3.2"
   },
   "dependencies": {
     "cli": "^1.0.1",
@@ -46,6 +46,6 @@
     "suppress-warnings": "^1.0.2",
     "tstl": "^2.5.13",
     "uuid": "^9.0.1",
-    "typia": "D:\\github\\samchon\\typia\\typia-5.3.0-dev.20231122.tgz"
+    "typia": "D:\\github\\samchon\\typia\\typia-5.3.0-dev.20231126-2.tgz"
   }
 }

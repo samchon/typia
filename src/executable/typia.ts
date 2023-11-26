@@ -34,6 +34,9 @@ const main = async (): Promise<void> => {
   if (type === "setup") {
     const { TypiaSetupWizard } = await import("./TypiaSetupWizard");
     await TypiaSetupWizard.setup();
+  } else if (type === "patch") {
+    const { TypiaPatchWizard } = await import("./TypiaPatchWizard");
+    await TypiaPatchWizard.main();
   } else if (type === "generate") {
     try {
       await import("typescript");
