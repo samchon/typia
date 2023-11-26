@@ -65,11 +65,10 @@ export namespace TypiaSetupWizard {
           delete data.scripts.postinstall;
       }
     });
-    await TypiaPatchWizard.patch();
-    CommandExecutor.run(`${pack.manager} run prepare`);
 
     // CONFIGURE TYPIA
     await PluginConfigurator.configure(args);
+    CommandExecutor.run(`${pack.manager} run prepare`);
   }
 
   const inquiry: ArgumentParser.Inquiry<IArguments> = async (

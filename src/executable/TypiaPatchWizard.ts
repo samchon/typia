@@ -21,11 +21,22 @@ export namespace TypiaPatchWizard {
   export const patch = async (): Promise<void> => {
     const location: string = require.resolve("typescript/lib/tsc.js");
     const content: string = await fs.promises.readFile(location, "utf8");
-    if (content.indexOf(FROM) === -1) return;
-
-    await fs.promises.writeFile(location, content.replace(FROM, TO), "utf8");
+    if (content.indexOf(FROM_WITH_COMMENT) !== -1)
+      await fs.promises.writeFile(
+        location,
+        content.replace(FROM_WITH_COMMENT, TO_WITH_COMMENT),
+        "utf8",
+      );
+    else if (content.indexOf(FROM_ONLY) !== -1)
+      await fs.promises.writeFile(
+        location,
+        content.replace(FROM_ONLY, TO_ONLY),
+        "utf8",
+      );
   };
 }
 
-const FROM = `var defaultJSDocParsingMode = 2 /* ParseForTypeErrors */`;
-const TO = `var defaultJSDocParsingMode = 0 /* ParseAll */`;
+const FROM_WITH_COMMENT = `var defaultJSDocParsingMode = 2 /* ParseForTypeErrors */`;
+const TO_WITH_COMMENT = `var defaultJSDocParsingMode = 0 /* ParseAll */`;
+const FROM_ONLY = `var defaultJSDocParsingMode = 2`;
+const TO_ONLY = `var defaultJSDocParsingMode = 0`;
