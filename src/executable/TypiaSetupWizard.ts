@@ -1,6 +1,5 @@
 import fs from "fs";
 
-import { TypiaPatchWizard } from "./TypiaPatchWizard";
 import { ArgumentParser } from "./setup/ArgumentParser";
 import { CommandExecutor } from "./setup/CommandExecutor";
 import { PackageManager } from "./setup/PackageManager";
