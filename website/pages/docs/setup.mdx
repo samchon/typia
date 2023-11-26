@@ -366,17 +366,14 @@ export default defineConfig({
   esbuild: false,
   plugins: [
     react(),
-    typescript()
-  ]
+    typescript(),
+  ],
 });
 ```
 
+By the way, if you're composing monorepo, and need to import some external TypeScript files from the other package of the monorepo, you've to configure the `vite.config.ts` a little bit different. When declaring `typescript` plugin, you've to specify `include` and `excluude` options like below.
 
-### Vite inside a monorepo
-If you are using a monorepo, you should adapt the `vite.config.ts` 
-to include typescript files from your other packages to be able to import them.
-
-```typescript {11} filename="vite.config.ts" copy showLineNumbers
+```typescript filename="vite.config.ts" copy showLineNumbers
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import typescript from "rollup-plugin-typescript2";
@@ -386,12 +383,20 @@ export default defineConfig({
   esbuild: false,
   plugins: [
     react(),
-    typescript(
-       include: ['../../**/*.ts+(|x)']
-    )
-  ]
+    typescript({
+      // WHEN MONOREPO
+      include: [
+        "./**/*.ts+(|x)",
+        "../../core/**/*.ts+(|x)",
+        "../../util/**/*.ts+(|x)",
+      ],
+      exclude: ["../../node_modules"],
+    }),
+  ],
 });
 ```
+
+
 
 
 ## Webpack
