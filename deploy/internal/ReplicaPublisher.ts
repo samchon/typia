@@ -4,25 +4,24 @@ import fs from "fs";
 export namespace ReplicaPublisher {
   export function replica(tag: string): void {
     // PREPARE DIRECTORY
-    if (fs.existsSync(PACKAGES)) cp.execSync(`rimraf ${PACKAGES}`);
-    fs.mkdirSync(PACKAGES);
-    fs.mkdirSync(typia);
+    if (fs.existsSync(LEGACY)) cp.execSync(`rimraf ${LEGACY}`);
+    fs.mkdirSync(LEGACY);
 
     // COPY ESSENTIAL FILES
     for (const file of ["package.json", "LICENSE", "tsconfig.json"])
-      fs.copyFileSync(`${ROOT}/${file}`, `${typia}/${file}`);
+      fs.copyFileSync(`${ROOT}/${file}`, `${LEGACY}/${file}`);
     readme();
 
     // CREATE RE-EXPORT FILES
-    fs.mkdirSync(`${typia}/src`);
-    link(LIB, `${typia}/src`);
+    fs.mkdirSync(`${LEGACY}/src`);
+    link(LIB, `${LEGACY}/src`);
 
     // CHANGE PACKAGE.JSON CONTENT
     pack();
 
     // DO BUILD & PUBLISH
     try {
-      cp.execSync("npx tsc", { cwd: typia });
+      cp.execSync("npx tsc", { cwd: LEGACY });
     } catch {}
 
     console.log("publish typescript-json (replica)");
@@ -32,7 +31,7 @@ export namespace ReplicaPublisher {
   function readme(): void {
     const content: string = fs.readFileSync(`${ROOT}/README.md`, "utf8");
     fs.writeFileSync(
-      `${typia}/README.md`,
+      `${LEGACY}/README.md`,
       "> ## Deprecated\n" +
         "> `typescript-json` has been renamed to [`typia`](https://github.com/samchon/typia)" +
         "\n\n" +
@@ -72,7 +71,7 @@ export namespace ReplicaPublisher {
 
   function pack(): void {
     const pack: any = JSON.parse(
-      fs.readFileSync(`${typia}/package.json`, "utf8"),
+      fs.readFileSync(`${LEGACY}/package.json`, "utf8"),
     );
 
     pack.name = "typescript-json";
@@ -84,7 +83,7 @@ export namespace ReplicaPublisher {
     delete pack.bin;
 
     fs.writeFileSync(
-      `${typia}/package.json`,
+      `${LEGACY}/package.json`,
       JSON.stringify(pack, null, 2),
       "utf8",
     );
@@ -93,13 +92,12 @@ export namespace ReplicaPublisher {
   function publish(command: string): void {
     try {
       cp.execSync(command, {
-        cwd: typia,
+        cwd: LEGACY,
       });
     } catch {}
   }
 }
 
 const ROOT: string = __dirname + "/../..";
-const PACKAGES: string = ROOT + "/packages";
-const typia: string = PACKAGES + "/typescript-json";
+const LEGACY: string = ROOT + "/packages/typescript-json";
 const LIB = `${__dirname}/../../lib`;
