@@ -1,39 +1,23 @@
 {
   "name": "typescript-json",
-  "version": "5.3.0-dev.20231122",
+  "version": "5.3.0-dev.20231126-2",
   "description": "Superfast runtime validators with only one line",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "scripts": {
-    "benchmark": "npm run build:benchmark && node measure/benchmark",
-    "benchmark:generate": "ts-node benchmark/generate && npm run build:benchmark",
-    "test:generate": "npx ts-node src/executable/typia generate --input test/features --output test/generated/output --project test/tsconfig.json",
-    "test:template": "npx tsc && ts-node -P build/tsconfig.json build/test.ts",
-    "----------------------------------------------": "",
+    "test": "npm run package:tgz",
+    "-------------------------------------------------": "",
     "build": "rimraf lib && tsc --removeComments --declaration false && tsc --emitDeclarationOnly",
-    "build:test": "rimraf bin && tsc -p test/tsconfig.json",
-    "build:test:actions": "rimraf bin && tsc -p test/tsconfig.actions.json",
-    "build:test:issues": "rimraf bin && tsc -p test/tsconfig.issue.json",
-    "build:benchmark": "rimraf measure && tsc -p benchmark/tsconfig.json",
-    "build:test:errors": "rimraf errors/bin && tsc -p errors/tsconfig.json",
-    "build:test:prettier": "npm run build:test && prettier --write ./bin/**/*.js",
     "dev": "rimraf lib && tsc --watch",
-    "dev:test": "rimraf bin && tsc -p test/tsconfig.json --watch",
     "eslint": "eslint ./**/*.ts",
     "eslint:fix": "eslint ./**/*.ts --fix",
-    "prettier": "prettier  --write ./**/*.ts",
-    "-----------------------------------------------": "",
-    "issue": "node test/issue",
-    "issue:generate": "ts-node src/executable/typia generate --input test/issues/generate/input --output test/issues/generate --project test/tsconfig.json",
-    "test": "node bin/test",
-    "test:errors": "node errors",
-    "test:manual": "node test/manual",
+    "prettier": "prettier src --write",
     "------------------------------------------------": "",
-    "package:latest": "ts-node build/publish.ts latest",
-    "package:next": "ts-node build/publish.ts next",
-    "package:patch": "ts-node build/publish.ts patch",
-    "package:deprecate": "npm deprecate typescript-json \"Renamed to typia\"",
-    "prepare": "ts-patch install"
+    "package:latest": "ts-node deploy latest",
+    "package:next": "ts-node deploy next",
+    "package:patch": "ts-node deploy patch",
+    "package:tgz": "ts-node deploy tgz",
+    "package:deprecate": "npm deprecate typescript-json \"Renamed to typia\""
   },
   "repository": {
     "type": "git",
@@ -72,13 +56,13 @@
   },
   "homepage": "https://typia.io",
   "dependencies": {
-    "typia": "5.3.0-dev.20231122"
+    "typia": "5.3.0-dev.20231126-2"
   },
   "peerDependencies": {
-    "typescript": ">=4.8.0 <5.3.0"
+    "typescript": ">=4.8.0 <5.4.0"
   },
   "stackblitzs": {
-    "startCommand": "npm run prepare && npm run build:test:actions && npm run build:test && npm run test"
+    "startCommand": "npm install && npm run build && cd packages/test && npm install && npm run build:actions && npm start"
   },
   "files": [
     "LICENSE",

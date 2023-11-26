@@ -208,7 +208,7 @@ As `typia` generates optimal operation code through transformation, you've to co
 ```json filename="package.json" copy showLineNumbers {2-4}
 {
   "scripts": {
-    "prepare": "ts-patch install"
+    "prepare": "ts-patch install && typia patch"
   },
   "dependencies": {
     "typia": "^4.1.8"
@@ -245,6 +245,21 @@ At last, open `package.json` file and configure `npm run prepare` command like a
 Of course, you've to run the `npm run prepare` command after the configuration. 
 
 For reference, [`ts-patch`](https://github.com/nonara/ts-patch) is an helper library of TypeScript compiler that supporting custom transformations by plugins. From now on, whenever you run `tsc` command, your `typia` function call statements would be transformed to the optimal operation codes in the compiled JavaScript files.
+
+<br/>
+<Alert severity="warning">
+
+    <AlertTitle>
+        **`npx typia patch`** 
+    </AlertTitle> 
+
+Since TypeScript v5.3 update, `tsc` no more parses `JSDocComment`s. Therefore, `typia` also cannot utilize those `JSDocComment` related features too, especially ["Comment Tags"](./validators/tags/#comment-tags) and ["JSON schema generator"](./json/schema). 
+
+The `npx typia patch` command has been developed to revive the `JSDocComment` parsing feature of `tsc`. It is temporary solution for the TypeScript v5.3 update instead of [`ts-patch`](https://github.com/nonara/ts-patch), and will be disabled after [`ts-patch`](https://github.com/nonara/ts-patch) starts supporting such TypeScript v5.3 update.
+
+Of course, if you don't use any ["Comment Tags"](./validators/tags/#comment-tags) and ["JSON schema generator"](./json/schema), you don't need to run `npx typia patch` command. This is not mandatory command, but just optional command.
+
+</Alert>
 
 
 
