@@ -322,11 +322,18 @@ export namespace Metadata {
     // VALUES
     //----
     // ATOMICS
-    for (const atomic of x.atomics)
+    for (const atomic of x.atomics) {
       if (y.atomics.some((ya) => atomic.type === ya.type)) return true;
+      if (y.constants.some((yc) => atomic.type === yc.type)) return true;
+    }
 
     // CONSTANTS
     for (const constant of x.constants) {
+      const atomic: MetadataAtomic | undefined = y.atomics.find(
+        (elem) => elem.type === constant.type,
+      );
+      if (atomic !== undefined) return true;
+
       const opposite: MetadataConstant | undefined = y.constants.find(
         (elem) => elem.type === constant.type,
       );
@@ -339,6 +346,15 @@ export namespace Metadata {
       if (values.size !== constant.values.length + opposite.values.length)
         return true;
     }
+
+    // TEMPLATES
+    if (!!x.templates.length && y.atomics.some((ya) => ya.type === "string"))
+      return true;
+    else if (
+      !!y.templates.length &&
+      x.atomics.some((xa) => xa.type === "string")
+    )
+      return true;
     return false;
   };
 
