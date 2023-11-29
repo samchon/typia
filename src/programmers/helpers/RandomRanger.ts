@@ -23,6 +23,13 @@ export namespace RandomRanger {
       if (props.minimum === undefined && props.maximum === undefined)
         return undefined;
 
+      if (props.maximum !== undefined && props.minimum === undefined) {
+        if (props.maximum <= 0) {
+          props.maximum = 0;
+          props.minimum = 0;
+        } else if (props.maximum < defs.gap)
+          props.minimum = defs.minimum === 0 ? 0 : 1;
+      }
       props.minimum ??= defs.minimum;
       props.maximum ??= defs.maximum;
       if (props.maximum < props.minimum) (props.maximum as number) += defs.gap;

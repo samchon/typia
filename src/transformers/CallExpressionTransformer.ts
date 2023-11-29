@@ -127,16 +127,8 @@ export namespace CallExpressionTransformer {
 
   const isTarget = (location: string): boolean => {
     const files: string[] = Object.keys(FUNCTORS);
-    return files.some(
-      (f) =>
-        location.includes(
-          path.join("node_modules", "typia", "lib", `${f}.d.ts`),
-        ) ||
-        location === path.resolve(path.join(__dirname, "..", `${f}.ts`)) ||
-        location ===
-          path.resolve(
-            path.join(__dirname, "..", "..", "..", "src", `${f}.ts`),
-          ),
+    return files.some((f) =>
+      location.includes(path.join("node_modules", "typia", "lib", `${f}.d.ts`)),
     );
   };
 }
