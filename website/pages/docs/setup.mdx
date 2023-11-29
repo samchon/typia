@@ -386,7 +386,7 @@ export default defineConfig({
 });
 ```
 
-By the way, if you're composing monorepo, and need to import some external TypeScript files from the other package of the monorepo, you've to configure the `vite.config.ts` a little bit different. When declaring `typescript` plugin, you've to specify `include` and `excluude` options like below.
+By the way, if you're composing monorepo, and need to import some external TypeScript files from the other package of the monorepo, you've to configure the `vite.config.ts` a little bit different. When declaring `typescript` plugin, you've to specify `include` and `exclude` options like below.
 
 ```typescript filename="vite.config.ts" copy showLineNumbers
 import { defineConfig } from 'vite'
