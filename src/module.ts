@@ -13,6 +13,7 @@ export * as protobuf from "./protobuf";
 export * as reflect from "./reflect";
 export * as tags from "./tags";
 
+export * from "./schemas/metadata/IJsDocTagInfo";
 export * from "./schemas/json/IJsonApplication";
 export * from "./schemas/json/IJsonComponents";
 export * from "./schemas/json/IJsonSchema";
