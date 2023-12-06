@@ -61,7 +61,7 @@
     "suppress-warnings": "^1.0.2",
     "tgrid": "^0.8.7",
     "ts-node": "^10.9.1",
-    "ts-patch": "^3.0.2",
+    "ts-patch": "^3.1.0",
     "tstl": "^2.5.13",
     "typescript": "5.2.2",
     "uuid": "^8.3.2",
