@@ -1,6 +1,0 @@
-syntax = "proto3";
-
-message TypeTagTypeBigInt {
-    required int64 in64 = 1;
-    required uint64 uint64 = 2;
-}

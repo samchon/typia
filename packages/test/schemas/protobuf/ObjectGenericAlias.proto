@@ -1,7 +1,0 @@
-syntax = "proto3";
-
-message ObjectGenericAlias {
-    message Alias {
-        required string value = 1;
-    }
-}

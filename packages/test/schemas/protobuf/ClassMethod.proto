@@ -1,8 +1,0 @@
-syntax = "proto3";
-
-message ClassMethod {
-    message Animal {
-        required string name = 1;
-        required double age = 2;
-    }
-}

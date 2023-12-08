@@ -50,7 +50,7 @@ const test =
   (version: string) =>
   (name: string) =>
   (commands: string[]): void => {
-    process.chdir(`${__dirname}/../packages/${name}`);
+    process.chdir(`${__dirname}/../${name}`);
 
     if (fs.existsSync("node_modules/typia"))
       cp.execSync("npm uninstall typia", { stdio: "ignore" });
