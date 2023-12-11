@@ -204,7 +204,7 @@ interface CustomTag {
 
     string: string & tags.MinLength<3>;
 
-    pattern: string & tags.Format<"^[a-z]+$">;
+    pattern: string & tags.Pattern<"^[a-z]+$">;
 
     /**
      * Type tag can perform union type.
