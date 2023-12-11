@@ -487,7 +487,7 @@ export const test_protobuf_createIsDecode_ObjectUnionExplicitPointer =
         const $peo1 = (input: any): any => {
           // property "value";
           if ("point" === input.value.type)
-            return (() => {
+            (() => {
               // 1 -> ObjectUnionExplicitPointer.Discriminator<"point", ObjectUnionExplicitPointer.IPoint>;
               writer.uint32(10);
               writer.fork();
@@ -495,7 +495,7 @@ export const test_protobuf_createIsDecode_ObjectUnionExplicitPointer =
               writer.ldelim();
             })();
           else if ("line" === input.value.type)
-            return (() => {
+            (() => {
               // 2 -> ObjectUnionExplicitPointer.Discriminator<"line", ObjectUnionExplicitPointer.ILine>;
               writer.uint32(18);
               writer.fork();
@@ -503,7 +503,7 @@ export const test_protobuf_createIsDecode_ObjectUnionExplicitPointer =
               writer.ldelim();
             })();
           else if ("triangle" === input.value.type)
-            return (() => {
+            (() => {
               // 3 -> ObjectUnionExplicitPointer.Discriminator<"triangle", ObjectUnionExplicitPointer.ITriangle>;
               writer.uint32(26);
               writer.fork();
@@ -511,7 +511,7 @@ export const test_protobuf_createIsDecode_ObjectUnionExplicitPointer =
               writer.ldelim();
             })();
           else if ("rectangle" === input.value.type)
-            return (() => {
+            (() => {
               // 4 -> ObjectUnionExplicitPointer.Discriminator<"rectangle", ObjectUnionExplicitPointer.IRectangle>;
               writer.uint32(34);
               writer.fork();
@@ -519,7 +519,7 @@ export const test_protobuf_createIsDecode_ObjectUnionExplicitPointer =
               writer.ldelim();
             })();
           else if ("polyline" === input.value.type)
-            return (() => {
+            (() => {
               // 5 -> ObjectUnionExplicitPointer.Discriminator<"polyline", ObjectUnionExplicitPointer.IPolyline>;
               writer.uint32(42);
               writer.fork();
@@ -527,7 +527,7 @@ export const test_protobuf_createIsDecode_ObjectUnionExplicitPointer =
               writer.ldelim();
             })();
           else if ("polygon" === input.value.type)
-            return (() => {
+            (() => {
               // 6 -> ObjectUnionExplicitPointer.Discriminator<"polygon", ObjectUnionExplicitPointer.IPolygon>;
               writer.uint32(50);
               writer.fork();
@@ -535,7 +535,7 @@ export const test_protobuf_createIsDecode_ObjectUnionExplicitPointer =
               writer.ldelim();
             })();
           else if ("circle" === input.value.type)
-            return (() => {
+            (() => {
               // 7 -> ObjectUnionExplicitPointer.Discriminator<"circle", ObjectUnionExplicitPointer.ICircle>;
               writer.uint32(58);
               writer.fork();

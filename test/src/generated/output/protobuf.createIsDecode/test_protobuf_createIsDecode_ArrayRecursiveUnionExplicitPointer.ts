@@ -413,7 +413,7 @@ export const test_protobuf_createIsDecode_ArrayRecursiveUnionExplicitPointer =
         const $peo1 = (input: any): any => {
           // property "value";
           if ("directory" === input.value.type)
-            return (() => {
+            (() => {
               // 1 -> ArrayRecursiveUnionExplicitPointer.IDirectory;
               writer.uint32(10);
               writer.fork();
@@ -421,7 +421,7 @@ export const test_protobuf_createIsDecode_ArrayRecursiveUnionExplicitPointer =
               writer.ldelim();
             })();
           else if ("jpg" === input.value.extension)
-            return (() => {
+            (() => {
               // 2 -> ArrayRecursiveUnionExplicitPointer.IImageFile;
               writer.uint32(18);
               writer.fork();
@@ -429,7 +429,7 @@ export const test_protobuf_createIsDecode_ArrayRecursiveUnionExplicitPointer =
               writer.ldelim();
             })();
           else if ("txt" === input.value.extension)
-            return (() => {
+            (() => {
               // 3 -> ArrayRecursiveUnionExplicitPointer.ITextFile;
               writer.uint32(26);
               writer.fork();
@@ -437,7 +437,7 @@ export const test_protobuf_createIsDecode_ArrayRecursiveUnionExplicitPointer =
               writer.ldelim();
             })();
           else if ("zip" === input.value.extension)
-            return (() => {
+            (() => {
               // 4 -> ArrayRecursiveUnionExplicitPointer.IZipFile;
               writer.uint32(34);
               writer.fork();
@@ -445,7 +445,7 @@ export const test_protobuf_createIsDecode_ArrayRecursiveUnionExplicitPointer =
               writer.ldelim();
             })();
           else if ("lnk" === input.value.extension)
-            return (() => {
+            (() => {
               // 5 -> ArrayRecursiveUnionExplicitPointer.IShortcut;
               writer.uint32(42);
               writer.fork();
