@@ -747,7 +747,7 @@ export namespace ProtobufEncodeProgrammer {
             : ExpressionFactory.isRequired(accessor);
           return ts.factory.createIfStatement(
             pred,
-            ts.factory.createReturnStatement(
+            ts.factory.createExpressionStatement(
               ExpressionFactory.selfCall(
                 decode_object(project)(importer)(indexes!.get(spec.object)!)(
                   input,
@@ -758,7 +758,7 @@ export namespace ProtobufEncodeProgrammer {
             ),
             i === array.length - 1
               ? remained.length
-                ? ts.factory.createReturnStatement(
+                ? ts.factory.createExpressionStatement(
                     ExpressionFactory.selfCall(
                       explore_objects(project)(importer)(level + 1)(index)(
                         input,
