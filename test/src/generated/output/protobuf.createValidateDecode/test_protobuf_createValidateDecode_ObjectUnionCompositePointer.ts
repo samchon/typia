@@ -919,7 +919,7 @@ export const test_protobuf_createValidateDecode_ObjectUnionCompositePointer =
         const $peo1 = (input: any): any => {
           // property "value";
           if (undefined !== input.value.x)
-            return (() => {
+            (() => {
               // 1 -> ObjectUnionCompositePointer.IPoint;
               writer.uint32(10);
               writer.fork();
@@ -927,7 +927,7 @@ export const test_protobuf_createValidateDecode_ObjectUnionCompositePointer =
               writer.ldelim();
             })();
           else if (undefined !== input.value.p4)
-            return (() => {
+            (() => {
               // 4 -> ObjectUnionCompositePointer.IRectangle;
               writer.uint32(34);
               writer.fork();
@@ -935,7 +935,7 @@ export const test_protobuf_createValidateDecode_ObjectUnionCompositePointer =
               writer.ldelim();
             })();
           else if (undefined !== input.value.points)
-            return (() => {
+            (() => {
               // 5 -> ObjectUnionCompositePointer.IPolyline;
               writer.uint32(42);
               writer.fork();
@@ -949,7 +949,7 @@ export const test_protobuf_createValidateDecode_ObjectUnionCompositePointer =
                 "object" === typeof elem && null !== elem && $io2(elem),
             )
           )
-            return (() => {
+            (() => {
               // 6 -> ObjectUnionCompositePointer.IPointedShape;
               writer.uint32(50);
               writer.fork();
@@ -961,7 +961,7 @@ export const test_protobuf_createValidateDecode_ObjectUnionCompositePointer =
             null !== input.value.outer &&
             $io6(input.value.outer)
           )
-            return (() => {
+            (() => {
               // 7 -> ObjectUnionCompositePointer.IPolygon;
               writer.uint32(58);
               writer.fork();
@@ -969,7 +969,7 @@ export const test_protobuf_createValidateDecode_ObjectUnionCompositePointer =
               writer.ldelim();
             })();
           else if (undefined !== input.value.centroid)
-            return (() => {
+            (() => {
               // 8 -> ObjectUnionCompositePointer.ICircle;
               writer.uint32(66);
               writer.fork();
@@ -977,9 +977,9 @@ export const test_protobuf_createValidateDecode_ObjectUnionCompositePointer =
               writer.ldelim();
             })();
           else
-            return (() => {
+            (() => {
               if (undefined !== input.value.p3)
-                return (() => {
+                (() => {
                   // 3 -> ObjectUnionCompositePointer.ITriangle;
                   writer.uint32(26);
                   writer.fork();
@@ -987,7 +987,7 @@ export const test_protobuf_createValidateDecode_ObjectUnionCompositePointer =
                   writer.ldelim();
                 })();
               else
-                return (() => {
+                (() => {
                   // 2 -> ObjectUnionCompositePointer.ILine;
                   writer.uint32(18);
                   writer.fork();

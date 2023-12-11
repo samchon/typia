@@ -190,7 +190,7 @@ export const test_protobuf_createIsDecode_ObjectNullable =
           // property "similar";
           if (null !== input.similar) {
             if ("brand" === input.similar.type)
-              return (() => {
+              (() => {
                 // 4 -> ObjectNullable.IBrand;
                 writer.uint32(34);
                 writer.fork();
@@ -198,7 +198,7 @@ export const test_protobuf_createIsDecode_ObjectNullable =
                 writer.ldelim();
               })();
             else if ("manufacturer" === input.similar.type)
-              return (() => {
+              (() => {
                 // 5 -> ObjectNullable.IManufacturer;
                 writer.uint32(42);
                 writer.fork();
