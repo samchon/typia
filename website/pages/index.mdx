@@ -46,6 +46,7 @@ import Stack from '@mui/material/Stack';
 // RUNTIME VALIDATORS
 export function is<T>(input: unknown): input is T; // returns boolean
 export function assert<T>(input: unknown): T; // throws TypeGuardError
+export function assertGuard<T>(input: unknown): asserts input is T;
 export function validate<T>(input: unknown): IValidation<T>; // detailed
 
 // JSON FUNCTIONS

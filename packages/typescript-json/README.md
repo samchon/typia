@@ -14,6 +14,7 @@
 // RUNTIME VALIDATORS
 export function is<T>(input: unknown): input is T; // returns boolean
 export function assert<T>(input: unknown): T; // throws TypeGuardError
+export function assertGuard<T>(input: unknown): asserts input is T;
 export function validate<T>(input: unknown): IValidation<T>; // detailed
 
 // JSON FUNCTIONS
@@ -77,8 +78,8 @@ Check out the document in the [website](https://typia.io/docs/):
   
 ### 📖 Features
   - Runtime Validators
-    - [`is()` function](https://typia.io/docs/validators/is/)
     - [`assert()` function](https://typia.io/docs/validators/assert/)
+    - [`is()` function](https://typia.io/docs/validators/is/)
     - [`validate()` function](https://typia.io/docs/validators/validate/)
     - [Special Tags](https://typia.io/docs/validators/tags/)
   - Enhanced JSON
