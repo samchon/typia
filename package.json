@@ -1,6 +1,6 @@
 {
   "name": "typia",
-  "version": "5.3.5",
+  "version": "5.3.6",
   "description": "Superfast runtime validators with only one line",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
@@ -85,7 +85,7 @@
     "typescript": "^5.3.3"
   },
   "stackblitzs": {
-    "startCommand": "npm install && npm run build && cd packages/test && npm install && npm run build:actions && npm start"
+    "startCommand": "npm install && npm run test"
   },
   "files": [
     "LICENSE",
