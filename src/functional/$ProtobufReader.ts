@@ -20,7 +20,7 @@ export class $ProtobufReader {
   public constructor(buf: Uint8Array) {
     this.buf = buf;
     this.ptr = 0;
-    this.view = new DataView(buf.buffer);
+    this.view = new DataView(buf.buffer, buf.byteOffset, buf.byteLength);
   }
 
   public index(): number {
