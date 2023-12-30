@@ -10,45 +10,42 @@
         "type": "object",
         "properties": {
           "value": {
-            "$ref": "#/components/schemas/__type"
+            "type": "object",
+            "properties": {
+              "a": {
+                "x-typia-required": true,
+                "x-typia-optional": false,
+                "type": "number"
+              },
+              "b": {
+                "x-typia-required": true,
+                "x-typia-optional": false,
+                "type": "number"
+              },
+              "c": {
+                "x-typia-required": true,
+                "x-typia-optional": false,
+                "type": "number"
+              },
+              "d": {
+                "x-typia-required": true,
+                "x-typia-optional": false,
+                "type": "number"
+              }
+            },
+            "nullable": false,
+            "required": [
+              "a",
+              "b",
+              "c",
+              "d"
+            ],
+            "x-typia-jsDocTags": []
           }
         },
         "nullable": false,
         "required": [
           "value"
-        ],
-        "x-typia-jsDocTags": []
-      },
-      "__type": {
-        "type": "object",
-        "properties": {
-          "a": {
-            "x-typia-required": true,
-            "x-typia-optional": false,
-            "type": "number"
-          },
-          "b": {
-            "x-typia-required": true,
-            "x-typia-optional": false,
-            "type": "number"
-          },
-          "c": {
-            "x-typia-required": true,
-            "x-typia-optional": false,
-            "type": "number"
-          },
-          "d": {
-            "x-typia-required": true,
-            "x-typia-optional": false,
-            "type": "number"
-          }
-        },
-        "nullable": false,
-        "required": [
-          "a",
-          "b",
-          "c",
-          "d"
         ],
         "x-typia-jsDocTags": []
       }

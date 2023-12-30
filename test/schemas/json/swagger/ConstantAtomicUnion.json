@@ -35,27 +35,24 @@
             ]
           },
           {
-            "$ref": "#/components/schemas/__type"
+            "type": "object",
+            "properties": {
+              "key": {
+                "x-typia-required": true,
+                "x-typia-optional": false,
+                "type": "string",
+                "enum": [
+                  "key"
+                ]
+              }
+            },
+            "nullable": false,
+            "required": [
+              "key"
+            ],
+            "x-typia-jsDocTags": []
           }
         ]
-      },
-      "__type": {
-        "type": "object",
-        "properties": {
-          "key": {
-            "x-typia-required": true,
-            "x-typia-optional": false,
-            "type": "string",
-            "enum": [
-              "key"
-            ]
-          }
-        },
-        "nullable": false,
-        "required": [
-          "key"
-        ],
-        "x-typia-jsDocTags": []
       }
     }
   },

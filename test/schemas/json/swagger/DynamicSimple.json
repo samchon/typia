@@ -10,7 +10,20 @@
         "type": "object",
         "properties": {
           "value": {
-            "$ref": "#/components/schemas/__type"
+            "type": "object",
+            "properties": {},
+            "nullable": false,
+            "x-typia-jsDocTags": [],
+            "x-typia-additionalProperties": {
+              "x-typia-required": true,
+              "x-typia-optional": false,
+              "type": "number"
+            },
+            "additionalProperties": {
+              "x-typia-required": true,
+              "x-typia-optional": false,
+              "type": "number"
+            }
           }
         },
         "nullable": false,
@@ -18,22 +31,6 @@
           "value"
         ],
         "x-typia-jsDocTags": []
-      },
-      "__type": {
-        "type": "object",
-        "properties": {},
-        "nullable": false,
-        "x-typia-jsDocTags": [],
-        "x-typia-additionalProperties": {
-          "x-typia-required": true,
-          "x-typia-optional": false,
-          "type": "number"
-        },
-        "additionalProperties": {
-          "x-typia-required": true,
-          "x-typia-optional": false,
-          "type": "number"
-        }
       }
     }
   },

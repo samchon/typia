@@ -11,24 +11,20 @@
         "type": "object",
         "properties": {
           "value": {
-            "$ref": "#/components/schemas/__type"
+            "type": "object",
+            "properties": {},
+            "x-typia-jsDocTags": [],
+            "additionalProperties": {
+              "x-typia-required": true,
+              "x-typia-optional": false,
+              "type": "number"
+            }
           }
         },
         "required": [
           "value"
         ],
         "x-typia-jsDocTags": []
-      },
-      "__type": {
-        "$id": "#/components/schemas/__type",
-        "type": "object",
-        "properties": {},
-        "x-typia-jsDocTags": [],
-        "additionalProperties": {
-          "x-typia-required": true,
-          "x-typia-optional": false,
-          "type": "number"
-        }
       }
     }
   },

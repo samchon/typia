@@ -20,19 +20,34 @@ export const application_object =
   (options: JsonApplicationProgrammer.IOptions) =>
   (components: IJsonComponents) =>
   (obj: MetadataObject) =>
-  (nullable: boolean): IJsonSchema.IReference => {
+  (nullable: boolean): IJsonSchema.IReference | IJsonSchema.IObject => {
+    if (obj._Is_literal() === true)
+      return create_object_schema(options)(components)(obj)(nullable);
+
     const key: string =
       options.purpose === "ajv"
         ? obj.name
         : `${obj.name}${nullable ? ".Nullable" : ""}`;
-    const $id: string = `${JSON_COMPONENTS_PREFIX}/schemas/${key}`;
-    const output = { $ref: $id };
+    const $ref: string = `${JSON_COMPONENTS_PREFIX}/schemas/${key}`;
+    if (components.schemas?.[key] !== undefined) return { $ref };
 
-    // TEMPORARY ASSIGNMENT
-    if (components.schemas?.[key] !== undefined) return output;
+    const object: IJsonComponents.IAlias = {
+      $id: options.purpose === "ajv" ? $ref : undefined,
+    };
     components.schemas ??= {};
-    components.schemas[key] = {} as any;
+    components.schemas[key] = object;
+    Object.assign(
+      object,
+      create_object_schema(options)(components)(obj)(nullable),
+    );
+    return { $ref };
+  };
 
+const create_object_schema =
+  (options: JsonApplicationProgrammer.IOptions) =>
+  (components: IJsonComponents) =>
+  (obj: MetadataObject) =>
+  (nullable: boolean): IJsonSchema.IObject => {
     // ITERATE PROPERTIES
     const properties: Record<string, any> = {};
     const extraMeta: ISuperfluous = {
@@ -99,8 +114,7 @@ export const application_object =
         return output;
       })(),
     };
-    const schema: IJsonComponents.IObject = {
-      $id: options.purpose === "ajv" ? $id : undefined,
+    return {
       // $recursiveAnchor:
       //     (options.purpose === "ajv" && obj.recursive) || undefined,
       type: "object",
@@ -118,8 +132,6 @@ export const application_object =
             additionalProperties: join(options)(components)(extraMeta),
           }),
     };
-    components.schemas[key] = schema;
-    return output;
   };
 
 const join =

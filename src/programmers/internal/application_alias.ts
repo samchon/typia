@@ -19,7 +19,7 @@ export const application_alias =
     if (alias.value.size() === 1 && alias.value.objects.length === 1)
       return application_object(options)(components)(alias.value.objects[0]!)(
         nullable,
-      );
+      ) as IJsonSchema.IReference;
 
     const key: string =
       options.purpose === "ajv"
