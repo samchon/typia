@@ -440,9 +440,7 @@ pnpm install --save-dev webpack webpack-cli
     </Tab>
     <Tab>
 ```bash filename="Terminal" copy showLineNumbers
-##############################
 # YARN BERRY IS NOT SUPPORTED
-##############################
 # TYPIA
 yarn add typia
 yarn typia setup --manager yarn
@@ -456,7 +454,7 @@ yarn add -D webpack webpack-cli
 
 When you're using `webpack` as a bundler, you can still utilize the [transformation](#transformation) mode.
 
-Just install `ts-loader` as well as `webpack`, and configure `webpack.config.js` file like below, that's all.
+Just install `ts-loader` as well as `webpack`, and configure `webpack.config.js` file like below.
 
 ```javascript filename="webpack.config.js" copy showLineNumbers
 const path = require("path");
@@ -489,4 +487,55 @@ module.exports = {
         extensions: ['.tsx', '.ts', '.js'],
     },
 };
+```
+
+From now on, you can build the single JS file just by running the `npx webpack` command. By the way, when removing `devDependencies` for `--production` install, never forget to add the `--ignore-scripts` option to prevent the `prepare` script.
+
+Additionally, if you're using `typia` in the NodeJS project especially for the backend development, *Setup Guide Documents* of [`nestia`](https://github.com/samchon/nestia) would be helpful. Even though you're not using NestJS, you can still utilize below documents, and "Single JS file only" mode would be especially helpful for you.
+
+  - [Nestia > Setup > Webpack](https://nestia.io/docs/setup/#webpack)
+    - [With `node_modules`](https://nestia.io/docs/setup/#with-node_modules)
+    - [Single JS file only](https://nestia.io/docs/setup/#single-js-file-only)
+
+
+## NX
+<Tabs items={['npm', 'pnpm', 'yarn']}>
+    <Tab>
+```bash filename="Terminal" copy showLineNumbers
+npm install --save typia
+npx typia setup
+```
+    </Tab>
+    <Tab>
+```bash filename="Terminal" copy showLineNumbers
+pnpm install --save typia
+pnpm typia setup --manager pnpm
+```
+    </Tab>
+    <Tab>
+```bash filename="Terminal" copy showLineNumbers
+# YARN BERRY IS NOT SUPPORTED
+yarn add typia
+yarn typia setup --manager yarn
+```
+    </Tab>
+</Tabs>
+
+After install `typia` like above, you have to modify `project.json` on each app like below.
+
+```javascript filename="project.json" showLineNumbers copy
+ "targets": {
+    "build": {
+      ...
+      "options": {
+        ...
+        "target": "node",
+        "compiler": "tsc",
+        "transformers": [
+          "typia/lib/transform",
+        ]
+      }
+    },
+    ...
+ }
 ```
