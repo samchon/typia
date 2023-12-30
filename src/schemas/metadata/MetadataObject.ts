@@ -20,6 +20,11 @@ export class MetadataObject {
    */
   public tagged_: boolean = false;
 
+  /**
+   * @internal
+   */
+  private literal_?: boolean;
+
   /* -----------------------------------------------------------
         CONSTRUCTORS
     ----------------------------------------------------------- */
@@ -95,6 +100,21 @@ export class MetadataObject {
               property.value.objects[0]!._Is_simple(level + 1))),
       )
     );
+  }
+
+  /**
+   * @internal
+   */
+  public _Is_literal(): boolean {
+    return (this.literal_ ??= (() => {
+      if (this.recursive === true) return false;
+      else if (this.name === "__type") return true;
+      else if (this.name.startsWith("__type.o") === false) return false;
+
+      const last: string = this.name.substr("__type.o".length);
+      const value: number = Number(last);
+      return isNaN(value) === false && Number.isInteger(value);
+    })());
   }
 
   public toJSON(): IMetadataObject {

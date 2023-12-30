@@ -103,15 +103,6 @@ export class MetadataCollection {
     const oldbie = this.objects_.get(type);
     if (oldbie !== undefined) return [oldbie, false];
 
-    // const displays = type.symbol.getDocumentationComment(checker);
-    // const tags = type.symbol.getJsDocTags(checker);
-
-    // console.log(
-    //     ts.displayPartsToString(displays),
-    //     tags.map((tag) => tag.name),
-    //     tags.map((tag) => ts.displayPartsToString(tag.text)),
-    // );
-
     const $id: string = this.getName(checker, type);
     const obj: MetadataObject = MetadataObject.create({
       name: $id,
