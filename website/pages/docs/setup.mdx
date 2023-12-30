@@ -440,7 +440,9 @@ pnpm install --save-dev webpack webpack-cli
     </Tab>
     <Tab>
 ```bash filename="Terminal" copy showLineNumbers
+###########################################
 # YARN BERRY IS NOT SUPPORTED
+###########################################
 # TYPIA
 yarn add typia
 yarn typia setup --manager yarn
@@ -490,6 +492,28 @@ module.exports = {
 ```
 
 From now on, you can build the single JS file just by running the `npx webpack` command. By the way, when removing `devDependencies` for `--production` install, never forget to add the `--ignore-scripts` option to prevent the `prepare` script.
+
+<Tabs items={['npm', 'pnpm', 'yarn']}>
+    <Tab>
+```bash filename="Terminal" copy showLineNumbers
+npx webpack
+npm ci --omit=dev --ignore-scripts
+```
+    </Tab>
+    <Tab>
+```bash filename="Terminal" copy showLineNumbers
+pnpm webpack
+pnpm install --production --ignore-scripts
+```
+    </Tab>
+    <Tab>
+```bash filename="Terminal" copy showLineNumbers
+yarn webpack
+rm -rf node_modules
+yarn install --production --ignore-scripts --immutable
+```
+    </Tab>
+</Tabs>
 
 Additionally, if you're using `typia` in the NodeJS project especially for the backend development, *Setup Guide Documents* of [`nestia`](https://github.com/samchon/nestia) would be helpful. Even though you're not using NestJS, you can still utilize below documents, and "Single JS file only" mode would be especially helpful for you.
 
