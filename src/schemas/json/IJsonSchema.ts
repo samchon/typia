@@ -17,9 +17,10 @@ export namespace IJsonSchema {
     | IString
     | IArray
     | ITuple
-    | IOneOf
+    | IObject
     | IReference
-    | INullOnly;
+    | INullOnly
+    | IOneOf;
 
   export interface IUnknown extends IAttribute {
     type?: undefined | undefined;
@@ -78,6 +79,14 @@ export namespace IJsonSchema {
     items: IJsonSchema[];
     minItems: number & Type<"uint32">;
     maxItems?: undefined | (number & Type<"uint32">);
+  }
+  export interface IObject extends ISignificant<"object"> {
+    properties: Record<string, IJsonSchema>;
+    required?: undefined | string[];
+    patternProperties?: undefined | Record<string, IJsonSchema>;
+    additionalProperties?: undefined | IJsonSchema;
+    "x-typia-patternProperties"?: undefined | Record<string, IJsonSchema>;
+    "x-typia-additionalProperties"?: undefined | IJsonSchema;
   }
   export interface IReference extends IAttribute {
     $ref: string;

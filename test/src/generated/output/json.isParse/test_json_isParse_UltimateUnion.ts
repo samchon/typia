@@ -20,7 +20,7 @@ export const test_json_isParse_UltimateUnion = _test_json_isParse(
         "object" === typeof input.components &&
         null !== input.components &&
         false === Array.isArray(input.components) &&
-        $io17(input.components) &&
+        $io19(input.components) &&
         ("swagger" === input.purpose || "ajv" === input.purpose);
       const $io1 = (input: any): boolean =>
         Array.isArray(input["enum"]) &&
@@ -362,6 +362,104 @@ export const test_json_isParse_UltimateUnion = _test_json_isParse(
         (undefined === input["x-typia-rest"] ||
           "boolean" === typeof input["x-typia-rest"]);
       const $io13 = (input: any): boolean =>
+        "object" === typeof input.properties &&
+        null !== input.properties &&
+        false === Array.isArray(input.properties) &&
+        $io14(input.properties) &&
+        (undefined === input.required ||
+          (Array.isArray(input.required) &&
+            input.required.every((elem: any) => "string" === typeof elem))) &&
+        (undefined === input.patternProperties ||
+          ("object" === typeof input.patternProperties &&
+            null !== input.patternProperties &&
+            false === Array.isArray(input.patternProperties) &&
+            $io14(input.patternProperties))) &&
+        (undefined === input.additionalProperties ||
+          ("object" === typeof input.additionalProperties &&
+            null !== input.additionalProperties &&
+            false === Array.isArray(input.additionalProperties) &&
+            $iu0(input.additionalProperties))) &&
+        (undefined === input["x-typia-patternProperties"] ||
+          ("object" === typeof input["x-typia-patternProperties"] &&
+            null !== input["x-typia-patternProperties"] &&
+            false === Array.isArray(input["x-typia-patternProperties"]) &&
+            $io14(input["x-typia-patternProperties"]))) &&
+        (undefined === input["x-typia-additionalProperties"] ||
+          ("object" === typeof input["x-typia-additionalProperties"] &&
+            null !== input["x-typia-additionalProperties"] &&
+            false === Array.isArray(input["x-typia-additionalProperties"]) &&
+            $iu0(input["x-typia-additionalProperties"]))) &&
+        "object" === input.type &&
+        (undefined === input.nullable || "boolean" === typeof input.nullable) &&
+        (undefined === input.deprecated ||
+          "boolean" === typeof input.deprecated) &&
+        (undefined === input.title || "string" === typeof input.title) &&
+        (undefined === input.description ||
+          "string" === typeof input.description) &&
+        (undefined === input["x-typia-jsDocTags"] ||
+          (Array.isArray(input["x-typia-jsDocTags"]) &&
+            input["x-typia-jsDocTags"].every(
+              (elem: any) =>
+                "object" === typeof elem && null !== elem && $io2(elem),
+            ))) &&
+        (undefined === input["x-typia-required"] ||
+          "boolean" === typeof input["x-typia-required"]) &&
+        (undefined === input["x-typia-optional"] ||
+          "boolean" === typeof input["x-typia-optional"]) &&
+        (undefined === input["x-typia-rest"] ||
+          "boolean" === typeof input["x-typia-rest"]);
+      const $io14 = (input: any): boolean =>
+        Object.keys(input).every((key: any) => {
+          const value = input[key];
+          if (undefined === value) return true;
+          if (true)
+            return (
+              "object" === typeof value &&
+              null !== value &&
+              false === Array.isArray(value) &&
+              $iu0(value)
+            );
+          return true;
+        });
+      const $io15 = (input: any): boolean =>
+        "string" === typeof input.$ref &&
+        (undefined === input.deprecated ||
+          "boolean" === typeof input.deprecated) &&
+        (undefined === input.title || "string" === typeof input.title) &&
+        (undefined === input.description ||
+          "string" === typeof input.description) &&
+        (undefined === input["x-typia-jsDocTags"] ||
+          (Array.isArray(input["x-typia-jsDocTags"]) &&
+            input["x-typia-jsDocTags"].every(
+              (elem: any) =>
+                "object" === typeof elem && null !== elem && $io2(elem),
+            ))) &&
+        (undefined === input["x-typia-required"] ||
+          "boolean" === typeof input["x-typia-required"]) &&
+        (undefined === input["x-typia-optional"] ||
+          "boolean" === typeof input["x-typia-optional"]) &&
+        (undefined === input["x-typia-rest"] ||
+          "boolean" === typeof input["x-typia-rest"]);
+      const $io16 = (input: any): boolean =>
+        "null" === input.type &&
+        (undefined === input.deprecated ||
+          "boolean" === typeof input.deprecated) &&
+        (undefined === input.title || "string" === typeof input.title) &&
+        (undefined === input.description ||
+          "string" === typeof input.description) &&
+        (undefined === input["x-typia-jsDocTags"] ||
+          (Array.isArray(input["x-typia-jsDocTags"]) &&
+            input["x-typia-jsDocTags"].every(
+              (elem: any) =>
+                "object" === typeof elem && null !== elem && $io2(elem),
+            ))) &&
+        (undefined === input["x-typia-required"] ||
+          "boolean" === typeof input["x-typia-required"]) &&
+        (undefined === input["x-typia-optional"] ||
+          "boolean" === typeof input["x-typia-optional"]) &&
+        (undefined === input["x-typia-rest"] ||
+          "boolean" === typeof input["x-typia-rest"]);
+      const $io17 = (input: any): boolean =>
         Array.isArray(input.oneOf) &&
         input.oneOf.every(
           (elem: any) =>
@@ -387,45 +485,7 @@ export const test_json_isParse_UltimateUnion = _test_json_isParse(
           "boolean" === typeof input["x-typia-optional"]) &&
         (undefined === input["x-typia-rest"] ||
           "boolean" === typeof input["x-typia-rest"]);
-      const $io14 = (input: any): boolean =>
-        "string" === typeof input.$ref &&
-        (undefined === input.deprecated ||
-          "boolean" === typeof input.deprecated) &&
-        (undefined === input.title || "string" === typeof input.title) &&
-        (undefined === input.description ||
-          "string" === typeof input.description) &&
-        (undefined === input["x-typia-jsDocTags"] ||
-          (Array.isArray(input["x-typia-jsDocTags"]) &&
-            input["x-typia-jsDocTags"].every(
-              (elem: any) =>
-                "object" === typeof elem && null !== elem && $io2(elem),
-            ))) &&
-        (undefined === input["x-typia-required"] ||
-          "boolean" === typeof input["x-typia-required"]) &&
-        (undefined === input["x-typia-optional"] ||
-          "boolean" === typeof input["x-typia-optional"]) &&
-        (undefined === input["x-typia-rest"] ||
-          "boolean" === typeof input["x-typia-rest"]);
-      const $io15 = (input: any): boolean =>
-        "null" === input.type &&
-        (undefined === input.deprecated ||
-          "boolean" === typeof input.deprecated) &&
-        (undefined === input.title || "string" === typeof input.title) &&
-        (undefined === input.description ||
-          "string" === typeof input.description) &&
-        (undefined === input["x-typia-jsDocTags"] ||
-          (Array.isArray(input["x-typia-jsDocTags"]) &&
-            input["x-typia-jsDocTags"].every(
-              (elem: any) =>
-                "object" === typeof elem && null !== elem && $io2(elem),
-            ))) &&
-        (undefined === input["x-typia-required"] ||
-          "boolean" === typeof input["x-typia-required"]) &&
-        (undefined === input["x-typia-optional"] ||
-          "boolean" === typeof input["x-typia-optional"]) &&
-        (undefined === input["x-typia-rest"] ||
-          "boolean" === typeof input["x-typia-rest"]);
-      const $io16 = (input: any): boolean =>
+      const $io18 = (input: any): boolean =>
         null !== input.type &&
         undefined === input.type &&
         (undefined === input.deprecated ||
@@ -445,64 +505,12 @@ export const test_json_isParse_UltimateUnion = _test_json_isParse(
           "boolean" === typeof input["x-typia-optional"]) &&
         (undefined === input["x-typia-rest"] ||
           "boolean" === typeof input["x-typia-rest"]);
-      const $io17 = (input: any): boolean =>
+      const $io19 = (input: any): boolean =>
         undefined === input.schemas ||
         ("object" === typeof input.schemas &&
           null !== input.schemas &&
           false === Array.isArray(input.schemas) &&
-          $io18(input.schemas));
-      const $io18 = (input: any): boolean =>
-        Object.keys(input).every((key: any) => {
-          const value = input[key];
-          if (undefined === value) return true;
-          if (true)
-            return (
-              "object" === typeof value &&
-              null !== value &&
-              false === Array.isArray(value) &&
-              $iu1(value)
-            );
-          return true;
-        });
-      const $io19 = (input: any): boolean =>
-        (undefined === input.$id || "string" === typeof input.$id) &&
-        "object" === input.type &&
-        (undefined === input.nullable || "boolean" === typeof input.nullable) &&
-        "object" === typeof input.properties &&
-        null !== input.properties &&
-        false === Array.isArray(input.properties) &&
-        $io20(input.properties) &&
-        (undefined === input.patternProperties ||
-          ("object" === typeof input.patternProperties &&
-            null !== input.patternProperties &&
-            false === Array.isArray(input.patternProperties) &&
-            $io20(input.patternProperties))) &&
-        (undefined === input.additionalProperties ||
-          ("object" === typeof input.additionalProperties &&
-            null !== input.additionalProperties &&
-            false === Array.isArray(input.additionalProperties) &&
-            $iu0(input.additionalProperties))) &&
-        (undefined === input.required ||
-          (Array.isArray(input.required) &&
-            input.required.every((elem: any) => "string" === typeof elem))) &&
-        (undefined === input.description ||
-          "string" === typeof input.description) &&
-        (undefined === input["x-typia-jsDocTags"] ||
-          (Array.isArray(input["x-typia-jsDocTags"]) &&
-            input["x-typia-jsDocTags"].every(
-              (elem: any) =>
-                "object" === typeof elem && null !== elem && $io2(elem),
-            ))) &&
-        (undefined === input["x-typia-patternProperties"] ||
-          ("object" === typeof input["x-typia-patternProperties"] &&
-            null !== input["x-typia-patternProperties"] &&
-            false === Array.isArray(input["x-typia-patternProperties"]) &&
-            $io20(input["x-typia-patternProperties"]))) &&
-        (undefined === input["x-typia-additionalProperties"] ||
-          ("object" === typeof input["x-typia-additionalProperties"] &&
-            null !== input["x-typia-additionalProperties"] &&
-            false === Array.isArray(input["x-typia-additionalProperties"]) &&
-            $iu0(input["x-typia-additionalProperties"])));
+          $io20(input.schemas));
       const $io20 = (input: any): boolean =>
         Object.keys(input).every((key: any) => {
           const value = input[key];
@@ -512,7 +520,7 @@ export const test_json_isParse_UltimateUnion = _test_json_isParse(
               "object" === typeof value &&
               null !== value &&
               false === Array.isArray(value) &&
-              $iu0(value)
+              $iu1(value)
             );
           return true;
         });
@@ -858,14 +866,35 @@ export const test_json_isParse_UltimateUnion = _test_json_isParse(
         (undefined === input.$recursiveAnchor ||
           "boolean" === typeof input.$recursiveAnchor);
       const $io30 = (input: any): boolean =>
-        Array.isArray(input.oneOf) &&
-        input.oneOf.every(
-          (elem: any) =>
-            "object" === typeof elem &&
-            null !== elem &&
-            false === Array.isArray(elem) &&
-            $iu0(elem),
-        ) &&
+        "object" === typeof input.properties &&
+        null !== input.properties &&
+        false === Array.isArray(input.properties) &&
+        $io14(input.properties) &&
+        (undefined === input.required ||
+          (Array.isArray(input.required) &&
+            input.required.every((elem: any) => "string" === typeof elem))) &&
+        (undefined === input.patternProperties ||
+          ("object" === typeof input.patternProperties &&
+            null !== input.patternProperties &&
+            false === Array.isArray(input.patternProperties) &&
+            $io14(input.patternProperties))) &&
+        (undefined === input.additionalProperties ||
+          ("object" === typeof input.additionalProperties &&
+            null !== input.additionalProperties &&
+            false === Array.isArray(input.additionalProperties) &&
+            $iu0(input.additionalProperties))) &&
+        (undefined === input["x-typia-patternProperties"] ||
+          ("object" === typeof input["x-typia-patternProperties"] &&
+            null !== input["x-typia-patternProperties"] &&
+            false === Array.isArray(input["x-typia-patternProperties"]) &&
+            $io14(input["x-typia-patternProperties"]))) &&
+        (undefined === input["x-typia-additionalProperties"] ||
+          ("object" === typeof input["x-typia-additionalProperties"] &&
+            null !== input["x-typia-additionalProperties"] &&
+            false === Array.isArray(input["x-typia-additionalProperties"]) &&
+            $iu0(input["x-typia-additionalProperties"]))) &&
+        "object" === input.type &&
+        (undefined === input.nullable || "boolean" === typeof input.nullable) &&
         (undefined === input.deprecated ||
           "boolean" === typeof input.deprecated) &&
         (undefined === input.title || "string" === typeof input.title) &&
@@ -931,6 +960,35 @@ export const test_json_isParse_UltimateUnion = _test_json_isParse(
         (undefined === input.$recursiveAnchor ||
           "boolean" === typeof input.$recursiveAnchor);
       const $io33 = (input: any): boolean =>
+        Array.isArray(input.oneOf) &&
+        input.oneOf.every(
+          (elem: any) =>
+            "object" === typeof elem &&
+            null !== elem &&
+            false === Array.isArray(elem) &&
+            $iu0(elem),
+        ) &&
+        (undefined === input.deprecated ||
+          "boolean" === typeof input.deprecated) &&
+        (undefined === input.title || "string" === typeof input.title) &&
+        (undefined === input.description ||
+          "string" === typeof input.description) &&
+        (undefined === input["x-typia-jsDocTags"] ||
+          (Array.isArray(input["x-typia-jsDocTags"]) &&
+            input["x-typia-jsDocTags"].every(
+              (elem: any) =>
+                "object" === typeof elem && null !== elem && $io2(elem),
+            ))) &&
+        (undefined === input["x-typia-required"] ||
+          "boolean" === typeof input["x-typia-required"]) &&
+        (undefined === input["x-typia-optional"] ||
+          "boolean" === typeof input["x-typia-optional"]) &&
+        (undefined === input["x-typia-rest"] ||
+          "boolean" === typeof input["x-typia-rest"]) &&
+        (undefined === input.$id || "string" === typeof input.$id) &&
+        (undefined === input.$recursiveAnchor ||
+          "boolean" === typeof input.$recursiveAnchor);
+      const $io34 = (input: any): boolean =>
         null !== input.type &&
         undefined === input.type &&
         (undefined === input.deprecated ||
@@ -974,9 +1032,10 @@ export const test_json_isParse_UltimateUnion = _test_json_isParse(
             )
           )
             return $io12(input);
-          else if (undefined !== input.oneOf) return $io13(input);
-          else if (undefined !== input.$ref) return $io14(input);
-          else if ("null" === input.type) return $io15(input);
+          else if ("object" === input.type) return $io13(input);
+          else if (undefined !== input.$ref) return $io15(input);
+          else if ("null" === input.type) return $io16(input);
+          else if (undefined !== input.oneOf) return $io17(input);
           else
             return (() => {
               if ($io5(input)) return $io5(input);
@@ -985,14 +1044,13 @@ export const test_json_isParse_UltimateUnion = _test_json_isParse(
               else if ($io6(input)) return $io6(input);
               else if ($io9(input)) return $io9(input);
               else if ($io10(input)) return $io10(input);
-              else if ($io16(input)) return $io16(input);
+              else if ($io18(input)) return $io18(input);
               else return false;
             })();
         })();
       const $iu1 = (input: any): any =>
         (() => {
-          if ("object" === input.type) return $io19(input);
-          else if ("integer" === input.type) return $io25(input);
+          if ("integer" === input.type) return $io25(input);
           else if (
             "object" === typeof input.items &&
             null !== input.items &&
@@ -1011,9 +1069,10 @@ export const test_json_isParse_UltimateUnion = _test_json_isParse(
             )
           )
             return $io29(input);
-          else if (undefined !== input.oneOf) return $io30(input);
+          else if ("object" === input.type) return $io30(input);
           else if (undefined !== input.$ref) return $io31(input);
           else if ("null" === input.type) return $io32(input);
+          else if (undefined !== input.oneOf) return $io33(input);
           else
             return (() => {
               if ($io23(input)) return $io23(input);
@@ -1022,7 +1081,7 @@ export const test_json_isParse_UltimateUnion = _test_json_isParse(
               else if ($io24(input)) return $io24(input);
               else if ($io26(input)) return $io26(input);
               else if ($io27(input)) return $io27(input);
-              else if ($io33(input)) return $io33(input);
+              else if ($io34(input)) return $io34(input);
               else return false;
             })();
         })();

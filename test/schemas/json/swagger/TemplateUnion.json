@@ -64,7 +64,19 @@
                 "type": "boolean"
               },
               {
-                "$ref": "#/components/schemas/__type"
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "x-typia-required": true,
+                    "x-typia-optional": false,
+                    "type": "string"
+                  }
+                },
+                "nullable": false,
+                "required": [
+                  "name"
+                ],
+                "x-typia-jsDocTags": []
               }
             ],
             "x-typia-required": true,
@@ -77,21 +89,6 @@
           "postfix",
           "middle",
           "mixed"
-        ],
-        "x-typia-jsDocTags": []
-      },
-      "__type": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "x-typia-required": true,
-            "x-typia-optional": false,
-            "type": "string"
-          }
-        },
-        "nullable": false,
-        "required": [
-          "name"
         ],
         "x-typia-jsDocTags": []
       }

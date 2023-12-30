@@ -37,27 +37,23 @@
             ]
           },
           {
-            "$ref": "#/components/schemas/__type"
+            "type": "object",
+            "properties": {
+              "key": {
+                "x-typia-required": true,
+                "x-typia-optional": false,
+                "type": "string",
+                "enum": [
+                  "key"
+                ]
+              }
+            },
+            "required": [
+              "key"
+            ],
+            "x-typia-jsDocTags": []
           }
         ]
-      },
-      "__type": {
-        "$id": "#/components/schemas/__type",
-        "type": "object",
-        "properties": {
-          "key": {
-            "x-typia-required": true,
-            "x-typia-optional": false,
-            "type": "string",
-            "enum": [
-              "key"
-            ]
-          }
-        },
-        "required": [
-          "key"
-        ],
-        "x-typia-jsDocTags": []
       }
     }
   },

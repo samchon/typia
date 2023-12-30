@@ -65,7 +65,18 @@
                 "type": "boolean"
               },
               {
-                "$ref": "#/components/schemas/__type"
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "x-typia-required": true,
+                    "x-typia-optional": false,
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "name"
+                ],
+                "x-typia-jsDocTags": []
               }
             ],
             "x-typia-required": true,
@@ -77,21 +88,6 @@
           "postfix",
           "middle",
           "mixed"
-        ],
-        "x-typia-jsDocTags": []
-      },
-      "__type": {
-        "$id": "#/components/schemas/__type",
-        "type": "object",
-        "properties": {
-          "name": {
-            "x-typia-required": true,
-            "x-typia-optional": false,
-            "type": "string"
-          }
-        },
-        "required": [
-          "name"
         ],
         "x-typia-jsDocTags": []
       }

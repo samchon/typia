@@ -76,13 +76,16 @@ export const test_json_application_ajv_UltimateUnion = _test_json_application(
             $ref: "#/components/schemas/IJsonSchema.ITuple",
           },
           {
-            $ref: "#/components/schemas/IJsonSchema.IOneOf",
+            $ref: "#/components/schemas/IJsonSchema.IObject",
           },
           {
             $ref: "#/components/schemas/IJsonSchema.IReference",
           },
           {
             $ref: "#/components/schemas/IJsonSchema.INullOnly",
+          },
+          {
+            $ref: "#/components/schemas/IJsonSchema.IOneOf",
           },
           {
             $ref: "#/components/schemas/IJsonSchema.IUnknown",
@@ -1012,17 +1015,136 @@ export const test_json_application_ajv_UltimateUnion = _test_json_application(
         required: ["items", "minItems", "type"],
         "x-typia-jsDocTags": [],
       },
-      "IJsonSchema.IOneOf": {
-        $id: "#/components/schemas/IJsonSchema.IOneOf",
+      "IJsonSchema.IObject": {
+        $id: "#/components/schemas/IJsonSchema.IObject",
         type: "object",
         properties: {
-          oneOf: {
-            "x-typia-required": true,
-            "x-typia-optional": false,
+          properties: {
+            $ref: "#/components/schemas/RecordstringIJsonSchema",
+          },
+          required: {
+            "x-typia-required": false,
+            "x-typia-optional": true,
             type: "array",
             items: {
-              $ref: "#/components/schemas/IJsonSchema",
+              "x-typia-required": false,
+              "x-typia-optional": true,
+              type: "string",
             },
+          },
+          patternProperties: {
+            $ref: "#/components/schemas/RecordstringIJsonSchema",
+          },
+          additionalProperties: {
+            oneOf: [
+              {
+                $ref: "#/components/schemas/IJsonSchema.IEnumerationstring",
+              },
+              {
+                $ref: "#/components/schemas/IJsonSchema.IEnumerationnumber",
+              },
+              {
+                $ref: "#/components/schemas/IJsonSchema.IEnumerationboolean",
+              },
+              {
+                $ref: "#/components/schemas/IJsonSchema.IBoolean",
+              },
+              {
+                $ref: "#/components/schemas/IJsonSchema.INumber",
+              },
+              {
+                $ref: "#/components/schemas/IJsonSchema.IInteger",
+              },
+              {
+                $ref: "#/components/schemas/IJsonSchema.IString",
+              },
+              {
+                $ref: "#/components/schemas/IJsonSchema.IArray",
+              },
+              {
+                $ref: "#/components/schemas/IJsonSchema.ITuple",
+              },
+              {
+                $ref: "#/components/schemas/IJsonSchema.IObject",
+              },
+              {
+                $ref: "#/components/schemas/IJsonSchema.IReference",
+              },
+              {
+                $ref: "#/components/schemas/IJsonSchema.INullOnly",
+              },
+              {
+                $ref: "#/components/schemas/IJsonSchema.IOneOf",
+              },
+              {
+                $ref: "#/components/schemas/IJsonSchema.IUnknown",
+              },
+            ],
+            "x-typia-required": false,
+            "x-typia-optional": true,
+          },
+          "x-typia-patternProperties": {
+            $ref: "#/components/schemas/RecordstringIJsonSchema",
+          },
+          "x-typia-additionalProperties": {
+            oneOf: [
+              {
+                $ref: "#/components/schemas/IJsonSchema.IEnumerationstring",
+              },
+              {
+                $ref: "#/components/schemas/IJsonSchema.IEnumerationnumber",
+              },
+              {
+                $ref: "#/components/schemas/IJsonSchema.IEnumerationboolean",
+              },
+              {
+                $ref: "#/components/schemas/IJsonSchema.IBoolean",
+              },
+              {
+                $ref: "#/components/schemas/IJsonSchema.INumber",
+              },
+              {
+                $ref: "#/components/schemas/IJsonSchema.IInteger",
+              },
+              {
+                $ref: "#/components/schemas/IJsonSchema.IString",
+              },
+              {
+                $ref: "#/components/schemas/IJsonSchema.IArray",
+              },
+              {
+                $ref: "#/components/schemas/IJsonSchema.ITuple",
+              },
+              {
+                $ref: "#/components/schemas/IJsonSchema.IObject",
+              },
+              {
+                $ref: "#/components/schemas/IJsonSchema.IReference",
+              },
+              {
+                $ref: "#/components/schemas/IJsonSchema.INullOnly",
+              },
+              {
+                $ref: "#/components/schemas/IJsonSchema.IOneOf",
+              },
+              {
+                $ref: "#/components/schemas/IJsonSchema.IUnknown",
+              },
+            ],
+            "x-typia-required": false,
+            "x-typia-optional": true,
+          },
+          type: {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            type: "string",
+            enum: ["object"],
+          },
+          nullable: {
+            description: "Only when swagger mode.",
+            "x-typia-required": false,
+            "x-typia-optional": true,
+            type: "boolean",
           },
           deprecated: {
             "x-typia-required": false,
@@ -1063,8 +1185,18 @@ export const test_json_application_ajv_UltimateUnion = _test_json_application(
             type: "boolean",
           },
         },
-        required: ["oneOf"],
+        required: ["properties", "type"],
         "x-typia-jsDocTags": [],
+      },
+      RecordstringIJsonSchema: {
+        $id: "#/components/schemas/RecordstringIJsonSchema",
+        type: "object",
+        properties: {},
+        description: "Construct a type with a set of properties K of type T",
+        "x-typia-jsDocTags": [],
+        additionalProperties: {
+          $ref: "#/components/schemas/IJsonSchema",
+        },
       },
       "IJsonSchema.IReference": {
         $id: "#/components/schemas/IJsonSchema.IReference",
@@ -1169,6 +1301,60 @@ export const test_json_application_ajv_UltimateUnion = _test_json_application(
         required: ["type"],
         "x-typia-jsDocTags": [],
       },
+      "IJsonSchema.IOneOf": {
+        $id: "#/components/schemas/IJsonSchema.IOneOf",
+        type: "object",
+        properties: {
+          oneOf: {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            type: "array",
+            items: {
+              $ref: "#/components/schemas/IJsonSchema",
+            },
+          },
+          deprecated: {
+            "x-typia-required": false,
+            "x-typia-optional": true,
+            type: "boolean",
+          },
+          title: {
+            "x-typia-required": false,
+            "x-typia-optional": true,
+            type: "string",
+          },
+          description: {
+            "x-typia-required": false,
+            "x-typia-optional": true,
+            type: "string",
+          },
+          "x-typia-jsDocTags": {
+            "x-typia-required": false,
+            "x-typia-optional": true,
+            type: "array",
+            items: {
+              $ref: "#/components/schemas/IJsDocTagInfo",
+            },
+          },
+          "x-typia-required": {
+            "x-typia-required": false,
+            "x-typia-optional": true,
+            type: "boolean",
+          },
+          "x-typia-optional": {
+            "x-typia-required": false,
+            "x-typia-optional": true,
+            type: "boolean",
+          },
+          "x-typia-rest": {
+            "x-typia-required": false,
+            "x-typia-optional": true,
+            type: "boolean",
+          },
+        },
+        required: ["oneOf"],
+        "x-typia-jsDocTags": [],
+      },
       "IJsonSchema.IUnknown": {
         $id: "#/components/schemas/IJsonSchema.IUnknown",
         type: "object",
@@ -1219,225 +1405,70 @@ export const test_json_application_ajv_UltimateUnion = _test_json_application(
         type: "object",
         properties: {
           schemas: {
-            $ref: "#/components/schemas/RecordstringIObjectIAlias",
+            $ref: "#/components/schemas/RecordstringIJsonComponents.IAlias",
           },
         },
         "x-typia-jsDocTags": [],
       },
-      RecordstringIObjectIAlias: {
-        $id: "#/components/schemas/RecordstringIObjectIAlias",
+      "RecordstringIJsonComponents.IAlias": {
+        $id: "#/components/schemas/RecordstringIJsonComponents.IAlias",
         type: "object",
         properties: {},
         description: "Construct a type with a set of properties K of type T",
         "x-typia-jsDocTags": [],
         additionalProperties: {
-          oneOf: [
-            {
-              $ref: "#/components/schemas/IJsonComponents.IObject",
-            },
-            {
-              $ref: "#/components/schemas/IEnumerationstringIIdentified",
-            },
-            {
-              $ref: "#/components/schemas/IEnumerationnumberIIdentified",
-            },
-            {
-              $ref: "#/components/schemas/IEnumerationbooleanIIdentified",
-            },
-            {
-              $ref: "#/components/schemas/IBooleanIIdentified",
-            },
-            {
-              $ref: "#/components/schemas/INumberIIdentified",
-            },
-            {
-              $ref: "#/components/schemas/IIntegerIIdentified",
-            },
-            {
-              $ref: "#/components/schemas/IStringIIdentified",
-            },
-            {
-              $ref: "#/components/schemas/IArrayIIdentified",
-            },
-            {
-              $ref: "#/components/schemas/ITupleIIdentified",
-            },
-            {
-              $ref: "#/components/schemas/IOneOfIIdentified",
-            },
-            {
-              $ref: "#/components/schemas/IReferenceIIdentified",
-            },
-            {
-              $ref: "#/components/schemas/IUnknownIIdentified",
-            },
-            {
-              $ref: "#/components/schemas/INullOnlyIIdentified",
-            },
-          ],
-          "x-typia-required": true,
-          "x-typia-optional": false,
+          $ref: "#/components/schemas/IJsonComponents.IAlias",
         },
       },
-      "IJsonComponents.IObject": {
-        $id: "#/components/schemas/IJsonComponents.IObject",
-        type: "object",
-        properties: {
-          $id: {
-            "x-typia-required": false,
-            "x-typia-optional": true,
-            type: "string",
+      "IJsonComponents.IAlias": {
+        $id: "#/components/schemas/IJsonComponents.IAlias",
+        oneOf: [
+          {
+            $ref: "#/components/schemas/IEnumerationbooleanIIdentified",
           },
-          type: {
-            "x-typia-required": true,
-            "x-typia-optional": false,
-            type: "string",
-            enum: ["object"],
+          {
+            $ref: "#/components/schemas/IEnumerationnumberIIdentified",
           },
-          nullable: {
-            description: "Only when swagger mode.",
-            "x-typia-required": false,
-            "x-typia-optional": true,
-            type: "boolean",
+          {
+            $ref: "#/components/schemas/IEnumerationstringIIdentified",
           },
-          properties: {
-            $ref: "#/components/schemas/RecordstringIJsonSchema",
+          {
+            $ref: "#/components/schemas/IBooleanIIdentified",
           },
-          patternProperties: {
-            $ref: "#/components/schemas/RecordstringIJsonSchema",
+          {
+            $ref: "#/components/schemas/IIntegerIIdentified",
           },
-          additionalProperties: {
-            oneOf: [
-              {
-                $ref: "#/components/schemas/IJsonSchema.IEnumerationstring",
-              },
-              {
-                $ref: "#/components/schemas/IJsonSchema.IEnumerationnumber",
-              },
-              {
-                $ref: "#/components/schemas/IJsonSchema.IEnumerationboolean",
-              },
-              {
-                $ref: "#/components/schemas/IJsonSchema.IBoolean",
-              },
-              {
-                $ref: "#/components/schemas/IJsonSchema.INumber",
-              },
-              {
-                $ref: "#/components/schemas/IJsonSchema.IInteger",
-              },
-              {
-                $ref: "#/components/schemas/IJsonSchema.IString",
-              },
-              {
-                $ref: "#/components/schemas/IJsonSchema.IArray",
-              },
-              {
-                $ref: "#/components/schemas/IJsonSchema.ITuple",
-              },
-              {
-                $ref: "#/components/schemas/IJsonSchema.IOneOf",
-              },
-              {
-                $ref: "#/components/schemas/IJsonSchema.IReference",
-              },
-              {
-                $ref: "#/components/schemas/IJsonSchema.IUnknown",
-              },
-              {
-                $ref: "#/components/schemas/IJsonSchema.INullOnly",
-              },
-            ],
-            "x-typia-required": false,
-            "x-typia-optional": true,
+          {
+            $ref: "#/components/schemas/INumberIIdentified",
           },
-          required: {
-            "x-typia-required": false,
-            "x-typia-optional": true,
-            type: "array",
-            items: {
-              "x-typia-required": false,
-              "x-typia-optional": true,
-              type: "string",
-            },
+          {
+            $ref: "#/components/schemas/IStringIIdentified",
           },
-          description: {
-            "x-typia-required": false,
-            "x-typia-optional": true,
-            type: "string",
+          {
+            $ref: "#/components/schemas/IArrayIIdentified",
           },
-          "x-typia-jsDocTags": {
-            "x-typia-required": false,
-            "x-typia-optional": true,
-            type: "array",
-            items: {
-              $ref: "#/components/schemas/IJsDocTagInfo",
-            },
+          {
+            $ref: "#/components/schemas/ITupleIIdentified",
           },
-          "x-typia-patternProperties": {
-            $ref: "#/components/schemas/RecordstringIJsonSchema",
+          {
+            $ref: "#/components/schemas/IObjectIIdentified",
           },
-          "x-typia-additionalProperties": {
-            oneOf: [
-              {
-                $ref: "#/components/schemas/IJsonSchema.IEnumerationstring",
-              },
-              {
-                $ref: "#/components/schemas/IJsonSchema.IEnumerationnumber",
-              },
-              {
-                $ref: "#/components/schemas/IJsonSchema.IEnumerationboolean",
-              },
-              {
-                $ref: "#/components/schemas/IJsonSchema.IBoolean",
-              },
-              {
-                $ref: "#/components/schemas/IJsonSchema.INumber",
-              },
-              {
-                $ref: "#/components/schemas/IJsonSchema.IInteger",
-              },
-              {
-                $ref: "#/components/schemas/IJsonSchema.IString",
-              },
-              {
-                $ref: "#/components/schemas/IJsonSchema.IArray",
-              },
-              {
-                $ref: "#/components/schemas/IJsonSchema.ITuple",
-              },
-              {
-                $ref: "#/components/schemas/IJsonSchema.IOneOf",
-              },
-              {
-                $ref: "#/components/schemas/IJsonSchema.IReference",
-              },
-              {
-                $ref: "#/components/schemas/IJsonSchema.IUnknown",
-              },
-              {
-                $ref: "#/components/schemas/IJsonSchema.INullOnly",
-              },
-            ],
-            "x-typia-required": false,
-            "x-typia-optional": true,
+          {
+            $ref: "#/components/schemas/IReferenceIIdentified",
           },
-        },
-        required: ["type", "properties"],
-        "x-typia-jsDocTags": [],
+          {
+            $ref: "#/components/schemas/INullOnlyIIdentified",
+          },
+          {
+            $ref: "#/components/schemas/IOneOfIIdentified",
+          },
+          {
+            $ref: "#/components/schemas/IUnknownIIdentified",
+          },
+        ],
       },
-      RecordstringIJsonSchema: {
-        $id: "#/components/schemas/RecordstringIJsonSchema",
-        type: "object",
-        properties: {},
-        description: "Construct a type with a set of properties K of type T",
-        "x-typia-jsDocTags": [],
-        additionalProperties: {
-          $ref: "#/components/schemas/IJsonSchema",
-        },
-      },
-      IEnumerationstringIIdentified: {
-        $id: "#/components/schemas/IEnumerationstringIIdentified",
+      IEnumerationbooleanIIdentified: {
+        $id: "#/components/schemas/IEnumerationbooleanIIdentified",
         type: "object",
         properties: {
           enum: {
@@ -1447,14 +1478,14 @@ export const test_json_application_ajv_UltimateUnion = _test_json_application(
             items: {
               "x-typia-required": true,
               "x-typia-optional": false,
-              type: "string",
+              type: "boolean",
             },
           },
           type: {
             "x-typia-required": true,
             "x-typia-optional": false,
             type: "string",
-            enum: ["string"],
+            enum: ["boolean"],
           },
           title: {
             "x-typia-required": false,
@@ -1464,7 +1495,7 @@ export const test_json_application_ajv_UltimateUnion = _test_json_application(
           default: {
             "x-typia-required": false,
             "x-typia-optional": true,
-            type: "string",
+            type: "boolean",
           },
           nullable: {
             description: "Only when swagger mode.",
@@ -1602,8 +1633,8 @@ export const test_json_application_ajv_UltimateUnion = _test_json_application(
         required: ["enum", "type"],
         "x-typia-jsDocTags": [],
       },
-      IEnumerationbooleanIIdentified: {
-        $id: "#/components/schemas/IEnumerationbooleanIIdentified",
+      IEnumerationstringIIdentified: {
+        $id: "#/components/schemas/IEnumerationstringIIdentified",
         type: "object",
         properties: {
           enum: {
@@ -1613,14 +1644,14 @@ export const test_json_application_ajv_UltimateUnion = _test_json_application(
             items: {
               "x-typia-required": true,
               "x-typia-optional": false,
-              type: "boolean",
+              type: "string",
             },
           },
           type: {
             "x-typia-required": true,
             "x-typia-optional": false,
             type: "string",
-            enum: ["boolean"],
+            enum: ["string"],
           },
           title: {
             "x-typia-required": false,
@@ -1630,7 +1661,7 @@ export const test_json_application_ajv_UltimateUnion = _test_json_application(
           default: {
             "x-typia-required": false,
             "x-typia-optional": true,
-            type: "boolean",
+            type: "string",
           },
           nullable: {
             description: "Only when swagger mode.",
@@ -1707,112 +1738,6 @@ export const test_json_application_ajv_UltimateUnion = _test_json_application(
             "x-typia-optional": false,
             type: "string",
             enum: ["boolean"],
-          },
-          nullable: {
-            description: "Only when swagger mode.",
-            "x-typia-required": false,
-            "x-typia-optional": true,
-            type: "boolean",
-          },
-          deprecated: {
-            "x-typia-required": false,
-            "x-typia-optional": true,
-            type: "boolean",
-          },
-          title: {
-            "x-typia-required": false,
-            "x-typia-optional": true,
-            type: "string",
-          },
-          description: {
-            "x-typia-required": false,
-            "x-typia-optional": true,
-            type: "string",
-          },
-          "x-typia-jsDocTags": {
-            "x-typia-required": false,
-            "x-typia-optional": true,
-            type: "array",
-            items: {
-              $ref: "#/components/schemas/IJsDocTagInfo",
-            },
-          },
-          "x-typia-required": {
-            "x-typia-required": false,
-            "x-typia-optional": true,
-            type: "boolean",
-          },
-          "x-typia-optional": {
-            "x-typia-required": false,
-            "x-typia-optional": true,
-            type: "boolean",
-          },
-          "x-typia-rest": {
-            "x-typia-required": false,
-            "x-typia-optional": true,
-            type: "boolean",
-          },
-          $id: {
-            "x-typia-required": false,
-            "x-typia-optional": true,
-            type: "string",
-          },
-          $recursiveAnchor: {
-            "x-typia-required": false,
-            "x-typia-optional": true,
-            type: "boolean",
-          },
-        },
-        required: ["type"],
-        "x-typia-jsDocTags": [],
-      },
-      INumberIIdentified: {
-        $id: "#/components/schemas/INumberIIdentified",
-        type: "object",
-        properties: {
-          minimum: {
-            "x-typia-required": false,
-            "x-typia-optional": true,
-            type: "number",
-          },
-          maximum: {
-            "x-typia-required": false,
-            "x-typia-optional": true,
-            type: "number",
-          },
-          exclusiveMinimum: {
-            "x-typia-required": false,
-            "x-typia-optional": true,
-            type: "boolean",
-          },
-          exclusiveMaximum: {
-            "x-typia-required": false,
-            "x-typia-optional": true,
-            type: "boolean",
-          },
-          multipleOf: {
-            "x-typia-required": false,
-            "x-typia-optional": true,
-            type: "number",
-          },
-          "x-typia-typeTags": {
-            "x-typia-required": false,
-            "x-typia-optional": true,
-            type: "array",
-            items: {
-              $ref: "#/components/schemas/IMetadataTypeTag",
-            },
-          },
-          default: {
-            "x-typia-required": false,
-            "x-typia-optional": true,
-            type: "number",
-          },
-          type: {
-            "x-typia-required": true,
-            "x-typia-optional": false,
-            type: "string",
-            enum: ["number"],
           },
           nullable: {
             description: "Only when swagger mode.",
@@ -1952,6 +1877,112 @@ export const test_json_application_ajv_UltimateUnion = _test_json_application(
             "x-typia-optional": false,
             type: "string",
             enum: ["integer"],
+          },
+          nullable: {
+            description: "Only when swagger mode.",
+            "x-typia-required": false,
+            "x-typia-optional": true,
+            type: "boolean",
+          },
+          deprecated: {
+            "x-typia-required": false,
+            "x-typia-optional": true,
+            type: "boolean",
+          },
+          title: {
+            "x-typia-required": false,
+            "x-typia-optional": true,
+            type: "string",
+          },
+          description: {
+            "x-typia-required": false,
+            "x-typia-optional": true,
+            type: "string",
+          },
+          "x-typia-jsDocTags": {
+            "x-typia-required": false,
+            "x-typia-optional": true,
+            type: "array",
+            items: {
+              $ref: "#/components/schemas/IJsDocTagInfo",
+            },
+          },
+          "x-typia-required": {
+            "x-typia-required": false,
+            "x-typia-optional": true,
+            type: "boolean",
+          },
+          "x-typia-optional": {
+            "x-typia-required": false,
+            "x-typia-optional": true,
+            type: "boolean",
+          },
+          "x-typia-rest": {
+            "x-typia-required": false,
+            "x-typia-optional": true,
+            type: "boolean",
+          },
+          $id: {
+            "x-typia-required": false,
+            "x-typia-optional": true,
+            type: "string",
+          },
+          $recursiveAnchor: {
+            "x-typia-required": false,
+            "x-typia-optional": true,
+            type: "boolean",
+          },
+        },
+        required: ["type"],
+        "x-typia-jsDocTags": [],
+      },
+      INumberIIdentified: {
+        $id: "#/components/schemas/INumberIIdentified",
+        type: "object",
+        properties: {
+          minimum: {
+            "x-typia-required": false,
+            "x-typia-optional": true,
+            type: "number",
+          },
+          maximum: {
+            "x-typia-required": false,
+            "x-typia-optional": true,
+            type: "number",
+          },
+          exclusiveMinimum: {
+            "x-typia-required": false,
+            "x-typia-optional": true,
+            type: "boolean",
+          },
+          exclusiveMaximum: {
+            "x-typia-required": false,
+            "x-typia-optional": true,
+            type: "boolean",
+          },
+          multipleOf: {
+            "x-typia-required": false,
+            "x-typia-optional": true,
+            type: "number",
+          },
+          "x-typia-typeTags": {
+            "x-typia-required": false,
+            "x-typia-optional": true,
+            type: "array",
+            items: {
+              $ref: "#/components/schemas/IMetadataTypeTag",
+            },
+          },
+          default: {
+            "x-typia-required": false,
+            "x-typia-optional": true,
+            type: "number",
+          },
+          type: {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            type: "string",
+            enum: ["number"],
           },
           nullable: {
             description: "Only when swagger mode.",
@@ -2356,6 +2387,312 @@ export const test_json_application_ajv_UltimateUnion = _test_json_application(
         required: ["items", "minItems", "type"],
         "x-typia-jsDocTags": [],
       },
+      IObjectIIdentified: {
+        $id: "#/components/schemas/IObjectIIdentified",
+        type: "object",
+        properties: {
+          properties: {
+            $ref: "#/components/schemas/RecordstringIJsonSchema",
+          },
+          required: {
+            "x-typia-required": false,
+            "x-typia-optional": true,
+            type: "array",
+            items: {
+              "x-typia-required": false,
+              "x-typia-optional": true,
+              type: "string",
+            },
+          },
+          patternProperties: {
+            $ref: "#/components/schemas/RecordstringIJsonSchema",
+          },
+          additionalProperties: {
+            oneOf: [
+              {
+                $ref: "#/components/schemas/IJsonSchema.IEnumerationstring",
+              },
+              {
+                $ref: "#/components/schemas/IJsonSchema.IEnumerationnumber",
+              },
+              {
+                $ref: "#/components/schemas/IJsonSchema.IEnumerationboolean",
+              },
+              {
+                $ref: "#/components/schemas/IJsonSchema.IBoolean",
+              },
+              {
+                $ref: "#/components/schemas/IJsonSchema.INumber",
+              },
+              {
+                $ref: "#/components/schemas/IJsonSchema.IInteger",
+              },
+              {
+                $ref: "#/components/schemas/IJsonSchema.IString",
+              },
+              {
+                $ref: "#/components/schemas/IJsonSchema.IArray",
+              },
+              {
+                $ref: "#/components/schemas/IJsonSchema.ITuple",
+              },
+              {
+                $ref: "#/components/schemas/IJsonSchema.IObject",
+              },
+              {
+                $ref: "#/components/schemas/IJsonSchema.IReference",
+              },
+              {
+                $ref: "#/components/schemas/IJsonSchema.INullOnly",
+              },
+              {
+                $ref: "#/components/schemas/IJsonSchema.IOneOf",
+              },
+              {
+                $ref: "#/components/schemas/IJsonSchema.IUnknown",
+              },
+            ],
+            "x-typia-required": false,
+            "x-typia-optional": true,
+          },
+          "x-typia-patternProperties": {
+            $ref: "#/components/schemas/RecordstringIJsonSchema",
+          },
+          "x-typia-additionalProperties": {
+            oneOf: [
+              {
+                $ref: "#/components/schemas/IJsonSchema.IEnumerationstring",
+              },
+              {
+                $ref: "#/components/schemas/IJsonSchema.IEnumerationnumber",
+              },
+              {
+                $ref: "#/components/schemas/IJsonSchema.IEnumerationboolean",
+              },
+              {
+                $ref: "#/components/schemas/IJsonSchema.IBoolean",
+              },
+              {
+                $ref: "#/components/schemas/IJsonSchema.INumber",
+              },
+              {
+                $ref: "#/components/schemas/IJsonSchema.IInteger",
+              },
+              {
+                $ref: "#/components/schemas/IJsonSchema.IString",
+              },
+              {
+                $ref: "#/components/schemas/IJsonSchema.IArray",
+              },
+              {
+                $ref: "#/components/schemas/IJsonSchema.ITuple",
+              },
+              {
+                $ref: "#/components/schemas/IJsonSchema.IObject",
+              },
+              {
+                $ref: "#/components/schemas/IJsonSchema.IReference",
+              },
+              {
+                $ref: "#/components/schemas/IJsonSchema.INullOnly",
+              },
+              {
+                $ref: "#/components/schemas/IJsonSchema.IOneOf",
+              },
+              {
+                $ref: "#/components/schemas/IJsonSchema.IUnknown",
+              },
+            ],
+            "x-typia-required": false,
+            "x-typia-optional": true,
+          },
+          type: {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            type: "string",
+            enum: ["object"],
+          },
+          nullable: {
+            description: "Only when swagger mode.",
+            "x-typia-required": false,
+            "x-typia-optional": true,
+            type: "boolean",
+          },
+          deprecated: {
+            "x-typia-required": false,
+            "x-typia-optional": true,
+            type: "boolean",
+          },
+          title: {
+            "x-typia-required": false,
+            "x-typia-optional": true,
+            type: "string",
+          },
+          description: {
+            "x-typia-required": false,
+            "x-typia-optional": true,
+            type: "string",
+          },
+          "x-typia-jsDocTags": {
+            "x-typia-required": false,
+            "x-typia-optional": true,
+            type: "array",
+            items: {
+              $ref: "#/components/schemas/IJsDocTagInfo",
+            },
+          },
+          "x-typia-required": {
+            "x-typia-required": false,
+            "x-typia-optional": true,
+            type: "boolean",
+          },
+          "x-typia-optional": {
+            "x-typia-required": false,
+            "x-typia-optional": true,
+            type: "boolean",
+          },
+          "x-typia-rest": {
+            "x-typia-required": false,
+            "x-typia-optional": true,
+            type: "boolean",
+          },
+          $id: {
+            "x-typia-required": false,
+            "x-typia-optional": true,
+            type: "string",
+          },
+          $recursiveAnchor: {
+            "x-typia-required": false,
+            "x-typia-optional": true,
+            type: "boolean",
+          },
+        },
+        required: ["properties", "type"],
+        "x-typia-jsDocTags": [],
+      },
+      IReferenceIIdentified: {
+        $id: "#/components/schemas/IReferenceIIdentified",
+        type: "object",
+        properties: {
+          $ref: {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            type: "string",
+          },
+          deprecated: {
+            "x-typia-required": false,
+            "x-typia-optional": true,
+            type: "boolean",
+          },
+          title: {
+            "x-typia-required": false,
+            "x-typia-optional": true,
+            type: "string",
+          },
+          description: {
+            "x-typia-required": false,
+            "x-typia-optional": true,
+            type: "string",
+          },
+          "x-typia-jsDocTags": {
+            "x-typia-required": false,
+            "x-typia-optional": true,
+            type: "array",
+            items: {
+              $ref: "#/components/schemas/IJsDocTagInfo",
+            },
+          },
+          "x-typia-required": {
+            "x-typia-required": false,
+            "x-typia-optional": true,
+            type: "boolean",
+          },
+          "x-typia-optional": {
+            "x-typia-required": false,
+            "x-typia-optional": true,
+            type: "boolean",
+          },
+          "x-typia-rest": {
+            "x-typia-required": false,
+            "x-typia-optional": true,
+            type: "boolean",
+          },
+          $id: {
+            "x-typia-required": false,
+            "x-typia-optional": true,
+            type: "string",
+          },
+          $recursiveAnchor: {
+            "x-typia-required": false,
+            "x-typia-optional": true,
+            type: "boolean",
+          },
+        },
+        required: ["$ref"],
+        "x-typia-jsDocTags": [],
+      },
+      INullOnlyIIdentified: {
+        $id: "#/components/schemas/INullOnlyIIdentified",
+        type: "object",
+        properties: {
+          type: {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            type: "string",
+            enum: ["null"],
+          },
+          deprecated: {
+            "x-typia-required": false,
+            "x-typia-optional": true,
+            type: "boolean",
+          },
+          title: {
+            "x-typia-required": false,
+            "x-typia-optional": true,
+            type: "string",
+          },
+          description: {
+            "x-typia-required": false,
+            "x-typia-optional": true,
+            type: "string",
+          },
+          "x-typia-jsDocTags": {
+            "x-typia-required": false,
+            "x-typia-optional": true,
+            type: "array",
+            items: {
+              $ref: "#/components/schemas/IJsDocTagInfo",
+            },
+          },
+          "x-typia-required": {
+            "x-typia-required": false,
+            "x-typia-optional": true,
+            type: "boolean",
+          },
+          "x-typia-optional": {
+            "x-typia-required": false,
+            "x-typia-optional": true,
+            type: "boolean",
+          },
+          "x-typia-rest": {
+            "x-typia-required": false,
+            "x-typia-optional": true,
+            type: "boolean",
+          },
+          $id: {
+            "x-typia-required": false,
+            "x-typia-optional": true,
+            type: "string",
+          },
+          $recursiveAnchor: {
+            "x-typia-required": false,
+            "x-typia-optional": true,
+            type: "boolean",
+          },
+        },
+        required: ["type"],
+        "x-typia-jsDocTags": [],
+      },
       IOneOfIIdentified: {
         $id: "#/components/schemas/IOneOfIIdentified",
         type: "object",
@@ -2420,67 +2757,6 @@ export const test_json_application_ajv_UltimateUnion = _test_json_application(
         required: ["oneOf"],
         "x-typia-jsDocTags": [],
       },
-      IReferenceIIdentified: {
-        $id: "#/components/schemas/IReferenceIIdentified",
-        type: "object",
-        properties: {
-          $ref: {
-            "x-typia-required": true,
-            "x-typia-optional": false,
-            type: "string",
-          },
-          deprecated: {
-            "x-typia-required": false,
-            "x-typia-optional": true,
-            type: "boolean",
-          },
-          title: {
-            "x-typia-required": false,
-            "x-typia-optional": true,
-            type: "string",
-          },
-          description: {
-            "x-typia-required": false,
-            "x-typia-optional": true,
-            type: "string",
-          },
-          "x-typia-jsDocTags": {
-            "x-typia-required": false,
-            "x-typia-optional": true,
-            type: "array",
-            items: {
-              $ref: "#/components/schemas/IJsDocTagInfo",
-            },
-          },
-          "x-typia-required": {
-            "x-typia-required": false,
-            "x-typia-optional": true,
-            type: "boolean",
-          },
-          "x-typia-optional": {
-            "x-typia-required": false,
-            "x-typia-optional": true,
-            type: "boolean",
-          },
-          "x-typia-rest": {
-            "x-typia-required": false,
-            "x-typia-optional": true,
-            type: "boolean",
-          },
-          $id: {
-            "x-typia-required": false,
-            "x-typia-optional": true,
-            type: "string",
-          },
-          $recursiveAnchor: {
-            "x-typia-required": false,
-            "x-typia-optional": true,
-            type: "boolean",
-          },
-        },
-        required: ["$ref"],
-        "x-typia-jsDocTags": [],
-      },
       IUnknownIIdentified: {
         $id: "#/components/schemas/IUnknownIIdentified",
         type: "object",
@@ -2534,68 +2810,6 @@ export const test_json_application_ajv_UltimateUnion = _test_json_application(
             type: "boolean",
           },
         },
-        "x-typia-jsDocTags": [],
-      },
-      INullOnlyIIdentified: {
-        $id: "#/components/schemas/INullOnlyIIdentified",
-        type: "object",
-        properties: {
-          type: {
-            "x-typia-required": true,
-            "x-typia-optional": false,
-            type: "string",
-            enum: ["null"],
-          },
-          deprecated: {
-            "x-typia-required": false,
-            "x-typia-optional": true,
-            type: "boolean",
-          },
-          title: {
-            "x-typia-required": false,
-            "x-typia-optional": true,
-            type: "string",
-          },
-          description: {
-            "x-typia-required": false,
-            "x-typia-optional": true,
-            type: "string",
-          },
-          "x-typia-jsDocTags": {
-            "x-typia-required": false,
-            "x-typia-optional": true,
-            type: "array",
-            items: {
-              $ref: "#/components/schemas/IJsDocTagInfo",
-            },
-          },
-          "x-typia-required": {
-            "x-typia-required": false,
-            "x-typia-optional": true,
-            type: "boolean",
-          },
-          "x-typia-optional": {
-            "x-typia-required": false,
-            "x-typia-optional": true,
-            type: "boolean",
-          },
-          "x-typia-rest": {
-            "x-typia-required": false,
-            "x-typia-optional": true,
-            type: "boolean",
-          },
-          $id: {
-            "x-typia-required": false,
-            "x-typia-optional": true,
-            type: "string",
-          },
-          $recursiveAnchor: {
-            "x-typia-required": false,
-            "x-typia-optional": true,
-            type: "boolean",
-          },
-        },
-        required: ["type"],
         "x-typia-jsDocTags": [],
       },
     },
