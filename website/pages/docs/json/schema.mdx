@@ -14,7 +14,8 @@ import AlertTitle from '@mui/material/AlertTitle';
 export namespace json {
     export function application<
         Schemas extends unknown[],
-        Purpose extends "ajv" | "swagger",
+        Purpose extends "ajv" | "swagger" = "swagger",
+        Surplus extends boolean = false,
     >(): IJsonApplication;
 }
 ```
@@ -25,32 +26,21 @@ export interface IJsonApplication {
     schemas: IJsonSchema[];
     components: IJsonComponents;
     purpose: "swagger" | "ajv";
+    surplus: boolean;
 }
 ```
     </Tab>
     <Tab>
 ```typescript copy
 export interface IJsonComponents {
-    schemas: Record<string, IJsonComponents.IObject>;
+    schemas: Record<string, IJsonComponents.IAlias>;
 }
 export namespace IJsonComponents {
-    export interface IObject {
-        $id?: string;
-        $recursiveAnchor?: boolean;
-
-        type: "object";
-        nullable: boolean;
-
-        properties: Record<string, IJsonSchema>;
-        patternProperties?: Record<string, IJsonSchema>;
-        additionalProperties?: IJsonSchema;
-
-        required?: string[];
-        description?: string;
-        "x-typia-jsDocTags"?: IJsDocTagInfo[];
-        "x-typia-patternProperties"?: Record<string, IJsonSchema>;
-        "x-typia-additionalProperties"?: IJsonSchema;
-    }
+    export type IAlias = IJsonSchema & IIndentified;
+    interface IIdentified {
+    $id?: undefined | string;
+    $recursiveAnchor?: undefined | boolean;
+  }
 }
 ```
     </Tab>
@@ -68,10 +58,10 @@ export namespace IJsonSchema {
         | IString
         | IArray
         | ITuple
-        | IOneOf
+        | IObject
         | IReference
-        | IRecursiveReference
-        | INullOnly;
+        | INullOnly
+        | IOneOf;
 
     /* -----------------------------------------------------------
         ATOMICS
@@ -139,6 +129,14 @@ export namespace IJsonSchema {
     }
     export interface ITuple extends ISignificant<"array"> {
         items: IJsonSchema[];
+    }
+    export interface IObject extends ISignificant<"object"> {
+        properties: Record<string, IJsonSchema>;
+        required?: undefined | string[];
+        patternProperties?: undefined | Record<string, IJsonSchema>;
+        additionalProperties?: undefined | IJsonSchema;
+        "x-typia-patternProperties"?: undefined | Record<string, IJsonSchema>;
+        "x-typia-additionalProperties"?: undefined | IJsonSchema;
     }
     export interface IReference extends IAttribute {
         $ref: string;
@@ -390,57 +388,10 @@ exports.SpecialTagSchema = {
                         deprecated: true,
                         title: "Unsigned integer",
                         description: "Deprecated tags are just used for marking.",
-                        "x-typia-jsDocTags": [
-                            {
-                                name: "title",
-                                text: [
-                                    {
-                                        text: "Unsigned integer",
-                                        kind: "text"
-                                    }
-                                ]
-                            },
-                            {
-                                name: "deprecated"
-                            }
-                        ],
-                        "x-typia-required": true,
-                        "x-typia-optional": false,
                         type: "integer"
                     },
                     number: {
                         description: "You can limit the range of number.",
-                        "x-typia-jsDocTags": [
-                            {
-                                name: "exclusiveMinimum",
-                                text: [
-                                    {
-                                        text: "19",
-                                        kind: "text"
-                                    }
-                                ]
-                            },
-                            {
-                                name: "maximum",
-                                text: [
-                                    {
-                                        text: "100",
-                                        kind: "text"
-                                    }
-                                ]
-                            },
-                            {
-                                name: "default",
-                                text: [
-                                    {
-                                        text: "30",
-                                        kind: "text"
-                                    }
-                                ]
-                            }
-                        ],
-                        "x-typia-required": false,
-                        "x-typia-optional": true,
                         type: "number",
                         minimum: 19,
                         exclusiveMinimum: true,
@@ -451,71 +402,35 @@ exports.SpecialTagSchema = {
                         oneOf: [
                             {
                                 description: "You can limit the length of string.\n\nAlso, multiple range conditions are also possible.",
-                                "x-typia-required": true,
-                                "x-typia-optional": false,
                                 type: "string",
                                 maxLength: 24,
                                 minLength: 3
                             },
                             {
                                 description: "You can limit the length of string.\n\nAlso, multiple range conditions are also possible.",
-                                "x-typia-required": true,
-                                "x-typia-optional": false,
                                 type: "string",
                                 maxLength: 100,
                                 minLength: 40
                             }
                         ],
-                        description: "You can limit the length of string.\n\nAlso, multiple range conditions are also possible.",
-                        "x-typia-required": true,
-                        "x-typia-optional": false
+                        description: "You can limit the length of string.\n\nAlso, multiple range conditions are also possible."
                     },
                     pattern: {
                         description: "You can limit the pattern of string.",
-                        "x-typia-jsDocTags": [
-                            {
-                                name: "pattern",
-                                text: [
-                                    {
-                                        text: "^[a-z]+$",
-                                        kind: "text"
-                                    }
-                                ]
-                            }
-                        ],
-                        "x-typia-required": true,
-                        "x-typia-optional": false,
                         type: "string",
                         pattern: "^[a-z]+$"
                     },
                     format: {
                         description: "You can limit the format of string.",
-                        "x-typia-jsDocTags": [
-                            {
-                                name: "format",
-                                text: [
-                                    {
-                                        text: "date-time",
-                                        kind: "text"
-                                    }
-                                ]
-                            }
-                        ],
-                        "x-typia-required": true,
-                        "x-typia-optional": false,
                         type: "string",
                         format: "date-time",
                         nullable: true
                     },
                     array: {
                         description: "In the Array case, possible to restrict its elements.",
-                        "x-typia-required": true,
-                        "x-typia-optional": false,
                         type: "array",
                         items: {
                             description: "In the Array case, possible to restrict its elements.",
-                            "x-typia-required": true,
-                            "x-typia-optional": false,
                             type: "string",
                             format: "uuid"
                         },
@@ -529,8 +444,7 @@ exports.SpecialTagSchema = {
                     "pattern",
                     "format",
                     "array"
-                ],
-                "x-typia-jsDocTags": []
+                ]
             }
         }
     },
@@ -617,19 +531,13 @@ const typia_1 = __importDefault(require("typia"));
                 type: "object",
                 properties: {
                     date: {
-                        "x-typia-required": true,
-                        "x-typia-optional": false,
                         type: "string",
                         format: "date-time"
                     },
                     bytes: {
-                        "x-typia-required": true,
-                        "x-typia-optional": false,
                         $ref: "#/components/objects/Uint8Array"
                     },
                     map: {
-                        "x-typia-required": true,
-                        "x-typia-optional": false,
                         $ref: "#/components/objects/Map"
                     }
                 },
@@ -637,8 +545,7 @@ const typia_1 = __importDefault(require("typia"));
                     "date",
                     "bytes",
                     "map"
-                ],
-                "x-typia-jsDocTags": []
+                ]
             },
             Uint8Array: {
                 type: "object",
