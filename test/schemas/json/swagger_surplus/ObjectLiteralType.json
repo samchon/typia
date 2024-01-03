@@ -1,0 +1,40 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/schemas/__object"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "__object": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "x-typia-required": true,
+            "x-typia-optional": false
+          },
+          "name": {
+            "type": "string",
+            "x-typia-required": true,
+            "x-typia-optional": false
+          },
+          "age": {
+            "type": "number",
+            "x-typia-required": true,
+            "x-typia-optional": false
+          }
+        },
+        "nullable": false,
+        "required": [
+          "id",
+          "name",
+          "age"
+        ],
+        "x-typia-jsDocTags": []
+      }
+    }
+  },
+  "purpose": "swagger",
+  "surplus": true
+}

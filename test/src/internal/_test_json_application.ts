@@ -4,10 +4,13 @@ import { IJsonApplication } from "typia";
 import { primitive_equal_to } from "../helpers/primitive_equal_to";
 
 export const _test_json_application =
-  (purpose: "ajv" | "swagger") => (name: string) => (app: IJsonApplication) => {
+  (props: { purpose: "ajv" | "swagger"; surplus: boolean; name: string }) =>
+  (app: IJsonApplication) => {
     const actual: IJsonApplication = JSON.parse(
       fs.readFileSync(
-        `${__dirname}/../../schemas/json/${purpose}/${name}.json`,
+        `${__dirname}/../../schemas/json/${props.purpose}_${
+          props.surplus ? "surplus" : "standard"
+        }/${props.name}.json`,
         "utf8",
       ),
     );
@@ -16,7 +19,7 @@ export const _test_json_application =
 
     if (primitive_equal_to(app, actual) === false)
       throw new Error(
-        `Bug on typia.json.application<${name}, "${purpose}">(): failed to understand the ${name} type.`,
+        `Bug on typia.json.application<[${props.name}], "${props.purpose}", ${props.surplus}>(): failed to understand the ${props.name} type.`,
       );
   };
 

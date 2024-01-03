@@ -1,0 +1,40 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/schemas/ClassGetter.Person"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "ClassGetter.Person": {
+        "$id": "#/components/schemas/ClassGetter.Person",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "dead": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "boolean"
+              }
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "dead"
+        ]
+      }
+    }
+  },
+  "purpose": "ajv",
+  "surplus": false
+}

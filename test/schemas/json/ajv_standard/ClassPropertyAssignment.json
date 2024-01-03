@@ -1,0 +1,47 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/schemas/ClassPropertyAssignment"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "ClassPropertyAssignment": {
+        "$id": "#/components/schemas/ClassPropertyAssignment",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "name": {
+            "type": "string"
+          },
+          "note": {
+            "type": "string",
+            "enum": [
+              "assignment"
+            ]
+          },
+          "editable": {
+            "type": "boolean",
+            "enum": [
+              false
+            ]
+          },
+          "incremental": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "note",
+          "editable",
+          "incremental"
+        ]
+      }
+    }
+  },
+  "purpose": "ajv",
+  "surplus": false
+}

@@ -1,0 +1,84 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/schemas/ObjectAlias"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "ObjectAlias": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/ObjectAlias.IMember"
+        }
+      },
+      "ObjectAlias.IMember": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "nullable": true,
+            "x-typia-required": true,
+            "x-typia-optional": false
+          },
+          "email": {
+            "type": "string",
+            "x-typia-required": true,
+            "x-typia-optional": false
+          },
+          "name": {
+            "type": "string",
+            "x-typia-required": true,
+            "x-typia-optional": false
+          },
+          "sex": {
+            "oneOf": [
+              {
+                "type": "number",
+                "enum": [
+                  2,
+                  1
+                ],
+                "nullable": true
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "male",
+                  "female"
+                ],
+                "nullable": true
+              }
+            ],
+            "x-typia-required": true,
+            "x-typia-optional": false
+          },
+          "age": {
+            "type": "number",
+            "nullable": true,
+            "x-typia-required": true,
+            "x-typia-optional": false
+          },
+          "dead": {
+            "type": "boolean",
+            "nullable": true,
+            "x-typia-required": true,
+            "x-typia-optional": false
+          }
+        },
+        "nullable": false,
+        "required": [
+          "id",
+          "email",
+          "name",
+          "sex",
+          "age",
+          "dead"
+        ],
+        "x-typia-jsDocTags": []
+      }
+    }
+  },
+  "purpose": "swagger",
+  "surplus": true
+}

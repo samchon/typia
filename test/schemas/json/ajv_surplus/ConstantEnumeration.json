@@ -1,0 +1,40 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/schemas/ConstantEnumeration"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "ConstantEnumeration": {
+        "$id": "#/components/schemas/ConstantEnumeration",
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/ConstantEnumeration.Enumeration"
+        }
+      },
+      "ConstantEnumeration.Enumeration": {
+        "$id": "#/components/schemas/ConstantEnumeration.Enumeration",
+        "oneOf": [
+          {
+            "type": "number",
+            "enum": [
+              0,
+              1,
+              2
+            ]
+          },
+          {
+            "type": "string",
+            "enum": [
+              "Three",
+              "Four"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "purpose": "ajv",
+  "surplus": true
+}

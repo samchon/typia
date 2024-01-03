@@ -1,0 +1,33 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/schemas/ObjectIntersection"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "ObjectIntersection": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "vulnerable": {
+            "type": "boolean"
+          }
+        },
+        "nullable": false,
+        "required": [
+          "email",
+          "name",
+          "vulnerable"
+        ]
+      }
+    }
+  },
+  "purpose": "swagger",
+  "surplus": false
+}

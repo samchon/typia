@@ -1,0 +1,29 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/schemas/ToJsonDouble.Child"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "ToJsonDouble.Child": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "flag": {
+            "type": "boolean"
+          }
+        },
+        "nullable": false,
+        "required": [
+          "id",
+          "flag"
+        ]
+      }
+    }
+  },
+  "purpose": "swagger",
+  "surplus": false
+}

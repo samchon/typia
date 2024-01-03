@@ -33,6 +33,7 @@ export const test_random_UltimateUnion = _test_random(
         ),
         components: $ro19(_recursive, _recursive ? 1 + _depth : _depth),
         purpose: $pick([() => "swagger", () => "ajv"])(),
+        surplus: (generator?.boolean ?? $generator.boolean)(),
       });
       const $ro1 = (_recursive: boolean = false, _depth: number = 0): any => ({
         enum: (generator?.array ?? $generator.array)(() =>
@@ -2156,7 +2157,8 @@ export const test_random_UltimateUnion = _test_random(
         null !== input.components &&
         false === Array.isArray(input.components) &&
         $io19(input.components) &&
-        ("swagger" === input.purpose || "ajv" === input.purpose);
+        ("swagger" === input.purpose || "ajv" === input.purpose) &&
+        "boolean" === typeof input.surplus;
       const $io1 = (input: any): boolean =>
         Array.isArray(input["enum"]) &&
         input["enum"].every((elem: any) => "boolean" === typeof elem) &&
@@ -3299,6 +3301,12 @@ export const test_random_UltimateUnion = _test_random(
               path: _path + ".purpose",
               expected: '("ajv" | "swagger")',
               value: input.purpose,
+            })) &&
+          ("boolean" === typeof input.surplus ||
+            $guard(_exceptionable, {
+              path: _path + ".surplus",
+              expected: "boolean",
+              value: input.surplus,
             }));
         const $ao1 = (
           input: any,

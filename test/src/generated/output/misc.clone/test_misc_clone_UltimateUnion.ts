@@ -1082,6 +1082,7 @@ export const test_misc_clone_UltimateUnion = _test_misc_clone(
           ? $co19(input.components)
           : (input.components as any),
       purpose: input.purpose as any,
+      surplus: input.surplus as any,
     });
     const $co1 = (input: any): any => ({
       enum: Array.isArray(input["enum"])

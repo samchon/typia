@@ -1,0 +1,29 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/schemas/ObjectInternal"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "ObjectInternal": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          }
+        },
+        "nullable": false,
+        "required": [
+          "id",
+          "name"
+        ]
+      }
+    }
+  },
+  "purpose": "swagger",
+  "surplus": false
+}

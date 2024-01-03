@@ -21,7 +21,8 @@ export const test_misc_isClone_UltimateUnion = _test_misc_isClone(
         null !== input.components &&
         false === Array.isArray(input.components) &&
         $io19(input.components) &&
-        ("swagger" === input.purpose || "ajv" === input.purpose);
+        ("swagger" === input.purpose || "ajv" === input.purpose) &&
+        "boolean" === typeof input.surplus;
       const $io1 = (input: any): boolean =>
         Array.isArray(input["enum"]) &&
         input["enum"].every((elem: any) => "boolean" === typeof elem) &&
@@ -2179,6 +2180,7 @@ export const test_misc_isClone_UltimateUnion = _test_misc_isClone(
             ? $co19(input.components)
             : (input.components as any),
         purpose: input.purpose as any,
+        surplus: input.surplus as any,
       });
       const $co1 = (input: any): any => ({
         enum: Array.isArray(input["enum"])

@@ -1,0 +1,32 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/schemas/DynamicTemplate"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "DynamicTemplate": {
+        "$id": "#/components/schemas/DynamicTemplate",
+        "type": "object",
+        "properties": {},
+        "patternProperties": {
+          "^(prefix_(.*))": {
+            "type": "string"
+          },
+          "((.*)_postfix)$": {
+            "type": "string"
+          },
+          "^(value_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$": {
+            "type": "number"
+          },
+          "^(between_(.*)_and_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$": {
+            "type": "boolean"
+          }
+        }
+      }
+    }
+  },
+  "purpose": "ajv",
+  "surplus": false
+}

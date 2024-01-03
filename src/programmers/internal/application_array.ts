@@ -12,14 +12,12 @@ import { application_schema } from "./application_schema";
 export const application_array =
   (options: JsonApplicationProgrammer.IOptions) =>
   (components: IJsonComponents) =>
-  (array: MetadataArray) =>
-  (attribute: IJsonSchema.IAttribute): IJsonSchema.IArray[] => {
+  (array: MetadataArray): IJsonSchema.IArray[] => {
     // BASE SCHEMA
     const items: IJsonSchema = application_schema(options)(false)(components)(
       array.type.value,
-    )(attribute);
+    )({});
     const base: IJsonSchema.IArray = {
-      ...attribute,
       type: "array",
       items: null!,
     };
@@ -31,7 +29,7 @@ export const application_array =
 
     // CONSIDER TYPE TAGS
     const union: IJsonSchema.IArray[] = array.tags.map(
-      (row) => application_array_tags({ ...base })(row)!,
+      (row) => application_array_tags(options)({ ...base })(row)!,
     );
     const map: Map<string, IJsonSchema.IArray> = new Map(
       union.map((u) => [JSON.stringify(u), u]),
@@ -40,6 +38,7 @@ export const application_array =
   };
 
 const application_array_tags =
+  (options: JsonApplicationProgrammer.IOptions) =>
   (schema: IJsonSchema.IArray) =>
   (row: IMetadataTypeTag[]): IJsonSchema.IArray => {
     for (const tag of row.slice().sort((a, b) => a.kind.localeCompare(b.kind)))
@@ -47,13 +46,14 @@ const application_array_tags =
         schema.minItems = tag.value;
       else if (tag.kind === "maxItems" && typeof tag.value === "number")
         schema.maxItems = tag.value;
-    schema["x-typia-typeTags"] = row.map((tag) => ({
-      target: tag.target,
-      name: tag.name,
-      kind: tag.kind,
-      value: tag.value,
-      validate: tag.validate,
-      exclusive: tag.exclusive,
-    }));
+    if (options.surplus)
+      schema["x-typia-typeTags"] = row.map((tag) => ({
+        target: tag.target,
+        name: tag.name,
+        kind: tag.kind,
+        value: tag.value,
+        validate: tag.validate,
+        exclusive: tag.exclusive,
+      }));
     return schema;
   };

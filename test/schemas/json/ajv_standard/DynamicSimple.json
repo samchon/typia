@@ -1,0 +1,29 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/schemas/DynamicSimple"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "DynamicSimple": {
+        "$id": "#/components/schemas/DynamicSimple",
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "object",
+            "properties": {},
+            "additionalProperties": {
+              "type": "number"
+            }
+          }
+        },
+        "required": [
+          "value"
+        ]
+      }
+    }
+  },
+  "purpose": "ajv",
+  "surplus": false
+}

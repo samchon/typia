@@ -1,0 +1,33 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/schemas/__object"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "__object": {
+        "$id": "#/components/schemas/__object",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "age": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "age"
+        ]
+      }
+    }
+  },
+  "purpose": "ajv",
+  "surplus": false
+}

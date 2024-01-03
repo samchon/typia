@@ -1,0 +1,18 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/schemas/DynamicUndefined"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "DynamicUndefined": {
+        "$id": "#/components/schemas/DynamicUndefined",
+        "type": "object",
+        "properties": {}
+      }
+    }
+  },
+  "purpose": "ajv",
+  "surplus": false
+}

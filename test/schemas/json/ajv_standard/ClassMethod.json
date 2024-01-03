@@ -1,0 +1,29 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/schemas/ClassMethod.Animal"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "ClassMethod.Animal": {
+        "$id": "#/components/schemas/ClassMethod.Animal",
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "age": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "name",
+          "age"
+        ]
+      }
+    }
+  },
+  "purpose": "ajv",
+  "surplus": false
+}

@@ -1,0 +1,112 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/schemas/ObjectAlias"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "ObjectAlias": {
+        "$id": "#/components/schemas/ObjectAlias",
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/ObjectAlias.IMember"
+        }
+      },
+      "ObjectAlias.IMember": {
+        "$id": "#/components/schemas/ObjectAlias.IMember",
+        "type": "object",
+        "properties": {
+          "id": {
+            "oneOf": [
+              {
+                "x-typia-required": true,
+                "x-typia-optional": false,
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "x-typia-required": true,
+            "x-typia-optional": false
+          },
+          "email": {
+            "type": "string",
+            "x-typia-required": true,
+            "x-typia-optional": false
+          },
+          "name": {
+            "type": "string",
+            "x-typia-required": true,
+            "x-typia-optional": false
+          },
+          "sex": {
+            "oneOf": [
+              {
+                "x-typia-required": true,
+                "x-typia-optional": false,
+                "type": "null"
+              },
+              {
+                "type": "number",
+                "enum": [
+                  2,
+                  1
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "male",
+                  "female"
+                ]
+              }
+            ],
+            "x-typia-required": true,
+            "x-typia-optional": false
+          },
+          "age": {
+            "oneOf": [
+              {
+                "x-typia-required": true,
+                "x-typia-optional": false,
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "x-typia-required": true,
+            "x-typia-optional": false
+          },
+          "dead": {
+            "oneOf": [
+              {
+                "x-typia-required": true,
+                "x-typia-optional": false,
+                "type": "null"
+              },
+              {
+                "type": "boolean"
+              }
+            ],
+            "x-typia-required": true,
+            "x-typia-optional": false
+          }
+        },
+        "required": [
+          "id",
+          "email",
+          "name",
+          "sex",
+          "age",
+          "dead"
+        ],
+        "x-typia-jsDocTags": []
+      }
+    }
+  },
+  "purpose": "ajv",
+  "surplus": true
+}

@@ -1,0 +1,25 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/schemas/ObjectGenericAlias.Alias"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "ObjectGenericAlias.Alias": {
+        "$id": "#/components/schemas/ObjectGenericAlias.Alias",
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "value"
+        ]
+      }
+    }
+  },
+  "purpose": "ajv",
+  "surplus": false
+}

@@ -19,7 +19,8 @@ export const test_createIs_UltimateUnion = _test_is(
     null !== input.components &&
     false === Array.isArray(input.components) &&
     $io19(input.components) &&
-    ("swagger" === input.purpose || "ajv" === input.purpose);
+    ("swagger" === input.purpose || "ajv" === input.purpose) &&
+    "boolean" === typeof input.surplus;
   const $io1 = (input: any): boolean =>
     Array.isArray(input["enum"]) &&
     input["enum"].every((elem: any) => "boolean" === typeof elem) &&

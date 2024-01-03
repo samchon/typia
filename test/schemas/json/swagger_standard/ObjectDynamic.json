@@ -1,0 +1,18 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/schemas/ObjectDynamic"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "ObjectDynamic": {
+        "type": "object",
+        "properties": {},
+        "nullable": false
+      }
+    }
+  },
+  "purpose": "swagger",
+  "surplus": false
+}
