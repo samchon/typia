@@ -20,19 +20,23 @@ import { Primitive } from "./Primitive";
  * JSON Schema Application.
  *
  * Creates a JSON schema application which contains both main JSON schemas and
- * components. Note that, all of the object types are stored in the
+ * components. Note that, all of the named types are stored in the
  * {@link IJsonApplication.components} property for the `$ref` referencing.
  *
- * Also, `typia.json.application()` has additional generic arguments, *Purpose*.
- * As JSON schema definitions used by `swagger` and `ajv` are different a little bit,
- * you should configure the *Purpose* appropriately.
+ * Also, `typia.json.application()` has two additional generic arguments.
  *
- * For an example, `ajv` has an extra property "$recursiveRef" that are not exists
- * in the standard JSON schema definition spec. Otherwise, `swagger` can't identify
- * the tuple definition.
+ * The 1st *Purpose* means the purpose determines the JSON schema definition spec.
+ * For an example, `ajv` has an extra property "$recursiveRef"  that are not
+ * exists in the standard JSON schema definition spec. Otherwise, `swagger`
+ * can't identify the tuple definition.
+ *
+ * The next *Surplus* means whether to allow surplus properties starting with
+ * `x-typia-` or not. If `true`, the surplus properties like `x-typia-jsDocTags`
+ * would be registered into the JSON schema, otherwise, not.
  *
  * @template Types Tuple of target types
- * @template Purpose Purpose of the JSON schema`
+ * @template Purpose Purpose of the JSON schema
+ * @template Surplus Allow surplus properties starting with `x-typia-` or not
  * @return JSON schema application
  *
  * @author Jeongho Nam - https://github.com/samchon
@@ -43,19 +47,23 @@ export function application(): never;
  * JSON Schema Application.
  *
  * Creates a JSON schema application which contains both main JSON schemas and
- * components. Note that, all of the object types are stored in the
+ * components. Note that, all of the named types are stored in the
  * {@link IJsonApplication.components} property for the `$ref` referencing.
  *
- * Also, `typia.json.application()` has additional generic arguments, *Purpose*.
- * As JSON schema definitions used by `swagger` and `ajv` are different a little bit,
- * you should configure the *Purpose* appropriately.
+ * Also, `typia.json.application()` has two additional generic arguments.
  *
- * For an example, `ajv` has an extra property "$recursiveRef" that are not exists
- * in the standard JSON schema definition spec. Otherwise, `swagger` can't identify
- * the tuple definition.
+ * The 1st *Purpose* means the purpose determines the JSON schema definition spec.
+ * For an example, `ajv` has an extra property "$recursiveRef"  that are not
+ * exists in the standard JSON schema definition spec. Otherwise, `swagger`
+ * can't identify the tuple definition.
+ *
+ * The next *Surplus* means whether to allow surplus properties starting with
+ * `x-typia-` or not. If `true`, the surplus properties like `x-typia-jsDocTags`
+ * would be registered into the JSON schema, otherwise, not.
  *
  * @template Types Tuple of target types
  * @template Purpose Purpose of the JSON schema
+ * @template Surplus Allow surplus properties starting with `x-typia-` or not
  * @return JSON schema application
  *
  * @author Jeongho Nam - https://github.com/samchon
@@ -63,6 +71,7 @@ export function application(): never;
 export function application<
   Types extends unknown[],
   Purpose extends "ajv" | "swagger" = "swagger",
+  Surplus extends boolean = false,
 >(): IJsonApplication;
 
 /**

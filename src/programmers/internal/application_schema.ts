@@ -49,10 +49,10 @@ export const application_schema =
 
     const insert =
       meta.nullable && options.purpose === "swagger"
-        ? (s: IJsonSchema) =>
+        ? (schema: IJsonSchema) =>
             union.push({
-              ...s,
-              nullable: (s as IJsonSchema.ISignificant<any>).type
+              ...schema,
+              nullable: (schema as IJsonSchema.ISignificant<any>).type
                 ? true
                 : undefined,
             } as IJsonSchema)
@@ -61,9 +61,7 @@ export const application_schema =
     // toJSON() METHOD
     if (meta.escaped !== null)
       union.push(
-        ...application_escaped(options)(blockNever)(components)(meta.escaped)(
-          attribute,
-        ),
+        ...application_escaped(options)(blockNever)(components)(meta.escaped),
       );
 
     // ATOMIC TYPES
@@ -80,17 +78,15 @@ export const application_schema =
     for (const a of meta.atomics)
       if (a.type === "bigint") throw new TypeError(NO_BIGINT);
       else if (a.type === "boolean")
-        application_boolean(a)(attribute).forEach(insert);
+        application_boolean(options)(a)(attribute).forEach(insert);
       else if (a.type === "number")
-        application_number(a)(attribute).forEach(insert);
+        application_number(options)(a)(attribute).forEach(insert);
       else if (a.type === "string")
-        application_string(meta)(a)(attribute).forEach(insert);
+        application_string(options)(meta)(a)(attribute).forEach(insert);
 
     // ARRAY
     for (const array of meta.arrays)
-      application_array(options)(components)(array)(attribute).forEach((s) =>
-        insert(s),
-      );
+      application_array(options)(components)(array).forEach(insert);
 
     // TUPLE
     for (const tuple of meta.tuples)
@@ -104,7 +100,7 @@ export const application_schema =
         else if (type === "bigint") throw new TypeError(NO_BIGINT);
         else if (type === "boolean")
           insert(
-            application_boolean(
+            application_boolean(options)(
               MetadataAtomic.create({
                 type: "boolean",
                 tags: [],
@@ -113,7 +109,7 @@ export const application_schema =
           );
         else if (type === "number")
           insert(
-            application_number(
+            application_number(options)(
               MetadataAtomic.create({
                 type: "number",
                 tags: [],
@@ -122,7 +118,7 @@ export const application_schema =
           );
         else if (type === "string")
           insert(
-            application_string(meta)(
+            application_string(options)(meta)(
               MetadataAtomic.create({
                 type: "string",
                 tags: [],
@@ -130,26 +126,11 @@ export const application_schema =
             )(attribute)[0]!,
           );
       } else
-        insert(
-          application_native(options)(components)(native)({
-            nullable: meta.nullable,
-            attribute,
-          }),
-        );
+        insert(application_native(options)(components)(native)(meta.nullable));
     if (meta.sets.length)
-      insert(
-        application_native(options)(components)(`Set`)({
-          nullable: meta.nullable,
-          attribute,
-        }),
-      );
+      insert(application_native(options)(components)(`Set`)(meta.nullable));
     if (meta.maps.length)
-      insert(
-        application_native(options)(components)(`Map`)({
-          nullable: meta.nullable,
-          attribute,
-        }),
-      );
+      insert(application_native(options)(components)(`Map`)(meta.nullable));
 
     // OBJECT
     for (const obj of meta.objects)
@@ -173,7 +154,11 @@ export const application_schema =
             ...attribute,
             type: undefined,
           };
-    else if (union.length === 1) return union[0]!;
+    else if (union.length === 1)
+      return {
+        ...union[0]!,
+        ...attribute,
+      };
     return { oneOf: union, ...attribute };
   };
 

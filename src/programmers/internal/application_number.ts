@@ -2,6 +2,7 @@ import { IMetadataTypeTag } from "../../schemas/metadata/IMetadataTypeTag";
 import { MetadataAtomic } from "../../schemas/metadata/MetadataAtomic";
 
 import { IJsonSchema } from "../../module";
+import { JsonApplicationProgrammer } from "../json/JsonApplicationProgrammer";
 import { application_default } from "./application_default";
 
 type Schema = IJsonSchema.INumber | IJsonSchema.IInteger;
@@ -10,11 +11,11 @@ type Schema = IJsonSchema.INumber | IJsonSchema.IInteger;
  * @internal
  */
 export const application_number =
+  (options: JsonApplicationProgrammer.IOptions) =>
   (atomic: MetadataAtomic) =>
   (attribute: IJsonSchema.IAttribute): Array<Schema> => {
     // BASE CONFIGURATION
     const base: Schema = {
-      ...attribute,
       type: "number",
     };
     const out = (schema: Schema) => {
@@ -39,7 +40,7 @@ export const application_number =
 
     // CONSIDER TYPE TAGS
     const union: Schema[] = atomic.tags.map(
-      (row) => application_number_tags({ ...base })(row)!,
+      (row) => application_number_tags(options)({ ...base })(row)!,
     );
     const map: Map<string, Schema> = new Map(
       union.map((u) => [JSON.stringify(u), u]),
@@ -48,6 +49,7 @@ export const application_number =
   };
 
 const application_number_tags =
+  (options: JsonApplicationProgrammer.IOptions) =>
   (base: Schema) =>
   (row: IMetadataTypeTag[]): Schema => {
     for (const tag of row
@@ -82,13 +84,14 @@ const application_number_tags =
       else if (tag.kind === "default" && typeof tag.value === "number")
         base.default = tag.value;
     }
-    base["x-typia-typeTags"] = row.map((tag) => ({
-      target: tag.target,
-      name: tag.name,
-      kind: tag.kind,
-      value: tag.value,
-      validate: tag.validate,
-      exclusive: tag.exclusive,
-    }));
+    if (options.surplus)
+      base["x-typia-typeTags"] = row.map((tag) => ({
+        target: tag.target,
+        name: tag.name,
+        kind: tag.kind,
+        value: tag.value,
+        validate: tag.validate,
+        exclusive: tag.exclusive,
+      }));
     return base;
   };
