@@ -1,0 +1,47 @@
+import typia from "typia";
+
+import { _test_json_application } from "../../../../internal/_test_json_application";
+import { DynamicTree } from "../../../../structures/DynamicTree";
+
+export const test_json_application_swagger_standard_DynamicTree =
+  _test_json_application({
+    purpose: "swagger",
+    surplus: false,
+    name: "DynamicTree",
+  })({
+    schemas: [
+      {
+        $ref: "#/components/schemas/DynamicTree",
+      },
+    ],
+    components: {
+      schemas: {
+        DynamicTree: {
+          type: "object",
+          properties: {
+            id: {
+              type: "string",
+            },
+            sequence: {
+              type: "number",
+            },
+            children: {
+              $ref: "#/components/schemas/RecordstringDynamicTree",
+            },
+          },
+          nullable: false,
+          required: ["id", "sequence", "children"],
+          "x-typia-jsDocTags": [],
+        },
+        RecordstringDynamicTree: {
+          type: "object",
+          properties: {},
+          nullable: false,
+          description: "Construct a type with a set of properties K of type T",
+          "x-typia-jsDocTags": [],
+        },
+      },
+    },
+    purpose: "swagger",
+    surplus: false,
+  });

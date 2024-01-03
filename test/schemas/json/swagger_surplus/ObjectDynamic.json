@@ -1,0 +1,49 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/schemas/ObjectDynamic"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "ObjectDynamic": {
+        "type": "object",
+        "properties": {},
+        "nullable": false,
+        "x-typia-jsDocTags": [],
+        "x-typia-additionalProperties": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            }
+          ],
+          "x-typia-required": true,
+          "x-typia-optional": false
+        },
+        "additionalProperties": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            }
+          ],
+          "x-typia-required": true,
+          "x-typia-optional": false
+        }
+      }
+    }
+  },
+  "purpose": "swagger",
+  "surplus": true
+}

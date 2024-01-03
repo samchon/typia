@@ -22,7 +22,8 @@ export const test_json_assertParse_UltimateUnion = _test_json_assertParse(
           null !== input.components &&
           false === Array.isArray(input.components) &&
           $io19(input.components) &&
-          ("swagger" === input.purpose || "ajv" === input.purpose);
+          ("swagger" === input.purpose || "ajv" === input.purpose) &&
+          "boolean" === typeof input.surplus;
         const $io1 = (input: any): boolean =>
           Array.isArray(input["enum"]) &&
           input["enum"].every((elem: any) => "boolean" === typeof elem) &&
@@ -1187,6 +1188,12 @@ export const test_json_assertParse_UltimateUnion = _test_json_assertParse(
                 path: _path + ".purpose",
                 expected: '("ajv" | "swagger")',
                 value: input.purpose,
+              })) &&
+            ("boolean" === typeof input.surplus ||
+              $guard(_exceptionable, {
+                path: _path + ".surplus",
+                expected: "boolean",
+                value: input.surplus,
               }));
           const $ao1 = (
             input: any,

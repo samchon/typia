@@ -5,4 +5,5 @@ export interface IJsonApplication {
   schemas: IJsonSchema[];
   components: IJsonComponents;
   purpose: "swagger" | "ajv";
+  surplus: boolean;
 }

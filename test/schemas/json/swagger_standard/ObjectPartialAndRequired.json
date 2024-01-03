@@ -1,0 +1,71 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/schemas/ObjectPartialAndRequired"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "ObjectPartialAndRequired": {
+        "type": "object",
+        "properties": {
+          "string": {
+            "type": "string"
+          },
+          "number": {
+            "type": "number"
+          },
+          "boolean": {
+            "type": "boolean"
+          },
+          "object": {
+            "$ref": "#/components/schemas/ObjectPartialAndRequired.Nullable"
+          },
+          "array": {
+            "type": "array",
+            "items": {
+              "type": "number"
+            }
+          }
+        },
+        "nullable": false,
+        "required": [
+          "object",
+          "array"
+        ],
+        "x-typia-jsDocTags": []
+      },
+      "ObjectPartialAndRequired.Nullable": {
+        "type": "object",
+        "properties": {
+          "string": {
+            "type": "string"
+          },
+          "number": {
+            "type": "number"
+          },
+          "boolean": {
+            "type": "boolean"
+          },
+          "object": {
+            "$ref": "#/components/schemas/ObjectPartialAndRequired.Nullable"
+          },
+          "array": {
+            "type": "array",
+            "items": {
+              "type": "number"
+            }
+          }
+        },
+        "nullable": true,
+        "required": [
+          "object",
+          "array"
+        ],
+        "x-typia-jsDocTags": []
+      }
+    }
+  },
+  "purpose": "swagger",
+  "surplus": false
+}

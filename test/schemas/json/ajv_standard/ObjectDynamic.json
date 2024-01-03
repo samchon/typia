@@ -1,0 +1,32 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/schemas/ObjectDynamic"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "ObjectDynamic": {
+        "$id": "#/components/schemas/ObjectDynamic",
+        "type": "object",
+        "properties": {},
+        "x-typia-jsDocTags": [],
+        "additionalProperties": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            }
+          ]
+        }
+      }
+    }
+  },
+  "purpose": "ajv",
+  "surplus": false
+}

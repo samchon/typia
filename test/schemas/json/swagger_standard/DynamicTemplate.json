@@ -1,0 +1,19 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/schemas/DynamicTemplate"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "DynamicTemplate": {
+        "type": "object",
+        "properties": {},
+        "nullable": false,
+        "x-typia-jsDocTags": []
+      }
+    }
+  },
+  "purpose": "swagger",
+  "surplus": false
+}

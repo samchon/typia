@@ -1,0 +1,35 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/schemas/ClassGetter.Person"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "ClassGetter.Person": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "dead": {
+            "type": "boolean",
+            "nullable": true
+          }
+        },
+        "nullable": false,
+        "required": [
+          "id",
+          "name",
+          "dead"
+        ],
+        "x-typia-jsDocTags": []
+      }
+    }
+  },
+  "purpose": "swagger",
+  "surplus": false
+}

@@ -1,0 +1,30 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/schemas/ArrayRepeatedRequired"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "ArrayRepeatedRequired": {
+        "$id": "#/components/schemas/ArrayRepeatedRequired",
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "number"
+          },
+          {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ArrayRepeatedRequired"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "purpose": "ajv",
+  "surplus": false
+}

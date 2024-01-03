@@ -1,0 +1,32 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/schemas/ObjectOptional"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "ObjectOptional": {
+        "$id": "#/components/schemas/ObjectOptional",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "sequence": {
+            "type": "number"
+          }
+        },
+        "x-typia-jsDocTags": []
+      }
+    }
+  },
+  "purpose": "ajv",
+  "surplus": false
+}

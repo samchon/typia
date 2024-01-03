@@ -1,0 +1,12 @@
+{
+  "schemas": [
+    {
+      "type": "null"
+    }
+  ],
+  "components": {
+    "schemas": {}
+  },
+  "purpose": "swagger",
+  "surplus": false
+}

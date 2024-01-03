@@ -1,0 +1,37 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/schemas/TypeTagMatrix"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "TypeTagMatrix": {
+        "$id": "#/components/schemas/TypeTagMatrix",
+        "type": "object",
+        "properties": {
+          "matrix": {
+            "type": "array",
+            "items": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "maxItems": 4,
+              "minItems": 4
+            },
+            "maxItems": 3,
+            "minItems": 3
+          }
+        },
+        "required": [
+          "matrix"
+        ],
+        "x-typia-jsDocTags": []
+      }
+    }
+  },
+  "purpose": "ajv",
+  "surplus": false
+}

@@ -1,0 +1,19 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/schemas/DynamicUnion"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "DynamicUnion": {
+        "type": "object",
+        "properties": {},
+        "nullable": false,
+        "x-typia-jsDocTags": []
+      }
+    }
+  },
+  "purpose": "swagger",
+  "surplus": false
+}

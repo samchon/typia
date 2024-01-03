@@ -84,11 +84,15 @@ const create_object_schema =
             : undefined;
         })(),
         description: property.description ?? undefined,
-        "x-typia-jsDocTags": property.jsDocTags.length
-          ? property.jsDocTags
-          : undefined,
-        "x-typia-required": property.value.required,
-        "x-typia-optional": property.value.optional,
+        ...(options.surplus
+          ? {
+              "x-typia-jsDocTags": property.jsDocTags.length
+                ? property.jsDocTags
+                : undefined,
+              "x-typia-required": property.value.required,
+              "x-typia-optional": property.value.optional,
+            }
+          : {}),
       });
 
       if (schema === null) continue;
@@ -125,12 +129,14 @@ const create_object_schema =
       "x-typia-jsDocTags": obj.jsDocTags,
       ...(options.purpose === "ajv"
         ? extraProps
-        : {
+        : options.surplus
+        ? {
             // swagger can't express patternProperties
             "x-typia-additionalProperties": extraProps.additionalProperties,
             "x-typia-patternProperties": extraProps.patternProperties,
             additionalProperties: join(options)(components)(extraMeta),
-          }),
+          }
+        : {}),
     };
   };
 
@@ -153,9 +159,13 @@ const join =
       .map((tuple) => tuple[0])
       .reduce((x, y) => Metadata.merge(x, y));
     return (
-      application_schema(options)(true)(components)(meta)({
-        "x-typia-required": false,
-      }) ?? undefined
+      application_schema(options)(true)(components)(meta)(
+        options.surplus
+          ? {
+              "x-typia-required": false,
+            }
+          : {},
+      ) ?? undefined
     );
   };
 

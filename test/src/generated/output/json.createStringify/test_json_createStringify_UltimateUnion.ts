@@ -1019,7 +1019,7 @@ export const test_json_createStringify_UltimateUnion = _test_json_stringify(
         expected: '("ajv" | "swagger")',
         value: input.purpose,
       });
-    })()}}`;
+    })()},"surplus":${input.surplus}}`;
   const $so1 = (input: any): any =>
     `{${
       undefined === input.title

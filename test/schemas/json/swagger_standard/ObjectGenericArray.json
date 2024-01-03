@@ -1,0 +1,75 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/schemas/ObjectGenericArray"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "ObjectGenericArray": {
+        "type": "object",
+        "properties": {
+          "pagination": {
+            "$ref": "#/components/schemas/ObjectGenericArray.IPagination"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ObjectGenericArray.IPerson"
+            }
+          }
+        },
+        "nullable": false,
+        "required": [
+          "pagination",
+          "data"
+        ],
+        "x-typia-jsDocTags": []
+      },
+      "ObjectGenericArray.IPagination": {
+        "type": "object",
+        "properties": {
+          "page": {
+            "type": "number"
+          },
+          "limit": {
+            "type": "number"
+          },
+          "total_count": {
+            "type": "number"
+          },
+          "total_pages": {
+            "type": "number"
+          }
+        },
+        "nullable": false,
+        "required": [
+          "page",
+          "limit",
+          "total_count",
+          "total_pages"
+        ],
+        "x-typia-jsDocTags": []
+      },
+      "ObjectGenericArray.IPerson": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "age": {
+            "type": "number"
+          }
+        },
+        "nullable": false,
+        "required": [
+          "name",
+          "age"
+        ],
+        "x-typia-jsDocTags": []
+      }
+    }
+  },
+  "purpose": "swagger",
+  "surplus": false
+}

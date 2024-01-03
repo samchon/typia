@@ -1,0 +1,19 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/schemas/DynamicUndefined"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "DynamicUndefined": {
+        "type": "object",
+        "properties": {},
+        "nullable": false,
+        "x-typia-jsDocTags": []
+      }
+    }
+  },
+  "purpose": "swagger",
+  "surplus": true
+}
