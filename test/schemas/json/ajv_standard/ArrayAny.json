@@ -87,8 +87,7 @@
           "nullables1",
           "nullables2",
           "union"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       }
     }
   },

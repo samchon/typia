@@ -28,7 +28,6 @@ export const test_json_application_swagger_standard_ObjectUnionCompositePointer 
           },
           nullable: false,
           required: ["value"],
-          "x-typia-jsDocTags": [],
         },
         IPointerIPointILineITriangleIRectangleIPolylineIPolygonIPointedShapeICircle:
           {
@@ -65,7 +64,6 @@ export const test_json_application_swagger_standard_ObjectUnionCompositePointer 
             },
             nullable: false,
             required: ["value"],
-            "x-typia-jsDocTags": [],
           },
         "ObjectUnionCompositePointer.IPoint": {
           type: "object",
@@ -79,7 +77,6 @@ export const test_json_application_swagger_standard_ObjectUnionCompositePointer 
           },
           nullable: false,
           required: ["x", "y"],
-          "x-typia-jsDocTags": [],
         },
         "ObjectUnionCompositePointer.ILine": {
           type: "object",
@@ -93,7 +90,6 @@ export const test_json_application_swagger_standard_ObjectUnionCompositePointer 
           },
           nullable: false,
           required: ["p1", "p2"],
-          "x-typia-jsDocTags": [],
         },
         "ObjectUnionCompositePointer.ITriangle": {
           type: "object",
@@ -110,7 +106,6 @@ export const test_json_application_swagger_standard_ObjectUnionCompositePointer 
           },
           nullable: false,
           required: ["p1", "p2", "p3"],
-          "x-typia-jsDocTags": [],
         },
         "ObjectUnionCompositePointer.IRectangle": {
           type: "object",
@@ -130,7 +125,6 @@ export const test_json_application_swagger_standard_ObjectUnionCompositePointer 
           },
           nullable: false,
           required: ["p1", "p2", "p3", "p4"],
-          "x-typia-jsDocTags": [],
         },
         "ObjectUnionCompositePointer.IPolyline": {
           type: "object",
@@ -144,7 +138,6 @@ export const test_json_application_swagger_standard_ObjectUnionCompositePointer 
           },
           nullable: false,
           required: ["points"],
-          "x-typia-jsDocTags": [],
         },
         "ObjectUnionCompositePointer.IPointedShape": {
           type: "object",
@@ -161,7 +154,6 @@ export const test_json_application_swagger_standard_ObjectUnionCompositePointer 
           },
           nullable: false,
           required: ["outer", "inner"],
-          "x-typia-jsDocTags": [],
         },
         "ObjectUnionCompositePointer.IPolygon": {
           type: "object",
@@ -178,7 +170,6 @@ export const test_json_application_swagger_standard_ObjectUnionCompositePointer 
           },
           nullable: false,
           required: ["outer", "inner"],
-          "x-typia-jsDocTags": [],
         },
         "ObjectUnionCompositePointer.ICircle": {
           type: "object",
@@ -192,7 +183,6 @@ export const test_json_application_swagger_standard_ObjectUnionCompositePointer 
           },
           nullable: false,
           required: ["centroid", "radius"],
-          "x-typia-jsDocTags": [],
         },
       },
     },

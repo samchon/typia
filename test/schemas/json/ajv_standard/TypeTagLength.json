@@ -19,8 +19,7 @@
         },
         "required": [
           "value"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "TypeTagLength.Type": {
         "$id": "#/components/schemas/TypeTagLength.Type",
@@ -56,8 +55,7 @@
           "maximum",
           "minimum_and_maximum",
           "equal"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       }
     }
   },

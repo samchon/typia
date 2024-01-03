@@ -24,8 +24,7 @@
           "email",
           "name",
           "vulnerable"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       }
     }
   },

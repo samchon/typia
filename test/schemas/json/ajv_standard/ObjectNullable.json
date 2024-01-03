@@ -19,8 +19,7 @@
         },
         "required": [
           "value"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "ObjectNullable.IProduct": {
         "$id": "#/components/schemas/ObjectNullable.IProduct",
@@ -61,8 +60,7 @@
           "manufacturer",
           "brand",
           "similar"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "ObjectNullable.IManufacturer": {
         "$id": "#/components/schemas/ObjectNullable.IManufacturer",
@@ -81,8 +79,7 @@
         "required": [
           "type",
           "name"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "ObjectNullable.IBrand": {
         "$id": "#/components/schemas/ObjectNullable.IBrand",
@@ -101,8 +98,7 @@
         "required": [
           "type",
           "name"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       }
     }
   },

@@ -48,7 +48,6 @@ export const test_json_application_ajv_standard_ObjectRequired =
           },
           required: ["boolean", "number", "string", "array", "object"],
           description: "Make all properties in T required",
-          "x-typia-jsDocTags": [],
         },
         "ObjectRequired.IBase": {
           $id: "#/components/schemas/ObjectRequired.IBase",
@@ -80,7 +79,6 @@ export const test_json_application_ajv_standard_ObjectRequired =
               ],
             },
           },
-          "x-typia-jsDocTags": [],
         },
       },
     },

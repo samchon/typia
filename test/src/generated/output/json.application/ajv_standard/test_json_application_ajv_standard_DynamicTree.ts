@@ -31,14 +31,12 @@ export const test_json_application_ajv_standard_DynamicTree =
             },
           },
           required: ["id", "sequence", "children"],
-          "x-typia-jsDocTags": [],
         },
         RecordstringDynamicTree: {
           $id: "#/components/schemas/RecordstringDynamicTree",
           type: "object",
           properties: {},
           description: "Construct a type with a set of properties K of type T",
-          "x-typia-jsDocTags": [],
           additionalProperties: {
             $ref: "#/components/schemas/DynamicTree",
           },

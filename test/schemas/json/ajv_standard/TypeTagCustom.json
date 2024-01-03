@@ -29,8 +29,7 @@
           "dollar",
           "postfix",
           "powerOf"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       }
     }
   },

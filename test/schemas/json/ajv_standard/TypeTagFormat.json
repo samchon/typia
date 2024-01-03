@@ -47,8 +47,7 @@
           "ipv6",
           "date",
           "date_time"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       }
     }
   },

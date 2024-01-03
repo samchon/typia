@@ -20,7 +20,6 @@ export const test_json_application_ajv_standard_DynamicNever =
           $id: "#/components/schemas/DynamicNever",
           type: "object",
           properties: {},
-          "x-typia-jsDocTags": [],
         },
       },
     },

@@ -28,7 +28,6 @@ export const test_json_application_ajv_standard_TypeTagArray =
             },
           },
           required: ["value"],
-          "x-typia-jsDocTags": [],
         },
         "TypeTagArray.Type": {
           $id: "#/components/schemas/TypeTagArray.Type",
@@ -72,7 +71,6 @@ export const test_json_application_ajv_standard_TypeTagArray =
             },
           },
           required: ["items", "minItems", "both", "equal"],
-          "x-typia-jsDocTags": [],
         },
       },
     },

@@ -19,8 +19,7 @@
         },
         "required": [
           "value"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "TemplateConstant.Type": {
         "$id": "#/components/schemas/TemplateConstant.Type",
@@ -61,8 +60,7 @@
           "prefix",
           "postfix",
           "combined"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       }
     }
   },

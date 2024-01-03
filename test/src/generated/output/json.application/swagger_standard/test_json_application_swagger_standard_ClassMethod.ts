@@ -28,7 +28,6 @@ export const test_json_application_swagger_standard_ClassMethod =
           },
           nullable: false,
           required: ["name", "age"],
-          "x-typia-jsDocTags": [],
         },
       },
     },

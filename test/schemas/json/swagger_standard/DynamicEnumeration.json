@@ -43,15 +43,13 @@
                 "type": "string"
               }
             },
-            "nullable": false,
-            "x-typia-jsDocTags": []
+            "nullable": false
           }
         },
         "nullable": false,
         "required": [
           "value"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       }
     }
   },

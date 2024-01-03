@@ -19,8 +19,7 @@
         "nullable": false,
         "required": [
           "value"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "CommentTagAtomicUnion.Type": {
         "type": "object",
@@ -42,8 +41,7 @@
         "nullable": false,
         "required": [
           "value"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       }
     }
   },

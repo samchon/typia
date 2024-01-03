@@ -55,8 +55,7 @@
           "middle_boolean",
           "ipv4",
           "email"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       }
     }
   },

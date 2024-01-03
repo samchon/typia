@@ -28,7 +28,6 @@ export const test_json_application_swagger_standard_TypeTagRange =
           },
           nullable: false,
           required: ["value"],
-          "x-typia-jsDocTags": [],
         },
         "TypeTagRange.Type": {
           type: "object",
@@ -93,7 +92,6 @@ export const test_json_application_swagger_standard_TypeTagRange =
             "greater_equal_less_equal",
             "equal",
           ],
-          "x-typia-jsDocTags": [],
         },
       },
     },

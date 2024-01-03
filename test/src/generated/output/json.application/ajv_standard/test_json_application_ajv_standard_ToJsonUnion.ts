@@ -57,7 +57,6 @@ export const test_json_application_ajv_standard_ToJsonUnion =
             },
           },
           required: ["id", "mobile", "name"],
-          "x-typia-jsDocTags": [],
         },
         "ToJsonUnion.IProduct": {
           $id: "#/components/schemas/ToJsonUnion.IProduct",
@@ -74,7 +73,6 @@ export const test_json_application_ajv_standard_ToJsonUnion =
             },
           },
           required: ["manufacturer", "brand", "name"],
-          "x-typia-jsDocTags": [],
         },
       },
     },

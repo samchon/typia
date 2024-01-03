@@ -34,7 +34,6 @@ export const test_json_application_swagger_standard_ObjectSimple =
           },
           nullable: false,
           required: ["scale", "position", "rotate", "pivot"],
-          "x-typia-jsDocTags": [],
         },
         "ObjectSimple.IPoint3D": {
           type: "object",
@@ -51,7 +50,6 @@ export const test_json_application_swagger_standard_ObjectSimple =
           },
           nullable: false,
           required: ["x", "y", "z"],
-          "x-typia-jsDocTags": [],
         },
       },
     },

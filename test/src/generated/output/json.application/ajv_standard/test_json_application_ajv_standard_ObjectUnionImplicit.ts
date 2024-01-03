@@ -67,7 +67,6 @@ export const test_json_application_ajv_standard_ObjectUnionImplicit =
             },
           },
           required: ["x", "y"],
-          "x-typia-jsDocTags": [],
         },
         "ObjectUnionImplicit.ILine": {
           $id: "#/components/schemas/ObjectUnionImplicit.ILine",
@@ -101,7 +100,6 @@ export const test_json_application_ajv_standard_ObjectUnionImplicit =
             },
           },
           required: ["p1", "p2"],
-          "x-typia-jsDocTags": [],
         },
         "ObjectUnionImplicit.ITriangle": {
           $id: "#/components/schemas/ObjectUnionImplicit.ITriangle",
@@ -148,7 +146,6 @@ export const test_json_application_ajv_standard_ObjectUnionImplicit =
             },
           },
           required: ["p1", "p2", "p3"],
-          "x-typia-jsDocTags": [],
         },
         "ObjectUnionImplicit.IRectangle": {
           $id: "#/components/schemas/ObjectUnionImplicit.IRectangle",
@@ -198,7 +195,6 @@ export const test_json_application_ajv_standard_ObjectUnionImplicit =
             },
           },
           required: ["p1", "p2", "p3", "p4"],
-          "x-typia-jsDocTags": [],
         },
         "ObjectUnionImplicit.IPolyline": {
           $id: "#/components/schemas/ObjectUnionImplicit.IPolyline",
@@ -222,7 +218,6 @@ export const test_json_application_ajv_standard_ObjectUnionImplicit =
             },
           },
           required: ["points"],
-          "x-typia-jsDocTags": [],
         },
         "ObjectUnionImplicit.IPolygon": {
           $id: "#/components/schemas/ObjectUnionImplicit.IPolygon",
@@ -249,7 +244,6 @@ export const test_json_application_ajv_standard_ObjectUnionImplicit =
             },
           },
           required: ["outer"],
-          "x-typia-jsDocTags": [],
         },
         "ObjectUnionImplicit.ICircle": {
           $id: "#/components/schemas/ObjectUnionImplicit.ICircle",
@@ -273,7 +267,6 @@ export const test_json_application_ajv_standard_ObjectUnionImplicit =
             },
           },
           required: ["radius"],
-          "x-typia-jsDocTags": [],
         },
       },
     },

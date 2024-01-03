@@ -60,7 +60,6 @@ export const test_json_application_swagger_standard_ObjectAlias =
           },
           nullable: false,
           required: ["id", "email", "name", "sex", "age", "dead"],
-          "x-typia-jsDocTags": [],
         },
       },
     },

@@ -32,8 +32,7 @@
         "required": [
           "object",
           "array"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "ObjectPartialAndRequired.Nullable": {
         "type": "object",
@@ -61,8 +60,7 @@
         "required": [
           "object",
           "array"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       }
     }
   },

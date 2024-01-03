@@ -42,7 +42,6 @@ export const test_json_application_ajv_standard_CommentTagPattern =
             },
           },
           required: ["uuid", "email", "ipv4", "ipv6"],
-          "x-typia-jsDocTags": [],
         },
       },
     },

@@ -36,7 +36,6 @@ export const test_json_application_swagger_standard_TypeTagMatrix =
           },
           nullable: false,
           required: ["matrix"],
-          "x-typia-jsDocTags": [],
         },
       },
     },

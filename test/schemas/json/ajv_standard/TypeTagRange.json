@@ -19,8 +19,7 @@
         },
         "required": [
           "value"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "TypeTagRange.Type": {
         "$id": "#/components/schemas/TypeTagRange.Type",
@@ -84,8 +83,7 @@
           "greater_less_equal",
           "greater_equal_less_equal",
           "equal"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       }
     }
   },

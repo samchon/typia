@@ -28,7 +28,6 @@ export const test_json_application_ajv_standard_CommentTagLength =
             },
           },
           required: ["value"],
-          "x-typia-jsDocTags": [],
         },
         "CommentTagLength.Type": {
           $id: "#/components/schemas/CommentTagLength.Type",
@@ -65,7 +64,6 @@ export const test_json_application_ajv_standard_CommentTagLength =
             "minimum_and_maximum",
             "equal",
           ],
-          "x-typia-jsDocTags": [],
         },
       },
     },

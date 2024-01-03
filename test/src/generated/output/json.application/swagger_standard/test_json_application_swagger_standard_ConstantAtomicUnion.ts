@@ -46,7 +46,6 @@ export const test_json_application_swagger_standard_ConstantAtomicUnion =
               },
               nullable: false,
               required: ["key"],
-              "x-typia-jsDocTags": [],
             },
           ],
         },

@@ -16,8 +16,7 @@
         },
         "required": [
           "value"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       }
     }
   },

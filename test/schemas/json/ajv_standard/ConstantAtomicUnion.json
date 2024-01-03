@@ -48,8 +48,7 @@
             },
             "required": [
               "key"
-            ],
-            "x-typia-jsDocTags": []
+            ]
           }
         ]
       }

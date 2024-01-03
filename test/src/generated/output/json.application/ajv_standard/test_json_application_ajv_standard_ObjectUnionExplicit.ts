@@ -61,7 +61,6 @@ export const test_json_application_ajv_standard_ObjectUnionExplicit =
             },
           },
           required: ["x", "y", "type"],
-          "x-typia-jsDocTags": [],
         },
         "ObjectUnionExplicit.DiscriminatorlineObjectUnionExplicit.ILine": {
           $id: "#/components/schemas/ObjectUnionExplicit.DiscriminatorlineObjectUnionExplicit.ILine",
@@ -79,7 +78,6 @@ export const test_json_application_ajv_standard_ObjectUnionExplicit =
             },
           },
           required: ["p1", "p2", "type"],
-          "x-typia-jsDocTags": [],
         },
         "ObjectUnionExplicit.IPoint": {
           $id: "#/components/schemas/ObjectUnionExplicit.IPoint",
@@ -93,7 +91,6 @@ export const test_json_application_ajv_standard_ObjectUnionExplicit =
             },
           },
           required: ["x", "y"],
-          "x-typia-jsDocTags": [],
         },
         "ObjectUnionExplicit.DiscriminatortriangleObjectUnionExplicit.ITriangle":
           {
@@ -115,7 +112,6 @@ export const test_json_application_ajv_standard_ObjectUnionExplicit =
               },
             },
             required: ["p1", "p2", "p3", "type"],
-            "x-typia-jsDocTags": [],
           },
         "ObjectUnionExplicit.DiscriminatorrectangleObjectUnionExplicit.IRectangle":
           {
@@ -140,7 +136,6 @@ export const test_json_application_ajv_standard_ObjectUnionExplicit =
               },
             },
             required: ["p1", "p2", "p3", "p4", "type"],
-            "x-typia-jsDocTags": [],
           },
         "ObjectUnionExplicit.DiscriminatorpolylineObjectUnionExplicit.IPolyline":
           {
@@ -159,7 +154,6 @@ export const test_json_application_ajv_standard_ObjectUnionExplicit =
               },
             },
             required: ["points", "type"],
-            "x-typia-jsDocTags": [],
           },
         "ObjectUnionExplicit.DiscriminatorpolygonObjectUnionExplicit.IPolygon":
           {
@@ -181,7 +175,6 @@ export const test_json_application_ajv_standard_ObjectUnionExplicit =
               },
             },
             required: ["outer", "inner", "type"],
-            "x-typia-jsDocTags": [],
           },
         "ObjectUnionExplicit.IPolyline": {
           $id: "#/components/schemas/ObjectUnionExplicit.IPolyline",
@@ -195,7 +188,6 @@ export const test_json_application_ajv_standard_ObjectUnionExplicit =
             },
           },
           required: ["points"],
-          "x-typia-jsDocTags": [],
         },
         "ObjectUnionExplicit.DiscriminatorcircleObjectUnionExplicit.ICircle": {
           $id: "#/components/schemas/ObjectUnionExplicit.DiscriminatorcircleObjectUnionExplicit.ICircle",
@@ -213,7 +205,6 @@ export const test_json_application_ajv_standard_ObjectUnionExplicit =
             },
           },
           required: ["centroid", "radius", "type"],
-          "x-typia-jsDocTags": [],
         },
       },
     },

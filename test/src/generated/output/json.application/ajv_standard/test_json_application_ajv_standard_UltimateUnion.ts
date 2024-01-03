@@ -45,7 +45,6 @@ export const test_json_application_ajv_standard_UltimateUnion =
             },
           },
           required: ["schemas", "components", "purpose", "surplus"],
-          "x-typia-jsDocTags": [],
         },
         IJsonSchema: {
           $id: "#/components/schemas/IJsonSchema",
@@ -141,7 +140,6 @@ export const test_json_application_ajv_standard_UltimateUnion =
             },
           },
           required: ["enum", "type"],
-          "x-typia-jsDocTags": [],
         },
         IJsDocTagInfo: {
           $id: "#/components/schemas/IJsDocTagInfo",
@@ -158,7 +156,6 @@ export const test_json_application_ajv_standard_UltimateUnion =
             },
           },
           required: ["name"],
-          "x-typia-jsDocTags": [],
         },
         "IJsDocTagInfo.IText": {
           $id: "#/components/schemas/IJsDocTagInfo.IText",
@@ -172,7 +169,6 @@ export const test_json_application_ajv_standard_UltimateUnion =
             },
           },
           required: ["text", "kind"],
-          "x-typia-jsDocTags": [],
         },
         "IJsonSchema.IEnumerationnumber": {
           $id: "#/components/schemas/IJsonSchema.IEnumerationnumber",
@@ -221,7 +217,6 @@ export const test_json_application_ajv_standard_UltimateUnion =
             },
           },
           required: ["enum", "type"],
-          "x-typia-jsDocTags": [],
         },
         "IJsonSchema.IEnumerationstring": {
           $id: "#/components/schemas/IJsonSchema.IEnumerationstring",
@@ -270,7 +265,6 @@ export const test_json_application_ajv_standard_UltimateUnion =
             },
           },
           required: ["enum", "type"],
-          "x-typia-jsDocTags": [],
         },
         "IJsonSchema.IBoolean": {
           $id: "#/components/schemas/IJsonSchema.IBoolean",
@@ -319,7 +313,6 @@ export const test_json_application_ajv_standard_UltimateUnion =
             },
           },
           required: ["type"],
-          "x-typia-jsDocTags": [],
         },
         IMetadataTypeTag: {
           $id: "#/components/schemas/IMetadataTypeTag",
@@ -354,7 +347,6 @@ export const test_json_application_ajv_standard_UltimateUnion =
             },
           },
           required: ["target", "name", "kind", "exclusive"],
-          "x-typia-jsDocTags": [],
         },
         "IJsonSchema.IInteger": {
           $id: "#/components/schemas/IJsonSchema.IInteger",
@@ -418,7 +410,6 @@ export const test_json_application_ajv_standard_UltimateUnion =
             },
           },
           required: ["type"],
-          "x-typia-jsDocTags": [],
         },
         "IJsonSchema.INumber": {
           $id: "#/components/schemas/IJsonSchema.INumber",
@@ -482,7 +473,6 @@ export const test_json_application_ajv_standard_UltimateUnion =
             },
           },
           required: ["type"],
-          "x-typia-jsDocTags": [],
         },
         "IJsonSchema.IString": {
           $id: "#/components/schemas/IJsonSchema.IString",
@@ -543,7 +533,6 @@ export const test_json_application_ajv_standard_UltimateUnion =
             },
           },
           required: ["type"],
-          "x-typia-jsDocTags": [],
         },
         "IJsonSchema.IArray": {
           $id: "#/components/schemas/IJsonSchema.IArray",
@@ -601,7 +590,6 @@ export const test_json_application_ajv_standard_UltimateUnion =
             },
           },
           required: ["items", "type"],
-          "x-typia-jsDocTags": [],
         },
         "IJsonSchema.ITuple": {
           $id: "#/components/schemas/IJsonSchema.ITuple",
@@ -653,7 +641,6 @@ export const test_json_application_ajv_standard_UltimateUnion =
             },
           },
           required: ["items", "minItems", "type"],
-          "x-typia-jsDocTags": [],
         },
         "IJsonSchema.IObject": {
           $id: "#/components/schemas/IJsonSchema.IObject",
@@ -800,14 +787,12 @@ export const test_json_application_ajv_standard_UltimateUnion =
             },
           },
           required: ["properties", "type"],
-          "x-typia-jsDocTags": [],
         },
         RecordstringIJsonSchema: {
           $id: "#/components/schemas/RecordstringIJsonSchema",
           type: "object",
           properties: {},
           description: "Construct a type with a set of properties K of type T",
-          "x-typia-jsDocTags": [],
           additionalProperties: {
             $ref: "#/components/schemas/IJsonSchema",
           },
@@ -845,7 +830,6 @@ export const test_json_application_ajv_standard_UltimateUnion =
             },
           },
           required: ["$ref"],
-          "x-typia-jsDocTags": [],
         },
         "IJsonSchema.INullOnly": {
           $id: "#/components/schemas/IJsonSchema.INullOnly",
@@ -881,7 +865,6 @@ export const test_json_application_ajv_standard_UltimateUnion =
             },
           },
           required: ["type"],
-          "x-typia-jsDocTags": [],
         },
         "IJsonSchema.IOneOf": {
           $id: "#/components/schemas/IJsonSchema.IOneOf",
@@ -919,7 +902,6 @@ export const test_json_application_ajv_standard_UltimateUnion =
             },
           },
           required: ["oneOf"],
-          "x-typia-jsDocTags": [],
         },
         "IJsonSchema.IUnknown": {
           $id: "#/components/schemas/IJsonSchema.IUnknown",
@@ -950,7 +932,6 @@ export const test_json_application_ajv_standard_UltimateUnion =
               type: "boolean",
             },
           },
-          "x-typia-jsDocTags": [],
         },
         IJsonComponents: {
           $id: "#/components/schemas/IJsonComponents",
@@ -960,14 +941,12 @@ export const test_json_application_ajv_standard_UltimateUnion =
               $ref: "#/components/schemas/RecordstringIJsonComponents.IAlias",
             },
           },
-          "x-typia-jsDocTags": [],
         },
         "RecordstringIJsonComponents.IAlias": {
           $id: "#/components/schemas/RecordstringIJsonComponents.IAlias",
           type: "object",
           properties: {},
           description: "Construct a type with a set of properties K of type T",
-          "x-typia-jsDocTags": [],
           additionalProperties: {
             $ref: "#/components/schemas/IJsonComponents.IAlias",
           },
@@ -1072,7 +1051,6 @@ export const test_json_application_ajv_standard_UltimateUnion =
             },
           },
           required: ["enum", "type"],
-          "x-typia-jsDocTags": [],
         },
         IEnumerationnumberIIdentified: {
           $id: "#/components/schemas/IEnumerationnumberIIdentified",
@@ -1127,7 +1105,6 @@ export const test_json_application_ajv_standard_UltimateUnion =
             },
           },
           required: ["enum", "type"],
-          "x-typia-jsDocTags": [],
         },
         IEnumerationstringIIdentified: {
           $id: "#/components/schemas/IEnumerationstringIIdentified",
@@ -1182,7 +1159,6 @@ export const test_json_application_ajv_standard_UltimateUnion =
             },
           },
           required: ["enum", "type"],
-          "x-typia-jsDocTags": [],
         },
         IBooleanIIdentified: {
           $id: "#/components/schemas/IBooleanIIdentified",
@@ -1237,7 +1213,6 @@ export const test_json_application_ajv_standard_UltimateUnion =
             },
           },
           required: ["type"],
-          "x-typia-jsDocTags": [],
         },
         IIntegerIIdentified: {
           $id: "#/components/schemas/IIntegerIIdentified",
@@ -1307,7 +1282,6 @@ export const test_json_application_ajv_standard_UltimateUnion =
             },
           },
           required: ["type"],
-          "x-typia-jsDocTags": [],
         },
         INumberIIdentified: {
           $id: "#/components/schemas/INumberIIdentified",
@@ -1377,7 +1351,6 @@ export const test_json_application_ajv_standard_UltimateUnion =
             },
           },
           required: ["type"],
-          "x-typia-jsDocTags": [],
         },
         IStringIIdentified: {
           $id: "#/components/schemas/IStringIIdentified",
@@ -1444,7 +1417,6 @@ export const test_json_application_ajv_standard_UltimateUnion =
             },
           },
           required: ["type"],
-          "x-typia-jsDocTags": [],
         },
         IArrayIIdentified: {
           $id: "#/components/schemas/IArrayIIdentified",
@@ -1508,7 +1480,6 @@ export const test_json_application_ajv_standard_UltimateUnion =
             },
           },
           required: ["items", "type"],
-          "x-typia-jsDocTags": [],
         },
         ITupleIIdentified: {
           $id: "#/components/schemas/ITupleIIdentified",
@@ -1566,7 +1537,6 @@ export const test_json_application_ajv_standard_UltimateUnion =
             },
           },
           required: ["items", "minItems", "type"],
-          "x-typia-jsDocTags": [],
         },
         IObjectIIdentified: {
           $id: "#/components/schemas/IObjectIIdentified",
@@ -1719,7 +1689,6 @@ export const test_json_application_ajv_standard_UltimateUnion =
             },
           },
           required: ["properties", "type"],
-          "x-typia-jsDocTags": [],
         },
         IReferenceIIdentified: {
           $id: "#/components/schemas/IReferenceIIdentified",
@@ -1760,7 +1729,6 @@ export const test_json_application_ajv_standard_UltimateUnion =
             },
           },
           required: ["$ref"],
-          "x-typia-jsDocTags": [],
         },
         INullOnlyIIdentified: {
           $id: "#/components/schemas/INullOnlyIIdentified",
@@ -1802,7 +1770,6 @@ export const test_json_application_ajv_standard_UltimateUnion =
             },
           },
           required: ["type"],
-          "x-typia-jsDocTags": [],
         },
         IOneOfIIdentified: {
           $id: "#/components/schemas/IOneOfIIdentified",
@@ -1846,7 +1813,6 @@ export const test_json_application_ajv_standard_UltimateUnion =
             },
           },
           required: ["oneOf"],
-          "x-typia-jsDocTags": [],
         },
         IUnknownIIdentified: {
           $id: "#/components/schemas/IUnknownIIdentified",
@@ -1883,7 +1849,6 @@ export const test_json_application_ajv_standard_UltimateUnion =
               type: "boolean",
             },
           },
-          "x-typia-jsDocTags": [],
         },
       },
     },

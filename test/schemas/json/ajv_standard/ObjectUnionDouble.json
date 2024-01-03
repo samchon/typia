@@ -37,8 +37,7 @@
             },
             "required": [
               "x"
-            ],
-            "x-typia-jsDocTags": []
+            ]
           },
           "child": {
             "oneOf": [
@@ -54,8 +53,7 @@
         "required": [
           "value",
           "child"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "ObjectUnionDouble.IAB": {
         "$id": "#/components/schemas/ObjectUnionDouble.IAB",
@@ -70,14 +68,12 @@
             },
             "required": [
               "y"
-            ],
-            "x-typia-jsDocTags": []
+            ]
           }
         },
         "required": [
           "value"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "ObjectUnionDouble.IAA": {
         "$id": "#/components/schemas/ObjectUnionDouble.IAA",
@@ -92,14 +88,12 @@
             },
             "required": [
               "y"
-            ],
-            "x-typia-jsDocTags": []
+            ]
           }
         },
         "required": [
           "value"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "ObjectUnionDouble.IB": {
         "$id": "#/components/schemas/ObjectUnionDouble.IB",
@@ -114,8 +108,7 @@
             },
             "required": [
               "x"
-            ],
-            "x-typia-jsDocTags": []
+            ]
           },
           "child": {
             "oneOf": [
@@ -131,8 +124,7 @@
         "required": [
           "value",
           "child"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "ObjectUnionDouble.IBB": {
         "$id": "#/components/schemas/ObjectUnionDouble.IBB",
@@ -150,14 +142,12 @@
             },
             "required": [
               "y"
-            ],
-            "x-typia-jsDocTags": []
+            ]
           }
         },
         "required": [
           "value"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "ObjectUnionDouble.IBA": {
         "$id": "#/components/schemas/ObjectUnionDouble.IBA",
@@ -172,14 +162,12 @@
             },
             "required": [
               "y"
-            ],
-            "x-typia-jsDocTags": []
+            ]
           }
         },
         "required": [
           "value"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       }
     }
   },

@@ -34,8 +34,7 @@
           "description",
           "title",
           "complicate_title"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       }
     }
   },

@@ -19,8 +19,7 @@
         },
         "required": [
           "value"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "ArrayRecursiveUnionExplicitPointer.IBucket": {
         "$id": "#/components/schemas/ArrayRecursiveUnionExplicitPointer.IBucket",
@@ -48,8 +47,7 @@
         },
         "required": [
           "value"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "ArrayRecursiveUnionExplicitPointer.IDirectory": {
         "$id": "#/components/schemas/ArrayRecursiveUnionExplicitPointer.IDirectory",
@@ -83,8 +81,7 @@
           "path",
           "children",
           "type"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "ArrayRecursiveUnionExplicitPointer.IImageFile": {
         "$id": "#/components/schemas/ArrayRecursiveUnionExplicitPointer.IImageFile",
@@ -134,8 +131,7 @@
           "size",
           "type",
           "extension"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "ArrayRecursiveUnionExplicitPointer.ITextFile": {
         "$id": "#/components/schemas/ArrayRecursiveUnionExplicitPointer.ITextFile",
@@ -177,8 +173,7 @@
           "content",
           "type",
           "extension"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "ArrayRecursiveUnionExplicitPointer.IZipFile": {
         "$id": "#/components/schemas/ArrayRecursiveUnionExplicitPointer.IZipFile",
@@ -220,8 +215,7 @@
           "count",
           "type",
           "extension"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "ArrayRecursiveUnionExplicitPointer.IShortcut": {
         "$id": "#/components/schemas/ArrayRecursiveUnionExplicitPointer.IShortcut",
@@ -259,8 +253,7 @@
           "target",
           "type",
           "extension"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       }
     }
   },

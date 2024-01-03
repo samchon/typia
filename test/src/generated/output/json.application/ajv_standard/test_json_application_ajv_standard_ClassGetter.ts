@@ -38,7 +38,6 @@ export const test_json_application_ajv_standard_ClassGetter =
             },
           },
           required: ["id", "name", "dead"],
-          "x-typia-jsDocTags": [],
         },
       },
     },

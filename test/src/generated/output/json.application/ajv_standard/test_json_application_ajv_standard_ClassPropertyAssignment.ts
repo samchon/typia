@@ -39,7 +39,6 @@ export const test_json_application_ajv_standard_ClassPropertyAssignment =
             },
           },
           required: ["id", "name", "note", "editable", "incremental"],
-          "x-typia-jsDocTags": [],
         },
       },
     },

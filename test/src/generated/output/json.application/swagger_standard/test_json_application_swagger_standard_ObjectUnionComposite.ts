@@ -59,7 +59,6 @@ export const test_json_application_swagger_standard_ObjectUnionComposite =
           },
           nullable: false,
           required: ["x", "y"],
-          "x-typia-jsDocTags": [],
         },
         "ObjectUnionComposite.ILine": {
           type: "object",
@@ -73,7 +72,6 @@ export const test_json_application_swagger_standard_ObjectUnionComposite =
           },
           nullable: false,
           required: ["p1", "p2"],
-          "x-typia-jsDocTags": [],
         },
         "ObjectUnionComposite.ITriangle": {
           type: "object",
@@ -90,7 +88,6 @@ export const test_json_application_swagger_standard_ObjectUnionComposite =
           },
           nullable: false,
           required: ["p1", "p2", "p3"],
-          "x-typia-jsDocTags": [],
         },
         "ObjectUnionComposite.IRectangle": {
           type: "object",
@@ -110,7 +107,6 @@ export const test_json_application_swagger_standard_ObjectUnionComposite =
           },
           nullable: false,
           required: ["p1", "p2", "p3", "p4"],
-          "x-typia-jsDocTags": [],
         },
         "ObjectUnionComposite.IPolyline": {
           type: "object",
@@ -124,7 +120,6 @@ export const test_json_application_swagger_standard_ObjectUnionComposite =
           },
           nullable: false,
           required: ["points"],
-          "x-typia-jsDocTags": [],
         },
         "ObjectUnionComposite.IPointedShape": {
           type: "object",
@@ -141,7 +136,6 @@ export const test_json_application_swagger_standard_ObjectUnionComposite =
           },
           nullable: false,
           required: ["outer", "inner"],
-          "x-typia-jsDocTags": [],
         },
         "ObjectUnionComposite.IPolygon": {
           type: "object",
@@ -158,7 +152,6 @@ export const test_json_application_swagger_standard_ObjectUnionComposite =
           },
           nullable: false,
           required: ["outer", "inner"],
-          "x-typia-jsDocTags": [],
         },
         "ObjectUnionComposite.ICircle": {
           type: "object",
@@ -172,7 +165,6 @@ export const test_json_application_swagger_standard_ObjectUnionComposite =
           },
           nullable: false,
           required: ["centroid", "radius"],
-          "x-typia-jsDocTags": [],
         },
       },
     },

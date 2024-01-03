@@ -19,8 +19,7 @@
         "nullable": false,
         "required": [
           "value"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "TypeTagRange.Type": {
         "type": "object",
@@ -84,8 +83,7 @@
           "greater_less_equal",
           "greater_equal_less_equal",
           "equal"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       }
     }
   },

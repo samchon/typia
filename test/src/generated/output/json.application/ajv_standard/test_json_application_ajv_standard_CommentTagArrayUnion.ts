@@ -66,7 +66,6 @@ export const test_json_application_ajv_standard_CommentTagArrayUnion =
             },
           },
           required: ["items", "minItems", "maxItems", "both"],
-          "x-typia-jsDocTags": [],
         },
       },
     },

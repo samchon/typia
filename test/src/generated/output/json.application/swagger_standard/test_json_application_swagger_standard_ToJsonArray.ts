@@ -101,7 +101,6 @@ export const test_json_application_swagger_standard_ToJsonArray =
           },
           nullable: false,
           required: ["id"],
-          "x-typia-jsDocTags": [],
         },
       },
     },

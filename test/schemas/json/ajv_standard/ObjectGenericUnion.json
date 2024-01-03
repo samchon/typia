@@ -16,8 +16,7 @@
         },
         "required": [
           "value"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "ObjectGenericUnion.ISaleEntireArticle": {
         "$id": "#/components/schemas/ObjectGenericUnion.ISaleEntireArticle",
@@ -70,8 +69,7 @@
           "hit",
           "contents",
           "created_at"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "ObjectGenericUnion.ISaleAnswer": {
         "$id": "#/components/schemas/ObjectGenericUnion.ISaleAnswer",
@@ -98,8 +96,7 @@
           "hit",
           "contents",
           "created_at"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "ObjectGenericUnion.ISaleArticle.IContent": {
         "$id": "#/components/schemas/ObjectGenericUnion.ISaleArticle.IContent",
@@ -130,8 +127,7 @@
           "title",
           "body",
           "files"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "ObjectGenericUnion.IAttachmentFile": {
         "$id": "#/components/schemas/ObjectGenericUnion.IAttachmentFile",
@@ -158,8 +154,7 @@
           "name",
           "extension",
           "url"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "ObjectGenericUnion.ISaleReview": {
         "$id": "#/components/schemas/ObjectGenericUnion.ISaleReview",
@@ -201,8 +196,7 @@
           "hit",
           "contents",
           "created_at"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "ObjectGenericUnion.ISaleReview.IContent": {
         "$id": "#/components/schemas/ObjectGenericUnion.ISaleReview.IContent",
@@ -237,8 +231,7 @@
           "title",
           "body",
           "files"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       }
     }
   },

@@ -86,8 +86,7 @@
           "referrer",
           "ip",
           "created_at"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "ObjectHierarchical.IChannel": {
         "$id": "#/components/schemas/ObjectHierarchical.IChannel",
@@ -123,8 +122,7 @@
           "exclusive",
           "priority",
           "created_at"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "ObjectHierarchical.ITimestamp": {
         "$id": "#/components/schemas/ObjectHierarchical.ITimestamp",
@@ -140,8 +138,7 @@
         "required": [
           "time",
           "zone"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "ObjectHierarchical.IMember": {
         "$id": "#/components/schemas/ObjectHierarchical.IMember",
@@ -183,8 +180,7 @@
           "emails",
           "created_at",
           "authorized"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "ObjectHierarchical.IAccount": {
         "$id": "#/components/schemas/ObjectHierarchical.IAccount",
@@ -204,8 +200,7 @@
           "id",
           "code",
           "created_at"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "ObjectHierarchical.IEnterprise": {
         "$id": "#/components/schemas/ObjectHierarchical.IEnterprise",
@@ -233,8 +228,7 @@
           "name",
           "grade",
           "created_at"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       }
     }
   },

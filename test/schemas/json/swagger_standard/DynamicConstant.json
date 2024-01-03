@@ -31,15 +31,13 @@
               "b",
               "c",
               "d"
-            ],
-            "x-typia-jsDocTags": []
+            ]
           }
         },
         "nullable": false,
         "required": [
           "value"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       }
     }
   },

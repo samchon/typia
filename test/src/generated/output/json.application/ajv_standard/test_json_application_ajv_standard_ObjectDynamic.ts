@@ -20,7 +20,6 @@ export const test_json_application_ajv_standard_ObjectDynamic =
           $id: "#/components/schemas/ObjectDynamic",
           type: "object",
           properties: {},
-          "x-typia-jsDocTags": [],
           additionalProperties: {
             oneOf: [
               {

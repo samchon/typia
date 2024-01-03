@@ -102,7 +102,6 @@ export const test_json_application_swagger_standard_ObjectPropertyNullable =
           },
           nullable: false,
           required: ["value"],
-          "x-typia-jsDocTags": [],
         },
         "ObjectPropertyNullable.IPointernumber": {
           type: "object",
@@ -114,7 +113,6 @@ export const test_json_application_swagger_standard_ObjectPropertyNullable =
           },
           nullable: false,
           required: ["value"],
-          "x-typia-jsDocTags": [],
         },
         "ObjectPropertyNullable.IPointerstring": {
           type: "object",
@@ -126,7 +124,6 @@ export const test_json_application_swagger_standard_ObjectPropertyNullable =
           },
           nullable: false,
           required: ["value"],
-          "x-typia-jsDocTags": [],
         },
         "ObjectPropertyNullable.IPointerObjectPropertyNullable.IMember": {
           type: "object",
@@ -137,7 +134,6 @@ export const test_json_application_swagger_standard_ObjectPropertyNullable =
           },
           nullable: false,
           required: ["value"],
-          "x-typia-jsDocTags": [],
         },
         "ObjectPropertyNullable.IMember.Nullable": {
           type: "object",
@@ -163,7 +159,6 @@ export const test_json_application_swagger_standard_ObjectPropertyNullable =
           },
           nullable: true,
           required: ["id", "name", "activated"],
-          "x-typia-jsDocTags": [],
         },
       },
     },

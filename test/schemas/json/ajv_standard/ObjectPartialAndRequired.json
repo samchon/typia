@@ -39,8 +39,7 @@
         "required": [
           "object",
           "array"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       }
     }
   },

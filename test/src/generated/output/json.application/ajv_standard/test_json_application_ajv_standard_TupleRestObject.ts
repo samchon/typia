@@ -67,7 +67,6 @@ export const test_json_application_ajv_standard_TupleRestObject =
             },
           },
           required: ["value"],
-          "x-typia-jsDocTags": [],
         },
       },
     },

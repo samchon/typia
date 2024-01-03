@@ -110,7 +110,6 @@ export const test_json_application_swagger_standard_TypeTagTuple =
           },
           nullable: false,
           required: ["tuple"],
-          "x-typia-jsDocTags": [],
         },
       },
     },

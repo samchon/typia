@@ -60,8 +60,7 @@
         },
         "required": [
           "id"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       }
     }
   },

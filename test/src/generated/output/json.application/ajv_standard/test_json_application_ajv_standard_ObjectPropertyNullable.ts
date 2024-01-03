@@ -76,7 +76,6 @@ export const test_json_application_ajv_standard_ObjectPropertyNullable =
             },
           },
           required: ["value"],
-          "x-typia-jsDocTags": [],
         },
         "ObjectPropertyNullable.IPointernumber": {
           $id: "#/components/schemas/ObjectPropertyNullable.IPointernumber",
@@ -94,7 +93,6 @@ export const test_json_application_ajv_standard_ObjectPropertyNullable =
             },
           },
           required: ["value"],
-          "x-typia-jsDocTags": [],
         },
         "ObjectPropertyNullable.IPointerstring": {
           $id: "#/components/schemas/ObjectPropertyNullable.IPointerstring",
@@ -112,7 +110,6 @@ export const test_json_application_ajv_standard_ObjectPropertyNullable =
             },
           },
           required: ["value"],
-          "x-typia-jsDocTags": [],
         },
         "ObjectPropertyNullable.IPointerObjectPropertyNullable.IMember": {
           $id: "#/components/schemas/ObjectPropertyNullable.IPointerObjectPropertyNullable.IMember",
@@ -130,7 +127,6 @@ export const test_json_application_ajv_standard_ObjectPropertyNullable =
             },
           },
           required: ["value"],
-          "x-typia-jsDocTags": [],
         },
         "ObjectPropertyNullable.IMember": {
           $id: "#/components/schemas/ObjectPropertyNullable.IMember",
@@ -174,7 +170,6 @@ export const test_json_application_ajv_standard_ObjectPropertyNullable =
             },
           },
           required: ["id", "name", "activated"],
-          "x-typia-jsDocTags": [],
         },
       },
     },

@@ -19,8 +19,7 @@
         },
         "required": [
           "value"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "CommentTagArray.Type": {
         "$id": "#/components/schemas/CommentTagArray.Type",
@@ -63,8 +62,7 @@
           "minItems",
           "both",
           "equal"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       }
     }
   },

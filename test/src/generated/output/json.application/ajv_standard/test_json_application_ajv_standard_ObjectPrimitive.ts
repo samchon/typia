@@ -55,7 +55,6 @@ export const test_json_application_ajv_standard_ObjectPrimitive =
             "secret",
             "created_at",
           ],
-          "x-typia-jsDocTags": [],
         },
         "ObjectPrimitive.IFile": {
           $id: "#/components/schemas/ObjectPrimitive.IFile",
@@ -78,7 +77,6 @@ export const test_json_application_ajv_standard_ObjectPrimitive =
             },
           },
           required: ["id", "name", "extension", "url", "created_at"],
-          "x-typia-jsDocTags": [],
         },
       },
     },

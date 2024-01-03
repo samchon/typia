@@ -19,8 +19,7 @@
         },
         "required": [
           "value"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "CommentTagType.Type": {
         "$id": "#/components/schemas/CommentTagType.Type",
@@ -58,8 +57,7 @@
           "int64",
           "uint64",
           "float"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       }
     }
   },

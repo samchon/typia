@@ -60,7 +60,6 @@ export const test_json_application_swagger_standard_ObjectUnionExplicit =
           },
           nullable: false,
           required: ["x", "y", "type"],
-          "x-typia-jsDocTags": [],
         },
         "ObjectUnionExplicit.DiscriminatorlineObjectUnionExplicit.ILine": {
           type: "object",
@@ -78,7 +77,6 @@ export const test_json_application_swagger_standard_ObjectUnionExplicit =
           },
           nullable: false,
           required: ["p1", "p2", "type"],
-          "x-typia-jsDocTags": [],
         },
         "ObjectUnionExplicit.IPoint": {
           type: "object",
@@ -92,7 +90,6 @@ export const test_json_application_swagger_standard_ObjectUnionExplicit =
           },
           nullable: false,
           required: ["x", "y"],
-          "x-typia-jsDocTags": [],
         },
         "ObjectUnionExplicit.DiscriminatortriangleObjectUnionExplicit.ITriangle":
           {
@@ -114,7 +111,6 @@ export const test_json_application_swagger_standard_ObjectUnionExplicit =
             },
             nullable: false,
             required: ["p1", "p2", "p3", "type"],
-            "x-typia-jsDocTags": [],
           },
         "ObjectUnionExplicit.DiscriminatorrectangleObjectUnionExplicit.IRectangle":
           {
@@ -139,7 +135,6 @@ export const test_json_application_swagger_standard_ObjectUnionExplicit =
             },
             nullable: false,
             required: ["p1", "p2", "p3", "p4", "type"],
-            "x-typia-jsDocTags": [],
           },
         "ObjectUnionExplicit.DiscriminatorpolylineObjectUnionExplicit.IPolyline":
           {
@@ -158,7 +153,6 @@ export const test_json_application_swagger_standard_ObjectUnionExplicit =
             },
             nullable: false,
             required: ["points", "type"],
-            "x-typia-jsDocTags": [],
           },
         "ObjectUnionExplicit.DiscriminatorpolygonObjectUnionExplicit.IPolygon":
           {
@@ -180,7 +174,6 @@ export const test_json_application_swagger_standard_ObjectUnionExplicit =
             },
             nullable: false,
             required: ["outer", "inner", "type"],
-            "x-typia-jsDocTags": [],
           },
         "ObjectUnionExplicit.IPolyline": {
           type: "object",
@@ -194,7 +187,6 @@ export const test_json_application_swagger_standard_ObjectUnionExplicit =
           },
           nullable: false,
           required: ["points"],
-          "x-typia-jsDocTags": [],
         },
         "ObjectUnionExplicit.DiscriminatorcircleObjectUnionExplicit.ICircle": {
           type: "object",
@@ -212,7 +204,6 @@ export const test_json_application_swagger_standard_ObjectUnionExplicit =
           },
           nullable: false,
           required: ["centroid", "radius", "type"],
-          "x-typia-jsDocTags": [],
         },
       },
     },

@@ -28,7 +28,6 @@ export const test_json_application_ajv_standard_TemplateConstant =
             },
           },
           required: ["value"],
-          "x-typia-jsDocTags": [],
         },
         "TemplateConstant.Type": {
           $id: "#/components/schemas/TemplateConstant.Type",
@@ -58,7 +57,6 @@ export const test_json_application_ajv_standard_TemplateConstant =
             },
           },
           required: ["prefix", "postfix", "combined"],
-          "x-typia-jsDocTags": [],
         },
       },
     },

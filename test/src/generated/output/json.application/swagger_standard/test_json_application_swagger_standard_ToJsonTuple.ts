@@ -83,7 +83,6 @@ export const test_json_application_swagger_standard_ToJsonTuple =
           },
           nullable: false,
           required: ["code", "name"],
-          "x-typia-jsDocTags": [],
         },
       },
     },

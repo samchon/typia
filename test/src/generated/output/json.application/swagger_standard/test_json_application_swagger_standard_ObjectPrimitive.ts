@@ -55,7 +55,6 @@ export const test_json_application_swagger_standard_ObjectPrimitive =
             "secret",
             "created_at",
           ],
-          "x-typia-jsDocTags": [],
         },
         "ObjectPrimitive.IFile": {
           type: "object",
@@ -78,7 +77,6 @@ export const test_json_application_swagger_standard_ObjectPrimitive =
           },
           nullable: false,
           required: ["id", "name", "extension", "url", "created_at"],
-          "x-typia-jsDocTags": [],
         },
       },
     },

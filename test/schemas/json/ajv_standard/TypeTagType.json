@@ -19,8 +19,7 @@
         },
         "required": [
           "value"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "TypeTagType.Type": {
         "$id": "#/components/schemas/TypeTagType.Type",
@@ -56,8 +55,7 @@
           "int64",
           "uint64",
           "float"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       }
     }
   },

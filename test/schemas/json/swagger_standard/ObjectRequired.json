@@ -36,8 +36,7 @@
           "array",
           "object"
         ],
-        "description": "Make all properties in T required",
-        "x-typia-jsDocTags": []
+        "description": "Make all properties in T required"
       },
       "ObjectRequired.IBase.Nullable": {
         "type": "object",
@@ -61,8 +60,7 @@
             "$ref": "#/components/schemas/ObjectRequired.IBase.Nullable"
           }
         },
-        "nullable": true,
-        "x-typia-jsDocTags": []
+        "nullable": true
       }
     }
   },

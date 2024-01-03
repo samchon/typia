@@ -41,8 +41,7 @@
           "components",
           "purpose",
           "surplus"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "IJsonSchema": {
         "oneOf": [
@@ -141,8 +140,7 @@
         "required": [
           "enum",
           "type"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "IJsDocTagInfo": {
         "type": "object",
@@ -160,8 +158,7 @@
         "nullable": false,
         "required": [
           "name"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "IJsDocTagInfo.IText": {
         "type": "object",
@@ -177,8 +174,7 @@
         "required": [
           "text",
           "kind"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "IJsonSchema.IEnumerationnumber": {
         "type": "object",
@@ -231,8 +227,7 @@
         "required": [
           "enum",
           "type"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "IJsonSchema.IEnumerationstring": {
         "type": "object",
@@ -285,8 +280,7 @@
         "required": [
           "enum",
           "type"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "IJsonSchema.IBoolean": {
         "type": "object",
@@ -338,8 +332,7 @@
         "nullable": false,
         "required": [
           "type"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "IMetadataTypeTag": {
         "type": "object",
@@ -384,8 +377,7 @@
           "name",
           "kind",
           "exclusive"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "IJsonSchema.IInteger": {
         "type": "object",
@@ -452,8 +444,7 @@
         "nullable": false,
         "required": [
           "type"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "IJsonSchema.INumber": {
         "type": "object",
@@ -520,8 +511,7 @@
         "nullable": false,
         "required": [
           "type"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "IJsonSchema.IString": {
         "type": "object",
@@ -585,8 +575,7 @@
         "nullable": false,
         "required": [
           "type"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "IJsonSchema.IArray": {
         "type": "object",
@@ -648,8 +637,7 @@
         "required": [
           "items",
           "type"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "IJsonSchema.ITuple": {
         "type": "object",
@@ -706,8 +694,7 @@
           "items",
           "minItems",
           "type"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "IJsonSchema.IObject": {
         "type": "object",
@@ -858,15 +845,13 @@
         "required": [
           "properties",
           "type"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "RecordstringIJsonSchema": {
         "type": "object",
         "properties": {},
         "nullable": false,
-        "description": "Construct a type with a set of properties K of type T",
-        "x-typia-jsDocTags": []
+        "description": "Construct a type with a set of properties K of type T"
       },
       "IJsonSchema.IReference": {
         "type": "object",
@@ -902,8 +887,7 @@
         "nullable": false,
         "required": [
           "$ref"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "IJsonSchema.INullOnly": {
         "type": "object",
@@ -942,8 +926,7 @@
         "nullable": false,
         "required": [
           "type"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "IJsonSchema.IOneOf": {
         "type": "object",
@@ -982,8 +965,7 @@
         "nullable": false,
         "required": [
           "oneOf"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "IJsonSchema.IUnknown": {
         "type": "object",
@@ -1013,8 +995,7 @@
             "type": "boolean"
           }
         },
-        "nullable": false,
-        "x-typia-jsDocTags": []
+        "nullable": false
       },
       "IJsonComponents": {
         "type": "object",
@@ -1023,15 +1004,13 @@
             "$ref": "#/components/schemas/RecordstringIJsonComponents.IAlias"
           }
         },
-        "nullable": false,
-        "x-typia-jsDocTags": []
+        "nullable": false
       },
       "RecordstringIJsonComponents.IAlias": {
         "type": "object",
         "properties": {},
         "nullable": false,
-        "description": "Construct a type with a set of properties K of type T",
-        "x-typia-jsDocTags": []
+        "description": "Construct a type with a set of properties K of type T"
       },
       "IJsonComponents.IAlias": {
         "oneOf": [
@@ -1136,8 +1115,7 @@
         "required": [
           "enum",
           "type"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "IEnumerationnumberIIdentified": {
         "type": "object",
@@ -1196,8 +1174,7 @@
         "required": [
           "enum",
           "type"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "IEnumerationstringIIdentified": {
         "type": "object",
@@ -1256,8 +1233,7 @@
         "required": [
           "enum",
           "type"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "IBooleanIIdentified": {
         "type": "object",
@@ -1315,8 +1291,7 @@
         "nullable": false,
         "required": [
           "type"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "IIntegerIIdentified": {
         "type": "object",
@@ -1389,8 +1364,7 @@
         "nullable": false,
         "required": [
           "type"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "INumberIIdentified": {
         "type": "object",
@@ -1463,8 +1437,7 @@
         "nullable": false,
         "required": [
           "type"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "IStringIIdentified": {
         "type": "object",
@@ -1534,8 +1507,7 @@
         "nullable": false,
         "required": [
           "type"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "IArrayIIdentified": {
         "type": "object",
@@ -1603,8 +1575,7 @@
         "required": [
           "items",
           "type"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "ITupleIIdentified": {
         "type": "object",
@@ -1667,8 +1638,7 @@
           "items",
           "minItems",
           "type"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "IObjectIIdentified": {
         "type": "object",
@@ -1825,8 +1795,7 @@
         "required": [
           "properties",
           "type"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "IReferenceIIdentified": {
         "type": "object",
@@ -1868,8 +1837,7 @@
         "nullable": false,
         "required": [
           "$ref"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "INullOnlyIIdentified": {
         "type": "object",
@@ -1914,8 +1882,7 @@
         "nullable": false,
         "required": [
           "type"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "IOneOfIIdentified": {
         "type": "object",
@@ -1960,8 +1927,7 @@
         "nullable": false,
         "required": [
           "oneOf"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "IUnknownIIdentified": {
         "type": "object",
@@ -1997,8 +1963,7 @@
             "type": "boolean"
           }
         },
-        "nullable": false,
-        "x-typia-jsDocTags": []
+        "nullable": false
       }
     }
   },

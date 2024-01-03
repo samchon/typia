@@ -34,8 +34,7 @@
           "name",
           "email",
           "hobbies"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "ArraySimple.IHobby": {
         "$id": "#/components/schemas/ArraySimple.IHobby",
@@ -55,8 +54,7 @@
           "name",
           "body",
           "rank"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       }
     }
   },

@@ -31,7 +31,6 @@ export const test_json_application_ajv_standard_ObjectLiteralProperty =
             "something-interesting-do-you-want?",
             "or-something-crazy-do-you-want?",
           ],
-          "x-typia-jsDocTags": [],
         },
       },
     },

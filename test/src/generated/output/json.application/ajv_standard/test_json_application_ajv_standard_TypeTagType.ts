@@ -28,7 +28,6 @@ export const test_json_application_ajv_standard_TypeTagType =
             },
           },
           required: ["value"],
-          "x-typia-jsDocTags": [],
         },
         "TypeTagType.Type": {
           $id: "#/components/schemas/TypeTagType.Type",
@@ -65,7 +64,6 @@ export const test_json_application_ajv_standard_TypeTagType =
             "uint64",
             "float",
           ],
-          "x-typia-jsDocTags": [],
         },
       },
     },

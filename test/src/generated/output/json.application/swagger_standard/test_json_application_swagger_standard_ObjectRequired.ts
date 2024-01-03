@@ -41,7 +41,6 @@ export const test_json_application_swagger_standard_ObjectRequired =
           nullable: false,
           required: ["boolean", "number", "string", "array", "object"],
           description: "Make all properties in T required",
-          "x-typia-jsDocTags": [],
         },
         "ObjectRequired.IBase.Nullable": {
           type: "object",
@@ -66,7 +65,6 @@ export const test_json_application_swagger_standard_ObjectRequired =
             },
           },
           nullable: true,
-          "x-typia-jsDocTags": [],
         },
       },
     },

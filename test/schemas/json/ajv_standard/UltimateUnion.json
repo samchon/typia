@@ -42,8 +42,7 @@
           "components",
           "purpose",
           "surplus"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "IJsonSchema": {
         "$id": "#/components/schemas/IJsonSchema",
@@ -143,8 +142,7 @@
         "required": [
           "enum",
           "type"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "IJsDocTagInfo": {
         "$id": "#/components/schemas/IJsDocTagInfo",
@@ -162,8 +160,7 @@
         },
         "required": [
           "name"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "IJsDocTagInfo.IText": {
         "$id": "#/components/schemas/IJsDocTagInfo.IText",
@@ -179,8 +176,7 @@
         "required": [
           "text",
           "kind"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "IJsonSchema.IEnumerationnumber": {
         "$id": "#/components/schemas/IJsonSchema.IEnumerationnumber",
@@ -233,8 +229,7 @@
         "required": [
           "enum",
           "type"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "IJsonSchema.IEnumerationstring": {
         "$id": "#/components/schemas/IJsonSchema.IEnumerationstring",
@@ -287,8 +282,7 @@
         "required": [
           "enum",
           "type"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "IJsonSchema.IBoolean": {
         "$id": "#/components/schemas/IJsonSchema.IBoolean",
@@ -340,8 +334,7 @@
         },
         "required": [
           "type"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "IMetadataTypeTag": {
         "$id": "#/components/schemas/IMetadataTypeTag",
@@ -386,8 +379,7 @@
           "name",
           "kind",
           "exclusive"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "IJsonSchema.IInteger": {
         "$id": "#/components/schemas/IJsonSchema.IInteger",
@@ -454,8 +446,7 @@
         },
         "required": [
           "type"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "IJsonSchema.INumber": {
         "$id": "#/components/schemas/IJsonSchema.INumber",
@@ -522,8 +513,7 @@
         },
         "required": [
           "type"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "IJsonSchema.IString": {
         "$id": "#/components/schemas/IJsonSchema.IString",
@@ -587,8 +577,7 @@
         },
         "required": [
           "type"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "IJsonSchema.IArray": {
         "$id": "#/components/schemas/IJsonSchema.IArray",
@@ -650,8 +639,7 @@
         "required": [
           "items",
           "type"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "IJsonSchema.ITuple": {
         "$id": "#/components/schemas/IJsonSchema.ITuple",
@@ -708,8 +696,7 @@
           "items",
           "minItems",
           "type"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "IJsonSchema.IObject": {
         "$id": "#/components/schemas/IJsonSchema.IObject",
@@ -860,15 +847,13 @@
         "required": [
           "properties",
           "type"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "RecordstringIJsonSchema": {
         "$id": "#/components/schemas/RecordstringIJsonSchema",
         "type": "object",
         "properties": {},
         "description": "Construct a type with a set of properties K of type T",
-        "x-typia-jsDocTags": [],
         "additionalProperties": {
           "$ref": "#/components/schemas/IJsonSchema"
         }
@@ -907,8 +892,7 @@
         },
         "required": [
           "$ref"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "IJsonSchema.INullOnly": {
         "$id": "#/components/schemas/IJsonSchema.INullOnly",
@@ -947,8 +931,7 @@
         },
         "required": [
           "type"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "IJsonSchema.IOneOf": {
         "$id": "#/components/schemas/IJsonSchema.IOneOf",
@@ -987,8 +970,7 @@
         },
         "required": [
           "oneOf"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "IJsonSchema.IUnknown": {
         "$id": "#/components/schemas/IJsonSchema.IUnknown",
@@ -1018,8 +1000,7 @@
           "x-typia-rest": {
             "type": "boolean"
           }
-        },
-        "x-typia-jsDocTags": []
+        }
       },
       "IJsonComponents": {
         "$id": "#/components/schemas/IJsonComponents",
@@ -1028,15 +1009,13 @@
           "schemas": {
             "$ref": "#/components/schemas/RecordstringIJsonComponents.IAlias"
           }
-        },
-        "x-typia-jsDocTags": []
+        }
       },
       "RecordstringIJsonComponents.IAlias": {
         "$id": "#/components/schemas/RecordstringIJsonComponents.IAlias",
         "type": "object",
         "properties": {},
         "description": "Construct a type with a set of properties K of type T",
-        "x-typia-jsDocTags": [],
         "additionalProperties": {
           "$ref": "#/components/schemas/IJsonComponents.IAlias"
         }
@@ -1145,8 +1124,7 @@
         "required": [
           "enum",
           "type"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "IEnumerationnumberIIdentified": {
         "$id": "#/components/schemas/IEnumerationnumberIIdentified",
@@ -1205,8 +1183,7 @@
         "required": [
           "enum",
           "type"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "IEnumerationstringIIdentified": {
         "$id": "#/components/schemas/IEnumerationstringIIdentified",
@@ -1265,8 +1242,7 @@
         "required": [
           "enum",
           "type"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "IBooleanIIdentified": {
         "$id": "#/components/schemas/IBooleanIIdentified",
@@ -1324,8 +1300,7 @@
         },
         "required": [
           "type"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "IIntegerIIdentified": {
         "$id": "#/components/schemas/IIntegerIIdentified",
@@ -1398,8 +1373,7 @@
         },
         "required": [
           "type"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "INumberIIdentified": {
         "$id": "#/components/schemas/INumberIIdentified",
@@ -1472,8 +1446,7 @@
         },
         "required": [
           "type"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "IStringIIdentified": {
         "$id": "#/components/schemas/IStringIIdentified",
@@ -1543,8 +1516,7 @@
         },
         "required": [
           "type"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "IArrayIIdentified": {
         "$id": "#/components/schemas/IArrayIIdentified",
@@ -1612,8 +1584,7 @@
         "required": [
           "items",
           "type"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "ITupleIIdentified": {
         "$id": "#/components/schemas/ITupleIIdentified",
@@ -1676,8 +1647,7 @@
           "items",
           "minItems",
           "type"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "IObjectIIdentified": {
         "$id": "#/components/schemas/IObjectIIdentified",
@@ -1834,8 +1804,7 @@
         "required": [
           "properties",
           "type"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "IReferenceIIdentified": {
         "$id": "#/components/schemas/IReferenceIIdentified",
@@ -1877,8 +1846,7 @@
         },
         "required": [
           "$ref"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "INullOnlyIIdentified": {
         "$id": "#/components/schemas/INullOnlyIIdentified",
@@ -1923,8 +1891,7 @@
         },
         "required": [
           "type"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "IOneOfIIdentified": {
         "$id": "#/components/schemas/IOneOfIIdentified",
@@ -1969,8 +1936,7 @@
         },
         "required": [
           "oneOf"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "IUnknownIIdentified": {
         "$id": "#/components/schemas/IUnknownIIdentified",
@@ -2006,8 +1972,7 @@
           "$recursiveAnchor": {
             "type": "boolean"
           }
-        },
-        "x-typia-jsDocTags": []
+        }
       }
     }
   },

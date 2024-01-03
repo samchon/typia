@@ -107,7 +107,6 @@ export const test_json_application_ajv_standard_ArrayRepeatedUnionWithTuple =
             },
           },
           required: ["scale", "position", "rotate", "pivot"],
-          "x-typia-jsDocTags": [],
         },
         "ArrayRepeatedUnionWithTuple.IPoint3D": {
           $id: "#/components/schemas/ArrayRepeatedUnionWithTuple.IPoint3D",
@@ -124,7 +123,6 @@ export const test_json_application_ajv_standard_ArrayRepeatedUnionWithTuple =
             },
           },
           required: ["x", "y", "z"],
-          "x-typia-jsDocTags": [],
         },
       },
     },

@@ -51,7 +51,6 @@ export const test_json_application_ajv_standard_ObjectTuple =
             },
           },
           required: ["id", "code", "name"],
-          "x-typia-jsDocTags": [],
         },
         "ObjectTuple.ICitizen": {
           $id: "#/components/schemas/ObjectTuple.ICitizen",
@@ -68,7 +67,6 @@ export const test_json_application_ajv_standard_ObjectTuple =
             },
           },
           required: ["id", "mobile", "name"],
-          "x-typia-jsDocTags": [],
         },
       },
     },

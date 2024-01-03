@@ -28,7 +28,6 @@ export const test_json_application_ajv_standard_CommentTagArray =
             },
           },
           required: ["value"],
-          "x-typia-jsDocTags": [],
         },
         "CommentTagArray.Type": {
           $id: "#/components/schemas/CommentTagArray.Type",
@@ -67,7 +66,6 @@ export const test_json_application_ajv_standard_CommentTagArray =
             },
           },
           required: ["items", "minItems", "both", "equal"],
-          "x-typia-jsDocTags": [],
         },
       },
     },

@@ -38,8 +38,7 @@
           "note",
           "editable",
           "incremental"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       }
     }
   },

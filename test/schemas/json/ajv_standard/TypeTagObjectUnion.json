@@ -35,8 +35,7 @@
         },
         "required": [
           "value"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "TypeTagObjectUnion.Literal": {
         "$id": "#/components/schemas/TypeTagObjectUnion.Literal",
@@ -50,8 +49,7 @@
         },
         "required": [
           "value"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       }
     }
   },

@@ -60,7 +60,6 @@ export const test_json_application_ajv_standard_ObjectUnionComposite =
             },
           },
           required: ["x", "y"],
-          "x-typia-jsDocTags": [],
         },
         "ObjectUnionComposite.ILine": {
           $id: "#/components/schemas/ObjectUnionComposite.ILine",
@@ -74,7 +73,6 @@ export const test_json_application_ajv_standard_ObjectUnionComposite =
             },
           },
           required: ["p1", "p2"],
-          "x-typia-jsDocTags": [],
         },
         "ObjectUnionComposite.ITriangle": {
           $id: "#/components/schemas/ObjectUnionComposite.ITriangle",
@@ -91,7 +89,6 @@ export const test_json_application_ajv_standard_ObjectUnionComposite =
             },
           },
           required: ["p1", "p2", "p3"],
-          "x-typia-jsDocTags": [],
         },
         "ObjectUnionComposite.IRectangle": {
           $id: "#/components/schemas/ObjectUnionComposite.IRectangle",
@@ -111,7 +108,6 @@ export const test_json_application_ajv_standard_ObjectUnionComposite =
             },
           },
           required: ["p1", "p2", "p3", "p4"],
-          "x-typia-jsDocTags": [],
         },
         "ObjectUnionComposite.IPolyline": {
           $id: "#/components/schemas/ObjectUnionComposite.IPolyline",
@@ -125,7 +121,6 @@ export const test_json_application_ajv_standard_ObjectUnionComposite =
             },
           },
           required: ["points"],
-          "x-typia-jsDocTags": [],
         },
         "ObjectUnionComposite.IPointedShape": {
           $id: "#/components/schemas/ObjectUnionComposite.IPointedShape",
@@ -142,7 +137,6 @@ export const test_json_application_ajv_standard_ObjectUnionComposite =
             },
           },
           required: ["outer", "inner"],
-          "x-typia-jsDocTags": [],
         },
         "ObjectUnionComposite.IPolygon": {
           $id: "#/components/schemas/ObjectUnionComposite.IPolygon",
@@ -159,7 +153,6 @@ export const test_json_application_ajv_standard_ObjectUnionComposite =
             },
           },
           required: ["outer", "inner"],
-          "x-typia-jsDocTags": [],
         },
         "ObjectUnionComposite.ICircle": {
           $id: "#/components/schemas/ObjectUnionComposite.ICircle",
@@ -173,7 +166,6 @@ export const test_json_application_ajv_standard_ObjectUnionComposite =
             },
           },
           required: ["centroid", "radius"],
-          "x-typia-jsDocTags": [],
         },
       },
     },

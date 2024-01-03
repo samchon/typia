@@ -31,7 +31,6 @@ export const test_json_application_ajv_standard_ObjectGenericArray =
             },
           },
           required: ["pagination", "data"],
-          "x-typia-jsDocTags": [],
         },
         "ObjectGenericArray.IPagination": {
           $id: "#/components/schemas/ObjectGenericArray.IPagination",
@@ -51,7 +50,6 @@ export const test_json_application_ajv_standard_ObjectGenericArray =
             },
           },
           required: ["page", "limit", "total_count", "total_pages"],
-          "x-typia-jsDocTags": [],
         },
         "ObjectGenericArray.IPerson": {
           $id: "#/components/schemas/ObjectGenericArray.IPerson",
@@ -65,7 +63,6 @@ export const test_json_application_ajv_standard_ObjectGenericArray =
             },
           },
           required: ["name", "age"],
-          "x-typia-jsDocTags": [],
         },
       },
     },

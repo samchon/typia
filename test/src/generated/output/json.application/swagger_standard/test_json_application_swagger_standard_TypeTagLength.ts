@@ -28,7 +28,6 @@ export const test_json_application_swagger_standard_TypeTagLength =
           },
           nullable: false,
           required: ["value"],
-          "x-typia-jsDocTags": [],
         },
         "TypeTagLength.Type": {
           type: "object",
@@ -65,7 +64,6 @@ export const test_json_application_swagger_standard_TypeTagLength =
             "minimum_and_maximum",
             "equal",
           ],
-          "x-typia-jsDocTags": [],
         },
       },
     },

@@ -9,8 +9,7 @@
       "DynamicNever": {
         "$id": "#/components/schemas/DynamicNever",
         "type": "object",
-        "properties": {},
-        "x-typia-jsDocTags": []
+        "properties": {}
       }
     }
   },

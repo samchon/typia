@@ -68,7 +68,6 @@ export const test_json_application_swagger_standard_ConstantAtomicWrapper =
           },
           nullable: false,
           required: ["value"],
-          "x-typia-jsDocTags": [],
         },
         "ConstantAtomicWrapper.IPointernumber": {
           type: "object",
@@ -79,7 +78,6 @@ export const test_json_application_swagger_standard_ConstantAtomicWrapper =
           },
           nullable: false,
           required: ["value"],
-          "x-typia-jsDocTags": [],
         },
         "ConstantAtomicWrapper.IPointerstring": {
           type: "object",
@@ -90,7 +88,6 @@ export const test_json_application_swagger_standard_ConstantAtomicWrapper =
           },
           nullable: false,
           required: ["value"],
-          "x-typia-jsDocTags": [],
         },
       },
     },

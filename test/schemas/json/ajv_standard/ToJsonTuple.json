@@ -56,8 +56,7 @@
         "required": [
           "code",
           "name"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       }
     }
   },

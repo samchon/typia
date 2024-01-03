@@ -28,7 +28,6 @@ export const test_json_application_ajv_standard_ObjectNullable =
             },
           },
           required: ["value"],
-          "x-typia-jsDocTags": [],
         },
         "ObjectNullable.IProduct": {
           $id: "#/components/schemas/ObjectNullable.IProduct",
@@ -65,7 +64,6 @@ export const test_json_application_ajv_standard_ObjectNullable =
             },
           },
           required: ["name", "manufacturer", "brand", "similar"],
-          "x-typia-jsDocTags": [],
         },
         "ObjectNullable.IManufacturer": {
           $id: "#/components/schemas/ObjectNullable.IManufacturer",
@@ -80,7 +78,6 @@ export const test_json_application_ajv_standard_ObjectNullable =
             },
           },
           required: ["type", "name"],
-          "x-typia-jsDocTags": [],
         },
         "ObjectNullable.IBrand": {
           $id: "#/components/schemas/ObjectNullable.IBrand",
@@ -95,7 +92,6 @@ export const test_json_application_ajv_standard_ObjectNullable =
             },
           },
           required: ["type", "name"],
-          "x-typia-jsDocTags": [],
         },
       },
     },

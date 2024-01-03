@@ -58,8 +58,7 @@
           "id",
           "code",
           "name"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "ObjectTuple.ICitizen": {
         "type": "object",
@@ -79,8 +78,7 @@
           "id",
           "mobile",
           "name"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       }
     }
   },

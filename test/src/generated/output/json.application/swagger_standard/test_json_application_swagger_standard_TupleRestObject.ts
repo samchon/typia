@@ -66,7 +66,6 @@ export const test_json_application_swagger_standard_TupleRestObject =
           },
           nullable: false,
           required: ["value"],
-          "x-typia-jsDocTags": [],
         },
       },
     },

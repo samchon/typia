@@ -66,7 +66,6 @@ export const test_json_application_swagger_standard_ArrayRecursiveUnionExplicit 
           },
           nullable: false,
           required: ["id", "name", "path", "children", "type"],
-          "x-typia-jsDocTags": [],
         },
         "ArrayRecursiveUnionExplicit.IImageFile": {
           type: "object",
@@ -113,7 +112,6 @@ export const test_json_application_swagger_standard_ArrayRecursiveUnionExplicit 
             "type",
             "extension",
           ],
-          "x-typia-jsDocTags": [],
         },
         "ArrayRecursiveUnionExplicit.ITextFile": {
           type: "object",
@@ -152,7 +150,6 @@ export const test_json_application_swagger_standard_ArrayRecursiveUnionExplicit 
             "type",
             "extension",
           ],
-          "x-typia-jsDocTags": [],
         },
         "ArrayRecursiveUnionExplicit.IZipFile": {
           type: "object",
@@ -191,7 +188,6 @@ export const test_json_application_swagger_standard_ArrayRecursiveUnionExplicit 
             "type",
             "extension",
           ],
-          "x-typia-jsDocTags": [],
         },
         "ArrayRecursiveUnionExplicit.IShortcut": {
           type: "object",
@@ -219,7 +215,6 @@ export const test_json_application_swagger_standard_ArrayRecursiveUnionExplicit 
           },
           nullable: false,
           required: ["id", "name", "path", "target", "type", "extension"],
-          "x-typia-jsDocTags": [],
         },
       },
     },

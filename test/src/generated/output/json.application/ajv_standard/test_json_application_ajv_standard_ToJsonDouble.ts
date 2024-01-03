@@ -28,7 +28,6 @@ export const test_json_application_ajv_standard_ToJsonDouble =
             },
           },
           required: ["id", "flag"],
-          "x-typia-jsDocTags": [],
         },
       },
     },

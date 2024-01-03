@@ -36,7 +36,6 @@ export const test_json_application_ajv_standard_TypeTagMatrix =
             },
           },
           required: ["matrix"],
-          "x-typia-jsDocTags": [],
         },
       },
     },

@@ -9,8 +9,7 @@
       "DynamicUndefined": {
         "$id": "#/components/schemas/DynamicUndefined",
         "type": "object",
-        "properties": {},
-        "x-typia-jsDocTags": []
+        "properties": {}
       }
     }
   },

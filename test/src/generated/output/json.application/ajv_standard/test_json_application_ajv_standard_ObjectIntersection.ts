@@ -31,7 +31,6 @@ export const test_json_application_ajv_standard_ObjectIntersection =
             },
           },
           required: ["email", "name", "vulnerable"],
-          "x-typia-jsDocTags": [],
         },
       },
     },

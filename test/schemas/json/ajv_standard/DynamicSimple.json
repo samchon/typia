@@ -13,7 +13,6 @@
           "value": {
             "type": "object",
             "properties": {},
-            "x-typia-jsDocTags": [],
             "additionalProperties": {
               "type": "number"
             }
@@ -21,8 +20,7 @@
         },
         "required": [
           "value"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       }
     }
   },

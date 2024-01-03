@@ -46,7 +46,6 @@ export const test_json_application_ajv_standard_ObjectUnionDouble =
                 },
               },
               required: ["x"],
-              "x-typia-jsDocTags": [],
             },
             child: {
               oneOf: [
@@ -60,7 +59,6 @@ export const test_json_application_ajv_standard_ObjectUnionDouble =
             },
           },
           required: ["value", "child"],
-          "x-typia-jsDocTags": [],
         },
         "ObjectUnionDouble.IAB": {
           $id: "#/components/schemas/ObjectUnionDouble.IAB",
@@ -74,11 +72,9 @@ export const test_json_application_ajv_standard_ObjectUnionDouble =
                 },
               },
               required: ["y"],
-              "x-typia-jsDocTags": [],
             },
           },
           required: ["value"],
-          "x-typia-jsDocTags": [],
         },
         "ObjectUnionDouble.IAA": {
           $id: "#/components/schemas/ObjectUnionDouble.IAA",
@@ -92,11 +88,9 @@ export const test_json_application_ajv_standard_ObjectUnionDouble =
                 },
               },
               required: ["y"],
-              "x-typia-jsDocTags": [],
             },
           },
           required: ["value"],
-          "x-typia-jsDocTags": [],
         },
         "ObjectUnionDouble.IB": {
           $id: "#/components/schemas/ObjectUnionDouble.IB",
@@ -110,7 +104,6 @@ export const test_json_application_ajv_standard_ObjectUnionDouble =
                 },
               },
               required: ["x"],
-              "x-typia-jsDocTags": [],
             },
             child: {
               oneOf: [
@@ -124,7 +117,6 @@ export const test_json_application_ajv_standard_ObjectUnionDouble =
             },
           },
           required: ["value", "child"],
-          "x-typia-jsDocTags": [],
         },
         "ObjectUnionDouble.IBB": {
           $id: "#/components/schemas/ObjectUnionDouble.IBB",
@@ -141,11 +133,9 @@ export const test_json_application_ajv_standard_ObjectUnionDouble =
                 },
               },
               required: ["y"],
-              "x-typia-jsDocTags": [],
             },
           },
           required: ["value"],
-          "x-typia-jsDocTags": [],
         },
         "ObjectUnionDouble.IBA": {
           $id: "#/components/schemas/ObjectUnionDouble.IBA",
@@ -159,11 +149,9 @@ export const test_json_application_ajv_standard_ObjectUnionDouble =
                 },
               },
               required: ["y"],
-              "x-typia-jsDocTags": [],
             },
           },
           required: ["value"],
-          "x-typia-jsDocTags": [],
         },
       },
     },

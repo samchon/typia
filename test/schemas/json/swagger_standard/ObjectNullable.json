@@ -19,8 +19,7 @@
         "nullable": false,
         "required": [
           "value"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "ObjectNullable.IProduct": {
         "type": "object",
@@ -51,8 +50,7 @@
           "manufacturer",
           "brand",
           "similar"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "ObjectNullable.IManufacturer": {
         "type": "object",
@@ -71,8 +69,7 @@
         "required": [
           "type",
           "name"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "ObjectNullable.IBrand.Nullable": {
         "type": "object",
@@ -91,8 +88,7 @@
         "required": [
           "type",
           "name"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "ObjectNullable.IManufacturer.Nullable": {
         "type": "object",
@@ -111,8 +107,7 @@
         "required": [
           "type",
           "name"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       }
     }
   },

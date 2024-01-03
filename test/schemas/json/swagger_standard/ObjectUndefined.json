@@ -40,8 +40,7 @@
         "required": [
           "name",
           "unknown"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "ObjectUndefined.IClassroom": {
         "type": "object",
@@ -57,8 +56,7 @@
         "required": [
           "id",
           "name"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       }
     }
   },

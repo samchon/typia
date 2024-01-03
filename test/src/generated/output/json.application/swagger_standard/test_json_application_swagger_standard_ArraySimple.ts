@@ -40,7 +40,6 @@ export const test_json_application_swagger_standard_ArraySimple =
           },
           nullable: false,
           required: ["name", "email", "hobbies"],
-          "x-typia-jsDocTags": [],
         },
         "ArraySimple.IHobby": {
           type: "object",
@@ -57,7 +56,6 @@ export const test_json_application_swagger_standard_ArraySimple =
           },
           nullable: false,
           required: ["name", "body", "rank"],
-          "x-typia-jsDocTags": [],
         },
       },
     },

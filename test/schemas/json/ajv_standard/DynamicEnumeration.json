@@ -43,14 +43,12 @@
               "ru": {
                 "type": "string"
               }
-            },
-            "x-typia-jsDocTags": []
+            }
           }
         },
         "required": [
           "value"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       }
     }
   },

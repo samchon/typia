@@ -56,8 +56,7 @@
           "x",
           "y",
           "type"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "ObjectUnionExplicit.DiscriminatorlineObjectUnionExplicit.ILine": {
         "$id": "#/components/schemas/ObjectUnionExplicit.DiscriminatorlineObjectUnionExplicit.ILine",
@@ -80,8 +79,7 @@
           "p1",
           "p2",
           "type"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "ObjectUnionExplicit.IPoint": {
         "$id": "#/components/schemas/ObjectUnionExplicit.IPoint",
@@ -97,8 +95,7 @@
         "required": [
           "x",
           "y"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "ObjectUnionExplicit.DiscriminatortriangleObjectUnionExplicit.ITriangle": {
         "$id": "#/components/schemas/ObjectUnionExplicit.DiscriminatortriangleObjectUnionExplicit.ITriangle",
@@ -125,8 +122,7 @@
           "p2",
           "p3",
           "type"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "ObjectUnionExplicit.DiscriminatorrectangleObjectUnionExplicit.IRectangle": {
         "$id": "#/components/schemas/ObjectUnionExplicit.DiscriminatorrectangleObjectUnionExplicit.IRectangle",
@@ -157,8 +153,7 @@
           "p3",
           "p4",
           "type"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "ObjectUnionExplicit.DiscriminatorpolylineObjectUnionExplicit.IPolyline": {
         "$id": "#/components/schemas/ObjectUnionExplicit.DiscriminatorpolylineObjectUnionExplicit.IPolyline",
@@ -180,8 +175,7 @@
         "required": [
           "points",
           "type"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "ObjectUnionExplicit.DiscriminatorpolygonObjectUnionExplicit.IPolygon": {
         "$id": "#/components/schemas/ObjectUnionExplicit.DiscriminatorpolygonObjectUnionExplicit.IPolygon",
@@ -207,8 +201,7 @@
           "outer",
           "inner",
           "type"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "ObjectUnionExplicit.IPolyline": {
         "$id": "#/components/schemas/ObjectUnionExplicit.IPolyline",
@@ -223,8 +216,7 @@
         },
         "required": [
           "points"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "ObjectUnionExplicit.DiscriminatorcircleObjectUnionExplicit.ICircle": {
         "$id": "#/components/schemas/ObjectUnionExplicit.DiscriminatorcircleObjectUnionExplicit.ICircle",
@@ -247,8 +239,7 @@
           "centroid",
           "radius",
           "type"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       }
     }
   },

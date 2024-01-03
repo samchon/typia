@@ -67,7 +67,6 @@ export const test_json_application_ajv_standard_ArrayRecursiveUnionImplicit =
             },
           },
           required: ["id", "name", "path", "children"],
-          "x-typia-jsDocTags": [],
         },
         "ArrayRecursiveUnionImplicit.ISharedDirectory": {
           $id: "#/components/schemas/ArrayRecursiveUnionImplicit.ISharedDirectory",
@@ -94,7 +93,6 @@ export const test_json_application_ajv_standard_ArrayRecursiveUnionImplicit =
             },
           },
           required: ["access", "id", "name", "path", "children"],
-          "x-typia-jsDocTags": [],
         },
         "ArrayRecursiveUnionImplicit.IImageFile": {
           $id: "#/components/schemas/ArrayRecursiveUnionImplicit.IImageFile",
@@ -123,7 +121,6 @@ export const test_json_application_ajv_standard_ArrayRecursiveUnionImplicit =
             },
           },
           required: ["id", "name", "path", "width", "height", "url", "size"],
-          "x-typia-jsDocTags": [],
         },
         "ArrayRecursiveUnionImplicit.ITextFile": {
           $id: "#/components/schemas/ArrayRecursiveUnionImplicit.ITextFile",
@@ -146,7 +143,6 @@ export const test_json_application_ajv_standard_ArrayRecursiveUnionImplicit =
             },
           },
           required: ["id", "name", "path", "size", "content"],
-          "x-typia-jsDocTags": [],
         },
         "ArrayRecursiveUnionImplicit.IZipFile": {
           $id: "#/components/schemas/ArrayRecursiveUnionImplicit.IZipFile",
@@ -169,7 +165,6 @@ export const test_json_application_ajv_standard_ArrayRecursiveUnionImplicit =
             },
           },
           required: ["id", "name", "path", "size", "count"],
-          "x-typia-jsDocTags": [],
         },
         "ArrayRecursiveUnionImplicit.IShortcut": {
           $id: "#/components/schemas/ArrayRecursiveUnionImplicit.IShortcut",
@@ -189,7 +184,6 @@ export const test_json_application_ajv_standard_ArrayRecursiveUnionImplicit =
             },
           },
           required: ["id", "name", "path", "target"],
-          "x-typia-jsDocTags": [],
         },
       },
     },

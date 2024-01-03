@@ -27,8 +27,7 @@
         },
         "required": [
           "matrix"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       }
     }
   },

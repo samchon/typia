@@ -20,8 +20,7 @@
         "required": [
           "id",
           "flag"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       }
     }
   },

@@ -62,8 +62,7 @@
         },
         "required": [
           "tuple"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       }
     }
   },

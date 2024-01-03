@@ -31,14 +31,12 @@
               "b",
               "c",
               "d"
-            ],
-            "x-typia-jsDocTags": []
+            ]
           }
         },
         "required": [
           "value"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       }
     }
   },

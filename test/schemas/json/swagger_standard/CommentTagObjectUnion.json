@@ -33,8 +33,7 @@
         "nullable": false,
         "required": [
           "value"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "CommentTagObjectUnion.Literal": {
         "type": "object",
@@ -48,8 +47,7 @@
         "nullable": false,
         "required": [
           "value"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       }
     }
   },

@@ -80,8 +80,7 @@
           "referrer",
           "ip",
           "created_at"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "ObjectHierarchical.IChannel": {
         "type": "object",
@@ -117,8 +116,7 @@
           "exclusive",
           "priority",
           "created_at"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "ObjectHierarchical.ITimestamp": {
         "type": "object",
@@ -134,8 +132,7 @@
         "required": [
           "time",
           "zone"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "ObjectHierarchical.IMember.Nullable": {
         "type": "object",
@@ -170,8 +167,7 @@
           "emails",
           "created_at",
           "authorized"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "ObjectHierarchical.IAccount": {
         "type": "object",
@@ -191,8 +187,7 @@
           "id",
           "code",
           "created_at"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "ObjectHierarchical.IEnterprise.Nullable": {
         "type": "object",
@@ -220,8 +215,7 @@
           "name",
           "grade",
           "created_at"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "ObjectHierarchical.IAccount.Nullable": {
         "type": "object",
@@ -241,8 +235,7 @@
           "id",
           "code",
           "created_at"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       }
     }
   },

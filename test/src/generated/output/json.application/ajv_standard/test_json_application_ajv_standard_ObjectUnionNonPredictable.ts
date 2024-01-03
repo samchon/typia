@@ -28,7 +28,6 @@ export const test_json_application_ajv_standard_ObjectUnionNonPredictable =
             },
           },
           required: ["value"],
-          "x-typia-jsDocTags": [],
         },
         "ObjectUnionNonPredictable.IWrapperObjectUnionNonPredictable.IUnion": {
           $id: "#/components/schemas/ObjectUnionNonPredictable.IWrapperObjectUnionNonPredictable.IUnion",
@@ -39,7 +38,6 @@ export const test_json_application_ajv_standard_ObjectUnionNonPredictable =
             },
           },
           required: ["value"],
-          "x-typia-jsDocTags": [],
         },
         "IPointerObjectUnionNonPredictable.IUnion": {
           $id: "#/components/schemas/IPointerObjectUnionNonPredictable.IUnion",
@@ -50,7 +48,6 @@ export const test_json_application_ajv_standard_ObjectUnionNonPredictable =
             },
           },
           required: ["value"],
-          "x-typia-jsDocTags": [],
         },
         "ObjectUnionNonPredictable.IUnion": {
           $id: "#/components/schemas/ObjectUnionNonPredictable.IUnion",
@@ -75,7 +72,6 @@ export const test_json_application_ajv_standard_ObjectUnionNonPredictable =
             },
           },
           required: ["value"],
-          "x-typia-jsDocTags": [],
         },
         IPointerboolean: {
           $id: "#/components/schemas/IPointerboolean",
@@ -86,7 +82,6 @@ export const test_json_application_ajv_standard_ObjectUnionNonPredictable =
             },
           },
           required: ["value"],
-          "x-typia-jsDocTags": [],
         },
         "ObjectUnionNonPredictable.IWrappernumber": {
           $id: "#/components/schemas/ObjectUnionNonPredictable.IWrappernumber",
@@ -97,7 +92,6 @@ export const test_json_application_ajv_standard_ObjectUnionNonPredictable =
             },
           },
           required: ["value"],
-          "x-typia-jsDocTags": [],
         },
         IPointernumber: {
           $id: "#/components/schemas/IPointernumber",
@@ -108,7 +102,6 @@ export const test_json_application_ajv_standard_ObjectUnionNonPredictable =
             },
           },
           required: ["value"],
-          "x-typia-jsDocTags": [],
         },
         "ObjectUnionNonPredictable.IWrapperstring": {
           $id: "#/components/schemas/ObjectUnionNonPredictable.IWrapperstring",
@@ -119,7 +112,6 @@ export const test_json_application_ajv_standard_ObjectUnionNonPredictable =
             },
           },
           required: ["value"],
-          "x-typia-jsDocTags": [],
         },
         IPointerstring: {
           $id: "#/components/schemas/IPointerstring",
@@ -130,7 +122,6 @@ export const test_json_application_ajv_standard_ObjectUnionNonPredictable =
             },
           },
           required: ["value"],
-          "x-typia-jsDocTags": [],
         },
       },
     },

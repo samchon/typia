@@ -77,7 +77,6 @@ export const test_json_application_swagger_standard_ObjectGeneric =
           },
           nullable: false,
           required: ["value", "child", "elements"],
-          "x-typia-jsDocTags": [],
         },
         "ObjectGeneric.IChildbooleanboolean": {
           type: "object",
@@ -91,7 +90,6 @@ export const test_json_application_swagger_standard_ObjectGeneric =
           },
           nullable: false,
           required: ["child_value", "child_next"],
-          "x-typia-jsDocTags": [],
         },
         "ObjectGeneric.ISomethingnumber": {
           type: "object",
@@ -111,7 +109,6 @@ export const test_json_application_swagger_standard_ObjectGeneric =
           },
           nullable: false,
           required: ["value", "child", "elements"],
-          "x-typia-jsDocTags": [],
         },
         "ObjectGeneric.IChildnumbernumber": {
           type: "object",
@@ -125,7 +122,6 @@ export const test_json_application_swagger_standard_ObjectGeneric =
           },
           nullable: false,
           required: ["child_value", "child_next"],
-          "x-typia-jsDocTags": [],
         },
         "ObjectGeneric.ISomethingstring": {
           type: "object",
@@ -145,7 +141,6 @@ export const test_json_application_swagger_standard_ObjectGeneric =
           },
           nullable: false,
           required: ["value", "child", "elements"],
-          "x-typia-jsDocTags": [],
         },
         "ObjectGeneric.IChildstringstring": {
           type: "object",
@@ -159,7 +154,6 @@ export const test_json_application_swagger_standard_ObjectGeneric =
           },
           nullable: false,
           required: ["child_value", "child_next"],
-          "x-typia-jsDocTags": [],
         },
       },
     },

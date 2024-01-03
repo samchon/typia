@@ -43,8 +43,7 @@
           "name",
           "sequence",
           "created_at"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "ObjectRecursive.ITimestamp": {
         "$id": "#/components/schemas/ObjectRecursive.ITimestamp",
@@ -60,8 +59,7 @@
         "required": [
           "time",
           "zone"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       }
     }
   },

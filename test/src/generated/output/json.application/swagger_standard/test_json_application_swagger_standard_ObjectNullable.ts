@@ -28,7 +28,6 @@ export const test_json_application_swagger_standard_ObjectNullable =
           },
           nullable: false,
           required: ["value"],
-          "x-typia-jsDocTags": [],
         },
         "ObjectNullable.IProduct": {
           type: "object",
@@ -55,7 +54,6 @@ export const test_json_application_swagger_standard_ObjectNullable =
           },
           nullable: false,
           required: ["name", "manufacturer", "brand", "similar"],
-          "x-typia-jsDocTags": [],
         },
         "ObjectNullable.IManufacturer": {
           type: "object",
@@ -70,7 +68,6 @@ export const test_json_application_swagger_standard_ObjectNullable =
           },
           nullable: false,
           required: ["type", "name"],
-          "x-typia-jsDocTags": [],
         },
         "ObjectNullable.IBrand.Nullable": {
           type: "object",
@@ -85,7 +82,6 @@ export const test_json_application_swagger_standard_ObjectNullable =
           },
           nullable: true,
           required: ["type", "name"],
-          "x-typia-jsDocTags": [],
         },
         "ObjectNullable.IManufacturer.Nullable": {
           type: "object",
@@ -100,7 +96,6 @@ export const test_json_application_swagger_standard_ObjectNullable =
           },
           nullable: true,
           required: ["type", "name"],
-          "x-typia-jsDocTags": [],
         },
       },
     },

@@ -65,7 +65,6 @@ export const test_json_application_swagger_standard_ObjectTuple =
           },
           nullable: false,
           required: ["id", "code", "name"],
-          "x-typia-jsDocTags": [],
         },
         "ObjectTuple.ICitizen": {
           type: "object",
@@ -82,7 +81,6 @@ export const test_json_application_swagger_standard_ObjectTuple =
           },
           nullable: false,
           required: ["id", "mobile", "name"],
-          "x-typia-jsDocTags": [],
         },
       },
     },

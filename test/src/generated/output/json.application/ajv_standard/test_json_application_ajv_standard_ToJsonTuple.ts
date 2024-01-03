@@ -64,7 +64,6 @@ export const test_json_application_ajv_standard_ToJsonTuple =
             },
           },
           required: ["code", "name"],
-          "x-typia-jsDocTags": [],
         },
       },
     },

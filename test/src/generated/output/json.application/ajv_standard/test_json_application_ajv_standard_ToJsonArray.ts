@@ -69,7 +69,6 @@ export const test_json_application_ajv_standard_ToJsonArray =
             },
           },
           required: ["id"],
-          "x-typia-jsDocTags": [],
         },
       },
     },

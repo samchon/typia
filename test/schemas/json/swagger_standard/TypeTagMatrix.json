@@ -27,8 +27,7 @@
         "nullable": false,
         "required": [
           "matrix"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       }
     }
   },

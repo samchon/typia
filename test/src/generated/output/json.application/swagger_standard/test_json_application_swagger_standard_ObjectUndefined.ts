@@ -48,7 +48,6 @@ export const test_json_application_swagger_standard_ObjectUndefined =
           },
           nullable: false,
           required: ["name", "unknown"],
-          "x-typia-jsDocTags": [],
         },
         "ObjectUndefined.IClassroom": {
           type: "object",
@@ -62,7 +61,6 @@ export const test_json_application_swagger_standard_ObjectUndefined =
           },
           nullable: false,
           required: ["id", "name"],
-          "x-typia-jsDocTags": [],
         },
       },
     },

@@ -35,8 +35,7 @@
             "nullable": false,
             "required": [
               "x"
-            ],
-            "x-typia-jsDocTags": []
+            ]
           },
           "child": {
             "oneOf": [
@@ -53,8 +52,7 @@
         "required": [
           "value",
           "child"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "ObjectUnionDouble.IAB": {
         "type": "object",
@@ -69,15 +67,13 @@
             "nullable": false,
             "required": [
               "y"
-            ],
-            "x-typia-jsDocTags": []
+            ]
           }
         },
         "nullable": false,
         "required": [
           "value"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "ObjectUnionDouble.IAA": {
         "type": "object",
@@ -92,15 +88,13 @@
             "nullable": false,
             "required": [
               "y"
-            ],
-            "x-typia-jsDocTags": []
+            ]
           }
         },
         "nullable": false,
         "required": [
           "value"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "ObjectUnionDouble.IB": {
         "type": "object",
@@ -115,8 +109,7 @@
             "nullable": false,
             "required": [
               "x"
-            ],
-            "x-typia-jsDocTags": []
+            ]
           },
           "child": {
             "oneOf": [
@@ -133,8 +126,7 @@
         "required": [
           "value",
           "child"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "ObjectUnionDouble.IBB": {
         "type": "object",
@@ -152,15 +144,13 @@
             "nullable": false,
             "required": [
               "y"
-            ],
-            "x-typia-jsDocTags": []
+            ]
           }
         },
         "nullable": false,
         "required": [
           "value"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "ObjectUnionDouble.IBA": {
         "type": "object",
@@ -175,15 +165,13 @@
             "nullable": false,
             "required": [
               "y"
-            ],
-            "x-typia-jsDocTags": []
+            ]
           }
         },
         "nullable": false,
         "required": [
           "value"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       }
     }
   },

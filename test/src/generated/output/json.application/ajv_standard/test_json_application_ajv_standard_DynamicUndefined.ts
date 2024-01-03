@@ -20,7 +20,6 @@ export const test_json_application_ajv_standard_DynamicUndefined =
           $id: "#/components/schemas/DynamicUndefined",
           type: "object",
           properties: {},
-          "x-typia-jsDocTags": [],
         },
       },
     },

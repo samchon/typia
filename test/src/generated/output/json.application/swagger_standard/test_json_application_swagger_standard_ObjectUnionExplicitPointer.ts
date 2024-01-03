@@ -28,7 +28,6 @@ export const test_json_application_swagger_standard_ObjectUnionExplicitPointer =
           },
           nullable: false,
           required: ["value"],
-          "x-typia-jsDocTags": [],
         },
         "IPointerObjectUnionExplicitPointer.Shape": {
           type: "object",
@@ -39,7 +38,6 @@ export const test_json_application_swagger_standard_ObjectUnionExplicitPointer =
           },
           nullable: false,
           required: ["value"],
-          "x-typia-jsDocTags": [],
         },
         "ObjectUnionExplicitPointer.Shape": {
           oneOf: [
@@ -83,7 +81,6 @@ export const test_json_application_swagger_standard_ObjectUnionExplicitPointer =
             },
             nullable: false,
             required: ["x", "y", "type"],
-            "x-typia-jsDocTags": [],
           },
         "ObjectUnionExplicitPointer.DiscriminatorlineObjectUnionExplicitPointer.ILine":
           {
@@ -102,7 +99,6 @@ export const test_json_application_swagger_standard_ObjectUnionExplicitPointer =
             },
             nullable: false,
             required: ["p1", "p2", "type"],
-            "x-typia-jsDocTags": [],
           },
         "ObjectUnionExplicitPointer.IPoint": {
           type: "object",
@@ -116,7 +112,6 @@ export const test_json_application_swagger_standard_ObjectUnionExplicitPointer =
           },
           nullable: false,
           required: ["x", "y"],
-          "x-typia-jsDocTags": [],
         },
         "ObjectUnionExplicitPointer.DiscriminatortriangleObjectUnionExplicitPointer.ITriangle":
           {
@@ -138,7 +133,6 @@ export const test_json_application_swagger_standard_ObjectUnionExplicitPointer =
             },
             nullable: false,
             required: ["p1", "p2", "p3", "type"],
-            "x-typia-jsDocTags": [],
           },
         "ObjectUnionExplicitPointer.DiscriminatorrectangleObjectUnionExplicitPointer.IRectangle":
           {
@@ -163,7 +157,6 @@ export const test_json_application_swagger_standard_ObjectUnionExplicitPointer =
             },
             nullable: false,
             required: ["p1", "p2", "p3", "p4", "type"],
-            "x-typia-jsDocTags": [],
           },
         "ObjectUnionExplicitPointer.DiscriminatorpolylineObjectUnionExplicitPointer.IPolyline":
           {
@@ -182,7 +175,6 @@ export const test_json_application_swagger_standard_ObjectUnionExplicitPointer =
             },
             nullable: false,
             required: ["points", "type"],
-            "x-typia-jsDocTags": [],
           },
         "ObjectUnionExplicitPointer.DiscriminatorpolygonObjectUnionExplicitPointer.IPolygon":
           {
@@ -204,7 +196,6 @@ export const test_json_application_swagger_standard_ObjectUnionExplicitPointer =
             },
             nullable: false,
             required: ["outer", "inner", "type"],
-            "x-typia-jsDocTags": [],
           },
         "ObjectUnionExplicitPointer.IPolyline": {
           type: "object",
@@ -218,7 +209,6 @@ export const test_json_application_swagger_standard_ObjectUnionExplicitPointer =
           },
           nullable: false,
           required: ["points"],
-          "x-typia-jsDocTags": [],
         },
         "ObjectUnionExplicitPointer.DiscriminatorcircleObjectUnionExplicitPointer.ICircle":
           {
@@ -237,7 +227,6 @@ export const test_json_application_swagger_standard_ObjectUnionExplicitPointer =
             },
             nullable: false,
             required: ["centroid", "radius", "type"],
-            "x-typia-jsDocTags": [],
           },
       },
     },

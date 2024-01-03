@@ -19,8 +19,7 @@
         "nullable": false,
         "required": [
           "value"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "TemplateConstant.Type": {
         "type": "object",
@@ -61,8 +60,7 @@
           "prefix",
           "postfix",
           "combined"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       }
     }
   },

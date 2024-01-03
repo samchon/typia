@@ -60,7 +60,6 @@ export const test_json_application_ajv_standard_ObjectGeneric =
             },
           },
           required: ["value", "child", "elements"],
-          "x-typia-jsDocTags": [],
         },
         "ObjectGeneric.IChildbooleanboolean": {
           $id: "#/components/schemas/ObjectGeneric.IChildbooleanboolean",
@@ -74,7 +73,6 @@ export const test_json_application_ajv_standard_ObjectGeneric =
             },
           },
           required: ["child_value", "child_next"],
-          "x-typia-jsDocTags": [],
         },
         "ObjectGeneric.ISomethingnumber": {
           $id: "#/components/schemas/ObjectGeneric.ISomethingnumber",
@@ -94,7 +92,6 @@ export const test_json_application_ajv_standard_ObjectGeneric =
             },
           },
           required: ["value", "child", "elements"],
-          "x-typia-jsDocTags": [],
         },
         "ObjectGeneric.IChildnumbernumber": {
           $id: "#/components/schemas/ObjectGeneric.IChildnumbernumber",
@@ -108,7 +105,6 @@ export const test_json_application_ajv_standard_ObjectGeneric =
             },
           },
           required: ["child_value", "child_next"],
-          "x-typia-jsDocTags": [],
         },
         "ObjectGeneric.ISomethingstring": {
           $id: "#/components/schemas/ObjectGeneric.ISomethingstring",
@@ -128,7 +124,6 @@ export const test_json_application_ajv_standard_ObjectGeneric =
             },
           },
           required: ["value", "child", "elements"],
-          "x-typia-jsDocTags": [],
         },
         "ObjectGeneric.IChildstringstring": {
           $id: "#/components/schemas/ObjectGeneric.IChildstringstring",
@@ -142,7 +137,6 @@ export const test_json_application_ajv_standard_ObjectGeneric =
             },
           },
           required: ["child_value", "child_next"],
-          "x-typia-jsDocTags": [],
         },
       },
     },

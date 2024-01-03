@@ -10,7 +10,6 @@
         "$id": "#/components/schemas/DynamicUnion",
         "type": "object",
         "properties": {},
-        "x-typia-jsDocTags": [],
         "patternProperties": {
           "^[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?$": {
             "type": "string"

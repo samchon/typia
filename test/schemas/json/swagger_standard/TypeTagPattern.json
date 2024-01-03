@@ -32,8 +32,7 @@
           "email",
           "ipv4",
           "ipv6"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       }
     }
   },

@@ -126,7 +126,7 @@ const create_object_schema =
       nullable: options.purpose === "swagger" ? nullable : undefined,
       required: required.length ? required : undefined,
       description: obj.description,
-      "x-typia-jsDocTags": obj.jsDocTags,
+      ...(options.surplus ? { "x-typia-jsDocTags": obj.jsDocTags } : {}),
       ...(options.purpose === "ajv"
         ? extraProps
         : options.surplus

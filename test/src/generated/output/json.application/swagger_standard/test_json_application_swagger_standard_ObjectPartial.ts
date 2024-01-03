@@ -40,7 +40,6 @@ export const test_json_application_swagger_standard_ObjectPartial =
           },
           nullable: false,
           description: "Make all properties in T optional",
-          "x-typia-jsDocTags": [],
         },
         "ObjectPartial.IBase.Nullable": {
           type: "object",
@@ -66,7 +65,6 @@ export const test_json_application_swagger_standard_ObjectPartial =
           },
           nullable: true,
           required: ["boolean", "number", "string", "array", "object"],
-          "x-typia-jsDocTags": [],
         },
       },
     },

@@ -35,7 +35,6 @@ export const test_json_application_ajv_standard_TypeTagCustom =
             },
           },
           required: ["id", "dollar", "postfix", "powerOf"],
-          "x-typia-jsDocTags": [],
         },
       },
     },

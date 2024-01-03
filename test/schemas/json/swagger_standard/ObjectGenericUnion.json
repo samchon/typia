@@ -16,8 +16,7 @@
         "nullable": false,
         "required": [
           "value"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "ObjectGenericUnion.ISaleEntireArticle": {
         "oneOf": [
@@ -62,8 +61,7 @@
           "hit",
           "contents",
           "created_at"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "ObjectGenericUnion.ISaleAnswer.Nullable": {
         "type": "object",
@@ -90,8 +88,7 @@
           "hit",
           "contents",
           "created_at"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "ObjectGenericUnion.ISaleArticle.IContent": {
         "type": "object",
@@ -122,8 +119,7 @@
           "title",
           "body",
           "files"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "ObjectGenericUnion.IAttachmentFile": {
         "type": "object",
@@ -144,8 +140,7 @@
           "name",
           "extension",
           "url"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "ObjectGenericUnion.ISaleReview": {
         "type": "object",
@@ -180,8 +175,7 @@
           "hit",
           "contents",
           "created_at"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "ObjectGenericUnion.ISaleReview.IContent": {
         "type": "object",
@@ -216,8 +210,7 @@
           "title",
           "body",
           "files"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       }
     }
   },

@@ -44,7 +44,6 @@ export const test_json_application_swagger_standard_ObjectUnionDouble =
               },
               nullable: false,
               required: ["x"],
-              "x-typia-jsDocTags": [],
             },
             child: {
               oneOf: [
@@ -59,7 +58,6 @@ export const test_json_application_swagger_standard_ObjectUnionDouble =
           },
           nullable: false,
           required: ["value", "child"],
-          "x-typia-jsDocTags": [],
         },
         "ObjectUnionDouble.IAB": {
           type: "object",
@@ -73,12 +71,10 @@ export const test_json_application_swagger_standard_ObjectUnionDouble =
               },
               nullable: false,
               required: ["y"],
-              "x-typia-jsDocTags": [],
             },
           },
           nullable: false,
           required: ["value"],
-          "x-typia-jsDocTags": [],
         },
         "ObjectUnionDouble.IAA": {
           type: "object",
@@ -92,12 +88,10 @@ export const test_json_application_swagger_standard_ObjectUnionDouble =
               },
               nullable: false,
               required: ["y"],
-              "x-typia-jsDocTags": [],
             },
           },
           nullable: false,
           required: ["value"],
-          "x-typia-jsDocTags": [],
         },
         "ObjectUnionDouble.IB": {
           type: "object",
@@ -111,7 +105,6 @@ export const test_json_application_swagger_standard_ObjectUnionDouble =
               },
               nullable: false,
               required: ["x"],
-              "x-typia-jsDocTags": [],
             },
             child: {
               oneOf: [
@@ -126,7 +119,6 @@ export const test_json_application_swagger_standard_ObjectUnionDouble =
           },
           nullable: false,
           required: ["value", "child"],
-          "x-typia-jsDocTags": [],
         },
         "ObjectUnionDouble.IBB": {
           type: "object",
@@ -143,12 +135,10 @@ export const test_json_application_swagger_standard_ObjectUnionDouble =
               },
               nullable: false,
               required: ["y"],
-              "x-typia-jsDocTags": [],
             },
           },
           nullable: false,
           required: ["value"],
-          "x-typia-jsDocTags": [],
         },
         "ObjectUnionDouble.IBA": {
           type: "object",
@@ -162,12 +152,10 @@ export const test_json_application_swagger_standard_ObjectUnionDouble =
               },
               nullable: false,
               required: ["y"],
-              "x-typia-jsDocTags": [],
             },
           },
           nullable: false,
           required: ["value"],
-          "x-typia-jsDocTags": [],
         },
       },
     },

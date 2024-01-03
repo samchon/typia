@@ -28,7 +28,6 @@ export const test_json_application_swagger_standard_DynamicComposite =
           },
           nullable: false,
           required: ["id", "name"],
-          "x-typia-jsDocTags": [],
         },
       },
     },

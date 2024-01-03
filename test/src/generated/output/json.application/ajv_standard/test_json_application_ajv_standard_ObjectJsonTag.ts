@@ -40,7 +40,6 @@ export const test_json_application_ajv_standard_ObjectJsonTag =
             },
           },
           required: ["vulnerable", "description", "title", "complicate_title"],
-          "x-typia-jsDocTags": [],
         },
       },
     },

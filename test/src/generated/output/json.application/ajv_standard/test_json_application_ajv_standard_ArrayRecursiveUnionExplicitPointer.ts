@@ -28,7 +28,6 @@ export const test_json_application_ajv_standard_ArrayRecursiveUnionExplicitPoint
             },
           },
           required: ["value"],
-          "x-typia-jsDocTags": [],
         },
         "ArrayRecursiveUnionExplicitPointer.IBucket": {
           $id: "#/components/schemas/ArrayRecursiveUnionExplicitPointer.IBucket",
@@ -55,7 +54,6 @@ export const test_json_application_ajv_standard_ArrayRecursiveUnionExplicitPoint
             },
           },
           required: ["value"],
-          "x-typia-jsDocTags": [],
         },
         "ArrayRecursiveUnionExplicitPointer.IDirectory": {
           $id: "#/components/schemas/ArrayRecursiveUnionExplicitPointer.IDirectory",
@@ -82,7 +80,6 @@ export const test_json_application_ajv_standard_ArrayRecursiveUnionExplicitPoint
             },
           },
           required: ["id", "name", "path", "children", "type"],
-          "x-typia-jsDocTags": [],
         },
         "ArrayRecursiveUnionExplicitPointer.IImageFile": {
           $id: "#/components/schemas/ArrayRecursiveUnionExplicitPointer.IImageFile",
@@ -129,7 +126,6 @@ export const test_json_application_ajv_standard_ArrayRecursiveUnionExplicitPoint
             "type",
             "extension",
           ],
-          "x-typia-jsDocTags": [],
         },
         "ArrayRecursiveUnionExplicitPointer.ITextFile": {
           $id: "#/components/schemas/ArrayRecursiveUnionExplicitPointer.ITextFile",
@@ -168,7 +164,6 @@ export const test_json_application_ajv_standard_ArrayRecursiveUnionExplicitPoint
             "type",
             "extension",
           ],
-          "x-typia-jsDocTags": [],
         },
         "ArrayRecursiveUnionExplicitPointer.IZipFile": {
           $id: "#/components/schemas/ArrayRecursiveUnionExplicitPointer.IZipFile",
@@ -207,7 +202,6 @@ export const test_json_application_ajv_standard_ArrayRecursiveUnionExplicitPoint
             "type",
             "extension",
           ],
-          "x-typia-jsDocTags": [],
         },
         "ArrayRecursiveUnionExplicitPointer.IShortcut": {
           $id: "#/components/schemas/ArrayRecursiveUnionExplicitPointer.IShortcut",
@@ -235,7 +229,6 @@ export const test_json_application_ajv_standard_ArrayRecursiveUnionExplicitPoint
             },
           },
           required: ["id", "name", "path", "target", "type", "extension"],
-          "x-typia-jsDocTags": [],
         },
       },
     },

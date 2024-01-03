@@ -65,7 +65,6 @@ export const test_json_application_swagger_standard_ArrayRecursiveUnionImplicit 
           },
           nullable: false,
           required: ["id", "name", "path", "children"],
-          "x-typia-jsDocTags": [],
         },
         "ArrayRecursiveUnionImplicit.ISharedDirectory": {
           type: "object",
@@ -92,7 +91,6 @@ export const test_json_application_swagger_standard_ArrayRecursiveUnionImplicit 
           },
           nullable: false,
           required: ["access", "id", "name", "path", "children"],
-          "x-typia-jsDocTags": [],
         },
         "ArrayRecursiveUnionImplicit.IImageFile": {
           type: "object",
@@ -121,7 +119,6 @@ export const test_json_application_swagger_standard_ArrayRecursiveUnionImplicit 
           },
           nullable: false,
           required: ["id", "name", "path", "width", "height", "url", "size"],
-          "x-typia-jsDocTags": [],
         },
         "ArrayRecursiveUnionImplicit.ITextFile": {
           type: "object",
@@ -144,7 +141,6 @@ export const test_json_application_swagger_standard_ArrayRecursiveUnionImplicit 
           },
           nullable: false,
           required: ["id", "name", "path", "size", "content"],
-          "x-typia-jsDocTags": [],
         },
         "ArrayRecursiveUnionImplicit.IZipFile": {
           type: "object",
@@ -167,7 +163,6 @@ export const test_json_application_swagger_standard_ArrayRecursiveUnionImplicit 
           },
           nullable: false,
           required: ["id", "name", "path", "size", "count"],
-          "x-typia-jsDocTags": [],
         },
         "ArrayRecursiveUnionImplicit.IShortcut": {
           type: "object",
@@ -187,7 +182,6 @@ export const test_json_application_swagger_standard_ArrayRecursiveUnionImplicit 
           },
           nullable: false,
           required: ["id", "name", "path", "target"],
-          "x-typia-jsDocTags": [],
         },
       },
     },

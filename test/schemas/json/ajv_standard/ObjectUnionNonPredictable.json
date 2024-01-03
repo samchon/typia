@@ -19,8 +19,7 @@
         },
         "required": [
           "value"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "ObjectUnionNonPredictable.IWrapperObjectUnionNonPredictable.IUnion": {
         "$id": "#/components/schemas/ObjectUnionNonPredictable.IWrapperObjectUnionNonPredictable.IUnion",
@@ -32,8 +31,7 @@
         },
         "required": [
           "value"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "IPointerObjectUnionNonPredictable.IUnion": {
         "$id": "#/components/schemas/IPointerObjectUnionNonPredictable.IUnion",
@@ -45,8 +43,7 @@
         },
         "required": [
           "value"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "ObjectUnionNonPredictable.IUnion": {
         "$id": "#/components/schemas/ObjectUnionNonPredictable.IUnion",
@@ -72,8 +69,7 @@
         },
         "required": [
           "value"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "IPointerboolean": {
         "$id": "#/components/schemas/IPointerboolean",
@@ -85,8 +81,7 @@
         },
         "required": [
           "value"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "ObjectUnionNonPredictable.IWrappernumber": {
         "$id": "#/components/schemas/ObjectUnionNonPredictable.IWrappernumber",
@@ -98,8 +93,7 @@
         },
         "required": [
           "value"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "IPointernumber": {
         "$id": "#/components/schemas/IPointernumber",
@@ -111,8 +105,7 @@
         },
         "required": [
           "value"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "ObjectUnionNonPredictable.IWrapperstring": {
         "$id": "#/components/schemas/ObjectUnionNonPredictable.IWrapperstring",
@@ -124,8 +117,7 @@
         },
         "required": [
           "value"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "IPointerstring": {
         "$id": "#/components/schemas/IPointerstring",
@@ -137,8 +129,7 @@
         },
         "required": [
           "value"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       }
     }
   },

@@ -123,7 +123,6 @@ export const test_json_application_ajv_standard_TypeTagDefault =
             "union_but_string",
             "boolean_and_number_and_template",
           ],
-          "x-typia-jsDocTags": [],
         },
       },
     },

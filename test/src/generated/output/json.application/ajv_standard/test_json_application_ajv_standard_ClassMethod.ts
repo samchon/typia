@@ -28,7 +28,6 @@ export const test_json_application_ajv_standard_ClassMethod =
             },
           },
           required: ["name", "age"],
-          "x-typia-jsDocTags": [],
         },
       },
     },

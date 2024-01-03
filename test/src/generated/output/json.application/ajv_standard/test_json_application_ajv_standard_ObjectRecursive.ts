@@ -47,7 +47,6 @@ export const test_json_application_ajv_standard_ObjectRecursive =
             },
           },
           required: ["parent", "id", "code", "name", "sequence", "created_at"],
-          "x-typia-jsDocTags": [],
         },
         "ObjectRecursive.ITimestamp": {
           $id: "#/components/schemas/ObjectRecursive.ITimestamp",
@@ -61,7 +60,6 @@ export const test_json_application_ajv_standard_ObjectRecursive =
             },
           },
           required: ["time", "zone"],
-          "x-typia-jsDocTags": [],
         },
       },
     },

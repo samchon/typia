@@ -22,8 +22,7 @@
             "type": "number"
           }
         },
-        "nullable": false,
-        "x-typia-jsDocTags": []
+        "nullable": false
       }
     }
   },

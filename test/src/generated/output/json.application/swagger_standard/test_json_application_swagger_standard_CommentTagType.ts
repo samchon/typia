@@ -28,7 +28,6 @@ export const test_json_application_swagger_standard_CommentTagType =
           },
           nullable: false,
           required: ["value"],
-          "x-typia-jsDocTags": [],
         },
         "CommentTagType.Type": {
           type: "object",
@@ -67,7 +66,6 @@ export const test_json_application_swagger_standard_CommentTagType =
             "uint64",
             "float",
           ],
-          "x-typia-jsDocTags": [],
         },
       },
     },

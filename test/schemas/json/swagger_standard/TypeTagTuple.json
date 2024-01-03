@@ -101,8 +101,7 @@
         "nullable": false,
         "required": [
           "tuple"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       }
     }
   },

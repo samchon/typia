@@ -28,7 +28,6 @@ export const test_json_application_ajv_standard_TypeTagAtomicUnion =
             },
           },
           required: ["value"],
-          "x-typia-jsDocTags": [],
         },
         "TypeTagAtomicUnion.Type": {
           $id: "#/components/schemas/TypeTagAtomicUnion.Type",
@@ -49,7 +48,6 @@ export const test_json_application_ajv_standard_TypeTagAtomicUnion =
             },
           },
           required: ["value"],
-          "x-typia-jsDocTags": [],
         },
       },
     },

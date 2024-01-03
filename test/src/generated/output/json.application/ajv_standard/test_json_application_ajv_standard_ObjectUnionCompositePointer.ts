@@ -28,7 +28,6 @@ export const test_json_application_ajv_standard_ObjectUnionCompositePointer =
             },
           },
           required: ["value"],
-          "x-typia-jsDocTags": [],
         },
         IPointerIPointILineITriangleIRectangleIPolylineIPolygonIPointedShapeICircle:
           {
@@ -65,7 +64,6 @@ export const test_json_application_ajv_standard_ObjectUnionCompositePointer =
               },
             },
             required: ["value"],
-            "x-typia-jsDocTags": [],
           },
         "ObjectUnionCompositePointer.IPoint": {
           $id: "#/components/schemas/ObjectUnionCompositePointer.IPoint",
@@ -79,7 +77,6 @@ export const test_json_application_ajv_standard_ObjectUnionCompositePointer =
             },
           },
           required: ["x", "y"],
-          "x-typia-jsDocTags": [],
         },
         "ObjectUnionCompositePointer.ILine": {
           $id: "#/components/schemas/ObjectUnionCompositePointer.ILine",
@@ -93,7 +90,6 @@ export const test_json_application_ajv_standard_ObjectUnionCompositePointer =
             },
           },
           required: ["p1", "p2"],
-          "x-typia-jsDocTags": [],
         },
         "ObjectUnionCompositePointer.ITriangle": {
           $id: "#/components/schemas/ObjectUnionCompositePointer.ITriangle",
@@ -110,7 +106,6 @@ export const test_json_application_ajv_standard_ObjectUnionCompositePointer =
             },
           },
           required: ["p1", "p2", "p3"],
-          "x-typia-jsDocTags": [],
         },
         "ObjectUnionCompositePointer.IRectangle": {
           $id: "#/components/schemas/ObjectUnionCompositePointer.IRectangle",
@@ -130,7 +125,6 @@ export const test_json_application_ajv_standard_ObjectUnionCompositePointer =
             },
           },
           required: ["p1", "p2", "p3", "p4"],
-          "x-typia-jsDocTags": [],
         },
         "ObjectUnionCompositePointer.IPolyline": {
           $id: "#/components/schemas/ObjectUnionCompositePointer.IPolyline",
@@ -144,7 +138,6 @@ export const test_json_application_ajv_standard_ObjectUnionCompositePointer =
             },
           },
           required: ["points"],
-          "x-typia-jsDocTags": [],
         },
         "ObjectUnionCompositePointer.IPointedShape": {
           $id: "#/components/schemas/ObjectUnionCompositePointer.IPointedShape",
@@ -161,7 +154,6 @@ export const test_json_application_ajv_standard_ObjectUnionCompositePointer =
             },
           },
           required: ["outer", "inner"],
-          "x-typia-jsDocTags": [],
         },
         "ObjectUnionCompositePointer.IPolygon": {
           $id: "#/components/schemas/ObjectUnionCompositePointer.IPolygon",
@@ -178,7 +170,6 @@ export const test_json_application_ajv_standard_ObjectUnionCompositePointer =
             },
           },
           required: ["outer", "inner"],
-          "x-typia-jsDocTags": [],
         },
         "ObjectUnionCompositePointer.ICircle": {
           $id: "#/components/schemas/ObjectUnionCompositePointer.ICircle",
@@ -192,7 +183,6 @@ export const test_json_application_ajv_standard_ObjectUnionCompositePointer =
             },
           },
           required: ["centroid", "radius"],
-          "x-typia-jsDocTags": [],
         },
       },
     },

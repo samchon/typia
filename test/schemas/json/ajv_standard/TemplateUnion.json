@@ -19,8 +19,7 @@
         },
         "required": [
           "value"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "TemplateUnion.Type": {
         "$id": "#/components/schemas/TemplateUnion.Type",
@@ -59,8 +58,7 @@
                 },
                 "required": [
                   "name"
-                ],
-                "x-typia-jsDocTags": []
+                ]
               }
             ]
           }
@@ -70,8 +68,7 @@
           "postfix",
           "middle",
           "mixed"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       }
     }
   },

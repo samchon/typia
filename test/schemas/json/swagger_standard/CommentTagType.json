@@ -19,8 +19,7 @@
         "nullable": false,
         "required": [
           "value"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "CommentTagType.Type": {
         "type": "object",
@@ -58,8 +57,7 @@
           "int64",
           "uint64",
           "float"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       }
     }
   },

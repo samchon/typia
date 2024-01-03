@@ -28,7 +28,6 @@ export const test_json_application_ajv_standard_CommentTagType =
             },
           },
           required: ["value"],
-          "x-typia-jsDocTags": [],
         },
         "CommentTagType.Type": {
           $id: "#/components/schemas/CommentTagType.Type",
@@ -67,7 +66,6 @@ export const test_json_application_ajv_standard_CommentTagType =
             "uint64",
             "float",
           ],
-          "x-typia-jsDocTags": [],
         },
       },
     },

@@ -47,7 +47,6 @@ export const test_json_application_ajv_standard_ObjectPartialAndRequired =
             },
           },
           required: ["object", "array"],
-          "x-typia-jsDocTags": [],
         },
       },
     },

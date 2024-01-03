@@ -51,7 +51,6 @@ export const test_json_application_ajv_standard_ConstantAtomicWrapper =
             },
           },
           required: ["value"],
-          "x-typia-jsDocTags": [],
         },
         "ConstantAtomicWrapper.IPointernumber": {
           $id: "#/components/schemas/ConstantAtomicWrapper.IPointernumber",
@@ -62,7 +61,6 @@ export const test_json_application_ajv_standard_ConstantAtomicWrapper =
             },
           },
           required: ["value"],
-          "x-typia-jsDocTags": [],
         },
         "ConstantAtomicWrapper.IPointerstring": {
           $id: "#/components/schemas/ConstantAtomicWrapper.IPointerstring",
@@ -73,7 +71,6 @@ export const test_json_application_ajv_standard_ConstantAtomicWrapper =
             },
           },
           required: ["value"],
-          "x-typia-jsDocTags": [],
         },
       },
     },

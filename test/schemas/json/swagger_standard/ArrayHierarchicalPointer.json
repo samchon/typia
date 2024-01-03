@@ -19,8 +19,7 @@
         "nullable": false,
         "required": [
           "value"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "ArrayHierarchicalPointer.ICompany": {
         "type": "object",
@@ -51,8 +50,7 @@
           "name",
           "established_at",
           "departments"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "ArrayHierarchicalPointer.ITimestamp": {
         "type": "object",
@@ -68,8 +66,7 @@
         "required": [
           "time",
           "zone"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "ArrayHierarchicalPointer.IDepartment": {
         "type": "object",
@@ -100,8 +97,7 @@
           "sales",
           "created_at",
           "employees"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "ArrayHierarchicalPointer.IEmployee": {
         "type": "object",
@@ -129,8 +125,7 @@
           "age",
           "grade",
           "employeed_at"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       }
     }
   },

@@ -20,7 +20,6 @@ export const test_json_application_ajv_standard_DynamicTemplate =
           $id: "#/components/schemas/DynamicTemplate",
           type: "object",
           properties: {},
-          "x-typia-jsDocTags": [],
           patternProperties: {
             "^(prefix_(.*))": {
               type: "string",

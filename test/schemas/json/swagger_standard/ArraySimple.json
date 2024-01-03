@@ -33,8 +33,7 @@
           "name",
           "email",
           "hobbies"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "ArraySimple.IHobby": {
         "type": "object",
@@ -54,8 +53,7 @@
           "name",
           "body",
           "rank"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       }
     }
   },

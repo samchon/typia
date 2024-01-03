@@ -19,8 +19,7 @@
         },
         "required": [
           "value"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "IPointerObjectUnionExplicitPointer.Shape": {
         "$id": "#/components/schemas/IPointerObjectUnionExplicitPointer.Shape",
@@ -32,8 +31,7 @@
         },
         "required": [
           "value"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "ObjectUnionExplicitPointer.Shape": {
         "$id": "#/components/schemas/ObjectUnionExplicitPointer.Shape",
@@ -82,8 +80,7 @@
           "x",
           "y",
           "type"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "ObjectUnionExplicitPointer.DiscriminatorlineObjectUnionExplicitPointer.ILine": {
         "$id": "#/components/schemas/ObjectUnionExplicitPointer.DiscriminatorlineObjectUnionExplicitPointer.ILine",
@@ -106,8 +103,7 @@
           "p1",
           "p2",
           "type"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "ObjectUnionExplicitPointer.IPoint": {
         "$id": "#/components/schemas/ObjectUnionExplicitPointer.IPoint",
@@ -123,8 +119,7 @@
         "required": [
           "x",
           "y"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "ObjectUnionExplicitPointer.DiscriminatortriangleObjectUnionExplicitPointer.ITriangle": {
         "$id": "#/components/schemas/ObjectUnionExplicitPointer.DiscriminatortriangleObjectUnionExplicitPointer.ITriangle",
@@ -151,8 +146,7 @@
           "p2",
           "p3",
           "type"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "ObjectUnionExplicitPointer.DiscriminatorrectangleObjectUnionExplicitPointer.IRectangle": {
         "$id": "#/components/schemas/ObjectUnionExplicitPointer.DiscriminatorrectangleObjectUnionExplicitPointer.IRectangle",
@@ -183,8 +177,7 @@
           "p3",
           "p4",
           "type"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "ObjectUnionExplicitPointer.DiscriminatorpolylineObjectUnionExplicitPointer.IPolyline": {
         "$id": "#/components/schemas/ObjectUnionExplicitPointer.DiscriminatorpolylineObjectUnionExplicitPointer.IPolyline",
@@ -206,8 +199,7 @@
         "required": [
           "points",
           "type"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "ObjectUnionExplicitPointer.DiscriminatorpolygonObjectUnionExplicitPointer.IPolygon": {
         "$id": "#/components/schemas/ObjectUnionExplicitPointer.DiscriminatorpolygonObjectUnionExplicitPointer.IPolygon",
@@ -233,8 +225,7 @@
           "outer",
           "inner",
           "type"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "ObjectUnionExplicitPointer.IPolyline": {
         "$id": "#/components/schemas/ObjectUnionExplicitPointer.IPolyline",
@@ -249,8 +240,7 @@
         },
         "required": [
           "points"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "ObjectUnionExplicitPointer.DiscriminatorcircleObjectUnionExplicitPointer.ICircle": {
         "$id": "#/components/schemas/ObjectUnionExplicitPointer.DiscriminatorcircleObjectUnionExplicitPointer.ICircle",
@@ -273,8 +263,7 @@
           "centroid",
           "radius",
           "type"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       }
     }
   },

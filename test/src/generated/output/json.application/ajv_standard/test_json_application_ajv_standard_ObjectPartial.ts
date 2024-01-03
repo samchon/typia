@@ -47,7 +47,6 @@ export const test_json_application_ajv_standard_ObjectPartial =
             },
           },
           description: "Make all properties in T optional",
-          "x-typia-jsDocTags": [],
         },
         "ObjectPartial.IBase": {
           $id: "#/components/schemas/ObjectPartial.IBase",
@@ -80,7 +79,6 @@ export const test_json_application_ajv_standard_ObjectPartial =
             },
           },
           required: ["boolean", "number", "string", "array", "object"],
-          "x-typia-jsDocTags": [],
         },
       },
     },

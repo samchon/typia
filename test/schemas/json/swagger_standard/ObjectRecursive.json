@@ -36,8 +36,7 @@
           "name",
           "sequence",
           "created_at"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "ObjectRecursive.IDepartment.Nullable": {
         "type": "object",
@@ -69,8 +68,7 @@
           "name",
           "sequence",
           "created_at"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "ObjectRecursive.ITimestamp": {
         "type": "object",
@@ -86,8 +84,7 @@
         "required": [
           "time",
           "zone"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       }
     }
   },

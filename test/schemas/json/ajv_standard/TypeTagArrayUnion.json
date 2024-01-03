@@ -65,8 +65,7 @@
           "minItems",
           "maxItems",
           "both"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       }
     }
   },

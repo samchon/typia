@@ -71,7 +71,6 @@ export const test_json_application_ajv_standard_TypeTagArrayUnion =
             },
           },
           required: ["items", "minItems", "maxItems", "both"],
-          "x-typia-jsDocTags": [],
         },
       },
     },

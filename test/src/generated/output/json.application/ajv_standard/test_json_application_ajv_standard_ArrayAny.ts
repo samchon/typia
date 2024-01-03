@@ -89,7 +89,6 @@ export const test_json_application_ajv_standard_ArrayAny =
             },
           },
           required: ["anys", "nullables1", "nullables2", "union"],
-          "x-typia-jsDocTags": [],
         },
       },
     },

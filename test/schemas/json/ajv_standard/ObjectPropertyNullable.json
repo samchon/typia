@@ -67,8 +67,7 @@
         },
         "required": [
           "value"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "ObjectPropertyNullable.IPointernumber": {
         "$id": "#/components/schemas/ObjectPropertyNullable.IPointernumber",
@@ -87,8 +86,7 @@
         },
         "required": [
           "value"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "ObjectPropertyNullable.IPointerstring": {
         "$id": "#/components/schemas/ObjectPropertyNullable.IPointerstring",
@@ -107,8 +105,7 @@
         },
         "required": [
           "value"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "ObjectPropertyNullable.IPointerObjectPropertyNullable.IMember": {
         "$id": "#/components/schemas/ObjectPropertyNullable.IPointerObjectPropertyNullable.IMember",
@@ -127,8 +124,7 @@
         },
         "required": [
           "value"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "ObjectPropertyNullable.IMember": {
         "$id": "#/components/schemas/ObjectPropertyNullable.IMember",
@@ -175,8 +171,7 @@
           "id",
           "name",
           "activated"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       }
     }
   },

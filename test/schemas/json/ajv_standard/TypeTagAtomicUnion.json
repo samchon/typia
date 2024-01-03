@@ -19,8 +19,7 @@
         },
         "required": [
           "value"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "TypeTagAtomicUnion.Type": {
         "$id": "#/components/schemas/TypeTagAtomicUnion.Type",
@@ -42,8 +41,7 @@
         },
         "required": [
           "value"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       }
     }
   },

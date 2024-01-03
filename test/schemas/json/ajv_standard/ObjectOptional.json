@@ -22,8 +22,7 @@
           "sequence": {
             "type": "number"
           }
-        },
-        "x-typia-jsDocTags": []
+        }
       }
     }
   },

@@ -70,7 +70,6 @@ export const test_json_application_swagger_standard_CommentTagFormat =
             "date_time",
             "custom",
           ],
-          "x-typia-jsDocTags": [],
         },
       },
     },

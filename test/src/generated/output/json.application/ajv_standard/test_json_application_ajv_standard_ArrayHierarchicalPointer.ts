@@ -28,7 +28,6 @@ export const test_json_application_ajv_standard_ArrayHierarchicalPointer =
             },
           },
           required: ["value"],
-          "x-typia-jsDocTags": [],
         },
         "ArrayHierarchicalPointer.ICompany": {
           $id: "#/components/schemas/ArrayHierarchicalPointer.ICompany",
@@ -54,7 +53,6 @@ export const test_json_application_ajv_standard_ArrayHierarchicalPointer =
             },
           },
           required: ["id", "serial", "name", "established_at", "departments"],
-          "x-typia-jsDocTags": [],
         },
         "ArrayHierarchicalPointer.ITimestamp": {
           $id: "#/components/schemas/ArrayHierarchicalPointer.ITimestamp",
@@ -68,7 +66,6 @@ export const test_json_application_ajv_standard_ArrayHierarchicalPointer =
             },
           },
           required: ["time", "zone"],
-          "x-typia-jsDocTags": [],
         },
         "ArrayHierarchicalPointer.IDepartment": {
           $id: "#/components/schemas/ArrayHierarchicalPointer.IDepartment",
@@ -94,7 +91,6 @@ export const test_json_application_ajv_standard_ArrayHierarchicalPointer =
             },
           },
           required: ["id", "code", "sales", "created_at", "employees"],
-          "x-typia-jsDocTags": [],
         },
         "ArrayHierarchicalPointer.IEmployee": {
           $id: "#/components/schemas/ArrayHierarchicalPointer.IEmployee",
@@ -117,7 +113,6 @@ export const test_json_application_ajv_standard_ArrayHierarchicalPointer =
             },
           },
           required: ["id", "name", "age", "grade", "employeed_at"],
-          "x-typia-jsDocTags": [],
         },
       },
     },

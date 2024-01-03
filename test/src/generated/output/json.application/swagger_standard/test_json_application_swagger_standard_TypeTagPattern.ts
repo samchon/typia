@@ -42,7 +42,6 @@ export const test_json_application_swagger_standard_TypeTagPattern =
           },
           nullable: false,
           required: ["uuid", "email", "ipv4", "ipv6"],
-          "x-typia-jsDocTags": [],
         },
       },
     },

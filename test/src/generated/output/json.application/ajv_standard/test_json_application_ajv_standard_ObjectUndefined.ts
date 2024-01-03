@@ -49,7 +49,6 @@ export const test_json_application_ajv_standard_ObjectUndefined =
             unknown: {},
           },
           required: ["name", "unknown"],
-          "x-typia-jsDocTags": [],
         },
         "ObjectUndefined.IClassroom": {
           $id: "#/components/schemas/ObjectUndefined.IClassroom",
@@ -63,7 +62,6 @@ export const test_json_application_ajv_standard_ObjectUndefined =
             },
           },
           required: ["id", "name"],
-          "x-typia-jsDocTags": [],
         },
       },
     },

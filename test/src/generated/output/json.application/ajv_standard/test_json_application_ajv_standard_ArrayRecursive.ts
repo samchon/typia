@@ -40,7 +40,6 @@ export const test_json_application_ajv_standard_ArrayRecursive =
             },
           },
           required: ["children", "id", "code", "sequence", "created_at"],
-          "x-typia-jsDocTags": [],
         },
         "ArrayRecursive.ITimestamp": {
           $id: "#/components/schemas/ArrayRecursive.ITimestamp",
@@ -54,7 +53,6 @@ export const test_json_application_ajv_standard_ArrayRecursive =
             },
           },
           required: ["time", "zone"],
-          "x-typia-jsDocTags": [],
         },
       },
     },

@@ -82,8 +82,7 @@
           "sex",
           "age",
           "dead"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       }
     }
   },

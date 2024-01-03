@@ -80,7 +80,6 @@ export const test_json_application_ajv_standard_ObjectAlias =
             },
           },
           required: ["id", "email", "name", "sex", "age", "dead"],
-          "x-typia-jsDocTags": [],
         },
       },
     },

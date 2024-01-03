@@ -40,7 +40,6 @@ export const test_json_application_swagger_standard_ObjectPartialAndRequired =
           },
           nullable: false,
           required: ["object", "array"],
-          "x-typia-jsDocTags": [],
         },
         "ObjectPartialAndRequired.Nullable": {
           type: "object",
@@ -66,7 +65,6 @@ export const test_json_application_swagger_standard_ObjectPartialAndRequired =
           },
           nullable: true,
           required: ["object", "array"],
-          "x-typia-jsDocTags": [],
         },
       },
     },

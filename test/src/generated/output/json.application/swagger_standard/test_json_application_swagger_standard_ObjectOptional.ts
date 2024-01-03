@@ -33,7 +33,6 @@ export const test_json_application_swagger_standard_ObjectOptional =
             },
           },
           nullable: false,
-          "x-typia-jsDocTags": [],
         },
       },
     },

@@ -20,7 +20,6 @@ export const test_json_application_ajv_standard_DynamicUnion =
           $id: "#/components/schemas/DynamicUnion",
           type: "object",
           properties: {},
-          "x-typia-jsDocTags": [],
           patternProperties: {
             "^[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?$": {
               type: "string",

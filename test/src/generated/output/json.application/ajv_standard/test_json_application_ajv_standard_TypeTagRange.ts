@@ -28,7 +28,6 @@ export const test_json_application_ajv_standard_TypeTagRange =
             },
           },
           required: ["value"],
-          "x-typia-jsDocTags": [],
         },
         "TypeTagRange.Type": {
           $id: "#/components/schemas/TypeTagRange.Type",
@@ -93,7 +92,6 @@ export const test_json_application_ajv_standard_TypeTagRange =
             "greater_equal_less_equal",
             "equal",
           ],
-          "x-typia-jsDocTags": [],
         },
       },
     },

@@ -47,7 +47,6 @@ export const test_json_application_ajv_standard_ArrayHierarchical =
             },
           },
           required: ["id", "serial", "name", "established_at", "departments"],
-          "x-typia-jsDocTags": [],
         },
         "ArrayHierarchical.ITimestamp": {
           $id: "#/components/schemas/ArrayHierarchical.ITimestamp",
@@ -61,7 +60,6 @@ export const test_json_application_ajv_standard_ArrayHierarchical =
             },
           },
           required: ["time", "zone"],
-          "x-typia-jsDocTags": [],
         },
         "ArrayHierarchical.IDepartment": {
           $id: "#/components/schemas/ArrayHierarchical.IDepartment",
@@ -87,7 +85,6 @@ export const test_json_application_ajv_standard_ArrayHierarchical =
             },
           },
           required: ["id", "code", "sales", "created_at", "employees"],
-          "x-typia-jsDocTags": [],
         },
         "ArrayHierarchical.IEmployee": {
           $id: "#/components/schemas/ArrayHierarchical.IEmployee",
@@ -110,7 +107,6 @@ export const test_json_application_ajv_standard_ArrayHierarchical =
             },
           },
           required: ["id", "name", "age", "grade", "employeed_at"],
-          "x-typia-jsDocTags": [],
         },
       },
     },

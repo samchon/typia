@@ -20,7 +20,6 @@ export const test_json_application_swagger_standard_DynamicTemplate =
           type: "object",
           properties: {},
           nullable: false,
-          "x-typia-jsDocTags": [],
         },
       },
     },

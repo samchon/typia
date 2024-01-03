@@ -34,7 +34,6 @@ export const test_json_application_ajv_standard_ObjectSimple =
             },
           },
           required: ["scale", "position", "rotate", "pivot"],
-          "x-typia-jsDocTags": [],
         },
         "ObjectSimple.IPoint3D": {
           $id: "#/components/schemas/ObjectSimple.IPoint3D",
@@ -51,7 +50,6 @@ export const test_json_application_ajv_standard_ObjectSimple =
             },
           },
           required: ["x", "y", "z"],
-          "x-typia-jsDocTags": [],
         },
       },
     },

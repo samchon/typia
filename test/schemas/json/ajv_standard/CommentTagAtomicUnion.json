@@ -19,8 +19,7 @@
         },
         "required": [
           "value"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "CommentTagAtomicUnion.Type": {
         "$id": "#/components/schemas/CommentTagAtomicUnion.Type",
@@ -42,8 +41,7 @@
         },
         "required": [
           "value"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       }
     }
   },

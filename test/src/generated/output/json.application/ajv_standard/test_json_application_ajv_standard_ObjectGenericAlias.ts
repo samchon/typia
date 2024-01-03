@@ -25,7 +25,6 @@ export const test_json_application_ajv_standard_ObjectGenericAlias =
             },
           },
           required: ["value"],
-          "x-typia-jsDocTags": [],
         },
       },
     },

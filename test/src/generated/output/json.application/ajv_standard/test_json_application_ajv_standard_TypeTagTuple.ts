@@ -71,7 +71,6 @@ export const test_json_application_ajv_standard_TypeTagTuple =
             },
           },
           required: ["tuple"],
-          "x-typia-jsDocTags": [],
         },
       },
     },

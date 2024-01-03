@@ -39,7 +39,6 @@ export const test_json_application_swagger_standard_ClassPropertyAssignment =
           },
           nullable: false,
           required: ["id", "name", "note", "editable", "incremental"],
-          "x-typia-jsDocTags": [],
         },
       },
     },

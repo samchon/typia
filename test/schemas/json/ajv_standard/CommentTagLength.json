@@ -19,8 +19,7 @@
         },
         "required": [
           "value"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "CommentTagLength.Type": {
         "$id": "#/components/schemas/CommentTagLength.Type",
@@ -56,8 +55,7 @@
           "maximum",
           "minimum_and_maximum",
           "equal"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       }
     }
   },

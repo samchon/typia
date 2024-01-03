@@ -91,7 +91,6 @@ export const test_json_application_swagger_standard_ObjectHierarchical =
             "ip",
             "created_at",
           ],
-          "x-typia-jsDocTags": [],
         },
         "ObjectHierarchical.IChannel": {
           type: "object",
@@ -128,7 +127,6 @@ export const test_json_application_swagger_standard_ObjectHierarchical =
             "priority",
             "created_at",
           ],
-          "x-typia-jsDocTags": [],
         },
         "ObjectHierarchical.ITimestamp": {
           type: "object",
@@ -142,7 +140,6 @@ export const test_json_application_swagger_standard_ObjectHierarchical =
           },
           nullable: false,
           required: ["time", "zone"],
-          "x-typia-jsDocTags": [],
         },
         "ObjectHierarchical.IMember.Nullable": {
           type: "object",
@@ -178,7 +175,6 @@ export const test_json_application_swagger_standard_ObjectHierarchical =
             "created_at",
             "authorized",
           ],
-          "x-typia-jsDocTags": [],
         },
         "ObjectHierarchical.IAccount": {
           type: "object",
@@ -195,7 +191,6 @@ export const test_json_application_swagger_standard_ObjectHierarchical =
           },
           nullable: false,
           required: ["id", "code", "created_at"],
-          "x-typia-jsDocTags": [],
         },
         "ObjectHierarchical.IEnterprise.Nullable": {
           type: "object",
@@ -218,7 +213,6 @@ export const test_json_application_swagger_standard_ObjectHierarchical =
           },
           nullable: true,
           required: ["id", "account", "name", "grade", "created_at"],
-          "x-typia-jsDocTags": [],
         },
         "ObjectHierarchical.IAccount.Nullable": {
           type: "object",
@@ -235,7 +229,6 @@ export const test_json_application_swagger_standard_ObjectHierarchical =
           },
           nullable: true,
           required: ["id", "code", "created_at"],
-          "x-typia-jsDocTags": [],
         },
       },
     },

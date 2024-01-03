@@ -19,8 +19,7 @@
         "nullable": false,
         "required": [
           "value"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "ObjectUnionNonPredictable.IWrapperObjectUnionNonPredictable.IUnion": {
         "type": "object",
@@ -32,8 +31,7 @@
         "nullable": false,
         "required": [
           "value"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "IPointerObjectUnionNonPredictable.IUnion": {
         "type": "object",
@@ -45,8 +43,7 @@
         "nullable": false,
         "required": [
           "value"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "ObjectUnionNonPredictable.IUnion": {
         "oneOf": [
@@ -71,8 +68,7 @@
         "nullable": false,
         "required": [
           "value"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "IPointerboolean": {
         "type": "object",
@@ -84,8 +80,7 @@
         "nullable": false,
         "required": [
           "value"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "ObjectUnionNonPredictable.IWrappernumber": {
         "type": "object",
@@ -97,8 +92,7 @@
         "nullable": false,
         "required": [
           "value"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "IPointernumber": {
         "type": "object",
@@ -110,8 +104,7 @@
         "nullable": false,
         "required": [
           "value"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "ObjectUnionNonPredictable.IWrapperstring": {
         "type": "object",
@@ -123,8 +116,7 @@
         "nullable": false,
         "required": [
           "value"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "IPointerstring": {
         "type": "object",
@@ -136,8 +128,7 @@
         "nullable": false,
         "required": [
           "value"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       }
     }
   },

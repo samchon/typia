@@ -42,8 +42,7 @@
         },
         "required": [
           "value"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "ConstantAtomicWrapper.IPointernumber": {
         "$id": "#/components/schemas/ConstantAtomicWrapper.IPointernumber",
@@ -55,8 +54,7 @@
         },
         "required": [
           "value"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "ConstantAtomicWrapper.IPointerstring": {
         "$id": "#/components/schemas/ConstantAtomicWrapper.IPointerstring",
@@ -68,8 +66,7 @@
         },
         "required": [
           "value"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       }
     }
   },

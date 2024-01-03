@@ -92,8 +92,7 @@
         "nullable": false,
         "required": [
           "id"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       }
     }
   },

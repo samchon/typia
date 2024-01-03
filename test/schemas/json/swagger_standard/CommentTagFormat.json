@@ -59,8 +59,7 @@
           "date",
           "date_time",
           "custom"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       }
     }
   },

@@ -28,7 +28,6 @@ export const test_json_application_ajv_standard_CommentTagRange =
             },
           },
           required: ["value"],
-          "x-typia-jsDocTags": [],
         },
         "CommentTagRange.Type": {
           $id: "#/components/schemas/CommentTagRange.Type",
@@ -93,7 +92,6 @@ export const test_json_application_ajv_standard_CommentTagRange =
             "greater_equal_less_equal",
             "equal",
           ],
-          "x-typia-jsDocTags": [],
         },
       },
     },

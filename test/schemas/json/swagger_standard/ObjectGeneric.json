@@ -70,8 +70,7 @@
           "value",
           "child",
           "elements"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "ObjectGeneric.IChildbooleanboolean": {
         "type": "object",
@@ -87,8 +86,7 @@
         "required": [
           "child_value",
           "child_next"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "ObjectGeneric.ISomethingnumber": {
         "type": "object",
@@ -111,8 +109,7 @@
           "value",
           "child",
           "elements"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "ObjectGeneric.IChildnumbernumber": {
         "type": "object",
@@ -128,8 +125,7 @@
         "required": [
           "child_value",
           "child_next"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "ObjectGeneric.ISomethingstring": {
         "type": "object",
@@ -152,8 +148,7 @@
           "value",
           "child",
           "elements"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "ObjectGeneric.IChildstringstring": {
         "type": "object",
@@ -169,8 +164,7 @@
         "required": [
           "child_value",
           "child_next"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       }
     }
   },

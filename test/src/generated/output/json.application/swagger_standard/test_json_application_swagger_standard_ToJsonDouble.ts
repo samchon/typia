@@ -28,7 +28,6 @@ export const test_json_application_swagger_standard_ToJsonDouble =
           },
           nullable: false,
           required: ["id", "flag"],
-          "x-typia-jsDocTags": [],
         },
       },
     },

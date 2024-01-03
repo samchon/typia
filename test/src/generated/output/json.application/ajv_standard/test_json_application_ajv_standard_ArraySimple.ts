@@ -41,7 +41,6 @@ export const test_json_application_ajv_standard_ArraySimple =
             },
           },
           required: ["name", "email", "hobbies"],
-          "x-typia-jsDocTags": [],
         },
         "ArraySimple.IHobby": {
           $id: "#/components/schemas/ArraySimple.IHobby",
@@ -58,7 +57,6 @@ export const test_json_application_ajv_standard_ArraySimple =
             },
           },
           required: ["name", "body", "rank"],
-          "x-typia-jsDocTags": [],
         },
       },
     },

@@ -31,8 +31,7 @@
           "id",
           "name",
           "dead"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       }
     }
   },

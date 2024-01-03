@@ -31,7 +31,6 @@ export const test_json_application_swagger_standard_ObjectIntersection =
           },
           nullable: false,
           required: ["email", "name", "vulnerable"],
-          "x-typia-jsDocTags": [],
         },
       },
     },

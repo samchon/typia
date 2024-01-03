@@ -28,7 +28,6 @@ export const test_json_application_swagger_standard_ObjectUnionNonPredictable =
           },
           nullable: false,
           required: ["value"],
-          "x-typia-jsDocTags": [],
         },
         "ObjectUnionNonPredictable.IWrapperObjectUnionNonPredictable.IUnion": {
           type: "object",
@@ -39,7 +38,6 @@ export const test_json_application_swagger_standard_ObjectUnionNonPredictable =
           },
           nullable: false,
           required: ["value"],
-          "x-typia-jsDocTags": [],
         },
         "IPointerObjectUnionNonPredictable.IUnion": {
           type: "object",
@@ -50,7 +48,6 @@ export const test_json_application_swagger_standard_ObjectUnionNonPredictable =
           },
           nullable: false,
           required: ["value"],
-          "x-typia-jsDocTags": [],
         },
         "ObjectUnionNonPredictable.IUnion": {
           oneOf: [
@@ -74,7 +71,6 @@ export const test_json_application_swagger_standard_ObjectUnionNonPredictable =
           },
           nullable: false,
           required: ["value"],
-          "x-typia-jsDocTags": [],
         },
         IPointerboolean: {
           type: "object",
@@ -85,7 +81,6 @@ export const test_json_application_swagger_standard_ObjectUnionNonPredictable =
           },
           nullable: false,
           required: ["value"],
-          "x-typia-jsDocTags": [],
         },
         "ObjectUnionNonPredictable.IWrappernumber": {
           type: "object",
@@ -96,7 +91,6 @@ export const test_json_application_swagger_standard_ObjectUnionNonPredictable =
           },
           nullable: false,
           required: ["value"],
-          "x-typia-jsDocTags": [],
         },
         IPointernumber: {
           type: "object",
@@ -107,7 +101,6 @@ export const test_json_application_swagger_standard_ObjectUnionNonPredictable =
           },
           nullable: false,
           required: ["value"],
-          "x-typia-jsDocTags": [],
         },
         "ObjectUnionNonPredictable.IWrapperstring": {
           type: "object",
@@ -118,7 +111,6 @@ export const test_json_application_swagger_standard_ObjectUnionNonPredictable =
           },
           nullable: false,
           required: ["value"],
-          "x-typia-jsDocTags": [],
         },
         IPointerstring: {
           type: "object",
@@ -129,7 +121,6 @@ export const test_json_application_swagger_standard_ObjectUnionNonPredictable =
           },
           nullable: false,
           required: ["value"],
-          "x-typia-jsDocTags": [],
         },
       },
     },

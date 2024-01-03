@@ -19,8 +19,7 @@
         "nullable": false,
         "required": [
           "value"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "CommentTagArray.Type": {
         "type": "object",
@@ -63,8 +62,7 @@
           "minItems",
           "both",
           "equal"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       }
     }
   },

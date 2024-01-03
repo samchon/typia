@@ -93,8 +93,7 @@
         "nullable": false,
         "required": [
           "value"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "ObjectPropertyNullable.IPointernumber": {
         "type": "object",
@@ -107,8 +106,7 @@
         "nullable": false,
         "required": [
           "value"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "ObjectPropertyNullable.IPointerstring": {
         "type": "object",
@@ -121,8 +119,7 @@
         "nullable": false,
         "required": [
           "value"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "ObjectPropertyNullable.IPointerObjectPropertyNullable.IMember": {
         "type": "object",
@@ -134,8 +131,7 @@
         "nullable": false,
         "required": [
           "value"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "ObjectPropertyNullable.IMember.Nullable": {
         "type": "object",
@@ -164,8 +160,7 @@
           "id",
           "name",
           "activated"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       }
     }
   },

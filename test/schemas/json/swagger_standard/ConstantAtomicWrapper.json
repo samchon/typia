@@ -59,8 +59,7 @@
         "nullable": false,
         "required": [
           "value"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "ConstantAtomicWrapper.IPointernumber": {
         "type": "object",
@@ -72,8 +71,7 @@
         "nullable": false,
         "required": [
           "value"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "ConstantAtomicWrapper.IPointerstring": {
         "type": "object",
@@ -85,8 +83,7 @@
         "nullable": false,
         "required": [
           "value"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       }
     }
   },

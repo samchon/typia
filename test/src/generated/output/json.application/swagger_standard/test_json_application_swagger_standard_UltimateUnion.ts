@@ -44,7 +44,6 @@ export const test_json_application_swagger_standard_UltimateUnion =
           },
           nullable: false,
           required: ["schemas", "components", "purpose", "surplus"],
-          "x-typia-jsDocTags": [],
         },
         IJsonSchema: {
           oneOf: [
@@ -139,7 +138,6 @@ export const test_json_application_swagger_standard_UltimateUnion =
           },
           nullable: false,
           required: ["enum", "type"],
-          "x-typia-jsDocTags": [],
         },
         IJsDocTagInfo: {
           type: "object",
@@ -156,7 +154,6 @@ export const test_json_application_swagger_standard_UltimateUnion =
           },
           nullable: false,
           required: ["name"],
-          "x-typia-jsDocTags": [],
         },
         "IJsDocTagInfo.IText": {
           type: "object",
@@ -170,7 +167,6 @@ export const test_json_application_swagger_standard_UltimateUnion =
           },
           nullable: false,
           required: ["text", "kind"],
-          "x-typia-jsDocTags": [],
         },
         "IJsonSchema.IEnumerationnumber": {
           type: "object",
@@ -219,7 +215,6 @@ export const test_json_application_swagger_standard_UltimateUnion =
           },
           nullable: false,
           required: ["enum", "type"],
-          "x-typia-jsDocTags": [],
         },
         "IJsonSchema.IEnumerationstring": {
           type: "object",
@@ -268,7 +263,6 @@ export const test_json_application_swagger_standard_UltimateUnion =
           },
           nullable: false,
           required: ["enum", "type"],
-          "x-typia-jsDocTags": [],
         },
         "IJsonSchema.IBoolean": {
           type: "object",
@@ -317,7 +311,6 @@ export const test_json_application_swagger_standard_UltimateUnion =
           },
           nullable: false,
           required: ["type"],
-          "x-typia-jsDocTags": [],
         },
         IMetadataTypeTag: {
           type: "object",
@@ -352,7 +345,6 @@ export const test_json_application_swagger_standard_UltimateUnion =
           },
           nullable: false,
           required: ["target", "name", "kind", "exclusive"],
-          "x-typia-jsDocTags": [],
         },
         "IJsonSchema.IInteger": {
           type: "object",
@@ -416,7 +408,6 @@ export const test_json_application_swagger_standard_UltimateUnion =
           },
           nullable: false,
           required: ["type"],
-          "x-typia-jsDocTags": [],
         },
         "IJsonSchema.INumber": {
           type: "object",
@@ -480,7 +471,6 @@ export const test_json_application_swagger_standard_UltimateUnion =
           },
           nullable: false,
           required: ["type"],
-          "x-typia-jsDocTags": [],
         },
         "IJsonSchema.IString": {
           type: "object",
@@ -541,7 +531,6 @@ export const test_json_application_swagger_standard_UltimateUnion =
           },
           nullable: false,
           required: ["type"],
-          "x-typia-jsDocTags": [],
         },
         "IJsonSchema.IArray": {
           type: "object",
@@ -599,7 +588,6 @@ export const test_json_application_swagger_standard_UltimateUnion =
           },
           nullable: false,
           required: ["items", "type"],
-          "x-typia-jsDocTags": [],
         },
         "IJsonSchema.ITuple": {
           type: "object",
@@ -651,7 +639,6 @@ export const test_json_application_swagger_standard_UltimateUnion =
           },
           nullable: false,
           required: ["items", "minItems", "type"],
-          "x-typia-jsDocTags": [],
         },
         "IJsonSchema.IObject": {
           type: "object",
@@ -798,14 +785,12 @@ export const test_json_application_swagger_standard_UltimateUnion =
           },
           nullable: false,
           required: ["properties", "type"],
-          "x-typia-jsDocTags": [],
         },
         RecordstringIJsonSchema: {
           type: "object",
           properties: {},
           nullable: false,
           description: "Construct a type with a set of properties K of type T",
-          "x-typia-jsDocTags": [],
         },
         "IJsonSchema.IReference": {
           type: "object",
@@ -840,7 +825,6 @@ export const test_json_application_swagger_standard_UltimateUnion =
           },
           nullable: false,
           required: ["$ref"],
-          "x-typia-jsDocTags": [],
         },
         "IJsonSchema.INullOnly": {
           type: "object",
@@ -876,7 +860,6 @@ export const test_json_application_swagger_standard_UltimateUnion =
           },
           nullable: false,
           required: ["type"],
-          "x-typia-jsDocTags": [],
         },
         "IJsonSchema.IOneOf": {
           type: "object",
@@ -914,7 +897,6 @@ export const test_json_application_swagger_standard_UltimateUnion =
           },
           nullable: false,
           required: ["oneOf"],
-          "x-typia-jsDocTags": [],
         },
         "IJsonSchema.IUnknown": {
           type: "object",
@@ -945,7 +927,6 @@ export const test_json_application_swagger_standard_UltimateUnion =
             },
           },
           nullable: false,
-          "x-typia-jsDocTags": [],
         },
         IJsonComponents: {
           type: "object",
@@ -955,14 +936,12 @@ export const test_json_application_swagger_standard_UltimateUnion =
             },
           },
           nullable: false,
-          "x-typia-jsDocTags": [],
         },
         "RecordstringIJsonComponents.IAlias": {
           type: "object",
           properties: {},
           nullable: false,
           description: "Construct a type with a set of properties K of type T",
-          "x-typia-jsDocTags": [],
         },
         "IJsonComponents.IAlias": {
           oneOf: [
@@ -1063,7 +1042,6 @@ export const test_json_application_swagger_standard_UltimateUnion =
           },
           nullable: false,
           required: ["enum", "type"],
-          "x-typia-jsDocTags": [],
         },
         IEnumerationnumberIIdentified: {
           type: "object",
@@ -1118,7 +1096,6 @@ export const test_json_application_swagger_standard_UltimateUnion =
           },
           nullable: false,
           required: ["enum", "type"],
-          "x-typia-jsDocTags": [],
         },
         IEnumerationstringIIdentified: {
           type: "object",
@@ -1173,7 +1150,6 @@ export const test_json_application_swagger_standard_UltimateUnion =
           },
           nullable: false,
           required: ["enum", "type"],
-          "x-typia-jsDocTags": [],
         },
         IBooleanIIdentified: {
           type: "object",
@@ -1228,7 +1204,6 @@ export const test_json_application_swagger_standard_UltimateUnion =
           },
           nullable: false,
           required: ["type"],
-          "x-typia-jsDocTags": [],
         },
         IIntegerIIdentified: {
           type: "object",
@@ -1298,7 +1273,6 @@ export const test_json_application_swagger_standard_UltimateUnion =
           },
           nullable: false,
           required: ["type"],
-          "x-typia-jsDocTags": [],
         },
         INumberIIdentified: {
           type: "object",
@@ -1368,7 +1342,6 @@ export const test_json_application_swagger_standard_UltimateUnion =
           },
           nullable: false,
           required: ["type"],
-          "x-typia-jsDocTags": [],
         },
         IStringIIdentified: {
           type: "object",
@@ -1435,7 +1408,6 @@ export const test_json_application_swagger_standard_UltimateUnion =
           },
           nullable: false,
           required: ["type"],
-          "x-typia-jsDocTags": [],
         },
         IArrayIIdentified: {
           type: "object",
@@ -1499,7 +1471,6 @@ export const test_json_application_swagger_standard_UltimateUnion =
           },
           nullable: false,
           required: ["items", "type"],
-          "x-typia-jsDocTags": [],
         },
         ITupleIIdentified: {
           type: "object",
@@ -1557,7 +1528,6 @@ export const test_json_application_swagger_standard_UltimateUnion =
           },
           nullable: false,
           required: ["items", "minItems", "type"],
-          "x-typia-jsDocTags": [],
         },
         IObjectIIdentified: {
           type: "object",
@@ -1710,7 +1680,6 @@ export const test_json_application_swagger_standard_UltimateUnion =
           },
           nullable: false,
           required: ["properties", "type"],
-          "x-typia-jsDocTags": [],
         },
         IReferenceIIdentified: {
           type: "object",
@@ -1751,7 +1720,6 @@ export const test_json_application_swagger_standard_UltimateUnion =
           },
           nullable: false,
           required: ["$ref"],
-          "x-typia-jsDocTags": [],
         },
         INullOnlyIIdentified: {
           type: "object",
@@ -1793,7 +1761,6 @@ export const test_json_application_swagger_standard_UltimateUnion =
           },
           nullable: false,
           required: ["type"],
-          "x-typia-jsDocTags": [],
         },
         IOneOfIIdentified: {
           type: "object",
@@ -1837,7 +1804,6 @@ export const test_json_application_swagger_standard_UltimateUnion =
           },
           nullable: false,
           required: ["oneOf"],
-          "x-typia-jsDocTags": [],
         },
         IUnknownIIdentified: {
           type: "object",
@@ -1874,7 +1840,6 @@ export const test_json_application_swagger_standard_UltimateUnion =
             },
           },
           nullable: false,
-          "x-typia-jsDocTags": [],
         },
       },
     },

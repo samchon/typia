@@ -19,8 +19,7 @@
         "nullable": false,
         "required": [
           "value"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "TypeTagArray.Type": {
         "type": "object",
@@ -68,8 +67,7 @@
           "minItems",
           "both",
           "equal"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       }
     }
   },

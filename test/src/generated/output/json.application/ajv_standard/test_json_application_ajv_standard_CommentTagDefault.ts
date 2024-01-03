@@ -117,7 +117,6 @@ export const test_json_application_ajv_standard_CommentTagDefault =
             "vulnerable_range",
             "boolean_and_number_and_template",
           ],
-          "x-typia-jsDocTags": [],
         },
       },
     },

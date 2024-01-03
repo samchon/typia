@@ -28,7 +28,6 @@ export const test_json_application_ajv_standard_CommentTagAtomicUnion =
             },
           },
           required: ["value"],
-          "x-typia-jsDocTags": [],
         },
         "CommentTagAtomicUnion.Type": {
           $id: "#/components/schemas/CommentTagAtomicUnion.Type",
@@ -49,7 +48,6 @@ export const test_json_application_ajv_standard_CommentTagAtomicUnion =
             },
           },
           required: ["value"],
-          "x-typia-jsDocTags": [],
         },
       },
     },

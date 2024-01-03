@@ -97,7 +97,6 @@ export const test_json_application_ajv_standard_ObjectHierarchical =
             "ip",
             "created_at",
           ],
-          "x-typia-jsDocTags": [],
         },
         "ObjectHierarchical.IChannel": {
           $id: "#/components/schemas/ObjectHierarchical.IChannel",
@@ -134,7 +133,6 @@ export const test_json_application_ajv_standard_ObjectHierarchical =
             "priority",
             "created_at",
           ],
-          "x-typia-jsDocTags": [],
         },
         "ObjectHierarchical.ITimestamp": {
           $id: "#/components/schemas/ObjectHierarchical.ITimestamp",
@@ -148,7 +146,6 @@ export const test_json_application_ajv_standard_ObjectHierarchical =
             },
           },
           required: ["time", "zone"],
-          "x-typia-jsDocTags": [],
         },
         "ObjectHierarchical.IMember": {
           $id: "#/components/schemas/ObjectHierarchical.IMember",
@@ -191,7 +188,6 @@ export const test_json_application_ajv_standard_ObjectHierarchical =
             "created_at",
             "authorized",
           ],
-          "x-typia-jsDocTags": [],
         },
         "ObjectHierarchical.IAccount": {
           $id: "#/components/schemas/ObjectHierarchical.IAccount",
@@ -208,7 +204,6 @@ export const test_json_application_ajv_standard_ObjectHierarchical =
             },
           },
           required: ["id", "code", "created_at"],
-          "x-typia-jsDocTags": [],
         },
         "ObjectHierarchical.IEnterprise": {
           $id: "#/components/schemas/ObjectHierarchical.IEnterprise",
@@ -231,7 +226,6 @@ export const test_json_application_ajv_standard_ObjectHierarchical =
             },
           },
           required: ["id", "account", "name", "grade", "created_at"],
-          "x-typia-jsDocTags": [],
         },
       },
     },

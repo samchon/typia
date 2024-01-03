@@ -44,7 +44,6 @@ export const test_json_application_ajv_standard_CommentTagObjectUnion =
             },
           },
           required: ["value"],
-          "x-typia-jsDocTags": [],
         },
         "CommentTagObjectUnion.Literal": {
           $id: "#/components/schemas/CommentTagObjectUnion.Literal",
@@ -57,7 +56,6 @@ export const test_json_application_ajv_standard_CommentTagObjectUnion =
             },
           },
           required: ["value"],
-          "x-typia-jsDocTags": [],
         },
       },
     },

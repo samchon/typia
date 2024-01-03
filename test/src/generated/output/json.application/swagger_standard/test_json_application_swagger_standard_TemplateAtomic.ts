@@ -64,7 +64,6 @@ export const test_json_application_swagger_standard_TemplateAtomic =
             "ipv4",
             "email",
           ],
-          "x-typia-jsDocTags": [],
         },
       },
     },

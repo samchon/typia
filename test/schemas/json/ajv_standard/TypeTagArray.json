@@ -19,8 +19,7 @@
         },
         "required": [
           "value"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "TypeTagArray.Type": {
         "$id": "#/components/schemas/TypeTagArray.Type",
@@ -68,8 +67,7 @@
           "minItems",
           "both",
           "equal"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       }
     }
   },

@@ -28,7 +28,6 @@ export const test_json_application_swagger_standard_ArrayHierarchicalPointer =
           },
           nullable: false,
           required: ["value"],
-          "x-typia-jsDocTags": [],
         },
         "ArrayHierarchicalPointer.ICompany": {
           type: "object",
@@ -54,7 +53,6 @@ export const test_json_application_swagger_standard_ArrayHierarchicalPointer =
           },
           nullable: false,
           required: ["id", "serial", "name", "established_at", "departments"],
-          "x-typia-jsDocTags": [],
         },
         "ArrayHierarchicalPointer.ITimestamp": {
           type: "object",
@@ -68,7 +66,6 @@ export const test_json_application_swagger_standard_ArrayHierarchicalPointer =
           },
           nullable: false,
           required: ["time", "zone"],
-          "x-typia-jsDocTags": [],
         },
         "ArrayHierarchicalPointer.IDepartment": {
           type: "object",
@@ -94,7 +91,6 @@ export const test_json_application_swagger_standard_ArrayHierarchicalPointer =
           },
           nullable: false,
           required: ["id", "code", "sales", "created_at", "employees"],
-          "x-typia-jsDocTags": [],
         },
         "ArrayHierarchicalPointer.IEmployee": {
           type: "object",
@@ -117,7 +113,6 @@ export const test_json_application_swagger_standard_ArrayHierarchicalPointer =
           },
           nullable: false,
           required: ["id", "name", "age", "grade", "employeed_at"],
-          "x-typia-jsDocTags": [],
         },
       },
     },

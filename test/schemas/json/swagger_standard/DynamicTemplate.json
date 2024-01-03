@@ -9,8 +9,7 @@
       "DynamicTemplate": {
         "type": "object",
         "properties": {},
-        "nullable": false,
-        "x-typia-jsDocTags": []
+        "nullable": false
       }
     }
   },

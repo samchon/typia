@@ -19,8 +19,7 @@
         "nullable": false,
         "required": [
           "value"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "IPointerObjectUnionExplicitPointer.Shape": {
         "type": "object",
@@ -32,8 +31,7 @@
         "nullable": false,
         "required": [
           "value"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "ObjectUnionExplicitPointer.Shape": {
         "oneOf": [
@@ -81,8 +79,7 @@
           "x",
           "y",
           "type"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "ObjectUnionExplicitPointer.DiscriminatorlineObjectUnionExplicitPointer.ILine": {
         "type": "object",
@@ -105,8 +102,7 @@
           "p1",
           "p2",
           "type"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "ObjectUnionExplicitPointer.IPoint": {
         "type": "object",
@@ -122,8 +118,7 @@
         "required": [
           "x",
           "y"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "ObjectUnionExplicitPointer.DiscriminatortriangleObjectUnionExplicitPointer.ITriangle": {
         "type": "object",
@@ -150,8 +145,7 @@
           "p2",
           "p3",
           "type"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "ObjectUnionExplicitPointer.DiscriminatorrectangleObjectUnionExplicitPointer.IRectangle": {
         "type": "object",
@@ -182,8 +176,7 @@
           "p3",
           "p4",
           "type"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "ObjectUnionExplicitPointer.DiscriminatorpolylineObjectUnionExplicitPointer.IPolyline": {
         "type": "object",
@@ -205,8 +198,7 @@
         "required": [
           "points",
           "type"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "ObjectUnionExplicitPointer.DiscriminatorpolygonObjectUnionExplicitPointer.IPolygon": {
         "type": "object",
@@ -232,8 +224,7 @@
           "outer",
           "inner",
           "type"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "ObjectUnionExplicitPointer.IPolyline": {
         "type": "object",
@@ -248,8 +239,7 @@
         "nullable": false,
         "required": [
           "points"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "ObjectUnionExplicitPointer.DiscriminatorcircleObjectUnionExplicitPointer.ICircle": {
         "type": "object",
@@ -272,8 +262,7 @@
           "centroid",
           "radius",
           "type"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       }
     }
   },

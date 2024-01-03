@@ -35,7 +35,6 @@ export const test_json_application_swagger_standard_TypeTagCustom =
           },
           nullable: false,
           required: ["id", "dollar", "postfix", "powerOf"],
-          "x-typia-jsDocTags": [],
         },
       },
     },

@@ -70,7 +70,6 @@ export const test_json_application_swagger_standard_TypeTagArrayUnion =
           },
           nullable: false,
           required: ["items", "minItems", "maxItems", "both"],
-          "x-typia-jsDocTags": [],
         },
       },
     },

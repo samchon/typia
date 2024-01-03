@@ -41,8 +41,7 @@
         "required": [
           "name",
           "unknown"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "ObjectUndefined.IClassroom": {
         "$id": "#/components/schemas/ObjectUndefined.IClassroom",
@@ -58,8 +57,7 @@
         "required": [
           "id",
           "name"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       }
     }
   },

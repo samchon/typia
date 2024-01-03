@@ -19,8 +19,7 @@
         "nullable": false,
         "required": [
           "value"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "ArrayRecursiveUnionExplicitPointer.IBucket": {
         "type": "object",
@@ -48,8 +47,7 @@
         "nullable": false,
         "required": [
           "value"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "ArrayRecursiveUnionExplicitPointer.IDirectory": {
         "type": "object",
@@ -83,8 +81,7 @@
           "path",
           "children",
           "type"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "ArrayRecursiveUnionExplicitPointer.IImageFile": {
         "type": "object",
@@ -134,8 +131,7 @@
           "size",
           "type",
           "extension"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "ArrayRecursiveUnionExplicitPointer.ITextFile": {
         "type": "object",
@@ -177,8 +173,7 @@
           "content",
           "type",
           "extension"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "ArrayRecursiveUnionExplicitPointer.IZipFile": {
         "type": "object",
@@ -220,8 +215,7 @@
           "count",
           "type",
           "extension"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "ArrayRecursiveUnionExplicitPointer.IShortcut": {
         "type": "object",
@@ -259,8 +253,7 @@
           "target",
           "type",
           "extension"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       }
     }
   },

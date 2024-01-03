@@ -35,8 +35,7 @@
         },
         "required": [
           "value"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "CommentTagObjectUnion.Literal": {
         "$id": "#/components/schemas/CommentTagObjectUnion.Literal",
@@ -50,8 +49,7 @@
         },
         "required": [
           "value"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       }
     }
   },

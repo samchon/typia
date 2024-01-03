@@ -28,7 +28,6 @@ export const test_json_application_swagger_standard_TypeTagType =
           },
           nullable: false,
           required: ["value"],
-          "x-typia-jsDocTags": [],
         },
         "TypeTagType.Type": {
           type: "object",
@@ -65,7 +64,6 @@ export const test_json_application_swagger_standard_TypeTagType =
             "uint64",
             "float",
           ],
-          "x-typia-jsDocTags": [],
         },
       },
     },

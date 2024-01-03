@@ -23,14 +23,12 @@ export const test_json_application_ajv_standard_DynamicSimple =
             value: {
               type: "object",
               properties: {},
-              "x-typia-jsDocTags": [],
               additionalProperties: {
                 type: "number",
               },
             },
           },
           required: ["value"],
-          "x-typia-jsDocTags": [],
         },
       },
     },

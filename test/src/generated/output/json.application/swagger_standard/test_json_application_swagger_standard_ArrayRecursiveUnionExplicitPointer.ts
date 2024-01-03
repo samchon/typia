@@ -28,7 +28,6 @@ export const test_json_application_swagger_standard_ArrayRecursiveUnionExplicitP
           },
           nullable: false,
           required: ["value"],
-          "x-typia-jsDocTags": [],
         },
         "ArrayRecursiveUnionExplicitPointer.IBucket": {
           type: "object",
@@ -55,7 +54,6 @@ export const test_json_application_swagger_standard_ArrayRecursiveUnionExplicitP
           },
           nullable: false,
           required: ["value"],
-          "x-typia-jsDocTags": [],
         },
         "ArrayRecursiveUnionExplicitPointer.IDirectory": {
           type: "object",
@@ -82,7 +80,6 @@ export const test_json_application_swagger_standard_ArrayRecursiveUnionExplicitP
           },
           nullable: false,
           required: ["id", "name", "path", "children", "type"],
-          "x-typia-jsDocTags": [],
         },
         "ArrayRecursiveUnionExplicitPointer.IImageFile": {
           type: "object",
@@ -129,7 +126,6 @@ export const test_json_application_swagger_standard_ArrayRecursiveUnionExplicitP
             "type",
             "extension",
           ],
-          "x-typia-jsDocTags": [],
         },
         "ArrayRecursiveUnionExplicitPointer.ITextFile": {
           type: "object",
@@ -168,7 +164,6 @@ export const test_json_application_swagger_standard_ArrayRecursiveUnionExplicitP
             "type",
             "extension",
           ],
-          "x-typia-jsDocTags": [],
         },
         "ArrayRecursiveUnionExplicitPointer.IZipFile": {
           type: "object",
@@ -207,7 +202,6 @@ export const test_json_application_swagger_standard_ArrayRecursiveUnionExplicitP
             "type",
             "extension",
           ],
-          "x-typia-jsDocTags": [],
         },
         "ArrayRecursiveUnionExplicitPointer.IShortcut": {
           type: "object",
@@ -235,7 +229,6 @@ export const test_json_application_swagger_standard_ArrayRecursiveUnionExplicitP
           },
           nullable: false,
           required: ["id", "name", "path", "target", "type", "extension"],
-          "x-typia-jsDocTags": [],
         },
       },
     },

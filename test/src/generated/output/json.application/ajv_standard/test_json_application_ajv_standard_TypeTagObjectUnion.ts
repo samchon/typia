@@ -44,7 +44,6 @@ export const test_json_application_ajv_standard_TypeTagObjectUnion =
             },
           },
           required: ["value"],
-          "x-typia-jsDocTags": [],
         },
         "TypeTagObjectUnion.Literal": {
           $id: "#/components/schemas/TypeTagObjectUnion.Literal",
@@ -57,7 +56,6 @@ export const test_json_application_ajv_standard_TypeTagObjectUnion =
             },
           },
           required: ["value"],
-          "x-typia-jsDocTags": [],
         },
       },
     },

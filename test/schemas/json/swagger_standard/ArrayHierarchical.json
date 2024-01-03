@@ -41,8 +41,7 @@
           "name",
           "established_at",
           "departments"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "ArrayHierarchical.ITimestamp": {
         "type": "object",
@@ -58,8 +57,7 @@
         "required": [
           "time",
           "zone"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "ArrayHierarchical.IDepartment": {
         "type": "object",
@@ -90,8 +88,7 @@
           "sales",
           "created_at",
           "employees"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "ArrayHierarchical.IEmployee": {
         "type": "object",
@@ -119,8 +116,7 @@
           "age",
           "grade",
           "employeed_at"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       }
     }
   },

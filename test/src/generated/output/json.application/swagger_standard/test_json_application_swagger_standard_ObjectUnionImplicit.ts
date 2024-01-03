@@ -60,7 +60,6 @@ export const test_json_application_swagger_standard_ObjectUnionImplicit =
           },
           nullable: false,
           required: ["x", "y"],
-          "x-typia-jsDocTags": [],
         },
         "ObjectUnionImplicit.ILine": {
           type: "object",
@@ -82,7 +81,6 @@ export const test_json_application_swagger_standard_ObjectUnionImplicit =
           },
           nullable: false,
           required: ["p1", "p2"],
-          "x-typia-jsDocTags": [],
         },
         "ObjectUnionImplicit.ITriangle": {
           type: "object",
@@ -111,7 +109,6 @@ export const test_json_application_swagger_standard_ObjectUnionImplicit =
           },
           nullable: false,
           required: ["p1", "p2", "p3"],
-          "x-typia-jsDocTags": [],
         },
         "ObjectUnionImplicit.IRectangle": {
           type: "object",
@@ -143,7 +140,6 @@ export const test_json_application_swagger_standard_ObjectUnionImplicit =
           },
           nullable: false,
           required: ["p1", "p2", "p3", "p4"],
-          "x-typia-jsDocTags": [],
         },
         "ObjectUnionImplicit.IPolyline": {
           type: "object",
@@ -161,7 +157,6 @@ export const test_json_application_swagger_standard_ObjectUnionImplicit =
           },
           nullable: false,
           required: ["points"],
-          "x-typia-jsDocTags": [],
         },
         "ObjectUnionImplicit.IPolygon": {
           type: "object",
@@ -182,7 +177,6 @@ export const test_json_application_swagger_standard_ObjectUnionImplicit =
           },
           nullable: false,
           required: ["outer"],
-          "x-typia-jsDocTags": [],
         },
         "ObjectUnionImplicit.ICircle": {
           type: "object",
@@ -200,7 +194,6 @@ export const test_json_application_swagger_standard_ObjectUnionImplicit =
           },
           nullable: false,
           required: ["radius"],
-          "x-typia-jsDocTags": [],
         },
       },
     },

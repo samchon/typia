@@ -56,8 +56,7 @@
           "position",
           "rotate",
           "pivot"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "ArrayRepeatedUnion.IPoint3D": {
         "type": "object",
@@ -77,8 +76,7 @@
           "x",
           "y",
           "z"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       }
     }
   },

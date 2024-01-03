@@ -48,8 +48,7 @@
           "files",
           "secret",
           "created_at"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       },
       "ObjectPrimitive.IFile": {
         "$id": "#/components/schemas/ObjectPrimitive.IFile",
@@ -77,8 +76,7 @@
           "extension",
           "url",
           "created_at"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       }
     }
   },

@@ -63,7 +63,6 @@ export const test_json_application_ajv_standard_ArrayRepeatedUnion =
             },
           },
           required: ["scale", "position", "rotate", "pivot"],
-          "x-typia-jsDocTags": [],
         },
         "ArrayRepeatedUnion.IPoint3D": {
           $id: "#/components/schemas/ArrayRepeatedUnion.IPoint3D",
@@ -80,7 +79,6 @@ export const test_json_application_ajv_standard_ArrayRepeatedUnion =
             },
           },
           required: ["x", "y", "z"],
-          "x-typia-jsDocTags": [],
         },
       },
     },

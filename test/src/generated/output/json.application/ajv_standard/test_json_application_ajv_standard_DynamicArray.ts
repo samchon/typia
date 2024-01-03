@@ -23,7 +23,6 @@ export const test_json_application_ajv_standard_DynamicArray =
             value: {
               type: "object",
               properties: {},
-              "x-typia-jsDocTags": [],
               additionalProperties: {
                 type: "array",
                 items: {
@@ -33,7 +32,6 @@ export const test_json_application_ajv_standard_DynamicArray =
             },
           },
           required: ["value"],
-          "x-typia-jsDocTags": [],
         },
       },
     },

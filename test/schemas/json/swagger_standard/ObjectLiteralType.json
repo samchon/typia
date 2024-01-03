@@ -24,8 +24,7 @@
           "id",
           "name",
           "age"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       }
     }
   },

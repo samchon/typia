@@ -28,7 +28,6 @@ export const test_json_application_ajv_standard_TypeTagLength =
             },
           },
           required: ["value"],
-          "x-typia-jsDocTags": [],
         },
         "TypeTagLength.Type": {
           $id: "#/components/schemas/TypeTagLength.Type",
@@ -65,7 +64,6 @@ export const test_json_application_ajv_standard_TypeTagLength =
             "minimum_and_maximum",
             "equal",
           ],
-          "x-typia-jsDocTags": [],
         },
       },
     },

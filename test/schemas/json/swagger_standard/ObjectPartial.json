@@ -29,8 +29,7 @@
           }
         },
         "nullable": false,
-        "description": "Make all properties in T optional",
-        "x-typia-jsDocTags": []
+        "description": "Make all properties in T optional"
       },
       "ObjectPartial.IBase.Nullable": {
         "type": "object",
@@ -61,8 +60,7 @@
           "string",
           "array",
           "object"
-        ],
-        "x-typia-jsDocTags": []
+        ]
       }
     }
   },

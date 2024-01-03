@@ -40,7 +40,6 @@ export const test_json_application_swagger_standard_ObjectRecursive =
           },
           nullable: false,
           required: ["parent", "id", "code", "name", "sequence", "created_at"],
-          "x-typia-jsDocTags": [],
         },
         "ObjectRecursive.IDepartment.Nullable": {
           type: "object",
@@ -66,7 +65,6 @@ export const test_json_application_swagger_standard_ObjectRecursive =
           },
           nullable: true,
           required: ["parent", "id", "code", "name", "sequence", "created_at"],
-          "x-typia-jsDocTags": [],
         },
         "ObjectRecursive.ITimestamp": {
           type: "object",
@@ -80,7 +78,6 @@ export const test_json_application_swagger_standard_ObjectRecursive =
           },
           nullable: false,
           required: ["time", "zone"],
-          "x-typia-jsDocTags": [],
         },
       },
     },

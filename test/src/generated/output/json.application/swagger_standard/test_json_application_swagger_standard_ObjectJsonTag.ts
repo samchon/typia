@@ -40,7 +40,6 @@ export const test_json_application_swagger_standard_ObjectJsonTag =
           },
           nullable: false,
           required: ["vulnerable", "description", "title", "complicate_title"],
-          "x-typia-jsDocTags": [],
         },
       },
     },
