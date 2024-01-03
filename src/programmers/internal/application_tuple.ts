@@ -20,7 +20,6 @@ export const application_tuple =
       type: "array",
       items: tuple.type.elements.map((meta, i) =>
         application_schema(options)(false)(components)(meta.rest ?? meta)({
-          ...attribute,
           "x-typia-rest":
             i === tuple.type.elements.length - 1 && meta.rest !== null,
           "x-typia-required": meta.required,

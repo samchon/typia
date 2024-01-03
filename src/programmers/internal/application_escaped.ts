@@ -9,11 +9,10 @@ export const application_escaped =
   (options: JsonApplicationProgrammer.IOptions) =>
   <BlockNever extends boolean>(blockNever: BlockNever) =>
   (components: IJsonComponents) =>
-  (resolved: MetadataEscaped) =>
-  (attribute: IJsonSchema.IAttribute): IJsonSchema[] => {
+  (resolved: MetadataEscaped): IJsonSchema[] => {
     const output = application_schema(options)(blockNever)(components)(
       resolved.returns,
-    )(attribute);
+    )({});
     if (output === null) return [];
 
     if (is_date(new Set())(resolved.original)) {

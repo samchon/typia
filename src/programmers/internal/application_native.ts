@@ -11,14 +11,11 @@ export const application_native =
   (options: JsonApplicationProgrammer.IOptions) =>
   (components: IJsonComponents) =>
   (name: string) =>
-  (props: {
-    nullable: boolean;
-    attribute: IJsonSchema.IAttribute;
-  }): IJsonSchema.IReference => {
+  (nullable: boolean): IJsonSchema.IReference => {
     const key: string =
       options.purpose === "ajv"
         ? name
-        : `${name}${props.nullable ? ".Nullable" : ""}`;
+        : `${name}${nullable ? ".Nullable" : ""}`;
     if (components.schemas?.[key] === undefined) {
       components.schemas ??= {};
       components.schemas[key] ??= {
@@ -28,11 +25,10 @@ export const application_native =
             ? `${JSON_COMPONENTS_PREFIX}/objects/${key}`
             : undefined,
         properties: {},
-        nullable: options.purpose === "swagger" ? props.nullable : undefined,
+        nullable: options.purpose === "swagger" ? nullable : undefined,
       };
     }
     return {
-      ...props.attribute,
       $ref: `${JSON_COMPONENTS_PREFIX}/objects/${key}`,
     };
   };

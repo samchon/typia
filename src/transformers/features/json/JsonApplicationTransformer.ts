@@ -45,13 +45,20 @@ export namespace JsonApplicationTransformer {
         });
 
       // ADDITIONAL PARAMETERS
-      const purpose: "swagger" | "ajv" = get_parameter(
-        project.checker,
-        "Purpose",
-        expression.typeArguments[1],
-        (str) => str === "swagger" || str === "ajv",
-        () => "swagger",
-      );
+      const purpose: "swagger" | "ajv" = get_parameter<"swagger" | "ajv">({
+        checker: project.checker,
+        name: "Purpose",
+        is: (str) => str === "swagger" || str === "ajv",
+        cast: (str) => str as "swagger" | "ajv",
+        default: () => "swagger",
+      })(expression.typeArguments[1]);
+      const surplus: boolean = get_parameter<boolean>({
+        checker: project.checker,
+        name: "Surplus",
+        is: (str) => str === "true" || str === "false",
+        cast: (str) => str === "true",
+        default: () => false,
+      })(expression.typeArguments[2]);
 
       //----
       // GENERATORS
@@ -86,36 +93,42 @@ export namespace JsonApplicationTransformer {
       // APPLICATION
       const app: IJsonApplication = JsonApplicationProgrammer.write({
         purpose,
+        surplus,
       })(metadatas);
-
-      // RETURNS WITH LITERAL EXPRESSION
       return LiteralFactory.generate(app);
     };
 
-  const get_parameter = <T extends string>(
-    checker: ts.TypeChecker,
-    name: string,
-    node: ts.TypeNode | undefined,
-    predicator: (value: string) => boolean,
-    defaulter: () => T,
-  ): T => {
-    if (!node) return defaulter();
+  const get_parameter =
+    <Value>(props: {
+      checker: ts.TypeChecker;
+      name: string;
+      is: (value: string) => boolean;
+      cast: (value: string) => Value;
+      default: () => Value;
+    }) =>
+    (node: ts.TypeNode | undefined): Value => {
+      if (!node) return props.default();
 
-    // CHECK LITERAL TYPE
-    const type: ts.Type = checker.getTypeFromTypeNode(node);
-    if (!type.isLiteral())
-      throw new TransformerError({
-        code: "typia.json.application",
-        message: `generic argument "${name}" must be constant.`,
-      });
+      // CHECK LITERAL TYPE
+      const type: ts.Type = props.checker.getTypeFromTypeNode(node);
+      if (
+        !type.isLiteral() &&
+        (type.getFlags() & ts.TypeFlags.BooleanLiteral) === 0
+      )
+        throw new TransformerError({
+          code: "typia.json.application",
+          message: `generic argument "${props.name}" must be constant.`,
+        });
 
-    // GET VALUE AND VALIDATE IT
-    const value = type.value;
-    if (typeof value !== "string" || predicator(value) === false)
-      throw new TransformerError({
-        code: "typia.json.application",
-        message: `invalid value on generic argument "${name}".`,
-      });
-    return value as T;
-  };
+      // GET VALUE AND VALIDATE IT
+      const value = type.isLiteral()
+        ? type.value
+        : props.checker.typeToString(type);
+      if (typeof value !== "string" || props.is(value) === false)
+        throw new TransformerError({
+          code: "typia.json.application",
+          message: `invalid value on generic argument "${props.name}".`,
+        });
+      return props.cast(value);
+    };
 }

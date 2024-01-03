@@ -10,18 +10,17 @@ import { application_schema } from "../internal/application_schema";
 export namespace JsonApplicationProgrammer {
   export interface IOptions {
     purpose: "ajv" | "swagger";
+    surplus: boolean;
   }
 
   /**
    * @internal
    */
   export namespace IOptions {
-    export const complement = (options?: Partial<IOptions>): IOptions => {
-      const purpose: "swagger" | "ajv" = options?.purpose ?? "swagger";
-      return {
-        purpose,
-      };
-    };
+    export const complement = (options?: Partial<IOptions>): IOptions => ({
+      purpose: options?.purpose ?? "swagger",
+      surplus: options?.surplus ?? false,
+    });
   }
 
   export const write =
