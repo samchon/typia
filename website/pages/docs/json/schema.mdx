@@ -277,9 +277,9 @@ exports.MemberSchema = {
 
 
 ## Specialization
-You can utilize [type tags](../validators/type-tags) (or [validator's comment tags](../validators/comment-tags)) to constructing special fields of JSON schema. 
+You can utilize [type tags](../validators/tags/#type-tags) (or [validator's comment tags](../validators/tags/#comment-tags)) to constructing special fields of JSON schema. 
 
-If you write any comment on a property, it would fill the `IJsonSchema.description` value. Also, there're special comment tags only for JSON schema definition that are different with [validator's comment tags](../validators/comment-tags) like below.
+If you write any comment on a property, it would fill the `IJsonSchema.description` value. Also, there're special comment tags only for JSON schema definition that are different with [validator's comment tags](../validators/tags/#comment-tags) like below.
 
   - `@deprecated`
   - `@hidden`
@@ -287,7 +287,7 @@ If you write any comment on a property, it would fill the `IJsonSchema.descripti
   - `@title {string}`
   - `@default {value}`
 
-Let's see how those [type tags](../validators/type-tags), comment tags and description comments are working with example code.
+Let's see how those [type tags](../validators/tags/#type-tags), comment tags and description comments are working with example code.
 
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
