@@ -82,7 +82,7 @@ export const test_reflect_metadata_CommentTagDefault = _test_reflect_metadata(
                 sets: [],
                 maps: [],
               },
-              description: null,
+              description: "Default tag on `boolean` typed value.",
               jsDocTags: [
                 {
                   name: "default",
@@ -144,7 +144,7 @@ export const test_reflect_metadata_CommentTagDefault = _test_reflect_metadata(
                 sets: [],
                 maps: [],
               },
-              description: null,
+              description: "Default tag on `number` typed value.",
               jsDocTags: [
                 {
                   name: "default",
@@ -206,7 +206,7 @@ export const test_reflect_metadata_CommentTagDefault = _test_reflect_metadata(
                 sets: [],
                 maps: [],
               },
-              description: null,
+              description: "Default tag on `string` typed value.",
               jsDocTags: [
                 {
                   name: "default",
@@ -268,7 +268,8 @@ export const test_reflect_metadata_CommentTagDefault = _test_reflect_metadata(
                 sets: [],
                 maps: [],
               },
-              description: null,
+              description:
+                "Default tag on `string` typed value with long characters.",
               jsDocTags: [
                 {
                   name: "default",
@@ -338,7 +339,7 @@ export const test_reflect_metadata_CommentTagDefault = _test_reflect_metadata(
                 sets: [],
                 maps: [],
               },
-              description: null,
+              description: "Default value on union typed property.",
               jsDocTags: [
                 {
                   name: "default",
@@ -426,7 +427,7 @@ export const test_reflect_metadata_CommentTagDefault = _test_reflect_metadata(
                 sets: [],
                 maps: [],
               },
-              description: null,
+              description: "Default value on union typed property.",
               jsDocTags: [
                 {
                   name: "default",
@@ -496,7 +497,7 @@ export const test_reflect_metadata_CommentTagDefault = _test_reflect_metadata(
                 sets: [],
                 maps: [],
               },
-              description: null,
+              description: "Default value on union typed property.",
               jsDocTags: [
                 {
                   name: "default",
@@ -566,7 +567,7 @@ export const test_reflect_metadata_CommentTagDefault = _test_reflect_metadata(
                 sets: [],
                 maps: [],
               },
-              description: null,
+              description: "Default value on union typed property.",
               jsDocTags: [
                 {
                   name: "default",
@@ -647,7 +648,7 @@ export const test_reflect_metadata_CommentTagDefault = _test_reflect_metadata(
                 sets: [],
                 maps: [],
               },
-              description: null,
+              description: "Default value on union typed property.",
               jsDocTags: [
                 {
                   name: "default",
@@ -782,7 +783,7 @@ export const test_reflect_metadata_CommentTagDefault = _test_reflect_metadata(
                 sets: [],
                 maps: [],
               },
-              description: null,
+              description: "Default value on union typed property.",
               jsDocTags: [
                 {
                   name: "default",

@@ -59,6 +59,8 @@ export const test_json_application_ajv_surplus_CommentTagRange =
                   exclusive: ["minimum", "exclusiveMinimum"],
                 },
               ],
+              "x-typia-required": true,
+              "x-typia-optional": false,
               "x-typia-jsDocTags": [
                 {
                   name: "type",
@@ -79,8 +81,6 @@ export const test_json_application_ajv_surplus_CommentTagRange =
                   ],
                 },
               ],
-              "x-typia-required": true,
-              "x-typia-optional": false,
             },
             greater_equal: {
               type: "integer",
@@ -104,6 +104,8 @@ export const test_json_application_ajv_surplus_CommentTagRange =
                   exclusive: ["minimum", "exclusiveMinimum"],
                 },
               ],
+              "x-typia-required": true,
+              "x-typia-optional": false,
               "x-typia-jsDocTags": [
                 {
                   name: "type",
@@ -124,8 +126,6 @@ export const test_json_application_ajv_surplus_CommentTagRange =
                   ],
                 },
               ],
-              "x-typia-required": true,
-              "x-typia-optional": false,
             },
             less: {
               type: "integer",
@@ -150,6 +150,8 @@ export const test_json_application_ajv_surplus_CommentTagRange =
                   exclusive: ["maximum", "exclusiveMaximum"],
                 },
               ],
+              "x-typia-required": true,
+              "x-typia-optional": false,
               "x-typia-jsDocTags": [
                 {
                   name: "type",
@@ -170,8 +172,6 @@ export const test_json_application_ajv_surplus_CommentTagRange =
                   ],
                 },
               ],
-              "x-typia-required": true,
-              "x-typia-optional": false,
             },
             less_equal: {
               type: "integer",
@@ -195,6 +195,8 @@ export const test_json_application_ajv_surplus_CommentTagRange =
                   exclusive: ["maximum", "exclusiveMaximum"],
                 },
               ],
+              "x-typia-required": true,
+              "x-typia-optional": false,
               "x-typia-jsDocTags": [
                 {
                   name: "type",
@@ -215,8 +217,6 @@ export const test_json_application_ajv_surplus_CommentTagRange =
                   ],
                 },
               ],
-              "x-typia-required": true,
-              "x-typia-optional": false,
             },
             greater_less: {
               type: "integer",
@@ -251,6 +251,8 @@ export const test_json_application_ajv_surplus_CommentTagRange =
                   exclusive: ["maximum", "exclusiveMaximum"],
                 },
               ],
+              "x-typia-required": true,
+              "x-typia-optional": false,
               "x-typia-jsDocTags": [
                 {
                   name: "type",
@@ -280,8 +282,6 @@ export const test_json_application_ajv_surplus_CommentTagRange =
                   ],
                 },
               ],
-              "x-typia-required": true,
-              "x-typia-optional": false,
             },
             greater_equal_less: {
               type: "integer",
@@ -315,6 +315,8 @@ export const test_json_application_ajv_surplus_CommentTagRange =
                   exclusive: ["maximum", "exclusiveMaximum"],
                 },
               ],
+              "x-typia-required": true,
+              "x-typia-optional": false,
               "x-typia-jsDocTags": [
                 {
                   name: "type",
@@ -344,8 +346,6 @@ export const test_json_application_ajv_surplus_CommentTagRange =
                   ],
                 },
               ],
-              "x-typia-required": true,
-              "x-typia-optional": false,
             },
             greater_less_equal: {
               type: "integer",
@@ -379,6 +379,8 @@ export const test_json_application_ajv_surplus_CommentTagRange =
                   exclusive: ["maximum", "exclusiveMaximum"],
                 },
               ],
+              "x-typia-required": true,
+              "x-typia-optional": false,
               "x-typia-jsDocTags": [
                 {
                   name: "type",
@@ -408,8 +410,6 @@ export const test_json_application_ajv_surplus_CommentTagRange =
                   ],
                 },
               ],
-              "x-typia-required": true,
-              "x-typia-optional": false,
             },
             greater_equal_less_equal: {
               type: "integer",
@@ -442,6 +442,8 @@ export const test_json_application_ajv_surplus_CommentTagRange =
                   exclusive: ["maximum", "exclusiveMaximum"],
                 },
               ],
+              "x-typia-required": true,
+              "x-typia-optional": false,
               "x-typia-jsDocTags": [
                 {
                   name: "type",
@@ -471,8 +473,6 @@ export const test_json_application_ajv_surplus_CommentTagRange =
                   ],
                 },
               ],
-              "x-typia-required": true,
-              "x-typia-optional": false,
             },
             equal: {
               type: "integer",
@@ -505,6 +505,8 @@ export const test_json_application_ajv_surplus_CommentTagRange =
                   exclusive: ["maximum", "exclusiveMaximum"],
                 },
               ],
+              "x-typia-required": true,
+              "x-typia-optional": false,
               "x-typia-jsDocTags": [
                 {
                   name: "type",
@@ -534,8 +536,6 @@ export const test_json_application_ajv_surplus_CommentTagRange =
                   ],
                 },
               ],
-              "x-typia-required": true,
-              "x-typia-optional": false,
             },
           },
           required: [

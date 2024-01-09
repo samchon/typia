@@ -23,6 +23,8 @@
               }
             ],
             "description": "Universally Unique Identifier.",
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "x-typia-jsDocTags": [
               {
                 "name": "format",
@@ -33,9 +35,7 @@
                   }
                 ]
               }
-            ],
-            "x-typia-required": true,
-            "x-typia-optional": false
+            ]
           },
           "email": {
             "type": "string",
@@ -51,6 +51,8 @@
               }
             ],
             "description": "Email address",
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "x-typia-jsDocTags": [
               {
                 "name": "format",
@@ -61,9 +63,7 @@
                   }
                 ]
               }
-            ],
-            "x-typia-required": true,
-            "x-typia-optional": false
+            ]
           },
           "url": {
             "type": "string",
@@ -79,6 +79,8 @@
               }
             ],
             "description": "URL address.",
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "x-typia-jsDocTags": [
               {
                 "name": "format",
@@ -89,9 +91,7 @@
                   }
                 ]
               }
-            ],
-            "x-typia-required": true,
-            "x-typia-optional": false
+            ]
           },
           "ipv4": {
             "type": "string",
@@ -107,6 +107,8 @@
               }
             ],
             "description": "IPv4 address.",
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "x-typia-jsDocTags": [
               {
                 "name": "format",
@@ -117,9 +119,7 @@
                   }
                 ]
               }
-            ],
-            "x-typia-required": true,
-            "x-typia-optional": false
+            ]
           },
           "ipv6": {
             "type": "string",
@@ -135,6 +135,8 @@
               }
             ],
             "description": "IPv6 address.",
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "x-typia-jsDocTags": [
               {
                 "name": "format",
@@ -145,9 +147,7 @@
                   }
                 ]
               }
-            ],
-            "x-typia-required": true,
-            "x-typia-optional": false
+            ]
           },
           "date": {
             "type": "string",
@@ -163,6 +163,8 @@
               }
             ],
             "description": "Date only.",
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "x-typia-jsDocTags": [
               {
                 "name": "format",
@@ -173,9 +175,7 @@
                   }
                 ]
               }
-            ],
-            "x-typia-required": true,
-            "x-typia-optional": false
+            ]
           },
           "date_time": {
             "type": "string",
@@ -191,6 +191,8 @@
               }
             ],
             "description": "Date and time.",
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "x-typia-jsDocTags": [
               {
                 "name": "format",
@@ -201,13 +203,13 @@
                   }
                 ]
               }
-            ],
-            "x-typia-required": true,
-            "x-typia-optional": false
+            ]
           },
           "custom": {
             "type": "string",
             "description": "A custom format string.",
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "x-typia-jsDocTags": [
               {
                 "name": "format",
@@ -218,9 +220,7 @@
                   }
                 ]
               }
-            ],
-            "x-typia-required": true,
-            "x-typia-optional": false
+            ]
           }
         },
         "nullable": false,

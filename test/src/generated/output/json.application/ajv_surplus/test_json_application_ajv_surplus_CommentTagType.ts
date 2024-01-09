@@ -50,6 +50,8 @@ export const test_json_application_ajv_surplus_CommentTagType =
                 },
               ],
               description: "Integer value.",
+              "x-typia-required": true,
+              "x-typia-optional": false,
               "x-typia-jsDocTags": [
                 {
                   name: "type",
@@ -61,8 +63,6 @@ export const test_json_application_ajv_surplus_CommentTagType =
                   ],
                 },
               ],
-              "x-typia-required": true,
-              "x-typia-optional": false,
             },
             uint: {
               type: "integer",
@@ -78,6 +78,8 @@ export const test_json_application_ajv_surplus_CommentTagType =
                 },
               ],
               description: "Unsigned integer value.",
+              "x-typia-required": true,
+              "x-typia-optional": false,
               "x-typia-jsDocTags": [
                 {
                   name: "type",
@@ -89,8 +91,6 @@ export const test_json_application_ajv_surplus_CommentTagType =
                   ],
                 },
               ],
-              "x-typia-required": true,
-              "x-typia-optional": false,
             },
             int32: {
               type: "integer",
@@ -105,6 +105,8 @@ export const test_json_application_ajv_surplus_CommentTagType =
                   exclusive: true,
                 },
               ],
+              "x-typia-required": true,
+              "x-typia-optional": false,
               "x-typia-jsDocTags": [
                 {
                   name: "type",
@@ -116,8 +118,6 @@ export const test_json_application_ajv_surplus_CommentTagType =
                   ],
                 },
               ],
-              "x-typia-required": true,
-              "x-typia-optional": false,
             },
             uint32: {
               type: "integer",
@@ -132,6 +132,8 @@ export const test_json_application_ajv_surplus_CommentTagType =
                   exclusive: true,
                 },
               ],
+              "x-typia-required": true,
+              "x-typia-optional": false,
               "x-typia-jsDocTags": [
                 {
                   name: "type",
@@ -143,8 +145,6 @@ export const test_json_application_ajv_surplus_CommentTagType =
                   ],
                 },
               ],
-              "x-typia-required": true,
-              "x-typia-optional": false,
             },
             int64: {
               type: "integer",
@@ -159,6 +159,8 @@ export const test_json_application_ajv_surplus_CommentTagType =
                   exclusive: true,
                 },
               ],
+              "x-typia-required": true,
+              "x-typia-optional": false,
               "x-typia-jsDocTags": [
                 {
                   name: "type",
@@ -170,8 +172,6 @@ export const test_json_application_ajv_surplus_CommentTagType =
                   ],
                 },
               ],
-              "x-typia-required": true,
-              "x-typia-optional": false,
             },
             uint64: {
               type: "integer",
@@ -186,6 +186,8 @@ export const test_json_application_ajv_surplus_CommentTagType =
                   exclusive: true,
                 },
               ],
+              "x-typia-required": true,
+              "x-typia-optional": false,
               "x-typia-jsDocTags": [
                 {
                   name: "type",
@@ -197,8 +199,6 @@ export const test_json_application_ajv_surplus_CommentTagType =
                   ],
                 },
               ],
-              "x-typia-required": true,
-              "x-typia-optional": false,
             },
             float: {
               type: "number",
@@ -213,6 +213,8 @@ export const test_json_application_ajv_surplus_CommentTagType =
                   exclusive: true,
                 },
               ],
+              "x-typia-required": true,
+              "x-typia-optional": false,
               "x-typia-jsDocTags": [
                 {
                   name: "type",
@@ -224,8 +226,6 @@ export const test_json_application_ajv_surplus_CommentTagType =
                   ],
                 },
               ],
-              "x-typia-required": true,
-              "x-typia-optional": false,
             },
           },
           required: [

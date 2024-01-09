@@ -51,6 +51,8 @@ export const test_json_application_ajv_surplus_CommentTagObjectUnion =
                   exclusive: ["minimum", "exclusiveMinimum"],
                 },
               ],
+              "x-typia-required": true,
+              "x-typia-optional": false,
               "x-typia-jsDocTags": [
                 {
                   name: "minimum",
@@ -62,8 +64,6 @@ export const test_json_application_ajv_surplus_CommentTagObjectUnion =
                   ],
                 },
               ],
-              "x-typia-required": true,
-              "x-typia-optional": false,
             },
           },
           required: ["value"],
@@ -95,6 +95,8 @@ export const test_json_application_ajv_surplus_CommentTagObjectUnion =
                   exclusive: true,
                 },
               ],
+              "x-typia-required": true,
+              "x-typia-optional": false,
               "x-typia-jsDocTags": [
                 {
                   name: "minLength",
@@ -115,8 +117,6 @@ export const test_json_application_ajv_surplus_CommentTagObjectUnion =
                   ],
                 },
               ],
-              "x-typia-required": true,
-              "x-typia-optional": false,
             },
           },
           required: ["value"],

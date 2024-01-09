@@ -1,25 +1,35 @@
 export interface CommentTagDefault {
   /**
+   * Default tag on `boolean` typed value.
+   *
    * @default false
    */
   boolean: boolean;
 
   /**
+   * Default tag on `number` typed value.
+   *
    * @default 1
    */
   number: number;
 
   /**
+   * Default tag on `string` typed value.
+   *
    * @default two
    */
   string: string;
 
   /**
+   * Default tag on `string` typed value with long characters.
+   *
    * @default Very long text, can you understand it?
    */
   text: string;
 
   /**
+   * Default value on union typed property.
+   *
    * @default false
    * @default 1
    * @default two
@@ -27,21 +37,29 @@ export interface CommentTagDefault {
   boolean_and_number_and_string: boolean | number | string;
 
   /**
+   * Default value on union typed property.
+   *
    * @default false
    */
   union_but_boolean: boolean | number | string;
 
   /**
+   * Default value on union typed property.
+   *
    * @default 1
    */
   union_but_number: boolean | number | string;
 
   /**
+   * Default value on union typed property.
+   *
    * @default two
    */
   union_but_string: boolean | number | string;
 
   /**
+   * Default value on union typed property.
+   *
    * @default 7
    * @minimum 3
    * @maximum 5
@@ -49,6 +67,8 @@ export interface CommentTagDefault {
   vulnerable_range: number;
 
   /**
+   * Default value on union typed property.
+   *
    * @default false
    * @default 1
    */

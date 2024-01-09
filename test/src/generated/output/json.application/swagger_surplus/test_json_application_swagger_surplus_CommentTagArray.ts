@@ -60,6 +60,8 @@ export const test_json_application_swagger_surplus_CommentTagArray =
                   exclusive: true,
                 },
               ],
+              "x-typia-required": true,
+              "x-typia-optional": false,
               "x-typia-jsDocTags": [
                 {
                   name: "items",
@@ -71,8 +73,6 @@ export const test_json_application_swagger_surplus_CommentTagArray =
                   ],
                 },
               ],
-              "x-typia-required": true,
-              "x-typia-optional": false,
             },
             minItems: {
               type: "array",
@@ -90,6 +90,8 @@ export const test_json_application_swagger_surplus_CommentTagArray =
                   exclusive: true,
                 },
               ],
+              "x-typia-required": true,
+              "x-typia-optional": false,
               "x-typia-jsDocTags": [
                 {
                   name: "minItems",
@@ -101,8 +103,6 @@ export const test_json_application_swagger_surplus_CommentTagArray =
                   ],
                 },
               ],
-              "x-typia-required": true,
-              "x-typia-optional": false,
             },
             both: {
               type: "array",
@@ -129,6 +129,8 @@ export const test_json_application_swagger_surplus_CommentTagArray =
                   exclusive: true,
                 },
               ],
+              "x-typia-required": true,
+              "x-typia-optional": false,
               "x-typia-jsDocTags": [
                 {
                   name: "minItems",
@@ -149,8 +151,6 @@ export const test_json_application_swagger_surplus_CommentTagArray =
                   ],
                 },
               ],
-              "x-typia-required": true,
-              "x-typia-optional": false,
             },
             equal: {
               type: "array",
@@ -177,6 +177,8 @@ export const test_json_application_swagger_surplus_CommentTagArray =
                   exclusive: true,
                 },
               ],
+              "x-typia-required": true,
+              "x-typia-optional": false,
               "x-typia-jsDocTags": [
                 {
                   name: "minItems",
@@ -197,8 +199,6 @@ export const test_json_application_swagger_surplus_CommentTagArray =
                   ],
                 },
               ],
-              "x-typia-required": true,
-              "x-typia-optional": false,
             },
           },
           nullable: false,

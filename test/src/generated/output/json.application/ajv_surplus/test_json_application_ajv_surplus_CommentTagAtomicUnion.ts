@@ -76,6 +76,8 @@ export const test_json_application_ajv_surplus_CommentTagAtomicUnion =
                   ],
                 },
               ],
+              "x-typia-required": true,
+              "x-typia-optional": false,
               "x-typia-jsDocTags": [
                 {
                   name: "minimum",
@@ -105,8 +107,6 @@ export const test_json_application_ajv_surplus_CommentTagAtomicUnion =
                   ],
                 },
               ],
-              "x-typia-required": true,
-              "x-typia-optional": false,
             },
           },
           required: ["value"],
