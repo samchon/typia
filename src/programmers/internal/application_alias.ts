@@ -49,10 +49,19 @@ export const application_alias =
             : undefined;
         })(),
         description: alias.description ?? undefined,
-        "x-typia-jsDocTags": alias.jsDocTags.length
-          ? alias.jsDocTags
-          : undefined,
+        "x-typia-jsDocTags": (() => {
+          const filtered = alias.jsDocTags.filter(
+            (tag) =>
+              tag.name !== "title" &&
+              tag.name !== "deprecated" &&
+              tag.name !== "hidden",
+          );
+          return filtered.length ? filtered : undefined;
+        })(),
       })!;
+      if (options.surplus === false && schema["x-typia-jsDocTags"]?.length)
+        delete (schema as any)["x-typia-jsDocTags"];
+
       components.schemas ??= {};
       components.schemas[key] = {
         $id: options.purpose === "ajv" ? $id : undefined,
