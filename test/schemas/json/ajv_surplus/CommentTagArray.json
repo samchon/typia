@@ -53,6 +53,8 @@
                 "exclusive": true
               }
             ],
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "x-typia-jsDocTags": [
               {
                 "name": "items",
@@ -63,9 +65,7 @@
                   }
                 ]
               }
-            ],
-            "x-typia-required": true,
-            "x-typia-optional": false
+            ]
           },
           "minItems": {
             "type": "array",
@@ -83,6 +83,8 @@
                 "exclusive": true
               }
             ],
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "x-typia-jsDocTags": [
               {
                 "name": "minItems",
@@ -93,9 +95,7 @@
                   }
                 ]
               }
-            ],
-            "x-typia-required": true,
-            "x-typia-optional": false
+            ]
           },
           "both": {
             "type": "array",
@@ -122,6 +122,8 @@
                 "exclusive": true
               }
             ],
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "x-typia-jsDocTags": [
               {
                 "name": "minItems",
@@ -141,9 +143,7 @@
                   }
                 ]
               }
-            ],
-            "x-typia-required": true,
-            "x-typia-optional": false
+            ]
           },
           "equal": {
             "type": "array",
@@ -170,6 +170,8 @@
                 "exclusive": true
               }
             ],
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "x-typia-jsDocTags": [
               {
                 "name": "minItems",
@@ -189,9 +191,7 @@
                   }
                 ]
               }
-            ],
-            "x-typia-required": true,
-            "x-typia-optional": false
+            ]
           }
         },
         "required": [

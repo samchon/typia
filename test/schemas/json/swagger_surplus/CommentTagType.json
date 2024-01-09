@@ -40,6 +40,8 @@
               }
             ],
             "description": "Integer value.",
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "x-typia-jsDocTags": [
               {
                 "name": "type",
@@ -50,9 +52,7 @@
                   }
                 ]
               }
-            ],
-            "x-typia-required": true,
-            "x-typia-optional": false
+            ]
           },
           "uint": {
             "type": "integer",
@@ -67,6 +67,8 @@
               }
             ],
             "description": "Unsigned integer value.",
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "x-typia-jsDocTags": [
               {
                 "name": "type",
@@ -77,9 +79,7 @@
                   }
                 ]
               }
-            ],
-            "x-typia-required": true,
-            "x-typia-optional": false
+            ]
           },
           "int32": {
             "type": "integer",
@@ -93,6 +93,8 @@
                 "exclusive": true
               }
             ],
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "x-typia-jsDocTags": [
               {
                 "name": "type",
@@ -103,9 +105,7 @@
                   }
                 ]
               }
-            ],
-            "x-typia-required": true,
-            "x-typia-optional": false
+            ]
           },
           "uint32": {
             "type": "integer",
@@ -119,6 +119,8 @@
                 "exclusive": true
               }
             ],
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "x-typia-jsDocTags": [
               {
                 "name": "type",
@@ -129,9 +131,7 @@
                   }
                 ]
               }
-            ],
-            "x-typia-required": true,
-            "x-typia-optional": false
+            ]
           },
           "int64": {
             "type": "integer",
@@ -145,6 +145,8 @@
                 "exclusive": true
               }
             ],
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "x-typia-jsDocTags": [
               {
                 "name": "type",
@@ -155,9 +157,7 @@
                   }
                 ]
               }
-            ],
-            "x-typia-required": true,
-            "x-typia-optional": false
+            ]
           },
           "uint64": {
             "type": "integer",
@@ -171,6 +171,8 @@
                 "exclusive": true
               }
             ],
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "x-typia-jsDocTags": [
               {
                 "name": "type",
@@ -181,9 +183,7 @@
                   }
                 ]
               }
-            ],
-            "x-typia-required": true,
-            "x-typia-optional": false
+            ]
           },
           "float": {
             "type": "number",
@@ -197,6 +197,8 @@
                 "exclusive": true
               }
             ],
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "x-typia-jsDocTags": [
               {
                 "name": "type",
@@ -207,9 +209,7 @@
                   }
                 ]
               }
-            ],
-            "x-typia-required": true,
-            "x-typia-optional": false
+            ]
           }
         },
         "nullable": false,

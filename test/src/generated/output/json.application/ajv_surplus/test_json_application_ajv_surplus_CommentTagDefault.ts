@@ -23,6 +23,9 @@ export const test_json_application_ajv_surplus_CommentTagDefault =
             boolean: {
               default: true,
               type: "boolean",
+              description: "Default tag on `boolean` typed value.",
+              "x-typia-required": true,
+              "x-typia-optional": false,
               "x-typia-jsDocTags": [
                 {
                   name: "default",
@@ -34,12 +37,13 @@ export const test_json_application_ajv_surplus_CommentTagDefault =
                   ],
                 },
               ],
-              "x-typia-required": true,
-              "x-typia-optional": false,
             },
             number: {
               type: "number",
               default: 1,
+              description: "Default tag on `number` typed value.",
+              "x-typia-required": true,
+              "x-typia-optional": false,
               "x-typia-jsDocTags": [
                 {
                   name: "default",
@@ -51,12 +55,13 @@ export const test_json_application_ajv_surplus_CommentTagDefault =
                   ],
                 },
               ],
-              "x-typia-required": true,
-              "x-typia-optional": false,
             },
             string: {
               type: "string",
               default: "two",
+              description: "Default tag on `string` typed value.",
+              "x-typia-required": true,
+              "x-typia-optional": false,
               "x-typia-jsDocTags": [
                 {
                   name: "default",
@@ -68,12 +73,14 @@ export const test_json_application_ajv_surplus_CommentTagDefault =
                   ],
                 },
               ],
-              "x-typia-required": true,
-              "x-typia-optional": false,
             },
             text: {
               type: "string",
               default: "Very long text, can you understand it?",
+              description:
+                "Default tag on `string` typed value with long characters.",
+              "x-typia-required": true,
+              "x-typia-optional": false,
               "x-typia-jsDocTags": [
                 {
                   name: "default",
@@ -85,8 +92,6 @@ export const test_json_application_ajv_surplus_CommentTagDefault =
                   ],
                 },
               ],
-              "x-typia-required": true,
-              "x-typia-optional": false,
             },
             boolean_and_number_and_string: {
               oneOf: [
@@ -103,6 +108,9 @@ export const test_json_application_ajv_surplus_CommentTagDefault =
                   type: "boolean",
                 },
               ],
+              description: "Default value on union typed property.",
+              "x-typia-required": true,
+              "x-typia-optional": false,
               "x-typia-jsDocTags": [
                 {
                   name: "default",
@@ -132,8 +140,6 @@ export const test_json_application_ajv_surplus_CommentTagDefault =
                   ],
                 },
               ],
-              "x-typia-required": true,
-              "x-typia-optional": false,
             },
             union_but_boolean: {
               oneOf: [
@@ -148,6 +154,9 @@ export const test_json_application_ajv_surplus_CommentTagDefault =
                   type: "boolean",
                 },
               ],
+              description: "Default value on union typed property.",
+              "x-typia-required": true,
+              "x-typia-optional": false,
               "x-typia-jsDocTags": [
                 {
                   name: "default",
@@ -159,8 +168,6 @@ export const test_json_application_ajv_surplus_CommentTagDefault =
                   ],
                 },
               ],
-              "x-typia-required": true,
-              "x-typia-optional": false,
             },
             union_but_number: {
               oneOf: [
@@ -175,6 +182,9 @@ export const test_json_application_ajv_surplus_CommentTagDefault =
                   type: "boolean",
                 },
               ],
+              description: "Default value on union typed property.",
+              "x-typia-required": true,
+              "x-typia-optional": false,
               "x-typia-jsDocTags": [
                 {
                   name: "default",
@@ -186,8 +196,6 @@ export const test_json_application_ajv_surplus_CommentTagDefault =
                   ],
                 },
               ],
-              "x-typia-required": true,
-              "x-typia-optional": false,
             },
             union_but_string: {
               oneOf: [
@@ -202,6 +210,9 @@ export const test_json_application_ajv_surplus_CommentTagDefault =
                   type: "boolean",
                 },
               ],
+              description: "Default value on union typed property.",
+              "x-typia-required": true,
+              "x-typia-optional": false,
               "x-typia-jsDocTags": [
                 {
                   name: "default",
@@ -213,8 +224,6 @@ export const test_json_application_ajv_surplus_CommentTagDefault =
                   ],
                 },
               ],
-              "x-typia-required": true,
-              "x-typia-optional": false,
             },
             vulnerable_range: {
               type: "number",
@@ -238,6 +247,9 @@ export const test_json_application_ajv_surplus_CommentTagDefault =
                   exclusive: ["maximum", "exclusiveMaximum"],
                 },
               ],
+              description: "Default value on union typed property.",
+              "x-typia-required": true,
+              "x-typia-optional": false,
               "x-typia-jsDocTags": [
                 {
                   name: "default",
@@ -267,8 +279,6 @@ export const test_json_application_ajv_surplus_CommentTagDefault =
                   ],
                 },
               ],
-              "x-typia-required": true,
-              "x-typia-optional": false,
             },
             boolean_and_number_and_template: {
               oneOf: [
@@ -286,6 +296,9 @@ export const test_json_application_ajv_surplus_CommentTagDefault =
                   type: "boolean",
                 },
               ],
+              description: "Default value on union typed property.",
+              "x-typia-required": true,
+              "x-typia-optional": false,
               "x-typia-jsDocTags": [
                 {
                   name: "default",
@@ -306,8 +319,6 @@ export const test_json_application_ajv_surplus_CommentTagDefault =
                   ],
                 },
               ],
-              "x-typia-required": true,
-              "x-typia-optional": false,
             },
           },
           required: [

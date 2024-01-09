@@ -57,6 +57,8 @@ export const test_json_application_swagger_surplus_CommentTagLength =
                   exclusive: true,
                 },
               ],
+              "x-typia-required": true,
+              "x-typia-optional": false,
               "x-typia-jsDocTags": [
                 {
                   name: "length",
@@ -68,8 +70,6 @@ export const test_json_application_swagger_surplus_CommentTagLength =
                   ],
                 },
               ],
-              "x-typia-required": true,
-              "x-typia-optional": false,
             },
             minimum: {
               type: "string",
@@ -84,6 +84,8 @@ export const test_json_application_swagger_surplus_CommentTagLength =
                   exclusive: true,
                 },
               ],
+              "x-typia-required": true,
+              "x-typia-optional": false,
               "x-typia-jsDocTags": [
                 {
                   name: "minLength",
@@ -95,8 +97,6 @@ export const test_json_application_swagger_surplus_CommentTagLength =
                   ],
                 },
               ],
-              "x-typia-required": true,
-              "x-typia-optional": false,
             },
             maximum: {
               type: "string",
@@ -111,6 +111,8 @@ export const test_json_application_swagger_surplus_CommentTagLength =
                   exclusive: true,
                 },
               ],
+              "x-typia-required": true,
+              "x-typia-optional": false,
               "x-typia-jsDocTags": [
                 {
                   name: "maxLength",
@@ -122,8 +124,6 @@ export const test_json_application_swagger_surplus_CommentTagLength =
                   ],
                 },
               ],
-              "x-typia-required": true,
-              "x-typia-optional": false,
             },
             minimum_and_maximum: {
               type: "string",
@@ -147,6 +147,8 @@ export const test_json_application_swagger_surplus_CommentTagLength =
                   exclusive: true,
                 },
               ],
+              "x-typia-required": true,
+              "x-typia-optional": false,
               "x-typia-jsDocTags": [
                 {
                   name: "minLength",
@@ -167,8 +169,6 @@ export const test_json_application_swagger_surplus_CommentTagLength =
                   ],
                 },
               ],
-              "x-typia-required": true,
-              "x-typia-optional": false,
             },
             equal: {
               type: "string",
@@ -192,6 +192,8 @@ export const test_json_application_swagger_surplus_CommentTagLength =
                   exclusive: true,
                 },
               ],
+              "x-typia-required": true,
+              "x-typia-optional": false,
               "x-typia-jsDocTags": [
                 {
                   name: "minLength",
@@ -212,8 +214,6 @@ export const test_json_application_swagger_surplus_CommentTagLength =
                   ],
                 },
               ],
-              "x-typia-required": true,
-              "x-typia-optional": false,
             },
           },
           nullable: false,

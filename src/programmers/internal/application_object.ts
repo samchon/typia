@@ -86,17 +86,25 @@ const create_object_schema =
         description: property.description ?? undefined,
         ...(options.surplus
           ? {
-              "x-typia-jsDocTags": property.jsDocTags.length
-                ? property.jsDocTags
-                : undefined,
               "x-typia-required": property.value.required,
               "x-typia-optional": property.value.optional,
             }
           : {}),
+        "x-typia-jsDocTags": (() => {
+          const filtered = property.jsDocTags.filter(
+            (tag) =>
+              tag.name !== "title" &&
+              tag.name !== "deprecated" &&
+              tag.name !== "hidden",
+          );
+          return filtered.length ? filtered : undefined;
+        })(),
       });
 
       if (schema === null) continue;
-      else if (key !== null) {
+      if (options.surplus === false && schema["x-typia-jsDocTags"]?.length)
+        delete schema["x-typia-jsDocTags"];
+      if (key !== null) {
         properties[key] = schema;
         if (property.value.isRequired() === true) required.push(key);
       } else {

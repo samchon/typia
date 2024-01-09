@@ -71,6 +71,8 @@
                 ]
               }
             ],
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "x-typia-jsDocTags": [
               {
                 "name": "minimum",
@@ -99,9 +101,7 @@
                   }
                 ]
               }
-            ],
-            "x-typia-required": true,
-            "x-typia-optional": false
+            ]
           }
         },
         "required": [

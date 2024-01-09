@@ -48,6 +48,8 @@ export const test_json_application_swagger_surplus_CommentTagObjectUnion =
                   exclusive: ["minimum", "exclusiveMinimum"],
                 },
               ],
+              "x-typia-required": true,
+              "x-typia-optional": false,
               "x-typia-jsDocTags": [
                 {
                   name: "minimum",
@@ -59,8 +61,6 @@ export const test_json_application_swagger_surplus_CommentTagObjectUnion =
                   ],
                 },
               ],
-              "x-typia-required": true,
-              "x-typia-optional": false,
             },
           },
           nullable: false,
@@ -92,6 +92,8 @@ export const test_json_application_swagger_surplus_CommentTagObjectUnion =
                   exclusive: true,
                 },
               ],
+              "x-typia-required": true,
+              "x-typia-optional": false,
               "x-typia-jsDocTags": [
                 {
                   name: "minLength",
@@ -112,8 +114,6 @@ export const test_json_application_swagger_surplus_CommentTagObjectUnion =
                   ],
                 },
               ],
-              "x-typia-required": true,
-              "x-typia-optional": false,
             },
           },
           nullable: false,

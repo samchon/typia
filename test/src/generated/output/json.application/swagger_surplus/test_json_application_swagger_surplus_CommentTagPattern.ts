@@ -35,6 +35,8 @@ export const test_json_application_swagger_surplus_CommentTagPattern =
                   exclusive: ["format"],
                 },
               ],
+              "x-typia-required": true,
+              "x-typia-optional": false,
               "x-typia-jsDocTags": [
                 {
                   name: "pattern",
@@ -46,8 +48,6 @@ export const test_json_application_swagger_surplus_CommentTagPattern =
                   ],
                 },
               ],
-              "x-typia-required": true,
-              "x-typia-optional": false,
             },
             email: {
               type: "string",
@@ -65,6 +65,8 @@ export const test_json_application_swagger_surplus_CommentTagPattern =
                   exclusive: ["format"],
                 },
               ],
+              "x-typia-required": true,
+              "x-typia-optional": false,
               "x-typia-jsDocTags": [
                 {
                   name: "pattern",
@@ -76,8 +78,6 @@ export const test_json_application_swagger_surplus_CommentTagPattern =
                   ],
                 },
               ],
-              "x-typia-required": true,
-              "x-typia-optional": false,
             },
             ipv4: {
               type: "string",
@@ -95,6 +95,8 @@ export const test_json_application_swagger_surplus_CommentTagPattern =
                   exclusive: ["format"],
                 },
               ],
+              "x-typia-required": true,
+              "x-typia-optional": false,
               "x-typia-jsDocTags": [
                 {
                   name: "pattern",
@@ -106,8 +108,6 @@ export const test_json_application_swagger_surplus_CommentTagPattern =
                   ],
                 },
               ],
-              "x-typia-required": true,
-              "x-typia-optional": false,
             },
             ipv6: {
               type: "string",
@@ -125,6 +125,8 @@ export const test_json_application_swagger_surplus_CommentTagPattern =
                   exclusive: ["format"],
                 },
               ],
+              "x-typia-required": true,
+              "x-typia-optional": false,
               "x-typia-jsDocTags": [
                 {
                   name: "pattern",
@@ -136,8 +138,6 @@ export const test_json_application_swagger_surplus_CommentTagPattern =
                   ],
                 },
               ],
-              "x-typia-required": true,
-              "x-typia-optional": false,
             },
           },
           nullable: false,

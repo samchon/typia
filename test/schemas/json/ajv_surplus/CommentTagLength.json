@@ -50,6 +50,8 @@
                 "exclusive": true
               }
             ],
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "x-typia-jsDocTags": [
               {
                 "name": "length",
@@ -60,9 +62,7 @@
                   }
                 ]
               }
-            ],
-            "x-typia-required": true,
-            "x-typia-optional": false
+            ]
           },
           "minimum": {
             "type": "string",
@@ -77,6 +77,8 @@
                 "exclusive": true
               }
             ],
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "x-typia-jsDocTags": [
               {
                 "name": "minLength",
@@ -87,9 +89,7 @@
                   }
                 ]
               }
-            ],
-            "x-typia-required": true,
-            "x-typia-optional": false
+            ]
           },
           "maximum": {
             "type": "string",
@@ -104,6 +104,8 @@
                 "exclusive": true
               }
             ],
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "x-typia-jsDocTags": [
               {
                 "name": "maxLength",
@@ -114,9 +116,7 @@
                   }
                 ]
               }
-            ],
-            "x-typia-required": true,
-            "x-typia-optional": false
+            ]
           },
           "minimum_and_maximum": {
             "type": "string",
@@ -140,6 +140,8 @@
                 "exclusive": true
               }
             ],
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "x-typia-jsDocTags": [
               {
                 "name": "minLength",
@@ -159,9 +161,7 @@
                   }
                 ]
               }
-            ],
-            "x-typia-required": true,
-            "x-typia-optional": false
+            ]
           },
           "equal": {
             "type": "string",
@@ -185,6 +185,8 @@
                 "exclusive": true
               }
             ],
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "x-typia-jsDocTags": [
               {
                 "name": "minLength",
@@ -204,9 +206,7 @@
                   }
                 ]
               }
-            ],
-            "x-typia-required": true,
-            "x-typia-optional": false
+            ]
           }
         },
         "required": [
