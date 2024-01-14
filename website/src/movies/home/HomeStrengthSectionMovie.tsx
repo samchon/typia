@@ -3,13 +3,14 @@ import {
   Card,
   CardActionArea,
   CardContent,
+  Divider,
   Grid,
   Typography,
 } from "@mui/material";
 
 const HomeStrengthSectionMovie = (props: HomeStrengthSectionMovie.Props) => (
   <Grid item xs={12} md={4}>
-    <Card variant="outlined">
+    <Box>
       <CardActionArea href={props.href}>
         <br />
         <div
@@ -30,15 +31,16 @@ const HomeStrengthSectionMovie = (props: HomeStrengthSectionMovie.Props) => (
         </div>
         <br />
         <CardContent>
-          <Typography variant="h5" sx={{ paddingBottom: 1 }}>
-            {props.title}
+          <Typography variant="h6">{props.title}</Typography>
+          <Typography color="text.secondary" sx={{ paddingTop: 0.5 }}>
+            {props.subTitle}
           </Typography>
-          <Typography color="text.secondary">{props.subTitle}</Typography>
           <br />
           {props.description}
         </CardContent>
       </CardActionArea>
-    </Card>
+      <Divider />
+    </Box>
   </Grid>
 );
 namespace HomeStrengthSectionMovie {
