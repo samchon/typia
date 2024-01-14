@@ -1,8 +1,8 @@
 import Editor from "@monaco-editor/react";
 
-import { Singleton } from "../utils/Singleton";
+import { Singleton } from "../../utils/Singleton";
 
-import { typia_packageJson } from "../../raw/typia/packageJson";
+import { typia_packageJson } from "../../../raw/typia/packageJson";
 
 const version = new Singleton(
   () => typia_packageJson.split(`"version": "`)[1].split(`"`)[0],
