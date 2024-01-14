@@ -15,7 +15,7 @@ import { Primitive } from "./Primitive";
     SCHEMA
 ----------------------------------------------------------- */
 /**
- * > You must configure the generic argument `T`.
+ * > You must configure the generic argument `Types`.
  *
  * JSON Schema Application.
  *
