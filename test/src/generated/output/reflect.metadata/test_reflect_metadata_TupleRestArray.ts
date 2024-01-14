@@ -5,41 +5,74 @@ import { TupleRestArray } from "../../../structures/TupleRestArray";
 
 export const test_reflect_metadata_TupleRestArray = _test_reflect_metadata(
   "TupleRestArray",
-)(
-  (typia.reflect.metadata as any).from({
-    metadatas: [
-      {
-        any: false,
-        required: true,
-        optional: false,
-        nullable: false,
-        functional: false,
-        atomics: [],
-        constants: [],
-        templates: [],
-        escaped: null,
-        rest: null,
-        arrays: [],
-        tuples: [
-          {
-            name: "TupleRestArray",
-            tags: [],
-          },
-        ],
-        objects: [],
-        aliases: [],
-        natives: [],
-        sets: [],
-        maps: [],
-      },
-    ],
-    components: {
+)({
+  metadatas: [
+    {
+      any: false,
+      required: true,
+      optional: false,
+      nullable: false,
+      functional: false,
+      atomics: [],
+      constants: [],
+      templates: [],
+      escaped: null,
+      rest: null,
+      arrays: [],
+      tuples: [
+        {
+          name: "TupleRestArray",
+          tags: [],
+        },
+      ],
       objects: [],
       aliases: [],
-      arrays: [
-        {
-          name: "Array<string>",
-          value: {
+      natives: [],
+      sets: [],
+      maps: [],
+    },
+  ],
+  components: {
+    objects: [],
+    aliases: [],
+    arrays: [
+      {
+        name: "Array<string>",
+        value: {
+          any: false,
+          required: true,
+          optional: false,
+          nullable: false,
+          functional: false,
+          atomics: [
+            {
+              type: "string",
+              tags: [],
+            },
+          ],
+          constants: [],
+          templates: [],
+          escaped: null,
+          rest: null,
+          arrays: [],
+          tuples: [],
+          objects: [],
+          aliases: [],
+          natives: [],
+          sets: [],
+          maps: [],
+        },
+        nullables: [false],
+        recursive: false,
+        index: null,
+      },
+    ],
+    tuples: [
+      {
+        name: "TupleRestArray",
+        index: null,
+        elements: [
+          {
             any: false,
             required: true,
             optional: false,
@@ -47,7 +80,7 @@ export const test_reflect_metadata_TupleRestArray = _test_reflect_metadata(
             functional: false,
             atomics: [
               {
-                type: "string",
+                type: "boolean",
                 tags: [],
               },
             ],
@@ -63,65 +96,41 @@ export const test_reflect_metadata_TupleRestArray = _test_reflect_metadata(
             sets: [],
             maps: [],
           },
-          nullables: [false],
-          recursive: false,
-          index: null,
-        },
-      ],
-      tuples: [
-        {
-          name: "TupleRestArray",
-          index: null,
-          elements: [
-            {
-              any: false,
-              required: true,
-              optional: false,
-              nullable: false,
-              functional: false,
-              atomics: [
-                {
-                  type: "boolean",
-                  tags: [],
-                },
-              ],
-              constants: [],
-              templates: [],
-              escaped: null,
-              rest: null,
-              arrays: [],
-              tuples: [],
-              objects: [],
-              aliases: [],
-              natives: [],
-              sets: [],
-              maps: [],
-            },
-            {
-              any: false,
-              required: true,
-              optional: false,
-              nullable: false,
-              functional: false,
-              atomics: [
-                {
-                  type: "number",
-                  tags: [],
-                },
-              ],
-              constants: [],
-              templates: [],
-              escaped: null,
-              rest: null,
-              arrays: [],
-              tuples: [],
-              objects: [],
-              aliases: [],
-              natives: [],
-              sets: [],
-              maps: [],
-            },
-            {
+          {
+            any: false,
+            required: true,
+            optional: false,
+            nullable: false,
+            functional: false,
+            atomics: [
+              {
+                type: "number",
+                tags: [],
+              },
+            ],
+            constants: [],
+            templates: [],
+            escaped: null,
+            rest: null,
+            arrays: [],
+            tuples: [],
+            objects: [],
+            aliases: [],
+            natives: [],
+            sets: [],
+            maps: [],
+          },
+          {
+            any: false,
+            required: true,
+            optional: false,
+            nullable: false,
+            functional: false,
+            atomics: [],
+            constants: [],
+            templates: [],
+            escaped: null,
+            rest: {
               any: false,
               required: true,
               optional: false,
@@ -131,31 +140,13 @@ export const test_reflect_metadata_TupleRestArray = _test_reflect_metadata(
               constants: [],
               templates: [],
               escaped: null,
-              rest: {
-                any: false,
-                required: true,
-                optional: false,
-                nullable: false,
-                functional: false,
-                atomics: [],
-                constants: [],
-                templates: [],
-                escaped: null,
-                rest: null,
-                arrays: [
-                  {
-                    name: "Array<string>",
-                    tags: [],
-                  },
-                ],
-                tuples: [],
-                objects: [],
-                aliases: [],
-                natives: [],
-                sets: [],
-                maps: [],
-              },
-              arrays: [],
+              rest: null,
+              arrays: [
+                {
+                  name: "Array<string>",
+                  tags: [],
+                },
+              ],
               tuples: [],
               objects: [],
               aliases: [],
@@ -163,11 +154,18 @@ export const test_reflect_metadata_TupleRestArray = _test_reflect_metadata(
               sets: [],
               maps: [],
             },
-          ],
-          recursive: false,
-          nullables: [false],
-        },
-      ],
-    },
-  }),
-);
+            arrays: [],
+            tuples: [],
+            objects: [],
+            aliases: [],
+            natives: [],
+            sets: [],
+            maps: [],
+          },
+        ],
+        recursive: false,
+        nullables: [false],
+      },
+    ],
+  },
+});

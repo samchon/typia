@@ -1,10 +1,8 @@
 import ts from "typescript";
 
-import { IdentifierFactory } from "../../../factories/IdentifierFactory";
 import { LiteralFactory } from "../../../factories/LiteralFactory";
 import { MetadataCollection } from "../../../factories/MetadataCollection";
 import { MetadataFactory } from "../../../factories/MetadataFactory";
-import { TypeFactory } from "../../../factories/TypeFactory";
 
 import { IMetadataApplication } from "../../../schemas/metadata/IMetadataApplication";
 import { Metadata } from "../../../schemas/metadata/Metadata";
@@ -15,7 +13,7 @@ import { TransformerError } from "../../TransformerError";
 export namespace ReflectMetadataTransformer {
   export const transform =
     (project: IProject) =>
-    (modulo: ts.LeftHandSideExpression) =>
+    (_modulo: ts.LeftHandSideExpression) =>
     (expression: ts.CallExpression): ts.Expression => {
       if (!expression.typeArguments?.length)
         throw new TransformerError({
@@ -60,14 +58,6 @@ export namespace ReflectMetadataTransformer {
         metadatas: metadatas.map((metadata) => metadata.toJSON()),
         components: collection.toJSON(),
       };
-      return ts.factory.createCallExpression(
-        IdentifierFactory.access(
-          ts.factory.createParenthesizedExpression(
-            ts.factory.createAsExpression(modulo, TypeFactory.keyword("any")),
-          ),
-        )("from"),
-        undefined,
-        [LiteralFactory.generate(app)],
-      );
+      return LiteralFactory.generate(app);
     };
 }
