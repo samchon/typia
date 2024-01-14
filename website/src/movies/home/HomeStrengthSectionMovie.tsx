@@ -10,7 +10,7 @@ import {
 const HomeStrengthSectionMovie = (props: HomeStrengthSectionMovie.Props) => (
   <Grid item xs={12} md={4}>
     <Card variant="outlined">
-      <CardActionArea onClick={() => (location.href = props.href)}>
+      <CardActionArea href={props.href}>
         <br />
         <div
           style={{
@@ -30,7 +30,9 @@ const HomeStrengthSectionMovie = (props: HomeStrengthSectionMovie.Props) => (
         </div>
         <br />
         <CardContent>
-          <Typography variant="h5">{props.title}</Typography>
+          <Typography variant="h5" sx={{ paddingBottom: 1 }}>
+            {props.title}
+          </Typography>
           <Typography color="text.secondary">{props.subTitle}</Typography>
           <br />
           {props.description}
@@ -42,8 +44,8 @@ const HomeStrengthSectionMovie = (props: HomeStrengthSectionMovie.Props) => (
 namespace HomeStrengthSectionMovie {
   export interface Props {
     title: string;
-    subTitle: string;
-    description: string | JSX.Element;
+    subTitle: JSX.Element;
+    description: JSX.Element;
     image: string;
     href: string;
     width?: number;
