@@ -2,6 +2,7 @@ import GitHubIcon from "@mui/icons-material/GitHub";
 import MenuBookIcon from "@mui/icons-material/MenuBook";
 import { Button, Grid, Typography } from "@mui/material";
 
+import HomeCodeBlock from "../../components/home/HomeCodeBlock";
 import ProductHeroLayout from "../../components/home/ProductHeroLayout";
 
 const HomeHeroMovie = () => (
@@ -27,15 +28,7 @@ const HomeHeroMovie = () => (
       Just fine with pure TypeScript type.
       <br />
       <br />
-      <span style={{ color: "skyblue" }}>typia</span>
-      {"."}
-      <span style={{ color: "yellow" }}>assert</span>
-      <span style={{ color: "rgb(0, 150, 255)" }}>{"<"}</span>
-      <span style={{ color: "cyan" }}>T</span>
-      <span style={{ color: "rgb(0, 150, 255)" }}>{">("}</span>
-      <span style={{ color: "skyblue" }}>input</span>
-      <span style={{ color: "rgb(0, 150, 255)" }}>{")"}</span>
-      {";"}
+      <HomeCodeBlock method="assert" />
     </Typography>
     <br />
     <br />

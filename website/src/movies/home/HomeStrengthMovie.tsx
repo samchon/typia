@@ -1,12 +1,13 @@
 import { Box, Container, Grid } from "@mui/material";
 import React from "react";
 
+import HomeCodeBlock from "../../components/home/HomeCodeBlock";
 import HomeStrengthSectionMovie from "./HomeStrengthSectionMovie";
 
 const sections: HomeStrengthSectionMovie.Props[] = [
   {
     title: "Super-fast Runtime Validtor",
-    subTitle: "20,000x faster",
+    subTitle: <HomeCodeBlock method="assert" color="purple" />,
     description: (
       <React.Fragment>
         <p>
@@ -30,7 +31,9 @@ const sections: HomeStrengthSectionMovie.Props[] = [
   },
   {
     title: "Fast JSON Serialization",
-    subTitle: "200x faster",
+    subTitle: (
+      <HomeCodeBlock namespace="json" method="stringify" color="purple" />
+    ),
     description: (
       <React.Fragment>
         <p>
@@ -53,17 +56,19 @@ const sections: HomeStrengthSectionMovie.Props[] = [
   },
   {
     title: "Easy Protocol Buffer",
-    subTitle: "Full spec of protobuf",
+    subTitle: (
+      <HomeCodeBlock namespace="protobuf" method="encode" color="purple" />
+    ),
     description: (
       <React.Fragment>
         <p>
-          Much <b>stable than any others</b>.
+          <b>Full spec</b> of protobuf.
         </p>
         <br />
         <p>
           Only one supporting full spec of <i>protobuf</i> in the{" "}
-          <i>TypeScript</i> ecosystem. Therefore, compatible with every other
-          platforms.
+          <i>TypeScript</i> ecosystem. Therefore, stable compatible with every
+          other platforms.
         </p>
         <br />
         <p>
