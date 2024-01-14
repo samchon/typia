@@ -1,10 +1,38 @@
-import { Namespace } from "./functional/Namespace";
+import { IMetadataApplication } from "./schemas/metadata/IMetadataApplication";
 
-import { MetadataApplication } from "./schemas/metadata/MetadataApplication";
-
+/**
+ * > You must configure the generic argument `Types`.
+ *
+ * Metadata Application.
+ *
+ * Creates a Metadata application which contains the metadata and components.
+ *
+ * Note that, all of the collection types like Array, Tuple and Objects are
+ * stored in the {@link IMetadataApplication.components} property. Also, alias
+ * types are stored in the {@link IMetadataApplication.aliases} property, too.
+ *
+ * @template Types Tuple of target types
+ * @returns Metadata application
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
 export function metadata(): never;
 
-export function metadata<Types extends unknown[]>(): MetadataApplication;
+/**
+ * Metadata Application.
+ *
+ * Creates a Metadata application which contains the metadata and components.
+ *
+ * Note that, all of the collection types like Array, Tuple and Objects are
+ * stored in the {@link IMetadataApplication.components} property. Also, alias
+ * types are stored in the {@link IMetadataApplication.aliases} property, too.
+ *
+ * @template Types Tuple of target types
+ * @returns Metadata application
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export function metadata<Types extends unknown[]>(): IMetadataApplication;
 
 /**
  * @internal
@@ -12,7 +40,13 @@ export function metadata<Types extends unknown[]>(): MetadataApplication;
 export function metadata(): never {
   halt("metadata");
 }
-Object.assign(metadata, Namespace.reflect.metadata());
+
+/**
+ * @internal
+ */
+export namespace metadata {
+  export const from = (input: unknown) => input;
+}
 
 /**
  * @internal
