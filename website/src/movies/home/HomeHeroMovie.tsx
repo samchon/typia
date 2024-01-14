@@ -32,8 +32,8 @@ const HomeHeroMovie = () => (
     </Typography>
     <br />
     <br />
-    <Grid container spacing={1}>
-      <Grid item xs={6}>
+    <Grid container spacing={2}>
+      <Grid item xs={12} md={6}>
         <Button
           variant="contained"
           size="large"
@@ -45,7 +45,7 @@ const HomeHeroMovie = () => (
           Documents
         </Button>
       </Grid>
-      <Grid item xs={6}>
+      <Grid item xs={12} md={6}>
         <Button
           color="success"
           variant="contained"
