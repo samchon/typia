@@ -2,7 +2,6 @@ import {
   compressToEncodedURIComponent,
   decompressFromEncodedURIComponent,
 } from "lz-string";
-import path from "path";
 import React, { useEffect, useState } from "react";
 import ts from "typescript";
 
@@ -10,10 +9,10 @@ import { Compiler } from "../utils/Compiler";
 
 import { RAW } from "../../raw/RAW";
 import { SCRIPT } from "../../raw/SCRIPT";
-import LanguageButton from "../components/LanguageButton";
-import OutputViewer from "../components/OutputViewer";
-import SourceEditor from "../components/SourceEditor";
-import Splitter from "../components/Splitter";
+import LanguageButton from "../components/playground/LanguageButton";
+import OutputViewer from "../components/playground/OutputViewer";
+import SourceEditor from "../components/playground/SourceEditor";
+import Splitter from "../components/playground/Splitter";
 
 const Playground = () => {
   const [source, setSource] = useState<string | null>(null);
