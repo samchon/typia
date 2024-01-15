@@ -15,7 +15,7 @@ const config: DocsThemeConfig = {
       >
         Typia
       </span>
-      <span>Superfast Runtime Validator</span>
+      <span>Super-fast Validator</span>
     </>
   ),
   project: {

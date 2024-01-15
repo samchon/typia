@@ -8,21 +8,21 @@ import ProductHeroLayout from "../../components/home/ProductHeroLayout";
 const HomeHeroMovie = () => (
   <ProductHeroLayout
     sxBackground={{
-      backgroundImage: `url(/images/home/assert.svg)`,
-      backgroundColor: "#CCCCCC",
+      background: `url(/images/home/background.webp) no-repeat center top`,
+      backgroundColor: "black",
       backgroundPosition: "center",
     }}
   >
-    <Typography color="inherit" align="center" variant="h2">
-      One line magic
+    <Typography color="inherit" align="center" variant="h3">
+      One Line Magic
     </Typography>
     <Typography
       color="inherit"
       align="center"
-      variant="h5"
+      variant="h6"
       sx={{ mb: 4, mt: { xs: 4, sm: 10 } }}
     >
-      Don't need extra schema defintion.
+      No extra schema required.
       <br />
       <br />
       Just fine with pure TypeScript type.
