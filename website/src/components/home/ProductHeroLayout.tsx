@@ -22,7 +22,7 @@ const Background = styled("div")({
   right: 0,
   top: 0,
   bottom: 0,
-  backgroundSize: "cover",
+  backgroundSize: "contain",
   backgroundRepeat: "no-repeat",
   zIndex: -2,
 });
@@ -55,7 +55,7 @@ const ProductHeroLayout = (
             top: 0,
             bottom: 0,
             backgroundColor: "common.black",
-            opacity: 0.85,
+            opacity: 0.7,
             zIndex: -1,
           }}
         />
