@@ -7,7 +7,7 @@ import HomeStrengthSectionMovie from "./HomeStrengthSectionMovie";
 const sections: HomeStrengthSectionMovie.Props[] = [
   {
     title: "Super-fast Runtime Validtor",
-    subTitle: <HomeCodeBlock method="assert" color="purple" />,
+    subTitle: <HomeCodeBlock method="assert" color="rgb(191, 64, 191)" />,
     description: (
       <React.Fragment>
         <p>
@@ -32,7 +32,11 @@ const sections: HomeStrengthSectionMovie.Props[] = [
   {
     title: "Fast JSON Serialization",
     subTitle: (
-      <HomeCodeBlock namespace="json" method="stringify" color="purple" />
+      <HomeCodeBlock
+        namespace="json"
+        method="stringify"
+        color="rgb(191, 64, 191)"
+      />
     ),
     description: (
       <React.Fragment>
@@ -57,7 +61,11 @@ const sections: HomeStrengthSectionMovie.Props[] = [
   {
     title: "Easy Protocol Buffer",
     subTitle: (
-      <HomeCodeBlock namespace="protobuf" method="encode" color="purple" />
+      <HomeCodeBlock
+        namespace="protobuf"
+        method="encode"
+        color="rgb(191, 64, 191)"
+      />
     ),
     description: (
       <React.Fragment>
@@ -67,8 +75,8 @@ const sections: HomeStrengthSectionMovie.Props[] = [
         <br />
         <p>
           Only one supporting full spec of <i>protobuf</i> in the{" "}
-          <i>TypeScript</i> ecosystem. Therefore, stable compatible with every
-          other platforms.
+          <i>TypeScript</i> ecosystem. Therefore, compatible with every other
+          platforms.
         </p>
         <br />
         <p>
