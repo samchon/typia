@@ -75,8 +75,8 @@ const sections: HomeStrengthSectionMovie.Props[] = [
         <br />
         <p>
           Only one supporting full spec of <i>protobuf</i> in the{" "}
-          <i>TypeScript</i> ecosystem. Therefore, stable compatible with every
-          other platforms.
+          <i>TypeScript</i> ecosystem. Therefore, compatible with every other
+          platforms.
         </p>
         <br />
         <p>

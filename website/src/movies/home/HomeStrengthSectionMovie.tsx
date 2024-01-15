@@ -30,8 +30,8 @@ const HomeStrengthSectionMovie = (props: HomeStrengthSectionMovie.Props) => (
           />
         </div>
         <br />
-        <CardContent>
-          <Typography variant="h6">{props.title}</Typography>
+        <CardContent style={{ textAlign: "center" }}>
+          <Typography variant="h5">{props.title}</Typography>
           <Typography color="text.secondary" sx={{ paddingTop: 0.5 }}>
             {props.subTitle}
           </Typography>
