@@ -10,9 +10,7 @@ const ProductHeroLayoutRoot = styled("section")(({ theme }) => ({
   display: "flex",
   alignItems: "center",
   [theme.breakpoints.up("sm")]: {
-    height: "90vh",
-    minHeight: 500,
-    maxHeight: 1300,
+    height: "calc(100vh - 50px)",
   },
 }));
 
@@ -27,6 +25,15 @@ const Background = styled("div")({
   zIndex: -2,
 });
 
+const ArrowBox = styled("div")(({ theme }) => ({
+  position: "absolute",
+  bottom: 32,
+  display: "none",
+  [theme.breakpoints.up("sm")]: {
+    display: "block",
+  },
+}));
+
 interface ProductHeroLayoutProps {
   sxBackground: SxProps<Theme>;
 }
@@ -40,7 +47,7 @@ const ProductHeroLayout = (
       <Container
         sx={{
           mt: 3,
-          mb: 14,
+          mb: 3,
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
@@ -60,14 +67,14 @@ const ProductHeroLayout = (
           }}
         />
         <Background sx={sxBackground} />
-        <Box
-          component="img"
-          src="/images/home/productHeroArrowDown.png"
-          height="16"
-          width="12"
-          alt="arrow down"
-          sx={{ position: "absolute", bottom: 32 }}
-        />
+        <ArrowBox>
+          <img
+            src="/images/home/productHeroArrowDown.png"
+            height="32"
+            width="24"
+            alt="arrow down"
+          />
+        </ArrowBox>
       </Container>
     </ProductHeroLayoutRoot>
   );
