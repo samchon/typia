@@ -652,6 +652,6 @@ Object.assign(createValidateStringify, validateStringify);
  */
 function halt(name: string): never {
   throw new Error(
-    `Error on typia.json.${name}(): no transform has been configured. Read and follow https://typia.json.io/docs/setup please.`,
+    `Error on typia.json.${name}(): no transform has been configured. Read and follow https://typia.io/docs/setup please.`,
   );
 }
