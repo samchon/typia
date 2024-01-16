@@ -1,3 +1,4 @@
+import ComputerIcon from "@mui/icons-material/Computer";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import MenuBookIcon from "@mui/icons-material/MenuBook";
 import { Button, Grid, Typography } from "@mui/material";
@@ -33,8 +34,9 @@ const HomeHeroMovie = () => (
     <br />
     <br />
     <Grid container spacing={2}>
-      <Grid item xs={12} md={6}>
+      <Grid item xs={12} md={4}>
         <Button
+          color="info"
           variant="contained"
           size="large"
           component="a"
@@ -42,10 +44,23 @@ const HomeHeroMovie = () => (
           startIcon={<MenuBookIcon />}
           fullWidth
         >
-          Documents
+          Guide Documents
         </Button>
       </Grid>
-      <Grid item xs={12} md={6}>
+      <Grid item xs={12} md={4}>
+        <Button
+          color="warning"
+          variant="contained"
+          size="large"
+          component="a"
+          href="/playground"
+          startIcon={<ComputerIcon />}
+          fullWidth
+        >
+          Playground (Online IDE)
+        </Button>
+      </Grid>
+      <Grid item xs={12} md={4}>
         <Button
           color="success"
           variant="contained"
@@ -55,7 +70,7 @@ const HomeHeroMovie = () => (
           startIcon={<GitHubIcon />}
           fullWidth
         >
-          Github
+          Github Repository
         </Button>
       </Grid>
     </Grid>
