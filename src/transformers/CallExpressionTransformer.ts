@@ -92,38 +92,38 @@ import { ReflectMetadataTransformer } from "./features/reflect/ReflectMetadataTr
 export namespace CallExpressionTransformer {
   export const transform =
     (project: IProject) =>
-    (expression: ts.CallExpression): ts.Expression | null => {
-      //----
-      // VALIDATIONS
-      //----
-      // SIGNATURE DECLARATION
-      const declaration: ts.Declaration | undefined =
-        project.checker.getResolvedSignature(expression)?.declaration;
-      if (!declaration) return expression;
+      (expression: ts.CallExpression): ts.Expression | null => {
+        //----
+        // VALIDATIONS
+        //----
+        // SIGNATURE DECLARATION
+        const declaration: ts.Declaration | undefined =
+          project.checker.getResolvedSignature(expression)?.declaration;
+        if (!declaration) return expression;
 
-      // FILE PATH
-      const location: string = path.resolve(
-        declaration.getSourceFile().fileName,
-      );
-      if (isTarget(location) === false) return expression;
+        // FILE PATH
+        const location: string = path.resolve(
+          declaration.getSourceFile().fileName,
+        );
+        if (isTarget(location) === false) return expression;
 
-      //----
-      // TRANSFORMATION
-      //----
-      // FUNCTION NAME
-      const module: string = location.split(path.sep).at(-1)!.split(".")[0]!;
-      const { name } = project.checker.getTypeAtLocation(declaration).symbol;
+        //----
+        // TRANSFORMATION
+        //----
+        // FUNCTION NAME
+        const module: string = location.split(path.sep).at(-1)!.split(".")[0]!;
+        const { name } = project.checker.getTypeAtLocation(declaration).symbol;
 
-      // FIND TRANSFORMER
-      const functor: (() => Task) | undefined = FUNCTORS[module]?.[name];
-      if (functor === undefined) return expression;
+        // FIND TRANSFORMER
+        const functor: (() => Task) | undefined = FUNCTORS[module]?.[name];
+        if (functor === undefined) return expression;
 
-      // RETURNS WITH TRANSFORMATION
-      const result: ts.Expression | null = functor()(project)(
-        expression.expression,
-      )(expression);
-      return result ?? expression;
-    };
+        // RETURNS WITH TRANSFORMATION
+        const result: ts.Expression | null = functor()(project)(
+          expression.expression,
+        )(expression);
+        return result ?? expression;
+      };
 
   const isTarget = (location: string): boolean => {
     const files: string[] = Object.keys(FUNCTORS);

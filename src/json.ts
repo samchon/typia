@@ -1,4 +1,4 @@
-import { Namespace } from "./functional/Namespace";
+import * as Namespace from "./functional/Namespace";
 
 import { IJsonApplication } from "./schemas/json/IJsonApplication";
 
@@ -103,7 +103,7 @@ export function application(): never {
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function assertParse(input: string): never;
+function assertParse(input: string): never;
 
 /**
  * Safe `JSON.parse()` function with type assertion.
@@ -122,15 +122,19 @@ export function assertParse(input: string): never;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function assertParse<T>(input: string): Primitive<T>;
+function assertParse<T>(input: string): Primitive<T>;
 
 /**
  * @internal
  */
-export function assertParse<T>(): Primitive<T> {
+function assertParse<T>(): Primitive<T> {
   halt("assertParse");
 }
-Object.assign(assertParse, Namespace.assert("json.assertParse"));
+const assertParsePure = /** @__PURE__ */ Object.assign(
+  assertParse,
+  /** @__PURE__ */ Namespace.assert("json.assertParse")
+);
+export { assertParsePure as assertParse };
 
 /**
  * > You must configure the generic argument `T`.
@@ -151,7 +155,7 @@ Object.assign(assertParse, Namespace.assert("json.assertParse"));
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function isParse(input: string): never;
+function isParse(input: string): never;
 
 /**
  * Safe `JSON.parse()` function with type checking.
@@ -170,15 +174,16 @@ export function isParse(input: string): never;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function isParse<T>(input: string): Primitive<T> | null;
+function isParse<T>(input: string): Primitive<T> | null;
 
 /**
  * @internal
  */
-export function isParse<T>(): Primitive<T> | null {
+function isParse<T>(): Primitive<T> | null {
   halt("isParse");
 }
-Object.assign(isParse, Namespace.is());
+const isParsePure = /** @__PURE__ */ Object.assign(isParse, /** @__PURE__ */ Namespace.is());
+export { isParsePure as isParse };
 
 /**
  * > You must configure the generic argument `T`.
@@ -200,7 +205,7 @@ Object.assign(isParse, Namespace.is());
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function validateParse(input: string): never;
+function validateParse(input: string): never;
 
 /**
  * Safe `JSON.parse()` function with detailed type validation.
@@ -220,15 +225,16 @@ export function validateParse(input: string): never;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function validateParse<T>(input: string): IValidation<Primitive<T>>;
+function validateParse<T>(input: string): IValidation<Primitive<T>>;
 
 /**
  * @internal
  */
-export function validateParse<T>(): IValidation<Primitive<T>> {
+function validateParse<T>(): IValidation<Primitive<T>> {
   halt("validateParse");
 }
-Object.assign(validateParse, Namespace.validate());
+const validateParsePure = /** @__PURE__ */ Object.assign(validateParse, /** @__PURE__ */ Namespace.validate());
+export { validateParsePure as validateParse };
 
 /* -----------------------------------------------------------
     STRINGIFY
@@ -255,15 +261,19 @@ Object.assign(validateParse, Namespace.validate());
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function stringify<T>(input: T): string;
+function stringify<T>(input: T): string;
 
 /**
  * @internal
  */
-export function stringify(): never {
+function stringify(): never {
   halt("stringify");
 }
-Object.assign(stringify, Namespace.json.stringify("stringify"));
+const stringifyPure = /** @__PURE__ */ Object.assign(
+  stringify,
+  /** @__PURE__ */ Namespace.json.stringify("stringify")
+);
+export { stringifyPure as stringify };
 
 /**
  * 5x faster `JSON.stringify()` function with type assertion.
@@ -286,7 +296,7 @@ Object.assign(stringify, Namespace.json.stringify("stringify"));
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function assertStringify<T>(input: T): string;
+function assertStringify<T>(input: T): string;
 
 /**
  * 5x faster `JSON.stringify()` function with type assertion.
@@ -309,16 +319,20 @@ export function assertStringify<T>(input: T): string;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function assertStringify<T>(input: T): unknown;
+function assertStringify<T>(input: T): unknown;
 
 /**
  * @internal
  */
-export function assertStringify(): string {
+function assertStringify(): string {
   halt("assertStringify");
 }
-Object.assign(assertStringify, Namespace.assert("json.assertStringify"));
-Object.assign(assertStringify, Namespace.json.stringify("assertStringify"));
+const assertStringifyPure = /** @__PURE__ */ Object.assign(
+  assertStringify,
+  /** @__PURE__ */ Namespace.assert("json.assertStringify"),
+  /** @__PURE__ */ Namespace.json.stringify("assertStringify")
+);
+export { assertStringifyPure as assertStringify };
 
 /**
  * 7x faster `JSON.stringify()` function with type checking.
@@ -341,7 +355,7 @@ Object.assign(assertStringify, Namespace.json.stringify("assertStringify"));
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function isStringify<T>(input: T): string | null;
+function isStringify<T>(input: T): string | null;
 
 /**
  * 7x faster `JSON.stringify()` function with type checking.
@@ -364,17 +378,21 @@ export function isStringify<T>(input: T): string | null;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function isStringify<T>(input: unknown): string | null;
+function isStringify<T>(input: unknown): string | null;
 
 /**
  * @internal
  */
-export function isStringify(): string | null {
+function isStringify(): string | null {
   halt("isStringify");
 }
 
-Object.assign(isStringify, Namespace.is());
-Object.assign(isStringify, Namespace.json.stringify("isStringify"));
+const isStringifyPure = /** @__PURE__ */ Object.assign(
+  isStringify,
+  /** @__PURE__ */ Namespace.is(),
+  /** @__PURE__ */ Namespace.json.stringify("isStringify")
+);
+export { isStringifyPure as isStringify };
 
 /**
  * 5x faster `JSON.stringify()` function with detailed type validation.
@@ -398,7 +416,7 @@ Object.assign(isStringify, Namespace.json.stringify("isStringify"));
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function validateStringify<T>(input: T): IValidation<string>;
+function validateStringify<T>(input: T): IValidation<string>;
 
 /**
  * 5x faster `JSON.stringify()` function with detailed type validation.
@@ -422,16 +440,20 @@ export function validateStringify<T>(input: T): IValidation<string>;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function validateStringify<T>(input: unknown): IValidation<string>;
+function validateStringify<T>(input: unknown): IValidation<string>;
 
 /**
  * @internal
  */
-export function validateStringify(): IValidation<string> {
+function validateStringify(): IValidation<string> {
   halt("validateStringify");
 }
-Object.assign(validateStringify, Namespace.validate());
-Object.assign(validateStringify, Namespace.json.stringify("validateStringify"));
+const validateStringifyPure = /** @__PURE__ */ Object.assign(
+  validateStringify,
+  /** @__PURE__ */ Namespace.validate(),
+  /** @__PURE__ */ Namespace.json.stringify("validateStringify"),
+);
+export { validateStringifyPure as validateStringify };
 
 /* -----------------------------------------------------------
     FACTORY FUNCTIONS
@@ -445,7 +467,7 @@ Object.assign(validateStringify, Namespace.json.stringify("validateStringify"));
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function createIsParse(): never;
+function createIsParse(): never;
 
 /**
  * Creates a reusable {@link isParse} function.
@@ -455,15 +477,16 @@ export function createIsParse(): never;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function createIsParse<T>(): (input: string) => Primitive<T> | null;
+function createIsParse<T>(): (input: string) => Primitive<T> | null;
 
 /**
  * @internal
  */
-export function createIsParse<T>(): (input: string) => Primitive<T> | null {
+function createIsParse<T>(): (input: string) => Primitive<T> | null {
   halt("createIsParse");
 }
-Object.assign(createIsParse, isParse);
+const createIsParsePure = /** @__PURE__ */ Object.assign(createIsParse, isParse);
+export { createIsParsePure as createIsParse };
 
 /**
  * Creates a reusable {@link assertParse} function.
@@ -474,7 +497,7 @@ Object.assign(createIsParse, isParse);
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function createAssertParse(): never;
+function createAssertParse(): never;
 
 /**
  * Creates a reusable {@link assertParse} function.
@@ -484,15 +507,16 @@ export function createAssertParse(): never;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function createAssertParse<T>(): (input: string) => Primitive<T>;
+function createAssertParse<T>(): (input: string) => Primitive<T>;
 
 /**
  * @internal
  */
-export function createAssertParse<T>(): (input: string) => Primitive<T> {
+function createAssertParse<T>(): (input: string) => Primitive<T> {
   halt("createAssertParse");
 }
-Object.assign(createAssertParse, assertParse);
+const createAssertParsePure = /** @__PURE__ */ Object.assign(createAssertParse, assertParse);
+export { createAssertParsePure as createAssertParse };
 
 /**
  * Creates a reusable {@link validateParse} function.
@@ -503,7 +527,7 @@ Object.assign(createAssertParse, assertParse);
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function createValidateParse(): never;
+function createValidateParse(): never;
 
 /**
  * Creates a reusable {@link validateParse} function.
@@ -513,19 +537,21 @@ export function createValidateParse(): never;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function createValidateParse<T>(): (
+function createValidateParse<T>(): (
   input: string,
 ) => IValidation<Primitive<T>>;
 
 /**
  * @internal
  */
-export function createValidateParse<T>(): (
+function createValidateParse<T>(): (
   input: string,
 ) => IValidation<Primitive<T>> {
   halt("createValidateParse");
 }
-Object.assign(createValidateParse, validateParse);
+
+const createValidateParsePure = /** @__PURE__ */ Object.assign(createValidateParse, validateParse);
+export { createValidateParsePure as createValidateParse };
 
 /**
  * Creates a reusable {@link stringify} function.
@@ -536,7 +562,7 @@ Object.assign(createValidateParse, validateParse);
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function createStringify(): never;
+function createStringify(): never;
 
 /**
  * Creates a reusable {@link stringify} function.
@@ -546,15 +572,17 @@ export function createStringify(): never;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function createStringify<T>(): (input: T) => string;
+function createStringify<T>(): (input: T) => string;
 
 /**
  * @internal
  */
-export function createStringify<T>(): (input: T) => string {
+function createStringify<T>(): (input: T) => string {
   halt("createStringify");
 }
-Object.assign(createStringify, stringify);
+
+const createStringifyPure = /** @__PURE__ */ Object.assign(createStringify, stringify);
+export { createStringifyPure as createStringify };
 
 /**
  * Creates a reusable {@link assertStringify} function.
@@ -565,7 +593,7 @@ Object.assign(createStringify, stringify);
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function createAssertStringify(): never;
+function createAssertStringify(): never;
 
 /**
  * Creates a reusable {@link assertStringify} function.
@@ -575,15 +603,17 @@ export function createAssertStringify(): never;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function createAssertStringify<T>(): (input: unknown) => string;
+function createAssertStringify<T>(): (input: unknown) => string;
 
 /**
  * @internal
  */
-export function createAssertStringify(): (input: unknown) => string {
+function createAssertStringify(): (input: unknown) => string {
   halt("createAssertStringify");
 }
-Object.assign(createAssertStringify, assertStringify);
+
+const createAssertStringifyPure = /** @__PURE__ */ Object.assign(createAssertStringify, assertStringify);
+export { createAssertStringifyPure as createAssertStringify };
 
 /**
  * Creates a reusable {@link isStringify} function.
@@ -594,7 +624,7 @@ Object.assign(createAssertStringify, assertStringify);
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function createIsStringify(): never;
+function createIsStringify(): never;
 
 /**
  * Creates a reusable {@link isStringify} function.
@@ -604,15 +634,17 @@ export function createIsStringify(): never;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function createIsStringify<T>(): (input: unknown) => string | null;
+function createIsStringify<T>(): (input: unknown) => string | null;
 
 /**
  * @internal
  */
-export function createIsStringify(): (input: unknown) => string | null {
+function createIsStringify(): (input: unknown) => string | null {
   halt("createIsStringify");
 }
-Object.assign(createIsStringify, isStringify);
+
+const createIsStringifyPure = /** @__PURE__ */ Object.assign(createIsStringify, isStringify);
+export { createIsStringifyPure as createIsStringify };
 
 /**
  * Creates a reusable {@link validateStringify} function.
@@ -623,7 +655,7 @@ Object.assign(createIsStringify, isStringify);
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function createValidateStringify(): never;
+function createValidateStringify(): never;
 
 /**
  * Creates a reusable {@link validateStringify} function.
@@ -633,19 +665,21 @@ export function createValidateStringify(): never;
 
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function createValidateStringify<T>(): (
+function createValidateStringify<T>(): (
   input: unknown,
 ) => IValidation<string>;
 
 /**
  * @internal
  */
-export function createValidateStringify(): (
+function createValidateStringify(): (
   input: unknown,
 ) => IValidation<string> {
   halt("createValidateStringify");
 }
-Object.assign(createValidateStringify, validateStringify);
+
+const createValidateStringifyPure = /** @__PURE__ */ Object.assign(createValidateStringify, validateStringify);
+export { createValidateStringifyPure as createValidateStringify };
 
 /**
  * @internal

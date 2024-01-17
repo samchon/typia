@@ -1,4 +1,4 @@
-import { Namespace } from "./functional/Namespace";
+import * as Namespace from "./functional/Namespace";
 
 import { Atomic } from "./typings/Atomic";
 
@@ -47,7 +47,7 @@ import { Resolved } from "./Resolved";
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function query(): never;
+function query(): never;
 
 /**
  * URL query decoder.
@@ -80,17 +80,21 @@ export function query(): never;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function query<T extends object>(
+function query<T extends object>(
   input: string | URLSearchParams,
 ): Resolved<T>;
 
 /**
  * @internal
  */
-export function query(): never {
+function query(): never {
   halt("query");
 }
-Object.assign(query, Namespace.http.query());
+const queryPure = /** @__PURE__ */ Object.assign(
+  query,
+  /** @__PURE__ */ Namespace.http.query()
+);
+export { queryPure as query };
 
 /**
  * > You must configure the generic argument `T`.
@@ -122,7 +126,7 @@ Object.assign(query, Namespace.http.query());
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function assertQuery(): never;
+function assertQuery(): never;
 
 /**
  * URL query decoder with type assertion.
@@ -152,18 +156,23 @@ export function assertQuery(): never;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function assertQuery<T extends object>(
+function assertQuery<T extends object>(
   input: string | URLSearchParams,
 ): Resolved<T>;
 
 /**
  * @internal
  */
-export function assertQuery(): never {
+function assertQuery(): never {
   halt("assertQuery");
 }
-Object.assign(assertQuery, Namespace.http.query());
-Object.assign(assertQuery, Namespace.assert("http.assertQuery"));
+
+const assertQueryPure = /** @__PURE__ */ Object.assign(
+  assertQuery,
+  /** @__PURE__ */ Namespace.http.query(),
+  /** @__PURE__ */ Namespace.assert("http.assertQuery")
+);
+export { assertQueryPure as assertQuery };
 
 /**
  * > You must configure the generic argument `T`.
@@ -194,7 +203,7 @@ Object.assign(assertQuery, Namespace.assert("http.assertQuery"));
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function isQuery(): never;
+function isQuery(): never;
 
 /**
  * URL query decoder with type checking.
@@ -223,18 +232,23 @@ export function isQuery(): never;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function isQuery<T extends object>(
+function isQuery<T extends object>(
   input: string | URLSearchParams,
 ): Resolved<T> | null;
 
 /**
  * @internal
  */
-export function isQuery(): never {
+function isQuery(): never {
   halt("isQuery");
 }
-Object.assign(isQuery, Namespace.http.query());
-Object.assign(isQuery, Namespace.is());
+
+const isQueryPure = /** @__PURE__ */ Object.assign(
+  isQuery,
+  /** @__PURE__ */ Namespace.http.query(),
+  /** @__PURE__ */ Namespace.is()
+);
+export { isQueryPure as isQuery };
 
 /**
  * > You must configure the generic argument `T`.
@@ -266,7 +280,7 @@ Object.assign(isQuery, Namespace.is());
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function validateQuery(): never;
+function validateQuery(): never;
 
 /**
  * URL query decoder with type validation.
@@ -296,18 +310,22 @@ export function validateQuery(): never;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function validateQuery<T extends object>(
+function validateQuery<T extends object>(
   input: string | URLSearchParams,
 ): IValidation<Resolved<T>>;
 
 /**
  * @internal
  */
-export function validateQuery(): never {
+function validateQuery(): never {
   halt("validateQuery");
 }
-Object.assign(validateQuery, Namespace.http.query());
-Object.assign(validateQuery, Namespace.validate());
+const validateQueryPure = /** @__PURE__ */ Object.assign(
+  validateQuery,
+  /** @__PURE__ */ Namespace.http.query(),
+  /** @__PURE__ */ Namespace.validate()
+);
+export { validateQueryPure as validateQuery };
 
 /* -----------------------------------------------------------
     HEADERS
@@ -366,7 +384,7 @@ Object.assign(validateQuery, Namespace.validate());
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function headers(): never;
+function headers(): never;
 
 /**
  * Headers decoder (for express and fastify).
@@ -420,17 +438,22 @@ export function headers(): never;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function headers<T extends object>(
+function headers<T extends object>(
   input: Record<string, string | string[] | undefined>,
 ): Resolved<T>;
 
 /**
  * @internal
  */
-export function headers(): never {
+function headers(): never {
   halt("headers");
 }
-Object.assign(headers, Namespace.http.headers());
+
+const headersPure = /** @__PURE__ */ Object.assign(
+  headers,
+  /** @__PURE__ */ Namespace.http.headers()
+);
+export { headersPure as headers };
 
 /**
  * > You must configure the generic argument `T`.
@@ -484,7 +507,7 @@ Object.assign(headers, Namespace.http.headers());
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function assertHeaders(): never;
+function assertHeaders(): never;
 
 /**
  * Headers decoder with type assertion (for express and fastify).
@@ -536,18 +559,23 @@ export function assertHeaders(): never;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function assertHeaders<T extends object>(
+function assertHeaders<T extends object>(
   input: Record<string, string | string[] | undefined>,
 ): Resolved<T>;
 
 /**
  * @internal
  */
-export function assertHeaders(): never {
+function assertHeaders(): never {
   halt("assertHeaders");
 }
-Object.assign(assertHeaders, Namespace.http.headers());
-Object.assign(assertHeaders, Namespace.assert("http.assertHeaders"));
+
+const assertHeadersPure = /** @__PURE__ */ Object.assign(
+  assertHeaders,
+  /** @__PURE__ */ Namespace.http.headers(),
+  /** @__PURE__ */ Namespace.assert("http.assertHeaders")
+);
+export { assertHeadersPure as assertHeaders };
 
 /**
  * > You must configure the generic argument `T`.
@@ -600,7 +628,7 @@ Object.assign(assertHeaders, Namespace.assert("http.assertHeaders"));
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function isHeaders(): never;
+function isHeaders(): never;
 
 /**
  * > You must configure the generic argument `T`.
@@ -653,18 +681,22 @@ export function isHeaders(): never;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function isHeaders<T extends object>(
+function isHeaders<T extends object>(
   input: Record<string, string | string[] | undefined>,
 ): Resolved<T> | null;
 
 /**
  * @internal
  */
-export function isHeaders(): never {
+function isHeaders(): never {
   halt("isHeaders");
 }
-Object.assign(isHeaders, Namespace.http.headers());
-Object.assign(isHeaders, Namespace.is());
+const isHeadersPure = /** @__PURE__ */ Object.assign(
+  isHeaders,
+  /** @__PURE__ */ Namespace.http.headers(),
+  /** @__PURE__ */ Namespace.is()
+);
+export { isHeadersPure as isHeaders };
 
 /**
  * > You must configure the generic argument `T`.
@@ -718,7 +750,7 @@ Object.assign(isHeaders, Namespace.is());
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function validateHeaders(): never;
+function validateHeaders(): never;
 
 /**
  * Headers decoder with type validation (for express and fastify).
@@ -770,18 +802,23 @@ export function validateHeaders(): never;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function validateHeaders<T extends object>(
+function validateHeaders<T extends object>(
   input: Record<string, string | string[] | undefined>,
 ): IValidation<Resolved<T>>;
 
 /**
  * @internal
  */
-export function validateHeaders(): never {
+function validateHeaders(): never {
   halt("validateHeaders");
 }
-Object.assign(validateHeaders, Namespace.http.headers());
-Object.assign(validateHeaders, Namespace.validate());
+
+const validateHeadersPure = /** @__PURE__ */ Object.assign(
+  validateHeaders,
+  /** @__PURE__ */ Namespace.http.headers(),
+  /** @__PURE__ */Namespace.validate()
+);
+export { validateHeadersPure as validateHeaders };
 
 /* -----------------------------------------------------------
     PARAMETER
@@ -803,7 +840,7 @@ Object.assign(validateHeaders, Namespace.validate());
  * @param input Path parameter string
  * @returns Decoded path parameter value
  */
-export function parameter(): never;
+function parameter(): never;
 
 /**
  * URL path parameter decoder.
@@ -820,18 +857,23 @@ export function parameter(): never;
  * @param input Path parameter string
  * @returns Decoded path parameter value
  */
-export function parameter<T extends Atomic.Type | null>(
+function parameter<T extends Atomic.Type | null>(
   input: string,
 ): Resolved<T>;
 
 /**
  * @internal
  */
-export function parameter(): never {
+function parameter(): never {
   halt("parameter");
 }
-Object.assign(parameter, Namespace.http.parameter());
-Object.assign(parameter, Namespace.assert("http.parameter"));
+
+const parameterPure = /** @__PURE__ */ Object.assign(
+  parameter,
+  /** @__PURE__ */ Namespace.http.parameter(),
+  /** @__PURE__ */ Namespace.assert("http.parameter")
+);
+export { parameterPure as parameter };
 
 /* -----------------------------------------------------------
     FACTORY FUNCTIONS
@@ -845,7 +887,7 @@ Object.assign(parameter, Namespace.assert("http.parameter"));
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function createQuery(): never;
+function createQuery(): never;
 
 /**
  * Creates a reusable {@link query} function.
@@ -855,17 +897,22 @@ export function createQuery(): never;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function createQuery<T extends object>(): (
+function createQuery<T extends object>(): (
   input: string | URLSearchParams,
 ) => T;
 
 /**
  * @internal
  */
-export function createQuery<T>(): (input: string | URLSearchParams) => T {
+function createQuery<T>(): (input: string | URLSearchParams) => T {
   halt("createQuery");
 }
-Object.assign(createQuery, Namespace.http.query());
+
+const createQueryPure = /** @__PURE__ */ Object.assign(
+  createQuery,
+  /** @__PURE__ */ Namespace.http.query()
+);
+export { createQueryPure as createQuery };
 
 /**
  * Creates a reusable {@link assertQuery} function.
@@ -876,7 +923,7 @@ Object.assign(createQuery, Namespace.http.query());
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function createAssertQuery(): never;
+function createAssertQuery(): never;
 
 /**
  * Creates a reusable {@link assertQuery} function.
@@ -886,18 +933,23 @@ export function createAssertQuery(): never;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function createAssertQuery<T extends object>(): (
+function createAssertQuery<T extends object>(): (
   input: string | URLSearchParams,
 ) => T;
 
 /**
  * @internal
  */
-export function createAssertQuery<T>(): (input: string | URLSearchParams) => T {
+function createAssertQuery<T>(): (input: string | URLSearchParams) => T {
   halt("createAssertQuery");
 }
-Object.assign(createAssertQuery, Namespace.http.query());
-Object.assign(createAssertQuery, Namespace.assert("http.createAssertQuery"));
+
+const createAssertQueryPure = /** @__PURE__ */ Object.assign(
+  createAssertQuery,
+  /** @__PURE__ */ Namespace.http.query(),
+  /** @__PURE__ */ Namespace.assert("http.createAssertQuery")
+);
+export { createAssertQueryPure as createAssertQuery };
 
 /**
  * Creates a reusable {@link isQuery} function.
@@ -908,7 +960,7 @@ Object.assign(createAssertQuery, Namespace.assert("http.createAssertQuery"));
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function createIsQuery(): never;
+function createIsQuery(): never;
 
 /**
  * Creates a reusable {@link isQuery} function.
@@ -918,20 +970,25 @@ export function createIsQuery(): never;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function createIsQuery<T extends object>(): (
+function createIsQuery<T extends object>(): (
   input: string | URLSearchParams,
 ) => T | null;
 
 /**
  * @internal
  */
-export function createIsQuery<T>(): (
+function createIsQuery<T>(): (
   input: string | URLSearchParams,
 ) => T | null {
   halt("createIsQuery");
 }
-Object.assign(createIsQuery, Namespace.http.query());
-Object.assign(createIsQuery, Namespace.is());
+
+const createIsQueryPure = /** @__PURE__ */ Object.assign(
+  createIsQuery,
+  /** @__PURE__ */ Namespace.http.query(),
+  /** @__PURE__ */ Namespace.is()
+);
+export { createIsQueryPure as createIsQuery };
 
 /**
  * Creates a reusable {@link validateQuery} function.
@@ -942,7 +999,7 @@ Object.assign(createIsQuery, Namespace.is());
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function createValidateQuery(): never;
+function createValidateQuery(): never;
 
 /**
  * Creates a reusable {@link validateQuery} function.
@@ -952,20 +1009,25 @@ export function createValidateQuery(): never;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function createValidateQuery<T extends object>(): (
+function createValidateQuery<T extends object>(): (
   input: string | URLSearchParams,
 ) => IValidation<Resolved<T>>;
 
 /**
  * @internal
  */
-export function createValidateQuery<T>(): (
+function createValidateQuery<T>(): (
   input: string | URLSearchParams,
 ) => IValidation<Resolved<T>> {
   halt("createValidateQuery");
 }
-Object.assign(createValidateQuery, Namespace.http.query());
-Object.assign(createValidateQuery, Namespace.validate());
+
+const createValidateQueryPure = /** @__PURE__ */ Object.assign(
+  createValidateQuery,
+  /** @__PURE__ */ Namespace.http.query(),
+  /** @__PURE__ */ Namespace.validate()
+);
+export { createValidateQueryPure as createValidateQuery };
 
 /**
  * Creates a reusable {@link headers} function.
@@ -976,7 +1038,7 @@ Object.assign(createValidateQuery, Namespace.validate());
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function createHeaders(): never;
+function createHeaders(): never;
 
 /**
  * Creates a reusable {@link headers} function.
@@ -986,19 +1048,24 @@ export function createHeaders(): never;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function createHeaders<T extends object>(): (
+function createHeaders<T extends object>(): (
   input: Record<string, string | string[] | undefined>,
 ) => T;
 
 /**
  * @internal
  */
-export function createHeaders<T>(): (
+function createHeaders<T>(): (
   input: Record<string, string | string[] | undefined>,
 ) => T {
   halt("createHeaders");
 }
-Object.assign(createHeaders, Namespace.http.headers());
+
+const createHeadersPure = /** @__PURE__ */Object.assign(
+  createHeaders,
+  /** @__PURE__ */ Namespace.http.headers()
+);
+export { createHeadersPure as createHeaders };
 
 /**
  * Creates a reusable {@link assertHeaders} function.
@@ -1009,7 +1076,7 @@ Object.assign(createHeaders, Namespace.http.headers());
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function createAssertHeaders(): never;
+function createAssertHeaders(): never;
 
 /**
  * Creates a reusable {@link assertHeaders} function.
@@ -1019,23 +1086,25 @@ export function createAssertHeaders(): never;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function createAssertHeaders<T extends object>(): (
+function createAssertHeaders<T extends object>(): (
   input: Record<string, string | string[] | undefined>,
 ) => T;
 
 /**
  * @internal
  */
-export function createAssertHeaders<T>(): (
+function createAssertHeaders<T>(): (
   input: Record<string, string | string[] | undefined>,
 ) => T {
   halt("createAssertHeaders");
 }
-Object.assign(createAssertHeaders, Namespace.http.headers());
-Object.assign(
+
+const createAssertHeadersPure = /** @__PURE__ */ Object.assign(
   createAssertHeaders,
-  Namespace.assert("http.createAssertHeaders"),
+  /** @__PURE__ */ Namespace.http.headers(),
+  /** @__PURE__ */ Namespace.assert("http.createAssertHeaders")
 );
+export { createAssertHeadersPure as createAssertHeaders };
 
 /**
  * Creates a reusable {@link isHeaders} function.
@@ -1046,7 +1115,7 @@ Object.assign(
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function createIsHeaders(): never;
+function createIsHeaders(): never;
 
 /**
  * Creates a reusable {@link isHeaders} function.
@@ -1056,20 +1125,25 @@ export function createIsHeaders(): never;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function createIsHeaders<T extends object>(): (
+function createIsHeaders<T extends object>(): (
   input: Record<string, string | string[] | undefined>,
 ) => T | null;
 
 /**
  * @internal
  */
-export function createIsHeaders<T>(): (
+function createIsHeaders<T>(): (
   input: Record<string, string | string[] | undefined>,
 ) => T | null {
   halt("createIsHeaders");
 }
-Object.assign(createIsHeaders, Namespace.http.headers());
-Object.assign(createIsHeaders, Namespace.is());
+
+const createIsHeadersPure = /** @__PURE__ */ Object.assign(
+  createIsHeaders,
+  /** @__PURE__ */ Namespace.http.headers(),
+  /** @__PURE__ */ Namespace.is()
+);
+export { createIsHeadersPure as createIsHeaders };
 
 /**
  * Creates a reusable {@link validateHeaders} function.
@@ -1080,7 +1154,7 @@ Object.assign(createIsHeaders, Namespace.is());
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function createValidateHeaders(): never;
+function createValidateHeaders(): never;
 
 /**
  * Creates a reusable {@link validateHeaders} function.
@@ -1090,20 +1164,25 @@ export function createValidateHeaders(): never;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function createValidateHeaders<T extends object>(): (
+function createValidateHeaders<T extends object>(): (
   input: Record<string, string | string[] | undefined>,
 ) => IValidation<Resolved<T>>;
 
 /**
  * @internal
  */
-export function createValidateHeaders<T>(): (
+function createValidateHeaders<T>(): (
   input: Record<string, string | string[] | undefined>,
 ) => IValidation<Resolved<T>> {
   halt("createValidateHeaders");
 }
-Object.assign(createValidateHeaders, Namespace.http.headers());
-Object.assign(createValidateHeaders, Namespace.validate());
+
+const createValidateHeadersPure = /** @__PURE__ */ Object.assign(
+  createValidateHeaders,
+  /** @__PURE__ */ Namespace.http.headers(),
+  /** @__PURE__ */ Namespace.validate()
+);
+export { createValidateHeadersPure as createValidateHeaders };
 
 /**
  * Creates a reusable {@link parameter} function.
@@ -1114,7 +1193,7 @@ Object.assign(createValidateHeaders, Namespace.validate());
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function createParameter(): never;
+function createParameter(): never;
 
 /**
  * Creates a reusable {@link parameter} function.
@@ -1124,20 +1203,25 @@ export function createParameter(): never;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function createParameter<T extends Atomic.Type | null>(): (
+function createParameter<T extends Atomic.Type | null>(): (
   input: string,
 ) => T;
 
 /**
  * @internal
  */
-export function createParameter<T extends Atomic.Type | null>(): (
+function createParameter<T extends Atomic.Type | null>(): (
   input: string,
 ) => T {
   halt("createParameter");
 }
-Object.assign(createParameter, Namespace.http.parameter());
-Object.assign(createParameter, Namespace.assert("http.createParameter"));
+
+const createParameterPure = /** @__PURE__ */ Object.assign(
+  createParameter,
+  /** @__PURE__ */ Namespace.http.parameter(),
+  /** @__PURE__ */ Namespace.assert("http.createParameter")
+);
+export { createParameterPure as createParameter };
 
 /**
  * @internal
