@@ -15,7 +15,7 @@
   "scripts": {
     "test": "npm run package:tgz",
     "-------------------------------------------------": "",
-    "build": "rimraf lib && tsc --removeComments --declaration false && tsc --emitDeclarationOnly",
+    "build": "rimraf lib && tsc --declaration false && tsc --emitDeclarationOnly",
     "dev": "rimraf lib && tsc --watch",
     "eslint": "eslint ./**/*.ts",
     "eslint:fix": "eslint ./**/*.ts --fix",
