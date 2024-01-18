@@ -24,7 +24,9 @@ export const test_json_assertStringify_ConstantIntersection =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ConstantIntersection => {
-            const $guard = (typia.json.assertStringify as any).guard;
+            const $guard = require("typia/lib/functional/$guard").$guard(
+              "typia.json.assertStringify",
+            );
             return (
               ((Array.isArray(input) ||
                 $guard(true, {
@@ -66,9 +68,11 @@ export const test_json_assertStringify_ConstantIntersection =
         return input;
       };
       const stringify = (input: ConstantIntersection): string => {
-        const $number = (typia.json.assertStringify as any).number;
-        const $string = (typia.json.assertStringify as any).string;
-        const $throws = (typia.json.assertStringify as any).throws;
+        const $number = require("typia/lib/functional/$number").$number;
+        const $string = require("typia/lib/functional/$string").$string;
+        const $throws = require("typia/lib/functional/$throws").$throws(
+          "typia.json.assertStringify",
+        );
         return `[${input[0]},${$number(input[1])},${(() => {
           if ("string" === typeof input[2]) return $string(input[2]);
           if ("string" === typeof input[2]) return '"' + input[2] + '"';

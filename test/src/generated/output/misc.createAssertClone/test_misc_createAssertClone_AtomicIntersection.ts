@@ -24,7 +24,9 @@ export const test_misc_createAssertClone_AtomicIntersection =
           _path: string,
           _exceptionable: boolean = true,
         ): input is AtomicIntersection => {
-          const $guard = (typia.misc.createAssertClone as any).guard;
+          const $guard = require("typia/lib/functional/$guard").$guard(
+            "typia.misc.createAssertClone",
+          );
           return (
             ((Array.isArray(input) ||
               $guard(true, {

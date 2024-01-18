@@ -24,7 +24,9 @@ export const test_json_assertParse_ConstantIntersection =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ConstantIntersection => {
-            const $guard = (typia.json.assertParse as any).guard;
+            const $guard = require("typia/lib/functional/$guard").$guard(
+              "typia.json.assertParse",
+            );
             return (
               ((Array.isArray(input) ||
                 $guard(true, {

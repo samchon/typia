@@ -25,7 +25,7 @@ export const test_misc_createValidateClone_ClassPropertyAssignment =
           return "object" === typeof input && null !== input && $io0(input);
         };
         if (false === __is(input)) {
-          const $report = (typia.misc.createValidateClone as any).report(
+          const $report = require("typia/lib/functional/$report").$report(
             errors,
           );
           ((

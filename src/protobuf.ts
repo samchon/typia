@@ -1,5 +1,3 @@
-import { Namespace } from "./functional/Namespace";
-
 import { IValidation } from "./IValidation";
 import { Resolved } from "./Resolved";
 
@@ -132,7 +130,6 @@ export function decode<T>(input: Uint8Array): Resolved<T>;
 export function decode(): never {
   halt("decode");
 }
-Object.assign(decode, Namespace.protobuf.decode("decode"));
 
 /**
  * > You must configure the generic argument `T`.
@@ -200,8 +197,6 @@ export function assertDecode<T>(input: Uint8Array): Resolved<T>;
 export function assertDecode(): never {
   halt("assertDecode");
 }
-Object.assign(assertDecode, Namespace.assert("protobuf.assertDecode"));
-Object.assign(assertDecode, Namespace.protobuf.decode("assertDecode"));
 
 /**
  * > You must configure the generic argument `T`.
@@ -269,8 +264,6 @@ export function isDecode<T>(input: Uint8Array): Resolved<T> | null;
 export function isDecode(): never {
   halt("isDecode");
 }
-Object.assign(isDecode, Namespace.is());
-Object.assign(isDecode, Namespace.protobuf.decode("isDecode"));
 
 /**
  * > You must configure the generic argument `T`.
@@ -340,8 +333,6 @@ export function validateDecode<T>(input: Uint8Array): IValidation<Resolved<T>>;
 export function validateDecode(): never {
   halt("validateDecode");
 }
-Object.assign(validateDecode, Namespace.validate());
-Object.assign(validateDecode, Namespace.protobuf.decode("validateDecode"));
 
 /* -----------------------------------------------------------
     ENCODE
@@ -381,7 +372,6 @@ export function encode<T>(input: T): Uint8Array;
 export function encode(): never {
   halt("encode");
 }
-Object.assign(encode, Namespace.protobuf.encode("encode"));
 
 /**
  * Protocol Buffer Encoder with type assertion.
@@ -455,8 +445,6 @@ export function assertEncode<T>(input: unknown): Uint8Array;
 export function assertEncode(): never {
   halt("assertEncode");
 }
-Object.assign(assertEncode, Namespace.assert("protobuf.assertEncode"));
-Object.assign(assertEncode, Namespace.protobuf.encode("assertEncode"));
 
 /**
  * Protocol Buffer Encoder with type checking.
@@ -530,8 +518,6 @@ export function isEncode<T>(input: unknown): Uint8Array | null;
 export function isEncode(): never {
   halt("isEncode");
 }
-Object.assign(isEncode, Namespace.is());
-Object.assign(isEncode, Namespace.protobuf.encode("isEncode"));
 
 /**
  * Protocol Buffer Encoder with type validation.
@@ -607,8 +593,6 @@ export function validateEncode<T>(input: unknown): IValidation<Uint8Array>;
 export function validateEncode(): never {
   halt("validateEncode");
 }
-Object.assign(validateEncode, Namespace.validate());
-Object.assign(validateEncode, Namespace.protobuf.encode("validateEncode"));
 
 /* -----------------------------------------------------------
     FACTORY FUNCTIONS
@@ -640,7 +624,6 @@ export function createDecode<T>(): (input: Uint8Array) => Resolved<T>;
 export function createDecode<T>(): (input: Uint8Array) => Resolved<T> {
   halt("createDecode");
 }
-Object.assign(createDecode, Namespace.protobuf.decode("createDecode"));
 
 /**
  * Creates a reusable {@link isDecode} function.
@@ -669,8 +652,6 @@ export function createIsDecode<T>(): (input: Uint8Array) => Resolved<T> | null;
 export function createIsDecode<T>(): (input: Uint8Array) => Resolved<T> | null {
   halt("createIsDecode");
 }
-Object.assign(createIsDecode, Namespace.is());
-Object.assign(createIsDecode, Namespace.protobuf.decode("createIsDecode"));
 
 /**
  * Creates a reusable {@link assertDecode} function.
@@ -699,14 +680,6 @@ export function createAssertDecode<T>(): (input: Uint8Array) => Resolved<T>;
 export function createAssertDecode<T>(): (input: Uint8Array) => Resolved<T> {
   halt("createAssertDecode");
 }
-Object.assign(
-  createAssertDecode,
-  Namespace.assert("protobuf.createAssertDecode"),
-);
-Object.assign(
-  createAssertDecode,
-  Namespace.protobuf.decode("createAssertDecode"),
-);
 
 /**
  * Creates a reusable {@link validateDecode} function.
@@ -739,11 +712,6 @@ export function createValidateDecode<T>(): (
 ) => IValidation<Resolved<T>> {
   halt("createValidateDecode");
 }
-Object.assign(createValidateDecode, Namespace.validate());
-Object.assign(
-  createValidateDecode,
-  Namespace.protobuf.decode("createValidateDecode"),
-);
 
 /**
  * Creates a reusable {@link encode} function.
@@ -772,7 +740,6 @@ export function createEncode<T>(): (input: T) => Uint8Array;
 export function createEncode<T>(): (input: T) => Uint8Array {
   halt("createEncode");
 }
-Object.assign(createEncode, Namespace.protobuf.encode("createEncode"));
 
 /**
  * Creates a reusable {@link isEncode} function.
@@ -801,8 +768,6 @@ export function createIsEncode<T>(): (input: T) => Uint8Array | null;
 export function createIsEncode<T>(): (input: T) => Uint8Array | null {
   halt("createIsEncode");
 }
-Object.assign(createIsEncode, Namespace.is());
-Object.assign(createIsEncode, Namespace.protobuf.encode("createIsEncode"));
 
 /**
  * Creates a reusable {@link assertEncode} function.
@@ -831,14 +796,6 @@ export function createAssertEncode<T>(): (input: T) => Uint8Array;
 export function createAssertEncode<T>(): (input: T) => Uint8Array {
   halt("createAssertEncode");
 }
-Object.assign(
-  createAssertEncode,
-  Namespace.assert("protobuf.createAssertEncode"),
-);
-Object.assign(
-  createAssertEncode,
-  Namespace.protobuf.encode("createAssertEncode"),
-);
 
 /**
  * Creates a reusable {@link validateEncode} function.
@@ -871,11 +828,6 @@ export function createValidateEncode<T>(): (
 ) => IValidation<Uint8Array> {
   halt("createValidateEncode");
 }
-Object.assign(createValidateEncode, Namespace.validate());
-Object.assign(
-  createValidateEncode,
-  Namespace.protobuf.encode("createValidateEncode"),
-);
 
 /**
  * @internal

@@ -39,17 +39,19 @@ export const test_http_isQuery_ObjectHttpTypeTag = _test_http_isQuery(
     const query = (
       input: string | URLSearchParams,
     ): typia.Resolved<ObjectHttpTypeTag> => {
-      const $params = (typia.http.isQuery as any).params;
-      const $number = (typia.http.isQuery as any).number;
-      const $bigint = (typia.http.isQuery as any).bigint;
-      const $string = (typia.http.isQuery as any).string;
-      input = $params(input) as URLSearchParams;
+      const $QueryReader =
+        require("typia/lib/functional/$QueryReader").$QueryReader;
+      input = $QueryReader.params(input) as URLSearchParams;
       const output = {
-        int32: $number(input.get("int32")),
-        uint64: $bigint(input.get("uint64")),
-        uuid: $string(input.get("uuid")),
-        range: input.getAll("range").map((elem: any) => $number(elem)),
-        length: input.getAll("length").map((elem: any) => $string(elem)),
+        int32: $QueryReader.number(input.get("int32")),
+        uint64: $QueryReader.bigint(input.get("uint64")),
+        uuid: $QueryReader.string(input.get("uuid")),
+        range: input
+          .getAll("range")
+          .map((elem: any) => $QueryReader.number(elem)),
+        length: input
+          .getAll("length")
+          .map((elem: any) => $QueryReader.string(elem)),
       };
       return output as any;
     };

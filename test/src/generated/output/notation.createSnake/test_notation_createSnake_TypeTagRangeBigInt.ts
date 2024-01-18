@@ -46,7 +46,7 @@ export const test_notation_createValidateSnake_TypeTagRangeBigInt =
           return "object" === typeof input && null !== input && $io0(input);
         };
         if (false === __is(input)) {
-          const $report = (typia.notations.createValidateSnake as any).report(
+          const $report = require("typia/lib/functional/$report").$report(
             errors,
           );
           ((
@@ -361,7 +361,9 @@ export const test_notation_createValidateSnake_TypeTagRangeBigInt =
           _path: string,
           _exceptionable: boolean = true,
         ): input is typia.SnakeCase<TypeTagRangeBigInt> => {
-          const $guard = (typia.createAssert as any).guard;
+          const $guard = require("typia/lib/functional/$guard").$guard(
+            "typia.createAssert",
+          );
           const $ao0 = (
             input: any,
             _path: string,

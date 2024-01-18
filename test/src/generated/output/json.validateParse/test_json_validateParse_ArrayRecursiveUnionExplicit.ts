@@ -89,7 +89,9 @@ export const test_json_validateParse_ArrayRecursiveUnionExplicit =
           );
         };
         if (false === __is(input)) {
-          const $report = (typia.json.validateParse as any).report(errors);
+          const $report = require("typia/lib/functional/$report").$report(
+            errors,
+          );
           ((
             input: any,
             _path: string,

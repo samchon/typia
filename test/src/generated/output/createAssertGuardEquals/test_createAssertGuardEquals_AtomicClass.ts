@@ -42,7 +42,9 @@ export const test_createAssertGuardEquals_AtomicClass = _test_assertGuardEquals(
       _path: string,
       _exceptionable: boolean = true,
     ): input is AtomicClass => {
-      const $guard = (typia.createAssertGuardEquals as any).guard;
+      const $guard = require("typia/lib/functional/$guard").$guard(
+        "typia.createAssertGuardEquals",
+      );
       return (
         ((Array.isArray(input) ||
           $guard(true, {

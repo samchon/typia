@@ -15,7 +15,7 @@ export const test_json_createIsStringify_ObjectGenericAlias =
       );
     };
     const stringify = (input: ObjectGenericAlias): string => {
-      const $string = (typia.json.createIsStringify as any).string;
+      const $string = require("typia/lib/functional/$string").$string;
       return `{"value":${$string((input as any).value)}}`;
     };
     return is(input) ? stringify(input) : null;

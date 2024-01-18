@@ -28,7 +28,9 @@ export const test_misc_assertClone_ArrayAtomicSimple = _test_misc_assertClone(
           _path: string,
           _exceptionable: boolean = true,
         ): input is ArrayAtomicSimple => {
-          const $guard = (typia.misc.assertClone as any).guard;
+          const $guard = require("typia/lib/functional/$guard").$guard(
+            "typia.misc.assertClone",
+          );
           return (
             ((Array.isArray(input) ||
               $guard(true, {

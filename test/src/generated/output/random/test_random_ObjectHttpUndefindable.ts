@@ -10,40 +10,47 @@ export const test_random_ObjectHttpUndefindable = _test_random(
     ((
       generator?: Partial<typia.IRandomGenerator>,
     ): typia.Resolved<ObjectHttpUndefindable> => {
-      const $generator = (typia.random as any).generator;
-      const $pick = (typia.random as any).pick;
+      const $generator = require("typia/lib/functional/$generator").$generator;
       const $ro0 = (_recursive: boolean = false, _depth: number = 0): any => ({
-        boolean: $pick([
+        boolean: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        bigint: $pick([
+        bigint: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.customs ?? $generator.customs)?.bigint?.([]) ??
             (generator?.bigint ?? $generator.bigint)(BigInt(0), BigInt(100)),
         ])(),
-        number: $pick([
+        number: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.customs ?? $generator.customs)?.number?.([]) ??
             (generator?.number ?? $generator.number)(0, 100),
         ])(),
-        string: $pick([
+        string: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.customs ?? $generator.customs)?.string?.([]) ??
             (generator?.string ?? $generator.string)(),
         ])(),
-        constantBoolean: $pick([() => undefined, () => true])(),
-        constantBigint: $pick([
+        constantBoolean: (generator?.pick ?? $generator.pick)([
+          () => undefined,
+          () => true,
+        ])(),
+        constantBigint: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => BigInt(1),
           () => BigInt(2),
           () => BigInt(3),
         ])(),
-        constantNumber: $pick([() => undefined, () => 3, () => 2, () => 1])(),
-        constantString: $pick([
+        constantNumber: (generator?.pick ?? $generator.pick)([
+          () => undefined,
+          () => 3,
+          () => 2,
+          () => 1,
+        ])(),
+        constantString: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => "three",
           () => "two",
@@ -88,7 +95,9 @@ export const test_random_ObjectHttpUndefindable = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ObjectHttpUndefindable => {
-        const $guard = (typia.createAssert as any).guard;
+        const $guard = require("typia/lib/functional/$guard").$guard(
+          "typia.createAssert",
+        );
         const $ao0 = (
           input: any,
           _path: string,

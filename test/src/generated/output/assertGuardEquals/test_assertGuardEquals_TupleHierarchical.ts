@@ -66,7 +66,9 @@ export const test_assertGuardEquals_TupleHierarchical = _test_assertGuardEquals(
         _path: string,
         _exceptionable: boolean = true,
       ): input is TupleHierarchical => {
-        const $guard = (typia.assertGuardEquals as any).guard;
+        const $guard = require("typia/lib/functional/$guard").$guard(
+          "typia.assertGuardEquals",
+        );
         return (
           ((Array.isArray(input) ||
             $guard(true, {

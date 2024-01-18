@@ -29,8 +29,8 @@ export const test_json_createIsStringify_TypeTagCustom = _test_json_isStringify(
     );
   };
   const stringify = (input: TypeTagCustom): string => {
-    const $string = (typia.json.createIsStringify as any).string;
-    const $number = (typia.json.createIsStringify as any).number;
+    const $string = require("typia/lib/functional/$string").$string;
+    const $number = require("typia/lib/functional/$number").$number;
     return `{"id":${$string((input as any).id)},"dollar":${$string(
       (input as any).dollar,
     )},"postfix":${$string((input as any).postfix)},"powerOf":${$number(

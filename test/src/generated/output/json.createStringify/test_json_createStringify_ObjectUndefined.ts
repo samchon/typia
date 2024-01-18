@@ -8,9 +8,11 @@ export const test_json_createStringify_ObjectUndefined = _test_json_stringify(
 )<ObjectUndefined>(ObjectUndefined)((input: ObjectUndefined): string => {
   const $io1 = (input: any): boolean =>
     "string" === typeof input.id && "string" === typeof input.name;
-  const $string = (typia.json.createStringify as any).string;
-  const $number = (typia.json.createStringify as any).number;
-  const $throws = (typia.json.createStringify as any).throws;
+  const $string = require("typia/lib/functional/$string").$string;
+  const $number = require("typia/lib/functional/$number").$number;
+  const $throws = require("typia/lib/functional/$throws").$throws(
+    "typia.json.createStringify",
+  );
   const $so0 = (input: any): any =>
     `{${
       undefined === input.professor

@@ -10,7 +10,7 @@ export const test_createRandom_CommentTagRange = _test_random(
     generator: Partial<typia.IRandomGenerator> = (CommentTagRange as any)
       .RANDOM,
   ): typia.Resolved<CommentTagRange> => {
-    const $generator = (typia.createRandom as any).generator;
+    const $generator = require("typia/lib/functional/$generator").$generator;
     const $ro0 = (_recursive: boolean = false, _depth: number = 0): any => ({
       value: (generator?.array ?? $generator.array)(() =>
         $ro1(_recursive, _recursive ? 1 + _depth : _depth),
@@ -230,7 +230,9 @@ export const test_createRandom_CommentTagRange = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is CommentTagRange => {
-        const $guard = (typia.createAssert as any).guard;
+        const $guard = require("typia/lib/functional/$guard").$guard(
+          "typia.createAssert",
+        );
         const $ao0 = (
           input: any,
           _path: string,

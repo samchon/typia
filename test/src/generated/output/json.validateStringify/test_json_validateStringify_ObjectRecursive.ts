@@ -31,7 +31,9 @@ export const test_json_validateStringify_ObjectRecursive =
           return "object" === typeof input && null !== input && $io0(input);
         };
         if (false === __is(input)) {
-          const $report = (typia.json.validateStringify as any).report(errors);
+          const $report = require("typia/lib/functional/$report").$report(
+            errors,
+          );
           ((
             input: any,
             _path: string,
@@ -163,8 +165,8 @@ export const test_json_validateStringify_ObjectRecursive =
           $io1(input.created_at);
         const $io1 = (input: any): boolean =>
           "number" === typeof input.time && "number" === typeof input.zone;
-        const $number = (typia.json.validateStringify as any).number;
-        const $string = (typia.json.validateStringify as any).string;
+        const $number = require("typia/lib/functional/$number").$number;
+        const $string = require("typia/lib/functional/$string").$string;
         const $so0 = (input: any): any =>
           `{"parent":${
             null !== input.parent ? $so0(input.parent) : "null"

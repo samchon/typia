@@ -143,9 +143,7 @@ export const test_json_createValidateStringify_ObjectUnionComposite =
         );
       };
       if (false === __is(input)) {
-        const $report = (typia.json.createValidateStringify as any).report(
-          errors,
-        );
+        const $report = require("typia/lib/functional/$report").$report(errors);
         ((
           input: any,
           _path: string,
@@ -617,7 +615,7 @@ export const test_json_createValidateStringify_ObjectUnionComposite =
         null !== input.centroid &&
         $io0(input.centroid) &&
         "number" === typeof input.radius;
-      const $number = (typia.json.createValidateStringify as any).number;
+      const $number = require("typia/lib/functional/$number").$number;
       const $so0 = (input: any): any =>
         `{"x":${$number(input.x)},"y":${$number(input.y)}}`;
       const $so1 = (input: any): any =>

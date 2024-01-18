@@ -25,7 +25,9 @@ export const test_assert_AtomicUnion = _test_assert("AtomicUnion")<AtomicUnion>(
         _path: string,
         _exceptionable: boolean = true,
       ): input is AtomicUnion => {
-        const $guard = (typia.assert as any).guard;
+        const $guard = require("typia/lib/functional/$guard").$guard(
+          "typia.assert",
+        );
         return (
           ((Array.isArray(input) ||
             $guard(true, {

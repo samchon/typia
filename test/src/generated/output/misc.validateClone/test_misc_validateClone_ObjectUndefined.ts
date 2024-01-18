@@ -39,7 +39,7 @@ export const test_misc_validateClone_ObjectUndefined = _test_misc_validateClone(
         );
       };
       if (false === __is(input)) {
-        const $report = (typia.misc.validateClone as any).report(errors);
+        const $report = require("typia/lib/functional/$report").$report(errors);
         ((
           input: any,
           _path: string,
@@ -179,7 +179,7 @@ export const test_misc_validateClone_ObjectUndefined = _test_misc_validateClone(
     const clone = (input: ObjectUndefined): typia.Resolved<ObjectUndefined> => {
       const $io1 = (input: any): boolean =>
         "string" === typeof input.id && "string" === typeof input.name;
-      const $any = (typia.misc.validateClone as any).any;
+      const $clone = require("typia/lib/functional/$clone").$clone;
       const $cp0 = (input: any) =>
         input.map((elem: any) =>
           "object" === typeof elem && null !== elem
@@ -195,7 +195,7 @@ export const test_misc_validateClone_ObjectUndefined = _test_misc_validateClone(
             : (input.classroom as any),
         grade: input.grade as any,
         nothing: input.nothing as any,
-        unknown: $any(input.unknown),
+        unknown: $clone(input.unknown),
         never: input.never as any,
       });
       const $co1 = (input: any): any => ({

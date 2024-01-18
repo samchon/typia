@@ -29,8 +29,8 @@ export const test_json_createIsStringify_ToJsonArray = _test_json_isStringify(
     );
   };
   const stringify = (input: ToJsonArray): string => {
-    const $number = (typia.json.createIsStringify as any).number;
-    const $string = (typia.json.createIsStringify as any).string;
+    const $number = require("typia/lib/functional/$number").$number;
+    const $string = require("typia/lib/functional/$string").$string;
     return `[${`[${input[0]
       .toJSON()
       .map((elem: any) => elem)

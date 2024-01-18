@@ -21,7 +21,7 @@ import { TransformerError } from "../transformers/TransformerError";
 
 import { Escaper } from "../utils/Escaper";
 
-import { FunctionImporter } from "./helpers/FunctionImporeter";
+import { FunctionImporter } from "./helpers/FunctionImporter";
 import { RandomJoiner } from "./helpers/RandomJoiner";
 import { RandomRanger } from "./helpers/RandomRanger";
 import { random_custom } from "./internal/random_custom";
@@ -88,7 +88,7 @@ export namespace RandomProgrammer {
           undefined,
           ts.factory.createBlock(
             [
-              ...importer.declare(modulo),
+              ...importer.declare(),
               ...functions.objects,
               ...functions.arrays,
               ...functions.tuples,
@@ -265,7 +265,7 @@ export namespace RandomProgrammer {
       // PICK UP A TYPE
       if (expressions.length === 1) return expressions[0]!;
       return ts.factory.createCallExpression(
-        ts.factory.createCallExpression(importer.use("pick"), undefined, [
+        ts.factory.createCallExpression(COALESCE(importer)("pick"), undefined, [
           ts.factory.createArrayLiteralExpression(
             expressions.map((expr) =>
               ts.factory.createArrowFunction(

@@ -34,7 +34,9 @@ export const test_assert_ObjectAlias = _test_assert("ObjectAlias")<ObjectAlias>(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ObjectAlias => {
-        const $guard = (typia.assert as any).guard;
+        const $guard = require("typia/lib/functional/$guard").$guard(
+          "typia.assert",
+        );
         const $ao0 = (
           input: any,
           _path: string,

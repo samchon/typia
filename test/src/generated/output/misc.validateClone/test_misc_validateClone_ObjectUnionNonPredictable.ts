@@ -52,7 +52,9 @@ export const test_misc_validateClone_ObjectUnionNonPredictable =
           return "object" === typeof input && null !== input && $io0(input);
         };
         if (false === __is(input)) {
-          const $report = (typia.misc.validateClone as any).report(errors);
+          const $report = require("typia/lib/functional/$report").$report(
+            errors,
+          );
           ((
             input: any,
             _path: string,
@@ -317,7 +319,9 @@ export const test_misc_validateClone_ObjectUnionNonPredictable =
         const $io8 = (input: any): boolean => "string" === typeof input.value;
         const $iu0 = (input: any): any =>
           $io7(input) || $io5(input) || $io3(input);
-        const $throws = (typia.misc.validateClone as any).throws;
+        const $throws = require("typia/lib/functional/$throws").$throws(
+          "typia.misc.validateClone",
+        );
         const $cp0 = (input: any) =>
           input.map((elem: any) =>
             "object" === typeof elem && null !== elem

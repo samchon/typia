@@ -38,7 +38,7 @@ export const test_misc_isClone_ObjectUndefined = _test_misc_isClone(
     const clone = (input: ObjectUndefined): typia.Resolved<ObjectUndefined> => {
       const $io1 = (input: any): boolean =>
         "string" === typeof input.id && "string" === typeof input.name;
-      const $any = (typia.misc.isClone as any).any;
+      const $clone = require("typia/lib/functional/$clone").$clone;
       const $cp0 = (input: any) =>
         input.map((elem: any) =>
           "object" === typeof elem && null !== elem
@@ -54,7 +54,7 @@ export const test_misc_isClone_ObjectUndefined = _test_misc_isClone(
             : (input.classroom as any),
         grade: input.grade as any,
         nothing: input.nothing as any,
-        unknown: $any(input.unknown),
+        unknown: $clone(input.unknown),
         never: input.never as any,
       });
       const $co1 = (input: any): any => ({

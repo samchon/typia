@@ -35,7 +35,7 @@ export const test_json_createValidateParse_TemplateConstant =
         return "object" === typeof input && null !== input && $io0(input);
       };
       if (false === __is(input)) {
-        const $report = (typia.json.createValidateParse as any).report(errors);
+        const $report = require("typia/lib/functional/$report").$report(errors);
         ((
           input: any,
           _path: string,

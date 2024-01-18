@@ -58,8 +58,10 @@ export const test_assertEquals_ToJsonAtomicSimple = _test_assertEquals(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ToJsonAtomicSimple => {
-        const $guard = (typia.assertEquals as any).guard;
-        const $join = (typia.assertEquals as any).join;
+        const $guard = require("typia/lib/functional/$guard").$guard(
+          "typia.assertEquals",
+        );
+        const $join = require("typia/lib/functional/$join").$join;
         const $ao0 = (
           input: any,
           _path: string,

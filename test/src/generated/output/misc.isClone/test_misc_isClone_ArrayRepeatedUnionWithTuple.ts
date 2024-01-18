@@ -167,7 +167,9 @@ export const test_misc_isClone_ArrayRepeatedUnionWithTuple = _test_misc_isClone(
               "boolean" === typeof elem ||
               (Array.isArray(elem) && ($ip1(elem) || false))),
         );
-      const $throws = (typia.misc.isClone as any).throws;
+      const $throws = require("typia/lib/functional/$throws").$throws(
+        "typia.misc.isClone",
+      );
       const $cp0 = (input: any) => {
         const array = input;
         const top = input[0];

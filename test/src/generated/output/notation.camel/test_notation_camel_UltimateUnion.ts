@@ -1134,7 +1134,7 @@ export const test_notation_validateCamel_UltimateUnion =
             );
           };
           if (false === __is(input)) {
-            const $report = (typia.notations.validateCamel as any).report(
+            const $report = require("typia/lib/functional/$report").$report(
               errors,
             );
             ((
@@ -1142,7 +1142,7 @@ export const test_notation_validateCamel_UltimateUnion =
               _path: string,
               _exceptionable: boolean = true,
             ): input is UltimateUnion => {
-              const $join = (typia.notations.validateCamel as any).join;
+              const $join = require("typia/lib/functional/$join").$join;
               const $vo0 = (
                 input: any,
                 _path: string,
@@ -7331,8 +7331,10 @@ export const test_notation_validateCamel_UltimateUnion =
                   $io34(input)
                 );
             })();
-          const $any = (typia.notations.validateCamel as any).any;
-          const $throws = (typia.notations.validateCamel as any).throws;
+          const $camel = require("typia/lib/functional/$camel").$camel;
+          const $throws = require("typia/lib/functional/$throws").$throws(
+            "typia.notations.validateCamel",
+          );
           const $cp0 = (input: any) =>
             input.map((elem: any) =>
               "object" === typeof elem && null !== elem
@@ -7462,7 +7464,7 @@ export const test_notation_validateCamel_UltimateUnion =
             exclusive: Array.isArray(input.exclusive)
               ? $cp6(input.exclusive)
               : (input.exclusive as any),
-            value: $any(input.value),
+            value: $camel(input.value),
             validate: input.validate as any,
           });
           const $co8 = (input: any): any => ({
@@ -9199,8 +9201,10 @@ export const test_notation_validateCamel_UltimateUnion =
           _path: string,
           _exceptionable: boolean = true,
         ): input is typia.CamelCase<UltimateUnion> => {
-          const $guard = (typia.createAssert as any).guard;
-          const $join = (typia.createAssert as any).join;
+          const $guard = require("typia/lib/functional/$guard").$guard(
+            "typia.createAssert",
+          );
+          const $join = require("typia/lib/functional/$join").$join;
           const $ao0 = (
             input: any,
             _path: string,

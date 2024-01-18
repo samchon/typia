@@ -10,10 +10,9 @@ export const test_random_ObjectRecursive = _test_random(
     ((
       generator?: Partial<typia.IRandomGenerator>,
     ): typia.Resolved<ObjectRecursive> => {
-      const $pick = (typia.random as any).pick;
-      const $generator = (typia.random as any).generator;
+      const $generator = require("typia/lib/functional/$generator").$generator;
       const $ro0 = (_recursive: boolean = true, _depth: number = 0): any => ({
-        parent: $pick([
+        parent: (generator?.pick ?? $generator.pick)([
           () => null,
           () => $ro0(true, _recursive ? 1 + _depth : _depth),
         ])(),
@@ -68,7 +67,9 @@ export const test_random_ObjectRecursive = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ObjectRecursive => {
-        const $guard = (typia.createAssert as any).guard;
+        const $guard = require("typia/lib/functional/$guard").$guard(
+          "typia.createAssert",
+        );
         const $ao0 = (
           input: any,
           _path: string,

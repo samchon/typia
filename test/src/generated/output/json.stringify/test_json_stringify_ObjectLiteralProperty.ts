@@ -7,7 +7,7 @@ export const test_json_stringify_ObjectLiteralProperty = _test_json_stringify(
   "ObjectLiteralProperty",
 )<ObjectLiteralProperty>(ObjectLiteralProperty)((input) =>
   ((input: ObjectLiteralProperty): string => {
-    const $string = (typia.json.stringify as any).string;
+    const $string = require("typia/lib/functional/$string").$string;
     return `{"something-interesting-do-you-want?":${$string(
       (input as any)["something-interesting-do-you-want?"],
     )},"or-something-crazy-do-you-want?":${$string(

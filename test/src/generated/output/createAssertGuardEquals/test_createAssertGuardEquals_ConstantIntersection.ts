@@ -25,7 +25,9 @@ export const test_createAssertGuardEquals_ConstantIntersection =
         _path: string,
         _exceptionable: boolean = true,
       ): input is ConstantIntersection => {
-        const $guard = (typia.createAssertGuardEquals as any).guard;
+        const $guard = require("typia/lib/functional/$guard").$guard(
+          "typia.createAssertGuardEquals",
+        );
         return (
           ((Array.isArray(input) ||
             $guard(true, {

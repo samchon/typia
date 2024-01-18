@@ -11,26 +11,25 @@ export const test_createRandom_ObjectPartialAndRequired = _test_random(
       ObjectPartialAndRequired as any
     ).RANDOM,
   ): typia.Resolved<ObjectPartialAndRequired> => {
-    const $generator = (typia.createRandom as any).generator;
-    const $pick = (typia.createRandom as any).pick;
+    const $generator = require("typia/lib/functional/$generator").$generator;
     const $ro0 = (_recursive: boolean = true, _depth: number = 0): any => ({
-      string: $pick([
+      string: (generator?.pick ?? $generator.pick)([
         () => undefined,
         () =>
           (generator?.customs ?? $generator.customs)?.string?.([]) ??
           (generator?.string ?? $generator.string)(),
       ])(),
-      number: $pick([
+      number: (generator?.pick ?? $generator.pick)([
         () => undefined,
         () =>
           (generator?.customs ?? $generator.customs)?.number?.([]) ??
           (generator?.number ?? $generator.number)(0, 100),
       ])(),
-      boolean: $pick([
+      boolean: (generator?.pick ?? $generator.pick)([
         () => undefined,
         () => (generator?.boolean ?? $generator.boolean)(),
       ])(),
-      object: $pick([
+      object: (generator?.pick ?? $generator.pick)([
         () => null,
         () => $ro0(true, _recursive ? 1 + _depth : _depth),
       ])(),
@@ -71,7 +70,9 @@ export const test_createRandom_ObjectPartialAndRequired = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ObjectPartialAndRequired => {
-        const $guard = (typia.createAssert as any).guard;
+        const $guard = require("typia/lib/functional/$guard").$guard(
+          "typia.createAssert",
+        );
         const $ao0 = (
           input: any,
           _path: string,

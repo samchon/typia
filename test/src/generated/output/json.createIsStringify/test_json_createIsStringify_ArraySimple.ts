@@ -31,8 +31,8 @@ export const test_json_createIsStringify_ArraySimple = _test_json_isStringify(
       "string" === typeof input.name &&
       "string" === typeof input.body &&
       "number" === typeof input.rank;
-    const $string = (typia.json.createIsStringify as any).string;
-    const $number = (typia.json.createIsStringify as any).number;
+    const $string = require("typia/lib/functional/$string").$string;
+    const $number = require("typia/lib/functional/$number").$number;
     const $so0 = (input: any): any =>
       `{"name":${$string(input.name)},"email":${$string(
         input.email,

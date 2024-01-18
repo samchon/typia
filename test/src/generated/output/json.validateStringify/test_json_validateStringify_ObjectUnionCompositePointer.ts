@@ -150,7 +150,9 @@ export const test_json_validateStringify_ObjectUnionCompositePointer =
           return "object" === typeof input && null !== input && $io0(input);
         };
         if (false === __is(input)) {
-          const $report = (typia.json.validateStringify as any).report(errors);
+          const $report = require("typia/lib/functional/$report").$report(
+            errors,
+          );
           ((
             input: any,
             _path: string,
@@ -710,7 +712,7 @@ export const test_json_validateStringify_ObjectUnionCompositePointer =
                 else return $io3(input);
               })();
           })();
-        const $number = (typia.json.validateStringify as any).number;
+        const $number = require("typia/lib/functional/$number").$number;
         const $so0 = (input: any): any =>
           `{"value":${`[${input.value
             .map((elem: any) => $so1(elem))

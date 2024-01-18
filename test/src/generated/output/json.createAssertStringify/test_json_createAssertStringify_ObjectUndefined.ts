@@ -43,7 +43,9 @@ export const test_json_createAssertStringify_ObjectUndefined =
           _path: string,
           _exceptionable: boolean = true,
         ): input is ObjectUndefined => {
-          const $guard = (typia.json.createAssertStringify as any).guard;
+          const $guard = require("typia/lib/functional/$guard").$guard(
+            "typia.json.createAssertStringify",
+          );
           const $ao0 = (
             input: any,
             _path: string,
@@ -166,9 +168,11 @@ export const test_json_createAssertStringify_ObjectUndefined =
     const stringify = (input: ObjectUndefined): string => {
       const $io1 = (input: any): boolean =>
         "string" === typeof input.id && "string" === typeof input.name;
-      const $string = (typia.json.createAssertStringify as any).string;
-      const $number = (typia.json.createAssertStringify as any).number;
-      const $throws = (typia.json.createAssertStringify as any).throws;
+      const $string = require("typia/lib/functional/$string").$string;
+      const $number = require("typia/lib/functional/$number").$number;
+      const $throws = require("typia/lib/functional/$throws").$throws(
+        "typia.json.createAssertStringify",
+      );
       const $so0 = (input: any): any =>
         `{${
           undefined === input.professor

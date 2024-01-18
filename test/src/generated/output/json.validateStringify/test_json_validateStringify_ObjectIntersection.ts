@@ -20,7 +20,9 @@ export const test_json_validateStringify_ObjectIntersection =
           );
         };
         if (false === __is(input)) {
-          const $report = (typia.json.validateStringify as any).report(errors);
+          const $report = require("typia/lib/functional/$report").$report(
+            errors,
+          );
           ((
             input: any,
             _path: string,
@@ -75,7 +77,7 @@ export const test_json_validateStringify_ObjectIntersection =
         } as any;
       };
       const stringify = (input: ObjectIntersection): string => {
-        const $string = (typia.json.validateStringify as any).string;
+        const $string = require("typia/lib/functional/$string").$string;
         return `{"email":${$string((input as any).email)},"name":${$string(
           (input as any).name,
         )},"vulnerable":${(input as any).vulnerable}}`;

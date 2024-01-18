@@ -47,7 +47,9 @@ export const test_misc_assertPrune_TypeTagObjectUnion = _test_misc_assertPrune(
           _path: string,
           _exceptionable: boolean = true,
         ): input is TypeTagObjectUnion => {
-          const $guard = (typia.misc.assertPrune as any).guard;
+          const $guard = require("typia/lib/functional/$guard").$guard(
+            "typia.misc.assertPrune",
+          );
           const $ao0 = (
             input: any,
             _path: string,
@@ -174,7 +176,7 @@ export const test_misc_assertPrune_TypeTagObjectUnion = _test_misc_assertPrune(
         "string" === typeof input.value &&
         3 <= input.value.length &&
         input.value.length <= 7;
-      const $throws = (typia.misc.assertPrune as any).throws;
+      const $throws = require("typia/lib/functional/$throws").$throws;
       const $pp0 = (input: any) =>
         input.forEach((elem: any) => {
           if ("object" === typeof elem && null !== elem) $pu0(elem);

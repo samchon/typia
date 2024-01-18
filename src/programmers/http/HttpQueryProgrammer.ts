@@ -18,7 +18,7 @@ import { Atomic } from "../../typings/Atomic";
 
 import { Escaper } from "../../utils/Escaper";
 
-import { FunctionImporter } from "../helpers/FunctionImporeter";
+import { FunctionImporter } from "../helpers/FunctionImporter";
 import { HttpMetadataUtil } from "../helpers/HttpMetadataUtil";
 
 export namespace HttpQueryProgrammer {
@@ -63,10 +63,7 @@ export namespace HttpQueryProgrammer {
           }>`,
         ),
         undefined,
-        ts.factory.createBlock(
-          [...importer.declare(modulo), ...statements],
-          true,
-        ),
+        ts.factory.createBlock([...importer.declare(), ...statements], true),
       );
     };
 
@@ -135,7 +132,7 @@ export namespace HttpQueryProgrammer {
             ts.factory.createToken(ts.SyntaxKind.EqualsToken),
             ts.factory.createAsExpression(
               ts.factory.createCallExpression(
-                importer.use("params"),
+                IdentifierFactory.access(importer.use("QueryReader"))("params"),
                 undefined,
                 [input],
               ),
@@ -224,7 +221,7 @@ export namespace HttpQueryProgrammer {
     (onlyUndefindable: boolean) =>
     (value: ts.Expression) => {
       const call = ts.factory.createCallExpression(
-        importer.use(type),
+        IdentifierFactory.access(importer.use("QueryReader"))(type),
         undefined,
         [value],
       );
@@ -242,11 +239,15 @@ export namespace HttpQueryProgrammer {
     (value: Metadata) =>
     (expression: ts.Expression): ts.Expression =>
       value.nullable || value.isRequired() === false
-        ? ts.factory.createCallExpression(importer.use("array"), undefined, [
-            expression,
-            value.nullable
-              ? ts.factory.createNull()
-              : ts.factory.createIdentifier("undefined"),
-          ])
+        ? ts.factory.createCallExpression(
+            IdentifierFactory.access(importer.use("QueryReader"))("array"),
+            undefined,
+            [
+              expression,
+              value.nullable
+                ? ts.factory.createNull()
+                : ts.factory.createIdentifier("undefined"),
+            ],
+          )
         : expression;
 }

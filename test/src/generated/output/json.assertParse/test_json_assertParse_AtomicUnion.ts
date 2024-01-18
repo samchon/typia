@@ -26,7 +26,9 @@ export const test_json_assertParse_AtomicUnion = _test_json_assertParse(
           _path: string,
           _exceptionable: boolean = true,
         ): input is AtomicUnion => {
-          const $guard = (typia.json.assertParse as any).guard;
+          const $guard = require("typia/lib/functional/$guard").$guard(
+            "typia.json.assertParse",
+          );
           return (
             ((Array.isArray(input) ||
               $guard(true, {

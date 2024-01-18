@@ -42,7 +42,7 @@ export const test_http_createValidateHeaders_ObjectHttpTypeTag =
           return "object" === typeof input && null !== input && $io0(input);
         };
         if (false === __is(input)) {
-          const $report = (typia.http.createValidateHeaders as any).report(
+          const $report = require("typia/lib/functional/$report").$report(
             errors,
           );
           ((
@@ -219,19 +219,18 @@ export const test_http_createValidateHeaders_ObjectHttpTypeTag =
       const headers = (
         input: Record<string, string | string[] | undefined>,
       ): typia.Resolved<ObjectHttpTypeTag> => {
-        const $number = (typia.http.createValidateHeaders as any).number;
-        const $bigint = (typia.http.createValidateHeaders as any).bigint;
-        const $string = (typia.http.createValidateHeaders as any).string;
+        const $HeadersReader =
+          require("typia/lib/functional/$HeadersReader").$HeadersReader;
         const output = {
-          int32: $number(input.int32),
-          uint64: $bigint(input.uint64),
+          int32: $HeadersReader.number(input.int32),
+          uint64: $HeadersReader.bigint(input.uint64),
           uuid: input.uuid,
           range: Array.isArray(input.range)
-            ? input.range.map($number)
-            : input.range?.split(", ")?.map($number) ?? [],
+            ? input.range.map($HeadersReader.number)
+            : input.range?.split(", ")?.map($HeadersReader.number) ?? [],
           length: Array.isArray(input.length)
-            ? input.length.map($string)
-            : input.length?.split(", ")?.map($string) ?? [],
+            ? input.length.map($HeadersReader.string)
+            : input.length?.split(", ")?.map($HeadersReader.string) ?? [],
         };
         return output as any;
       };

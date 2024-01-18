@@ -15,7 +15,7 @@ export const test_json_createIsStringify_ObjectInternal =
         );
       };
       const stringify = (input: ObjectInternal): string => {
-        const $string = (typia.json.createIsStringify as any).string;
+        const $string = require("typia/lib/functional/$string").$string;
         return `{"id":${$string((input as any).id)},"name":${$string(
           (input as any).name,
         )}}`;

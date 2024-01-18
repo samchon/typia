@@ -44,7 +44,7 @@ export const test_notation_validateCamel_ObjectNullable =
             return "object" === typeof input && null !== input && $io0(input);
           };
           if (false === __is(input)) {
-            const $report = (typia.notations.validateCamel as any).report(
+            const $report = require("typia/lib/functional/$report").$report(
               errors,
             );
             ((
@@ -264,7 +264,9 @@ export const test_notation_validateCamel_ObjectNullable =
               else if ("manufacturer" === input.type) return $io2(input);
               else return false;
             })();
-          const $throws = (typia.notations.validateCamel as any).throws;
+          const $throws = require("typia/lib/functional/$throws").$throws(
+            "typia.notations.validateCamel",
+          );
           const $cp0 = (input: any) =>
             input.map((elem: any) =>
               "object" === typeof elem && null !== elem
@@ -358,7 +360,9 @@ export const test_notation_validateCamel_ObjectNullable =
           _path: string,
           _exceptionable: boolean = true,
         ): input is typia.CamelCase<ObjectNullable> => {
-          const $guard = (typia.createAssert as any).guard;
+          const $guard = require("typia/lib/functional/$guard").$guard(
+            "typia.createAssert",
+          );
           const $ao0 = (
             input: any,
             _path: string,

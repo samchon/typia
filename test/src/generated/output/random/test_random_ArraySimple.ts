@@ -10,7 +10,7 @@ export const test_random_ArraySimple = _test_random("ArraySimple")<ArraySimple>(
     ((
       generator?: Partial<typia.IRandomGenerator>,
     ): typia.Resolved<ArraySimple> => {
-      const $generator = (typia.random as any).generator;
+      const $generator = require("typia/lib/functional/$generator").$generator;
       const $ro0 = (_recursive: boolean = false, _depth: number = 0): any => ({
         name:
           (generator?.customs ?? $generator.customs)?.string?.([]) ??
@@ -64,7 +64,9 @@ export const test_random_ArraySimple = _test_random("ArraySimple")<ArraySimple>(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ArraySimple => {
-        const $guard = (typia.createAssert as any).guard;
+        const $guard = require("typia/lib/functional/$guard").$guard(
+          "typia.createAssert",
+        );
         const $ao0 = (
           input: any,
           _path: string,

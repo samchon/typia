@@ -134,9 +134,7 @@ export const test_json_createValidateStringify_ObjectUnionExplicit =
         );
       };
       if (false === __is(input)) {
-        const $report = (typia.json.createValidateStringify as any).report(
-          errors,
-        );
+        const $report = require("typia/lib/functional/$report").$report(errors);
         ((
           input: any,
           _path: string,
@@ -649,9 +647,11 @@ export const test_json_createValidateStringify_ObjectUnionExplicit =
         $io2(input.centroid) &&
         "number" === typeof input.radius &&
         "circle" === input.type;
-      const $number = (typia.json.createValidateStringify as any).number;
-      const $string = (typia.json.createValidateStringify as any).string;
-      const $throws = (typia.json.createValidateStringify as any).throws;
+      const $number = require("typia/lib/functional/$number").$number;
+      const $string = require("typia/lib/functional/$string").$string;
+      const $throws = require("typia/lib/functional/$throws").$throws(
+        "typia.json.createValidateStringify",
+      );
       const $so0 = (input: any): any =>
         `{"x":${$number(input.x)},"y":${$number(input.y)},"type":${(() => {
           if ("string" === typeof input.type) return $string(input.type);

@@ -32,8 +32,10 @@ export const test_json_isStringify_TemplateAtomic = _test_json_isStringify(
       return "object" === typeof input && null !== input && $io0(input);
     };
     const stringify = (input: TemplateAtomic): string => {
-      const $string = (typia.json.isStringify as any).string;
-      const $throws = (typia.json.isStringify as any).throws;
+      const $string = require("typia/lib/functional/$string").$string;
+      const $throws = require("typia/lib/functional/$throws").$throws(
+        "typia.json.isStringify",
+      );
       const $so0 = (input: any): any =>
         `{"prefix":${$string(input.prefix)},"postfix":${$string(
           input.postfix,

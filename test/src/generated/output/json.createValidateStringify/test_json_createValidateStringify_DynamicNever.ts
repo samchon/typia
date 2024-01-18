@@ -24,7 +24,7 @@ export const test_json_createValidateStringify_DynamicNever =
           );
         };
         if (false === __is(input)) {
-          const $report = (typia.json.createValidateStringify as any).report(
+          const $report = require("typia/lib/functional/$report").$report(
             errors,
           );
           ((
@@ -32,7 +32,7 @@ export const test_json_createValidateStringify_DynamicNever =
             _path: string,
             _exceptionable: boolean = true,
           ): input is DynamicNever => {
-            const $join = (typia.json.createValidateStringify as any).join;
+            const $join = require("typia/lib/functional/$join").$join;
             const $vo0 = (
               input: any,
               _path: string,

@@ -7,8 +7,6 @@
 ==============================================================
     LITERALS
 ----------------------------------------------------------- */
-import { Namespace } from "./functional/Namespace";
-
 import { Atomic } from "./typings/Atomic";
 
 import { IValidation } from "./IValidation";
@@ -84,7 +82,6 @@ export function clone<T>(input: T): Resolved<T>;
 export function clone(): never {
   halt("clone");
 }
-Object.assign(clone, Namespace.misc.clone("clone"));
 
 /**
  * Clone a data with type assertion.
@@ -130,8 +127,6 @@ export function assertClone<T>(input: unknown): Resolved<T>;
 export function assertClone(): never {
   halt("assertClone");
 }
-Object.assign(assertClone, Namespace.assert("misc.assertClone"));
-Object.assign(assertClone, Namespace.misc.clone("assertClone"));
 
 /**
  * Clone a data with type checking.
@@ -177,8 +172,6 @@ export function isClone<T>(input: unknown): Resolved<T> | null;
 export function isClone(): never {
   halt("isClone");
 }
-Object.assign(isClone, Namespace.is());
-Object.assign(isClone, Namespace.misc.clone("isClone"));
 
 /**
  * Clone a data with detailed type validation.
@@ -222,8 +215,6 @@ export function validateClone<T>(input: unknown): IValidation<Resolved<T>>;
 export function validateClone(): never {
   halt("validateClone");
 }
-Object.assign(validateClone, Namespace.validate());
-Object.assign(validateClone, Namespace.misc.clone("validateClone"));
 
 /* -----------------------------------------------------------
     PRUNE
@@ -257,7 +248,6 @@ export function prune<T extends object>(input: T): void;
 export function prune(): never {
   halt("prune");
 }
-Object.assign(prune, Namespace.misc.prune("prune"));
 
 /**
  * Prune, erase superfluous properties, with type assertion.
@@ -301,8 +291,6 @@ export function assertPrune<T>(input: unknown): T;
 export function assertPrune(): unknown {
   halt("assertPrune");
 }
-Object.assign(assertPrune, Namespace.assert("misc.assertPrune"));
-Object.assign(assertPrune, Namespace.misc.prune("assertPrune"));
 
 /**
  * Prune, erase superfluous properties, with type checking.
@@ -348,8 +336,6 @@ export function isPrune<T>(input: unknown): input is T;
 export function isPrune(): never {
   halt("isPrune");
 }
-Object.assign(isPrune, Namespace.is());
-Object.assign(isPrune, Namespace.misc.prune("isPrune"));
 
 /**
  * Prune, erase superfluous properties, with type validation.
@@ -397,8 +383,6 @@ export function validatePrune<T>(input: unknown): IValidation<T>;
 export function validatePrune<T>(): IValidation<T> {
   halt("validatePrune");
 }
-Object.assign(validatePrune, Namespace.misc.prune("validatePrune"));
-Object.assign(validatePrune, Namespace.validate());
 
 /* -----------------------------------------------------------
     FACTORY FUNCTIONS
@@ -430,7 +414,6 @@ export function createClone<T>(): (input: T) => Resolved<T>;
 export function createClone(): never {
   halt("createClone");
 }
-Object.assign(createClone, clone);
 
 /**
  * Creates a reusable {@link assertClone} function.
@@ -459,7 +442,6 @@ export function createAssertClone<T>(): (input: unknown) => Resolved<T>;
 export function createAssertClone(): never {
   halt("createAssertClone");
 }
-Object.assign(createAssertClone, assertClone);
 
 /**
  * Creates a reusable {@link isClone} function.
@@ -488,7 +470,6 @@ export function createIsClone<T>(): (input: unknown) => Resolved<T> | null;
 export function createIsClone(): never {
   halt("createIsClone");
 }
-Object.assign(createIsClone, isClone);
 
 /**
  * Creates a reusable {@link validateClone} function.
@@ -519,7 +500,6 @@ export function createValidateClone<T>(): (
 export function createValidateClone(): never {
   halt("createValidateClone");
 }
-Object.assign(createValidateClone, validateClone);
 
 /**
  * Creates a reusable {@link prune} function.
@@ -548,7 +528,6 @@ export function createPrune<T extends object>(): (input: T) => void;
 export function createPrune<T extends object>(): (input: T) => void {
   halt("createPrune");
 }
-Object.assign(createPrune, prune);
 
 /**
  * Creates a reusable {@link assertPrune} function.
@@ -577,7 +556,6 @@ export function createAssertPrune<T extends object>(): (input: T) => T;
 export function createAssertPrune<T extends object>(): (input: T) => T {
   halt("createAssertPrune");
 }
-Object.assign(createAssertPrune, assertPrune);
 
 /**
  * Creates a reusable {@link isPrune} function.
@@ -606,7 +584,6 @@ export function createIsPrune<T extends object>(): (input: T) => input is T;
 export function createIsPrune<T extends object>(): (input: T) => input is T {
   halt("createIsPrune");
 }
-Object.assign(createIsPrune, isPrune);
 
 /**
  * Creates a reusable {@link validatePrune} function.
@@ -639,7 +616,6 @@ export function createValidatePrune<T extends object>(): (
 ) => IValidation<T> {
   halt("createValidatePrune");
 }
-Object.assign(createValidatePrune, validatePrune);
 
 /**
  * @internal

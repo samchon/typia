@@ -33,7 +33,9 @@ export const test_json_createAssertStringify_ConstantAtomicWrapper =
           _path: string,
           _exceptionable: boolean = true,
         ): input is ConstantAtomicWrapper => {
-          const $guard = (typia.json.createAssertStringify as any).guard;
+          const $guard = require("typia/lib/functional/$guard").$guard(
+            "typia.json.createAssertStringify",
+          );
           const $ao0 = (
             input: any,
             _path: string,
@@ -127,8 +129,8 @@ export const test_json_createAssertStringify_ConstantAtomicWrapper =
       return input;
     };
     const stringify = (input: ConstantAtomicWrapper): string => {
-      const $number = (typia.json.createAssertStringify as any).number;
-      const $string = (typia.json.createAssertStringify as any).string;
+      const $number = require("typia/lib/functional/$number").$number;
+      const $string = require("typia/lib/functional/$string").$string;
       return `[${`{"value":${(input[0] as any).value}}`},${`{"value":${$number(
         (input[1] as any).value,
       )}}`},${`{"value":${$string((input[2] as any).value)}}`}]`;

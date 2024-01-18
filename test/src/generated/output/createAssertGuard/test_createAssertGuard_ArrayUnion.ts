@@ -49,7 +49,9 @@ export const test_createAssertGuard_ArrayUnion = _test_assertGuard(
       _path: string,
       _exceptionable: boolean = true,
     ): input is ArrayUnion => {
-      const $guard = (typia.createAssertGuard as any).guard;
+      const $guard = require("typia/lib/functional/$guard").$guard(
+        "typia.createAssertGuard",
+      );
       const $ap0 = (
         input: any,
         _path: string,

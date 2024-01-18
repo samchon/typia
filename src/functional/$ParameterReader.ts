@@ -1,3 +1,6 @@
+/**
+ * @internal
+ */
 export namespace $ParameterReader {
   export const boolean = (value: string) =>
     value !== "null"
@@ -17,11 +20,17 @@ export namespace $ParameterReader {
   export const string = (value: string) => (value !== "null" ? value : null);
 }
 
+/**
+ * @internal
+ */
 const toNumber = (str: string): number | string => {
   const value: number = Number(str);
   return isNaN(value) ? str : value;
 };
 
+/**
+ * @internal
+ */
 const toBigint = (str: string): bigint | string => {
   try {
     return BigInt(str);

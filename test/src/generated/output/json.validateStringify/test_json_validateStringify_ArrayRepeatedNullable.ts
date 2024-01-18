@@ -31,7 +31,9 @@ export const test_json_validateStringify_ArrayRepeatedNullable =
           );
         };
         if (false === __is(input)) {
-          const $report = (typia.json.validateStringify as any).report(errors);
+          const $report = require("typia/lib/functional/$report").$report(
+            errors,
+          );
           ((
             input: any,
             _path: string,
@@ -130,9 +132,11 @@ export const test_json_validateStringify_ArrayRepeatedNullable =
                 "number" === typeof elem ||
                 (Array.isArray(elem) && ($ia0(elem) || false))),
           );
-        const $string = (typia.json.validateStringify as any).string;
-        const $number = (typia.json.validateStringify as any).number;
-        const $throws = (typia.json.validateStringify as any).throws;
+        const $string = require("typia/lib/functional/$string").$string;
+        const $number = require("typia/lib/functional/$number").$number;
+        const $throws = require("typia/lib/functional/$throws").$throws(
+          "typia.json.validateStringify",
+        );
         const $sa0 = (input: any): any =>
           `[${input
             .map((elem: any) =>

@@ -23,7 +23,9 @@ export const test_misc_createAssertPrune_TupleRestAtomic =
             _path: string,
             _exceptionable: boolean = true,
           ): input is TupleRestAtomic => {
-            const $guard = (typia.misc.createAssertPrune as any).guard;
+            const $guard = require("typia/lib/functional/$guard").$guard(
+              "typia.misc.createAssertPrune",
+            );
             return (
               ((Array.isArray(input) ||
                 $guard(true, {

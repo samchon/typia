@@ -137,7 +137,9 @@ export const test_json_createAssertStringify_ObjectUnionImplicit =
           _path: string,
           _exceptionable: boolean = true,
         ): input is ObjectUnionImplicit => {
-          const $guard = (typia.json.createAssertStringify as any).guard;
+          const $guard = require("typia/lib/functional/$guard").$guard(
+            "typia.json.createAssertStringify",
+          );
           const $ao0 = (
             input: any,
             _path: string,
@@ -644,7 +646,7 @@ export const test_json_createAssertStringify_ObjectUnionImplicit =
         (null === input.area ||
           undefined === input.area ||
           "number" === typeof input.area);
-      const $number = (typia.json.createAssertStringify as any).number;
+      const $number = require("typia/lib/functional/$number").$number;
       const $so0 = (input: any): any =>
         `{${
           undefined === input.slope

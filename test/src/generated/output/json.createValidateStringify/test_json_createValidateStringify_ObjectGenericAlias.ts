@@ -17,9 +17,7 @@ export const test_json_createValidateStringify_ObjectGenericAlias =
         );
       };
       if (false === __is(input)) {
-        const $report = (typia.json.createValidateStringify as any).report(
-          errors,
-        );
+        const $report = require("typia/lib/functional/$report").$report(errors);
         ((
           input: any,
           _path: string,
@@ -62,7 +60,7 @@ export const test_json_createValidateStringify_ObjectGenericAlias =
       } as any;
     };
     const stringify = (input: ObjectGenericAlias): string => {
-      const $string = (typia.json.createValidateStringify as any).string;
+      const $string = require("typia/lib/functional/$string").$string;
       return `{"value":${$string((input as any).value)}}`;
     };
     const output = validate(input) as any;

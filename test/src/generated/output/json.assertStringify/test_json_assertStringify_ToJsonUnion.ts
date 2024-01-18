@@ -46,7 +46,9 @@ export const test_json_assertStringify_ToJsonUnion = _test_json_assertStringify(
           _path: string,
           _exceptionable: boolean = true,
         ): input is ToJsonUnion => {
-          const $guard = (typia.json.assertStringify as any).guard;
+          const $guard = require("typia/lib/functional/$guard").$guard(
+            "typia.json.assertStringify",
+          );
           const $ao0 = (
             input: any,
             _path: string,
@@ -182,9 +184,11 @@ export const test_json_assertStringify_ToJsonUnion = _test_json_assertStringify(
         "string" === typeof input.manufacturer &&
         "string" === typeof input.brand &&
         "string" === typeof input.name;
-      const $throws = (typia.json.assertStringify as any).throws;
-      const $string = (typia.json.assertStringify as any).string;
-      const $number = (typia.json.assertStringify as any).number;
+      const $throws = require("typia/lib/functional/$throws").$throws(
+        "typia.json.assertStringify",
+      );
+      const $string = require("typia/lib/functional/$string").$string;
+      const $number = require("typia/lib/functional/$number").$number;
       const $so0 = (input: any): any =>
         `{"id":${$number(input.id)},"mobile":${$string(
           input.mobile,

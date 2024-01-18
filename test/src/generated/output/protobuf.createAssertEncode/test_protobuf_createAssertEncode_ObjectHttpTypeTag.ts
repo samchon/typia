@@ -44,7 +44,9 @@ export const test_protobuf_createAssertEncode_ObjectHttpTypeTag =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ObjectHttpTypeTag => {
-            const $guard = (typia.protobuf.createAssertEncode as any).guard;
+            const $guard = require("typia/lib/functional/$guard").$guard(
+              "typia.protobuf.createAssertEncode",
+            );
             const $ao0 = (
               input: any,
               _path: string,
@@ -200,8 +202,10 @@ export const test_protobuf_createAssertEncode_ObjectHttpTypeTag =
         return input;
       };
       const encode = (input: ObjectHttpTypeTag): Uint8Array => {
-        const $Sizer = (typia.protobuf.createAssertEncode as any).Sizer;
-        const $Writer = (typia.protobuf.createAssertEncode as any).Writer;
+        const $ProtobufSizer =
+          require("typia/lib/functional/$ProtobufSizer").$ProtobufSizer;
+        const $ProtobufWriter =
+          require("typia/lib/functional/$ProtobufWriter").$ProtobufWriter;
         const encoder = (writer: any): any => {
           const $peo0 = (input: any): any => {
             // property "int32";
@@ -234,14 +238,15 @@ export const test_protobuf_createAssertEncode_ObjectHttpTypeTag =
           $peo0(input);
           return writer;
         };
-        const sizer = encoder(new $Sizer());
-        const writer = encoder(new $Writer(sizer));
+        const sizer = encoder(new $ProtobufSizer());
+        const writer = encoder(new $ProtobufWriter(sizer));
         return writer.buffer();
       };
       return encode(assert(input));
     },
     decode: (input: Uint8Array): typia.Resolved<ObjectHttpTypeTag> => {
-      const $Reader = (typia.protobuf.createDecode as any).Reader;
+      const $ProtobufReader =
+        require("typia/lib/functional/$ProtobufReader").$ProtobufReader;
       const $pdo0 = (reader: any, length: number = -1): any => {
         length = length < 0 ? reader.size() : reader.index() + length;
         const output = {
@@ -285,7 +290,7 @@ export const test_protobuf_createAssertEncode_ObjectHttpTypeTag =
         }
         return output;
       };
-      const reader = new $Reader(input);
+      const reader = new $ProtobufReader(input);
       return $pdo0(reader);
     },
     message:

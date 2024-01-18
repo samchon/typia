@@ -1,5 +1,8 @@
 import { IValidation } from "../IValidation";
 
+/**
+ * @internal
+ */
 export const $report = (array: IValidation.IError[]) => {
   const reportable = (path: string): boolean => {
     if (array.length === 0) return true;

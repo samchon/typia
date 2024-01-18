@@ -64,7 +64,9 @@ export const test_misc_createAssertClone_TupleHierarchical =
           _path: string,
           _exceptionable: boolean = true,
         ): input is TupleHierarchical => {
-          const $guard = (typia.misc.createAssertClone as any).guard;
+          const $guard = require("typia/lib/functional/$guard").$guard(
+            "typia.misc.createAssertClone",
+          );
           return (
             ((Array.isArray(input) ||
               $guard(true, {

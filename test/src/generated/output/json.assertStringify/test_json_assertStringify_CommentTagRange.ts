@@ -76,7 +76,9 @@ export const test_json_assertStringify_CommentTagRange =
             _path: string,
             _exceptionable: boolean = true,
           ): input is CommentTagRange => {
-            const $guard = (typia.json.assertStringify as any).guard;
+            const $guard = require("typia/lib/functional/$guard").$guard(
+              "typia.json.assertStringify",
+            );
             const $ao0 = (
               input: any,
               _path: string,
@@ -405,7 +407,7 @@ export const test_json_assertStringify_CommentTagRange =
           input.equal <= 2147483647 &&
           10 <= input.equal &&
           input.equal <= 10;
-        const $number = (typia.json.assertStringify as any).number;
+        const $number = require("typia/lib/functional/$number").$number;
         const $so0 = (input: any): any =>
           `{"value":${`[${input.value
             .map(

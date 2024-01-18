@@ -10,8 +10,7 @@ export const test_random_TemplateAtomic = _test_random(
     ((
       generator?: Partial<typia.IRandomGenerator>,
     ): typia.Resolved<TemplateAtomic> => {
-      const $generator = (typia.random as any).generator;
-      const $pick = (typia.random as any).pick;
+      const $generator = require("typia/lib/functional/$generator").$generator;
       const $ro0 = (_recursive: boolean = false, _depth: number = 0): any => ({
         prefix: `prefix_${
           (generator?.customs ?? $generator.customs)?.string?.([]) ??
@@ -33,7 +32,7 @@ export const test_random_TemplateAtomic = _test_random(
           (generator?.customs ?? $generator.customs)?.number?.([]) ??
           (generator?.number ?? $generator.number)(0, 100)
         }_value`,
-        middle_boolean: $pick([
+        middle_boolean: (generator?.pick ?? $generator.pick)([
           () => "the_false_value",
           () => "the_true_value",
         ])(),
@@ -94,7 +93,9 @@ export const test_random_TemplateAtomic = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is TemplateAtomic => {
-        const $guard = (typia.createAssert as any).guard;
+        const $guard = require("typia/lib/functional/$guard").$guard(
+          "typia.createAssert",
+        );
         const $ao0 = (
           input: any,
           _path: string,

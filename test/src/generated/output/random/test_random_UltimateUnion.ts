@@ -10,11 +10,10 @@ export const test_random_UltimateUnion = _test_random(
     ((
       generator?: Partial<typia.IRandomGenerator>,
     ): typia.Resolved<UltimateUnion> => {
-      const $generator = (typia.random as any).generator;
-      const $pick = (typia.random as any).pick;
+      const $generator = require("typia/lib/functional/$generator").$generator;
       const $ro0 = (_recursive: boolean = false, _depth: number = 0): any => ({
         schemas: (generator?.array ?? $generator.array)(() =>
-          $pick([
+          (generator?.pick ?? $generator.pick)([
             () => $ro5(_recursive, _recursive ? 1 + _depth : _depth),
             () => $ro4(_recursive, _recursive ? 1 + _depth : _depth),
             () => $ro1(_recursive, _recursive ? 1 + _depth : _depth),
@@ -32,7 +31,10 @@ export const test_random_UltimateUnion = _test_random(
           ])(),
         ),
         components: $ro19(_recursive, _recursive ? 1 + _depth : _depth),
-        purpose: $pick([() => "swagger", () => "ajv"])(),
+        purpose: (generator?.pick ?? $generator.pick)([
+          () => "swagger",
+          () => "ajv",
+        ])(),
         surplus: (generator?.boolean ?? $generator.boolean)(),
       });
       const $ro1 = (_recursive: boolean = false, _depth: number = 0): any => ({
@@ -40,46 +42,46 @@ export const test_random_UltimateUnion = _test_random(
           (generator?.boolean ?? $generator.boolean)(),
         ),
         type: "boolean",
-        title: $pick([
+        title: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.customs ?? $generator.customs)?.string?.([]) ??
             (generator?.string ?? $generator.string)(),
         ])(),
-        default: $pick([
+        default: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        nullable: $pick([
+        nullable: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        deprecated: $pick([
+        deprecated: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        description: $pick([
+        description: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.customs ?? $generator.customs)?.string?.([]) ??
             (generator?.string ?? $generator.string)(),
         ])(),
-        "x-typia-jsDocTags": $pick([
+        "x-typia-jsDocTags": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.array ?? $generator.array)(() =>
               $ro2(_recursive, _recursive ? 1 + _depth : _depth),
             ),
         ])(),
-        "x-typia-required": $pick([
+        "x-typia-required": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        "x-typia-optional": $pick([
+        "x-typia-optional": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        "x-typia-rest": $pick([
+        "x-typia-rest": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
@@ -88,7 +90,7 @@ export const test_random_UltimateUnion = _test_random(
         name:
           (generator?.customs ?? $generator.customs)?.string?.([]) ??
           (generator?.string ?? $generator.string)(),
-        text: $pick([
+        text: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.array ?? $generator.array)(() =>
@@ -111,48 +113,48 @@ export const test_random_UltimateUnion = _test_random(
             (generator?.number ?? $generator.number)(0, 100),
         ),
         type: "number",
-        title: $pick([
+        title: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.customs ?? $generator.customs)?.string?.([]) ??
             (generator?.string ?? $generator.string)(),
         ])(),
-        default: $pick([
+        default: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.customs ?? $generator.customs)?.number?.([]) ??
             (generator?.number ?? $generator.number)(0, 100),
         ])(),
-        nullable: $pick([
+        nullable: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        deprecated: $pick([
+        deprecated: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        description: $pick([
+        description: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.customs ?? $generator.customs)?.string?.([]) ??
             (generator?.string ?? $generator.string)(),
         ])(),
-        "x-typia-jsDocTags": $pick([
+        "x-typia-jsDocTags": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.array ?? $generator.array)(() =>
               $ro2(_recursive, _recursive ? 1 + _depth : _depth),
             ),
         ])(),
-        "x-typia-required": $pick([
+        "x-typia-required": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        "x-typia-optional": $pick([
+        "x-typia-optional": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        "x-typia-rest": $pick([
+        "x-typia-rest": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
@@ -164,107 +166,107 @@ export const test_random_UltimateUnion = _test_random(
             (generator?.string ?? $generator.string)(),
         ),
         type: "string",
-        title: $pick([
+        title: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.customs ?? $generator.customs)?.string?.([]) ??
             (generator?.string ?? $generator.string)(),
         ])(),
-        default: $pick([
+        default: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.customs ?? $generator.customs)?.string?.([]) ??
             (generator?.string ?? $generator.string)(),
         ])(),
-        nullable: $pick([
+        nullable: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        deprecated: $pick([
+        deprecated: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        description: $pick([
+        description: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.customs ?? $generator.customs)?.string?.([]) ??
             (generator?.string ?? $generator.string)(),
         ])(),
-        "x-typia-jsDocTags": $pick([
+        "x-typia-jsDocTags": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.array ?? $generator.array)(() =>
               $ro2(_recursive, _recursive ? 1 + _depth : _depth),
             ),
         ])(),
-        "x-typia-required": $pick([
+        "x-typia-required": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        "x-typia-optional": $pick([
+        "x-typia-optional": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        "x-typia-rest": $pick([
+        "x-typia-rest": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
       });
       const $ro6 = (_recursive: boolean = false, _depth: number = 0): any => ({
-        "x-typia-typeTags": $pick([
+        "x-typia-typeTags": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.array ?? $generator.array)(() =>
               $ro7(_recursive, _recursive ? 1 + _depth : _depth),
             ),
         ])(),
-        default: $pick([
+        default: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
         type: "boolean",
-        nullable: $pick([
+        nullable: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        deprecated: $pick([
+        deprecated: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        title: $pick([
+        title: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.customs ?? $generator.customs)?.string?.([]) ??
             (generator?.string ?? $generator.string)(),
         ])(),
-        description: $pick([
+        description: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.customs ?? $generator.customs)?.string?.([]) ??
             (generator?.string ?? $generator.string)(),
         ])(),
-        "x-typia-jsDocTags": $pick([
+        "x-typia-jsDocTags": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.array ?? $generator.array)(() =>
               $ro2(_recursive, _recursive ? 1 + _depth : _depth),
             ),
         ])(),
-        "x-typia-required": $pick([
+        "x-typia-required": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        "x-typia-optional": $pick([
+        "x-typia-optional": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        "x-typia-rest": $pick([
+        "x-typia-rest": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
       });
       const $ro7 = (_recursive: boolean = false, _depth: number = 0): any => ({
-        target: $pick([
+        target: (generator?.pick ?? $generator.pick)([
           () => "string",
           () => "number",
           () => "bigint",
@@ -277,7 +279,7 @@ export const test_random_UltimateUnion = _test_random(
         kind:
           (generator?.customs ?? $generator.customs)?.string?.([]) ??
           (generator?.string ?? $generator.string)(),
-        exclusive: $pick([
+        exclusive: (generator?.pick ?? $generator.pick)([
           () => (generator?.boolean ?? $generator.boolean)(),
           () =>
             (generator?.array ?? $generator.array)(
@@ -286,8 +288,11 @@ export const test_random_UltimateUnion = _test_random(
                 (generator?.string ?? $generator.string)(),
             ),
         ])(),
-        value: $pick([() => "any type used...", () => undefined])(),
-        validate: $pick([
+        value: (generator?.pick ?? $generator.pick)([
+          () => "any type used...",
+          () => undefined,
+        ])(),
+        validate: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.customs ?? $generator.customs)?.string?.([]) ??
@@ -295,7 +300,7 @@ export const test_random_UltimateUnion = _test_random(
         ])(),
       });
       const $ro8 = (_recursive: boolean = false, _depth: number = 0): any => ({
-        minimum: $pick([
+        minimum: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.customs ?? $generator.customs)?.number?.([
@@ -306,7 +311,7 @@ export const test_random_UltimateUnion = _test_random(
               },
             ]) ?? (generator?.integer ?? $generator.integer)(0, 100),
         ])(),
-        maximum: $pick([
+        maximum: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.customs ?? $generator.customs)?.number?.([
@@ -317,15 +322,15 @@ export const test_random_UltimateUnion = _test_random(
               },
             ]) ?? (generator?.integer ?? $generator.integer)(0, 100),
         ])(),
-        exclusiveMinimum: $pick([
+        exclusiveMinimum: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        exclusiveMaximum: $pick([
+        exclusiveMaximum: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        multipleOf: $pick([
+        multipleOf: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.customs ?? $generator.customs)?.number?.([
@@ -336,143 +341,143 @@ export const test_random_UltimateUnion = _test_random(
               },
             ]) ?? (generator?.integer ?? $generator.integer)(0, 100),
         ])(),
-        "x-typia-typeTags": $pick([
+        "x-typia-typeTags": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.array ?? $generator.array)(() =>
               $ro7(_recursive, _recursive ? 1 + _depth : _depth),
             ),
         ])(),
-        default: $pick([
+        default: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.customs ?? $generator.customs)?.number?.([]) ??
             (generator?.number ?? $generator.number)(0, 100),
         ])(),
         type: "integer",
-        nullable: $pick([
+        nullable: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        deprecated: $pick([
+        deprecated: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        title: $pick([
+        title: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.customs ?? $generator.customs)?.string?.([]) ??
             (generator?.string ?? $generator.string)(),
         ])(),
-        description: $pick([
+        description: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.customs ?? $generator.customs)?.string?.([]) ??
             (generator?.string ?? $generator.string)(),
         ])(),
-        "x-typia-jsDocTags": $pick([
+        "x-typia-jsDocTags": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.array ?? $generator.array)(() =>
               $ro2(_recursive, _recursive ? 1 + _depth : _depth),
             ),
         ])(),
-        "x-typia-required": $pick([
+        "x-typia-required": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        "x-typia-optional": $pick([
+        "x-typia-optional": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        "x-typia-rest": $pick([
+        "x-typia-rest": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
       });
       const $ro9 = (_recursive: boolean = false, _depth: number = 0): any => ({
-        minimum: $pick([
+        minimum: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.customs ?? $generator.customs)?.number?.([]) ??
             (generator?.number ?? $generator.number)(0, 100),
         ])(),
-        maximum: $pick([
+        maximum: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.customs ?? $generator.customs)?.number?.([]) ??
             (generator?.number ?? $generator.number)(0, 100),
         ])(),
-        exclusiveMinimum: $pick([
+        exclusiveMinimum: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        exclusiveMaximum: $pick([
+        exclusiveMaximum: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        multipleOf: $pick([
+        multipleOf: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.customs ?? $generator.customs)?.number?.([]) ??
             (generator?.number ?? $generator.number)(0, 100),
         ])(),
-        "x-typia-typeTags": $pick([
+        "x-typia-typeTags": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.array ?? $generator.array)(() =>
               $ro7(_recursive, _recursive ? 1 + _depth : _depth),
             ),
         ])(),
-        default: $pick([
+        default: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.customs ?? $generator.customs)?.number?.([]) ??
             (generator?.number ?? $generator.number)(0, 100),
         ])(),
         type: "number",
-        nullable: $pick([
+        nullable: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        deprecated: $pick([
+        deprecated: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        title: $pick([
+        title: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.customs ?? $generator.customs)?.string?.([]) ??
             (generator?.string ?? $generator.string)(),
         ])(),
-        description: $pick([
+        description: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.customs ?? $generator.customs)?.string?.([]) ??
             (generator?.string ?? $generator.string)(),
         ])(),
-        "x-typia-jsDocTags": $pick([
+        "x-typia-jsDocTags": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.array ?? $generator.array)(() =>
               $ro2(_recursive, _recursive ? 1 + _depth : _depth),
             ),
         ])(),
-        "x-typia-required": $pick([
+        "x-typia-required": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        "x-typia-optional": $pick([
+        "x-typia-optional": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        "x-typia-rest": $pick([
+        "x-typia-rest": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
       });
       const $ro10 = (_recursive: boolean = false, _depth: number = 0): any => ({
-        minLength: $pick([
+        minLength: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.customs ?? $generator.customs)?.number?.([
@@ -483,7 +488,7 @@ export const test_random_UltimateUnion = _test_random(
               },
             ]) ?? (generator?.integer ?? $generator.integer)(0, 10),
         ])(),
-        maxLength: $pick([
+        maxLength: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.customs ?? $generator.customs)?.number?.([
@@ -494,74 +499,74 @@ export const test_random_UltimateUnion = _test_random(
               },
             ]) ?? (generator?.integer ?? $generator.integer)(0, 10),
         ])(),
-        pattern: $pick([
+        pattern: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.customs ?? $generator.customs)?.string?.([]) ??
             (generator?.string ?? $generator.string)(),
         ])(),
-        format: $pick([
+        format: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.customs ?? $generator.customs)?.string?.([]) ??
             (generator?.string ?? $generator.string)(),
         ])(),
-        "x-typia-typeTags": $pick([
+        "x-typia-typeTags": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.array ?? $generator.array)(() =>
               $ro7(_recursive, _recursive ? 1 + _depth : _depth),
             ),
         ])(),
-        default: $pick([
+        default: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.customs ?? $generator.customs)?.string?.([]) ??
             (generator?.string ?? $generator.string)(),
         ])(),
         type: "string",
-        nullable: $pick([
+        nullable: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        deprecated: $pick([
+        deprecated: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        title: $pick([
+        title: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.customs ?? $generator.customs)?.string?.([]) ??
             (generator?.string ?? $generator.string)(),
         ])(),
-        description: $pick([
+        description: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.customs ?? $generator.customs)?.string?.([]) ??
             (generator?.string ?? $generator.string)(),
         ])(),
-        "x-typia-jsDocTags": $pick([
+        "x-typia-jsDocTags": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.array ?? $generator.array)(() =>
               $ro2(_recursive, _recursive ? 1 + _depth : _depth),
             ),
         ])(),
-        "x-typia-required": $pick([
+        "x-typia-required": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        "x-typia-optional": $pick([
+        "x-typia-optional": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        "x-typia-rest": $pick([
+        "x-typia-rest": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
       });
       const $ro11 = (_recursive: boolean = true, _depth: number = 0): any => ({
-        items: $pick([
+        items: (generator?.pick ?? $generator.pick)([
           () => $ro5(true, _recursive ? 1 + _depth : _depth),
           () => $ro4(true, _recursive ? 1 + _depth : _depth),
           () => $ro1(true, _recursive ? 1 + _depth : _depth),
@@ -577,7 +582,7 @@ export const test_random_UltimateUnion = _test_random(
           () => $ro17(true, _recursive ? 1 + _depth : _depth),
           () => $ro18(true, _recursive ? 1 + _depth : _depth),
         ])(),
-        minItems: $pick([
+        minItems: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.customs ?? $generator.customs)?.number?.([
@@ -588,7 +593,7 @@ export const test_random_UltimateUnion = _test_random(
               },
             ]) ?? (generator?.integer ?? $generator.integer)(0, 10),
         ])(),
-        maxItems: $pick([
+        maxItems: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.customs ?? $generator.customs)?.number?.([
@@ -599,11 +604,11 @@ export const test_random_UltimateUnion = _test_random(
               },
             ]) ?? (generator?.integer ?? $generator.integer)(0, 10),
         ])(),
-        "x-typia-tuple": $pick([
+        "x-typia-tuple": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => $ro12(true, _recursive ? 1 + _depth : _depth),
         ])(),
-        "x-typia-typeTags": $pick([
+        "x-typia-typeTags": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             _recursive && 5 < _depth
@@ -615,27 +620,27 @@ export const test_random_UltimateUnion = _test_random(
               : [],
         ])(),
         type: "array",
-        nullable: $pick([
+        nullable: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        deprecated: $pick([
+        deprecated: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        title: $pick([
+        title: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.customs ?? $generator.customs)?.string?.([]) ??
             (generator?.string ?? $generator.string)(),
         ])(),
-        description: $pick([
+        description: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.customs ?? $generator.customs)?.string?.([]) ??
             (generator?.string ?? $generator.string)(),
         ])(),
-        "x-typia-jsDocTags": $pick([
+        "x-typia-jsDocTags": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             _recursive && 5 < _depth
@@ -646,15 +651,15 @@ export const test_random_UltimateUnion = _test_random(
                 )
               : [],
         ])(),
-        "x-typia-required": $pick([
+        "x-typia-required": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        "x-typia-optional": $pick([
+        "x-typia-optional": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        "x-typia-rest": $pick([
+        "x-typia-rest": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
@@ -665,7 +670,7 @@ export const test_random_UltimateUnion = _test_random(
             ? []
             : 5 >= _depth
             ? (generator?.array ?? $generator.array)(() =>
-                $pick([
+                (generator?.pick ?? $generator.pick)([
                   () => $ro5(true, _recursive ? 1 + _depth : _depth),
                   () => $ro4(true, _recursive ? 1 + _depth : _depth),
                   () => $ro1(true, _recursive ? 1 + _depth : _depth),
@@ -691,7 +696,7 @@ export const test_random_UltimateUnion = _test_random(
               value: "uint32",
             },
           ]) ?? (generator?.integer ?? $generator.integer)(0, 10),
-        maxItems: $pick([
+        maxItems: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.customs ?? $generator.customs)?.number?.([
@@ -703,27 +708,27 @@ export const test_random_UltimateUnion = _test_random(
             ]) ?? (generator?.integer ?? $generator.integer)(0, 10),
         ])(),
         type: "array",
-        nullable: $pick([
+        nullable: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        deprecated: $pick([
+        deprecated: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        title: $pick([
+        title: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.customs ?? $generator.customs)?.string?.([]) ??
             (generator?.string ?? $generator.string)(),
         ])(),
-        description: $pick([
+        description: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.customs ?? $generator.customs)?.string?.([]) ??
             (generator?.string ?? $generator.string)(),
         ])(),
-        "x-typia-jsDocTags": $pick([
+        "x-typia-jsDocTags": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             _recursive && 5 < _depth
@@ -734,22 +739,22 @@ export const test_random_UltimateUnion = _test_random(
                 )
               : [],
         ])(),
-        "x-typia-required": $pick([
+        "x-typia-required": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        "x-typia-optional": $pick([
+        "x-typia-optional": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        "x-typia-rest": $pick([
+        "x-typia-rest": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
       });
       const $ro13 = (_recursive: boolean = true, _depth: number = 0): any => ({
         properties: $ro14(true, _recursive ? 1 + _depth : _depth),
-        required: $pick([
+        required: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             _recursive && 5 < _depth
@@ -762,11 +767,11 @@ export const test_random_UltimateUnion = _test_random(
                 )
               : [],
         ])(),
-        patternProperties: $pick([
+        patternProperties: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => $ro14(true, _recursive ? 1 + _depth : _depth),
         ])(),
-        additionalProperties: $pick([
+        additionalProperties: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => $ro5(true, _recursive ? 1 + _depth : _depth),
           () => $ro4(true, _recursive ? 1 + _depth : _depth),
@@ -783,11 +788,11 @@ export const test_random_UltimateUnion = _test_random(
           () => $ro17(true, _recursive ? 1 + _depth : _depth),
           () => $ro18(true, _recursive ? 1 + _depth : _depth),
         ])(),
-        "x-typia-patternProperties": $pick([
+        "x-typia-patternProperties": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => $ro14(true, _recursive ? 1 + _depth : _depth),
         ])(),
-        "x-typia-additionalProperties": $pick([
+        "x-typia-additionalProperties": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => $ro5(true, _recursive ? 1 + _depth : _depth),
           () => $ro4(true, _recursive ? 1 + _depth : _depth),
@@ -805,27 +810,27 @@ export const test_random_UltimateUnion = _test_random(
           () => $ro18(true, _recursive ? 1 + _depth : _depth),
         ])(),
         type: "object",
-        nullable: $pick([
+        nullable: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        deprecated: $pick([
+        deprecated: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        title: $pick([
+        title: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.customs ?? $generator.customs)?.string?.([]) ??
             (generator?.string ?? $generator.string)(),
         ])(),
-        description: $pick([
+        description: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.customs ?? $generator.customs)?.string?.([]) ??
             (generator?.string ?? $generator.string)(),
         ])(),
-        "x-typia-jsDocTags": $pick([
+        "x-typia-jsDocTags": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             _recursive && 5 < _depth
@@ -836,15 +841,15 @@ export const test_random_UltimateUnion = _test_random(
                 )
               : [],
         ])(),
-        "x-typia-required": $pick([
+        "x-typia-required": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        "x-typia-optional": $pick([
+        "x-typia-optional": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        "x-typia-rest": $pick([
+        "x-typia-rest": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
@@ -857,7 +862,7 @@ export const test_random_UltimateUnion = _test_random(
               (output[
                 (generator?.customs ?? $generator.customs)?.string?.([]) ??
                   (generator?.string ?? $generator.string)()
-              ] = $pick([
+              ] = (generator?.pick ?? $generator.pick)([
                 () => $ro5(true, _recursive ? 1 + _depth : _depth),
                 () => $ro4(true, _recursive ? 1 + _depth : _depth),
                 () => $ro1(true, _recursive ? 1 + _depth : _depth),
@@ -882,76 +887,76 @@ export const test_random_UltimateUnion = _test_random(
         $ref:
           (generator?.customs ?? $generator.customs)?.string?.([]) ??
           (generator?.string ?? $generator.string)(),
-        deprecated: $pick([
+        deprecated: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        title: $pick([
+        title: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.customs ?? $generator.customs)?.string?.([]) ??
             (generator?.string ?? $generator.string)(),
         ])(),
-        description: $pick([
+        description: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.customs ?? $generator.customs)?.string?.([]) ??
             (generator?.string ?? $generator.string)(),
         ])(),
-        "x-typia-jsDocTags": $pick([
+        "x-typia-jsDocTags": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.array ?? $generator.array)(() =>
               $ro2(_recursive, _recursive ? 1 + _depth : _depth),
             ),
         ])(),
-        "x-typia-required": $pick([
+        "x-typia-required": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        "x-typia-optional": $pick([
+        "x-typia-optional": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        "x-typia-rest": $pick([
+        "x-typia-rest": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
       });
       const $ro16 = (_recursive: boolean = false, _depth: number = 0): any => ({
         type: "null",
-        deprecated: $pick([
+        deprecated: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        title: $pick([
+        title: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.customs ?? $generator.customs)?.string?.([]) ??
             (generator?.string ?? $generator.string)(),
         ])(),
-        description: $pick([
+        description: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.customs ?? $generator.customs)?.string?.([]) ??
             (generator?.string ?? $generator.string)(),
         ])(),
-        "x-typia-jsDocTags": $pick([
+        "x-typia-jsDocTags": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.array ?? $generator.array)(() =>
               $ro2(_recursive, _recursive ? 1 + _depth : _depth),
             ),
         ])(),
-        "x-typia-required": $pick([
+        "x-typia-required": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        "x-typia-optional": $pick([
+        "x-typia-optional": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        "x-typia-rest": $pick([
+        "x-typia-rest": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
@@ -962,7 +967,7 @@ export const test_random_UltimateUnion = _test_random(
             ? []
             : 5 >= _depth
             ? (generator?.array ?? $generator.array)(() =>
-                $pick([
+                (generator?.pick ?? $generator.pick)([
                   () => $ro5(true, _recursive ? 1 + _depth : _depth),
                   () => $ro4(true, _recursive ? 1 + _depth : _depth),
                   () => $ro1(true, _recursive ? 1 + _depth : _depth),
@@ -980,23 +985,23 @@ export const test_random_UltimateUnion = _test_random(
                 ])(),
               )
             : [],
-        deprecated: $pick([
+        deprecated: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        title: $pick([
+        title: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.customs ?? $generator.customs)?.string?.([]) ??
             (generator?.string ?? $generator.string)(),
         ])(),
-        description: $pick([
+        description: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.customs ?? $generator.customs)?.string?.([]) ??
             (generator?.string ?? $generator.string)(),
         ])(),
-        "x-typia-jsDocTags": $pick([
+        "x-typia-jsDocTags": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             _recursive && 5 < _depth
@@ -1007,59 +1012,59 @@ export const test_random_UltimateUnion = _test_random(
                 )
               : [],
         ])(),
-        "x-typia-required": $pick([
+        "x-typia-required": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        "x-typia-optional": $pick([
+        "x-typia-optional": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        "x-typia-rest": $pick([
+        "x-typia-rest": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
       });
       const $ro18 = (_recursive: boolean = false, _depth: number = 0): any => ({
         type: undefined,
-        deprecated: $pick([
+        deprecated: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        title: $pick([
+        title: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.customs ?? $generator.customs)?.string?.([]) ??
             (generator?.string ?? $generator.string)(),
         ])(),
-        description: $pick([
+        description: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.customs ?? $generator.customs)?.string?.([]) ??
             (generator?.string ?? $generator.string)(),
         ])(),
-        "x-typia-jsDocTags": $pick([
+        "x-typia-jsDocTags": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.array ?? $generator.array)(() =>
               $ro2(_recursive, _recursive ? 1 + _depth : _depth),
             ),
         ])(),
-        "x-typia-required": $pick([
+        "x-typia-required": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        "x-typia-optional": $pick([
+        "x-typia-optional": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        "x-typia-rest": $pick([
+        "x-typia-rest": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
       });
       const $ro19 = (_recursive: boolean = false, _depth: number = 0): any => ({
-        schemas: $pick([
+        schemas: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => $ro20(_recursive, _recursive ? 1 + _depth : _depth),
         ])(),
@@ -1071,7 +1076,7 @@ export const test_random_UltimateUnion = _test_random(
             (output[
               (generator?.customs ?? $generator.customs)?.string?.([]) ??
                 (generator?.string ?? $generator.string)()
-            ] = $pick([
+            ] = (generator?.pick ?? $generator.pick)([
               () => $ro23(_recursive, _recursive ? 1 + _depth : _depth),
               () => $ro22(_recursive, _recursive ? 1 + _depth : _depth),
               () => $ro21(_recursive, _recursive ? 1 + _depth : _depth),
@@ -1096,56 +1101,56 @@ export const test_random_UltimateUnion = _test_random(
           (generator?.boolean ?? $generator.boolean)(),
         ),
         type: "boolean",
-        title: $pick([
+        title: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.customs ?? $generator.customs)?.string?.([]) ??
             (generator?.string ?? $generator.string)(),
         ])(),
-        default: $pick([
+        default: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        nullable: $pick([
+        nullable: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        deprecated: $pick([
+        deprecated: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        description: $pick([
+        description: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.customs ?? $generator.customs)?.string?.([]) ??
             (generator?.string ?? $generator.string)(),
         ])(),
-        "x-typia-jsDocTags": $pick([
+        "x-typia-jsDocTags": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.array ?? $generator.array)(() =>
               $ro2(_recursive, _recursive ? 1 + _depth : _depth),
             ),
         ])(),
-        "x-typia-required": $pick([
+        "x-typia-required": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        "x-typia-optional": $pick([
+        "x-typia-optional": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        "x-typia-rest": $pick([
+        "x-typia-rest": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        $id: $pick([
+        $id: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.customs ?? $generator.customs)?.string?.([]) ??
             (generator?.string ?? $generator.string)(),
         ])(),
-        $recursiveAnchor: $pick([
+        $recursiveAnchor: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
@@ -1157,58 +1162,58 @@ export const test_random_UltimateUnion = _test_random(
             (generator?.number ?? $generator.number)(0, 100),
         ),
         type: "number",
-        title: $pick([
+        title: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.customs ?? $generator.customs)?.string?.([]) ??
             (generator?.string ?? $generator.string)(),
         ])(),
-        default: $pick([
+        default: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.customs ?? $generator.customs)?.number?.([]) ??
             (generator?.number ?? $generator.number)(0, 100),
         ])(),
-        nullable: $pick([
+        nullable: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        deprecated: $pick([
+        deprecated: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        description: $pick([
+        description: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.customs ?? $generator.customs)?.string?.([]) ??
             (generator?.string ?? $generator.string)(),
         ])(),
-        "x-typia-jsDocTags": $pick([
+        "x-typia-jsDocTags": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.array ?? $generator.array)(() =>
               $ro2(_recursive, _recursive ? 1 + _depth : _depth),
             ),
         ])(),
-        "x-typia-required": $pick([
+        "x-typia-required": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        "x-typia-optional": $pick([
+        "x-typia-optional": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        "x-typia-rest": $pick([
+        "x-typia-rest": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        $id: $pick([
+        $id: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.customs ?? $generator.customs)?.string?.([]) ??
             (generator?.string ?? $generator.string)(),
         ])(),
-        $recursiveAnchor: $pick([
+        $recursiveAnchor: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
@@ -1220,127 +1225,127 @@ export const test_random_UltimateUnion = _test_random(
             (generator?.string ?? $generator.string)(),
         ),
         type: "string",
-        title: $pick([
+        title: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.customs ?? $generator.customs)?.string?.([]) ??
             (generator?.string ?? $generator.string)(),
         ])(),
-        default: $pick([
+        default: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.customs ?? $generator.customs)?.string?.([]) ??
             (generator?.string ?? $generator.string)(),
         ])(),
-        nullable: $pick([
+        nullable: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        deprecated: $pick([
+        deprecated: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        description: $pick([
+        description: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.customs ?? $generator.customs)?.string?.([]) ??
             (generator?.string ?? $generator.string)(),
         ])(),
-        "x-typia-jsDocTags": $pick([
+        "x-typia-jsDocTags": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.array ?? $generator.array)(() =>
               $ro2(_recursive, _recursive ? 1 + _depth : _depth),
             ),
         ])(),
-        "x-typia-required": $pick([
+        "x-typia-required": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        "x-typia-optional": $pick([
+        "x-typia-optional": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        "x-typia-rest": $pick([
+        "x-typia-rest": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        $id: $pick([
+        $id: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.customs ?? $generator.customs)?.string?.([]) ??
             (generator?.string ?? $generator.string)(),
         ])(),
-        $recursiveAnchor: $pick([
+        $recursiveAnchor: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
       });
       const $ro24 = (_recursive: boolean = false, _depth: number = 0): any => ({
-        "x-typia-typeTags": $pick([
+        "x-typia-typeTags": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.array ?? $generator.array)(() =>
               $ro7(_recursive, _recursive ? 1 + _depth : _depth),
             ),
         ])(),
-        default: $pick([
+        default: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
         type: "boolean",
-        nullable: $pick([
+        nullable: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        deprecated: $pick([
+        deprecated: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        title: $pick([
+        title: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.customs ?? $generator.customs)?.string?.([]) ??
             (generator?.string ?? $generator.string)(),
         ])(),
-        description: $pick([
+        description: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.customs ?? $generator.customs)?.string?.([]) ??
             (generator?.string ?? $generator.string)(),
         ])(),
-        "x-typia-jsDocTags": $pick([
+        "x-typia-jsDocTags": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.array ?? $generator.array)(() =>
               $ro2(_recursive, _recursive ? 1 + _depth : _depth),
             ),
         ])(),
-        "x-typia-required": $pick([
+        "x-typia-required": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        "x-typia-optional": $pick([
+        "x-typia-optional": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        "x-typia-rest": $pick([
+        "x-typia-rest": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        $id: $pick([
+        $id: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.customs ?? $generator.customs)?.string?.([]) ??
             (generator?.string ?? $generator.string)(),
         ])(),
-        $recursiveAnchor: $pick([
+        $recursiveAnchor: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
       });
       const $ro25 = (_recursive: boolean = false, _depth: number = 0): any => ({
-        minimum: $pick([
+        minimum: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.customs ?? $generator.customs)?.number?.([
@@ -1351,7 +1356,7 @@ export const test_random_UltimateUnion = _test_random(
               },
             ]) ?? (generator?.integer ?? $generator.integer)(0, 100),
         ])(),
-        maximum: $pick([
+        maximum: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.customs ?? $generator.customs)?.number?.([
@@ -1362,15 +1367,15 @@ export const test_random_UltimateUnion = _test_random(
               },
             ]) ?? (generator?.integer ?? $generator.integer)(0, 100),
         ])(),
-        exclusiveMinimum: $pick([
+        exclusiveMinimum: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        exclusiveMaximum: $pick([
+        exclusiveMaximum: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        multipleOf: $pick([
+        multipleOf: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.customs ?? $generator.customs)?.number?.([
@@ -1381,163 +1386,163 @@ export const test_random_UltimateUnion = _test_random(
               },
             ]) ?? (generator?.integer ?? $generator.integer)(0, 100),
         ])(),
-        "x-typia-typeTags": $pick([
+        "x-typia-typeTags": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.array ?? $generator.array)(() =>
               $ro7(_recursive, _recursive ? 1 + _depth : _depth),
             ),
         ])(),
-        default: $pick([
+        default: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.customs ?? $generator.customs)?.number?.([]) ??
             (generator?.number ?? $generator.number)(0, 100),
         ])(),
         type: "integer",
-        nullable: $pick([
+        nullable: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        deprecated: $pick([
+        deprecated: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        title: $pick([
+        title: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.customs ?? $generator.customs)?.string?.([]) ??
             (generator?.string ?? $generator.string)(),
         ])(),
-        description: $pick([
+        description: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.customs ?? $generator.customs)?.string?.([]) ??
             (generator?.string ?? $generator.string)(),
         ])(),
-        "x-typia-jsDocTags": $pick([
+        "x-typia-jsDocTags": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.array ?? $generator.array)(() =>
               $ro2(_recursive, _recursive ? 1 + _depth : _depth),
             ),
         ])(),
-        "x-typia-required": $pick([
+        "x-typia-required": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        "x-typia-optional": $pick([
+        "x-typia-optional": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        "x-typia-rest": $pick([
+        "x-typia-rest": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        $id: $pick([
+        $id: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.customs ?? $generator.customs)?.string?.([]) ??
             (generator?.string ?? $generator.string)(),
         ])(),
-        $recursiveAnchor: $pick([
+        $recursiveAnchor: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
       });
       const $ro26 = (_recursive: boolean = false, _depth: number = 0): any => ({
-        minimum: $pick([
+        minimum: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.customs ?? $generator.customs)?.number?.([]) ??
             (generator?.number ?? $generator.number)(0, 100),
         ])(),
-        maximum: $pick([
+        maximum: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.customs ?? $generator.customs)?.number?.([]) ??
             (generator?.number ?? $generator.number)(0, 100),
         ])(),
-        exclusiveMinimum: $pick([
+        exclusiveMinimum: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        exclusiveMaximum: $pick([
+        exclusiveMaximum: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        multipleOf: $pick([
+        multipleOf: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.customs ?? $generator.customs)?.number?.([]) ??
             (generator?.number ?? $generator.number)(0, 100),
         ])(),
-        "x-typia-typeTags": $pick([
+        "x-typia-typeTags": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.array ?? $generator.array)(() =>
               $ro7(_recursive, _recursive ? 1 + _depth : _depth),
             ),
         ])(),
-        default: $pick([
+        default: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.customs ?? $generator.customs)?.number?.([]) ??
             (generator?.number ?? $generator.number)(0, 100),
         ])(),
         type: "number",
-        nullable: $pick([
+        nullable: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        deprecated: $pick([
+        deprecated: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        title: $pick([
+        title: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.customs ?? $generator.customs)?.string?.([]) ??
             (generator?.string ?? $generator.string)(),
         ])(),
-        description: $pick([
+        description: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.customs ?? $generator.customs)?.string?.([]) ??
             (generator?.string ?? $generator.string)(),
         ])(),
-        "x-typia-jsDocTags": $pick([
+        "x-typia-jsDocTags": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.array ?? $generator.array)(() =>
               $ro2(_recursive, _recursive ? 1 + _depth : _depth),
             ),
         ])(),
-        "x-typia-required": $pick([
+        "x-typia-required": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        "x-typia-optional": $pick([
+        "x-typia-optional": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        "x-typia-rest": $pick([
+        "x-typia-rest": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        $id: $pick([
+        $id: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.customs ?? $generator.customs)?.string?.([]) ??
             (generator?.string ?? $generator.string)(),
         ])(),
-        $recursiveAnchor: $pick([
+        $recursiveAnchor: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
       });
       const $ro27 = (_recursive: boolean = false, _depth: number = 0): any => ({
-        minLength: $pick([
+        minLength: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.customs ?? $generator.customs)?.number?.([
@@ -1548,7 +1553,7 @@ export const test_random_UltimateUnion = _test_random(
               },
             ]) ?? (generator?.integer ?? $generator.integer)(0, 10),
         ])(),
-        maxLength: $pick([
+        maxLength: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.customs ?? $generator.customs)?.number?.([
@@ -1559,84 +1564,84 @@ export const test_random_UltimateUnion = _test_random(
               },
             ]) ?? (generator?.integer ?? $generator.integer)(0, 10),
         ])(),
-        pattern: $pick([
+        pattern: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.customs ?? $generator.customs)?.string?.([]) ??
             (generator?.string ?? $generator.string)(),
         ])(),
-        format: $pick([
+        format: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.customs ?? $generator.customs)?.string?.([]) ??
             (generator?.string ?? $generator.string)(),
         ])(),
-        "x-typia-typeTags": $pick([
+        "x-typia-typeTags": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.array ?? $generator.array)(() =>
               $ro7(_recursive, _recursive ? 1 + _depth : _depth),
             ),
         ])(),
-        default: $pick([
+        default: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.customs ?? $generator.customs)?.string?.([]) ??
             (generator?.string ?? $generator.string)(),
         ])(),
         type: "string",
-        nullable: $pick([
+        nullable: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        deprecated: $pick([
+        deprecated: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        title: $pick([
+        title: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.customs ?? $generator.customs)?.string?.([]) ??
             (generator?.string ?? $generator.string)(),
         ])(),
-        description: $pick([
+        description: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.customs ?? $generator.customs)?.string?.([]) ??
             (generator?.string ?? $generator.string)(),
         ])(),
-        "x-typia-jsDocTags": $pick([
+        "x-typia-jsDocTags": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.array ?? $generator.array)(() =>
               $ro2(_recursive, _recursive ? 1 + _depth : _depth),
             ),
         ])(),
-        "x-typia-required": $pick([
+        "x-typia-required": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        "x-typia-optional": $pick([
+        "x-typia-optional": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        "x-typia-rest": $pick([
+        "x-typia-rest": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        $id: $pick([
+        $id: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.customs ?? $generator.customs)?.string?.([]) ??
             (generator?.string ?? $generator.string)(),
         ])(),
-        $recursiveAnchor: $pick([
+        $recursiveAnchor: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
       });
       const $ro28 = (_recursive: boolean = false, _depth: number = 0): any => ({
-        items: $pick([
+        items: (generator?.pick ?? $generator.pick)([
           () => $ro5(_recursive, _recursive ? 1 + _depth : _depth),
           () => $ro4(_recursive, _recursive ? 1 + _depth : _depth),
           () => $ro1(_recursive, _recursive ? 1 + _depth : _depth),
@@ -1652,7 +1657,7 @@ export const test_random_UltimateUnion = _test_random(
           () => $ro17(_recursive, _recursive ? 1 + _depth : _depth),
           () => $ro18(_recursive, _recursive ? 1 + _depth : _depth),
         ])(),
-        minItems: $pick([
+        minItems: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.customs ?? $generator.customs)?.number?.([
@@ -1663,7 +1668,7 @@ export const test_random_UltimateUnion = _test_random(
               },
             ]) ?? (generator?.integer ?? $generator.integer)(0, 10),
         ])(),
-        maxItems: $pick([
+        maxItems: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.customs ?? $generator.customs)?.number?.([
@@ -1674,11 +1679,11 @@ export const test_random_UltimateUnion = _test_random(
               },
             ]) ?? (generator?.integer ?? $generator.integer)(0, 10),
         ])(),
-        "x-typia-tuple": $pick([
+        "x-typia-tuple": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => $ro12(_recursive, _recursive ? 1 + _depth : _depth),
         ])(),
-        "x-typia-typeTags": $pick([
+        "x-typia-typeTags": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.array ?? $generator.array)(() =>
@@ -1686,59 +1691,59 @@ export const test_random_UltimateUnion = _test_random(
             ),
         ])(),
         type: "array",
-        nullable: $pick([
+        nullable: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        deprecated: $pick([
+        deprecated: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        title: $pick([
+        title: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.customs ?? $generator.customs)?.string?.([]) ??
             (generator?.string ?? $generator.string)(),
         ])(),
-        description: $pick([
+        description: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.customs ?? $generator.customs)?.string?.([]) ??
             (generator?.string ?? $generator.string)(),
         ])(),
-        "x-typia-jsDocTags": $pick([
+        "x-typia-jsDocTags": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.array ?? $generator.array)(() =>
               $ro2(_recursive, _recursive ? 1 + _depth : _depth),
             ),
         ])(),
-        "x-typia-required": $pick([
+        "x-typia-required": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        "x-typia-optional": $pick([
+        "x-typia-optional": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        "x-typia-rest": $pick([
+        "x-typia-rest": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        $id: $pick([
+        $id: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.customs ?? $generator.customs)?.string?.([]) ??
             (generator?.string ?? $generator.string)(),
         ])(),
-        $recursiveAnchor: $pick([
+        $recursiveAnchor: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
       });
       const $ro29 = (_recursive: boolean = false, _depth: number = 0): any => ({
         items: (generator?.array ?? $generator.array)(() =>
-          $pick([
+          (generator?.pick ?? $generator.pick)([
             () => $ro5(_recursive, _recursive ? 1 + _depth : _depth),
             () => $ro4(_recursive, _recursive ? 1 + _depth : _depth),
             () => $ro1(_recursive, _recursive ? 1 + _depth : _depth),
@@ -1763,7 +1768,7 @@ export const test_random_UltimateUnion = _test_random(
               value: "uint32",
             },
           ]) ?? (generator?.integer ?? $generator.integer)(0, 10),
-        maxItems: $pick([
+        maxItems: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.customs ?? $generator.customs)?.number?.([
@@ -1775,59 +1780,59 @@ export const test_random_UltimateUnion = _test_random(
             ]) ?? (generator?.integer ?? $generator.integer)(0, 10),
         ])(),
         type: "array",
-        nullable: $pick([
+        nullable: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        deprecated: $pick([
+        deprecated: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        title: $pick([
+        title: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.customs ?? $generator.customs)?.string?.([]) ??
             (generator?.string ?? $generator.string)(),
         ])(),
-        description: $pick([
+        description: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.customs ?? $generator.customs)?.string?.([]) ??
             (generator?.string ?? $generator.string)(),
         ])(),
-        "x-typia-jsDocTags": $pick([
+        "x-typia-jsDocTags": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.array ?? $generator.array)(() =>
               $ro2(_recursive, _recursive ? 1 + _depth : _depth),
             ),
         ])(),
-        "x-typia-required": $pick([
+        "x-typia-required": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        "x-typia-optional": $pick([
+        "x-typia-optional": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        "x-typia-rest": $pick([
+        "x-typia-rest": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        $id: $pick([
+        $id: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.customs ?? $generator.customs)?.string?.([]) ??
             (generator?.string ?? $generator.string)(),
         ])(),
-        $recursiveAnchor: $pick([
+        $recursiveAnchor: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
       });
       const $ro30 = (_recursive: boolean = false, _depth: number = 0): any => ({
         properties: $ro14(_recursive, _recursive ? 1 + _depth : _depth),
-        required: $pick([
+        required: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.array ?? $generator.array)(
@@ -1836,11 +1841,11 @@ export const test_random_UltimateUnion = _test_random(
                 (generator?.string ?? $generator.string)(),
             ),
         ])(),
-        patternProperties: $pick([
+        patternProperties: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => $ro14(_recursive, _recursive ? 1 + _depth : _depth),
         ])(),
-        additionalProperties: $pick([
+        additionalProperties: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => $ro5(_recursive, _recursive ? 1 + _depth : _depth),
           () => $ro4(_recursive, _recursive ? 1 + _depth : _depth),
@@ -1857,11 +1862,11 @@ export const test_random_UltimateUnion = _test_random(
           () => $ro17(_recursive, _recursive ? 1 + _depth : _depth),
           () => $ro18(_recursive, _recursive ? 1 + _depth : _depth),
         ])(),
-        "x-typia-patternProperties": $pick([
+        "x-typia-patternProperties": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => $ro14(_recursive, _recursive ? 1 + _depth : _depth),
         ])(),
-        "x-typia-additionalProperties": $pick([
+        "x-typia-additionalProperties": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => $ro5(_recursive, _recursive ? 1 + _depth : _depth),
           () => $ro4(_recursive, _recursive ? 1 + _depth : _depth),
@@ -1879,52 +1884,52 @@ export const test_random_UltimateUnion = _test_random(
           () => $ro18(_recursive, _recursive ? 1 + _depth : _depth),
         ])(),
         type: "object",
-        nullable: $pick([
+        nullable: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        deprecated: $pick([
+        deprecated: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        title: $pick([
+        title: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.customs ?? $generator.customs)?.string?.([]) ??
             (generator?.string ?? $generator.string)(),
         ])(),
-        description: $pick([
+        description: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.customs ?? $generator.customs)?.string?.([]) ??
             (generator?.string ?? $generator.string)(),
         ])(),
-        "x-typia-jsDocTags": $pick([
+        "x-typia-jsDocTags": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.array ?? $generator.array)(() =>
               $ro2(_recursive, _recursive ? 1 + _depth : _depth),
             ),
         ])(),
-        "x-typia-required": $pick([
+        "x-typia-required": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        "x-typia-optional": $pick([
+        "x-typia-optional": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        "x-typia-rest": $pick([
+        "x-typia-rest": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        $id: $pick([
+        $id: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.customs ?? $generator.customs)?.string?.([]) ??
             (generator?.string ?? $generator.string)(),
         ])(),
-        $recursiveAnchor: $pick([
+        $recursiveAnchor: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
@@ -1933,103 +1938,103 @@ export const test_random_UltimateUnion = _test_random(
         $ref:
           (generator?.customs ?? $generator.customs)?.string?.([]) ??
           (generator?.string ?? $generator.string)(),
-        deprecated: $pick([
+        deprecated: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        title: $pick([
+        title: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.customs ?? $generator.customs)?.string?.([]) ??
             (generator?.string ?? $generator.string)(),
         ])(),
-        description: $pick([
+        description: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.customs ?? $generator.customs)?.string?.([]) ??
             (generator?.string ?? $generator.string)(),
         ])(),
-        "x-typia-jsDocTags": $pick([
+        "x-typia-jsDocTags": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.array ?? $generator.array)(() =>
               $ro2(_recursive, _recursive ? 1 + _depth : _depth),
             ),
         ])(),
-        "x-typia-required": $pick([
+        "x-typia-required": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        "x-typia-optional": $pick([
+        "x-typia-optional": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        "x-typia-rest": $pick([
+        "x-typia-rest": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        $id: $pick([
+        $id: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.customs ?? $generator.customs)?.string?.([]) ??
             (generator?.string ?? $generator.string)(),
         ])(),
-        $recursiveAnchor: $pick([
+        $recursiveAnchor: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
       });
       const $ro32 = (_recursive: boolean = false, _depth: number = 0): any => ({
         type: "null",
-        deprecated: $pick([
+        deprecated: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        title: $pick([
+        title: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.customs ?? $generator.customs)?.string?.([]) ??
             (generator?.string ?? $generator.string)(),
         ])(),
-        description: $pick([
+        description: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.customs ?? $generator.customs)?.string?.([]) ??
             (generator?.string ?? $generator.string)(),
         ])(),
-        "x-typia-jsDocTags": $pick([
+        "x-typia-jsDocTags": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.array ?? $generator.array)(() =>
               $ro2(_recursive, _recursive ? 1 + _depth : _depth),
             ),
         ])(),
-        "x-typia-required": $pick([
+        "x-typia-required": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        "x-typia-optional": $pick([
+        "x-typia-optional": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        "x-typia-rest": $pick([
+        "x-typia-rest": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        $id: $pick([
+        $id: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.customs ?? $generator.customs)?.string?.([]) ??
             (generator?.string ?? $generator.string)(),
         ])(),
-        $recursiveAnchor: $pick([
+        $recursiveAnchor: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
       });
       const $ro33 = (_recursive: boolean = false, _depth: number = 0): any => ({
         oneOf: (generator?.array ?? $generator.array)(() =>
-          $pick([
+          (generator?.pick ?? $generator.pick)([
             () => $ro5(_recursive, _recursive ? 1 + _depth : _depth),
             () => $ro4(_recursive, _recursive ? 1 + _depth : _depth),
             () => $ro1(_recursive, _recursive ? 1 + _depth : _depth),
@@ -2046,96 +2051,96 @@ export const test_random_UltimateUnion = _test_random(
             () => $ro18(_recursive, _recursive ? 1 + _depth : _depth),
           ])(),
         ),
-        deprecated: $pick([
+        deprecated: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        title: $pick([
+        title: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.customs ?? $generator.customs)?.string?.([]) ??
             (generator?.string ?? $generator.string)(),
         ])(),
-        description: $pick([
+        description: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.customs ?? $generator.customs)?.string?.([]) ??
             (generator?.string ?? $generator.string)(),
         ])(),
-        "x-typia-jsDocTags": $pick([
+        "x-typia-jsDocTags": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.array ?? $generator.array)(() =>
               $ro2(_recursive, _recursive ? 1 + _depth : _depth),
             ),
         ])(),
-        "x-typia-required": $pick([
+        "x-typia-required": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        "x-typia-optional": $pick([
+        "x-typia-optional": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        "x-typia-rest": $pick([
+        "x-typia-rest": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        $id: $pick([
+        $id: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.customs ?? $generator.customs)?.string?.([]) ??
             (generator?.string ?? $generator.string)(),
         ])(),
-        $recursiveAnchor: $pick([
+        $recursiveAnchor: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
       });
       const $ro34 = (_recursive: boolean = false, _depth: number = 0): any => ({
         type: undefined,
-        deprecated: $pick([
+        deprecated: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        title: $pick([
+        title: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.customs ?? $generator.customs)?.string?.([]) ??
             (generator?.string ?? $generator.string)(),
         ])(),
-        description: $pick([
+        description: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.customs ?? $generator.customs)?.string?.([]) ??
             (generator?.string ?? $generator.string)(),
         ])(),
-        "x-typia-jsDocTags": $pick([
+        "x-typia-jsDocTags": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.array ?? $generator.array)(() =>
               $ro2(_recursive, _recursive ? 1 + _depth : _depth),
             ),
         ])(),
-        "x-typia-required": $pick([
+        "x-typia-required": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        "x-typia-optional": $pick([
+        "x-typia-optional": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        "x-typia-rest": $pick([
+        "x-typia-rest": (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        $id: $pick([
+        $id: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.customs ?? $generator.customs)?.string?.([]) ??
             (generator?.string ?? $generator.string)(),
         ])(),
-        $recursiveAnchor: $pick([
+        $recursiveAnchor: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
@@ -3236,8 +3241,10 @@ export const test_random_UltimateUnion = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is UltimateUnion => {
-        const $guard = (typia.createAssert as any).guard;
-        const $join = (typia.createAssert as any).join;
+        const $guard = require("typia/lib/functional/$guard").$guard(
+          "typia.createAssert",
+        );
+        const $join = require("typia/lib/functional/$join").$join;
         const $ao0 = (
           input: any,
           _path: string,

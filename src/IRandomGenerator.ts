@@ -18,6 +18,8 @@ export interface IRandomGenerator {
   date(minimum?: number, maximum?: number): string;
   datetime(minimum?: number, maximum?: number): string;
 
+  pick<T>(array: T[]): T;
+
   customs?: IRandomGenerator.CustomMap;
 }
 export namespace IRandomGenerator {

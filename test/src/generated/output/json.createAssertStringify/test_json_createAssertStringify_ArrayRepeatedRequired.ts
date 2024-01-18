@@ -32,7 +32,9 @@ export const test_json_createAssertStringify_ArrayRepeatedRequired =
           _path: string,
           _exceptionable: boolean = true,
         ): input is ArrayRepeatedRequired => {
-          const $guard = (typia.json.createAssertStringify as any).guard;
+          const $guard = require("typia/lib/functional/$guard").$guard(
+            "typia.json.createAssertStringify",
+          );
           const $aa0 = (
             input: any,
             _path: string,
@@ -126,9 +128,11 @@ export const test_json_createAssertStringify_ArrayRepeatedRequired =
               "number" === typeof elem ||
               (Array.isArray(elem) && ($ia0(elem) || false))),
         );
-      const $string = (typia.json.createAssertStringify as any).string;
-      const $number = (typia.json.createAssertStringify as any).number;
-      const $throws = (typia.json.createAssertStringify as any).throws;
+      const $string = require("typia/lib/functional/$string").$string;
+      const $number = require("typia/lib/functional/$number").$number;
+      const $throws = require("typia/lib/functional/$throws").$throws(
+        "typia.json.createAssertStringify",
+      );
       const $sa0 = (input: any): any =>
         `[${input
           .map((elem: any) =>

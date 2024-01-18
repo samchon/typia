@@ -51,7 +51,9 @@ export const test_json_createAssertStringify_ObjectSimple =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ObjectSimple => {
-            const $guard = (typia.json.createAssertStringify as any).guard;
+            const $guard = require("typia/lib/functional/$guard").$guard(
+              "typia.json.createAssertStringify",
+            );
             const $ao0 = (
               input: any,
               _path: string,
@@ -159,7 +161,7 @@ export const test_json_createAssertStringify_ObjectSimple =
           "number" === typeof input.x &&
           "number" === typeof input.y &&
           "number" === typeof input.z;
-        const $number = (typia.json.createAssertStringify as any).number;
+        const $number = require("typia/lib/functional/$number").$number;
         return `{"scale":${`{"x":${$number(
           ((input as any).scale as any).x,
         )},"y":${$number(((input as any).scale as any).y)},"z":${$number(

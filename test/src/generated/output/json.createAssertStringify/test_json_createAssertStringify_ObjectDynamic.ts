@@ -33,8 +33,10 @@ export const test_json_createAssertStringify_ObjectDynamic =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ObjectDynamic => {
-            const $guard = (typia.json.createAssertStringify as any).guard;
-            const $join = (typia.json.createAssertStringify as any).join;
+            const $guard = require("typia/lib/functional/$guard").$guard(
+              "typia.json.createAssertStringify",
+            );
+            const $join = require("typia/lib/functional/$join").$join;
             const $ao0 = (
               input: any,
               _path: string,
@@ -77,9 +79,11 @@ export const test_json_createAssertStringify_ObjectDynamic =
         return input;
       };
       const stringify = (input: ObjectDynamic): string => {
-        const $string = (typia.json.createAssertStringify as any).string;
-        const $number = (typia.json.createAssertStringify as any).number;
-        const $throws = (typia.json.createAssertStringify as any).throws;
+        const $string = require("typia/lib/functional/$string").$string;
+        const $number = require("typia/lib/functional/$number").$number;
+        const $throws = require("typia/lib/functional/$throws").$throws(
+          "typia.json.createAssertStringify",
+        );
         const $so0 = (input: any): any =>
           `{${Object.entries(input)
             .map(([key, value]: [string, any]) => {

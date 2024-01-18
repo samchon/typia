@@ -27,7 +27,7 @@ export const test_notation_validateSnake_ArrayAtomicAlias =
             );
           };
           if (false === __is(input)) {
-            const $report = (typia.notations.validateSnake as any).report(
+            const $report = require("typia/lib/functional/$report").$report(
               errors,
             );
             ((
@@ -179,7 +179,9 @@ export const test_notation_validateSnake_ArrayAtomicAlias =
           _path: string,
           _exceptionable: boolean = true,
         ): input is typia.SnakeCase<ArrayAtomicAlias> => {
-          const $guard = (typia.createAssert as any).guard;
+          const $guard = require("typia/lib/functional/$guard").$guard(
+            "typia.createAssert",
+          );
           return (
             ((Array.isArray(input) ||
               $guard(true, {

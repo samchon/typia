@@ -93,7 +93,9 @@ export const test_misc_createClone_ObjectUnionExplicitPointer =
           else if ("circle" === input.type) return $io10(input);
           else return false;
         })();
-      const $throws = (typia.misc.createClone as any).throws;
+      const $throws = require("typia/lib/functional/$throws").$throws(
+        "typia.misc.createClone",
+      );
       const $cp0 = (input: any) =>
         input.map((elem: any) =>
           "object" === typeof elem && null !== elem

@@ -10,8 +10,7 @@ export const test_createRandom_ArrayRepeatedUnion = _test_random(
     generator: Partial<typia.IRandomGenerator> = (ArrayRepeatedUnion as any)
       .RANDOM,
   ): typia.Resolved<ArrayRepeatedUnion> => {
-    const $generator = (typia.createRandom as any).generator;
-    const $pick = (typia.createRandom as any).pick;
+    const $generator = require("typia/lib/functional/$generator").$generator;
     const $ro0 = (_recursive: boolean = false, _depth: number = 0): any => ({
       scale: $ro1(_recursive, _recursive ? 1 + _depth : _depth),
       position: $ro1(_recursive, _recursive ? 1 + _depth : _depth),
@@ -37,7 +36,7 @@ export const test_createRandom_ArrayRepeatedUnion = _test_random(
       5 >= _depth
         ? (generator?.array ?? $generator.array)(
             () =>
-              $pick([
+              (generator?.pick ?? $generator.pick)([
                 () =>
                   (generator?.customs ?? $generator.customs)?.number?.([]) ??
                   (generator?.number ?? $generator.number)(0, 100),
@@ -71,7 +70,7 @@ export const test_createRandom_ArrayRepeatedUnion = _test_random(
             length,
           )
         : [];
-    return $pick([
+    return (generator?.pick ?? $generator.pick)([
       () =>
         (generator?.customs ?? $generator.customs)?.number?.([]) ??
         (generator?.number ?? $generator.number)(0, 100),
@@ -181,7 +180,9 @@ export const test_createRandom_ArrayRepeatedUnion = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ArrayRepeatedUnion => {
-        const $guard = (typia.createAssert as any).guard;
+        const $guard = require("typia/lib/functional/$guard").$guard(
+          "typia.createAssert",
+        );
         const $ap0 = (
           input: any,
           _path: string,

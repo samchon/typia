@@ -10,10 +10,9 @@ export const test_createRandom_ObjectGenericUnion = _test_random(
     generator: Partial<typia.IRandomGenerator> = (ObjectGenericUnion as any)
       .RANDOM,
   ): typia.Resolved<ObjectGenericUnion> => {
-    const $pick = (typia.createRandom as any).pick;
-    const $generator = (typia.createRandom as any).generator;
+    const $generator = require("typia/lib/functional/$generator").$generator;
     const $ro0 = (_recursive: boolean = false, _depth: number = 0): any => ({
-      value: $pick([
+      value: (generator?.pick ?? $generator.pick)([
         () => $ro5(_recursive, _recursive ? 1 + _depth : _depth),
         () => $ro1(_recursive, _recursive ? 1 + _depth : _depth),
       ])(),
@@ -22,7 +21,7 @@ export const test_createRandom_ObjectGenericUnion = _test_random(
       writer:
         (generator?.customs ?? $generator.customs)?.string?.([]) ??
         (generator?.string ?? $generator.string)(),
-      answer: $pick([
+      answer: (generator?.pick ?? $generator.pick)([
         () => null,
         () => $ro2(_recursive, _recursive ? 1 + _depth : _depth),
       ])(),
@@ -74,7 +73,7 @@ export const test_createRandom_ObjectGenericUnion = _test_random(
       name:
         (generator?.customs ?? $generator.customs)?.string?.([]) ??
         (generator?.string ?? $generator.string)(),
-      extension: $pick([
+      extension: (generator?.pick ?? $generator.pick)([
         () => null,
         () =>
           (generator?.customs ?? $generator.customs)?.string?.([]) ??
@@ -88,7 +87,7 @@ export const test_createRandom_ObjectGenericUnion = _test_random(
       writer:
         (generator?.customs ?? $generator.customs)?.string?.([]) ??
         (generator?.string ?? $generator.string)(),
-      answer: $pick([
+      answer: (generator?.pick ?? $generator.pick)([
         () => null,
         () => $ro2(_recursive, _recursive ? 1 + _depth : _depth),
       ])(),
@@ -213,7 +212,9 @@ export const test_createRandom_ObjectGenericUnion = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ObjectGenericUnion => {
-        const $guard = (typia.createAssert as any).guard;
+        const $guard = require("typia/lib/functional/$guard").$guard(
+          "typia.createAssert",
+        );
         const $ao0 = (
           input: any,
           _path: string,

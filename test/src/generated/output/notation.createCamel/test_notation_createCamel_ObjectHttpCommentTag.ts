@@ -35,7 +35,7 @@ export const test_notation_createValidateCamel_ObjectHttpCommentTag =
           return "object" === typeof input && null !== input && $io0(input);
         };
         if (false === __is(input)) {
-          const $report = (typia.notations.createValidateCamel as any).report(
+          const $report = require("typia/lib/functional/$report").$report(
             errors,
           );
           ((
@@ -196,7 +196,9 @@ export const test_notation_createValidateCamel_ObjectHttpCommentTag =
           _path: string,
           _exceptionable: boolean = true,
         ): input is typia.CamelCase<ObjectHttpCommentTag> => {
-          const $guard = (typia.createAssert as any).guard;
+          const $guard = require("typia/lib/functional/$guard").$guard(
+            "typia.createAssert",
+          );
           const $ao0 = (
             input: any,
             _path: string,

@@ -166,9 +166,11 @@ export const test_json_isStringify_ArrayRepeatedUnionWithTuple =
                 "boolean" === typeof elem ||
                 (Array.isArray(elem) && ($ip1(elem) || false))),
           );
-        const $number = (typia.json.isStringify as any).number;
-        const $string = (typia.json.isStringify as any).string;
-        const $throws = (typia.json.isStringify as any).throws;
+        const $number = require("typia/lib/functional/$number").$number;
+        const $string = require("typia/lib/functional/$string").$string;
+        const $throws = require("typia/lib/functional/$throws").$throws(
+          "typia.json.isStringify",
+        );
         const $sp0 = (input: any) => {
           const array = input;
           const top = input[0];

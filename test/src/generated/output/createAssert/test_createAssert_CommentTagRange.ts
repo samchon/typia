@@ -72,7 +72,9 @@ export const test_createAssert_CommentTagRange = _test_assert(
       _path: string,
       _exceptionable: boolean = true,
     ): input is CommentTagRange => {
-      const $guard = (typia.createAssert as any).guard;
+      const $guard = require("typia/lib/functional/$guard").$guard(
+        "typia.createAssert",
+      );
       const $ao0 = (
         input: any,
         _path: string,

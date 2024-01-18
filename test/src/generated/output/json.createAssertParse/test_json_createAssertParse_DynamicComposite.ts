@@ -48,8 +48,10 @@ export const test_json_createAssertParse_DynamicComposite =
           _path: string,
           _exceptionable: boolean = true,
         ): input is DynamicComposite => {
-          const $guard = (typia.json.createAssertParse as any).guard;
-          const $join = (typia.json.createAssertParse as any).join;
+          const $guard = require("typia/lib/functional/$guard").$guard(
+            "typia.json.createAssertParse",
+          );
+          const $join = require("typia/lib/functional/$join").$join;
           const $ao0 = (
             input: any,
             _path: string,

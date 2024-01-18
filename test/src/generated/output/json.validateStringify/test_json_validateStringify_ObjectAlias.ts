@@ -32,7 +32,7 @@ export const test_json_validateStringify_ObjectAlias =
             );
           };
           if (false === __is(input)) {
-            const $report = (typia.json.validateStringify as any).report(
+            const $report = require("typia/lib/functional/$report").$report(
               errors,
             );
             ((
@@ -131,9 +131,11 @@ export const test_json_validateStringify_ObjectAlias =
           } as any;
         };
         const stringify = (input: ObjectAlias): string => {
-          const $string = (typia.json.validateStringify as any).string;
-          const $number = (typia.json.validateStringify as any).number;
-          const $throws = (typia.json.validateStringify as any).throws;
+          const $string = require("typia/lib/functional/$string").$string;
+          const $number = require("typia/lib/functional/$number").$number;
+          const $throws = require("typia/lib/functional/$throws").$throws(
+            "typia.json.validateStringify",
+          );
           const $so0 = (input: any): any =>
             `{"id":${
               null !== input.id ? $string(input.id) : "null"

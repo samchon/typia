@@ -9,7 +9,7 @@ export const test_createRandom_DynamicArray = _test_random(
   random: (
     generator: Partial<typia.IRandomGenerator> = (DynamicArray as any).RANDOM,
   ): typia.Resolved<DynamicArray> => {
-    const $generator = (typia.createRandom as any).generator;
+    const $generator = require("typia/lib/functional/$generator").$generator;
     const $ro0 = (_recursive: boolean = false, _depth: number = 0): any => ({
       value: $ro1(_recursive, _recursive ? 1 + _depth : _depth),
     });
@@ -57,8 +57,10 @@ export const test_createRandom_DynamicArray = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is DynamicArray => {
-        const $guard = (typia.createAssert as any).guard;
-        const $join = (typia.createAssert as any).join;
+        const $guard = require("typia/lib/functional/$guard").$guard(
+          "typia.createAssert",
+        );
+        const $join = require("typia/lib/functional/$join").$join;
         const $ao0 = (
           input: any,
           _path: string,

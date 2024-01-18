@@ -1,7 +1,10 @@
 import { $strlen } from "./$strlen";
 import { IProtobufWriter } from "./IProtobufWriter";
 
-/// @reference https://github.com/piotr-oles/as-proto/blob/main/packages/as-proto/assembly/internal/FixedSizer.ts
+/**
+ * @reference https://github.com/piotr-oles/as-proto/blob/main/packages/as-proto/assembly/internal/FixedSizer.ts
+ * @internal
+ */
 export class $ProtobufSizer implements IProtobufWriter {
   /**
    * Total length.
@@ -143,5 +146,12 @@ export class $ProtobufSizer implements IProtobufWriter {
   }
 }
 
+/**
+ * @internal
+ */
 const ND07 = BigInt(7);
+
+/**
+ * @internal
+ */
 const NX7F = BigInt(0x7f);

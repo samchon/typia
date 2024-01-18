@@ -6,9 +6,9 @@ import { ObjectOptional } from "../../../structures/ObjectOptional";
 export const test_json_createStringify_ObjectOptional = _test_json_stringify(
   "ObjectOptional",
 )<ObjectOptional>(ObjectOptional)((input: ObjectOptional): string => {
-  const $string = (typia.json.createStringify as any).string;
-  const $number = (typia.json.createStringify as any).number;
-  const $tail = (typia.json.createStringify as any).tail;
+  const $string = require("typia/lib/functional/$string").$string;
+  const $number = require("typia/lib/functional/$number").$number;
+  const $tail = require("typia/lib/functional/$tail").$tail;
   const $so0 = (input: any): any =>
     `{${$tail(
       `${

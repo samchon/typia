@@ -10,18 +10,15 @@ export const test_http_assertQuery_ObjectHttpConstant = _test_http_assertQuery(
     const decode = (
       input: string | URLSearchParams,
     ): typia.Resolved<ObjectHttpConstant> => {
-      const $params = (typia.http.assertQuery as any).params;
-      const $boolean = (typia.http.assertQuery as any).boolean;
-      const $bigint = (typia.http.assertQuery as any).bigint;
-      const $number = (typia.http.assertQuery as any).number;
-      const $string = (typia.http.assertQuery as any).string;
-      input = $params(input) as URLSearchParams;
+      const $QueryReader =
+        require("typia/lib/functional/$QueryReader").$QueryReader;
+      input = $QueryReader.params(input) as URLSearchParams;
       const output = {
-        boolean: $boolean(input.get("boolean")),
-        bigint: $bigint(input.get("bigint")),
-        number: $number(input.get("number")),
-        string: $string(input.get("string")),
-        template: $string(input.get("template")),
+        boolean: $QueryReader.boolean(input.get("boolean")),
+        bigint: $QueryReader.bigint(input.get("bigint")),
+        number: $QueryReader.number(input.get("number")),
+        string: $QueryReader.string(input.get("string")),
+        template: $QueryReader.string(input.get("template")),
       };
       return output as any;
     };
@@ -44,7 +41,9 @@ export const test_http_assertQuery_ObjectHttpConstant = _test_http_assertQuery(
           _path: string,
           _exceptionable: boolean = true,
         ): input is ObjectHttpConstant => {
-          const $guard = (typia.http.assertQuery as any).guard;
+          const $guard = require("typia/lib/functional/$guard").$guard(
+            "typia.http.assertQuery",
+          );
           const $ao0 = (
             input: any,
             _path: string,

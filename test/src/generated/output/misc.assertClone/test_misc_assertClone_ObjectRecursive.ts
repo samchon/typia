@@ -34,7 +34,9 @@ export const test_misc_assertClone_ObjectRecursive = _test_misc_assertClone(
           _path: string,
           _exceptionable: boolean = true,
         ): input is ObjectRecursive => {
-          const $guard = (typia.misc.assertClone as any).guard;
+          const $guard = require("typia/lib/functional/$guard").$guard(
+            "typia.misc.assertClone",
+          );
           const $ao0 = (
             input: any,
             _path: string,

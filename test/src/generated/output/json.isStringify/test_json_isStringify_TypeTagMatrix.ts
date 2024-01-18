@@ -28,7 +28,7 @@ export const test_json_isStringify_TypeTagMatrix = _test_json_isStringify(
       return "object" === typeof input && null !== input && $io0(input);
     };
     const stringify = (input: TypeTagMatrix): string => {
-      const $string = (typia.json.isStringify as any).string;
+      const $string = require("typia/lib/functional/$string").$string;
       const $so0 = (input: any): any =>
         `{"matrix":${`[${input.matrix
           .map(

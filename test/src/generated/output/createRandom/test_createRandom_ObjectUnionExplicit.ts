@@ -10,8 +10,7 @@ export const test_createRandom_ObjectUnionExplicit = _test_random(
     generator: Partial<typia.IRandomGenerator> = (ObjectUnionExplicit as any)
       .RANDOM,
   ): typia.Resolved<ObjectUnionExplicit> => {
-    const $generator = (typia.createRandom as any).generator;
-    const $pick = (typia.createRandom as any).pick;
+    const $generator = require("typia/lib/functional/$generator").$generator;
     const $ro0 = (_recursive: boolean = false, _depth: number = 0): any => ({
       x:
         (generator?.customs ?? $generator.customs)?.number?.([]) ??
@@ -73,7 +72,7 @@ export const test_createRandom_ObjectUnionExplicit = _test_random(
       type: "circle",
     });
     return (generator?.array ?? $generator.array)(() =>
-      $pick([
+      (generator?.pick ?? $generator.pick)([
         () => $ro0(),
         () => $ro1(),
         () => $ro3(),
@@ -215,7 +214,9 @@ export const test_createRandom_ObjectUnionExplicit = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ObjectUnionExplicit => {
-        const $guard = (typia.createAssert as any).guard;
+        const $guard = require("typia/lib/functional/$guard").$guard(
+          "typia.createAssert",
+        );
         const $ao0 = (
           input: any,
           _path: string,

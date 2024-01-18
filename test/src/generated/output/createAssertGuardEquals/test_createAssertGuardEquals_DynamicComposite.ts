@@ -11,7 +11,7 @@ export const test_createAssertGuardEquals_DynamicComposite =
       input: any,
       _exceptionable: boolean = true,
     ): input is DynamicComposite => {
-      const $join = (typia.createAssertGuardEquals as any).join;
+      const $join = require("typia/lib/functional/$join").$join;
       const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
         "string" === typeof input.id &&
         "string" === typeof input.name &&
@@ -51,8 +51,10 @@ export const test_createAssertGuardEquals_DynamicComposite =
         _path: string,
         _exceptionable: boolean = true,
       ): input is DynamicComposite => {
-        const $guard = (typia.createAssertGuardEquals as any).guard;
-        const $join = (typia.createAssertGuardEquals as any).join;
+        const $guard = require("typia/lib/functional/$guard").$guard(
+          "typia.createAssertGuardEquals",
+        );
+        const $join = require("typia/lib/functional/$join").$join;
         const $ao0 = (
           input: any,
           _path: string,

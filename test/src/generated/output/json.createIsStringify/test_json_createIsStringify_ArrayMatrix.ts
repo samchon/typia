@@ -24,7 +24,7 @@ export const test_json_createIsStringify_ArrayMatrix = _test_json_isStringify(
     );
   };
   const stringify = (input: ArrayMatrix): string => {
-    const $number = (typia.json.createIsStringify as any).number;
+    const $number = require("typia/lib/functional/$number").$number;
     return `[${input
       .map(
         (elem: any) =>

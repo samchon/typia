@@ -10,24 +10,22 @@ export const test_http_createAssertQuery_ObjectHttpNullable =
     const decode = (
       input: string | URLSearchParams,
     ): typia.Resolved<ObjectHttpNullable> => {
-      const $params = (typia.http.createAssertQuery as any).params;
-      const $boolean = (typia.http.createAssertQuery as any).boolean;
-      const $bigint = (typia.http.createAssertQuery as any).bigint;
-      const $number = (typia.http.createAssertQuery as any).number;
-      const $string = (typia.http.createAssertQuery as any).string;
-      const $array = (typia.http.createAssertQuery as any).array;
-      input = $params(input) as URLSearchParams;
+      const $QueryReader =
+        require("typia/lib/functional/$QueryReader").$QueryReader;
+      input = $QueryReader.params(input) as URLSearchParams;
       const output = {
-        boolean: $boolean(input.get("boolean")),
-        bigint: $bigint(input.get("bigint")),
-        number: $number(input.get("number")),
-        string: $string(input.get("string")),
-        constantBoolean: $boolean(input.get("constantBoolean")),
-        constantBigint: $bigint(input.get("constantBigint")),
-        constantNumber: $number(input.get("constantNumber")),
-        constantString: $string(input.get("constantString")),
-        nullableArray: $array(
-          input.getAll("nullableArray").map((elem: any) => $number(elem)),
+        boolean: $QueryReader.boolean(input.get("boolean")),
+        bigint: $QueryReader.bigint(input.get("bigint")),
+        number: $QueryReader.number(input.get("number")),
+        string: $QueryReader.string(input.get("string")),
+        constantBoolean: $QueryReader.boolean(input.get("constantBoolean")),
+        constantBigint: $QueryReader.bigint(input.get("constantBigint")),
+        constantNumber: $QueryReader.number(input.get("constantNumber")),
+        constantString: $QueryReader.string(input.get("constantString")),
+        nullableArray: $QueryReader.array(
+          input
+            .getAll("nullableArray")
+            .map((elem: any) => $QueryReader.number(elem)),
           null,
         ),
       };
@@ -70,7 +68,9 @@ export const test_http_createAssertQuery_ObjectHttpNullable =
           _path: string,
           _exceptionable: boolean = true,
         ): input is ObjectHttpNullable => {
-          const $guard = (typia.http.createAssertQuery as any).guard;
+          const $guard = require("typia/lib/functional/$guard").$guard(
+            "typia.http.createAssertQuery",
+          );
           const $ao0 = (
             input: any,
             _path: string,

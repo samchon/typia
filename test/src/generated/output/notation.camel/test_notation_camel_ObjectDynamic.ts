@@ -32,7 +32,7 @@ export const test_notation_validateCamel_ObjectDynamic =
             );
           };
           if (false === __is(input)) {
-            const $report = (typia.notations.validateCamel as any).report(
+            const $report = require("typia/lib/functional/$report").$report(
               errors,
             );
             ((
@@ -40,7 +40,7 @@ export const test_notation_validateCamel_ObjectDynamic =
               _path: string,
               _exceptionable: boolean = true,
             ): input is ObjectDynamic => {
-              const $join = (typia.notations.validateCamel as any).join;
+              const $join = require("typia/lib/functional/$join").$join;
               const $vo0 = (
                 input: any,
                 _path: string,
@@ -141,8 +141,10 @@ export const test_notation_validateCamel_ObjectDynamic =
           _path: string,
           _exceptionable: boolean = true,
         ): input is typia.CamelCase<ObjectDynamic> => {
-          const $guard = (typia.createAssert as any).guard;
-          const $join = (typia.createAssert as any).join;
+          const $guard = require("typia/lib/functional/$guard").$guard(
+            "typia.createAssert",
+          );
+          const $join = require("typia/lib/functional/$join").$join;
           const $ao0 = (
             input: any,
             _path: string,

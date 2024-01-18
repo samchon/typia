@@ -1,3 +1,6 @@
+/**
+ * @internal
+ */
 export namespace $HeadersReader {
   export const boolean = (value: string | undefined) =>
     value !== undefined
@@ -14,11 +17,17 @@ export namespace $HeadersReader {
   export const string = (value: string | undefined) => value;
 }
 
+/**
+ * @internal
+ */
 const toNumber = (str: string): number | string => {
   const value: number = Number(str);
   return isNaN(value) ? str : value;
 };
 
+/**
+ * @internal
+ */
 const toBigint = (str: string): bigint | string => {
   try {
     return BigInt(str);

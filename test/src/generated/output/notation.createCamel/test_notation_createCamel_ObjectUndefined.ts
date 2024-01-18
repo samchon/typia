@@ -42,7 +42,7 @@ export const test_notation_createValidateCamel_ObjectUndefined =
           );
         };
         if (false === __is(input)) {
-          const $report = (typia.notations.createValidateCamel as any).report(
+          const $report = require("typia/lib/functional/$report").$report(
             errors,
           );
           ((
@@ -186,7 +186,7 @@ export const test_notation_createValidateCamel_ObjectUndefined =
       ): typia.CamelCase<ObjectUndefined> => {
         const $io1 = (input: any): boolean =>
           "string" === typeof input.id && "string" === typeof input.name;
-        const $any = (typia.notations.createValidateCamel as any).any;
+        const $camel = require("typia/lib/functional/$camel").$camel;
         const $cp0 = (input: any) =>
           input.map((elem: any) =>
             "object" === typeof elem && null !== elem
@@ -202,7 +202,7 @@ export const test_notation_createValidateCamel_ObjectUndefined =
               : (input.classroom as any),
           grade: input.grade as any,
           nothing: input.nothing as any,
-          unknown: $any(input.unknown),
+          unknown: $camel(input.unknown),
           never: input.never as any,
         });
         const $co1 = (input: any): any => ({
@@ -251,7 +251,9 @@ export const test_notation_createValidateCamel_ObjectUndefined =
           _path: string,
           _exceptionable: boolean = true,
         ): input is typia.CamelCase<ObjectUndefined> => {
-          const $guard = (typia.createAssert as any).guard;
+          const $guard = require("typia/lib/functional/$guard").$guard(
+            "typia.createAssert",
+          );
           const $ao0 = (
             input: any,
             _path: string,

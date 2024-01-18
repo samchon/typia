@@ -38,7 +38,9 @@ export const test_json_assertStringify_ObjectGenericArray =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ObjectGenericArray => {
-            const $guard = (typia.json.assertStringify as any).guard;
+            const $guard = require("typia/lib/functional/$guard").$guard(
+              "typia.json.assertStringify",
+            );
             const $ao0 = (
               input: any,
               _path: string,
@@ -166,8 +168,8 @@ export const test_json_assertStringify_ObjectGenericArray =
           "number" === typeof input.total_pages;
         const $io2 = (input: any): boolean =>
           "string" === typeof input.name && "number" === typeof input.age;
-        const $number = (typia.json.assertStringify as any).number;
-        const $string = (typia.json.assertStringify as any).string;
+        const $number = require("typia/lib/functional/$number").$number;
+        const $string = require("typia/lib/functional/$string").$string;
         const $so0 = (input: any): any =>
           `{"pagination":${`{"page":${$number(
             (input.pagination as any).page,

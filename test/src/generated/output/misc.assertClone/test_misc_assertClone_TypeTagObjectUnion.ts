@@ -47,7 +47,9 @@ export const test_misc_assertClone_TypeTagObjectUnion = _test_misc_assertClone(
           _path: string,
           _exceptionable: boolean = true,
         ): input is TypeTagObjectUnion => {
-          const $guard = (typia.misc.assertClone as any).guard;
+          const $guard = require("typia/lib/functional/$guard").$guard(
+            "typia.misc.assertClone",
+          );
           const $ao0 = (
             input: any,
             _path: string,
@@ -176,7 +178,9 @@ export const test_misc_assertClone_TypeTagObjectUnion = _test_misc_assertClone(
         "string" === typeof input.value &&
         3 <= input.value.length &&
         input.value.length <= 7;
-      const $throws = (typia.misc.assertClone as any).throws;
+      const $throws = require("typia/lib/functional/$throws").$throws(
+        "typia.misc.assertClone",
+      );
       const $cp0 = (input: any) =>
         input.map((elem: any) =>
           "object" === typeof elem && null !== elem

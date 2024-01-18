@@ -10,13 +10,15 @@ export const test_random_ObjectHttpConstant = _test_random(
     ((
       generator?: Partial<typia.IRandomGenerator>,
     ): typia.Resolved<ObjectHttpConstant> => {
-      const $pick = (typia.random as any).pick;
-      const $generator = (typia.random as any).generator;
+      const $generator = require("typia/lib/functional/$generator").$generator;
       const $ro0 = (_recursive: boolean = false, _depth: number = 0): any => ({
         boolean: false,
-        bigint: $pick([() => BigInt(1), () => BigInt(99)])(),
-        number: $pick([() => 2, () => 98])(),
-        string: $pick([
+        bigint: (generator?.pick ?? $generator.pick)([
+          () => BigInt(1),
+          () => BigInt(99),
+        ])(),
+        number: (generator?.pick ?? $generator.pick)([() => 2, () => 98])(),
+        string: (generator?.pick ?? $generator.pick)([
           () => "something",
           () => "three",
           () => "ninety-seven",
@@ -47,7 +49,9 @@ export const test_random_ObjectHttpConstant = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ObjectHttpConstant => {
-        const $guard = (typia.createAssert as any).guard;
+        const $guard = require("typia/lib/functional/$guard").$guard(
+          "typia.createAssert",
+        );
         const $ao0 = (
           input: any,
           _path: string,

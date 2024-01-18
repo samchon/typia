@@ -33,7 +33,9 @@ export const test_json_assertParse_ArrayRepeatedRequired =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ArrayRepeatedRequired => {
-            const $guard = (typia.json.assertParse as any).guard;
+            const $guard = require("typia/lib/functional/$guard").$guard(
+              "typia.json.assertParse",
+            );
             const $aa0 = (
               input: any,
               _path: string,

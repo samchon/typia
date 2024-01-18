@@ -23,9 +23,7 @@ export const test_json_createValidateStringify_ConstantEnumeration =
         );
       };
       if (false === __is(input)) {
-        const $report = (typia.json.createValidateStringify as any).report(
-          errors,
-        );
+        const $report = require("typia/lib/functional/$report").$report(errors);
         ((
           input: any,
           _path: string,
@@ -69,9 +67,11 @@ export const test_json_createValidateStringify_ConstantEnumeration =
       } as any;
     };
     const stringify = (input: ConstantEnumeration): string => {
-      const $string = (typia.json.createValidateStringify as any).string;
-      const $number = (typia.json.createValidateStringify as any).number;
-      const $throws = (typia.json.createValidateStringify as any).throws;
+      const $string = require("typia/lib/functional/$string").$string;
+      const $number = require("typia/lib/functional/$number").$number;
+      const $throws = require("typia/lib/functional/$throws").$throws(
+        "typia.json.createValidateStringify",
+      );
       return `[${input
         .map((elem: any) =>
           (() => {

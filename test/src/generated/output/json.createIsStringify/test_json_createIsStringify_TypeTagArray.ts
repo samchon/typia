@@ -80,8 +80,8 @@ export const test_json_createIsStringify_TypeTagArray = _test_json_isStringify(
       input.equal.every(
         (elem: any) => "number" === typeof elem && 10 <= elem && elem <= 10,
       );
-    const $string = (typia.json.createIsStringify as any).string;
-    const $number = (typia.json.createIsStringify as any).number;
+    const $string = require("typia/lib/functional/$string").$string;
+    const $number = require("typia/lib/functional/$number").$number;
     const $so0 = (input: any): any =>
       `{"value":${`[${input.value
         .map((elem: any) => $so1(elem))

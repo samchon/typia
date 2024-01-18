@@ -22,7 +22,9 @@ export const test_json_assertStringify_ObjectInternal =
               _path: string,
               _exceptionable: boolean = true,
             ): input is ObjectInternal => {
-              const $guard = (typia.json.assertStringify as any).guard;
+              const $guard = require("typia/lib/functional/$guard").$guard(
+                "typia.json.assertStringify",
+              );
               const $ao0 = (
                 input: any,
                 _path: string,
@@ -58,7 +60,7 @@ export const test_json_assertStringify_ObjectInternal =
           return input;
         };
         const stringify = (input: ObjectInternal): string => {
-          const $string = (typia.json.assertStringify as any).string;
+          const $string = require("typia/lib/functional/$string").$string;
           return `{"id":${$string((input as any).id)},"name":${$string(
             (input as any).name,
           )}}`;

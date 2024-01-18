@@ -6,9 +6,11 @@ import { TypeTagDefault } from "../../../structures/TypeTagDefault";
 export const test_json_createStringify_TypeTagDefault = _test_json_stringify(
   "TypeTagDefault",
 )<TypeTagDefault>(TypeTagDefault)((input: TypeTagDefault): string => {
-  const $number = (typia.json.createStringify as any).number;
-  const $string = (typia.json.createStringify as any).string;
-  const $throws = (typia.json.createStringify as any).throws;
+  const $number = require("typia/lib/functional/$number").$number;
+  const $string = require("typia/lib/functional/$string").$string;
+  const $throws = require("typia/lib/functional/$throws").$throws(
+    "typia.json.createStringify",
+  );
   const $so0 = (input: any): any =>
     `{"boolean":${input.boolean},"number":${$number(
       input.number,

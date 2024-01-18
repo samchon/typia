@@ -27,7 +27,9 @@ export const test_json_validateStringify_TupleRestObject =
           );
         };
         if (false === __is(input)) {
-          const $report = (typia.json.validateStringify as any).report(errors);
+          const $report = require("typia/lib/functional/$report").$report(
+            errors,
+          );
           ((
             input: any,
             _path: string,
@@ -116,9 +118,9 @@ export const test_json_validateStringify_TupleRestObject =
         } as any;
       };
       const stringify = (input: TupleRestObject): string => {
-        const $number = (typia.json.validateStringify as any).number;
-        const $string = (typia.json.validateStringify as any).string;
-        const $rest = (typia.json.validateStringify as any).rest;
+        const $number = require("typia/lib/functional/$number").$number;
+        const $string = require("typia/lib/functional/$string").$string;
+        const $rest = require("typia/lib/functional/$rest").$rest;
         return `[${input[0]},${$number(input[1])}${$rest(
           `[${input
             .slice(2)

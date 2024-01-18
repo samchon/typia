@@ -20,7 +20,7 @@ import { ProtobufAtomic } from "../../typings/ProtobufAtomic";
 
 import { FeatureProgrammer } from "../FeatureProgrammer";
 import { IsProgrammer } from "../IsProgrammer";
-import { FunctionImporter } from "../helpers/FunctionImporeter";
+import { FunctionImporter } from "../helpers/FunctionImporter";
 import { ProtobufUtil } from "../helpers/ProtobufUtil";
 import { ProtobufWire } from "../helpers/ProtobufWire";
 import { UnionPredicator } from "../helpers/UnionPredicator";
@@ -54,12 +54,18 @@ export namespace ProtobufEncodeProgrammer {
           write_encoder(project)(importer)(collection)(meta),
         ),
         callEncoder("sizer")(
-          ts.factory.createNewExpression(importer.use("Sizer"), undefined, []),
+          ts.factory.createNewExpression(
+            importer.use("ProtobufSizer"),
+            undefined,
+            [],
+          ),
         ),
         callEncoder("writer")(
-          ts.factory.createNewExpression(importer.use("Writer"), undefined, [
-            ts.factory.createIdentifier("sizer"),
-          ]),
+          ts.factory.createNewExpression(
+            importer.use("ProtobufWriter"),
+            undefined,
+            [ts.factory.createIdentifier("sizer")],
+          ),
         ),
         ts.factory.createReturnStatement(
           ts.factory.createCallExpression(
@@ -83,10 +89,7 @@ export namespace ProtobufEncodeProgrammer {
         ],
         ts.factory.createTypeReferenceNode("Uint8Array"),
         undefined,
-        ts.factory.createBlock(
-          [...importer.declare(modulo, false), ...block],
-          true,
-        ),
+        ts.factory.createBlock([...importer.declare(false), ...block], true),
       );
     };
 
@@ -792,7 +795,7 @@ export namespace ProtobufEncodeProgrammer {
     (value: ts.Expression) =>
       ts.factory.createExpressionStatement(
         ts.factory.createCallExpression(
-          importer.use("throws"),
+          importer.use("throws", true),
           [],
           [
             ts.factory.createObjectLiteralExpression(

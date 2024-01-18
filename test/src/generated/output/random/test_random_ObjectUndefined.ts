@@ -10,13 +10,12 @@ export const test_random_ObjectUndefined = _test_random(
     ((
       generator?: Partial<typia.IRandomGenerator>,
     ): typia.Resolved<ObjectUndefined> => {
-      const $generator = (typia.random as any).generator;
-      const $pick = (typia.random as any).pick;
+      const $generator = require("typia/lib/functional/$generator").$generator;
       const $ro0 = (_recursive: boolean = false, _depth: number = 0): any => ({
         name:
           (generator?.customs ?? $generator.customs)?.string?.([]) ??
           (generator?.string ?? $generator.string)(),
-        professor: $pick([
+        professor: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.customs ?? $generator.customs)?.string?.([]) ??
@@ -25,11 +24,11 @@ export const test_random_ObjectUndefined = _test_random(
             (generator?.customs ?? $generator.customs)?.number?.([]) ??
             (generator?.number ?? $generator.number)(0, 100),
         ])(),
-        classroom: $pick([
+        classroom: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => $ro1(_recursive, _recursive ? 1 + _depth : _depth),
         ])(),
-        grade: $pick([
+        grade: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.customs ?? $generator.customs)?.number?.([]) ??
@@ -84,7 +83,9 @@ export const test_random_ObjectUndefined = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ObjectUndefined => {
-        const $guard = (typia.createAssert as any).guard;
+        const $guard = require("typia/lib/functional/$guard").$guard(
+          "typia.createAssert",
+        );
         const $ao0 = (
           input: any,
           _path: string,

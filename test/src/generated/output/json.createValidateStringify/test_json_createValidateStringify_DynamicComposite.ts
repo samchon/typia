@@ -44,15 +44,13 @@ export const test_json_createValidateStringify_DynamicComposite =
         return "object" === typeof input && null !== input && $io0(input);
       };
       if (false === __is(input)) {
-        const $report = (typia.json.createValidateStringify as any).report(
-          errors,
-        );
+        const $report = require("typia/lib/functional/$report").$report(errors);
         ((
           input: any,
           _path: string,
           _exceptionable: boolean = true,
         ): input is DynamicComposite => {
-          const $join = (typia.json.createValidateStringify as any).join;
+          const $join = require("typia/lib/functional/$join").$join;
           const $vo0 = (
             input: any,
             _path: string,
@@ -172,10 +170,12 @@ export const test_json_createValidateStringify_DynamicComposite =
       } as any;
     };
     const stringify = (input: DynamicComposite): string => {
-      const $string = (typia.json.createValidateStringify as any).string;
-      const $number = (typia.json.createValidateStringify as any).number;
-      const $throws = (typia.json.createValidateStringify as any).throws;
-      const $tail = (typia.json.createValidateStringify as any).tail;
+      const $string = require("typia/lib/functional/$string").$string;
+      const $number = require("typia/lib/functional/$number").$number;
+      const $throws = require("typia/lib/functional/$throws").$throws(
+        "typia.json.createValidateStringify",
+      );
+      const $tail = require("typia/lib/functional/$tail").$tail;
       const $so0 = (input: any): any =>
         `{${$tail(
           `"id":${$string(input.id)},"name":${$string(

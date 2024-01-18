@@ -20,7 +20,9 @@ export const test_json_createAssertStringify_ClassGetter =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ClassGetter => {
-            const $guard = (typia.json.createAssertStringify as any).guard;
+            const $guard = require("typia/lib/functional/$guard").$guard(
+              "typia.json.createAssertStringify",
+            );
             const $ao0 = (
               input: any,
               _path: string,
@@ -63,7 +65,7 @@ export const test_json_createAssertStringify_ClassGetter =
         return input;
       };
       const stringify = (input: ClassGetter): string => {
-        const $string = (typia.json.createAssertStringify as any).string;
+        const $string = require("typia/lib/functional/$string").$string;
         const $so0 = (input: any): any =>
           `{"id":${$string(input.id)},"name":${$string(input.name)},"dead":${
             null !== input.dead ? input.dead : "null"

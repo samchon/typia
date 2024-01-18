@@ -28,7 +28,7 @@ export const test_validate_NativeSimple = _test_validate(
       return "object" === typeof input && null !== input && $io0(input);
     };
     if (false === __is(input)) {
-      const $report = (typia.validate as any).report(errors);
+      const $report = require("typia/lib/functional/$report").$report(errors);
       ((
         input: any,
         _path: string,

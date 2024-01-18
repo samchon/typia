@@ -13,15 +13,15 @@ export const test_http_createAssertHeaders_ObjectHttpCommentTag =
       const decode = (
         input: Record<string, string | string[] | undefined>,
       ): typia.Resolved<ObjectHttpCommentTag> => {
-        const $number = (typia.http.createAssertHeaders as any).number;
-        const $bigint = (typia.http.createAssertHeaders as any).bigint;
+        const $HeadersReader =
+          require("typia/lib/functional/$HeadersReader").$HeadersReader;
         const output = {
-          int: $number(input.int),
-          uint64: $bigint(input.uint64),
+          int: $HeadersReader.number(input.int),
+          uint64: $HeadersReader.bigint(input.uint64),
           uuid: input.uuid,
           items: Array.isArray(input.items)
-            ? input.items.map($number)
-            : input.items?.split(", ")?.map($number) ?? [],
+            ? input.items.map($HeadersReader.number)
+            : input.items?.split(", ")?.map($HeadersReader.number) ?? [],
         };
         return output as any;
       };
@@ -52,7 +52,9 @@ export const test_http_createAssertHeaders_ObjectHttpCommentTag =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ObjectHttpCommentTag => {
-            const $guard = (typia.http.createAssertHeaders as any).guard;
+            const $guard = require("typia/lib/functional/$guard").$guard(
+              "typia.http.createAssertHeaders",
+            );
             const $ao0 = (
               input: any,
               _path: string,

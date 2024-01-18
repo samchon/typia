@@ -25,7 +25,9 @@ export const test_misc_assertPrune_ConstantAtomicSimple =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ConstantAtomicSimple => {
-            const $guard = (typia.misc.assertPrune as any).guard;
+            const $guard = require("typia/lib/functional/$guard").$guard(
+              "typia.misc.assertPrune",
+            );
             return (
               ((Array.isArray(input) ||
                 $guard(true, {

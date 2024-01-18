@@ -52,7 +52,7 @@ export const test_misc_createValidatePrune_TypeTagArray =
           return "object" === typeof input && null !== input && $io0(input);
         };
         if (false === __is(input)) {
-          const $report = (typia.misc.createValidatePrune as any).report(
+          const $report = require("typia/lib/functional/$report").$report(
             errors,
           );
           ((

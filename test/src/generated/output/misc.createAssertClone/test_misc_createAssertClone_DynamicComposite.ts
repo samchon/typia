@@ -48,8 +48,10 @@ export const test_misc_createAssertClone_DynamicComposite =
           _path: string,
           _exceptionable: boolean = true,
         ): input is DynamicComposite => {
-          const $guard = (typia.misc.createAssertClone as any).guard;
-          const $join = (typia.misc.createAssertClone as any).join;
+          const $guard = require("typia/lib/functional/$guard").$guard(
+            "typia.misc.createAssertClone",
+          );
+          const $join = require("typia/lib/functional/$join").$join;
           const $ao0 = (
             input: any,
             _path: string,

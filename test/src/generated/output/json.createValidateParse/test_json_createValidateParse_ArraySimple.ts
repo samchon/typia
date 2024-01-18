@@ -31,7 +31,7 @@ export const test_json_createValidateParse_ArraySimple =
           );
         };
         if (false === __is(input)) {
-          const $report = (typia.json.createValidateParse as any).report(
+          const $report = require("typia/lib/functional/$report").$report(
             errors,
           );
           ((

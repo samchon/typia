@@ -53,9 +53,9 @@ export const test_json_createIsStringify_ObjectPartial = _test_json_isStringify(
         ("object" === typeof input.object &&
           null !== input.object &&
           $io1(input.object)));
-    const $number = (typia.json.createIsStringify as any).number;
-    const $string = (typia.json.createIsStringify as any).string;
-    const $tail = (typia.json.createIsStringify as any).tail;
+    const $number = require("typia/lib/functional/$number").$number;
+    const $string = require("typia/lib/functional/$string").$string;
+    const $tail = require("typia/lib/functional/$tail").$tail;
     const $so0 = (input: any): any =>
       `{${$tail(
         `${

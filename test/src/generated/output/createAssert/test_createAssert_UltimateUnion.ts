@@ -1098,8 +1098,10 @@ export const test_createAssert_UltimateUnion = _test_assert(
       _path: string,
       _exceptionable: boolean = true,
     ): input is UltimateUnion => {
-      const $guard = (typia.createAssert as any).guard;
-      const $join = (typia.createAssert as any).join;
+      const $guard = require("typia/lib/functional/$guard").$guard(
+        "typia.createAssert",
+      );
+      const $join = require("typia/lib/functional/$join").$join;
       const $ao0 = (
         input: any,
         _path: string,

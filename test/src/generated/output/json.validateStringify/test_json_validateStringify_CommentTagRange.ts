@@ -72,7 +72,9 @@ export const test_json_validateStringify_CommentTagRange =
           return "object" === typeof input && null !== input && $io0(input);
         };
         if (false === __is(input)) {
-          const $report = (typia.json.validateStringify as any).report(errors);
+          const $report = require("typia/lib/functional/$report").$report(
+            errors,
+          );
           ((
             input: any,
             _path: string,
@@ -418,7 +420,7 @@ export const test_json_validateStringify_CommentTagRange =
           input.equal <= 2147483647 &&
           10 <= input.equal &&
           input.equal <= 10;
-        const $number = (typia.json.validateStringify as any).number;
+        const $number = require("typia/lib/functional/$number").$number;
         const $so0 = (input: any): any =>
           `{"value":${`[${input.value
             .map(

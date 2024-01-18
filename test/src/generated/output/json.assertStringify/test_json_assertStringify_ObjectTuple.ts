@@ -34,7 +34,9 @@ export const test_json_assertStringify_ObjectTuple = _test_json_assertStringify(
           _path: string,
           _exceptionable: boolean = true,
         ): input is ObjectTuple => {
-          const $guard = (typia.json.assertStringify as any).guard;
+          const $guard = require("typia/lib/functional/$guard").$guard(
+            "typia.json.assertStringify",
+          );
           const $ao0 = (
             input: any,
             _path: string,
@@ -128,7 +130,7 @@ export const test_json_assertStringify_ObjectTuple = _test_json_assertStringify(
       return input;
     };
     const stringify = (input: ObjectTuple): string => {
-      const $string = (typia.json.assertStringify as any).string;
+      const $string = require("typia/lib/functional/$string").$string;
       return `[${`{"id":${$string((input[0] as any).id)},"code":${$string(
         (input[0] as any).code,
       )},"name":${$string((input[0] as any).name)}}`},${`{"id":${$string(

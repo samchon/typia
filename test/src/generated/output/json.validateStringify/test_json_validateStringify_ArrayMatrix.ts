@@ -27,7 +27,7 @@ export const test_json_validateStringify_ArrayMatrix =
             );
           };
           if (false === __is(input)) {
-            const $report = (typia.json.validateStringify as any).report(
+            const $report = require("typia/lib/functional/$report").$report(
               errors,
             );
             ((
@@ -122,7 +122,7 @@ export const test_json_validateStringify_ArrayMatrix =
           } as any;
         };
         const stringify = (input: ArrayMatrix): string => {
-          const $number = (typia.json.validateStringify as any).number;
+          const $number = require("typia/lib/functional/$number").$number;
           return `[${input
             .map(
               (elem: any) =>

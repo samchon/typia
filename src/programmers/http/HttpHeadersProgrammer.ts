@@ -20,7 +20,7 @@ import { Atomic } from "../../typings/Atomic";
 import { Escaper } from "../../utils/Escaper";
 import { MapUtil } from "../../utils/MapUtil";
 
-import { FunctionImporter } from "../helpers/FunctionImporeter";
+import { FunctionImporter } from "../helpers/FunctionImporter";
 import { HttpMetadataUtil } from "../helpers/HttpMetadataUtil";
 
 export namespace HttpHeadersProgrammer {
@@ -65,10 +65,7 @@ export namespace HttpHeadersProgrammer {
           }>`,
         ),
         undefined,
-        ts.factory.createBlock(
-          [...importer.declare(modulo), ...statements],
-          true,
-        ),
+        ts.factory.createBlock([...importer.declare(), ...statements], true),
       );
     };
 
@@ -243,7 +240,7 @@ export namespace HttpHeadersProgrammer {
     (value: ts.Expression) =>
       type === "string"
         ? value
-        : ts.factory.createCallExpression(importer.use(type), undefined, [
+        : ts.factory.createCallExpression(reader(importer)(type), undefined, [
             value,
           ]);
 
@@ -270,7 +267,7 @@ export namespace HttpHeadersProgrammer {
         ),
         undefined,
         undefined,
-        [importer.use(type)],
+        [reader(importer)(type)],
       );
       return ts.factory.createConditionalExpression(
         ExpressionFactory.isArray(accessor),
@@ -278,7 +275,7 @@ export namespace HttpHeadersProgrammer {
         ts.factory.createCallExpression(
           IdentifierFactory.access(accessor)("map"),
           undefined,
-          [importer.use(type)],
+          [reader(importer)(type)],
         ),
         undefined,
         value.isRequired() === false
@@ -312,3 +309,6 @@ const SINGULAR: Set<string> = new Set([
   "server",
   "user-agent",
 ]);
+
+const reader = (importer: FunctionImporter) => (type: Atomic.Literal) =>
+  IdentifierFactory.access(importer.use("HeadersReader"))(type);

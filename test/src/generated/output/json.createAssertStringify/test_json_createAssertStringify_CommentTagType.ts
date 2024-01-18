@@ -50,7 +50,9 @@ export const test_json_createAssertStringify_CommentTagType =
             _path: string,
             _exceptionable: boolean = true,
           ): input is CommentTagType => {
-            const $guard = (typia.json.createAssertStringify as any).guard;
+            const $guard = require("typia/lib/functional/$guard").$guard(
+              "typia.json.createAssertStringify",
+            );
             const $ao0 = (
               input: any,
               _path: string,
@@ -234,7 +236,7 @@ export const test_json_createAssertStringify_CommentTagType =
           "number" === typeof input.float &&
           -1.175494351e38 <= input.float &&
           input.float <= 3.4028235e38;
-        const $number = (typia.json.createAssertStringify as any).number;
+        const $number = require("typia/lib/functional/$number").$number;
         const $so0 = (input: any): any =>
           `{"value":${`[${input.value
             .map(

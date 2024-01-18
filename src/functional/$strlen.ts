@@ -1,3 +1,6 @@
+/**
+ * @internal
+ */
 export const $strlen = (s: string): number => {
   let b: number;
   let i: number;

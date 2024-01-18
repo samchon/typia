@@ -13,7 +13,9 @@ export const test_misc_clone_TypeTagObjectUnion = _test_misc_clone(
       "string" === typeof input.value &&
       3 <= input.value.length &&
       input.value.length <= 7;
-    const $throws = (typia.misc.clone as any).throws;
+    const $throws = require("typia/lib/functional/$throws").$throws(
+      "typia.misc.clone",
+    );
     const $cp0 = (input: any) =>
       input.map((elem: any) =>
         "object" === typeof elem && null !== elem ? $cu0(elem) : (elem as any),

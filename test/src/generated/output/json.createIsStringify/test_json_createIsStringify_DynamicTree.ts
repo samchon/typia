@@ -41,8 +41,8 @@ export const test_json_createIsStringify_DynamicTree = _test_json_isStringify(
           return "object" === typeof value && null !== value && $io0(value);
         return true;
       });
-    const $string = (typia.json.createIsStringify as any).string;
-    const $number = (typia.json.createIsStringify as any).number;
+    const $string = require("typia/lib/functional/$string").$string;
+    const $number = require("typia/lib/functional/$number").$number;
     const $so0 = (input: any): any =>
       `{"id":${$string(input.id)},"sequence":${$number(
         input.sequence,

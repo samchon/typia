@@ -10,20 +10,19 @@ export const test_random_ObjectHttpNullable = _test_random(
     ((
       generator?: Partial<typia.IRandomGenerator>,
     ): typia.Resolved<ObjectHttpNullable> => {
-      const $generator = (typia.random as any).generator;
-      const $pick = (typia.random as any).pick;
+      const $generator = require("typia/lib/functional/$generator").$generator;
       const $ro0 = (_recursive: boolean = false, _depth: number = 0): any => ({
-        boolean: $pick([
+        boolean: (generator?.pick ?? $generator.pick)([
           () => null,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        bigint: $pick([
+        bigint: (generator?.pick ?? $generator.pick)([
           () => null,
           () =>
             (generator?.customs ?? $generator.customs)?.bigint?.([]) ??
             (generator?.bigint ?? $generator.bigint)(BigInt(0), BigInt(100)),
         ])(),
-        number: $pick([
+        number: (generator?.pick ?? $generator.pick)([
           () => null,
           () =>
             (generator?.customs ?? $generator.customs)?.number?.([
@@ -34,27 +33,35 @@ export const test_random_ObjectHttpNullable = _test_random(
               },
             ]) ?? (generator?.number ?? $generator.number)(1, 11),
         ])(),
-        string: $pick([
+        string: (generator?.pick ?? $generator.pick)([
           () => null,
           () =>
             (generator?.customs ?? $generator.customs)?.string?.([]) ??
             (generator?.string ?? $generator.string)(),
         ])(),
-        constantBoolean: $pick([() => null, () => true])(),
-        constantBigint: $pick([
+        constantBoolean: (generator?.pick ?? $generator.pick)([
+          () => null,
+          () => true,
+        ])(),
+        constantBigint: (generator?.pick ?? $generator.pick)([
           () => null,
           () => BigInt(1),
           () => BigInt(2),
           () => BigInt(3),
         ])(),
-        constantNumber: $pick([() => null, () => 3, () => 2, () => 1])(),
-        constantString: $pick([
+        constantNumber: (generator?.pick ?? $generator.pick)([
+          () => null,
+          () => 3,
+          () => 2,
+          () => 1,
+        ])(),
+        constantString: (generator?.pick ?? $generator.pick)([
           () => null,
           () => "three",
           () => "two",
           () => "one",
         ])(),
-        nullableArray: $pick([
+        nullableArray: (generator?.pick ?? $generator.pick)([
           () => null,
           () =>
             (generator?.array ?? $generator.array)(
@@ -102,7 +109,9 @@ export const test_random_ObjectHttpNullable = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ObjectHttpNullable => {
-        const $guard = (typia.createAssert as any).guard;
+        const $guard = require("typia/lib/functional/$guard").$guard(
+          "typia.createAssert",
+        );
         const $ao0 = (
           input: any,
           _path: string,

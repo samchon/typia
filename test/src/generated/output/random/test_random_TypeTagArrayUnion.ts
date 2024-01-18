@@ -10,8 +10,7 @@ export const test_random_TypeTagArrayUnion = _test_random(
     ((
       generator?: Partial<typia.IRandomGenerator>,
     ): typia.Resolved<TypeTagArrayUnion> => {
-      const $generator = (typia.random as any).generator;
-      const $pick = (typia.random as any).pick;
+      const $generator = require("typia/lib/functional/$generator").$generator;
       const $ro0 = (_recursive: boolean = false, _depth: number = 0): any => ({
         items: (generator?.array ?? $generator.array)(
           () =>
@@ -37,7 +36,7 @@ export const test_random_TypeTagArrayUnion = _test_random(
         ),
         maxItems: (generator?.array ?? $generator.array)(
           () =>
-            $pick([
+            (generator?.pick ?? $generator.pick)([
               () =>
                 (generator?.customs ?? $generator.customs)?.string?.([
                   {
@@ -124,7 +123,9 @@ export const test_random_TypeTagArrayUnion = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is TypeTagArrayUnion => {
-        const $guard = (typia.createAssert as any).guard;
+        const $guard = require("typia/lib/functional/$guard").$guard(
+          "typia.createAssert",
+        );
         const $ao0 = (
           input: any,
           _path: string,

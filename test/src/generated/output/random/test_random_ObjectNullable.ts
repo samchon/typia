@@ -10,8 +10,7 @@ export const test_random_ObjectNullable = _test_random(
     ((
       generator?: Partial<typia.IRandomGenerator>,
     ): typia.Resolved<ObjectNullable> => {
-      const $generator = (typia.random as any).generator;
-      const $pick = (typia.random as any).pick;
+      const $generator = require("typia/lib/functional/$generator").$generator;
       const $ro0 = (_recursive: boolean = false, _depth: number = 0): any => ({
         value: (generator?.array ?? $generator.array)(() =>
           $ro1(_recursive, _recursive ? 1 + _depth : _depth),
@@ -22,11 +21,11 @@ export const test_random_ObjectNullable = _test_random(
           (generator?.customs ?? $generator.customs)?.string?.([]) ??
           (generator?.string ?? $generator.string)(),
         manufacturer: $ro2(_recursive, _recursive ? 1 + _depth : _depth),
-        brand: $pick([
+        brand: (generator?.pick ?? $generator.pick)([
           () => null,
           () => $ro3(_recursive, _recursive ? 1 + _depth : _depth),
         ])(),
-        similar: $pick([
+        similar: (generator?.pick ?? $generator.pick)([
           () => null,
           () => $ro3(_recursive, _recursive ? 1 + _depth : _depth),
           () => $ro2(_recursive, _recursive ? 1 + _depth : _depth),
@@ -85,7 +84,9 @@ export const test_random_ObjectNullable = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ObjectNullable => {
-        const $guard = (typia.createAssert as any).guard;
+        const $guard = require("typia/lib/functional/$guard").$guard(
+          "typia.createAssert",
+        );
         const $ao0 = (
           input: any,
           _path: string,

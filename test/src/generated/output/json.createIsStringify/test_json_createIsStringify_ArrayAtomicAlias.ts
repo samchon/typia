@@ -22,8 +22,8 @@ export const test_json_createIsStringify_ArrayAtomicAlias =
       );
     };
     const stringify = (input: ArrayAtomicAlias): string => {
-      const $number = (typia.json.createIsStringify as any).number;
-      const $string = (typia.json.createIsStringify as any).string;
+      const $number = require("typia/lib/functional/$number").$number;
+      const $string = require("typia/lib/functional/$string").$string;
       return `[${`[${input[0]
         .map((elem: any) => elem)
         .join(",")}]`},${`[${input[1]

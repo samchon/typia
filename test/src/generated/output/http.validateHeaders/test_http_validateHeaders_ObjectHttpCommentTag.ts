@@ -35,7 +35,9 @@ export const test_http_validateHeaders_ObjectHttpCommentTag =
           return "object" === typeof input && null !== input && $io0(input);
         };
         if (false === __is(input)) {
-          const $report = (typia.http.validateHeaders as any).report(errors);
+          const $report = require("typia/lib/functional/$report").$report(
+            errors,
+          );
           ((
             input: any,
             _path: string,
@@ -148,15 +150,15 @@ export const test_http_validateHeaders_ObjectHttpCommentTag =
       const headers = (
         input: Record<string, string | string[] | undefined>,
       ): typia.Resolved<ObjectHttpCommentTag> => {
-        const $number = (typia.http.validateHeaders as any).number;
-        const $bigint = (typia.http.validateHeaders as any).bigint;
+        const $HeadersReader =
+          require("typia/lib/functional/$HeadersReader").$HeadersReader;
         const output = {
-          int: $number(input.int),
-          uint64: $bigint(input.uint64),
+          int: $HeadersReader.number(input.int),
+          uint64: $HeadersReader.bigint(input.uint64),
           uuid: input.uuid,
           items: Array.isArray(input.items)
-            ? input.items.map($number)
-            : input.items?.split(", ")?.map($number) ?? [],
+            ? input.items.map($HeadersReader.number)
+            : input.items?.split(", ")?.map($HeadersReader.number) ?? [],
         };
         return output as any;
       };

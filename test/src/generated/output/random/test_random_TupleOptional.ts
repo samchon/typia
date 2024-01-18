@@ -10,22 +10,21 @@ export const test_random_TupleOptional = _test_random(
     ((
       generator?: Partial<typia.IRandomGenerator>,
     ): typia.Resolved<TupleOptional> => {
-      const $generator = (typia.random as any).generator;
-      const $pick = (typia.random as any).pick;
+      const $generator = require("typia/lib/functional/$generator").$generator;
       return (generator?.array ?? $generator.array)(() => [
         (generator?.customs ?? $generator.customs)?.number?.([]) ??
           (generator?.number ?? $generator.number)(0, 100),
         (generator?.boolean ?? $generator.boolean)(),
         (generator?.customs ?? $generator.customs)?.string?.([]) ??
           (generator?.string ?? $generator.string)(),
-        $pick([
+        (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => null,
           () =>
             (generator?.customs ?? $generator.customs)?.number?.([]) ??
             (generator?.number ?? $generator.number)(0, 100),
         ])(),
-        $pick([
+        (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => null,
           () =>
@@ -62,7 +61,9 @@ export const test_random_TupleOptional = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is TupleOptional => {
-        const $guard = (typia.createAssert as any).guard;
+        const $guard = require("typia/lib/functional/$guard").$guard(
+          "typia.createAssert",
+        );
         return (
           ((Array.isArray(input) ||
             $guard(true, {

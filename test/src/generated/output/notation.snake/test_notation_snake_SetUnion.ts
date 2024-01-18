@@ -94,7 +94,7 @@ export const test_notation_validateSnake_SetUnion =
             );
           };
           if (false === __is(input)) {
-            const $report = (typia.notations.validateSnake as any).report(
+            const $report = require("typia/lib/functional/$report").$report(
               errors,
             );
             ((
@@ -371,7 +371,9 @@ export const test_notation_validateSnake_SetUnion =
             "string" === typeof input.id &&
             "string" === typeof input.name &&
             "number" === typeof input.age;
-          const $throws = (typia.notations.validateSnake as any).throws;
+          const $throws = require("typia/lib/functional/$throws").$throws(
+            "typia.notations.validateSnake",
+          );
           const $cp0 = (input: any) => input.map((elem: any) => elem as any);
           const $cp1 = (input: any) =>
             input.map((elem: any) =>
@@ -533,7 +535,9 @@ export const test_notation_validateSnake_SetUnion =
           _path: string,
           _exceptionable: boolean = true,
         ): input is typia.SnakeCase<SetUnion> => {
-          const $guard = (typia.createAssert as any).guard;
+          const $guard = require("typia/lib/functional/$guard").$guard(
+            "typia.createAssert",
+          );
           const $ao0 = (
             input: any,
             _path: string,

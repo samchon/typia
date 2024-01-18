@@ -25,7 +25,9 @@ export const test_json_assertStringify_ObjectLiteralProperty =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ObjectLiteralProperty => {
-            const $guard = (typia.json.assertStringify as any).guard;
+            const $guard = require("typia/lib/functional/$guard").$guard(
+              "typia.json.assertStringify",
+            );
             const $ao0 = (
               input: any,
               _path: string,
@@ -62,7 +64,7 @@ export const test_json_assertStringify_ObjectLiteralProperty =
         return input;
       };
       const stringify = (input: ObjectLiteralProperty): string => {
-        const $string = (typia.json.assertStringify as any).string;
+        const $string = require("typia/lib/functional/$string").$string;
         return `{"something-interesting-do-you-want?":${$string(
           (input as any)["something-interesting-do-you-want?"],
         )},"or-something-crazy-do-you-want?":${$string(

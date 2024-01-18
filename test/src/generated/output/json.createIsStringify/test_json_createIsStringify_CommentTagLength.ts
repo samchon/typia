@@ -45,7 +45,7 @@ export const test_json_createIsStringify_CommentTagLength =
         "string" === typeof input.equal &&
         10 <= input.equal.length &&
         input.equal.length <= 19;
-      const $string = (typia.json.createIsStringify as any).string;
+      const $string = require("typia/lib/functional/$string").$string;
       const $so0 = (input: any): any =>
         `{"value":${`[${input.value
           .map(

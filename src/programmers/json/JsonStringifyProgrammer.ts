@@ -24,7 +24,7 @@ import { ArrayUtil } from "../../utils/ArrayUtil";
 import { FeatureProgrammer } from "../FeatureProgrammer";
 import { IsProgrammer } from "../IsProgrammer";
 import { AtomicPredicator } from "../helpers/AtomicPredicator";
-import { FunctionImporter } from "../helpers/FunctionImporeter";
+import { FunctionImporter } from "../helpers/FunctionImporter";
 import { IExpressionEntry } from "../helpers/IExpressionEntry";
 import { OptionPredicator } from "../helpers/OptionPredicator";
 import { StringifyJoiner } from "../helpers/StringifyJoinder";
@@ -51,7 +51,7 @@ export namespace JsonStringifyProgrammer {
           ...IsProgrammer.write_function_statements(project)(importer)(
             collection,
           ),
-          ...importer.declare(modulo),
+          ...importer.declare(),
         ],
       })(importer);
     };
@@ -868,7 +868,7 @@ export namespace JsonStringifyProgrammer {
     (value: ts.Expression) =>
       ts.factory.createExpressionStatement(
         ts.factory.createCallExpression(
-          importer.use("throws"),
+          importer.use("throws", true),
           [],
           [
             ts.factory.createObjectLiteralExpression(

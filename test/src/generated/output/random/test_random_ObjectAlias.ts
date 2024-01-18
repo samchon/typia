@@ -10,10 +10,9 @@ export const test_random_ObjectAlias = _test_random("ObjectAlias")<ObjectAlias>(
     ((
       generator?: Partial<typia.IRandomGenerator>,
     ): typia.Resolved<ObjectAlias> => {
-      const $generator = (typia.random as any).generator;
-      const $pick = (typia.random as any).pick;
+      const $generator = require("typia/lib/functional/$generator").$generator;
       const $ro0 = (_recursive: boolean = false, _depth: number = 0): any => ({
-        id: $pick([
+        id: (generator?.pick ?? $generator.pick)([
           () => null,
           () =>
             (generator?.customs ?? $generator.customs)?.string?.([]) ??
@@ -25,20 +24,20 @@ export const test_random_ObjectAlias = _test_random("ObjectAlias")<ObjectAlias>(
         name:
           (generator?.customs ?? $generator.customs)?.string?.([]) ??
           (generator?.string ?? $generator.string)(),
-        sex: $pick([
+        sex: (generator?.pick ?? $generator.pick)([
           () => null,
           () => 2,
           () => 1,
           () => "male",
           () => "female",
         ])(),
-        age: $pick([
+        age: (generator?.pick ?? $generator.pick)([
           () => null,
           () =>
             (generator?.customs ?? $generator.customs)?.number?.([]) ??
             (generator?.number ?? $generator.number)(0, 100),
         ])(),
-        dead: $pick([
+        dead: (generator?.pick ?? $generator.pick)([
           () => null,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
@@ -73,7 +72,9 @@ export const test_random_ObjectAlias = _test_random("ObjectAlias")<ObjectAlias>(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ObjectAlias => {
-        const $guard = (typia.createAssert as any).guard;
+        const $guard = require("typia/lib/functional/$guard").$guard(
+          "typia.createAssert",
+        );
         const $ao0 = (
           input: any,
           _path: string,

@@ -10,8 +10,7 @@ export const test_random_ArrayRepeatedNullable = _test_random(
     ((
       generator?: Partial<typia.IRandomGenerator>,
     ): typia.Resolved<ArrayRepeatedNullable> => {
-      const $generator = (typia.random as any).generator;
-      const $pick = (typia.random as any).pick;
+      const $generator = require("typia/lib/functional/$generator").$generator;
       const $ra0 = (
         length: number,
         _recursive: boolean = true,
@@ -20,7 +19,7 @@ export const test_random_ArrayRepeatedNullable = _test_random(
         5 >= _depth
           ? (generator?.array ?? $generator.array)(
               () =>
-                $pick([
+                (generator?.pick ?? $generator.pick)([
                   () => null,
                   () =>
                     (generator?.customs ?? $generator.customs)?.string?.([]) ??
@@ -38,7 +37,7 @@ export const test_random_ArrayRepeatedNullable = _test_random(
               length,
             )
           : [];
-      return $pick([
+      return (generator?.pick ?? $generator.pick)([
         () => null,
         () =>
           (generator?.customs ?? $generator.customs)?.string?.([]) ??
@@ -74,7 +73,9 @@ export const test_random_ArrayRepeatedNullable = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ArrayRepeatedNullable => {
-        const $guard = (typia.createAssert as any).guard;
+        const $guard = require("typia/lib/functional/$guard").$guard(
+          "typia.createAssert",
+        );
         const $aa0 = (
           input: any,
           _path: string,

@@ -9,8 +9,7 @@ export const test_createRandom_TypeTagDefault = _test_random(
   random: (
     generator: Partial<typia.IRandomGenerator> = (TypeTagDefault as any).RANDOM,
   ): typia.Resolved<TypeTagDefault> => {
-    const $generator = (typia.createRandom as any).generator;
-    const $pick = (typia.createRandom as any).pick;
+    const $generator = require("typia/lib/functional/$generator").$generator;
     const $ro0 = (_recursive: boolean = false, _depth: number = 0): any => ({
       boolean: (generator?.boolean ?? $generator.boolean)(),
       number:
@@ -37,7 +36,7 @@ export const test_createRandom_TypeTagDefault = _test_random(
             value: "Very long text, can you understand it?",
           },
         ]) ?? (generator?.string ?? $generator.string)(),
-      boolean_and_number_and_string: $pick([
+      boolean_and_number_and_string: (generator?.pick ?? $generator.pick)([
         () =>
           (generator?.customs ?? $generator.customs)?.number?.([
             {
@@ -56,7 +55,7 @@ export const test_createRandom_TypeTagDefault = _test_random(
           ]) ?? (generator?.string ?? $generator.string)(),
         () => (generator?.boolean ?? $generator.boolean)(),
       ])(),
-      union_but_boolean: $pick([
+      union_but_boolean: (generator?.pick ?? $generator.pick)([
         () =>
           (generator?.customs ?? $generator.customs)?.string?.([]) ??
           (generator?.string ?? $generator.string)(),
@@ -65,7 +64,7 @@ export const test_createRandom_TypeTagDefault = _test_random(
           (generator?.number ?? $generator.number)(0, 100),
         () => (generator?.boolean ?? $generator.boolean)(),
       ])(),
-      union_but_number: $pick([
+      union_but_number: (generator?.pick ?? $generator.pick)([
         () =>
           (generator?.customs ?? $generator.customs)?.string?.([]) ??
           (generator?.string ?? $generator.string)(),
@@ -79,7 +78,7 @@ export const test_createRandom_TypeTagDefault = _test_random(
           ]) ?? (generator?.number ?? $generator.number)(0, 100),
         () => (generator?.boolean ?? $generator.boolean)(),
       ])(),
-      union_but_string: $pick([
+      union_but_string: (generator?.pick ?? $generator.pick)([
         () =>
           (generator?.customs ?? $generator.customs)?.number?.([]) ??
           (generator?.number ?? $generator.number)(0, 100),
@@ -93,7 +92,7 @@ export const test_createRandom_TypeTagDefault = _test_random(
           ]) ?? (generator?.string ?? $generator.string)(),
         () => (generator?.boolean ?? $generator.boolean)(),
       ])(),
-      boolean_and_number_and_template: $pick([
+      boolean_and_number_and_template: (generator?.pick ?? $generator.pick)([
         () =>
           `prefix_${
             (generator?.customs ?? $generator.customs)?.string?.([]) ??
@@ -153,7 +152,9 @@ export const test_createRandom_TypeTagDefault = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is TypeTagDefault => {
-        const $guard = (typia.createAssert as any).guard;
+        const $guard = require("typia/lib/functional/$guard").$guard(
+          "typia.createAssert",
+        );
         const $ao0 = (
           input: any,
           _path: string,

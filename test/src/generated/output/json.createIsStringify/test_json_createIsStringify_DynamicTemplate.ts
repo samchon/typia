@@ -37,8 +37,8 @@ export const test_json_createIsStringify_DynamicTemplate =
         );
       };
       const stringify = (input: DynamicTemplate): string => {
-        const $string = (typia.json.createIsStringify as any).string;
-        const $number = (typia.json.createIsStringify as any).number;
+        const $string = require("typia/lib/functional/$string").$string;
+        const $number = require("typia/lib/functional/$number").$number;
         const $so0 = (input: any): any =>
           `{${Object.entries(input)
             .map(([key, value]: [string, any]) => {

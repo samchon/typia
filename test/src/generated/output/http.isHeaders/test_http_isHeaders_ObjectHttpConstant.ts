@@ -24,13 +24,12 @@ export const test_http_isHeaders_ObjectHttpConstant = _test_http_isHeaders(
     const headers = (
       input: Record<string, string | string[] | undefined>,
     ): typia.Resolved<ObjectHttpConstant> => {
-      const $boolean = (typia.http.isHeaders as any).boolean;
-      const $bigint = (typia.http.isHeaders as any).bigint;
-      const $number = (typia.http.isHeaders as any).number;
+      const $HeadersReader =
+        require("typia/lib/functional/$HeadersReader").$HeadersReader;
       const output = {
-        boolean: $boolean(input.boolean),
-        bigint: $bigint(input.bigint),
-        number: $number(input.number),
+        boolean: $HeadersReader.boolean(input.boolean),
+        bigint: $HeadersReader.bigint(input.bigint),
+        number: $HeadersReader.number(input.number),
         string: input.string,
         template: input.template,
       };

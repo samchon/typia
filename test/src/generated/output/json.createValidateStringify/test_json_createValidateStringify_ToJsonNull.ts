@@ -13,7 +13,7 @@ export const test_json_createValidateStringify_ToJsonNull =
           return "object" === typeof input && null !== input && $io0(input);
         };
         if (false === __is(input)) {
-          const $report = (typia.json.createValidateStringify as any).report(
+          const $report = require("typia/lib/functional/$report").$report(
             errors,
           );
           ((

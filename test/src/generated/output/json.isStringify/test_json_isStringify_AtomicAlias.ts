@@ -18,8 +18,8 @@ export const test_json_isStringify_AtomicAlias = _test_json_isStringify(
       );
     };
     const stringify = (input: AtomicAlias): string => {
-      const $number = (typia.json.isStringify as any).number;
-      const $string = (typia.json.isStringify as any).string;
+      const $number = require("typia/lib/functional/$number").$number;
+      const $string = require("typia/lib/functional/$string").$string;
       return `[${input[0]},${$number(input[1])},${$string(input[2])}]`;
     };
     return is(input) ? stringify(input) : null;

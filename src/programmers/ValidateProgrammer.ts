@@ -9,7 +9,7 @@ import { IProject } from "../transformers/IProject";
 
 import { CheckerProgrammer } from "./CheckerProgrammer";
 import { IsProgrammer } from "./IsProgrammer";
-import { FunctionImporter } from "./helpers/FunctionImporeter";
+import { FunctionImporter } from "./helpers/FunctionImporter";
 import { OptionPredicator } from "./helpers/OptionPredicator";
 import { check_everything } from "./internal/check_everything";
 import { check_object } from "./internal/check_object";
@@ -84,7 +84,7 @@ export namespace ValidateProgrammer {
         combiner: combine(equals)(project)(importer),
         joiner: joiner(equals)(project)(importer),
         success: ts.factory.createTrue(),
-        addition: () => importer.declare(modulo),
+        addition: () => importer.declare(),
       })(importer)(type, name);
 
       return ts.factory.createArrowFunction(
@@ -121,13 +121,16 @@ export namespace ValidateProgrammer {
                   "$report",
                   ts.factory.createCallExpression(
                     IdentifierFactory.access(
-                      ts.factory.createParenthesizedExpression(
-                        ts.factory.createAsExpression(
-                          modulo,
-                          TypeFactory.keyword("any"),
-                        ),
+                      ts.factory.createCallExpression(
+                        ts.factory.createIdentifier("require"),
+                        [],
+                        [
+                          ts.factory.createStringLiteral(
+                            "typia/lib/functional/$report",
+                          ),
+                        ],
                       ),
-                    )("report"),
+                    )("$report"),
                     [],
                     [ts.factory.createIdentifier("errors")],
                   ),

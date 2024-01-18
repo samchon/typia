@@ -33,7 +33,7 @@ export const test_notation_validateSnake_ArrayAny =
             return "object" === typeof input && null !== input && $io0(input);
           };
           if (false === __is(input)) {
-            const $report = (typia.notations.validateSnake as any).report(
+            const $report = require("typia/lib/functional/$report").$report(
               errors,
             );
             ((
@@ -136,17 +136,17 @@ export const test_notation_validateSnake_ArrayAny =
           } as any;
         };
         const general = (input: ArrayAny): typia.SnakeCase<ArrayAny> => {
-          const $any = (typia.notations.validateSnake as any).any;
+          const $snake = require("typia/lib/functional/$snake").$snake;
           const $co0 = (input: any): any => ({
-            anys: $any(input.anys),
-            undefindable1: $any(input.undefindable1),
-            undefindable2: $any(input.undefindable2),
-            nullables1: $any(input.nullables1),
-            nullables2: $any(input.nullables2),
-            both1: $any(input.both1),
-            both2: $any(input.both2),
-            both3: $any(input.both3),
-            union: $any(input.union),
+            anys: $snake(input.anys),
+            undefindable1: $snake(input.undefindable1),
+            undefindable2: $snake(input.undefindable2),
+            nullables1: $snake(input.nullables1),
+            nullables2: $snake(input.nullables2),
+            both1: $snake(input.both1),
+            both2: $snake(input.both2),
+            both3: $snake(input.both3),
+            union: $snake(input.union),
           });
           return "object" === typeof input && null !== input
             ? $co0(input)
@@ -184,7 +184,9 @@ export const test_notation_validateSnake_ArrayAny =
           _path: string,
           _exceptionable: boolean = true,
         ): input is typia.SnakeCase<ArrayAny> => {
-          const $guard = (typia.createAssert as any).guard;
+          const $guard = require("typia/lib/functional/$guard").$guard(
+            "typia.createAssert",
+          );
           const $ao0 = (
             input: any,
             _path: string,

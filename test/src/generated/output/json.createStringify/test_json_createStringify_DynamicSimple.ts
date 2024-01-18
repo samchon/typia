@@ -13,7 +13,7 @@ export const test_json_createStringify_DynamicSimple = _test_json_stringify(
       if (true) return "number" === typeof value;
       return true;
     });
-  const $number = (typia.json.createStringify as any).number;
+  const $number = require("typia/lib/functional/$number").$number;
   const $so0 = (input: any): any => `{"value":${$so1(input.value)}}`;
   const $so1 = (input: any): any =>
     `{${Object.entries(input)

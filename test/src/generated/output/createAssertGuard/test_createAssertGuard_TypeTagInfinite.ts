@@ -36,7 +36,9 @@ export const test_createAssertGuard_TypeTagInfinite = _test_assertGuard(
         _path: string,
         _exceptionable: boolean = true,
       ): input is TypeTagInfinite => {
-        const $guard = (typia.createAssertGuard as any).guard;
+        const $guard = require("typia/lib/functional/$guard").$guard(
+          "typia.createAssertGuard",
+        );
         const $ao0 = (
           input: any,
           _path: string,

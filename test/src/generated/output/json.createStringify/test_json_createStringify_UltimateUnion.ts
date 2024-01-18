@@ -1003,10 +1003,12 @@ export const test_json_createStringify_UltimateUnion = _test_json_stringify(
           $io34(input)
         );
     })();
-  const $string = (typia.json.createStringify as any).string;
-  const $throws = (typia.json.createStringify as any).throws;
-  const $number = (typia.json.createStringify as any).number;
-  const $tail = (typia.json.createStringify as any).tail;
+  const $string = require("typia/lib/functional/$string").$string;
+  const $throws = require("typia/lib/functional/$throws").$throws(
+    "typia.json.createStringify",
+  );
+  const $number = require("typia/lib/functional/$number").$number;
+  const $tail = require("typia/lib/functional/$tail").$tail;
   const $so0 = (input: any): any =>
     `{"schemas":${`[${input.schemas
       .map((elem: any) => $su0(elem))

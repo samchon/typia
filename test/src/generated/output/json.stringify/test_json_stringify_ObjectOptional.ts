@@ -7,9 +7,9 @@ export const test_json_stringify_ObjectOptional = _test_json_stringify(
   "ObjectOptional",
 )<ObjectOptional>(ObjectOptional)((input) =>
   ((input: ObjectOptional): string => {
-    const $string = (typia.json.stringify as any).string;
-    const $number = (typia.json.stringify as any).number;
-    const $tail = (typia.json.stringify as any).tail;
+    const $string = require("typia/lib/functional/$string").$string;
+    const $number = require("typia/lib/functional/$number").$number;
+    const $tail = require("typia/lib/functional/$tail").$tail;
     const $so0 = (input: any): any =>
       `{${$tail(
         `${

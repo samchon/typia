@@ -23,9 +23,9 @@ export const test_json_createIsStringify_TupleRestArray =
         );
       };
       const stringify = (input: TupleRestArray): string => {
-        const $number = (typia.json.createIsStringify as any).number;
-        const $string = (typia.json.createIsStringify as any).string;
-        const $rest = (typia.json.createIsStringify as any).rest;
+        const $number = require("typia/lib/functional/$number").$number;
+        const $string = require("typia/lib/functional/$string").$string;
+        const $rest = require("typia/lib/functional/$rest").$rest;
         return `[${input[0]},${$number(input[1])}${$rest(
           `[${input
             .slice(2)

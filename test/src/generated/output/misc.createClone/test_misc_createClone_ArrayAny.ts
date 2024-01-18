@@ -6,17 +6,17 @@ import { ArrayAny } from "../../../structures/ArrayAny";
 export const test_misc_createClone_ArrayAny = _test_misc_clone(
   "ArrayAny",
 )<ArrayAny>(ArrayAny)((input: ArrayAny): typia.Resolved<ArrayAny> => {
-  const $any = (typia.misc.createClone as any).any;
+  const $clone = require("typia/lib/functional/$clone").$clone;
   const $co0 = (input: any): any => ({
-    anys: $any(input.anys),
-    undefindable1: $any(input.undefindable1),
-    undefindable2: $any(input.undefindable2),
-    nullables1: $any(input.nullables1),
-    nullables2: $any(input.nullables2),
-    both1: $any(input.both1),
-    both2: $any(input.both2),
-    both3: $any(input.both3),
-    union: $any(input.union),
+    anys: $clone(input.anys),
+    undefindable1: $clone(input.undefindable1),
+    undefindable2: $clone(input.undefindable2),
+    nullables1: $clone(input.nullables1),
+    nullables2: $clone(input.nullables2),
+    both1: $clone(input.both1),
+    both2: $clone(input.both2),
+    both3: $clone(input.both3),
+    union: $clone(input.union),
   });
   return "object" === typeof input && null !== input
     ? $co0(input)

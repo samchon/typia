@@ -34,7 +34,9 @@ export const test_json_createAssertStringify_ArrayAny =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ArrayAny => {
-            const $guard = (typia.json.createAssertStringify as any).guard;
+            const $guard = require("typia/lib/functional/$guard").$guard(
+              "typia.json.createAssertStringify",
+            );
             const $ao0 = (
               input: any,
               _path: string,

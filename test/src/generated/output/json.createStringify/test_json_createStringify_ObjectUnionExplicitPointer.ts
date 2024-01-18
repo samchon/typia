@@ -91,9 +91,11 @@ export const test_json_createStringify_ObjectUnionExplicitPointer =
           else if ("circle" === input.type) return $io10(input);
           else return false;
         })();
-      const $number = (typia.json.createStringify as any).number;
-      const $string = (typia.json.createStringify as any).string;
-      const $throws = (typia.json.createStringify as any).throws;
+      const $number = require("typia/lib/functional/$number").$number;
+      const $string = require("typia/lib/functional/$string").$string;
+      const $throws = require("typia/lib/functional/$throws").$throws(
+        "typia.json.createStringify",
+      );
       const $so0 = (input: any): any =>
         `{"value":${`[${input.value
           .map((elem: any) => $so1(elem))

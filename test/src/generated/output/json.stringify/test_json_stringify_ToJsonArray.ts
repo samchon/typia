@@ -7,8 +7,8 @@ export const test_json_stringify_ToJsonArray = _test_json_stringify(
   "ToJsonArray",
 )<ToJsonArray>(ToJsonArray)((input) =>
   ((input: ToJsonArray): string => {
-    const $number = (typia.json.stringify as any).number;
-    const $string = (typia.json.stringify as any).string;
+    const $number = require("typia/lib/functional/$number").$number;
+    const $string = require("typia/lib/functional/$string").$string;
     return `[${`[${input[0]
       .toJSON()
       .map((elem: any) => elem)

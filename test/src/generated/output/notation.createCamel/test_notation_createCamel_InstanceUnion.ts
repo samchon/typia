@@ -252,7 +252,7 @@ export const test_notation_createValidateCamel_InstanceUnion =
           );
         };
         if (false === __is(input)) {
-          const $report = (typia.notations.createValidateCamel as any).report(
+          const $report = require("typia/lib/functional/$report").$report(
             errors,
           );
           ((
@@ -1103,8 +1103,10 @@ export const test_notation_createValidateCamel_InstanceUnion =
             else if ("circle" === input.type) return $io10(input);
             else return false;
           })();
-        const $any = (typia.notations.createValidateCamel as any).any;
-        const $throws = (typia.notations.createValidateCamel as any).throws;
+        const $camel = require("typia/lib/functional/$camel").$camel;
+        const $throws = require("typia/lib/functional/$throws").$throws(
+          "typia.notations.createValidateCamel",
+        );
         const $cp0 = (input: any) => {
           const array = input;
           const top = input[0];
@@ -1162,7 +1164,9 @@ export const test_notation_createValidateCamel_InstanceUnion =
                   new Set<any>([...elem].map((elem: any) => elem as any)))()
               : elem instanceof Map
               ? (() =>
-                  new Map<any, any>([...elem].map((elem: any) => $any(elem))))()
+                  new Map<any, any>(
+                    [...elem].map((elem: any) => $camel(elem)),
+                  ))()
               : elem instanceof Uint8Array
               ? elem
               : "object" === typeof elem && null !== elem
@@ -1555,7 +1559,9 @@ export const test_notation_createValidateCamel_InstanceUnion =
           _path: string,
           _exceptionable: boolean = true,
         ): input is typia.CamelCase<InstanceUnion> => {
-          const $guard = (typia.createAssert as any).guard;
+          const $guard = require("typia/lib/functional/$guard").$guard(
+            "typia.createAssert",
+          );
           const $ap0 = (
             input: any,
             _path: string,

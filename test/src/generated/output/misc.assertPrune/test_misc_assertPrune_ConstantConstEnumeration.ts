@@ -28,7 +28,9 @@ export const test_misc_assertPrune_ConstantConstEnumeration =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ConstantConstEnumeration => {
-            const $guard = (typia.misc.assertPrune as any).guard;
+            const $guard = require("typia/lib/functional/$guard").$guard(
+              "typia.misc.assertPrune",
+            );
             return (
               ((Array.isArray(input) ||
                 $guard(true, {

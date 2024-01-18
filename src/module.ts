@@ -1,5 +1,3 @@
-import { Namespace } from "./functional/Namespace";
-
 import { AssertionGuard } from "./AssertionGuard";
 import { IRandomGenerator } from "./IRandomGenerator";
 import { IValidation } from "./IValidation";
@@ -85,7 +83,6 @@ export function assert<T>(input: unknown): T;
 export function assert(): never {
   halt("assert");
 }
-Object.assign(assert, Namespace.assert("assert"));
 
 /**
  * Assertion guard of a value type.
@@ -145,7 +142,6 @@ export function assertGuard<T>(input: unknown): asserts input is T;
 export function assertGuard(): never {
   halt("assertGuard");
 }
-Object.assign(assertGuard, Namespace.assert("assertGuard"));
 
 /**
  * Tests a value type.
@@ -201,7 +197,6 @@ export function is<T>(input: unknown): input is T;
 export function is(): never {
   halt("is");
 }
-Object.assign(is, Namespace.assert("is"));
 
 /**
  * Validates a value type.
@@ -259,7 +254,6 @@ export function validate<T>(input: unknown): IValidation<T>;
 export function validate(): never {
   halt("validate");
 }
-Object.assign(validate, Namespace.validate());
 
 /* -----------------------------------------------------------
     STRICT VALIDATORS
@@ -320,7 +314,6 @@ export function assertEquals<T>(input: unknown): T;
 export function assertEquals(): never {
   halt("assertEquals");
 }
-Object.assign(assertEquals, Namespace.assert("assertEquals"));
 
 /**
  * Assertion guard of a type with equality.
@@ -386,7 +379,6 @@ export function assertGuardEquals<T>(input: unknown): asserts input is T;
 export function assertGuardEquals(): never {
   halt("assertGuardEquals");
 }
-Object.assign(assertGuardEquals, Namespace.assert("assertGuardEquals"));
 
 /**
  * Tests equality between a value and its type.
@@ -444,7 +436,6 @@ export function equals<T>(input: unknown): input is T;
 export function equals(): never {
   halt("equals");
 }
-Object.assign(equals, Namespace.is());
 
 /**
  * Validates equality between a value and its type.
@@ -504,7 +495,6 @@ export function validateEquals<T>(input: unknown): IValidation<T>;
 export function validateEquals(): never {
   halt("validateEquals");
 }
-Object.assign(validateEquals, Namespace.validate());
 
 /* -----------------------------------------------------------
     RANDOM
@@ -553,7 +543,6 @@ export function random<T>(generator?: Partial<IRandomGenerator>): Resolved<T>;
 export function random(): never {
   halt("random");
 }
-Object.assign(random, Namespace.random());
 
 /* -----------------------------------------------------------
     FACTORY FUNCTIONS
@@ -585,7 +574,6 @@ export function createAssert<T>(): (input: unknown) => T;
 export function createAssert<T>(): (input: unknown) => T {
   halt("createAssert");
 }
-Object.assign(createAssert, assert);
 
 /**
  * Creates a reusable {@link assertGuard} function.
@@ -644,7 +632,6 @@ export function createAssertGuard<T>(): (input: unknown) => AssertionGuard<T>;
 export function createAssertGuard<T>(): (input: unknown) => AssertionGuard<T> {
   halt("createAssertGuard");
 }
-Object.assign(createAssertGuard, assertGuard);
 
 /**
  * Creates a reusable {@link is} function.
@@ -673,7 +660,6 @@ export function createIs<T>(): (input: unknown) => input is T;
 export function createIs<T>(): (input: unknown) => input is T {
   halt("createIs");
 }
-Object.assign(createIs, is);
 
 /**
  * Creates a reusable {@link validate} function.
@@ -702,7 +688,6 @@ export function createValidate<T>(): (input: unknown) => IValidation<T>;
 export function createValidate(): (input: unknown) => IValidation {
   halt("createValidate");
 }
-Object.assign(createValidate, validate);
 
 /**
  * Creates a reusable {@link assertEquals} function.
@@ -731,7 +716,6 @@ export function createAssertEquals<T>(): (input: unknown) => T;
 export function createAssertEquals<T>(): (input: unknown) => T {
   halt("createAssertEquals");
 }
-Object.assign(createAssertEquals, assertEquals);
 
 /**
  * Creates a reusable {@link assertGuardEquals} function.
@@ -794,7 +778,6 @@ export function createAssertGuardEquals<T>(): (
 ) => AssertionGuard<T> {
   halt("createAssertGuardEquals");
 }
-Object.assign(createAssertGuardEquals, assertGuardEquals);
 
 /**
  * Creates a reusable {@link equals} function.
@@ -823,7 +806,6 @@ export function createEquals<T>(): (input: unknown) => input is T;
 export function createEquals<T>(): (input: unknown) => input is T {
   halt("createEquals");
 }
-Object.assign(createEquals, equals);
 
 /**
  * Creates a reusable {@link validateEquals} function.
@@ -852,7 +834,6 @@ export function createValidateEquals<T>(): (input: unknown) => IValidation<T>;
 export function createValidateEquals(): (input: unknown) => IValidation {
   halt("createValidateEquals");
 }
-Object.assign(createValidateEquals, validateEquals);
 
 /**
  * Creates a reusable {@link random} function.
@@ -885,7 +866,6 @@ export function createRandom<T>(
 export function createRandom(): never {
   halt("createRandom");
 }
-Object.assign(createRandom, random);
 
 /**
  * @internal

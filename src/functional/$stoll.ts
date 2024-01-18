@@ -1,3 +1,6 @@
+/**
+ * @internal
+ */
 export const $is_bigint_string = (str: string): boolean => {
   try {
     BigInt(str);

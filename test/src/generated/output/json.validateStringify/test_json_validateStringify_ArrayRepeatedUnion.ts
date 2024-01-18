@@ -99,7 +99,9 @@ export const test_json_validateStringify_ArrayRepeatedUnion =
           );
         };
         if (false === __is(input)) {
-          const $report = (typia.json.validateStringify as any).report(errors);
+          const $report = require("typia/lib/functional/$report").$report(
+            errors,
+          );
           ((
             input: any,
             _path: string,
@@ -407,9 +409,11 @@ export const test_json_validateStringify_ArrayRepeatedUnion =
           "number" === typeof input.x &&
           "number" === typeof input.y &&
           "number" === typeof input.z;
-        const $number = (typia.json.validateStringify as any).number;
-        const $string = (typia.json.validateStringify as any).string;
-        const $throws = (typia.json.validateStringify as any).throws;
+        const $number = require("typia/lib/functional/$number").$number;
+        const $string = require("typia/lib/functional/$string").$string;
+        const $throws = require("typia/lib/functional/$throws").$throws(
+          "typia.json.validateStringify",
+        );
         const $sp0 = (input: any) => {
           const array = input;
           const top = input[0];

@@ -9,15 +9,14 @@ export const test_createRandom_TemplateUnion = _test_random(
   random: (
     generator: Partial<typia.IRandomGenerator> = (TemplateUnion as any).RANDOM,
   ): typia.Resolved<TemplateUnion> => {
-    const $generator = (typia.createRandom as any).generator;
-    const $pick = (typia.createRandom as any).pick;
+    const $generator = require("typia/lib/functional/$generator").$generator;
     const $ro0 = (_recursive: boolean = false, _depth: number = 0): any => ({
       value: (generator?.array ?? $generator.array)(() =>
         $ro1(_recursive, _recursive ? 1 + _depth : _depth),
       ),
     });
     const $ro1 = (_recursive: boolean = false, _depth: number = 0): any => ({
-      prefix: $pick([
+      prefix: (generator?.pick ?? $generator.pick)([
         () =>
           `prefix_${
             (generator?.customs ?? $generator.customs)?.string?.([]) ??
@@ -29,7 +28,7 @@ export const test_createRandom_TemplateUnion = _test_random(
             (generator?.number ?? $generator.number)(0, 100)
           }`,
       ])(),
-      postfix: $pick([
+      postfix: (generator?.pick ?? $generator.pick)([
         () =>
           `${
             (generator?.customs ?? $generator.customs)?.string?.([]) ??
@@ -41,7 +40,7 @@ export const test_createRandom_TemplateUnion = _test_random(
             (generator?.number ?? $generator.number)(0, 100)
           }_postfix`,
       ])(),
-      middle: $pick([
+      middle: (generator?.pick ?? $generator.pick)([
         () => "the_false_value",
         () => "the_true_value",
         () =>
@@ -50,7 +49,7 @@ export const test_createRandom_TemplateUnion = _test_random(
             (generator?.number ?? $generator.number)(0, 100)
           }_value`,
       ])(),
-      mixed: $pick([
+      mixed: (generator?.pick ?? $generator.pick)([
         () => "the_A_value",
         () => "the_B_value",
         () =>
@@ -121,7 +120,9 @@ export const test_createRandom_TemplateUnion = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is TemplateUnion => {
-        const $guard = (typia.createAssert as any).guard;
+        const $guard = require("typia/lib/functional/$guard").$guard(
+          "typia.createAssert",
+        );
         const $ao0 = (
           input: any,
           _path: string,

@@ -21,7 +21,7 @@ export const test_json_createValidateStringify_AtomicUnion =
           );
         };
         if (false === __is(input)) {
-          const $report = (typia.json.createValidateStringify as any).report(
+          const $report = require("typia/lib/functional/$report").$report(
             errors,
           );
           ((
@@ -66,9 +66,11 @@ export const test_json_createValidateStringify_AtomicUnion =
         } as any;
       };
       const stringify = (input: AtomicUnion): string => {
-        const $string = (typia.json.createValidateStringify as any).string;
-        const $number = (typia.json.createValidateStringify as any).number;
-        const $throws = (typia.json.createValidateStringify as any).throws;
+        const $string = require("typia/lib/functional/$string").$string;
+        const $number = require("typia/lib/functional/$number").$number;
+        const $throws = require("typia/lib/functional/$throws").$throws(
+          "typia.json.createValidateStringify",
+        );
         return `[${input
           .map((elem: any) =>
             null !== elem

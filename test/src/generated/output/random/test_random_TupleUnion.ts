@@ -10,10 +10,9 @@ export const test_random_TupleUnion = _test_random("TupleUnion")<TupleUnion>(
     ((
       generator?: Partial<typia.IRandomGenerator>,
     ): typia.Resolved<TupleUnion> => {
-      const $generator = (typia.random as any).generator;
-      const $pick = (typia.random as any).pick;
+      const $generator = require("typia/lib/functional/$generator").$generator;
       return (generator?.array ?? $generator.array)(() =>
-        $pick([
+        (generator?.pick ?? $generator.pick)([
           () => [
             (generator?.customs ?? $generator.customs)?.number?.([]) ??
               (generator?.number ?? $generator.number)(0, 100),
@@ -81,7 +80,9 @@ export const test_random_TupleUnion = _test_random("TupleUnion")<TupleUnion>(
         _path: string,
         _exceptionable: boolean = true,
       ): input is TupleUnion => {
-        const $guard = (typia.createAssert as any).guard;
+        const $guard = require("typia/lib/functional/$guard").$guard(
+          "typia.createAssert",
+        );
         const $ap0 = (
           input: any,
           _path: string,

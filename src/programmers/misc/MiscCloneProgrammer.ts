@@ -18,7 +18,7 @@ import { TransformerError } from "../../transformers/TransformerError";
 import { FeatureProgrammer } from "../FeatureProgrammer";
 import { IsProgrammer } from "../IsProgrammer";
 import { CloneJoiner } from "../helpers/CloneJoiner";
-import { FunctionImporter } from "../helpers/FunctionImporeter";
+import { FunctionImporter } from "../helpers/FunctionImporter";
 import { UnionExplorer } from "../helpers/UnionExplorer";
 import { decode_union_object } from "../internal/decode_union_object";
 import { wrap_metadata_rest_tuple } from "../internal/wrap_metadata_rest_tuple";
@@ -33,7 +33,7 @@ export namespace MiscCloneProgrammer {
           ...IsProgrammer.write_function_statements(project)(importer)(
             collection,
           ),
-          ...importer.declare(modulo),
+          ...importer.declare(),
         ],
       })(importer);
     };
@@ -127,9 +127,11 @@ export namespace MiscCloneProgrammer {
             !!t.type.elements.length && t.type.elements.every((e) => e.any),
         )
       )
-        return ts.factory.createCallExpression(importer.use("any"), undefined, [
-          input,
-        ]);
+        return ts.factory.createCallExpression(
+          importer.use("clone"),
+          undefined,
+          [input],
+        );
 
       interface IUnion {
         type: string;
@@ -694,7 +696,7 @@ export namespace MiscCloneProgrammer {
     (value: ts.Expression) =>
       ts.factory.createExpressionStatement(
         ts.factory.createCallExpression(
-          importer.use("throws"),
+          importer.use("throws", true),
           [],
           [
             ts.factory.createObjectLiteralExpression(

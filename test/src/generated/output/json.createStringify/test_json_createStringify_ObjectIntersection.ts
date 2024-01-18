@@ -7,7 +7,7 @@ export const test_json_createStringify_ObjectIntersection =
   _test_json_stringify("ObjectIntersection")<ObjectIntersection>(
     ObjectIntersection,
   )((input: ObjectIntersection): string => {
-    const $string = (typia.json.createStringify as any).string;
+    const $string = require("typia/lib/functional/$string").$string;
     return `{"email":${$string((input as any).email)},"name":${$string(
       (input as any).name,
     )},"vulnerable":${(input as any).vulnerable}}`;

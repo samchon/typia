@@ -7,7 +7,7 @@ export const test_json_stringify_TypeTagMatrix = _test_json_stringify(
   "TypeTagMatrix",
 )<TypeTagMatrix>(TypeTagMatrix)((input) =>
   ((input: TypeTagMatrix): string => {
-    const $string = (typia.json.stringify as any).string;
+    const $string = require("typia/lib/functional/$string").$string;
     const $so0 = (input: any): any =>
       `{"matrix":${`[${input.matrix
         .map(

@@ -23,7 +23,9 @@ export const test_json_validateStringify_ObjectLiteralProperty =
           );
         };
         if (false === __is(input)) {
-          const $report = (typia.json.validateStringify as any).report(errors);
+          const $report = require("typia/lib/functional/$report").$report(
+            errors,
+          );
           ((
             input: any,
             _path: string,
@@ -73,7 +75,7 @@ export const test_json_validateStringify_ObjectLiteralProperty =
         } as any;
       };
       const stringify = (input: ObjectLiteralProperty): string => {
-        const $string = (typia.json.validateStringify as any).string;
+        const $string = require("typia/lib/functional/$string").$string;
         return `{"something-interesting-do-you-want?":${$string(
           (input as any)["something-interesting-do-you-want?"],
         )},"or-something-crazy-do-you-want?":${$string(

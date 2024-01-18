@@ -7,17 +7,14 @@ export const test_http_query_ObjectHttpAtomic = _test_http_query(
   "ObjectHttpAtomic",
 )<ObjectHttpAtomic>(ObjectHttpAtomic)((input) =>
   ((input: string | URLSearchParams): typia.Resolved<ObjectHttpAtomic> => {
-    const $params = (typia.http.query as any).params;
-    const $boolean = (typia.http.query as any).boolean;
-    const $bigint = (typia.http.query as any).bigint;
-    const $number = (typia.http.query as any).number;
-    const $string = (typia.http.query as any).string;
-    input = $params(input) as URLSearchParams;
+    const $QueryReader =
+      require("typia/lib/functional/$QueryReader").$QueryReader;
+    input = $QueryReader.params(input) as URLSearchParams;
     const output = {
-      boolean: $boolean(input.get("boolean")),
-      bigint: $bigint(input.get("bigint")),
-      number: $number(input.get("number")),
-      string: $string(input.get("string")),
+      boolean: $QueryReader.boolean(input.get("boolean")),
+      bigint: $QueryReader.bigint(input.get("bigint")),
+      number: $QueryReader.number(input.get("number")),
+      string: $QueryReader.string(input.get("string")),
     };
     return output as any;
   })(input),

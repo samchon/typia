@@ -64,7 +64,9 @@ export const test_json_createAssertStringify_TupleHierarchical =
           _path: string,
           _exceptionable: boolean = true,
         ): input is TupleHierarchical => {
-          const $guard = (typia.json.createAssertStringify as any).guard;
+          const $guard = require("typia/lib/functional/$guard").$guard(
+            "typia.json.createAssertStringify",
+          );
           return (
             ((Array.isArray(input) ||
               $guard(true, {
@@ -414,8 +416,8 @@ export const test_json_createAssertStringify_TupleHierarchical =
       return input;
     };
     const stringify = (input: TupleHierarchical): string => {
-      const $number = (typia.json.createAssertStringify as any).number;
-      const $string = (typia.json.createAssertStringify as any).string;
+      const $number = require("typia/lib/functional/$number").$number;
+      const $string = require("typia/lib/functional/$string").$string;
       return `[${input[0]},null,${$number(input[2])},${`[${
         input[3][0]
       },null,${`[${$number(input[3][2][0])},${`[${input[3][2][1][0]},${$string(

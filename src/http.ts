@@ -1,5 +1,3 @@
-import { Namespace } from "./functional/Namespace";
-
 import { Atomic } from "./typings/Atomic";
 
 import { IValidation } from "./IValidation";
@@ -90,7 +88,6 @@ export function query<T extends object>(
 export function query(): never {
   halt("query");
 }
-Object.assign(query, Namespace.http.query());
 
 /**
  * > You must configure the generic argument `T`.
@@ -162,8 +159,6 @@ export function assertQuery<T extends object>(
 export function assertQuery(): never {
   halt("assertQuery");
 }
-Object.assign(assertQuery, Namespace.http.query());
-Object.assign(assertQuery, Namespace.assert("http.assertQuery"));
 
 /**
  * > You must configure the generic argument `T`.
@@ -233,8 +228,6 @@ export function isQuery<T extends object>(
 export function isQuery(): never {
   halt("isQuery");
 }
-Object.assign(isQuery, Namespace.http.query());
-Object.assign(isQuery, Namespace.is());
 
 /**
  * > You must configure the generic argument `T`.
@@ -306,8 +299,6 @@ export function validateQuery<T extends object>(
 export function validateQuery(): never {
   halt("validateQuery");
 }
-Object.assign(validateQuery, Namespace.http.query());
-Object.assign(validateQuery, Namespace.validate());
 
 /* -----------------------------------------------------------
     HEADERS
@@ -430,7 +421,6 @@ export function headers<T extends object>(
 export function headers(): never {
   halt("headers");
 }
-Object.assign(headers, Namespace.http.headers());
 
 /**
  * > You must configure the generic argument `T`.
@@ -546,8 +536,6 @@ export function assertHeaders<T extends object>(
 export function assertHeaders(): never {
   halt("assertHeaders");
 }
-Object.assign(assertHeaders, Namespace.http.headers());
-Object.assign(assertHeaders, Namespace.assert("http.assertHeaders"));
 
 /**
  * > You must configure the generic argument `T`.
@@ -663,8 +651,6 @@ export function isHeaders<T extends object>(
 export function isHeaders(): never {
   halt("isHeaders");
 }
-Object.assign(isHeaders, Namespace.http.headers());
-Object.assign(isHeaders, Namespace.is());
 
 /**
  * > You must configure the generic argument `T`.
@@ -780,8 +766,6 @@ export function validateHeaders<T extends object>(
 export function validateHeaders(): never {
   halt("validateHeaders");
 }
-Object.assign(validateHeaders, Namespace.http.headers());
-Object.assign(validateHeaders, Namespace.validate());
 
 /* -----------------------------------------------------------
     PARAMETER
@@ -830,8 +814,6 @@ export function parameter<T extends Atomic.Type | null>(
 export function parameter(): never {
   halt("parameter");
 }
-Object.assign(parameter, Namespace.http.parameter());
-Object.assign(parameter, Namespace.assert("http.parameter"));
 
 /* -----------------------------------------------------------
     FACTORY FUNCTIONS
@@ -865,7 +847,6 @@ export function createQuery<T extends object>(): (
 export function createQuery<T>(): (input: string | URLSearchParams) => T {
   halt("createQuery");
 }
-Object.assign(createQuery, Namespace.http.query());
 
 /**
  * Creates a reusable {@link assertQuery} function.
@@ -896,8 +877,6 @@ export function createAssertQuery<T extends object>(): (
 export function createAssertQuery<T>(): (input: string | URLSearchParams) => T {
   halt("createAssertQuery");
 }
-Object.assign(createAssertQuery, Namespace.http.query());
-Object.assign(createAssertQuery, Namespace.assert("http.createAssertQuery"));
 
 /**
  * Creates a reusable {@link isQuery} function.
@@ -930,8 +909,6 @@ export function createIsQuery<T>(): (
 ) => T | null {
   halt("createIsQuery");
 }
-Object.assign(createIsQuery, Namespace.http.query());
-Object.assign(createIsQuery, Namespace.is());
 
 /**
  * Creates a reusable {@link validateQuery} function.
@@ -964,8 +941,6 @@ export function createValidateQuery<T>(): (
 ) => IValidation<Resolved<T>> {
   halt("createValidateQuery");
 }
-Object.assign(createValidateQuery, Namespace.http.query());
-Object.assign(createValidateQuery, Namespace.validate());
 
 /**
  * Creates a reusable {@link headers} function.
@@ -998,7 +973,6 @@ export function createHeaders<T>(): (
 ) => T {
   halt("createHeaders");
 }
-Object.assign(createHeaders, Namespace.http.headers());
 
 /**
  * Creates a reusable {@link assertHeaders} function.
@@ -1031,11 +1005,6 @@ export function createAssertHeaders<T>(): (
 ) => T {
   halt("createAssertHeaders");
 }
-Object.assign(createAssertHeaders, Namespace.http.headers());
-Object.assign(
-  createAssertHeaders,
-  Namespace.assert("http.createAssertHeaders"),
-);
 
 /**
  * Creates a reusable {@link isHeaders} function.
@@ -1068,8 +1037,6 @@ export function createIsHeaders<T>(): (
 ) => T | null {
   halt("createIsHeaders");
 }
-Object.assign(createIsHeaders, Namespace.http.headers());
-Object.assign(createIsHeaders, Namespace.is());
 
 /**
  * Creates a reusable {@link validateHeaders} function.
@@ -1102,8 +1069,6 @@ export function createValidateHeaders<T>(): (
 ) => IValidation<Resolved<T>> {
   halt("createValidateHeaders");
 }
-Object.assign(createValidateHeaders, Namespace.http.headers());
-Object.assign(createValidateHeaders, Namespace.validate());
 
 /**
  * Creates a reusable {@link parameter} function.
@@ -1136,8 +1101,6 @@ export function createParameter<T extends Atomic.Type | null>(): (
 ) => T {
   halt("createParameter");
 }
-Object.assign(createParameter, Namespace.http.parameter());
-Object.assign(createParameter, Namespace.assert("http.createParameter"));
 
 /**
  * @internal

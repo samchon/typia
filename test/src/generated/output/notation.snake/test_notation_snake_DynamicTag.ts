@@ -44,7 +44,7 @@ export const test_notation_validateSnake_DynamicTag =
             );
           };
           if (false === __is(input)) {
-            const $report = (typia.notations.validateSnake as any).report(
+            const $report = require("typia/lib/functional/$report").$report(
               errors,
             );
             ((
@@ -52,7 +52,7 @@ export const test_notation_validateSnake_DynamicTag =
               _path: string,
               _exceptionable: boolean = true,
             ): input is DynamicTag => {
-              const $join = (typia.notations.validateSnake as any).join;
+              const $join = require("typia/lib/functional/$join").$join;
               const $vo0 = (
                 input: any,
                 _path: string,
@@ -196,8 +196,10 @@ export const test_notation_validateSnake_DynamicTag =
           _path: string,
           _exceptionable: boolean = true,
         ): input is typia.SnakeCase<DynamicTag> => {
-          const $guard = (typia.createAssert as any).guard;
-          const $join = (typia.createAssert as any).join;
+          const $guard = require("typia/lib/functional/$guard").$guard(
+            "typia.createAssert",
+          );
+          const $join = require("typia/lib/functional/$join").$join;
           const $ao0 = (
             input: any,
             _path: string,

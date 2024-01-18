@@ -1,5 +1,8 @@
 import { TypeGuardError } from "../TypeGuardError";
 
+/**
+ * @internal
+ */
 export const $number = (value: number): number => {
   if (isFinite(value) === false)
     throw new TypeGuardError({

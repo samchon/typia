@@ -144,7 +144,9 @@ export const test_assertGuard_ArrayRepeatedUnionWithTuple = _test_assertGuard(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ArrayRepeatedUnionWithTuple => {
-        const $guard = (typia.assertGuard as any).guard;
+        const $guard = require("typia/lib/functional/$guard").$guard(
+          "typia.assertGuard",
+        );
         const $ap0 = (
           input: any,
           _path: string,

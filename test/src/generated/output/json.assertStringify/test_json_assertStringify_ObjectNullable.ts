@@ -46,7 +46,9 @@ export const test_json_assertStringify_ObjectNullable =
               _path: string,
               _exceptionable: boolean = true,
             ): input is ObjectNullable => {
-              const $guard = (typia.json.assertStringify as any).guard;
+              const $guard = require("typia/lib/functional/$guard").$guard(
+                "typia.json.assertStringify",
+              );
               const $ao0 = (
                 input: any,
                 _path: string,
@@ -240,8 +242,10 @@ export const test_json_assertStringify_ObjectNullable =
               else if ("manufacturer" === input.type) return $io2(input);
               else return false;
             })();
-          const $string = (typia.json.assertStringify as any).string;
-          const $throws = (typia.json.assertStringify as any).throws;
+          const $string = require("typia/lib/functional/$string").$string;
+          const $throws = require("typia/lib/functional/$throws").$throws(
+            "typia.json.assertStringify",
+          );
           const $so0 = (input: any): any =>
             `{"value":${`[${input.value
               .map((elem: any) => $so1(elem))

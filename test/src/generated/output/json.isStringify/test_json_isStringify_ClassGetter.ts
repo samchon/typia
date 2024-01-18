@@ -15,7 +15,7 @@ export const test_json_isStringify_ClassGetter = _test_json_isStringify(
       return "object" === typeof input && null !== input && $io0(input);
     };
     const stringify = (input: ClassGetter): string => {
-      const $string = (typia.json.isStringify as any).string;
+      const $string = require("typia/lib/functional/$string").$string;
       const $so0 = (input: any): any =>
         `{"id":${$string(input.id)},"name":${$string(input.name)},"dead":${
           null !== input.dead ? input.dead : "null"

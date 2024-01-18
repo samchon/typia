@@ -67,13 +67,13 @@ export const test_createValidateEquals_ObjectPrimitive = _test_validateEquals(
       return "object" === typeof input && null !== input && $io0(input, true);
     };
     if (false === __is(input)) {
-      const $report = (typia.createValidateEquals as any).report(errors);
+      const $report = require("typia/lib/functional/$report").$report(errors);
       ((
         input: any,
         _path: string,
         _exceptionable: boolean = true,
       ): input is ObjectPrimitive => {
-        const $join = (typia.createValidateEquals as any).join;
+        const $join = require("typia/lib/functional/$join").$join;
         const $vo0 = (
           input: any,
           _path: string,

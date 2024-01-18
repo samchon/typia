@@ -19,9 +19,11 @@ export const test_json_isStringify_ConstantAtomicSimple =
         );
       };
       const stringify = (input: ConstantAtomicSimple): string => {
-        const $number = (typia.json.isStringify as any).number;
-        const $string = (typia.json.isStringify as any).string;
-        const $throws = (typia.json.isStringify as any).throws;
+        const $number = require("typia/lib/functional/$number").$number;
+        const $string = require("typia/lib/functional/$string").$string;
+        const $throws = require("typia/lib/functional/$throws").$throws(
+          "typia.json.isStringify",
+        );
         return `[${input[0]},${input[1]},${$number(input[2])},${(() => {
           if ("string" === typeof input[3]) return $string(input[3]);
           if ("string" === typeof input[3]) return '"' + input[3] + '"';

@@ -12,7 +12,7 @@ export const test_json_createValidateStringify_ToJsonDouble =
           return "object" === typeof input && null !== input && true;
         };
         if (false === __is(input)) {
-          const $report = (typia.json.createValidateStringify as any).report(
+          const $report = require("typia/lib/functional/$report").$report(
             errors,
           );
           ((
@@ -51,7 +51,7 @@ export const test_json_createValidateStringify_ToJsonDouble =
         } as any;
       };
       const stringify = (input: ToJsonDouble): string => {
-        const $number = (typia.json.createValidateStringify as any).number;
+        const $number = require("typia/lib/functional/$number").$number;
         return `{"id":${$number((input.toJSON() as any).id)},"flag":${
           (input.toJSON() as any).flag
         }}`;

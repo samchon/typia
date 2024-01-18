@@ -44,13 +44,6 @@ export function metadata(): never {
 /**
  * @internal
  */
-export namespace metadata {
-  export const from = (input: unknown) => input;
-}
-
-/**
- * @internal
- */
 function halt(name: string): never {
   throw new Error(
     `Error on typia.reflect.${name}(): no transform has been configured. Read and follow https://typia.io/docs/setup please.`,

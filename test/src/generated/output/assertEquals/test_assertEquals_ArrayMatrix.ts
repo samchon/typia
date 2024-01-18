@@ -33,7 +33,9 @@ export const test_assertEquals_ArrayMatrix = _test_assertEquals(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ArrayMatrix => {
-        const $guard = (typia.assertEquals as any).guard;
+        const $guard = require("typia/lib/functional/$guard").$guard(
+          "typia.assertEquals",
+        );
         return (
           ((Array.isArray(input) ||
             $guard(true, {

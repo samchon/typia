@@ -62,8 +62,10 @@ export const test_assertGuardEquals_TemplateConstant = _test_assertGuardEquals(
         _path: string,
         _exceptionable: boolean = true,
       ): input is TemplateConstant => {
-        const $guard = (typia.assertGuardEquals as any).guard;
-        const $join = (typia.assertGuardEquals as any).join;
+        const $guard = require("typia/lib/functional/$guard").$guard(
+          "typia.assertGuardEquals",
+        );
+        const $join = require("typia/lib/functional/$join").$join;
         const $ao0 = (
           input: any,
           _path: string,

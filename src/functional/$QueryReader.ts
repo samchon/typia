@@ -1,3 +1,6 @@
+/**
+ * @internal
+ */
 export namespace $QueryReader {
   export const boolean = (str: string | null): boolean | null | undefined =>
     str === null
@@ -42,11 +45,17 @@ export namespace $QueryReader {
     input.length ? input : alternative;
 }
 
+/**
+ * @internal
+ */
 const toNumber = (str: string): number | string => {
   const value: number = Number(str);
   return isNaN(value) ? str : value;
 };
 
+/**
+ * @internal
+ */
 const toBigint = (str: string): bigint | string => {
   try {
     return BigInt(str);

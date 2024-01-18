@@ -10,8 +10,7 @@ export const test_random_CommentTagObjectUnion = _test_random(
     ((
       generator?: Partial<typia.IRandomGenerator>,
     ): typia.Resolved<CommentTagObjectUnion> => {
-      const $generator = (typia.random as any).generator;
-      const $pick = (typia.random as any).pick;
+      const $generator = require("typia/lib/functional/$generator").$generator;
       const $ro0 = (_recursive: boolean = false, _depth: number = 0): any => ({
         value:
           (generator?.customs ?? $generator.customs)?.number?.([
@@ -41,7 +40,7 @@ export const test_random_CommentTagObjectUnion = _test_random(
           ),
       });
       return (generator?.array ?? $generator.array)(() =>
-        $pick([() => $ro1(), () => $ro0()])(),
+        (generator?.pick ?? $generator.pick)([() => $ro1(), () => $ro0()])(),
       );
     })((CommentTagObjectUnion as any).RANDOM),
   assert: (input: any): CommentTagObjectUnion => {
@@ -84,7 +83,9 @@ export const test_random_CommentTagObjectUnion = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is CommentTagObjectUnion => {
-        const $guard = (typia.createAssert as any).guard;
+        const $guard = require("typia/lib/functional/$guard").$guard(
+          "typia.createAssert",
+        );
         const $ao0 = (
           input: any,
           _path: string,

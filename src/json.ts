@@ -1,5 +1,3 @@
-import { Namespace } from "./functional/Namespace";
-
 import { IJsonApplication } from "./schemas/json/IJsonApplication";
 
 import { IValidation } from "./IValidation";
@@ -130,7 +128,6 @@ export function assertParse<T>(input: string): Primitive<T>;
 export function assertParse<T>(): Primitive<T> {
   halt("assertParse");
 }
-Object.assign(assertParse, Namespace.assert("json.assertParse"));
 
 /**
  * > You must configure the generic argument `T`.
@@ -178,7 +175,6 @@ export function isParse<T>(input: string): Primitive<T> | null;
 export function isParse<T>(): Primitive<T> | null {
   halt("isParse");
 }
-Object.assign(isParse, Namespace.is());
 
 /**
  * > You must configure the generic argument `T`.
@@ -228,7 +224,6 @@ export function validateParse<T>(input: string): IValidation<Primitive<T>>;
 export function validateParse<T>(): IValidation<Primitive<T>> {
   halt("validateParse");
 }
-Object.assign(validateParse, Namespace.validate());
 
 /* -----------------------------------------------------------
     STRINGIFY
@@ -263,7 +258,6 @@ export function stringify<T>(input: T): string;
 export function stringify(): never {
   halt("stringify");
 }
-Object.assign(stringify, Namespace.json.stringify("stringify"));
 
 /**
  * 5x faster `JSON.stringify()` function with type assertion.
@@ -317,8 +311,6 @@ export function assertStringify<T>(input: T): unknown;
 export function assertStringify(): string {
   halt("assertStringify");
 }
-Object.assign(assertStringify, Namespace.assert("json.assertStringify"));
-Object.assign(assertStringify, Namespace.json.stringify("assertStringify"));
 
 /**
  * 7x faster `JSON.stringify()` function with type checking.
@@ -372,9 +364,6 @@ export function isStringify<T>(input: unknown): string | null;
 export function isStringify(): string | null {
   halt("isStringify");
 }
-
-Object.assign(isStringify, Namespace.is());
-Object.assign(isStringify, Namespace.json.stringify("isStringify"));
 
 /**
  * 5x faster `JSON.stringify()` function with detailed type validation.
@@ -430,8 +419,6 @@ export function validateStringify<T>(input: unknown): IValidation<string>;
 export function validateStringify(): IValidation<string> {
   halt("validateStringify");
 }
-Object.assign(validateStringify, Namespace.validate());
-Object.assign(validateStringify, Namespace.json.stringify("validateStringify"));
 
 /* -----------------------------------------------------------
     FACTORY FUNCTIONS
@@ -463,7 +450,6 @@ export function createIsParse<T>(): (input: string) => Primitive<T> | null;
 export function createIsParse<T>(): (input: string) => Primitive<T> | null {
   halt("createIsParse");
 }
-Object.assign(createIsParse, isParse);
 
 /**
  * Creates a reusable {@link assertParse} function.
@@ -492,7 +478,6 @@ export function createAssertParse<T>(): (input: string) => Primitive<T>;
 export function createAssertParse<T>(): (input: string) => Primitive<T> {
   halt("createAssertParse");
 }
-Object.assign(createAssertParse, assertParse);
 
 /**
  * Creates a reusable {@link validateParse} function.
@@ -525,7 +510,6 @@ export function createValidateParse<T>(): (
 ) => IValidation<Primitive<T>> {
   halt("createValidateParse");
 }
-Object.assign(createValidateParse, validateParse);
 
 /**
  * Creates a reusable {@link stringify} function.
@@ -554,7 +538,6 @@ export function createStringify<T>(): (input: T) => string;
 export function createStringify<T>(): (input: T) => string {
   halt("createStringify");
 }
-Object.assign(createStringify, stringify);
 
 /**
  * Creates a reusable {@link assertStringify} function.
@@ -583,7 +566,6 @@ export function createAssertStringify<T>(): (input: unknown) => string;
 export function createAssertStringify(): (input: unknown) => string {
   halt("createAssertStringify");
 }
-Object.assign(createAssertStringify, assertStringify);
 
 /**
  * Creates a reusable {@link isStringify} function.
@@ -612,7 +594,6 @@ export function createIsStringify<T>(): (input: unknown) => string | null;
 export function createIsStringify(): (input: unknown) => string | null {
   halt("createIsStringify");
 }
-Object.assign(createIsStringify, isStringify);
 
 /**
  * Creates a reusable {@link validateStringify} function.
@@ -645,7 +626,6 @@ export function createValidateStringify(): (
 ) => IValidation<string> {
   halt("createValidateStringify");
 }
-Object.assign(createValidateStringify, validateStringify);
 
 /**
  * @internal

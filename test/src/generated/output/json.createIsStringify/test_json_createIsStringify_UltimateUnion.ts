@@ -2134,10 +2134,12 @@ export const test_json_createIsStringify_UltimateUnion = _test_json_isStringify(
             $io34(input)
           );
       })();
-    const $string = (typia.json.createIsStringify as any).string;
-    const $throws = (typia.json.createIsStringify as any).throws;
-    const $number = (typia.json.createIsStringify as any).number;
-    const $tail = (typia.json.createIsStringify as any).tail;
+    const $string = require("typia/lib/functional/$string").$string;
+    const $throws = require("typia/lib/functional/$throws").$throws(
+      "typia.json.createIsStringify",
+    );
+    const $number = require("typia/lib/functional/$number").$number;
+    const $tail = require("typia/lib/functional/$tail").$tail;
     const $so0 = (input: any): any =>
       `{"schemas":${`[${input.schemas
         .map((elem: any) => $su0(elem))

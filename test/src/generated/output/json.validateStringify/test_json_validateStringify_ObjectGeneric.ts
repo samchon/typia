@@ -72,7 +72,7 @@ export const test_json_validateStringify_ObjectGeneric =
             );
           };
           if (false === __is(input)) {
-            const $report = (typia.json.validateStringify as any).report(
+            const $report = require("typia/lib/functional/$report").$report(
               errors,
             );
             ((
@@ -401,8 +401,8 @@ export const test_json_validateStringify_ObjectGeneric =
           const $io5 = (input: any): boolean =>
             "string" === typeof input.child_value &&
             "string" === typeof input.child_next;
-          const $number = (typia.json.validateStringify as any).number;
-          const $string = (typia.json.validateStringify as any).string;
+          const $number = require("typia/lib/functional/$number").$number;
+          const $string = require("typia/lib/functional/$string").$string;
           const $so0 = (input: any): any =>
             `{"value":${input.value},"child":${`{"child_value":${
               (input.child as any).child_value

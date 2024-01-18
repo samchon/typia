@@ -200,7 +200,7 @@ export const test_misc_isPrune_ObjectUnionExplicit = _test_misc_isPrune(
         $io2(input.centroid) &&
         "number" === typeof input.radius &&
         "circle" === input.type;
-      const $throws = (typia.misc.isPrune as any).throws;
+      const $throws = require("typia/lib/functional/$throws").$throws;
       const $pp0 = (input: any) =>
         input.forEach((elem: any) => {
           if ("object" === typeof elem && null !== elem) $pu0(elem);

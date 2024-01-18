@@ -48,7 +48,7 @@ export const test_json_createValidateStringify_ObjectPartial =
           );
         };
         if (false === __is(input)) {
-          const $report = (typia.json.createValidateStringify as any).report(
+          const $report = require("typia/lib/functional/$report").$report(
             errors,
           );
           ((
@@ -229,9 +229,9 @@ export const test_json_createValidateStringify_ObjectPartial =
             ("object" === typeof input.object &&
               null !== input.object &&
               $io1(input.object)));
-        const $number = (typia.json.createValidateStringify as any).number;
-        const $string = (typia.json.createValidateStringify as any).string;
-        const $tail = (typia.json.createValidateStringify as any).tail;
+        const $number = require("typia/lib/functional/$number").$number;
+        const $string = require("typia/lib/functional/$string").$string;
+        const $tail = require("typia/lib/functional/$tail").$tail;
         const $so0 = (input: any): any =>
           `{${$tail(
             `${

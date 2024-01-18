@@ -42,8 +42,8 @@ export const test_json_isStringify_DynamicEnumeration = _test_json_isStringify(
         (undefined === input.ko || "string" === typeof input.ko) &&
         (undefined === input.pt || "string" === typeof input.pt) &&
         (undefined === input.ru || "string" === typeof input.ru);
-      const $string = (typia.json.isStringify as any).string;
-      const $tail = (typia.json.isStringify as any).tail;
+      const $string = require("typia/lib/functional/$string").$string;
+      const $tail = require("typia/lib/functional/$tail").$tail;
       const $so0 = (input: any): any => `{"value":${$so1(input.value)}}`;
       const $so1 = (input: any): any =>
         `{${$tail(

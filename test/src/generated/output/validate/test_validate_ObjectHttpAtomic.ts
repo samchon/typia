@@ -20,7 +20,7 @@ export const test_validate_ObjectHttpAtomic = _test_validate(
       );
     };
     if (false === __is(input)) {
-      const $report = (typia.validate as any).report(errors);
+      const $report = require("typia/lib/functional/$report").$report(errors);
       ((
         input: any,
         _path: string,

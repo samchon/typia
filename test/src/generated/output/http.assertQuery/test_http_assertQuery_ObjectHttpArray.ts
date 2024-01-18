@@ -10,18 +10,25 @@ export const test_http_assertQuery_ObjectHttpArray = _test_http_assertQuery(
     const decode = (
       input: string | URLSearchParams,
     ): typia.Resolved<ObjectHttpArray> => {
-      const $params = (typia.http.assertQuery as any).params;
-      const $boolean = (typia.http.assertQuery as any).boolean;
-      const $bigint = (typia.http.assertQuery as any).bigint;
-      const $number = (typia.http.assertQuery as any).number;
-      const $string = (typia.http.assertQuery as any).string;
-      input = $params(input) as URLSearchParams;
+      const $QueryReader =
+        require("typia/lib/functional/$QueryReader").$QueryReader;
+      input = $QueryReader.params(input) as URLSearchParams;
       const output = {
-        booleans: input.getAll("booleans").map((elem: any) => $boolean(elem)),
-        bigints: input.getAll("bigints").map((elem: any) => $bigint(elem)),
-        numbers: input.getAll("numbers").map((elem: any) => $number(elem)),
-        strings: input.getAll("strings").map((elem: any) => $string(elem)),
-        templates: input.getAll("templates").map((elem: any) => $string(elem)),
+        booleans: input
+          .getAll("booleans")
+          .map((elem: any) => $QueryReader.boolean(elem)),
+        bigints: input
+          .getAll("bigints")
+          .map((elem: any) => $QueryReader.bigint(elem)),
+        numbers: input
+          .getAll("numbers")
+          .map((elem: any) => $QueryReader.number(elem)),
+        strings: input
+          .getAll("strings")
+          .map((elem: any) => $QueryReader.string(elem)),
+        templates: input
+          .getAll("templates")
+          .map((elem: any) => $QueryReader.string(elem)),
       };
       return output as any;
     };
@@ -51,7 +58,9 @@ export const test_http_assertQuery_ObjectHttpArray = _test_http_assertQuery(
           _path: string,
           _exceptionable: boolean = true,
         ): input is ObjectHttpArray => {
-          const $guard = (typia.http.assertQuery as any).guard;
+          const $guard = require("typia/lib/functional/$guard").$guard(
+            "typia.http.assertQuery",
+          );
           const $ao0 = (
             input: any,
             _path: string,

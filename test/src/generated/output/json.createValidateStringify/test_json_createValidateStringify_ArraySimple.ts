@@ -31,7 +31,7 @@ export const test_json_createValidateStringify_ArraySimple =
           );
         };
         if (false === __is(input)) {
-          const $report = (typia.json.createValidateStringify as any).report(
+          const $report = require("typia/lib/functional/$report").$report(
             errors,
           );
           ((
@@ -160,8 +160,8 @@ export const test_json_createValidateStringify_ArraySimple =
           "string" === typeof input.name &&
           "string" === typeof input.body &&
           "number" === typeof input.rank;
-        const $string = (typia.json.createValidateStringify as any).string;
-        const $number = (typia.json.createValidateStringify as any).number;
+        const $string = require("typia/lib/functional/$string").$string;
+        const $number = require("typia/lib/functional/$number").$number;
         const $so0 = (input: any): any =>
           `{"name":${$string(input.name)},"email":${$string(
             input.email,

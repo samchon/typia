@@ -20,7 +20,7 @@ export const test_json_validateStringify_ObjectJsonTag =
             );
           };
           if (false === __is(input)) {
-            const $report = (typia.json.validateStringify as any).report(
+            const $report = require("typia/lib/functional/$report").$report(
               errors,
             );
             ((
@@ -83,7 +83,7 @@ export const test_json_validateStringify_ObjectJsonTag =
           } as any;
         };
         const stringify = (input: ObjectJsonTag): string => {
-          const $string = (typia.json.validateStringify as any).string;
+          const $string = require("typia/lib/functional/$string").$string;
           return `{"vulnerable":${$string(
             (input as any).vulnerable,
           )},"description":${$string(

@@ -1048,8 +1048,10 @@ export const test_misc_createClone_UltimateUnion = _test_misc_clone(
             $io34(input)
           );
       })();
-    const $any = (typia.misc.createClone as any).any;
-    const $throws = (typia.misc.createClone as any).throws;
+    const $clone = require("typia/lib/functional/$clone").$clone;
+    const $throws = require("typia/lib/functional/$throws").$throws(
+      "typia.misc.createClone",
+    );
     const $cp0 = (input: any) =>
       input.map((elem: any) =>
         "object" === typeof elem && null !== elem ? $co0(elem) : (elem as any),
@@ -1167,7 +1169,7 @@ export const test_misc_createClone_UltimateUnion = _test_misc_clone(
       exclusive: Array.isArray(input.exclusive)
         ? $cp6(input.exclusive)
         : (input.exclusive as any),
-      value: $any(input.value),
+      value: $clone(input.value),
       validate: input.validate as any,
     });
     const $co8 = (input: any): any => ({

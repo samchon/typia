@@ -11,8 +11,7 @@ export const test_createRandom_ArrayRecursiveUnionImplicit = _test_random(
       ArrayRecursiveUnionImplicit as any
     ).RANDOM,
   ): typia.Resolved<ArrayRecursiveUnionImplicit> => {
-    const $generator = (typia.createRandom as any).generator;
-    const $pick = (typia.createRandom as any).pick;
+    const $generator = require("typia/lib/functional/$generator").$generator;
     const $ro0 = (_recursive: boolean = true, _depth: number = 0): any => ({
       id:
         (generator?.customs ?? $generator.customs)?.number?.([]) ??
@@ -28,7 +27,7 @@ export const test_createRandom_ArrayRecursiveUnionImplicit = _test_random(
           ? []
           : 5 >= _depth
           ? (generator?.array ?? $generator.array)(() =>
-              $pick([
+              (generator?.pick ?? $generator.pick)([
                 () => $ro0(true, _recursive ? 1 + _depth : _depth),
                 () => $ro1(true, _recursive ? 1 + _depth : _depth),
                 () => $ro2(true, _recursive ? 1 + _depth : _depth),
@@ -40,7 +39,10 @@ export const test_createRandom_ArrayRecursiveUnionImplicit = _test_random(
           : [],
     });
     const $ro1 = (_recursive: boolean = true, _depth: number = 0): any => ({
-      access: $pick([() => "read", () => "write"])(),
+      access: (generator?.pick ?? $generator.pick)([
+        () => "read",
+        () => "write",
+      ])(),
       id:
         (generator?.customs ?? $generator.customs)?.number?.([]) ??
         (generator?.number ?? $generator.number)(0, 100),
@@ -55,7 +57,7 @@ export const test_createRandom_ArrayRecursiveUnionImplicit = _test_random(
           ? []
           : 5 >= _depth
           ? (generator?.array ?? $generator.array)(() =>
-              $pick([
+              (generator?.pick ?? $generator.pick)([
                 () => $ro0(true, _recursive ? 1 + _depth : _depth),
                 () => $ro1(true, _recursive ? 1 + _depth : _depth),
                 () => $ro2(true, _recursive ? 1 + _depth : _depth),
@@ -133,7 +135,7 @@ export const test_createRandom_ArrayRecursiveUnionImplicit = _test_random(
       path:
         (generator?.customs ?? $generator.customs)?.string?.([]) ??
         (generator?.string ?? $generator.string)(),
-      target: $pick([
+      target: (generator?.pick ?? $generator.pick)([
         () => $ro0(true, _recursive ? 1 + _depth : _depth),
         () => $ro1(true, _recursive ? 1 + _depth : _depth),
         () => $ro2(true, _recursive ? 1 + _depth : _depth),
@@ -143,7 +145,7 @@ export const test_createRandom_ArrayRecursiveUnionImplicit = _test_random(
       ])(),
     });
     return (generator?.array ?? $generator.array)(() =>
-      $pick([
+      (generator?.pick ?? $generator.pick)([
         () => $ro0(),
         () => $ro1(),
         () => $ro2(),
@@ -236,7 +238,9 @@ export const test_createRandom_ArrayRecursiveUnionImplicit = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ArrayRecursiveUnionImplicit => {
-        const $guard = (typia.createAssert as any).guard;
+        const $guard = require("typia/lib/functional/$guard").$guard(
+          "typia.createAssert",
+        );
         const $ao0 = (
           input: any,
           _path: string,

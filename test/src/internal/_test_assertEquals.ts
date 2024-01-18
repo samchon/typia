@@ -49,7 +49,8 @@ export const _test_assertEquals =
       } catch (exp) {
         if (
           exp instanceof TypeGuardError &&
-          exp.method === "typia.assertEquals" &&
+          (exp.method === "typia.assertEquals" ||
+            exp.method === "typia.createAssertEquals") &&
           exp.path === fullPath &&
           exp.expected === "undefined" &&
           exp.value === key
@@ -62,6 +63,7 @@ export const _test_assertEquals =
             path: exp.path,
             full: fullPath,
             actual: exp.expected,
+            value: exp.value,
           });
           throw new Error(
             `Bug on typia.assertEquals(): failed to detect surplus property on the ${name} type.`,

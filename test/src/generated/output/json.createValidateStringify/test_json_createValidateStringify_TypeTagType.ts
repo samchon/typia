@@ -46,7 +46,7 @@ export const test_json_createValidateStringify_TypeTagType =
           return "object" === typeof input && null !== input && $io0(input);
         };
         if (false === __is(input)) {
-          const $report = (typia.json.createValidateStringify as any).report(
+          const $report = require("typia/lib/functional/$report").$report(
             errors,
           );
           ((
@@ -249,7 +249,7 @@ export const test_json_createValidateStringify_TypeTagType =
           "number" === typeof input.float &&
           -1.175494351e38 <= input.float &&
           input.float <= 3.4028235e38;
-        const $number = (typia.json.createValidateStringify as any).number;
+        const $number = require("typia/lib/functional/$number").$number;
         const $so0 = (input: any): any =>
           `{"value":${`[${input.value
             .map(

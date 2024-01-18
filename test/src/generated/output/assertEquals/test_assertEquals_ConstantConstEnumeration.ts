@@ -29,7 +29,9 @@ export const test_assertEquals_ConstantConstEnumeration = _test_assertEquals(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ConstantConstEnumeration => {
-        const $guard = (typia.assertEquals as any).guard;
+        const $guard = require("typia/lib/functional/$guard").$guard(
+          "typia.assertEquals",
+        );
         return (
           ((Array.isArray(input) ||
             $guard(true, {

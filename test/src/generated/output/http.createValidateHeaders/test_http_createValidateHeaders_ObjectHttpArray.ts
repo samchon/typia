@@ -33,7 +33,7 @@ export const test_http_createValidateHeaders_ObjectHttpArray =
           return "object" === typeof input && null !== input && $io0(input);
         };
         if (false === __is(input)) {
-          const $report = (typia.http.createValidateHeaders as any).report(
+          const $report = require("typia/lib/functional/$report").$report(
             errors,
           );
           ((
@@ -185,26 +185,24 @@ export const test_http_createValidateHeaders_ObjectHttpArray =
       const headers = (
         input: Record<string, string | string[] | undefined>,
       ): typia.Resolved<ObjectHttpArray> => {
-        const $boolean = (typia.http.createValidateHeaders as any).boolean;
-        const $bigint = (typia.http.createValidateHeaders as any).bigint;
-        const $number = (typia.http.createValidateHeaders as any).number;
-        const $string = (typia.http.createValidateHeaders as any).string;
+        const $HeadersReader =
+          require("typia/lib/functional/$HeadersReader").$HeadersReader;
         const output = {
           booleans: Array.isArray(input.booleans)
-            ? input.booleans.map($boolean)
-            : input.booleans?.split(", ")?.map($boolean) ?? [],
+            ? input.booleans.map($HeadersReader.boolean)
+            : input.booleans?.split(", ")?.map($HeadersReader.boolean) ?? [],
           bigints: Array.isArray(input.bigints)
-            ? input.bigints.map($bigint)
-            : input.bigints?.split(", ")?.map($bigint) ?? [],
+            ? input.bigints.map($HeadersReader.bigint)
+            : input.bigints?.split(", ")?.map($HeadersReader.bigint) ?? [],
           numbers: Array.isArray(input.numbers)
-            ? input.numbers.map($number)
-            : input.numbers?.split(", ")?.map($number) ?? [],
+            ? input.numbers.map($HeadersReader.number)
+            : input.numbers?.split(", ")?.map($HeadersReader.number) ?? [],
           strings: Array.isArray(input.strings)
-            ? input.strings.map($string)
-            : input.strings?.split(", ")?.map($string) ?? [],
+            ? input.strings.map($HeadersReader.string)
+            : input.strings?.split(", ")?.map($HeadersReader.string) ?? [],
           templates: Array.isArray(input.templates)
-            ? input.templates.map($string)
-            : input.templates?.split(", ")?.map($string) ?? [],
+            ? input.templates.map($HeadersReader.string)
+            : input.templates?.split(", ")?.map($HeadersReader.string) ?? [],
         };
         return output as any;
       };

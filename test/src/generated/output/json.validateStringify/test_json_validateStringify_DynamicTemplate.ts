@@ -41,13 +41,15 @@ export const test_json_validateStringify_DynamicTemplate =
           );
         };
         if (false === __is(input)) {
-          const $report = (typia.json.validateStringify as any).report(errors);
+          const $report = require("typia/lib/functional/$report").$report(
+            errors,
+          );
           ((
             input: any,
             _path: string,
             _exceptionable: boolean = true,
           ): input is DynamicTemplate => {
-            const $join = (typia.json.validateStringify as any).join;
+            const $join = require("typia/lib/functional/$join").$join;
             const $vo0 = (
               input: any,
               _path: string,
@@ -142,8 +144,8 @@ export const test_json_validateStringify_DynamicTemplate =
         } as any;
       };
       const stringify = (input: DynamicTemplate): string => {
-        const $string = (typia.json.validateStringify as any).string;
-        const $number = (typia.json.validateStringify as any).number;
+        const $string = require("typia/lib/functional/$string").$string;
+        const $number = require("typia/lib/functional/$number").$number;
         const $so0 = (input: any): any =>
           `{${Object.entries(input)
             .map(([key, value]: [string, any]) => {

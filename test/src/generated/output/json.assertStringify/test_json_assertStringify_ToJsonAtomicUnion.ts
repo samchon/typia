@@ -25,7 +25,9 @@ export const test_json_assertStringify_ToJsonAtomicUnion =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ToJsonAtomicUnion => {
-            const $guard = (typia.json.assertStringify as any).guard;
+            const $guard = require("typia/lib/functional/$guard").$guard(
+              "typia.json.assertStringify",
+            );
             const $ao0 = (
               input: any,
               _path: string,
@@ -69,9 +71,11 @@ export const test_json_assertStringify_ToJsonAtomicUnion =
         return input;
       };
       const stringify = (input: ToJsonAtomicUnion): string => {
-        const $string = (typia.json.assertStringify as any).string;
-        const $number = (typia.json.assertStringify as any).number;
-        const $throws = (typia.json.assertStringify as any).throws;
+        const $string = require("typia/lib/functional/$string").$string;
+        const $number = require("typia/lib/functional/$number").$number;
+        const $throws = require("typia/lib/functional/$throws").$throws(
+          "typia.json.assertStringify",
+        );
         return `[${input
           .map((elem: any) =>
             null !== elem.toJSON()

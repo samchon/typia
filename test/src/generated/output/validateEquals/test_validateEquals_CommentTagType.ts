@@ -76,13 +76,13 @@ export const test_validateEquals_CommentTagType = _test_validateEquals(
       return "object" === typeof input && null !== input && $io0(input, true);
     };
     if (false === __is(input)) {
-      const $report = (typia.validateEquals as any).report(errors);
+      const $report = require("typia/lib/functional/$report").$report(errors);
       ((
         input: any,
         _path: string,
         _exceptionable: boolean = true,
       ): input is CommentTagType => {
-        const $join = (typia.validateEquals as any).join;
+        const $join = require("typia/lib/functional/$join").$join;
         const $vo0 = (
           input: any,
           _path: string,

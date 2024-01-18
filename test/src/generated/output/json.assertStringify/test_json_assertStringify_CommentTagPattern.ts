@@ -37,7 +37,9 @@ export const test_json_assertStringify_CommentTagPattern =
             _path: string,
             _exceptionable: boolean = true,
           ): input is CommentTagPattern => {
-            const $guard = (typia.json.assertStringify as any).guard;
+            const $guard = require("typia/lib/functional/$guard").$guard(
+              "typia.json.assertStringify",
+            );
             const $ao0 = (
               input: any,
               _path: string,
@@ -125,7 +127,7 @@ export const test_json_assertStringify_CommentTagPattern =
         return input;
       };
       const stringify = (input: CommentTagPattern): string => {
-        const $string = (typia.json.assertStringify as any).string;
+        const $string = require("typia/lib/functional/$string").$string;
         return `{"uuid":${$string((input as any).uuid)},"email":${$string(
           (input as any).email,
         )},"ipv4":${$string((input as any).ipv4)},"ipv6":${$string(

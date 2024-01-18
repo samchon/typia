@@ -37,7 +37,7 @@ export const test_json_validateStringify_AtomicClass =
             );
           };
           if (false === __is(input)) {
-            const $report = (typia.json.validateStringify as any).report(
+            const $report = require("typia/lib/functional/$report").$report(
               errors,
             );
             ((
@@ -212,9 +212,11 @@ export const test_json_validateStringify_AtomicClass =
           } as any;
         };
         const stringify = (input: AtomicClass): string => {
-          const $number = (typia.json.validateStringify as any).number;
-          const $string = (typia.json.validateStringify as any).string;
-          const $throws = (typia.json.validateStringify as any).throws;
+          const $number = require("typia/lib/functional/$number").$number;
+          const $string = require("typia/lib/functional/$string").$string;
+          const $throws = require("typia/lib/functional/$throws").$throws(
+            "typia.json.validateStringify",
+          );
           return `[${input[0]},${input[1]},${input[2]},${$number(
             input[3],
           )},${$number(input[4])},${$number(input[5])},${$string(

@@ -40,7 +40,9 @@ export const test_json_createAssertStringify_AtomicClass =
             _path: string,
             _exceptionable: boolean = true,
           ): input is AtomicClass => {
-            const $guard = (typia.json.createAssertStringify as any).guard;
+            const $guard = require("typia/lib/functional/$guard").$guard(
+              "typia.json.createAssertStringify",
+            );
             return (
               ((Array.isArray(input) ||
                 $guard(true, {
@@ -200,9 +202,11 @@ export const test_json_createAssertStringify_AtomicClass =
         return input;
       };
       const stringify = (input: AtomicClass): string => {
-        const $number = (typia.json.createAssertStringify as any).number;
-        const $string = (typia.json.createAssertStringify as any).string;
-        const $throws = (typia.json.createAssertStringify as any).throws;
+        const $number = require("typia/lib/functional/$number").$number;
+        const $string = require("typia/lib/functional/$string").$string;
+        const $throws = require("typia/lib/functional/$throws").$throws(
+          "typia.json.createAssertStringify",
+        );
         return `[${input[0]},${input[1]},${input[2]},${$number(
           input[3],
         )},${$number(input[4])},${$number(input[5])},${$string(

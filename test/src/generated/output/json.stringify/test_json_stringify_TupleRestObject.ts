@@ -7,9 +7,9 @@ export const test_json_stringify_TupleRestObject = _test_json_stringify(
   "TupleRestObject",
 )<TupleRestObject>(TupleRestObject)((input) =>
   ((input: TupleRestObject): string => {
-    const $number = (typia.json.stringify as any).number;
-    const $string = (typia.json.stringify as any).string;
-    const $rest = (typia.json.stringify as any).rest;
+    const $number = require("typia/lib/functional/$number").$number;
+    const $string = require("typia/lib/functional/$string").$string;
+    const $rest = require("typia/lib/functional/$rest").$rest;
     return `[${input[0]},${$number(input[1])}${$rest(
       `[${input
         .slice(2)

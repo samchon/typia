@@ -7,7 +7,7 @@ export const test_equals_DynamicTag = _test_equals("DynamicTag")<DynamicTag>(
   DynamicTag,
 )((input) =>
   ((input: any, _exceptionable: boolean = true): input is DynamicTag => {
-    const $join = (typia.equals as any).join;
+    const $join = require("typia/lib/functional/$join").$join;
     const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
       Object.keys(input).every((key: any) => {
         const value = input[key];

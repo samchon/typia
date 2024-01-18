@@ -30,7 +30,7 @@ export const test_json_validateStringify_TypeTagMatrix =
             return "object" === typeof input && null !== input && $io0(input);
           };
           if (false === __is(input)) {
-            const $report = (typia.json.validateStringify as any).report(
+            const $report = require("typia/lib/functional/$report").$report(
               errors,
             );
             ((
@@ -155,7 +155,7 @@ export const test_json_validateStringify_TypeTagMatrix =
           } as any;
         };
         const stringify = (input: TypeTagMatrix): string => {
-          const $string = (typia.json.validateStringify as any).string;
+          const $string = require("typia/lib/functional/$string").$string;
           const $so0 = (input: any): any =>
             `{"matrix":${`[${input.matrix
               .map(

@@ -51,7 +51,9 @@ export const test_json_assertParse_CommentTagDefault = _test_json_assertParse(
           _path: string,
           _exceptionable: boolean = true,
         ): input is CommentTagDefault => {
-          const $guard = (typia.json.assertParse as any).guard;
+          const $guard = require("typia/lib/functional/$guard").$guard(
+            "typia.json.assertParse",
+          );
           const $ao0 = (
             input: any,
             _path: string,

@@ -133,9 +133,7 @@ export const test_json_createValidateStringify_ObjectUnionImplicit =
         );
       };
       if (false === __is(input)) {
-        const $report = (typia.json.createValidateStringify as any).report(
-          errors,
-        );
+        const $report = require("typia/lib/functional/$report").$report(errors);
         ((
           input: any,
           _path: string,
@@ -678,7 +676,7 @@ export const test_json_createValidateStringify_ObjectUnionImplicit =
         (null === input.area ||
           undefined === input.area ||
           "number" === typeof input.area);
-      const $number = (typia.json.createValidateStringify as any).number;
+      const $number = require("typia/lib/functional/$number").$number;
       const $so0 = (input: any): any =>
         `{${
           undefined === input.slope

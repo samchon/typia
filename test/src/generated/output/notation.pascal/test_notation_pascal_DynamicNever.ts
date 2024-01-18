@@ -27,7 +27,7 @@ export const test_notation_validatePascal_DynamicNever =
             );
           };
           if (false === __is(input)) {
-            const $report = (typia.notations.validatePascal as any).report(
+            const $report = require("typia/lib/functional/$report").$report(
               errors,
             );
             ((
@@ -35,7 +35,7 @@ export const test_notation_validatePascal_DynamicNever =
               _path: string,
               _exceptionable: boolean = true,
             ): input is DynamicNever => {
-              const $join = (typia.notations.validatePascal as any).join;
+              const $join = require("typia/lib/functional/$join").$join;
               const $vo0 = (
                 input: any,
                 _path: string,
@@ -134,8 +134,10 @@ export const test_notation_validatePascal_DynamicNever =
           _path: string,
           _exceptionable: boolean = true,
         ): input is typia.PascalCase<DynamicNever> => {
-          const $guard = (typia.createAssert as any).guard;
-          const $join = (typia.createAssert as any).join;
+          const $guard = require("typia/lib/functional/$guard").$guard(
+            "typia.createAssert",
+          );
+          const $join = require("typia/lib/functional/$join").$join;
           const $ao0 = (
             input: any,
             _path: string,

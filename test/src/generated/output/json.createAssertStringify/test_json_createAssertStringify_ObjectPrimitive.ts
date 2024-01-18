@@ -37,7 +37,9 @@ export const test_json_createAssertStringify_ObjectPrimitive =
           _path: string,
           _exceptionable: boolean = true,
         ): input is ObjectPrimitive => {
-          const $guard = (typia.json.createAssertStringify as any).guard;
+          const $guard = require("typia/lib/functional/$guard").$guard(
+            "typia.json.createAssertStringify",
+          );
           const $ao0 = (
             input: any,
             _path: string,
@@ -170,8 +172,10 @@ export const test_json_createAssertStringify_ObjectPrimitive =
         "string" === typeof input.extension &&
         "string" === typeof input.url &&
         "string" === typeof input.created_at;
-      const $string = (typia.json.createAssertStringify as any).string;
-      const $throws = (typia.json.createAssertStringify as any).throws;
+      const $string = require("typia/lib/functional/$string").$string;
+      const $throws = require("typia/lib/functional/$throws").$throws(
+        "typia.json.createAssertStringify",
+      );
       const $so0 = (input: any): any =>
         `{"id":${$string(input.id)},"extension":${(() => {
           if ("string" === typeof input.extension)

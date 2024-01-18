@@ -29,7 +29,7 @@ export const test_misc_createPrune_ObjectNullable = _test_misc_prune(
       else if ("manufacturer" === input.type) return $io2(input);
       else return false;
     })();
-  const $throws = (typia.misc.createPrune as any).throws;
+  const $throws = require("typia/lib/functional/$throws").$throws;
   const $pp0 = (input: any) =>
     input.forEach((elem: any) => {
       if ("object" === typeof elem && null !== elem) $po1(elem);

@@ -5,7 +5,7 @@ import { TemplateFactory } from "../../factories/TemplateFactory";
 
 import { stringify_dynamic_properties } from "../internal/stringify_dynamic_properties";
 import { stringify_regular_properties } from "../internal/stringify_regular_properties";
-import { FunctionImporter } from "./FunctionImporeter";
+import { FunctionImporter } from "./FunctionImporter";
 import { IExpressionEntry } from "./IExpressionEntry";
 
 export namespace StringifyJoiner {
@@ -65,14 +65,13 @@ export namespace StringifyJoiner {
     TemplateFactory.generate([
       ts.factory.createStringLiteral(`[`),
       ts.factory.createCallExpression(
-        ts.factory.createPropertyAccessExpression(
+        IdentifierFactory.access(
           ts.factory.createCallExpression(
             IdentifierFactory.access(input)("map"),
             undefined,
             [arrow],
           ),
-          ts.factory.createIdentifier("join"),
-        ),
+        )("join"),
         undefined,
         [ts.factory.createStringLiteral(`,`)],
       ),

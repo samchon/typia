@@ -7,7 +7,7 @@ export const test_equals_DynamicUnion = _test_equals(
   "DynamicUnion",
 )<DynamicUnion>(DynamicUnion)((input) =>
   ((input: any, _exceptionable: boolean = true): input is DynamicUnion => {
-    const $join = (typia.equals as any).join;
+    const $join = require("typia/lib/functional/$join").$join;
     const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
       Object.keys(input).every((key: any) => {
         const value = input[key];

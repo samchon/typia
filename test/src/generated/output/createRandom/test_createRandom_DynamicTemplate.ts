@@ -10,7 +10,7 @@ export const test_createRandom_DynamicTemplate = _test_random(
     generator: Partial<typia.IRandomGenerator> = (DynamicTemplate as any)
       .RANDOM,
   ): typia.Resolved<DynamicTemplate> => {
-    const $generator = (typia.createRandom as any).generator;
+    const $generator = require("typia/lib/functional/$generator").$generator;
     const $ro0 = (_recursive: boolean = false, _depth: number = 0): any => {
       const output = {} as any;
       (generator?.array ?? $generator.array)(
@@ -103,8 +103,10 @@ export const test_createRandom_DynamicTemplate = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is DynamicTemplate => {
-        const $guard = (typia.createAssert as any).guard;
-        const $join = (typia.createAssert as any).join;
+        const $guard = require("typia/lib/functional/$guard").$guard(
+          "typia.createAssert",
+        );
+        const $join = require("typia/lib/functional/$join").$join;
         const $ao0 = (
           input: any,
           _path: string,

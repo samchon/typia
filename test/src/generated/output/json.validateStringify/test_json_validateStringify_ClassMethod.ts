@@ -19,7 +19,7 @@ export const test_json_validateStringify_ClassMethod =
             );
           };
           if (false === __is(input)) {
-            const $report = (typia.json.validateStringify as any).report(
+            const $report = require("typia/lib/functional/$report").$report(
               errors,
             );
             ((
@@ -71,8 +71,8 @@ export const test_json_validateStringify_ClassMethod =
           } as any;
         };
         const stringify = (input: ClassMethod): string => {
-          const $string = (typia.json.validateStringify as any).string;
-          const $number = (typia.json.validateStringify as any).number;
+          const $string = require("typia/lib/functional/$string").$string;
+          const $number = require("typia/lib/functional/$number").$number;
           return `{"name":${$string((input as any).name)},"age":${$number(
             (input as any).age,
           )}}`;

@@ -734,7 +734,6 @@ export const test_reflect_metadata_MapSimpleProtobuf = _test_reflect_metadata(
         ],
         jsDocTags: [],
         index: 0,
-        validated: false,
         recursive: true,
         nullables: [false],
       },

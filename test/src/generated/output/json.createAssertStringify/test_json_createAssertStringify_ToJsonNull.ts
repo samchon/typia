@@ -17,7 +17,9 @@ export const test_json_createAssertStringify_ToJsonNull =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ToJsonNull => {
-            const $guard = (typia.json.createAssertStringify as any).guard;
+            const $guard = require("typia/lib/functional/$guard").$guard(
+              "typia.json.createAssertStringify",
+            );
             const $ao0 = (
               input: any,
               _path: string,

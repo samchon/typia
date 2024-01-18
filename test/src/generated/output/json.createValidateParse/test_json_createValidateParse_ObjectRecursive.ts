@@ -29,7 +29,7 @@ export const test_json_createValidateParse_ObjectRecursive =
           return "object" === typeof input && null !== input && $io0(input);
         };
         if (false === __is(input)) {
-          const $report = (typia.json.createValidateParse as any).report(
+          const $report = require("typia/lib/functional/$report").$report(
             errors,
           );
           ((

@@ -9,8 +9,7 @@ export const test_createRandom_InstanceUnion = _test_random(
   random: (
     generator: Partial<typia.IRandomGenerator> = (InstanceUnion as any).RANDOM,
   ): typia.Resolved<InstanceUnion> => {
-    const $generator = (typia.createRandom as any).generator;
-    const $pick = (typia.createRandom as any).pick;
+    const $generator = require("typia/lib/functional/$generator").$generator;
     const $ro0 = (_recursive: boolean = false, _depth: number = 0): any => ({
       scale: $ro1(_recursive, _recursive ? 1 + _depth : _depth),
       position: $ro1(_recursive, _recursive ? 1 + _depth : _depth),
@@ -89,7 +88,7 @@ export const test_createRandom_InstanceUnion = _test_random(
       type: "circle",
     });
     return (generator?.array ?? $generator.array)(() =>
-      $pick([
+      (generator?.pick ?? $generator.pick)([
         () =>
           (generator?.customs ?? $generator.customs)?.number?.([]) ??
           (generator?.number ?? $generator.number)(0, 100),
@@ -105,7 +104,7 @@ export const test_createRandom_InstanceUnion = _test_random(
           ),
         () =>
           (generator?.array ?? $generator.array)(() =>
-            $pick([
+            (generator?.pick ?? $generator.pick)([
               () => $ro2(),
               () => $ro3(),
               () => $ro5(),
@@ -398,7 +397,9 @@ export const test_createRandom_InstanceUnion = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is InstanceUnion => {
-        const $guard = (typia.createAssert as any).guard;
+        const $guard = require("typia/lib/functional/$guard").$guard(
+          "typia.createAssert",
+        );
         const $ap0 = (
           input: any,
           _path: string,

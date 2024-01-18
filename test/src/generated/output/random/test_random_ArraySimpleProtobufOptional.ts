@@ -10,10 +10,9 @@ export const test_random_ArraySimpleProtobufOptional = _test_random(
     ((
       generator?: Partial<typia.IRandomGenerator>,
     ): typia.Resolved<ArraySimpleProtobufOptional> => {
-      const $generator = (typia.random as any).generator;
-      const $pick = (typia.random as any).pick;
+      const $generator = require("typia/lib/functional/$generator").$generator;
       const $ro0 = (_recursive: boolean = true, _depth: number = 0): any => ({
-        boolean: $pick([
+        boolean: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             _recursive && 5 < _depth
@@ -24,7 +23,7 @@ export const test_random_ArraySimpleProtobufOptional = _test_random(
                 )
               : [],
         ])(),
-        int32: $pick([
+        int32: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             _recursive && 5 < _depth
@@ -42,7 +41,7 @@ export const test_random_ArraySimpleProtobufOptional = _test_random(
                 )
               : [],
         ])(),
-        uint32: $pick([
+        uint32: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             _recursive && 5 < _depth
@@ -60,7 +59,7 @@ export const test_random_ArraySimpleProtobufOptional = _test_random(
                 )
               : [],
         ])(),
-        int64: $pick([
+        int64: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             _recursive && 5 < _depth
@@ -82,7 +81,7 @@ export const test_random_ArraySimpleProtobufOptional = _test_random(
                 )
               : [],
         ])(),
-        uint64: $pick([
+        uint64: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             _recursive && 5 < _depth
@@ -104,7 +103,7 @@ export const test_random_ArraySimpleProtobufOptional = _test_random(
                 )
               : [],
         ])(),
-        float: $pick([
+        float: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             _recursive && 5 < _depth
@@ -122,7 +121,7 @@ export const test_random_ArraySimpleProtobufOptional = _test_random(
                 )
               : [],
         ])(),
-        double: $pick([
+        double: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             _recursive && 5 < _depth
@@ -140,7 +139,7 @@ export const test_random_ArraySimpleProtobufOptional = _test_random(
                 )
               : [],
         ])(),
-        string: $pick([
+        string: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             _recursive && 5 < _depth
@@ -153,7 +152,7 @@ export const test_random_ArraySimpleProtobufOptional = _test_random(
                 )
               : [],
         ])(),
-        bytes: $pick([
+        bytes: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             _recursive && 5 < _depth
@@ -169,7 +168,7 @@ export const test_random_ArraySimpleProtobufOptional = _test_random(
                 )
               : [],
         ])(),
-        object: $pick([
+        object: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             _recursive && 5 < _depth
@@ -259,7 +258,9 @@ export const test_random_ArraySimpleProtobufOptional = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ArraySimpleProtobufOptional => {
-        const $guard = (typia.createAssert as any).guard;
+        const $guard = require("typia/lib/functional/$guard").$guard(
+          "typia.createAssert",
+        );
         const $ao0 = (
           input: any,
           _path: string,

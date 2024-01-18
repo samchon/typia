@@ -12,9 +12,11 @@ export const test_json_createStringify_TypeTagAtomicUnion =
         3 <= input.value.length &&
         input.value.length <= 7) ||
       ("number" === typeof input.value && 3 <= input.value);
-    const $string = (typia.json.createStringify as any).string;
-    const $number = (typia.json.createStringify as any).number;
-    const $throws = (typia.json.createStringify as any).throws;
+    const $string = require("typia/lib/functional/$string").$string;
+    const $number = require("typia/lib/functional/$number").$number;
+    const $throws = require("typia/lib/functional/$throws").$throws(
+      "typia.json.createStringify",
+    );
     const $so0 = (input: any): any =>
       `{"value":${`[${input.value
         .map((elem: any) => $so1(elem))

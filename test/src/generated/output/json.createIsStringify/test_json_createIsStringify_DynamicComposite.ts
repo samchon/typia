@@ -42,10 +42,12 @@ export const test_json_createIsStringify_DynamicComposite =
       return "object" === typeof input && null !== input && $io0(input);
     };
     const stringify = (input: DynamicComposite): string => {
-      const $string = (typia.json.createIsStringify as any).string;
-      const $number = (typia.json.createIsStringify as any).number;
-      const $throws = (typia.json.createIsStringify as any).throws;
-      const $tail = (typia.json.createIsStringify as any).tail;
+      const $string = require("typia/lib/functional/$string").$string;
+      const $number = require("typia/lib/functional/$number").$number;
+      const $throws = require("typia/lib/functional/$throws").$throws(
+        "typia.json.createIsStringify",
+      );
+      const $tail = require("typia/lib/functional/$tail").$tail;
       const $so0 = (input: any): any =>
         `{${$tail(
           `"id":${$string(input.id)},"name":${$string(

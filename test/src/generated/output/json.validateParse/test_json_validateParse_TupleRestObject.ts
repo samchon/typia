@@ -26,7 +26,7 @@ export const test_json_validateParse_TupleRestObject = _test_json_validateParse(
         );
       };
       if (false === __is(input)) {
-        const $report = (typia.json.validateParse as any).report(errors);
+        const $report = require("typia/lib/functional/$report").$report(errors);
         ((
           input: any,
           _path: string,

@@ -44,8 +44,10 @@ export const test_misc_assertPrune_DynamicTemplate = _test_misc_assertPrune(
           _path: string,
           _exceptionable: boolean = true,
         ): input is DynamicTemplate => {
-          const $guard = (typia.misc.assertPrune as any).guard;
-          const $join = (typia.misc.assertPrune as any).join;
+          const $guard = require("typia/lib/functional/$guard").$guard(
+            "typia.misc.assertPrune",
+          );
+          const $join = require("typia/lib/functional/$join").$join;
           const $ao0 = (
             input: any,
             _path: string,

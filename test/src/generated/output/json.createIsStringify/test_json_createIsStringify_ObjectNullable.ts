@@ -62,8 +62,10 @@ export const test_json_createIsStringify_ObjectNullable =
             else if ("manufacturer" === input.type) return $io2(input);
             else return false;
           })();
-        const $string = (typia.json.createIsStringify as any).string;
-        const $throws = (typia.json.createIsStringify as any).throws;
+        const $string = require("typia/lib/functional/$string").$string;
+        const $throws = require("typia/lib/functional/$throws").$throws(
+          "typia.json.createIsStringify",
+        );
         const $so0 = (input: any): any =>
           `{"value":${`[${input.value
             .map((elem: any) => $so1(elem))

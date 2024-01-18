@@ -24,7 +24,9 @@ export const test_http_validateHeaders_ObjectHttpAtomic =
           );
         };
         if (false === __is(input)) {
-          const $report = (typia.http.validateHeaders as any).report(errors);
+          const $report = require("typia/lib/functional/$report").$report(
+            errors,
+          );
           ((
             input: any,
             _path: string,
@@ -88,13 +90,12 @@ export const test_http_validateHeaders_ObjectHttpAtomic =
       const headers = (
         input: Record<string, string | string[] | undefined>,
       ): typia.Resolved<ObjectHttpAtomic> => {
-        const $boolean = (typia.http.validateHeaders as any).boolean;
-        const $bigint = (typia.http.validateHeaders as any).bigint;
-        const $number = (typia.http.validateHeaders as any).number;
+        const $HeadersReader =
+          require("typia/lib/functional/$HeadersReader").$HeadersReader;
         const output = {
-          boolean: $boolean(input.boolean),
-          bigint: $bigint(input.bigint),
-          number: $number(input.number),
+          boolean: $HeadersReader.boolean(input.boolean),
+          bigint: $HeadersReader.bigint(input.bigint),
+          number: $HeadersReader.number(input.number),
           string: input.string,
         };
         return output as any;

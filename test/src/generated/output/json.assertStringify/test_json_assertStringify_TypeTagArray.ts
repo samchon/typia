@@ -59,7 +59,9 @@ export const test_json_assertStringify_TypeTagArray =
               _path: string,
               _exceptionable: boolean = true,
             ): input is TypeTagArray => {
-              const $guard = (typia.json.assertStringify as any).guard;
+              const $guard = require("typia/lib/functional/$guard").$guard(
+                "typia.json.assertStringify",
+              );
               const $ao0 = (
                 input: any,
                 _path: string,
@@ -319,8 +321,8 @@ export const test_json_assertStringify_TypeTagArray =
               (elem: any) =>
                 "number" === typeof elem && 10 <= elem && elem <= 10,
             );
-          const $string = (typia.json.assertStringify as any).string;
-          const $number = (typia.json.assertStringify as any).number;
+          const $string = require("typia/lib/functional/$string").$string;
+          const $number = require("typia/lib/functional/$number").$number;
           const $so0 = (input: any): any =>
             `{"value":${`[${input.value
               .map((elem: any) => $so1(elem))

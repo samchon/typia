@@ -60,8 +60,10 @@ export const test_assertGuard_DynamicJsonValue = _test_assertGuard(
         _path: string,
         _exceptionable: boolean = true,
       ): input is DynamicJsonValue => {
-        const $guard = (typia.assertGuard as any).guard;
-        const $join = (typia.assertGuard as any).join;
+        const $guard = require("typia/lib/functional/$guard").$guard(
+          "typia.assertGuard",
+        );
+        const $join = require("typia/lib/functional/$join").$join;
         const $ao0 = (
           input: any,
           _path: string,

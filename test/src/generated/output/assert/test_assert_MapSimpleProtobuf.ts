@@ -87,7 +87,9 @@ export const test_assert_MapSimpleProtobuf = _test_assert(
         _path: string,
         _exceptionable: boolean = true,
       ): input is MapSimpleProtobuf => {
-        const $guard = (typia.assert as any).guard;
+        const $guard = require("typia/lib/functional/$guard").$guard(
+          "typia.assert",
+        );
         const $ao0 = (
           input: any,
           _path: string,

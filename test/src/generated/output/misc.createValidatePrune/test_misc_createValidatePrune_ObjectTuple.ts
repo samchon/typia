@@ -29,7 +29,7 @@ export const test_misc_createValidatePrune_ObjectTuple =
           );
         };
         if (false === __is(input)) {
-          const $report = (typia.misc.createValidatePrune as any).report(
+          const $report = require("typia/lib/functional/$report").$report(
             errors,
           );
           ((

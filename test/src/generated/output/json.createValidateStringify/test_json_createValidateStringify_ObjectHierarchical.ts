@@ -105,9 +105,7 @@ export const test_json_createValidateStringify_ObjectHierarchical =
         return "object" === typeof input && null !== input && $io0(input);
       };
       if (false === __is(input)) {
-        const $report = (typia.json.createValidateStringify as any).report(
-          errors,
-        );
+        const $report = require("typia/lib/functional/$report").$report(errors);
         ((
           input: any,
           _path: string,
@@ -588,8 +586,8 @@ export const test_json_createValidateStringify_ObjectHierarchical =
         "object" === typeof input.created_at &&
         null !== input.created_at &&
         $io2(input.created_at);
-      const $number = (typia.json.createValidateStringify as any).number;
-      const $string = (typia.json.createValidateStringify as any).string;
+      const $number = require("typia/lib/functional/$number").$number;
+      const $string = require("typia/lib/functional/$string").$string;
       const $so0 = (input: any): any =>
         `{"id":${$number(input.id)},"channel":${$so1(input.channel)},"member":${
           null !== input.member ? $so3(input.member) : "null"

@@ -32,15 +32,15 @@ export const test_http_isHeaders_ObjectHttpCommentTag = _test_http_isHeaders(
     const headers = (
       input: Record<string, string | string[] | undefined>,
     ): typia.Resolved<ObjectHttpCommentTag> => {
-      const $number = (typia.http.isHeaders as any).number;
-      const $bigint = (typia.http.isHeaders as any).bigint;
+      const $HeadersReader =
+        require("typia/lib/functional/$HeadersReader").$HeadersReader;
       const output = {
-        int: $number(input.int),
-        uint64: $bigint(input.uint64),
+        int: $HeadersReader.number(input.int),
+        uint64: $HeadersReader.bigint(input.uint64),
         uuid: input.uuid,
         items: Array.isArray(input.items)
-          ? input.items.map($number)
-          : input.items?.split(", ")?.map($number) ?? [],
+          ? input.items.map($HeadersReader.number)
+          : input.items?.split(", ")?.map($HeadersReader.number) ?? [],
       };
       return output as any;
     };

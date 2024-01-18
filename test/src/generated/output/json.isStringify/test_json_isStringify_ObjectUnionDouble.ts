@@ -112,9 +112,11 @@ export const test_json_isStringify_ObjectUnionDouble = _test_json_isStringify(
         input.y.every((elem: any) => "number" === typeof elem);
       const $iu1 = (input: any): any => $io4(input) || $io2(input);
       const $iu2 = (input: any): any => $io10(input) || $io8(input);
-      const $number = (typia.json.isStringify as any).number;
-      const $string = (typia.json.isStringify as any).string;
-      const $throws = (typia.json.isStringify as any).throws;
+      const $number = require("typia/lib/functional/$number").$number;
+      const $string = require("typia/lib/functional/$string").$string;
+      const $throws = require("typia/lib/functional/$throws").$throws(
+        "typia.json.isStringify",
+      );
       const $so0 = (input: any): any =>
         `{"value":${`{"x":${$number((input.value as any).x)}}`},"child":${$su1(
           input.child,

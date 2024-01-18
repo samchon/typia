@@ -74,8 +74,10 @@ export const test_createAssertGuardEquals_CommentTagDefault =
         _path: string,
         _exceptionable: boolean = true,
       ): input is CommentTagDefault => {
-        const $guard = (typia.createAssertGuardEquals as any).guard;
-        const $join = (typia.createAssertGuardEquals as any).join;
+        const $guard = require("typia/lib/functional/$guard").$guard(
+          "typia.createAssertGuardEquals",
+        );
+        const $join = require("typia/lib/functional/$join").$join;
         const $ao0 = (
           input: any,
           _path: string,

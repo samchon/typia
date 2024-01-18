@@ -64,7 +64,9 @@ export const test_json_assertStringify_ObjectPropertyNullable =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ObjectPropertyNullable => {
-            const $guard = (typia.json.assertStringify as any).guard;
+            const $guard = require("typia/lib/functional/$guard").$guard(
+              "typia.json.assertStringify",
+            );
             const $ao0 = (
               input: any,
               _path: string,
@@ -302,8 +304,8 @@ export const test_json_assertStringify_ObjectPropertyNullable =
             undefined === input.serial ||
             "number" === typeof input.serial) &&
           (null === input.activated || "boolean" === typeof input.activated);
-        const $number = (typia.json.assertStringify as any).number;
-        const $string = (typia.json.assertStringify as any).string;
+        const $number = require("typia/lib/functional/$number").$number;
+        const $string = require("typia/lib/functional/$string").$string;
         const $so0 = (input: any): any =>
           `{"value":${null !== input.value ? input.value : "null"}}`;
         const $so1 = (input: any): any =>

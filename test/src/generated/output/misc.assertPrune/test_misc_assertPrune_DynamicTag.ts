@@ -46,8 +46,10 @@ export const test_misc_assertPrune_DynamicTag = _test_misc_assertPrune(
           _path: string,
           _exceptionable: boolean = true,
         ): input is DynamicTag => {
-          const $guard = (typia.misc.assertPrune as any).guard;
-          const $join = (typia.misc.assertPrune as any).join;
+          const $guard = require("typia/lib/functional/$guard").$guard(
+            "typia.misc.assertPrune",
+          );
+          const $join = require("typia/lib/functional/$join").$join;
           const $ao0 = (
             input: any,
             _path: string,

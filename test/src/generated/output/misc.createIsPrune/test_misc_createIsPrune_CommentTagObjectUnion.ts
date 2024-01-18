@@ -47,7 +47,7 @@ export const test_misc_createIsPrune_CommentTagObjectUnion = _test_misc_isPrune(
         "string" === typeof input.value &&
         3 <= input.value.length &&
         input.value.length <= 7;
-      const $throws = (typia.misc.createIsPrune as any).throws;
+      const $throws = require("typia/lib/functional/$throws").$throws;
       const $pp0 = (input: any) =>
         input.forEach((elem: any) => {
           if ("object" === typeof elem && null !== elem) $pu0(elem);

@@ -32,8 +32,10 @@ export const test_assert_DynamicTree = _test_assert("DynamicTree")<DynamicTree>(
         _path: string,
         _exceptionable: boolean = true,
       ): input is DynamicTree => {
-        const $guard = (typia.assert as any).guard;
-        const $join = (typia.assert as any).join;
+        const $guard = require("typia/lib/functional/$guard").$guard(
+          "typia.assert",
+        );
+        const $join = require("typia/lib/functional/$join").$join;
         const $ao0 = (
           input: any,
           _path: string,

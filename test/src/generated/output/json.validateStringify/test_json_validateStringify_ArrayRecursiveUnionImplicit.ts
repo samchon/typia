@@ -89,7 +89,9 @@ export const test_json_validateStringify_ArrayRecursiveUnionImplicit =
           );
         };
         if (false === __is(input)) {
-          const $report = (typia.json.validateStringify as any).report(errors);
+          const $report = require("typia/lib/functional/$report").$report(
+            errors,
+          );
           ((
             input: any,
             _path: string,
@@ -507,9 +509,11 @@ export const test_json_validateStringify_ArrayRecursiveUnionImplicit =
             else if (undefined !== input.target) return $io5(input);
             else return $io0(input);
           })();
-        const $number = (typia.json.validateStringify as any).number;
-        const $string = (typia.json.validateStringify as any).string;
-        const $throws = (typia.json.validateStringify as any).throws;
+        const $number = require("typia/lib/functional/$number").$number;
+        const $string = require("typia/lib/functional/$string").$string;
+        const $throws = require("typia/lib/functional/$throws").$throws(
+          "typia.json.validateStringify",
+        );
         const $so0 = (input: any): any =>
           `{"id":${$number(input.id)},"name":${$string(
             input.name,

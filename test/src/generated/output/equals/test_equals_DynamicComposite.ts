@@ -7,7 +7,7 @@ export const test_equals_DynamicComposite = _test_equals(
   "DynamicComposite",
 )<DynamicComposite>(DynamicComposite)((input) =>
   ((input: any, _exceptionable: boolean = true): input is DynamicComposite => {
-    const $join = (typia.equals as any).join;
+    const $join = require("typia/lib/functional/$join").$join;
     const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
       "string" === typeof input.id &&
       "string" === typeof input.name &&

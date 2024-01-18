@@ -11,26 +11,24 @@ export const test_http_createAssertHeaders_ObjectHttpArray =
       const decode = (
         input: Record<string, string | string[] | undefined>,
       ): typia.Resolved<ObjectHttpArray> => {
-        const $boolean = (typia.http.createAssertHeaders as any).boolean;
-        const $bigint = (typia.http.createAssertHeaders as any).bigint;
-        const $number = (typia.http.createAssertHeaders as any).number;
-        const $string = (typia.http.createAssertHeaders as any).string;
+        const $HeadersReader =
+          require("typia/lib/functional/$HeadersReader").$HeadersReader;
         const output = {
           booleans: Array.isArray(input.booleans)
-            ? input.booleans.map($boolean)
-            : input.booleans?.split(", ")?.map($boolean) ?? [],
+            ? input.booleans.map($HeadersReader.boolean)
+            : input.booleans?.split(", ")?.map($HeadersReader.boolean) ?? [],
           bigints: Array.isArray(input.bigints)
-            ? input.bigints.map($bigint)
-            : input.bigints?.split(", ")?.map($bigint) ?? [],
+            ? input.bigints.map($HeadersReader.bigint)
+            : input.bigints?.split(", ")?.map($HeadersReader.bigint) ?? [],
           numbers: Array.isArray(input.numbers)
-            ? input.numbers.map($number)
-            : input.numbers?.split(", ")?.map($number) ?? [],
+            ? input.numbers.map($HeadersReader.number)
+            : input.numbers?.split(", ")?.map($HeadersReader.number) ?? [],
           strings: Array.isArray(input.strings)
-            ? input.strings.map($string)
-            : input.strings?.split(", ")?.map($string) ?? [],
+            ? input.strings.map($HeadersReader.string)
+            : input.strings?.split(", ")?.map($HeadersReader.string) ?? [],
           templates: Array.isArray(input.templates)
-            ? input.templates.map($string)
-            : input.templates?.split(", ")?.map($string) ?? [],
+            ? input.templates.map($HeadersReader.string)
+            : input.templates?.split(", ")?.map($HeadersReader.string) ?? [],
         };
         return output as any;
       };
@@ -61,7 +59,9 @@ export const test_http_createAssertHeaders_ObjectHttpArray =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ObjectHttpArray => {
-            const $guard = (typia.http.createAssertHeaders as any).guard;
+            const $guard = require("typia/lib/functional/$guard").$guard(
+              "typia.http.createAssertHeaders",
+            );
             const $ao0 = (
               input: any,
               _path: string,

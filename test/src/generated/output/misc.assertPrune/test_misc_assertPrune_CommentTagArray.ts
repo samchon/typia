@@ -43,7 +43,9 @@ export const test_misc_assertPrune_CommentTagArray = _test_misc_assertPrune(
           _path: string,
           _exceptionable: boolean = true,
         ): input is CommentTagArray => {
-          const $guard = (typia.misc.assertPrune as any).guard;
+          const $guard = require("typia/lib/functional/$guard").$guard(
+            "typia.misc.assertPrune",
+          );
           const $ao0 = (
             input: any,
             _path: string,

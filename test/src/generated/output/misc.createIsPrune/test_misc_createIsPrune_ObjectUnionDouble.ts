@@ -112,7 +112,7 @@ export const test_misc_createIsPrune_ObjectUnionDouble = _test_misc_isPrune(
         input.y.every((elem: any) => "number" === typeof elem);
       const $iu1 = (input: any): any => $io4(input) || $io2(input);
       const $iu2 = (input: any): any => $io10(input) || $io8(input);
-      const $throws = (typia.misc.createIsPrune as any).throws;
+      const $throws = require("typia/lib/functional/$throws").$throws;
       const $pp0 = (input: any) =>
         input.forEach((elem: any) => {
           if ("object" === typeof elem && null !== elem) $pu0(elem);

@@ -17,7 +17,9 @@ export const test_json_assertStringify_ToJsonDouble =
               _path: string,
               _exceptionable: boolean = true,
             ): input is ToJsonDouble => {
-              const $guard = (typia.json.assertStringify as any).guard;
+              const $guard = require("typia/lib/functional/$guard").$guard(
+                "typia.json.assertStringify",
+              );
               const $ao0 = (
                 input: any,
                 _path: string,
@@ -43,7 +45,7 @@ export const test_json_assertStringify_ToJsonDouble =
           return input;
         };
         const stringify = (input: ToJsonDouble): string => {
-          const $number = (typia.json.assertStringify as any).number;
+          const $number = require("typia/lib/functional/$number").$number;
           return `{"id":${$number((input.toJSON() as any).id)},"flag":${
             (input.toJSON() as any).flag
           }}`;

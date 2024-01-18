@@ -10,8 +10,7 @@ export const test_random_SetUnion = _test_random("SetUnion")<SetUnion>(
     ((
       generator?: Partial<typia.IRandomGenerator>,
     ): typia.Resolved<SetUnion> => {
-      const $generator = (typia.random as any).generator;
-      const $pick = (typia.random as any).pick;
+      const $generator = require("typia/lib/functional/$generator").$generator;
       const $ro0 = (_recursive: boolean = false, _depth: number = 0): any => ({
         id:
           (generator?.customs ?? $generator.customs)?.string?.([]) ??
@@ -24,7 +23,7 @@ export const test_random_SetUnion = _test_random("SetUnion")<SetUnion>(
           (generator?.number ?? $generator.number)(0, 100),
       });
       return (generator?.array ?? $generator.array)(() =>
-        $pick([
+        (generator?.pick ?? $generator.pick)([
           () =>
             new Set(
               (generator?.array ?? $generator.array)(() =>
@@ -143,7 +142,9 @@ export const test_random_SetUnion = _test_random("SetUnion")<SetUnion>(
         _path: string,
         _exceptionable: boolean = true,
       ): input is SetUnion => {
-        const $guard = (typia.createAssert as any).guard;
+        const $guard = require("typia/lib/functional/$guard").$guard(
+          "typia.createAssert",
+        );
         const $ao0 = (
           input: any,
           _path: string,

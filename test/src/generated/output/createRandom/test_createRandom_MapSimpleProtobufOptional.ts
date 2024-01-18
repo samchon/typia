@@ -11,10 +11,9 @@ export const test_createRandom_MapSimpleProtobufOptional = _test_random(
       MapSimpleProtobufOptional as any
     ).RANDOM,
   ): typia.Resolved<MapSimpleProtobufOptional> => {
-    const $generator = (typia.createRandom as any).generator;
-    const $pick = (typia.createRandom as any).pick;
+    const $generator = require("typia/lib/functional/$generator").$generator;
     const $ro0 = (_recursive: boolean = true, _depth: number = 0): any => ({
-      boolean: $pick([
+      boolean: (generator?.pick ?? $generator.pick)([
         () => undefined,
         () =>
           new Map(
@@ -29,7 +28,7 @@ export const test_createRandom_MapSimpleProtobufOptional = _test_random(
               : [],
           ),
       ])(),
-      int32: $pick([
+      int32: (generator?.pick ?? $generator.pick)([
         () => undefined,
         () =>
           new Map(
@@ -50,7 +49,7 @@ export const test_createRandom_MapSimpleProtobufOptional = _test_random(
               : [],
           ),
       ])(),
-      bigint: $pick([
+      bigint: (generator?.pick ?? $generator.pick)([
         () => undefined,
         () =>
           new Map(
@@ -69,7 +68,7 @@ export const test_createRandom_MapSimpleProtobufOptional = _test_random(
               : [],
           ),
       ])(),
-      double: $pick([
+      double: (generator?.pick ?? $generator.pick)([
         () => undefined,
         () =>
           new Map(
@@ -85,7 +84,7 @@ export const test_createRandom_MapSimpleProtobufOptional = _test_random(
               : [],
           ),
       ])(),
-      string: $pick([
+      string: (generator?.pick ?? $generator.pick)([
         () => undefined,
         () =>
           new Map(
@@ -109,7 +108,7 @@ export const test_createRandom_MapSimpleProtobufOptional = _test_random(
               : [],
           ),
       ])(),
-      bytes: $pick([
+      bytes: (generator?.pick ?? $generator.pick)([
         () => undefined,
         () =>
           new Map(
@@ -128,7 +127,7 @@ export const test_createRandom_MapSimpleProtobufOptional = _test_random(
               : [],
           ),
       ])(),
-      objects: $pick([
+      objects: (generator?.pick ?? $generator.pick)([
         () => undefined,
         () =>
           new Map(
@@ -240,7 +239,9 @@ export const test_createRandom_MapSimpleProtobufOptional = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is MapSimpleProtobufOptional => {
-        const $guard = (typia.createAssert as any).guard;
+        const $guard = require("typia/lib/functional/$guard").$guard(
+          "typia.createAssert",
+        );
         const $ao0 = (
           input: any,
           _path: string,

@@ -1,6 +1,9 @@
 import { ProtobufWire } from "../programmers/helpers/ProtobufWire";
 
-/// @reference https://github.com/piotr-oles/as-proto/blob/main/packages/as-proto/assembly/internal/FixedReader.ts
+/**
+ * @reference https://github.com/piotr-oles/as-proto/blob/main/packages/as-proto/assembly/internal/FixedReader.ts
+ * @internal
+ */
 export class $ProtobufReader {
   /**
    * Read buffer
@@ -189,7 +192,18 @@ export class $ProtobufReader {
   }
 }
 
+/**
+ * @internal
+ */
 const utf8 = new TextDecoder();
+
+/**
+ * @internal
+ */
 const N01 = BigInt(0x01);
+
+/**
+ * @internal
+ */
 const N7F = BigInt(0x7f);
 const N80 = BigInt(0x80);

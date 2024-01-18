@@ -35,7 +35,7 @@ export const test_notation_createValidatePascal_ArrayRepeatedNullable =
           );
         };
         if (false === __is(input)) {
-          const $report = (typia.notations.createValidatePascal as any).report(
+          const $report = require("typia/lib/functional/$report").$report(
             errors,
           );
           ((
@@ -176,7 +176,9 @@ export const test_notation_createValidatePascal_ArrayRepeatedNullable =
           _path: string,
           _exceptionable: boolean = true,
         ): input is typia.PascalCase<ArrayRepeatedNullable> => {
-          const $guard = (typia.createAssert as any).guard;
+          const $guard = require("typia/lib/functional/$guard").$guard(
+            "typia.createAssert",
+          );
           const $aa0 = (
             input: any,
             _path: string,

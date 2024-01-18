@@ -10,17 +10,16 @@ export const test_http_createHeaders_ObjectHttpUndefindable =
     (
       input: Record<string, string | string[] | undefined>,
     ): typia.Resolved<ObjectHttpUndefindable> => {
-      const $boolean = (typia.http.createHeaders as any).boolean;
-      const $bigint = (typia.http.createHeaders as any).bigint;
-      const $number = (typia.http.createHeaders as any).number;
+      const $HeadersReader =
+        require("typia/lib/functional/$HeadersReader").$HeadersReader;
       const output = {
-        boolean: $boolean(input.boolean),
-        bigint: $bigint(input.bigint),
-        number: $number(input.number),
+        boolean: $HeadersReader.boolean(input.boolean),
+        bigint: $HeadersReader.bigint(input.bigint),
+        number: $HeadersReader.number(input.number),
         string: input.string,
-        constantBoolean: $boolean(input.constantboolean),
-        constantBigint: $bigint(input.constantbigint),
-        constantNumber: $number(input.constantnumber),
+        constantBoolean: $HeadersReader.boolean(input.constantboolean),
+        constantBigint: $HeadersReader.bigint(input.constantbigint),
+        constantNumber: $HeadersReader.number(input.constantnumber),
         constantString: input.constantstring,
       };
       return output as any;

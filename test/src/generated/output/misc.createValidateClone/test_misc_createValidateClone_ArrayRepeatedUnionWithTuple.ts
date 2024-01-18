@@ -146,7 +146,7 @@ export const test_misc_createValidateClone_ArrayRepeatedUnionWithTuple =
           );
         };
         if (false === __is(input)) {
-          const $report = (typia.misc.createValidateClone as any).report(
+          const $report = require("typia/lib/functional/$report").$report(
             errors,
           );
           ((
@@ -562,7 +562,9 @@ export const test_misc_createValidateClone_ArrayRepeatedUnionWithTuple =
                 "boolean" === typeof elem ||
                 (Array.isArray(elem) && ($ip1(elem) || false))),
           );
-        const $throws = (typia.misc.createValidateClone as any).throws;
+        const $throws = require("typia/lib/functional/$throws").$throws(
+          "typia.misc.createValidateClone",
+        );
         const $cp0 = (input: any) => {
           const array = input;
           const top = input[0];

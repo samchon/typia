@@ -31,7 +31,9 @@ export const test_json_assertStringify_ArrayMatrix = _test_json_assertStringify(
           _path: string,
           _exceptionable: boolean = true,
         ): input is ArrayMatrix => {
-          const $guard = (typia.json.assertStringify as any).guard;
+          const $guard = require("typia/lib/functional/$guard").$guard(
+            "typia.json.assertStringify",
+          );
           return (
             ((Array.isArray(input) ||
               $guard(true, {
@@ -95,7 +97,7 @@ export const test_json_assertStringify_ArrayMatrix = _test_json_assertStringify(
       return input;
     };
     const stringify = (input: ArrayMatrix): string => {
-      const $number = (typia.json.assertStringify as any).number;
+      const $number = require("typia/lib/functional/$number").$number;
       return `[${input
         .map(
           (elem: any) =>

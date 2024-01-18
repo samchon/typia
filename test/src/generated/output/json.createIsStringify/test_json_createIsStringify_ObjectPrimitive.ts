@@ -36,8 +36,10 @@ export const test_json_createIsStringify_ObjectPrimitive =
           "string" === typeof input.extension &&
           "string" === typeof input.url &&
           "string" === typeof input.created_at;
-        const $string = (typia.json.createIsStringify as any).string;
-        const $throws = (typia.json.createIsStringify as any).throws;
+        const $string = require("typia/lib/functional/$string").$string;
+        const $throws = require("typia/lib/functional/$throws").$throws(
+          "typia.json.createIsStringify",
+        );
         const $so0 = (input: any): any =>
           `{"id":${$string(input.id)},"extension":${(() => {
             if ("string" === typeof input.extension)

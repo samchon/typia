@@ -237,7 +237,7 @@ export const test_json_createIsStringify_ObjectUnionCompositePointer =
                 else return $io3(input);
               })();
           })();
-        const $number = (typia.json.createIsStringify as any).number;
+        const $number = require("typia/lib/functional/$number").$number;
         const $so0 = (input: any): any =>
           `{"value":${`[${input.value
             .map((elem: any) => $so1(elem))

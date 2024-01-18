@@ -39,7 +39,7 @@ export const test_json_createValidateParse_DynamicTemplate =
           );
         };
         if (false === __is(input)) {
-          const $report = (typia.json.createValidateParse as any).report(
+          const $report = require("typia/lib/functional/$report").$report(
             errors,
           );
           ((
@@ -47,7 +47,7 @@ export const test_json_createValidateParse_DynamicTemplate =
             _path: string,
             _exceptionable: boolean = true,
           ): input is DynamicTemplate => {
-            const $join = (typia.json.createValidateParse as any).join;
+            const $join = require("typia/lib/functional/$join").$join;
             const $vo0 = (
               input: any,
               _path: string,

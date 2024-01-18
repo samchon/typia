@@ -1,6 +1,6 @@
 import ts from "typescript";
 
-import { FunctionImporter } from "./FunctionImporeter";
+import { FunctionImporter } from "./FunctionImporter";
 
 export const disable_function_importer_declare = (
   importer: FunctionImporter,
@@ -9,10 +9,11 @@ export const disable_function_importer_declare = (
 const disable = (importer: FunctionImporter): MethodOnly<FunctionImporter> => ({
   method: importer.method,
   empty: (): boolean => importer.empty(),
-  use: (name: string): ts.Identifier => importer.use(name),
+  use: (name: string, currying?: boolean): ts.Identifier =>
+    importer.use(name, currying),
   useLocal: (name: string): string => importer.useLocal(name),
   hasLocal: (name: string): boolean => importer.hasLocal(name),
-  declare: (_modulo: ts.LeftHandSideExpression): ts.Statement[] => [],
+  declare: (): ts.Statement[] => [],
   declareUnions: (): ts.Statement[] => [],
   increment: (): number => importer.increment(),
   emplaceUnion: (

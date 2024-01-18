@@ -2,10 +2,9 @@ import ts from "typescript";
 
 import { IdentifierFactory } from "../../factories/IdentifierFactory";
 import { StatementFactory } from "../../factories/StatementFactory";
-import { TypeFactory } from "../../factories/TypeFactory";
 
 export class FunctionImporter {
-  private readonly used_: Set<string> = new Set();
+  private readonly used_: Map<string, boolean> = new Map();
   private readonly local_: Set<string> = new Set();
   private readonly unions_: Map<string, [string, ts.ArrowFunction]> = new Map();
   private sequence_: number = 0;
@@ -16,8 +15,8 @@ export class FunctionImporter {
     return this.used_.size === 0;
   }
 
-  public use(name: string): ts.Identifier {
-    this.used_.add(name);
+  public use(name: string, currying: boolean = false): ts.Identifier {
+    this.used_.set(name, !!currying);
     return ts.factory.createIdentifier("$" + name);
   }
 
@@ -30,21 +29,25 @@ export class FunctionImporter {
     return this.local_.has(name);
   }
 
-  public declare(
-    modulo: ts.LeftHandSideExpression,
-    includeUnions: boolean = true,
-  ): ts.Statement[] {
+  public declare(includeUnions: boolean = true): ts.Statement[] {
     return [
-      ...[...this.used_].map((name) =>
-        StatementFactory.constant(
-          "$" + name,
-          IdentifierFactory.access(
-            ts.factory.createParenthesizedExpression(
-              ts.factory.createAsExpression(modulo, TypeFactory.keyword("any")),
-            ),
-          )(name),
-        ),
-      ),
+      ...[...this.used_].map(([key, value]) => {
+        const accessor = IdentifierFactory.access(
+          ts.factory.createCallExpression(
+            ts.factory.createIdentifier("require"),
+            undefined,
+            [ts.factory.createStringLiteral(`typia/lib/functional/$${key}`)],
+          ),
+        )(`$${key}`);
+        return StatementFactory.constant(
+          `$${key}`,
+          value
+            ? ts.factory.createCallExpression(accessor, undefined, [
+                ts.factory.createStringLiteral(this.method),
+              ])
+            : accessor,
+        );
+      }),
       ...(includeUnions === true
         ? [...this.unions_.values()].map(([key, arrow]) =>
             StatementFactory.constant(key, arrow),

@@ -34,7 +34,9 @@ export const test_json_validateStringify_ObjectPrimitive =
           return "object" === typeof input && null !== input && $io0(input);
         };
         if (false === __is(input)) {
-          const $report = (typia.json.validateStringify as any).report(errors);
+          const $report = require("typia/lib/functional/$report").$report(
+            errors,
+          );
           ((
             input: any,
             _path: string,
@@ -184,8 +186,10 @@ export const test_json_validateStringify_ObjectPrimitive =
           "string" === typeof input.extension &&
           "string" === typeof input.url &&
           "string" === typeof input.created_at;
-        const $string = (typia.json.validateStringify as any).string;
-        const $throws = (typia.json.validateStringify as any).throws;
+        const $string = require("typia/lib/functional/$string").$string;
+        const $throws = require("typia/lib/functional/$throws").$throws(
+          "typia.json.validateStringify",
+        );
         const $so0 = (input: any): any =>
           `{"id":${$string(input.id)},"extension":${(() => {
             if ("string" === typeof input.extension)

@@ -33,9 +33,7 @@ export const test_json_createValidateStringify_ObjectGenericArray =
         return "object" === typeof input && null !== input && $io0(input);
       };
       if (false === __is(input)) {
-        const $report = (typia.json.createValidateStringify as any).report(
-          errors,
-        );
+        const $report = require("typia/lib/functional/$report").$report(errors);
         ((
           input: any,
           _path: string,
@@ -181,8 +179,8 @@ export const test_json_createValidateStringify_ObjectGenericArray =
         "number" === typeof input.total_pages;
       const $io2 = (input: any): boolean =>
         "string" === typeof input.name && "number" === typeof input.age;
-      const $number = (typia.json.createValidateStringify as any).number;
-      const $string = (typia.json.createValidateStringify as any).string;
+      const $number = require("typia/lib/functional/$number").$number;
+      const $string = require("typia/lib/functional/$string").$string;
       const $so0 = (input: any): any =>
         `{"pagination":${`{"page":${$number(
           (input.pagination as any).page,

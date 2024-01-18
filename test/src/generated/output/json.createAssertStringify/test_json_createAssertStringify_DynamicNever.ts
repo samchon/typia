@@ -28,8 +28,10 @@ export const test_json_createAssertStringify_DynamicNever =
             _path: string,
             _exceptionable: boolean = true,
           ): input is DynamicNever => {
-            const $guard = (typia.json.createAssertStringify as any).guard;
-            const $join = (typia.json.createAssertStringify as any).join;
+            const $guard = require("typia/lib/functional/$guard").$guard(
+              "typia.json.createAssertStringify",
+            );
+            const $join = require("typia/lib/functional/$join").$join;
             const $ao0 = (
               input: any,
               _path: string,

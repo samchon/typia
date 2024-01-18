@@ -19,7 +19,7 @@ export const test_json_createValidateStringify_AtomicSimple =
           );
         };
         if (false === __is(input)) {
-          const $report = (typia.json.createValidateStringify as any).report(
+          const $report = require("typia/lib/functional/$report").$report(
             errors,
           );
           ((
@@ -76,8 +76,8 @@ export const test_json_createValidateStringify_AtomicSimple =
         } as any;
       };
       const stringify = (input: AtomicSimple): string => {
-        const $number = (typia.json.createValidateStringify as any).number;
-        const $string = (typia.json.createValidateStringify as any).string;
+        const $number = require("typia/lib/functional/$number").$number;
+        const $string = require("typia/lib/functional/$string").$string;
         return `[${input[0]},${$number(input[1])},${$string(input[2])}]`;
       };
       const output = validate(input) as any;

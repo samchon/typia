@@ -39,19 +39,18 @@ export const test_http_isHeaders_ObjectHttpTypeTag = _test_http_isHeaders(
     const headers = (
       input: Record<string, string | string[] | undefined>,
     ): typia.Resolved<ObjectHttpTypeTag> => {
-      const $number = (typia.http.isHeaders as any).number;
-      const $bigint = (typia.http.isHeaders as any).bigint;
-      const $string = (typia.http.isHeaders as any).string;
+      const $HeadersReader =
+        require("typia/lib/functional/$HeadersReader").$HeadersReader;
       const output = {
-        int32: $number(input.int32),
-        uint64: $bigint(input.uint64),
+        int32: $HeadersReader.number(input.int32),
+        uint64: $HeadersReader.bigint(input.uint64),
         uuid: input.uuid,
         range: Array.isArray(input.range)
-          ? input.range.map($number)
-          : input.range?.split(", ")?.map($number) ?? [],
+          ? input.range.map($HeadersReader.number)
+          : input.range?.split(", ")?.map($HeadersReader.number) ?? [],
         length: Array.isArray(input.length)
-          ? input.length.map($string)
-          : input.length?.split(", ")?.map($string) ?? [],
+          ? input.length.map($HeadersReader.string)
+          : input.length?.split(", ")?.map($HeadersReader.string) ?? [],
       };
       return output as any;
     };

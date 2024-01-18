@@ -27,7 +27,7 @@ export const test_protobuf_createValidateEncode_ObjectOptional =
             );
           };
           if (false === __is(input)) {
-            const $report = (typia.protobuf.validateEncode as any).report(
+            const $report = require("typia/lib/functional/$report").$report(
               errors,
             );
             ((
@@ -97,8 +97,10 @@ export const test_protobuf_createValidateEncode_ObjectOptional =
           } as any;
         };
         const encode = (input: ObjectOptional): Uint8Array => {
-          const $Sizer = (typia.protobuf.validateEncode as any).Sizer;
-          const $Writer = (typia.protobuf.validateEncode as any).Writer;
+          const $ProtobufSizer =
+            require("typia/lib/functional/$ProtobufSizer").$ProtobufSizer;
+          const $ProtobufWriter =
+            require("typia/lib/functional/$ProtobufWriter").$ProtobufWriter;
           const encoder = (writer: any): any => {
             const $peo0 = (input: any): any => {
               // property "id";
@@ -126,8 +128,8 @@ export const test_protobuf_createValidateEncode_ObjectOptional =
             $peo0(input);
             return writer;
           };
-          const sizer = encoder(new $Sizer());
-          const writer = encoder(new $Writer(sizer));
+          const sizer = encoder(new $ProtobufSizer());
+          const writer = encoder(new $ProtobufWriter(sizer));
           return writer.buffer();
         };
         const output = validate(input) as any;
@@ -135,7 +137,8 @@ export const test_protobuf_createValidateEncode_ObjectOptional =
         return output;
       })(input),
     decode: (input: Uint8Array): typia.Resolved<ObjectOptional> => {
-      const $Reader = (typia.protobuf.createDecode as any).Reader;
+      const $ProtobufReader =
+        require("typia/lib/functional/$ProtobufReader").$ProtobufReader;
       const $pdo0 = (reader: any, length: number = -1): any => {
         length = length < 0 ? reader.size() : reader.index() + length;
         const output = {} as any;
@@ -165,7 +168,7 @@ export const test_protobuf_createValidateEncode_ObjectOptional =
         }
         return output;
       };
-      const reader = new $Reader(input);
+      const reader = new $ProtobufReader(input);
       return $pdo0(reader);
     },
     message:

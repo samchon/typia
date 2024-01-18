@@ -12,7 +12,7 @@ import { IProject } from "../../transformers/IProject";
 import { TransformerError } from "../../transformers/TransformerError";
 
 import { AssertProgrammer } from "../AssertProgrammer";
-import { FunctionImporter } from "../helpers/FunctionImporeter";
+import { FunctionImporter } from "../helpers/FunctionImporter";
 import { HttpMetadataUtil } from "../helpers/HttpMetadataUtil";
 
 export namespace HttpParameterProgrammer {
@@ -46,9 +46,11 @@ export namespace HttpParameterProgrammer {
         ),
         StatementFactory.constant(
           "value",
-          ts.factory.createCallExpression(importer.use(atomic), undefined, [
-            ts.factory.createIdentifier("input"),
-          ]),
+          ts.factory.createCallExpression(
+            IdentifierFactory.access(importer.use("ParameterReader"))(atomic),
+            undefined,
+            [ts.factory.createIdentifier("input")],
+          ),
         ),
         ts.factory.createReturnStatement(
           ts.factory.createCallExpression(
@@ -72,7 +74,7 @@ export namespace HttpParameterProgrammer {
           name ?? TypeFactory.getFullName(project.checker)(type),
         ),
         undefined,
-        ts.factory.createBlock([...importer.declare(modulo), ...block], true),
+        ts.factory.createBlock([...importer.declare(), ...block], true),
       );
     };
 

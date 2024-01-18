@@ -71,9 +71,11 @@ export const test_json_isStringify_ObjectUnionNonPredictable =
         const $io8 = (input: any): boolean => "string" === typeof input.value;
         const $iu0 = (input: any): any =>
           $io7(input) || $io5(input) || $io3(input);
-        const $number = (typia.json.isStringify as any).number;
-        const $string = (typia.json.isStringify as any).string;
-        const $throws = (typia.json.isStringify as any).throws;
+        const $number = require("typia/lib/functional/$number").$number;
+        const $string = require("typia/lib/functional/$string").$string;
+        const $throws = require("typia/lib/functional/$throws").$throws(
+          "typia.json.isStringify",
+        );
         const $so0 = (input: any): any =>
           `{"value":${`[${input.value
             .map((elem: any) => $so1(elem))

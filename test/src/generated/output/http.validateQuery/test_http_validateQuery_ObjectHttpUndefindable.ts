@@ -45,7 +45,9 @@ export const test_http_validateQuery_ObjectHttpUndefindable =
           );
         };
         if (false === __is(input)) {
-          const $report = (typia.http.validateQuery as any).report(errors);
+          const $report = require("typia/lib/functional/$report").$report(
+            errors,
+          );
           ((
             input: any,
             _path: string,
@@ -149,21 +151,22 @@ export const test_http_validateQuery_ObjectHttpUndefindable =
       const query = (
         input: string | URLSearchParams,
       ): typia.Resolved<ObjectHttpUndefindable> => {
-        const $params = (typia.http.validateQuery as any).params;
-        const $boolean = (typia.http.validateQuery as any).boolean;
-        const $bigint = (typia.http.validateQuery as any).bigint;
-        const $number = (typia.http.validateQuery as any).number;
-        const $string = (typia.http.validateQuery as any).string;
-        input = $params(input) as URLSearchParams;
+        const $QueryReader =
+          require("typia/lib/functional/$QueryReader").$QueryReader;
+        input = $QueryReader.params(input) as URLSearchParams;
         const output = {
-          boolean: $boolean(input.get("boolean")) ?? undefined,
-          bigint: $bigint(input.get("bigint")) ?? undefined,
-          number: $number(input.get("number")) ?? undefined,
-          string: $string(input.get("string")) ?? undefined,
-          constantBoolean: $boolean(input.get("constantBoolean")) ?? undefined,
-          constantBigint: $bigint(input.get("constantBigint")) ?? undefined,
-          constantNumber: $number(input.get("constantNumber")) ?? undefined,
-          constantString: $string(input.get("constantString")) ?? undefined,
+          boolean: $QueryReader.boolean(input.get("boolean")) ?? undefined,
+          bigint: $QueryReader.bigint(input.get("bigint")) ?? undefined,
+          number: $QueryReader.number(input.get("number")) ?? undefined,
+          string: $QueryReader.string(input.get("string")) ?? undefined,
+          constantBoolean:
+            $QueryReader.boolean(input.get("constantBoolean")) ?? undefined,
+          constantBigint:
+            $QueryReader.bigint(input.get("constantBigint")) ?? undefined,
+          constantNumber:
+            $QueryReader.number(input.get("constantNumber")) ?? undefined,
+          constantString:
+            $QueryReader.string(input.get("constantString")) ?? undefined,
         };
         return output as any;
       };

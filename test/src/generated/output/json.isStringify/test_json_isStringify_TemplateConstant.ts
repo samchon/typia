@@ -49,8 +49,10 @@ export const test_json_isStringify_TemplateConstant = _test_json_isStringify(
           "the_1_value_with_label_A" === input.combined ||
           "the_1_value_with_label_B" === input.combined ||
           "the_1_value_with_label_C" === input.combined);
-      const $string = (typia.json.isStringify as any).string;
-      const $throws = (typia.json.isStringify as any).throws;
+      const $string = require("typia/lib/functional/$string").$string;
+      const $throws = require("typia/lib/functional/$throws").$throws(
+        "typia.json.isStringify",
+      );
       const $so0 = (input: any): any =>
         `{"value":${`[${input.value
           .map((elem: any) => $so1(elem))

@@ -29,7 +29,9 @@ export const test_misc_createAssertPrune_TupleRestArray =
             _path: string,
             _exceptionable: boolean = true,
           ): input is TupleRestArray => {
-            const $guard = (typia.misc.createAssertPrune as any).guard;
+            const $guard = require("typia/lib/functional/$guard").$guard(
+              "typia.misc.createAssertPrune",
+            );
             return (
               ((Array.isArray(input) ||
                 $guard(true, {

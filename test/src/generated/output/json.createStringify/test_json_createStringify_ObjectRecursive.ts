@@ -20,8 +20,8 @@ export const test_json_createStringify_ObjectRecursive = _test_json_stringify(
     $io1(input.created_at);
   const $io1 = (input: any): boolean =>
     "number" === typeof input.time && "number" === typeof input.zone;
-  const $number = (typia.json.createStringify as any).number;
-  const $string = (typia.json.createStringify as any).string;
+  const $number = require("typia/lib/functional/$number").$number;
+  const $string = require("typia/lib/functional/$string").$string;
   const $so0 = (input: any): any =>
     `{"parent":${
       null !== input.parent ? $so0(input.parent) : "null"

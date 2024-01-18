@@ -41,7 +41,7 @@ export const test_misc_createValidatePrune_DynamicTag =
           );
         };
         if (false === __is(input)) {
-          const $report = (typia.misc.createValidatePrune as any).report(
+          const $report = require("typia/lib/functional/$report").$report(
             errors,
           );
           ((
@@ -49,7 +49,7 @@ export const test_misc_createValidatePrune_DynamicTag =
             _path: string,
             _exceptionable: boolean = true,
           ): input is DynamicTag => {
-            const $join = (typia.misc.createValidatePrune as any).join;
+            const $join = require("typia/lib/functional/$join").$join;
             const $vo0 = (
               input: any,
               _path: string,

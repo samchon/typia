@@ -219,7 +219,7 @@ export const test_misc_createIsPrune_ObjectUnionExplicitPointer =
           else if ("circle" === input.type) return $io10(input);
           else return false;
         })();
-      const $throws = (typia.misc.createIsPrune as any).throws;
+      const $throws = require("typia/lib/functional/$throws").$throws;
       const $pp0 = (input: any) =>
         input.forEach((elem: any) => {
           if ("object" === typeof elem && null !== elem) $po1(elem);

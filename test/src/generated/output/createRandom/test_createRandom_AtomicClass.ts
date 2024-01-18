@@ -9,27 +9,26 @@ export const test_createRandom_AtomicClass = _test_random(
   random: (
     generator: Partial<typia.IRandomGenerator> = (AtomicClass as any).RANDOM,
   ): typia.Resolved<AtomicClass> => {
-    const $generator = (typia.createRandom as any).generator;
-    const $pick = (typia.createRandom as any).pick;
+    const $generator = require("typia/lib/functional/$generator").$generator;
     return [
       (generator?.boolean ?? $generator.boolean)(),
-      $pick([
+      (generator?.pick ?? $generator.pick)([
         () => false,
         () => (generator?.boolean ?? $generator.boolean)(),
       ])(),
-      $pick([
+      (generator?.pick ?? $generator.pick)([
         () => (generator?.boolean ?? $generator.boolean)(),
         () => (generator?.boolean ?? $generator.boolean)(),
       ])(),
       (generator?.customs ?? $generator.customs)?.number?.([]) ??
         (generator?.number ?? $generator.number)(0, 100),
-      $pick([
+      (generator?.pick ?? $generator.pick)([
         () => 1,
         () =>
           (generator?.customs ?? $generator.customs)?.number?.([]) ??
           (generator?.number ?? $generator.number)(0, 100),
       ])(),
-      $pick([
+      (generator?.pick ?? $generator.pick)([
         () =>
           (generator?.customs ?? $generator.customs)?.number?.([]) ??
           (generator?.number ?? $generator.number)(0, 100),
@@ -39,13 +38,13 @@ export const test_createRandom_AtomicClass = _test_random(
       ])(),
       (generator?.customs ?? $generator.customs)?.string?.([]) ??
         (generator?.string ?? $generator.string)(),
-      $pick([
+      (generator?.pick ?? $generator.pick)([
         () => "characters",
         () =>
           (generator?.customs ?? $generator.customs)?.string?.([]) ??
           (generator?.string ?? $generator.string)(),
       ])(),
-      $pick([
+      (generator?.pick ?? $generator.pick)([
         () =>
           (generator?.customs ?? $generator.customs)?.string?.([]) ??
           (generator?.string ?? $generator.string)(),
@@ -89,7 +88,9 @@ export const test_createRandom_AtomicClass = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is AtomicClass => {
-        const $guard = (typia.createAssert as any).guard;
+        const $guard = require("typia/lib/functional/$guard").$guard(
+          "typia.createAssert",
+        );
         return (
           ((Array.isArray(input) ||
             $guard(true, {

@@ -1131,8 +1131,10 @@ export const test_json_createAssertStringify_UltimateUnion =
             _path: string,
             _exceptionable: boolean = true,
           ): input is UltimateUnion => {
-            const $guard = (typia.json.createAssertStringify as any).guard;
-            const $join = (typia.json.createAssertStringify as any).join;
+            const $guard = require("typia/lib/functional/$guard").$guard(
+              "typia.json.createAssertStringify",
+            );
+            const $join = require("typia/lib/functional/$join").$join;
             const $ao0 = (
               input: any,
               _path: string,
@@ -6736,10 +6738,12 @@ export const test_json_createAssertStringify_UltimateUnion =
                 $io34(input)
               );
           })();
-        const $string = (typia.json.createAssertStringify as any).string;
-        const $throws = (typia.json.createAssertStringify as any).throws;
-        const $number = (typia.json.createAssertStringify as any).number;
-        const $tail = (typia.json.createAssertStringify as any).tail;
+        const $string = require("typia/lib/functional/$string").$string;
+        const $throws = require("typia/lib/functional/$throws").$throws(
+          "typia.json.createAssertStringify",
+        );
+        const $number = require("typia/lib/functional/$number").$number;
+        const $tail = require("typia/lib/functional/$tail").$tail;
         const $so0 = (input: any): any =>
           `{"schemas":${`[${input.schemas
             .map((elem: any) => $su0(elem))

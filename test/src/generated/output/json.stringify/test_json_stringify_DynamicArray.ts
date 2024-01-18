@@ -18,7 +18,7 @@ export const test_json_stringify_DynamicArray = _test_json_stringify(
           );
         return true;
       });
-    const $string = (typia.json.stringify as any).string;
+    const $string = require("typia/lib/functional/$string").$string;
     const $so0 = (input: any): any => `{"value":${$so1(input.value)}}`;
     const $so1 = (input: any): any =>
       `{${Object.entries(input)

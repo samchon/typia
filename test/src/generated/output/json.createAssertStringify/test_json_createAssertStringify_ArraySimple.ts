@@ -35,7 +35,9 @@ export const test_json_createAssertStringify_ArraySimple =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ArraySimple => {
-            const $guard = (typia.json.createAssertStringify as any).guard;
+            const $guard = require("typia/lib/functional/$guard").$guard(
+              "typia.json.createAssertStringify",
+            );
             const $ao0 = (
               input: any,
               _path: string,
@@ -143,8 +145,8 @@ export const test_json_createAssertStringify_ArraySimple =
           "string" === typeof input.name &&
           "string" === typeof input.body &&
           "number" === typeof input.rank;
-        const $string = (typia.json.createAssertStringify as any).string;
-        const $number = (typia.json.createAssertStringify as any).number;
+        const $string = require("typia/lib/functional/$string").$string;
+        const $number = require("typia/lib/functional/$number").$number;
         const $so0 = (input: any): any =>
           `{"name":${$string(input.name)},"email":${$string(
             input.email,

@@ -8,8 +8,10 @@ export const test_protobuf_createEncode_CommentTagType = _test_protobuf_encode(
 )<CommentTagType>(CommentTagType)({
   encode: (input) =>
     ((input: CommentTagType): Uint8Array => {
-      const $Sizer = (typia.protobuf.encode as any).Sizer;
-      const $Writer = (typia.protobuf.encode as any).Writer;
+      const $ProtobufSizer =
+        require("typia/lib/functional/$ProtobufSizer").$ProtobufSizer;
+      const $ProtobufWriter =
+        require("typia/lib/functional/$ProtobufWriter").$ProtobufWriter;
       const encoder = (writer: any): any => {
         const $peo0 = (input: any): any => {
           // property "value";
@@ -78,12 +80,13 @@ export const test_protobuf_createEncode_CommentTagType = _test_protobuf_encode(
         $peo0(input);
         return writer;
       };
-      const sizer = encoder(new $Sizer());
-      const writer = encoder(new $Writer(sizer));
+      const sizer = encoder(new $ProtobufSizer());
+      const writer = encoder(new $ProtobufWriter(sizer));
       return writer.buffer();
     })(input),
   decode: (input: Uint8Array): typia.Resolved<CommentTagType> => {
-    const $Reader = (typia.protobuf.createDecode as any).Reader;
+    const $ProtobufReader =
+      require("typia/lib/functional/$ProtobufReader").$ProtobufReader;
     const $pdo0 = (reader: any, length: number = -1): any => {
       length = length < 0 ? reader.size() : reader.index() + length;
       const output = {
@@ -152,7 +155,7 @@ export const test_protobuf_createEncode_CommentTagType = _test_protobuf_encode(
       }
       return output;
     };
-    const reader = new $Reader(input);
+    const reader = new $ProtobufReader(input);
     return $pdo0(reader);
   },
   message:

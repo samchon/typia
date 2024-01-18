@@ -129,7 +129,9 @@ export const test_createAssert_MapUnion = _test_assert("MapUnion")<MapUnion>(
       _path: string,
       _exceptionable: boolean = true,
     ): input is MapUnion => {
-      const $guard = (typia.createAssert as any).guard;
+      const $guard = require("typia/lib/functional/$guard").$guard(
+        "typia.createAssert",
+      );
       const $ao0 = (
         input: any,
         _path: string,

@@ -29,7 +29,9 @@ export const test_json_createAssertStringify_TupleRestArray =
             _path: string,
             _exceptionable: boolean = true,
           ): input is TupleRestArray => {
-            const $guard = (typia.json.createAssertStringify as any).guard;
+            const $guard = require("typia/lib/functional/$guard").$guard(
+              "typia.json.createAssertStringify",
+            );
             return (
               ((Array.isArray(input) ||
                 $guard(true, {
@@ -99,9 +101,9 @@ export const test_json_createAssertStringify_TupleRestArray =
         return input;
       };
       const stringify = (input: TupleRestArray): string => {
-        const $number = (typia.json.createAssertStringify as any).number;
-        const $string = (typia.json.createAssertStringify as any).string;
-        const $rest = (typia.json.createAssertStringify as any).rest;
+        const $number = require("typia/lib/functional/$number").$number;
+        const $string = require("typia/lib/functional/$string").$string;
+        const $rest = require("typia/lib/functional/$rest").$rest;
         return `[${input[0]},${$number(input[1])}${$rest(
           `[${input
             .slice(2)

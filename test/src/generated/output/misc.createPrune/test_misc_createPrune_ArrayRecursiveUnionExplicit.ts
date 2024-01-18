@@ -60,7 +60,7 @@ export const test_misc_createPrune_ArrayRecursiveUnionExplicit =
         else if ("lnk" === input.extension) return $io4(input);
         else return false;
       })();
-    const $throws = (typia.misc.createPrune as any).throws;
+    const $throws = require("typia/lib/functional/$throws").$throws;
     const $pp0 = (input: any) =>
       input.forEach((elem: any) => {
         if ("object" === typeof elem && null !== elem) $pu0(elem);

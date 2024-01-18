@@ -22,9 +22,11 @@ export const test_json_isStringify_ConstantConstEnumeration =
         );
       };
       const stringify = (input: ConstantConstEnumeration): string => {
-        const $string = (typia.json.isStringify as any).string;
-        const $number = (typia.json.isStringify as any).number;
-        const $throws = (typia.json.isStringify as any).throws;
+        const $string = require("typia/lib/functional/$string").$string;
+        const $number = require("typia/lib/functional/$number").$number;
+        const $throws = require("typia/lib/functional/$throws").$throws(
+          "typia.json.isStringify",
+        );
         return `[${input
           .map((elem: any) =>
             (() => {

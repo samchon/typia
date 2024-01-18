@@ -47,7 +47,9 @@ export const test_json_createAssertStringify_TypeTagObjectUnion =
           _path: string,
           _exceptionable: boolean = true,
         ): input is TypeTagObjectUnion => {
-          const $guard = (typia.json.createAssertStringify as any).guard;
+          const $guard = require("typia/lib/functional/$guard").$guard(
+            "typia.json.createAssertStringify",
+          );
           const $ao0 = (
             input: any,
             _path: string,
@@ -174,9 +176,11 @@ export const test_json_createAssertStringify_TypeTagObjectUnion =
         "string" === typeof input.value &&
         3 <= input.value.length &&
         input.value.length <= 7;
-      const $number = (typia.json.createAssertStringify as any).number;
-      const $string = (typia.json.createAssertStringify as any).string;
-      const $throws = (typia.json.createAssertStringify as any).throws;
+      const $number = require("typia/lib/functional/$number").$number;
+      const $string = require("typia/lib/functional/$string").$string;
+      const $throws = require("typia/lib/functional/$throws").$throws(
+        "typia.json.createAssertStringify",
+      );
       const $so0 = (input: any): any => `{"value":${$number(input.value)}}`;
       const $so1 = (input: any): any => `{"value":${$string(input.value)}}`;
       const $su0 = (input: any): any =>

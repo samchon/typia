@@ -97,7 +97,7 @@ export const test_json_createStringify_ObjectUnionImplicit =
       (null === input.area ||
         undefined === input.area ||
         "number" === typeof input.area);
-    const $number = (typia.json.createStringify as any).number;
+    const $number = require("typia/lib/functional/$number").$number;
     const $so0 = (input: any): any =>
       `{${
         undefined === input.slope

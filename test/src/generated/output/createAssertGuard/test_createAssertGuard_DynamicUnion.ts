@@ -39,8 +39,10 @@ export const test_createAssertGuard_DynamicUnion = _test_assertGuard(
       _path: string,
       _exceptionable: boolean = true,
     ): input is DynamicUnion => {
-      const $guard = (typia.createAssertGuard as any).guard;
-      const $join = (typia.createAssertGuard as any).join;
+      const $guard = require("typia/lib/functional/$guard").$guard(
+        "typia.createAssertGuard",
+      );
+      const $join = require("typia/lib/functional/$join").$join;
       const $ao0 = (
         input: any,
         _path: string,

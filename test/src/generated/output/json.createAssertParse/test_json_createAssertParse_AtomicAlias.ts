@@ -23,7 +23,9 @@ export const test_json_createAssertParse_AtomicAlias = _test_json_assertParse(
         _path: string,
         _exceptionable: boolean = true,
       ): input is AtomicAlias => {
-        const $guard = (typia.json.createAssertParse as any).guard;
+        const $guard = require("typia/lib/functional/$guard").$guard(
+          "typia.json.createAssertParse",
+        );
         return (
           ((Array.isArray(input) ||
             $guard(true, {

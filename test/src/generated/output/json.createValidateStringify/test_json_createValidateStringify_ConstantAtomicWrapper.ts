@@ -29,9 +29,7 @@ export const test_json_createValidateStringify_ConstantAtomicWrapper =
         );
       };
       if (false === __is(input)) {
-        const $report = (typia.json.createValidateStringify as any).report(
-          errors,
-        );
+        const $report = require("typia/lib/functional/$report").$report(errors);
         ((
           input: any,
           _path: string,
@@ -145,8 +143,8 @@ export const test_json_createValidateStringify_ConstantAtomicWrapper =
       } as any;
     };
     const stringify = (input: ConstantAtomicWrapper): string => {
-      const $number = (typia.json.createValidateStringify as any).number;
-      const $string = (typia.json.createValidateStringify as any).string;
+      const $number = require("typia/lib/functional/$number").$number;
+      const $string = require("typia/lib/functional/$string").$string;
       return `[${`{"value":${(input[0] as any).value}}`},${`{"value":${$number(
         (input[1] as any).value,
       )}}`},${`{"value":${$string((input[2] as any).value)}}`}]`;

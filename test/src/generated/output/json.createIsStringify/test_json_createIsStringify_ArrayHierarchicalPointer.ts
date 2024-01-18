@@ -99,8 +99,8 @@ export const test_json_createIsStringify_ArrayHierarchicalPointer =
         "object" === typeof input.employeed_at &&
         null !== input.employeed_at &&
         $io2(input.employeed_at);
-      const $number = (typia.json.createIsStringify as any).number;
-      const $string = (typia.json.createIsStringify as any).string;
+      const $number = require("typia/lib/functional/$number").$number;
+      const $string = require("typia/lib/functional/$string").$string;
       const $so0 = (input: any): any =>
         `{"value":${`[${input.value
           .map((elem: any) => $so1(elem))

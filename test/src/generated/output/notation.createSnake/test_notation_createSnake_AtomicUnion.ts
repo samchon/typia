@@ -23,7 +23,7 @@ export const test_notation_createValidateSnake_AtomicUnion =
           );
         };
         if (false === __is(input)) {
-          const $report = (typia.notations.createValidateSnake as any).report(
+          const $report = require("typia/lib/functional/$report").$report(
             errors,
           );
           ((
@@ -94,7 +94,9 @@ export const test_notation_createValidateSnake_AtomicUnion =
           _path: string,
           _exceptionable: boolean = true,
         ): input is typia.SnakeCase<AtomicUnion> => {
-          const $guard = (typia.createAssert as any).guard;
+          const $guard = require("typia/lib/functional/$guard").$guard(
+            "typia.createAssert",
+          );
           return (
             ((Array.isArray(input) ||
               $guard(true, {

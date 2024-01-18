@@ -139,7 +139,9 @@ export const test_json_assertStringify_ObjectUnionExplicit =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ObjectUnionExplicit => {
-            const $guard = (typia.json.assertStringify as any).guard;
+            const $guard = require("typia/lib/functional/$guard").$guard(
+              "typia.json.assertStringify",
+            );
             const $ao0 = (
               input: any,
               _path: string,
@@ -615,9 +617,11 @@ export const test_json_assertStringify_ObjectUnionExplicit =
           $io2(input.centroid) &&
           "number" === typeof input.radius &&
           "circle" === input.type;
-        const $number = (typia.json.assertStringify as any).number;
-        const $string = (typia.json.assertStringify as any).string;
-        const $throws = (typia.json.assertStringify as any).throws;
+        const $number = require("typia/lib/functional/$number").$number;
+        const $string = require("typia/lib/functional/$string").$string;
+        const $throws = require("typia/lib/functional/$throws").$throws(
+          "typia.json.assertStringify",
+        );
         const $so0 = (input: any): any =>
           `{"x":${$number(input.x)},"y":${$number(input.y)},"type":${(() => {
             if ("string" === typeof input.type) return $string(input.type);

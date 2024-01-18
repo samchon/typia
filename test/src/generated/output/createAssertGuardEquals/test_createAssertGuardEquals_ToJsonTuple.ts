@@ -69,8 +69,10 @@ export const test_createAssertGuardEquals_ToJsonTuple = _test_assertGuardEquals(
       _path: string,
       _exceptionable: boolean = true,
     ): input is ToJsonTuple => {
-      const $guard = (typia.createAssertGuardEquals as any).guard;
-      const $join = (typia.createAssertGuardEquals as any).join;
+      const $guard = require("typia/lib/functional/$guard").$guard(
+        "typia.createAssertGuardEquals",
+      );
+      const $join = require("typia/lib/functional/$join").$join;
       const $ao0 = (
         input: any,
         _path: string,

@@ -10,8 +10,7 @@ export const test_random_ObjectDynamic = _test_random(
     ((
       generator?: Partial<typia.IRandomGenerator>,
     ): typia.Resolved<ObjectDynamic> => {
-      const $generator = (typia.random as any).generator;
-      const $pick = (typia.random as any).pick;
+      const $generator = require("typia/lib/functional/$generator").$generator;
       const $ro0 = (_recursive: boolean = false, _depth: number = 0): any => {
         const output = {} as any;
         (generator?.array ?? $generator.array)(
@@ -19,7 +18,7 @@ export const test_random_ObjectDynamic = _test_random(
             (output[
               (generator?.customs ?? $generator.customs)?.string?.([]) ??
                 (generator?.string ?? $generator.string)()
-            ] = $pick([
+            ] = (generator?.pick ?? $generator.pick)([
               () =>
                 (generator?.customs ?? $generator.customs)?.string?.([]) ??
                 (generator?.string ?? $generator.string)(),
@@ -61,8 +60,10 @@ export const test_random_ObjectDynamic = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ObjectDynamic => {
-        const $guard = (typia.createAssert as any).guard;
-        const $join = (typia.createAssert as any).join;
+        const $guard = require("typia/lib/functional/$guard").$guard(
+          "typia.createAssert",
+        );
+        const $join = require("typia/lib/functional/$join").$join;
         const $ao0 = (
           input: any,
           _path: string,

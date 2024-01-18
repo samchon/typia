@@ -31,7 +31,7 @@ export const test_json_createValidateStringify_ToJsonTuple =
           );
         };
         if (false === __is(input)) {
-          const $report = (typia.json.createValidateStringify as any).report(
+          const $report = require("typia/lib/functional/$report").$report(
             errors,
           );
           ((
@@ -171,8 +171,8 @@ export const test_json_createValidateStringify_ToJsonTuple =
         } as any;
       };
       const stringify = (input: ToJsonTuple): string => {
-        const $string = (typia.json.createValidateStringify as any).string;
-        const $number = (typia.json.createValidateStringify as any).number;
+        const $string = require("typia/lib/functional/$string").$string;
+        const $number = require("typia/lib/functional/$number").$number;
         return `[${$string(input[0].toJSON())},${$number(
           input[1].toJSON(),
         )},${input[2].toJSON()},${`{"code":${$string(

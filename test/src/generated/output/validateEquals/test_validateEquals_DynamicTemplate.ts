@@ -12,7 +12,7 @@ export const test_validateEquals_DynamicTemplate = _test_validateEquals(
       input: any,
       _exceptionable: boolean = true,
     ): input is DynamicTemplate => {
-      const $join = (typia.validateEquals as any).join;
+      const $join = require("typia/lib/functional/$join").$join;
       const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
         Object.keys(input).every((key: any) => {
           const value = input[key];
@@ -43,13 +43,13 @@ export const test_validateEquals_DynamicTemplate = _test_validateEquals(
       );
     };
     if (false === __is(input)) {
-      const $report = (typia.validateEquals as any).report(errors);
+      const $report = require("typia/lib/functional/$report").$report(errors);
       ((
         input: any,
         _path: string,
         _exceptionable: boolean = true,
       ): input is DynamicTemplate => {
-        const $join = (typia.validateEquals as any).join;
+        const $join = require("typia/lib/functional/$join").$join;
         const $vo0 = (
           input: any,
           _path: string,

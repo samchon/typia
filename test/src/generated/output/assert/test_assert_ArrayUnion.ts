@@ -52,7 +52,9 @@ export const test_assert_ArrayUnion = _test_assert("ArrayUnion")<ArrayUnion>(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ArrayUnion => {
-        const $guard = (typia.assert as any).guard;
+        const $guard = require("typia/lib/functional/$guard").$guard(
+          "typia.assert",
+        );
         const $ap0 = (
           input: any,
           _path: string,

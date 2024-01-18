@@ -32,7 +32,9 @@ export const test_json_createAssertParse_ArrayRepeatedNullable =
           _path: string,
           _exceptionable: boolean = true,
         ): input is ArrayRepeatedNullable => {
-          const $guard = (typia.json.createAssertParse as any).guard;
+          const $guard = require("typia/lib/functional/$guard").$guard(
+            "typia.json.createAssertParse",
+          );
           const $aa0 = (
             input: any,
             _path: string,

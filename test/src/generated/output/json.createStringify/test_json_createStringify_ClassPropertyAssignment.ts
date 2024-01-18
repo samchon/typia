@@ -7,9 +7,11 @@ export const test_json_createStringify_ClassPropertyAssignment =
   _test_json_stringify("ClassPropertyAssignment")<ClassPropertyAssignment>(
     ClassPropertyAssignment,
   )((input: ClassPropertyAssignment): string => {
-    const $number = (typia.json.createStringify as any).number;
-    const $string = (typia.json.createStringify as any).string;
-    const $throws = (typia.json.createStringify as any).throws;
+    const $number = require("typia/lib/functional/$number").$number;
+    const $string = require("typia/lib/functional/$string").$string;
+    const $throws = require("typia/lib/functional/$throws").$throws(
+      "typia.json.createStringify",
+    );
     const $so0 = (input: any): any =>
       `{"id":${$number(input.id)},"name":${$string(
         input.name,

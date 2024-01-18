@@ -135,7 +135,9 @@ export const test_misc_validatePrune_ObjectUnionExplicit =
           );
         };
         if (false === __is(input)) {
-          const $report = (typia.misc.validatePrune as any).report(errors);
+          const $report = require("typia/lib/functional/$report").$report(
+            errors,
+          );
           ((
             input: any,
             _path: string,
@@ -652,7 +654,7 @@ export const test_misc_validatePrune_ObjectUnionExplicit =
           $io2(input.centroid) &&
           "number" === typeof input.radius &&
           "circle" === input.type;
-        const $throws = (typia.misc.validatePrune as any).throws;
+        const $throws = require("typia/lib/functional/$throws").$throws;
         const $pp0 = (input: any) =>
           input.forEach((elem: any) => {
             if ("object" === typeof elem && null !== elem) $pu0(elem);

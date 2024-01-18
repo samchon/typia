@@ -35,7 +35,9 @@ export const test_assert_ArraySimple = _test_assert("ArraySimple")<ArraySimple>(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ArraySimple => {
-        const $guard = (typia.assert as any).guard;
+        const $guard = require("typia/lib/functional/$guard").$guard(
+          "typia.assert",
+        );
         const $ao0 = (
           input: any,
           _path: string,

@@ -146,7 +146,9 @@ export const test_misc_assertClone_ArrayRepeatedUnionWithTuple =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ArrayRepeatedUnionWithTuple => {
-            const $guard = (typia.misc.assertClone as any).guard;
+            const $guard = require("typia/lib/functional/$guard").$guard(
+              "typia.misc.assertClone",
+            );
             const $ap0 = (
               input: any,
               _path: string,
@@ -516,7 +518,9 @@ export const test_misc_assertClone_ArrayRepeatedUnionWithTuple =
                 "boolean" === typeof elem ||
                 (Array.isArray(elem) && ($ip1(elem) || false))),
           );
-        const $throws = (typia.misc.assertClone as any).throws;
+        const $throws = require("typia/lib/functional/$throws").$throws(
+          "typia.misc.assertClone",
+        );
         const $cp0 = (input: any) => {
           const array = input;
           const top = input[0];

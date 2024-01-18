@@ -50,7 +50,7 @@ export const test_json_isStringify_ObjectSimple = _test_json_isStringify(
         "number" === typeof input.x &&
         "number" === typeof input.y &&
         "number" === typeof input.z;
-      const $number = (typia.json.isStringify as any).number;
+      const $number = require("typia/lib/functional/$number").$number;
       return `{"scale":${`{"x":${$number(
         ((input as any).scale as any).x,
       )},"y":${$number(((input as any).scale as any).y)},"z":${$number(

@@ -98,7 +98,7 @@ export const test_misc_createValidateClone_ArrayRepeatedUnion =
         );
       };
       if (false === __is(input)) {
-        const $report = (typia.misc.createValidateClone as any).report(errors);
+        const $report = require("typia/lib/functional/$report").$report(errors);
         ((
           input: any,
           _path: string,
@@ -398,7 +398,9 @@ export const test_misc_createValidateClone_ArrayRepeatedUnion =
         "number" === typeof input.x &&
         "number" === typeof input.y &&
         "number" === typeof input.z;
-      const $throws = (typia.misc.createValidateClone as any).throws;
+      const $throws = require("typia/lib/functional/$throws").$throws(
+        "typia.misc.createValidateClone",
+      );
       const $cp0 = (input: any) => {
         const array = input;
         const top = input[0];

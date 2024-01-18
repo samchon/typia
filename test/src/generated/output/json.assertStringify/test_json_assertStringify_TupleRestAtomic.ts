@@ -25,7 +25,9 @@ export const test_json_assertStringify_TupleRestAtomic =
             _path: string,
             _exceptionable: boolean = true,
           ): input is TupleRestAtomic => {
-            const $guard = (typia.json.assertStringify as any).guard;
+            const $guard = require("typia/lib/functional/$guard").$guard(
+              "typia.json.assertStringify",
+            );
             return (
               ((Array.isArray(input) ||
                 $guard(true, {
@@ -75,9 +77,9 @@ export const test_json_assertStringify_TupleRestAtomic =
         return input;
       };
       const stringify = (input: TupleRestAtomic): string => {
-        const $number = (typia.json.assertStringify as any).number;
-        const $string = (typia.json.assertStringify as any).string;
-        const $rest = (typia.json.assertStringify as any).rest;
+        const $number = require("typia/lib/functional/$number").$number;
+        const $string = require("typia/lib/functional/$string").$string;
+        const $rest = require("typia/lib/functional/$rest").$rest;
         return `[${input[0]},${$number(input[1])}${$rest(
           `[${input
             .slice(2)

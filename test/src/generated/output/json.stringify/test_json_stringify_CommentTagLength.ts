@@ -21,7 +21,7 @@ export const test_json_stringify_CommentTagLength = _test_json_stringify(
       "string" === typeof input.equal &&
       10 <= input.equal.length &&
       input.equal.length <= 19;
-    const $string = (typia.json.stringify as any).string;
+    const $string = require("typia/lib/functional/$string").$string;
     const $so0 = (input: any): any =>
       `{"value":${`[${input.value
         .map(

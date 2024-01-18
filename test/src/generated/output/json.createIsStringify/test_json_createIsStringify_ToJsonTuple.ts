@@ -29,8 +29,8 @@ export const test_json_createIsStringify_ToJsonTuple = _test_json_isStringify(
     );
   };
   const stringify = (input: ToJsonTuple): string => {
-    const $string = (typia.json.createIsStringify as any).string;
-    const $number = (typia.json.createIsStringify as any).number;
+    const $string = require("typia/lib/functional/$string").$string;
+    const $number = require("typia/lib/functional/$number").$number;
     return `[${$string(input[0].toJSON())},${$number(
       input[1].toJSON(),
     )},${input[2].toJSON()},${`{"code":${$string(

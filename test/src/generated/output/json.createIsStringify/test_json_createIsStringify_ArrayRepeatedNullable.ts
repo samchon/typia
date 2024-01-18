@@ -35,9 +35,11 @@ export const test_json_createIsStringify_ArrayRepeatedNullable =
               "number" === typeof elem ||
               (Array.isArray(elem) && ($ia0(elem) || false))),
         );
-      const $string = (typia.json.createIsStringify as any).string;
-      const $number = (typia.json.createIsStringify as any).number;
-      const $throws = (typia.json.createIsStringify as any).throws;
+      const $string = require("typia/lib/functional/$string").$string;
+      const $number = require("typia/lib/functional/$number").$number;
+      const $throws = require("typia/lib/functional/$throws").$throws(
+        "typia.json.createIsStringify",
+      );
       const $sa0 = (input: any): any =>
         `[${input
           .map((elem: any) =>

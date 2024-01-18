@@ -43,7 +43,9 @@ export const test_misc_assertClone_ObjectUndefined = _test_misc_assertClone(
           _path: string,
           _exceptionable: boolean = true,
         ): input is ObjectUndefined => {
-          const $guard = (typia.misc.assertClone as any).guard;
+          const $guard = require("typia/lib/functional/$guard").$guard(
+            "typia.misc.assertClone",
+          );
           const $ao0 = (
             input: any,
             _path: string,
@@ -166,7 +168,7 @@ export const test_misc_assertClone_ObjectUndefined = _test_misc_assertClone(
     const clone = (input: ObjectUndefined): typia.Resolved<ObjectUndefined> => {
       const $io1 = (input: any): boolean =>
         "string" === typeof input.id && "string" === typeof input.name;
-      const $any = (typia.misc.assertClone as any).any;
+      const $clone = require("typia/lib/functional/$clone").$clone;
       const $cp0 = (input: any) =>
         input.map((elem: any) =>
           "object" === typeof elem && null !== elem
@@ -182,7 +184,7 @@ export const test_misc_assertClone_ObjectUndefined = _test_misc_assertClone(
             : (input.classroom as any),
         grade: input.grade as any,
         nothing: input.nothing as any,
-        unknown: $any(input.unknown),
+        unknown: $clone(input.unknown),
         never: input.never as any,
       });
       const $co1 = (input: any): any => ({

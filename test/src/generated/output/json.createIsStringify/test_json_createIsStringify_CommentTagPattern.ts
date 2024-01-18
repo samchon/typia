@@ -30,7 +30,7 @@ export const test_json_createIsStringify_CommentTagPattern =
       );
     };
     const stringify = (input: CommentTagPattern): string => {
-      const $string = (typia.json.createIsStringify as any).string;
+      const $string = require("typia/lib/functional/$string").$string;
       return `{"uuid":${$string((input as any).uuid)},"email":${$string(
         (input as any).email,
       )},"ipv4":${$string((input as any).ipv4)},"ipv6":${$string(

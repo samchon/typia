@@ -18,8 +18,8 @@ export const test_json_stringify_ObjectPartialAndRequired =
             $io0(input.object))) &&
         Array.isArray(input.array) &&
         input.array.every((elem: any) => "number" === typeof elem);
-      const $string = (typia.json.stringify as any).string;
-      const $number = (typia.json.stringify as any).number;
+      const $string = require("typia/lib/functional/$string").$string;
+      const $number = require("typia/lib/functional/$number").$number;
       const $so0 = (input: any): any =>
         `{${
           undefined === input.string

@@ -16,7 +16,7 @@ export const test_json_createValidateStringify_ClassGetter =
           return "object" === typeof input && null !== input && $io0(input);
         };
         if (false === __is(input)) {
-          const $report = (typia.json.createValidateStringify as any).report(
+          const $report = require("typia/lib/functional/$report").$report(
             errors,
           );
           ((
@@ -74,7 +74,7 @@ export const test_json_createValidateStringify_ClassGetter =
         } as any;
       };
       const stringify = (input: ClassGetter): string => {
-        const $string = (typia.json.createValidateStringify as any).string;
+        const $string = require("typia/lib/functional/$string").$string;
         const $so0 = (input: any): any =>
           `{"id":${$string(input.id)},"name":${$string(input.name)},"dead":${
             null !== input.dead ? input.dead : "null"

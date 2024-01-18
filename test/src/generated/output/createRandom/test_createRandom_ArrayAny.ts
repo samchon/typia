@@ -9,37 +9,36 @@ export const test_createRandom_ArrayAny = _test_random("ArrayAny")<ArrayAny>(
   random: (
     generator: Partial<typia.IRandomGenerator> = (ArrayAny as any).RANDOM,
   ): typia.Resolved<ArrayAny> => {
-    const $generator = (typia.createRandom as any).generator;
-    const $pick = (typia.createRandom as any).pick;
+    const $generator = require("typia/lib/functional/$generator").$generator;
     const $ro0 = (_recursive: boolean = false, _depth: number = 0): any => ({
       anys: (generator?.array ?? $generator.array)(() => "any type used..."),
-      undefindable1: $pick([
+      undefindable1: (generator?.pick ?? $generator.pick)([
         () => undefined,
         () => (generator?.array ?? $generator.array)(() => "any type used..."),
       ])(),
-      undefindable2: $pick([
+      undefindable2: (generator?.pick ?? $generator.pick)([
         () => undefined,
         () => (generator?.array ?? $generator.array)(() => "any type used..."),
       ])(),
-      nullables1: $pick([
+      nullables1: (generator?.pick ?? $generator.pick)([
         () => null,
         () => (generator?.array ?? $generator.array)(() => "any type used..."),
       ])(),
-      nullables2: $pick([
+      nullables2: (generator?.pick ?? $generator.pick)([
         () => null,
         () => (generator?.array ?? $generator.array)(() => "any type used..."),
       ])(),
-      both1: $pick([
-        () => undefined,
-        () => null,
-        () => (generator?.array ?? $generator.array)(() => "any type used..."),
-      ])(),
-      both2: $pick([
+      both1: (generator?.pick ?? $generator.pick)([
         () => undefined,
         () => null,
         () => (generator?.array ?? $generator.array)(() => "any type used..."),
       ])(),
-      both3: $pick([
+      both2: (generator?.pick ?? $generator.pick)([
+        () => undefined,
+        () => null,
+        () => (generator?.array ?? $generator.array)(() => "any type used..."),
+      ])(),
+      both3: (generator?.pick ?? $generator.pick)([
         () => undefined,
         () => null,
         () => (generator?.array ?? $generator.array)(() => "any type used..."),
@@ -76,7 +75,9 @@ export const test_createRandom_ArrayAny = _test_random("ArrayAny")<ArrayAny>(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ArrayAny => {
-        const $guard = (typia.createAssert as any).guard;
+        const $guard = require("typia/lib/functional/$guard").$guard(
+          "typia.createAssert",
+        );
         const $ao0 = (
           input: any,
           _path: string,

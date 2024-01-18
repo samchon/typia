@@ -109,7 +109,9 @@ export const test_misc_createAssertPrune_ObjectHierarchical =
           _path: string,
           _exceptionable: boolean = true,
         ): input is ObjectHierarchical => {
-          const $guard = (typia.misc.createAssertPrune as any).guard;
+          const $guard = require("typia/lib/functional/$guard").$guard(
+            "typia.misc.createAssertPrune",
+          );
           const $ao0 = (
             input: any,
             _path: string,

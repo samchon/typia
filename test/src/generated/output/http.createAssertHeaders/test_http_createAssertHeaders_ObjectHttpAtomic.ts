@@ -13,13 +13,12 @@ export const test_http_createAssertHeaders_ObjectHttpAtomic =
       const decode = (
         input: Record<string, string | string[] | undefined>,
       ): typia.Resolved<ObjectHttpAtomic> => {
-        const $boolean = (typia.http.createAssertHeaders as any).boolean;
-        const $bigint = (typia.http.createAssertHeaders as any).bigint;
-        const $number = (typia.http.createAssertHeaders as any).number;
+        const $HeadersReader =
+          require("typia/lib/functional/$HeadersReader").$HeadersReader;
         const output = {
-          boolean: $boolean(input.boolean),
-          bigint: $bigint(input.bigint),
-          number: $number(input.number),
+          boolean: $HeadersReader.boolean(input.boolean),
+          bigint: $HeadersReader.bigint(input.bigint),
+          number: $HeadersReader.number(input.number),
           string: input.string,
         };
         return output as any;
@@ -42,7 +41,9 @@ export const test_http_createAssertHeaders_ObjectHttpAtomic =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ObjectHttpAtomic => {
-            const $guard = (typia.http.createAssertHeaders as any).guard;
+            const $guard = require("typia/lib/functional/$guard").$guard(
+              "typia.http.createAssertHeaders",
+            );
             const $ao0 = (
               input: any,
               _path: string,

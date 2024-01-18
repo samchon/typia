@@ -94,7 +94,9 @@ export const test_assertGuard_MapSimpleProtobufNullable = _test_assertGuard(
         _path: string,
         _exceptionable: boolean = true,
       ): input is MapSimpleProtobufNullable => {
-        const $guard = (typia.assertGuard as any).guard;
+        const $guard = require("typia/lib/functional/$guard").$guard(
+          "typia.assertGuard",
+        );
         const $ao0 = (
           input: any,
           _path: string,

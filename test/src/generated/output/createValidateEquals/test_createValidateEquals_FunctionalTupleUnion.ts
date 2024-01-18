@@ -38,7 +38,7 @@ export const test_createValidateEquals_FunctionalTupleUnion =
       );
     };
     if (false === __is(input)) {
-      const $report = (typia.createValidateEquals as any).report(errors);
+      const $report = require("typia/lib/functional/$report").$report(errors);
       ((
         input: any,
         _path: string,

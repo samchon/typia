@@ -42,8 +42,8 @@ export const test_json_isStringify_ArrayRecursive = _test_json_isStringify(
         $io1(input.created_at);
       const $io1 = (input: any): boolean =>
         "number" === typeof input.time && "number" === typeof input.zone;
-      const $number = (typia.json.isStringify as any).number;
-      const $string = (typia.json.isStringify as any).string;
+      const $number = require("typia/lib/functional/$number").$number;
+      const $string = require("typia/lib/functional/$string").$string;
       const $so0 = (input: any): any =>
         `{"children":${`[${input.children
           .map((elem: any) => $so0(elem))

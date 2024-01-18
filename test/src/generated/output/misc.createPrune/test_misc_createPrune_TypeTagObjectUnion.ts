@@ -12,7 +12,7 @@ export const test_misc_createPrune_TypeTagObjectUnion = _test_misc_prune(
     "string" === typeof input.value &&
     3 <= input.value.length &&
     input.value.length <= 7;
-  const $throws = (typia.misc.createPrune as any).throws;
+  const $throws = require("typia/lib/functional/$throws").$throws;
   const $pp0 = (input: any) =>
     input.forEach((elem: any) => {
       if ("object" === typeof elem && null !== elem) $pu0(elem);

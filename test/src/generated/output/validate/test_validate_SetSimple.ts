@@ -49,7 +49,7 @@ export const test_validate_SetSimple = _test_validate("SetSimple")<SetSimple>(
       return "object" === typeof input && null !== input && $io0(input);
     };
     if (false === __is(input)) {
-      const $report = (typia.validate as any).report(errors);
+      const $report = require("typia/lib/functional/$report").$report(errors);
       ((
         input: any,
         _path: string,

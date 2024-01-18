@@ -48,9 +48,11 @@ export const test_json_isStringify_ToJsonUnion = _test_json_isStringify(
         "string" === typeof input.manufacturer &&
         "string" === typeof input.brand &&
         "string" === typeof input.name;
-      const $throws = (typia.json.isStringify as any).throws;
-      const $string = (typia.json.isStringify as any).string;
-      const $number = (typia.json.isStringify as any).number;
+      const $throws = require("typia/lib/functional/$throws").$throws(
+        "typia.json.isStringify",
+      );
+      const $string = require("typia/lib/functional/$string").$string;
+      const $number = require("typia/lib/functional/$number").$number;
       const $so0 = (input: any): any =>
         `{"id":${$number(input.id)},"mobile":${$string(
           input.mobile,

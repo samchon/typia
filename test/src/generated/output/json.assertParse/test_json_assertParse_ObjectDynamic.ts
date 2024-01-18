@@ -34,8 +34,10 @@ export const test_json_assertParse_ObjectDynamic = _test_json_assertParse(
           _path: string,
           _exceptionable: boolean = true,
         ): input is ObjectDynamic => {
-          const $guard = (typia.json.assertParse as any).guard;
-          const $join = (typia.json.assertParse as any).join;
+          const $guard = require("typia/lib/functional/$guard").$guard(
+            "typia.json.assertParse",
+          );
+          const $join = require("typia/lib/functional/$join").$join;
           const $ao0 = (
             input: any,
             _path: string,

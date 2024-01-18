@@ -10,67 +10,66 @@ export const test_createRandom_DynamicEnumeration = _test_random(
     generator: Partial<typia.IRandomGenerator> = (DynamicEnumeration as any)
       .RANDOM,
   ): typia.Resolved<DynamicEnumeration> => {
-    const $generator = (typia.createRandom as any).generator;
-    const $pick = (typia.createRandom as any).pick;
+    const $generator = require("typia/lib/functional/$generator").$generator;
     const $ro0 = (_recursive: boolean = false, _depth: number = 0): any => ({
       value: $ro1(_recursive, _recursive ? 1 + _depth : _depth),
     });
     const $ro1 = (_recursive: boolean = false, _depth: number = 0): any => ({
-      ar: $pick([
+      ar: (generator?.pick ?? $generator.pick)([
         () => undefined,
         () =>
           (generator?.customs ?? $generator.customs)?.string?.([]) ??
           (generator?.string ?? $generator.string)(),
       ])(),
-      "zh-Hans": $pick([
+      "zh-Hans": (generator?.pick ?? $generator.pick)([
         () => undefined,
         () =>
           (generator?.customs ?? $generator.customs)?.string?.([]) ??
           (generator?.string ?? $generator.string)(),
       ])(),
-      "zh-Hant": $pick([
+      "zh-Hant": (generator?.pick ?? $generator.pick)([
         () => undefined,
         () =>
           (generator?.customs ?? $generator.customs)?.string?.([]) ??
           (generator?.string ?? $generator.string)(),
       ])(),
-      en: $pick([
+      en: (generator?.pick ?? $generator.pick)([
         () => undefined,
         () =>
           (generator?.customs ?? $generator.customs)?.string?.([]) ??
           (generator?.string ?? $generator.string)(),
       ])(),
-      fr: $pick([
+      fr: (generator?.pick ?? $generator.pick)([
         () => undefined,
         () =>
           (generator?.customs ?? $generator.customs)?.string?.([]) ??
           (generator?.string ?? $generator.string)(),
       ])(),
-      de: $pick([
+      de: (generator?.pick ?? $generator.pick)([
         () => undefined,
         () =>
           (generator?.customs ?? $generator.customs)?.string?.([]) ??
           (generator?.string ?? $generator.string)(),
       ])(),
-      ja: $pick([
+      ja: (generator?.pick ?? $generator.pick)([
         () => undefined,
         () =>
           (generator?.customs ?? $generator.customs)?.string?.([]) ??
           (generator?.string ?? $generator.string)(),
       ])(),
-      ko: $pick([
+      ko: (generator?.pick ?? $generator.pick)([
         () => undefined,
         () =>
           (generator?.customs ?? $generator.customs)?.string?.([]) ??
           (generator?.string ?? $generator.string)(),
       ])(),
-      pt: $pick([
+      pt: (generator?.pick ?? $generator.pick)([
         () => undefined,
         () =>
           (generator?.customs ?? $generator.customs)?.string?.([]) ??
           (generator?.string ?? $generator.string)(),
       ])(),
-      ru: $pick([
+      ru: (generator?.pick ?? $generator.pick)([
         () => undefined,
         () =>
           (generator?.customs ?? $generator.customs)?.string?.([]) ??
@@ -107,7 +106,9 @@ export const test_createRandom_DynamicEnumeration = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is DynamicEnumeration => {
-        const $guard = (typia.createAssert as any).guard;
+        const $guard = require("typia/lib/functional/$guard").$guard(
+          "typia.createAssert",
+        );
         const $ao0 = (
           input: any,
           _path: string,

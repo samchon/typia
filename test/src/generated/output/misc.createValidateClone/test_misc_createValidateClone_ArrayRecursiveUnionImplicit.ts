@@ -91,7 +91,7 @@ export const test_misc_createValidateClone_ArrayRecursiveUnionImplicit =
           );
         };
         if (false === __is(input)) {
-          const $report = (typia.misc.createValidateClone as any).report(
+          const $report = require("typia/lib/functional/$report").$report(
             errors,
           );
           ((

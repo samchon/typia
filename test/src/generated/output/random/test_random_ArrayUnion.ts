@@ -10,10 +10,9 @@ export const test_random_ArrayUnion = _test_random("ArrayUnion")<ArrayUnion>(
     ((
       generator?: Partial<typia.IRandomGenerator>,
     ): typia.Resolved<ArrayUnion> => {
-      const $generator = (typia.random as any).generator;
-      const $pick = (typia.random as any).pick;
+      const $generator = require("typia/lib/functional/$generator").$generator;
       return (generator?.array ?? $generator.array)(() =>
-        $pick([
+        (generator?.pick ?? $generator.pick)([
           () =>
             (generator?.array ?? $generator.array)(() =>
               (generator?.boolean ?? $generator.boolean)(),
@@ -79,7 +78,9 @@ export const test_random_ArrayUnion = _test_random("ArrayUnion")<ArrayUnion>(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ArrayUnion => {
-        const $guard = (typia.createAssert as any).guard;
+        const $guard = require("typia/lib/functional/$guard").$guard(
+          "typia.createAssert",
+        );
         const $ap0 = (
           input: any,
           _path: string,

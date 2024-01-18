@@ -64,7 +64,9 @@ export const test_misc_createClone_ArrayRecursiveUnionExplicit =
           else if ("lnk" === input.extension) return $io4(input);
           else return false;
         })();
-      const $throws = (typia.misc.createClone as any).throws;
+      const $throws = require("typia/lib/functional/$throws").$throws(
+        "typia.misc.createClone",
+      );
       const $cp0 = (input: any) =>
         input.map((elem: any) =>
           "object" === typeof elem && null !== elem

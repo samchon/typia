@@ -96,7 +96,9 @@ export const test_json_assertStringify_ArrayRecursiveUnionExplicitPointer =
               _path: string,
               _exceptionable: boolean = true,
             ): input is ArrayRecursiveUnionExplicitPointer => {
-              const $guard = (typia.json.assertStringify as any).guard;
+              const $guard = require("typia/lib/functional/$guard").$guard(
+                "typia.json.assertStringify",
+              );
               const $ao0 = (
                 input: any,
                 _path: string,
@@ -532,9 +534,11 @@ export const test_json_assertStringify_ArrayRecursiveUnionExplicitPointer =
               else if ("lnk" === input.extension) return $io6(input);
               else return false;
             })();
-          const $number = (typia.json.assertStringify as any).number;
-          const $string = (typia.json.assertStringify as any).string;
-          const $throws = (typia.json.assertStringify as any).throws;
+          const $number = require("typia/lib/functional/$number").$number;
+          const $string = require("typia/lib/functional/$string").$string;
+          const $throws = require("typia/lib/functional/$throws").$throws(
+            "typia.json.assertStringify",
+          );
           const $so0 = (input: any): any =>
             `{"value":${`[${input.value
               .map((elem: any) => $so1(elem))

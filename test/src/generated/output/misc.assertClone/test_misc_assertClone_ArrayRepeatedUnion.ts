@@ -102,7 +102,9 @@ export const test_misc_assertClone_ArrayRepeatedUnion = _test_misc_assertClone(
           _path: string,
           _exceptionable: boolean = true,
         ): input is ArrayRepeatedUnion => {
-          const $guard = (typia.misc.assertClone as any).guard;
+          const $guard = require("typia/lib/functional/$guard").$guard(
+            "typia.misc.assertClone",
+          );
           const $ap0 = (
             input: any,
             _path: string,
@@ -377,7 +379,9 @@ export const test_misc_assertClone_ArrayRepeatedUnion = _test_misc_assertClone(
         "number" === typeof input.x &&
         "number" === typeof input.y &&
         "number" === typeof input.z;
-      const $throws = (typia.misc.assertClone as any).throws;
+      const $throws = require("typia/lib/functional/$throws").$throws(
+        "typia.misc.assertClone",
+      );
       const $cp0 = (input: any) => {
         const array = input;
         const top = input[0];

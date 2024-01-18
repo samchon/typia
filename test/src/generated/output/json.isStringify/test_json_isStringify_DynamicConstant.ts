@@ -29,7 +29,7 @@ export const test_json_isStringify_DynamicConstant = _test_json_isStringify(
         "number" === typeof input.b &&
         "number" === typeof input.c &&
         "number" === typeof input.d;
-      const $number = (typia.json.isStringify as any).number;
+      const $number = require("typia/lib/functional/$number").$number;
       return `{"value":${`{"a":${$number(
         ((input as any).value as any).a,
       )},"b":${$number(((input as any).value as any).b)},"c":${$number(

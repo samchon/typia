@@ -115,7 +115,9 @@ export const test_misc_isClone_ArrayRepeatedUnion = _test_misc_isClone(
         "number" === typeof input.x &&
         "number" === typeof input.y &&
         "number" === typeof input.z;
-      const $throws = (typia.misc.isClone as any).throws;
+      const $throws = require("typia/lib/functional/$throws").$throws(
+        "typia.misc.isClone",
+      );
       const $cp0 = (input: any) => {
         const array = input;
         const top = input[0];

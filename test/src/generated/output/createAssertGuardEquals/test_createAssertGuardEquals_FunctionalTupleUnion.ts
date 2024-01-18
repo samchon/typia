@@ -42,7 +42,9 @@ export const test_createAssertGuardEquals_FunctionalTupleUnion =
         _path: string,
         _exceptionable: boolean = true,
       ): input is FunctionalTupleUnion => {
-        const $guard = (typia.createAssertGuardEquals as any).guard;
+        const $guard = require("typia/lib/functional/$guard").$guard(
+          "typia.createAssertGuardEquals",
+        );
         return (
           ((Array.isArray(input) ||
             $guard(true, {

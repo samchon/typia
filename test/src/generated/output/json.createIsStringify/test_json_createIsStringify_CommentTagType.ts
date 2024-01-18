@@ -72,7 +72,7 @@ export const test_json_createIsStringify_CommentTagType =
           "number" === typeof input.float &&
           -1.175494351e38 <= input.float &&
           input.float <= 3.4028235e38;
-        const $number = (typia.json.createIsStringify as any).number;
+        const $number = require("typia/lib/functional/$number").$number;
         const $so0 = (input: any): any =>
           `{"value":${`[${input.value
             .map(

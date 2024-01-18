@@ -13,17 +13,16 @@ export const test_http_createAssertHeaders_ObjectHttpUndefindable =
       const decode = (
         input: Record<string, string | string[] | undefined>,
       ): typia.Resolved<ObjectHttpUndefindable> => {
-        const $boolean = (typia.http.createAssertHeaders as any).boolean;
-        const $bigint = (typia.http.createAssertHeaders as any).bigint;
-        const $number = (typia.http.createAssertHeaders as any).number;
+        const $HeadersReader =
+          require("typia/lib/functional/$HeadersReader").$HeadersReader;
         const output = {
-          boolean: $boolean(input.boolean),
-          bigint: $bigint(input.bigint),
-          number: $number(input.number),
+          boolean: $HeadersReader.boolean(input.boolean),
+          bigint: $HeadersReader.bigint(input.bigint),
+          number: $HeadersReader.number(input.number),
           string: input.string,
-          constantBoolean: $boolean(input.constantboolean),
-          constantBigint: $bigint(input.constantbigint),
-          constantNumber: $number(input.constantnumber),
+          constantBoolean: $HeadersReader.boolean(input.constantboolean),
+          constantBigint: $HeadersReader.bigint(input.constantbigint),
+          constantNumber: $HeadersReader.number(input.constantnumber),
           constantString: input.constantstring,
         };
         return output as any;
@@ -65,7 +64,9 @@ export const test_http_createAssertHeaders_ObjectHttpUndefindable =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ObjectHttpUndefindable => {
-            const $guard = (typia.http.createAssertHeaders as any).guard;
+            const $guard = require("typia/lib/functional/$guard").$guard(
+              "typia.http.createAssertHeaders",
+            );
             const $ao0 = (
               input: any,
               _path: string,

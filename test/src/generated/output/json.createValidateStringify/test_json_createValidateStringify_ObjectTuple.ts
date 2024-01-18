@@ -29,7 +29,7 @@ export const test_json_createValidateStringify_ObjectTuple =
           );
         };
         if (false === __is(input)) {
-          const $report = (typia.json.createValidateStringify as any).report(
+          const $report = require("typia/lib/functional/$report").$report(
             errors,
           );
           ((
@@ -142,7 +142,7 @@ export const test_json_createValidateStringify_ObjectTuple =
         } as any;
       };
       const stringify = (input: ObjectTuple): string => {
-        const $string = (typia.json.createValidateStringify as any).string;
+        const $string = require("typia/lib/functional/$string").$string;
         return `[${`{"id":${$string((input[0] as any).id)},"code":${$string(
           (input[0] as any).code,
         )},"name":${$string((input[0] as any).name)}}`},${`{"id":${$string(

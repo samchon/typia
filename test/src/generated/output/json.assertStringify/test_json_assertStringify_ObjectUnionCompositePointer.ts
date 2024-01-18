@@ -152,7 +152,9 @@ export const test_json_assertStringify_ObjectUnionCompositePointer =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ObjectUnionCompositePointer => {
-            const $guard = (typia.json.assertStringify as any).guard;
+            const $guard = require("typia/lib/functional/$guard").$guard(
+              "typia.json.assertStringify",
+            );
             const $ao0 = (
               input: any,
               _path: string,
@@ -659,7 +661,7 @@ export const test_json_assertStringify_ObjectUnionCompositePointer =
                 else return $io3(input);
               })();
           })();
-        const $number = (typia.json.assertStringify as any).number;
+        const $number = require("typia/lib/functional/$number").$number;
         const $so0 = (input: any): any =>
           `{"value":${`[${input.value
             .map((elem: any) => $so1(elem))

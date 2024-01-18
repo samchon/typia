@@ -25,7 +25,9 @@ export const test_http_validateQuery_ObjectHttpConstant =
           return "object" === typeof input && null !== input && $io0(input);
         };
         if (false === __is(input)) {
-          const $report = (typia.http.validateQuery as any).report(errors);
+          const $report = require("typia/lib/functional/$report").$report(
+            errors,
+          );
           ((
             input: any,
             _path: string,
@@ -99,18 +101,15 @@ export const test_http_validateQuery_ObjectHttpConstant =
       const query = (
         input: string | URLSearchParams,
       ): typia.Resolved<ObjectHttpConstant> => {
-        const $params = (typia.http.validateQuery as any).params;
-        const $boolean = (typia.http.validateQuery as any).boolean;
-        const $bigint = (typia.http.validateQuery as any).bigint;
-        const $number = (typia.http.validateQuery as any).number;
-        const $string = (typia.http.validateQuery as any).string;
-        input = $params(input) as URLSearchParams;
+        const $QueryReader =
+          require("typia/lib/functional/$QueryReader").$QueryReader;
+        input = $QueryReader.params(input) as URLSearchParams;
         const output = {
-          boolean: $boolean(input.get("boolean")),
-          bigint: $bigint(input.get("bigint")),
-          number: $number(input.get("number")),
-          string: $string(input.get("string")),
-          template: $string(input.get("template")),
+          boolean: $QueryReader.boolean(input.get("boolean")),
+          bigint: $QueryReader.bigint(input.get("bigint")),
+          number: $QueryReader.number(input.get("number")),
+          string: $QueryReader.string(input.get("string")),
+          template: $QueryReader.string(input.get("template")),
         };
         return output as any;
       };

@@ -7,8 +7,8 @@ export const test_json_stringify_TupleHierarchical = _test_json_stringify(
   "TupleHierarchical",
 )<TupleHierarchical>(TupleHierarchical)((input) =>
   ((input: TupleHierarchical): string => {
-    const $number = (typia.json.stringify as any).number;
-    const $string = (typia.json.stringify as any).string;
+    const $number = require("typia/lib/functional/$number").$number;
+    const $string = require("typia/lib/functional/$string").$string;
     return `[${input[0]},null,${$number(input[2])},${`[${
       input[3][0]
     },null,${`[${$number(input[3][2][0])},${`[${input[3][2][1][0]},${$string(

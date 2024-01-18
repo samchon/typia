@@ -35,7 +35,7 @@ export const test_json_validateStringify_TypeTagCustom =
             );
           };
           if (false === __is(input)) {
-            const $report = (typia.json.validateStringify as any).report(
+            const $report = require("typia/lib/functional/$report").$report(
               errors,
             );
             ((
@@ -138,8 +138,8 @@ export const test_json_validateStringify_TypeTagCustom =
           } as any;
         };
         const stringify = (input: TypeTagCustom): string => {
-          const $string = (typia.json.validateStringify as any).string;
-          const $number = (typia.json.validateStringify as any).number;
+          const $string = require("typia/lib/functional/$string").$string;
+          const $number = require("typia/lib/functional/$number").$number;
           return `{"id":${$string((input as any).id)},"dollar":${$string(
             (input as any).dollar,
           )},"postfix":${$string((input as any).postfix)},"powerOf":${$number(

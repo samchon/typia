@@ -34,7 +34,7 @@ export const test_notation_validatePascal_TupleOptional =
             );
           };
           if (false === __is(input)) {
-            const $report = (typia.notations.validatePascal as any).report(
+            const $report = require("typia/lib/functional/$report").$report(
               errors,
             );
             ((
@@ -187,7 +187,9 @@ export const test_notation_validatePascal_TupleOptional =
           _path: string,
           _exceptionable: boolean = true,
         ): input is typia.PascalCase<TupleOptional> => {
-          const $guard = (typia.createAssert as any).guard;
+          const $guard = require("typia/lib/functional/$guard").$guard(
+            "typia.createAssert",
+          );
           return (
             ((Array.isArray(input) ||
               $guard(true, {

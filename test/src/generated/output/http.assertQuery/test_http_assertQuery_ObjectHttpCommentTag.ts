@@ -13,16 +13,16 @@ export const test_http_assertQuery_ObjectHttpCommentTag =
       const decode = (
         input: string | URLSearchParams,
       ): typia.Resolved<ObjectHttpCommentTag> => {
-        const $params = (typia.http.assertQuery as any).params;
-        const $number = (typia.http.assertQuery as any).number;
-        const $bigint = (typia.http.assertQuery as any).bigint;
-        const $string = (typia.http.assertQuery as any).string;
-        input = $params(input) as URLSearchParams;
+        const $QueryReader =
+          require("typia/lib/functional/$QueryReader").$QueryReader;
+        input = $QueryReader.params(input) as URLSearchParams;
         const output = {
-          int: $number(input.get("int")),
-          uint64: $bigint(input.get("uint64")),
-          uuid: $string(input.get("uuid")),
-          items: input.getAll("items").map((elem: any) => $number(elem)),
+          int: $QueryReader.number(input.get("int")),
+          uint64: $QueryReader.bigint(input.get("uint64")),
+          uuid: $QueryReader.string(input.get("uuid")),
+          items: input
+            .getAll("items")
+            .map((elem: any) => $QueryReader.number(elem)),
         };
         return output as any;
       };
@@ -53,7 +53,9 @@ export const test_http_assertQuery_ObjectHttpCommentTag =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ObjectHttpCommentTag => {
-            const $guard = (typia.http.assertQuery as any).guard;
+            const $guard = require("typia/lib/functional/$guard").$guard(
+              "typia.http.assertQuery",
+            );
             const $ao0 = (
               input: any,
               _path: string,

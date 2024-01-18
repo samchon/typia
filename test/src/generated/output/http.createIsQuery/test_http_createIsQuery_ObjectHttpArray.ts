@@ -29,18 +29,25 @@ export const test_http_createIsQuery_ObjectHttpArray = _test_http_isQuery(
     const query = (
       input: string | URLSearchParams,
     ): typia.Resolved<ObjectHttpArray> => {
-      const $params = (typia.http.createIsQuery as any).params;
-      const $boolean = (typia.http.createIsQuery as any).boolean;
-      const $bigint = (typia.http.createIsQuery as any).bigint;
-      const $number = (typia.http.createIsQuery as any).number;
-      const $string = (typia.http.createIsQuery as any).string;
-      input = $params(input) as URLSearchParams;
+      const $QueryReader =
+        require("typia/lib/functional/$QueryReader").$QueryReader;
+      input = $QueryReader.params(input) as URLSearchParams;
       const output = {
-        booleans: input.getAll("booleans").map((elem: any) => $boolean(elem)),
-        bigints: input.getAll("bigints").map((elem: any) => $bigint(elem)),
-        numbers: input.getAll("numbers").map((elem: any) => $number(elem)),
-        strings: input.getAll("strings").map((elem: any) => $string(elem)),
-        templates: input.getAll("templates").map((elem: any) => $string(elem)),
+        booleans: input
+          .getAll("booleans")
+          .map((elem: any) => $QueryReader.boolean(elem)),
+        bigints: input
+          .getAll("bigints")
+          .map((elem: any) => $QueryReader.bigint(elem)),
+        numbers: input
+          .getAll("numbers")
+          .map((elem: any) => $QueryReader.number(elem)),
+        strings: input
+          .getAll("strings")
+          .map((elem: any) => $QueryReader.string(elem)),
+        templates: input
+          .getAll("templates")
+          .map((elem: any) => $QueryReader.string(elem)),
       };
       return output as any;
     };

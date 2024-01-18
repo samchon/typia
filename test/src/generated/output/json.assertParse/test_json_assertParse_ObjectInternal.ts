@@ -22,7 +22,9 @@ export const test_json_assertParse_ObjectInternal = _test_json_assertParse(
           _path: string,
           _exceptionable: boolean = true,
         ): input is ObjectInternal => {
-          const $guard = (typia.json.assertParse as any).guard;
+          const $guard = require("typia/lib/functional/$guard").$guard(
+            "typia.json.assertParse",
+          );
           const $ao0 = (
             input: any,
             _path: string,

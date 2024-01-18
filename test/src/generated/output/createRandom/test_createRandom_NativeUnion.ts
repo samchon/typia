@@ -9,14 +9,13 @@ export const test_createRandom_NativeUnion = _test_random(
   random: (
     generator: Partial<typia.IRandomGenerator> = (NativeUnion as any).RANDOM,
   ): typia.Resolved<NativeUnion> => {
-    const $generator = (typia.createRandom as any).generator;
-    const $pick = (typia.createRandom as any).pick;
+    const $generator = require("typia/lib/functional/$generator").$generator;
     const $ro0 = (_recursive: boolean = false, _depth: number = 0): any => ({
-      date: $pick([
+      date: (generator?.pick ?? $generator.pick)([
         () => null,
         () => new Date((generator?.datetime ?? $generator.datetime)()),
       ])(),
-      unsigned: $pick([
+      unsigned: (generator?.pick ?? $generator.pick)([
         () =>
           new Uint8Array(
             (generator?.array ?? $generator.array)((): any =>
@@ -51,7 +50,7 @@ export const test_createRandom_NativeUnion = _test_random(
             ),
           ),
       ])(),
-      signed: $pick([
+      signed: (generator?.pick ?? $generator.pick)([
         () =>
           new Int8Array(
             (generator?.array ?? $generator.array)((): any =>
@@ -83,7 +82,7 @@ export const test_createRandom_NativeUnion = _test_random(
             ),
           ),
       ])(),
-      float: $pick([
+      float: (generator?.pick ?? $generator.pick)([
         () =>
           new Float32Array(
             (generator?.array ?? $generator.array)((): any =>
@@ -103,7 +102,7 @@ export const test_createRandom_NativeUnion = _test_random(
             ),
           ),
       ])(),
-      buffer: $pick([
+      buffer: (generator?.pick ?? $generator.pick)([
         () =>
           new Uint8Array(
             (generator?.array ?? $generator.array)((): any =>
@@ -159,7 +158,9 @@ export const test_createRandom_NativeUnion = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is NativeUnion => {
-        const $guard = (typia.createAssert as any).guard;
+        const $guard = require("typia/lib/functional/$guard").$guard(
+          "typia.createAssert",
+        );
         const $ao0 = (
           input: any,
           _path: string,

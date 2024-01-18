@@ -60,13 +60,13 @@ export const test_createValidateEquals_ObjectHttpUndefindable =
       );
     };
     if (false === __is(input)) {
-      const $report = (typia.createValidateEquals as any).report(errors);
+      const $report = require("typia/lib/functional/$report").$report(errors);
       ((
         input: any,
         _path: string,
         _exceptionable: boolean = true,
       ): input is ObjectHttpUndefindable => {
-        const $join = (typia.createValidateEquals as any).join;
+        const $join = require("typia/lib/functional/$join").$join;
         const $vo0 = (
           input: any,
           _path: string,

@@ -50,7 +50,9 @@ export const test_assert_TypeTagType = _test_assert("TypeTagType")<TypeTagType>(
         _path: string,
         _exceptionable: boolean = true,
       ): input is TypeTagType => {
-        const $guard = (typia.assert as any).guard;
+        const $guard = require("typia/lib/functional/$guard").$guard(
+          "typia.assert",
+        );
         const $ao0 = (
           input: any,
           _path: string,

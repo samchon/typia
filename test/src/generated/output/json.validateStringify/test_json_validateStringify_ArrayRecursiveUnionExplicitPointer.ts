@@ -96,7 +96,7 @@ export const test_json_validateStringify_ArrayRecursiveUnionExplicitPointer =
             return "object" === typeof input && null !== input && $io0(input);
           };
           if (false === __is(input)) {
-            const $report = (typia.json.validateStringify as any).report(
+            const $report = require("typia/lib/functional/$report").$report(
               errors,
             );
             ((
@@ -566,9 +566,11 @@ export const test_json_validateStringify_ArrayRecursiveUnionExplicitPointer =
               else if ("lnk" === input.extension) return $io6(input);
               else return false;
             })();
-          const $number = (typia.json.validateStringify as any).number;
-          const $string = (typia.json.validateStringify as any).string;
-          const $throws = (typia.json.validateStringify as any).throws;
+          const $number = require("typia/lib/functional/$number").$number;
+          const $string = require("typia/lib/functional/$string").$string;
+          const $throws = require("typia/lib/functional/$throws").$throws(
+            "typia.json.validateStringify",
+          );
           const $so0 = (input: any): any =>
             `{"value":${`[${input.value
               .map((elem: any) => $so1(elem))

@@ -1,11 +1,23 @@
+/**
+ * @internal
+ */
 export const $join = (str: string): string =>
   variable(str) ? `.${str}` : `[${JSON.stringify(str)}]`;
 
+/**
+ * @internal
+ */
 const variable = (str: string): boolean =>
   reserved(str) === false && /^[a-zA-Z_$][a-zA-Z_$0-9]*$/g.test(str);
 
+/**
+ * @internal
+ */
 const reserved = (str: string): boolean => RESERVED.has(str);
 
+/**
+ * @internal
+ */
 const RESERVED: Set<string> = new Set([
   "break",
   "case",

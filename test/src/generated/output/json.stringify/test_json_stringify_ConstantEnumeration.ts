@@ -7,9 +7,11 @@ export const test_json_stringify_ConstantEnumeration = _test_json_stringify(
   "ConstantEnumeration",
 )<ConstantEnumeration>(ConstantEnumeration)((input) =>
   ((input: ConstantEnumeration): string => {
-    const $string = (typia.json.stringify as any).string;
-    const $number = (typia.json.stringify as any).number;
-    const $throws = (typia.json.stringify as any).throws;
+    const $string = require("typia/lib/functional/$string").$string;
+    const $number = require("typia/lib/functional/$number").$number;
+    const $throws = require("typia/lib/functional/$throws").$throws(
+      "typia.json.stringify",
+    );
     return `[${input
       .map((elem: any) =>
         (() => {

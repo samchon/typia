@@ -10,13 +10,16 @@ export const test_random_ObjectPrimitive = _test_random(
     ((
       generator?: Partial<typia.IRandomGenerator>,
     ): typia.Resolved<ObjectPrimitive> => {
-      const $generator = (typia.random as any).generator;
-      const $pick = (typia.random as any).pick;
+      const $generator = require("typia/lib/functional/$generator").$generator;
       const $ro0 = (_recursive: boolean = false, _depth: number = 0): any => ({
         id:
           (generator?.customs ?? $generator.customs)?.string?.([]) ??
           (generator?.string ?? $generator.string)(),
-        extension: $pick([() => "txt", () => "md", () => "html"])(),
+        extension: (generator?.pick ?? $generator.pick)([
+          () => "txt",
+          () => "md",
+          () => "html",
+        ])(),
         title:
           (generator?.customs ?? $generator.customs)?.string?.([]) ??
           (generator?.string ?? $generator.string)(),
@@ -80,7 +83,9 @@ export const test_random_ObjectPrimitive = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ObjectPrimitive => {
-        const $guard = (typia.createAssert as any).guard;
+        const $guard = require("typia/lib/functional/$guard").$guard(
+          "typia.createAssert",
+        );
         const $ao0 = (
           input: any,
           _path: string,

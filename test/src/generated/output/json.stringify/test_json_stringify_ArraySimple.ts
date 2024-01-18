@@ -11,8 +11,8 @@ export const test_json_stringify_ArraySimple = _test_json_stringify(
       "string" === typeof input.name &&
       "string" === typeof input.body &&
       "number" === typeof input.rank;
-    const $string = (typia.json.stringify as any).string;
-    const $number = (typia.json.stringify as any).number;
+    const $string = require("typia/lib/functional/$string").$string;
+    const $number = require("typia/lib/functional/$number").$number;
     const $so0 = (input: any): any =>
       `{"name":${$string(input.name)},"email":${$string(
         input.email,

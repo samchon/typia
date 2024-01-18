@@ -38,8 +38,8 @@ export const test_json_isStringify_ObjectGenericArray = _test_json_isStringify(
         "number" === typeof input.total_pages;
       const $io2 = (input: any): boolean =>
         "string" === typeof input.name && "number" === typeof input.age;
-      const $number = (typia.json.isStringify as any).number;
-      const $string = (typia.json.isStringify as any).string;
+      const $number = require("typia/lib/functional/$number").$number;
+      const $string = require("typia/lib/functional/$string").$string;
       const $so0 = (input: any): any =>
         `{"pagination":${`{"page":${$number(
           (input.pagination as any).page,

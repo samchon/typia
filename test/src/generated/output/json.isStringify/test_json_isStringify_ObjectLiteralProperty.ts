@@ -18,7 +18,7 @@ export const test_json_isStringify_ObjectLiteralProperty =
         );
       };
       const stringify = (input: ObjectLiteralProperty): string => {
-        const $string = (typia.json.isStringify as any).string;
+        const $string = require("typia/lib/functional/$string").$string;
         return `{"something-interesting-do-you-want?":${$string(
           (input as any)["something-interesting-do-you-want?"],
         )},"or-something-crazy-do-you-want?":${$string(

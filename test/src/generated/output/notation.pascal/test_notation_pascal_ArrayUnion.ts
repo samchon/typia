@@ -55,7 +55,7 @@ export const test_notation_validatePascal_ArrayUnion =
             );
           };
           if (false === __is(input)) {
-            const $report = (typia.notations.validatePascal as any).report(
+            const $report = require("typia/lib/functional/$report").$report(
               errors,
             );
             ((
@@ -186,7 +186,9 @@ export const test_notation_validatePascal_ArrayUnion =
           } as any;
         };
         const general = (input: ArrayUnion): typia.PascalCase<ArrayUnion> => {
-          const $throws = (typia.notations.validatePascal as any).throws;
+          const $throws = require("typia/lib/functional/$throws").$throws(
+            "typia.notations.validatePascal",
+          );
           const $cp0 = (input: any) => {
             const array = input;
             const top = input[0];
@@ -274,7 +276,9 @@ export const test_notation_validatePascal_ArrayUnion =
           _path: string,
           _exceptionable: boolean = true,
         ): input is typia.PascalCase<ArrayUnion> => {
-          const $guard = (typia.createAssert as any).guard;
+          const $guard = require("typia/lib/functional/$guard").$guard(
+            "typia.createAssert",
+          );
           const $ap0 = (
             input: any,
             _path: string,

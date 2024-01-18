@@ -21,7 +21,9 @@ export const test_misc_validateClone_AtomicIntersection =
           );
         };
         if (false === __is(input)) {
-          const $report = (typia.misc.validateClone as any).report(errors);
+          const $report = require("typia/lib/functional/$report").$report(
+            errors,
+          );
           ((
             input: any,
             _path: string,

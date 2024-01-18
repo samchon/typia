@@ -10,7 +10,7 @@ export const test_createRandom_MapSimpleProtobuf = _test_random(
     generator: Partial<typia.IRandomGenerator> = (MapSimpleProtobuf as any)
       .RANDOM,
   ): typia.Resolved<MapSimpleProtobuf> => {
-    const $generator = (typia.createRandom as any).generator;
+    const $generator = require("typia/lib/functional/$generator").$generator;
     const $ro0 = (_recursive: boolean = true, _depth: number = 0): any => ({
       boolean: new Map(
         _recursive && 5 < _depth
@@ -197,7 +197,9 @@ export const test_createRandom_MapSimpleProtobuf = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is MapSimpleProtobuf => {
-        const $guard = (typia.createAssert as any).guard;
+        const $guard = require("typia/lib/functional/$guard").$guard(
+          "typia.createAssert",
+        );
         const $ao0 = (
           input: any,
           _path: string,

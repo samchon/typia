@@ -10,18 +10,17 @@ export const test_random_ObjectHierarchical = _test_random(
     ((
       generator?: Partial<typia.IRandomGenerator>,
     ): typia.Resolved<ObjectHierarchical> => {
-      const $generator = (typia.random as any).generator;
-      const $pick = (typia.random as any).pick;
+      const $generator = require("typia/lib/functional/$generator").$generator;
       const $ro0 = (_recursive: boolean = false, _depth: number = 0): any => ({
         id:
           (generator?.customs ?? $generator.customs)?.number?.([]) ??
           (generator?.number ?? $generator.number)(0, 100),
         channel: $ro1(_recursive, _recursive ? 1 + _depth : _depth),
-        member: $pick([
+        member: (generator?.pick ?? $generator.pick)([
           () => null,
           () => $ro3(_recursive, _recursive ? 1 + _depth : _depth),
         ])(),
-        account: $pick([
+        account: (generator?.pick ?? $generator.pick)([
           () => null,
           () => $ro4(_recursive, _recursive ? 1 + _depth : _depth),
         ])(),
@@ -75,7 +74,7 @@ export const test_random_ObjectHierarchical = _test_random(
           (generator?.customs ?? $generator.customs)?.number?.([]) ??
           (generator?.number ?? $generator.number)(0, 100),
         account: $ro4(_recursive, _recursive ? 1 + _depth : _depth),
-        enterprise: $pick([
+        enterprise: (generator?.pick ?? $generator.pick)([
           () => null,
           () => $ro5(_recursive, _recursive ? 1 + _depth : _depth),
         ])(),
@@ -213,7 +212,9 @@ export const test_random_ObjectHierarchical = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ObjectHierarchical => {
-        const $guard = (typia.createAssert as any).guard;
+        const $guard = require("typia/lib/functional/$guard").$guard(
+          "typia.createAssert",
+        );
         const $ao0 = (
           input: any,
           _path: string,

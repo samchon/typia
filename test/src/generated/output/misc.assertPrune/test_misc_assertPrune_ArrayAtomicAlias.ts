@@ -28,7 +28,9 @@ export const test_misc_assertPrune_ArrayAtomicAlias = _test_misc_assertPrune(
           _path: string,
           _exceptionable: boolean = true,
         ): input is ArrayAtomicAlias => {
-          const $guard = (typia.misc.assertPrune as any).guard;
+          const $guard = require("typia/lib/functional/$guard").$guard(
+            "typia.misc.assertPrune",
+          );
           return (
             ((Array.isArray(input) ||
               $guard(true, {

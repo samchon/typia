@@ -45,7 +45,9 @@ export const test_http_validateHeaders_ObjectHttpUndefindable =
           );
         };
         if (false === __is(input)) {
-          const $report = (typia.http.validateHeaders as any).report(errors);
+          const $report = require("typia/lib/functional/$report").$report(
+            errors,
+          );
           ((
             input: any,
             _path: string,
@@ -149,17 +151,16 @@ export const test_http_validateHeaders_ObjectHttpUndefindable =
       const headers = (
         input: Record<string, string | string[] | undefined>,
       ): typia.Resolved<ObjectHttpUndefindable> => {
-        const $boolean = (typia.http.validateHeaders as any).boolean;
-        const $bigint = (typia.http.validateHeaders as any).bigint;
-        const $number = (typia.http.validateHeaders as any).number;
+        const $HeadersReader =
+          require("typia/lib/functional/$HeadersReader").$HeadersReader;
         const output = {
-          boolean: $boolean(input.boolean),
-          bigint: $bigint(input.bigint),
-          number: $number(input.number),
+          boolean: $HeadersReader.boolean(input.boolean),
+          bigint: $HeadersReader.bigint(input.bigint),
+          number: $HeadersReader.number(input.number),
           string: input.string,
-          constantBoolean: $boolean(input.constantboolean),
-          constantBigint: $bigint(input.constantbigint),
-          constantNumber: $number(input.constantnumber),
+          constantBoolean: $HeadersReader.boolean(input.constantboolean),
+          constantBigint: $HeadersReader.bigint(input.constantbigint),
+          constantNumber: $HeadersReader.number(input.constantnumber),
           constantString: input.constantstring,
         };
         return output as any;

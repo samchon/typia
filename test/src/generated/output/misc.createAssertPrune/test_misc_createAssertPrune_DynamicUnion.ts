@@ -40,8 +40,10 @@ export const test_misc_createAssertPrune_DynamicUnion = _test_misc_assertPrune(
         _path: string,
         _exceptionable: boolean = true,
       ): input is DynamicUnion => {
-        const $guard = (typia.misc.createAssertPrune as any).guard;
-        const $join = (typia.misc.createAssertPrune as any).join;
+        const $guard = require("typia/lib/functional/$guard").$guard(
+          "typia.misc.createAssertPrune",
+        );
+        const $join = require("typia/lib/functional/$join").$join;
         const $ao0 = (
           input: any,
           _path: string,

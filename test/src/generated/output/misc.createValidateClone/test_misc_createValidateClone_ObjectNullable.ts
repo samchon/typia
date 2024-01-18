@@ -41,7 +41,7 @@ export const test_misc_createValidateClone_ObjectNullable =
           return "object" === typeof input && null !== input && $io0(input);
         };
         if (false === __is(input)) {
-          const $report = (typia.misc.createValidateClone as any).report(
+          const $report = require("typia/lib/functional/$report").$report(
             errors,
           );
           ((
@@ -258,7 +258,9 @@ export const test_misc_createValidateClone_ObjectNullable =
             else if ("manufacturer" === input.type) return $io2(input);
             else return false;
           })();
-        const $throws = (typia.misc.createValidateClone as any).throws;
+        const $throws = require("typia/lib/functional/$throws").$throws(
+          "typia.misc.createValidateClone",
+        );
         const $cp0 = (input: any) =>
           input.map((elem: any) =>
             "object" === typeof elem && null !== elem

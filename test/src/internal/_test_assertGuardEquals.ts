@@ -45,7 +45,8 @@ export const _test_assertGuardEquals =
       } catch (exp) {
         if (
           exp instanceof TypeGuardError &&
-          exp.method === "typia.assertGuardEquals" &&
+          (exp.method === "typia.assertGuardEquals" ||
+            exp.method === "typia.createAssertGuardEquals") &&
           exp.path === fullPath &&
           exp.expected === "undefined" &&
           exp.value === key

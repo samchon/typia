@@ -31,7 +31,7 @@ export const test_http_createValidateQuery_ObjectHttpArray =
           return "object" === typeof input && null !== input && $io0(input);
         };
         if (false === __is(input)) {
-          const $report = (typia.http.createValidateQuery as any).report(
+          const $report = require("typia/lib/functional/$report").$report(
             errors,
           );
           ((
@@ -183,20 +183,25 @@ export const test_http_createValidateQuery_ObjectHttpArray =
       const query = (
         input: string | URLSearchParams,
       ): typia.Resolved<ObjectHttpArray> => {
-        const $params = (typia.http.createValidateQuery as any).params;
-        const $boolean = (typia.http.createValidateQuery as any).boolean;
-        const $bigint = (typia.http.createValidateQuery as any).bigint;
-        const $number = (typia.http.createValidateQuery as any).number;
-        const $string = (typia.http.createValidateQuery as any).string;
-        input = $params(input) as URLSearchParams;
+        const $QueryReader =
+          require("typia/lib/functional/$QueryReader").$QueryReader;
+        input = $QueryReader.params(input) as URLSearchParams;
         const output = {
-          booleans: input.getAll("booleans").map((elem: any) => $boolean(elem)),
-          bigints: input.getAll("bigints").map((elem: any) => $bigint(elem)),
-          numbers: input.getAll("numbers").map((elem: any) => $number(elem)),
-          strings: input.getAll("strings").map((elem: any) => $string(elem)),
+          booleans: input
+            .getAll("booleans")
+            .map((elem: any) => $QueryReader.boolean(elem)),
+          bigints: input
+            .getAll("bigints")
+            .map((elem: any) => $QueryReader.bigint(elem)),
+          numbers: input
+            .getAll("numbers")
+            .map((elem: any) => $QueryReader.number(elem)),
+          strings: input
+            .getAll("strings")
+            .map((elem: any) => $QueryReader.string(elem)),
           templates: input
             .getAll("templates")
-            .map((elem: any) => $string(elem)),
+            .map((elem: any) => $QueryReader.string(elem)),
         };
         return output as any;
       };

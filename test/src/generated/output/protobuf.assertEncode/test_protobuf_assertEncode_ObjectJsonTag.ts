@@ -24,7 +24,9 @@ export const test_protobuf_createAssertEncode_ObjectJsonTag =
               _path: string,
               _exceptionable: boolean = true,
             ): input is ObjectJsonTag => {
-              const $guard = (typia.protobuf.assertEncode as any).guard;
+              const $guard = require("typia/lib/functional/$guard").$guard(
+                "typia.protobuf.assertEncode",
+              );
               const $ao0 = (
                 input: any,
                 _path: string,
@@ -72,8 +74,10 @@ export const test_protobuf_createAssertEncode_ObjectJsonTag =
           return input;
         };
         const encode = (input: ObjectJsonTag): Uint8Array => {
-          const $Sizer = (typia.protobuf.assertEncode as any).Sizer;
-          const $Writer = (typia.protobuf.assertEncode as any).Writer;
+          const $ProtobufSizer =
+            require("typia/lib/functional/$ProtobufSizer").$ProtobufSizer;
+          const $ProtobufWriter =
+            require("typia/lib/functional/$ProtobufWriter").$ProtobufWriter;
           const encoder = (writer: any): any => {
             const $peo0 = (input: any): any => {
               // property "vulnerable";
@@ -93,14 +97,15 @@ export const test_protobuf_createAssertEncode_ObjectJsonTag =
             $peo0(input);
             return writer;
           };
-          const sizer = encoder(new $Sizer());
-          const writer = encoder(new $Writer(sizer));
+          const sizer = encoder(new $ProtobufSizer());
+          const writer = encoder(new $ProtobufWriter(sizer));
           return writer.buffer();
         };
         return encode(assert(input));
       })(input),
     decode: (input: Uint8Array): typia.Resolved<ObjectJsonTag> => {
-      const $Reader = (typia.protobuf.createDecode as any).Reader;
+      const $ProtobufReader =
+        require("typia/lib/functional/$ProtobufReader").$ProtobufReader;
       const $pdo0 = (reader: any, length: number = -1): any => {
         length = length < 0 ? reader.size() : reader.index() + length;
         const output = {
@@ -135,7 +140,7 @@ export const test_protobuf_createAssertEncode_ObjectJsonTag =
         }
         return output;
       };
-      const reader = new $Reader(input);
+      const reader = new $ProtobufReader(input);
       return $pdo0(reader);
     },
     message:

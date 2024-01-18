@@ -63,7 +63,7 @@ export const test_notation_createValidateCamel_TupleHierarchical =
           );
         };
         if (false === __is(input)) {
-          const $report = (typia.notations.createValidateCamel as any).report(
+          const $report = require("typia/lib/functional/$report").$report(
             errors,
           );
           ((
@@ -684,7 +684,9 @@ export const test_notation_createValidateCamel_TupleHierarchical =
           _path: string,
           _exceptionable: boolean = true,
         ): input is typia.CamelCase<TupleHierarchical> => {
-          const $guard = (typia.createAssert as any).guard;
+          const $guard = require("typia/lib/functional/$guard").$guard(
+            "typia.createAssert",
+          );
           return (
             ((Array.isArray(input) ||
               $guard(true, {

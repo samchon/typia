@@ -32,7 +32,7 @@ export const test_notation_createValidateSnake_DynamicTree =
           return "object" === typeof input && null !== input && $io0(input);
         };
         if (false === __is(input)) {
-          const $report = (typia.notations.createValidateSnake as any).report(
+          const $report = require("typia/lib/functional/$report").$report(
             errors,
           );
           ((
@@ -40,7 +40,7 @@ export const test_notation_createValidateSnake_DynamicTree =
             _path: string,
             _exceptionable: boolean = true,
           ): input is DynamicTree => {
-            const $join = (typia.notations.createValidateSnake as any).join;
+            const $join = require("typia/lib/functional/$join").$join;
             const $vo0 = (
               input: any,
               _path: string,
@@ -207,8 +207,10 @@ export const test_notation_createValidateSnake_DynamicTree =
           _path: string,
           _exceptionable: boolean = true,
         ): input is typia.SnakeCase<DynamicTree> => {
-          const $guard = (typia.createAssert as any).guard;
-          const $join = (typia.createAssert as any).join;
+          const $guard = require("typia/lib/functional/$guard").$guard(
+            "typia.createAssert",
+          );
+          const $join = require("typia/lib/functional/$join").$join;
           const $ao0 = (
             input: any,
             _path: string,

@@ -72,7 +72,9 @@ export const test_json_assertStringify_ArrayHierarchical =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ArrayHierarchical => {
-            const $guard = (typia.json.assertStringify as any).guard;
+            const $guard = require("typia/lib/functional/$guard").$guard(
+              "typia.json.assertStringify",
+            );
             const $ao0 = (
               input: any,
               _path: string,
@@ -335,8 +337,8 @@ export const test_json_assertStringify_ArrayHierarchical =
           "object" === typeof input.employeed_at &&
           null !== input.employeed_at &&
           $io1(input.employeed_at);
-        const $number = (typia.json.assertStringify as any).number;
-        const $string = (typia.json.assertStringify as any).string;
+        const $number = require("typia/lib/functional/$number").$number;
+        const $string = require("typia/lib/functional/$string").$string;
         const $so0 = (input: any): any =>
           `{"id":${$number(input.id)},"serial":${$number(
             input.serial,

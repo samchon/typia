@@ -10,8 +10,7 @@ export const test_random_ObjectRequired = _test_random(
     ((
       generator?: Partial<typia.IRandomGenerator>,
     ): typia.Resolved<ObjectRequired> => {
-      const $generator = (typia.random as any).generator;
-      const $pick = (typia.random as any).pick;
+      const $generator = require("typia/lib/functional/$generator").$generator;
       const $ro0 = (_recursive: boolean = false, _depth: number = 0): any => ({
         boolean: (generator?.boolean ?? $generator.boolean)(),
         number:
@@ -25,29 +24,29 @@ export const test_random_ObjectRequired = _test_random(
             (generator?.customs ?? $generator.customs)?.number?.([]) ??
             (generator?.number ?? $generator.number)(0, 100),
         ),
-        object: $pick([
+        object: (generator?.pick ?? $generator.pick)([
           () => null,
           () => $ro1(_recursive, _recursive ? 1 + _depth : _depth),
         ])(),
       });
       const $ro1 = (_recursive: boolean = true, _depth: number = 0): any => ({
-        boolean: $pick([
+        boolean: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => (generator?.boolean ?? $generator.boolean)(),
         ])(),
-        number: $pick([
+        number: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.customs ?? $generator.customs)?.number?.([]) ??
             (generator?.number ?? $generator.number)(0, 100),
         ])(),
-        string: $pick([
+        string: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.customs ?? $generator.customs)?.string?.([]) ??
             (generator?.string ?? $generator.string)(),
         ])(),
-        array: $pick([
+        array: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             _recursive && 5 < _depth
@@ -60,7 +59,7 @@ export const test_random_ObjectRequired = _test_random(
                 )
               : [],
         ])(),
-        object: $pick([
+        object: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => null,
           () => $ro1(true, _recursive ? 1 + _depth : _depth),
@@ -109,7 +108,9 @@ export const test_random_ObjectRequired = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ObjectRequired => {
-        const $guard = (typia.createAssert as any).guard;
+        const $guard = require("typia/lib/functional/$guard").$guard(
+          "typia.createAssert",
+        );
         const $ao0 = (
           input: any,
           _path: string,

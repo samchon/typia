@@ -94,7 +94,9 @@ export const test_misc_validatePrune_ArrayRecursiveUnionExplicitPointer =
             return "object" === typeof input && null !== input && $io0(input);
           };
           if (false === __is(input)) {
-            const $report = (typia.misc.validatePrune as any).report(errors);
+            const $report = require("typia/lib/functional/$report").$report(
+              errors,
+            );
             ((
               input: any,
               _path: string,
@@ -560,7 +562,7 @@ export const test_misc_validatePrune_ArrayRecursiveUnionExplicitPointer =
               else if ("lnk" === input.extension) return $io6(input);
               else return false;
             })();
-          const $throws = (typia.misc.validatePrune as any).throws;
+          const $throws = require("typia/lib/functional/$throws").$throws;
           const $pp0 = (input: any) =>
             input.forEach((elem: any) => {
               if ("object" === typeof elem && null !== elem) $po1(elem);

@@ -7,7 +7,9 @@ export const test_misc_clone_ArrayUnion = _test_misc_clone(
   "ArrayUnion",
 )<ArrayUnion>(ArrayUnion)((input) =>
   ((input: ArrayUnion): typia.Resolved<ArrayUnion> => {
-    const $throws = (typia.misc.clone as any).throws;
+    const $throws = require("typia/lib/functional/$throws").$throws(
+      "typia.misc.clone",
+    );
     const $cp0 = (input: any) => {
       const array = input;
       const top = input[0];

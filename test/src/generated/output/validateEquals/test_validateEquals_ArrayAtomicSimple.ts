@@ -29,7 +29,7 @@ export const test_validateEquals_ArrayAtomicSimple = _test_validateEquals(
       );
     };
     if (false === __is(input)) {
-      const $report = (typia.validateEquals as any).report(errors);
+      const $report = require("typia/lib/functional/$report").$report(errors);
       ((
         input: any,
         _path: string,

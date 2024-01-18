@@ -65,7 +65,7 @@ export class MetadataObject {
       jsDocTags: obj.jsDocTags,
 
       index: obj.index,
-      validated: obj.validated,
+      validated: false,
       recursive: obj.recursive,
       nullables: obj.nullables.slice(),
     });
@@ -125,7 +125,6 @@ export class MetadataObject {
       jsDocTags: this.jsDocTags,
 
       index: this.index,
-      validated: this.validated,
       recursive: this.recursive,
       nullables: this.nullables.slice(),
     };

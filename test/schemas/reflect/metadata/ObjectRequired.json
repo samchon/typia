@@ -298,7 +298,6 @@
         "description": "Make all properties in T required",
         "jsDocTags": [],
         "index": 0,
-        "validated": false,
         "recursive": false,
         "nullables": [
           false
@@ -577,7 +576,6 @@
         ],
         "jsDocTags": [],
         "index": 1,
-        "validated": false,
         "recursive": true,
         "nullables": [
           true

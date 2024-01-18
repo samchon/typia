@@ -36,7 +36,9 @@ export const test_misc_createClone_ArrayRepeatedUnionWithTuple =
               "boolean" === typeof elem ||
               (Array.isArray(elem) && ($ip1(elem) || false))),
         );
-      const $throws = (typia.misc.createClone as any).throws;
+      const $throws = require("typia/lib/functional/$throws").$throws(
+        "typia.misc.createClone",
+      );
       const $cp0 = (input: any) => {
         const array = input;
         const top = input[0];

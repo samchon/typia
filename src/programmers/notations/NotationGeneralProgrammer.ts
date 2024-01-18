@@ -19,7 +19,7 @@ import { StringUtil } from "../../utils/StringUtil";
 
 import { FeatureProgrammer } from "../FeatureProgrammer";
 import { IsProgrammer } from "../IsProgrammer";
-import { FunctionImporter } from "../helpers/FunctionImporeter";
+import { FunctionImporter } from "../helpers/FunctionImporter";
 import { NotationJoiner } from "../helpers/NotationJoiner";
 import { UnionExplorer } from "../helpers/UnionExplorer";
 import { decode_union_object } from "../internal/decode_union_object";
@@ -41,7 +41,7 @@ export namespace NotationGeneralProgrammer {
           ...IsProgrammer.write_function_statements(project)(importer)(
             collection,
           ),
-          ...importer.declare(modulo),
+          ...importer.declare(),
         ],
       })(importer);
     };
@@ -82,6 +82,7 @@ export namespace NotationGeneralProgrammer {
         );
 
   const write_tuple_functions =
+    (rename: (str: string) => string) =>
     (project: IProject) =>
     (config: FeatureProgrammer.IConfig) =>
     (importer: FunctionImporter) =>
@@ -100,7 +101,7 @@ export namespace NotationGeneralProgrammer {
               )(ts.factory.createIdentifier("input")),
               TypeFactory.keyword("any"),
               undefined,
-              decode_tuple_inline(project)(config)(importer)(
+              decode_tuple_inline(rename)(project)(config)(importer)(
                 ts.factory.createIdentifier("input"),
                 tuple,
                 {
@@ -118,6 +119,7 @@ export namespace NotationGeneralProgrammer {
         DECODERS
     ----------------------------------------------------------- */
   const decode =
+    (rename: (str: string) => string) =>
     (project: IProject) =>
     (config: FeatureProgrammer.IConfig) =>
     (importer: FunctionImporter) =>
@@ -135,9 +137,11 @@ export namespace NotationGeneralProgrammer {
             !!t.type.elements.length && t.type.elements.every((e) => e.any),
         )
       )
-        return ts.factory.createCallExpression(importer.use("any"), undefined, [
-          input,
-        ]);
+        return ts.factory.createCallExpression(
+          importer.use(rename.name),
+          undefined,
+          [input],
+        );
 
       interface IUnion {
         type: string;
@@ -176,7 +180,11 @@ export namespace NotationGeneralProgrammer {
               explore,
             ),
           value: () =>
-            decode_tuple(project)(config)(importer)(input, tuple, explore),
+            decode_tuple(rename)(project)(config)(importer)(
+              input,
+              tuple,
+              explore,
+            ),
         });
 
       // ARRAYS
@@ -301,6 +309,7 @@ export namespace NotationGeneralProgrammer {
       );
 
   const decode_tuple =
+    (rename: (str: string) => string) =>
     (project: IProject) =>
     (config: FeatureProgrammer.IConfig) =>
     (importer: FunctionImporter) =>
@@ -320,13 +329,14 @@ export namespace NotationGeneralProgrammer {
               source: "function",
             })(input),
           )
-        : decode_tuple_inline(project)(config)(importer)(
+        : decode_tuple_inline(rename)(project)(config)(importer)(
             input,
             tuple.type,
             explore,
           );
 
   const decode_tuple_inline =
+    (rename: (str: string) => string) =>
     (project: IProject) =>
     (config: FeatureProgrammer.IConfig) =>
     (importer: FunctionImporter) =>
@@ -338,7 +348,7 @@ export namespace NotationGeneralProgrammer {
       const children: ts.Expression[] = tuple.elements
         .filter((m) => m.rest === null)
         .map((elem, index) =>
-          decode(project)(config)(importer)(
+          decode(rename)(project)(config)(importer)(
             ts.factory.createElementAccessExpression(input, index),
             elem,
             {
@@ -357,7 +367,7 @@ export namespace NotationGeneralProgrammer {
         const rest: Metadata | null = last.rest;
         if (rest === null) return null;
 
-        return decode(project)(config)(importer)(
+        return decode(rename)(project)(config)(importer)(
           ts.factory.createCallExpression(
             IdentifierFactory.access(input)("slice"),
             undefined,
@@ -583,7 +593,7 @@ export namespace NotationGeneralProgrammer {
         trace: false,
         path: false,
         initializer,
-        decoder: () => decode(project)(config)(importer),
+        decoder: () => decode(rename)(project)(config)(importer),
         objector: {
           checker: () => IsProgrammer.decode(project)(importer),
           decoder: () => decode_object(importer),
@@ -598,7 +608,8 @@ export namespace NotationGeneralProgrammer {
         },
         generator: {
           arrays: () => write_array_functions(config)(importer),
-          tuples: () => write_tuple_functions(project)(config)(importer),
+          tuples: () =>
+            write_tuple_functions(rename)(project)(config)(importer),
         },
       };
       return config;
@@ -628,7 +639,7 @@ export namespace NotationGeneralProgrammer {
     (value: ts.Expression) =>
       ts.factory.createExpressionStatement(
         ts.factory.createCallExpression(
-          importer.use("throws"),
+          importer.use("throws", true),
           [],
           [
             ts.factory.createObjectLiteralExpression(

@@ -30,8 +30,10 @@ export const test_json_stringify_ObjectNullable = _test_json_stringify(
         else if ("manufacturer" === input.type) return $io2(input);
         else return false;
       })();
-    const $string = (typia.json.stringify as any).string;
-    const $throws = (typia.json.stringify as any).throws;
+    const $string = require("typia/lib/functional/$string").$string;
+    const $throws = require("typia/lib/functional/$throws").$throws(
+      "typia.json.stringify",
+    );
     const $so0 = (input: any): any =>
       `{"value":${`[${input.value
         .map((elem: any) => $so1(elem))

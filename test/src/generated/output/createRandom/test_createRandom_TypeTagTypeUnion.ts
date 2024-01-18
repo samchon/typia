@@ -10,10 +10,9 @@ export const test_createRandom_TypeTagTypeUnion = _test_random(
     generator: Partial<typia.IRandomGenerator> = (TypeTagTypeUnion as any)
       .RANDOM,
   ): typia.Resolved<TypeTagTypeUnion> => {
-    const $generator = (typia.createRandom as any).generator;
-    const $pick = (typia.createRandom as any).pick;
+    const $generator = require("typia/lib/functional/$generator").$generator;
     const $ro0 = (_recursive: boolean = false, _depth: number = 0): any => ({
-      int32_or_uint32: $pick([
+      int32_or_uint32: (generator?.pick ?? $generator.pick)([
         () =>
           (generator?.customs ?? $generator.customs)?.number?.([
             {
@@ -31,7 +30,7 @@ export const test_createRandom_TypeTagTypeUnion = _test_random(
             },
           ]) ?? (generator?.integer ?? $generator.integer)(0, 10),
       ])(),
-      int32_or_int64: $pick([
+      int32_or_int64: (generator?.pick ?? $generator.pick)([
         () =>
           (generator?.customs ?? $generator.customs)?.number?.([
             {
@@ -49,7 +48,7 @@ export const test_createRandom_TypeTagTypeUnion = _test_random(
             },
           ]) ?? (generator?.integer ?? $generator.integer)(0, 100),
       ])(),
-      int32_or_uint64: $pick([
+      int32_or_uint64: (generator?.pick ?? $generator.pick)([
         () =>
           (generator?.customs ?? $generator.customs)?.number?.([
             {
@@ -67,7 +66,7 @@ export const test_createRandom_TypeTagTypeUnion = _test_random(
             },
           ]) ?? (generator?.integer ?? $generator.integer)(0, 10),
       ])(),
-      int32_or_float: $pick([
+      int32_or_float: (generator?.pick ?? $generator.pick)([
         () =>
           (generator?.customs ?? $generator.customs)?.number?.([
             {
@@ -85,7 +84,7 @@ export const test_createRandom_TypeTagTypeUnion = _test_random(
             },
           ]) ?? (generator?.number ?? $generator.number)(0, 100),
       ])(),
-      int32_or_double: $pick([
+      int32_or_double: (generator?.pick ?? $generator.pick)([
         () =>
           (generator?.customs ?? $generator.customs)?.number?.([
             {
@@ -103,7 +102,7 @@ export const test_createRandom_TypeTagTypeUnion = _test_random(
             },
           ]) ?? (generator?.number ?? $generator.number)(0, 100),
       ])(),
-      int64_or_uint64: $pick([
+      int64_or_uint64: (generator?.pick ?? $generator.pick)([
         () =>
           (generator?.customs ?? $generator.customs)?.number?.([
             {
@@ -121,7 +120,7 @@ export const test_createRandom_TypeTagTypeUnion = _test_random(
             },
           ]) ?? (generator?.integer ?? $generator.integer)(0, 10),
       ])(),
-      int64_or_float: $pick([
+      int64_or_float: (generator?.pick ?? $generator.pick)([
         () =>
           (generator?.customs ?? $generator.customs)?.number?.([
             {
@@ -139,7 +138,7 @@ export const test_createRandom_TypeTagTypeUnion = _test_random(
             },
           ]) ?? (generator?.integer ?? $generator.integer)(0, 100),
       ])(),
-      int64_or_double: $pick([
+      int64_or_double: (generator?.pick ?? $generator.pick)([
         () =>
           (generator?.customs ?? $generator.customs)?.number?.([
             {
@@ -157,7 +156,7 @@ export const test_createRandom_TypeTagTypeUnion = _test_random(
             },
           ]) ?? (generator?.integer ?? $generator.integer)(0, 100),
       ])(),
-      float_or_double: $pick([
+      float_or_double: (generator?.pick ?? $generator.pick)([
         () =>
           (generator?.customs ?? $generator.customs)?.number?.([
             {
@@ -175,7 +174,7 @@ export const test_createRandom_TypeTagTypeUnion = _test_random(
             },
           ]) ?? (generator?.number ?? $generator.number)(0, 100),
       ])(),
-      everything: $pick([
+      everything: (generator?.pick ?? $generator.pick)([
         () =>
           (generator?.customs ?? $generator.customs)?.number?.([
             {
@@ -309,7 +308,9 @@ export const test_createRandom_TypeTagTypeUnion = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is TypeTagTypeUnion => {
-        const $guard = (typia.createAssert as any).guard;
+        const $guard = require("typia/lib/functional/$guard").$guard(
+          "typia.createAssert",
+        );
         const $ao0 = (
           input: any,
           _path: string,

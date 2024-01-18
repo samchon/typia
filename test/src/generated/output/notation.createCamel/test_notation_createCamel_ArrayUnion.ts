@@ -52,7 +52,7 @@ export const test_notation_createValidateCamel_ArrayUnion =
           );
         };
         if (false === __is(input)) {
-          const $report = (typia.notations.createValidateCamel as any).report(
+          const $report = require("typia/lib/functional/$report").$report(
             errors,
           );
           ((
@@ -182,7 +182,9 @@ export const test_notation_createValidateCamel_ArrayUnion =
         } as any;
       };
       const general = (input: ArrayUnion): typia.CamelCase<ArrayUnion> => {
-        const $throws = (typia.notations.createValidateCamel as any).throws;
+        const $throws = require("typia/lib/functional/$throws").$throws(
+          "typia.notations.createValidateCamel",
+        );
         const $cp0 = (input: any) => {
           const array = input;
           const top = input[0];
@@ -270,7 +272,9 @@ export const test_notation_createValidateCamel_ArrayUnion =
           _path: string,
           _exceptionable: boolean = true,
         ): input is typia.CamelCase<ArrayUnion> => {
-          const $guard = (typia.createAssert as any).guard;
+          const $guard = require("typia/lib/functional/$guard").$guard(
+            "typia.createAssert",
+          );
           const $ap0 = (
             input: any,
             _path: string,

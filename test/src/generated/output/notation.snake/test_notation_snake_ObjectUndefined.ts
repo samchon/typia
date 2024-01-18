@@ -41,7 +41,7 @@ export const test_notation_validateSnake_ObjectUndefined =
             );
           };
           if (false === __is(input)) {
-            const $report = (typia.notations.validateSnake as any).report(
+            const $report = require("typia/lib/functional/$report").$report(
               errors,
             );
             ((
@@ -185,7 +185,7 @@ export const test_notation_validateSnake_ObjectUndefined =
         ): typia.SnakeCase<ObjectUndefined> => {
           const $io1 = (input: any): boolean =>
             "string" === typeof input.id && "string" === typeof input.name;
-          const $any = (typia.notations.validateSnake as any).any;
+          const $snake = require("typia/lib/functional/$snake").$snake;
           const $cp0 = (input: any) =>
             input.map((elem: any) =>
               "object" === typeof elem && null !== elem
@@ -201,7 +201,7 @@ export const test_notation_validateSnake_ObjectUndefined =
                 : (input.classroom as any),
             grade: input.grade as any,
             nothing: input.nothing as any,
-            unknown: $any(input.unknown),
+            unknown: $snake(input.unknown),
             never: input.never as any,
           });
           const $co1 = (input: any): any => ({
@@ -250,7 +250,9 @@ export const test_notation_validateSnake_ObjectUndefined =
           _path: string,
           _exceptionable: boolean = true,
         ): input is typia.SnakeCase<ObjectUndefined> => {
-          const $guard = (typia.createAssert as any).guard;
+          const $guard = require("typia/lib/functional/$guard").$guard(
+            "typia.createAssert",
+          );
           const $ao0 = (
             input: any,
             _path: string,

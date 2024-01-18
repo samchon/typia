@@ -52,8 +52,10 @@ export const test_json_assertStringify_DynamicComposite =
             _path: string,
             _exceptionable: boolean = true,
           ): input is DynamicComposite => {
-            const $guard = (typia.json.assertStringify as any).guard;
-            const $join = (typia.json.assertStringify as any).join;
+            const $guard = require("typia/lib/functional/$guard").$guard(
+              "typia.json.assertStringify",
+            );
+            const $join = require("typia/lib/functional/$join").$join;
             const $ao0 = (
               input: any,
               _path: string,
@@ -163,10 +165,12 @@ export const test_json_assertStringify_DynamicComposite =
         return input;
       };
       const stringify = (input: DynamicComposite): string => {
-        const $string = (typia.json.assertStringify as any).string;
-        const $number = (typia.json.assertStringify as any).number;
-        const $throws = (typia.json.assertStringify as any).throws;
-        const $tail = (typia.json.assertStringify as any).tail;
+        const $string = require("typia/lib/functional/$string").$string;
+        const $number = require("typia/lib/functional/$number").$number;
+        const $throws = require("typia/lib/functional/$throws").$throws(
+          "typia.json.assertStringify",
+        );
+        const $tail = require("typia/lib/functional/$tail").$tail;
         const $so0 = (input: any): any =>
           `{${$tail(
             `"id":${$string(input.id)},"name":${$string(

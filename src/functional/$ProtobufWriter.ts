@@ -1,7 +1,10 @@
 import { $ProtobufSizer } from "./$ProtobufSizer";
 import { IProtobufWriter } from "./IProtobufWriter";
 
-/// @reference https://github.com/piotr-oles/as-proto/blob/main/packages/as-proto/assembly/internal/FixedWriter.ts
+/**
+ * @reference https://github.com/piotr-oles/as-proto/blob/main/packages/as-proto/assembly/internal/FixedWriter.ts
+ * @internal
+ */
 export class $ProtobufWriter implements IProtobufWriter {
   /**
    * Related sizer
@@ -141,10 +144,32 @@ export class $ProtobufWriter implements IProtobufWriter {
   }
 }
 
+/**
+ * @internal
+ */
 const utf8 = new TextEncoder();
 
+/**
+ * @internal
+ */
 const ND01 = BigInt(1);
+
+/**
+ * @internal
+ */
 const ND07 = BigInt(7);
+
+/**
+ * @internal
+ */
 const ND63 = BigInt(63);
+
+/**
+ * @internal
+ */
 const NX7F = BigInt(0x7f);
+
+/**
+ * @internal
+ */
 const NX80 = BigInt(0x80);

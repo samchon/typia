@@ -132,7 +132,9 @@ export const test_assertGuard_ObjectUnionImplicit = _test_assertGuard(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ObjectUnionImplicit => {
-        const $guard = (typia.assertGuard as any).guard;
+        const $guard = require("typia/lib/functional/$guard").$guard(
+          "typia.assertGuard",
+        );
         const $ao0 = (
           input: any,
           _path: string,

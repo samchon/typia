@@ -87,8 +87,8 @@ export const test_json_isStringify_ArrayHierarchical = _test_json_isStringify(
         "object" === typeof input.employeed_at &&
         null !== input.employeed_at &&
         $io1(input.employeed_at);
-      const $number = (typia.json.isStringify as any).number;
-      const $string = (typia.json.isStringify as any).string;
+      const $number = require("typia/lib/functional/$number").$number;
+      const $string = require("typia/lib/functional/$string").$string;
       const $so0 = (input: any): any =>
         `{"id":${$number(input.id)},"serial":${$number(
           input.serial,

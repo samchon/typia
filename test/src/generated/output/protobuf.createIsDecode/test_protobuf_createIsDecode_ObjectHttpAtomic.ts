@@ -20,7 +20,8 @@ export const test_protobuf_createIsDecode_ObjectHttpAtomic =
         );
       };
       const decode = (input: Uint8Array): typia.Resolved<ObjectHttpAtomic> => {
-        const $Reader = (typia.protobuf.createIsDecode as any).Reader;
+        const $ProtobufReader =
+          require("typia/lib/functional/$ProtobufReader").$ProtobufReader;
         const $pdo0 = (reader: any, length: number = -1): any => {
           length = length < 0 ? reader.size() : reader.index() + length;
           const output = {
@@ -55,7 +56,7 @@ export const test_protobuf_createIsDecode_ObjectHttpAtomic =
           }
           return output;
         };
-        const reader = new $Reader(input);
+        const reader = new $ProtobufReader(input);
         return $pdo0(reader);
       };
       const output = decode(input);
@@ -63,8 +64,10 @@ export const test_protobuf_createIsDecode_ObjectHttpAtomic =
       return output;
     },
     encode: (input: ObjectHttpAtomic): Uint8Array => {
-      const $Sizer = (typia.protobuf.createEncode as any).Sizer;
-      const $Writer = (typia.protobuf.createEncode as any).Writer;
+      const $ProtobufSizer =
+        require("typia/lib/functional/$ProtobufSizer").$ProtobufSizer;
+      const $ProtobufWriter =
+        require("typia/lib/functional/$ProtobufWriter").$ProtobufWriter;
       const encoder = (writer: any): any => {
         const $peo0 = (input: any): any => {
           // property "boolean";
@@ -84,8 +87,8 @@ export const test_protobuf_createIsDecode_ObjectHttpAtomic =
         $peo0(input);
         return writer;
       };
-      const sizer = encoder(new $Sizer());
-      const writer = encoder(new $Writer(sizer));
+      const sizer = encoder(new $ProtobufSizer());
+      const writer = encoder(new $ProtobufWriter(sizer));
       return writer.buffer();
     },
   });

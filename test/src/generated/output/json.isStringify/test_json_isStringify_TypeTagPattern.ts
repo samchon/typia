@@ -30,7 +30,7 @@ export const test_json_isStringify_TypeTagPattern = _test_json_isStringify(
       );
     };
     const stringify = (input: TypeTagPattern): string => {
-      const $string = (typia.json.isStringify as any).string;
+      const $string = require("typia/lib/functional/$string").$string;
       return `{"uuid":${$string((input as any).uuid)},"email":${$string(
         (input as any).email,
       )},"ipv4":${$string((input as any).ipv4)},"ipv6":${$string(

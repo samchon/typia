@@ -61,7 +61,9 @@ export const test_json_validateStringify_TupleHierarchical =
           );
         };
         if (false === __is(input)) {
-          const $report = (typia.json.validateStringify as any).report(errors);
+          const $report = require("typia/lib/functional/$report").$report(
+            errors,
+          );
           ((
             input: any,
             _path: string,
@@ -453,8 +455,8 @@ export const test_json_validateStringify_TupleHierarchical =
         } as any;
       };
       const stringify = (input: TupleHierarchical): string => {
-        const $number = (typia.json.validateStringify as any).number;
-        const $string = (typia.json.validateStringify as any).string;
+        const $number = require("typia/lib/functional/$number").$number;
+        const $string = require("typia/lib/functional/$string").$string;
         return `[${input[0]},null,${$number(input[2])},${`[${
           input[3][0]
         },null,${`[${$number(input[3][2][0])},${`[${

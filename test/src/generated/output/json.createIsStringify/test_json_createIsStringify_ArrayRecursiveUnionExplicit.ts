@@ -137,9 +137,11 @@ export const test_json_createIsStringify_ArrayRecursiveUnionExplicit =
             else if ("lnk" === input.extension) return $io4(input);
             else return false;
           })();
-        const $number = (typia.json.createIsStringify as any).number;
-        const $string = (typia.json.createIsStringify as any).string;
-        const $throws = (typia.json.createIsStringify as any).throws;
+        const $number = require("typia/lib/functional/$number").$number;
+        const $string = require("typia/lib/functional/$string").$string;
+        const $throws = require("typia/lib/functional/$throws").$throws(
+          "typia.json.createIsStringify",
+        );
         const $so0 = (input: any): any =>
           `{"id":${$number(input.id)},"name":${$string(
             input.name,

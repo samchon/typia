@@ -9,13 +9,12 @@ export const test_http_createHeaders_ObjectHttpAtomic = _test_http_headers(
   (
     input: Record<string, string | string[] | undefined>,
   ): typia.Resolved<ObjectHttpAtomic> => {
-    const $boolean = (typia.http.createHeaders as any).boolean;
-    const $bigint = (typia.http.createHeaders as any).bigint;
-    const $number = (typia.http.createHeaders as any).number;
+    const $HeadersReader =
+      require("typia/lib/functional/$HeadersReader").$HeadersReader;
     const output = {
-      boolean: $boolean(input.boolean),
-      bigint: $bigint(input.bigint),
-      number: $number(input.number),
+      boolean: $HeadersReader.boolean(input.boolean),
+      bigint: $HeadersReader.bigint(input.bigint),
+      number: $HeadersReader.number(input.number),
       string: input.string,
     };
     return output as any;

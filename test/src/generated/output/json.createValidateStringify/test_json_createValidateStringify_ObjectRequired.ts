@@ -45,9 +45,7 @@ export const test_json_createValidateStringify_ObjectRequired =
         return "object" === typeof input && null !== input && $io0(input);
       };
       if (false === __is(input)) {
-        const $report = (typia.json.createValidateStringify as any).report(
-          errors,
-        );
+        const $report = require("typia/lib/functional/$report").$report(errors);
         ((
           input: any,
           _path: string,
@@ -229,9 +227,9 @@ export const test_json_createValidateStringify_ObjectRequired =
             null !== input.object &&
             false === Array.isArray(input.object) &&
             $io1(input.object)));
-      const $number = (typia.json.createValidateStringify as any).number;
-      const $string = (typia.json.createValidateStringify as any).string;
-      const $tail = (typia.json.createValidateStringify as any).tail;
+      const $number = require("typia/lib/functional/$number").$number;
+      const $string = require("typia/lib/functional/$string").$string;
+      const $tail = require("typia/lib/functional/$tail").$tail;
       const $so0 = (input: any): any =>
         `{"boolean":${input.boolean},"number":${$number(
           input.number,

@@ -10,10 +10,9 @@ export const test_random_AtomicUnion = _test_random("AtomicUnion")<AtomicUnion>(
     ((
       generator?: Partial<typia.IRandomGenerator>,
     ): typia.Resolved<AtomicUnion> => {
-      const $generator = (typia.random as any).generator;
-      const $pick = (typia.random as any).pick;
+      const $generator = require("typia/lib/functional/$generator").$generator;
       return (generator?.array ?? $generator.array)(() =>
-        $pick([
+        (generator?.pick ?? $generator.pick)([
           () => null,
           () =>
             (generator?.customs ?? $generator.customs)?.string?.([]) ??
@@ -44,7 +43,9 @@ export const test_random_AtomicUnion = _test_random("AtomicUnion")<AtomicUnion>(
         _path: string,
         _exceptionable: boolean = true,
       ): input is AtomicUnion => {
-        const $guard = (typia.createAssert as any).guard;
+        const $guard = require("typia/lib/functional/$guard").$guard(
+          "typia.createAssert",
+        );
         return (
           ((Array.isArray(input) ||
             $guard(true, {

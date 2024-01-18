@@ -67,9 +67,11 @@ export const test_json_stringify_ArrayRecursiveUnionExplicitPointer =
             else if ("lnk" === input.extension) return $io6(input);
             else return false;
           })();
-        const $number = (typia.json.stringify as any).number;
-        const $string = (typia.json.stringify as any).string;
-        const $throws = (typia.json.stringify as any).throws;
+        const $number = require("typia/lib/functional/$number").$number;
+        const $string = require("typia/lib/functional/$string").$string;
+        const $throws = require("typia/lib/functional/$throws").$throws(
+          "typia.json.stringify",
+        );
         const $so0 = (input: any): any =>
           `{"value":${`[${input.value
             .map((elem: any) => $so1(elem))

@@ -10,8 +10,7 @@ export const test_random_ObjectUnionImplicit = _test_random(
     ((
       generator?: Partial<typia.IRandomGenerator>,
     ): typia.Resolved<ObjectUnionImplicit> => {
-      const $generator = (typia.random as any).generator;
-      const $pick = (typia.random as any).pick;
+      const $generator = require("typia/lib/functional/$generator").$generator;
       const $ro0 = (_recursive: boolean = false, _depth: number = 0): any => ({
         x:
           (generator?.customs ?? $generator.customs)?.number?.([]) ??
@@ -19,7 +18,7 @@ export const test_random_ObjectUnionImplicit = _test_random(
         y:
           (generator?.customs ?? $generator.customs)?.number?.([]) ??
           (generator?.number ?? $generator.number)(0, 100),
-        slope: $pick([
+        slope: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => null,
           () =>
@@ -30,14 +29,14 @@ export const test_random_ObjectUnionImplicit = _test_random(
       const $ro1 = (_recursive: boolean = false, _depth: number = 0): any => ({
         p1: $ro0(_recursive, _recursive ? 1 + _depth : _depth),
         p2: $ro0(_recursive, _recursive ? 1 + _depth : _depth),
-        width: $pick([
+        width: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => null,
           () =>
             (generator?.customs ?? $generator.customs)?.number?.([]) ??
             (generator?.number ?? $generator.number)(0, 100),
         ])(),
-        distance: $pick([
+        distance: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => null,
           () =>
@@ -49,21 +48,21 @@ export const test_random_ObjectUnionImplicit = _test_random(
         p1: $ro0(_recursive, _recursive ? 1 + _depth : _depth),
         p2: $ro0(_recursive, _recursive ? 1 + _depth : _depth),
         p3: $ro0(_recursive, _recursive ? 1 + _depth : _depth),
-        width: $pick([
+        width: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => null,
           () =>
             (generator?.customs ?? $generator.customs)?.number?.([]) ??
             (generator?.number ?? $generator.number)(0, 100),
         ])(),
-        height: $pick([
+        height: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => null,
           () =>
             (generator?.customs ?? $generator.customs)?.number?.([]) ??
             (generator?.number ?? $generator.number)(0, 100),
         ])(),
-        area: $pick([
+        area: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => null,
           () =>
@@ -76,21 +75,21 @@ export const test_random_ObjectUnionImplicit = _test_random(
         p2: $ro0(_recursive, _recursive ? 1 + _depth : _depth),
         p3: $ro0(_recursive, _recursive ? 1 + _depth : _depth),
         p4: $ro0(_recursive, _recursive ? 1 + _depth : _depth),
-        width: $pick([
+        width: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => null,
           () =>
             (generator?.customs ?? $generator.customs)?.number?.([]) ??
             (generator?.number ?? $generator.number)(0, 100),
         ])(),
-        height: $pick([
+        height: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => null,
           () =>
             (generator?.customs ?? $generator.customs)?.number?.([]) ??
             (generator?.number ?? $generator.number)(0, 100),
         ])(),
-        area: $pick([
+        area: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => null,
           () =>
@@ -102,7 +101,7 @@ export const test_random_ObjectUnionImplicit = _test_random(
         points: (generator?.array ?? $generator.array)(() =>
           $ro0(_recursive, _recursive ? 1 + _depth : _depth),
         ),
-        length: $pick([
+        length: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => null,
           () =>
@@ -112,14 +111,14 @@ export const test_random_ObjectUnionImplicit = _test_random(
       });
       const $ro5 = (_recursive: boolean = false, _depth: number = 0): any => ({
         outer: $ro4(_recursive, _recursive ? 1 + _depth : _depth),
-        inner: $pick([
+        inner: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () =>
             (generator?.array ?? $generator.array)(() =>
               $ro4(_recursive, _recursive ? 1 + _depth : _depth),
             ),
         ])(),
-        area: $pick([
+        area: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => null,
           () =>
@@ -131,11 +130,11 @@ export const test_random_ObjectUnionImplicit = _test_random(
         radius:
           (generator?.customs ?? $generator.customs)?.number?.([]) ??
           (generator?.number ?? $generator.number)(0, 100),
-        centroid: $pick([
+        centroid: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => $ro0(_recursive, _recursive ? 1 + _depth : _depth),
         ])(),
-        area: $pick([
+        area: (generator?.pick ?? $generator.pick)([
           () => undefined,
           () => null,
           () =>
@@ -144,7 +143,7 @@ export const test_random_ObjectUnionImplicit = _test_random(
         ])(),
       });
       return (generator?.array ?? $generator.array)(() =>
-        $pick([
+        (generator?.pick ?? $generator.pick)([
           () => $ro0(),
           () => $ro1(),
           () => $ro2(),
@@ -281,7 +280,9 @@ export const test_random_ObjectUnionImplicit = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ObjectUnionImplicit => {
-        const $guard = (typia.createAssert as any).guard;
+        const $guard = require("typia/lib/functional/$guard").$guard(
+          "typia.createAssert",
+        );
         const $ao0 = (
           input: any,
           _path: string,

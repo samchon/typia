@@ -95,7 +95,9 @@ export const test_misc_createAssertClone_ArrayRecursiveUnionExplicitPointer =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ArrayRecursiveUnionExplicitPointer => {
-            const $guard = (typia.misc.createAssertClone as any).guard;
+            const $guard = require("typia/lib/functional/$guard").$guard(
+              "typia.misc.createAssertClone",
+            );
             const $ao0 = (
               input: any,
               _path: string,
@@ -523,7 +525,9 @@ export const test_misc_createAssertClone_ArrayRecursiveUnionExplicitPointer =
             else if ("lnk" === input.extension) return $io6(input);
             else return false;
           })();
-        const $throws = (typia.misc.createAssertClone as any).throws;
+        const $throws = require("typia/lib/functional/$throws").$throws(
+          "typia.misc.createAssertClone",
+        );
         const $cp0 = (input: any) =>
           input.map((elem: any) =>
             "object" === typeof elem && null !== elem

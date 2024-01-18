@@ -27,7 +27,9 @@ export const test_createAssertGuardEquals_TupleRestAtomic =
           _path: string,
           _exceptionable: boolean = true,
         ): input is TupleRestAtomic => {
-          const $guard = (typia.createAssertGuardEquals as any).guard;
+          const $guard = require("typia/lib/functional/$guard").$guard(
+            "typia.createAssertGuardEquals",
+          );
           return (
             ((Array.isArray(input) ||
               $guard(true, {

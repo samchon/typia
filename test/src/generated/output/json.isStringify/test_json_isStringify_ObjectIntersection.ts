@@ -17,7 +17,7 @@ export const test_json_isStringify_ObjectIntersection = _test_json_isStringify(
       );
     };
     const stringify = (input: ObjectIntersection): string => {
-      const $string = (typia.json.isStringify as any).string;
+      const $string = require("typia/lib/functional/$string").$string;
       return `{"email":${$string((input as any).email)},"name":${$string(
         (input as any).name,
       )},"vulnerable":${(input as any).vulnerable}}`;

@@ -110,7 +110,9 @@ export const test_json_assertStringify_ObjectHierarchical =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ObjectHierarchical => {
-            const $guard = (typia.json.assertStringify as any).guard;
+            const $guard = require("typia/lib/functional/$guard").$guard(
+              "typia.json.assertStringify",
+            );
             const $ao0 = (
               input: any,
               _path: string,
@@ -569,8 +571,8 @@ export const test_json_assertStringify_ObjectHierarchical =
           "object" === typeof input.created_at &&
           null !== input.created_at &&
           $io2(input.created_at);
-        const $number = (typia.json.assertStringify as any).number;
-        const $string = (typia.json.assertStringify as any).string;
+        const $number = require("typia/lib/functional/$number").$number;
+        const $string = require("typia/lib/functional/$string").$string;
         const $so0 = (input: any): any =>
           `{"id":${$number(input.id)},"channel":${$so1(
             input.channel,

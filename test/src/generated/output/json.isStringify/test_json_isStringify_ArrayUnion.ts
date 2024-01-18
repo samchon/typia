@@ -47,9 +47,11 @@ export const test_json_isStringify_ArrayUnion = _test_json_isStringify(
       );
     };
     const stringify = (input: ArrayUnion): string => {
-      const $number = (typia.json.isStringify as any).number;
-      const $string = (typia.json.isStringify as any).string;
-      const $throws = (typia.json.isStringify as any).throws;
+      const $number = require("typia/lib/functional/$number").$number;
+      const $string = require("typia/lib/functional/$string").$string;
+      const $throws = require("typia/lib/functional/$throws").$throws(
+        "typia.json.isStringify",
+      );
       const $sp0 = (input: any) => {
         const array = input;
         const top = input[0];

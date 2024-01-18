@@ -72,7 +72,9 @@ export const test_misc_createIsClone_ObjectUnionNonPredictable =
       const $io8 = (input: any): boolean => "string" === typeof input.value;
       const $iu0 = (input: any): any =>
         $io7(input) || $io5(input) || $io3(input);
-      const $throws = (typia.misc.createIsClone as any).throws;
+      const $throws = require("typia/lib/functional/$throws").$throws(
+        "typia.misc.createIsClone",
+      );
       const $cp0 = (input: any) =>
         input.map((elem: any) =>
           "object" === typeof elem && null !== elem

@@ -7,8 +7,8 @@ export const test_json_createStringify_ToJsonAtomicSimple =
   _test_json_stringify("ToJsonAtomicSimple")<ToJsonAtomicSimple>(
     ToJsonAtomicSimple,
   )((input: ToJsonAtomicSimple): string => {
-    const $number = (typia.json.createStringify as any).number;
-    const $string = (typia.json.createStringify as any).string;
+    const $number = require("typia/lib/functional/$number").$number;
+    const $string = require("typia/lib/functional/$string").$string;
     return `[${input[0].toJSON()},${$number(input[1].toJSON())},${$string(
       input[2].toJSON(),
     )}]`;

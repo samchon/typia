@@ -84,7 +84,7 @@ export const test_validate_SetUnion = _test_validate("SetUnion")<SetUnion>(
       );
     };
     if (false === __is(input)) {
-      const $report = (typia.validate as any).report(errors);
+      const $report = require("typia/lib/functional/$report").$report(errors);
       ((
         input: any,
         _path: string,

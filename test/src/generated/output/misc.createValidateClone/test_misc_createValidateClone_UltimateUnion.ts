@@ -1127,7 +1127,7 @@ export const test_misc_createValidateClone_UltimateUnion =
           );
         };
         if (false === __is(input)) {
-          const $report = (typia.misc.createValidateClone as any).report(
+          const $report = require("typia/lib/functional/$report").$report(
             errors,
           );
           ((
@@ -1135,7 +1135,7 @@ export const test_misc_createValidateClone_UltimateUnion =
             _path: string,
             _exceptionable: boolean = true,
           ): input is UltimateUnion => {
-            const $join = (typia.misc.createValidateClone as any).join;
+            const $join = require("typia/lib/functional/$join").$join;
             const $vo0 = (
               input: any,
               _path: string,
@@ -7081,8 +7081,10 @@ export const test_misc_createValidateClone_UltimateUnion =
                 $io34(input)
               );
           })();
-        const $any = (typia.misc.createValidateClone as any).any;
-        const $throws = (typia.misc.createValidateClone as any).throws;
+        const $clone = require("typia/lib/functional/$clone").$clone;
+        const $throws = require("typia/lib/functional/$throws").$throws(
+          "typia.misc.createValidateClone",
+        );
         const $cp0 = (input: any) =>
           input.map((elem: any) =>
             "object" === typeof elem && null !== elem
@@ -7212,7 +7214,7 @@ export const test_misc_createValidateClone_UltimateUnion =
           exclusive: Array.isArray(input.exclusive)
             ? $cp6(input.exclusive)
             : (input.exclusive as any),
-          value: $any(input.value),
+          value: $clone(input.value),
           validate: input.validate as any,
         });
         const $co8 = (input: any): any => ({

@@ -64,8 +64,8 @@ export const test_json_createIsStringify_ObjectPropertyNullable =
           undefined === input.serial ||
           "number" === typeof input.serial) &&
         (null === input.activated || "boolean" === typeof input.activated);
-      const $number = (typia.json.createIsStringify as any).number;
-      const $string = (typia.json.createIsStringify as any).string;
+      const $number = require("typia/lib/functional/$number").$number;
+      const $string = require("typia/lib/functional/$string").$string;
       const $so0 = (input: any): any =>
         `{"value":${null !== input.value ? input.value : "null"}}`;
       const $so1 = (input: any): any =>

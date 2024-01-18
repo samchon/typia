@@ -143,7 +143,9 @@ export const test_json_createAssertParse_ObjectUnionExplicitPointer =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ObjectUnionExplicitPointer => {
-            const $guard = (typia.json.createAssertParse as any).guard;
+            const $guard = require("typia/lib/functional/$guard").$guard(
+              "typia.json.createAssertParse",
+            );
             const $ao0 = (
               input: any,
               _path: string,

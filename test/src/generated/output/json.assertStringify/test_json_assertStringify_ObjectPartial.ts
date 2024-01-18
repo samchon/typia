@@ -55,7 +55,9 @@ export const test_json_assertStringify_ObjectPartial =
               _path: string,
               _exceptionable: boolean = true,
             ): input is ObjectPartial => {
-              const $guard = (typia.json.assertStringify as any).guard;
+              const $guard = require("typia/lib/functional/$guard").$guard(
+                "typia.json.assertStringify",
+              );
               const $ao0 = (
                 input: any,
                 _path: string,
@@ -215,9 +217,9 @@ export const test_json_assertStringify_ObjectPartial =
               ("object" === typeof input.object &&
                 null !== input.object &&
                 $io1(input.object)));
-          const $number = (typia.json.assertStringify as any).number;
-          const $string = (typia.json.assertStringify as any).string;
-          const $tail = (typia.json.assertStringify as any).tail;
+          const $number = require("typia/lib/functional/$number").$number;
+          const $string = require("typia/lib/functional/$string").$string;
+          const $tail = require("typia/lib/functional/$tail").$tail;
           const $so0 = (input: any): any =>
             `{${$tail(
               `${

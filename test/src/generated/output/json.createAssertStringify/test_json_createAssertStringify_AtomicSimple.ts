@@ -23,7 +23,9 @@ export const test_json_createAssertStringify_AtomicSimple =
             _path: string,
             _exceptionable: boolean = true,
           ): input is AtomicSimple => {
-            const $guard = (typia.json.createAssertStringify as any).guard;
+            const $guard = require("typia/lib/functional/$guard").$guard(
+              "typia.json.createAssertStringify",
+            );
             return (
               ((Array.isArray(input) ||
                 $guard(true, {
@@ -65,8 +67,8 @@ export const test_json_createAssertStringify_AtomicSimple =
         return input;
       };
       const stringify = (input: AtomicSimple): string => {
-        const $number = (typia.json.createAssertStringify as any).number;
-        const $string = (typia.json.createAssertStringify as any).string;
+        const $number = require("typia/lib/functional/$number").$number;
+        const $string = require("typia/lib/functional/$string").$string;
         return `[${input[0]},${$number(input[1])},${$string(input[2])}]`;
       };
       return stringify(assert(input));

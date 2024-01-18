@@ -6,7 +6,7 @@ import { StatementFactory } from "../../factories/StatementFactory";
 
 import { IProject } from "../../transformers/IProject";
 
-import { FunctionImporter } from "../helpers/FunctionImporeter";
+import { FunctionImporter } from "../helpers/FunctionImporter";
 import { IExpressionEntry } from "../helpers/IExpressionEntry";
 import { check_dynamic_key } from "./check_dynamic_key";
 import { check_everything } from "./check_everything";

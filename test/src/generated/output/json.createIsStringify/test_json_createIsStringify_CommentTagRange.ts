@@ -120,7 +120,7 @@ export const test_json_createIsStringify_CommentTagRange =
           input.equal <= 2147483647 &&
           10 <= input.equal &&
           input.equal <= 10;
-        const $number = (typia.json.createIsStringify as any).number;
+        const $number = require("typia/lib/functional/$number").$number;
         const $so0 = (input: any): any =>
           `{"value":${`[${input.value
             .map(

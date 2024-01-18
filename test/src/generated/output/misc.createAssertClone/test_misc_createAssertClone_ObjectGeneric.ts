@@ -75,7 +75,9 @@ export const test_misc_createAssertClone_ObjectGeneric = _test_misc_assertClone(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ObjectGeneric => {
-        const $guard = (typia.misc.createAssertClone as any).guard;
+        const $guard = require("typia/lib/functional/$guard").$guard(
+          "typia.misc.createAssertClone",
+        );
         const $ao0 = (
           input: any,
           _path: string,

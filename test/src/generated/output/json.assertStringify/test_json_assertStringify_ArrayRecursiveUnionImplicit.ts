@@ -91,7 +91,9 @@ export const test_json_assertStringify_ArrayRecursiveUnionImplicit =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ArrayRecursiveUnionImplicit => {
-            const $guard = (typia.json.assertStringify as any).guard;
+            const $guard = require("typia/lib/functional/$guard").$guard(
+              "typia.json.assertStringify",
+            );
             const $ao0 = (
               input: any,
               _path: string,
@@ -480,9 +482,11 @@ export const test_json_assertStringify_ArrayRecursiveUnionImplicit =
             else if (undefined !== input.target) return $io5(input);
             else return $io0(input);
           })();
-        const $number = (typia.json.assertStringify as any).number;
-        const $string = (typia.json.assertStringify as any).string;
-        const $throws = (typia.json.assertStringify as any).throws;
+        const $number = require("typia/lib/functional/$number").$number;
+        const $string = require("typia/lib/functional/$string").$string;
+        const $throws = require("typia/lib/functional/$throws").$throws(
+          "typia.json.assertStringify",
+        );
         const $so0 = (input: any): any =>
           `{"id":${$number(input.id)},"name":${$string(
             input.name,

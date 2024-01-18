@@ -253,7 +253,7 @@ export const test_notation_validateSnake_InstanceUnion =
             );
           };
           if (false === __is(input)) {
-            const $report = (typia.notations.validateSnake as any).report(
+            const $report = require("typia/lib/functional/$report").$report(
               errors,
             );
             ((
@@ -1106,8 +1106,10 @@ export const test_notation_validateSnake_InstanceUnion =
               else if ("circle" === input.type) return $io10(input);
               else return false;
             })();
-          const $any = (typia.notations.validateSnake as any).any;
-          const $throws = (typia.notations.validateSnake as any).throws;
+          const $snake = require("typia/lib/functional/$snake").$snake;
+          const $throws = require("typia/lib/functional/$throws").$throws(
+            "typia.notations.validateSnake",
+          );
           const $cp0 = (input: any) => {
             const array = input;
             const top = input[0];
@@ -1167,7 +1169,7 @@ export const test_notation_validateSnake_InstanceUnion =
                 : elem instanceof Map
                 ? (() =>
                     new Map<any, any>(
-                      [...elem].map((elem: any) => $any(elem)),
+                      [...elem].map((elem: any) => $snake(elem)),
                     ))()
                 : elem instanceof Uint8Array
                 ? elem
@@ -1561,7 +1563,9 @@ export const test_notation_validateSnake_InstanceUnion =
           _path: string,
           _exceptionable: boolean = true,
         ): input is typia.SnakeCase<InstanceUnion> => {
-          const $guard = (typia.createAssert as any).guard;
+          const $guard = require("typia/lib/functional/$guard").$guard(
+            "typia.createAssert",
+          );
           const $ap0 = (
             input: any,
             _path: string,

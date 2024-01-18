@@ -32,7 +32,7 @@ export const test_json_createValidateStringify_TypeTagLength =
           return "object" === typeof input && null !== input && $io0(input);
         };
         if (false === __is(input)) {
-          const $report = (typia.json.createValidateStringify as any).report(
+          const $report = require("typia/lib/functional/$report").$report(
             errors,
           );
           ((
@@ -202,7 +202,7 @@ export const test_json_createValidateStringify_TypeTagLength =
           "string" === typeof input.equal &&
           10 <= input.equal.length &&
           input.equal.length <= 19;
-        const $string = (typia.json.createValidateStringify as any).string;
+        const $string = require("typia/lib/functional/$string").$string;
         const $so0 = (input: any): any =>
           `{"value":${`[${input.value
             .map(

@@ -79,7 +79,9 @@ export const test_assert_MapAlias = _test_assert("MapAlias")<MapAlias>(
         _path: string,
         _exceptionable: boolean = true,
       ): input is MapAlias => {
-        const $guard = (typia.assert as any).guard;
+        const $guard = require("typia/lib/functional/$guard").$guard(
+          "typia.assert",
+        );
         const $ao0 = (
           input: any,
           _path: string,

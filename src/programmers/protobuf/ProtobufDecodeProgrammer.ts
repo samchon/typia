@@ -18,7 +18,7 @@ import { IProject } from "../../transformers/IProject";
 
 import { ProtobufAtomic } from "../../typings/ProtobufAtomic";
 
-import { FunctionImporter } from "../helpers/FunctionImporeter";
+import { FunctionImporter } from "../helpers/FunctionImporter";
 import { ProtobufUtil } from "../helpers/ProtobufUtil";
 
 export namespace ProtobufDecodeProgrammer {
@@ -44,9 +44,11 @@ export namespace ProtobufDecodeProgrammer {
         );
       const reader = StatementFactory.constant(
         "reader",
-        ts.factory.createNewExpression(importer.use("Reader"), undefined, [
-          ts.factory.createIdentifier("input"),
-        ]),
+        ts.factory.createNewExpression(
+          importer.use("ProtobufReader"),
+          undefined,
+          [ts.factory.createIdentifier("input")],
+        ),
       );
 
       return ts.factory.createArrowFunction(
@@ -66,7 +68,7 @@ export namespace ProtobufDecodeProgrammer {
         undefined,
         ts.factory.createBlock(
           [
-            ...importer.declare(modulo),
+            ...importer.declare(),
             ...functors,
             reader,
             ts.factory.createReturnStatement(

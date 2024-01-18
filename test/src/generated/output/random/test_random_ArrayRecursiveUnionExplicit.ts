@@ -10,8 +10,7 @@ export const test_random_ArrayRecursiveUnionExplicit = _test_random(
     ((
       generator?: Partial<typia.IRandomGenerator>,
     ): typia.Resolved<ArrayRecursiveUnionExplicit> => {
-      const $generator = (typia.random as any).generator;
-      const $pick = (typia.random as any).pick;
+      const $generator = require("typia/lib/functional/$generator").$generator;
       const $ro0 = (_recursive: boolean = true, _depth: number = 0): any => ({
         id:
           (generator?.customs ?? $generator.customs)?.number?.([]) ??
@@ -27,7 +26,7 @@ export const test_random_ArrayRecursiveUnionExplicit = _test_random(
             ? []
             : 5 >= _depth
             ? (generator?.array ?? $generator.array)(() =>
-                $pick([
+                (generator?.pick ?? $generator.pick)([
                   () => $ro0(true, _recursive ? 1 + _depth : _depth),
                   () => $ro1(true, _recursive ? 1 + _depth : _depth),
                   () => $ro2(true, _recursive ? 1 + _depth : _depth),
@@ -111,7 +110,7 @@ export const test_random_ArrayRecursiveUnionExplicit = _test_random(
         path:
           (generator?.customs ?? $generator.customs)?.string?.([]) ??
           (generator?.string ?? $generator.string)(),
-        target: $pick([
+        target: (generator?.pick ?? $generator.pick)([
           () => $ro0(true, _recursive ? 1 + _depth : _depth),
           () => $ro1(true, _recursive ? 1 + _depth : _depth),
           () => $ro2(true, _recursive ? 1 + _depth : _depth),
@@ -122,7 +121,7 @@ export const test_random_ArrayRecursiveUnionExplicit = _test_random(
         extension: "lnk",
       });
       return (generator?.array ?? $generator.array)(() =>
-        $pick([
+        (generator?.pick ?? $generator.pick)([
           () => $ro0(),
           () => $ro1(),
           () => $ro2(),
@@ -212,7 +211,9 @@ export const test_random_ArrayRecursiveUnionExplicit = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ArrayRecursiveUnionExplicit => {
-        const $guard = (typia.createAssert as any).guard;
+        const $guard = require("typia/lib/functional/$guard").$guard(
+          "typia.createAssert",
+        );
         const $ao0 = (
           input: any,
           _path: string,

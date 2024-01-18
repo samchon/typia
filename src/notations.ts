@@ -1,5 +1,3 @@
-import { Namespace } from "./functional/Namespace";
-
 import { CamelCase } from "./CamelCase";
 import { IValidation } from "./IValidation";
 import { PascalCase } from "./PascalCase";
@@ -41,7 +39,6 @@ export function camel<T>(input: T): CamelCase<T>;
 export function camel(): never {
   return halt("camel");
 }
-Object.assign(camel, Namespace.notations.camel("camel"));
 
 /**
  * Converts to camel case with type assertion.
@@ -77,8 +74,6 @@ export function assertCamel<T>(input: unknown): CamelCase<T>;
 export function assertCamel(): never {
   return halt("assertCamel");
 }
-Object.assign(assertCamel, Namespace.notations.camel("assertCamel"));
-Object.assign(assertCamel, Namespace.assert("notations.assertCamel"));
 
 /**
  * Converts to camel case with type checking.
@@ -114,8 +109,6 @@ export function isCamel<T>(input: unknown): CamelCase<T> | null;
 export function isCamel(): never {
   return halt("isCamel");
 }
-Object.assign(isCamel, Namespace.notations.camel("isCamel"));
-Object.assign(isCamel, Namespace.is());
 
 /**
  * Converts to camel case with type validation.
@@ -155,8 +148,6 @@ export function validateCamel<T>(input: unknown): IValidation<CamelCase<T>>;
 export function validateCamel(): never {
   return halt("validateCamel");
 }
-Object.assign(validateCamel, Namespace.notations.camel("validateCamel"));
-Object.assign(validateCamel, Namespace.validate());
 
 /* -----------------------------------------------------------
     PASCAL CASE
@@ -188,7 +179,6 @@ export function pascal<T>(input: T): PascalCase<T>;
 export function pascal(): never {
   return halt("pascal");
 }
-Object.assign(pascal, Namespace.notations.pascal("pascal"));
 
 /**
  * Converts to pascal case with type assertion.
@@ -224,8 +214,6 @@ export function assertPascal<T>(input: unknown): PascalCase<T>;
 export function assertPascal(): never {
   return halt("assertPascal");
 }
-Object.assign(assertPascal, Namespace.notations.pascal("assertPascal"));
-Object.assign(assertPascal, Namespace.assert("notations.assertPascal"));
 
 /**
  * Converts to pascal case with type checking.
@@ -261,8 +249,6 @@ export function isPascal<T>(input: unknown): PascalCase<T> | null;
 export function isPascal(): never {
   return halt("isPascal");
 }
-Object.assign(isPascal, Namespace.notations.pascal("isPascal"));
-Object.assign(isPascal, Namespace.is());
 
 /**
  * Converts to pascal case with type validation.
@@ -302,8 +288,6 @@ export function validatePascal<T>(input: unknown): IValidation<PascalCase<T>>;
 export function validatePascal(): never {
   return halt("validatePascal");
 }
-Object.assign(validatePascal, Namespace.notations.pascal("validatePascal"));
-Object.assign(validatePascal, Namespace.validate());
 
 /* -----------------------------------------------------------
     SNAKE CASE
@@ -335,7 +319,6 @@ export function snake<T>(input: T): SnakeCase<T>;
 export function snake(): never {
   return halt("snake");
 }
-Object.assign(snake, Namespace.notations.snake("snake"));
 
 /**
  * Converts to snake case with type assertion.
@@ -371,8 +354,6 @@ export function assertSnake<T>(input: unknown): SnakeCase<T>;
 export function assertSnake(): never {
   return halt("assertSnake");
 }
-Object.assign(assertSnake, Namespace.notations.snake("assertSnake"));
-Object.assign(assertSnake, Namespace.assert("notations.assertSnake"));
 
 /**
  * Converts to snake case with type checking.
@@ -408,8 +389,6 @@ export function isSnake<T>(input: unknown): SnakeCase<T> | null;
 export function isSnake(): never {
   return halt("isSnake");
 }
-Object.assign(isSnake, Namespace.notations.snake("isSnake"));
-Object.assign(isSnake, Namespace.is());
 
 /**
  * Converts to snake case with type validation.
@@ -449,8 +428,6 @@ export function validateSnake<T>(input: unknown): IValidation<SnakeCase<T>>;
 export function validateSnake(): never {
   return halt("validateSnake");
 }
-Object.assign(validateSnake, Namespace.notations.snake("validateSnake"));
-Object.assign(validateSnake, Namespace.validate());
 
 /* -----------------------------------------------------------
     FACTORY FUNCTIONS
@@ -482,7 +459,6 @@ export function createCamel<T>(): (input: T) => CamelCase<T>;
 export function createCamel(): never {
   halt("createCamel");
 }
-Object.assign(createCamel, Namespace.notations.camel("createCamel"));
 
 /**
  * Creates a reusable {@link assertCamel} function.
@@ -511,14 +487,6 @@ export function createAssertCamel<T>(): (input: T) => CamelCase<T>;
 export function createAssertCamel(): never {
   halt("createAssertCamel");
 }
-Object.assign(
-  createAssertCamel,
-  Namespace.notations.camel("createAssertCamel"),
-);
-Object.assign(
-  createAssertCamel,
-  Namespace.assert("notations.createAssertCamel"),
-);
 
 /**
  * Creates a reusable {@link isCamel} function.
@@ -547,8 +515,6 @@ export function createIsCamel<T>(): (input: T) => CamelCase<T> | null;
 export function createIsCamel(): never {
   halt("createIsCamel");
 }
-Object.assign(createIsCamel, Namespace.notations.camel("createIsCamel"));
-Object.assign(createIsCamel, Namespace.is());
 
 /**
  * Creates a reusable {@link validateCamel} function.
@@ -579,11 +545,6 @@ export function createValidateCamel<T>(): (
 export function createValidateCamel(): never {
   halt("createValidateCamel");
 }
-Object.assign(
-  createValidateCamel,
-  Namespace.notations.camel("createValidateCamel"),
-);
-Object.assign(createValidateCamel, Namespace.validate());
 
 /**
  * Creates a reusable {@link pascal} function.
@@ -612,7 +573,6 @@ export function createPascal<T>(): (input: T) => PascalCase<T>;
 export function createPascal(): never {
   halt("createPascal");
 }
-Object.assign(createPascal, Namespace.notations.pascal("createPascal"));
 
 /**
  * Creates a reusable {@link assertPascal} function.
@@ -641,14 +601,6 @@ export function createAssertPascal<T>(): (input: T) => PascalCase<T>;
 export function createAssertPascal(): never {
   halt("createAssertPascal");
 }
-Object.assign(
-  createAssertPascal,
-  Namespace.notations.pascal("createAssertPascal"),
-);
-Object.assign(
-  createAssertPascal,
-  Namespace.assert("notations.createAssertPascal"),
-);
 
 /**
  * Creates a reusable {@link isPascal} function.
@@ -677,8 +629,6 @@ export function createIsPascal<T>(): (input: T) => PascalCase<T> | null;
 export function createIsPascal(): never {
   halt("createIsPascal");
 }
-Object.assign(createIsPascal, Namespace.notations.pascal("createIsPascal"));
-Object.assign(createIsPascal, Namespace.is());
 
 /**
  * Creates a reusable {@link validatePascal} function.
@@ -709,11 +659,6 @@ export function createValidatePascal<T>(): (
 export function createValidatePascal(): never {
   halt("createValidatePascal");
 }
-Object.assign(
-  createValidatePascal,
-  Namespace.notations.pascal("createValidatePascal"),
-);
-Object.assign(createValidatePascal, Namespace.validate());
 
 /**
  * Creates a reusable {@link snake} function.
@@ -742,7 +687,6 @@ export function createSnake<T>(): (input: T) => SnakeCase<T>;
 export function createSnake(): never {
   halt("createSnake");
 }
-Object.assign(createSnake, Namespace.notations.snake("createSnake"));
 
 /**
  * Creates a reusable {@link assertSnake} function.
@@ -771,14 +715,6 @@ export function createAssertSnake<T>(): (input: T) => SnakeCase<T>;
 export function createAssertSnake(): never {
   halt("createAssertSnake");
 }
-Object.assign(
-  createAssertSnake,
-  Namespace.notations.snake("createAssertSnake"),
-);
-Object.assign(
-  createAssertSnake,
-  Namespace.assert("notations.createAssertSnake"),
-);
 
 /**
  * Creates a reusable {@link isSnake} function.
@@ -807,8 +743,6 @@ export function createIsSnake<T>(): (input: T) => SnakeCase<T> | null;
 export function createIsSnake(): never {
   halt("createIsSnake");
 }
-Object.assign(createIsSnake, Namespace.notations.snake("createIsSnake"));
-Object.assign(createIsSnake, Namespace.is());
 
 /**
  * Creates a reusable {@link validateSnake} function.
@@ -839,11 +773,6 @@ export function createValidateSnake<T>(): (
 export function createValidateSnake(): never {
   halt("createValidateSnake");
 }
-Object.assign(
-  createValidateSnake,
-  Namespace.notations.snake("createValidateSnake"),
-);
-Object.assign(createValidateSnake, Namespace.validate());
 
 /**
  * @internal

@@ -36,7 +36,7 @@ export const test_json_createValidateStringify_TypeTagTuple =
           return "object" === typeof input && null !== input && $io0(input);
         };
         if (false === __is(input)) {
-          const $report = (typia.json.createValidateStringify as any).report(
+          const $report = require("typia/lib/functional/$report").$report(
             errors,
           );
           ((
@@ -230,8 +230,8 @@ export const test_json_createValidateStringify_TypeTagTuple =
         } as any;
       };
       const stringify = (input: TypeTagTuple): string => {
-        const $string = (typia.json.createValidateStringify as any).string;
-        const $number = (typia.json.createValidateStringify as any).number;
+        const $string = require("typia/lib/functional/$string").$string;
+        const $number = require("typia/lib/functional/$number").$number;
         const $so0 = (input: any): any =>
           `{"tuple":${`[${$string(input.tuple[0])},${$number(
             input.tuple[1],

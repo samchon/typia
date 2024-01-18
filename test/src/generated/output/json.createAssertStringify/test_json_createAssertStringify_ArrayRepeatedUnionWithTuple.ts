@@ -146,7 +146,9 @@ export const test_json_createAssertStringify_ArrayRepeatedUnionWithTuple =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ArrayRepeatedUnionWithTuple => {
-            const $guard = (typia.json.createAssertStringify as any).guard;
+            const $guard = require("typia/lib/functional/$guard").$guard(
+              "typia.json.createAssertStringify",
+            );
             const $ap0 = (
               input: any,
               _path: string,
@@ -514,9 +516,11 @@ export const test_json_createAssertStringify_ArrayRepeatedUnionWithTuple =
                 "boolean" === typeof elem ||
                 (Array.isArray(elem) && ($ip1(elem) || false))),
           );
-        const $number = (typia.json.createAssertStringify as any).number;
-        const $string = (typia.json.createAssertStringify as any).string;
-        const $throws = (typia.json.createAssertStringify as any).throws;
+        const $number = require("typia/lib/functional/$number").$number;
+        const $string = require("typia/lib/functional/$string").$string;
+        const $throws = require("typia/lib/functional/$throws").$throws(
+          "typia.json.createAssertStringify",
+        );
         const $sp0 = (input: any) => {
           const array = input;
           const top = input[0];

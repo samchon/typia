@@ -1,3 +1,6 @@
+/**
+ * @internal
+ */
 export const $convention = (rename: (str: string) => string) => {
   const main = (input: any): any => {
     if (typeof input === "object")

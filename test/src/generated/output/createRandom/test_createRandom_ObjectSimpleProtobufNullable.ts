@@ -11,14 +11,13 @@ export const test_createRandom_ObjectSimpleProtobufNullable = _test_random(
       ObjectSimpleProtobufNullable as any
     ).RANDOM,
   ): typia.Resolved<ObjectSimpleProtobufNullable> => {
-    const $generator = (typia.createRandom as any).generator;
-    const $pick = (typia.createRandom as any).pick;
+    const $generator = require("typia/lib/functional/$generator").$generator;
     const $ro0 = (_recursive: boolean = false, _depth: number = 0): any => ({
-      bool: $pick([
+      bool: (generator?.pick ?? $generator.pick)([
         () => null,
         () => (generator?.boolean ?? $generator.boolean)(),
       ])(),
-      int32: $pick([
+      int32: (generator?.pick ?? $generator.pick)([
         () => null,
         () =>
           (generator?.customs ?? $generator.customs)?.number?.([
@@ -29,7 +28,7 @@ export const test_createRandom_ObjectSimpleProtobufNullable = _test_random(
             },
           ]) ?? (generator?.integer ?? $generator.integer)(0, 100),
       ])(),
-      uint32: $pick([
+      uint32: (generator?.pick ?? $generator.pick)([
         () => null,
         () =>
           (generator?.customs ?? $generator.customs)?.number?.([
@@ -40,13 +39,13 @@ export const test_createRandom_ObjectSimpleProtobufNullable = _test_random(
             },
           ]) ?? (generator?.integer ?? $generator.integer)(0, 10),
       ])(),
-      int64: $pick([
+      int64: (generator?.pick ?? $generator.pick)([
         () => null,
         () =>
           (generator?.customs ?? $generator.customs)?.bigint?.([]) ??
           (generator?.bigint ?? $generator.bigint)(BigInt(0), BigInt(100)),
       ])(),
-      uint64: $pick([
+      uint64: (generator?.pick ?? $generator.pick)([
         () => null,
         () =>
           (generator?.customs ?? $generator.customs)?.bigint?.([
@@ -57,7 +56,7 @@ export const test_createRandom_ObjectSimpleProtobufNullable = _test_random(
             },
           ]) ?? (generator?.bigint ?? $generator.bigint)(BigInt(0), BigInt(10)),
       ])(),
-      float: $pick([
+      float: (generator?.pick ?? $generator.pick)([
         () => null,
         () =>
           (generator?.customs ?? $generator.customs)?.number?.([
@@ -68,7 +67,7 @@ export const test_createRandom_ObjectSimpleProtobufNullable = _test_random(
             },
           ]) ?? (generator?.number ?? $generator.number)(0, 100),
       ])(),
-      double: $pick([
+      double: (generator?.pick ?? $generator.pick)([
         () => null,
         () =>
           (generator?.customs ?? $generator.customs)?.number?.([
@@ -79,13 +78,13 @@ export const test_createRandom_ObjectSimpleProtobufNullable = _test_random(
             },
           ]) ?? (generator?.number ?? $generator.number)(0, 100),
       ])(),
-      string: $pick([
+      string: (generator?.pick ?? $generator.pick)([
         () => null,
         () =>
           (generator?.customs ?? $generator.customs)?.string?.([]) ??
           (generator?.string ?? $generator.string)(),
       ])(),
-      bytes: $pick([
+      bytes: (generator?.pick ?? $generator.pick)([
         () => null,
         () =>
           new Uint8Array(
@@ -132,7 +131,9 @@ export const test_createRandom_ObjectSimpleProtobufNullable = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ObjectSimpleProtobufNullable => {
-        const $guard = (typia.createAssert as any).guard;
+        const $guard = require("typia/lib/functional/$guard").$guard(
+          "typia.createAssert",
+        );
         const $ao0 = (
           input: any,
           _path: string,

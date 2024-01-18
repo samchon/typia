@@ -26,7 +26,9 @@ export const test_json_validateStringify_ObjectOptional =
           );
         };
         if (false === __is(input)) {
-          const $report = (typia.json.validateStringify as any).report(errors);
+          const $report = require("typia/lib/functional/$report").$report(
+            errors,
+          );
           ((
             input: any,
             _path: string,
@@ -94,9 +96,9 @@ export const test_json_validateStringify_ObjectOptional =
         } as any;
       };
       const stringify = (input: ObjectOptional): string => {
-        const $string = (typia.json.validateStringify as any).string;
-        const $number = (typia.json.validateStringify as any).number;
-        const $tail = (typia.json.validateStringify as any).tail;
+        const $string = require("typia/lib/functional/$string").$string;
+        const $number = require("typia/lib/functional/$number").$number;
+        const $tail = require("typia/lib/functional/$tail").$tail;
         const $so0 = (input: any): any =>
           `{${$tail(
             `${

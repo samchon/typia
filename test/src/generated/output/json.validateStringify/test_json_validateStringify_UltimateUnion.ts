@@ -1132,7 +1132,7 @@ export const test_json_validateStringify_UltimateUnion =
             );
           };
           if (false === __is(input)) {
-            const $report = (typia.json.validateStringify as any).report(
+            const $report = require("typia/lib/functional/$report").$report(
               errors,
             );
             ((
@@ -1140,7 +1140,7 @@ export const test_json_validateStringify_UltimateUnion =
               _path: string,
               _exceptionable: boolean = true,
             ): input is UltimateUnion => {
-              const $join = (typia.json.validateStringify as any).join;
+              const $join = require("typia/lib/functional/$join").$join;
               const $vo0 = (
                 input: any,
                 _path: string,
@@ -7327,10 +7327,12 @@ export const test_json_validateStringify_UltimateUnion =
                   $io34(input)
                 );
             })();
-          const $string = (typia.json.validateStringify as any).string;
-          const $throws = (typia.json.validateStringify as any).throws;
-          const $number = (typia.json.validateStringify as any).number;
-          const $tail = (typia.json.validateStringify as any).tail;
+          const $string = require("typia/lib/functional/$string").$string;
+          const $throws = require("typia/lib/functional/$throws").$throws(
+            "typia.json.validateStringify",
+          );
+          const $number = require("typia/lib/functional/$number").$number;
+          const $tail = require("typia/lib/functional/$tail").$tail;
           const $so0 = (input: any): any =>
             `{"schemas":${`[${input.schemas
               .map((elem: any) => $su0(elem))

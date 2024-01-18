@@ -13,13 +13,12 @@ export const test_http_assertHeaders_ObjectHttpConstant =
       const decode = (
         input: Record<string, string | string[] | undefined>,
       ): typia.Resolved<ObjectHttpConstant> => {
-        const $boolean = (typia.http.assertHeaders as any).boolean;
-        const $bigint = (typia.http.assertHeaders as any).bigint;
-        const $number = (typia.http.assertHeaders as any).number;
+        const $HeadersReader =
+          require("typia/lib/functional/$HeadersReader").$HeadersReader;
         const output = {
-          boolean: $boolean(input.boolean),
-          bigint: $bigint(input.bigint),
-          number: $number(input.number),
+          boolean: $HeadersReader.boolean(input.boolean),
+          bigint: $HeadersReader.bigint(input.bigint),
+          number: $HeadersReader.number(input.number),
           string: input.string,
           template: input.template,
         };
@@ -44,7 +43,9 @@ export const test_http_assertHeaders_ObjectHttpConstant =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ObjectHttpConstant => {
-            const $guard = (typia.http.assertHeaders as any).guard;
+            const $guard = require("typia/lib/functional/$guard").$guard(
+              "typia.http.assertHeaders",
+            );
             const $ao0 = (
               input: any,
               _path: string,

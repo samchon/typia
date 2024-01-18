@@ -11,8 +11,7 @@ export const test_createRandom_ObjectUnionNonPredictable = _test_random(
       ObjectUnionNonPredictable as any
     ).RANDOM,
   ): typia.Resolved<ObjectUnionNonPredictable> => {
-    const $generator = (typia.createRandom as any).generator;
-    const $pick = (typia.createRandom as any).pick;
+    const $generator = require("typia/lib/functional/$generator").$generator;
     const $ro0 = (_recursive: boolean = false, _depth: number = 0): any => ({
       value: (generator?.array ?? $generator.array)(() =>
         $ro1(_recursive, _recursive ? 1 + _depth : _depth),
@@ -22,7 +21,7 @@ export const test_createRandom_ObjectUnionNonPredictable = _test_random(
       value: $ro2(_recursive, _recursive ? 1 + _depth : _depth),
     });
     const $ro2 = (_recursive: boolean = false, _depth: number = 0): any => ({
-      value: $pick([
+      value: (generator?.pick ?? $generator.pick)([
         () => $ro7(_recursive, _recursive ? 1 + _depth : _depth),
         () => $ro5(_recursive, _recursive ? 1 + _depth : _depth),
         () => $ro3(_recursive, _recursive ? 1 + _depth : _depth),
@@ -96,7 +95,9 @@ export const test_createRandom_ObjectUnionNonPredictable = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ObjectUnionNonPredictable => {
-        const $guard = (typia.createAssert as any).guard;
+        const $guard = require("typia/lib/functional/$guard").$guard(
+          "typia.createAssert",
+        );
         const $ao0 = (
           input: any,
           _path: string,

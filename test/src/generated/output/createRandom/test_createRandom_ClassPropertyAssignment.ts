@@ -11,7 +11,7 @@ export const test_createRandom_ClassPropertyAssignment = _test_random(
       ClassPropertyAssignment as any
     ).RANDOM,
   ): typia.Resolved<ClassPropertyAssignment> => {
-    const $generator = (typia.createRandom as any).generator;
+    const $generator = require("typia/lib/functional/$generator").$generator;
     const $ro0 = (_recursive: boolean = false, _depth: number = 0): any => ({
       id:
         (generator?.customs ?? $generator.customs)?.number?.([]) ??
@@ -42,7 +42,9 @@ export const test_createRandom_ClassPropertyAssignment = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ClassPropertyAssignment => {
-        const $guard = (typia.createAssert as any).guard;
+        const $guard = require("typia/lib/functional/$guard").$guard(
+          "typia.createAssert",
+        );
         const $ao0 = (
           input: any,
           _path: string,

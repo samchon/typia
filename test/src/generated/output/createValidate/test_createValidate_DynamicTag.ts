@@ -40,13 +40,13 @@ export const test_createValidate_DynamicTag = _test_validate(
     );
   };
   if (false === __is(input)) {
-    const $report = (typia.createValidate as any).report(errors);
+    const $report = require("typia/lib/functional/$report").$report(errors);
     ((
       input: any,
       _path: string,
       _exceptionable: boolean = true,
     ): input is DynamicTag => {
-      const $join = (typia.createValidate as any).join;
+      const $join = require("typia/lib/functional/$join").$join;
       const $vo0 = (
         input: any,
         _path: string,

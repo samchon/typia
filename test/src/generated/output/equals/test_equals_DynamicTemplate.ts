@@ -7,7 +7,7 @@ export const test_equals_DynamicTemplate = _test_equals(
   "DynamicTemplate",
 )<DynamicTemplate>(DynamicTemplate)((input) =>
   ((input: any, _exceptionable: boolean = true): input is DynamicTemplate => {
-    const $join = (typia.equals as any).join;
+    const $join = require("typia/lib/functional/$join").$join;
     const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
       Object.keys(input).every((key: any) => {
         const value = input[key];

@@ -10,7 +10,7 @@ export const test_random_TupleHierarchical = _test_random(
     ((
       generator?: Partial<typia.IRandomGenerator>,
     ): typia.Resolved<TupleHierarchical> => {
-      const $generator = (typia.random as any).generator;
+      const $generator = require("typia/lib/functional/$generator").$generator;
       return [
         (generator?.boolean ?? $generator.boolean)(),
         null,
@@ -108,7 +108,9 @@ export const test_random_TupleHierarchical = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is TupleHierarchical => {
-        const $guard = (typia.createAssert as any).guard;
+        const $guard = require("typia/lib/functional/$guard").$guard(
+          "typia.createAssert",
+        );
         return (
           ((Array.isArray(input) ||
             $guard(true, {

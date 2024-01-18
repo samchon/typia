@@ -8,7 +8,7 @@ import { IProject } from "../transformers/IProject";
 
 import { CheckerProgrammer } from "./CheckerProgrammer";
 import { IsProgrammer } from "./IsProgrammer";
-import { FunctionImporter } from "./helpers/FunctionImporeter";
+import { FunctionImporter } from "./helpers/FunctionImporter";
 import { OptionPredicator } from "./helpers/OptionPredicator";
 import { check_object } from "./internal/check_object";
 
@@ -84,7 +84,7 @@ export namespace AssertProgrammer {
         combiner: combiner(props.equals)(project)(importer),
         joiner: joiner(props.equals)(project)(importer),
         success: ts.factory.createTrue(),
-        addition: () => importer.declare(modulo),
+        addition: () => importer.declare(),
       })(importer)(type, name);
 
       return ts.factory.createArrowFunction(
@@ -276,7 +276,7 @@ export namespace AssertProgrammer {
       expected: string,
       value: ts.Expression,
     ): ts.Expression =>
-      ts.factory.createCallExpression(importer.use("guard"), undefined, [
+      ts.factory.createCallExpression(importer.use("guard", true), undefined, [
         exceptionable ?? ts.factory.createIdentifier("_exceptionable"),
         ts.factory.createObjectLiteralExpression(
           [

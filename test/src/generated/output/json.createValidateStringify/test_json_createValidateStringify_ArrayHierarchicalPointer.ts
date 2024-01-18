@@ -70,7 +70,7 @@ export const test_json_createValidateStringify_ArrayHierarchicalPointer =
           return "object" === typeof input && null !== input && $io0(input);
         };
         if (false === __is(input)) {
-          const $report = (typia.json.createValidateStringify as any).report(
+          const $report = require("typia/lib/functional/$report").$report(
             errors,
           );
           ((
@@ -395,8 +395,8 @@ export const test_json_createValidateStringify_ArrayHierarchicalPointer =
           "object" === typeof input.employeed_at &&
           null !== input.employeed_at &&
           $io2(input.employeed_at);
-        const $number = (typia.json.createValidateStringify as any).number;
-        const $string = (typia.json.createValidateStringify as any).string;
+        const $number = require("typia/lib/functional/$number").$number;
+        const $string = require("typia/lib/functional/$string").$string;
         const $so0 = (input: any): any =>
           `{"value":${`[${input.value
             .map((elem: any) => $so1(elem))

@@ -25,7 +25,9 @@ export const test_createAssertEquals_AtomicIntersection = _test_assertEquals(
       _path: string,
       _exceptionable: boolean = true,
     ): input is AtomicIntersection => {
-      const $guard = (typia.createAssertEquals as any).guard;
+      const $guard = require("typia/lib/functional/$guard").$guard(
+        "typia.createAssertEquals",
+      );
       return (
         ((Array.isArray(input) ||
           $guard(true, {

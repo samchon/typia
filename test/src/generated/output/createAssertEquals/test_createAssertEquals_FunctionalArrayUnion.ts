@@ -71,7 +71,9 @@ export const test_createAssertEquals_FunctionalArrayUnion = _test_assertEquals(
         _path: string,
         _exceptionable: boolean = true,
       ): input is FunctionalArrayUnion => {
-        const $guard = (typia.createAssertEquals as any).guard;
+        const $guard = require("typia/lib/functional/$guard").$guard(
+          "typia.createAssertEquals",
+        );
         const $ap0 = (
           input: any,
           _path: string,
