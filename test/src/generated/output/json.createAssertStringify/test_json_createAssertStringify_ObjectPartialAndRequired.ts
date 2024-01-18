@@ -33,6 +33,8 @@ export const test_json_createAssertStringify_ObjectPartialAndRequired =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ObjectPartialAndRequired => {
+            // @ts-ignore;
+            declare const require: (lib: string) => any;
             const $guard = require("typia/lib/functional/$guard").$guard(
               "typia.json.createAssertStringify",
             );
@@ -128,6 +130,8 @@ export const test_json_createAssertStringify_ObjectPartialAndRequired =
               $io0(input.object))) &&
           Array.isArray(input.array) &&
           input.array.every((elem: any) => "number" === typeof elem);
+        // @ts-ignore;
+        declare const require: (lib: string) => any;
         const $string = require("typia/lib/functional/$string").$string;
         const $number = require("typia/lib/functional/$number").$number;
         const $so0 = (input: any): any =>

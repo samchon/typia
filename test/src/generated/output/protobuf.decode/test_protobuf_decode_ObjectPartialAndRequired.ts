@@ -9,6 +9,8 @@ export const test_protobuf_createDecode_ObjectPartialAndRequired =
   )({
     decode: (input) =>
       ((input: Uint8Array): typia.Resolved<ObjectPartialAndRequired> => {
+        // @ts-ignore;
+        declare const require: (lib: string) => any;
         const $ProtobufReader =
           require("typia/lib/functional/$ProtobufReader").$ProtobufReader;
         const $pdo0 = (reader: any, length: number = -1): any => {
@@ -55,6 +57,8 @@ export const test_protobuf_createDecode_ObjectPartialAndRequired =
         return $pdo0(reader);
       })(input),
     encode: (input: ObjectPartialAndRequired): Uint8Array => {
+      // @ts-ignore;
+      declare const require: (lib: string) => any;
       const $ProtobufSizer =
         require("typia/lib/functional/$ProtobufSizer").$ProtobufSizer;
       const $ProtobufWriter =

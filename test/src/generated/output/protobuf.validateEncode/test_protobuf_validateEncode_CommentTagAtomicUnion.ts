@@ -140,6 +140,8 @@ export const test_protobuf_createValidateEncode_CommentTagAtomicUnion =
           } as any;
         };
         const encode = (input: CommentTagAtomicUnion): Uint8Array => {
+          // @ts-ignore;
+          declare const require: (lib: string) => any;
           const $throws = require("typia/lib/functional/$throws").$throws(
             "typia.protobuf.validateEncode",
           );
@@ -193,6 +195,8 @@ export const test_protobuf_createValidateEncode_CommentTagAtomicUnion =
         return output;
       })(input),
     decode: (input: Uint8Array): typia.Resolved<CommentTagAtomicUnion> => {
+      // @ts-ignore;
+      declare const require: (lib: string) => any;
       const $ProtobufReader =
         require("typia/lib/functional/$ProtobufReader").$ProtobufReader;
       const $pdo0 = (reader: any, length: number = -1): any => {

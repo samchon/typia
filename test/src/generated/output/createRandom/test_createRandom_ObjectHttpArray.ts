@@ -10,6 +10,8 @@ export const test_createRandom_ObjectHttpArray = _test_random(
     generator: Partial<typia.IRandomGenerator> = (ObjectHttpArray as any)
       .RANDOM,
   ): typia.Resolved<ObjectHttpArray> => {
+    // @ts-ignore;
+    declare const require: (lib: string) => any;
     const $generator = require("typia/lib/functional/$generator").$generator;
     const $ro0 = (_recursive: boolean = false, _depth: number = 0): any => ({
       booleans: (generator?.array ?? $generator.array)(() =>
@@ -66,6 +68,8 @@ export const test_createRandom_ObjectHttpArray = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ObjectHttpArray => {
+        // @ts-ignore;
+        declare const require: (lib: string) => any;
         const $guard = require("typia/lib/functional/$guard").$guard(
           "typia.createAssert",
         );

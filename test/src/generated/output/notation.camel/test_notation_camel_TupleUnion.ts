@@ -290,6 +290,8 @@ export const test_notation_validateCamel_TupleUnion =
           _path: string,
           _exceptionable: boolean = true,
         ): input is typia.CamelCase<TupleUnion> => {
+          // @ts-ignore;
+          declare const require: (lib: string) => any;
           const $guard = require("typia/lib/functional/$guard").$guard(
             "typia.createAssert",
           );

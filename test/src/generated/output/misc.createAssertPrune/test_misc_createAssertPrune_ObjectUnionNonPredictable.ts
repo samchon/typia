@@ -52,6 +52,8 @@ export const test_misc_createAssertPrune_ObjectUnionNonPredictable =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ObjectUnionNonPredictable => {
+            // @ts-ignore;
+            declare const require: (lib: string) => any;
             const $guard = require("typia/lib/functional/$guard").$guard(
               "typia.misc.createAssertPrune",
             );
@@ -272,6 +274,8 @@ export const test_misc_createAssertPrune_ObjectUnionNonPredictable =
         const $io8 = (input: any): boolean => "string" === typeof input.value;
         const $iu0 = (input: any): any =>
           $io7(input) || $io5(input) || $io3(input);
+        // @ts-ignore;
+        declare const require: (lib: string) => any;
         const $throws = require("typia/lib/functional/$throws").$throws;
         const $pp0 = (input: any) =>
           input.forEach((elem: any) => {

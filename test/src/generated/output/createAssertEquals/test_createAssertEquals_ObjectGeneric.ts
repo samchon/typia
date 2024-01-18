@@ -126,6 +126,8 @@ export const test_createAssertEquals_ObjectGeneric = _test_assertEquals(
       _path: string,
       _exceptionable: boolean = true,
     ): input is ObjectGeneric => {
+      // @ts-ignore;
+      declare const require: (lib: string) => any;
       const $guard = require("typia/lib/functional/$guard").$guard(
         "typia.createAssertEquals",
       );

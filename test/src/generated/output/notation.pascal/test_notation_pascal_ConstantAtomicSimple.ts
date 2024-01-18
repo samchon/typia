@@ -128,6 +128,8 @@ export const test_notation_validatePascal_ConstantAtomicSimple =
           _path: string,
           _exceptionable: boolean = true,
         ): input is typia.PascalCase<ConstantAtomicSimple> => {
+          // @ts-ignore;
+          declare const require: (lib: string) => any;
           const $guard = require("typia/lib/functional/$guard").$guard(
             "typia.createAssert",
           );

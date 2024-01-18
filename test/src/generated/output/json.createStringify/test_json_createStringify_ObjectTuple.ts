@@ -6,6 +6,8 @@ import { ObjectTuple } from "../../../structures/ObjectTuple";
 export const test_json_createStringify_ObjectTuple = _test_json_stringify(
   "ObjectTuple",
 )<ObjectTuple>(ObjectTuple)((input: ObjectTuple): string => {
+  // @ts-ignore;
+  declare const require: (lib: string) => any;
   const $string = require("typia/lib/functional/$string").$string;
   return `[${`{"id":${$string((input[0] as any).id)},"code":${$string(
     (input[0] as any).code,

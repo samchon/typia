@@ -7,6 +7,8 @@ export const test_json_stringify_CommentTagPattern = _test_json_stringify(
   "CommentTagPattern",
 )<CommentTagPattern>(CommentTagPattern)((input) =>
   ((input: CommentTagPattern): string => {
+    // @ts-ignore;
+    declare const require: (lib: string) => any;
     const $string = require("typia/lib/functional/$string").$string;
     return `{"uuid":${$string((input as any).uuid)},"email":${$string(
       (input as any).email,

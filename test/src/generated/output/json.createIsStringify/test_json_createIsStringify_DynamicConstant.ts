@@ -28,6 +28,8 @@ export const test_json_createIsStringify_DynamicConstant =
           "number" === typeof input.b &&
           "number" === typeof input.c &&
           "number" === typeof input.d;
+        // @ts-ignore;
+        declare const require: (lib: string) => any;
         const $number = require("typia/lib/functional/$number").$number;
         return `{"value":${`{"a":${$number(
           ((input as any).value as any).a,

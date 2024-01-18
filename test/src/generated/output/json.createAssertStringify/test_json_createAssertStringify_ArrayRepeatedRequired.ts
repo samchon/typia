@@ -32,6 +32,8 @@ export const test_json_createAssertStringify_ArrayRepeatedRequired =
           _path: string,
           _exceptionable: boolean = true,
         ): input is ArrayRepeatedRequired => {
+          // @ts-ignore;
+          declare const require: (lib: string) => any;
           const $guard = require("typia/lib/functional/$guard").$guard(
             "typia.json.createAssertStringify",
           );
@@ -128,6 +130,8 @@ export const test_json_createAssertStringify_ArrayRepeatedRequired =
               "number" === typeof elem ||
               (Array.isArray(elem) && ($ia0(elem) || false))),
         );
+      // @ts-ignore;
+      declare const require: (lib: string) => any;
       const $string = require("typia/lib/functional/$string").$string;
       const $number = require("typia/lib/functional/$number").$number;
       const $throws = require("typia/lib/functional/$throws").$throws(

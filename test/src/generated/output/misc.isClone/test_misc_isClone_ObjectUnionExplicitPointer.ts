@@ -221,6 +221,8 @@ export const test_misc_isClone_ObjectUnionExplicitPointer = _test_misc_isClone(
           else if ("circle" === input.type) return $io10(input);
           else return false;
         })();
+      // @ts-ignore;
+      declare const require: (lib: string) => any;
       const $throws = require("typia/lib/functional/$throws").$throws(
         "typia.misc.isClone",
       );

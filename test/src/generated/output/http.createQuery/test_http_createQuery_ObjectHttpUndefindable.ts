@@ -7,6 +7,8 @@ export const test_http_createQuery_ObjectHttpUndefindable = _test_http_query(
   "ObjectHttpUndefindable",
 )<ObjectHttpUndefindable>(ObjectHttpUndefindable)(
   (input: string | URLSearchParams): typia.Resolved<ObjectHttpUndefindable> => {
+    // @ts-ignore;
+    declare const require: (lib: string) => any;
     const $QueryReader =
       require("typia/lib/functional/$QueryReader").$QueryReader;
     input = $QueryReader.params(input) as URLSearchParams;

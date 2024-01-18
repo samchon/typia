@@ -40,6 +40,8 @@ export const test_json_assertStringify_TemplateConstant =
             _path: string,
             _exceptionable: boolean = true,
           ): input is TemplateConstant => {
+            // @ts-ignore;
+            declare const require: (lib: string) => any;
             const $guard = require("typia/lib/functional/$guard").$guard(
               "typia.json.assertStringify",
             );
@@ -148,6 +150,8 @@ export const test_json_assertStringify_TemplateConstant =
             "the_1_value_with_label_A" === input.combined ||
             "the_1_value_with_label_B" === input.combined ||
             "the_1_value_with_label_C" === input.combined);
+        // @ts-ignore;
+        declare const require: (lib: string) => any;
         const $string = require("typia/lib/functional/$string").$string;
         const $throws = require("typia/lib/functional/$throws").$throws(
           "typia.json.assertStringify",

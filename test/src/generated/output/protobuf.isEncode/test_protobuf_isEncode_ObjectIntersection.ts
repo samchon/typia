@@ -19,6 +19,8 @@ export const test_protobuf_createIsEncode_ObjectIntersection =
           );
         };
         const encode = (input: ObjectIntersection): Uint8Array => {
+          // @ts-ignore;
+          declare const require: (lib: string) => any;
           const $ProtobufSizer =
             require("typia/lib/functional/$ProtobufSizer").$ProtobufSizer;
           const $ProtobufWriter =
@@ -46,6 +48,8 @@ export const test_protobuf_createIsEncode_ObjectIntersection =
         return is(input) ? encode(input) : null;
       })(input),
     decode: (input: Uint8Array): typia.Resolved<ObjectIntersection> => {
+      // @ts-ignore;
+      declare const require: (lib: string) => any;
       const $ProtobufReader =
         require("typia/lib/functional/$ProtobufReader").$ProtobufReader;
       const $pdo0 = (reader: any, length: number = -1): any => {

@@ -55,6 +55,8 @@ export const test_misc_assertClone_ArrayUnion = _test_misc_assertClone(
           _path: string,
           _exceptionable: boolean = true,
         ): input is ArrayUnion => {
+          // @ts-ignore;
+          declare const require: (lib: string) => any;
           const $guard = require("typia/lib/functional/$guard").$guard(
             "typia.misc.assertClone",
           );
@@ -164,6 +166,8 @@ export const test_misc_assertClone_ArrayUnion = _test_misc_assertClone(
       return input;
     };
     const clone = (input: ArrayUnion): typia.Resolved<ArrayUnion> => {
+      // @ts-ignore;
+      declare const require: (lib: string) => any;
       const $throws = require("typia/lib/functional/$throws").$throws(
         "typia.misc.assertClone",
       );

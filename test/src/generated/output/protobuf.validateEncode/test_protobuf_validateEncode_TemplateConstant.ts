@@ -146,6 +146,8 @@ export const test_protobuf_createValidateEncode_TemplateConstant =
           } as any;
         };
         const encode = (input: TemplateConstant): Uint8Array => {
+          // @ts-ignore;
+          declare const require: (lib: string) => any;
           const $ProtobufSizer =
             require("typia/lib/functional/$ProtobufSizer").$ProtobufSizer;
           const $ProtobufWriter =
@@ -203,6 +205,8 @@ export const test_protobuf_createValidateEncode_TemplateConstant =
         return output;
       })(input),
     decode: (input: Uint8Array): typia.Resolved<TemplateConstant> => {
+      // @ts-ignore;
+      declare const require: (lib: string) => any;
       const $ProtobufReader =
         require("typia/lib/functional/$ProtobufReader").$ProtobufReader;
       const $pdo0 = (reader: any, length: number = -1): any => {

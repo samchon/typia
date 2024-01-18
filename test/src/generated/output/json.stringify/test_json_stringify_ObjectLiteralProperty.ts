@@ -7,6 +7,8 @@ export const test_json_stringify_ObjectLiteralProperty = _test_json_stringify(
   "ObjectLiteralProperty",
 )<ObjectLiteralProperty>(ObjectLiteralProperty)((input) =>
   ((input: ObjectLiteralProperty): string => {
+    // @ts-ignore;
+    declare const require: (lib: string) => any;
     const $string = require("typia/lib/functional/$string").$string;
     return `{"something-interesting-do-you-want?":${$string(
       (input as any)["something-interesting-do-you-want?"],

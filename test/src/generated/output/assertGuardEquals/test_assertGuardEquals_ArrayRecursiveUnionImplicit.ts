@@ -174,6 +174,8 @@ export const test_assertGuardEquals_ArrayRecursiveUnionImplicit =
           _path: string,
           _exceptionable: boolean = true,
         ): input is ArrayRecursiveUnionImplicit => {
+          // @ts-ignore;
+          declare const require: (lib: string) => any;
           const $guard = require("typia/lib/functional/$guard").$guard(
             "typia.assertGuardEquals",
           );

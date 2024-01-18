@@ -9,6 +9,8 @@ export const test_http_createHeaders_ObjectHttpCommentTag = _test_http_headers(
   (
     input: Record<string, string | string[] | undefined>,
   ): typia.Resolved<ObjectHttpCommentTag> => {
+    // @ts-ignore;
+    declare const require: (lib: string) => any;
     const $HeadersReader =
       require("typia/lib/functional/$HeadersReader").$HeadersReader;
     const output = {

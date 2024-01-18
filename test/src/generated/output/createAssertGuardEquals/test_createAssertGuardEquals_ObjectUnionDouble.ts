@@ -183,6 +183,8 @@ export const test_createAssertGuardEquals_ObjectUnionDouble =
         _path: string,
         _exceptionable: boolean = true,
       ): input is ObjectUnionDouble => {
+        // @ts-ignore;
+        declare const require: (lib: string) => any;
         const $guard = require("typia/lib/functional/$guard").$guard(
           "typia.createAssertGuardEquals",
         );

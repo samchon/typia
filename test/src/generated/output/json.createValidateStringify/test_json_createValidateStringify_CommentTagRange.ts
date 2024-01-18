@@ -417,6 +417,8 @@ export const test_json_createValidateStringify_CommentTagRange =
         input.equal <= 2147483647 &&
         10 <= input.equal &&
         input.equal <= 10;
+      // @ts-ignore;
+      declare const require: (lib: string) => any;
       const $number = require("typia/lib/functional/$number").$number;
       const $so0 = (input: any): any =>
         `{"value":${`[${input.value

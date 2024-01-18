@@ -31,6 +31,8 @@ export const test_assert_ToJsonAtomicSimple = _test_assert(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ToJsonAtomicSimple => {
+        // @ts-ignore;
+        declare const require: (lib: string) => any;
         const $guard = require("typia/lib/functional/$guard").$guard(
           "typia.assert",
         );

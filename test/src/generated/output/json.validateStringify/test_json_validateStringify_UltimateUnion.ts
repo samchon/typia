@@ -1140,6 +1140,8 @@ export const test_json_validateStringify_UltimateUnion =
               _path: string,
               _exceptionable: boolean = true,
             ): input is UltimateUnion => {
+              // @ts-ignore;
+              declare const require: (lib: string) => any;
               const $join = require("typia/lib/functional/$join").$join;
               const $vo0 = (
                 input: any,
@@ -7327,6 +7329,8 @@ export const test_json_validateStringify_UltimateUnion =
                   $io34(input)
                 );
             })();
+          // @ts-ignore;
+          declare const require: (lib: string) => any;
           const $string = require("typia/lib/functional/$string").$string;
           const $throws = require("typia/lib/functional/$throws").$throws(
             "typia.json.validateStringify",

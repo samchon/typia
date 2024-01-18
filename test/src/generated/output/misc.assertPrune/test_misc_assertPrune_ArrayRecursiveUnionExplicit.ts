@@ -89,6 +89,8 @@ export const test_misc_assertPrune_ArrayRecursiveUnionExplicit =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ArrayRecursiveUnionExplicit => {
+            // @ts-ignore;
+            declare const require: (lib: string) => any;
             const $guard = require("typia/lib/functional/$guard").$guard(
               "typia.misc.assertPrune",
             );
@@ -477,6 +479,8 @@ export const test_misc_assertPrune_ArrayRecursiveUnionExplicit =
             else if ("lnk" === input.extension) return $io4(input);
             else return false;
           })();
+        // @ts-ignore;
+        declare const require: (lib: string) => any;
         const $throws = require("typia/lib/functional/$throws").$throws;
         const $pp0 = (input: any) =>
           input.forEach((elem: any) => {

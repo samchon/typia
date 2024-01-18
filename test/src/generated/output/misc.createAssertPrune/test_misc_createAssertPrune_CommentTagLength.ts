@@ -37,6 +37,8 @@ export const test_misc_createAssertPrune_CommentTagLength =
           _path: string,
           _exceptionable: boolean = true,
         ): input is CommentTagLength => {
+          // @ts-ignore;
+          declare const require: (lib: string) => any;
           const $guard = require("typia/lib/functional/$guard").$guard(
             "typia.misc.createAssertPrune",
           );

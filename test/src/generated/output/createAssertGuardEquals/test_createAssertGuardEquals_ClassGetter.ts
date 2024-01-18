@@ -30,6 +30,8 @@ export const test_createAssertGuardEquals_ClassGetter = _test_assertGuardEquals(
       _path: string,
       _exceptionable: boolean = true,
     ): input is ClassGetter => {
+      // @ts-ignore;
+      declare const require: (lib: string) => any;
       const $guard = require("typia/lib/functional/$guard").$guard(
         "typia.createAssertGuardEquals",
       );

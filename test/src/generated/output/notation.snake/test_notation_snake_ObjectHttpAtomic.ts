@@ -121,6 +121,8 @@ export const test_notation_validateSnake_ObjectHttpAtomic =
           _path: string,
           _exceptionable: boolean = true,
         ): input is typia.SnakeCase<ObjectHttpAtomic> => {
+          // @ts-ignore;
+          declare const require: (lib: string) => any;
           const $guard = require("typia/lib/functional/$guard").$guard(
             "typia.createAssert",
           );

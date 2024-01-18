@@ -2134,6 +2134,8 @@ export const test_json_createIsStringify_UltimateUnion = _test_json_isStringify(
             $io34(input)
           );
       })();
+    // @ts-ignore;
+    declare const require: (lib: string) => any;
     const $string = require("typia/lib/functional/$string").$string;
     const $throws = require("typia/lib/functional/$throws").$throws(
       "typia.json.createIsStringify",

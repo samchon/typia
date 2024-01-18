@@ -661,6 +661,8 @@ export const test_notation_validateCamel_ObjectUnionExplicit =
             $io2(input.centroid) &&
             "number" === typeof input.radius &&
             "circle" === input.type;
+          // @ts-ignore;
+          declare const require: (lib: string) => any;
           const $throws = require("typia/lib/functional/$throws").$throws(
             "typia.notations.validateCamel",
           );
@@ -920,6 +922,8 @@ export const test_notation_validateCamel_ObjectUnionExplicit =
           _path: string,
           _exceptionable: boolean = true,
         ): input is typia.CamelCase<ObjectUnionExplicit> => {
+          // @ts-ignore;
+          declare const require: (lib: string) => any;
           const $guard = require("typia/lib/functional/$guard").$guard(
             "typia.createAssert",
           );

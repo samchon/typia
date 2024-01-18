@@ -6,6 +6,8 @@ import { TypeTagTuple } from "../../../structures/TypeTagTuple";
 export const test_json_createStringify_TypeTagTuple = _test_json_stringify(
   "TypeTagTuple",
 )<TypeTagTuple>(TypeTagTuple)((input: TypeTagTuple): string => {
+  // @ts-ignore;
+  declare const require: (lib: string) => any;
   const $string = require("typia/lib/functional/$string").$string;
   const $number = require("typia/lib/functional/$number").$number;
   const $so0 = (input: any): any =>

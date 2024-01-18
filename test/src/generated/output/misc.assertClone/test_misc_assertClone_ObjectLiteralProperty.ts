@@ -25,6 +25,8 @@ export const test_misc_assertClone_ObjectLiteralProperty =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ObjectLiteralProperty => {
+            // @ts-ignore;
+            declare const require: (lib: string) => any;
             const $guard = require("typia/lib/functional/$guard").$guard(
               "typia.misc.assertClone",
             );

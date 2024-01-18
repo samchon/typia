@@ -13,6 +13,8 @@ export const test_http_assertHeaders_ObjectHttpUndefindable =
       const decode = (
         input: Record<string, string | string[] | undefined>,
       ): typia.Resolved<ObjectHttpUndefindable> => {
+        // @ts-ignore;
+        declare const require: (lib: string) => any;
         const $HeadersReader =
           require("typia/lib/functional/$HeadersReader").$HeadersReader;
         const output = {
@@ -64,6 +66,8 @@ export const test_http_assertHeaders_ObjectHttpUndefindable =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ObjectHttpUndefindable => {
+            // @ts-ignore;
+            declare const require: (lib: string) => any;
             const $guard = require("typia/lib/functional/$guard").$guard(
               "typia.http.assertHeaders",
             );

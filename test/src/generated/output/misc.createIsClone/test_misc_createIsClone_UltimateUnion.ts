@@ -2136,6 +2136,8 @@ export const test_misc_createIsClone_UltimateUnion = _test_misc_isClone(
               $io34(input)
             );
         })();
+      // @ts-ignore;
+      declare const require: (lib: string) => any;
       const $clone = require("typia/lib/functional/$clone").$clone;
       const $throws = require("typia/lib/functional/$throws").$throws(
         "typia.misc.createIsClone",

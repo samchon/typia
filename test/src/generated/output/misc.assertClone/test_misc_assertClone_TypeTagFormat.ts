@@ -44,6 +44,8 @@ export const test_misc_assertClone_TypeTagFormat = _test_misc_assertClone(
           _path: string,
           _exceptionable: boolean = true,
         ): input is TypeTagFormat => {
+          // @ts-ignore;
+          declare const require: (lib: string) => any;
           const $guard = require("typia/lib/functional/$guard").$guard(
             "typia.misc.assertClone",
           );

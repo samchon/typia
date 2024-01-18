@@ -32,6 +32,8 @@ export const test_assert_DynamicTree = _test_assert("DynamicTree")<DynamicTree>(
         _path: string,
         _exceptionable: boolean = true,
       ): input is DynamicTree => {
+        // @ts-ignore;
+        declare const require: (lib: string) => any;
         const $guard = require("typia/lib/functional/$guard").$guard(
           "typia.assert",
         );

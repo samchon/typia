@@ -111,6 +111,8 @@ export const test_notation_createValidateSnake_TypeTagTypeBigInt =
           _path: string,
           _exceptionable: boolean = true,
         ): input is typia.SnakeCase<TypeTagTypeBigInt> => {
+          // @ts-ignore;
+          declare const require: (lib: string) => any;
           const $guard = require("typia/lib/functional/$guard").$guard(
             "typia.createAssert",
           );

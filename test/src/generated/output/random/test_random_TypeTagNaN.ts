@@ -10,6 +10,8 @@ export const test_random_TypeTagNaN = _test_random("TypeTagNaN")<TypeTagNaN>(
     ((
       generator?: Partial<typia.IRandomGenerator>,
     ): typia.Resolved<TypeTagNaN> => {
+      // @ts-ignore;
+      declare const require: (lib: string) => any;
       const $generator = require("typia/lib/functional/$generator").$generator;
       const $ro0 = (_recursive: boolean = false, _depth: number = 0): any => ({
         value:
@@ -93,6 +95,8 @@ export const test_random_TypeTagNaN = _test_random("TypeTagNaN")<TypeTagNaN>(
         _path: string,
         _exceptionable: boolean = true,
       ): input is TypeTagNaN => {
+        // @ts-ignore;
+        declare const require: (lib: string) => any;
         const $guard = require("typia/lib/functional/$guard").$guard(
           "typia.createAssert",
         );

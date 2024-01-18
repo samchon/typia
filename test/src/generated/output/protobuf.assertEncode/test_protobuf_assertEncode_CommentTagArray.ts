@@ -47,6 +47,8 @@ export const test_protobuf_createAssertEncode_CommentTagArray =
               _path: string,
               _exceptionable: boolean = true,
             ): input is CommentTagArray => {
+              // @ts-ignore;
+              declare const require: (lib: string) => any;
               const $guard = require("typia/lib/functional/$guard").$guard(
                 "typia.protobuf.assertEncode",
               );
@@ -230,6 +232,8 @@ export const test_protobuf_createAssertEncode_CommentTagArray =
           return input;
         };
         const encode = (input: CommentTagArray): Uint8Array => {
+          // @ts-ignore;
+          declare const require: (lib: string) => any;
           const $ProtobufSizer =
             require("typia/lib/functional/$ProtobufSizer").$ProtobufSizer;
           const $ProtobufWriter =
@@ -308,6 +312,8 @@ export const test_protobuf_createAssertEncode_CommentTagArray =
         return encode(assert(input));
       })(input),
     decode: (input: Uint8Array): typia.Resolved<CommentTagArray> => {
+      // @ts-ignore;
+      declare const require: (lib: string) => any;
       const $ProtobufReader =
         require("typia/lib/functional/$ProtobufReader").$ProtobufReader;
       const $pdo0 = (reader: any, length: number = -1): any => {

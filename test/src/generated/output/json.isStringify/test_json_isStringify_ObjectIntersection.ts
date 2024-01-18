@@ -17,6 +17,8 @@ export const test_json_isStringify_ObjectIntersection = _test_json_isStringify(
       );
     };
     const stringify = (input: ObjectIntersection): string => {
+      // @ts-ignore;
+      declare const require: (lib: string) => any;
       const $string = require("typia/lib/functional/$string").$string;
       return `{"email":${$string((input as any).email)},"name":${$string(
         (input as any).name,

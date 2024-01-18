@@ -182,6 +182,8 @@ export const test_notation_createValidatePascal_ArrayUnion =
         } as any;
       };
       const general = (input: ArrayUnion): typia.PascalCase<ArrayUnion> => {
+        // @ts-ignore;
+        declare const require: (lib: string) => any;
         const $throws = require("typia/lib/functional/$throws").$throws(
           "typia.notations.createValidatePascal",
         );
@@ -272,6 +274,8 @@ export const test_notation_createValidatePascal_ArrayUnion =
           _path: string,
           _exceptionable: boolean = true,
         ): input is typia.PascalCase<ArrayUnion> => {
+          // @ts-ignore;
+          declare const require: (lib: string) => any;
           const $guard = require("typia/lib/functional/$guard").$guard(
             "typia.createAssert",
           );

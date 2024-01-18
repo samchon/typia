@@ -180,6 +180,8 @@ export const test_validateEquals_ArrayRecursiveUnionExplicit =
           _path: string,
           _exceptionable: boolean = true,
         ): input is ArrayRecursiveUnionExplicit => {
+          // @ts-ignore;
+          declare const require: (lib: string) => any;
           const $join = require("typia/lib/functional/$join").$join;
           const $vo0 = (
             input: any,

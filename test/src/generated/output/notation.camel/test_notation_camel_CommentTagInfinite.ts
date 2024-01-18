@@ -213,6 +213,8 @@ export const test_notation_validateCamel_CommentTagInfinite =
           _path: string,
           _exceptionable: boolean = true,
         ): input is typia.CamelCase<CommentTagInfinite> => {
+          // @ts-ignore;
+          declare const require: (lib: string) => any;
           const $guard = require("typia/lib/functional/$guard").$guard(
             "typia.createAssert",
           );

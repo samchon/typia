@@ -31,6 +31,8 @@ export const test_misc_createPrune_ObjectUnionNonPredictable = _test_misc_prune(
       $io8(input.value);
     const $io8 = (input: any): boolean => "string" === typeof input.value;
     const $iu0 = (input: any): any => $io7(input) || $io5(input) || $io3(input);
+    // @ts-ignore;
+    declare const require: (lib: string) => any;
     const $throws = require("typia/lib/functional/$throws").$throws;
     const $pp0 = (input: any) =>
       input.forEach((elem: any) => {

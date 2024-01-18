@@ -33,6 +33,8 @@ export const test_misc_createAssertPrune_ArrayRecursive =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ArrayRecursive => {
+            // @ts-ignore;
+            declare const require: (lib: string) => any;
             const $guard = require("typia/lib/functional/$guard").$guard(
               "typia.misc.createAssertPrune",
             );

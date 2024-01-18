@@ -179,6 +179,8 @@ export const test_misc_validateClone_ObjectUndefined = _test_misc_validateClone(
     const clone = (input: ObjectUndefined): typia.Resolved<ObjectUndefined> => {
       const $io1 = (input: any): boolean =>
         "string" === typeof input.id && "string" === typeof input.name;
+      // @ts-ignore;
+      declare const require: (lib: string) => any;
       const $clone = require("typia/lib/functional/$clone").$clone;
       const $cp0 = (input: any) =>
         input.map((elem: any) =>

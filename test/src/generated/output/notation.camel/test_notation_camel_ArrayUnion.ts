@@ -186,6 +186,8 @@ export const test_notation_validateCamel_ArrayUnion =
           } as any;
         };
         const general = (input: ArrayUnion): typia.CamelCase<ArrayUnion> => {
+          // @ts-ignore;
+          declare const require: (lib: string) => any;
           const $throws = require("typia/lib/functional/$throws").$throws(
             "typia.notations.validateCamel",
           );
@@ -276,6 +278,8 @@ export const test_notation_validateCamel_ArrayUnion =
           _path: string,
           _exceptionable: boolean = true,
         ): input is typia.CamelCase<ArrayUnion> => {
+          // @ts-ignore;
+          declare const require: (lib: string) => any;
           const $guard = require("typia/lib/functional/$guard").$guard(
             "typia.createAssert",
           );

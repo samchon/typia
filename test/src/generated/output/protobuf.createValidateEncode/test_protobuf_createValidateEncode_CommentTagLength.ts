@@ -190,6 +190,8 @@ export const test_protobuf_createValidateEncode_CommentTagLength =
         } as any;
       };
       const encode = (input: CommentTagLength): Uint8Array => {
+        // @ts-ignore;
+        declare const require: (lib: string) => any;
         const $ProtobufSizer =
           require("typia/lib/functional/$ProtobufSizer").$ProtobufSizer;
         const $ProtobufWriter =
@@ -251,6 +253,8 @@ export const test_protobuf_createValidateEncode_CommentTagLength =
       return output;
     },
     decode: (input: Uint8Array): typia.Resolved<CommentTagLength> => {
+      // @ts-ignore;
+      declare const require: (lib: string) => any;
       const $ProtobufReader =
         require("typia/lib/functional/$ProtobufReader").$ProtobufReader;
       const $pdo0 = (reader: any, length: number = -1): any => {

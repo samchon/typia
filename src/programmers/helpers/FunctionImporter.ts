@@ -31,6 +31,44 @@ export class FunctionImporter {
 
   public declare(includeUnions: boolean = true): ts.Statement[] {
     return [
+      ...(this.used_.size
+        ? [
+            ts.factory.createExpressionStatement(
+              ts.factory.createIdentifier("// @ts-ignore"),
+            ),
+            ts.factory.createVariableStatement(
+              [ts.factory.createToken(ts.SyntaxKind.DeclareKeyword)],
+              ts.factory.createVariableDeclarationList(
+                [
+                  ts.factory.createVariableDeclaration(
+                    ts.factory.createIdentifier("require"),
+                    undefined,
+                    ts.factory.createFunctionTypeNode(
+                      undefined,
+                      [
+                        ts.factory.createParameterDeclaration(
+                          undefined,
+                          undefined,
+                          ts.factory.createIdentifier("lib"),
+                          undefined,
+                          ts.factory.createKeywordTypeNode(
+                            ts.SyntaxKind.StringKeyword,
+                          ),
+                          undefined,
+                        ),
+                      ],
+                      ts.factory.createKeywordTypeNode(
+                        ts.SyntaxKind.AnyKeyword,
+                      ),
+                    ),
+                    undefined,
+                  ),
+                ],
+                ts.NodeFlags.Const,
+              ),
+            ),
+          ]
+        : []),
       ...[...this.used_].map(([key, value]) => {
         const accessor = IdentifierFactory.access(
           ts.factory.createCallExpression(

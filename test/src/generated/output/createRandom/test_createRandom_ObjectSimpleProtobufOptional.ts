@@ -11,6 +11,8 @@ export const test_createRandom_ObjectSimpleProtobufOptional = _test_random(
       ObjectSimpleProtobufOptional as any
     ).RANDOM,
   ): typia.Resolved<ObjectSimpleProtobufOptional> => {
+    // @ts-ignore;
+    declare const require: (lib: string) => any;
     const $generator = require("typia/lib/functional/$generator").$generator;
     const $ro0 = (_recursive: boolean = false, _depth: number = 0): any => ({
       bool: (generator?.pick ?? $generator.pick)([
@@ -136,6 +138,8 @@ export const test_createRandom_ObjectSimpleProtobufOptional = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ObjectSimpleProtobufOptional => {
+        // @ts-ignore;
+        declare const require: (lib: string) => any;
         const $guard = require("typia/lib/functional/$guard").$guard(
           "typia.createAssert",
         );

@@ -51,6 +51,8 @@ export const test_notation_createValidatePascal_DynamicTemplate =
             _path: string,
             _exceptionable: boolean = true,
           ): input is DynamicTemplate => {
+            // @ts-ignore;
+            declare const require: (lib: string) => any;
             const $join = require("typia/lib/functional/$join").$join;
             const $vo0 = (
               input: any,
@@ -221,6 +223,8 @@ export const test_notation_createValidatePascal_DynamicTemplate =
           _path: string,
           _exceptionable: boolean = true,
         ): input is typia.PascalCase<DynamicTemplate> => {
+          // @ts-ignore;
+          declare const require: (lib: string) => any;
           const $guard = require("typia/lib/functional/$guard").$guard(
             "typia.createAssert",
           );

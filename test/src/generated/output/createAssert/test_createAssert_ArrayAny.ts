@@ -33,6 +33,8 @@ export const test_createAssert_ArrayAny = _test_assert("ArrayAny")<ArrayAny>(
       _path: string,
       _exceptionable: boolean = true,
     ): input is ArrayAny => {
+      // @ts-ignore;
+      declare const require: (lib: string) => any;
       const $guard = require("typia/lib/functional/$guard").$guard(
         "typia.createAssert",
       );

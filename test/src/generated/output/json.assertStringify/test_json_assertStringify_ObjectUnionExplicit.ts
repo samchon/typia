@@ -139,6 +139,8 @@ export const test_json_assertStringify_ObjectUnionExplicit =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ObjectUnionExplicit => {
+            // @ts-ignore;
+            declare const require: (lib: string) => any;
             const $guard = require("typia/lib/functional/$guard").$guard(
               "typia.json.assertStringify",
             );
@@ -617,6 +619,8 @@ export const test_json_assertStringify_ObjectUnionExplicit =
           $io2(input.centroid) &&
           "number" === typeof input.radius &&
           "circle" === input.type;
+        // @ts-ignore;
+        declare const require: (lib: string) => any;
         const $number = require("typia/lib/functional/$number").$number;
         const $string = require("typia/lib/functional/$string").$string;
         const $throws = require("typia/lib/functional/$throws").$throws(

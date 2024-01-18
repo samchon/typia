@@ -33,6 +33,8 @@ export const test_assert_ObjectDynamic = _test_assert(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ObjectDynamic => {
+        // @ts-ignore;
+        declare const require: (lib: string) => any;
         const $guard = require("typia/lib/functional/$guard").$guard(
           "typia.assert",
         );

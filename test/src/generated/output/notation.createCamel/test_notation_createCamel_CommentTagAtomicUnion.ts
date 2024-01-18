@@ -197,6 +197,8 @@ export const test_notation_createValidateCamel_CommentTagAtomicUnion =
           _path: string,
           _exceptionable: boolean = true,
         ): input is typia.CamelCase<CommentTagAtomicUnion> => {
+          // @ts-ignore;
+          declare const require: (lib: string) => any;
           const $guard = require("typia/lib/functional/$guard").$guard(
             "typia.createAssert",
           );

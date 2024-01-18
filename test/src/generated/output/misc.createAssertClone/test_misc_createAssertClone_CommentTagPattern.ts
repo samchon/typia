@@ -36,6 +36,8 @@ export const test_misc_createAssertClone_CommentTagPattern =
           _path: string,
           _exceptionable: boolean = true,
         ): input is CommentTagPattern => {
+          // @ts-ignore;
+          declare const require: (lib: string) => any;
           const $guard = require("typia/lib/functional/$guard").$guard(
             "typia.misc.createAssertClone",
           );

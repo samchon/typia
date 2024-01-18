@@ -17,6 +17,8 @@ export const test_assert_ToJsonNull = _test_assert("ToJsonNull")<ToJsonNull>(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ToJsonNull => {
+        // @ts-ignore;
+        declare const require: (lib: string) => any;
         const $guard = require("typia/lib/functional/$guard").$guard(
           "typia.assert",
         );

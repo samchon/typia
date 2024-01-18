@@ -46,6 +46,8 @@ export const test_json_assertStringify_ObjectNullable =
               _path: string,
               _exceptionable: boolean = true,
             ): input is ObjectNullable => {
+              // @ts-ignore;
+              declare const require: (lib: string) => any;
               const $guard = require("typia/lib/functional/$guard").$guard(
                 "typia.json.assertStringify",
               );
@@ -242,6 +244,8 @@ export const test_json_assertStringify_ObjectNullable =
               else if ("manufacturer" === input.type) return $io2(input);
               else return false;
             })();
+          // @ts-ignore;
+          declare const require: (lib: string) => any;
           const $string = require("typia/lib/functional/$string").$string;
           const $throws = require("typia/lib/functional/$throws").$throws(
             "typia.json.assertStringify",

@@ -1048,6 +1048,8 @@ export const test_json_stringify_UltimateUnion = _test_json_stringify(
             $io34(input)
           );
       })();
+    // @ts-ignore;
+    declare const require: (lib: string) => any;
     const $string = require("typia/lib/functional/$string").$string;
     const $throws = require("typia/lib/functional/$throws").$throws(
       "typia.json.stringify",

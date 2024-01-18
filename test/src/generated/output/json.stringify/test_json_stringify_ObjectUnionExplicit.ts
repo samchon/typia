@@ -72,6 +72,8 @@ export const test_json_stringify_ObjectUnionExplicit = _test_json_stringify(
       $io2(input.centroid) &&
       "number" === typeof input.radius &&
       "circle" === input.type;
+    // @ts-ignore;
+    declare const require: (lib: string) => any;
     const $number = require("typia/lib/functional/$number").$number;
     const $string = require("typia/lib/functional/$string").$string;
     const $throws = require("typia/lib/functional/$throws").$throws(

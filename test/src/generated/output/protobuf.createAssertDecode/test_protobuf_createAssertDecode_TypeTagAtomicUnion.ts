@@ -11,6 +11,8 @@ export const test_protobuf_createAssertDecode_TypeTagAtomicUnion =
       const decode = (
         input: Uint8Array,
       ): typia.Resolved<TypeTagAtomicUnion> => {
+        // @ts-ignore;
+        declare const require: (lib: string) => any;
         const $ProtobufReader =
           require("typia/lib/functional/$ProtobufReader").$ProtobufReader;
         const $pdo0 = (reader: any, length: number = -1): any => {
@@ -81,6 +83,8 @@ export const test_protobuf_createAssertDecode_TypeTagAtomicUnion =
             _path: string,
             _exceptionable: boolean = true,
           ): input is TypeTagAtomicUnion => {
+            // @ts-ignore;
+            declare const require: (lib: string) => any;
             const $guard = require("typia/lib/functional/$guard").$guard(
               "typia.protobuf.createAssertDecode",
             );
@@ -177,6 +181,8 @@ export const test_protobuf_createAssertDecode_TypeTagAtomicUnion =
       return assert(output) as any;
     },
     encode: (input: TypeTagAtomicUnion): Uint8Array => {
+      // @ts-ignore;
+      declare const require: (lib: string) => any;
       const $throws = require("typia/lib/functional/$throws").$throws(
         "typia.protobuf.createEncode",
       );

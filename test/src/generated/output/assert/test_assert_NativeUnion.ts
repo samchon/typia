@@ -37,6 +37,8 @@ export const test_assert_NativeUnion = _test_assert("NativeUnion")<NativeUnion>(
         _path: string,
         _exceptionable: boolean = true,
       ): input is NativeUnion => {
+        // @ts-ignore;
+        declare const require: (lib: string) => any;
         const $guard = require("typia/lib/functional/$guard").$guard(
           "typia.assert",
         );

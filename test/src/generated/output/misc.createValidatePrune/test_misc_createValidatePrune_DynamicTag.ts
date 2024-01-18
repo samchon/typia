@@ -49,6 +49,8 @@ export const test_misc_createValidatePrune_DynamicTag =
             _path: string,
             _exceptionable: boolean = true,
           ): input is DynamicTag => {
+            // @ts-ignore;
+            declare const require: (lib: string) => any;
             const $join = require("typia/lib/functional/$join").$join;
             const $vo0 = (
               input: any,

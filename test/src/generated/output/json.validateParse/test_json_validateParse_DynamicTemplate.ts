@@ -46,6 +46,8 @@ export const test_json_validateParse_DynamicTemplate = _test_json_validateParse(
           _path: string,
           _exceptionable: boolean = true,
         ): input is DynamicTemplate => {
+          // @ts-ignore;
+          declare const require: (lib: string) => any;
           const $join = require("typia/lib/functional/$join").$join;
           const $vo0 = (
             input: any,

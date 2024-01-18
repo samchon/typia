@@ -186,6 +186,8 @@ export const test_notation_createValidateCamel_ObjectUndefined =
       ): typia.CamelCase<ObjectUndefined> => {
         const $io1 = (input: any): boolean =>
           "string" === typeof input.id && "string" === typeof input.name;
+        // @ts-ignore;
+        declare const require: (lib: string) => any;
         const $camel = require("typia/lib/functional/$camel").$camel;
         const $cp0 = (input: any) =>
           input.map((elem: any) =>
@@ -251,6 +253,8 @@ export const test_notation_createValidateCamel_ObjectUndefined =
           _path: string,
           _exceptionable: boolean = true,
         ): input is typia.CamelCase<ObjectUndefined> => {
+          // @ts-ignore;
+          declare const require: (lib: string) => any;
           const $guard = require("typia/lib/functional/$guard").$guard(
             "typia.createAssert",
           );

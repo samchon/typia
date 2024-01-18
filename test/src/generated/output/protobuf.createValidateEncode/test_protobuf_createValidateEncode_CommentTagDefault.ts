@@ -192,6 +192,8 @@ export const test_protobuf_createValidateEncode_CommentTagDefault =
         } as any;
       };
       const encode = (input: CommentTagDefault): Uint8Array => {
+        // @ts-ignore;
+        declare const require: (lib: string) => any;
         const $throws = require("typia/lib/functional/$throws").$throws(
           "typia.protobuf.createValidateEncode",
         );
@@ -313,6 +315,8 @@ export const test_protobuf_createValidateEncode_CommentTagDefault =
       return output;
     },
     decode: (input: Uint8Array): typia.Resolved<CommentTagDefault> => {
+      // @ts-ignore;
+      declare const require: (lib: string) => any;
       const $ProtobufReader =
         require("typia/lib/functional/$ProtobufReader").$ProtobufReader;
       const $pdo0 = (reader: any, length: number = -1): any => {

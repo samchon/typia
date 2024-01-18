@@ -6,6 +6,8 @@ import { ToJsonTuple } from "../../../structures/ToJsonTuple";
 export const test_json_createStringify_ToJsonTuple = _test_json_stringify(
   "ToJsonTuple",
 )<ToJsonTuple>(ToJsonTuple)((input: ToJsonTuple): string => {
+  // @ts-ignore;
+  declare const require: (lib: string) => any;
   const $string = require("typia/lib/functional/$string").$string;
   const $number = require("typia/lib/functional/$number").$number;
   return `[${$string(input[0].toJSON())},${$number(

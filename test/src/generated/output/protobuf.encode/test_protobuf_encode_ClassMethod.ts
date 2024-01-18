@@ -8,6 +8,8 @@ export const test_protobuf_createEncode_ClassMethod = _test_protobuf_encode(
 )<ClassMethod>(ClassMethod)({
   encode: (input) =>
     ((input: ClassMethod): Uint8Array => {
+      // @ts-ignore;
+      declare const require: (lib: string) => any;
       const $ProtobufSizer =
         require("typia/lib/functional/$ProtobufSizer").$ProtobufSizer;
       const $ProtobufWriter =
@@ -30,6 +32,8 @@ export const test_protobuf_createEncode_ClassMethod = _test_protobuf_encode(
       return writer.buffer();
     })(input),
   decode: (input: Uint8Array): typia.Resolved<ClassMethod> => {
+    // @ts-ignore;
+    declare const require: (lib: string) => any;
     const $ProtobufReader =
       require("typia/lib/functional/$ProtobufReader").$ProtobufReader;
     const $pdo0 = (reader: any, length: number = -1): any => {

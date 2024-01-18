@@ -46,6 +46,8 @@ export const test_createAssertGuardEquals_DynamicConstant =
           _path: string,
           _exceptionable: boolean = true,
         ): input is DynamicConstant => {
+          // @ts-ignore;
+          declare const require: (lib: string) => any;
           const $guard = require("typia/lib/functional/$guard").$guard(
             "typia.createAssertGuardEquals",
           );

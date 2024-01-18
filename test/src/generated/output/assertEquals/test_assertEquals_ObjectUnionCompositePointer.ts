@@ -209,6 +209,8 @@ export const test_assertEquals_ObjectUnionCompositePointer = _test_assertEquals(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ObjectUnionCompositePointer => {
+        // @ts-ignore;
+        declare const require: (lib: string) => any;
         const $guard = require("typia/lib/functional/$guard").$guard(
           "typia.assertEquals",
         );

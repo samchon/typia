@@ -10,6 +10,8 @@ export const test_random_ArrayMatrix = _test_random("ArrayMatrix")<ArrayMatrix>(
     ((
       generator?: Partial<typia.IRandomGenerator>,
     ): typia.Resolved<ArrayMatrix> => {
+      // @ts-ignore;
+      declare const require: (lib: string) => any;
       const $generator = require("typia/lib/functional/$generator").$generator;
       return (generator?.array ?? $generator.array)(() =>
         (generator?.array ?? $generator.array)(() =>
@@ -45,6 +47,8 @@ export const test_random_ArrayMatrix = _test_random("ArrayMatrix")<ArrayMatrix>(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ArrayMatrix => {
+        // @ts-ignore;
+        declare const require: (lib: string) => any;
         const $guard = require("typia/lib/functional/$guard").$guard(
           "typia.createAssert",
         );

@@ -10,6 +10,8 @@ export const test_createRandom_ArrayRepeatedNullable = _test_random(
     generator: Partial<typia.IRandomGenerator> = (ArrayRepeatedNullable as any)
       .RANDOM,
   ): typia.Resolved<ArrayRepeatedNullable> => {
+    // @ts-ignore;
+    declare const require: (lib: string) => any;
     const $generator = require("typia/lib/functional/$generator").$generator;
     const $ra0 = (
       length: number,
@@ -73,6 +75,8 @@ export const test_createRandom_ArrayRepeatedNullable = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ArrayRepeatedNullable => {
+        // @ts-ignore;
+        declare const require: (lib: string) => any;
         const $guard = require("typia/lib/functional/$guard").$guard(
           "typia.createAssert",
         );

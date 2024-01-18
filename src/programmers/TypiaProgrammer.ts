@@ -68,9 +68,7 @@ export namespace TypiaProgrammer {
         transform(
           program,
           ((compilerOptions.plugins as any[]) ?? []).find(
-            (p: any) =>
-              p.transform === "typia/lib/transform" ||
-              p.transform === "../src/transform.ts",
+            (p: any) => p.transform === "typia/lib/transform",
           ) ?? {},
           {
             addDiagnostic: (diag) => diagnostics.push(diag),

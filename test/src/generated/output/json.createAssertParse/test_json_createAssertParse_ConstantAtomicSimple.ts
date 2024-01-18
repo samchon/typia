@@ -24,6 +24,8 @@ export const test_json_createAssertParse_ConstantAtomicSimple =
           _path: string,
           _exceptionable: boolean = true,
         ): input is ConstantAtomicSimple => {
+          // @ts-ignore;
+          declare const require: (lib: string) => any;
           const $guard = require("typia/lib/functional/$guard").$guard(
             "typia.json.createAssertParse",
           );

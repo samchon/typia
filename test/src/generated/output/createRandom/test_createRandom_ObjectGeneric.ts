@@ -9,6 +9,8 @@ export const test_createRandom_ObjectGeneric = _test_random(
   random: (
     generator: Partial<typia.IRandomGenerator> = (ObjectGeneric as any).RANDOM,
   ): typia.Resolved<ObjectGeneric> => {
+    // @ts-ignore;
+    declare const require: (lib: string) => any;
     const $generator = require("typia/lib/functional/$generator").$generator;
     const $ro0 = (_recursive: boolean = false, _depth: number = 0): any => ({
       value: (generator?.boolean ?? $generator.boolean)(),
@@ -126,6 +128,8 @@ export const test_createRandom_ObjectGeneric = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ObjectGeneric => {
+        // @ts-ignore;
+        declare const require: (lib: string) => any;
         const $guard = require("typia/lib/functional/$guard").$guard(
           "typia.createAssert",
         );

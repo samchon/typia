@@ -10,6 +10,8 @@ export const test_random_TupleOptional = _test_random(
     ((
       generator?: Partial<typia.IRandomGenerator>,
     ): typia.Resolved<TupleOptional> => {
+      // @ts-ignore;
+      declare const require: (lib: string) => any;
       const $generator = require("typia/lib/functional/$generator").$generator;
       return (generator?.array ?? $generator.array)(() => [
         (generator?.customs ?? $generator.customs)?.number?.([]) ??
@@ -61,6 +63,8 @@ export const test_random_TupleOptional = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is TupleOptional => {
+        // @ts-ignore;
+        declare const require: (lib: string) => any;
         const $guard = require("typia/lib/functional/$guard").$guard(
           "typia.createAssert",
         );

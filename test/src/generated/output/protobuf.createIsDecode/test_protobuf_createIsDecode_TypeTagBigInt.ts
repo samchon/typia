@@ -23,6 +23,8 @@ export const test_protobuf_createIsDecode_TypeTagBigInt =
         );
       };
       const decode = (input: Uint8Array): typia.Resolved<TypeTagBigInt> => {
+        // @ts-ignore;
+        declare const require: (lib: string) => any;
         const $ProtobufReader =
           require("typia/lib/functional/$ProtobufReader").$ProtobufReader;
         const $pdo0 = (reader: any, length: number = -1): any => {
@@ -72,6 +74,8 @@ export const test_protobuf_createIsDecode_TypeTagBigInt =
       return output;
     },
     encode: (input: TypeTagBigInt): Uint8Array => {
+      // @ts-ignore;
+      declare const require: (lib: string) => any;
       const $ProtobufSizer =
         require("typia/lib/functional/$ProtobufSizer").$ProtobufSizer;
       const $ProtobufWriter =

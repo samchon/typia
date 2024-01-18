@@ -177,6 +177,8 @@ export const test_misc_validateClone_ArrayUnion = _test_misc_validateClone(
       } as any;
     };
     const clone = (input: ArrayUnion): typia.Resolved<ArrayUnion> => {
+      // @ts-ignore;
+      declare const require: (lib: string) => any;
       const $throws = require("typia/lib/functional/$throws").$throws(
         "typia.misc.validateClone",
       );

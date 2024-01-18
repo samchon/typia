@@ -13,6 +13,8 @@ export const test_misc_clone_TypeTagObjectUnion = _test_misc_clone(
       "string" === typeof input.value &&
       3 <= input.value.length &&
       input.value.length <= 7;
+    // @ts-ignore;
+    declare const require: (lib: string) => any;
     const $throws = require("typia/lib/functional/$throws").$throws(
       "typia.misc.clone",
     );

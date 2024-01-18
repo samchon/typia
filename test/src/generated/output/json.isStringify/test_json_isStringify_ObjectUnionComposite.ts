@@ -203,6 +203,8 @@ export const test_json_isStringify_ObjectUnionComposite =
           null !== input.centroid &&
           $io0(input.centroid) &&
           "number" === typeof input.radius;
+        // @ts-ignore;
+        declare const require: (lib: string) => any;
         const $number = require("typia/lib/functional/$number").$number;
         const $so0 = (input: any): any =>
           `{"x":${$number(input.x)},"y":${$number(input.y)}}`;

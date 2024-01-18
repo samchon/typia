@@ -38,6 +38,8 @@ export const test_json_assertStringify_ObjectGenericArray =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ObjectGenericArray => {
+            // @ts-ignore;
+            declare const require: (lib: string) => any;
             const $guard = require("typia/lib/functional/$guard").$guard(
               "typia.json.assertStringify",
             );
@@ -168,6 +170,8 @@ export const test_json_assertStringify_ObjectGenericArray =
           "number" === typeof input.total_pages;
         const $io2 = (input: any): boolean =>
           "string" === typeof input.name && "number" === typeof input.age;
+        // @ts-ignore;
+        declare const require: (lib: string) => any;
         const $number = require("typia/lib/functional/$number").$number;
         const $string = require("typia/lib/functional/$string").$string;
         const $so0 = (input: any): any =>

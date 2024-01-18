@@ -135,6 +135,8 @@ export const test_notation_createValidateSnake_ArrayAny =
         } as any;
       };
       const general = (input: ArrayAny): typia.SnakeCase<ArrayAny> => {
+        // @ts-ignore;
+        declare const require: (lib: string) => any;
         const $snake = require("typia/lib/functional/$snake").$snake;
         const $co0 = (input: any): any => ({
           anys: $snake(input.anys),
@@ -183,6 +185,8 @@ export const test_notation_createValidateSnake_ArrayAny =
           _path: string,
           _exceptionable: boolean = true,
         ): input is typia.SnakeCase<ArrayAny> => {
+          // @ts-ignore;
+          declare const require: (lib: string) => any;
           const $guard = require("typia/lib/functional/$guard").$guard(
             "typia.createAssert",
           );

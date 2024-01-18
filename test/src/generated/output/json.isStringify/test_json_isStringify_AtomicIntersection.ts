@@ -18,6 +18,8 @@ export const test_json_isStringify_AtomicIntersection = _test_json_isStringify(
       );
     };
     const stringify = (input: AtomicIntersection): string => {
+      // @ts-ignore;
+      declare const require: (lib: string) => any;
       const $number = require("typia/lib/functional/$number").$number;
       const $string = require("typia/lib/functional/$string").$string;
       return `[${input[0]},${$number(input[1])},${$string(input[2])}]`;

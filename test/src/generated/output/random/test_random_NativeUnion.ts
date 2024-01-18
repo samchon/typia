@@ -10,6 +10,8 @@ export const test_random_NativeUnion = _test_random("NativeUnion")<NativeUnion>(
     ((
       generator?: Partial<typia.IRandomGenerator>,
     ): typia.Resolved<NativeUnion> => {
+      // @ts-ignore;
+      declare const require: (lib: string) => any;
       const $generator = require("typia/lib/functional/$generator").$generator;
       const $ro0 = (_recursive: boolean = false, _depth: number = 0): any => ({
         date: (generator?.pick ?? $generator.pick)([
@@ -159,6 +161,8 @@ export const test_random_NativeUnion = _test_random("NativeUnion")<NativeUnion>(
         _path: string,
         _exceptionable: boolean = true,
       ): input is NativeUnion => {
+        // @ts-ignore;
+        declare const require: (lib: string) => any;
         const $guard = require("typia/lib/functional/$guard").$guard(
           "typia.createAssert",
         );

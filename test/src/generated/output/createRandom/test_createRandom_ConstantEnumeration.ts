@@ -10,6 +10,8 @@ export const test_createRandom_ConstantEnumeration = _test_random(
     generator: Partial<typia.IRandomGenerator> = (ConstantEnumeration as any)
       .RANDOM,
   ): typia.Resolved<ConstantEnumeration> => {
+    // @ts-ignore;
+    declare const require: (lib: string) => any;
     const $generator = require("typia/lib/functional/$generator").$generator;
     return (generator?.array ?? $generator.array)(() =>
       (generator?.pick ?? $generator.pick)([
@@ -41,6 +43,8 @@ export const test_createRandom_ConstantEnumeration = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ConstantEnumeration => {
+        // @ts-ignore;
+        declare const require: (lib: string) => any;
         const $guard = require("typia/lib/functional/$guard").$guard(
           "typia.createAssert",
         );

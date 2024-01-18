@@ -504,6 +504,8 @@ export const test_misc_createValidateClone_ArrayRecursiveUnionExplicit =
             else if ("lnk" === input.extension) return $io4(input);
             else return false;
           })();
+        // @ts-ignore;
+        declare const require: (lib: string) => any;
         const $throws = require("typia/lib/functional/$throws").$throws(
           "typia.misc.createValidateClone",
         );

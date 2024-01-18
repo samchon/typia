@@ -46,6 +46,8 @@ export const test_json_assertStringify_ToJsonUnion = _test_json_assertStringify(
           _path: string,
           _exceptionable: boolean = true,
         ): input is ToJsonUnion => {
+          // @ts-ignore;
+          declare const require: (lib: string) => any;
           const $guard = require("typia/lib/functional/$guard").$guard(
             "typia.json.assertStringify",
           );
@@ -184,6 +186,8 @@ export const test_json_assertStringify_ToJsonUnion = _test_json_assertStringify(
         "string" === typeof input.manufacturer &&
         "string" === typeof input.brand &&
         "string" === typeof input.name;
+      // @ts-ignore;
+      declare const require: (lib: string) => any;
       const $throws = require("typia/lib/functional/$throws").$throws(
         "typia.json.assertStringify",
       );

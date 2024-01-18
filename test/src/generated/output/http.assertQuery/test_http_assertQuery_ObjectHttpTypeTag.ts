@@ -10,6 +10,8 @@ export const test_http_assertQuery_ObjectHttpTypeTag = _test_http_assertQuery(
     const decode = (
       input: string | URLSearchParams,
     ): typia.Resolved<ObjectHttpTypeTag> => {
+      // @ts-ignore;
+      declare const require: (lib: string) => any;
       const $QueryReader =
         require("typia/lib/functional/$QueryReader").$QueryReader;
       input = $QueryReader.params(input) as URLSearchParams;
@@ -60,6 +62,8 @@ export const test_http_assertQuery_ObjectHttpTypeTag = _test_http_assertQuery(
           _path: string,
           _exceptionable: boolean = true,
         ): input is ObjectHttpTypeTag => {
+          // @ts-ignore;
+          declare const require: (lib: string) => any;
           const $guard = require("typia/lib/functional/$guard").$guard(
             "typia.http.assertQuery",
           );

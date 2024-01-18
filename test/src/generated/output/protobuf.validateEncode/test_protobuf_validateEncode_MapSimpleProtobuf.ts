@@ -495,6 +495,8 @@ export const test_protobuf_createValidateEncode_MapSimpleProtobuf =
           } as any;
         };
         const encode = (input: MapSimpleProtobuf): Uint8Array => {
+          // @ts-ignore;
+          declare const require: (lib: string) => any;
           const $ProtobufSizer =
             require("typia/lib/functional/$ProtobufSizer").$ProtobufSizer;
           const $ProtobufWriter =
@@ -658,6 +660,8 @@ export const test_protobuf_createValidateEncode_MapSimpleProtobuf =
         return output;
       })(input),
     decode: (input: Uint8Array): typia.Resolved<MapSimpleProtobuf> => {
+      // @ts-ignore;
+      declare const require: (lib: string) => any;
       const $ProtobufReader =
         require("typia/lib/functional/$ProtobufReader").$ProtobufReader;
       const $pdo0 = (reader: any, length: number = -1): any => {

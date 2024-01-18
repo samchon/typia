@@ -34,6 +34,8 @@ export const test_json_assertStringify_ArrayRecursive =
               _path: string,
               _exceptionable: boolean = true,
             ): input is ArrayRecursive => {
+              // @ts-ignore;
+              declare const require: (lib: string) => any;
               const $guard = require("typia/lib/functional/$guard").$guard(
                 "typia.json.assertStringify",
               );
@@ -159,6 +161,8 @@ export const test_json_assertStringify_ArrayRecursive =
             $io1(input.created_at);
           const $io1 = (input: any): boolean =>
             "number" === typeof input.time && "number" === typeof input.zone;
+          // @ts-ignore;
+          declare const require: (lib: string) => any;
           const $number = require("typia/lib/functional/$number").$number;
           const $string = require("typia/lib/functional/$string").$string;
           const $so0 = (input: any): any =>

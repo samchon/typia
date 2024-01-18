@@ -6,6 +6,8 @@ import { DynamicUnion } from "../../../structures/DynamicUnion";
 export const test_json_createStringify_DynamicUnion = _test_json_stringify(
   "DynamicUnion",
 )<DynamicUnion>(DynamicUnion)((input: DynamicUnion): string => {
+  // @ts-ignore;
+  declare const require: (lib: string) => any;
   const $string = require("typia/lib/functional/$string").$string;
   const $number = require("typia/lib/functional/$number").$number;
   const $so0 = (input: any): any =>

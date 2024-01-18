@@ -44,6 +44,8 @@ export const test_misc_createIsClone_ArrayUnion = _test_misc_isClone(
     );
   };
   const clone = (input: ArrayUnion): typia.Resolved<ArrayUnion> => {
+    // @ts-ignore;
+    declare const require: (lib: string) => any;
     const $throws = require("typia/lib/functional/$throws").$throws(
       "typia.misc.createIsClone",
     );

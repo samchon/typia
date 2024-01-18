@@ -43,6 +43,8 @@ export const test_json_createAssertStringify_ObjectUndefined =
           _path: string,
           _exceptionable: boolean = true,
         ): input is ObjectUndefined => {
+          // @ts-ignore;
+          declare const require: (lib: string) => any;
           const $guard = require("typia/lib/functional/$guard").$guard(
             "typia.json.createAssertStringify",
           );
@@ -168,6 +170,8 @@ export const test_json_createAssertStringify_ObjectUndefined =
     const stringify = (input: ObjectUndefined): string => {
       const $io1 = (input: any): boolean =>
         "string" === typeof input.id && "string" === typeof input.name;
+      // @ts-ignore;
+      declare const require: (lib: string) => any;
       const $string = require("typia/lib/functional/$string").$string;
       const $number = require("typia/lib/functional/$number").$number;
       const $throws = require("typia/lib/functional/$throws").$throws(

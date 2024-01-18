@@ -77,6 +77,8 @@ export const test_createAssertGuard_MapSimple = _test_assertGuard(
       _path: string,
       _exceptionable: boolean = true,
     ): input is MapSimple => {
+      // @ts-ignore;
+      declare const require: (lib: string) => any;
       const $guard = require("typia/lib/functional/$guard").$guard(
         "typia.createAssertGuard",
       );

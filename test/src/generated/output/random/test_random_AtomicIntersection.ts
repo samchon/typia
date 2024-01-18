@@ -10,6 +10,8 @@ export const test_random_AtomicIntersection = _test_random(
     ((
       generator?: Partial<typia.IRandomGenerator>,
     ): typia.Resolved<AtomicIntersection> => {
+      // @ts-ignore;
+      declare const require: (lib: string) => any;
       const $generator = require("typia/lib/functional/$generator").$generator;
       return [
         (generator?.boolean ?? $generator.boolean)(),
@@ -36,6 +38,8 @@ export const test_random_AtomicIntersection = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is AtomicIntersection => {
+        // @ts-ignore;
+        declare const require: (lib: string) => any;
         const $guard = require("typia/lib/functional/$guard").$guard(
           "typia.createAssert",
         );

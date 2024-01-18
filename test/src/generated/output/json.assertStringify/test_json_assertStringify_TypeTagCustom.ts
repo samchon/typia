@@ -39,6 +39,8 @@ export const test_json_assertStringify_TypeTagCustom =
               _path: string,
               _exceptionable: boolean = true,
             ): input is TypeTagCustom => {
+              // @ts-ignore;
+              declare const require: (lib: string) => any;
               const $guard = require("typia/lib/functional/$guard").$guard(
                 "typia.json.assertStringify",
               );
@@ -128,6 +130,8 @@ export const test_json_assertStringify_TypeTagCustom =
           return input;
         };
         const stringify = (input: TypeTagCustom): string => {
+          // @ts-ignore;
+          declare const require: (lib: string) => any;
           const $string = require("typia/lib/functional/$string").$string;
           const $number = require("typia/lib/functional/$number").$number;
           return `{"id":${$string((input as any).id)},"dollar":${$string(

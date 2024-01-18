@@ -62,6 +62,8 @@ export const test_validate_DynamicJsonValue = _test_validate(
         _path: string,
         _exceptionable: boolean = true,
       ): input is DynamicJsonValue => {
+        // @ts-ignore;
+        declare const require: (lib: string) => any;
         const $join = require("typia/lib/functional/$join").$join;
         const $vo0 = (
           input: any,

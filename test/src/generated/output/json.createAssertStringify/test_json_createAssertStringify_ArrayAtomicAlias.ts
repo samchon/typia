@@ -28,6 +28,8 @@ export const test_json_createAssertStringify_ArrayAtomicAlias =
           _path: string,
           _exceptionable: boolean = true,
         ): input is ArrayAtomicAlias => {
+          // @ts-ignore;
+          declare const require: (lib: string) => any;
           const $guard = require("typia/lib/functional/$guard").$guard(
             "typia.json.createAssertStringify",
           );
@@ -115,6 +117,8 @@ export const test_json_createAssertStringify_ArrayAtomicAlias =
       return input;
     };
     const stringify = (input: ArrayAtomicAlias): string => {
+      // @ts-ignore;
+      declare const require: (lib: string) => any;
       const $number = require("typia/lib/functional/$number").$number;
       const $string = require("typia/lib/functional/$string").$string;
       return `[${`[${input[0]

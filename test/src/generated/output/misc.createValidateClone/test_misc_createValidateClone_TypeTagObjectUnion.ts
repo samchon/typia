@@ -189,6 +189,8 @@ export const test_misc_createValidateClone_TypeTagObjectUnion =
         "string" === typeof input.value &&
         3 <= input.value.length &&
         input.value.length <= 7;
+      // @ts-ignore;
+      declare const require: (lib: string) => any;
       const $throws = require("typia/lib/functional/$throws").$throws(
         "typia.misc.createValidateClone",
       );

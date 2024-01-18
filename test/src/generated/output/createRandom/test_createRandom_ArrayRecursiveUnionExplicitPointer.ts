@@ -12,6 +12,8 @@ export const test_createRandom_ArrayRecursiveUnionExplicitPointer =
         ArrayRecursiveUnionExplicitPointer as any
       ).RANDOM,
     ): typia.Resolved<ArrayRecursiveUnionExplicitPointer> => {
+      // @ts-ignore;
+      declare const require: (lib: string) => any;
       const $generator = require("typia/lib/functional/$generator").$generator;
       const $ro0 = (_recursive: boolean = false, _depth: number = 0): any => ({
         value: (generator?.array ?? $generator.array)(() =>
@@ -213,6 +215,8 @@ export const test_createRandom_ArrayRecursiveUnionExplicitPointer =
           _path: string,
           _exceptionable: boolean = true,
         ): input is ArrayRecursiveUnionExplicitPointer => {
+          // @ts-ignore;
+          declare const require: (lib: string) => any;
           const $guard = require("typia/lib/functional/$guard").$guard(
             "typia.createAssert",
           );

@@ -35,6 +35,8 @@ export const test_misc_assertClone_ArrayAny = _test_misc_assertClone(
           _path: string,
           _exceptionable: boolean = true,
         ): input is ArrayAny => {
+          // @ts-ignore;
+          declare const require: (lib: string) => any;
           const $guard = require("typia/lib/functional/$guard").$guard(
             "typia.misc.assertClone",
           );
@@ -125,6 +127,8 @@ export const test_misc_assertClone_ArrayAny = _test_misc_assertClone(
       return input;
     };
     const clone = (input: ArrayAny): typia.Resolved<ArrayAny> => {
+      // @ts-ignore;
+      declare const require: (lib: string) => any;
       const $clone = require("typia/lib/functional/$clone").$clone;
       const $co0 = (input: any): any => ({
         anys: $clone(input.anys),

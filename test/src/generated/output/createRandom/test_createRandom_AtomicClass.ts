@@ -9,6 +9,8 @@ export const test_createRandom_AtomicClass = _test_random(
   random: (
     generator: Partial<typia.IRandomGenerator> = (AtomicClass as any).RANDOM,
   ): typia.Resolved<AtomicClass> => {
+    // @ts-ignore;
+    declare const require: (lib: string) => any;
     const $generator = require("typia/lib/functional/$generator").$generator;
     return [
       (generator?.boolean ?? $generator.boolean)(),
@@ -88,6 +90,8 @@ export const test_createRandom_AtomicClass = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is AtomicClass => {
+        // @ts-ignore;
+        declare const require: (lib: string) => any;
         const $guard = require("typia/lib/functional/$guard").$guard(
           "typia.createAssert",
         );

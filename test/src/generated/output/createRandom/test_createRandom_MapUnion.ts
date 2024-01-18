@@ -9,6 +9,8 @@ export const test_createRandom_MapUnion = _test_random("MapUnion")<MapUnion>(
   random: (
     generator: Partial<typia.IRandomGenerator> = (MapUnion as any).RANDOM,
   ): typia.Resolved<MapUnion> => {
+    // @ts-ignore;
+    declare const require: (lib: string) => any;
     const $generator = require("typia/lib/functional/$generator").$generator;
     const $ro0 = (_recursive: boolean = false, _depth: number = 0): any => ({
       id:
@@ -198,6 +200,8 @@ export const test_createRandom_MapUnion = _test_random("MapUnion")<MapUnion>(
         _path: string,
         _exceptionable: boolean = true,
       ): input is MapUnion => {
+        // @ts-ignore;
+        declare const require: (lib: string) => any;
         const $guard = require("typia/lib/functional/$guard").$guard(
           "typia.createAssert",
         );

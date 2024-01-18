@@ -10,6 +10,8 @@ export const test_random_NativeAlias = _test_random("NativeAlias")<NativeAlias>(
     ((
       generator?: Partial<typia.IRandomGenerator>,
     ): typia.Resolved<NativeAlias> => {
+      // @ts-ignore;
+      declare const require: (lib: string) => any;
       const $generator = require("typia/lib/functional/$generator").$generator;
       const $ro0 = (_recursive: boolean = false, _depth: number = 0): any => ({
         date: new Date((generator?.datetime ?? $generator.datetime)()),
@@ -134,6 +136,8 @@ export const test_random_NativeAlias = _test_random("NativeAlias")<NativeAlias>(
         _path: string,
         _exceptionable: boolean = true,
       ): input is NativeAlias => {
+        // @ts-ignore;
+        declare const require: (lib: string) => any;
         const $guard = require("typia/lib/functional/$guard").$guard(
           "typia.createAssert",
         );

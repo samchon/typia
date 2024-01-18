@@ -77,6 +77,8 @@ export const test_json_assertStringify_TypeTagRange =
               _path: string,
               _exceptionable: boolean = true,
             ): input is TypeTagRange => {
+              // @ts-ignore;
+              declare const require: (lib: string) => any;
               const $guard = require("typia/lib/functional/$guard").$guard(
                 "typia.json.assertStringify",
               );
@@ -408,6 +410,8 @@ export const test_json_assertStringify_TypeTagRange =
             input.equal <= 2147483647 &&
             10 <= input.equal &&
             input.equal <= 10;
+          // @ts-ignore;
+          declare const require: (lib: string) => any;
           const $number = require("typia/lib/functional/$number").$number;
           const $so0 = (input: any): any =>
             `{"value":${`[${input.value

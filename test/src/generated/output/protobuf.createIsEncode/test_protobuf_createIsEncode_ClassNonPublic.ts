@@ -15,6 +15,8 @@ export const test_protobuf_createIsEncode_ClassNonPublic =
         );
       };
       const encode = (input: ClassNonPublic): Uint8Array => {
+        // @ts-ignore;
+        declare const require: (lib: string) => any;
         const $ProtobufSizer =
           require("typia/lib/functional/$ProtobufSizer").$ProtobufSizer;
         const $ProtobufWriter =
@@ -39,6 +41,8 @@ export const test_protobuf_createIsEncode_ClassNonPublic =
       return is(input) ? encode(input) : null;
     },
     decode: (input: Uint8Array): typia.Resolved<ClassNonPublic> => {
+      // @ts-ignore;
+      declare const require: (lib: string) => any;
       const $ProtobufReader =
         require("typia/lib/functional/$ProtobufReader").$ProtobufReader;
       const $pdo0 = (reader: any, length: number = -1): any => {

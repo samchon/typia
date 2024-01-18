@@ -6,6 +6,8 @@ import { TypeTagArrayUnion } from "../../../structures/TypeTagArrayUnion";
 export const test_json_createStringify_TypeTagArrayUnion = _test_json_stringify(
   "TypeTagArrayUnion",
 )<TypeTagArrayUnion>(TypeTagArrayUnion)((input: TypeTagArrayUnion): string => {
+  // @ts-ignore;
+  declare const require: (lib: string) => any;
   const $string = require("typia/lib/functional/$string").$string;
   const $number = require("typia/lib/functional/$number").$number;
   const $throws = require("typia/lib/functional/$throws").$throws(

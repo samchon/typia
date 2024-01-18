@@ -36,6 +36,8 @@ export const test_assert_TypeTagNaN = _test_assert("TypeTagNaN")<TypeTagNaN>(
         _path: string,
         _exceptionable: boolean = true,
       ): input is TypeTagNaN => {
+        // @ts-ignore;
+        declare const require: (lib: string) => any;
         const $guard = require("typia/lib/functional/$guard").$guard(
           "typia.assert",
         );

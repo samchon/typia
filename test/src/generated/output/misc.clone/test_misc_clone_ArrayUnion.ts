@@ -7,6 +7,8 @@ export const test_misc_clone_ArrayUnion = _test_misc_clone(
   "ArrayUnion",
 )<ArrayUnion>(ArrayUnion)((input) =>
   ((input: ArrayUnion): typia.Resolved<ArrayUnion> => {
+    // @ts-ignore;
+    declare const require: (lib: string) => any;
     const $throws = require("typia/lib/functional/$throws").$throws(
       "typia.misc.clone",
     );

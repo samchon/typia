@@ -33,6 +33,8 @@ export const test_createValidateEquals_TypeTagTypeBigInt = _test_validateEquals(
         _path: string,
         _exceptionable: boolean = true,
       ): input is TypeTagTypeBigInt => {
+        // @ts-ignore;
+        declare const require: (lib: string) => any;
         const $join = require("typia/lib/functional/$join").$join;
         const $vo0 = (
           input: any,

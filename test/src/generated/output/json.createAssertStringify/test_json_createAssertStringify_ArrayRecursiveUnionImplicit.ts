@@ -91,6 +91,8 @@ export const test_json_createAssertStringify_ArrayRecursiveUnionImplicit =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ArrayRecursiveUnionImplicit => {
+            // @ts-ignore;
+            declare const require: (lib: string) => any;
             const $guard = require("typia/lib/functional/$guard").$guard(
               "typia.json.createAssertStringify",
             );
@@ -482,6 +484,8 @@ export const test_json_createAssertStringify_ArrayRecursiveUnionImplicit =
             else if (undefined !== input.target) return $io5(input);
             else return $io0(input);
           })();
+        // @ts-ignore;
+        declare const require: (lib: string) => any;
         const $number = require("typia/lib/functional/$number").$number;
         const $string = require("typia/lib/functional/$string").$string;
         const $throws = require("typia/lib/functional/$throws").$throws(

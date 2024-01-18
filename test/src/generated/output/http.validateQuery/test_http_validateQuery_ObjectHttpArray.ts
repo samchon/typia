@@ -181,6 +181,8 @@ export const test_http_validateQuery_ObjectHttpArray = _test_http_validateQuery(
     const query = (
       input: string | URLSearchParams,
     ): typia.Resolved<ObjectHttpArray> => {
+      // @ts-ignore;
+      declare const require: (lib: string) => any;
       const $QueryReader =
         require("typia/lib/functional/$QueryReader").$QueryReader;
       input = $QueryReader.params(input) as URLSearchParams;

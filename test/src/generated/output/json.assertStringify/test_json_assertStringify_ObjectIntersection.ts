@@ -24,6 +24,8 @@ export const test_json_assertStringify_ObjectIntersection =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ObjectIntersection => {
+            // @ts-ignore;
+            declare const require: (lib: string) => any;
             const $guard = require("typia/lib/functional/$guard").$guard(
               "typia.json.assertStringify",
             );
@@ -68,6 +70,8 @@ export const test_json_assertStringify_ObjectIntersection =
         return input;
       };
       const stringify = (input: ObjectIntersection): string => {
+        // @ts-ignore;
+        declare const require: (lib: string) => any;
         const $string = require("typia/lib/functional/$string").$string;
         return `{"email":${$string((input as any).email)},"name":${$string(
           (input as any).name,

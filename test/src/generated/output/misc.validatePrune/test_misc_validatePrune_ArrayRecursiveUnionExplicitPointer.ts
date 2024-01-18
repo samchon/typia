@@ -562,6 +562,8 @@ export const test_misc_validatePrune_ArrayRecursiveUnionExplicitPointer =
               else if ("lnk" === input.extension) return $io6(input);
               else return false;
             })();
+          // @ts-ignore;
+          declare const require: (lib: string) => any;
           const $throws = require("typia/lib/functional/$throws").$throws;
           const $pp0 = (input: any) =>
             input.forEach((elem: any) => {

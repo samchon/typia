@@ -10,6 +10,8 @@ export const test_random_SetAlias = _test_random("SetAlias")<SetAlias>(
     ((
       generator?: Partial<typia.IRandomGenerator>,
     ): typia.Resolved<SetAlias> => {
+      // @ts-ignore;
+      declare const require: (lib: string) => any;
       const $generator = require("typia/lib/functional/$generator").$generator;
       const $ro0 = (_recursive: boolean = false, _depth: number = 0): any => ({
         booleans: new Set(
@@ -106,6 +108,8 @@ export const test_random_SetAlias = _test_random("SetAlias")<SetAlias>(
         _path: string,
         _exceptionable: boolean = true,
       ): input is SetAlias => {
+        // @ts-ignore;
+        declare const require: (lib: string) => any;
         const $guard = require("typia/lib/functional/$guard").$guard(
           "typia.createAssert",
         );

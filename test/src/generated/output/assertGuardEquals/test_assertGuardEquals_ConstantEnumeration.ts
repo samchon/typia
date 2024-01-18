@@ -30,6 +30,8 @@ export const test_assertGuardEquals_ConstantEnumeration =
           _path: string,
           _exceptionable: boolean = true,
         ): input is ConstantEnumeration => {
+          // @ts-ignore;
+          declare const require: (lib: string) => any;
           const $guard = require("typia/lib/functional/$guard").$guard(
             "typia.assertGuardEquals",
           );

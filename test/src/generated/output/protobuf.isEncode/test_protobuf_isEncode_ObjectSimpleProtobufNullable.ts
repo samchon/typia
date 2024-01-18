@@ -39,6 +39,8 @@ export const test_protobuf_createIsEncode_ObjectSimpleProtobufNullable =
           return "object" === typeof input && null !== input && $io0(input);
         };
         const encode = (input: ObjectSimpleProtobufNullable): Uint8Array => {
+          // @ts-ignore;
+          declare const require: (lib: string) => any;
           const $ProtobufSizer =
             require("typia/lib/functional/$ProtobufSizer").$ProtobufSizer;
           const $ProtobufWriter =
@@ -104,6 +106,8 @@ export const test_protobuf_createIsEncode_ObjectSimpleProtobufNullable =
     decode: (
       input: Uint8Array,
     ): typia.Resolved<ObjectSimpleProtobufNullable> => {
+      // @ts-ignore;
+      declare const require: (lib: string) => any;
       const $ProtobufReader =
         require("typia/lib/functional/$ProtobufReader").$ProtobufReader;
       const $pdo0 = (reader: any, length: number = -1): any => {

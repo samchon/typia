@@ -85,6 +85,8 @@ export const test_createAssert_SetUnion = _test_assert("SetUnion")<SetUnion>(
       _path: string,
       _exceptionable: boolean = true,
     ): input is SetUnion => {
+      // @ts-ignore;
+      declare const require: (lib: string) => any;
       const $guard = require("typia/lib/functional/$guard").$guard(
         "typia.createAssert",
       );

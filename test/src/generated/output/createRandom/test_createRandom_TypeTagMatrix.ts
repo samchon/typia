@@ -9,6 +9,8 @@ export const test_createRandom_TypeTagMatrix = _test_random(
   random: (
     generator: Partial<typia.IRandomGenerator> = (TypeTagMatrix as any).RANDOM,
   ): typia.Resolved<TypeTagMatrix> => {
+    // @ts-ignore;
+    declare const require: (lib: string) => any;
     const $generator = require("typia/lib/functional/$generator").$generator;
     const $ro0 = (_recursive: boolean = false, _depth: number = 0): any => ({
       matrix: (generator?.array ?? $generator.array)(
@@ -56,6 +58,8 @@ export const test_createRandom_TypeTagMatrix = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is TypeTagMatrix => {
+        // @ts-ignore;
+        declare const require: (lib: string) => any;
         const $guard = require("typia/lib/functional/$guard").$guard(
           "typia.createAssert",
         );

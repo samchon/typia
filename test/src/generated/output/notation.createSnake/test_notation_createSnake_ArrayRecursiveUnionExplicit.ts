@@ -506,6 +506,8 @@ export const test_notation_createValidateSnake_ArrayRecursiveUnionExplicit =
             else if ("lnk" === input.extension) return $io4(input);
             else return false;
           })();
+        // @ts-ignore;
+        declare const require: (lib: string) => any;
         const $throws = require("typia/lib/functional/$throws").$throws(
           "typia.notations.createValidateSnake",
         );
@@ -673,6 +675,8 @@ export const test_notation_createValidateSnake_ArrayRecursiveUnionExplicit =
           _path: string,
           _exceptionable: boolean = true,
         ): input is typia.SnakeCase<ArrayRecursiveUnionExplicit> => {
+          // @ts-ignore;
+          declare const require: (lib: string) => any;
           const $guard = require("typia/lib/functional/$guard").$guard(
             "typia.createAssert",
           );

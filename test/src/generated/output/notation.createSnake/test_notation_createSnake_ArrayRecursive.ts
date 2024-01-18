@@ -234,6 +234,8 @@ export const test_notation_createValidateSnake_ArrayRecursive =
           _path: string,
           _exceptionable: boolean = true,
         ): input is typia.SnakeCase<ArrayRecursive> => {
+          // @ts-ignore;
+          declare const require: (lib: string) => any;
           const $guard = require("typia/lib/functional/$guard").$guard(
             "typia.createAssert",
           );

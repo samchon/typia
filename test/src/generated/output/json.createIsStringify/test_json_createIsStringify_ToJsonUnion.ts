@@ -47,6 +47,8 @@ export const test_json_createIsStringify_ToJsonUnion = _test_json_isStringify(
       "string" === typeof input.manufacturer &&
       "string" === typeof input.brand &&
       "string" === typeof input.name;
+    // @ts-ignore;
+    declare const require: (lib: string) => any;
     const $throws = require("typia/lib/functional/$throws").$throws(
       "typia.json.createIsStringify",
     );

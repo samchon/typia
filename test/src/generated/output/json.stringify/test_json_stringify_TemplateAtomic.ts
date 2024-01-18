@@ -7,6 +7,8 @@ export const test_json_stringify_TemplateAtomic = _test_json_stringify(
   "TemplateAtomic",
 )<TemplateAtomic>(TemplateAtomic)((input) =>
   ((input: TemplateAtomic): string => {
+    // @ts-ignore;
+    declare const require: (lib: string) => any;
     const $string = require("typia/lib/functional/$string").$string;
     const $throws = require("typia/lib/functional/$throws").$throws(
       "typia.json.stringify",

@@ -13,6 +13,8 @@ export const test_misc_createPrune_CommentTagObjectUnion = _test_misc_prune(
       "string" === typeof input.value &&
       3 <= input.value.length &&
       input.value.length <= 7;
+    // @ts-ignore;
+    declare const require: (lib: string) => any;
     const $throws = require("typia/lib/functional/$throws").$throws;
     const $pp0 = (input: any) =>
       input.forEach((elem: any) => {

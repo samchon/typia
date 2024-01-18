@@ -7,6 +7,8 @@ export const test_protobuf_createDecode_TypeTagFormat = _test_protobuf_decode(
   "TypeTagFormat",
 )<TypeTagFormat>(TypeTagFormat)({
   decode: (input: Uint8Array): typia.Resolved<TypeTagFormat> => {
+    // @ts-ignore;
+    declare const require: (lib: string) => any;
     const $ProtobufReader =
       require("typia/lib/functional/$ProtobufReader").$ProtobufReader;
     const $pdo0 = (reader: any, length: number = -1): any => {
@@ -62,6 +64,8 @@ export const test_protobuf_createDecode_TypeTagFormat = _test_protobuf_decode(
     return $pdo0(reader);
   },
   encode: (input: TypeTagFormat): Uint8Array => {
+    // @ts-ignore;
+    declare const require: (lib: string) => any;
     const $ProtobufSizer =
       require("typia/lib/functional/$ProtobufSizer").$ProtobufSizer;
     const $ProtobufWriter =

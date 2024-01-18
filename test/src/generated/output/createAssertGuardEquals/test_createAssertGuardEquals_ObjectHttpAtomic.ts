@@ -37,6 +37,8 @@ export const test_createAssertGuardEquals_ObjectHttpAtomic =
         _path: string,
         _exceptionable: boolean = true,
       ): input is ObjectHttpAtomic => {
+        // @ts-ignore;
+        declare const require: (lib: string) => any;
         const $guard = require("typia/lib/functional/$guard").$guard(
           "typia.createAssertGuardEquals",
         );

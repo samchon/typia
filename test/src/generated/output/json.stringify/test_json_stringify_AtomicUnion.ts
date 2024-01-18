@@ -7,6 +7,8 @@ export const test_json_stringify_AtomicUnion = _test_json_stringify(
   "AtomicUnion",
 )<AtomicUnion>(AtomicUnion)((input) =>
   ((input: AtomicUnion): string => {
+    // @ts-ignore;
+    declare const require: (lib: string) => any;
     const $string = require("typia/lib/functional/$string").$string;
     const $number = require("typia/lib/functional/$number").$number;
     const $throws = require("typia/lib/functional/$throws").$throws(

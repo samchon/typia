@@ -194,6 +194,8 @@ export const test_json_createValidateStringify_ToJsonUnion =
           "string" === typeof input.manufacturer &&
           "string" === typeof input.brand &&
           "string" === typeof input.name;
+        // @ts-ignore;
+        declare const require: (lib: string) => any;
         const $throws = require("typia/lib/functional/$throws").$throws(
           "typia.json.createValidateStringify",
         );

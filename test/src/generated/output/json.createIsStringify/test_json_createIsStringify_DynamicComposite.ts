@@ -42,6 +42,8 @@ export const test_json_createIsStringify_DynamicComposite =
       return "object" === typeof input && null !== input && $io0(input);
     };
     const stringify = (input: DynamicComposite): string => {
+      // @ts-ignore;
+      declare const require: (lib: string) => any;
       const $string = require("typia/lib/functional/$string").$string;
       const $number = require("typia/lib/functional/$number").$number;
       const $throws = require("typia/lib/functional/$throws").$throws(

@@ -200,6 +200,8 @@ export const test_createValidateEquals_ArrayRecursiveUnionExplicitPointer =
           _path: string,
           _exceptionable: boolean = true,
         ): input is ArrayRecursiveUnionExplicitPointer => {
+          // @ts-ignore;
+          declare const require: (lib: string) => any;
           const $join = require("typia/lib/functional/$join").$join;
           const $vo0 = (
             input: any,

@@ -95,6 +95,8 @@ export const test_assertGuard_ArrayRecursiveUnionExplicitPointer =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ArrayRecursiveUnionExplicitPointer => {
+            // @ts-ignore;
+            declare const require: (lib: string) => any;
             const $guard = require("typia/lib/functional/$guard").$guard(
               "typia.assertGuard",
             );

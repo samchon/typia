@@ -144,6 +144,8 @@ export const test_json_validateStringify_ToJsonAtomicSimple =
         } as any;
       };
       const stringify = (input: ToJsonAtomicSimple): string => {
+        // @ts-ignore;
+        declare const require: (lib: string) => any;
         const $number = require("typia/lib/functional/$number").$number;
         const $string = require("typia/lib/functional/$string").$string;
         return `[${input[0].toJSON()},${$number(input[1].toJSON())},${$string(

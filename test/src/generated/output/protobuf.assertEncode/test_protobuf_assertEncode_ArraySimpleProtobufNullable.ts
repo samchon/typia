@@ -84,6 +84,8 @@ export const test_protobuf_createAssertEncode_ArraySimpleProtobufNullable =
               _path: string,
               _exceptionable: boolean = true,
             ): input is ArraySimpleProtobufNullable => {
+              // @ts-ignore;
+              declare const require: (lib: string) => any;
               const $guard = require("typia/lib/functional/$guard").$guard(
                 "typia.protobuf.assertEncode",
               );
@@ -376,6 +378,8 @@ export const test_protobuf_createAssertEncode_ArraySimpleProtobufNullable =
           return input;
         };
         const encode = (input: ArraySimpleProtobufNullable): Uint8Array => {
+          // @ts-ignore;
+          declare const require: (lib: string) => any;
           const $ProtobufSizer =
             require("typia/lib/functional/$ProtobufSizer").$ProtobufSizer;
           const $ProtobufWriter =
@@ -567,6 +571,8 @@ export const test_protobuf_createAssertEncode_ArraySimpleProtobufNullable =
     decode: (
       input: Uint8Array,
     ): typia.Resolved<ArraySimpleProtobufNullable> => {
+      // @ts-ignore;
+      declare const require: (lib: string) => any;
       const $ProtobufReader =
         require("typia/lib/functional/$ProtobufReader").$ProtobufReader;
       const $pdo0 = (reader: any, length: number = -1): any => {

@@ -181,6 +181,8 @@ export const test_notation_validatePascal_ArrayAtomicAlias =
           _path: string,
           _exceptionable: boolean = true,
         ): input is typia.PascalCase<ArrayAtomicAlias> => {
+          // @ts-ignore;
+          declare const require: (lib: string) => any;
           const $guard = require("typia/lib/functional/$guard").$guard(
             "typia.createAssert",
           );

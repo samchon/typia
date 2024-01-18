@@ -8,6 +8,8 @@ export const test_protobuf_createAssertDecode_DynamicTree =
     decode: (input) =>
       ((input: Uint8Array): typia.Resolved<DynamicTree> => {
         const decode = (input: Uint8Array): typia.Resolved<DynamicTree> => {
+          // @ts-ignore;
+          declare const require: (lib: string) => any;
           const $ProtobufReader =
             require("typia/lib/functional/$ProtobufReader").$ProtobufReader;
           const $pdo0 = (reader: any, length: number = -1): any => {
@@ -93,6 +95,8 @@ export const test_protobuf_createAssertDecode_DynamicTree =
               _path: string,
               _exceptionable: boolean = true,
             ): input is DynamicTree => {
+              // @ts-ignore;
+              declare const require: (lib: string) => any;
               const $guard = require("typia/lib/functional/$guard").$guard(
                 "typia.protobuf.assertDecode",
               );
@@ -184,6 +188,8 @@ export const test_protobuf_createAssertDecode_DynamicTree =
         return assert(output) as any;
       })(input),
     encode: (input: DynamicTree): Uint8Array => {
+      // @ts-ignore;
+      declare const require: (lib: string) => any;
       const $ProtobufSizer =
         require("typia/lib/functional/$ProtobufSizer").$ProtobufSizer;
       const $ProtobufWriter =

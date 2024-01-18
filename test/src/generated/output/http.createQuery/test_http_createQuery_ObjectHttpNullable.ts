@@ -7,6 +7,8 @@ export const test_http_createQuery_ObjectHttpNullable = _test_http_query(
   "ObjectHttpNullable",
 )<ObjectHttpNullable>(ObjectHttpNullable)(
   (input: string | URLSearchParams): typia.Resolved<ObjectHttpNullable> => {
+    // @ts-ignore;
+    declare const require: (lib: string) => any;
     const $QueryReader =
       require("typia/lib/functional/$QueryReader").$QueryReader;
     input = $QueryReader.params(input) as URLSearchParams;

@@ -10,6 +10,8 @@ export const test_createRandom_DynamicTemplate = _test_random(
     generator: Partial<typia.IRandomGenerator> = (DynamicTemplate as any)
       .RANDOM,
   ): typia.Resolved<DynamicTemplate> => {
+    // @ts-ignore;
+    declare const require: (lib: string) => any;
     const $generator = require("typia/lib/functional/$generator").$generator;
     const $ro0 = (_recursive: boolean = false, _depth: number = 0): any => {
       const output = {} as any;
@@ -103,6 +105,8 @@ export const test_createRandom_DynamicTemplate = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is DynamicTemplate => {
+        // @ts-ignore;
+        declare const require: (lib: string) => any;
         const $guard = require("typia/lib/functional/$guard").$guard(
           "typia.createAssert",
         );

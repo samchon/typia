@@ -36,6 +36,8 @@ export const test_json_assertStringify_TypeTagPattern =
               _path: string,
               _exceptionable: boolean = true,
             ): input is TypeTagPattern => {
+              // @ts-ignore;
+              declare const require: (lib: string) => any;
               const $guard = require("typia/lib/functional/$guard").$guard(
                 "typia.json.assertStringify",
               );
@@ -126,6 +128,8 @@ export const test_json_assertStringify_TypeTagPattern =
           return input;
         };
         const stringify = (input: TypeTagPattern): string => {
+          // @ts-ignore;
+          declare const require: (lib: string) => any;
           const $string = require("typia/lib/functional/$string").$string;
           return `{"uuid":${$string((input as any).uuid)},"email":${$string(
             (input as any).email,

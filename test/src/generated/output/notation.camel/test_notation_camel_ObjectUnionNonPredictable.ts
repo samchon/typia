@@ -323,6 +323,8 @@ export const test_notation_validateCamel_ObjectUnionNonPredictable =
           const $io8 = (input: any): boolean => "string" === typeof input.value;
           const $iu0 = (input: any): any =>
             $io7(input) || $io5(input) || $io3(input);
+          // @ts-ignore;
+          declare const require: (lib: string) => any;
           const $throws = require("typia/lib/functional/$throws").$throws(
             "typia.notations.validateCamel",
           );
@@ -442,6 +444,8 @@ export const test_notation_validateCamel_ObjectUnionNonPredictable =
           _path: string,
           _exceptionable: boolean = true,
         ): input is typia.CamelCase<ObjectUnionNonPredictable> => {
+          // @ts-ignore;
+          declare const require: (lib: string) => any;
           const $guard = require("typia/lib/functional/$guard").$guard(
             "typia.createAssert",
           );

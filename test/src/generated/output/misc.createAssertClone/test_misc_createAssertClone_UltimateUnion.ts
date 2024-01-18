@@ -1100,6 +1100,8 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
         _path: string,
         _exceptionable: boolean = true,
       ): input is UltimateUnion => {
+        // @ts-ignore;
+        declare const require: (lib: string) => any;
         const $guard = require("typia/lib/functional/$guard").$guard(
           "typia.misc.createAssertClone",
         );
@@ -6629,6 +6631,8 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
             $io34(input)
           );
       })();
+    // @ts-ignore;
+    declare const require: (lib: string) => any;
     const $clone = require("typia/lib/functional/$clone").$clone;
     const $throws = require("typia/lib/functional/$throws").$throws(
       "typia.misc.createAssertClone",

@@ -92,6 +92,8 @@ export const test_json_createValidateStringify_ClassPropertyAssignment =
         } as any;
       };
       const stringify = (input: ClassPropertyAssignment): string => {
+        // @ts-ignore;
+        declare const require: (lib: string) => any;
         const $number = require("typia/lib/functional/$number").$number;
         const $string = require("typia/lib/functional/$string").$string;
         const $throws = require("typia/lib/functional/$throws").$throws(

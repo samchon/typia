@@ -69,6 +69,8 @@ export const test_createAssertGuardEquals_ToJsonTuple = _test_assertGuardEquals(
       _path: string,
       _exceptionable: boolean = true,
     ): input is ToJsonTuple => {
+      // @ts-ignore;
+      declare const require: (lib: string) => any;
       const $guard = require("typia/lib/functional/$guard").$guard(
         "typia.createAssertGuardEquals",
       );

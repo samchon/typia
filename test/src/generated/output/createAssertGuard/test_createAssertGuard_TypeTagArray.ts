@@ -53,6 +53,8 @@ export const test_createAssertGuard_TypeTagArray = _test_assertGuard(
       _path: string,
       _exceptionable: boolean = true,
     ): input is TypeTagArray => {
+      // @ts-ignore;
+      declare const require: (lib: string) => any;
       const $guard = require("typia/lib/functional/$guard").$guard(
         "typia.createAssertGuard",
       );

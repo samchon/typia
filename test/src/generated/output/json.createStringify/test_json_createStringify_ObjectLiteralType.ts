@@ -6,6 +6,8 @@ import { ObjectLiteralType } from "../../../structures/ObjectLiteralType";
 export const test_json_createStringify_ObjectLiteralType = _test_json_stringify(
   "ObjectLiteralType",
 )<ObjectLiteralType>(ObjectLiteralType)((input: ObjectLiteralType): string => {
+  // @ts-ignore;
+  declare const require: (lib: string) => any;
   const $string = require("typia/lib/functional/$string").$string;
   const $number = require("typia/lib/functional/$number").$number;
   return `{"id":${$string((input as any).id)},"name":${$string(

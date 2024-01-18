@@ -48,6 +48,8 @@ export const test_misc_assertPrune_CommentTagObjectUnion =
             _path: string,
             _exceptionable: boolean = true,
           ): input is CommentTagObjectUnion => {
+            // @ts-ignore;
+            declare const require: (lib: string) => any;
             const $guard = require("typia/lib/functional/$guard").$guard(
               "typia.misc.assertPrune",
             );
@@ -177,6 +179,8 @@ export const test_misc_assertPrune_CommentTagObjectUnion =
           "string" === typeof input.value &&
           3 <= input.value.length &&
           input.value.length <= 7;
+        // @ts-ignore;
+        declare const require: (lib: string) => any;
         const $throws = require("typia/lib/functional/$throws").$throws;
         const $pp0 = (input: any) =>
           input.forEach((elem: any) => {

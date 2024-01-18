@@ -35,6 +35,8 @@ export const test_json_createAssertStringify_ArraySimple =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ArraySimple => {
+            // @ts-ignore;
+            declare const require: (lib: string) => any;
             const $guard = require("typia/lib/functional/$guard").$guard(
               "typia.json.createAssertStringify",
             );
@@ -145,6 +147,8 @@ export const test_json_createAssertStringify_ArraySimple =
           "string" === typeof input.name &&
           "string" === typeof input.body &&
           "number" === typeof input.rank;
+        // @ts-ignore;
+        declare const require: (lib: string) => any;
         const $string = require("typia/lib/functional/$string").$string;
         const $number = require("typia/lib/functional/$number").$number;
         const $so0 = (input: any): any =>

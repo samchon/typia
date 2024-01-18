@@ -47,6 +47,8 @@ export const test_createAssertGuardEquals_TypeTagCustom =
           _path: string,
           _exceptionable: boolean = true,
         ): input is TypeTagCustom => {
+          // @ts-ignore;
+          declare const require: (lib: string) => any;
           const $guard = require("typia/lib/functional/$guard").$guard(
             "typia.createAssertGuardEquals",
           );

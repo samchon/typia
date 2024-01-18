@@ -363,6 +363,8 @@ export const test_protobuf_createValidateEncode_ArrayHierarchicalPointer =
           } as any;
         };
         const encode = (input: ArrayHierarchicalPointer): Uint8Array => {
+          // @ts-ignore;
+          declare const require: (lib: string) => any;
           const $ProtobufSizer =
             require("typia/lib/functional/$ProtobufSizer").$ProtobufSizer;
           const $ProtobufWriter =
@@ -509,6 +511,8 @@ export const test_protobuf_createValidateEncode_ArrayHierarchicalPointer =
         return output;
       })(input),
     decode: (input: Uint8Array): typia.Resolved<ArrayHierarchicalPointer> => {
+      // @ts-ignore;
+      declare const require: (lib: string) => any;
       const $ProtobufReader =
         require("typia/lib/functional/$ProtobufReader").$ProtobufReader;
       const $pdo0 = (reader: any, length: number = -1): any => {

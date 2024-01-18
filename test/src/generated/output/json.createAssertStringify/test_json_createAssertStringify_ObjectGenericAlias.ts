@@ -21,6 +21,8 @@ export const test_json_createAssertStringify_ObjectGenericAlias =
           _path: string,
           _exceptionable: boolean = true,
         ): input is ObjectGenericAlias => {
+          // @ts-ignore;
+          declare const require: (lib: string) => any;
           const $guard = require("typia/lib/functional/$guard").$guard(
             "typia.json.createAssertStringify",
           );
@@ -53,6 +55,8 @@ export const test_json_createAssertStringify_ObjectGenericAlias =
       return input;
     };
     const stringify = (input: ObjectGenericAlias): string => {
+      // @ts-ignore;
+      declare const require: (lib: string) => any;
       const $string = require("typia/lib/functional/$string").$string;
       return `{"value":${$string((input as any).value)}}`;
     };

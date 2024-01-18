@@ -183,6 +183,8 @@ export const test_json_validateStringify_ObjectGenericArray =
           "number" === typeof input.total_pages;
         const $io2 = (input: any): boolean =>
           "string" === typeof input.name && "number" === typeof input.age;
+        // @ts-ignore;
+        declare const require: (lib: string) => any;
         const $number = require("typia/lib/functional/$number").$number;
         const $string = require("typia/lib/functional/$string").$string;
         const $so0 = (input: any): any =>

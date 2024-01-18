@@ -103,6 +103,8 @@ export const test_protobuf_createAssertEncode_MapSimpleProtobufOptional =
               _path: string,
               _exceptionable: boolean = true,
             ): input is MapSimpleProtobufOptional => {
+              // @ts-ignore;
+              declare const require: (lib: string) => any;
               const $guard = require("typia/lib/functional/$guard").$guard(
                 "typia.protobuf.assertEncode",
               );
@@ -479,6 +481,8 @@ export const test_protobuf_createAssertEncode_MapSimpleProtobufOptional =
           return input;
         };
         const encode = (input: MapSimpleProtobufOptional): Uint8Array => {
+          // @ts-ignore;
+          declare const require: (lib: string) => any;
           const $ProtobufSizer =
             require("typia/lib/functional/$ProtobufSizer").$ProtobufSizer;
           const $ProtobufWriter =
@@ -662,6 +666,8 @@ export const test_protobuf_createAssertEncode_MapSimpleProtobufOptional =
         return encode(assert(input));
       })(input),
     decode: (input: Uint8Array): typia.Resolved<MapSimpleProtobufOptional> => {
+      // @ts-ignore;
+      declare const require: (lib: string) => any;
       const $ProtobufReader =
         require("typia/lib/functional/$ProtobufReader").$ProtobufReader;
       const $pdo0 = (reader: any, length: number = -1): any => {

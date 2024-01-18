@@ -24,6 +24,8 @@ export const test_misc_createClone_ArrayRepeatedUnion = _test_misc_clone(
       "number" === typeof input.x &&
       "number" === typeof input.y &&
       "number" === typeof input.z;
+    // @ts-ignore;
+    declare const require: (lib: string) => any;
     const $throws = require("typia/lib/functional/$throws").$throws(
       "typia.misc.createClone",
     );

@@ -1102,6 +1102,8 @@ export const test_createValidate_UltimateUnion = _test_validate(
         _path: string,
         _exceptionable: boolean = true,
       ): input is UltimateUnion => {
+        // @ts-ignore;
+        declare const require: (lib: string) => any;
         const $join = require("typia/lib/functional/$join").$join;
         const $vo0 = (
           input: any,

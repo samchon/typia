@@ -182,6 +182,8 @@ export const test_json_validateStringify_ObjectUndefined =
       const stringify = (input: ObjectUndefined): string => {
         const $io1 = (input: any): boolean =>
           "string" === typeof input.id && "string" === typeof input.name;
+        // @ts-ignore;
+        declare const require: (lib: string) => any;
         const $string = require("typia/lib/functional/$string").$string;
         const $number = require("typia/lib/functional/$number").$number;
         const $throws = require("typia/lib/functional/$throws").$throws(

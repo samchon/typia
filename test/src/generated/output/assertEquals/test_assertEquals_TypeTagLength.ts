@@ -64,6 +64,8 @@ export const test_assertEquals_TypeTagLength = _test_assertEquals(
         _path: string,
         _exceptionable: boolean = true,
       ): input is TypeTagLength => {
+        // @ts-ignore;
+        declare const require: (lib: string) => any;
         const $guard = require("typia/lib/functional/$guard").$guard(
           "typia.assertEquals",
         );

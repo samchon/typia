@@ -53,6 +53,8 @@ export const test_assert_SetSimple = _test_assert("SetSimple")<SetSimple>(
         _path: string,
         _exceptionable: boolean = true,
       ): input is SetSimple => {
+        // @ts-ignore;
+        declare const require: (lib: string) => any;
         const $guard = require("typia/lib/functional/$guard").$guard(
           "typia.assert",
         );

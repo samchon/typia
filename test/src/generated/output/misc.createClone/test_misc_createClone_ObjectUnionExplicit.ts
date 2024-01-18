@@ -72,6 +72,8 @@ export const test_misc_createClone_ObjectUnionExplicit = _test_misc_clone(
       $io2(input.centroid) &&
       "number" === typeof input.radius &&
       "circle" === input.type;
+    // @ts-ignore;
+    declare const require: (lib: string) => any;
     const $throws = require("typia/lib/functional/$throws").$throws(
       "typia.misc.createClone",
     );

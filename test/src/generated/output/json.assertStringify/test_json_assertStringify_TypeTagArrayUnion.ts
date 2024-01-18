@@ -60,6 +60,8 @@ export const test_json_assertStringify_TypeTagArrayUnion =
             _path: string,
             _exceptionable: boolean = true,
           ): input is TypeTagArrayUnion => {
+            // @ts-ignore;
+            declare const require: (lib: string) => any;
             const $guard = require("typia/lib/functional/$guard").$guard(
               "typia.json.assertStringify",
             );
@@ -270,6 +272,8 @@ export const test_json_assertStringify_TypeTagArrayUnion =
         return input;
       };
       const stringify = (input: TypeTagArrayUnion): string => {
+        // @ts-ignore;
+        declare const require: (lib: string) => any;
         const $string = require("typia/lib/functional/$string").$string;
         const $number = require("typia/lib/functional/$number").$number;
         const $throws = require("typia/lib/functional/$throws").$throws(

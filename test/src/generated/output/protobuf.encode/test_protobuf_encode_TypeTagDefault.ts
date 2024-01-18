@@ -8,6 +8,8 @@ export const test_protobuf_createEncode_TypeTagDefault = _test_protobuf_encode(
 )<TypeTagDefault>(TypeTagDefault)({
   encode: (input) =>
     ((input: TypeTagDefault): Uint8Array => {
+      // @ts-ignore;
+      declare const require: (lib: string) => any;
       const $throws = require("typia/lib/functional/$throws").$throws(
         "typia.protobuf.encode",
       );
@@ -120,6 +122,8 @@ export const test_protobuf_createEncode_TypeTagDefault = _test_protobuf_encode(
       return writer.buffer();
     })(input),
   decode: (input: Uint8Array): typia.Resolved<TypeTagDefault> => {
+    // @ts-ignore;
+    declare const require: (lib: string) => any;
     const $ProtobufReader =
       require("typia/lib/functional/$ProtobufReader").$ProtobufReader;
     const $pdo0 = (reader: any, length: number = -1): any => {

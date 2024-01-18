@@ -45,6 +45,8 @@ export const test_assert_DynamicTag = _test_assert("DynamicTag")<DynamicTag>(
         _path: string,
         _exceptionable: boolean = true,
       ): input is DynamicTag => {
+        // @ts-ignore;
+        declare const require: (lib: string) => any;
         const $guard = require("typia/lib/functional/$guard").$guard(
           "typia.assert",
         );

@@ -70,6 +70,8 @@ export const test_json_validateStringify_ConstantEnumeration =
         } as any;
       };
       const stringify = (input: ConstantEnumeration): string => {
+        // @ts-ignore;
+        declare const require: (lib: string) => any;
         const $string = require("typia/lib/functional/$string").$string;
         const $number = require("typia/lib/functional/$number").$number;
         const $throws = require("typia/lib/functional/$throws").$throws(

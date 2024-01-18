@@ -32,6 +32,8 @@ export const test_http_isQuery_ObjectHttpCommentTag = _test_http_isQuery(
     const query = (
       input: string | URLSearchParams,
     ): typia.Resolved<ObjectHttpCommentTag> => {
+      // @ts-ignore;
+      declare const require: (lib: string) => any;
       const $QueryReader =
         require("typia/lib/functional/$QueryReader").$QueryReader;
       input = $QueryReader.params(input) as URLSearchParams;

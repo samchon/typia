@@ -1048,6 +1048,8 @@ export const test_misc_createClone_UltimateUnion = _test_misc_clone(
             $io34(input)
           );
       })();
+    // @ts-ignore;
+    declare const require: (lib: string) => any;
     const $clone = require("typia/lib/functional/$clone").$clone;
     const $throws = require("typia/lib/functional/$throws").$throws(
       "typia.misc.createClone",

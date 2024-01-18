@@ -195,6 +195,8 @@ export const test_notation_createValidateSnake_ObjectPartialAndRequired =
           _path: string,
           _exceptionable: boolean = true,
         ): input is typia.SnakeCase<ObjectPartialAndRequired> => {
+          // @ts-ignore;
+          declare const require: (lib: string) => any;
           const $guard = require("typia/lib/functional/$guard").$guard(
             "typia.createAssert",
           );

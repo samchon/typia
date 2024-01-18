@@ -36,6 +36,8 @@ export const test_notation_createValidatePascal_DynamicUndefined =
             _path: string,
             _exceptionable: boolean = true,
           ): input is DynamicUndefined => {
+            // @ts-ignore;
+            declare const require: (lib: string) => any;
             const $join = require("typia/lib/functional/$join").$join;
             const $vo0 = (
               input: any,
@@ -137,6 +139,8 @@ export const test_notation_createValidatePascal_DynamicUndefined =
           _path: string,
           _exceptionable: boolean = true,
         ): input is typia.PascalCase<DynamicUndefined> => {
+          // @ts-ignore;
+          declare const require: (lib: string) => any;
           const $guard = require("typia/lib/functional/$guard").$guard(
             "typia.createAssert",
           );

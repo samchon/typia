@@ -51,6 +51,8 @@ export const test_assertGuard_ObjectSimple = _test_assertGuard(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ObjectSimple => {
+        // @ts-ignore;
+        declare const require: (lib: string) => any;
         const $guard = require("typia/lib/functional/$guard").$guard(
           "typia.assertGuard",
         );

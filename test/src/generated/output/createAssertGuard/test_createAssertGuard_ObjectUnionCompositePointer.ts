@@ -150,6 +150,8 @@ export const test_createAssertGuard_ObjectUnionCompositePointer =
         _path: string,
         _exceptionable: boolean = true,
       ): input is ObjectUnionCompositePointer => {
+        // @ts-ignore;
+        declare const require: (lib: string) => any;
         const $guard = require("typia/lib/functional/$guard").$guard(
           "typia.createAssertGuard",
         );

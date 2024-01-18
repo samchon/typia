@@ -45,6 +45,8 @@ export const test_json_assertStringify_DynamicTemplate =
             _path: string,
             _exceptionable: boolean = true,
           ): input is DynamicTemplate => {
+            // @ts-ignore;
+            declare const require: (lib: string) => any;
             const $guard = require("typia/lib/functional/$guard").$guard(
               "typia.json.assertStringify",
             );
@@ -129,6 +131,8 @@ export const test_json_assertStringify_DynamicTemplate =
         return input;
       };
       const stringify = (input: DynamicTemplate): string => {
+        // @ts-ignore;
+        declare const require: (lib: string) => any;
         const $string = require("typia/lib/functional/$string").$string;
         const $number = require("typia/lib/functional/$number").$number;
         const $so0 = (input: any): any =>

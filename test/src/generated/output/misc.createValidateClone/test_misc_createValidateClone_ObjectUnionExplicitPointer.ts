@@ -729,6 +729,8 @@ export const test_misc_createValidateClone_ObjectUnionExplicitPointer =
             else if ("circle" === input.type) return $io10(input);
             else return false;
           })();
+        // @ts-ignore;
+        declare const require: (lib: string) => any;
         const $throws = require("typia/lib/functional/$throws").$throws(
           "typia.misc.createValidateClone",
         );

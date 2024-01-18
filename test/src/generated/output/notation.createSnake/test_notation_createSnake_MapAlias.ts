@@ -597,6 +597,8 @@ export const test_notation_createValidateSnake_MapAlias =
           _path: string,
           _exceptionable: boolean = true,
         ): input is typia.SnakeCase<MapAlias> => {
+          // @ts-ignore;
+          declare const require: (lib: string) => any;
           const $guard = require("typia/lib/functional/$guard").$guard(
             "typia.createAssert",
           );

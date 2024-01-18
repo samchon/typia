@@ -9,6 +9,8 @@ export const test_protobuf_createEncode_ObjectHttpConstant =
   )({
     encode: (input) =>
       ((input: ObjectHttpConstant): Uint8Array => {
+        // @ts-ignore;
+        declare const require: (lib: string) => any;
         const $ProtobufSizer =
           require("typia/lib/functional/$ProtobufSizer").$ProtobufSizer;
         const $ProtobufWriter =
@@ -40,6 +42,8 @@ export const test_protobuf_createEncode_ObjectHttpConstant =
         return writer.buffer();
       })(input),
     decode: (input: Uint8Array): typia.Resolved<ObjectHttpConstant> => {
+      // @ts-ignore;
+      declare const require: (lib: string) => any;
       const $ProtobufReader =
         require("typia/lib/functional/$ProtobufReader").$ProtobufReader;
       const $pdo0 = (reader: any, length: number = -1): any => {

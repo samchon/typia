@@ -10,6 +10,8 @@ export const test_random_ArrayRecursive = _test_random(
     ((
       generator?: Partial<typia.IRandomGenerator>,
     ): typia.Resolved<ArrayRecursive> => {
+      // @ts-ignore;
+      declare const require: (lib: string) => any;
       const $generator = require("typia/lib/functional/$generator").$generator;
       const $ro0 = (_recursive: boolean = true, _depth: number = 0): any => ({
         children:
@@ -68,6 +70,8 @@ export const test_random_ArrayRecursive = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ArrayRecursive => {
+        // @ts-ignore;
+        declare const require: (lib: string) => any;
         const $guard = require("typia/lib/functional/$guard").$guard(
           "typia.createAssert",
         );

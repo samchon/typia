@@ -1142,6 +1142,8 @@ export const test_notation_validateCamel_UltimateUnion =
               _path: string,
               _exceptionable: boolean = true,
             ): input is UltimateUnion => {
+              // @ts-ignore;
+              declare const require: (lib: string) => any;
               const $join = require("typia/lib/functional/$join").$join;
               const $vo0 = (
                 input: any,
@@ -7331,6 +7333,8 @@ export const test_notation_validateCamel_UltimateUnion =
                   $io34(input)
                 );
             })();
+          // @ts-ignore;
+          declare const require: (lib: string) => any;
           const $camel = require("typia/lib/functional/$camel").$camel;
           const $throws = require("typia/lib/functional/$throws").$throws(
             "typia.notations.validateCamel",
@@ -9201,6 +9205,8 @@ export const test_notation_validateCamel_UltimateUnion =
           _path: string,
           _exceptionable: boolean = true,
         ): input is typia.CamelCase<UltimateUnion> => {
+          // @ts-ignore;
+          declare const require: (lib: string) => any;
           const $guard = require("typia/lib/functional/$guard").$guard(
             "typia.createAssert",
           );

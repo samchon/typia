@@ -9,6 +9,8 @@ export const test_createRandom_SetSimple = _test_random("SetSimple")<SetSimple>(
   random: (
     generator: Partial<typia.IRandomGenerator> = (SetSimple as any).RANDOM,
   ): typia.Resolved<SetSimple> => {
+    // @ts-ignore;
+    declare const require: (lib: string) => any;
     const $generator = require("typia/lib/functional/$generator").$generator;
     const $ro0 = (_recursive: boolean = false, _depth: number = 0): any => ({
       booleans: new Set(
@@ -105,6 +107,8 @@ export const test_createRandom_SetSimple = _test_random("SetSimple")<SetSimple>(
         _path: string,
         _exceptionable: boolean = true,
       ): input is SetSimple => {
+        // @ts-ignore;
+        declare const require: (lib: string) => any;
         const $guard = require("typia/lib/functional/$guard").$guard(
           "typia.createAssert",
         );

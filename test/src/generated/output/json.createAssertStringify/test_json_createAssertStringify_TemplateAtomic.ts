@@ -37,6 +37,8 @@ export const test_json_createAssertStringify_TemplateAtomic =
             _path: string,
             _exceptionable: boolean = true,
           ): input is TemplateAtomic => {
+            // @ts-ignore;
+            declare const require: (lib: string) => any;
             const $guard = require("typia/lib/functional/$guard").$guard(
               "typia.json.createAssertStringify",
             );
@@ -123,6 +125,8 @@ export const test_json_createAssertStringify_TemplateAtomic =
         return input;
       };
       const stringify = (input: TemplateAtomic): string => {
+        // @ts-ignore;
+        declare const require: (lib: string) => any;
         const $string = require("typia/lib/functional/$string").$string;
         const $throws = require("typia/lib/functional/$throws").$throws(
           "typia.json.createAssertStringify",

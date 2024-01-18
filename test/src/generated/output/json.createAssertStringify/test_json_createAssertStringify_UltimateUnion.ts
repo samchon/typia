@@ -1131,6 +1131,8 @@ export const test_json_createAssertStringify_UltimateUnion =
             _path: string,
             _exceptionable: boolean = true,
           ): input is UltimateUnion => {
+            // @ts-ignore;
+            declare const require: (lib: string) => any;
             const $guard = require("typia/lib/functional/$guard").$guard(
               "typia.json.createAssertStringify",
             );
@@ -6738,6 +6740,8 @@ export const test_json_createAssertStringify_UltimateUnion =
                 $io34(input)
               );
           })();
+        // @ts-ignore;
+        declare const require: (lib: string) => any;
         const $string = require("typia/lib/functional/$string").$string;
         const $throws = require("typia/lib/functional/$throws").$throws(
           "typia.json.createAssertStringify",

@@ -63,6 +63,8 @@ export const test_json_validateStringify_ObjectGenericAlias =
         } as any;
       };
       const stringify = (input: ObjectGenericAlias): string => {
+        // @ts-ignore;
+        declare const require: (lib: string) => any;
         const $string = require("typia/lib/functional/$string").$string;
         return `{"value":${$string((input as any).value)}}`;
       };

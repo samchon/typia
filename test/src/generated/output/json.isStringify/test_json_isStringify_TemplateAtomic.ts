@@ -32,6 +32,8 @@ export const test_json_isStringify_TemplateAtomic = _test_json_isStringify(
       return "object" === typeof input && null !== input && $io0(input);
     };
     const stringify = (input: TemplateAtomic): string => {
+      // @ts-ignore;
+      declare const require: (lib: string) => any;
       const $string = require("typia/lib/functional/$string").$string;
       const $throws = require("typia/lib/functional/$throws").$throws(
         "typia.json.isStringify",

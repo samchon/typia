@@ -51,6 +51,8 @@ export const test_json_assertStringify_TypeTagType = _test_json_assertStringify(
           _path: string,
           _exceptionable: boolean = true,
         ): input is TypeTagType => {
+          // @ts-ignore;
+          declare const require: (lib: string) => any;
           const $guard = require("typia/lib/functional/$guard").$guard(
             "typia.json.assertStringify",
           );
@@ -237,6 +239,8 @@ export const test_json_assertStringify_TypeTagType = _test_json_assertStringify(
         "number" === typeof input.float &&
         -1.175494351e38 <= input.float &&
         input.float <= 3.4028235e38;
+      // @ts-ignore;
+      declare const require: (lib: string) => any;
       const $number = require("typia/lib/functional/$number").$number;
       const $so0 = (input: any): any =>
         `{"value":${`[${input.value

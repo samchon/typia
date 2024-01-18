@@ -29,6 +29,8 @@ export const test_createValidateEquals_ToJsonNull = _test_validateEquals(
       _path: string,
       _exceptionable: boolean = true,
     ): input is ToJsonNull => {
+      // @ts-ignore;
+      declare const require: (lib: string) => any;
       const $join = require("typia/lib/functional/$join").$join;
       const $vo0 = (
         input: any,

@@ -30,6 +30,8 @@ export const test_misc_createClone_ObjectNullable = _test_misc_clone(
         else if ("manufacturer" === input.type) return $io2(input);
         else return false;
       })();
+    // @ts-ignore;
+    declare const require: (lib: string) => any;
     const $throws = require("typia/lib/functional/$throws").$throws(
       "typia.misc.createClone",
     );

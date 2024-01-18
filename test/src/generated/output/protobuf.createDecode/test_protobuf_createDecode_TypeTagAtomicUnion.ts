@@ -8,6 +8,8 @@ export const test_protobuf_createDecode_TypeTagAtomicUnion =
     TypeTagAtomicUnion,
   )({
     decode: (input: Uint8Array): typia.Resolved<TypeTagAtomicUnion> => {
+      // @ts-ignore;
+      declare const require: (lib: string) => any;
       const $ProtobufReader =
         require("typia/lib/functional/$ProtobufReader").$ProtobufReader;
       const $pdo0 = (reader: any, length: number = -1): any => {
@@ -56,6 +58,8 @@ export const test_protobuf_createDecode_TypeTagAtomicUnion =
       return $pdo0(reader);
     },
     encode: (input: TypeTagAtomicUnion): Uint8Array => {
+      // @ts-ignore;
+      declare const require: (lib: string) => any;
       const $throws = require("typia/lib/functional/$throws").$throws(
         "typia.protobuf.createEncode",
       );

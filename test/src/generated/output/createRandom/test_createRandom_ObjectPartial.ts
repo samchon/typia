@@ -9,6 +9,8 @@ export const test_createRandom_ObjectPartial = _test_random(
   random: (
     generator: Partial<typia.IRandomGenerator> = (ObjectPartial as any).RANDOM,
   ): typia.Resolved<ObjectPartial> => {
+    // @ts-ignore;
+    declare const require: (lib: string) => any;
     const $generator = require("typia/lib/functional/$generator").$generator;
     const $ro0 = (_recursive: boolean = false, _depth: number = 0): any => ({
       boolean: (generator?.pick ?? $generator.pick)([
@@ -111,6 +113,8 @@ export const test_createRandom_ObjectPartial = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ObjectPartial => {
+        // @ts-ignore;
+        declare const require: (lib: string) => any;
         const $guard = require("typia/lib/functional/$guard").$guard(
           "typia.createAssert",
         );

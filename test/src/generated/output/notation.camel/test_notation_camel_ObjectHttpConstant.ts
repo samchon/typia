@@ -138,6 +138,8 @@ export const test_notation_validateCamel_ObjectHttpConstant =
           _path: string,
           _exceptionable: boolean = true,
         ): input is typia.CamelCase<ObjectHttpConstant> => {
+          // @ts-ignore;
+          declare const require: (lib: string) => any;
           const $guard = require("typia/lib/functional/$guard").$guard(
             "typia.createAssert",
           );

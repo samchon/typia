@@ -1103,6 +1103,8 @@ export const test_notation_createValidateSnake_InstanceUnion =
             else if ("circle" === input.type) return $io10(input);
             else return false;
           })();
+        // @ts-ignore;
+        declare const require: (lib: string) => any;
         const $snake = require("typia/lib/functional/$snake").$snake;
         const $throws = require("typia/lib/functional/$throws").$throws(
           "typia.notations.createValidateSnake",
@@ -1559,6 +1561,8 @@ export const test_notation_createValidateSnake_InstanceUnion =
           _path: string,
           _exceptionable: boolean = true,
         ): input is typia.SnakeCase<InstanceUnion> => {
+          // @ts-ignore;
+          declare const require: (lib: string) => any;
           const $guard = require("typia/lib/functional/$guard").$guard(
             "typia.createAssert",
           );

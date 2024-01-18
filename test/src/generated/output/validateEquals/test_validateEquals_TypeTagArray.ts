@@ -82,6 +82,8 @@ export const test_validateEquals_TypeTagArray = _test_validateEquals(
         _path: string,
         _exceptionable: boolean = true,
       ): input is TypeTagArray => {
+        // @ts-ignore;
+        declare const require: (lib: string) => any;
         const $join = require("typia/lib/functional/$join").$join;
         const $vo0 = (
           input: any,

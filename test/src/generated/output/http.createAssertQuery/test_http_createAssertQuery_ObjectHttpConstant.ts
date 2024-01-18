@@ -10,6 +10,8 @@ export const test_http_createAssertQuery_ObjectHttpConstant =
     const decode = (
       input: string | URLSearchParams,
     ): typia.Resolved<ObjectHttpConstant> => {
+      // @ts-ignore;
+      declare const require: (lib: string) => any;
       const $QueryReader =
         require("typia/lib/functional/$QueryReader").$QueryReader;
       input = $QueryReader.params(input) as URLSearchParams;
@@ -41,6 +43,8 @@ export const test_http_createAssertQuery_ObjectHttpConstant =
           _path: string,
           _exceptionable: boolean = true,
         ): input is ObjectHttpConstant => {
+          // @ts-ignore;
+          declare const require: (lib: string) => any;
           const $guard = require("typia/lib/functional/$guard").$guard(
             "typia.http.createAssertQuery",
           );

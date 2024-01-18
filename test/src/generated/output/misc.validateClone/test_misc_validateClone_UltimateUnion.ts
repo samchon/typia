@@ -1125,6 +1125,8 @@ export const test_misc_validateClone_UltimateUnion = _test_misc_validateClone(
           _path: string,
           _exceptionable: boolean = true,
         ): input is UltimateUnion => {
+          // @ts-ignore;
+          declare const require: (lib: string) => any;
           const $join = require("typia/lib/functional/$join").$join;
           const $vo0 = (
             input: any,
@@ -6925,6 +6927,8 @@ export const test_misc_validateClone_UltimateUnion = _test_misc_validateClone(
               $io34(input)
             );
         })();
+      // @ts-ignore;
+      declare const require: (lib: string) => any;
       const $clone = require("typia/lib/functional/$clone").$clone;
       const $throws = require("typia/lib/functional/$throws").$throws(
         "typia.misc.validateClone",

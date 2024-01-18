@@ -29,6 +29,8 @@ export const test_json_createAssertParse_DynamicUndefined =
           _path: string,
           _exceptionable: boolean = true,
         ): input is DynamicUndefined => {
+          // @ts-ignore;
+          declare const require: (lib: string) => any;
           const $guard = require("typia/lib/functional/$guard").$guard(
             "typia.json.createAssertParse",
           );

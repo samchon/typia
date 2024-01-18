@@ -23,6 +23,8 @@ export const test_json_stringify_TemplateConstant = _test_json_stringify(
         "the_1_value_with_label_A" === input.combined ||
         "the_1_value_with_label_B" === input.combined ||
         "the_1_value_with_label_C" === input.combined);
+    // @ts-ignore;
+    declare const require: (lib: string) => any;
     const $string = require("typia/lib/functional/$string").$string;
     const $throws = require("typia/lib/functional/$throws").$throws(
       "typia.json.stringify",

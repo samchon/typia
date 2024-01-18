@@ -10,6 +10,8 @@ export const test_random_ArrayAny = _test_random("ArrayAny")<ArrayAny>(
     ((
       generator?: Partial<typia.IRandomGenerator>,
     ): typia.Resolved<ArrayAny> => {
+      // @ts-ignore;
+      declare const require: (lib: string) => any;
       const $generator = require("typia/lib/functional/$generator").$generator;
       const $ro0 = (_recursive: boolean = false, _depth: number = 0): any => ({
         anys: (generator?.array ?? $generator.array)(() => "any type used..."),
@@ -83,6 +85,8 @@ export const test_random_ArrayAny = _test_random("ArrayAny")<ArrayAny>(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ArrayAny => {
+        // @ts-ignore;
+        declare const require: (lib: string) => any;
         const $guard = require("typia/lib/functional/$guard").$guard(
           "typia.createAssert",
         );

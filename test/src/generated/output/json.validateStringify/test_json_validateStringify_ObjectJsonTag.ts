@@ -83,6 +83,8 @@ export const test_json_validateStringify_ObjectJsonTag =
           } as any;
         };
         const stringify = (input: ObjectJsonTag): string => {
+          // @ts-ignore;
+          declare const require: (lib: string) => any;
           const $string = require("typia/lib/functional/$string").$string;
           return `{"vulnerable":${$string(
             (input as any).vulnerable,

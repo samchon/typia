@@ -57,6 +57,8 @@ export const test_createAssertGuard_FunctionalArrayUnion = _test_assertGuard(
         _path: string,
         _exceptionable: boolean = true,
       ): input is FunctionalArrayUnion => {
+        // @ts-ignore;
+        declare const require: (lib: string) => any;
         const $guard = require("typia/lib/functional/$guard").$guard(
           "typia.createAssertGuard",
         );

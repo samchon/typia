@@ -8,6 +8,8 @@ export const test_issue_912_protobuf_decode = () => {
   };
   const obj = { id: 12 };
   const encoded = ((input: Foo): Uint8Array => {
+    // @ts-ignore;
+    declare const require: (lib: string) => any;
     const $ProtobufSizer =
       require("typia/lib/functional/$ProtobufSizer").$ProtobufSizer;
     const $ProtobufWriter =
@@ -36,6 +38,8 @@ export const test_issue_912_protobuf_decode = () => {
   let decoded2: Foo;
   try {
     decoded1 = ((input: Uint8Array): typia.Resolved<Foo> => {
+      // @ts-ignore;
+      declare const require: (lib: string) => any;
       const $ProtobufReader =
         require("typia/lib/functional/$ProtobufReader").$ProtobufReader;
       const $pdo0 = (reader: any, length: number = -1): any => {
@@ -61,6 +65,8 @@ export const test_issue_912_protobuf_decode = () => {
       return $pdo0(reader);
     })(encoded);
     decoded2 = ((input: Uint8Array): typia.Resolved<Foo> => {
+      // @ts-ignore;
+      declare const require: (lib: string) => any;
       const $ProtobufReader =
         require("typia/lib/functional/$ProtobufReader").$ProtobufReader;
       const $pdo0 = (reader: any, length: number = -1): any => {

@@ -75,6 +75,8 @@ export const test_json_createIsStringify_ObjectGeneric = _test_json_isStringify(
     const $io5 = (input: any): boolean =>
       "string" === typeof input.child_value &&
       "string" === typeof input.child_next;
+    // @ts-ignore;
+    declare const require: (lib: string) => any;
     const $number = require("typia/lib/functional/$number").$number;
     const $string = require("typia/lib/functional/$string").$string;
     const $so0 = (input: any): any =>

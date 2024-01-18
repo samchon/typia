@@ -39,6 +39,8 @@ export const test_http_createIsHeaders_ObjectHttpTypeTag = _test_http_isHeaders(
     const headers = (
       input: Record<string, string | string[] | undefined>,
     ): typia.Resolved<ObjectHttpTypeTag> => {
+      // @ts-ignore;
+      declare const require: (lib: string) => any;
       const $HeadersReader =
         require("typia/lib/functional/$HeadersReader").$HeadersReader;
       const output = {

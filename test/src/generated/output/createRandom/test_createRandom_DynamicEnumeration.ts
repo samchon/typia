@@ -10,6 +10,8 @@ export const test_createRandom_DynamicEnumeration = _test_random(
     generator: Partial<typia.IRandomGenerator> = (DynamicEnumeration as any)
       .RANDOM,
   ): typia.Resolved<DynamicEnumeration> => {
+    // @ts-ignore;
+    declare const require: (lib: string) => any;
     const $generator = require("typia/lib/functional/$generator").$generator;
     const $ro0 = (_recursive: boolean = false, _depth: number = 0): any => ({
       value: $ro1(_recursive, _recursive ? 1 + _depth : _depth),
@@ -106,6 +108,8 @@ export const test_createRandom_DynamicEnumeration = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is DynamicEnumeration => {
+        // @ts-ignore;
+        declare const require: (lib: string) => any;
         const $guard = require("typia/lib/functional/$guard").$guard(
           "typia.createAssert",
         );

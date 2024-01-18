@@ -9,6 +9,8 @@ export const test_createRandom_TemplateAtomic = _test_random(
   random: (
     generator: Partial<typia.IRandomGenerator> = (TemplateAtomic as any).RANDOM,
   ): typia.Resolved<TemplateAtomic> => {
+    // @ts-ignore;
+    declare const require: (lib: string) => any;
     const $generator = require("typia/lib/functional/$generator").$generator;
     const $ro0 = (_recursive: boolean = false, _depth: number = 0): any => ({
       prefix: `prefix_${
@@ -92,6 +94,8 @@ export const test_createRandom_TemplateAtomic = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is TemplateAtomic => {
+        // @ts-ignore;
+        declare const require: (lib: string) => any;
         const $guard = require("typia/lib/functional/$guard").$guard(
           "typia.createAssert",
         );

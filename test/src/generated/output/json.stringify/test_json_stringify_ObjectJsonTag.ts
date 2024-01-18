@@ -7,6 +7,8 @@ export const test_json_stringify_ObjectJsonTag = _test_json_stringify(
   "ObjectJsonTag",
 )<ObjectJsonTag>(ObjectJsonTag)((input) =>
   ((input: ObjectJsonTag): string => {
+    // @ts-ignore;
+    declare const require: (lib: string) => any;
     const $string = require("typia/lib/functional/$string").$string;
     return `{"vulnerable":${$string(
       (input as any).vulnerable,

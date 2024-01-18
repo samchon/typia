@@ -136,6 +136,8 @@ export const test_json_createValidateStringify_TypeTagCustom =
         } as any;
       };
       const stringify = (input: TypeTagCustom): string => {
+        // @ts-ignore;
+        declare const require: (lib: string) => any;
         const $string = require("typia/lib/functional/$string").$string;
         const $number = require("typia/lib/functional/$number").$number;
         return `{"id":${$string((input as any).id)},"dollar":${$string(

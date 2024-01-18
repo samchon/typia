@@ -34,6 +34,8 @@ export const test_misc_assertPrune_TypeTagMatrix = _test_misc_assertPrune(
           _path: string,
           _exceptionable: boolean = true,
         ): input is TypeTagMatrix => {
+          // @ts-ignore;
+          declare const require: (lib: string) => any;
           const $guard = require("typia/lib/functional/$guard").$guard(
             "typia.misc.assertPrune",
           );

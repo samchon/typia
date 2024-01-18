@@ -10,6 +10,8 @@ export const test_http_createHeaders_ObjectHttpUndefindable =
     (
       input: Record<string, string | string[] | undefined>,
     ): typia.Resolved<ObjectHttpUndefindable> => {
+      // @ts-ignore;
+      declare const require: (lib: string) => any;
       const $HeadersReader =
         require("typia/lib/functional/$HeadersReader").$HeadersReader;
       const output = {

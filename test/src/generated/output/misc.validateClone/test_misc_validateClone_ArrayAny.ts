@@ -132,6 +132,8 @@ export const test_misc_validateClone_ArrayAny = _test_misc_validateClone(
       } as any;
     };
     const clone = (input: ArrayAny): typia.Resolved<ArrayAny> => {
+      // @ts-ignore;
+      declare const require: (lib: string) => any;
       const $clone = require("typia/lib/functional/$clone").$clone;
       const $co0 = (input: any): any => ({
         anys: $clone(input.anys),

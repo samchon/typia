@@ -654,6 +654,8 @@ export const test_misc_validatePrune_ObjectUnionExplicit =
           $io2(input.centroid) &&
           "number" === typeof input.radius &&
           "circle" === input.type;
+        // @ts-ignore;
+        declare const require: (lib: string) => any;
         const $throws = require("typia/lib/functional/$throws").$throws;
         const $pp0 = (input: any) =>
           input.forEach((elem: any) => {

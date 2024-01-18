@@ -161,6 +161,8 @@ export const test_protobuf_createValidateEncode_TypeTagInfinite =
           } as any;
         };
         const encode = (input: TypeTagInfinite): Uint8Array => {
+          // @ts-ignore;
+          declare const require: (lib: string) => any;
           const $ProtobufSizer =
             require("typia/lib/functional/$ProtobufSizer").$ProtobufSizer;
           const $ProtobufWriter =
@@ -199,6 +201,8 @@ export const test_protobuf_createValidateEncode_TypeTagInfinite =
         return output;
       })(input),
     decode: (input: Uint8Array): typia.Resolved<TypeTagInfinite> => {
+      // @ts-ignore;
+      declare const require: (lib: string) => any;
       const $ProtobufReader =
         require("typia/lib/functional/$ProtobufReader").$ProtobufReader;
       const $pdo0 = (reader: any, length: number = -1): any => {

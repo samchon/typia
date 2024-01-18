@@ -9,6 +9,8 @@ export const test_createRandom_ObjectSimple = _test_random(
   random: (
     generator: Partial<typia.IRandomGenerator> = (ObjectSimple as any).RANDOM,
   ): typia.Resolved<ObjectSimple> => {
+    // @ts-ignore;
+    declare const require: (lib: string) => any;
     const $generator = require("typia/lib/functional/$generator").$generator;
     const $ro0 = (_recursive: boolean = false, _depth: number = 0): any => ({
       scale: $ro1(_recursive, _recursive ? 1 + _depth : _depth),
@@ -74,6 +76,8 @@ export const test_createRandom_ObjectSimple = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ObjectSimple => {
+        // @ts-ignore;
+        declare const require: (lib: string) => any;
         const $guard = require("typia/lib/functional/$guard").$guard(
           "typia.createAssert",
         );

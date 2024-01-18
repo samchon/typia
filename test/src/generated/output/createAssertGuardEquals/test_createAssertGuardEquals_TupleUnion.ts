@@ -62,6 +62,8 @@ export const test_createAssertGuardEquals_TupleUnion = _test_assertGuardEquals(
       _path: string,
       _exceptionable: boolean = true,
     ): input is TupleUnion => {
+      // @ts-ignore;
+      declare const require: (lib: string) => any;
       const $guard = require("typia/lib/functional/$guard").$guard(
         "typia.createAssertGuardEquals",
       );

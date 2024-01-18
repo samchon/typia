@@ -51,6 +51,8 @@ export const test_json_validateStringify_DynamicUnion =
               _path: string,
               _exceptionable: boolean = true,
             ): input is DynamicUnion => {
+              // @ts-ignore;
+              declare const require: (lib: string) => any;
               const $join = require("typia/lib/functional/$join").$join;
               const $vo0 = (
                 input: any,
@@ -144,6 +146,8 @@ export const test_json_validateStringify_DynamicUnion =
           } as any;
         };
         const stringify = (input: DynamicUnion): string => {
+          // @ts-ignore;
+          declare const require: (lib: string) => any;
           const $string = require("typia/lib/functional/$string").$string;
           const $number = require("typia/lib/functional/$number").$number;
           const $so0 = (input: any): any =>

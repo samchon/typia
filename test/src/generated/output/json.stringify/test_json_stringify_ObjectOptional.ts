@@ -7,6 +7,8 @@ export const test_json_stringify_ObjectOptional = _test_json_stringify(
   "ObjectOptional",
 )<ObjectOptional>(ObjectOptional)((input) =>
   ((input: ObjectOptional): string => {
+    // @ts-ignore;
+    declare const require: (lib: string) => any;
     const $string = require("typia/lib/functional/$string").$string;
     const $number = require("typia/lib/functional/$number").$number;
     const $tail = require("typia/lib/functional/$tail").$tail;

@@ -71,6 +71,8 @@ export const test_json_createIsStringify_ObjectUnionNonPredictable =
         const $io8 = (input: any): boolean => "string" === typeof input.value;
         const $iu0 = (input: any): any =>
           $io7(input) || $io5(input) || $io3(input);
+        // @ts-ignore;
+        declare const require: (lib: string) => any;
         const $number = require("typia/lib/functional/$number").$number;
         const $string = require("typia/lib/functional/$string").$string;
         const $throws = require("typia/lib/functional/$throws").$throws(

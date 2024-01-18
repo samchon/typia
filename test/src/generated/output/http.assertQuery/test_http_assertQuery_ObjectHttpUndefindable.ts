@@ -13,6 +13,8 @@ export const test_http_assertQuery_ObjectHttpUndefindable =
       const decode = (
         input: string | URLSearchParams,
       ): typia.Resolved<ObjectHttpUndefindable> => {
+        // @ts-ignore;
+        declare const require: (lib: string) => any;
         const $QueryReader =
           require("typia/lib/functional/$QueryReader").$QueryReader;
         input = $QueryReader.params(input) as URLSearchParams;
@@ -69,6 +71,8 @@ export const test_http_assertQuery_ObjectHttpUndefindable =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ObjectHttpUndefindable => {
+            // @ts-ignore;
+            declare const require: (lib: string) => any;
             const $guard = require("typia/lib/functional/$guard").$guard(
               "typia.http.assertQuery",
             );

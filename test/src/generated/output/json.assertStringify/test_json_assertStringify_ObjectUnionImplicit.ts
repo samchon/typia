@@ -139,6 +139,8 @@ export const test_json_assertStringify_ObjectUnionImplicit =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ObjectUnionImplicit => {
+            // @ts-ignore;
+            declare const require: (lib: string) => any;
             const $guard = require("typia/lib/functional/$guard").$guard(
               "typia.json.assertStringify",
             );
@@ -653,6 +655,8 @@ export const test_json_assertStringify_ObjectUnionImplicit =
           (null === input.area ||
             undefined === input.area ||
             "number" === typeof input.area);
+        // @ts-ignore;
+        declare const require: (lib: string) => any;
         const $number = require("typia/lib/functional/$number").$number;
         const $so0 = (input: any): any =>
           `{${

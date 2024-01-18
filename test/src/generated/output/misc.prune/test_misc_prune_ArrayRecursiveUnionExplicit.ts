@@ -60,6 +60,8 @@ export const test_misc_prune_ArrayRecursiveUnionExplicit = _test_misc_prune(
         else if ("lnk" === input.extension) return $io4(input);
         else return false;
       })();
+    // @ts-ignore;
+    declare const require: (lib: string) => any;
     const $throws = require("typia/lib/functional/$throws").$throws;
     const $pp0 = (input: any) =>
       input.forEach((elem: any) => {

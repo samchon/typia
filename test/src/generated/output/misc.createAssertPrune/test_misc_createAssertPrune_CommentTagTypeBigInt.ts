@@ -23,6 +23,8 @@ export const test_misc_createAssertPrune_CommentTagTypeBigInt =
           _path: string,
           _exceptionable: boolean = true,
         ): input is CommentTagTypeBigInt => {
+          // @ts-ignore;
+          declare const require: (lib: string) => any;
           const $guard = require("typia/lib/functional/$guard").$guard(
             "typia.misc.createAssertPrune",
           );

@@ -23,6 +23,8 @@ export const test_json_createAssertStringify_ObjectJsonTag =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ObjectJsonTag => {
+            // @ts-ignore;
+            declare const require: (lib: string) => any;
             const $guard = require("typia/lib/functional/$guard").$guard(
               "typia.json.createAssertStringify",
             );
@@ -73,6 +75,8 @@ export const test_json_createAssertStringify_ObjectJsonTag =
         return input;
       };
       const stringify = (input: ObjectJsonTag): string => {
+        // @ts-ignore;
+        declare const require: (lib: string) => any;
         const $string = require("typia/lib/functional/$string").$string;
         return `{"vulnerable":${$string(
           (input as any).vulnerable,

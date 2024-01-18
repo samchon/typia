@@ -45,6 +45,8 @@ export const test_misc_createAssertPrune_ObjectNullable =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ObjectNullable => {
+            // @ts-ignore;
+            declare const require: (lib: string) => any;
             const $guard = require("typia/lib/functional/$guard").$guard(
               "typia.misc.createAssertPrune",
             );
@@ -241,6 +243,8 @@ export const test_misc_createAssertPrune_ObjectNullable =
             else if ("manufacturer" === input.type) return $io2(input);
             else return false;
           })();
+        // @ts-ignore;
+        declare const require: (lib: string) => any;
         const $throws = require("typia/lib/functional/$throws").$throws;
         const $pp0 = (input: any) =>
           input.forEach((elem: any) => {

@@ -52,6 +52,8 @@ export const test_notation_validateCamel_DynamicTag =
               _path: string,
               _exceptionable: boolean = true,
             ): input is DynamicTag => {
+              // @ts-ignore;
+              declare const require: (lib: string) => any;
               const $join = require("typia/lib/functional/$join").$join;
               const $vo0 = (
                 input: any,
@@ -196,6 +198,8 @@ export const test_notation_validateCamel_DynamicTag =
           _path: string,
           _exceptionable: boolean = true,
         ): input is typia.CamelCase<DynamicTag> => {
+          // @ts-ignore;
+          declare const require: (lib: string) => any;
           const $guard = require("typia/lib/functional/$guard").$guard(
             "typia.createAssert",
           );

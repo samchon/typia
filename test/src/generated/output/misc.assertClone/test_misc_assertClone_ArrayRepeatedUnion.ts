@@ -102,6 +102,8 @@ export const test_misc_assertClone_ArrayRepeatedUnion = _test_misc_assertClone(
           _path: string,
           _exceptionable: boolean = true,
         ): input is ArrayRepeatedUnion => {
+          // @ts-ignore;
+          declare const require: (lib: string) => any;
           const $guard = require("typia/lib/functional/$guard").$guard(
             "typia.misc.assertClone",
           );
@@ -379,6 +381,8 @@ export const test_misc_assertClone_ArrayRepeatedUnion = _test_misc_assertClone(
         "number" === typeof input.x &&
         "number" === typeof input.y &&
         "number" === typeof input.z;
+      // @ts-ignore;
+      declare const require: (lib: string) => any;
       const $throws = require("typia/lib/functional/$throws").$throws(
         "typia.misc.assertClone",
       );

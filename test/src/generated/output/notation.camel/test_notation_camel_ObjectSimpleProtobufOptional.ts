@@ -264,6 +264,8 @@ export const test_notation_validateCamel_ObjectSimpleProtobufOptional =
           _path: string,
           _exceptionable: boolean = true,
         ): input is typia.CamelCase<ObjectSimpleProtobufOptional> => {
+          // @ts-ignore;
+          declare const require: (lib: string) => any;
           const $guard = require("typia/lib/functional/$guard").$guard(
             "typia.createAssert",
           );

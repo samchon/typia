@@ -135,6 +135,8 @@ export const test_notation_createValidateCamel_ArrayAny =
         } as any;
       };
       const general = (input: ArrayAny): typia.CamelCase<ArrayAny> => {
+        // @ts-ignore;
+        declare const require: (lib: string) => any;
         const $camel = require("typia/lib/functional/$camel").$camel;
         const $co0 = (input: any): any => ({
           anys: $camel(input.anys),
@@ -183,6 +185,8 @@ export const test_notation_createValidateCamel_ArrayAny =
           _path: string,
           _exceptionable: boolean = true,
         ): input is typia.CamelCase<ArrayAny> => {
+          // @ts-ignore;
+          declare const require: (lib: string) => any;
           const $guard = require("typia/lib/functional/$guard").$guard(
             "typia.createAssert",
           );

@@ -59,6 +59,8 @@ export const test_assertGuardEquals_TemplateAtomic = _test_assertGuardEquals(
         _path: string,
         _exceptionable: boolean = true,
       ): input is TemplateAtomic => {
+        // @ts-ignore;
+        declare const require: (lib: string) => any;
         const $guard = require("typia/lib/functional/$guard").$guard(
           "typia.assertGuardEquals",
         );

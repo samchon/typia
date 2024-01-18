@@ -179,6 +179,8 @@ export const test_notation_validateSnake_ArrayAtomicAlias =
           _path: string,
           _exceptionable: boolean = true,
         ): input is typia.SnakeCase<ArrayAtomicAlias> => {
+          // @ts-ignore;
+          declare const require: (lib: string) => any;
           const $guard = require("typia/lib/functional/$guard").$guard(
             "typia.createAssert",
           );

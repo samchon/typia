@@ -10,6 +10,8 @@ export const test_createAssertEquals_DynamicTemplate = _test_assertEquals(
     input: any,
     _exceptionable: boolean = true,
   ): input is DynamicTemplate => {
+    // @ts-ignore;
+    declare const require: (lib: string) => any;
     const $join = require("typia/lib/functional/$join").$join;
     const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
       Object.keys(input).every((key: any) => {
@@ -46,6 +48,8 @@ export const test_createAssertEquals_DynamicTemplate = _test_assertEquals(
       _path: string,
       _exceptionable: boolean = true,
     ): input is DynamicTemplate => {
+      // @ts-ignore;
+      declare const require: (lib: string) => any;
       const $guard = require("typia/lib/functional/$guard").$guard(
         "typia.createAssertEquals",
       );

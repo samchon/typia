@@ -33,6 +33,8 @@ export const test_json_assertStringify_ToJsonAtomicSimple =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ToJsonAtomicSimple => {
+            // @ts-ignore;
+            declare const require: (lib: string) => any;
             const $guard = require("typia/lib/functional/$guard").$guard(
               "typia.json.assertStringify",
             );
@@ -129,6 +131,8 @@ export const test_json_assertStringify_ToJsonAtomicSimple =
         return input;
       };
       const stringify = (input: ToJsonAtomicSimple): string => {
+        // @ts-ignore;
+        declare const require: (lib: string) => any;
         const $number = require("typia/lib/functional/$number").$number;
         const $string = require("typia/lib/functional/$string").$string;
         return `[${input[0].toJSON()},${$number(input[1].toJSON())},${$string(

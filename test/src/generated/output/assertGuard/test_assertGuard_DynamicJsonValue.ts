@@ -60,6 +60,8 @@ export const test_assertGuard_DynamicJsonValue = _test_assertGuard(
         _path: string,
         _exceptionable: boolean = true,
       ): input is DynamicJsonValue => {
+        // @ts-ignore;
+        declare const require: (lib: string) => any;
         const $guard = require("typia/lib/functional/$guard").$guard(
           "typia.assertGuard",
         );

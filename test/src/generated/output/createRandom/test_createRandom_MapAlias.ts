@@ -9,6 +9,8 @@ export const test_createRandom_MapAlias = _test_random("MapAlias")<MapAlias>(
   random: (
     generator: Partial<typia.IRandomGenerator> = (MapAlias as any).RANDOM,
   ): typia.Resolved<MapAlias> => {
+    // @ts-ignore;
+    declare const require: (lib: string) => any;
     const $generator = require("typia/lib/functional/$generator").$generator;
     const $ro0 = (_recursive: boolean = false, _depth: number = 0): any => ({
       boolean: new Map(
@@ -139,6 +141,8 @@ export const test_createRandom_MapAlias = _test_random("MapAlias")<MapAlias>(
         _path: string,
         _exceptionable: boolean = true,
       ): input is MapAlias => {
+        // @ts-ignore;
+        declare const require: (lib: string) => any;
         const $guard = require("typia/lib/functional/$guard").$guard(
           "typia.createAssert",
         );

@@ -26,6 +26,8 @@ export const test_assertGuardEquals_AtomicSimple = _test_assertGuardEquals(
         _path: string,
         _exceptionable: boolean = true,
       ): input is AtomicSimple => {
+        // @ts-ignore;
+        declare const require: (lib: string) => any;
         const $guard = require("typia/lib/functional/$guard").$guard(
           "typia.assertGuardEquals",
         );

@@ -6,6 +6,8 @@ import { CommentTagFormat } from "../../../structures/CommentTagFormat";
 export const test_json_createStringify_CommentTagFormat = _test_json_stringify(
   "CommentTagFormat",
 )<CommentTagFormat>(CommentTagFormat)((input: CommentTagFormat): string => {
+  // @ts-ignore;
+  declare const require: (lib: string) => any;
   const $string = require("typia/lib/functional/$string").$string;
   return `{"uuid":${$string((input as any).uuid)},"email":${$string(
     (input as any).email,

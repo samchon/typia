@@ -9,6 +9,8 @@ export const test_protobuf_createEncode_TypeTagTypeBigInt =
   )({
     encode: (input) =>
       ((input: TypeTagTypeBigInt): Uint8Array => {
+        // @ts-ignore;
+        declare const require: (lib: string) => any;
         const $ProtobufSizer =
           require("typia/lib/functional/$ProtobufSizer").$ProtobufSizer;
         const $ProtobufWriter =
@@ -31,6 +33,8 @@ export const test_protobuf_createEncode_TypeTagTypeBigInt =
         return writer.buffer();
       })(input),
     decode: (input: Uint8Array): typia.Resolved<TypeTagTypeBigInt> => {
+      // @ts-ignore;
+      declare const require: (lib: string) => any;
       const $ProtobufReader =
         require("typia/lib/functional/$ProtobufReader").$ProtobufReader;
       const $pdo0 = (reader: any, length: number = -1): any => {

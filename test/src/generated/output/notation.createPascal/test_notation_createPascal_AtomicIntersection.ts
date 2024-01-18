@@ -113,6 +113,8 @@ export const test_notation_createValidatePascal_AtomicIntersection =
           _path: string,
           _exceptionable: boolean = true,
         ): input is typia.PascalCase<AtomicIntersection> => {
+          // @ts-ignore;
+          declare const require: (lib: string) => any;
           const $guard = require("typia/lib/functional/$guard").$guard(
             "typia.createAssert",
           );

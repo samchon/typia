@@ -7,6 +7,8 @@ export const test_http_createQuery_ObjectHttpConstant = _test_http_query(
   "ObjectHttpConstant",
 )<ObjectHttpConstant>(ObjectHttpConstant)(
   (input: string | URLSearchParams): typia.Resolved<ObjectHttpConstant> => {
+    // @ts-ignore;
+    declare const require: (lib: string) => any;
     const $QueryReader =
       require("typia/lib/functional/$QueryReader").$QueryReader;
     input = $QueryReader.params(input) as URLSearchParams;

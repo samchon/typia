@@ -35,6 +35,8 @@ export const test_json_assertStringify_ArrayAny = _test_json_assertStringify(
           _path: string,
           _exceptionable: boolean = true,
         ): input is ArrayAny => {
+          // @ts-ignore;
+          declare const require: (lib: string) => any;
           const $guard = require("typia/lib/functional/$guard").$guard(
             "typia.json.assertStringify",
           );

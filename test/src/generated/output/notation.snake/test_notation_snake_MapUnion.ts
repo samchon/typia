@@ -681,6 +681,8 @@ export const test_notation_validateSnake_MapUnion =
             "string" === typeof input.id &&
             "string" === typeof input.name &&
             "number" === typeof input.age;
+          // @ts-ignore;
+          declare const require: (lib: string) => any;
           const $throws = require("typia/lib/functional/$throws").$throws(
             "typia.notations.validateSnake",
           );
@@ -950,6 +952,8 @@ export const test_notation_validateSnake_MapUnion =
           _path: string,
           _exceptionable: boolean = true,
         ): input is typia.SnakeCase<MapUnion> => {
+          // @ts-ignore;
+          declare const require: (lib: string) => any;
           const $guard = require("typia/lib/functional/$guard").$guard(
             "typia.createAssert",
           );

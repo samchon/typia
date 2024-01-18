@@ -7,6 +7,8 @@ export const test_protobuf_createAssertDecode_TypeTagCustom =
   _test_protobuf_assertDecode("TypeTagCustom")<TypeTagCustom>(TypeTagCustom)({
     decode: (input: Uint8Array): typia.Resolved<TypeTagCustom> => {
       const decode = (input: Uint8Array): typia.Resolved<TypeTagCustom> => {
+        // @ts-ignore;
+        declare const require: (lib: string) => any;
         const $ProtobufReader =
           require("typia/lib/functional/$ProtobufReader").$ProtobufReader;
         const $pdo0 = (reader: any, length: number = -1): any => {
@@ -78,6 +80,8 @@ export const test_protobuf_createAssertDecode_TypeTagCustom =
             _path: string,
             _exceptionable: boolean = true,
           ): input is TypeTagCustom => {
+            // @ts-ignore;
+            declare const require: (lib: string) => any;
             const $guard = require("typia/lib/functional/$guard").$guard(
               "typia.protobuf.createAssertDecode",
             );
@@ -170,6 +174,8 @@ export const test_protobuf_createAssertDecode_TypeTagCustom =
       return assert(output) as any;
     },
     encode: (input: TypeTagCustom): Uint8Array => {
+      // @ts-ignore;
+      declare const require: (lib: string) => any;
       const $ProtobufSizer =
         require("typia/lib/functional/$ProtobufSizer").$ProtobufSizer;
       const $ProtobufWriter =

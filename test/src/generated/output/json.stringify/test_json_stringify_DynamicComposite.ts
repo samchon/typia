@@ -7,6 +7,8 @@ export const test_json_stringify_DynamicComposite = _test_json_stringify(
   "DynamicComposite",
 )<DynamicComposite>(DynamicComposite)((input) =>
   ((input: DynamicComposite): string => {
+    // @ts-ignore;
+    declare const require: (lib: string) => any;
     const $string = require("typia/lib/functional/$string").$string;
     const $number = require("typia/lib/functional/$number").$number;
     const $throws = require("typia/lib/functional/$throws").$throws(

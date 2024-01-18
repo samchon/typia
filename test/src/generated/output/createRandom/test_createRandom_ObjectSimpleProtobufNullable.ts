@@ -11,6 +11,8 @@ export const test_createRandom_ObjectSimpleProtobufNullable = _test_random(
       ObjectSimpleProtobufNullable as any
     ).RANDOM,
   ): typia.Resolved<ObjectSimpleProtobufNullable> => {
+    // @ts-ignore;
+    declare const require: (lib: string) => any;
     const $generator = require("typia/lib/functional/$generator").$generator;
     const $ro0 = (_recursive: boolean = false, _depth: number = 0): any => ({
       bool: (generator?.pick ?? $generator.pick)([
@@ -131,6 +133,8 @@ export const test_createRandom_ObjectSimpleProtobufNullable = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ObjectSimpleProtobufNullable => {
+        // @ts-ignore;
+        declare const require: (lib: string) => any;
         const $guard = require("typia/lib/functional/$guard").$guard(
           "typia.createAssert",
         );

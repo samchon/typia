@@ -15,6 +15,8 @@ export const test_createAssert_FunctionalValue = _test_assert(
       _path: string,
       _exceptionable: boolean = true,
     ): input is FunctionalValue => {
+      // @ts-ignore;
+      declare const require: (lib: string) => any;
       const $guard = require("typia/lib/functional/$guard").$guard(
         "typia.createAssert",
       );

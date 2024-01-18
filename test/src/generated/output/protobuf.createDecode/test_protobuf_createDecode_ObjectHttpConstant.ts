@@ -8,6 +8,8 @@ export const test_protobuf_createDecode_ObjectHttpConstant =
     ObjectHttpConstant,
   )({
     decode: (input: Uint8Array): typia.Resolved<ObjectHttpConstant> => {
+      // @ts-ignore;
+      declare const require: (lib: string) => any;
       const $ProtobufReader =
         require("typia/lib/functional/$ProtobufReader").$ProtobufReader;
       const $pdo0 = (reader: any, length: number = -1): any => {
@@ -53,6 +55,8 @@ export const test_protobuf_createDecode_ObjectHttpConstant =
       return $pdo0(reader);
     },
     encode: (input: ObjectHttpConstant): Uint8Array => {
+      // @ts-ignore;
+      declare const require: (lib: string) => any;
       const $ProtobufSizer =
         require("typia/lib/functional/$ProtobufSizer").$ProtobufSizer;
       const $ProtobufWriter =

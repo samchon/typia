@@ -74,6 +74,8 @@ export const test_json_createValidateStringify_ClassGetter =
         } as any;
       };
       const stringify = (input: ClassGetter): string => {
+        // @ts-ignore;
+        declare const require: (lib: string) => any;
         const $string = require("typia/lib/functional/$string").$string;
         const $so0 = (input: any): any =>
           `{"id":${$string(input.id)},"name":${$string(input.name)},"dead":${

@@ -185,6 +185,8 @@ export const test_notation_validateSnake_ObjectUndefined =
         ): typia.SnakeCase<ObjectUndefined> => {
           const $io1 = (input: any): boolean =>
             "string" === typeof input.id && "string" === typeof input.name;
+          // @ts-ignore;
+          declare const require: (lib: string) => any;
           const $snake = require("typia/lib/functional/$snake").$snake;
           const $cp0 = (input: any) =>
             input.map((elem: any) =>
@@ -250,6 +252,8 @@ export const test_notation_validateSnake_ObjectUndefined =
           _path: string,
           _exceptionable: boolean = true,
         ): input is typia.SnakeCase<ObjectUndefined> => {
+          // @ts-ignore;
+          declare const require: (lib: string) => any;
           const $guard = require("typia/lib/functional/$guard").$guard(
             "typia.createAssert",
           );

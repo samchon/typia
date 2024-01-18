@@ -148,6 +148,8 @@ export const test_json_assertStringify_ObjectUnionComposite =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ObjectUnionComposite => {
+            // @ts-ignore;
+            declare const require: (lib: string) => any;
             const $guard = require("typia/lib/functional/$guard").$guard(
               "typia.json.assertStringify",
             );
@@ -585,6 +587,8 @@ export const test_json_assertStringify_ObjectUnionComposite =
           null !== input.centroid &&
           $io0(input.centroid) &&
           "number" === typeof input.radius;
+        // @ts-ignore;
+        declare const require: (lib: string) => any;
         const $number = require("typia/lib/functional/$number").$number;
         const $so0 = (input: any): any =>
           `{"x":${$number(input.x)},"y":${$number(input.y)}}`;

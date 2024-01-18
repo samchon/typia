@@ -125,6 +125,8 @@ export const test_createAssertEquals_ArrayHierarchicalPointer =
         _path: string,
         _exceptionable: boolean = true,
       ): input is ArrayHierarchicalPointer => {
+        // @ts-ignore;
+        declare const require: (lib: string) => any;
         const $guard = require("typia/lib/functional/$guard").$guard(
           "typia.createAssertEquals",
         );

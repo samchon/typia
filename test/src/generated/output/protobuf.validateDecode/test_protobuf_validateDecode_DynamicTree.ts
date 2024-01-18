@@ -39,6 +39,8 @@ export const test_protobuf_createValidateDecode_DynamicTree =
               _path: string,
               _exceptionable: boolean = true,
             ): input is DynamicTree => {
+              // @ts-ignore;
+              declare const require: (lib: string) => any;
               const $join = require("typia/lib/functional/$join").$join;
               const $vo0 = (
                 input: any,
@@ -136,6 +138,8 @@ export const test_protobuf_createValidateDecode_DynamicTree =
           } as any;
         };
         const decode = (input: Uint8Array): typia.Resolved<DynamicTree> => {
+          // @ts-ignore;
+          declare const require: (lib: string) => any;
           const $ProtobufReader =
             require("typia/lib/functional/$ProtobufReader").$ProtobufReader;
           const $pdo0 = (reader: any, length: number = -1): any => {
@@ -197,6 +201,8 @@ export const test_protobuf_createValidateDecode_DynamicTree =
         return validate(output) as any;
       })(input),
     encode: (input: DynamicTree): Uint8Array => {
+      // @ts-ignore;
+      declare const require: (lib: string) => any;
       const $ProtobufSizer =
         require("typia/lib/functional/$ProtobufSizer").$ProtobufSizer;
       const $ProtobufWriter =

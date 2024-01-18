@@ -114,6 +114,8 @@ export const test_misc_isClone_ObjectUnionDouble = _test_misc_isClone(
         input.y.every((elem: any) => "number" === typeof elem);
       const $iu1 = (input: any): any => $io4(input) || $io2(input);
       const $iu2 = (input: any): any => $io10(input) || $io8(input);
+      // @ts-ignore;
+      declare const require: (lib: string) => any;
       const $throws = require("typia/lib/functional/$throws").$throws(
         "typia.misc.isClone",
       );

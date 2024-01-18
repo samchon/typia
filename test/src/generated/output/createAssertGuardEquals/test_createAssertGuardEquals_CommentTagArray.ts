@@ -71,6 +71,8 @@ export const test_createAssertGuardEquals_CommentTagArray =
           _path: string,
           _exceptionable: boolean = true,
         ): input is CommentTagArray => {
+          // @ts-ignore;
+          declare const require: (lib: string) => any;
           const $guard = require("typia/lib/functional/$guard").$guard(
             "typia.createAssertGuardEquals",
           );

@@ -732,6 +732,8 @@ export const test_notation_validateSnake_ObjectUnionExplicitPointer =
               else if ("circle" === input.type) return $io10(input);
               else return false;
             })();
+          // @ts-ignore;
+          declare const require: (lib: string) => any;
           const $throws = require("typia/lib/functional/$throws").$throws(
             "typia.notations.validateSnake",
           );
@@ -1008,6 +1010,8 @@ export const test_notation_validateSnake_ObjectUnionExplicitPointer =
           _path: string,
           _exceptionable: boolean = true,
         ): input is typia.SnakeCase<ObjectUnionExplicitPointer> => {
+          // @ts-ignore;
+          declare const require: (lib: string) => any;
           const $guard = require("typia/lib/functional/$guard").$guard(
             "typia.createAssert",
           );

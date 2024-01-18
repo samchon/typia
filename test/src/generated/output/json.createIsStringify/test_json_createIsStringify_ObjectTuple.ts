@@ -27,6 +27,8 @@ export const test_json_createIsStringify_ObjectTuple = _test_json_isStringify(
     );
   };
   const stringify = (input: ObjectTuple): string => {
+    // @ts-ignore;
+    declare const require: (lib: string) => any;
     const $string = require("typia/lib/functional/$string").$string;
     return `[${`{"id":${$string((input[0] as any).id)},"code":${$string(
       (input[0] as any).code,

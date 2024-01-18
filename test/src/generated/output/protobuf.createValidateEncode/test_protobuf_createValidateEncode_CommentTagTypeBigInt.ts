@@ -79,6 +79,8 @@ export const test_protobuf_createValidateEncode_CommentTagTypeBigInt =
         } as any;
       };
       const encode = (input: CommentTagTypeBigInt): Uint8Array => {
+        // @ts-ignore;
+        declare const require: (lib: string) => any;
         const $ProtobufSizer =
           require("typia/lib/functional/$ProtobufSizer").$ProtobufSizer;
         const $ProtobufWriter =
@@ -105,6 +107,8 @@ export const test_protobuf_createValidateEncode_CommentTagTypeBigInt =
       return output;
     },
     decode: (input: Uint8Array): typia.Resolved<CommentTagTypeBigInt> => {
+      // @ts-ignore;
+      declare const require: (lib: string) => any;
       const $ProtobufReader =
         require("typia/lib/functional/$ProtobufReader").$ProtobufReader;
       const $pdo0 = (reader: any, length: number = -1): any => {

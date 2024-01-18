@@ -40,6 +40,8 @@ export const test_notation_createValidateSnake_DynamicTree =
             _path: string,
             _exceptionable: boolean = true,
           ): input is DynamicTree => {
+            // @ts-ignore;
+            declare const require: (lib: string) => any;
             const $join = require("typia/lib/functional/$join").$join;
             const $vo0 = (
               input: any,
@@ -207,6 +209,8 @@ export const test_notation_createValidateSnake_DynamicTree =
           _path: string,
           _exceptionable: boolean = true,
         ): input is typia.SnakeCase<DynamicTree> => {
+          // @ts-ignore;
+          declare const require: (lib: string) => any;
           const $guard = require("typia/lib/functional/$guard").$guard(
             "typia.createAssert",
           );

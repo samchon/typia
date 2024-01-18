@@ -48,6 +48,8 @@ export const test_misc_assertClone_CommentTagObjectUnion =
             _path: string,
             _exceptionable: boolean = true,
           ): input is CommentTagObjectUnion => {
+            // @ts-ignore;
+            declare const require: (lib: string) => any;
             const $guard = require("typia/lib/functional/$guard").$guard(
               "typia.misc.assertClone",
             );
@@ -179,6 +181,8 @@ export const test_misc_assertClone_CommentTagObjectUnion =
           "string" === typeof input.value &&
           3 <= input.value.length &&
           input.value.length <= 7;
+        // @ts-ignore;
+        declare const require: (lib: string) => any;
         const $throws = require("typia/lib/functional/$throws").$throws(
           "typia.misc.assertClone",
         );

@@ -6,6 +6,8 @@ import { ArrayAny } from "../../../structures/ArrayAny";
 export const test_misc_createClone_ArrayAny = _test_misc_clone(
   "ArrayAny",
 )<ArrayAny>(ArrayAny)((input: ArrayAny): typia.Resolved<ArrayAny> => {
+  // @ts-ignore;
+  declare const require: (lib: string) => any;
   const $clone = require("typia/lib/functional/$clone").$clone;
   const $co0 = (input: any): any => ({
     anys: $clone(input.anys),

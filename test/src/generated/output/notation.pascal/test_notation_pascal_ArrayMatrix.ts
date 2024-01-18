@@ -163,6 +163,8 @@ export const test_notation_validatePascal_ArrayMatrix =
           _path: string,
           _exceptionable: boolean = true,
         ): input is typia.PascalCase<ArrayMatrix> => {
+          // @ts-ignore;
+          declare const require: (lib: string) => any;
           const $guard = require("typia/lib/functional/$guard").$guard(
             "typia.createAssert",
           );

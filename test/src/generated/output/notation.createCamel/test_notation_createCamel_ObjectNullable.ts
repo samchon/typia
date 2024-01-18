@@ -264,6 +264,8 @@ export const test_notation_createValidateCamel_ObjectNullable =
             else if ("manufacturer" === input.type) return $io2(input);
             else return false;
           })();
+        // @ts-ignore;
+        declare const require: (lib: string) => any;
         const $throws = require("typia/lib/functional/$throws").$throws(
           "typia.notations.createValidateCamel",
         );
@@ -360,6 +362,8 @@ export const test_notation_createValidateCamel_ObjectNullable =
           _path: string,
           _exceptionable: boolean = true,
         ): input is typia.CamelCase<ObjectNullable> => {
+          // @ts-ignore;
+          declare const require: (lib: string) => any;
           const $guard = require("typia/lib/functional/$guard").$guard(
             "typia.createAssert",
           );

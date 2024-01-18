@@ -36,6 +36,8 @@ export const test_json_createAssertStringify_CommentTagPattern =
           _path: string,
           _exceptionable: boolean = true,
         ): input is CommentTagPattern => {
+          // @ts-ignore;
+          declare const require: (lib: string) => any;
           const $guard = require("typia/lib/functional/$guard").$guard(
             "typia.json.createAssertStringify",
           );
@@ -126,6 +128,8 @@ export const test_json_createAssertStringify_CommentTagPattern =
       return input;
     };
     const stringify = (input: CommentTagPattern): string => {
+      // @ts-ignore;
+      declare const require: (lib: string) => any;
       const $string = require("typia/lib/functional/$string").$string;
       return `{"uuid":${$string((input as any).uuid)},"email":${$string(
         (input as any).email,

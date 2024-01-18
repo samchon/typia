@@ -38,6 +38,8 @@ export const test_json_validateStringify_ObjectDynamic =
               _path: string,
               _exceptionable: boolean = true,
             ): input is ObjectDynamic => {
+              // @ts-ignore;
+              declare const require: (lib: string) => any;
               const $join = require("typia/lib/functional/$join").$join;
               const $vo0 = (
                 input: any,
@@ -92,6 +94,8 @@ export const test_json_validateStringify_ObjectDynamic =
           } as any;
         };
         const stringify = (input: ObjectDynamic): string => {
+          // @ts-ignore;
+          declare const require: (lib: string) => any;
           const $string = require("typia/lib/functional/$string").$string;
           const $number = require("typia/lib/functional/$number").$number;
           const $throws = require("typia/lib/functional/$throws").$throws(

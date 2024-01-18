@@ -61,6 +61,8 @@ export const test_misc_createIsPrune_ObjectNullable = _test_misc_isPrune(
         else if ("manufacturer" === input.type) return $io2(input);
         else return false;
       })();
+    // @ts-ignore;
+    declare const require: (lib: string) => any;
     const $throws = require("typia/lib/functional/$throws").$throws;
     const $pp0 = (input: any) =>
       input.forEach((elem: any) => {

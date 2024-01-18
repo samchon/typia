@@ -231,6 +231,8 @@ export const test_json_validateStringify_ObjectRequired =
               null !== input.object &&
               false === Array.isArray(input.object) &&
               $io1(input.object)));
+        // @ts-ignore;
+        declare const require: (lib: string) => any;
         const $number = require("typia/lib/functional/$number").$number;
         const $string = require("typia/lib/functional/$string").$string;
         const $tail = require("typia/lib/functional/$tail").$tail;

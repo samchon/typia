@@ -7,6 +7,8 @@ export const test_json_stringify_ConstantIntersection = _test_json_stringify(
   "ConstantIntersection",
 )<ConstantIntersection>(ConstantIntersection)((input) =>
   ((input: ConstantIntersection): string => {
+    // @ts-ignore;
+    declare const require: (lib: string) => any;
     const $number = require("typia/lib/functional/$number").$number;
     const $string = require("typia/lib/functional/$string").$string;
     const $throws = require("typia/lib/functional/$throws").$throws(

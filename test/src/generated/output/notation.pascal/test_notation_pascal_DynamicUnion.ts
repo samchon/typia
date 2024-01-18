@@ -53,6 +53,8 @@ export const test_notation_validatePascal_DynamicUnion =
               _path: string,
               _exceptionable: boolean = true,
             ): input is DynamicUnion => {
+              // @ts-ignore;
+              declare const require: (lib: string) => any;
               const $join = require("typia/lib/functional/$join").$join;
               const $vo0 = (
                 input: any,
@@ -216,6 +218,8 @@ export const test_notation_validatePascal_DynamicUnion =
           _path: string,
           _exceptionable: boolean = true,
         ): input is typia.PascalCase<DynamicUnion> => {
+          // @ts-ignore;
+          declare const require: (lib: string) => any;
           const $guard = require("typia/lib/functional/$guard").$guard(
             "typia.createAssert",
           );

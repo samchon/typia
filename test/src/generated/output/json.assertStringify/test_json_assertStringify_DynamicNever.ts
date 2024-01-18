@@ -29,6 +29,8 @@ export const test_json_assertStringify_DynamicNever =
               _path: string,
               _exceptionable: boolean = true,
             ): input is DynamicNever => {
+              // @ts-ignore;
+              declare const require: (lib: string) => any;
               const $guard = require("typia/lib/functional/$guard").$guard(
                 "typia.json.assertStringify",
               );

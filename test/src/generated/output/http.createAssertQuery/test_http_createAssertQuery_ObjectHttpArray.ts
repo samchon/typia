@@ -9,6 +9,8 @@ export const test_http_createAssertQuery_ObjectHttpArray =
       const decode = (
         input: string | URLSearchParams,
       ): typia.Resolved<ObjectHttpArray> => {
+        // @ts-ignore;
+        declare const require: (lib: string) => any;
         const $QueryReader =
           require("typia/lib/functional/$QueryReader").$QueryReader;
         input = $QueryReader.params(input) as URLSearchParams;
@@ -58,6 +60,8 @@ export const test_http_createAssertQuery_ObjectHttpArray =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ObjectHttpArray => {
+            // @ts-ignore;
+            declare const require: (lib: string) => any;
             const $guard = require("typia/lib/functional/$guard").$guard(
               "typia.http.createAssertQuery",
             );

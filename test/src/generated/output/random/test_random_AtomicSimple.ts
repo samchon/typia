@@ -10,6 +10,8 @@ export const test_random_AtomicSimple = _test_random(
     ((
       generator?: Partial<typia.IRandomGenerator>,
     ): typia.Resolved<AtomicSimple> => {
+      // @ts-ignore;
+      declare const require: (lib: string) => any;
       const $generator = require("typia/lib/functional/$generator").$generator;
       return [
         (generator?.boolean ?? $generator.boolean)(),
@@ -36,6 +38,8 @@ export const test_random_AtomicSimple = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is AtomicSimple => {
+        // @ts-ignore;
+        declare const require: (lib: string) => any;
         const $guard = require("typia/lib/functional/$guard").$guard(
           "typia.createAssert",
         );

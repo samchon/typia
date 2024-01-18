@@ -43,6 +43,8 @@ export const test_json_validateParse_DynamicUnion = _test_json_validateParse(
           _path: string,
           _exceptionable: boolean = true,
         ): input is DynamicUnion => {
+          // @ts-ignore;
+          declare const require: (lib: string) => any;
           const $join = require("typia/lib/functional/$join").$join;
           const $vo0 = (
             input: any,

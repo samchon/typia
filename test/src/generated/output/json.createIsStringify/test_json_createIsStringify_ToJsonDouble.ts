@@ -10,6 +10,8 @@ export const test_json_createIsStringify_ToJsonDouble = _test_json_isStringify(
     return "object" === typeof input && null !== input && true;
   };
   const stringify = (input: ToJsonDouble): string => {
+    // @ts-ignore;
+    declare const require: (lib: string) => any;
     const $number = require("typia/lib/functional/$number").$number;
     return `{"id":${$number((input.toJSON() as any).id)},"flag":${
       (input.toJSON() as any).flag

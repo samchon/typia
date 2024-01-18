@@ -143,6 +143,8 @@ export const test_misc_assertPrune_ObjectUnionExplicitPointer =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ObjectUnionExplicitPointer => {
+            // @ts-ignore;
+            declare const require: (lib: string) => any;
             const $guard = require("typia/lib/functional/$guard").$guard(
               "typia.misc.assertPrune",
             );
@@ -674,6 +676,8 @@ export const test_misc_assertPrune_ObjectUnionExplicitPointer =
             else if ("circle" === input.type) return $io10(input);
             else return false;
           })();
+        // @ts-ignore;
+        declare const require: (lib: string) => any;
         const $throws = require("typia/lib/functional/$throws").$throws;
         const $pp0 = (input: any) =>
           input.forEach((elem: any) => {

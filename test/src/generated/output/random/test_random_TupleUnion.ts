@@ -10,6 +10,8 @@ export const test_random_TupleUnion = _test_random("TupleUnion")<TupleUnion>(
     ((
       generator?: Partial<typia.IRandomGenerator>,
     ): typia.Resolved<TupleUnion> => {
+      // @ts-ignore;
+      declare const require: (lib: string) => any;
       const $generator = require("typia/lib/functional/$generator").$generator;
       return (generator?.array ?? $generator.array)(() =>
         (generator?.pick ?? $generator.pick)([
@@ -80,6 +82,8 @@ export const test_random_TupleUnion = _test_random("TupleUnion")<TupleUnion>(
         _path: string,
         _exceptionable: boolean = true,
       ): input is TupleUnion => {
+        // @ts-ignore;
+        declare const require: (lib: string) => any;
         const $guard = require("typia/lib/functional/$guard").$guard(
           "typia.createAssert",
         );

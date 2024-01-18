@@ -9,6 +9,8 @@ export const test_protobuf_createEncode_ArrayRecursiveUnionExplicitPointer =
   )<ArrayRecursiveUnionExplicitPointer>(ArrayRecursiveUnionExplicitPointer)({
     encode: (input) =>
       ((input: ArrayRecursiveUnionExplicitPointer): Uint8Array => {
+        // @ts-ignore;
+        declare const require: (lib: string) => any;
         const $throws = require("typia/lib/functional/$throws").$throws(
           "typia.protobuf.encode",
         );
@@ -269,6 +271,8 @@ export const test_protobuf_createEncode_ArrayRecursiveUnionExplicitPointer =
     decode: (
       input: Uint8Array,
     ): typia.Resolved<ArrayRecursiveUnionExplicitPointer> => {
+      // @ts-ignore;
+      declare const require: (lib: string) => any;
       const $ProtobufReader =
         require("typia/lib/functional/$ProtobufReader").$ProtobufReader;
       const $pdo0 = (reader: any, length: number = -1): any => {

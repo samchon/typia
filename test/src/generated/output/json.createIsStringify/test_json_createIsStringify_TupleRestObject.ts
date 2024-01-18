@@ -23,6 +23,8 @@ export const test_json_createIsStringify_TupleRestObject =
         );
       };
       const stringify = (input: TupleRestObject): string => {
+        // @ts-ignore;
+        declare const require: (lib: string) => any;
         const $number = require("typia/lib/functional/$number").$number;
         const $string = require("typia/lib/functional/$string").$string;
         const $rest = require("typia/lib/functional/$rest").$rest;

@@ -128,6 +128,8 @@ export const test_assertGuardEquals_ObjectUnionNonPredictable =
           _path: string,
           _exceptionable: boolean = true,
         ): input is ObjectUnionNonPredictable => {
+          // @ts-ignore;
+          declare const require: (lib: string) => any;
           const $guard = require("typia/lib/functional/$guard").$guard(
             "typia.assertGuardEquals",
           );

@@ -6,6 +6,8 @@ import { TypeTagFormat } from "../../../structures/TypeTagFormat";
 export const test_json_createStringify_TypeTagFormat = _test_json_stringify(
   "TypeTagFormat",
 )<TypeTagFormat>(TypeTagFormat)((input: TypeTagFormat): string => {
+  // @ts-ignore;
+  declare const require: (lib: string) => any;
   const $string = require("typia/lib/functional/$string").$string;
   return `{"uuid":${$string((input as any).uuid)},"email":${$string(
     (input as any).email,

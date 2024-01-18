@@ -36,6 +36,8 @@ export const test_createAssert_TemplateConstant = _test_assert(
       _path: string,
       _exceptionable: boolean = true,
     ): input is TemplateConstant => {
+      // @ts-ignore;
+      declare const require: (lib: string) => any;
       const $guard = require("typia/lib/functional/$guard").$guard(
         "typia.createAssert",
       );

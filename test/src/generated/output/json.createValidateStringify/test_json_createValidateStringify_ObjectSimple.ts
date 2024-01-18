@@ -180,6 +180,8 @@ export const test_json_createValidateStringify_ObjectSimple =
           "number" === typeof input.x &&
           "number" === typeof input.y &&
           "number" === typeof input.z;
+        // @ts-ignore;
+        declare const require: (lib: string) => any;
         const $number = require("typia/lib/functional/$number").$number;
         return `{"scale":${`{"x":${$number(
           ((input as any).scale as any).x,

@@ -297,6 +297,8 @@ export const test_notation_validateCamel_CommentTagArrayUnion =
           _path: string,
           _exceptionable: boolean = true,
         ): input is typia.CamelCase<CommentTagArrayUnion> => {
+          // @ts-ignore;
+          declare const require: (lib: string) => any;
           const $guard = require("typia/lib/functional/$guard").$guard(
             "typia.createAssert",
           );

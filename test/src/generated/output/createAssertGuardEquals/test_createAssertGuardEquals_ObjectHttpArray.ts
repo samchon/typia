@@ -53,6 +53,8 @@ export const test_createAssertGuardEquals_ObjectHttpArray =
           _path: string,
           _exceptionable: boolean = true,
         ): input is ObjectHttpArray => {
+          // @ts-ignore;
+          declare const require: (lib: string) => any;
           const $guard = require("typia/lib/functional/$guard").$guard(
             "typia.createAssertGuardEquals",
           );

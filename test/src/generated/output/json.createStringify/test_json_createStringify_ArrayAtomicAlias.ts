@@ -6,6 +6,8 @@ import { ArrayAtomicAlias } from "../../../structures/ArrayAtomicAlias";
 export const test_json_createStringify_ArrayAtomicAlias = _test_json_stringify(
   "ArrayAtomicAlias",
 )<ArrayAtomicAlias>(ArrayAtomicAlias)((input: ArrayAtomicAlias): string => {
+  // @ts-ignore;
+  declare const require: (lib: string) => any;
   const $number = require("typia/lib/functional/$number").$number;
   const $string = require("typia/lib/functional/$string").$string;
   return `[${`[${input[0].map((elem: any) => elem).join(",")}]`},${`[${input[1]

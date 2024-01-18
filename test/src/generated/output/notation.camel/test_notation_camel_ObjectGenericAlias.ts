@@ -95,6 +95,8 @@ export const test_notation_validateCamel_ObjectGenericAlias =
           _path: string,
           _exceptionable: boolean = true,
         ): input is typia.CamelCase<ObjectGenericAlias> => {
+          // @ts-ignore;
+          declare const require: (lib: string) => any;
           const $guard = require("typia/lib/functional/$guard").$guard(
             "typia.createAssert",
           );

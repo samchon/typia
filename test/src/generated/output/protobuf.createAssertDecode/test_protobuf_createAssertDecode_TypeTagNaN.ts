@@ -7,6 +7,8 @@ export const test_protobuf_createAssertDecode_TypeTagNaN =
   _test_protobuf_assertDecode("TypeTagNaN")<TypeTagNaN>(TypeTagNaN)({
     decode: (input: Uint8Array): typia.Resolved<TypeTagNaN> => {
       const decode = (input: Uint8Array): typia.Resolved<TypeTagNaN> => {
+        // @ts-ignore;
+        declare const require: (lib: string) => any;
         const $ProtobufReader =
           require("typia/lib/functional/$ProtobufReader").$ProtobufReader;
         const $pdo0 = (reader: any, length: number = -1): any => {
@@ -86,6 +88,8 @@ export const test_protobuf_createAssertDecode_TypeTagNaN =
             _path: string,
             _exceptionable: boolean = true,
           ): input is TypeTagNaN => {
+            // @ts-ignore;
+            declare const require: (lib: string) => any;
             const $guard = require("typia/lib/functional/$guard").$guard(
               "typia.protobuf.createAssertDecode",
             );
@@ -202,6 +206,8 @@ export const test_protobuf_createAssertDecode_TypeTagNaN =
       return assert(output) as any;
     },
     encode: (input: TypeTagNaN): Uint8Array => {
+      // @ts-ignore;
+      declare const require: (lib: string) => any;
       const $ProtobufSizer =
         require("typia/lib/functional/$ProtobufSizer").$ProtobufSizer;
       const $ProtobufWriter =

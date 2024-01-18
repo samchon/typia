@@ -155,6 +155,8 @@ export const test_json_validateStringify_TypeTagMatrix =
           } as any;
         };
         const stringify = (input: TypeTagMatrix): string => {
+          // @ts-ignore;
+          declare const require: (lib: string) => any;
           const $string = require("typia/lib/functional/$string").$string;
           const $so0 = (input: any): any =>
             `{"matrix":${`[${input.matrix

@@ -7,6 +7,8 @@ export const test_protobuf_createEncode_CommentTagFormat =
   _test_protobuf_encode("CommentTagFormat")<CommentTagFormat>(CommentTagFormat)(
     {
       encode: (input: CommentTagFormat): Uint8Array => {
+        // @ts-ignore;
+        declare const require: (lib: string) => any;
         const $ProtobufSizer =
           require("typia/lib/functional/$ProtobufSizer").$ProtobufSizer;
         const $ProtobufWriter =
@@ -47,6 +49,8 @@ export const test_protobuf_createEncode_CommentTagFormat =
         return writer.buffer();
       },
       decode: (input: Uint8Array): typia.Resolved<CommentTagFormat> => {
+        // @ts-ignore;
+        declare const require: (lib: string) => any;
         const $ProtobufReader =
           require("typia/lib/functional/$ProtobufReader").$ProtobufReader;
         const $pdo0 = (reader: any, length: number = -1): any => {

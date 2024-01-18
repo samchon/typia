@@ -28,6 +28,8 @@ export const test_createRandom_ConstantIntersection = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ConstantIntersection => {
+        // @ts-ignore;
+        declare const require: (lib: string) => any;
         const $guard = require("typia/lib/functional/$guard").$guard(
           "typia.createAssert",
         );

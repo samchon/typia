@@ -49,6 +49,8 @@ export const test_createAssert_SetAlias = _test_assert("SetAlias")<SetAlias>(
       _path: string,
       _exceptionable: boolean = true,
     ): input is SetAlias => {
+      // @ts-ignore;
+      declare const require: (lib: string) => any;
       const $guard = require("typia/lib/functional/$guard").$guard(
         "typia.createAssert",
       );

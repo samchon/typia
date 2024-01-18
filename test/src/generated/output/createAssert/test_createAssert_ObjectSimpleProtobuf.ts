@@ -37,6 +37,8 @@ export const test_createAssert_ObjectSimpleProtobuf = _test_assert(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ObjectSimpleProtobuf => {
+        // @ts-ignore;
+        declare const require: (lib: string) => any;
         const $guard = require("typia/lib/functional/$guard").$guard(
           "typia.createAssert",
         );

@@ -23,6 +23,8 @@ export const test_json_assertStringify_ClassMethod = _test_json_assertStringify(
           _path: string,
           _exceptionable: boolean = true,
         ): input is ClassMethod => {
+          // @ts-ignore;
+          declare const require: (lib: string) => any;
           const $guard = require("typia/lib/functional/$guard").$guard(
             "typia.json.assertStringify",
           );
@@ -61,6 +63,8 @@ export const test_json_assertStringify_ClassMethod = _test_json_assertStringify(
       return input;
     };
     const stringify = (input: ClassMethod): string => {
+      // @ts-ignore;
+      declare const require: (lib: string) => any;
       const $string = require("typia/lib/functional/$string").$string;
       const $number = require("typia/lib/functional/$number").$number;
       return `{"name":${$string((input as any).name)},"age":${$number(
