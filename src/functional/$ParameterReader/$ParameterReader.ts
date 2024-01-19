@@ -3,8 +3,8 @@ export const boolean = (value: string) =>
     ? value === "true" || value === "1"
       ? true
       : value === "false" || value === "0"
-        ? false
-        : value
+      ? false
+      : value
     : null;
 
 export const bigint = (value: string) =>

@@ -193,7 +193,6 @@ export const test_reflect_metadata_DynamicTag = _test_reflect_metadata(
         ],
         jsDocTags: [],
         index: 0,
-        validated: false,
         recursive: false,
         nullables: [false],
       },

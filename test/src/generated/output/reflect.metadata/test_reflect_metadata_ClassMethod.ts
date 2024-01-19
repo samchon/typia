@@ -139,7 +139,6 @@ export const test_reflect_metadata_ClassMethod = _test_reflect_metadata(
         ],
         jsDocTags: [],
         index: 0,
-        validated: false,
         recursive: false,
         nullables: [false],
       },

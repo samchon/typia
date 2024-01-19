@@ -138,7 +138,6 @@ export const test_reflect_metadata_ObjectLiteralProperty =
           ],
           jsDocTags: [],
           index: 0,
-          validated: false,
           recursive: false,
           nullables: [false],
         },

@@ -189,7 +189,6 @@
         ],
         "jsDocTags": [],
         "index": 0,
-        "validated": false,
         "recursive": true,
         "nullables": [
           false
@@ -251,7 +250,6 @@
         "description": "Construct a type with a set of properties K of type T",
         "jsDocTags": [],
         "index": 1,
-        "validated": false,
         "recursive": true,
         "nullables": [
           false

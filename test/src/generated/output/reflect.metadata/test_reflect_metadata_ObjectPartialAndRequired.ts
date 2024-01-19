@@ -289,7 +289,6 @@ export const test_reflect_metadata_ObjectPartialAndRequired =
           ],
           jsDocTags: [],
           index: 0,
-          validated: false,
           recursive: true,
           nullables: [false, true],
         },

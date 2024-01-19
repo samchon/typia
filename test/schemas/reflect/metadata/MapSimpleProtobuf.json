@@ -746,7 +746,6 @@
         ],
         "jsDocTags": [],
         "index": 0,
-        "validated": false,
         "recursive": true,
         "nullables": [
           false

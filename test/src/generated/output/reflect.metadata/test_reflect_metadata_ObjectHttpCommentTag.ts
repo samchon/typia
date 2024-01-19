@@ -345,7 +345,6 @@ export const test_reflect_metadata_ObjectHttpCommentTag =
           ],
           jsDocTags: [],
           index: 0,
-          validated: false,
           recursive: false,
           nullables: [false],
         },

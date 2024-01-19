@@ -733,7 +733,6 @@ export const test_reflect_metadata_MapSimpleProtobufNullable =
           ],
           jsDocTags: [],
           index: 0,
-          validated: false,
           recursive: true,
           nullables: [false],
         },

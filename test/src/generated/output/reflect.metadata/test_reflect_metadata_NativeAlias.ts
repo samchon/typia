@@ -784,7 +784,6 @@ export const test_reflect_metadata_NativeAlias = _test_reflect_metadata(
         ],
         jsDocTags: [],
         index: 0,
-        validated: false,
         recursive: false,
         nullables: [false],
       },

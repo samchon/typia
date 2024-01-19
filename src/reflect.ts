@@ -41,7 +41,10 @@ function metadata(): never {
   halt("metadata");
 }
 
-const metadataPure = /** @__PURE__ */ Object.assign(metadata, { from: (input: unknown) => input });
+const metadataPure = /** @__PURE__ */ Object.assign<typeof metadata, {}>(
+  metadata,
+  { from: (input: unknown) => input },
+);
 export { metadataPure as metadata };
 
 /**

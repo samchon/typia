@@ -10,9 +10,4 @@ export interface IMetadataObject {
   index: number;
   recursive: boolean;
   nullables: boolean[];
-
-  /**
-   * @internal
-   */
-  validated: boolean;
 }
