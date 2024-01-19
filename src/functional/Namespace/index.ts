@@ -1,11 +1,11 @@
 import { RandomGenerator } from "../../utils/RandomGenerator";
 
-import { IValidation } from "../../IValidation";
-import { TypeGuardError } from "../../TypeGuardError";
 import { $every } from "../$every";
 import { $guard } from "../$guard";
 import { $join } from "../$join";
 import { $report } from "../$report";
+import { IValidation } from "../../IValidation";
+import { TypeGuardError } from "../../TypeGuardError";
 import { is } from "../is";
 
 export * as json from "./json";
@@ -41,32 +41,32 @@ export const validate = () => ({
   report: $report,
   predicate:
     (res: IValidation) =>
-      (
-        matched: boolean,
-        exceptionable: boolean,
-        closure: () => IValidation.IError,
-      ) => {
-        // CHECK FAILURE
-        if (matched === false && exceptionable === true)
-          (() => {
-            res.success &&= false;
-            const errorList = (res as IValidation.IFailure).errors;
+    (
+      matched: boolean,
+      exceptionable: boolean,
+      closure: () => IValidation.IError,
+    ) => {
+      // CHECK FAILURE
+      if (matched === false && exceptionable === true)
+        (() => {
+          res.success &&= false;
+          const errorList = (res as IValidation.IFailure).errors;
 
-            // TRACE ERROR
-            const error = closure();
-            if (errorList.length) {
-              const last = errorList[errorList.length - 1]!.path;
-              if (
-                last.length >= error.path.length &&
-                last.substring(0, error.path.length) === error.path
-              )
-                return;
-            }
-            errorList.push(error);
-            return;
-          })();
-        return matched;
-      },
+          // TRACE ERROR
+          const error = closure();
+          if (errorList.length) {
+            const last = errorList[errorList.length - 1]!.path;
+            if (
+              last.length >= error.path.length &&
+              last.substring(0, error.path.length) === error.path
+            )
+              return;
+          }
+          errorList.push(error);
+          return;
+        })();
+      return matched;
+    },
 });
 
 export const random = () => ({

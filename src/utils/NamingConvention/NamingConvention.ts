@@ -31,11 +31,7 @@ export function camel(str: string): string {
   if (str.length === 0) return str;
   else if (str[0] === str[0]!.toUpperCase())
     return str[0]!.toLowerCase() + str.substring(1);
-  else if (
-    str[0] === "_" &&
-    str.length > 1 &&
-    str[1] === str[1]!.toLowerCase()
-  )
+  else if (str[0] === "_" && str.length > 1 && str[1] === str[1]!.toLowerCase())
     return "_" + str[1]!.toUpperCase() + str.substring(2);
   else return str;
 }
@@ -45,11 +41,7 @@ export function pascal(str: string): string {
   if (str.length === 0) return str;
   else if (str[0] === str[0]!.toLowerCase())
     return str[0]!.toUpperCase() + str.substring(1);
-  else if (
-    str[0] === "_" &&
-    str.length > 1 &&
-    str[1] === str[1]!.toLowerCase()
-  )
+  else if (str[0] === "_" && str.length > 1 && str[1] === str[1]!.toLowerCase())
     return "_" + str[1]!.toUpperCase() + str.substring(2);
   else return str;
 }

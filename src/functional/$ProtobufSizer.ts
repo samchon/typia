@@ -123,14 +123,14 @@ export class $ProtobufSizer implements IProtobufWriter {
       value < 0
         ? 10 // 10 bits with leading 1's
         : value < 0x80
-          ? 1
-          : value < 0x4000
-            ? 2
-            : value < 0x200000
-              ? 3
-              : value < 0x10000000
-                ? 4
-                : 5;
+        ? 1
+        : value < 0x4000
+        ? 2
+        : value < 0x200000
+        ? 3
+        : value < 0x10000000
+        ? 4
+        : 5;
   }
 
   private varint64(val: bigint): void {

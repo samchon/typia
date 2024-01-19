@@ -130,9 +130,9 @@ function assertParse<T>(input: string): Primitive<T>;
 function assertParse<T>(): Primitive<T> {
   halt("assertParse");
 }
-const assertParsePure = /** @__PURE__ */ Object.assign(
+const assertParsePure = /** @__PURE__ */ Object.assign<typeof assertParse, {}>(
   assertParse,
-  /** @__PURE__ */ Namespace.assert("json.assertParse")
+  /** @__PURE__ */ Namespace.assert("json.assertParse"),
 );
 export { assertParsePure as assertParse };
 
@@ -182,7 +182,10 @@ function isParse<T>(input: string): Primitive<T> | null;
 function isParse<T>(): Primitive<T> | null {
   halt("isParse");
 }
-const isParsePure = /** @__PURE__ */ Object.assign(isParse, /** @__PURE__ */ Namespace.is());
+const isParsePure = /** @__PURE__ */ Object.assign<typeof isParse, {}>(
+  isParse,
+  /** @__PURE__ */ Namespace.is(),
+);
 export { isParsePure as isParse };
 
 /**
@@ -233,7 +236,10 @@ function validateParse<T>(input: string): IValidation<Primitive<T>>;
 function validateParse<T>(): IValidation<Primitive<T>> {
   halt("validateParse");
 }
-const validateParsePure = /** @__PURE__ */ Object.assign(validateParse, /** @__PURE__ */ Namespace.validate());
+const validateParsePure = /** @__PURE__ */ Object.assign<
+  typeof validateParse,
+  {}
+>(validateParse, /** @__PURE__ */ Namespace.validate());
 export { validateParsePure as validateParse };
 
 /* -----------------------------------------------------------
@@ -269,9 +275,9 @@ function stringify<T>(input: T): string;
 function stringify(): never {
   halt("stringify");
 }
-const stringifyPure = /** @__PURE__ */ Object.assign(
+const stringifyPure = /** @__PURE__ */ Object.assign<typeof stringify, {}>(
   stringify,
-  /** @__PURE__ */ Namespace.json.stringify("stringify")
+  /** @__PURE__ */ Namespace.json.stringify("stringify"),
 );
 export { stringifyPure as stringify };
 
@@ -327,10 +333,14 @@ function assertStringify<T>(input: T): unknown;
 function assertStringify(): string {
   halt("assertStringify");
 }
-const assertStringifyPure = /** @__PURE__ */ Object.assign(
+const assertStringifyPure = /** @__PURE__ */ Object.assign<
+  typeof assertStringify,
+  {},
+  {}
+>(
   assertStringify,
   /** @__PURE__ */ Namespace.assert("json.assertStringify"),
-  /** @__PURE__ */ Namespace.json.stringify("assertStringify")
+  /** @__PURE__ */ Namespace.json.stringify("assertStringify"),
 );
 export { assertStringifyPure as assertStringify };
 
@@ -387,10 +397,14 @@ function isStringify(): string | null {
   halt("isStringify");
 }
 
-const isStringifyPure = /** @__PURE__ */ Object.assign(
+const isStringifyPure = /** @__PURE__ */ Object.assign<
+  typeof isStringify,
+  {},
+  {}
+>(
   isStringify,
   /** @__PURE__ */ Namespace.is(),
-  /** @__PURE__ */ Namespace.json.stringify("isStringify")
+  /** @__PURE__ */ Namespace.json.stringify("isStringify"),
 );
 export { isStringifyPure as isStringify };
 
@@ -448,7 +462,11 @@ function validateStringify<T>(input: unknown): IValidation<string>;
 function validateStringify(): IValidation<string> {
   halt("validateStringify");
 }
-const validateStringifyPure = /** @__PURE__ */ Object.assign(
+const validateStringifyPure = /** @__PURE__ */ Object.assign<
+  typeof validateStringify,
+  {},
+  {}
+>(
   validateStringify,
   /** @__PURE__ */ Namespace.validate(),
   /** @__PURE__ */ Namespace.json.stringify("validateStringify"),
@@ -485,7 +503,10 @@ function createIsParse<T>(): (input: string) => Primitive<T> | null;
 function createIsParse<T>(): (input: string) => Primitive<T> | null {
   halt("createIsParse");
 }
-const createIsParsePure = /** @__PURE__ */ Object.assign(createIsParse, isParse);
+const createIsParsePure = /** @__PURE__ */ Object.assign<
+  typeof createIsParse,
+  {}
+>(createIsParse, isParse);
 export { createIsParsePure as createIsParse };
 
 /**
@@ -515,7 +536,10 @@ function createAssertParse<T>(): (input: string) => Primitive<T>;
 function createAssertParse<T>(): (input: string) => Primitive<T> {
   halt("createAssertParse");
 }
-const createAssertParsePure = /** @__PURE__ */ Object.assign(createAssertParse, assertParse);
+const createAssertParsePure = /** @__PURE__ */ Object.assign<
+  typeof createAssertParse,
+  {}
+>(createAssertParse, assertParse);
 export { createAssertParsePure as createAssertParse };
 
 /**
@@ -537,9 +561,7 @@ function createValidateParse(): never;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function createValidateParse<T>(): (
-  input: string,
-) => IValidation<Primitive<T>>;
+function createValidateParse<T>(): (input: string) => IValidation<Primitive<T>>;
 
 /**
  * @internal
@@ -550,7 +572,10 @@ function createValidateParse<T>(): (
   halt("createValidateParse");
 }
 
-const createValidateParsePure = /** @__PURE__ */ Object.assign(createValidateParse, validateParse);
+const createValidateParsePure = /** @__PURE__ */ Object.assign<
+  typeof createValidateParse,
+  {}
+>(createValidateParse, validateParse);
 export { createValidateParsePure as createValidateParse };
 
 /**
@@ -581,7 +606,10 @@ function createStringify<T>(): (input: T) => string {
   halt("createStringify");
 }
 
-const createStringifyPure = /** @__PURE__ */ Object.assign(createStringify, stringify);
+const createStringifyPure = /** @__PURE__ */ Object.assign<
+  typeof createStringify,
+  {}
+>(createStringify, stringify);
 export { createStringifyPure as createStringify };
 
 /**
@@ -612,7 +640,10 @@ function createAssertStringify(): (input: unknown) => string {
   halt("createAssertStringify");
 }
 
-const createAssertStringifyPure = /** @__PURE__ */ Object.assign(createAssertStringify, assertStringify);
+const createAssertStringifyPure = /** @__PURE__ */ Object.assign<
+  typeof createAssertStringify,
+  {}
+>(createAssertStringify, assertStringify);
 export { createAssertStringifyPure as createAssertStringify };
 
 /**
@@ -643,7 +674,10 @@ function createIsStringify(): (input: unknown) => string | null {
   halt("createIsStringify");
 }
 
-const createIsStringifyPure = /** @__PURE__ */ Object.assign(createIsStringify, isStringify);
+const createIsStringifyPure = /** @__PURE__ */ Object.assign<
+  typeof createIsStringify,
+  {}
+>(createIsStringify, isStringify);
 export { createIsStringifyPure as createIsStringify };
 
 /**
@@ -665,20 +699,19 @@ function createValidateStringify(): never;
 
  * @author Jeongho Nam - https://github.com/samchon
  */
-function createValidateStringify<T>(): (
-  input: unknown,
-) => IValidation<string>;
+function createValidateStringify<T>(): (input: unknown) => IValidation<string>;
 
 /**
  * @internal
  */
-function createValidateStringify(): (
-  input: unknown,
-) => IValidation<string> {
+function createValidateStringify(): (input: unknown) => IValidation<string> {
   halt("createValidateStringify");
 }
 
-const createValidateStringifyPure = /** @__PURE__ */ Object.assign(createValidateStringify, validateStringify);
+const createValidateStringifyPure = /** @__PURE__ */ Object.assign<
+  typeof createValidateStringify,
+  {}
+>(createValidateStringify, validateStringify);
 export { createValidateStringifyPure as createValidateStringify };
 
 /**

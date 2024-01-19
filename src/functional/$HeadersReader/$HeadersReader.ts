@@ -3,8 +3,8 @@ export const boolean = (value: string | undefined) =>
     ? value === "true"
       ? true
       : value === "false"
-        ? false
-        : value
+      ? false
+      : value
     : undefined;
 export const bigint = (value: string | undefined) =>
   value !== undefined ? toBigint(value) : undefined;

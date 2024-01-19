@@ -41,7 +41,10 @@ function camel<T>(input: T): CamelCase<T>;
 function camel(): never {
   return halt("camel");
 }
-const camelPure = /** @__PURE__ */ Object.assign(camel, /** @__PURE__ */ Namespace.notations.camel("camel"));
+const camelPure = /** @__PURE__ */ Object.assign<typeof camel, {}>(
+  camel,
+  /** @__PURE__ */ Namespace.notations.camel("camel"),
+);
 export { camelPure as camel };
 
 /**
@@ -78,10 +81,14 @@ function assertCamel<T>(input: unknown): CamelCase<T>;
 function assertCamel(): never {
   return halt("assertCamel");
 }
-const assertCamelPure = /** @__PURE__ */ Object.assign(
+const assertCamelPure = /** @__PURE__ */ Object.assign<
+  typeof assertCamel,
+  {},
+  {}
+>(
   assertCamel,
   /** @__PURE__ */ Namespace.notations.camel("assertCamel"),
-  /** @__PURE__ */ Namespace.assert("notations.assertCamel")
+  /** @__PURE__ */ Namespace.assert("notations.assertCamel"),
 );
 export { assertCamelPure as assertCamel };
 
@@ -119,10 +126,10 @@ function isCamel<T>(input: unknown): CamelCase<T> | null;
 function isCamel(): never {
   return halt("isCamel");
 }
-const isCamelPure = /** @__PURE__ */ Object.assign(
+const isCamelPure = /** @__PURE__ */ Object.assign<typeof isCamel, {}, {}>(
   isCamel,
   /** @__PURE__ */ Namespace.notations.camel("isCamel"),
-  /** @__PURE__ */ Namespace.is()
+  /** @__PURE__ */ Namespace.is(),
 );
 export { isCamelPure as isCamel };
 
@@ -164,10 +171,14 @@ function validateCamel<T>(input: unknown): IValidation<CamelCase<T>>;
 function validateCamel(): never {
   return halt("validateCamel");
 }
-const validateCamelPure = /** @__PURE__ */ Object.assign(
+const validateCamelPure = /** @__PURE__ */ Object.assign<
+  typeof validateCamel,
+  {},
+  {}
+>(
   validateCamel,
   /** @__PURE__ */ Namespace.notations.camel("validateCamel"),
-  /** @__PURE__ */ Namespace.validate()
+  /** @__PURE__ */ Namespace.validate(),
 );
 export { validateCamelPure as validateCamel };
 
@@ -201,9 +212,9 @@ function pascal<T>(input: T): PascalCase<T>;
 function pascal(): never {
   return halt("pascal");
 }
-const pascalPure = /** @__PURE__ */ Object.assign(
+const pascalPure = /** @__PURE__ */ Object.assign<typeof pascal, {}>(
   pascal,
-  /** @__PURE__ */ Namespace.notations.pascal("pascal")
+  /** @__PURE__ */ Namespace.notations.pascal("pascal"),
 );
 export { pascalPure as pascal };
 
@@ -241,10 +252,14 @@ function assertPascal<T>(input: unknown): PascalCase<T>;
 function assertPascal(): never {
   return halt("assertPascal");
 }
-const assertPascalPure = /** @__PURE__ */ Object.assign(
+const assertPascalPure = /** @__PURE__ */ Object.assign<
+  typeof assertPascal,
+  {},
+  {}
+>(
   assertPascal,
   /** @__PURE__ */ Namespace.notations.pascal("assertPascal"),
-  /** @__PURE__ */ Namespace.assert("notations.assertPascal")
+  /** @__PURE__ */ Namespace.assert("notations.assertPascal"),
 );
 export { assertPascalPure as assertPascal };
 
@@ -282,10 +297,10 @@ function isPascal<T>(input: unknown): PascalCase<T> | null;
 function isPascal(): never {
   return halt("isPascal");
 }
-const isPascalPure = /** @__PURE__ */ Object.assign(
+const isPascalPure = /** @__PURE__ */ Object.assign<typeof isPascal, {}, {}>(
   isPascal,
   /** @__PURE__ */ Namespace.notations.pascal("isPascal"),
-  /** @__PURE__ */ Namespace.is()
+  /** @__PURE__ */ Namespace.is(),
 );
 export { isPascalPure as isPascal };
 
@@ -327,10 +342,14 @@ function validatePascal<T>(input: unknown): IValidation<PascalCase<T>>;
 function validatePascal(): never {
   return halt("validatePascal");
 }
-const validatePascalPure = /** @__PURE__ */Object.assign(
+const validatePascalPure = /** @__PURE__ */ Object.assign<
+  typeof validatePascal,
+  {},
+  {}
+>(
   validatePascal,
   /** @__PURE__ */ Namespace.notations.pascal("validatePascal"),
-  /** @__PURE__ */ Namespace.validate()
+  /** @__PURE__ */ Namespace.validate(),
 );
 export { validatePascalPure as validatePascal };
 
@@ -364,7 +383,10 @@ function snake<T>(input: T): SnakeCase<T>;
 function snake(): never {
   return halt("snake");
 }
-const snakePure = /** @__PURE__ */ Object.assign(snake, /** @__PURE__ */ Namespace.notations.snake("snake"));
+const snakePure = /** @__PURE__ */ Object.assign<typeof snake, {}>(
+  snake,
+  /** @__PURE__ */ Namespace.notations.snake("snake"),
+);
 export { snakePure as snake };
 
 /**
@@ -401,7 +423,11 @@ function assertSnake<T>(input: unknown): SnakeCase<T>;
 function assertSnake(): never {
   return halt("assertSnake");
 }
-const assertSnakePure = /** @__PURE__ */ Object.assign(
+const assertSnakePure = /** @__PURE__ */ Object.assign<
+  typeof assertSnake,
+  {},
+  {}
+>(
   assertSnake,
   /** @__PURE__ */ Namespace.notations.snake("assertSnake"),
   /** @__PURE__ */ Namespace.assert("notations.assertSnake"),
@@ -442,10 +468,10 @@ function isSnake<T>(input: unknown): SnakeCase<T> | null;
 function isSnake(): never {
   return halt("isSnake");
 }
-const isSnakePure = /** @__PURE__ */ Object.assign(
+const isSnakePure = /** @__PURE__ */ Object.assign<typeof isSnake, {}, {}>(
   isSnake,
   /** @__PURE__ */ Namespace.notations.snake("isSnake"),
-  /** @__PURE__ */ Namespace.is()
+  /** @__PURE__ */ Namespace.is(),
 );
 export { isSnakePure as isSnake };
 
@@ -487,10 +513,14 @@ function validateSnake<T>(input: unknown): IValidation<SnakeCase<T>>;
 function validateSnake(): never {
   return halt("validateSnake");
 }
-const validateSnakePure = /** @__PURE__ */ Object.assign(
+const validateSnakePure = /** @__PURE__ */ Object.assign<
+  typeof validateSnake,
+  {},
+  {}
+>(
   validateSnake,
   /** @__PURE__ */ Namespace.notations.snake("validateSnake"),
-  /** @__PURE__ */ Namespace.validate()
+  /** @__PURE__ */ Namespace.validate(),
 );
 export { validateSnakePure as validateSnake };
 /* -----------------------------------------------------------
@@ -523,9 +553,9 @@ function createCamel<T>(): (input: T) => CamelCase<T>;
 function createCamel(): never {
   halt("createCamel");
 }
-const createCamelPure = /** @__PURE__ */ Object.assign(
+const createCamelPure = /** @__PURE__ */ Object.assign<typeof createCamel, {}>(
   createCamel,
-  /** @__PURE__ */ Namespace.notations.camel("createCamel")
+  /** @__PURE__ */ Namespace.notations.camel("createCamel"),
 );
 export { createCamelPure as createCamel };
 
@@ -556,7 +586,11 @@ function createAssertCamel<T>(): (input: T) => CamelCase<T>;
 function createAssertCamel(): never {
   halt("createAssertCamel");
 }
-const createAssertCamelPure = /** @__PURE__ */ Object.assign(
+const createAssertCamelPure = /** @__PURE__ */ Object.assign<
+  typeof createAssertCamel,
+  {},
+  {}
+>(
   createAssertCamel,
   /** @__PURE__ */ Namespace.notations.camel("createAssertCamel"),
   /** @__PURE__ */ Namespace.assert("notations.createAssertCamel"),
@@ -590,10 +624,14 @@ function createIsCamel<T>(): (input: T) => CamelCase<T> | null;
 function createIsCamel(): never {
   halt("createIsCamel");
 }
-const createIsCamelPure = /** @__PURE__ */ Object.assign(
+const createIsCamelPure = /** @__PURE__ */ Object.assign<
+  typeof createIsCamel,
+  {},
+  {}
+>(
   createIsCamel,
   /** @__PURE__ */ Namespace.notations.camel("createIsCamel"),
-  /** @__PURE__ */ Namespace.is()
+  /** @__PURE__ */ Namespace.is(),
 );
 export { createIsCamelPure as createIsCamel };
 
@@ -616,9 +654,7 @@ function createValidateCamel(): never;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function createValidateCamel<T>(): (
-  input: T,
-) => IValidation<CamelCase<T>>;
+function createValidateCamel<T>(): (input: T) => IValidation<CamelCase<T>>;
 
 /**
  * @internal
@@ -626,10 +662,14 @@ function createValidateCamel<T>(): (
 function createValidateCamel(): never {
   halt("createValidateCamel");
 }
-const createValidateCamelPure = /** @__PURE__ */ Object.assign(
+const createValidateCamelPure = /** @__PURE__ */ Object.assign<
+  typeof createValidateCamel,
+  {},
+  {}
+>(
   createValidateCamel,
   /** @__PURE__ */ Namespace.notations.camel("createValidateCamel"),
-  /** @__PURE__ */ Namespace.validate()
+  /** @__PURE__ */ Namespace.validate(),
 );
 export { createValidateCamelPure as createValidateCamel };
 
@@ -660,10 +700,10 @@ function createPascal<T>(): (input: T) => PascalCase<T>;
 function createPascal(): never {
   halt("createPascal");
 }
-const createPascalPure = /** @__PURE__ */ Object.assign(
-  createPascal,
-  /** @__PURE__ */ Namespace.notations.pascal("createPascal")
-);
+const createPascalPure = /** @__PURE__ */ Object.assign<
+  typeof createPascal,
+  {}
+>(createPascal, /** @__PURE__ */ Namespace.notations.pascal("createPascal"));
 export { createPascalPure as createPascal };
 
 /**
@@ -693,7 +733,11 @@ function createAssertPascal<T>(): (input: T) => PascalCase<T>;
 function createAssertPascal(): never {
   halt("createAssertPascal");
 }
-const createAssertPascalPure = /** @__PURE__ */ Object.assign(
+const createAssertPascalPure = /** @__PURE__ */ Object.assign<
+  typeof createAssertPascal,
+  {},
+  {}
+>(
   createAssertPascal,
   /** @__PURE__ */ Namespace.notations.pascal("createAssertPascal"),
   /** @__PURE__ */ Namespace.assert("notations.createAssertPascal"),
@@ -727,10 +771,14 @@ function createIsPascal<T>(): (input: T) => PascalCase<T> | null;
 function createIsPascal(): never {
   halt("createIsPascal");
 }
-const createIsPascalPure = /** @__PURE__ */ Object.assign(
+const createIsPascalPure = /** @__PURE__ */ Object.assign<
+  typeof createIsPascal,
+  {},
+  {}
+>(
   createIsPascal,
   /** @__PURE__ */ Namespace.notations.pascal("createIsPascal"),
-  /** @__PURE__ */ Namespace.is()
+  /** @__PURE__ */ Namespace.is(),
 );
 export { createIsPascalPure as createIsPascal };
 
@@ -753,9 +801,7 @@ function createValidatePascal(): never;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function createValidatePascal<T>(): (
-  input: T,
-) => IValidation<PascalCase<T>>;
+function createValidatePascal<T>(): (input: T) => IValidation<PascalCase<T>>;
 
 /**
  * @internal
@@ -763,7 +809,11 @@ function createValidatePascal<T>(): (
 function createValidatePascal(): never {
   halt("createValidatePascal");
 }
-const createValidatePascalPure = /** @__PURE__ */ Object.assign(
+const createValidatePascalPure = /** @__PURE__ */ Object.assign<
+  typeof createValidatePascal,
+  {},
+  {}
+>(
   createValidatePascal,
   /** @__PURE__ */ Namespace.notations.pascal("createValidatePascal"),
   /** @__PURE__ */ Namespace.validate(),
@@ -797,9 +847,9 @@ function createSnake<T>(): (input: T) => SnakeCase<T>;
 function createSnake(): never {
   halt("createSnake");
 }
-const createSnakePure = /** @__PURE__ */ Object.assign(
+const createSnakePure = /** @__PURE__ */ Object.assign<typeof createSnake, {}>(
   createSnake,
-  /** @__PURE__ */ Namespace.notations.snake("createSnake")
+  /** @__PURE__ */ Namespace.notations.snake("createSnake"),
 );
 export { createSnakePure as createSnake };
 
@@ -830,7 +880,11 @@ function createAssertSnake<T>(): (input: T) => SnakeCase<T>;
 function createAssertSnake(): never {
   halt("createAssertSnake");
 }
-const createAssertSnakePure = /** @__PURE__ */ Object.assign(
+const createAssertSnakePure = /** @__PURE__ */ Object.assign<
+  typeof createAssertSnake,
+  {},
+  {}
+>(
   createAssertSnake,
   /** @__PURE__ */ Namespace.notations.snake("createAssertSnake"),
   /** @__PURE__ */ Namespace.assert("notations.createAssertSnake"),
@@ -864,10 +918,14 @@ function createIsSnake<T>(): (input: T) => SnakeCase<T> | null;
 function createIsSnake(): never {
   halt("createIsSnake");
 }
-const createIsSnakePure = /** @__PURE__ */ Object.assign(
+const createIsSnakePure = /** @__PURE__ */ Object.assign<
+  typeof createIsSnake,
+  {},
+  {}
+>(
   createIsSnake,
   /** @__PURE__ */ Namespace.notations.snake("createIsSnake"),
-  /** @__PURE__ */ Namespace.is()
+  /** @__PURE__ */ Namespace.is(),
 );
 export { createIsSnakePure as createIsSnake };
 
@@ -890,9 +948,7 @@ function createValidateSnake(): never;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function createValidateSnake<T>(): (
-  input: T,
-) => IValidation<SnakeCase<T>>;
+function createValidateSnake<T>(): (input: T) => IValidation<SnakeCase<T>>;
 
 /**
  * @internal
@@ -900,7 +956,11 @@ function createValidateSnake<T>(): (
 function createValidateSnake(): never {
   halt("createValidateSnake");
 }
-const createValidateSnakePure = /** @__PURE__ */ Object.assign(
+const createValidateSnakePure = /** @__PURE__ */ Object.assign<
+  typeof createValidateSnake,
+  {},
+  {}
+>(
   createValidateSnake,
   /** @__PURE__ */ Namespace.notations.snake("createValidateSnake"),
   /** @__PURE__ */ Namespace.validate(),
