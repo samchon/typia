@@ -481,7 +481,7 @@ function createClone(): never {
 }
 const createClonePure = /** @__PURE__ */ Object.assign<typeof createClone, {}>(
   createClone,
-  clone,
+  clonePure,
 );
 export { createClonePure as createClone };
 
@@ -515,7 +515,7 @@ function createAssertClone(): never {
 const createAssertClonePure = /** @__PURE__ */ Object.assign<
   typeof createAssertClone,
   {}
->(createAssertClone, assertClone);
+>(createAssertClone, assertClonePure);
 export { createAssertClonePure as createAssertClone };
 
 /**
@@ -548,7 +548,7 @@ function createIsClone(): never {
 const createIsClonePure = /** @__PURE__ */ Object.assign<
   typeof createIsClone,
   {}
->(createIsClone, isClone);
+>(createIsClone, isClonePure);
 export { createIsClonePure as createIsClone };
 
 /**
@@ -581,7 +581,7 @@ function createValidateClone(): never {
 const createValidateClonePure = /** @__PURE__ */ Object.assign<
   typeof createValidateClone,
   {}
->(createValidateClone, validateClone);
+>(createValidateClone, validateClonePure);
 export { createValidateClonePure as createValidateClone };
 
 /**
@@ -613,7 +613,7 @@ function createPrune<T extends object>(): (input: T) => void {
 }
 const createPrunePure = /** @__PURE__ */ Object.assign<typeof createPrune, {}>(
   createPrune,
-  prune,
+  prunePure,
 );
 export { createPrunePure as createPrune };
 
@@ -647,7 +647,7 @@ function createAssertPrune<T extends object>(): (input: T) => T {
 const createAssertPrunePure = /** @__PURE__ */ Object.assign<
   typeof createAssertPrune,
   {}
->(createAssertPrune, assertPrune);
+>(createAssertPrune, assertPrunePure);
 export { createAssertPrunePure as createAssertPrune };
 
 /**
@@ -680,7 +680,7 @@ function createIsPrune<T extends object>(): (input: T) => input is T {
 const createIsPrunePure = /** @__PURE__ */ Object.assign<
   typeof createIsPrune,
   {}
->(createIsPrune, isPrune);
+>(createIsPrune, isPrunePure);
 export { createIsPrunePure as createIsPrune };
 
 /**
@@ -713,7 +713,7 @@ function createValidatePrune<T extends object>(): (input: T) => IValidation<T> {
 const createValidatePrunePure = /** @__PURE__ */ Object.assign<
   typeof createValidatePrune,
   {}
->(createValidatePrune, validatePrune);
+>(createValidatePrune, validatePrunePure);
 export { createValidatePrunePure as createValidatePrune };
 
 /**
