@@ -624,7 +624,7 @@ function createAssert<T>(): (input: unknown) => T {
 const createAssertPure = /** @__PURE__ */ Object.assign<
   typeof createAssert,
   {}
->(createAssert, assert);
+>(createAssert, assertPure);
 export { createAssertPure as createAssert };
 
 /**
@@ -687,7 +687,7 @@ function createAssertGuard<T>(): (input: unknown) => AssertionGuard<T> {
 const createAssertGuardPure = /** @__PURE__ */ Object.assign<
   typeof createAssertGuard,
   {}
->(createAssertGuard, assertGuard);
+>(createAssertGuard, assertGuardPure);
 export { createAssertGuardPure as createAssertGuard };
 
 /**
@@ -719,7 +719,7 @@ function createIs<T>(): (input: unknown) => input is T {
 }
 const createIsPure = /** @__PURE__ */ Object.assign<typeof createIs, {}>(
   createIs,
-  is,
+  isPure,
 );
 export { createIsPure as createIs };
 
@@ -753,7 +753,7 @@ function createValidate(): (input: unknown) => IValidation {
 const createValidatePure = /** @__PURE__ */ Object.assign<
   typeof createValidate,
   {}
->(createValidate, validate);
+>(createValidate, validatePure);
 export { createValidatePure as createValidate };
 
 /**
@@ -786,7 +786,7 @@ function createAssertEquals<T>(): (input: unknown) => T {
 const createAssertEqualsPure = /** @__PURE__ */ Object.assign<
   typeof createAssertEquals,
   {}
->(createAssertEquals, assertEquals);
+>(createAssertEquals, assertEqualsPure);
 export { createAssertEqualsPure as createAssertEquals };
 
 /**
@@ -849,7 +849,7 @@ function createAssertGuardEquals<T>(): (input: unknown) => AssertionGuard<T> {
 const createAssertGuardEqualsPure = /** @__PURE__ */ Object.assign<
   typeof createAssertGuardEquals,
   {}
->(createAssertGuardEquals, assertGuardEquals);
+>(createAssertGuardEquals, assertGuardEqualsPure);
 export { createAssertGuardEqualsPure as createAssertGuardEquals };
 
 /**
@@ -882,7 +882,7 @@ function createEquals<T>(): (input: unknown) => input is T {
 const createEqualsPure = /** @__PURE__ */ Object.assign<
   typeof createEquals,
   {}
->(createEquals, equals);
+>(createEquals, equalsPure);
 export { createEqualsPure as createEquals };
 
 /**
@@ -915,7 +915,7 @@ function createValidateEquals(): (input: unknown) => IValidation {
 const createValidateEqualsPure = /** @__PURE__ */ Object.assign<
   typeof createValidateEquals,
   {}
->(createValidateEquals, validateEquals);
+>(createValidateEquals, validateEqualsPure);
 export { createValidateEqualsPure as createValidateEquals };
 
 /**
@@ -952,7 +952,7 @@ function createRandom(): never {
 const createRandomPure = /** @__PURE__ */ Object.assign<
   typeof createRandom,
   {}
->(createRandom, random);
+>(createRandom, randomPure);
 export { createRandomPure as createRandom };
 
 /**
