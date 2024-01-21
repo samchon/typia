@@ -7,7 +7,7 @@
 ==============================================================
     LITERALS
 ----------------------------------------------------------- */
-import { Namespace } from "./functional/Namespace";
+import * as Namespace from "./functional/Namespace";
 
 import { Atomic } from "./typings/Atomic";
 
@@ -76,15 +76,19 @@ export function literals(): never {
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function clone<T>(input: T): Resolved<T>;
+function clone<T>(input: T): Resolved<T>;
 
 /**
  * @internal
  */
-export function clone(): never {
+function clone(): never {
   halt("clone");
 }
-Object.assign(clone, Namespace.misc.clone("clone"));
+const clonePure = /** @__PURE__ */ Object.assign<typeof clone, {}>(
+  clone,
+  /** @__PURE__ */ Namespace.misc.clone("clone"),
+);
+export { clonePure as clone };
 
 /**
  * Clone a data with type assertion.
@@ -103,7 +107,7 @@ Object.assign(clone, Namespace.misc.clone("clone"));
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function assertClone<T>(input: T): Resolved<T>;
+function assertClone<T>(input: T): Resolved<T>;
 
 /**
  * Clone a data with type assertion.
@@ -122,16 +126,24 @@ export function assertClone<T>(input: T): Resolved<T>;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function assertClone<T>(input: unknown): Resolved<T>;
+function assertClone<T>(input: unknown): Resolved<T>;
 
 /**
  * @internal
  */
-export function assertClone(): never {
+function assertClone(): never {
   halt("assertClone");
 }
-Object.assign(assertClone, Namespace.assert("misc.assertClone"));
-Object.assign(assertClone, Namespace.misc.clone("assertClone"));
+const assertClonePure = /** @__PURE__ */ Object.assign<
+  typeof assertClone,
+  {},
+  {}
+>(
+  assertClone,
+  /** @__PURE__ */ Namespace.assert("misc.assertClone"),
+  /** @__PURE__ */ Namespace.misc.clone("assertClone"),
+);
+export { assertClonePure as assertClone };
 
 /**
  * Clone a data with type checking.
@@ -150,7 +162,7 @@ Object.assign(assertClone, Namespace.misc.clone("assertClone"));
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function isClone<T>(input: T): Resolved<T> | null;
+function isClone<T>(input: T): Resolved<T> | null;
 
 /**
  * Clone a data with type checking.
@@ -169,16 +181,20 @@ export function isClone<T>(input: T): Resolved<T> | null;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function isClone<T>(input: unknown): Resolved<T> | null;
+function isClone<T>(input: unknown): Resolved<T> | null;
 
 /**
  * @internal
  */
-export function isClone(): never {
+function isClone(): never {
   halt("isClone");
 }
-Object.assign(isClone, Namespace.is());
-Object.assign(isClone, Namespace.misc.clone("isClone"));
+const isClonePure = /** @__PURE__ */ Object.assign<typeof isClone, {}, {}>(
+  isClone,
+  /** @__PURE__ */ Namespace.is(),
+  /** @__PURE__ */ Namespace.misc.clone("isClone"),
+);
+export { isClonePure as isClone };
 
 /**
  * Clone a data with detailed type validation.
@@ -196,7 +212,7 @@ Object.assign(isClone, Namespace.misc.clone("isClone"));
  * @param input A value to be cloned
  * @returns Validation result with cloned value
  */
-export function validateClone<T>(input: T): IValidation<Resolved<T>>;
+function validateClone<T>(input: T): IValidation<Resolved<T>>;
 
 /**
  * Clone a data with detailed type validation.
@@ -214,16 +230,24 @@ export function validateClone<T>(input: T): IValidation<Resolved<T>>;
  * @param input A value to be cloned
  * @returns Validation result with cloned value
  */
-export function validateClone<T>(input: unknown): IValidation<Resolved<T>>;
+function validateClone<T>(input: unknown): IValidation<Resolved<T>>;
 
 /**
  * @internal
  */
-export function validateClone(): never {
+function validateClone(): never {
   halt("validateClone");
 }
-Object.assign(validateClone, Namespace.validate());
-Object.assign(validateClone, Namespace.misc.clone("validateClone"));
+const validateClonePure = /** @__PURE__ */ Object.assign<
+  typeof validateClone,
+  {},
+  {}
+>(
+  validateClone,
+  /** @__PURE__ */ Namespace.validate(),
+  /** @__PURE__ */ Namespace.misc.clone("validateClone"),
+);
+export { validateClonePure as validateClone };
 
 /* -----------------------------------------------------------
     PRUNE
@@ -249,15 +273,19 @@ Object.assign(validateClone, Namespace.misc.clone("validateClone"));
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function prune<T extends object>(input: T): void;
+function prune<T extends object>(input: T): void;
 
 /**
  * @internal
  */
-export function prune(): never {
+function prune(): never {
   halt("prune");
 }
-Object.assign(prune, Namespace.misc.prune("prune"));
+const prunePure = /** @__PURE__ */ Object.assign<typeof prune, {}>(
+  prune,
+  /** @__PURE__ */ Namespace.misc.prune("prune"),
+);
+export { prunePure as prune };
 
 /**
  * Prune, erase superfluous properties, with type assertion.
@@ -275,7 +303,7 @@ Object.assign(prune, Namespace.misc.prune("prune"));
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function assertPrune<T>(input: T): T;
+function assertPrune<T>(input: T): T;
 
 /**
  * Prune, erase superfluous properties, with type assertion.
@@ -293,16 +321,24 @@ export function assertPrune<T>(input: T): T;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function assertPrune<T>(input: unknown): T;
+function assertPrune<T>(input: unknown): T;
 
 /**
  * @internal
  */
-export function assertPrune(): unknown {
+function assertPrune(): unknown {
   halt("assertPrune");
 }
-Object.assign(assertPrune, Namespace.assert("misc.assertPrune"));
-Object.assign(assertPrune, Namespace.misc.prune("assertPrune"));
+const assertPrunePure = /** @__PURE__ */ Object.assign<
+  typeof assertPrune,
+  {},
+  {}
+>(
+  assertPrune,
+  /** @__PURE__ */ Namespace.assert("misc.assertPrune"),
+  /** @__PURE__ */ Namespace.misc.prune("assertPrune"),
+);
+export { assertPrunePure as assertPrune };
 
 /**
  * Prune, erase superfluous properties, with type checking.
@@ -321,7 +357,7 @@ Object.assign(assertPrune, Namespace.misc.prune("assertPrune"));
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function isPrune<T>(input: T): input is T;
+function isPrune<T>(input: T): input is T;
 
 /**
  * Prune, erase superfluous properties, with type checking.
@@ -340,16 +376,20 @@ export function isPrune<T>(input: T): input is T;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function isPrune<T>(input: unknown): input is T;
+function isPrune<T>(input: unknown): input is T;
 
 /**
  * @internal
  */
-export function isPrune(): never {
+function isPrune(): never {
   halt("isPrune");
 }
-Object.assign(isPrune, Namespace.is());
-Object.assign(isPrune, Namespace.misc.prune("isPrune"));
+const isPrunePure = /** @__PURE__ */ Object.assign<typeof isPrune, {}, {}>(
+  isPrune,
+  /** @__PURE__ */ Namespace.is(),
+  /** @__PURE__ */ Namespace.misc.prune("isPrune"),
+);
+export { isPrunePure as isPrune };
 
 /**
  * Prune, erase superfluous properties, with type validation.
@@ -369,7 +409,7 @@ Object.assign(isPrune, Namespace.misc.prune("isPrune"));
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function validatePrune<T>(input: T): IValidation<T>;
+function validatePrune<T>(input: T): IValidation<T>;
 
 /**
  * Prune, erase superfluous properties, with type validation.
@@ -389,16 +429,25 @@ export function validatePrune<T>(input: T): IValidation<T>;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function validatePrune<T>(input: unknown): IValidation<T>;
+function validatePrune<T>(input: unknown): IValidation<T>;
 
 /**
  * @internal
  */
-export function validatePrune<T>(): IValidation<T> {
+function validatePrune<T>(): IValidation<T> {
   halt("validatePrune");
 }
-Object.assign(validatePrune, Namespace.misc.prune("validatePrune"));
-Object.assign(validatePrune, Namespace.validate());
+
+const validatePrunePure = /** @__PURE__ */ Object.assign<
+  typeof validatePrune,
+  {},
+  {}
+>(
+  validatePrune,
+  /** @__PURE__ */ Namespace.misc.prune("validatePrune"),
+  /** @__PURE__ */ Namespace.validate(),
+);
+export { validatePrunePure as validatePrune };
 
 /* -----------------------------------------------------------
     FACTORY FUNCTIONS
@@ -412,7 +461,7 @@ Object.assign(validatePrune, Namespace.validate());
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function createClone(): never;
+function createClone(): never;
 
 /**
  * Creates a resuable {@link clone} function.
@@ -422,15 +471,19 @@ export function createClone(): never;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function createClone<T>(): (input: T) => Resolved<T>;
+function createClone<T>(): (input: T) => Resolved<T>;
 
 /**
  * @internal
  */
-export function createClone(): never {
+function createClone(): never {
   halt("createClone");
 }
-Object.assign(createClone, clone);
+const createClonePure = /** @__PURE__ */ Object.assign<typeof createClone, {}>(
+  createClone,
+  clonePure,
+);
+export { createClonePure as createClone };
 
 /**
  * Creates a reusable {@link assertClone} function.
@@ -441,7 +494,7 @@ Object.assign(createClone, clone);
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function createAssertClone(): never;
+function createAssertClone(): never;
 
 /**
  * Creates a resuable {@link assertClone} function.
@@ -451,15 +504,19 @@ export function createAssertClone(): never;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function createAssertClone<T>(): (input: unknown) => Resolved<T>;
+function createAssertClone<T>(): (input: unknown) => Resolved<T>;
 
 /**
  * @internal
  */
-export function createAssertClone(): never {
+function createAssertClone(): never {
   halt("createAssertClone");
 }
-Object.assign(createAssertClone, assertClone);
+const createAssertClonePure = /** @__PURE__ */ Object.assign<
+  typeof createAssertClone,
+  {}
+>(createAssertClone, assertClonePure);
+export { createAssertClonePure as createAssertClone };
 
 /**
  * Creates a reusable {@link isClone} function.
@@ -470,7 +527,7 @@ Object.assign(createAssertClone, assertClone);
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function createIsClone(): never;
+function createIsClone(): never;
 
 /**
  * Creates a resuable {@link isClone} function.
@@ -480,15 +537,19 @@ export function createIsClone(): never;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function createIsClone<T>(): (input: unknown) => Resolved<T> | null;
+function createIsClone<T>(): (input: unknown) => Resolved<T> | null;
 
 /**
  * @internal
  */
-export function createIsClone(): never {
+function createIsClone(): never {
   halt("createIsClone");
 }
-Object.assign(createIsClone, isClone);
+const createIsClonePure = /** @__PURE__ */ Object.assign<
+  typeof createIsClone,
+  {}
+>(createIsClone, isClonePure);
+export { createIsClonePure as createIsClone };
 
 /**
  * Creates a reusable {@link validateClone} function.
@@ -499,7 +560,7 @@ Object.assign(createIsClone, isClone);
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function createValidateClone(): never;
+function createValidateClone(): never;
 
 /**
  * Creates a resuable {@link validateClone} function.
@@ -509,17 +570,19 @@ export function createValidateClone(): never;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function createValidateClone<T>(): (
-  input: unknown,
-) => IValidation<Resolved<T>>;
+function createValidateClone<T>(): (input: unknown) => IValidation<Resolved<T>>;
 
 /**
  * @internal
  */
-export function createValidateClone(): never {
+function createValidateClone(): never {
   halt("createValidateClone");
 }
-Object.assign(createValidateClone, validateClone);
+const createValidateClonePure = /** @__PURE__ */ Object.assign<
+  typeof createValidateClone,
+  {}
+>(createValidateClone, validateClonePure);
+export { createValidateClonePure as createValidateClone };
 
 /**
  * Creates a reusable {@link prune} function.
@@ -530,7 +593,7 @@ Object.assign(createValidateClone, validateClone);
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function createPrune(): never;
+function createPrune(): never;
 
 /**
  * Creates a resuable {@link prune} function.
@@ -540,15 +603,19 @@ export function createPrune(): never;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function createPrune<T extends object>(): (input: T) => void;
+function createPrune<T extends object>(): (input: T) => void;
 
 /**
  * @internal
  */
-export function createPrune<T extends object>(): (input: T) => void {
+function createPrune<T extends object>(): (input: T) => void {
   halt("createPrune");
 }
-Object.assign(createPrune, prune);
+const createPrunePure = /** @__PURE__ */ Object.assign<typeof createPrune, {}>(
+  createPrune,
+  prunePure,
+);
+export { createPrunePure as createPrune };
 
 /**
  * Creates a reusable {@link assertPrune} function.
@@ -559,7 +626,7 @@ Object.assign(createPrune, prune);
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function createAssertPrune(): never;
+function createAssertPrune(): never;
 
 /**
  * Creates a resuable {@link assertPrune} function.
@@ -569,15 +636,19 @@ export function createAssertPrune(): never;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function createAssertPrune<T extends object>(): (input: T) => T;
+function createAssertPrune<T extends object>(): (input: T) => T;
 
 /**
  * @internal
  */
-export function createAssertPrune<T extends object>(): (input: T) => T {
+function createAssertPrune<T extends object>(): (input: T) => T {
   halt("createAssertPrune");
 }
-Object.assign(createAssertPrune, assertPrune);
+const createAssertPrunePure = /** @__PURE__ */ Object.assign<
+  typeof createAssertPrune,
+  {}
+>(createAssertPrune, assertPrunePure);
+export { createAssertPrunePure as createAssertPrune };
 
 /**
  * Creates a reusable {@link isPrune} function.
@@ -588,7 +659,7 @@ Object.assign(createAssertPrune, assertPrune);
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function createIsPrune(): never;
+function createIsPrune(): never;
 
 /**
  * Creates a resuable {@link isPrune} function.
@@ -598,15 +669,19 @@ export function createIsPrune(): never;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function createIsPrune<T extends object>(): (input: T) => input is T;
+function createIsPrune<T extends object>(): (input: T) => input is T;
 
 /**
  * @internal
  */
-export function createIsPrune<T extends object>(): (input: T) => input is T {
+function createIsPrune<T extends object>(): (input: T) => input is T {
   halt("createIsPrune");
 }
-Object.assign(createIsPrune, isPrune);
+const createIsPrunePure = /** @__PURE__ */ Object.assign<
+  typeof createIsPrune,
+  {}
+>(createIsPrune, isPrunePure);
+export { createIsPrunePure as createIsPrune };
 
 /**
  * Creates a reusable {@link validatePrune} function.
@@ -617,7 +692,7 @@ Object.assign(createIsPrune, isPrune);
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function createValidatePrune(): never;
+function createValidatePrune(): never;
 
 /**
  * Creates a resuable {@link validatePrune} function.
@@ -627,19 +702,19 @@ export function createValidatePrune(): never;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function createValidatePrune<T extends object>(): (
-  input: T,
-) => IValidation<T>;
+function createValidatePrune<T extends object>(): (input: T) => IValidation<T>;
 
 /**
  * @internal
  */
-export function createValidatePrune<T extends object>(): (
-  input: T,
-) => IValidation<T> {
+function createValidatePrune<T extends object>(): (input: T) => IValidation<T> {
   halt("createValidatePrune");
 }
-Object.assign(createValidatePrune, validatePrune);
+const createValidatePrunePure = /** @__PURE__ */ Object.assign<
+  typeof createValidatePrune,
+  {}
+>(createValidatePrune, validatePrunePure);
+export { createValidatePrunePure as createValidatePrune };
 
 /**
  * @internal
