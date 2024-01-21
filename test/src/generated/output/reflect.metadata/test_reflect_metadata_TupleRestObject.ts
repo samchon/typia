@@ -92,7 +92,6 @@ export const test_reflect_metadata_TupleRestObject = _test_reflect_metadata(
         ],
         jsDocTags: [],
         index: 0,
-        validated: false,
         recursive: false,
         nullables: [false],
       },

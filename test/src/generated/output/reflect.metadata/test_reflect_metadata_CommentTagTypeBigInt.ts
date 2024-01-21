@@ -159,7 +159,6 @@ export const test_reflect_metadata_CommentTagTypeBigInt =
           ],
           jsDocTags: [],
           index: 0,
-          validated: false,
           recursive: false,
           nullables: [false],
         },

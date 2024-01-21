@@ -613,7 +613,6 @@ export const test_reflect_metadata_CommentTagFormat = _test_reflect_metadata(
         ],
         jsDocTags: [],
         index: 0,
-        validated: false,
         recursive: false,
         nullables: [false],
       },

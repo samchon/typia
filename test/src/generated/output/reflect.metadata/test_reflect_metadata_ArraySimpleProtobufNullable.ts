@@ -554,7 +554,6 @@ export const test_reflect_metadata_ArraySimpleProtobufNullable =
           ],
           jsDocTags: [],
           index: 0,
-          validated: false,
           recursive: true,
           nullables: [false],
         },
