@@ -97,25 +97,12 @@ export namespace CallExpressionTransformer {
       // VALIDATIONS
       //----
       // SIGNATURE DECLARATION
-      const declaration: ts.Declaration | undefined =
-        project.checker.getResolvedSignature(expression)?.declaration;
-      if (!declaration) return expression;
+      const funtorDetails = getFunctorModuleName(project, expression);
 
-      // FILE PATH
-      const location: string = path.resolve(
-        declaration.getSourceFile().fileName,
-      );
-      if (isTarget(location) === false) return expression;
-
-      //----
-      // TRANSFORMATION
-      //----
-      // FUNCTION NAME
-      const module: string = location.split(path.sep).at(-1)!.split(".")[0]!;
-      const { name } = project.checker.getTypeAtLocation(declaration).symbol;
+      if(!funtorDetails) return expression;
 
       // FIND TRANSFORMER
-      const functor: (() => Task) | undefined = FUNCTORS[module]?.[name];
+      const functor: (() => Task) | undefined = FUNCTORS[funtorDetails.module]?.[funtorDetails.name];
       if (functor === undefined) return expression;
 
       // RETURNS WITH TRANSFORMATION
@@ -124,13 +111,46 @@ export namespace CallExpressionTransformer {
       )(expression);
       return result ?? expression;
     };
+}
 
-  const isTarget = (location: string): boolean => {
-    const files: string[] = Object.keys(FUNCTORS);
-    return files.some((f) =>
-      location.includes(path.join("node_modules", "typia", "lib", `${f}.d.ts`)),
-    );
-  };
+const isTarget = (location: string): boolean => {
+  const files: string[] = Object.keys(FUNCTORS);
+  return files.some((f) =>
+    location.includes(path.join("node_modules", "typia", "lib", `${f}.d.ts`)),
+  );
+};
+
+function getFunctorModuleName(project: IProject, expression: ts.CallExpression): {module: string, name: string} | undefined {
+  const declaration: ts.Declaration | undefined =
+    project.checker.getResolvedSignature(expression)?.declaration;
+
+
+  if (!declaration) {
+    const expressionText = expression.expression.getText();
+    const expressionTextParts = expressionText.split(".");
+    const isTypia = expressionTextParts[0] == "typia";
+    if(!isTypia) return undefined;
+
+    const module = expressionTextParts.length === 3 ? expressionTextParts[1] : 'module';
+    const name = expressionTextParts.length === 3 ? expressionTextParts[2] : expressionTextParts[1];
+
+    if(!module || !name) return undefined;
+    return { module, name };
+  }
+
+  // FILE PATH
+  const location: string = path.resolve(
+    declaration.getSourceFile().fileName,
+  );
+  if (!isTarget(location)) return undefined;
+
+  //----
+  // TRANSFORMATION
+  //----
+  // FUNCTION NAME
+  const module: string = location.split(path.sep).at(-1)!.split(".")[0]!;
+  const { name } = project.checker.getTypeAtLocation(declaration).symbol;
+  return { module, name };
 }
 
 type Task = (
