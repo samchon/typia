@@ -4,7 +4,7 @@ const external = (container) => (props) => (lib) => {
   const write = (variable) => (file) => (content) =>
     fs.writeFileSync(
       file,
-      `export const ${variable}: string = \`${content}\`;`,
+      `export const ${variable}: string = ${JSON.stringify(content)};`,
       "utf8",
     );
 
@@ -49,12 +49,7 @@ const external = (container) => (props) => (lib) => {
       // COPY TEXT FILE
       const alias = `${lib}/${location.replace(".d.ts", "")}`;
       const name = alias.split("/").join("_").split(".").join("_");
-      const content = fs
-        .readFileSync(from, "utf8")
-        .split("`")
-        .join("\\`")
-        .split("${")
-        .join("\\${");
+      const content = fs.readFileSync(from, "utf8");
       write(name)(link.replace(".d.ts", ".ts"))(content);
       container.push({
         format: "ts",
@@ -126,7 +121,7 @@ fs.writeFileSync(
 
 interface IMember {
     id: string & tags.Format<"uuid">;
-    email: string & tags.Format<"email">;
+    name: string;
     age: number 
         & tags.Type<"uint32"> 
         & tags.Minimum<20> 
