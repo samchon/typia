@@ -8,6 +8,7 @@ import {
   SourceFile, WriteFileCallback,
 } from "typescript";
 import {ITransformOptions} from "./transformers/ITransformOptions";
+import fs from "fs";
 
 // Copied from ts-patch to prevent needing a new dependency
 type ProgramTransformerExtras = {
@@ -17,38 +18,58 @@ type ProgramTransformerExtras = {
   ts: typeof ts;
 }
 
+let programCache: ts.Program | undefined;
+let compilerHostCache: ts.CompilerHost | undefined;
+let optionsCache: ts.CompilerOptions | undefined;
+
 export default function (
   program: ts.Program,
   host: ts.CompilerHost | undefined,
   _options: ITransformOptions | undefined,
   { ts: tsInstance }: ProgramTransformerExtras
 ) {
-  const newOptions = {
-    ...program.getCompilerOptions(),
-    noLib: false,
-    noResolve: false,
-    isolatedModules: false,
+
+  if(!optionsCache) {
+    optionsCache = {
+      ...program.getCompilerOptions(),
+      noLib: false,
+      noResolve: false,
+      isolatedModules: false,
+    }
   }
 
-  if(!host) {
-    host = createCompilerHostWorker(newOptions, undefined, tsInstance.sys);
+  if(!compilerHostCache) {
+    compilerHostCache = createCompilerHostWorker(optionsCache, undefined, tsInstance.sys);
   }
 
-  const standardCompilerHost = createCompilerHostWorker(newOptions, undefined, tsInstance.sys);
+  if (!host) {
+    host = compilerHostCache;
+  }
+
+  if(!programCache) {
+    fs.appendFileSync('transform.log', 'Creating new cached program\n');
+    programCache = tsInstance.createProgram(
+      /* rootNames */ program.getRootFileNames(),
+      optionsCache,
+      compilerHostCache,
+      /* oldProgram program */
+    );
+  }
 
   const customHost = {
-    ...standardCompilerHost,
-    getSourceFile: (filename: string, languageVersionOrOptions: ScriptTarget | CreateSourceFileOptions) => host?.getSourceFile?.(filename, languageVersionOrOptions) ?? standardCompilerHost.getSourceFile(filename, languageVersionOrOptions),
-    writeFile: host?.writeFile ?? standardCompilerHost.writeFile,
-    fileExists: (filename: string) => (host?.fileExists(filename) ?? false) ? true : standardCompilerHost.fileExists(filename),
+    ...compilerHostCache,
+    getSourceFile: (filename: string, languageVersionOrOptions: ScriptTarget | CreateSourceFileOptions) => host?.getSourceFile?.(filename, languageVersionOrOptions) ?? compilerHostCache!.getSourceFile(filename, languageVersionOrOptions),
+    writeFile: host?.writeFile ?? compilerHostCache.writeFile,
+    fileExists: (filename: string) => (host?.fileExists(filename) ?? false) ? true : compilerHostCache!.fileExists(filename),
   }
 
   const newProgram = tsInstance.createProgram(
-    /* rootNames */ program.getRootFileNames(),
-    newOptions,
+    /* rootNames */ programCache.getRootFileNames(),
+    optionsCache,
     customHost,
-    /* oldProgram */ program
+    /* oldProgram */ programCache
   );
+
   if(program.getRootFileNames().length === 1) {
     const fileToEmit = program.getSourceFiles()[0];
     if(!fileToEmit) {
