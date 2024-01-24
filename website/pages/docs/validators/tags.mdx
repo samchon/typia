@@ -180,13 +180,24 @@ For reference, when you take a mistake that choosing different target type, Type
     - `string & MaxLength<{number}>`
     - `string & Pattern<{regex}>`
     - `string & Format<{keyword}>`
-      - `email`
+      - `byte`
+      - `password`
+      - `regex`
       - `uuid`
+      - `email`
+      - `hostname`
       - `ipv4`
       - `ipv6`
+      - `uri`
+      - `uri-reference`
+      - `uri-template`
       - `url`
-      - `date`: YYYY-MM-DD
-      - `date-time`: `Date.toISOString()`
+      - `date-time`
+      - `date`
+      - `time`
+      - `duration`
+      - `json-pointer`
+      - `relative-json-pointer`
 
 Also, if you need custom validation logic, just make it by yourself referencing [Customization](#customzation) section. It is easy to define. For such type safety and generous use case reasons even customization supporting, I recommend you to use type tags instead of [comment tags](#comment-tags), unless you are maintaining a legacy JSDoc styled project.
 
@@ -329,13 +340,24 @@ Here is the entire list of comment tags that `typia` supports.
     - `@maxLength {number}`
     - `@pattern {regex}`
     - `@format {keyword}`
-      - `email`
+      - `byte`
+      - `password`
+      - `regex`
       - `uuid`
+      - `email`
+      - `hostname`
       - `ipv4`
       - `ipv6`
+      - `uri`
+      - `uri-reference`
+      - `uri-template`
       - `url`
-      - `date`: YYYY-MM-DD
-      - `date-time`: `Date.toISOString()`
+      - `date-time`
+      - `date`
+      - `time`
+      - `duration`
+      - `json-pointer`
+      - `relative-json-pointer`
   - array
     - `@minItems {number}`
     - `@maxItems {number}`
