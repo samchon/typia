@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 
 const HomeStrengthSectionMovie = (props: HomeStrengthSectionMovie.Props) => (
-  <Grid item xs={12} md={4}>
+  <Grid item xs={12} md={6}>
     <Box>
       <CardActionArea href={props.href}>
         <br />
@@ -25,7 +25,7 @@ const HomeStrengthSectionMovie = (props: HomeStrengthSectionMovie.Props) => (
             src={props.image}
             sx={{
               width: props.width,
-              height: 100,
+              height: props.height ?? 100,
             }}
           />
         </div>
@@ -51,6 +51,7 @@ namespace HomeStrengthSectionMovie {
     image: string;
     href: string;
     width?: number;
+    height?: number;
   }
 }
 export default HomeStrengthSectionMovie;
