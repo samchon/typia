@@ -6,7 +6,7 @@ import HomeStrengthSectionMovie from "./HomeStrengthSectionMovie";
 
 const sections: HomeStrengthSectionMovie.Props[] = [
   {
-    title: "Super-fast Runtime Validtor",
+    title: "Super-fast Runtime Validator",
     subTitle: <HomeCodeBlock method="assert" color="rgb(191, 64, 191)" />,
     description: (
       <React.Fragment>
@@ -88,7 +88,7 @@ const sections: HomeStrengthSectionMovie.Props[] = [
     subTitle: <HomeCodeBlock method="random" color="rgb(191, 64, 191)" />,
     description: (
       <React.Fragment>
-        <p>Universal random generatr.</p>
+        <p>Universal random generator.</p>
         <br />
         <p>The best mock-up data generator with pure TypeScript type.</p>
         <br />
