@@ -15,12 +15,11 @@ const sections: HomeStrengthSectionMovie.Props[] = [
         </p>
         <br />
         <p>
-          Furthermore, its validation is exact and <b>stable than any others</b>
-          . Only <i>typia</i> can validate complicate union types.
+          Stable than any others, and only one supporting complicate union type.
         </p>
         <br />
         <p>
-          In the backend server side, it boosts up the server performance about{" "}
+          In the backend server side, it boosts up performance about{" "}
           <b>10x up</b>.
         </p>
       </React.Fragment>
@@ -44,13 +43,10 @@ const sections: HomeStrengthSectionMovie.Props[] = [
           <b>200x faster</b> than <i>class-transformer</i>.
         </p>
         <br />
-        <p>
-          Also supports type safe JSON parser, and super-easy Swagger/JSON
-          schema generator, with pure TypeScript type.
-        </p>
+        <p>Also supports type safe JSON parser, and JSON schema generator.</p>
         <br />
         <p>
-          In the backend server side, it boosts up the performance about{" "}
+          In the backend server side, it boosts up performance about{" "}
           <b>10x up</b>.
         </p>
       </React.Fragment>
@@ -75,8 +71,7 @@ const sections: HomeStrengthSectionMovie.Props[] = [
         <br />
         <p>
           Only one supporting full spec of <i>protobuf</i> in the{" "}
-          <i>TypeScript</i> ecosystem. Therefore, compatible with every other
-          platforms.
+          <i>TypeScript</i> ecosystem.
         </p>
         <br />
         <p>
@@ -87,6 +82,21 @@ const sections: HomeStrengthSectionMovie.Props[] = [
     ),
     image: "/images/home/protobuf.png",
     href: "/docs/protobuf/encode",
+  },
+  {
+    title: "Random Data Generator",
+    subTitle: <HomeCodeBlock method="random" color="rgb(191, 64, 191)" />,
+    description: (
+      <React.Fragment>
+        <p>Universal random generatr.</p>
+        <br />
+        <p>The best mock-up data generator with pure TypeScript type.</p>
+        <br />
+        <p>In the backend side, it boosts up productivity dramatically.</p>
+      </React.Fragment>
+    ),
+    image: "/images/home/random.png",
+    href: "/docs/random",
   },
 ];
 
