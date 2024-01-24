@@ -9,13 +9,24 @@ export const test_misc_createPrune_TypeTagFormat = _test_misc_prune(
   const $po0 = (input: any): any => {
     for (const key of Object.keys(input)) {
       if (
+        "byte" === key ||
+        "password" === key ||
+        "regex" === key ||
         "uuid" === key ||
         "email" === key ||
-        "url" === key ||
+        "hostname" === key ||
         "ipv4" === key ||
         "ipv6" === key ||
+        "uri" === key ||
+        "uriReference" === key ||
+        "uriTemplate" === key ||
+        "url" === key ||
+        "datetime" === key ||
         "date" === key ||
-        "date_time" === key
+        "time" === key ||
+        "duration" === key ||
+        "jsonPointer" === key ||
+        "relativeJsonPointer" === key
       )
         continue;
       delete input[key];

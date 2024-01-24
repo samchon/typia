@@ -13,7 +13,7 @@ export const test_protobuf_createValidateEncode_TypeTagCustom =
             "object" === typeof input &&
             null !== input &&
             "string" === typeof (input as any).id &&
-            /^(?:[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}|00000000-0000-0000-0000-000000000000)$/i.test(
+            /^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test(
               (input as any).id,
             ) &&
             "string" === typeof (input as any).dollar &&
@@ -49,7 +49,7 @@ export const test_protobuf_createValidateEncode_TypeTagCustom =
             ): boolean =>
               [
                 ("string" === typeof input.id &&
-                  (/^(?:[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}|00000000-0000-0000-0000-000000000000)$/i.test(
+                  (/^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test(
                     input.id,
                   ) ||
                     $report(_exceptionable, {

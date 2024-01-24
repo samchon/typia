@@ -1,11 +1,22 @@
 syntax = "proto3";
 
 message TypeTagFormat {
-    required string uuid = 1;
-    required string email = 2;
-    required string url = 3;
-    required string ipv4 = 4;
-    required string ipv6 = 5;
-    required string date = 6;
-    required string date_time = 7;
+    required string byte = 1;
+    required string password = 2;
+    required string regex = 3;
+    required string uuid = 4;
+    required string email = 5;
+    required string hostname = 6;
+    required string ipv4 = 7;
+    required string ipv6 = 8;
+    required string uri = 9;
+    required string uriReference = 10;
+    required string uriTemplate = 11;
+    required string url = 12;
+    required string datetime = 13;
+    required string date = 14;
+    required string time = 15;
+    required string duration = 16;
+    required string jsonPointer = 17;
+    required string relativeJsonPointer = 18;
 }

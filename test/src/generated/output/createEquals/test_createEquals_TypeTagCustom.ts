@@ -9,7 +9,7 @@ export const test_createEquals_TypeTagCustom = _test_equals(
   (input: any, _exceptionable: boolean = true): input is TypeTagCustom => {
     const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
       "string" === typeof input.id &&
-      /^(?:[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}|00000000-0000-0000-0000-000000000000)$/i.test(
+      /^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test(
         input.id,
       ) &&
       "string" === typeof input.dollar &&
