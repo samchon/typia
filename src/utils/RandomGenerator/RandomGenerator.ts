@@ -34,9 +34,10 @@ export const pattern = (regex: RegExp): string => new RandExp(regex).gen();
   SECIAL FORMATS
 ----------------------------------------------------------- */
 // SPECIAL CHARACTERS
-export const byte = () => pattern(/^[\x00-\xff]*$/);
+export const byte = () => "vt7ekz4lIoNTTS9sDQYdWKharxIFAR54+z/umIxSgUM=";
 export const password = () => string(integer(4, 16));
-export const regex = () => pattern(/[^\\]\Z/);
+export const regex = () =>
+  "/^(?:(?:25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)\\.){3}(?:25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)$/";
 export const uuid = () =>
   "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, (c) => {
     const r = (Math.random() * 16) | 0;
@@ -46,6 +47,7 @@ export const uuid = () =>
 
 // ADDRESSES
 export const email = () => `${string(10)}@${string(10)}.${string(3)}`;
+export const hostname = () => `${string(10)}.${string(3)}`;
 export const ipv4 = () => array(() => integer(0, 255), 4).join(".");
 export const ipv6 = (): string =>
   array(() => integer(0, 65535).toString(16), 8).join(":");

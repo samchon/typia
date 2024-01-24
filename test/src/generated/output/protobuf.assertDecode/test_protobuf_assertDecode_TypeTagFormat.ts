@@ -120,7 +120,9 @@ export const test_protobuf_createAssertDecode_TypeTagFormat =
           const __is = (input: any): input is TypeTagFormat => {
             const $io0 = (input: any): boolean =>
               "string" === typeof input.byte &&
-              /^[\x00-\xff]*$/.test(input.byte) &&
+              /^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/gm.test(
+                input.byte,
+              ) &&
               "string" === typeof input.password &&
               true &&
               "string" === typeof input.regex &&
@@ -202,7 +204,9 @@ export const test_protobuf_createAssertDecode_TypeTagFormat =
                 _exceptionable: boolean = true,
               ): boolean =>
                 (("string" === typeof input.byte &&
-                  (/^[\x00-\xff]*$/.test(input.byte) ||
+                  (/^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/gm.test(
+                    input.byte,
+                  ) ||
                     $guard(_exceptionable, {
                       path: _path + ".byte",
                       expected: 'string & Format<"byte">',

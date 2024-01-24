@@ -23,6 +23,7 @@ export interface IRandomGenerator {
 
   // ADDRESSES
   email(): string;
+  hostname(): string;
   ipv4(): string;
   ipv6(): string;
   uri(): string;

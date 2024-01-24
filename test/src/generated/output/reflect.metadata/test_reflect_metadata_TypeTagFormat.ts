@@ -73,7 +73,8 @@ export const test_reflect_metadata_TypeTagFormat = _test_reflect_metadata(
                         name: 'Format<"byte">',
                         kind: "format",
                         value: "byte",
-                        validate: "/^[\\x00-\\xff]*$/.test($input)",
+                        validate:
+                          "/^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/gm.test($input)",
                         exclusive: ["format", "pattern"],
                       },
                     ],

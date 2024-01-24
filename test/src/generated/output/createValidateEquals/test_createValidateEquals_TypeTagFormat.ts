@@ -14,7 +14,9 @@ export const test_createValidateEquals_TypeTagFormat = _test_validateEquals(
     ): input is TypeTagFormat => {
       const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
         "string" === typeof input.byte &&
-        /^[\x00-\xff]*$/.test(input.byte) &&
+        /^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/gm.test(
+          input.byte,
+        ) &&
         "string" === typeof input.password &&
         true &&
         "string" === typeof input.regex &&
@@ -127,7 +129,9 @@ export const test_createValidateEquals_TypeTagFormat = _test_validateEquals(
         ): boolean =>
           [
             ("string" === typeof input.byte &&
-              (/^[\x00-\xff]*$/.test(input.byte) ||
+              (/^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/gm.test(
+                input.byte,
+              ) ||
                 $report(_exceptionable, {
                   path: _path + ".byte",
                   expected: 'string & Format<"byte">',

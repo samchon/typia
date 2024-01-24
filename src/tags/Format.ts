@@ -11,7 +11,7 @@ export namespace Format {
   // reference: https://github.dev/ajv-validator/ajv-formats/blob/master/src/formats.ts
   export type Validator = {
     // SPECIAL CHARACTERS
-    byte: RegexCall<`/^[\\x00-\\xff]*$/`>;
+    byte: RegexCall<`/^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/gm`>;
     password: `true`;
     regex: `(() => { try { new RegExp($input); return true; } catch { return false; } })()`;
     uuid: RegexCall<`/^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i`>;
