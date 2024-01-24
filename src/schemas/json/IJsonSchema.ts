@@ -42,7 +42,27 @@ export namespace IJsonSchema {
     minLength?: undefined | (number & Type<"uint32">);
     maxLength?: undefined | (number & Type<"uint32">);
     pattern?: undefined | string;
-    format?: undefined | string;
+    format?:
+      | undefined
+      | "byte"
+      | "password"
+      | "regex"
+      | "uuid"
+      | "email"
+      | "hostname"
+      | "ipv4"
+      | "ipv6"
+      | "uri"
+      | "uri-reference"
+      | "uri-template"
+      | "url"
+      | "date-time"
+      | "date"
+      | "time"
+      | "duration"
+      | "json-pointer"
+      | "relative-json-pointer"
+      | (string & {});
     "x-typia-typeTags"?: undefined | IMetadataTypeTag[];
   }
   export interface INumber extends IAtomic<"number"> {

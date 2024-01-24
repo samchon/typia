@@ -132,7 +132,7 @@ export const test_reflect_metadata_DynamicTag = _test_reflect_metadata(
                         kind: "format",
                         value: "uuid",
                         validate:
-                          "/^(?:[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}|00000000-0000-0000-0000-000000000000)$/i.test($input)",
+                          "/^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test($input)",
                         exclusive: ["format", "pattern"],
                       },
                     ],
@@ -168,7 +168,7 @@ export const test_reflect_metadata_DynamicTag = _test_reflect_metadata(
                         kind: "format",
                         value: "email",
                         validate:
-                          '/^(([^<>()[\\]\\.,;:\\s@\\"]+(\\.[^<>()[\\]\\.,;:\\s@\\"]+)*)|(\\".+\\"))@(([^<>()[\\]\\.,;:\\s@\\"]+\\.)+[^<>()[\\]\\.,;:\\s@\\"]{2,})$/i.test($input)',
+                          "/^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/i.test($input)",
                         exclusive: ["format", "pattern"],
                       },
                     ],

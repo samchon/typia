@@ -20,6 +20,18 @@ export const test_json_application_ajv_standard_TypeTagFormat =
           $id: "#/components/schemas/TypeTagFormat",
           type: "object",
           properties: {
+            byte: {
+              type: "string",
+              format: "byte",
+            },
+            password: {
+              type: "string",
+              format: "password",
+            },
+            regex: {
+              type: "string",
+              format: "regex",
+            },
             uuid: {
               type: "string",
               format: "uuid",
@@ -28,9 +40,9 @@ export const test_json_application_ajv_standard_TypeTagFormat =
               type: "string",
               format: "email",
             },
-            url: {
+            hostname: {
               type: "string",
-              format: "url",
+              format: "hostname",
             },
             ipv4: {
               type: "string",
@@ -40,23 +52,66 @@ export const test_json_application_ajv_standard_TypeTagFormat =
               type: "string",
               format: "ipv6",
             },
+            uri: {
+              type: "string",
+              format: "uri",
+            },
+            uriReference: {
+              type: "string",
+              format: "uri-reference",
+            },
+            uriTemplate: {
+              type: "string",
+              format: "uri-template",
+            },
+            url: {
+              type: "string",
+              format: "url",
+            },
+            datetime: {
+              type: "string",
+              format: "date-time",
+            },
             date: {
               type: "string",
               format: "date",
             },
-            date_time: {
+            time: {
               type: "string",
-              format: "date-time",
+              format: "time",
+            },
+            duration: {
+              type: "string",
+              format: "duration",
+            },
+            jsonPointer: {
+              type: "string",
+              format: "json-pointer",
+            },
+            relativeJsonPointer: {
+              type: "string",
+              format: "relative-json-pointer",
             },
           },
           required: [
+            "byte",
+            "password",
+            "regex",
             "uuid",
             "email",
-            "url",
+            "hostname",
             "ipv4",
             "ipv6",
+            "uri",
+            "uriReference",
+            "uriTemplate",
+            "url",
+            "datetime",
             "date",
-            "date_time",
+            "time",
+            "duration",
+            "jsonPointer",
+            "relativeJsonPointer",
           ],
         },
       },

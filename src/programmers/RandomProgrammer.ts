@@ -21,6 +21,7 @@ import { TransformerError } from "../transformers/TransformerError";
 
 import { Escaper } from "../utils/Escaper";
 
+import { Format } from "../tags";
 import { FunctionImporter } from "./helpers/FunctionImporeter";
 import { RandomJoiner } from "./helpers/RandomJoiner";
 import { RandomRanger } from "./helpers/RandomRanger";
@@ -383,9 +384,7 @@ export namespace RandomProgrammer {
             for (const t of tags)
               if (t.kind === "format")
                 return ts.factory.createCallExpression(
-                  COALESCE(importer)(
-                    t.value === "date-time" ? "datetime" : t.value,
-                  ),
+                  COALESCE(importer)(emendFormat(t.value)),
                   undefined,
                   undefined,
                 );
@@ -823,3 +822,15 @@ const COALESCE = (importer: FunctionImporter) => (name: string) =>
           ts.factory.createStringLiteral(name),
         ),
   )(IdentifierFactory.access(importer.use("generator"))(name));
+
+const emendFormat = (key: keyof Format.Validator) =>
+  key === "date-time"
+    ? "datetime"
+    : key
+        .split("-")
+        .map((str, i) =>
+          i === 0 || str.length === 0
+            ? str
+            : str[0]!.toUpperCase() + str.substring(1),
+        )
+        .join("");

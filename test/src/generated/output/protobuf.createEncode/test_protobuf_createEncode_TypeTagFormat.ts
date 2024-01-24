@@ -11,27 +11,60 @@ export const test_protobuf_createEncode_TypeTagFormat = _test_protobuf_encode(
     const $Writer = (typia.protobuf.createEncode as any).Writer;
     const encoder = (writer: any): any => {
       const $peo0 = (input: any): any => {
-        // property "uuid";
+        // property "byte";
         writer.uint32(10);
+        writer.string(input.byte);
+        // property "password";
+        writer.uint32(18);
+        writer.string(input.password);
+        // property "regex";
+        writer.uint32(26);
+        writer.string(input.regex);
+        // property "uuid";
+        writer.uint32(34);
         writer.string(input.uuid);
         // property "email";
-        writer.uint32(18);
+        writer.uint32(42);
         writer.string(input.email);
-        // property "url";
-        writer.uint32(26);
-        writer.string(input.url);
+        // property "hostname";
+        writer.uint32(50);
+        writer.string(input.hostname);
         // property "ipv4";
-        writer.uint32(34);
+        writer.uint32(58);
         writer.string(input.ipv4);
         // property "ipv6";
-        writer.uint32(42);
+        writer.uint32(66);
         writer.string(input.ipv6);
+        // property "uri";
+        writer.uint32(74);
+        writer.string(input.uri);
+        // property "uriReference";
+        writer.uint32(82);
+        writer.string(input.uriReference);
+        // property "uriTemplate";
+        writer.uint32(90);
+        writer.string(input.uriTemplate);
+        // property "url";
+        writer.uint32(98);
+        writer.string(input.url);
+        // property "datetime";
+        writer.uint32(106);
+        writer.string(input.datetime);
         // property "date";
-        writer.uint32(50);
+        writer.uint32(114);
         writer.string(input.date);
-        // property "date_time";
-        writer.uint32(58);
-        writer.string(input.date_time);
+        // property "time";
+        writer.uint32(122);
+        writer.string(input.time);
+        // property "duration";
+        writer.uint32(130);
+        writer.string(input.duration);
+        // property "jsonPointer";
+        writer.uint32(138);
+        writer.string(input.jsonPointer);
+        // property "relativeJsonPointer";
+        writer.uint32(146);
+        writer.string(input.relativeJsonPointer);
       };
       //TypeTagFormat;
       $peo0(input);
@@ -46,44 +79,99 @@ export const test_protobuf_createEncode_TypeTagFormat = _test_protobuf_encode(
     const $pdo0 = (reader: any, length: number = -1): any => {
       length = length < 0 ? reader.size() : reader.index() + length;
       const output = {
+        byte: "" as any,
+        password: "" as any,
+        regex: "" as any,
         uuid: "" as any,
         email: "" as any,
-        url: "" as any,
+        hostname: "" as any,
         ipv4: "" as any,
         ipv6: "" as any,
+        uri: "" as any,
+        uriReference: "" as any,
+        uriTemplate: "" as any,
+        url: "" as any,
+        datetime: "" as any,
         date: "" as any,
-        date_time: "" as any,
+        time: "" as any,
+        duration: "" as any,
+        jsonPointer: "" as any,
+        relativeJsonPointer: "" as any,
       } as any;
       while (reader.index() < length) {
         const tag = reader.uint32();
         switch (tag >>> 3) {
           case 1:
             // string;
-            output.uuid = reader.string();
+            output.byte = reader.string();
             break;
           case 2:
             // string;
-            output.email = reader.string();
+            output.password = reader.string();
             break;
           case 3:
             // string;
-            output.url = reader.string();
+            output.regex = reader.string();
             break;
           case 4:
             // string;
-            output.ipv4 = reader.string();
+            output.uuid = reader.string();
             break;
           case 5:
             // string;
-            output.ipv6 = reader.string();
+            output.email = reader.string();
             break;
           case 6:
             // string;
-            output.date = reader.string();
+            output.hostname = reader.string();
             break;
           case 7:
             // string;
-            output.date_time = reader.string();
+            output.ipv4 = reader.string();
+            break;
+          case 8:
+            // string;
+            output.ipv6 = reader.string();
+            break;
+          case 9:
+            // string;
+            output.uri = reader.string();
+            break;
+          case 10:
+            // string;
+            output.uriReference = reader.string();
+            break;
+          case 11:
+            // string;
+            output.uriTemplate = reader.string();
+            break;
+          case 12:
+            // string;
+            output.url = reader.string();
+            break;
+          case 13:
+            // string;
+            output.datetime = reader.string();
+            break;
+          case 14:
+            // string;
+            output.date = reader.string();
+            break;
+          case 15:
+            // string;
+            output.time = reader.string();
+            break;
+          case 16:
+            // string;
+            output.duration = reader.string();
+            break;
+          case 17:
+            // string;
+            output.jsonPointer = reader.string();
+            break;
+          case 18:
+            // string;
+            output.relativeJsonPointer = reader.string();
             break;
           default:
             reader.skipType(tag & 7);
@@ -96,5 +184,5 @@ export const test_protobuf_createEncode_TypeTagFormat = _test_protobuf_encode(
     return $pdo0(reader);
   },
   message:
-    'syntax = "proto3";\n\nmessage TypeTagFormat {\n    required string uuid = 1;\n    required string email = 2;\n    required string url = 3;\n    required string ipv4 = 4;\n    required string ipv6 = 5;\n    required string date = 6;\n    required string date_time = 7;\n}',
+    'syntax = "proto3";\n\nmessage TypeTagFormat {\n    required string byte = 1;\n    required string password = 2;\n    required string regex = 3;\n    required string uuid = 4;\n    required string email = 5;\n    required string hostname = 6;\n    required string ipv4 = 7;\n    required string ipv6 = 8;\n    required string uri = 9;\n    required string uriReference = 10;\n    required string uriTemplate = 11;\n    required string url = 12;\n    required string datetime = 13;\n    required string date = 14;\n    required string time = 15;\n    required string duration = 16;\n    required string jsonPointer = 17;\n    required string relativeJsonPointer = 18;\n}',
 });
