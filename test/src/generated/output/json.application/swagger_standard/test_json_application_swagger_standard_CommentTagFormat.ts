@@ -19,56 +19,119 @@ export const test_json_application_swagger_standard_CommentTagFormat =
         CommentTagFormat: {
           type: "object",
           properties: {
+            byte: {
+              type: "string",
+              format: "byte",
+            },
+            password: {
+              type: "string",
+              format: "password",
+            },
+            regex: {
+              type: "string",
+              format: "regex",
+            },
             uuid: {
               type: "string",
               format: "uuid",
-              description: "Universally Unique Identifier.",
             },
             email: {
               type: "string",
               format: "email",
-              description: "Email address",
             },
-            url: {
+            hostname: {
               type: "string",
-              format: "url",
-              description: "URL address.",
+              format: "hostname",
+            },
+            idnEmail: {
+              type: "string",
+              format: "idn-email",
+            },
+            idnHostname: {
+              type: "string",
+              format: "idn-hostname",
+            },
+            iri: {
+              type: "string",
+              format: "iri",
+            },
+            iriReference: {
+              type: "string",
+              format: "iri-reference",
             },
             ipv4: {
               type: "string",
               format: "ipv4",
-              description: "IPv4 address.",
             },
             ipv6: {
               type: "string",
               format: "ipv6",
-              description: "IPv6 address.",
+            },
+            uri: {
+              type: "string",
+              format: "uri",
+            },
+            uriReference: {
+              type: "string",
+              format: "uri-reference",
+            },
+            uriTemplate: {
+              type: "string",
+              format: "uri-template",
+            },
+            url: {
+              type: "string",
+              format: "url",
+            },
+            datetime: {
+              type: "string",
+              format: "date-time",
             },
             date: {
               type: "string",
               format: "date",
-              description: "Date only.",
             },
-            date_time: {
+            time: {
               type: "string",
-              format: "date-time",
-              description: "Date and time.",
+              format: "time",
             },
-            custom: {
+            duration: {
               type: "string",
-              description: "A custom format string.",
+              format: "duration",
+            },
+            jsonPointer: {
+              type: "string",
+              format: "json-pointer",
+            },
+            relativeJsonPointer: {
+              type: "string",
+              format: "relative-json-pointer",
             },
           },
           nullable: false,
           required: [
+            "byte",
+            "password",
+            "regex",
             "uuid",
             "email",
-            "url",
+            "hostname",
+            "idnEmail",
+            "idnHostname",
+            "iri",
+            "iriReference",
             "ipv4",
             "ipv6",
+            "uri",
+            "uriReference",
+            "uriTemplate",
+            "url",
+            "datetime",
             "date",
-            "date_time",
-            "custom",
+            "time",
+            "duration",
+            "jsonPointer",
+            "relativeJsonPointer",
           ],
         },
       },

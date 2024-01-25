@@ -14,6 +14,10 @@ export const test_json_createStringify_TypeTagFormat = _test_json_stringify(
       input.uuid,
     )},"email":${$string(input.email)},"hostname":${$string(
       input.hostname,
+    )},"idnEmail":${$string(input.idnEmail)},"idnHostname":${$string(
+      input.idnHostname,
+    )},"iri":${$string(input.iri)},"iriReference":${$string(
+      input.iriReference,
     )},"ipv4":${$string(input.ipv4)},"ipv6":${$string(
       input.ipv6,
     )},"uri":${$string(input.uri)},"uriReference":${$string(

@@ -24,6 +24,10 @@ export interface IRandomGenerator {
   // ADDRESSES
   email(): string;
   hostname(): string;
+  idnEmail(): string;
+  idnHostname(): string;
+  iri(): string;
+  iriReference(): string;
   ipv4(): string;
   ipv6(): string;
   uri(): string;

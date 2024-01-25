@@ -38,6 +38,22 @@ export const test_createAssertGuardEquals_TypeTagFormat =
           /^(?=.{1,253}\.?$)[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?(?:\.[a-z0-9](?:[-0-9a-z]{0,61}[0-9a-z])?)*\.?$/i.test(
             input.hostname,
           ) &&
+          "string" === typeof input.idnEmail &&
+          /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i.test(
+            input.idnEmail,
+          ) &&
+          "string" === typeof input.idnHostname &&
+          /^([a-z0-9\u00a1-\uffff0-9]+(-[a-z0-9\u00a1-\uffff0-9]+)*\.)+[a-z\u00a1-\uffff]{2,}$/i.test(
+            input.idnHostname,
+          ) &&
+          "string" === typeof input.iri &&
+          /^[A-Za-z][\d+-.A-Za-z]*:[^\u0000-\u0020"<>\\^`{|}]*$/u.test(
+            input.iri,
+          ) &&
+          "string" === typeof input.iriReference &&
+          /^[A-Za-z][\d+-.A-Za-z]*:[^\u0000-\u0020"<>\\^`{|}]*$/u.test(
+            input.iriReference,
+          ) &&
           "string" === typeof input.ipv4 &&
           /^(?:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)\.){3}(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)$/.test(
             input.ipv4,
@@ -81,7 +97,7 @@ export const test_createAssertGuardEquals_TypeTagFormat =
           /^(?:0|[1-9][0-9]*)(?:#|(?:\/(?:[^~/]|~0|~1)*)*)$/.test(
             input.relativeJsonPointer,
           ) &&
-          (18 === Object.keys(input).length ||
+          (22 === Object.keys(input).length ||
             Object.keys(input).every((key: any) => {
               if (
                 [
@@ -91,6 +107,10 @@ export const test_createAssertGuardEquals_TypeTagFormat =
                   "uuid",
                   "email",
                   "hostname",
+                  "idnEmail",
+                  "idnHostname",
+                  "iri",
+                  "iriReference",
                   "ipv4",
                   "ipv6",
                   "uri",
@@ -211,6 +231,62 @@ export const test_createAssertGuardEquals_TypeTagFormat =
                 path: _path + ".hostname",
                 expected: '(string & Format<"hostname">)',
                 value: input.hostname,
+              })) &&
+            (("string" === typeof input.idnEmail &&
+              (/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i.test(
+                input.idnEmail,
+              ) ||
+                $guard(_exceptionable, {
+                  path: _path + ".idnEmail",
+                  expected: 'string & Format<"idn-email">',
+                  value: input.idnEmail,
+                }))) ||
+              $guard(_exceptionable, {
+                path: _path + ".idnEmail",
+                expected: '(string & Format<"idn-email">)',
+                value: input.idnEmail,
+              })) &&
+            (("string" === typeof input.idnHostname &&
+              (/^([a-z0-9\u00a1-\uffff0-9]+(-[a-z0-9\u00a1-\uffff0-9]+)*\.)+[a-z\u00a1-\uffff]{2,}$/i.test(
+                input.idnHostname,
+              ) ||
+                $guard(_exceptionable, {
+                  path: _path + ".idnHostname",
+                  expected: 'string & Format<"idn-hostname">',
+                  value: input.idnHostname,
+                }))) ||
+              $guard(_exceptionable, {
+                path: _path + ".idnHostname",
+                expected: '(string & Format<"idn-hostname">)',
+                value: input.idnHostname,
+              })) &&
+            (("string" === typeof input.iri &&
+              (/^[A-Za-z][\d+-.A-Za-z]*:[^\u0000-\u0020"<>\\^`{|}]*$/u.test(
+                input.iri,
+              ) ||
+                $guard(_exceptionable, {
+                  path: _path + ".iri",
+                  expected: 'string & Format<"iri">',
+                  value: input.iri,
+                }))) ||
+              $guard(_exceptionable, {
+                path: _path + ".iri",
+                expected: '(string & Format<"iri">)',
+                value: input.iri,
+              })) &&
+            (("string" === typeof input.iriReference &&
+              (/^[A-Za-z][\d+-.A-Za-z]*:[^\u0000-\u0020"<>\\^`{|}]*$/u.test(
+                input.iriReference,
+              ) ||
+                $guard(_exceptionable, {
+                  path: _path + ".iriReference",
+                  expected: 'string & Format<"iri-reference">',
+                  value: input.iriReference,
+                }))) ||
+              $guard(_exceptionable, {
+                path: _path + ".iriReference",
+                expected: '(string & Format<"iri-reference">)',
+                value: input.iriReference,
               })) &&
             (("string" === typeof input.ipv4 &&
               (/^(?:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)\.){3}(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)$/.test(
@@ -375,7 +451,7 @@ export const test_createAssertGuardEquals_TypeTagFormat =
                 expected: '(string & Format<"relative-json-pointer">)',
                 value: input.relativeJsonPointer,
               })) &&
-            (18 === Object.keys(input).length ||
+            (22 === Object.keys(input).length ||
               false === _exceptionable ||
               Object.keys(input).every((key: any) => {
                 if (
@@ -386,6 +462,10 @@ export const test_createAssertGuardEquals_TypeTagFormat =
                     "uuid",
                     "email",
                     "hostname",
+                    "idnEmail",
+                    "idnHostname",
+                    "iri",
+                    "iriReference",
                     "ipv4",
                     "ipv6",
                     "uri",

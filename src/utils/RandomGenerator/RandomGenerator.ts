@@ -48,6 +48,10 @@ export const uuid = () =>
 // ADDRESSES
 export const email = () => `${string(10)}@${string(10)}.${string(3)}`;
 export const hostname = () => `${string(10)}.${string(3)}`;
+export const idnEmail = () => email();
+export const idnHostname = () => hostname();
+export const iri = () => url();
+export const iriReference = () => url();
 export const ipv4 = () => array(() => integer(0, 255), 4).join(".");
 export const ipv6 = (): string =>
   array(() => integer(0, 65535).toString(16), 8).join(":");

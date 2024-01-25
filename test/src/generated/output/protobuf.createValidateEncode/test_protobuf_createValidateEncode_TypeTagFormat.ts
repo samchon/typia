@@ -37,6 +37,22 @@ export const test_protobuf_createValidateEncode_TypeTagFormat =
             /^(?=.{1,253}\.?$)[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?(?:\.[a-z0-9](?:[-0-9a-z]{0,61}[0-9a-z])?)*\.?$/i.test(
               input.hostname,
             ) &&
+            "string" === typeof input.idnEmail &&
+            /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i.test(
+              input.idnEmail,
+            ) &&
+            "string" === typeof input.idnHostname &&
+            /^([a-z0-9\u00a1-\uffff0-9]+(-[a-z0-9\u00a1-\uffff0-9]+)*\.)+[a-z\u00a1-\uffff]{2,}$/i.test(
+              input.idnHostname,
+            ) &&
+            "string" === typeof input.iri &&
+            /^[A-Za-z][\d+-.A-Za-z]*:[^\u0000-\u0020"<>\\^`{|}]*$/u.test(
+              input.iri,
+            ) &&
+            "string" === typeof input.iriReference &&
+            /^[A-Za-z][\d+-.A-Za-z]*:[^\u0000-\u0020"<>\\^`{|}]*$/u.test(
+              input.iriReference,
+            ) &&
             "string" === typeof input.ipv4 &&
             /^(?:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)\.){3}(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)$/.test(
               input.ipv4,
@@ -183,6 +199,62 @@ export const test_protobuf_createValidateEncode_TypeTagFormat =
                     path: _path + ".hostname",
                     expected: '(string & Format<"hostname">)',
                     value: input.hostname,
+                  }),
+                ("string" === typeof input.idnEmail &&
+                  (/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i.test(
+                    input.idnEmail,
+                  ) ||
+                    $report(_exceptionable, {
+                      path: _path + ".idnEmail",
+                      expected: 'string & Format<"idn-email">',
+                      value: input.idnEmail,
+                    }))) ||
+                  $report(_exceptionable, {
+                    path: _path + ".idnEmail",
+                    expected: '(string & Format<"idn-email">)',
+                    value: input.idnEmail,
+                  }),
+                ("string" === typeof input.idnHostname &&
+                  (/^([a-z0-9\u00a1-\uffff0-9]+(-[a-z0-9\u00a1-\uffff0-9]+)*\.)+[a-z\u00a1-\uffff]{2,}$/i.test(
+                    input.idnHostname,
+                  ) ||
+                    $report(_exceptionable, {
+                      path: _path + ".idnHostname",
+                      expected: 'string & Format<"idn-hostname">',
+                      value: input.idnHostname,
+                    }))) ||
+                  $report(_exceptionable, {
+                    path: _path + ".idnHostname",
+                    expected: '(string & Format<"idn-hostname">)',
+                    value: input.idnHostname,
+                  }),
+                ("string" === typeof input.iri &&
+                  (/^[A-Za-z][\d+-.A-Za-z]*:[^\u0000-\u0020"<>\\^`{|}]*$/u.test(
+                    input.iri,
+                  ) ||
+                    $report(_exceptionable, {
+                      path: _path + ".iri",
+                      expected: 'string & Format<"iri">',
+                      value: input.iri,
+                    }))) ||
+                  $report(_exceptionable, {
+                    path: _path + ".iri",
+                    expected: '(string & Format<"iri">)',
+                    value: input.iri,
+                  }),
+                ("string" === typeof input.iriReference &&
+                  (/^[A-Za-z][\d+-.A-Za-z]*:[^\u0000-\u0020"<>\\^`{|}]*$/u.test(
+                    input.iriReference,
+                  ) ||
+                    $report(_exceptionable, {
+                      path: _path + ".iriReference",
+                      expected: 'string & Format<"iri-reference">',
+                      value: input.iriReference,
+                    }))) ||
+                  $report(_exceptionable, {
+                    path: _path + ".iriReference",
+                    expected: '(string & Format<"iri-reference">)',
+                    value: input.iriReference,
                   }),
                 ("string" === typeof input.ipv4 &&
                   (/^(?:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)\.){3}(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)$/.test(
@@ -394,41 +466,53 @@ export const test_protobuf_createValidateEncode_TypeTagFormat =
             // property "hostname";
             writer.uint32(50);
             writer.string(input.hostname);
-            // property "ipv4";
+            // property "idnEmail";
             writer.uint32(58);
+            writer.string(input.idnEmail);
+            // property "idnHostname";
+            writer.uint32(66);
+            writer.string(input.idnHostname);
+            // property "iri";
+            writer.uint32(74);
+            writer.string(input.iri);
+            // property "iriReference";
+            writer.uint32(82);
+            writer.string(input.iriReference);
+            // property "ipv4";
+            writer.uint32(90);
             writer.string(input.ipv4);
             // property "ipv6";
-            writer.uint32(66);
+            writer.uint32(98);
             writer.string(input.ipv6);
             // property "uri";
-            writer.uint32(74);
+            writer.uint32(106);
             writer.string(input.uri);
             // property "uriReference";
-            writer.uint32(82);
+            writer.uint32(114);
             writer.string(input.uriReference);
             // property "uriTemplate";
-            writer.uint32(90);
+            writer.uint32(122);
             writer.string(input.uriTemplate);
             // property "url";
-            writer.uint32(98);
+            writer.uint32(130);
             writer.string(input.url);
             // property "datetime";
-            writer.uint32(106);
+            writer.uint32(138);
             writer.string(input.datetime);
             // property "date";
-            writer.uint32(114);
+            writer.uint32(146);
             writer.string(input.date);
             // property "time";
-            writer.uint32(122);
+            writer.uint32(154);
             writer.string(input.time);
             // property "duration";
-            writer.uint32(130);
+            writer.uint32(162);
             writer.string(input.duration);
             // property "jsonPointer";
-            writer.uint32(138);
+            writer.uint32(170);
             writer.string(input.jsonPointer);
             // property "relativeJsonPointer";
-            writer.uint32(146);
+            writer.uint32(178);
             writer.string(input.relativeJsonPointer);
           };
           //TypeTagFormat;
@@ -454,6 +538,10 @@ export const test_protobuf_createValidateEncode_TypeTagFormat =
           uuid: "" as any,
           email: "" as any,
           hostname: "" as any,
+          idnEmail: "" as any,
+          idnHostname: "" as any,
+          iri: "" as any,
+          iriReference: "" as any,
           ipv4: "" as any,
           ipv6: "" as any,
           uri: "" as any,
@@ -496,49 +584,65 @@ export const test_protobuf_createValidateEncode_TypeTagFormat =
               break;
             case 7:
               // string;
-              output.ipv4 = reader.string();
+              output.idnEmail = reader.string();
               break;
             case 8:
               // string;
-              output.ipv6 = reader.string();
+              output.idnHostname = reader.string();
               break;
             case 9:
               // string;
-              output.uri = reader.string();
+              output.iri = reader.string();
               break;
             case 10:
               // string;
-              output.uriReference = reader.string();
+              output.iriReference = reader.string();
               break;
             case 11:
               // string;
-              output.uriTemplate = reader.string();
+              output.ipv4 = reader.string();
               break;
             case 12:
               // string;
-              output.url = reader.string();
+              output.ipv6 = reader.string();
               break;
             case 13:
               // string;
-              output.datetime = reader.string();
+              output.uri = reader.string();
               break;
             case 14:
               // string;
-              output.date = reader.string();
+              output.uriReference = reader.string();
               break;
             case 15:
               // string;
-              output.time = reader.string();
+              output.uriTemplate = reader.string();
               break;
             case 16:
               // string;
-              output.duration = reader.string();
+              output.url = reader.string();
               break;
             case 17:
               // string;
-              output.jsonPointer = reader.string();
+              output.datetime = reader.string();
               break;
             case 18:
+              // string;
+              output.date = reader.string();
+              break;
+            case 19:
+              // string;
+              output.time = reader.string();
+              break;
+            case 20:
+              // string;
+              output.duration = reader.string();
+              break;
+            case 21:
+              // string;
+              output.jsonPointer = reader.string();
+              break;
+            case 22:
               // string;
               output.relativeJsonPointer = reader.string();
               break;
@@ -553,5 +657,5 @@ export const test_protobuf_createValidateEncode_TypeTagFormat =
       return $pdo0(reader);
     },
     message:
-      'syntax = "proto3";\n\nmessage TypeTagFormat {\n    required string byte = 1;\n    required string password = 2;\n    required string regex = 3;\n    required string uuid = 4;\n    required string email = 5;\n    required string hostname = 6;\n    required string ipv4 = 7;\n    required string ipv6 = 8;\n    required string uri = 9;\n    required string uriReference = 10;\n    required string uriTemplate = 11;\n    required string url = 12;\n    required string datetime = 13;\n    required string date = 14;\n    required string time = 15;\n    required string duration = 16;\n    required string jsonPointer = 17;\n    required string relativeJsonPointer = 18;\n}',
+      'syntax = "proto3";\n\nmessage TypeTagFormat {\n    required string byte = 1;\n    required string password = 2;\n    required string regex = 3;\n    required string uuid = 4;\n    required string email = 5;\n    required string hostname = 6;\n    required string idnEmail = 7;\n    required string idnHostname = 8;\n    required string iri = 9;\n    required string iriReference = 10;\n    required string ipv4 = 11;\n    required string ipv6 = 12;\n    required string uri = 13;\n    required string uriReference = 14;\n    required string uriTemplate = 15;\n    required string url = 16;\n    required string datetime = 17;\n    required string date = 18;\n    required string time = 19;\n    required string duration = 20;\n    required string jsonPointer = 21;\n    required string relativeJsonPointer = 22;\n}',
   });
