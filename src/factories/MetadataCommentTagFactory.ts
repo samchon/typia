@@ -5,6 +5,7 @@ import { Metadata } from "../schemas/metadata/Metadata";
 
 import { Writable } from "../typings/Writable";
 
+import { FormatCheatSheet } from "../tags/internal/FormatCheatSheet";
 import { MetadataFactory } from "./MetadataFactory";
 import { MetadataTypeTagFactory } from "./MetadataTypeTagFactory";
 
@@ -451,151 +452,10 @@ const parse_integer =
     return value;
   };
 
-type IMetadataCommentTag =
-  // NUMBER
-  | IMetadataCommentTag.IType
-  | IMetadataCommentTag.IMinimum
-  | IMetadataCommentTag.IMaximum
-  | IMetadataCommentTag.IExclusiveMinimum
-  | IMetadataCommentTag.IExclusiveMaximum
-  | IMetadataCommentTag.IMultipleOf
-  | IMetadataCommentTag.IStep
-  // STRING
-  | IMetadataCommentTag.IFormat
-  | IMetadataCommentTag.IPattern
-  | IMetadataCommentTag.ILength
-  | IMetadataCommentTag.IMinLength
-  | IMetadataCommentTag.IMaxLength
-  // ARRAY
-  | IMetadataCommentTag.IItems
-  | IMetadataCommentTag.IMinItems
-  | IMetadataCommentTag.IMaxItems;
-
-namespace IMetadataCommentTag {
-  /* -----------------------------------------------------------
-        NUMBER
-    ----------------------------------------------------------- */
-  export interface IType {
-    kind: "type";
-    value: "int" | "uint" | "int32" | "uint32" | "int64" | "uint64" | "float";
-  }
-
-  export interface IMinimum {
-    kind: "minimum";
-    value: number;
-  }
-
-  export interface IMaximum {
-    kind: "maximum";
-    value: number;
-  }
-
-  export interface IExclusiveMinimum {
-    kind: "exclusiveMinimum";
-    value: number;
-  }
-
-  export interface IExclusiveMaximum {
-    kind: "exclusiveMaximum";
-    value: number;
-  }
-
-  export interface IMultipleOf {
-    kind: "multipleOf";
-    value: number;
-  }
-
-  export interface IStep {
-    kind: "step";
-    value: number;
-  }
-
-  /* -----------------------------------------------------------
-        STRING
-    ----------------------------------------------------------- */
-  export interface IFormat {
-    kind: "format";
-    value: "uuid" | "email" | "url" | "ipv4" | "ipv6" | "date" | "date-time";
-  }
-
-  export interface IPattern {
-    kind: "pattern";
-    value: string;
-  }
-
-  export interface ILength {
-    kind: "length";
-    value: number;
-  }
-
-  export interface IMinLength {
-    kind: "minLength";
-    value: number;
-  }
-
-  export interface IMaxLength {
-    kind: "maxLength";
-    value: number;
-  }
-
-  /* -----------------------------------------------------------
-        ARRAY   
-    ----------------------------------------------------------- */
-  export interface IItems {
-    kind: "items";
-    value: number;
-  }
-
-  export interface IMinItems {
-    kind: "minItems";
-    value: number;
-  }
-
-  export interface IMaxItems {
-    kind: "maxItems";
-    value: number;
-  }
-}
-
-const FORMATS: Map<string, [IMetadataCommentTag.IFormat["value"], string]> =
-  new Map([
-    [
-      "email",
-      [
-        "email",
-        `/^(([^<>()[\\]\\.,;:\\s@\\"]+(\\.[^<>()[\\]\\.,;:\\s@\\"]+)*)|(\\".+\\"))@(([^<>()[\\]\\.,;:\\s@\\"]+\\.)+[^<>()[\\]\\.,;:\\s@\\"]{2,})$/i.test($input)`,
-      ],
-    ],
-    [
-      "uuid",
-      [
-        "uuid",
-        `/^(?:[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}|00000000-0000-0000-0000-000000000000)$/i.test($input)`,
-      ],
-    ],
-    [
-      "ipv4",
-      [
-        "ipv4",
-        `/^(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/.test($input)`,
-      ],
-    ],
-    [
-      "ipv6",
-      [
-        "ipv6",
-        `/^(([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,7}:|([0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,5}(:[0-9a-fA-F]{1,4}){1,2}|([0-9a-fA-F]{1,4}:){1,4}(:[0-9a-fA-F]{1,4}){1,3}|([0-9a-fA-F]{1,4}:){1,3}(:[0-9a-fA-F]{1,4}){1,4}|([0-9a-fA-F]{1,4}:){1,2}(:[0-9a-fA-F]{1,4}){1,5}|[0-9a-fA-F]{1,4}:((:[0-9a-fA-F]{1,4}){1,6})|:((:[0-9a-fA-F]{1,4}){1,7}|:)|fe80:(:[0-9a-fA-F]{0,4}){0,4}%[0-9a-zA-Z]{1,}|::(ffff(:0{1,4}){0,1}:){0,1}((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])|([0-9a-fA-F]{1,4}:){1,4}:((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9]))$/.test($input)`,
-      ],
-    ],
-    [
-      "url",
-      [
-        "url",
-        `/^[a-zA-Z0-9]+:\\/\\/(?:www.)?[-a-zA-Z0-9@:%._+~#=]{1,256}.[a-zA-Z0-9()]{1,6}\\b(?:[-a-zA-Z0-9()@:%_+.~#?&/=]*)$/.test($input)`,
-      ],
-    ],
-    ["date", ["date", `/^(\\d{4})-(\\d{2})-(\\d{2})$/.test($input)`]],
-    ["datetime", ["date-time", `!isNaN(new Date($input).getTime())`]],
-    ["date-time", ["date-time", `!isNaN(new Date($input).getTime())`]],
-    ["dateTime", ["date-time", `!isNaN(new Date($input).getTime())`]],
-  ]);
+const FORMATS: Map<string, [string, string]> = new Map([
+  ...Object.entries(FormatCheatSheet).map(
+    ([key, value]) => [key, [key, value]] as any,
+  ),
+  ["datetime", ["date-time", `!isNaN(new Date($input).getTime())`]],
+  ["dateTime", ["date-time", `!isNaN(new Date($input).getTime())`]],
+]);
