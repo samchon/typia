@@ -60,6 +60,38 @@ export const test_random_TypeTagFormat = _test_random(
               value: "hostname",
             },
           ]) ?? (generator?.hostname ?? $generator.hostname)(),
+        idnEmail:
+          (generator?.customs ?? $generator.customs)?.string?.([
+            {
+              name: 'Format<"idn-email">',
+              kind: "format",
+              value: "idn-email",
+            },
+          ]) ?? (generator?.idnEmail ?? $generator.idnEmail)(),
+        idnHostname:
+          (generator?.customs ?? $generator.customs)?.string?.([
+            {
+              name: 'Format<"idn-hostname">',
+              kind: "format",
+              value: "idn-hostname",
+            },
+          ]) ?? (generator?.idnHostname ?? $generator.idnHostname)(),
+        iri:
+          (generator?.customs ?? $generator.customs)?.string?.([
+            {
+              name: 'Format<"iri">',
+              kind: "format",
+              value: "iri",
+            },
+          ]) ?? (generator?.iri ?? $generator.iri)(),
+        iriReference:
+          (generator?.customs ?? $generator.customs)?.string?.([
+            {
+              name: 'Format<"iri-reference">',
+              kind: "format",
+              value: "iri-reference",
+            },
+          ]) ?? (generator?.iriReference ?? $generator.iriReference)(),
         ipv4:
           (generator?.customs ?? $generator.customs)?.string?.([
             {
@@ -189,6 +221,22 @@ export const test_random_TypeTagFormat = _test_random(
         "string" === typeof input.hostname &&
         /^(?=.{1,253}\.?$)[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?(?:\.[a-z0-9](?:[-0-9a-z]{0,61}[0-9a-z])?)*\.?$/i.test(
           input.hostname,
+        ) &&
+        "string" === typeof input.idnEmail &&
+        /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i.test(
+          input.idnEmail,
+        ) &&
+        "string" === typeof input.idnHostname &&
+        /^([a-z0-9\u00a1-\uffff0-9]+(-[a-z0-9\u00a1-\uffff0-9]+)*\.)+[a-z\u00a1-\uffff]{2,}$/i.test(
+          input.idnHostname,
+        ) &&
+        "string" === typeof input.iri &&
+        /^[A-Za-z][\d+-.A-Za-z]*:[^\u0000-\u0020"<>\\^`{|}]*$/u.test(
+          input.iri,
+        ) &&
+        "string" === typeof input.iriReference &&
+        /^[A-Za-z][\d+-.A-Za-z]*:[^\u0000-\u0020"<>\\^`{|}]*$/u.test(
+          input.iriReference,
         ) &&
         "string" === typeof input.ipv4 &&
         /^(?:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)\.){3}(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)$/.test(
@@ -333,6 +381,62 @@ export const test_random_TypeTagFormat = _test_random(
               path: _path + ".hostname",
               expected: '(string & Format<"hostname">)',
               value: input.hostname,
+            })) &&
+          (("string" === typeof input.idnEmail &&
+            (/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i.test(
+              input.idnEmail,
+            ) ||
+              $guard(_exceptionable, {
+                path: _path + ".idnEmail",
+                expected: 'string & Format<"idn-email">',
+                value: input.idnEmail,
+              }))) ||
+            $guard(_exceptionable, {
+              path: _path + ".idnEmail",
+              expected: '(string & Format<"idn-email">)',
+              value: input.idnEmail,
+            })) &&
+          (("string" === typeof input.idnHostname &&
+            (/^([a-z0-9\u00a1-\uffff0-9]+(-[a-z0-9\u00a1-\uffff0-9]+)*\.)+[a-z\u00a1-\uffff]{2,}$/i.test(
+              input.idnHostname,
+            ) ||
+              $guard(_exceptionable, {
+                path: _path + ".idnHostname",
+                expected: 'string & Format<"idn-hostname">',
+                value: input.idnHostname,
+              }))) ||
+            $guard(_exceptionable, {
+              path: _path + ".idnHostname",
+              expected: '(string & Format<"idn-hostname">)',
+              value: input.idnHostname,
+            })) &&
+          (("string" === typeof input.iri &&
+            (/^[A-Za-z][\d+-.A-Za-z]*:[^\u0000-\u0020"<>\\^`{|}]*$/u.test(
+              input.iri,
+            ) ||
+              $guard(_exceptionable, {
+                path: _path + ".iri",
+                expected: 'string & Format<"iri">',
+                value: input.iri,
+              }))) ||
+            $guard(_exceptionable, {
+              path: _path + ".iri",
+              expected: '(string & Format<"iri">)',
+              value: input.iri,
+            })) &&
+          (("string" === typeof input.iriReference &&
+            (/^[A-Za-z][\d+-.A-Za-z]*:[^\u0000-\u0020"<>\\^`{|}]*$/u.test(
+              input.iriReference,
+            ) ||
+              $guard(_exceptionable, {
+                path: _path + ".iriReference",
+                expected: 'string & Format<"iri-reference">',
+                value: input.iriReference,
+              }))) ||
+            $guard(_exceptionable, {
+              path: _path + ".iriReference",
+              expected: '(string & Format<"iri-reference">)',
+              value: input.iriReference,
             })) &&
           (("string" === typeof input.ipv4 &&
             (/^(?:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)\.){3}(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)$/.test(

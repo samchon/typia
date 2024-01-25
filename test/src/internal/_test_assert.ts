@@ -37,6 +37,7 @@ export const _test_assert =
               actual: exp.path,
             });
       }
+      console.log(assert(elem), expected);
       throw new Error(
         `Bug on typia.assert(): failed to detect error on the ${name} type - ${expected}.`,
       );

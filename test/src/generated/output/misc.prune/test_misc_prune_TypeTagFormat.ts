@@ -16,6 +16,10 @@ export const test_misc_prune_TypeTagFormat = _test_misc_prune(
           "uuid" === key ||
           "email" === key ||
           "hostname" === key ||
+          "idnEmail" === key ||
+          "idnHostname" === key ||
+          "iri" === key ||
+          "iriReference" === key ||
           "ipv4" === key ||
           "ipv6" === key ||
           "uri" === key ||

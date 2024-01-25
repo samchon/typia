@@ -123,6 +123,82 @@
             "x-typia-required": true,
             "x-typia-optional": false
           },
+          "idnEmail": {
+            "type": "string",
+            "format": "idn-email",
+            "x-typia-typeTags": [
+              {
+                "target": "string",
+                "name": "Format<\"idn-email\">",
+                "kind": "format",
+                "value": "idn-email",
+                "validate": "/^(([^<>()[\\]\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@(([^<>()[\\]\\.,;:\\s@\\\"]+\\.)+[^<>()[\\]\\.,;:\\s@\\\"]{2,})$/i.test($input)",
+                "exclusive": [
+                  "format",
+                  "pattern"
+                ]
+              }
+            ],
+            "x-typia-required": true,
+            "x-typia-optional": false
+          },
+          "idnHostname": {
+            "type": "string",
+            "format": "idn-hostname",
+            "x-typia-typeTags": [
+              {
+                "target": "string",
+                "name": "Format<\"idn-hostname\">",
+                "kind": "format",
+                "value": "idn-hostname",
+                "validate": "/^([a-z0-9\\u00a1-\\uffff0-9]+(-[a-z0-9\\u00a1-\\uffff0-9]+)*\\.)+[a-z\\u00a1-\\uffff]{2,}$/i.test($input)",
+                "exclusive": [
+                  "format",
+                  "pattern"
+                ]
+              }
+            ],
+            "x-typia-required": true,
+            "x-typia-optional": false
+          },
+          "iri": {
+            "type": "string",
+            "format": "iri",
+            "x-typia-typeTags": [
+              {
+                "target": "string",
+                "name": "Format<\"iri\">",
+                "kind": "format",
+                "value": "iri",
+                "validate": "/^[A-Za-z][\\d+-.A-Za-z]*:[^\\u0000-\\u0020\"<>\\\\^`{|}]*$/u.test($input)",
+                "exclusive": [
+                  "format",
+                  "pattern"
+                ]
+              }
+            ],
+            "x-typia-required": true,
+            "x-typia-optional": false
+          },
+          "iriReference": {
+            "type": "string",
+            "format": "iri-reference",
+            "x-typia-typeTags": [
+              {
+                "target": "string",
+                "name": "Format<\"iri-reference\">",
+                "kind": "format",
+                "value": "iri-reference",
+                "validate": "/^[A-Za-z][\\d+-.A-Za-z]*:[^\\u0000-\\u0020\"<>\\\\^`{|}]*$/u.test($input)",
+                "exclusive": [
+                  "format",
+                  "pattern"
+                ]
+              }
+            ],
+            "x-typia-required": true,
+            "x-typia-optional": false
+          },
           "ipv4": {
             "type": "string",
             "format": "ipv4",
@@ -360,6 +436,10 @@
           "uuid",
           "email",
           "hostname",
+          "idnEmail",
+          "idnHostname",
+          "iri",
+          "iriReference",
           "ipv4",
           "ipv6",
           "uri",

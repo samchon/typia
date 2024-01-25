@@ -43,6 +43,22 @@ export const test_json_application_swagger_standard_TypeTagFormat =
               type: "string",
               format: "hostname",
             },
+            idnEmail: {
+              type: "string",
+              format: "idn-email",
+            },
+            idnHostname: {
+              type: "string",
+              format: "idn-hostname",
+            },
+            iri: {
+              type: "string",
+              format: "iri",
+            },
+            iriReference: {
+              type: "string",
+              format: "iri-reference",
+            },
             ipv4: {
               type: "string",
               format: "ipv4",
@@ -100,6 +116,10 @@ export const test_json_application_swagger_standard_TypeTagFormat =
             "uuid",
             "email",
             "hostname",
+            "idnEmail",
+            "idnHostname",
+            "iri",
+            "iriReference",
             "ipv4",
             "ipv6",
             "uri",

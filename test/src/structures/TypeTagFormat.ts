@@ -1,5 +1,6 @@
 import crypto from "crypto";
 import { tags } from "typia";
+import { RandomGenerator } from "typia/lib/utils/RandomGenerator";
 import { v4 } from "uuid";
 
 import { Spoiler } from "../helpers/Spoiler";
@@ -15,6 +16,10 @@ export interface TypeTagFormat {
   // ADDRESSES
   email: string & tags.Format<"email">;
   hostname: string & tags.Format<"hostname">;
+  idnEmail: string & tags.Format<"idn-email">;
+  idnHostname: string & tags.Format<"idn-hostname">;
+  iri: string & tags.Format<"iri">;
+  iriReference: string & tags.Format<"iri-reference">;
   ipv4: string & tags.Format<"ipv4">;
   ipv6: string & tags.Format<"ipv6">;
   uri: string & tags.Format<"uri">;
@@ -44,10 +49,14 @@ export namespace TypeTagFormat {
       // ADDRESSES
       email: "samchon.github@gmail.com",
       hostname: "github.com",
+      idnEmail: "삼촌.github@지메일.com",
+      idnHostname: "깃허브.com",
+      iri: "http://깃허브.com/삼촌/타이피아",
+      iriReference: "http://깃허브.com/삼촌/타이피아/../네스티아",
       ipv4: "127.0.0.1",
       ipv6: "0:0:0:0:0:0:0:1",
       uri: "git://github.com/samchon/typia.git",
-      uriReference: "git://github.com/samchon/typia.git",
+      uriReference: "git://github.com/samchon/typia.git/../nestia.git",
       uriTemplate: "git://github.com/{account}/{repository}.git",
       url: "https://github.com/samchon/typia",
       // TIMESTAMPS
@@ -78,21 +87,60 @@ export namespace TypeTagFormat {
 
     // ADDRESSES
     (input) => {
-      input.email = "invalid email";
+      input.email = "samchon.github@gmail";
       return ["$input.email"];
     },
     (input) => {
-      input.url = "invalid url";
-      return ["$input.url"];
+      input.hostname =
+        "abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.example.com";
+      return ["$input.hostname"];
     },
     (input) => {
-      input.ipv4 = "invalid ipv4";
-      return ["$input.ipv4"];
+      input.idnEmail = "삼촌.github@지메일";
+      return ["$input.idnEmail"];
     },
     (input) => {
-      input.ipv6 = "invalid ipv6";
+      input.idnHostname = "깃허브";
+      return ["$input.idnHostname"];
+    },
+    (input) => {
+      input.iri = "깃허브.com";
+      return ["$input.iri"];
+    },
+    (input) => {
+      input.iriReference = "/네스티아";
+      return ["$input.iriReference"];
+    },
+    ...[RandomGenerator.ipv6(), "127.0.0.1234", "github.com"].map(
+      (ipv4) => (input: TypeTagFormat) => {
+        input.ipv4 = ipv4;
+        return ["$input.ipv4"];
+      },
+    ),
+    (input) => {
+      input.ipv6 = RandomGenerator.ipv4();
       return ["$input.ipv6"];
     },
+    ...["github.com", "http://깃허브.com", "/abc"].map(
+      (uri) => (input: TypeTagFormat) => {
+        input.uri = uri;
+        return ["$input.uri"];
+      },
+    ),
+    (input: TypeTagFormat) => {
+      input.uriReference = "http://깃허브.com";
+      return ["$input.uriReference"];
+    },
+    (input: TypeTagFormat) => {
+      input.uriTemplate = "http://example.com/dictionary/{term:1}/{term";
+      return ["$input.uriTemplate"];
+    },
+    ...["httpx://github.com", "telnet://something.damain", "/path", "abcd"].map(
+      (url) => (input: TypeTagFormat) => {
+        input.url = url;
+        return ["$input.url"];
+      },
+    ),
 
     // TIMESTAMPS
     (input) => {
@@ -103,10 +151,24 @@ export namespace TypeTagFormat {
       input.datetime = "invalid datetime";
       return ["$input.datetime"];
     },
+    (input) => {
+      input.time = "123456";
+      return ["$input.time"];
+    },
+    (input) => {
+      input.duration = "30D";
+      return ["$input.duration"];
+    },
 
-    // POINTERS
-
-    // INDIVIDUAL
+    // POINTERS,
+    (input) => {
+      input.jsonPointer = "/foo/bar~";
+      return ["$input.jsonPointer"];
+    },
+    (input) => {
+      input.relativeJsonPointer = "#/foo/%a";
+      return ["$input.relativeJsonPointer"];
+    },
 
     // COMPOSITE
     (input) => {
