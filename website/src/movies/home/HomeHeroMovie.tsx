@@ -43,23 +43,28 @@ const HomeHeroMovie = () => (
       variant="h2"
       fontFamily="fantasy"
     >
-      One Line Magic
+      Only one line
     </Typography>
     <Typography
       color="inherit"
       align="center"
       variant="h5"
-      fontFamily="serif"
+      fontFamily="cursive"
       sx={{ mb: 4, mt: { xs: 4, sm: 10 } }}
     >
-      No extra schema required.
+      No extra schema required
       <br />
       <br />
-      Just fine with pure TypeScript type.
+      Just fine with pure TypeScript type
     </Typography>
     <br />
     <br />
-    <Typography align="center" variant="h5" fontFamily="cursive">
+    <Typography
+      align="center"
+      variant="h5"
+      fontFamily="monospace"
+      sx={{ fontWeight: "bold" }}
+    >
       <HomeCodeBlock method="assert" inputColor="#CFCFCF" />
     </Typography>
     <br />
