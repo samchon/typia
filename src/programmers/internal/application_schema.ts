@@ -60,9 +60,9 @@ export const application_schema =
 
     // toJSON() METHOD
     if (meta.escaped !== null)
-      union.push(
-        ...application_escaped(options)(blockNever)(components)(meta.escaped),
-      );
+      application_escaped(options)(blockNever)(components)(
+        meta.escaped,
+      ).forEach(insert);
 
     // ATOMIC TYPES
     if (meta.templates.length && AtomicPredicator.template(meta))
