@@ -116,7 +116,7 @@ export namespace HttpFormDataProgrammer {
         meta.objects.length ||
         meta.sets.length ||
         meta.maps.length ||
-        meta.natives.length
+        meta.natives.filter((n) => n !== "Blob" && n !== "File").length
       )
         insert("nested object type is not allowed.");
     }

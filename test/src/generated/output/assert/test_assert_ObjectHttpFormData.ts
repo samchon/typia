@@ -13,8 +13,6 @@ export const test_assert_ObjectHttpFormData = _test_assert(
         /^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test(
           input.id,
         ) &&
-        Array.isArray(input.strings) &&
-        input.strings.every((elem: any) => "string" === typeof elem) &&
         "number" === typeof input.number &&
         Number.isFinite(input.number) &&
         Array.isArray(input.integers) &&
@@ -59,26 +57,6 @@ export const test_assert_ObjectHttpFormData = _test_assert(
               expected: '(string & Format<"uuid">)',
               value: input.id,
             })) &&
-          (((Array.isArray(input.strings) ||
-            $guard(_exceptionable, {
-              path: _path + ".strings",
-              expected: "Array<string>",
-              value: input.strings,
-            })) &&
-            input.strings.every(
-              (elem: any, _index1: number) =>
-                "string" === typeof elem ||
-                $guard(_exceptionable, {
-                  path: _path + ".strings[" + _index1 + "]",
-                  expected: "string",
-                  value: elem,
-                }),
-            )) ||
-            $guard(_exceptionable, {
-              path: _path + ".strings",
-              expected: "Array<string>",
-              value: input.strings,
-            })) &&
           (("number" === typeof input.number &&
             Number.isFinite(input.number)) ||
             $guard(_exceptionable, {
@@ -93,18 +71,18 @@ export const test_assert_ObjectHttpFormData = _test_assert(
               value: input.integers,
             })) &&
             input.integers.every(
-              (elem: any, _index2: number) =>
+              (elem: any, _index1: number) =>
                 ("number" === typeof elem &&
                   ((Math.floor(elem) === elem &&
                     -2147483648 <= elem &&
                     elem <= 2147483647) ||
                     $guard(_exceptionable, {
-                      path: _path + ".integers[" + _index2 + "]",
+                      path: _path + ".integers[" + _index1 + "]",
                       expected: 'number & Type<"int32">',
                       value: elem,
                     }))) ||
                 $guard(_exceptionable, {
-                  path: _path + ".integers[" + _index2 + "]",
+                  path: _path + ".integers[" + _index1 + "]",
                   expected: '(number & Type<"int32">)',
                   value: elem,
                 }),
@@ -127,10 +105,10 @@ export const test_assert_ObjectHttpFormData = _test_assert(
               value: input.blobs,
             })) &&
             input.blobs.every(
-              (elem: any, _index3: number) =>
+              (elem: any, _index2: number) =>
                 elem instanceof Blob ||
                 $guard(_exceptionable, {
-                  path: _path + ".blobs[" + _index3 + "]",
+                  path: _path + ".blobs[" + _index2 + "]",
                   expected: "Blob",
                   value: elem,
                 }),
@@ -153,10 +131,10 @@ export const test_assert_ObjectHttpFormData = _test_assert(
               value: input.files,
             })) &&
             input.files.every(
-              (elem: any, _index4: number) =>
+              (elem: any, _index3: number) =>
                 elem instanceof File ||
                 $guard(_exceptionable, {
-                  path: _path + ".files[" + _index4 + "]",
+                  path: _path + ".files[" + _index3 + "]",
                   expected: "File",
                   value: elem,
                 }),

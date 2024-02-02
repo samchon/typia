@@ -8,6 +8,7 @@ export interface TestFeature {
   method: string;
   creatable: boolean;
   spoilable: boolean;
+  formData?: boolean;
   query?: true;
   headers?: true;
   jsonable?: true;
@@ -228,7 +229,7 @@ export namespace TestFeature {
       module: "http",
       method: "formData",
       creatable: true,
-      query: true,
+      formData: true,
       resolved: true,
       spoilable: false,
     },
@@ -236,7 +237,7 @@ export namespace TestFeature {
       module: "http",
       method: "assertFormData",
       creatable: true,
-      query: true,
+      formData: true,
       resolved: true,
       spoilable: true,
     },
@@ -244,7 +245,7 @@ export namespace TestFeature {
       module: "http",
       method: "isFormData",
       creatable: true,
-      query: true,
+      formData: true,
       resolved: true,
       spoilable: true,
     },
@@ -252,7 +253,7 @@ export namespace TestFeature {
       module: "http",
       method: "validateFormData",
       creatable: true,
-      query: true,
+      formData: true,
       resolved: true,
       spoilable: true,
     },

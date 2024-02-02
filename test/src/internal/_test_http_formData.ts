@@ -16,6 +16,6 @@ export const _test_http_formData =
     const equal: boolean = resolved_equal_to(name)(data, decoded);
     if (equal === false)
       throw new Error(
-        `Bug on typia.http.formdata(): failed to understand ${name} type.`,
+        `Bug on typia.http.formData(): failed to understand ${name} type.`,
       );
   };
