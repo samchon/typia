@@ -7,11 +7,330 @@ import { Resolved } from "./Resolved";
 
 /* ===========================================================
     HTTP
+      - FORM-DATA
       - QUERY
       - HEADERS
       - PARAMETER
       - FACTORY FUNCTIONS
 ==============================================================
+    FORM-DATA
+----------------------------------------------------------- */
+/**
+ * > You must configure the generic argument `T`.
+ *
+ * Form data decoder.
+ *
+ * `typia.http.formData()` is a function decoding `FormData` instance, with
+ * automatic type casting to the expected type. When roperty type be defined
+ * as `boolean` or `Blob` type, `typia.http.formData()` will cast the value to
+ * the expected type when decoding.
+ *
+ * By the way, as `FormData` is not enough to express complex data structures,
+ * `typia.http.formData()` function has some limitations. If target type `T` is
+ * not following those restrictions, compilation errors would be occured.
+ *
+ * 1. Type `T` must be an object type
+ * 2. Do not allow dynamic property
+ * 3. Only `boolean`, `bigint`, `number`, `string`, `Blob`, `File` or their array types are allowed
+ * 4. By the way, union type never be not allowed
+ *
+ * Also, `typia.http.formData()` function does not perform validation about the
+ * decoded value. Therefore, if you can't sure that input data is following the
+ * `T` type, it would better to call one of below functions intead.
+ *
+ * - {@link assertFormData}
+ * - {@link isFormData}
+ * - {@link validateFormData}
+ *
+ * @template T Expected type of decoded value
+ * @param input FormData instance
+ * @returns Decoded form FormData
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+function formData(): never;
+
+/**
+ * Form data decoder.
+ *
+ * `typia.http.formData()` is a function decoding `FormData` instance, with
+ * automatic type casting to the expected type. When roperty type be defined
+ * as `boolean` or `Blob` type, `typia.http.formData()` will cast the value to
+ * the expected type when decoding.
+ *
+ * By the way, as `FormData` is not enough to express complex data structures,
+ * `typia.http.formData()` function has some limitations. If target type `T` is
+ * not following those restrictions, compilation errors would be occured.
+ *
+ * 1. Type `T` must be an object type
+ * 2. Do not allow dynamic property
+ * 3. Only `boolean`, `bigint`, `number`, `string`, `Blob`, `File` or their array types are allowed
+ * 4. By the way, union type never be not allowed
+ *
+ * Also, `typia.http.formData()` function does not perform validation about the
+ * decoded value. Therefore, if you can't sure that input data is following the
+ * `T` type, it would better to call one of below functions intead.
+ *
+ * @template T Expected type of decoded value
+ * @param input FormData instance
+ * @returns Decoded form FormData
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+function formData<T extends object>(input: FormData): Resolved<T>;
+
+/**
+ * @internal
+ */
+function formData(): never {
+  halt("formData");
+}
+const formDataPure = /** @__PURE__ */ Object.assign<typeof formData, {}>(
+  formData,
+  /** @__PURE__ */ Namespace.http.formData(),
+);
+export { formDataPure as formData };
+
+/**
+ * > You must configure the generic argument `T`.
+ *
+ * Form data decoder with type assertion.
+ *
+ * `typia.http.assertFormData()` is a function decoding `FormData` instance, with
+ * automatic type casting to the expected type. When roperty type be defined
+ * as `boolean` or `Blob` type, `typia.http.assertFormData()` will cast the value
+ * to the expected type when decoding.
+ *
+ * Also, after decoding, `typia.http.assertFormData()` performs type assertion to
+ * the decoded value by combining with {@link assert} function. Therefore, when
+ * the decoded value is not following the `T` type, {@link TypeGuardError} would
+ * be thrown.
+ *
+ * By the way, as `FormData` is not enough to express complex data structures,
+ * `typia.http.assertFormData()` function has some limitations. If target type `T`
+ * is not following those restrictions, compilation errors would be occured.
+ *
+ * 1. Type `T` must be an object type
+ * 2. Do not allow dynamic property
+ * 3. Only `boolean`, `bigint`, `number`, `string`, `Blob`, `File` or their array types are allowed
+ * 4. By the way, union type never be not allowed
+ *
+ * @template T Expected type of decoded value
+ * @param input FormData instance
+ * @returns Decoded form FormData
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+function assertFormData(): never;
+
+/**
+ * Form data decoder with type assertion.
+ *
+ * `typia.http.assertFormData()` is a function decoding `FormData` instance, with
+ * automatic type casting to the expected type. When roperty type be defined
+ * as `boolean` or `Blob` type, `typia.http.assertFormData()` will cast the value
+ * to the expected type when decoding.
+ *
+ * Also, after decoding, `typia.http.assertFormData()` performs type assertion to
+ * the decoded value by combining with {@link assert} function. Therefore, when
+ * the decoded value is not following the `T` type, {@link TypeGuardError} would
+ * be thrown.
+ *
+ * By the way, as `FormData` is not enough to express complex data structures,
+ * `typia.http.assertFormData()` function has some limitations. If target type `T`
+ * is not following those restrictions, compilation errors would be occured.
+ *
+ * 1. Type `T` must be an object type
+ * 2. Do not allow dynamic property
+ * 3. Only `boolean`, `bigint`, `number`, `string`, `Blob`, `File` or their array types are allowed
+ * 4. By the way, union type never be not allowed
+ *
+ * @template T Expected type of decoded value
+ * @param input FormData instance
+ * @returns Decoded form FormData
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+function assertFormData<T extends object>(input: FormData): Resolved<T>;
+
+/**
+ * @internal
+ */
+function assertFormData(): never {
+  halt("assertFormData");
+}
+const assertFormDataPure = /** @__PURE__ */ Object.assign<
+  typeof assertFormData,
+  {},
+  {}
+>(
+  assertFormData,
+  /** @__PURE__ */ Namespace.http.formData(),
+  /** @__PURE__ */ Namespace.assert("http.assertFormData"),
+);
+export { assertFormDataPure as assertFormData };
+
+/**
+ * > You must configure the generic argument `T`.
+ *
+ * Form data decoder with type checking.
+ *
+ * `typia.http.isFormData()` is a function decoding `FormData` instance, with
+ * automatic type casting to the expected type. When roperty type be defined
+ * as `boolean` or `Blob` type, `typia.http.isFormData()` will cast the value
+ * to the expected type when decoding.
+ *
+ * Also, after decoding, `typia.http.isFormData()` performs type checking to the
+ * decoded value by combining with {@link is} function. Therefore, when the
+ * decoded value is not following the `T` type, `null` value would be returned.
+ *
+ * By the way, as `FormData` is not enough to express complex data structures,
+ * `typia.http.isFormData()` function has some limitations. If target type `T` is
+ * not following those restrictions, compilation errors would be occured.
+ *
+ * 1. Type `T` must be an object type
+ * 2. Do not allow dynamic property
+ * 3. Only `boolean`, `bigint`, `number`, `string`, `Blob`, `File` or their array types are allowed
+ * 4. By the way, union type never be not allowed
+ *
+ * @template T Expected type of decoded value
+ * @param input FormData instance
+ * @returns Decoded form FormData or `null` value
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+function isFormData(): never;
+
+/**
+ * Form data decoder with type checking.
+ *
+ * `typia.http.isFormData()` is a function decoding `FormData` instance, with
+ * automatic type casting to the expected type. When roperty type be defined
+ * as `boolean` or `Blob` type, `typia.http.isFormData()` will cast the value
+ * to the expected type when decoding.
+ *
+ * Also, after decoding, `typia.http.isFormData()` performs type checking to the
+ * decoded value by combining with {@link is} function. Therefore, when the
+ * decoded value is not following the `T` type, `null` value would be returned.
+ *
+ * By the way, as `FormData` is not enough to express complex data structures,
+ * `typia.http.isFormData()` function has some limitations. If target type `T` is
+ * not following those restrictions, compilation errors would be occured.
+ *
+ * 1. Type `T` must be an object type
+ * 2. Do not allow dynamic property
+ * 3. Only `boolean`, `bigint`, `number`, `string`, `Blob`, `File` or their array types are allowed
+ * 4. By the way, union type never be not allowed
+ *
+ * @template T Expected type of decoded value
+ * @param input FormData instance
+ * @returns Decoded form FormData or `null` value
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+function isFormData<T extends object>(input: FormData): Resolved<T> | null;
+
+/**
+ * @internal
+ */
+function isFormData(): never {
+  halt("isFormData");
+}
+const isFormDataPure = /** @__PURE__ */ Object.assign<
+  typeof isFormData,
+  {},
+  {}
+>(
+  isFormData,
+  /** @__PURE__ */ Namespace.http.formData(),
+  /** @__PURE__ */ Namespace.is(),
+);
+export { isFormDataPure as isFormData };
+
+/**
+ * > You must configure the generic argument `T`.
+ *
+ * Form data decoder with type validation.
+ *
+ * `typia.http.validateFormData()` is a function decoding `FormData` instance,
+ * with automatic type casting to the expected type. When roperty type be defined
+ * as `boolean` or `Blob` type, `typia.http.validateFormData()` will cast the
+ * value to the expected type when decoding.
+ *
+ * Also, after decoding, `typia.http.validateFormData()` performs type validation
+ * to the decoded value by combining with {@link validate} function. Therefore,
+ * when the decoded value is not following the `T` type,
+ * {@link IValidation.IFailure} would be returned. Otherwise,
+ * x@xxxx IValidation.ISuccess} would be returned.
+ *
+ * By the way, as `FormData` is not enough to express complex data structures,
+ * `typia.http.validateFormData()` function has some limitations. If target type
+ * `T` is not following those restrictions, compilation errors would be occured.
+ *
+ * 1. Type `T` must be an object type
+ * 2. Do not allow dynamic property
+ * 3. Only `boolean`, `bigint`, `number`, `string`, `Blob`, `File` or their array types are allowed
+ * 4. By the way, union type never be not allowed
+ *
+ * @template T Expected type of decoded value
+ * @param input FormData instance
+ * @returns Validation result with decoded form FormData
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+function validateFormData(): never;
+
+/**
+ * Form data decoder with type validation.
+ *
+ * `typia.http.validateFormData()` is a function decoding `FormData` instance,
+ * with automatic type casting to the expected type. When roperty type be defined
+ * as `boolean` or `Blob` type, `typia.http.validateFormData()` will cast the
+ * value to the expected type when decoding.
+ *
+ * Also, after decoding, `typia.http.validateFormData()` performs type validation
+ * to the decoded value by combining with {@link validate} function. Therefore,
+ * when the decoded value is not following the `T` type,
+ * {@link IValidation.IFailure} would be returned. Otherwise,
+ * x@xxxx IValidation.ISuccess} would be returned.
+ *
+ * By the way, as `FormData` is not enough to express complex data structures,
+ * `typia.http.validateFormData()` function has some limitations. If target type
+ * `T` is not following those restrictions, compilation errors would be occured.
+ *
+ * 1. Type `T` must be an object type
+ * 2. Do not allow dynamic property
+ * 3. Only `boolean`, `bigint`, `number`, `string`, `Blob`, `File` or their array types are allowed
+ * 4. By the way, union type never be not allowed
+ *
+ * @template T Expected type of decoded value
+ * @param input FormData instance
+ * @returns Validation result with decoded form FormData
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+function validateFormData<T extends object>(
+  input: FormData,
+): IValidation<Resolved<T>>;
+
+/**
+ * @internal
+ */
+function validateFormData(): never {
+  halt("validateFormData");
+}
+const validateFormDataPure = /** @__PURE__ */ Object.assign<
+  typeof validateFormData,
+  {},
+  {}
+>(
+  validateFormData,
+  /** @__PURE__ */ Namespace.http.formData(),
+  /** @__PURE__ */ Namespace.validate(),
+);
+export { validateFormDataPure as validateFormData };
+
+/* -----------------------------------------------------------
     QUERY
 ----------------------------------------------------------- */
 /**
@@ -164,7 +483,6 @@ function assertQuery<T extends object>(
 function assertQuery(): never {
   halt("assertQuery");
 }
-
 const assertQueryPure = /** @__PURE__ */ Object.assign<
   typeof assertQuery,
   {},
@@ -890,6 +1208,161 @@ export { parameterPure as parameter };
 /* -----------------------------------------------------------
     FACTORY FUNCTIONS
 ----------------------------------------------------------- */
+/**
+ * Creates a reusable {@link formdata} function.
+ *
+ * @danger You must configure the generic argument `T`
+ * @template T The type of the formdata object
+ * @throws compile error
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+function createFormData(): never;
+
+/**
+ * Creates a reusable {@link formdata} function.
+ *
+ * @template T The type of the formdata object
+ * @returns A reusable `formdata` function
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+function createFormData<T extends object>(): (input: FormData) => T;
+
+/**
+ * @internal
+ */
+function createFormData<T>(): (input: FormData) => T {
+  halt("createFormData");
+}
+
+const createFormDataPure = /** @__PURE__ */ Object.assign<
+  typeof createFormData,
+  {}
+>(createFormData, /** @__PURE__ */ Namespace.http.formData());
+export { createFormDataPure as createFormData };
+
+/**
+ * Creates a reusable {@link assertFormData} function.
+ *
+ * @danger You must configure the generic argument `T`
+ * @template T The type of the formdata object
+ * @throws compile error
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+function createAssertFormData(): never;
+
+/**
+ * Creates a reusable {@link assertFormData} function.
+ *
+ * @template T The type of the formdata object
+ * @returns A reusable `assertFormData` function
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+function createAssertFormData<T extends object>(): (input: FormData) => T;
+
+/**
+ * @internal
+ */
+function createAssertFormData<T>(): (input: FormData) => T {
+  halt("createAssertFormData");
+}
+
+const createAssertFormDataPure = /** @__PURE__ */ Object.assign<
+  typeof createAssertFormData,
+  {},
+  {}
+>(
+  createAssertFormData,
+  /** @__PURE__ */ Namespace.http.formData(),
+  /** @__PURE__ */ Namespace.assert("http.createAssertFormData"),
+);
+export { createAssertFormDataPure as createAssertFormData };
+
+/**
+ * Creates a reusable {@link isFormData} function.
+ *
+ * @danger You must configure the generic argument `T`
+ * @template T The type of the formdata object
+ * @throws compile error
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+function createIsFormData(): never;
+
+/**
+ * Creates a reusable {@link isFormData} function.
+ *
+ * @template T The type of the formdata object
+ * @returns A reusable `isFormData` function
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+function createIsFormData<T extends object>(): (input: FormData) => T | null;
+
+/**
+ * @internal
+ */
+function createIsFormData<T>(): (input: FormData) => T | null {
+  halt("createIsFormData");
+}
+
+const createIsFormDataPure = /** @__PURE__ */ Object.assign<
+  typeof createIsFormData,
+  {},
+  {}
+>(
+  createIsFormData,
+  /** @__PURE__ */ Namespace.http.formData(),
+  /** @__PURE__ */ Namespace.is(),
+);
+export { createIsFormDataPure as createIsFormData };
+
+/**
+ * Creates a reusable {@link validateFormData} function.
+ *
+ * @danger You must configure the generic argument `T`
+ * @template T The type of the formdata object
+ * @throws compile error
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+function createValidateFormData(): never;
+
+/**
+ * Creates a reusable {@link validateFormData} function.
+ *
+ * @template T The type of the formdata object
+ * @returns A reusable `validateFormData` function
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+function createValidateFormData<T extends object>(): (
+  input: FormData,
+) => IValidation<Resolved<T>>;
+
+/**
+ * @internal
+ */
+function createValidateFormData<T>(): (
+  input: FormData,
+) => IValidation<Resolved<T>> {
+  halt("createValidateFormData");
+}
+
+const createValidateFormDataPure = /** @__PURE__ */ Object.assign<
+  typeof createValidateFormData,
+  {},
+  {}
+>(
+  createValidateFormData,
+  /** @__PURE__ */ Namespace.http.formData(),
+  /** @__PURE__ */ Namespace.validate(),
+);
+export { createValidateFormDataPure as createValidateFormData };
+
 /**
  * Creates a reusable {@link query} function.
  *
