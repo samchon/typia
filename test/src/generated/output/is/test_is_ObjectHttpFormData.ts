@@ -12,8 +12,6 @@ export const test_is_ObjectHttpFormData = _test_is(
       /^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test(
         input.id,
       ) &&
-      Array.isArray(input.strings) &&
-      input.strings.every((elem: any) => "string" === typeof elem) &&
       "number" === typeof input.number &&
       Number.isFinite(input.number) &&
       Array.isArray(input.integers) &&

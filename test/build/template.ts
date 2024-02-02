@@ -56,6 +56,7 @@ async function generate(
     else if (feat.module === "protobuf" && s.BINARABLE === false) continue;
     else if (feat.query === true && s.QUERY !== true) continue;
     else if (feat.headers === true && s.HEADERS !== true) continue;
+    else if (feat.formData === true && s.FORMDATA !== true) continue;
     else if (feat.primitive && s.PRIMITIVE === false) continue;
     else if (feat.resolved && s.RESOLVABLE === false) continue;
     else if (feat.method.toLowerCase().includes("prune") && s.ADDABLE === false)

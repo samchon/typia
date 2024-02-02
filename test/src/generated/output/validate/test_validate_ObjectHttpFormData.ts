@@ -14,8 +14,6 @@ export const test_validate_ObjectHttpFormData = _test_validate(
         /^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test(
           input.id,
         ) &&
-        Array.isArray(input.strings) &&
-        input.strings.every((elem: any) => "string" === typeof elem) &&
         "number" === typeof input.number &&
         Number.isFinite(input.number) &&
         Array.isArray(input.integers) &&
@@ -61,28 +59,6 @@ export const test_validate_ObjectHttpFormData = _test_validate(
                 expected: '(string & Format<"uuid">)',
                 value: input.id,
               }),
-            ((Array.isArray(input.strings) ||
-              $report(_exceptionable, {
-                path: _path + ".strings",
-                expected: "Array<string>",
-                value: input.strings,
-              })) &&
-              input.strings
-                .map(
-                  (elem: any, _index1: number) =>
-                    "string" === typeof elem ||
-                    $report(_exceptionable, {
-                      path: _path + ".strings[" + _index1 + "]",
-                      expected: "string",
-                      value: elem,
-                    }),
-                )
-                .every((flag: boolean) => flag)) ||
-              $report(_exceptionable, {
-                path: _path + ".strings",
-                expected: "Array<string>",
-                value: input.strings,
-              }),
             ("number" === typeof input.number &&
               Number.isFinite(input.number)) ||
               $report(_exceptionable, {
@@ -98,18 +74,18 @@ export const test_validate_ObjectHttpFormData = _test_validate(
               })) &&
               input.integers
                 .map(
-                  (elem: any, _index2: number) =>
+                  (elem: any, _index1: number) =>
                     ("number" === typeof elem &&
                       ((Math.floor(elem) === elem &&
                         -2147483648 <= elem &&
                         elem <= 2147483647) ||
                         $report(_exceptionable, {
-                          path: _path + ".integers[" + _index2 + "]",
+                          path: _path + ".integers[" + _index1 + "]",
                           expected: 'number & Type<"int32">',
                           value: elem,
                         }))) ||
                     $report(_exceptionable, {
-                      path: _path + ".integers[" + _index2 + "]",
+                      path: _path + ".integers[" + _index1 + "]",
                       expected: '(number & Type<"int32">)',
                       value: elem,
                     }),
@@ -134,10 +110,10 @@ export const test_validate_ObjectHttpFormData = _test_validate(
               })) &&
               input.blobs
                 .map(
-                  (elem: any, _index3: number) =>
+                  (elem: any, _index2: number) =>
                     elem instanceof Blob ||
                     $report(_exceptionable, {
-                      path: _path + ".blobs[" + _index3 + "]",
+                      path: _path + ".blobs[" + _index2 + "]",
                       expected: "Blob",
                       value: elem,
                     }),
@@ -162,10 +138,10 @@ export const test_validate_ObjectHttpFormData = _test_validate(
               })) &&
               input.files
                 .map(
-                  (elem: any, _index4: number) =>
+                  (elem: any, _index3: number) =>
                     elem instanceof File ||
                     $report(_exceptionable, {
-                      path: _path + ".files[" + _index4 + "]",
+                      path: _path + ".files[" + _index3 + "]",
                       expected: "File",
                       value: elem,
                     }),

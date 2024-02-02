@@ -51,8 +51,14 @@ export const string = (
 export const array = (input: any[], alternative: null | undefined) =>
   input.length ? input : alternative;
 
-export const blob = (input: string | File | null): Blob | null | undefined =>
-  file(input);
+export const blob = (input: string | Blob | null): Blob | null | undefined =>
+  input instanceof Blob
+    ? input
+    : input === null
+    ? undefined
+    : input === "null"
+    ? null
+    : (input as any);
 
 export const file = (input: string | File | null): File | null | undefined =>
   input instanceof File

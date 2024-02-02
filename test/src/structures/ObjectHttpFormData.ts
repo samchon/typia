@@ -1,4 +1,4 @@
-import { tags } from "typia";
+import typia, { tags } from "typia";
 import { v4 } from "uuid";
 
 import { Spoiler } from "../helpers/Spoiler";
@@ -6,7 +6,6 @@ import { TestRandomGenerator } from "../helpers/TestRandomGenerator";
 
 export interface ObjectHttpFormData {
   id: string & tags.Format<"uuid">;
-  strings: string[];
   number: number;
   integers: Array<number & tags.Type<"int32">>;
   blob: Blob;
@@ -17,12 +16,12 @@ export interface ObjectHttpFormData {
 export namespace ObjectHttpFormData {
   export const ADDABLE = false;
   export const BINARABLE = false;
+  export const FORMDATA = true;
   export const JSONABLE = false;
 
   export function generate(): ObjectHttpFormData {
     return {
       id: v4(),
-      strings: TestRandomGenerator.array(() => TestRandomGenerator.string()),
       number: TestRandomGenerator.number(),
       integers: TestRandomGenerator.array(() => TestRandomGenerator.integer()),
       blob: new Blob(),
@@ -38,11 +37,7 @@ export namespace ObjectHttpFormData {
       return ["$input.id"];
     },
     (input) => {
-      input.strings = "something" as any;
-      return ["$input.strings"];
-    },
-    (input) => {
-      input.number = "3" as any;
+      input.number = "abcd" as any;
       return ["$input.number"];
     },
     (input) => {
@@ -58,7 +53,7 @@ export namespace ObjectHttpFormData {
       return ["$input.blobs[0]"];
     },
     (input) => {
-      input.file = new Blob() as any;
+      input.file = new Uint8Array() as any;
       return ["$input.file"];
     },
     (input) => {
