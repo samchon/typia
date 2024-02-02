@@ -39,7 +39,7 @@ export const test_http_createIsQuery_ObjectHttpUndefindable =
           $io0(input)
         );
       };
-      const query = (
+      const decode = (
         input: string | URLSearchParams,
       ): typia.Resolved<ObjectHttpUndefindable> => {
         const $params = (typia.http.createIsQuery as any).params;
@@ -60,7 +60,7 @@ export const test_http_createIsQuery_ObjectHttpUndefindable =
         };
         return output as any;
       };
-      const output = query(input);
+      const output = decode(input);
       if (!is(output)) return null;
       return output;
     },

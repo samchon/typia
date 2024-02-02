@@ -53,6 +53,8 @@ type CamelizeObject<T extends object> = T extends Array<infer U>
       | ArrayBuffer
       | SharedArrayBuffer
       | DataView
+      | Blob
+      | File
   ? T
   : {
       [Key in keyof T as CamelizeString<Key & string>]: CamelizeMain<T[Key]>;

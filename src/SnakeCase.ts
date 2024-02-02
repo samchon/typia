@@ -53,6 +53,8 @@ type SnakageObject<T extends object> = T extends Array<infer U>
       | ArrayBuffer
       | SharedArrayBuffer
       | DataView
+      | Blob
+      | File
   ? T
   : {
       [Key in keyof T as SnakageString<Key & string>]: SnakageMain<T[Key]>;

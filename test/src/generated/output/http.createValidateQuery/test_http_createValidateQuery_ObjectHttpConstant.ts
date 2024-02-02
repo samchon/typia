@@ -98,7 +98,7 @@ export const test_http_createValidateQuery_ObjectHttpConstant =
           data: success ? input : undefined,
         } as any;
       };
-      const query = (
+      const decode = (
         input: string | URLSearchParams,
       ): typia.Resolved<ObjectHttpConstant> => {
         const $params = (typia.http.createValidateQuery as any).params;
@@ -116,7 +116,7 @@ export const test_http_createValidateQuery_ObjectHttpConstant =
         };
         return output as any;
       };
-      const output = query(input);
+      const output = decode(input);
       return validate(output) as any;
     },
   );

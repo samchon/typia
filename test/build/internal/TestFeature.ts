@@ -226,6 +226,38 @@ export namespace TestFeature {
     //----
     {
       module: "http",
+      method: "formData",
+      creatable: true,
+      query: true,
+      resolved: true,
+      spoilable: false,
+    },
+    {
+      module: "http",
+      method: "assertFormData",
+      creatable: true,
+      query: true,
+      resolved: true,
+      spoilable: true,
+    },
+    {
+      module: "http",
+      method: "isFormData",
+      creatable: true,
+      query: true,
+      resolved: true,
+      spoilable: true,
+    },
+    {
+      module: "http",
+      method: "validateFormData",
+      creatable: true,
+      query: true,
+      resolved: true,
+      spoilable: true,
+    },
+    {
+      module: "http",
       method: "query",
       creatable: true,
       query: true,

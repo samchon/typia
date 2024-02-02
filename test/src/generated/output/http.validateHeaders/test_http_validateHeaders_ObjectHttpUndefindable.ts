@@ -146,7 +146,7 @@ export const test_http_validateHeaders_ObjectHttpUndefindable =
           data: success ? input : undefined,
         } as any;
       };
-      const headers = (
+      const decode = (
         input: Record<string, string | string[] | undefined>,
       ): typia.Resolved<ObjectHttpUndefindable> => {
         const $boolean = (typia.http.validateHeaders as any).boolean;
@@ -164,7 +164,7 @@ export const test_http_validateHeaders_ObjectHttpUndefindable =
         };
         return output as any;
       };
-      const output = headers(input);
+      const output = decode(input);
       return validate(output) as any;
     })(input),
   );

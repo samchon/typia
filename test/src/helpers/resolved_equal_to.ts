@@ -83,6 +83,8 @@ function recursive_equal_to<T>(
         `${path}.buffer.byteLength`,
         tracer,
       );
+    else if (x instanceof File) return y instanceof File;
+    else if (x instanceof Blob) return y instanceof Blob;
     else if (x instanceof Set)
       return array_equal_to([...x], [...(y as any)], path, tracer);
     else if (x instanceof Map)

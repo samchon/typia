@@ -11,7 +11,13 @@ export const application_native =
   (options: JsonApplicationProgrammer.IOptions) =>
   (components: IJsonComponents) =>
   (name: string) =>
-  (nullable: boolean): IJsonSchema.IReference => {
+  (nullable: boolean): IJsonSchema => {
+    if (name === "Blob" || name === "File")
+      return {
+        type: "string",
+        format: "binary",
+        nullable,
+      };
     const key: string =
       options.purpose === "ajv"
         ? name

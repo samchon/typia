@@ -1,6 +1,5 @@
 import ts from "typescript";
 
-import { JsonMetadataFactory } from "../../../factories/JsonMetadataFactory";
 import { LiteralFactory } from "../../../factories/LiteralFactory";
 import { MetadataCollection } from "../../../factories/MetadataCollection";
 import { MetadataFactory } from "../../../factories/MetadataFactory";
@@ -76,7 +75,7 @@ export namespace JsonApplicationTransformer {
             escape: true,
             constant: true,
             absorb: false,
-            validate: JsonMetadataFactory.validate,
+            validate: JsonApplicationProgrammer.validate,
           })(collection)(type),
         );
 

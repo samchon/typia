@@ -214,7 +214,7 @@ export const test_http_validateHeaders_ObjectHttpTypeTag =
           data: success ? input : undefined,
         } as any;
       };
-      const headers = (
+      const decode = (
         input: Record<string, string | string[] | undefined>,
       ): typia.Resolved<ObjectHttpTypeTag> => {
         const $number = (typia.http.validateHeaders as any).number;
@@ -233,7 +233,7 @@ export const test_http_validateHeaders_ObjectHttpTypeTag =
         };
         return output as any;
       };
-      const output = headers(input);
+      const output = decode(input);
       return validate(output) as any;
     })(input),
   );

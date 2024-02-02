@@ -47,7 +47,7 @@ export namespace HttpIsHeadersProgrammer {
             })(modulo)(false)(type, name),
           ),
           StatementFactory.constant(
-            "headers",
+            "decode",
             HttpHeadersProgrammer.write({
               ...project,
               options: {
@@ -60,7 +60,7 @@ export namespace HttpIsHeadersProgrammer {
           StatementFactory.constant(
             "output",
             ts.factory.createCallExpression(
-              ts.factory.createIdentifier("headers"),
+              ts.factory.createIdentifier("decode"),
               undefined,
               [ts.factory.createIdentifier("input")],
             ),

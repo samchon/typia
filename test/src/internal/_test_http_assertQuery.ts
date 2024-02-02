@@ -1,7 +1,7 @@
 import typia, { TypeGuardError } from "typia";
 
 import { TestStructure } from "../helpers/TestStructure";
-import { query_to_string } from "../helpers/query_to_string";
+import { create_query } from "../helpers/create_query";
 import { resolved_equal_to } from "../helpers/resolved_equal_to";
 
 export const _test_http_assertQuery =
@@ -10,7 +10,7 @@ export const _test_http_assertQuery =
   (decode: (input: URLSearchParams) => typia.Resolved<T>) =>
   () => {
     const data: T = factory.generate();
-    const encoded: URLSearchParams = query_to_string(data);
+    const encoded: URLSearchParams = create_query(data);
     const decoded: typia.Resolved<T> = decode(encoded);
 
     const equal: boolean = resolved_equal_to(name)(data, decoded);
@@ -24,7 +24,7 @@ export const _test_http_assertQuery =
       const expected: string[] = spoil(elem);
 
       try {
-        decode(query_to_string(elem));
+        decode(create_query(elem));
       } catch (exp) {
         if (exp instanceof TypeGuardError)
           if (exp.path && expected.includes(exp.path) === true) continue;

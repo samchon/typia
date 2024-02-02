@@ -96,7 +96,7 @@ export const test_http_validateHeaders_ObjectHttpConstant =
           data: success ? input : undefined,
         } as any;
       };
-      const headers = (
+      const decode = (
         input: Record<string, string | string[] | undefined>,
       ): typia.Resolved<ObjectHttpConstant> => {
         const $boolean = (typia.http.validateHeaders as any).boolean;
@@ -111,7 +111,7 @@ export const test_http_validateHeaders_ObjectHttpConstant =
         };
         return output as any;
       };
-      const output = headers(input);
+      const output = decode(input);
       return validate(output) as any;
     })(input),
   );

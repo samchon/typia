@@ -38,7 +38,7 @@ export const test_http_isQuery_ObjectHttpNullable = _test_http_isQuery(
             )));
       return "object" === typeof input && null !== input && $io0(input);
     };
-    const query = (
+    const decode = (
       input: string | URLSearchParams,
     ): typia.Resolved<ObjectHttpNullable> => {
       const $params = (typia.http.isQuery as any).params;
@@ -64,7 +64,7 @@ export const test_http_isQuery_ObjectHttpNullable = _test_http_isQuery(
       };
       return output as any;
     };
-    const output = query(input);
+    const output = decode(input);
     if (!is(output)) return null;
     return output;
   })(input),
