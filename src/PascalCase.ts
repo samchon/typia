@@ -53,6 +53,8 @@ type PascalizeObject<T extends object> = T extends Array<infer U>
       | ArrayBuffer
       | SharedArrayBuffer
       | DataView
+      | Blob
+      | File
   ? T
   : {
       [Key in keyof T as PascalizeString<Key & string>]: PascalizeMain<T[Key]>;

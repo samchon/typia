@@ -6,10 +6,10 @@ import { TypeFactory } from "../../factories/TypeFactory";
 
 import { IProject } from "../../transformers/IProject";
 
-import { IsProgrammer } from "../IsProgrammer";
-import { HttpQueryProgrammer } from "./HttpQueryProgrammer";
+import { AssertProgrammer } from "../AssertProgrammer";
+import { HttpFormDataProgrammer } from "./HttpFormDataProgrammer";
 
-export namespace HttpIsQueryProgrammer {
+export namespace HttpAssertFormDataProgrammer {
   export const write =
     (project: IProject) =>
     (modulo: ts.LeftHandSideExpression) =>
@@ -20,33 +20,19 @@ export namespace HttpIsQueryProgrammer {
         [
           IdentifierFactory.parameter(
             "input",
-            ts.factory.createTypeReferenceNode(HttpQueryProgrammer.INPUT_TYPE),
+            ts.factory.createTypeReferenceNode("FormData"),
           ),
         ],
-        ts.factory.createUnionTypeNode([
-          ts.factory.createTypeReferenceNode(
-            `typia.Resolved<${
-              name ?? TypeFactory.getFullName(project.checker)(type)
-            }>`,
-          ),
-          ts.factory.createLiteralTypeNode(ts.factory.createNull()),
-        ]),
+        ts.factory.createTypeReferenceNode(
+          `typia.Resolved<${
+            name ?? TypeFactory.getFullName(project.checker)(type)
+          }>`,
+        ),
         undefined,
         ts.factory.createBlock([
           StatementFactory.constant(
-            "is",
-            IsProgrammer.write({
-              ...project,
-              options: {
-                ...project.options,
-                functional: false,
-                numeric: false,
-              },
-            })(modulo)(false)(type, name),
-          ),
-          StatementFactory.constant(
             "decode",
-            HttpQueryProgrammer.write({
+            HttpFormDataProgrammer.write({
               ...project,
               options: {
                 ...project.options,
@@ -56,6 +42,17 @@ export namespace HttpIsQueryProgrammer {
             })(modulo)(type, name),
           ),
           StatementFactory.constant(
+            "assert",
+            AssertProgrammer.write({
+              ...project,
+              options: {
+                ...project.options,
+                functional: false,
+                numeric: false,
+              },
+            })(modulo)(false)(type, name),
+          ),
+          StatementFactory.constant(
             "output",
             ts.factory.createCallExpression(
               ts.factory.createIdentifier("decode"),
@@ -63,19 +60,15 @@ export namespace HttpIsQueryProgrammer {
               [ts.factory.createIdentifier("input")],
             ),
           ),
-          ts.factory.createIfStatement(
-            ts.factory.createPrefixUnaryExpression(
-              ts.SyntaxKind.ExclamationToken,
+          ts.factory.createReturnStatement(
+            ts.factory.createAsExpression(
               ts.factory.createCallExpression(
-                ts.factory.createIdentifier("is"),
+                ts.factory.createIdentifier("assert"),
                 undefined,
                 [ts.factory.createIdentifier("output")],
               ),
+              TypeFactory.keyword("any"),
             ),
-            ts.factory.createReturnStatement(ts.factory.createNull()),
-          ),
-          ts.factory.createReturnStatement(
-            ts.factory.createIdentifier("output"),
           ),
         ]),
       );

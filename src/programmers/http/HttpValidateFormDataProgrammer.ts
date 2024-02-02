@@ -6,10 +6,10 @@ import { TypeFactory } from "../../factories/TypeFactory";
 
 import { IProject } from "../../transformers/IProject";
 
-import { IsProgrammer } from "../IsProgrammer";
-import { HttpQueryProgrammer } from "./HttpQueryProgrammer";
+import { ValidateProgrammer } from "../ValidateProgrammer";
+import { HttpFormDataProgrammer } from "./HttpFormDataProgrammer";
 
-export namespace HttpIsQueryProgrammer {
+export namespace HttpValidateFormDataProgrammer {
   export const write =
     (project: IProject) =>
     (modulo: ts.LeftHandSideExpression) =>
@@ -20,33 +20,30 @@ export namespace HttpIsQueryProgrammer {
         [
           IdentifierFactory.parameter(
             "input",
-            ts.factory.createTypeReferenceNode(HttpQueryProgrammer.INPUT_TYPE),
+            ts.factory.createTypeReferenceNode("FormData"),
           ),
         ],
-        ts.factory.createUnionTypeNode([
-          ts.factory.createTypeReferenceNode(
-            `typia.Resolved<${
-              name ?? TypeFactory.getFullName(project.checker)(type)
-            }>`,
-          ),
-          ts.factory.createLiteralTypeNode(ts.factory.createNull()),
-        ]),
+        ts.factory.createTypeReferenceNode(
+          `typia.IValidation<typia.Resolved<${
+            name ?? TypeFactory.getFullName(project.checker)(type)
+          }>>`,
+        ),
         undefined,
         ts.factory.createBlock([
           StatementFactory.constant(
-            "is",
-            IsProgrammer.write({
+            "validate",
+            ValidateProgrammer.write({
               ...project,
               options: {
                 ...project.options,
                 functional: false,
-                numeric: false,
+                numeric: true,
               },
             })(modulo)(false)(type, name),
           ),
           StatementFactory.constant(
             "decode",
-            HttpQueryProgrammer.write({
+            HttpFormDataProgrammer.write({
               ...project,
               options: {
                 ...project.options,
@@ -63,19 +60,15 @@ export namespace HttpIsQueryProgrammer {
               [ts.factory.createIdentifier("input")],
             ),
           ),
-          ts.factory.createIfStatement(
-            ts.factory.createPrefixUnaryExpression(
-              ts.SyntaxKind.ExclamationToken,
+          ts.factory.createReturnStatement(
+            ts.factory.createAsExpression(
               ts.factory.createCallExpression(
-                ts.factory.createIdentifier("is"),
+                ts.factory.createIdentifier("validate"),
                 undefined,
                 [ts.factory.createIdentifier("output")],
               ),
+              ts.factory.createTypeReferenceNode("any"),
             ),
-            ts.factory.createReturnStatement(ts.factory.createNull()),
-          ),
-          ts.factory.createReturnStatement(
-            ts.factory.createIdentifier("output"),
           ),
         ]),
       );

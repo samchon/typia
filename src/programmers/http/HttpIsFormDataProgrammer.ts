@@ -7,9 +7,9 @@ import { TypeFactory } from "../../factories/TypeFactory";
 import { IProject } from "../../transformers/IProject";
 
 import { IsProgrammer } from "../IsProgrammer";
-import { HttpQueryProgrammer } from "./HttpQueryProgrammer";
+import { HttpFormDataProgrammer } from "./HttpFormDataProgrammer";
 
-export namespace HttpIsQueryProgrammer {
+export namespace HttpIsFormDataProgrammer {
   export const write =
     (project: IProject) =>
     (modulo: ts.LeftHandSideExpression) =>
@@ -20,7 +20,7 @@ export namespace HttpIsQueryProgrammer {
         [
           IdentifierFactory.parameter(
             "input",
-            ts.factory.createTypeReferenceNode(HttpQueryProgrammer.INPUT_TYPE),
+            ts.factory.createTypeReferenceNode("FormData"),
           ),
         ],
         ts.factory.createUnionTypeNode([
@@ -46,7 +46,7 @@ export namespace HttpIsQueryProgrammer {
           ),
           StatementFactory.constant(
             "decode",
-            HttpQueryProgrammer.write({
+            HttpFormDataProgrammer.write({
               ...project,
               options: {
                 ...project.options,

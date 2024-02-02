@@ -620,6 +620,8 @@ export namespace RandomProgrammer {
       else if (type === "ArrayBuffer" || type === "SharedArrayBuffer")
         return decode_native_array_buffer(importer)(type);
       else if (type === "DataView") return decode_native_data_view(importer);
+      else if (type === "Blob") return decode_native_blob(importer);
+      else if (type === "File") return decode_native_file(importer);
       else
         return ts.factory.createNewExpression(
           ts.factory.createIdentifier(type),
@@ -708,6 +710,48 @@ export namespace RandomProgrammer {
         ],
       );
     };
+
+  const decode_native_blob = (importer: FunctionImporter) =>
+    ts.factory.createNewExpression(
+      ts.factory.createIdentifier("Blob"),
+      undefined,
+      [
+        ts.factory.createArrayLiteralExpression(
+          [decode_native_byte_array(importer)("Uint8Array")],
+          true,
+        ),
+      ],
+    );
+
+  const decode_native_file = (importer: FunctionImporter) =>
+    ts.factory.createNewExpression(
+      ts.factory.createIdentifier("File"),
+      undefined,
+      [
+        ts.factory.createArrayLiteralExpression(
+          [decode_native_byte_array(importer)("Uint8Array")],
+          true,
+        ),
+        ts.factory.createTemplateExpression(ts.factory.createTemplateHead(""), [
+          ts.factory.createTemplateSpan(
+            ts.factory.createCallExpression(
+              COALESCE(importer)("string"),
+              undefined,
+              [ts.factory.createNumericLiteral(8)],
+            ),
+            ts.factory.createTemplateMiddle("."),
+          ),
+          ts.factory.createTemplateSpan(
+            ts.factory.createCallExpression(
+              COALESCE(importer)("string"),
+              undefined,
+              [ts.factory.createNumericLiteral(3)],
+            ),
+            ts.factory.createTemplateTail(""),
+          ),
+        ]),
+      ],
+    );
 
   const decode_native_array_buffer =
     (importer: FunctionImporter) =>

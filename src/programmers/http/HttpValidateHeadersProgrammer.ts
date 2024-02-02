@@ -44,7 +44,7 @@ export namespace HttpValidateHeadersProgrammer {
             })(modulo)(false)(type, name),
           ),
           StatementFactory.constant(
-            "headers",
+            "decode",
             HttpHeadersProgrammer.write({
               ...project,
               options: {
@@ -57,7 +57,7 @@ export namespace HttpValidateHeadersProgrammer {
           StatementFactory.constant(
             "output",
             ts.factory.createCallExpression(
-              ts.factory.createIdentifier("headers"),
+              ts.factory.createIdentifier("decode"),
               undefined,
               [ts.factory.createIdentifier("input")],
             ),
