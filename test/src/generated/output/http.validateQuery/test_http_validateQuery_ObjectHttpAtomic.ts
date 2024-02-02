@@ -85,7 +85,7 @@ export const test_http_validateQuery_ObjectHttpAtomic =
           data: success ? input : undefined,
         } as any;
       };
-      const query = (
+      const decode = (
         input: string | URLSearchParams,
       ): typia.Resolved<ObjectHttpAtomic> => {
         const $params = (typia.http.validateQuery as any).params;
@@ -102,7 +102,7 @@ export const test_http_validateQuery_ObjectHttpAtomic =
         };
         return output as any;
       };
-      const output = query(input);
+      const output = decode(input);
       return validate(output) as any;
     })(input),
   );

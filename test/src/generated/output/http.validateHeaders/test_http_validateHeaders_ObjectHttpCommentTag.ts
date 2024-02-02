@@ -145,7 +145,7 @@ export const test_http_validateHeaders_ObjectHttpCommentTag =
           data: success ? input : undefined,
         } as any;
       };
-      const headers = (
+      const decode = (
         input: Record<string, string | string[] | undefined>,
       ): typia.Resolved<ObjectHttpCommentTag> => {
         const $number = (typia.http.validateHeaders as any).number;
@@ -160,7 +160,7 @@ export const test_http_validateHeaders_ObjectHttpCommentTag =
         };
         return output as any;
       };
-      const output = headers(input);
+      const output = decode(input);
       return validate(output) as any;
     })(input),
   );

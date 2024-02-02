@@ -45,7 +45,7 @@ export namespace HttpIsQueryProgrammer {
             })(modulo)(false)(type, name),
           ),
           StatementFactory.constant(
-            "query",
+            "decode",
             HttpQueryProgrammer.write({
               ...project,
               options: {
@@ -58,7 +58,7 @@ export namespace HttpIsQueryProgrammer {
           StatementFactory.constant(
             "output",
             ts.factory.createCallExpression(
-              ts.factory.createIdentifier("query"),
+              ts.factory.createIdentifier("decode"),
               undefined,
               [ts.factory.createIdentifier("input")],
             ),

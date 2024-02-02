@@ -216,7 +216,7 @@ export const test_http_createValidateQuery_ObjectHttpTypeTag =
           data: success ? input : undefined,
         } as any;
       };
-      const query = (
+      const decode = (
         input: string | URLSearchParams,
       ): typia.Resolved<ObjectHttpTypeTag> => {
         const $params = (typia.http.createValidateQuery as any).params;
@@ -233,7 +233,7 @@ export const test_http_createValidateQuery_ObjectHttpTypeTag =
         };
         return output as any;
       };
-      const output = query(input);
+      const output = decode(input);
       return validate(output) as any;
     },
   );

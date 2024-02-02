@@ -1,7 +1,7 @@
 import typia from "typia";
 
 import { TestStructure } from "../helpers/TestStructure";
-import { query_to_string } from "../helpers/query_to_string";
+import { create_query } from "../helpers/create_query";
 import { resolved_equal_to } from "../helpers/resolved_equal_to";
 
 export const _test_http_validateQuery =
@@ -10,7 +10,7 @@ export const _test_http_validateQuery =
   (decode: (input: URLSearchParams) => typia.IValidation<typia.Resolved<T>>) =>
   () => {
     const data: T = factory.generate();
-    const encoded: URLSearchParams = query_to_string(data);
+    const encoded: URLSearchParams = create_query(data);
 
     const result: typia.IValidation<typia.Resolved<T>> = decode(encoded);
     if (result.success === false)
@@ -31,7 +31,7 @@ export const _test_http_validateQuery =
       const expected: string[] = spoil(elem);
 
       const valid: typia.IValidation<typia.Resolved<T>> = decode(
-        query_to_string(elem),
+        create_query(elem),
       );
       if (valid.success === true)
         throw new Error(

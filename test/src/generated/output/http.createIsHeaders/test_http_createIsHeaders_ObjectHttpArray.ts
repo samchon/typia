@@ -28,7 +28,7 @@ export const test_http_createIsHeaders_ObjectHttpArray = _test_http_isHeaders(
         );
       return "object" === typeof input && null !== input && $io0(input);
     };
-    const headers = (
+    const decode = (
       input: Record<string, string | string[] | undefined>,
     ): typia.Resolved<ObjectHttpArray> => {
       const $boolean = (typia.http.createIsHeaders as any).boolean;
@@ -54,7 +54,7 @@ export const test_http_createIsHeaders_ObjectHttpArray = _test_http_isHeaders(
       };
       return output as any;
     };
-    const output = headers(input);
+    const output = decode(input);
     if (!is(output)) return null;
     return output;
   },

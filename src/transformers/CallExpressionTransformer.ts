@@ -88,6 +88,14 @@ import { ProtobufMessageTransformer } from "./features/protobuf/ProtobufMessageT
 import { ProtobufValidateDecodeTransformer } from "./features/protobuf/ProtobufValidateDecodeTransformer";
 import { ProtobufValidateEncodeTransformer } from "./features/protobuf/ProtobufValidateEncodeTransformer";
 import { ReflectMetadataTransformer } from "./features/reflect/ReflectMetadataTransformer";
+import { HttpAssertFormDataTransformer } from "./features/http/HttpAssertFormDataTransformer";
+import { HttpFormDataTransformer } from "./features/http/HttpFormDataTransformer";
+import { HttpIsFormDataTransformer } from "./features/http/HttpIsFormDataTransformer";
+import { HttpValidateFormDataTransformer } from "./features/http/HttpValidateFormDataTransformer";
+import { CreateHttpAssertFormDataTransformer } from "./features/http/CreateHttpAssertFormDataTransformer";
+import { CreateHttpFormDataTransformer } from "./features/http/CreateHttpFormDataTransformer";
+import { CreateHttpIsFormDataTransformer } from "./features/http/CreateHttpIsFormDataTransformer";
+import { CreateHttpValidateFormDataTransformer } from "./features/http/CreateHttpValidateFormDataTransformer";
 
 export namespace CallExpressionTransformer {
   export const transform =
@@ -180,6 +188,12 @@ const FUNCTORS: Record<string, Record<string, () => Task>> = {
     createRandom: () => CreateRandomTransformer.transform,
   },
   http: {
+    // FORM-DATA
+    formData: () => HttpFormDataTransformer.transform,
+    isFormData: () => HttpIsFormDataTransformer.transform,
+    assertFormData: () => HttpAssertFormDataTransformer.transform,
+    validateFormData: () => HttpValidateFormDataTransformer.transform,
+
     // HEADERS
     headers: () => HttpHeadersTransformer.transform,
     isHeaders: () => HttpIsHeadersTransformer.transform,
@@ -196,6 +210,11 @@ const FUNCTORS: Record<string, Record<string, () => Task>> = {
     validateQuery: () => HttpValidateQueryTransformer.transform,
 
     // FACTORIES
+    createFormData: () => CreateHttpFormDataTransformer.transform,
+    createIsFormData: () => CreateHttpIsFormDataTransformer.transform,
+    createAssertFormData: () => CreateHttpAssertFormDataTransformer.transform,
+    createValidateFormData: () =>
+      CreateHttpValidateFormDataTransformer.transform,
     createHeaders: () => CreateHttpHeadersTransformer.transform,
     createIsHeaders: () => CreateHttpIsHeadersTransformer.transform,
     createAssertHeaders: () => CreateHttpAssertHeadersTransformer.transform,

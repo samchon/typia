@@ -182,7 +182,7 @@ export const test_http_createValidateHeaders_ObjectHttpArray =
           data: success ? input : undefined,
         } as any;
       };
-      const headers = (
+      const decode = (
         input: Record<string, string | string[] | undefined>,
       ): typia.Resolved<ObjectHttpArray> => {
         const $boolean = (typia.http.createValidateHeaders as any).boolean;
@@ -208,7 +208,7 @@ export const test_http_createValidateHeaders_ObjectHttpArray =
         };
         return output as any;
       };
-      const output = headers(input);
+      const output = decode(input);
       return validate(output) as any;
     },
   );

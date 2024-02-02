@@ -110,10 +110,7 @@ const SIMPLES: Map<string, IClassInfo> = new Map([
           name,
           return: "string",
         })),
-        {
-          name: "valueOf",
-          return: "number",
-        },
+        { name: "valueOf", return: "number" },
       ],
     },
   ],
@@ -127,10 +124,7 @@ const SIMPLES: Map<string, IClassInfo> = new Map([
         "trim",
         "replace",
         "substring",
-      ].map((name) => ({
-        name,
-        return: "string",
-      })),
+      ].map((name) => ({ name, return: "string" })),
     },
   ],
   ...[
@@ -148,21 +142,28 @@ const SIMPLES: Map<string, IClassInfo> = new Map([
   ].map((name) => [name, getBinaryProps(name)] as const),
   ...["ArrayBuffer", "SharedArrayBuffer"].map((className) => {
     const info: IClassInfo = {
-      methods: [
-        {
-          name: "slice",
-          return: className,
-        },
-      ],
-      properties: [
-        {
-          name: "byteLength",
-          type: "number",
-        },
-      ],
+      methods: [{ name: "slice", return: className }],
+      properties: [{ name: "byteLength", type: "number" }],
     };
     return [className, info] as const;
   }),
+  ...["Blob", "File"].map(
+    (className) =>
+      [
+        className,
+        {
+          methods: [
+            { name: "arrayBuffer", return: "Promise<ArrayBuffer>" },
+            { name: "slice", return: "Blob" },
+            { name: "text", return: "Promise<string>" },
+          ],
+          properties: [
+            { name: "size", type: "number" },
+            { name: "type", type: "string" },
+          ],
+        },
+      ] satisfies [string, IClassInfo],
+  ),
   [
     "DataView",
     {

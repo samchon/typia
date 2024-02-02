@@ -20,7 +20,7 @@ export const test_http_isHeaders_ObjectHttpAtomic = _test_http_isHeaders(
         "string" === typeof (input as any).string
       );
     };
-    const headers = (
+    const decode = (
       input: Record<string, string | string[] | undefined>,
     ): typia.Resolved<ObjectHttpAtomic> => {
       const $boolean = (typia.http.isHeaders as any).boolean;
@@ -34,7 +34,7 @@ export const test_http_isHeaders_ObjectHttpAtomic = _test_http_isHeaders(
       };
       return output as any;
     };
-    const output = headers(input);
+    const output = decode(input);
     if (!is(output)) return null;
     return output;
   })(input),

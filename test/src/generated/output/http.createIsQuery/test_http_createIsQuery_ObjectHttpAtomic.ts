@@ -20,7 +20,7 @@ export const test_http_createIsQuery_ObjectHttpAtomic = _test_http_isQuery(
         "string" === typeof (input as any).string
       );
     };
-    const query = (
+    const decode = (
       input: string | URLSearchParams,
     ): typia.Resolved<ObjectHttpAtomic> => {
       const $params = (typia.http.createIsQuery as any).params;
@@ -37,7 +37,7 @@ export const test_http_createIsQuery_ObjectHttpAtomic = _test_http_isQuery(
       };
       return output as any;
     };
-    const output = query(input);
+    const output = decode(input);
     if (!is(output)) return null;
     return output;
   },

@@ -22,7 +22,7 @@ export const test_http_createIsHeaders_ObjectHttpConstant =
           RegExp(/^abcd_(.*)/).test(input.template);
         return "object" === typeof input && null !== input && $io0(input);
       };
-      const headers = (
+      const decode = (
         input: Record<string, string | string[] | undefined>,
       ): typia.Resolved<ObjectHttpConstant> => {
         const $boolean = (typia.http.createIsHeaders as any).boolean;
@@ -37,7 +37,7 @@ export const test_http_createIsHeaders_ObjectHttpConstant =
         };
         return output as any;
       };
-      const output = headers(input);
+      const output = decode(input);
       if (!is(output)) return null;
       return output;
     },
