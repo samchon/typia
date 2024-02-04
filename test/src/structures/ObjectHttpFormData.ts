@@ -1,4 +1,4 @@
-import typia, { tags } from "typia";
+import { tags } from "typia";
 import { v4 } from "uuid";
 
 import { Spoiler } from "../helpers/Spoiler";

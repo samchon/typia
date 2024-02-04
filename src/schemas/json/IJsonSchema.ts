@@ -44,6 +44,7 @@ export namespace IJsonSchema {
     pattern?: undefined | string;
     format?:
       | undefined
+      | "binary"
       | "byte"
       | "password"
       | "regex"
