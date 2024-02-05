@@ -79,9 +79,14 @@ const create_object_schema =
           const info: IJsDocTagInfo | undefined = property.jsDocTags.find(
             (tag) => tag.name === "title",
           );
-          return info?.text?.length
-            ? CommentFactory.merge(info.text)
-            : undefined;
+          if (info?.text?.length) return CommentFactory.merge(info.text);
+          else if (!property.description?.length) return undefined;
+
+          const index: number = property.description.indexOf(".");
+          if (index === -1) return undefined;
+
+          const str: string = property.description.substring(0, index).trim();
+          return str.length && str.includes("\n") === false ? str : undefined;
         })(),
         description: property.description ?? undefined,
         ...(options.surplus
@@ -133,6 +138,12 @@ const create_object_schema =
       properties,
       nullable: options.purpose === "swagger" ? nullable : undefined,
       required: required.length ? required : undefined,
+      title: (() => {
+        const info: IJsDocTagInfo | undefined = obj.jsDocTags.find(
+          (tag) => tag.name === "title",
+        );
+        return info?.text?.length ? CommentFactory.merge(info.text) : undefined;
+      })(),
       description: obj.description,
       ...(options.surplus ? { "x-typia-jsDocTags": obj.jsDocTags } : {}),
       ...(options.purpose === "ajv"
