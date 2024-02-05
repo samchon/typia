@@ -129,6 +129,7 @@ export const test_json_application_swagger_surplus_UltimateUnion =
             },
             nullable: {
               type: "boolean",
+              title: "Only when swagger mode",
               description: "Only when swagger mode.",
               "x-typia-required": false,
               "x-typia-optional": true,
@@ -239,6 +240,7 @@ export const test_json_application_swagger_surplus_UltimateUnion =
             },
             nullable: {
               type: "boolean",
+              title: "Only when swagger mode",
               description: "Only when swagger mode.",
               "x-typia-required": false,
               "x-typia-optional": true,
@@ -310,6 +312,7 @@ export const test_json_application_swagger_surplus_UltimateUnion =
             },
             nullable: {
               type: "boolean",
+              title: "Only when swagger mode",
               description: "Only when swagger mode.",
               "x-typia-required": false,
               "x-typia-optional": true,
@@ -376,6 +379,7 @@ export const test_json_application_swagger_surplus_UltimateUnion =
             },
             nullable: {
               type: "boolean",
+              title: "Only when swagger mode",
               description: "Only when swagger mode.",
               "x-typia-required": false,
               "x-typia-optional": true,
@@ -553,6 +557,7 @@ export const test_json_application_swagger_surplus_UltimateUnion =
             },
             nullable: {
               type: "boolean",
+              title: "Only when swagger mode",
               description: "Only when swagger mode.",
               "x-typia-required": false,
               "x-typia-optional": true,
@@ -649,6 +654,7 @@ export const test_json_application_swagger_surplus_UltimateUnion =
             },
             nullable: {
               type: "boolean",
+              title: "Only when swagger mode",
               description: "Only when swagger mode.",
               "x-typia-required": false,
               "x-typia-optional": true,
@@ -762,6 +768,7 @@ export const test_json_application_swagger_surplus_UltimateUnion =
             },
             nullable: {
               type: "boolean",
+              title: "Only when swagger mode",
               description: "Only when swagger mode.",
               "x-typia-required": false,
               "x-typia-optional": true,
@@ -870,6 +877,7 @@ export const test_json_application_swagger_surplus_UltimateUnion =
             },
             nullable: {
               type: "boolean",
+              title: "Only when swagger mode",
               description: "Only when swagger mode.",
               "x-typia-required": false,
               "x-typia-optional": true,
@@ -968,6 +976,7 @@ export const test_json_application_swagger_surplus_UltimateUnion =
             },
             nullable: {
               type: "boolean",
+              title: "Only when swagger mode",
               description: "Only when swagger mode.",
               "x-typia-required": false,
               "x-typia-optional": true,
@@ -1145,6 +1154,7 @@ export const test_json_application_swagger_surplus_UltimateUnion =
             },
             nullable: {
               type: "boolean",
+              title: "Only when swagger mode",
               description: "Only when swagger mode.",
               "x-typia-required": false,
               "x-typia-optional": true,
@@ -1515,6 +1525,7 @@ export const test_json_application_swagger_surplus_UltimateUnion =
             },
             nullable: {
               type: "boolean",
+              title: "Only when swagger mode",
               description: "Only when swagger mode.",
               "x-typia-required": false,
               "x-typia-optional": true,
@@ -1596,6 +1607,7 @@ export const test_json_application_swagger_surplus_UltimateUnion =
             },
             nullable: {
               type: "boolean",
+              title: "Only when swagger mode",
               description: "Only when swagger mode.",
               "x-typia-required": false,
               "x-typia-optional": true,
@@ -1677,6 +1689,7 @@ export const test_json_application_swagger_surplus_UltimateUnion =
             },
             nullable: {
               type: "boolean",
+              title: "Only when swagger mode",
               description: "Only when swagger mode.",
               "x-typia-required": false,
               "x-typia-optional": true,
@@ -1753,6 +1766,7 @@ export const test_json_application_swagger_surplus_UltimateUnion =
             },
             nullable: {
               type: "boolean",
+              title: "Only when swagger mode",
               description: "Only when swagger mode.",
               "x-typia-required": false,
               "x-typia-optional": true,
@@ -1892,6 +1906,7 @@ export const test_json_application_swagger_surplus_UltimateUnion =
             },
             nullable: {
               type: "boolean",
+              title: "Only when swagger mode",
               description: "Only when swagger mode.",
               "x-typia-required": false,
               "x-typia-optional": true,
@@ -1998,6 +2013,7 @@ export const test_json_application_swagger_surplus_UltimateUnion =
             },
             nullable: {
               type: "boolean",
+              title: "Only when swagger mode",
               description: "Only when swagger mode.",
               "x-typia-required": false,
               "x-typia-optional": true,
@@ -2121,6 +2137,7 @@ export const test_json_application_swagger_surplus_UltimateUnion =
             },
             nullable: {
               type: "boolean",
+              title: "Only when swagger mode",
               description: "Only when swagger mode.",
               "x-typia-required": false,
               "x-typia-optional": true,
@@ -2239,6 +2256,7 @@ export const test_json_application_swagger_surplus_UltimateUnion =
             },
             nullable: {
               type: "boolean",
+              title: "Only when swagger mode",
               description: "Only when swagger mode.",
               "x-typia-required": false,
               "x-typia-optional": true,
@@ -2347,6 +2365,7 @@ export const test_json_application_swagger_surplus_UltimateUnion =
             },
             nullable: {
               type: "boolean",
+              title: "Only when swagger mode",
               description: "Only when swagger mode.",
               "x-typia-required": false,
               "x-typia-optional": true,
@@ -2534,6 +2553,7 @@ export const test_json_application_swagger_surplus_UltimateUnion =
             },
             nullable: {
               type: "boolean",
+              title: "Only when swagger mode",
               description: "Only when swagger mode.",
               "x-typia-required": false,
               "x-typia-optional": true,

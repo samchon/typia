@@ -26,6 +26,7 @@ export const test_json_application_ajv_standard_ObjectJsonTag =
             },
             description: {
               type: "string",
+              title: "Descripted property",
               description: "Descripted property.",
             },
             title: {

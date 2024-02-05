@@ -17,6 +17,7 @@
           },
           "description": {
             "type": "string",
+            "title": "Descripted property",
             "description": "Descripted property.",
             "x-typia-required": true,
             "x-typia-optional": false

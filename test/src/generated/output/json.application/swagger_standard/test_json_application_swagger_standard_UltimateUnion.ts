@@ -112,6 +112,7 @@ export const test_json_application_swagger_standard_UltimateUnion =
             },
             nullable: {
               type: "boolean",
+              title: "Only when swagger mode",
               description: "Only when swagger mode.",
             },
             deprecated: {
@@ -189,6 +190,7 @@ export const test_json_application_swagger_standard_UltimateUnion =
             },
             nullable: {
               type: "boolean",
+              title: "Only when swagger mode",
               description: "Only when swagger mode.",
             },
             deprecated: {
@@ -237,6 +239,7 @@ export const test_json_application_swagger_standard_UltimateUnion =
             },
             nullable: {
               type: "boolean",
+              title: "Only when swagger mode",
               description: "Only when swagger mode.",
             },
             deprecated: {
@@ -282,6 +285,7 @@ export const test_json_application_swagger_standard_UltimateUnion =
             },
             nullable: {
               type: "boolean",
+              title: "Only when swagger mode",
               description: "Only when swagger mode.",
             },
             deprecated: {
@@ -379,6 +383,7 @@ export const test_json_application_swagger_standard_UltimateUnion =
             },
             nullable: {
               type: "boolean",
+              title: "Only when swagger mode",
               description: "Only when swagger mode.",
             },
             deprecated: {
@@ -442,6 +447,7 @@ export const test_json_application_swagger_standard_UltimateUnion =
             },
             nullable: {
               type: "boolean",
+              title: "Only when swagger mode",
               description: "Only when swagger mode.",
             },
             deprecated: {
@@ -502,6 +508,7 @@ export const test_json_application_swagger_standard_UltimateUnion =
             },
             nullable: {
               type: "boolean",
+              title: "Only when swagger mode",
               description: "Only when swagger mode.",
             },
             deprecated: {
@@ -559,6 +566,7 @@ export const test_json_application_swagger_standard_UltimateUnion =
             },
             nullable: {
               type: "boolean",
+              title: "Only when swagger mode",
               description: "Only when swagger mode.",
             },
             deprecated: {
@@ -610,6 +618,7 @@ export const test_json_application_swagger_standard_UltimateUnion =
             },
             nullable: {
               type: "boolean",
+              title: "Only when swagger mode",
               description: "Only when swagger mode.",
             },
             deprecated: {
@@ -756,6 +765,7 @@ export const test_json_application_swagger_standard_UltimateUnion =
             },
             nullable: {
               type: "boolean",
+              title: "Only when swagger mode",
               description: "Only when swagger mode.",
             },
             deprecated: {
@@ -1010,6 +1020,7 @@ export const test_json_application_swagger_standard_UltimateUnion =
             },
             nullable: {
               type: "boolean",
+              title: "Only when swagger mode",
               description: "Only when swagger mode.",
             },
             deprecated: {
@@ -1064,6 +1075,7 @@ export const test_json_application_swagger_standard_UltimateUnion =
             },
             nullable: {
               type: "boolean",
+              title: "Only when swagger mode",
               description: "Only when swagger mode.",
             },
             deprecated: {
@@ -1118,6 +1130,7 @@ export const test_json_application_swagger_standard_UltimateUnion =
             },
             nullable: {
               type: "boolean",
+              title: "Only when swagger mode",
               description: "Only when swagger mode.",
             },
             deprecated: {
@@ -1169,6 +1182,7 @@ export const test_json_application_swagger_standard_UltimateUnion =
             },
             nullable: {
               type: "boolean",
+              title: "Only when swagger mode",
               description: "Only when swagger mode.",
             },
             deprecated: {
@@ -1238,6 +1252,7 @@ export const test_json_application_swagger_standard_UltimateUnion =
             },
             nullable: {
               type: "boolean",
+              title: "Only when swagger mode",
               description: "Only when swagger mode.",
             },
             deprecated: {
@@ -1307,6 +1322,7 @@ export const test_json_application_swagger_standard_UltimateUnion =
             },
             nullable: {
               type: "boolean",
+              title: "Only when swagger mode",
               description: "Only when swagger mode.",
             },
             deprecated: {
@@ -1373,6 +1389,7 @@ export const test_json_application_swagger_standard_UltimateUnion =
             },
             nullable: {
               type: "boolean",
+              title: "Only when swagger mode",
               description: "Only when swagger mode.",
             },
             deprecated: {
@@ -1436,6 +1453,7 @@ export const test_json_application_swagger_standard_UltimateUnion =
             },
             nullable: {
               type: "boolean",
+              title: "Only when swagger mode",
               description: "Only when swagger mode.",
             },
             deprecated: {
@@ -1493,6 +1511,7 @@ export const test_json_application_swagger_standard_UltimateUnion =
             },
             nullable: {
               type: "boolean",
+              title: "Only when swagger mode",
               description: "Only when swagger mode.",
             },
             deprecated: {
@@ -1645,6 +1664,7 @@ export const test_json_application_swagger_standard_UltimateUnion =
             },
             nullable: {
               type: "boolean",
+              title: "Only when swagger mode",
               description: "Only when swagger mode.",
             },
             deprecated: {

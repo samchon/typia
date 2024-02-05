@@ -27,6 +27,7 @@ export const test_json_application_swagger_surplus_ObjectJsonTag =
             },
             description: {
               type: "string",
+              title: "Descripted property",
               description: "Descripted property.",
               "x-typia-required": true,
               "x-typia-optional": false,

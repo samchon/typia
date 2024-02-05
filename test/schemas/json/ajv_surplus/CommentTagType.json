@@ -40,6 +40,7 @@
                 "exclusive": true
               }
             ],
+            "title": "Integer value",
             "description": "Integer value.",
             "x-typia-required": true,
             "x-typia-optional": false,
@@ -67,6 +68,7 @@
                 "exclusive": true
               }
             ],
+            "title": "Unsigned integer value",
             "description": "Unsigned integer value.",
             "x-typia-required": true,
             "x-typia-optional": false,

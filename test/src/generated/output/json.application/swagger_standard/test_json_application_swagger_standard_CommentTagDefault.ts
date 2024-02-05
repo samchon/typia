@@ -22,21 +22,25 @@ export const test_json_application_swagger_standard_CommentTagDefault =
             boolean: {
               default: true,
               type: "boolean",
+              title: "Default tag on `boolean` typed value",
               description: "Default tag on `boolean` typed value.",
             },
             number: {
               type: "number",
               default: 1,
+              title: "Default tag on `number` typed value",
               description: "Default tag on `number` typed value.",
             },
             string: {
               type: "string",
               default: "two",
+              title: "Default tag on `string` typed value",
               description: "Default tag on `string` typed value.",
             },
             text: {
               type: "string",
               default: "Very long text, can you understand it?",
+              title: "Default tag on `string` typed value with long characters",
               description:
                 "Default tag on `string` typed value with long characters.",
             },
@@ -55,6 +59,7 @@ export const test_json_application_swagger_standard_CommentTagDefault =
                   type: "boolean",
                 },
               ],
+              title: "Default value on union typed property",
               description: "Default value on union typed property.",
             },
             union_but_boolean: {
@@ -70,6 +75,7 @@ export const test_json_application_swagger_standard_CommentTagDefault =
                   type: "boolean",
                 },
               ],
+              title: "Default value on union typed property",
               description: "Default value on union typed property.",
             },
             union_but_number: {
@@ -85,6 +91,7 @@ export const test_json_application_swagger_standard_CommentTagDefault =
                   type: "boolean",
                 },
               ],
+              title: "Default value on union typed property",
               description: "Default value on union typed property.",
             },
             union_but_string: {
@@ -100,12 +107,14 @@ export const test_json_application_swagger_standard_CommentTagDefault =
                   type: "boolean",
                 },
               ],
+              title: "Default value on union typed property",
               description: "Default value on union typed property.",
             },
             vulnerable_range: {
               type: "number",
               maximum: 5,
               minimum: 3,
+              title: "Default value on union typed property",
               description: "Default value on union typed property.",
             },
             boolean_and_number_and_template: {
@@ -124,6 +133,7 @@ export const test_json_application_swagger_standard_CommentTagDefault =
                   type: "boolean",
                 },
               ],
+              title: "Default value on union typed property",
               description: "Default value on union typed property.",
             },
           },
