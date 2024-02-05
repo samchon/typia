@@ -16,6 +16,7 @@
           },
           "description": {
             "type": "string",
+            "title": "Descripted property",
             "description": "Descripted property."
           },
           "title": {

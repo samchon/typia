@@ -115,6 +115,7 @@
           },
           "nullable": {
             "type": "boolean",
+            "title": "Only when swagger mode",
             "description": "Only when swagger mode."
           },
           "deprecated": {
@@ -202,6 +203,7 @@
           },
           "nullable": {
             "type": "boolean",
+            "title": "Only when swagger mode",
             "description": "Only when swagger mode."
           },
           "deprecated": {
@@ -255,6 +257,7 @@
           },
           "nullable": {
             "type": "boolean",
+            "title": "Only when swagger mode",
             "description": "Only when swagger mode."
           },
           "deprecated": {
@@ -302,6 +305,7 @@
           },
           "nullable": {
             "type": "boolean",
+            "title": "Only when swagger mode",
             "description": "Only when swagger mode."
           },
           "deprecated": {
@@ -414,6 +418,7 @@
           },
           "nullable": {
             "type": "boolean",
+            "title": "Only when swagger mode",
             "description": "Only when swagger mode."
           },
           "deprecated": {
@@ -481,6 +486,7 @@
           },
           "nullable": {
             "type": "boolean",
+            "title": "Only when swagger mode",
             "description": "Only when swagger mode."
           },
           "deprecated": {
@@ -545,6 +551,7 @@
           },
           "nullable": {
             "type": "boolean",
+            "title": "Only when swagger mode",
             "description": "Only when swagger mode."
           },
           "deprecated": {
@@ -606,6 +613,7 @@
           },
           "nullable": {
             "type": "boolean",
+            "title": "Only when swagger mode",
             "description": "Only when swagger mode."
           },
           "deprecated": {
@@ -662,6 +670,7 @@
           },
           "nullable": {
             "type": "boolean",
+            "title": "Only when swagger mode",
             "description": "Only when swagger mode."
           },
           "deprecated": {
@@ -814,6 +823,7 @@
           },
           "nullable": {
             "type": "boolean",
+            "title": "Only when swagger mode",
             "description": "Only when swagger mode."
           },
           "deprecated": {
@@ -1084,6 +1094,7 @@
           },
           "nullable": {
             "type": "boolean",
+            "title": "Only when swagger mode",
             "description": "Only when swagger mode."
           },
           "deprecated": {
@@ -1143,6 +1154,7 @@
           },
           "nullable": {
             "type": "boolean",
+            "title": "Only when swagger mode",
             "description": "Only when swagger mode."
           },
           "deprecated": {
@@ -1202,6 +1214,7 @@
           },
           "nullable": {
             "type": "boolean",
+            "title": "Only when swagger mode",
             "description": "Only when swagger mode."
           },
           "deprecated": {
@@ -1255,6 +1268,7 @@
           },
           "nullable": {
             "type": "boolean",
+            "title": "Only when swagger mode",
             "description": "Only when swagger mode."
           },
           "deprecated": {
@@ -1328,6 +1342,7 @@
           },
           "nullable": {
             "type": "boolean",
+            "title": "Only when swagger mode",
             "description": "Only when swagger mode."
           },
           "deprecated": {
@@ -1401,6 +1416,7 @@
           },
           "nullable": {
             "type": "boolean",
+            "title": "Only when swagger mode",
             "description": "Only when swagger mode."
           },
           "deprecated": {
@@ -1471,6 +1487,7 @@
           },
           "nullable": {
             "type": "boolean",
+            "title": "Only when swagger mode",
             "description": "Only when swagger mode."
           },
           "deprecated": {
@@ -1538,6 +1555,7 @@
           },
           "nullable": {
             "type": "boolean",
+            "title": "Only when swagger mode",
             "description": "Only when swagger mode."
           },
           "deprecated": {
@@ -1600,6 +1618,7 @@
           },
           "nullable": {
             "type": "boolean",
+            "title": "Only when swagger mode",
             "description": "Only when swagger mode."
           },
           "deprecated": {
@@ -1758,6 +1777,7 @@
           },
           "nullable": {
             "type": "boolean",
+            "title": "Only when swagger mode",
             "description": "Only when swagger mode."
           },
           "deprecated": {

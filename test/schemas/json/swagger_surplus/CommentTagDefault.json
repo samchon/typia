@@ -12,6 +12,7 @@
           "boolean": {
             "default": true,
             "type": "boolean",
+            "title": "Default tag on `boolean` typed value",
             "description": "Default tag on `boolean` typed value.",
             "x-typia-required": true,
             "x-typia-optional": false,
@@ -30,6 +31,7 @@
           "number": {
             "type": "number",
             "default": 1,
+            "title": "Default tag on `number` typed value",
             "description": "Default tag on `number` typed value.",
             "x-typia-required": true,
             "x-typia-optional": false,
@@ -48,6 +50,7 @@
           "string": {
             "type": "string",
             "default": "two",
+            "title": "Default tag on `string` typed value",
             "description": "Default tag on `string` typed value.",
             "x-typia-required": true,
             "x-typia-optional": false,
@@ -66,6 +69,7 @@
           "text": {
             "type": "string",
             "default": "Very long text, can you understand it?",
+            "title": "Default tag on `string` typed value with long characters",
             "description": "Default tag on `string` typed value with long characters.",
             "x-typia-required": true,
             "x-typia-optional": false,
@@ -96,6 +100,7 @@
                 "type": "boolean"
               }
             ],
+            "title": "Default value on union typed property",
             "description": "Default value on union typed property.",
             "x-typia-required": true,
             "x-typia-optional": false,
@@ -142,6 +147,7 @@
                 "type": "boolean"
               }
             ],
+            "title": "Default value on union typed property",
             "description": "Default value on union typed property.",
             "x-typia-required": true,
             "x-typia-optional": false,
@@ -170,6 +176,7 @@
                 "type": "boolean"
               }
             ],
+            "title": "Default value on union typed property",
             "description": "Default value on union typed property.",
             "x-typia-required": true,
             "x-typia-optional": false,
@@ -198,6 +205,7 @@
                 "type": "boolean"
               }
             ],
+            "title": "Default value on union typed property",
             "description": "Default value on union typed property.",
             "x-typia-required": true,
             "x-typia-optional": false,
@@ -241,6 +249,7 @@
                 ]
               }
             ],
+            "title": "Default value on union typed property",
             "description": "Default value on union typed property.",
             "x-typia-required": true,
             "x-typia-optional": false,
@@ -289,6 +298,7 @@
                 "type": "boolean"
               }
             ],
+            "title": "Default value on union typed property",
             "description": "Default value on union typed property.",
             "x-typia-required": true,
             "x-typia-optional": false,

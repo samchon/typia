@@ -35,10 +35,12 @@ export const test_json_application_ajv_standard_CommentTagType =
           properties: {
             int: {
               type: "integer",
+              title: "Integer value",
               description: "Integer value.",
             },
             uint: {
               type: "integer",
+              title: "Unsigned integer value",
               description: "Unsigned integer value.",
             },
             int32: {
