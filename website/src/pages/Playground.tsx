@@ -2,6 +2,10 @@ import {
   compressToEncodedURIComponent,
   decompressFromEncodedURIComponent,
 } from "lz-string";
+import prettierBabelPlugin from "prettier/plugins/babel";
+import prettierEsTreePlugin from "prettier/plugins/estree";
+import prettierTsPlugin from "prettier/plugins/typescript";
+import { format } from "prettier/standalone";
 import React, { useEffect, useState } from "react";
 import ts from "typescript";
 
@@ -43,13 +47,39 @@ const Playground = () => {
           location.pathname
         }?script=${compressToEncodedURIComponent(code)}`,
       );
-    setOutput(output);
+    setBeautifiedOutput(output);
   };
 
   const handleTarget = (target: "typescript" | "javascript") => {
     setTarget(target);
-    const output = Compiler.compile(target)(source ?? "");
-    setOutput(output);
+    const output: Compiler.IOutput = Compiler.compile(target)(source ?? "");
+    setBeautifiedOutput(output);
+  };
+
+  const setBeautifiedOutput = (output: Compiler.IOutput) => {
+    if (output.type === "error") return setOutput(output);
+    format(
+      output.content,
+      output.target === "javascript"
+        ? {
+            parser: "babel",
+            plugins: [prettierBabelPlugin, prettierEsTreePlugin],
+          }
+        : {
+            parser: "typescript",
+            plugins: [prettierTsPlugin, prettierEsTreePlugin],
+          },
+    )
+      .then((content) => {
+        setOutput({
+          ...output,
+          content,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+        setOutput(output);
+      });
   };
 
   return (

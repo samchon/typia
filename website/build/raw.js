@@ -120,14 +120,14 @@ fs.writeFileSync(
   `export const SCRIPT = \`import typia, { tags } from "typia";
 
 interface IMember {
-    id: string & tags.Format<"uuid">;
-    name: string;
-    age: number 
-        & tags.Type<"uint32"> 
-        & tags.Minimum<20> 
-        & tags.ExclusiveMaximum<100>;
-    parent: IMember | null;
-    children: IMember[];
+  id: string & tags.Format<"uuid">;
+  name: string;
+  age: number &
+    tags.Type<"uint32"> &
+    tags.Minimum<20> &
+    tags.ExclusiveMaximum<100>;
+  parent: IMember | null;
+  children: IMember[];
 }
 
 //----
@@ -148,7 +148,7 @@ typia.json.createStringify<IMember>();
 //----
 // PROTOCOL BUFFER
 //----
-typia.protobuf.createEncode<IMember>();
+typia.protobuf.createEncode<IMember>();  
 \``,
   "utf8",
 );

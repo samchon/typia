@@ -32,7 +32,7 @@ const QuickButton = (props: {
 const HomeHeroMovie = () => (
   <ProductHeroLayout
     sxBackground={{
-      background: `url(/images/home/background.webp) no-repeat center top`,
+      background: `url(/images/home/background.jpg) no-repeat center top`,
       backgroundColor: "black",
       backgroundPosition: "center",
     }}

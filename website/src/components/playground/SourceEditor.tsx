@@ -44,6 +44,7 @@ const SourceEditor = (props: {
       height="100%"
       theme="vs-dark"
       options={{
+        tabSize: 2,
         minimap: {
           enabled: false,
         },

@@ -77,7 +77,12 @@ export namespace Compiler {
               ),
             ],
           });
-          return { type: "success", content: output.value, diagnostics };
+          return { 
+            type: "success", 
+            target, 
+            content: output.value, 
+            diagnostics 
+          };
         } else {
           const result: ts.TransformationResult<ts.SourceFile> = ts.transform(
             source,
@@ -95,6 +100,7 @@ export namespace Compiler {
           });
           return {
             type: "success",
+            target,
             content: printer.printFile(result.transformed[0]),
             diagnostics,
           };
@@ -107,6 +113,7 @@ export namespace Compiler {
   export type IOutput = ISuccessOutput | IErrorOutput;
   export interface ISuccessOutput {
     type: "success";
+    target: "typescript" | "javascript";
     content: string;
     diagnostics: ts.Diagnostic[];
   }
