@@ -32,6 +32,7 @@ import { check_string } from "./internal/check_string";
 import { check_template } from "./internal/check_template";
 import { decode_union_object } from "./internal/decode_union_object";
 import { wrap_metadata_rest_tuple } from "./internal/wrap_metadata_rest_tuple";
+import { IsProgrammer } from "./IsProgrammer";
 
 export namespace CheckerProgrammer {
   export interface IConfig {
@@ -336,6 +337,29 @@ export namespace CheckerProgrammer {
       for (const constant of meta.constants)
         if (AtomicPredicator.constant(meta)(constant.type))
           for (const val of constant.values) add(true, getConstantValue(val));
+      if (meta.escaped !== null)
+        binaries.push({
+          combined: false,
+          expression:
+            meta.escaped.original.size() === 1 &&
+            meta.escaped.original.natives.length === 1
+              ? check_native(meta.escaped.original.natives[0]!)(input)
+              : ts.factory.createLogicalAnd(
+                  decode(project)(config)(importer)(
+                    input,
+                    meta.escaped.original,
+                    explore,
+                  ),
+                  ts.factory.createLogicalAnd(
+                    IsProgrammer.decode_to_json(false)(input),
+                    decode_escaped(project)(config)(importer)(
+                      input,
+                      meta.escaped.returns,
+                      explore,
+                    ),
+                  ),
+                ),
+        });
 
       // ATOMIC VALUES
       for (const atom of meta.atomics)
@@ -777,6 +801,36 @@ export namespace CheckerProgrammer {
         `[${tuple.elements.map((t) => t.getName()).join(", ")}]`,
       );
     };
+
+  const decode_escaped =
+    (project: IProject) =>
+    (config: IConfig) =>
+    (importer: FunctionImporter) =>
+    (input: ts.Expression, meta: Metadata, explore: IExplore): ts.Expression =>
+      ts.factory.createCallExpression(
+        ts.factory.createParenthesizedExpression(
+          ts.factory.createArrowFunction(
+            undefined,
+            undefined,
+            [IdentifierFactory.parameter("input", TypeFactory.keyword("any"))],
+            undefined,
+            undefined,
+            decode(project)(config)(importer)(
+              ts.factory.createIdentifier("input"),
+              meta,
+              explore,
+            ),
+          ),
+        ),
+        undefined,
+        [
+          ts.factory.createCallExpression(
+            IdentifierFactory.access(input)("toJSON"),
+            undefined,
+            [],
+          ),
+        ],
+      );
 
   /* -----------------------------------------------------------
         UNION TYPE EXPLORERS
