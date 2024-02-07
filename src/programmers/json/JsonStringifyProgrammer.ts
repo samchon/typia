@@ -37,9 +37,8 @@ import { wrap_metadata_rest_tuple } from "../internal/wrap_metadata_rest_tuple";
 
 export namespace JsonStringifyProgrammer {
   /* -----------------------------------------------------------
-        WRITER
-    ----------------------------------------------------------- */
-
+    WRITER
+  ----------------------------------------------------------- */
   export const write =
     (project: IProject) => (modulo: ts.LeftHandSideExpression) => {
       const importer: FunctionImporter = new FunctionImporter(modulo.getText());
@@ -125,8 +124,8 @@ export namespace JsonStringifyProgrammer {
         );
 
   /* -----------------------------------------------------------
-        DECODERS
-    ----------------------------------------------------------- */
+    DECODERS
+  ----------------------------------------------------------- */
   const decode =
     (project: IProject) =>
     (config: FeatureProgrammer.IConfig) =>
@@ -188,7 +187,11 @@ export namespace JsonStringifyProgrammer {
       if (meta.escaped !== null)
         unions.push({
           type: "resolved",
-          is: () => IsProgrammer.decode_to_json(false)(input),
+          is:
+            meta.escaped.original.size() === 1 &&
+            meta.escaped.original.natives[0] === "Date"
+              ? () => check_native("Date")(input)
+              : () => IsProgrammer.decode_to_json(false)(input),
           value: () =>
             decode_to_json(project)(config)(importer)(
               input,
@@ -640,8 +643,8 @@ export namespace JsonStringifyProgrammer {
       : ts.factory.createIdentifier("undefined");
 
   /* -----------------------------------------------------------
-        EXPLORERS
-    ----------------------------------------------------------- */
+    EXPLORERS
+  ----------------------------------------------------------- */
   const explore_objects =
     (config: FeatureProgrammer.IConfig) =>
     (importer: FunctionImporter) =>
@@ -736,8 +739,8 @@ export namespace JsonStringifyProgrammer {
     };
 
   /* -----------------------------------------------------------
-        RETURN SCRIPTS
-    ----------------------------------------------------------- */
+    RETURN SCRIPTS
+  ----------------------------------------------------------- */
   const wrap_required = (
     input: ts.Expression,
     meta: Metadata,
@@ -814,8 +817,8 @@ export namespace JsonStringifyProgrammer {
     );
 
   /* -----------------------------------------------------------
-        CONFIGURATIONS
-    ----------------------------------------------------------- */
+    CONFIGURATIONS
+  ----------------------------------------------------------- */
   const PREFIX = "$s";
 
   const configure =
