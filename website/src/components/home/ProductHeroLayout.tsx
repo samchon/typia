@@ -62,7 +62,7 @@ const ProductHeroLayout = (
             top: 0,
             bottom: 0,
             backgroundColor: "common.black",
-            opacity: 0.7,
+            opacity: 0.8,
             zIndex: -1,
           }}
         />

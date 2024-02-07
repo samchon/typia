@@ -29,19 +29,20 @@
     "next": "^13.0.6",
     "nextra": "latest",
     "nextra-theme-docs": "latest",
+    "prettier": "^3.2.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "typescript": "^5.3.3"
   },
   "devDependencies": {
-    "@trivago/prettier-plugin-sort-imports": "^4.1.1",
+    "@trivago/prettier-plugin-sort-imports": "^4.3.0",
     "@types/node": "^18.11.10",
+    "@types/prettier": "^3.0.0",
     "@types/react": "^18.0.35",
     "gh-pages": "^5.0.0",
     "next-sitemap": "^4.0.7",
-    "prettier": "^2.8.8",
     "rimraf": "^5.0.0",
     "ts-node": "^10.9.1",
-    "typia": "5.4.5"
+    "typia": "5.4.6"
   }
 }
