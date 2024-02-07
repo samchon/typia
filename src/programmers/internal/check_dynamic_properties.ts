@@ -123,6 +123,7 @@ const check_dynamic_property =
           ts.factory.createReturnStatement(output),
         ),
       );
+    const broken = { value: false };
 
     // GATHER CONDITIONS
     if (regular.length) add(is_regular_property(regular), props.positive);
@@ -141,11 +142,17 @@ const check_dynamic_property =
         props.positive,
       );
 
-    for (const entry of dynamic)
-      add(
-        check_dynamic_key(project)(importer)(key, entry.key),
-        entry.expression,
+    for (const entry of dynamic) {
+      const condition: ts.Expression = check_dynamic_key(project)(importer)(
+        key,
+        entry.key,
       );
+      if (condition.kind === ts.SyntaxKind.TrueKeyword) {
+        statements.push(ts.factory.createReturnStatement(entry.expression));
+        broken.value = true;
+        break;
+      } else add(condition, entry.expression);
+    }
 
     //----
     // FUNCTION BODY
@@ -154,9 +161,15 @@ const check_dynamic_property =
     const block: ts.Block = ts.factory.createBlock(
       [
         ...statements,
-        ts.factory.createReturnStatement(
-          props.equals === true ? props.superfluous(value) : props.positive,
-        ),
+        ...(broken.value
+          ? []
+          : [
+              ts.factory.createReturnStatement(
+                props.equals === true
+                  ? props.superfluous(value)
+                  : props.positive,
+              ),
+            ]),
       ],
       true,
     );
