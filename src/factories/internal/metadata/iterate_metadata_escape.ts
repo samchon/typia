@@ -10,7 +10,7 @@ import { MetadataFactory } from "../../MetadataFactory";
 import { TypeFactory } from "../../TypeFactory";
 import { iterate_metadata } from "./iterate_metadata";
 
-export const iterate_metadata_resolve =
+export const iterate_metadata_escape =
   (checker: ts.TypeChecker) =>
   (options: MetadataFactory.IOptions) =>
   (collection: MetadataCollection) =>

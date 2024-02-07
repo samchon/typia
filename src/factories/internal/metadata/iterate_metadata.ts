@@ -14,7 +14,7 @@ import { iterate_metadata_intersection } from "./iterate_metadata_intersection";
 import { iterate_metadata_map } from "./iterate_metadata_map";
 import { iterate_metadata_native } from "./iterate_metadata_native";
 import { iterate_metadata_object } from "./iterate_metadata_object";
-import { iterate_metadata_resolve } from "./iterate_metadata_resolve";
+import { iterate_metadata_escape } from "./iterate_metadata_escape";
 import { iterate_metadata_set } from "./iterate_metadata_set";
 import { iterate_metadata_template } from "./iterate_metadata_template";
 import { iterate_metadata_tuple } from "./iterate_metadata_tuple";
@@ -52,7 +52,7 @@ export const iterate_metadata =
         type,
         explore,
       ) ||
-      iterate_metadata_resolve(checker)(options)(collection)(errors)(
+      iterate_metadata_escape(checker)(options)(collection)(errors)(
         meta,
         type,
         explore,
