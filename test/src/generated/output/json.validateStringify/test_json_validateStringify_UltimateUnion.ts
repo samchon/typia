@@ -434,14 +434,12 @@ export const test_json_validateStringify_UltimateUnion =
               Object.keys(input).every((key: any) => {
                 const value = input[key];
                 if (undefined === value) return true;
-                if (true)
-                  return (
-                    "object" === typeof value &&
-                    null !== value &&
-                    false === Array.isArray(value) &&
-                    $iu0(value)
-                  );
-                return true;
+                return (
+                  "object" === typeof value &&
+                  null !== value &&
+                  false === Array.isArray(value) &&
+                  $iu0(value)
+                );
               });
             const $io15 = (input: any): boolean =>
               "string" === typeof input.$ref &&
@@ -537,14 +535,12 @@ export const test_json_validateStringify_UltimateUnion =
               Object.keys(input).every((key: any) => {
                 const value = input[key];
                 if (undefined === value) return true;
-                if (true)
-                  return (
-                    "object" === typeof value &&
-                    null !== value &&
-                    false === Array.isArray(value) &&
-                    $iu1(value)
-                  );
-                return true;
+                return (
+                  "object" === typeof value &&
+                  null !== value &&
+                  false === Array.isArray(value) &&
+                  $iu1(value)
+                );
               });
             const $io21 = (input: any): boolean =>
               Array.isArray(input["enum"]) &&
@@ -1077,13 +1073,13 @@ export const test_json_validateStringify_UltimateUnion =
                 else
                   return (() => {
                     if ($io5(input)) return $io5(input);
-                    else if ($io4(input)) return $io4(input);
-                    else if ($io1(input)) return $io1(input);
-                    else if ($io6(input)) return $io6(input);
-                    else if ($io9(input)) return $io9(input);
-                    else if ($io10(input)) return $io10(input);
-                    else if ($io18(input)) return $io18(input);
-                    else return false;
+                    if ($io4(input)) return $io4(input);
+                    if ($io1(input)) return $io1(input);
+                    if ($io6(input)) return $io6(input);
+                    if ($io9(input)) return $io9(input);
+                    if ($io10(input)) return $io10(input);
+                    if ($io18(input)) return $io18(input);
+                    return false;
                   })();
               })();
             const $iu1 = (input: any): any =>
@@ -1114,13 +1110,13 @@ export const test_json_validateStringify_UltimateUnion =
                 else
                   return (() => {
                     if ($io23(input)) return $io23(input);
-                    else if ($io22(input)) return $io22(input);
-                    else if ($io21(input)) return $io21(input);
-                    else if ($io24(input)) return $io24(input);
-                    else if ($io26(input)) return $io26(input);
-                    else if ($io27(input)) return $io27(input);
-                    else if ($io34(input)) return $io34(input);
-                    else return false;
+                    if ($io22(input)) return $io22(input);
+                    if ($io21(input)) return $io21(input);
+                    if ($io24(input)) return $io24(input);
+                    if ($io26(input)) return $io26(input);
+                    if ($io27(input)) return $io27(input);
+                    if ($io34(input)) return $io34(input);
+                    return false;
                   })();
               })();
             return (
@@ -3160,30 +3156,28 @@ export const test_json_validateStringify_UltimateUnion =
                       .map((key: any) => {
                         const value = input[key];
                         if (undefined === value) return true;
-                        if (true)
-                          return (
-                            ((("object" === typeof value &&
-                              null !== value &&
-                              false === Array.isArray(value)) ||
-                              $report(_exceptionable, {
-                                path: _path + $join(key),
-                                expected:
-                                  '(IJsonSchema.IArray | IJsonSchema.IBoolean | IJsonSchema.IEnumeration<"boolean"> | IJsonSchema.IEnumeration<"number"> | IJsonSchema.IEnumeration<"string"> | IJsonSchema.IInteger | IJsonSchema.INullOnly | IJsonSchema.INumber | IJsonSchema.IObject | IJsonSchema.IOneOf | IJsonSchema.IReference | IJsonSchema.IString | IJsonSchema.ITuple | IJsonSchema.IUnknown)',
-                                value: value,
-                              })) &&
-                              $vu0(
-                                value,
-                                _path + $join(key),
-                                true && _exceptionable,
-                              )) ||
+                        return (
+                          ((("object" === typeof value &&
+                            null !== value &&
+                            false === Array.isArray(value)) ||
                             $report(_exceptionable, {
                               path: _path + $join(key),
                               expected:
                                 '(IJsonSchema.IArray | IJsonSchema.IBoolean | IJsonSchema.IEnumeration<"boolean"> | IJsonSchema.IEnumeration<"number"> | IJsonSchema.IEnumeration<"string"> | IJsonSchema.IInteger | IJsonSchema.INullOnly | IJsonSchema.INumber | IJsonSchema.IObject | IJsonSchema.IOneOf | IJsonSchema.IReference | IJsonSchema.IString | IJsonSchema.ITuple | IJsonSchema.IUnknown)',
                               value: value,
-                            })
-                          );
-                        return true;
+                            })) &&
+                            $vu0(
+                              value,
+                              _path + $join(key),
+                              true && _exceptionable,
+                            )) ||
+                          $report(_exceptionable, {
+                            path: _path + $join(key),
+                            expected:
+                              '(IJsonSchema.IArray | IJsonSchema.IBoolean | IJsonSchema.IEnumeration<"boolean"> | IJsonSchema.IEnumeration<"number"> | IJsonSchema.IEnumeration<"string"> | IJsonSchema.IInteger | IJsonSchema.INullOnly | IJsonSchema.INumber | IJsonSchema.IObject | IJsonSchema.IOneOf | IJsonSchema.IReference | IJsonSchema.IString | IJsonSchema.ITuple | IJsonSchema.IUnknown)',
+                            value: value,
+                          })
+                        );
                       })
                       .every((flag: boolean) => flag),
                 ].every((flag: boolean) => flag);
@@ -3658,30 +3652,28 @@ export const test_json_validateStringify_UltimateUnion =
                       .map((key: any) => {
                         const value = input[key];
                         if (undefined === value) return true;
-                        if (true)
-                          return (
-                            ((("object" === typeof value &&
-                              null !== value &&
-                              false === Array.isArray(value)) ||
-                              $report(_exceptionable, {
-                                path: _path + $join(key),
-                                expected:
-                                  '(IArray & IIdentified | IBoolean & IIdentified | IEnumeration<"boolean"> & IIdentified | IEnumeration<"number"> & IIdentified | IEnumeration<"string"> & IIdentified | IInteger & IIdentified | INullOnly & IIdentified | INumber & IIdentified | IObject & IIdentified | IOneOf & IIdentified | IReference & IIdentified | IString & IIdentified | ITuple & IIdentified | IUnknown & IIdentified)',
-                                value: value,
-                              })) &&
-                              $vu1(
-                                value,
-                                _path + $join(key),
-                                true && _exceptionable,
-                              )) ||
+                        return (
+                          ((("object" === typeof value &&
+                            null !== value &&
+                            false === Array.isArray(value)) ||
                             $report(_exceptionable, {
                               path: _path + $join(key),
                               expected:
                                 '(IArray & IIdentified | IBoolean & IIdentified | IEnumeration<"boolean"> & IIdentified | IEnumeration<"number"> & IIdentified | IEnumeration<"string"> & IIdentified | IInteger & IIdentified | INullOnly & IIdentified | INumber & IIdentified | IObject & IIdentified | IOneOf & IIdentified | IReference & IIdentified | IString & IIdentified | ITuple & IIdentified | IUnknown & IIdentified)',
                               value: value,
-                            })
-                          );
-                        return true;
+                            })) &&
+                            $vu1(
+                              value,
+                              _path + $join(key),
+                              true && _exceptionable,
+                            )) ||
+                          $report(_exceptionable, {
+                            path: _path + $join(key),
+                            expected:
+                              '(IArray & IIdentified | IBoolean & IIdentified | IEnumeration<"boolean"> & IIdentified | IEnumeration<"number"> & IIdentified | IEnumeration<"string"> & IIdentified | IInteger & IIdentified | INullOnly & IIdentified | INumber & IIdentified | IObject & IIdentified | IOneOf & IIdentified | IReference & IIdentified | IString & IIdentified | ITuple & IIdentified | IUnknown & IIdentified)',
+                            value: value,
+                          })
+                        );
                       })
                       .every((flag: boolean) => flag),
                 ].every((flag: boolean) => flag);
@@ -6650,14 +6642,12 @@ export const test_json_validateStringify_UltimateUnion =
             Object.keys(input).every((key: any) => {
               const value = input[key];
               if (undefined === value) return true;
-              if (true)
-                return (
-                  "object" === typeof value &&
-                  null !== value &&
-                  false === Array.isArray(value) &&
-                  $iu0(value)
-                );
-              return true;
+              return (
+                "object" === typeof value &&
+                null !== value &&
+                false === Array.isArray(value) &&
+                $iu0(value)
+              );
             });
           const $io15 = (input: any): boolean =>
             "string" === typeof input.$ref &&
@@ -6753,14 +6743,12 @@ export const test_json_validateStringify_UltimateUnion =
             Object.keys(input).every((key: any) => {
               const value = input[key];
               if (undefined === value) return true;
-              if (true)
-                return (
-                  "object" === typeof value &&
-                  null !== value &&
-                  false === Array.isArray(value) &&
-                  $iu1(value)
-                );
-              return true;
+              return (
+                "object" === typeof value &&
+                null !== value &&
+                false === Array.isArray(value) &&
+                $iu1(value)
+              );
             });
           const $io21 = (input: any): boolean =>
             Array.isArray(input["enum"]) &&
@@ -10169,18 +10157,17 @@ export const test_json_validateStringify_UltimateUnion =
               else
                 return (() => {
                   if ($io5(input)) return $so5(input);
-                  else if ($io4(input)) return $so4(input);
-                  else if ($io1(input)) return $so1(input);
-                  else if ($io6(input)) return $so6(input);
-                  else if ($io9(input)) return $so9(input);
-                  else if ($io10(input)) return $so10(input);
-                  else if ($io18(input)) return $so18(input);
-                  else
-                    $throws({
-                      expected:
-                        '(IJsonSchema.IEnumeration<"string"> | IJsonSchema.IEnumeration<"number"> | IJsonSchema.IEnumeration<"boolean"> | IJsonSchema.IBoolean | IJsonSchema.INumber | IJsonSchema.IString | IJsonSchema.IUnknown)',
-                      value: input,
-                    });
+                  if ($io4(input)) return $so4(input);
+                  if ($io1(input)) return $so1(input);
+                  if ($io6(input)) return $so6(input);
+                  if ($io9(input)) return $so9(input);
+                  if ($io10(input)) return $so10(input);
+                  if ($io18(input)) return $so18(input);
+                  $throws({
+                    expected:
+                      '(IJsonSchema.IEnumeration<"string"> | IJsonSchema.IEnumeration<"number"> | IJsonSchema.IEnumeration<"boolean"> | IJsonSchema.IBoolean | IJsonSchema.INumber | IJsonSchema.IString | IJsonSchema.IUnknown)',
+                    value: input,
+                  });
                 })();
             })();
           const $su1 = (input: any): any =>
@@ -10211,18 +10198,17 @@ export const test_json_validateStringify_UltimateUnion =
               else
                 return (() => {
                   if ($io23(input)) return $so23(input);
-                  else if ($io22(input)) return $so22(input);
-                  else if ($io21(input)) return $so21(input);
-                  else if ($io24(input)) return $so24(input);
-                  else if ($io26(input)) return $so26(input);
-                  else if ($io27(input)) return $so27(input);
-                  else if ($io34(input)) return $so34(input);
-                  else
-                    $throws({
-                      expected:
-                        '(IEnumeration<"string"> & IIdentified | IEnumeration<"number"> & IIdentified | IEnumeration<"boolean"> & IIdentified | IBoolean & IIdentified | INumber & IIdentified | IString & IIdentified | IUnknown & IIdentified)',
-                      value: input,
-                    });
+                  if ($io22(input)) return $so22(input);
+                  if ($io21(input)) return $so21(input);
+                  if ($io24(input)) return $so24(input);
+                  if ($io26(input)) return $so26(input);
+                  if ($io27(input)) return $so27(input);
+                  if ($io34(input)) return $so34(input);
+                  $throws({
+                    expected:
+                      '(IEnumeration<"string"> & IIdentified | IEnumeration<"number"> & IIdentified | IEnumeration<"boolean"> & IIdentified | IBoolean & IIdentified | INumber & IIdentified | IString & IIdentified | IUnknown & IIdentified)',
+                    value: input,
+                  });
                 })();
             })();
           return `[${input.map((elem: any) => $so0(elem)).join(",")}]`;

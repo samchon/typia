@@ -17,13 +17,11 @@ export const test_notation_createValidatePascal_ObjectDynamic =
             Object.keys(input).every((key: any) => {
               const value = input[key];
               if (undefined === value) return true;
-              if (true)
-                return (
-                  "string" === typeof value ||
-                  ("number" === typeof value && Number.isFinite(value)) ||
-                  "boolean" === typeof value
-                );
-              return true;
+              return (
+                "string" === typeof value ||
+                ("number" === typeof value && Number.isFinite(value)) ||
+                "boolean" === typeof value
+              );
             });
           return (
             "object" === typeof input &&
@@ -53,19 +51,16 @@ export const test_notation_createValidatePascal_ObjectDynamic =
                     .map((key: any) => {
                       const value = input[key];
                       if (undefined === value) return true;
-                      if (true)
-                        return (
-                          "string" === typeof value ||
-                          ("number" === typeof value &&
-                            Number.isFinite(value)) ||
-                          "boolean" === typeof value ||
-                          $report(_exceptionable, {
-                            path: _path + $join(key),
-                            expected: "(boolean | number | string)",
-                            value: value,
-                          })
-                        );
-                      return true;
+                      return (
+                        "string" === typeof value ||
+                        ("number" === typeof value && Number.isFinite(value)) ||
+                        "boolean" === typeof value ||
+                        $report(_exceptionable, {
+                          path: _path + $join(key),
+                          expected: "(boolean | number | string)",
+                          value: value,
+                        })
+                      );
                     })
                     .every((flag: boolean) => flag),
               ].every((flag: boolean) => flag);
@@ -121,13 +116,11 @@ export const test_notation_createValidatePascal_ObjectDynamic =
           Object.keys(input).every((key: any) => {
             const value = input[key];
             if (undefined === value) return true;
-            if (true)
-              return (
-                "string" === typeof value ||
-                ("number" === typeof value && Number.isFinite(value)) ||
-                "boolean" === typeof value
-              );
-            return true;
+            return (
+              "string" === typeof value ||
+              ("number" === typeof value && Number.isFinite(value)) ||
+              "boolean" === typeof value
+            );
           });
         return (
           "object" === typeof input &&
@@ -153,18 +146,16 @@ export const test_notation_createValidatePascal_ObjectDynamic =
             Object.keys(input).every((key: any) => {
               const value = input[key];
               if (undefined === value) return true;
-              if (true)
-                return (
-                  "string" === typeof value ||
-                  ("number" === typeof value && Number.isFinite(value)) ||
-                  "boolean" === typeof value ||
-                  $guard(_exceptionable, {
-                    path: _path + $join(key),
-                    expected: "(boolean | number | string)",
-                    value: value,
-                  })
-                );
-              return true;
+              return (
+                "string" === typeof value ||
+                ("number" === typeof value && Number.isFinite(value)) ||
+                "boolean" === typeof value ||
+                $guard(_exceptionable, {
+                  path: _path + $join(key),
+                  expected: "(boolean | number | string)",
+                  value: value,
+                })
+              );
             });
           return (
             ((("object" === typeof input &&

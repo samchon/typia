@@ -18,8 +18,7 @@ export const test_createValidate_DynamicSimple = _test_validate(
         Object.keys(input).every((key: any) => {
           const value = input[key];
           if (undefined === value) return true;
-          if (true) return "number" === typeof value && Number.isFinite(value);
-          return true;
+          return "number" === typeof value && Number.isFinite(value);
         });
       return "object" === typeof input && null !== input && $io0(input);
     };
@@ -63,16 +62,14 @@ export const test_createValidate_DynamicSimple = _test_validate(
                 .map((key: any) => {
                   const value = input[key];
                   if (undefined === value) return true;
-                  if (true)
-                    return (
-                      ("number" === typeof value && Number.isFinite(value)) ||
-                      $report(_exceptionable, {
-                        path: _path + $join(key),
-                        expected: "number",
-                        value: value,
-                      })
-                    );
-                  return true;
+                  return (
+                    ("number" === typeof value && Number.isFinite(value)) ||
+                    $report(_exceptionable, {
+                      path: _path + $join(key),
+                      expected: "number",
+                      value: value,
+                    })
+                  );
                 })
                 .every((flag: boolean) => flag),
           ].every((flag: boolean) => flag);

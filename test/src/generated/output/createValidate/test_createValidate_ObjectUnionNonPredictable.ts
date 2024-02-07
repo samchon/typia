@@ -39,9 +39,9 @@ export const test_createValidate_ObjectUnionNonPredictable = _test_validate(
       const $iu0 = (input: any): any =>
         (() => {
           if ($io7(input)) return $io7(input);
-          else if ($io5(input)) return $io5(input);
-          else if ($io3(input)) return $io3(input);
-          else return false;
+          if ($io5(input)) return $io5(input);
+          if ($io3(input)) return $io3(input);
+          return false;
         })();
       return "object" === typeof input && null !== input && $io0(input);
     };

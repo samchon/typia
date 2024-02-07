@@ -22,9 +22,9 @@ export const test_assertGuard_ToJsonUnion = _test_assertGuard(
           else
             return (() => {
               if ($io3(input)) return $io3(input);
-              else if ($io2(input)) return $io2(input);
-              else if ($io1(input)) return $io1(input);
-              else return false;
+              if ($io2(input)) return $io2(input);
+              if ($io1(input)) return $io1(input);
+              return false;
             })();
         })();
       return (

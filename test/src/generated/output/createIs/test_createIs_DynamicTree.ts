@@ -18,9 +18,7 @@ export const test_createIs_DynamicTree = _test_is("DynamicTree")<DynamicTree>(
     Object.keys(input).every((key: any) => {
       const value = input[key];
       if (undefined === value) return true;
-      if (true)
-        return "object" === typeof value && null !== value && $io0(value);
-      return true;
+      return "object" === typeof value && null !== value && $io0(value);
     });
   return "object" === typeof input && null !== input && $io0(input);
 });

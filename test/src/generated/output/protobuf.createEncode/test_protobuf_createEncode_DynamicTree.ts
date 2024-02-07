@@ -42,9 +42,7 @@ export const test_protobuf_createEncode_DynamicTree = _test_protobuf_encode(
         Object.keys(input).every((key: any) => {
           const value = input[key];
           if (undefined === value) return true;
-          if (true)
-            return "object" === typeof value && null !== value && $io0(value);
-          return true;
+          return "object" === typeof value && null !== value && $io0(value);
         });
       //DynamicTree;
       $peo0(input);

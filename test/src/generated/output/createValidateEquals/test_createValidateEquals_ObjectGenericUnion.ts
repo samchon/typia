@@ -171,9 +171,9 @@ export const test_createValidateEquals_ObjectGenericUnion =
         (() => {
           if ($io5(input, false && _exceptionable))
             return $io5(input, true && _exceptionable);
-          else if ($io1(input, false && _exceptionable))
+          if ($io1(input, false && _exceptionable))
             return $io1(input, true && _exceptionable);
-          else return false;
+          return false;
         })();
       return "object" === typeof input && null !== input && $io0(input, true);
     };
@@ -732,15 +732,14 @@ export const test_createValidateEquals_ObjectGenericUnion =
           (() => {
             if ($vo5(input, _path, false && _exceptionable))
               return $vo5(input, _path, true && _exceptionable);
-            else if ($vo1(input, _path, false && _exceptionable))
+            if ($vo1(input, _path, false && _exceptionable))
               return $vo1(input, _path, true && _exceptionable);
-            else
-              return $report(_exceptionable, {
-                path: _path,
-                expected:
-                  "(ObjectGenericUnion.ISaleReview | ObjectGenericUnion.ISaleQuestion)",
-                value: input,
-              });
+            return $report(_exceptionable, {
+              path: _path,
+              expected:
+                "(ObjectGenericUnion.ISaleReview | ObjectGenericUnion.ISaleQuestion)",
+              value: input,
+            });
           })();
         return (
           ((("object" === typeof input && null !== input) ||

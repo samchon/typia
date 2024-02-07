@@ -13,13 +13,11 @@ export const test_json_createValidateStringify_ObjectDynamic =
             Object.keys(input).every((key: any) => {
               const value = input[key];
               if (undefined === value) return true;
-              if (true)
-                return (
-                  "string" === typeof value ||
-                  ("number" === typeof value && Number.isFinite(value)) ||
-                  "boolean" === typeof value
-                );
-              return true;
+              return (
+                "string" === typeof value ||
+                ("number" === typeof value && Number.isFinite(value)) ||
+                "boolean" === typeof value
+              );
             });
           return (
             "object" === typeof input &&
@@ -49,19 +47,16 @@ export const test_json_createValidateStringify_ObjectDynamic =
                     .map((key: any) => {
                       const value = input[key];
                       if (undefined === value) return true;
-                      if (true)
-                        return (
-                          "string" === typeof value ||
-                          ("number" === typeof value &&
-                            Number.isFinite(value)) ||
-                          "boolean" === typeof value ||
-                          $report(_exceptionable, {
-                            path: _path + $join(key),
-                            expected: "(boolean | number | string)",
-                            value: value,
-                          })
-                        );
-                      return true;
+                      return (
+                        "string" === typeof value ||
+                        ("number" === typeof value && Number.isFinite(value)) ||
+                        "boolean" === typeof value ||
+                        $report(_exceptionable, {
+                          path: _path + $join(key),
+                          expected: "(boolean | number | string)",
+                          value: value,
+                        })
+                      );
                     })
                     .every((flag: boolean) => flag),
               ].every((flag: boolean) => flag);

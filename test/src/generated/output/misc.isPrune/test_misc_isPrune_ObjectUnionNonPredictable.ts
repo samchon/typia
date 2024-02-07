@@ -38,9 +38,9 @@ export const test_misc_isPrune_ObjectUnionNonPredictable = _test_misc_isPrune(
       const $iu0 = (input: any): any =>
         (() => {
           if ($io7(input)) return $io7(input);
-          else if ($io5(input)) return $io5(input);
-          else if ($io3(input)) return $io3(input);
-          else return false;
+          if ($io5(input)) return $io5(input);
+          if ($io3(input)) return $io3(input);
+          return false;
         })();
       return "object" === typeof input && null !== input && $io0(input);
     };
@@ -143,14 +143,13 @@ export const test_misc_isPrune_ObjectUnionNonPredictable = _test_misc_isPrune(
       const $pu0 = (input: any): any =>
         (() => {
           if ($io7(input)) return $po7(input);
-          else if ($io5(input)) return $po5(input);
-          else if ($io3(input)) return $po3(input);
-          else
-            $throws({
-              expected:
-                "(ObjectUnionNonPredictable.IWrapper<string> | ObjectUnionNonPredictable.IWrapper<number> | ObjectUnionNonPredictable.IWrapper<boolean>)",
-              value: input,
-            });
+          if ($io5(input)) return $po5(input);
+          if ($io3(input)) return $po3(input);
+          $throws({
+            expected:
+              "(ObjectUnionNonPredictable.IWrapper<string> | ObjectUnionNonPredictable.IWrapper<number> | ObjectUnionNonPredictable.IWrapper<boolean>)",
+            value: input,
+          });
         })();
       if ("object" === typeof input && null !== input) $po0(input);
     };

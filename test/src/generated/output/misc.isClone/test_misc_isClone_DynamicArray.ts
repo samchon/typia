@@ -17,12 +17,10 @@ export const test_misc_isClone_DynamicArray = _test_misc_isClone(
         Object.keys(input).every((key: any) => {
           const value = input[key];
           if (undefined === value) return true;
-          if (true)
-            return (
-              Array.isArray(value) &&
-              value.every((elem: any) => "string" === typeof elem)
-            );
-          return true;
+          return (
+            Array.isArray(value) &&
+            value.every((elem: any) => "string" === typeof elem)
+          );
         });
       return "object" === typeof input && null !== input && $io0(input);
     };
@@ -31,12 +29,10 @@ export const test_misc_isClone_DynamicArray = _test_misc_isClone(
         Object.keys(input).every((key: any) => {
           const value = input[key];
           if (undefined === value) return true;
-          if (true)
-            return (
-              Array.isArray(value) &&
-              value.every((elem: any) => "string" === typeof elem)
-            );
-          return true;
+          return (
+            Array.isArray(value) &&
+            value.every((elem: any) => "string" === typeof elem)
+          );
         });
       const $cp0 = (input: any) => input.map((elem: any) => elem as any);
       const $co0 = (input: any): any => ({

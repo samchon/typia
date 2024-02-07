@@ -112,11 +112,11 @@ export const test_createEquals_ObjectUnionNonPredictable = _test_equals(
       (() => {
         if ($io7(input, false && _exceptionable))
           return $io7(input, true && _exceptionable);
-        else if ($io5(input, false && _exceptionable))
+        if ($io5(input, false && _exceptionable))
           return $io5(input, true && _exceptionable);
-        else if ($io3(input, false && _exceptionable))
+        if ($io3(input, false && _exceptionable))
           return $io3(input, true && _exceptionable);
-        else return false;
+        return false;
       })();
     return "object" === typeof input && null !== input && $io0(input, true);
   },

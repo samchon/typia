@@ -114,11 +114,11 @@ export const test_createValidateEquals_ObjectUnionNonPredictable =
         (() => {
           if ($io7(input, false && _exceptionable))
             return $io7(input, true && _exceptionable);
-          else if ($io5(input, false && _exceptionable))
+          if ($io5(input, false && _exceptionable))
             return $io5(input, true && _exceptionable);
-          else if ($io3(input, false && _exceptionable))
+          if ($io3(input, false && _exceptionable))
             return $io3(input, true && _exceptionable);
-          else return false;
+          return false;
         })();
       return "object" === typeof input && null !== input && $io0(input, true);
     };
@@ -443,17 +443,16 @@ export const test_createValidateEquals_ObjectUnionNonPredictable =
           (() => {
             if ($vo7(input, _path, false && _exceptionable))
               return $vo7(input, _path, true && _exceptionable);
-            else if ($vo5(input, _path, false && _exceptionable))
+            if ($vo5(input, _path, false && _exceptionable))
               return $vo5(input, _path, true && _exceptionable);
-            else if ($vo3(input, _path, false && _exceptionable))
+            if ($vo3(input, _path, false && _exceptionable))
               return $vo3(input, _path, true && _exceptionable);
-            else
-              return $report(_exceptionable, {
-                path: _path,
-                expected:
-                  "(ObjectUnionNonPredictable.IWrapper<string> | ObjectUnionNonPredictable.IWrapper<number> | ObjectUnionNonPredictable.IWrapper<boolean>)",
-                value: input,
-              });
+            return $report(_exceptionable, {
+              path: _path,
+              expected:
+                "(ObjectUnionNonPredictable.IWrapper<string> | ObjectUnionNonPredictable.IWrapper<number> | ObjectUnionNonPredictable.IWrapper<boolean>)",
+              value: input,
+            });
           })();
         return (
           ((("object" === typeof input && null !== input) ||

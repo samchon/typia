@@ -60,11 +60,11 @@ export const test_validateEquals_ToJsonUnion = _test_validateEquals(
             return (() => {
               if ($io3(input, false && _exceptionable))
                 return $io3(input, true && _exceptionable);
-              else if ($io2(input, false && _exceptionable))
+              if ($io2(input, false && _exceptionable))
                 return $io2(input, true && _exceptionable);
-              else if ($io1(input, false && _exceptionable))
+              if ($io1(input, false && _exceptionable))
                 return $io1(input, true && _exceptionable);
-              else return false;
+              return false;
             })();
         })();
       return (
@@ -222,17 +222,16 @@ export const test_validateEquals_ToJsonUnion = _test_validateEquals(
               return (() => {
                 if ($vo3(input, _path, false && _exceptionable))
                   return $vo3(input, _path, true && _exceptionable);
-                else if ($vo2(input, _path, false && _exceptionable))
+                if ($vo2(input, _path, false && _exceptionable))
                   return $vo2(input, _path, true && _exceptionable);
-                else if ($vo1(input, _path, false && _exceptionable))
+                if ($vo1(input, _path, false && _exceptionable))
                   return $vo1(input, _path, true && _exceptionable);
-                else
-                  return $report(_exceptionable, {
-                    path: _path,
-                    expected:
-                      "(ToJsonUnion.IWrapper<ToJsonUnion.IProduct> | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen> | ToJsonUnion.IWrapper<boolean>)",
-                    value: input,
-                  });
+                return $report(_exceptionable, {
+                  path: _path,
+                  expected:
+                    "(ToJsonUnion.IWrapper<ToJsonUnion.IProduct> | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen> | ToJsonUnion.IWrapper<boolean>)",
+                  value: input,
+                });
               })();
           })();
         return (

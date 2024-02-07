@@ -226,9 +226,9 @@ export const test_protobuf_createAssertDecode_ObjectUnionNonPredictable =
           const $iu0 = (input: any): any =>
             (() => {
               if ($io7(input)) return $io7(input);
-              else if ($io5(input)) return $io5(input);
-              else if ($io3(input)) return $io3(input);
-              else return false;
+              if ($io5(input)) return $io5(input);
+              if ($io3(input)) return $io3(input);
+              return false;
             })();
           return "object" === typeof input && null !== input && $io0(input);
         };
@@ -469,7 +469,7 @@ export const test_protobuf_createAssertDecode_ObjectUnionNonPredictable =
                 $peo7(input.value);
                 writer.ldelim();
               })();
-            else if ($io5(input.value))
+            if ($io5(input.value))
               return (() => {
                 // 2 -> ObjectUnionNonPredictable.IWrapper<number>;
                 writer.uint32(18);
@@ -477,7 +477,7 @@ export const test_protobuf_createAssertDecode_ObjectUnionNonPredictable =
                 $peo5(input.value);
                 writer.ldelim();
               })();
-            else if ($io3(input.value))
+            if ($io3(input.value))
               return (() => {
                 // 3 -> ObjectUnionNonPredictable.IWrapper<boolean>;
                 writer.uint32(26);
@@ -485,12 +485,11 @@ export const test_protobuf_createAssertDecode_ObjectUnionNonPredictable =
                 $peo3(input.value);
                 writer.ldelim();
               })();
-            else
-              $throws({
-                expected:
-                  "(ObjectUnionNonPredictable.IWrapper<string> | ObjectUnionNonPredictable.IWrapper<number> | ObjectUnionNonPredictable.IWrapper<boolean>)",
-                value: input.value,
-              });
+            $throws({
+              expected:
+                "(ObjectUnionNonPredictable.IWrapper<string> | ObjectUnionNonPredictable.IWrapper<number> | ObjectUnionNonPredictable.IWrapper<boolean>)",
+              value: input.value,
+            });
           })();
         };
         const $peo3 = (input: any): any => {

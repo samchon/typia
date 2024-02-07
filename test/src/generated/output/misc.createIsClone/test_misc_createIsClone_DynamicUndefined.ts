@@ -12,8 +12,7 @@ export const test_misc_createIsClone_DynamicUndefined = _test_misc_isClone(
         Object.keys(input).every((key: any) => {
           const value = input[key];
           if (undefined === value) return true;
-          if (true) return null !== value && undefined === value;
-          return true;
+          return null !== value && undefined === value;
         });
       return (
         "object" === typeof input &&

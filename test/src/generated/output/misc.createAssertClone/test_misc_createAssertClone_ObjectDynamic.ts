@@ -12,13 +12,11 @@ export const test_misc_createAssertClone_ObjectDynamic = _test_misc_assertClone(
         Object.keys(input).every((key: any) => {
           const value = input[key];
           if (undefined === value) return true;
-          if (true)
-            return (
-              "string" === typeof value ||
-              ("number" === typeof value && Number.isFinite(value)) ||
-              "boolean" === typeof value
-            );
-          return true;
+          return (
+            "string" === typeof value ||
+            ("number" === typeof value && Number.isFinite(value)) ||
+            "boolean" === typeof value
+          );
         });
       return (
         "object" === typeof input &&
@@ -44,18 +42,16 @@ export const test_misc_createAssertClone_ObjectDynamic = _test_misc_assertClone(
           Object.keys(input).every((key: any) => {
             const value = input[key];
             if (undefined === value) return true;
-            if (true)
-              return (
-                "string" === typeof value ||
-                ("number" === typeof value && Number.isFinite(value)) ||
-                "boolean" === typeof value ||
-                $guard(_exceptionable, {
-                  path: _path + $join(key),
-                  expected: "(boolean | number | string)",
-                  value: value,
-                })
-              );
-            return true;
+            return (
+              "string" === typeof value ||
+              ("number" === typeof value && Number.isFinite(value)) ||
+              "boolean" === typeof value ||
+              $guard(_exceptionable, {
+                path: _path + $join(key),
+                expected: "(boolean | number | string)",
+                value: value,
+              })
+            );
           });
         return (
           ((("object" === typeof input &&

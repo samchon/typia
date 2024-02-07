@@ -17,12 +17,10 @@ export const test_json_isParse_DynamicArray = _test_json_isParse(
         Object.keys(input).every((key: any) => {
           const value = input[key];
           if (undefined === value) return true;
-          if (true)
-            return (
-              Array.isArray(value) &&
-              value.every((elem: any) => "string" === typeof elem)
-            );
-          return true;
+          return (
+            Array.isArray(value) &&
+            value.every((elem: any) => "string" === typeof elem)
+          );
         });
       return "object" === typeof input && null !== input && $io0(input);
     };

@@ -21,11 +21,7 @@ export const test_protobuf_createValidateEncode_DynamicTree =
             Object.keys(input).every((key: any) => {
               const value = input[key];
               if (undefined === value) return true;
-              if (true)
-                return (
-                  "object" === typeof value && null !== value && $io0(value)
-                );
-              return true;
+              return "object" === typeof value && null !== value && $io0(value);
             });
           return "object" === typeof input && null !== input && $io0(input);
         };
@@ -88,26 +84,24 @@ export const test_protobuf_createValidateEncode_DynamicTree =
                     .map((key: any) => {
                       const value = input[key];
                       if (undefined === value) return true;
-                      if (true)
-                        return (
-                          ((("object" === typeof value && null !== value) ||
-                            $report(_exceptionable, {
-                              path: _path + $join(key),
-                              expected: "DynamicTree",
-                              value: value,
-                            })) &&
-                            $vo0(
-                              value,
-                              _path + $join(key),
-                              true && _exceptionable,
-                            )) ||
+                      return (
+                        ((("object" === typeof value && null !== value) ||
                           $report(_exceptionable, {
                             path: _path + $join(key),
                             expected: "DynamicTree",
                             value: value,
-                          })
-                        );
-                      return true;
+                          })) &&
+                          $vo0(
+                            value,
+                            _path + $join(key),
+                            true && _exceptionable,
+                          )) ||
+                        $report(_exceptionable, {
+                          path: _path + $join(key),
+                          expected: "DynamicTree",
+                          value: value,
+                        })
+                      );
                     })
                     .every((flag: boolean) => flag),
               ].every((flag: boolean) => flag);
@@ -170,11 +164,7 @@ export const test_protobuf_createValidateEncode_DynamicTree =
             Object.keys(input).every((key: any) => {
               const value = input[key];
               if (undefined === value) return true;
-              if (true)
-                return (
-                  "object" === typeof value && null !== value && $io0(value)
-                );
-              return true;
+              return "object" === typeof value && null !== value && $io0(value);
             });
           //DynamicTree;
           $peo0(input);
