@@ -10,8 +10,7 @@ export const test_json_createStringify_DynamicSimple = _test_json_stringify(
     Object.keys(input).every((key: any) => {
       const value = input[key];
       if (undefined === value) return true;
-      if (true) return "number" === typeof value;
-      return true;
+      return "number" === typeof value;
     });
   const $number = (typia.json.createStringify as any).number;
   const $so0 = (input: any): any => `{"value":${$so1(input.value)}}`;

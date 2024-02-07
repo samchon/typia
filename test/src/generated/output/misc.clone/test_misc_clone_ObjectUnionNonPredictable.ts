@@ -85,14 +85,13 @@ export const test_misc_clone_ObjectUnionNonPredictable = _test_misc_clone(
     const $cu0 = (input: any): any =>
       (() => {
         if ($io7(input)) return $co7(input);
-        else if ($io5(input)) return $co5(input);
-        else if ($io3(input)) return $co3(input);
-        else
-          $throws({
-            expected:
-              "(ObjectUnionNonPredictable.IWrapper<string> | ObjectUnionNonPredictable.IWrapper<number> | ObjectUnionNonPredictable.IWrapper<boolean>)",
-            value: input,
-          });
+        if ($io5(input)) return $co5(input);
+        if ($io3(input)) return $co3(input);
+        $throws({
+          expected:
+            "(ObjectUnionNonPredictable.IWrapper<string> | ObjectUnionNonPredictable.IWrapper<number> | ObjectUnionNonPredictable.IWrapper<boolean>)",
+          value: input,
+        });
       })();
     return "object" === typeof input && null !== input
       ? $co0(input)

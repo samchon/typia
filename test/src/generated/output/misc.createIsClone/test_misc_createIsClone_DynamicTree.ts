@@ -20,9 +20,7 @@ export const test_misc_createIsClone_DynamicTree = _test_misc_isClone(
         Object.keys(input).every((key: any) => {
           const value = input[key];
           if (undefined === value) return true;
-          if (true)
-            return "object" === typeof value && null !== value && $io0(value);
-          return true;
+          return "object" === typeof value && null !== value && $io0(value);
         });
       return "object" === typeof input && null !== input && $io0(input);
     };
@@ -38,9 +36,7 @@ export const test_misc_createIsClone_DynamicTree = _test_misc_isClone(
         Object.keys(input).every((key: any) => {
           const value = input[key];
           if (undefined === value) return true;
-          if (true)
-            return "object" === typeof value && null !== value && $io0(value);
-          return true;
+          return "object" === typeof value && null !== value && $io0(value);
         });
       const $co0 = (input: any): any => ({
         id: input.id as any,

@@ -10,13 +10,11 @@ export const test_createIs_ObjectDynamic = _test_is(
     Object.keys(input).every((key: any) => {
       const value = input[key];
       if (undefined === value) return true;
-      if (true)
-        return (
-          "string" === typeof value ||
-          ("number" === typeof value && Number.isFinite(value)) ||
-          "boolean" === typeof value
-        );
-      return true;
+      return (
+        "string" === typeof value ||
+        ("number" === typeof value && Number.isFinite(value)) ||
+        "boolean" === typeof value
+      );
     });
   return (
     "object" === typeof input &&

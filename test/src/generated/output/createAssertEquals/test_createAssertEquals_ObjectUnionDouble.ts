@@ -146,25 +146,25 @@ export const test_createAssertEquals_ObjectUnionDouble = _test_assertEquals(
       (() => {
         if ($io6(input, false && _exceptionable))
           return $io6(input, true && _exceptionable);
-        else if ($io0(input, false && _exceptionable))
+        if ($io0(input, false && _exceptionable))
           return $io0(input, true && _exceptionable);
-        else return false;
+        return false;
       })();
     const $iu1 = (input: any, _exceptionable: boolean = true): any =>
       (() => {
         if ($io4(input, false && _exceptionable))
           return $io4(input, true && _exceptionable);
-        else if ($io2(input, false && _exceptionable))
+        if ($io2(input, false && _exceptionable))
           return $io2(input, true && _exceptionable);
-        else return false;
+        return false;
       })();
     const $iu2 = (input: any, _exceptionable: boolean = true): any =>
       (() => {
         if ($io10(input, false && _exceptionable))
           return $io10(input, true && _exceptionable);
-        else if ($io8(input, false && _exceptionable))
+        if ($io8(input, false && _exceptionable))
           return $io8(input, true && _exceptionable);
-        else return false;
+        return false;
       })();
     return (
       Array.isArray(input) &&
@@ -542,14 +542,13 @@ export const test_createAssertEquals_ObjectUnionDouble = _test_assertEquals(
         (() => {
           if ($ao6(input, _path, false && _exceptionable))
             return $ao6(input, _path, true && _exceptionable);
-          else if ($ao0(input, _path, false && _exceptionable))
+          if ($ao0(input, _path, false && _exceptionable))
             return $ao0(input, _path, true && _exceptionable);
-          else
-            return $guard(_exceptionable, {
-              path: _path,
-              expected: "(ObjectUnionDouble.IB | ObjectUnionDouble.IA)",
-              value: input,
-            });
+          return $guard(_exceptionable, {
+            path: _path,
+            expected: "(ObjectUnionDouble.IB | ObjectUnionDouble.IA)",
+            value: input,
+          });
         })();
       const $au1 = (
         input: any,
@@ -559,14 +558,13 @@ export const test_createAssertEquals_ObjectUnionDouble = _test_assertEquals(
         (() => {
           if ($ao4(input, _path, false && _exceptionable))
             return $ao4(input, _path, true && _exceptionable);
-          else if ($ao2(input, _path, false && _exceptionable))
+          if ($ao2(input, _path, false && _exceptionable))
             return $ao2(input, _path, true && _exceptionable);
-          else
-            return $guard(_exceptionable, {
-              path: _path,
-              expected: "(ObjectUnionDouble.IAB | ObjectUnionDouble.IAA)",
-              value: input,
-            });
+          return $guard(_exceptionable, {
+            path: _path,
+            expected: "(ObjectUnionDouble.IAB | ObjectUnionDouble.IAA)",
+            value: input,
+          });
         })();
       const $au2 = (
         input: any,
@@ -576,14 +574,13 @@ export const test_createAssertEquals_ObjectUnionDouble = _test_assertEquals(
         (() => {
           if ($ao10(input, _path, false && _exceptionable))
             return $ao10(input, _path, true && _exceptionable);
-          else if ($ao8(input, _path, false && _exceptionable))
+          if ($ao8(input, _path, false && _exceptionable))
             return $ao8(input, _path, true && _exceptionable);
-          else
-            return $guard(_exceptionable, {
-              path: _path,
-              expected: "(ObjectUnionDouble.IBB | ObjectUnionDouble.IBA)",
-              value: input,
-            });
+          return $guard(_exceptionable, {
+            path: _path,
+            expected: "(ObjectUnionDouble.IBB | ObjectUnionDouble.IBA)",
+            value: input,
+          });
         })();
       return (
         ((Array.isArray(input) ||

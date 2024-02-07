@@ -52,24 +52,45 @@ export const decode_union_object =
 
 const iterate =
   (escaper: (value: ts.Expression, expected: string) => ts.Statement) =>
-  (input: ts.Expression, unions: IUnion[], expected: string) =>
-    ts.factory.createBlock(
-      [
-        unions
-          .map((u, i) =>
-            ts.factory.createIfStatement(
-              u.is(),
-              ts.factory.createReturnStatement(u.value()),
-              i === unions.length - 1 ? escaper(input, expected) : undefined,
-            ),
+  (input: ts.Expression, unions: IUnion[], expected: string) => {
+    interface IBranch {
+      condition: null | ts.Expression;
+      value: ts.Expression;
+    }
+    const branches: IBranch[] = [];
+
+    for (const u of unions) {
+      const condition: ts.Expression = u.is();
+      if (condition.kind === ts.SyntaxKind.TrueKeyword) {
+        branches.push({
+          condition: null,
+          value: u.value(),
+        });
+        break;
+      }
+      branches.push({
+        condition,
+        value: u.value(),
+      });
+    }
+    if (branches.length === 0)
+      return ts.factory.createBlock([escaper(input, expected)], true);
+    else if (branches.length === 1 && branches[0]!.condition === null)
+      return branches[0]!.value;
+
+    const statements: ts.Statement[] = branches.map((b) =>
+      b.condition !== null
+        ? ts.factory.createIfStatement(
+            b.condition,
+            ts.factory.createReturnStatement(b.value),
+            undefined,
           )
-          .reverse()
-          .reduce((a, b) =>
-            ts.factory.createIfStatement(b.expression, b.thenStatement, a),
-          ),
-      ],
-      true,
+        : ts.factory.createReturnStatement(b.value),
     );
+    if (branches.at(-1)!.condition !== null)
+      statements.push(escaper(input, expected));
+    return ts.factory.createBlock(statements, true);
+  };
 
 interface IUnion {
   type: string;

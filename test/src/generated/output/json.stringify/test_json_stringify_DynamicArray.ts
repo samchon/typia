@@ -11,12 +11,10 @@ export const test_json_stringify_DynamicArray = _test_json_stringify(
       Object.keys(input).every((key: any) => {
         const value = input[key];
         if (undefined === value) return true;
-        if (true)
-          return (
-            Array.isArray(value) &&
-            value.every((elem: any) => "string" === typeof elem)
-          );
-        return true;
+        return (
+          Array.isArray(value) &&
+          value.every((elem: any) => "string" === typeof elem)
+        );
       });
     const $string = (typia.json.stringify as any).string;
     const $so0 = (input: any): any => `{"value":${$so1(input.value)}}`;

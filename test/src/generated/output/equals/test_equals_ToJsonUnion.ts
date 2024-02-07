@@ -54,11 +54,11 @@ export const test_equals_ToJsonUnion = _test_equals("ToJsonUnion")<ToJsonUnion>(
           return (() => {
             if ($io3(input, false && _exceptionable))
               return $io3(input, true && _exceptionable);
-            else if ($io2(input, false && _exceptionable))
+            if ($io2(input, false && _exceptionable))
               return $io2(input, true && _exceptionable);
-            else if ($io1(input, false && _exceptionable))
+            if ($io1(input, false && _exceptionable))
               return $io1(input, true && _exceptionable);
-            else return false;
+            return false;
           })();
       })();
     return (

@@ -157,8 +157,8 @@ export const check_dynamic_key =
       : conditions.reduce(ts.factory.createLogicalOr);
   };
 
-const atomist = (entry: ICheckEntry) => {
-  return [
+const atomist = (entry: ICheckEntry) =>
+  [
     ...(entry.expression ? [entry.expression] : []),
     ...(entry.conditions.length === 0
       ? []
@@ -172,4 +172,3 @@ const atomist = (entry: ICheckEntry) => {
             .reduce((a, b) => ts.factory.createLogicalOr(a, b)),
         ]),
   ].reduce((x, y) => ts.factory.createLogicalAnd(x, y));
-};

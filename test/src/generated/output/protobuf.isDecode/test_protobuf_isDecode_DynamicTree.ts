@@ -21,9 +21,7 @@ export const test_protobuf_createIsDecode_DynamicTree = _test_protobuf_isDecode(
           Object.keys(input).every((key: any) => {
             const value = input[key];
             if (undefined === value) return true;
-            if (true)
-              return "object" === typeof value && null !== value && $io0(value);
-            return true;
+            return "object" === typeof value && null !== value && $io0(value);
           });
         return "object" === typeof input && null !== input && $io0(input);
       };
@@ -124,9 +122,7 @@ export const test_protobuf_createIsDecode_DynamicTree = _test_protobuf_isDecode(
         Object.keys(input).every((key: any) => {
           const value = input[key];
           if (undefined === value) return true;
-          if (true)
-            return "object" === typeof value && null !== value && $io0(value);
-          return true;
+          return "object" === typeof value && null !== value && $io0(value);
         });
       //DynamicTree;
       $peo0(input);

@@ -47,20 +47,20 @@ export const test_createAssert_ObjectUnionDouble = _test_assert(
     const $iu0 = (input: any): any =>
       (() => {
         if ($io6(input)) return $io6(input);
-        else if ($io0(input)) return $io0(input);
-        else return false;
+        if ($io0(input)) return $io0(input);
+        return false;
       })();
     const $iu1 = (input: any): any =>
       (() => {
         if ($io4(input)) return $io4(input);
-        else if ($io2(input)) return $io2(input);
-        else return false;
+        if ($io2(input)) return $io2(input);
+        return false;
       })();
     const $iu2 = (input: any): any =>
       (() => {
         if ($io10(input)) return $io10(input);
-        else if ($io8(input)) return $io8(input);
-        else return false;
+        if ($io8(input)) return $io8(input);
+        return false;
       })();
     return (
       Array.isArray(input) &&

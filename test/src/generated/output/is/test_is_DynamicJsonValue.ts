@@ -11,20 +11,18 @@ export const test_is_DynamicJsonValue = _test_is(
       Object.keys(input).every((key: any) => {
         const value = input[key];
         if (undefined === value) return true;
-        if (true)
-          return (
-            null === value ||
-            undefined === value ||
-            "string" === typeof value ||
-            ("number" === typeof value && Number.isFinite(value)) ||
-            "boolean" === typeof value ||
-            (Array.isArray(value) && ($ia0(value) || false)) ||
-            ("object" === typeof value &&
-              null !== value &&
-              false === Array.isArray(value) &&
-              $io0(value))
-          );
-        return true;
+        return (
+          null === value ||
+          undefined === value ||
+          "string" === typeof value ||
+          ("number" === typeof value && Number.isFinite(value)) ||
+          "boolean" === typeof value ||
+          (Array.isArray(value) && ($ia0(value) || false)) ||
+          ("object" === typeof value &&
+            null !== value &&
+            false === Array.isArray(value) &&
+            $io0(value))
+        );
       });
     const $ia0 = (input: any): any =>
       input.every(

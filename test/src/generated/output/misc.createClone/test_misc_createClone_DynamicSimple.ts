@@ -11,8 +11,7 @@ export const test_misc_createClone_DynamicSimple = _test_misc_clone(
       Object.keys(input).every((key: any) => {
         const value = input[key];
         if (undefined === value) return true;
-        if (true) return "number" === typeof value;
-        return true;
+        return "number" === typeof value;
       });
     const $co0 = (input: any): any => ({
       value:

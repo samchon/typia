@@ -202,8 +202,8 @@ export const test_createRandom_ObjectGenericUnion = _test_random(
       const $iu0 = (input: any): any =>
         (() => {
           if ($io5(input)) return $io5(input);
-          else if ($io1(input)) return $io1(input);
-          else return false;
+          if ($io1(input)) return $io1(input);
+          return false;
         })();
       return "object" === typeof input && null !== input && $io0(input);
     };

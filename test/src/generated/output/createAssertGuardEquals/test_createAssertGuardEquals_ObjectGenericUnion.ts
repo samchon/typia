@@ -170,9 +170,9 @@ export const test_createAssertGuardEquals_ObjectGenericUnion =
         (() => {
           if ($io5(input, false && _exceptionable))
             return $io5(input, true && _exceptionable);
-          else if ($io1(input, false && _exceptionable))
+          if ($io1(input, false && _exceptionable))
             return $io1(input, true && _exceptionable);
-          else return false;
+          return false;
         })();
       return "object" === typeof input && null !== input && $io0(input, true);
     };
@@ -678,15 +678,14 @@ export const test_createAssertGuardEquals_ObjectGenericUnion =
           (() => {
             if ($ao5(input, _path, false && _exceptionable))
               return $ao5(input, _path, true && _exceptionable);
-            else if ($ao1(input, _path, false && _exceptionable))
+            if ($ao1(input, _path, false && _exceptionable))
               return $ao1(input, _path, true && _exceptionable);
-            else
-              return $guard(_exceptionable, {
-                path: _path,
-                expected:
-                  "(ObjectGenericUnion.ISaleReview | ObjectGenericUnion.ISaleQuestion)",
-                value: input,
-              });
+            return $guard(_exceptionable, {
+              path: _path,
+              expected:
+                "(ObjectGenericUnion.ISaleReview | ObjectGenericUnion.ISaleQuestion)",
+              value: input,
+            });
           })();
         return (
           ((("object" === typeof input && null !== input) ||

@@ -78,11 +78,9 @@ export const test_protobuf_createAssertDecode_DynamicTree =
               Object.keys(input).every((key: any) => {
                 const value = input[key];
                 if (undefined === value) return true;
-                if (true)
-                  return (
-                    "object" === typeof value && null !== value && $io0(value)
-                  );
-                return true;
+                return (
+                  "object" === typeof value && null !== value && $io0(value)
+                );
               });
             return "object" === typeof input && null !== input && $io0(input);
           };
@@ -139,26 +137,24 @@ export const test_protobuf_createAssertDecode_DynamicTree =
                 Object.keys(input).every((key: any) => {
                   const value = input[key];
                   if (undefined === value) return true;
-                  if (true)
-                    return (
-                      ((("object" === typeof value && null !== value) ||
-                        $guard(_exceptionable, {
-                          path: _path + $join(key),
-                          expected: "DynamicTree",
-                          value: value,
-                        })) &&
-                        $ao0(
-                          value,
-                          _path + $join(key),
-                          true && _exceptionable,
-                        )) ||
+                  return (
+                    ((("object" === typeof value && null !== value) ||
                       $guard(_exceptionable, {
                         path: _path + $join(key),
                         expected: "DynamicTree",
                         value: value,
-                      })
-                    );
-                  return true;
+                      })) &&
+                      $ao0(
+                        value,
+                        _path + $join(key),
+                        true && _exceptionable,
+                      )) ||
+                    $guard(_exceptionable, {
+                      path: _path + $join(key),
+                      expected: "DynamicTree",
+                      value: value,
+                    })
+                  );
                 });
               return (
                 ((("object" === typeof input && null !== input) ||
@@ -216,9 +212,7 @@ export const test_protobuf_createAssertDecode_DynamicTree =
           Object.keys(input).every((key: any) => {
             const value = input[key];
             if (undefined === value) return true;
-            if (true)
-              return "object" === typeof value && null !== value && $io0(value);
-            return true;
+            return "object" === typeof value && null !== value && $io0(value);
           });
         //DynamicTree;
         $peo0(input);

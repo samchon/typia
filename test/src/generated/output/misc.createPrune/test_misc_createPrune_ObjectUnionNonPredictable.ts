@@ -104,14 +104,13 @@ export const test_misc_createPrune_ObjectUnionNonPredictable = _test_misc_prune(
     const $pu0 = (input: any): any =>
       (() => {
         if ($io7(input)) return $po7(input);
-        else if ($io5(input)) return $po5(input);
-        else if ($io3(input)) return $po3(input);
-        else
-          $throws({
-            expected:
-              "(ObjectUnionNonPredictable.IWrapper<string> | ObjectUnionNonPredictable.IWrapper<number> | ObjectUnionNonPredictable.IWrapper<boolean>)",
-            value: input,
-          });
+        if ($io5(input)) return $po5(input);
+        if ($io3(input)) return $po3(input);
+        $throws({
+          expected:
+            "(ObjectUnionNonPredictable.IWrapper<string> | ObjectUnionNonPredictable.IWrapper<number> | ObjectUnionNonPredictable.IWrapper<boolean>)",
+          value: input,
+        });
       })();
     if ("object" === typeof input && null !== input) $po0(input);
   },

@@ -17,12 +17,10 @@ export const test_createValidate_DynamicArray = _test_validate(
       Object.keys(input).every((key: any) => {
         const value = input[key];
         if (undefined === value) return true;
-        if (true)
-          return (
-            Array.isArray(value) &&
-            value.every((elem: any) => "string" === typeof elem)
-          );
-        return true;
+        return (
+          Array.isArray(value) &&
+          value.every((elem: any) => "string" === typeof elem)
+        );
       });
     return "object" === typeof input && null !== input && $io0(input);
   };
@@ -66,32 +64,30 @@ export const test_createValidate_DynamicArray = _test_validate(
               .map((key: any) => {
                 const value = input[key];
                 if (undefined === value) return true;
-                if (true)
-                  return (
-                    ((Array.isArray(value) ||
-                      $report(_exceptionable, {
-                        path: _path + $join(key),
-                        expected: "Array<string>",
-                        value: value,
-                      })) &&
-                      value
-                        .map(
-                          (elem: any, _index1: number) =>
-                            "string" === typeof elem ||
-                            $report(_exceptionable, {
-                              path: _path + $join(key) + "[" + _index1 + "]",
-                              expected: "string",
-                              value: elem,
-                            }),
-                        )
-                        .every((flag: boolean) => flag)) ||
+                return (
+                  ((Array.isArray(value) ||
                     $report(_exceptionable, {
                       path: _path + $join(key),
                       expected: "Array<string>",
                       value: value,
-                    })
-                  );
-                return true;
+                    })) &&
+                    value
+                      .map(
+                        (elem: any, _index1: number) =>
+                          "string" === typeof elem ||
+                          $report(_exceptionable, {
+                            path: _path + $join(key) + "[" + _index1 + "]",
+                            expected: "string",
+                            value: elem,
+                          }),
+                      )
+                      .every((flag: boolean) => flag)) ||
+                  $report(_exceptionable, {
+                    path: _path + $join(key),
+                    expected: "Array<string>",
+                    value: value,
+                  })
+                );
               })
               .every((flag: boolean) => flag),
         ].every((flag: boolean) => flag);

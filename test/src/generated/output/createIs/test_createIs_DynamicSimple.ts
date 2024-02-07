@@ -15,8 +15,7 @@ export const test_createIs_DynamicSimple = _test_is(
     Object.keys(input).every((key: any) => {
       const value = input[key];
       if (undefined === value) return true;
-      if (true) return "number" === typeof value && Number.isFinite(value);
-      return true;
+      return "number" === typeof value && Number.isFinite(value);
     });
   return "object" === typeof input && null !== input && $io0(input);
 });

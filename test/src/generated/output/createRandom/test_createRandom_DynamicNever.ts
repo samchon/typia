@@ -30,8 +30,7 @@ export const test_createRandom_DynamicNever = _test_random(
         Object.keys(input).every((key: any) => {
           const value = input[key];
           if (undefined === value) return true;
-          if (true) return null !== value && undefined === value;
-          return true;
+          return null !== value && undefined === value;
         });
       return (
         "object" === typeof input &&
@@ -57,22 +56,20 @@ export const test_createRandom_DynamicNever = _test_random(
           Object.keys(input).every((key: any) => {
             const value = input[key];
             if (undefined === value) return true;
-            if (true)
-              return (
-                (null !== value ||
-                  $guard(_exceptionable, {
-                    path: _path + $join(key),
-                    expected: "undefined",
-                    value: value,
-                  })) &&
-                (undefined === value ||
-                  $guard(_exceptionable, {
-                    path: _path + $join(key),
-                    expected: "undefined",
-                    value: value,
-                  }))
-              );
-            return true;
+            return (
+              (null !== value ||
+                $guard(_exceptionable, {
+                  path: _path + $join(key),
+                  expected: "undefined",
+                  value: value,
+                })) &&
+              (undefined === value ||
+                $guard(_exceptionable, {
+                  path: _path + $join(key),
+                  expected: "undefined",
+                  value: value,
+                }))
+            );
           });
         return (
           ((("object" === typeof input &&
