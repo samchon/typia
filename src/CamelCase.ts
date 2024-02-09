@@ -107,7 +107,9 @@ interface IValueOf<T> {
 /* -----------------------------------------------------------
     STRING CONVERTER
 ----------------------------------------------------------- */
-type CamelizeString<Key extends string> = Key extends `${infer F}${infer R}`
+type CamelizeString<Key extends string> = Key extends `_${infer R}`
+  ? `_${CamelizeString<R>}`
+  : Key extends `${infer F}${infer R}`
   ? `${Lowercase<F>}${CamelizeStringRepeatedly<R>}`
   : Key;
 type CamelizeStringRepeatedly<Key extends string> =
