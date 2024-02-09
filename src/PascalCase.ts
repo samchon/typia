@@ -107,7 +107,9 @@ interface IValueOf<T> {
 /* -----------------------------------------------------------
     STRING CONVERTER
 ----------------------------------------------------------- */
-type PascalizeString<Key extends string> = Key extends `${infer F}${infer R}`
+type PascalizeString<Key extends string> = Key extends `_${infer R}`
+  ? `_${PascalizeString<R>}`
+  : Key extends `${infer F}${infer R}`
   ? `${Uppercase<F>}${PascalizeStringRepeatedly<R>}`
   : Key;
 type PascalizeStringRepeatedly<Key extends string> =
