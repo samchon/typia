@@ -182,9 +182,9 @@ JSON schema generator.
     - [`IJsonComponents`](https://github.com/samchon/typia/blob/master/src/schemas/json/IJsonComponents.ts)
     - [`IJsonSchema`](https://github.com/samchon/typia/blob/master/src/schemas/json/IJsonSchema.ts)
 
-When you need JSON schema, do not write it by yourself, but just call `typia.application()` function. 
+When you need JSON schema, do not write it by yourself, but just call `typia.json.application()` function. 
 
-If you call the `typia.application()` with specialization of target `Schemas`, `typia` will analyze your `Schemas` and generate JSON schema definition in the compilation level. However, note that, JSON schema definitions of AJV and Swagger are a little bit different. Therefore, you have to consider which value to assign in the `Purpose` argument.
+If you call the `typia.json.application()` with specialization of target `Schemas`, `typia` will analyze your `Schemas` and generate JSON schema definition in the compilation level. However, note that, JSON schema definitions of AJV and Swagger are a little bit different. Therefore, you have to consider which value to assign in the `Purpose` argument.
 
   - Swagger can't express tuple type
   - Swagger can't express pattern property
@@ -194,7 +194,7 @@ If you call the `typia.application()` with specialization of target `Schemas`, `
 ```typescript copy filename="examples/src/application.ts" showLineNumbers
 import typia, { tags } from "typia";
 
-export const MemberSchema = typia.application<[IMember], "ajv">();
+export const MemberSchema = typia.json.application<[IMember], "ajv">();
 
 interface IMember {
     /**
