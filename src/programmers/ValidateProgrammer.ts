@@ -7,6 +7,7 @@ import { TypeFactory } from "../factories/TypeFactory";
 
 import { IProject } from "../transformers/IProject";
 
+import { IValidation } from "../IValidation";
 import { CheckerProgrammer } from "./CheckerProgrammer";
 import { IsProgrammer } from "./IsProgrammer";
 import { FunctionImporter } from "./helpers/FunctionImporeter";
@@ -286,6 +287,13 @@ const create_report_call =
     path: ts.Expression,
     expected: string,
     value: ts.Expression,
+    // TODO: pass tag
+    tag: IValidation.IErrorTag = {
+      target: "number",
+      kind: "minimum",
+      value: 4,
+      exclusive: ["minimum", "exclusiveMinimum"],
+    },
   ): ts.Expression =>
     ts.factory.createCallExpression(
       ts.factory.createIdentifier("$report"),
@@ -300,6 +308,41 @@ const create_report_call =
               ts.factory.createStringLiteral(expected),
             ),
             ts.factory.createPropertyAssignment("value", value),
+            ts.factory.createPropertyAssignment(
+              "tag",
+              ts.factory.createObjectLiteralExpression([
+                ts.factory.createPropertyAssignment(
+                  "target",
+                  ts.factory.createStringLiteral(tag.target),
+                ),
+                ...(tag.kind
+                  ? [
+                      ts.factory.createPropertyAssignment(
+                        "kind",
+                        ts.factory.createStringLiteral(tag.kind),
+                      ),
+                    ]
+                  : []),
+                ts.factory.createPropertyAssignment(
+                  "exclusive",
+                  Array.isArray(tag.exclusive)
+                    ? ts.factory.createArrayLiteralExpression(
+                        tag.exclusive.map((e) =>
+                          ts.factory.createStringLiteral(e),
+                        ),
+                      )
+                    : tag.exclusive
+                    ? ts.factory.createTrue()
+                    : ts.factory.createFalse(),
+                ),
+                ts.factory.createPropertyAssignment(
+                  "value",
+                  typeof tag.value === "number"
+                    ? ts.factory.createNumericLiteral(tag.value)
+                    : ts.factory.createStringLiteral(tag.value.toString()),
+                ),
+              ]),
+            ),
           ],
           true,
         ),

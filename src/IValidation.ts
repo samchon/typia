@@ -1,3 +1,5 @@
+import { IMetadataTypeTag } from "./schemas/metadata/IMetadataTypeTag";
+
 export type IValidation<T = unknown> =
   | IValidation.ISuccess<T>
   | IValidation.IFailure;
@@ -17,5 +19,13 @@ export namespace IValidation {
     path: string;
     expected: string;
     value: any;
+    tag: IErrorTag;
+  }
+
+  export interface IErrorTag {
+    target: IMetadataTypeTag["target"];
+    kind?: IMetadataTypeTag["kind"];
+    value: IMetadataTypeTag["value"];
+    exclusive: IMetadataTypeTag["exclusive"];
   }
 }
