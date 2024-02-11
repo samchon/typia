@@ -94,6 +94,14 @@ const check_numeric_type_tags =
               {
                 expected: "number",
                 expression: addition!,
+                tag: {
+                  target: "number" as const,
+                  name: "number",
+                  kind: "number",
+                  value: undefined,
+                  exclusive: [],
+                  validate: undefined,
+                },
               },
             ]),
         ...row.map((tag) => ({
@@ -102,5 +110,6 @@ const check_numeric_type_tags =
             tag.predicate ??
             ExpressionFactory.transpile(project.context)(tag.validate!)
           )(input),
+          tag,
         })),
       ]);

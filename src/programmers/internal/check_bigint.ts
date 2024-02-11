@@ -45,5 +45,6 @@ const check_bigint_type_tags =
             tag.predicate ??
             ExpressionFactory.transpile(project.context)(tag.validate!)
           )(input),
+          tag,
         })),
       );
