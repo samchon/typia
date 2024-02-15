@@ -70,7 +70,7 @@ Yeah, `typia` needs only pure TypeScript type. As `typia` is a compiler library,
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
     <Tab>
 ```typescript copy filename="examples/src/validate.ts" showLineNumbers
-import typia from "typia";
+import typia, { tags } from "typia";
 
 const res: typia.IValidation<IMember> = typia.validate<IMember>({
     id: 5, // wrong, must be string (uuid)
