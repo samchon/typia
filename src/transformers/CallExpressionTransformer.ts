@@ -136,7 +136,7 @@ export namespace CallExpressionTransformer {
   const isTarget = (location: string): boolean => {
     const files: string[] = Object.keys(FUNCTORS);
     return files.some((f) =>
-      location.includes(path.join("node_modules", "typia", "lib", `${f}.d.ts`)),
+      location.includes(path.join("typia", "lib", `${f}.d.ts`)),
     );
   };
 }
