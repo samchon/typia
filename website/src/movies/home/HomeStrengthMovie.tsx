@@ -109,7 +109,7 @@ const HomeStrengthMovie = () => (
         position: "relative",
       }}
     >
-      <Grid container spacing={3}>
+      <Grid container spacing={2}>
         {sections.map(HomeStrengthSectionMovie)}
       </Grid>
     </Container>

@@ -1,0 +1,7 @@
+@media (min-width: 1200px) {
+    #home-strength ~ * {
+        max-width: 1156px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
