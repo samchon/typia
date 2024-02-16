@@ -9,16 +9,11 @@
     }
   },
   "docs": {
-    "title": "📖 Guide Documents",
+    "title": "Docs",
     "type": "page"
   },
   "playground": {
-    "title": "💻 Playground",
+    "title": "Playground",
     "type": "page"
-  },
-  "contact": {
-    "title": "✉ Contact Me",
-    "type": "page",
-    "href": "mailto:samchon.github@gmail.com"
   }
 }

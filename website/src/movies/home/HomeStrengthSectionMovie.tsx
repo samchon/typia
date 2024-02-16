@@ -9,29 +9,32 @@ import {
 } from "@mui/material";
 
 const HomeStrengthSectionMovie = (props: HomeStrengthSectionMovie.Props) => (
-  <Grid item xs={12} md={6}>
-    <Box>
+  <Grid item xs={12} sm={6} md={4}>
+    <Box style={{background: '#88888811', borderRadius: 5}}>
       <CardActionArea href={props.href}>
         <br />
         <div
           style={{
-            alignItems: "center",
-            justifyContent: "center",
-            display: "flex",
+            borderRadius: 6,
+            background: '#88888822',
+            width: 'fit-content',
+            padding: '0.6rem',
+            marginLeft: 16,
+              marginBottom: -24
           }}
         >
           <Box
             component="img"
             src={props.image}
             sx={{
-              width: props.width,
-              height: props.height ?? 100,
+              width: 60,
+              height: 60,
             }}
           />
         </div>
         <br />
-        <CardContent style={{ textAlign: "center" }}>
-          <Typography variant="h5">{props.title}</Typography>
+        <CardContent>
+          <Typography variant="h5" style={{fontWeight: 600}}>{props.title}</Typography>
           <Typography color="text.secondary" sx={{ paddingTop: 0.5 }}>
             {props.subTitle}
           </Typography>
@@ -39,7 +42,6 @@ const HomeStrengthSectionMovie = (props: HomeStrengthSectionMovie.Props) => (
           {props.description}
         </CardContent>
       </CardActionArea>
-      <Divider />
     </Box>
   </Grid>
 );
