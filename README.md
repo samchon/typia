@@ -7,6 +7,18 @@
 [![Build Status](https://github.com/samchon/typia/workflows/build/badge.svg)](https://github.com/samchon/typia/actions?query=workflow%3Abuild)
 [![Guide Documents](https://img.shields.io/badge/guide-documents-forestgreen)](https://typia.io/docs/)
 
+```bash
+npm install typia
+```
+
+```bash
+yarn add typia
+```
+
+```bash
+pnpm add typia
+```
+
 ```typescript
 // RUNTIME VALIDATORS
 export function is<T>(input: unknown): input is T; // returns boolean
