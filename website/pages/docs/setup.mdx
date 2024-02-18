@@ -8,20 +8,17 @@ import AlertTitle from '@mui/material/AlertTitle';
 <Tabs items={['npm', 'pnpm', 'yarn']}>
     <Tab>
 ```bash filename="Terminal" showLineNumbers copy
-npm install typia
 npx typia setup
 ```
     </Tab>
     <Tab>
 ```bash filename="Terminal" showLineNumbers copy
-pnpm install typia
 pnpm typia setup --manager pnpm
 ```
     </Tab>
     <Tab>
 ```bash filename="Terminal" showLineNumbers copy
 # YARN BERRY IS NOT SUPPORTED
-yarn add typia
 yarn typia setup --manager yarn
 ```
     </Tab>
@@ -48,7 +45,7 @@ npx typia generate \
     <Tab>
 ```bash filename="Terminal" showLineNumbers copy
 pnpm install typia
-pnpm install --save-dev typescript
+pnpm install -D typescript
 
 pnpm typia generate \
     --input src/templates \
