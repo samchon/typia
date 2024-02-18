@@ -9,11 +9,11 @@
     }
   },
   "docs": {
-    "title": "Documentation",
+    "title": "📖 Guide Documents",
     "type": "page"
   },
   "playground": {
-    "title": "Playground",
+    "title": "💻 Playground",
     "type": "page"
   }
 }
