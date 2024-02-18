@@ -5,3 +5,18 @@
         margin-right: auto;
     }
 }
+
+#main-link {
+    max-width: 560px;
+}
+
+@media (min-width: 1144px) {
+    #main-link {
+        max-width: 1100px;
+    }
+}
+
+body.top nav, body.top .nextra-nav-container, body.top .nextra-nav-container > div {
+    border-bottom: none !important;
+    box-shadow: none !important;
+}
