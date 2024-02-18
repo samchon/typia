@@ -1,5 +1,13 @@
 name: build
-on: [push, pull_request]
+on: 
+  push:
+    paths:
+      - 'src/**'
+      - 'test/**'
+  pull_request:
+    paths:
+      - 'src/**'
+      - 'test/**'
 
 jobs:
   Ubuntu:
