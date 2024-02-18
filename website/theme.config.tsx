@@ -9,13 +9,12 @@ const config: DocsThemeConfig = {
         style={{
           fontWeight: "bold",
           fontSize: "1.2rem",
-          paddingLeft: 10,
+          paddingLeft: 15,
           paddingRight: 10,
         }}
       >
         Typia
       </span>
-      <span>Super-fast Validator</span>
     </>
   ),
   project: {
@@ -29,14 +28,18 @@ const config: DocsThemeConfig = {
   footer: {
     text: () => (
       <span>
-        Made by{" "}
+        Released under the MIT License.
+        <br />
+        <br />
+        Copyright 2022 - {new Date().getFullYear()}{" "}
         <a
           href="https://github.com/samchon"
           target="_blank"
-          style={{ color: "blue" }}
+          style={{ color: "initial" }}
         >
-          <u> Samchon </u>
-        </a>
+          <u>Samchon</u>
+        </a>{" "}
+        & Contributors
       </span>
     ),
   },
