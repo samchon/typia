@@ -9,7 +9,7 @@ const config: DocsThemeConfig = {
         style={{
           fontWeight: "bold",
           fontSize: "1.2rem",
-          paddingLeft: 10,
+          paddingLeft: 15,
           paddingRight: 10,
         }}
       >
@@ -27,17 +27,19 @@ const config: DocsThemeConfig = {
   docsRepositoryBase: "https://github.com/samchon/typia/blob/master/website",
   footer: {
     text: () => (
-        <span>
-          Released under the MIT License. <br/>
-          Copyright 2022 - {new Date().getFullYear()}{" "}
-          <a
-              href="https://github.com/samchon"
-              target="_blank"
-              style={{color: "initial"}}
-          >
+      <span>
+        Released under the MIT License.
+        <br />
+        <br />
+        Copyright 2022 - {new Date().getFullYear()}{" "}
+        <a
+          href="https://github.com/samchon"
+          target="_blank"
+          style={{ color: "initial" }}
+        >
           <u>Samchon</u>
-        </a>
-          {" "}& Contributors
+        </a>{" "}
+        & Contributors
       </span>
     ),
   },
