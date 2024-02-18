@@ -52,6 +52,7 @@ const LinkButton = (props: {children: any, href: string}) => (
         fontSize: '1.1rem',
         display: 'inline-block',
         marginRight: '0.4rem',
+        marginTop: '0.4rem',
     }} href={props.href}>
         {props.children}
     </a>
@@ -59,15 +60,14 @@ const LinkButton = (props: {children: any, href: string}) => (
 
 const HomeHeroMovie = () => (
     <ProductHeroLayout>
-        <br/>
-        <br/>
-        <br/>
         <div style={{
             width: '100%',
             display: 'flex',
             flexWrap: 'wrap',
+            marginTop: 'calc(40vh - 280px)',
+            justifyContent: 'center'
         }}>
-            <div style={{marginTop: '1rem', minWidth: '540px'}}>
+            <div style={{marginTop: '1rem', minWidth: 'min(100%, 540px)'}}>
                 <Typography
                     color="transparent"
                     variant="h2"
@@ -78,7 +78,8 @@ const HomeHeroMovie = () => (
                         WebkitBackgroundClip: "text",
                         WebkitTextFillColor: "transparent",
                         marginBottom: "0.4rem",
-                        display: "inline-block"
+                        display: "inline-block",
+                        fontSize: "min(calc(2.5vw + 30px), 58px)",
                     }}
                 >
                     Typia,
@@ -88,6 +89,7 @@ const HomeHeroMovie = () => (
                     fontWeight={700}
                     sx={{
                         marginBottom: "0.4rem",
+                        fontSize: "min(calc(2.5vw + 30px), 58px)",
                     }}
                 >
                     Super-Fast<br/>Runtime Validator
@@ -95,7 +97,10 @@ const HomeHeroMovie = () => (
 
                 <Typography
                     variant="h4"
-                    sx={{fontWeight: "bold", opacity: 0.7}}
+                    sx={{
+                        fontWeight: "bold", opacity: 0.7,
+                        fontSize: "min(calc(1.5vw + 16px), 32px)",
+                    }}
                 >
                     With NO manual typing
                 </Typography>
@@ -110,13 +115,15 @@ const HomeHeroMovie = () => (
                 height: 'fit-content',
                 margin: '-24px -24px -24px 0',
             }}/>
+            <div style={{width: '100%'}} id="main-link">
+                <LinkButtonPrimary href="/docs">Documentation</LinkButtonPrimary>
+                <LinkButton href="/playground">Playground</LinkButton>
+                <LinkButton href="https://github.com/samchon/typia">Github</LinkButton>
+            </div>
         </div>
-        <div style={{width: '100%'}}>
-            <LinkButtonPrimary href="/docs">Get Started</LinkButtonPrimary>
-            <LinkButton href="/playground">Playground</LinkButton>
-            <LinkButton href="https://github.com/samchon/typia">Github</LinkButton>
-        </div>
-        <br />
+        <br/>
+        <br/>
+        <br/>
     </ProductHeroLayout>
 );
 export default HomeHeroMovie;
