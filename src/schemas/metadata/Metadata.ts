@@ -318,6 +318,13 @@ export namespace Metadata {
       if (x.natives.some((xn) => y.natives.some((yn) => xn === yn)))
         return true;
 
+    // ESCAPED
+    if (x.escaped && y.escaped)
+      return (
+        intersects(x.escaped.original, y.escaped.original) ||
+        intersects(x.escaped.returns, y.escaped.returns)
+      );
+
     //----
     // VALUES
     //----
@@ -362,11 +369,23 @@ export namespace Metadata {
     x: Metadata,
     y: Metadata,
     level: number = 0,
+    escaped: boolean = false,
   ): boolean => {
     // CHECK ANY
     if (x === y) return false;
     else if (x.any) return true;
     else if (y.any) return false;
+
+    if (escaped === false) {
+      if (x.escaped === null && y.escaped !== null) return false;
+      else if (
+        x.escaped !== null &&
+        y.escaped !== null &&
+        (!covers(x.escaped.original, y.escaped.original, level, true) ||
+          !covers(x.escaped.returns, y.escaped.returns, level, true))
+      )
+        return false;
+    }
 
     //----
     // INSTANCES
