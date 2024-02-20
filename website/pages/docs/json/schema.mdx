@@ -1,178 +1,191 @@
 import { Tabs, Tab } from 'nextra-theme-docs'
-import Alert from '@mui/material/Alert';
-import AlertTitle from '@mui/material/AlertTitle';
 
 ## `application()` function
 <Tabs items={[
-    <code>typia</code>, 
-    <code>IJsonApplication.ts</code>, 
-    <code>IJsonComponents.ts</code>,
-    <code>IJsonSchema.ts</code>
+  <code>typia</code>, 
+  <code>IJsonApplication.ts</code>, 
+  <code>IJsonComponents.ts</code>,
+  <code>IJsonSchema.ts</code>
 ]}>
-    <Tab>
+  <Tab>
 ```typescript copy
 export namespace json {
-    export function application<
-        Schemas extends unknown[],
-        Purpose extends "ajv" | "swagger" = "swagger",
-        Surplus extends boolean = false,
-    >(): IJsonApplication;
+  export function application<
+    Schemas extends unknown[],
+    Purpose extends "ajv" | "swagger" = "swagger",
+    Surplus extends boolean = false,
+  >(): IJsonApplication;
 }
 ```
-    </Tab>
-    <Tab>
+  </Tab>
+  <Tab>
 ```typescript copy
 export interface IJsonApplication {
-    schemas: IJsonSchema[];
-    components: IJsonComponents;
-    purpose: "swagger" | "ajv";
-    surplus: boolean;
+  schemas: IJsonSchema[];
+  components: IJsonComponents;
+  purpose: "swagger" | "ajv";
+  surplus: boolean;
 }
 ```
-    </Tab>
-    <Tab>
+  </Tab>
+  <Tab>
 ```typescript copy
 export interface IJsonComponents {
-    schemas: Record<string, IJsonComponents.IAlias>;
+  schemas: Record<string, IJsonComponents.IAlias>;
 }
 export namespace IJsonComponents {
-    export type IAlias = IJsonSchema & IIndentified;
-    interface IIdentified {
+  export type IAlias = IJsonSchema & IIndentified;
+  interface IIdentified {
     $id?: undefined | string;
     $recursiveAnchor?: undefined | boolean;
   }
 }
 ```
-    </Tab>
-    <Tab>
+  </Tab>
+  <Tab>
 ```typescript copy showLineNumbers
-export type IJsonSchema = IJsonSchema.NotUnknown | IJsonSchema.IUnknown;
+export type IJsonSchema = IJsonSchema.Known | IJsonSchema.IUnknown;
 export namespace IJsonSchema {
-    export type NotUnknown =
-        | IEnumeration<"boolean">
-        | IEnumeration<"number">
-        | IEnumeration<"string">
-        | IBoolean
-        | IInteger
-        | INumber
-        | IString
-        | IArray
-        | ITuple
-        | IObject
-        | IReference
-        | INullOnly
-        | IOneOf;
+  export type Known =
+    | IEnumeration<"boolean">
+    | IEnumeration<"number">
+    | IEnumeration<"string">
+    | IBoolean
+    | IInteger
+    | INumber
+    | IString
+    | IArray
+    | ITuple
+    | IObject
+    | IReference
+    | INullOnly
+    | IOneOf;
 
-    /* -----------------------------------------------------------
+  export interface IUnknown extends IAttribute {
+    type?: undefined | undefined;
+  }
+
+  /* -----------------------------------------------------------
         ATOMICS
     ----------------------------------------------------------- */
-    export interface IEnumeration<
-        Literal extends Exclude<Atomic.Literal, "bigint">,
-    > extends IAtomic<Literal> {
-        enum: Array<Atomic.Mapper[Literal]>;
-    }
-    export interface IAtomic<Literal extends Exclude<Atomic.Literal, "bigint">>
-        extends ISignificant<Literal> {
-        default?: Atomic.Mapper[Literal];
-    }
-    export interface IString extends IAtomic<"string"> {
-        /**
-         * @type uint
-         */
-        minLength?: number;
-        /**
-         * @type uint
-         */
-        maxLength?: number;
-        pattern?: string;
-        format?: string;
-    }
-    export interface INumber extends IAtomic<"number"> {
-        minimum?: number;
-        maximum?: number;
-        exclusiveMinimum?: boolean;
-        exclusiveMaximum?: boolean;
-        multipleOf?: number;
-    }
-    export interface IInteger extends IAtomic<"integer"> {
-        /**
-         * @type int
-         */
-        minimum?: number;
-        /**
-         * @type int
-         */
-        maximum?: number;
-        exclusiveMinimum?: boolean;
-        exclusiveMaximum?: boolean;
-        /**
-         * @type int
-         */
-        multipleOf?: number;
-    }
-    export interface IBoolean extends IAtomic<"boolean"> {}
+  export interface IEnumeration<
+    Literal extends Exclude<Atomic.Literal, "bigint">,
+  > extends Omit<IAtomic<Literal>, "x-typia-typeTags"> {
+    enum: Array<Atomic.Mapper[Literal]>;
+  }
+  export interface IAtomic<Literal extends Exclude<Atomic.Literal, "bigint">>
+    extends ISignificant<Literal> {
+    default?: undefined | Atomic.Mapper[Literal];
+  }
+  export interface IString extends IAtomic<"string"> {
+    minLength?: undefined | (number & Type<"uint32">);
+    maxLength?: undefined | (number & Type<"uint32">);
+    pattern?: undefined | string;
+    format?:
+      | undefined
+      | "binary"
+      | "byte"
+      | "password"
+      | "regex"
+      | "uuid"
+      | "email"
+      | "hostname"
+      | "idn-email"
+      | "idn-hostname"
+      | "iri"
+      | "iri-reference"
+      | "ipv4"
+      | "ipv6"
+      | "uri"
+      | "uri-reference"
+      | "uri-template"
+      | "url"
+      | "date-time"
+      | "date"
+      | "time"
+      | "duration"
+      | "json-pointer"
+      | "relative-json-pointer"
+      | (string & {});
+    "x-typia-typeTags"?: undefined | IMetadataTypeTag[];
+  }
+  export interface INumber extends IAtomic<"number"> {
+    minimum?: undefined | number;
+    maximum?: undefined | number;
+    exclusiveMinimum?: undefined | boolean;
+    exclusiveMaximum?: undefined | boolean;
+    multipleOf?: undefined | number;
+    "x-typia-typeTags"?: undefined | IMetadataTypeTag[];
+  }
+  export interface IInteger extends IAtomic<"integer"> {
+    minimum?: undefined | (number & Type<"int32">);
+    maximum?: undefined | (number & Type<"int32">);
+    exclusiveMinimum?: undefined | boolean;
+    exclusiveMaximum?: undefined | boolean;
+    multipleOf?: undefined | (number & Type<"int32">);
+    "x-typia-typeTags"?: undefined | IMetadataTypeTag[];
+  }
+  export interface IBoolean extends IAtomic<"boolean"> {
+    "x-typia-typeTags"?: undefined | IMetadataTypeTag[];
+  }
 
-    /* -----------------------------------------------------------
+  /* -----------------------------------------------------------
         OBJECTS
     ----------------------------------------------------------- */
-    export interface IArray extends ISignificant<"array"> {
-        items: IJsonSchema;
-        /**
-         * @type uint
-         */
-        minItems?: number;
-        /**
-         * @type uint
-         */
-        maxItems?: number;
-        "x-typia-tuple"?: ITuple;
-    }
-    export interface ITuple extends ISignificant<"array"> {
-        items: IJsonSchema[];
-    }
-    export interface IObject extends ISignificant<"object"> {
-        properties: Record<string, IJsonSchema>;
-        required?: undefined | string[];
-        patternProperties?: undefined | Record<string, IJsonSchema>;
-        additionalProperties?: undefined | IJsonSchema;
-        "x-typia-patternProperties"?: undefined | Record<string, IJsonSchema>;
-        "x-typia-additionalProperties"?: undefined | IJsonSchema;
-    }
-    export interface IReference extends IAttribute {
-        $ref: string;
-    }
-    export interface IRecursiveReference extends IAttribute {
-        $recursiveRef: string;
-    }
-    export interface INullOnly extends IAttribute {
-        type: "null";
-    }
+  export interface IArray extends ISignificant<"array"> {
+    items: IJsonSchema;
+    minItems?: undefined | (number & Type<"uint32">);
+    maxItems?: undefined | (number & Type<"uint32">);
+    "x-typia-tuple"?: undefined | ITuple;
+    "x-typia-typeTags"?: undefined | IMetadataTypeTag[];
+  }
+  export interface ITuple extends ISignificant<"array"> {
+    items: IJsonSchema[];
+    minItems: number & Type<"uint32">;
+    maxItems?: undefined | (number & Type<"uint32">);
+  }
+  export interface IObject extends ISignificant<"object"> {
+    properties: Record<string, IJsonSchema>;
+    required?: undefined | string[];
+    patternProperties?: undefined | Record<string, IJsonSchema>;
+    additionalProperties?: undefined | IJsonSchema;
+    "x-typia-patternProperties"?: undefined | Record<string, IJsonSchema>;
+    "x-typia-additionalProperties"?: undefined | IJsonSchema;
+  }
+  export interface IReference extends IAttribute {
+    $ref: string;
+  }
+  export interface INullOnly extends IAttribute {
+    type: "null";
+  }
 
-    /* -----------------------------------------------------------
+  /* -----------------------------------------------------------
         MISCELLANEOUS
     ----------------------------------------------------------- */
-    export interface IOneOf extends IAttribute {
-        oneOf: IJsonSchema[];
-    }
-    export interface IUnknown {
-        type: undefined;
-    }
+  export interface IOneOf extends IAttribute {
+    oneOf: IJsonSchema[];
+  }
 
-    export interface ISignificant<Literal extends string> extends IAttribute {
-        type: Literal;
-        nullable: boolean;
-    }
-    export interface IAttribute {
-        deprecated?: boolean;
-        title?: string;
-        description?: string;
-        "x-typia-jsDocTags"?: IJsDocTagInfo[];
-        "x-typia-required"?: boolean;
-        "x-typia-rest"?: boolean;
-    }
+  export interface ISignificant<Literal extends string> extends IAttribute {
+    type: Literal;
+
+    /**
+     * Only when swagger mode.
+     */
+    nullable?: undefined | boolean;
+  }
+  export interface IAttribute {
+    deprecated?: undefined | boolean;
+    title?: undefined | string;
+    description?: undefined | string;
+    "x-typia-jsDocTags"?: undefined | IJsDocTagInfo[];
+    "x-typia-required"?: undefined | boolean;
+    "x-typia-optional"?: undefined | boolean;
+    "x-typia-rest"?: undefined | boolean;
+  }
 }
 ```
-    </Tab>
+  </Tab>
 </Tabs>
 
 JSON schema generator.
@@ -190,85 +203,89 @@ If you call the `typia.json.application()` with specialization of target `Schema
   - Swagger can't express pattern property
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
-    <Tab>
+  <Tab>
 ```typescript copy filename="examples/src/application.ts" showLineNumbers
 import typia, { tags } from "typia";
 
 export const MemberSchema = typia.json.application<[IMember], "ajv">();
 
 interface IMember {
-    /**
-     * Unique user ID generated by server.
-     */
-    id: string & tags.Format<"uuid">;
+  /**
+   * Unique user ID generated by server.
+   */
+  id: string & tags.Format<"uuid">;
 
-    /**
-     * Email address of the member.
-     */
-    email: string & tags.Format<"email">;
+  /**
+   * Email address of the member.
+   */
+  email: string & tags.Format<"email">;
 
-    /**
-     * Age of the member.
-     * 
-     * For reference, only adult can be a member.
-     */
-    age: number 
-        & tags.Type<"uint32"> 
-        & tags.ExclusiveMinimum<19> 
-        & tags.Maximum<100>;
+  /**
+   * Age of the member.
+   *
+   * For reference, only adult can be a member.
+   */
+  age: number &
+    tags.Type<"uint32"> &
+    tags.ExclusiveMinimum<19> &
+    tags.Maximum<100>;
 }
 ```
-    </Tab>
-    <Tab>
+  </Tab>
+  <Tab>
 ```javascript filename="examples/bin/application.js" showLineNumbers
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
+var __importDefault =
+  (this && this.__importDefault) ||
+  function (mod) {
+    return mod && mod.__esModule ? mod : { default: mod };
+  };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.MemberSchema = void 0;
 const typia_1 = __importDefault(require("typia"));
 exports.MemberSchema = {
-    schemas: [
-        {
-            $ref: "#/components/schemas/IMember"
-        }
-    ],
-    components: {
-        schemas: {
-            IMember: {
-                $id: "#/components/schemas/IMember",
-                type: "object",
-                properties: {
-                    id: {
-                        description: "Unique user ID generated by server.",
-                        "x-typia-required": true,
-                        "x-typia-optional": false
-                    },
-                    email: {
-                        description: "Email address of the member.",
-                        "x-typia-required": true,
-                        "x-typia-optional": false
-                    },
-                    age: {
-                        description: "Age of the member.\n\nFor reference, only adult can be a member.",
-                        "x-typia-required": true,
-                        "x-typia-optional": false
-                    }
-                },
-                required: [
-                    "id",
-                    "email",
-                    "age"
-                ],
-                "x-typia-jsDocTags": []
-            }
-        }
+  schemas: [
+    {
+      $ref: "#/components/schemas/IMember",
     },
-    purpose: "ajv"
+  ],
+  components: {
+    schemas: {
+      IMember: {
+        $id: "#/components/schemas/IMember",
+        type: "object",
+        properties: {
+          id: {
+            type: "string",
+            format: "uuid",
+            title: "Unique user ID generated by server",
+            description: "Unique user ID generated by server.",
+          },
+          email: {
+            type: "string",
+            format: "email",
+            title: "Email address of the member",
+            description: "Email address of the member.",
+          },
+          age: {
+            type: "integer",
+            minimum: 19,
+            exclusiveMinimum: true,
+            maximum: 100,
+            title: "Age of the member",
+            description:
+              "Age of the member.\n\nFor reference, only adult can be a member.",
+          },
+        },
+        required: ["id", "email", "age"],
+      },
+    },
+  },
+  purpose: "ajv",
+  surplus: false,
 };
 ```
-    </Tab>
+  </Tab>
 </Tabs>
 
 
@@ -291,167 +308,169 @@ Let's see how those [type tags](../validators/tags/#type-tags), comment tags and
 
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
-    <Tab>
+  <Tab>
 ```typescript copy filename="examples/src/application-comment-tags.ts" showLineNumbers
 import typia, { tags } from "typia";
 
 export const SpecialTagSchema = typia.json.application<[Special], "swagger">();
 
 interface Special {
-    /**
-     * Deprecated tags are just used for marking.
-     * 
-     * @title Unsigned integer
-     * @deprecated
-     */
-    type: number & tags.Type<"int32">;
+  /**
+   * Deprecated tags are just used for marking.
+   *
+   * @title Unsigned integer
+   * @deprecated
+   */
+  type: number & tags.Type<"int32">;
 
-    /**
-     * Internal tagged property never be shown in JSON schema.
-     * 
-     * It even doesn't be shown in other `typia` functions like `assert<T>()`.
-     * 
-     * @internal
-     */
-    internal: number[];
+  /**
+   * Internal tagged property never be shown in JSON schema.
+   *
+   * It even doesn't be shown in other `typia` functions like `assert<T>()`.
+   *
+   * @internal
+   */
+  internal: number[];
 
-    /**
-     * Hidden tagged property never be shown in JSON schema.
-     * 
-     * However, it would be shown in other `typia` functions like `stringify<T>()`.
-     * 
-     * @hidden
-     */
-    hidden: boolean;
+  /**
+   * Hidden tagged property never be shown in JSON schema.
+   *
+   * However, it would be shown in other `typia` functions like `stringify<T>()`.
+   *
+   * @hidden
+   */
+  hidden: boolean;
 
-    /**
-     * You can limit the range of number.
-     * 
-     * @exclusiveMinimum 19
-     * @maximum 100
-     * @default 30
-     */
-    number?: number;
+  /**
+   * You can limit the range of number.
+   *
+   * @exclusiveMinimum 19
+   * @maximum 100
+   * @default 30
+   */
+  number?: number;
 
-    /**
-     * You can limit the length of string.
-     * 
-     * Also, multiple range conditions are also possible.
-     */
-    string: string & (
-        | (tags.MinLength<3> & tags.MaxLength<24>)
-        | (tags.MinLength<40> & tags.MaxLength<100>)
+  /**
+   * You can limit the length of string.
+   *
+   * Also, multiple range conditions are also possible.
+   */
+  string: string &
+    (
+      | (tags.MinLength<3> & tags.MaxLength<24>)
+      | (tags.MinLength<40> & tags.MaxLength<100>)
     );
 
-    /**
-     * You can limit the pattern of string.
-     * 
-     * @pattern ^[a-z]+$
-     */
-    pattern: string;
+  /**
+   * You can limit the pattern of string.
+   *
+   * @pattern ^[a-z]+$
+   */
+  pattern: string;
 
-    /**
-     * You can limit the format of string.
-     * 
-     * @format date-time
-     */
-    format: string | null;
-    
-    /**
-     * In the Array case, possible to restrict its elements.
-     */
-    array: Array<string & tags.Format<"uuid">> & tags.MinItems<3>;
+  /**
+   * You can limit the format of string.
+   *
+   * @format date-time
+   */
+  format: string | null;
+
+  /**
+   * In the Array case, possible to restrict its elements.
+   */
+  array: Array<string & tags.Format<"uuid">> & tags.MinItems<3>;
 }
 ```
-    </Tab>
-    <Tab>
+  </Tab>
+  <Tab>
 ```javascript filename="examples/bin/application-comment-tags.js" showLineNumbers
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
+var __importDefault =
+  (this && this.__importDefault) ||
+  function (mod) {
+    return mod && mod.__esModule ? mod : { default: mod };
+  };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SpecialTagSchema = void 0;
 const typia_1 = __importDefault(require("typia"));
 exports.SpecialTagSchema = {
-    schemas: [
-        {
-            $ref: "#/components/schemas/Special"
-        }
-    ],
-    components: {
-        schemas: {
-            Special: {
-                type: "object",
-                properties: {
-                    type: {
-                        deprecated: true,
-                        title: "Unsigned integer",
-                        description: "Deprecated tags are just used for marking.",
-                        type: "integer"
-                    },
-                    number: {
-                        description: "You can limit the range of number.",
-                        type: "number",
-                        minimum: 19,
-                        exclusiveMinimum: true,
-                        maximum: 100,
-                        "default": 30
-                    },
-                    string: {
-                        oneOf: [
-                            {
-                                description: "You can limit the length of string.\n\nAlso, multiple range conditions are also possible.",
-                                type: "string",
-                                maxLength: 24,
-                                minLength: 3
-                            },
-                            {
-                                description: "You can limit the length of string.\n\nAlso, multiple range conditions are also possible.",
-                                type: "string",
-                                maxLength: 100,
-                                minLength: 40
-                            }
-                        ],
-                        description: "You can limit the length of string.\n\nAlso, multiple range conditions are also possible."
-                    },
-                    pattern: {
-                        description: "You can limit the pattern of string.",
-                        type: "string",
-                        pattern: "^[a-z]+$"
-                    },
-                    format: {
-                        description: "You can limit the format of string.",
-                        type: "string",
-                        format: "date-time",
-                        nullable: true
-                    },
-                    array: {
-                        description: "In the Array case, possible to restrict its elements.",
-                        type: "array",
-                        items: {
-                            description: "In the Array case, possible to restrict its elements.",
-                            type: "string",
-                            format: "uuid"
-                        },
-                        minItems: 3
-                    }
-                },
-                nullable: false,
-                required: [
-                    "type",
-                    "string",
-                    "pattern",
-                    "format",
-                    "array"
-                ]
-            }
-        }
+  schemas: [
+    {
+      $ref: "#/components/schemas/Special",
     },
-    purpose: "swagger"
+  ],
+  components: {
+    schemas: {
+      Special: {
+        type: "object",
+        properties: {
+          type: {
+            type: "integer",
+            deprecated: true,
+            title: "Unsigned integer",
+            description: "Deprecated tags are just used for marking.",
+          },
+          number: {
+            type: "number",
+            minimum: 19,
+            exclusiveMinimum: true,
+            maximum: 100,
+            default: 30,
+            title: "You can limit the range of number",
+            description: "You can limit the range of number.",
+          },
+          string: {
+            oneOf: [
+              {
+                type: "string",
+                maxLength: 24,
+                minLength: 3,
+              },
+              {
+                type: "string",
+                maxLength: 100,
+                minLength: 40,
+              },
+            ],
+            title: "You can limit the length of string",
+            description:
+              "You can limit the length of string.\n\nAlso, multiple range conditions are also possible.",
+          },
+          pattern: {
+            type: "string",
+            pattern: "^[a-z]+$",
+            title: "You can limit the pattern of string",
+            description: "You can limit the pattern of string.",
+          },
+          format: {
+            type: "string",
+            format: "date-time",
+            nullable: true,
+            title: "You can limit the format of string",
+            description: "You can limit the format of string.",
+          },
+          array: {
+            type: "array",
+            items: {
+              type: "string",
+              format: "uuid",
+            },
+            minItems: 3,
+            title: "In the Array case, possible to restrict its elements",
+            description:
+              "In the Array case, possible to restrict its elements.",
+          },
+        },
+        nullable: false,
+        required: ["type", "string", "pattern", "format", "array"],
+      },
+    },
+  },
+  purpose: "swagger",
+  surplus: false,
 };
 ```
-    </Tab>
+  </Tab>
 </Tabs>
 
 
@@ -463,23 +482,23 @@ JSON schema does not support `bigint` type.
 So if you use `bigint` type in one of your onetarget schemas, `typia` will make compile error like below.
 
 <Tabs items={["TypeScript Source Code", "Console Output"]}>
-    <Tab>
+  <Tab>
 ```typescript filename="json.application.ts" showLineNumbers copy
 import typia, { tags } from "typia";
 
 interface Something {
-    bigint: bigint;
-    array: bigint[];
-    nested: Nested;
+  bigint: bigint;
+  array: bigint[];
+  nested: Nested;
 }
 interface Nested {
-    uint64: bigint & tags.Type<"uint64">;
+  uint64: bigint & tags.Type<"uint64">;
 }
 
 typia.json.application<[Something], "ajv">();
 ```
-    </Tab>
-    <Tab>
+  </Tab>
+  <Tab>
 ```bash
 main.ts:12:1 - error TS(typia.json.application): unsupported type detected
 
@@ -492,75 +511,56 @@ main.ts:12:1 - error TS(typia.json.application): unsupported type detected
 - Nested.uint64: (bigint & Type<"uint64">)
   - JSON does not support bigint type.
 ```
-    </Tab>
+  </Tab>
 </Tabs>
 
-Also, if you put any type of native classes like `Map` or `Uint8Array`, it would be considered as an empty object. By the way, only `Date` class is exceptional, and it would be considered as `string & Format<"date-time">` type like below.
+Also, if you put any type of native classes like `Map` or `Uint8Array`, it would also be error, either. By the way, only `Date` class is exceptional, and it would be considered as `string & Format<"date-time">` type like below.
 
 <Tabs items={["TypeScript Source Code", "Console Output"]}>
-    <Tab>
+  <Tab>
 ```typescript filename="json.application.native.ts" showLineNumbers copy
 import typia from "typia";
 
 interface Native {
-    date: Date;
-    bytes: Uint8Array;
-    map: Map<string, number>;
+  date: Date;
 }
 typia.json.application<[Native], "ajv">();
 ```
-    </Tab>
-    <Tab>
+  </Tab>
+  <Tab>
 ```typescript filename="json.application.native.js" showLineNumbers
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
+var __importDefault =
+  (this && this.__importDefault) ||
+  function (mod) {
+    return mod && mod.__esModule ? mod : { default: mod };
+  };
 Object.defineProperty(exports, "__esModule", { value: true });
 const typia_1 = __importDefault(require("typia"));
 ({
-    schemas: [
-        {
-            $ref: "#/components/schemas/Native"
-        }
-    ],
-    components: {
-        schemas: {
-            Native: {
-                $id: "#/components/schemas/Native",
-                type: "object",
-                properties: {
-                    date: {
-                        type: "string",
-                        format: "date-time"
-                    },
-                    bytes: {
-                        $ref: "#/components/objects/Uint8Array"
-                    },
-                    map: {
-                        $ref: "#/components/objects/Map"
-                    }
-                },
-                required: [
-                    "date",
-                    "bytes",
-                    "map"
-                ]
-            },
-            Uint8Array: {
-                type: "object",
-                $id: "#/components/objects/Uint8Array",
-                properties: {}
-            },
-            Map: {
-                type: "object",
-                $id: "#/components/objects/Map",
-                properties: {}
-            }
-        }
+  schemas: [
+    {
+      $ref: "#/components/schemas/Native",
     },
-    purpose: "ajv"
+  ],
+  components: {
+    schemas: {
+      Native: {
+        $id: "#/components/schemas/Native",
+        type: "object",
+        properties: {
+          date: {
+            type: "string",
+            format: "date-time",
+          },
+        },
+        required: ["date"],
+      },
+    },
+  },
+  purpose: "ajv",
+  surplus: false,
 });
 ```
-    </Tab>
+  </Tab>
 </Tabs>

@@ -10,7 +10,7 @@ import AlertTitle from '@mui/material/AlertTitle';
   <Tab>
 ```typescript
 export namespace protobuf {
-    export function message<T>(): string;
+  export function message<T>(): string;
 }
 ```
   </Tab>
@@ -24,29 +24,29 @@ With this `message()` function, you can share `*.proto` files with other languag
 import typia, { tags } from "typia";
 
 interface ICustomer {
-    id: number & tags.Type<"int32">;
-    email: string & tags.Format<"email">;
-    name: string;
-    pet: null | ICat | IDog;
-    memo: null | Map<string, string>;
-    logins: Array<ICustomerLogin>;
+  id: number & tags.Type<"int32">;
+  email: string & tags.Format<"email">;
+  name: string;
+  pet: null | ICat | IDog;
+  memo: null | Map<string, string>;
+  logins: Array<ICustomerLogin>;
 }
 interface ICat {
-    type: "cat";
-    name: string;
-    ribbon: boolean;
+  type: "cat";
+  name: string;
+  ribbon: boolean;
 }
 interface IDog {
-    type: "dog";
-    name: string;
-    hunt: boolean;
+  type: "dog";
+  name: string;
+  hunt: boolean;
 }
 interface ICustomerLogin {
-    success: boolean;
-    href: string & tags.Format<"url">;
-    referrer: string & tags.Format<"url">;
-    ip: string & (tags.Format<"ipv4"> | tags.Format<"ipv6">);
-    time: string & tags.Format<"date-time">;
+  success: boolean;
+  href: string & tags.Format<"url">;
+  referrer: string & tags.Format<"url">;
+  ip: string & (tags.Format<"ipv4"> | tags.Format<"ipv6">);
+  time: string & tags.Format<"date-time">;
 }
 
 typia.protobuf.message<ICustomer>();
@@ -56,35 +56,35 @@ typia.protobuf.message<ICustomer>();
 > syntax = "proto3";
 >
 > message ICustomer {
->     required int32 id = 1;
->     required string email = 2;
->     required string name = 3;
->     oneof pet {
->         ICat v4 = 4;
->         IDog v5 = 5;
->     }
->     map<string, string> memo = 6;
->     repeated ICustomerLogin logins = 7;
+>   required int32 id = 1;
+>   required string email = 2;
+>   required string name = 3;
+>   oneof pet {
+>     ICat v4 = 4;
+>     IDog v5 = 5;
+>   }
+>   map<string, string> memo = 6;
+>   repeated ICustomerLogin logins = 7;
 > }
 >
 > message ICat {
->     required string type = 1;
->     required string name = 2;
->     required bool ribbon = 3;
+>   required string type = 1;
+>   required string name = 2;
+>   required bool ribbon = 3;
 > }
 >
 > message IDog {
->     required string type = 1;
->     required string name = 2;
->     required bool hunt = 3;
+>   required string type = 1;
+>   required string name = 2;
+>   required bool hunt = 3;
 > }
 >
 > message ICustomerLogin {
->     required bool success = 1;
->     required string href = 2;
->     required string referrer = 3;
->     required string ip = 4;
->     required string time = 5;
+>   required bool success = 1;
+>   required string href = 2;
+>   required string referrer = 3;
+>   required string ip = 4;
+>   required string time = 5;
 > }
 > ```
 
@@ -109,32 +109,32 @@ When you take a mistake that choosing different target type, TypeScript compiler
     - `bigint` is `uint64`
 
 <Tabs items={["TypeScript Source Code", "Protobuf Schema", "Compiled JavaScript File"]}>
-    <Tab>
+  <Tab>
 ```typescript filename="TypeTagExample.ts" showLineNumbers copy
 import typia, { tags } from "typia";
 
 export interface TypeTagExample {
-    // ATOMIC TYPES
-    int32: number & tags.Type<"int32">;
-    uint32: number & tags.Type<"uint32">;
-    uint64: bigint & tags.Type<"uint64">;
-    int64: number & tags.Type<"int64">;
-    float: number & tags.Type<"float">;
-    double: number | undefined;
-    string: string | null;
+  // ATOMIC TYPES
+  int32: number & tags.Type<"int32">;
+  uint32: number & tags.Type<"uint32">;
+  uint64: bigint & tags.Type<"uint64">;
+  int64: number & tags.Type<"int64">;
+  float: number & tags.Type<"float">;
+  double: number | undefined;
+  string: string | null;
 
-    // UNION TYPES
-    uint32_or_double: number & (tags.Type<"uint32"> | tags.Type<"double">);
-    int32_or_uint64: 
-        | (number & tags.Type<"int32">) 
-        | (bigint & tags.Type<"uint64">);
-    int32_or_float_or_uint64: 
-        | (number & (tags.Type<"int32"> | tags.Type<"float">)) 
-        | (bigint & tags.Type<"uint64">);
+  // UNION TYPES
+  uint32_or_double: number & (tags.Type<"uint32"> | tags.Type<"double">);
+  int32_or_uint64:
+    | (number & tags.Type<"int32">)
+    | (bigint & tags.Type<"uint64">);
+  int32_or_float_or_uint64:
+    | (number & (tags.Type<"int32"> | tags.Type<"float">))
+    | (bigint & tags.Type<"uint64">);
 
-    // ARRAY AND MAP
-    uint64_array: Array<bigint & Type<"uint64">>;
-    int32_map?: Map<number & Type<"int32">, string> | null;
+  // ARRAY AND MAP
+  uint64_array: Array<bigint & tags.Type<"uint64">>;
+  int32_map?: Map<number & tags.Type<"int32">, string> | null;
 }
 
 //----
@@ -152,289 +152,298 @@ typia.protobuf.createDecode<TypeTagExample>();
 //----
 typia.protobuf.createEncode<TypeTagExample>();
 ```
-    </Tab>
-    <Tab>
+  </Tab>
+  <Tab>
 ```proto filename="TypeTagExample.proto" showLineNumbers copy
 syntax = "proto3";
 
 message TypeTagExample {
-    required int32 int32 = 1;
-    required uint32 uint32 = 2;
-    required uint64 uint64 = 3;
-    required int64 int64 = 4;
-    required float float = 5;
-    optional double double = 6;
-    optional string string = 7;
-    oneof uint32_or_double {
-        uint32 v8 = 8;
-        double v9 = 9;
-    }
-    oneof int32_or_uint64 {
-        int32 v10 = 10;
-        uint64 v11 = 11;
-    }
-    oneof int32_or_float_or_uint64 {
-        int32 v12 = 12;
-        uint64 v13 = 13;
-        float v14 = 14;
-    }
-    repeated uint64 uint64_array = 15;
-    map<int32, string> int32_map = 16;
+  required int32 int32 = 1;
+  required uint32 uint32 = 2;
+  required uint64 uint64 = 3;
+  required int64 int64 = 4;
+  required float float = 5;
+  optional double double = 6;
+  optional string string = 7;
+  oneof uint32_or_double {
+    uint32 v8 = 8;
+    double v9 = 9;
+  }
+  oneof int32_or_uint64 {
+    int32 v10 = 10;
+    uint64 v11 = 11;
+  }
+  oneof int32_or_float_or_uint64 {
+    int32 v12 = 12;
+    uint64 v13 = 13;
+    float v14 = 14;
+  }
+  repeated uint64 uint64_array = 15;
+  map<int32, string> int32_map = 16;
 }
 ```
-    </Tab>
-    <Tab>
+  </Tab>
+  <Tab>
 ```javascript filename="TypeTagExample.js" showLineNumbers copy
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
+var __importDefault =
+  (this && this.__importDefault) ||
+  function (mod) {
+    return mod && mod.__esModule ? mod : { default: mod };
+  };
 Object.defineProperty(exports, "__esModule", { value: true });
 const typia_1 = __importDefault(require("typia"));
 //----
 // PROTOBUF MESSAGE SCHEMA
 //----
-"syntax = \"proto3\";\n\nmessage TypeTagExample {\n    required int32 int32 = 1;\n    required uint32 uint32 = 2;\n    required uint64 uint64 = 3;\n    required int64 int64 = 4;\n    required float float = 5;\n    optional double double = 6;\n    optional string string = 7;\n    oneof uint32_or_double {\n        uint32 v8 = 8;\n        double v9 = 9;\n    }\n    oneof int32_or_uint64 {\n        int32 v10 = 10;\n        uint64 v11 = 11;\n    }\n    oneof int32_or_float_or_uint64 {\n        int32 v12 = 12;\n        uint64 v13 = 13;\n        float v14 = 14;\n    }\n    repeated uint64 uint64_array = 15;\n    map<int32, string> int32_map = 16;\n}";
+('syntax = "proto3";\n\nmessage TypeTagExample {\n    required int32 int32 = 1;\n    required uint32 uint32 = 2;\n    required uint64 uint64 = 3;\n    required int64 int64 = 4;\n    required float float = 5;\n    optional double double = 6;\n    optional string string = 7;\n    oneof uint32_or_double {\n        uint32 v8 = 8;\n        double v9 = 9;\n    }\n    oneof int32_or_uint64 {\n        int32 v10 = 10;\n        uint64 v11 = 11;\n    }\n    oneof int32_or_float_or_uint64 {\n        int32 v12 = 12;\n        uint64 v13 = 13;\n        float v14 = 14;\n    }\n    repeated uint64 uint64_array = 15;\n    map<int32, string> int32_map = 16;\n}');
 //----
 // DECODE FUNCTION
 //----
-input => {
-    const $Reader = typia_1.default.protobuf.createDecode.Reader;
-    const $pdo0 = (reader, length = -1) => {
-        length = length < 0 ? reader.size() : reader.index() + length;
-        const output = {
-            int32: undefined,
-            uint32: undefined,
-            uint64: undefined,
-            int64: undefined,
-            float: undefined,
-            double: undefined,
-            string: null,
-            uint32_or_double: undefined,
-            int32_or_uint64: undefined,
-            int32_or_float_or_uint64: undefined,
-            uint64_array: [],
-            int32_map: null
-        };
-        while (reader.index() < length) {
-            const tag = reader.uint32();
-            switch (tag >>> 3) {
-                case 1:
-                    // int32;
-                    output.int32 = reader.int32();
-                    break;
-                case 2:
-                    // uint32;
-                    output.uint32 = reader.uint32();
-                    break;
-                case 3:
-                    // uint64;
-                    output.uint64 = reader.uint64();
-                    break;
-                case 4:
-                    // int64;
-                    output.int64 = Number(reader.int64());
-                    break;
-                case 5:
-                    // float;
-                    output.float = reader.float();
-                    break;
-                case 6:
-                    // double;
-                    output.double = reader.double();
-                    break;
-                case 7:
-                    // string;
-                    output.string = reader.string();
-                    break;
-                case 8:
-                    // uint32;
-                    output.uint32_or_double = reader.uint32();
-                    break;
-                case 9:
-                    // double;
-                    output.uint32_or_double = reader.double();
-                    break;
-                case 10:
-                    // int32;
-                    output.int32_or_uint64 = reader.int32();
-                    break;
-                case 11:
-                    // uint64;
-                    output.int32_or_uint64 = reader.uint64();
-                    break;
-                case 12:
-                    // int32;
-                    output.int32_or_float_or_uint64 = reader.int32();
-                    break;
-                case 13:
-                    // uint64;
-                    output.int32_or_float_or_uint64 = reader.uint64();
-                    break;
-                case 14:
-                    // float;
-                    output.int32_or_float_or_uint64 = reader.float();
-                    break;
-                case 15:
-                    // type: Array<(bigint & Type<"uint64">)>;
-                    if (2 === (tag & 7)) {
-                        const piece = reader.uint32() + reader.index();
-                        while (reader.index() < piece)
-                            output.uint64_array.push(reader.uint64());
-                    }
-                    else
-                        output.uint64_array.push(reader.uint64());
-                    break;
-                case 16:
-                    // type: Map<string, string>;
-                    (() => {
-                        output.int32_map ??= new Map();
-                        const piece = reader.uint32() + reader.index();
-                        const entry = {
-                            key: undefined,
-                            value: ""
-                        };
-                        while (reader.index() < piece) {
-                            const kind = reader.uint32();
-                            switch (kind >>> 3) {
-                                case 1:
-                                    // int32;
-                                    entry.key = reader.int32();
-                                    break;
-                                case 2:
-                                    // string;
-                                    entry.value = reader.string();
-                                    break;
-                                default:
-                                    reader.skipType(kind & 7);
-                                    break;
-                            }
-                        }
-                        output.int32_map.set(entry.key, entry.value);
-                    })();
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
-            }
-        }
-        return output;
+(input) => {
+  const $Reader = typia_1.default.protobuf.createDecode.Reader;
+  const $pdo0 = (reader, length = -1) => {
+    length = length < 0 ? reader.size() : reader.index() + length;
+    const output = {
+      int32: undefined,
+      uint32: undefined,
+      uint64: undefined,
+      int64: undefined,
+      float: undefined,
+      double: undefined,
+      string: null,
+      uint32_or_double: undefined,
+      int32_or_uint64: undefined,
+      int32_or_float_or_uint64: undefined,
+      uint64_array: [],
+      int32_map: null,
     };
-    const reader = new $Reader(input);
-    return $pdo0(reader);
+    while (reader.index() < length) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          // int32;
+          output.int32 = reader.int32();
+          break;
+        case 2:
+          // uint32;
+          output.uint32 = reader.uint32();
+          break;
+        case 3:
+          // uint64;
+          output.uint64 = reader.uint64();
+          break;
+        case 4:
+          // int64;
+          output.int64 = Number(reader.int64());
+          break;
+        case 5:
+          // float;
+          output.float = reader.float();
+          break;
+        case 6:
+          // double;
+          output.double = reader.double();
+          break;
+        case 7:
+          // string;
+          output.string = reader.string();
+          break;
+        case 8:
+          // uint32;
+          output.uint32_or_double = reader.uint32();
+          break;
+        case 9:
+          // double;
+          output.uint32_or_double = reader.double();
+          break;
+        case 10:
+          // int32;
+          output.int32_or_uint64 = reader.int32();
+          break;
+        case 11:
+          // uint64;
+          output.int32_or_uint64 = reader.uint64();
+          break;
+        case 12:
+          // int32;
+          output.int32_or_float_or_uint64 = reader.int32();
+          break;
+        case 13:
+          // uint64;
+          output.int32_or_float_or_uint64 = reader.uint64();
+          break;
+        case 14:
+          // float;
+          output.int32_or_float_or_uint64 = reader.float();
+          break;
+        case 15:
+          // type: Array<(bigint & Type<"uint64">)>;
+          if (2 === (tag & 7)) {
+            const piece = reader.uint32() + reader.index();
+            while (reader.index() < piece)
+              output.uint64_array.push(reader.uint64());
+          } else output.uint64_array.push(reader.uint64());
+          break;
+        case 16:
+          // type: Map<string, string>;
+          (() => {
+            output.int32_map ??= new Map();
+            const piece = reader.uint32() + reader.index();
+            const entry = {
+              key: undefined,
+              value: "",
+            };
+            while (reader.index() < piece) {
+              const kind = reader.uint32();
+              switch (kind >>> 3) {
+                case 1:
+                  // int32;
+                  entry.key = reader.int32();
+                  break;
+                case 2:
+                  // string;
+                  entry.value = reader.string();
+                  break;
+                default:
+                  reader.skipType(kind & 7);
+                  break;
+              }
+            }
+            output.int32_map.set(entry.key, entry.value);
+          })();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return output;
+  };
+  const reader = new $Reader(input);
+  return $pdo0(reader);
 };
 //----
 // ENCODE FUNCTION
 //----
-input => {
-    const $throws = typia_1.default.protobuf.createEncode.throws;
-    const $Sizer = typia_1.default.protobuf.createEncode.Sizer;
-    const $Writer = typia_1.default.protobuf.createEncode.Writer;
-    const encoder = writer => {
-        const $peo0 = input => {
-            // property "int32";
-            writer.uint32(8);
-            writer.int32(input.int32);
-            // property "uint32";
-            writer.uint32(16);
-            writer.uint32(input.uint32);
-            // property "uint64";
-            writer.uint32(24);
-            writer.uint64(input.uint64);
-            // property "int64";
-            writer.uint32(32);
-            writer.int64(input.int64);
-            // property "float";
-            writer.uint32(45);
-            writer.float(input.float);
-            // property "double";
-            if (undefined !== input.double) {
-                writer.uint32(49);
-                writer.double(input.double);
-            }
-            // property "string";
-            if (null !== input.string) {
-                writer.uint32(58);
-                writer.string(input.string);
-            }
-            // property "uint32_or_double";
-            if ("number" === typeof input.uint32_or_double && (Math.floor(input.uint32_or_double) === input.uint32_or_double && 0 <= input.uint32_or_double && input.uint32_or_double <= 4294967295)) {
-                writer.uint32(64);
-                writer.uint32(input.uint32_or_double);
-            }
-            else if ("number" === typeof input.uint32_or_double && true) {
-                writer.uint32(73);
-                writer.double(input.uint32_or_double);
-            }
-            else
-                $throws({
-                    expected: "(number & (Type<\"uint32\"> | Type<\"double\">))",
-                    value: input.uint32_or_double
-                });
-            // property "int32_or_uint64";
-            if ("number" === typeof input.int32_or_uint64) {
-                writer.uint32(80);
-                writer.int32(input.int32_or_uint64);
-            }
-            else if ("bigint" === typeof input.int32_or_uint64) {
-                writer.uint32(88);
-                writer.uint64(input.int32_or_uint64);
-            }
-            else
-                $throws({
-                    expected: "((bigint & Type<\"uint64\">) | (number & Type<\"int32\">))",
-                    value: input.int32_or_uint64
-                });
-            // property "int32_or_float_or_uint64";
-            if ("number" === typeof input.int32_or_float_or_uint64 && (Math.floor(input.int32_or_float_or_uint64) === input.int32_or_float_or_uint64 && -2147483648 <= input.int32_or_float_or_uint64 && input.int32_or_float_or_uint64 <= 2147483647)) {
-                writer.uint32(96);
-                writer.int32(input.int32_or_float_or_uint64);
-            }
-            else if ("bigint" === typeof input.int32_or_float_or_uint64) {
-                writer.uint32(104);
-                writer.uint64(input.int32_or_float_or_uint64);
-            }
-            else if ("number" === typeof input.int32_or_float_or_uint64 && (-1.175494351e+38 <= input.int32_or_float_or_uint64 && input.int32_or_float_or_uint64 <= 3.4028235e+38)) {
-                writer.uint32(117);
-                writer.float(input.int32_or_float_or_uint64);
-            }
-            else
-                $throws({
-                    expected: "((bigint & Type<\"uint64\">) | (number & (Type<\"int32\"> | Type<\"float\">)))",
-                    value: input.int32_or_float_or_uint64
-                });
-            // property "uint64_array";
-            if (0 !== input.uint64_array.length) {
-                writer.uint32(122);
-                writer.fork();
-                for (const elem of input.uint64_array) {
-                    writer.uint64(elem);
-                }
-                writer.ldelim();
-            }
-            // property "int32_map";
-            if (undefined !== input.int32_map && null !== input.int32_map) {
-                for (const [key, value] of input.int32_map) {
-                    writer.uint32(130);
-                    writer.fork();
-                    writer.uint32(8);
-                    writer.int32(key);
-                    writer.uint32(18);
-                    writer.string(value);
-                    writer.ldelim();
-                }
-            }
-        };
-        //TypeTagExample;
-        $peo0(input);
-        return writer;
+(input) => {
+  const $throws = typia_1.default.protobuf.createEncode.throws;
+  const $Sizer = typia_1.default.protobuf.createEncode.Sizer;
+  const $Writer = typia_1.default.protobuf.createEncode.Writer;
+  const encoder = (writer) => {
+    const $peo0 = (input) => {
+      // property "int32";
+      writer.uint32(8);
+      writer.int32(input.int32);
+      // property "uint32";
+      writer.uint32(16);
+      writer.uint32(input.uint32);
+      // property "uint64";
+      writer.uint32(24);
+      writer.uint64(input.uint64);
+      // property "int64";
+      writer.uint32(32);
+      writer.int64(input.int64);
+      // property "float";
+      writer.uint32(45);
+      writer.float(input.float);
+      // property "double";
+      if (undefined !== input.double) {
+        writer.uint32(49);
+        writer.double(input.double);
+      }
+      // property "string";
+      if (null !== input.string) {
+        writer.uint32(58);
+        writer.string(input.string);
+      }
+      // property "uint32_or_double";
+      if (
+        "number" === typeof input.uint32_or_double &&
+        Math.floor(input.uint32_or_double) === input.uint32_or_double &&
+        0 <= input.uint32_or_double &&
+        input.uint32_or_double <= 4294967295
+      ) {
+        writer.uint32(64);
+        writer.uint32(input.uint32_or_double);
+      } else if ("number" === typeof input.uint32_or_double && true) {
+        writer.uint32(73);
+        writer.double(input.uint32_or_double);
+      } else
+        $throws({
+          expected: '(number & (Type<"uint32"> | Type<"double">))',
+          value: input.uint32_or_double,
+        });
+      // property "int32_or_uint64";
+      if ("number" === typeof input.int32_or_uint64) {
+        writer.uint32(80);
+        writer.int32(input.int32_or_uint64);
+      } else if ("bigint" === typeof input.int32_or_uint64) {
+        writer.uint32(88);
+        writer.uint64(input.int32_or_uint64);
+      } else
+        $throws({
+          expected: '((bigint & Type<"uint64">) | (number & Type<"int32">))',
+          value: input.int32_or_uint64,
+        });
+      // property "int32_or_float_or_uint64";
+      if (
+        "number" === typeof input.int32_or_float_or_uint64 &&
+        Math.floor(input.int32_or_float_or_uint64) ===
+          input.int32_or_float_or_uint64 &&
+        -2147483648 <= input.int32_or_float_or_uint64 &&
+        input.int32_or_float_or_uint64 <= 2147483647
+      ) {
+        writer.uint32(96);
+        writer.int32(input.int32_or_float_or_uint64);
+      } else if ("bigint" === typeof input.int32_or_float_or_uint64) {
+        writer.uint32(104);
+        writer.uint64(input.int32_or_float_or_uint64);
+      } else if (
+        "number" === typeof input.int32_or_float_or_uint64 &&
+        -1.175494351e38 <= input.int32_or_float_or_uint64 &&
+        input.int32_or_float_or_uint64 <= 3.4028235e38
+      ) {
+        writer.uint32(117);
+        writer.float(input.int32_or_float_or_uint64);
+      } else
+        $throws({
+          expected:
+            '((bigint & Type<"uint64">) | (number & (Type<"int32"> | Type<"float">)))',
+          value: input.int32_or_float_or_uint64,
+        });
+      // property "uint64_array";
+      if (0 !== input.uint64_array.length) {
+        writer.uint32(122);
+        writer.fork();
+        for (const elem of input.uint64_array) {
+          writer.uint64(elem);
+        }
+        writer.ldelim();
+      }
+      // property "int32_map";
+      if (undefined !== input.int32_map && null !== input.int32_map) {
+        for (const [key, value] of input.int32_map) {
+          writer.uint32(130);
+          writer.fork();
+          writer.uint32(8);
+          writer.int32(key);
+          writer.uint32(18);
+          writer.string(value);
+          writer.ldelim();
+        }
+      }
     };
-    const sizer = encoder(new $Sizer());
-    const writer = encoder(new $Writer(sizer));
-    return writer.buffer();
+    //TypeTagExample;
+    $peo0(input);
+    return writer;
+  };
+  const sizer = encoder(new $Sizer());
+  const writer = encoder(new $Writer(sizer));
+  return writer.buffer();
 };
 ```
-    </Tab>
+  </Tab>
 </Tabs>
 
 
@@ -461,39 +470,39 @@ Second, to support [Prisma](../utilization/prisma). If a comment is created in t
 </Alert>
 
 <Tabs items={["TypeScript Source Code", "Protobuf Schema", "Compiled JavaScript File"]}>
-    <Tab>
+  <Tab>
 ```typescript filename="CommentTagExample.ts" showLineNumbers copy
 import typia from "typia";
 
 export interface CommentTagExample {
-    /**
-     * @type int32
-     */
-    int32: number;
+  /**
+   * @type int32
+   */
+  int32: number;
 
-    /**
-     * @type uint32
-     */
-    uint32?: number | null;
+  /**
+   * @type uint32
+   */
+  uint32?: number | null;
 
-    /**
-     * @type uint64
-     */
-    uint64?: number;
+  /**
+   * @type uint64
+   */
+  uint64?: number;
 
-    /**
-     * @type int64
-     */
-    int64: number;
+  /**
+   * @type int64
+   */
+  int64: number;
 
-    /**
-     * @type float
-     */
-    float: number | null;
+  /**
+   * @type float
+   */
+  float: number | null;
 
-    double: number;
+  double: number;
 
-    string: string;
+  string: string;
 }
 
 //----
@@ -511,137 +520,139 @@ typia.protobuf.createDecode<CommentTagExample>();
 //----
 typia.protobuf.createEncode<CommentTagExample>();
 ```
-    </Tab>
-    <Tab>
+  </Tab>
+  <Tab>
 ```proto filename="CommentTagExample.proto" showLineNumbers copy
 syntax = "proto3";
 
 message CommentTagExample {
-    required int32 int32 = 1;
-    optional uint32 uint32 = 2;
-    optional uint64 uint64 = 3;
-    required int64 int64 = 4;
-    optional float float = 5;
-    required double double = 6;
-    required string string = 7;
+  required int32 int32 = 1;
+  optional uint32 uint32 = 2;
+  optional uint64 uint64 = 3;
+  required int64 int64 = 4;
+  optional float float = 5;
+  required double double = 6;
+  required string string = 7;
 }
 ```
-    </Tab>
-    <Tab>
+  </Tab>
+  <Tab>
 ```javascript filename="CommentTagExample.js" showLineNumbers copy
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
+var __importDefault =
+  (this && this.__importDefault) ||
+  function (mod) {
+    return mod && mod.__esModule ? mod : { default: mod };
+  };
 Object.defineProperty(exports, "__esModule", { value: true });
 const typia_1 = __importDefault(require("typia"));
 //----
 // PROTOBUF MESSAGE SCHEMA
 //----
-"syntax = \"proto3\";\n\nmessage CommentTagExample {\n    required int32 int32 = 1;\n    optional uint32 uint32 = 2;\n    optional uint64 uint64 = 3;\n    required int64 int64 = 4;\n    optional float float = 5;\n    required double double = 6;\n    required string string = 7;\n}";
+('syntax = "proto3";\n\nmessage CommentTagExample {\n    required int32 int32 = 1;\n    optional uint32 uint32 = 2;\n    optional uint64 uint64 = 3;\n    required int64 int64 = 4;\n    optional float float = 5;\n    required double double = 6;\n    required string string = 7;\n}');
 //----
 // DECODE FUNCTION
 //----
-input => {
-    const $Reader = typia_1.default.protobuf.createDecode.Reader;
-    const $pdo0 = (reader, length = -1) => {
-        length = length < 0 ? reader.size() : reader.index() + length;
-        const output = {
-            int32: undefined,
-            uint32: null,
-            uint64: undefined,
-            int64: undefined,
-            float: null,
-            double: undefined,
-            string: ""
-        };
-        while (reader.index() < length) {
-            const tag = reader.uint32();
-            switch (tag >>> 3) {
-                case 1:
-                    // int32;
-                    output.int32 = reader.int32();
-                    break;
-                case 2:
-                    // uint32;
-                    output.uint32 = reader.uint32();
-                    break;
-                case 3:
-                    // uint64;
-                    output.uint64 = Number(reader.uint64());
-                    break;
-                case 4:
-                    // int64;
-                    output.int64 = Number(reader.int64());
-                    break;
-                case 5:
-                    // float;
-                    output.float = reader.float();
-                    break;
-                case 6:
-                    // double;
-                    output.double = reader.double();
-                    break;
-                case 7:
-                    // string;
-                    output.string = reader.string();
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
-            }
-        }
-        return output;
+(input) => {
+  const $Reader = typia_1.default.protobuf.createDecode.Reader;
+  const $pdo0 = (reader, length = -1) => {
+    length = length < 0 ? reader.size() : reader.index() + length;
+    const output = {
+      int32: undefined,
+      uint32: null,
+      uint64: undefined,
+      int64: undefined,
+      float: null,
+      double: undefined,
+      string: "",
     };
-    const reader = new $Reader(input);
-    return $pdo0(reader);
+    while (reader.index() < length) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          // int32;
+          output.int32 = reader.int32();
+          break;
+        case 2:
+          // uint32;
+          output.uint32 = reader.uint32();
+          break;
+        case 3:
+          // uint64;
+          output.uint64 = Number(reader.uint64());
+          break;
+        case 4:
+          // int64;
+          output.int64 = Number(reader.int64());
+          break;
+        case 5:
+          // float;
+          output.float = reader.float();
+          break;
+        case 6:
+          // double;
+          output.double = reader.double();
+          break;
+        case 7:
+          // string;
+          output.string = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return output;
+  };
+  const reader = new $Reader(input);
+  return $pdo0(reader);
 };
 //----
 // ENCODE FUNCTION
 //----
-input => {
-    const $Sizer = typia_1.default.protobuf.createEncode.Sizer;
-    const $Writer = typia_1.default.protobuf.createEncode.Writer;
-    const encoder = writer => {
-        const $peo0 = input => {
-            // property "int32";
-            writer.uint32(8);
-            writer.int32(input.int32);
-            // property "uint32";
-            if (undefined !== input.uint32 && null !== input.uint32) {
-                writer.uint32(16);
-                writer.uint32(input.uint32);
-            }
-            // property "uint64";
-            if (undefined !== input.uint64) {
-                writer.uint32(24);
-                writer.uint64(input.uint64);
-            }
-            // property "int64";
-            writer.uint32(32);
-            writer.int64(input.int64);
-            // property "float";
-            if (null !== input.float) {
-                writer.uint32(45);
-                writer.float(input.float);
-            }
-            // property "double";
-            writer.uint32(49);
-            writer.double(input.double);
-            // property "string";
-            writer.uint32(58);
-            writer.string(input.string);
-        };
-        //CommentTagExample;
-        $peo0(input);
-        return writer;
+(input) => {
+  const $Sizer = typia_1.default.protobuf.createEncode.Sizer;
+  const $Writer = typia_1.default.protobuf.createEncode.Writer;
+  const encoder = (writer) => {
+    const $peo0 = (input) => {
+      // property "int32";
+      writer.uint32(8);
+      writer.int32(input.int32);
+      // property "uint32";
+      if (undefined !== input.uint32 && null !== input.uint32) {
+        writer.uint32(16);
+        writer.uint32(input.uint32);
+      }
+      // property "uint64";
+      if (undefined !== input.uint64) {
+        writer.uint32(24);
+        writer.uint64(input.uint64);
+      }
+      // property "int64";
+      writer.uint32(32);
+      writer.int64(input.int64);
+      // property "float";
+      if (null !== input.float) {
+        writer.uint32(45);
+        writer.float(input.float);
+      }
+      // property "double";
+      writer.uint32(49);
+      writer.double(input.double);
+      // property "string";
+      writer.uint32(58);
+      writer.string(input.string);
     };
-    const sizer = encoder(new $Sizer());
-    const writer = encoder(new $Writer(sizer));
-    return writer.buffer();
+    //CommentTagExample;
+    $peo0(input);
+    return writer;
+  };
+  const sizer = encoder(new $Sizer());
+  const writer = encoder(new $Writer(sizer));
+  return writer.buffer();
 };
 ```
-    </Tab>
+  </Tab>
 </Tabs>
 
 
@@ -730,25 +741,25 @@ Additionally, about `Map<Key, T>` type, key type must be an atomic type. It mean
 import typia from "typia";
 
 interface IPointer<T> {
-    value: T;
+  value: T;
 }
 interface Cat {
-    type: "cat";
-    name: string;
-    ribbon: boolean;
+  type: "cat";
+  name: string;
+  ribbon: boolean;
 }
 interface Dog {
-    type: "dog";
-    name: string;
-    hunt: boolean;
+  type: "dog";
+  name: string;
+  hunt: boolean;
 }
 
 typia.protobuf.message<IPointer<number[][]>>();
 typia.protobuf.createEncode<IPointer<Record<string, string[]>>>();
-typia.protobuf.createDecode<IPointer<Map<string, Cat|Dog>>>();
+typia.protobuf.createDecode<IPointer<Map<string, Cat | Dog>>>();
 
 typia.protobuf.message<IPointer<Map<Cat, string>>>();
-typia.protobuf.message<IPointer<Map<number|string, Dog>>>();
+typia.protobuf.message<IPointer<Map<number | string, Dog>>>();
 ```
   </Tab>
   <Tab>
@@ -799,13 +810,13 @@ At last, those types are all not allowed.
 import typia from "typia";
 
 interface Something {
-    any: any;
-    unknown: unknown;
-    closure: () => void;
-    dict: Set<string> | WeakSet<Something> | WeakMap<Something, string>;
-    date: Date;
-    classic: String;
-    buffer: ArrayBuffer;
+  any: any;
+  unknown: unknown;
+  closure: () => void;
+  dict: Set<string> | WeakSet<Something> | WeakMap<Something, string>;
+  date: Date;
+  classic: String;
+  buffer: ArrayBuffer;
 }
 
 typia.protobuf.message<Something>();
