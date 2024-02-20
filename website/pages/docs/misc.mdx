@@ -7,61 +7,59 @@ import AlertTitle from '@mui/material/AlertTitle';
 ## `misc` module
 ### `clone()` functions
 <Tabs items={[
-    <code>typia</code>, 
-    <code>TypeGuardError.ts</code>, 
-    <code>IValidation.ts</code>,
-    <code>Resolved.ts</code>
+  <code>typia</code>, 
+  <code>TypeGuardError.ts</code>, 
+  <code>IValidation.ts</code>,
+  <code>Resolved.ts</code>
 ]}>
-    <Tab>
+  <Tab>
 ```typescript
 export namespace misc {
-    export function clone<T>(input: T): T;
-    export function assertClone<T>(input: T | unknown): Resolved<T>;
-    export function isClone<T>(input: T | unknown): Resolved<T> | null;
-    export function validateClone<T>(input: T | unknown): IValidation<Resolved<T>>;
+  export function clone<T>(input: T): T;
+  export function assertClone<T>(input: T | unknown): Resolved<T>;
+  export function isClone<T>(input: T | unknown): Resolved<T> | null;
+  export function validateClone<T>(input: T | unknown): IValidation<Resolved<T>>;
 
-    export function createClone<T>(): (input: T) => Resolved<T>;
-    export function createAssertClone<T>(): (input: T | unknown) => Resolved<T>;
-    export function createIsClone<T>(): (input: T | unknown) => Resolved<T> | null;
-    export function createValidateClone<T>(): (
-        input: T | unknown
-    ) => IValidation<Resolved<T>>;
+  export function createClone<T>(): (input: T) => Resolved<T>;
+  export function createAssertClone<T>(): (input: T | unknown) => Resolved<T>;
+  export function createIsClone<T>(): (input: T | unknown) => Resolved<T> | null;
+  export function createValidateClone<T>(): (
+      input: T | unknown
+  ) => IValidation<Resolved<T>>;
 }
 ```
-    </Tab>
-    <Tab>
+  </Tab>
+  <Tab>
 ```typescript
 export class TypeGuardError extends Error {
-    public readonly method: string;
-    public readonly path: string | undefined;
-    public readonly expected: string;
-    public readonly value: any;
+  public readonly method: string;
+  public readonly path: string | undefined;
+  public readonly expected: string;
+  public readonly value: any;
 }
 ```
-    </Tab>
-    <Tab>
+  </Tab>
+  <Tab>
 ```typescript
-export type IValidation<T> =
-    | IValidation.ISuccess<T>
-    | IValidation.IFailure;
+export type IValidation<T> = IValidation.ISuccess<T> | IValidation.IFailure;
 export namespace IValidation {
-    export interface ISuccess<T> {
-        success: true;
-        data: T;
-    }
-    export interface IFailure {
-        success: false;
-        errors: IError[];
-    }
-    export interface IError {
-        path: string;
-        expected: string;
-        value: any;
-    }
+  export interface ISuccess<T> {
+    success: true;
+    data: T;
+  }
+  export interface IFailure {
+    success: false;
+    errors: IError[];
+  }
+  export interface IError {
+    path: string;
+    expected: string;
+    value: any;
+  }
 }
 ```
-    </Tab>
-    <Tab>
+  </Tab>
+  <Tab>
 ```typescript
 /**
  * Resolved type erased every methods.
@@ -87,100 +85,102 @@ export namespace IValidation {
  * `Class`                 | `interface`
  * Native Class or Others  | No change
  *
- * @template Instance Target argument type.
+ * @template T Target argument type.
  * @author Jeongho Nam - https://github.com/samchon
  * @author Kyungsu Kang - https://github.com/kakasoo
  */
 export type Resolved<T> = Equal<T, ResolvedMain<T>> extends true
-    ? T
-    : ResolvedMain<T>;
+  ? T
+  : ResolvedMain<T>;
 
 type Equal<X, Y> = X extends Y ? (Y extends X ? true : false) : false;
 
-type ResolvedMain<Instance> = Instance extends [never]
-    ? never // (special trick for jsonable | null) type
-    : ValueOf<Instance> extends boolean | number | bigint | string
-    ? ValueOf<Instance>
-    : Instance extends Function
-    ? never
-    : Instance extends object
-    ? ResolvedObject<Instance>
-    : ValueOf<Instance>;
+type ResolvedMain<T> = T extends [never]
+  ? never // (special trick for jsonable | null) type
+  : ValueOf<T> extends boolean | number | bigint | string
+  ? ValueOf<T>
+  : T extends Function
+  ? never
+  : T extends object
+  ? ResolvedObject<T>
+  : ValueOf<T>;
 
-type ResolvedObject<Instance extends object> = Instance extends Array<infer T>
-    ? IsTuple<Instance> extends true
-        ? ResolvedTuple<Instance>
-        : ResolvedMain<T>[]
-    : Instance extends Set<infer U>
-    ? Set<ResolvedMain<U>>
-    : Instance extends Map<infer K, infer V>
-    ? Map<ResolvedMain<K>, ResolvedMain<V>>
-    : Instance extends WeakSet<any> | WeakMap<any, any>
-    ? never
-    : Instance extends
-          | Date
-          | Uint8Array
-          | Uint8ClampedArray
-          | Uint16Array
-          | Uint32Array
-          | BigUint64Array
-          | Int8Array
-          | Int16Array
-          | Int32Array
-          | BigInt64Array
-          | Float32Array
-          | Float64Array
-          | ArrayBuffer
-          | SharedArrayBuffer
-          | DataView
-    ? Instance
-    : {
-          [P in keyof Instance]: ResolvedMain<Instance[P]>;
-      };
+type ResolvedObject<T extends object> = T extends Array<infer U>
+  ? IsTuple<T> extends true
+    ? ResolvedTuple<T>
+    : ResolvedMain<U>[]
+  : T extends Set<infer U>
+  ? Set<ResolvedMain<U>>
+  : T extends Map<infer K, infer V>
+  ? Map<ResolvedMain<K>, ResolvedMain<V>>
+  : T extends WeakSet<any> | WeakMap<any, any>
+  ? never
+  : T extends
+      | Date
+      | Uint8Array
+      | Uint8ClampedArray
+      | Uint16Array
+      | Uint32Array
+      | BigUint64Array
+      | Int8Array
+      | Int16Array
+      | Int32Array
+      | BigInt64Array
+      | Float32Array
+      | Float64Array
+      | ArrayBuffer
+      | SharedArrayBuffer
+      | DataView
+      | Blob
+      | File
+  ? T
+  : {
+      [P in keyof T]: ResolvedMain<T[P]>;
+    };
 
 type ResolvedTuple<T extends readonly any[]> = T extends []
-    ? []
-    : T extends [infer F]
-    ? [ResolvedMain<F>]
-    : T extends [infer F, ...infer Rest extends readonly any[]]
-    ? [ResolvedMain<F>, ...ResolvedTuple<Rest>]
-    : T extends [(infer F)?]
-    ? [ResolvedMain<F>?]
-    : T extends [(infer F)?, ...infer Rest extends readonly any[]]
-    ? [ResolvedMain<F>?, ...ResolvedTuple<Rest>]
-    : [];
-
-type ValueOf<Instance> = IsValueOf<Instance, Boolean> extends true
-    ? boolean
-    : IsValueOf<Instance, Number> extends true
-    ? number
-    : IsValueOf<Instance, String> extends true
-    ? string
-    : Instance;
+  ? []
+  : T extends [infer F]
+  ? [ResolvedMain<F>]
+  : T extends [infer F, ...infer Rest extends readonly any[]]
+  ? [ResolvedMain<F>, ...ResolvedTuple<Rest>]
+  : T extends [(infer F)?]
+  ? [ResolvedMain<F>?]
+  : T extends [(infer F)?, ...infer Rest extends readonly any[]]
+  ? [ResolvedMain<F>?, ...ResolvedTuple<Rest>]
+  : [];
 
 type IsTuple<T extends readonly any[] | { length: number }> = [T] extends [
-    never,
+  never,
 ]
+  ? false
+  : T extends readonly any[]
+  ? number extends T["length"]
     ? false
-    : T extends readonly any[]
-    ? number extends T["length"]
-        ? false
-        : true
-    : false;
+    : true
+  : false;
+
+type ValueOf<Instance> = IsValueOf<Instance, Boolean> extends true
+  ? boolean
+  : IsValueOf<Instance, Number> extends true
+  ? number
+  : IsValueOf<Instance, String> extends true
+  ? string
+  : Instance;
 
 type IsValueOf<Instance, Object extends IValueOf<any>> = Instance extends Object
-    ? Object extends IValueOf<infer Primitive>
-        ? Instance extends Primitive
-            ? false
-            : true // not Primitive, but Object
-        : false // cannot be
-    : false;
+  ? Object extends IValueOf<infer Primitive>
+    ? Instance extends Primitive
+      ? false
+      : true // not Primitive, but Object
+    : false // cannot be
+  : false;
 
 interface IValueOf<T> {
-    valueOf(): T;
+  valueOf(): T;
 }
 ```
-    </Tab>
+  </Tab>
 </Tabs>
 
 Deep copy functions.
@@ -192,7 +192,7 @@ When you want to copy an instance, just call `typia.misc.clone()` function. It w
   - `typia.misc.validateClone()`: [`typia.validate<T>()`](../validators/validate) + `typia.misc.clone<T>()`
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
-    <Tab>
+  <Tab>
 ```typescript copy filename="examples/src/assertClone.ts" showLineNumbers {4}
 import typia from "typia";
 
@@ -202,217 +202,255 @@ const cloned: IDepartment = typia.misc.assertClone(department);
 console.log(cloned);
 
 interface IDepartment {
-    /**
-     * @format uuid
-     */
-    id: string;
+  /**
+   * @format uuid
+   */
+  id: string;
 
-    /**
-     * @minLength 3
-     */
-    name: string;
+  /**
+   * @minLength 3
+   */
+  name: string;
 
-    /**
-     * @type int
-     */
-    limit: number;
+  /**
+   * @type int
+   */
+  limit: number;
 
-    clerks: IClerk[];
+  clerks: IClerk[];
 }
 interface IClerk {
-    name: string;
+  name: string;
 
-    /**
-     * @exclusiveMinimum 19
-     * @maximum 100
-     */
-    age: number;
+  /**
+   * @exclusiveMinimum 19
+   * @maximum 100
+   */
+  age: number;
 
-    authority: number;
+  authority: number;
 
-    /**
-     * @format date
-     */
-    joined_at: string;
+  /**
+   * @format date
+   */
+  joined_at: string;
 }
 ```
-    </Tab>
-    <Tab>
+  </Tab>
+  <Tab>
 ```javascript filename="examples/bin/assertClone.js" showLineNumbers {146-164}
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
+var __importDefault =
+  (this && this.__importDefault) ||
+  function (mod) {
+    return mod && mod.__esModule ? mod : { default: mod };
+  };
 Object.defineProperty(exports, "__esModule", { value: true });
 const typia_1 = __importDefault(require("typia"));
-const department = (generator => {
-    const $generator = typia_1.default.random.generator;
-    const $ro0 = (_recursive = false, _depth = 0) => { var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s; return ({
-        id: (_d = (_c = (_b = ((_a = generator === null || generator === void 0 ? void 0 : generator.customs) !== null && _a !== void 0 ? _a : $generator.customs)) === null || _b === void 0 ? void 0 : _b.string) === null || _c === void 0 ? void 0 : _c.call(_b, [
-            {
-                name: "format",
-                value: "uuid"
-            }
-        ])) !== null && _d !== void 0 ? _d : ((_e = generator === null || generator === void 0 ? void 0 : generator.uuid) !== null && _e !== void 0 ? _e : $generator.uuid)(),
-        name: (_j = (_h = (_g = ((_f = generator === null || generator === void 0 ? void 0 : generator.customs) !== null && _f !== void 0 ? _f : $generator.customs)) === null || _g === void 0 ? void 0 : _g.string) === null || _h === void 0 ? void 0 : _h.call(_g, [
-            {
-                name: "minLength",
-                value: "3"
-            }
-        ])) !== null && _j !== void 0 ? _j : ((_k = generator === null || generator === void 0 ? void 0 : generator.string) !== null && _k !== void 0 ? _k : $generator.string)(((_l = generator === null || generator === void 0 ? void 0 : generator.integer) !== null && _l !== void 0 ? _l : $generator.integer)(3, 25)),
-        limit: (_q = (_p = (_o = ((_m = generator === null || generator === void 0 ? void 0 : generator.customs) !== null && _m !== void 0 ? _m : $generator.customs)) === null || _o === void 0 ? void 0 : _o.number) === null || _p === void 0 ? void 0 : _p.call(_o, [
-            {
-                name: "type",
-                value: "int"
-            }
-        ])) !== null && _q !== void 0 ? _q : ((_r = generator === null || generator === void 0 ? void 0 : generator.integer) !== null && _r !== void 0 ? _r : $generator.integer)(0, 100),
-        clerks: ((_s = generator === null || generator === void 0 ? void 0 : generator.array) !== null && _s !== void 0 ? _s : $generator.array)(() => $ro1(_recursive, _recursive ? 1 + _depth : _depth))
-    }); };
-    const $ro1 = (_recursive = false, _depth = 0) => { var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s, _t, _u, _v; return ({
-        name: (_d = (_c = (_b = ((_a = generator === null || generator === void 0 ? void 0 : generator.customs) !== null && _a !== void 0 ? _a : $generator.customs)) === null || _b === void 0 ? void 0 : _b.string) === null || _c === void 0 ? void 0 : _c.call(_b, [])) !== null && _d !== void 0 ? _d : ((_e = generator === null || generator === void 0 ? void 0 : generator.string) !== null && _e !== void 0 ? _e : $generator.string)(),
-        age: (_j = (_h = (_g = ((_f = generator === null || generator === void 0 ? void 0 : generator.customs) !== null && _f !== void 0 ? _f : $generator.customs)) === null || _g === void 0 ? void 0 : _g.number) === null || _h === void 0 ? void 0 : _h.call(_g, [
-            {
-                name: "exclusiveMinimum",
-                value: "19"
-            },
-            {
-                name: "maximum",
-                value: "100"
-            }
-        ])) !== null && _j !== void 0 ? _j : ((_k = generator === null || generator === void 0 ? void 0 : generator.number) !== null && _k !== void 0 ? _k : $generator.number)(19, 100),
-        authority: (_p = (_o = (_m = ((_l = generator === null || generator === void 0 ? void 0 : generator.customs) !== null && _l !== void 0 ? _l : $generator.customs)) === null || _m === void 0 ? void 0 : _m.number) === null || _o === void 0 ? void 0 : _o.call(_m, [])) !== null && _p !== void 0 ? _p : ((_q = generator === null || generator === void 0 ? void 0 : generator.number) !== null && _q !== void 0 ? _q : $generator.number)(0, 100),
-        joined_at: (_u = (_t = (_s = ((_r = generator === null || generator === void 0 ? void 0 : generator.customs) !== null && _r !== void 0 ? _r : $generator.customs)) === null || _s === void 0 ? void 0 : _s.string) === null || _t === void 0 ? void 0 : _t.call(_s, [
-            {
-                name: "format",
-                value: "date"
-            }
-        ])) !== null && _u !== void 0 ? _u : ((_v = generator === null || generator === void 0 ? void 0 : generator.date) !== null && _v !== void 0 ? _v : $generator.date)()
-    }); };
-    return $ro0();
-})();
-const cloned = (input => { const assert = input => {
-    const __is = input => {
-        const $is_uuid = typia_1.default.assertClone.is_uuid;
-        const $is_date = typia_1.default.assertClone.is_date;
-        const $io0 = input => "string" === typeof input.id && $is_uuid(input.id) && ("string" === typeof input.name && 3 <= input.name.length) && ("number" === typeof input.limit && parseInt(input.limit) === input.limit) && (Array.isArray(input.clerks) && input.clerks.every(elem => "object" === typeof elem && null !== elem && $io1(elem)));
-        const $io1 = input => "string" === typeof input.name && ("number" === typeof input.age && 19 < input.age && 100 >= input.age) && "number" === typeof input.authority && ("string" === typeof input.joined_at && $is_date(input.joined_at));
-        return "object" === typeof input && null !== input && $io0(input);
+const department = typia_1.default.misc.random();
+const cloned = ((input) => {
+  const assert = (input) => {
+    const __is = (input) => {
+      const $io0 = (input) =>
+        "string" === typeof input.id &&
+        /^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test(
+          input.id,
+        ) &&
+        "string" === typeof input.name &&
+        3 <= input.name.length &&
+        "number" === typeof input.limit &&
+        Math.floor(input.limit) === input.limit &&
+        -2147483648 <= input.limit &&
+        input.limit <= 2147483647 &&
+        Array.isArray(input.clerks) &&
+        input.clerks.every(
+          (elem) => "object" === typeof elem && null !== elem && $io1(elem),
+        );
+      const $io1 = (input) =>
+        "string" === typeof input.name &&
+        "number" === typeof input.age &&
+        19 < input.age &&
+        input.age <= 100 &&
+        "number" === typeof input.authority &&
+        "string" === typeof input.joined_at &&
+        /^(\d{4})-(\d{2})-(\d{2})$/.test(input.joined_at);
+      return "object" === typeof input && null !== input && $io0(input);
     };
     if (false === __is(input))
-        ((input, _path, _exceptionable = true) => {
-            const $guard = typia_1.default.assertClone.guard;
-            const $is_uuid = typia_1.default.assertClone.is_uuid;
-            const $is_date = typia_1.default.assertClone.is_date;
-            const $ao0 = (input, _path, _exceptionable = true) => ("string" === typeof input.id && ($is_uuid(input.id) || $guard(_exceptionable, {
+      ((input, _path, _exceptionable = true) => {
+        const $guard = typia_1.default.misc.assertClone.guard;
+        const $ao0 = (input, _path, _exceptionable = true) =>
+          (("string" === typeof input.id &&
+            (/^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test(
+              input.id,
+            ) ||
+              $guard(_exceptionable, {
                 path: _path + ".id",
-                expected: "string (@format uuid)",
-                value: input.id
-            })) || $guard(_exceptionable, {
-                path: _path + ".id",
-                expected: "string",
-                value: input.id
-            })) && ("string" === typeof input.name && (3 <= input.name.length || $guard(_exceptionable, {
+                expected: 'string & Format<"uuid">',
+                value: input.id,
+              }))) ||
+            $guard(_exceptionable, {
+              path: _path + ".id",
+              expected: '(string & Format<"uuid">)',
+              value: input.id,
+            })) &&
+          (("string" === typeof input.name &&
+            (3 <= input.name.length ||
+              $guard(_exceptionable, {
                 path: _path + ".name",
-                expected: "string (@minLength 3)",
-                value: input.name
-            })) || $guard(_exceptionable, {
-                path: _path + ".name",
-                expected: "string",
-                value: input.name
-            })) && ("number" === typeof input.limit && (parseInt(input.limit) === input.limit || $guard(_exceptionable, {
+                expected: "string & MinLength<3>",
+                value: input.name,
+              }))) ||
+            $guard(_exceptionable, {
+              path: _path + ".name",
+              expected: "(string & MinLength<3>)",
+              value: input.name,
+            })) &&
+          (("number" === typeof input.limit &&
+            ((Math.floor(input.limit) === input.limit &&
+              -2147483648 <= input.limit &&
+              input.limit <= 2147483647) ||
+              $guard(_exceptionable, {
                 path: _path + ".limit",
-                expected: "number (@type int)",
-                value: input.limit
-            })) || $guard(_exceptionable, {
-                path: _path + ".limit",
-                expected: "number",
-                value: input.limit
-            })) && ((Array.isArray(input.clerks) || $guard(_exceptionable, {
-                path: _path + ".clerks",
-                expected: "Array<IClerk>",
-                value: input.clerks
-            })) && input.clerks.every((elem, _index1) => ("object" === typeof elem && null !== elem || $guard(_exceptionable, {
-                path: _path + ".clerks[" + _index1 + "]",
-                expected: "IClerk",
-                value: elem
-            })) && $ao1(elem, _path + ".clerks[" + _index1 + "]", true && _exceptionable) || $guard(_exceptionable, {
-                path: _path + ".clerks[" + _index1 + "]",
-                expected: "IClerk",
-                value: elem
-            })) || $guard(_exceptionable, {
-                path: _path + ".clerks",
-                expected: "Array<IClerk>",
-                value: input.clerks
+                expected: 'number & Type<"int32">',
+                value: input.limit,
+              }))) ||
+            $guard(_exceptionable, {
+              path: _path + ".limit",
+              expected: '(number & Type<"int32">)',
+              value: input.limit,
+            })) &&
+          (((Array.isArray(input.clerks) ||
+            $guard(_exceptionable, {
+              path: _path + ".clerks",
+              expected: "Array<IClerk>",
+              value: input.clerks,
+            })) &&
+            input.clerks.every(
+              (elem, _index1) =>
+                ((("object" === typeof elem && null !== elem) ||
+                  $guard(_exceptionable, {
+                    path: _path + ".clerks[" + _index1 + "]",
+                    expected: "IClerk",
+                    value: elem,
+                  })) &&
+                  $ao1(
+                    elem,
+                    _path + ".clerks[" + _index1 + "]",
+                    true && _exceptionable,
+                  )) ||
+                $guard(_exceptionable, {
+                  path: _path + ".clerks[" + _index1 + "]",
+                  expected: "IClerk",
+                  value: elem,
+                }),
+            )) ||
+            $guard(_exceptionable, {
+              path: _path + ".clerks",
+              expected: "Array<IClerk>",
+              value: input.clerks,
             }));
-            const $ao1 = (input, _path, _exceptionable = true) => ("string" === typeof input.name || $guard(_exceptionable, {
-                path: _path + ".name",
-                expected: "string",
-                value: input.name
-            })) && ("number" === typeof input.age && (19 < input.age || $guard(_exceptionable, {
+        const $ao1 = (input, _path, _exceptionable = true) =>
+          ("string" === typeof input.name ||
+            $guard(_exceptionable, {
+              path: _path + ".name",
+              expected: "string",
+              value: input.name,
+            })) &&
+          (("number" === typeof input.age &&
+            (19 < input.age ||
+              $guard(_exceptionable, {
                 path: _path + ".age",
-                expected: "number (@exclusiveMinimum 19)",
-                value: input.age
-            })) && (100 >= input.age || $guard(_exceptionable, {
+                expected: "number & ExclusiveMinimum<19>",
+                value: input.age,
+              })) &&
+            (input.age <= 100 ||
+              $guard(_exceptionable, {
                 path: _path + ".age",
-                expected: "number (@maximum 100)",
-                value: input.age
-            })) || $guard(_exceptionable, {
-                path: _path + ".age",
-                expected: "number",
-                value: input.age
-            })) && ("number" === typeof input.authority || $guard(_exceptionable, {
-                path: _path + ".authority",
-                expected: "number",
-                value: input.authority
-            })) && ("string" === typeof input.joined_at && ($is_date(input.joined_at) || $guard(_exceptionable, {
+                expected: "number & Maximum<100>",
+                value: input.age,
+              }))) ||
+            $guard(_exceptionable, {
+              path: _path + ".age",
+              expected: "(number & ExclusiveMinimum<19> & Maximum<100>)",
+              value: input.age,
+            })) &&
+          ("number" === typeof input.authority ||
+            $guard(_exceptionable, {
+              path: _path + ".authority",
+              expected: "number",
+              value: input.authority,
+            })) &&
+          (("string" === typeof input.joined_at &&
+            (/^(\d{4})-(\d{2})-(\d{2})$/.test(input.joined_at) ||
+              $guard(_exceptionable, {
                 path: _path + ".joined_at",
-                expected: "string (@format date)",
-                value: input.joined_at
-            })) || $guard(_exceptionable, {
-                path: _path + ".joined_at",
-                expected: "string",
-                value: input.joined_at
+                expected: 'string & Format<"date">',
+                value: input.joined_at,
+              }))) ||
+            $guard(_exceptionable, {
+              path: _path + ".joined_at",
+              expected: '(string & Format<"date">)',
+              value: input.joined_at,
             }));
-            return ("object" === typeof input && null !== input || $guard(true, {
-                path: _path + "",
-                expected: "IDepartment",
-                value: input
-            })) && $ao0(input, _path + "", true) || $guard(true, {
-                path: _path + "",
-                expected: "IDepartment",
-                value: input
-            });
-        })(input, "$input", true);
+        return (
+          ((("object" === typeof input && null !== input) ||
+            $guard(true, {
+              path: _path + "",
+              expected: "IDepartment",
+              value: input,
+            })) &&
+            $ao0(input, _path + "", true)) ||
+          $guard(true, {
+            path: _path + "",
+            expected: "IDepartment",
+            value: input,
+          })
+        );
+      })(input, "$input", true);
     return input;
-}; const clone = input => {
-    const $io1 = input => "string" === typeof input.name && ("number" === typeof input.age && 19 < input.age && 100 >= input.age) && "number" === typeof input.authority && ("string" === typeof input.joined_at && $is_date(input.joined_at));
-    const $is_uuid = typia_1.default.assertClone.is_uuid;
-    const $is_date = typia_1.default.assertClone.is_date;
-    const $cp0 = input => input.map(elem => "object" === typeof elem && null !== elem ? $co1(elem) : elem);
-    const $co0 = input => ({
-        id: input.id,
-        name: input.name,
-        limit: input.limit,
-        clerks: Array.isArray(input.clerks) ? $cp0(input.clerks) : input.clerks
+  };
+  const clone = (input) => {
+    const $io1 = (input) =>
+      "string" === typeof input.name &&
+      "number" === typeof input.age &&
+      19 < input.age &&
+      input.age <= 100 &&
+      "number" === typeof input.authority &&
+      "string" === typeof input.joined_at &&
+      /^(\d{4})-(\d{2})-(\d{2})$/.test(input.joined_at);
+    const $cp0 = (input) =>
+      input.map((elem) =>
+        "object" === typeof elem && null !== elem ? $co1(elem) : elem,
+      );
+    const $co0 = (input) => ({
+      id: input.id,
+      name: input.name,
+      limit: input.limit,
+      clerks: Array.isArray(input.clerks) ? $cp0(input.clerks) : input.clerks,
     });
-    const $co1 = input => ({
-        name: input.name,
-        age: input.age,
-        authority: input.authority,
-        joined_at: input.joined_at
+    const $co1 = (input) => ({
+      name: input.name,
+      age: input.age,
+      authority: input.authority,
+      joined_at: input.joined_at,
     });
     return "object" === typeof input && null !== input ? $co0(input) : input;
-}; assert(input); const output = clone(input); return output; })(department);
+  };
+  assert(input);
+  const output = clone(input);
+  return output;
+})(department);
 console.log(cloned);
 ```
-    </Tab>
+  </Tab>
 </Tabs>
 
 ### `prune()` functions
 <Tabs items={[
-    <code>typia</code>, 
-    <code>TypeGuardError.ts</code>, 
-    <code>IValidation.ts</code>
+  <code>typia</code>, 
+  <code>TypeGuardError.ts</code>, 
+  <code>IValidation.ts</code>
 ]}>
     <Tab>
 ```typescript
@@ -430,32 +468,33 @@ export function createValidatePrune<T>(): (input: T | unknown) => IValidation<T>
     <Tab>
 ```typescript
 export class TypeGuardError extends Error {
-    public readonly method: string;
-    public readonly path: string | undefined;
-    public readonly expected: string;
-    public readonly value: any;
+  public readonly method: string;
+  public readonly path: string | undefined;
+  public readonly expected: string;
+  public readonly value: any;
 }
 ```
     </Tab>
     <Tab>
 ```typescript
-export type IValidation<T> =
-    | IValidation.ISuccess<T>
-    | IValidation.IFailure;
+export type IValidation<T = unknown> =
+  | IValidation.ISuccess<T>
+  | IValidation.IFailure;
 export namespace IValidation {
-    export interface ISuccess<T> {
-        success: true;
-        data: T;
-    }
-    export interface IFailure {
-        success: false;
-        errors: IError[];
-    }
-    export interface IError {
-        path: string;
-        expected: string;
-        value: any;
-    }
+  export interface ISuccess<T = unknown> {
+    success: true;
+    data: T;
+    errors: [];
+  }
+  export interface IFailure {
+    success: false;
+    errors: IError[];
+  }
+  export interface IError {
+    path: string;
+    expected: string;
+    value: any;
+  }
 }
 ```
     </Tab>
@@ -470,7 +509,7 @@ When you want to remove every extra properties that are not defined in the type 
   - `typia.misc.validatePrune()`: [`typia.validate<T>()`](../validators/validate) + `typia.misc.prune<T>()`
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
-    <Tab>
+  <Tab>
 ```typescript copy filename="examples/src/assertPrune.ts" showLineNumbers {4}
 import typia from "typia";
 
@@ -513,193 +552,235 @@ interface IClerk {
     joined_at: string;
 }
 ```
-    </Tab>
-    <Tab>
+  </Tab>
+  <Tab>
 ```javascript filename="examples/bin/assertPrune.js" showLineNumbers {147-173}
-
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
+var __importDefault =
+  (this && this.__importDefault) ||
+  function (mod) {
+    return mod && mod.__esModule ? mod : { default: mod };
+  };
 Object.defineProperty(exports, "__esModule", { value: true });
 const typia_1 = __importDefault(require("typia"));
-const department = (generator => {
-    const $generator = typia_1.default.random.generator;
-    const $ro0 = (_recursive = false, _depth = 0) => { var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s; return ({
-        id: (_d = (_c = (_b = ((_a = generator === null || generator === void 0 ? void 0 : generator.customs) !== null && _a !== void 0 ? _a : $generator.customs)) === null || _b === void 0 ? void 0 : _b.string) === null || _c === void 0 ? void 0 : _c.call(_b, [
-            {
-                name: "format",
-                value: "uuid"
-            }
-        ])) !== null && _d !== void 0 ? _d : ((_e = generator === null || generator === void 0 ? void 0 : generator.uuid) !== null && _e !== void 0 ? _e : $generator.uuid)(),
-        name: (_j = (_h = (_g = ((_f = generator === null || generator === void 0 ? void 0 : generator.customs) !== null && _f !== void 0 ? _f : $generator.customs)) === null || _g === void 0 ? void 0 : _g.string) === null || _h === void 0 ? void 0 : _h.call(_g, [
-            {
-                name: "minLength",
-                value: "3"
-            }
-        ])) !== null && _j !== void 0 ? _j : ((_k = generator === null || generator === void 0 ? void 0 : generator.string) !== null && _k !== void 0 ? _k : $generator.string)(((_l = generator === null || generator === void 0 ? void 0 : generator.integer) !== null && _l !== void 0 ? _l : $generator.integer)(3, 25)),
-        limit: (_q = (_p = (_o = ((_m = generator === null || generator === void 0 ? void 0 : generator.customs) !== null && _m !== void 0 ? _m : $generator.customs)) === null || _o === void 0 ? void 0 : _o.number) === null || _p === void 0 ? void 0 : _p.call(_o, [
-            {
-                name: "type",
-                value: "int"
-            }
-        ])) !== null && _q !== void 0 ? _q : ((_r = generator === null || generator === void 0 ? void 0 : generator.integer) !== null && _r !== void 0 ? _r : $generator.integer)(0, 100),
-        clerks: ((_s = generator === null || generator === void 0 ? void 0 : generator.array) !== null && _s !== void 0 ? _s : $generator.array)(() => $ro1(_recursive, _recursive ? 1 + _depth : _depth))
-    }); };
-    const $ro1 = (_recursive = false, _depth = 0) => { var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s, _t, _u, _v; return ({
-        name: (_d = (_c = (_b = ((_a = generator === null || generator === void 0 ? void 0 : generator.customs) !== null && _a !== void 0 ? _a : $generator.customs)) === null || _b === void 0 ? void 0 : _b.string) === null || _c === void 0 ? void 0 : _c.call(_b, [])) !== null && _d !== void 0 ? _d : ((_e = generator === null || generator === void 0 ? void 0 : generator.string) !== null && _e !== void 0 ? _e : $generator.string)(),
-        age: (_j = (_h = (_g = ((_f = generator === null || generator === void 0 ? void 0 : generator.customs) !== null && _f !== void 0 ? _f : $generator.customs)) === null || _g === void 0 ? void 0 : _g.number) === null || _h === void 0 ? void 0 : _h.call(_g, [
-            {
-                name: "exclusiveMinimum",
-                value: "19"
-            },
-            {
-                name: "maximum",
-                value: "100"
-            }
-        ])) !== null && _j !== void 0 ? _j : ((_k = generator === null || generator === void 0 ? void 0 : generator.number) !== null && _k !== void 0 ? _k : $generator.number)(19, 100),
-        authority: (_p = (_o = (_m = ((_l = generator === null || generator === void 0 ? void 0 : generator.customs) !== null && _l !== void 0 ? _l : $generator.customs)) === null || _m === void 0 ? void 0 : _m.number) === null || _o === void 0 ? void 0 : _o.call(_m, [])) !== null && _p !== void 0 ? _p : ((_q = generator === null || generator === void 0 ? void 0 : generator.number) !== null && _q !== void 0 ? _q : $generator.number)(0, 100),
-        joined_at: (_u = (_t = (_s = ((_r = generator === null || generator === void 0 ? void 0 : generator.customs) !== null && _r !== void 0 ? _r : $generator.customs)) === null || _s === void 0 ? void 0 : _s.string) === null || _t === void 0 ? void 0 : _t.call(_s, [
-            {
-                name: "format",
-                value: "date"
-            }
-        ])) !== null && _u !== void 0 ? _u : ((_v = generator === null || generator === void 0 ? void 0 : generator.date) !== null && _v !== void 0 ? _v : $generator.date)()
-    }); };
-    return $ro0();
-})();
-const pruned = (input => { const assert = input => {
-    const __is = input => {
-        const $is_uuid = typia_1.default.assertPrune.is_uuid;
-        const $is_date = typia_1.default.assertPrune.is_date;
-        const $io0 = input => "string" === typeof input.id && $is_uuid(input.id) && ("string" === typeof input.name && 3 <= input.name.length) && ("number" === typeof input.limit && parseInt(input.limit) === input.limit) && (Array.isArray(input.clerks) && input.clerks.every(elem => "object" === typeof elem && null !== elem && $io1(elem)));
-        const $io1 = input => "string" === typeof input.name && ("number" === typeof input.age && 19 < input.age && 100 >= input.age) && "number" === typeof input.authority && ("string" === typeof input.joined_at && $is_date(input.joined_at));
-        return "object" === typeof input && null !== input && $io0(input);
+const department = typia_1.default.misc.random();
+const pruned = ((input) => {
+  const assert = (input) => {
+    const __is = (input) => {
+      const $io0 = (input) =>
+        "string" === typeof input.id &&
+        /^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test(
+          input.id,
+        ) &&
+        "string" === typeof input.name &&
+        3 <= input.name.length &&
+        "number" === typeof input.limit &&
+        Math.floor(input.limit) === input.limit &&
+        -2147483648 <= input.limit &&
+        input.limit <= 2147483647 &&
+        Array.isArray(input.clerks) &&
+        input.clerks.every(
+          (elem) => "object" === typeof elem && null !== elem && $io1(elem),
+        );
+      const $io1 = (input) =>
+        "string" === typeof input.name &&
+        "number" === typeof input.age &&
+        19 < input.age &&
+        input.age <= 100 &&
+        "number" === typeof input.authority &&
+        "string" === typeof input.joined_at &&
+        /^(\d{4})-(\d{2})-(\d{2})$/.test(input.joined_at);
+      return "object" === typeof input && null !== input && $io0(input);
     };
     if (false === __is(input))
-        ((input, _path, _exceptionable = true) => {
-            const $guard = typia_1.default.assertPrune.guard;
-            const $is_uuid = typia_1.default.assertPrune.is_uuid;
-            const $is_date = typia_1.default.assertPrune.is_date;
-            const $ao0 = (input, _path, _exceptionable = true) => ("string" === typeof input.id && ($is_uuid(input.id) || $guard(_exceptionable, {
+      ((input, _path, _exceptionable = true) => {
+        const $guard = typia_1.default.misc.assertPrune.guard;
+        const $ao0 = (input, _path, _exceptionable = true) =>
+          (("string" === typeof input.id &&
+            (/^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test(
+              input.id,
+            ) ||
+              $guard(_exceptionable, {
                 path: _path + ".id",
-                expected: "string (@format uuid)",
-                value: input.id
-            })) || $guard(_exceptionable, {
-                path: _path + ".id",
-                expected: "string",
-                value: input.id
-            })) && ("string" === typeof input.name && (3 <= input.name.length || $guard(_exceptionable, {
+                expected: 'string & Format<"uuid">',
+                value: input.id,
+              }))) ||
+            $guard(_exceptionable, {
+              path: _path + ".id",
+              expected: '(string & Format<"uuid">)',
+              value: input.id,
+            })) &&
+          (("string" === typeof input.name &&
+            (3 <= input.name.length ||
+              $guard(_exceptionable, {
                 path: _path + ".name",
-                expected: "string (@minLength 3)",
-                value: input.name
-            })) || $guard(_exceptionable, {
-                path: _path + ".name",
-                expected: "string",
-                value: input.name
-            })) && ("number" === typeof input.limit && (parseInt(input.limit) === input.limit || $guard(_exceptionable, {
+                expected: "string & MinLength<3>",
+                value: input.name,
+              }))) ||
+            $guard(_exceptionable, {
+              path: _path + ".name",
+              expected: "(string & MinLength<3>)",
+              value: input.name,
+            })) &&
+          (("number" === typeof input.limit &&
+            ((Math.floor(input.limit) === input.limit &&
+              -2147483648 <= input.limit &&
+              input.limit <= 2147483647) ||
+              $guard(_exceptionable, {
                 path: _path + ".limit",
-                expected: "number (@type int)",
-                value: input.limit
-            })) || $guard(_exceptionable, {
-                path: _path + ".limit",
-                expected: "number",
-                value: input.limit
-            })) && ((Array.isArray(input.clerks) || $guard(_exceptionable, {
-                path: _path + ".clerks",
-                expected: "Array<IClerk>",
-                value: input.clerks
-            })) && input.clerks.every((elem, _index1) => ("object" === typeof elem && null !== elem || $guard(_exceptionable, {
-                path: _path + ".clerks[" + _index1 + "]",
-                expected: "IClerk",
-                value: elem
-            })) && $ao1(elem, _path + ".clerks[" + _index1 + "]", true && _exceptionable) || $guard(_exceptionable, {
-                path: _path + ".clerks[" + _index1 + "]",
-                expected: "IClerk",
-                value: elem
-            })) || $guard(_exceptionable, {
-                path: _path + ".clerks",
-                expected: "Array<IClerk>",
-                value: input.clerks
+                expected: 'number & Type<"int32">',
+                value: input.limit,
+              }))) ||
+            $guard(_exceptionable, {
+              path: _path + ".limit",
+              expected: '(number & Type<"int32">)',
+              value: input.limit,
+            })) &&
+          (((Array.isArray(input.clerks) ||
+            $guard(_exceptionable, {
+              path: _path + ".clerks",
+              expected: "Array<IClerk>",
+              value: input.clerks,
+            })) &&
+            input.clerks.every(
+              (elem, _index1) =>
+                ((("object" === typeof elem && null !== elem) ||
+                  $guard(_exceptionable, {
+                    path: _path + ".clerks[" + _index1 + "]",
+                    expected: "IClerk",
+                    value: elem,
+                  })) &&
+                  $ao1(
+                    elem,
+                    _path + ".clerks[" + _index1 + "]",
+                    true && _exceptionable,
+                  )) ||
+                $guard(_exceptionable, {
+                  path: _path + ".clerks[" + _index1 + "]",
+                  expected: "IClerk",
+                  value: elem,
+                }),
+            )) ||
+            $guard(_exceptionable, {
+              path: _path + ".clerks",
+              expected: "Array<IClerk>",
+              value: input.clerks,
             }));
-            const $ao1 = (input, _path, _exceptionable = true) => ("string" === typeof input.name || $guard(_exceptionable, {
-                path: _path + ".name",
-                expected: "string",
-                value: input.name
-            })) && ("number" === typeof input.age && (19 < input.age || $guard(_exceptionable, {
+        const $ao1 = (input, _path, _exceptionable = true) =>
+          ("string" === typeof input.name ||
+            $guard(_exceptionable, {
+              path: _path + ".name",
+              expected: "string",
+              value: input.name,
+            })) &&
+          (("number" === typeof input.age &&
+            (19 < input.age ||
+              $guard(_exceptionable, {
                 path: _path + ".age",
-                expected: "number (@exclusiveMinimum 19)",
-                value: input.age
-            })) && (100 >= input.age || $guard(_exceptionable, {
+                expected: "number & ExclusiveMinimum<19>",
+                value: input.age,
+              })) &&
+            (input.age <= 100 ||
+              $guard(_exceptionable, {
                 path: _path + ".age",
-                expected: "number (@maximum 100)",
-                value: input.age
-            })) || $guard(_exceptionable, {
-                path: _path + ".age",
-                expected: "number",
-                value: input.age
-            })) && ("number" === typeof input.authority || $guard(_exceptionable, {
-                path: _path + ".authority",
-                expected: "number",
-                value: input.authority
-            })) && ("string" === typeof input.joined_at && ($is_date(input.joined_at) || $guard(_exceptionable, {
+                expected: "number & Maximum<100>",
+                value: input.age,
+              }))) ||
+            $guard(_exceptionable, {
+              path: _path + ".age",
+              expected: "(number & ExclusiveMinimum<19> & Maximum<100>)",
+              value: input.age,
+            })) &&
+          ("number" === typeof input.authority ||
+            $guard(_exceptionable, {
+              path: _path + ".authority",
+              expected: "number",
+              value: input.authority,
+            })) &&
+          (("string" === typeof input.joined_at &&
+            (/^(\d{4})-(\d{2})-(\d{2})$/.test(input.joined_at) ||
+              $guard(_exceptionable, {
                 path: _path + ".joined_at",
-                expected: "string (@format date)",
-                value: input.joined_at
-            })) || $guard(_exceptionable, {
-                path: _path + ".joined_at",
-                expected: "string",
-                value: input.joined_at
+                expected: 'string & Format<"date">',
+                value: input.joined_at,
+              }))) ||
+            $guard(_exceptionable, {
+              path: _path + ".joined_at",
+              expected: '(string & Format<"date">)',
+              value: input.joined_at,
             }));
-            return ("object" === typeof input && null !== input || $guard(true, {
-                path: _path + "",
-                expected: "IDepartment",
-                value: input
-            })) && $ao0(input, _path + "", true) || $guard(true, {
-                path: _path + "",
-                expected: "IDepartment",
-                value: input
-            });
-        })(input, "$input", true);
+        return (
+          ((("object" === typeof input && null !== input) ||
+            $guard(true, {
+              path: _path + "",
+              expected: "IDepartment",
+              value: input,
+            })) &&
+            $ao0(input, _path + "", true)) ||
+          $guard(true, {
+            path: _path + "",
+            expected: "IDepartment",
+            value: input,
+          })
+        );
+      })(input, "$input", true);
     return input;
-}; const prune = input => {
-    const $io1 = input => "string" === typeof input.name && ("number" === typeof input.age && 19 < input.age && 100 >= input.age) && "number" === typeof input.authority && ("string" === typeof input.joined_at && $is_date(input.joined_at));
-    const $is_uuid = typia_1.default.assertPrune.is_uuid;
-    const $is_date = typia_1.default.assertPrune.is_date;
-    const $pp0 = input => input.forEach(elem => {
-        if ("object" === typeof elem && null !== elem)
-            $po1(elem);
-    });
-    const $po0 = input => {
-        if (Array.isArray(input.clerks))
-            $pp0(input.clerks);
-        for (const key of Object.keys(input)) {
-            if ("id" === key || "name" === key || "limit" === key || "clerks" === key)
-                continue;
-            delete input[key];
-        }
+  };
+  const prune = (input) => {
+    const $io1 = (input) =>
+      "string" === typeof input.name &&
+      "number" === typeof input.age &&
+      19 < input.age &&
+      input.age <= 100 &&
+      "number" === typeof input.authority &&
+      "string" === typeof input.joined_at &&
+      /^(\d{4})-(\d{2})-(\d{2})$/.test(input.joined_at);
+    const $pp0 = (input) =>
+      input.forEach((elem) => {
+        if ("object" === typeof elem && null !== elem) $po1(elem);
+      });
+    const $po0 = (input) => {
+      if (Array.isArray(input.clerks)) $pp0(input.clerks);
+      for (const key of Object.keys(input)) {
+        if (
+          "id" === key ||
+          "name" === key ||
+          "limit" === key ||
+          "clerks" === key
+        )
+          continue;
+        delete input[key];
+      }
     };
-    const $po1 = input => {
-        for (const key of Object.keys(input)) {
-            if ("name" === key || "age" === key || "authority" === key || "joined_at" === key)
-                continue;
-            delete input[key];
-        }
+    const $po1 = (input) => {
+      for (const key of Object.keys(input)) {
+        if (
+          "name" === key ||
+          "age" === key ||
+          "authority" === key ||
+          "joined_at" === key
+        )
+          continue;
+        delete input[key];
+      }
     };
-    if ("object" === typeof input && null !== input)
-        $po0(input);
-}; assert(input); prune(input); return input; })(department);
+    if ("object" === typeof input && null !== input) $po0(input);
+  };
+  assert(input);
+  prune(input);
+  return input;
+})(department);
 console.log(pruned);
 ```
-    </Tab>
+  </Tab>
 </Tabs>
 
 ### `literals()` function
 ```typescript
 export namespace misc {
-    export function literals<
-        T extends boolean | number | string | bigint | null
-    >(): T[];
+  export function literals<
+    T extends boolean | number | string | bigint | null,
+  >(): T[];
 }
 ```
 
@@ -708,30 +789,26 @@ Union literal type to array.
 When you call `typia.misc.literals<T>()` function with union literal type, it returns an array of literal values listed in the generic `T` argument. This `typia.misc.literals<T>` function is useful when you are developing test program, especially handling some discriminated union types.
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
-    <Tab>
+  <Tab>
 ```typescript filename="examples/src/literals.ts" showLineNumbers
 import typia from "typia";
 
 typia.misc.literals<"A" | "B" | "C" | 1 | 2n>();
 ```
-    </Tab>
-    <Tab>
+  </Tab>
+  <Tab>
 ```javascript filename="examples/bin/literals.js" showLineNumbers
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
+var __importDefault =
+  (this && this.__importDefault) ||
+  function (mod) {
+    return mod && mod.__esModule ? mod : { default: mod };
+  };
 Object.defineProperty(exports, "__esModule", { value: true });
 const typia_1 = __importDefault(require("typia"));
-[
-    "A",
-    "B",
-    "C",
-    1,
-    BigInt(2)
-];
+["A", "B", "C", 1, BigInt(2)];
 ```
-    </Tab>
+  </Tab>
 </Tabs>
 
 
@@ -740,61 +817,63 @@ const typia_1 = __importDefault(require("typia"));
 ## `notations` module
 ### `camel()` functions
 <Tabs items={[
-    <code>typia</code>, 
-    <code>TypeGuardError.ts</code>, 
-    <code>IValidation.ts</code>,
-    <code>PascalCase.ts</code>
+  <code>typia</code>, 
+  <code>TypeGuardError.ts</code>, 
+  <code>IValidation.ts</code>,
+  <code>CamelCase.ts</code>
 ]}>
-    <Tab>
+  <Tab>
 ```typescript
 export namespace notations {
-    export function camel<T>(input: T): CamelCase<T>;
-    export function assertCamel<T>(input: T | unknown): CamelCase<T>;
-    export function isCamel<T>(input: T | unknown): CamelCase<T> | null;
-    export function validateCamel<T>(input: T | unknown): IValidation<CamelCase<T>>;
+  export function camel<T>(input: T): CamelCase<T>;
+  export function assertCamel<T>(input: T | unknown): CamelCase<T>;
+  export function isCamel<T>(input: T | unknown): CamelCase<T> | null;
+  export function validateCamel<T>(
+    input: T | unknown,
+  ): IValidation<CamelCase<T>>;
 
-    export function createCamel<T>(): (input: T) => CamelCase<T>;
-    export function createAssertCamel<T>(): (input: T | unknown) => CamelCase<T>;
-    export function createIsCamel<T>(): (input: T | unknown) => CamelCase<T> | null;
-    export function createValidateCamel<T>(): (
-        input: T | unknown
-    ) => IValidation<CamelCase<T>>;
+  export function createCamel<T>(): (input: T) => CamelCase<T>;
+  export function createAssertCamel<T>(): (input: T | unknown) => CamelCase<T>;
+  export function createIsCamel<T>(): (
+    input: T | unknown,
+  ) => CamelCase<T> | null;
+  export function createValidateCamel<T>(): (
+    input: T | unknown,
+  ) => IValidation<CamelCase<T>>;
 }
 ```
-    </Tab>
-    <Tab>
+  </Tab>
+  <Tab>
 ```typescript
 export class TypeGuardError extends Error {
-    public readonly method: string;
-    public readonly path: string | undefined;
-    public readonly expected: string;
-    public readonly value: any;
+  public readonly method: string;
+  public readonly path: string | undefined;
+  public readonly expected: string;
+  public readonly value: any;
 }
 ```
-    </Tab>
-    <Tab>
+  </Tab>
+  <Tab>
 ```typescript
-export type IValidation<T> =
-    | IValidation.ISuccess<T>
-    | IValidation.IFailure;
+export type IValidation<T> = IValidation.ISuccess<T> | IValidation.IFailure;
 export namespace IValidation {
-    export interface ISuccess<T> {
-        success: true;
-        data: T;
-    }
-    export interface IFailure {
-        success: false;
-        errors: IError[];
-    }
-    export interface IError {
-        path: string;
-        expected: string;
-        value: any;
-    }
+  export interface ISuccess<T> {
+    success: true;
+    data: T;
+  }
+  export interface IFailure {
+    success: false;
+    errors: IError[];
+  }
+  export interface IError {
+    path: string;
+    expected: string;
+    value: any;
+  }
 }
 ```
-    </Tab>
-    <Tab>
+  </Tab>
+  <Tab>
 ```typescript
 /**
  * Camel case type.
@@ -807,8 +886,8 @@ export namespace IValidation {
  * @author Jeongho Nam - https://github.com/samchon
  */
 export type CamelCase<T> = Equal<T, CamelizeMain<T>> extends true
-    ? T
-    : CamelizeMain<T>;
+  ? T
+  : CamelizeMain<T>;
 
 /* -----------------------------------------------------------
     OBJECT CONVERSION
@@ -816,104 +895,106 @@ export type CamelCase<T> = Equal<T, CamelizeMain<T>> extends true
 type Equal<X, Y> = X extends Y ? (Y extends X ? true : false) : false;
 
 type CamelizeMain<T> = T extends [never]
-    ? never // special trick for (jsonable | null) type
-    : T extends { valueOf(): boolean | bigint | number | string }
-    ? ValueOf<T>
-    : T extends Function
-    ? never
-    : T extends object
-    ? CamelizeObject<T>
-    : T;
+  ? never // special trick for (jsonable | null) type
+  : T extends { valueOf(): boolean | bigint | number | string }
+  ? ValueOf<T>
+  : T extends Function
+  ? never
+  : T extends object
+  ? CamelizeObject<T>
+  : T;
 
 type CamelizeObject<T extends object> = T extends Array<infer U>
-    ? IsTuple<T> extends true
-        ? CamelizeTuple<T>
-        : CamelizeMain<U>[]
-    : T extends Set<infer U>
-    ? Set<CamelizeMain<U>>
-    : T extends Map<infer K, infer V>
-    ? Map<CamelizeMain<K>, CamelizeMain<V>>
-    : T extends WeakSet<any> | WeakMap<any, any>
-    ? never
-    : T extends
-          | Date
-          | Uint8Array
-          | Uint8ClampedArray
-          | Uint16Array
-          | Uint32Array
-          | BigUint64Array
-          | Int8Array
-          | Int16Array
-          | Int32Array
-          | BigInt64Array
-          | Float32Array
-          | Float64Array
-          | ArrayBuffer
-          | SharedArrayBuffer
-          | DataView
-    ? T
-    : {
-          [Key in keyof T as CamelizeString<Key & string>]: CamelizeMain<
-              T[Key]
-          >;
-      };
+  ? IsTuple<T> extends true
+    ? CamelizeTuple<T>
+    : CamelizeMain<U>[]
+  : T extends Set<infer U>
+  ? Set<CamelizeMain<U>>
+  : T extends Map<infer K, infer V>
+  ? Map<CamelizeMain<K>, CamelizeMain<V>>
+  : T extends WeakSet<any> | WeakMap<any, any>
+  ? never
+  : T extends
+      | Date
+      | Uint8Array
+      | Uint8ClampedArray
+      | Uint16Array
+      | Uint32Array
+      | BigUint64Array
+      | Int8Array
+      | Int16Array
+      | Int32Array
+      | BigInt64Array
+      | Float32Array
+      | Float64Array
+      | ArrayBuffer
+      | SharedArrayBuffer
+      | DataView
+      | Blob
+      | File
+  ? T
+  : {
+      [Key in keyof T as CamelizeString<Key & string>]: CamelizeMain<T[Key]>;
+    };
 
 /* -----------------------------------------------------------
     SPECIAL CASES
 ----------------------------------------------------------- */
 type IsTuple<T extends readonly any[] | { length: number }> = [T] extends [
-    never,
+  never,
 ]
+  ? false
+  : T extends readonly any[]
+  ? number extends T["length"]
     ? false
-    : T extends readonly any[]
-    ? number extends T["length"]
-        ? false
-        : true
-    : false;
+    : true
+  : false;
 type CamelizeTuple<T extends readonly any[]> = T extends []
-    ? []
-    : T extends [infer F]
-    ? [CamelizeMain<F>]
-    : T extends [infer F, ...infer Rest extends readonly any[]]
-    ? [CamelizeMain<F>, ...CamelizeTuple<Rest>]
-    : T extends [(infer F)?]
-    ? [CamelizeMain<F>?]
-    : T extends [(infer F)?, ...infer Rest extends readonly any[]]
-    ? [CamelizeMain<F>?, ...CamelizeTuple<Rest>]
-    : [];
+  ? []
+  : T extends [infer F]
+  ? [CamelizeMain<F>]
+  : T extends [infer F, ...infer Rest extends readonly any[]]
+  ? [CamelizeMain<F>, ...CamelizeTuple<Rest>]
+  : T extends [(infer F)?]
+  ? [CamelizeMain<F>?]
+  : T extends [(infer F)?, ...infer Rest extends readonly any[]]
+  ? [CamelizeMain<F>?, ...CamelizeTuple<Rest>]
+  : [];
 
 type ValueOf<Instance> = IsValueOf<Instance, Boolean> extends true
-    ? boolean
-    : IsValueOf<Instance, Number> extends true
-    ? number
-    : IsValueOf<Instance, String> extends true
-    ? string
-    : Instance;
+  ? boolean
+  : IsValueOf<Instance, Number> extends true
+  ? number
+  : IsValueOf<Instance, String> extends true
+  ? string
+  : Instance;
 
 type IsValueOf<Instance, Object extends IValueOf<any>> = Instance extends Object
-    ? Object extends IValueOf<infer Primitive>
-        ? Instance extends Primitive
-            ? false
-            : true // not Primitive, but Object
-        : false // cannot be
-    : false;
+  ? Object extends IValueOf<infer Primitive>
+    ? Instance extends Primitive
+      ? false
+      : true // not Primitive, but Object
+    : false // cannot be
+  : false;
 
 interface IValueOf<T> {
-    valueOf(): T;
+  valueOf(): T;
 }
 
 /* -----------------------------------------------------------
     STRING CONVERTER
 ----------------------------------------------------------- */
-type CamelizeString<Key extends string> = Key extends `${infer F}${infer R}`
-    ? `${Lowercase<F>}${CamelizeStringRepeatedly<R>}`
-    : Key;
+type CamelizeString<Key extends string> = Key extends `_${infer R}`
+  ? `_${CamelizeString<R>}`
+  : Key extends `${infer F}${infer R}`
+  ? `${Lowercase<F>}${CamelizeStringRepeatedly<R>}`
+  : Key;
 type CamelizeStringRepeatedly<Key extends string> =
-    Key extends `${infer F}_${infer R}`
-        ? `${F}${Capitalize<CamelizeStringRepeatedly<R>>}`
-        : Key;
+  Key extends `${infer F}_${infer R}`
+    ? `${F}${Capitalize<CamelizeStringRepeatedly<R>>}`
+    : Key;
 ```
-    </Tab>
+  </Tab>
 </Tabs>
 
 Camel case converters.
@@ -927,94 +1008,101 @@ When you need type safe functions, you can utilize below them.
   - `typia.notations.validateCamel<T>`: [`typia.validate<T>()`](../validators/validate) + `typia.notations.camel<T>()`
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
-    <Tab>
+  <Tab>
 ```typescript filename="examples/src/camel.ts" showLineNumbers {}
 import typia from "typia";
 
 interface IPerson {
-    is_my_name_samchon?: boolean;
-    HelloTheNewWorld: string;
-    ToHTML: string;
+  is_my_name_samchon?: boolean;
+  HelloTheNewWorld: string;
+  ToHTML: string;
 }
 typia.notations.createCamel<IPerson>();
 ```
-    </Tab>
-    <Tab>
+  </Tab>
+  <Tab>
 ```javascript filename="examples/bin/camel.js" showLineNumbers {}
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
+"use strict";
+var __importDefault =
+  (this && this.__importDefault) ||
+  function (mod) {
+    return mod && mod.__esModule ? mod : { default: mod };
+  };
 Object.defineProperty(exports, "__esModule", { value: true });
 const typia_1 = __importDefault(require("typia"));
-input => {
-    const $co0 = input => ({
-        isMyNameSamchon: input.is_my_name_samchon,
-        helloTheNewWorld: input.HelloTheNewWorld,
-        toHTML: input.ToHTML
-    });
-    return "object" === typeof input && null !== input ? $co0(input) : input;
+(input) => {
+  const $co0 = (input) => ({
+    isMyNameSamchon: input.is_my_name_samchon,
+    helloTheNewWorld: input.HelloTheNewWorld,
+    toHTML: input.ToHTML,
+  });
+  return "object" === typeof input && null !== input ? $co0(input) : input;
 };
 ```
-    </Tab>
+  </Tab>
 </Tabs>
 
 ### `pascal()` functions
 <Tabs items={[
-    <code>typia</code>, 
-    <code>TypeGuardError.ts</code>, 
-    <code>IValidation.ts</code>,
-    <code>CamelCase.ts</code>
+  <code>typia</code>, 
+  <code>TypeGuardError.ts</code>, 
+  <code>IValidation.ts</code>,
+  <code>PascalCase.ts</code>
 ]}>
-    <Tab>
+  <Tab>
 ```typescript
 export namespace notations {
-    export function pascal<T>(input: T): PascalCase<T>;
-    export function assertPascal<T>(input: T | unknown): PascalCase<T>;
-    export function isPascal<T>(input: T | unknown): PascalCase<T> | null;
-    export function validatePascal<T>(input: T | unknown): IValidation<PascalCase<T>>;
+  export function pascal<T>(input: T): PascalCase<T>;
+  export function assertPascal<T>(input: T | unknown): PascalCase<T>;
+  export function isPascal<T>(input: T | unknown): PascalCase<T> | null;
+  export function validatePascal<T>(
+    input: T | unknown,
+  ): IValidation<PascalCase<T>>;
 
-    export function createPascal<T>(): (input: T) => PascalCase<T>;
-    export function createAssertPascal<T>(): (input: T | unknown) => PascalCase<T>;
-    export function createIsPascal<T>(): (input: T | unknown) => PascalCase<T> | null;
-    export function createValidatePascal<T>(): (
-        input: T | unknown
-    ) => IValidation<PascalCase<T>>;
+  export function createPascal<T>(): (input: T) => PascalCase<T>;
+  export function createAssertPascal<T>(): (
+    input: T | unknown,
+  ) => PascalCase<T>;
+  export function createIsPascal<T>(): (
+    input: T | unknown,
+  ) => PascalCase<T> | null;
+  export function createValidatePascal<T>(): (
+    input: T | unknown,
+  ) => IValidation<PascalCase<T>>;
 }
 ```
-    </Tab>
-    <Tab>
+  </Tab>
+  <Tab>
 ```typescript
 export class TypeGuardError extends Error {
-    public readonly method: string;
-    public readonly path: string | undefined;
-    public readonly expected: string;
-    public readonly value: any;
+  public readonly method: string;
+  public readonly path: string | undefined;
+  public readonly expected: string;
+  public readonly value: any;
 }
 ```
-    </Tab>
-    <Tab>
+  </Tab>
+  <Tab>
 ```typescript
-export type IValidation<T> =
-    | IValidation.ISuccess<T>
-    | IValidation.IFailure;
+export type IValidation<T> = IValidation.ISuccess<T> | IValidation.IFailure;
 export namespace IValidation {
-    export interface ISuccess<T> {
-        success: true;
-        data: T;
-    }
-    export interface IFailure {
-        success: false;
-        errors: IError[];
-    }
-    export interface IError {
-        path: string;
-        expected: string;
-        value: any;
-    }
+  export interface ISuccess<T> {
+    success: true;
+    data: T;
+  }
+  export interface IFailure {
+    success: false;
+    errors: IError[];
+  }
+  export interface IError {
+    path: string;
+    expected: string;
+    value: any;
+  }
 }
 ```
-    </Tab>
-    <Tab>
+  </Tab>
+  <Tab>
 ```typescript
 /**
  * Pascal case type.
@@ -1027,8 +1115,8 @@ export namespace IValidation {
  * @author Jeongho Nam - https://github.com/samchon
  */
 export type PascalCase<T> = Equal<T, PascalizeMain<T>> extends true
-    ? T
-    : PascalizeMain<T>;
+  ? T
+  : PascalizeMain<T>;
 
 /* -----------------------------------------------------------
     OBJECT CONVERSION
@@ -1036,104 +1124,106 @@ export type PascalCase<T> = Equal<T, PascalizeMain<T>> extends true
 type Equal<X, Y> = X extends Y ? (Y extends X ? true : false) : false;
 
 type PascalizeMain<T> = T extends [never]
-    ? never // special trick for (jsonable | null) type
-    : T extends { valueOf(): boolean | bigint | number | string }
-    ? ValueOf<T>
-    : T extends Function
-    ? never
-    : T extends object
-    ? PascalizeObject<T>
-    : T;
+  ? never // special trick for (jsonable | null) type
+  : T extends { valueOf(): boolean | bigint | number | string }
+  ? ValueOf<T>
+  : T extends Function
+  ? never
+  : T extends object
+  ? PascalizeObject<T>
+  : T;
 
 type PascalizeObject<T extends object> = T extends Array<infer U>
-    ? IsTuple<T> extends true
-        ? PascalizeTuple<T>
-        : PascalizeMain<U>[]
-    : T extends Set<infer U>
-    ? Set<PascalizeMain<U>>
-    : T extends Map<infer K, infer V>
-    ? Map<PascalizeMain<K>, PascalizeMain<V>>
-    : T extends WeakSet<any> | WeakMap<any, any>
-    ? never
-    : T extends
-          | Date
-          | Uint8Array
-          | Uint8ClampedArray
-          | Uint16Array
-          | Uint32Array
-          | BigUint64Array
-          | Int8Array
-          | Int16Array
-          | Int32Array
-          | BigInt64Array
-          | Float32Array
-          | Float64Array
-          | ArrayBuffer
-          | SharedArrayBuffer
-          | DataView
-    ? T
-    : {
-          [Key in keyof T as PascalizeString<Key & string>]: PascalizeMain<
-              T[Key]
-          >;
-      };
+  ? IsTuple<T> extends true
+    ? PascalizeTuple<T>
+    : PascalizeMain<U>[]
+  : T extends Set<infer U>
+  ? Set<PascalizeMain<U>>
+  : T extends Map<infer K, infer V>
+  ? Map<PascalizeMain<K>, PascalizeMain<V>>
+  : T extends WeakSet<any> | WeakMap<any, any>
+  ? never
+  : T extends
+      | Date
+      | Uint8Array
+      | Uint8ClampedArray
+      | Uint16Array
+      | Uint32Array
+      | BigUint64Array
+      | Int8Array
+      | Int16Array
+      | Int32Array
+      | BigInt64Array
+      | Float32Array
+      | Float64Array
+      | ArrayBuffer
+      | SharedArrayBuffer
+      | DataView
+      | Blob
+      | File
+  ? T
+  : {
+      [Key in keyof T as PascalizeString<Key & string>]: PascalizeMain<T[Key]>;
+    };
 
 /* -----------------------------------------------------------
     SPECIAL CASES
 ----------------------------------------------------------- */
 type IsTuple<T extends readonly any[] | { length: number }> = [T] extends [
-    never,
+  never,
 ]
+  ? false
+  : T extends readonly any[]
+  ? number extends T["length"]
     ? false
-    : T extends readonly any[]
-    ? number extends T["length"]
-        ? false
-        : true
-    : false;
+    : true
+  : false;
 type PascalizeTuple<T extends readonly any[]> = T extends []
-    ? []
-    : T extends [infer F]
-    ? [PascalizeMain<F>]
-    : T extends [infer F, ...infer Rest extends readonly any[]]
-    ? [PascalizeMain<F>, ...PascalizeTuple<Rest>]
-    : T extends [(infer F)?]
-    ? [PascalizeMain<F>?]
-    : T extends [(infer F)?, ...infer Rest extends readonly any[]]
-    ? [PascalizeMain<F>?, ...PascalizeTuple<Rest>]
-    : [];
+  ? []
+  : T extends [infer F]
+  ? [PascalizeMain<F>]
+  : T extends [infer F, ...infer Rest extends readonly any[]]
+  ? [PascalizeMain<F>, ...PascalizeTuple<Rest>]
+  : T extends [(infer F)?]
+  ? [PascalizeMain<F>?]
+  : T extends [(infer F)?, ...infer Rest extends readonly any[]]
+  ? [PascalizeMain<F>?, ...PascalizeTuple<Rest>]
+  : [];
 
 type ValueOf<Instance> = IsValueOf<Instance, Boolean> extends true
-    ? boolean
-    : IsValueOf<Instance, Number> extends true
-    ? number
-    : IsValueOf<Instance, String> extends true
-    ? string
-    : Instance;
+  ? boolean
+  : IsValueOf<Instance, Number> extends true
+  ? number
+  : IsValueOf<Instance, String> extends true
+  ? string
+  : Instance;
 
 type IsValueOf<Instance, Object extends IValueOf<any>> = Instance extends Object
-    ? Object extends IValueOf<infer Primitive>
-        ? Instance extends Primitive
-            ? false
-            : true // not Primitive, but Object
-        : false // cannot be
-    : false;
+  ? Object extends IValueOf<infer Primitive>
+    ? Instance extends Primitive
+      ? false
+      : true // not Primitive, but Object
+    : false // cannot be
+  : false;
 
 interface IValueOf<T> {
-    valueOf(): T;
+  valueOf(): T;
 }
 
 /* -----------------------------------------------------------
     STRING CONVERTER
 ----------------------------------------------------------- */
-type PascalizeString<Key extends string> = Key extends `${infer F}${infer R}`
-    ? `${Uppercase<F>}${PascalizeStringRepeatedly<R>}`
-    : Key;
+type PascalizeString<Key extends string> = Key extends `_${infer R}`
+  ? `_${PascalizeString<R>}`
+  : Key extends `${infer F}${infer R}`
+  ? `${Uppercase<F>}${PascalizeStringRepeatedly<R>}`
+  : Key;
 type PascalizeStringRepeatedly<Key extends string> =
-    Key extends `${infer F}_${infer R}`
-        ? `${F}${Capitalize<PascalizeStringRepeatedly<R>>}`
-        : Key;
+  Key extends `${infer F}_${infer R}`
+    ? `${F}${Capitalize<PascalizeStringRepeatedly<R>>}`
+    : Key;
 ```
-    </Tab>
+  </Tab>
 </Tabs>
 
 Pascal case converters.
@@ -1147,95 +1237,99 @@ When you need type safe functions, you can utilize below them.
   - `typia.notations.validatePascal<T>`: [`typia.validate<T>()`](../validators/validate) + `typia.notations.pascal<T>()`
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
-    <Tab>
+  <Tab>
 ```typescript filename="examples/src/pascal.ts" showLineNumbers {}
 import typia from "typia";
 
 interface IPerson {
-    is_my_name_samchon?: boolean;
-    helloTheNewWorld: string;
-    toHTML: string;
+  is_my_name_samchon?: boolean;
+  helloTheNewWorld: string;
+  toHTML: string;
 }
 typia.notations.createPascal<IPerson>();
 ```
-    </Tab>
-    <Tab>
+  </Tab>
+  <Tab>
 ```javascript filename="examples/bin/pascal.js" showLineNumbers {}
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
+var __importDefault =
+  (this && this.__importDefault) ||
+  function (mod) {
+    return mod && mod.__esModule ? mod : { default: mod };
+  };
 Object.defineProperty(exports, "__esModule", { value: true });
 const typia_1 = __importDefault(require("typia"));
-input => {
-    const $co0 = input => ({
-        IsMyNameSamchon: input.is_my_name_samchon,
-        HelloTheNewWorld: input.helloTheNewWorld,
-        ToHTML: input.toHTML
-    });
-    return "object" === typeof input && null !== input ? $co0(input) : input;
+(input) => {
+  const $co0 = (input) => ({
+    IsMyNameSamchon: input.is_my_name_samchon,
+    HelloTheNewWorld: input.helloTheNewWorld,
+    ToHTML: input.toHTML,
+  });
+  return "object" === typeof input && null !== input ? $co0(input) : input;
 };
 ```
-    </Tab>
+  </Tab>
 </Tabs>
 
 ### `snake()` functions
 <Tabs items={[
-    <code>typia</code>, 
-    <code>TypeGuardError.ts</code>, 
-    <code>IValidation.ts</code>,
-    <code>SnakeCase.ts</code>
+  <code>typia</code>, 
+  <code>TypeGuardError.ts</code>, 
+  <code>IValidation.ts</code>,
+  <code>SnakeCase.ts</code>
 ]}>
-    <Tab>
+  <Tab>
 ```typescript
 export namespace notations {
-    export function snake<T>(input: T): SnakeCase<T>;
-    export function assertSnake<T>(input: T | unknown): SnakeCase<T>;
-    export function isSnake<T>(input: T | unknown): SnakeCase<T> | null;
-    export function validateSnake<T>(input: T | unknown): IValidation<SnakeCase<T>>;
+  export function snake<T>(input: T): SnakeCase<T>;
+  export function assertSnake<T>(input: T | unknown): SnakeCase<T>;
+  export function isSnake<T>(input: T | unknown): SnakeCase<T> | null;
+  export function validateSnake<T>(
+    input: T | unknown,
+  ): IValidation<SnakeCase<T>>;
 
-    export function createSnake<T>(): (input: T) => SnakeCase<T>;
-    export function createAssertSnake<T>(): (input: T | unknown) => SnakeCase<T>;
-    export function createIsSnake<T>(): (input: T | unknown) => SnakeCase<T> | null;
-    export function createValidateSnake<T>(): (
-        input: T | unknown
-    ) => IValidation<SnakeCase<T>>;
+  export function createSnake<T>(): (input: T) => SnakeCase<T>;
+  export function createAssertSnake<T>(): (input: T | unknown) => SnakeCase<T>;
+  export function createIsSnake<T>(): (
+    input: T | unknown,
+  ) => SnakeCase<T> | null;
+  export function createValidateSnake<T>(): (
+    input: T | unknown,
+  ) => IValidation<SnakeCase<T>>;
 }
 ```
-    </Tab>
-    <Tab>
+  </Tab>
+  <Tab>
 ```typescript
 export class TypeGuardError extends Error {
-    public readonly method: string;
-    public readonly path: string | undefined;
-    public readonly expected: string;
-    public readonly value: any;
+  public readonly method: string;
+  public readonly path: string | undefined;
+  public readonly expected: string;
+  public readonly value: any;
 }
 ```
-    </Tab>
-    <Tab>
+  </Tab>
+  <Tab>
 ```typescript
-export type IValidation<T> =
-    | IValidation.ISuccess<T>
-    | IValidation.IFailure;
+export type IValidation<T> = IValidation.ISuccess<T> | IValidation.IFailure;
 export namespace IValidation {
-    export interface ISuccess<T> {
-        success: true;
-        data: T;
-    }
-    export interface IFailure {
-        success: false;
-        errors: IError[];
-    }
-    export interface IError {
-        path: string;
-        expected: string;
-        value: any;
-    }
+  export interface ISuccess<T> {
+    success: true;
+    data: T;
+  }
+  export interface IFailure {
+    success: false;
+    errors: IError[];
+  }
+  export interface IError {
+    path: string;
+    expected: string;
+    value: any;
+  }
 }
 ```
-    </Tab>
-    <Tab>
+  </Tab>
+  <Tab>
 ```typescript
 /**
  * Snake case type.
@@ -1248,8 +1342,8 @@ export namespace IValidation {
  * @author Jeongho Nam - https://github.com/samchon
  */
 export type SnakeCase<T> = Equal<T, SnakageMain<T>> extends true
-    ? T
-    : SnakageMain<T>;
+  ? T
+  : SnakageMain<T>;
 
 /* -----------------------------------------------------------
     OBJECT CONVERSION
@@ -1257,144 +1351,146 @@ export type SnakeCase<T> = Equal<T, SnakageMain<T>> extends true
 type Equal<X, Y> = X extends Y ? (Y extends X ? true : false) : false;
 
 type SnakageMain<T> = T extends [never]
-    ? never // special trick for (jsonable | null) type
-    : T extends { valueOf(): boolean | bigint | number | string }
-    ? ValueOf<T>
-    : T extends Function
-    ? never
-    : T extends object
-    ? SnakageObject<T>
-    : T;
+  ? never // special trick for (jsonable | null) type
+  : T extends { valueOf(): boolean | bigint | number | string }
+  ? ValueOf<T>
+  : T extends Function
+  ? never
+  : T extends object
+  ? SnakageObject<T>
+  : T;
 
 type SnakageObject<T extends object> = T extends Array<infer U>
-    ? IsTuple<T> extends true
-        ? SnakageTuple<T>
-        : SnakageMain<U>[]
-    : T extends Set<infer U>
-    ? Set<SnakageMain<U>>
-    : T extends Map<infer K, infer V>
-    ? Map<SnakageMain<K>, SnakageMain<V>>
-    : T extends WeakSet<any> | WeakMap<any, any>
-    ? never
-    : T extends
-          | Date
-          | Uint8Array
-          | Uint8ClampedArray
-          | Uint16Array
-          | Uint32Array
-          | BigUint64Array
-          | Int8Array
-          | Int16Array
-          | Int32Array
-          | BigInt64Array
-          | Float32Array
-          | Float64Array
-          | ArrayBuffer
-          | SharedArrayBuffer
-          | DataView
-    ? T
-    : {
-          [Key in keyof T as SnakageString<Key & string>]: SnakageMain<T[Key]>;
-      };
+  ? IsTuple<T> extends true
+    ? SnakageTuple<T>
+    : SnakageMain<U>[]
+  : T extends Set<infer U>
+  ? Set<SnakageMain<U>>
+  : T extends Map<infer K, infer V>
+  ? Map<SnakageMain<K>, SnakageMain<V>>
+  : T extends WeakSet<any> | WeakMap<any, any>
+  ? never
+  : T extends
+      | Date
+      | Uint8Array
+      | Uint8ClampedArray
+      | Uint16Array
+      | Uint32Array
+      | BigUint64Array
+      | Int8Array
+      | Int16Array
+      | Int32Array
+      | BigInt64Array
+      | Float32Array
+      | Float64Array
+      | ArrayBuffer
+      | SharedArrayBuffer
+      | DataView
+      | Blob
+      | File
+  ? T
+  : {
+      [Key in keyof T as SnakageString<Key & string>]: SnakageMain<T[Key]>;
+    };
 
 /* -----------------------------------------------------------
     SPECIAL CASES
 ----------------------------------------------------------- */
 type IsTuple<T extends readonly any[] | { length: number }> = [T] extends [
-    never,
+  never,
 ]
+  ? false
+  : T extends readonly any[]
+  ? number extends T["length"]
     ? false
-    : T extends readonly any[]
-    ? number extends T["length"]
-        ? false
-        : true
-    : false;
+    : true
+  : false;
 type SnakageTuple<T extends readonly any[]> = T extends []
-    ? []
-    : T extends [infer F]
-    ? [SnakageMain<F>]
-    : T extends [infer F, ...infer Rest extends readonly any[]]
-    ? [SnakageMain<F>, ...SnakageTuple<Rest>]
-    : T extends [(infer F)?]
-    ? [SnakageMain<F>?]
-    : T extends [(infer F)?, ...infer Rest extends readonly any[]]
-    ? [SnakageMain<F>?, ...SnakageTuple<Rest>]
-    : [];
+  ? []
+  : T extends [infer F]
+  ? [SnakageMain<F>]
+  : T extends [infer F, ...infer Rest extends readonly any[]]
+  ? [SnakageMain<F>, ...SnakageTuple<Rest>]
+  : T extends [(infer F)?]
+  ? [SnakageMain<F>?]
+  : T extends [(infer F)?, ...infer Rest extends readonly any[]]
+  ? [SnakageMain<F>?, ...SnakageTuple<Rest>]
+  : [];
 
 type ValueOf<Instance> = IsValueOf<Instance, Boolean> extends true
-    ? boolean
-    : IsValueOf<Instance, Number> extends true
-    ? number
-    : IsValueOf<Instance, String> extends true
-    ? string
-    : Instance;
+  ? boolean
+  : IsValueOf<Instance, Number> extends true
+  ? number
+  : IsValueOf<Instance, String> extends true
+  ? string
+  : Instance;
 
 type IsValueOf<Instance, Object extends IValueOf<any>> = Instance extends Object
-    ? Object extends IValueOf<infer Primitive>
-        ? Instance extends Primitive
-            ? false
-            : true // not Primitive, but Object
-        : false // cannot be
-    : false;
+  ? Object extends IValueOf<infer Primitive>
+    ? Instance extends Primitive
+      ? false
+      : true // not Primitive, but Object
+    : false // cannot be
+  : false;
 
 interface IValueOf<T> {
-    valueOf(): T;
+  valueOf(): T;
 }
 
 /* -----------------------------------------------------------
     STRING CONVERTER
 ----------------------------------------------------------- */
 type SnakageString<Key extends string> = Key extends `${infer _}`
-    ? SnakageStringRepeatedly<Key, "">
-    : Key;
+  ? SnakageStringRepeatedly<Key, "">
+  : Key;
 type SnakageStringRepeatedly<
-    S extends string,
-    Previous extends string,
+  S extends string,
+  Previous extends string,
 > = S extends `${infer First}${infer Second}${infer Rest}`
-    ? `${Underscore<Previous, First>}${Lowercase<First>}${Underscore<
-          First,
-          Second
-      >}${Lowercase<Second>}${SnakageStringRepeatedly<Rest, Second>}`
-    : S extends `${infer First}`
-    ? `${Underscore<Previous, First>}${Lowercase<First>}`
-    : "";
+  ? `${Underscore<Previous, First>}${Lowercase<First>}${Underscore<
+      First,
+      Second
+    >}${Lowercase<Second>}${SnakageStringRepeatedly<Rest, Second>}`
+  : S extends `${infer First}`
+  ? `${Underscore<Previous, First>}${Lowercase<First>}`
+  : "";
 type Underscore<First extends string, Second extends string> = First extends
-    | UpperAlphabetic
-    | ""
-    | "_"
-    ? ""
-    : Second extends UpperAlphabetic
-    ? "_"
-    : "";
+  | UpperAlphabetic
+  | ""
+  | "_"
+  ? ""
+  : Second extends UpperAlphabetic
+  ? "_"
+  : "";
 type UpperAlphabetic =
-    | "A"
-    | "B"
-    | "C"
-    | "D"
-    | "E"
-    | "F"
-    | "G"
-    | "H"
-    | "I"
-    | "J"
-    | "K"
-    | "L"
-    | "M"
-    | "N"
-    | "O"
-    | "P"
-    | "Q"
-    | "R"
-    | "S"
-    | "T"
-    | "U"
-    | "V"
-    | "W"
-    | "X"
-    | "Y"
-    | "Z";
+  | "A"
+  | "B"
+  | "C"
+  | "D"
+  | "E"
+  | "F"
+  | "G"
+  | "H"
+  | "I"
+  | "J"
+  | "K"
+  | "L"
+  | "M"
+  | "N"
+  | "O"
+  | "P"
+  | "Q"
+  | "R"
+  | "S"
+  | "T"
+  | "U"
+  | "V"
+  | "W"
+  | "X"
+  | "Y"
+  | "Z";
 ```
-    </Tab>
+  </Tab>
 </Tabs>
 
 Snake case converters.
@@ -1408,44 +1504,46 @@ When you need type safe functions, you can utilize below them.
   - `typia.notations.validateSnake<T>`: [`typia.validate<T>()`](../validators/validate) + `typia.notations.snake<T>()`
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
-    <Tab>
+  <Tab>
 ```typescript filename="examples/src/snake.ts" showLineNumbers {}
 import typia from "typia";
 
 interface IPerson {
-    isMyNameSamchon?: boolean;
-    HelloTheNewWorld: string;
-    ToHTML: string;
+  isMyNameSamchon?: boolean;
+  HelloTheNewWorld: string;
+  ToHTML: string;
 }
 typia.notations.createSnake<IPerson>();
 ```
-    </Tab>
-    <Tab>
+  </Tab>
+  <Tab>
 ```javascript filename="examples/bin/snake.js" showLineNumbers {}
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
+var __importDefault =
+  (this && this.__importDefault) ||
+  function (mod) {
+    return mod && mod.__esModule ? mod : { default: mod };
+  };
 Object.defineProperty(exports, "__esModule", { value: true });
 const typia_1 = __importDefault(require("typia"));
-input => {
-    const $co0 = input => ({
-        is_my_name_samchon: input.isMyNameSamchon,
-        hello_the_new_world: input.HelloTheNewWorld,
-        to_html: input.ToHTML
-    });
-    return "object" === typeof input && null !== input ? $co0(input) : input;
+(input) => {
+  const $co0 = (input) => ({
+    is_my_name_samchon: input.isMyNameSamchon,
+    hello_the_new_world: input.HelloTheNewWorld,
+    to_html: input.ToHTML,
+  });
+  return "object" === typeof input && null !== input ? $co0(input) : input;
 };
 ```
-    </Tab>
+  </Tab>
 </Tabs>
 
 ## `http` module
 <br/>
 <Alert severity="success">
-    <AlertTitle> 
-        **Nestia Supporting** 
-    </AlertTitle>
+  <AlertTitle> 
+    **Nestia Supporting** 
+  </AlertTitle>
 
 `http` module has been designed to support the [nestia](https://github.com/samchon/nestia) project.
 
@@ -1457,68 +1555,68 @@ input => {
 
 ### `query()` functions
 <Tabs items={[
-    <code>typia</code>, 
-    <code>TypeGuardError.ts</code>, 
-    <code>IValidation.ts</code>,
-    <code>Resolved.ts</code>
+  <code>typia</code>, 
+  <code>TypeGuardError.ts</code>, 
+  <code>IValidation.ts</code>,
+  <code>Resolved.ts</code>
 ]}>
-    <Tab>
+  <Tab>
 ```typescript
 export namespace http {
-    export function query<T extends object>(input: Query): Resolved<T>;
-    export function assertQuery<T extends object>(input: Query): Resolved<T>;
-    export function isQuery<T extends object>(input: Query): Resolved<T> | null;
-    export function validateQuery<T extends object>(
-        input: Query
-    ): IValidation<Resolved<T>>;
+  export function query<T extends object>(input: Query): Resolved<T>;
+  export function assertQuery<T extends object>(input: Query): Resolved<T>;
+  export function isQuery<T extends object>(input: Query): Resolved<T> | null;
+  export function validateQuery<T extends object>(
+    input: Query,
+  ): IValidation<Resolved<T>>;
 
-    export function createQuery<T extends object>(): (input: Query) => Resolved<T>;
-    export function createAssertQuery<T extends object>(): (
-        input: Query
-    ) => Resolved<T>;
-    export function createIsQuery<T extends object>(): (
-        input: Query
-    ) => Resolved<T> | null;
-    export function createValidateQuery<T extends object>(): (
-        input: Query
-    ) => IValidation<Resolved<T>>;
+  export function createQuery<T extends object>(): (
+    input: Query,
+  ) => Resolved<T>;
+  export function createAssertQuery<T extends object>(): (
+    input: Query,
+  ) => Resolved<T>;
+  export function createIsQuery<T extends object>(): (
+    input: Query,
+  ) => Resolved<T> | null;
+  export function createValidateQuery<T extends object>(): (
+    input: Query,
+  ) => IValidation<Resolved<T>>;
 }
 type Query = string | URLSearchParams;
 ```
-    </Tab>
-    <Tab>
+  </Tab>
+  <Tab>
 ```typescript
 export class TypeGuardError extends Error {
-    public readonly method: string;
-    public readonly path: string | undefined;
-    public readonly expected: string;
-    public readonly value: any;
+  public readonly method: string;
+  public readonly path: string | undefined;
+  public readonly expected: string;
+  public readonly value: any;
 }
 ```
-    </Tab>
-    <Tab>
+  </Tab>
+  <Tab>
 ```typescript
-export type IValidation<T> =
-    | IValidation.ISuccess<T>
-    | IValidation.IFailure;
+export type IValidation<T> = IValidation.ISuccess<T> | IValidation.IFailure;
 export namespace IValidation {
-    export interface ISuccess<T> {
-        success: true;
-        data: T;
-    }
-    export interface IFailure {
-        success: false;
-        errors: IError[];
-    }
-    export interface IError {
-        path: string;
-        expected: string;
-        value: any;
-    }
+  export interface ISuccess<T> {
+    success: true;
+    data: T;
+  }
+  export interface IFailure {
+    success: false;
+    errors: IError[];
+  }
+  export interface IError {
+    path: string;
+    expected: string;
+    value: any;
+  }
 }
 ```
-    </Tab>
-    <Tab>
+  </Tab>
+  <Tab>
 ```typescript
 /**
  * Resolved type erased every methods.
@@ -1544,100 +1642,102 @@ export namespace IValidation {
  * `Class`                 | `interface`
  * Native Class or Others  | No change
  *
- * @template Instance Target argument type.
+ * @template T Target argument type.
  * @author Jeongho Nam - https://github.com/samchon
  * @author Kyungsu Kang - https://github.com/kakasoo
  */
 export type Resolved<T> = Equal<T, ResolvedMain<T>> extends true
-    ? T
-    : ResolvedMain<T>;
+  ? T
+  : ResolvedMain<T>;
 
 type Equal<X, Y> = X extends Y ? (Y extends X ? true : false) : false;
 
-type ResolvedMain<Instance> = Instance extends [never]
-    ? never // (special trick for jsonable | null) type
-    : ValueOf<Instance> extends boolean | number | bigint | string
-    ? ValueOf<Instance>
-    : Instance extends Function
-    ? never
-    : Instance extends object
-    ? ResolvedObject<Instance>
-    : ValueOf<Instance>;
+type ResolvedMain<T> = T extends [never]
+  ? never // (special trick for jsonable | null) type
+  : ValueOf<T> extends boolean | number | bigint | string
+  ? ValueOf<T>
+  : T extends Function
+  ? never
+  : T extends object
+  ? ResolvedObject<T>
+  : ValueOf<T>;
 
-type ResolvedObject<Instance extends object> = Instance extends Array<infer T>
-    ? IsTuple<Instance> extends true
-        ? ResolvedTuple<Instance>
-        : ResolvedMain<T>[]
-    : Instance extends Set<infer U>
-    ? Set<ResolvedMain<U>>
-    : Instance extends Map<infer K, infer V>
-    ? Map<ResolvedMain<K>, ResolvedMain<V>>
-    : Instance extends WeakSet<any> | WeakMap<any, any>
-    ? never
-    : Instance extends
-          | Date
-          | Uint8Array
-          | Uint8ClampedArray
-          | Uint16Array
-          | Uint32Array
-          | BigUint64Array
-          | Int8Array
-          | Int16Array
-          | Int32Array
-          | BigInt64Array
-          | Float32Array
-          | Float64Array
-          | ArrayBuffer
-          | SharedArrayBuffer
-          | DataView
-    ? Instance
-    : {
-          [P in keyof Instance]: ResolvedMain<Instance[P]>;
-      };
+type ResolvedObject<T extends object> = T extends Array<infer U>
+  ? IsTuple<T> extends true
+    ? ResolvedTuple<T>
+    : ResolvedMain<U>[]
+  : T extends Set<infer U>
+  ? Set<ResolvedMain<U>>
+  : T extends Map<infer K, infer V>
+  ? Map<ResolvedMain<K>, ResolvedMain<V>>
+  : T extends WeakSet<any> | WeakMap<any, any>
+  ? never
+  : T extends
+      | Date
+      | Uint8Array
+      | Uint8ClampedArray
+      | Uint16Array
+      | Uint32Array
+      | BigUint64Array
+      | Int8Array
+      | Int16Array
+      | Int32Array
+      | BigInt64Array
+      | Float32Array
+      | Float64Array
+      | ArrayBuffer
+      | SharedArrayBuffer
+      | DataView
+      | Blob
+      | File
+  ? T
+  : {
+      [P in keyof T]: ResolvedMain<T[P]>;
+    };
 
 type ResolvedTuple<T extends readonly any[]> = T extends []
-    ? []
-    : T extends [infer F]
-    ? [ResolvedMain<F>]
-    : T extends [infer F, ...infer Rest extends readonly any[]]
-    ? [ResolvedMain<F>, ...ResolvedTuple<Rest>]
-    : T extends [(infer F)?]
-    ? [ResolvedMain<F>?]
-    : T extends [(infer F)?, ...infer Rest extends readonly any[]]
-    ? [ResolvedMain<F>?, ...ResolvedTuple<Rest>]
-    : [];
-
-type ValueOf<Instance> = IsValueOf<Instance, Boolean> extends true
-    ? boolean
-    : IsValueOf<Instance, Number> extends true
-    ? number
-    : IsValueOf<Instance, String> extends true
-    ? string
-    : Instance;
+  ? []
+  : T extends [infer F]
+  ? [ResolvedMain<F>]
+  : T extends [infer F, ...infer Rest extends readonly any[]]
+  ? [ResolvedMain<F>, ...ResolvedTuple<Rest>]
+  : T extends [(infer F)?]
+  ? [ResolvedMain<F>?]
+  : T extends [(infer F)?, ...infer Rest extends readonly any[]]
+  ? [ResolvedMain<F>?, ...ResolvedTuple<Rest>]
+  : [];
 
 type IsTuple<T extends readonly any[] | { length: number }> = [T] extends [
-    never,
+  never,
 ]
+  ? false
+  : T extends readonly any[]
+  ? number extends T["length"]
     ? false
-    : T extends readonly any[]
-    ? number extends T["length"]
-        ? false
-        : true
-    : false;
+    : true
+  : false;
+
+type ValueOf<Instance> = IsValueOf<Instance, Boolean> extends true
+  ? boolean
+  : IsValueOf<Instance, Number> extends true
+  ? number
+  : IsValueOf<Instance, String> extends true
+  ? string
+  : Instance;
 
 type IsValueOf<Instance, Object extends IValueOf<any>> = Instance extends Object
-    ? Object extends IValueOf<infer Primitive>
-        ? Instance extends Primitive
-            ? false
-            : true // not Primitive, but Object
-        : false // cannot be
-    : false;
+  ? Object extends IValueOf<infer Primitive>
+    ? Instance extends Primitive
+      ? false
+      : true // not Primitive, but Object
+    : false // cannot be
+  : false;
 
 interface IValueOf<T> {
-    valueOf(): T;
+  valueOf(): T;
 }
 ```
-    </Tab>
+  </Tab>
 </Tabs>
 
 URL query decoder functions.
@@ -1658,114 +1758,119 @@ Also, `typia.http.query<T>()` function does not perform validation about the dec
   - `typia.http.validateQuery<T>()`: [`typia.validate<T>()`](../validators/validate) + `typia.http.query<T>()`
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
-    <Tab>
+  <Tab>
 ```typescript filename="examples/src/query.ts" showLineNumbers {}
 import typia from "typia";
 
 interface IQuery {
-    limit?: number;
-    enforce: boolean;
-    values?: string[];
-    atomic: string | null;
-    indexes: number[];
+  limit?: number;
+  enforce: boolean;
+  values?: string[];
+  atomic: string | null;
+  indexes: number[];
 }
 typia.http.createQuery<IQuery>();
 ```
-    </Tab>
-    <Tab>
+  </Tab>
+  <Tab>
 ```javascript filename="examples/bin/query.js" showLineNumbers {}
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
+var __importDefault =
+  (this && this.__importDefault) ||
+  function (mod) {
+    return mod && mod.__esModule ? mod : { default: mod };
+  };
 Object.defineProperty(exports, "__esModule", { value: true });
 const typia_1 = __importDefault(require("typia"));
-input => {
-    const $params = typia_1.default.http.createQuery.params;
-    const $number = typia_1.default.http.createQuery.number;
-    const $boolean = typia_1.default.http.createQuery.boolean;
-    const $string = typia_1.default.http.createQuery.string;
-    const $array = typia_1.default.http.createQuery.array;
-    input = $params(input);
-    const output = {
-        limit: $number(input.get("limit")) ?? undefined,
-        enforce: $boolean(input.get("enforce")),
-        values: $array(input.getAll("values").map(elem => $string(elem)), undefined),
-        atomic: $string(input.get("atomic")),
-        indexes: input.getAll("indexes").map(elem => $number(elem))
-    };
-    return output;
+(input) => {
+  const $params = typia_1.default.http.createQuery.params;
+  const $number = typia_1.default.http.createQuery.number;
+  const $boolean = typia_1.default.http.createQuery.boolean;
+  const $string = typia_1.default.http.createQuery.string;
+  const $array = typia_1.default.http.createQuery.array;
+  input = $params(input);
+  const output = {
+    limit: $number(input.get("limit")) ?? undefined,
+    enforce: $boolean(input.get("enforce")),
+    values: $array(
+      input.getAll("values").map((elem) => $string(elem)),
+      undefined,
+    ),
+    atomic: $string(input.get("atomic")),
+    indexes: input.getAll("indexes").map((elem) => $number(elem)),
+  };
+  return output;
 };
 ```
-    </Tab>
+  </Tab>
 </Tabs>
 
 ### `headers()` functions
 <Tabs items={[
-    <code>typia</code>, 
-    <code>TypeGuardError.ts</code>, 
-    <code>IValidation.ts</code>,
-    <code>Resolved.ts</code>
+  <code>typia</code>, 
+  <code>TypeGuardError.ts</code>, 
+  <code>IValidation.ts</code>,
+  <code>Resolved.ts</code>
 ]}>
-    <Tab>
+  <Tab>
 ```typescript
 export namespace http {
-    export function headers<T extends object>(input: Headers): Resolved<T>;
-    export function assertHeaders<T extends object>(input: Headers): Resolved<T>;
-    export function isHeaders<T extends object>(input: Headers): Resolved<T> | null;
-    export function validateHeaders<T extends object>(
-        input: Headers
-    ): IValidation<Resolved<T>>;
+  export function headers<T extends object>(input: Headers): Resolved<T>;
+  export function assertHeaders<T extends object>(input: Headers): Resolved<T>;
+  export function isHeaders<T extends object>(
+    input: Headers,
+  ): Resolved<T> | null;
+  export function validateHeaders<T extends object>(
+    input: Headers,
+  ): IValidation<Resolved<T>>;
 
-    export function createHeaders<T extends object>(): (
-        input: Headers
-    ) => Resolved<T>;
-    export function createAssertHeaders<T extends object>(): (
-        input: Headers
-    ) => Resolved<T>;
-    export function createIsHeaders<T extends object>(): (
-        input: Headers
-    ) => Resolved<T> | null;
-    export function createValidateHeaders<T extends object>(): (
-        input: Headers
-    ) => IValidation<Resolved<T>>;
+  export function createHeaders<T extends object>(): (
+    input: Headers,
+  ) => Resolved<T>;
+  export function createAssertHeaders<T extends object>(): (
+    input: Headers,
+  ) => Resolved<T>;
+  export function createIsHeaders<T extends object>(): (
+    input: Headers,
+  ) => Resolved<T> | null;
+  export function createValidateHeaders<T extends object>(): (
+    input: Headers,
+  ) => IValidation<Resolved<T>>;
 }
 type Headers = Record<string, string | string[] | undefined>;
 ```
-    </Tab>
-    <Tab>
+  </Tab>
+  <Tab>
 ```typescript
 export class TypeGuardError extends Error {
-    public readonly method: string;
-    public readonly path: string | undefined;
-    public readonly expected: string;
-    public readonly value: any;
+  public readonly method: string;
+  public readonly path: string | undefined;
+  public readonly expected: string;
+  public readonly value: any;
 }
 ```
-    </Tab>
-    <Tab>
+  </Tab>
+  <Tab>
 ```typescript
-export type IValidation<T> =
-    | IValidation.ISuccess<T>
-    | IValidation.IFailure;
+export type IValidation<T> = IValidation.ISuccess<T> | IValidation.IFailure;
 export namespace IValidation {
-    export interface ISuccess<T> {
-        success: true;
-        data: T;
-    }
-    export interface IFailure {
-        success: false;
-        errors: IError[];
-    }
-    export interface IError {
-        path: string;
-        expected: string;
-        value: any;
-    }
+  export interface ISuccess<T> {
+    success: true;
+    data: T;
+  }
+  export interface IFailure {
+    success: false;
+    errors: IError[];
+  }
+  export interface IError {
+    path: string;
+    expected: string;
+    value: any;
+  }
 }
 ```
-    </Tab>
-    <Tab>
+  </Tab>
+  <Tab>
 ```typescript
 /**
  * Resolved type erased every methods.
@@ -1791,100 +1896,102 @@ export namespace IValidation {
  * `Class`                 | `interface`
  * Native Class or Others  | No change
  *
- * @template Instance Target argument type.
+ * @template T Target argument type.
  * @author Jeongho Nam - https://github.com/samchon
  * @author Kyungsu Kang - https://github.com/kakasoo
  */
 export type Resolved<T> = Equal<T, ResolvedMain<T>> extends true
-    ? T
-    : ResolvedMain<T>;
+  ? T
+  : ResolvedMain<T>;
 
 type Equal<X, Y> = X extends Y ? (Y extends X ? true : false) : false;
 
-type ResolvedMain<Instance> = Instance extends [never]
-    ? never // (special trick for jsonable | null) type
-    : ValueOf<Instance> extends boolean | number | bigint | string
-    ? ValueOf<Instance>
-    : Instance extends Function
-    ? never
-    : Instance extends object
-    ? ResolvedObject<Instance>
-    : ValueOf<Instance>;
+type ResolvedMain<T> = T extends [never]
+  ? never // (special trick for jsonable | null) type
+  : ValueOf<T> extends boolean | number | bigint | string
+  ? ValueOf<T>
+  : T extends Function
+  ? never
+  : T extends object
+  ? ResolvedObject<T>
+  : ValueOf<T>;
 
-type ResolvedObject<Instance extends object> = Instance extends Array<infer T>
-    ? IsTuple<Instance> extends true
-        ? ResolvedTuple<Instance>
-        : ResolvedMain<T>[]
-    : Instance extends Set<infer U>
-    ? Set<ResolvedMain<U>>
-    : Instance extends Map<infer K, infer V>
-    ? Map<ResolvedMain<K>, ResolvedMain<V>>
-    : Instance extends WeakSet<any> | WeakMap<any, any>
-    ? never
-    : Instance extends
-          | Date
-          | Uint8Array
-          | Uint8ClampedArray
-          | Uint16Array
-          | Uint32Array
-          | BigUint64Array
-          | Int8Array
-          | Int16Array
-          | Int32Array
-          | BigInt64Array
-          | Float32Array
-          | Float64Array
-          | ArrayBuffer
-          | SharedArrayBuffer
-          | DataView
-    ? Instance
-    : {
-          [P in keyof Instance]: ResolvedMain<Instance[P]>;
-      };
+type ResolvedObject<T extends object> = T extends Array<infer U>
+  ? IsTuple<T> extends true
+    ? ResolvedTuple<T>
+    : ResolvedMain<U>[]
+  : T extends Set<infer U>
+  ? Set<ResolvedMain<U>>
+  : T extends Map<infer K, infer V>
+  ? Map<ResolvedMain<K>, ResolvedMain<V>>
+  : T extends WeakSet<any> | WeakMap<any, any>
+  ? never
+  : T extends
+      | Date
+      | Uint8Array
+      | Uint8ClampedArray
+      | Uint16Array
+      | Uint32Array
+      | BigUint64Array
+      | Int8Array
+      | Int16Array
+      | Int32Array
+      | BigInt64Array
+      | Float32Array
+      | Float64Array
+      | ArrayBuffer
+      | SharedArrayBuffer
+      | DataView
+      | Blob
+      | File
+  ? T
+  : {
+      [P in keyof T]: ResolvedMain<T[P]>;
+    };
 
 type ResolvedTuple<T extends readonly any[]> = T extends []
-    ? []
-    : T extends [infer F]
-    ? [ResolvedMain<F>]
-    : T extends [infer F, ...infer Rest extends readonly any[]]
-    ? [ResolvedMain<F>, ...ResolvedTuple<Rest>]
-    : T extends [(infer F)?]
-    ? [ResolvedMain<F>?]
-    : T extends [(infer F)?, ...infer Rest extends readonly any[]]
-    ? [ResolvedMain<F>?, ...ResolvedTuple<Rest>]
-    : [];
-
-type ValueOf<Instance> = IsValueOf<Instance, Boolean> extends true
-    ? boolean
-    : IsValueOf<Instance, Number> extends true
-    ? number
-    : IsValueOf<Instance, String> extends true
-    ? string
-    : Instance;
+  ? []
+  : T extends [infer F]
+  ? [ResolvedMain<F>]
+  : T extends [infer F, ...infer Rest extends readonly any[]]
+  ? [ResolvedMain<F>, ...ResolvedTuple<Rest>]
+  : T extends [(infer F)?]
+  ? [ResolvedMain<F>?]
+  : T extends [(infer F)?, ...infer Rest extends readonly any[]]
+  ? [ResolvedMain<F>?, ...ResolvedTuple<Rest>]
+  : [];
 
 type IsTuple<T extends readonly any[] | { length: number }> = [T] extends [
-    never,
+  never,
 ]
+  ? false
+  : T extends readonly any[]
+  ? number extends T["length"]
     ? false
-    : T extends readonly any[]
-    ? number extends T["length"]
-        ? false
-        : true
-    : false;
+    : true
+  : false;
+
+type ValueOf<Instance> = IsValueOf<Instance, Boolean> extends true
+  ? boolean
+  : IsValueOf<Instance, Number> extends true
+  ? number
+  : IsValueOf<Instance, String> extends true
+  ? string
+  : Instance;
 
 type IsValueOf<Instance, Object extends IValueOf<any>> = Instance extends Object
-    ? Object extends IValueOf<infer Primitive>
-        ? Instance extends Primitive
-            ? false
-            : true // not Primitive, but Object
-        : false // cannot be
-    : false;
+  ? Object extends IValueOf<infer Primitive>
+    ? Instance extends Primitive
+      ? false
+      : true // not Primitive, but Object
+    : false // cannot be
+  : false;
 
 interface IValueOf<T> {
-    valueOf(): T;
+  valueOf(): T;
 }
 ```
-    </Tab>
+  </Tab>
 </Tabs>
 
 Headers decoder (for express and fastify).
@@ -1927,72 +2034,80 @@ Also, `typia.http.headers<t>()` function does not perform validation about the d
   - `typia.http.validateHeaders<T>()`: [`typia.validate<T>()`](../validators/validate) + `typia.http.headers<T>()`
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
-    <Tab>
+  <Tab>
 ```typescript filename="examples/src/headers.ts" showLineNumbers {}
 import typia from "typia";
 
 interface IHeaders {
-    "x-Category": "x" | "y" | "z";
-    "x-MEMO"?: string;
-    "x-nAmE"?: string;
-    "x-ValUes": number[];
-    "x-FlAgS": boolean[];
-    "X-Descriptions": string[];
+  "x-Category": "x" | "y" | "z";
+  "x-MEMO"?: string;
+  "x-nAmE"?: string;
+  "x-ValUes": number[];
+  "x-FlAgS": boolean[];
+  "X-Descriptions": string[];
 }
 typia.http.createHeaders<IHeaders>();
 ```
-    </Tab>
-    <Tab>
+  </Tab>
+  <Tab>
 ```javascript filename="examples/bin/headers.js" showLineNumbers {}
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
+var __importDefault =
+  (this && this.__importDefault) ||
+  function (mod) {
+    return mod && mod.__esModule ? mod : { default: mod };
+  };
 Object.defineProperty(exports, "__esModule", { value: true });
 const typia_1 = __importDefault(require("typia"));
-input => {
-    const $number = typia_1.default.http.createHeaders.number;
-    const $boolean = typia_1.default.http.createHeaders.boolean;
-    const $string = typia_1.default.http.createHeaders.string;
-    const output = {
-        "x-Category": input["x-category"],
-        "x-MEMO": input["x-memo"],
-        "x-nAmE": input["x-name"],
-        "x-ValUes": Array.isArray(input["x-values"]) ? input["x-values"].map($number) : input["x-values"]?.split(", ")?.map($number) ?? [],
-        "x-FlAgS": Array.isArray(input["x-flags"]) ? input["x-flags"].map($boolean) : input["x-flags"]?.split(", ")?.map($boolean) ?? [],
-        "X-Descriptions": Array.isArray(input["x-descriptions"]) ? input["x-descriptions"].map($string) : input["x-descriptions"]?.split(", ")?.map($string) ?? []
-    };
-    return output;
+(input) => {
+  const $number = typia_1.default.http.createHeaders.number;
+  const $boolean = typia_1.default.http.createHeaders.boolean;
+  const $string = typia_1.default.http.createHeaders.string;
+  const output = {
+    "x-Category": input["x-category"],
+    "x-MEMO": input["x-memo"],
+    "x-nAmE": input["x-name"],
+    "x-ValUes": Array.isArray(input["x-values"])
+      ? input["x-values"].map($number)
+      : input["x-values"]?.split(", ")?.map($number) ?? [],
+    "x-FlAgS": Array.isArray(input["x-flags"])
+      ? input["x-flags"].map($boolean)
+      : input["x-flags"]?.split(", ")?.map($boolean) ?? [],
+    "X-Descriptions": Array.isArray(input["x-descriptions"])
+      ? input["x-descriptions"].map($string)
+      : input["x-descriptions"]?.split(", ")?.map($string) ?? [],
+  };
+  return output;
 };
 ```
-    </Tab>
+  </Tab>
 </Tabs>
 
 ### `parameter()` functions
 <Tabs items={[
-    <code>typia</code>, 
-    <code>TypeGuardError.ts</code>, 
+  <code>typia</code>, 
+  <code>TypeGuardError.ts</code>, 
 ]}>
-    <Tab>
+  <Tab>
 ```typescript
 export namespace http {
-    export function parameter<T extends Atomic.Type | null>(input: string): T;
-    export function createParameter<T extends Atomic.Type | null>(): (
-        input: string
-    ) => T;
+  export function parameter<T extends Atomic.Type | null>(input: string): T;
+  export function createParameter<T extends Atomic.Type | null>(): (
+    input: string,
+  ) => T;
 }
 ```
-    </Tab>
-    <Tab>
+  </Tab>
+  <Tab>
 ```typescript
 export class TypeGuardError extends Error {
-    public readonly method: string;
-    public readonly path: string | undefined;
-    public readonly expected: string;
-    public readonly value: any;
+  public readonly method: string;
+  public readonly path: string | undefined;
+  public readonly expected: string;
+  public readonly value: any;
 }
 ```
-    </Tab>
+  </Tab>
 </Tabs>
 
 URL path parameter decoder.
@@ -2002,70 +2117,96 @@ URL path parameter decoder.
 Also, `typia.http.parameter<T>()` performs type assertion to the decoded value by combining with assert function. Therefore, when the decoded value is not following the `T` type, `TypeGuardError` would be thrown.
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
-    <Tab>
+  <Tab>
 ```typescript filename="examples/src/parameter.ts" showLineNumbers {}
 import typia, { tags } from "typia";
 
 typia.http.createParameter<string & tags.Format<"uuid">>();
 typia.http.createParameter<number & tags.Type<"uint32">>();
 ```
-    </Tab>
-    <Tab>
+  </Tab>
+  <Tab>
 ```javascript filename="examples/bin/parameter.js" showLineNumbers {}
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
+var __importDefault =
+  (this && this.__importDefault) ||
+  function (mod) {
+    return mod && mod.__esModule ? mod : { default: mod };
+  };
 Object.defineProperty(exports, "__esModule", { value: true });
 const typia_1 = __importDefault(require("typia"));
-input => {
-    const $string = typia_1.default.http.createParameter.string;
-    const assert = input => {
-        const __is = input => {
-            return "string" === typeof input && /^(?:[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}|00000000-0000-0000-0000-000000000000)$/i.test(input);
-        };
-        if (false === __is(input))
-            ((input, _path, _exceptionable = true) => {
-                const $guard = typia_1.default.http.createParameter.guard;
-                return "string" === typeof input && (/^(?:[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}|00000000-0000-0000-0000-000000000000)$/i.test(input) || $guard(true, {
-                    path: _path + "",
-                    expected: "string & Format<\"uuid\">",
-                    value: input
-                })) || $guard(true, {
-                    path: _path + "",
-                    expected: "(string & Format<\"uuid\">)",
-                    value: input
-                });
-            })(input, "$input", true);
-        return input;
+(input) => {
+  const $string = typia_1.default.http.createParameter.string;
+  const assert = (input) => {
+    const __is = (input) => {
+      return (
+        "string" === typeof input &&
+        /^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test(
+          input,
+        )
+      );
     };
-    const value = $string(input);
-    return assert(value);
+    if (false === __is(input))
+      ((input, _path, _exceptionable = true) => {
+        const $guard = typia_1.default.http.createParameter.guard;
+        return (
+          ("string" === typeof input &&
+            (/^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test(
+              input,
+            ) ||
+              $guard(true, {
+                path: _path + "",
+                expected: 'string & Format<"uuid">',
+                value: input,
+              }))) ||
+          $guard(true, {
+            path: _path + "",
+            expected: '(string & Format<"uuid">)',
+            value: input,
+          })
+        );
+      })(input, "$input", true);
+    return input;
+  };
+  const value = $string(input);
+  return assert(value);
 };
-input => {
-    const $number = typia_1.default.http.createParameter.number;
-    const assert = input => {
-        const __is = input => {
-            return "number" === typeof input && (Math.floor(input) === input && 0 <= input && input <= 4294967295);
-        };
-        if (false === __is(input))
-            ((input, _path, _exceptionable = true) => {
-                const $guard = typia_1.default.http.createParameter.guard;
-                return "number" === typeof input && (Math.floor(input) === input && 0 <= input && input <= 4294967295 || $guard(true, {
-                    path: _path + "",
-                    expected: "number & Type<\"uint32\">",
-                    value: input
-                })) || $guard(true, {
-                    path: _path + "",
-                    expected: "(number & Type<\"uint32\">)",
-                    value: input
-                });
-            })(input, "$input", true);
-        return input;
+(input) => {
+  const $number = typia_1.default.http.createParameter.number;
+  const assert = (input) => {
+    const __is = (input) => {
+      return (
+        "number" === typeof input &&
+        Math.floor(input) === input &&
+        0 <= input &&
+        input <= 4294967295
+      );
     };
-    const value = $number(input);
-    return assert(value);
+    if (false === __is(input))
+      ((input, _path, _exceptionable = true) => {
+        const $guard = typia_1.default.http.createParameter.guard;
+        return (
+          ("number" === typeof input &&
+            ((Math.floor(input) === input &&
+              0 <= input &&
+              input <= 4294967295) ||
+              $guard(true, {
+                path: _path + "",
+                expected: 'number & Type<"uint32">',
+                value: input,
+              }))) ||
+          $guard(true, {
+            path: _path + "",
+            expected: '(number & Type<"uint32">)',
+            value: input,
+          })
+        );
+      })(input, "$input", true);
+    return input;
+  };
+  const value = $number(input);
+  return assert(value);
 };
 ```
-    </Tab>
+  </Tab>
 </Tabs>

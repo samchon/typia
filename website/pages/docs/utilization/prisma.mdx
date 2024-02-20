@@ -2,35 +2,35 @@ import { Tabs, Tab } from 'nextra-theme-docs'
 
 # Prisma
 <Tabs items={[
-    <code>prisma.schema</code>, 
-    <code>.prisma/client</code>,
+  <code>prisma.schema</code>, 
+  <code>.prisma/client</code>,
 ]}>
-    <Tab>
+  <Tab>
 ```prisma copy filename="prisma.schema" showLineNumbers {2, 5, 10, 11, 14-15}
 model bbs_articles {
-    id String @id @db.Uuid /// @format uuid
-    created_at DateTime @db.Timestamptz
+  id String @id @db.Uuid /// @format uuid
+  created_at DateTime @db.Timestamptz
 
-    /// @minItems 1
-    snapshots bbs_article_snapshots[]
+  /// @minItems 1
+  snapshots bbs_article_snapshots[]
 }
 
 model bbs_article_snapshots {
-    id String @id @db.Uuid /// @format uuid
-    bbs_article_id String @db.Uuid /// @format uuid
-    format String @db.VarChar
+  id String @id @db.Uuid /// @format uuid
+  bbs_article_id String @db.Uuid /// @format uuid
+  format String @db.VarChar
 
-    /// @minLength 5
-    /// @maxLength 80
-    title String @db.VarChar
-    body String
-    created_at DateTime @db.Timestamptz
+  /// @minLength 5
+  /// @maxLength 80
+  title String @db.VarChar
+  body String
+  created_at DateTime @db.Timestamptz
 
-    article bbs_articles @relation(fields: [bbs_article_id], references: [id])
+  article bbs_articles @relation(fields: [bbs_article_id], references: [id])
 }
 ```
-    </Tab>
-    <Tab>
+  </Tab>
+  <Tab>
 ```typescript filename=".prisma/client" showLineNumbers {6, 17, 21, 26-27}
 /**
  * Model bbs_articles
@@ -65,7 +65,7 @@ export type bbs_article_snapshots = {
   created_at: Date
 }
 ```
-    </Tab>
+  </Tab>
 </Tabs>
 
 When defining `prisma.schema` file, you can write comment tags just by using `///` statement.
