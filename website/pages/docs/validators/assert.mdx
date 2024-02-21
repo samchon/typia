@@ -643,7 +643,7 @@ By the way, there're some exception cases.
 
 If JS native class type like `Date`, `Uint8Array`, or `Map<Key, T>` being utilized, `typia.assert<T>()` function validates them. Especially about the `Set<T>`, and `Map<Key, T>` class cases, `typia.assert<T>()` function validates all of their contained element types, too.
 
-Therefore, the `instanceof` statement does not be used only for the user-defined classes.
+Therefore, the `instanceof` statement must be used only for the user-defined classes.
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
     <Tab>
