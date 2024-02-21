@@ -12,17 +12,13 @@
  * @blog https://dev.to/samchon/good-bye-typescript-is-ancestor-of-typia-20000x-faster-validator-49fi
  */
 export const $string = (str: string): string => {
-  if (STR_ESCAPE.test(str) === false) return `"${str}"`;
-
-  const length: number = str.length;
-  if (length > 41) return JSON.stringify(str);
-
+  const len = str.length;
   let result = "";
   let last = -1;
   let point = 255;
 
   // eslint-disable-next-line
-  for (let i = 0; i < length; ++i) {
+  for (var i = 0; i < len; i++) {
     point = str.charCodeAt(i);
     if (point < 32) {
       return JSON.stringify(str);
@@ -45,6 +41,3 @@ export const $string = (str: string): string => {
     (last === -1 && '"' + str + '"') || '"' + result + str.slice(last) + '"'
   );
 };
-
-const STR_ESCAPE =
-  /[\u0000-\u001f\u0022\u005c\ud800-\udfff]|[\ud800-\udbff](?![\udc00-\udfff])|(?:[^\ud800-\udbff]|^)[\udc00-\udfff]/;
