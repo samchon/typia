@@ -8,18 +8,18 @@ import { IBbsArticle } from "../structures/IBbsArticle";
 const server = initTRPC.create();
 
 export const appRouter = server.router({
-    store: server.procedure
-        .input(typia.createAssert<IBbsArticle.IStore>())
-        .output(typia.createAssert<IBbsArticle>())
-        .query(({ input }) => {
-            return {
-                id: v4(),
-                writer: input.writer,
-                title: input.title,
-                body: input.body,
-                created_at: new Date().toString(),
-            };
-        })
+  store: server.procedure
+    .input(typia.createAssert<IBbsArticle.IStore>())
+    .output(typia.createAssert<IBbsArticle>())
+    .query(({ input }) => {
+      return {
+        id: v4(),
+        writer: input.writer,
+        title: input.title,
+        body: input.body,
+        created_at: new Date().toString(),
+      };
+    }),
 });
 export type AppRouter = typeof appRouter;
 ```

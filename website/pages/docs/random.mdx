@@ -2,63 +2,91 @@ import { Tabs, Tab } from 'nextra-theme-docs'
 
 ## `random()` function
 <Tabs items={[
-    <code>typia</code>, 
-    <code>IRandomGenerator.ts</code>, 
-    <code>Customizable.ts</code>,
-    <code>Resolved.ts</code>
+  <code>typia</code>, 
+  <code>IRandomGenerator.ts</code>, 
+  <code>Customizable.ts</code>,
+  <code>Resolved.ts</code>
 ]}>
-    <Tab>
+  <Tab>
 ```typescript copy
 export function random<T>(g?: IRandomGenerator): Resolved<T>;
 ```
-    </Tab>
-    <Tab>
+  </Tab>
+  <Tab>
 ```typescript copy filename="typia/IRandomGenerator.ts"
+import { Customizable } from "./typings/Customizable";
+
 export interface IRandomGenerator {
-    boolean(): boolean;
-    integer(minimum?: number, maximum?: number): number;
-    number(minimum?: number, maximum?: number): number;
-    bigint(minimum?: bigint, maximum?: bigint): bigint;
-    string(length?: number): string;
-    array<T>(closure: (index: number) => T, count?: number): T[];
-    length(): number;
+  // REGULAR
+  boolean(): boolean;
+  integer(minimum?: number, maximum?: number): number;
+  bigint(minimum?: bigint, maximum?: bigint): bigint;
+  number(minimum?: number, maximum?: number): number;
+  string(length?: number): string;
 
-    uuid(): string;
-    email(): string;
-    url(): string;
-    ipv4(): string;
-    ipv6(): string;
-    pattern(regex: RegExp): string;
-    date(minimum?: number, maximum?: number): string;
-    datetime(minimum?: number, maximum?: number): string;
+  array<T>(closure: (index: number) => T, count?: number): T[];
+  length(): number;
+  pattern(regex: RegExp): string;
 
-    customs?: IRandomGenerator.CustomMap;
+  //----
+  // FORMAT
+  //----
+  // SPECIAL CHARACTERS
+  byte(): string;
+  password(): string;
+  regex(): string;
+  uuid(): string;
+
+  // ADDRESSES
+  email(): string;
+  hostname(): string;
+  idnEmail(): string;
+  idnHostname(): string;
+  iri(): string;
+  iriReference(): string;
+  ipv4(): string;
+  ipv6(): string;
+  uri(): string;
+  uriReference(): string;
+  uriTemplate(): string;
+  url(): string;
+
+  // TIMESTAMPS
+  datetime(minimum?: number, maximum?: number): string;
+  date(minimum?: number, maximum?: number): string;
+  time(): string;
+  duration(): string;
+
+  // POINTERS
+  jsonPointer(): string;
+  relativeJsonPointer(): string;
+
+  customs?: IRandomGenerator.CustomMap;
 }
 export namespace IRandomGenerator {
-    export type CustomMap = {
-        [Type in keyof Customizable]?: (
-            tags: ITypeTag[],
-        ) => Customizable[Type] | undefined;
-    };
-
-    export interface ITypeTag {
-        name: string;
-        kind: string;
-        value: any;
-    }
+  export type CustomMap = {
+    [Type in keyof Customizable]?: (
+      tags: ITypeTag[],
+    ) => Customizable[Type] | undefined;
+  };
+  export interface ITypeTag {
+    name: string;
+    kind: string;
+    value: any;
+  }
 }
 ```
-    </Tab>
-    <Tab>
+  </Tab>
+  <Tab>
 ```typescript copy
 export interface Customizable {
-    number: number;
-    string: string;
-    bigint: bigint;
+  number: number;
+  string: string;
+  bigint: bigint;
 }
 ```
-    </Tab>
-    <Tab>
+  </Tab>
+  <Tab>
 ```typescript copy filename="typia/Resolved.ts"
 /**
  * Resolved type erased every methods.
@@ -84,100 +112,102 @@ export interface Customizable {
  * `Class`                 | `interface`
  * Native Class or Others  | No change
  *
- * @template Instance Target argument type.
+ * @template T Target argument type.
  * @author Jeongho Nam - https://github.com/samchon
  * @author Kyungsu Kang - https://github.com/kakasoo
  */
 export type Resolved<T> = Equal<T, ResolvedMain<T>> extends true
-    ? T
-    : ResolvedMain<T>;
+  ? T
+  : ResolvedMain<T>;
 
 type Equal<X, Y> = X extends Y ? (Y extends X ? true : false) : false;
 
-type ResolvedMain<Instance> = Instance extends [never]
-    ? never // (special trick for jsonable | null) type
-    : ValueOf<Instance> extends boolean | number | bigint | string
-    ? ValueOf<Instance>
-    : Instance extends Function
-    ? never
-    : Instance extends object
-    ? ResolvedObject<Instance>
-    : ValueOf<Instance>;
+type ResolvedMain<T> = T extends [never]
+  ? never // (special trick for jsonable | null) type
+  : ValueOf<T> extends boolean | number | bigint | string
+  ? ValueOf<T>
+  : T extends Function
+  ? never
+  : T extends object
+  ? ResolvedObject<T>
+  : ValueOf<T>;
 
-type ResolvedObject<Instance extends object> = Instance extends Array<infer T>
-    ? IsTuple<Instance> extends true
-        ? ResolvedTuple<Instance>
-        : ResolvedMain<T>[]
-    : Instance extends Set<infer U>
-    ? Set<ResolvedMain<U>>
-    : Instance extends Map<infer K, infer V>
-    ? Map<ResolvedMain<K>, ResolvedMain<V>>
-    : Instance extends WeakSet<any> | WeakMap<any, any>
-    ? never
-    : Instance extends
-          | Date
-          | Uint8Array
-          | Uint8ClampedArray
-          | Uint16Array
-          | Uint32Array
-          | BigUint64Array
-          | Int8Array
-          | Int16Array
-          | Int32Array
-          | BigInt64Array
-          | Float32Array
-          | Float64Array
-          | ArrayBuffer
-          | SharedArrayBuffer
-          | DataView
-    ? Instance
-    : {
-          [P in keyof Instance]: ResolvedMain<Instance[P]>;
-      };
+type ResolvedObject<T extends object> = T extends Array<infer U>
+  ? IsTuple<T> extends true
+    ? ResolvedTuple<T>
+    : ResolvedMain<U>[]
+  : T extends Set<infer U>
+  ? Set<ResolvedMain<U>>
+  : T extends Map<infer K, infer V>
+  ? Map<ResolvedMain<K>, ResolvedMain<V>>
+  : T extends WeakSet<any> | WeakMap<any, any>
+  ? never
+  : T extends
+      | Date
+      | Uint8Array
+      | Uint8ClampedArray
+      | Uint16Array
+      | Uint32Array
+      | BigUint64Array
+      | Int8Array
+      | Int16Array
+      | Int32Array
+      | BigInt64Array
+      | Float32Array
+      | Float64Array
+      | ArrayBuffer
+      | SharedArrayBuffer
+      | DataView
+      | Blob
+      | File
+  ? T
+  : {
+      [P in keyof T]: ResolvedMain<T[P]>;
+    };
 
 type ResolvedTuple<T extends readonly any[]> = T extends []
-    ? []
-    : T extends [infer F]
-    ? [ResolvedMain<F>]
-    : T extends [infer F, ...infer Rest extends readonly any[]]
-    ? [ResolvedMain<F>, ...ResolvedTuple<Rest>]
-    : T extends [(infer F)?]
-    ? [ResolvedMain<F>?]
-    : T extends [(infer F)?, ...infer Rest extends readonly any[]]
-    ? [ResolvedMain<F>?, ...ResolvedTuple<Rest>]
-    : [];
-
-type ValueOf<Instance> = IsValueOf<Instance, Boolean> extends true
-    ? boolean
-    : IsValueOf<Instance, Number> extends true
-    ? number
-    : IsValueOf<Instance, String> extends true
-    ? string
-    : Instance;
+  ? []
+  : T extends [infer F]
+  ? [ResolvedMain<F>]
+  : T extends [infer F, ...infer Rest extends readonly any[]]
+  ? [ResolvedMain<F>, ...ResolvedTuple<Rest>]
+  : T extends [(infer F)?]
+  ? [ResolvedMain<F>?]
+  : T extends [(infer F)?, ...infer Rest extends readonly any[]]
+  ? [ResolvedMain<F>?, ...ResolvedTuple<Rest>]
+  : [];
 
 type IsTuple<T extends readonly any[] | { length: number }> = [T] extends [
-    never,
+  never,
 ]
+  ? false
+  : T extends readonly any[]
+  ? number extends T["length"]
     ? false
-    : T extends readonly any[]
-    ? number extends T["length"]
-        ? false
-        : true
-    : false;
+    : true
+  : false;
+
+type ValueOf<Instance> = IsValueOf<Instance, Boolean> extends true
+  ? boolean
+  : IsValueOf<Instance, Number> extends true
+  ? number
+  : IsValueOf<Instance, String> extends true
+  ? string
+  : Instance;
 
 type IsValueOf<Instance, Object extends IValueOf<any>> = Instance extends Object
-    ? Object extends IValueOf<infer Primitive>
-        ? Instance extends Primitive
-            ? false
-            : true // not Primitive, but Object
-        : false // cannot be
-    : false;
+  ? Object extends IValueOf<infer Primitive>
+    ? Instance extends Primitive
+      ? false
+      : true // not Primitive, but Object
+    : false // cannot be
+  : false;
 
 interface IValueOf<T> {
-    valueOf(): T;
+  valueOf(): T;
 }
 ```
-    </Tab>
+  </Tab>
 </Tabs>
 
 You can make every random data just by calling `typia.random<T>()` function.
@@ -185,7 +215,7 @@ You can make every random data just by calling `typia.random<T>()` function.
 When you call the `typia.random<T>()` function, `typia` will analyze your type `T`, and writes optimal random generation code for the type `T`, in the compilation level. This is called AOT (Ahead of Time) compliation, and you may understand what it is just by reading below example code. 
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
-    <Tab>
+  <Tab>
 ```typescript copy filename="random.ts" showLineNumbers
 import typia, { tags } from "typia";
 
@@ -193,63 +223,68 @@ const member: IMember = typia.random<IMember>();
 console.log(member);
 
 interface IMember {
-    id: string & tags.Format<"uuid">;
-    email: string & tags.Format<"email">;
-    age: number 
-        & tags.Type<"uint32"> 
-        & tags.ExclusiveMinimum<19> 
-        & tags.Maximum<100>;
+  id: string & tags.Format<"uuid">;
+  email: string & tags.Format<"email">;
+  age: number &
+    tags.Type<"uint32"> &
+    tags.ExclusiveMinimum<19> &
+    tags.Maximum<100>;
 }
 ```
-    </Tab>
-    <Tab>
+  </Tab>
+  <Tab>
 ```javascript filename="random.js"
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
+var __importDefault =
+  (this && this.__importDefault) ||
+  function (mod) {
+    return mod && mod.__esModule ? mod : { default: mod };
+  };
 Object.defineProperty(exports, "__esModule", { value: true });
 const typia_1 = __importDefault(require("typia"));
-const member = (generator => {
-    const $generator = typia_1.default.random.generator;
-    const $ro0 = (_recursive = false, _depth = 0) => ({
-        id: (generator?.customs ?? $generator.customs)?.string?.([
-            {
-                name: "Format<\"uuid\">",
-                kind: "format",
-                value: "uuid",
-            }
-        ]) ?? (generator?.uuid ?? $generator.uuid)(),
-        email: (generator?.customs ?? $generator.customs)?.string?.([
-            {
-                name: "Format<\"email\">",
-                kind: "format",
-                value: "email",
-            }
-        ]) ?? (generator?.email ?? $generator.email)(),
-        age: (generator?.customs ?? $generator.customs)?.number?.([
-            {
-                name: "Type<\"uint32\">",
-                kind: "type",
-                value: "uint32",
-            },
-            {
-                name: "ExclusiveMinimum<19>",
-                kind: "exclusiveMinimum",
-                value: 19,
-            },
-            {
-                name: "Maximum<100>",
-                kind: "maximum",
-                value: 100,
-            }
-        ]) ?? (generator?.integer ?? $generator.integer)(19, 100)
-    });
-    return $ro0();
+const member = ((generator) => {
+  const $generator = typia_1.default.random.generator;
+  const $ro0 = (_recursive = false, _depth = 0) => ({
+    id:
+      (generator?.customs ?? $generator.customs)?.string?.([
+        {
+          name: 'Format<"uuid">',
+          kind: "format",
+          value: "uuid",
+        },
+      ]) ?? (generator?.uuid ?? $generator.uuid)(),
+    email:
+      (generator?.customs ?? $generator.customs)?.string?.([
+        {
+          name: 'Format<"email">',
+          kind: "format",
+          value: "email",
+        },
+      ]) ?? (generator?.email ?? $generator.email)(),
+    age:
+      (generator?.customs ?? $generator.customs)?.number?.([
+        {
+          name: 'Type<"uint32">',
+          kind: "type",
+          value: "uint32",
+        },
+        {
+          name: "ExclusiveMinimum<19>",
+          kind: "exclusiveMinimum",
+          value: 19,
+        },
+        {
+          name: "Maximum<100>",
+          kind: "maximum",
+          value: 100,
+        },
+      ]) ?? (generator?.integer ?? $generator.integer)(19, 100),
+  });
+  return $ro0();
 })();
 console.log(member);
 ```
-    </Tab>
+  </Tab>
 </Tabs>
 
 
@@ -257,134 +292,91 @@ console.log(member);
 
 ## Reusable function
 <Tabs items={[
-    <code>typia</code>, 
-    <code>IRandomGenerator.ts</code>, 
-    <code>Customizable.ts</code>,
-    <code>Resolved.ts</code>,
+  <code>typia</code>, 
+  <code>IRandomGenerator.ts</code>, 
+  <code>Customizable.ts</code>,
+  <code>Resolved.ts</code>,
 ]}>
-    <Tab>
+  <Tab>
 ```typescript copy
 export function createRandom<T>(): (g?: IRandomGenerator) => Resolved<T>;
 ```
-    </Tab>
-    <Tab>
+  </Tab>
+  <Tab>
 ```typescript copy filename="typia/IRandomGenerator.ts"
+import { Customizable } from "./typings/Customizable";
+
 export interface IRandomGenerator {
-    boolean(): boolean;
-    integer(minimum?: number, maximum?: number): number;
-    number(minimum?: number, maximum?: number): number;
-    bigint(minimum?: bigint, maximum?: bigint): bigint;
-    string(length?: number): string;
-    array<T>(closure: (index: number) => T, count?: number): T[];
+  // REGULAR
+  boolean(): boolean;
+  integer(minimum?: number, maximum?: number): number;
+  bigint(minimum?: bigint, maximum?: bigint): bigint;
+  number(minimum?: number, maximum?: number): number;
+  string(length?: number): string;
 
-    uuid(): string;
-    email(): string;
-    url(): string;
-    ipv4(): string;
-    ipv6(): string;
-    pattern(regex: RegExp): string;
-    date(minimum?: number, maximum?: number): string;
-    datetime(minimum?: number, maximum?: number): string;
+  array<T>(closure: (index: number) => T, count?: number): T[];
+  length(): number;
+  pattern(regex: RegExp): string;
 
-    customs?: IRandomGenerator.CustomMap;
+  //----
+  // FORMAT
+  //----
+  // SPECIAL CHARACTERS
+  byte(): string;
+  password(): string;
+  regex(): string;
+  uuid(): string;
+
+  // ADDRESSES
+  email(): string;
+  hostname(): string;
+  idnEmail(): string;
+  idnHostname(): string;
+  iri(): string;
+  iriReference(): string;
+  ipv4(): string;
+  ipv6(): string;
+  uri(): string;
+  uriReference(): string;
+  uriTemplate(): string;
+  url(): string;
+
+  // TIMESTAMPS
+  datetime(minimum?: number, maximum?: number): string;
+  date(minimum?: number, maximum?: number): string;
+  time(): string;
+  duration(): string;
+
+  // POINTERS
+  jsonPointer(): string;
+  relativeJsonPointer(): string;
+
+  customs?: IRandomGenerator.CustomMap;
 }
 export namespace IRandomGenerator {
-    export type CustomMap = {
-        [Type in keyof Customizable]?: 
-            (tags: ICommentTag[]) => Customizable[Type] | undefined;
-    };
-
-    export interface ICommentTag {
-        name: string;
-        value?: string;
-    }
+  export type CustomMap = {
+    [Type in keyof Customizable]?: (
+      tags: ITypeTag[],
+    ) => Customizable[Type] | undefined;
+  };
+  export interface ITypeTag {
+    name: string;
+    kind: string;
+    value: any;
+  }
 }
 ```
-    </Tab>
-    <Tab>
+  </Tab>
+  <Tab>
 ```typescript copy
 export interface Customizable {
-    number: number;
-    string: string;
-    bigint: bigint;
+  number: number;
+  string: string;
+  bigint: bigint;
 }
 ```
-    </Tab>
-</Tabs>
-
-Reusable `typia.random<T>()` function generators.
-
-If you repeat to call `typia.random<T>()` function on the same type, size of JavaScript files would be larger because of duplicated AOT compilation. To prevent it, you can generate reusable function through `typia.createRandom<T>()` function.
-
-Just look at the code below, then you may understand how to use it.
-
-<Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
-    <Tab>
-```typescript copy filename="examples/src/createRandom.ts" showLineNumbers
-import typia, { tags } from "typia";
-
-export const createRandomMember = typia.createRandom<IMember>();
-
-interface IMember {
-    id: string & tags.Format<"uuid">;
-    email: string & tags.Format<"email">;
-    age: number 
-        & tags.Type<"uint32"> 
-        & tags.ExclusiveMinimum<19> 
-        & tags.Maximum<100>;
-}
-```
-    </Tab>
-    <Tab>
-```javascript filename="examples/bin/createRandom.js" showLineNumbers
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.createRandomMember = void 0;
-const typia_1 = __importDefault(require("typia"));
-const createRandomMember = generator => {
-    const $generator = typia_1.default.createRandom.generator;
-    const $ro0 = (_recursive = false, _depth = 0) => ({
-        id: (generator?.customs ?? $generator.customs)?.string?.([
-            {
-                name: "Format<\"uuid\">",
-                kind: "format",
-                value: "uuid",
-            }
-        ]) ?? (generator?.uuid ?? $generator.uuid)(),
-        email: (generator?.customs ?? $generator.customs)?.string?.([
-            {
-                name: "Format<\"email\">",
-                kind: "format",
-                value: "email",
-            }
-        ]) ?? (generator?.email ?? $generator.email)(),
-        age: (generator?.customs ?? $generator.customs)?.number?.([
-            {
-                name: "Type<\"uint32\">",
-                kind: "type",
-                value: "uint32",
-            },
-            {
-                name: "ExclusiveMinimum<19>",
-                kind: "exclusiveMinimum",
-                value: 19,
-            },
-            {
-                name: "Maximum<100>",
-                kind: "maximum",
-                value: 100,
-            }
-        ]) ?? (generator?.integer ?? $generator.integer)(19, 100)
-    });
-    return $ro0();
-};
-exports.createRandomMember = createRandomMember;
-```
-    </Tab>
-    <Tab>
+  </Tab>
+  <Tab>
 ```typescript copy filename="typia/Resolved.ts"
 /**
  * Resolved type erased every methods.
@@ -410,100 +402,102 @@ exports.createRandomMember = createRandomMember;
  * `Class`                 | `interface`
  * Native Class or Others  | No change
  *
- * @template Instance Target argument type.
+ * @template T Target argument type.
  * @author Jeongho Nam - https://github.com/samchon
  * @author Kyungsu Kang - https://github.com/kakasoo
  */
 export type Resolved<T> = Equal<T, ResolvedMain<T>> extends true
-    ? T
-    : ResolvedMain<T>;
+  ? T
+  : ResolvedMain<T>;
 
 type Equal<X, Y> = X extends Y ? (Y extends X ? true : false) : false;
 
-type ResolvedMain<Instance> = Instance extends [never]
-    ? never // (special trick for jsonable | null) type
-    : ValueOf<Instance> extends boolean | number | bigint | string
-    ? ValueOf<Instance>
-    : Instance extends Function
-    ? never
-    : Instance extends object
-    ? ResolvedObject<Instance>
-    : ValueOf<Instance>;
+type ResolvedMain<T> = T extends [never]
+  ? never // (special trick for jsonable | null) type
+  : ValueOf<T> extends boolean | number | bigint | string
+  ? ValueOf<T>
+  : T extends Function
+  ? never
+  : T extends object
+  ? ResolvedObject<T>
+  : ValueOf<T>;
 
-type ResolvedObject<Instance extends object> = Instance extends Array<infer T>
-    ? IsTuple<Instance> extends true
-        ? ResolvedTuple<Instance>
-        : ResolvedMain<T>[]
-    : Instance extends Set<infer U>
-    ? Set<ResolvedMain<U>>
-    : Instance extends Map<infer K, infer V>
-    ? Map<ResolvedMain<K>, ResolvedMain<V>>
-    : Instance extends WeakSet<any> | WeakMap<any, any>
-    ? never
-    : Instance extends
-          | Date
-          | Uint8Array
-          | Uint8ClampedArray
-          | Uint16Array
-          | Uint32Array
-          | BigUint64Array
-          | Int8Array
-          | Int16Array
-          | Int32Array
-          | BigInt64Array
-          | Float32Array
-          | Float64Array
-          | ArrayBuffer
-          | SharedArrayBuffer
-          | DataView
-    ? Instance
-    : {
-          [P in keyof Instance]: ResolvedMain<Instance[P]>;
-      };
+type ResolvedObject<T extends object> = T extends Array<infer U>
+  ? IsTuple<T> extends true
+    ? ResolvedTuple<T>
+    : ResolvedMain<U>[]
+  : T extends Set<infer U>
+  ? Set<ResolvedMain<U>>
+  : T extends Map<infer K, infer V>
+  ? Map<ResolvedMain<K>, ResolvedMain<V>>
+  : T extends WeakSet<any> | WeakMap<any, any>
+  ? never
+  : T extends
+      | Date
+      | Uint8Array
+      | Uint8ClampedArray
+      | Uint16Array
+      | Uint32Array
+      | BigUint64Array
+      | Int8Array
+      | Int16Array
+      | Int32Array
+      | BigInt64Array
+      | Float32Array
+      | Float64Array
+      | ArrayBuffer
+      | SharedArrayBuffer
+      | DataView
+      | Blob
+      | File
+  ? T
+  : {
+      [P in keyof T]: ResolvedMain<T[P]>;
+    };
 
 type ResolvedTuple<T extends readonly any[]> = T extends []
-    ? []
-    : T extends [infer F]
-    ? [ResolvedMain<F>]
-    : T extends [infer F, ...infer Rest extends readonly any[]]
-    ? [ResolvedMain<F>, ...ResolvedTuple<Rest>]
-    : T extends [(infer F)?]
-    ? [ResolvedMain<F>?]
-    : T extends [(infer F)?, ...infer Rest extends readonly any[]]
-    ? [ResolvedMain<F>?, ...ResolvedTuple<Rest>]
-    : [];
-
-type ValueOf<Instance> = IsValueOf<Instance, Boolean> extends true
-    ? boolean
-    : IsValueOf<Instance, Number> extends true
-    ? number
-    : IsValueOf<Instance, String> extends true
-    ? string
-    : Instance;
+  ? []
+  : T extends [infer F]
+  ? [ResolvedMain<F>]
+  : T extends [infer F, ...infer Rest extends readonly any[]]
+  ? [ResolvedMain<F>, ...ResolvedTuple<Rest>]
+  : T extends [(infer F)?]
+  ? [ResolvedMain<F>?]
+  : T extends [(infer F)?, ...infer Rest extends readonly any[]]
+  ? [ResolvedMain<F>?, ...ResolvedTuple<Rest>]
+  : [];
 
 type IsTuple<T extends readonly any[] | { length: number }> = [T] extends [
-    never,
+  never,
 ]
+  ? false
+  : T extends readonly any[]
+  ? number extends T["length"]
     ? false
-    : T extends readonly any[]
-    ? number extends T["length"]
-        ? false
-        : true
-    : false;
+    : true
+  : false;
+
+type ValueOf<Instance> = IsValueOf<Instance, Boolean> extends true
+  ? boolean
+  : IsValueOf<Instance, Number> extends true
+  ? number
+  : IsValueOf<Instance, String> extends true
+  ? string
+  : Instance;
 
 type IsValueOf<Instance, Object extends IValueOf<any>> = Instance extends Object
-    ? Object extends IValueOf<infer Primitive>
-        ? Instance extends Primitive
-            ? false
-            : true // not Primitive, but Object
-        : false // cannot be
-    : false;
+  ? Object extends IValueOf<infer Primitive>
+    ? Instance extends Primitive
+      ? false
+      : true // not Primitive, but Object
+    : false // cannot be
+  : false;
 
 interface IValueOf<T> {
-    valueOf(): T;
+  valueOf(): T;
 }
 ```
-    </Tab>
+  </Tab>
 </Tabs>
 
 
@@ -516,11 +510,11 @@ Runtime validators of `typia` provides additional type checking logic through [T
 For reference, whether you choose [Type Tags](./validators/tags#type-tags) or [Comment Tags](./validators/tags#comment-tags). `typia.random<T>()`, it is not a matter for `typia.random<T>()` function. Below two TypeScript codes are generating exactly same JavaScript code. Therefore, you can choose whatever you want considering your preference.
 
 <Tabs items={[
-    'TypeScript (Type Tags)', 
-    'TypeScript (Comment Tags)', 
-    'Compiled JavaScript File'
+  'TypeScript (Type Tags)', 
+  'TypeScript (Comment Tags)', 
+  'Compiled JavaScript File'
 ]}>
-    <Tab>
+  <Tab>
 ```typescript copy filename="random.tags.ts" showLineNumbers
 import typia, { tags } from "typia";
 
@@ -529,15 +523,15 @@ const data: TypeTag = typia.random<TypeTag>();
 console.log(data);
 
 interface TypeTag {
-    type: number & tags.Type<"int32">;
-    number?: number & tags.ExclusiveMinimum<19> & tags.Maximum<100>;
-    string: string & tags.MinLength<3>;
-    pattern: string & tags.Pattern<"^[a-z]+$">;
-    format: (string & tags.Format<"date-time">) | null;
+  type: number & tags.Type<"int32">;
+  number?: number & tags.ExclusiveMinimum<19> & tags.Maximum<100>;
+  string: string & tags.MinLength<3>;
+  pattern: string & tags.Pattern<"^[a-z]+$">;
+  format: (string & tags.Format<"date-time">) | null;
 }
 ```
-    </Tab>
-    <Tab>
+  </Tab>
+  <Tab>
 ```typescript copy filename="random.tags.ts" showLineNumbers
 import typia from "typia";
 
@@ -546,98 +540,108 @@ const data: CommentTag = typia.random<CommentTag>();
 console.log(data);
 
 interface CommentTag {
-    /**
-     * @type int
-     */
-    type: number;
+  /**
+   * @type int
+   */
+  type: number;
 
-    /**
-     * @exclusiveMinimum 19
-     * @maximum 100
-     */
-    number?: number;
+  /**
+   * @exclusiveMinimum 19
+   * @maximum 100
+   */
+  number?: number;
 
-    /**
-     * @minLength 3
-     */
-    string: string;
+  /**
+   * @minLength 3
+   */
+  string: string;
 
-    /**
-     * @pattern ^[a-z]+$
-     */
-    pattern: string;
+  /**
+   * @pattern ^[a-z]+$
+   */
+  pattern: string;
 
-    /**
-     * @format date-time
-     */
-    format: string | null;
+  /**
+   * @format date-time
+   */
+  format: string | null;
 }
 ```
-    </Tab>
-    <Tab>
+  </Tab>
+  <Tab>
 ```javascript filename="random.tags.js" showLineNumbers
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
+var __importDefault =
+  (this && this.__importDefault) ||
+  function (mod) {
+    return mod && mod.__esModule ? mod : { default: mod };
+  };
 Object.defineProperty(exports, "__esModule", { value: true });
 const typia_1 = __importDefault(require("typia"));
-const data = (generator => {
-    const $generator = typia_1.default.random.generator;
-    const $pick = typia_1.default.random.pick;
-    const $ro0 = (_recursive = false, _depth = 0) => ({
-        type: (generator?.customs ?? $generator.customs)?.number?.([
-            {
-                name: "Type<\"int32\">",
-                kind: "type",
-                value: "int32"
-            }
-        ]) ?? (generator?.integer ?? $generator.integer)(0, 100),
-        number: $pick([
-            () => undefined,
-            () => (generator?.customs ?? $generator.customs)?.number?.([
-                {
-                    name: "ExclusiveMinimum<19>",
-                    kind: "exclusiveMinimum",
-                    value: 19
-                },
-                {
-                    name: "Maximum<100>",
-                    kind: "maximum",
-                    value: 100
-                }
-            ]) ?? (generator?.number ?? $generator.number)(19, 100)
-        ])(),
-        string: (generator?.customs ?? $generator.customs)?.string?.([
-            {
-                name: "MinLength<3>",
-                kind: "minLength",
-                value: 3
-            }
-        ]) ?? (generator?.string ?? $generator.string)((generator?.integer ?? $generator.integer)(3, 25)),
-        pattern: (generator?.customs ?? $generator.customs)?.string?.([
-            {
-                name: "Pattern<\"^[a-z]+$\">",
-                kind: "pattern",
-                value: "^[a-z]+$"
-            }
-        ]) ?? (generator?.pattern ?? $generator.pattern)(/^[a-z]+$/),
-        format: $pick([
-            () => null,
-            () => (generator?.customs ?? $generator.customs)?.string?.([
-                {
-                    name: "Format<\"date-time\">",
-                    kind: "format",
-                    value: "date-time"
-                }
-            ]) ?? (generator?.datetime ?? $generator.datetime)()
-        ])()
-    });
-    return $ro0();
+const data = ((generator) => {
+  const $generator = typia_1.default.random.generator;
+  const $pick = typia_1.default.random.pick;
+  const $ro0 = (_recursive = false, _depth = 0) => ({
+    type:
+      (generator?.customs ?? $generator.customs)?.number?.([
+        {
+          name: 'Type<"int32">',
+          kind: "type",
+          value: "int32",
+        },
+      ]) ?? (generator?.integer ?? $generator.integer)(0, 100),
+    number: $pick([
+      () => undefined,
+      () =>
+        (generator?.customs ?? $generator.customs)?.number?.([
+          {
+            name: "ExclusiveMinimum<19>",
+            kind: "exclusiveMinimum",
+            value: 19,
+          },
+          {
+            name: "Maximum<100>",
+            kind: "maximum",
+            value: 100,
+          },
+        ]) ?? (generator?.number ?? $generator.number)(19, 100),
+    ])(),
+    string:
+      (generator?.customs ?? $generator.customs)?.string?.([
+        {
+          name: "MinLength<3>",
+          kind: "minLength",
+          value: 3,
+        },
+      ]) ??
+      (generator?.string ?? $generator.string)(
+        (generator?.integer ?? $generator.integer)(3, 25),
+      ),
+    pattern:
+      (generator?.customs ?? $generator.customs)?.string?.([
+        {
+          name: 'Pattern<"^[a-z]+$">',
+          kind: "pattern",
+          value: "^[a-z]+$",
+        },
+      ]) ?? (generator?.pattern ?? $generator.pattern)(/^[a-z]+$/),
+    format: $pick([
+      () => null,
+      () =>
+        (generator?.customs ?? $generator.customs)?.string?.([
+          {
+            name: 'Format<"date-time">',
+            kind: "format",
+            value: "date-time",
+          },
+        ]) ?? (generator?.datetime ?? $generator.datetime)(),
+    ])(),
+  });
+  return $ro0();
 })();
 console.log(data);
 ```
-    </Tab>
+  </Tab>
 </Tabs>
 
 
@@ -645,61 +649,87 @@ console.log(data);
 
 ## Customization
 <Tabs items={[
-    <code>typia</code>, 
-    <code>IRandomGenerator.ts</code>, 
-    <code>Customizable.ts</code>,
-    <code>Resolved.ts</code>,
+  <code>typia</code>, 
+  <code>IRandomGenerator.ts</code>, 
+  <code>Customizable.ts</code>,
+  <code>Resolved.ts</code>,
 ]}>
-    <Tab>
+  <Tab>
 ```typescript copy
-export function random<T>(g?: IRandomGenerator): Resolved<T>;
-export function createRandom<T>: (g?: IRandomGenerator) => Resolved<T>;
-```
-    </Tab>
-    <Tab>
-```typescript copy filename="typia/IRandomGenerator.ts" showLineNumbers
+import { Customizable } from "./typings/Customizable";
+
 export interface IRandomGenerator {
-    boolean(): boolean;
-    integer(minimum?: number, maximum?: number): number;
-    number(minimum?: number, maximum?: number): number;
-    bigint(minimum?: bigint, maximum?: bigint): bigint;
-    string(length?: number): string;
-    array<T>(closure: (index: number) => T, count?: number): T[];
+  // REGULAR
+  boolean(): boolean;
+  integer(minimum?: number, maximum?: number): number;
+  bigint(minimum?: bigint, maximum?: bigint): bigint;
+  number(minimum?: number, maximum?: number): number;
+  string(length?: number): string;
 
-    uuid(): string;
-    email(): string;
-    url(): string;
-    ipv4(): string;
-    ipv6(): string;
-    pattern(regex: RegExp): string;
-    date(minimum?: number, maximum?: number): string;
-    datetime(minimum?: number, maximum?: number): string;
+  array<T>(closure: (index: number) => T, count?: number): T[];
+  length(): number;
+  pattern(regex: RegExp): string;
 
-    customs?: IRandomGenerator.CustomMap;
+  //----
+  // FORMAT
+  //----
+  // SPECIAL CHARACTERS
+  byte(): string;
+  password(): string;
+  regex(): string;
+  uuid(): string;
+
+  // ADDRESSES
+  email(): string;
+  hostname(): string;
+  idnEmail(): string;
+  idnHostname(): string;
+  iri(): string;
+  iriReference(): string;
+  ipv4(): string;
+  ipv6(): string;
+  uri(): string;
+  uriReference(): string;
+  uriTemplate(): string;
+  url(): string;
+
+  // TIMESTAMPS
+  datetime(minimum?: number, maximum?: number): string;
+  date(minimum?: number, maximum?: number): string;
+  time(): string;
+  duration(): string;
+
+  // POINTERS
+  jsonPointer(): string;
+  relativeJsonPointer(): string;
+
+  customs?: IRandomGenerator.CustomMap;
 }
 export namespace IRandomGenerator {
-    export type CustomMap = {
-        [Type in keyof Customizable]?: 
-            (tags: ICommentTag[]) => Customizable[Type] | undefined;
-    };
+  export type CustomMap = {
+    [Type in keyof Customizable]?: (
+      tags: ITypeTag[],
+    ) => Customizable[Type] | undefined;
+  };
 
-    export interface ICommentTag {
-        name: string;
-        value?: string;
-    }
+  export interface ITypeTag {
+    name: string;
+    kind: string;
+    value: any;
+  }
 }
 ```
-    </Tab>
-    <Tab>
+  </Tab>
+  <Tab>
 ```typescript copy
 export interface Customizable {
-    number: number;
-    string: string;
-    bigint: bigint;
+  number: number;
+  string: string;
+  bigint: bigint;
 }
 ```
-    </Tab>
-    <Tab>
+  </Tab>
+  <Tab>
 ```typescript copy filename="typia/Resolved.ts"
 /**
  * Resolved type erased every methods.
@@ -725,100 +755,102 @@ export interface Customizable {
  * `Class`                 | `interface`
  * Native Class or Others  | No change
  *
- * @template Instance Target argument type.
+ * @template T Target argument type.
  * @author Jeongho Nam - https://github.com/samchon
  * @author Kyungsu Kang - https://github.com/kakasoo
  */
 export type Resolved<T> = Equal<T, ResolvedMain<T>> extends true
-    ? T
-    : ResolvedMain<T>;
+  ? T
+  : ResolvedMain<T>;
 
 type Equal<X, Y> = X extends Y ? (Y extends X ? true : false) : false;
 
-type ResolvedMain<Instance> = Instance extends [never]
-    ? never // (special trick for jsonable | null) type
-    : ValueOf<Instance> extends boolean | number | bigint | string
-    ? ValueOf<Instance>
-    : Instance extends Function
-    ? never
-    : Instance extends object
-    ? ResolvedObject<Instance>
-    : ValueOf<Instance>;
+type ResolvedMain<T> = T extends [never]
+  ? never // (special trick for jsonable | null) type
+  : ValueOf<T> extends boolean | number | bigint | string
+  ? ValueOf<T>
+  : T extends Function
+  ? never
+  : T extends object
+  ? ResolvedObject<T>
+  : ValueOf<T>;
 
-type ResolvedObject<Instance extends object> = Instance extends Array<infer T>
-    ? IsTuple<Instance> extends true
-        ? ResolvedTuple<Instance>
-        : ResolvedMain<T>[]
-    : Instance extends Set<infer U>
-    ? Set<ResolvedMain<U>>
-    : Instance extends Map<infer K, infer V>
-    ? Map<ResolvedMain<K>, ResolvedMain<V>>
-    : Instance extends WeakSet<any> | WeakMap<any, any>
-    ? never
-    : Instance extends
-          | Date
-          | Uint8Array
-          | Uint8ClampedArray
-          | Uint16Array
-          | Uint32Array
-          | BigUint64Array
-          | Int8Array
-          | Int16Array
-          | Int32Array
-          | BigInt64Array
-          | Float32Array
-          | Float64Array
-          | ArrayBuffer
-          | SharedArrayBuffer
-          | DataView
-    ? Instance
-    : {
-          [P in keyof Instance]: ResolvedMain<Instance[P]>;
-      };
+type ResolvedObject<T extends object> = T extends Array<infer U>
+  ? IsTuple<T> extends true
+    ? ResolvedTuple<T>
+    : ResolvedMain<U>[]
+  : T extends Set<infer U>
+  ? Set<ResolvedMain<U>>
+  : T extends Map<infer K, infer V>
+  ? Map<ResolvedMain<K>, ResolvedMain<V>>
+  : T extends WeakSet<any> | WeakMap<any, any>
+  ? never
+  : T extends
+      | Date
+      | Uint8Array
+      | Uint8ClampedArray
+      | Uint16Array
+      | Uint32Array
+      | BigUint64Array
+      | Int8Array
+      | Int16Array
+      | Int32Array
+      | BigInt64Array
+      | Float32Array
+      | Float64Array
+      | ArrayBuffer
+      | SharedArrayBuffer
+      | DataView
+      | Blob
+      | File
+  ? T
+  : {
+      [P in keyof T]: ResolvedMain<T[P]>;
+    };
 
 type ResolvedTuple<T extends readonly any[]> = T extends []
-    ? []
-    : T extends [infer F]
-    ? [ResolvedMain<F>]
-    : T extends [infer F, ...infer Rest extends readonly any[]]
-    ? [ResolvedMain<F>, ...ResolvedTuple<Rest>]
-    : T extends [(infer F)?]
-    ? [ResolvedMain<F>?]
-    : T extends [(infer F)?, ...infer Rest extends readonly any[]]
-    ? [ResolvedMain<F>?, ...ResolvedTuple<Rest>]
-    : [];
-
-type ValueOf<Instance> = IsValueOf<Instance, Boolean> extends true
-    ? boolean
-    : IsValueOf<Instance, Number> extends true
-    ? number
-    : IsValueOf<Instance, String> extends true
-    ? string
-    : Instance;
+  ? []
+  : T extends [infer F]
+  ? [ResolvedMain<F>]
+  : T extends [infer F, ...infer Rest extends readonly any[]]
+  ? [ResolvedMain<F>, ...ResolvedTuple<Rest>]
+  : T extends [(infer F)?]
+  ? [ResolvedMain<F>?]
+  : T extends [(infer F)?, ...infer Rest extends readonly any[]]
+  ? [ResolvedMain<F>?, ...ResolvedTuple<Rest>]
+  : [];
 
 type IsTuple<T extends readonly any[] | { length: number }> = [T] extends [
-    never,
+  never,
 ]
+  ? false
+  : T extends readonly any[]
+  ? number extends T["length"]
     ? false
-    : T extends readonly any[]
-    ? number extends T["length"]
-        ? false
-        : true
-    : false;
+    : true
+  : false;
+
+type ValueOf<Instance> = IsValueOf<Instance, Boolean> extends true
+  ? boolean
+  : IsValueOf<Instance, Number> extends true
+  ? number
+  : IsValueOf<Instance, String> extends true
+  ? string
+  : Instance;
 
 type IsValueOf<Instance, Object extends IValueOf<any>> = Instance extends Object
-    ? Object extends IValueOf<infer Primitive>
-        ? Instance extends Primitive
-            ? false
-            : true // not Primitive, but Object
-        : false // cannot be
-    : false;
+  ? Object extends IValueOf<infer Primitive>
+    ? Instance extends Primitive
+      ? false
+      : true // not Primitive, but Object
+    : false // cannot be
+  : false;
 
 interface IValueOf<T> {
-    valueOf(): T;
+  valueOf(): T;
 }
 ```
-    </Tab>
+  </Tab>
 </Tabs>
 
 You can add custom type tags for random data generation.
@@ -830,111 +862,117 @@ Just define custom type tags like below, then everything would be done.
 For reference, when defining custom type tag, `typia` enforces user to define `validate` function literal for type safety. Never forget it when you define custom type tags for random generation. Such validation logic definition may enhance your random data generator logic when combining with [`typia.assert<T>()`](./validators/assert) function.
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
-    <Tab>
+  <Tab>
 ```typescript copy filename="examples/src/random-customization.ts"
 import typia from "typia";
 import { RandomGenerator } from "typia/lib/utils/RandomGenerator";
 
 const data: TagCustom = typia.random<TagCustom>({
-    customs: {
-        string: (tags) => {
-            if (tags.find((t) => t.kind === "dollar") !== undefined)
-                return "$" + RandomGenerator.integer();
-            const postfix = tags.find((t) => t.kind === "postfix");
-            if (postfix !== undefined)
-                return RandomGenerator.string() + postfix.value;
-        },
+  customs: {
+    string: (tags) => {
+      if (tags.find((t) => t.kind === "dollar") !== undefined)
+        return "$" + RandomGenerator.integer();
+      const postfix = tags.find((t) => t.kind === "postfix");
+      if (postfix !== undefined)
+        return RandomGenerator.string() + postfix.value;
     },
+  },
 });
 
 console.log(data);
 
 interface TagCustom {
-    id: string & typia.tags.Format<"uuid">;
-    dollar: string & Dolloar;
-    postfix: string & Postfix<"abcd">;
-    powerOf: number & PowerOf<2>;
+  id: string & typia.tags.Format<"uuid">;
+  dollar: string & Dolloar;
+  postfix: string & Postfix<"abcd">;
+  powerOf: number & PowerOf<2>;
 }
 
 type Dolloar = typia.tags.TagBase<{
-    kind: "dollar";
-    target: "string";
-    value: undefined;
-    validate: `$input[0] === "$" && !isNaN(Number($input.substring(1).split(",").join("")))`;
+  kind: "dollar";
+  target: "string";
+  value: undefined;
+  validate: `$input[0] === "$" && !isNaN(Number($input.substring(1).split(",").join("")))`;
 }>;
 
 type Postfix<Value extends string> = typia.tags.TagBase<{
-    kind: "postfix";
-    target: "string";
-    value: Value;
-    validate: `$input.endsWith("${Value}")`;
+  kind: "postfix";
+  target: "string";
+  value: Value;
+  validate: `$input.endsWith("${Value}")`;
 }>;
 
 type PowerOf<Value extends number> = typia.tags.TagBase<{
-    kind: "powerOf";
-    target: "number";
-    value: Value;
-    validate: `(() => {
+  kind: "powerOf";
+  target: "number";
+  value: Value;
+  validate: `(() => {
         const denominator: number = Math.log(${Value});
         const value: number = Math.log($input) / denominator;
         return Math.abs(value - Math.round(value)) < 0.00000001;
     })()`;
 }>;
 ```
-    </Tab>
-    <Tab>
+  </Tab>
+  <Tab>
 ```javascript filename="examples/bin/random-customization.js"
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
+var __importDefault =
+  (this && this.__importDefault) ||
+  function (mod) {
+    return mod && mod.__esModule ? mod : { default: mod };
+  };
 Object.defineProperty(exports, "__esModule", { value: true });
 const typia_1 = __importDefault(require("typia"));
 const RandomGenerator_1 = require("typia/lib/utils/RandomGenerator");
-const data = (generator => {
-    const $generator = typia_1.default.random.generator;
-    const $ro0 = (_recursive = false, _depth = 0) => ({
-        id: (generator?.customs ?? $generator.customs)?.string?.([
-            {
-                name: "Format<\"uuid\">",
-                kind: "format",
-                value: "uuid"
-            }
-        ]) ?? (generator?.uuid ?? $generator.uuid)(),
-        dollar: (generator?.customs ?? $generator.customs)?.string?.([
-            {
-                name: "Dolloar",
-                kind: "dollar"
-            }
-        ]) ?? (generator?.string ?? $generator.string)(),
-        postfix: (generator?.customs ?? $generator.customs)?.string?.([
-            {
-                name: "Postfix<\"abcd\">",
-                kind: "postfix",
-                value: "abcd"
-            }
-        ]) ?? (generator?.string ?? $generator.string)(),
-        powerOf: (generator?.customs ?? $generator.customs)?.number?.([
-            {
-                name: "PowerOf<2>",
-                kind: "powerOf",
-                value: 2
-            }
-        ]) ?? (generator?.number ?? $generator.number)(0, 100)
-    });
-    return $ro0();
-})({
-    customs: {
-        string: (tags) => {
-            if (tags.find((t) => t.kind === "dollar") !== undefined)
-                return "$" + RandomGenerator_1.RandomGenerator.integer();
-            const postfix = tags.find((t) => t.kind === "postfix");
-            if (postfix !== undefined)
-                return RandomGenerator_1.RandomGenerator.string() + postfix.value;
+const data = ((generator) => {
+  const $generator = typia_1.default.random.generator;
+  const $ro0 = (_recursive = false, _depth = 0) => ({
+    id:
+      (generator?.customs ?? $generator.customs)?.string?.([
+        {
+          name: 'Format<"uuid">',
+          kind: "format",
+          value: "uuid",
         },
+      ]) ?? (generator?.uuid ?? $generator.uuid)(),
+    dollar:
+      (generator?.customs ?? $generator.customs)?.string?.([
+        {
+          name: "Dolloar",
+          kind: "dollar",
+        },
+      ]) ?? (generator?.string ?? $generator.string)(),
+    postfix:
+      (generator?.customs ?? $generator.customs)?.string?.([
+        {
+          name: 'Postfix<"abcd">',
+          kind: "postfix",
+          value: "abcd",
+        },
+      ]) ?? (generator?.string ?? $generator.string)(),
+    powerOf:
+      (generator?.customs ?? $generator.customs)?.number?.([
+        {
+          name: "PowerOf<2>",
+          kind: "powerOf",
+          value: 2,
+        },
+      ]) ?? (generator?.number ?? $generator.number)(0, 100),
+  });
+  return $ro0();
+})({
+  customs: {
+    string: (tags) => {
+      if (tags.find((t) => t.kind === "dollar") !== undefined)
+        return "$" + RandomGenerator_1.RandomGenerator.integer();
+      const postfix = tags.find((t) => t.kind === "postfix");
+      if (postfix !== undefined)
+        return RandomGenerator_1.RandomGenerator.string() + postfix.value;
     },
+  },
 });
 console.log(data);
 ```
-    </Tab>
+  </Tab>
 </Tabs>

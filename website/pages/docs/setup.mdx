@@ -6,27 +6,27 @@ import AlertTitle from '@mui/material/AlertTitle';
 # Setup
 ## Summary
 <Tabs items={['npm', 'pnpm', 'yarn']}>
-    <Tab>
+  <Tab>
 ```bash filename="Terminal" showLineNumbers copy
 npm install typia
 npx typia setup
 ```
-    </Tab>
-    <Tab>
+  </Tab>
+  <Tab>
 ```bash filename="Terminal" showLineNumbers copy
 pnpm install typia
 pnpm typia setup --manager pnpm
 ```
-    </Tab>
-    <Tab>
+  </Tab>
+  <Tab>
     <Alert severity="warning">
-        Yarn berry is not supported.
+      Yarn berry is not supported.
     </Alert>
 ```bash filename="Terminal" showLineNumbers copy
 yarn add typia
 yarn typia setup --manager yarn
 ```
-    </Tab>
+  </Tab>
 </Tabs>
 
 If you're using standard TypeScript compiler, you can use [transform mode](#transformation).
@@ -36,39 +36,39 @@ Just run `npx typia setup` command, then everything be prepared.
   - Standard TypeScript Compiler: [Microsoft/TypeScript](https://github.com/microsoft/typescript)
 
 <Tabs items={['npm', 'pnpm', 'yarn']}>
-    <Tab>
+  <Tab>
 ```bash filename="Terminal" showLineNumbers copy
 npm install typia
 npm install --save-dev typescript
 
 npx typia generate \
-    --input src/templates \
-    --output src/generated \
-    --project tsconfig.json
+  --input src/templates \
+  --output src/generated \
+  --project tsconfig.json
 ```
-    </Tab>
-    <Tab>
+  </Tab>
+  <Tab>
 ```bash filename="Terminal" showLineNumbers copy
 pnpm install typia
 pnpm install --save-dev typescript
 
 pnpm typia generate \
-    --input src/templates \
-    --output src/generated \
-    --project tsconfig.json
+  --input src/templates \
+  --output src/generated \
+  --project tsconfig.json
 ```
-    </Tab>
-    <Tab>
+  </Tab>
+  <Tab>
 ```bash filename="Terminal" showLineNumbers copy
 yarn add typia
 yarn add -D typescript
 
 yarn typia generate \
-    --input src/templates \
-    --output src/generated \
-    --project tsconfig.json
+  --input src/templates \
+  --output src/generated \
+  --project tsconfig.json
 ```
-    </Tab>
+  </Tab>
 </Tabs>
 
 Otherwise you are using non-standard TypeScript compiler, then you can't use [transformation](#transformation) mode. 
@@ -94,70 +94,73 @@ When you write a TypeScript code calling `typia.createIs<IMember>()` function an
 This is the transform mode performing AOT (Ahead of Time) compilation.
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
-    <Tab>
+  <Tab>
 ```typescript copy filename="examples/src/check.ts" showLineNumbers {3}
-import typia from "typia";
+import typia, { tags } from "typia";
 
 export const check = typia.createIs<IMember>();
 
 interface IMember {
-    /**
-     * @format uuid
-     */
-    id: string;
-    
-    /**
-     * @format email
-     */
-    email: string;
-
-    /**
-     * @exclusiveMinimum 19
-     * @maximum 100
-     */
-    age: number;
+  id: string & tags.Format<"uuid">;
+  email: string & tags.Format<"email">;
+  age: number & tags.ExclusiveMinimum<19> & tags.Maximum<100>;
 }
 ```
-    </Tab>
-    <Tab>
+  </Tab>
+  <Tab>
 ```javascript filename="examples/bin/check.js" showLineNumbers {2-12}
-import typia from "typia";
-export const check = input => {
-    const $is_uuid = typia.createIs.is_uuid;
-    const $is_email = typia.createIs.is_email;
-    return "object" === typeof input && 
-        null !== input && 
-        (
-            "string" === typeof input.id && $is_uuid(input.id) && 
-            ("string" === typeof input.email && $is_email(input.email)) && 
-            ("number" === typeof input.age && 19 < input.age && 100 >= input.age)
-        );
+"use strict";
+var __importDefault =
+  (this && this.__importDefault) ||
+  function (mod) {
+    return mod && mod.__esModule ? mod : { default: mod };
+  };
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.check = void 0;
+const typia_1 = __importDefault(require("typia"));
+const check = (input) => {
+  return (
+    "object" === typeof input &&
+    null !== input &&
+    "string" === typeof input.id &&
+    /^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test(
+      input.id,
+    ) &&
+    "string" === typeof input.email &&
+    /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/i.test(
+      input.email,
+    ) &&
+    "number" === typeof input.age &&
+    19 < input.age &&
+    input.age <= 100
+  );
 };
+exports.check = check;
 ```
-    </Tab>
+  </Tab>
 </Tabs>
 
 ### Setup Wizard
 <Tabs items={['npm', 'pnpm', 'yarn']}>
-    <Tab>
+  <Tab>
 ```bash filename="Terminal" copy showLineNumbers
 npm install --save typia
 npx typia setup
 ```
-    </Tab>
-    <Tab>
+  </Tab>
+  <Tab>
 ```bash filename="Terminal" copy showLineNumbers
 pnpm install --save typia
 pnpm typia setup --manager pnpm
 ```
-    </Tab>
-    <Tab>
+  </Tab>
+  <Tab>
 ```bash filename="Terminal" copy showLineNumbers
 # YARN BERRY IS NOT SUPPORTED
 yarn add typia
 yarn typia setup --manager yarn
 ```
-    </Tab>
+  </Tab>
 </Tabs>
 
 You can turn on transformation mode just by running `npx typia setup` command.
@@ -166,25 +169,25 @@ Setup wizard would be executed, and it will do everything for the transformation
 
 ### Manual Setup
 <Tabs items={['npm', 'pnpm', 'yarn']}>
-    <Tab>
+  <Tab>
 ```bash filename="Terminal" copy showLineNumbers
 npm install --save typia
 npm install --save-dev typescript ts-patch ts-node
 ```
-    </Tab>
-    <Tab>
+  </Tab>
+  <Tab>
 ```bash filename="Terminal" copy showLineNumbers
 pnpm install --save typia
 pnpm install --save-dev typescript ts-patch ts-node
 ```
-    </Tab>
-    <Tab>
+  </Tab>
+  <Tab>
 ```bash filename="Terminal" copy showLineNumbers
 # YARN BERRY IS NOT SUPPORTED
 yarn add typia
 yarn add -D typescript ts-patch ts-node
 ```
-    </Tab>
+  </Tab>
 </Tabs>
 
 If you want to install `typia` manually, just follow the steps.
@@ -224,22 +227,22 @@ As `typia` generates optimal operation code through transformation, you've to co
 ```
 
 <Tabs items={['npm', 'pnpm', 'yarn']}>
-    <Tab>
+  <Tab>
 ```bash filename="Terminal" copy showLineNumbers
 npm run prepare
 ```
-    </Tab>
-    <Tab>
+  </Tab>
+  <Tab>
 ```bash filename="Terminal" copy showLineNumbers
 pnpm prepare
 ```
-    </Tab>
-    <Tab>
+  </Tab>
+  <Tab>
 ```bash filename="Terminal" copy showLineNumbers
 # YARN BERRY IS NOT SUPPORTED
 yarn prepare
 ```
-    </Tab>
+  </Tab>
 </Tabs>
 
 At last, open `package.json` file and configure `npm run prepare` command like above.
@@ -250,10 +253,9 @@ For reference, [`ts-patch`](https://github.com/nonara/ts-patch) is an helper lib
 
 <br/>
 <Alert severity="warning">
-
-    <AlertTitle>
-        **`npx typia patch`** 
-    </AlertTitle> 
+  <AlertTitle>
+    **`npx typia patch`** 
+  </AlertTitle> 
 
 Since TypeScript v5.3 update, `tsc` no more parses `JSDocComment`s. Therefore, `typia` also cannot utilize those `JSDocComment` related features too, especially ["Comment Tags"](./validators/tags/#comment-tags) and ["JSON schema generator"](./json/schema). 
 
@@ -268,7 +270,7 @@ Of course, if you don't use any ["Comment Tags"](./validators/tags/#comment-tags
 
 ## Generation
 <Tabs items={['npm', 'pnpm', 'yarn']}>
-    <Tab>
+  <Tab>
 ```bash filename="Terminal" copy showLineNumbers
 # INSTALL TYPIA
 npm install --save typia
@@ -276,12 +278,12 @@ npm install --save-dev typescript
 
 # GENERATE TRANSFORMED TYPESCRIPT CODES
 npx typia generate \
-    --input src/templates \
-    --output src/generated \
-    --project tsconfig.json
+  --input src/templates \
+  --output src/generated \
+  --project tsconfig.json
 ```
-    </Tab>
-    <Tab>
+  </Tab>
+  <Tab>
 ```bash filename="Terminal" copy showLineNumbers
 # INSTALL TYPIA
 pnpm install --save typia
@@ -289,12 +291,12 @@ pnpm install --save-dev typescript
 
 # GENERATE TRANSFORMED TYPESCRIPT CODES
 pnpm typia generate \
-    --input src/templates \
-    --output src/generated \
-    --project tsconfig.json
+  --input src/templates \
+  --output src/generated \
+  --project tsconfig.json
 ```
-    </Tab>
-    <Tab>
+  </Tab>
+  <Tab>
 ```bash filename="Terminal" copy showLineNumbers
 # INSTALL TYPIA
 yarn add typia
@@ -302,11 +304,11 @@ yarn add -D typescript
 
 # GENERATE TRANSFORMED TYPESCRIPT CODES
 yarn typia generate \
-    --input src/templates \
-    --output src/generated \
-    --project tsconfig.json
+  --input src/templates \
+  --output src/generated \
+  --project tsconfig.json
 ```
-    </Tab>
+  </Tab>
 </Tabs>
 
 For frontend projects.
@@ -325,7 +327,7 @@ Install `typia` through `npm install` command, and run `typia generate` command.
 If you want to specify other TypeScript project file instead of `tsconfig.json`, you can use `--project` option.
 
 <Tabs items={['TypeScript Source Code', 'Generated TypeScript File']}>
-    <Tab>
+  <Tab>
 ```typescript copy filename="examples/src/templates/check.ts" showLineNumbers {5}
 import typia from "typia";
 
@@ -333,31 +335,35 @@ import { IMember } from "../structures/IMember";
 
 export const check = typia.createIs<IMember>();
 ```
-    </Tab>
-    <Tab>
+  </Tab>
+  <Tab>
 ```typescript copy filename="examples/src/generated/check.ts" showLineNumbers {3-13}
 import typia from "typia";
 import { IMember } from "../structures/IMember";
 export const check = (input: any): input is IMember => {
-    const $is_uuid = (typia.createIs as any).is_uuid;
-    const $is_email = (typia.createIs as any).is_email;
-    return "object" === typeof input && 
-        null !== input && 
-        (
-            "string" === typeof input.id && is_uuid(input.id) && 
-            ("string" === typeof input.email && $is_email(input.email)) && 
-            ("number" === typeof input.age && 19 <= input.age && 100 >= input.age)
-        );
+  const $is_uuid = (typia.createIs as any).is_uuid;
+  const $is_email = (typia.createIs as any).is_email;
+  return (
+    "object" === typeof input &&
+    null !== input &&
+    "string" === typeof input.id &&
+    $is_uuid(input.id) &&
+    "string" === typeof input.email &&
+    $is_email(input.email) &&
+    "number" === typeof input.age &&
+    19 <= input.age &&
+    100 >= input.age
+  );
 };
 ```
-    </Tab>
+  </Tab>
 </Tabs>
 
 <br/>
 <Alert severity="info">
-    <AlertTitle> 
-        **Why not support non-standard compilers?**
-    </AlertTitle>
+  <AlertTitle>
+    **Why not support non-standard compilers?**
+  </AlertTitle>
 
 Non-standard TypeScript compilers are removing every type informations, and skipping type checkings for rapid compilation. By the way, without those type informations, `typia` can't do anything. This is the reason why `typia` doesn't support non-standard TypeScript compilers.
 
@@ -418,7 +424,7 @@ export default defineConfig({
 
 ## Webpack
 <Tabs items={['npm', 'pnpm', 'yarn']}>
-    <Tab>
+  <Tab>
 ```bash filename="Terminal" copy showLineNumbers
 # TYPIA
 npm install typia
@@ -428,8 +434,8 @@ npx typia setup
 npm install --save-dev ts-loader
 npm install --save-dev webpack webpack-cli
 ```
-    </Tab>
-    <Tab>
+  </Tab>
+  <Tab>
 ```bash filename="Terminal" copy showLineNumbers
 # TYPIA
 pnpm install typia
@@ -439,8 +445,8 @@ pnpm typia setup --manager pnpm
 pnpm install --save-dev ts-loader
 pnpm install --save-dev webpack webpack-cli
 ```
-    </Tab>
-    <Tab>
+  </Tab>
+  <Tab>
 ```bash filename="Terminal" copy showLineNumbers
 ###########################################
 # YARN BERRY IS NOT SUPPORTED
@@ -453,7 +459,7 @@ yarn typia setup --manager yarn
 yarn add -D ts-loader
 yarn add -D webpack webpack-cli
 ```
-    </Tab>
+  </Tab>
 </Tabs>
 
 When you're using `webpack` as a bundler, you can still utilize the [transformation](#transformation) mode.
@@ -462,59 +468,59 @@ Just install `ts-loader` as well as `webpack`, and configure `webpack.config.js`
 
 ```javascript filename="webpack.config.js" copy showLineNumbers {20-24}
 const path = require("path");
-const nodeExternals = require('webpack-node-externals');
- 
+const nodeExternals = require("webpack-node-externals");
+
 module.exports = {
-    // CUSTOMIZE HERE
-    entry: ['./src/index.tsx'],
-    output: {
-        path: path.join(__dirname, 'dist'),
-        filename: 'index.js',
-    },
-    optimization: {
-        minimize: false
-    },
- 
-    // JUST KEEP THEM
-    mode: 'development',
-    target: 'node',
-    module: {
-        rules: [
-            {
-                test: /\.ts$/,
-                exclude: /node_modules/,
-                loader: 'ts-loader',
-            }
-        ]
-    },
-    resolve: {
-        extensions: ['.tsx', '.ts', '.js'],
-    },
+  // CUSTOMIZE HERE
+  entry: ["./src/index.tsx"],
+  output: {
+    path: path.join(__dirname, "dist"),
+    filename: "index.js",
+  },
+  optimization: {
+    minimize: false,
+  },
+
+  // JUST KEEP THEM
+  mode: "development",
+  target: "node",
+  module: {
+    rules: [
+      {
+        test: /\.ts$/,
+        exclude: /node_modules/,
+        loader: "ts-loader",
+      },
+    ],
+  },
+  resolve: {
+    extensions: [".tsx", ".ts", ".js"],
+  },
 };
 ```
 
 From now on, you can build the single JS file just by running the `npx webpack` command. By the way, when removing `devDependencies` for `--production` install, never forget to add the `--ignore-scripts` option to prevent the `prepare` script.
 
 <Tabs items={['npm', 'pnpm', 'yarn']}>
-    <Tab>
+  <Tab>
 ```bash filename="Terminal" copy showLineNumbers
 npx webpack
 npm ci --omit=dev --ignore-scripts
 ```
-    </Tab>
-    <Tab>
+  </Tab>
+  <Tab>
 ```bash filename="Terminal" copy showLineNumbers
 pnpm webpack
 pnpm install --production --ignore-scripts
 ```
-    </Tab>
-    <Tab>
+  </Tab>
+  <Tab>
 ```bash filename="Terminal" copy showLineNumbers
 yarn webpack
 rm -rf node_modules
 yarn install --production --ignore-scripts --immutable
 ```
-    </Tab>
+  </Tab>
 </Tabs>
 
 Additionally, if you're using `typia` in the NodeJS project especially for the backend development, *Setup Guide Documents* of [`nestia`](https://github.com/samchon/nestia) would be helpful. Even though you're not using NestJS, you can still utilize below documents, and "Single JS file only" mode would be especially helpful for you.
@@ -526,25 +532,25 @@ Additionally, if you're using `typia` in the NodeJS project especially for the b
 
 ## NX
 <Tabs items={['npm', 'pnpm', 'yarn']}>
-    <Tab>
+  <Tab>
 ```bash filename="Terminal" copy showLineNumbers
 npm install --save typia
 npx typia setup
 ```
-    </Tab>
-    <Tab>
+  </Tab>
+  <Tab>
 ```bash filename="Terminal" copy showLineNumbers
 pnpm install --save typia
 pnpm typia setup --manager pnpm
 ```
-    </Tab>
-    <Tab>
+  </Tab>
+  <Tab>
 ```bash filename="Terminal" copy showLineNumbers
 # YARN BERRY IS NOT SUPPORTED
 yarn add typia
 yarn typia setup --manager yarn
 ```
-    </Tab>
+  </Tab>
 </Tabs>
 
 After install `typia` like above, you have to modify `project.json` on each app like below.

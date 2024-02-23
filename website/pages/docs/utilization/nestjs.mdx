@@ -13,18 +13,18 @@ import type { IBbsArticle } from "@bbs-api/structures/IBbsArticle";
 
 @Controller("bbs/articles")
 export class BbsArticlesController {
-    /** 
-     * Store a new content.
-     * 
-     * @param input Content to store
-     * @returns Newly archived article
-     */
-    @TypedRoute.Post() // 200x faster and safer JSON.stringify()
-    public async store(
-        @TypedBody() input: IBbsArticle.IStore // 20,000x faster validator
-    ): Promise<IBbsArticle>; 
-        // do not need DTO class definition, 
-        // just fine with interface
+  /**
+   * Store a new content.
+   *
+   * @param input Content to store
+   * @returns Newly archived article
+   */
+  @TypedRoute.Post() // 200x faster and safer JSON.stringify()
+  public async store(
+    @TypedBody() input: IBbsArticle.IStore, // 20,000x faster validator
+  ): Promise<IBbsArticle>;
+    // do not need DTO class definition,
+    // just fine with interface
 }
 ```
 
