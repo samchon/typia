@@ -82,11 +82,15 @@ const create_object_schema =
           if (info?.text?.length) return CommentFactory.merge(info.text);
           else if (!property.description?.length) return undefined;
 
-          const index: number = property.description.indexOf(".");
-          if (index === -1) return undefined;
-
-          const str: string = property.description.substring(0, index).trim();
-          return str.length && str.includes("\n") === false ? str : undefined;
+          const index: number = property.description.indexOf("\n");
+          const top: string = (
+            index === -1
+              ? property.description
+              : property.description.substring(0, index)
+          ).trim();
+          return top.endsWith(".")
+            ? top.substring(0, top.length - 1)
+            : undefined;
         })(),
         description: property.description ?? undefined,
         ...(options.surplus
